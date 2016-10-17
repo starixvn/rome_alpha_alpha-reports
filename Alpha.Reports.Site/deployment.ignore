@@ -1,0 +1,16 @@
+﻿\\*.automation.config
+\\*.backupMNLExNapInternal.config
+\\*.backupMNLI1.config
+\\*.backupMNLNapInternal.config
+\\*.local.config
+\\*.napexternal.config
+\\*.napinternal.config
+\\*.proi1.config
+\\*.sit.config
+\\*.uati1.config
+
+\\*.exclude
+\\vwd.webinfo
+\\packages.config
+\\Web.Debug.config
+\\Web.Release.config
