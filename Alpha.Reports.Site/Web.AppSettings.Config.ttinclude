@@ -1,0 +1,110 @@
+<#@ import namespace="System" #>
+<#
+    var sites = new SiteInfo[]{
+         new SiteInfo
+        {
+            Environment = SiteEnvironment.none
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.local
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.napexternal
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.napexternal2
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.napinternal
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.napinternal2
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.pro
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.pro2
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.sit
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.sit2
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.uat
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.uat2
+        }
+    };
+#>
+<#+
+    enum SiteEnvironment
+    {
+        none,
+        local,
+        napexternal,
+        napexternal2,
+        napinternal,
+        napinternal2,
+        pro,
+        pro2,
+        sit,
+        sit2,
+        uat,
+        uat2
+    }
+    class SiteInfo
+    {
+        public SiteEnvironment Environment { get; set; }
+        
+        public string StoreProcedurePath
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.none:
+                        return "App_Data/SPNames/Local";
+                    case SiteEnvironment.local:
+                        return "App_Data/SPNames/Local";
+                    case SiteEnvironment.napexternal:
+                        return "App_Data/SPNames/Internal";
+                    case SiteEnvironment.napexternal2:
+                        return "App_Data/SPNames/Internal";
+                    case SiteEnvironment.napinternal:
+                        return "App_Data/SPNames/Internal";
+                    case SiteEnvironment.napinternal2:
+                        return "App_Data/SPNames/Internal";
+                    case SiteEnvironment.pro:
+                        return "App_Data/SPNames/Pro";
+                    case SiteEnvironment.pro2:
+                        return "App_Data/SPNames/Pro";
+                    case SiteEnvironment.sit:
+                        return "App_Data/SPNames/SIT";
+                    case SiteEnvironment.sit2:
+                        return "App_Data/SPNames/SIT";
+                    case SiteEnvironment.uat:
+                        return "App_Data/SPNames/UAT";
+                    case SiteEnvironment.uat2:
+                        return "App_Data/SPNames/UAT";
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+    }
+#>
