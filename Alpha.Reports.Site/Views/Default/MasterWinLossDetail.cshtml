@@ -6,8 +6,8 @@
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="~/favico.ico" />
-    @*@StaticResources.AssetStyles.Render($"/bundles/site-reports/default")
-    <link href="@(StaticResources.MainSiteStyleUrl(" ~/assets/bundles/default-reports"))" rel="stylesheet" type="text/css" />*@
+    <link href="/assets/bundles/site-reports/default.min.css" rel="stylesheet">
+    <link href="/site-reports/assets/bundles/default.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="page-title">
@@ -75,7 +75,7 @@
                 <th rowspan="2">Company</th>
             </tr>
             <tr class="RptHeader02">
-                <th class="hidden-stack-mode col-winloss">Win/Loss</th>                
+                <th class="hidden-stack-mode col-winloss">Win/Loss</th>
                 <th class="hidden-stack-mode">Comm</th>
                 <th class="hidden-stack-mode">Total</th>
                 <th colspan="3" class="visible-stack-mode col-combine">(WL/Comm/Total)</th>
@@ -92,7 +92,7 @@
                 <th class="hidden-stack-mode">Total</th>
                 <th colspan="3" class="visible-stack-mode col-combine">(WL/Comm/Total)</th>
             </tr>
-            
+
         </thead>
         <tbody>
             <tr>
@@ -319,7 +319,7 @@
             </tr>
         </tfoot>
     </table>
-    @*@StaticResources.AssetScripts.Render($"/bundles/site-reports/default")*@
+    <script src="/assets/bundles/site-reports/default.js"></script>
     <script>
         $(function () {
 
@@ -395,7 +395,7 @@
 
                         isFirstClick = false;
                     }
-                  
+
                     iconChangeFilter.attr('title', 'Show report in normal view');
                 }
             });
