@@ -9,7 +9,6 @@
     using System.Web.Security;
     using System.Web.SessionState;
     using Constants;
-    using Helpers;
     using Sunplus.Agent.Model.Entities;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -17,19 +16,12 @@
     {
         private CultureInfo defaultCulture = CultureInfo.CreateSpecificCulture(LanguageCode.Default);
 
-        protected BaseController(IUserSession userSession)
-        {
-            UserSession = userSession;
-        }
-
-        public IUserSession UserSession { get; set; }
-
         protected override void OnAuthentication(AuthenticationContext filterContext)
         {
             base.OnAuthentication(filterContext);
 
             if (!filterContext.HttpContext.User.Identity.IsAuthenticated
-                 || UserSession.UserId <= 0)
+                 || UserSession.Current.UserId <= 0)
             {
                 UnAuthentication(filterContext);
             }
@@ -53,12 +45,12 @@
 
         protected override void Initialize(RequestContext requestContext)
         {
-            var cultureName = UserSession.Language;
+            var cultureName = UserSession.Current.Language;
 
             if (string.IsNullOrWhiteSpace(cultureName))
             {
                 cultureName = LanguageCode.Default;
-                UserSession.Language = cultureName;
+                UserSession.Current.Language = cultureName;
             }
 
             // Modify current thread's cultures

@@ -208,6 +208,7 @@
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
+    <Compile Include="Controllers\MemberWinLossDetail.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -272,6 +273,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="App_Data\products.json" />
+    <Content Include="Views\MemberWinLossDetail\Index.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>

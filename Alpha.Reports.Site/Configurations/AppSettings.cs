@@ -48,17 +48,17 @@
             }
         }
 
-        public static string GetConfigValue(string configName)
-        {
-            return ConfigurationManager.AppSettings[configName];
-        }
-
         private static string ProductConfigPath
         {
             get
             {
                 return GetConfigValue("Reports:Products");
             }
+        }
+
+        public static string GetConfigValue(string configName)
+        {
+            return ConfigurationManager.AppSettings[configName];
         }
 
         public static void LoadProductConfig()

@@ -24,7 +24,7 @@
     "name": "Live Casino",
     "id": 4,
     "active": true,
-    "permission": "CasinoPermission",
+    "permission": "LiveCasinoPermission",
     "storeProcedureParameter": "showcasino"
   },
   {
