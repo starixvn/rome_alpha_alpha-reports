@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Functions>
+  <Function Name="Win Loss Detail">
+    <Setting Key="Age_Rpt_WinLossDetail_SAg" SpName="Age_Rpt_WinLossDetail_SAg" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossDetail_MAg" SpName="Age_Rpt_WinLossDetail_MAg" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossDetail_MAg_New" SpName="Age_Rpt_WinLossDetail_MAg_New" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossDetail_Ag" SpName="Age_Rpt_WinLossDetail_Ag" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
+  </Function>
+</Functions>

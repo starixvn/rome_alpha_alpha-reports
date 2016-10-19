@@ -75,6 +75,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppResources\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="FunctionRegistry.cs" />
     <Compile Include="Models\Product.cs" />
@@ -82,6 +87,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AppResources\Resources.ja-JP.resx" />
+    <EmbeddedResource Include="AppResources\Resources.ko-KR.resx" />
+    <EmbeddedResource Include="AppResources\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AppResources\Resources.th-TH.resx" />
+    <EmbeddedResource Include="AppResources\Resources.vi-VN.resx" />
+    <EmbeddedResource Include="AppResources\Resources.zh-CN.resx" />
+    <EmbeddedResource Include="AppResources\Resources.zh-TW.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Criteria\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

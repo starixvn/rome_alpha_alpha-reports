@@ -208,7 +208,7 @@
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
-    <Compile Include="Controllers\MemberWinLossDetail.cs" />
+    <Compile Include="Controllers\MemberWinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -251,7 +251,7 @@
     <Content Include="App_Data\products.uat2.json">
       <DependentUpon>products.json</DependentUpon>
     </Content>
-    <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
