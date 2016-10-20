@@ -5,6 +5,8 @@
     using System.Web.Mvc;
     using Fanex.Data.Repository;
     using MediatR;
+    using Reports.Services;
+    using Reports.Services.Impl;
     using Reports.Site.Controllers;
     using SimpleInjector;
     using SimpleInjector.Integration.Web;
@@ -64,6 +66,7 @@
         private static void RegisterServices(Container container)
         {
             container.Register<IUserSession, UserSessionExt>(Lifestyle.Scoped);
+            container.Register<ArrangeBetsInDatabaseService, ArrangeBetsInDatabaseServiceImpl>(Lifestyle.Scoped);
         }
 
         private static void RegisterDataAccesses(Container container)
