@@ -48,6 +48,14 @@
             }
         }
 
+        public static string AssetAppPath
+        {
+            get
+            {
+                return GetConfigValue("AssetAppPath");
+            }
+        }
+
         private static string ProductConfigPath
         {
             get

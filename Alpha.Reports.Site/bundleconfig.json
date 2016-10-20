@@ -4,5 +4,13 @@
     "inputFiles": [
       "assets/styles/reports.css"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles/memberwinlossdetail/index.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/memberwinlossdetail/index-controller.js",
+      "assets/scripts/memberwinlossdetail/index-view.js"
+    ]
   }
 ]

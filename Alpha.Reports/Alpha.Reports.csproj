@@ -95,6 +95,7 @@
     <Compile Include="Criteria\WinLossDetail\MasterWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\MemberWinLossDetailCriteria.cs" />
     <Compile Include="FunctionRegistry.cs" />
+    <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Models\TimeToArrangeBetsInDatabase.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\WinlossDetail\AgentWinLossDetail.cs" />
@@ -116,7 +117,7 @@
     <EmbeddedResource Include="AppResources\Resources.ja-JP.resx" />
     <EmbeddedResource Include="AppResources\Resources.ko-KR.resx" />
     <EmbeddedResource Include="AppResources\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="AppResources\Resources.th-TH.resx" />

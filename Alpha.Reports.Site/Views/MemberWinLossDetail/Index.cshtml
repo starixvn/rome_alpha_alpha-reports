@@ -1,11 +1,50 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Home</title>
-    <link rel="shortcut icon" type="image/x-icon" href="~/favico.ico" />
-</head>
-<body>
-</body>
-</html>
+﻿@using Alpha.Reports.Site.ViewModels.MemberWinLossDetail;
+@model IndexViewModel
+@{
+    ViewBag.Title = "Home";
+}
+
+@section Styles {
+    @AssetStyles.Render("/bundles/site-reports/default")
+    @ReportsStyles.Render("~/assets/bundles/default")
+}
+<div class="page-title">
+    <span class="pull-left">@Resources.MemberWinLossDetail</span>
+    <div class="list-icon">
+        <ul>
+            <li><span class="icon-filter" id="icon-filter" title="Hide filter"></span></li>
+            <li>
+                <span class="icon-view-column" id="icon-changeview" title="@Resources.Tip_ShowReportInStackColumnView"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<form class="form-inline filter" role="form" id="filter">
+    <div class="form-group">
+        <div class="control date">
+            <div id="daterange-picker"
+                 data-labeldate="@Resources.Date"
+                 data-labelfrom="@Resources.From"
+                 data-labelto="@Resources.To"
+                 data-labeltoday="@Resources.Today"
+                 data-labelyesterday="@Resources.Yesterday"
+                 data-labelcurrentweek="@Resources.CurrentWeek"
+                 data-labellastweek="@Resources.LastWeek"
+                 data-labelcurrentmonth="@Resources.CurrentMonth"
+                 data-labellastmonth="@Resources.LastMonth"
+                 data-labelsincelastmonth="@Resources.SinceLastMonth"
+                 data-labelspecificdate="@Resources.SpecificDate"
+                 data-mindate="@Model.MinDate"
+                 data-currentdate="@Model.CurrentDate"></div>
+        </div>
+    </div>
+    <div class="note">
+        <span class="star">*</span>@Html.Raw(string.Format(Resources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport, Model.MinDate))
+    </div>
+</form>
+
+@section Scripts {
+    @AssetScripts.Render("/bundles/site-reports/default")
+    @ReportsScripts.Render("~/assets/bundles/memberwinlossdetail/index")
+}

@@ -22,7 +22,7 @@ namespace Alpha.Reports.AppResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Alpha.Reports.AppResources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Alpha.Reports.AppResources.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,165 @@ namespace Alpha.Reports.AppResources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agent Win Loss Detail.
+        /// </summary>
+        public static string AgentWinLossDetail {
+            get {
+                return ResourceManager.GetString("AgentWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Month.
+        /// </summary>
+        public static string CurrentMonth {
+            get {
+                return ResourceManager.GetString("CurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Week.
+        /// </summary>
+        public static string CurrentWeek {
+            get {
+                return ResourceManager.GetString("CurrentWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Month.
+        /// </summary>
+        public static string LastMonth {
+            get {
+                return ResourceManager.GetString("LastMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Week.
+        /// </summary>
+        public static string LastWeek {
+            get {
+                return ResourceManager.GetString("LastWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Master Win Loss Detail.
+        /// </summary>
+        public static string MasterWinLossDetail {
+            get {
+                return ResourceManager.GetString("MasterWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member Win Loss Detail.
+        /// </summary>
+        public static string MemberWinLossDetail {
+            get {
+                return ResourceManager.GetString("MemberWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Since Last Month.
+        /// </summary>
+        public static string SinceLastMonth {
+            get {
+                return ResourceManager.GetString("SinceLastMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specific Date.
+        /// </summary>
+        public static string SpecificDate {
+            get {
+                return ResourceManager.GetString("SpecificDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show report in normal view.
+        /// </summary>
+        public static string Tip_ShowReportInNormalView {
+            get {
+                return ResourceManager.GetString("Tip_ShowReportInNormalView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show report in stack column view.
+        /// </summary>
+        public static string Tip_ShowReportInStackColumnView {
+            get {
+                return ResourceManager.GetString("Tip_ShowReportInStackColumnView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can view the report data from {0}. For more historic data, please click to &lt;a id=&quot;historicreport-switch&quot; href=&quot;#&quot;&gt;View History Report&lt;/a&gt;.
+        /// </summary>
+        public static string Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport {
+            get {
+                return ResourceManager.GetString("Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yesterday.
+        /// </summary>
+        public static string Yesterday {
+            get {
+                return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
     }
