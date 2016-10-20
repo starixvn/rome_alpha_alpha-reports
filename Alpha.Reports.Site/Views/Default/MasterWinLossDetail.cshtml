@@ -14,7 +14,7 @@
         <span class="pull-left">Master Win Loss Detail</span>
         <div class="list-icon">
             <ul>
-                <li><span class="icon-Filter_collapse icon-filter" id="icon-filter" title="Hide filter"></span></li>
+                <li><span class="icon-arrow-up-drop-circle icon-filter" id="icon-filter" title="Hide filter"></span></li>
                 <li><span class="icon-Stack_column" id="icon-changeview" title="Show report in stack column view"></span></li>
             </ul>
         </div>
@@ -337,11 +337,11 @@
                 filter = $('#filter');
             iconFilter.on('click', function () {
                 if (filter.is(":hidden")) {
-                    iconFilter.attr('title', 'Hide filter').removeClass('icon-Filter_expand').addClass('icon-Filter_collapse');
+                    iconFilter.attr('title', 'Hide filter').removeClass('icon-arrow-down-drop-circle').addClass('icon-arrow-up-drop-circle');
                     filter.slideDown('fast');
                 }
                 else {
-                    iconFilter.attr('title', 'Show filter').removeClass('icon-Filter_collapse').addClass('icon-Filter_expand');
+                    iconFilter.attr('title', 'Show filter').removeClass('icon-arrow-up-drop-circle').addClass('icon-arrow-down-drop-circle');
                     filter.slideUp('fast');
                 }
             });
