@@ -29,17 +29,13 @@ a {
             float: left;
 
             [class^='icon'] {
-                font-size: 18px; 
-                padding: 0 8px;
+                font-size: 16px; 
+                padding: 0 12px;
                 vertical-align: middle;
 
                 &:hover {
                     color: $icon-hover-color;
                 }
-            }
-
-            .icon-view-column {
-                font-size: 22px;
             }
         }
     }

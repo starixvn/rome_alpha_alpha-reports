@@ -14,8 +14,8 @@
         <span class="pull-left">Master Win Loss Detail</span>
         <div class="list-icon">
             <ul>
-                <li><span class="icon-filter" id="icon-filter" title="Hide filter"></span></li>
-                <li><span class="icon-view-column" id="icon-changeview" title="Show report in stack column view"></span></li>
+                <li><span class="icon-Filter_collapse icon-filter" id="icon-filter" title="Hide filter"></span></li>
+                <li><span class="icon-Stack_column" id="icon-changeview" title="Show report in stack column view"></span></li>
             </ul>
         </div>
     </div>
@@ -337,11 +337,11 @@
                 filter = $('#filter');
             iconFilter.on('click', function () {
                 if (filter.is(":hidden")) {
-                    iconFilter.attr('title', 'Hide filter');
+                    iconFilter.attr('title', 'Hide filter').removeClass('icon-Filter_expand').addClass('icon-Filter_collapse');
                     filter.slideDown('fast');
                 }
                 else {
-                    iconFilter.attr('title', 'Show filter');
+                    iconFilter.attr('title', 'Show filter').removeClass('icon-Filter_collapse').addClass('icon-Filter_expand');
                     filter.slideUp('fast');
                 }
             });
@@ -354,7 +354,7 @@
             iconChangeFilter.on('click', function () {
                 if (tblReport.hasClass('stack-mode')) {
                     tblReport.removeClass('stack-mode');
-                    iconChangeFilter.attr('title', 'Show report in stack column view');
+                    iconChangeFilter.attr('title', 'Show report in stack column view').removeClass('icon-normal_column').addClass('icon-Stack_column');
                 } else {
                     tblReport.addClass('stack-mode');
                     if (isFirstClick) {
@@ -396,7 +396,7 @@
                         isFirstClick = false;
                     }
 
-                    iconChangeFilter.attr('title', 'Show report in normal view');
+                    iconChangeFilter.attr('title', 'Show report in normal view').removeClass('icon-Stack_column').addClass('icon-normal_column');
                 }
             });
 
