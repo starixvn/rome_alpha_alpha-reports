@@ -14,12 +14,14 @@
             ["NumberGamePermission"] = (productId) => UserPermission.IsShowNumberGame,
             ["LiveCasinoPermission"] = (productId) => UserPermission.IsShowLiveCasino,
             ["VirtualSportsPermission"] = (productId) => UserPermission.IsShowVirtualSports,
+            ["RNGCasinoPermission"] = (productId) => UserPermission.IsShowCasino,
             ["KenoPermission"] = (productId) =>
             {
                 return UserPermission.IsShowKenoSetting
                     && KenoSection.Instance.ShowSetting;
             },
             ["GoldDeluxePermission"] = (productId) => UserPermission.IsShowGoldDeluxeSettingForCredit,
+            ["ColossusBetsPermission"] = (productId) => UserPermission.IsShowColossusBets,
             ["EnableAndSyncedPermission"] = (productId) =>
             {
                 return UserPermission.IsEnableProduct(productId)

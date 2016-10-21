@@ -109,9 +109,6 @@
   <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
     <value>您可查看報表數據從 {0}. 如需要查閱三個月前的舊報告，請用 &lt;a id="historicreport-switch" href="#"&gt;選檢閱歷史報告。&lt;/a&gt;</value>
   </data>
-  <data name="From" xml:space="preserve">
-    <value>從</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>到</value>
   </data>
@@ -132,5 +129,47 @@
   </data>
   <data name="SpecificDate" xml:space="preserve">
     <value>具體日期</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>一月</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>二月</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>三月</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>四月</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>五月</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>六月</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>七月</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>八月</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>九月</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>十月</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>十一月</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>十二月</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
+    <value>您可查看報表數據從 {0}. &lt;a id="currentreport-switch" href="#"&gt;回到現有報告&lt;/a&gt;</value>
   </data>
 </root>

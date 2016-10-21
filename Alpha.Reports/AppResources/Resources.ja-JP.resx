@@ -103,9 +103,6 @@
   <data name="MemberWinLossDetail" xml:space="preserve">
     <value>メンバー勝ち/負け詳細</value>
   </data>
-  <data name="From" xml:space="preserve">
-    <value>送金元</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>から</value>
   </data>
@@ -114,5 +111,8 @@
   </data>
   <data name="Yesterday" xml:space="preserve">
     <value>昨日</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>送信</value>
   </data>
 </root>

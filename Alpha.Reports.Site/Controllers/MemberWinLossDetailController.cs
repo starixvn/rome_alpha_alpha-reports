@@ -12,6 +12,10 @@
             return View(new IndexViewModel
             {
                 MinDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now.AddMonths(-2)),
+                MaxDate = null,
+                FromDate = DateTime.Now,
+                ToDate = DateTime.Now,
+
                 CurrentDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now)
             });
         }

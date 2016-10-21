@@ -3,19 +3,35 @@
 
 var indexView = {
     domElements: {
-        dateRangePicker: null
+        dateRangePicker: null,
+        monthPicker: null,
+        dropdownMonth: null,
+        longMonthsInYear: null,
+        historicReportSwitch: null,
+        currentReportSwitch: null,
+        filter: null
     },
     init: function () {
         indexView.cacheDOMElements();
+        indexView.renderMonthPicker();
         indexView.renderDateRangePicker();
+
+        indexView.registerEvents();
     },
     cacheDOMElements: function () {
+        indexView.domElements.monthPicker = $("#monthPickerID");
+        indexView.domElements.dropdownMonth = $("#dropdown-month");
+        indexView.domElements.longMonthsInYear = $("#longmonths-inyear");
+        indexView.domElements.historicReportSwitch = $("#historicreport-switch");
+        indexView.domElements.currentReportSwitch = $("#currentreport-switch");
+        indexView.domElements.filter = $("#filter");
     },
     renderDateRangePicker: function () {
         var dateRangePicker = $("#daterange-picker");
 
         var currentDate = dateRangePicker.data("currentdate");
         var minDate = dateRangePicker.data("mindate");
+        var maxDate = dateRangePicker.data("maxdate");
 
         dateRangePicker.nexDatePicker({
             nexDatePickerType: "quickchoose",
@@ -34,7 +50,7 @@ var indexView = {
             },
             firstDatePicker: {
                 Id: "picker-fromdate",
-                Label: dateRangePicker.data("labelfrom"),
+                Label: "",
                 InitDate: new Date(currentDate),
                 LabelCss: ""
             },
@@ -45,10 +61,9 @@ var indexView = {
                 LabelCss: ""
             },
             selectedItem: 0,
-            onSelectDatePicker: function () {
-            },
+            onSelectDatePicker: null,
             minDate: new Date(minDate),
-            maxDate: null,
+            maxDate: maxDate === "" ? null : maxDate,
             optionItems: [
                 { Name: dateRangePicker.data("labeltoday"), Value: 0 },
                 { Name: dateRangePicker.data("labelyesterday"), Value: 1 },
@@ -62,5 +77,48 @@ var indexView = {
         });
 
         indexView.domElements.dateRangePicker = $("#daterange-picker");
+    },
+    renderMonthPicker: function () {
+        var dropdownMonth = indexView.domElements.dropdownMonth;
+
+        var maxDate = dropdownMonth.data("maxdate");
+        dropdownMonth.monPickr({
+            longMonthsInYear: indexView.getLongMonthsInYear(),
+            maxDate: maxDate === "" ? dropdownMonth.data("currentdate") : maxDate,
+            minDate: dropdownMonth.data("mindate"),
+            month: new Date(dropdownMonth.data("dateinmonth")),
+
+            fromDay: 1,
+            toDay: dropdownMonth.data("todate"),
+
+            showDateRange: true,
+            monthFormat: alphaReports.format.monthFormat,
+            fromDayId: "ddl-fromday",
+            toDayId: "ddl-today",
+            fromDayLabel: "",
+            toDayLabel: dropdownMonth.data("labelto"),
+            sortDesc: true,
+            log: function (msg: string) {
+                console.warn(msg);
+            }
+        });
+
+        indexView.domElements.monthPicker.addClass("hide");
+    },
+    getLongMonthsInYear: function () {
+        // $.parseJSON: string must start/end with "
+        var longMonthsInYear = $.parseJSON(indexView.domElements.longMonthsInYear.val());
+        return longMonthsInYear;
+    },
+    registerEvents: function () {
+        indexView.domElements.historicReportSwitch.on("click", function () {
+            indexView.domElements.filter.addClass("historic-report");
+            indexView.domElements.monthPicker.removeClass("hide");
+        });
+
+        indexView.domElements.currentReportSwitch.on("click", function () {
+            indexView.domElements.monthPicker.addClass("hide");
+            indexView.domElements.filter.removeClass("historic-report");
+        });
     }
 };

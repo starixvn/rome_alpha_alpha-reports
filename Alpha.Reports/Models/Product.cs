@@ -11,9 +11,6 @@
         [DataMember(Name = "id")]
         public int Id { get; set; }
 
-        [DataMember(Name = "active")]
-        public bool Active { get; set; }
-
         [DataMember(Name = "permission")]
         public string Permission { get; set; }
 

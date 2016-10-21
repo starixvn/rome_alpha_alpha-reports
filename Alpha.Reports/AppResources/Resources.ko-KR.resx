@@ -109,9 +109,6 @@
   <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
     <value>You can view the report data from {0}. For more historic data, please click to &lt;a id="historicreport-switch" href="#"&gt;리포트 내역 보기&lt;/a&gt;</value>
   </data>
-  <data name="From" xml:space="preserve">
-    <value>시작일</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>종료일</value>
   </data>
@@ -132,5 +129,47 @@
   </data>
   <data name="SpecificDate" xml:space="preserve">
     <value>특정 날짜</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>1월</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>3월</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>2월</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>4월</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>5월</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>6월</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>7월</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>8월</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>9월</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>10월</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>11월</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>12월</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
+    <value>You can view the report data from {0}. &lt;a id="currentreport-switch" href="#"&gt;현재기록으로 다시 가기&lt;/a&gt;</value>
   </data>
 </root>

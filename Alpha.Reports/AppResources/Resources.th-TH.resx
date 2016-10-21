@@ -109,9 +109,6 @@
   <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
     <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}. ข้อมูลก่อนหน้านี้ กรุณาใช้ &lt;a id="historicreport-switch" href="#"&gt;ตรวจสอบประวัติรายงาน&lt;/a&gt;</value>
   </data>
-  <data name="From" xml:space="preserve">
-    <value>จาก</value>
-  </data>
   <data name="To" xml:space="preserve">
     <value>ถึง</value>
   </data>
@@ -132,5 +129,47 @@
   </data>
   <data name="SpecificDate" xml:space="preserve">
     <value>วันที่เฉพาะเจาะจง</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>ม.ค.</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>ก.พ.</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>มี.ค.</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>เม.ย.</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>พ.ค.</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>มิ.ย.</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>ก.ค.</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>ส.ค.</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>ก.ย.</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>ต.ค.</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>พ.ย.</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>ธ.ค.</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>ตกลง</value>
+  </data>
+  <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
+    <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}. &lt;a id="currentreport-switch" href="#"&gt;กลับสู่รายงานปัจจุบัน&lt;/a&gt;</value>
   </data>
 </root>

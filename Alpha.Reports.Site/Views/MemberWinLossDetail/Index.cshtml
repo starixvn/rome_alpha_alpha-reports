@@ -1,4 +1,5 @@
 ﻿@using Alpha.Reports.Site.ViewModels.MemberWinLossDetail;
+@using Alpha.Reports.Helpers;
 @model IndexViewModel
 @{
     ViewBag.Title = "Home";
@@ -12,7 +13,7 @@
     <span class="pull-left">@Resources.MemberWinLossDetail</span>
     <div class="list-icon">
         <ul>
-            <li><span class="icon-filter" id="icon-filter" title="Hide filter"></span></li>
+            <li><span class="icon-filter" id="icon-filter" title="@Resources.HideFilter"></span></li>
             <li>
                 <span class="icon-view-column" id="icon-changeview" title="@Resources.Tip_ShowReportInStackColumnView"></span>
             </li>
@@ -22,9 +23,8 @@
 
 <form class="form-inline filter" role="form" id="filter">
     <div class="form-group">
-        <div class="control date">
+        <div class="control date currentreport-item">
             <div id="daterange-picker"
-                 data-labelfrom="@Resources.From"
                  data-labelto="@Resources.To"
                  data-labeltoday="@Resources.Today"
                  data-labelyesterday="@Resources.Yesterday"
@@ -35,14 +35,33 @@
                  data-labelsincelastmonth="@Resources.SinceLastMonth"
                  data-labelspecificdate="@Resources.SpecificDate"
                  data-mindate="@Model.MinDate"
+                 data-maxdate="@Model.MaxDate"
                  data-currentdate="@Model.CurrentDate"></div>
         </div>
     </div>
-    <div class="note">
+    <div class="form-group">
+        <div id="monthPickerID">
+            <div id="dropdown-month"
+                 data-mindate="@Model.MinDate"
+                 data-maxdate="@Model.MaxDate"
+                 data-dateinmonth="@DateTimeHelper.ToShortDateWithSlash(Model.FromDate)"
+                 data-todate="@Model.ToDate.Day"
+                 data-currentdate="@Model.CurrentDate"
+                 data-labelto="@Resources.To"></div>
+        </div>
+    </div>
+    <div class="form-group group-button">
+        <input type="button" value="@Resources.Submit" class="btn btn-submit" />
+    </div>
+    <div class="note currentreport-item">
         <span class="star">*</span>@Html.Raw(string.Format(Resources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport, Model.MinDate))
+    </div>
+    <div class="note historicreport-item">
+        <span class="star">*</span>@Html.Raw(string.Format(Resources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport, Model.MinDate))
     </div>
 </form>
 
+@Html.Partial("~/Views/Shared/MonthNames.cshtml")
 @section Scripts {
     @AssetScripts.Render("/bundles/site-reports/default")
     @ReportsScripts.Render("~/assets/bundles/memberwinlossdetail/index")
