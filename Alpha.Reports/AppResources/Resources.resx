@@ -115,9 +115,6 @@
   <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
     <value>You can view the report data from {0}. For more historic data, please click to &lt;a id="historicreport-switch" href="#"&gt;View History Report&lt;/a&gt;</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>Date</value>
-  </data>
   <data name="From" xml:space="preserve">
     <value>From</value>
   </data>
@@ -130,14 +127,8 @@
   <data name="Yesterday" xml:space="preserve">
     <value>Yesterday</value>
   </data>
-  <data name="CurrentWeek" xml:space="preserve">
-    <value>Current Week</value>
-  </data>
   <data name="LastWeek" xml:space="preserve">
     <value>Last Week</value>
-  </data>
-  <data name="CurrentMonth" xml:space="preserve">
-    <value>Current Month</value>
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>Last Month</value>
@@ -147,5 +138,11 @@
   </data>
   <data name="SpecificDate" xml:space="preserve">
     <value>Specific Date</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>This Week</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>This Month</value>
   </data>
 </root>

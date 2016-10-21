@@ -109,9 +109,6 @@
   <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
     <value>Bạn có thể tra cứu dữ liệu báo cáo từ ngày {0}.Nếu muốn tìm kiếm những dữ liệu cũ hơn, bấm &lt;a id="historicreport-switch" href="#"&gt;Xem báo cáo trước đó&lt;/a&gt;</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>Ngày</value>
-  </data>
   <data name="From" xml:space="preserve">
     <value>Từ</value>
   </data>
@@ -124,14 +121,8 @@
   <data name="Yesterday" xml:space="preserve">
     <value>Hôm qua</value>
   </data>
-  <data name="CurrentWeek" xml:space="preserve">
-    <value>Tuần hiện tại</value>
-  </data>
   <data name="LastWeek" xml:space="preserve">
     <value>Tuần trước</value>
-  </data>
-  <data name="CurrentMonth" xml:space="preserve">
-    <value>Tháng hiện tại</value>
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>Tháng trước</value>

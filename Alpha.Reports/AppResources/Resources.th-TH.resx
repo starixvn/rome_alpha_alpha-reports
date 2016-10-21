@@ -109,9 +109,6 @@
   <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
     <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}. ข้อมูลก่อนหน้านี้ กรุณาใช้ &lt;a id="historicreport-switch" href="#"&gt;ตรวจสอบประวัติรายงาน&lt;/a&gt;</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>วันที่</value>
-  </data>
   <data name="From" xml:space="preserve">
     <value>จาก</value>
   </data>
@@ -124,14 +121,8 @@
   <data name="Yesterday" xml:space="preserve">
     <value>เมื่อวาน</value>
   </data>
-  <data name="CurrentWeek" xml:space="preserve">
-    <value>สัปดาห์ ปัจจุบัน</value>
-  </data>
   <data name="LastWeek" xml:space="preserve">
     <value>สัปดาห์ล่าสุด</value>
-  </data>
-  <data name="CurrentMonth" xml:space="preserve">
-    <value>เดือน ปัจจุบัน</value>
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>เดือนล่าสุด</value>

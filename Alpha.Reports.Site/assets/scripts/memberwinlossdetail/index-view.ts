@@ -28,20 +28,20 @@ var indexView = {
             dropDownList:
             {
                 Id: "dropdown-daterange",
-                Label: dateRangePicker.data("labeldate"),
+                Label: "",
                 LabelCss: "",
                 OptionCss: ""
             },
             firstDatePicker: {
                 Id: "picker-fromdate",
                 Label: dateRangePicker.data("labelfrom"),
-                InitDate: currentDate,
+                InitDate: new Date(currentDate),
                 LabelCss: ""
             },
             secondDatePicker: {
                 Id: "picker-todate",
                 Label: dateRangePicker.data("labelto"),
-                InitDate: currentDate,
+                InitDate: new Date(currentDate),
                 LabelCss: ""
             },
             selectedItem: 0,
@@ -52,9 +52,9 @@ var indexView = {
             optionItems: [
                 { Name: dateRangePicker.data("labeltoday"), Value: 0 },
                 { Name: dateRangePicker.data("labelyesterday"), Value: 1 },
-                { Name: dateRangePicker.data("labelcurrentweek"), Value: 2 },
+                { Name: dateRangePicker.data("labelthisweek"), Value: 2 },
                 { Name: dateRangePicker.data("labellastweek"), Value: 3 },
-                { Name: dateRangePicker.data("labelcurrentmonth"), Value: 4 },
+                { Name: dateRangePicker.data("labelthismonth"), Value: 4 },
                 { Name: dateRangePicker.data("labellastmonth"), Value: 5 },
                 { Name: dateRangePicker.data("labelsincelastmonth"), Value: 6 },
                 { Name: dateRangePicker.data("labelspecificdate"), Value: 7 }

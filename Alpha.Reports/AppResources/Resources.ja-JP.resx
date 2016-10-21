@@ -103,9 +103,6 @@
   <data name="MemberWinLossDetail" xml:space="preserve">
     <value>メンバー勝ち/負け詳細</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>日付</value>
-  </data>
   <data name="From" xml:space="preserve">
     <value>送金元</value>
   </data>

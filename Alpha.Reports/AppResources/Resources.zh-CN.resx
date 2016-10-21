@@ -109,9 +109,6 @@
   <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
     <value>您可查看报表数据从 {0}。如需要查阅三个月前的旧报告，请用 &lt;a id="historicreport-switch" href="#"&gt;选检阅历史报告。&lt;/a&gt;</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>日期</value>
-  </data>
   <data name="From" xml:space="preserve">
     <value>从</value>
   </data>
@@ -124,14 +121,8 @@
   <data name="Yesterday" xml:space="preserve">
     <value>昨天</value>
   </data>
-  <data name="CurrentWeek" xml:space="preserve">
-    <value>本周</value>
-  </data>
   <data name="LastWeek" xml:space="preserve">
     <value>上周</value>
-  </data>
-  <data name="CurrentMonth" xml:space="preserve">
-    <value>本月</value>
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>上月</value>

@@ -11,7 +11,7 @@
         {
             return View(new IndexViewModel
             {
-                MinDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now.AddDays(-7)),
+                MinDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now.AddMonths(-2)),
                 CurrentDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now)
             });
         }

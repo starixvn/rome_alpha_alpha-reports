@@ -70,33 +70,6 @@ namespace Alpha.Reports.AppResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current Month.
-        /// </summary>
-        public static string CurrentMonth {
-            get {
-                return ResourceManager.GetString("CurrentMonth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Current Week.
-        /// </summary>
-        public static string CurrentWeek {
-            get {
-                return ResourceManager.GetString("CurrentWeek", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Date.
-        /// </summary>
-        public static string Date {
-            get {
-                return ResourceManager.GetString("Date", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         public static string From {
@@ -156,6 +129,24 @@ namespace Alpha.Reports.AppResources {
         public static string SpecificDate {
             get {
                 return ResourceManager.GetString("SpecificDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Month.
+        /// </summary>
+        public static string ThisMonth {
+            get {
+                return ResourceManager.GetString("ThisMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Week.
+        /// </summary>
+        public static string ThisWeek {
+            get {
+                return ResourceManager.GetString("ThisWeek", resourceCulture);
             }
         }
         

@@ -109,9 +109,6 @@
   <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
     <value>You can view the report data from {0}. For more historic data, please click to &lt;a id="historicreport-switch" href="#"&gt;리포트 내역 보기&lt;/a&gt;</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>날짜</value>
-  </data>
   <data name="From" xml:space="preserve">
     <value>시작일</value>
   </data>
@@ -124,14 +121,8 @@
   <data name="Yesterday" xml:space="preserve">
     <value>어제</value>
   </data>
-  <data name="CurrentWeek" xml:space="preserve">
-    <value>최근 일주일</value>
-  </data>
   <data name="LastWeek" xml:space="preserve">
     <value>마지막 주</value>
-  </data>
-  <data name="CurrentMonth" xml:space="preserve">
-    <value>최근 달</value>
   </data>
   <data name="LastMonth" xml:space="preserve">
     <value>마지막 달</value>
