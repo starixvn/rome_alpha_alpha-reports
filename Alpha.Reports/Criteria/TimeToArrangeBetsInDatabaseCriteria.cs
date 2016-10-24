@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class TimeToArrangeBetsInDatabaseCriteria : CriteriaBase
+    public class GetBalanceUpDayAndMoveBetsDayCriteria : CriteriaBase
     {
         public override string GetSettingKey() => "Age_SelBalanceUpDay";
 

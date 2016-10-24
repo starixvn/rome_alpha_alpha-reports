@@ -96,17 +96,18 @@
     <Compile Include="Criteria\WinLossDetail\MemberWinLossDetailCriteria.cs" />
     <Compile Include="FunctionRegistry.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
-    <Compile Include="Models\TimeToArrangeBetsInDatabase.cs" />
+    <Compile Include="Models\ReportDate.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\WinlossDetail\AgentWinLossDetail.cs" />
-    <Compile Include="Models\WinlossDetail\BaseWinlossDetail.cs" />
-    <Compile Include="Models\WinlossDetail\MasterWinLossDetail.cs" />
-    <Compile Include="Models\WinlossDetail\MemberWinlossDetail.cs" />
+    <Compile Include="Models\WinlossDetail\AgentWinLoss.cs" />
+    <Compile Include="Models\WinlossDetail\Amount.cs" />
+    <Compile Include="Models\WinlossDetail\WinlossDetailInfo.cs" />
+    <Compile Include="Models\WinlossDetail\MasterWinLoss.cs" />
+    <Compile Include="Models\WinlossDetail\MemberWinloss.cs" />
     <Compile Include="Models\WinlossDetail\WinLossDetailReport.cs" />
     <Compile Include="Params\ProductParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ArrangeBetsInDatabaseService.cs" />
-    <Compile Include="Services\Impl\ArrangeBetsInDatabaseServiceImpl.cs" />
+    <Compile Include="Services\ReportDateService.cs" />
+    <Compile Include="Services\Impl\ReportDateServiceImpl.cs" />
     <Compile Include="Services\Impl\BaseWinLossDetailService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,7 +126,9 @@
     <EmbeddedResource Include="AppResources\Resources.zh-CN.resx" />
     <EmbeddedResource Include="AppResources\Resources.zh-TW.resx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataAccess\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

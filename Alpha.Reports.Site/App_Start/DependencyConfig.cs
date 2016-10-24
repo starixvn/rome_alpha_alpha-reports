@@ -66,7 +66,7 @@
         private static void RegisterServices(Container container)
         {
             container.Register<IUserSession, UserSessionExt>(Lifestyle.Scoped);
-            container.Register<ArrangeBetsInDatabaseService, ArrangeBetsInDatabaseServiceImpl>(Lifestyle.Transient);
+            container.Register<ReportDateService, ReportDateServiceImpl>(Lifestyle.Transient);
         }
 
         private static void RegisterDataAccesses(Container container)

@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Models.WinlossDetail
 {
-    public class BaseWinlossDetail
+    public class WinlossDetailInfo
     {
         public string Username { get; set; }
 
@@ -12,8 +12,6 @@
 
         public decimal NetTurnover { get; set; }
 
-        public decimal GrossComm { get; set; }
-
-        public string Company { get; set; }
+        public decimal GrossComm { get; set; }        
     }
 }

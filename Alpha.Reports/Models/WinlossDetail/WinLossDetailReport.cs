@@ -4,6 +4,6 @@
 
     public class WinLossDetailReport
     {
-        public IEnumerable<BaseWinlossDetail> WinLossDetails { get; set; }
+        public IEnumerable<WinlossDetailInfo> WinLossDetails { get; set; }
     }
 }

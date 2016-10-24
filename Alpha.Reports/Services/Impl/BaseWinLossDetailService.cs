@@ -2,9 +2,9 @@
 {
     public class BaseWinLossDetailService
     {
-        private readonly ArrangeBetsInDatabaseService arrangeBetDataService;
+        private readonly ReportDateService arrangeBetDataService;
 
-        public BaseWinLossDetailService(ArrangeBetsInDatabaseService arrangeBetDataService)
+        public BaseWinLossDetailService(ReportDateService arrangeBetDataService)
         {
             this.arrangeBetDataService = arrangeBetDataService;
         }

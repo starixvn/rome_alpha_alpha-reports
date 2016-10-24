@@ -2,9 +2,9 @@
 {
     using System;
 
-    public class TimeToArrangeBetsInDatabase
+    public class BalanceUpDayAndMoveBetsDay
     {
-        public TimeToArrangeBetsInDatabase(DateTime balanceUpDay, DateTime moveBetsDay)
+        public BalanceUpDayAndMoveBetsDay(DateTime balanceUpDay, DateTime moveBetsDay)
         {
             BalanceUpDay = balanceUpDay;
             MoveBetsDay = moveBetsDay;
