@@ -10,6 +10,13 @@
     public class MemberWinLossDetailHandler :
         IRequestHandler<IndexQuery, IndexViewModel>
     {
+        private ProductHandler productHandler;
+
+        public MemberWinLossDetailHandler(ProductHandler productHandler)
+        {
+            this.productHandler = productHandler;
+        }
+
         public IndexViewModel Handle(IndexQuery message)
         {
             return new IndexViewModel
@@ -20,7 +27,7 @@
                 ToDate = DateTime.Now,
 
                 CurrentDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now),
-                Products = JsonConvert.SerializeObject(message.Products),
+                Products = JsonConvert.SerializeObject(productHandler.VisibleProducts(message.Products)),
 
                 HasData = true,
                 Language = message.Language

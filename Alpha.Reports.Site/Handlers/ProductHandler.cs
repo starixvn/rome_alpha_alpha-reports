@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using MediatR;
+    using Models;
     using Params;
     using Requests;
     using Services;
@@ -21,11 +22,16 @@
 
         public IEnumerable<ProductViewModel> Handle(VisibleProductsQuery message)
         {
-            var products = new List<ProductViewModel>();
-
             var visibleProductSetting = productService.GetVisibleProducts(new GetVisibleProductsParam(message.ProductSetting, message.ProductPermissions));
 
-            foreach (var product in visibleProductSetting)
+            return VisibleProducts(visibleProductSetting);
+        }
+
+        public IEnumerable<ProductViewModel> VisibleProducts(IEnumerable<Product> visibleProducts)
+        {
+            var products = new List<ProductViewModel>();
+
+            foreach (var product in visibleProducts)
             {
                 var productDisplayText = remotingRef.GetProductName(product.Id);
                 products.Add(new ProductViewModel(product.Id, productDisplayText, product.StoreProcedureParameter));
