@@ -109,7 +109,7 @@
     <Compile Include="Criteria\WinLossDetail\MemberWinLossDetailCriteria.cs" />
     <Compile Include="FunctionRegistry.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
-    <Compile Include="Models\ReportDate.cs" />
+    <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\WinlossDetail\AgentWinLoss.cs" />
     <Compile Include="Models\WinlossDetail\Amount.cs" />

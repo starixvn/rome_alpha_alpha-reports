@@ -12,6 +12,6 @@
 
         public DateTime BalanceUpDay { get; }
 
-        public DateTime MoveBetsDay { get; }
+        public DateTime MoveBetsDay { get; }        
     }
 }
