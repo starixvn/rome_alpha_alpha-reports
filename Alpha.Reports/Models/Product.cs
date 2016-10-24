@@ -1,20 +1,25 @@
 ﻿namespace Alpha.Reports.Models
 {
-    using System.Runtime.Serialization;
-
-    [DataContract]
     public class Product
     {
-        [DataMember(Name = "name")]
-        public string Name { get; set; }
+        public Product(
+            string name,
+            int id,
+            string permission,
+            string storeProcedureParameter)
+        {
+            Name = name;
+            Id = id;
+            Permission = permission;
+            StoreProcedureParameter = storeProcedureParameter;
+        }
 
-        [DataMember(Name = "id")]
-        public int Id { get; set; }
+        public string Name { get; }
 
-        [DataMember(Name = "permission")]
-        public string Permission { get; set; }
+        public int Id { get; }
 
-        [DataMember(Name = "storeProcedureParameter")]
-        public string StoreProcedureParameter { get; set; }
+        public string Permission { get; }
+
+        public string StoreProcedureParameter { get; }
     }
 }

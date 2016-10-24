@@ -208,9 +208,11 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\MemberWinLossDetailController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\ProductHandler.cs" />
     <Compile Include="Handlers\MemberWinLossDetailHandler.cs" />
     <Compile Include="Helpers\AppPathHelper.cs" />
     <Compile Include="Helpers\Impl\MicroSitesImpl.cs" />
@@ -222,6 +224,7 @@
     <Compile Include="Helpers\MicroSites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\MemberWinLossDetail\IndexQuery.cs" />
+    <Compile Include="Requests\VisibleProductsQuery.cs" />
     <Compile Include="ViewModels\MemberWinLossDetail\IndexViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>
@@ -339,8 +342,12 @@
     <Content Include="assets\styles\reports.scss" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="assets\scripts\agentwinlossdetail\" />
+    <Folder Include="assets\scripts\masterwinlossdetail\" />
     <Folder Include="CodeAnalysis\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\AgentWinLossDetail\" />
+    <Folder Include="Views\MasterWinLossDetail\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

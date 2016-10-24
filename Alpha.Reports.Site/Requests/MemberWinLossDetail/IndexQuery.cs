@@ -1,23 +1,23 @@
 ﻿namespace Alpha.Reports.Site.Requests.MemberWinLossDetail
 {
-    using System;
     using System.Collections.Generic;
     using MediatR;
     using Models;
+    using Sunplus.Agent.Model.Entities;
     using ViewModels.MemberWinLossDetail;
 
     public class IndexQuery : IRequest<IndexViewModel>
     {
-        public IndexQuery(
-            IEnumerable<Product> products,
-            Dictionary<string, Func<int, bool>> productPermissions)
+        private IUserSession userSession;
+
+        public IndexQuery(IEnumerable<Product> products, IUserSession userSession)
         {
+            this.userSession = userSession;
             Products = products;
-            ProductPermissions = productPermissions;
         }
 
         public IEnumerable<Product> Products { get; }
 
-        public Dictionary<string, Func<int, bool>> ProductPermissions { get; }
+        public string Language => userSession.Language;
     }
 }

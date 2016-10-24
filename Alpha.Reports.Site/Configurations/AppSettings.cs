@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
-    using System.Runtime.Serialization.Json;
     using System.Web;
     using Models;
+    using Newtonsoft.Json;
 
     public class AppSettings
     {
@@ -83,10 +83,9 @@
                 throw new FileNotFoundException("Cannot find security code json file");
             }
 
-            using (Stream stream = File.OpenRead(configFilePath))
+            using (StreamReader stream = File.OpenText(configFilePath))
             {
-                var serializer = new DataContractJsonSerializer(typeof(IEnumerable<Product>));
-                products = (IEnumerable<Product>)serializer.ReadObject(stream);
+                products = JsonConvert.DeserializeObject<IEnumerable<Product>>(stream.ReadToEnd());
             }
         }
     }

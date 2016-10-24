@@ -184,4 +184,37 @@
   <data name="of" xml:space="preserve">
     <value>trên</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>Tên đăng nhập</value>
+  </data>
+  <data name="NoOfTicket" xml:space="preserve">
+    <value>Số lượng cược</value>
+  </data>
+  <data name="Turnover" xml:space="preserve">
+    <value>Tiền Cược</value>
+  </data>
+  <data name="NetTurnover" xml:space="preserve">
+    <value>Tiền cược thực</value>
+  </data>
+  <data name="GrossComm" xml:space="preserve">
+    <value>Tổng hoa hồng</value>
+  </data>
+  <data name="WinLoss" xml:space="preserve">
+    <value>Thắng thua</value>
+  </data>
+  <data name="Comm" xml:space="preserve">
+    <value>Hoa hồng</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="ExportToExcel" xml:space="preserve">
+    <value>Xuất sang Excel</value>
+  </data>
+  <data name="TO_NetTO_GrossComm" xml:space="preserve">
+    <value>Tiền Cược/Tiền cược thực/Tổng hoa hồng</value>
+  </data>
+  <data name="WL_Comm_Total" xml:space="preserve">
+    <value>Thắng thua/Hoa hồng/Tổng cộng</value>
+  </data>
 </root>

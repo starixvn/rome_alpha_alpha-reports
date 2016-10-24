@@ -171,7 +171,7 @@ var indexView = {
             nonSelectedText: dropdownProduct.data("labelselectproducts"),
             nSelectedText: " " + dropdownProduct.data("labelselected"),
             allSelectedText: dropdownProduct.data("labelallproducts"),
-            includeSelectAllOption: !products.length,
+            includeSelectAllOption: products.length,
             onChange: function (option, checked) {
                 // do nothing
             },

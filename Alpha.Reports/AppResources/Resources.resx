@@ -214,4 +214,52 @@
   <data name="Pager_DisplayItems" xml:space="preserve">
     <value>Displaying {from} to {to} of {total} items</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="NoOfTicket" xml:space="preserve">
+    <value>No. of Ticket</value>
+  </data>
+  <data name="Turnover" xml:space="preserve">
+    <value>Turnover</value>
+  </data>
+  <data name="NetTurnover" xml:space="preserve">
+    <value>Net Turnover</value>
+  </data>
+  <data name="GrossComm" xml:space="preserve">
+    <value>Gross Comm</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="Super" xml:space="preserve">
+    <value>Super</value>
+  </data>
+  <data name="Master" xml:space="preserve">
+    <value>Master</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="WinLoss" xml:space="preserve">
+    <value>Win/Loss</value>
+  </data>
+  <data name="Comm" xml:space="preserve">
+    <value>Comm</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TO_NetTO_GrossComm" xml:space="preserve">
+    <value>TO/Net TO/Gross Comm</value>
+  </data>
+  <data name="WL_Comm_Total" xml:space="preserve">
+    <value>WL/Comm/Total</value>
+  </data>
+  <data name="ExportToExcel" xml:space="preserve">
+    <value>Export to Excel</value>
+  </data>
 </root>
