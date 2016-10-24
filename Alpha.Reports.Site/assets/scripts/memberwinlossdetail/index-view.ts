@@ -4,6 +4,7 @@
 var indexView = {
     domElements: {
         dateRangePicker: null,
+        monthPickerContainer: null,
         monthPicker: null,
         dropdownMonth: null,
         longMonthsInYear: null,
@@ -32,7 +33,7 @@ var indexView = {
         indexView.renderDateRangePicker();
         indexView.renderDropdownProduct();
         indexView.renderPager({
-            totalRecords: 8,
+            totalRecords: 21,
             pageSize: 10,
             pageIndex: 1
         });
@@ -40,6 +41,7 @@ var indexView = {
         indexView.registerEvents();
     },
     cacheDOMElements: function () {
+        indexView.domElements.monthPickerContainer = $(".monthpicker-container");
         indexView.domElements.monthPicker = $("#monthPickerID");
         indexView.domElements.dropdownMonth = $("#dropdown-month");
         indexView.domElements.longMonthsInYear = $("#longmonths-inyear");
@@ -134,7 +136,7 @@ var indexView = {
             }
         });
 
-        indexView.domElements.monthPicker.addClass("hide");
+        indexView.domElements.monthPickerContainer.addClass("hide");
     },
     getLongMonthsInYear: function () {
         // $.parseJSON: string must start/end with "
@@ -179,11 +181,11 @@ var indexView = {
     registerEvents: function () {
         indexView.domElements.historicReportSwitch.on("click", function () {
             indexView.domElements.filter.addClass("historic-report");
-            indexView.domElements.monthPicker.removeClass("hide");
+            indexView.domElements.monthPickerContainer.removeClass("hide");
         });
 
         indexView.domElements.currentReportSwitch.on("click", function () {
-            indexView.domElements.monthPicker.addClass("hide");
+            indexView.domElements.monthPickerContainer.addClass("hide");
             indexView.domElements.filter.removeClass("historic-report");
         });
 

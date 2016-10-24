@@ -22,8 +22,8 @@
 </div>
 
 <form class="form-inline filter" role="form" id="filter">
-    <div class="form-group">
-        <div class="control date currentreport-item">
+    <div class="form-group nexDatePicker">
+        <div class="currentreport-item">
             <div id="daterange-picker"
                  data-labelto="@Resources.To"
                  data-labeltoday="@Resources.Today"
@@ -39,7 +39,7 @@
                  data-currentdate="@Model.CurrentDate"></div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group monthpicker-container">
         <div id="monthPickerID">
             <div id="dropdown-month"
                  data-mindate="@Model.MinDate"
@@ -132,7 +132,7 @@
     </tbody>
     <tfoot>
         <tr class="RptFooter">
-            <td class=""><span class="downline-link">DAM80</span></td>
+            <td class="">Total</td>
             <td class="text-right">2185</td>
             <td class="text-right hidden-stack-mode col-turnover">240,314.00</td>
             <td class="text-right hidden-stack-mode col-netturnover">16,960.50</td>
