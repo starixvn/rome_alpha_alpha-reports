@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Tests.Services.Impl
+﻿namespace Alpha.Reports.Tests.Services
 {
     using System;
     using Alpha.Reports.Models;
