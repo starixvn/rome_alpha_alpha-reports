@@ -172,4 +172,16 @@
   <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
     <value>Bạn có thể tra cứu dữ liệu báo cáo từ ngày {0}. &lt;a id="currentreport-switch" href="#"&gt;Quay trở lại Báo Cáo hiện tại&lt;/a&gt;</value>
   </data>
+  <data name="Product" xml:space="preserve">
+    <value>Sản phẩm</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Đã chọn</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Trang</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>trên</value>
+  </data>
 </root>

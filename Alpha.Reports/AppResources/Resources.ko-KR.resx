@@ -172,4 +172,10 @@
   <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
     <value>You can view the report data from {0}. &lt;a id="currentreport-switch" href="#"&gt;현재기록으로 다시 가기&lt;/a&gt;</value>
   </data>
+  <data name="Page" xml:space="preserve">
+    <value>페이지</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>부터</value>
+  </data>
 </root>

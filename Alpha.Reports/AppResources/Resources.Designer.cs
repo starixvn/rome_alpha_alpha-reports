@@ -70,6 +70,15 @@ namespace Alpha.Reports.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Products.
+        /// </summary>
+        public static string AllProducts {
+            get {
+                return ResourceManager.GetString("AllProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to April.
         /// </summary>
         public static string April {
@@ -214,11 +223,74 @@ namespace Alpha.Reports.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to of.
+        /// </summary>
+        public static string of {
+            get {
+                return ResourceManager.GetString("of", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page.
+        /// </summary>
+        public static string Page {
+            get {
+                return ResourceManager.GetString("Page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displaying {from} to {to} of {total} items.
+        /// </summary>
+        public static string Pager_DisplayItems {
+            get {
+                return ResourceManager.GetString("Pager_DisplayItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product.
+        /// </summary>
+        public static string Product {
+            get {
+                return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to selected.
+        /// </summary>
+        public static string Selected {
+            get {
+                return ResourceManager.GetString("Selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Products.
+        /// </summary>
+        public static string SelectProducts {
+            get {
+                return ResourceManager.GetString("SelectProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to September.
         /// </summary>
         public static string September {
             get {
                 return ResourceManager.GetString("September", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Filter.
+        /// </summary>
+        public static string ShowFilter {
+            get {
+                return ResourceManager.GetString("ShowFilter", resourceCulture);
             }
         }
         
@@ -246,6 +318,15 @@ namespace Alpha.Reports.AppResources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no selected Product..
+        /// </summary>
+        public static string ThereIsNoSelectedProduct {
+            get {
+                return ResourceManager.GetString("ThereIsNoSelectedProduct", resourceCulture);
             }
         }
         

@@ -67,6 +67,7 @@
         {
             container.Register<IUserSession, UserSessionExt>(Lifestyle.Scoped);
             container.Register<ReportDateService, ReportDateServiceImpl>(Lifestyle.Transient);
+            container.Register<RemotingRefWrapper, RemotingRefWrapperImpl>(Lifestyle.Transient);
         }
 
         private static void RegisterDataAccesses(Container container)

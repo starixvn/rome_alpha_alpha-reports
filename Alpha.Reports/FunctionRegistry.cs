@@ -7,7 +7,7 @@
 
     public class FunctionRegistry
     {
-        public static readonly Dictionary<string, Func<int, bool>> ProductPermission = new Dictionary<string, Func<int, bool>>
+        public static readonly Dictionary<string, Func<int, bool>> ProductPermissions = new Dictionary<string, Func<int, bool>>
         {
             [string.Empty] = (productId) => true,
             ["RacingPermission"] = (productId) => UserPermission.IsShowRacing,

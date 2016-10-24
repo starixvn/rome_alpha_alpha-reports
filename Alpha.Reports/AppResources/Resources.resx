@@ -187,4 +187,31 @@
   <data name="HideFilter" xml:space="preserve">
     <value>Hide filter</value>
   </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ThereIsNoSelectedProduct" xml:space="preserve">
+    <value>There is no selected Product.</value>
+  </data>
+  <data name="SelectProducts" xml:space="preserve">
+    <value>Select Products</value>
+  </data>
+  <data name="AllProducts" xml:space="preserve">
+    <value>All Products</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>selected</value>
+  </data>
+  <data name="ShowFilter" xml:space="preserve">
+    <value>Show Filter</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Pager_DisplayItems" xml:space="preserve">
+    <value>Displaying {from} to {to} of {total} items</value>
+  </data>
 </root>

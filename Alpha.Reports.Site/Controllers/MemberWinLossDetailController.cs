@@ -1,23 +1,25 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
-    using System;
     using System.Web.Mvc;
-    using Reports.Helpers;
-    using ViewModels.MemberWinLossDetail;
+    using Configurations;
+    using MediatR;
+    using Requests.MemberWinLossDetail;
 
     public class MemberWinLossDetailController : BaseController
     {
+        private readonly IMediator mediator;
+
+        public MemberWinLossDetailController(IMediator mediator)
+        {
+            this.mediator = mediator;
+        }
+
         public ActionResult Index()
         {
-            return View(new IndexViewModel
-            {
-                MinDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now.AddMonths(-2)),
-                MaxDate = null,
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
+            var message = new IndexQuery(AppSettings.Products, FunctionRegistry.ProductPermissions);
+            var viewModel = mediator.Send(message);
 
-                CurrentDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now)
-            });
+            return View(viewModel);
         }
     }
 }

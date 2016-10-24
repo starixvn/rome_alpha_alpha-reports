@@ -172,4 +172,13 @@
   <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
     <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}. &lt;a id="currentreport-switch" href="#"&gt;กลับสู่รายงานปัจจุบัน&lt;/a&gt;</value>
   </data>
+  <data name="Product" xml:space="preserve">
+    <value>ผลิตภัณฑ์</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>หน้า</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>ของ</value>
+  </data>
 </root>

@@ -105,6 +105,36 @@ a {
     }
 }
 
+.page-title {
+    .hidefilter-element {
+        display: none;
+    }
+
+    &.hide-filter {
+        .showfilter-element {
+            display: none;
+        }
+
+        .hidefilter-element {
+            display: block;
+        }
+    }
+
+    .stackcolumnview-element {
+        display: none;
+    }
+
+    &.stack-mode {
+        .normalview-element {
+            display: none;
+        }
+
+        .stackcolumnview-element {
+            display: block;
+        }
+    }
+}
+
 #filter {
     #historicreport-switch {
         text-decoration: none !important;

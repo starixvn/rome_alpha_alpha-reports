@@ -6,6 +6,9 @@ declare var $: any;
 var indexController = {
     init: function () {
         indexView.init();
+    },
+    pageReport: function () {
+
     }
 };
 

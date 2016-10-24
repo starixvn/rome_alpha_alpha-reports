@@ -62,6 +62,18 @@
       <HintPath>..\packages\Fanex.Data.Repository.1.0.0\lib\net452\Fanex.Data.Repository.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RemotingRef.1.0.0.13\lib\net40\RemotingRef.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.1.10, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sunplus.Agent.Model.Base.3.0.1.10\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
       <Private>True</Private>
@@ -89,6 +101,7 @@
     </Compile>
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
+    <Compile Include="Constants\ShortLanguageCode.cs" />
     <Compile Include="Criteria\TimeToArrangeBetsInDatabaseCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\AgentWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\BaseWinLossDetailCriteria.cs" />
@@ -109,6 +122,8 @@
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\Impl\ReportDateServiceImpl.cs" />
     <Compile Include="Services\Impl\BaseWinLossDetailService.cs" />
+    <Compile Include="Services\Impl\RemotingRefWrapperImpl.cs" />
+    <Compile Include="Services\RemotingRefWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

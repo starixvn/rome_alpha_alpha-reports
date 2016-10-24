@@ -172,4 +172,13 @@
   <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
     <value>您可查看報表數據從 {0}. &lt;a id="currentreport-switch" href="#"&gt;回到現有報告&lt;/a&gt;</value>
   </data>
+  <data name="Product" xml:space="preserve">
+    <value>產品</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>頁</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>之第</value>
+  </data>
 </root>

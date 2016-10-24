@@ -115,4 +115,10 @@
   <data name="Submit" xml:space="preserve">
     <value>送信</value>
   </data>
+  <data name="Page" xml:space="preserve">
+    <value>ページ</value>
+  </data>
+  <data name="of" xml:space="preserve">
+    <value>/</value>
+  </data>
 </root>
