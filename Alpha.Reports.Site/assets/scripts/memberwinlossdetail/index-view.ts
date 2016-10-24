@@ -172,7 +172,7 @@ var indexView = {
             nSelectedText: " " + dropdownProduct.data("labelselected"),
             allSelectedText: dropdownProduct.data("labelallproducts"),
             includeSelectAllOption: products.length,
-            onChange: function (option, checked) {
+            onChange: function (option: any, checked: boolean) {
                 // do nothing
             },
             language: dropdownProduct.data("language")
@@ -254,7 +254,7 @@ var indexView = {
         var pager = indexView.domElements.pager;
 
         if (options.totalRecords < alphaReports.pageList[0]) {
-            // Total records less than min page size => do not need to show pager
+            // total records less than min page size => do not need to show pager
             indexView.domElements.pager.addClass("hide");
         } else {
             indexView.domElements.pager.pagination({

@@ -8,6 +8,7 @@ var indexController = {
         indexView.init();
     },
     pageReport: function () {
+        // implement later
 
     }
 };

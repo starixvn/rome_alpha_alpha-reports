@@ -26,7 +26,7 @@ var alphaReports = {
 
         var firstColumn = $(columns[0]);
 
-        firstColumn.each(function (index) {
+        firstColumn.each(function (index: number) {
 
             var newColumn = "<td class=\"" + combinedColumnClass + "\" colspan=\"" + combinedColumnColSpan + "\">\
                                 <ul>";
@@ -55,7 +55,7 @@ var alphaReports = {
         var combinedColumns = $(combinedColumn);
         var oldValues = combinedColumns.find("li");
 
-        combinedColumns.each(function (index) {
+        combinedColumns.each(function (index: number) {
             var oldColumns = "";
 
             for (var i = 0; i < columnsLength; i++) {
