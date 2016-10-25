@@ -63,10 +63,6 @@ a {
                 font-size: 16px;
                 padding: 0 10px;
                 vertical-align: middle;
-
-                &:hover {
-                    color: $icon-hover-color;
-                }
             }
 
             .icon-filter {
@@ -155,15 +151,24 @@ a {
     }
 
     .icon-excel {
+        cursor: pointer;
         color: #1f7244;
         font-size: 19px;
         vertical-align: middle;
-
-        &:hover {
-            cursor: pointer;
-            color: lighten(#1f7244, 10%);
-        }
     }
+}
+
+// Ripple effect
+.icon-excel {
+    @include ripple-effect-icon($margin-left: -11px, $height: 36px, $width: 36px, $top: -4px);
+}
+
+.icon-switchmode {
+    @include ripple-effect-icon($margin-left: 0px, $height: 36px, $width: 36px, $top: -5px);
+}
+
+.icon-filter {
+    @include ripple-effect-icon($margin-left: 2px, $height: 36px, $width: 36px, $top: -2px);
 }
 
 // For mobile
