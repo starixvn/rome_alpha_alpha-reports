@@ -66,8 +66,8 @@
             // Arrange
             var reportDates = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
             repository
-                .Get<BalanceUpDayAndMoveBetsDay>(Arg.Any<GetBalanceUpDayAndMoveBetsDayCriteria>())
-                .Returns(reportDates);
+                .Get<BalanceUpDayAndMoveBetsDay>(new GetBalanceUpDayAndMoveBetsDayCriteria())
+                .ReturnsForAnyArgs(reportDates);
 
             // Act
             service.GetBalanceUpDayAndMoveBetsDay();
