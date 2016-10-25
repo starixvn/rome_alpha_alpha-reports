@@ -64,10 +64,6 @@
       <HintPath>..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.CustomerSetting.Module.Keno.KenoSetting, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.CustomerSetting.Module.Keno.KenoSetting.1.0.0.4\lib\net40\Fanex.CustomerSetting.Module.Keno.KenoSetting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Data, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Data.2.0.1.5\lib\net452\Fanex.Data.dll</HintPath>
       <Private>True</Private>
@@ -203,6 +199,7 @@
       <DependentUpon>SiteResources.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\DependencyConfig.cs" />
+    <Compile Include="App_Start\FunctionRegistry.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -345,7 +342,6 @@
     <Folder Include="assets\scripts\agentwinlossdetail\" />
     <Folder Include="assets\scripts\masterwinlossdetail\" />
     <Folder Include="CodeAnalysis\" />
-    <Folder Include="Scripts\" />
     <Folder Include="Views\AgentWinLossDetail\" />
     <Folder Include="Views\MasterWinLossDetail\" />
   </ItemGroup>

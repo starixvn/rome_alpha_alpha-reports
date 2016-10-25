@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
     using System.Web.Mvc;
+    using App_Start;
     using Configurations;
     using MediatR;
     using Requests;

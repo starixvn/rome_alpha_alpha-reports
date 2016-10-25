@@ -1,8 +1,9 @@
-﻿namespace Alpha.Reports
+﻿namespace Alpha.Reports.Site.App_Start
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.CustomerSetting.Module.Keno.KenoSetting.Configurations;
+    using Configurations;
+    using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Model.Entities.Permission;
 
     public class FunctionRegistry
@@ -17,8 +18,7 @@
             ["RNGCasinoPermission"] = (productId) => UserPermission.IsShowCasino,
             ["KenoPermission"] = (productId) =>
             {
-                return UserPermission.IsShowKenoSetting
-                    && KenoSection.Instance.ShowSetting;
+                return AppSettings.IsShowKenoSetting && !UserSession.Current.IsHideKeno;
             },
             ["GoldDeluxePermission"] = (productId) => UserPermission.IsShowGoldDeluxeSettingForCredit,
             ["ColossusBetsPermission"] = (productId) => UserPermission.IsShowColossusBets,

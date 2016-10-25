@@ -4,6 +4,7 @@
     using System.Configuration;
     using System.IO;
     using System.Web;
+    using Fanex.Common;
     using Models;
     using Newtonsoft.Json;
 
@@ -11,29 +12,17 @@
     {
         private static IEnumerable<Product> products;
 
-        public static string OldMainAppPath
-        {
-            get
-            {
-                return GetConfigValue("OldMainAppPath");
-            }
-        }
+        public static string OldMainAppPath => GetConfigValue("OldMainAppPath");
 
-        public static string AccessDeniedPage
-        {
-            get
-            {
-                return GetConfigValue("AccessDeniedPage");
-            }
-        }
+        public static string AccessDeniedPage => GetConfigValue("AccessDeniedPage");
 
-        public static string StoreProcedurePath
-        {
-            get
-            {
-                return GetConfigValue("StoreProcedurePath");
-            }
-        }
+        public static string StoreProcedurePath => GetConfigValue("StoreProcedurePath");
+
+        public static bool IsShowKenoSetting => Converter.ToBool(GetConfigValue("IsShowKenoSetting"));
+
+        public static string AssetAppPath => GetConfigValue("AssetAppPath");
+
+        private static string ProductConfigPath => GetConfigValue("Reports:Products");
 
         public static IEnumerable<Product> Products
         {
@@ -48,26 +37,7 @@
             }
         }
 
-        public static string AssetAppPath
-        {
-            get
-            {
-                return GetConfigValue("AssetAppPath");
-            }
-        }
-
-        private static string ProductConfigPath
-        {
-            get
-            {
-                return GetConfigValue("Reports:Products");
-            }
-        }
-
-        public static string GetConfigValue(string configName)
-        {
-            return ConfigurationManager.AppSettings[configName];
-        }
+        public static string GetConfigValue(string configName) => ConfigurationManager.AppSettings[configName];
 
         public static void LoadProductConfig()
         {
