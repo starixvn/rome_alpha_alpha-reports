@@ -39,9 +39,6 @@
             throw new NotImplementedException();
         }
 
-        public override bool IsValid()
-        {
-            throw new NotImplementedException();
-        }
+        public override bool IsValid() => base.IsValid();
     }
 }

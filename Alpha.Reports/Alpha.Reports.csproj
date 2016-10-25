@@ -46,6 +46,10 @@
       <HintPath>..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.CustomerSetting.Module.Keno.KenoSetting, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.CustomerSetting.Module.Keno.KenoSetting.1.0.0.4\lib\net40\Fanex.CustomerSetting.Module.Keno.KenoSetting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.CustomerSetting.Module.KenoStatus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.CustomerSetting.Module.KenoStatus.1.0.0.2\lib\net40\Fanex.CustomerSetting.Module.KenoStatus.dll</HintPath>
       <Private>True</Private>
@@ -99,7 +103,9 @@
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Constants\ShortLanguageCode.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
+    <Compile Include="Criteria\GetProductByCustomerCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
+    <Compile Include="Criteria\ReportProductCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\AgentWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\BaseWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\MasterWinLossDetailCriteria.cs" />
