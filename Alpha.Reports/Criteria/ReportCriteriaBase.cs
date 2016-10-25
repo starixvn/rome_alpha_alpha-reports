@@ -5,11 +5,26 @@
 
     public class ReportCriteriaBase : CriteriaBase
     {
-        public int PageIndex { get; set; }
+        public ReportCriteriaBase(int custId, int pageIndex, int pageSize, DateTime fromDate, DateTime toDate)
+        {
+            CustId = custId;
+            PageIndex = pageIndex;
+            PageSize = pageSize;
+            FromDate = fromDate;
+            ToDate = toDate;
+        }              
 
-        public int PageSize { get; set; }
+        public int CustId { get; }
+
+        public int PageIndex { get; }
+
+        public int PageSize { get; }
 
         public int TotalRecords { get; set; }
+
+        public DateTime FromDate { get; }
+
+        public DateTime ToDate { get; }
 
         public override string GetSettingKey()
         {
@@ -18,7 +33,9 @@
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            return CustId > 0 
+                && FromDate <= ToDate 
+                && PageIndex >= 0;
         }
     }
 }
