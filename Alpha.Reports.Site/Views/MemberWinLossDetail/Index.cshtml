@@ -15,8 +15,8 @@
         <ul>
             <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
             <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
-            <li class="normalview-element"><span class="icon-Stack_column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
-            <li class="stackcolumnview-element"><span class="icon-normal_column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
+            <li class="normalview-element"><span class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
+            <li class="stackcolumnview-element"><span class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
         </ul>
     </div>
 </div>
@@ -60,9 +60,13 @@
                 data-language="@Model.Language"
                 multiple="multiple"></select>
     </div>
-    <div class="form-group group-button">
+    <div class="form-group">
         <input type="button" value="@Resources.Submit" class="btn btn-submit" />
     </div>
+    <div class="form-group">
+        <span class="icon-excel"></span>
+    </div>
+
     <div class="note currentreport-item">
         <span class="star">*</span>@Html.Raw(string.Format(Resources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport, Model.MinDate))
     </div>

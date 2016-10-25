@@ -1,6 +1,8 @@
 ﻿@import '_variables.scss';
 @import '_mixins.scss';
 
+@include keyframes-ripple;
+
 body {
     background-color: transparent;
     font-size: $font-size;
@@ -20,6 +22,34 @@ a {
 .page-title {
     display: table;
     width: 100%;
+
+    .hidefilter-element {
+        display: none;
+    }
+
+    &.hide-filter {
+        .showfilter-element {
+            display: none;
+        }
+
+        .hidefilter-element {
+            display: block;
+        }
+    }
+
+    .stackcolumnview-element {
+        display: none;
+    }
+
+    &.stack-mode {
+        .normalview-element {
+            display: none;
+        }
+
+        .stackcolumnview-element {
+            display: block;
+        }
+    }
 
     .list-icon {
         float: right;
@@ -43,14 +73,6 @@ a {
                 font-size: 22px;
             }
         }
-    }
-}
-
-// Filter
-.note {
-    .star {
-        color: #ff0101;
-        padding-right: 8px;
     }
 }
 
@@ -105,37 +127,15 @@ a {
     }
 }
 
-.page-title {
-    .hidefilter-element {
-        display: none;
-    }
-
-    &.hide-filter {
-        .showfilter-element {
-            display: none;
-        }
-
-        .hidefilter-element {
-            display: block;
-        }
-    }
-
-    .stackcolumnview-element {
-        display: none;
-    }
-
-    &.stack-mode {
-        .normalview-element {
-            display: none;
-        }
-
-        .stackcolumnview-element {
-            display: block;
-        }
+// Filter
+.note {
+    .star {
+        color: #ff0101;
+        padding-right: 8px;
     }
 }
 
-#filter {
+.filter {
     #historicreport-switch {
         text-decoration: none !important;
     }
@@ -153,8 +153,18 @@ a {
             display: block;
         }
     }
-}
 
+    .icon-excel {
+        color: #1f7244;
+        font-size: 19px;
+        vertical-align: middle;
+
+        &:hover {
+            cursor: pointer;
+            color: lighten(#1f7244, 10%);
+        }
+    }
+}
 
 // For mobile
 @media only screen and (max-device-width : $conent-device-lower768) {
