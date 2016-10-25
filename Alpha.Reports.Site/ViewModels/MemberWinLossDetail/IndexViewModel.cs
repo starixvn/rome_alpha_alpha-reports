@@ -20,5 +20,7 @@
         public bool HasData { get; set; }
 
         public string Language { get; set; }
+
+        public IEnumerable<string> NetTurnoverToolTips { get; set; }
     }
 }

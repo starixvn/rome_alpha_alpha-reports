@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
     using System;
+    using System.Linq;
     using MediatR;
     using Newtonsoft.Json;
     using Reports.Helpers;
@@ -19,6 +20,8 @@
 
         public IndexViewModel Handle(IndexQuery message)
         {
+            var visibleProducts = productHandler.VisibleProducts(message.Products);
+
             return new IndexViewModel
             {
                 MinDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now.AddMonths(-2)),
@@ -27,10 +30,14 @@
                 ToDate = DateTime.Now,
 
                 CurrentDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now),
-                Products = JsonConvert.SerializeObject(productHandler.VisibleProducts(message.Products)),
+                Products = JsonConvert.SerializeObject(visibleProducts),
 
                 HasData = true,
-                Language = message.Language
+                Language = message.Language,
+
+                NetTurnoverToolTips = visibleProducts
+                    .Where(product => !string.IsNullOrEmpty(product.NetTurnoverTooltip))
+                    .Select(product => product.NetTurnoverTooltip)
             };
         }
     }

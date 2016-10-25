@@ -2,78 +2,57 @@
   {
     "name": "Sportsbook",
     "id": 1,
-    "active": true,
-    "permission": "",
-    "storeProcedureParameter": "showsb"
+    "permission": ""
   },
   {
     "name": "Racing",
     "id": 2,
-    "active": true,
-    "permission": "RacingPermission",
-    "storeProcedureParameter": "showrb"
+    "permission": "RacingPermission"
   },
   {
     "name": "Number Game",
     "id": 3,
-    "active": true,
-    "permission": "NumberGamePermission",
-    "storeProcedureParameter": "showng"
+    "permission": "NumberGamePermission"
   },
   {
     "name": "Live Casino",
     "id": 4,
-    "active": true,
-    "permission": "LiveCasinoPermission",
-    "storeProcedureParameter": "showcasino"
+    "permission": "LiveCasinoPermission"
   },
   {
     "name": "Virtual Sports",
     "id": 5,
-    "active": true,
-    "permission": "VirtualSportsPermission",
-    "storeProcedureParameter": "showvs"
+    "permission": "VirtualSportsPermission"
   },
   {
     "name": "RNG Casino",
     "id": 6,
-    "active": true,
-    "permission": "RNGCasinoPermission",
-    "storeProcedureParameter": "showcasino"
+    "permission": "RNGCasinoPermission"
   },
   {
     "name": "Keno",
     "id": 8,
-    "active": true,
-    "permission": "KenoPermission",
-    "storeProcedureParameter": "showkeno"
+    "permission": "KenoPermission"
   },
   {
     "name": "Gold Deluxe",
     "id": 12,
-    "active": true,
-    "permission": "GoldDeluxePermission",
-    "storeProcedureParameter": "showgd"
+    "permission": "GoldDeluxePermission"
   },
   {
     "name": "Colossus Bets",
     "id": 15,
-    "active": true,
-    "permission": "ColossusBetsPermission",
-    "storeProcedureParameter": "showcb"
+    "permission": "ColossusBetsPermission"
   },
   {
     "name": "Allbet",
     "id": 21,
-    "active": true,
     "permission": "EnableAndSyncedPermission",
-    "storeProcedureParameter": "showab"
+    "hasNetTurnoverTip": true
   },
   {
     "name": "Macau Games",
     "id": 22,
-    "active": true,
-    "permission": "EnableAndSyncedPermission",
-    "storeProcedureParameter": "showvb"
+    "permission": "EnableAndSyncedPermission"
   }
 ]

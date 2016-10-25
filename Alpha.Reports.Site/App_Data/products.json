@@ -2,67 +2,57 @@
   {
     "name": "Sportsbook",
     "id": 1,
-    "permission": "",
-    "storeProcedureParameter": "showsb"
+    "permission": ""
   },
   {
     "name": "Racing",
     "id": 2,
-    "permission": "RacingPermission",
-    "storeProcedureParameter": "showrb"
+    "permission": "RacingPermission"
   },
   {
     "name": "Number Game",
     "id": 3,
-    "permission": "NumberGamePermission",
-    "storeProcedureParameter": "showng"
+    "permission": "NumberGamePermission"
   },
   {
     "name": "Live Casino",
     "id": 4,
-    "permission": "LiveCasinoPermission",
-    "storeProcedureParameter": "showcasino"
+    "permission": "LiveCasinoPermission"
   },
   {
     "name": "Virtual Sports",
     "id": 5,
-    "permission": "VirtualSportsPermission",
-    "storeProcedureParameter": "showvs"
+    "permission": "VirtualSportsPermission"
   },
   {
     "name": "RNG Casino",
     "id": 6,
-    "permission": "RNGCasinoPermission",
-    "storeProcedureParameter": "showcasino"
+    "permission": "RNGCasinoPermission"
   },
   {
     "name": "Keno",
     "id": 8,
-    "permission": "KenoPermission",
-    "storeProcedureParameter": "showkeno"
+    "permission": "KenoPermission"
   },
   {
     "name": "Gold Deluxe",
     "id": 12,
-    "permission": "GoldDeluxePermission",
-    "storeProcedureParameter": "showgd"
+    "permission": "GoldDeluxePermission"
   },
   {
     "name": "Colossus Bets",
     "id": 15,
-    "permission": "ColossusBetsPermission",
-    "storeProcedureParameter": "showcb"
+    "permission": "ColossusBetsPermission"
   },
   {
     "name": "Allbet",
     "id": 21,
     "permission": "EnableAndSyncedPermission",
-    "storeProcedureParameter": "showab"
+    "hasNetTurnoverTip": true
   },
   {
     "name": "Macau Games",
     "id": 22,
-    "permission": "EnableAndSyncedPermission",
-    "storeProcedureParameter": "showvb"
+    "permission": "EnableAndSyncedPermission"
   }
 ]

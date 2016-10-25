@@ -19,7 +19,8 @@ var indexView = {
         buttonSubmit: null,
 
         tableReport: null,
-        pager: null
+        pager: null,
+        netTurnoverTip: null
     },
 
     isFirstSwitchMode: true,
@@ -36,6 +37,11 @@ var indexView = {
             totalRecords: 21,
             pageSize: 10,
             pageIndex: 1
+        });
+        indexView.renderNetTurnoverTip();
+
+        indexView.domElements.tableReport.stickyTableHeaders({
+            fixedOffset: indexView.domElements.filter
         });
 
         indexView.registerEvents();
@@ -58,6 +64,8 @@ var indexView = {
 
         indexView.domElements.tableReport = $("#tbl-report");
         indexView.domElements.pager = $("#report-pager");
+
+        indexView.domElements.netTurnoverTip = $("#netturnovertip");
     },
     renderDateRangePicker: function () {
         var dateRangePicker = $("#daterange-picker");
@@ -277,5 +285,17 @@ var indexView = {
 
             indexView.domElements.pager.removeClass("hide");
         }
+    },
+    renderNetTurnoverTip: function () {
+        var netTurnoverPosition = $(".col-netturnover-header").position();
+        var rightPosition = $(".col-netturnover-header").width();
+        var marginRight = 20;
+
+        indexView.domElements.netTurnoverTip.css({
+            left: netTurnoverPosition.left + (rightPosition > marginRight ? rightPosition - 20 : 0),
+            top: netTurnoverPosition.top - 22
+        });
+
+        indexView.domElements.netTurnoverTip.modal({ show: true, backdrop: false });
     }
 };

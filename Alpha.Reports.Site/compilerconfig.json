@@ -2,5 +2,9 @@
   {
     "outputFile": "assets/styles/reports.css",
     "inputFile": "assets/styles/reports.scss"
+  },
+  {
+    "outputFile": "assets/styles/memberwinlossdetail/index.css",
+    "inputFile": "assets/styles/memberwinlossdetail/index.scss"
   }
 ]

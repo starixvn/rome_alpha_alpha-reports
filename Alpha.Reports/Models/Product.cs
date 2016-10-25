@@ -6,12 +6,12 @@
             string name,
             int id,
             string permission,
-            string storeProcedureParameter)
+            bool hasNetTurnoverToolTip)
         {
             Name = name;
             Id = id;
             Permission = permission;
-            StoreProcedureParameter = storeProcedureParameter;
+            HasNetTurnoverToolTip = hasNetTurnoverToolTip;
         }
 
         public string Name { get; }
@@ -20,6 +20,6 @@
 
         public string Permission { get; }
 
-        public string StoreProcedureParameter { get; }
+        public bool HasNetTurnoverToolTip { get; }
     }
 }

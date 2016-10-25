@@ -275,11 +275,23 @@
     <Content Include="assets\bundles\memberwinlossdetail\index.min.js">
       <DependentUpon>index.js</DependentUpon>
     </Content>
+    <Content Include="assets\styles\memberwinlossdetail\index.css">
+      <DependentUpon>index.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\memberwinlossdetail\index.min.css">
+      <DependentUpon>index.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
     </Content>
     <Content Include="assets\styles\reports.min.css">
       <DependentUpon>reports.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\memberwinlossdetail\memberwinlossdetail.css">
+      <DependentUpon>index.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\memberwinlossdetail\memberwinlossdetail.min.css">
+      <DependentUpon>memberwinlossdetail.css</DependentUpon>
     </Content>
     <Content Include="bundleconfig.json" />
     <Content Include="compilerconfig.json" />
@@ -298,6 +310,7 @@
     <Content Include="Views\Default\MasterWinLossDetail.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\MonthNames.cshtml" />
+    <Content Include="assets\styles\memberwinlossdetail\index.scss" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>
@@ -435,7 +448,7 @@
     <EmbeddedResource Include="AppResources\SiteResources.ja-JP.resx" />
     <EmbeddedResource Include="AppResources\SiteResources.ko-KR.resx" />
     <EmbeddedResource Include="AppResources\SiteResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SiteResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="AppResources\SiteResources.th-TH.resx" />

@@ -120,4 +120,7 @@
   <data name="AppStart_Message" xml:space="preserve">
     <value>Alpha - View Logs - Application Start</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
 </root>

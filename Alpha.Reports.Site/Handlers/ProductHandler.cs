@@ -4,6 +4,7 @@
     using MediatR;
     using Models;
     using Params;
+    using Reports.AppResources;
     using Requests;
     using Services;
     using ViewModels;
@@ -34,7 +35,10 @@
             foreach (var product in visibleProducts)
             {
                 var productDisplayText = remotingRef.GetProductName(product.Id);
-                products.Add(new ProductViewModel(product.Id, productDisplayText, product.StoreProcedureParameter));
+                var netTurnoverTooltip = product.HasNetTurnoverToolTip
+                    ? Resources.ResourceManager.GetString("Tooltip_NetTurnover_" + product.Id)
+                    : string.Empty;
+                products.Add(new ProductViewModel(product.Id, productDisplayText, netTurnoverTooltip));
             }
 
             return products;

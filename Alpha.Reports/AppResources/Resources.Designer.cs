@@ -133,6 +133,15 @@ namespace Alpha.Reports.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not show again.
+        /// </summary>
+        public static string DoNotShowAgain {
+            get {
+                return ResourceManager.GetString("DoNotShowAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export to Excel.
         /// </summary>
         public static string ExportToExcel {
@@ -480,6 +489,24 @@ namespace Alpha.Reports.AppResources {
         public static string Today {
             get {
                 return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets..
+        /// </summary>
+        public static string Tooltip_NetTurnover {
+            get {
+                return ResourceManager.GetString("Tooltip_NetTurnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - For AllBet, Net Turnover is total valid bets that we use to compute commission..
+        /// </summary>
+        public static string Tooltip_NetTurnover_21 {
+            get {
+                return ResourceManager.GetString("Tooltip_NetTurnover_21", resourceCulture);
             }
         }
         

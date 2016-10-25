@@ -5,17 +5,17 @@
         public ProductViewModel(
             int id,
             string displayText,
-            string storeProcedureParameter)
+            string netTurnoverTooltip)
         {
             Id = id;
             DisplayText = displayText;
-            StoreProcedureParameter = storeProcedureParameter;
+            NetTurnoverTooltip = netTurnoverTooltip;
         }
 
         public int Id { get; }
 
         public string DisplayText { get; }
 
-        public string StoreProcedureParameter { get; }
+        public string NetTurnoverTooltip { get; }
     }
 }
