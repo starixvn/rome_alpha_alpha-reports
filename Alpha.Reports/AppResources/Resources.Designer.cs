@@ -421,6 +421,15 @@ namespace Alpha.Reports.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no Product..
+        /// </summary>
+        public static string ThereIsNoProduct {
+            get {
+                return ResourceManager.GetString("ThereIsNoProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no selected Product..
         /// </summary>
         public static string ThereIsNoSelectedProduct {

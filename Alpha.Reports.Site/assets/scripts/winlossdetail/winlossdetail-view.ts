@@ -186,7 +186,9 @@ class WinLossDetailView {
             enableFiltering: true,
             numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
             enableCaseInsensitiveFiltering: true,
-            nonSelectedText: dropdownProduct.data("labelselectproducts"),
+            nonSelectedText: $("#hasdata").val() === "1" ?
+                dropdownProduct.data("labelselectproducts")
+                : dropdownProduct.data("labelthereisnoproduct"),
             nSelectedText: " " + dropdownProduct.data("labelselected"),
             allSelectedText: dropdownProduct.data("labelallproducts"),
             includeSelectAllOption: products.length,
@@ -198,7 +200,7 @@ class WinLossDetailView {
     };
 
     registerEvents = () => {
-        var $this = this; 
+        var $this = this;
 
         this.domElements.historicReportSwitch.on("click", function () {
             $this.domElements.filter.addClass("historic-report");

@@ -271,4 +271,7 @@
   <data name="DoNotShowAgain" xml:space="preserve">
     <value>Do not show again</value>
   </data>
+  <data name="ThereIsNoProduct" xml:space="preserve">
+    <value>There is no Product.</value>
+  </data>
 </root>
