@@ -7,42 +7,42 @@
   {
     "id": 2,
     "name": "Racing",
-    "permission": "RacingPermission"
+    "permission": "IsShowProduct"
   },
   {
     "id": 3,
     "name": "Number Game",
-    "permission": "NumberGamePermission"
+    "permission": "IsShowProduct"
   },
   {
     "id": 4,
     "name": "Live Casino",
-    "permission": "LiveCasinoPermission"
+    "permission": "IsShowProduct"
   },
   {
     "id": 5,
     "name": "Virtual Sports",
-    "permission": "VirtualSportsPermission"
+    "permission": "IsShowProduct"
   },
   {
     "id": 6,
     "name": "RNG Casino",
-    "permission": "RNGCasinoPermission"
+    "permission": "IsShowProduct"
   },
   {
     "id": 8,
     "name": "Keno",
-    "permission": "KenoPermission"
+    "permission": "IsShowProduct"
   },
   {
     "id": 12,
     "name": "Gold Deluxe",
-    "permission": "GoldDeluxePermission"
+    "permission": "IsShowProduct"
   },
   {
     "id": 15,
     "name": "Colossus Bets",
-    "permission": "ColossusBetsPermission"
+    "permission": "IsShowProduct"
   },
   {
     "id": 21,
