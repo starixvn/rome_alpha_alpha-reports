@@ -229,14 +229,13 @@
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
-    <Compile Include="Controllers\MemberWinLossDetailController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Handlers\ProductHandler.cs" />
-    <Compile Include="Handlers\MemberWinLossDetailHandler.cs" />
+    <Compile Include="Handlers\WinLossDetailHandler.cs" />
     <Compile Include="Helpers\AppPathHelper.cs" />
     <Compile Include="Helpers\Impl\MicroSitesImpl.cs" />
     <Compile Include="Helpers\Impl\StaticResources\AssetScripts.cs" />
@@ -247,8 +246,8 @@
     <Compile Include="Helpers\MicroSites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\GetAllProductsQuery.cs" />
-    <Compile Include="Requests\MemberWinLossDetail\IndexQuery.cs" />
-    <Compile Include="ViewModels\MemberWinLossDetail\IndexViewModel.cs" />
+    <Compile Include="Requests\WinLossDetail\MemberWinLossDetailQuery.cs" />
+    <Compile Include="ViewModels\WinLossDetail\MemberWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -291,20 +290,20 @@
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
-    <TypeScriptCompile Include="assets\scripts\memberwinlossdetail\index-controller.ts" />
-    <TypeScriptCompile Include="assets\scripts\memberwinlossdetail\index-view.ts" />
+    <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail-controller.ts" />
+    <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail-view.ts" />
     <Content Include="assets\bundles\default.css" />
     <Content Include="assets\bundles\default.min.css">
       <DependentUpon>default.css</DependentUpon>
     </Content>
-    <Content Include="assets\bundles\memberwinlossdetail\index.js" />
-    <Content Include="assets\bundles\memberwinlossdetail\index.min.js">
-      <DependentUpon>index.js</DependentUpon>
+    <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
+    <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
+      <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
-    <Content Include="assets\styles\memberwinlossdetail\index.css">
+    <Content Include="assets\styles\winlossdetail\index.css">
       <DependentUpon>index.scss</DependentUpon>
     </Content>
-    <Content Include="assets\styles\memberwinlossdetail\index.min.css">
+    <Content Include="assets\styles\winlossdetail\index.min.css">
       <DependentUpon>index.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\reports.css">
@@ -313,10 +312,10 @@
     <Content Include="assets\styles\reports.min.css">
       <DependentUpon>reports.css</DependentUpon>
     </Content>
-    <Content Include="assets\styles\memberwinlossdetail\memberwinlossdetail.css">
+    <Content Include="assets\styles\winlossdetail\memberwinlossdetail.css">
       <DependentUpon>index.scss</DependentUpon>
     </Content>
-    <Content Include="assets\styles\memberwinlossdetail\memberwinlossdetail.min.css">
+    <Content Include="assets\styles\winlossdetail\memberwinlossdetail.min.css">
       <DependentUpon>memberwinlossdetail.css</DependentUpon>
     </Content>
     <Content Include="bundleconfig.json" />
@@ -332,13 +331,15 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
     <Content Include="App_Data\products.json" />
-    <Content Include="Views\MemberWinLossDetail\Index.cshtml" />
     <Content Include="assets\styles\_mixins.scss" />
     <Content Include="assets\styles\_variables.scss" />
     <Content Include="Views\Default\MasterWinLossDetail.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\MonthNames.cshtml" />
-    <Content Include="assets\styles\memberwinlossdetail\index.scss" />
+    <Content Include="assets\styles\winlossdetail\index.scss" />
+    <Content Include="Views\WinLossDetail\Member.cshtml" />
+    <Content Include="Views\WinLossDetail\Agent.cshtml" />
+    <Content Include="Views\WinLossDetail\Master.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>
@@ -380,12 +381,7 @@
     <Content Include="assets\styles\reports.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\scripts\agentwinlossdetail\" />
-    <Folder Include="assets\scripts\masterwinlossdetail\" />
     <Folder Include="CodeAnalysis\" />
-    <Folder Include="Views\AgentWinLossDetail\" />
-    <Folder Include="Views\MasterWinLossDetail\" />
-    <Folder Include="Views\WinLossDetail\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">

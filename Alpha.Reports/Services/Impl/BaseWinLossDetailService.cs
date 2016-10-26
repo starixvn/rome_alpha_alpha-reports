@@ -2,11 +2,11 @@
 {
     public class BaseWinLossDetailService
     {
-        private readonly ReportDateService arrangeBetDataService;
+        private readonly ReportDateService reportDateService;
 
-        public BaseWinLossDetailService(ReportDateService arrangeBetDataService)
+        public BaseWinLossDetailService(ReportDateService reportDateService)
         {
-            this.arrangeBetDataService = arrangeBetDataService;
+            this.reportDateService = reportDateService;
         }
     }
 }

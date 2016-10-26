@@ -3,15 +3,15 @@
     "outputFileName": "assets/bundles/default.css",
     "inputFiles": [
       "assets/styles/reports.css",
-      "assets/styles/memberwinlossdetail/index.css"
+      "assets/styles/winlossdetail/index.css"
     ]
   },
   {
-    "outputFileName": "assets/bundles/memberwinlossdetail/index.js",
+    "outputFileName": "assets/bundles/winlossdetail/winlossdetail.js",
     "inputFiles": [
       "assets/scripts/core.js",
-      "assets/scripts/memberwinlossdetail/index-controller.js",
-      "assets/scripts/memberwinlossdetail/index-view.js"
+      "assets/scripts/memberwinlossdetail/winlossdetail-controller.js",
+      "assets/scripts/memberwinlossdetail/winlossdetail-view.js"
     ]
   }
 ]

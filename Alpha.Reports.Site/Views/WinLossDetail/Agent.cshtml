@@ -1,4 +1,4 @@
-﻿@using Alpha.Reports.Site.ViewModels.MemberWinLossDetail;
+﻿@using Alpha.Reports.Site.ViewModels.WinLossDetail;
 @using Alpha.Reports.Helpers;
 @model IndexViewModel
 @{
@@ -116,58 +116,58 @@
         <tr class="RptHeader02">
             @for (var i = 0; i < 2; i++)
             {
-            <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode">@Resources.Comm</th>
-            <th class="hidden-stack-mode">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine">@Resources.WL_Comm_Total</th>
+                <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode">@Resources.Comm</th>
+                <th class="hidden-stack-mode">@Resources.Total</th>
+                <th colspan="3" class="visible-stack-mode col-combine">@Resources.WL_Comm_Total</th>
             }
         </tr>
     </thead>
     @if (Model.HasData)
     {
-    <tbody>
-        @for (var i = 0; i < 30; i++)
+        <tbody>
+            @for (var i = 0; i < 30; i++)
             {
-        <tr>
-            <td class=""><span class="downline-link">DAM80</span></td>
-            <td class="text-right">2185</td>
-            <td class="text-right hidden-stack-mode col-turnover">240,314.00</td>
-            <td class="text-right hidden-stack-mode col-netturnover">16,960.50</td>
-            <td class="text-right hidden-stack-mode col-grosscomm">1,072.60</td>
-            <td class="text-right hidden-stack-mode col-winloss">33,914.66</td>
-            <td class="text-right hidden-stack-mode col-comm">0.00</td>
-            <td class="text-right bold hidden-stack-mode col-total">33,914.66</td>
-            <td class="altercol text-right hidden-stack-mode col-winloss">0.00</td>
-            <td class="altercol text-right hidden-stack-mode col-comm">1,030.67</td>
-            <td class="altercol bold text-right hidden-stack-mode col-total">1,030.67</td>
-            <td class="text-right">-5,248.10</td>
-        </tr>
+                <tr>
+                    <td class=""><span class="downline-link">DAM80</span></td>
+                    <td class="text-right">2185</td>
+                    <td class="text-right hidden-stack-mode col-turnover">240,314.00</td>
+                    <td class="text-right hidden-stack-mode col-netturnover">16,960.50</td>
+                    <td class="text-right hidden-stack-mode col-grosscomm">1,072.60</td>
+                    <td class="text-right hidden-stack-mode col-winloss">33,914.66</td>
+                    <td class="text-right hidden-stack-mode col-comm">0.00</td>
+                    <td class="text-right bold hidden-stack-mode col-total">33,914.66</td>
+                    <td class="altercol text-right hidden-stack-mode col-winloss">0.00</td>
+                    <td class="altercol text-right hidden-stack-mode col-comm">1,030.67</td>
+                    <td class="altercol bold text-right hidden-stack-mode col-total">1,030.67</td>
+                    <td class="text-right">-5,248.10</td>
+                </tr>
             }
-    </tbody>
-    <tfoot>
-        <tr class="RptFooter">
-            <td class="">Total</td>
-            <td class="text-right">2185</td>
-            <td class="text-right hidden-stack-mode col-turnover">240,314.00</td>
-            <td class="text-right hidden-stack-mode col-netturnover">16,960.50</td>
-            <td class="text-right hidden-stack-mode col-grosscomm">1,072.60</td>
-            <td class="text-right hidden-stack-mode col-winloss">33,914.66</td>
-            <td class="text-right hidden-stack-mode col-comm">0.00</td>
-            <td class="text-right bold hidden-stack-mode col-total">33,914.66</td>
-            <td class="altercol text-right hidden-stack-mode col-winloss">0.00</td>
-            <td class="altercol text-right hidden-stack-mode col-comm">1,030.67</td>
-            <td class="altercol bold text-right hidden-stack-mode col-total">1,030.67</td>
-            <td class="text-right">-5,248.10</td>
-        </tr>
-    </tfoot>
+        </tbody>
+        <tfoot>
+            <tr class="RptFooter">
+                <td class="">Total</td>
+                <td class="text-right">2185</td>
+                <td class="text-right hidden-stack-mode col-turnover">240,314.00</td>
+                <td class="text-right hidden-stack-mode col-netturnover">16,960.50</td>
+                <td class="text-right hidden-stack-mode col-grosscomm">1,072.60</td>
+                <td class="text-right hidden-stack-mode col-winloss">33,914.66</td>
+                <td class="text-right hidden-stack-mode col-comm">0.00</td>
+                <td class="text-right bold hidden-stack-mode col-total">33,914.66</td>
+                <td class="altercol text-right hidden-stack-mode col-winloss">0.00</td>
+                <td class="altercol text-right hidden-stack-mode col-comm">1,030.67</td>
+                <td class="altercol bold text-right hidden-stack-mode col-total">1,030.67</td>
+                <td class="text-right">-5,248.10</td>
+            </tr>
+        </tfoot>
     }
     else
     {
-    <tbody>
-        <tr>
-            <td colspan="12">No data</td>
-        </tr>
-    </tbody>
+        <tbody>
+            <tr>
+                <td colspan="12">No data</td>
+            </tr>
+        </tbody>
     }
 </table>
 <div id="report-pager" class="@(Model.HasData ? " ":"hide" )"

@@ -1,27 +1,28 @@
 ﻿"use strict";
 declare var store: any;
 
-var alphaReports = {
-    format: {
+class AlphaReports {
+    format = {
         monthFormat: "MMMM - yyyy",
         shortDateWithSlash: "MM/DD/YYYY"
-    },
-    keyCode: {
+    };
+
+    keyCode = {
         enter: 13
-    },
-    numberDisplayedProductsOnFilter: 1,
-    pageList: [10, 50, 100, 500],
-    maxTimesToShowTooltip: 5,
-    screenSmallThan768: function () {
+    };
+    numberDisplayedProductsOnFilter = 1;
+    pageList = [10, 50, 100, 500];
+    maxTimesToShowTooltip = 5;
+    screenSmallThan768 = () => {
         var currentWindowWidth = window.screen.width;
 
         return currentWindowWidth < 768;
-    },
+    };
 
-    combineColumns: function (
+    combineColumns = (
         columns: Array<string>,
         combinedColumnClass: string,
-        combinedColumnColSpan: number) {
+        combinedColumnColSpan: number) => {
         var columnsLength = columns ? columns.length : 0;
         if (columnsLength <= 1) {
             return;
@@ -45,11 +46,11 @@ var alphaReports = {
             var endColumn = $($(columns[columnsLength - 1])[index]);
             endColumn.after(newColumn);
         });
-    },
+    };
 
-    splitColumn: function (
+    splitColumn = (
         columns: Array<string>,
-        combinedColumn: string) {
+        combinedColumn: string) => {
         var columnsLength = columns ? columns.length : 0;
         if (columnsLength <= 1) {
             return;
@@ -67,15 +68,15 @@ var alphaReports = {
 
             $($(combinedColumn)[index]).before(oldColumns);
         });
-    },
+    };
 
-    localStorage: {
+    localStorage = {
         get: (key: string) => {
             return store.enabled ? store.get(key) : $.cookie(key);
         },
 
         set: (key: string, value: any) => {
-            store.enabled ? store.set(key, value) : $.cookie(key, value, this.getCookieExpireOptions());
+            store.enabled ? store.set(key, value) : $.cookie(key, value, this.localStorage.getCookieExpireOptions());
         },
 
         getCookieExpireOptions: () => {
@@ -87,8 +88,8 @@ var alphaReports = {
 
             return cookieExpire;
         }
-    },
-    isIe: function () {
+    };
+    isIe = () => {
         var ua = window.navigator.userAgent;
         var msie = ua.indexOf("MSIE ");
 
@@ -98,5 +99,7 @@ var alphaReports = {
         }
 
         return false;
-    }
+    };
 };
+
+const alphaReports = new AlphaReports();

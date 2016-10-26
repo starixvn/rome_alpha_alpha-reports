@@ -1,8 +1,8 @@
 ﻿/// <reference path="../core.ts" />
 "use strict";
 
-var indexView = {
-    domElements: {
+class WinLossDetailView {
+    domElements = {
         dateRangePicker: null,
         monthPickerContainer: null,
         monthPicker: null,
@@ -22,57 +22,59 @@ var indexView = {
         pager: null,
         netTurnoverTip: null,
         closeNetTurnoverTooltip: null
-    },
+    };
 
-    isFirstSwitchMode: true,
+    isFirstSwitchMode = true;
 
-    pageNumber: 0,
-    pageSize: 0,
-    timeToShowNetTurnoverTooltip: 10000,
-    cookieNetTurnoverTooltip: "NetTurnoverTooltipShowCount",
+    pageNumber = 0;
+    pageSize = 0;
+    timeToShowNetTurnoverTooltip = 10000;
+    cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
 
-    init: function () {
-        indexView.cacheDOMElements();
-        indexView.renderMonthPicker();
-        indexView.renderDateRangePicker();
-        indexView.renderDropdownProduct();
-        indexView.renderPager({
+    init = () => {
+        this.cacheDOMElements();
+        this.renderMonthPicker();
+        this.renderDateRangePicker();
+        this.renderDropdownProduct();
+        this.renderPager({
             totalRecords: 21,
             pageSize: 10,
             pageIndex: 1
         });
-        indexView.renderNetTurnoverTooltip();
+        this.renderNetTurnoverTooltip();
 
-        indexView.domElements.tableReport.stickyTableHeaders({
-            fixedOffset: indexView.domElements.filter
+        this.domElements.tableReport.stickyTableHeaders({
+            fixedOffset: this.domElements.filter
         });
 
-        indexView.registerEvents();
-    },
-    cacheDOMElements: function () {
-        indexView.domElements.monthPickerContainer = $(".monthpicker-container");
-        indexView.domElements.monthPicker = $("#monthPickerID");
-        indexView.domElements.dropdownMonth = $("#dropdown-month");
-        indexView.domElements.longMonthsInYear = $("#longmonths-inyear");
-        indexView.domElements.historicReportSwitch = $("#historicreport-switch");
-        indexView.domElements.currentReportSwitch = $("#currentreport-switch");
+        this.registerEvents();
+    };
 
-        indexView.domElements.pageTitle = $(".page-title ");
-        indexView.domElements.filter = $("#filter");
-        indexView.domElements.iconFilter = $(".icon-filter");
-        indexView.domElements.iconSwitchMode = $(".icon-switchmode");
+    cacheDOMElements = () => {
+        this.domElements.monthPickerContainer = $(".monthpicker-container");
+        this.domElements.monthPicker = $("#monthPickerID");
+        this.domElements.dropdownMonth = $("#dropdown-month");
+        this.domElements.longMonthsInYear = $("#longmonths-inyear");
+        this.domElements.historicReportSwitch = $("#historicreport-switch");
+        this.domElements.currentReportSwitch = $("#currentreport-switch");
 
-        indexView.domElements.dropdownProduct = $("#dropdown-product");
-        indexView.domElements.buttonSubmit = $(".btn-submit");
+        this.domElements.pageTitle = $(".page-title ");
+        this.domElements.filter = $("#filter");
+        this.domElements.iconFilter = $(".icon-filter");
+        this.domElements.iconSwitchMode = $(".icon-switchmode");
 
-        indexView.domElements.tableReport = $("#tbl-report");
-        indexView.domElements.pager = $("#report-pager");
+        this.domElements.dropdownProduct = $("#dropdown-product");
+        this.domElements.buttonSubmit = $(".btn-submit");
 
-        indexView.domElements.netTurnoverTip = $("#netturnovertip");
+        this.domElements.tableReport = $("#tbl-report");
+        this.domElements.pager = $("#report-pager");
 
-        indexView.domElements.closeNetTurnoverTooltip = $("#close-netturnover-tooltip");
-    },
-    renderDateRangePicker: function () {
+        this.domElements.netTurnoverTip = $("#netturnovertip");
+
+        this.domElements.closeNetTurnoverTooltip = $("#close-netturnover-tooltip");
+    };
+
+    renderDateRangePicker = () => {
         var dateRangePicker = $("#daterange-picker");
 
         var currentDate = dateRangePicker.data("currentdate");
@@ -122,14 +124,15 @@ var indexView = {
             ]
         });
 
-        indexView.domElements.dateRangePicker = $("#daterange-picker");
-    },
-    renderMonthPicker: function () {
-        var dropdownMonth = indexView.domElements.dropdownMonth;
+        this.domElements.dateRangePicker = $("#daterange-picker");
+    };
+
+    renderMonthPicker = () => {
+        var dropdownMonth = this.domElements.dropdownMonth;
 
         var maxDate = dropdownMonth.data("maxdate");
         dropdownMonth.monPickr({
-            longMonthsInYear: indexView.getLongMonthsInYear(),
+            longMonthsInYear: this.getLongMonthsInYear(),
             maxDate: maxDate === "" ? dropdownMonth.data("currentdate") : maxDate,
             minDate: dropdownMonth.data("mindate"),
             month: new Date(dropdownMonth.data("dateinmonth")),
@@ -149,15 +152,17 @@ var indexView = {
             }
         });
 
-        indexView.domElements.monthPickerContainer.addClass("hide");
-    },
-    getLongMonthsInYear: function () {
+        this.domElements.monthPickerContainer.addClass("hide");
+    };
+
+    getLongMonthsInYear = () => {
         // $.parseJSON: string must start/end with "
-        var longMonthsInYear = $.parseJSON(indexView.domElements.longMonthsInYear.val());
+        var longMonthsInYear = $.parseJSON(this.domElements.longMonthsInYear.val());
         return longMonthsInYear;
-    },
-    renderDropdownProduct: function () {
-        var dropdownProduct = indexView.domElements.dropdownProduct;
+    };
+
+    renderDropdownProduct = () => {
+        var dropdownProduct = this.domElements.dropdownProduct;
         var products = dropdownProduct.data("products");
 
         var product;
@@ -190,43 +195,44 @@ var indexView = {
             },
             language: dropdownProduct.data("language")
         });
-    },
-    registerEvents: function () {
-        indexView.domElements.historicReportSwitch.on("click", function () {
-            indexView.domElements.filter.addClass("historic-report");
-            indexView.domElements.monthPickerContainer.removeClass("hide");
+    };
+
+    registerEvents = () => {
+        this.domElements.historicReportSwitch.on("click", function () {
+            this.domElements.filter.addClass("historic-report");
+            this.domElements.monthPickerContainer.removeClass("hide");
         });
 
-        indexView.domElements.currentReportSwitch.on("click", function () {
-            indexView.domElements.monthPickerContainer.addClass("hide");
-            indexView.domElements.filter.removeClass("historic-report");
+        this.domElements.currentReportSwitch.on("click", function () {
+            this.domElements.monthPickerContainer.addClass("hide");
+            this.domElements.filter.removeClass("historic-report");
         });
 
-        indexView.domElements.iconFilter.on("click", function () {
-            var filter = indexView.domElements.filter;
+        this.domElements.iconFilter.on("click", function () {
+            var filter = this.domElements.filter;
 
             if (filter.is(":hidden")) {
-                indexView.domElements.pageTitle.removeClass("hide-filter");
+                this.domElements.pageTitle.removeClass("hide-filter");
                 filter.slideDown("fast");
             } else {
-                indexView.domElements.pageTitle.addClass("hide-filter");
+                this.domElements.pageTitle.addClass("hide-filter");
                 filter.slideUp("fast");
             }
         });
 
-        indexView.domElements.iconSwitchMode.on("click", function () {
-            var tableReport = indexView.domElements.tableReport;
+        this.domElements.iconSwitchMode.on("click", function () {
+            var tableReport = this.domElements.tableReport;
             var isStackMode = tableReport.hasClass("stack-mode");
 
             if (isStackMode) {
-                indexView.domElements.pageTitle.removeClass("stack-mode");
+                this.domElements.pageTitle.removeClass("stack-mode");
                 tableReport.removeClass("stack-mode");
             } else {
-                indexView.domElements.pageTitle.addClass("stack-mode");
+                this.domElements.pageTitle.addClass("stack-mode");
                 tableReport.addClass("stack-mode");
             }
 
-            if (indexView.isFirstSwitchMode) {
+            if (this.isFirstSwitchMode) {
 
                 if (isStackMode) {
                     alphaReports.splitColumn([
@@ -252,25 +258,26 @@ var indexView = {
                         "text-right visible-stack-mode combinedcolumn", 3);
                 }
 
-                indexView.isFirstSwitchMode = false;
+                this.isFirstSwitchMode = false;
             }
         });
 
         if (alphaReports.screenSmallThan768) {
-            indexView.domElements.buttonSubmit.on("click", function () {
-                indexView.domElements.pageTitle.addClass("hide-filter");
-                indexView.domElements.filter.slideUp("fast");
+            this.domElements.buttonSubmit.on("click", function () {
+                this.domElements.pageTitle.addClass("hide-filter");
+                this.domElements.filter.slideUp("fast");
             });
         }
-    },
-    renderPager: function (options: any) {
-        var pager = indexView.domElements.pager;
+    };
+
+    renderPager = (options: any) => {
+        var pager = this.domElements.pager;
 
         if (options.totalRecords < alphaReports.pageList[0]) {
             // total records less than min page size => do not need to show pager
-            indexView.domElements.pager.addClass("hide");
+            this.domElements.pager.addClass("hide");
         } else {
-            indexView.domElements.pager.pagination({
+            this.domElements.pager.pagination({
                 pageList: alphaReports.pageList,
                 total: options.totalRecords,
                 pageSize: options.pageSize,
@@ -278,49 +285,53 @@ var indexView = {
 
                 showRefresh: false,
                 onSelectPage: function (pageNumber: number, pageSize: number) {
-                    indexView.pageNumber = pageNumber - 1;
-                    indexView.pageSize = pageSize;
+                    this.pageNumber = pageNumber - 1;
+                    this.pageSize = pageSize;
 
-                    indexController.pageReport();
+                    winLossDetailController.pageReport();
                 },
                 beforePageText: pager.data("lablepage"),
                 afterPageText: pager.data("labelof") + " {pages}",
                 displayMsg: pager.data("labeldisplayitems")
             });
 
-            indexView.domElements.pager.removeClass("hide");
+            this.domElements.pager.removeClass("hide");
         }
-    },
-    renderNetTurnoverTooltip: function () {
-        var netTurnoverTooltipShowCount = alphaReports.localStorage.get(indexView.cookieNetTurnoverTooltip) || 0;
+    };
+
+    renderNetTurnoverTooltip = () => {
+        var netTurnoverTooltipShowCount = alphaReports.localStorage.get(this.cookieNetTurnoverTooltip) || 0;
 
         if (netTurnoverTooltipShowCount &&
             netTurnoverTooltipShowCount >= alphaReports.maxTimesToShowTooltip) {
-            indexView.domElements.netTurnoverTip.remove();
+            this.domElements.netTurnoverTip.remove();
         } else {
             var netTurnoverPosition = $(".col-netturnover-header").position();
             var rightPosition = $(".col-netturnover-header").width();
             var marginRight = 20;
 
-            indexView.domElements.netTurnoverTip.css({
+            this.domElements.netTurnoverTip.css({
                 left: netTurnoverPosition.left + (rightPosition > marginRight ? rightPosition - 20 : 0),
                 top: netTurnoverPosition.top - 22
             });
 
-            indexView.domElements.netTurnoverTip.modal({ show: true, backdrop: false });
+            this.domElements.netTurnoverTip.modal({ show: true, backdrop: false });
 
-            indexView.domElements.closeNetTurnoverTooltip.on("click", function () {
-                alphaReports.localStorage.set(indexView.cookieNetTurnoverTooltip, alphaReports.maxTimesToShowTooltip);
-                indexView.closeNetTurnoverTooltip();
+            this.domElements.closeNetTurnoverTooltip.on("click", function () {
+                alphaReports.localStorage.set(this.cookieNetTurnoverTooltip, alphaReports.maxTimesToShowTooltip);
+                this.closeNetTurnoverTooltip();
             });
 
-            alphaReports.localStorage.set(indexView.cookieNetTurnoverTooltip, netTurnoverTooltipShowCount + 1);
+            alphaReports.localStorage.set(this.cookieNetTurnoverTooltip, netTurnoverTooltipShowCount + 1);
             setTimeout(function () {
-                indexView.closeNetTurnoverTooltip();
-            }, indexView.timeToShowNetTurnoverTooltip);
+                this.closeNetTurnoverTooltip();
+            }, this.timeToShowNetTurnoverTooltip);
         }
-    },
-    closeNetTurnoverTooltip: function () {
-        indexView.domElements.netTurnoverTip.modal("hide");
-    }
+    };
+
+    closeNetTurnoverTooltip = () => {
+        this.domElements.netTurnoverTip.modal("hide");
+    };
 };
+
+const winLossDetailView = new WinLossDetailView();

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.ViewModels.MemberWinLossDetail
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
 {
     using System;
     using System.Collections.Generic;

@@ -8,20 +8,20 @@
     using Newtonsoft.Json;
     using Reports.AppResources;
     using Reports.Helpers;
-    using Requests.MemberWinLossDetail;
-    using ViewModels.MemberWinLossDetail;
+    using Requests.WinLossDetail;
+    using ViewModels.WinLossDetail;
 
-    public class MemberWinLossDetailHandler :
-        IRequestHandler<IndexQuery, IndexViewModel>
+    public class WinLossDetailHandler :
+        IRequestHandler<MemberWinLossDetailQuery, IndexViewModel>
     {
         private ProductHandler productHandler;
 
-        public MemberWinLossDetailHandler(ProductHandler productHandler)
+        public WinLossDetailHandler(ProductHandler productHandler)
         {
             this.productHandler = productHandler;
         }
 
-        public IndexViewModel Handle(IndexQuery message)
+        public IndexViewModel Handle(MemberWinLossDetailQuery message)
         {
             var visibleProducts = productHandler.TransformProducts(message.Products);
 

@@ -1,16 +1,16 @@
-﻿namespace Alpha.Reports.Site.Requests.MemberWinLossDetail
+﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
     using System.Collections.Generic;
     using MediatR;
     using Models;
     using Sunplus.Agent.Model.Entities;
-    using ViewModels.MemberWinLossDetail;
+    using ViewModels.WinLossDetail;
 
-    public class IndexQuery : IRequest<IndexViewModel>
+    public class MemberWinLossDetailQuery : IRequest<IndexViewModel>
     {
         private IUserSession userSession;
 
-        public IndexQuery(IEnumerable<Product> products, IUserSession userSession)
+        public MemberWinLossDetailQuery(IEnumerable<Product> products, IUserSession userSession)
         {
             this.userSession = userSession;
             Products = products;
