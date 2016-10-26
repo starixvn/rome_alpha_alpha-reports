@@ -1,57 +1,46 @@
 [
   {
     "id": 1,
-    "name": "Sportsbook",
-    "permission": ""
+    "name": "Sportsbook"
   },
   {
     "id": 2,
-    "name": "Racing",
-    "permission": "IsShowProduct"
+    "name": "Racing"
   },
   {
     "id": 3,
-    "name": "Number Game",
-    "permission": "IsShowProduct"
+    "name": "Number Game"
   },
   {
     "id": 4,
-    "name": "Live Casino",
-    "permission": "IsShowProduct"
+    "name": "Live Casino"
   },
   {
     "id": 5,
-    "name": "Virtual Sports",
-    "permission": "IsShowProduct"
+    "name": "Virtual Sports"
   },
   {
     "id": 6,
-    "name": "RNG Casino",
-    "permission": "IsShowProduct"
+    "name": "RNG Casino"
   },
   {
     "id": 8,
-    "name": "Keno",
-    "permission": "IsShowProduct"
+    "name": "Keno"
   },
   {
     "id": 12,
-    "name": "Gold Deluxe",
-    "permission": "IsShowProduct"
+    "name": "Gold Deluxe"
   },
   {
     "id": 15,
-    "name": "Colossus Bets",
-    "permission": "IsShowProduct"
+    "name": "Colossus Bets"
   },
   {
     "id": 21,
-    "name": "Allbet",
-    "permission": "EnableAndSyncedPermission"
+    "name": "Allbet"
   },
   {
     "id": 22,
-    "name": "Macau Games",
-    "permission": "EnableAndSyncedPermission"
+    "name": "Macau Games"
   }
 ]
