@@ -6,7 +6,7 @@
     using System.Web;
     using System.Web.Mvc;
 
-    public class WinLossDetailController : Controller
+    public class WinLossDetailController : BaseController
     {
         // GET: WinLossDetail
         public ActionResult Master()
