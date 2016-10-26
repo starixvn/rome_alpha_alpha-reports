@@ -1,9 +1,11 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using MediatR;
     using Newtonsoft.Json;
+    using Reports.AppResources;
     using Reports.Helpers;
     using Requests.MemberWinLossDetail;
     using ViewModels.MemberWinLossDetail;
@@ -22,6 +24,12 @@
         {
             var visibleProducts = productHandler.VisibleProducts(message.Products);
 
+            var netTurnoverTooltips = new List<string>();
+            if (visibleProducts.Where(product => product.Id == 21) != null)
+            {
+                netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
+            }
+
             return new IndexViewModel
             {
                 MinDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now.AddMonths(-2)),
@@ -35,9 +43,7 @@
                 HasData = true,
                 Language = message.Language,
 
-                NetTurnoverToolTips = visibleProducts
-                    .Where(product => !string.IsNullOrEmpty(product.NetTurnoverTooltip))
-                    .Select(product => product.NetTurnoverTooltip)
+                NetTurnoverToolTips = netTurnoverTooltips
             };
         }
     }

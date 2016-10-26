@@ -10,6 +10,31 @@
     @ReportsStyles.Render("~/assets/bundles/default")
 }
 
+<div class="modal fade message-modal" id="netturnovertip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="msg-content">
+                    <ul>
+                        <li>
+                            @Resources.Tooltip_NetTurnover
+                        </li>
+                        @foreach (var netTurnoverTooltip in Model.NetTurnoverToolTips)
+                        {
+                            <li>
+                                @netTurnoverTooltip
+                            </li>
+                        }
+                        <li>
+                            <input id="close-netturnover-tooltip" type="checkbox" />
+                            <label for="close-netturnover-tooltip">@Resources.DoNotShowAgain</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="page-title">
     <span class="pull-left">@Resources.MemberWinLossDetail</span>
     <div class="list-icon">

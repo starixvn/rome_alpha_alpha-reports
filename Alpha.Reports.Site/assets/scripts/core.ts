@@ -1,4 +1,6 @@
 ﻿"use strict";
+declare var store: any;
+
 var alphaReports = {
     format: {
         monthFormat: "MMMM - yyyy",
@@ -9,6 +11,7 @@ var alphaReports = {
     },
     numberDisplayedProductsOnFilter: 1,
     pageList: [10, 50, 100, 500],
+    maxTimesToShowTooltip: 5,
     screenSmallThan768: function () {
         var currentWindowWidth = window.screen.width;
 
@@ -64,5 +67,36 @@ var alphaReports = {
 
             $($(combinedColumn)[index]).before(oldColumns);
         });
+    },
+
+    localStorage: {
+        get: (key: string) => {
+            return store.enabled ? store.get(key) : $.cookie(key);
+        },
+
+        set: (key: string, value: any) => {
+            store.enabled ? store.set(key, value) : $.cookie(key, value, this.getCookieExpireOptions());
+        },
+
+        getCookieExpireOptions: () => {
+            var cookieExpire: any = { expires: 365, path: window.location.pathname };
+
+            if (alphaReports.isIe()) {
+                cookieExpire = { expires: 365 };
+            }
+
+            return cookieExpire;
+        }
+    },
+    isIe: function () {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+            // If Internet Explorer, return version number
+            return true;
+        }
+
+        return false;
     }
 };

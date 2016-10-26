@@ -5,13 +5,11 @@
         public Product(            
             int id,
             string name,
-            string permission,
-            bool hasNetTurnoverToolTip)
+            string permission)
         {            
             Id = id;
             Name = name;
             Permission = permission;
-            HasNetTurnoverToolTip = hasNetTurnoverToolTip;
         }        
 
         public int Id { get; }
@@ -19,7 +17,5 @@
         public string Name { get; }
 
         public string Permission { get; }
-
-        public bool HasNetTurnoverToolTip { get; }
     }
 }

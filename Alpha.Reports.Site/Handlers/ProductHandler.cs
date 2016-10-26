@@ -35,10 +35,7 @@
             foreach (var product in visibleProducts)
             {
                 var productDisplayText = remotingRef.GetProductName(product.Id);
-                var netTurnoverTooltip = product.HasNetTurnoverToolTip
-                    ? Resources.ResourceManager.GetString("Tooltip_NetTurnover_" + product.Id)
-                    : string.Empty;
-                products.Add(new ProductViewModel(product.Id, productDisplayText, netTurnoverTooltip));
+                products.Add(new ProductViewModel(product.Id, productDisplayText));
             }
 
             return products;

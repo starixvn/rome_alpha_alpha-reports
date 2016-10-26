@@ -59,7 +59,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Data.Repository, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Data.Repository.1.0.0\lib\net452\Fanex.Data.Repository.dll</HintPath>
+      <HintPath>..\packages\Fanex.Data.Repository.1.0.0\lib\net461\Fanex.Data.Repository.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
