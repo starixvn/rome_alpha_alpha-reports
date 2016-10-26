@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Constants;
     using MediatR;
     using Newtonsoft.Json;
     using Reports.AppResources;
@@ -25,7 +26,7 @@
             var visibleProducts = productHandler.VisibleProducts(message.Products);
 
             var netTurnoverTooltips = new List<string>();
-            if (visibleProducts.Where(product => product.Id == 21) != null)
+            if (visibleProducts.Where(product => product.Id == ProductId.AllBet) != null)
             {
                 netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
             }

@@ -8,10 +8,5 @@
         {
             return View();
         }
-
-        public ActionResult MasterWinLossDetail()
-        {
-            return View();
-        }
     }
 }

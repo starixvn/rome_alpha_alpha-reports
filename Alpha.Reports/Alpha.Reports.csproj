@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
+    <Compile Include="Constants\ProductId.cs" />
     <Compile Include="Constants\ShortLanguageCode.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
     <Compile Include="Criteria\GetProductByCustomerCriteria.cs" />

@@ -1,0 +1,84 @@
+----------------------------------------
+Timestamp: 10/26/2016 3:30:35 AM
+
+Message: Alpha - View Logs - Application Start
+
+Category: $CategoryValue
+
+Priority: -1
+
+EventId: 0
+
+Severity: Information
+
+Title:$CategoryValue
+
+Machine: CP010-LOUIS
+
+App Domain: /LM/W3SVC/2/ROOT/site-reports-20-131219262312309607
+
+ProcessId: 19580
+
+Process Name: c:\windows\system32\inetsrv\w3wp.exe
+
+Thread Name: 
+
+Win32 ThreadId:35248
+
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 10/26/2016 3:30:47 AM
+
+Message: 
+
+_shutDownMessage=Change Notification for critical directories.
+bin dir change or directory rename
+HostingEnvironment initiated shutdown
+Change Notification for critical directories.
+bin dir change or directory rename
+HostingEnvironment caused shutdown
+Change Notification for critical directories.
+bin dir change or directory rename
+Change Notification for critical directories.
+bin dir change or directory rename
+
+_shutDownStack=   at System.Environment.GetStackTrace(Exception e, Boolean needFileInfo)
+   at System.Environment.get_StackTrace()
+   at System.Web.Hosting.HostingEnvironment.InitiateShutdownInternal()
+   at System.Web.Hosting.HostingEnvironment.InitiateShutdownWithoutDemand()
+   at System.Web.HttpRuntime.ShutdownAppDomain(String stackTrace)
+   at System.Web.HttpRuntime.OnCriticalDirectoryChange(Object sender, FileChangeEvent e)
+   at System.Web.FileChangesMonitor.OnCriticaldirChange(Object sender, FileChangeEvent e)
+   at System.Web.DirectoryMonitor.FireNotifications()
+   at System.Web.Util.WorkItem.CallCallbackWithAssert(WorkItemCallback callback)
+   at System.Web.Util.WorkItem.OnQueueUserWorkItemCompletion(Object state)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem()
+   at System.Threading.ThreadPoolWorkQueue.Dispatch()
+
+Category: $CategoryValue
+
+Priority: -1
+
+EventId: 0
+
+Severity: Information
+
+Title:$CategoryValue
+
+Machine: CP010-LOUIS
+
+App Domain: /LM/W3SVC/2/ROOT/site-reports-20-131219262312309607
+
+ProcessId: 19580
+
+Process Name: c:\windows\system32\inetsrv\w3wp.exe
+
+Thread Name: 
+
+Win32 ThreadId:29132
+
+Extended Properties: 
+----------------------------------------
