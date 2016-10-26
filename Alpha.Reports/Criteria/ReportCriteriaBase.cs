@@ -37,5 +37,7 @@
                 && FromDate <= ToDate 
                 && PageIndex >= 0;
         }
+
+        public bool IsNotValid() => !IsValid();
     }
 }

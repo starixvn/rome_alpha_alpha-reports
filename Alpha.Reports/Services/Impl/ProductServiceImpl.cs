@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Criteria;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models;
     using Params;
@@ -33,12 +34,19 @@
 
         public List<Product> GetProductsByCustomer(GetProductByCustomerCriteria criteria)
         {
-            if (!criteria.IsValid())
-            {
-                return Enumerable.Empty<Product>().ToList();
-            }
+            var productList = CacheService
+                .GetOrSet(
+                $"Alpha.Reports.Services.Impl.ProdoctsOf{criteria.CustId}",
+                () =>
+                {
+                    if (criteria == null || !criteria.IsNotValid())
+                    {
+                        return Enumerable.Empty<Product>().ToList();
+                    }
 
-            var productList = repository.Get<List<Product>>(criteria);
+                    return repository.Get<List<Product>>(criteria);
+                },
+                new CacheItemOptions().SetSlidingExpiration(TimeSpan.FromMinutes(5)));
 
             return productList;
         }

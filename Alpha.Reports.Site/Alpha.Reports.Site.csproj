@@ -206,6 +206,7 @@
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\MemberWinLossDetailController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -357,6 +358,7 @@
     <Folder Include="CodeAnalysis\" />
     <Folder Include="Views\AgentWinLossDetail\" />
     <Folder Include="Views\MasterWinLossDetail\" />
+    <Folder Include="Views\WinLossDetail\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">
