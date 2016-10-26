@@ -5,6 +5,7 @@
     using System.Web.Mvc;
     using Fanex.Data.Repository;
     using MediatR;
+    using RemotingRef;
     using Reports.Services;
     using Reports.Services.Impl;
     using Reports.Site.Controllers;
@@ -66,9 +67,9 @@
         private static void RegisterServices(Container container)
         {
             container.Register<IUserSession, UserSessionExt>(Lifestyle.Scoped);
+            container.Register<CacheRefService, CacheRefServiceImpl>(Lifestyle.Transient);
 
             container.Register<ReportDateService, ReportDateServiceImpl>(Lifestyle.Transient);
-            container.Register<RemotingRefWrapper, RemotingRefWrapperImpl>(Lifestyle.Transient);
             container.Register<ProductService, ProductServiceImpl>(Lifestyle.Transient);
         }
 

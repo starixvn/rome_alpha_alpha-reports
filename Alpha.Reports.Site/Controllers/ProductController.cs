@@ -1,9 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
-    using System.Collections.Generic;
+    using System.Web.Mvc;
     using MediatR;
     using Requests;
-    using ViewModels;
 
     public class ProductController : BaseController
     {
@@ -14,11 +13,11 @@
             this.mediator = mediator;
         }
 
-        public IEnumerable<ProductViewModel> GetAllProducts(GetAllProductsQuery message)
+        public JsonResult GetAllProducts(GetAllProductsQuery message)
         {
             var products = mediator.Send(message);
 
-            return products;
+            return Json(products, JsonRequestBehavior.AllowGet);
         }
     }
 }

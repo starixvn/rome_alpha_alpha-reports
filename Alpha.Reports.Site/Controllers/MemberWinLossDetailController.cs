@@ -1,7 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using MediatR;
+    using Models;
     using Params;
     using Requests.MemberWinLossDetail;
     using Services;
@@ -25,9 +27,15 @@
 
         public ActionResult Index()
         {
-            var visibleProducts = productService.GetProductsByCustomer(new GetProductByCustomerParam(userSession.CustId));
+            // var products = productService.GetProductsByCustomer(new GetProductByCustomerParam(userSession.CustId));
+            var products = new List<Product>
+            {
+                new Product(1, "SB", string.Empty),
+                new Product(2, "SB", string.Empty),
+                new Product(3, "SB", string.Empty)
+            };
 
-            var message = new IndexQuery(visibleProducts, userSession);
+            var message = new IndexQuery(products, userSession);
             var viewModel = mediator.Send(message);
 
             return View(viewModel);

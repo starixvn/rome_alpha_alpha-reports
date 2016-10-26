@@ -6,6 +6,10 @@
 
     public class GetAllProductsQuery : IRequest<IEnumerable<ProductViewModel>>
     {
+        public GetAllProductsQuery() : this(0)
+        {
+        }
+
         public GetAllProductsQuery(int custId)
         {
             CustId = custId;
