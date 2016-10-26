@@ -2,21 +2,21 @@
 {
     public class Product
     {
-        public Product(
-            string name,
+        public Product(            
             int id,
+            string name,
             string permission,
             bool hasNetTurnoverToolTip)
-        {
-            Name = name;
+        {            
             Id = id;
+            Name = name;
             Permission = permission;
             HasNetTurnoverToolTip = hasNetTurnoverToolTip;
-        }
-
-        public string Name { get; }
+        }        
 
         public int Id { get; }
+
+        public string Name { get; }
 
         public string Permission { get; }
 
