@@ -18,8 +18,10 @@
             this.repository = repository;
         }
 
-        public List<Product> GetProductsByCustomer(GetProductByCustomerCriteria criteria)
+        public List<Product> GetProductsByCustomer(GetProductByCustomerParam param)
         {
+            var criteria = new GetProductByCustomerCriteria(param.CustId);
+
             var productList = CacheService
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProdoctsOf{criteria.CustId}",

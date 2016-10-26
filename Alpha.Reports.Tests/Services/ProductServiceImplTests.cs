@@ -6,6 +6,7 @@
     using Fanex.Data.Repository;
     using NSubstitute;
     using NUnit.Framework;
+    using Params;
     using Ploeh.AutoFixture;
     using Reports.Services.Impl;
 
@@ -19,11 +20,11 @@
         public void GetProductByCustomer_CusIdIsEqualOrLessThanZero_ReturnEmptyListProduct(int custId)
         {
             // Arrange            
-            var criteria = new GetProductByCustomerCriteria(custId);
+            var param = new GetProductByCustomerParam(custId);
             var service = new ProductServiceImpl(repository);
 
             // Act
-            var productList = service.GetProductsByCustomer(criteria);
+            var productList = service.GetProductsByCustomer(param);
 
             // Assert
             CollectionAssert.IsEmpty(productList);
@@ -33,16 +34,16 @@
         public void GetProductByCustomer_CusIdIsGreaterThanZero_ReturnDataGetFromRepository()
         {
             // Arrange                                   
-            var criteria = new GetProductByCustomerCriteria(90);
+            var param = new GetProductByCustomerParam(90);
             var expected = (new Fixture()).Create<List<Product>>();
             repository = Substitute.For<IDynamicRepository>();
             repository
-                .Get<List<Product>>(criteria)
+                .Get<List<Product>>(param)
                 .Returns(expected);
             var service = new ProductServiceImpl(repository);
 
             // Act
-            var actual = service.GetProductsByCustomer(criteria);
+            var actual = service.GetProductsByCustomer(param);
 
             // Assert
             CollectionAssert.AreEqual(expected, actual);

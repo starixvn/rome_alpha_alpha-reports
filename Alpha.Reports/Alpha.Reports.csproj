@@ -119,6 +119,7 @@
     <Compile Include="Models\WinlossDetail\MasterWinLoss.cs" />
     <Compile Include="Models\WinlossDetail\MemberWinloss.cs" />
     <Compile Include="Models\WinlossDetail\WinLossDetailReport.cs" />
+    <Compile Include="Params\GetProductByCustomerParam.cs" />
     <Compile Include="Params\ProductParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Impl\ProductServiceImpl.cs" />

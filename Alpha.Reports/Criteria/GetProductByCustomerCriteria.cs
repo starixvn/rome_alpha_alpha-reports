@@ -16,6 +16,6 @@
 
         public override bool IsValid() => CustId > 0;
 
-        public bool IsNotValid() => !IsValid();        
+        public bool IsNotValid() => !IsValid();
     }
 }

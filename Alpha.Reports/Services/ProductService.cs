@@ -1,11 +1,11 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System.Collections.Generic;
-    using Criteria;
     using Models;
+    using Params;
 
     public interface ProductService
     {
-        List<Product> GetProductsByCustomer(GetProductByCustomerCriteria criteria);
+        List<Product> GetProductsByCustomer(GetProductByCustomerParam param);
     }
 }
