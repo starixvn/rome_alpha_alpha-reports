@@ -1,10 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
     using System.Web.Mvc;
-    using App_Start;
-    using Configurations;
+    using Criteria;
     using MediatR;
-    using Params;
     using Requests.MemberWinLossDetail;
     using Services;
     using Sunplus.Agent.Model.Entities;
@@ -27,7 +25,7 @@
 
         public ActionResult Index()
         {
-            var visibleProducts = productService.GetVisibleProducts(new GetVisibleProductsParam(AppSettings.Products, FunctionRegistry.ProductPermissions));
+            var visibleProducts = productService.GetProductsByCustomer(new GetProductByCustomerCriteria(userSession.CustId));
 
             var message = new IndexQuery(visibleProducts, userSession);
             var viewModel = mediator.Send(message);

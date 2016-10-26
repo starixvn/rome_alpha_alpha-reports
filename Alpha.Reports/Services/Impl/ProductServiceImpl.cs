@@ -18,20 +18,6 @@
             this.repository = repository;
         }
 
-        public IEnumerable<Product> GetVisibleProducts(GetVisibleProductsParam param)
-        {
-            var products = new List<Product>();
-            foreach (var product in param.ProductSetting)
-            {
-                if (param.ProductPermissions[product.Permission](product.Id))
-                {
-                    products.Add(product);
-                }
-            }
-
-            return products;
-        }
-
         public List<Product> GetProductsByCustomer(GetProductByCustomerCriteria criteria)
         {
             var productList = CacheService

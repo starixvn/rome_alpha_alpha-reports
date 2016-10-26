@@ -23,7 +23,7 @@
 
         public IndexViewModel Handle(IndexQuery message)
         {
-            var visibleProducts = productHandler.VisibleProducts(message.Products);
+            var visibleProducts = productHandler.TransformProducts(message.Products);
 
             var netTurnoverTooltips = new List<string>();
             if (visibleProducts.Where(product => product.Id == ProductId.AllBet) != null)

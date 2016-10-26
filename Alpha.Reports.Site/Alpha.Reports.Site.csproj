@@ -230,8 +230,8 @@
     <Compile Include="Helpers\Impl\StaticResources\ReportsStyles.cs" />
     <Compile Include="Helpers\MicroSites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\GetAllProductsQuery.cs" />
     <Compile Include="Requests\MemberWinLossDetail\IndexQuery.cs" />
-    <Compile Include="Requests\VisibleProductsQuery.cs" />
     <Compile Include="ViewModels\MemberWinLossDetail\IndexViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>

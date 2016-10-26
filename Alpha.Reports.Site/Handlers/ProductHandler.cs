@@ -1,16 +1,15 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
     using System.Collections.Generic;
+    using Criteria;
     using MediatR;
     using Models;
-    using Params;
-    using Reports.AppResources;
     using Requests;
     using Services;
     using ViewModels;
 
     public class ProductHandler :
-          IRequestHandler<VisibleProductsQuery, IEnumerable<ProductViewModel>>
+          IRequestHandler<GetAllProductsQuery, IEnumerable<ProductViewModel>>
     {
         private RemotingRefWrapper remotingRef;
         private ProductService productService;
@@ -21,24 +20,24 @@
             this.productService = productService;
         }
 
-        public IEnumerable<ProductViewModel> Handle(VisibleProductsQuery message)
+        public IEnumerable<ProductViewModel> Handle(GetAllProductsQuery message)
         {
-            var visibleProductSetting = productService.GetVisibleProducts(new GetVisibleProductsParam(message.ProductSetting, message.ProductPermissions));
+            var products = productService.GetProductsByCustomer(new GetProductByCustomerCriteria(message.CustId));
 
-            return VisibleProducts(visibleProductSetting);
+            return TransformProducts(products);
         }
 
-        public IEnumerable<ProductViewModel> VisibleProducts(IEnumerable<Product> visibleProducts)
+        public IEnumerable<ProductViewModel> TransformProducts(IEnumerable<Product> products)
         {
-            var products = new List<ProductViewModel>();
+            var productViewModels = new List<ProductViewModel>();
 
-            foreach (var product in visibleProducts)
+            foreach (var product in products)
             {
                 var productDisplayText = remotingRef.GetProductName(product.Id);
-                products.Add(new ProductViewModel(product.Id, productDisplayText));
+                productViewModels.Add(new ProductViewModel(product.Id, productDisplayText));
             }
 
-            return products;
+            return productViewModels;
         }
     }
 }
