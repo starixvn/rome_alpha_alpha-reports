@@ -30,12 +30,12 @@
 
         public ActionResult Member()
         {
-            var products = new List<Product>
-            {
-                new Product(1, "SB", string.Empty),
-                new Product(2, "SB", string.Empty),
-                new Product(3, "SB", string.Empty)
-            };
+            var products = new List<Product>();
+            //{
+            //    new Product(1, "SB", string.Empty),
+            //    new Product(2, "SB", string.Empty),
+            //    new Product(3, "SB", string.Empty)
+            //};
 
             var message = new MemberWinLossDetailQuery(products, userSession);
             var viewModel = mediator.Send(message);

@@ -28,7 +28,7 @@ class WinLossDetailView {
 
     pageNumber = 0;
     pageSize = 0;
-    timeToShowNetTurnoverTooltip = 10000;
+    timeToShowNetTurnoverTooltip = 1000000;
     cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
 
     init = () => {
@@ -44,7 +44,7 @@ class WinLossDetailView {
         this.renderNetTurnoverTooltip();
 
         this.domElements.tableReport.stickyTableHeaders({
-            fixedOffset: this.domElements.filter
+            fixedOffset: this.domElements.pageTitle
         });
 
         this.registerEvents();
@@ -198,41 +198,43 @@ class WinLossDetailView {
     };
 
     registerEvents = () => {
+        var $this = this; 
+
         this.domElements.historicReportSwitch.on("click", function () {
-            this.domElements.filter.addClass("historic-report");
-            this.domElements.monthPickerContainer.removeClass("hide");
+            $this.domElements.filter.addClass("historic-report");
+            $this.domElements.monthPickerContainer.removeClass("hide");
         });
 
         this.domElements.currentReportSwitch.on("click", function () {
-            this.domElements.monthPickerContainer.addClass("hide");
-            this.domElements.filter.removeClass("historic-report");
+            $this.domElements.monthPickerContainer.addClass("hide");
+            $this.domElements.filter.removeClass("historic-report");
         });
 
         this.domElements.iconFilter.on("click", function () {
-            var filter = this.domElements.filter;
+            var filter = $this.domElements.filter;
 
             if (filter.is(":hidden")) {
-                this.domElements.pageTitle.removeClass("hide-filter");
+                $this.domElements.pageTitle.removeClass("hide-filter");
                 filter.slideDown("fast");
             } else {
-                this.domElements.pageTitle.addClass("hide-filter");
+                $this.domElements.pageTitle.addClass("hide-filter");
                 filter.slideUp("fast");
             }
         });
 
         this.domElements.iconSwitchMode.on("click", function () {
-            var tableReport = this.domElements.tableReport;
+            var tableReport = $this.domElements.tableReport;
             var isStackMode = tableReport.hasClass("stack-mode");
 
             if (isStackMode) {
-                this.domElements.pageTitle.removeClass("stack-mode");
+                $this.domElements.pageTitle.removeClass("stack-mode");
                 tableReport.removeClass("stack-mode");
             } else {
-                this.domElements.pageTitle.addClass("stack-mode");
+                $this.domElements.pageTitle.addClass("stack-mode");
                 tableReport.addClass("stack-mode");
             }
 
-            if (this.isFirstSwitchMode) {
+            if ($this.isFirstSwitchMode) {
 
                 if (isStackMode) {
                     alphaReports.splitColumn([
@@ -258,14 +260,14 @@ class WinLossDetailView {
                         "text-right visible-stack-mode combinedcolumn", 3);
                 }
 
-                this.isFirstSwitchMode = false;
+                $this.isFirstSwitchMode = false;
             }
         });
 
         if (alphaReports.screenSmallThan768) {
             this.domElements.buttonSubmit.on("click", function () {
-                this.domElements.pageTitle.addClass("hide-filter");
-                this.domElements.filter.slideUp("fast");
+                $this.domElements.pageTitle.addClass("hide-filter");
+                $this.domElements.filter.slideUp("fast");
             });
         }
     };

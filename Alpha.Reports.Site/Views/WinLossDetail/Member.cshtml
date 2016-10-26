@@ -126,7 +126,7 @@
     @if (Model.HasData)
     {
         <tbody>
-            @for (var i = 0; i < 30; i++)
+            @for (var i = 0; i < 50; i++)
             {
                 <tr>
                     <td class=""><span class="downline-link">DAM80</span></td>
@@ -177,5 +177,5 @@
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
 @section Scripts {
     @AssetScripts.Render("/bundles/site-reports/default")
-    @ReportsScripts.Render("~/assets/bundles/memberwinlossdetail/index")
+    @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
 }

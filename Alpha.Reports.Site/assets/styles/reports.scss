@@ -171,6 +171,19 @@ a {
     @include ripple-effect-icon($margin-left: 2px, $height: 36px, $width: 36px, $top: -2px);
 }
 
+// netturnover tooltip
+#netturnovertip {
+    overflow: hidden;
+    width: 815px;
+    height: 125px;
+
+    .modal-dialog {
+        width: 815px;
+        margin: 0 auto;
+    }
+
+}
+
 // For mobile
 @media only screen and (max-device-width : $conent-device-lower768) {
     body {
