@@ -28,7 +28,7 @@ class WinLossDetailView {
 
     pageNumber = 0;
     pageSize = 0;
-    timeToShowNetTurnoverTooltip = 1000000;
+    timeToShowNetTurnoverTooltip = 10000;
     cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
 
     init = () => {
@@ -43,9 +43,7 @@ class WinLossDetailView {
         });
         this.renderNetTurnoverTooltip();
 
-        this.domElements.tableReport.stickyTableHeaders({
-            fixedOffset: this.domElements.pageTitle
-        });
+        this.domElements.tableReport.stickyTableHeaders();
 
         this.registerEvents();
     };

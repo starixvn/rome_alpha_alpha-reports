@@ -15,7 +15,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div id="msg-content">
-                    <ul>
+                    <ul class="list-msg">
                         <li>
                             @Resources.Tooltip_NetTurnover
                         </li>
@@ -25,9 +25,8 @@
                                 @netTurnoverTooltip
                             </li>
                         }
-                        <li>
-                            <input id="close-netturnover-tooltip" type="checkbox" />
-                            <label for="close-netturnover-tooltip">@Resources.DoNotShowAgain</label>
+                        <li>                            
+                            <label for="close-netturnover-tooltip"><input id="close-netturnover-tooltip" type="checkbox" /> @Resources.DoNotShowAgain</label>
                         </li>
                     </ul>
                 </div>
@@ -88,7 +87,7 @@
                 multiple="multiple"></select>
     </div>
     <div class="form-group">
-        <input type="button" value="@Resources.Submit" class="btn btn-submit" />
+        <input type="button" value="@Resources.Submit" class="btn-submit" />
     </div>
     <div class="form-group">
         <span class="icon-excel"></span>

@@ -63,6 +63,8 @@ a {
                 font-size: 16px;
                 padding: 0 10px;
                 vertical-align: middle;
+                position: relative;
+                top: -2px;
             }
 
             .icon-filter {
@@ -175,13 +177,25 @@ a {
 #netturnovertip {
     overflow: hidden;
     width: 815px;
-    height: 125px;
+    height: 112px;
 
     .modal-dialog {
         width: 815px;
         margin: 0 auto;
-    }
 
+        #msg-content {
+            padding: 12px 0;
+        }
+
+        .list-msg {
+            line-height: 28px;
+        }
+    }
+}
+
+// Modals
+.modal-open {
+    overflow: auto;
 }
 
 // For mobile
@@ -199,9 +213,35 @@ a {
     }
 
     .filter {
-        select, input[type='text'], [class^='btn'], .input-group.date .form-control {
+        padding-left: 6px;
+        padding-right: 6px;
+
+        select, input[type='text'], [class^='btn-submit'], .input-group.date .form-control {
             height: 36px;
             @include box-shadow-multiple('0px 1px 3px rgba(0, 0, 0, 0.3)');
+        }
+
+        .nexDatePicker {
+            .input-group.date {
+                width: 128px;
+            }
+
+            .ui_nexdatepicker_lbl_field {
+                padding: 8px 6px 8px 0px;
+            }
+        } 
+        
+        .btn-group button.multiselect {
+            height: 36px;
+            line-height: 26px;
+
+            .caret {
+                top: 16px;
+            }
+        }    
+
+        .icon-excel {
+            font-size: 22px;
         }
     }
 }
