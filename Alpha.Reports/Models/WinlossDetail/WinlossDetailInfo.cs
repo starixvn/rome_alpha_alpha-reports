@@ -2,11 +2,11 @@
 {
     public class WinlossDetailInfo
     {
-        public string Username { get; set; }
-
         public int CustId { get; set; }
 
-        public int TicketCount { get; set; }
+        public string CustName { get; set; }        
+
+        public int NumberOfTickets { get; set; }
 
         public decimal Turnover { get; set; }
 
