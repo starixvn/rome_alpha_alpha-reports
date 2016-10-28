@@ -25,7 +25,7 @@
         private readonly WinLossDetailService winLossDetailService;
         private readonly IDateTime dateTimeWrapper;
 
-        public WinLossDetailHandler(ProductService productService,            
+        public WinLossDetailHandler(ProductService productService,
             ReportDateService reportDateService,
             WinLossDetailService winLossDetailService,
             IDateTime dateTimeWrapper)
@@ -38,7 +38,7 @@
 
         public MemberWinLossDetailViewModel Handle(MemberWinLossDetailQuery message)
         {
-            var products = productService.GetProductsForCustomer(message.CustId, message.Products);               
+            var products = productService.GetProductsForCustomer(message.CustId, message.Products);
 
 
             var param = CreateWinLossDetailParam(message, products);

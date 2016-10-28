@@ -2,7 +2,7 @@
 {
     public class ReportBaseQuery
     {
-        public string CustId { get; set; }
+        public int CustId { get; set; }
 
         public string PageIndex { get; set; }
 
