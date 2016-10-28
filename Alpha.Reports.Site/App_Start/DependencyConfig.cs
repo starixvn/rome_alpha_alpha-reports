@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
+    using Antlr.Runtime.Misc;
     using Fanex.Data.Repository;
     using MediatR;
     using RemotingRef;
@@ -18,6 +19,7 @@
     using SimpleInjector.Integration.Web.Mvc;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
+    using Sunplus.Agent.Model.Entities.Permission;
 
     public static class DependencyConfig
     {
@@ -73,7 +75,6 @@
         {
             container.Register<IUserSession, UserSessionExt>(Lifestyle.Scoped);
             container.Register<CacheRefService, CacheRefServiceImpl>(Lifestyle.Transient);
-
             container.Register<ReportDateService, ReportDateServiceImpl>(Lifestyle.Transient);
             container.Register<ProductService, ProductServiceImpl>(Lifestyle.Transient);
             container.Register<WinLossDetailService, WinLossDetailServiceImpl>(Lifestyle.Transient);
