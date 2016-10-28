@@ -260,4 +260,7 @@
   <data name="DoNotShowAgain" xml:space="preserve">
     <value>ไม่ต้องแสดงอีกครั้ง</value>
   </data>
+  <data name="NoInformationIsAvailable" xml:space="preserve">
+    <value>ไม่มีข้อมูล</value>
+  </data>
 </root>

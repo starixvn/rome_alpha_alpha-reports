@@ -6,6 +6,10 @@
     using Fanex.Data.Repository;
     using MediatR;
     using RemotingRef;
+    using Reports.DataAccess;
+    using Reports.DataAccess.Impl;
+    using Reports.Helpers;
+    using Reports.Helpers.Impl;
     using Reports.Services;
     using Reports.Services.Impl;
     using Reports.Site.Controllers;
@@ -62,6 +66,7 @@
 
         private static void RegisterCrossCuttingConcerns(Container container)
         {
+            container.Register<IDateTime, DateTimeWrapper>(Lifestyle.Transient);
         }
 
         private static void RegisterServices(Container container)
@@ -71,11 +76,13 @@
 
             container.Register<ReportDateService, ReportDateServiceImpl>(Lifestyle.Transient);
             container.Register<ProductService, ProductServiceImpl>(Lifestyle.Transient);
+            container.Register<WinLossDetailService, WinLossDetailServiceImpl>(Lifestyle.Transient);
         }
 
         private static void RegisterDataAccesses(Container container)
         {
             container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Transient);
+            container.Register<ReportDateAccess, ReportDateAccessImpl>(Lifestyle.Transient);
         }
     }
 }

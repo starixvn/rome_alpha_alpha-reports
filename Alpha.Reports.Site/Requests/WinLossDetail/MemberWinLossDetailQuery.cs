@@ -3,21 +3,22 @@
     using System.Collections.Generic;
     using MediatR;
     using Models;
-    using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLossDetail;
 
-    public class MemberWinLossDetailQuery : IRequest<IndexViewModel>
+    public class MemberWinLossDetailQuery : ReportBaseQuery, IRequest<IndexViewModel>
     {
-        private IUserSession userSession;
+        public IEnumerable<Product> Products { get; set; }
 
-        public MemberWinLossDetailQuery(IEnumerable<Product> products, IUserSession userSession)
-        {
-            this.userSession = userSession;
-            Products = products;
-        }
+        public string Language { get; set; }
 
-        public IEnumerable<Product> Products { get; }
+        public string SelectedProducts { get; set; }
 
-        public string Language => userSession.Language;
+        public string SortedColumn { get; set; }
+
+        public string SortDirection { get; set; }
+
+        public bool IsStackMode { get; set; }
+
+        public bool IsHistoricReport { get; set; }
     }
 }

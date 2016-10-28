@@ -2,10 +2,11 @@
 <Functions>
   <Function Name="Base Functions">
     <Setting Key="Age_SelBalanceUpDay" SpName="Age_SelBalanceUpDay" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_GetTimeRange" SpName="Age_Rpt_GetTimeRange" DbName="DBAGE.bodb_AGE.BODBDownlineNet" />
   </Function>
 
   <Function Name="Win Loss Detail">
-    <Setting Key="Age_Rpt_WinLossDetail_SAg" SpName="Age_Rpt_WinLossDetail_SAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+    <Setting Key="Age_Rpt_WinLossDetail_Master" SpName="Age_Rpt_WinLossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="username" ObjectProperty="Username" />
       <Mapping DataField="custid" ObjectProperty="Custid" />
       <Mapping DataField="noofticket" ObjectProperty="TicketCount" />
@@ -26,7 +27,7 @@
       <Mapping DataField="sagtotal" ObjectProperty="SuperTotal" />
       <Mapping DataField="company" ObjectProperty="Company" />
     </Setting>
-    <Setting Key="Age_Rpt_WinLossDetail_MAg" SpName="Age_Rpt_WinLossDetail_MAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+    <Setting Key="Age_Rpt_WinLossDetail_Agent" SpName="Age_Rpt_WinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="username" ObjectProperty="Username" />
       <Mapping DataField="custid" ObjectProperty="Custid" />
       <Mapping DataField="noofticket" ObjectProperty="TicketCount" />
@@ -44,7 +45,7 @@
       <Mapping DataField="magtotal" ObjectProperty="MasterTotal" />
       <Mapping DataField="company" ObjectProperty="Company" />
     </Setting>
-    <Setting Key="Age_Rpt_WinLossDetail_MAg_New" SpName="Age_Rpt_WinLossDetail_MAg_New" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+    <Setting Key="Age_Rpt_WinLossDetail_Agent_New" SpName="Age_Rpt_WinLossDetail_Agent_New" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="username" ObjectProperty="Username" />
       <Mapping DataField="custid" ObjectProperty="Custid" />
       <Mapping DataField="noofticket" ObjectProperty="TicketCount" />
@@ -62,7 +63,7 @@
       <Mapping DataField="magtotal" ObjectProperty="MasterTotal" />
       <Mapping DataField="company" ObjectProperty="Company" />
     </Setting>
-    <Setting Key="Age_Rpt_WinLossDetail_Ag" SpName="Age_Rpt_WinLossDetail_Ag" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+    <Setting Key="Age_Rpt_WinLossDetail_Member" SpName="Age_Rpt_WinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="username" ObjectProperty="Username" />
       <Mapping DataField="custid" ObjectProperty="Custid" />
       <Mapping DataField="noofticket" ObjectProperty="TicketCount" />

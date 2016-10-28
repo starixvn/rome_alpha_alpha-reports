@@ -158,7 +158,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sunplus.Agent.Model.Base.3.0.2.2-sitereports03\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
+      <HintPath>..\packages\Sunplus.Agent.Model.Base.3.0.2.2-sitereports04\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.1.4, Culture=neutral, processorArchitecture=MSIL">
@@ -246,6 +246,7 @@
     <Compile Include="Helpers\MicroSites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\GetAllProductsQuery.cs" />
+    <Compile Include="Requests\ReportBaseQuery.cs" />
     <Compile Include="Requests\WinLossDetail\MemberWinLossDetailQuery.cs" />
     <Compile Include="ViewModels\WinLossDetail\MemberWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
@@ -284,14 +285,52 @@
     <Content Include="App_Data\products.uat2.json">
       <DependentUpon>products.json</DependentUpon>
     </Content>
+    <Content Include="App_Data\reportrange.local.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\reportrange.napexternal.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\reportrange.napexternal2.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\reportrange.napinternal.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\reportrange.napinternal2.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\reportrange.pro.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\reportrange.pro2.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\reportrange.sit.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\reportrange.sit2.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\reportrange.uat.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\reportrange.uat2.json">
+      <DependentUpon>reportranges.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\SPNames\Internal\DBAGE.bodb_AGE.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
+    <Content Include="App_Data\SPNames\Local\DBAGE.bodb_AGE.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Pro\DBAGE.bodb_AGE.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\SIT\DBAGE.bodb_AGE.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail-controller.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail-view.ts" />
+    <Content Include="App_Data\SPNames\UAT\DBAGE.bodb_AGE.BODBDownlineNet.xml" />
     <Content Include="assets\bundles\default.css" />
     <Content Include="assets\bundles\default.min.css">
       <DependentUpon>default.css</DependentUpon>
@@ -340,6 +379,7 @@
     <Content Include="Views\WinLossDetail\Member.cshtml" />
     <Content Include="Views\WinLossDetail\Agent.cshtml" />
     <Content Include="Views\WinLossDetail\Master.cshtml" />
+    <Content Include="App_Data\reportranges.json" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>

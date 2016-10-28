@@ -18,7 +18,7 @@
             this.repository = repository;
         }
 
-        public List<Product> GetProductsByCustomer(GetProductByCustomerParam param)
+        public List<Product> GetProductsByCustomer(ProductByCustomerParam param)
         {
             var criteria = new GetProductByCustomerCriteria(param.CustId);
 

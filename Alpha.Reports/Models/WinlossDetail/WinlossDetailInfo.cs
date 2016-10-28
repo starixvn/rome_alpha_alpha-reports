@@ -12,6 +12,6 @@
 
         public decimal NetTurnover { get; set; }
 
-        public decimal GrossComm { get; set; }        
+        public decimal GrossComm { get; set; }
     }
 }

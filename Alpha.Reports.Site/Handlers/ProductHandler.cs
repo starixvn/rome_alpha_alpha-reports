@@ -24,7 +24,7 @@
 
         public IEnumerable<ProductViewModel> Handle(GetAllProductsQuery message)
         {
-            var products = productService.GetProductsByCustomer(new GetProductByCustomerParam(message.CustId));
+            var products = productService.GetProductsByCustomer(new ProductByCustomerParam(message.CustId));
 
             return TransformProducts(products);
         }

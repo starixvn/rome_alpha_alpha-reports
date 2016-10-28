@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Functions>
+  <Function Name="Base Functions">
+    <Setting Key="Age_Rpt_GetTimeRange" SpName="Age_Rpt_GetTimeRange" DbName="DBAGE.bodb_AGE.BODBDownlineNet" >
+      <Mapping DataField="StartDate" ObjectProperty="FromDate" />
+      <Mapping DataField="EndDate" ObjectProperty="ToDate" />
+    </Setting>
+  </Function>
+</Functions>

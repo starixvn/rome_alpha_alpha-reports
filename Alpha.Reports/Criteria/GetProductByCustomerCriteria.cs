@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Criteria
 {
-    using System;
     using Fanex.Data.Repository;
 
     public class GetProductByCustomerCriteria : CriteriaBase

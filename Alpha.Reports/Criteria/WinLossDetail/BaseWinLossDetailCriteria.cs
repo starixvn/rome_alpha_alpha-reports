@@ -3,26 +3,45 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using Fanex.Data;
     using Fanex.Data.Repository;
-    using Params;
 
     public class BaseWinLossDetailCriteria : CriteriaBase
     {
+        public BaseWinLossDetailCriteria(
+            int custId,
+            DateTime fromDate,
+            DateTime toDate,
+            DateTime balanceUpDay,
+            string productIds,
+            int pageSize,
+            int pageIndex)
+        {
+            CustId = custId;
+            FromDate = fromDate;
+            ToDate = toDate;
+            BalanceUpDay = balanceUpDay;
+            ProductIds = productIds;
+            PageSize = pageSize;
+            PageIndex = pageIndex;
+        }
+
         public int CustId { get; }
 
         public DateTime FromDate { get; }
 
         public DateTime ToDate { get; }
 
-        public DateTime BalanceUpDate { get; }
+        public DateTime BalanceUpDay { get; }
 
-        public IEnumerable<ProductParam> ProductParams { get; }
+        public string ProductIds { get; }
 
         public int PageSize { get; }
 
         public int PageIndex { get; }
 
-        public int TotalRows { get; }
+        [SpParam(SqlParamName = "TotalRecords")]
+        public int TotalRows { get; set; }
 
         public override string GetSettingKey()
         {
@@ -30,24 +49,5 @@
         }
 
         public override bool IsValid() => FromDate <= ToDate && CustId > 0;
-
-        public override Hashtable GetSpParams()
-        {
-            var parameters = new Hashtable();
-            parameters.Add("custid", CustId);
-            parameters.Add("fromdate", FromDate);
-            parameters.Add("todate", ToDate);
-            parameters.Add("balanceupday", BalanceUpDate);
-            parameters.Add("pagesize", PageSize);
-            parameters.Add("pageindex", PageIndex);
-            parameters.Add("totalrows", TotalRows);
-
-            foreach (var productParam in ProductParams)
-            {
-                parameters.Add(productParam.Name, productParam.IsSelected);
-            }
-
-            return parameters;
-        }
     }
 }

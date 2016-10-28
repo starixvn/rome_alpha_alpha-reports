@@ -226,4 +226,7 @@
   <data name="DoNotShowAgain" xml:space="preserve">
     <value>Không hiển thị lại</value>
   </data>
+  <data name="NoInformationIsAvailable" xml:space="preserve">
+    <value>Thông tin chưa được cập nhật</value>
+  </data>
 </root>

@@ -20,7 +20,7 @@
         public void GetProductByCustomer_CusIdIsEqualOrLessThanZero_ReturnEmptyListProduct(int custId)
         {
             // Arrange            
-            var param = new GetProductByCustomerParam(custId);
+            var param = new ProductByCustomerParam(custId);
             var service = new ProductServiceImpl(repository);
 
             // Act
@@ -34,7 +34,7 @@
         public void GetProductByCustomer_CusIdIsGreaterThanZero_ReturnDataGetFromRepository()
         {
             // Arrange                                   
-            var param = new GetProductByCustomerParam(90);
+            var param = new ProductByCustomerParam(90);
             var expected = (new Fixture()).Create<List<Product>>();
             repository = Substitute.For<IDynamicRepository>();
             repository

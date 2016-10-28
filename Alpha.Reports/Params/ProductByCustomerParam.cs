@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Params
 {
-    public class GetProductByCustomerParam
+    public class ProductByCustomerParam
     {
-        public GetProductByCustomerParam(int custId)
+        public ProductByCustomerParam(int custId)
         {
             CustId = custId;
         }

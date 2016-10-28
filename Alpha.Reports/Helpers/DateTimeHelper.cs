@@ -24,16 +24,31 @@
 
         public static string ToShortDateWithSlash(DateTime dateTime)
         {
+            if (dateTime == null)
+            {
+                return null;
+            }
+
             return dateTime.ToString(ShortDateWithSlash);
         }
 
         public static string ToLongDateWithSlash(DateTime dateTime)
         {
+            if (dateTime == null)
+            {
+                return null;
+            }
+
             return dateTime.ToString(LongDateWithSlash);
         }
 
         public static string ToHtmlLongDateWithSlash(DateTime dateTime)
         {
+            if (dateTime == null)
+            {
+                return null;
+            }
+
             return dateTime.ToString(HtmlLongDateWithSlash);
         }
     }

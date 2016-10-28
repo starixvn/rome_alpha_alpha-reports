@@ -2,15 +2,15 @@
 {
     public class Product
     {
-        public Product(            
+        public Product(
             int id,
             string name,
             string permission)
-        {            
+        {
             Id = id;
             Name = name;
             Permission = permission;
-        }        
+        }
 
         public int Id { get; }
 

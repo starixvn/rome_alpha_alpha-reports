@@ -5,14 +5,18 @@
     using System.IO;
     using System.Web;
     using Fanex.Common;
+    using Helpers;
     using Models;
     using Newtonsoft.Json;
 
     public class AppSettings
     {
         private static IEnumerable<Product> products;
+        private static IEnumerable<ReportRange> reportRanges;
 
         public static string OldMainAppPath => GetConfigValue("OldMainAppPath");
+
+        public static string ReportsAppPath => GetConfigValue("ReportsAppPath");
 
         public static string AccessDeniedPage => GetConfigValue("AccessDeniedPage");
 
@@ -24,39 +28,60 @@
 
         private static string ProductConfigPath => GetConfigValue("Reports:Products");
 
+        private static string ReportRangeConfigPath => GetConfigValue("Reports:ReportRanges");
+
+        public static string VirtualDirectory => GetConfigValue("VirtualDirectory");
+
         public static IEnumerable<Product> Products
         {
             get
             {
                 if (products == null)
                 {
-                    LoadProductConfig();
+                    products = LoadConfig<IEnumerable<Product>>(ProductConfigPath);
                 }
 
                 return products;
             }
         }
 
+        public static IEnumerable<ReportRange> ReportRanges
+        {
+            get
+            {
+                if (reportRanges == null)
+                {
+                    reportRanges = LoadConfig<IEnumerable<ReportRange>>(ReportRangeConfigPath);
+                }
+
+                return reportRanges;
+            }
+        }
+
         public static string GetConfigValue(string configName) => ConfigurationManager.AppSettings[configName];
 
-        public static void LoadProductConfig()
+        public static T LoadConfig<T>(string configPath)
         {
             if (HttpContext.Current == null || HttpContext.Current.Server == null)
             {
-                return;
+                return default(T);
             }
 
-            var configFilePath = HttpContext.Current.Server.MapPath(ProductConfigPath);
+            var configFilePath = HttpContext.Current.Server.MapPath(configPath);
 
             if (!File.Exists(configFilePath))
             {
-                throw new FileNotFoundException("Cannot find security code json file");
+                throw new FileNotFoundException("Cannot find json config file: " + configPath);
             }
+
+            T result;
 
             using (StreamReader stream = File.OpenText(configFilePath))
             {
-                products = JsonConvert.DeserializeObject<IEnumerable<Product>>(stream.ReadToEnd());
+                result = JsonConvert.DeserializeObject<T>(stream.ReadToEnd());
             }
+
+            return result;
         }
     }
 }

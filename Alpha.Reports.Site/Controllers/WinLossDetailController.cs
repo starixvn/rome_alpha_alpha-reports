@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Configurations;
+    using Helpers;
     using MediatR;
     using Models;
     using Requests.WinLossDetail;
@@ -28,16 +30,21 @@
             return View();
         }
 
-        public ActionResult Member()
+        public ActionResult Member(MemberWinLossDetailQuery message)
         {
-            var products = new List<Product>();
-            //{
-            //    new Product(1, "SB", string.Empty),
-            //    new Product(2, "SB", string.Empty),
-            //    new Product(3, "SB", string.Empty)
-            //};
+            message.Language = userSession.Language;
+            message.CustId = string.IsNullOrWhiteSpace(message.CustId) ? userSession.CustId.ToString() : message.CustId;
+            message.ReportPath = AppPathHelper.GetRelativePath(AppSettings.ReportsAppPath, HttpContext.Request.Url.AbsolutePath);
 
-            var message = new MemberWinLossDetailQuery(products, userSession);
+            message.SelectedProducts = "1,2,3";
+            message.Products = new List<Product>()
+            {
+                new Product(1, "SB", string.Empty),
+                new Product(2, "SB", string.Empty),
+                new Product(3, "SB", string.Empty)
+            };
+
+
             var viewModel = mediator.Send(message);
 
             return View(viewModel);

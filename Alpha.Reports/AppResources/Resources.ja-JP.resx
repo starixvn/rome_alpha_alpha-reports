@@ -165,4 +165,7 @@
   <data name="ExportToExcel" xml:space="preserve">
     <value>輸出をExcelに</value>
   </data>
+  <data name="NoInformationIsAvailable" xml:space="preserve">
+    <value>情報がありません</value>
+  </data>
 </root>

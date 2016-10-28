@@ -6,6 +6,6 @@
 
     public interface ProductService
     {
-        List<Product> GetProductsByCustomer(GetProductByCustomerParam param);
+        List<Product> GetProductsByCustomer(ProductByCustomerParam param);
     }
 }

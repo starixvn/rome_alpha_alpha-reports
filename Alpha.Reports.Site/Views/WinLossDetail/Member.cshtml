@@ -123,7 +123,7 @@
             }
         </tr>
     </thead>
-    @if (Model.HasData)
+    @if (Model.ReportData.DataSource.Any())
     {
         <tbody>
             @for (var i = 0; i < 50; i++)
@@ -165,17 +165,17 @@
     {
         <tbody>
             <tr>
-                <td colspan="12">No data</td>
+                <td colspan="12">@Resources.NoInformationIsAvailable</td>
             </tr>
         </tbody>
     }
 </table>
-<div id="report-pager" class="@(Model.HasData ? " ":"hide" )"
+<div id="report-pager" class="@(Model.ReportData.DataSource.Any() ? " ":"hide" )"
      data-labelpage="@Resources.Page"
      data-labelof="@Resources.of"
      data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
-@Html.Hidden("hasdata", (Model.HasData ? "1" : "0"))
+@Html.Hidden("hasdata", (Model.ReportData.DataSource.Any() ? "1" : "0"))
 @section Scripts {
     @AssetScripts.Render("/bundles/site-reports/default")
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")

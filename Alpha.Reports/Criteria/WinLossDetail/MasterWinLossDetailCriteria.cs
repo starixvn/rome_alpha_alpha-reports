@@ -1,12 +1,21 @@
 ﻿namespace Alpha.Reports.Criteria.WinLossDetail
 {
-    using Fanex.Data;
+    using System;
+    using System.Collections.Generic;
 
     public class MasterWinLossDetailCriteria : BaseWinLossDetailCriteria
     {
-        [SpParam(Ignored = true)]
-        public bool IsNewView { get; }
+        public MasterWinLossDetailCriteria(
+               int custId,
+               DateTime fromDate,
+               DateTime toDate,
+               DateTime balanceUpDate,
+               string productIds,
+               int pageSize,
+               int pageIndex) : base(custId, fromDate, toDate, balanceUpDate, productIds, pageSize, pageIndex)
+        {
+        }
 
-        public override string GetSettingKey() => IsNewView ? "Age_Rpt_WinLossDetail_MAg_New" : "Age_Rpt_WinLossDetail_SAg";
+        public override string GetSettingKey() => "Age_Rpt_WinLossDetail_Master";
     }
 }

@@ -274,4 +274,7 @@
   <data name="ThereIsNoProduct" xml:space="preserve">
     <value>There is no Product.</value>
   </data>
+  <data name="NoInformationIsAvailable" xml:space="preserve">
+    <value>No information is available</value>
+  </data>
 </root>

@@ -1,0 +1,26 @@
+[
+  {
+    "range": 1, // From the latest BalanceUp date
+    "reports": [ ]
+  },
+  {
+    "range": 2, // First day of previous 3 Months
+    "reports": [
+      "WinLossDetail/Master",
+      "WinLossDetail/Agent",
+      "WinLossDetail/Member"
+    ]
+  },
+  {
+    "range": 4, // First date of previous 18 Months
+    "reports": [ ]
+  },
+  {
+    "range": 5, // First date of first month of previous 3 Years
+    "reports": [
+      "WinLossDetail/MasterHistoric",
+      "WinLossDetail/AgentHistoric",
+      "WinLossDetail/MemberHistoric"
+    ]
+  }
+]

@@ -286,6 +286,15 @@ namespace Alpha.Reports.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No information is available.
+        /// </summary>
+        public static string NoInformationIsAvailable {
+            get {
+                return ResourceManager.GetString("NoInformationIsAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No. of Ticket.
         /// </summary>
         public static string NoOfTicket {
