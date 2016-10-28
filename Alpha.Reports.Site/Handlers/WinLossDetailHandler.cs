@@ -7,6 +7,7 @@
     using Constants;
     using Fanex.Common;
     using MediatR;
+    using Models;
     using Newtonsoft.Json;
     using Params;
     using Reports.AppResources;
@@ -24,8 +25,7 @@
         private readonly WinLossDetailService winLossDetailService;
         private readonly IDateTime dateTimeWrapper;
 
-        public WinLossDetailHandler(ProductService productService)
-            ProductHandler productHandler,
+        public WinLossDetailHandler(ProductService productService,            
             ReportDateService reportDateService,
             WinLossDetailService winLossDetailService,
             IDateTime dateTimeWrapper)
@@ -38,13 +38,10 @@
 
         public MemberWinLossDetailViewModel Handle(MemberWinLossDetailQuery message)
         {
-            var products = productService.GetProductsForCustomer(message.CustId, message.Products);
-                message.ReportPath,
-                message.IsHistoricReport,
-                AppSettings.ReportRanges));
+            var products = productService.GetProductsForCustomer(message.CustId, message.Products);               
 
 
-            var param = CreateWinLossDetailParam(message, visibleProducts);
+            var param = CreateWinLossDetailParam(message, products);
             var reportData = winLossDetailService.MemberWinLossDetail(param);
 
             var netTurnoverTooltips = new List<string>();
@@ -56,11 +53,11 @@
 
             return new MemberWinLossDetailViewModel
             {
-                MinDate = DateTimeHelper.ToShortDateWithSlash(reportRange.FromDate),
-                MaxDate = DateTimeHelper.ToShortDateWithSlash(reportRange.ToDate),
+                //MinDate = DateTimeHelper.ToShortDateWithSlash(reportRange.FromDate),
+                //MaxDate = DateTimeHelper.ToShortDateWithSlash(reportRange.ToDate),
                 CurrentDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now),
 
-                Products = JsonConvert.SerializeObject(visibleProducts),
+                Products = JsonConvert.SerializeObject(products),
                 SelectedProducts = string.Join(",", param.ProductIds),
                 Language = message.Language,
 
@@ -76,7 +73,7 @@
 
         private WinLossDetailParam CreateWinLossDetailParam(
             MemberWinLossDetailQuery message,
-            IEnumerable<ProductViewModel> visibleProducts)
+            IEnumerable<Product> visibleProducts)
         {
             var selectedProducts = string.IsNullOrWhiteSpace(message.SelectedProducts)
                 ? visibleProducts.Select(product => product.Id).ToList()

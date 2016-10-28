@@ -38,7 +38,7 @@
             {
                 if (products == null)
                 {
-                    LoadProducts();
+                    products = LoadConfig<IEnumerable<Product>>(ProductConfigPath);
                 }
 
                 return products;
@@ -60,7 +60,7 @@
 
         public static string GetConfigValue(string configName) => ConfigurationManager.AppSettings[configName];
 
-        public static void LoadProducts()
+        public static T LoadConfig<T>(string configPath)
         {
             if (HttpContext.Current?.Server == null)
             {

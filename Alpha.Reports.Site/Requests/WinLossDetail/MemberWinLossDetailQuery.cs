@@ -15,7 +15,7 @@
 
         public string SortedColumn { get; set; }
 
-        public int CustId { get; }
+        public int CustId { get; set; }
 
         public bool IsStackMode { get; set; }
 
