@@ -1,12 +1,10 @@
 ﻿namespace Alpha.Reports.Criteria.WinLossDetail
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using Fanex.Data;
     using Fanex.Data.Repository;
 
-    public class BaseWinLossDetailCriteria : CriteriaBase
+    public abstract class BaseWinLossDetailCriteria : CriteriaBase
     {
         public BaseWinLossDetailCriteria(
             int custId,
@@ -41,12 +39,7 @@
         public int PageIndex { get; }
 
         [SpParam(SqlParamName = "TotalRecords")]
-        public int TotalRows { get; set; }
-
-        public override string GetSettingKey()
-        {
-            throw new NotImplementedException();
-        }
+        public int TotalRows { get; protected set; }
 
         public override bool IsValid() => FromDate <= ToDate && CustId > 0;
     }

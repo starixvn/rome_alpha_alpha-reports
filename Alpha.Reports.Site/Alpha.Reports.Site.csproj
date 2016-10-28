@@ -318,7 +318,7 @@
     <Content Include="App_Data\reportrange.uat2.json">
       <DependentUpon>reportranges.json</DependentUpon>
     </Content>
-    <Content Include="App_Data\SPNames\Internal\DBAGE.bodb_AGE.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Internal\DBAGE.bodb_AGE.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb_AGE.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml" />
@@ -339,23 +339,11 @@
     <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
-    <Content Include="assets\styles\winlossdetail\index.css">
-      <DependentUpon>index.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\winlossdetail\index.min.css">
-      <DependentUpon>index.css</DependentUpon>
-    </Content>
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
     </Content>
     <Content Include="assets\styles\reports.min.css">
       <DependentUpon>reports.css</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\winlossdetail\memberwinlossdetail.css">
-      <DependentUpon>index.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\winlossdetail\memberwinlossdetail.min.css">
-      <DependentUpon>memberwinlossdetail.css</DependentUpon>
     </Content>
     <Content Include="bundleconfig.json" />
     <Content Include="compilerconfig.json" />
@@ -375,7 +363,6 @@
     <Content Include="Views\Default\MasterWinLossDetail.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\MonthNames.cshtml" />
-    <Content Include="assets\styles\winlossdetail\index.scss" />
     <Content Include="Views\WinLossDetail\Member.cshtml" />
     <Content Include="Views\WinLossDetail\Agent.cshtml" />
     <Content Include="Views\WinLossDetail\Master.cshtml" />

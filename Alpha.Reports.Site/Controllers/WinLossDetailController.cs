@@ -35,15 +35,15 @@
             message.Language = userSession.Language;
             message.CustId = string.IsNullOrWhiteSpace(message.CustId) ? userSession.CustId.ToString() : message.CustId;
             message.ReportPath = AppPathHelper.GetRelativePath(AppSettings.ReportsAppPath, HttpContext.Request.Url.AbsolutePath);
+            message.OldMainAppPath = AppPathHelper.GetAppPath(AppSettings.OldMainAppPath, "~");
 
-            message.SelectedProducts = "1,2,3";
+            message.SelectedProducts = "1,2";
             message.Products = new List<Product>()
             {
                 new Product(1, "SB", string.Empty),
                 new Product(2, "SB", string.Empty),
                 new Product(3, "SB", string.Empty)
             };
-
 
             var viewModel = mediator.Send(message);
 

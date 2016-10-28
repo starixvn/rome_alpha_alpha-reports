@@ -10,7 +10,7 @@
     @ReportsStyles.Render("~/assets/bundles/default")
 }
 
-<div class="modal fade message-modal" id="netturnovertip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade message-modal" id="netturnovertooltip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -19,7 +19,7 @@
                         <li>
                             @Resources.Tooltip_NetTurnover
                         </li>
-                        @foreach (var netTurnoverTooltip in Model.NetTurnoverToolTips)
+                        @foreach (var netTurnoverTooltip in Model.NetTurnoverTooltips)
                         {
                             <li>
                                 @netTurnoverTooltip

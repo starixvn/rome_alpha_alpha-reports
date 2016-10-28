@@ -11,8 +11,8 @@ class AlphaReports {
         enter: 13
     };
     numberDisplayedProductsOnFilter = 1;
-    pageList = [10, 50, 100, 500];
-    maxTimesToShowTooltip = 5;
+    pageList = [10, 50, 100, 200, 500];
+    maxTimesToShowTooltip = 5000;
     screenSmallThan768 = () => {
         var currentWindowWidth = window.screen.width;
 

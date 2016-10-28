@@ -20,7 +20,7 @@ class WinLossDetailView {
 
         tableReport: null,
         pager: null,
-        netTurnoverTip: null,
+        netTurnoverTooltip: null,
         closeNetTurnoverTooltip: null
     };
 
@@ -28,7 +28,7 @@ class WinLossDetailView {
 
     pageNumber = 0;
     pageSize = 0;
-    timeToShowNetTurnoverTooltip = 10000;
+    timeToShowNetTurnoverTooltip = 10000000;
     cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
 
     init = () => {
@@ -36,14 +36,14 @@ class WinLossDetailView {
         this.renderMonthPicker();
         this.renderDateRangePicker();
         this.renderDropdownProduct();
-        this.renderPager({
-            totalRecords: 21,
-            pageSize: 10,
-            pageIndex: 1
-        });
+        this.renderPager();
         this.renderNetTurnoverTooltip();
 
         this.domElements.tableReport.stickyTableHeaders();
+
+        if ($("#hidefilter").val() === "1") {
+            this.hideFilter();
+        }
 
         this.registerEvents();
     };
@@ -67,7 +67,7 @@ class WinLossDetailView {
         this.domElements.tableReport = $("#tbl-report");
         this.domElements.pager = $("#report-pager");
 
-        this.domElements.netTurnoverTip = $("#netturnovertip");
+        this.domElements.netTurnoverTooltip = $("#netturnovertooltip");
 
         this.domElements.closeNetTurnoverTooltip = $("#close-netturnover-tooltip");
     };
@@ -150,7 +150,9 @@ class WinLossDetailView {
             }
         });
 
-        this.domElements.monthPickerContainer.addClass("hide");
+        if (!this.domElements.filter.hasClass("historic-report")) {
+            this.domElements.monthPickerContainer.addClass("hide");
+        }
     };
 
     getLongMonthsInYear = () => {
@@ -162,6 +164,7 @@ class WinLossDetailView {
     renderDropdownProduct = () => {
         var dropdownProduct = this.domElements.dropdownProduct;
         var products = dropdownProduct.data("products");
+        var selectedProduct = dropdownProduct.data("selectedproducts").split(",");
 
         var product;
         var productOptions = "";
@@ -172,7 +175,7 @@ class WinLossDetailView {
                 "<option" +
                 " id=\"product_" + product.Id + "\"" +
                 " value=\"" + product.Id + "\"" +
-                " selected=\"selected\"" +
+                (selectedProduct.indexOf(product.Id.toString()) !== -1 ? " selected=\"selected\"" : "") +
                 " >" +
                 product.DisplayText +
                 "</options>";
@@ -217,9 +220,11 @@ class WinLossDetailView {
                 $this.domElements.pageTitle.removeClass("hide-filter");
                 filter.slideDown("fast");
             } else {
-                $this.domElements.pageTitle.addClass("hide-filter");
-                filter.slideUp("fast");
+                $this.hideFilter();
             }
+            setTimeout(function () {
+                $this.positionNetTurnoverTooltip();
+            }, 200);
         });
 
         this.domElements.iconSwitchMode.on("click", function () {
@@ -235,7 +240,6 @@ class WinLossDetailView {
             }
 
             if ($this.isFirstSwitchMode) {
-
                 if (isStackMode) {
                     alphaReports.splitColumn([
                         "text-right hidden-stack-mode col-turnover",
@@ -252,12 +256,12 @@ class WinLossDetailView {
                         "td.col-turnover",
                         "td.col-netturnover",
                         "td.col-grosscomm"],
-                        "text-right visible-stack-mode combinedcolumn", 1);
+                        "text-right visible-stack-mode combinedcolumn col-turnover-combined", 1);
                     alphaReports.combineColumns([
                         "td.col-winloss",
                         "td.col-comm",
                         "td.col-total"],
-                        "text-right visible-stack-mode combinedcolumn", 3);
+                        "text-right visible-stack-mode combinedcolumn column-winloss-combined", 3);
                 }
 
                 $this.isFirstSwitchMode = false;
@@ -270,10 +274,21 @@ class WinLossDetailView {
                 $this.domElements.filter.slideUp("fast");
             });
         }
+
+        $(window).resize(function () {
+            $this.positionNetTurnoverTooltip();
+        });
     };
 
-    renderPager = (options: any) => {
+    renderPager = () => {
         var pager = this.domElements.pager;
+        var tableReport = this.domElements.tableReport;
+
+        var options = {
+            totalRecords: tableReport.data("totalrecords"),
+            pageSize: tableReport.data("pagesize"),
+            pageIndex: tableReport.data("pageindex")
+        };
 
         if (options.totalRecords < alphaReports.pageList[0]) {
             // total records less than min page size => do not need to show pager
@@ -302,38 +317,45 @@ class WinLossDetailView {
     };
 
     renderNetTurnoverTooltip = () => {
+        var $this = this;
         var netTurnoverTooltipShowCount = alphaReports.localStorage.get(this.cookieNetTurnoverTooltip) || 0;
 
         if (netTurnoverTooltipShowCount &&
             netTurnoverTooltipShowCount >= alphaReports.maxTimesToShowTooltip) {
-            this.domElements.netTurnoverTip.remove();
+            this.domElements.netTurnoverTooltip.remove();
         } else {
-            var netTurnoverPosition = $(".col-netturnover-header").position();
-            var rightPosition = $(".col-netturnover-header").width();
-            var marginRight = 20;
-
-            this.domElements.netTurnoverTip.css({
-                left: netTurnoverPosition.left + (rightPosition > marginRight ? rightPosition - 20 : 0),
-                top: netTurnoverPosition.top - 22
-            });
-
-            this.domElements.netTurnoverTip.modal({ show: true, backdrop: false });
+            this.positionNetTurnoverTooltip();
+            this.domElements.netTurnoverTooltip.modal({ show: true, backdrop: false });
 
             this.domElements.closeNetTurnoverTooltip.on("click", function () {
                 alphaReports.localStorage.set(this.cookieNetTurnoverTooltip, alphaReports.maxTimesToShowTooltip);
-                this.closeNetTurnoverTooltip();
+                $this.closeNetTurnoverTooltip();
             });
 
-            alphaReports.localStorage.set(this.cookieNetTurnoverTooltip, netTurnoverTooltipShowCount + 1);
+            alphaReports.localStorage.set($this.cookieNetTurnoverTooltip, netTurnoverTooltipShowCount + 1);
             setTimeout(function () {
-                this.closeNetTurnoverTooltip();
+                $this.closeNetTurnoverTooltip();
             }, this.timeToShowNetTurnoverTooltip);
         }
     };
 
     closeNetTurnoverTooltip = () => {
-        this.domElements.netTurnoverTip.modal("hide");
+        this.domElements.netTurnoverTooltip.modal("hide");
+    };
+    hideFilter = () => {
+        this.domElements.pageTitle.addClass("hide-filter");
+        this.domElements.filter.slideUp("fast");
+    };
+    positionNetTurnoverTooltip = () => {
+        var netTurnoverPosition = $(".col-netturnover-header").position();
+        var rightPosition = $(".col-netturnover-header").width();
+
+        this.domElements.netTurnoverTooltip.css({
+            left: netTurnoverPosition.left + rightPosition - 10,
+            top: netTurnoverPosition.top - 22
+        });
     };
 };
 
 const winLossDetailView = new WinLossDetailView();
+export { winLossDetailView };

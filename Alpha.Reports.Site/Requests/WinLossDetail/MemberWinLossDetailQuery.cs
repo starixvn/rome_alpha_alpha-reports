@@ -20,5 +20,9 @@
         public bool IsStackMode { get; set; }
 
         public bool IsHistoricReport { get; set; }
+
+        public bool HideFilter { get; set; }
+
+        public string OldMainAppPath { get; set; }
     }
 }

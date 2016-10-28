@@ -36,9 +36,11 @@
             return new ReportData<MemberWinlossDetail>(
                 rawData,
                 param.PageIndex,
+                param.PageSize,
                 criteria.TotalRows,
                 param.FromDate,
-                param.ToDate);
+                param.ToDate,
+                new MemberWinlossDetail());
         }
     }
 }

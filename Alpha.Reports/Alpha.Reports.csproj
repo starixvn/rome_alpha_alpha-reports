@@ -117,6 +117,7 @@
     <Compile Include="DataAccess\ReportDataAccess.cs" />
     <Compile Include="DataAccess\ReportDateAccess.cs" />
     <Compile Include="Enums\ReportTimeRangeType.cs" />
+    <Compile Include="Extensions\DecimalExtension.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\IDateTime.cs" />
     <Compile Include="Helpers\Impl\DateTimeWrapper.cs" />

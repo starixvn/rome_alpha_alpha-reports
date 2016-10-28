@@ -13,6 +13,7 @@
     using Reports.Helpers;
     using Requests.WinLossDetail;
     using Services;
+    using ViewModels;
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailHandler :
@@ -42,18 +43,10 @@
                 message.IsHistoricReport,
                 AppSettings.ReportRanges));
 
-            var selectedProducts = string.IsNullOrWhiteSpace(message.SelectedProducts)
-                ? new List<int>()
-                : message.SelectedProducts.Split(',').Select(product => Converter.ToInt(product)).ToList();
-            var reportData = winLossDetailService.MemberWinLossDetail(new WinLossDetailParam(
-                Converter.ToInt(message.CustId),
-                string.IsNullOrWhiteSpace(message.FromDate) ? dateTimeWrapper.Now.AddMonths(-2) : Converter.ToDateTime(message.FromDate),
-                string.IsNullOrWhiteSpace(message.ToDate) ? dateTimeWrapper.Now : Converter.ToDateTime(message.ToDate),
-                selectedProducts,
-                string.IsNullOrWhiteSpace(message.PageSize) ? DefaultVariables.PageSize : Converter.ToInt(message.PageSize),
-                string.IsNullOrWhiteSpace(message.PageIndex) ? DefaultVariables.PageIndex : Converter.ToInt(message.PageIndex)));
-
             var visibleProducts = productHandler.TransformProducts(message.Products);
+
+            var param = CreateWinLossDetailParam(message, visibleProducts);
+            var reportData = winLossDetailService.MemberWinLossDetail(param);
 
             var netTurnoverTooltips = new List<string>();
             if (visibleProducts.Where(product => product.Id == ProductId.AllBet) != null)
@@ -68,11 +61,34 @@
                 CurrentDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now),
 
                 Products = JsonConvert.SerializeObject(visibleProducts),
+                SelectedProducts = string.Join(",", param.ProductIds),
                 Language = message.Language,
 
-                NetTurnoverToolTips = netTurnoverTooltips,
-                ReportData = reportData
+                NetTurnoverTooltips = netTurnoverTooltips,
+                ReportData = reportData,
+
+                IsStackMode = message.IsStackMode,
+                IsHistoricReport = message.IsHistoricReport,
+                HideFilter = message.HideFilter,
+                OldMainAppPath = message.OldMainAppPath
             };
+        }
+
+        private WinLossDetailParam CreateWinLossDetailParam(
+            MemberWinLossDetailQuery message,
+            IEnumerable<ProductViewModel> visibleProducts)
+        {
+            var selectedProducts = string.IsNullOrWhiteSpace(message.SelectedProducts)
+                ? visibleProducts.Select(product => product.Id).ToList()
+                : message.SelectedProducts.Split(',').Select(product => Converter.ToInt(product)).ToList();
+
+            return new WinLossDetailParam(
+                Converter.ToInt(message.CustId),
+                string.IsNullOrWhiteSpace(message.FromDate) ? dateTimeWrapper.Now.AddMonths(-4) : Converter.ToDateTime(message.FromDate),
+                string.IsNullOrWhiteSpace(message.ToDate) ? dateTimeWrapper.Now : Converter.ToDateTime(message.ToDate),
+                selectedProducts,
+                string.IsNullOrWhiteSpace(message.PageSize) ? DefaultVariables.PageSize : Converter.ToInt(message.PageSize),
+                string.IsNullOrWhiteSpace(message.PageIndex) ? DefaultVariables.PageIndex : Converter.ToInt(message.PageIndex));
         }
     }
 }

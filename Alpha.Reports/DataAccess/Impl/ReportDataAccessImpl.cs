@@ -17,7 +17,14 @@
         public ReportData<T> GetData<T>(ReportCriteriaBase criteria) where T : class
         {
             var dataSource = repository.Get<List<T>>(criteria);
-            var reportData = new ReportData<T>(dataSource, criteria.PageIndex, criteria.TotalRecords, criteria.FromDate, criteria.ToDate);
+            var reportData = new ReportData<T>(
+                dataSource,
+                criteria.PageIndex,
+                criteria.PageSize,
+                criteria.TotalRecords,
+                criteria.FromDate,
+                criteria.ToDate,
+                default(T));
 
             return reportData;
         }

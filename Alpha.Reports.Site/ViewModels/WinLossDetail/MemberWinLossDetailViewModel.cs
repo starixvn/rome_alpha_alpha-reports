@@ -19,10 +19,20 @@
 
         public string Language { get; set; }
 
-        public IEnumerable<string> NetTurnoverToolTips { get; set; }
+        public IEnumerable<string> NetTurnoverTooltips { get; set; }
 
         public ReportData<MemberWinlossDetail> ReportData { get; set; }
 
         public string Products { get; set; }
+
+        public string SelectedProducts { get; set; }
+
+        public bool IsStackMode { get; set; }
+
+        public bool IsHistoricReport { get; set; }
+
+        public bool HideFilter { get; set; }
+
+        public string OldMainAppPath { get; set; }
     }
 }
