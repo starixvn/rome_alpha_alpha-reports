@@ -10,7 +10,7 @@ class WinLossDetailController {
 
     pageReport = () => {
         // implement later
-    }
+    };
 };
 
 const winLossDetailController = new WinLossDetailController();
