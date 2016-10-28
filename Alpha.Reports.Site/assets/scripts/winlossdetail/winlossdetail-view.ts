@@ -1,6 +1,8 @@
 ﻿/// <reference path="../core.ts" />
 "use strict";
 
+declare var $: any;
+
 class WinLossDetailView {
     domElements = {
         dateRangePicker: null,
@@ -358,4 +360,3 @@ class WinLossDetailView {
 };
 
 const winLossDetailView = new WinLossDetailView();
-export { winLossDetailView };

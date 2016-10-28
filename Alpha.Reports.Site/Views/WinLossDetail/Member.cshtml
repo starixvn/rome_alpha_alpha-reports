@@ -1,7 +1,7 @@
 ﻿@using Alpha.Reports.Site.ViewModels.WinLossDetail;
 @using Alpha.Reports.Helpers;
 @using Alpha.Reports.Extensions;
-@model IndexViewModel
+@model MemberWinLossDetailViewModel
 @{
     ViewBag.Title = "Home";
     var total = Model.ReportData.Total;
@@ -128,8 +128,8 @@
             {
                 <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
                 <th class="hidden-stack-mode">@Resources.Comm</th>
-                <th class="hidden-stack-mode">@Resources.Total</th>
-                <th colspan="3" class="visible-stack-mode col-combine">@Resources.WL_Comm_Total</th>
+                    <th class="hidden-stack-mode">@Resources.Total</th>
+                    <th colspan="3" class="visible-stack-mode col-combine">@Resources.WL_Comm_Total</th>
             }
         </tr>
     </thead>
@@ -158,25 +158,25 @@
                                 <li>@data.MemberTotal.ToNumericString()</li>
                             </ul>
                         </td>
-                        <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
-                            <ul>
-                                <li>@data.AgentWinLoss.ToNumericString()</li>
-                                <li>@data.AgentComm.ToNumericString()</li>
-                                <li>@data.AgentTotal.ToNumericString()</li>
-                            </ul>
-                        </td>
+                            <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                                <ul>
+                                    <li>@data.AgentWinLoss.ToNumericString()</li>
+                                    <li>@data.AgentComm.ToNumericString()</li>
+                                    <li>@data.AgentTotal.ToNumericString()</li>
+                                </ul>
+                            </td>
                     }
                     else
                     {
                         <td class="text-right hidden-stack-mode col-turnover">@data.Turnover.ToNumericString()</td>
                         <td class="text-right hidden-stack-mode col-netturnover">@data.NetTurnover.ToNumericString()</td>
-                        <td class="text-right hidden-stack-mode col-grosscomm">@data.GrossComm.ToNumericString()</td>
-                        <td class="text-right hidden-stack-mode col-winloss">@data.MemberWinLoss.ToNumericString()</td>
-                        <td class="text-right hidden-stack-mode col-comm">@data.MemberComm.ToNumericString()</td>
-                        <td class="text-right bold hidden-stack-mode col-total">@data.MemberTotal.ToNumericString()</td>
-                        <td class="altercol text-right hidden-stack-mode col-winloss">@data.AgentWinLoss.ToNumericString()</td>
-                        <td class="altercol text-right hidden-stack-mode col-comm">@data.AgentComm.ToNumericString()</td>
-                        <td class="altercol bold text-right hidden-stack-mode col-total">@data.AgentTotal.ToNumericString()</td>
+                            <td class="text-right hidden-stack-mode col-grosscomm">@data.GrossComm.ToNumericString()</td>
+                            <td class="text-right hidden-stack-mode col-winloss">@data.MemberWinLoss.ToNumericString()</td>
+                            <td class="text-right hidden-stack-mode col-comm">@data.MemberComm.ToNumericString()</td>
+                            <td class="text-right bold hidden-stack-mode col-total">@data.MemberTotal.ToNumericString()</td>
+                            <td class="altercol text-right hidden-stack-mode col-winloss">@data.AgentWinLoss.ToNumericString()</td>
+                            <td class="altercol text-right hidden-stack-mode col-comm">@data.AgentComm.ToNumericString()</td>
+                            <td class="altercol bold text-right hidden-stack-mode col-total">@data.AgentTotal.ToNumericString()</td>
                     }
                     <td class="text-right">@data.Company.ToNumericString()</td>
                 </tr>
@@ -195,32 +195,32 @@
                             <li>@total.GrossComm.ToNumericString()</li>
                         </ul>
                     </td>
-                    <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
-                        <ul>
-                            <li>@total.MemberWinLoss.ToNumericString()</li>
-                            <li>@total.MemberComm.ToNumericString()</li>
-                            <li>@total.MemberTotal.ToNumericString()</li>
-                        </ul>
-                    </td>
-                    <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
-                        <ul>
-                            <li>@total.AgentWinLoss.ToNumericString()</li>
-                            <li>@total.AgentComm.ToNumericString()</li>
-                            <li>@total.AgentTotal.ToNumericString()</li>
-                        </ul>
-                    </td>
+                        <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                            <ul>
+                                <li>@total.MemberWinLoss.ToNumericString()</li>
+                                <li>@total.MemberComm.ToNumericString()</li>
+                                <li>@total.MemberTotal.ToNumericString()</li>
+                            </ul>
+                        </td>
+                        <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                            <ul>
+                                <li>@total.AgentWinLoss.ToNumericString()</li>
+                                <li>@total.AgentComm.ToNumericString()</li>
+                                <li>@total.AgentTotal.ToNumericString()</li>
+                            </ul>
+                        </td>
                 }
                 else
                 {
                     <td class="text-right hidden-stack-mode col-turnover">@total.Turnover.ToNumericString()</td>
-                    <td class="text-right hidden-stack-mode col-netturnover">@total.NetTurnover.ToNumericString()</td>
-                    <td class="text-right hidden-stack-mode col-grosscomm">@total.GrossComm.ToNumericString()</td>
-                    <td class="text-right hidden-stack-mode col-winloss">@total.MemberWinLoss.ToNumericString()</td>
-                    <td class="text-right hidden-stack-mode col-comm">@total.MemberComm.ToNumericString()</td>
-                    <td class="text-right bold hidden-stack-mode col-total">@total.MemberTotal.ToNumericString()</td>
-                    <td class="altercol text-right hidden-stack-mode col-winloss">@total.AgentWinLoss.ToNumericString()</td>
-                    <td class="altercol text-right hidden-stack-mode col-comm">@total.AgentComm.ToNumericString()</td>
-                    <td class="altercol bold text-right hidden-stack-mode col-total">@total.AgentTotal.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-netturnover">@total.NetTurnover.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-grosscomm">@total.GrossComm.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-winloss">@total.MemberWinLoss.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-comm">@total.MemberComm.ToNumericString()</td>
+                        <td class="text-right bold hidden-stack-mode col-total">@total.MemberTotal.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-winloss">@total.AgentWinLoss.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-comm">@total.AgentComm.ToNumericString()</td>
+                        <td class="altercol bold text-right hidden-stack-mode col-total">@total.AgentTotal.ToNumericString()</td>
                 }
                 <td class="text-right">@total.Company.ToNumericString()</td>
             </tr>

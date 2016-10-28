@@ -1,5 +1,5 @@
 ﻿"use strict";
-declare var store: any;
+declare var store, $: any;
 
 class AlphaReports {
     format = {

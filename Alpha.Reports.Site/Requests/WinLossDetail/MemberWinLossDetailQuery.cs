@@ -5,7 +5,7 @@
     using Models;
     using ViewModels.WinLossDetail;
 
-    public class MemberWinLossDetailQuery : ReportBaseQuery, IRequest<IndexViewModel>
+    public class MemberWinLossDetailQuery : ReportBaseQuery, IRequest<MemberWinLossDetailViewModel>
     {
         public IEnumerable<Product> Products { get; set; }
 

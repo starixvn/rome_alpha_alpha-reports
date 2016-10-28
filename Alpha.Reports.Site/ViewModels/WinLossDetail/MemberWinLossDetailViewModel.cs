@@ -5,7 +5,7 @@
     using Models;
     using Models.WinlossDetail;
 
-    public class IndexViewModel
+    public class MemberWinLossDetailViewModel
     {
         public string MinDate { get; set; }
 

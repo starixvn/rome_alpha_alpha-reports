@@ -17,7 +17,7 @@
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailHandler :
-        IRequestHandler<MemberWinLossDetailQuery, IndexViewModel>
+        IRequestHandler<MemberWinLossDetailQuery, MemberWinLossDetailViewModel>
     {
         private readonly ProductHandler productHandler;
         private readonly ReportDateService reportDateService;
@@ -36,7 +36,7 @@
             this.dateTimeWrapper = dateTimeWrapper;
         }
 
-        public IndexViewModel Handle(MemberWinLossDetailQuery message)
+        public MemberWinLossDetailViewModel Handle(MemberWinLossDetailQuery message)
         {
             var reportRange = reportDateService.GetReportDateRange(new ReportDateRangeParam(
                 message.ReportPath,
@@ -54,7 +54,7 @@
                 netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
             }
 
-            return new IndexViewModel
+            return new MemberWinLossDetailViewModel
             {
                 MinDate = DateTimeHelper.ToShortDateWithSlash(reportRange.FromDate),
                 MaxDate = DateTimeHelper.ToShortDateWithSlash(reportRange.ToDate),
