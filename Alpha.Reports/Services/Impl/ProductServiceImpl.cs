@@ -1,40 +1,35 @@
 ﻿namespace Alpha.Reports.Services.Impl
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using Criteria;
+    using System.Collections.Generic;
     using Fanex.Caching;
-    using Fanex.Data.Repository;
     using Models;
-    using Params;
+    using Sunplus.Agent.Model.Entities.Permission;
+    using RemotingRef;
 
     public class ProductServiceImpl : ProductService
     {
-        private readonly IDynamicRepository repository;
+        private readonly Func<int, bool> CanViewProduct;
+        private readonly Func<int, string> GetProductName;
 
-        public ProductServiceImpl(IDynamicRepository repository)
+        public ProductServiceImpl(
+            Func<int, bool> canViewProduct = null,
+            Func<int, string> getProductName = null)
         {
-            this.repository = repository;
+            CanViewProduct = canViewProduct ?? UserPermission.HasPermissionOnProduct;
+            GetProductName = getProductName ?? new CacheRefServiceImpl().GetProductName;
         }
 
-        public List<Product> GetProductsByCustomer(ProductByCustomerParam param)
+        public IEnumerable<Product> GetProductsForCustomer(int custId, IEnumerable<Product> siteProducts)
         {
-            var criteria = new GetProductByCustomerCriteria(param.CustId);
-
             var productList = CacheService
                 .GetOrSet(
-                $"Alpha.Reports.Services.Impl.ProdoctsOf{criteria.CustId}",
-                () =>
-                {
-                    if (criteria == null || !criteria.IsNotValid())
-                    {
-                        return Enumerable.Empty<Product>().ToList();
-                    }
-
-                    return repository.Get<List<Product>>(criteria);
-                },
-                new CacheItemOptions().SetSlidingExpiration(TimeSpan.FromMinutes(5)));
+                $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}", 
+                () => siteProducts
+                        .Where(product => CanViewProduct(product.Id) == true)
+                        .Select(product => new Product(product.Id, GetProductName)),
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
 
             return productList;
         }

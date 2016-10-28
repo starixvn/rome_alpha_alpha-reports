@@ -9,7 +9,7 @@
     using Models;
     using Newtonsoft.Json;
 
-    public class AppSettings
+    public class SiteSettings
     {
         private static IEnumerable<Product> products;
         private static IEnumerable<ReportRange> reportRanges;
@@ -38,7 +38,7 @@
             {
                 if (products == null)
                 {
-                    products = LoadConfig<IEnumerable<Product>>(ProductConfigPath);
+                    LoadProducts();
                 }
 
                 return products;
@@ -60,9 +60,9 @@
 
         public static string GetConfigValue(string configName) => ConfigurationManager.AppSettings[configName];
 
-        public static T LoadConfig<T>(string configPath)
+        public static void LoadProducts()
         {
-            if (HttpContext.Current == null || HttpContext.Current.Server == null)
+            if (HttpContext.Current?.Server == null)
             {
                 return default(T);
             }

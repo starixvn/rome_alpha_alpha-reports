@@ -13,40 +13,39 @@
     [TestFixture]
     public class ProductServiceImplTests
     {
-        private IDynamicRepository repository;
+        //private IDynamicRepository repository;
 
-        [TestCase(0)]
-        [TestCase(-1)]
-        public void GetProductByCustomer_CusIdIsEqualOrLessThanZero_ReturnEmptyListProduct(int custId)
-        {
-            // Arrange            
-            var param = new ProductByCustomerParam(custId);
-            var service = new ProductServiceImpl(repository);
+        //[TestCase(0)]
+        //[TestCase(-1)]
+        //public void GetProductByCustomer_CusIdIsEqualOrLessThanZero_ReturnEmptyListProduct(int custId)
+        //{
+        //    // Arrange            
+        //    var service = new ProductServiceImpl(repository);
 
-            // Act
-            var productList = service.GetProductsByCustomer(param);
+        //    // Act
+        //    var productList = service.GetProductsByCustomer(custId);
 
-            // Assert
-            CollectionAssert.IsEmpty(productList);
-        }
+        //    // Assert
+        //    CollectionAssert.IsEmpty(productList);
+        //}
 
-        [Test]
-        public void GetProductByCustomer_CusIdIsGreaterThanZero_ReturnDataGetFromRepository()
-        {
-            // Arrange                                   
-            var param = new ProductByCustomerParam(90);
-            var expected = (new Fixture()).Create<List<Product>>();
-            repository = Substitute.For<IDynamicRepository>();
-            repository
-                .Get<List<Product>>(param)
-                .Returns(expected);
-            var service = new ProductServiceImpl(repository);
+        //[Test]
+        //public void GetProductByCustomer_CusIdIsGreaterThanZero_ReturnDataGetFromRepository()
+        //{
+        //    // Arrange                                   
+        //    var custId = 69;
+        //    var expected = (new Fixture()).Create<List<Product>>();
+        //    repository = Substitute.For<IDynamicRepository>();
+        //    repository
+        //        .Get<List<Product>>(new GetProductByCustomerCriteria(custId))
+        //        .Returns(expected);
+        //    var service = new ProductServiceImpl(repository);
 
-            // Act
-            var actual = service.GetProductsByCustomer(param);
+        //    // Act
+        //    var actual = service.GetProductsByCustomer(custId);
 
-            // Assert
-            CollectionAssert.AreEqual(expected, actual);
-        }
+        //    // Assert
+        //    CollectionAssert.AreEqual(expected, actual);
+        //}
     }
 }

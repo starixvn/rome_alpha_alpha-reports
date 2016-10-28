@@ -19,18 +19,18 @@
     public class WinLossDetailHandler :
         IRequestHandler<MemberWinLossDetailQuery, MemberWinLossDetailViewModel>
     {
-        private readonly ProductHandler productHandler;
+        private readonly ProductService productService;
         private readonly ReportDateService reportDateService;
         private readonly WinLossDetailService winLossDetailService;
         private readonly IDateTime dateTimeWrapper;
 
-        public WinLossDetailHandler(
+        public WinLossDetailHandler(ProductService productService)
             ProductHandler productHandler,
             ReportDateService reportDateService,
             WinLossDetailService winLossDetailService,
             IDateTime dateTimeWrapper)
         {
-            this.productHandler = productHandler;
+            this.productService = productService;
             this.reportDateService = reportDateService;
             this.winLossDetailService = winLossDetailService;
             this.dateTimeWrapper = dateTimeWrapper;
@@ -38,18 +38,18 @@
 
         public MemberWinLossDetailViewModel Handle(MemberWinLossDetailQuery message)
         {
-            var reportRange = reportDateService.GetReportDateRange(new ReportDateRangeParam(
+            var products = productService.GetProductsForCustomer(message.CustId, message.Products);
                 message.ReportPath,
                 message.IsHistoricReport,
                 AppSettings.ReportRanges));
 
-            var visibleProducts = productHandler.TransformProducts(message.Products);
 
             var param = CreateWinLossDetailParam(message, visibleProducts);
             var reportData = winLossDetailService.MemberWinLossDetail(param);
 
             var netTurnoverTooltips = new List<string>();
-            if (visibleProducts.Where(product => product.Id == ProductId.AllBet) != null)
+
+            if (products.Where(product => product.Id == ProductId.AllBet) != null)
             {
                 netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
             }

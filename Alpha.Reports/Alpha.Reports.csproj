@@ -125,11 +125,11 @@
     <Compile Include="Models\DateRange.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ReportData.cs" />
-    <Compile Include="Models\ReportRange.cs" />
+    <Compile Include="Models\Site.cs" />
     <Compile Include="Models\WinlossDetail\AgentWinLossDetail.cs" />
     <Compile Include="Models\WinlossDetail\WinlossDetailInfo.cs" />
     <Compile Include="Models\WinlossDetail\MasterWinLossDetail.cs" />
-    <Compile Include="Models\WinlossDetail\MemberWinlossDetail.cs" />
+    <Compile Include="Models\WinlossDetail\MemberWinLoss.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\ReportDateRangeParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />

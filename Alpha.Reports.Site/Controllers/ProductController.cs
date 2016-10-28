@@ -1,21 +1,22 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
     using System.Web.Mvc;
-    using MediatR;
-    using Requests;
+    using Configurations;
+    using Services;
+    using Services.Impl;
 
     public class ProductController : BaseController
     {
-        private readonly IMediator mediator;
+        private readonly ProductService productService;
 
-        public ProductController(IMediator mediator)
+        public ProductController(ProductServiceImpl productService)
         {
-            this.mediator = mediator;
+            this.productService = productService;
         }
 
-        public JsonResult GetAllProducts(GetAllProductsQuery message)
+        public JsonResult GetProductsForCustomer(int custId)
         {
-            var products = mediator.Send(message);
+            var products = productService.GetProductsForCustomer(custId, SiteSettings.Products);
 
             return Json(products, JsonRequestBehavior.AllowGet);
         }

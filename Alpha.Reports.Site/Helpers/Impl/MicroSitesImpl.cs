@@ -6,7 +6,7 @@
     {
         public string OldMainPath(string virtualPath)
         {
-            return AppPathHelper.GetAppPath(AppSettings.OldMainAppPath, virtualPath);
+            return AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, virtualPath);
         }
     }
 }
