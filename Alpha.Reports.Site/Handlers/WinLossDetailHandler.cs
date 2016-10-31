@@ -21,16 +21,17 @@
         IRequestHandler<AgentWinLossDetailQuery, AgentWinLossDetailViewModel>,
         IRequestHandler<MemberWinLossDetailQuery, MemberWinLossDetailViewModel>
     {
+        private const int AllBetProductId = 22;
         private readonly ProductService productService;
         private readonly ReportDateService reportDateService;
         private readonly WinLossDetailService winLossDetailService;
-        private readonly SiteContext siteContext;
+        private readonly ApplicationContext siteContext;
 
         public WinLossDetailHandler(
             ProductService productService,
             ReportDateService reportDateService,
             WinLossDetailService winLossDetailService,
-            SiteContext siteContext)
+            ApplicationContext siteContext)
         {
             this.productService = productService;
             this.reportDateService = reportDateService;
@@ -57,7 +58,7 @@
 
             var netTurnoverTooltips = new List<string>();
 
-            if (products.Where(product => product.Id == ProductId.AllBet) != null)
+            if (products.Where(product => product.Id == AllBetProductId) != null)
             {
                 netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
             }
@@ -103,7 +104,7 @@
 
             var netTurnoverTooltips = new List<string>();
 
-            if (products.Where(product => product.Id == ProductId.AllBet) != null)
+            if (products.Where(product => product.Id == AllBetProductId) != null)
             {
                 netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
             }
@@ -149,7 +150,7 @@
 
             var netTurnoverTooltips = new List<string>();
 
-            if (products.Where(product => product.Id == ProductId.AllBet) != null)
+            if (products.Where(product => product.Id == AllBetProductId) != null)
             {
                 netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
             }

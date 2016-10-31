@@ -6,9 +6,9 @@
     using Fanex.Data.Repository;
     using MediatR;
     using RemotingRef;
+    using Reports;
     using Reports.DataAccess;
     using Reports.DataAccess.Impl;
-    using Reports.Models;
     using Reports.Services;
     using Reports.Services.Impl;
     using Reports.Site.App_Start;
@@ -64,7 +64,7 @@
 
         private static void RegisterServices(Container container)
         {
-            container.Register<SiteContext, ReportSiteContext>(Lifestyle.Singleton);
+            container.Register<ApplicationContext, ReportSiteContext>(Lifestyle.Singleton);
             container.Register<IUserSession, UserSessionExt>(Lifestyle.Scoped);
             container.Register<CacheRefService, CacheRefServiceImpl>(Lifestyle.Transient);
             container.Register<ReportDateService, ReportDateServiceImpl>(Lifestyle.Transient);

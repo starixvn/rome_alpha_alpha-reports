@@ -1,9 +1,10 @@
-﻿namespace Alpha.Reports.Models
+﻿namespace Alpha.Reports
 {
     using System;
     using System.Collections.Generic;
+    using Models;
 
-    public interface SiteContext
+    public interface ApplicationContext
     {
         DateTime ServerTime { get; }
 

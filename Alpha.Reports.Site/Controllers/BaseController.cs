@@ -8,13 +8,13 @@
     using System.Web.Routing;
     using System.Web.Security;
     using System.Web.SessionState;
-    using Constants;
     using Sunplus.Agent.Model.Entities;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     public abstract class BaseController : Controller
     {
-        private CultureInfo defaultCulture = CultureInfo.CreateSpecificCulture(LanguageCode.Default);
+        private const string DefaultLanguageCode = "en-US";
+        private CultureInfo defaultCulture = CultureInfo.CreateSpecificCulture(DefaultLanguageCode);
 
         protected override void OnAuthentication(AuthenticationContext filterContext)
         {
@@ -50,7 +50,7 @@
 
             if (string.IsNullOrWhiteSpace(cultureName))
             {
-                cultureName = LanguageCode.Default;
+                cultureName = DefaultLanguageCode;
                 UserSession.Current.Language = cultureName;
             }
 

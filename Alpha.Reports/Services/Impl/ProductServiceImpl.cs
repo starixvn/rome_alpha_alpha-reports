@@ -10,20 +10,20 @@
 
     public class ProductServiceImpl : ProductService
     {
-        private readonly SiteContext context;
+        private readonly ApplicationContext applicationContext;
         private readonly Func<int, bool> canViewProduct;
         private readonly Func<int, string> getProductName;
 
-        public ProductServiceImpl(SiteContext context) : this(context, null, null)
+        public ProductServiceImpl(ApplicationContext applicationContext) : this(applicationContext, null, null)
         {
         }
 
         internal ProductServiceImpl(
-            SiteContext context,
+            ApplicationContext applicationContext,
             Func<int, bool> canViewProduct,
             Func<int, string> getProductName)
         {
-            this.context = context;
+            this.applicationContext = applicationContext;
             this.canViewProduct = canViewProduct ?? UserPermission.HasPermissionOnProduct;
             this.getProductName = getProductName ?? new CacheRefServiceImpl().GetProductName;
         }
@@ -33,7 +33,7 @@
             var productList = CacheService
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
-                () => context
+                () => applicationContext
                         .Products
                         .Where(product => canViewProduct(product.Id) == true)
                         .Select(product => new Product(product.Id, product.Name, getProductName)),

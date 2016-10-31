@@ -101,8 +101,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Constants\DefaultVariables.cs" />
-    <Compile Include="Constants\LanguageCode.cs" />
-    <Compile Include="Constants\ProductId.cs" />
     <Compile Include="Constants\SortDirection.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
     <Compile Include="Criteria\GetProductByCustomerCriteria.cs" />
@@ -125,7 +123,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\ReportRange.cs" />
-    <Compile Include="Models\SiteContext.cs" />
+    <Compile Include="ApplicationContext.cs" />
     <Compile Include="Models\WinlossDetail\AgentWinLossDetail.cs" />
     <Compile Include="Models\WinlossDetail\MemberWinLossDetail.cs" />
     <Compile Include="Models\WinlossDetail\MasterWinLossDetail.cs" />

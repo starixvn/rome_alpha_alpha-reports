@@ -10,9 +10,9 @@
             Name = name;
         }
 
-        internal Product(int id, string name, Func<int, string> getProductName) : this(id, name)
+        internal Product(int id, string name, Func<int, string> getProductDisplayName) : this(id, name)
         {
-            DisplayName = getProductName == null ? name : getProductName(id);
+            DisplayName = getProductDisplayName == null ? name : getProductDisplayName(id);
         }
 
         public int Id { get; }

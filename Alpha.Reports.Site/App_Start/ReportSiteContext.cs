@@ -1,12 +1,12 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
-    using Extensions;
     using System;
     using System.Collections.Generic;
     using Configurations;
+    using Extensions;
     using Models;
 
-    public class ReportSiteContext : SiteContext
+    public class ReportSiteContext : ApplicationContext
     {
         public DateTime ServerTime
         {
@@ -20,12 +20,6 @@
             }
         }
 
-        public IEnumerable<Product> Products
-        {
-            get
-            {
-                return SiteSettings.Products;
-            }
-        }
+        public IEnumerable<Product> Products => SiteSettings.Products;
     }
 }

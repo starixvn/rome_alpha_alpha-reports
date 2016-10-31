@@ -15,9 +15,10 @@
         private const string ReportDateRangeCacheKey = "Alpha.Reports.ReportDateRange";
 
         private readonly IDynamicRepository dynamicRepository;
-        private readonly SiteContext siteContext;
+        private readonly ApplicationContext siteContext;
 
         public ReportDateServiceImpl(IDynamicRepository dynamicRepository = null, SiteContext siteContext = null)
+            ApplicationContext siteContext = null)
         {
             this.dynamicRepository = dynamicRepository;
             this.siteContext = siteContext;
