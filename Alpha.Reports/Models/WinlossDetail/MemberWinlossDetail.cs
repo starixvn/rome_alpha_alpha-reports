@@ -14,6 +14,6 @@
 
         public decimal AgentTotal => AgentWinLoss + AgentComm;
 
-        public override decimal Company => -MemberTotal - AgentTotal;
+        public override decimal Company => -(MemberTotal + AgentTotal);
     }
 }

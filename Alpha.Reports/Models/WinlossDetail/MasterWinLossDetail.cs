@@ -8,6 +8,6 @@
 
         public decimal SuperTotal => SuperWinLoss + SuperComm;
 
-        public override decimal Company => -MemberTotal - AgentTotal - MasterTotal - SuperTotal;
+        public override decimal Company => -(MemberTotal + AgentTotal + MasterTotal + SuperTotal);
     }
 }
