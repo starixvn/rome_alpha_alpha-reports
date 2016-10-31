@@ -64,9 +64,9 @@
 
             return new MasterWinLossDetailViewModel
             {
-                MinDate = reportRange.FromDate.ToShortDateWithSlash(),
-                MaxDate = reportRange.ToDate.ToShortDateWithSlash(),
-                CurrentDate = DateTime.Now.ToShortDateWithSlash(),
+                MinDate = reportRange.FromDate,
+                MaxDate = reportRange.ToDate,
+                CurrentDate = DateTime.Now,
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,
 
@@ -110,9 +110,9 @@
 
             return new AgentWinLossDetailViewModel
             {
-                MinDate = reportRange.FromDate.ToShortDateWithSlash(),
-                MaxDate = reportRange.ToDate.ToShortDateWithSlash(),
-                CurrentDate = DateTime.Now.ToShortDateWithSlash(),
+                MinDate = reportRange.FromDate,
+                MaxDate = reportRange.ToDate,
+                CurrentDate = DateTime.Now,
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,
 
@@ -156,9 +156,9 @@
 
             return new MemberWinLossDetailViewModel
             {
-                MinDate = reportRange.FromDate.ToShortDateWithSlash(),
-                MaxDate = reportRange.ToDate.ToShortDateWithSlash(),
-                CurrentDate = DateTime.Now.ToShortDateWithSlash(),
+                MinDate = reportRange.FromDate,
+                MaxDate = reportRange.ToDate,
+                CurrentDate = DateTime.Now,
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,
 

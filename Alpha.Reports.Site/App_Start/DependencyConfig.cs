@@ -29,8 +29,6 @@
 
             RegisterMediator(container);
 
-            RegisterCrossCuttingConcerns(container);
-
             RegisterDataAccesses(container);
 
             RegisterServices(container);
@@ -64,10 +62,6 @@
             yield return typeof(BaseController).Assembly;
         }
 
-        private static void RegisterCrossCuttingConcerns(Container container)
-        {
-        }
-
         private static void RegisterServices(Container container)
         {
             container.Register<SiteContext, ReportSiteContext>(Lifestyle.Singleton);
@@ -81,7 +75,6 @@
         private static void RegisterDataAccesses(Container container)
         {
             container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Transient);
-            container.Register<ReportDateAccess, ReportDateAccessImpl>(Lifestyle.Transient);
             container.Register<ReportDataAccess, ReportDataAccessImpl>(Lifestyle.Transient);
         }
     }

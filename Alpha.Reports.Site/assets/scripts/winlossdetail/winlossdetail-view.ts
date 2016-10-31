@@ -179,7 +179,7 @@ class WinLossDetailView {
                 " value=\"" + product.Id + "\"" +
                 (selectedProduct.indexOf(product.Id.toString()) !== -1 ? " selected=\"selected\"" : "") +
                 " >" +
-                product.DisplayText +
+                product.DisplayName +
                 "</options>";
         }
 

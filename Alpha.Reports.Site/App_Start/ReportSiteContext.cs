@@ -16,7 +16,7 @@
 
                 return gmt == null
                     ? DateTime.Now
-                    : DateTime.Now.ConvertGMT(gmt.Value);
+                    : DateTime.Now.ToOffsetHour(gmt.Value);
             }
         }
 

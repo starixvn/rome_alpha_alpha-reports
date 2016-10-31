@@ -25,6 +25,6 @@
         /// <summary>
         /// First date of first month of previous 5 Years.
         /// </summary>
-        Previous5Years = 5
+        Previous3Years = 5
     }
 }

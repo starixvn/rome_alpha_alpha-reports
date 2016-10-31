@@ -37,7 +37,7 @@
             return dateTime.ToString(HtmlLongDateWithSlash);
         }
 
-        public static DateTime ConvertGMT(this DateTime dateTime, int gmt)
+        public static DateTime ToOffsetHour(this DateTime dateTime, int gmt)
         {
             var hoursOffset = TimeZone.CurrentTimeZone.GetUtcOffset(dateTime).Hours;
             DateTime gmtDateTime = dateTime.AddHours(gmt - hoursOffset);

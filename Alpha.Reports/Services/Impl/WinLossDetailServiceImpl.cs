@@ -12,16 +12,11 @@
     public class WinLossDetailServiceImpl : WinLossDetailService
     {
         private readonly ReportDateService reportDateService;
-        private readonly IDynamicRepository dynamicRepository;
         private readonly ReportDataAccess reportDataAccess;
 
-        public WinLossDetailServiceImpl(
-            ReportDateService reportDateService,
-            IDynamicRepository dynamicRepository,
-            ReportDataAccess reportDataAccess)
+        public WinLossDetailServiceImpl(ReportDateService reportDateService, ReportDataAccess reportDataAccess)
         {
             this.reportDateService = reportDateService;
-            this.dynamicRepository = dynamicRepository;
             this.reportDataAccess = reportDataAccess;
         }
 

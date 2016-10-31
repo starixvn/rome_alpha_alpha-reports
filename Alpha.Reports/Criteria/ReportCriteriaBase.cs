@@ -5,7 +5,7 @@
 
     public abstract class ReportCriteriaBase : CriteriaBase
     {
-        public ReportCriteriaBase(int custId, int pageIndex, int pageSize, DateTime fromDate, DateTime toDate)
+        protected ReportCriteriaBase(int custId, int pageIndex, int pageSize, DateTime fromDate, DateTime toDate)
         {
             CustId = custId;
             PageIndex = pageIndex;

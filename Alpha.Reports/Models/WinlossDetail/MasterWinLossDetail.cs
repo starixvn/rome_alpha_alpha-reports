@@ -2,9 +2,9 @@
 {
     public class MasterWinLossDetail : AgentWinLossDetail
     {
-        public decimal SuperWinLoss { get; }
+        public decimal SuperWinLoss { get; set; }
 
-        public decimal SuperComm { get; }
+        public decimal SuperComm { get; set; }
 
         public decimal SuperTotal => SuperWinLoss + SuperComm;
 

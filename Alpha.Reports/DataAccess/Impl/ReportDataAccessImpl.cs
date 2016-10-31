@@ -5,18 +5,10 @@
     using System.Linq;
     using Criteria;
     using Fanex.Data;
-    using Fanex.Data.Repository;
     using Models;
 
     public class ReportDataAccessImpl : ReportDataAccess
     {
-        private readonly IDynamicRepository repository;
-
-        public ReportDataAccessImpl(IDynamicRepository repository)
-        {
-            this.repository = repository;
-        }
-
         public ReportData<T> GetData<T>(ReportCriteriaBase criteria) where T : class
         {
             if (criteria == null)

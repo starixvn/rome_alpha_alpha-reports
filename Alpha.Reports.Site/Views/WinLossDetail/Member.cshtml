@@ -63,19 +63,19 @@
                  data-labellastmonth="@Resources.LastMonth"
                  data-labelsincelastmonth="@Resources.SinceLastMonth"
                  data-labelspecificdate="@Resources.SpecificDate"
-                 data-mindate="@Model.MinDate"
-                 data-maxdate="@Model.MaxDate"
-                 data-currentdate="@Model.CurrentDate"></div>
+                 data-mindate="@Model.MinDate.ToShortDateWithSlash()"
+                 data-maxdate="@Model.MaxDate.ToShortDateWithSlash()"
+                 data-currentdate="@Model.CurrentDate.ToShortDateWithSlash()"></div>
         </div>
     </div>
     <div class="form-group monthpicker-container">
         <div id="monthPickerID">
             <div id="dropdown-month"
-                 data-mindate="@Model.MinDate"
-                 data-maxdate="@Model.CurrentDate"
+                 data-mindate="@Model.MinDate.ToShortDateWithSlash()"
+                 data-maxdate="@Model.CurrentDate.ToShortDateWithSlash()"
                  data-dateinmonth="@Model.FromDate.ToShortDateWithSlash()"
-                 data-todate="@Model.ToDate.Day"
-                 data-currentdate="@Model.CurrentDate"
+                 data-todate="@Model.ToDate.ToShortDateWithSlash()"
+                 data-currentdate="@Model.CurrentDate.ToShortDateWithSlash()"
                  data-labelto="@Resources.To"></div>
         </div>
     </div>

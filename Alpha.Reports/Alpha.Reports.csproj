@@ -114,9 +114,7 @@
     <Compile Include="Criteria\WinLossDetail\MasterWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\MemberWinLossDetailCriteria.cs" />
     <Compile Include="DataAccess\Impl\ReportDataAccessImpl.cs" />
-    <Compile Include="DataAccess\Impl\ReportDateAccessImpl.cs" />
     <Compile Include="DataAccess\ReportDataAccess.cs" />
-    <Compile Include="DataAccess\ReportDateAccess.cs" />
     <Compile Include="Enums\ReportTimeRangeType.cs" />
     <Compile Include="Extensions\DecimalExtension.cs" />
     <Compile Include="GlobalSuppressions.cs" />

@@ -3,11 +3,9 @@
     using System;
     using System.Linq;
     using Criteria;
-    using DataAccess;
     using Enums;
     using Fanex.Caching;
     using Fanex.Data.Repository;
-    using Helpers;
     using Models;
     using Params;
 
@@ -17,16 +15,11 @@
         private const string ReportDateRangeCacheKey = "Alpha.Reports.ReportDateRange";
 
         private readonly IDynamicRepository dynamicRepository;
-        private readonly ReportDateAccess reportDateAccess;
         private readonly SiteContext siteContext;
 
-        public ReportDateServiceImpl(
-            IDynamicRepository dynamicRepository = null,
-            ReportDateAccess reportDateAccess = null,
-            SiteContext siteContext = null)
+        public ReportDateServiceImpl(IDynamicRepository dynamicRepository = null, SiteContext siteContext = null)
         {
             this.dynamicRepository = dynamicRepository;
-            this.reportDateAccess = reportDateAccess;
             this.siteContext = siteContext;
         }
 
@@ -65,17 +58,34 @@
             if (!Enum.TryParse(rangeType.ToString(), out reportTimeRangeType) ||
                 reportTimeRangeType == ReportTimeRangeType.Unknown)
             {
-                dateRange = new DateRange(siteContext.ServerTime, siteContext.ServerTime);
-            }
-            else
-            {
-                dateRange = reportDateAccess.GetReportDateRange(new ReportDateRangeCriteria(rangeType));
-                CacheService.Set(
-                    ReportDateRangeCacheKey + rangeType,
-                    dateRange,
-                    new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
+                return new DateRange(siteContext.ServerTime, siteContext.ServerTime);
             }
 
+            var serverTime = siteContext.ServerTime;
+
+            switch (reportTimeRangeType)
+            {
+                case ReportTimeRangeType.BalanceUp:
+                    dateRange = new DateRange(GetBalanceUpDay(), DateTime.MaxValue);
+                    break;
+                case ReportTimeRangeType.Previous3Months:
+                    dateRange = new DateRange(serverTime.AddMonths(-3), DateTime.MaxValue);
+                    break;
+                case ReportTimeRangeType.Previous18Months:
+                    dateRange = new DateRange(serverTime.AddMonths(-18), DateTime.MaxValue);
+                    break;
+                case ReportTimeRangeType.Previous3Years:
+                    dateRange = new DateRange(serverTime.AddYears(-3), DateTime.MaxValue);
+                    break;
+                default:
+                    dateRange = new DateRange(serverTime, serverTime);
+                    break;
+            }
+
+            CacheService.Set(
+                ReportDateRangeCacheKey + rangeType,
+                dateRange,
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
             return dateRange;
         }
 

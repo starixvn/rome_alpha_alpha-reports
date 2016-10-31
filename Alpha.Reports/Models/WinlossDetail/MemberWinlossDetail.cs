@@ -14,15 +14,15 @@
 
         public int NumberOfTickets { get; set; }
 
-        public decimal MemberWinLoss { get; }
+        public decimal MemberWinLoss { get; set; }
 
-        public decimal MemberComm { get; }
+        public decimal MemberComm { get; set; }
 
         public decimal MemberTotal => MemberWinLoss + MemberComm;
 
-        public decimal AgentWinLoss { get; }
+        public decimal AgentWinLoss { get; set; }
 
-        public decimal AgentComm { get; }
+        public decimal AgentComm { get; set; }
 
         public decimal AgentTotal => AgentWinLoss + AgentComm;
 

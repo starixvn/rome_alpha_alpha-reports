@@ -5,15 +5,15 @@
 
     public class WinLossDetailViewModel
     {
-        public string MinDate { get; set; }
+        public DateTime MinDate { get; set; }
 
-        public string MaxDate { get; set; }
+        public DateTime MaxDate { get; set; }
 
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
 
-        public string CurrentDate { get; set; }
+        public DateTime CurrentDate { get; set; }
 
         public string Language { get; set; }
 
