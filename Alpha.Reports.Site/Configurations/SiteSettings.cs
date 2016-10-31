@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Web;
     using Fanex.Common;
+    using Fanex.Common.Helper;
     using Models;
     using Newtonsoft.Json;
 
