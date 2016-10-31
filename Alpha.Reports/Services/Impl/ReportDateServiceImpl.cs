@@ -15,13 +15,12 @@
         private const string ReportDateRangeCacheKey = "Alpha.Reports.ReportDateRange";
 
         private readonly IDynamicRepository dynamicRepository;
-        private readonly ApplicationContext siteContext;
+        private readonly ApplicationContext applicationContext;
 
-        public ReportDateServiceImpl(IDynamicRepository dynamicRepository = null, SiteContext siteContext = null)
-            ApplicationContext siteContext = null)
+        public ReportDateServiceImpl(IDynamicRepository dynamicRepository = null, ApplicationContext applicationContext = null)
         {
             this.dynamicRepository = dynamicRepository;
-            this.siteContext = siteContext;
+            this.applicationContext = applicationContext;
         }
 
         public DateTime GetBalanceUpDay() => GetBalanceUpDayAndMoveBetsDay().BalanceUpDay;
@@ -59,10 +58,10 @@
             if (!Enum.TryParse(rangeType.ToString(), out reportTimeRangeType) ||
                 reportTimeRangeType == ReportTimeRangeType.Unknown)
             {
-                return new DateRange(siteContext.ServerTime, siteContext.ServerTime);
+                return new DateRange(applicationContext.ServerTime, applicationContext.ServerTime);
             }
 
-            var serverTime = siteContext.ServerTime;
+            var serverTime = applicationContext.ServerTime;
 
             switch (reportTimeRangeType)
             {

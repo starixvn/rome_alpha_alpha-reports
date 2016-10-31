@@ -6,7 +6,7 @@
     using Extensions;
     using Models;
 
-    public class ReportSiteContext : ApplicationContext
+    public class ReportApplicationContext : ApplicationContext
     {
         public DateTime ServerTime
         {

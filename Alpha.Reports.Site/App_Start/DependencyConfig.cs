@@ -64,7 +64,7 @@
 
         private static void RegisterServices(Container container)
         {
-            container.Register<ApplicationContext, ReportSiteContext>(Lifestyle.Singleton);
+            container.Register<ApplicationContext, ReportApplicationContext>(Lifestyle.Singleton);
             container.Register<IUserSession, UserSessionExt>(Lifestyle.Scoped);
             container.Register<CacheRefService, CacheRefServiceImpl>(Lifestyle.Transient);
             container.Register<ReportDateService, ReportDateServiceImpl>(Lifestyle.Transient);
