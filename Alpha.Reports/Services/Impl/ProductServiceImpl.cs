@@ -10,27 +10,31 @@
 
     public class ProductServiceImpl : ProductService
     {
+        private readonly SiteContext context;
         private readonly Func<int, bool> canViewProduct;
         private readonly Func<int, string> getProductName;
 
-        public ProductServiceImpl() : this(null, null)
+        public ProductServiceImpl() : this(null, null, null)
         {
         }
 
         internal ProductServiceImpl(
+            SiteContext context,
             Func<int, bool> canViewProduct,
             Func<int, string> getProductName)
         {
+            this.context = context;
             this.canViewProduct = canViewProduct ?? UserPermission.HasPermissionOnProduct;
             this.getProductName = getProductName ?? new CacheRefServiceImpl().GetProductName;
         }
 
-        public IEnumerable<Product> GetProductsForCustomer(int custId, IEnumerable<Product> siteProducts)
+        public IEnumerable<Product> GetProductsForCustomer(int custId)
         {
             var productList = CacheService
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
-                () => siteProducts
+                () => context
+                        .Products
                         .Where(product => canViewProduct(product.Id) == true)
                         .Select(product => new Product(product.Id, product.Name, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));

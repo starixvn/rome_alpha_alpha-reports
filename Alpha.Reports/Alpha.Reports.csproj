@@ -128,7 +128,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\ReportRange.cs" />
-    <Compile Include="Models\Site.cs" />
+    <Compile Include="Models\SiteContext.cs" />
     <Compile Include="Models\WinlossDetail\AgentWinLossDetail.cs" />
     <Compile Include="Models\WinlossDetail\MemberWinLossDetail.cs" />
     <Compile Include="Models\WinlossDetail\MasterWinLossDetail.cs" />

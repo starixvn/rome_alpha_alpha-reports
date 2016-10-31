@@ -43,7 +43,7 @@
                 throw new ArgumentNullException("message");
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId.Value, SiteSettings.Products);
+            var products = productService.GetProductsForCustomer(message.CustId.Value);
 
             var param = CreateWinLossDetailParam(message, products);
             var reportData = winLossDetailService.MemberWinLossDetail(param);

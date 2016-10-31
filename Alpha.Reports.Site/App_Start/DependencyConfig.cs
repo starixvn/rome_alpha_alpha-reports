@@ -11,8 +11,10 @@
     using Reports.DataAccess.Impl;
     using Reports.Helpers;
     using Reports.Helpers.Impl;
+    using Reports.Models;
     using Reports.Services;
     using Reports.Services.Impl;
+    using Reports.Site;
     using Reports.Site.Controllers;
     using SimpleInjector;
     using SimpleInjector.Integration.Web;
@@ -73,6 +75,7 @@
 
         private static void RegisterServices(Container container)
         {
+            container.Register<SiteContext, ReportSiteContext>(Lifestyle.Singleton);
             container.Register<IUserSession, UserSessionExt>(Lifestyle.Scoped);
             container.Register<CacheRefService, CacheRefServiceImpl>(Lifestyle.Transient);
             container.Register<ReportDateService, ReportDateServiceImpl>(Lifestyle.Transient);

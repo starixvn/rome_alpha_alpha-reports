@@ -16,7 +16,7 @@
 
         public JsonResult GetProductsForCustomer(int custId)
         {
-            var products = productService.GetProductsForCustomer(custId, SiteSettings.Products);
+            var products = productService.GetProductsForCustomer(custId);
 
             return Json(products, JsonRequestBehavior.AllowGet);
         }

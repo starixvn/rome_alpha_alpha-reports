@@ -6,6 +6,6 @@
 
     public interface ProductService
     {
-        IEnumerable<Product> GetProductsForCustomer(int custId, IEnumerable<Product> siteProducts);
+        IEnumerable<Product> GetProductsForCustomer(int custId);
     }
 }
