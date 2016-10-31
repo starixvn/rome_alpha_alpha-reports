@@ -3,8 +3,8 @@
     using System;
     using Criteria.WinLossDetail;
     using DataAccess;
+    using Extensions;
     using Fanex.Data.Repository;
-    using Helpers;
     using Models;
     using Models.WinlossDetail;
     using Params;
@@ -34,8 +34,8 @@
 
             var criteria = new MasterWinLossDetailCriteria(
                 param.CustId,
-                DateTimeHelper.GetBeginningOfDate(param.FromDate),
-                DateTimeHelper.GetEndingOfDate(param.ToDate),
+                param.FromDate.GetBeginningOfDate(),
+                param.ToDate.GetEndingOfDate(),
                 reportDateService.GetBalanceUpDay(),
                 string.Join(",", param.ProductIds),
                 param.PageSize,
@@ -53,8 +53,8 @@
 
             var criteria = new AgentWinLossDetailCriteria(
                 param.CustId,
-                DateTimeHelper.GetBeginningOfDate(param.FromDate),
-                DateTimeHelper.GetEndingOfDate(param.ToDate),
+                DateTimeExtensions.GetBeginningOfDate(param.FromDate),
+                DateTimeExtensions.GetEndingOfDate(param.ToDate),
                 reportDateService.GetBalanceUpDay(),
                 string.Join(",", param.ProductIds),
                 param.PageSize,
@@ -72,14 +72,17 @@
 
             var criteria = new MemberWinLossDetailCriteria(
                 param.CustId,
-                DateTimeHelper.GetBeginningOfDate(param.FromDate),
-                DateTimeHelper.GetEndingOfDate(param.ToDate),
+                DateTimeExtensions.GetBeginningOfDate(param.FromDate),
+                DateTimeExtensions.GetEndingOfDate(param.ToDate),
                 reportDateService.GetBalanceUpDay(),
                 string.Join(",", param.ProductIds),
                 param.PageSize,
                 param.PageIndex);
+            var reportData = reportDataAccess.GetData<MemberWinLossDetail>(criteria);
 
-            return reportDataAccess.GetData<MemberWinLossDetail>(criteria);
+            // IEnumerableHelper.SortIEnumerable(reportData.DataSource, param.SortedColumn, param.SortDirection);
+
+            return reportData;
         }
     }
 }

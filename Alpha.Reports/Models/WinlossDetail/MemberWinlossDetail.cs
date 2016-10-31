@@ -12,7 +12,7 @@
 
         public decimal GrossComm { get; set; }
 
-        public int NumberOfTickets { get; set; }        
+        public int NumberOfTickets { get; set; }
 
         public decimal MemberWinLoss { get; }
 

@@ -1,1 +1,289 @@
-﻿
+﻿@using Alpha.Reports.Site.ViewModels.WinLossDetail;
+@using Alpha.Reports.Extensions;
+@using Alpha.Reports.Models.WinlossDetail;
+@model MasterWinLossDetailViewModel
+@{
+    ViewBag.Title = Resources.MasterWinLossDetail;
+    var total = (MasterWinLossDetail)Model.ReportData.Total;
+}
+
+@section Styles {
+    @AssetStyles.Render("/bundles/site-reports/default")
+    @ReportsStyles.Render("~/assets/bundles/default")
+}
+
+<div class="modal fade message-modal" id="netturnovertooltip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="msg-content">
+                    <ul class="list-msg">
+                        <li>
+                            @Resources.Tooltip_NetTurnover
+                        </li>
+                        @foreach (var netTurnoverTooltip in Model.NetTurnoverTooltips)
+                        {
+                            <li>
+                                @netTurnoverTooltip
+                            </li>
+                        }
+                        <li>
+                            <label for="close-netturnover-tooltip"><input id="close-netturnover-tooltip" type="checkbox" /> @Resources.DoNotShowAgain</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-title
+      @(Model.IsStackMode?"stack-mode":string.Empty)
+      @(Model.HideFilter?"hide-filter":string.Empty)">
+    <span class="pull-left">@Resources.MemberWinLossDetail</span>
+    <div class="list-icon">
+        <ul>
+            <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+            <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+            <li class="normalview-element"><span class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
+            <li class="stackcolumnview-element"><span class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
+        </ul>
+    </div>
+</div>
+
+<form class="form-inline filter
+      @(Model.IsHistoricReport?"historic-report":string.Empty)" role="form" id="filter">
+    <div class="form-group nexDatePicker">
+        <div class="currentreport-item">
+            <div id="daterange-picker"
+                 data-labelto="@Resources.To"
+                 data-labeltoday="@Resources.Today"
+                 data-labelyesterday="@Resources.Yesterday"
+                 data-labelthisweek="@Resources.ThisWeek"
+                 data-labellastweek="@Resources.LastWeek"
+                 data-labelthismonth="@Resources.ThisMonth"
+                 data-labellastmonth="@Resources.LastMonth"
+                 data-labelsincelastmonth="@Resources.SinceLastMonth"
+                 data-labelspecificdate="@Resources.SpecificDate"
+                 data-mindate="@Model.MinDate"
+                 data-maxdate="@Model.MaxDate"
+                 data-currentdate="@Model.CurrentDate"></div>
+        </div>
+    </div>
+    <div class="form-group monthpicker-container">
+        <div id="monthPickerID">
+            <div id="dropdown-month"
+                 data-mindate="@Model.MinDate"
+                 data-maxdate="@Model.CurrentDate"
+                 data-dateinmonth="@Model.FromDate.ToShortDateWithSlash()
+                 data-todate="@Model.ToDate.Day"
+                 data-currentdate="@Model.CurrentDate"
+                 data-labelto="@Resources.To"></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="txt">@Resources.Product</label>
+        <select id="dropdown-product"
+                data-products="@Model.Products"
+                data-selectedproducts="@Model.SelectedProducts"
+                data-labelselectproducts="@Resources.SelectProducts"
+                data-labelselected="@Resources.Selected"
+                data-labelallproducts="@Resources.AllProducts"
+                data-labelthereisnoproduct="@Resources.ThereIsNoProduct"
+                data-language="@Model.Language"
+                multiple="multiple"></select>
+    </div>
+    <div class="form-group">
+        <input type="button" value="@Resources.Submit" class="btn-submit" />
+    </div>
+    <div class="form-group">
+        <span class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note currentreport-item">
+        <span class="star">*</span>@Html.Raw(string.Format(Resources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport, Model.MinDate))
+    </div>
+    <div class="note historicreport-item">
+        <span class="star">*</span>@Html.Raw(string.Format(Resources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport, Model.MinDate))
+    </div>
+</form>
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
+        @(Model.IsStackMode?"stack-mode":string.Empty)" id="tbl-report"
+       data-pageindex="@Model.ReportData.CurrentPageIndex"
+       data-pagesize="@Model.ReportData.PageSize"
+       data-totalrecords="@Model.ReportData.TotalRecords">
+    <thead>
+        <tr>
+            <th rowspan="2">@Resources.Username <span class="icon-menu-up ascSorting"></span></th>
+            <th rowspan="2">@Resources.NoOfTicket</th>
+            <th rowspan="2" class="hidden-stack-mode">@Resources.Turnover</th>
+            <th rowspan="2" class="hidden-stack-mode col-netturnover-header">@Resources.NetTurnover</th>
+            <th rowspan="2" class="hidden-stack-mode">@Resources.GrossComm</th>
+            <th rowspan="2" class="visible-stack-mode">@Resources.TO_NetTO_GrossComm</th>
+            <th colspan="3" class="col-level">@Resources.Member</th>
+            <th colspan="3" class="col-level">@Resources.Agent</th>
+            <th colspan="3" class="col-level">@Resources.Master</th>
+            <th colspan="3" class="col-level">@Resources.Super</th>
+            <th rowspan="2">@Resources.Company</th>
+        </tr>
+        <tr class="RptHeader02">
+            @for (var i = 0; i < 4; i++)
+            {
+                <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode">@Resources.Comm</th>
+                <th class="hidden-stack-mode">@Resources.Total</th>
+                <th colspan="3" class="visible-stack-mode col-combine">@Resources.WL_Comm_Total</th>
+            }
+        </tr>
+    </thead>
+    @if (Model.ReportData.DataSource.Any())
+    {
+        <tbody>
+            @foreach (MasterWinLossDetail data in Model.ReportData.DataSource)
+                {
+                <tr>
+                    <td><a href="@Model.OldMainAppPath/_BetList/BetList.aspx?" class="downline-link">@data.CustName</a></td>
+                    <td class="text-right">@data.NumberOfTickets</td>
+                    @if (Model.IsStackMode)
+                    {
+                        <td class="text-right visible-stack-mode combinedcolumn col-turnover-combined">
+                            <ul>
+                                <li>@data.Turnover.ToNumericString()</li>
+                                <li>@data.NetTurnover.ToNumericString()</li>
+                                <li>@data.GrossComm.ToNumericString()</li>
+                            </ul>
+                        </td>
+                        <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                            <ul>
+                                <li>@data.MemberWinLoss.ToNumericString()</li>
+                                <li>@data.MemberComm.ToNumericString()</li>
+                                <li>@data.MemberTotal.ToNumericString()</li>
+                            </ul>
+                        </td>
+                        <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined altercol" colspan="3">
+                            <ul>
+                                <li>@data.AgentWinLoss.ToNumericString()</li>
+                                <li>@data.AgentComm.ToNumericString()</li>
+                                <li>@data.AgentTotal.ToNumericString()</li>
+                            </ul>
+                        </td>
+                        <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                            <ul>
+                                <li>@data.MasterWinLoss.ToNumericString()</li>
+                                <li>@data.MasterComm.ToNumericString()</li>
+                                <li>@data.MasterTotal.ToNumericString()</li>
+                            </ul>
+                        </td>
+                        <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined altercol" colspan="3">
+                            <ul>
+                                <li>@data.SuperWinLoss.ToNumericString()</li>
+                                <li>@data.SuperComm.ToNumericString()</li>
+                                <li>@data.SuperTotal.ToNumericString()</li>
+                            </ul>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-right hidden-stack-mode col-turnover">@data.Turnover.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-netturnover">@data.NetTurnover.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-grosscomm">@data.GrossComm.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-winloss">@data.MemberWinLoss.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-comm">@data.MemberComm.ToNumericString()</td>
+                        <td class="text-right bold hidden-stack-mode col-total">@data.MemberTotal.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-winloss">@data.AgentWinLoss.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-comm">@data.AgentComm.ToNumericString()</td>
+                        <td class="altercol bold text-right hidden-stack-mode col-total">@data.AgentTotal.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-winloss">@data.MasterWinLoss.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-comm">@data.MasterComm.ToNumericString()</td>
+                        <td class="bold text-right hidden-stack-mode col-total">@data.MasterTotal.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-winloss">@data.SuperWinLoss.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-comm">@data.SuperComm.ToNumericString()</td>
+                        <td class="altercol bold text-right hidden-stack-mode col-total">@data.SuperTotal.ToNumericString()</td>
+                    }
+                    <td class="text-right">@data.Company.ToNumericString()</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="RptFooter">
+                <td>@Resources.Total</td>
+                <td class="text-right">@total.NumberOfTickets</td>
+                @if (Model.IsStackMode)
+                {
+                    <td class="text-right visible-stack-mode combinedcolumn col-turnover-combined">
+                        <ul>
+                            <li>@total.Turnover.ToNumericString()</li>
+                            <li>@total.NetTurnover.ToNumericString()</li>
+                            <li>@total.GrossComm.ToNumericString()</li>
+                        </ul>
+                    </td>
+                    <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                        <ul>
+                            <li>@total.MemberWinLoss.ToNumericString()</li>
+                            <li>@total.MemberComm.ToNumericString()</li>
+                            <li>@total.MemberTotal.ToNumericString()</li>
+                        </ul>
+                    </td>
+                    <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                        <ul>
+                            <li>@total.AgentWinLoss.ToNumericString()</li>
+                            <li>@total.AgentComm.ToNumericString()</li>
+                            <li>@total.AgentTotal.ToNumericString()</li>
+                        </ul>
+                    </td>
+                    <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                        <ul>
+                            <li>@total.MasterWinLoss.ToNumericString()</li>
+                            <li>@total.MasterComm.ToNumericString()</li>
+                            <li>@total.MasterTotal.ToNumericString()</li>
+                        </ul>
+                    </td>
+                    <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                        <ul>
+                            <li>@total.SuperWinLoss.ToNumericString()</li>
+                            <li>@total.SuperComm.ToNumericString()</li>
+                            <li>@total.SuperTotal.ToNumericString()</li>
+                        </ul>
+                    </td>
+                }
+                else
+                {
+                    <td class="text-right hidden-stack-mode col-turnover">@total.Turnover.ToNumericString()</td>
+                    <td class="text-right hidden-stack-mode col-netturnover">@total.NetTurnover.ToNumericString()</td>
+                    <td class="text-right hidden-stack-mode col-grosscomm">@total.GrossComm.ToNumericString()</td>
+                    <td class="text-right hidden-stack-mode col-winloss">@total.MemberWinLoss.ToNumericString()</td>
+                    <td class="text-right hidden-stack-mode col-comm">@total.MemberComm.ToNumericString()</td>
+                    <td class="text-right bold hidden-stack-mode col-total">@total.MemberTotal.ToNumericString()</td>
+                    <td class="altercol text-right hidden-stack-mode col-winloss">@total.AgentWinLoss.ToNumericString()</td>
+                    <td class="altercol text-right hidden-stack-mode col-comm">@total.AgentComm.ToNumericString()</td>
+                    <td class="altercol bold text-right hidden-stack-mode col-total">@total.AgentTotal.ToNumericString()</td>
+                    <td class="altercol text-right hidden-stack-mode col-winloss">@total.MasterWinLoss.ToNumericString()</td>
+                    <td class="altercol text-right hidden-stack-mode col-comm">@total.MasterComm.ToNumericString()</td>
+                    <td class="altercol bold text-right hidden-stack-mode col-total">@total.MasterTotal.ToNumericString()</td>
+                    <td class="altercol text-right hidden-stack-mode col-winloss">@total.SuperWinLoss.ToNumericString()</td>
+                    <td class="altercol text-right hidden-stack-mode col-comm">@total.SuperComm.ToNumericString()</td>
+                    <td class="altercol bold text-right hidden-stack-mode col-total">@total.SuperTotal.ToNumericString()</td>
+                }
+                <td class="text-right">@total.Company.ToNumericString()</td>
+            </tr>
+        </tfoot>
+    }
+    else
+    {
+        <tbody>
+            <tr>
+                <td colspan="18">@Resources.NoInformationIsAvailable</td>
+            </tr>
+        </tbody>
+    }
+</table>
+<div id="report-pager" class="@(Model.ReportData.DataSource.Any() ? " ":"hide" )"
+     data-labelpage="@Resources.Page"
+     data-labelof="@Resources.of"
+     data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
+@Html.Partial("~/Views/Shared/MonthNames.cshtml")
+@Html.Hidden("hasdata", (Model.ReportData.DataSource.Any() ? "1" : "0"))
+@Html.Hidden("hidefilter", (Model.HideFilter ? "1" : "0"))
+@section Scripts {
+    @AssetScripts.Render("/bundles/site-reports/default")
+    @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
+}

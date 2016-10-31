@@ -19,17 +19,31 @@
             this.mediator = mediator;
         }
 
-        public ActionResult Master()
+        public ActionResult Master(MasterWinLossDetailQuery message)
         {
-            return View();
+            UpdateQuery(message);
+            var viewModel = mediator.Send(message);
+
+            return View(viewModel);
         }
 
-        public ActionResult Agent()
+        public ActionResult Agent(AgentWinLossDetailQuery message)
         {
-            return View();
+            UpdateQuery(message);
+            var viewModel = mediator.Send(message);
+
+            return View(viewModel);
         }
 
         public ActionResult Member(MemberWinLossDetailQuery message)
+        {
+            UpdateQuery(message);
+            var viewModel = mediator.Send(message);
+
+            return View(viewModel);
+        }
+
+        private void UpdateQuery(WinLossDetailQuery message)
         {
             if (message == null)
             {
@@ -42,12 +56,6 @@
             message.OldMainAppPath = AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~");
             message.Products = SiteSettings.Products;
             message.ReportRanges = SiteSettings.ReportRanges;
-
-            message.SelectedProducts = "1,2";
-
-            var viewModel = mediator.Send(message);
-
-            return View(viewModel);
         }
     }
 }

@@ -103,7 +103,7 @@
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Constants\ProductId.cs" />
-    <Compile Include="Constants\ShortLanguageCode.cs" />
+    <Compile Include="Constants\SortDirection.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
     <Compile Include="Criteria\GetProductByCustomerCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
@@ -120,8 +120,9 @@
     <Compile Include="Enums\ReportTimeRangeType.cs" />
     <Compile Include="Extensions\DecimalExtension.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Helpers\IDateTime.cs" />
+    <Compile Include="Helpers\IEnumerableHelper.cs" />
     <Compile Include="Helpers\Impl\DateTimeWrapper.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Models\DateRange.cs" />

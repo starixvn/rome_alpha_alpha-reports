@@ -32,5 +32,9 @@
         public int PageSize { get; }
 
         public int PageIndex { get; }
+
+        public string SortedColumn { get; }
+
+        public int SortDirection { get; }
     }
 }

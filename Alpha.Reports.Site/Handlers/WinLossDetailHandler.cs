@@ -15,8 +15,11 @@
     using Requests.WinLossDetail;
     using Services;
     using ViewModels.WinLossDetail;
+    using Extensions;
 
     public class WinLossDetailHandler :
+        IRequestHandler<MasterWinLossDetailQuery, MasterWinLossDetailViewModel>,
+        IRequestHandler<AgentWinLossDetailQuery, AgentWinLossDetailViewModel>,
         IRequestHandler<MemberWinLossDetailQuery, MemberWinLossDetailViewModel>
     {
         private readonly ProductService productService;
@@ -34,6 +37,98 @@
             this.reportDateService = reportDateService;
             this.winLossDetailService = winLossDetailService;
             this.dateTimeWrapper = dateTimeWrapper;
+        }
+
+        public MasterWinLossDetailViewModel Handle(MasterWinLossDetailQuery message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            var products = productService.GetProductsForCustomer(message.CustId.Value, SiteSettings.Products);
+
+            var param = CreateWinLossDetailParam(message, products);
+            var reportData = winLossDetailService.MasterWinLossDetail(param);
+
+            var reportRange = reportDateService.GetReportDateRange(new ReportDateRangeParam(
+                message.ReportPath,
+                message.IsHistoricReport,
+                message.ReportRanges));
+
+            var netTurnoverTooltips = new List<string>();
+
+            if (products.Where(product => product.Id == ProductId.AllBet) != null)
+            {
+                netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
+            }
+
+            return new MasterWinLossDetailViewModel
+            {
+                MinDate = reportRange.FromDate.ToShortDateWithSlash(),
+                MaxDate = reportRange.ToDate.ToShortDateWithSlash(),
+                CurrentDate = DateTime.Now.ToShortDateWithSlash(),
+                FromDate = param.FromDate,
+                ToDate = param.ToDate,
+
+                Products = JsonConvert.SerializeObject(products),
+                SelectedProducts = string.Join(",", param.ProductIds),
+                Language = message.Language,
+
+                NetTurnoverTooltips = netTurnoverTooltips,
+                ReportData = reportData,
+
+                IsStackMode = message.IsStackMode,
+                IsHistoricReport = message.IsHistoricReport,
+                HideFilter = message.HideFilter,
+                OldMainAppPath = message.OldMainAppPath
+            };
+        }
+
+        public AgentWinLossDetailViewModel Handle(AgentWinLossDetailQuery message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            var products = productService.GetProductsForCustomer(message.CustId.Value, SiteSettings.Products);
+
+            var param = CreateWinLossDetailParam(message, products);
+            var reportData = winLossDetailService.AgentWinLossDetail(param);
+
+            var reportRange = reportDateService.GetReportDateRange(new ReportDateRangeParam(
+                message.ReportPath,
+                message.IsHistoricReport,
+                message.ReportRanges));
+
+            var netTurnoverTooltips = new List<string>();
+
+            if (products.Where(product => product.Id == ProductId.AllBet) != null)
+            {
+                netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
+            }
+
+            return new AgentWinLossDetailViewModel
+            {
+                MinDate = reportRange.FromDate.ToShortDateWithSlash(),
+                MaxDate = reportRange.ToDate.ToShortDateWithSlash(),
+                CurrentDate = DateTime.Now.ToShortDateWithSlash(),
+                FromDate = param.FromDate,
+                ToDate = param.ToDate,
+
+                Products = JsonConvert.SerializeObject(products),
+                SelectedProducts = string.Join(",", param.ProductIds),
+                Language = message.Language,
+
+                NetTurnoverTooltips = netTurnoverTooltips,
+                ReportData = reportData,
+
+                IsStackMode = message.IsStackMode,
+                IsHistoricReport = message.IsHistoricReport,
+                HideFilter = message.HideFilter,
+                OldMainAppPath = message.OldMainAppPath
+            };
         }
 
         public MemberWinLossDetailViewModel Handle(MemberWinLossDetailQuery message)
@@ -62,9 +157,11 @@
 
             return new MemberWinLossDetailViewModel
             {
-                MinDate = DateTimeHelper.ToShortDateWithSlash(reportRange.FromDate),
-                MaxDate = DateTimeHelper.ToShortDateWithSlash(reportRange.ToDate),
-                CurrentDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now),
+                MinDate = reportRange.FromDate.ToShortDateWithSlash(),
+                MaxDate = reportRange.ToDate.ToShortDateWithSlash(),
+                CurrentDate = DateTime.Now.ToShortDateWithSlash(),
+                FromDate = param.FromDate,
+                ToDate = param.ToDate,
 
                 Products = JsonConvert.SerializeObject(products),
                 SelectedProducts = string.Join(",", param.ProductIds),
@@ -81,16 +178,17 @@
         }
 
         private WinLossDetailParam CreateWinLossDetailParam(
-            MemberWinLossDetailQuery message,
+            WinLossDetailQuery message,
             IEnumerable<Product> visibleProducts)
         {
+            message.SelectedProducts = "1,2";
             var selectedProducts = string.IsNullOrWhiteSpace(message.SelectedProducts)
                 ? visibleProducts.Select(product => product.Id).ToList()
                 : message.SelectedProducts.Split(',').Select(product => Converter.ToInt(product)).ToList();
 
             return new WinLossDetailParam(
                 message.CustId.Value,
-                message.FromDate ?? dateTimeWrapper.Now.AddMonths(-4),
+                message.FromDate ?? dateTimeWrapper.Now.AddMonths(-3),
                 message.ToDate ?? dateTimeWrapper.Now,
                 selectedProducts,
                 message.PageSize ?? DefaultVariables.PageSize,

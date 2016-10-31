@@ -247,8 +247,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportSiteContext.cs" />
     <Compile Include="Requests\ReportBaseQuery.cs" />
+    <Compile Include="Requests\WinLossDetail\MasterWinLossDetailQuery.cs" />
+    <Compile Include="Requests\WinLossDetail\AgentWinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLossDetail\MemberWinLossDetailQuery.cs" />
+    <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
+    <Compile Include="ViewModels\WinLossDetail\MasterWinLossDetailViewModel.cs" />
+    <Compile Include="ViewModels\WinLossDetail\AgentWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\MemberWinLossDetailViewModel.cs" />
+    <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\products.local.json">
