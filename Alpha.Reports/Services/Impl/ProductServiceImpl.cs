@@ -14,7 +14,7 @@
         private readonly Func<int, bool> canViewProduct;
         private readonly Func<int, string> getProductName;
 
-        public ProductServiceImpl() : this(null, null, null)
+        public ProductServiceImpl(SiteContext context) : this(context, null, null)
         {
         }
 
