@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using Models;
-    using Params;
 
     public interface ProductService
     {

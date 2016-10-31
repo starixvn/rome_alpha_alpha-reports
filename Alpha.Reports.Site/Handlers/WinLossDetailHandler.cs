@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Configurations;
     using Constants;
     using Extensions;
     using Fanex.Common;
@@ -21,7 +20,7 @@
         IRequestHandler<AgentWinLossDetailQuery, AgentWinLossDetailViewModel>,
         IRequestHandler<MemberWinLossDetailQuery, MemberWinLossDetailViewModel>
     {
-        private const int AllBetProductId = 22;
+        private const int AllBetProductId = 21;
         private readonly ProductService productService;
         private readonly ReportDateService reportDateService;
         private readonly WinLossDetailService winLossDetailService;
@@ -182,13 +181,15 @@
             IEnumerable<Product> visibleProducts)
         {
             message.SelectedProducts = "1,2";
+            message.FromDate = siteContext.ServerTime.AddMonths(-3).FirstDayOfMonth();
+
             var selectedProducts = string.IsNullOrWhiteSpace(message.SelectedProducts)
                 ? visibleProducts.Select(product => product.Id).ToList()
                 : message.SelectedProducts.Split(',').Select(product => Converter.ToInt(product)).ToList();
 
             return new WinLossDetailParam(
                 message.CustId.Value,
-                message.FromDate ?? siteContext.ServerTime.AddMonths(-3),
+                message.FromDate ?? siteContext.ServerTime,
                 message.ToDate ?? siteContext.ServerTime,
                 selectedProducts,
                 message.PageSize ?? DefaultVariables.PageSize,

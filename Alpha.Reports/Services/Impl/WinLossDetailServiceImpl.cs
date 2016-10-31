@@ -4,7 +4,7 @@
     using Criteria.WinLossDetail;
     using DataAccess;
     using Extensions;
-    using Fanex.Data.Repository;
+    using Helpers;
     using Models;
     using Models.WinlossDetail;
     using Params;
