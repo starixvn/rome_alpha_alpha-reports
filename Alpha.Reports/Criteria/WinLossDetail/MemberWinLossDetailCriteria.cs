@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria.WinLossDetail
 {
     using System;
-    using System.Collections.Generic;
 
     public class MemberWinLossDetailCriteria : BaseWinLossDetailCriteria
     {

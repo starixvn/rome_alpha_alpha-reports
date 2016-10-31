@@ -6,6 +6,10 @@
 
     public interface WinLossDetailService
     {
-        ReportData<MemberWinlossDetail> MemberWinLossDetail(WinLossDetailParam param);
+        ReportData<MasterWinLossDetail> MasterWinLossDetail(WinLossDetailParam param);
+
+        ReportData<AgentWinLossDetail> AgentWinLossDetail(WinLossDetailParam param);
+
+        ReportData<MemberWinLossDetail> MemberWinLossDetail(WinLossDetailParam param);
     }
 }

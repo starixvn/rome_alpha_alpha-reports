@@ -3,7 +3,7 @@
     using System;
     using Fanex.Data.Repository;
 
-    public class ReportCriteriaBase : CriteriaBase
+    public abstract class ReportCriteriaBase : CriteriaBase
     {
         public ReportCriteriaBase(int custId, int pageIndex, int pageSize, DateTime fromDate, DateTime toDate)
         {
@@ -12,7 +12,7 @@
             PageSize = pageSize;
             FromDate = fromDate;
             ToDate = toDate;
-        }              
+        }
 
         public int CustId { get; }
 
@@ -26,15 +26,10 @@
 
         public DateTime ToDate { get; }
 
-        public override string GetSettingKey()
-        {
-            throw new NotImplementedException();
-        }
-
         public override bool IsValid()
         {
-            return CustId > 0 
-                && FromDate <= ToDate 
+            return CustId > 0
+                && FromDate <= ToDate
                 && PageIndex >= 0;
         }
 

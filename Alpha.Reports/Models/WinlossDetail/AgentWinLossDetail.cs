@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Models.WinlossDetail
 {
-    public class AgentWinLossDetail : MemberWinlossDetail
+    public class AgentWinLossDetail : MemberWinLossDetail
     {
         public decimal MasterWinLoss { get; }
 

@@ -21,7 +21,7 @@
 
         public IEnumerable<string> NetTurnoverTooltips { get; set; }
 
-        public ReportData<MemberWinlossDetail> ReportData { get; set; }
+        public ReportData<MemberWinLossDetail> ReportData { get; set; }
 
         public string Products { get; set; }
 

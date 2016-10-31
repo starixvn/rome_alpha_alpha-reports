@@ -2,6 +2,7 @@
 {
     using System;
     using Criteria.WinLossDetail;
+    using DataAccess;
     using Fanex.Data.Repository;
     using Helpers;
     using Models;
@@ -12,16 +13,57 @@
     {
         private readonly ReportDateService reportDateService;
         private readonly IDynamicRepository dynamicRepository;
+        private readonly ReportDataAccess reportDataAccess;
 
         public WinLossDetailServiceImpl(
             ReportDateService reportDateService,
-            IDynamicRepository dynamicRepository)
+            IDynamicRepository dynamicRepository,
+            ReportDataAccess reportDataAccess)
         {
             this.reportDateService = reportDateService;
             this.dynamicRepository = dynamicRepository;
+            this.reportDataAccess = reportDataAccess;
         }
 
-        public ReportData<MemberWinlossDetail> MemberWinLossDetail(WinLossDetailParam param)
+        public ReportData<MasterWinLossDetail> MasterWinLossDetail(WinLossDetailParam param)
+        {
+            if (param == null)
+            {
+                throw new ArgumentNullException("param");
+            }
+
+            var criteria = new MasterWinLossDetailCriteria(
+                param.CustId,
+                DateTimeHelper.GetBeginningOfDate(param.FromDate),
+                DateTimeHelper.GetEndingOfDate(param.ToDate),
+                reportDateService.GetBalanceUpDay(),
+                string.Join(",", param.ProductIds),
+                param.PageSize,
+                param.PageIndex);
+
+            return reportDataAccess.GetData<MasterWinLossDetail>(criteria);
+        }
+
+        public ReportData<AgentWinLossDetail> AgentWinLossDetail(WinLossDetailParam param)
+        {
+            if (param == null)
+            {
+                throw new ArgumentNullException("param");
+            }
+
+            var criteria = new AgentWinLossDetailCriteria(
+                param.CustId,
+                DateTimeHelper.GetBeginningOfDate(param.FromDate),
+                DateTimeHelper.GetEndingOfDate(param.ToDate),
+                reportDateService.GetBalanceUpDay(),
+                string.Join(",", param.ProductIds),
+                param.PageSize,
+                param.PageIndex);
+
+            return reportDataAccess.GetData<AgentWinLossDetail>(criteria);
+        }
+
+        public ReportData<MemberWinLossDetail> MemberWinLossDetail(WinLossDetailParam param)
         {
             if (param == null)
             {
@@ -37,14 +79,7 @@
                 param.PageSize,
                 param.PageIndex);
 
-            var rawData = dynamicRepository.Fetch<MemberWinlossDetail>(criteria);
-
-            return new ReportData<MemberWinlossDetail>(
-                rawData,
-                param.PageIndex,
-                param.PageSize,
-                criteria.TotalRows,
-                new MemberWinlossDetail());
+            return reportDataAccess.GetData<MemberWinLossDetail>(criteria);
         }
     }
 }

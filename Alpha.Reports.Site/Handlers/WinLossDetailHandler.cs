@@ -93,8 +93,8 @@
                 message.FromDate ?? dateTimeWrapper.Now.AddMonths(-4),
                 message.ToDate ?? dateTimeWrapper.Now,
                 selectedProducts,
-                string.IsNullOrWhiteSpace(message.PageSize) ? DefaultVariables.PageSize : Converter.ToInt(message.PageSize),
-                string.IsNullOrWhiteSpace(message.PageIndex) ? DefaultVariables.PageIndex : Converter.ToInt(message.PageIndex));
+                message.PageSize ?? DefaultVariables.PageSize,
+                message.PageIndex ?? DefaultVariables.PageIndex);
         }
     }
 }

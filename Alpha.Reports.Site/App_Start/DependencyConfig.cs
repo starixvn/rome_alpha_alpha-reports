@@ -84,6 +84,7 @@
         {
             container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Transient);
             container.Register<ReportDateAccess, ReportDateAccessImpl>(Lifestyle.Transient);
+            container.Register<ReportDataAccess, ReportDataAccessImpl>(Lifestyle.Transient);
         }
     }
 }

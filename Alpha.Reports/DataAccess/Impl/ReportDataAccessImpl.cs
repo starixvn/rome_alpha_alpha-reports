@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Criteria;
+    using Fanex.Data;
     using Fanex.Data.Repository;
     using Models;
 
@@ -22,13 +24,25 @@
                 throw new ArgumentNullException("criteria");
             }
 
-            var dataSource = repository.Get<List<T>>(criteria);
-            var reportData = new ReportData<T>(
-                dataSource,
-                criteria.PageIndex,
-                criteria.PageSize,
-                criteria.TotalRecords,
-                default(T));
+            ReportData<T> reportData = null;
+            IEnumerable<T> dataSource = null;
+            T total = null;
+
+            using (var obj = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var multi = obj.QueryMultiple(criteria))
+                {
+                    dataSource = multi.Read<T>();
+                    total = multi.Read<T>().FirstOrDefault();
+                }
+
+                reportData = new ReportData<T>(
+                    dataSource,
+                    criteria.PageIndex,
+                    criteria.PageSize,
+                    criteria.TotalRecords,
+                    total);
+            }
 
             return reportData;
         }

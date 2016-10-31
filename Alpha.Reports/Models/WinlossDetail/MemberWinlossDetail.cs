@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Models.WinlossDetail
 {
-    public class MemberWinlossDetail
+    public class MemberWinLossDetail
     {
         public int CustId { get; set; }
 

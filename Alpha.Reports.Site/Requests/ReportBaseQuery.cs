@@ -6,9 +6,9 @@
     {
         public int? CustId { get; set; }
 
-        public string PageIndex { get; set; }
+        public int? PageIndex { get; set; }
 
-        public string PageSize { get; set; }
+        public int? PageSize { get; set; }
 
         public DateTime? FromDate { get; set; }
 
