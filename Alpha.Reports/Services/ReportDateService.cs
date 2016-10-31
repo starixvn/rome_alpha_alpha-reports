@@ -12,6 +12,6 @@
 
         DateTime GetMoveBetsDay();
 
-        DateRange GetReportDateRange(ReportDateRangeParam param);
+        DateRange GetDateRangeLimit(ReportDateRangeParam param);
     }
 }

@@ -17,7 +17,9 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly ApplicationContext applicationContext;
 
-        public ReportDateServiceImpl(IDynamicRepository dynamicRepository = null, ApplicationContext applicationContext = null)
+        public ReportDateServiceImpl(
+            IDynamicRepository dynamicRepository = null,
+            ApplicationContext applicationContext = null)
         {
             this.dynamicRepository = dynamicRepository;
             this.applicationContext = applicationContext;
@@ -43,53 +45,34 @@
             return balanceUpDayAndMoveBetsDay;
         }
 
-        public DateRange GetReportDateRange(ReportDateRangeParam param)
+        public DateRange GetDateRangeLimit(ReportDateRangeParam param) 
+            => new DateRange(GetMinDate(param), maxDate: DateTime.MaxValue);
+
+        private DateTime GetMinDate(ReportDateRangeParam param)
         {
-            byte rangeType = GetReportRangeType(param);
+            var rangeType = GetReportRangeType(param);
 
-            DateRange dateRange = CacheService.Get<DateRange>(ReportDateRangeCacheKey + rangeType);
-            if (dateRange != null)
-            {
-                return dateRange;
-            }
-
-            ReportTimeRangeType reportTimeRangeType;
-
-            if (!Enum.TryParse(rangeType.ToString(), out reportTimeRangeType) ||
-                reportTimeRangeType == ReportTimeRangeType.Unknown)
-            {
-                return new DateRange(applicationContext.ServerTime, applicationContext.ServerTime);
-            }
-
-            var serverTime = applicationContext.ServerTime;
-
-            switch (reportTimeRangeType)
+            switch (rangeType)
             {
                 case ReportTimeRangeType.BalanceUp:
-                    dateRange = new DateRange(GetBalanceUpDay(), DateTime.MaxValue);
-                    break;
-                case ReportTimeRangeType.Previous3Months:
-                    dateRange = new DateRange(serverTime.AddMonths(-3), DateTime.MaxValue);
-                    break;
-                case ReportTimeRangeType.Previous18Months:
-                    dateRange = new DateRange(serverTime.AddMonths(-18), DateTime.MaxValue);
-                    break;
-                case ReportTimeRangeType.Previous3Years:
-                    dateRange = new DateRange(serverTime.AddYears(-3), DateTime.MaxValue);
-                    break;
-                default:
-                    dateRange = new DateRange(serverTime, serverTime);
-                    break;
-            }
+                    return GetBalanceUpDay();
 
-            CacheService.Set(
-                ReportDateRangeCacheKey + rangeType,
-                dateRange,
-                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
-            return dateRange;
+                case ReportTimeRangeType.FromLast3Months:
+                    return applicationContext.ServerTime.AddMonths(-3);
+
+                case ReportTimeRangeType.FromLast18Months:
+                    return applicationContext.ServerTime.AddMonths(-18);
+
+                case ReportTimeRangeType.FromLast3Years:
+                    return applicationContext.ServerTime.AddYears(-3);
+
+                case ReportTimeRangeType.Unknown:
+                default:
+                    return applicationContext.ServerTime;
+            }
         }
 
-        private byte GetReportRangeType(ReportDateRangeParam param)
+        private ReportTimeRangeType GetReportRangeType(ReportDateRangeParam param)
         {
             byte rangeType = 0;
             var reportPath = param.ReportPath + (param.IsHistoricReport ? "Historic" : string.Empty);
@@ -105,7 +88,10 @@
                 }
             }
 
-            return rangeType;
+            var reportTimeRangeType = ReportTimeRangeType.Unknown;
+            Enum.TryParse(rangeType.ToString(), out reportTimeRangeType);
+
+            return reportTimeRangeType;
         }
     }
 }

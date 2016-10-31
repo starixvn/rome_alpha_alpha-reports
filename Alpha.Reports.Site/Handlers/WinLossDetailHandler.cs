@@ -51,7 +51,7 @@
             var param = CreateWinLossDetailParam(message, products);
             var reportData = winLossDetailService.MasterWinLossDetail(param);
 
-            var reportRange = reportDateService.GetReportDateRange(new ReportDateRangeParam(
+            var reportRange = reportDateService.GetDateRangeLimit(new ReportDateRangeParam(
                 message.ReportPath,
                 message.IsHistoricReport,
                 message.ReportRanges));
@@ -65,8 +65,8 @@
 
             return new MasterWinLossDetailViewModel
             {
-                MinDate = reportRange.FromDate,
-                MaxDate = reportRange.ToDate,
+                MinDate = reportRange.MinDate,
+                MaxDate = reportRange.MaxDate,
                 CurrentDate = DateTime.Now,
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,
@@ -97,7 +97,7 @@
             var param = CreateWinLossDetailParam(message, products);
             var reportData = winLossDetailService.AgentWinLossDetail(param);
 
-            var reportRange = reportDateService.GetReportDateRange(new ReportDateRangeParam(
+            var reportRange = reportDateService.GetDateRangeLimit(new ReportDateRangeParam(
                 message.ReportPath,
                 message.IsHistoricReport,
                 message.ReportRanges));
@@ -111,8 +111,8 @@
 
             return new AgentWinLossDetailViewModel
             {
-                MinDate = reportRange.FromDate,
-                MaxDate = reportRange.ToDate,
+                MinDate = reportRange.MinDate,
+                MaxDate = reportRange.MaxDate,
                 CurrentDate = DateTime.Now,
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,
@@ -143,7 +143,7 @@
             var param = CreateWinLossDetailParam(message, products);
             var reportData = winLossDetailService.MemberWinLossDetail(param);
 
-            var reportRange = reportDateService.GetReportDateRange(new ReportDateRangeParam(
+            var reportRange = reportDateService.GetDateRangeLimit(new ReportDateRangeParam(
                 message.ReportPath,
                 message.IsHistoricReport,
                 message.ReportRanges));
@@ -157,8 +157,8 @@
 
             return new MemberWinLossDetailViewModel
             {
-                MinDate = reportRange.FromDate,
-                MaxDate = reportRange.ToDate,
+                MinDate = reportRange.MinDate,
+                MaxDate = reportRange.MaxDate,
                 CurrentDate = DateTime.Now,
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,

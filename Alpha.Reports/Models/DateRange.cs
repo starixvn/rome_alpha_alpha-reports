@@ -4,14 +4,14 @@
 
     public class DateRange
     {
-        public DateRange(DateTime fromDate, DateTime todate)
+        public DateRange(DateTime minDate, DateTime maxDate)
         {
-            FromDate = fromDate;
-            ToDate = todate;
+            MinDate = minDate;
+            MaxDate = maxDate;
         }
 
-        public DateTime FromDate { get; }
+        public DateTime MinDate { get; }
 
-        public DateTime ToDate { get; }
+        public DateTime MaxDate { get; }
     }
 }
