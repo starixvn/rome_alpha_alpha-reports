@@ -38,7 +38,6 @@
             message.OldMainAppPath = AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~");
 
             message.SelectedProducts = "1,2";
-            
 
             var viewModel = mediator.Send(message);
 

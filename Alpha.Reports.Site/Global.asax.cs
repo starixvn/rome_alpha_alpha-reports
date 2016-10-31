@@ -39,6 +39,8 @@
 
             GlobalFilters.Filters.Add(new CheckUMFilter());
 
+            SiteSettings.LoadSettings();
+
             Logs.WriteInfo(SiteResources.AppStart_Message);
         }
 

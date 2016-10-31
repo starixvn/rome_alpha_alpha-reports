@@ -5,7 +5,6 @@
     using System.IO;
     using System.Web;
     using Fanex.Common;
-    using Helpers;
     using Models;
     using Newtonsoft.Json;
 
@@ -32,33 +31,17 @@
 
         public static string VirtualDirectory => GetConfigValue("VirtualDirectory");
 
-        public static IEnumerable<Product> Products
-        {
-            get
-            {
-                if (products == null)
-                {
-                    products = LoadConfig<IEnumerable<Product>>(ProductConfigPath);
-                }
+        public static IEnumerable<Product> Products => products;
 
-                return products;
-            }
-        }
-
-        public static IEnumerable<ReportRange> ReportRanges
-        {
-            get
-            {
-                if (reportRanges == null)
-                {
-                    reportRanges = LoadConfig<IEnumerable<ReportRange>>(ReportRangeConfigPath);
-                }
-
-                return reportRanges;
-            }
-        }
+        public static IEnumerable<ReportRange> ReportRanges => reportRanges;
 
         public static string GetConfigValue(string configName) => ConfigurationManager.AppSettings[configName];
+
+        public static void LoadSettings()
+        {
+            products = LoadConfig<IEnumerable<Product>>(ProductConfigPath);
+            reportRanges = LoadConfig<IEnumerable<ReportRange>>(ReportRangeConfigPath);
+        }
 
         public static T LoadConfig<T>(string configPath)
         {

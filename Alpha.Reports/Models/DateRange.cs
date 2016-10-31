@@ -4,14 +4,14 @@
 
     public class DateRange
     {
-        public DateRange(DateTime fromDate, DateTime todate)
+        public DateRange(DateTime? fromDate, DateTime? todate)
         {
             FromDate = fromDate;
             ToDate = todate;
         }
 
-        public DateTime FromDate { get; }
+        public DateTime? FromDate { get; }
 
-        public DateTime ToDate { get; }
+        public DateTime? ToDate { get; }
     }
 }

@@ -29,7 +29,7 @@
         {
             var productList = CacheService
                 .GetOrSet(
-                $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}", 
+                $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
                 () => siteProducts
                         .Where(product => canViewProduct(product.Id) == true)
                         .Select(product => new Product(product.Id, product.Name, getProductName)),

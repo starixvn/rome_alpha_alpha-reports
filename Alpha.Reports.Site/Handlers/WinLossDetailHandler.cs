@@ -80,8 +80,8 @@
 
             return new WinLossDetailParam(
                 Converter.ToInt(message.CustId),
-                string.IsNullOrWhiteSpace(message.FromDate) ? dateTimeWrapper.Now.AddMonths(-4) : Converter.ToDateTime(message.FromDate),
-                string.IsNullOrWhiteSpace(message.ToDate) ? dateTimeWrapper.Now : Converter.ToDateTime(message.ToDate),
+                message.FromDate ?? dateTimeWrapper.Now.AddMonths(-4),
+                message.ToDate ?? dateTimeWrapper.Now,
                 selectedProducts,
                 string.IsNullOrWhiteSpace(message.PageSize) ? DefaultVariables.PageSize : Converter.ToInt(message.PageSize),
                 string.IsNullOrWhiteSpace(message.PageIndex) ? DefaultVariables.PageIndex : Converter.ToInt(message.PageIndex));
