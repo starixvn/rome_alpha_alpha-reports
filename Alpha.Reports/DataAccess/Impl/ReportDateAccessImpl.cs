@@ -10,6 +10,11 @@
     {
         public DateRange GetReportDateRange(ICriteria criteria)
         {
+            if (criteria == null)
+            {
+                throw new ArgumentNullException("criteria");
+            }
+
             DateRange dateRange = null;
 
             using (var objectDb = new ObjectDb(criteria.GetSettingKey()))

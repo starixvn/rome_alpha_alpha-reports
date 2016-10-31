@@ -119,6 +119,7 @@
     <Compile Include="DataAccess\ReportDateAccess.cs" />
     <Compile Include="Enums\ReportTimeRangeType.cs" />
     <Compile Include="Extensions\DecimalExtension.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\IDateTime.cs" />
     <Compile Include="Helpers\Impl\DateTimeWrapper.cs" />
@@ -159,7 +160,9 @@
     <EmbeddedResource Include="AppResources\Resources.zh-CN.resx" />
     <EmbeddedResource Include="AppResources\Resources.zh-TW.resx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="CodeAnalysis\CustomDictionary.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

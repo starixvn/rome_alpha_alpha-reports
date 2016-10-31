@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Services.Impl
 {
+    using System;
     using Criteria.WinLossDetail;
     using Fanex.Data.Repository;
     using Helpers;
@@ -22,6 +23,11 @@
 
         public ReportData<MemberWinlossDetail> MemberWinLossDetail(WinLossDetailParam param)
         {
+            if (param == null)
+            {
+                throw new ArgumentNullException("param");
+            }
+
             var criteria = new MemberWinLossDetailCriteria(
                 param.CustId,
                 DateTimeHelper.GetBeginningOfDate(param.FromDate),

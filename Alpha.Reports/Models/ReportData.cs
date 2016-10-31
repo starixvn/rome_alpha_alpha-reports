@@ -29,13 +29,5 @@
         public int PageSize { get; }
 
         public int TotalRecords { get; }
-
-        public int NumberRecordsOfCurrentPage
-        {
-            get
-            {
-                return DataSource != null ? DataSource.Count() : 0;
-            }
-        }
     }
 }

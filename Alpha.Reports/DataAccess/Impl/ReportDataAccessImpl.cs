@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.DataAccess.Impl
 {
+    using System;
     using System.Collections.Generic;
     using Criteria;
     using Fanex.Data.Repository;
@@ -16,6 +17,11 @@
 
         public ReportData<T> GetData<T>(ReportCriteriaBase criteria) where T : class
         {
+            if (criteria == null)
+            {
+                throw new ArgumentNullException("criteria");
+            }
+
             var dataSource = repository.Get<List<T>>(criteria);
             var reportData = new ReportData<T>(
                 dataSource,

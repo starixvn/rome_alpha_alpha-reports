@@ -15,8 +15,6 @@
 
         public static string OldMainAppPath => GetConfigValue("OldMainAppPath");
 
-        public static string ReportsAppPath => GetConfigValue("ReportsAppPath");
-
         public static string AccessDeniedPage => GetConfigValue("AccessDeniedPage");
 
         public static string StoreProcedurePath => GetConfigValue("StoreProcedurePath");

@@ -20,8 +20,9 @@
         {
             base.OnAuthentication(filterContext);
 
-            if (!filterContext.HttpContext.User.Identity.IsAuthenticated
-                 || UserSession.Current.UserId <= 0)
+            if (filterContext == null ||
+                !filterContext.HttpContext.User.Identity.IsAuthenticated
+                || UserSession.Current.UserId <= 0)
             {
                 UnAuthentication(filterContext);
             }

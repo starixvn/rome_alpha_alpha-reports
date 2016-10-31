@@ -38,6 +38,11 @@
 
         public MemberWinLossDetailViewModel Handle(MemberWinLossDetailQuery message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
             var products = productService.GetProductsForCustomer(message.CustId.Value, SiteSettings.Products);
 
             var param = CreateWinLossDetailParam(message, products);
