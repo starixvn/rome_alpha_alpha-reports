@@ -14,7 +14,6 @@
     using Reports.Helpers;
     using Requests.WinLossDetail;
     using Services;
-    using ViewModels;
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailHandler :
@@ -25,7 +24,8 @@
         private readonly WinLossDetailService winLossDetailService;
         private readonly IDateTime dateTimeWrapper;
 
-        public WinLossDetailHandler(ProductService productService,
+        public WinLossDetailHandler(
+            ProductService productService,            
             ReportDateService reportDateService,
             WinLossDetailService winLossDetailService,
             IDateTime dateTimeWrapper)
@@ -38,8 +38,7 @@
 
         public MemberWinLossDetailViewModel Handle(MemberWinLossDetailQuery message)
         {
-            var products = productService.GetProductsForCustomer(message.CustId, message.Products);
-
+            var products = productService.GetProductsForCustomer(message.CustId, SiteSettings.Products);              
 
             var param = CreateWinLossDetailParam(message, products);
             var reportData = winLossDetailService.MemberWinLossDetail(param);
@@ -53,8 +52,8 @@
 
             return new MemberWinLossDetailViewModel
             {
-                //MinDate = DateTimeHelper.ToShortDateWithSlash(reportRange.FromDate),
-                //MaxDate = DateTimeHelper.ToShortDateWithSlash(reportRange.ToDate),
+                // MinDate = DateTimeHelper.ToShortDateWithSlash(reportRange.FromDate),
+                // MaxDate = DateTimeHelper.ToShortDateWithSlash(reportRange.ToDate),
                 CurrentDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now),
 
                 Products = JsonConvert.SerializeObject(products),

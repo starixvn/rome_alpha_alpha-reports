@@ -1,31 +1,19 @@
 ﻿namespace Alpha.Reports.Models.WinlossDetail
 {
-    public class MemberWinlossDetail : WinlossDetailInfo
+    public class MemberWinlossDetail : WinLossDetailInfo
     {
         public decimal MemberWinLoss { get; }
 
         public decimal MemberComm { get; }
 
-        public decimal MemberTotal
-        {
-            get { return MemberWinLoss + MemberComm; }
-        }
+        public decimal MemberTotal => MemberWinLoss + MemberComm;
 
         public decimal AgentWinLoss { get; }
 
         public decimal AgentComm { get; }
 
-        public decimal AgentTotal
-        {
-            get { return AgentWinLoss + AgentComm; }
-        }
+        public decimal AgentTotal => AgentWinLoss + AgentComm;
 
-        public decimal Company
-        {
-            get
-            {
-                return -(MemberTotal + AgentTotal);
-            }
-        }
+        public override decimal Company => -MemberTotal - AgentTotal;
     }
 }

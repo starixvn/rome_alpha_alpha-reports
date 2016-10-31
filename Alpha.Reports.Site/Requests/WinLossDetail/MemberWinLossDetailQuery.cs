@@ -11,9 +11,11 @@
 
         public string Language { get; set; }
 
+        public new int CustId { get; set; }
+
         public string SelectedProducts { get; set; }
 
-        public string SortedColumn { get; set; }
+        public string SortedColumn { get; set; }        
 
         public bool IsStackMode { get; set; }
 

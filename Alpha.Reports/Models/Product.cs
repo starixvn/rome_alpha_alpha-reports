@@ -1,17 +1,24 @@
-﻿using System;
-
-namespace Alpha.Reports.Models
+﻿namespace Alpha.Reports.Models
 {
-    public struct Product
+    using System;
+
+    public class Product
     {
-        public Product(int id, Func<int, string> getProductName)
+        public Product(int id, string name)
         {            
             Id = id;
-            Name = getProductName(id);
+            Name = name;
         }        
+
+        internal Product(int id, string name, Func<int, string> getProductName) : this (id, name)
+        {
+            DisplayName = getProductName == null ? name : getProductName(id);
+        }
 
         public int Id { get; }
 
         public string Name { get; }
+
+        public string DisplayName { get; }
     }
 }

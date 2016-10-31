@@ -17,7 +17,7 @@
         {
         }
 
-        public ProductServiceImpl(
+        internal ProductServiceImpl(
             Func<int, bool> canViewProduct,
             Func<int, string> getProductName)
         {
@@ -32,7 +32,7 @@
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}", 
                 () => siteProducts
                         .Where(product => canViewProduct(product.Id) == true)
-                        .Select(product => new Product(product.Id, getProductName)),
+                        .Select(product => new Product(product.Id, product.Name, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
 
             return productList;
