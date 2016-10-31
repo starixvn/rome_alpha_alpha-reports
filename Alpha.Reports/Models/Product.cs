@@ -5,12 +5,12 @@
     public class Product
     {
         public Product(int id, string name)
-        {            
+        {
             Id = id;
             Name = name;
-        }        
+        }
 
-        internal Product(int id, string name, Func<int, string> getProductName) : this (id, name)
+        internal Product(int id, string name, Func<int, string> getProductName) : this(id, name)
         {
             DisplayName = getProductName == null ? name : getProductName(id);
         }

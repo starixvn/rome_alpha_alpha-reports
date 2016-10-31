@@ -29,7 +29,7 @@
 
         public override int GetHashCode()
         {
-            return  new { CustId }.GetHashCode();
+            return new { CustId }.GetHashCode();
         }
     }
 }

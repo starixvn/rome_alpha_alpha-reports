@@ -14,6 +14,6 @@
 
         public int NumberOfTickets { get; set; }
 
-        public abstract decimal Company {get;}
+        public abstract decimal Company { get; }
     }
 }
