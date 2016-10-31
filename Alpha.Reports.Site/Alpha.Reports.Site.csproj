@@ -225,6 +225,7 @@
       <DependentUpon>SiteResources.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\DependencyConfig.cs" />
+    <Compile Include="App_Start\ReportSiteContext.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Configurations\SiteSettings.cs" />
     <Compile Include="Controllers\BaseController.cs" />

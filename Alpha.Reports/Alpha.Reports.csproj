@@ -121,9 +121,7 @@
     <Compile Include="Extensions\DecimalExtension.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
-    <Compile Include="Helpers\IDateTime.cs" />
     <Compile Include="Helpers\IEnumerableHelper.cs" />
-    <Compile Include="Helpers\Impl\DateTimeWrapper.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Models\DateRange.cs" />
     <Compile Include="Models\Product.cs" />

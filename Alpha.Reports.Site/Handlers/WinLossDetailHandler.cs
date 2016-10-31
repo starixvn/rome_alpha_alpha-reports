@@ -5,17 +5,16 @@
     using System.Linq;
     using Configurations;
     using Constants;
+    using Extensions;
     using Fanex.Common;
     using MediatR;
     using Models;
     using Newtonsoft.Json;
     using Params;
     using Reports.AppResources;
-    using Reports.Helpers;
     using Requests.WinLossDetail;
     using Services;
     using ViewModels.WinLossDetail;
-    using Extensions;
 
     public class WinLossDetailHandler :
         IRequestHandler<MasterWinLossDetailQuery, MasterWinLossDetailViewModel>,
@@ -25,18 +24,18 @@
         private readonly ProductService productService;
         private readonly ReportDateService reportDateService;
         private readonly WinLossDetailService winLossDetailService;
-        private readonly IDateTime dateTimeWrapper;
+        private readonly SiteContext siteContext;
 
         public WinLossDetailHandler(
             ProductService productService,
             ReportDateService reportDateService,
             WinLossDetailService winLossDetailService,
-            IDateTime dateTimeWrapper)
+            SiteContext siteContext)
         {
             this.productService = productService;
             this.reportDateService = reportDateService;
             this.winLossDetailService = winLossDetailService;
-            this.dateTimeWrapper = dateTimeWrapper;
+            this.siteContext = siteContext;
         }
 
         public MasterWinLossDetailViewModel Handle(MasterWinLossDetailQuery message)
@@ -46,7 +45,7 @@
                 throw new ArgumentNullException("message");
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId.Value, SiteSettings.Products);
+            var products = productService.GetProductsForCustomer(message.CustId.Value);
 
             var param = CreateWinLossDetailParam(message, products);
             var reportData = winLossDetailService.MasterWinLossDetail(param);
@@ -92,7 +91,7 @@
                 throw new ArgumentNullException("message");
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId.Value, SiteSettings.Products);
+            var products = productService.GetProductsForCustomer(message.CustId.Value);
 
             var param = CreateWinLossDetailParam(message, products);
             var reportData = winLossDetailService.AgentWinLossDetail(param);
@@ -188,8 +187,8 @@
 
             return new WinLossDetailParam(
                 message.CustId.Value,
-                message.FromDate ?? dateTimeWrapper.Now.AddMonths(-3),
-                message.ToDate ?? dateTimeWrapper.Now,
+                message.FromDate ?? siteContext.ServerTime.AddMonths(-3),
+                message.ToDate ?? siteContext.ServerTime,
                 selectedProducts,
                 message.PageSize ?? DefaultVariables.PageSize,
                 message.PageIndex ?? DefaultVariables.PageIndex);

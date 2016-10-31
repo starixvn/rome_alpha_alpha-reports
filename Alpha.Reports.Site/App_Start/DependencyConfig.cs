@@ -3,14 +3,11 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
-    using Antlr.Runtime.Misc;
     using Fanex.Data.Repository;
     using MediatR;
     using RemotingRef;
     using Reports.DataAccess;
     using Reports.DataAccess.Impl;
-    using Reports.Helpers;
-    using Reports.Helpers.Impl;
     using Reports.Models;
     using Reports.Services;
     using Reports.Services.Impl;
@@ -21,7 +18,6 @@
     using SimpleInjector.Integration.Web.Mvc;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
-    using Sunplus.Agent.Model.Entities.Permission;
 
     public static class DependencyConfig
     {
@@ -70,7 +66,6 @@
 
         private static void RegisterCrossCuttingConcerns(Container container)
         {
-            container.Register<IDateTime, DateTimeWrapper>(Lifestyle.Transient);
         }
 
         private static void RegisterServices(Container container)
