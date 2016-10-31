@@ -41,6 +41,8 @@
 
             SiteSettings.LoadSettings();
 
+            SiteSettings.Verify();
+
             Logs.WriteInfo(SiteResources.AppStart_Message);
         }
 

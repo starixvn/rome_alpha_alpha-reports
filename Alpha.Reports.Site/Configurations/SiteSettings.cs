@@ -1,8 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Configurations
 {
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
+    using System.Linq;
     using System.Web;
     using Fanex.Common;
     using Models;
@@ -75,6 +77,26 @@
             }
 
             return result;
+        }
+
+        public static void Verify()
+        {
+            CheckNullOrWhiteSpace(VirtualDirectory);
+            CheckNullOrWhiteSpace(AssetAppPath);
+            CheckNullOrWhiteSpace(OldMainAppPath);
+
+            if (Products?.Any() == false)
+            {
+                throw new InvalidOperationException($"{nameof(Products)} is null empty");
+            }
+        }
+
+        private static void CheckNullOrWhiteSpace(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new InvalidOperationException($"{nameof(path)} is null or whitespace");
+            }
         }
     }
 }
