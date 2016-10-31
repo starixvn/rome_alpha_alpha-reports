@@ -81,7 +81,6 @@
         public static void Verify()
         {
             CheckNullOrWhiteSpace(OldMainAppPath);
-            CheckNullOrWhiteSpace(AccessDeniedPage);
             CheckNullOrWhiteSpace(StoreProcedurePath);
             CheckNullOrWhiteSpace(AssetAppPath);
             CheckNullOrWhiteSpace(ProductConfigPath);
