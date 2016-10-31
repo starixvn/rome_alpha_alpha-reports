@@ -8,6 +8,7 @@
     using Fanex.Data.Repository;
     using Models;
     using Params;
+    using Alpha.Reports.Extensions;
 
     public class ReportDateServiceImpl : ReportDateService
     {
@@ -45,7 +46,7 @@
             return balanceUpDayAndMoveBetsDay;
         }
 
-        public DateRange GetDateRangeLimit(ReportDateRangeParam param) 
+        public DateRange GetDateRangeLimit(ReportDateRangeParam param)
             => new DateRange(GetMinDate(param), maxDate: DateTime.MaxValue);
 
         private DateTime GetMinDate(ReportDateRangeParam param)
@@ -58,13 +59,13 @@
                     return GetBalanceUpDay();
 
                 case ReportTimeRangeType.FromLast3Months:
-                    return applicationContext.ServerTime.AddMonths(-3);
+                    return applicationContext.ServerTime.AddMonths(-3).FirstDayOfMonth();
 
                 case ReportTimeRangeType.FromLast18Months:
-                    return applicationContext.ServerTime.AddMonths(-18);
+                    return applicationContext.ServerTime.AddMonths(-18).FirstDayOfMonth();
 
                 case ReportTimeRangeType.FromLast3Years:
-                    return applicationContext.ServerTime.AddYears(-3);
+                    return applicationContext.ServerTime.AddYears(-3).FirstDayOfMonth();
 
                 case ReportTimeRangeType.Unknown:
                 default:

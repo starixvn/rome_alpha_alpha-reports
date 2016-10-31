@@ -4,7 +4,6 @@
     using Criteria.WinLossDetail;
     using DataAccess;
     using Extensions;
-    using Helpers;
     using Models;
     using Models.WinlossDetail;
     using Params;
@@ -48,8 +47,8 @@
 
             var criteria = new AgentWinLossDetailCriteria(
                 param.CustId,
-                DateTimeExtensions.GetBeginningOfDate(param.FromDate),
-                DateTimeExtensions.GetEndingOfDate(param.ToDate),
+                param.FromDate.GetBeginningOfDate(),
+                param.ToDate.GetEndingOfDate(),
                 reportDateService.GetBalanceUpDay(),
                 string.Join(",", param.ProductIds),
                 param.PageSize,
@@ -67,8 +66,8 @@
 
             var criteria = new MemberWinLossDetailCriteria(
                 param.CustId,
-                DateTimeExtensions.GetBeginningOfDate(param.FromDate),
-                DateTimeExtensions.GetEndingOfDate(param.ToDate),
+                param.FromDate.GetBeginningOfDate(),
+                param.ToDate.GetEndingOfDate(),
                 reportDateService.GetBalanceUpDay(),
                 string.Join(",", param.ProductIds),
                 param.PageSize,

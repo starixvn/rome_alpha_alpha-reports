@@ -8,6 +8,7 @@
     using Fanex.Common;
     using MediatR;
     using Models;
+    using Models.WinlossDetail;
     using Newtonsoft.Json;
     using Params;
     using Reports.AppResources;
@@ -55,12 +56,7 @@
                 message.IsHistoricReport,
                 message.ReportRanges));
 
-            var netTurnoverTooltips = new List<string>();
-
-            if (products.Where(product => product.Id == AllBetProductId) != null)
-            {
-                netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
-            }
+            var netTurnoverTooltips = GetNetTurnoverTooltip(products);
 
             return new MasterWinLossDetailViewModel
             {
@@ -101,12 +97,7 @@
                 message.IsHistoricReport,
                 message.ReportRanges));
 
-            var netTurnoverTooltips = new List<string>();
-
-            if (products.Where(product => product.Id == AllBetProductId) != null)
-            {
-                netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
-            }
+            var netTurnoverTooltips = GetNetTurnoverTooltip(products);
 
             return new AgentWinLossDetailViewModel
             {
@@ -147,12 +138,7 @@
                 message.IsHistoricReport,
                 message.ReportRanges));
 
-            var netTurnoverTooltips = new List<string>();
-
-            if (products.Where(product => product.Id == AllBetProductId) != null)
-            {
-                netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
-            }
+            var netTurnoverTooltips = GetNetTurnoverTooltip(products);
 
             return new MemberWinLossDetailViewModel
             {
@@ -194,6 +180,18 @@
                 selectedProducts,
                 message.PageSize ?? DefaultVariables.PageSize,
                 message.PageIndex ?? DefaultVariables.PageIndex);
+        }
+
+        private List<string> GetNetTurnoverTooltip(IEnumerable<Product> products)
+        {
+            var netTurnoverTooltips = new List<string>();
+
+            if (products.Where(product => product.Id == AllBetProductId) != null)
+            {
+                netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
+            }
+
+            return netTurnoverTooltips;
         }
     }
 }

@@ -7,9 +7,9 @@
 
     public static class BaseStaticResources
     {
-        public static readonly string MinText = IsDebugMode() ? ".min" : GetBuildVersion();
+        public static readonly string MinText = IsDebugMode() ? string.Empty : ".min";
 
-        public static readonly string StaticResourcesVersion;
+        public static readonly string StaticResourcesVersion = IsDebugMode() ? string.Empty : GetBuildVersion();
 
         private static bool IsDebugMode()
         {

@@ -131,7 +131,7 @@ class WinLossDetailView {
         var dropdownMonth = this.domElements.dropdownMonth;
 
         var maxDate = dropdownMonth.data("maxdate");
-        dropdownMonth.monPickr({
+        var options = {
             longMonthsInYear: this.getLongMonthsInYear(),
             maxDate: maxDate === "" ? dropdownMonth.data("currentdate") : maxDate,
             minDate: dropdownMonth.data("mindate"),
@@ -150,7 +150,9 @@ class WinLossDetailView {
             log: function (msg: string) {
                 console.warn(msg);
             }
-        });
+        };
+
+        dropdownMonth.monPickr(options);
 
         if (!this.domElements.filter.hasClass("historic-report")) {
             this.domElements.monthPickerContainer.addClass("hide");
@@ -330,7 +332,7 @@ class WinLossDetailView {
             this.domElements.netTurnoverTooltip.modal({ show: true, backdrop: false });
 
             this.domElements.closeNetTurnoverTooltip.on("click", function () {
-                alphaReports.localStorage.set(this.cookieNetTurnoverTooltip, alphaReports.maxTimesToShowTooltip);
+                alphaReports.localStorage.set($this.cookieNetTurnoverTooltip, alphaReports.maxTimesToShowTooltip);
                 $this.closeNetTurnoverTooltip();
             });
 
