@@ -29,8 +29,6 @@
 
         private static string ReportRangeConfigPath => GetConfigValue("Reports:ReportRanges");
 
-        public static string VirtualDirectory => GetConfigValue("VirtualDirectory");
-
         public static int? DatabaseServerGMT
         {
             get
@@ -81,13 +79,21 @@
 
         public static void Verify()
         {
-            CheckNullOrWhiteSpace(VirtualDirectory);
-            CheckNullOrWhiteSpace(AssetAppPath);
             CheckNullOrWhiteSpace(OldMainAppPath);
+            CheckNullOrWhiteSpace(AccessDeniedPage);
+            CheckNullOrWhiteSpace(StoreProcedurePath);
+            CheckNullOrWhiteSpace(AssetAppPath);
+            CheckNullOrWhiteSpace(ProductConfigPath);
+            CheckNullOrWhiteSpace(ReportRangeConfigPath);
 
             if (Products?.Any() == false)
             {
                 throw new InvalidOperationException($"{nameof(Products)} is null empty");
+            }
+
+            if (ReportRanges?.Any() == false)
+            {
+                throw new InvalidOperationException($"{nameof(ReportRanges)} is null empty");
             }
         }
 
