@@ -3,7 +3,7 @@
     using System;
     using Fanex.Caching;
 
-    public class DefaultVariables
+    public static class DefaultVariables
     {
         public const int PageSize = 100;
         public const int PageIndex = 1;

@@ -18,11 +18,8 @@
                 {
                     while (reader.Read())
                     {
-                        var rangeType = Converter.ToInt(reader["RptType"]);
-
                         var minDate = Converter.ToDateTime(reader["StartDate"], DateTime.MinValue);
                         var maxDate = Converter.ToDateTime(reader["EndDate"], DateTime.MaxValue);
-
                         dateRange = new DateRange(minDate, maxDate);
                     }
                 }

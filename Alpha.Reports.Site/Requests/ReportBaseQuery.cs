@@ -4,7 +4,7 @@
 
     public class ReportBaseQuery
     {
-        public int CustId { get; set; }
+        public int? CustId { get; set; }
 
         public string PageIndex { get; set; }
 

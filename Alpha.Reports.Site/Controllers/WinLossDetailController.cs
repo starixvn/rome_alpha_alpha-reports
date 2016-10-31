@@ -36,6 +36,8 @@
             message.CustId = userSession.CustId;
             message.ReportPath = AppPathHelper.GetRelativePath(SiteSettings.ReportsAppPath, HttpContext.Request.Url.AbsolutePath);
             message.OldMainAppPath = AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~");
+            message.Products = SiteSettings.Products;
+            message.ReportRanges = SiteSettings.ReportRanges;
 
             message.SelectedProducts = "1,2";
 

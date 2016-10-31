@@ -8,7 +8,7 @@
     using Models;
     using Newtonsoft.Json;
 
-    public class SiteSettings
+    public static class SiteSettings
     {
         private static IEnumerable<Product> products;
         private static IEnumerable<ReportRange> reportRanges;

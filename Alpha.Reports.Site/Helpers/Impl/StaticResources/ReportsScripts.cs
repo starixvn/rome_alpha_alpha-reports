@@ -3,12 +3,12 @@
     using System.Linq;
     using System.Web;
 
-    public class ReportsScripts : BaseStaticResources
+    public static class ReportsScripts
     {
         public static IHtmlString Render(params string[] paths)
         {
             return System.Web.Optimization.Scripts.Render(
-                  paths.Select(path => VirtualPathUtility.ToAbsolute($"{path}{MinText}.js?v={StaticResourcesVersion}"))
+                  paths.Select(path => VirtualPathUtility.ToAbsolute($"{path}{BaseStaticResources.MinText}.js?v={BaseStaticResources.StaticResourcesVersion}"))
                       .ToArray());
         }
     }

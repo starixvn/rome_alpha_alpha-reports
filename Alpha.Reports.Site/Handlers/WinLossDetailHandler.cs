@@ -25,7 +25,7 @@
         private readonly IDateTime dateTimeWrapper;
 
         public WinLossDetailHandler(
-            ProductService productService,            
+            ProductService productService,
             ReportDateService reportDateService,
             WinLossDetailService winLossDetailService,
             IDateTime dateTimeWrapper)
@@ -38,10 +38,15 @@
 
         public MemberWinLossDetailViewModel Handle(MemberWinLossDetailQuery message)
         {
-            var products = productService.GetProductsForCustomer(message.CustId, SiteSettings.Products);              
+            var products = productService.GetProductsForCustomer(message.CustId.Value, SiteSettings.Products);
 
             var param = CreateWinLossDetailParam(message, products);
             var reportData = winLossDetailService.MemberWinLossDetail(param);
+
+            var reportRange = reportDateService.GetReportDateRange(new ReportDateRangeParam(
+                message.ReportPath,
+                message.IsHistoricReport,
+                message.ReportRanges));
 
             var netTurnoverTooltips = new List<string>();
 
@@ -52,8 +57,8 @@
 
             return new MemberWinLossDetailViewModel
             {
-                // MinDate = DateTimeHelper.ToShortDateWithSlash(reportRange.FromDate),
-                // MaxDate = DateTimeHelper.ToShortDateWithSlash(reportRange.ToDate),
+                MinDate = DateTimeHelper.ToShortDateWithSlash(reportRange.FromDate),
+                MaxDate = DateTimeHelper.ToShortDateWithSlash(reportRange.ToDate),
                 CurrentDate = DateTimeHelper.ToShortDateWithSlash(DateTime.Now),
 
                 Products = JsonConvert.SerializeObject(products),
@@ -79,7 +84,7 @@
                 : message.SelectedProducts.Split(',').Select(product => Converter.ToInt(product)).ToList();
 
             return new WinLossDetailParam(
-                Converter.ToInt(message.CustId),
+                message.CustId.Value,
                 message.FromDate ?? dateTimeWrapper.Now.AddMonths(-4),
                 message.ToDate ?? dateTimeWrapper.Now,
                 selectedProducts,

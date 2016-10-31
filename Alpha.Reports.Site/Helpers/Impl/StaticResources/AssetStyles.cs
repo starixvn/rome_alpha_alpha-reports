@@ -4,11 +4,11 @@
     using System.Web;
     using Configurations;
 
-    public class AssetStyles : BaseStaticResources
+    public static class AssetStyles
     {
         public static IHtmlString Render(params string[] paths)
         {
-            return System.Web.Optimization.Styles.Render(paths.Select(path => $"{SiteSettings.AssetAppPath}{path}{MinText}.css?v={StaticResourcesVersion}").ToArray());
+            return System.Web.Optimization.Styles.Render(paths.Select(path => $"{SiteSettings.AssetAppPath}{path}{BaseStaticResources.MinText}.css?v={BaseStaticResources.StaticResourcesVersion}").ToArray());
         }
     }
 }

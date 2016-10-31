@@ -22,34 +22,34 @@
             return Convert.ToDateTime(endingDateTime);
         }
 
-        public static string ToShortDateWithSlash(DateTime dateTime)
+        public static string ToShortDateWithSlash(DateTime? dateTime)
         {
             if (dateTime == null)
             {
                 return null;
             }
 
-            return dateTime.ToString(ShortDateWithSlash);
+            return dateTime.Value.ToString(ShortDateWithSlash);
         }
 
-        public static string ToLongDateWithSlash(DateTime dateTime)
+        public static string ToLongDateWithSlash(DateTime? dateTime)
         {
             if (dateTime == null)
             {
                 return null;
             }
 
-            return dateTime.ToString(LongDateWithSlash);
+            return dateTime.Value.ToString(LongDateWithSlash);
         }
 
-        public static string ToHtmlLongDateWithSlash(DateTime dateTime)
+        public static string ToHtmlLongDateWithSlash(DateTime? dateTime)
         {
             if (dateTime == null)
             {
                 return null;
             }
 
-            return dateTime.ToString(HtmlLongDateWithSlash);
+            return dateTime.Value.ToString(HtmlLongDateWithSlash);
         }
     }
 }

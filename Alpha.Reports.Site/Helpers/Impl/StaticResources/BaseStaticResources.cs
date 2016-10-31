@@ -5,7 +5,7 @@
     using System.Reflection;
     using System.Web.Configuration;
 
-    public class BaseStaticResources
+    public static class BaseStaticResources
     {
         public static readonly string MinText = ".min";
 

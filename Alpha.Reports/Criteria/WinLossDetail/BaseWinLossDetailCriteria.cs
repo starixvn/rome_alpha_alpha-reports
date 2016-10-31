@@ -6,7 +6,7 @@
 
     public abstract class BaseWinLossDetailCriteria : CriteriaBase
     {
-        public BaseWinLossDetailCriteria(
+        protected BaseWinLossDetailCriteria(
             int custId,
             DateTime fromDate,
             DateTime toDate,
