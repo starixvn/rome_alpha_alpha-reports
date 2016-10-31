@@ -11,7 +11,7 @@
     using Reports.Models;
     using Reports.Services;
     using Reports.Services.Impl;
-    using Reports.Site;
+    using Reports.Site.App_Start;
     using Reports.Site.Controllers;
     using SimpleInjector;
     using SimpleInjector.Integration.Web;

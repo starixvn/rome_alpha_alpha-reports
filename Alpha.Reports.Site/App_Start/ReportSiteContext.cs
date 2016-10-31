@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
+    using Extensions;
     using System;
     using System.Collections.Generic;
     using Configurations;
@@ -11,7 +12,11 @@
         {
             get
             {
-                return DateTime.Now;
+                var gmt = SiteSettings.DatabaseServerGMT;
+
+                return gmt == null
+                    ? DateTime.Now
+                    : DateTime.Now.ConvertGMT(gmt.Value);
             }
         }
 

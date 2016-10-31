@@ -29,6 +29,18 @@
 
         public static string VirtualDirectory => GetConfigValue("VirtualDirectory");
 
+        public static int? DatabaseServerGMT
+        {
+            get
+            {
+                var gmt = GetConfigValue("DatabaseServerGMT");
+
+                return string.IsNullOrWhiteSpace(gmt)
+                    ? (int?)null
+                    : Converter.ToInt(gmt);
+            }
+        }
+
         public static IEnumerable<Product> Products => products;
 
         public static IEnumerable<ReportRange> ReportRanges => reportRanges;
