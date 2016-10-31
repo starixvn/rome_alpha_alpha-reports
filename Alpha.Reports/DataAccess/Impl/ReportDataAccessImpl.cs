@@ -22,8 +22,6 @@
                 criteria.PageIndex,
                 criteria.PageSize,
                 criteria.TotalRecords,
-                criteria.FromDate,
-                criteria.ToDate,
                 default(T));
 
             return reportData;

@@ -38,8 +38,6 @@
                 param.PageIndex,
                 param.PageSize,
                 criteria.TotalRows,
-                param.FromDate,
-                param.ToDate,
                 new MemberWinlossDetail());
         }
     }
