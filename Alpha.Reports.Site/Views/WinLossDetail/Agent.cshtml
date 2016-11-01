@@ -4,7 +4,19 @@
 @model AgentWinLossDetailViewModel
 @{
     ViewBag.Title = Resources.MasterWinLossDetail;
-    var total = (AgentWinLossDetail)Model.ReportData.Total;
+    var total = Model.ReportData.Total;
+    var drillDownLink = "Member?" +
+        "PageIndex=" + Model.ReportData.CurrentPageIndex +
+        "&PageSize=" + Model.ReportData.PageSize +
+        "&FromDate=" + Model.FromDate +
+        "&ToDate=" + Model.ToDate +
+        "&SelectedProducts=" + Model.SelectedProducts +
+        "&SortedColumn=" + Model.SortedColumn +
+        "&SortDirection=" + Model.SortDirection +
+        "&IsStackMode=" + Model.IsStackMode +
+        "&IsHistoricReport=" + Model.IsHistoricReport +
+        "&HideFilter=" + Model.HideFilter +
+        "&CustId={0}";
 }
 
 @section Styles {
@@ -140,7 +152,7 @@
             @foreach (AgentWinLossDetail data in Model.ReportData.DataSource)
                 {
                 <tr>
-                    <td><a href="@Model.OldMainAppPath/_BetList/BetList.aspx?" class="downline-link">@data.CustName</a></td>
+                    <td><a href="@string.Format(drillDownLink,data.CustId)" class="downline-link">@data.CustName</a></td>
                     <td class="text-right">@data.NumberOfTickets</td>
                     @if (Model.IsStackMode)
                     {

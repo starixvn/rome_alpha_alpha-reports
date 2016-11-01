@@ -10,7 +10,7 @@
         public WinLossDetailParam(
             int custId,
             int pageIndex,
-            int pageSize,            
+            int pageSize,
             DateTime fromDate,
             DateTime toDate,
             string productIds,
@@ -20,7 +20,7 @@
         {
             CustId = custId;
             PageIndex = pageIndex;
-            PageSize = pageSize;            
+            PageSize = pageSize;
             FromDate = fromDate;
             ToDate = toDate;
             ProductIds = productIds.Split(',').Select(id => Convert.ToInt32(id));
@@ -33,7 +33,7 @@
 
         public int PageIndex { get; }
 
-        public int PageSize { get; }       
+        public int PageSize { get; }
 
         public DateTime FromDate { get; }
 

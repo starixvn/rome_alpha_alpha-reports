@@ -98,14 +98,14 @@
                 ReportData = reportData
             };
 
-            return viewModel;           
+            return viewModel;
         }
 
-        private WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery message, IEnumerable<Product> visibleProducts)
+        private WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery message, IEnumerable<Product> userProducts)
         {
             var selectedProducts = string.IsNullOrWhiteSpace(message.SelectedProducts)
-                ? visibleProducts.Select(product => product.Id).ToList()
-                : message.SelectedProducts.Split(',').Select(product => Converter.ToInt(product)).ToList();
+                ? string.Join(",", userProducts.Select(product => product.Id))
+                : message.SelectedProducts;
 
             return new WinLossDetailParam(
                 message.CustId,
@@ -113,7 +113,7 @@
                 message.PageSize ?? DefaultVariables.PageSize,
                 message.FromDate ?? siteContext.ServerTime,
                 message.ToDate ?? siteContext.ServerTime,
-                message.SelectedProducts,
+                selectedProducts,
                 message.UserLevel,
                 message.SortedColumn,
                 message.SortDirection);

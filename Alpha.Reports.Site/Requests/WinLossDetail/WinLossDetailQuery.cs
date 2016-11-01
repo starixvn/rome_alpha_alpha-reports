@@ -27,7 +27,6 @@
 
         public virtual UserLevel UserLevel { get; }
 
-
         public new int CustId
         {
             get
