@@ -75,7 +75,7 @@
         private static void RegisterDataAccesses(Container container)
         {
             container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Transient);
-            container.Register<ReportDataAccess, ReportDataAccessImpl>(Lifestyle.Transient);
+            container.Register<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>(Lifestyle.Transient);
         }
     }
 }

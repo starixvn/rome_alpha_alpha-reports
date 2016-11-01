@@ -4,15 +4,16 @@ declare var store, $: any;
 class AlphaReports {
     format = {
         monthFormat: "MMMM - yyyy",
-        shortDateWithSlash: "MM/DD/YYYY"
+        shortDateWithSlash_DatePicker: "MM/DD/YYYY",
+        shortDateWithSlash_MonthPicker: "MM/dd/yyyy"
     };
 
     keyCode = {
         enter: 13
     };
     numberDisplayedProductsOnFilter = 1;
-    pageList = [10, 50, 100, 200, 500];
-    maxTimesToShowTooltip = 5000;
+    pageList = [50, 100, 200, 500];
+    maxTimesToShowTooltip = 5;
     screenSmallThan768 = () => {
         var currentWindowWidth = window.screen.width;
 

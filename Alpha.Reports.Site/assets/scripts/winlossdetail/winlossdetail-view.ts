@@ -25,23 +25,25 @@ class WinLossDetailView {
         netTurnoverTooltip: null,
         closeNetTurnoverTooltip: null,
 
-        isStackMode: null,
-        isHistoricReport: null,
-        hideFilter: null
+        isHistoricReport: null
     };
 
     isFirstSwitchMode = true;
 
     pageIndex = 0;
     pageSize = 0;
-    timeToShowNetTurnoverTooltip = 10000000;
+    timeToShowNetTurnoverTooltip = 10000;
     cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
-
+    isHistoricReport = false;
     init = () => {
-        this.cacheDOMElements();
-        this.renderMonthPicker();
         this.renderDateRangePicker();
         this.renderDropdownProduct();
+        this.cacheDOMElements();
+
+        if (this.isHistoricReport) {
+            this.renderMonthPicker();
+        }
+
         this.renderPager();
         this.renderNetTurnoverTooltip();
 
@@ -67,7 +69,6 @@ class WinLossDetailView {
         this.domElements.iconFilter = $(".icon-filter");
         this.domElements.iconSwitchMode = $(".icon-switchmode");
 
-        this.domElements.dropdownProduct = $("#dropdown-product");
         this.domElements.buttonSubmit = $(".btn-submit");
 
         this.domElements.tableReport = $("#tbl-report");
@@ -77,9 +78,8 @@ class WinLossDetailView {
 
         this.domElements.closeNetTurnoverTooltip = $("#close-netturnover-tooltip");
 
-        this.domElements.isStackMode = $("#isstackmode");
         this.domElements.isHistoricReport = $("#ishistoricreport");
-        this.domElements.hideFilter = $("#hidefilter");
+        this.isHistoricReport = this.domElements.isHistoricReport.val() == "true";
     };
 
     renderDateRangePicker = () => {
@@ -95,7 +95,7 @@ class WinLossDetailView {
                 changeMonth: true,
                 changeYear: true,
                 showOtherMonths: true,
-                dateFormat: alphaReports.format.shortDateWithSlash
+                dateFormat: alphaReports.format.shortDateWithSlash_DatePicker
             },
             dropDownList:
             {
@@ -107,13 +107,13 @@ class WinLossDetailView {
             firstDatePicker: {
                 Id: "picker-fromdate",
                 Label: "",
-                InitDate: new Date(currentDate),
+                InitDate: new Date(dateRangePicker.data("fromdate")),
                 LabelCss: ""
             },
             secondDatePicker: {
                 Id: "picker-todate",
                 Label: dateRangePicker.data("labelto"),
-                InitDate: new Date(currentDate),
+                InitDate: new Date(dateRangePicker.data("todate")),
                 LabelCss: ""
             },
             selectedItem: 0,
@@ -145,7 +145,7 @@ class WinLossDetailView {
             minDate: dropdownMonth.data("mindate"),
             month: new Date(dropdownMonth.data("dateinmonth")),
 
-            fromDay: 1,
+            fromDay: dropdownMonth.data("fromdate"),
             toDay: dropdownMonth.data("todate"),
 
             showDateRange: true,
@@ -174,6 +174,7 @@ class WinLossDetailView {
     };
 
     renderDropdownProduct = () => {
+        this.domElements.dropdownProduct = $("#dropdown-product");
         var dropdownProduct = this.domElements.dropdownProduct;
         var products = dropdownProduct.data("products");
         var selectedProduct = dropdownProduct.data("selectedproducts").split(",");
@@ -216,13 +217,13 @@ class WinLossDetailView {
         var $this = this;
 
         this.domElements.historicReportSwitch.on("click", function () {
-            $this.domElements.filter.addClass("historic-report");
-            $this.domElements.monthPickerContainer.removeClass("hide");
+            $this.isHistoricReport = true;
+            winLossDetailController.getReport();
         });
 
         this.domElements.currentReportSwitch.on("click", function () {
-            $this.domElements.monthPickerContainer.addClass("hide");
-            $this.domElements.filter.removeClass("historic-report");
+            $this.isHistoricReport = false;
+            winLossDetailController.getReport();
         });
 
         this.domElements.iconFilter.on("click", function () {
@@ -297,6 +298,8 @@ class WinLossDetailView {
     };
 
     renderPager = () => {
+        var $this = this;
+
         var pager = this.domElements.pager;
         var tableReport = this.domElements.tableReport;
 
@@ -321,10 +324,10 @@ class WinLossDetailView {
 
                 showRefresh: false,
                 onSelectPage: function (pageNumber: number, pageSize: number) {
-                    this.pageIndex = pageNumber - 1;
-                    this.pageSize = pageSize;
+                    $this.pageIndex = pageNumber;
+                    $this.pageSize = pageSize;
 
-                    winLossDetailController.pageReport();
+                    winLossDetailController.getReport();
                 },
                 beforePageText: pager.data("lablepage"),
                 afterPageText: pager.data("labelof") + " {pages}",
@@ -377,18 +380,32 @@ class WinLossDetailView {
     getParams = () => {
         var tableReport = this.domElements.tableReport;
 
+        var isHistoricReport = this.isHistoricReport;
+        var dateRange = isHistoricReport
+            ? {
+                FromDate: this.domElements.dropdownMonth.monPickr("getFromDate", alphaReports.format.shortDateWithSlash_MonthPicker),
+                ToDate: this.domElements.dropdownMonth.monPickr("getToDate", alphaReports.format.shortDateWithSlash_MonthPicker)
+            }
+            : this.domElements.dateRangePicker.nexDatePicker("getDateRange");
+
+        var selected = [];
+        var selectedOptions = this.domElements.dropdownProduct.find('option:selected');
+        selectedOptions.each(function (index, brand) {
+            selected.push([$(this).val()]);
+        });
+
         return {
             CustId: tableReport.data("custid"),
             PageIndex: this.pageIndex,
             PageSize: this.pageSize,
-            FromDate: tableReport.data("fromdate"),
-            ToDate: tableReport.data("todate"),
-            SelectedProducts: "1,2",
+            FromDate: dateRange.FromDate,
+            ToDate: dateRange.ToDate,
+            SelectedProducts: selected.join(","),
             SortedColumn: tableReport.data("sortedcolumn"),
             SortDirection: tableReport.data("sortdirection"),
-            IsStackMode: $("#isstackmode").val(),
-            IsHistoricReport: $("#ishistoricreport").val(),
-            HideFilter: $("#hidefilter").val()
+            IsStackMode: tableReport.hasClass("stack-mode"),
+            IsHistoricReport: isHistoricReport,
+            HideFilter: this.domElements.filter.is(":hidden") ? true : false
         };
     };
 };

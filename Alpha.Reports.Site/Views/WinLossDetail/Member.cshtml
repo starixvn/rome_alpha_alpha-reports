@@ -1,5 +1,6 @@
 ﻿@using Alpha.Reports.Site.ViewModels.WinLossDetail;
 @using Alpha.Reports.Extensions;
+@using Alpha.Reports.Site.Helpers;
 @model MemberWinLossDetailViewModel
 @{
     ViewBag.Title = Resources.MemberWinLossDetail;
@@ -22,9 +23,9 @@
                         </li>
                         @foreach (var netTurnoverTooltip in Model.NetTurnoverTooltips)
                         {
-                            <li>
-                                @netTurnoverTooltip
-                            </li>
+                        <li>
+                            @netTurnoverTooltip
+                        </li>
                         }
                         <li>
                             <label for="close-netturnover-tooltip"><input id="close-netturnover-tooltip" type="checkbox" /> @Resources.DoNotShowAgain</label>
@@ -65,7 +66,9 @@
                  data-labelspecificdate="@Resources.SpecificDate"
                  data-mindate="@Model.MinDate.ToShortDateWithSlash()"
                  data-maxdate="@Model.MaxDate.ToShortDateWithSlash()"
-                 data-currentdate="@Model.CurrentDate.ToShortDateWithSlash()"></div>
+                 data-currentdate="@Model.CurrentDate.ToShortDateWithSlash()"
+                 data-fromdate="@Model.FromDate.ToShortDateWithSlash()"
+                 data-todate="@Model.ToDate.ToShortDateWithSlash()"></div>
         </div>
     </div>
     <div class="form-group monthpicker-container">
@@ -74,6 +77,7 @@
                  data-mindate="@Model.MinDate.ToShortDateWithSlash()"
                  data-maxdate="@Model.CurrentDate.ToShortDateWithSlash()"
                  data-dateinmonth="@Model.FromDate.ToShortDateWithSlash()"
+                 data-fromdate="@Model.FromDate.Day"
                  data-todate="@Model.ToDate.Day"
                  data-currentdate="@Model.CurrentDate.ToShortDateWithSlash()"
                  data-labelto="@Resources.To"></div>
@@ -118,7 +122,7 @@
     <thead>
         <tr>
             <th rowspan="2">@Resources.Username <span class="icon-menu-up ascSorting"></span></th>
-            <th rowspan="2">@Resources.NoOfTicket</th>
+            <th rowspan="2">@Resources.NoOfTickets</th>
             <th rowspan="2" class="hidden-stack-mode">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode col-netturnover-header">@Resources.NetTurnover</th>
             <th rowspan="2" class="hidden-stack-mode">@Resources.GrossComm</th>
@@ -243,10 +247,8 @@
      data-labelof="@Resources.of"
      data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
-@Html.Hidden("isstackmode", (Model.IsStackMode ? "1" : "0"))
-@Html.Hidden("ishistoricreport", (Model.IsHistoricReport ? "1" : "0"))
-@Html.Hidden("hidefilter", (Model.HideFilter ? "1" : "0"))
-@Html.Hidden("currentpath", HttpContext.Current.Request.Url.AbsolutePath)
+@Html.Hidden("ishistoricreport", Model.IsHistoricReport)
+@Html.Hidden("currentpath", AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Member"))
 
 @section Scripts {
     @AssetScripts.Render("/bundles/site-reports/default")

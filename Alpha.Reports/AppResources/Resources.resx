@@ -217,8 +217,8 @@
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
-  <data name="NoOfTicket" xml:space="preserve">
-    <value>No. of Ticket</value>
+  <data name="NoOfTickets" xml:space="preserve">
+    <value>No. of Tickets</value>
   </data>
   <data name="Turnover" xml:space="preserve">
     <value>Turnover</value>

@@ -24,7 +24,9 @@
 
         public IEnumerable<string> NetTurnoverTooltips { get; set; }
 
-        public string Products { get; set; }
+        public IEnumerable<Product> Products { get; set; }
+
+        public string JsonProducts => JsonConvert.SerializeObject(Products);
 
         public string SelectedProducts { get; set; }
 
@@ -37,7 +39,7 @@
         public string OldMainAppPath { get; set; }
 
         public ReportData<T> ReportData { get; set; }
-        
+
         public int CustId { get; set; }
 
         public string SortedColumn { get; set; }

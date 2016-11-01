@@ -4,7 +4,7 @@
 declare var $: any;
 
 class WinLossDetailController {
-    currentURL ='';
+    currentURL = (<HTMLInputElement>document.getElementById("currentpath")).value;
 
     init = () => {
         winLossDetailView.init();
@@ -19,7 +19,7 @@ class WinLossDetailController {
             data: params,
             method: 'GET',
             success: (responseHtml) => {
-                setTimeout(() => {
+                setTimeout(function () {
                     const newDoc = document.open("text/html", "replace");
                     newDoc.write(responseHtml);
                     newDoc.close();
@@ -27,10 +27,6 @@ class WinLossDetailController {
             },
             error: () => $.unblockUI()
         });
-    };
-
-    pageReport = () => {
-        // implement later
     };
 };
 

@@ -22,18 +22,18 @@
         private readonly ProductService productService;
         private readonly ReportDateService dateService;
         private readonly WinLossDetailService reportService;
-        private readonly ApplicationContext siteContext;
+        private readonly ApplicationContext applicationContext;
 
         public WinLossDetailHandler(
             ProductService productService,
             ReportDateService dateService,
             WinLossDetailService reportService,
-            ApplicationContext siteContext)
+            ApplicationContext applicationContext)
         {
             this.productService = productService;
             this.dateService = dateService;
             this.reportService = reportService;
-            this.siteContext = siteContext;
+            this.applicationContext = applicationContext;
         }
 
         public MasterWinLossDetailViewModel Handle(MasterWinLossDetailQuery message)
@@ -68,7 +68,7 @@
             var reportRange = dateService.GetDateRangeLimit(new ReportDateRangeParam(
                 message.ReportPath,
                 message.IsHistoricReport,
-                message.ReportRanges));
+                applicationContext.ReportRanges));
 
             var netTurnoverTooltips = GetNetTurnoverTooltip(products);
 
@@ -79,7 +79,7 @@
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,
 
-                Products = JsonConvert.SerializeObject(products),
+                Products = products,
                 SelectedProducts = string.Join(",", param.ProductIds),
                 Language = message.Language,
 
@@ -88,7 +88,7 @@
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
                 HideFilter = message.HideFilter,
-                OldMainAppPath = message.OldMainAppPath,
+                OldMainAppPath = applicationContext.OldMainAppPath,
 
                 ReportData = reportData
             };

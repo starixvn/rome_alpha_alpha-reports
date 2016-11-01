@@ -20,7 +20,7 @@
         {
             UserLevel = userLevel;
         }
-        
+
         private UserLevel UserLevel { get; }
 
         public override string GetSettingKey()
@@ -29,7 +29,8 @@
             {
                 return "Age_Rpt_WinLossDetail_Member";
             }
-            else if (UserLevel.IsMasterLevel())
+
+            if (UserLevel.IsMasterLevel())
             {
                 return "Age_Rpt_WinLossDetail_Agent";
             }

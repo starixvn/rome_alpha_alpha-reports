@@ -10,9 +10,9 @@
     public class WinLossDetailServiceImpl : WinLossDetailService
     {
         private readonly ReportDateService reportDateService;
-        private readonly ReportDataAccess reportDataAccess;
+        private readonly WinLossDetailDataAccess reportDataAccess;
 
-        public WinLossDetailServiceImpl(ReportDateService reportDateService, ReportDataAccess reportDataAccess)
+        public WinLossDetailServiceImpl(ReportDateService reportDateService, WinLossDetailDataAccess reportDataAccess)
         {
             this.reportDateService = reportDateService;
             this.reportDataAccess = reportDataAccess;

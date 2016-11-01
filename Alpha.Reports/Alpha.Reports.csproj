@@ -106,8 +106,8 @@
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
-    <Compile Include="DataAccess\Impl\ReportDataAccessImpl.cs" />
-    <Compile Include="DataAccess\ReportDataAccess.cs" />
+    <Compile Include="DataAccess\Impl\WinLossDetailDataAccessImpl.cs" />
+    <Compile Include="DataAccess\WinLossDetailDataAccess.cs" />
     <Compile Include="Enumerations\ReportTimeRangeType.cs" />
     <Compile Include="Extensions\DecimalExtension.cs" />
     <Compile Include="GlobalSuppressions.cs" />

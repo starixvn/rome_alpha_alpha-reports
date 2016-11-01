@@ -53,8 +53,6 @@
             message.Language = userSession.Language;
             message.CustId = userSession.CustId;
             message.ReportPath = AppPathHelper.GetRelativePath(HttpContext.Request.ApplicationPath, HttpContext.Request.Url.AbsolutePath);
-            message.OldMainAppPath = AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~");            
-            message.ReportRanges = SiteSettings.ReportRanges;
         }        
     }
 }

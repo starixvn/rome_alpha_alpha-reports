@@ -127,7 +127,7 @@
     <thead>
         <tr>
             <th rowspan="2">@Resources.Username <span class="icon-menu-up ascSorting"></span></th>
-            <th rowspan="2">@Resources.NoOfTicket</th>
+            <th rowspan="2">@Resources.NoOfTickets</th>
             <th rowspan="2" class="hidden-stack-mode">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode col-netturnover-header">@Resources.NetTurnover</th>
             <th rowspan="2" class="hidden-stack-mode">@Resources.GrossComm</th>
@@ -295,6 +295,7 @@
      data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
 @Html.Hidden("hidefilter", (Model.HideFilter ? "1" : "0"))
+@Html.Hidden("currentpath", HttpContext.Current.Request.Url.AbsolutePath)
 @section Scripts {
     @AssetScripts.Render("/bundles/site-reports/default")
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")

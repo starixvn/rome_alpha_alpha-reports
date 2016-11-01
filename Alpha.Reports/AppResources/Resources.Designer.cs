@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alpha.Reports.AppResources
-{
-
-
+namespace Alpha.Reports.AppResources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -295,11 +295,11 @@ namespace Alpha.Reports.AppResources
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No. of Ticket.
+        ///   Looks up a localized string similar to No. of Tickets.
         /// </summary>
-        public static string NoOfTicket {
+        public static string NoOfTickets {
             get {
-                return ResourceManager.GetString("NoOfTicket", resourceCulture);
+                return ResourceManager.GetString("NoOfTickets", resourceCulture);
             }
         }
         

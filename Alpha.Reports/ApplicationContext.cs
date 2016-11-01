@@ -9,5 +9,9 @@
         DateTime ServerTime { get; }
 
         IEnumerable<Product> Products { get; }
+
+        IEnumerable<ReportRange> ReportRanges { get; }
+
+        string OldMainAppPath { get; }
     }
 }

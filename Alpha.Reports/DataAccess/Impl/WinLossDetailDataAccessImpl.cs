@@ -7,7 +7,7 @@
     using Fanex.Data;
     using Models;
 
-    public class ReportDataAccessImpl : ReportDataAccess
+    public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {
         public ReportData<T> GetData<T>(ReportCriteriaBase criteria) where T : class
         {
