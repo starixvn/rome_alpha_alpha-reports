@@ -110,7 +110,11 @@
        data-pageindex="@Model.ReportData.CurrentPageIndex"
        data-pagesize="@Model.ReportData.PageSize"
        data-totalrecords="@Model.ReportData.TotalRecords"
-       data-custid="@Model.ReportData.CurrentPageIndex">
+       data-custid="@Model.CustId"
+       data-fromdate="@Model.FromDate"
+       data-todate="@Model.ToDate"
+       data-sortedcolumn="@Model.SortedColumn"
+       data-sortdirection="@Model.SortDirection">
     <thead>
         <tr>
             <th rowspan="2">@Resources.Username <span class="icon-menu-up ascSorting"></span></th>
@@ -239,6 +243,8 @@
      data-labelof="@Resources.of"
      data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
+@Html.Hidden("isstackmode", (Model.IsStackMode ? "1" : "0"))
+@Html.Hidden("ishistoricreport", (Model.IsHistoricReport ? "1" : "0"))
 @Html.Hidden("hidefilter", (Model.HideFilter ? "1" : "0"))
 @Html.Hidden("currentpath", HttpContext.Current.Request.Url.AbsolutePath)
 

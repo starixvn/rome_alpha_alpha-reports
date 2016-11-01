@@ -23,7 +23,11 @@ class WinLossDetailView {
         tableReport: null,
         pager: null,
         netTurnoverTooltip: null,
-        closeNetTurnoverTooltip: null
+        closeNetTurnoverTooltip: null,
+
+        isStackMode: null,
+        isHistoricReport: null,
+        hideFilter: null
     };
 
     isFirstSwitchMode = true;
@@ -72,6 +76,10 @@ class WinLossDetailView {
         this.domElements.netTurnoverTooltip = $("#netturnovertooltip");
 
         this.domElements.closeNetTurnoverTooltip = $("#close-netturnover-tooltip");
+
+        this.domElements.isStackMode = $("#isstackmode");
+        this.domElements.isHistoricReport = $("#ishistoricreport");
+        this.domElements.hideFilter = $("#hidefilter");
     };
 
     renderDateRangePicker = () => {
@@ -367,8 +375,20 @@ class WinLossDetailView {
         });
     };
     getParams = () => {
+        var tableReport = this.domElements.tableReport;
+
         return {
-            CustId: 0
+            CustId: tableReport.data("custid"),
+            PageIndex: this.pageIndex,
+            PageSize: this.pageSize,
+            FromDate: tableReport.data("fromdate"),
+            ToDate: tableReport.data("todate"),
+            SelectedProducts: "1,2",
+            SortedColumn: tableReport.data("sortedcolumn"),
+            SortDirection: tableReport.data("sortdirection"),
+            IsStackMode: $("#isstackmode").val(),
+            IsHistoricReport: $("#ishistoricreport").val(),
+            HideFilter: $("#hidefilter").val()
         };
     };
 };

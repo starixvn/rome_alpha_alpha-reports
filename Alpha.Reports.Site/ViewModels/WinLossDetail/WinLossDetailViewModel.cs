@@ -34,5 +34,11 @@
         public string OldMainAppPath { get; set; }
 
         public ReportData<T> ReportData { get; set; }
+        
+        public int CustId { get; set; }
+
+        public string SortedColumn { get; set; }
+
+        public int SortDirection { get; set; }
     }
 }

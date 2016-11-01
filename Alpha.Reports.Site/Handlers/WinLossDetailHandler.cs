@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using Constants;
-    using Extensions;
     using Fanex.Common;
     using MediatR;
     using Models;
@@ -77,6 +76,8 @@
 
             var viewModel = new TViewModel
             {
+                CustId = param.CustId,
+
                 MinDate = reportRange.MinDate,
                 MaxDate = reportRange.MaxDate,
                 CurrentDate = DateTime.Now,
@@ -102,11 +103,6 @@
 
         private WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery message, IEnumerable<Product> visibleProducts)
         {
-            message.SelectedProducts = "1,2";
-            message.FromDate = siteContext.ServerTime.AddMonths(-3).FirstDayOfMonth();
-            message.SortedColumn = "CustName";
-            message.SortDirection = -1;
-
             var selectedProducts = string.IsNullOrWhiteSpace(message.SelectedProducts)
                 ? visibleProducts.Select(product => product.Id).ToList()
                 : message.SelectedProducts.Split(',').Select(product => Converter.ToInt(product)).ToList();

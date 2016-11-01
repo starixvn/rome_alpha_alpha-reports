@@ -21,5 +21,7 @@
         }
 
         public IEnumerable<Product> Products => SiteSettings.Products;
+
+        public IEnumerable<ReportRange> ReportRanges => SiteSettings.ReportRanges;
     }
 }
