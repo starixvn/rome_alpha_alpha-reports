@@ -1,10 +1,8 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
 {
-    using Models;
     using Models.WinlossDetail;
 
-    public class AgentWinLossDetailViewModel : WinLossDetailViewModel
+    public class AgentWinLossDetailViewModel : WinLossDetailViewModel<AgentWinLossDetail>
     {
-        public ReportData<AgentWinLossDetail> ReportData { get; set; }
     }
 }

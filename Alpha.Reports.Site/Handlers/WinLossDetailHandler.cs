@@ -54,19 +54,19 @@
             return HandleRequest<MemberWinLossDetail, MemberWinLossDetailViewModel>(message);
         }
 
-        private TViewModel HandleRequest<T, TViewModel>(WinLossDetailQuery message)
-            where T : MemberWinLossDetail
-            where TViewModel : WinLossDetailViewModel, new()
+        private TViewModel HandleRequest<TData, TViewModel>(WinLossDetailQuery message)
+            where TData : MemberWinLossDetail
+            where TViewModel : WinLossDetailViewModel<TData>, new()
         {
             if (message == null)
             {
                 throw new ArgumentNullException("message");
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId.Value);
+            var products = productService.GetProductsForCustomer(message.CustId);
 
             var param = CreateWinLossDetailParam(message, products);
-            var reportData = reportService.GetWinLossDetail<T>(param);
+            var reportData = reportService.GetWinLossDetail<TData>(param);
 
             var reportRange = dateService.GetDateRangeLimit(new ReportDateRangeParam(
                 message.ReportPath,
@@ -75,7 +75,7 @@
 
             var netTurnoverTooltips = GetNetTurnoverTooltip(products);
 
-            return new TViewModel
+            var viewModel = new TViewModel
             {
                 MinDate = reportRange.MinDate,
                 MaxDate = reportRange.MaxDate,
@@ -92,13 +92,15 @@
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
                 HideFilter = message.HideFilter,
-                OldMainAppPath = message.OldMainAppPath
+                OldMainAppPath = message.OldMainAppPath,
+
+                ReportData = reportData
             };
+
+            return viewModel;           
         }
 
-        private WinLossDetailParam CreateWinLossDetailParam(
-            WinLossDetailQuery message,
-            IEnumerable<Product> visibleProducts)
+        private WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery message, IEnumerable<Product> visibleProducts)
         {
             message.SelectedProducts = "1,2";
             message.FromDate = siteContext.ServerTime.AddMonths(-3).FirstDayOfMonth();
@@ -110,7 +112,7 @@
                 : message.SelectedProducts.Split(',').Select(product => Converter.ToInt(product)).ToList();
 
             return new WinLossDetailParam(
-                message.CustId.Value,
+                message.CustId,
                 message.PageIndex ?? DefaultVariables.PageIndex,
                 message.PageSize ?? DefaultVariables.PageSize,
                 message.FromDate ?? siteContext.ServerTime,

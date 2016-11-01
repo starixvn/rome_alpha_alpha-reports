@@ -26,5 +26,20 @@
         public string OldMainAppPath { get; set; }
 
         public virtual UserLevel UserLevel { get; }
+
+
+        public new int CustId
+        {
+            get
+            {
+                if (UserLevel.IsSuperLevel())
+                    return 2798591;
+
+                if (UserLevel.IsMasterLevel())
+                    return 11761920;
+
+                return 4345531;
+            }
+        }
     }
 }

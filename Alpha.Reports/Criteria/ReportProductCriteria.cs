@@ -19,7 +19,7 @@
             ProductIdList = productIdList;
         }
 
-        public IEnumerable<int> ProductIdList { get; }
+        private IEnumerable<int> ProductIdList { get; }
 
         public string ProductIds => string.Join(",", ProductIdList);
 

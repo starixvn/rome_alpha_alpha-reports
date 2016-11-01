@@ -4,7 +4,7 @@
 declare var $: any;
 
 class WinLossDetailController {
-    currentURL = (<HTMLInputElement>document.getElementById("currentpath")).value;
+    currentURL ='';
 
     init = () => {
         winLossDetailView.init();

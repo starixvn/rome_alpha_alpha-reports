@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using Models;
+    using Models.WinlossDetail;
 
-    public class WinLossDetailViewModel
+    public class WinLossDetailViewModel<T> where T : MemberWinLossDetail
     {
         public DateTime MinDate { get; set; }
 
@@ -30,5 +32,7 @@
         public bool HideFilter { get; set; }
 
         public string OldMainAppPath { get; set; }
+
+        public ReportData<T> ReportData { get; set; }
     }
 }

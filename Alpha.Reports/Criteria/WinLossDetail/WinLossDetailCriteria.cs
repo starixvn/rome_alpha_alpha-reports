@@ -20,8 +20,8 @@
         {
             UserLevel = userLevel;
         }
-
-        public UserLevel UserLevel { get; }
+        
+        private UserLevel UserLevel { get; }
 
         public override string GetSettingKey()
         {
