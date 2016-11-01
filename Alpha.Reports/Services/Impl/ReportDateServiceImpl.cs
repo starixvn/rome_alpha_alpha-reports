@@ -92,7 +92,7 @@
             var reportTimeRangeType = ReportTimeRangeType.Unknown;
             var parseIsOk = Enum.TryParse(rangeType.ToString(), out reportTimeRangeType);
 
-            return (parseIsOk) ? reportTimeRangeType : ReportTimeRangeType.Unknown;
+            return parseIsOk ? reportTimeRangeType : ReportTimeRangeType.Unknown;
         }
     }
 }

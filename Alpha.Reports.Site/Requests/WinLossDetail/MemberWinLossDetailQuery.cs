@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
-    using Models;
     using MediatR;
+    using Models;
     using ViewModels.WinLossDetail;
 
     public class MemberWinLossDetailQuery : WinLossDetailQuery, IRequest<MemberWinLossDetailViewModel>
