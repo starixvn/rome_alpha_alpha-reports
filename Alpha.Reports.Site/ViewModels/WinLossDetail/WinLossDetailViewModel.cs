@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using Models.WinlossDetail;
 
     public class WinLossDetailViewModel
     {
@@ -31,7 +30,5 @@
         public bool HideFilter { get; set; }
 
         public string OldMainAppPath { get; set; }
-
-        public WinlossDetailReport ReportData { get; set; }
     }
 }

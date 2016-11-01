@@ -1,15 +1,16 @@
 ﻿namespace Alpha.Reports.Criteria
 {
     using System;
+    using Extensions;
     using Fanex.Data.Repository;
 
     public abstract class ReportCriteriaBase : CriteriaBase
     {
         protected ReportCriteriaBase(
-            int custId, 
-            int pageIndex, 
-            int pageSize, 
-            DateTime fromDate, 
+            int custId,
+            int pageIndex,
+            int pageSize,
+            DateTime fromDate,
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay)
@@ -17,8 +18,8 @@
             CustId = custId;
             PageIndex = pageIndex;
             PageSize = pageSize;
-            FromDate = fromDate;
-            ToDate = toDate;
+            FromDate = fromDate.GetBeginningOfDate();
+            ToDate = toDate.GetEndingOfDate();
             BalanceUpDay = balanceUpDay;
             MoveBetsDay = moveBetsDay;
         }

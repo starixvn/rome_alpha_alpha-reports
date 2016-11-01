@@ -41,29 +41,59 @@
 
         public MasterWinLossDetailViewModel Handle(MasterWinLossDetailQuery message)
         {
-            var viewModel = HandleRequest<MasterWinLossDetailViewModel>(
-                message,
-                (param) => winLossDetailService.MasterWinLossDetail(param));
-
-            return viewModel as MasterWinLossDetailViewModel;
+            return HandleRequest<MasterWinLossDetail, MasterWinLossDetailViewModel>(message);
         }
 
         public AgentWinLossDetailViewModel Handle(AgentWinLossDetailQuery message)
         {
-            var viewModel = HandleRequest<AgentWinLossDetailViewModel>(
-                message,
-                (param) => winLossDetailService.AgentWinLossDetail(param));
-
-            return viewModel as AgentWinLossDetailViewModel;
+            return HandleRequest<AgentWinLossDetail, AgentWinLossDetailViewModel>(message);
         }
 
         public MemberWinLossDetailViewModel Handle(MemberWinLossDetailQuery message)
         {
-            var viewModel = HandleRequest<MemberWinLossDetailViewModel>(
-                message,
-                (param) => winLossDetailService.MemberWinLossDetail(param));
+            return HandleRequest<MemberWinLossDetail, MemberWinLossDetailViewModel>(message);
+        }
 
-            return viewModel as MemberWinLossDetailViewModel;
+        private TViewModel HandleRequest<T, TViewModel>(WinLossDetailQuery message)
+            where T : MemberWinLossDetail
+            where TViewModel : WinLossDetailViewModel, new()
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            var products = productService.GetProductsForCustomer(message.CustId.Value);
+
+            var param = CreateWinLossDetailParam(message, products);
+            var reportData = reportService.GetWinLossDetail<T>(param);
+
+            var reportRange = dateService.GetDateRangeLimit(new ReportDateRangeParam(
+                message.ReportPath,
+                message.IsHistoricReport,
+                message.ReportRanges));
+
+            var netTurnoverTooltips = GetNetTurnoverTooltip(products);
+
+            return new TViewModel
+            {
+                MinDate = reportRange.MinDate,
+                MaxDate = reportRange.MaxDate,
+                CurrentDate = DateTime.Now,
+                FromDate = param.FromDate,
+                ToDate = param.ToDate,
+
+                Products = JsonConvert.SerializeObject(products),
+                SelectedProducts = string.Join(",", param.ProductIds),
+                Language = message.Language,
+
+                NetTurnoverTooltips = netTurnoverTooltips,
+
+                IsStackMode = message.IsStackMode,
+                IsHistoricReport = message.IsHistoricReport,
+                HideFilter = message.HideFilter,
+                OldMainAppPath = message.OldMainAppPath
+            };
         }
 
         private WinLossDetailParam CreateWinLossDetailParam(
@@ -72,6 +102,8 @@
         {
             message.SelectedProducts = "1,2";
             message.FromDate = siteContext.ServerTime.AddMonths(-3).FirstDayOfMonth();
+            message.SortedColumn = "CustName";
+            message.SortDirection = -1;
 
             var selectedProducts = string.IsNullOrWhiteSpace(message.SelectedProducts)
                 ? visibleProducts.Select(product => product.Id).ToList()
@@ -79,11 +111,12 @@
 
             return new WinLossDetailParam(
                 message.CustId.Value,
+                message.PageIndex ?? DefaultVariables.PageIndex,
+                message.PageSize ?? DefaultVariables.PageSize,
                 message.FromDate ?? siteContext.ServerTime,
                 message.ToDate ?? siteContext.ServerTime,
-                selectedProducts,
-                message.PageSize ?? DefaultVariables.PageSize,
-                message.PageIndex ?? DefaultVariables.PageIndex,
+                message.SelectedProducts,
+                message.UserLevel,
                 message.SortedColumn,
                 message.SortDirection);
         }
@@ -99,55 +132,5 @@
 
             return netTurnoverTooltips;
         }
-
-        private T HandleRequest<T>(
-            WinLossDetailQuery message,
-            Func<WinLossDetailParam, WinlossDetailReport> getReportDataFunction)
-            where T : WinLossDetailViewModel, new()
-        {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
-
-            message.SelectedProducts = "1,2";
-            message.FromDate = siteContext.ServerTime.AddMonths(-3).FirstDayOfMonth();
-            message.SortedColumn = "CustName";
-            message.SortDirection = -1;
-
-            var products = productService.GetProductsForCustomer(message.CustId.Value);
-
-            var param = CreateWinLossDetailParam(message, products);
-            var reportData = getReportDataFunction(param);
-
-            var reportRange = dateService.GetDateRangeLimit(new ReportDateRangeParam(
-                message.ReportPath,
-                message.IsHistoricReport,
-                message.ReportRanges));
-
-            var netTurnoverTooltips = GetNetTurnoverTooltip(products);
-
-            return new T
-            {
-                MinDate = reportRange.MinDate,
-                MaxDate = reportRange.MaxDate,
-                CurrentDate = DateTime.Now,
-                FromDate = param.FromDate,
-                ToDate = param.ToDate,
-
-                Products = JsonConvert.SerializeObject(products),
-                SelectedProducts = string.Join(",", param.ProductIds),
-                Language = message.Language,
-
-                NetTurnoverTooltips = netTurnoverTooltips,
-                ReportData = reportData,
-
-                IsStackMode = message.IsStackMode,
-                IsHistoricReport = message.IsHistoricReport,
-                HideFilter = message.HideFilter,
-                OldMainAppPath = message.OldMainAppPath
-            };
-        }
-
     }
 }
