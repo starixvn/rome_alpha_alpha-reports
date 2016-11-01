@@ -29,13 +29,13 @@
 
         public WinLossDetailHandler(
             ProductService productService,
-            ReportDateService reportDateService,
-            WinLossDetailService winLossDetailService,
+            ReportDateService dateService,
+            WinLossDetailService reportService,
             ApplicationContext siteContext)
         {
             this.productService = productService;
-            this.dateService = reportDateService;
-            this.reportService = winLossDetailService;
+            this.dateService = dateService;
+            this.reportService = reportService;
             this.siteContext = siteContext;
         }
 
@@ -49,7 +49,7 @@
             var products = productService.GetProductsForCustomer(message.CustId.Value);
 
             var param = CreateWinLossDetailParam(message, products);
-            var reportData = reportService.MasterWinLossDetail(param);
+            var reportData = reportService.GetWinLossDetail<MasterWinLossDetail>(param);
 
             var reportRange = dateService.GetDateRangeLimit(new ReportDateRangeParam(
                 message.ReportPath,
@@ -131,7 +131,7 @@
             var products = productService.GetProductsForCustomer(message.CustId.Value);
 
             var param = CreateWinLossDetailParam(message, products);
-            var reportData = reportService.MemberWinLossDetail(param);
+            var reportData = reportService.GetWinLossDetail<MemberWinLossDetail>(param);
 
             var reportRange = dateService.GetDateRangeLimit(new ReportDateRangeParam(
                 message.ReportPath,
