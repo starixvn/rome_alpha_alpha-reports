@@ -281,7 +281,6 @@
      data-labelof="@Resources.of"
      data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
-@Html.Hidden("hasdata", (Model.ReportData.DataSource.Any() ? "1" : "0"))
 @Html.Hidden("hidefilter", (Model.HideFilter ? "1" : "0"))
 @section Scripts {
     @AssetScripts.Render("/bundles/site-reports/default")

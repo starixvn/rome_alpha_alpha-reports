@@ -36,20 +36,6 @@
       <Mapping DataField="magwinloss" ObjectProperty="MasterWinLoss" />
       <Mapping DataField="magcomm" ObjectProperty="MasterComm" />
     </Setting>
-    <Setting Key="Age_Rpt_WinLossDetail_Agent_New" SpName="Age_Rpt_WinLossDetail_Agent_New" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-      <Mapping DataField="username" ObjectProperty="Username" />
-      <Mapping DataField="custid" ObjectProperty="Custid" />
-      <Mapping DataField="nooftickets" ObjectProperty="TicketCount" />
-      <Mapping DataField="turnover" ObjectProperty="Turnover" />
-      <Mapping DataField="netturnover" ObjectProperty="NetTurnover" />
-      <Mapping DataField="grosscomm" ObjectProperty="GrossComm" />
-      <Mapping DataField="memberwinloss" ObjectProperty="MemberWinLoss" />
-      <Mapping DataField="membercomm" ObjectProperty="MemberComm" />
-      <Mapping DataField="agwinloss" ObjectProperty="AgentWinLoss" />
-      <Mapping DataField="agcomm" ObjectProperty="AgentComm" />
-      <Mapping DataField="magwinloss" ObjectProperty="MasterWinLoss" />
-      <Mapping DataField="magcomm" ObjectProperty="MasterComm" />
-    </Setting>
     <Setting Key="Age_Rpt_WinLossDetail_Member" SpName="Age_Rpt_WinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="username" ObjectProperty="Username" />
       <Mapping DataField="custid" ObjectProperty="Custid" />

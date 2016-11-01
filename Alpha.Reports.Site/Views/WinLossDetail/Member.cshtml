@@ -109,7 +109,8 @@
         @(Model.IsStackMode?"stack-mode":string.Empty)" id="tbl-report"
        data-pageindex="@Model.ReportData.CurrentPageIndex"
        data-pagesize="@Model.ReportData.PageSize"
-       data-totalrecords="@Model.ReportData.TotalRecords">
+       data-totalrecords="@Model.ReportData.TotalRecords"
+       data-custid="@Model.ReportData.CurrentPageIndex">
     <thead>
         <tr>
             <th rowspan="2">@Resources.Username <span class="icon-menu-up ascSorting"></span></th>
@@ -238,8 +239,9 @@
      data-labelof="@Resources.of"
      data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
-@Html.Hidden("hasdata", (Model.ReportData.DataSource.Any() ? "1" : "0"))
 @Html.Hidden("hidefilter", (Model.HideFilter ? "1" : "0"))
+@Html.Hidden("currentpath", HttpContext.Current.Request.Url.AbsolutePath)
+
 @section Scripts {
     @AssetScripts.Render("/bundles/site-reports/default")
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")

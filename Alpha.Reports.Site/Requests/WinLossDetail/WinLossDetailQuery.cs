@@ -15,6 +15,8 @@
 
         public string SortedColumn { get; set; }
 
+        public int SortDirection { get; set; }
+
         public bool IsStackMode { get; set; }
 
         public bool IsHistoricReport { get; set; }

@@ -28,7 +28,7 @@ class WinLossDetailView {
 
     isFirstSwitchMode = true;
 
-    pageNumber = 0;
+    pageIndex = 0;
     pageSize = 0;
     timeToShowNetTurnoverTooltip = 10000000;
     cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
@@ -191,7 +191,7 @@ class WinLossDetailView {
             enableFiltering: true,
             numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
             enableCaseInsensitiveFiltering: true,
-            nonSelectedText: $("#hasdata").val() === "1" ?
+            nonSelectedText: products.length ?
                 dropdownProduct.data("labelselectproducts")
                 : dropdownProduct.data("labelthereisnoproduct"),
             nSelectedText: " " + dropdownProduct.data("labelselected"),
@@ -272,7 +272,11 @@ class WinLossDetailView {
             }
         });
 
-        if (alphaReports.screenSmallThan768) {
+        this.domElements.buttonSubmit.on("click", function () {
+            winLossDetailController.getReport();
+        });
+
+        if (alphaReports.screenSmallThan768()) {
             this.domElements.buttonSubmit.on("click", function () {
                 $this.domElements.pageTitle.addClass("hide-filter");
                 $this.domElements.filter.slideUp("fast");
@@ -294,6 +298,9 @@ class WinLossDetailView {
             pageIndex: tableReport.data("pageindex")
         };
 
+        this.pageSize = options.pageSize;
+        this.pageIndex = options.pageIndex;
+
         if (options.totalRecords < alphaReports.pageList[0]) {
             // total records less than min page size => do not need to show pager
             this.domElements.pager.addClass("hide");
@@ -306,7 +313,7 @@ class WinLossDetailView {
 
                 showRefresh: false,
                 onSelectPage: function (pageNumber: number, pageSize: number) {
-                    this.pageNumber = pageNumber - 1;
+                    this.pageIndex = pageNumber - 1;
                     this.pageSize = pageSize;
 
                     winLossDetailController.pageReport();
@@ -358,6 +365,11 @@ class WinLossDetailView {
             left: netTurnoverPosition.left + rightPosition - 10,
             top: netTurnoverPosition.top - 22
         });
+    };
+    getParams = () => {
+        return {
+            CustId: 0
+        };
     };
 };
 

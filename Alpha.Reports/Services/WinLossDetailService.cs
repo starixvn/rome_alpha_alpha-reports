@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Services
 {
-    using Models;
     using Models.WinlossDetail;
     using Params;
 

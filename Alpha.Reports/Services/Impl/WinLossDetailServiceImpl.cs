@@ -3,8 +3,7 @@
     using System;
     using Criteria.WinLossDetail;
     using DataAccess;
-    using Extensions;
-    using Models;
+    using Helpers;
     using Models.WinlossDetail;
     using Params;
 
@@ -25,7 +24,6 @@
 
         //    return reportDataAccess.GetData<MasterWinLossDetail>(criteria);
         //}
-
         //public ReportData<AgentWinLossDetail> AgentWinLossDetail(WinLossDetailParam param)
         //{
         //   var criteria = CreateCriteria(param);
@@ -33,10 +31,10 @@
         //    return reportDataAccess.GetData<AgentWinLossDetail>(criteria);
         //}
 
+
         //public ReportData<MemberWinLossDetail> MemberWinLossDetail(WinLossDetailParam param)
         //{
         //    var criteria = CreateCriteria(param);           
-
         //    return reportDataAccess.GetData<MemberWinLossDetail>(criteria);
         //}
 
@@ -47,19 +45,20 @@
                 throw new ArgumentNullException("param");
             }
 
-            var criteria = new WinLossDetailCriteria(
-             param.CustId,
-             param.PageIndex,
+            var balanceUpDay = reportDateService.GetBalanceUpDay();
+            var moveBetsDay = reportDateService.GetMoveBetsDay();
+            var reportData = reportDataAccess.GetData<T>(createCriteriaFunc(balanceUpDay, moveBetsDay));
              param.PageSize,
-             param.FromDate.GetBeginningOfDate(),
-             param.ToDate.GetEndingOfDate(),
-             reportDateService.GetBalanceUpDay(),
-             reportDateService.GetMoveBetsDay(),
-             param.ProductIds,
-             param.UserLevel);
 
-            return criteria;
-        }
+            var dataSource = IEnumerableHelper.SortIEnumerable(reportData.DataSource, param.SortedColumn, param.SortDirection);  
+
+            return new WinlossDetailReport(
+                dataSource,
+                reportData.CurrentPageIndex,
+                reportData.PageSize,
+                reportData.TotalRecords,
+                reportData.Total);
+        }               
 
         public ReportData<T> GetWinLossDetail<T>(WinLossDetailParam param) where T : MemberWinLossDetail
         {

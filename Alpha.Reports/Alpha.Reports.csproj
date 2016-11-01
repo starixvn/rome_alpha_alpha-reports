@@ -124,6 +124,7 @@
     <Compile Include="Models\WinlossDetail\AgentWinLossDetail.cs" />
     <Compile Include="Models\WinlossDetail\MemberWinLossDetail.cs" />
     <Compile Include="Models\WinlossDetail\MasterWinLossDetail.cs" />
+    <Compile Include="Models\WinlossDetail\WinlossDetailReport.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\ReportDateRangeParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />

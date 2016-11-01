@@ -14,7 +14,9 @@
             DateTime fromDate,
             DateTime toDate,
             string productIds,
-            UserLevel userLevel)
+            UserLevel userLevel,
+            string sortedColumn,
+            int sortDirection)
         {
             CustId = custId;
             PageIndex = pageIndex;
@@ -23,6 +25,8 @@
             ToDate = toDate;
             ProductIds = productIds.Split(',').Select(id => Convert.ToInt32(id));
             UserLevel = userLevel;
+            SortedColumn = sortedColumn;
+            SortDirection = sortDirection;
         }
 
         public int CustId { get; }
