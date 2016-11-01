@@ -4,12 +4,15 @@
     using System.Collections.Generic;
     using Models;
     using Models.WinlossDetail;
+    using Reports.Extensions;
 
     public class WinLossDetailViewModel<T> where T : MemberWinLossDetail
     {
-        public DateTime MinDate { get; set; }
+        public DateTime MinDate => (IsHistoricReport)
+                   ? DateTime.Now.AddYears(-3).FirstDayOfMonth()
+                   : DateTime.Now.AddMonths(-3).FirstDayOfMonth();            
 
-        public DateTime MaxDate { get; set; }
+        public DateTime MaxDate => DateTime.MaxValue;
 
         public DateTime FromDate { get; set; }
 

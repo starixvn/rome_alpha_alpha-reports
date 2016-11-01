@@ -245,7 +245,7 @@
     <Compile Include="Helpers\Impl\StaticResources\ReportsStyles.cs" />
     <Compile Include="Helpers\MicroSites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Requests\ReportBaseQuery.cs" />
+    <Compile Include="Requests\BaseReportQuery.cs" />
     <Compile Include="Requests\WinLossDetail\MasterWinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLossDetail\AgentWinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLossDetail\MemberWinLossDetailQuery.cs" />

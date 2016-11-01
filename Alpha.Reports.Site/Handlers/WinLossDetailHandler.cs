@@ -3,8 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Constants;
-    using Fanex.Common;
     using MediatR;
     using Models;
     using Models.WinlossDetail;
@@ -76,10 +74,7 @@
 
             var viewModel = new TViewModel
             {
-                CustId = param.CustId,
-
-                MinDate = reportRange.MinDate,
-                MaxDate = reportRange.MaxDate,
+                CustId = param.CustId,                
                 CurrentDate = DateTime.Now,
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,
@@ -109,10 +104,10 @@
 
             return new WinLossDetailParam(
                 message.CustId,
-                message.PageIndex ?? DefaultVariables.PageIndex,
-                message.PageSize ?? DefaultVariables.PageSize,
-                message.FromDate ?? siteContext.ServerTime,
-                message.ToDate ?? siteContext.ServerTime,
+                message.PageIndex,
+                message.PageSize,
+                message.FromDate,
+                message.ToDate,
                 selectedProducts,
                 message.UserLevel,
                 message.SortedColumn,

@@ -3,10 +3,8 @@
     using System.Collections.Generic;
     using Models;
 
-    public class WinLossDetailQuery : ReportBaseQuery
+    public class WinLossDetailQuery : BaseReportQuery
     {
-        public IEnumerable<Product> Products { get; set; }
-
         public IEnumerable<ReportRange> ReportRanges { get; set; }
 
         public string Language { get; set; }
@@ -25,20 +23,6 @@
 
         public string OldMainAppPath { get; set; }
 
-        public virtual UserLevel UserLevel { get; }
-
-        public new int CustId
-        {
-            get
-            {
-                if (UserLevel.IsSuperLevel())
-                    return 2798591;
-
-                if (UserLevel.IsMasterLevel())
-                    return 11761920;
-
-                return 4345531;
-            }
-        }
+        public virtual UserLevel UserLevel { get; }        
     }
 }

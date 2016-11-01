@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
     using System.Web.Mvc;
-    using Configurations;
     using Services;
     using Services.Impl;
 
