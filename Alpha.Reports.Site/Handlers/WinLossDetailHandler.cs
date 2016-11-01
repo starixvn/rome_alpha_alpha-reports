@@ -23,8 +23,8 @@
     {
         private const int AllBetProductId = 21;
         private readonly ProductService productService;
-        private readonly ReportDateService reportDateService;
-        private readonly WinLossDetailService winLossDetailService;
+        private readonly ReportDateService dateService;
+        private readonly WinLossDetailService reportService;
         private readonly ApplicationContext siteContext;
 
         public WinLossDetailHandler(
@@ -34,8 +34,8 @@
             ApplicationContext siteContext)
         {
             this.productService = productService;
-            this.reportDateService = reportDateService;
-            this.winLossDetailService = winLossDetailService;
+            this.dateService = reportDateService;
+            this.reportService = winLossDetailService;
             this.siteContext = siteContext;
         }
 
@@ -49,9 +49,9 @@
             var products = productService.GetProductsForCustomer(message.CustId.Value);
 
             var param = CreateWinLossDetailParam(message, products);
-            var reportData = winLossDetailService.MasterWinLossDetail(param);
+            var reportData = reportService.MasterWinLossDetail(param);
 
-            var reportRange = reportDateService.GetDateRangeLimit(new ReportDateRangeParam(
+            var reportRange = dateService.GetDateRangeLimit(new ReportDateRangeParam(
                 message.ReportPath,
                 message.IsHistoricReport,
                 message.ReportRanges));
@@ -90,9 +90,9 @@
             var products = productService.GetProductsForCustomer(message.CustId.Value);
 
             var param = CreateWinLossDetailParam(message, products);
-            var reportData = winLossDetailService.AgentWinLossDetail(param);
+            var reportData = reportService.GetWinLossDetail<AgentWinLossDetail>(param);
 
-            var reportRange = reportDateService.GetDateRangeLimit(new ReportDateRangeParam(
+            var reportRange = dateService.GetDateRangeLimit(new ReportDateRangeParam(
                 message.ReportPath,
                 message.IsHistoricReport,
                 message.ReportRanges));
@@ -131,9 +131,9 @@
             var products = productService.GetProductsForCustomer(message.CustId.Value);
 
             var param = CreateWinLossDetailParam(message, products);
-            var reportData = winLossDetailService.MemberWinLossDetail(param);
+            var reportData = reportService.MemberWinLossDetail(param);
 
-            var reportRange = reportDateService.GetDateRangeLimit(new ReportDateRangeParam(
+            var reportRange = dateService.GetDateRangeLimit(new ReportDateRangeParam(
                 message.ReportPath,
                 message.IsHistoricReport,
                 message.ReportRanges));
@@ -175,11 +175,12 @@
 
             return new WinLossDetailParam(
                 message.CustId.Value,
+                message.PageIndex ?? DefaultVariables.PageIndex,
+                message.PageSize ?? DefaultVariables.PageSize,
                 message.FromDate ?? siteContext.ServerTime,
                 message.ToDate ?? siteContext.ServerTime,
-                selectedProducts,
-                message.PageSize ?? DefaultVariables.PageSize,
-                message.PageIndex ?? DefaultVariables.PageIndex);
+                message.SelectedProducts, 
+                message.UserLevel);
         }
 
         private List<string> GetNetTurnoverTooltip(IEnumerable<Product> products)

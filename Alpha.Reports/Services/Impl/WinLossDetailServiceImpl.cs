@@ -19,64 +19,53 @@
             this.reportDataAccess = reportDataAccess;
         }
 
-        public ReportData<MasterWinLossDetail> MasterWinLossDetail(WinLossDetailParam param)
+        //public ReportData<MasterWinLossDetail> MasterWinLossDetail(WinLossDetailParam param)
+        //{
+        //    var criteria = CreateCriteria(param);
+
+        //    return reportDataAccess.GetData<MasterWinLossDetail>(criteria);
+        //}
+
+        //public ReportData<AgentWinLossDetail> AgentWinLossDetail(WinLossDetailParam param)
+        //{
+        //   var criteria = CreateCriteria(param);
+
+        //    return reportDataAccess.GetData<AgentWinLossDetail>(criteria);
+        //}
+
+        //public ReportData<MemberWinLossDetail> MemberWinLossDetail(WinLossDetailParam param)
+        //{
+        //    var criteria = CreateCriteria(param);           
+
+        //    return reportDataAccess.GetData<MemberWinLossDetail>(criteria);
+        //}
+
+        private WinLossDetailCriteria CreateCriteria(WinLossDetailParam param)
         {
             if (param == null)
             {
                 throw new ArgumentNullException("param");
             }
 
-            var criteria = new MasterWinLossDetailCriteria(
-                param.CustId,
-                param.FromDate.GetBeginningOfDate(),
-                param.ToDate.GetEndingOfDate(),
-                reportDateService.GetBalanceUpDay(),
-                string.Join(",", param.ProductIds),
-                param.PageSize,
-                param.PageIndex);
+            var criteria = new WinLossDetailCriteria(
+             param.CustId,
+             param.PageIndex,
+             param.PageSize,
+             param.FromDate.GetBeginningOfDate(),
+             param.ToDate.GetEndingOfDate(),
+             reportDateService.GetBalanceUpDay(),
+             reportDateService.GetMoveBetsDay(),
+             param.ProductIds,
+             param.UserLevel);
 
-            return reportDataAccess.GetData<MasterWinLossDetail>(criteria);
+            return criteria;
         }
 
-        public ReportData<AgentWinLossDetail> AgentWinLossDetail(WinLossDetailParam param)
+        public ReportData<T> GetWinLossDetail<T>(WinLossDetailParam param) where T : MemberWinLossDetail
         {
-            if (param == null)
-            {
-                throw new ArgumentNullException("param");
-            }
+            var criteria = CreateCriteria(param);
 
-            var criteria = new AgentWinLossDetailCriteria(
-                param.CustId,
-                param.FromDate.GetBeginningOfDate(),
-                param.ToDate.GetEndingOfDate(),
-                reportDateService.GetBalanceUpDay(),
-                string.Join(",", param.ProductIds),
-                param.PageSize,
-                param.PageIndex);
-
-            return reportDataAccess.GetData<AgentWinLossDetail>(criteria);
-        }
-
-        public ReportData<MemberWinLossDetail> MemberWinLossDetail(WinLossDetailParam param)
-        {
-            if (param == null)
-            {
-                throw new ArgumentNullException("param");
-            }
-
-            var criteria = new MemberWinLossDetailCriteria(
-                param.CustId,
-                param.FromDate.GetBeginningOfDate(),
-                param.ToDate.GetEndingOfDate(),
-                reportDateService.GetBalanceUpDay(),
-                string.Join(",", param.ProductIds),
-                param.PageSize,
-                param.PageIndex);
-            var reportData = reportDataAccess.GetData<MemberWinLossDetail>(criteria);
-
-            // IEnumerableHelper.SortIEnumerable(reportData.DataSource, param.SortedColumn, param.SortDirection);
-
-            return reportData;
+            return reportDataAccess.GetData<T>(criteria);
         }
     }
 }

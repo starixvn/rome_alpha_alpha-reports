@@ -3,12 +3,12 @@
     using System;
     using System.Linq;
     using Criteria;
-    using Enums;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models;
     using Params;
-    using Alpha.Reports.Extensions;
+    using Extensions;
+    using Enumeration;
 
     public class ReportDateServiceImpl : ReportDateService
     {
@@ -90,9 +90,9 @@
             }
 
             var reportTimeRangeType = ReportTimeRangeType.Unknown;
-            Enum.TryParse(rangeType.ToString(), out reportTimeRangeType);
+            var parseIsOk = Enum.TryParse(rangeType.ToString(), out reportTimeRangeType);
 
-            return reportTimeRangeType;
+            return (parseIsOk) ? reportTimeRangeType : ReportTimeRangeType.Unknown;
         }
     }
 }

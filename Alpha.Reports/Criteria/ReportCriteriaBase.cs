@@ -5,13 +5,22 @@
 
     public abstract class ReportCriteriaBase : CriteriaBase
     {
-        protected ReportCriteriaBase(int custId, int pageIndex, int pageSize, DateTime fromDate, DateTime toDate)
+        protected ReportCriteriaBase(
+            int custId, 
+            int pageIndex, 
+            int pageSize, 
+            DateTime fromDate, 
+            DateTime toDate,
+            DateTime balanceUpDay,
+            DateTime moveBetsDay)
         {
             CustId = custId;
             PageIndex = pageIndex;
             PageSize = pageSize;
             FromDate = fromDate;
             ToDate = toDate;
+            BalanceUpDay = balanceUpDay;
+            MoveBetsDay = moveBetsDay;
         }
 
         public int CustId { get; }
@@ -25,6 +34,10 @@
         public DateTime FromDate { get; }
 
         public DateTime ToDate { get; }
+
+        public DateTime BalanceUpDay { get; }
+
+        public DateTime MoveBetsDay { get; }
 
         public override bool IsValid()
         {

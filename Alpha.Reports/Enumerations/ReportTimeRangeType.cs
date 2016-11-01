@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Enums
+﻿namespace Alpha.Reports.Enumeration
 {
     public enum ReportTimeRangeType
     {

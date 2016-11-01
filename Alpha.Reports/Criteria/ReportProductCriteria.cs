@@ -6,33 +6,22 @@
     public class ReportProductCriteria : ReportCriteriaBase
     {
         public ReportProductCriteria(
-            int custId, 
-            int pageIndex, 
-            int pageSize, 
-            DateTime fromDate, 
-            DateTime toDate, 
-            List<int> productIdList) 
-            : base(custId, pageIndex, pageSize, fromDate, toDate)
+            int custId,
+            int pageIndex,
+            int pageSize,
+            DateTime fromDate,
+            DateTime toDate,
+            DateTime balanceUpDay,
+            DateTime moveBetsDay,
+            IEnumerable<int> productIdList)
+            : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay)
         {
             ProductIdList = productIdList;
         }
 
-        public List<int> ProductIdList { get; }
+        public IEnumerable<int> ProductIdList { get; }
 
-        public string ProductIds
-        {
-            get
-            {
-                string productIds = string.Empty;
-
-                ProductIdList.ForEach(id =>
-                {
-                    productIds += $"{id},";
-                });
-
-                return productIds.TrimEnd(',');
-            }
-        }
+        public string ProductIds => string.Join(",", ProductIdList);
 
         public override string GetSettingKey()
         {

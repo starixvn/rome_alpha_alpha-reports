@@ -22,5 +22,7 @@
         public bool HideFilter { get; set; }
 
         public string OldMainAppPath { get; set; }
+
+        public virtual UserLevel UserLevel { get; }
     }
 }
