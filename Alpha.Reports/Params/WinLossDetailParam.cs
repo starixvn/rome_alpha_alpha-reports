@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Constants;
+    using Extensions;
     using Models;
 
     public class WinLossDetailParam
@@ -17,12 +18,22 @@
             string productIds,
             UserLevel userLevel,
             string sortedColumn,
-            int sortDirection)
+            int sortDirection,
+            bool isHistoricReport)
         {
             CustId = custId;
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;
-            FromDate = fromDate == DateTime.MinValue ? DateTime.Now : fromDate;
+
+            if (fromDate == DateTime.MinValue)
+            {
+                FromDate = isHistoricReport ? DateTime.Now.FirstDayOfMonth() : DateTime.Now;
+            }
+            else
+            {
+                FromDate = fromDate;
+            }
+
             ToDate = toDate == DateTime.MinValue ? DateTime.Now : toDate;
             ProductIds = string.IsNullOrWhiteSpace(productIds)
                 ? Enumerable.Empty<int>()

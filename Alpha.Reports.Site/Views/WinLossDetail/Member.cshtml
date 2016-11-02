@@ -3,7 +3,6 @@
 @model MemberWinLossDetailViewModel
 @{
     ViewBag.Title = Resources.MemberWinLossDetail;
-    var total = Model.ReportData.Total;
 }
 
 @section Styles {
@@ -14,18 +13,7 @@
 @Html.Partial("NetTurnoverTooltips", Model.NetTurnoverTooltips)
 @Html.Partial("PageTitle", Model)
 @Html.Partial("Filter", Model)
-@Html.Partial("TableReport", new
-{
-    Model.ReportData,
-    Model.IsStackMode,
-    Model.CustId,
-    Model.FromDate,
-    Model.ToDate,
-    Model.SortedColumn,
-    Model.SortDirection,
-    Model.OldMainAppPath,
-    HasData = Model.ReportData.DataSource.Any()
-})
+@Html.Partial("TableReport_Member", Model)
 @Html.Partial("Pager", Model.ReportData.DataSource.Any())
 
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")

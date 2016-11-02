@@ -339,7 +339,9 @@
     <Content Include="Views\WinLossDetail\PageTitle.cshtml" />
     <Content Include="Views\WinLossDetail\Filter.cshtml" />
     <Content Include="Views\WinLossDetail\Pager.cshtml" />
-    <Content Include="Views\WinLossDetail\TableReport.cshtml" />
+    <Content Include="Views\WinLossDetail\TableReport_Member.cshtml" />
+    <Content Include="Views\WinLossDetail\TableReport_Agent.cshtml" />
+    <Content Include="Views\WinLossDetail\TableReport_Master.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>

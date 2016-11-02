@@ -46,7 +46,5 @@
         public string SortedColumn { get; set; }
 
         public int SortDirection { get; set; }
-
-        public UserLevel UserLevel { get; set; }
     }
 }

@@ -81,8 +81,7 @@
                 HideFilter = message.HideFilter,
                 OldMainAppPath = applicationContext.OldMainAppPath,
 
-                ReportData = reportData,
-                UserLevel = message.UserLevel
+                ReportData = reportData
             };
 
             return viewModel;
@@ -103,7 +102,8 @@
                 selectedProducts,
                 message.UserLevel,
                 message.SortedColumn,
-                message.SortDirection);
+                message.SortDirection,
+                message.IsHistoricReport);
         }
 
         private List<string> GetNetTurnoverTooltip(IEnumerable<Product> products)

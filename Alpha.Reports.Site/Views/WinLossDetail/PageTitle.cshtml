@@ -3,7 +3,7 @@
 <div class="page-title
       @(Model.IsStackMode?"stack-mode":string.Empty)
       @(Model.HideFilter?"hide-filter":string.Empty)">
-    <span class="pull-left">@Resources.MemberWinLossDetail</span>
+    <span class="pull-left">@ViewBag.Title</span>
     <div class="list-icon">
         <ul>
             <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
