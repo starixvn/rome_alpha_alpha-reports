@@ -177,7 +177,7 @@ class WinLossDetailView {
         this.domElements.dropdownProduct = $("#dropdown-product");
         var dropdownProduct = this.domElements.dropdownProduct;
         var products = dropdownProduct.data("products");
-        var selectedProduct = dropdownProduct.data("selectedproducts").split(",");
+        var selectedProducts = dropdownProduct.data("selectedproducts").split(",");
 
         var product;
         var productOptions = "";
@@ -188,7 +188,7 @@ class WinLossDetailView {
                 "<option" +
                 " id=\"product_" + product.Id + "\"" +
                 " value=\"" + product.Id + "\"" +
-                (selectedProduct.indexOf(product.Id.toString()) !== -1 ? " selected=\"selected\"" : "") +
+                (selectedProducts.indexOf(product.Id.toString()) !== -1 ? " selected=\"selected\"" : "") +
                 " >" +
                 product.DisplayName +
                 "</options>";

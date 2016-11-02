@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Constants;
     using Models;
 
     public class WinLossDetailParam
@@ -19,10 +20,10 @@
             int sortDirection)
         {
             CustId = custId;
-            PageIndex = pageIndex;
-            PageSize = pageSize;
-            FromDate = fromDate;
-            ToDate = toDate;
+            PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
+            PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageIndex;
+            FromDate = fromDate == DateTime.MinValue ? DateTime.Now : fromDate;
+            ToDate = toDate == DateTime.MinValue ? DateTime.Now : fromDate;
             ProductIds = productIds.Split(',').Select(id => Convert.ToInt32(id));
             UserLevel = userLevel;
             SortedColumn = sortedColumn;

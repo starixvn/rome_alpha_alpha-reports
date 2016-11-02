@@ -74,7 +74,7 @@
 
             var viewModel = new TViewModel
             {
-                CustId = param.CustId,                
+                CustId = param.CustId,
                 CurrentDate = DateTime.Now,
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,
