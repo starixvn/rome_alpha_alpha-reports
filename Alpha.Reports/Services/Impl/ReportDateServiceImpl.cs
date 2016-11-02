@@ -12,14 +12,10 @@
         private const string ReportDateRangeCacheKey = "Alpha.Reports.ReportDateRange";
 
         private readonly IDynamicRepository dynamicRepository;
-        private readonly ApplicationContext applicationContext;
 
-        public ReportDateServiceImpl(
-            IDynamicRepository dynamicRepository = null,
-            ApplicationContext applicationContext = null)
+        public ReportDateServiceImpl(IDynamicRepository dynamicRepository = null)
         {
             this.dynamicRepository = dynamicRepository;
-            this.applicationContext = applicationContext;
         }
 
         public DateTime GetBalanceUpDay() => GetBalanceUpDayAndMoveBetsDay().BalanceUpDay;
@@ -40,6 +36,6 @@
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
 
             return balanceUpDayAndMoveBetsDay;
-        }        
+        }
     }
 }

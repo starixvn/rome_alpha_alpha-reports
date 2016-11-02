@@ -263,10 +263,28 @@ class WinLossDetailView {
                         "text-right hidden-stack-mode col-grosscomm"],
                         ".col-turnover-combined");
                     alphaReports.splitColumn([
-                        "text-right hidden-stack-mode col-winloss",
-                        "text-right hidden-stack-mode col-comm",
-                        "text-right bold hidden-stack-mode col-total"],
-                        ".col-winloss-combined");
+                        "text-right hidden-stack-mode col-memberwinloss",
+                        "text-right hidden-stack-mode col-membercomm",
+                        "text-right bold hidden-stack-mode col-membertotal"],
+                        ".col-memberwinloss-combined");
+
+                    alphaReports.splitColumn([
+                        "text-right hidden-stack-mode col-agentwinloss",
+                        "text-right hidden-stack-mode col-agentcomm",
+                        "text-right bold hidden-stack-mode col-agenttotal"],
+                        ".col-agentwinloss-combined");
+
+                    alphaReports.splitColumn([
+                        "text-right hidden-stack-mode col-masterwinloss",
+                        "text-right hidden-stack-mode col-mastercomm",
+                        "text-right bold hidden-stack-mode col-mastertotal"],
+                        ".col-masterwinloss-combined");
+
+                    alphaReports.splitColumn([
+                        "text-right hidden-stack-mode col-superwinloss",
+                        "text-right hidden-stack-mode col-supercomm",
+                        "text-right bold hidden-stack-mode col-supertotal"],
+                        ".col-superwinloss-combined");
                 } else {
                     alphaReports.combineColumns([
                         "td.col-turnover",
@@ -274,10 +292,25 @@ class WinLossDetailView {
                         "td.col-grosscomm"],
                         "text-right visible-stack-mode combinedcolumn col-turnover-combined", 1);
                     alphaReports.combineColumns([
-                        "td.col-winloss",
-                        "td.col-comm",
-                        "td.col-total"],
-                        "text-right visible-stack-mode combinedcolumn column-winloss-combined", 3);
+                        "td.col-memberwinloss",
+                        "td.col-membercomm",
+                        "td.col-membertotal"],
+                        "text-right visible-stack-mode combinedcolumn column-memberwinloss-combined", 3);
+                    alphaReports.combineColumns([
+                        "td.col-agentwinloss",
+                        "td.col-agentcomm",
+                        "td.col-agenttotal"],
+                        "text-right visible-stack-mode combinedcolumn column-agentwinloss-combined altercol", 3);
+                    alphaReports.combineColumns([
+                        "td.col-masterwinloss",
+                        "td.col-mastercomm",
+                        "td.col-mastertotal"],
+                        "text-right visible-stack-mode combinedcolumn column-masterwinloss-combined", 3);
+                    alphaReports.combineColumns([
+                        "td.col-superwinloss",
+                        "td.col-supercomm",
+                        "td.col-supertotal"],
+                        "text-right visible-stack-mode combinedcolumn column-superwinloss-combined altercol", 3);
                 }
 
                 $this.isFirstSwitchMode = false;
