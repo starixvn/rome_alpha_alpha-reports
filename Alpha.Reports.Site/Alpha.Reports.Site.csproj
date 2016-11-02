@@ -254,9 +254,6 @@
     <Compile Include="Requests\WinLossDetail\AgentWinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLossDetail\MemberWinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
-    <Compile Include="ViewModels\WinLossDetail\MasterWinLossDetailViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetail\AgentWinLossDetailViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetail\MemberWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -339,9 +336,7 @@
     <Content Include="Views\WinLossDetail\PageTitle.cshtml" />
     <Content Include="Views\WinLossDetail\Filter.cshtml" />
     <Content Include="Views\WinLossDetail\Pager.cshtml" />
-    <Content Include="Views\WinLossDetail\TableReport_Member.cshtml" />
-    <Content Include="Views\WinLossDetail\TableReport_Agent.cshtml" />
-    <Content Include="Views\WinLossDetail\TableReport_Master.cshtml" />
+    <Content Include="Views\WinLossDetail\TableReport.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>
