@@ -203,7 +203,7 @@
                         <td class="text-right hidden-stack-mode col-comm">@data.MemberComm.ToNumericString()</td>
                         <td class="text-right bold hidden-stack-mode col-total">@data.MemberTotal.ToNumericString()</td>
                         <td class="altercol text-right hidden-stack-mode col-winloss">@data.AgentWinLoss.ToNumericString()</td>
-                            <td class="altercol text-right hidden-stack-mode col-comm">@data.AgentComm.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-comm">@data.AgentComm.ToNumericString()</td>
                             <td class="altercol bold text-right hidden-stack-mode col-total">@data.AgentTotal.ToNumericString()</td>
                             <td class="text-right hidden-stack-mode col-winloss">@data.MasterWinLoss.ToNumericString()</td>
                             <td class="text-right hidden-stack-mode col-comm">@data.MasterComm.ToNumericString()</td>
@@ -256,7 +256,7 @@
                     <td class="text-right hidden-stack-mode col-winloss">@total.MemberWinLoss.ToNumericString()</td>
                     <td class="text-right hidden-stack-mode col-comm">@total.MemberComm.ToNumericString()</td>
                     <td class="text-right bold hidden-stack-mode col-total">@total.MemberTotal.ToNumericString()</td>
-                        <td class="altercol text-right hidden-stack-mode col-winloss">@total.AgentWinLoss.ToNumericString()</td>
+                    <td class="altercol text-right hidden-stack-mode col-winloss">@total.AgentWinLoss.ToNumericString()</td>
                         <td class="altercol text-right hidden-stack-mode col-comm">@total.AgentComm.ToNumericString()</td>
                         <td class="altercol bold text-right hidden-stack-mode col-total">@total.AgentTotal.ToNumericString()</td>
                         <td class="altercol text-right hidden-stack-mode col-winloss">@total.MasterWinLoss.ToNumericString()</td>
@@ -282,7 +282,7 @@
      data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
 @Html.Hidden("ishistoricreport", Model.IsHistoricReport)
-@Html.Hidden("currentpath", AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Member"))
+@Html.Hidden("currentpath", AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Agent"))
 @section Scripts {
     @AssetScripts.Render("/bundles/site-reports/default")
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")

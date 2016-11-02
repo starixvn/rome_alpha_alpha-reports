@@ -304,7 +304,7 @@
      data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
 @Html.Hidden("ishistoricreport", Model.IsHistoricReport)
-@Html.Hidden("currentpath", AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Member"))
+@Html.Hidden("currentpath", AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Master"))
 @section Scripts {
     @AssetScripts.Render("/bundles/site-reports/default")
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
