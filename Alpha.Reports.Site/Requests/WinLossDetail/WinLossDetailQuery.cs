@@ -1,25 +1,35 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
-    using System;
     using MediatR;
     using Models;
     using Models.WinlossDetail;
+    using Sunplus.Agent.Model.Base;
+    using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailQuery<T> :
+        BaseReportQuery,
         IRequest<WinLossDetailViewModel<T>> where T : MemberWinLossDetail
     {
-        public int CustId { get; set; }
+        public WinLossDetailQuery() : this(null)
+        {
+        }
 
-        public int PageIndex { get; set; }
+        public WinLossDetailQuery(IUserSession userSession)
+        {
+            userSession = userSession ?? new UserSessionExt();
 
-        public int PageSize { get; set; }
+            if (IsNotDrillDownQuery)
+            {
+                CustId = userSession.CustId;
+            }
 
-        public DateTime FromDate { get; set; }
+            Language = userSession.Language;
+        }
 
-        public DateTime ToDate { get; set; }
+        private bool IsNotDrillDownQuery => CustId <= 0;        
 
-        public string Language { get; set; }
+        public string Language { get; }
 
         public string SelectedProducts { get; set; }
 

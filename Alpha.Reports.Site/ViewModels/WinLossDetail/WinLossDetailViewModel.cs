@@ -2,13 +2,17 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Extensions;
     using Models;
     using Models.WinlossDetail;
     using Newtonsoft.Json;
+    using Reports.AppResources;
 
     public class WinLossDetailViewModel<T> where T : MemberWinLossDetail
     {
+        private const int AllBetProductId = 21;
+
         public DateTime MinDate => IsHistoricReport
             ? DateTime.Now.AddYears(-3).FirstDayOfMonth()
             : DateTime.Now.AddMonths(-3).FirstDayOfMonth();
@@ -23,7 +27,20 @@
 
         public string Language { get; set; }
 
-        public IEnumerable<string> NetTurnoverTooltips { get; set; }
+        public IEnumerable<string> NetTurnoverTooltips
+        {
+            get
+            {
+                var netTurnoverTooltips = new List<string>();
+
+                if (Products.Any(product => product.Id == AllBetProductId))
+                {
+                    netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
+                }
+
+                return netTurnoverTooltips;
+            }
+        }
 
         public IEnumerable<Product> Products { get; set; }
 

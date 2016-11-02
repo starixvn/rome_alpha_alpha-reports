@@ -18,19 +18,19 @@
             UserLevel userLevel)
             : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay, productIdList)
         {
-            UserLevel = userLevel;
+            ViewerLevel = userLevel;
         }
 
-        private UserLevel UserLevel { get; }
+        private UserLevel ViewerLevel { get; }
 
         public override string GetSettingKey()
         {
-            if (UserLevel.IsAgentLevel())
+            if (ViewerLevel.IsAgentLevel())
             {
                 return "Age_Rpt_WinLossDetail_Member";
             }
 
-            if (UserLevel.IsMasterLevel())
+            if (ViewerLevel.IsMasterLevel())
             {
                 return "Age_Rpt_WinLossDetail_Agent";
             }

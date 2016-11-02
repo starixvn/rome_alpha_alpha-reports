@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Linq;    
     using MediatR;
     using Models;
     using Models.WinlossDetail;
@@ -17,7 +17,7 @@
         IRequestHandler<WinLossDetailQuery<AgentWinLossDetail>, WinLossDetailViewModel<AgentWinLossDetail>>,
         IRequestHandler<WinLossDetailQuery<MemberWinLossDetail>, WinLossDetailViewModel<MemberWinLossDetail>>
     {
-        private const int AllBetProductId = 21;
+        
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
         private readonly ApplicationContext applicationContext;
@@ -34,20 +34,26 @@
 
         public WinLossDetailViewModel<MasterWinLossDetail> Handle(WinLossDetailQuery<MasterWinLossDetail> message)
         {
-            return HandleRequest<MasterWinLossDetail, WinLossDetailViewModel<MasterWinLossDetail>>(message);
+            message.UserLevel = UserLevel.Super;
+
+            return CreateViewModel<MasterWinLossDetail, WinLossDetailViewModel<MasterWinLossDetail>>(message);
         }
 
         public WinLossDetailViewModel<AgentWinLossDetail> Handle(WinLossDetailQuery<AgentWinLossDetail> message)
         {
-            return HandleRequest<AgentWinLossDetail, WinLossDetailViewModel<AgentWinLossDetail>>(message);
+            message.UserLevel = UserLevel.Master;
+
+            return CreateViewModel<AgentWinLossDetail, WinLossDetailViewModel<AgentWinLossDetail>>(message);
         }
 
         public WinLossDetailViewModel<MemberWinLossDetail> Handle(WinLossDetailQuery<MemberWinLossDetail> message)
         {
-            return HandleRequest<MemberWinLossDetail, WinLossDetailViewModel<MemberWinLossDetail>>(message);
+            message.UserLevel = UserLevel.Agent;
+
+            return CreateViewModel<MemberWinLossDetail, WinLossDetailViewModel<MemberWinLossDetail>>(message);
         }
 
-        private TViewModel HandleRequest<TModel, TViewModel>(WinLossDetailQuery<TModel> message)
+        private TViewModel CreateViewModel<TModel, TViewModel>(WinLossDetailQuery<TModel> message)
             where TModel : MemberWinLossDetail
             where TViewModel : WinLossDetailViewModel<TModel>, new()
         {
@@ -57,11 +63,9 @@
             }
 
             var products = productService.GetProductsForCustomer(message.CustId);
+            var param = CreateParamater(message, products);
 
-            var param = CreateWinLossDetailParam(message, products);
             var reportData = reportService.GetWinLossDetail<TModel>(param);
-
-            var netTurnoverTooltips = GetNetTurnoverTooltip(products);
 
             var viewModel = new TViewModel
             {
@@ -73,9 +77,6 @@
                 Products = products,
                 SelectedProducts = string.Join(",", param.ProductIds),
                 Language = message.Language,
-
-                NetTurnoverTooltips = netTurnoverTooltips,
-
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
                 HideFilter = message.HideFilter,
@@ -88,7 +89,7 @@
             return viewModel;
         }
 
-        private WinLossDetailParam CreateWinLossDetailParam<TModel>(
+        private WinLossDetailParam CreateParamater<TModel>(
             WinLossDetailQuery<TModel> message,
             IEnumerable<Product> userProducts) where TModel : MemberWinLossDetail
         {
@@ -107,18 +108,6 @@
                 message.SortedColumn,
                 message.SortDirection,
                 message.IsHistoricReport);
-        }
-
-        private List<string> GetNetTurnoverTooltip(IEnumerable<Product> products)
-        {
-            var netTurnoverTooltips = new List<string>();
-
-            if (products.Where(product => product.Id == AllBetProductId) != null)
-            {
-                netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
-            }
-
-            return netTurnoverTooltips;
         }
     }
 }

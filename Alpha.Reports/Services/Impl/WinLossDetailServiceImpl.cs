@@ -34,7 +34,7 @@
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
                 param.ProductIds,
-                param.UserLevel);
+                param.ViewerLevel);
 
             return reportDataAccess.GetData<T>(criteria);
         }

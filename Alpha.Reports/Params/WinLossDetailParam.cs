@@ -38,7 +38,7 @@
             ProductIds = string.IsNullOrWhiteSpace(productIds)
                 ? Enumerable.Empty<int>()
                 : productIds.Split(',').Select(id => Convert.ToInt32(id));
-            UserLevel = userLevel;
+            ViewerLevel = userLevel;
             SortedColumn = sortedColumn;
             SortDirection = sortDirection;
         }
@@ -55,7 +55,7 @@
 
         public IEnumerable<int> ProductIds { get; }
 
-        public UserLevel UserLevel { get; }
+        public UserLevel ViewerLevel { get; }
 
         public string SortedColumn { get; }
 
