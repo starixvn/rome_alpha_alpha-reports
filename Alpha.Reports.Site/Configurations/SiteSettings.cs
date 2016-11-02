@@ -12,8 +12,7 @@
 
     public static class SiteSettings
     {
-        private static IEnumerable<Product> products;
-        private static IEnumerable<ReportRange> reportRanges;
+        private static IEnumerable<Product> products;        
 
         public static string OldMainAppPath => GetConfigValue("OldMainAppPath");
 
@@ -25,32 +24,15 @@
 
         public static string AssetAppPath => GetConfigValue("AssetAppPath");
 
-        private static string ProductConfigPath => GetConfigValue("Reports:Products");
+        private static string ProductConfigPath => GetConfigValue("Reports:Products");               
 
-        private static string ReportRangeConfigPath => GetConfigValue("Reports:ReportRanges");
-
-        public static int? DatabaseServerGMT
-        {
-            get
-            {
-                var gmt = GetConfigValue("DatabaseServerGMT");
-
-                return string.IsNullOrWhiteSpace(gmt)
-                    ? (int?)null
-                    : Converter.ToInt(gmt);
-            }
-        }
-
-        public static IEnumerable<Product> Products => products;
-
-        public static IEnumerable<ReportRange> ReportRanges => reportRanges;
+        public static IEnumerable<Product> Products => products;        
 
         public static string GetConfigValue(string configName) => ConfigurationManager.AppSettings[configName];
 
         public static void LoadSettings()
         {
-            products = LoadConfig<IEnumerable<Product>>(ProductConfigPath);
-            reportRanges = LoadConfig<IEnumerable<ReportRange>>(ReportRangeConfigPath);
+            products = LoadConfig<IEnumerable<Product>>(ProductConfigPath);            
         }
 
         public static T LoadConfig<T>(string configPath)
@@ -82,18 +64,12 @@
             CheckNullOrWhiteSpace(OldMainAppPath);
             CheckNullOrWhiteSpace(StoreProcedurePath);
             CheckNullOrWhiteSpace(AssetAppPath);
-            CheckNullOrWhiteSpace(ProductConfigPath);
-            CheckNullOrWhiteSpace(ReportRangeConfigPath);
+            CheckNullOrWhiteSpace(ProductConfigPath);            
 
             if (Products?.Any() == false)
             {
                 throw new InvalidOperationException($"{nameof(Products)} is null empty");
-            }
-
-            if (ReportRanges?.Any() == false)
-            {
-                throw new InvalidOperationException($"{nameof(ReportRanges)} is null empty");
-            }
+            }           
         }
 
         private static void CheckNullOrWhiteSpace(string path)

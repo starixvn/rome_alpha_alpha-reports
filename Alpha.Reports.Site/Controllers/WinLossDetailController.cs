@@ -51,7 +51,11 @@
             }
 
             message.Language = userSession.Language;
-            message.CustId = userSession.CustId;
+            if (message.CustId <= 0)
+            {
+                message.CustId = userSession.CustId;
+            }
+            
             message.ReportPath = AppPathHelper.GetRelativePath(HttpContext.Request.ApplicationPath, HttpContext.Request.Url.AbsolutePath);
         }        
     }

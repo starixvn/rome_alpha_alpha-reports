@@ -13,9 +13,9 @@
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailHandler :
-        IRequestHandler<MasterWinLossDetailQuery, MasterWinLossDetailViewModel>,
-        IRequestHandler<AgentWinLossDetailQuery, AgentWinLossDetailViewModel>,
-        IRequestHandler<MemberWinLossDetailQuery, MemberWinLossDetailViewModel>
+        IRequestHandler<MasterWinLossDetailQuery, WinLossDetailViewModel<MasterWinLossDetail>>,
+        IRequestHandler<AgentWinLossDetailQuery, WinLossDetailViewModel<AgentWinLossDetail>>,
+        IRequestHandler<MemberWinLossDetailQuery, WinLossDetailViewModel<MemberWinLossDetail>>
     {
         private const int AllBetProductId = 21;
         private readonly ProductService productService;        
@@ -32,19 +32,19 @@
             this.applicationContext = applicationContext;
         }
 
-        public MasterWinLossDetailViewModel Handle(MasterWinLossDetailQuery message)
+        public WinLossDetailViewModel<MasterWinLossDetail> Handle(MasterWinLossDetailQuery message)
         {
-            return HandleRequest<MasterWinLossDetail, MasterWinLossDetailViewModel>(message);
+            return HandleRequest<MasterWinLossDetail, WinLossDetailViewModel<MasterWinLossDetail>>(message);
         }
 
-        public AgentWinLossDetailViewModel Handle(AgentWinLossDetailQuery message)
+        public WinLossDetailViewModel<AgentWinLossDetail> Handle(AgentWinLossDetailQuery message)
         {
-            return HandleRequest<AgentWinLossDetail, AgentWinLossDetailViewModel>(message);
+            return HandleRequest<AgentWinLossDetail, WinLossDetailViewModel<AgentWinLossDetail>>(message);
         }
 
-        public MemberWinLossDetailViewModel Handle(MemberWinLossDetailQuery message)
+        public WinLossDetailViewModel<MemberWinLossDetail> Handle(MemberWinLossDetailQuery message)
         {
-            return HandleRequest<MemberWinLossDetail, MemberWinLossDetailViewModel>(message);
+            return HandleRequest<MemberWinLossDetail, WinLossDetailViewModel<MemberWinLossDetail>>(message);
         }
 
         private TViewModel HandleRequest<TData, TViewModel>(WinLossDetailQuery message)

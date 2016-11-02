@@ -1,6 +1,6 @@
 ﻿@using Alpha.Reports.Site.ViewModels.WinLossDetail;
 @using Alpha.Reports.Site.Helpers;
-@model MasterWinLossDetailViewModel
+@model WinLossDetailViewModel<MasterWinLossDetail>
 @{
     ViewBag.Title = Resources.MasterWinLossDetail;
     var hasData = Model.ReportData.DataSource.Any();
