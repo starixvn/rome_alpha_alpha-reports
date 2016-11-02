@@ -18,6 +18,8 @@
 
         public bool HideFilter { get; set; }
 
-        public virtual UserLevel UserLevel { get; }        
+        public int SelectedDateRange { get; set; }
+
+        public virtual UserLevel UserLevel { get; }
     }
 }

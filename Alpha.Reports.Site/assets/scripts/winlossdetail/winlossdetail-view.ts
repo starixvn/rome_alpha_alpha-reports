@@ -26,7 +26,8 @@ class WinLossDetailView {
         closeNetTurnoverTooltip: null,
 
         isHistoricReport: null,
-        downlineLink: null
+        downlineLink: null,
+        dropdownDateRange: null
     };
 
     isFirstSwitchMode = true;
@@ -83,6 +84,7 @@ class WinLossDetailView {
         this.isHistoricReport = this.domElements.isHistoricReport.val() == "true";
 
         this.domElements.downlineLink = $(".downline-link");
+        this.domElements.dropdownDateRange = $("#dropdown-daterange");
     };
 
     renderDateRangePicker = () => {
@@ -119,10 +121,11 @@ class WinLossDetailView {
                 InitDate: new Date(dateRangePicker.data("todate")),
                 LabelCss: ""
             },
-            selectedItem: 0,
+            selectedItem: dateRangePicker.data("selecteddaterange"),
             onSelectDatePicker: null,
             minDate: new Date(minDate),
             maxDate: maxDate === "" ? null : maxDate,
+            currentDate: new Date(currentDate),
             optionItems: [
                 { Name: dateRangePicker.data("labeltoday"), Value: 0 },
                 { Name: dateRangePicker.data("labelyesterday"), Value: 1 },
@@ -445,7 +448,8 @@ class WinLossDetailView {
             SortDirection: tableReport.data("sortdirection"),
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: isHistoricReport,
-            HideFilter: this.domElements.filter.is(":hidden") ? true : false
+            HideFilter: this.domElements.filter.is(":hidden") ? true : false,
+            SelectedDateRange: this.domElements.dropdownDateRange.find('option:selected').val()
         };
     };
     drilldown = (downlineLink) => {
@@ -461,7 +465,8 @@ class WinLossDetailView {
             SortDirection: tableReport.data("sortdirection"),
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
-            HideFilter: this.domElements.filter.is(":hidden") ? true : false
+            HideFilter: this.domElements.filter.is(":hidden") ? true : false,
+            SelectedDateRange: this.domElements.dropdownDateRange.find('option:selected').val()
         };
 
         winLossDetailController.drilldown(params);

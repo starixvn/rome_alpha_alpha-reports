@@ -18,16 +18,16 @@
         IRequestHandler<MemberWinLossDetailQuery, WinLossDetailViewModel<MemberWinLossDetail>>
     {
         private const int AllBetProductId = 21;
-        private readonly ProductService productService;        
+        private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
         private readonly ApplicationContext applicationContext;
 
         public WinLossDetailHandler(
-            ProductService productService,            
+            ProductService productService,
             WinLossDetailService reportService,
             ApplicationContext applicationContext)
         {
-            this.productService = productService;            
+            this.productService = productService;
             this.reportService = reportService;
             this.applicationContext = applicationContext;
         }
@@ -59,7 +59,7 @@
             var products = productService.GetProductsForCustomer(message.CustId);
 
             var param = CreateWinLossDetailParam(message, products);
-            var reportData = reportService.GetWinLossDetail<TData>(param);       
+            var reportData = reportService.GetWinLossDetail<TData>(param);
 
             var netTurnoverTooltips = GetNetTurnoverTooltip(products);
 
@@ -81,7 +81,8 @@
                 HideFilter = message.HideFilter,
                 OldMainAppPath = applicationContext.OldMainAppPath,
 
-                ReportData = reportData
+                ReportData = reportData,
+                SelectedDateRange = message.SelectedDateRange
             };
 
             return viewModel;
