@@ -13,9 +13,9 @@
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailHandler :
-        IRequestHandler<MasterWinLossDetailQuery, WinLossDetailViewModel<MasterWinLossDetail>>,
-        IRequestHandler<AgentWinLossDetailQuery, WinLossDetailViewModel<AgentWinLossDetail>>,
-        IRequestHandler<MemberWinLossDetailQuery, WinLossDetailViewModel<MemberWinLossDetail>>
+        IRequestHandler<WinLossDetailQuery<MasterWinLossDetail>, WinLossDetailViewModel<MasterWinLossDetail>>,
+        IRequestHandler<WinLossDetailQuery<AgentWinLossDetail>, WinLossDetailViewModel<AgentWinLossDetail>>,
+        IRequestHandler<WinLossDetailQuery<MemberWinLossDetail>, WinLossDetailViewModel<MemberWinLossDetail>>
     {
         private const int AllBetProductId = 21;
         private readonly ProductService productService;
@@ -32,24 +32,24 @@
             this.applicationContext = applicationContext;
         }
 
-        public WinLossDetailViewModel<MasterWinLossDetail> Handle(MasterWinLossDetailQuery message)
+        public WinLossDetailViewModel<MasterWinLossDetail> Handle(WinLossDetailQuery<MasterWinLossDetail> message)
         {
             return HandleRequest<MasterWinLossDetail, WinLossDetailViewModel<MasterWinLossDetail>>(message);
         }
 
-        public WinLossDetailViewModel<AgentWinLossDetail> Handle(AgentWinLossDetailQuery message)
+        public WinLossDetailViewModel<AgentWinLossDetail> Handle(WinLossDetailQuery<AgentWinLossDetail> message)
         {
             return HandleRequest<AgentWinLossDetail, WinLossDetailViewModel<AgentWinLossDetail>>(message);
         }
 
-        public WinLossDetailViewModel<MemberWinLossDetail> Handle(MemberWinLossDetailQuery message)
+        public WinLossDetailViewModel<MemberWinLossDetail> Handle(WinLossDetailQuery<MemberWinLossDetail> message)
         {
             return HandleRequest<MemberWinLossDetail, WinLossDetailViewModel<MemberWinLossDetail>>(message);
         }
 
-        private TViewModel HandleRequest<TData, TViewModel>(WinLossDetailQuery message)
-            where TData : MemberWinLossDetail
-            where TViewModel : WinLossDetailViewModel<TData>, new()
+        private TViewModel HandleRequest<TModel, TViewModel>(WinLossDetailQuery<TModel> message)
+            where TModel : MemberWinLossDetail
+            where TViewModel : WinLossDetailViewModel<TModel>, new()
         {
             if (message == null)
             {
@@ -59,7 +59,7 @@
             var products = productService.GetProductsForCustomer(message.CustId);
 
             var param = CreateWinLossDetailParam(message, products);
-            var reportData = reportService.GetWinLossDetail<TData>(param);
+            var reportData = reportService.GetWinLossDetail<TModel>(param);
 
             var netTurnoverTooltips = GetNetTurnoverTooltip(products);
 
@@ -88,7 +88,9 @@
             return viewModel;
         }
 
-        private WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery message, IEnumerable<Product> userProducts)
+        private WinLossDetailParam CreateWinLossDetailParam<TModel>(
+            WinLossDetailQuery<TModel> message,
+            IEnumerable<Product> userProducts) where TModel : MemberWinLossDetail
         {
             var selectedProducts = string.IsNullOrWhiteSpace(message.SelectedProducts)
                 ? string.Join(",", userProducts.Select(product => product.Id))

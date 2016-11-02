@@ -1,9 +1,24 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
+    using System;
+    using MediatR;
     using Models;
+    using Models.WinlossDetail;
+    using ViewModels.WinLossDetail;
 
-    public class WinLossDetailQuery : BaseReportQuery
+    public class WinLossDetailQuery<T> :
+        IRequest<WinLossDetailViewModel<T>> where T : MemberWinLossDetail
     {
+        public int CustId { get; set; }
+
+        public int PageIndex { get; set; }
+
+        public int PageSize { get; set; }
+
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
+
         public string Language { get; set; }
 
         public string SelectedProducts { get; set; }
@@ -19,7 +34,9 @@
         public bool HideFilter { get; set; }
 
         public int SelectedDateRange { get; set; }
-
-        public virtual UserLevel UserLevel { get; }
+ public UserLevel UserLevel
+        {
+            get; set;
+        }
     }
 }
