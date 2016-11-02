@@ -2,12 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;    
+    using System.Linq;
     using MediatR;
     using Models;
     using Models.WinlossDetail;
     using Params;
-    using Reports.AppResources;
     using Requests.WinLossDetail;
     using Services;
     using ViewModels.WinLossDetail;
