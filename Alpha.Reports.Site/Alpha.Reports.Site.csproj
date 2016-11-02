@@ -365,6 +365,11 @@
     <Content Include="Views\WinLossDetail\Agent.cshtml" />
     <Content Include="Views\WinLossDetail\Master.cshtml" />
     <Content Include="App_Data\reportranges.json" />
+    <Content Include="Views\WinLossDetail\NetTurnoverTooltips.cshtml" />
+    <Content Include="Views\WinLossDetail\PageTitle.cshtml" />
+    <Content Include="Views\WinLossDetail\Filter.cshtml" />
+    <Content Include="Views\WinLossDetail\Pager.cshtml" />
+    <Content Include="Views\WinLossDetail\TableReport.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>

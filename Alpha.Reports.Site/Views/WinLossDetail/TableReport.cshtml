@@ -1,6 +1,14 @@
-﻿@model dynamic
+﻿@using Alpha.Reports.Extensions;
+@model dynamic
 @{
     var total = Model.ReportData.Total;
+}
+
+@functions{
+    string FormatNumber(dynamic number)
+    {
+        return ((decimal)number).ToNumericString();
+    }
 }
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
@@ -35,7 +43,7 @@
             }
         </tr>
     </thead>
-    @if (Model.ReportData.DataSource.Any())
+    @if (Model.HasData)
     {
         <tbody>
             @foreach (var data in Model.ReportData.DataSource)
@@ -47,39 +55,39 @@
                     {
                         <td class="text-right visible-stack-mode combinedcolumn col-turnover-combined">
                             <ul>
-                                <li>@data.Turnover.ToNumericString()</li>
-                                <li>@data.NetTurnover.ToNumericString()</li>
-                                <li>@data.GrossComm.ToNumericString()</li>
+                                <li>@FormatNumber(data.Turnover)</li>
+                                <li>@FormatNumber(data.NetTurnover)</li>
+                                <li>@FormatNumber(data.GrossComm)</li>
                             </ul>
                         </td>
                         <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
                             <ul>
-                                <li>@data.MemberWinLoss.ToNumericString()</li>
-                                <li>@data.MemberComm.ToNumericString()</li>
-                                <li>@data.MemberTotal.ToNumericString()</li>
+                                <li>@FormatNumber(data.MemberWinLoss)</li>
+                                <li>@FormatNumber(data.MemberComm)</li>
+                                <li>@FormatNumber(data.MemberTotal)</li>
                             </ul>
                         </td>
                         <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
                             <ul>
-                                <li>@data.AgentWinLoss.ToNumericString()</li>
-                                <li>@data.AgentComm.ToNumericString()</li>
-                                <li>@data.AgentTotal.ToNumericString()</li>
+                                <li>@FormatNumber(data.AgentWinLoss)</li>
+                                <li>@FormatNumber(data.AgentComm)</li>
+                                <li>@FormatNumber(data.AgentTotal)</li>
                             </ul>
                         </td>
                     }
                     else
                     {
-                        <td class="text-right hidden-stack-mode col-turnover">@data.Turnover.ToNumericString()</td>
-                        <td class="text-right hidden-stack-mode col-netturnover">@data.NetTurnover.ToNumericString()</td>
-                        <td class="text-right hidden-stack-mode col-grosscomm">@data.GrossComm.ToNumericString()</td>
-                        <td class="text-right hidden-stack-mode col-winloss">@data.MemberWinLoss.ToNumericString()</td>
-                        <td class="text-right hidden-stack-mode col-comm">@data.MemberComm.ToNumericString()</td>
-                        <td class="text-right bold hidden-stack-mode col-total">@data.MemberTotal.ToNumericString()</td>
-                        <td class="altercol text-right hidden-stack-mode col-winloss">@data.AgentWinLoss.ToNumericString()</td>
-                        <td class="altercol text-right hidden-stack-mode col-comm">@data.AgentComm.ToNumericString()</td>
-                        <td class="altercol bold text-right hidden-stack-mode col-total">@data.AgentTotal.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-turnover">@FormatNumber(data.Turnover)</td>
+                        <td class="text-right hidden-stack-mode col-netturnover">@FormatNumber(data.NetTurnover)</td>
+                        <td class="text-right hidden-stack-mode col-grosscomm">@FormatNumber(data.GrossComm)</td>
+                        <td class="text-right hidden-stack-mode col-winloss">@FormatNumber(data.MemberWinLoss)</td>
+                        <td class="text-right hidden-stack-mode col-comm">@FormatNumber(data.MemberComm)</td>
+                        <td class="text-right bold hidden-stack-mode col-total">@FormatNumber(data.MemberTotal)</td>
+                        <td class="altercol text-right hidden-stack-mode col-winloss">@FormatNumber(data.AgentWinLoss)</td>
+                        <td class="altercol text-right hidden-stack-mode col-comm">@FormatNumber(data.AgentComm)</td>
+                        <td class="altercol bold text-right hidden-stack-mode col-total">@FormatNumber(data.AgentTotal)</td>
                     }
-                    <td class="text-right">@data.Company.ToNumericString()</td>
+                    <td class="text-right">@FormatNumber(data.Company)</td>
                 </tr>
             }
         </tbody>
@@ -91,39 +99,39 @@
                 {
                     <td class="text-right visible-stack-mode combinedcolumn col-turnover-combined">
                         <ul>
-                            <li>@total.Turnover.ToNumericString()</li>
-                            <li>@total.NetTurnover.ToNumericString()</li>
-                            <li>@total.GrossComm.ToNumericString()</li>
+                            <li>@FormatNumber(total.Turnover)</li>
+                            <li>@FormatNumber(total.NetTurnover)</li>
+                            <li>@FormatNumber(total.GrossComm)</li>
                         </ul>
                     </td>
                     <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
                         <ul>
-                            <li>@total.MemberWinLoss.ToNumericString()</li>
-                            <li>@total.MemberComm.ToNumericString()</li>
-                            <li>@total.MemberTotal.ToNumericString()</li>
+                            <li>@FormatNumber(total.MemberWinLoss)</li>
+                            <li>@FormatNumber(total.MemberComm)</li>
+                            <li>@FormatNumber(total.MemberTotal)</li>
                         </ul>
                     </td>
                     <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
                         <ul>
-                            <li>@total.AgentWinLoss.ToNumericString()</li>
-                            <li>@total.AgentComm.ToNumericString()</li>
-                            <li>@total.AgentTotal.ToNumericString()</li>
+                            <li>@FormatNumber(total.AgentWinLoss)</li>
+                            <li>@FormatNumber(total.AgentComm)</li>
+                            <li>@FormatNumber(total.AgentTotal)</li>
                         </ul>
                     </td>
                 }
                 else
                 {
-                    <td class="text-right hidden-stack-mode col-turnover">@total.Turnover.ToNumericString()</td>
-                    <td class="text-right hidden-stack-mode col-netturnover">@total.NetTurnover.ToNumericString()</td>
-                    <td class="text-right hidden-stack-mode col-grosscomm">@total.GrossComm.ToNumericString()</td>
-                    <td class="text-right hidden-stack-mode col-winloss">@total.MemberWinLoss.ToNumericString()</td>
-                    <td class="text-right hidden-stack-mode col-comm">@total.MemberComm.ToNumericString()</td>
-                    <td class="text-right bold hidden-stack-mode col-total">@total.MemberTotal.ToNumericString()</td>
-                    <td class="altercol text-right hidden-stack-mode col-winloss">@total.AgentWinLoss.ToNumericString()</td>
-                    <td class="altercol text-right hidden-stack-mode col-comm">@total.AgentComm.ToNumericString()</td>
-                    <td class="altercol bold text-right hidden-stack-mode col-total">@total.AgentTotal.ToNumericString()</td>
+                    <td class="text-right hidden-stack-mode col-turnover">@FormatNumber(total.Turnover)</td>
+                    <td class="text-right hidden-stack-mode col-netturnover">@FormatNumber(total.NetTurnover)</td>
+                    <td class="text-right hidden-stack-mode col-grosscomm">@FormatNumber(total.GrossComm)</td>
+                    <td class="text-right hidden-stack-mode col-winloss">@FormatNumber(total.MemberWinLoss)</td>
+                    <td class="text-right hidden-stack-mode col-comm">@FormatNumber(total.MemberComm)</td>
+                    <td class="text-right bold hidden-stack-mode col-total">@FormatNumber(total.MemberTotal)</td>
+                    <td class="altercol text-right hidden-stack-mode col-winloss">@FormatNumber(total.AgentWinLoss)</td>
+                    <td class="altercol text-right hidden-stack-mode col-comm">@FormatNumber(total.AgentComm)</td>
+                    <td class="altercol bold text-right hidden-stack-mode col-total">@FormatNumber(total.AgentTotal)</td>
                 }
-                <td class="text-right">@total.Company.ToNumericString()</td>
+                <td class="text-right">@FormatNumber(total.Company)</td>
             </tr>
         </tfoot>
     }

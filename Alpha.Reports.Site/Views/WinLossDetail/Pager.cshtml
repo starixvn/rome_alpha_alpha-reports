@@ -1,5 +1,5 @@
-﻿@model dynamic
-<div id="report-pager" class="@(Model.ReportData.DataSource.Any() ? " ":"hide" )"
+﻿@model bool
+<div id="report-pager" class="@(Model ? " ":"hide")"
      data-labelpage="@Resources.Page"
      data-labelof="@Resources.of"
      data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>

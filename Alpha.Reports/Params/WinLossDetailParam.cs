@@ -21,9 +21,9 @@
         {
             CustId = custId;
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
-            PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageIndex;
+            PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;
             FromDate = fromDate == DateTime.MinValue ? DateTime.Now : fromDate;
-            ToDate = toDate == DateTime.MinValue ? DateTime.Now : fromDate;
+            ToDate = toDate == DateTime.MinValue ? DateTime.Now : toDate;
             ProductIds = productIds.Split(',').Select(id => Convert.ToInt32(id));
             UserLevel = userLevel;
             SortedColumn = sortedColumn;

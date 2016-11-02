@@ -1,5 +1,4 @@
 ﻿@using Alpha.Reports.Site.ViewModels.WinLossDetail;
-@using Alpha.Reports.Extensions;
 @using Alpha.Reports.Site.Helpers;
 @model MemberWinLossDetailViewModel
 @{
@@ -15,13 +14,20 @@
 @Html.Partial("NetTurnoverTooltips", Model.NetTurnoverTooltips)
 @Html.Partial("PageTitle", Model)
 @Html.Partial("Filter", Model)
-@Html.Partial("TableReport", Model)
-@Html.Partial("Pager", Model)
+@Html.Partial("TableReport", new
+{
+    Model.ReportData,
+    Model.IsStackMode,
+    Model.CustId,
+    Model.FromDate,
+    Model.ToDate,
+    Model.SortedColumn,
+    Model.SortDirection,
+    Model.OldMainAppPath,
+    HasData = Model.ReportData.DataSource.Any()
+})
+@Html.Partial("Pager", Model.ReportData.DataSource.Any())
 
-<div id="report-pager" class="@(Model.ReportData.DataSource.Any() ? " ":"hide" )"
-     data-labelpage="@Resources.Page"
-     data-labelof="@Resources.of"
-     data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
 @Html.Hidden("ishistoricreport", Model.IsHistoricReport)
 @Html.Hidden("currentpath", AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Member"))
