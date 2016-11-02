@@ -1,0 +1,69 @@
+﻿@using Alpha.Reports.Extensions;
+@model dynamic
+
+@functions{
+    string FormatDate(dynamic date)
+    {
+        return ((DateTime)date).ToShortDateWithSlash();
+    }
+}
+
+<form class="form-inline filter
+      @(Model.IsHistoricReport?"historic-report":string.Empty)" role="form" id="filter">
+    <div class="form-group nexDatePicker">
+        <div class="currentreport-item">
+            <div id="daterange-picker"
+                 data-labelto="@Resources.To"
+                 data-labeltoday="@Resources.Today"
+                 data-labelyesterday="@Resources.Yesterday"
+                 data-labelthisweek="@Resources.ThisWeek"
+                 data-labellastweek="@Resources.LastWeek"
+                 data-labelthismonth="@Resources.ThisMonth"
+                 data-labellastmonth="@Resources.LastMonth"
+                 data-labelsincelastmonth="@Resources.SinceLastMonth"
+                 data-labelspecificdate="@Resources.SpecificDate"
+                 data-mindate="@FormatDate(Model.MinDate)"
+                 data-maxdate="@FormatDate(Model.MaxDate)"
+                 data-currentdate="@FormatDate(Model.CurrentDate)"
+                 data-fromdate="@FormatDate(Model.FromDate)"
+                 data-todate="@FormatDate(Model.ToDate)"></div>
+        </div>
+    </div>
+    <div class="form-group monthpicker-container">
+        <div id="monthPickerID">
+            <div id="dropdown-month"
+                 data-mindate="@FormatDate(Model.MinDate)"
+                 data-maxdate="@FormatDate(Model.CurrentDate)"
+                 data-dateinmonth="@FormatDate(Model.FromDate)"
+                 data-fromdate="@Model.FromDate.Day"
+                 data-todate="@Model.ToDate.Day"
+                 data-currentdate="@FormatDate(Model.CurrentDate)"
+                 data-labelto="@Resources.To"></div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="txt">@Resources.Product</label>
+        <select id="dropdown-product"
+                data-products="@Model.JsonProducts"
+                data-selectedproducts="@Model.SelectedProducts"
+                data-labelselectproducts="@Resources.SelectProducts"
+                data-labelselected="@Resources.Selected"
+                data-labelallproducts="@Resources.AllProducts"
+                data-labelthereisnoproduct="@Resources.ThereIsNoProduct"
+                data-language="@Model.Language"
+                multiple="multiple"></select>
+    </div>
+    <div class="form-group">
+        <input type="button" value="@Resources.Submit" class="btn-submit" />
+    </div>
+    <div class="form-group">
+        <span class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note currentreport-item">
+        <span class="star">*</span>@Html.Raw(string.Format(Resources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport, Model.MinDate))
+    </div>
+    <div class="note historicreport-item">
+        <span class="star">*</span>@Html.Raw(string.Format(Resources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport, Model.MinDate))
+    </div>
+</form>

@@ -90,7 +90,8 @@
                 HideFilter = message.HideFilter,
                 OldMainAppPath = applicationContext.OldMainAppPath,
 
-                ReportData = reportData
+                ReportData = reportData,
+                UserLevel = message.UserLevel
             };
 
             return viewModel;

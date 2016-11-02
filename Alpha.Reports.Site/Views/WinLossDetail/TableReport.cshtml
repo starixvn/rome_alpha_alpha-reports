@@ -1,0 +1,138 @@
+﻿@model dynamic
+@{
+    var total = Model.ReportData.Total;
+}
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
+        @(Model.IsStackMode?"stack-mode":string.Empty)" id="tbl-report"
+       data-pageindex="@Model.ReportData.CurrentPageIndex"
+       data-pagesize="@Model.ReportData.PageSize"
+       data-totalrecords="@Model.ReportData.TotalRecords"
+       data-custid="@Model.CustId"
+       data-fromdate="@Model.FromDate"
+       data-todate="@Model.ToDate"
+       data-sortedcolumn="@Model.SortedColumn"
+       data-sortdirection="@Model.SortDirection">
+    <thead>
+        <tr>
+            <th rowspan="2">@Resources.Username <span class="icon-menu-up ascSorting"></span></th>
+            <th rowspan="2">@Resources.NoOfTickets</th>
+            <th rowspan="2" class="hidden-stack-mode">@Resources.Turnover</th>
+            <th rowspan="2" class="hidden-stack-mode col-netturnover-header">@Resources.NetTurnover</th>
+            <th rowspan="2" class="hidden-stack-mode">@Resources.GrossComm</th>
+            <th rowspan="2" class="visible-stack-mode">@Resources.TO_NetTO_GrossComm</th>
+            <th colspan="3" class="col-level">@Resources.Member</th>
+            <th colspan="3" class="col-level">@Resources.Agent</th>
+            <th rowspan="2">@Resources.Company</th>
+        </tr>
+        <tr class="RptHeader02">
+            @for (var i = 0; i < 2; i++)
+            {
+                <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode">@Resources.Comm</th>
+                <th class="hidden-stack-mode">@Resources.Total</th>
+                <th colspan="3" class="visible-stack-mode col-combine">@Resources.WL_Comm_Total</th>
+            }
+        </tr>
+    </thead>
+    @if (Model.ReportData.DataSource.Any())
+    {
+        <tbody>
+            @foreach (var data in Model.ReportData.DataSource)
+            {
+                <tr>
+                    <td><a href="@Model.OldMainAppPath/_BetList/BetList.aspx?" class="downline-link">@data.CustName</a></td>
+                    <td class="text-right">@data.NumberOfTickets</td>
+                    @if (Model.IsStackMode)
+                    {
+                        <td class="text-right visible-stack-mode combinedcolumn col-turnover-combined">
+                            <ul>
+                                <li>@data.Turnover.ToNumericString()</li>
+                                <li>@data.NetTurnover.ToNumericString()</li>
+                                <li>@data.GrossComm.ToNumericString()</li>
+                            </ul>
+                        </td>
+                        <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                            <ul>
+                                <li>@data.MemberWinLoss.ToNumericString()</li>
+                                <li>@data.MemberComm.ToNumericString()</li>
+                                <li>@data.MemberTotal.ToNumericString()</li>
+                            </ul>
+                        </td>
+                        <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                            <ul>
+                                <li>@data.AgentWinLoss.ToNumericString()</li>
+                                <li>@data.AgentComm.ToNumericString()</li>
+                                <li>@data.AgentTotal.ToNumericString()</li>
+                            </ul>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-right hidden-stack-mode col-turnover">@data.Turnover.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-netturnover">@data.NetTurnover.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-grosscomm">@data.GrossComm.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-winloss">@data.MemberWinLoss.ToNumericString()</td>
+                        <td class="text-right hidden-stack-mode col-comm">@data.MemberComm.ToNumericString()</td>
+                        <td class="text-right bold hidden-stack-mode col-total">@data.MemberTotal.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-winloss">@data.AgentWinLoss.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-comm">@data.AgentComm.ToNumericString()</td>
+                        <td class="altercol bold text-right hidden-stack-mode col-total">@data.AgentTotal.ToNumericString()</td>
+                    }
+                    <td class="text-right">@data.Company.ToNumericString()</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="RptFooter">
+                <td>@Resources.Total</td>
+                <td class="text-right">@total.NumberOfTickets</td>
+                @if (Model.IsStackMode)
+                {
+                    <td class="text-right visible-stack-mode combinedcolumn col-turnover-combined">
+                        <ul>
+                            <li>@total.Turnover.ToNumericString()</li>
+                            <li>@total.NetTurnover.ToNumericString()</li>
+                            <li>@total.GrossComm.ToNumericString()</li>
+                        </ul>
+                    </td>
+                    <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                        <ul>
+                            <li>@total.MemberWinLoss.ToNumericString()</li>
+                            <li>@total.MemberComm.ToNumericString()</li>
+                            <li>@total.MemberTotal.ToNumericString()</li>
+                        </ul>
+                    </td>
+                    <td class="text-right visible-stack-mode combinedcolumn column-winloss-combined" colspan="3">
+                        <ul>
+                            <li>@total.AgentWinLoss.ToNumericString()</li>
+                            <li>@total.AgentComm.ToNumericString()</li>
+                            <li>@total.AgentTotal.ToNumericString()</li>
+                        </ul>
+                    </td>
+                }
+                else
+                {
+                    <td class="text-right hidden-stack-mode col-turnover">@total.Turnover.ToNumericString()</td>
+                    <td class="text-right hidden-stack-mode col-netturnover">@total.NetTurnover.ToNumericString()</td>
+                    <td class="text-right hidden-stack-mode col-grosscomm">@total.GrossComm.ToNumericString()</td>
+                    <td class="text-right hidden-stack-mode col-winloss">@total.MemberWinLoss.ToNumericString()</td>
+                    <td class="text-right hidden-stack-mode col-comm">@total.MemberComm.ToNumericString()</td>
+                    <td class="text-right bold hidden-stack-mode col-total">@total.MemberTotal.ToNumericString()</td>
+                    <td class="altercol text-right hidden-stack-mode col-winloss">@total.AgentWinLoss.ToNumericString()</td>
+                    <td class="altercol text-right hidden-stack-mode col-comm">@total.AgentComm.ToNumericString()</td>
+                    <td class="altercol bold text-right hidden-stack-mode col-total">@total.AgentTotal.ToNumericString()</td>
+                }
+                <td class="text-right">@total.Company.ToNumericString()</td>
+            </tr>
+        </tfoot>
+    }
+    else
+    {
+        <tbody>
+            <tr>
+                <td colspan="12">@Resources.NoInformationIsAvailable</td>
+            </tr>
+        </tbody>
+    }
+</table>

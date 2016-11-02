@@ -1,0 +1,15 @@
+﻿@model dynamic
+
+<div class="page-title
+      @(Model.IsStackMode?"stack-mode":string.Empty)
+      @(Model.HideFilter?"hide-filter":string.Empty)">
+    <span class="pull-left">@Resources.MemberWinLossDetail</span>
+    <div class="list-icon">
+        <ul>
+            <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+            <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+            <li class="normalview-element"><span class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
+            <li class="stackcolumnview-element"><span class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
+        </ul>
+    </div>
+</div>

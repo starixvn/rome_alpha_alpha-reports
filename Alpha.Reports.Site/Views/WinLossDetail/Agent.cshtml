@@ -1,11 +1,12 @@
 ﻿@using Alpha.Reports.Site.ViewModels.WinLossDetail;
 @using Alpha.Reports.Extensions;
 @using Alpha.Reports.Models.WinlossDetail;
+@using Alpha.Reports.Site.Helpers;
 @model AgentWinLossDetailViewModel
 @{
     ViewBag.Title = Resources.MasterWinLossDetail;
     var total = Model.ReportData.Total;
-    var drillDownLink = "Member?" +
+    var drillDownLink = AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Member?" +
         "PageIndex=" + Model.ReportData.CurrentPageIndex +
         "&PageSize=" + Model.ReportData.PageSize +
         "&FromDate=" + Model.FromDate +
@@ -16,7 +17,7 @@
         "&IsStackMode=" + Model.IsStackMode +
         "&IsHistoricReport=" + Model.IsHistoricReport +
         "&HideFilter=" + Model.HideFilter +
-        "&CustId={0}";
+        "&CustId={0}");
 }
 
 @section Styles {
@@ -78,15 +79,18 @@
                  data-labelspecificdate="@Resources.SpecificDate"
                  data-mindate="@Model.MinDate.ToShortDateWithSlash()"
                  data-maxdate="@Model.MaxDate.ToShortDateWithSlash()"
-                 data-currentdate="@Model.CurrentDate.ToShortDateWithSlash()"></div>
+                 data-currentdate="@Model.CurrentDate.ToShortDateWithSlash()"
+                 data-fromdate="@Model.FromDate.ToShortDateWithSlash()"
+                 data-todate="@Model.ToDate.ToShortDateWithSlash()"></div>
         </div>
     </div>
     <div class="form-group monthpicker-container">
         <div id="monthPickerID">
             <div id="dropdown-month"
-                 data-mindate="@Model.MinDate"
-                 data-maxdate="@Model.CurrentDate"
+                 data-mindate="@Model.MinDate.ToShortDateWithSlash()"
+                 data-maxdate="@Model.CurrentDate.ToShortDateWithSlash()"
                  data-dateinmonth="@Model.FromDate.ToShortDateWithSlash()"
+                 data-fromdate="@Model.FromDate.Day"
                  data-todate="@Model.ToDate.Day"
                  data-currentdate="@Model.CurrentDate.ToShortDateWithSlash()"
                  data-labelto="@Resources.To"></div>
@@ -95,7 +99,7 @@
     <div class="form-group">
         <label class="txt">@Resources.Product</label>
         <select id="dropdown-product"
-                data-products="@Model.Products"
+                data-products="@Model.JsonProducts"
                 data-selectedproducts="@Model.SelectedProducts"
                 data-labelselectproducts="@Resources.SelectProducts"
                 data-labelselected="@Resources.Selected"
@@ -122,7 +126,12 @@
         @(Model.IsStackMode?"stack-mode":string.Empty)" id="tbl-report"
        data-pageindex="@Model.ReportData.CurrentPageIndex"
        data-pagesize="@Model.ReportData.PageSize"
-       data-totalrecords="@Model.ReportData.TotalRecords">
+       data-totalrecords="@Model.ReportData.TotalRecords"
+       data-custid="@Model.CustId"
+       data-fromdate="@Model.FromDate"
+       data-todate="@Model.ToDate"
+       data-sortedcolumn="@Model.SortedColumn"
+       data-sortdirection="@Model.SortDirection">
     <thead>
         <tr>
             <th rowspan="2">@Resources.Username <span class="icon-menu-up ascSorting"></span></th>
@@ -194,11 +203,11 @@
                         <td class="text-right hidden-stack-mode col-comm">@data.MemberComm.ToNumericString()</td>
                         <td class="text-right bold hidden-stack-mode col-total">@data.MemberTotal.ToNumericString()</td>
                         <td class="altercol text-right hidden-stack-mode col-winloss">@data.AgentWinLoss.ToNumericString()</td>
-                        <td class="altercol text-right hidden-stack-mode col-comm">@data.AgentComm.ToNumericString()</td>
-                        <td class="altercol bold text-right hidden-stack-mode col-total">@data.AgentTotal.ToNumericString()</td>
-                        <td class="text-right hidden-stack-mode col-winloss">@data.MasterWinLoss.ToNumericString()</td>
-                        <td class="text-right hidden-stack-mode col-comm">@data.MasterComm.ToNumericString()</td>
-                        <td class="bold text-right hidden-stack-mode col-total">@data.MasterTotal.ToNumericString()</td>
+                            <td class="altercol text-right hidden-stack-mode col-comm">@data.AgentComm.ToNumericString()</td>
+                            <td class="altercol bold text-right hidden-stack-mode col-total">@data.AgentTotal.ToNumericString()</td>
+                            <td class="text-right hidden-stack-mode col-winloss">@data.MasterWinLoss.ToNumericString()</td>
+                            <td class="text-right hidden-stack-mode col-comm">@data.MasterComm.ToNumericString()</td>
+                            <td class="bold text-right hidden-stack-mode col-total">@data.MasterTotal.ToNumericString()</td>
                     }
                     <td class="text-right">@data.Company.ToNumericString()</td>
                 </tr>
@@ -247,12 +256,12 @@
                     <td class="text-right hidden-stack-mode col-winloss">@total.MemberWinLoss.ToNumericString()</td>
                     <td class="text-right hidden-stack-mode col-comm">@total.MemberComm.ToNumericString()</td>
                     <td class="text-right bold hidden-stack-mode col-total">@total.MemberTotal.ToNumericString()</td>
-                    <td class="altercol text-right hidden-stack-mode col-winloss">@total.AgentWinLoss.ToNumericString()</td>
-                    <td class="altercol text-right hidden-stack-mode col-comm">@total.AgentComm.ToNumericString()</td>
-                    <td class="altercol bold text-right hidden-stack-mode col-total">@total.AgentTotal.ToNumericString()</td>
-                    <td class="altercol text-right hidden-stack-mode col-winloss">@total.MasterWinLoss.ToNumericString()</td>
-                    <td class="altercol text-right hidden-stack-mode col-comm">@total.MasterComm.ToNumericString()</td>
-                    <td class="altercol bold text-right hidden-stack-mode col-total">@total.MasterTotal.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-winloss">@total.AgentWinLoss.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-comm">@total.AgentComm.ToNumericString()</td>
+                        <td class="altercol bold text-right hidden-stack-mode col-total">@total.AgentTotal.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-winloss">@total.MasterWinLoss.ToNumericString()</td>
+                        <td class="altercol text-right hidden-stack-mode col-comm">@total.MasterComm.ToNumericString()</td>
+                        <td class="altercol bold text-right hidden-stack-mode col-total">@total.MasterTotal.ToNumericString()</td>
                 }
                 <td class="text-right">@total.Company.ToNumericString()</td>
             </tr>
@@ -272,8 +281,8 @@
      data-labelof="@Resources.of"
      data-labeldisplayitems="@Resources.Pager_DisplayItems"></div>
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
-@Html.Hidden("hidefilter", (Model.HideFilter ? "1" : "0"))
-@Html.Hidden("currentpath", HttpContext.Current.Request.Url.AbsolutePath)
+@Html.Hidden("ishistoricreport", Model.IsHistoricReport)
+@Html.Hidden("currentpath", AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Member"))
 @section Scripts {
     @AssetScripts.Render("/bundles/site-reports/default")
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
