@@ -112,7 +112,6 @@
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
     <Compile Include="DataAccess\Impl\WinLossDetailDataAccessImpl.cs" />
     <Compile Include="DataAccess\WinLossDetailDataAccess.cs" />
-    <Compile Include="Enumerations\ReportTimeRangeType.cs" />
     <Compile Include="Extensions\DecimalExtension.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />

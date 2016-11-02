@@ -24,7 +24,9 @@
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;
             FromDate = fromDate == DateTime.MinValue ? DateTime.Now : fromDate;
             ToDate = toDate == DateTime.MinValue ? DateTime.Now : toDate;
-            ProductIds = productIds.Split(',').Select(id => Convert.ToInt32(id));
+            ProductIds = string.IsNullOrWhiteSpace(productIds)
+                ? Enumerable.Empty<int>()
+                : productIds.Split(',').Select(id => Convert.ToInt32(id));
             UserLevel = userLevel;
             SortedColumn = sortedColumn;
             SortDirection = sortDirection;

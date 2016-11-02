@@ -6,7 +6,6 @@
     using MediatR;
     using Models;
     using Models.WinlossDetail;
-    using Newtonsoft.Json;
     using Params;
     using Reports.AppResources;
     using Requests.WinLossDetail;
@@ -19,19 +18,16 @@
         IRequestHandler<MemberWinLossDetailQuery, MemberWinLossDetailViewModel>
     {
         private const int AllBetProductId = 21;
-        private readonly ProductService productService;
-        private readonly ReportDateService dateService;
+        private readonly ProductService productService;        
         private readonly WinLossDetailService reportService;
         private readonly ApplicationContext applicationContext;
 
         public WinLossDetailHandler(
-            ProductService productService,
-            ReportDateService dateService,
+            ProductService productService,            
             WinLossDetailService reportService,
             ApplicationContext applicationContext)
         {
-            this.productService = productService;
-            this.dateService = dateService;
+            this.productService = productService;            
             this.reportService = reportService;
             this.applicationContext = applicationContext;
         }
@@ -63,12 +59,7 @@
             var products = productService.GetProductsForCustomer(message.CustId);
 
             var param = CreateWinLossDetailParam(message, products);
-            var reportData = reportService.GetWinLossDetail<TData>(param);
-
-            var reportRange = dateService.GetDateRangeLimit(new ReportDateRangeParam(
-                message.ReportPath,
-                message.IsHistoricReport,
-                applicationContext.ReportRanges));
+            var reportData = reportService.GetWinLossDetail<TData>(param);       
 
             var netTurnoverTooltips = GetNetTurnoverTooltip(products);
 

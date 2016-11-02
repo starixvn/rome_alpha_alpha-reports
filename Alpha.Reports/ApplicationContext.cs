@@ -6,11 +6,7 @@
 
     public interface ApplicationContext
     {
-        DateTime ServerTime { get; }
-
-        IEnumerable<Product> Products { get; }
-
-        IEnumerable<ReportRange> ReportRanges { get; }
+        IEnumerable<Product> Products { get; }        
 
         string OldMainAppPath { get; }
     }

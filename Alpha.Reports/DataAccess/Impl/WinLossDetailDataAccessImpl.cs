@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.DataAccess.Impl
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Criteria;
     using Fanex.Data;
@@ -16,13 +15,15 @@
                 throw new ArgumentNullException("criteria");
             }
 
-            ReportData<T> reportData = null;
-            IEnumerable<T> dataSource = null;
+            ReportData<T> reportData;
+            
             T total = null;
 
-            using (var obj = new ObjectDb(criteria.GetSettingKey()))
+            using (var objectDb = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var multi = obj.QueryMultiple(criteria))
+                var dataSource = Enumerable.Empty<T>();
+
+                using (var multi = objectDb.QueryMultiple(criteria))
                 {
                     dataSource = multi.Read<T>();
                     total = multi.Read<T>().FirstOrDefault();

@@ -2,7 +2,6 @@
 {
     using System;
     using Models;
-    using Params;
 
     public interface ReportDateService
     {
@@ -10,8 +9,6 @@
 
         DateTime GetBalanceUpDay();
 
-        DateTime GetMoveBetsDay();
-
-        DateRange GetDateRangeLimit(ReportDateRangeParam param);
+        DateTime GetMoveBetsDay();        
     }
 }

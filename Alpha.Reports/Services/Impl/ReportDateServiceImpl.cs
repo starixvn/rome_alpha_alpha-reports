@@ -1,14 +1,10 @@
 ﻿namespace Alpha.Reports.Services.Impl
 {
     using System;
-    using System.Linq;
     using Criteria;
-    using Enumeration;
-    using Extensions;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models;
-    using Params;
 
     public class ReportDateServiceImpl : ReportDateService
     {
@@ -44,55 +40,6 @@
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
 
             return balanceUpDayAndMoveBetsDay;
-        }
-
-        public DateRange GetDateRangeLimit(ReportDateRangeParam param)
-            => new DateRange(GetMinDate(param), maxDate: DateTime.MaxValue);
-
-        private DateTime GetMinDate(ReportDateRangeParam param)
-        {
-            var rangeType = GetReportRangeType(param);
-
-            switch (rangeType)
-            {
-                case ReportTimeRangeType.BalanceUp:
-                    return GetBalanceUpDay();
-
-                case ReportTimeRangeType.FromLast3Months:
-                    return applicationContext.ServerTime.AddMonths(-3).FirstDayOfMonth();
-
-                case ReportTimeRangeType.FromLast18Months:
-                    return applicationContext.ServerTime.AddMonths(-18).FirstDayOfMonth();
-
-                case ReportTimeRangeType.FromLast3Years:
-                    return applicationContext.ServerTime.AddYears(-3).FirstDayOfMonth();
-
-                case ReportTimeRangeType.Unknown:
-                default:
-                    return applicationContext.ServerTime;
-            }
-        }
-
-        private ReportTimeRangeType GetReportRangeType(ReportDateRangeParam param)
-        {
-            byte rangeType = 0;
-            var reportPath = param.ReportPath + (param.IsHistoricReport ? "Historic" : string.Empty);
-
-            foreach (var reportRange in param.ReportRangeSettings)
-            {
-                if (reportRange.Reports
-                    .Where(report => string.Equals(report, reportPath, StringComparison.OrdinalIgnoreCase))
-                    .FirstOrDefault() != null)
-                {
-                    rangeType = reportRange.Range;
-                    break;
-                }
-            }
-
-            var reportTimeRangeType = ReportTimeRangeType.Unknown;
-            var parseIsOk = Enum.TryParse(rangeType.ToString(), out reportTimeRangeType);
-
-            return parseIsOk ? reportTimeRangeType : ReportTimeRangeType.Unknown;
-        }
+        }        
     }
 }
