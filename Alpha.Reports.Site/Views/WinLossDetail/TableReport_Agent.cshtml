@@ -105,29 +105,8 @@
             {
                 @GetRow(
                     data,
-                     Html.ActionLink(
-                        linkText: data.CustName,
-                        actionName: "Member",
-                        controllerName: "WinLossDetail",
-                        routeValues: new
-                        {
-                            Custid = data.CustId,
-                            PageIndex = Model.ReportData.CurrentPageIndex,
-                            PageSize = Model.ReportData.PageSize,
-                            FromDate = Model.FromDate,
-                            ToDate = Model.ToDate,
-                            SelectedProducts = Model.SelectedProducts,
-                            SortedColumn = Model.SortedColumn,
-                            SortDirection = Model.SortDirection,
-                            IsStackMode = Model.IsStackMode ? "true" : "false",
-                            IsHistoricReport = Model.IsHistoricReport,
-                            HideFilter = Model.HideFilter,
-                        },
-                        htmlAttributes: new
-                        {
-                            @class = "downline-link"
-                        }).ToString(),
-                     string.Empty)
+                    $"<a href=\"#\" class=\"downline-link\" data-custid=\"{data.CustId}\">{data.CustName}</a>",
+                    string.Empty)
             }
         </tbody>
         <tfoot>

@@ -9,9 +9,9 @@
 
     public class WinLossDetailViewModel<T> where T : MemberWinLossDetail
     {
-        public DateTime MinDate => (IsHistoricReport)
-                   ? DateTime.Now.AddYears(-3).FirstDayOfMonth()
-                   : DateTime.Now.AddMonths(-3).FirstDayOfMonth();
+        public DateTime MinDate => IsHistoricReport
+            ? DateTime.Now.AddYears(-3).FirstDayOfMonth()
+            : DateTime.Now.AddMonths(-3).FirstDayOfMonth();
 
         public DateTime MaxDate => DateTime.MaxValue;
 

@@ -25,7 +25,8 @@ class WinLossDetailView {
         netTurnoverTooltip: null,
         closeNetTurnoverTooltip: null,
 
-        isHistoricReport: null
+        isHistoricReport: null,
+        downlineLink: null
     };
 
     isFirstSwitchMode = true;
@@ -80,6 +81,8 @@ class WinLossDetailView {
 
         this.domElements.isHistoricReport = $("#ishistoricreport");
         this.isHistoricReport = this.domElements.isHistoricReport.val() == "true";
+
+        this.domElements.downlineLink = $(".downline-link");
     };
 
     renderDateRangePicker = () => {
@@ -263,7 +266,7 @@ class WinLossDetailView {
                         "text-right hidden-stack-mode col-winloss",
                         "text-right hidden-stack-mode col-comm",
                         "text-right bold hidden-stack-mode col-total"],
-                        ".column-winloss-combined");
+                        ".col-winloss-combined");
                 } else {
                     alphaReports.combineColumns([
                         "td.col-turnover",
@@ -283,6 +286,10 @@ class WinLossDetailView {
 
         this.domElements.buttonSubmit.on("click", function () {
             winLossDetailController.getReport();
+        });
+
+        this.domElements.downlineLink.on("click", function () {
+            $this.drilldown($(this));
         });
 
         if (alphaReports.screenSmallThan768()) {
@@ -407,6 +414,24 @@ class WinLossDetailView {
             IsHistoricReport: isHistoricReport,
             HideFilter: this.domElements.filter.is(":hidden") ? true : false
         };
+    };
+    drilldown = (downlineLink) => {
+        var tableReport = this.domElements.tableReport;
+        var params = {
+            CustId: downlineLink.data("custid"),
+            PageIndex: this.pageIndex,
+            PageSize: this.pageSize,
+            FromDate: tableReport.data("fromdate"),
+            ToDate: tableReport.data("todate"),
+            SelectedProducts: this.domElements.dropdownProduct.data("selectedproducts"),
+            SortedColumn: tableReport.data("sortedcolumn"),
+            SortDirection: tableReport.data("sortdirection"),
+            IsStackMode: tableReport.hasClass("stack-mode"),
+            IsHistoricReport: this.isHistoricReport,
+            HideFilter: this.domElements.filter.is(":hidden") ? true : false
+        };
+
+        winLossDetailController.drilldown(params);
     };
 };
 

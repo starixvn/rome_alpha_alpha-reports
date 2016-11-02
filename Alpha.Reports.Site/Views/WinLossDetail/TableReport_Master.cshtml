@@ -16,7 +16,7 @@
         <ul>
             @foreach (var column in columns)
             {
-            <li>@FormatNumber(column)</li>
+                <li>@FormatNumber(column)</li>
             }
         </ul>
     </td>
@@ -29,44 +29,44 @@
         <td class="text-right">@data.NumberOfTickets</td>
         @if (Model.IsStackMode)
         {
-        @GetCombinedColumn(
+            @GetCombinedColumn(
                 new List<decimal>() { data.Turnover, data.NetTurnover, data.GrossComm },
                 "text-right visible-stack-mode combinedcolumn col-turnover-combined",
                 1);
-        @GetCombinedColumn(
+            @GetCombinedColumn(
                 new List<decimal>() { data.MemberWinLoss, data.MemberComm, data.MemberTotal },
                 "text-right visible-stack-mode combinedcolumn col-winloss-combined",
                 3);
-        @GetCombinedColumn(
+            @GetCombinedColumn(
                new List<decimal>() { data.AgentWinLoss, data.AgentComm, data.AgentTotal },
                "text-right visible-stack-mode combinedcolumn col-winloss-combined",
                3);
-        @GetCombinedColumn(
+            @GetCombinedColumn(
                new List<decimal>() { data.MasterWinLoss, data.MasterComm, data.MasterTotal },
                "text-right visible-stack-mode combinedcolumn col-winloss-combined",
                3);
-        @GetCombinedColumn(
+            @GetCombinedColumn(
                new List<decimal>() { data.SuperWinLoss, data.SuperComm, data.SuperTotal },
                "text-right visible-stack-mode combinedcolumn col-winloss-combined",
                3);
         }
         else
         {
-        <td class="text-right hidden-stack-mode col-turnover">@FormatNumber(data.Turnover)</td>
-        <td class="text-right hidden-stack-mode col-netturnover">@FormatNumber(data.NetTurnover)</td>
-        <td class="text-right hidden-stack-mode col-grosscomm">@FormatNumber(data.GrossComm)</td>
-        <td class="text-right hidden-stack-mode col-winloss">@FormatNumber(data.MemberWinLoss)</td>
-        <td class="text-right hidden-stack-mode col-comm">@FormatNumber(data.MemberComm)</td>
-        <td class="text-right bold hidden-stack-mode col-total">@FormatNumber(data.MemberTotal)</td>
-        <td class="altercol text-right hidden-stack-mode col-winloss">@FormatNumber(data.AgentWinLoss)</td>
-        <td class="altercol text-right hidden-stack-mode col-comm">@FormatNumber(data.AgentComm)</td>
-        <td class="altercol bold text-right hidden-stack-mode col-total">@FormatNumber(data.AgentTotal)</td>
-        <td class="text-right hidden-stack-mode col-winloss">@FormatNumber(data.MasterWinLoss)</td>
-        <td class="text-right hidden-stack-mode col-comm">@FormatNumber(data.MasterComm)</td>
-        <td class="bold text-right hidden-stack-mode col-total">@FormatNumber(data.MasterTotal)</td>
-        <td class="altercol text-right hidden-stack-mode col-winloss">@FormatNumber(data.SuperWinLoss)</td>
-        <td class="altercol text-right hidden-stack-mode col-comm">@FormatNumber(data.SuperComm)</td>
-        <td class="altercol bold text-right hidden-stack-mode col-total">@FormatNumber(data.SuperTotal)</td>
+            <td class="text-right hidden-stack-mode col-turnover">@FormatNumber(data.Turnover)</td>
+            <td class="text-right hidden-stack-mode col-netturnover">@FormatNumber(data.NetTurnover)</td>
+            <td class="text-right hidden-stack-mode col-grosscomm">@FormatNumber(data.GrossComm)</td>
+            <td class="text-right hidden-stack-mode col-winloss">@FormatNumber(data.MemberWinLoss)</td>
+            <td class="text-right hidden-stack-mode col-comm">@FormatNumber(data.MemberComm)</td>
+            <td class="text-right bold hidden-stack-mode col-total">@FormatNumber(data.MemberTotal)</td>
+            <td class="altercol text-right hidden-stack-mode col-winloss">@FormatNumber(data.AgentWinLoss)</td>
+            <td class="altercol text-right hidden-stack-mode col-comm">@FormatNumber(data.AgentComm)</td>
+            <td class="altercol bold text-right hidden-stack-mode col-total">@FormatNumber(data.AgentTotal)</td>
+            <td class="text-right hidden-stack-mode col-winloss">@FormatNumber(data.MasterWinLoss)</td>
+            <td class="text-right hidden-stack-mode col-comm">@FormatNumber(data.MasterComm)</td>
+            <td class="bold text-right hidden-stack-mode col-total">@FormatNumber(data.MasterTotal)</td>
+            <td class="altercol text-right hidden-stack-mode col-winloss">@FormatNumber(data.SuperWinLoss)</td>
+            <td class="altercol text-right hidden-stack-mode col-comm">@FormatNumber(data.SuperComm)</td>
+            <td class="altercol bold text-right hidden-stack-mode col-total">@FormatNumber(data.SuperTotal)</td>
         }
         <td class="text-right">@FormatNumber(data.Company)</td>
     </tr>
@@ -99,55 +99,34 @@
         <tr class="RptHeader02">
             @for (var i = 0; i < 4; i++)
             {
-            <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode">@Resources.Comm</th>
-            <th class="hidden-stack-mode">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine">@Resources.WL_Comm_Total</th>
+                <th class="hidden-stack-mode col-winloss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode">@Resources.Comm</th>
+                <th class="hidden-stack-mode">@Resources.Total</th>
+                <th colspan="3" class="visible-stack-mode col-combine">@Resources.WL_Comm_Total</th>
             }
         </tr>
     </thead>
     @if (Model.ReportData.DataSource.Any())
     {
-    <tbody>
-        @foreach (var data in Model.ReportData.DataSource)
+        <tbody>
+            @foreach (var data in Model.ReportData.DataSource)
             {
-            @GetRow(
+                @GetRow(
                     data,
-                    Html.ActionLink(
-                        linkText: data.CustName,
-                        actionName: "Agent",
-                        controllerName: "WinLossDetail",
-                        routeValues: new
-                        {
-                            Custid = data.CustId,
-                            PageIndex = Model.ReportData.CurrentPageIndex,
-                            PageSize = Model.ReportData.PageSize,
-                            FromDate = Model.FromDate,
-                            ToDate = Model.ToDate,
-                            SelectedProducts = Model.SelectedProducts,
-                            SortedColumn = Model.SortedColumn,
-                            SortDirection = Model.SortDirection,
-                            IsStackMode = Model.IsStackMode ? "true" : "false",
-                            IsHistoricReport = Model.IsHistoricReport,
-                            HideFilter = Model.HideFilter,
-                        },
-                        htmlAttributes: new
-                        {
-                            @class = "downline-link"
-                        }).ToString(),
+                    $"<a href=\"#\" class=\"downline-link\" data-custid=\"{data.CustId}\">{data.CustName}</a>",
                     string.Empty)
             }
-    </tbody>
-    <tfoot>
-        @GetRow(Model.ReportData.Total, Model.ReportData.Total.CustName, "RptFooter")
-    </tfoot>
+        </tbody>
+        <tfoot>
+            @GetRow(Model.ReportData.Total, Model.ReportData.Total.CustName, "RptFooter")
+        </tfoot>
     }
     else
     {
-    <tbody>
-        <tr>
-            <td colspan="18" align="center">@Resources.NoInformationIsAvailable</td>
-        </tr>
-    </tbody>
+        <tbody>
+            <tr>
+                <td colspan="18" align="center">@Resources.NoInformationIsAvailable</td>
+            </tr>
+        </tbody>
     }
 </table>
