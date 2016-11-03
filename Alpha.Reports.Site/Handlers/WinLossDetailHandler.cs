@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using MediatR;
     using Models;
     using Models.WinlossDetail;
@@ -33,48 +32,46 @@
 
         public WinLossDetailViewModel<MasterWinLossDetail> Handle(WinLossDetailQuery<MasterWinLossDetail> message)
         {
-            message.UserLevel = UserLevel.Super;
-
-            return CreateViewModel<MasterWinLossDetail, WinLossDetailViewModel<MasterWinLossDetail>>(message);
+            return CreateViewModel<MasterWinLossDetail, WinLossDetailViewModel<MasterWinLossDetail>>(
+                message, UserLevel.Super);
         }
 
         public WinLossDetailViewModel<AgentWinLossDetail> Handle(WinLossDetailQuery<AgentWinLossDetail> message)
         {
-            message.UserLevel = UserLevel.Master;
-
-            return CreateViewModel<AgentWinLossDetail, WinLossDetailViewModel<AgentWinLossDetail>>(message);
+            return CreateViewModel<AgentWinLossDetail, WinLossDetailViewModel<AgentWinLossDetail>>(
+                message, UserLevel.Master);
         }
 
         public WinLossDetailViewModel<MemberWinLossDetail> Handle(WinLossDetailQuery<MemberWinLossDetail> message)
         {
-            message.UserLevel = UserLevel.Agent;
-
-            return CreateViewModel<MemberWinLossDetail, WinLossDetailViewModel<MemberWinLossDetail>>(message);
+            return CreateViewModel<MemberWinLossDetail, WinLossDetailViewModel<MemberWinLossDetail>>(
+                message, UserLevel.Agent);
         }
 
-        private TViewModel CreateViewModel<TModel, TViewModel>(WinLossDetailQuery<TModel> message)
+        private TViewModel CreateViewModel<TModel, TViewModel>(
+            WinLossDetailQuery<TModel> message, 
+            UserLevel reportLevel)
             where TModel : MemberWinLossDetail
             where TViewModel : WinLossDetailViewModel<TModel>, new()
         {
             if (message == null)
             {
                 throw new ArgumentNullException("message");
-            }
+            }            
 
             var products = productService.GetProductsForCustomer(message.CustId);
-            var param = CreateParamater(message, products);
+            var param = CreateParamater(message, products, reportLevel);
 
             var reportData = reportService.GetWinLossDetail<TModel>(param);
 
             var viewModel = new TViewModel
             {
-                CustId = param.CustId,
-                CurrentDate = DateTime.Now,
+                CustId = param.CustId,                
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,
 
                 Products = products,
-                SelectedProducts = string.Join(",", param.ProductIds),
+                SelectedProducts = param.UserSelectedProductIds,
                 Language = message.Language,
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
@@ -93,20 +90,18 @@
 
         private WinLossDetailParam CreateParamater<TModel>(
             WinLossDetailQuery<TModel> message,
-            IEnumerable<Product> userProducts) where TModel : MemberWinLossDetail
+            IEnumerable<Product> userProducts,
+            UserLevel reportLevel)
+            where TModel : MemberWinLossDetail
         {
-            var selectedProducts = string.IsNullOrWhiteSpace(message.SelectedProducts)
-                ? string.Join(",", userProducts.Select(product => product.Id))
-                : message.SelectedProducts;
-
-            return new WinLossDetailParam(
+           return new WinLossDetailParam(
                 message.CustId,
                 message.PageIndex,
                 message.PageSize,
                 message.FromDate,
                 message.ToDate,
-                selectedProducts,
-                message.UserLevel,
+                message.UserSelectedProductIds,
+                reportLevel,
                 message.SortedColumn,
                 message.SortDirection,
                 message.IsHistoricReport);

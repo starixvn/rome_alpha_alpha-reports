@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria.WinLossDetail
 {
     using System;
-    using System.Collections.Generic;
     using Models;
 
     public class WinLossDetailCriteria : ReportProductCriteria
@@ -14,23 +13,23 @@
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay,
-            IEnumerable<int> productIdList,
-            UserLevel userLevel)
-            : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay, productIdList)
+            string productIds,
+            UserLevel reportLevel)
+            : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
         {
-            ViewerLevel = userLevel;
+            ReportLevel = reportLevel;
         }
 
-        private UserLevel ViewerLevel { get; }
+        private UserLevel ReportLevel { get; }
 
         public override string GetSettingKey()
         {
-            if (ViewerLevel.IsAgentLevel())
+            if (ReportLevel.IsAgentLevel())
             {
                 return "Age_Rpt_WinLossDetail_Member";
             }
 
-            if (ViewerLevel.IsMasterLevel())
+            if (ReportLevel.IsMasterLevel())
             {
                 return "Age_Rpt_WinLossDetail_Agent";
             }

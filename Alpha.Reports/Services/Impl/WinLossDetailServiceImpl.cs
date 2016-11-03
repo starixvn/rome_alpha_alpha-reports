@@ -11,11 +11,16 @@
     public class WinLossDetailServiceImpl : WinLossDetailService
     {
         private readonly ReportDateService reportDateService;
+        private readonly ProductService productService;
         private readonly WinLossDetailDataAccess reportDataAccess;
 
-        public WinLossDetailServiceImpl(ReportDateService reportDateService, WinLossDetailDataAccess reportDataAccess)
+        public WinLossDetailServiceImpl(
+            ReportDateService reportDateService,
+            ProductService productService,
+            WinLossDetailDataAccess reportDataAccess)
         {
             this.reportDateService = reportDateService;
+            this.productService = productService;
             this.reportDataAccess = reportDataAccess;
         }
 
@@ -23,8 +28,13 @@
         {
             if (param == null)
             {
-                throw new ArgumentNullException("param");
+                throw new ArgumentNullException(nameof(param));
             }
+
+            var validUserSelectedProductIds =
+                string.Join(",",
+                productService
+                .FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds));                
 
             var criteria = new WinLossDetailCriteria(
                 param.CustId,
@@ -34,8 +44,8 @@
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                param.ProductIds,
-                param.ViewerLevel);
+                validUserSelectedProductIds,
+                param.ReportLevel);
 
             var rawData = reportDataAccess.GetData<T>(criteria);
             return new ReportData<T>(

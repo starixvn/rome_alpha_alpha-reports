@@ -1,8 +1,6 @@
 ﻿namespace Alpha.Reports.Params
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Constants;
     using Extensions;
     using Models;
@@ -15,8 +13,8 @@
             int pageSize,
             DateTime fromDate,
             DateTime toDate,
-            string productIds,
-            UserLevel userLevel,
+            string userSelectedProductIds,
+            UserLevel reportLevel,
             string sortedColumn,
             int sortDirection,
             bool isHistoricReport)
@@ -35,10 +33,8 @@
             }
 
             ToDate = toDate == DateTime.MinValue ? DateTime.Now : toDate;
-            ProductIds = string.IsNullOrWhiteSpace(productIds)
-                ? Enumerable.Empty<int>()
-                : productIds.Split(',').Select(id => Convert.ToInt32(id));
-            ViewerLevel = userLevel;
+            
+            ReportLevel = reportLevel;
 
             SortedColumn = string.IsNullOrWhiteSpace(sortedColumn)
                 ? GetDefaultSortedColumn()
@@ -57,9 +53,9 @@
 
         public DateTime ToDate { get; }
 
-        public IEnumerable<int> ProductIds { get; }
+        public string UserSelectedProductIds { get; }
 
-        public UserLevel ViewerLevel { get; }
+        public UserLevel ReportLevel { get; }
 
         public string SortedColumn { get; }
 

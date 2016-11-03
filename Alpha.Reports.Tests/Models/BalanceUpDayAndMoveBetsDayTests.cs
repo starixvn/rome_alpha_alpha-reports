@@ -2,13 +2,8 @@
 {
     using System;
     using Alpha.Reports.Models;
-    using Criteria;
-    using Fanex.Caching;
-    using Fanex.Data.Repository;
     using NSubstitute;
     using NUnit.Framework;
-    using Reports.Services;
-    using Reports.Services.Impl;
 
     [TestFixture]
     public class BalanceUpDayAndMoveBetsDayTests

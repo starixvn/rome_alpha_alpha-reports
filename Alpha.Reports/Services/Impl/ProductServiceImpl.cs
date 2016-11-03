@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Extensions;
     using Fanex.Caching;
     using Models;
     using RemotingRef;
@@ -28,8 +29,29 @@
             this.getProductName = getProductName ?? new CacheRefServiceImpl().GetProductName;
         }
 
+        public IEnumerable<int> FilterProductIdsByCustomer(int custId, string productIds)
+        {
+            var customerProducts = GetProductsForCustomer(custId);
+
+            if (string.IsNullOrWhiteSpace(productIds))
+            {
+                return Enumerable.Empty<int>();
+            }
+
+            var productIdList = productIds.ToListInt();
+
+            return customerProducts
+                .Where(product => productIdList.Contains(product.Id))
+                .Select(product => product.Id);
+        }
+
         public IEnumerable<Product> GetProductsForCustomer(int custId)
         {
+            if (custId <= 0)
+            {
+                return Enumerable.Empty<Product>();
+            }
+
             var productList = CacheService
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",

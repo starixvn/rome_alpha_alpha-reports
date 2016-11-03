@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
     using MediatR;
-    using Models;
     using Models.WinlossDetail;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
@@ -27,11 +26,11 @@
             Language = userSession.Language;
         }
 
-        private bool IsNotDrillDownQuery => CustId <= 0;        
+        private bool IsNotDrillDownQuery => CustId <= 0;
 
         public string Language { get; }
 
-        public string SelectedProducts { get; set; }
+        public string UserSelectedProductIds { get; set; }
 
         public string SortedColumn { get; set; }
 
@@ -44,9 +43,5 @@
         public bool HideFilter { get; set; }
 
         public int SelectedDateRange { get; set; }
- public UserLevel UserLevel
-        {
-            get; set;
-        }
     }
 }
