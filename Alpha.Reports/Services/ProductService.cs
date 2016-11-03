@@ -6,6 +6,7 @@
     public interface ProductService
     {
         IEnumerable<Product> GetProductsForCustomer(int custId);
-        IEnumerable<int> FilterProductIdsByCustomer(int custId, string productIds);        
+
+        IEnumerable<int> FilterProductIdsByCustomer(int custId, string productIds);
     }
 }

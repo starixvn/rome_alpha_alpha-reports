@@ -15,7 +15,6 @@
         IRequestHandler<WinLossDetailQuery<AgentWinLossDetail>, WinLossDetailViewModel<AgentWinLossDetail>>,
         IRequestHandler<WinLossDetailQuery<MemberWinLossDetail>, WinLossDetailViewModel<MemberWinLossDetail>>
     {
-
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
         private readonly ApplicationContext applicationContext;

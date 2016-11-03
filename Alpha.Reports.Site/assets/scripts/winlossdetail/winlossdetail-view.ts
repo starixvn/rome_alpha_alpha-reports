@@ -354,20 +354,6 @@ class WinLossDetailView {
             });
         }
 
-        this.domElements.sortColumns.on("click",
-            function () {
-                var sortedColumn = $(this).data("sortedname");
-
-                if (sortedColumn !== $this.sortedColumn) {
-                    $this.sortDirection = alphaReports.sort.ascending;
-                } else {
-                    $this.sortDirection = - $this.sortDirection;
-                }
-
-                $this.sortedColumn = sortedColumn;
-                winLossDetailController.getReport();
-            });
-
         $(window).resize(function () {
             $this.positionNetTurnoverTooltip();
         });
@@ -506,7 +492,29 @@ class WinLossDetailView {
     };
 
     renderSortedColumn = () => {
+        var $this = this;
         var tableReport = this.domElements.tableReport;
+
+        if (parseInt(tableReport.data("totalrecords"), 0) <= 1) {
+            this.domElements.sortColumns.removeAttr("data-sortedname");
+
+            return;
+        } else {
+            this.domElements.sortColumns.on("click",
+                function () {
+                    var sortedColumn = $(this).data("sortedname");
+
+                    if (sortedColumn !== $this.sortedColumn) {
+                        $this.sortDirection = alphaReports.sort.ascending;
+                    } else {
+                        $this.sortDirection = - $this.sortDirection;
+                    }
+
+                    $this.sortedColumn = sortedColumn;
+                    winLossDetailController.getReport();
+                });
+        }
+
         var sortedColumn = tableReport.data("sortedcolumn");
         var sortDirection = tableReport.data("sortdirection");
 
@@ -514,10 +522,18 @@ class WinLossDetailView {
             ? "icon-menu-up ascSorting"
             : "icon-menu-down descSorting";
 
-        var column = tableReport.find("th[data-sortedname='" + sortedColumn + "']");
-        column.append("<span class=\"" + sortClass + "\"></span>");
-    };
+        var columns = tableReport.find("th[data-sortedname='" + sortedColumn + "']");
+        columns.each(function () {
+            var column = $(this);
+            var isCombinedColumn = column.hasClass("col-combine");
 
+            if (isCombinedColumn) {
+                column.find(".prior-sortedcolumn").append("<span class=\"" + sortClass + "\"></span>");
+            } else {
+                column.append("<span class=\"" + sortClass + "\"></span>");
+            }
+        });
+    };
 };
 
 const winLossDetailView = new WinLossDetailView();

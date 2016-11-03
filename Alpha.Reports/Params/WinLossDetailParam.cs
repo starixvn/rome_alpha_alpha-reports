@@ -88,7 +88,9 @@
             var isInRange =
                 ReportLevel.IsSuperLevel()
                 || (ReportLevel.IsMasterLevel() && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
-                || (ReportLevel.IsAgentLevel() && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase) && !sortedColumn.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
+                || (ReportLevel.IsAgentLevel()
+                        && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
+                        && !sortedColumn.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
 
             if (isInRange)
             {
