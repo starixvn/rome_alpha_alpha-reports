@@ -20,6 +20,7 @@
             string sortedColumn,
             int sortDirection,
             bool isHistoricReport,
+            bool isStackMode,
             IEnumerable<Product> userProducts)
         {
             CustId = custId;
@@ -41,7 +42,7 @@
 
             SortedColumn = string.IsNullOrWhiteSpace(sortedColumn)
                 ? GetDefaultSortedColumn()
-                : GetSortedColumn(sortedColumn);
+                : GetSortedColumn(sortedColumn, isStackMode);
 
             SortDirection = sortDirection == 0 ? SortDirectionConstant.Default : sortDirection;
         }
@@ -79,7 +80,7 @@
             return "AgentWinLoss";
         }
 
-        private string GetSortedColumn(string sortedColumn)
+        private string GetSortedColumn(string sortedColumn, bool isStackMode)
         {
             var isInRange =
                 ReportLevel.IsSuperLevel()
@@ -88,12 +89,33 @@
                         && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
                         && !sortedColumn.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
 
-            if (isInRange)
+            if (!isInRange)
+            {
+                return GetDefaultSortedColumn();
+            }
+
+            if (!isStackMode)
             {
                 return sortedColumn;
             }
 
-            return GetDefaultSortedColumn();
+            var combinedColumns = new Dictionary<string, string>()
+            {
+                ["netturnover"] = "Turnover",
+                ["grosscomm"] = "Turnover",
+                ["membercomm"] = "MemberWinLoss",
+                ["membertotal"] = "MemberWinLoss",
+                ["agentcomm"] = "AgentWinLoss",
+                ["agenttotal"] = "AgentWinLoss",
+                ["mastercomm"] = "MasterWinLoss",
+                ["mastertotal"] = "MasterWinLoss",
+                ["supercomm"] = "SuperWinLoss",
+                ["supertotal"] = "SuperWinLoss"
+            };
+
+            return combinedColumns.ContainsKey(sortedColumn.ToLower())
+                ? combinedColumns[sortedColumn.ToLower()]
+                : sortedColumn;
         }
     }
 }

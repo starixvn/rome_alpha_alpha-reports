@@ -104,6 +104,7 @@
                  message.SortedColumn,
                  message.SortDirection,
                  message.IsHistoricReport,
+                 message.IsStackMode,
                  userProducts);
         }
     }
