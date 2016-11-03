@@ -2,9 +2,5 @@
   {
     "outputFile": "assets/styles/reports.css",
     "inputFile": "assets/styles/reports.scss"
-  },
-  {
-    "outputFile": "assets/styles/winlossdetail/winlossdetail.css",
-    "inputFile": "assets/styles/winlossdetail/winlossdetail.scss"
   }
 ]

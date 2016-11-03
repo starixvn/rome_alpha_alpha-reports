@@ -245,7 +245,7 @@
     <value>ส่งออกไปที่โปรแกรมเอกเซล</value>
   </data>
   <data name="TO_NetTO_GrossComm" xml:space="preserve">
-    <value>เงินหมุนเวียน/เงินหมุนเวียน
+    <value>&lt;span class="prior-sortedcolumn"&gt;เงินหมุนเวียน/เงินหมุนเวียน&lt;/span&gt;
 (ไม่รวมยอดเสมอ)/ยอดรวมของคอมมิชชั่น</value>
   </data>
   <data name="WL_Comm_Total" xml:space="preserve">

@@ -218,7 +218,7 @@
     <value>엘셀로 내보내기</value>
   </data>
   <data name="TO_NetTO_GrossComm" xml:space="preserve">
-    <value>총 배팅한 금액/순매출/전체 수수료</value>
+    <value>&lt;span class="prior-sortedcolumn"&gt;총 배팅한 금액&lt;/span&gt;/순매출/전체 수수료</value>
   </data>
   <data name="WL_Comm_Total" xml:space="preserve">
     <value>&lt;span class="prior-sortedcolumn"&gt;승/패&lt;/span&gt;/수수료/총</value>

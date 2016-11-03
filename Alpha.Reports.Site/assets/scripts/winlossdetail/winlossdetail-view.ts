@@ -27,13 +27,17 @@ class WinLossDetailView {
 
         isHistoricReport: null,
         downlineLink: null,
-        dropdownDateRange: null
+        dropdownDateRange: null,
+        sortColumns: null
     };
 
     isFirstSwitchMode = true;
 
     pageIndex = 0;
     pageSize = 0;
+    sortedColumn = "";
+    sortDirection = alphaReports.sort.none;
+
     timeToShowNetTurnoverTooltip = 10000;
     cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
     isHistoricReport = false;
@@ -52,13 +56,17 @@ class WinLossDetailView {
         this.renderPager();
         this.renderNetTurnoverTooltip();
 
-        this.domElements.tableReport.stickyTableHeaders();
+        var tableReport = this.domElements.tableReport;
+        tableReport.stickyTableHeaders();
 
         if (this.domElements.filter.data("ishide") === 1) {
             this.hideFilter();
         }
 
         this.renderSortedColumn();
+
+        this.sortedColumn = tableReport.data("sortedcolumn");
+        this.sortDirection = tableReport.data("sortdirection");
 
         this.registerEvents();
     };
@@ -90,6 +98,8 @@ class WinLossDetailView {
 
         this.domElements.downlineLink = $(".downline-link");
         this.domElements.dropdownDateRange = $("#dropdown-daterange");
+
+        this.domElements.sortColumns = this.domElements.tableReport.find("th[data-sortedname]");
     };
 
     renderDateRangePicker = () => {
@@ -344,6 +354,20 @@ class WinLossDetailView {
             });
         }
 
+        this.domElements.sortColumns.on("click",
+            function () {
+                var sortedColumn = $(this).data("sortedname");
+
+                if (sortedColumn !== $this.sortedColumn) {
+                    $this.sortDirection = alphaReports.sort.ascending;
+                } else {
+                    $this.sortDirection = - $this.sortDirection;
+                }
+
+                $this.sortedColumn = sortedColumn;
+                winLossDetailController.getReport();
+            });
+
         $(window).resize(function () {
             $this.positionNetTurnoverTooltip();
         });
@@ -453,8 +477,8 @@ class WinLossDetailView {
             FromDate: dateRange.FromDate,
             ToDate: dateRange.ToDate,
             UserSelectedProductIds: selected.join(","),
-            SortedColumn: tableReport.data("sortedcolumn"),
-            SortDirection: tableReport.data("sortdirection"),
+            SortedColumn: this.sortedColumn,
+            SortDirection: this.sortDirection,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: isHistoricReport,
             HideFilter: this.domElements.filter.is(":hidden") ? true : false,
@@ -470,8 +494,8 @@ class WinLossDetailView {
             FromDate: tableReport.data("fromdate"),
             ToDate: tableReport.data("todate"),
             UserSelectedProductIds: this.domElements.dropdownProduct.data("selectedproducts"),
-            SortedColumn: tableReport.data("sortedcolumn"),
-            SortDirection: tableReport.data("sortdirection"),
+            SortedColumn: this.sortedColumn,
+            SortDirection: this.sortDirection,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
             HideFilter: this.domElements.filter.is(":hidden") ? true : false,
@@ -493,6 +517,7 @@ class WinLossDetailView {
         var column = tableReport.find("th[data-sortedname='" + sortedColumn + "']");
         column.append("<span class=\"" + sortClass + "\"></span>");
     };
+
 };
 
 const winLossDetailView = new WinLossDetailView();

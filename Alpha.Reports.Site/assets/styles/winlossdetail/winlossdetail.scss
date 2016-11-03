@@ -1,9 +1,0 @@
-﻿#tbl-report {
-    &[data-sortdirection="1"] {
-        &[data-sortedcolumn="SuperWinLoss"] {
-            [data-sortedname="SuperWinLoss"]::after {
-                content: "<span class='icon-menu-up ascSorting'></span>";
-            }
-        }
-    }
-}

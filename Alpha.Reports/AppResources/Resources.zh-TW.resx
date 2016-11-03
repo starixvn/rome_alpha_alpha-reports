@@ -224,7 +224,7 @@
     <value>導出到Excel</value>
   </data>
   <data name="TO_NetTO_GrossComm" xml:space="preserve">
-    <value>投注額/淨投注額/淨投注額</value>
+    <value>&lt;span class="prior-sortedcolumn"&gt;投注額&lt;/span&gt;/淨投注額/淨投注額</value>
   </data>
   <data name="WL_Comm_Total" xml:space="preserve">
     <value>&lt;span class="prior-sortedcolumn"&gt;輸贏&lt;/span&gt;/佣金/總和</value>

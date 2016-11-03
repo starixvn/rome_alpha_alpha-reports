@@ -493,7 +493,7 @@ namespace Alpha.Reports.AppResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TO/Net TO/Gross Comm.
+        ///   Looks up a localized string similar to &lt;span class=&quot;prior-sortedcolumn&quot;&gt;TO&lt;/span&gt;/Net TO/Gross Comm.
         /// </summary>
         public static string TO_NetTO_GrossComm {
             get {

@@ -254,7 +254,7 @@
     <value>Total</value>
   </data>
   <data name="TO_NetTO_GrossComm" xml:space="preserve">
-    <value>TO/Net TO/Gross Comm</value>
+    <value>&lt;span class="prior-sortedcolumn"&gt;TO&lt;/span&gt;/Net TO/Gross Comm</value>
   </data>
   <data name="WL_Comm_Total" xml:space="preserve">
     <value>&lt;span class="prior-sortedcolumn"&gt;WL&lt;/span&gt;/Comm/Total</value>

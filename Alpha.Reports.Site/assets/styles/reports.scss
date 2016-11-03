@@ -245,3 +245,9 @@ a {
         }
     }
 }
+
+#tbl-report {
+    th[data-sortedname] {
+        cursor: pointer;
+    }
+}
