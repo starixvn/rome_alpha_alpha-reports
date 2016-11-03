@@ -122,7 +122,6 @@ class WinLossDetailView {
                 LabelCss: ""
             },
             selectedItem: dateRangePicker.data("selecteddaterange"),
-            onSelectDatePicker: null,
             minDate: new Date(minDate),
             maxDate: maxDate === "" ? null : maxDate,
             currentDate: new Date(currentDate),
