@@ -44,10 +44,6 @@
                 : GetSortedColumn(sortedColumn);
 
             SortDirection = sortDirection == 0 ? SortDirectionConstant.Default : sortDirection;
-
-            UserSelectedProductIds = string.IsNullOrWhiteSpace(userSelectedProductIds)
-                ? string.Join(",", userProducts.Select(product => product.Id))
-                : userSelectedProductIds;
         }
 
         public int CustId { get; }

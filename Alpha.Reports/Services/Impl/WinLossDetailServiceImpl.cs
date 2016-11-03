@@ -48,6 +48,9 @@
                 param.ReportLevel);
 
             var rawData = reportDataAccess.GetData<T>(criteria);
+
+
+
             return new ReportData<T>(
                 IEnumerableHelper.Sort(rawData.DataSource, param.SortedColumn, param.SortDirection),
                 criteria.PageIndex,

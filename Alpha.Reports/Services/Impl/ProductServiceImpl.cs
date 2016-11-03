@@ -31,18 +31,10 @@
 
         public IEnumerable<int> FilterProductIdsByCustomer(int custId, string productIds)
         {
-            var customerProducts = GetProductsForCustomer(custId);
+            var customerProductIds = GetProductsForCustomer(custId).Select(product => product.Id);
+            var productIdList = productIds?.ToListInt() ?? customerProductIds;
 
-            if (string.IsNullOrWhiteSpace(productIds))
-            {
-                return Enumerable.Empty<int>();
-            }
-
-            var productIdList = productIds.ToListInt();
-
-            return customerProducts
-                .Where(product => productIdList.Contains(product.Id))
-                .Select(product => product.Id);
+            return customerProductIds.Where(product => productIdList.Contains(product));
         }
 
         public IEnumerable<Product> GetProductsForCustomer(int custId)

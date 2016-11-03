@@ -23,10 +23,10 @@
             {
                 var dataSource = Enumerable.Empty<T>();
 
-                using (var multi = objectDb.QueryMultiple(criteria))
+                using (var reader = objectDb.QueryMultiple(criteria))
                 {
-                    dataSource = multi.Read<T>();
-                    total = multi.Read<T>().FirstOrDefault();
+                    dataSource = reader.Read<T>();                    
+                    total = reader.Read<T>().FirstOrDefault();
                 }
 
                 reportData = new ReportData<T>(
