@@ -8,6 +8,12 @@ class AlphaReports {
         shortDateWithSlash_MonthPicker: "MM/dd/yyyy"
     };
 
+    sort = {
+        none: 0,
+        ascending: 1,
+        descending: -1
+    };
+
     keyCode = {
         enter: 13
     };
@@ -15,7 +21,7 @@ class AlphaReports {
     pageList = [1000, 2000, 3000, 5000];
     maxTimesToShowTooltip = 5;
     screenSmallThan768 = () => {
-        var currentWindowWidth = window.screen.width;
+        var currentWindowWidth = $(window).width();
 
         return currentWindowWidth < 768;
     };

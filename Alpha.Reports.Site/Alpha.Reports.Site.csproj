@@ -309,6 +309,12 @@
     <Content Include="assets\styles\reports.min.css">
       <DependentUpon>reports.css</DependentUpon>
     </Content>
+    <Content Include="assets\styles\winlossdetail\winlossdetail.css">
+      <DependentUpon>winlossdetail.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\winlossdetail\winlossdetail.min.css">
+      <DependentUpon>winlossdetail.css</DependentUpon>
+    </Content>
     <Content Include="bundleconfig.json" />
     <CodeAnalysisDictionary Include="CodeAnalysis\CustomDictionary.xml" />
     <Content Include="compilerconfig.json" />
@@ -333,6 +339,8 @@
     <Content Include="Views\WinLossDetail\PageTitle.cshtml" />
     <Content Include="Views\WinLossDetail\Filter.cshtml" />
     <Content Include="Views\WinLossDetail\Pager.cshtml" />
+    <Content Include="App_Code\SharedHelpers.cshtml" />
+    <Content Include="assets\styles\winlossdetail\winlossdetail.scss" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>

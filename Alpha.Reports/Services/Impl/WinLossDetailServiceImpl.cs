@@ -3,6 +3,7 @@
     using System;
     using Criteria.WinLossDetail;
     using DataAccess;
+    using Helpers;
     using Models;
     using Models.WinlossDetail;
     using Params;
@@ -36,7 +37,13 @@
                 param.ProductIds,
                 param.ViewerLevel);
 
-            return reportDataAccess.GetData<T>(criteria);
+            var rawData = reportDataAccess.GetData<T>(criteria);
+            return new ReportData<T>(
+                IEnumerableHelper.Sort(rawData.DataSource, param.SortedColumn, param.SortDirection),
+                criteria.PageIndex,
+                criteria.PageSize,
+                rawData.TotalRecords,
+                rawData.Total);
         }
     }
 }

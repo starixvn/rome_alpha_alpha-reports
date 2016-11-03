@@ -37,6 +37,9 @@ class WinLossDetailView {
     timeToShowNetTurnoverTooltip = 10000;
     cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
     isHistoricReport = false;
+
+    slideAnimationTime = 200;
+
     init = () => {
         this.renderDateRangePicker();
         this.renderDropdownProduct();
@@ -51,9 +54,11 @@ class WinLossDetailView {
 
         this.domElements.tableReport.stickyTableHeaders();
 
-        if ($("#hidefilter").val() === "1") {
+        if (this.domElements.filter.data("ishide") === 1) {
             this.hideFilter();
         }
+
+        this.renderSortedColumn();
 
         this.registerEvents();
     };
@@ -81,7 +86,7 @@ class WinLossDetailView {
         this.domElements.closeNetTurnoverTooltip = $("#close-netturnover-tooltip");
 
         this.domElements.isHistoricReport = $("#ishistoricreport");
-        this.isHistoricReport = this.domElements.isHistoricReport.val() == "true";
+        this.isHistoricReport = this.domElements.isHistoricReport.val() === "true";
 
         this.domElements.downlineLink = $(".downline-link");
         this.domElements.dropdownDateRange = $("#dropdown-daterange");
@@ -240,9 +245,10 @@ class WinLossDetailView {
             } else {
                 $this.hideFilter();
             }
+
             setTimeout(function () {
                 $this.positionNetTurnoverTooltip();
-            }, 200);
+            }, $this.slideAnimationTime);
         });
 
         this.domElements.iconSwitchMode.on("click", function () {
@@ -328,9 +334,13 @@ class WinLossDetailView {
         });
 
         if (alphaReports.screenSmallThan768()) {
-            this.domElements.buttonSubmit.on("click", function () {
+            this.domElements.buttonSubmit.off("click").on("click", function () {
                 $this.domElements.pageTitle.addClass("hide-filter");
                 $this.domElements.filter.slideUp("fast");
+
+                setTimeout(function () {
+                    winLossDetailController.getReport();
+                }, $this.slideAnimationTime);
             });
         }
 
@@ -431,8 +441,8 @@ class WinLossDetailView {
             : this.domElements.dateRangePicker.nexDatePicker("getDateRange");
 
         var selected = [];
-        var selectedOptions = this.domElements.dropdownProduct.find('option:selected');
-        selectedOptions.each(function (index, brand) {
+        var selectedOptions = this.domElements.dropdownProduct.find("option:selected");
+        selectedOptions.each(function () {
             selected.push([$(this).val()]);
         });
 
@@ -448,10 +458,10 @@ class WinLossDetailView {
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: isHistoricReport,
             HideFilter: this.domElements.filter.is(":hidden") ? true : false,
-            SelectedDateRange: this.domElements.dropdownDateRange.find('option:selected').val()
+            SelectedDateRange: this.domElements.dropdownDateRange.find("option:selected").val()
         };
     };
-    drilldown = (downlineLink) => {
+    drilldown = (downlineLink: any) => {
         var tableReport = this.domElements.tableReport;
         var params = {
             CustId: downlineLink.data("custid"),
@@ -465,10 +475,23 @@ class WinLossDetailView {
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
             HideFilter: this.domElements.filter.is(":hidden") ? true : false,
-            SelectedDateRange: this.domElements.dropdownDateRange.find('option:selected').val()
+            SelectedDateRange: this.domElements.dropdownDateRange.find("option:selected").val()
         };
 
         winLossDetailController.drilldown(params);
+    };
+
+    renderSortedColumn = () => {
+        var tableReport = this.domElements.tableReport;
+        var sortedColumn = tableReport.data("sortedcolumn");
+        var sortDirection = tableReport.data("sortdirection");
+
+        var sortClass = sortDirection === alphaReports.sort.ascending
+            ? "icon-menu-up ascSorting"
+            : "icon-menu-down descSorting";
+
+        var column = tableReport.find("th[data-sortedname='" + sortedColumn + "']");
+        column.append("<span class=\"" + sortClass + "\"></span>");
     };
 };
 

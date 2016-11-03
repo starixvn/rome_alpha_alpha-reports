@@ -105,7 +105,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Constants\DefaultVariables.cs" />
-    <Compile Include="Constants\SortDirection.cs" />
+    <Compile Include="Constants\SortDirectionConstant.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />

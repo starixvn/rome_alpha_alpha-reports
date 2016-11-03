@@ -5,7 +5,7 @@
 
     public static class IEnumerableHelper
     {
-        public static IEnumerable<T> SortIEnumerable<T>(IEnumerable<T> enumerable, string columnName, int direction)
+        public static IEnumerable<T> Sort<T>(IEnumerable<T> enumerable, string columnName, int direction)
         {
             var property = typeof(T).GetProperty(columnName);
             var list = enumerable.ToList();

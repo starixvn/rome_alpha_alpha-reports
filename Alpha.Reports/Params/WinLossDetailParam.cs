@@ -39,8 +39,12 @@
                 ? Enumerable.Empty<int>()
                 : productIds.Split(',').Select(id => Convert.ToInt32(id));
             ViewerLevel = userLevel;
-            SortedColumn = sortedColumn;
-            SortDirection = sortDirection;
+
+            SortedColumn = string.IsNullOrWhiteSpace(sortedColumn)
+                ? GetDefaultSortedColumn()
+                : GetSortedColumn(sortedColumn);
+
+            SortDirection = sortDirection == 0 ? SortDirectionConstant.Default : sortDirection;
         }
 
         public int CustId { get; }
@@ -60,5 +64,35 @@
         public string SortedColumn { get; }
 
         public int SortDirection { get; }
+
+        private string GetDefaultSortedColumn()
+        {
+            if (ViewerLevel.IsSuperLevel())
+            {
+                return "SuperWinLoss";
+            }
+
+            if (ViewerLevel.IsMasterLevel())
+            {
+                return "MasterWinLoss";
+            }
+
+            return "AgentWinLoss";
+        }
+
+        private string GetSortedColumn(string sortedColumn)
+        {
+            var isInRange =
+                ViewerLevel.IsSuperLevel()
+                || (ViewerLevel.IsMasterLevel() && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
+                || (ViewerLevel.IsAgentLevel() && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase) && !sortedColumn.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
+
+            if (isInRange)
+            {
+                return sortedColumn;
+            }
+
+            return GetDefaultSortedColumn();
+        }
     }
 }

@@ -4,7 +4,7 @@
     "inputFile": "assets/styles/reports.scss"
   },
   {
-    "outputFile": "assets/styles/winlossdetail/index.css",
-    "inputFile": "assets/styles/winlossdetail/index.scss"
+    "outputFile": "assets/styles/winlossdetail/winlossdetail.css",
+    "inputFile": "assets/styles/winlossdetail/winlossdetail.scss"
   }
 ]

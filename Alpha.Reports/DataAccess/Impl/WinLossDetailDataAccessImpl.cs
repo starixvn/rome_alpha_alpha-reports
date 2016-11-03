@@ -16,7 +16,7 @@
             }
 
             ReportData<T> reportData;
-            
+
             T total = null;
 
             using (var objectDb = new ObjectDb(criteria.GetSettingKey()))

@@ -1,0 +1,13 @@
+﻿@using Alpha.Reports.Extensions;
+
+@helper GetCombinedColumn(IEnumerable<decimal> columns, string css, int colspan)
+{
+    <td class="@css" colspan="@colspan">
+        <ul>
+            @foreach (var column in columns)
+            {
+                <li>@column.ToNumericString()</li>
+            }
+        </ul>
+    </td>
+}
