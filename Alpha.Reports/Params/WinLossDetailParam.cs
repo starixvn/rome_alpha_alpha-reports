@@ -63,12 +63,12 @@
 
         private string GetDefaultSortedColumn()
         {
-            if (ViewerLevel.IsSuperLevel())
+            if (ReportLevel.IsSuperLevel())
             {
                 return "SuperWinLoss";
             }
 
-            if (ViewerLevel.IsMasterLevel())
+            if (ReportLevel.IsMasterLevel())
             {
                 return "MasterWinLoss";
             }
@@ -79,9 +79,9 @@
         private string GetSortedColumn(string sortedColumn)
         {
             var isInRange =
-                ViewerLevel.IsSuperLevel()
-                || (ViewerLevel.IsMasterLevel() && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
-                || (ViewerLevel.IsAgentLevel() && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase) && !sortedColumn.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
+                ReportLevel.IsSuperLevel()
+                || (ReportLevel.IsMasterLevel() && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
+                || (ReportLevel.IsAgentLevel() && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase) && !sortedColumn.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
 
             if (isInRange)
             {
