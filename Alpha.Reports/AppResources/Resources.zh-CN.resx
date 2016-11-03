@@ -227,7 +227,7 @@
     <value>投注额/净投注额/总佣金</value>
   </data>
   <data name="WL_Comm_Total" xml:space="preserve">
-    <value>輸贏/佣金/总和</value>
+    <value>&lt;span class="prior-sortedcolumn"&gt;輸贏&lt;/span&gt;/佣金/总和</value>
   </data>
   <data name="Tooltip_NetTurnover" xml:space="preserve">
     <value>- 对于体育项目, [净投注额] 是 [总投注额] 扣除 '和局' 注单的总投注和 '输半赢半' 注单一半的总投注。</value>

@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alpha.Reports.AppResources
-{
-
-
+namespace Alpha.Reports.AppResources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -583,7 +583,7 @@ namespace Alpha.Reports.AppResources
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WL/Comm/Total.
+        ///   Looks up a localized string similar to &lt;span class=&quot;prior-sortedcolumn&quot;&gt;WL&lt;/span&gt;/Comm/Total.
         /// </summary>
         public static string WL_Comm_Total {
             get {

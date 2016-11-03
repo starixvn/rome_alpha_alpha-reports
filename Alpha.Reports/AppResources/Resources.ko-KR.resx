@@ -221,7 +221,7 @@
     <value>총 배팅한 금액/순매출/전체 수수료</value>
   </data>
   <data name="WL_Comm_Total" xml:space="preserve">
-    <value>승/패/수수료/총</value>
+    <value>&lt;span class="prior-sortedcolumn"&gt;승/패&lt;/span&gt;/수수료/총</value>
   </data>
   <data name="DoNotShowAgain" xml:space="preserve">
     <value>이 페이지를 다시 표시하지않습니다.</value>

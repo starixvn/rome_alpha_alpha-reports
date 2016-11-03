@@ -249,7 +249,7 @@
 (ไม่รวมยอดเสมอ)/ยอดรวมของคอมมิชชั่น</value>
   </data>
   <data name="WL_Comm_Total" xml:space="preserve">
-    <value>ชนะ/คอมมิชชั่น/ยอดรวม</value>
+    <value>&lt;span class="prior-sortedcolumn"&gt;ชนะ&lt;/span&gt;/คอมมิชชั่น/ยอดรวม</value>
   </data>
   <data name="Tooltip_NetTurnover" xml:space="preserve">
     <value>- สำหรับกีฬา [ยอดเดิมพันสุทธิ] คือ [จำนวนของการเดิมพันทั้งหมด] ยอดเดิมพันทั้งหมดที่เสียครึ่ง/ชนะครึ่ง 'เดิมพันครึ่งเดิมพันทั้งหมด แต่ไม่รวมตั๋วที่ผล "เสมอ"</value>

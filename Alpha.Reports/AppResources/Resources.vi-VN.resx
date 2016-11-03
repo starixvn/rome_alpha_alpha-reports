@@ -215,7 +215,7 @@
     <value>Tiền Cược/Tiền cược thực/Tổng hoa hồng</value>
   </data>
   <data name="WL_Comm_Total" xml:space="preserve">
-    <value>Thắng thua/Hoa hồng/Tổng cộng</value>
+    <value>&lt;span class="prior-sortedcolumn"&gt;Thắng thua&lt;/span&gt;/Hoa hồng/Tổng cộng</value>
   </data>
   <data name="Tooltip_NetTurnover" xml:space="preserve">
     <value>- Đối với Sportsbook, Tiền Cược Thực là tiền cược không bao gồm những cược hoà và nửa cược thắng một nửa/thua một nửa.</value>
