@@ -17,6 +17,32 @@ class WinLossDetailController {
         $.blockUI();
 
         var params = winLossDetailView.getParams();
+        if (params.UserSelectedProductIds === "") {
+            winLossDetailView.showValidaProductError();
+            $.unblockUI();
+
+            return;
+        }
+
+        $.ajax({
+            url: this.currentURL,
+            data: params,
+            method: 'GET',
+            success: (responseHtml) => {
+                setTimeout(function () {
+                    const newDoc = document.open("text/html", "replace");
+                    newDoc.write(responseHtml);
+                    newDoc.close();
+                }, 100);
+            },
+            error: () => $.unblockUI()
+        });
+    };
+    switchView = () => {
+        $.blockUI();
+
+        var params = winLossDetailView.getParams();
+
         $.ajax({
             url: this.currentURL,
             data: params,

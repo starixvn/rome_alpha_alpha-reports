@@ -28,7 +28,8 @@ class WinLossDetailView {
         isHistoricReport: null,
         downlineLink: null,
         dropdownDateRange: null,
-        sortColumns: null
+        sortColumns: null,
+        multiSelectButton: null
     };
 
     isFirstSwitchMode = true;
@@ -194,10 +195,12 @@ class WinLossDetailView {
     };
 
     renderDropdownProduct = () => {
+        var $this = this;
+
         this.domElements.dropdownProduct = $("#dropdown-product");
         var dropdownProduct = this.domElements.dropdownProduct;
         var products = dropdownProduct.data("products");
-        var selectedProducts = dropdownProduct.data("selectedproducts").split(",");
+        var selectedProducts = dropdownProduct.data("selectedproducts").toString().split(",");
 
         var product;
         var productOptions = "";
@@ -227,10 +230,23 @@ class WinLossDetailView {
             allSelectedText: dropdownProduct.data("labelallproducts"),
             includeSelectAllOption: products.length,
             onChange: function (option: any, checked: boolean) {
-                // do nothing
+                if ($this.domElements.multiSelectButton &&
+                    $this.domElements.dropdownProduct.find("option:selected").length &&
+                    $this.domElements.multiSelectButton.hasClass("error")) {
+                    $this.domElements.multiSelectButton.removeClass("error");
+                }
+            },
+            onSelectAll: function () {
+                if ($this.domElements.multiSelectButton &&
+                    $this.domElements.dropdownProduct.find("option:selected").length &&
+                    $this.domElements.multiSelectButton.hasClass("error")) {
+                    $this.domElements.multiSelectButton.removeClass("error");
+                }
             },
             language: dropdownProduct.data("language")
         });
+
+        this.domElements.multiSelectButton = $(".multiselect.btn");
     };
 
     registerEvents = () => {
@@ -238,12 +254,12 @@ class WinLossDetailView {
 
         this.domElements.historicReportSwitch.on("click", function () {
             $this.isHistoricReport = true;
-            winLossDetailController.getReport();
+            winLossDetailController.switchView();
         });
 
         this.domElements.currentReportSwitch.on("click", function () {
             $this.isHistoricReport = false;
-            winLossDetailController.getReport();
+            winLossDetailController.switchView();
         });
 
         this.domElements.iconFilter.on("click", function () {
@@ -468,7 +484,8 @@ class WinLossDetailView {
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: isHistoricReport,
             HideFilter: this.domElements.filter.is(":hidden") ? true : false,
-            SelectedDateRange: this.domElements.dropdownDateRange.find("option:selected").val()
+            SelectedDateRange: this.domElements.dropdownDateRange.find("option:selected").val(),
+            TimeStamp: new Date()
         };
     };
     drilldown = (downlineLink: any) => {
@@ -485,7 +502,8 @@ class WinLossDetailView {
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
             HideFilter: this.domElements.filter.is(":hidden") ? true : false,
-            SelectedDateRange: this.domElements.dropdownDateRange.find("option:selected").val()
+            SelectedDateRange: this.domElements.dropdownDateRange.find("option:selected").val(),
+            TimeStamp: new Date()
         };
 
         winLossDetailController.drilldown(params);
@@ -533,6 +551,13 @@ class WinLossDetailView {
                 column.append("<span class=\"" + sortClass + "\"></span>");
             }
         });
+    };
+
+    showValidaProductError = () => {
+        this.domElements.multiSelectButton.addClass("error");
+    };
+    clearError = () => {
+        this.domElements.multiSelectButton.removeClass("error");
     };
 };
 

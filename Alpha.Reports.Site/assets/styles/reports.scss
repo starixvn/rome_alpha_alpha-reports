@@ -251,3 +251,9 @@ a {
         cursor: pointer;
     }
 }
+
+.error,
+.btn-group button.multiselect.error {
+    background-color: #FF0000;
+    color: #FFFFFF;
+}
