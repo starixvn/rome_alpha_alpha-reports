@@ -1,6 +1,8 @@
 ﻿namespace Alpha.Reports.Params
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Constants;
     using Extensions;
     using Models;
@@ -17,7 +19,8 @@
             UserLevel reportLevel,
             string sortedColumn,
             int sortDirection,
-            bool isHistoricReport)
+            bool isHistoricReport,
+            IEnumerable<Product> userProducts)
         {
             CustId = custId;
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
@@ -33,7 +36,7 @@
             }
 
             ToDate = toDate == DateTime.MinValue ? DateTime.Now : toDate;
-            
+
             ReportLevel = reportLevel;
 
             SortedColumn = string.IsNullOrWhiteSpace(sortedColumn)
@@ -41,6 +44,10 @@
                 : GetSortedColumn(sortedColumn);
 
             SortDirection = sortDirection == 0 ? SortDirectionConstant.Default : sortDirection;
+
+            UserSelectedProductIds = string.IsNullOrWhiteSpace(userSelectedProductIds)
+                ? string.Join(",", userProducts.Select(product => product.Id))
+                : userSelectedProductIds;
         }
 
         public int CustId { get; }

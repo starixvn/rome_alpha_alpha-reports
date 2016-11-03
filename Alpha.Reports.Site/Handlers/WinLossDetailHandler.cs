@@ -49,7 +49,7 @@
         }
 
         private TViewModel CreateViewModel<TModel, TViewModel>(
-            WinLossDetailQuery<TModel> message, 
+            WinLossDetailQuery<TModel> message,
             UserLevel reportLevel)
             where TModel : MemberWinLossDetail
             where TViewModel : WinLossDetailViewModel<TModel>, new()
@@ -57,7 +57,7 @@
             if (message == null)
             {
                 throw new ArgumentNullException("message");
-            }            
+            }
 
             var products = productService.GetProductsForCustomer(message.CustId);
             var param = CreateParamater(message, products, reportLevel);
@@ -66,7 +66,7 @@
 
             var viewModel = new TViewModel
             {
-                CustId = param.CustId,                
+                CustId = param.CustId,
                 FromDate = param.FromDate,
                 ToDate = param.ToDate,
 
@@ -94,17 +94,18 @@
             UserLevel reportLevel)
             where TModel : MemberWinLossDetail
         {
-           return new WinLossDetailParam(
-                message.CustId,
-                message.PageIndex,
-                message.PageSize,
-                message.FromDate,
-                message.ToDate,
-                message.UserSelectedProductIds,
-                reportLevel,
-                message.SortedColumn,
-                message.SortDirection,
-                message.IsHistoricReport);
+            return new WinLossDetailParam(
+                 message.CustId,
+                 message.PageIndex,
+                 message.PageSize,
+                 message.FromDate,
+                 message.ToDate,
+                 message.UserSelectedProductIds,
+                 reportLevel,
+                 message.SortedColumn,
+                 message.SortDirection,
+                 message.IsHistoricReport,
+                 userProducts);
         }
     }
 }

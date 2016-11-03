@@ -25,7 +25,7 @@
                  data-labelspecificdate="@Resources.SpecificDate"
                  data-mindate="@FormatDate(Model.MinDate)"
                  data-maxdate="@FormatDate(Model.MaxDate)"
-                 data-currentdate="@FormatDate(Model.CurrentDate)"
+                 data-currentdate="@FormatDate(DateTime.Now)"
                  data-fromdate="@FormatDate(Model.FromDate)"
                  data-todate="@FormatDate(Model.ToDate)"
                  data-selecteddaterange="@Model.SelectedDateRange"></div>
@@ -35,11 +35,11 @@
         <div id="monthPickerID">
             <div id="dropdown-month"
                  data-mindate="@FormatDate(Model.MinDate)"
-                 data-maxdate="@FormatDate(Model.CurrentDate)"
+                 data-maxdate="@FormatDate(DateTime.Now)"
                  data-dateinmonth="@FormatDate(Model.FromDate)"
                  data-fromdate="@Model.FromDate.Day"
                  data-todate="@Model.ToDate.Day"
-                 data-currentdate="@FormatDate(Model.CurrentDate)"
+                 data-currentdate="@FormatDate(DateTime.Now)"
                  data-labelto="@Resources.To"></div>
         </div>
     </div>
