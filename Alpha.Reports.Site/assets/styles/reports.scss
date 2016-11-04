@@ -162,6 +162,14 @@ a {
         font-size: 19px;
         vertical-align: middle;
     }
+
+    .nexDatePicker {
+        margin-right: 0;
+    }
+
+    select.select-multiple {
+        height: $height-normal;
+    }
 }
 
 // Ripple effect
@@ -246,6 +254,10 @@ a {
 
         .icon-excel {
             font-size: 22px;
+        }
+
+        select.select-multiple {
+            height: $height-mobile;
         }
     }
 }
