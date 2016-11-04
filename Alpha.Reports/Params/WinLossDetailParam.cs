@@ -41,7 +41,7 @@
 
             SortByPropertyName = string.IsNullOrWhiteSpace(sortByPropertyName)
                 ? GetDefaultSortedColumn()
-                : GetSortedColumn(sortedColumn, isStackMode);
+                : GetSortedColumn(sortByPropertyName, isStackMode);
 
             UserSelectedProductIds = userSelectedProductIds;
             IsDescendingSort = isDescendingSort;   

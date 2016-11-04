@@ -64,9 +64,10 @@ class AlphaReports {
         }
 
         var combinedColumns = $(combinedColumn);
-        var oldValues = combinedColumns.find("li");
 
         combinedColumns.each(function (index: number) {
+
+            var oldValues = $(this).find("li");
             var oldColumns = "";
 
             for (var i = 0; i < columnsLength; i++) {
