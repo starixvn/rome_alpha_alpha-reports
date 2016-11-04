@@ -220,9 +220,7 @@ class WinLossDetailView {
         dropdownProduct.html(productOptions);
         dropdownProduct.multiselect({
             maxHeight: 300,
-            enableFiltering: true,
             numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
-            enableCaseInsensitiveFiltering: true,
             nonSelectedText: products.length ?
                 dropdownProduct.data("labelselectproducts")
                 : dropdownProduct.data("labelthereisnoproduct"),
