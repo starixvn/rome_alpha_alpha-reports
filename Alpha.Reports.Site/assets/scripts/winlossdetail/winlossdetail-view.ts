@@ -97,7 +97,6 @@ class WinLossDetailView {
         this.domElements.isHistoricReport = $("#ishistoricreport");
         this.isHistoricReport = this.domElements.isHistoricReport.val() === "true";
 
-        this.domElements.downlineLink = $(".downline-link");
         this.domElements.dropdownDateRange = $("#dropdown-daterange");
 
         this.domElements.sortColumns = this.domElements.tableReport.find("th[data-sortedname]");
@@ -349,10 +348,6 @@ class WinLossDetailView {
             winLossDetailController.getReport();
         });
 
-        this.domElements.downlineLink.on("click", function () {
-            $this.drilldown($(this));
-        });
-
         if (alphaReports.screenSmallThan768()) {
             this.domElements.buttonSubmit.off("click").on("click", function () {
                 $this.domElements.pageTitle.addClass("hide-filter");
@@ -481,26 +476,6 @@ class WinLossDetailView {
             UserSelectedDateRangeOption: this.domElements.dropdownDateRange.find("option:selected").val(),
             TimeStamp: new Date()
         };
-    };
-    drilldown = (downlineLink: any) => {
-        var tableReport = this.domElements.tableReport;
-        var params = {
-            CustId: downlineLink.data("custid"),
-            PageIndex: this.pageIndex,
-            PageSize: this.pageSize,
-            FromDate: tableReport.data("fromdate"),
-            ToDate: tableReport.data("todate"),
-            UserSelectedProductIds: this.domElements.dropdownProduct.data("selectedproducts"),
-            SortPropertyName: this.sortedColumn,
-            IsDescendingSort: this.descendingsort,
-            IsStackMode: tableReport.hasClass("stack-mode"),
-            IsHistoricReport: this.isHistoricReport,
-            HideFilter: this.domElements.filter.is(":hidden") ? true : false,
-            UserSelectedDateRangeOption: this.domElements.dropdownDateRange.find("option:selected").val(),
-            TimeStamp: new Date()
-        };
-
-        winLossDetailController.drilldown(params);
     };
 
     renderSortedColumn = () => {

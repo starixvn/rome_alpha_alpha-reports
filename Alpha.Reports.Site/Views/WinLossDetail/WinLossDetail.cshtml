@@ -1,0 +1,71 @@
+﻿@using Alpha.Reports.Models.WinlossDetail;
+@model  dynamic
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    @AssetStyles.Render("/bundles/common/common")
+    @AssetStyles.Render("/bundles/site-reports/default")
+    @ReportsStyles.Render("~/assets/bundles/default")
+}
+
+@Components_NetTurnoverTooltips.Render(Model.NetTurnoverTooltips)
+@Components_PageTitle.Render(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter)
+@if (Model.IsHistoricReport)
+{
+    @Components_MonthAndProductFilter.Render(
+        Model.HideFilter,
+        Model.MinDate,
+        Model.FromDate,
+        Model.ToDate,
+        Model.JsonProducts,
+        Model.UserSelectedProductIds,
+        Model.Language);
+}
+else
+{
+    @Components_DateRangeAndProductFilter.Render(
+        Model.HideFilter,
+        Model.MinDate,
+        Model.MaxDate,
+        Model.FromDate,
+        Model.ToDate,
+        Model.UserSelectedDateRangeOption,
+        Model.JsonProducts,
+        Model.UserSelectedProductIds,
+        Model.Language);
+}
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
+       @(Model.IsStackMode?"stack-mode":string.Empty)" id="tbl-report"
+       data-pageindex="@Model.ReportData.CurrentPageIndex"
+       data-pagesize="@Model.ReportData.PageSize"
+       data-totalrecords="@Model.ReportData.TotalRecords"
+       data-custid="@Model.CustId"
+       data-fromdate="@Model.FromDate"
+       data-todate="@Model.ToDate"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
+    <thead>
+        @RenderSection("ReportHeader", required: true)
+    </thead>
+    <tbody>
+        @RenderSection("ReportBody", required: true)
+    </tbody>
+    @RenderSection("ReportFooter", required: true)
+</table>
+
+@if (ViewBag.HasData)
+{
+    @Components_Pager.Render()
+}
+
+@Html.Partial("~/Views/Shared/MonthNames.cshtml")
+@Html.Hidden("ishistoricreport", (Model.IsHistoricReport ? 1 : 0))
+@Html.Hidden("currentpath", (string)ViewBag.CurrentPath)
+
+@section Scripts {
+    @AssetScripts.Render("/bundles/site-reports/default")
+    @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
+}

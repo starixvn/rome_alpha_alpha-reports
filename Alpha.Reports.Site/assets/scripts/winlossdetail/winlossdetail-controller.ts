@@ -57,23 +57,6 @@ class WinLossDetailController {
             error: () => $.unblockUI()
         });
     };
-    drilldown = (params) => {
-        $.blockUI();
-
-        $.ajax({
-            url: this.drilldownPath,
-            data: params,
-            method: 'GET',
-            success: (responseHtml) => {
-                setTimeout(function () {
-                    const newDoc = document.open("text/html", "replace");
-                    newDoc.write(responseHtml);
-                    newDoc.close();
-                }, 100);
-            },
-            error: () => $.unblockUI()
-        });
-    };
 };
 
 const winLossDetailController = new WinLossDetailController();

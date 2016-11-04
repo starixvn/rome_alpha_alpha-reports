@@ -2,7 +2,7 @@
 {
     public static class DecimalExtension
     {
-        public static string ToNumericString(this decimal value)
+        public static string ToNumericString(this int value)
         {
             return value.ToString($"#,##0.##");
         }
