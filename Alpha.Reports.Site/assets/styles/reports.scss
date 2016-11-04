@@ -125,6 +125,12 @@ a {
     }
 }
 
+#tbl-report {
+    th[data-sortedname] {
+        cursor: pointer;
+    }
+}
+
 // Filter
 .note {
     .star {
@@ -149,12 +155,17 @@ a {
         vertical-align: middle;
     }
 
-    .nexDatePicker {
+    .nex-datepicker {
         margin-right: 0;
     }
 
     select.select-multiple {
         height: $height-normal;
+    }
+
+    .error, .btn-group button.multiselect.error {
+        border: 1px solid $filter-error-border-color;
+        padding: 4px 10px;
     }
 }
 
@@ -219,7 +230,7 @@ a {
             @include box-shadow-multiple('0px 1px 3px rgba(0, 0, 0, 0.3)');
         }
 
-        .nexDatePicker {
+        .nex-datepicker {
             .input-group.date {
                 width: 128px;
             }
@@ -248,14 +259,5 @@ a {
     }
 }
 
-#tbl-report {
-    th[data-sortedname] {
-        cursor: pointer;
-    }
-}
 
-.error,
-.btn-group button.multiselect.error {
-    background-color: #FF0000;
-    color: #FFFFFF;
-}
+

@@ -106,7 +106,7 @@ else
             <th colspan="3" class="col-level">@Resources.Master</th>
             <th rowspan="2" data-sortedname="Company">@Resources.Company</th>
         </tr>
-        <tr class="RptHeader02">
+        <tr class="thead-row2">
             <th class="hidden-stack-mode col-winloss" data-sortedname="MemberWinLoss">@Resources.WinLoss</th>
             <th class="hidden-stack-mode" data-sortedname="MemberComm">@Resources.Comm</th>
             <th class="hidden-stack-mode" data-sortedname="MemberTotal">@Resources.Total</th>
@@ -133,7 +133,7 @@ else
             }
         </tbody>
         <tfoot>
-            @GetRow(Model.ReportData.Total, Model.ReportData.Total.CustName, "RptFooter")
+            @GetRow(Model.ReportData.Total, Model.ReportData.Total.CustName, "tbl-footer")
         </tfoot>
     }
     else
