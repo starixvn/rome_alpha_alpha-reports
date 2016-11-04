@@ -2,6 +2,7 @@
 @using Alpha.Reports.Models.WinlossDetail;
 @using Alpha.Reports.Site.ViewModels.WinLossDetail;
 @using Alpha.Reports.Extensions;
+@using Alpha.Reports.Site.ViewModels.ComponentViewModels;
 
 @model  WinLossDetailViewModel<MemberWinLossDetail>
 @{
@@ -51,7 +52,7 @@
 }
 
 @Html.Partial("NetTurnoverTooltips", Model.NetTurnoverTooltips)
-@Html.Partial("PageTitle", Model)
+@Components_PageTitle.Render(new PageTitleViewModel(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter))
 @Html.Partial("Filter", Model)
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
@@ -123,7 +124,11 @@
         </tbody>
     }
 </table>
-@Html.Partial("Pager", Model.ReportData.DataSource.Any())
+
+@if (Model.ReportData.DataSource.Any())
+{
+    @Components_Pager.Render()
+}
 
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
 @Html.Hidden("ishistoricreport", Model.IsHistoricReport)
