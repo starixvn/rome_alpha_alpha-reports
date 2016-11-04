@@ -1,0 +1,17 @@
+﻿@using Alpha.Reports.AppResources;
+
+@helper Render(string userProducts, string userSelectedProductIds, string language)
+{
+    <div class="form-group">
+        <label class="txt">@Resources.Product</label>
+        <select id="dropdown-product"
+                data-products="@userProducts"
+                data-selectedproducts="@userSelectedProductIds"
+                data-labelselectproducts="@Resources.SelectProducts"
+                data-labelselected="@Resources.Selected"
+                data-labelallproducts="@Resources.AllProducts"
+                data-labelthereisnoproduct="@Resources.ThereIsNoProduct"
+                data-language="@language"
+                multiple="multiple"></select>
+    </div>
+}

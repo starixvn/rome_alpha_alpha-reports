@@ -182,10 +182,6 @@ class WinLossDetailView {
         };
 
         dropdownMonth.monPickr(options);
-
-        if (!this.domElements.filter.hasClass("historic-report")) {
-            this.domElements.monthPickerContainer.addClass("hide");
-        }
     };
 
     getLongMonthsInYear = () => {

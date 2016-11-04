@@ -138,20 +138,6 @@ a {
         text-decoration: none !important;
     }
 
-    .historicreport-item {
-        display: none;
-    }
-
-    &.historic-report {
-        .currentreport-item {
-            display: none;
-        }
-
-        .historicreport-item {
-            display: block;
-        }
-    }
-
     .multiselect .multiselect-selected-text {
         width: 130px;
     }

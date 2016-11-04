@@ -1,0 +1,18 @@
+﻿@using Alpha.Reports.AppResources;
+@using Alpha.Reports.Extensions;
+
+@helper Render(DateTime minDate, DateTime fromDate, DateTime toDate)
+{
+    <div class="form-group monthpicker-container">
+        <div id="monthPickerID">
+            <div id="dropdown-month"
+                 data-mindate="@minDate.ToShortDateWithSlash()"
+                 data-maxdate="@DateTime.Now.ToShortDateWithSlash()"
+                 data-dateinmonth="@fromDate.ToShortDateWithSlash()"
+                 data-fromdate="@fromDate.Day"
+                 data-todate="@toDate.Day"
+                 data-currentdate="@DateTime.Now.ToShortDateWithSlash()"
+                 data-labelto="@Resources.To"></div>
+        </div>
+    </div>
+}

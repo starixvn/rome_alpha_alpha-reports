@@ -4,7 +4,7 @@
 @using Alpha.Reports.Extensions;
 @model WinLossDetailViewModel<MasterWinLossDetail>
 @{
-    ViewBag.Title = Resources.MasterWinLossDetail;    
+    ViewBag.Title = Resources.MasterWinLossDetail;
 }
 
 @helper GetRow(MasterWinLossDetail data, string custName, string rowCss = "")
@@ -42,16 +42,16 @@
             <td class="text-right hidden-stack-mode col-grosscomm">@data.GrossComm.ToNumericString()</td>
             <td class="text-right hidden-stack-mode col-memberwinloss">@data.MemberWinLoss.ToNumericString()</td>
             <td class="text-right hidden-stack-mode col-membercomm">@data.MemberComm.ToNumericString()</td>
-            <td class="text-right bold hidden-stack-mode col-membertotal">@data.MemberTotal.ToNumericString()</td>
-            <td class="altercol text-right hidden-stack-mode col-agentwinloss">@data.AgentWinLoss.ToNumericString()</td>
-            <td class="altercol text-right hidden-stack-mode col-agentcomm">@data.AgentComm.ToNumericString()</td>
-            <td class="altercol bold text-right hidden-stack-mode col-agenttotal">@data.AgentTotal.ToNumericString()</td>
-            <td class="text-right hidden-stack-mode col-masterwinloss">@data.MasterWinLoss.ToNumericString()</td>
-            <td class="text-right hidden-stack-mode col-mastercomm">@data.MasterComm.ToNumericString()</td>
-            <td class="bold text-right hidden-stack-mode col-mastertotal">@data.MasterTotal.ToNumericString()</td>
-            <td class="altercol text-right hidden-stack-mode col-superwinloss">@data.SuperWinLoss.ToNumericString()</td>
-            <td class="altercol text-right hidden-stack-mode col-supercomm">@data.SuperComm.ToNumericString()</td>
-            <td class="altercol bold text-right hidden-stack-mode col-supertotal">@data.SuperTotal.ToNumericString()</td>
+                <td class="text-right bold hidden-stack-mode col-membertotal">@data.MemberTotal.ToNumericString()</td>
+                <td class="altercol text-right hidden-stack-mode col-agentwinloss">@data.AgentWinLoss.ToNumericString()</td>
+                <td class="altercol text-right hidden-stack-mode col-agentcomm">@data.AgentComm.ToNumericString()</td>
+                <td class="altercol bold text-right hidden-stack-mode col-agenttotal">@data.AgentTotal.ToNumericString()</td>
+                <td class="text-right hidden-stack-mode col-masterwinloss">@data.MasterWinLoss.ToNumericString()</td>
+                <td class="text-right hidden-stack-mode col-mastercomm">@data.MasterComm.ToNumericString()</td>
+                <td class="bold text-right hidden-stack-mode col-mastertotal">@data.MasterTotal.ToNumericString()</td>
+                <td class="altercol text-right hidden-stack-mode col-superwinloss">@data.SuperWinLoss.ToNumericString()</td>
+                <td class="altercol text-right hidden-stack-mode col-supercomm">@data.SuperComm.ToNumericString()</td>
+                <td class="altercol bold text-right hidden-stack-mode col-supertotal">@data.SuperTotal.ToNumericString()</td>
         }
         <td class="text-right">@data.Company.ToNumericString()</td>
     </tr>
@@ -63,9 +63,32 @@
     @ReportsStyles.Render("~/assets/bundles/default")
 }
 
-@Html.Partial("NetTurnoverTooltips", Model.NetTurnoverTooltips)
-@Html.Partial("PageTitle", Model)
-@Html.Partial("Filter", Model)
+@Components_NetTurnoverTooltips.Render(Model.NetTurnoverTooltips)
+@Components_PageTitle.Render(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter)
+@if (Model.IsHistoricReport)
+{
+    @Components_MonthAndProductFilter.Render(
+        Model.HideFilter,
+        Model.MinDate,
+        Model.FromDate,
+        Model.ToDate,
+        Model.JsonProducts,
+        Model.UserSelectedProductIds,
+        Model.Language);
+}
+else
+{
+    @Components_DateRangeAndProductFilter.Render(
+        Model.HideFilter,
+        Model.MinDate,
+        Model.MaxDate,
+        Model.FromDate,
+        Model.ToDate,
+        Model.UserSelectedDateRangeOption,
+        Model.JsonProducts,
+        Model.UserSelectedProductIds,
+        Model.Language);
+}
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
         @(Model.IsStackMode?"stack-mode":string.Empty)" id="tbl-report"
@@ -114,7 +137,7 @@
     {
         <tbody>
             @foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
-            { @GetRow(data, $"<a href='#{data.CustName}' class='downline-link' data-custid='{data.CustId}'>{data.CustName}</a>")
+                { @GetRow(data, $"<a href='#{data.CustName}' class='downline-link' data-custid='{data.CustId}'>{data.CustName}</a>")
             }
         </tbody>
         <tfoot>
@@ -130,7 +153,10 @@
         </tbody>
     }
 </table>
-@Html.Partial("Pager", Model.ReportData.DataSource.Any())
+@if (Model.ReportData.DataSource.Any())
+{
+    @Components_Pager.Render()
+}
 
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
 @Html.Hidden("ishistoricreport", Model.IsHistoricReport)

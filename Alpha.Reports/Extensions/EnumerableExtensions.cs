@@ -11,7 +11,6 @@
             string sortPropertyName,
             bool descending = true)
         {
-
             if (string.IsNullOrWhiteSpace(sortPropertyName))
             {
                 return list;

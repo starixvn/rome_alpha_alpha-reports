@@ -1,21 +1,20 @@
 ﻿@using Alpha.Reports.AppResources;
-@using Alpha.Reports.Site.ViewModels.ComponentViewModels;
 
-@helper Render(PageTitleViewModel model)
+@helper Render(string title, bool hasStackIcon, bool hasHideFilterIcon, bool isStackMode, bool hideFilter)
 {
     <div class="page-title
-      @(model.IsStackMode ? "stack-mode" : string.Empty)
-      @(model.HideFilter ? "hide-filter" : string.Empty)">
-        <span class="pull-left">@model.Title</span>
+      @(isStackMode ? "stack-mode" : string.Empty)
+      @(hideFilter ? "hide-filter" : string.Empty)">
+        <span class="pull-left">@title</span>
         <div class="list-icon">
             <ul>
-                @if (model.HasHideFilterIcon)
+                @if (hasHideFilterIcon)
                 {
                     <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
                     <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
                 }
 
-                @if (model.HasStackModeIcon)
+                @if (hasStackIcon)
                 {
                     <li class="normalview-element"><span class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
                     <li class="stackcolumnview-element"><span class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
