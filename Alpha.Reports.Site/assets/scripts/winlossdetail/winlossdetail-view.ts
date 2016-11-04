@@ -37,7 +37,7 @@ class WinLossDetailView {
     pageIndex = 0;
     pageSize = 0;
     sortedColumn = "";
-    sortDirection = alphaReports.sort.none;
+    descendingsort = true;
 
     timeToShowNetTurnoverTooltip = 10000;
     cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
@@ -67,7 +67,7 @@ class WinLossDetailView {
         this.renderSortedColumn();
 
         this.sortedColumn = tableReport.data("sortedcolumn");
-        this.sortDirection = tableReport.data("sortdirection");
+        this.descendingsort = tableReport.data("descendingsort");
 
         this.registerEvents();
     };
@@ -479,12 +479,12 @@ class WinLossDetailView {
             FromDate: dateRange.FromDate,
             ToDate: dateRange.ToDate,
             UserSelectedProductIds: selected.join(","),
-            SortedColumn: this.sortedColumn,
-            SortDirection: this.sortDirection,
+            SortPropertyName: this.sortedColumn,
+            IsDescendingSort: this.descendingsort,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: isHistoricReport,
             HideFilter: this.domElements.filter.is(":hidden") ? true : false,
-            SelectedDateRange: this.domElements.dropdownDateRange.find("option:selected").val(),
+            UserSelectedDateRangeOption: this.domElements.dropdownDateRange.find("option:selected").val(),
             TimeStamp: new Date()
         };
     };
@@ -497,12 +497,12 @@ class WinLossDetailView {
             FromDate: tableReport.data("fromdate"),
             ToDate: tableReport.data("todate"),
             UserSelectedProductIds: this.domElements.dropdownProduct.data("selectedproducts"),
-            SortedColumn: this.sortedColumn,
-            SortDirection: this.sortDirection,
+            SortPropertyName: this.sortedColumn,
+            IsDescendingSort: this.descendingsort,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
             HideFilter: this.domElements.filter.is(":hidden") ? true : false,
-            SelectedDateRange: this.domElements.dropdownDateRange.find("option:selected").val(),
+            UserSelectedDateRangeOption: this.domElements.dropdownDateRange.find("option:selected").val(),
             TimeStamp: new Date()
         };
 
@@ -523,9 +523,9 @@ class WinLossDetailView {
                     var sortedColumn = $(this).data("sortedname");
 
                     if (sortedColumn !== $this.sortedColumn) {
-                        $this.sortDirection = alphaReports.sort.ascending;
+                        $this.descendingsort = true;
                     } else {
-                        $this.sortDirection = - $this.sortDirection;
+                        $this.descendingsort = !$this.descendingsort;
                     }
 
                     $this.sortedColumn = sortedColumn;
@@ -534,11 +534,11 @@ class WinLossDetailView {
         }
 
         var sortedColumn = tableReport.data("sortedcolumn");
-        var sortDirection = tableReport.data("sortdirection");
+        var descendingsort = tableReport.data("descendingsort");
 
-        var sortClass = sortDirection === alphaReports.sort.ascending
-            ? "icon-menu-up ascSorting"
-            : "icon-menu-down descSorting";
+        var sortClass = descendingsort
+            ? "icon-menu-down descSorting"
+            : "icon-menu-up ascSorting";
 
         var columns = tableReport.find("th[data-sortedname='" + sortedColumn + "']");
         columns.each(function () {

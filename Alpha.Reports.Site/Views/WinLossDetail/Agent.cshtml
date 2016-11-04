@@ -66,8 +66,8 @@
        data-custid="@Model.CustId"
        data-fromdate="@Model.FromDate"
        data-todate="@Model.ToDate"
-       data-sortedcolumn="@Model.SortedColumn"
-       data-sortdirection="@Model.SortDirection">
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
             <th rowspan="2" data-sortedname="CustName">@Resources.Username</th>
@@ -99,7 +99,7 @@
     @if (Model.ReportData.DataSource.Any())
     {
         <tbody>
-            @foreach (var data in Model.ReportData.DataSource)
+            @foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
                 {
             @GetRow(
                     data,

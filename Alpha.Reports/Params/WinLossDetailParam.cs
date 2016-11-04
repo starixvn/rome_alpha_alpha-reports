@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Constants;
     using Extensions;
     using Models;
@@ -17,8 +16,8 @@
             DateTime toDate,
             string userSelectedProductIds,
             UserLevel reportLevel,
-            string sortedColumn,
-            int sortDirection,
+            string sortByPropertyName,
+            bool isDescendingSort,
             bool isHistoricReport,
             bool isStackMode,
             IEnumerable<Product> userProducts)
@@ -40,11 +39,12 @@
 
             ReportLevel = reportLevel;
 
-            SortedColumn = string.IsNullOrWhiteSpace(sortedColumn)
+            SortByPropertyName = string.IsNullOrWhiteSpace(sortByPropertyName)
                 ? GetDefaultSortedColumn()
                 : GetSortedColumn(sortedColumn, isStackMode);
 
-            SortDirection = sortDirection == 0 ? SortDirectionConstant.Default : sortDirection;
+            UserSelectedProductIds = userSelectedProductIds;
+            IsDescendingSort = isDescendingSort;   
         }
 
         public int CustId { get; }
@@ -61,9 +61,9 @@
 
         public UserLevel ReportLevel { get; }
 
-        public string SortedColumn { get; }
+        public string SortByPropertyName { get; }
 
-        public int SortDirection { get; }
+        public bool IsDescendingSort { get; }
 
         private string GetDefaultSortedColumn()
         {

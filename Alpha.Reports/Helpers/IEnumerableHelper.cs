@@ -5,10 +5,12 @@
 
     public static class IEnumerableHelper
     {
-        public static IEnumerable<T> Sort<T>(IEnumerable<T> enumerable, string columnName, int direction)
+        public static IEnumerable<T> Sort<T>(IEnumerable<T> enumerable, string columnName, bool isDescendingSort = true)
         {
             var property = typeof(T).GetProperty(columnName);
             var list = enumerable.ToList();
+
+            int direction = isDescendingSort ? -1 : 1;
 
             list.Sort((t1, t2) =>
             {

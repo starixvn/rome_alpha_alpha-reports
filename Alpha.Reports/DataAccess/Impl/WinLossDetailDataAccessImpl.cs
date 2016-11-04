@@ -3,12 +3,14 @@
     using System;
     using System.Linq;
     using Criteria;
+    using Criteria.WinLossDetail;
     using Fanex.Data;
     using Models;
+    using Reports.Extensions;
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {
-        public ReportData<T> GetData<T>(ReportCriteriaBase criteria) where T : class
+        public ReportData<T> GetData<T>(WinLossDetailCriteria criteria) where T : class
         {
             if (criteria == null)
             {
@@ -25,7 +27,7 @@
 
                 using (var reader = objectDb.QueryMultiple(criteria))
                 {
-                    dataSource = reader.Read<T>();                    
+                    dataSource = reader.Read<T>();                  
                     total = reader.Read<T>().FirstOrDefault();
                 }
 

@@ -13,6 +13,8 @@
     {
         private const int AllBetProductId = 21;
 
+        public int CustId { get; set; }
+
         public DateTime MinDate => IsHistoricReport
             ? DateTime.Now.AddYears(-3).FirstDayOfMonth()
             : DateTime.Now.AddMonths(-3).FirstDayOfMonth();
@@ -23,7 +25,29 @@
 
         public DateTime ToDate { get; set; }
 
-        public string Language { get; set; }
+        public string Language { get; set; }       
+
+        public IEnumerable<Product> Products { get; set; }
+
+        public string JsonProducts => JsonConvert.SerializeObject(Products);
+
+        public string UserSelectedProductIds { get; set; }
+
+        public int UserSelectedDateRangeOption { get; set; }
+
+        public ReportData<T> ReportData { get; set; }
+
+        public string SortPropertyName { get; set; }
+
+        public bool IsDescendingSort { get; set; }
+
+        public bool IsStackMode { get; set; }
+
+        public bool IsHistoricReport { get; set; }
+
+        public bool HideFilter { get; set; }
+
+        public string OldMainAppPath { get; set; }
 
         public IEnumerable<string> NetTurnoverTooltips
         {
@@ -39,29 +63,5 @@
                 return netTurnoverTooltips;
             }
         }
-
-        public IEnumerable<Product> Products { get; set; }
-
-        public string JsonProducts => JsonConvert.SerializeObject(Products);
-
-        public string SelectedProducts { get; set; }
-
-        public bool IsStackMode { get; set; }
-
-        public bool IsHistoricReport { get; set; }
-
-        public bool HideFilter { get; set; }
-
-        public string OldMainAppPath { get; set; }
-
-        public ReportData<T> ReportData { get; set; }
-
-        public int CustId { get; set; }
-
-        public string SortedColumn { get; set; }
-
-        public int SortDirection { get; set; }
-
-        public int SelectedDateRange { get; set; }
     }
 }

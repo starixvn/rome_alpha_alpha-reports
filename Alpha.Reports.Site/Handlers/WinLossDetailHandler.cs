@@ -59,18 +59,19 @@
             }
 
             var products = productService.GetProductsForCustomer(message.CustId);
-            var param = CreateParamater(message, products, reportLevel);
 
-            var reportData = reportService.GetWinLossDetail<TModel>(param);
+            var winLossDetailParam = CreateParamater(message, products, reportLevel);           
+
+            var reportData = reportService.GetWinLossDetail<TModel>(winLossDetailParam);
 
             var viewModel = new TViewModel
             {
-                CustId = param.CustId,
-                FromDate = param.FromDate,
-                ToDate = param.ToDate,
+                CustId = winLossDetailParam.CustId,
+                FromDate = winLossDetailParam.FromDate,
+                ToDate = winLossDetailParam.ToDate,
 
                 Products = products,
-                SelectedProducts = param.UserSelectedProductIds,
+                UserSelectedProductIds = winLossDetailParam.UserSelectedProductIds,
                 Language = message.Language,
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
@@ -78,10 +79,10 @@
                 OldMainAppPath = applicationContext.OldMainAppPath,
 
                 ReportData = reportData,
-                SelectedDateRange = message.SelectedDateRange,
+                UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
 
-                SortedColumn = param.SortedColumn,
-                SortDirection = param.SortDirection
+                SortPropertyName = winLossDetailParam.SortByPropertyName,
+                IsDescendingSort = winLossDetailParam.IsDescendingSort
             };
 
             return viewModel;
@@ -93,16 +94,21 @@
             UserLevel reportLevel)
             where TModel : MemberWinLossDetail
         {
+            var validUserSelectedProductIds =
+               string.Join(
+                   ",",
+                   productService.FilterProductIdsByCustomer(message.CustId, message.UserSelectedProductIds));
+
             return new WinLossDetailParam(
                  message.CustId,
                  message.PageIndex,
                  message.PageSize,
                  message.FromDate,
                  message.ToDate,
-                 message.UserSelectedProductIds,
+                 validUserSelectedProductIds,
                  reportLevel,
-                 message.SortedColumn,
-                 message.SortDirection,
+                 message.SortPropertyName,
+                 message.IsDescendingSort,
                  message.IsHistoricReport,
                  message.IsStackMode,
                  userProducts);

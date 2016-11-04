@@ -20,7 +20,7 @@
             ReportLevel = reportLevel;
         }
 
-        private UserLevel ReportLevel { get; }
+        private UserLevel ReportLevel { get; }      
 
         public override string GetSettingKey()
         {

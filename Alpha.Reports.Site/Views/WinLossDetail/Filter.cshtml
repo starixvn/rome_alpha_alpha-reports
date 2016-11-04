@@ -28,7 +28,7 @@
                  data-currentdate="@FormatDate(DateTime.Now)"
                  data-fromdate="@FormatDate(Model.FromDate)"
                  data-todate="@FormatDate(Model.ToDate)"
-                 data-selecteddaterange="@Model.SelectedDateRange"></div>
+                 data-selecteddaterange="@Model.UserSelectedDateRangeOption"></div>
         </div>
     </div>
     <div class="form-group monthpicker-container">
@@ -47,7 +47,7 @@
         <label class="txt">@Resources.Product</label>
         <select id="dropdown-product"
                 data-products="@Model.JsonProducts"
-                data-selectedproducts="@Model.SelectedProducts"
+                data-selectedproducts="@Model.UserSelectedProductIds"
                 data-labelselectproducts="@Resources.SelectProducts"
                 data-labelselected="@Resources.Selected"
                 data-labelallproducts="@Resources.AllProducts"

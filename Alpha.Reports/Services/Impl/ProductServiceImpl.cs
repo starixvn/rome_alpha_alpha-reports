@@ -32,7 +32,10 @@
         public IEnumerable<int> FilterProductIdsByCustomer(int custId, string productIds)
         {
             var customerProductIds = GetProductsForCustomer(custId).Select(product => product.Id);
-            var productIdList = productIds?.ToListInt() ?? customerProductIds;
+
+            var productIdList = string.IsNullOrWhiteSpace(productIds)
+                ? customerProductIds
+                : productIds.ToListInt();
 
             return customerProductIds.Where(product => productIdList.Contains(product));
         }
@@ -42,7 +45,7 @@
             if (custId <= 0)
             {
                 return Enumerable.Empty<Product>();
-            }
+            }                              
 
             var productList = CacheService
                 .GetOrSet(

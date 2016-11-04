@@ -18,7 +18,7 @@
         {
             userSession = userSession ?? new UserSessionExt();
 
-            if (IsNotDrillDownQuery)
+            if (IsDirectReportViewAction)
             {
                 CustId = userSession.CustId;
             }
@@ -26,15 +26,15 @@
             Language = userSession.Language;
         }
 
-        private bool IsNotDrillDownQuery => CustId <= 0;
+        private bool IsDirectReportViewAction => CustId <= 0;
 
         public string Language { get; }
 
         public string UserSelectedProductIds { get; set; }
 
-        public string SortedColumn { get; set; }
+        public string SortPropertyName { get; set; }
 
-        public int SortDirection { get; set; }
+        public bool IsDescendingSort { get; set; }
 
         public bool IsStackMode { get; set; }
 
@@ -42,6 +42,6 @@
 
         public bool HideFilter { get; set; }
 
-        public int SelectedDateRange { get; set; }
+        public int UserSelectedDateRangeOption { get; set; }
     }
 }
