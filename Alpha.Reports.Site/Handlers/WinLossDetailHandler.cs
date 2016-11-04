@@ -60,7 +60,7 @@
 
             var products = productService.GetProductsForCustomer(message.CustId);
 
-            var winLossDetailParam = CreateParamater(message, products, reportLevel);           
+            var winLossDetailParam = CreateParamater(message, products, reportLevel);
 
             var reportData = reportService.GetWinLossDetail<TModel>(winLossDetailParam);
 
@@ -76,7 +76,6 @@
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
                 HideFilter = message.HideFilter,
-                OldMainAppPath = applicationContext.OldMainAppPath,
 
                 ReportData = reportData,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,

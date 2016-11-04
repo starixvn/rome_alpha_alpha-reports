@@ -25,7 +25,7 @@
 
         public DateTime ToDate { get; set; }
 
-        public string Language { get; set; }       
+        public string Language { get; set; }
 
         public IEnumerable<Product> Products { get; set; }
 
@@ -46,8 +46,6 @@
         public bool IsHistoricReport { get; set; }
 
         public bool HideFilter { get; set; }
-
-        public string OldMainAppPath { get; set; }
 
         public IEnumerable<string> NetTurnoverTooltips
         {

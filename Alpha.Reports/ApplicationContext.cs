@@ -5,8 +5,6 @@
 
     public interface ApplicationContext
     {
-        IEnumerable<Product> Products { get; }        
-
-        string OldMainAppPath { get; }
+        IEnumerable<Product> Products { get; }
     }
 }
