@@ -55,7 +55,7 @@ else
     <tbody>
         @RenderSection("ReportBody", required: true)
     </tbody>
-    @RenderSection("ReportFooter", required: true)
+    @RenderSection("ReportFooter", required: false)
 </table>
 
 @if (ViewBag.HasData)
@@ -65,6 +65,7 @@ else
 
 @Html.Partial("~/Views/Shared/MonthNames.cshtml")
 @Html.Hidden("ishistoricreport", (Model.IsHistoricReport ? 1 : 0))
+@Html.Hidden("hidefilter", (Model.HideFilter ? 1 : 0))
 @Html.Hidden("currentpath", (string)ViewBag.CurrentPath)
 
 @section Scripts {

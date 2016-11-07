@@ -29,7 +29,8 @@ class WinLossDetailView {
         downlineLink: null,
         dropdownDateRange: null,
         sortColumns: null,
-        multiSelectButton: null
+        multiSelectButton: null,
+        hideFilter: null
     };
 
     isFirstSwitchMode = true;
@@ -100,6 +101,8 @@ class WinLossDetailView {
         this.domElements.dropdownDateRange = $("#dropdown-daterange");
 
         this.domElements.sortColumns = this.domElements.tableReport.find("th[data-sortedname]");
+
+        this.domElements.hideFilter = $("#hidefilter");
     };
 
     renderDateRangePicker = () => {
@@ -230,23 +233,29 @@ class WinLossDetailView {
 
         this.domElements.historicReportSwitch.on("click", function () {
             $this.isHistoricReport = true;
+            this.domElements.isHistoricReport.val(true);
+
             winLossDetailController.switchView();
         });
 
         this.domElements.currentReportSwitch.on("click", function () {
             $this.isHistoricReport = false;
+            this.domElements.isHistoricReport.val(false);
             winLossDetailController.switchView();
         });
 
         this.domElements.iconFilter.on("click", function () {
             var filter = $this.domElements.filter;
+            var currentHideState = filter.is(":hidden");
 
-            if (filter.is(":hidden")) {
+            if (currentHideState) {
                 $this.domElements.pageTitle.removeClass("hide-filter");
                 filter.slideDown("fast");
             } else {
                 $this.hideFilter();
             }
+
+            this.domElements.hideFilter.val(!currentHideState);
 
             setTimeout(function () {
                 $this.positionNetTurnoverTooltip();
