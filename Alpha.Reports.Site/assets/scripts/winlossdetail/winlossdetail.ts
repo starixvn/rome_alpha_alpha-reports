@@ -30,8 +30,8 @@ class WinLossDetailView {
         dropdownDateRange: null,
         sortColumns: null,
         multiSelectButton: null,
-        hideFilter: null,
-        isStackMode: null,
+
+        drilldownLinks: null
         isDescendingSort: null,
         sortPropertyName: null,
         pageIndex: null,
@@ -112,6 +112,7 @@ class WinLossDetailView {
 
         this.domElements.sortColumns = this.domElements.tableReport.find("th[data-sortedname]");
 
+        this.domElements.drilldownLinks = $(".downline-link");
         this.domElements.hideFilter = $("#HideFilter");
         this.domElements.isStackMode = $("#IsStackMode");
         this.domElements.isDescendingSort = $("#IsDescendingSort");
@@ -272,7 +273,7 @@ class WinLossDetailView {
                 $this.hideFilter();
             }
 
-            $this.domElements.hideFilter.val(!currentHideState);
+            $this.replaceDrilldownParam("HideFilter", !currentHideState);
 
             setTimeout(function () {
                 $this.positionNetTurnoverTooltip();
@@ -291,7 +292,8 @@ class WinLossDetailView {
                 tableReport.addClass("stack-mode");
             }
 
-            $this.domElements.isStackMode.val(!currentStackModeState);
+            $this.replaceDrilldownParam("IsStackMode", !currentStackModeState);
+
             if ($this.isFirstSwitchMode) {
                 if (currentStackModeState) {
                     alphaReports.splitColumn([
@@ -524,6 +526,13 @@ class WinLossDetailView {
     };
     clearError = () => {
         this.domElements.multiSelectButton.removeClass("error");
+    };
+    replaceDrilldownParam = (paramName, paramValue) => {
+        this.domElements.drilldownLinks.each(function () {
+            var queryString = $(this).attr("href");
+            var newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
+            $(this).attr("href", queryString);
+        });
     };
 
     onSubmitReportEvent = (e) => {

@@ -54,7 +54,7 @@
 
 @if (ViewBag.HasData)
 {
-    @Html.Partial("_Pager")
+    @Html.Partial("_Pager", new PagerViewModel(Model.ReportData.CurrentPageIndex, Model.ReportData.PageSize, Model.ReportData.TotalRecords))
 }
 
 @Html.Partial("_MonthNames")

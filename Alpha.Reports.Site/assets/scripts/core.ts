@@ -18,7 +18,7 @@ class AlphaReports {
         enter: 13
     };
     numberDisplayedProductsOnFilter = 1;
-    pageList = [1000, 2000, 3000, 5000];
+    pageList = [1, 1000, 2000, 3000, 5000];
     maxTimesToShowTooltip = 5;
     screenSmallThan768 = () => {
         var currentWindowWidth = $(window).width();
@@ -107,6 +107,15 @@ class AlphaReports {
         }
 
         return false;
+    };
+    replaceQueryStringValue = (queryString, paramName, paramValue) => {
+        var regex = new RegExp("([?&])" + paramName + "=[^&]*", "i");
+
+        var newQueryString = regex.test(queryString)
+            ? queryString.replace(regex, "$1" + paramName + "=" + paramValue)
+            : queryString + "&" + paramName + "=" + paramValue;
+
+        return newQueryString;
     };
 };
 

@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using AppResources;
     using Extensions;
     using Models;
     using Models.WinlossDetail;
-    using Reports.AppResources;
 
     public class WinLossDetailViewModel<T> where T : MemberWinLossDetail
     {
@@ -51,7 +51,7 @@
 
                 if (Products.Any(product => Convert.ToInt32(product.Value) == AllBetProductId))
                 {
-                    netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
+                    netTurnoverTooltips.Add(SiteResources.Tooltip_NetTurnover_21);
                 }
 
                 return netTurnoverTooltips;

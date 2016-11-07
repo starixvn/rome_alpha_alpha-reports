@@ -1,13 +1,13 @@
 ﻿@model ProductMultiSelectionViewModel
 
 <div class="form-group">
-    <label class="txt">@Resources.Product</label>
+    <label class="txt">@SiteResources.Product</label>
     <select id="dropdown-product"
             data-total-product="@Model.Products.Count()"
-            data-labelselectproducts="@Resources.SelectProducts"
-            data-labelselected="@Resources.Selected"
-            data-labelallproducts="@Resources.AllProducts"
-            data-labelthereisnoproduct="@Resources.ThereIsNoProduct"
+            data-labelselectproducts="@SiteResources.SelectProducts"
+            data-labelselected="@SiteResources.Selected"
+            data-labelallproducts="@SiteResources.AllProducts"
+            data-labelthereisnoproduct="@SiteResources.ThereIsNoProduct"
             data-language="@Model.Language"
             multiple="multiple" class="select-multiple">
         @foreach (var product in Model.Products)

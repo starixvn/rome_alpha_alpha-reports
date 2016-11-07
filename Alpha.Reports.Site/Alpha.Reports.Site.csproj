@@ -224,9 +224,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppResources\SiteResources.Designer.cs">
+      <DependentUpon>SiteResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SiteResources.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\ReportApplicationContext.cs" />
@@ -253,6 +253,7 @@
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="ViewModels\DateRangePickerViewModel.cs" />
     <Compile Include="ViewModels\MonthPickerViewModel.cs" />
+    <Compile Include="ViewModels\PagerViewModel.cs" />
     <Compile Include="ViewModels\PageTitleViewModel.cs" />
     <Compile Include="ViewModels\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
@@ -296,7 +297,11 @@
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
-    <TypeScriptCompile Include="assets\scripts\components\core.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\netturnover-tooltip.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\pager.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\productmultiselection.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\monthpicker.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\daterangepicker.ts" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
@@ -466,6 +471,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="AppResources\SiteResources.ja-JP.resx" />
     <EmbeddedResource Include="AppResources\SiteResources.ko-KR.resx" />
     <EmbeddedResource Include="AppResources\SiteResources.resx">
@@ -476,9 +484,6 @@
     <EmbeddedResource Include="AppResources\SiteResources.vi-VN.resx" />
     <EmbeddedResource Include="AppResources\SiteResources.zh-CN.resx" />
     <EmbeddedResource Include="AppResources\SiteResources.zh-TW.resx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

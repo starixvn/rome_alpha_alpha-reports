@@ -4,7 +4,7 @@
 @model WinLossDetailViewModel<MasterWinLossDetail>
 @{
     Layout = "~/Views/WinLossDetail/WinLossDetail.cshtml";
-    ViewBag.Title = Resources.MasterWinLossDetail;
+    ViewBag.Title = SiteResources.MasterWinLossDetail;
     ViewBag.CurrentPath = AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Master");
     ViewBag.HasData = ((List<MasterWinLossDetail>)Model.ReportData.DataSource).Any();
 }
@@ -12,35 +12,35 @@
 @section ReportData {
     <thead>
         <tr>
-            <th rowspan="2" data-sortedname="CustName">@Resources.Username</th>
-            <th rowspan="2" data-sortedname="NumberOfTickets">@Resources.NoOfTickets</th>
-            <th rowspan="2" class="hidden-stack-mode" data-sortedname="Turnover">@Resources.Turnover</th>
-            <th rowspan="2" class="hidden-stack-mode col-netturnover-header" data-sortedname="NetTurnover">@Resources.NetTurnover</th>
-            <th rowspan="2" class="hidden-stack-mode" data-sortedname="GrossComm">@Resources.GrossComm</th>
-            <th rowspan="2" class="visible-stack-mode col-combine" data-sortedname="Turnover">@Html.Raw(Resources.TO_NetTO_GrossComm)</th>
-            <th colspan="3" class="col-level">@Resources.Member</th>
-            <th colspan="3" class="col-level">@Resources.Agent</th>
-            <th colspan="3" class="col-level">@Resources.Master</th>
-            <th colspan="3" class="col-level">@Resources.Super</th>
-            <th rowspan="2" data-sortedname="Company">@Resources.Company</th>
+            <th rowspan="2" data-sortedname="CustName">@SiteResources.Username</th>
+            <th rowspan="2" data-sortedname="NumberOfTickets">@SiteResources.NoOfTickets</th>
+            <th rowspan="2" class="hidden-stack-mode" data-sortedname="Turnover">@SiteResources.Turnover</th>
+            <th rowspan="2" class="hidden-stack-mode col-netturnover-header" data-sortedname="NetTurnover">@SiteResources.NetTurnover</th>
+            <th rowspan="2" class="hidden-stack-mode" data-sortedname="GrossComm">@SiteResources.GrossComm</th>
+            <th rowspan="2" class="visible-stack-mode col-combine" data-sortedname="Turnover">@Html.Raw(SiteResources.TO_NetTO_GrossComm)</th>
+            <th colspan="3" class="col-level">@SiteResources.Member</th>
+            <th colspan="3" class="col-level">@SiteResources.Agent</th>
+            <th colspan="3" class="col-level">@SiteResources.Master</th>
+            <th colspan="3" class="col-level">@SiteResources.Super</th>
+            <th rowspan="2" data-sortedname="Company">@SiteResources.Company</th>
         </tr>
         <tr class="thead-row2">
-            <th class="hidden-stack-mode col-winloss" data-sortedname="MemberWinLoss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode" data-sortedname="MemberComm">@Resources.Comm</th>
-            <th class="hidden-stack-mode" data-sortedname="MemberTotal">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MemberWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
-            <th class="hidden-stack-mode col-winloss" data-sortedname="AgentWinLoss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode" data-sortedname="AgentComm">@Resources.Comm</th>
-            <th class="hidden-stack-mode" data-sortedname="AgentTotal">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="AgentWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
-            <th class="hidden-stack-mode col-winloss" data-sortedname="MasterWinLoss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode" data-sortedname="MasterComm">@Resources.Comm</th>
-            <th class="hidden-stack-mode" data-sortedname="MasterTotal">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MasterWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
-            <th class="hidden-stack-mode col-winloss" data-sortedname="SuperWinLoss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode" data-sortedname="SuperComm">@Resources.Comm</th>
-            <th class="hidden-stack-mode" data-sortedname="SuperTotal">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="SuperWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
+            <th class="hidden-stack-mode col-winloss" data-sortedname="MemberWinLoss">@SiteResources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="MemberComm">@SiteResources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="MemberTotal">@SiteResources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MemberWinLoss">@Html.Raw(SiteResources.WL_Comm_Total)</th>
+            <th class="hidden-stack-mode col-winloss" data-sortedname="AgentWinLoss">@SiteResources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="AgentComm">@SiteResources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="AgentTotal">@SiteResources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="AgentWinLoss">@Html.Raw(SiteResources.WL_Comm_Total)</th>
+            <th class="hidden-stack-mode col-winloss" data-sortedname="MasterWinLoss">@SiteResources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="MasterComm">@SiteResources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="MasterTotal">@SiteResources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MasterWinLoss">@Html.Raw(SiteResources.WL_Comm_Total)</th>
+            <th class="hidden-stack-mode col-winloss" data-sortedname="SuperWinLoss">@SiteResources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="SuperComm">@SiteResources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="SuperTotal">@SiteResources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="SuperWinLoss">@Html.Raw(SiteResources.WL_Comm_Total)</th>
         </tr>
     </thead>
     <tbody>
@@ -71,7 +71,7 @@
         <td>
             @if (isTotalRow)
             {
-                @data.CustName
+                @SiteResources.Total
             }
             else
             {
@@ -86,12 +86,15 @@
                         PageSize = Model.ReportData.PageSize,
                         FromDate = Model.FromDate,
                         ToDate = Model.ToDate,
-                        UserSelectedProductIds = Model.UserSelectedProductIds,
+                        UserSelectedProductIds = string.Join(",", Model.Products.Where(product => product.Selected).Select(product => product.Value)),
                         SortPropertyName = Model.SortPropertyName,
                         IsDescendingSort = Model.IsDescendingSort,
 
                         IsHistoricReport = Model.IsHistoricReport,
                         UserSelectedDateRangeOption = Model.UserSelectedDateRangeOption,
+
+                        HideFilter = Model.HideFilter,
+                        IsStackMode = Model.IsStackMode,
                         TimeStamp = DateTime.Now
                     },
                     htmlAttributes: new
