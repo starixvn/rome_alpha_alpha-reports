@@ -1,4 +1,12 @@
-﻿@using Alpha.Reports.Extensions;
+﻿@helper FormatNumber(decimal value)
+{
+    @value.ToString($"#,##0.##")
+}
+
+@helper FormatNumber(int value)
+{
+    @value.ToString($"#,##0.##")
+}
 
 @helper RenderCombinedColumn(IEnumerable<decimal> columns, string css, int colspan)
 {
@@ -6,7 +14,7 @@
         <ul>
             @foreach (var column in columns)
             {
-                <li>@column.ToNumericString()</li>
+                <li>@FormatNumber(column)</li>
             }
         </ul>
     </td>

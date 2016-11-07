@@ -1,7 +1,6 @@
 ﻿@using Alpha.Reports.Site.Helpers;
 @using Alpha.Reports.Models.WinlossDetail;
 @using Alpha.Reports.Site.ViewModels.WinLossDetail;
-@using Alpha.Reports.Extensions;
 
 @model WinLossDetailViewModel<AgentWinLossDetail>
 @{
@@ -11,52 +10,51 @@
     ViewBag.HasData = ((List<AgentWinLossDetail>)Model.ReportData.DataSource).Any();
 }
 
-@section ReportHeader {
-    <tr>
-        <th rowspan="2" data-sortedname="CustName">@Resources.Username</th>
-        <th rowspan="2" data-sortedname="NumberOfTickets">@Resources.NoOfTickets</th>
-        <th rowspan="2" class="hidden-stack-mode" data-sortedname="Turnover">@Resources.Turnover</th>
-        <th rowspan="2" class="hidden-stack-mode col-netturnover-header" data-sortedname="NetTurnover">@Resources.NetTurnover</th>
-        <th rowspan="2" class="hidden-stack-mode" data-sortedname="GrossComm">@Resources.GrossComm</th>
-        <th rowspan="2" class="visible-stack-mode col-combine" data-sortedname="Turnover">@Html.Raw(Resources.TO_NetTO_GrossComm)</th>
-        <th colspan="3" class="col-level">@Resources.Member</th>
-        <th colspan="3" class="col-level">@Resources.Agent</th>
-        <th colspan="3" class="col-level">@Resources.Master</th>
-        <th rowspan="2" data-sortedname="Company">@Resources.Company</th>
-    </tr>
-    <tr class="thead-row2">
-        <th class="hidden-stack-mode col-winloss" data-sortedname="MemberWinLoss">@Resources.WinLoss</th>
-        <th class="hidden-stack-mode" data-sortedname="MemberComm">@Resources.Comm</th>
-        <th class="hidden-stack-mode" data-sortedname="MemberTotal">@Resources.Total</th>
-        <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MemberWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
-        <th class="hidden-stack-mode col-winloss" data-sortedname="AgentWinLoss">@Resources.WinLoss</th>
-        <th class="hidden-stack-mode" data-sortedname="AgentComm">@Resources.Comm</th>
-        <th class="hidden-stack-mode" data-sortedname="AgentTotal">@Resources.Total</th>
-        <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="AgentWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
-        <th class="hidden-stack-mode col-winloss" data-sortedname="MasterWinLoss">@Resources.WinLoss</th>
-        <th class="hidden-stack-mode" data-sortedname="MasterComm">@Resources.Comm</th>
-        <th class="hidden-stack-mode" data-sortedname="MasterTotal">@Resources.Total</th>
-        <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MasterWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
-    </tr>
-}
-
-@section ReportBody {
-    @if (Model.ReportData.DataSource.Any())
-    {
-        foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
-        {
-            @RenderRow(data, false)
-        }
-    }
-    else
-    {
+@section ReportData {
+    <thead>
         <tr>
-            <td colspan="15" align="center">@Resources.NoInformationIsAvailable</td>
+            <th rowspan="2" data-sortedname="CustName">@Resources.Username</th>
+            <th rowspan="2" data-sortedname="NumberOfTickets">@Resources.NoOfTickets</th>
+            <th rowspan="2" class="hidden-stack-mode" data-sortedname="Turnover">@Resources.Turnover</th>
+            <th rowspan="2" class="hidden-stack-mode col-netturnover-header" data-sortedname="NetTurnover">@Resources.NetTurnover</th>
+            <th rowspan="2" class="hidden-stack-mode" data-sortedname="GrossComm">@Resources.GrossComm</th>
+            <th rowspan="2" class="visible-stack-mode col-combine" data-sortedname="Turnover">@Html.Raw(Resources.TO_NetTO_GrossComm)</th>
+            <th colspan="3" class="col-level">@Resources.Member</th>
+            <th colspan="3" class="col-level">@Resources.Agent</th>
+            <th colspan="3" class="col-level">@Resources.Master</th>
+            <th rowspan="2" data-sortedname="Company">@Resources.Company</th>
         </tr>
-    }
-}
+        <tr class="thead-row2">
+            <th class="hidden-stack-mode col-winloss" data-sortedname="MemberWinLoss">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="MemberComm">@Resources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="MemberTotal">@Resources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MemberWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
+            <th class="hidden-stack-mode col-winloss" data-sortedname="AgentWinLoss">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="AgentComm">@Resources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="AgentTotal">@Resources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="AgentWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
+            <th class="hidden-stack-mode col-winloss" data-sortedname="MasterWinLoss">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="MasterComm">@Resources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="MasterTotal">@Resources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MasterWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (ViewBag.HasData)
+        {
+            foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+            {
+                @RenderRow(data, false)
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="15" align="center">@Resources.NoInformationIsAvailable</td>
+            </tr>
+        }
+    </tbody>
 
-@section ReportFooter {
     @if (ViewBag.HasData)
     {
         <tfoot>
@@ -100,7 +98,7 @@
                     })
             }
         </td>
-        <td class="text-right">@data.NumberOfTickets.ToNumericString()</td>
+        <td class="text-right">@SharedHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
             @SharedHelpers.RenderCombinedColumn(
@@ -138,13 +136,13 @@
             @RenderColumn(data.MasterComm, "col-mastercomm")
             @RenderColumn(data.MasterTotal, "col-mastertotal")
         }
-        <td class="text-right">@data.Company.ToNumericString()</td>
+        <td class="text-right">@SharedHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
 
 @helper RenderColumn(decimal columnValue, string columnName, bool isAlterCol = false)
 {
     <td class="bold text-right hidden-stack-mode @columnName @(isAlterCol ? "altercol" : string.Empty)">
-        @columnValue.ToNumericString()
+        @SharedHelpers.FormatNumber(columnValue)
     </td>
 }

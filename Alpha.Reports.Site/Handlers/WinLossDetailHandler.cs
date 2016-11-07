@@ -62,7 +62,7 @@
 
             var products = productService.GetProductsForCustomer(message.CustId);
 
-            var winLossDetailParam = CreateParamater(message, products, reportLevel);
+            var winLossDetailParam = CreateParamater(message, reportLevel);
 
             var reportData = reportService.GetWinLossDetail<TModel>(winLossDetailParam);
 
@@ -91,7 +91,6 @@
 
         private WinLossDetailParam CreateParamater<TModel>(
             WinLossDetailQuery<TModel> message,
-            IEnumerable<Product> userProducts,
             UserLevel reportLevel)
             where TModel : MemberWinLossDetail
         {
@@ -110,8 +109,7 @@
                  message.SortPropertyName,
                  message.IsDescendingSort,
                  message.IsHistoricReport,
-                 message.IsStackMode,
-                 userProducts);
+                 message.IsStackMode);
         }
     }
 }

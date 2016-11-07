@@ -19,8 +19,7 @@
             string sortByPropertyName,
             bool isDescendingSort,
             bool isHistoricReport,
-            bool isStackMode,
-            IEnumerable<Product> userProducts)
+            bool isStackMode)
         {
             CustId = custId;
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;

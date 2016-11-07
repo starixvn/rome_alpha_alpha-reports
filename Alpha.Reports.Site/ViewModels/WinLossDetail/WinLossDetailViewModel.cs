@@ -6,7 +6,6 @@
     using Extensions;
     using Models;
     using Models.WinlossDetail;
-    using Newtonsoft.Json;
     using Reports.AppResources;
 
     public class WinLossDetailViewModel<T> where T : MemberWinLossDetail
@@ -28,8 +27,6 @@
         public string Language { get; set; }
 
         public IEnumerable<Product> Products { get; set; }
-
-        public string JsonProducts => JsonConvert.SerializeObject(Products);
 
         public IEnumerable<int> UserSelectedProductIds { get; set; }
 

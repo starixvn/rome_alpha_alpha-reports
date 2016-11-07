@@ -1,0 +1,26 @@
+﻿@model IEnumerable<string>
+<div class="modal fade message-modal" id="netturnovertooltip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="msg-content">
+                    <ul class="list-msg">
+                        <li>
+                            @Resources.Tooltip_NetTurnover
+                        </li>
+                        @foreach (var netTurnoverTooltip in Model)
+                        {
+                            <li>
+                                @netTurnoverTooltip
+                            </li>
+                        }
+                        <li>
+                            <label for="close-netturnover-tooltip"><input id="close-netturnover-tooltip" type="checkbox" /> @Resources.DoNotShowAgain</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

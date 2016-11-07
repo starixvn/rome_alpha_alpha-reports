@@ -1,0 +1,21 @@
+﻿@model ProductMultiSelectionViewModel
+
+<div class="form-group">
+    <label class="txt">@Resources.Product</label>
+    <select id="dropdown-product"
+            data-products="@Model.JsonUserProducts"
+            data-labelselectproducts="@Resources.SelectProducts"
+            data-labelselected="@Resources.Selected"
+            data-labelallproducts="@Resources.AllProducts"
+            data-labelthereisnoproduct="@Resources.ThereIsNoProduct"
+            data-language="@Model.Language"
+            multiple="multiple" class="select-multiple">
+        @foreach (var product in Model.UserProducts)
+        {
+            <option id="product_@product.Id" value="@product.Id"
+                    @(Model.UserSelectedProductIds.IndexOf(product.Id) != -1 ? " selected=\"selected\"" : string.Empty)>
+                @product.DisplayName
+            </option>
+        }
+    </select>
+</div>

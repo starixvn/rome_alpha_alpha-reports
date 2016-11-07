@@ -30,7 +30,8 @@ class WinLossDetailView {
         dropdownDateRange: null,
         sortColumns: null,
         multiSelectButton: null,
-        hideFilter: null
+        hideFilter: null,
+        isStackMode: null
     };
 
     isFirstSwitchMode = true;
@@ -103,6 +104,7 @@ class WinLossDetailView {
         this.domElements.sortColumns = this.domElements.tableReport.find("th[data-sortedname]");
 
         this.domElements.hideFilter = $("#hidefilter");
+        this.domElements.isStackMode = $("#isstackmode");
     };
 
     renderDateRangePicker = () => {
@@ -233,14 +235,11 @@ class WinLossDetailView {
 
         this.domElements.historicReportSwitch.on("click", function () {
             $this.isHistoricReport = true;
-            this.domElements.isHistoricReport.val(true);
-
             winLossDetailController.switchView();
         });
 
         this.domElements.currentReportSwitch.on("click", function () {
             $this.isHistoricReport = false;
-            this.domElements.isHistoricReport.val(false);
             winLossDetailController.switchView();
         });
 
@@ -255,7 +254,7 @@ class WinLossDetailView {
                 $this.hideFilter();
             }
 
-            this.domElements.hideFilter.val(!currentHideState);
+            $this.domElements.hideFilter.val(!currentHideState);
 
             setTimeout(function () {
                 $this.positionNetTurnoverTooltip();
@@ -264,9 +263,9 @@ class WinLossDetailView {
 
         this.domElements.iconSwitchMode.on("click", function () {
             var tableReport = $this.domElements.tableReport;
-            var isStackMode = tableReport.hasClass("stack-mode");
+            var currentStackModeState = tableReport.hasClass("stack-mode");
 
-            if (isStackMode) {
+            if (currentStackModeState) {
                 $this.domElements.pageTitle.removeClass("stack-mode");
                 tableReport.removeClass("stack-mode");
             } else {
@@ -274,8 +273,9 @@ class WinLossDetailView {
                 tableReport.addClass("stack-mode");
             }
 
+            $this.domElements.isStackMode.val(!currentStackModeState);
             if ($this.isFirstSwitchMode) {
-                if (isStackMode) {
+                if (currentStackModeState) {
                     alphaReports.splitColumn([
                         "text-right hidden-stack-mode col-turnover",
                         "text-right hidden-stack-mode col-netturnover",

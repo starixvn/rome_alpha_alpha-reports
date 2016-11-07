@@ -251,6 +251,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\BaseReportQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
+    <Compile Include="ViewModels\DateRangeAndProductFilterViewModel.cs" />
+    <Compile Include="ViewModels\DateRangePickerViewModel.cs" />
+    <Compile Include="ViewModels\MonthAndProductFilterViewModel.cs" />
+    <Compile Include="ViewModels\MonthPickerViewModel.cs" />
+    <Compile Include="ViewModels\PageTitleViewModel.cs" />
+    <Compile Include="ViewModels\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -327,15 +333,15 @@
     <Content Include="Views\WinLossDetail\Agent.cshtml" />
     <Content Include="Views\WinLossDetail\Master.cshtml" />
     <Content Include="App_Code\SharedHelpers.cshtml" />
-    <Content Include="App_Code\Components.PageTitle.cshtml" />
-    <Content Include="App_Code\Components.Pager.cshtml" />
-    <Content Include="App_Code\Components.NetTurnoverTooltips.cshtml" />
-    <Content Include="App_Code\Components.DateRangePicker.cshtml" />
-    <Content Include="App_Code\Components.MonthPicker.cshtml" />
-    <Content Include="App_Code\Components.ProductMultiSelection.cshtml" />
-    <Content Include="App_Code\Components.MonthAndProductFilter.cshtml" />
-    <Content Include="App_Code\Components.DateRangeAndProductFilter.cshtml" />
+    <Content Include="Views\Shared\PageTitle.cshtml" />
+    <Content Include="Views\Shared\NetTurnoverTooltips.cshtml" />
+    <Content Include="Views\Shared\DateRangePicker.cshtml" />
+    <Content Include="Views\Shared\MonthPicker.cshtml" />
+    <Content Include="Views\Shared\ProductMultiSelection.cshtml" />
+    <Content Include="Views\Shared\MonthAndProductFilter.cshtml" />
+    <Content Include="Views\Shared\DateRangeAndProductFilter.cshtml" />
     <Content Include="Views\WinLossDetail\WinLossDetail.cshtml" />
+    <Content Include="Views\Shared\Pager.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>

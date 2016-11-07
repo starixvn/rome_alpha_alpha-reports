@@ -1,42 +1,32 @@
-﻿@using Alpha.Reports.Models.WinlossDetail;
-@model  dynamic
+﻿@model  dynamic
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    var sharedLayoutFolder = "~/Views/Shared";
+    Layout = $"{sharedLayoutFolder}/_Layout.cshtml";
+    var productMultiSelection = new ProductMultiSelectionViewModel(Model.Products, Model.UserSelectedProductIds, Model.Language);
 }
 
-@section Styles {
-    @AssetStyles.Render("/bundles/common/common")
-    @AssetStyles.Render("/bundles/site-reports/default")
-    @ReportsStyles.Render("~/assets/bundles/default")
-}
+@Html.Partial($"{sharedLayoutFolder}/NetTurnoverTooltips.cshtml", (IEnumerable<string>)Model.NetTurnoverTooltips)
+@Html.Partial($"{sharedLayoutFolder}/PageTitle.cshtml", new PageTitleViewModel(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter))
 
-@Components_NetTurnoverTooltips.Render(Model.NetTurnoverTooltips)
-@Components_PageTitle.Render(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter)
 @if (Model.IsHistoricReport)
 {
-    @Components_MonthAndProductFilter.Render(
-        Model.HideFilter,
-        Model.MinDate,
-        Model.FromDate,
-        Model.ToDate,
-        Model.Products,
-        Model.JsonProducts,
-        ((IEnumerable<int>)Model.UserSelectedProductIds).ToList(),
-        Model.Language);
+    var monthPicker = new MonthPickerViewModel(Model.MinDate, Model.FromDate, Model.ToDate);
+    @Html.Partial(
+        $"{sharedLayoutFolder}/MonthAndProductFilter.cshtml",
+        new MonthAndProductFilterViewModel(Model.HideFilter, Model.MinDate, monthPicker, productMultiSelection))
 }
 else
 {
-    @Components_DateRangeAndProductFilter.Render(
-        Model.HideFilter,
-        Model.MinDate,
-        Model.MaxDate,
-        Model.FromDate,
-        Model.ToDate,
-        Model.UserSelectedDateRangeOption,
-        Model.Products,
-        Model.JsonProducts,
-        ((IEnumerable<int>)Model.UserSelectedProductIds).ToList(),
-        Model.Language);
+    var dateRangePicker = new DateRangePickerViewModel(
+          Model.MinDate,
+          Model.MaxDate,
+          Model.FromDate,
+          Model.ToDate,
+          Model.UserSelectedDateRangeOption);
+
+    @Html.Partial(
+        $"{sharedLayoutFolder}/DateRangeAndProductFilter.cshtml",
+        new DateRangeAndProductFilterViewModel(Model.HideFilter, Model.MinDate, dateRangePicker, productMultiSelection))
 }
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
@@ -49,26 +39,21 @@ else
        data-todate="@Model.ToDate"
        data-sortedcolumn="@Model.SortPropertyName"
        data-descendingsort="@Model.IsDescendingSort">
-    <thead>
-        @RenderSection("ReportHeader", required: true)
-    </thead>
-    <tbody>
-        @RenderSection("ReportBody", required: true)
-    </tbody>
-    @RenderSection("ReportFooter", required: false)
+    @RenderSection("ReportData", required: true)
 </table>
 
 @if (ViewBag.HasData)
 {
-    @Components_Pager.Render()
+    @Html.Partial($"{sharedLayoutFolder}/Pager.cshtml")
 }
 
-@Html.Partial("~/Views/Shared/MonthNames.cshtml")
+@Html.Partial($"{sharedLayoutFolder}/MonthNames.cshtml")
 @Html.Hidden("ishistoricreport", (Model.IsHistoricReport ? 1 : 0))
-@Html.Hidden("hidefilter", (Model.HideFilter ? 1 : 0))
 @Html.Hidden("currentpath", (string)ViewBag.CurrentPath)
 
+@Html.Hidden("hidefilter", (Model.HideFilter ? 1 : 0))
+@Html.Hidden("isstackmode", (Model.IsStackMode ? 1 : 0))
+
 @section Scripts {
-    @AssetScripts.Render("/bundles/site-reports/default")
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
 }
