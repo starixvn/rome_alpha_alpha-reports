@@ -14,7 +14,7 @@
             int pageSize,
             DateTime fromDate,
             DateTime toDate,
-            string userSelectedProductIds,
+            IEnumerable<int> userSelectedProductIds,
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
@@ -44,7 +44,7 @@
                 : GetSortedColumn(sortByPropertyName, isStackMode);
 
             UserSelectedProductIds = userSelectedProductIds;
-            IsDescendingSort = isDescendingSort;   
+            IsDescendingSort = isDescendingSort;
         }
 
         public int CustId { get; }
@@ -57,7 +57,7 @@
 
         public DateTime ToDate { get; }
 
-        public string UserSelectedProductIds { get; }
+        public IEnumerable<int> UserSelectedProductIds { get; }
 
         public UserLevel ReportLevel { get; }
 

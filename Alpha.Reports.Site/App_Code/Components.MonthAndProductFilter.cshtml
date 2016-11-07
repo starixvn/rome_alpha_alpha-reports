@@ -1,5 +1,6 @@
 ﻿@using Alpha.Reports.AppResources;
 @using System.Web.Mvc;
+@using Alpha.Reports.Models;
 
 @functions {
     public static WebViewPage page = (PageContext.Page as WebViewPage);
@@ -11,13 +12,14 @@
     DateTime minDate,
     DateTime fromDate,
     DateTime toDate,
-    string userProducts,
-    string userSelectedProductIds,
+    IEnumerable<Product> userProducts,
+    string jsonUserProducts,
+    List<int> userSelectedProductIds,
     string language)
 {
     <form class="form-inline filter" role="form" id="filter" data-ishide="@(hideFilter ? "1" : "0")">
         @Components_MonthPicker.Render(minDate, fromDate, toDate)
-        @Components_ProductMultiSelection.Render(userProducts, userSelectedProductIds, language)
+        @Components_ProductMultiSelection.Render(userProducts, jsonUserProducts, userSelectedProductIds, language)
         <div class="form-group">
             <input type="button" value="@Resources.Submit" class="btn-submit" />
         </div>

@@ -29,15 +29,15 @@
             this.getProductName = getProductName ?? new CacheRefServiceImpl().GetProductName;
         }
 
-        public IEnumerable<int> FilterProductIdsByCustomer(int custId, string productIds)
+        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds)
         {
             var customerProductIds = GetProductsForCustomer(custId).Select(product => product.Id);
 
-            var productIdList = string.IsNullOrWhiteSpace(productIds)
+            var productIdList = productIds == null || !productIds.Any()
                 ? customerProductIds
-                : productIds.ToListInt();
+                : customerProductIds.Where(product => productIds.Contains(product));
 
-            return customerProductIds.Where(product => productIdList.Contains(product));
+            return productIdList;
         }
 
         public IEnumerable<Product> GetProductsForCustomer(int custId)
@@ -45,7 +45,7 @@
             if (custId <= 0)
             {
                 return Enumerable.Empty<Product>();
-            }                              
+            }
 
             var productList = CacheService
                 .GetOrSet(

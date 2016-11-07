@@ -19,8 +19,9 @@
         Model.MinDate,
         Model.FromDate,
         Model.ToDate,
+        Model.Products,
         Model.JsonProducts,
-        Model.UserSelectedProductIds,
+        ((IEnumerable<int>)Model.UserSelectedProductIds).ToList(),
         Model.Language);
 }
 else
@@ -32,8 +33,9 @@ else
         Model.FromDate,
         Model.ToDate,
         Model.UserSelectedDateRangeOption,
+        Model.Products,
         Model.JsonProducts,
-        Model.UserSelectedProductIds,
+        ((IEnumerable<int>)Model.UserSelectedProductIds).ToList(),
         Model.Language);
 }
 

@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using Extensions;
     using MediatR;
     using Models;
     using Models.WinlossDetail;
@@ -93,10 +95,9 @@
             UserLevel reportLevel)
             where TModel : MemberWinLossDetail
         {
-            var validUserSelectedProductIds =
-               string.Join(
-                   ",",
-                   productService.FilterProductIdsByCustomer(message.CustId, message.UserSelectedProductIds));
+            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
+                message.CustId,
+                string.IsNullOrWhiteSpace(message.UserSelectedProductIds) ? Enumerable.Empty<int>() : message.UserSelectedProductIds.ToListInt());
 
             return new WinLossDetailParam(
                  message.CustId,

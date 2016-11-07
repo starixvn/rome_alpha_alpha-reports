@@ -195,24 +195,7 @@ class WinLossDetailView {
         this.domElements.dropdownProduct = $("#dropdown-product");
         var dropdownProduct = this.domElements.dropdownProduct;
         var products = dropdownProduct.data("products");
-        var selectedProducts = dropdownProduct.data("selectedproducts").toString().split(",");
 
-        var product;
-        var productOptions = "";
-
-        for (var i = 0, max = products.length; i < max; i++) {
-            product = products[i];
-            productOptions +=
-                "<option" +
-                " id=\"product_" + product.Id + "\"" +
-                " value=\"" + product.Id + "\"" +
-                (selectedProducts.indexOf(product.Id.toString()) !== -1 ? " selected=\"selected\"" : "") +
-                " >" +
-                product.DisplayName +
-                "</options>";
-        }
-
-        dropdownProduct.html(productOptions);
         dropdownProduct.multiselect({
             maxHeight: 300,
             numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,

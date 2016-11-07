@@ -31,7 +31,7 @@
 
         public string JsonProducts => JsonConvert.SerializeObject(Products);
 
-        public string UserSelectedProductIds { get; set; }
+        public IEnumerable<int> UserSelectedProductIds { get; set; }
 
         public int UserSelectedDateRangeOption { get; set; }
 
