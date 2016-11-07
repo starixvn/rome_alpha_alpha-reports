@@ -53,9 +53,7 @@
         }
         else
         {
-            <tr>
-                <td colspan="18" align="center">@Resources.NoInformationIsAvailable</td>
-            </tr>
+            @Html.Partial("_NoInfo", 18)
         }
     </tbody>
 
@@ -105,23 +103,23 @@
         <td class="text-right">@SharedHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
-            @SharedHelpers.RenderCombinedColumn(
+            @SharedHelpers.RenderStackColumn(
                 new List<decimal>() { data.Turnover, data.NetTurnover, data.GrossComm },
                 "text-right visible-stack-mode combinedcolumn col-turnover-combined",
                 1);
-            @SharedHelpers.RenderCombinedColumn(
+            @SharedHelpers.RenderStackColumn(
                 new List<decimal>() { data.MemberWinLoss, data.MemberComm, data.MemberTotal },
                 "text-right visible-stack-mode combinedcolumn col-memberwinloss-combined",
                 3);
-            @SharedHelpers.RenderCombinedColumn(
+            @SharedHelpers.RenderStackColumn(
                new List<decimal>() { data.AgentWinLoss, data.AgentComm, data.AgentTotal },
                "text-right visible-stack-mode combinedcolumn col-agentwinloss-combined altercol ",
                3);
-            @SharedHelpers.RenderCombinedColumn(
+            @SharedHelpers.RenderStackColumn(
                new List<decimal>() { data.MasterWinLoss, data.MasterComm, data.MasterTotal },
                "text-right visible-stack-mode combinedcolumn col-masterwinloss-combined",
                3);
-            @SharedHelpers.RenderCombinedColumn(
+            @SharedHelpers.RenderStackColumn(
                new List<decimal>() { data.SuperWinLoss, data.SuperComm, data.SuperTotal },
                "text-right visible-stack-mode combinedcolumn col-superwinloss-combined altercol",
                3);

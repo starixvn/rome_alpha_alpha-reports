@@ -1,8 +1,8 @@
 ﻿@model DateRangeAndProductFilterViewModel
 
 <form class="form-inline filter" role="form" id="filter" data-ishide="@(Model.HideFilter? "1" : "0")>
-    @Html.Partial("~/Views/Shared/DateRangePicker.cshtml", Model.DateRangePicker)
-    @Html.Partial("~/Views/Shared/ProductMultiSelection.cshtml", Model.ProductMultiSelection)
+    @Html.Partial("_DateRangePicker", Model.DateRangePicker)
+    @Html.Partial("_ProductMultiSelection", Model.ProductMultiSelection)
 
     <div class="form-group">
         <input type="button" value="@Resources.Submit" class="btn-submit" />

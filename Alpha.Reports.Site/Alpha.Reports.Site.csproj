@@ -328,20 +328,21 @@
     <Content Include="assets\styles\_mixins.scss" />
     <Content Include="assets\styles\_variables.scss" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\MonthNames.cshtml" />
+    <Content Include="Views\Shared\_MonthNames.cshtml" />
     <Content Include="Views\WinLossDetail\Member.cshtml" />
     <Content Include="Views\WinLossDetail\Agent.cshtml" />
     <Content Include="Views\WinLossDetail\Master.cshtml" />
     <Content Include="App_Code\SharedHelpers.cshtml" />
-    <Content Include="Views\Shared\PageTitle.cshtml" />
-    <Content Include="Views\Shared\NetTurnoverTooltips.cshtml" />
-    <Content Include="Views\Shared\DateRangePicker.cshtml" />
-    <Content Include="Views\Shared\MonthPicker.cshtml" />
-    <Content Include="Views\Shared\ProductMultiSelection.cshtml" />
-    <Content Include="Views\Shared\MonthAndProductFilter.cshtml" />
-    <Content Include="Views\Shared\DateRangeAndProductFilter.cshtml" />
+    <Content Include="Views\Shared\_PageTitle.cshtml" />
+    <Content Include="Views\Shared\_NetTurnoverTooltips.cshtml" />
+    <Content Include="Views\Shared\_DateRangePicker.cshtml" />
+    <Content Include="Views\Shared\_MonthPicker.cshtml" />
+    <Content Include="Views\Shared\_ProductMultiSelection.cshtml" />
+    <Content Include="Views\Shared\_MonthAndProductFilter.cshtml" />
+    <Content Include="Views\Shared\_DateRangeAndProductFilter.cshtml" />
     <Content Include="Views\WinLossDetail\WinLossDetail.cshtml" />
-    <Content Include="Views\Shared\Pager.cshtml" />
+    <Content Include="Views\Shared\_Pager.cshtml" />
+    <Content Include="Views\Shared\_NoInfo.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>

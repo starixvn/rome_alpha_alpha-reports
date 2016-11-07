@@ -19,16 +19,13 @@
     {
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
-        private readonly ApplicationContext applicationContext;
 
         public WinLossDetailHandler(
             ProductService productService,
-            WinLossDetailService reportService,
-            ApplicationContext applicationContext)
+            WinLossDetailService reportService)
         {
             this.productService = productService;
             this.reportService = reportService;
-            this.applicationContext = applicationContext;
         }
 
         public WinLossDetailViewModel<MasterWinLossDetail> Handle(WinLossDetailQuery<MasterWinLossDetail> message)

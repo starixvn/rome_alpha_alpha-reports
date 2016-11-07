@@ -1,18 +1,17 @@
 ﻿@model  dynamic
 @{
-    var sharedLayoutFolder = "~/Views/Shared";
-    Layout = $"{sharedLayoutFolder}/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var productMultiSelection = new ProductMultiSelectionViewModel(Model.Products, Model.UserSelectedProductIds, Model.Language);
 }
 
-@Html.Partial($"{sharedLayoutFolder}/NetTurnoverTooltips.cshtml", (IEnumerable<string>)Model.NetTurnoverTooltips)
-@Html.Partial($"{sharedLayoutFolder}/PageTitle.cshtml", new PageTitleViewModel(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter))
+@Html.Partial("_NetTurnoverTooltips", (IEnumerable<string>)Model.NetTurnoverTooltips)
+@Html.Partial("_PageTitle", new PageTitleViewModel(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter))
 
 @if (Model.IsHistoricReport)
 {
     var monthPicker = new MonthPickerViewModel(Model.MinDate, Model.FromDate, Model.ToDate);
     @Html.Partial(
-        $"{sharedLayoutFolder}/MonthAndProductFilter.cshtml",
+        "_MonthAndProductFilter",
         new MonthAndProductFilterViewModel(Model.HideFilter, Model.MinDate, monthPicker, productMultiSelection))
 }
 else
@@ -25,7 +24,7 @@ else
           Model.UserSelectedDateRangeOption);
 
     @Html.Partial(
-        $"{sharedLayoutFolder}/DateRangeAndProductFilter.cshtml",
+        "_DateRangeAndProductFilter",
         new DateRangeAndProductFilterViewModel(Model.HideFilter, Model.MinDate, dateRangePicker, productMultiSelection))
 }
 
@@ -44,10 +43,10 @@ else
 
 @if (ViewBag.HasData)
 {
-    @Html.Partial($"{sharedLayoutFolder}/Pager.cshtml")
+    @Html.Partial("_Pager")
 }
 
-@Html.Partial($"{sharedLayoutFolder}/MonthNames.cshtml")
+@Html.Partial("_MonthNames")
 @Html.Hidden("ishistoricreport", (Model.IsHistoricReport ? 1 : 0))
 @Html.Hidden("currentpath", (string)ViewBag.CurrentPath)
 

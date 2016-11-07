@@ -9,6 +9,8 @@
     ViewBag.Title = Resources.MemberWinLossDetail;
     ViewBag.CurrentPath = AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Member");
     ViewBag.HasData = ((List<MemberWinLossDetail>)Model.ReportData.DataSource).Any();
+
+    ViewBag.BetListPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~")}/_BetList/BetListForSiteReport.aspx";
 }
 
 @section ReportData {
@@ -45,9 +47,7 @@
         }
         else
         {
-            <tr>
-                <td colspan="12" align="center">@Resources.NoInformationIsAvailable</td>
-            </tr>
+            @Html.Partial("_NoInfo", 12)
         }
     </tbody>
     @if (ViewBag.HasData)
@@ -70,7 +70,7 @@
             {
                 @Html.ActionLink(
                     linkText: data.CustName,
-                    actionName: $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~")}/_BetList/BetListForSiteReport.aspx",
+                    actionName: (string)ViewBag.BetListPath,
                     controllerName: string.Empty,
                     routeValues: new
                     {
@@ -86,15 +86,15 @@
         <td class="text-right">@SharedHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
-            @SharedHelpers.RenderCombinedColumn(
+            @SharedHelpers.RenderStackColumn(
                 new List<decimal>() { data.Turnover, data.NetTurnover, data.GrossComm },
                 "text-right visible-stack-mode combinedcolumn col-turnover-combined",
                 1);
-            @SharedHelpers.RenderCombinedColumn(
+            @SharedHelpers.RenderStackColumn(
                 new List<decimal>() { data.MemberWinLoss, data.MemberComm, data.MemberTotal },
                 "text-right visible-stack-mode combinedcolumn col-memberwinloss-combined",
                 3);
-            @SharedHelpers.RenderCombinedColumn(
+            @SharedHelpers.RenderStackColumn(
                 new List<decimal>() { data.AgentWinLoss, data.AgentComm, data.AgentTotal },
                 "text-right visible-stack-mode combinedcolumn col-agentwinloss-combined altercol",
                 3);

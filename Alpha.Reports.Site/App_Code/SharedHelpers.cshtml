@@ -8,7 +8,7 @@
     @value.ToString($"#,##0.##")
 }
 
-@helper RenderCombinedColumn(IEnumerable<decimal> columns, string css, int colspan)
+@helper RenderStackColumn(IEnumerable<decimal> columns, string css, int colspan)
 {
     <td class="@css" colspan="@colspan">
         <ul>
