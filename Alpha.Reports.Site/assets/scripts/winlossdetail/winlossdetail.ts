@@ -16,16 +16,8 @@ class WinLossDetailView {
         pager: null,
         dropdownProduct: null,
 
-        longMonthsInYear: null,
-        historicReportSwitch: null,
-        currentReportSwitch: null,
         filter: null,
-
-        iconFilter: null,
         pageTitle: null,
-        iconSwitchMode: null,
-        buttonSubmit: null,
-
         tableReport: null,
 
         isHistoricReport: null,
@@ -49,12 +41,9 @@ class WinLossDetailView {
     };
 
     isFirstSwitchMode = true;
-
     sortedColumn = "";
     descendingsort = true;
-
     isHistoricReport = false;
-
     slideAnimationTime = 200;
 
     init = () => {
@@ -86,16 +75,8 @@ class WinLossDetailView {
     };
 
     cacheDOMElements = () => {
-        this.domElements.longMonthsInYear = $("#longmonths-inyear");
-        this.domElements.historicReportSwitch = $("#historicreport-switch");
-        this.domElements.currentReportSwitch = $("#currentreport-switch");
-
         this.domElements.pageTitle = $(".page-title ");
         this.domElements.filter = $("#filter");
-        this.domElements.iconFilter = $(".icon-filter");
-        this.domElements.iconSwitchMode = $(".icon-switchmode");
-
-        this.domElements.buttonSubmit = $(".btn-submit");
 
         this.domElements.tableReport = $("#tbl-report");
 
@@ -122,7 +103,7 @@ class WinLossDetailView {
 
     getLongMonthsInYear = () => {
         // $.parseJSON: string must start/end with "
-        var longMonthsInYear = $.parseJSON(this.domElements.longMonthsInYear.val());
+        var longMonthsInYear = $.parseJSON($("#longmonths-inyear").val());
         return longMonthsInYear;
     };
 
@@ -131,7 +112,7 @@ class WinLossDetailView {
 
         this.domElements.dropdownProduct = $("#dropdown-product");
         var dropdownProduct = this.domElements.dropdownProduct;
-        var hasProduct = parseInt(dropdownProduct.data("total-product")) > 0;
+        var hasProduct = parseInt(dropdownProduct.data("total-product"), 0) > 0;
 
         dropdownProduct.multiselect({
             maxHeight: 300,
@@ -165,17 +146,17 @@ class WinLossDetailView {
     registerEvents = () => {
         var $this = this;
 
-        this.domElements.historicReportSwitch.on("click", function () {
+        $("#historicreport-switch").on("click", function () {
             $this.isHistoricReport = true;
             $this.domElements.reportForm.trigger("submit");
         });
 
-        this.domElements.currentReportSwitch.on("click", function () {
+        $("#currentreport-switch").on("click", function () {
             $this.isHistoricReport = false;
             $this.domElements.reportForm.trigger("submit");
         });
 
-        this.domElements.iconFilter.on("click", function () {
+        $(".icon-filter").on("click", function () {
             var filter = $this.domElements.filter;
             var currentHideState = filter.is(":hidden");
 
@@ -193,7 +174,7 @@ class WinLossDetailView {
             }, $this.slideAnimationTime);
         });
 
-        this.domElements.iconSwitchMode.on("click", function () {
+        $(".icon-switchmode").on("click", function () {
             var tableReport = $this.domElements.tableReport;
             var currentStackModeState = tableReport.hasClass("stack-mode");
 
@@ -393,7 +374,7 @@ class WinLossDetailView {
     clearError = () => {
         this.domElements.multiSelectButton.removeClass("error");
     };
-    replaceDrilldownParam = (paramName, paramValue) => {
+    replaceDrilldownParam = (paramName: string, paramValue: any) => {
         this.domElements.drilldownLinks.each(function () {
             var queryString = $(this).attr("href");
             var newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
@@ -401,7 +382,7 @@ class WinLossDetailView {
         });
     };
 
-    onSubmitReportEvent = (e) => {
+    onSubmitReportEvent = (e: any) => {
         $.blockUI();
 
         var params = winLossDetailView.getParams();
@@ -429,7 +410,7 @@ class WinLossDetailView {
             this.domElements.pageTitle.addClass("hide-filter");
             this.domElements.filter.slideUp("fast");
         }
-    }
+    };
 };
 
 const winLossDetailView = new WinLossDetailView();
