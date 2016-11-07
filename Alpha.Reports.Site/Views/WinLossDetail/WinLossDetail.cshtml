@@ -1,7 +1,7 @@
 ﻿@model  dynamic
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var productMultiSelection = new ProductMultiSelectionViewModel(Model.Products, Model.UserSelectedProductIds, Model.Language);
+    var productMultiSelection = new ProductMultiSelectionViewModel(Model.Products, Model.Language);
 }
 
 @Html.Partial("_NetTurnoverTooltips", (IEnumerable<string>)Model.NetTurnoverTooltips)

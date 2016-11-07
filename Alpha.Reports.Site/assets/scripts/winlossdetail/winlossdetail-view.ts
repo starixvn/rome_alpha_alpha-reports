@@ -199,17 +199,17 @@ class WinLossDetailView {
 
         this.domElements.dropdownProduct = $("#dropdown-product");
         var dropdownProduct = this.domElements.dropdownProduct;
-        var products = dropdownProduct.data("products");
+        var hasProduct = parseInt(dropdownProduct.data("total-product")) > 0;
 
         dropdownProduct.multiselect({
             maxHeight: 300,
             numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
-            nonSelectedText: products.length ?
+            nonSelectedText: hasProduct ?
                 dropdownProduct.data("labelselectproducts")
                 : dropdownProduct.data("labelthereisnoproduct"),
             nSelectedText: " " + dropdownProduct.data("labelselected"),
             allSelectedText: dropdownProduct.data("labelallproducts"),
-            includeSelectAllOption: products.length,
+            includeSelectAllOption: hasProduct,
             onChange: function (option: any, checked: boolean) {
                 if ($this.domElements.multiSelectButton &&
                     $this.domElements.dropdownProduct.find("option:selected").length &&

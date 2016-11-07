@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Mvc;
     using Extensions;
     using MediatR;
     using Models;
@@ -69,8 +70,7 @@
                 FromDate = winLossDetailParam.FromDate,
                 ToDate = winLossDetailParam.ToDate,
 
-                Products = products,
-                UserSelectedProductIds = winLossDetailParam.UserSelectedProductIds,
+                Products = BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products),
                 Language = message.Language,
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
@@ -107,6 +107,29 @@
                  message.IsDescendingSort,
                  message.IsHistoricReport,
                  message.IsStackMode);
+        }
+
+        private IEnumerable<SelectListItem> BuildProductSelectListItems(
+            IEnumerable<int> userSelectedProductIds, 
+            IEnumerable<Product> products)
+        {
+            if (products == null 
+                || !products.Any())
+            {
+                return Enumerable.Empty<SelectListItem>();
+            }
+
+            return products.Select(product =>
+            {
+                var productSelectListItem = new SelectListItem
+                {
+                    Text = product.DisplayName,
+                    Value = product.Id.ToString(),
+                    Selected = userSelectedProductIds.Contains(product.Id)
+                };
+
+                return productSelectListItem;
+            });
         }
     }
 }

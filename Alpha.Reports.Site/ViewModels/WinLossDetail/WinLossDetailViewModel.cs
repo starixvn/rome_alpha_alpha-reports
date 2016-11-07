@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Mvc;
     using Extensions;
     using Models;
     using Models.WinlossDetail;
@@ -26,8 +27,6 @@
 
         public string Language { get; set; }
 
-        public IEnumerable<Product> Products { get; set; }
-
         public IEnumerable<int> UserSelectedProductIds { get; set; }
 
         public int UserSelectedDateRangeOption { get; set; }
@@ -50,7 +49,7 @@
             {
                 var netTurnoverTooltips = new List<string>();
 
-                if (Products.Any(product => product.Id == AllBetProductId))
+                if (Products.Any(product => Convert.ToInt32(product.Value) == AllBetProductId))
                 {
                     netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
                 }
@@ -58,5 +57,7 @@
                 return netTurnoverTooltips;
             }
         }
+
+        public IEnumerable<SelectListItem> Products { get; set; }
     }
 }
