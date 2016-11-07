@@ -31,7 +31,16 @@ class WinLossDetailView {
         sortColumns: null,
         multiSelectButton: null,
         hideFilter: null,
-        isStackMode: null
+        isStackMode: null,
+        isDescendingSort: null,
+        sortPropertyName: null,
+        pageIndex: null,
+        pageSize: null,
+        fromDate: null,
+        toDate: null,
+        reportForm: null,
+        userSelectedProductIds: null,
+        userSelectedDateRangeOption: null,
     };
 
     isFirstSwitchMode = true;
@@ -96,15 +105,24 @@ class WinLossDetailView {
 
         this.domElements.closeNetTurnoverTooltip = $("#close-netturnover-tooltip");
 
-        this.domElements.isHistoricReport = $("#ishistoricreport");
-        this.isHistoricReport = this.domElements.isHistoricReport.val() === "true";
+        this.domElements.isHistoricReport = $("#IsHistoricReport");
+        this.isHistoricReport = this.domElements.isHistoricReport.val() === "True";
 
         this.domElements.dropdownDateRange = $("#dropdown-daterange");
 
         this.domElements.sortColumns = this.domElements.tableReport.find("th[data-sortedname]");
 
-        this.domElements.hideFilter = $("#hidefilter");
-        this.domElements.isStackMode = $("#isstackmode");
+        this.domElements.hideFilter = $("#HideFilter");
+        this.domElements.isStackMode = $("#IsStackMode");
+        this.domElements.isDescendingSort = $("#IsDescendingSort");
+        this.domElements.sortPropertyName = $("#SortPropertyName");
+        this.domElements.pageIndex = $("#PageIndex");
+        this.domElements.pageSize = $("#PageSize");
+        this.domElements.fromDate = $("#FromDate");
+        this.domElements.toDate = $("#ToDate");
+        this.domElements.reportForm = $("#report-form");
+        this.domElements.userSelectedDateRangeOption = $("#UserSelectedDateRangeOption");
+        this.domElements.userSelectedProductIds = $("#UserSelectedProductIds");
     };
 
     renderDateRangePicker = () => {
@@ -235,12 +253,12 @@ class WinLossDetailView {
 
         this.domElements.historicReportSwitch.on("click", function () {
             $this.isHistoricReport = true;
-            winLossDetailController.switchView();
+            $this.domElements.reportForm.trigger("submit");
         });
 
         this.domElements.currentReportSwitch.on("click", function () {
             $this.isHistoricReport = false;
-            winLossDetailController.switchView();
+            $this.domElements.reportForm.trigger("submit");
         });
 
         this.domElements.iconFilter.on("click", function () {
@@ -336,20 +354,7 @@ class WinLossDetailView {
             }
         });
 
-        this.domElements.buttonSubmit.on("click", function () {
-            winLossDetailController.getReport();
-        });
-
-        if (alphaReports.screenSmallThan768()) {
-            this.domElements.buttonSubmit.off("click").on("click", function () {
-                $this.domElements.pageTitle.addClass("hide-filter");
-                $this.domElements.filter.slideUp("fast");
-
-                setTimeout(function () {
-                    winLossDetailController.getReport();
-                }, $this.slideAnimationTime);
-            });
-        }
+        this.domElements.reportForm.submit(this.onSubmitReportEvent);
 
         $(window).resize(function () {
             $this.positionNetTurnoverTooltip();
@@ -386,7 +391,7 @@ class WinLossDetailView {
                     $this.pageIndex = pageNumber;
                     $this.pageSize = pageSize;
 
-                    winLossDetailController.getReport();
+                    $this.domElements.reportForm.trigger("submit");
                 },
                 beforePageText: pager.data("lablepage"),
                 afterPageText: pager.data("labelof") + " {pages}",
@@ -490,7 +495,7 @@ class WinLossDetailView {
                     }
 
                     $this.sortedColumn = sortedColumn;
-                    winLossDetailController.getReport();
+                    $this.domElements.reportForm.trigger("submit");
                 });
         }
 
@@ -520,6 +525,43 @@ class WinLossDetailView {
     clearError = () => {
         this.domElements.multiSelectButton.removeClass("error");
     };
+
+    onSubmitReportEvent = (e) => {
+        $.blockUI();
+
+        var params = winLossDetailView.getParams();
+        if (params.UserSelectedProductIds === "") {
+            winLossDetailView.showValidaProductError();
+            $.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+
+        this.domElements.hideFilter.val(params.HideFilter);
+        this.domElements.isDescendingSort.val(params.IsDescendingSort);
+        this.domElements.isHistoricReport.val(params.IsHistoricReport);
+        this.domElements.isStackMode.val(params.IsStackMode);
+        this.domElements.sortPropertyName.val(params.SortPropertyName);
+        this.domElements.pageIndex.val(params.PageIndex);
+        this.domElements.pageSize.val(params.PageSize);
+        this.domElements.fromDate.val(params.FromDate);
+        this.domElements.toDate.val(params.ToDate);
+        this.domElements.userSelectedDateRangeOption.val(params.UserSelectedDateRangeOption);
+        this.domElements.userSelectedProductIds.val(params.UserSelectedProductIds);
+
+        if (alphaReports.screenSmallThan768()) {
+            this.domElements.pageTitle.addClass("hide-filter");
+            this.domElements.filter.slideUp("fast");
+        }
+
+
+    }
 };
 
 const winLossDetailView = new WinLossDetailView();
+
+
+$(function () {
+    winLossDetailView.init();
+});

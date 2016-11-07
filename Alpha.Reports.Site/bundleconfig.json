@@ -9,8 +9,7 @@
     "outputFileName": "assets/bundles/winlossdetail/winlossdetail.js",
     "inputFiles": [
       "assets/scripts/core.js",
-      "assets/scripts/winlossdetail/winlossdetail-controller.js",
-      "assets/scripts/winlossdetail/winlossdetail-view.js"
+      "assets/scripts/winlossdetail/winlossdetail.js"
     ]
   }
 ]

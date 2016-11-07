@@ -1,35 +1,46 @@
 ﻿@model  dynamic
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var productMultiSelection = new ProductMultiSelectionViewModel(Model.Products, Model.Language);
 }
 
 @Html.Partial("_NetTurnoverTooltips", (IEnumerable<string>)Model.NetTurnoverTooltips)
 @Html.Partial("_PageTitle", new PageTitleViewModel(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter))
 
-@if (Model.IsHistoricReport)
-{
-    var monthPicker = new MonthPickerViewModel(Model.MinDate, Model.FromDate, Model.ToDate);
-    @Html.Partial(
-        "_MonthAndProductFilter",
-        new MonthAndProductFilterViewModel(Model.HideFilter, Model.MinDate, monthPicker, productMultiSelection))
-}
-else
-{
-    var dateRangePicker = new DateRangePickerViewModel(
-          Model.MinDate,
-          Model.MaxDate,
-          Model.FromDate,
-          Model.ToDate,
-          Model.UserSelectedDateRangeOption);
+<form class="form-inline filter" role="form" id="report-form">
+    @RenderHiddenFields(Model) 
 
-    @Html.Partial(
-        "_DateRangeAndProductFilter",
-        new DateRangeAndProductFilterViewModel(Model.HideFilter, Model.MinDate, dateRangePicker, productMultiSelection))
-}
+    @(Model.IsHistoricReport
+        ? Html.Partial("_MonthPicker", new MonthPickerViewModel(Model.MinDate, Model.FromDate, Model.ToDate))
+        : Html.Partial("_DateRangePicker", new DateRangePickerViewModel(
+              Model.MinDate,
+              Model.MaxDate,
+              Model.FromDate,
+              Model.ToDate,
+              Model.UserSelectedDateRangeOption)))
+
+    @Html.Partial("_ProductMultiSelection", new ProductMultiSelectionViewModel(Model.Products, Model.Language))
+
+    <div class="form-group">
+        <input type="submit" value="@Resources.Submit" class="btn-submit" />
+    </div>
+
+    <div class="form-group">
+        <span class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>
+        @Html.Raw(
+            string.Format(Model.IsHistoricReport
+               ? Resources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
+               : Resources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport,
+            Model.MinDate))
+    </div>
+
+</form>
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
-       @(Model.IsStackMode?"stack-mode":string.Empty)" id="tbl-report"
+       @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-pageindex="@Model.ReportData.CurrentPageIndex"
        data-pagesize="@Model.ReportData.PageSize"
        data-totalrecords="@Model.ReportData.TotalRecords"
@@ -47,12 +58,26 @@ else
 }
 
 @Html.Partial("_MonthNames")
-@Html.Hidden("ishistoricreport", (Model.IsHistoricReport ? 1 : 0))
-@Html.Hidden("currentpath", (string)ViewBag.CurrentPath)
-
-@Html.Hidden("hidefilter", (Model.HideFilter ? 1 : 0))
-@Html.Hidden("isstackmode", (Model.IsStackMode ? 1 : 0))
 
 @section Scripts {
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
+}
+
+@helper RenderHiddenFields(dynamic viewModel)
+{
+    @Html.Hidden("HideFilter", viewModel.HideFilter as bool?)
+    @Html.Hidden("IsHistoricReport", viewModel.IsHistoricReport as bool?)
+    @Html.Hidden("IsStackMode", viewModel.IsStackMode as bool?)
+    @Html.Hidden("IsDescendingSort", viewModel.IsDescendingSort as bool?)
+    @Html.Hidden("SortPropertyName", viewModel.SortPropertyName as string)
+    @Html.Hidden("PageIndex", viewModel.ReportData.CurrentPageIndex as int?)
+    @Html.Hidden("PageSize", viewModel.ReportData.PageSize as int?)
+    @Html.Hidden("FromDate", (viewModel.FromDate as DateTime?).ToString())
+    @Html.Hidden("ToDate", (viewModel.ToDate as DateTime?).ToString())
+    @Html.Hidden("UserSelectedProductIds", viewModel.UserSelectedProductIds as string)
+    @Html.Hidden("UserSelectedDateRangeOption", viewModel.UserSelectedDateRangeOption as int?)
+    if(Model.CustId > 0)
+    {
+        @Html.Hidden("CustId", viewModel.CustId as int?)
+    }
 }
