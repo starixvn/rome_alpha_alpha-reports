@@ -4,7 +4,7 @@
 
     public class BaseReportQuery
     {
-        public virtual int CustId { get; set; }
+        public int CustId { get; set; }
 
         public int PageIndex { get; set; }
 
