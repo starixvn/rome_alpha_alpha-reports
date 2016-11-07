@@ -3,7 +3,8 @@
 
 class PagerComponent {
     options = {
-        pagerId: "report-pager"
+        pagerId: "report-pager",
+        onSelectPage: null
     };
 
     pageIndex = 0;
@@ -35,7 +36,7 @@ class PagerComponent {
                     pager.data("pageindex", pageNumber);
                     pager.data("pagesize", pageSize);
 
-                    winLossDetailController.getReport();
+                    options.onSelectPage();
                 },
                 beforePageText: pager.data("lablepage"),
                 afterPageText: pager.data("labelof") + " {pages}",

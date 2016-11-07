@@ -7,7 +7,7 @@
 @Html.Partial("_PageTitle", new PageTitleViewModel(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter))
 
 <form class="form-inline filter" role="form" id="report-form">
-    @RenderHiddenFields(Model) 
+    @RenderHiddenFields(Model)
 
     @(Model.IsHistoricReport
         ? Html.Partial("_MonthPicker", new MonthPickerViewModel(Model.MinDate, Model.FromDate, Model.ToDate))
@@ -21,19 +21,19 @@
     @Html.Partial("_ProductMultiSelection", new ProductMultiSelectionViewModel(Model.Products, Model.Language))
 
     <div class="form-group">
-        <input type="submit" value="@Resources.Submit" class="btn-submit" />
+        <input type="submit" value="@SiteResources.Submit" class="btn-submit" />
     </div>
 
     <div class="form-group">
-        <span class="icon-excel" title="@Resources.ExportToExcel"></span>
+        <span class="icon-excel" title="@SiteResources.ExportToExcel"></span>
     </div>
 
     <div class="note">
         <span class="star">*</span>
         @Html.Raw(
             string.Format(Model.IsHistoricReport
-               ? Resources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
-               : Resources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport,
+               ? SiteResources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
+               : SiteResources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport,
             Model.MinDate))
     </div>
 
@@ -76,8 +76,8 @@
     @Html.Hidden("ToDate", (viewModel.ToDate as DateTime?).ToString())
     @Html.Hidden("UserSelectedProductIds", viewModel.UserSelectedProductIds as string)
     @Html.Hidden("UserSelectedDateRangeOption", viewModel.UserSelectedDateRangeOption as int?)
-    if(Model.CustId > 0)
-    {
+if (Model.CustId > 0)
+{
         @Html.Hidden("CustId", viewModel.CustId as int?)
-    }
+}
 }

@@ -1,4 +1,10 @@
 ﻿/// <reference path="../core.ts" />
+/// <reference path="../components/daterangepicker.ts" />
+/// <reference path="../components/monthpicker.ts" />
+/// <reference path="../components/netturnover-tooltip.ts" />
+/// <reference path="../components/pager.ts" />
+/// <reference path="../components/productmultiselection.ts" />
+
 "use strict";
 
 declare var $: any;
@@ -6,14 +12,14 @@ declare var $: any;
 class WinLossDetailView {
     domElements = {
         dateRangePicker: null,
-        monthPickerContainer: null,
-        monthPicker: null,
         dropdownMonth: null,
+        pager: null,
+        dropdownProduct: null,
+
         longMonthsInYear: null,
         historicReportSwitch: null,
         currentReportSwitch: null,
         filter: null,
-        dropdownProduct: null,
 
         iconFilter: null,
         pageTitle: null,
@@ -21,9 +27,6 @@ class WinLossDetailView {
         buttonSubmit: null,
 
         tableReport: null,
-        pager: null,
-        netTurnoverTooltip: null,
-        closeNetTurnoverTooltip: null,
 
         isHistoricReport: null,
         downlineLink: null,
@@ -31,7 +34,9 @@ class WinLossDetailView {
         sortColumns: null,
         multiSelectButton: null,
 
-        drilldownLinks: null
+        drilldownLinks: null,
+        hideFilter: null,
+        isStackMode: null,
         isDescendingSort: null,
         sortPropertyName: null,
         pageIndex: null,
@@ -45,28 +50,25 @@ class WinLossDetailView {
 
     isFirstSwitchMode = true;
 
-    pageIndex = 0;
-    pageSize = 0;
     sortedColumn = "";
     descendingsort = true;
 
-    timeToShowNetTurnoverTooltip = 10000;
-    cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
     isHistoricReport = false;
 
     slideAnimationTime = 200;
 
     init = () => {
-        this.renderDateRangePicker();
+        this.domElements.dateRangePicker = dateRangePickerComponent.render();
+
         this.renderDropdownProduct();
         this.cacheDOMElements();
 
         if (this.isHistoricReport) {
-            this.renderMonthPicker();
+            this.domElements.dropdownMonth = monthPickerComponent.render({ longMonthsInYear: this.getLongMonthsInYear() });
         }
 
-        this.renderPager();
-        this.renderNetTurnoverTooltip();
+        this.domElements.pager = pagerComponent.render({ onSelectPage: this.onSubmitReportEvent });
+        netTurnoverTooltipComponent.render();
 
         var tableReport = this.domElements.tableReport;
         tableReport.stickyTableHeaders();
@@ -84,9 +86,6 @@ class WinLossDetailView {
     };
 
     cacheDOMElements = () => {
-        this.domElements.monthPickerContainer = $(".monthpicker-container");
-        this.domElements.monthPicker = $("#monthPickerID");
-        this.domElements.dropdownMonth = $("#dropdown-month");
         this.domElements.longMonthsInYear = $("#longmonths-inyear");
         this.domElements.historicReportSwitch = $("#historicreport-switch");
         this.domElements.currentReportSwitch = $("#currentreport-switch");
@@ -99,11 +98,6 @@ class WinLossDetailView {
         this.domElements.buttonSubmit = $(".btn-submit");
 
         this.domElements.tableReport = $("#tbl-report");
-        this.domElements.pager = $("#report-pager");
-
-        this.domElements.netTurnoverTooltip = $("#netturnovertooltip");
-
-        this.domElements.closeNetTurnoverTooltip = $("#close-netturnover-tooltip");
 
         this.domElements.isHistoricReport = $("#IsHistoricReport");
         this.isHistoricReport = this.domElements.isHistoricReport.val() === "True";
@@ -124,87 +118,6 @@ class WinLossDetailView {
         this.domElements.reportForm = $("#report-form");
         this.domElements.userSelectedDateRangeOption = $("#UserSelectedDateRangeOption");
         this.domElements.userSelectedProductIds = $("#UserSelectedProductIds");
-    };
-
-    renderDateRangePicker = () => {
-        var dateRangePicker = $("#daterange-picker");
-
-        var currentDate = dateRangePicker.data("currentdate");
-        var minDate = dateRangePicker.data("mindate");
-        var maxDate = dateRangePicker.data("maxdate");
-
-        dateRangePicker.nexDatePicker({
-            nexDatePickerType: "quickchoose",
-            datePickerFormat: {
-                changeMonth: true,
-                changeYear: true,
-                showOtherMonths: true,
-                dateFormat: alphaReports.format.shortDateWithSlash_DatePicker
-            },
-            dropDownList:
-            {
-                Id: "dropdown-daterange",
-                Label: "",
-                LabelCss: "",
-                OptionCss: ""
-            },
-            firstDatePicker: {
-                Id: "picker-fromdate",
-                Label: "",
-                InitDate: new Date(dateRangePicker.data("fromdate")),
-                LabelCss: ""
-            },
-            secondDatePicker: {
-                Id: "picker-todate",
-                Label: dateRangePicker.data("labelto"),
-                InitDate: new Date(dateRangePicker.data("todate")),
-                LabelCss: ""
-            },
-            selectedItem: dateRangePicker.data("selecteddaterange"),
-            minDate: new Date(minDate),
-            maxDate: maxDate === "" ? null : maxDate,
-            currentDate: new Date(currentDate),
-            optionItems: [
-                { Name: dateRangePicker.data("labeltoday"), Value: 0 },
-                { Name: dateRangePicker.data("labelyesterday"), Value: 1 },
-                { Name: dateRangePicker.data("labelthisweek"), Value: 2 },
-                { Name: dateRangePicker.data("labellastweek"), Value: 3 },
-                { Name: dateRangePicker.data("labelthismonth"), Value: 4 },
-                { Name: dateRangePicker.data("labellastmonth"), Value: 5 },
-                { Name: dateRangePicker.data("labelsincelastmonth"), Value: 6 },
-                { Name: dateRangePicker.data("labelspecificdate"), Value: 7 }
-            ]
-        });
-
-        this.domElements.dateRangePicker = $("#daterange-picker");
-    };
-
-    renderMonthPicker = () => {
-        var dropdownMonth = this.domElements.dropdownMonth;
-
-        var maxDate = dropdownMonth.data("maxdate");
-        var options = {
-            longMonthsInYear: this.getLongMonthsInYear(),
-            maxDate: maxDate === "" ? dropdownMonth.data("currentdate") : maxDate,
-            minDate: dropdownMonth.data("mindate"),
-            month: new Date(dropdownMonth.data("dateinmonth")),
-
-            fromDay: dropdownMonth.data("fromdate"),
-            toDay: dropdownMonth.data("todate"),
-
-            showDateRange: true,
-            monthFormat: alphaReports.format.monthFormat,
-            fromDayId: "ddl-fromday",
-            toDayId: "ddl-today",
-            fromDayLabel: "",
-            toDayLabel: dropdownMonth.data("labelto"),
-            sortDesc: true,
-            log: function (msg: string) {
-                console.warn(msg);
-            }
-        };
-
-        dropdownMonth.monPickr(options);
     };
 
     getLongMonthsInYear = () => {
@@ -276,7 +189,7 @@ class WinLossDetailView {
             $this.replaceDrilldownParam("HideFilter", !currentHideState);
 
             setTimeout(function () {
-                $this.positionNetTurnoverTooltip();
+                netTurnoverTooltipComponent.positionNetTurnoverTooltip();
             }, $this.slideAnimationTime);
         });
 
@@ -357,91 +270,11 @@ class WinLossDetailView {
         });
 
         this.domElements.reportForm.submit(this.onSubmitReportEvent);
-
-        $(window).resize(function () {
-            $this.positionNetTurnoverTooltip();
-        });
     };
 
-    renderPager = () => {
-        var $this = this;
-
-        var pager = this.domElements.pager;
-        var tableReport = this.domElements.tableReport;
-
-        var options = {
-            totalRecords: tableReport.data("totalrecords"),
-            pageSize: tableReport.data("pagesize"),
-            pageIndex: tableReport.data("pageindex")
-        };
-
-        this.pageSize = options.pageSize;
-        this.pageIndex = options.pageIndex;
-
-        if (options.totalRecords < alphaReports.pageList[0]) {
-            // total records less than min page size => do not need to show pager
-            this.domElements.pager.addClass("hide");
-        } else {
-            this.domElements.pager.pagination({
-                pageList: alphaReports.pageList,
-                total: options.totalRecords,
-                pageSize: options.pageSize,
-                pageNumber: options.pageIndex,
-
-                showRefresh: false,
-                onSelectPage: function (pageNumber: number, pageSize: number) {
-                    $this.pageIndex = pageNumber;
-                    $this.pageSize = pageSize;
-
-                    $this.domElements.reportForm.trigger("submit");
-                },
-                beforePageText: pager.data("lablepage"),
-                afterPageText: pager.data("labelof") + " {pages}",
-                displayMsg: pager.data("labeldisplayitems")
-            });
-
-            this.domElements.pager.removeClass("hide");
-        }
-    };
-
-    renderNetTurnoverTooltip = () => {
-        var $this = this;
-        var netTurnoverTooltipShowCount = alphaReports.localStorage.get(this.cookieNetTurnoverTooltip) || 0;
-
-        if (netTurnoverTooltipShowCount &&
-            netTurnoverTooltipShowCount >= alphaReports.maxTimesToShowTooltip) {
-            this.domElements.netTurnoverTooltip.remove();
-        } else {
-            this.positionNetTurnoverTooltip();
-            this.domElements.netTurnoverTooltip.modal({ show: true, backdrop: false });
-
-            this.domElements.closeNetTurnoverTooltip.on("click", function () {
-                alphaReports.localStorage.set($this.cookieNetTurnoverTooltip, alphaReports.maxTimesToShowTooltip);
-                $this.closeNetTurnoverTooltip();
-            });
-
-            alphaReports.localStorage.set($this.cookieNetTurnoverTooltip, netTurnoverTooltipShowCount + 1);
-            setTimeout(function () {
-                $this.closeNetTurnoverTooltip();
-            }, this.timeToShowNetTurnoverTooltip);
-        }
-    };
-
-    closeNetTurnoverTooltip = () => {
-        this.domElements.netTurnoverTooltip.modal("hide");
-    };
     hideFilter = () => {
         this.domElements.pageTitle.addClass("hide-filter");
         this.domElements.filter.slideUp("fast");
-    };
-    positionNetTurnoverTooltip = () => {
-        var netTurnoverPosition = $(".col-netturnover-header").position();
-        var rightPosition = $(".col-netturnover-header").width();
-
-        this.domElements.netTurnoverTooltip.css({
-            left: netTurnoverPosition.left + rightPosition - 10,
-            top: netTurnoverPosition.top - 22
-        });
     };
     getParams = () => {
         var tableReport = this.domElements.tableReport;
@@ -462,8 +295,8 @@ class WinLossDetailView {
 
         return {
             CustId: tableReport.data("custid"),
-            PageIndex: this.pageIndex,
-            PageSize: this.pageSize,
+            PageIndex: this.domElements.pager.data("pageindex"),
+            PageSize: this.domElements.pager.data("pagesize"),
             FromDate: dateRange.FromDate,
             ToDate: dateRange.ToDate,
             UserSelectedProductIds: selected.join(","),
@@ -473,6 +306,39 @@ class WinLossDetailView {
             IsHistoricReport: isHistoricReport,
             HideFilter: this.domElements.filter.is(":hidden") ? true : false,
             UserSelectedDateRangeOption: this.domElements.dropdownDateRange.find("option:selected").val(),
+            TimeStamp: new Date()
+        };
+    };
+    getParamsSwitchView = () => {
+        var tableReport = this.domElements.tableReport;
+
+        var isHistoricReport = this.isHistoricReport;
+        var dateRange = isHistoricReport
+            ? {
+                FromDate: null,
+                ToDate: null
+            }
+            : this.domElements.dateRangePicker.nexDatePicker("getDateRange");
+
+        var selected = [];
+        var selectedOptions = this.domElements.dropdownProduct.find("option:selected");
+        selectedOptions.each(function () {
+            selected.push([$(this).val()]);
+        });
+
+        return {
+            CustId: tableReport.data("custid"),
+            PageIndex: this.domElements.pager.data("pageindex"),
+            PageSize: this.domElements.pager.data("pagesize"),
+            FromDate: dateRange.FromDate,
+            ToDate: dateRange.ToDate,
+            UserSelectedProductIds: selected.join(","),
+            SortPropertyName: this.sortedColumn,
+            IsDescendingSort: this.descendingsort,
+            IsStackMode: tableReport.hasClass("stack-mode"),
+            IsHistoricReport: isHistoricReport,
+            HideFilter: this.domElements.filter.is(":hidden") ? true : false,
+            UserSelectedDateRangeOption: isHistoricReport ? this.domElements.dropdownDateRange.find("option:selected").val() : 0,
             TimeStamp: new Date()
         };
     };
@@ -531,7 +397,7 @@ class WinLossDetailView {
         this.domElements.drilldownLinks.each(function () {
             var queryString = $(this).attr("href");
             var newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
-            $(this).attr("href", queryString);
+            $(this).attr("href", newQueryString);
         });
     };
 
@@ -563,13 +429,10 @@ class WinLossDetailView {
             this.domElements.pageTitle.addClass("hide-filter");
             this.domElements.filter.slideUp("fast");
         }
-
-
     }
 };
 
 const winLossDetailView = new WinLossDetailView();
-
 
 $(function () {
     winLossDetailView.init();
