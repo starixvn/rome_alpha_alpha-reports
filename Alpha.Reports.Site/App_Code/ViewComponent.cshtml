@@ -1,4 +1,4 @@
-﻿@using Alpha.Reports.Site.AppResources;
+﻿@using Alpha.Reports.Site.Resources;
 
 @helper HelperName(string name) {
     // your helper can contain code and/or markup, e.g.
@@ -10,6 +10,6 @@
 
 @helper ShowNoInfo(int colspan) { 
     <tr>
-        <td colspan="@colspan" align="center">@SiteResources.NoInformationIsAvailable</td>
+        <td colspan="@colspan" align="center">@Resources.SiteResources.NoInformationIsAvailable</td>
     </tr>
 }

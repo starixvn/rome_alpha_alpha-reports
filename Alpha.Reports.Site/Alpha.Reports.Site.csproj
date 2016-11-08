@@ -223,7 +223,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppResources\SiteResources.Designer.cs">
+    <Compile Include="App_GlobalResources\SiteResources.Designer.cs">
       <DependentUpon>SiteResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -305,10 +305,6 @@
     <TypeScriptCompile Include="assets\scripts\components\daterangepicker.ts" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
-    <Content Include="assets\bundles\default.css" />
-    <Content Include="assets\bundles\default.min.css">
-      <DependentUpon>default.css</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
     <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
@@ -329,7 +325,9 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\web.config" />
+    <Content Include="Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="App_Data\products.json" />
     <Content Include="assets\styles\_mixins.scss" />
@@ -479,16 +477,16 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AppResources\SiteResources.ja-JP.resx" />
-    <EmbeddedResource Include="AppResources\SiteResources.ko-KR.resx" />
-    <EmbeddedResource Include="AppResources\SiteResources.resx">
+    <EmbeddedResource Include="App_GlobalResources\SiteResources.ja-JP.resx" />
+    <EmbeddedResource Include="App_GlobalResources\SiteResources.ko-KR.resx" />
+    <EmbeddedResource Include="App_GlobalResources\SiteResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SiteResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="AppResources\SiteResources.th-TH.resx" />
-    <EmbeddedResource Include="AppResources\SiteResources.vi-VN.resx" />
-    <EmbeddedResource Include="AppResources\SiteResources.zh-CN.resx" />
-    <EmbeddedResource Include="AppResources\SiteResources.zh-TW.resx" />
+    <EmbeddedResource Include="App_GlobalResources\SiteResources.th-TH.resx" />
+    <EmbeddedResource Include="App_GlobalResources\SiteResources.vi-VN.resx" />
+    <EmbeddedResource Include="App_GlobalResources\SiteResources.zh-CN.resx" />
+    <EmbeddedResource Include="App_GlobalResources\SiteResources.zh-TW.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

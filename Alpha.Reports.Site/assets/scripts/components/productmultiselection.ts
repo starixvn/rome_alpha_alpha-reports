@@ -27,7 +27,7 @@ class ProductMultiSelectionComponent {
         var self = this;
 
         var dropdownProduct = this.$("#" + pickerOptions.dropdownId);
-        var multiSelectButton = this.$(".multiselect.btn");
+        var multiSelectButton = null;
         var hasProduct = parseInt(dropdownProduct.data("total-product"), 0) > 0;
 
         dropdownProduct.multiselect({
@@ -47,6 +47,8 @@ class ProductMultiSelectionComponent {
             },
             language: dropdownProduct.data("language")
         });
+
+        multiSelectButton = this.$(".multiselect.btn");
 
         return dropdownProduct;
     };

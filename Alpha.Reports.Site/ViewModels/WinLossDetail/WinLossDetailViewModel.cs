@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using AppResources;
     using Extensions;
     using Models;
     using Models.WinlossDetail;
+    using Resources;
 
     public class WinLossDetailViewModel<T> where T : MemberWinLossDetail
     {

@@ -47,7 +47,7 @@ class SortComponent {
                     sortContainer.data("sortedcolumn", sortedColumn);
 
                     if (componentOptions.afterSortFunction &&
-                        typeof (componentOptions.afterSortFunction) === "function") {
+                        typeof componentOptions.afterSortFunction === "function") {
                         componentOptions.afterSortFunction();
                     }
                 });
