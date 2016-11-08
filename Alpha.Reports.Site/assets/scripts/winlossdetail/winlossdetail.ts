@@ -357,9 +357,9 @@ class WinLossDetailView {
     onSubmitReportEvent = (e: any) => {
         $.blockUI();
 
-        var params = winLossDetailView.getParams();
+        var params = this.getParams();
         if (params.UserSelectedProductIds === "") {
-            winLossDetailView.showValidaProductError();
+            this.showValidaProductError();
             $.unblockUI();
             e.preventDefault();
 

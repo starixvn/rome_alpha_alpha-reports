@@ -1,4 +1,5 @@
 ﻿"use strict";
+
 declare var store, $: any;
 
 class AlphaReports {
@@ -90,7 +91,7 @@ class AlphaReports {
         getCookieExpireOptions: () => {
             var cookieExpire: any = { expires: 365, path: window.location.pathname };
 
-            if (alphaReports.isIe()) {
+            if (this.isIe()) {
                 cookieExpire = { expires: 365 };
             }
 
