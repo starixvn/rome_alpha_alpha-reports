@@ -10,24 +10,25 @@
         BaseReportQuery,
         IRequest<WinLossDetailViewModel<T>> where T : MemberWinLossDetail
     {
+        private IUserSession userSession;
+
         public WinLossDetailQuery() : this(null)
         {
         }
 
         public WinLossDetailQuery(IUserSession userSession)
         {
-            userSession = userSession ?? new UserSessionExt();
+            this.userSession = userSession ?? new UserSessionExt();
 
             if (CustId <= 0)
             {
-                IsDirectReportViewAction = true;
-                CustId = userSession.CustId;
+                CustId = this.userSession.CustId;
             }
 
-            Language = userSession.Language;
+            Language = this.userSession.Language;
         }
 
-        public bool IsDirectReportViewAction { get; }
+        public bool IsDirectReportViewAction => userSession.CustId == CustId;
 
         public string Language { get; }
 
