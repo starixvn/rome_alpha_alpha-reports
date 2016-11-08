@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Components
 {
     using System;
+    using static AppResources.SiteResources;
 
     public class MonthPickerViewModel
     {
@@ -16,5 +17,10 @@
         public DateTime FromDate { get; }
 
         public DateTime ToDate { get; }
+
+        public string[] MonthNames => new string[] 
+        {
+            January, February, March, April, May, June, July, August, September, October, November, December
+        };
     }
 }

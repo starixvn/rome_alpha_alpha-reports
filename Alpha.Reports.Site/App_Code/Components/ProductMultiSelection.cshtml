@@ -1,0 +1,26 @@
+﻿@using Alpha.Reports.Site.AppResources;
+@using Alpha.Reports.Site.ViewModels.Components;
+
+@helper Render(ProductMultiSelectionViewModel model)
+{
+    <div class="form-group">
+        <label class="txt">@SiteResources.Product</label>
+        <select id="dropdown-product"
+                data-total-product="@model.Products.Count()"
+                data-labelselectproducts="@SiteResources.SelectProducts"
+                data-labelselected="@SiteResources.Selected"
+                data-labelallproducts="@SiteResources.AllProducts"
+                data-labelthereisnoproduct="@SiteResources.ThereIsNoProduct"
+                data-language="@model.Language"
+                multiple="multiple" class="select-multiple">
+            @foreach (var product in model.Products)
+            {
+                <option id="product_@product.Value"
+                        value="@product.Value"
+                        @(product.Selected ? " selected=\"selected\"" : string.Empty)>
+                    @product.Text
+                </option>
+            }
+        </select>
+    </div>
+}

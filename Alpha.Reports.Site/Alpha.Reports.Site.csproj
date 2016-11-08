@@ -251,11 +251,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\BaseReportQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
-    <Compile Include="ViewModels\DateRangePickerViewModel.cs" />
-    <Compile Include="ViewModels\MonthPickerViewModel.cs" />
-    <Compile Include="ViewModels\PagerViewModel.cs" />
-    <Compile Include="ViewModels\PageTitleViewModel.cs" />
-    <Compile Include="ViewModels\ProductMultiSelectionViewModel.cs" />
+    <Compile Include="ViewModels\Components\DataGridViewModel.cs" />
+    <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
+    <Compile Include="ViewModels\Components\FilterControlViewModel.cs" />
+    <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
+    <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />
+    <Compile Include="ViewModels\Components\PagerViewModel.cs" />
+    <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
+    <Compile Include="ViewModels\Components\ReportPageViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -337,19 +340,18 @@
     <Content Include="assets\styles\_mixins.scss" />
     <Content Include="assets\styles\_variables.scss" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_MonthNames.cshtml" />
     <Content Include="Views\WinLossDetail\Member.cshtml" />
     <Content Include="Views\WinLossDetail\Agent.cshtml" />
     <Content Include="Views\WinLossDetail\Master.cshtml" />
     <Content Include="App_Code\SharedHelpers.cshtml" />
     <Content Include="Views\Shared\_PageTitle.cshtml" />
     <Content Include="Views\Shared\_NetTurnoverTooltips.cshtml" />
-    <Content Include="Views\Shared\_DateRangePicker.cshtml" />
-    <Content Include="Views\Shared\_MonthPicker.cshtml" />
-    <Content Include="Views\Shared\_ProductMultiSelection.cshtml" />
     <Content Include="Views\WinLossDetail\WinLossDetail.cshtml" />
-    <Content Include="Views\Shared\_Pager.cshtml" />
-    <Content Include="Views\Shared\_NoInfo.cshtml" />
+    <Content Include="App_Code\Components\DateRangePicker.cshtml" />
+    <Content Include="App_Code\Components\Pager.cshtml" />
+    <Content Include="App_Code\Components\MonthPicker.cshtml" />
+    <Content Include="App_Code\Components\NoInformation.cshtml" />
+    <Content Include="App_Code\Components\ProductMultiSelection.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>
@@ -390,7 +392,9 @@
   <ItemGroup>
     <Content Include="assets\styles\reports.scss" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_GlobalResources\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Web.AppSettings.config">
       <SubType>Designer</SubType>

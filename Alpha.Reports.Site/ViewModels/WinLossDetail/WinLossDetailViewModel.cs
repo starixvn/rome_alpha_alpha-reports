@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Components;
     using Extensions;
     using Models;
     using Models.WinlossDetail;
@@ -61,5 +62,17 @@
         public IEnumerable<SelectListItem> Products { get; set; }
 
         public bool IsDirectReportViewAction { get; set; }
+
+        public PagerViewModel Pager =>
+            new PagerViewModel(ReportData.CurrentPageIndex, ReportData.PageSize, ReportData.TotalRecords);
+
+        public MonthPickerViewModel MonthPicker =>
+            new MonthPickerViewModel(MinDate, FromDate, ToDate);
+
+        public DateRangePickerViewModel DateRangePicker => 
+            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
+
+        public ProductMultiSelectionViewModel ProductMultiSelection =>
+            new ProductMultiSelectionViewModel(Products, Language);
     }
 }

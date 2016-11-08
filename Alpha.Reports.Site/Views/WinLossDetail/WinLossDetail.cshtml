@@ -1,24 +1,20 @@
-﻿@model  dynamic
+﻿@using Components
+@model  dynamic
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @Html.Partial("_NetTurnoverTooltips", (IEnumerable<string>)Model.NetTurnoverTooltips)
-@Html.Partial("_PageTitle", new PageTitleViewModel(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter))
+@Html.Partial("_PageTitle", new PageHeaderViewModel(ViewBag.Title, true, true, Model.IsStackMode, Model.HideFilter))
 
 <form class="form-inline filter" role="form" id="report-form">
     @RenderHiddenFields()
 
     @(Model.IsHistoricReport
-        ? Html.Partial("_MonthPicker", new MonthPickerViewModel(Model.MinDate, Model.FromDate, Model.ToDate))
-        : Html.Partial("_DateRangePicker", new DateRangePickerViewModel(
-              Model.MinDate,
-              Model.MaxDate,
-              Model.FromDate,
-              Model.ToDate,
-              Model.UserSelectedDateRangeOption)))
+        ? MonthPicker.Render(Model.MonthPicker)
+        : DateRangePicker.Render(Model.DateRangePicker))
 
-    @Html.Partial("_ProductMultiSelection", new ProductMultiSelectionViewModel(Model.Products, Model.Language))
+    @ProductMultiSelection.Render(Model.ProductMultiSelection)
 
     <div class="form-group">
         <input type="submit" value="@SiteResources.Submit" class="btn-submit" />
@@ -52,12 +48,7 @@
     @RenderSection("ReportData", required: true)
 </table>
 
-@if (ViewBag.HasData)
-{
-    @Html.Partial("_Pager", new PagerViewModel(Model.ReportData.CurrentPageIndex, Model.ReportData.PageSize, Model.ReportData.TotalRecords))
-}
-
-@Html.Partial("_MonthNames")
+@Pager.Render(Model.Pager)
 
 @section Scripts {
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")

@@ -1,0 +1,16 @@
+﻿@using Alpha.Reports.Site.AppResources;
+@using Alpha.Reports.Site.ViewModels.Components;
+
+@helper Render(PagerViewModel model)
+{
+    if (model?.TotalRecords > 0)
+    {
+            <div id="report-pager"
+                 data-labelpage="@SiteResources.Page"
+                 data-labelof="@SiteResources.of"
+                 data-labeldisplayitems="@SiteResources.Pager_DisplayItems"
+                 data-pageindex="@model.PageIndex"
+                 data-pagesize="@model.PageSize"
+                 data-totalrecords="@model.TotalRecords" />
+    }
+}

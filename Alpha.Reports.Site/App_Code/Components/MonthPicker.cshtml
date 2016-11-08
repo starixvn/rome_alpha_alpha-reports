@@ -1,0 +1,21 @@
+﻿@using Alpha.Reports.Extensions;
+@using Alpha.Reports.Site.AppResources;
+@using Alpha.Reports.Site.ViewModels.Components;
+
+@helper Render(MonthPickerViewModel model)
+{
+    <div class="form-group monthpicker-container">
+        <div id="monthPickerID">
+            <div id="dropdown-month"
+                 data-mindate="@model.MinDate.ToShortDateWithSlash()"
+                 data-maxdate="@DateTime.Now.ToShortDateWithSlash()"
+                 data-dateinmonth="@model.FromDate.ToShortDateWithSlash()"
+                 data-fromdate="@model.FromDate.Day"
+                 data-todate="@model.ToDate.Day"
+                 data-currentdate="@DateTime.Now.ToShortDateWithSlash()"
+                 data-labelto="@SiteResources.To"></div>
+        </div>
+    </div>
+
+    @Html.Hidden("longmonths-inyear", "[\"" + string.Join("\",\"", model.MonthNames) + "\"]")
+}
