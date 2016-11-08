@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Criteria
 {
     using System;
+    using System.Collections.Generic;
 
     public class ReportProductCriteria : ReportCriteriaBase
     {
@@ -12,10 +13,10 @@
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay,
-            string productIds)
+            IEnumerable<int> productIds)
             : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay)
         {
-            ProductIds = productIds;
+            ProductIds = string.Join(",", productIds);
         }
 
         public string ProductIds { get; }
@@ -25,6 +26,7 @@
             throw new NotImplementedException();
         }
 
-        public override bool IsValid() => base.IsValid();
+        public override bool IsValid() => base.IsValid() 
+            && !string.IsNullOrWhiteSpace(ProductIds);
     }
 }

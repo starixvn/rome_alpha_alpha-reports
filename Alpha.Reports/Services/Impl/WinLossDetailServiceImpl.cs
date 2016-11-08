@@ -31,10 +31,8 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            var validUserSelectedProductIds =
-                string.Join(
-                    ",",
-                    productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds));
+            var validUserSelectedProductIds = 
+                productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds);
 
             var criteria = new WinLossDetailCriteria(
                 param.CustId,

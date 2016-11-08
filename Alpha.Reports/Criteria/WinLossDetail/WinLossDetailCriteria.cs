@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Criteria.WinLossDetail
 {
     using System;
+    using System.Collections.Generic;
     using Models;
 
     public class WinLossDetailCriteria : ReportProductCriteria
@@ -13,7 +14,7 @@
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay,
-            string productIds,
+            IEnumerable<int> productIds,
             UserLevel reportLevel)
             : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
         {
