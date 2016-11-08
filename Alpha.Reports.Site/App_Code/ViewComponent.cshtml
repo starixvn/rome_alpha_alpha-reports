@@ -1,0 +1,15 @@
+﻿@using Alpha.Reports.Site.AppResources;
+
+@helper HelperName(string name) {
+    // your helper can contain code and/or markup, e.g.
+    // var msg = "Hello " + name;
+    // <p>@msg</p>
+    // For more information, visit http://go.microsoft.com/fwlink/?LinkID=204658
+}
+
+
+@helper ShowNoInfo(int colspan) { 
+    <tr>
+        <td colspan="@colspan" align="center">@SiteResources.NoInformationIsAvailable</td>
+    </tr>
+}

@@ -47,7 +47,7 @@
         }
         else
         {
-            @Html.Partial("_NoInfo", 12)
+            @ViewComponent.ShowNoInfo(colspan: 12)            
         }
     </tbody>
     @if (ViewBag.HasData)
