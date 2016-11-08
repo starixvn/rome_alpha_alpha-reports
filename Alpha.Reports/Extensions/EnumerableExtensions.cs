@@ -23,7 +23,7 @@
                 return list;
             }
 
-            return (descending) ?
+            return descending ?
                   list.OrderByDescending(x => prop.GetValue(x, null))
                 : list.OrderBy(x => prop.GetValue(x, null));
         }

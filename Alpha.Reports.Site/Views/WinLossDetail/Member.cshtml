@@ -8,7 +8,7 @@
     Layout = "~/Views/WinLossDetail/WinLossDetail.cshtml";
     ViewBag.Title = SiteResources.MemberWinLossDetail;
     ViewBag.CurrentPath = AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Member");
-    ViewBag.HasData = ((List<MemberWinLossDetail>)Model.ReportData.DataSource).Any();
+    ViewBag.HasData = ((IEnumerable<MemberWinLossDetail>)Model.ReportData.DataSource).Any();
 
     ViewBag.BetListPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~")}/_BetList/BetListForSiteReport.aspx";
 }

@@ -3,16 +3,13 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
+    using Controllers;
     using Fanex.Data.Repository;
     using MediatR;
     using RemotingRef;
     using Reports;
-    using Reports.DataAccess;
-    using Reports.DataAccess.Impl;
-    using Reports.Services;
-    using Reports.Services.Impl;
-    using Reports.Site.App_Start;
-    using Reports.Site.Controllers;
+    using Services;
+    using Services.Impl;
     using SimpleInjector;
     using SimpleInjector.Integration.Web;
     using SimpleInjector.Integration.Web.Mvc;
@@ -75,7 +72,6 @@
         private static void RegisterDataAccesses(Container container)
         {
             container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Transient);
-            container.Register<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>(Lifestyle.Transient);
         }
     }
 }

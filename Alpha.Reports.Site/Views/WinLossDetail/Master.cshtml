@@ -6,7 +6,7 @@
     Layout = "~/Views/WinLossDetail/WinLossDetail.cshtml";
     ViewBag.Title = SiteResources.MasterWinLossDetail;
     ViewBag.CurrentPath = AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Master");
-    ViewBag.HasData = ((List<MasterWinLossDetail>)Model.ReportData.DataSource).Any();
+    ViewBag.HasData = ((IEnumerable<MasterWinLossDetail>)Model.ReportData.DataSource).Any();
 }
 
 @section ReportData {
