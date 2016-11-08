@@ -383,7 +383,7 @@ class WinLossDetailView {
             this.domElements.filter.slideUp("fast");
         }
     };
-};
+}
 
 const winLossDetailView = new WinLossDetailView();
 

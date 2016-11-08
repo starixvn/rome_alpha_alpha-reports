@@ -44,7 +44,7 @@ class ProductMultiSelectionComponent {
             multiSelectButton.hasClass("error")) {
             multiSelectButton.removeClass("error");
         }
-    }
+    };
 }
 
 const productMultiSelectionComponent = new ProductMultiSelectionComponent();

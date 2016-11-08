@@ -1,4 +1,4 @@
-﻿namespace Alpha.ViewLogs.Site.App_Start
+﻿namespace Alpha.Reports.Site.App_Start
 {
     using System.Collections.Generic;
     using System.Reflection;

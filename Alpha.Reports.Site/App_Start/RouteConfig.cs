@@ -1,4 +1,4 @@
-﻿namespace Alpha.ViewLogs.Site
+﻿namespace Alpha.Reports.Site
 {
     using System.Web.Mvc;
     using System.Web.Routing;

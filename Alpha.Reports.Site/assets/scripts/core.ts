@@ -102,13 +102,13 @@ class AlphaReports {
         var msie = ua.indexOf("MSIE ");
 
         if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
-            // If Internet Explorer, return version number
+            // if internet Explorer, return version number
             return true;
         }
 
         return false;
     };
-    replaceQueryStringValue = (queryString, paramName, paramValue) => {
+    replaceQueryStringValue = (queryString: string, paramName: string, paramValue: any) => {
         var regex = new RegExp("([?&])" + paramName + "=[^&]*", "i");
 
         var newQueryString = regex.test(queryString)
@@ -117,6 +117,6 @@ class AlphaReports {
 
         return newQueryString;
     };
-};
+}
 
 const alphaReports = new AlphaReports();
