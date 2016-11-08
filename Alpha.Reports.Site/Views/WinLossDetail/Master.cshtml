@@ -130,31 +130,31 @@
         else
         {
 
-            @RenderColumn(data.Turnover, "col-turnover")
-            @RenderColumn(data.NetTurnover, "col-netturnover")
-            @RenderColumn(data.GrossComm, "col-grosscomm")
+            @RenderCell(data.Turnover, "col-turnover")
+            @RenderCell(data.NetTurnover, "col-netturnover")
+            @RenderCell(data.GrossComm, "col-grosscomm")
 
-            @RenderColumn(data.MemberWinLoss, "col-memberwinloss")
-            @RenderColumn(data.MemberComm, "col-membercomm")
-            @RenderColumn(data.MemberTotal, "col-membertotal")
+            @RenderCell(data.MemberWinLoss, "col-memberwinloss")
+            @RenderCell(data.MemberComm, "col-membercomm")
+            @RenderCell(data.MemberTotal, "col-membertotal")
 
-            @RenderColumn(data.AgentWinLoss, "col-agentwinloss", isAlterCol: true)
-            @RenderColumn(data.AgentComm, "col-agentcomm", isAlterCol: true)
-            @RenderColumn(data.AgentTotal, "col-agenttotal", isAlterCol: true)
+            @RenderCell(data.AgentWinLoss, "col-agentwinloss", isAlterCol: true)
+            @RenderCell(data.AgentComm, "col-agentcomm", isAlterCol: true)
+            @RenderCell(data.AgentTotal, "col-agenttotal", isAlterCol: true)
 
-            @RenderColumn(data.MasterWinLoss, "col-masterwinloss")
-            @RenderColumn(data.MasterComm, "col-mastercomm")
-            @RenderColumn(data.MasterTotal, "col-mastertotal")
+            @RenderCell(data.MasterWinLoss, "col-masterwinloss")
+            @RenderCell(data.MasterComm, "col-mastercomm")
+            @RenderCell(data.MasterTotal, "col-mastertotal")
 
-            @RenderColumn(data.SuperWinLoss, "col-superwinloss", isAlterCol: true)
-            @RenderColumn(data.SuperComm, "col-supercomm", isAlterCol: true)
-            @RenderColumn(data.SuperTotal, "col-supertotal", isAlterCol: true)
+            @RenderCell(data.SuperWinLoss, "col-superwinloss", isAlterCol: true)
+            @RenderCell(data.SuperComm, "col-supercomm", isAlterCol: true)
+            @RenderCell(data.SuperTotal, "col-supertotal", isAlterCol: true)
         }
         <td class="text-right">@SharedHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
 
-@helper RenderColumn(decimal columnValue, string columnName, bool isAlterCol = false)
+@helper RenderCell(decimal columnValue, string columnName, bool isAlterCol = false)
 {
     <td class="bold text-right hidden-stack-mode @columnName @(isAlterCol ? "altercol" : string.Empty)">
         @SharedHelpers.FormatNumber(columnValue)

@@ -50,10 +50,6 @@
 
 @Pager.Render(Model.Pager)
 
-@section Scripts {
-    @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
-}
-
 @helper RenderHiddenFields()
 {
     @Html.Hidden("HideFilter", Model.HideFilter as bool?)
@@ -71,4 +67,9 @@
     {
             @Html.Hidden("CustId", Model.CustId as int?)
     }
+}
+
+
+@section Scripts {
+    @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
 }
