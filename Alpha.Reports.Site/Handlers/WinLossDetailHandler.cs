@@ -78,6 +78,7 @@
 
                 ReportData = reportData,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
+                IsDirectReportViewAction = message.IsDirectReportViewAction,
 
                 SortPropertyName = winLossDetailParam.SortByPropertyName,
                 IsDescendingSort = winLossDetailParam.IsDescendingSort

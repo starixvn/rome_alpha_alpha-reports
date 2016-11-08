@@ -18,15 +18,16 @@
         {
             userSession = userSession ?? new UserSessionExt();
 
-            if (IsDirectReportViewAction)
+            if (CustId <= 0)
             {
+                IsDirectReportViewAction = true;
                 CustId = userSession.CustId;
             }
 
             Language = userSession.Language;
         }
 
-        private bool IsDirectReportViewAction => CustId <= 0;
+        public bool IsDirectReportViewAction { get; }
 
         public string Language { get; }
 

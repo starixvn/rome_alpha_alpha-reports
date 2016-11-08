@@ -59,5 +59,7 @@
         }
 
         public IEnumerable<SelectListItem> Products { get; set; }
+
+        public bool IsDirectReportViewAction { get; set; }
     }
 }
