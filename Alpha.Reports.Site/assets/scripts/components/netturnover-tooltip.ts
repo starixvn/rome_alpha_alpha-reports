@@ -11,58 +11,55 @@ class NetTurnoverTooltipComponent {
     cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
     timeToShowNetTurnoverTooltip = 10000;
 
-    netTurnoverTooltip: any;
-    closeNetTurnoverTooltipButton: any;
-
     render = (options: any = {}) => {
         var pickerOptions = $.extend({}, this.options, options);
 
-        this.netTurnoverTooltip = $("#" + pickerOptions.tooltipId);
-        this.closeNetTurnoverTooltipButton = $("#" + pickerOptions.closeTooltipId);
+        var netTurnoverTooltip = $("#" + pickerOptions.tooltipId);
+        var closeNetTurnoverTooltipButton = $("#" + pickerOptions.closeTooltipId);
 
         var $this = this;
         var netTurnoverTooltipShowCount = alphaReports.localStorage.get(this.cookieNetTurnoverTooltip) || 0;
 
         if (netTurnoverTooltipShowCount &&
             netTurnoverTooltipShowCount >= alphaReports.maxTimesToShowTooltip) {
-            this.netTurnoverTooltip.remove();
+            netTurnoverTooltip.remove();
         } else {
-            this.positionNetTurnoverTooltip();
-            this.netTurnoverTooltip.modal({ show: true, backdrop: false });
+            this.positionNetTurnoverTooltip(netTurnoverTooltip);
+            netTurnoverTooltip.modal({ show: true, backdrop: false });
 
-            this.closeNetTurnoverTooltipButton.on("click", function () {
+            closeNetTurnoverTooltipButton.on("click", function () {
                 alphaReports.localStorage.set($this.cookieNetTurnoverTooltip, alphaReports.maxTimesToShowTooltip);
-                $this.closeNetTurnoverTooltip();
+                $this.closeNetTurnoverTooltip(netTurnoverTooltip);
             });
 
             alphaReports.localStorage.set($this.cookieNetTurnoverTooltip, netTurnoverTooltipShowCount + 1);
             setTimeout(function () {
-                $this.closeNetTurnoverTooltip();
+                $this.closeNetTurnoverTooltip(netTurnoverTooltip);
             }, this.timeToShowNetTurnoverTooltip);
         }
 
-        this.registerEvents();
+        this.registerEvents(netTurnoverTooltip);
 
-        return this.netTurnoverTooltip;
+        return netTurnoverTooltip;
     };
-    positionNetTurnoverTooltip = () => {
+    positionNetTurnoverTooltip = (netTurnoverTooltip: any) => {
         var netTurnoverPosition = $(".col-netturnover-header").position();
         var rightPosition = $(".col-netturnover-header").width();
 
-        this.netTurnoverTooltip.css({
+        netTurnoverTooltip.css({
             left: netTurnoverPosition.left + rightPosition - 10,
             top: netTurnoverPosition.top - 22
         });
     };
-    registerEvents = () => {
+    registerEvents = (netTurnoverTooltip: any) => {
         var $this = this;
 
         $(window).resize(function () {
-            $this.positionNetTurnoverTooltip();
+            $this.positionNetTurnoverTooltip(netTurnoverTooltip);
         });
     };
-    closeNetTurnoverTooltip = () => {
-        this.netTurnoverTooltip.modal("hide");
+    closeNetTurnoverTooltip = (netTurnoverTooltip: any) => {
+        netTurnoverTooltip.modal("hide");
     };
 }
 

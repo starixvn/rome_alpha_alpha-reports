@@ -38,6 +38,7 @@ class WinLossDetailView {
         reportForm: null,
         userSelectedProductIds: null,
         userSelectedDateRangeOption: null,
+        netTurnoverTooltip: null
     };
 
     isFirstSwitchMode = true;
@@ -49,15 +50,21 @@ class WinLossDetailView {
     init = () => {
         this.domElements.dateRangePicker = dateRangePickerComponent.render();
 
-        this.renderDropdownProduct();
+        this.domElements.dropdownProduct = productMultiSelectionComponent.render();
         this.cacheDOMElements();
 
         if (this.isHistoricReport) {
             this.domElements.dropdownMonth = monthPickerComponent.render({ longMonthsInYear: this.getLongMonthsInYear() });
         }
 
-        this.domElements.pager = pagerComponent.render({ onSelectPage: this.onSubmitReportEvent });
-        netTurnoverTooltipComponent.render();
+        var $this = this;
+        this.domElements.pager = pagerComponent.render({
+            onSelectPage: function () {
+                $this.domElements.reportForm.trigger("submit");
+            }
+        });
+
+        this.domElements.netTurnoverTooltip = netTurnoverTooltipComponent.render();
 
         var tableReport = this.domElements.tableReport;
         tableReport.stickyTableHeaders();
@@ -99,48 +106,13 @@ class WinLossDetailView {
         this.domElements.reportForm = $("#report-form");
         this.domElements.userSelectedDateRangeOption = $("#UserSelectedDateRangeOption");
         this.domElements.userSelectedProductIds = $("#UserSelectedProductIds");
+        this.domElements.multiSelectButton = $(".multiselect.btn");
     };
 
     getLongMonthsInYear = () => {
         // $.parseJSON: string must start/end with "
         var longMonthsInYear = $.parseJSON($("#longmonths-inyear").val());
         return longMonthsInYear;
-    };
-
-    renderDropdownProduct = () => {
-        var $this = this;
-
-        this.domElements.dropdownProduct = $("#dropdown-product");
-        var dropdownProduct = this.domElements.dropdownProduct;
-        var hasProduct = parseInt(dropdownProduct.data("total-product"), 0) > 0;
-
-        dropdownProduct.multiselect({
-            maxHeight: 300,
-            numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
-            nonSelectedText: hasProduct ?
-                dropdownProduct.data("labelselectproducts")
-                : dropdownProduct.data("labelthereisnoproduct"),
-            nSelectedText: " " + dropdownProduct.data("labelselected"),
-            allSelectedText: dropdownProduct.data("labelallproducts"),
-            includeSelectAllOption: hasProduct,
-            onChange: function (option: any, checked: boolean) {
-                if ($this.domElements.multiSelectButton &&
-                    $this.domElements.dropdownProduct.find("option:selected").length &&
-                    $this.domElements.multiSelectButton.hasClass("error")) {
-                    $this.domElements.multiSelectButton.removeClass("error");
-                }
-            },
-            onSelectAll: function () {
-                if ($this.domElements.multiSelectButton &&
-                    $this.domElements.dropdownProduct.find("option:selected").length &&
-                    $this.domElements.multiSelectButton.hasClass("error")) {
-                    $this.domElements.multiSelectButton.removeClass("error");
-                }
-            },
-            language: dropdownProduct.data("language")
-        });
-
-        this.domElements.multiSelectButton = $(".multiselect.btn");
     };
 
     registerEvents = () => {
@@ -170,7 +142,7 @@ class WinLossDetailView {
             $this.replaceDrilldownParam("HideFilter", !currentHideState);
 
             setTimeout(function () {
-                netTurnoverTooltipComponent.positionNetTurnoverTooltip();
+                netTurnoverTooltipComponent.positionNetTurnoverTooltip($this.domElements.netTurnoverTooltip);
             }, $this.slideAnimationTime);
         });
 
