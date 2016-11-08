@@ -223,6 +223,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppResources\SiteResources.cs" />
     <Compile Include="App_GlobalResources\SiteResources.Designer.cs">
       <DependentUpon>SiteResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -392,9 +393,7 @@
   <ItemGroup>
     <Content Include="assets\styles\reports.scss" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_GlobalResources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Web.AppSettings.config">
       <SubType>Designer</SubType>
