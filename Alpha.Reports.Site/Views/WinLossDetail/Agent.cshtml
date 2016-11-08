@@ -42,7 +42,7 @@
     <tbody>
         @if (ViewBag.HasData)
         {
-            foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+            foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, !Model.IsDescendingSort))
             {
                 @RenderRow(data, false)
             }

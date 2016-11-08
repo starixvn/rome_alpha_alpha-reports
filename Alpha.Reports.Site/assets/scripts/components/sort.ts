@@ -40,7 +40,7 @@ class SortComponent {
                     var sortedColumn = self.$(this).data("sortedname");
 
                     var descendingsort =
-                        sortedColumn !== sortContainer.data("sortedcolumn") ||
+                        sortedColumn === sortContainer.data("sortedcolumn") &&
                         !(sortContainer.data("descendingsort").toLowerCase() === "true");
 
                     sortContainer.data("descendingsort", descendingsort);
@@ -57,8 +57,8 @@ class SortComponent {
         var descendingsort = sortContainer.data("descendingsort").toLowerCase() === "true";
 
         var sortClass = descendingsort
-            ? "icon-menu-down descSorting"
-            : "icon-menu-up ascSorting";
+            ? "icon-menu-up ascSorting"
+            : "icon-menu-down descSorting";
 
         var columns = sortContainer.find("[data-sortedname='" + sortedColumn + "']");
         columns.each(function () {
