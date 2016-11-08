@@ -1,8 +1,16 @@
 ﻿"use strict";
-
-declare var store, $: any;
+declare var store: any;
+declare var $: any;
 
 class AlphaReports {
+    $: any;
+    store: any;
+
+    constructor($: any, store: any) {
+        this.$ = $;
+        this.store = store;
+    }
+
     format = {
         monthFormat: "MMMM - yyyy",
         shortDateWithSlash_DatePicker: "MM/DD/YYYY",
@@ -22,7 +30,7 @@ class AlphaReports {
     pageList = [1000, 2000, 3000, 5000];
     maxTimesToShowTooltip = 5;
     screenSmallThan768 = () => {
-        var currentWindowWidth = $(window).width();
+        var currentWindowWidth = this.$(window).width();
 
         return currentWindowWidth < 768;
     };
@@ -36,7 +44,7 @@ class AlphaReports {
             return;
         }
 
-        var firstColumn = $(columns[0]);
+        var firstColumn = this.$(columns[0]);
 
         firstColumn.each(function (index: number) {
 
@@ -44,14 +52,14 @@ class AlphaReports {
                                 <ul>";
 
             for (var i = 0; i < columnsLength; i++) {
-                var nextColumn = $($(columns[i])[index]);
+                var nextColumn = this.$(this.$(columns[i])[index]);
                 newColumn += "<li>" + nextColumn.html() + "</li>";
             }
 
             newColumn += "</ul>\
                         </td>";
 
-            var endColumn = $($(columns[columnsLength - 1])[index]);
+            var endColumn = this.$(this.$(columns[columnsLength - 1])[index]);
             endColumn.after(newColumn);
         });
     };
@@ -64,28 +72,28 @@ class AlphaReports {
             return;
         }
 
-        var combinedColumns = $(combinedColumn);
+        var combinedColumns = this.$(combinedColumn);
 
         combinedColumns.each(function (index: number) {
 
-            var oldValues = $(this).find("li");
+            var oldValues = this.$(this).find("li");
             var oldColumns = "";
 
             for (var i = 0; i < columnsLength; i++) {
-                oldColumns += "<td class=\"" + columns[i] + "\">" + $(oldValues[i]).html() + "</td>";
+                oldColumns += "<td class=\"" + columns[i] + "\">" + this.$(oldValues[i]).html() + "</td>";
             }
 
-            $($(combinedColumn)[index]).before(oldColumns);
+            this.$(this.$(combinedColumn)[index]).before(oldColumns);
         });
     };
 
     localStorage = {
         get: (key: string) => {
-            return store.enabled ? store.get(key) : $.cookie(key);
+            return this.store.enabled ? this.store.get(key) : this.$.cookie(key);
         },
 
         set: (key: string, value: any) => {
-            store.enabled ? store.set(key, value) : $.cookie(key, value, this.localStorage.getCookieExpireOptions());
+            this.store.enabled ? this.store.set(key, value) : this.$.cookie(key, value, this.localStorage.getCookieExpireOptions());
         },
 
         getCookieExpireOptions: () => {
@@ -120,4 +128,4 @@ class AlphaReports {
     };
 }
 
-const alphaReports = new AlphaReports();
+const alphaReports = new AlphaReports($, store);

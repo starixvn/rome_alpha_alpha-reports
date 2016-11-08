@@ -7,166 +7,163 @@
 
 "use strict";
 
-declare var $: any;
-
 class WinLossDetailView {
-    domElements = {
-        dateRangePicker: null,
-        dropdownMonth: null,
-        pager: null,
-        dropdownProduct: null,
+    $: any;
 
-        filter: null,
-        pageTitle: null,
-        tableReport: null,
+    $dateRangePicker: any;
+    $dropdownMonth: any;
+    $pager: any;
+    $dropdownProduct: any;
 
-        isHistoricReport: null,
-        downlineLink: null,
-        dropdownDateRange: null,
-        sortColumns: null,
-        multiSelectButton: null,
+    $pageTitle: any;
+    $tableReport: any;
 
-        drilldownLinks: null,
-        hideFilter: null,
-        isStackMode: null,
-        isDescendingSort: null,
-        sortPropertyName: null,
-        pageIndex: null,
-        pageSize: null,
-        fromDate: null,
-        toDate: null,
-        reportForm: null,
-        userSelectedProductIds: null,
-        userSelectedDateRangeOption: null,
-        netTurnoverTooltip: null
-    };
+    $isHistoricReport: any;
+    $sortColumns: any;
+    $multiSelectButton: any;
+
+    $drilldownLinks: any;
+    $hideFilter: any;
+    $isStackMode: any;
+    $isDescendingSort: any;
+    $sortPropertyName: any;
+    $pageIndex: any;
+    $pageSize: any;
+    $fromDate: any;
+    $toDate: any;
+    $reportForm: any;
+    $userSelectedProductIds: any;
+    $userSelectedDateRangeOption: any;
+    $netTurnoverTooltip: any;
 
     isFirstSwitchMode = true;
     sortedColumn = "";
     descendingsort = true;
     isHistoricReport = false;
-    slideAnimationTime = 200;
+    isSwitchView = false;
+
+    constructor($: any) {
+        this.$ = $;
+    }
 
     init = () => {
-        this.domElements.dateRangePicker = dateRangePickerComponent.render();
+        var self = this;
 
-        this.domElements.dropdownProduct = productMultiSelectionComponent.render();
-        this.cacheDOMElements();
+        this.$isHistoricReport = this.$("#IsHistoricReport");
+        this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
 
         if (this.isHistoricReport) {
-            this.domElements.dropdownMonth = monthPickerComponent.render({ longMonthsInYear: this.getLongMonthsInYear() });
+            this.$dropdownMonth = monthPickerComponent.render({ longMonthsInYear: this.getLongMonthsInYear() });
+        } else {
+            this.$dateRangePicker = dateRangePickerComponent.render();
         }
 
-        var $this = this;
-        this.domElements.pager = pagerComponent.render({
-            onSelectPage: function () {
-                $this.domElements.reportForm.trigger("submit");
-            }
-        });
+        this.$dropdownProduct = productMultiSelectionComponent.render();
 
-        this.domElements.netTurnoverTooltip = netTurnoverTooltipComponent.render();
+        this.cacheDOMElements();
 
-        var tableReport = this.domElements.tableReport;
-        tableReport.stickyTableHeaders();
-
-        if (this.domElements.filter.data("ishide") === 1) {
+        if (this.$reportForm.data("ishide") === 1) {
             this.hideFilter();
         }
 
-        this.renderSortedColumn();
+        this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
+        this.$pager = pagerComponent.render({
+            onSelectPage: function () {
+                self.$reportForm.trigger("submit");
+            }
+        });
 
+        var tableReport = this.$tableReport;
+        this.renderSortedColumn();
         this.sortedColumn = tableReport.data("sortedcolumn");
         this.descendingsort = tableReport.data("descendingsort");
+
+        tableReport.stickyTableHeaders();
 
         this.registerEvents();
     };
 
     cacheDOMElements = () => {
-        this.domElements.pageTitle = $(".page-title ");
-        this.domElements.filter = $("#filter");
+        this.$pageTitle = this.$(".page-title ");
 
-        this.domElements.tableReport = $("#tbl-report");
+        this.$tableReport = this.$("#tbl-report");
 
-        this.domElements.isHistoricReport = $("#IsHistoricReport");
-        this.isHistoricReport = this.domElements.isHistoricReport.val() === "True";
+        this.$sortColumns = this.$tableReport.find("th[data-sortedname]");
 
-        this.domElements.dropdownDateRange = $("#dropdown-daterange");
-
-        this.domElements.sortColumns = this.domElements.tableReport.find("th[data-sortedname]");
-
-        this.domElements.drilldownLinks = $(".downline-link");
-        this.domElements.hideFilter = $("#HideFilter");
-        this.domElements.isStackMode = $("#IsStackMode");
-        this.domElements.isDescendingSort = $("#IsDescendingSort");
-        this.domElements.sortPropertyName = $("#SortPropertyName");
-        this.domElements.pageIndex = $("#PageIndex");
-        this.domElements.pageSize = $("#PageSize");
-        this.domElements.fromDate = $("#FromDate");
-        this.domElements.toDate = $("#ToDate");
-        this.domElements.reportForm = $("#report-form");
-        this.domElements.userSelectedDateRangeOption = $("#UserSelectedDateRangeOption");
-        this.domElements.userSelectedProductIds = $("#UserSelectedProductIds");
-        this.domElements.multiSelectButton = $(".multiselect.btn");
+        this.$drilldownLinks = this.$(".downline-link");
+        this.$hideFilter = this.$("#HideFilter");
+        this.$isStackMode = this.$("#IsStackMode");
+        this.$isDescendingSort = this.$("#IsDescendingSort");
+        this.$sortPropertyName = this.$("#SortPropertyName");
+        this.$pageIndex = this.$("#PageIndex");
+        this.$pageSize = this.$("#PageSize");
+        this.$fromDate = this.$("#FromDate");
+        this.$toDate = this.$("#ToDate");
+        this.$reportForm = this.$("#report-form");
+        this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
+        this.$userSelectedProductIds = this.$("#UserSelectedProductIds");
+        this.$multiSelectButton = this.$(".multiselect.btn");
     };
 
     getLongMonthsInYear = () => {
         // $.parseJSON: string must start/end with "
-        var longMonthsInYear = $.parseJSON($("#longmonths-inyear").val());
+        var longMonthsInYear = this.$.parseJSON(this.$("#longmonths-inyear").val());
         return longMonthsInYear;
     };
 
     registerEvents = () => {
-        var $this = this;
+        var self = this;
 
-        $("#historicreport-switch").on("click", function () {
-            $this.isHistoricReport = true;
-            $this.domElements.reportForm.trigger("submit");
+        this.$("#historicreport-switch").on("click", function () {
+            self.isSwitchView = true;
+            self.isHistoricReport = true;
+            self.$reportForm.trigger("submit");
         });
 
-        $("#currentreport-switch").on("click", function () {
-            $this.isHistoricReport = false;
-            $this.domElements.reportForm.trigger("submit");
+        this.$("#currentreport-switch").on("click", function () {
+            self.isSwitchView = true;
+            self.isHistoricReport = false;
+            self.$reportForm.trigger("submit");
         });
 
-        $(".icon-filter").on("click", function () {
-            var filter = $this.domElements.filter;
+        this.$(".icon-filter").on("click", function () {
+            var filter = self.$reportForm;
             var currentHideState = filter.is(":hidden");
 
             if (currentHideState) {
-                $this.domElements.pageTitle.removeClass("hide-filter");
-                filter.slideDown("fast");
+                self.$pageTitle.removeClass("hide-filter");
+                filter.slideDown("fast", undefined, function () {
+                    netTurnoverTooltipComponent.positionNetTurnoverTooltip(self.$netTurnoverTooltip);
+                });
             } else {
-                $this.hideFilter();
+                self.hideFilter();
             }
 
-            $this.replaceDrilldownParam("HideFilter", !currentHideState);
-
-            setTimeout(function () {
-                netTurnoverTooltipComponent.positionNetTurnoverTooltip($this.domElements.netTurnoverTooltip);
-            }, $this.slideAnimationTime);
+            self.replaceDrilldownParam("HideFilter", !currentHideState);
         });
 
-        $(".icon-switchmode").on("click", function () {
-            var tableReport = $this.domElements.tableReport;
+        this.$(".icon-switchmode").on("click", function () {
+            var tableReport = self.$tableReport;
             var currentStackModeState = tableReport.hasClass("stack-mode");
 
             if (currentStackModeState) {
-                $this.domElements.pageTitle.removeClass("stack-mode");
+                self.$pageTitle.removeClass("stack-mode");
                 tableReport.removeClass("stack-mode");
             } else {
-                $this.domElements.pageTitle.addClass("stack-mode");
+                self.$pageTitle.addClass("stack-mode");
                 tableReport.addClass("stack-mode");
             }
 
-            $this.replaceDrilldownParam("IsStackMode", !currentStackModeState);
+            self.replaceDrilldownParam("IsStackMode", !currentStackModeState);
 
-            if ($this.isFirstSwitchMode) {
+            if (self.isFirstSwitchMode) {
                 if (currentStackModeState) {
                     alphaReports.splitColumn([
                         "text-right hidden-stack-mode col-turnover",
                         "text-right hidden-stack-mode col-netturnover",
                         "text-right hidden-stack-mode col-grosscomm"],
                         ".col-turnover-combined");
+
                     alphaReports.splitColumn([
                         "text-right hidden-stack-mode col-memberwinloss",
                         "text-right hidden-stack-mode col-membercomm",
@@ -218,105 +215,77 @@ class WinLossDetailView {
                         "text-right visible-stack-mode combinedcolumn column-superwinloss-combined altercol", 3);
                 }
 
-                $this.isFirstSwitchMode = false;
+                self.isFirstSwitchMode = false;
             }
         });
 
-        this.domElements.reportForm.submit(this.onSubmitReportEvent);
+        this.$reportForm.submit(this.onSubmitReportEvent);
     };
 
     hideFilter = () => {
-        this.domElements.pageTitle.addClass("hide-filter");
-        this.domElements.filter.slideUp("fast");
+        var self = this;
+
+        this.$pageTitle.addClass("hide-filter");
+        this.$reportForm.slideUp("fast", undefined, function () {
+            netTurnoverTooltipComponent.positionNetTurnoverTooltip(self.$netTurnoverTooltip);
+        });
     };
     getParams = () => {
-        var tableReport = this.domElements.tableReport;
+        var dateRange = this.getDateRangeParam();
+        var selectedProducts = productMultiSelectionComponent.getSelectedItems(this.$dropdownProduct);
 
-        var isHistoricReport = this.isHistoricReport;
-        var dateRange = isHistoricReport
-            ? {
-                FromDate: this.domElements.dropdownMonth.monPickr("getFromDate", alphaReports.format.shortDateWithSlash_MonthPicker),
-                ToDate: this.domElements.dropdownMonth.monPickr("getToDate", alphaReports.format.shortDateWithSlash_MonthPicker)
-            }
-            : this.domElements.dateRangePicker.nexDatePicker("getDateRange");
-
-        var selected = [];
-        var selectedOptions = this.domElements.dropdownProduct.find("option:selected");
-        selectedOptions.each(function () {
-            selected.push([$(this).val()]);
-        });
+        var tableReport = this.$tableReport;
 
         return {
             CustId: tableReport.data("custid"),
-            PageIndex: this.domElements.pager.data("pageindex"),
-            PageSize: this.domElements.pager.data("pagesize"),
+            PageIndex: this.$pager.data("pageindex"),
+            PageSize: this.$pager.data("pagesize"),
             FromDate: dateRange.FromDate,
             ToDate: dateRange.ToDate,
-            UserSelectedProductIds: selected.join(","),
+            UserSelectedProductIds: selectedProducts.join(","),
             SortPropertyName: this.sortedColumn,
             IsDescendingSort: this.descendingsort,
             IsStackMode: tableReport.hasClass("stack-mode"),
-            IsHistoricReport: isHistoricReport,
-            HideFilter: this.domElements.filter.is(":hidden") ? true : false,
-            UserSelectedDateRangeOption: this.domElements.dropdownDateRange.find("option:selected").val(),
+            IsHistoricReport: this.isHistoricReport,
+            HideFilter: this.$reportForm.is(":hidden"),
+            UserSelectedDateRangeOption: this.$("#dropdown-daterange").find("option:selected").val(),
             TimeStamp: new Date()
         };
     };
-    getParamsSwitchView = () => {
-        var tableReport = this.domElements.tableReport;
+    getDateRangeParam = () => {
+        if (this.isSwitchView) {
+            // switch to historic report, we can't use date range of date range picker
 
-        var isHistoricReport = this.isHistoricReport;
-        var dateRange = isHistoricReport
-            ? {
-                FromDate: null,
-                ToDate: null
-            }
-            : this.domElements.dateRangePicker.nexDatePicker("getDateRange");
+            return this.isHistoricReport
+                ? { FromDate: null, ToDate: null }
+                : monthPickerComponent.getDateRange(this.$dropdownMonth);
+        }
 
-        var selected = [];
-        var selectedOptions = this.domElements.dropdownProduct.find("option:selected");
-        selectedOptions.each(function () {
-            selected.push([$(this).val()]);
-        });
-
-        return {
-            CustId: tableReport.data("custid"),
-            PageIndex: this.domElements.pager.data("pageindex"),
-            PageSize: this.domElements.pager.data("pagesize"),
-            FromDate: dateRange.FromDate,
-            ToDate: dateRange.ToDate,
-            UserSelectedProductIds: selected.join(","),
-            SortPropertyName: this.sortedColumn,
-            IsDescendingSort: this.descendingsort,
-            IsStackMode: tableReport.hasClass("stack-mode"),
-            IsHistoricReport: isHistoricReport,
-            HideFilter: this.domElements.filter.is(":hidden") ? true : false,
-            UserSelectedDateRangeOption: isHistoricReport ? this.domElements.dropdownDateRange.find("option:selected").val() : 0,
-            TimeStamp: new Date()
-        };
+        return this.isHistoricReport
+            ? monthPickerComponent.getDateRange(this.$dropdownMonth)
+            : this.$dateRangePicker.nexDatePicker("getDateRange");
     };
-
     renderSortedColumn = () => {
-        var $this = this;
-        var tableReport = this.domElements.tableReport;
+        var self = this;
+        var tableReport = this.$tableReport;
 
         if (parseInt(tableReport.data("totalrecords"), 0) <= 1) {
-            this.domElements.sortColumns.removeAttr("data-sortedname");
+            this.$sortColumns.removeAttr("data-sortedname");
 
             return;
         } else {
-            this.domElements.sortColumns.on("click",
+            this.$sortColumns.on("click",
                 function () {
-                    var sortedColumn = $(this).data("sortedname");
+                    var sortedColumn = self.$(this).data("sortedname");
 
-                    if (sortedColumn !== $this.sortedColumn) {
-                        $this.descendingsort = true;
+                    if (sortedColumn !== self.sortedColumn) {
+                        self.descendingsort = true;
                     } else {
-                        $this.descendingsort = !$this.descendingsort;
+                        self.descendingsort = !self.descendingsort;
                     }
 
-                    $this.sortedColumn = sortedColumn;
-                    $this.domElements.reportForm.trigger("submit");
+                    self.sortedColumn = sortedColumn;
+                    self.$reportForm.trigger("submit");
                 });
         }
 
@@ -329,7 +298,7 @@ class WinLossDetailView {
 
         var columns = tableReport.find("th[data-sortedname='" + sortedColumn + "']");
         columns.each(function () {
-            var column = $(this);
+            var column = self.$(this);
             var isCombinedColumn = column.hasClass("col-combine");
 
             if (isCombinedColumn) {
@@ -341,51 +310,52 @@ class WinLossDetailView {
     };
 
     showValidaProductError = () => {
-        this.domElements.multiSelectButton.addClass("error");
+        this.$multiSelectButton.addClass("error");
     };
     clearError = () => {
-        this.domElements.multiSelectButton.removeClass("error");
+        this.$multiSelectButton.removeClass("error");
     };
     replaceDrilldownParam = (paramName: string, paramValue: any) => {
-        this.domElements.drilldownLinks.each(function () {
-            var queryString = $(this).attr("href");
+        var self = this;
+        this.$drilldownLinks.each(function () {
+            var queryString = self.$(this).attr("href");
             var newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
-            $(this).attr("href", newQueryString);
+            self.$(this).attr("href", newQueryString);
         });
     };
 
     onSubmitReportEvent = (e: any) => {
-        $.blockUI();
+        this.$.blockUI();
 
         var params = this.getParams();
         if (params.UserSelectedProductIds === "") {
             this.showValidaProductError();
-            $.unblockUI();
+            this.$.unblockUI();
             e.preventDefault();
 
             return;
         }
 
-        this.domElements.hideFilter.val(params.HideFilter);
-        this.domElements.isDescendingSort.val(params.IsDescendingSort);
-        this.domElements.isHistoricReport.val(params.IsHistoricReport);
-        this.domElements.isStackMode.val(params.IsStackMode);
-        this.domElements.sortPropertyName.val(params.SortPropertyName);
-        this.domElements.pageIndex.val(params.PageIndex);
-        this.domElements.pageSize.val(params.PageSize);
-        this.domElements.fromDate.val(params.FromDate);
-        this.domElements.toDate.val(params.ToDate);
-        this.domElements.userSelectedDateRangeOption.val(params.UserSelectedDateRangeOption);
-        this.domElements.userSelectedProductIds.val(params.UserSelectedProductIds);
+        this.$hideFilter.val(params.HideFilter);
+        this.$isDescendingSort.val(params.IsDescendingSort);
+        this.$isHistoricReport.val(params.IsHistoricReport);
+        this.$isStackMode.val(params.IsStackMode);
+        this.$sortPropertyName.val(params.SortPropertyName);
+        this.$pageIndex.val(params.PageIndex);
+        this.$pageSize.val(params.PageSize);
+        this.$fromDate.val(params.FromDate);
+        this.$toDate.val(params.ToDate);
+        this.$userSelectedDateRangeOption.val(params.UserSelectedDateRangeOption);
+        this.$userSelectedProductIds.val(params.UserSelectedProductIds);
 
         if (alphaReports.screenSmallThan768()) {
-            this.domElements.pageTitle.addClass("hide-filter");
-            this.domElements.filter.slideUp("fast");
+            this.$pageTitle.addClass("hide-filter");
+            this.$reportForm.slideUp("fast");
         }
     };
 }
 
-const winLossDetailView = new WinLossDetailView();
+const winLossDetailView = new WinLossDetailView($);
 
 $(function () {
     winLossDetailView.init();

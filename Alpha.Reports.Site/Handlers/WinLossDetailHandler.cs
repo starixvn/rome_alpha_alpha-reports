@@ -106,15 +106,14 @@
                  reportLevel,
                  message.SortPropertyName,
                  message.IsDescendingSort,
-                 message.IsHistoricReport,
-                 message.IsStackMode);
+                 message.IsHistoricReport);
         }
 
         private IEnumerable<SelectListItem> BuildProductSelectListItems(
-            IEnumerable<int> userSelectedProductIds, 
+            IEnumerable<int> userSelectedProductIds,
             IEnumerable<Product> products)
         {
-            if (products == null 
+            if (products == null
                 || !products.Any())
             {
                 return Enumerable.Empty<SelectListItem>();

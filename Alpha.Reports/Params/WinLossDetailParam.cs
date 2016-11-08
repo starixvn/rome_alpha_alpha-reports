@@ -18,8 +18,7 @@
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
-            bool isHistoricReport,
-            bool isStackMode)
+            bool isHistoricReport)
         {
             CustId = custId;
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
@@ -40,7 +39,7 @@
 
             SortByPropertyName = string.IsNullOrWhiteSpace(sortByPropertyName)
                 ? GetDefaultSortedColumn()
-                : GetSortedColumn(sortByPropertyName, isStackMode);
+                : GetSortedColumn(sortByPropertyName);
 
             UserSelectedProductIds = userSelectedProductIds;
             IsDescendingSort = isDescendingSort;
@@ -79,7 +78,7 @@
             return "AgentWinLoss";
         }
 
-        private string GetSortedColumn(string sortedColumn, bool isStackMode)
+        private string GetSortedColumn(string sortedColumn)
         {
             var isInRange =
                 ReportLevel.IsSuperLevel()
@@ -93,28 +92,7 @@
                 return GetDefaultSortedColumn();
             }
 
-            if (!isStackMode)
-            {
-                return sortedColumn;
-            }
-
-            var combinedColumns = new Dictionary<string, string>()
-            {
-                ["netturnover"] = "Turnover",
-                ["grosscomm"] = "Turnover",
-                ["membercomm"] = "MemberWinLoss",
-                ["membertotal"] = "MemberWinLoss",
-                ["agentcomm"] = "AgentWinLoss",
-                ["agenttotal"] = "AgentWinLoss",
-                ["mastercomm"] = "MasterWinLoss",
-                ["mastertotal"] = "MasterWinLoss",
-                ["supercomm"] = "SuperWinLoss",
-                ["supertotal"] = "SuperWinLoss"
-            };
-
-            return combinedColumns.ContainsKey(sortedColumn.ToLower())
-                ? combinedColumns[sortedColumn.ToLower()]
-                : sortedColumn;
+            return sortedColumn;
         }
     }
 }

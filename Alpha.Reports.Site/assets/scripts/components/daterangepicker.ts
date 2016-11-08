@@ -3,14 +3,20 @@
 "use strict";
 
 class DateRangePickerComponent {
+    $: any;
+
+    constructor($: any) {
+        this.$ = $;
+    }
+
     options = {
         selectorId: "daterange-picker"
     };
 
     render = (options: any = {}) => {
-        var pickerOptions = $.extend({}, this.options, options);
+        var pickerOptions = this.$.extend({}, this.options, options);
 
-        var dateRangePicker = $("#" + pickerOptions.selectorId);
+        var dateRangePicker = this.$("#" + pickerOptions.selectorId);
 
         var currentDate = dateRangePicker.data("currentdate");
         var minDate = dateRangePicker.data("mindate");
@@ -59,8 +65,8 @@ class DateRangePickerComponent {
             ]
         });
 
-        return $("#" + pickerOptions.selectorId);
+        return this.$("#" + pickerOptions.selectorId);
     };
 }
 
-const dateRangePickerComponent = new DateRangePickerComponent();
+const dateRangePickerComponent = new DateRangePickerComponent($);

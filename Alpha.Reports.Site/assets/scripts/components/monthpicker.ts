@@ -3,15 +3,21 @@
 "use strict";
 
 class MonthPickerComponent {
+    $: any;
+
+    constructor($: any) {
+        this.$ = $;
+    }
+
     options = {
         selectorId: "dropdown-month",
         longMonthsInYear: null
     };
 
     render = (options: any = {}) => {
-        var pickerOptions = $.extend({}, this.options, options);
+        var pickerOptions = this.$.extend({}, this.options, options);
 
-        var dropdownMonth = $("#" + pickerOptions.selectorId);
+        var dropdownMonth = this.$("#" + pickerOptions.selectorId);
 
         var maxDate = dropdownMonth.data("maxdate");
 
@@ -38,6 +44,12 @@ class MonthPickerComponent {
 
         return dropdownMonth;
     };
+    getDateRange = (dropdownMonth: any) => {
+        return {
+            FromDate: dropdownMonth.monPickr("getFromDate", alphaReports.format.shortDateWithSlash_MonthPicker),
+            ToDate: dropdownMonth.monPickr("getToDate", alphaReports.format.shortDateWithSlash_MonthPicker)
+        };
+    };
 }
 
-const monthPickerComponent = new MonthPickerComponent();
+const monthPickerComponent = new MonthPickerComponent($);

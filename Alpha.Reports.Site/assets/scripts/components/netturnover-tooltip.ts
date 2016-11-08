@@ -3,6 +3,12 @@
 "use strict";
 
 class NetTurnoverTooltipComponent {
+    $: any;
+
+    constructor($: any) {
+        this.$ = $;
+    }
+
     options = {
         tooltipId: "netturnovertooltip",
         closeTooltipId: "close-netturnover-tooltip"
@@ -12,10 +18,10 @@ class NetTurnoverTooltipComponent {
     timeToShowNetTurnoverTooltip = 10000;
 
     render = (options: any = {}) => {
-        var pickerOptions = $.extend({}, this.options, options);
+        var pickerOptions = this.$.extend({}, this.options, options);
 
-        var netTurnoverTooltip = $("#" + pickerOptions.tooltipId);
-        var closeNetTurnoverTooltipButton = $("#" + pickerOptions.closeTooltipId);
+        var netTurnoverTooltip = this.$("#" + pickerOptions.tooltipId);
+        var closeNetTurnoverTooltipButton = this.$("#" + pickerOptions.closeTooltipId);
 
         var $this = this;
         var netTurnoverTooltipShowCount = alphaReports.localStorage.get(this.cookieNetTurnoverTooltip) || 0;
@@ -43,8 +49,8 @@ class NetTurnoverTooltipComponent {
         return netTurnoverTooltip;
     };
     positionNetTurnoverTooltip = (netTurnoverTooltip: any) => {
-        var netTurnoverPosition = $(".col-netturnover-header").position();
-        var rightPosition = $(".col-netturnover-header").width();
+        var netTurnoverPosition = this.$(".col-netturnover-header").position();
+        var rightPosition = this.$(".col-netturnover-header").width();
 
         netTurnoverTooltip.css({
             left: netTurnoverPosition.left + rightPosition - 10,
@@ -54,7 +60,7 @@ class NetTurnoverTooltipComponent {
     registerEvents = (netTurnoverTooltip: any) => {
         var $this = this;
 
-        $(window).resize(function () {
+        this.$(window).resize(function () {
             $this.positionNetTurnoverTooltip(netTurnoverTooltip);
         });
     };
@@ -63,4 +69,4 @@ class NetTurnoverTooltipComponent {
     };
 }
 
-const netTurnoverTooltipComponent = new NetTurnoverTooltipComponent();
+const netTurnoverTooltipComponent = new NetTurnoverTooltipComponent($);

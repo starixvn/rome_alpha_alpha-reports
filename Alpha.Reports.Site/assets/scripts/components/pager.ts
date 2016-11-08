@@ -2,14 +2,20 @@
 "use strict";
 
 class PagerComponent {
+    $: any;
+
+    constructor($: any) {
+        this.$ = $;
+    }
+
     options = {
         pagerId: "report-pager",
         onSelectPage: null
     };
 
     render = (options: any = {}) => {
-        var pickerOptions = $.extend({}, this.options, options);
-        var pager = $("#" + pickerOptions.pagerId);
+        var pickerOptions = this.$.extend({}, this.options, options);
+        var pager = this.$("#" + pickerOptions.pagerId);
 
         pickerOptions.totalRecords = pager.data("totalrecords");
         pickerOptions.pageSize = pager.data("pagesize");
@@ -44,4 +50,4 @@ class PagerComponent {
     };
 }
 
-const pagerComponent = new PagerComponent();
+const pagerComponent = new PagerComponent($);

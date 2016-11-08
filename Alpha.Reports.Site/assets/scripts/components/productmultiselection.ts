@@ -1,18 +1,24 @@
 ﻿"use strict";
 
 class ProductMultiSelectionComponent {
+    $: any;
+
+    constructor($: any) {
+        this.$ = $;
+    }
+
     options = {
         dropdownId: "dropdown-product",
         validateBeforeSubmit: true
     };
 
     render = (options: any = {}) => {
-        var pickerOptions = $.extend({}, this.options, options);
+        var pickerOptions = this.$.extend({}, this.options, options);
 
         var $this = this;
 
-        var dropdownProduct = $("#" + pickerOptions.dropdownId);
-        var multiSelectButton = $(".multiselect.btn");
+        var dropdownProduct = this.$("#" + pickerOptions.dropdownId);
+        var multiSelectButton = this.$(".multiselect.btn");
         var hasProduct = parseInt(dropdownProduct.data("total-product"), 0) > 0;
 
         dropdownProduct.multiselect({
@@ -45,6 +51,18 @@ class ProductMultiSelectionComponent {
             multiSelectButton.removeClass("error");
         }
     };
+    getSelectedItems = (dropdownProduct: any) => {
+        var self = this;
+
+        var selected = [];
+
+        var selectedOptions = dropdownProduct.find("option:selected");
+        selectedOptions.each(function () {
+            selected.push([self.$(this).val()]);
+        });
+
+        return selected;
+    };
 }
 
-const productMultiSelectionComponent = new ProductMultiSelectionComponent();
+const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
