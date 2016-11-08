@@ -14,6 +14,7 @@
       "assets/scripts/components/netturnover-tooltip.js",
       "assets/scripts/components/pager.js",
       "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/sort.js",
       "assets/scripts/winlossdetail/winlossdetail.js"
     ]
   }

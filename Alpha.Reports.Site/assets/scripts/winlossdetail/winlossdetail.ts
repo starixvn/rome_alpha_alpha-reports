@@ -4,6 +4,7 @@
 /// <reference path="../components/netturnover-tooltip.ts" />
 /// <reference path="../components/pager.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/sort.ts" />
 
 "use strict";
 
@@ -19,7 +20,6 @@ class WinLossDetailView {
     $tableReport: any;
 
     $isHistoricReport: any;
-    $sortColumns: any;
     $multiSelectButton: any;
 
     $drilldownLinks: any;
@@ -37,10 +37,9 @@ class WinLossDetailView {
     $netTurnoverTooltip: any;
 
     isFirstSwitchMode = true;
-    sortedColumn = "";
-    descendingsort = true;
     isHistoricReport = false;
     isSwitchView = false;
+    levels = ["member", "agent", "master", "super"];
 
     constructor($: any) {
         this.$ = $;
@@ -73,22 +72,22 @@ class WinLossDetailView {
             }
         });
 
-        var tableReport = this.$tableReport;
-        this.renderSortedColumn();
-        this.sortedColumn = tableReport.data("sortedcolumn");
-        this.descendingsort = tableReport.data("descendingsort");
+        sortComponent.render({
+            sortContainer: this.$tableReport,
+            canSort: parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
+            afterSortFunction: function () {
+                self.$reportForm.trigger("submit");
+            }
+        });
 
-        tableReport.stickyTableHeaders();
+        this.$tableReport.stickyTableHeaders();
 
         this.registerEvents();
     };
-
     cacheDOMElements = () => {
         this.$pageTitle = this.$(".page-title ");
 
         this.$tableReport = this.$("#tbl-report");
-
-        this.$sortColumns = this.$tableReport.find("th[data-sortedname]");
 
         this.$drilldownLinks = this.$(".downline-link");
         this.$hideFilter = this.$("#HideFilter");
@@ -104,13 +103,11 @@ class WinLossDetailView {
         this.$userSelectedProductIds = this.$("#UserSelectedProductIds");
         this.$multiSelectButton = this.$(".multiselect.btn");
     };
-
     getLongMonthsInYear = () => {
         // $.parseJSON: string must start/end with "
         var longMonthsInYear = this.$.parseJSON(this.$("#longmonths-inyear").val());
         return longMonthsInYear;
     };
-
     registerEvents = () => {
         var self = this;
 
@@ -164,55 +161,32 @@ class WinLossDetailView {
                         "text-right hidden-stack-mode col-grosscomm"],
                         ".col-turnover-combined");
 
-                    alphaReports.splitColumn([
-                        "text-right hidden-stack-mode col-memberwinloss",
-                        "text-right hidden-stack-mode col-membercomm",
-                        "text-right bold hidden-stack-mode col-membertotal"],
-                        ".col-memberwinloss-combined");
+                    self.$.each(self.levels, function (index: number) {
+                        var level = self.levels[index];
+                        var alterClass = index % 2 ? " altercol" : "";
 
-                    alphaReports.splitColumn([
-                        "text-right hidden-stack-mode col-agentwinloss",
-                        "text-right hidden-stack-mode col-agentcomm",
-                        "text-right bold hidden-stack-mode col-agenttotal"],
-                        ".col-agentwinloss-combined");
-
-                    alphaReports.splitColumn([
-                        "text-right hidden-stack-mode col-masterwinloss",
-                        "text-right hidden-stack-mode col-mastercomm",
-                        "text-right bold hidden-stack-mode col-mastertotal"],
-                        ".col-masterwinloss-combined");
-
-                    alphaReports.splitColumn([
-                        "text-right hidden-stack-mode col-superwinloss",
-                        "text-right hidden-stack-mode col-supercomm",
-                        "text-right bold hidden-stack-mode col-supertotal"],
-                        ".col-superwinloss-combined");
+                        alphaReports.splitColumn([
+                            "text-right hidden-stack-mode col-" + level + "winloss" + alterClass,
+                            "text-right hidden-stack-mode col-" + level + "comm" + alterClass,
+                            "text-right bold hidden-stack-mode col-" + level + "total" + alterClass],
+                            ".col-" + level + "winloss-combined");
+                    });
                 } else {
                     alphaReports.combineColumns([
                         "td.col-turnover",
                         "td.col-netturnover",
                         "td.col-grosscomm"],
                         "text-right visible-stack-mode combinedcolumn col-turnover-combined", 1);
-                    alphaReports.combineColumns([
-                        "td.col-memberwinloss",
-                        "td.col-membercomm",
-                        "td.col-membertotal"],
-                        "text-right visible-stack-mode combinedcolumn column-memberwinloss-combined", 3);
-                    alphaReports.combineColumns([
-                        "td.col-agentwinloss",
-                        "td.col-agentcomm",
-                        "td.col-agenttotal"],
-                        "text-right visible-stack-mode combinedcolumn column-agentwinloss-combined altercol", 3);
-                    alphaReports.combineColumns([
-                        "td.col-masterwinloss",
-                        "td.col-mastercomm",
-                        "td.col-mastertotal"],
-                        "text-right visible-stack-mode combinedcolumn column-masterwinloss-combined", 3);
-                    alphaReports.combineColumns([
-                        "td.col-superwinloss",
-                        "td.col-supercomm",
-                        "td.col-supertotal"],
-                        "text-right visible-stack-mode combinedcolumn column-superwinloss-combined altercol", 3);
+
+                    self.$.each(self.levels, function (index: number) {
+                        var level = self.levels[index];
+                        alphaReports.combineColumns([
+                            "td.col-" + level + "winloss",
+                            "td.col-" + level + "comm",
+                            "td.col-" + level + "total"],
+                            "text-right visible-stack-mode combinedcolumn column-" + level + "winloss-combined" +
+                            (index % 2 ? " altercol" : ""), 3);
+                    });
                 }
 
                 self.isFirstSwitchMode = false;
@@ -221,7 +195,6 @@ class WinLossDetailView {
 
         this.$reportForm.submit(this.onSubmitReportEvent);
     };
-
     hideFilter = () => {
         var self = this;
 
@@ -233,7 +206,7 @@ class WinLossDetailView {
     getParams = () => {
         var dateRange = this.getDateRangeParam();
         var selectedProducts = productMultiSelectionComponent.getSelectedItems(this.$dropdownProduct);
-
+        var sortInfo = sortComponent.getSortInfo(this.$tableReport);
         var tableReport = this.$tableReport;
 
         return {
@@ -243,8 +216,8 @@ class WinLossDetailView {
             FromDate: dateRange.FromDate,
             ToDate: dateRange.ToDate,
             UserSelectedProductIds: selectedProducts.join(","),
-            SortPropertyName: this.sortedColumn,
-            IsDescendingSort: this.descendingsort,
+            SortPropertyName: sortInfo.SortPropertyName,
+            IsDescendingSort: sortInfo.IsDescendingSort,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
             HideFilter: this.$reportForm.is(":hidden"),
@@ -265,50 +238,6 @@ class WinLossDetailView {
             ? monthPickerComponent.getDateRange(this.$dropdownMonth)
             : this.$dateRangePicker.nexDatePicker("getDateRange");
     };
-    renderSortedColumn = () => {
-        var self = this;
-        var tableReport = this.$tableReport;
-
-        if (parseInt(tableReport.data("totalrecords"), 0) <= 1) {
-            this.$sortColumns.removeAttr("data-sortedname");
-
-            return;
-        } else {
-            this.$sortColumns.on("click",
-                function () {
-                    var sortedColumn = self.$(this).data("sortedname");
-
-                    if (sortedColumn !== self.sortedColumn) {
-                        self.descendingsort = true;
-                    } else {
-                        self.descendingsort = !self.descendingsort;
-                    }
-
-                    self.sortedColumn = sortedColumn;
-                    self.$reportForm.trigger("submit");
-                });
-        }
-
-        var sortedColumn = tableReport.data("sortedcolumn");
-        var descendingsort = tableReport.data("descendingsort");
-
-        var sortClass = descendingsort
-            ? "icon-menu-down descSorting"
-            : "icon-menu-up ascSorting";
-
-        var columns = tableReport.find("th[data-sortedname='" + sortedColumn + "']");
-        columns.each(function () {
-            var column = self.$(this);
-            var isCombinedColumn = column.hasClass("col-combine");
-
-            if (isCombinedColumn) {
-                column.find(".prior-sortedcolumn").append("<span class=\"" + sortClass + "\"></span>");
-            } else {
-                column.append("<span class=\"" + sortClass + "\"></span>");
-            }
-        });
-    };
-
     showValidaProductError = () => {
         this.$multiSelectButton.addClass("error");
     };
@@ -323,7 +252,6 @@ class WinLossDetailView {
             self.$(this).attr("href", newQueryString);
         });
     };
-
     onSubmitReportEvent = (e: any) => {
         this.$.blockUI();
 

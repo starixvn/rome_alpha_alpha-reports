@@ -39,6 +39,8 @@ class AlphaReports {
         columns: Array<string>,
         combinedColumnClass: string,
         combinedColumnColSpan: number) => {
+        var self = this;
+
         var columnsLength = columns ? columns.length : 0;
         if (columnsLength <= 1) {
             return;
@@ -52,14 +54,14 @@ class AlphaReports {
                                 <ul>";
 
             for (var i = 0; i < columnsLength; i++) {
-                var nextColumn = this.$(this.$(columns[i])[index]);
+                var nextColumn = self.$(self.$(columns[i])[index]);
                 newColumn += "<li>" + nextColumn.html() + "</li>";
             }
 
             newColumn += "</ul>\
                         </td>";
 
-            var endColumn = this.$(this.$(columns[columnsLength - 1])[index]);
+            var endColumn = self.$(self.$(columns[columnsLength - 1])[index]);
             endColumn.after(newColumn);
         });
     };
@@ -67,6 +69,8 @@ class AlphaReports {
     splitColumn = (
         columns: Array<string>,
         combinedColumn: string) => {
+        var self = this;
+
         var columnsLength = columns ? columns.length : 0;
         if (columnsLength <= 1) {
             return;
@@ -76,14 +80,14 @@ class AlphaReports {
 
         combinedColumns.each(function (index: number) {
 
-            var oldValues = this.$(this).find("li");
+            var oldValues = self.$(this).find("li");
             var oldColumns = "";
 
             for (var i = 0; i < columnsLength; i++) {
-                oldColumns += "<td class=\"" + columns[i] + "\">" + this.$(oldValues[i]).html() + "</td>";
+                oldColumns += "<td class=\"" + columns[i] + "\">" + self.$(oldValues[i]).html() + "</td>";
             }
 
-            this.$(this.$(combinedColumn)[index]).before(oldColumns);
+            self.$(self.$(combinedColumn)[index]).before(oldColumns);
         });
     };
 

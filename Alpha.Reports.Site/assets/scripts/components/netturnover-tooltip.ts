@@ -1,18 +1,25 @@
 ﻿/// <reference path="../core.ts" />
 
 "use strict";
+class NetTurnoverTooltipOption {
+    tooltipId: string;
+    closeTooltipId: string;
+
+    constructor(tooltipId: string = "netturnovertooltip",
+        closeTooltipId: string = "close-netturnover-tooltip") {
+        this.tooltipId = tooltipId;
+        this.closeTooltipId = closeTooltipId;
+    }
+}
 
 class NetTurnoverTooltipComponent {
     $: any;
 
+    options = new NetTurnoverTooltipOption();
+
     constructor($: any) {
         this.$ = $;
     }
-
-    options = {
-        tooltipId: "netturnovertooltip",
-        closeTooltipId: "close-netturnover-tooltip"
-    };
 
     cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
     timeToShowNetTurnoverTooltip = 10000;
@@ -23,7 +30,7 @@ class NetTurnoverTooltipComponent {
         var netTurnoverTooltip = this.$("#" + pickerOptions.tooltipId);
         var closeNetTurnoverTooltipButton = this.$("#" + pickerOptions.closeTooltipId);
 
-        var $this = this;
+        var self = this;
         var netTurnoverTooltipShowCount = alphaReports.localStorage.get(this.cookieNetTurnoverTooltip) || 0;
 
         if (netTurnoverTooltipShowCount &&
@@ -34,13 +41,13 @@ class NetTurnoverTooltipComponent {
             netTurnoverTooltip.modal({ show: true, backdrop: false });
 
             closeNetTurnoverTooltipButton.on("click", function () {
-                alphaReports.localStorage.set($this.cookieNetTurnoverTooltip, alphaReports.maxTimesToShowTooltip);
-                $this.closeNetTurnoverTooltip(netTurnoverTooltip);
+                alphaReports.localStorage.set(self.cookieNetTurnoverTooltip, alphaReports.maxTimesToShowTooltip);
+                self.closeNetTurnoverTooltip(netTurnoverTooltip);
             });
 
-            alphaReports.localStorage.set($this.cookieNetTurnoverTooltip, netTurnoverTooltipShowCount + 1);
+            alphaReports.localStorage.set(self.cookieNetTurnoverTooltip, netTurnoverTooltipShowCount + 1);
             setTimeout(function () {
-                $this.closeNetTurnoverTooltip(netTurnoverTooltip);
+                self.closeNetTurnoverTooltip(netTurnoverTooltip);
             }, this.timeToShowNetTurnoverTooltip);
         }
 
@@ -58,10 +65,10 @@ class NetTurnoverTooltipComponent {
         });
     };
     registerEvents = (netTurnoverTooltip: any) => {
-        var $this = this;
+        var self = this;
 
         this.$(window).resize(function () {
-            $this.positionNetTurnoverTooltip(netTurnoverTooltip);
+            self.positionNetTurnoverTooltip(netTurnoverTooltip);
         });
     };
     closeNetTurnoverTooltip = (netTurnoverTooltip: any) => {

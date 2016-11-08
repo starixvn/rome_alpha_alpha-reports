@@ -1,21 +1,30 @@
-﻿"use strict";
+﻿/// <reference path="../core.ts" />
+"use strict";
+class ProductMultiSelectionOption {
+    dropdownId: string;
+    validateBeforeSubmit: boolean;
+
+    constructor(dropdownId: string = "dropdown-product",
+        validateBeforeSubmit: boolean = true) {
+
+        this.dropdownId = dropdownId;
+        this.validateBeforeSubmit = validateBeforeSubmit;
+    }
+}
 
 class ProductMultiSelectionComponent {
     $: any;
+
+    options = new ProductMultiSelectionOption();
 
     constructor($: any) {
         this.$ = $;
     }
 
-    options = {
-        dropdownId: "dropdown-product",
-        validateBeforeSubmit: true
-    };
-
     render = (options: any = {}) => {
         var pickerOptions = this.$.extend({}, this.options, options);
 
-        var $this = this;
+        var self = this;
 
         var dropdownProduct = this.$("#" + pickerOptions.dropdownId);
         var multiSelectButton = this.$(".multiselect.btn");
@@ -31,10 +40,10 @@ class ProductMultiSelectionComponent {
             allSelectedText: dropdownProduct.data("labelallproducts"),
             includeSelectAllOption: hasProduct,
             onChange: function (option: any, checked: boolean) {
-                $this.validate(dropdownProduct, multiSelectButton, pickerOptions);
+                self.validate(dropdownProduct, multiSelectButton, pickerOptions);
             },
             onSelectAll: function () {
-                $this.validate(dropdownProduct, multiSelectButton, pickerOptions);
+                self.validate(dropdownProduct, multiSelectButton, pickerOptions);
             },
             language: dropdownProduct.data("language")
         });

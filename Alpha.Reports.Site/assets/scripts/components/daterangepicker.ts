@@ -2,18 +2,24 @@
 
 "use strict";
 
+class DateRangePickerOption {
+    selectorId: string;
+
+    constructor(selectorId: string = "daterange-picker") {
+        this.selectorId = selectorId;
+    }
+}
+
 class DateRangePickerComponent {
     $: any;
+
+    options = new DateRangePickerOption();
 
     constructor($: any) {
         this.$ = $;
     }
 
-    options = {
-        selectorId: "daterange-picker"
-    };
-
-    render = (options: any = {}) => {
+    render = (options: DateRangePickerOption = new DateRangePickerOption()) => {
         var pickerOptions = this.$.extend({}, this.options, options);
 
         var dateRangePicker = this.$("#" + pickerOptions.selectorId);

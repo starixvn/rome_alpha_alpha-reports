@@ -1,18 +1,26 @@
 ﻿/// <reference path="../core.ts" />
 
 "use strict";
+class MonthPickerOption {
+    selectorId: string;
+    longMonthsInYear: Array<string>;
+
+    constructor(selectorId: string = "dropdown-month",
+        longMonthsInYear: Array<string> = null) {
+
+        this.selectorId = selectorId;
+        this.longMonthsInYear = longMonthsInYear;
+    }
+}
 
 class MonthPickerComponent {
     $: any;
 
+    options = new MonthPickerOption();
+
     constructor($: any) {
         this.$ = $;
     }
-
-    options = {
-        selectorId: "dropdown-month",
-        longMonthsInYear: null
-    };
 
     render = (options: any = {}) => {
         var pickerOptions = this.$.extend({}, this.options, options);

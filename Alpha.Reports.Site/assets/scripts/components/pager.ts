@@ -1,17 +1,24 @@
 ﻿/// <reference path="../core.ts" />
 "use strict";
+class PagerOption {
+    pagerId: string;
+    onSelectPage: null;
+
+    constructor(pagerId: string = "report-pager",
+        onSelectPage: any = null) {
+        this.pagerId = pagerId;
+        this.onSelectPage = onSelectPage;
+    }
+}
 
 class PagerComponent {
     $: any;
 
+    options = new PagerOption();
+
     constructor($: any) {
         this.$ = $;
     }
-
-    options = {
-        pagerId: "report-pager",
-        onSelectPage: null
-    };
 
     render = (options: any = {}) => {
         var pickerOptions = this.$.extend({}, this.options, options);
