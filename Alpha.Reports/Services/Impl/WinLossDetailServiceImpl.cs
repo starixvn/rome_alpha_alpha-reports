@@ -47,14 +47,14 @@
                 validUserSelectedProductIds,
                 param.ReportLevel);
 
-            var rawData = dynamicRepository.FetchMultiple<T, T>(criteria);
+            var winLossDetailData = dynamicRepository.FetchMultiple<T, T>(criteria);
 
             return new ReportData<T>(
-                rawData.Item1,
+                winLossDetailData.Item1,
                 criteria.PageIndex,
                 criteria.PageSize,
                 criteria.TotalRecords,
-                rawData.Item2.FirstOrDefault());
+                winLossDetailData.Item2.FirstOrDefault());
         }
     }
 }
