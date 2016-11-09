@@ -38,8 +38,8 @@
             ReportLevel = reportLevel;
 
             SortByPropertyName = string.IsNullOrWhiteSpace(sortByPropertyName)
-                ? GetDefaultSortedColumn()
-                : GetSortedColumn(sortByPropertyName);
+                ? GetDefaultSortedProperty()
+                : GetSortedProperty(sortByPropertyName);
 
             UserSelectedProductIds = userSelectedProductIds;
             IsDescendingSort = isDescendingSort;
@@ -63,7 +63,7 @@
 
         public bool IsDescendingSort { get; }
 
-        private string GetDefaultSortedColumn()
+        private string GetDefaultSortedProperty()
         {
             if (ReportLevel.IsSuperLevel())
             {
@@ -78,21 +78,21 @@
             return "AgentWinLoss";
         }
 
-        private string GetSortedColumn(string sortedColumn)
+        private string GetSortedProperty(string sortedProperty)
         {
             var isInRange =
                 ReportLevel.IsSuperLevel()
-                || (ReportLevel.IsMasterLevel() && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
+                || (ReportLevel.IsMasterLevel() && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
                 || (ReportLevel.IsAgentLevel()
-                        && !sortedColumn.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
-                        && !sortedColumn.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
+                        && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
+                        && !sortedProperty.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
 
             if (!isInRange)
             {
-                return GetDefaultSortedColumn();
+                return GetDefaultSortedProperty();
             }
 
-            return sortedColumn;
+            return sortedProperty;
         }
     }
 }

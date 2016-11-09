@@ -490,6 +490,7 @@
     <EmbeddedResource Include="App_GlobalResources\SiteResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SiteResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="App_GlobalResources\SiteResources.th-TH.resx" />
     <EmbeddedResource Include="App_GlobalResources\SiteResources.vi-VN.resx" />

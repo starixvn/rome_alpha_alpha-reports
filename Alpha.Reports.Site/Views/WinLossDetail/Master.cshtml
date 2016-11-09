@@ -77,11 +77,11 @@
         <td>
             @if (isTotalRow)
             {
-                @SiteResources.Total
+            @SiteResources.Total
             }
             else
             {
-                @Html.ActionLink(
+            @Html.ActionLink(
                      linkText: data.CustName,
                      actionName: "Agent",
                      controllerName: "WinLossDetail",
@@ -112,56 +112,34 @@
         <td class="text-right">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
-            @HtmlHelpers.RenderStackColumn(
-                     new List<decimal>() { data.Turnover, data.NetTurnover, data.GrossComm },
-                     "text-right visible-stack-mode combinedcolumn col-turnover-combined",
-                     1);
-            @HtmlHelpers.RenderStackColumn(
-                     new List<decimal>() { data.MemberWinLoss, data.MemberComm, data.MemberTotal },
-                     "text-right visible-stack-mode combinedcolumn col-memberwinloss-combined",
-                     3);
-            @HtmlHelpers.RenderStackColumn(
-                    new List<decimal>() { data.AgentWinLoss, data.AgentComm, data.AgentTotal },
-                    "text-right visible-stack-mode combinedcolumn col-agentwinloss-combined altercol ",
-                    3);
-            @HtmlHelpers.RenderStackColumn(
-                    new List<decimal>() { data.MasterWinLoss, data.MasterComm, data.MasterTotal },
-                    "text-right visible-stack-mode combinedcolumn col-masterwinloss-combined",
-                    3);
-            @HtmlHelpers.RenderStackColumn(
-                    new List<decimal>() { data.SuperWinLoss, data.SuperComm, data.SuperTotal },
-                    "text-right visible-stack-mode combinedcolumn col-superwinloss-combined altercol",
-                    3);
+            @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
+            @HtmlHelpers.RenderStackCell("col-memberwinloss-combined", 3, data.MemberWinLoss, data.MemberComm, data.MemberTotal);
+            @HtmlHelpers.RenderStackCell("col-agentwinloss-combined altercol ", 3, data.AgentWinLoss, data.AgentComm, data.AgentTotal);
+            @HtmlHelpers.RenderStackCell("col-masterwinloss-combined", 3, data.MasterWinLoss, data.MasterComm, data.MasterTotal);
+            @HtmlHelpers.RenderStackCell("col-superwinloss-combined altercol", 3, data.SuperWinLoss, data.SuperComm, data.SuperTotal);
         }
         else
         {
-            @RenderCell(data.Turnover, "col-turnover")
-            @RenderCell(data.NetTurnover, "col-netturnover")
-            @RenderCell(data.GrossComm, "col-grosscomm")
+            @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
+            @HtmlHelpers.RenderNumberCell(data.NetTurnover)
+            @HtmlHelpers.RenderNumberCell(data.GrossComm)
 
-            @RenderCell(data.MemberWinLoss, "col-memberwinloss")
-            @RenderCell(data.MemberComm, "col-membercomm")
-            @RenderCell(data.MemberTotal, "col-membertotal")
+            @HtmlHelpers.RenderNumberCell(data.MemberWinLoss, "col-memberwinloss")
+            @HtmlHelpers.RenderNumberCell(data.MemberComm)
+            @HtmlHelpers.RenderNumberCell(data.MemberTotal, "bold")
 
-            @RenderCell(data.AgentWinLoss, "col-agentwinloss", isAlterCol: true)
-            @RenderCell(data.AgentComm, "col-agentcomm", isAlterCol: true)
-            @RenderCell(data.AgentTotal, "col-agenttotal", isAlterCol: true)
+            @HtmlHelpers.RenderNumberCell(data.AgentWinLoss, "col-agentwinloss altercol")
+            @HtmlHelpers.RenderNumberCell(data.AgentComm, "altercol")
+            @HtmlHelpers.RenderNumberCell(data.AgentTotal, "bold altercol")
 
-            @RenderCell(data.MasterWinLoss, "col-masterwinloss")
-            @RenderCell(data.MasterComm, "col-mastercomm")
-            @RenderCell(data.MasterTotal, "col-mastertotal")
+            @HtmlHelpers.RenderNumberCell(data.MasterWinLoss, "col-masterwinloss")
+            @HtmlHelpers.RenderNumberCell(data.MasterComm)
+            @HtmlHelpers.RenderNumberCell(data.MasterTotal, "bold")
 
-            @RenderCell(data.SuperWinLoss, "col-superwinloss", isAlterCol: true)
-            @RenderCell(data.SuperComm, "col-supercomm", isAlterCol: true)
-            @RenderCell(data.SuperTotal, "col-supertotal", isAlterCol: true)
+            @HtmlHelpers.RenderNumberCell(data.SuperWinLoss, "col-superwinloss altercol")
+            @HtmlHelpers.RenderNumberCell(data.SuperComm, "altercol")
+            @HtmlHelpers.RenderNumberCell(data.SuperTotal, "bold altercol")
         }
         <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
-}
-
-@helper RenderCell(decimal columnValue, string columnName, bool isAlterCol = false)
-{
-    <td class="bold text-right hidden-stack-mode @columnName @(isAlterCol ? "altercol" : string.Empty)">
-        @HtmlHelpers.FormatNumber(columnValue)
-    </td>
 }

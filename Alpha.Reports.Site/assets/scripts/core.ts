@@ -35,70 +35,60 @@ class AlphaReports {
         return currentWindowWidth < 768;
     };
 
-    combineColumns = (
-        columns: Array<string>,
-        combinedColumnClass: string,
-        combinedColumnColSpan: number) => {
+    splitCell = (firstCell: string, cellClass: string = "") => {
         var self = this;
 
-        var columnsLength = columns ? columns.length : 0;
-        if (columnsLength <= 1) {
-            return;
-        }
+        var combinedCells = this.$("." + firstCell + "-combined");
 
-        var firstColumn = this.$(columns[0]);
-
-        firstColumn.each(function (index: number) {
-
-            var newColumn = "<td class=\"" + combinedColumnClass + "\" colspan=\"" + combinedColumnColSpan + "\">\
-                                <ul>";
-
-            for (var i = 0; i < columnsLength; i++) {
-                var nextColumn = self.$(self.$(columns[i])[index]);
-                newColumn += "<li>" + nextColumn.html() + "</li>";
-            }
-
-            newColumn += "</ul>\
-                        </td>";
-
-            var endColumn = self.$(self.$(columns[columnsLength - 1])[index]);
-            endColumn.after(newColumn);
-        });
-    };
-
-    splitColumn = (
-        columns: Array<string>,
-        combinedColumn: string) => {
-        var self = this;
-
-        var columnsLength = columns ? columns.length : 0;
-        if (columnsLength <= 1) {
-            return;
-        }
-
-        var combinedColumns = this.$(combinedColumn);
-
-        combinedColumns.each(function (index: number) {
+        combinedCells.each(function (index: number) {
 
             var oldValues = self.$(this).find("li");
-            var oldColumns = "";
+            var cellsLength = oldValues.length;
+            var oldCells = "";
 
-            for (var i = 0; i < columnsLength; i++) {
-                oldColumns += "<td class=\"" + columns[i] + "\">" + self.$(oldValues[i]).html() + "</td>";
+            for (var i = 0, lastCellIndex = cellsLength - 1; i < cellsLength; i++) {
+                oldCells += "<td class=\"text-right hidden-stack-mode " + cellClass +
+                    (i === lastCellIndex ? " bold" : "") + "\">" +
+                    self.$(oldValues[i]).html() +
+                    "</td>";
             }
 
-            self.$(self.$(combinedColumn)[index]).before(oldColumns);
+            self.$(combinedCells[index]).before(oldCells);
         });
     };
 
-    combineConsecutiveColumns = (
-        columnIndex: number,
-        numberOfCombinedColumn: number,
-        combinedColumnClass: string,
-        combinedColumnColSpan: number) => {
-        var self = this;
-    };
+    combineConsecutiveCells = (
+        firstCells: any,
+        numberOfCombinedCells: number,
+        combinedCellClass: string,
+        combinedCellColSpan: number = numberOfCombinedCells) => {
 
+        if (numberOfCombinedCells <= 1) {
+            return;
+        }
+
+        var self = this;
+
+        firstCells.each(function (index: number) {
+
+            var newCell =
+                "<td class=\"visible-stack-mode combinedcell " +
+                combinedCellClass + "\" colspan=\"" + combinedCellColSpan + "\">\
+                    <ul>";
+
+            var currentCell = self.$(firstCells[index]);
+
+            for (var i = 0; i < numberOfCombinedCells; i++) {
+                newCell += "<li>" + currentCell.html() + "</li>";
+                currentCell = currentCell.next();
+            }
+
+            newCell += "</ul>\
+                        </td>";
+
+            currentCell.prev().after(newCell);
+        });
+    };
 
     localStorage = {
         get: (key: string) => {

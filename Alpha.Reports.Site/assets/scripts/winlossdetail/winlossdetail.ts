@@ -146,37 +146,19 @@ class WinLossDetailView {
 
             if (self.isFirstSwitchMode) {
                 if (currentStackModeState) {
-                    alphaReports.splitColumn([
-                        "text-right hidden-stack-mode col-turnover",
-                        "text-right hidden-stack-mode col-netturnover",
-                        "text-right hidden-stack-mode col-grosscomm"],
-                        ".col-turnover-combined");
+                    alphaReports.splitCell("col-turnover");
 
                     self.$.each(self.levels, function (index: number) {
                         var level = self.levels[index];
-                        var alterClass = index % 2 ? " altercol" : "";
-
-                        alphaReports.splitColumn([
-                            "text-right hidden-stack-mode col-" + level + "winloss" + alterClass,
-                            "text-right hidden-stack-mode col-" + level + "comm" + alterClass,
-                            "text-right bold hidden-stack-mode col-" + level + "total" + alterClass],
-                            ".col-" + level + "winloss-combined");
+                        alphaReports.splitCell("col-" + level + "winloss", index % 2 ? " altercol" : "");
                     });
                 } else {
-                    alphaReports.combineColumns([
-                        "td.col-turnover",
-                        "td.col-netturnover",
-                        "td.col-grosscomm"],
-                        "text-right visible-stack-mode combinedcolumn col-turnover-combined", 1);
+                    alphaReports.combineConsecutiveCells(self.$("td.col-turnover"), 3, "text-right col-turnover-combined", 1);
 
                     self.$.each(self.levels, function (index: number) {
                         var level = self.levels[index];
-                        alphaReports.combineColumns([
-                            "td.col-" + level + "winloss",
-                            "td.col-" + level + "comm",
-                            "td.col-" + level + "total"],
-                            "text-right visible-stack-mode combinedcolumn column-" + level + "winloss-combined" +
-                            (index % 2 ? " altercol" : ""), 3);
+                        var cellCss = "text-right column-" + level + "winloss-combined" + (index % 2 ? " altercol" : "");
+                        alphaReports.combineConsecutiveCells(self.$("td.col-" + level + "winloss"), 3, cellCss);
                     });
                 }
 

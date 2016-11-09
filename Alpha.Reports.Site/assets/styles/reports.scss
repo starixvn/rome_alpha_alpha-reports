@@ -129,6 +129,10 @@ a {
     th[data-sortedname] {
         cursor: pointer;
     }
+
+    .combinedcell li:last-child {
+        font-weight: bold;
+    }
 }
 
 // Filter
@@ -258,6 +262,3 @@ a {
         }
     }
 }
-
-
-
