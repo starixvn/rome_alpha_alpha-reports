@@ -353,7 +353,6 @@
     <Content Include="App_Code\Components\NoInformation.cshtml" />
     <Content Include="App_Code\Components\ProductMultiSelection.cshtml" />
     <Content Include="Views\WinLossDetail\Filter.cshtml" />
-    <Content Include="Views\WinLossDetail\WinLossDetail.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>
