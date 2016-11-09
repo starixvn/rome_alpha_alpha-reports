@@ -4,7 +4,6 @@
 @helper Render(ProductMultiSelectionViewModel model)
 {
     <div class="form-group">
-        <label class="txt">@SiteResources.Product</label>
         <select id="dropdown-product"
                 name="UserSelectedProductIds"
                 data-has-any-product="@model.Products.Any()"
@@ -16,8 +15,7 @@
                 multiple="multiple" class="select-multiple">
             @foreach (var product in model.Products)
             {
-                <option id="product_@product.Value"
-                        value="@product.Value"
+                <option value="@product.Value"
                         @(product.Selected ? " selected=\"selected\"" : string.Empty)>
                     @product.Text
                 </option>

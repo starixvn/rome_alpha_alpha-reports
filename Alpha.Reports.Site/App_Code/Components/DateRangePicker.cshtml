@@ -4,27 +4,49 @@
 
 @helper Render(DateRangePickerViewModel model)
 {
-    <div class="form-group nexDatePicker">
-        <div class="currentreport-item">
-            <div id="daterange-picker"
-                 data-labelto="@SiteResources.To"
-                 data-labeltoday="@SiteResources.Today"
-                 data-labelyesterday="@SiteResources.Yesterday"
-                 data-labelthisweek="@SiteResources.ThisWeek"
-                 data-labellastweek="@SiteResources.LastWeek"
-                 data-labelthismonth="@SiteResources.ThisMonth"
-                 data-labellastmonth="@SiteResources.LastMonth"
-                 data-labelsincelastmonth="@SiteResources.SinceLastMonth"
-                 data-labelspecificdate="@SiteResources.SpecificDate"
-                 data-mindate="@model.MinDate.ToShortDateWithSlash()"
-                 data-maxdate="@model.MaxDate.ToShortDateWithSlash()"
-                 data-currentdate="@DateTime.Now"
-                 data-fromdate="@model.FromDate.ToShortDateWithSlash()"
-                 data-todate="@model.ToDate.ToShortDateWithSlash()"
-                 data-selecteddaterange="@model.UserSelectedDateRangeOption"></div>
+    <div id="daterange-picker"
+         class="form-group nexDatePicker"
+         data-currentdate="@DateTime.Now"
+         data-mindate="@model.MinDate.ToShortDateWithSlash()"
+         data-maxdate="@model.MaxDate.ToShortDateWithSlash()">
+        <div class="ui_nexdatepicker_edit_field ">
+            <select id="dropdown-daterange"
+                    name="UserSelectedDateRangeOption"
+                    class="dropdown-daterange">
+                @foreach (var rangeOption in model.RangeOptions)
+                {
+                    <option value="@rangeOption.Value"
+                            @(rangeOption.Selected ? " selected=\"selected\"" : string.Empty)>
+                        @rangeOption.Text
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div id="from-date-container"
+             class="input-group date ui_nexdatepicker_edit_field css fromdate">
+            <input type="datetime"
+                   id="from-date"
+                   name="FromDate"
+                   readonly="readonly"
+                   class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control"
+                   value="@model.FromDate.ToShortDateWithSlash()" />
+            <span class="input-group-addon">
+                <span class="icon-calendar"></span>
+            </span>
+        </div>
+
+        <div id="to-date-container"
+             class="input-group date ui_nexdatepicker_edit_field  todate">
+            <input type="datetime"
+                   id="to-date"
+                   name="ToDate"
+                   readonly="readonly"
+                   class="ui_nexdatepicker_datetextbox ui_nexdatepicker_todate form-control"
+                   value="@model.ToDate.ToShortDateWithSlash()" />
+            <span class="input-group-addon">
+                <span class="icon-calendar"></span>
+            </span>
         </div>
     </div>
-    <input type="hidden" id="UserSelectedDateRangeOption" name="UserSelectedDateRangeOption" value="@(model.UserSelectedDateRangeOption)" />
-    <input type="hidden" id="FromDate" name="FromDate" />
-    <input type="hidden" id="ToDate" name="ToDate" />
 }
