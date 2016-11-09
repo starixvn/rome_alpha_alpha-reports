@@ -72,7 +72,7 @@
         public DateRangePickerViewModel DateRangePickerViewModel => 
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
-        public ProductMultiSelectionViewModel ProductMultiSelection =>
+        public ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, Language);
 
         public string ViewDataInstructionMessage => 

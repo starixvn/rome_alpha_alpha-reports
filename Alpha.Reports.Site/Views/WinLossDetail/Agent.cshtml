@@ -45,7 +45,7 @@
     @if (Model.ReportData.Any())
     {
         <tbody>
-            @foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, !Model.IsDescendingSort))
+            @foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false)
             }
