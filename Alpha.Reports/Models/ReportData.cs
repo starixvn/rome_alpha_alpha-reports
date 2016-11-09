@@ -30,5 +30,7 @@
         public int TotalRecords { get; }
 
         public bool Any() => TotalRecords > 0;
+
+        public bool MoreThanOne() => TotalRecords >= 1;
     }
 }
