@@ -91,18 +91,18 @@
                     htmlAttributes: null)
             }
         </td>
-        <td class="text-right">@SharedHelpers.FormatNumber(data.NumberOfTickets)</td>
+        <td class="text-right">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
-            @SharedHelpers.RenderStackColumn(
+            @HtmlHelpers.RenderStackColumn(
                 new List<decimal>() { data.Turnover, data.NetTurnover, data.GrossComm },
                 "text-right visible-stack-mode combinedcolumn col-turnover-combined",
                 1);
-            @SharedHelpers.RenderStackColumn(
+            @HtmlHelpers.RenderStackColumn(
                 new List<decimal>() { data.MemberWinLoss, data.MemberComm, data.MemberTotal },
                 "text-right visible-stack-mode combinedcolumn col-memberwinloss-combined",
                 3);
-            @SharedHelpers.RenderStackColumn(
+            @HtmlHelpers.RenderStackColumn(
                 new List<decimal>() { data.AgentWinLoss, data.AgentComm, data.AgentTotal },
                 "text-right visible-stack-mode combinedcolumn col-agentwinloss-combined altercol",
                 3);
@@ -121,13 +121,13 @@
             @RenderCell(data.AgentComm, "col-agentcomm", isAlterCol: true)
             @RenderCell(data.AgentTotal, "col-agenttotal", isAlterCol: true)
         }
-        <td class="text-right">@SharedHelpers.FormatNumber(data.Company)</td>
+        <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
 
 @helper RenderCell(decimal columnValue, string columnName, bool isAlterCol = false)
 {
     <td class="bold text-right hidden-stack-mode @columnName @(isAlterCol ? "altercol" : string.Empty)">
-        @SharedHelpers.FormatNumber(columnValue)
+        @HtmlHelpers.FormatNumber(columnValue)
     </td>
 }

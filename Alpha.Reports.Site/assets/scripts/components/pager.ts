@@ -20,7 +20,7 @@ class PagerComponent {
         this.$ = $;
     }
 
-    render = (options: any = {}) => {
+    render = (options: PagerOption = new PagerOption()) => {
         var pickerOptions = this.$.extend({}, this.options, options);
         var pager = this.$("#" + pickerOptions.pagerId);
 

@@ -91,6 +91,15 @@ class AlphaReports {
         });
     };
 
+    combineConsecutiveColumns = (
+        columnIndex: number,
+        numberOfCombinedColumn: number,
+        combinedColumnClass: string,
+        combinedColumnColSpan: number) => {
+        var self = this;
+    };
+
+
     localStorage = {
         get: (key: string) => {
             return this.store.enabled ? this.store.get(key) : this.$.cookie(key);

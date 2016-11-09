@@ -65,11 +65,9 @@ class WinLossDetailView {
         }
 
         this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
-        this.$pager = pagerComponent.render({
-            onSelectPage: function () {
-                self.$reportForm.trigger("submit");
-            }
-        });
+        this.$pager = pagerComponent.render(new PagerOption(undefined, function () {
+            self.$reportForm.trigger("submit");
+        }));
 
         sortComponent.render({
             sortContainer: this.$tableReport,

@@ -24,7 +24,7 @@ class SortComponent {
         this.$ = $;
     }
 
-    render = (options: any = {}) => {
+    render = (options: SortOption = new SortOption()) => {
         var componentOptions = this.$.extend({}, this.options, options);
         var sortContainer = componentOptions.sortContainer;
 
