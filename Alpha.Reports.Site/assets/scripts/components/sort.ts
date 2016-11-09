@@ -57,8 +57,8 @@ class SortComponent {
         var descendingsort = sortContainer.data("descendingsort").toLowerCase() === "true";
 
         var sortClass = descendingsort
-            ? "icon-menu-down descSorting"
-            : "icon-menu-up ascSorting";
+            ? "icon-menu-down sorting-desc"
+            : "icon-menu-up sorting-asc";
 
         var columns = sortContainer.find("[data-sortedname='" + sortedColumn + "']");
         columns.each(function () {
