@@ -2,7 +2,7 @@
 "use strict";
 class PagerOption {
     pagerId: string;
-    onSelectPage: null;
+    onSelectPage: any;
 
     constructor(pagerId: string = "report-pager",
         onSelectPage: any = null) {
