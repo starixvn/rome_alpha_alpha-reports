@@ -1,12 +1,12 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
     using System;
-    using Alpha.Reports.Models;
-    using Criteria;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using NSubstitute;
     using NUnit.Framework;
+    using Reports.Criteria;
+    using Reports.Models;
     using Reports.Services;
     using Reports.Services.Impl;
 
