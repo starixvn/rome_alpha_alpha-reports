@@ -3,7 +3,7 @@
 
 <form class="form-inline filter" role="form" id="report-form">
     @RenderHiddenFields()
-    
+
     @(Model.IsHistoricReport
         ? MonthPicker.Render(Model.MonthPickerViewModel)
         : DateRangePicker.Render(Model.DateRangePickerViewModel))
@@ -11,11 +11,11 @@
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
     <div class="form-group">
-        <input type="submit" value="@SiteResources.Submit" class="btn-submit" />
+        <input type="submit" value="@Resources.Submit" class="btn-submit" />
     </div>
 
     <div class="form-group">
-        <span class="icon-excel" title="@SiteResources.ExportToExcel"></span>
+        <span class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 
     <div class="note">
@@ -35,8 +35,8 @@
     @Html.Hidden("PageIndex", ViewData["CurrentPageIndex"] as int?)
     @Html.Hidden("PageSize", ViewData["PageSize"] as int?)
 
-    if (!Model.IsDirectReportViewAction)
-    {
-            @Html.Hidden("CustId", Model.CustId as int?)
-    }
+if (!Model.IsDirectReportViewAction)
+{
+        @Html.Hidden("CustId", Model.CustId as int?)
+}
 }

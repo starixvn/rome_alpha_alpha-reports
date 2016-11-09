@@ -1,10 +1,10 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Components
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
-    using Resources;
+    using App_GlobalResources;
 
     public class DateRangePickerViewModel
     {
@@ -24,14 +24,14 @@
             // Cannot use static here because Localization.
             RangeOptions = (new List<SelectListItem>
             {
-                new SelectListItem { Text = SiteResources.Today, Value = "0", Selected = true },
-                new SelectListItem { Text = SiteResources.Yesterday, Value = "1" },
-                new SelectListItem { Text = SiteResources.ThisWeek, Value = "2" },
-                new SelectListItem { Text = SiteResources.LastWeek, Value = "3" },
-                new SelectListItem { Text = SiteResources.ThisMonth, Value = "4" },
-                new SelectListItem { Text = SiteResources.LastMonth, Value = "5" },
-                new SelectListItem { Text = SiteResources.SinceLastMonth, Value = "6" },
-                new SelectListItem { Text = SiteResources.SpecificDate, Value = "7" }
+                new SelectListItem { Text = Resources.Today, Value = "0", Selected = true },
+                new SelectListItem { Text = Resources.Yesterday, Value = "1" },
+                new SelectListItem { Text = Resources.ThisWeek, Value = "2" },
+                new SelectListItem { Text = Resources.LastWeek, Value = "3" },
+                new SelectListItem { Text = Resources.ThisMonth, Value = "4" },
+                new SelectListItem { Text = Resources.LastMonth, Value = "5" },
+                new SelectListItem { Text = Resources.SinceLastMonth, Value = "6" },
+                new SelectListItem { Text = Resources.SpecificDate, Value = "7" }
             }).Select(item =>
             {
                 item.Selected = item.Value == userSelectedDateRangeOption.ToString();

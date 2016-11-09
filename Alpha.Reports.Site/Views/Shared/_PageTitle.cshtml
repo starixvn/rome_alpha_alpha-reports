@@ -8,14 +8,14 @@
         <ul>
             @if (Model.HasHideFilterIcon)
             {
-                <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@SiteResources.HideFilter"></span></li>
-                <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@SiteResources.ShowFilter"></span></li>
+                <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+                <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
             }
 
             @if (Model.HasStackIcon)
             {
-                <li class="normalview-element"><span class="icon-stack-column icon-switchmode" title="@SiteResources.Tip_ShowReportInStackColumnView"></span></li>
-                <li class="stackcolumnview-element"><span class="icon-normal-column icon-switchmode" title="@SiteResources.Tip_ShowReportInNormalView"></span></li>
+                <li class="normalview-element"><span class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
+                <li class="stackcolumnview-element"><span class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
             }
         </ul>
     </div>

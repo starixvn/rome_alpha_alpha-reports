@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using App_GlobalResources;
     using Components;
     using Extensions;
     using Models;
     using Models.WinlossDetail;
-    using Resources;
 
     public class WinLossDetailViewModel<T> where T : MemberWinLossDetail
     {
@@ -52,7 +52,7 @@
 
                 if (Products.Any(product => Convert.ToInt32(product.Value) == AllBetProductId))
                 {
-                    netTurnoverTooltips.Add(SiteResources.Tooltip_NetTurnover_21);
+                    netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
                 }
 
                 return netTurnoverTooltips;
@@ -69,17 +69,17 @@
         private MonthPickerViewModel MonthPickerViewModel =>
             new MonthPickerViewModel(MinDate, FromDate, ToDate);
 
-        private DateRangePickerViewModel DateRangePickerViewModel => 
+        private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, Language);
 
-        private string ViewDataInstructionMessage => 
+        private string ViewDataInstructionMessage =>
             string.Format(
                 IsHistoricReport
-               ? SiteResources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
-               : SiteResources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport,
+               ? Resources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
+               : Resources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport,
             MinDate);
 
         public WinLossDetailFilterViewModel FilterViewModel =>

@@ -5,12 +5,12 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using App_GlobalResources;
     using App_Start;
     using Auth.Web;
     using Configurations;
     using Fanex.Data;
     using ONEbook.UM.Filters;
-    using Resources;
     using Sunplus.Agent.Utilities;
 
     public class MvcApplication : HttpApplication
@@ -43,7 +43,7 @@
 
             SiteSettings.Verify();
 
-            Logs.WriteInfo(SiteResources.AppStart_Message);
+            Logs.WriteInfo(Resources.AppStart_Message);
         }
 
         protected void Application_Error(object sender, EventArgs e)
