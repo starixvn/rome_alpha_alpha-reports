@@ -2,7 +2,9 @@
 
 @helper Render(int colspan)
 {
-    <tr>
-        <td colspan="@colspan" align="center">@SiteResources.NoInformationIsAvailable</td>
-    </tr>
-}
+    <tbody>
+        <tr>
+            <td colspan="@colspan" align="center">@SiteResources.NoInformationIsAvailable</td>
+        </tr>
+   </tbody>
+ }

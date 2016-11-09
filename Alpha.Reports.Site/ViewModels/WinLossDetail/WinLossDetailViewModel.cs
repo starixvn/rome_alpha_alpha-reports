@@ -63,19 +63,19 @@
 
         public bool IsDirectReportViewAction { get; set; }
 
-        public PagerViewModel Pager =>
+        public PagerViewModel PagerViewModel =>
             new PagerViewModel(ReportData.CurrentPageIndex, ReportData.PageSize, ReportData.TotalRecords);
 
-        public MonthPickerViewModel MonthPicker =>
+        public MonthPickerViewModel MonthPickerViewModel =>
             new MonthPickerViewModel(MinDate, FromDate, ToDate);
 
-        public DateRangePickerViewModel DateRangePicker => 
+        public DateRangePickerViewModel DateRangePickerViewModel => 
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
         public ProductMultiSelectionViewModel ProductMultiSelection =>
             new ProductMultiSelectionViewModel(Products, Language);
 
-        public string ViewDataWarningMessage => 
+        public string ViewDataInstructionMessage => 
             string.Format(IsHistoricReport
                ? SiteResources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
                : SiteResources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport,
