@@ -159,7 +159,7 @@ a {
         vertical-align: middle;
     }
 
-    .nex-datepicker {
+    .daterange-picker {
         margin-right: 0;
     }
 
@@ -239,9 +239,13 @@ a {
             @include box-shadow-multiple('0px 1px 3px rgba(0, 0, 0, 0.3)');
         }
 
-        .nex-datepicker {
+        .daterange-picker {
             .input-group.date {
                 width: 128px;
+
+                .form-control {
+                    -webkit-appearance: none;
+                }
             }
 
             .ui_nexdatepicker_lbl_field {
@@ -252,6 +256,7 @@ a {
         .btn-group button.multiselect {
             height: 36px;
             line-height: 26px;
+            @include box-shadow-multiple('0px 1px 3px rgba(0, 0, 0, 0.3)');
 
             .caret {
                 top: 16px;
