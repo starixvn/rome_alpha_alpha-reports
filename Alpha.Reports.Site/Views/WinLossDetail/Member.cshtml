@@ -11,7 +11,15 @@
 
 @Html.Partial("_NetTurnoverTooltips", Model.NetTurnoverTooltips)
 @Html.Partial("_PageTitle", new PageHeaderViewModel(SiteResources.MemberWinLossDetail, true, true, Model.IsStackMode, Model.HideFilter))
-@Html.Partial("Filter")
+@Html.Partial("Filter", Model.FilterViewModel,
+    new ViewDataDictionary
+    {
+        { "IsStackMode", Model.IsStackMode },
+        { "IsDescendingSort", Model.IsDescendingSort },
+        { "SortPropertyName", Model.SortPropertyName },
+        { "CurrentPageIndex", Model.ReportData.CurrentPageIndex },
+        { "PageSize", Model.ReportData.PageSize }
+    })
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"

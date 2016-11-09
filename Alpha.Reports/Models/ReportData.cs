@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Models
 {
     using System.Collections.Generic;
-    using System.Linq;    
+    using System.Linq;
 
     public class ReportData<T> where T : class
     {

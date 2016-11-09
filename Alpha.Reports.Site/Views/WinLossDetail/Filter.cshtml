@@ -1,9 +1,9 @@
 ﻿@using Components
-@model dynamic
+@model WinLossDetailFilterViewModel
 
 <form class="form-inline filter" role="form" id="report-form">
     @RenderHiddenFields()
-
+    
     @(Model.IsHistoricReport
         ? MonthPicker.Render(Model.MonthPickerViewModel)
         : DateRangePicker.Render(Model.DateRangePickerViewModel))
@@ -27,13 +27,13 @@
 
 @helper RenderHiddenFields()
 {
-    @Html.Hidden("HideFilter", Model.HideFilter as bool?)
+    @Html.Hidden("HideFilter", Model.Visible as bool?)
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport as bool?)
-    @Html.Hidden("IsStackMode", Model.IsStackMode as bool?)
-    @Html.Hidden("IsDescendingSort", Model.IsDescendingSort as bool?)
-    @Html.Hidden("SortPropertyName", Model.SortPropertyName as string)
-    @Html.Hidden("PageIndex", Model.ReportData.CurrentPageIndex as int?)
-    @Html.Hidden("PageSize", Model.ReportData.PageSize as int?)
+    @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+    @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
+    @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
+    @Html.Hidden("PageIndex", ViewData["CurrentPageIndex"] as int?)
+    @Html.Hidden("PageSize", ViewData["PageSize"] as int?)
 
     if (!Model.IsDirectReportViewAction)
     {

@@ -66,19 +66,31 @@
         public PagerViewModel PagerViewModel =>
             new PagerViewModel(ReportData.CurrentPageIndex, ReportData.PageSize, ReportData.TotalRecords);
 
-        public MonthPickerViewModel MonthPickerViewModel =>
+        private MonthPickerViewModel MonthPickerViewModel =>
             new MonthPickerViewModel(MinDate, FromDate, ToDate);
 
-        public DateRangePickerViewModel DateRangePickerViewModel => 
+        private DateRangePickerViewModel DateRangePickerViewModel => 
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
-        public ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
+        private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, Language);
 
-        public string ViewDataInstructionMessage => 
-            string.Format(IsHistoricReport
+        private string ViewDataInstructionMessage => 
+            string.Format(
+                IsHistoricReport
                ? SiteResources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
                : SiteResources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport,
             MinDate);
+
+        public WinLossDetailFilterViewModel FilterViewModel =>
+            new WinLossDetailFilterViewModel(
+                CustId,
+                IsHistoricReport,
+                DateRangePickerViewModel,
+                MonthPickerViewModel,
+                ProductMultiSelectionViewModel,
+                ViewDataInstructionMessage,
+                IsDirectReportViewAction,
+                HideFilter);
     }
 }

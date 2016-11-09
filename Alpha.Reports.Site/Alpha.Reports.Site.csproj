@@ -223,7 +223,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppResources\SiteResources.cs" />
     <Compile Include="App_GlobalResources\SiteResources.Designer.cs">
       <DependentUpon>SiteResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -260,6 +259,7 @@
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\ReportPageViewModel.cs" />
+    <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
