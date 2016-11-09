@@ -71,6 +71,7 @@
                 ToDate = winLossDetailParam.ToDate,
 
                 Products = BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products),
+                UserSelectedProductIds = string.Join(",", winLossDetailParam.UserSelectedProductIds),
                 Language = message.Language,
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
@@ -94,7 +95,7 @@
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
-                string.IsNullOrWhiteSpace(message.UserSelectedProductIds) ? Enumerable.Empty<int>() : message.UserSelectedProductIds.ToListInt());
+                message.UserSelectedProductIds ?? Enumerable.Empty<int>());
 
             return new WinLossDetailParam(
                  message.CustId,

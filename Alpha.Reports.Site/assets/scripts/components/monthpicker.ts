@@ -3,13 +3,11 @@
 "use strict";
 class MonthPickerOption {
     selectorId: string;
-    longMonthsInYear: Array<string>;
 
     constructor(selectorId: string = "dropdown-month",
         longMonthsInYear: Array<string> = null) {
 
         this.selectorId = selectorId;
-        this.longMonthsInYear = longMonthsInYear;
     }
 }
 
@@ -22,7 +20,7 @@ class MonthPickerComponent {
         this.$ = $;
     }
 
-    render = (options: any = {}) => {
+    render = (options: MonthPickerOption = new MonthPickerOption) => {
         var pickerOptions = this.$.extend({}, this.options, options);
 
         var dropdownMonth = this.$("#" + pickerOptions.selectorId);
@@ -30,7 +28,7 @@ class MonthPickerComponent {
         var maxDate = dropdownMonth.data("maxdate");
 
         dropdownMonth.monPickr({
-            longMonthsInYear: pickerOptions.longMonthsInYear,
+            longMonthsInYear: dropdownMonth.data("longmonths-inyear"),
             maxDate: maxDate === "" ? dropdownMonth.data("currentdate") : maxDate,
             minDate: dropdownMonth.data("mindate"),
             month: new Date(dropdownMonth.data("dateinmonth")),

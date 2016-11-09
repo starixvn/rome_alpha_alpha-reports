@@ -28,7 +28,7 @@
 
         public string Language { get; set; }
 
-        public IEnumerable<int> UserSelectedProductIds { get; set; }
+        public string UserSelectedProductIds { get; set; }
 
         public int UserSelectedDateRangeOption { get; set; }
 
@@ -69,15 +69,16 @@
         public MonthPickerViewModel MonthPicker =>
             new MonthPickerViewModel(MinDate, FromDate, ToDate);
 
-        public DateRangePickerViewModel DateRangePicker =>
+        public DateRangePickerViewModel DateRangePicker => 
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
         public ProductMultiSelectionViewModel ProductMultiSelection =>
             new ProductMultiSelectionViewModel(Products, Language);
 
-        public string ViewDataWarningMessage =>
+        public string ViewDataWarningMessage => 
             string.Format(IsHistoricReport
-                ? SiteResources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
-                : SiteResources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport, MinDate);
+               ? SiteResources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
+               : SiteResources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport,
+            MinDate);
     }
 }

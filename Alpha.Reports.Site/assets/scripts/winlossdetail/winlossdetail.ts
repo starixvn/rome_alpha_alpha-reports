@@ -32,7 +32,6 @@ class WinLossDetailView {
     $fromDate: any;
     $toDate: any;
     $reportForm: any;
-    $userSelectedProductIds: any;
     $userSelectedDateRangeOption: any;
     $netTurnoverTooltip: any;
 
@@ -52,7 +51,7 @@ class WinLossDetailView {
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
 
         if (this.isHistoricReport) {
-            this.$dropdownMonth = monthPickerComponent.render({ longMonthsInYear: this.getLongMonthsInYear() });
+            this.$dropdownMonth = monthPickerComponent.render();
         } else {
             this.$dateRangePicker = dateRangePickerComponent.render();
         }
@@ -100,13 +99,7 @@ class WinLossDetailView {
         this.$toDate = this.$("#ToDate");
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
-        this.$userSelectedProductIds = this.$("#UserSelectedProductIds");
         this.$multiSelectButton = this.$(".multiselect.btn");
-    };
-    getLongMonthsInYear = () => {
-        // $.parseJSON: string must start/end with "
-        var longMonthsInYear = this.$.parseJSON(this.$("#longmonths-inyear").val());
-        return longMonthsInYear;
     };
     registerEvents = () => {
         var self = this;
@@ -274,7 +267,6 @@ class WinLossDetailView {
         this.$fromDate.val(params.FromDate);
         this.$toDate.val(params.ToDate);
         this.$userSelectedDateRangeOption.val(params.UserSelectedDateRangeOption);
-        this.$userSelectedProductIds.val(params.UserSelectedProductIds);
 
         if (alphaReports.screenSmallThan768()) {
             this.$pageTitle.addClass("hide-filter");

@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
+    using System.Collections.Generic;
     using MediatR;
     using Models.WinlossDetail;
     using Sunplus.Agent.Model.Base;
@@ -32,7 +33,7 @@
 
         public string Language { get; }
 
-        public string UserSelectedProductIds { get; set; }
+        public IEnumerable<int> UserSelectedProductIds { get; set; }
 
         public string SortPropertyName { get; set; }
 

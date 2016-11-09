@@ -26,11 +26,7 @@
 
     <div class="note">
         <span class="star">*</span>
-        @Html.Raw(
-            string.Format(Model.IsHistoricReport
-               ? SiteResources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
-               : SiteResources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport,
-            Model.MinDate))
+        @Html.Raw(Model.ViewDataWarningMessage)
     </div>
 
 </form>
@@ -59,14 +55,11 @@
     @Html.Hidden("SortPropertyName", Model.SortPropertyName as string)
     @Html.Hidden("PageIndex", Model.ReportData.CurrentPageIndex as int?)
     @Html.Hidden("PageSize", Model.ReportData.PageSize as int?)
-    @Html.Hidden("FromDate", (Model.FromDate as DateTime?).ToString())
-    @Html.Hidden("ToDate", (Model.ToDate as DateTime?).ToString())
-    @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds as string)
-    @Html.Hidden("UserSelectedDateRangeOption", Model.UserSelectedDateRangeOption as int?)
-if (!Model.IsDirectReportViewAction)
-{
+    
+    if (!Model.IsDirectReportViewAction)
+    {
         @Html.Hidden("CustId", Model.CustId as int?)
-}
+    }
 }
 
 @section Scripts {

@@ -7,6 +7,7 @@
     <div class="form-group monthpicker-container">
         <div id="monthPickerID">
             <div id="dropdown-month"
+                 data-longmonths-inyear=@("[\"" + string.Join("\",\"", model.MonthNames) + "\"]")
                  data-mindate="@model.MinDate.ToShortDateWithSlash()"
                  data-maxdate="@DateTime.Now.ToShortDateWithSlash()"
                  data-dateinmonth="@model.FromDate.ToShortDateWithSlash()"
@@ -16,6 +17,6 @@
                  data-labelto="@SiteResources.To"></div>
         </div>
     </div>
-
-    @Html.Hidden("longmonths-inyear", "[\"" + string.Join("\",\"", model.MonthNames) + "\"]")
+    <input type="hidden" id="FromDate" name="FromDate" />
+    <input type="hidden" id="ToDate" name="ToDate" />
 }

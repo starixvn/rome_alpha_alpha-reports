@@ -6,7 +6,8 @@
     <div class="form-group">
         <label class="txt">@SiteResources.Product</label>
         <select id="dropdown-product"
-                data-total-product="@model.Products.Count()"
+                name="UserSelectedProductIds"
+                data-has-any-product="@model.Products.Any()"
                 data-labelselectproducts="@SiteResources.SelectProducts"
                 data-labelselected="@SiteResources.Selected"
                 data-labelallproducts="@SiteResources.AllProducts"

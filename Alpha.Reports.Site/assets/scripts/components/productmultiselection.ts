@@ -21,24 +21,24 @@ class ProductMultiSelectionComponent {
         this.$ = $;
     }
 
-    render = (options: any = {}) => {
-        var pickerOptions = this.$.extend({}, this.options, options);
+    render = (options: ProductMultiSelectionOption = new ProductMultiSelectionOption()) => {
+        let pickerOptions = this.$.extend({}, this.options, options);
 
-        var self = this;
+        let self = this;
 
-        var dropdownProduct = this.$("#" + pickerOptions.dropdownId);
-        var multiSelectButton = null;
-        var hasProduct = parseInt(dropdownProduct.data("total-product"), 0) > 0;
+        let dropdownProduct = this.$("#" + pickerOptions.dropdownId);
+        let multiSelectButton = null;
+        let hasAnyProduct = dropdownProduct.data("has-any-product");
 
         dropdownProduct.multiselect({
             maxHeight: 300,
             numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
-            nonSelectedText: hasProduct ?
+            nonSelectedText: hasAnyProduct ?
                 dropdownProduct.data("labelselectproducts")
                 : dropdownProduct.data("labelthereisnoproduct"),
             nSelectedText: " " + dropdownProduct.data("labelselected"),
             allSelectedText: dropdownProduct.data("labelallproducts"),
-            includeSelectAllOption: hasProduct,
+            includeSelectAllOption: hasAnyProduct,
             onChange: function (option: any, checked: boolean) {
                 self.validate(dropdownProduct, multiSelectButton, pickerOptions);
             },
@@ -63,11 +63,11 @@ class ProductMultiSelectionComponent {
         }
     };
     getSelectedItems = (dropdownProduct: any) => {
-        var self = this;
+        let self = this;
 
-        var selected = [];
+        let selected = [];
 
-        var selectedOptions = dropdownProduct.find("option:selected");
+        let selectedOptions = dropdownProduct.find("option:selected");
         selectedOptions.each(function () {
             selected.push([self.$(this).val()]);
         });
