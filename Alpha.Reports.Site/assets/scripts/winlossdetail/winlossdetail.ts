@@ -29,8 +29,6 @@ class WinLossDetailView {
     $sortPropertyName: any;
     $pageIndex: any;
     $pageSize: any;
-    $fromDate: any;
-    $toDate: any;
     $reportForm: any;
     $userSelectedDateRangeOption: any;
     $netTurnoverTooltip: any;
@@ -93,8 +91,6 @@ class WinLossDetailView {
         this.$sortPropertyName = this.$("#SortPropertyName");
         this.$pageIndex = this.$("#PageIndex");
         this.$pageSize = this.$("#PageSize");
-        this.$fromDate = this.$("#FromDate");
-        this.$toDate = this.$("#ToDate");
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$multiSelectButton = this.$(".multiselect.btn");
@@ -177,7 +173,6 @@ class WinLossDetailView {
         });
     };
     getParams = () => {
-        var dateRange = this.getDateRangeParam();
         var selectedProducts = productMultiSelectionComponent.getSelectedItems(this.$dropdownProduct);
         var sortInfo = sortComponent.getSortInfo(this.$tableReport);
         var tableReport = this.$tableReport;
@@ -186,8 +181,6 @@ class WinLossDetailView {
             CustId: tableReport.data("custid"),
             PageIndex: this.$pager.data("pageindex"),
             PageSize: this.$pager.data("pagesize"),
-            FromDate: dateRange.FromDate,
-            ToDate: dateRange.ToDate,
             UserSelectedProductIds: selectedProducts.join(","),
             SortPropertyName: sortInfo.SortPropertyName,
             IsDescendingSort: sortInfo.IsDescendingSort,
@@ -197,19 +190,6 @@ class WinLossDetailView {
             UserSelectedDateRangeOption: this.$("#dropdown-daterange").find("option:selected").val(),
             TimeStamp: new Date()
         };
-    };
-    getDateRangeParam = () => {
-        if (this.isSwitchView) {
-            // switch to historic report, we can't use date range of date range picker
-
-            return this.isHistoricReport
-                ? { FromDate: null, ToDate: null }
-                : monthPickerComponent.getDateRange(this.$dropdownMonth);
-        }
-
-        return this.isHistoricReport
-            ? monthPickerComponent.getDateRange(this.$dropdownMonth)
-            : this.$dateRangePicker.nexDatePicker("getDateRange");
     };
     showValidaProductError = () => {
         this.$multiSelectButton.addClass("error");
@@ -244,9 +224,6 @@ class WinLossDetailView {
         this.$sortPropertyName.val(params.SortPropertyName);
         this.$pageIndex.val(params.PageIndex);
         this.$pageSize.val(params.PageSize);
-        this.$fromDate.val(params.FromDate);
-        this.$toDate.val(params.ToDate);
-        this.$userSelectedDateRangeOption.val(params.UserSelectedDateRangeOption);
 
         if (alphaReports.screenSmallThan768()) {
             this.$pageTitle.addClass("hide-filter");
