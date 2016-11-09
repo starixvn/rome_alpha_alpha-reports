@@ -41,6 +41,10 @@ class DateRangePickerComponent {
             currentDate: new Date(currentDate)
         });
 
+        this.$("#dropdown-daterange").multiselect({
+            maxHeight: 300
+        });
+
         return this.$("#" + pickerOptions.selectorId);
     };
 }

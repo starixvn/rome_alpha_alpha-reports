@@ -172,6 +172,10 @@ a {
         border: 1px solid $filter-error-border-color;
         padding: 4px 10px;
     }
+
+    select.dropdown-daterange {
+        width: 160px;
+    }
 }
 
 // Ripple effect
