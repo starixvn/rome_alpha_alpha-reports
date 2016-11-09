@@ -347,12 +347,12 @@
     <Content Include="App_Code\SharedHelpers.cshtml" />
     <Content Include="Views\Shared\_PageTitle.cshtml" />
     <Content Include="Views\Shared\_NetTurnoverTooltips.cshtml" />
-    <Content Include="Views\WinLossDetail\WinLossDetail.cshtml" />
     <Content Include="App_Code\Components\DateRangePicker.cshtml" />
     <Content Include="App_Code\Components\Pager.cshtml" />
     <Content Include="App_Code\Components\MonthPicker.cshtml" />
     <Content Include="App_Code\Components\NoInformation.cshtml" />
     <Content Include="App_Code\Components\ProductMultiSelection.cshtml" />
+    <Content Include="Views\WinLossDetail\Filter.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>
@@ -507,7 +507,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63966</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

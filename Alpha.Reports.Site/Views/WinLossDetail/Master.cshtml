@@ -1,15 +1,19 @@
-﻿@using Alpha.Reports.Site.Helpers;
-@using Alpha.Reports.Models.WinlossDetail;
+﻿@using Alpha.Reports.Models.WinlossDetail;
 @using Alpha.Reports.Site.ViewModels.WinLossDetail;
-@model WinLossDetailViewModel<MasterWinLossDetail>
-@{
-    Layout = "~/Views/WinLossDetail/WinLossDetail.cshtml";
-    ViewBag.Title = SiteResources.MasterWinLossDetail;
-    ViewBag.CurrentPath = AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Master");
-    ViewBag.HasData = Model.ReportData.DataSource.Any();
-}
+@using Components;
 
-@section ReportData {
+@model WinLossDetailViewModel<MasterWinLossDetail>
+
+@Html.Partial("_NetTurnoverTooltips", Model.NetTurnoverTooltips)
+@Html.Partial("_PageTitle", new PageHeaderViewModel(SiteResources.MasterWinLossDetail, true, true, Model.IsStackMode, Model.HideFilter))
+@Html.Partial("Filter")
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
+       @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
+       data-totalrecords="@Model.ReportData.TotalRecords"
+       data-custid="@Model.CustId"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
             <th rowspan="2" data-sortedname="CustName">@SiteResources.Username</th>
@@ -43,26 +47,28 @@
             <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="SuperWinLoss">@Html.Raw(SiteResources.WL_Comm_Total)</th>
         </tr>
     </thead>
-    <tbody>
-        @if (ViewBag.HasData)
-        {
-            foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, !Model.IsDescendingSort))
+    @if (Model.ReportData.DataSource.Any())
+    {
+        <tbody>
+            @foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, !Model.IsDescendingSort))
             {
                 @RenderRow(data, false)
             }
-        }
-        else
-        {
-            @Components.NoInformation.Render(colspan: 18)
-        }
-    </tbody>
-
-    @if (ViewBag.HasData)
-    {
+        </tbody>
         <tfoot>
             @RenderRow(Model.ReportData.Total, true)
         </tfoot>
     }
+    else
+    {
+        @NoInformation.Render(colspan: 18)
+    }
+</table>
+
+@Pager.Render(Model.Pager)
+
+@section Scripts {
+    @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
 }
 
 @helper RenderRow(MasterWinLossDetail data, bool isTotalRow)
@@ -76,56 +82,56 @@
             else
             {
                 @Html.ActionLink(
-                    linkText: data.CustName,
-                    actionName: "Agent",
-                    controllerName: "WinLossDetail",
-                    routeValues: new
-                    {
-                        Custid = data.CustId,
-                        PageIndex = Model.ReportData.CurrentPageIndex,
-                        PageSize = Model.ReportData.PageSize,
-                        FromDate = Model.FromDate,
-                        ToDate = Model.ToDate,
-                        UserSelectedProductIds = string.Join(",", Model.Products.Where(product => product.Selected).Select(product => product.Value)),
-                        SortPropertyName = Model.SortPropertyName,
-                        IsDescendingSort = Model.IsDescendingSort,
+                     linkText: data.CustName,
+                     actionName: "Agent",
+                     controllerName: "WinLossDetail",
+                     routeValues: new
+                     {
+                         Custid = data.CustId,
+                         PageIndex = Model.ReportData.CurrentPageIndex,
+                         PageSize = Model.ReportData.PageSize,
+                         FromDate = Model.FromDate,
+                         ToDate = Model.ToDate,
+                         UserSelectedProductIds = string.Join(",", Model.Products.Where(product => product.Selected).Select(product => product.Value)),
+                         SortPropertyName = Model.SortPropertyName,
+                         IsDescendingSort = Model.IsDescendingSort,
 
-                        IsHistoricReport = Model.IsHistoricReport,
-                        UserSelectedDateRangeOption = Model.UserSelectedDateRangeOption,
+                         IsHistoricReport = Model.IsHistoricReport,
+                         UserSelectedDateRangeOption = Model.UserSelectedDateRangeOption,
 
-                        HideFilter = Model.HideFilter,
-                        IsStackMode = Model.IsStackMode,
-                        TimeStamp = DateTime.Now
-                    },
-                    htmlAttributes: new
-                    {
-                        @class = "downline-link"
-                    })
+                         HideFilter = Model.HideFilter,
+                         IsStackMode = Model.IsStackMode,
+                         TimeStamp = DateTime.Now
+                     },
+                     htmlAttributes: new
+                     {
+                         @class = "downline-link"
+                     })
             }
         </td>
         <td class="text-right">@SharedHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
             @SharedHelpers.RenderStackColumn(
-                new List<decimal>() { data.Turnover, data.NetTurnover, data.GrossComm },
-                "text-right visible-stack-mode combinedcolumn col-turnover-combined",
-                1);
+                     new List<decimal>() { data.Turnover, data.NetTurnover, data.GrossComm },
+                     "text-right visible-stack-mode combinedcolumn col-turnover-combined",
+                     1);
             @SharedHelpers.RenderStackColumn(
-                new List<decimal>() { data.MemberWinLoss, data.MemberComm, data.MemberTotal },
-                "text-right visible-stack-mode combinedcolumn col-memberwinloss-combined",
-                3);
+                     new List<decimal>() { data.MemberWinLoss, data.MemberComm, data.MemberTotal },
+                     "text-right visible-stack-mode combinedcolumn col-memberwinloss-combined",
+                     3);
             @SharedHelpers.RenderStackColumn(
-               new List<decimal>() { data.AgentWinLoss, data.AgentComm, data.AgentTotal },
-               "text-right visible-stack-mode combinedcolumn col-agentwinloss-combined altercol ",
-               3);
+                    new List<decimal>() { data.AgentWinLoss, data.AgentComm, data.AgentTotal },
+                    "text-right visible-stack-mode combinedcolumn col-agentwinloss-combined altercol ",
+                    3);
             @SharedHelpers.RenderStackColumn(
-               new List<decimal>() { data.MasterWinLoss, data.MasterComm, data.MasterTotal },
-               "text-right visible-stack-mode combinedcolumn col-masterwinloss-combined",
-               3);
+                    new List<decimal>() { data.MasterWinLoss, data.MasterComm, data.MasterTotal },
+                    "text-right visible-stack-mode combinedcolumn col-masterwinloss-combined",
+                    3);
             @SharedHelpers.RenderStackColumn(
-               new List<decimal>() { data.SuperWinLoss, data.SuperComm, data.SuperTotal },
-               "text-right visible-stack-mode combinedcolumn col-superwinloss-combined altercol",
-               3);
+                    new List<decimal>() { data.SuperWinLoss, data.SuperComm, data.SuperTotal },
+                    "text-right visible-stack-mode combinedcolumn col-superwinloss-combined altercol",
+                    3);
         }
         else
         {

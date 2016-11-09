@@ -63,12 +63,11 @@
     @Html.Hidden("ToDate", (Model.ToDate as DateTime?).ToString())
     @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds as string)
     @Html.Hidden("UserSelectedDateRangeOption", Model.UserSelectedDateRangeOption as int?)
-    if (!Model.IsDirectReportViewAction)
-    {
-            @Html.Hidden("CustId", Model.CustId as int?)
-    }
+if (!Model.IsDirectReportViewAction)
+{
+        @Html.Hidden("CustId", Model.CustId as int?)
 }
-
+}
 
 @section Scripts {
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")

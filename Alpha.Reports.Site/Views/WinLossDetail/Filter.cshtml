@@ -1,0 +1,41 @@
+﻿@using Components
+@model dynamic
+
+<form class="form-inline filter" role="form" id="report-form">
+    @RenderHiddenFields()
+
+    @(Model.IsHistoricReport ? MonthPicker.Render(Model.MonthPicker) : DateRangePicker.Render(Model.DateRangePicker))
+
+    @ProductMultiSelection.Render(Model.ProductMultiSelection)
+
+    <div class="form-group">
+        <input type="submit" value="@SiteResources.Submit" class="btn-submit" />
+    </div>
+
+    <div class="form-group">
+        <span class="icon-excel" title="@SiteResources.ExportToExcel"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span> @Html.Raw(Model.ViewDataWarningMessage)
+    </div>
+</form>
+
+@helper RenderHiddenFields()
+{
+    @Html.Hidden("HideFilter", Model.HideFilter as bool?)
+    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport as bool?)
+    @Html.Hidden("IsStackMode", Model.IsStackMode as bool?)
+    @Html.Hidden("IsDescendingSort", Model.IsDescendingSort as bool?)
+    @Html.Hidden("SortPropertyName", Model.SortPropertyName as string)
+    @Html.Hidden("PageIndex", Model.ReportData.CurrentPageIndex as int?)
+    @Html.Hidden("PageSize", Model.ReportData.PageSize as int?)
+    @Html.Hidden("FromDate", (Model.FromDate as DateTime?).ToString())
+    @Html.Hidden("ToDate", (Model.ToDate as DateTime?).ToString())
+    @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds as string)
+    @Html.Hidden("UserSelectedDateRangeOption", Model.UserSelectedDateRangeOption as int?)
+if (!Model.IsDirectReportViewAction)
+{
+        @Html.Hidden("CustId", Model.CustId as int?)
+}
+}

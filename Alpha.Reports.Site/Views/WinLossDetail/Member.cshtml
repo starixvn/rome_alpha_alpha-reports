@@ -2,18 +2,23 @@
 @using Alpha.Reports.Models.WinlossDetail;
 @using Alpha.Reports.Site.ViewModels.WinLossDetail;
 @using Alpha.Reports.Site.Configurations;
+@using Components
 
 @model  WinLossDetailViewModel<MemberWinLossDetail>
 @{
-    Layout = "~/Views/WinLossDetail/WinLossDetail.cshtml";
-    ViewBag.Title = SiteResources.MemberWinLossDetail;
-    ViewBag.CurrentPath = AppPathHelper.GetAppPath(HttpContext.Current.Request.ApplicationPath, "~/WinLossDetail/Member");
-    ViewBag.HasData = Model.ReportData.DataSource.Any();
-
     ViewBag.BetListPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~")}/_BetList/BetListForSiteReport.aspx";
 }
 
-@section ReportData {
+@Html.Partial("_NetTurnoverTooltips", Model.NetTurnoverTooltips)
+@Html.Partial("_PageTitle", new PageHeaderViewModel(SiteResources.MemberWinLossDetail, true, true, Model.IsStackMode, Model.HideFilter))
+@Html.Partial("Filter")
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
+       @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
+       data-totalrecords="@Model.ReportData.TotalRecords"
+       data-custid="@Model.CustId"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
             <th rowspan="2" data-sortedname="CustName">@SiteResources.Username</th>
@@ -37,25 +42,28 @@
             <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="AgentWinLoss">@Html.Raw(SiteResources.WL_Comm_Total)</th>
         </tr>
     </thead>
-    <tbody>
-        @if (ViewBag.HasData)
-        {
-            foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, !Model.IsDescendingSort))
+    @if (Model.ReportData.DataSource.Any())
+    {
+        <tbody>
+            @foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, !Model.IsDescendingSort))
             {
                 @RenderRow(data, false)
             }
-        }
-        else
-        {
-            @Components.NoInformation.Render(colspan: 12)            
-        }
-    </tbody>
-    @if (ViewBag.HasData)
-    {
+        </tbody>
         <tfoot>
             @RenderRow(Model.ReportData.Total, true)
         </tfoot>
     }
+    else
+    {
+        @NoInformation.Render(colspan: 12)
+    }
+</table>
+
+@Pager.Render(Model.Pager)
+
+@section Scripts {
+    @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
 }
 
 @helper RenderRow(MemberWinLossDetail data, bool isTotalRow)
