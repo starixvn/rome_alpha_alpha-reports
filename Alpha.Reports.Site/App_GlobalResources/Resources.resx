@@ -112,8 +112,8 @@
   <data name="Tip_ShowReportInNormalView" xml:space="preserve">
     <value>Show report in normal view</value>
   </data>
-  <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
-    <value>You can view the report data from {0}. For more historic data, please click to &lt;a id="historicreport-switch" href="#"&gt;View History Report&lt;/a&gt;</value>
+  <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
+    <value>You can view the report data from {0}. For more historic data, please click to</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>To</value>
@@ -181,8 +181,8 @@
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
-  <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
-    <value>You can view the report data from {0}. &lt;a id="currentreport-switch" href="#"&gt;Back To Current Report&lt;/a&gt;</value>
+  <data name="CanOnlyViewDataAfterTimeHistoryReport" xml:space="preserve">
+    <value>You can view the report data from {0}.</value>
   </data>
   <data name="HideFilter" xml:space="preserve">
     <value>Hide filter</value>
@@ -253,12 +253,6 @@
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
-  <data name="TO_NetTO_GrossComm" xml:space="preserve">
-    <value>&lt;span class="prior-sortedcolumn"&gt;TO&lt;/span&gt;/Net TO/Gross Comm</value>
-  </data>
-  <data name="WL_Comm_Total" xml:space="preserve">
-    <value>&lt;span class="prior-sortedcolumn"&gt;WL&lt;/span&gt;/Comm/Total</value>
-  </data>
   <data name="ExportToExcel" xml:space="preserve">
     <value>Export to Excel</value>
   </data>
@@ -282,5 +276,23 @@
   </data>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
+  </data>
+  <data name="TurnoverAbbr" xml:space="preserve">
+    <value>TO</value>
+  </data>
+  <data name="NetTurnoverAndGrossComm" xml:space="preserve">
+    <value>/Net TO/Gross Comm</value>
+  </data>
+  <data name="WinLossAbbr" xml:space="preserve">
+    <value>WL</value>
+  </data>
+  <data name="CommAndTotal" xml:space="preserve">
+    <value>/Comm/Total</value>
+  </data>
+  <data name="BackToCurrentReport" xml:space="preserve">
+    <value>Back To Current Report</value>
+  </data>
+  <data name="ViewHistoryReport" xml:space="preserve">
+    <value>View History Report</value>
   </data>
 </root>

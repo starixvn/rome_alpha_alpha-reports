@@ -32,6 +32,7 @@ class WinLossDetailView {
     $reportForm: any;
     $userSelectedDateRangeOption: any;
     $netTurnoverTooltip: any;
+    $reportSwitch: any;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -85,7 +86,7 @@ class WinLossDetailView {
         this.$tableReport = this.$("#tbl-report");
 
         this.$drilldownLinks = this.$(".downline-link");
-        this.$hideFilter = this.$("#HideFilter");
+        this.$hideFilter = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
@@ -94,19 +95,14 @@ class WinLossDetailView {
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$multiSelectButton = this.$(".multiselect.btn");
+        this.$reportSwitch = this.$("#report-switch");
     };
     registerEvents = () => {
         var self = this;
 
-        this.$("#historicreport-switch").on("click", function () {
+        this.$reportSwitch.on("click", function () {
             self.isSwitchView = true;
-            self.isHistoricReport = true;
-            self.$reportForm.trigger("submit");
-        });
-
-        this.$("#currentreport-switch").on("click", function () {
-            self.isSwitchView = true;
-            self.isHistoricReport = false;
+            self.isHistoricReport = !self.$reportSwitch.data("is-historic-report");
             self.$reportForm.trigger("submit");
         });
 
@@ -123,7 +119,7 @@ class WinLossDetailView {
                 self.hideFilter();
             }
 
-            self.replaceDrilldownParam("HideFilter", !currentHideState);
+            self.replaceDrilldownParam("IsFilterVisible", !currentHideState);
         });
 
         this.$(".icon-switchmode").on("click", function () {
@@ -181,14 +177,12 @@ class WinLossDetailView {
             CustId: tableReport.data("custid"),
             PageIndex: this.$pager.data("pageindex"),
             PageSize: this.$pager.data("pagesize"),
-            UserSelectedProductIds: selectedProducts.join(","),
+            IsAnyProductSelected: selectedProducts.length > 0,
             SortPropertyName: sortInfo.SortPropertyName,
             IsDescendingSort: sortInfo.IsDescendingSort,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
             HideFilter: this.$reportForm.is(":hidden"),
-            UserSelectedDateRangeOption: this.$("#dropdown-daterange").find("option:selected").val(),
-            TimeStamp: new Date()
         };
     };
     showValidaProductError = () => {
@@ -209,7 +203,7 @@ class WinLossDetailView {
         this.$.blockUI();
 
         var params = this.getParams();
-        if (params.UserSelectedProductIds === "") {
+        if (!params.IsAnyProductSelected) {
             this.showValidaProductError();
             this.$.unblockUI();
             e.preventDefault();

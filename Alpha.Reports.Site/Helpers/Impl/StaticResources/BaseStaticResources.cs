@@ -9,7 +9,7 @@
     {
         public static readonly string MinText = IsDebugMode() ? string.Empty : ".min";
 
-        public static readonly string StaticResourcesVersion = IsDebugMode() ? string.Empty : GetBuildVersion();
+        public static readonly string StaticResourcesVersion = GetBuildVersion();
 
         private static bool IsDebugMode()
         {

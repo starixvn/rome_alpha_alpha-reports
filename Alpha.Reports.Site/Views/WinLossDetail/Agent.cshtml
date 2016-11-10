@@ -29,7 +29,9 @@
             <th rowspan="2" class="hidden-stack-mode" data-sortedname="Turnover">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode col-netturnover-header" data-sortedname="NetTurnover">@Resources.NetTurnover</th>
             <th rowspan="2" class="hidden-stack-mode" data-sortedname="GrossComm">@Resources.GrossComm</th>
-            <th rowspan="2" class="visible-stack-mode col-combine" data-sortedname="Turnover">@Html.Raw(Resources.TO_NetTO_GrossComm)</th>
+            <th rowspan="2" class="visible-stack-mode col-combine" data-sortedname="Turnover">
+                <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>@Resources.NetTurnoverAndGrossComm
+            </th>
             <th colspan="3" class="col-level">@Resources.Member</th>
             <th colspan="3" class="col-level">@Resources.Agent</th>
             <th colspan="3" class="col-level">@Resources.Master</th>
@@ -39,15 +41,21 @@
             <th class="hidden-stack-mode col-winloss" data-sortedname="MemberWinLoss">@Resources.WinLoss</th>
             <th class="hidden-stack-mode" data-sortedname="MemberComm">@Resources.Comm</th>
             <th class="hidden-stack-mode" data-sortedname="MemberTotal">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MemberWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MemberWinLoss">
+                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+            </th>
             <th class="hidden-stack-mode col-winloss" data-sortedname="AgentWinLoss">@Resources.WinLoss</th>
             <th class="hidden-stack-mode" data-sortedname="AgentComm">@Resources.Comm</th>
             <th class="hidden-stack-mode" data-sortedname="AgentTotal">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="AgentWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="AgentWinLoss">
+                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+            </th>
             <th class="hidden-stack-mode col-winloss" data-sortedname="MasterWinLoss">@Resources.WinLoss</th>
             <th class="hidden-stack-mode" data-sortedname="MasterComm">@Resources.Comm</th>
             <th class="hidden-stack-mode" data-sortedname="MasterTotal">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MasterWinLoss">@Html.Raw(Resources.WL_Comm_Total)</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MasterWinLoss">
+                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+            </th>
         </tr>
     </thead>
     @if (Model.ReportData.Any())

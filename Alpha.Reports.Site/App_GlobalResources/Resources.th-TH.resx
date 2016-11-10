@@ -126,8 +126,8 @@
   <data name="MemberWinLossDetail" xml:space="preserve">
     <value>รายละเอียด</value>
   </data>
-  <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
-    <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}. ข้อมูลก่อนหน้านี้ กรุณาใช้ &lt;a id="historicreport-switch" href="#"&gt;ตรวจสอบประวัติรายงาน&lt;/a&gt;</value>
+  <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
+    <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}. ข้อมูลก่อนหน้านี้ กรุณาใช้ </value>
   </data>
   <data name="To" xml:space="preserve">
     <value>ถึง</value>
@@ -189,8 +189,8 @@
   <data name="Submit" xml:space="preserve">
     <value>ตกลง</value>
   </data>
-  <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
-    <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}. &lt;a id="currentreport-switch" href="#"&gt;กลับสู่รายงานปัจจุบัน&lt;/a&gt;</value>
+  <data name="CanOnlyViewDataAfterTimeHistoryReport" xml:space="preserve">
+    <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}.</value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>ผลิตภัณฑ์</value>
@@ -244,13 +244,6 @@
   <data name="ExportToExcel" xml:space="preserve">
     <value>ส่งออกไปที่โปรแกรมเอกเซล</value>
   </data>
-  <data name="TO_NetTO_GrossComm" xml:space="preserve">
-    <value>&lt;span class="prior-sortedcolumn"&gt;เงินหมุนเวียน/เงินหมุนเวียน&lt;/span&gt;
-(ไม่รวมยอดเสมอ)/ยอดรวมของคอมมิชชั่น</value>
-  </data>
-  <data name="WL_Comm_Total" xml:space="preserve">
-    <value>&lt;span class="prior-sortedcolumn"&gt;ชนะ&lt;/span&gt;/คอมมิชชั่น/ยอดรวม</value>
-  </data>
   <data name="Tooltip_NetTurnover" xml:space="preserve">
     <value>- สำหรับกีฬา [ยอดเดิมพันสุทธิ] คือ [จำนวนของการเดิมพันทั้งหมด] ยอดเดิมพันทั้งหมดที่เสียครึ่ง/ชนะครึ่ง 'เดิมพันครึ่งเดิมพันทั้งหมด แต่ไม่รวมตั๋วที่ผล "เสมอ"</value>
   </data>
@@ -262,5 +255,23 @@
   </data>
   <data name="NoInformationIsAvailable" xml:space="preserve">
     <value>ไม่มีข้อมูล</value>
+  </data>
+  <data name="TurnoverAbbr" xml:space="preserve">
+    <value>เงินหมุนเวียน/เงินหมุนเวียน</value>
+  </data>
+  <data name="NetTurnoverAndGrossComm" xml:space="preserve">
+    <value>(ไม่รวมยอดเสมอ)/ยอดรวมของคอมมิชชั่น</value>
+  </data>
+  <data name="WinLossAbbr" xml:space="preserve">
+    <value>ชนะ</value>
+  </data>
+  <data name="CommAndTotal" xml:space="preserve">
+    <value>/คอมมิชชั่น/ยอดรวม</value>
+  </data>
+  <data name="BackToCurrentReport" xml:space="preserve">
+    <value>กลับสู่รายงานปัจจุบัน</value>
+  </data>
+  <data name="ViewHistoryReport" xml:space="preserve">
+    <value>ตรวจสอบประวัติรายงาน</value>
   </data>
 </root>

@@ -75,13 +75,6 @@
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
 
-        private string ViewDataInstructionMessage =>
-            string.Format(
-                IsHistoricReport
-               ? Resources.Warning_CanOnlyViewDataAfterTime_BackToCurrentReport
-               : Resources.Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport,
-            MinDate);
-
         public WinLossDetailFilterViewModel FilterViewModel =>
             new WinLossDetailFilterViewModel(
                 CustId,
@@ -89,9 +82,9 @@
                 DateRangePickerViewModel,
                 MonthPickerViewModel,
                 ProductMultiSelectionViewModel,
-                ViewDataInstructionMessage,
                 IsDirectReportViewAction,
-                IsFilterVisible);
+                IsFilterVisible,
+                MinDate);
 
         public LinkActionViewModel LinkActionViewModel(int custId) => 
             new LinkActionViewModel(

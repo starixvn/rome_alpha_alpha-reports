@@ -1,6 +1,9 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
 {
+    using System;
+    using App_GlobalResources;
     using Components;
+    using Extensions;
 
     public class WinLossDetailFilterViewModel
     {
@@ -10,16 +13,20 @@
             DateRangePickerViewModel dateRangePickerViewModel,
             MonthPickerViewModel monthPickerViewModel,
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
-            string viewDataInstructionMessage,
             bool isDirectReportViewAction,
-            bool visible)
+            bool visible,
+            DateTime minDate)
         {
             CustId = custId;
             IsHistoricReport = isHictoricReport;
             DateRangePickerViewModel = dateRangePickerViewModel;
             MonthPickerViewModel = monthPickerViewModel;
             ProductMultiSelectionViewModel = productMultiSelectionViewModel;
-            ViewDataInstructionMessage = viewDataInstructionMessage;
+            ViewDataInstructionMessage = string.Format(
+               IsHistoricReport
+              ? Resources.CanOnlyViewDataAfterTimeHistoryReport
+              : Resources.CanOnlyViewDataAfterTimeCurrentReport,
+            minDate.ToShortDateWithSlash());
             IsDirectReportViewAction = isDirectReportViewAction;
             Visible = visible;
         }
@@ -34,10 +41,12 @@
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
 
-        public string ViewDataInstructionMessage { get; }
-
         public bool IsDirectReportViewAction { get; }
 
         public bool Visible { get; }
+
+        public string ViewDataInstructionMessage { get; }
+
+        public string ViewActionMessage => IsHistoricReport ? Resources.BackToCurrentReport : Resources.ViewHistoryReport;
     }
-}   
+}

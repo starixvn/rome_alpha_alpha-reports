@@ -106,8 +106,8 @@
   <data name="MemberWinLossDetail" xml:space="preserve">
     <value>Chi tiết thắng thua của Member</value>
   </data>
-  <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
-    <value>Bạn có thể tra cứu dữ liệu báo cáo từ ngày {0}.Nếu muốn tìm kiếm những dữ liệu cũ hơn, bấm &lt;a id="historicreport-switch" href="#"&gt;Xem báo cáo trước đó&lt;/a&gt;</value>
+  <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
+    <value>Bạn có thể tra cứu dữ liệu báo cáo từ ngày {0}.Nếu muốn tìm kiếm những dữ liệu cũ hơn, bấm</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>đến</value>
@@ -169,8 +169,8 @@
   <data name="Submit" xml:space="preserve">
     <value>Xác nhận</value>
   </data>
-  <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
-    <value>Bạn có thể tra cứu dữ liệu báo cáo từ ngày {0}. &lt;a id="currentreport-switch" href="#"&gt;Quay trở lại Báo Cáo hiện tại&lt;/a&gt;</value>
+  <data name="CanOnlyViewDataAfterTimeHistoryReport" xml:space="preserve">
+    <value>Bạn có thể tra cứu dữ liệu báo cáo từ ngày {0}.</value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>Sản phẩm</value>
@@ -211,12 +211,6 @@
   <data name="ExportToExcel" xml:space="preserve">
     <value>Xuất sang Excel</value>
   </data>
-  <data name="TO_NetTO_GrossComm" xml:space="preserve">
-    <value>&lt;span class="prior-sortedcolumn"&gt;Tiền Cược&lt;/span&gt;/Tiền cược thực/Tổng hoa hồng</value>
-  </data>
-  <data name="WL_Comm_Total" xml:space="preserve">
-    <value>&lt;span class="prior-sortedcolumn"&gt;Thắng thua&lt;/span&gt;/Hoa hồng/Tổng cộng</value>
-  </data>
   <data name="Tooltip_NetTurnover" xml:space="preserve">
     <value>- Đối với Sportsbook, Tiền Cược Thực là tiền cược không bao gồm những cược hoà và nửa cược thắng một nửa/thua một nửa.</value>
   </data>
@@ -228,5 +222,23 @@
   </data>
   <data name="NoInformationIsAvailable" xml:space="preserve">
     <value>Thông tin chưa được cập nhật</value>
+  </data>
+  <data name="TurnoverAbbr" xml:space="preserve">
+    <value>Tiền Cược</value>
+  </data>
+  <data name="NetTurnoverAndGrossComm" xml:space="preserve">
+    <value>/Tiền cược thực/Tổng hoa hồng</value>
+  </data>
+  <data name="WinLossAbbr" xml:space="preserve">
+    <value>Thắng thua</value>
+  </data>
+  <data name="CommAndTotal" xml:space="preserve">
+    <value>/Hoa hồng/Tổng cộng</value>
+  </data>
+  <data name="BackToCurrentReport" xml:space="preserve">
+    <value>Quay trở lại Báo Cáo hiện tại</value>
+  </data>
+  <data name="ViewHistoryReport" xml:space="preserve">
+    <value>Xem báo cáo trước đó</value>
   </data>
 </root>

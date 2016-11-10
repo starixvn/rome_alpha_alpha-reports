@@ -106,8 +106,8 @@
   <data name="MemberWinLossDetail" xml:space="preserve">
     <value>상세한 회원의 승리 패배</value>
   </data>
-  <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
-    <value>You can view the report data from {0}. For more historic data, please click to &lt;a id="historicreport-switch" href="#"&gt;리포트 내역 보기&lt;/a&gt;</value>
+  <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
+    <value>You can view the report data from {0}. For more historic data, please click to </value>
   </data>
   <data name="To" xml:space="preserve">
     <value>종료일</value>
@@ -169,8 +169,8 @@
   <data name="Submit" xml:space="preserve">
     <value>확인</value>
   </data>
-  <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
-    <value>You can view the report data from {0}. &lt;a id="currentreport-switch" href="#"&gt;현재기록으로 다시 가기&lt;/a&gt;</value>
+  <data name="CanOnlyViewDataAfterTimeHistoryReport" xml:space="preserve">
+    <value>You can view the report data from {0}. </value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>페이지</value>
@@ -217,16 +217,28 @@
   <data name="ExportToExcel" xml:space="preserve">
     <value>엘셀로 내보내기</value>
   </data>
-  <data name="TO_NetTO_GrossComm" xml:space="preserve">
-    <value>&lt;span class="prior-sortedcolumn"&gt;총 배팅한 금액&lt;/span&gt;/순매출/전체 수수료</value>
-  </data>
-  <data name="WL_Comm_Total" xml:space="preserve">
-    <value>&lt;span class="prior-sortedcolumn"&gt;승/패&lt;/span&gt;/수수료/총</value>
-  </data>
   <data name="DoNotShowAgain" xml:space="preserve">
     <value>이 페이지를 다시 표시하지않습니다.</value>
   </data>
   <data name="NoInformationIsAvailable" xml:space="preserve">
     <value>가능한 정보가 없습니다</value>
+  </data>
+  <data name="TurnoverAbbr" xml:space="preserve">
+    <value>총 배팅한 금액</value>
+  </data>
+  <data name="NetTurnoverAndGrossComm" xml:space="preserve">
+    <value>/순매출/전체 수수료</value>
+  </data>
+  <data name="WinLossAbbr" xml:space="preserve">
+    <value>승/패</value>
+  </data>
+  <data name="CommAndTotal" xml:space="preserve">
+    <value>/수수료/총</value>
+  </data>
+  <data name="BackToCurrentReport" xml:space="preserve">
+    <value>현재기록으로 다시 가기</value>
+  </data>
+  <data name="ViewHistoryReport" xml:space="preserve">
+    <value>리포트 내역 보기</value>
   </data>
 </root>

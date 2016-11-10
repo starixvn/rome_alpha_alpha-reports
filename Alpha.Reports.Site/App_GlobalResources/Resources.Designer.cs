@@ -115,6 +115,33 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back To Current Report.
+        /// </summary>
+        public static string BackToCurrentReport {
+            get {
+                return ResourceManager.GetString("BackToCurrentReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can view the report data from {0}. For more historic data, please click to.
+        /// </summary>
+        public static string CanOnlyViewDataAfterTimeCurrentReport {
+            get {
+                return ResourceManager.GetString("CanOnlyViewDataAfterTimeCurrentReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can view the report data from {0}..
+        /// </summary>
+        public static string CanOnlyViewDataAfterTimeHistoryReport {
+            get {
+                return ResourceManager.GetString("CanOnlyViewDataAfterTimeHistoryReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Close {
@@ -129,6 +156,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Comm {
             get {
                 return ResourceManager.GetString("Comm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Comm/Total.
+        /// </summary>
+        public static string CommAndTotal {
+            get {
+                return ResourceManager.GetString("CommAndTotal", resourceCulture);
             }
         }
         
@@ -191,7 +227,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         /// </summary>
         public static string HideFilter {
             get {
-                return ResourceManager.GetString("IsFilterVisible", resourceCulture);
+                return ResourceManager.GetString("HideFilter", resourceCulture);
             }
         }
         
@@ -300,6 +336,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string NetTurnover {
             get {
                 return ResourceManager.GetString("NetTurnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Net TO/Gross Comm.
+        /// </summary>
+        public static string NetTurnoverAndGrossComm {
+            get {
+                return ResourceManager.GetString("NetTurnoverAndGrossComm", resourceCulture);
             }
         }
         
@@ -511,15 +556,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;span class=&quot;prior-sortedcolumn&quot;&gt;TO&lt;/span&gt;/Net TO/Gross Comm.
-        /// </summary>
-        public static string TO_NetTO_GrossComm {
-            get {
-                return ResourceManager.GetString("TO_NetTO_GrossComm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Today.
         /// </summary>
         public static string Today {
@@ -565,6 +601,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TO.
+        /// </summary>
+        public static string TurnoverAbbr {
+            get {
+                return ResourceManager.GetString("TurnoverAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
@@ -574,20 +619,11 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can view the report data from {0}. &lt;a id=&quot;currentreport-switch&quot; href=&quot;#&quot;&gt;Back To Current Report&lt;/a&gt;.
+        ///   Looks up a localized string similar to View History Report.
         /// </summary>
-        public static string Warning_CanOnlyViewDataAfterTime_BackToCurrentReport {
+        public static string ViewHistoryReport {
             get {
-                return ResourceManager.GetString("Warning_CanOnlyViewDataAfterTime_BackToCurrentReport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You can view the report data from {0}. For more historic data, please click to &lt;a id=&quot;historicreport-switch&quot; href=&quot;#&quot;&gt;View History Report&lt;/a&gt;.
-        /// </summary>
-        public static string Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport {
-            get {
-                return ResourceManager.GetString("Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport", resourceCulture);
+                return ResourceManager.GetString("ViewHistoryReport", resourceCulture);
             }
         }
         
@@ -601,11 +637,11 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;span class=&quot;prior-sortedcolumn&quot;&gt;WL&lt;/span&gt;/Comm/Total.
+        ///   Looks up a localized string similar to WL.
         /// </summary>
-        public static string WL_Comm_Total {
+        public static string WinLossAbbr {
             get {
-                return ResourceManager.GetString("WL_Comm_Total", resourceCulture);
+                return ResourceManager.GetString("WinLossAbbr", resourceCulture);
             }
         }
         

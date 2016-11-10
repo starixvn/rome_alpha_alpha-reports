@@ -106,8 +106,8 @@
   <data name="MemberWinLossDetail" xml:space="preserve">
     <value>會員輸贏資料</value>
   </data>
-  <data name="Warning_CanOnlyViewDataAfterTime_ClickToViewHistoricReport" xml:space="preserve">
-    <value>您可查看報表數據從 {0}. 如需要查閱三個月前的舊報告，請用 &lt;a id="historicreport-switch" href="#"&gt;選檢閱歷史報告。&lt;/a&gt;</value>
+  <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
+    <value>您可查看報表數據從 {0}. 如需要查閱三個月前的舊報告，請用</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>到</value>
@@ -169,8 +169,8 @@
   <data name="Submit" xml:space="preserve">
     <value>提交</value>
   </data>
-  <data name="Warning_CanOnlyViewDataAfterTime_BackToCurrentReport" xml:space="preserve">
-    <value>您可查看報表數據從 {0}. &lt;a id="currentreport-switch" href="#"&gt;回到現有報告&lt;/a&gt;</value>
+  <data name="CanOnlyViewDataAfterTimeHistoryReport" xml:space="preserve">
+    <value>您可查看報表數據從 {0}. </value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>產品</value>
@@ -223,12 +223,6 @@
   <data name="ExportToExcel" xml:space="preserve">
     <value>導出到Excel</value>
   </data>
-  <data name="TO_NetTO_GrossComm" xml:space="preserve">
-    <value>&lt;span class="prior-sortedcolumn"&gt;投注額&lt;/span&gt;/淨投注額/淨投注額</value>
-  </data>
-  <data name="WL_Comm_Total" xml:space="preserve">
-    <value>&lt;span class="prior-sortedcolumn"&gt;輸贏&lt;/span&gt;/佣金/總和</value>
-  </data>
   <data name="Tooltip_NetTurnover" xml:space="preserve">
     <value>- 對於體育項目, [淨投注額] 是 [總投注額] 扣除 '和局' 注單的總投注和 '輸半贏半' 注單一半的總投注。</value>
   </data>
@@ -240,5 +234,20 @@
   </data>
   <data name="NoInformationIsAvailable" xml:space="preserve">
     <value>沒資料顯示</value>
+  </data>
+  <data name="NetTurnoverAndGrossComm" xml:space="preserve">
+    <value>/淨投注額/淨投注額</value>
+  </data>
+  <data name="WinLossAbbr" xml:space="preserve">
+    <value>輸贏</value>
+  </data>
+  <data name="CommAndTotal" xml:space="preserve">
+    <value>/佣金/總和</value>
+  </data>
+  <data name="BackToCurrentReport" xml:space="preserve">
+    <value>回到現有報告</value>
+  </data>
+  <data name="ViewHistoryReport" xml:space="preserve">
+    <value>選檢閱歷史報告。</value>
   </data>
 </root>
