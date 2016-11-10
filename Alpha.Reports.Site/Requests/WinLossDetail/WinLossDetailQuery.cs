@@ -33,7 +33,7 @@
 
         public string Language { get; }
 
-        public IEnumerable<int> UserSelectedProductIds { get; set; }
+        public string UserSelectedProductIds { get; set; }
 
         public string SortPropertyName { get; set; }
 

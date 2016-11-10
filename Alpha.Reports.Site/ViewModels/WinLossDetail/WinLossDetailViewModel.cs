@@ -73,7 +73,7 @@
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
-            new ProductMultiSelectionViewModel(Products, Language);
+            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
 
         private string ViewDataInstructionMessage =>
             string.Format(
@@ -93,9 +93,9 @@
                 IsDirectReportViewAction,
                 IsFilterVisible);
 
-        public LinkActionViewModel LinkActionViewModel =>
+        public LinkActionViewModel LinkActionViewModel(int custId) => 
             new LinkActionViewModel(
-                    CustId,
+                    custId,
                     FromDate,
                     ToDate,
                     UserSelectedDateRangeOption,

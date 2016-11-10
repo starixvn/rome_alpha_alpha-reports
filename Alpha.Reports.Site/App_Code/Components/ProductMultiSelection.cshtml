@@ -5,7 +5,6 @@
 {
     <div class="form-group">
         <select id="dropdown-product"
-                name="UserSelectedProductIds"
                 data-has-any-product="@model.Products.Any()"
                 data-labelselectproducts="@Resources.SelectProducts"
                 data-labelselected="@Resources.Selected"
@@ -21,5 +20,6 @@
                 </option>
             }
         </select>
+        <input type="hidden" name="UserSelectedProductIds" id="product-ids" value="@model.UserSelectedProductIds"/>
     </div>
 }

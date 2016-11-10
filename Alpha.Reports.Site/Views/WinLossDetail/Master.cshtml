@@ -93,7 +93,7 @@
                      linkText: data.CustName,
                      actionName: "Agent",
                      controllerName: "WinLossDetail",
-                     routeValues: Model.LinkActionViewModel,
+                     routeValues: Model.LinkActionViewModel(data.CustId),
                      htmlAttributes: new
                      {
                          @class = "downline-link"

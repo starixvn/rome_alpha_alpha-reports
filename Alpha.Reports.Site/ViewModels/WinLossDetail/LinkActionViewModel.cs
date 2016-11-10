@@ -26,6 +26,8 @@
             IsDescendingSort = isDescendingSort;
             IsHistoricReport = isHictoricReport;
             IsFilterVisible = isFilterVisible;
+            PageSize = pageSize;
+            IsStackMode = isStackMode;
         }
 
         public int CustId { get; }        

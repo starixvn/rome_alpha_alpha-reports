@@ -3,17 +3,21 @@
 class ProductMultiSelectionOption {
     dropdownId: string;
     validateBeforeSubmit: boolean;
+    hiddenInputId: string;
 
     constructor(dropdownId: string = "dropdown-product",
-        validateBeforeSubmit: boolean = true) {
+        validateBeforeSubmit: boolean = true,
+        hiddenInputId = "product-ids") {
 
         this.dropdownId = dropdownId;
         this.validateBeforeSubmit = validateBeforeSubmit;
+        this.hiddenInputId = hiddenInputId;
     }
 }
 
 class ProductMultiSelectionComponent {
     $: any;
+    $hiddenInput: any;
 
     options = new ProductMultiSelectionOption();
 
@@ -29,6 +33,7 @@ class ProductMultiSelectionComponent {
         let dropdownProduct = this.$("#" + pickerOptions.dropdownId);
         let multiSelectButton = null;
         let hasAnyProduct = dropdownProduct.data("has-any-product");
+        this.$hiddenInput = this.$("#" + pickerOptions.hiddenInputId);
 
         dropdownProduct.multiselect({
             maxHeight: 300,
@@ -41,6 +46,7 @@ class ProductMultiSelectionComponent {
             includeSelectAllOption: hasAnyProduct,
             onChange: function (option: any, checked: boolean) {
                 self.validate(dropdownProduct, multiSelectButton, pickerOptions);
+                self.$hiddenInput.val(self.getSelectedItems(dropdownProduct).join(","));
             },
             onSelectAll: function () {
                 self.validate(dropdownProduct, multiSelectButton, pickerOptions);
