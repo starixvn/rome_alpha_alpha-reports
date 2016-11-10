@@ -74,7 +74,7 @@
                 Language = message.Language,
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
-                HideFilter = message.HideFilter,
+                IsFilterVisible = message.IsFilterVisible,
 
                 ReportData = reportData,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,

@@ -5,7 +5,7 @@
 @model WinLossDetailViewModel<MasterWinLossDetail>
 
 @Html.Partial("_NetTurnoverTooltips", Model.NetTurnoverTooltips)
-@Html.Partial("_PageTitle", new PageHeaderViewModel(Resources.MasterWinLossDetail, true, true, Model.IsStackMode, Model.HideFilter))
+@Html.Partial("_PageTitle", new PageHeaderViewModel(Resources.MasterWinLossDetail, true, true, Model.IsStackMode, Model.IsFilterVisible))
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
     {
@@ -93,24 +93,7 @@
                      linkText: data.CustName,
                      actionName: "Agent",
                      controllerName: "WinLossDetail",
-                     routeValues: new
-                     {
-                         Custid = data.CustId,
-                         PageIndex = Model.ReportData.CurrentPageIndex,
-                         PageSize = Model.ReportData.PageSize,
-                         FromDate = Model.FromDate,
-                         ToDate = Model.ToDate,
-                         UserSelectedProductIds = string.Join(",", Model.Products.Where(product => product.Selected).Select(product => product.Value)),
-                         SortPropertyName = Model.SortPropertyName,
-                         IsDescendingSort = Model.IsDescendingSort,
-
-                         IsHistoricReport = Model.IsHistoricReport,
-                         UserSelectedDateRangeOption = Model.UserSelectedDateRangeOption,
-
-                         HideFilter = Model.HideFilter,
-                         IsStackMode = Model.IsStackMode,
-                         TimeStamp = DateTime.Now
-                     },
+                     routeValues: Model.LinkActionViewModel,
                      htmlAttributes: new
                      {
                          @class = "downline-link"

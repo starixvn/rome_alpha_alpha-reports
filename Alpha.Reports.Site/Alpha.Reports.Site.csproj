@@ -259,6 +259,7 @@
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\ReportPageViewModel.cs" />
+    <Compile Include="ViewModels\WinLossDetail\LinkActionViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
   </ItemGroup>
@@ -353,6 +354,7 @@
     <Content Include="App_Code\Components\NoInformation.cshtml" />
     <Content Include="App_Code\Components\ProductMultiSelection.cshtml" />
     <Content Include="Views\WinLossDetail\Filter.cshtml" />
+    <Content Include="Views\WinLossDetail\Helpers.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>

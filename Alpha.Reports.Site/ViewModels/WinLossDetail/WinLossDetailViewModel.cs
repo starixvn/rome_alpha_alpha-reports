@@ -42,7 +42,7 @@
 
         public bool IsHistoricReport { get; set; }
 
-        public bool HideFilter { get; set; }
+        public bool IsFilterVisible { get; set; }
 
         public IEnumerable<string> NetTurnoverTooltips
         {
@@ -91,6 +91,20 @@
                 ProductMultiSelectionViewModel,
                 ViewDataInstructionMessage,
                 IsDirectReportViewAction,
-                HideFilter);
+                IsFilterVisible);
+
+        public LinkActionViewModel LinkActionViewModel =>
+            new LinkActionViewModel(
+                    CustId,
+                    FromDate,
+                    ToDate,
+                    UserSelectedDateRangeOption,
+                    UserSelectedProductIds,
+                    SortPropertyName,
+                    IsDescendingSort,
+                    IsHistoricReport,
+                    IsFilterVisible,
+                    IsStackMode,
+                    ReportData.PageSize);
     }
 }

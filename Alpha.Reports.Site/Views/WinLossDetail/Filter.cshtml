@@ -27,7 +27,7 @@
 
 @helper RenderHiddenFields()
 {
-    @Html.Hidden("HideFilter", Model.Visible as bool?)
+    @Html.Hidden("IsFilterVisible", Model.Visible as bool?)
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport as bool?)
     @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
     @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)

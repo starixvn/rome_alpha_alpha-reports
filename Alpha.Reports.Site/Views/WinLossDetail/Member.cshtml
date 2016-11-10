@@ -10,7 +10,7 @@
 }
 
 @Html.Partial("_NetTurnoverTooltips", Model.NetTurnoverTooltips)
-@Html.Partial("_PageTitle", new PageHeaderViewModel(Resources.MemberWinLossDetail, true, true, Model.IsStackMode, Model.HideFilter))
+@Html.Partial("_PageTitle", new PageHeaderViewModel(Resources.MemberWinLossDetail, true, true, Model.IsStackMode, Model.IsFilterVisible))
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
     {

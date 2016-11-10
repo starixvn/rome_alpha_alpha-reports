@@ -43,7 +43,7 @@
 
         public bool IsHistoricReport { get; set; }
 
-        public bool HideFilter { get; set; }
+        public bool IsFilterVisible { get; set; }
 
         public int UserSelectedDateRangeOption { get; set; }
     }

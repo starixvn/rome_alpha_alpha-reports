@@ -191,7 +191,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         /// </summary>
         public static string HideFilter {
             get {
-                return ResourceManager.GetString("HideFilter", resourceCulture);
+                return ResourceManager.GetString("IsFilterVisible", resourceCulture);
             }
         }
         
