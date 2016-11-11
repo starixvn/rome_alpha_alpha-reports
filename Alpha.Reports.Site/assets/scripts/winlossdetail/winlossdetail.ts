@@ -29,6 +29,8 @@ class WinLossDetailView {
     $netTurnoverTooltip: any;
     $reportSwitch: any;
 
+    $formExportExcel: any;
+
     isFirstSwitchMode = true;
     isHistoricReport = false;
     isSwitchView = false;
@@ -89,6 +91,8 @@ class WinLossDetailView {
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$multiSelectButton = this.$(".multiselect.btn");
         this.$reportSwitch = this.$("#report-switch");
+
+        this.$formExportExcel = this.$("#form-exportexcel");
     };
     registerEvents = () => {
         var self = this;
@@ -152,6 +156,10 @@ class WinLossDetailView {
         });
 
         this.$reportForm.submit(this.onSubmitReportEvent);
+
+        this.$("#icon-excel").on("click", function () {
+            self.$formExportExcel.submit();
+        });
     };
     hideFilter = () => {
         var self = this;

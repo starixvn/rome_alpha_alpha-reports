@@ -1,0 +1,126 @@
+﻿@using Alpha.Reports.Models.WinlossDetail;
+@using Alpha.Reports.Site.ViewModels.WinLossDetail;
+@using Components
+@{
+    Layout = "";
+    var reportColumn = Model.IsStackMode ? 10 : 12;
+}
+@model  WinLossDetailViewModel<MemberWinLossDetail>
+<html>
+<head>
+    <META http-EQUIV='Content-Type' CONTENT='text/html; charset=unicode-utf8'>
+    <style type="text/css">
+        table {
+            border-collapse: collapse;
+            border-color: #7C98A4;
+            border-style: solid;
+            border-width: thin;
+        }
+
+            table td {
+                border-collapse: collapse;
+                border-color: #7C98A4;
+                border-style: solid;
+                border-width: thin;
+                text-align: center;
+                font-size: 12px;
+            }
+
+            table th {
+                background: #7C98A4 !important;
+            }
+    </style>
+</head>
+<body>
+    <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per" id="tbl-report">
+        <thead>
+            <tr>
+                <td colspan="@reportColumn">@Resources.MemberWinLossDetail</td>
+            </tr>
+            @if (Model.IsStackMode)
+            {
+                <tr>
+                    <th rowspan="2" data-sortedname="CustName">@Resources.Username</th>
+                    <th rowspan="2">@Resources.NoOfTickets</th>
+                    <th rowspan="2">@Html.Raw(Resources.TO_NetTO_GrossComm)</th>
+                    <th colspan="3" class="col-level">@Resources.Member</th>
+                    <th colspan="3" class="col-level">@Resources.Agent</th>
+                    <th rowspan="2" data-sortedname="Company">@Resources.Company</th>
+                </tr>
+                <tr class="thead-row2">
+                    <th colspan="3">@Html.Raw(Resources.WL_Comm_Total)</th>
+                    <th colspan="3">@Html.Raw(Resources.WL_Comm_Total)</th>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <th rowspan="2">@Resources.Username</th>
+                    <th rowspan="2">@Resources.NoOfTickets</th>
+                    <th rowspan="2">@Resources.Turnover</th>
+                    <th rowspan="2">@Resources.NetTurnover</th>
+                    <th rowspan="2">@Resources.GrossComm</th>
+                    <th colspan="3">@Resources.Member</th>
+                    <th colspan="3">@Resources.Agent</th>
+                    <th rowspan="2">@Resources.Company</th>
+                </tr>
+                <tr class="thead-row2">
+                    <th>@Resources.WinLoss</th>
+                    <th>@Resources.Comm</th>
+                    <th>@Resources.Total</th>
+                    <th>@Resources.WinLoss</th>
+                    <th>@Resources.Comm</th>
+                    <th>@Resources.Total</th>
+                </tr>
+            }
+        </thead>
+        @if (Model.ReportData.Any())
+        {
+            <tbody>
+                @foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                {
+                    @RenderRow(data, false)
+                }
+            </tbody>
+            <tfoot>
+                @RenderRow(Model.ReportData.TotalData, true)
+            </tfoot>
+        }
+        else
+        {
+            @NoInformation.Render(colspan: @reportColumn)
+        }
+
+        @helper RenderRow(MemberWinLossDetail data, bool isTotalRow)
+        {
+        <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)">
+            <td>
+                @(isTotalRow ? Resources.Total : data.CustName)
+            </td>
+            <td class="text-right">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
+            @if (Model.IsStackMode)
+            {
+                @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
+                @HtmlHelpers.RenderStackCell("col-memberwinloss-combined", 3, data.MemberWinLoss, data.MemberComm, data.MemberTotal);
+                @HtmlHelpers.RenderStackCell("col-agentwinloss-combined altercol ", 3, data.AgentWinLoss, data.AgentComm, data.AgentTotal);
+            }
+            else
+            {
+                @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
+                @HtmlHelpers.RenderNumberCell(data.NetTurnover)
+                @HtmlHelpers.RenderNumberCell(data.GrossComm)
+
+                @HtmlHelpers.RenderNumberCell(data.MemberWinLoss, "col-memberwinloss")
+                @HtmlHelpers.RenderNumberCell(data.MemberComm)
+                @HtmlHelpers.RenderNumberCell(data.MemberTotal, "bold")
+
+                @HtmlHelpers.RenderNumberCell(data.AgentWinLoss, "col-agentwinloss altercol")
+                @HtmlHelpers.RenderNumberCell(data.AgentComm, "altercol")
+                @HtmlHelpers.RenderNumberCell(data.AgentTotal, "bold altercol")
+            }
+            <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
+        </tr>
+}
+    </table>
+</body>
+</html>
