@@ -14,9 +14,7 @@
     {
         { "IsStackMode", Model.IsStackMode },
         { "IsDescendingSort", Model.IsDescendingSort },
-        { "SortPropertyName", Model.SortPropertyName },
-        { "CurrentPageIndex", Model.ReportData.CurrentPageIndex },
-        { "PageSize", Model.ReportData.PageSize }
+        { "SortPropertyName", Model.SortPropertyName }
     })
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
@@ -40,8 +38,7 @@
 
             <th colspan="3" class="col-level">@Resources.Agent</th>
 
-            @if (Model.ReportLevel.IsMasterLevel()
-                || Model.ReportLevel.IsSuperLevel())
+            @if (Model.ReportLevel.IsMasterOrSuperLevel())
             {
                 <th colspan="3" class="col-level">@Resources.Master</th>
             }
@@ -68,8 +65,7 @@
             <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="Agent.WinLoss">
                 <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
             </th>
-            @if (Model.ReportLevel.IsMasterLevel()
-                || Model.ReportLevel.IsSuperLevel())
+            @if (Model.ReportLevel.IsMasterOrSuperLevel())
             {
                 <th class="hidden-stack-mode col-winloss" data-sortedname="Master.WinLoss">@Resources.WinLoss</th>
                 <th class="hidden-stack-mode" data-sortedname="Master.Comm">@Resources.Comm</th>
@@ -106,8 +102,8 @@
     {
         @NoInformation.Render(colspan:
         Model.ReportLevel.IsSuperLevel()
-        ? (Model.ReportLevel.IsMasterLevel() ? 15 : 12)
-        : 18)
+        ? 18
+        : (Model.ReportLevel.IsMasterLevel() ? 15 : 12))
     }
 </table>
 
@@ -164,10 +160,10 @@
         {
             @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
 
-            @RenderStackCustWinLoss(level: "member", custWinLoss: data.Member, isAlterCell: false);
-            @RenderStackCustWinLoss(level: "agent", custWinLoss: data.Agent, isAlterCell: true);
-            @RenderStackCustWinLoss(level: "master", custWinLoss: data.Master, isAlterCell: false);
-            @RenderStackCustWinLoss(level: "super", custWinLoss: data.Super, isAlterCell: true);
+            @RenderStackCustWinLoss(UserLevel.Member, custWinLoss: data.Member);
+            @RenderStackCustWinLoss(UserLevel.Agent, custWinLoss: data.Agent, isHighlight: true);
+            @RenderStackCustWinLoss(UserLevel.Master, custWinLoss: data.Master);
+            @RenderStackCustWinLoss(UserLevel.Super, custWinLoss: data.Super, isHighlight: true);
         }
         else
         {
@@ -175,41 +171,42 @@
             @HtmlHelpers.RenderNumberCell(data.NetTurnover)
             @HtmlHelpers.RenderNumberCell(data.GrossComm)
 
-            @RenderCustWinLoss(level: "member", custWinLoss: data.Member, isAlterCell: false)
-            @RenderCustWinLoss(level: "agent", custWinLoss: data.Agent, isAlterCell: true)
-            @RenderCustWinLoss(level: "master", custWinLoss: data.Master, isAlterCell: false)
-            @RenderCustWinLoss(level: "super", custWinLoss: data.Super, isAlterCell: true)
+            @RenderCustWinLoss(UserLevel.Member, custWinLoss: data.Member)
+            @RenderCustWinLoss(UserLevel.Agent, custWinLoss: data.Agent, isHighlight: true)
+            @RenderCustWinLoss(UserLevel.Master, custWinLoss: data.Master)
+            @RenderCustWinLoss(UserLevel.Super, custWinLoss: data.Super, isHighlight: true)
         }
         <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
 
-@helper RenderStackCustWinLoss(string level, CustWinLoss custWinLoss, bool isAlterCell)
+@helper RenderStackCustWinLoss(UserLevel level, CustWinLoss custWinLoss, bool isHighlight = false)
 {
-if (custWinLoss == null)
-{
-    return;
-}
+    if (custWinLoss == null)
+    {
+        return;
+    }
 
-var alterCellClass = isAlterCell ? "altercol" : string.Empty;
+    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+
     @HtmlHelpers.RenderStackCell(
-        $"col-{level}winloss-combined {alterCellClass}",
+        $"col-{level.DisplayName.ToLower()}-winloss-combined {highlightCellClass}",
         3,
         custWinLoss.WinLoss,
         custWinLoss.Comm,
         custWinLoss.Total);
 }
 
-@helper RenderCustWinLoss(string level, CustWinLoss custWinLoss, bool isAlterCell)
+@helper RenderCustWinLoss(UserLevel level, CustWinLoss custWinLoss, bool isHighlight = false)
 {
-if (custWinLoss == null)
-{
-    return;
-}
+    if (custWinLoss == null)
+    {
+        return;
+    }
 
-var alterCellClass = isAlterCell ? "altercol" : string.Empty;
+    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
-    @HtmlHelpers.RenderNumberCell(custWinLoss.WinLoss, $"col-{level}{nameof(custWinLoss.WinLoss).ToLower()} {alterCellClass}")
-    @HtmlHelpers.RenderNumberCell(custWinLoss.Comm, alterCellClass)
-    @HtmlHelpers.RenderNumberCell(custWinLoss.Total, $"bold {alterCellClass}")
+    @HtmlHelpers.RenderNumberCell(custWinLoss.WinLoss, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
+    @HtmlHelpers.RenderNumberCell(custWinLoss.Comm, highlightCellClass)
+    @HtmlHelpers.RenderNumberCell(custWinLoss.Total, $"bold {highlightCellClass}")
 }

@@ -11,8 +11,6 @@
 class WinLossDetailView {
     $: any;
 
-    $dateRangePicker: any;
-    $dropdownMonth: any;
     $pager: any;
     $dropdownProduct: any;
 
@@ -27,8 +25,6 @@ class WinLossDetailView {
     $isStackMode: any;
     $isDescendingSort: any;
     $sortPropertyName: any;
-    $pageIndex: any;
-    $pageSize: any;
     $reportForm: any;
     $userSelectedDateRangeOption: any;
     $netTurnoverTooltip: any;
@@ -39,8 +35,13 @@ class WinLossDetailView {
     isSwitchView = false;
     levels = ["member", "agent", "master", "super"];
 
-    constructor($: any) {
+    dateRangePickerComponent: DateRangePickerComponent;
+
+    constructor(
+        $: any,
+        dateRangePickerComponent: DateRangePickerComponent) {
         this.$ = $;
+        this.dateRangePickerComponent = dateRangePickerComponent;
     }
 
     init = () => {
@@ -49,24 +50,22 @@ class WinLossDetailView {
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
 
-        if (this.isHistoricReport) {
-            this.$dropdownMonth = monthPickerComponent.render();
-        } else {
-            this.$dateRangePicker = dateRangePickerComponent.render();
-        }
+        this.isHistoricReport ? monthPickerComponent.render() : this.dateRangePickerComponent.render();
 
         this.$dropdownProduct = productMultiSelectionComponent.render();
 
         this.cacheDOMElements();
 
-        if (this.$reportForm.data("ishide") === 1) {
+        if (this.$hideFilter.val() === "True") {
             this.hideFilter();
         }
 
         this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
-        this.$pager = pagerComponent.render(new PagerOption(undefined, function () {
+        this.$pager = pagerComponent.render(
+            new PagerOption(undefined, undefined,
+                function () {
             self.$reportForm.trigger("submit");
-        }));
+            }));
 
         sortComponent.render({
             sortContainer: this.$tableReport,
@@ -82,16 +81,12 @@ class WinLossDetailView {
     };
     cacheDOMElements = () => {
         this.$pageTitle = this.$(".page-title ");
-
         this.$tableReport = this.$("#tbl-report");
-
         this.$drilldownLinks = this.$(".downline-link");
         this.$hideFilter = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
-        this.$pageIndex = this.$("#PageIndex");
-        this.$pageSize = this.$("#PageSize");
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$multiSelectButton = this.$(".multiselect.btn");
@@ -142,7 +137,7 @@ class WinLossDetailView {
 
                     self.$.each(self.levels, function (index: number) {
                         var level = self.levels[index];
-                        alphaReports.splitCell("col-" + level + "winloss", index % 2 ? " altercol" : "");
+                        alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
                     });
                 } else {
                     alphaReports.combineConsecutiveCells(self.$("td.col-turnover"), 3, "text-right col-turnover-combined", 1);
@@ -216,8 +211,6 @@ class WinLossDetailView {
         this.$isHistoricReport.val(params.IsHistoricReport);
         this.$isStackMode.val(params.IsStackMode);
         this.$sortPropertyName.val(params.SortPropertyName);
-        this.$pageIndex.val(params.PageIndex);
-        this.$pageSize.val(params.PageSize);
 
         if (alphaReports.screenSmallThan768()) {
             this.$pageTitle.addClass("hide-filter");
@@ -226,7 +219,7 @@ class WinLossDetailView {
     };
 }
 
-const winLossDetailView = new WinLossDetailView($);
+const winLossDetailView = new WinLossDetailView($, new DateRangePickerComponent($));
 
 $(function () {
     winLossDetailView.init();

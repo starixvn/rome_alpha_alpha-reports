@@ -4,6 +4,8 @@
     using System.Reflection;
     using System.Web.Mvc;
     using Controllers;
+    using DataAccesses;
+    using DataAccesses.Impl;
     using Fanex.Data.Repository;
     using MediatR;
     using RemotingRef;
@@ -72,6 +74,7 @@
         private static void RegisterDataAccesses(Container container)
         {
             container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Transient);
+            container.Register<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>(Lifestyle.Transient);
         }
     }
 }

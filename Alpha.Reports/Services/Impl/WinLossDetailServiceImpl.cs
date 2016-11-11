@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Criteria.WinLossDetail;
+    using DataAccesses;
     using Fanex.Data.Repository;
     using Models;
     using Models.WinlossDetails;
@@ -13,16 +14,16 @@
     {
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
-        private readonly IDynamicRepository dynamicRepository;
+        private readonly WinLossDetailDataAccess dataAccess;
 
         public WinLossDetailServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
-            IDynamicRepository dynamicRepository)
+            WinLossDetailDataAccess dataAccess)
         {
             this.reportDateService = reportDateService;
             this.productService = productService;
-            this.dynamicRepository = dynamicRepository;
+            this.dataAccess = dataAccess;
         }
 
         public ReportData<WinLossDetail> GetWinLossDetail(WinLossDetailParam param)
@@ -46,14 +47,14 @@
                 validUserSelectedProductIds,
                 param.ReportLevel);
 
-            var winLossDetailData = dynamicRepository.FetchMultiple<WinLossDetailDto, WinLossDetailDto>(criteria);
+            var winLossDetailData = dataAccess.GetReport(criteria);
 
             return new ReportData<WinLossDetail>(
-                winLossDetailData.Item1.Select(dto => new WinLossDetail(dto)),
+                winLossDetailData.Item1,
                 criteria.PageIndex,
                 criteria.PageSize,
                 criteria.TotalRecords,
-                winLossDetailData.Item2.Select(dto => new WinLossDetail(dto)).FirstOrDefault());
+                winLossDetailData.Item2);
         }
     }
 }

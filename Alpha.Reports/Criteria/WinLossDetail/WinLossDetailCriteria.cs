@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.Data;
     using Models;
 
     public class WinLossDetailCriteria : ReportProductCriteria
@@ -21,7 +22,8 @@
             ReportLevel = reportLevel;
         }
 
-        private UserLevel ReportLevel { get; }      
+        [SpParam(Ignored = true)]
+        public UserLevel ReportLevel { get; }      
 
         public override string GetSettingKey()
         {

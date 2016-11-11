@@ -105,6 +105,8 @@
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
+    <Compile Include="DataAccesses\Impl\WinLossDetailDataAccessImpl.cs" />
+    <Compile Include="DataAccesses\WinLossDetailDataAccess.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -117,7 +119,6 @@
     <Compile Include="Models\UserLevel.cs" />
     <Compile Include="Models\WinlossDetails\CustWinLoss.cs" />
     <Compile Include="Models\WinlossDetails\WinLossDetail.cs" />
-    <Compile Include="Models\WinlossDetails\WinLossDetailDto.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

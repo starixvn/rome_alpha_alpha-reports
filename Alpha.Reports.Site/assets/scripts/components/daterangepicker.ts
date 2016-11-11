@@ -15,15 +15,13 @@ class DateRangePickerComponent {
 
     options = new DateRangePickerOption();
 
-    constructor($: any) {
+    constructor($: any, options: DateRangePickerOption = new DateRangePickerOption()) {
         this.$ = $;
+        this.options = this.$.extend({}, this.options, options);
     }
 
-    render = (options: DateRangePickerOption = new DateRangePickerOption()) => {
-        var pickerOptions = this.$.extend({}, this.options, options);
-
-        var dateRangePicker = this.$("#" + pickerOptions.selectorId);
-
+    render = () => {
+        var dateRangePicker = this.$("#" + this.options.selectorId);
         var currentDate = dateRangePicker.data("currentdate");
         var minDate = dateRangePicker.data("mindate");
         var maxDate = dateRangePicker.data("maxdate");
@@ -45,8 +43,6 @@ class DateRangePickerComponent {
             maxHeight: 300
         });
 
-        return this.$("#" + pickerOptions.selectorId);
+        return dateRangePicker;
     };
 }
-
-const dateRangePickerComponent = new DateRangePickerComponent($);

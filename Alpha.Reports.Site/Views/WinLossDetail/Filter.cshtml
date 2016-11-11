@@ -26,15 +26,14 @@
 {
     @Html.Hidden("IsFilterVisible", Model.Visible)
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
-    @Html.Hidden("ReportLevelId", Model.ReportLevel.Value)
+
     @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
     @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
     @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
-    @Html.Hidden("PageIndex", ViewData["CurrentPageIndex"] as int?)
-    @Html.Hidden("PageSize", ViewData["PageSize"] as int?)
 
-if (!Model.IsDirectReportViewAction)
-{
-        @Html.Hidden("CustId", Model.CustId as int?)
-}
+    if (!Model.IsDirectReportViewAction)
+    {
+        @Html.Hidden("CustId", Model.CustId)
+        @Html.Hidden("ReportLevelId", Model.ReportLevel.Value)
+    }
 }

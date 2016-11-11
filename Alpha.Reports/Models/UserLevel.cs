@@ -50,6 +50,11 @@
             return this == Super;
         }
 
+        public bool IsMasterOrSuperLevel()
+        {
+            return IsMasterLevel() || IsSuperLevel();
+        }
+
         public bool IsNotSuperLevel()
         {
             return !IsSuperLevel();

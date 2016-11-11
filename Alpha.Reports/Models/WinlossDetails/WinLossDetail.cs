@@ -6,48 +6,49 @@
         {
         }
 
-        public WinLossDetail(WinLossDetailDto dto)
+        public WinLossDetail(
+            int custId,
+            string custName,
+            decimal grossComm,
+            decimal netTurnover,
+            decimal turnover,
+            int numberOfTickets,
+            CustWinLoss memberWinLoss,
+            CustWinLoss agentWinLoss,
+            CustWinLoss masterWinLoss,
+            CustWinLoss superWinLoss)
         {
-            CustId = dto.CustId;
-            CustName = dto.CustName;
-            GrossComm = dto.GrossComm;
-            NetTurnover = dto.NetTurnover;
-            Turnover = dto.Turnover;
-            NetTurnover = dto.NetTurnover;
-            NumberOfTickets = dto.NumberOfTickets;
-
-            Member = new CustWinLoss(dto.MemberWinLoss, dto.MemberComm);
-
-            Agent = new CustWinLoss(dto.AgWinLoss, dto.AgComm);
-
-            Master = dto.MAgWinLoss.HasValue
-                ? new CustWinLoss(dto.MAgWinLoss.Value, dto.MAgComm)
-                : null;
-
-            Super = dto.SAgWinLoss.HasValue
-                ? new CustWinLoss(dto.SAgWinLoss.Value, dto.SAgComm)
-                : null;
+            CustId = custId;
+            CustName = custName;
+            GrossComm = grossComm;
+            NetTurnover = netTurnover;
+            Turnover = turnover;
+            NumberOfTickets = numberOfTickets;
+            Member = memberWinLoss;
+            Agent = agentWinLoss;
+            Master = masterWinLoss;
+            Super = superWinLoss;
         }
 
-        public int CustId { get; set; }
+        public int CustId { get; }
 
-        public string CustName { get; set; }
+        public string CustName { get; }
 
-        public decimal Turnover { get; set; }
+        public decimal Turnover { get; }
 
-        public decimal NetTurnover { get; set; }
+        public decimal NetTurnover { get; }
 
-        public decimal GrossComm { get; set; }
+        public decimal GrossComm { get; }
 
-        public int NumberOfTickets { get; set; }
+        public int NumberOfTickets { get; }
 
-        public CustWinLoss Member { get; set; }
+        public CustWinLoss Member { get; }
 
-        public CustWinLoss Agent { get; set; }
+        public CustWinLoss Agent { get; }
 
-        public CustWinLoss Master { get; set; }
+        public CustWinLoss Master { get; }
 
-        public CustWinLoss Super { get; set; }
+        public CustWinLoss Super { get; }
 
         public decimal Company =>
             -(Member.Total

@@ -3,16 +3,23 @@
 class PagerOption {
     pagerId: string;
     onSelectPage: any;
+    formId: string;
 
-    constructor(pagerId: string = "report-pager",
+    constructor(
+        pagerId: string = "report-pager",
+        formId: string = "report-form",
         onSelectPage: any = null) {
+
         this.pagerId = pagerId;
         this.onSelectPage = onSelectPage;
+        this.formId = formId;
     }
 }
 
 class PagerComponent {
     $: any;
+    $pageIndex: any;
+    $pageSize: any;
 
     options = new PagerOption();
 
@@ -21,12 +28,19 @@ class PagerComponent {
     }
 
     render = (options: PagerOption = new PagerOption()) => {
+        var self = this;
         var pickerOptions = this.$.extend({}, this.options, options);
         var pager = this.$("#" + pickerOptions.pagerId);
 
         pickerOptions.totalRecords = pager.data("totalrecords");
         pickerOptions.pageSize = pager.data("pagesize");
         pickerOptions.pageIndex = pager.data("pageindex");
+
+        var reportForm = this.$("#" + this.options.formId);
+        this.$pageIndex = this.$(`<input type="hidden" id="PageIndex" name="PageIndex" value="${pickerOptions.pageIndex}" />`);
+        this.$pageSize = this.$(`<input type="hidden" id="PageSize" name="PageSize" value="${pickerOptions.pageSize}" />`);
+        reportForm.append(this.$pageIndex);
+        reportForm.append(this.$pageSize);
 
         if (pickerOptions.totalRecords < alphaReports.pageList[0]) {
             // total records less than min page size => do not need to show pager
@@ -40,9 +54,7 @@ class PagerComponent {
 
                 showRefresh: false,
                 onSelectPage: function (pageNumber: number, pageSize: number) {
-                    pager.data("pageindex", pageNumber);
-                    pager.data("pagesize", pageSize);
-
+                    self.updateHiddenFields(pageNumber, pageSize);
                     pickerOptions.onSelectPage();
                 },
                 beforePageText: pager.data("lablepage"),
@@ -54,7 +66,12 @@ class PagerComponent {
         }
 
         return pager;
-    };
+    }
+
+    updateHiddenFields = (pageNumber: number, pageSize: number) => {
+        this.$pageIndex.val(pageNumber);
+        this.$pageSize.val(pageSize);
+    }
 }
 
 const pagerComponent = new PagerComponent($);
