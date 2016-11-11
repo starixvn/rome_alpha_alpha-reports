@@ -7,16 +7,15 @@
     using Extensions;
     using MediatR;
     using Models;
-    using Models.WinlossDetail;
+    using Models.Enumerations;
+    using Models.WinlossDetails;
     using Params;
-    using Requests.WinLossDetail;
+    using Requests.WinLossDetails;
     using Services;
-    using ViewModels.WinLossDetail;
+    using ViewModels.WinLossDetails;
 
     public class WinLossDetailHandler :
-        IRequestHandler<WinLossDetailQuery<MasterWinLossDetail>, WinLossDetailViewModel<MasterWinLossDetail>>,
-        IRequestHandler<WinLossDetailQuery<AgentWinLossDetail>, WinLossDetailViewModel<AgentWinLossDetail>>,
-        IRequestHandler<WinLossDetailQuery<MemberWinLossDetail>, WinLossDetailViewModel<MemberWinLossDetail>>
+        IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>
     {
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
@@ -29,44 +28,24 @@
             this.reportService = reportService;
         }
 
-        public WinLossDetailViewModel<MasterWinLossDetail> Handle(WinLossDetailQuery<MasterWinLossDetail> message)
-        {
-            return CreateViewModel<MasterWinLossDetail, WinLossDetailViewModel<MasterWinLossDetail>>(
-                message, UserLevel.Super);
-        }
-
-        public WinLossDetailViewModel<AgentWinLossDetail> Handle(WinLossDetailQuery<AgentWinLossDetail> message)
-        {
-            return CreateViewModel<AgentWinLossDetail, WinLossDetailViewModel<AgentWinLossDetail>>(
-                message, UserLevel.Master);
-        }
-
-        public WinLossDetailViewModel<MemberWinLossDetail> Handle(WinLossDetailQuery<MemberWinLossDetail> message)
-        {
-            return CreateViewModel<MemberWinLossDetail, WinLossDetailViewModel<MemberWinLossDetail>>(
-                message, UserLevel.Agent);
-        }
-
-        private TViewModel CreateViewModel<TModel, TViewModel>(
-            WinLossDetailQuery<TModel> message,
-            UserLevel reportLevel)
-            where TModel : MemberWinLossDetail
-            where TViewModel : WinLossDetailViewModel<TModel>, new()
+        public WinLossDetailViewModel Handle(WinLossDetailQuery message)
         {
             if (message == null)
             {
                 throw new ArgumentNullException("message");
             }
 
+            var reportLevel = Enumeration.FromValue<UserLevel>(message.ReportLevelId);
             var products = productService.GetProductsForCustomer(message.CustId);
 
             var winLossDetailParam = CreateParamater(message, reportLevel);
 
-            var reportData = reportService.GetWinLossDetail<TModel>(winLossDetailParam);
+            var reportData = reportService.GetWinLossDetail(winLossDetailParam);
 
-            var viewModel = new TViewModel
+            var viewModel = new WinLossDetailViewModel
             {
                 CustId = winLossDetailParam.CustId,
+                ReportLevel = reportLevel,
                 FromDate = winLossDetailParam.FromDate,
                 ToDate = winLossDetailParam.ToDate,
 
@@ -88,10 +67,9 @@
             return viewModel;
         }
 
-        private WinLossDetailParam CreateParamater<TModel>(
-            WinLossDetailQuery<TModel> message,
+        private WinLossDetailParam CreateParamater(
+            WinLossDetailQuery message,
             UserLevel reportLevel)
-            where TModel : MemberWinLossDetail
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,

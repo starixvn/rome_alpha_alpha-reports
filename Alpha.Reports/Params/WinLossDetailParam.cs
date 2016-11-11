@@ -67,15 +67,15 @@
         {
             if (ReportLevel.IsSuperLevel())
             {
-                return "SuperWinLoss";
+                return "Super.WinLoss";
             }
 
             if (ReportLevel.IsMasterLevel())
             {
-                return "MasterWinLoss";
+                return "Master.WinLoss";
             }
 
-            return "AgentWinLoss";
+            return "Agent.WinLoss";
         }
 
         private string GetSortedProperty(string sortedProperty)

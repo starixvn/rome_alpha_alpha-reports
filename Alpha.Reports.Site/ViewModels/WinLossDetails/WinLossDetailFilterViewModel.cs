@@ -1,14 +1,16 @@
-﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetails
 {
     using System;
     using App_GlobalResources;
     using Components;
     using Extensions;
+    using Models;
 
     public class WinLossDetailFilterViewModel
     {
         public WinLossDetailFilterViewModel(
             int custId,
+            UserLevel reportLevel,
             bool isHictoricReport,
             DateRangePickerViewModel dateRangePickerViewModel,
             MonthPickerViewModel monthPickerViewModel,
@@ -29,9 +31,12 @@
             minDate.ToShortDateWithSlash());
             IsDirectReportViewAction = isDirectReportViewAction;
             Visible = visible;
+            ReportLevel = reportLevel;
         }
 
         public int CustId { get; }
+
+        public UserLevel ReportLevel { get; }
 
         public bool IsHistoricReport { get; }
 

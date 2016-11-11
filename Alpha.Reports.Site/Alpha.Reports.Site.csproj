@@ -250,7 +250,7 @@
     <Compile Include="Helpers\MicroSites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\BaseReportQuery.cs" />
-    <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
+    <Compile Include="Requests\WinLossDetails\WinLossDetailQuery.cs" />
     <Compile Include="ViewModels\Components\DataGridViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
     <Compile Include="ViewModels\Components\FilterControlViewModel.cs" />
@@ -259,9 +259,9 @@
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\ReportPageViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetail\LinkActionViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
+    <Compile Include="ViewModels\WinLossDetails\LinkActionViewModel.cs" />
+    <Compile Include="ViewModels\WinLossDetails\WinLossDetailFilterViewModel.cs" />
+    <Compile Include="ViewModels\WinLossDetails\WinLossDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\products.local.json">
@@ -342,9 +342,6 @@
     <Content Include="assets\styles\_mixins.scss" />
     <Content Include="assets\styles\_variables.scss" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\WinLossDetail\Member.cshtml" />
-    <Content Include="Views\WinLossDetail\Agent.cshtml" />
-    <Content Include="Views\WinLossDetail\Master.cshtml" />
     <Content Include="App_Code\HtmlHelpers.cshtml" />
     <Content Include="Views\Shared\_PageTitle.cshtml" />
     <Content Include="Views\Shared\_NetTurnoverTooltips.cshtml" />
@@ -354,7 +351,7 @@
     <Content Include="App_Code\Components\NoInformation.cshtml" />
     <Content Include="App_Code\Components\ProductMultiSelection.cshtml" />
     <Content Include="Views\WinLossDetail\Filter.cshtml" />
-    <Content Include="Views\WinLossDetail\Helpers.cshtml" />
+    <Content Include="Views\WinLossDetail\Index.cshtml" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>

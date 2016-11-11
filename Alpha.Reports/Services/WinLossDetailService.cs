@@ -1,11 +1,11 @@
 ﻿namespace Alpha.Reports.Services
 {
     using Models;
-    using Models.WinlossDetail;
+    using Models.WinlossDetails;
     using Params;
 
     public interface WinLossDetailService
     {
-        ReportData<T> GetWinLossDetail<T>(WinLossDetailParam param) where T : MemberWinLossDetail;
+        ReportData<WinLossDetail> GetWinLossDetail(WinLossDetailParam param);
     }
 }

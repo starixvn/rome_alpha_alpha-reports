@@ -1,5 +1,4 @@
-﻿@using Components
-@model WinLossDetailFilterViewModel
+﻿@model WinLossDetailFilterViewModel
 
 <form class="form-inline filter" role="form" id="report-form">
     @RenderHiddenFields()
@@ -25,8 +24,9 @@
 
 @helper RenderHiddenFields()
 {
-    @Html.Hidden("IsFilterVisible", Model.Visible as bool?)
-    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport as bool?)
+    @Html.Hidden("IsFilterVisible", Model.Visible)
+    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
+    @Html.Hidden("ReportLevelId", Model.ReportLevel.Value)
     @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
     @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
     @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
