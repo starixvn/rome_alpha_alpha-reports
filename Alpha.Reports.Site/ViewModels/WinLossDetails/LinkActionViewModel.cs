@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetails
 {
     using System;
 
@@ -6,18 +6,20 @@
     {
         public LinkActionViewModel(
             int custId,
+            byte reportLevelId,
             DateTime fromDate,
             DateTime toDate,
             int userSelectedDateRangeOption,
             string userSelectedProductIds,
             string sortPropertyName,
             bool isDescendingSort,
-            bool isHictoricReport,            
+            bool isHictoricReport,
             bool isFilterVisible,
             bool isStackMode,
             int pageSize)
         {
             CustId = custId;
+            ReportLevelId = reportLevelId;
             FromDate = fromDate;
             ToDate = toDate;
             UserSelectedDateRangeOption = userSelectedDateRangeOption;
@@ -30,7 +32,9 @@
             IsStackMode = isStackMode;
         }
 
-        public int CustId { get; }        
+        public int CustId { get; }
+
+        public byte ReportLevelId { get; }
 
         public DateTime FromDate { get; }
 

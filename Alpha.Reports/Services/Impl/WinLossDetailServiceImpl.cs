@@ -1,11 +1,12 @@
 ﻿namespace Alpha.Reports.Services.Impl
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Criteria.WinLossDetail;
     using Fanex.Data.Repository;
     using Models;
-    using Models.WinlossDetail;
+    using Models.WinlossDetails;
     using Params;
 
     public class WinLossDetailServiceImpl : WinLossDetailService
@@ -24,7 +25,7 @@
             this.dynamicRepository = dynamicRepository;
         }
 
-        public ReportData<T> GetWinLossDetail<T>(WinLossDetailParam param) where T : MemberWinLossDetail
+        public ReportData<WinLossDetail> GetWinLossDetail(WinLossDetailParam param)
         {
             if (param == null)
             {
@@ -45,14 +46,14 @@
                 validUserSelectedProductIds,
                 param.ReportLevel);
 
-            var winLossDetailData = dynamicRepository.FetchMultiple<T, T>(criteria);
+            var winLossDetailData = dynamicRepository.FetchMultiple<WinLossDetailDto, WinLossDetailDto>(criteria);
 
-            return new ReportData<T>(
-                winLossDetailData.Item1,
+            return new ReportData<WinLossDetail>(
+                winLossDetailData.Item1.Select(dto => new WinLossDetail(dto)),
                 criteria.PageIndex,
                 criteria.PageSize,
                 criteria.TotalRecords,
-                winLossDetailData.Item2.FirstOrDefault());
+                winLossDetailData.Item2.Select(dto => new WinLossDetail(dto)).FirstOrDefault());
         }
     }
 }

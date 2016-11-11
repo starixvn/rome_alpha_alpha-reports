@@ -1,15 +1,15 @@
-﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
+﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
-    using System.Collections.Generic;
     using MediatR;
-    using Models.WinlossDetail;
+    using Models;
+    using Models.Enumerations;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
-    using ViewModels.WinLossDetail;
+    using ViewModels.WinLossDetails;
 
-    public class WinLossDetailQuery<T> :
+    public class WinLossDetailQuery :
         BaseReportQuery,
-        IRequest<WinLossDetailViewModel<T>> where T : MemberWinLossDetail
+        IRequest<WinLossDetailViewModel>
     {
         private IUserSession userSession;
 
@@ -24,6 +24,7 @@
             if (CustId <= 0)
             {
                 CustId = this.userSession.CustId;
+                ReportLevelId = this.userSession.RoleId;
             }
 
             Language = this.userSession.Language;
@@ -46,5 +47,7 @@
         public bool IsFilterVisible { get; set; }
 
         public int UserSelectedDateRangeOption { get; set; }
+
+        public byte ReportLevelId { get; set; }
     }
 }

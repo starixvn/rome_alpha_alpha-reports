@@ -1,31 +1,55 @@
 ﻿namespace Alpha.Reports.Extensions
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Reflection;
 
     public static class EnumerableExtensions
     {
-        public static IEnumerable<T> OrderBy<T>(
-            this IEnumerable<T> list,
-            string sortPropertyName,
+        public static IQueryable<T> OrderBy<T>(
+            this IEnumerable<T> source,
+            string propertyName,
             bool descending = true)
         {
-            if (string.IsNullOrWhiteSpace(sortPropertyName))
+            return descending
+                ? ApplyOrder(source.AsQueryable(), propertyName, "OrderByDescending")
+                : ApplyOrder(source.AsQueryable(), propertyName, "OrderBy");
+        }
+
+        private static IOrderedQueryable<T> ApplyOrder<T>(IQueryable<T> source, string propertyName, string methodName)
+        {
+            var props = propertyName.Split('.');
+            var type = typeof(T);
+            var arg = Expression.Parameter(type, "x");
+            Expression expr = arg;
+
+            foreach (string prop in props)
             {
-                return list;
+                // use reflection (not ComponentModel) to mirror LINQ
+                PropertyInfo pi = type.GetProperty(prop);
+                if (pi == null)
+                {
+                    return (IOrderedQueryable<T>)source;
+                }
+
+                expr = Expression.Property(expr, pi);
+                type = pi.PropertyType;
             }
 
-            PropertyInfo prop = typeof(T).GetProperty(sortPropertyName);
+            var delegateType = typeof(Func<,>).MakeGenericType(typeof(T), type);
+            var lambda = Expression.Lambda(delegateType, expr, arg);
 
-            if (prop == null)
-            {
-                return list;
-            }
+            var result = typeof(Queryable).GetMethods().Single(
+                    method => method.Name == methodName
+                            && method.IsGenericMethodDefinition
+                            && method.GetGenericArguments().Length == 2
+                            && method.GetParameters().Length == 2)
+                    .MakeGenericMethod(typeof(T), type)
+                    .Invoke(null, new object[] { source, lambda });
 
-            return descending ?
-                  list.OrderByDescending(x => prop.GetValue(x, null))
-                : list.OrderBy(x => prop.GetValue(x, null));
+            return (IOrderedQueryable<T>)result;
         }
     }
 }

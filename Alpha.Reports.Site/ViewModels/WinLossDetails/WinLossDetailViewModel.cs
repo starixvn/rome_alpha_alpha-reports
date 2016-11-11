@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetails
 {
     using System;
     using System.Collections.Generic;
@@ -8,9 +8,9 @@
     using Components;
     using Extensions;
     using Models;
-    using Models.WinlossDetail;
+    using Models.WinlossDetails;
 
-    public class WinLossDetailViewModel<T> where T : MemberWinLossDetail
+    public class WinLossDetailViewModel
     {
         private const int AllBetProductId = 21;
 
@@ -32,7 +32,7 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public ReportData<T> ReportData { get; set; }
+        public ReportData<WinLossDetail> ReportData { get; set; }
 
         public string SortPropertyName { get; set; }
 
@@ -78,6 +78,7 @@
         public WinLossDetailFilterViewModel FilterViewModel =>
             new WinLossDetailFilterViewModel(
                 CustId,
+                ReportLevel,
                 IsHistoricReport,
                 DateRangePickerViewModel,
                 MonthPickerViewModel,
@@ -86,9 +87,10 @@
                 IsFilterVisible,
                 MinDate);
 
-        public LinkActionViewModel LinkActionViewModel(int custId) => 
+        public LinkActionViewModel LinkActionViewModel(int custId) =>
             new LinkActionViewModel(
                     custId,
+                    (byte)(ReportLevel.Value - 1),
                     FromDate,
                     ToDate,
                     UserSelectedDateRangeOption,
@@ -99,5 +101,25 @@
                     IsFilterVisible,
                     IsStackMode,
                     ReportData.PageSize);
+
+        public UserLevel ReportLevel { get; set; }
+
+        public string Title
+        {
+            get
+            {
+                if (ReportLevel.IsSuperLevel())
+                {
+                    return Resources.MasterWinLossDetail;
+                }
+
+                if (ReportLevel.IsMasterLevel())
+                {
+                    return Resources.AgentWinLossDetail;
+                }
+
+                return Resources.MemberWinLossDetail;
+            }
+        }
     }
 }

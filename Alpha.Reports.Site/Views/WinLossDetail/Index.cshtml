@@ -1,0 +1,209 @@
+﻿﻿@using Alpha.Reports.Site.Helpers
+@using Alpha.Reports.Site.Configurations
+
+@model WinLossDetailViewModel
+
+@{ 
+    string betListPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_BetList/BetListForSiteReport.aspx";
+}
+
+@Html.Partial("_NetTurnoverTooltips", Model.NetTurnoverTooltips)
+@Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible))
+@Html.Partial("Filter", Model.FilterViewModel,
+    new ViewDataDictionary
+    {
+        { "IsStackMode", Model.IsStackMode },
+        { "IsDescendingSort", Model.IsDescendingSort },
+        { "SortPropertyName", Model.SortPropertyName },
+        { "CurrentPageIndex", Model.ReportData.CurrentPageIndex },
+        { "PageSize", Model.ReportData.PageSize }
+    })
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
+       @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
+       data-totalrecords="@Model.ReportData.TotalRecords"
+       data-custid="@Model.CustId"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
+    <thead>
+        <tr>
+            <th rowspan="2" data-sortedname="CustName">@Resources.Username</th>
+            <th rowspan="2" data-sortedname="NumberOfTickets">@Resources.NoOfTickets</th>
+            <th rowspan="2" class="hidden-stack-mode" data-sortedname="Turnover">@Resources.Turnover</th>
+            <th rowspan="2" class="hidden-stack-mode col-netturnover-header" data-sortedname="NetTurnover">@Resources.NetTurnover</th>
+            <th rowspan="2" class="hidden-stack-mode" data-sortedname="GrossComm">@Resources.GrossComm</th>
+            <th rowspan="2" class="visible-stack-mode col-combine" data-sortedname="Turnover">
+                <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>@Resources.NetTurnoverAndGrossComm
+            </th>
+
+            <th colspan="3" class="col-level">@Resources.Member</th>
+
+            <th colspan="3" class="col-level">@Resources.Agent</th>
+
+            @if (Model.ReportLevel.IsMasterLevel()
+                || Model.ReportLevel.IsSuperLevel())
+            {
+                <th colspan="3" class="col-level">@Resources.Master</th>
+            }
+
+            @if (Model.ReportLevel.IsSuperLevel())
+            {
+                <th colspan="3" class="col-level">@Resources.Super</th>
+            }
+
+            <th rowspan="2" data-sortedname="Company">@Resources.Company</th>
+        </tr>
+        <tr class="thead-row2">
+
+            <th class="hidden-stack-mode col-winloss" data-sortedname="Member.WinLoss">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="Member.Comm">@Resources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="Member.Total">@Resources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="Member.WinLoss">
+                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+            </th>
+
+            <th class="hidden-stack-mode col-winloss" data-sortedname="Agent.WinLoss">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="Agent.Comm">@Resources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="Agent.Total">@Resources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="Agent.WinLoss">
+                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+            </th>
+            @if (Model.ReportLevel.IsMasterLevel()
+                || Model.ReportLevel.IsSuperLevel())
+            { 
+                <th class="hidden-stack-mode col-winloss" data-sortedname="Master.WinLoss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode" data-sortedname="Master.Comm">@Resources.Comm</th>
+                <th class="hidden-stack-mode" data-sortedname="Master.Total">@Resources.Total</th>
+                <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="Master.WinLoss">
+                    <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+                </th>
+            }
+
+            @if (Model.ReportLevel.IsSuperLevel())
+            {
+                <th class="hidden-stack-mode col-winloss" data-sortedname="Super.WinLoss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode" data-sortedname="Super.Comm">@Resources.Comm</th>
+                <th class="hidden-stack-mode" data-sortedname="Super.Total">@Resources.Total</th>
+                <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="Super.WinLoss">
+                    <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+                </th>
+            }
+        </tr>
+    </thead>
+    @if (Model.ReportData.Any())
+    {
+        <tbody>
+            @foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+            {
+                @RenderRow(data, false, betListPath)
+            }
+        </tbody>
+        <tfoot>
+            @RenderRow(Model.ReportData.TotalData, true, betListPath)
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(colspan:
+        Model.ReportLevel.IsSuperLevel()
+        ? (Model.ReportLevel.IsMasterLevel() ? 15 : 12)
+        : 18)
+    }
+</table>
+
+@Pager.Render(Model.PagerViewModel)
+
+@section Scripts {
+    @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
+}
+
+@helper RenderRow(WinLossDetail data, bool isTotalRow, string betListPath)
+{
+    <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)">
+        <td>
+            @if (isTotalRow)
+            {
+                @Resources.Total
+            }
+            else
+            {
+                if (Model.ReportLevel.IsAgentLevel())
+                {
+                    @Html.ActionLink(
+                    linkText: data.CustName,
+                    actionName: betListPath,
+                    controllerName: string.Empty,
+                    routeValues: new
+                    {
+                        Custid = data.CustId,
+                        CustName = data.CustName,
+                        FromDate = Model.FromDate,
+                        ToDate = Model.ToDate,
+                        SelectedProducts = Model.UserSelectedProductIds,
+                    },
+                    htmlAttributes: null)
+                }
+                else
+                {
+                    @Html.ActionLink(
+                              linkText: data.CustName,
+                              actionName: "Index",
+                              controllerName: "WinLossDetail",
+                              routeValues: Model.LinkActionViewModel(data.CustId),
+                              htmlAttributes: new
+                              {
+                                  @class = "downline-link"
+                              })
+                }
+            }
+        </td>
+
+        <td class="text-right">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
+        @if (Model.IsStackMode)
+        {
+            @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
+
+            @HtmlHelpers.RenderStackCell("col-memberwinloss-combined", 3, data.Member.WinLoss, data.Member.Comm, data.Member.Total);
+            @HtmlHelpers.RenderStackCell("col-agentwinloss-combined altercol ", 3, data.Agent.WinLoss, data.Agent.Comm, data.Agent.Total);
+
+            if (data.Master != null)
+            {
+                @HtmlHelpers.RenderStackCell("col-masterwinloss-combined", 3, data.Master.WinLoss, data.Master.Comm, data.Master.Total);
+            }
+
+            if (data.Super != null)
+            {
+                @HtmlHelpers.RenderStackCell("col-superwinloss-combined altercol", 3, data.Super.WinLoss, data.Super.Comm, data.Super.Total);
+            }
+        }
+        else
+        {
+            @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
+            @HtmlHelpers.RenderNumberCell(data.NetTurnover)
+            @HtmlHelpers.RenderNumberCell(data.GrossComm)
+
+            @HtmlHelpers.RenderNumberCell(data.Member.WinLoss, "col-memberwinloss")
+            @HtmlHelpers.RenderNumberCell(data.Member.Comm)
+            @HtmlHelpers.RenderNumberCell(data.Member.Total, "bold")
+
+            @HtmlHelpers.RenderNumberCell(data.Agent.WinLoss, "col-agentwinloss altercol")
+            @HtmlHelpers.RenderNumberCell(data.Agent.Comm, "altercol")
+            @HtmlHelpers.RenderNumberCell(data.Agent.Total, "bold altercol")
+
+            if (data.Master != null)
+            {
+                @HtmlHelpers.RenderNumberCell(data.Master.WinLoss, "col-masterwinloss")
+                @HtmlHelpers.RenderNumberCell(data.Master.Comm)
+                @HtmlHelpers.RenderNumberCell(data.Master.Total, "bold")
+            }
+
+            if (data.Super != null)
+            {
+                @HtmlHelpers.RenderNumberCell(data.Super.WinLoss, "col-superwinloss altercol")
+                @HtmlHelpers.RenderNumberCell(data.Super.Comm, "altercol")
+                @HtmlHelpers.RenderNumberCell(data.Super.Total, "bold altercol")
+            }
+        }
+        <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
+    </tr>
+}
