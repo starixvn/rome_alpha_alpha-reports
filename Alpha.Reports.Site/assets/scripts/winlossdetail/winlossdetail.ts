@@ -144,8 +144,8 @@ class WinLossDetailView {
 
                     self.$.each(self.levels, function (index: number) {
                         var level = self.levels[index];
-                        var cellCss = "text-right column-" + level + "winloss-combined" + (index % 2 ? " altercol" : "");
-                        alphaReports.combineConsecutiveCells(self.$("td.col-" + level + "winloss"), 3, cellCss);
+                        var cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
+                        alphaReports.combineConsecutiveCells(self.$("td.col-" + level + "-winloss"), 3, cellCss);
                     });
                 }
 

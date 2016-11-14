@@ -117,7 +117,7 @@
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="Models\UserLevel.cs" />
-    <Compile Include="Models\WinlossDetails\CustWinLoss.cs" />
+    <Compile Include="Models\WinlossDetails\NetWinLoss.cs" />
     <Compile Include="Models\WinlossDetails\WinLossDetail.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />

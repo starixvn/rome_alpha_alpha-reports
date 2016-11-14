@@ -38,12 +38,12 @@
 
             <th colspan="3" class="col-level">@Resources.Agent</th>
 
-            @if (Model.ReportLevel.IsMasterOrSuperLevel())
+            @if (Model.UserLevel.IsMasterOrSuperLevel())
             {
                 <th colspan="3" class="col-level">@Resources.Master</th>
             }
 
-            @if (Model.ReportLevel.IsSuperLevel())
+            @if (Model.UserLevel.IsSuperLevel())
             {
                 <th colspan="3" class="col-level">@Resources.Super</th>
             }
@@ -65,7 +65,7 @@
             <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="Agent.WinLoss">
                 <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
             </th>
-            @if (Model.ReportLevel.IsMasterOrSuperLevel())
+            @if (Model.UserLevel.IsMasterOrSuperLevel())
             {
                 <th class="hidden-stack-mode col-winloss" data-sortedname="Master.WinLoss">@Resources.WinLoss</th>
                 <th class="hidden-stack-mode" data-sortedname="Master.Comm">@Resources.Comm</th>
@@ -75,7 +75,7 @@
                 </th>
             }
 
-            @if (Model.ReportLevel.IsSuperLevel())
+            @if (Model.UserLevel.IsSuperLevel())
             {
                 <th class="hidden-stack-mode col-winloss" data-sortedname="Super.WinLoss">@Resources.WinLoss</th>
                 <th class="hidden-stack-mode" data-sortedname="Super.Comm">@Resources.Comm</th>
@@ -101,9 +101,9 @@
     else
     {
         @NoInformation.Render(colspan:
-        Model.ReportLevel.IsSuperLevel()
+        Model.UserLevel.IsSuperLevel()
         ? 18
-        : (Model.ReportLevel.IsMasterLevel() ? 15 : 12))
+        : (Model.UserLevel.IsMasterLevel() ? 15 : 12))
     }
 </table>
 
@@ -123,7 +123,7 @@
             }
             else
             {
-                if (Model.ReportLevel.IsAgentLevel())
+                if (Model.UserLevel.IsAgentLevel())
                 {
                     @Html.ActionLink(
                     linkText: data.CustName,
@@ -160,10 +160,10 @@
         {
             @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
 
-            @RenderStackCustWinLoss(UserLevel.Member, custWinLoss: data.Member);
-            @RenderStackCustWinLoss(UserLevel.Agent, custWinLoss: data.Agent, isHighlight: true);
-            @RenderStackCustWinLoss(UserLevel.Master, custWinLoss: data.Master);
-            @RenderStackCustWinLoss(UserLevel.Super, custWinLoss: data.Super, isHighlight: true);
+            @RenderStackCustWinLoss(UserLevel.Member, data.MemberNetWinLoss);
+            @RenderStackCustWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
+            @RenderStackCustWinLoss(UserLevel.Master, data.MasterNetWinLoss);
+            @RenderStackCustWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
         }
         else
         {
@@ -171,18 +171,18 @@
             @HtmlHelpers.RenderNumberCell(data.NetTurnover)
             @HtmlHelpers.RenderNumberCell(data.GrossComm)
 
-            @RenderCustWinLoss(UserLevel.Member, custWinLoss: data.Member)
-            @RenderCustWinLoss(UserLevel.Agent, custWinLoss: data.Agent, isHighlight: true)
-            @RenderCustWinLoss(UserLevel.Master, custWinLoss: data.Master)
-            @RenderCustWinLoss(UserLevel.Super, custWinLoss: data.Super, isHighlight: true)
+            @RenderCustWinLoss(UserLevel.Member, data.MemberNetWinLoss)
+            @RenderCustWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
+            @RenderCustWinLoss(UserLevel.Master, data.MasterNetWinLoss)
+            @RenderCustWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
         }
         <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
 
-@helper RenderStackCustWinLoss(UserLevel level, CustWinLoss custWinLoss, bool isHighlight = false)
+@helper RenderStackCustWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
-    if (custWinLoss == null)
+    if (netWinLoss == null)
     {
         return;
     }
@@ -192,21 +192,21 @@
     @HtmlHelpers.RenderStackCell(
         $"col-{level.DisplayName.ToLower()}-winloss-combined {highlightCellClass}",
         3,
-        custWinLoss.WinLoss,
-        custWinLoss.Comm,
-        custWinLoss.Total);
+        netWinLoss.WinLoss,
+        netWinLoss.Comm,
+        netWinLoss.Total);
 }
 
-@helper RenderCustWinLoss(UserLevel level, CustWinLoss custWinLoss, bool isHighlight = false)
+@helper RenderCustWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
-    if (custWinLoss == null)
+    if (netWinLoss == null)
     {
         return;
     }
 
     var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
-    @HtmlHelpers.RenderNumberCell(custWinLoss.WinLoss, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
-    @HtmlHelpers.RenderNumberCell(custWinLoss.Comm, highlightCellClass)
-    @HtmlHelpers.RenderNumberCell(custWinLoss.Total, $"bold {highlightCellClass}")
+    @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
+    @HtmlHelpers.RenderNumberCell(netWinLoss.Comm, highlightCellClass)
+    @HtmlHelpers.RenderNumberCell(netWinLoss.Total, $"bold {highlightCellClass}")
 }

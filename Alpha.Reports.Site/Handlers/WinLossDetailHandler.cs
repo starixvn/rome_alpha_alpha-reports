@@ -35,17 +35,17 @@
                 throw new ArgumentNullException("message");
             }
 
-            var reportLevel = Enumeration.FromValue<UserLevel>(message.ReportLevelId);
+            var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
             var products = productService.GetProductsForCustomer(message.CustId);
 
-            var winLossDetailParam = CreateParamater(message, reportLevel);
+            var winLossDetailParam = CreateParamater(message, userLevel);
 
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
 
             var viewModel = new WinLossDetailViewModel
             {
                 CustId = winLossDetailParam.CustId,
-                ReportLevel = reportLevel,
+                UserLevel = userLevel,
                 FromDate = winLossDetailParam.FromDate,
                 ToDate = winLossDetailParam.ToDate,
 
@@ -69,7 +69,7 @@
 
         private WinLossDetailParam CreateParamater(
             WinLossDetailQuery message,
-            UserLevel reportLevel)
+            UserLevel userLevel)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
@@ -82,7 +82,7 @@
                  message.FromDate,
                  message.ToDate,
                  validUserSelectedProductIds,
-                 reportLevel,
+                 userLevel,
                  message.SortPropertyName,
                  message.IsDescendingSort,
                  message.IsHistoricReport);

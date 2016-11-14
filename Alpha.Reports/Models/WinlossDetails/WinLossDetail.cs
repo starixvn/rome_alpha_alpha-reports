@@ -13,10 +13,10 @@
             decimal netTurnover,
             decimal turnover,
             int numberOfTickets,
-            CustWinLoss memberWinLoss,
-            CustWinLoss agentWinLoss,
-            CustWinLoss masterWinLoss,
-            CustWinLoss superWinLoss)
+            NetWinLoss memberNetWinLoss,
+            NetWinLoss agentNetWinLoss,
+            NetWinLoss masterNetWinLoss,
+            NetWinLoss superNetWinLoss)
         {
             CustId = custId;
             CustName = custName;
@@ -24,10 +24,10 @@
             NetTurnover = netTurnover;
             Turnover = turnover;
             NumberOfTickets = numberOfTickets;
-            Member = memberWinLoss;
-            Agent = agentWinLoss;
-            Master = masterWinLoss;
-            Super = superWinLoss;
+            MemberNetWinLoss = memberNetWinLoss;
+            AgentNetWinLoss = agentNetWinLoss;
+            MasterNetWinLoss = masterNetWinLoss;
+            SuperNetWinLoss = superNetWinLoss;
         }
 
         public int CustId { get; }
@@ -42,18 +42,18 @@
 
         public int NumberOfTickets { get; }
 
-        public CustWinLoss Member { get; }
+        public NetWinLoss MemberNetWinLoss { get; }
 
-        public CustWinLoss Agent { get; }
+        public NetWinLoss AgentNetWinLoss { get; }
 
-        public CustWinLoss Master { get; }
+        public NetWinLoss MasterNetWinLoss { get; }
 
-        public CustWinLoss Super { get; }
+        public NetWinLoss SuperNetWinLoss { get; }
 
         public decimal Company =>
-            -(Member.Total
-            + Agent.Total
-            + (Master?.Total ?? 0)
-            + (Super?.Total ?? 0));
+            -(MemberNetWinLoss.Total
+            + AgentNetWinLoss.Total
+            + (MasterNetWinLoss?.Total ?? 0)
+            + (SuperNetWinLoss?.Total ?? 0));
     }
 }

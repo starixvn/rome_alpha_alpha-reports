@@ -78,7 +78,7 @@
         public WinLossDetailFilterViewModel FilterViewModel =>
             new WinLossDetailFilterViewModel(
                 CustId,
-                ReportLevel,
+                UserLevel,
                 IsHistoricReport,
                 DateRangePickerViewModel,
                 MonthPickerViewModel,
@@ -90,7 +90,7 @@
         public LinkActionViewModel LinkActionViewModel(int custId) =>
             new LinkActionViewModel(
                     custId,
-                    (byte)(ReportLevel.Value - 1),
+                    (byte)(UserLevel.Value - 1),
                     FromDate,
                     ToDate,
                     UserSelectedDateRangeOption,
@@ -102,18 +102,18 @@
                     IsStackMode,
                     ReportData.PageSize);
 
-        public UserLevel ReportLevel { get; set; }
+        public UserLevel UserLevel { get; set; }
 
         public string Title
         {
             get
             {
-                if (ReportLevel.IsSuperLevel())
+                if (UserLevel.IsSuperLevel())
                 {
                     return Resources.MasterWinLossDetail;
                 }
 
-                if (ReportLevel.IsMasterLevel())
+                if (UserLevel.IsMasterLevel())
                 {
                     return Resources.AgentWinLossDetail;
                 }

@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Models.WinlossDetails
 {
-    public class CustWinLoss
+    public class NetWinLoss
     {
-        public CustWinLoss(decimal winloss, decimal comm)
+        public NetWinLoss(decimal winloss, decimal comm)
         {
             WinLoss = winloss;
             Comm = comm;

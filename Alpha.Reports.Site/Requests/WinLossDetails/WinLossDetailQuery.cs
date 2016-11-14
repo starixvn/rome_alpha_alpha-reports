@@ -24,7 +24,7 @@
             if (CustId <= 0)
             {
                 CustId = this.userSession.CustId;
-                ReportLevelId = this.userSession.RoleId;
+                UserLevelId = this.userSession.RoleId;
             }
 
             Language = this.userSession.Language;
@@ -48,6 +48,6 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public byte ReportLevelId { get; set; }
+        public byte UserLevelId { get; set; }
     }
 }

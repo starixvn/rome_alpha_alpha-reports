@@ -49,12 +49,7 @@
 
             var winLossDetailData = dataAccess.GetReport(criteria);
 
-            return new ReportData<WinLossDetail>(
-                winLossDetailData.Item1,
-                criteria.PageIndex,
-                criteria.PageSize,
-                criteria.TotalRecords,
-                winLossDetailData.Item2);
+            return winLossDetailData;
         }
     }
 }
