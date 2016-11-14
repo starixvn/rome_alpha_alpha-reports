@@ -6,7 +6,7 @@
     {
         public LinkActionViewModel(
             int custId,
-            byte reportLevelId,
+            byte userLevelId,
             DateTime fromDate,
             DateTime toDate,
             int userSelectedDateRangeOption,
@@ -19,7 +19,7 @@
             int pageSize)
         {
             CustId = custId;
-            ReportLevelId = reportLevelId;
+            UserLevelId = userLevelId;
             FromDate = fromDate;
             ToDate = toDate;
             UserSelectedDateRangeOption = userSelectedDateRangeOption;
@@ -34,7 +34,7 @@
 
         public int CustId { get; }
 
-        public byte ReportLevelId { get; }
+        public byte UserLevelId { get; }
 
         public DateTime FromDate { get; }
 

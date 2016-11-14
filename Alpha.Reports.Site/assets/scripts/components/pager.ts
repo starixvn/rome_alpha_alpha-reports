@@ -1,18 +1,12 @@
 ﻿/// <reference path="../core.ts" />
 "use strict";
 class PagerOption {
-    pagerId: string;
-    onSelectPage: any;
-    formId: string;
-
     constructor(
-        pagerId: string = "report-pager",
-        formId: string = "report-form",
-        onSelectPage: any = null) {
-
-        this.pagerId = pagerId;
-        this.onSelectPage = onSelectPage;
-        this.formId = formId;
+        public onSelectPage: () => void = null,
+        public pagerId: string = "report-pager",
+        public formId: string = "report-form",
+        public pageIndexId: string = "PageIndex",
+        public pageSizeId: string = "PageSize") {
     }
 }
 
@@ -20,42 +14,48 @@ class PagerComponent {
     $: any;
     $pageIndex: any;
     $pageSize: any;
+    $reportForm: any;
 
-    options = new PagerOption();
+    totalRecords: number;
+    pageSize: number;
+    pageIndex: number;
+
+    pageList: number[] = [1000, 2000, 3000, 5000];
+
+    options = new PagerOption(this.onChange);
 
     constructor($: any) {
         this.$ = $;
     }
 
     render = (options: PagerOption = new PagerOption()) => {
-        var self = this;
-        var pickerOptions = this.$.extend({}, this.options, options);
-        var pager = this.$("#" + pickerOptions.pagerId);
+        let self = this;
+        let pagerOption = <PagerOption>this.$.extend({}, this.options, options);
+        let pager = this.$("#" + pagerOption.pagerId);
 
-        pickerOptions.totalRecords = pager.data("totalrecords");
-        pickerOptions.pageSize = pager.data("pagesize");
-        pickerOptions.pageIndex = pager.data("pageindex");
+        this.$reportForm = this.$("#" + this.options.formId);
+        this.totalRecords = pager.data("totalrecords");
+        this.pageSize = pager.data("pagesize");
+        this.pageIndex = pager.data("pageindex");
+        this.$pageIndex = this.$(`<input type="hidden" id="${pagerOption.pageIndexId}" name="${pagerOption.pageIndexId}" value="${this.pageIndex}" />`);
+        this.$pageSize = this.$(`<input type="hidden" id="${pagerOption.pageSizeId}" name="${pagerOption.pageSizeId}" value="${this.pageSize}" />`);
 
-        var reportForm = this.$("#" + this.options.formId);
-        this.$pageIndex = this.$(`<input type="hidden" id="PageIndex" name="PageIndex" value="${pickerOptions.pageIndex}" />`);
-        this.$pageSize = this.$(`<input type="hidden" id="PageSize" name="PageSize" value="${pickerOptions.pageSize}" />`);
-        reportForm.append(this.$pageIndex);
-        reportForm.append(this.$pageSize);
+        this.$reportForm.append(this.$pageIndex).append(this.$pageSize);
 
-        if (pickerOptions.totalRecords < alphaReports.pageList[0]) {
+        if (this.totalRecords < this.pageList[0]) {
             // total records less than min page size => do not need to show pager
             pager.addClass("hide");
         } else {
             pager.pagination({
-                pageList: alphaReports.pageList,
-                total: pickerOptions.totalRecords,
-                pageSize: pickerOptions.pageSize,
-                pageNumber: pickerOptions.pageIndex,
+                pageList: this.pageList,
+                total: this.totalRecords,
+                pageSize: this.pageSize,
+                pageNumber: this.pageIndex,
 
                 showRefresh: false,
                 onSelectPage: function (pageNumber: number, pageSize: number) {
                     self.updateHiddenFields(pageNumber, pageSize);
-                    pickerOptions.onSelectPage();
+                    self.onChange();
                 },
                 beforePageText: pager.data("lablepage"),
                 afterPageText: pager.data("labelof") + " {pages}",
@@ -68,10 +68,12 @@ class PagerComponent {
         return pager;
     }
 
+    onChange = () => {
+        this.$reportForm.trigger("submit");
+    }
+
     updateHiddenFields = (pageNumber: number, pageSize: number) => {
         this.$pageIndex.val(pageNumber);
         this.$pageSize.val(pageSize);
     }
 }
-
-const pagerComponent = new PagerComponent($);

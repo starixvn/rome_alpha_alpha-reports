@@ -10,7 +10,7 @@
     {
         public WinLossDetailFilterViewModel(
             int custId,
-            UserLevel reportLevel,
+            UserLevel userLevel,
             bool isHictoricReport,
             DateRangePickerViewModel dateRangePickerViewModel,
             MonthPickerViewModel monthPickerViewModel,
@@ -31,12 +31,12 @@
             minDate.ToShortDateWithSlash());
             IsDirectReportViewAction = isDirectReportViewAction;
             Visible = visible;
-            ReportLevel = reportLevel;
+            UserLevel = userLevel;
         }
 
         public int CustId { get; }
 
-        public UserLevel ReportLevel { get; }
+        public UserLevel UserLevel { get; }
 
         public bool IsHistoricReport { get; }
 

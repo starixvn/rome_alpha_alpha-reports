@@ -11,7 +11,6 @@
 class WinLossDetailView {
     $: any;
 
-    $pager: any;
     $dropdownProduct: any;
 
     $pageTitle: any;
@@ -36,12 +35,15 @@ class WinLossDetailView {
     levels = ["member", "agent", "master", "super"];
 
     dateRangePickerComponent: DateRangePickerComponent;
+    pagerComponent: PagerComponent;
 
     constructor(
         $: any,
-        dateRangePickerComponent: DateRangePickerComponent) {
+        dateRangePickerComponent: DateRangePickerComponent,
+        pageComponent: PagerComponent) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
+        this.pagerComponent = pageComponent;
     }
 
     init = () => {
@@ -61,11 +63,7 @@ class WinLossDetailView {
         }
 
         this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
-        this.$pager = pagerComponent.render(
-            new PagerOption(undefined, undefined,
-                function () {
-            self.$reportForm.trigger("submit");
-            }));
+        this.pagerComponent.render();
 
         sortComponent.render({
             sortContainer: this.$tableReport,
@@ -170,8 +168,6 @@ class WinLossDetailView {
 
         return {
             CustId: tableReport.data("custid"),
-            PageIndex: this.$pager.data("pageindex"),
-            PageSize: this.$pager.data("pagesize"),
             IsAnyProductSelected: selectedProducts.length > 0,
             SortPropertyName: sortInfo.SortPropertyName,
             IsDescendingSort: sortInfo.IsDescendingSort,
@@ -219,7 +215,7 @@ class WinLossDetailView {
     };
 }
 
-const winLossDetailView = new WinLossDetailView($, new DateRangePickerComponent($));
+const winLossDetailView = new WinLossDetailView($, new DateRangePickerComponent($), new PagerComponent($));
 
 $(function () {
     winLossDetailView.init();
