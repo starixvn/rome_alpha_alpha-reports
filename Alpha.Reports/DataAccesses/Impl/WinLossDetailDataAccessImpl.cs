@@ -11,7 +11,7 @@
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {
-        public ReportData<WinLossDetail> GetReport(WinLossDetailCriteria criteria)
+        public ReportData<WinLossDetail> GetData(WinLossDetailCriteria criteria)
         {
             if (criteria == null)
             {
@@ -20,21 +20,21 @@
 
             var winLossDetails = new List<WinLossDetail>();
             var totalWinLoss = new WinLossDetail();
+
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria))
                 {
-                    while (reader.Read())
-                    {
-                        winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel));
-                    }
-
-                    if (reader.NextResult())
+                    if (reader != null)
                     {
                         while (reader.Read())
                         {
+                            winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel));
+                        }
+
+                        if (reader.NextResult() && reader.Read())
+                        {
                             totalWinLoss = BuildWinLossDetail(reader, criteria.ReportLevel);
-                            break;
                         }
                     }
                 }
@@ -50,19 +50,6 @@
 
         private WinLossDetail BuildWinLossDetail(IDataReader reader, UserLevel reportLevel)
         {
-            NetWinLoss masterNetWinLoss = null;
-            NetWinLoss superNetWinLoss = null;
-
-            if (reportLevel.IsMasterOrSuperLevel())
-            {
-                masterNetWinLoss = new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm"));
-            }
-
-            if (reportLevel.IsSuperLevel())
-            {
-                superNetWinLoss = new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm"));
-            }
-
             var winLossDetail = new WinLossDetail(
                 custId: reader.ToInt("CustId"),
                 custName: reader.ToString("CustName"),
@@ -72,8 +59,8 @@
                 numberOfTickets: reader.ToInt("NumberOfTickets"),
                 memberNetWinLoss: new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")),
                 agentNetWinLoss: new NetWinLoss(reader.ToDecimal("AgWinLoss"), reader.ToDecimal("AgComm")),
-                masterNetWinLoss: masterNetWinLoss,
-                superNetWinLoss: superNetWinLoss);
+                masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ? new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) : null,
+                superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null);
 
             return winLossDetail;
         }

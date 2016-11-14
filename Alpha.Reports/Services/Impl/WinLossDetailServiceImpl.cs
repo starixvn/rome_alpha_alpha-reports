@@ -47,7 +47,7 @@
                 validUserSelectedProductIds,
                 param.ReportLevel);
 
-            var winLossDetailData = dataAccess.GetReport(criteria);
+            var winLossDetailData = dataAccess.GetData(criteria);
 
             return winLossDetailData;
         }
