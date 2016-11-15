@@ -1,8 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
     using MediatR;
-    using Models;
-    using Models.Enumerations;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLossDetails;

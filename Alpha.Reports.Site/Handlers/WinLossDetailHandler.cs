@@ -8,7 +8,6 @@
     using MediatR;
     using Models;
     using Models.Enumerations;
-    using Models.WinlossDetails;
     using Params;
     using Requests.WinLossDetails;
     using Services;

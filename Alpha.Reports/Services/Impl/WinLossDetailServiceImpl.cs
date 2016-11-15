@@ -1,11 +1,8 @@
 ﻿namespace Alpha.Reports.Services.Impl
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Criteria.WinLossDetail;
     using DataAccesses;
-    using Fanex.Data.Repository;
     using Models;
     using Models.WinlossDetails;
     using Params;
@@ -47,7 +44,7 @@
                 validUserSelectedProductIds,
                 param.ReportLevel);
 
-            var winLossDetailData = dataAccess.GetData(criteria);
+            var winLossDetailData = dataAccess.GetData(criteria);            
 
             return winLossDetailData;
         }

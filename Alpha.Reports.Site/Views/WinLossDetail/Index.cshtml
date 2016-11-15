@@ -52,35 +52,35 @@
         </tr>
         <tr class="thead-row2">
 
-            <th class="hidden-stack-mode col-winloss" data-sortedname="Member.WinLoss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode" data-sortedname="Member.Comm">@Resources.Comm</th>
-            <th class="hidden-stack-mode" data-sortedname="Member.Total">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="Member.WinLoss">
+            <th class="hidden-stack-mode col-winloss" data-sortedname="MemberNetWinLoss.WinLoss">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="MemberNetWinLoss.Comm">@Resources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="MemberNetWinLoss.Total">@Resources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MemberNetWinLoss.WinLoss">
                 <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
             </th>
 
-            <th class="hidden-stack-mode col-winloss" data-sortedname="Agent.WinLoss">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode" data-sortedname="Agent.Comm">@Resources.Comm</th>
-            <th class="hidden-stack-mode" data-sortedname="Agent.Total">@Resources.Total</th>
-            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="Agent.WinLoss">
+            <th class="hidden-stack-mode col-winloss" data-sortedname="AgentNetWinLoss.WinLoss">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode" data-sortedname="AgentNetWinLoss.Comm">@Resources.Comm</th>
+            <th class="hidden-stack-mode" data-sortedname="AgentNetWinLoss.Total">@Resources.Total</th>
+            <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="AgentNetWinLoss.WinLoss">
                 <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
             </th>
             @if (Model.UserLevel.IsMasterOrSuperLevel())
             {
-                <th class="hidden-stack-mode col-winloss" data-sortedname="Master.WinLoss">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode" data-sortedname="Master.Comm">@Resources.Comm</th>
-                <th class="hidden-stack-mode" data-sortedname="Master.Total">@Resources.Total</th>
-                <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="Master.WinLoss">
+                <th class="hidden-stack-mode col-winloss" data-sortedname="MasterNetWinLoss.WinLoss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode" data-sortedname="MasterNetWinLoss.Comm">@Resources.Comm</th>
+                <th class="hidden-stack-mode" data-sortedname="MasterNetWinLoss.Total">@Resources.Total</th>
+                <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="MasterNetWinLoss.WinLoss">
                     <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
                 </th>
             }
 
             @if (Model.UserLevel.IsSuperLevel())
             {
-                <th class="hidden-stack-mode col-winloss" data-sortedname="Super.WinLoss">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode" data-sortedname="Super.Comm">@Resources.Comm</th>
-                <th class="hidden-stack-mode" data-sortedname="Super.Total">@Resources.Total</th>
-                <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="Super.WinLoss">
+                <th class="hidden-stack-mode col-winloss" data-sortedname="SuperNetWinLoss.WinLoss">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode" data-sortedname="SuperNetWinLoss.Comm">@Resources.Comm</th>
+                <th class="hidden-stack-mode" data-sortedname="SuperNetWinLoss.Total">@Resources.Total</th>
+                <th colspan="3" class="visible-stack-mode col-combine" data-sortedname="SuperNetWinLoss.WinLoss">
                     <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
                 </th>
             }
@@ -89,7 +89,10 @@
     @if (Model.ReportData.Any())
     {
         <tbody>
-            @foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+            @foreach (var data in Model
+                            .ReportData
+                            .DataSource
+                            .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, betListPath)
             }
