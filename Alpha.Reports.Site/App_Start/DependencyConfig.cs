@@ -6,6 +6,8 @@
     using Controllers;
     using DataAccesses;
     using DataAccesses.Impl;
+    using Excels;
+    using Excels.Impl;
     using Fanex.Data.Repository;
     using MediatR;
     using RemotingRef;
@@ -69,6 +71,8 @@
             container.Register<ReportDateService, ReportDateServiceImpl>(Lifestyle.Transient);
             container.Register<ProductService, ProductServiceImpl>(Lifestyle.Transient);
             container.Register<WinLossDetailService, WinLossDetailServiceImpl>(Lifestyle.Transient);
+
+            container.Register<WinLossDetailExcelExporter, WinLossDetailExcelExporterImpl>(Lifestyle.Transient);
         }
 
         private static void RegisterDataAccesses(Container container)

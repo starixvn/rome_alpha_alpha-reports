@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Extensions;
     using MediatR;
     using Models;
     using Models.Enumerations;
     using Params;
+    using Reports.Extensions;
     using Requests.WinLossDetails;
     using Services;
     using ViewModels.WinLossDetails;

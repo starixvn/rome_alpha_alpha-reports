@@ -3,8 +3,8 @@
     using System;
     using App_GlobalResources;
     using Components;
-    using Extensions;
     using Models;
+    using Reports.Extensions;
 
     public class WinLossDetailFilterViewModel
     {

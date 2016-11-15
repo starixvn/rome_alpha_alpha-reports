@@ -152,6 +152,14 @@ class WinLossDetailView {
         });
 
         this.$reportForm.submit(this.onSubmitReportEvent);
+
+        this.$("#icon-excel").on("click", function () {
+            self.$reportForm.attr("action", "WinLossDetail/Excel");
+            self.$reportForm.submit();
+
+            self.$reportForm.attr("action", null);
+            self.$.unblockUI();
+        });
     };
     hideFilter = () => {
         var self = this;
