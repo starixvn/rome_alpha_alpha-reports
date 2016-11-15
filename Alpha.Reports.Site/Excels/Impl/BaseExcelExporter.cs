@@ -180,7 +180,7 @@
 
         private int[] GetExportRange(int dataLength, int sheetIndex)
         {
-            var startIndex = sheetIndex * MaxRowPerSheet;
+            var startIndex = (sheetIndex - 1) * MaxRowPerSheet;
             var endIndex = startIndex + MaxRowPerSheet;
 
             if (endIndex > dataLength)

@@ -13,7 +13,7 @@
 
     public class WinLossDetailExcelExporterImpl : BaseExcelExporter, WinLossDetailExcelExporter
     {
-        private UserLevel reportLevel;
+        private UserLevel userLevel;
 
         public byte[] Export(string templatePath, WinLossDetailViewModel viewModel)
         {
@@ -22,7 +22,7 @@
                 throw new ArgumentNullException("viewModel");
             }
 
-            reportLevel = viewModel.ReportLevel;
+            userLevel = viewModel.UserLevel;
 
             var reportData = new ReportData<WinLossDetail>(
                 viewModel.ReportData.DataSource.OrderBy(viewModel.SortPropertyName, viewModel.IsDescendingSort),
@@ -31,9 +31,9 @@
                 viewModel.ReportData.TotalRecords,
                 viewModel.ReportData.TotalData);
 
-            var maxColNumber = viewModel.ReportLevel.IsSuperLevel()
+            var maxColNumber = viewModel.UserLevel.IsSuperLevel()
                 ? 18
-                : viewModel.ReportLevel.IsMasterLevel()
+                : viewModel.UserLevel.IsMasterLevel()
                 ? 15
                 : 12;
 
@@ -76,13 +76,13 @@
 
             var netWinLossGroupNumber = 2;
 
-            if (reportLevel.IsSuperLevel() || reportLevel.IsMasterLevel())
+            if (userLevel.IsSuperLevel() || userLevel.IsMasterLevel())
             {
                 currentColIndex += ExportNetWinLossHeader(sheet, currentRow, Resources.Master, currentRowIndex, currentColIndex);
                 netWinLossGroupNumber++;
             }
 
-            if (reportLevel.IsSuperLevel())
+            if (userLevel.IsSuperLevel())
             {
                 currentColIndex += ExportNetWinLossHeader(sheet, currentRow, Resources.Super, currentRowIndex, currentColIndex);
                 netWinLossGroupNumber++;
@@ -136,10 +136,10 @@
             row.WriteCell(currentColIndex++, data.NetTurnover);
             row.WriteCell(currentColIndex++, data.GrossComm);
 
-            currentColIndex += ExportNetWinLoss(row, data.Member, currentColIndex);
-            currentColIndex += ExportNetWinLoss(row, data.Agent, currentColIndex);
-            currentColIndex += ExportNetWinLoss(row, data.Master, currentColIndex);
-            currentColIndex += ExportNetWinLoss(row, data.Super, currentColIndex);
+            currentColIndex += ExportNetWinLoss(row, data.MemberNetWinLoss, currentColIndex);
+            currentColIndex += ExportNetWinLoss(row, data.AgentNetWinLoss, currentColIndex);
+            currentColIndex += ExportNetWinLoss(row, data.MasterNetWinLoss, currentColIndex);
+            currentColIndex += ExportNetWinLoss(row, data.SuperNetWinLoss, currentColIndex);
 
             row.WriteCell(currentColIndex++, data.Company);
         }
@@ -167,15 +167,15 @@
             row.WriteCell(currentColIndex++, data.NetTurnover);
             row.WriteCell(currentColIndex++, data.GrossComm);
 
-            currentColIndex += ExportNetWinLoss(row, data.Member, currentColIndex);
-            currentColIndex += ExportNetWinLoss(row, data.Agent, currentColIndex);
-            currentColIndex += ExportNetWinLoss(row, data.Master, currentColIndex);
-            currentColIndex += ExportNetWinLoss(row, data.Super, currentColIndex);
+            currentColIndex += ExportNetWinLoss(row, data.MemberNetWinLoss, currentColIndex);
+            currentColIndex += ExportNetWinLoss(row, data.AgentNetWinLoss, currentColIndex);
+            currentColIndex += ExportNetWinLoss(row, data.MasterNetWinLoss, currentColIndex);
+            currentColIndex += ExportNetWinLoss(row, data.SuperNetWinLoss, currentColIndex);
 
             row.WriteCell(currentColIndex++, data.Company);
         }
 
-        private int ExportNetWinLoss(IRow row, CustWinLoss netWinLoss, int currentColIndex)
+        private int ExportNetWinLoss(IRow row, NetWinLoss netWinLoss, int currentColIndex)
         {
             if (netWinLoss == null)
             {
@@ -229,13 +229,13 @@
             sheet.MergeCells(currentRowIndex, currentColIndex, currentRowIndex, currentColIndex + 2);
             currentColIndex += 3;
 
-            if (reportLevel.IsSuperLevel() || reportLevel.IsMasterLevel())
+            if (userLevel.IsSuperLevel() || userLevel.IsMasterLevel())
             {
                 sheet.MergeCells(currentRowIndex, currentColIndex, currentRowIndex, currentColIndex + 2);
                 currentColIndex += 3;
             }
 
-            if (reportLevel.IsSuperLevel())
+            if (userLevel.IsSuperLevel())
             {
                 sheet.MergeCells(currentRowIndex, currentColIndex, currentRowIndex, currentColIndex + 2);
                 currentColIndex += 3;
