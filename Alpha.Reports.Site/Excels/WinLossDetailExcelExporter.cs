@@ -1,9 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Excels
 {
-    using System.IO;
+    using ViewModels.WinLossDetails;
 
     public interface WinLossDetailExcelExporter
     {
-        MemoryStream Member(string templatePath);
+        byte[] Export(string templatePath, WinLossDetailViewModel viewModel);
     }
 }

@@ -22,19 +22,21 @@
 
         public ActionResult Index(WinLossDetailQuery message)
         {
-        [HttpGet]
-        public ActionResult MemberExcel(WinLossDetailQuery<MemberWinLossDetail> message)
-        {
-            var excelTemplate = HttpContext.Server.MapPath(ExcelTemplatePath);
-
-            var excelStream = excelExporter.Member(excelTemplate);
-
-            return File(excelStream.ToArray(), ExcelHelper.ContentType, ExcelHelper.GetFileName(Resources.MemberWinLossDetail));
-        }
-
             var viewModel = mediator.Send(message);
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Excel(WinLossDetailQuery message)
+        {
+            var viewModel = mediator.Send(message);
+
+            var excelTemplate = HttpContext.Server.MapPath(ExcelTemplatePath);
+
+            var fileContents = excelExporter.Export(excelTemplate, viewModel);
+
+            return File(fileContents, ExcelHelper.ContentType, ExcelHelper.GetFileName(Resources.MemberWinLossDetail));
         }
     }
 }

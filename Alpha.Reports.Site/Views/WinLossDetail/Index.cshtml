@@ -1,10 +1,10 @@
-﻿﻿@using Alpha.Reports.Site.Helpers
+﻿@using Alpha.Reports.Site.Helpers
 @using Alpha.Reports.Site.Configurations
 
 @model WinLossDetailViewModel
 
 @{
-    string betListPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_BetList/BetList.aspx";
+    ViewBag.BetListPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_BetList/BetList.aspx";
 }
 
 @Html.Partial("_NetTurnoverTooltips", Model.NetTurnoverTooltips)
@@ -16,7 +16,6 @@
         { "IsDescendingSort", Model.IsDescendingSort },
         { "SortPropertyName", Model.SortPropertyName }
     })
-
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.TotalRecords"
@@ -93,12 +92,12 @@
                             .ReportData
                             .DataSource
                             .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
-            {
-                @RenderRow(data, false, betListPath)
+                {
+                @RenderRow(data, false, ViewBag.BetListPath)
             }
         </tbody>
         <tfoot>
-            @RenderRow(Model.ReportData.TotalData, true, betListPath)
+            @RenderRow(Model.ReportData.TotalData, true, ViewBag.BetListPath)
         </tfoot>
     }
     else
@@ -122,13 +121,13 @@
         <td>
             @if (isTotalRow)
             {
-                @Resources.Total
+            @Resources.Total
             }
             else
             {
                 if (Model.UserLevel.IsAgentLevel())
                 {
-                    @Html.ActionLink(
+            @Html.ActionLink(
                     linkText: data.CustName,
                     actionName: betListPath,
                     controllerName: string.Empty,
@@ -145,7 +144,7 @@
                 }
                 else
                 {
-                    @Html.ActionLink(
+            @Html.ActionLink(
                               linkText: data.CustName,
                               actionName: "Index",
                               controllerName: "WinLossDetail",
@@ -161,7 +160,7 @@
         <td class="text-right">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
-            @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
+        @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
 
             @RenderStackCustWinLoss(UserLevel.Member, data.MemberNetWinLoss);
             @RenderStackCustWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
@@ -170,9 +169,9 @@
         }
         else
         {
-            @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
-            @HtmlHelpers.RenderNumberCell(data.NetTurnover)
-            @HtmlHelpers.RenderNumberCell(data.GrossComm)
+        @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
+        @HtmlHelpers.RenderNumberCell(data.NetTurnover)
+        @HtmlHelpers.RenderNumberCell(data.GrossComm)
 
             @RenderCustWinLoss(UserLevel.Member, data.MemberNetWinLoss)
             @RenderCustWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
@@ -186,11 +185,11 @@
 @helper RenderStackCustWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
     if (netWinLoss == null)
-    {
-        return;
-    }
+{
+    return;
+}
 
-    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
     @HtmlHelpers.RenderStackCell(
         $"col-{level.DisplayName.ToLower()}-winloss-combined {highlightCellClass}",
@@ -203,11 +202,11 @@
 @helper RenderCustWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
     if (netWinLoss == null)
-    {
-        return;
-    }
+{
+    return;
+}
 
-    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
     @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
     @HtmlHelpers.RenderNumberCell(netWinLoss.Comm, highlightCellClass)

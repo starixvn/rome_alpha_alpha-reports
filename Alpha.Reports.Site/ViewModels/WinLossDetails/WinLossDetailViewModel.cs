@@ -6,9 +6,9 @@
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
-    using Extensions;
     using Models;
     using Models.WinlossDetails;
+    using Reports.Extensions;
 
     public class WinLossDetailViewModel
     {
