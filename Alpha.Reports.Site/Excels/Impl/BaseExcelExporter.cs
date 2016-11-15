@@ -30,7 +30,7 @@
         protected const int EvenRowTotalNumberIndex = 9;
         protected const int OddRowTotalNumberIndex = 10;
 
-        private const int MaxRowPerSheet = 1;
+        private const int MaxRowPerSheet = 3000;
         private const string DefaultSheetName = "ReportSheet";
 
         protected ISheet TemplateSheet { get; set; }

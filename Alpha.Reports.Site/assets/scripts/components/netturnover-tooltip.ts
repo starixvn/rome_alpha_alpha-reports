@@ -2,13 +2,9 @@
 
 "use strict";
 class NetTurnoverTooltipOption {
-    tooltipId: string;
-    closeTooltipId: string;
-
-    constructor(tooltipId: string = "netturnovertooltip",
-        closeTooltipId: string = "close-netturnover-tooltip") {
-        this.tooltipId = tooltipId;
-        this.closeTooltipId = closeTooltipId;
+    constructor(
+        public tooltipId: string = "netturnovertooltip",
+        public closeTooltipId: string = "close-netturnover-tooltip") {
     }
 }
 
