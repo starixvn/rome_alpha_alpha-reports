@@ -30,7 +30,7 @@
         protected const int EvenRowTotalNumberIndex = 9;
         protected const int OddRowTotalNumberIndex = 10;
 
-        private const int MaxRowPerSheet = 3000;
+        private const int MaxRowPerSheet = 1;
         private const string DefaultSheetName = "ReportSheet";
 
         protected ISheet TemplateSheet { get; set; }
@@ -67,7 +67,7 @@
             }
             else
             {
-                for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
+                for (var sheetIndex = 1; sheetIndex <= numberOfSheet; sheetIndex++)
                 {
                     ExportSheet(workbook, numberOfSheet, sheetIndex, query);
                 }
@@ -143,18 +143,13 @@
         private void ExportSheet<T>(HSSFWorkbook workbook, int numberOfSheet, int sheetIndex, ExportExcelQuery<T> query) where T : class
         {
             ISheet resultSheet = workbook.GetSheet(DefaultSheetName);
-            var sheetNameByPage = numberOfSheet == 1 ? query.SheetName : $"{query.SheetName} - {sheetIndex + 1}";
-            if (numberOfSheet > 1)
-            {
-                if (sheetIndex == 0)
-                {
-                    workbook.SetSheetName(sheetIndex, sheetNameByPage);
-                }
+            var sheetNameByPage = numberOfSheet == 1 ? query.SheetName : $"{query.SheetName} - {sheetIndex}";
+            workbook.SetSheetName(sheetIndex, sheetNameByPage);
 
-                if (sheetIndex != numberOfSheet - 1)
-                {
-                    workbook.SetSheetName(sheetIndex + 2, DefaultSheetName);
-                }
+            if (sheetIndex != numberOfSheet)
+            {
+                workbook.CloneSheet(sheetIndex);
+                workbook.SetSheetName(sheetIndex + 1, DefaultSheetName);
             }
 
             TemplateSheet.CopyRow(resultSheet, OriginTemplateRowIndex, ResultTemplateRowIndex);

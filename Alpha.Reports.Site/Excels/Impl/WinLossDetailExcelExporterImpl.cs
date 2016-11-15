@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Excels.Impl
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using App_GlobalResources;
     using Extensions;
@@ -125,8 +124,11 @@
 
             templateIndex = isEvenRow ? EvenRowTotalNumberIndex : OddRowTotalNumberIndex;
             var templateCell = TemplateRow.GetCell(templateIndex);
-            templateCell.CopyCell(currentRowIndex, currentColIndex + 6);
-            templateCell.CopyCell(currentRowIndex, currentColIndex + 9);
+
+            for (var i = currentColIndex + 6; i < maxColNumber; i += 3)
+            {
+                templateCell.CopyCell(currentRowIndex, i);
+            }
 
             row.WriteCell(currentColIndex++, data.NumberOfTickets);
 
@@ -227,11 +229,17 @@
             sheet.MergeCells(currentRowIndex, currentColIndex, currentRowIndex, currentColIndex + 2);
             currentColIndex += 3;
 
-            sheet.MergeCells(currentRowIndex, currentColIndex, currentRowIndex, currentColIndex + 2);
-            currentColIndex += 3;
+            if (reportLevel.IsSuperLevel() || reportLevel.IsMasterLevel())
+            {
+                sheet.MergeCells(currentRowIndex, currentColIndex, currentRowIndex, currentColIndex + 2);
+                currentColIndex += 3;
+            }
 
-            sheet.MergeCells(currentRowIndex, currentColIndex, currentRowIndex, currentColIndex + 2);
-            currentColIndex += 3;
+            if (reportLevel.IsSuperLevel())
+            {
+                sheet.MergeCells(currentRowIndex, currentColIndex, currentRowIndex, currentColIndex + 2);
+                currentColIndex += 3;
+            }
 
             sheet.MergeCells(currentRowIndex, currentColIndex, currentRowIndex + 1, currentColIndex);
         }
