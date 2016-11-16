@@ -58,7 +58,7 @@
 
             TemplateSheet = workbook.GetSheet("Template");
 
-            var numberOfRecords = query.ReportData.DataSource.Count();
+            var numberOfRecords = query.DataLength;
             var numberOfSheet = (numberOfRecords / MaxRowPerSheet) + (numberOfRecords % MaxRowPerSheet != 0 ? 1 : 0);
 
             if (numberOfSheet == 0)

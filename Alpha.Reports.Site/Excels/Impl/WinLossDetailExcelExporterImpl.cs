@@ -7,7 +7,6 @@
     using Models;
     using Models.WinlossDetails;
     using NPOI.SS.UserModel;
-    using Reports.Extensions;
     using Requests;
     using ViewModels.WinLossDetails;
 
@@ -24,29 +23,18 @@
 
             userLevel = viewModel.UserLevel;
 
-            var reportData = new ReportData<WinLossDetail>(
-                viewModel.ReportData.DataSource.OrderBy(viewModel.SortPropertyName, viewModel.IsDescendingSort),
-                viewModel.ReportData.CurrentPageIndex,
-                viewModel.ReportData.PageSize,
-                viewModel.ReportData.TotalRecords,
-                viewModel.ReportData.TotalData);
-
-            var maxColNumber = viewModel.UserLevel.IsSuperLevel()
-                ? 18
-                : viewModel.UserLevel.IsMasterLevel()
-                ? 15
-                : 12;
+            var maxColNumber = userLevel.IsSuperLevel() ? 18 : userLevel.IsMasterLevel() ? 15 : 12;
 
             return Export(new ExportExcelQuery<WinLossDetail>
             {
                 TemplatePath = templatePath,
-                Title = Resources.MemberWinLossDetail,
-                ReportData = reportData,
+                Title = viewModel.Title,
+                ReportData = viewModel.ReportData,
                 DataLength = viewModel.ReportData.DataSource.Count(),
                 MaxColNumber = maxColNumber,
                 FromDate = viewModel.FromDate,
                 ToDate = viewModel.ToDate,
-                SheetName = Resources.MemberWinLossDetail
+                SheetName = viewModel.Title
             });
         }
 
