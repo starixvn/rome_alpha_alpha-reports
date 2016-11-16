@@ -23,15 +23,13 @@
 
             userLevel = viewModel.UserLevel;
 
-            var maxColNumber = userLevel.IsSuperLevel() ? 18 : userLevel.IsMasterLevel() ? 15 : 12;
-
             return Export(new ExportExcelQuery<WinLossDetail>
             {
                 TemplatePath = templatePath,
                 Title = viewModel.Title,
                 ReportData = viewModel.ReportData,
                 DataLength = viewModel.ReportData.DataSource.Count(),
-                MaxColNumber = maxColNumber,
+                MaxColNumber = userLevel.IsSuperLevel() ? 18 : userLevel.IsMasterLevel() ? 15 : 12,
                 FromDate = viewModel.FromDate,
                 ToDate = viewModel.ToDate,
                 SheetName = viewModel.Title
