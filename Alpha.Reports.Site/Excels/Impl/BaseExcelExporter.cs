@@ -58,12 +58,12 @@
 
             TemplateSheet = workbook.GetSheet("Template");
 
-            var numberOfRecords = query.ReportData.TotalRecords;
+            var numberOfRecords = query.ReportData.DataSource.Count();
             var numberOfSheet = (numberOfRecords / MaxRowPerSheet) + (numberOfRecords % MaxRowPerSheet != 0 ? 1 : 0);
 
             if (numberOfSheet == 0)
             {
-                ExportSheet(workbook, numberOfSheet, 0, query);
+                ExportSheet(workbook, 1, 1, query);
             }
             else
             {
