@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using NPOI.SS.UserModel;
 
-    public static class IRowExtension
+    public static class RowExtension
     {
         public static void CopyCells(this IRow sourceRow, IRow targetRow)
         {

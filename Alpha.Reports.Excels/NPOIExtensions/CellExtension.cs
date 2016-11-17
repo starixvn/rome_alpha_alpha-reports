@@ -5,7 +5,7 @@
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
-    public static class ICellExtension
+    public static class CellExtension
     {
         public static void CopyMergeInfo(this ICell sourceCell, ICell targetCell)
         {

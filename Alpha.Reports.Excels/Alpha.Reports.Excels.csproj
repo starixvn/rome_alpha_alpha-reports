@@ -73,9 +73,9 @@
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="Models\TemplateSheetModel.cs" />
     <Compile Include="NPOIExtensions\HSSFWorkbookExtension.cs" />
-    <Compile Include="NPOIExtensions\ICellExtension.cs" />
-    <Compile Include="NPOIExtensions\IRowExtension.cs" />
-    <Compile Include="NPOIExtensions\ISheetExtension.cs" />
+    <Compile Include="NPOIExtensions\CellExtension.cs" />
+    <Compile Include="NPOIExtensions\RowExtension.cs" />
+    <Compile Include="NPOIExtensions\SheetExtension.cs" />
     <Compile Include="Params\ExportExcelParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Impl\BaseExcelExporter.cs" />

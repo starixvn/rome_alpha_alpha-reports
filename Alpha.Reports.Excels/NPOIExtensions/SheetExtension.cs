@@ -4,7 +4,7 @@
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
-    public static class ISheetExtension
+    public static class SheetExtension
     {
         public static void CopyRow(this ISheet sourceSheet, ISheet targetSheet, int sourceRowIndex, int destinateRowIndex)
         {
