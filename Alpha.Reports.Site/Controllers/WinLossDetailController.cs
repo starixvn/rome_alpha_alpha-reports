@@ -41,12 +41,17 @@
 
             var viewModel = mediator.Send(message);
 
-            var excelTemplate = HttpContext.Server.MapPath("~/App_Data/MemberWinLossDetail.xls");
+            var excelTemplate =
+                viewModel.UserLevel.IsSuperLevel()
+                ? "~/App_Data/MasterWinLossDetail.xls"
+                : viewModel.UserLevel.IsMasterLevel()
+                ? "~/App_Data/AgentWinLossDetail.xls"
+                : "~/App_Data/MemberWinLossDetail.xls";
 
             var fileContents = excelExporter.Export(
                 new ExportExcelParam<WinLossDetail>
                 {
-                    TemplatePath = excelTemplate,
+                    TemplatePath = HttpContext.Server.MapPath(excelTemplate),
                     Title = viewModel.Title,
                     SheetName = viewModel.Title,
                     ReportData = viewModel.ReportData,
