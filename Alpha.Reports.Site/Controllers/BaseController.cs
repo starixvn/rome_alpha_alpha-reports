@@ -13,8 +13,6 @@
     [SessionState(SessionStateBehavior.ReadOnly)]
     public abstract class BaseController : Controller
     {
-        protected const string ExcelTemplatePath = "~/App_Data/ExcelTemplate.xls";
-
         private const string DefaultLanguageCode = "en-US";
         private CultureInfo defaultCulture = CultureInfo.CreateSpecificCulture(DefaultLanguageCode);
 

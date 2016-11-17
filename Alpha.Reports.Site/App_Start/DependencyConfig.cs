@@ -6,8 +6,8 @@
     using Controllers;
     using DataAccesses;
     using DataAccesses.Impl;
-    using Excels;
-    using Excels.Impl;
+    using Excels.Services;
+    using Excels.Services.Impl;
     using Fanex.Data.Repository;
     using MediatR;
     using RemotingRef;

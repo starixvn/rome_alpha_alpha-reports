@@ -1,10 +1,12 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
+    using System;
     using System.Web.Mvc;
-    using App_GlobalResources;
-    using Excels;
-    using Helpers;
+    using Excels.Helpers;
+    using Excels.Params;
+    using Excels.Services;
     using MediatR;
+    using Models.WinlossDetails;
     using Requests.WinLossDetails;
 
     public class WinLossDetailController : BaseController
@@ -30,13 +32,31 @@
         [HttpGet]
         public ActionResult Excel(WinLossDetailQuery message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            message.PageSize = int.MaxValue - 1;
+
             var viewModel = mediator.Send(message);
 
-            var excelTemplate = HttpContext.Server.MapPath(ExcelTemplatePath);
+            var excelTemplate = HttpContext.Server.MapPath("~/App_Data/MemberWinLossDetail.xls");
 
-            var fileContents = excelExporter.Export(excelTemplate, viewModel);
+            var fileContents = excelExporter.Export(
+                new ExportExcelParam<WinLossDetail>
+                {
+                    TemplatePath = excelTemplate,
+                    Title = viewModel.Title,
+                    SheetName = viewModel.Title,
+                    ReportData = viewModel.ReportData,
+                    CustId = viewModel.CustId,
+                    FromDate = viewModel.FromDate,
+                    ToDate = viewModel.ToDate
+                },
+                viewModel.UserLevel);
 
-            return File(fileContents, ExcelHelper.ContentType, ExcelHelper.GetFileName(Resources.MemberWinLossDetail));
+            return File(fileContents, ExcelHelper.ContentType, ExcelHelper.GetFileName(viewModel.Title));
         }
     }
 }
