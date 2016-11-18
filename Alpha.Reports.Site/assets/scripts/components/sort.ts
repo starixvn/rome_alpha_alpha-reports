@@ -4,13 +4,16 @@
 class SortOption {
     sortContainer: any;
     canSort: boolean;
+    serverSort: boolean;
     afterSortFunction: any;
 
     constructor(sortContainer: any = null,
         canSort: boolean = true,
+        serverSort: boolean = true,
         afterSortFunction: any = null) {
         this.sortContainer = sortContainer;
         this.canSort = canSort;
+        this.serverSort = serverSort;
         this.afterSortFunction = afterSortFunction;
     }
 }
@@ -34,8 +37,8 @@ class SortComponent {
         if (!componentOptions.canSort) {
             sortColumns.removeAttr("data-sortedname");
             return;
-        } else {
-            sortColumns.on("click",
+        } else if (componentOptions.serverSort) {
+            sortColumns.off("click").on("click",
                 function () {
                     var sortedColumn = self.$(this).data("sortedname");
 

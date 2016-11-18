@@ -65,9 +65,11 @@ class WinLossDetailView {
         this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
         this.pagerComponent.render();
 
+        self.bindTableSorter();
         sortComponent.render({
             sortContainer: this.$tableReport,
             canSort: parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
+            serverSort: self.pagerComponent.isShow(),
             afterSortFunction: function () {
                 self.$reportForm.trigger("submit");
             }
@@ -147,6 +149,8 @@ class WinLossDetailView {
                     });
                 }
 
+                self.bindTableSorter();
+
                 self.isFirstSwitchMode = false;
             }
         });
@@ -221,6 +225,32 @@ class WinLossDetailView {
             this.$reportForm.slideUp("fast");
         }
     };
+    bindTableSorter = () => {
+        var self = this;
+
+        this.$tableReport.tablesorter(
+            {
+                defaultParser: 1,
+                headers: {
+                    0: { sorter: 'text' },
+                    6: { sorter: false },
+                    7: { sorter: false }
+                },
+                textExtraction: function (node) {
+                    var $node = self.$(node);
+
+                    if ($node.hasClass("combinedcell")) {
+                        return $node.find("ul>li:first-child").html();
+                    }
+
+                    if ($node.data("islink")) {
+                        return $node.find("a").html();
+                    }
+
+                    return $node.html();
+                }
+            });
+    }
 }
 
 const winLossDetailView = new WinLossDetailView($, new DateRangePickerComponent($), new PagerComponent($));
