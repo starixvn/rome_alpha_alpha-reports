@@ -2,6 +2,7 @@
 {
     using System;
     using System.Web.Mvc;
+    using Constants;
     using Excels.Helpers;
     using Excels.Params;
     using Excels.Services;
@@ -37,7 +38,8 @@
                 throw new ArgumentNullException("message");
             }
 
-            message.PageSize = int.MaxValue - 1;
+            message.PageIndex = DefaultVariables.PageIndexNoPaging;
+            message.PageSize = DefaultVariables.PageSizeNoPaging;
 
             var viewModel = mediator.Send(message);
 
