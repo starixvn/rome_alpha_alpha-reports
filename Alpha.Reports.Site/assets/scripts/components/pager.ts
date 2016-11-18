@@ -42,10 +42,7 @@ class PagerComponent {
 
         this.$reportForm.append(this.$pageIndex).append(this.$pageSize);
 
-        if (this.totalRecords < this.pageList[0]) {
-            // total records less than min page size => do not need to show pager
-            pager.addClass("hide");
-        } else {
+        if (this.isShow()) {
             pager.pagination({
                 pageList: this.pageList,
                 total: this.totalRecords,
@@ -63,6 +60,8 @@ class PagerComponent {
             });
 
             pager.removeClass("hide");
+        } else {
+            pager.addClass("hide");
         }
 
         return pager;
@@ -75,5 +74,9 @@ class PagerComponent {
     updateHiddenFields = (pageNumber: number, pageSize: number) => {
         this.$pageIndex.val(pageNumber);
         this.$pageSize.val(pageSize);
-    }
+    },
+    isShow = () => {
+        // total records less than min page size => do not need to show pager
+        return this.pageList[0] <= this.totalRecords;
+    };
 }

@@ -41,7 +41,7 @@ class SortComponent {
 
                     var descendingsort =
                         sortedColumn === sortContainer.data("sortedcolumn") &&
-                        !(sortContainer.data("descendingsort").toLowerCase() === "true");
+                        !(sortContainer.data("descendingsort").toString().toLowerCase() === "true");
 
                     sortContainer.data("descendingsort", descendingsort);
                     sortContainer.data("sortedcolumn", sortedColumn);

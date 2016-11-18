@@ -356,7 +356,6 @@
     <Content Include="App_Code\Components\ProductMultiSelection.cshtml" />
     <Content Include="Views\WinLossDetail\Filter.cshtml" />
     <Content Include="Views\WinLossDetail\Index.cshtml" />
-    <Content Include="Views\WinLossDetail\MemberExcel.cshtml" />
     <Content Include="App_Data\MemberWinLossDetail.xls" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
