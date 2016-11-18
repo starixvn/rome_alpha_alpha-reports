@@ -94,5 +94,15 @@
             var row = sourceSheet.GetRow(rowIndex) ?? sourceSheet.CreateRow(rowIndex);
             row.SetCellValues(colIndex, values);
         }
+
+        public static ICell GetCell(this ISheet sourceSheet, int rowIndex, int colIndex)
+        {
+            if (sourceSheet == null)
+            {
+                throw new ArgumentNullException("sourceSheet");
+            }
+
+            return sourceSheet.GetRow(rowIndex).GetCell(colIndex);
+        }
     }
 }

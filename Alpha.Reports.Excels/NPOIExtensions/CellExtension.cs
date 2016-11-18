@@ -50,16 +50,6 @@
             }
         }
 
-        public static ICell GetCell(this ISheet sourceSheet, int rowIndex, int colIndex)
-        {
-            if (sourceSheet == null)
-            {
-                throw new ArgumentNullException("sourceSheet");
-            }
-
-            return sourceSheet.GetRow(rowIndex).GetCell(colIndex);
-        }
-
         public static void CopyCell(this ICell sourceCell, ICell targetCell)
         {
             if (sourceCell == null)
