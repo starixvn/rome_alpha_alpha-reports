@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         DefaultTargets="MyTargets"
+         InitialTargets="MyTargets">
+  <Target Name="MyTargets">
+	<MSBuild Projects="Alpha.Reports/Alpha.Reports.csproj" />
+	<MSBuild Projects="Alpha.Reports.Excels/Alpha.Reports.Excels.csproj" />
+	<MSBuild Projects="Alpha.Reports.Site/Alpha.Reports.Site.csproj" />
+  </Target>
+  
+</Project>
