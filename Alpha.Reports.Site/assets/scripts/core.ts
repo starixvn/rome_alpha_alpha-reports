@@ -60,7 +60,7 @@ class AlphaReports {
         firstCells: any,
         numberOfCombinedCells: number,
         combinedCellClass: string,
-        combinedCellColSpan: number = numberOfCombinedCells) => {
+        combinedCellColSpan: number = 1) => {
 
         if (numberOfCombinedCells <= 1) {
             return;

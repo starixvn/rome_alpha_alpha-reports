@@ -79,4 +79,8 @@ class PagerComponent {
         // total records less than min page size => do not need to show pager
         return this.pageList[0] <= this.totalRecords;
     };
+    hasAllDataOnClient = () => {
+        var result = this.totalRecords <= this.pageSize;
+        return result;
+    };
 }

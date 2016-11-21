@@ -33,7 +33,6 @@ class WinLossDetailView {
     isHistoricReport = false;
     isSwitchView = false;
     levels = ["member", "agent", "master", "super"];
-
     dateRangePickerComponent: DateRangePickerComponent;
     pagerComponent: PagerComponent;
 
@@ -69,9 +68,13 @@ class WinLossDetailView {
         sortComponent.render({
             sortContainer: this.$tableReport,
             canSort: parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
-            serverSort: self.pagerComponent.isShow(),
             afterSortFunction: function () {
-                self.$reportForm.trigger("submit");
+                if (self.pagerComponent.hasAllDataOnClient()) {
+                    self.replaceDrilldownParam("SortPropertyName", self.$tableReport.data("sortedcolumn"));
+                    self.replaceDrilldownParam("IsDescendingSort", self.$tableReport.data("descendingsort"));
+                } else {
+                    self.$reportForm.trigger("submit");
+                }
             }
         });
 
@@ -140,7 +143,7 @@ class WinLossDetailView {
                         alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
                     });
                 } else {
-                    alphaReports.combineConsecutiveCells(self.$("td.col-turnover"), 3, "text-right col-turnover-combined", 1);
+                    alphaReports.combineConsecutiveCells(self.$("td.col-turnover"), 3, "text-right col-turnover-combined");
 
                     self.$.each(self.levels, function (index: number) {
                         var level = self.levels[index];
@@ -149,10 +152,10 @@ class WinLossDetailView {
                     });
                 }
 
-                self.bindTableSorter();
-
                 self.isFirstSwitchMode = false;
             }
+
+            self.bindTableSorter();
         });
 
         this.$reportForm.submit(this.onSubmitReportEvent);
@@ -226,16 +229,29 @@ class WinLossDetailView {
         }
     };
     bindTableSorter = () => {
+        if (!this.pagerComponent.hasAllDataOnClient()) {
+            return;
+        }
+
         var self = this;
+
+        var headers = {
+            0: { sorter: 'text' }
+        };
+
+        var disabledSortColumns = self.$tableReport.find("th[data-disabledsort='true']");
+        disabledSortColumns.each(function () {
+            headers[this.cellIndex] = { sorter: false };
+        });
+
+        var sortedColumnHeader = self.$tableReport.find("[data-sortedname='" + self.$tableReport.data("sortedcolumn") + "']" +
+            (self.$tableReport.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : "[class*='hidden-stack-mode']"))[0];
 
         this.$tableReport.tablesorter(
             {
                 defaultParser: 1,
-                headers: {
-                    0: { sorter: 'text' },
-                    6: { sorter: false },
-                    7: { sorter: false }
-                },
+                headers: headers,
+                sortList: [[self.$(sortedColumnHeader).data("colindex"), self.$isDescendingSort.val().toLowerCase() === "true" ? 1 : 0]],
                 textExtraction: function (node) {
                     var $node = self.$(node);
 

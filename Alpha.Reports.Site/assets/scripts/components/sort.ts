@@ -4,16 +4,13 @@
 class SortOption {
     sortContainer: any;
     canSort: boolean;
-    serverSort: boolean;
     afterSortFunction: any;
 
     constructor(sortContainer: any = null,
         canSort: boolean = true,
-        serverSort: boolean = true,
         afterSortFunction: any = null) {
         this.sortContainer = sortContainer;
         this.canSort = canSort;
-        this.serverSort = serverSort;
         this.afterSortFunction = afterSortFunction;
     }
 }
@@ -37,8 +34,8 @@ class SortComponent {
         if (!componentOptions.canSort) {
             sortColumns.removeAttr("data-sortedname");
             return;
-        } else if (componentOptions.serverSort) {
-            sortColumns.off("click").on("click",
+        } else {
+            sortColumns.off("click.sortcomponent").on("click.sortcomponent",
                 function () {
                     var sortedColumn = self.$(this).data("sortedname");
 
@@ -56,14 +53,13 @@ class SortComponent {
                 });
         }
 
-        var sortedColumn = sortContainer.data("sortedcolumn");
         var descendingsort = sortContainer.data("descendingsort").toLowerCase() === "true";
 
         var sortClass = descendingsort
             ? "icon-menu-down sorting-desc"
             : "icon-menu-up sorting-asc";
 
-        var columns = sortContainer.find("[data-sortedname='" + sortedColumn + "']");
+        var columns = sortContainer.find("[data-sortedname='" + sortContainer.data("sortedcolumn") + "']");
         columns.each(function () {
             var column = self.$(this);
             var isCombinedColumn = column.hasClass("col-combine");
