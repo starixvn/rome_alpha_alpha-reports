@@ -37,8 +37,10 @@ class PagerComponent {
         this.totalRecords = pager.data("totalrecords");
         this.pageSize = pager.data("pagesize");
         this.pageIndex = pager.data("pageindex");
-        this.$pageIndex = this.$(`<input type="hidden" id="${pagerOption.pageIndexId}" name="${pagerOption.pageIndexId}" value="${this.pageIndex}" />`);
-        this.$pageSize = this.$(`<input type="hidden" id="${pagerOption.pageSizeId}" name="${pagerOption.pageSizeId}" value="${this.pageSize}" />`);
+        this.$pageIndex =
+            this.$(`<input type="hidden" id="${pagerOption.pageIndexId}" name="${pagerOption.pageIndexId}" value="${this.pageIndex}" />`);
+        this.$pageSize =
+            this.$(`<input type="hidden" id="${pagerOption.pageSizeId}" name="${pagerOption.pageSizeId}" value="${this.pageSize}" />`);
 
         this.$reportForm.append(this.$pageIndex).append(this.$pageSize);
 
@@ -65,11 +67,11 @@ class PagerComponent {
         }
 
         return pager;
-    }
+    };
 
     onChange = () => {
         this.$reportForm.trigger("submit");
-    }
+    };
 
     updateHiddenFields = (pageNumber: number, pageSize: number) => {
         this.$pageIndex.val(pageNumber);

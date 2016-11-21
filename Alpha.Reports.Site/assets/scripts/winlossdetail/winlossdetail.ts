@@ -236,7 +236,7 @@ class WinLossDetailView {
         var self = this;
 
         var headers = {
-            0: { sorter: 'text' }
+            0: { sorter: "text" }
         };
 
         var disabledSortColumns = self.$tableReport.find("th[data-disabledsort='true']");
@@ -252,7 +252,7 @@ class WinLossDetailView {
                 defaultParser: 1,
                 headers: headers,
                 sortList: [[self.$(sortedColumnHeader).data("colindex"), self.$isDescendingSort.val().toLowerCase() === "true" ? 1 : 0]],
-                textExtraction: function (node) {
+                textExtraction: function (node: any) {
                     var $node = self.$(node);
 
                     if ($node.hasClass("combinedcell")) {
@@ -266,7 +266,7 @@ class WinLossDetailView {
                     return $node.html();
                 }
             });
-    }
+    };
 }
 
 const winLossDetailView = new WinLossDetailView($, new DateRangePickerComponent($), new PagerComponent($));

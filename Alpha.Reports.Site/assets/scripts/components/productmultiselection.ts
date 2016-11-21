@@ -7,7 +7,7 @@ class ProductMultiSelectionOption {
 
     constructor(dropdownId: string = "dropdown-product",
         validateBeforeSubmit: boolean = true,
-        hiddenInputId = "product-ids") {
+        hiddenInputId: string = "product-ids") {
 
         this.dropdownId = dropdownId;
         this.validateBeforeSubmit = validateBeforeSubmit;

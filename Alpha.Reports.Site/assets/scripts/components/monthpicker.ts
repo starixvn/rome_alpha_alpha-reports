@@ -63,7 +63,7 @@ class MonthPickerComponent {
     onChange = () => {
         this.$fromDate.val(this.$dropdownMonth.monPickr("getFromDate", alphaReports.format.shortDateWithSlash_MonthPicker));
         this.$toDate.val(this.$dropdownMonth.monPickr("getToDate", alphaReports.format.shortDateWithSlash_MonthPicker));
-    }
+    };
 }
 
 const monthPickerComponent = new MonthPickerComponent($);
