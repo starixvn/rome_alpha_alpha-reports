@@ -59,21 +59,9 @@ class SortComponent {
         if (!componentOptions.hasAllDataOnClient) {
             var descendingsort = sortContainer.data("descendingsort").toLowerCase() === "true";
 
-            var sortClass = descendingsort
-                ? "icon-menu-down sorting-desc"
-                : "icon-menu-up sorting-asc";
+            var sortClass = descendingsort ? "sorting-desc" : "sorting-asc";
 
-            var columns = sortContainer.find("[data-sortedname='" + sortContainer.data("sortedcolumn") + "']");
-            columns.each(function () {
-                var column = self.$(this);
-                var isCombinedColumn = column.hasClass("col-combine");
-
-                if (isCombinedColumn) {
-                    column.find(".prior-sortedcolumn").append("<span class=\"" + sortClass + "\"></span>");
-                } else {
-                    column.append("<span class=\"" + sortClass + "\"></span>");
-                }
-            });
+            var columns = sortContainer.find("[data-sortedname='" + sortContainer.data("sortedcolumn") + "']").addClass(sortClass);
         }
 
         return sortColumns;

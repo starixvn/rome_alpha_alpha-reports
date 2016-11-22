@@ -90,12 +90,6 @@ a {
             color: $link-hover-color;
         }
     }
-    // Icons
-    .sorting-asc, .sorting-desc {
-        font-size: 16px;
-        position: relative;
-        top: 3px;
-    }
 
     &.stack-mode {
         .col-level {
@@ -126,10 +120,6 @@ a {
 }
 
 #tbl-report {
-    th[data-sortedname] {
-        cursor: pointer;
-    }
-
     .combinedcell li:last-child {
         font-weight: bold;
     }
