@@ -4,13 +4,16 @@
 class SortOption {
     sortContainer: any;
     canSort: boolean;
+    hasAllDataOnClient: boolean;
     afterSortFunction: any;
 
     constructor(sortContainer: any = null,
         canSort: boolean = true,
+        hasAllDataOnClient: boolean = false,
         afterSortFunction: any = null) {
         this.sortContainer = sortContainer;
         this.canSort = canSort;
+        this.hasAllDataOnClient = hasAllDataOnClient;
         this.afterSortFunction = afterSortFunction;
     }
 }
@@ -53,23 +56,25 @@ class SortComponent {
                 });
         }
 
-        var descendingsort = sortContainer.data("descendingsort").toLowerCase() === "true";
+        if (!componentOptions.hasAllDataOnClient) {
+            var descendingsort = sortContainer.data("descendingsort").toLowerCase() === "true";
 
-        var sortClass = descendingsort
-            ? "icon-menu-down sorting-desc"
-            : "icon-menu-up sorting-asc";
+            var sortClass = descendingsort
+                ? "icon-menu-down sorting-desc"
+                : "icon-menu-up sorting-asc";
 
-        var columns = sortContainer.find("[data-sortedname='" + sortContainer.data("sortedcolumn") + "']");
-        columns.each(function () {
-            var column = self.$(this);
-            var isCombinedColumn = column.hasClass("col-combine");
+            var columns = sortContainer.find("[data-sortedname='" + sortContainer.data("sortedcolumn") + "']");
+            columns.each(function () {
+                var column = self.$(this);
+                var isCombinedColumn = column.hasClass("col-combine");
 
-            if (isCombinedColumn) {
-                column.find(".prior-sortedcolumn").append("<span class=\"" + sortClass + "\"></span>");
-            } else {
-                column.append("<span class=\"" + sortClass + "\"></span>");
-            }
-        });
+                if (isCombinedColumn) {
+                    column.find(".prior-sortedcolumn").append("<span class=\"" + sortClass + "\"></span>");
+                } else {
+                    column.append("<span class=\"" + sortClass + "\"></span>");
+                }
+            });
+        }
 
         return sortColumns;
     };

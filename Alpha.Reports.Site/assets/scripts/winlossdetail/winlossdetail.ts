@@ -64,12 +64,14 @@ class WinLossDetailView {
         this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
         this.pagerComponent.render();
 
+        var hasAllDataOnClient = self.pagerComponent.hasAllDataOnClient();
         self.bindTableSorter();
         sortComponent.render({
             sortContainer: this.$tableReport,
             canSort: parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
+            hasAllDataOnClient: hasAllDataOnClient,
             afterSortFunction: function () {
-                if (self.pagerComponent.hasAllDataOnClient()) {
+                if (hasAllDataOnClient) {
                     self.replaceDrilldownParam("SortPropertyName", self.$tableReport.data("sortedcolumn"));
                     self.replaceDrilldownParam("IsDescendingSort", self.$tableReport.data("descendingsort"));
                 } else {
