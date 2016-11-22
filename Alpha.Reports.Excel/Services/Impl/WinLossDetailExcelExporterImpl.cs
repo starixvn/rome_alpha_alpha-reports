@@ -70,7 +70,7 @@
 
             templateCell = isEvenRow ? TemplateSheetModel.EvenRowTotalNumber : TemplateSheetModel.OddRowTotalNumber;
 
-            for (var i = currentColIndex + 6; i <= EndColIndex; i += 3)
+            for (var i = StartColIndex + 7; i <= EndColIndex; i += 3)
             {
                 templateCell.CopyCell(sheet, currentRowIndex, i);
             }

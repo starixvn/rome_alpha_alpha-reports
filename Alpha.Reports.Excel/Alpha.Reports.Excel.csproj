@@ -7,8 +7,8 @@
     <ProjectGuid>{D3A67502-185C-4C96-8179-2744D5C810D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Alpha.Reports.Excels</RootNamespace>
-    <AssemblyName>Alpha.Reports.Excels</AssemblyName>
+    <RootNamespace>Alpha.Reports.Excel</RootNamespace>
+    <AssemblyName>Alpha.Reports.Excel</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
