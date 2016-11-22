@@ -12,6 +12,7 @@
 
     public class WinLossDetailController : BaseController
     {
+        private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLossDetail/";
         private readonly IMediator mediator;
         private readonly WinLossDetailExcelExporter excelExporter;
 
@@ -43,17 +44,17 @@
 
             var viewModel = mediator.Send(message);
 
-            var excelTemplate =
-                viewModel.UserLevel.IsSuperLevel()
-                ? "~/App_Data/MasterWinLossDetail.xls"
+            var excelTemplatePath = ExcelTemplateDir +
+                (viewModel.UserLevel.IsSuperLevel()
+                ? "Master.xls"
                 : viewModel.UserLevel.IsMasterLevel()
-                ? "~/App_Data/AgentWinLossDetail.xls"
-                : "~/App_Data/MemberWinLossDetail.xls";
+                ? "Agent.xls"
+                : "Member.xls");
 
             var fileContents = excelExporter.Export(
                 new ExportExcelParam<WinLossDetail>
                 {
-                    TemplatePath = HttpContext.Server.MapPath(excelTemplate),
+                    TemplatePath = HttpContext.Server.MapPath(excelTemplatePath),
                     Title = viewModel.Title,
                     SheetName = viewModel.Title,
                     ReportData = viewModel.ReportData,
