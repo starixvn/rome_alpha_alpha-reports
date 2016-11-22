@@ -71,7 +71,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Helpers\ExcelHelper.cs" />
-    <Compile Include="Models\TemplateSheetModel.cs" />
     <Compile Include="NPOIExtensions\HSSFWorkbookExtension.cs" />
     <Compile Include="NPOIExtensions\CellExtension.cs" />
     <Compile Include="NPOIExtensions\RowExtension.cs" />

@@ -104,5 +104,14 @@
 
             return sourceSheet.GetRow(rowIndex).GetCell(colIndex);
         }
+
+        public static void SetCellRangeValue(this ISheet sourceSheet, int firstRow, int firstCol, int lastRow, int lastCol, string value)
+        {
+            sourceSheet.AppendMoreRows(lastRow);
+
+            var cellRange = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
+            sourceSheet.AddMergedRegion(cellRange);
+            sourceSheet.SetCellValue(firstRow, firstCol, value);
+        }
     }
 }

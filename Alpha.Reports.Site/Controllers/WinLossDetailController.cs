@@ -55,10 +55,9 @@
                 new ExportExcelParam<WinLossDetail>
                 {
                     TemplatePath = HttpContext.Server.MapPath(excelTemplatePath),
-                    Title = viewModel.Title,
+                    ReportName = viewModel.Title,
                     SheetName = viewModel.Title,
                     ReportData = viewModel.ReportData,
-                    CustId = viewModel.CustId,
                     FromDate = viewModel.FromDate,
                     ToDate = viewModel.ToDate
                 },
