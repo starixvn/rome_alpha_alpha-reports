@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Site.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Site", "Alpha.Reports.Site\Alpha.Reports.Site.csproj", "{55FF4C22-5630-4FB9-92FF-A1FEAF6DCF08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Excels", "Alpha.Reports.Excels\Alpha.Reports.Excels.csproj", "{D3A67502-185C-4C96-8179-2744D5C810D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Excel", "Alpha.Reports.Excel\Alpha.Reports.Excel.csproj", "{D3A67502-185C-4C96-8179-2744D5C810D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

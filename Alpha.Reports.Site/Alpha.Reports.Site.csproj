@@ -481,9 +481,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Alpha.Reports.Excels\Alpha.Reports.Excels.csproj">
-      <Project>{D3A67502-185C-4C96-8179-2744D5C810D4}</Project>
-      <Name>Alpha.Reports.Excels</Name>
+    <ProjectReference Include="..\Alpha.Reports.Excel\Alpha.Reports.Excel.csproj">
+      <Project>{d3a67502-185c-4c96-8179-2744d5c810d4}</Project>
+      <Name>Alpha.Reports.Excel</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alpha.Reports\Alpha.Reports.csproj">
       <Project>{b868e639-f3f9-4d54-b02e-57f3bee0965e}</Project>

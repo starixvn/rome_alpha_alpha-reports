@@ -3,9 +3,9 @@
     using System;
     using System.Web.Mvc;
     using Constants;
-    using Excels.Helpers;
-    using Excels.Params;
-    using Excels.Services;
+    using Excel.Helpers;
+    using Excel.Params;
+    using Excel.Services;
     using MediatR;
     using Models.WinlossDetails;
     using Requests.WinLossDetails;

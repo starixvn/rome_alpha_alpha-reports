@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Excels.Services.Impl
+﻿namespace Alpha.Reports.Excel.Services.Impl
 {
     using System;
     using System.Collections.Generic;

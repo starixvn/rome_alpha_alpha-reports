@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Excels.Helpers
+﻿namespace Alpha.Reports.Excel.Helpers
 {
     using System;
 

@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alpha.Reports.Excels.AppResources {
+namespace Alpha.Reports.Excel.AppResources
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,193 +23,235 @@ namespace Alpha.Reports.Excels.AppResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
-        
+    public class Resources
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resources()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Alpha.Reports.Excels.AppResources.Resources", typeof(Resources).Assembly);
+        public static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Alpha.Reports.Excel.AppResources.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
-            get {
+        public static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Agent.
         /// </summary>
-        public static string Agent {
-            get {
+        public static string Agent
+        {
+            get
+            {
                 return ResourceManager.GetString("Agent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Agent Win Loss Detail.
         /// </summary>
-        public static string AgentWinLossDetail {
-            get {
+        public static string AgentWinLossDetail
+        {
+            get
+            {
                 return ResourceManager.GetString("AgentWinLossDetail", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Comm.
         /// </summary>
-        public static string Comm {
-            get {
+        public static string Comm
+        {
+            get
+            {
                 return ResourceManager.GetString("Comm", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
-        public static string Company {
-            get {
+        public static string Company
+        {
+            get
+            {
                 return ResourceManager.GetString("Company", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Gross Comm.
         /// </summary>
-        public static string GrossComm {
-            get {
+        public static string GrossComm
+        {
+            get
+            {
                 return ResourceManager.GetString("GrossComm", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Master.
         /// </summary>
-        public static string Master {
-            get {
+        public static string Master
+        {
+            get
+            {
                 return ResourceManager.GetString("Master", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Master Win Loss Detail.
         /// </summary>
-        public static string MasterWinLossDetail {
-            get {
+        public static string MasterWinLossDetail
+        {
+            get
+            {
                 return ResourceManager.GetString("MasterWinLossDetail", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Member.
         /// </summary>
-        public static string Member {
-            get {
+        public static string Member
+        {
+            get
+            {
                 return ResourceManager.GetString("Member", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Member Win Loss Detail.
         /// </summary>
-        public static string MemberWinLossDetail {
-            get {
+        public static string MemberWinLossDetail
+        {
+            get
+            {
                 return ResourceManager.GetString("MemberWinLossDetail", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Net Turnover.
         /// </summary>
-        public static string NetTurnover {
-            get {
+        public static string NetTurnover
+        {
+            get
+            {
                 return ResourceManager.GetString("NetTurnover", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to No information is available.
         /// </summary>
-        public static string NoInformationIsAvailable {
-            get {
+        public static string NoInformationIsAvailable
+        {
+            get
+            {
                 return ResourceManager.GetString("NoInformationIsAvailable", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to No. of Tickets.
         /// </summary>
-        public static string NoOfTickets {
-            get {
+        public static string NoOfTickets
+        {
+            get
+            {
                 return ResourceManager.GetString("NoOfTickets", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Super.
         /// </summary>
-        public static string Super {
-            get {
+        public static string Super
+        {
+            get
+            {
                 return ResourceManager.GetString("Super", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Total.
         /// </summary>
-        public static string Total {
-            get {
+        public static string Total
+        {
+            get
+            {
                 return ResourceManager.GetString("Total", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Turnover.
         /// </summary>
-        public static string Turnover {
-            get {
+        public static string Turnover
+        {
+            get
+            {
                 return ResourceManager.GetString("Turnover", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
-        public static string Username {
-            get {
+        public static string Username
+        {
+            get
+            {
                 return ResourceManager.GetString("Username", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Win/Loss.
         /// </summary>
-        public static string WinLoss {
-            get {
+        public static string WinLoss
+        {
+            get
+            {
                 return ResourceManager.GetString("WinLoss", resourceCulture);
             }
         }

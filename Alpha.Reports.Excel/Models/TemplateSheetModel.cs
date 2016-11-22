@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Excels.Models
+﻿namespace Alpha.Reports.Excel.Models
 {
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Excels.Params
+﻿namespace Alpha.Reports.Excel.Params
 {
     using System;
     using Reports.Models;

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Excels.NPOIExtensions
+﻿namespace Alpha.Reports.Excel.NPOIExtensions
 {
     using System;
     using NPOI.SS.UserModel;
