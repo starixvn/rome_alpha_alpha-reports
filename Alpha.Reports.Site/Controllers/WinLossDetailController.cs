@@ -38,8 +38,8 @@
                 throw new ArgumentNullException("message");
             }
 
-            message.PageIndex = DefaultVariables.PageIndexNoPaging;
-            message.PageSize = DefaultVariables.PageSizeNoPaging;
+            message.PageIndex = DefaultVariables.PageIndex;
+            message.PageSize = DefaultVariables.MaxRowExcelFile;
 
             var viewModel = mediator.Send(message);
 

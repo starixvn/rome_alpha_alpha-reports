@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using AppResources;
+    using Constants;
     using Extensions;
     using Models;
     using NPOI.HSSF.UserModel;
@@ -19,7 +20,7 @@
         protected const int StartRowIndex = 0;
         protected const int StartColIndex = 0;
 
-        private const int MaxRowPerSheet = 3000;
+        private const int MaxRowPerSheet = DefaultVariables.MaxRowExcelFile - 10;
         private const string DefaultSheetName = "Report";
 
         private int dataLength = 0;

@@ -8,8 +8,7 @@
         public const int PageSize = 1000;
         public const int PageIndex = 1;
 
-        public const int PageSizeNoPaging = 0;
-        public const int PageIndexNoPaging = 0;
+        public const int MaxRowExcelFile = 65536;
 
         public static CacheItemOptions CacheItemOptions
         {
