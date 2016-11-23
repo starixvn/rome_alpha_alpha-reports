@@ -231,7 +231,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\ReportApplicationContext.cs" />
@@ -495,30 +494,17 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="App_GlobalResources\Resources.ja-JP.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="App_GlobalResources\Resources.ko-KR.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="App_GlobalResources\Resources.ja-JP.resx" />
+    <EmbeddedResource Include="App_GlobalResources\Resources.ko-KR.resx" />
     <EmbeddedResource Include="App_GlobalResources\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="App_GlobalResources\Resources.th-TH.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="App_GlobalResources\Resources.vi-VN.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="App_GlobalResources\Resources.zh-CN.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="App_GlobalResources\Resources.zh-TW.resx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="App_GlobalResources\Resources.th-TH.resx" />
+    <EmbeddedResource Include="App_GlobalResources\Resources.vi-VN.resx" />
+    <EmbeddedResource Include="App_GlobalResources\Resources.zh-CN.resx" />
+    <EmbeddedResource Include="App_GlobalResources\Resources.zh-TW.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
