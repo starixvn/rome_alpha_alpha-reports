@@ -172,6 +172,10 @@ class WinLossDetailView {
             self.$reportForm.attr("action", null);
             self.$.unblockUI();
         });
+
+        this.$(".icon-back").on("click", function () {
+            window.history.back();
+        });
     };
     hideFilter = () => {
         var self = this;

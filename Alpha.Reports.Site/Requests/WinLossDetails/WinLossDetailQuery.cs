@@ -28,7 +28,13 @@
             Language = this.userSession.Language;
         }
 
-        public bool IsDirectReportViewAction => userSession.CustId == CustId;
+        public bool IsDirectReportViewAction
+        {
+            get
+            {
+                return CustId == userSession.CustId;
+            }
+        }
 
         public string Language { get; }
 

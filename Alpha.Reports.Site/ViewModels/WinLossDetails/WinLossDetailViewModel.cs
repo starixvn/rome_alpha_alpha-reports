@@ -44,6 +44,8 @@
 
         public bool IsFilterVisible { get; set; }
 
+        public bool IsDirectReportViewAction { get; set; }
+
         public IEnumerable<string> NetTurnoverTooltips
         {
             get
@@ -60,8 +62,6 @@
         }
 
         public IEnumerable<SelectListItem> Products { get; set; }
-
-        public bool IsDirectReportViewAction { get; set; }
 
         public PagerViewModel PagerViewModel =>
             new PagerViewModel(ReportData.CurrentPageIndex, ReportData.PageSize, ReportData.TotalRecords);

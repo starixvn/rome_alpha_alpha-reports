@@ -14,7 +14,8 @@
     {
         { "IsStackMode", Model.IsStackMode },
         { "IsDescendingSort", Model.IsDescendingSort },
-        { "SortPropertyName", Model.SortPropertyName }
+        { "SortPropertyName", Model.SortPropertyName },
+        { "HasBackIcon", !Model.IsDirectReportViewAction }
     })
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
@@ -92,9 +93,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                                    .ReportData
-                                    .DataSource
-                                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                                .ReportData
+                                                .DataSource
+                                                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
