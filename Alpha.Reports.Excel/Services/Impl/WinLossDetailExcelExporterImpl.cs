@@ -5,7 +5,6 @@
     using AppResources;
     using Models;
     using Models.WinlossDetails;
-    using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOIExtensions;
     using Params;
@@ -14,28 +13,11 @@
     {
         private List<string> levelGroups;
 
-        private IRow evenRowTemplate;
-        private IRow oddRowTemplate;
-        private IRow totalRowTemplate;
-
         public byte[] Export(ExportExcelParam<WinLossDetail> param, UserLevel userLevel)
         {
             levelGroups = GetLevelGroups(userLevel);
 
             return Export(param);
-        }
-
-        protected override void LoadTemplate(HSSFWorkbook workbook)
-        {
-            var templateSheet = workbook.GetSheet(TemplateSheetName);
-
-            oddRowTemplate = templateSheet.GetRow(3);
-            evenRowTemplate = templateSheet.GetRow(4);
-            totalRowTemplate = templateSheet.GetRow(5);
-
-            workbook.RemoveSheetAt(1);
-
-            EndColIndex = oddRowTemplate.LastCellNum - 1;
         }
 
         protected override void ExportHeader(ISheet sheet)
@@ -67,45 +49,37 @@
             currentRow.SetCellValues(currentColIndex, Resources.Company);
         }
 
-        protected override void ExportRow<T>(ISheet sheet, IRow row, T genericData, int dataIndex, bool isEvenRow = false)
+        protected override IEnumerable<object> GetRowValues(dynamic genericData)
         {
-            if (row == null)
+            var result = new List<object>()
             {
-                throw new ArgumentNullException("row");
-            }
+                genericData.CustName,
+                genericData.NumberOfTickets,
+                genericData.Turnover,
+                genericData.NetTurnover,
+                genericData.GrossComm
+            };
 
-            var data = genericData as WinLossDetail;
+            GetNetWinLossValues(genericData.MemberNetWinLoss, result);
+            GetNetWinLossValues(genericData.AgentNetWinLoss, result);
+            GetNetWinLossValues(genericData.MasterNetWinLoss, result);
+            GetNetWinLossValues(genericData.SuperNetWinLoss, result);
 
-            var rowTemplate = isEvenRow ? evenRowTemplate : oddRowTemplate;
-            rowTemplate.CopyCells(row);
-            row.Height = rowTemplate.Height;
+            result.Add(genericData.Company);
 
-            row.SetCellValues(StartColIndex, data.CustName, data.NumberOfTickets, data.Turnover, data.NetTurnover, data.GrossComm);
-            ExportNetWinLoss(row, data.MemberNetWinLoss, StartColIndex + 5);
-            ExportNetWinLoss(row, data.AgentNetWinLoss, StartColIndex + 8);
-            ExportNetWinLoss(row, data.MasterNetWinLoss, StartColIndex + 11);
-            ExportNetWinLoss(row, data.SuperNetWinLoss, StartColIndex + 14);
-            row.SetCellValue(EndColIndex, data.Company);
+            return result;
         }
 
-        protected override void ExportTotalRow<T>(ISheet sheet, IRow row, T genericData)
+        private static void GetNetWinLossValues(NetWinLoss netWinLoss, List<object> columnValues)
         {
-            if (row == null)
+            if (netWinLoss == null)
             {
-                throw new ArgumentNullException("row");
+                return;
             }
 
-            var data = genericData as WinLossDetail;
-
-            totalRowTemplate.CopyCells(row);
-            row.Height = totalRowTemplate.Height;
-
-            row.SetCellValues(StartColIndex, Resources.Total, data.NumberOfTickets, data.Turnover, data.NetTurnover, data.GrossComm);
-            ExportNetWinLoss(row, data.MemberNetWinLoss, StartColIndex + 5);
-            ExportNetWinLoss(row, data.AgentNetWinLoss, StartColIndex + 8);
-            ExportNetWinLoss(row, data.MasterNetWinLoss, StartColIndex + 11);
-            ExportNetWinLoss(row, data.SuperNetWinLoss, StartColIndex + 14);
-            row.SetCellValue(EndColIndex, data.Company);
+            columnValues.Add(netWinLoss.WinLoss);
+            columnValues.Add(netWinLoss.Comm);
+            columnValues.Add(netWinLoss.Total);
         }
 
         private List<string> GetLevelGroups(UserLevel userLevel)
@@ -123,16 +97,6 @@
             }
 
             return levelGroups;
-        }
-
-        private void ExportNetWinLoss(IRow row, NetWinLoss netWinLoss, int currentColIndex)
-        {
-            if (netWinLoss == null)
-            {
-                return;
-            }
-
-            row.SetCellValues(currentColIndex, netWinLoss.WinLoss, netWinLoss.Comm, netWinLoss.Total);
         }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using NPOI.SS.UserModel;
 
     public static class RowExtension
@@ -49,14 +50,14 @@
             }
         }
 
-        public static void SetCellValuesByValueList(this IRow row, int colIndex, List<object> values)
+        public static void SetCellValuesByValueList(this IRow row, int colIndex, IEnumerable<object> values)
         {
             if (row == null)
             {
                 throw new ArgumentNullException("row");
             }
 
-            row.SetCellValues(colIndex, ((List<object>)values[0]).ToArray());
+            row.SetCellValues(colIndex, values.ToArray());
         }
 
         public static void SetCellValue(this IRow row, int colIndex, object value)

@@ -28,6 +28,12 @@
 
         protected int EndColIndex { get; set; }
 
+        protected IRow EvenRowTemplate { get; set; }
+
+        protected IRow OddRowTemplate { get; set; }
+
+        protected IRow TotalRowTemplate { get; set; }
+
         protected byte[] Export<T>(ExportExcelParam<T> param) where T : class
         {
             if (param == null)
@@ -61,13 +67,50 @@
             return workbook.ToBytes();
         }
 
-        protected abstract void LoadTemplate(HSSFWorkbook workbook);
-
         protected abstract void ExportHeader(ISheet sheet);
 
-        protected abstract void ExportRow<T>(ISheet sheet, IRow row, T genericData, int dataIndex, bool isEvenRow = false);
+        protected abstract IEnumerable<object> GetRowValues(dynamic genericData);
 
-        protected abstract void ExportTotalRow<T>(ISheet sheet, IRow row, T genericData);
+        protected virtual void LoadTemplate(HSSFWorkbook workbook)
+        {
+            var templateSheet = workbook.GetSheet(TemplateSheetName);
+
+            OddRowTemplate = templateSheet.GetRow(3);
+            EvenRowTemplate = templateSheet.GetRow(4);
+            TotalRowTemplate = templateSheet.GetRow(5);
+
+            workbook.RemoveSheetAt(1);
+
+            EndColIndex = OddRowTemplate.LastCellNum - 1;
+        }
+
+        protected virtual void ExportRow<T>(ISheet sheet, IRow row, T genericData, int dataIndex, bool isEvenRow = false)
+        {
+            if (row == null)
+            {
+                throw new ArgumentNullException("row");
+            }
+
+            var rowTemplate = isEvenRow ? EvenRowTemplate : OddRowTemplate;
+            rowTemplate.CopyCells(row);
+            row.Height = rowTemplate.Height;
+
+            row.SetCellValuesByValueList(StartColIndex, GetRowValues(genericData));
+        }
+
+        protected virtual void ExportTotalRow<T>(ISheet sheet, IRow row, T genericData)
+        {
+            if (row == null)
+            {
+                throw new ArgumentNullException("row");
+            }
+
+            TotalRowTemplate.CopyCells(row);
+            row.Height = TotalRowTemplate.Height;
+
+            row.SetCellValue(StartColIndex, Resources.Total);
+            row.SetCellValuesByValueList(StartColIndex + 1, GetRowValues(genericData));
+        }
 
         private void ExportSheet<T>(HSSFWorkbook workbook, int numberOfSheet, int sheetIndex, ExportExcelParam<T> param) where T : class
         {
