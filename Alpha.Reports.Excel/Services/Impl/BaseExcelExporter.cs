@@ -126,7 +126,9 @@
             row.SetCellValue(StartColIndex, Resources.Total);
         }
 
-        protected virtual void FreezePanel(ISheet sheet) { }
+        protected virtual void FreezePanel(ISheet sheet)
+        {
+        }
 
         private void FillSheet<T>(HSSFWorkbook workbook, ExportExcelParam<T> param) where T : class
         {
