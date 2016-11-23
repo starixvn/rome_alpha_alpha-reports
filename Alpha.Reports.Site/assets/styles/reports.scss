@@ -142,11 +142,16 @@ a {
         width: 130px;
     }
 
-    .icon-excel {
+    .icon-excel, .icon-back {
         cursor: pointer;
         color: #1f7244;
         font-size: 19px;
         vertical-align: middle;
+    }
+
+    .icon-back {
+        margin-left: 20px;
+        font-size: 20px;
     }
 
     select.select-multiple {
@@ -167,6 +172,10 @@ a {
 // Ripple effect
 .icon-excel {
     @include ripple-effect-icon($margin-left: -11px, $height: 36px, $width: 36px, $top: -4px);
+}
+
+.icon-back {
+    @include ripple-effect-icon($margin-left: -8px, $height: 36px, $width: 36px, $top: -4px);
 }
 
 .icon-switchmode {
