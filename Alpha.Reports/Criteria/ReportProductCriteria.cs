@@ -16,7 +16,7 @@
             IEnumerable<int> productIds)
             : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay)
         {
-            ProductIds = string.Join(",", productIds);
+            ProductIds = productIds == null ? string.Empty : string.Join(",", productIds);
         }
 
         public string ProductIds { get; }
@@ -26,7 +26,7 @@
             throw new NotImplementedException();
         }
 
-        public override bool IsValid() => base.IsValid() 
+        public override bool IsValid() => base.IsValid()
             && !string.IsNullOrWhiteSpace(ProductIds);
     }
 }
