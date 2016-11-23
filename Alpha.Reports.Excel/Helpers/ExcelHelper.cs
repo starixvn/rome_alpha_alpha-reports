@@ -19,7 +19,7 @@
                 throw new ArgumentNullException("fileName");
             }
 
-            return $"{fileName.Replace(' ', '_')}.xls";
+            return $"{fileName.Replace(' ', '_').Replace('/', '_')}.xls";
         }
     }
 }

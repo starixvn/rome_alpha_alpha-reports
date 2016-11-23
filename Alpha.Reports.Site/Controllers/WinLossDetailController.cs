@@ -9,6 +9,7 @@
     using MediatR;
     using Models.WinlossDetails;
     using Requests.WinLossDetails;
+    using Alpha.Reports.Extensions;
 
     public class WinLossDetailController : BaseController
     {
@@ -63,7 +64,9 @@
                 },
                 viewModel.UserLevel);
 
-            return File(fileContents, ExcelHelper.ContentType, ExcelHelper.GetFileName(viewModel.Title));
+            var reportName = ExcelHelper.GetFileName($"{viewModel.Title}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}");
+
+            return File(fileContents, ExcelHelper.ContentType, reportName);
         }
     }
 }
