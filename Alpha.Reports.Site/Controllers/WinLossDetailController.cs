@@ -6,10 +6,10 @@
     using Excel.Helpers;
     using Excel.Params;
     using Excel.Services;
+    using Extensions;
     using MediatR;
     using Models.WinlossDetails;
     using Requests.WinLossDetails;
-    using Alpha.Reports.Extensions;
 
     public class WinLossDetailController : BaseController
     {

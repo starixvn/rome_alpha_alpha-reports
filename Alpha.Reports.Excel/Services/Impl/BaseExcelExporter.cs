@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using AppResources;
-    using Constants;
     using Extensions;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
@@ -20,11 +19,11 @@
         protected const int StartColIndex = 0;
         protected const string TemplateSheetName = "Template";
 
-        private const int MaxRowPerSheet = DefaultVariables.MaxRowExcelFile - 10;
         private const string DefaultSheetName = "Report";
 
         private int dataLength = 0;
         private List<object> dataSource;
+        private DateTime startTime;
 
         protected int EndColIndex { get; set; }
 
@@ -41,6 +40,7 @@
                 throw new ArgumentNullException("param");
             }
 
+            startTime = DateTime.Now;
             var workbook = HSSFWorkbookExtension.Load(param.TemplatePath);
 
             LoadTemplate(workbook);
@@ -48,21 +48,7 @@
             dataLength = param.ReportData.DataSource.Count();
             dataSource = param.ReportData.DataSource.Select(t => (object)t).ToList();
 
-            var numberOfSheet = (dataLength / MaxRowPerSheet) + (dataLength % MaxRowPerSheet != 0 ? 1 : 0);
-
-            if (numberOfSheet == 0)
-            {
-                ExportSheet(workbook, 1, 0, param);
-            }
-            else
-            {
-                for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
-                {
-                    ExportSheet(workbook, numberOfSheet, sheetIndex, param);
-                }
-            }
-
-            workbook.SetActiveSheet(0);
+            ExportSheet(workbook, param);
 
             return workbook.ToBytes();
         }
@@ -112,25 +98,20 @@
             row.SetCellValue(StartColIndex, Resources.Total);
         }
 
-        private void ExportSheet<T>(HSSFWorkbook workbook, int numberOfSheet, int sheetIndex, ExportExcelParam<T> param) where T : class
+        protected virtual void FreezePanel(ISheet sheet) { }
+
+        private void ExportSheet<T>(HSSFWorkbook workbook, ExportExcelParam<T> param) where T : class
         {
             var resultSheet = workbook.GetSheet(DefaultSheetName);
 
-            var sheetNameByPage = numberOfSheet == 1 ? param.SheetName : $"{param.SheetName} - {sheetIndex + 1}";
-            workbook.SetSheetName(sheetIndex, sheetNameByPage);
-
-            if (sheetIndex < numberOfSheet - 1)
-            {
-                workbook.CloneSheet(sheetIndex);
-                workbook.SetSheetName(sheetIndex + 1, DefaultSheetName);
-            }
+            workbook.SetSheetName(0, param.SheetName);
 
             ExportTitle(resultSheet, param);
             ExportHeader(resultSheet);
 
             if (param.ReportData.Any())
             {
-                ExportBody(resultSheet, sheetIndex, param);
+                ExportBody(resultSheet, param);
             }
             else
             {
@@ -138,6 +119,10 @@
                 resultSheet.SetCellRangeValue(dataRowIndex, StartColIndex, dataRowIndex, StartColIndex + EndColIndex, Resources.NoInformationIsAvailable);
                 resultSheet.GetCell(dataRowIndex, StartColIndex).CellStyle.Alignment = HorizontalAlignment.Center;
             }
+
+            resultSheet.SetCellValue(0, 13, (DateTime.Now - startTime).TotalMilliseconds);
+
+            FreezePanel(resultSheet);
         }
 
         private void ExportTitle<T>(ISheet sheet, ExportExcelParam<T> param) where T : class
@@ -147,7 +132,7 @@
             sheet.SetCellValue(TitleRowIndex, StartColIndex, reportTitle);
         }
 
-        protected virtual void ExportBody<T>(ISheet sheet, int sheetIndex, ExportExcelParam<T> param) where T : class
+        protected virtual void ExportBody<T>(ISheet sheet, ExportExcelParam<T> param) where T : class
         {
             if (param == null)
             {
@@ -159,15 +144,11 @@
                 throw new ArgumentNullException("sheet");
             }
 
-            var range = GetExportRange(dataLength, sheetIndex);
-            var startIndex = range[0];
-            var endIndex = range[1];
-
             var currentRowIndex = StartRowIndex + 3;
             var isEvenRow = false;
             IRow currentRow;
 
-            for (var i = startIndex; i < endIndex; i++, currentRowIndex++)
+            for (var i = 0; i < dataLength; i++, currentRowIndex++)
             {
                 currentRow = sheet.GetRow(currentRowIndex) ?? sheet.CreateRow(currentRowIndex);
                 ExportRow(sheet, currentRow, dataSource[i], i, isEvenRow);
@@ -179,19 +160,6 @@
                 currentRow = sheet.GetRow(currentRowIndex) ?? sheet.CreateRow(currentRowIndex);
                 ExportTotalRow(sheet, currentRow, param.ReportData.TotalData);
             }
-        }
-
-        private int[] GetExportRange(int dataLength, int sheetIndex)
-        {
-            var startIndex = sheetIndex * MaxRowPerSheet;
-            var endIndex = startIndex + MaxRowPerSheet;
-
-            if (endIndex > dataLength)
-            {
-                endIndex = dataLength;
-            }
-
-            return new int[] { startIndex, endIndex };
         }
     }
 }
