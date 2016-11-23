@@ -51,7 +51,7 @@
                 <th class="col-level visible-stack-mode" data-disabledsort="true">@Resources.Super</th>
             }
 
-            <th rowspan="2" data-sortedname="Company" data-colindex="17">@Resources.Company</th>
+            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="17">@Resources.Company</th>
         </tr>
         <tr class="thead-row2">
             <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MemberNetWinLoss.WinLoss" data-colindex="5">@Resources.WinLoss</th>
@@ -92,9 +92,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                                .ReportData
-                                .DataSource
-                                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                    .ReportData
+                                    .DataSource
+                                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
@@ -124,13 +124,13 @@
         <td data-islink="true">
             @if (isTotalRow)
             {
-            @Resources.Total
+                @Resources.Total
             }
             else
             {
                 if (Model.UserLevel.IsAgentLevel())
                 {
-            @Html.ActionLink(
+                    @Html.ActionLink(
                     linkText: data.CustName,
                     actionName: betListPath,
                     controllerName: string.Empty,
@@ -147,7 +147,7 @@
                 }
                 else
                 {
-            @Html.ActionLink(
+                    @Html.ActionLink(
                               linkText: data.CustName,
                               actionName: "Index",
                               controllerName: "WinLossDetail",
@@ -163,23 +163,23 @@
         <td class="text-right">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
-        @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
+            @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
 
-        @RenderStackCustWinLoss(UserLevel.Member, data.MemberNetWinLoss);
-        @RenderStackCustWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
-        @RenderStackCustWinLoss(UserLevel.Master, data.MasterNetWinLoss);
-        @RenderStackCustWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
+            @RenderStackCustWinLoss(UserLevel.Member, data.MemberNetWinLoss);
+            @RenderStackCustWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
+            @RenderStackCustWinLoss(UserLevel.Master, data.MasterNetWinLoss);
+            @RenderStackCustWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
         }
         else
         {
-        @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
-        @HtmlHelpers.RenderNumberCell(data.NetTurnover)
-        @HtmlHelpers.RenderNumberCell(data.GrossComm)
+            @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
+            @HtmlHelpers.RenderNumberCell(data.NetTurnover)
+            @HtmlHelpers.RenderNumberCell(data.GrossComm)
 
-        @RenderCustWinLoss(UserLevel.Member, data.MemberNetWinLoss)
-        @RenderCustWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
-        @RenderCustWinLoss(UserLevel.Master, data.MasterNetWinLoss)
-        @RenderCustWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
+            @RenderCustWinLoss(UserLevel.Member, data.MemberNetWinLoss)
+            @RenderCustWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
+            @RenderCustWinLoss(UserLevel.Master, data.MasterNetWinLoss)
+            @RenderCustWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
         }
         <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>

@@ -247,7 +247,7 @@ class WinLossDetailView {
         });
 
         var sortedColumnHeader = self.$tableReport.find("[data-sortedname='" + self.$tableReport.data("sortedcolumn") + "']" +
-            (self.$tableReport.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : "[class*='hidden-stack-mode']"))[0];
+            (self.$tableReport.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : ""))[0];
 
         this.$tableReport.tablesorter(
             {
