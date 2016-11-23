@@ -16,6 +16,26 @@
         public byte[] Export(ExportExcelParam<WinLossDetail> param, UserLevel userLevel)
         {
             levelGroups = GetLevelGroups(userLevel);
+            GetRowValuesFunc = (genericData) =>
+            {
+                var result = new List<object>()
+                {
+                    genericData.CustName,
+                    genericData.NumberOfTickets,
+                    genericData.Turnover,
+                    genericData.NetTurnover,
+                    genericData.GrossComm
+                };
+
+                GetNetWinLossValues(genericData.MemberNetWinLoss, result);
+                GetNetWinLossValues(genericData.AgentNetWinLoss, result);
+                GetNetWinLossValues(genericData.MasterNetWinLoss, result);
+                GetNetWinLossValues(genericData.SuperNetWinLoss, result);
+
+                result.Add(genericData.Company);
+
+                return result;
+            };
 
             return Export(param);
         }
@@ -47,27 +67,6 @@
             }
 
             currentRow.SetCellValues(currentColIndex, Resources.Company);
-        }
-
-        protected override IEnumerable<object> GetRowValues(dynamic genericData)
-        {
-            var result = new List<object>()
-            {
-                genericData.CustName,
-                genericData.NumberOfTickets,
-                genericData.Turnover,
-                genericData.NetTurnover,
-                genericData.GrossComm
-            };
-
-            GetNetWinLossValues(genericData.MemberNetWinLoss, result);
-            GetNetWinLossValues(genericData.AgentNetWinLoss, result);
-            GetNetWinLossValues(genericData.MasterNetWinLoss, result);
-            GetNetWinLossValues(genericData.SuperNetWinLoss, result);
-
-            result.Add(genericData.Company);
-
-            return result;
         }
 
         protected override void FreezePanel(ISheet sheet)

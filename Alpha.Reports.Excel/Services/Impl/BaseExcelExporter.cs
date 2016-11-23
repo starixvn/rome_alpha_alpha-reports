@@ -32,6 +32,8 @@
 
         protected IRow TotalRowTemplate { get; set; }
 
+        protected Func<dynamic, IEnumerable<object>> GetRowValuesFunc { get; set; }
+
         protected byte[] Export<T>(ExportExcelParam<T> param) where T : class
         {
             if (param == null)
@@ -52,8 +54,6 @@
         }
 
         protected abstract void FillHeader(ISheet sheet);
-
-        protected abstract IEnumerable<object> GetRowValues(dynamic genericData);
 
         protected virtual void LoadTemplate(HSSFWorkbook workbook)
         {
@@ -109,7 +109,7 @@
             rowTemplate.CopyCells(row);
             row.Height = rowTemplate.Height;
 
-            row.SetCellValuesByValueList(StartColIndex, GetRowValues(genericData));
+            row.SetCellValuesByValueList(StartColIndex, GetRowValuesFunc(genericData));
         }
 
         protected virtual void FillTotalRow<T>(ISheet sheet, IRow row, T genericData)
@@ -122,7 +122,7 @@
             TotalRowTemplate.CopyCells(row);
             row.Height = TotalRowTemplate.Height;
 
-            row.SetCellValuesByValueList(StartColIndex, GetRowValues(genericData));
+            row.SetCellValuesByValueList(StartColIndex, GetRowValuesFunc(genericData));
             row.SetCellValue(StartColIndex, Resources.Total);
         }
 
