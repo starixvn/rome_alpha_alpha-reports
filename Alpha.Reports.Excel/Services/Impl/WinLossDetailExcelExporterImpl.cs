@@ -20,7 +20,7 @@
             return Export(param);
         }
 
-        protected override void ExportHeader(ISheet sheet)
+        protected override void FillHeader(ISheet sheet)
         {
             if (sheet == null)
             {
@@ -68,6 +68,11 @@
             result.Add(genericData.Company);
 
             return result;
+        }
+
+        protected override void FreezePanel(ISheet sheet)
+        {
+            sheet.CreateFreezePane(StartColIndex + 1, 3);
         }
 
         private static void GetNetWinLossValues(NetWinLoss netWinLoss, List<object> columnValues)

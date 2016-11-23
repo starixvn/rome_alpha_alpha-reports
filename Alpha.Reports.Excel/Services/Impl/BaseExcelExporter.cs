@@ -23,7 +23,6 @@
 
         private int dataLength = 0;
         private List<object> dataSource;
-        private DateTime startTime;
 
         protected int EndColIndex { get; set; }
 
@@ -40,7 +39,6 @@
                 throw new ArgumentNullException("param");
             }
 
-            startTime = DateTime.Now;
             var workbook = HSSFWorkbookExtension.Load(param.TemplatePath);
 
             LoadTemplate(workbook);
@@ -48,12 +46,12 @@
             dataLength = param.ReportData.DataSource.Count();
             dataSource = param.ReportData.DataSource.Select(t => (object)t).ToList();
 
-            ExportSheet(workbook, param);
+            FillSheet(workbook, param);
 
             return workbook.ToBytes();
         }
 
-        protected abstract void ExportHeader(ISheet sheet);
+        protected abstract void FillHeader(ISheet sheet);
 
         protected abstract IEnumerable<object> GetRowValues(dynamic genericData);
 
@@ -70,69 +68,7 @@
             EndColIndex = OddRowTemplate.LastCellNum - 1;
         }
 
-        protected virtual void ExportRow<T>(ISheet sheet, IRow row, T genericData, int dataIndex, bool isEvenRow = false)
-        {
-            if (row == null)
-            {
-                throw new ArgumentNullException("row");
-            }
-
-            var rowTemplate = isEvenRow ? EvenRowTemplate : OddRowTemplate;
-            rowTemplate.CopyCells(row);
-            row.Height = rowTemplate.Height;
-
-            row.SetCellValuesByValueList(StartColIndex, GetRowValues(genericData));
-        }
-
-        protected virtual void ExportTotalRow<T>(ISheet sheet, IRow row, T genericData)
-        {
-            if (row == null)
-            {
-                throw new ArgumentNullException("row");
-            }
-
-            TotalRowTemplate.CopyCells(row);
-            row.Height = TotalRowTemplate.Height;
-
-            row.SetCellValuesByValueList(StartColIndex, GetRowValues(genericData));
-            row.SetCellValue(StartColIndex, Resources.Total);
-        }
-
-        protected virtual void FreezePanel(ISheet sheet) { }
-
-        private void ExportSheet<T>(HSSFWorkbook workbook, ExportExcelParam<T> param) where T : class
-        {
-            var resultSheet = workbook.GetSheet(DefaultSheetName);
-
-            workbook.SetSheetName(0, param.SheetName);
-
-            ExportTitle(resultSheet, param);
-            ExportHeader(resultSheet);
-
-            if (param.ReportData.Any())
-            {
-                ExportBody(resultSheet, param);
-            }
-            else
-            {
-                var dataRowIndex = StartRowIndex + 3;
-                resultSheet.SetCellRangeValue(dataRowIndex, StartColIndex, dataRowIndex, StartColIndex + EndColIndex, Resources.NoInformationIsAvailable);
-                resultSheet.GetCell(dataRowIndex, StartColIndex).CellStyle.Alignment = HorizontalAlignment.Center;
-            }
-
-            resultSheet.SetCellValue(0, 13, (DateTime.Now - startTime).TotalMilliseconds);
-
-            FreezePanel(resultSheet);
-        }
-
-        private void ExportTitle<T>(ISheet sheet, ExportExcelParam<T> param) where T : class
-        {
-            var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}";
-
-            sheet.SetCellValue(TitleRowIndex, StartColIndex, reportTitle);
-        }
-
-        protected virtual void ExportBody<T>(ISheet sheet, ExportExcelParam<T> param) where T : class
+        protected virtual void FillBody<T>(ISheet sheet, ExportExcelParam<T> param) where T : class
         {
             if (param == null)
             {
@@ -151,15 +87,75 @@
             for (var i = 0; i < dataLength; i++, currentRowIndex++)
             {
                 currentRow = sheet.GetRow(currentRowIndex) ?? sheet.CreateRow(currentRowIndex);
-                ExportRow(sheet, currentRow, dataSource[i], i, isEvenRow);
+                FillRow(sheet, currentRow, dataSource[i], i, isEvenRow);
                 isEvenRow = !isEvenRow;
             }
 
             if (param.ReportData.TotalData != null)
             {
                 currentRow = sheet.GetRow(currentRowIndex) ?? sheet.CreateRow(currentRowIndex);
-                ExportTotalRow(sheet, currentRow, param.ReportData.TotalData);
+                FillTotalRow(sheet, currentRow, param.ReportData.TotalData);
             }
+        }
+
+        protected virtual void FillRow<T>(ISheet sheet, IRow row, T genericData, int dataIndex, bool isEvenRow = false)
+        {
+            if (row == null)
+            {
+                throw new ArgumentNullException("row");
+            }
+
+            var rowTemplate = isEvenRow ? EvenRowTemplate : OddRowTemplate;
+            rowTemplate.CopyCells(row);
+            row.Height = rowTemplate.Height;
+
+            row.SetCellValuesByValueList(StartColIndex, GetRowValues(genericData));
+        }
+
+        protected virtual void FillTotalRow<T>(ISheet sheet, IRow row, T genericData)
+        {
+            if (row == null)
+            {
+                throw new ArgumentNullException("row");
+            }
+
+            TotalRowTemplate.CopyCells(row);
+            row.Height = TotalRowTemplate.Height;
+
+            row.SetCellValuesByValueList(StartColIndex, GetRowValues(genericData));
+            row.SetCellValue(StartColIndex, Resources.Total);
+        }
+
+        protected virtual void FreezePanel(ISheet sheet) { }
+
+        private void FillSheet<T>(HSSFWorkbook workbook, ExportExcelParam<T> param) where T : class
+        {
+            var resultSheet = workbook.GetSheet(DefaultSheetName);
+
+            workbook.SetSheetName(0, param.SheetName);
+
+            FillTitle(resultSheet, param);
+            FillHeader(resultSheet);
+
+            if (param.ReportData.Any())
+            {
+                FillBody(resultSheet, param);
+            }
+            else
+            {
+                var dataRowIndex = StartRowIndex + 3;
+                resultSheet.SetCellRangeValue(dataRowIndex, StartColIndex, dataRowIndex, StartColIndex + EndColIndex, Resources.NoInformationIsAvailable);
+                resultSheet.GetCell(dataRowIndex, StartColIndex).CellStyle.Alignment = HorizontalAlignment.Center;
+            }
+
+            FreezePanel(resultSheet);
+        }
+
+        private void FillTitle<T>(ISheet sheet, ExportExcelParam<T> param) where T : class
+        {
+            var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}";
+
+            sheet.SetCellValue(TitleRowIndex, StartColIndex, reportTitle);
         }
     }
 }
