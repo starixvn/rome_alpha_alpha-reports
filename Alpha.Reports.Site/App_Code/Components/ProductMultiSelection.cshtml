@@ -1,4 +1,4 @@
-﻿@using Resources;
+﻿@using Alpha.Reports.Site.App_GlobalResources;
 @using Alpha.Reports.Site.ViewModels.Components;
 
 @helper Render(ProductMultiSelectionViewModel model)
@@ -20,6 +20,6 @@
                 </option>
             }
         </select>
-        <input type="hidden" name="UserSelectedProductIds" id="product-ids" value="@model.UserSelectedProductIds"/>
+        <input type="hidden" name="UserSelectedProductIds" id="product-ids" value="@model.UserSelectedProductIds" />
     </div>
 }
