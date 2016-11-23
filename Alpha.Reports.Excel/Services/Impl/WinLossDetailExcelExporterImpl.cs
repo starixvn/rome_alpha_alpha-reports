@@ -64,7 +64,7 @@
                 currentColIndex += 3;
             }
 
-            currentRow.SetCellValues(currentColIndex++, Resources.Company);
+            currentRow.SetCellValues(currentColIndex, Resources.Company);
         }
 
         protected override void ExportRow<T>(ISheet sheet, IRow row, T genericData, int dataIndex, bool isEvenRow = false)
