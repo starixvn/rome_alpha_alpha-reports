@@ -108,8 +108,8 @@
             TotalRowTemplate.CopyCells(row);
             row.Height = TotalRowTemplate.Height;
 
+            row.SetCellValuesByValueList(StartColIndex, GetRowValues(genericData));
             row.SetCellValue(StartColIndex, Resources.Total);
-            row.SetCellValuesByValueList(StartColIndex + 1, GetRowValues(genericData));
         }
 
         private void ExportSheet<T>(HSSFWorkbook workbook, int numberOfSheet, int sheetIndex, ExportExcelParam<T> param) where T : class
