@@ -165,10 +165,10 @@
         {
             @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
 
-            @RenderStackCustWinLoss(UserLevel.Member, data.MemberNetWinLoss);
-            @RenderStackCustWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
-            @RenderStackCustWinLoss(UserLevel.Master, data.MasterNetWinLoss);
-            @RenderStackCustWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
+            @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
+            @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
+            @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss);
+            @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
         }
         else
         {
@@ -176,16 +176,16 @@
             @HtmlHelpers.RenderNumberCell(data.NetTurnover)
             @HtmlHelpers.RenderNumberCell(data.GrossComm)
 
-            @RenderCustWinLoss(UserLevel.Member, data.MemberNetWinLoss)
-            @RenderCustWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
-            @RenderCustWinLoss(UserLevel.Master, data.MasterNetWinLoss)
-            @RenderCustWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
+            @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
+            @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
+            @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
+            @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
         }
         <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
 
-@helper RenderStackCustWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
+@helper RenderStackNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
 if (netWinLoss == null)
 {
@@ -202,7 +202,7 @@ var highlightCellClass = isHighlight ? "altercol" : string.Empty;
         netWinLoss.Total);
 }
 
-@helper RenderCustWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
+@helper RenderNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
 if (netWinLoss == null)
 {

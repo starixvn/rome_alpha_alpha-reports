@@ -10,9 +10,6 @@
 
 class WinLossDetailView {
     $: any;
-
-    $dropdownProduct: any;
-
     $pageTitle: any;
     $tableReport: any;
 
@@ -33,16 +30,23 @@ class WinLossDetailView {
     isHistoricReport = false;
     isSwitchView = false;
     levels = ["member", "agent", "master", "super"];
+
     dateRangePickerComponent: DateRangePickerComponent;
     pagerComponent: PagerComponent;
+    productMultiSelectionComponent: ProductMultiSelectionComponent;
+    sortComponent: SortComponent;
 
     constructor(
         $: any,
         dateRangePickerComponent: DateRangePickerComponent,
-        pageComponent: PagerComponent) {
+        pageComponent: PagerComponent,
+        productMultiSelectionComponent: ProductMultiSelectionComponent,
+        sortComponent: SortComponent) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.pagerComponent = pageComponent;
+        this.productMultiSelectionComponent = productMultiSelectionComponent;
+        this.sortComponent = sortComponent;
     }
 
     init = () => {
@@ -50,11 +54,10 @@ class WinLossDetailView {
 
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
-
-        this.isHistoricReport ? monthPickerComponent.render() : this.dateRangePickerComponent.render();
-
-        this.$dropdownProduct = productMultiSelectionComponent.render();
-
+        this.isHistoricReport
+            ? monthPickerComponent.render()
+            : this.dateRangePickerComponent.render();
+        this.productMultiSelectionComponent.render();
         this.cacheDOMElements();
 
         if (this.$hideFilter.val() === "True") {
@@ -66,7 +69,7 @@ class WinLossDetailView {
 
         var hasAllDataOnClient = self.pagerComponent.hasAllDataOnClient();
         self.bindTableSorter();
-        sortComponent.render({
+        this.sortComponent.render({
             sortContainer: this.$tableReport,
             canSort: parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
             hasAllDataOnClient: hasAllDataOnClient,
@@ -179,15 +182,15 @@ class WinLossDetailView {
         });
     };
     getParams = () => {
-        var selectedProducts = productMultiSelectionComponent.getSelectedItems(this.$dropdownProduct);
-        var sortInfo = sortComponent.getSortInfo(this.$tableReport);
+        var selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
+        var sortInfo = this.sortComponent.getSortInfo();
         var tableReport = this.$tableReport;
 
         return {
             CustId: tableReport.data("custid"),
             IsAnyProductSelected: selectedProducts.length > 0,
-            SortPropertyName: sortInfo.SortPropertyName,
-            IsDescendingSort: sortInfo.IsDescendingSort,
+            SortPropertyName: sortInfo.sortPropertyName,
+            IsDescendingSort: sortInfo.isDescendingSort,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
             HideFilter: this.$reportForm.is(":hidden"),
@@ -271,7 +274,12 @@ class WinLossDetailView {
     };
 }
 
-const winLossDetailView = new WinLossDetailView($, new DateRangePickerComponent($), new PagerComponent($));
+const winLossDetailView = new WinLossDetailView(
+    $,
+    new DateRangePickerComponent($),
+    new PagerComponent($),
+    new ProductMultiSelectionComponent($),
+    new SortComponent($));
 
 $(function () {
     winLossDetailView.init();

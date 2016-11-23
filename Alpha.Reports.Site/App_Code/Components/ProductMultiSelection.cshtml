@@ -6,10 +6,10 @@
     <div class="form-group">
         <select id="dropdown-product"
                 data-has-any-product="@model.Products.Any()"
-                data-labelselectproducts="@Resources.SelectProducts"
-                data-labelselected="@Resources.Selected"
-                data-labelallproducts="@Resources.AllProducts"
-                data-labelthereisnoproduct="@Resources.ThereIsNoProduct"
+                data-label-select-products="@Resources.SelectProducts"
+                data-label-selected="@Resources.Selected"
+                data-label-all-products="@Resources.AllProducts"
+                data-label-there-is-no-product="@Resources.ThereIsNoProduct"
                 data-language="@model.Language"
                 multiple="multiple" class="select-multiple">
             @foreach (var product in model.Products)

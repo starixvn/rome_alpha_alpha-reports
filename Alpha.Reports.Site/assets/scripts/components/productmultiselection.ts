@@ -1,23 +1,18 @@
 ﻿/// <reference path="../core.ts" />
 "use strict";
 class ProductMultiSelectionOption {
-    dropdownId: string;
-    validateBeforeSubmit: boolean;
-    hiddenInputId: string;
-
-    constructor(dropdownId: string = "dropdown-product",
-        validateBeforeSubmit: boolean = true,
-        hiddenInputId: string = "product-ids") {
-
-        this.dropdownId = dropdownId;
-        this.validateBeforeSubmit = validateBeforeSubmit;
-        this.hiddenInputId = hiddenInputId;
+    constructor(
+        public dropdownId: string = "dropdown-product",
+        public validateBeforeSubmit: boolean = true,
+        public productsInputId: string = "product-ids") {
     }
 }
 
 class ProductMultiSelectionComponent {
     $: any;
     $hiddenInput: any;
+    $dropdownProduct: any;
+    $multiSelectButton: any;
 
     options = new ProductMultiSelectionOption();
 
@@ -26,60 +21,57 @@ class ProductMultiSelectionComponent {
     }
 
     render = (options: ProductMultiSelectionOption = new ProductMultiSelectionOption()) => {
-        let pickerOptions = this.$.extend({}, this.options, options);
+        this.options = <ProductMultiSelectionOption>this.$.extend({}, this.options, options);
 
         let self = this;
 
-        let dropdownProduct = this.$("#" + pickerOptions.dropdownId);
+        this.$dropdownProduct = this.$("#" + this.options.dropdownId);
         let multiSelectButton = null;
-        let hasAnyProduct = dropdownProduct.data("has-any-product");
-        this.$hiddenInput = this.$("#" + pickerOptions.hiddenInputId);
+        let hasAnyProduct = this.$dropdownProduct.data("has-any-product");
+        this.$hiddenInput = this.$("#" + this.options.productsInputId);
 
-        dropdownProduct.multiselect({
+        this.$dropdownProduct.multiselect({
             maxHeight: 300,
             numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
-            nonSelectedText: hasAnyProduct ?
-                dropdownProduct.data("labelselectproducts")
-                : dropdownProduct.data("labelthereisnoproduct"),
-            nSelectedText: " " + dropdownProduct.data("labelselected"),
-            allSelectedText: dropdownProduct.data("labelallproducts"),
+            nonSelectedText: hasAnyProduct
+                ? this.$dropdownProduct.data("label-select-products")
+                : this.$dropdownProduct.data("label-there-is-no-product"),
+            nSelectedText: ` ${this.$dropdownProduct.data("label-selected")}`,
+            allSelectedText: this.$dropdownProduct.data("label-all-products"),
             includeSelectAllOption: hasAnyProduct,
-            onChange: function (option: any, checked: boolean) {
-                self.validate(dropdownProduct, multiSelectButton, pickerOptions);
-                self.$hiddenInput.val(self.getSelectedItems(dropdownProduct).join(","));
-            },
-            onSelectAll: function () {
-                self.validate(dropdownProduct, multiSelectButton, pickerOptions);
-            },
-            language: dropdownProduct.data("language")
+            onChange: this.onChange,
+            onSelectAll: this.onChange,
+            language: this.$dropdownProduct.data("language")
         });
 
-        multiSelectButton = this.$(".multiselect.btn");
+        this.$multiSelectButton = this.$dropdownProduct.parent().find(".multiselect.btn");
 
-        return dropdownProduct;
+        return this.$dropdownProduct;
     };
-    validate = (dropdownProduct: any,
-        multiSelectButton: any,
-        pickerOptions: any) => {
-        if (pickerOptions.validateBeforeSubmit &&
-            multiSelectButton &&
-            dropdownProduct.find("option:selected").length &&
-            multiSelectButton.hasClass("error")) {
-            multiSelectButton.removeClass("error");
+
+    onChange = (option: any, checked: boolean) => {
+        this.validate();
+        this.$hiddenInput.val(this.getSelectedItems().join(","));
+    };
+
+    validate = () => {
+        if (this.options.validateBeforeSubmit
+            && this.$multiSelectButton
+            && this.$dropdownProduct.find("option:selected").length
+            && this.$multiSelectButton.hasClass("error")) {
+            this.$multiSelectButton.removeClass("error");
         }
     };
-    getSelectedItems = (dropdownProduct: any) => {
-        let self = this;
 
+    getSelectedItems = () => {
         let selected = [];
+        let selectedOptions = this.$dropdownProduct.find("option:selected");
+        let this$ = this.$;
 
-        let selectedOptions = dropdownProduct.find("option:selected");
         selectedOptions.each(function () {
-            selected.push([self.$(this).val()]);
+            selected.push([this$(this).val()]);
         });
 
         return selected;
     };
 }
-
-const productMultiSelectionComponent = new ProductMultiSelectionComponent($);

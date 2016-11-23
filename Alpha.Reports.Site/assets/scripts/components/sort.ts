@@ -2,25 +2,17 @@
 "use strict";
 
 class SortOption {
-    sortContainer: any;
-    canSort: boolean;
-    hasAllDataOnClient: boolean;
-    afterSortFunction: any;
-
-    constructor(sortContainer: any = null,
-        canSort: boolean = true,
-        hasAllDataOnClient: boolean = false,
-        afterSortFunction: any = null) {
-        this.sortContainer = sortContainer;
-        this.canSort = canSort;
-        this.hasAllDataOnClient = hasAllDataOnClient;
-        this.afterSortFunction = afterSortFunction;
+    constructor(
+        public sortContainer: any = null,
+        public canSort: boolean = true,
+        public hasAllDataOnClient: boolean = false,
+        public afterSortFunction: any = null) {
     }
 }
 
 class SortComponent {
     $: any;
-
+    $sortContainer: any;
     options = new SortOption();
 
     constructor($: any) {
@@ -28,48 +20,55 @@ class SortComponent {
     }
 
     render = (options: SortOption = new SortOption()) => {
-        var componentOptions = this.$.extend({}, this.options, options);
-        var sortContainer = componentOptions.sortContainer;
+        this.options = <SortOption>this.$.extend({}, this.options, options);
+        this.$sortContainer = this.options.sortContainer;
 
-        var self = this;
-        var sortColumns = sortContainer.find("[data-sortedname]");
+        let sortColumns = this.$sortContainer.find("[data-sortedname]");
 
-        if (!componentOptions.canSort) {
+        if (!this.options.canSort) {
             sortColumns.removeAttr("data-sortedname");
             return;
-        } else {
-            sortColumns.off("click.sortcomponent").on("click.sortcomponent",
-                function () {
-                    var sortedColumn = self.$(this).data("sortedname");
-
-                    var descendingsort =
-                        sortedColumn === sortContainer.data("sortedcolumn") &&
-                        !(sortContainer.data("descendingsort").toString().toLowerCase() === "true");
-
-                    sortContainer.data("descendingsort", descendingsort);
-                    sortContainer.data("sortedcolumn", sortedColumn);
-
-                    if (componentOptions.afterSortFunction &&
-                        typeof componentOptions.afterSortFunction === "function") {
-                        componentOptions.afterSortFunction();
-                    }
-                });
         }
 
-        if (!componentOptions.hasAllDataOnClient) {
-            var descendingsort = sortContainer.data("descendingsort").toLowerCase() === "true";
+        var self = this;
+        sortColumns
+            .off("click.sortcomponent")
+            .on("click.sortcomponent",
+            function () {
+                self.onSort(self.$(this).data("sortedname"));
+            });
 
-            var sortClass = descendingsort ? "sorting-desc" : "sorting-asc";
+        if (!this.options.hasAllDataOnClient) {
+            let isDecendingSort = this.$sortContainer.data("descendingsort").toLowerCase() === "true";
+            let sortClass = isDecendingSort ? "sorting-desc" : "sorting-asc";
 
-            var columns = sortContainer.find("[data-sortedname='" + sortContainer.data("sortedcolumn") + "']").addClass(sortClass);
+            this.$sortContainer
+                .find("[data-sortedname='" + this.$sortContainer.data("sortedcolumn") + "']")
+                .addClass(sortClass);
         }
 
         return sortColumns;
     };
-    getSortInfo = (sortContainer: any) => {
+
+    onSort = (sortedColumnName) => {
+        let descendingsort =
+            sortedColumnName === this.$sortContainer.data("sortedcolumn") &&
+            !(this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true");
+
+        this.$sortContainer
+            .data("descendingsort", descendingsort)
+            .data("sortedcolumn", sortedColumnName);
+
+        if (this.options.afterSortFunction &&
+            typeof this.options.afterSortFunction === "function") {
+            this.options.afterSortFunction();
+        }
+    }
+
+    getSortInfo = () => {
         return {
-            SortPropertyName: sortContainer.data("sortedcolumn"),
-            IsDescendingSort: sortContainer.data("descendingsort")
+            sortPropertyName: this.$sortContainer.data("sortedcolumn"),
+            isDescendingSort: this.$sortContainer.data("descendingsort")
         };
     };
 }
