@@ -129,7 +129,7 @@
         }
 
         [Test]
-        public void GetPageSize_Always_ReturnsInitValue()
+        public void GetPageSize_Always_ReturnsInitialValue()
         {
             // Arrange
             var initValue = 0;
@@ -138,6 +138,36 @@
 
             // Act
             var actualValue = reportCriteriaBase.PageSize;
+
+            // Assert
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [Test]
+        public void GetBalanceUpDay_Always_ReturnsInitialValue()
+        {
+            // Arrange
+            var initValue = DateTime.Now;
+            var expectedValue = initValue;
+            var reportCriteriaBase = new ReportCriteriaBaseForTesting(0, 0, 0, DateTime.Now, DateTime.Now, initValue, DateTime.Now);
+
+            // Act
+            var actualValue = reportCriteriaBase.BalanceUpDay;
+
+            // Assert
+            Assert.AreEqual(expectedValue, actualValue);
+        }
+
+        [Test]
+        public void GetMoveBetsDay_Always_ReturnsInitialValue()
+        {
+            // Arrange
+            var initValue = DateTime.Now;
+            var expectedValue = initValue;
+            var reportCriteriaBase = new ReportCriteriaBaseForTesting(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.Now, initValue);
+
+            // Act
+            var actualValue = reportCriteriaBase.MoveBetsDay;
 
             // Assert
             Assert.AreEqual(expectedValue, actualValue);

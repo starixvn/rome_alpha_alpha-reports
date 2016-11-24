@@ -7,6 +7,13 @@
     [TestFixture]
     public class StringExtensionsTests
     {
+        private static object[] stringContainsNonNumericCharactersCases =
+        {
+            new object[] { "1, abc, 3, d, 4", new List<int> { 1, 3, 4 } },
+            new object[] { "1, 200, 343, 33, abc", new List<int> { 1, 200, 343, 33 } },
+            new object[] { "1000000000000000000000, ab, 12", new List<int> { 12 } }
+        };
+
         [Test]
         public void ToListInt_StringIsNull_ReturnEmptyListInt()
         {
@@ -31,7 +38,7 @@
             Assert.IsEmpty(expected);
         }
 
-        [Test, TestCaseSource("StringContainsNonNumericCharactersCases")]
+        [Test, TestCaseSource("stringContainsNonNumericCharactersCases")]
         public void ToListInt_Always_IgnoreNonNumbericCharacters(string s, List<int> ids)
         {
             // Arrange
@@ -42,12 +49,5 @@
             // Assert
             CollectionAssert.AreEquivalent(expected, ids);
         }
-
-        private static object[] StringContainsNonNumericCharactersCases =
-        {
-            new object[] { "1, abc, 3, d, 4", new List<int> { 1, 3, 4}},
-            new object[] { "1, 200, 343, 33, abc", new List<int> { 1, 200, 343, 33 }},
-            new object[] { "1000000000000000000000, ab, 12", new List<int> { 12 }}
-        };
     }
 }
