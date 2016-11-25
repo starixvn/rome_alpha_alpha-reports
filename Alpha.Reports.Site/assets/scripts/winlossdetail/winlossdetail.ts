@@ -27,6 +27,12 @@ class WinLossDetailView {
     $reportSwitch: any;
     $fromDate: any;
     $toDate: any;
+    $exportExcelForm: any;
+
+    $custId: any;
+    $productIds: any;
+    $pageIndex: any;
+    $pageSize: any;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -104,12 +110,18 @@ class WinLossDetailView {
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
         this.$reportForm = this.$("#report-form");
+        this.$exportExcelForm = this.$("#export-excel-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$multiSelectButton = this.$(".multiselect.btn");
         this.$reportSwitch = this.$("#report-switch");
 
-        this.$fromDate = this.$("#from-date")
-        this.$toDate = this.$("#to-date")
+        this.$fromDate = this.$("#from-date");
+        this.$toDate = this.$("#to-date");
+
+        this.$custId = this.$("#CustId");
+        this.$productIds = this.$("#product-ids");
+        this.$pageIndex = this.$("#PageIndex");
+        this.$pageSize = this.$("#PageSize");
     };
     registerEvents = () => {
         var self = this;
@@ -179,10 +191,7 @@ class WinLossDetailView {
         this.$reportForm.submit(this.onSubmitReportEvent);
 
         this.$("#icon-excel").on("click", function () {
-            self.$reportForm.attr("action", "WinLossDetail/Excel");
-            self.$reportForm.submit();
-
-            self.$reportForm.attr("action", null);
+            self.$exportExcelForm.submit();
             self.$.unblockUI();
         });
 

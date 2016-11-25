@@ -93,9 +93,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                                                .ReportData
-                                                .DataSource
-                                                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                                                    .ReportData
+                                                                    .DataSource
+                                                                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
@@ -115,6 +115,14 @@
 
 @Pager.Render(Model.PagerViewModel)
 
+<form class="form-inline hide" role="form" id="export-excel-form" action="WinLossDetail/Excel">
+    <input type="hidden" name="CustId" value="@Model.CustId" />
+    <input type="hidden" name="PageIndex" value="@Model.PagerViewModel.PageSize" />
+    <input type="hidden" name="PageSize" value="@Model.PagerViewModel.PageIndex" />
+    <input type="hidden" name="FromDate" value="@Model.FromDate" />
+    <input type="hidden" name="ToDate" value="@Model.ToDate" />
+    <input type="hidden" name="UserSelectedProductIds" value="@Model.UserSelectedProductIds" />
+</form>
 @section Scripts {
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
 }
