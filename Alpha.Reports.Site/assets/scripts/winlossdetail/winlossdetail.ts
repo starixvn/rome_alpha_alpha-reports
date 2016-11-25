@@ -25,6 +25,8 @@ class WinLossDetailView {
     $userSelectedDateRangeOption: any;
     $netTurnoverTooltip: any;
     $reportSwitch: any;
+    $fromDate: any;
+    $toDate: any;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -105,11 +107,16 @@ class WinLossDetailView {
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$multiSelectButton = this.$(".multiselect.btn");
         this.$reportSwitch = this.$("#report-switch");
+
+        this.$fromDate = this.$("#from-date")
+        this.$toDate = this.$("#to-date")
     };
     registerEvents = () => {
         var self = this;
 
         this.$reportSwitch.on("click", function () {
+            self.$fromDate.val("");
+            self.$toDate.val("");
             self.isSwitchView = true;
             self.isHistoricReport = !self.$reportSwitch.data("is-historic-report");
             self.$reportForm.trigger("submit");
@@ -206,7 +213,7 @@ class WinLossDetailView {
             HideFilter: this.$reportForm.is(":hidden"),
         };
     };
-    showValidaProductError = () => {
+    showValidateProductError = () => {
         this.$multiSelectButton.addClass("error");
     };
     clearError = () => {
@@ -225,23 +232,19 @@ class WinLossDetailView {
 
         var params = this.getParams();
         if (!params.IsAnyProductSelected) {
-            this.showValidaProductError();
+            this.showValidateProductError();
             this.$.unblockUI();
             e.preventDefault();
 
             return;
         }
 
-        this.$hideFilter.val(params.HideFilter);
+        this.$hideFilter.val(alphaReports.screenSmallThan768() ? true : params.HideFilter);
         this.$isDescendingSort.val(params.IsDescendingSort);
         this.$isHistoricReport.val(params.IsHistoricReport);
         this.$isStackMode.val(params.IsStackMode);
         this.$sortPropertyName.val(params.SortPropertyName);
 
-        if (alphaReports.screenSmallThan768()) {
-            this.$pageTitle.addClass("hide-filter");
-            this.$reportForm.slideUp("fast");
-        }
     };
     bindTableSorter = () => {
         if (!this.pagerComponent.hasAllDataOnClient()) {
