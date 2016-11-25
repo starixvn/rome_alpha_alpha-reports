@@ -86,7 +86,7 @@ class WinLossDetailView {
             afterSortFunction: function () {
                 if (hasAllDataOnClient) {
                     self.replaceDrilldownParam("SortPropertyName", self.$tableReport.data("sortedcolumn"));
-                    self.replaceDrilldownParam("IsDescendingSort", self.$tableReport.data("descendingsort") === "1");
+                    self.replaceDrilldownParam("IsDescendingSort", self.$tableReport.data("descendingsort") === "1" || self.$tableReport.data("descendingsort") === "true");
                 } else {
                     self.$reportForm.trigger("submit");
                 }
