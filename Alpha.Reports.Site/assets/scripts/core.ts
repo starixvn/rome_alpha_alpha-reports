@@ -29,7 +29,7 @@ class AlphaReports {
     numberDisplayedProductsOnFilter = 1;
     maxTimesToShowTooltip = 5;
     screenSmallThan768 = () => {
-        var currentWindowWidth = this.$(window).width();
+        var currentWindowWidth = screen.width || this.$(window).width();
 
         return currentWindowWidth < 768;
     };

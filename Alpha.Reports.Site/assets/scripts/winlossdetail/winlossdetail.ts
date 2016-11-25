@@ -273,12 +273,12 @@ class WinLossDetailView {
 
         var sortedColumnHeader = self.$tableReport.find("[data-sortedname='" + self.getSortedColumnName() + "']" +
             (self.$tableReport.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : ""))[0];
-
+        var isDescendingSort = self.$tableReport.data("descendingsort") === "1" || self.$tableReport.data("descendingsort").toString().toLowerCase() === "true";
         this.$tableReport.tablesorter(
             {
                 defaultParser: 1,
                 headers: headers,
-                sortList: [[self.$(sortedColumnHeader).data("colindex"), self.$tableReport.data("descendingsort") === "1" ? 1 : 0]],
+                sortList: [[self.$(sortedColumnHeader).data("colindex"), isDescendingSort ? 1 : 0]],
                 textExtraction: function (node: any) {
                     var $node = self.$(node);
 
