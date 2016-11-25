@@ -1,6 +1,6 @@
 ﻿@helper FormatNumber(decimal value)
 {
-    @Math.Round(value, 2).ToString($"#,##0.00")
+    @value.ToString($"#,##0.00")
 }
 
 @helper FormatNumber(int value)
