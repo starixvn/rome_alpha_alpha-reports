@@ -167,6 +167,10 @@ a {
     select.dropdown-daterange {
         width: 160px;
     }
+
+    .input-group.date .form-control {
+        -webkit-appearance: none;
+    }    
 }
 
 // Ripple effect
@@ -189,19 +193,24 @@ a {
 // netturnover tooltip
 #netturnovertooltip {
     overflow: hidden;
-    width: 815px;
-    height: 112px;
+    width: 100%;
+    height: auto;
+    @include box-shadow-multiple(none);
 
     .modal-dialog {
-        width: 815px;
+        width: 850px;
         margin: 0 auto;
 
+        .modal-body {
+            padding-bottom: 0;
+        }
         #msg-content {
             padding: 12px 0;
         }
 
         .list-msg {
             line-height: 28px;
+            margin-bottom: 0;
         }
     }
 }
@@ -265,5 +274,9 @@ a {
         select.select-multiple {
             height: $height-mobile;
         }
+    }
+
+    #netturnovertooltip .modal-dialog {        
+        width: 100%;
     }
 }

@@ -56,7 +56,7 @@ class NetTurnoverTooltipComponent {
         var rightPosition = this.$(".col-netturnover-header").width();
 
         netTurnoverTooltip.css({
-            left: netTurnoverPosition.left + rightPosition - 10,
+            left: 0,
             top: netTurnoverPosition.top - 22
         });
     };
