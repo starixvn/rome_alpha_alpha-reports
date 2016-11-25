@@ -86,7 +86,7 @@ class WinLossDetailView {
             afterSortFunction: function () {
                 if (hasAllDataOnClient) {
                     self.replaceDrilldownParam("SortPropertyName", self.$tableReport.data("sortedcolumn"));
-                    self.replaceDrilldownParam("IsDescendingSort", self.$tableReport.data("descendingsort"));
+                    self.replaceDrilldownParam("IsDescendingSort", self.$tableReport.data("descendingsort") === "1");
                 } else {
                     self.$reportForm.trigger("submit");
                 }
@@ -271,14 +271,14 @@ class WinLossDetailView {
             headers[this.cellIndex] = { sorter: false };
         });
 
-        var sortedColumnHeader = self.$tableReport.find("[data-sortedname='" + self.$tableReport.data("sortedcolumn") + "']" +
+        var sortedColumnHeader = self.$tableReport.find("[data-sortedname='" + self.getSortedColumnName() + "']" +
             (self.$tableReport.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : ""))[0];
 
         this.$tableReport.tablesorter(
             {
                 defaultParser: 1,
                 headers: headers,
-                sortList: [[self.$(sortedColumnHeader).data("colindex"), self.$isDescendingSort.val().toLowerCase() === "true" ? 1 : 0]],
+                sortList: [[self.$(sortedColumnHeader).data("colindex"), self.$tableReport.data("descendingsort") === "1" ? 1 : 0]],
                 textExtraction: function (node: any) {
                     var $node = self.$(node);
 
@@ -293,6 +293,35 @@ class WinLossDetailView {
                     return $node.html();
                 }
             });
+    };
+
+    getSortedColumnName = () => {
+        var sortedColumn = this.$tableReport.data("sortedcolumn");
+        if (!this.$tableReport.hasClass("stack-mode")) {
+            return sortedColumn;
+        }
+
+        if (sortedColumn == "NetTurnover" || sortedColumn == "GrossComm") {
+            return "Turnover";
+        }
+
+        if (sortedColumn == "MemberNetWinLoss.Comm" || sortedColumn == "MemberNetWinLoss.Total") {
+            return "MemberNetWinLoss.WinLoss";
+        }
+
+        if (sortedColumn == "AgentNetWinLoss.Comm" || sortedColumn == "AgentNetWinLoss.Total") {
+            return "AgentNetWinLoss.WinLoss";
+        }
+
+        if (sortedColumn == "MasterNetWinLoss.Comm" || sortedColumn == "MasterNetWinLoss.Total") {
+            return "MasterNetWinLoss.WinLoss";
+        }
+
+        if (sortedColumn == "SuperNetWinLoss.Comm" || sortedColumn == "SuperNetWinLoss.Total") {
+            return "SuperNetWinLoss.WinLoss";
+        }
+
+        return sortedColumn;
     };
 }
 

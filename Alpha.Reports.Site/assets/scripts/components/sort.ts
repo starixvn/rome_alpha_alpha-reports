@@ -53,10 +53,11 @@ class SortComponent {
     onSort = (sortedColumnName) => {
         let descendingsort =
             sortedColumnName === this.$sortContainer.data("sortedcolumn") &&
-            !(this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true");
+            !(this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true") &&
+            !(this.$sortContainer.data("descendingsort") === "1");
 
         this.$sortContainer
-            .data("descendingsort", descendingsort)
+            .data("descendingsort", descendingsort ? "1" : "0")
             .data("sortedcolumn", sortedColumnName);
 
         if (this.options.afterSortFunction &&
@@ -68,7 +69,7 @@ class SortComponent {
     getSortInfo = () => {
         return {
             sortPropertyName: this.$sortContainer.data("sortedcolumn"),
-            isDescendingSort: this.$sortContainer.data("descendingsort")
+            isDescendingSort: this.$sortContainer.data("descendingsort") ? true : false
         };
     };
 }
