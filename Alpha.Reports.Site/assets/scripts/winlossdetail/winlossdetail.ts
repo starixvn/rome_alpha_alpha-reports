@@ -69,9 +69,11 @@ class WinLossDetailView {
 
         var hasAllDataOnClient = self.pagerComponent.hasAllDataOnClient();
         self.bindTableSorter();
+
+        var canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
         this.sortComponent.render({
             sortContainer: this.$tableReport,
-            canSort: parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
+            canSort: canSort,
             hasAllDataOnClient: hasAllDataOnClient,
             afterSortFunction: function () {
                 if (hasAllDataOnClient) {
@@ -82,6 +84,10 @@ class WinLossDetailView {
                 }
             }
         });
+
+        if (!canSort) {
+            this.$(".sorting").removeClass("sorting");
+        }
 
         this.$tableReport.stickyTableHeaders();
 
