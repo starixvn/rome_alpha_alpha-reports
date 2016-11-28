@@ -28,9 +28,6 @@ class DateRangePickerComponent {
 
         dateRangePicker.nexDatePicker({
             datePickerFormat: {
-                changeMonth: true,
-                changeYear: true,
-                showOtherMonths: true,
                 dateFormat: alphaReports.format.shortDateWithSlash_DatePicker
             },
             selectedItem: dateRangePicker.data("selecteddaterange"),

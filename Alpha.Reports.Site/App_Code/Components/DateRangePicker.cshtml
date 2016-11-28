@@ -16,9 +16,7 @@
                 @foreach (var rangeOption in model.RangeOptions)
                 {
                     <option value="@rangeOption.Value"
-                            @(rangeOption.Selected ? " selected=\"selected\"" : string.Empty)>
-                        @rangeOption.Text
-                    </option>
+                            @(rangeOption.Selected ? " selected=\"selected\"" : string.Empty)>@rangeOption.Text</option>
                 }
             </select>
         </div>
