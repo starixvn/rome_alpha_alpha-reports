@@ -76,13 +76,15 @@ class WinLossDetailView {
         this.pagerComponent.render();
 
         var hasAllDataOnClient = self.pagerComponent.hasAllDataOnClient();
-        self.bindTableSorter();
 
         var canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
         this.sortComponent.render({
             sortContainer: this.$tableReport,
             canSort: canSort,
             hasAllDataOnClient: hasAllDataOnClient,
+            headers: {
+                0: { sorter: "text" }
+            },
             afterSortFunction: function () {
                 if (hasAllDataOnClient) {
                     self.replaceDrilldownParam("SortPropertyName", self.$tableReport.data("sortedcolumn"));
@@ -92,10 +94,6 @@ class WinLossDetailView {
                 }
             }
         });
-
-        if (!canSort) {
-            this.$(".sorting").removeClass("sorting");
-        }
 
         this.$tableReport.stickyTableHeaders();
 
@@ -183,7 +181,7 @@ class WinLossDetailView {
                 self.isFirstSwitchMode = false;
             }
 
-            self.bindTableSorter();
+            self.sortComponent.bindTableSorter(self.getSortedColumnName());
         });
 
         this.$reportForm.submit(this.onSubmitReportEvent);
@@ -255,45 +253,6 @@ class WinLossDetailView {
         this.$isHistoricReport.val(params.IsHistoricReport);
         this.$isStackMode.val(params.IsStackMode);
         this.$sortPropertyName.val(params.SortPropertyName);
-    };
-    bindTableSorter = () => {
-        if (!this.pagerComponent.hasAllDataOnClient()) {
-            return;
-        }
-
-        var self = this;
-
-        var headers = {
-            0: { sorter: "text" }
-        };
-
-        var disabledSortColumns = self.$tableReport.find("th[data-disabledsort='true']");
-        disabledSortColumns.each(function () {
-            headers[this.cellIndex] = { sorter: false };
-        });
-
-        var sortedColumnHeader = self.$tableReport.find("[data-sortedname='" + self.getSortedColumnName() + "']" +
-            (self.$tableReport.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : ":not([class*='col-combine'])"))[0];
-        var isDescendingSort = self.$tableReport.data("descendingsort") === "1" || self.$tableReport.data("descendingsort").toString().toLowerCase() === "true";
-        this.$tableReport.tablesorter(
-            {
-                defaultParser: 1,
-                headers: headers,
-                sortList: [[self.$(sortedColumnHeader).data("colindex"), isDescendingSort ? 1 : 0]],
-                textExtraction: function (node: any) {
-                    var $node = self.$(node);
-
-                    if ($node.hasClass("combinedcell")) {
-                        return $node.find("ul>li:first-child").html();
-                    }
-
-                    if ($node.data("islink")) {
-                        return $node.find("a").html();
-                    }
-
-                    return $node.html();
-                }
-            });
     };
 
     getSortedColumnName = () => {

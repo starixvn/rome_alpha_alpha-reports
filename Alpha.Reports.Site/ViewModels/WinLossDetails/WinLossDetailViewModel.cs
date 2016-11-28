@@ -17,7 +17,7 @@
         public int CustId { get; set; }
 
         public DateTime MinDate => IsHistoricReport
-            ? DateTime.Now.AddYears(-3).FirstDayOfMonth()
+            ? DateTime.Now.AddYears(-3).FirstDayOfYear()
             : DateTime.Now.AddMonths(-3).FirstDayOfMonth();
 
         public DateTime MaxDate => DateTime.MaxValue;

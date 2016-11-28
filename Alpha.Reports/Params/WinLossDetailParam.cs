@@ -103,13 +103,13 @@
         {
             if (IsHistoryReport)
             {
-                return DateTime.Now.AddYears(-3) <= FromDate
+                return DateTime.Now.AddYears(-3).FirstDayOfYear() <= FromDate
                     && FromDate <= ToDate
                     && ToDate.Year == FromDate.Year
                     && ToDate.Month == FromDate.Month;
             }
 
-            return DateTime.Now.AddMonths(-3) <= FromDate
+            return DateTime.Now.AddMonths(-3).FirstDayOfMonth() <= FromDate
                    && FromDate <= ToDate;
         }
     }

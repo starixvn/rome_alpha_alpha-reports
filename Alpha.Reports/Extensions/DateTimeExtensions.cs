@@ -54,5 +54,10 @@
         {
             return dateTime.FirstDayOfMonth().AddMonths(1).AddDays(-1);
         }
+
+        public static DateTime FirstDayOfYear(this DateTime dateTime)
+        {
+            return new DateTime(dateTime.Year, 1, 1);
+        }
     }
 }
