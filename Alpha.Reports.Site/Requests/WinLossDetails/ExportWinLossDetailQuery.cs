@@ -14,6 +14,11 @@
 
         public ExportWinLossDetailQuery(WinLossDetailViewModel viewModel)
         {
+            if (viewModel == null)
+            {
+                throw new ArgumentNullException("viewModel");
+            }
+
             this.viewModel = viewModel;
 
             var excelTemplatePath = ExcelTemplateDir +

@@ -75,6 +75,11 @@
 
         public byte[] Handle(ExportWinLossDetailQuery message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
             var fileContents = excelExporter.Export(
                 new ExportExcelParam<WinLossDetail>
                 {

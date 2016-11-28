@@ -1,6 +1,8 @@
 ﻿namespace Alpha.Reports.Services.Impl
 {
     using System;
+    using System.Collections;
+    using System.Linq;
     using Criteria.WinLossDetail;
     using DataAccesses;
     using Models;
@@ -30,7 +32,12 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            var validUserSelectedProductIds = 
+            if (!param.IsValid())
+            {
+                return new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), param.PageIndex, param.PageSize, 0, new WinLossDetail());
+            }
+
+            var validUserSelectedProductIds =
                 productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds);
 
             var criteria = new WinLossDetailCriteria(
@@ -44,7 +51,7 @@
                 validUserSelectedProductIds,
                 param.ReportLevel);
 
-            var winLossDetailData = dataAccess.GetData(criteria);            
+            var winLossDetailData = dataAccess.GetData(criteria);
 
             return winLossDetailData;
         }

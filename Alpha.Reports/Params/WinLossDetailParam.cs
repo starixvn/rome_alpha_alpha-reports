@@ -24,6 +24,8 @@
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;
 
+            IsHistoryReport = isHistoricReport;
+
             if (fromDate == DateTime.MinValue)
             {
                 FromDate = isHistoricReport ? DateTime.Now.FirstDayOfMonth() : DateTime.Now;
@@ -63,6 +65,8 @@
 
         public bool IsDescendingSort { get; }
 
+        public bool IsHistoryReport { get; }
+
         private string GetDefaultSortedProperty()
         {
             if (ReportLevel.IsSuperLevel())
@@ -93,6 +97,20 @@
             }
 
             return sortedProperty;
+        }
+
+        public bool IsValid()
+        {
+            if (IsHistoryReport)
+            {
+                return DateTime.Now.AddYears(-3) <= FromDate
+                    && FromDate <= ToDate
+                    && ToDate.Year == FromDate.Year
+                    && ToDate.Month == FromDate.Month;
+            }
+
+            return DateTime.Now.AddMonths(-3) <= FromDate
+                   && FromDate <= ToDate;
         }
     }
 }
