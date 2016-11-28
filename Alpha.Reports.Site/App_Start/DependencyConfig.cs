@@ -65,20 +65,21 @@
 
         private static void RegisterServices(Container container)
         {
-            container.Register<ApplicationContext, ReportApplicationContext>(Lifestyle.Singleton);
-            container.Register<IUserSession, UserSessionExt>(Lifestyle.Scoped);
-            container.Register<CacheRefService, CacheRefServiceImpl>(Lifestyle.Transient);
-            container.Register<ReportDateService, ReportDateServiceImpl>(Lifestyle.Transient);
-            container.Register<ProductService, ProductServiceImpl>(Lifestyle.Transient);
-            container.Register<WinLossDetailService, WinLossDetailServiceImpl>(Lifestyle.Transient);
+            container.RegisterSingleton<ApplicationContext, ReportApplicationContext>();
+            container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
+            container.RegisterPerWebRequest<IUserSession, UserSessionExt>();
 
-            container.Register<WinLossDetailExcelExporter, WinLossDetailExcelExporterImpl>(Lifestyle.Transient);
+            container.RegisterPerWebRequest<ReportDateService, ReportDateServiceImpl>();
+            container.RegisterPerWebRequest<ProductService, ProductServiceImpl>();
+
+            container.RegisterPerWebRequest<WinLossDetailService, WinLossDetailServiceImpl>();
+            container.RegisterPerWebRequest<WinLossDetailExcelExporter, WinLossDetailExcelExporterImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)
         {
-            container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Transient);
-            container.Register<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>(Lifestyle.Transient);
+            container.RegisterPerWebRequest<IDynamicRepository, DynamicRepository>();
+            container.RegisterPerWebRequest<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
         }
     }
 }

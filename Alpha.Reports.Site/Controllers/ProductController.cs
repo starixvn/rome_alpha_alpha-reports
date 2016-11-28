@@ -2,13 +2,12 @@
 {
     using System.Web.Mvc;
     using Services;
-    using Services.Impl;
 
     public class ProductController : BaseController
     {
         private readonly ProductService productService;
 
-        public ProductController(ProductServiceImpl productService)
+        public ProductController(ProductService productService)
         {
             this.productService = productService;
         }
