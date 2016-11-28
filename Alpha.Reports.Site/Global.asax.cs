@@ -7,11 +7,11 @@
     using System.Web.Routing;
     using App_GlobalResources;
     using App_Start;
-    using Auth.Web;
     using Configurations;
     using Fanex.Data;
     using ONEbook.UM.Filters;
     using Sunplus.Agent.Utilities;
+    using Web;
 
     public class MvcApplication : HttpApplication
     {
