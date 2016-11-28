@@ -90,7 +90,7 @@
         {
             var levelGroups = new List<string> { Resources.Member, Resources.Agent };
 
-            if (userLevel.IsSuperLevel() || userLevel.IsMasterLevel())
+            if (userLevel.IsMasterOrSuperLevel())
             {
                 levelGroups.Add(Resources.Master);
             }
