@@ -36,13 +36,15 @@
 
             <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Member</th>
             <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="3">
-                <div>@Resources.Member</div>
+                @Resources.Member
+                <br />
                 <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
             </th>
 
             <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Agent</th>
             <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" rowspan="2" data-colindex="4">
-                <div>@Resources.Agent</div>
+                @Resources.Agent
+                <br />
                 <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
             </th>
 
@@ -50,7 +52,8 @@
             {
                 <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Master</th>
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="MasterNetWinLoss.WinLoss" rowspan="2" data-colindex="5">
-                    <div>@Resources.Master</div>
+                    @Resources.Master
+                    <br />
                     <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
                 </th>
             }
@@ -59,7 +62,8 @@
             {
                 <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Super</th>
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperNetWinLoss.WinLoss" rowspan="2" data-colindex="6">
-                    <div>@Resources.Super</div>
+                    @Resources.Super
+                    <br />
                     <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
                 </th>
             }
@@ -93,9 +97,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                .ReportData
-                .DataSource
-                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                .ReportData
+                                .DataSource
+                                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
