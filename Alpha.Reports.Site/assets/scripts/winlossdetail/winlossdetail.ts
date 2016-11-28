@@ -127,8 +127,6 @@ class WinLossDetailView {
         var self = this;
 
         this.$reportSwitch.on("click", function () {
-            self.$fromDate.val("");
-            self.$toDate.val("");
             self.isSwitchView = true;
             self.isHistoricReport = !self.$reportSwitch.data("is-historic-report");
             self.$reportForm.trigger("submit");
@@ -240,7 +238,11 @@ class WinLossDetailView {
         this.$.blockUI();
 
         var params = this.getParams();
-        if (!params.IsAnyProductSelected) {
+
+        if (this.isSwitchView) {
+            this.$fromDate.val("");
+            this.$toDate.val("");
+        } else if (!params.IsAnyProductSelected) {
             this.showValidateProductError();
             this.$.unblockUI();
             e.preventDefault();
