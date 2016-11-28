@@ -253,7 +253,6 @@ class WinLossDetailView {
         this.$isHistoricReport.val(params.IsHistoricReport);
         this.$isStackMode.val(params.IsStackMode);
         this.$sortPropertyName.val(params.SortPropertyName);
-
     };
     bindTableSorter = () => {
         if (!this.pagerComponent.hasAllDataOnClient()) {

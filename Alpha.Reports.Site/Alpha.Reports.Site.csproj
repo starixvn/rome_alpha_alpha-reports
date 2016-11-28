@@ -363,6 +363,7 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
+    <Content Include="App_Data\AuthorizationSection.config" />
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>

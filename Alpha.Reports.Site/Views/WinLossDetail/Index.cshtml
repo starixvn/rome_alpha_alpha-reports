@@ -93,9 +93,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                            .ReportData
-                            .DataSource
-                            .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                .ReportData
+                                .DataSource
+                                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
@@ -117,8 +117,6 @@
 
 <form class="form-inline hide" role="form" id="export-excel-form" action="WinLossDetail/Excel">
     <input type="hidden" name="CustId" value="@Model.CustId" />
-    <input type="hidden" name="PageIndex" value="@Model.PagerViewModel.PageSize" />
-    <input type="hidden" name="PageSize" value="@Model.PagerViewModel.PageIndex" />
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
     <input type="hidden" name="UserSelectedProductIds" value="@Model.UserSelectedProductIds" />
@@ -133,13 +131,13 @@
         <td data-islink="true">
             @if (isTotalRow)
             {
-                @Resources.Total
+            @Resources.Total
             }
             else
             {
                 if (Model.UserLevel.IsAgentLevel())
                 {
-                    @Html.ActionLink(
+            @Html.ActionLink(
                     linkText: data.CustName,
                     actionName: betListPath,
                     controllerName: string.Empty,
@@ -156,7 +154,7 @@
                 }
                 else
                 {
-                    @Html.ActionLink(
+            @Html.ActionLink(
                               linkText: data.CustName,
                               actionName: "Index",
                               controllerName: "WinLossDetail",
@@ -172,23 +170,23 @@
         <td class="text-right">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
-            @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
+        @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
 
-            @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
-            @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
-            @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss);
-            @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
+        @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
+        @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
+        @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss);
+        @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
         }
         else
         {
-            @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
-            @HtmlHelpers.RenderNumberCell(data.NetTurnover)
-            @HtmlHelpers.RenderNumberCell(data.GrossComm)
+        @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
+        @HtmlHelpers.RenderNumberCell(data.NetTurnover)
+        @HtmlHelpers.RenderNumberCell(data.GrossComm)
 
-            @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
-            @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
-            @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
-            @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
+        @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
+        @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
+        @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
+        @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
         }
         <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
