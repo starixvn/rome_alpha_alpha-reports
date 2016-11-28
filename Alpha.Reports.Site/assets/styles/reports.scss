@@ -147,11 +147,19 @@ a {
         color: #1f7244;
         font-size: 19px;
         vertical-align: middle;
+        height: $height-normal;
+        float: left;
+
+        &:before {
+            position: relative;
+            top: 5px;
+        }
     }
 
     .icon-back {
         margin-left: 20px;
         font-size: 20px;
+
     }
 
     select.select-multiple {
@@ -171,15 +179,26 @@ a {
     .input-group.date .form-control {
         -webkit-appearance: none;
     }    
+
+    .daterange-picker .input-group.date {
+        width: 128px;
+    }
+
+    .form-group {
+        .btn-submit, .btn-group {
+            float: left;
+            
+        }        
+    }
 }
 
 // Ripple effect
 .icon-excel {
-    @include ripple-effect-icon($margin-left: -11px, $height: 36px, $width: 36px, $top: -4px);
+    @include ripple-effect-icon($margin-left: -11px, $height: 36px, $width: 36px, $top: 0);
 }
 
 .icon-back {
-    @include ripple-effect-icon($margin-left: -8px, $height: 36px, $width: 36px, $top: -4px);
+    @include ripple-effect-icon($margin-left: -8px, $height: 36px, $width: 36px, $top: 0);
 }
 
 .icon-switchmode {
@@ -267,8 +286,13 @@ a {
             }
         }
 
-        .icon-excel {
+        .icon-excel, .icon-back {
             font-size: 22px;
+            height: $height-mobile;
+
+            &:hover:after {
+                top: 4px;
+            }
         }
 
         select.select-multiple {
