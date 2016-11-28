@@ -35,21 +35,37 @@
             </th>
 
             <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Member</th>
-            <th class="col-level visible-stack-mode" data-disabledsort="true">@Resources.Member</th>
+            <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="3">
+                @Resources.Member
+                <br />
+                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+            </th>
 
             <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Agent</th>
-            <th class="col-level visible-stack-mode" data-disabledsort="true">@Resources.Agent</th>
+            <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" rowspan="2" data-colindex="4">
+                @Resources.Agent
+                <br />
+                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+            </th>
 
             @if (Model.UserLevel.IsMasterOrSuperLevel())
             {
                 <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Master</th>
-                <th class="col-level visible-stack-mode" data-disabledsort="true">@Resources.Master</th>
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="MasterNetWinLoss.WinLoss" rowspan="2" data-colindex="5">
+                    @Resources.Master
+                    <br />
+                    <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+                </th>
             }
 
             @if (Model.UserLevel.IsSuperLevel())
             {
                 <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Super</th>
-                <th class="col-level visible-stack-mode" data-disabledsort="true">@Resources.Super</th>
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperNetWinLoss.WinLoss" rowspan="2" data-colindex="6">
+                    @Resources.Super
+                    <br />
+                    <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+                </th>
             }
 
             <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="17">@Resources.Company</th>
@@ -58,24 +74,15 @@
             <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MemberNetWinLoss.WinLoss" data-colindex="5">@Resources.WinLoss</th>
             <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Comm" data-colindex="6">@Resources.Comm</th>
             <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Total" data-colindex="7">@Resources.Total</th>
-            <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" data-colindex="3">
-                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
-            </th>
 
             <th class="hidden-stack-mode col-winloss sorting" data-sortedname="AgentNetWinLoss.WinLoss" data-colindex="8">@Resources.WinLoss</th>
             <th class="hidden-stack-mode sorting" data-sortedname="AgentNetWinLoss.Comm" data-colindex="9">@Resources.Comm</th>
             <th class="hidden-stack-mode sorting" data-sortedname="AgentNetWinLoss.Total" data-colindex="10">@Resources.Total</th>
-            <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" data-colindex="4">
-                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
-            </th>
             @if (Model.UserLevel.IsMasterOrSuperLevel())
             {
                 <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MasterNetWinLoss.WinLoss" data-colindex="11">@Resources.WinLoss</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="MasterNetWinLoss.Comm" data-colindex="12">@Resources.Comm</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="MasterNetWinLoss.Total" data-colindex="13">@Resources.Total</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="MasterNetWinLoss.WinLoss" data-colindex="5">
-                    <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
-                </th>
             }
 
             @if (Model.UserLevel.IsSuperLevel())
@@ -83,9 +90,6 @@
                 <th class="hidden-stack-mode col-winloss sorting" data-sortedname="SuperNetWinLoss.WinLoss" data-colindex="14">@Resources.WinLoss</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="SuperNetWinLoss.Comm" data-colindex="15">@Resources.Comm</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="SuperNetWinLoss.Total" data-colindex="16">@Resources.Total</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperNetWinLoss.WinLoss" data-colindex="6">
-                    <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
-                </th>
             }
         </tr>
     </thead>
@@ -93,9 +97,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                                                                    .ReportData
-                                                                    .DataSource
-                                                                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                .ReportData
+                .DataSource
+                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }

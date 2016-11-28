@@ -112,7 +112,7 @@ class WinLossDetailView {
         this.$reportForm = this.$("#report-form");
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
-        this.$multiSelectButton = this.$(".multiselect.btn");
+        this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
         this.$reportSwitch = this.$("#report-switch");
 
         this.$fromDate = this.$("#from-date");
