@@ -258,6 +258,7 @@
     <Compile Include="Helpers\MicroSites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\BaseReportQuery.cs" />
+    <Compile Include="Requests\WinLossDetails\ExportWinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLossDetails\WinLossDetailQuery.cs" />
     <Compile Include="ViewModels\Components\DataGridViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />

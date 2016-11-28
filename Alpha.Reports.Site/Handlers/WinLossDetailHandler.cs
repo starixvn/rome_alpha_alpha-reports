@@ -4,27 +4,34 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Excel.Params;
+    using Excel.Services;
+    using Extensions;
     using MediatR;
     using Models;
     using Models.Enumerations;
+    using Models.WinlossDetails;
     using Params;
-    using Reports.Extensions;
     using Requests.WinLossDetails;
     using Services;
     using ViewModels.WinLossDetails;
 
     public class WinLossDetailHandler :
-        IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>
+        IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>,
+        IRequestHandler<ExportWinLossDetailQuery, byte[]>
     {
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
+        private readonly WinLossDetailExcelExporter excelExporter;
 
         public WinLossDetailHandler(
             ProductService productService,
-            WinLossDetailService reportService)
+            WinLossDetailService reportService,
+            WinLossDetailExcelExporter excelExporter)
         {
             this.productService = productService;
             this.reportService = reportService;
+            this.excelExporter = excelExporter;
         }
 
         public WinLossDetailViewModel Handle(WinLossDetailQuery message)
@@ -64,6 +71,23 @@
             };
 
             return viewModel;
+        }
+
+        public byte[] Handle(ExportWinLossDetailQuery message)
+        {
+            var fileContents = excelExporter.Export(
+                new ExportExcelParam<WinLossDetail>
+                {
+                    TemplatePath = message.TemplatePath,
+                    ReportName = message.Title,
+                    SheetName = message.Title,
+                    ReportData = message.ReportData,
+                    FromDate = message.FromDate,
+                    ToDate = message.ToDate
+                },
+                message.UserLevel);
+
+            return fileContents;
         }
 
         private WinLossDetailParam CreateParamater(
