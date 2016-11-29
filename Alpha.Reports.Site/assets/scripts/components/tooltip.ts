@@ -33,9 +33,10 @@ class ReportTooltip {
 
         setTimeout(function () {
             tooltipElement.tooltip("hide");
+            this.$(document).off("click.tooltip");
         }, this.timeToShowTooltip);
 
-        this.$(document).off(".click.tooltip").on(".click.tooltip", function () {
+        this.$(document).off("click.tooltip").on("click.tooltip", function () {
             tooltipElement.tooltip("hide");
         });
     };
