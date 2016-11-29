@@ -31,7 +31,7 @@ class SortComponent {
             return;
         }
 
-        var self = this;
+        let self = this;
         sortColumns
             .off("click.sortcomponent")
             .on("click.sortcomponent",
@@ -54,10 +54,9 @@ class SortComponent {
     };
 
     onSort = (sortedColumnName: string) => {
-        let descendingsort =
-            sortedColumnName === this.$sortContainer.data("sortedcolumn") &&
-            !(this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true") &&
-            !(this.$sortContainer.data("descendingsort") === "1");
+        let descendingsort = sortedColumnName !== this.$sortContainer.data("sortedcolumn")
+            || (this.$sortContainer.data("descendingsort").toString().toLowerCase() !== "true"
+                && this.$sortContainer.data("descendingsort") !== "1");
 
         this.$sortContainer
             .data("descendingsort", descendingsort ? "1" : "0")
@@ -80,25 +79,25 @@ class SortComponent {
             return;
         }
 
-        var self = this;
+        let self = this;
 
-        var disabledSortColumns = self.$sortContainer.find("th[data-disabledsort='true']");
+        let disabledSortColumns = this.$sortContainer.find("th[data-disabledsort='true']");
         disabledSortColumns.each(function () {
             self.options.headers[this.cellIndex] = { sorter: false };
         });
 
-        var sortedColumnHeader = self.$sortContainer.find("[data-sortedname='" + sortedColumnName + "']" +
-            (self.$sortContainer.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : ":not([class*='col-combine'])"))[0];
-        var isDescendingSort = self.$sortContainer.data("descendingsort") === "1" ||
-            self.$sortContainer.data("descendingsort").toString().toLowerCase() === "true";
+        let sortedColumnHeader = this.$sortContainer.find("[data-sortedname='" + sortedColumnName + "']" +
+            (this.$sortContainer.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : ":not([class*='col-combine'])"))[0];
+        let isDescendingSort = this.$sortContainer.data("descendingsort") === "1" ||
+            this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true";
 
         this.$sortContainer.tablesorter(
             {
                 defaultParser: 1,
-                headers: self.options.headers,
-                sortList: [[self.$(sortedColumnHeader).data("colindex"), isDescendingSort ? 1 : 0]],
+                headers: this.options.headers,
+                sortList: [[this.$(sortedColumnHeader).data("colindex"), isDescendingSort ? 1 : 0]],
                 textExtraction: function (node: any) {
-                    var $node = self.$(node);
+                    let $node = self.$(node);
 
                     if ($node.hasClass("combinedcell")) {
                         return $node.find("ul>li:first-child").html();

@@ -21,7 +21,7 @@ class NetTurnoverTooltipComponent {
     timeToShowNetTurnoverTooltip = 10000;
 
     render = (options: NetTurnoverTooltipOption = new NetTurnoverTooltipOption()) => {
-        var pickerOptions = this.$.extend({}, this.options, options);
+        var pickerOptions = <NetTurnoverTooltipOption>this.$.extend({}, this.options, options);
 
         var netTurnoverTooltip = this.$("#" + pickerOptions.tooltipId);
         var closeNetTurnoverTooltipButton = this.$("#" + pickerOptions.closeTooltipId);

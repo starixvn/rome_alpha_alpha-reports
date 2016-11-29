@@ -54,13 +54,14 @@ class WinLossDetailView {
     }
 
     init = () => {
+        this.cacheElements();
+
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         this.isHistoricReport
             ? monthPickerComponent.render()
             : this.dateRangePickerComponent.render();
         this.productMultiSelectionComponent.render();
-        this.cacheDOMElements();
 
         if (this.$hideFilter.val() === "True") {
             this.hideFilter();
@@ -86,7 +87,7 @@ class WinLossDetailView {
 
         this.registerEvents();
     };
-    cacheDOMElements = () => {
+    cacheElements = () => {
         this.$pageTitle = this.$(".page-title ");
         this.$tableReport = this.$("#tbl-report");
         this.$drilldownLinks = this.$(".downline-link");
