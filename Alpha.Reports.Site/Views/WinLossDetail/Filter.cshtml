@@ -35,9 +35,10 @@
     @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
     @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
 
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("IsDirectReportViewAction", Model.IsDirectReportViewAction)
 if (!Model.IsDirectReportViewAction)
 {
-        @Html.Hidden("CustId", Model.CustId)
         @Html.Hidden("UserLevelId", Model.UserLevel.Value)
 }
 }

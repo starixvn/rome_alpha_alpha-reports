@@ -55,8 +55,8 @@ class SortComponent {
 
     onSort = (sortedColumnName: string) => {
         let descendingsort = sortedColumnName !== this.$sortContainer.data("sortedcolumn")
-            || (this.$sortContainer.data("descendingsort").toString().toLowerCase() !== "true"
-                && this.$sortContainer.data("descendingsort") !== "1");
+            || this.$sortContainer.data("descendingsort").toString().toLowerCase() !== "true"
+            && this.$sortContainer.data("descendingsort") !== "1";
 
         this.$sortContainer
             .data("descendingsort", descendingsort ? "1" : "0")
@@ -75,7 +75,7 @@ class SortComponent {
         };
     };
     bindTableSorter = (sortedColumnName: string) => {
-        if (!this.options.hasAllDataOnClient) {
+        if (!this.options.canSort || !this.options.hasAllDataOnClient) {
             return;
         }
 

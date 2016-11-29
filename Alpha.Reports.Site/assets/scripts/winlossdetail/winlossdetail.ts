@@ -28,6 +28,7 @@ class WinLossDetailView {
     $fromDate: any;
     $toDate: any;
     $exportExcelForm: any;
+    $iconNormalColumn: any;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -39,18 +40,21 @@ class WinLossDetailView {
     pagerComponent: PagerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     sortComponent: SortComponent;
+    reportTooltip: ReportTooltip;
 
     constructor(
         $: any,
         dateRangePickerComponent: DateRangePickerComponent,
         pageComponent: PagerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
-        sortComponent: SortComponent) {
+        sortComponent: SortComponent,
+        reportTooltip: ReportTooltip) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.pagerComponent = pageComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.sortComponent = sortComponent;
+        this.reportTooltip = reportTooltip;
     }
 
     init = () => {
@@ -85,8 +89,9 @@ class WinLossDetailView {
 
         this.$tableReport.stickyTableHeaders();
 
-        if (alphaReports.screenSmallThan768()) {
+        if (!alphaReports.screenSmallThan768()) {
             this.onSwitchMode();
+            this.reportTooltip.show(new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0)));
         }
 
         this.registerEvents();
@@ -107,6 +112,7 @@ class WinLossDetailView {
 
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
+        this.$iconNormalColumn = this.$("#icon-normal-column");
     };
     registerEvents = () => {
         this.$reportSwitch.on("click", this.onSwitchReport);
@@ -293,7 +299,8 @@ const winLossDetailView = new WinLossDetailView(
     new DateRangePickerComponent($),
     new PagerComponent($),
     new ProductMultiSelectionComponent($),
-    new SortComponent($));
+    new SortComponent($),
+    new ReportTooltip($));
 
 $(function () {
     winLossDetailView.init();

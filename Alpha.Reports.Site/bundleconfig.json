@@ -15,6 +15,7 @@
       "assets/scripts/components/pager.js",
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/sort.js",
+      "assets/scripts/components/tooltip.js",
       "assets/scripts/winlossdetail/winlossdetail.js"
     ]
   }

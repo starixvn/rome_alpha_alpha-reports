@@ -327,6 +327,7 @@
     <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
     </Content>
