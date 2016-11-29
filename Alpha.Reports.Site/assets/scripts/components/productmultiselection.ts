@@ -24,7 +24,6 @@ class ProductMultiSelectionComponent {
         this.options = <ProductMultiSelectionOption>this.$.extend({}, this.options, options);
 
         this.$dropdownProduct = this.$("#" + this.options.dropdownId);
-        let multiSelectButton = null;
         let hasAnyProduct = this.$dropdownProduct.data("has-any-product");
         this.$hiddenInput = this.$("#" + this.options.productsInputId);
 

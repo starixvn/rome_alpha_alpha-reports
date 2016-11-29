@@ -41,6 +41,7 @@ class WinLossDetailView {
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     sortComponent: SortComponent;
     reportTooltip: ReportTooltip;
+    monthPickerComponent: MonthPickerComponent;
 
     constructor(
         $: any,
@@ -48,13 +49,15 @@ class WinLossDetailView {
         pageComponent: PagerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         sortComponent: SortComponent,
-        reportTooltip: ReportTooltip) {
+        reportTooltip: ReportTooltip,
+        monthPickerComponent: MonthPickerComponent) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.pagerComponent = pageComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.sortComponent = sortComponent;
         this.reportTooltip = reportTooltip;
+        this.monthPickerComponent = monthPickerComponent;
     }
 
     init = () => {
@@ -63,7 +66,7 @@ class WinLossDetailView {
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         this.isHistoricReport
-            ? monthPickerComponent.render()
+            ? this.monthPickerComponent.render()
             : this.dateRangePickerComponent.render();
         this.productMultiSelectionComponent.render();
 
@@ -300,7 +303,8 @@ const winLossDetailView = new WinLossDetailView(
     new PagerComponent($),
     new ProductMultiSelectionComponent($),
     new SortComponent($),
-    new ReportTooltip($));
+    new ReportTooltip($),
+    new MonthPickerComponent($));
 
 $(function () {
     winLossDetailView.init();

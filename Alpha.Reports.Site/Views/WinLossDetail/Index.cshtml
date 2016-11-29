@@ -97,9 +97,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                                .ReportData
-                                .DataSource
-                                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                .ReportData
+                .DataSource
+                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
@@ -111,9 +111,9 @@
     else
     {
         @NoInformation.Render(colspan:
-        Model.UserLevel.IsSuperLevel()
-        ? 18
-        : (Model.UserLevel.IsMasterLevel() ? 15 : 12))
+            Model.UserLevel.IsSuperLevel()
+            ? 18
+            : (Model.UserLevel.IsMasterLevel() ? 15 : 12))
     }
 </table>
 
@@ -198,12 +198,12 @@
 
 @helper RenderStackNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
-if (netWinLoss == null)
-{
-    return;
-}
+    if (netWinLoss == null)
+    {
+        return;
+    }
 
-var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
     @HtmlHelpers.RenderStackCell(
         $"col-{level.DisplayName.ToLower()}-winloss-combined {highlightCellClass}",
@@ -215,12 +215,12 @@ var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
 @helper RenderNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
-if (netWinLoss == null)
-{
-    return;
-}
+    if (netWinLoss == null)
+    {
+        return;
+    }
 
-var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
     @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
     @HtmlHelpers.RenderNumberCell(netWinLoss.Comm, highlightCellClass)

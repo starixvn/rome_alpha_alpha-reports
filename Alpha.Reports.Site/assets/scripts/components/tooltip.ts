@@ -19,13 +19,13 @@ class ReportTooltip {
     timeToShowTooltip = 5000;
 
     show = (tooltipOption: ReportTooltipOption = new ReportTooltipOption()) => {
-        var tooltipCookieId = this.tooltipCookieId + "-" + tooltipOption.tooltipId + "-" + tooltipOption.custId;
-        var tooltipShowCount = alphaReports.localStorage.get(tooltipCookieId) || 0;
+        let tooltipCookieId = this.tooltipCookieId + "-" + tooltipOption.tooltipId + "-" + tooltipOption.custId;
+        let tooltipShowCount = alphaReports.localStorage.get(tooltipCookieId) || 0;
         if (tooltipShowCount >= alphaReports.maxTimesToShowTooltip) {
             return;
         }
 
-        var tooltipElement = this.$("#" + tooltipOption.tooltipId);
+        let tooltipElement = this.$("#" + tooltipOption.tooltipId);
 
         tooltipElement.tooltip({ placement: 'bottom' });
         tooltipElement.tooltip("show");
@@ -34,5 +34,9 @@ class ReportTooltip {
         setTimeout(function () {
             tooltipElement.tooltip("hide");
         }, this.timeToShowTooltip);
+
+        this.$(document).off(".click.tooltip").on(".click.tooltip", function () {
+            tooltipElement.tooltip("hide");
+        });
     };
 }

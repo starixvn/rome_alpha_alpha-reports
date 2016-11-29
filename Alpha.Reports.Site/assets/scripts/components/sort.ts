@@ -112,5 +112,3 @@ class SortComponent {
             });
     };
 }
-
-const sortComponent = new SortComponent($);

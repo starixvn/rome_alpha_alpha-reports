@@ -65,5 +65,3 @@ class MonthPickerComponent {
         this.$toDate.val(this.$dropdownMonth.monPickr("getToDate", alphaReports.format.shortDateWithSlash_MonthPicker));
     };
 }
-
-const monthPickerComponent = new MonthPickerComponent($);
