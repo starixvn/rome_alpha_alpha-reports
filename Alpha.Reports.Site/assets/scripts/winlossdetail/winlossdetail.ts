@@ -89,7 +89,7 @@ class WinLossDetailView {
 
         this.$tableReport.stickyTableHeaders();
 
-        if (!alphaReports.screenSmallThan768()) {
+        if (alphaReports.screenSmallThan768()) {
             this.onSwitchMode();
             this.reportTooltip.show(new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0)));
         }
