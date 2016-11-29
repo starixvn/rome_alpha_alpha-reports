@@ -27,6 +27,7 @@ class ReportTooltip {
 
         var tooltipElement = this.$("#" + tooltipOption.tooltipId);
 
+        tooltipElement.tooltip({ placement: 'bottom' });
         tooltipElement.tooltip("show");
         alphaReports.localStorage.set(tooltipCookieId, tooltipShowCount + 1);
 

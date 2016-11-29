@@ -51,6 +51,11 @@ a {
         }
     }
 
+    .icon-switchmode:before {
+        position: relative;
+        left: -5px;
+    }
+
     .list-icon {
         float: right;
 
@@ -202,7 +207,7 @@ a {
 }
 
 .icon-switchmode {
-    @include ripple-effect-icon($margin-left: 0px, $height: 36px, $width: 36px, $top: -5px);
+    @include ripple-effect-icon($margin-left: -4px, $height: 36px, $width: 36px, $top: -5px);
 }
 
 .icon-filter {
@@ -302,5 +307,14 @@ a {
 
     #netturnovertooltip .modal-dialog {        
         width: 100%;
+    }
+
+    .tooltip {
+        border: none;
+
+        .tooltip-inner {
+            font-size: $font-size-mobile;
+            padding: 6px 12px;
+        }
     }
 }
