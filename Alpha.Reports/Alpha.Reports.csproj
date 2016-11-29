@@ -102,6 +102,7 @@
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\SortDirectionConstant.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
+    <Compile Include="Criteria\GetProductsCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
@@ -115,7 +116,6 @@
     <Compile Include="Enumerations\Enumeration.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ReportData.cs" />
-    <Compile Include="ApplicationContext.cs" />
     <Compile Include="Models\UserLevel.cs" />
     <Compile Include="Models\WinlossDetails\NetWinLoss.cs" />
     <Compile Include="Models\WinlossDetails\WinLossDetail.cs" />

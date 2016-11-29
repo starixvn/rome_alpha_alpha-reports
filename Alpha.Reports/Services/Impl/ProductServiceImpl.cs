@@ -3,27 +3,30 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Criteria;
     using Fanex.Caching;
+    using Fanex.Data.Repository;
     using Models;
     using RemotingRef;
     using Sunplus.Agent.Model.Entities.Permission;
 
     public class ProductServiceImpl : ProductService
     {
-        private readonly ApplicationContext applicationContext;
+        private const int ProductsCachedTimeInMinutes = 10;
         private readonly Func<int, bool> canViewProduct;
         private readonly Func<int, string> getProductName;
+        private readonly IDynamicRepository dynamicRepository;
 
-        public ProductServiceImpl(ApplicationContext applicationContext) : this(applicationContext, null, null)
+        public ProductServiceImpl(IDynamicRepository dynamicRepository) : this(dynamicRepository, null, null)
         {
         }
 
         internal ProductServiceImpl(
-            ApplicationContext applicationContext,
+            IDynamicRepository dynamicRepository,
             Func<int, bool> canViewProduct,
             Func<int, string> getProductName)
         {
-            this.applicationContext = applicationContext;
+            this.dynamicRepository = dynamicRepository;
             this.canViewProduct = canViewProduct ?? UserPermission.HasPermissionOnProduct;
             this.getProductName = getProductName ?? new CacheRefServiceImpl().GetProductName;
         }
@@ -49,11 +52,10 @@
             var productList = CacheService
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
-                () => applicationContext
-                        .Products
+                () => dynamicRepository.Fetch<Product>(new GetProductsCriteria())
                         .Where(product => canViewProduct(product.Id) == true)
                         .Select(product => new Product(product.Id, product.Name, getProductName)),
-                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(ProductsCachedTimeInMinutes)));
 
             return productList;
         }

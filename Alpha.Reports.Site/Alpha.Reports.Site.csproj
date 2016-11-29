@@ -57,8 +57,8 @@
       <HintPath>..\packages\Alpha.RemotingRef.1.0.0.1\lib\net40\Alpha.RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Alpha.Web, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Alpha.Web.1.0.0.1\lib\net40\Alpha.Web.dll</HintPath>
+    <Reference Include="Alpha.Web, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Alpha.Web.1.0.0.2-SiteReports-01\lib\net40\Alpha.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
@@ -85,8 +85,8 @@
       <HintPath>..\packages\Fanex.CustomerSetting.Module.KenoStatus.1.0.0.2\lib\net40\Fanex.CustomerSetting.Module.KenoStatus.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Data, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Data.2.0.2.1\lib\net461\Fanex.Data.dll</HintPath>
+    <Reference Include="Fanex.Data, Version=2.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.Data.2.0.3\lib\net461\Fanex.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Data.Repository, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -237,10 +237,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="App_Start\DependencyConfig.cs" />
-    <Compile Include="App_Start\ReportApplicationContext.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Configurations\SiteSettings.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -273,39 +271,6 @@
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\products.local.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\products.napexternal.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\products.napexternal2.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\products.napinternal.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\products.napinternal2.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\products.pro.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\products.pro2.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\products.sit.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\products.sit2.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\products.uat.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
-    <Content Include="App_Data\products.uat2.json">
-      <DependentUpon>products.json</DependentUpon>
-    </Content>
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
@@ -348,7 +313,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="App_Data\products.json" />
     <Content Include="assets\styles\_mixins.scss" />
     <Content Include="assets\styles\_variables.scss" />
     <Content Include="Views\Shared\_Layout.cshtml" />

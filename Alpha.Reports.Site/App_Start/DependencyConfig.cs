@@ -11,7 +11,6 @@
     using Fanex.Data.Repository;
     using MediatR;
     using RemotingRef;
-    using Reports;
     using Services;
     using Services.Impl;
     using SimpleInjector;
@@ -60,12 +59,11 @@
 
         private static IEnumerable<Assembly> GetAssemblies()
         {
-            yield return typeof(BaseController).Assembly;
+            yield return typeof(WinLossDetailController).Assembly;
         }
 
         private static void RegisterServices(Container container)
         {
-            container.RegisterSingleton<ApplicationContext, ReportApplicationContext>();
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
             container.RegisterPerWebRequest<IUserSession, UserSessionExt>();
 

@@ -41,8 +41,6 @@
             GlobalFilters.Filters.Add(new CheckUMFilter());
             GlobalFilters.Filters.Add(new CheckBelongingFilter());
 
-            SiteSettings.LoadSettings();
-
             SiteSettings.Verify();
 
             Logs.WriteInfo(Resources.AppStart_Message);

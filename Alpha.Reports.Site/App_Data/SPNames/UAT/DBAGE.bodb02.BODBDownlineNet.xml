@@ -1,57 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
-  <Function Name="Base Functions">
-    <Setting Key="Age_SelBalanceUpDay" SpName="Age_SelBalanceUpDay" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-  </Function>
-  <Function Name="Check Belonging">
-    <Setting Key="Age_CustomerSelCheckBelonging" SpName="Age_CustomerSelCheckBelonging" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_CustSubPageAccessSel" SpName="Age_CustSubPageAccessSel" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_CustomerConsolidatedGroup_CheckBelonging" SpName="Age_Rpt_CustomerConsolidatedGroup_CheckBelonging" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-  </Function>
+    <Function Name="Base Functions">
+        <Setting Key="Age_SelBalanceUpDay" SpName="Age_SelBalanceUpDay" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    </Function>
+    <Function Name="Products">
+        <Setting Key="Age_Rpt_GetProductList" SpName="Age_Rpt_GetProductList" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+            <Mapping DataField="ProductID" ObjectProperty="id" />
+            <Mapping DataField="ProductName" ObjectProperty="name" />
+        </Setting>
+    </Function>
+    <Function Name="Check Belonging">
+        <Setting Key="Age_CustomerSelCheckBelonging" SpName="Age_CustomerSelCheckBelonging" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+        <Setting Key="Age_CustSubPageAccessSel" SpName="Age_CustSubPageAccessSel" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+        <Setting Key="Age_Rpt_CustomerConsolidatedGroup_CheckBelonging" SpName="Age_Rpt_CustomerConsolidatedGroup_CheckBelonging" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    </Function>
 
-  <Function Name="Win Loss Detail">
-    <Setting Key="Age_Rpt_WinLossDetail_Master" SpName="Age_Rpt_WinLossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-      <Mapping DataField="username" ObjectProperty="Username" />
-      <Mapping DataField="custid" ObjectProperty="Custid" />
-      <Mapping DataField="nooftickets" ObjectProperty="TicketCount" />
-      <Mapping DataField="turnover" ObjectProperty="Turnover" />
-      <Mapping DataField="netturnover" ObjectProperty="NetTurnover" />
-      <Mapping DataField="grosscomm" ObjectProperty="GrossComm" />
-      <Mapping DataField="memberwinloss" ObjectProperty="MemberWinLoss" />
-      <Mapping DataField="membercomm" ObjectProperty="MemberComm" />
-      <Mapping DataField="agwinloss" ObjectProperty="AgentWinLoss" />
-      <Mapping DataField="agcomm" ObjectProperty="AgentComm" />
-      <Mapping DataField="magwinloss" ObjectProperty="MasterWinLoss" />
-      <Mapping DataField="magcomm" ObjectProperty="MasterComm" />
-      <Mapping DataField="sagwinloss" ObjectProperty="SuperWinLoss" />
-      <Mapping DataField="sagcomm" ObjectProperty="SuperComm" />
-    </Setting>
-    <Setting Key="Age_Rpt_WinLossDetail_Agent" SpName="Age_Rpt_WinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-      <Mapping DataField="username" ObjectProperty="Username" />
-      <Mapping DataField="custid" ObjectProperty="Custid" />
-      <Mapping DataField="nooftickets" ObjectProperty="TicketCount" />
-      <Mapping DataField="turnover" ObjectProperty="Turnover" />
-      <Mapping DataField="netturnover" ObjectProperty="NetTurnover" />
-      <Mapping DataField="grosscomm" ObjectProperty="GrossComm" />
-      <Mapping DataField="memberwinloss" ObjectProperty="MemberWinLoss" />
-      <Mapping DataField="membercomm" ObjectProperty="MemberComm" />
-      <Mapping DataField="agwinloss" ObjectProperty="AgentWinLoss" />
-      <Mapping DataField="agcomm" ObjectProperty="AgentComm" />
-      <Mapping DataField="agtotal" ObjectProperty="AgentTotal" />
-      <Mapping DataField="magwinloss" ObjectProperty="MasterWinLoss" />
-      <Mapping DataField="magcomm" ObjectProperty="MasterComm" />
-    </Setting>
-    <Setting Key="Age_Rpt_WinLossDetail_Member" SpName="Age_Rpt_WinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-      <Mapping DataField="username" ObjectProperty="Username" />
-      <Mapping DataField="custid" ObjectProperty="Custid" />
-      <Mapping DataField="nooftickets" ObjectProperty="TicketCount" />
-      <Mapping DataField="turnover" ObjectProperty="Turnover" />
-      <Mapping DataField="netturnover" ObjectProperty="NetTurnover" />
-      <Mapping DataField="grosscomm" ObjectProperty="GrossComm" />
-      <Mapping DataField="memberwinloss" ObjectProperty="MemberWinLoss" />
-      <Mapping DataField="membercomm" ObjectProperty="MemberComm" />
-      <Mapping DataField="agwinloss" ObjectProperty="AgentWinLoss" />
-      <Mapping DataField="agcomm" ObjectProperty="AgentComm" />
-    </Setting>
-  </Function>
+    <Function Name="Win Loss Detail">
+        <Setting Key="Age_Rpt_WinLossDetail_Master" SpName="Age_Rpt_WinLossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+        </Setting>
+        <Setting Key="Age_Rpt_WinLossDetail_Agent" SpName="Age_Rpt_WinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+        </Setting>
+        <Setting Key="Age_Rpt_WinLossDetail_Member" SpName="Age_Rpt_WinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+        </Setting>
+    </Function>
 </Functions>
