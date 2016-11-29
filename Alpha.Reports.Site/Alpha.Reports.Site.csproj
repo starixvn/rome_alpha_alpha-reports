@@ -239,6 +239,7 @@
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Configurations\SiteSettings.cs" />
+    <Compile Include="Controllers\BaseReportController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">

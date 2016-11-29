@@ -59,7 +59,7 @@
 
         private static IEnumerable<Assembly> GetAssemblies()
         {
-            yield return typeof(WinLossDetailController).Assembly;
+            yield return typeof(BaseReportController).Assembly;
         }
 
         private static void RegisterServices(Container container)
