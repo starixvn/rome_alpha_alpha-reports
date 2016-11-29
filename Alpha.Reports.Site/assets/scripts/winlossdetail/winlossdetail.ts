@@ -158,12 +158,12 @@ class WinLossDetailView {
                     alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
                 });
             } else {
-                alphaReports.combineConsecutiveCells(this.$("td.col-turnover"), 3, "text-right col-turnover-combined");
+                alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 3, "text-right col-turnover-combined");
 
                 this$.each(levels, function (index: number) {
                     let level = levels[index];
                     let cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
-                    alphaReports.combineConsecutiveCells(this.$("td.col-" + level + "-winloss"), 3, cellCss);
+                    alphaReports.combineConsecutiveCells(this$("td.col-" + level + "-winloss"), 3, cellCss);
                 });
             }
 
