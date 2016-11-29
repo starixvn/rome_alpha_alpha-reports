@@ -52,6 +52,10 @@ class NetTurnoverTooltipComponent {
         return netTurnoverTooltip;
     };
     positionNetTurnoverTooltip = (netTurnoverTooltip: any) => {
+        if (!netTurnoverTooltip) {
+            return;
+        }
+
         var netTurnoverPosition = this.$(".col-netturnover-header").position();
         var rightPosition = this.$(".col-netturnover-header").width();
 

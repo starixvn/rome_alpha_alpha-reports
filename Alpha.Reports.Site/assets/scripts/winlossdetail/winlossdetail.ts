@@ -63,7 +63,7 @@ class WinLossDetailView {
             : this.dateRangePickerComponent.render();
         this.productMultiSelectionComponent.render();
 
-        if (this.$hideFilter.val() === "True") {
+        if (this.$hideFilter.val().toString().toLowerCase() === "true") {
             this.hideFilter();
         }
 
@@ -84,6 +84,10 @@ class WinLossDetailView {
         });
 
         this.$tableReport.stickyTableHeaders();
+
+        if (alphaReports.screenSmallThan768()) {
+            this.onSwitchMode();
+        }
 
         this.registerEvents();
     };
