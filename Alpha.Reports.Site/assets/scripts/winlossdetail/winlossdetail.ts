@@ -29,14 +29,10 @@ class WinLossDetailView {
     $toDate: any;
     $exportExcelForm: any;
 
-    $custId: any;
-    $productIds: any;
-    $pageIndex: any;
-    $pageSize: any;
-
     isFirstSwitchMode = true;
     isHistoricReport = false;
     isSwitchView = false;
+    hasAllDataOnClient = false;
     levels = ["member", "agent", "master", "super"];
 
     dateRangePickerComponent: DateRangePickerComponent;
@@ -58,8 +54,6 @@ class WinLossDetailView {
     }
 
     init = () => {
-        var self = this;
-
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         this.isHistoricReport
@@ -75,24 +69,17 @@ class WinLossDetailView {
         this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
         this.pagerComponent.render();
 
-        var hasAllDataOnClient = self.pagerComponent.hasAllDataOnClient();
+        this.hasAllDataOnClient = this.pagerComponent.hasAllDataOnClient();
 
-        var canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
+        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
         this.sortComponent.render({
             sortContainer: this.$tableReport,
             canSort: canSort,
-            hasAllDataOnClient: hasAllDataOnClient,
+            hasAllDataOnClient: this.hasAllDataOnClient,
             headers: {
                 0: { sorter: "text" }
             },
-            afterSortFunction: function () {
-                if (hasAllDataOnClient) {
-                    self.replaceDrilldownParam("SortPropertyName", self.$tableReport.data("sortedcolumn"));
-                    self.replaceDrilldownParam("IsDescendingSort", self.$tableReport.data("descendingsort") === "1" || self.$tableReport.data("descendingsort") === "true");
-                } else {
-                    self.$reportForm.trigger("submit");
-                }
-            }
+            afterSortFunction: this.afterSort
         });
 
         this.$tableReport.stickyTableHeaders();
@@ -115,107 +102,115 @@ class WinLossDetailView {
 
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
-
-        this.$custId = this.$("#CustId");
-        this.$productIds = this.$("#product-ids");
-        this.$pageIndex = this.$("#PageIndex");
-        this.$pageSize = this.$("#PageSize");
     };
     registerEvents = () => {
-        var self = this;
+        this.$reportSwitch.on("click", this.onSwitchReport);
+        this.$(".icon-filter").on("click", this.onClickIconFilter);
+        this.$(".icon-switchmode").on("click", this.onSwitchMode);
+        this.$reportForm.submit(this.onSubmitReport);
+        this.$("#icon-excel").on("click", this.onExportExcel);
+        this.$(".icon-back").on("click", this.onClickBackIcon);
+    };
+    onSwitchReport = () => {
+        this.isSwitchView = true;
+        this.isHistoricReport = !this.$reportSwitch.data("is-historic-report");
+        this.$reportForm.trigger("submit");
+    };
+    onClickIconFilter = () => {
+        let filter = this.$reportForm;
+        let currentHideState = filter.is(":hidden");
+        let $netTurnoverTooltip = this.$netTurnoverTooltip;
 
-        this.$reportSwitch.on("click", function () {
-            self.isSwitchView = true;
-            self.isHistoricReport = !self.$reportSwitch.data("is-historic-report");
-            self.$reportForm.trigger("submit");
-        });
+        if (currentHideState) {
+            this.$pageTitle.removeClass("hide-filter");
+            filter.slideDown("fast", undefined, function () {
+                netTurnoverTooltipComponent.positionNetTurnoverTooltip($netTurnoverTooltip);
+            });
+        } else {
+            this.hideFilter();
+        }
 
-        this.$(".icon-filter").on("click", function () {
-            var filter = self.$reportForm;
-            var currentHideState = filter.is(":hidden");
+        this.replaceDrilldownParam("IsFilterVisible", !currentHideState);
+    };
+    onSwitchMode = () => {
+        let tableReport = this.$tableReport;
+        let currentStackModeState = tableReport.hasClass("stack-mode");
 
-            if (currentHideState) {
-                self.$pageTitle.removeClass("hide-filter");
-                filter.slideDown("fast", undefined, function () {
-                    netTurnoverTooltipComponent.positionNetTurnoverTooltip(self.$netTurnoverTooltip);
+        if (currentStackModeState) {
+            this.$pageTitle.removeClass("stack-mode");
+            tableReport.removeClass("stack-mode");
+        } else {
+            this.$pageTitle.addClass("stack-mode");
+            tableReport.addClass("stack-mode");
+        }
+
+        this.replaceDrilldownParam("IsStackMode", !currentStackModeState);
+
+        let levels = this.levels;
+        let this$ = this.$;
+
+        if (this.isFirstSwitchMode) {
+            if (currentStackModeState) {
+                alphaReports.splitCell("col-turnover");
+
+                this$.each(levels, function (index: number) {
+                    let level = levels[index];
+                    alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
                 });
             } else {
-                self.hideFilter();
+                alphaReports.combineConsecutiveCells(this.$("td.col-turnover"), 3, "text-right col-turnover-combined");
+
+                this$.each(levels, function (index: number) {
+                    let level = levels[index];
+                    let cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
+                    alphaReports.combineConsecutiveCells(this.$("td.col-" + level + "-winloss"), 3, cellCss);
+                });
             }
 
-            self.replaceDrilldownParam("IsFilterVisible", !currentHideState);
-        });
+            this.isFirstSwitchMode = false;
+        }
 
-        this.$(".icon-switchmode").on("click", function () {
-            var tableReport = self.$tableReport;
-            var currentStackModeState = tableReport.hasClass("stack-mode");
-
-            if (currentStackModeState) {
-                self.$pageTitle.removeClass("stack-mode");
-                tableReport.removeClass("stack-mode");
-            } else {
-                self.$pageTitle.addClass("stack-mode");
-                tableReport.addClass("stack-mode");
-            }
-
-            self.replaceDrilldownParam("IsStackMode", !currentStackModeState);
-
-            if (self.isFirstSwitchMode) {
-                if (currentStackModeState) {
-                    alphaReports.splitCell("col-turnover");
-
-                    self.$.each(self.levels, function (index: number) {
-                        var level = self.levels[index];
-                        alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
-                    });
-                } else {
-                    alphaReports.combineConsecutiveCells(self.$("td.col-turnover"), 3, "text-right col-turnover-combined");
-
-                    self.$.each(self.levels, function (index: number) {
-                        var level = self.levels[index];
-                        var cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
-                        alphaReports.combineConsecutiveCells(self.$("td.col-" + level + "-winloss"), 3, cellCss);
-                    });
-                }
-
-                self.isFirstSwitchMode = false;
-            }
-
-            self.sortComponent.bindTableSorter(self.getSortedColumnName());
-        });
-
-        this.$reportForm.submit(this.onSubmitReportEvent);
-
-        this.$("#icon-excel").on("click", function () {
-            self.$exportExcelForm.submit();
-            self.$.unblockUI();
-        });
-
-        this.$(".icon-back").on("click", function () {
-            window.history.back();
-        });
+        this.sortComponent.bindTableSorter(this.getSortedColumnName());
     };
+    onExportExcel = () => {
+        this.$exportExcelForm.submit();
+        this.$.unblockUI();
+    };
+    onClickBackIcon = () => {
+        window.history.back();
+    };
+    afterSort = () => {
+        if (this.hasAllDataOnClient) {
+            this.replaceDrilldownParam("SortPropertyName", this.$tableReport.data("sortedcolumn"));
+            this.replaceDrilldownParam(
+                "IsDescendingSort",
+                this.$tableReport.data("descendingsort") === "1" ||
+                this.$tableReport.data("descendingsort") === "true");
+        } else {
+            this.$reportForm.trigger("submit");
+        }
+    };
+
     hideFilter = () => {
-        var self = this;
+        let $netTurnoverTooltip = this.$netTurnoverTooltip;
 
         this.$pageTitle.addClass("hide-filter");
         this.$reportForm.slideUp("fast", undefined, function () {
-            netTurnoverTooltipComponent.positionNetTurnoverTooltip(self.$netTurnoverTooltip);
+            netTurnoverTooltipComponent.positionNetTurnoverTooltip($netTurnoverTooltip);
         });
     };
     getParams = () => {
-        var selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
-        var sortInfo = this.sortComponent.getSortInfo();
-        var tableReport = this.$tableReport;
+        let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
+        let sortInfo = this.sortComponent.getSortInfo();
+        let tableReport = this.$tableReport;
 
         return {
-            CustId: tableReport.data("custid"),
             IsAnyProductSelected: selectedProducts.length > 0,
             SortPropertyName: sortInfo.sortPropertyName,
             IsDescendingSort: sortInfo.isDescendingSort,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
-            HideFilter: this.$reportForm.is(":hidden"),
+            HideFilter: this.$reportForm.is(":hidden")
         };
     };
     showValidateProductError = () => {
@@ -225,24 +220,27 @@ class WinLossDetailView {
         this.$multiSelectButton.removeClass("error");
     };
     replaceDrilldownParam = (paramName: string, paramValue: any) => {
-        var self = this;
+        let this$ = this.$;
+
         this.$drilldownLinks.each(function () {
-            var queryString = self.$(this).attr("href");
-            var newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
-            self.$(this).attr("href", newQueryString);
+            let queryString = this$(this).attr("href");
+            let newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
+            this$(this).attr("href", newQueryString);
         });
     };
-    onSubmitReportEvent = (e: any) => {
-        this.$.blockUI();
+    onSubmitReport = (e: any) => {
+        let this$ = this.$;
 
-        var params = this.getParams();
+        this$.blockUI();
+
+        let params = this.getParams();
 
         if (this.isSwitchView) {
             this.$fromDate.val("");
             this.$toDate.val("");
         } else if (!params.IsAnyProductSelected) {
             this.showValidateProductError();
-            this.$.unblockUI();
+            this$.unblockUI();
             e.preventDefault();
 
             return;
@@ -256,28 +254,28 @@ class WinLossDetailView {
     };
 
     getSortedColumnName = () => {
-        var sortedColumn = this.$tableReport.data("sortedcolumn");
+        let sortedColumn = this.$tableReport.data("sortedcolumn");
         if (!this.$tableReport.hasClass("stack-mode")) {
             return sortedColumn;
         }
 
-        if (sortedColumn == "NetTurnover" || sortedColumn == "GrossComm") {
+        if (sortedColumn === "NetTurnover" || sortedColumn === "GrossComm") {
             return "Turnover";
         }
 
-        if (sortedColumn == "MemberNetWinLoss.Comm" || sortedColumn == "MemberNetWinLoss.Total") {
+        if (sortedColumn === "MemberNetWinLoss.Comm" || sortedColumn === "MemberNetWinLoss.Total") {
             return "MemberNetWinLoss.WinLoss";
         }
 
-        if (sortedColumn == "AgentNetWinLoss.Comm" || sortedColumn == "AgentNetWinLoss.Total") {
+        if (sortedColumn === "AgentNetWinLoss.Comm" || sortedColumn === "AgentNetWinLoss.Total") {
             return "AgentNetWinLoss.WinLoss";
         }
 
-        if (sortedColumn == "MasterNetWinLoss.Comm" || sortedColumn == "MasterNetWinLoss.Total") {
+        if (sortedColumn === "MasterNetWinLoss.Comm" || sortedColumn === "MasterNetWinLoss.Total") {
             return "MasterNetWinLoss.WinLoss";
         }
 
-        if (sortedColumn == "SuperNetWinLoss.Comm" || sortedColumn == "SuperNetWinLoss.Total") {
+        if (sortedColumn === "SuperNetWinLoss.Comm" || sortedColumn === "SuperNetWinLoss.Total") {
             return "SuperNetWinLoss.WinLoss";
         }
 

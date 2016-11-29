@@ -23,8 +23,6 @@ class ProductMultiSelectionComponent {
     render = (options: ProductMultiSelectionOption = new ProductMultiSelectionOption()) => {
         this.options = <ProductMultiSelectionOption>this.$.extend({}, this.options, options);
 
-        let self = this;
-
         this.$dropdownProduct = this.$("#" + this.options.dropdownId);
         let multiSelectButton = null;
         let hasAnyProduct = this.$dropdownProduct.data("has-any-product");

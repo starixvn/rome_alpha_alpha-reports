@@ -53,7 +53,7 @@ class SortComponent {
         return sortColumns;
     };
 
-    onSort = (sortedColumnName) => {
+    onSort = (sortedColumnName: string) => {
         let descendingsort =
             sortedColumnName === this.$sortContainer.data("sortedcolumn") &&
             !(this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true") &&
@@ -67,7 +67,7 @@ class SortComponent {
             typeof this.options.afterSortFunction === "function") {
             this.options.afterSortFunction();
         }
-    }
+    };
 
     getSortInfo = () => {
         return {
