@@ -244,6 +244,12 @@ a {
     overflow: auto;
 }
 
+// month picker
+.monpickr-label {
+    &.separator {
+        margin-right: 12px;
+    }
+}
 // For mobile
 @media only screen and (max-device-width : $conent-device-lower768) {
     body {
