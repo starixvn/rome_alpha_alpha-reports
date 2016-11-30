@@ -53,7 +53,7 @@
             var custProducts = CacheService
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
-                () => GetProducts()
+                () => GetProductsForReport()
                         .Where(product => canViewProduct(product.Id) == true)
                         .Select(product => new Product(product.Id, product.Name, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
@@ -61,7 +61,7 @@
             return custProducts;
         }
 
-        private IEnumerable<Product> GetProducts()
+        private IEnumerable<Product> GetProductsForReport()
         {
             var products = CacheService
                 .GetOrSet(
