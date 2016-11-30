@@ -61,14 +61,14 @@ class WinLossDetailView {
     }
 
     init = () => {
-        this.cacheElements();
-
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         this.isHistoricReport
             ? this.monthPickerComponent.render()
             : this.dateRangePickerComponent.render();
         this.productMultiSelectionComponent.render();
+
+        this.cacheElements();
 
         if (this.$hideFilter.val().toString().toLowerCase() === "true") {
             this.hideFilter();
