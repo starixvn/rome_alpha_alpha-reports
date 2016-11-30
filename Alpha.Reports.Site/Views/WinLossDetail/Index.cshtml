@@ -38,14 +38,14 @@
             <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="3">
                 @Resources.Member
                 <br />
-                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
             <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Agent</th>
             <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" rowspan="2" data-colindex="4">
                 @Resources.Agent
                 <br />
-                <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
             @if (Model.UserLevel.IsMasterOrSuperLevel())
@@ -54,7 +54,7 @@
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="MasterNetWinLoss.WinLoss" rowspan="2" data-colindex="5">
                     @Resources.Master
                     <br />
-                    <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
             }
 
@@ -64,7 +64,7 @@
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperNetWinLoss.WinLoss" rowspan="2" data-colindex="6">
                     @Resources.Super
                     <br />
-                    <span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal
+                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
             }
 
@@ -97,9 +97,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                    .ReportData
-                    .DataSource
-                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                .ReportData
+                .DataSource
+                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
@@ -136,13 +136,13 @@
         <td data-islink="true">
             @if (isTotalRow)
             {
-            @Resources.Total
+                @Resources.Total
             }
             else
             {
                 if (Model.UserLevel.IsAgentLevel())
                 {
-            @Html.ActionLink(
+                    @Html.ActionLink(
                     linkText: data.CustName,
                     actionName: betListPath,
                     controllerName: string.Empty,
@@ -159,7 +159,7 @@
                 }
                 else
                 {
-            @Html.ActionLink(
+                    @Html.ActionLink(
                               linkText: data.CustName,
                               actionName: "Index",
                               controllerName: "WinLossDetail",
@@ -175,23 +175,23 @@
         <td class="text-right">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
-        @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
+            @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
 
-        @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
-        @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
-        @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss);
-        @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
+            @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
+            @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
+            @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss);
+            @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
         }
         else
         {
-        @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
-        @HtmlHelpers.RenderNumberCell(data.NetTurnover)
-        @HtmlHelpers.RenderNumberCell(data.GrossComm)
+            @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
+            @HtmlHelpers.RenderNumberCell(data.NetTurnover)
+            @HtmlHelpers.RenderNumberCell(data.GrossComm)
 
-        @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
-        @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
-        @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
-        @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
+            @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
+            @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
+            @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
+            @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
         }
         <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
