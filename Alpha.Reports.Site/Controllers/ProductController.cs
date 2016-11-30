@@ -4,7 +4,7 @@
     using Services;
     using Web;
 
-    public class ProductController : BaseController
+    public class ProductController : BaseReportController
     {
         private readonly ProductService productService;
 

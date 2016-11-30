@@ -9,7 +9,7 @@
     using Requests.WinLossDetails;
     using Web;
 
-    public class WinLossDetailController : BaseController
+    public class WinLossDetailController : BaseReportController
     {
         private readonly IMediator mediator;
 

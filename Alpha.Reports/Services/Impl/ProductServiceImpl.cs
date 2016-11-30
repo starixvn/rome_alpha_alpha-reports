@@ -13,7 +13,7 @@
     public class ProductServiceImpl : ProductService
     {
         private const int CustProductsCacheTimeInMinutes = 5;
-        private const int ProductsCacheTimeInMinutes = 60;
+        private const int ProductsCacheTimeInMinutes = 720;
         private const string ProductsCacheKey = "Alpha.Reports.Services.Impl.ProductServiceImpl.Products";
         private readonly Func<int, bool> canViewProduct;
         private readonly Func<int, string> getProductName;
