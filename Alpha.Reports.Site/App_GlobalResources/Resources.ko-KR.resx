@@ -109,9 +109,6 @@
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
     <value>You can view the report data from {0}. For more historic data, please click to </value>
   </data>
-  <data name="To" xml:space="preserve">
-    <value>종료일</value>
-  </data>
   <data name="Today" xml:space="preserve">
     <value>오늘</value>
   </data>

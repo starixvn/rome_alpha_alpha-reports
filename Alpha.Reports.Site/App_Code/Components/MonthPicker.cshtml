@@ -13,8 +13,7 @@
                  data-dateinmonth="@model.FromDate.ToShortDateWithSlash()"
                  data-fromdate="@model.FromDate.Day"
                  data-todate="@model.ToDate.Day"
-                 data-currentdate="@DateTime.Now.ToShortDateWithSlash()"
-                 data-labelto="@Resources.To"></div>
+                 data-currentdate="@DateTime.Now.ToShortDateWithSlash()"></div>
         </div>
     </div>
     <input type="hidden" id="from-date" name="FromDate" value="@model.FromDate" />

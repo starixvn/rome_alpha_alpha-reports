@@ -129,9 +129,6 @@
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
     <value>ท่านสามารถดูรายงานข้อมูลได้จาก {0}. ข้อมูลก่อนหน้านี้ กรุณาใช้ </value>
   </data>
-  <data name="To" xml:space="preserve">
-    <value>ถึง</value>
-  </data>
   <data name="Today" xml:space="preserve">
     <value>วันนี้</value>
   </data>

@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alpha.Reports.Site.App_GlobalResources
-{
-
-
+namespace Alpha.Reports.Site.App_GlobalResources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -543,15 +543,6 @@ namespace Alpha.Reports.Site.App_GlobalResources
         public static string Tip_ShowReportInStackColumnView {
             get {
                 return ResourceManager.GetString("Tip_ShowReportInStackColumnView", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To.
-        /// </summary>
-        public static string To {
-            get {
-                return ResourceManager.GetString("To", resourceCulture);
             }
         }
         

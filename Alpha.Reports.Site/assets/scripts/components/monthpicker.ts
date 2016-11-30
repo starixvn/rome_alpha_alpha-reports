@@ -46,7 +46,7 @@ class MonthPickerComponent {
             fromDayId: "ddl-fromday",
             toDayId: "ddl-today",
             fromDayLabel: "",
-            toDayLabel: dropdownMonth.data("labelto"),
+            toDayLabel: "-",
             sortDesc: true,
             log: function (msg: string) {
                 console.warn(msg);

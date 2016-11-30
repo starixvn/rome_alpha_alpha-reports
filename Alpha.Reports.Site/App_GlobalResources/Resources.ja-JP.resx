@@ -123,9 +123,6 @@
   <data name="MemberWinLossDetail" xml:space="preserve">
     <value>メンバー勝ち/負け詳細</value>
   </data>
-  <data name="To" xml:space="preserve">
-    <value>から</value>
-  </data>
   <data name="Today" xml:space="preserve">
     <value>今日</value>
   </data>

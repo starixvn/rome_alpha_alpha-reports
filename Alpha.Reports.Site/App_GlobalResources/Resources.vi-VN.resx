@@ -109,9 +109,6 @@
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
     <value>Bạn có thể tra cứu dữ liệu báo cáo từ ngày {0}.Nếu muốn tìm kiếm những dữ liệu cũ hơn, bấm</value>
   </data>
-  <data name="To" xml:space="preserve">
-    <value>đến</value>
-  </data>
   <data name="Today" xml:space="preserve">
     <value>Hôm nay</value>
   </data>

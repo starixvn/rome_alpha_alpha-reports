@@ -115,9 +115,6 @@
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
     <value>You can view the report data from {0}. For more historic data, please click to</value>
   </data>
-  <data name="To" xml:space="preserve">
-    <value>To</value>
-  </data>
   <data name="Today" xml:space="preserve">
     <value>Today</value>
   </data>
