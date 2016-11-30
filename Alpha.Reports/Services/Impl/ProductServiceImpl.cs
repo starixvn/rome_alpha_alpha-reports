@@ -13,7 +13,6 @@
     public class ProductServiceImpl : ProductService
     {
         private const int CustProductsCacheTimeInMinutes = 5;
-        private const int ProductsCacheTimeInMinutes = 720;
         private const string ProductsCacheKey = "Alpha.Reports.Services.Impl.ProductServiceImpl.Products";
         private readonly Func<int, bool> canViewProduct;
         private readonly Func<int, string> getProductName;
@@ -51,26 +50,26 @@
                 return Enumerable.Empty<Product>();
             }
 
-            var products = CacheService
-                .GetOrSet(
-                ProductsCacheKey,
-                () => dynamicRepository.Fetch<Product>(new GetProductsCriteria()),
-                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(ProductsCacheTimeInMinutes)));
-
-            if (!products.Any())
-            {
-                return products;
-            }
-
             var custProducts = CacheService
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
-                () => products
+                () => GetProducts()
                         .Where(product => canViewProduct(product.Id) == true)
                         .Select(product => new Product(product.Id, product.Name, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
             return custProducts;
+        }
+
+        private IEnumerable<Product> GetProducts()
+        {
+            var products = CacheService
+                .GetOrSet(
+                ProductsCacheKey,
+                () => dynamicRepository.Fetch<Product>(new GetProductsCriteria()),
+                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(1)));
+
+            return products;
         }
     }
 }

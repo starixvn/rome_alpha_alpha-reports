@@ -1,19 +1,11 @@
 ﻿namespace Alpha.Reports.Site.Configurations
 {
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
-    using System.IO;
-    using System.Linq;
-    using System.Web;
     using Fanex.Common;
-    using Models;
-    using Newtonsoft.Json;
 
     public static class SiteSettings
     {
-        private static IEnumerable<Product> products;        
-
         public static string OldMainAppPath => GetConfigValue("OldMainAppPath");
 
         public static string AccessDeniedPage => GetConfigValue("AccessDeniedPage");
@@ -22,7 +14,7 @@
 
         public static bool IsShowKenoSetting => Converter.ToBool(GetConfigValue("IsShowKenoSetting"));
 
-        public static string AssetAppPath => GetConfigValue("AssetAppPath");                   
+        public static string AssetAppPath => GetConfigValue("AssetAppPath");
 
         public static string GetConfigValue(string configName) => ConfigurationManager.AppSettings[configName];
 
@@ -30,7 +22,7 @@
         {
             CheckNullOrWhiteSpace(OldMainAppPath);
             CheckNullOrWhiteSpace(StoreProcedurePath);
-            CheckNullOrWhiteSpace(AssetAppPath);        
+            CheckNullOrWhiteSpace(AssetAppPath);
         }
 
         private static void CheckNullOrWhiteSpace(string path)
