@@ -3,11 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using ModelsForTesting;
-    using NUnit.Framework;
     using Reports.Extensions;
     using Reports.Models.WinlossDetails;
 
-    [TestFixture]
     public class EnumerableExtensionsTests
     {
         private List<WinLossDetail> winLossDetails;
