@@ -19,7 +19,7 @@
             PageIndex = pageIndex;
             PageSize = pageSize;
             FromDate = fromDate.GetBeginningOfDate();
-            ToDate = toDate.GetEndingOfDate();
+            ToDate = toDate.GetBeginningOfDate();
             BalanceUpDay = balanceUpDay;
             MoveBetsDay = moveBetsDay;
         }
