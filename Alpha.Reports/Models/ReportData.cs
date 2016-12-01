@@ -16,7 +16,7 @@
             CurrentPageIndex = currentPageIndex;
             PageSize = pageSize;
             TotalRecords = totalRecords;
-            TotalData = totalData;           
+            TotalData = totalData;
         }
 
         public IEnumerable<T> DataSource { get; }
@@ -31,6 +31,6 @@
 
         public bool Any() => TotalRecords > 0;
 
-        public bool MoreThanOne() => TotalRecords >= 1;
+        public bool MoreThanOne() => TotalRecords > 1;
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Enumerations
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Reports.Models;
@@ -62,6 +63,206 @@
             Assert.True(actualValues.Count() == expectedUserLevels.Count() &&
                 expectedUserLevels.Where(userLevel1 => actualValues.Where(userLevel2 => userLevel2.Value == userLevel1.Value).FirstOrDefault() == null)
                 .FirstOrDefault() == null);
+        }
+
+        [Fact]
+        public void GreaterThan_NullLeftEnumeration_ThrowsArgumentNullException()
+        {
+            // Arrange
+            UserLevel left = null;
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => left > right);
+        }
+
+        [Fact]
+        public void GreaterThan_NullRightEnumeration_ThrowsArgumentNullException()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => left > right);
+        }
+
+        [Fact]
+        public void GreaterThan_LeftGreaterThanRight_ReturnsTrue()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(2);
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act
+            var actualGreaterThan = left > right;
+
+            // Assert
+            Assert.True(actualGreaterThan);
+        }
+
+        [Fact]
+        public void GreaterThan_LeftNotGreaterThanRight_ReturnsFalse()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = Enumeration.FromValue<UserLevel>(2);
+
+            // Act
+            var actualGreaterThan = left > right;
+
+            // Assert
+            Assert.False(actualGreaterThan);
+        }
+
+        [Fact]
+        public void NotLessThan_NullLeftEnumeration_ThrowsArgumentNullException()
+        {
+            // Arrange
+            UserLevel left = null;
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => left >= right);
+        }
+
+        [Fact]
+        public void NotLessThan_NullRightEnumeration_ThrowsArgumentNullException()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => left >= right);
+        }
+
+        [Fact]
+        public void NotLessThan_LeftNotLessThanRight_ReturnsTrue()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act
+            var actualGreaterThan = left >= right;
+
+            // Assert
+            Assert.True(actualGreaterThan);
+        }
+
+        [Fact]
+        public void NotLessThan_LeftLessThanRight_ReturnsFalse()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = Enumeration.FromValue<UserLevel>(2);
+
+            // Act
+            var actualGreaterThan = left >= right;
+
+            // Assert
+            Assert.False(actualGreaterThan);
+        }
+
+        [Fact]
+        public void LessThan_NullLeftEnumeration_ThrowsArgumentNullException()
+        {
+            // Arrange
+            UserLevel left = null;
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => left < right);
+        }
+
+        [Fact]
+        public void LessThan_NullRightEnumeration_ThrowsArgumentNullException()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => left < right);
+        }
+
+        [Fact]
+        public void LessThan_LeftLessThanRight_ReturnsTrue()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = Enumeration.FromValue<UserLevel>(2);
+
+            // Act
+            var actualGreaterThan = left < right;
+
+            // Assert
+            Assert.True(actualGreaterThan);
+        }
+
+        [Fact]
+        public void LessThan_LeftNotLessThanRight_ReturnsFalse()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act
+            var actualGreaterThan = left < right;
+
+            // Assert
+            Assert.False(actualGreaterThan);
+        }
+
+        [Fact]
+        public void NotGreaterThan_NullLeftEnumeration_ThrowsArgumentNullException()
+        {
+            // Arrange
+            UserLevel left = null;
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => left <= right);
+        }
+
+        [Fact]
+        public void NotGreaterThan_NullRightEnumeration_ThrowsArgumentNullException()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => left <= right);
+        }
+
+        [Fact]
+        public void NotGreaterThan_LeftNotGreaterThanRight_ReturnsTrue()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act
+            var actualGreaterThan = left <= right;
+
+            // Assert
+            Assert.True(actualGreaterThan);
+        }
+
+        [Fact]
+        public void NotGreaterThan_LeftGreaterThanRight_ReturnsFalse()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(2);
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act
+            var actualGreaterThan = left <= right;
+
+            // Assert
+            Assert.False(actualGreaterThan);
         }
     }
 }

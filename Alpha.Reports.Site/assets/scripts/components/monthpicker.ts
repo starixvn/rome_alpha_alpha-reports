@@ -33,7 +33,7 @@ class MonthPickerComponent {
         this.$toDate = this.$("#to-date");
 
         dropdownMonth.monPickr({
-            longMonthsInYear: dropdownMonth.data("longmonths-inyear"),
+            longMonthsInYear: dropdownMonth.data("longmonths-inyear").split(","),
             maxDate: maxDate === "" ? dropdownMonth.data("currentdate") : maxDate,
             minDate: dropdownMonth.data("mindate"),
             month: new Date(dropdownMonth.data("dateinmonth")),

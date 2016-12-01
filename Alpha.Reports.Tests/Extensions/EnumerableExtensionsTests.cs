@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Extensions
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using ModelsForTesting;
@@ -154,7 +155,6 @@
         }
 
         [Theory]
-        [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("WrongPropertyName")]
@@ -168,6 +168,17 @@
 
             // Assert
             Assert.Equal(expectedList, actualList);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        public void OrderBy_OrderByNullPropertyName_ReturnsAscendingOrder(string propertyName)
+        {
+            // Arrange
+            var expectedList = winLossDetails;
+
+            // Act & Assert
+            Assert.Throws<NullReferenceException>(() => winLossDetails.OrderBy(propertyName, descending: false).ToList());
         }
     }
 }

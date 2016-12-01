@@ -20,7 +20,7 @@
         }
 
         [Fact]
-        public void IsValid_Always_ReturnsTrue(int custId)
+        public void IsValid_Always_ReturnsTrue()
         {
             // Arrange
             var getProductsCriteria = new GetProductsCriteria();
