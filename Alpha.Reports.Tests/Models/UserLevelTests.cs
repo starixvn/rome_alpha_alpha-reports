@@ -1,57 +1,14 @@
 ﻿namespace Alpha.Reports.Tests.Models
 {
     using Constants;
-    using NUnit.Framework;
     using Reports.Models;
     using Reports.Models.Enumerations;
+    using TestCases;
+    using Xunit;
 
-    [TestFixture]
     public class UserLevelTests
     {
-        private const string DirectUplineDataSourceName = "uplineUserLevelAndDownlineValueDataSources";
-        private const string DirectDownlineDataSourceName = "downlineUserLevelAndUplineValueDataSources";
-        private const string SameUserLevelDataSourceName = "sameUseLevelDataSource";
-
-        private static object[] uplineUserLevelAndDownlineValueDataSources =
-        {
-            new object[] { UserLevel.Super,  UserLevel.Super.Value, false },
-            new object[] { UserLevel.Super,  UserLevel.Master.Value, true },
-            new object[] { UserLevel.Super,  UserLevel.Agent.Value, false },
-            new object[] { UserLevel.Master, UserLevel.Super.Value, false },
-            new object[] { UserLevel.Master, UserLevel.Master.Value, false },
-            new object[] { UserLevel.Master, UserLevel.Agent.Value, true },
-            new object[] { UserLevel.Agent,  UserLevel.Super.Value, false },
-            new object[] { UserLevel.Agent,  UserLevel.Master.Value, false },
-            new object[] { UserLevel.Agent,  UserLevel.Agent.Value, false }
-        };
-
-        private static object[] downlineUserLevelAndUplineValueDataSources =
-        {
-            new object[] { UserLevel.Super,  UserLevel.Super.Value, false },
-            new object[] { UserLevel.Super,  UserLevel.Master.Value, false },
-            new object[] { UserLevel.Super,  UserLevel.Agent.Value, false },
-            new object[] { UserLevel.Master, UserLevel.Super.Value, true },
-            new object[] { UserLevel.Master, UserLevel.Master.Value, false },
-            new object[] { UserLevel.Master, UserLevel.Agent.Value, false },
-            new object[] { UserLevel.Agent,  UserLevel.Super.Value, false },
-            new object[] { UserLevel.Agent,  UserLevel.Master.Value, true },
-            new object[] { UserLevel.Agent,  UserLevel.Agent.Value, false }
-        };
-
-        private static object[] sameUseLevelDataSource =
-        {
-            new object[] { UserLevel.Super,  UserLevel.Super, true },
-            new object[] { UserLevel.Super,  UserLevel.Master, false },
-            new object[] { UserLevel.Super,  UserLevel.Agent, false },
-            new object[] { UserLevel.Master, UserLevel.Super, false },
-            new object[] { UserLevel.Master, UserLevel.Master, true },
-            new object[] { UserLevel.Master, UserLevel.Agent, false },
-            new object[] { UserLevel.Agent,  UserLevel.Super, false },
-            new object[] { UserLevel.Agent,  UserLevel.Master, false },
-            new object[] { UserLevel.Agent,  UserLevel.Agent, true }
-        };
-
-        [Test]
+        [Fact]
         public void IsAgentLevel_UserLevelIsAgent_ReturnTrue()
         {
             // Arrange
@@ -61,10 +18,10 @@
             var result = userLevel.IsAgentLevel();
 
             // Assert
-            Assert.AreEqual(true, result);
+            Assert.Equal(true, result);
         }
 
-        [Test]
+        [Fact]
         public void IsNotAgentLevel_UserLevelIsAgent_ReturnFalse()
         {
             // Arrange
@@ -74,10 +31,10 @@
             var result = userLevel.IsNotAgentLevel();
 
             // Assert
-            Assert.AreEqual(false, result);
+            Assert.Equal(false, result);
         }
 
-        [Test]
+        [Fact]
         public void IsMasterLevel_UserLevelIsMaster_ReturnTrue()
         {
             // Arrange
@@ -87,10 +44,10 @@
             var result = userLevel.IsMasterLevel();
 
             // Assert
-            Assert.AreEqual(true, result);
+            Assert.Equal(true, result);
         }
 
-        [Test]
+        [Fact]
         public void IsNotMasterLevel_UserLevelIsMaster_ReturnFalse()
         {
             // Arrange
@@ -100,10 +57,10 @@
             var result = userLevel.IsNotMasterLevel();
 
             // Assert
-            Assert.AreEqual(false, result);
+            Assert.Equal(false, result);
         }
 
-        [Test]
+        [Fact]
         public void IsSuperLevel_UserLevelIsSuper_ReturnTrue()
         {
             // Arrange
@@ -113,11 +70,12 @@
             var result = userLevel.IsSuperLevel();
 
             // Assert
-            Assert.AreEqual(true, result);
+            Assert.Equal(true, result);
         }
 
-        [TestCase(4)]
-        [TestCase(3)]
+        [Theory]
+        [InlineData(4)]
+        [InlineData(3)]
         public void IsMasterOrSuperLevel_UserLevelIsSuperOrMaster_ReturnTrue(byte levelId)
         {
             // Arrange
@@ -127,10 +85,10 @@
             var result = userLevel.IsMasterOrSuperLevel();
 
             // Assert
-            Assert.AreEqual(true, result);
+            Assert.Equal(true, result);
         }
 
-        [Test]
+        [Fact]
         public void IsMemberLevel_UserLevelIsMember_ReturnTrue()
         {
             // Arrange
@@ -140,10 +98,10 @@
             var result = userLevel.IsMemberLevel();
 
             // Assert
-            Assert.AreEqual(true, result);
+            Assert.Equal(true, result);
         }
 
-        [Test]
+        [Fact]
         public void IsNotSuperLevel_UserLevelIsSuper_ReturnFalse()
         {
             // Arrange
@@ -153,10 +111,10 @@
             var result = userLevel.IsNotSuperLevel();
 
             // Assert
-            Assert.AreEqual(false, result);
+            Assert.Equal(false, result);
         }
 
-        [Test]
+        [Fact]
         public void IsDirectUplineOf_CustomerLevelIsNull_ReturnFalse()
         {
             // Arrange
@@ -166,18 +124,20 @@
             var result = userLevel.IsDirectUplineOf(null);
 
             // Assert
-            Assert.AreEqual(false, result);
+            Assert.Equal(false, result);
         }
 
-        [Test, TestCaseSource(DirectUplineDataSourceName)]
+        [Theory]
+        [MemberData("UplineUserLevelAndDownlineValueDataSources", MemberType = typeof(UserLevelTestCases))]
         public void IsDirectUplineOf_Always_ReturnValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
         {
             var actualResult = uplineLevel.IsDirectUplineOf(downlineLevelValue);
 
-            Assert.AreEqual(result, actualResult);
+            Assert.Equal(result, actualResult);
         }
 
-        [Test, TestCaseSource(DirectUplineDataSourceName)]
+        [Theory]
+        [MemberData("UplineUserLevelAndDownlineValueDataSources", MemberType = typeof(UserLevelTestCases))]
         public void IsDirectUplineOf_ValidCustomerLevel_ReturnValidValue(UserLevel uplineLevel, byte downlineLevelValue, bool result)
         {
             // Act
@@ -185,18 +145,20 @@
                 .IsDirectUplineOf(Enumeration.FromValue<UserLevel>(downlineLevelValue));
 
             // Assert
-            Assert.AreEqual(result, actualResult);
+            Assert.Equal(result, actualResult);
         }
 
-        [Test, TestCaseSource(DirectUplineDataSourceName)]
+        [Theory]
+        [MemberData("UplineUserLevelAndDownlineValueDataSources", MemberType = typeof(UserLevelTestCases))]
         public void IsNotDirectUplineOf_ValidDownlineLevelValue_ReturnValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
         {
             var actualResult = uplineLevel.IsNotDirectUplineOf(downlineLevelValue);
 
-            Assert.AreEqual(!result, actualResult);
+            Assert.Equal(!result, actualResult);
         }
 
-        [Test, TestCaseSource(DirectUplineDataSourceName)]
+        [Theory]
+        [MemberData("UplineUserLevelAndDownlineValueDataSources", MemberType = typeof(UserLevelTestCases))]
         public void IsNotDirectUplineOf_DownlineLevelIsNotNull_ReturnValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
         {
             // Arrange
@@ -206,10 +168,10 @@
             var actualResult = uplineLevel.IsNotDirectUplineOf(downLineLevel);
 
             // Assert
-            Assert.AreEqual(!result, actualResult);
+            Assert.Equal(!result, actualResult);
         }
 
-        [Test]
+        [Fact]
         public void IsDirectDownlineOf_CustomerLevelIsNull_ReturnFalse()
         {
             // Arrange
@@ -219,10 +181,11 @@
             var result = userLevel.IsDirectDownlineOf(null);
 
             // Assert
-            Assert.AreEqual(false, result);
+            Assert.Equal(false, result);
         }
 
-        [Test, TestCaseSource(DirectDownlineDataSourceName)]
+        [Theory]
+        [MemberData("DownlineUserLevelAndUplineValueDataSources", MemberType = typeof(UserLevelTestCases))]
         public void IsDirectDownlineOf_CustomerLevelIsNotNull_ReturnValidResult(UserLevel downlineLevel, byte uplineLevelValue, bool result)
         {
             // Arrange
@@ -232,10 +195,11 @@
             var actualResult = downlineLevel.IsDirectDownlineOf(uplineLevel);
 
             // Assert
-            Assert.AreEqual(result, actualResult);
+            Assert.Equal(result, actualResult);
         }
 
-        [Test, TestCaseSource(DirectDownlineDataSourceName)]
+        [Theory]
+        [MemberData("DownlineUserLevelAndUplineValueDataSources", MemberType = typeof(UserLevelTestCases))]
         public void IsNotDirectDownlineOf_CustomerLevelIsNotNull_ReturnValidResult(UserLevel downlineLevel, byte uplineLevelValue, bool result)
         {
             // Arrange
@@ -245,12 +209,13 @@
             var actualResult = downlineLevel.IsNotDirectDownlineOf(uplineLevel);
 
             // Assert
-            Assert.AreEqual(!result, actualResult);
+            Assert.Equal(!result, actualResult);
         }
 
-        [TestCase(RoleId.Super)]
-        [TestCase(RoleId.Master)]
-        [TestCase(RoleId.Agent)]
+        [Theory]
+        [InlineData(RoleId.Super)]
+        [InlineData(RoleId.Master)]
+        [InlineData(RoleId.Agent)]
         public void Is_UserLevelIsNull_ReturnFalse(byte userLevelValue)
         {
             // Arrange
@@ -260,23 +225,25 @@
             var result = userLevel.Is(null);
 
             // Assert
-            Assert.AreEqual(false, result);
+            Assert.Equal(false, result);
         }
 
-        [Test, TestCaseSource(SameUserLevelDataSourceName)]
+        [Theory]
+        [MemberData("SameUseLevelDataSource", MemberType = typeof(UserLevelTestCases))]
         public void Is_UserLevelIsNotNull_ReturnExpectedResult(UserLevel userLevel1, UserLevel userLevel2, bool result)
         {
             var actualResult = userLevel1.Is(userLevel2);
 
-            Assert.AreEqual(result, actualResult);
+            Assert.Equal(result, actualResult);
         }
 
-        [Test, TestCaseSource(SameUserLevelDataSourceName)]
+        [Theory]
+        [MemberData("SameUseLevelDataSource", MemberType = typeof(UserLevelTestCases))]
         public void IsNot_UserLevelIsNotNull_ReturnExpectedResult(UserLevel userLevel1, UserLevel userLevel2, bool result)
         {
             var actualResult = userLevel1.IsNot(userLevel2);
 
-            Assert.AreEqual(!result, actualResult);
+            Assert.Equal(!result, actualResult);
         }
     }
 }

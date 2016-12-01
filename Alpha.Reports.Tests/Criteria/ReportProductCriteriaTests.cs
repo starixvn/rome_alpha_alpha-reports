@@ -3,13 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using NUnit.Framework;
     using Reports.Criteria;
+    using Xunit;
 
-    [TestFixture]
     public class ReportProductCriteriaTests
     {
-        [Test]
+        [Fact]
         public void GetProductIds_EmptyProductList_ReturnEmpty()
         {
             // Arrange
@@ -20,10 +19,10 @@
             var actualProductIds = reportProductCriteria.ProductIds;
 
             // Assert
-            Assert.AreEqual(expectedProductIds, actualProductIds);
+            Assert.Equal(expectedProductIds, actualProductIds);
         }
 
-        [Test]
+        [Fact]
         public void GetProductIds_WithProductList_ReturnCorrectProductIds()
         {
             // Arrange
@@ -43,20 +42,20 @@
             var actualProductIds = reportProductCriteria.ProductIds;
 
             // Assert
-            Assert.AreEqual(expectedProductIds, actualProductIds);
+            Assert.Equal(expectedProductIds, actualProductIds);
         }
 
-        [Test]
+        [Fact]
         public void GetSettingKey_Always_ThrowsNotImplementedException()
         {
             // Arrange
             var reportProductCriteria = new ReportProductCriteria(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
 
             // Act & Assert
-            Assert.Throws<NotImplementedException>(new TestDelegate(() => reportProductCriteria.GetSettingKey()));
+            Assert.Throws<NotImplementedException>(() => reportProductCriteria.GetSettingKey());
         }
 
-        [Test]
+        [Fact]
         public void IsValid_EmptyProductIds_ReturnInvalid()
         {
             // Arrange
@@ -67,7 +66,7 @@
             var actualIsValid = reportProductCriteria.IsValid();
 
             // Assert
-            Assert.AreEqual(expectedIsValid, actualIsValid);
+            Assert.Equal(expectedIsValid, actualIsValid);
         }
     }
 }

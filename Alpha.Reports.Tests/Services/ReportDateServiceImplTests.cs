@@ -4,13 +4,12 @@
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using NSubstitute;
-    using NUnit.Framework;
     using Reports.Criteria;
     using Reports.Models;
     using Reports.Services;
     using Reports.Services.Impl;
+    using Xunit;
 
-    [TestFixture]
     public class ReportDateServiceImplTests
     {
         private const string BalanceUpDayAndMoveBetsDayCacheKey = "Alpha.Reports.BalanceUpDayAndMoveBetsDay";
@@ -19,8 +18,7 @@
         private DateTime balanceUpDay;
         private DateTime moveBetsDay;
 
-        [SetUp]
-        public void Setup()
+        public ReportDateServiceImplTests()
         {
             CacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
             repository = Substitute.For<IDynamicRepository>();
@@ -29,7 +27,7 @@
             moveBetsDay = new DateTime(2010, 1, 1);
         }
 
-        [Test]
+        [Fact]
         public void GetBalanceUpDayAndMoveBetsDay_DataInCache_ReturnDataGetFromCache()
         {
             // Arrange            
@@ -40,11 +38,11 @@
             var actual = service.GetBalanceUpDayAndMoveBetsDay();
 
             // Assert
-            Assert.AreEqual(balanceUpDay, actual.BalanceUpDay);
-            Assert.AreEqual(moveBetsDay, actual.MoveBetsDay);
+            Assert.Equal(balanceUpDay, actual.BalanceUpDay);
+            Assert.Equal(moveBetsDay, actual.MoveBetsDay);
         }
 
-        [Test]
+        [Fact]
         public void GetBalanceUpDayAndMoveBetsDay_NoDataInCache_DynamicRepositoryGetWasCalled()
         {
             // Arrange            
@@ -60,7 +58,7 @@
             repository.Received().Get<BalanceUpDayAndMoveBetsDay>(Arg.Any<GetBalanceUpDayAndMoveBetsDayCriteria>());
         }
 
-        [Test]
+        [Fact]
         public void GetBalanceUpDayAndMoveBetsDay_DataReturnedFromRepository_WasAddedToCache()
         {
             // Arrange
@@ -74,11 +72,11 @@
 
             // Assert
             var dataInCache = CacheService.Get<BalanceUpDayAndMoveBetsDay>(BalanceUpDayAndMoveBetsDayCacheKey);
-            Assert.AreEqual(dataInCache.BalanceUpDay, balanceUpDay);
-            Assert.AreEqual(dataInCache.MoveBetsDay, moveBetsDay);
+            Assert.Equal(dataInCache.BalanceUpDay, balanceUpDay);
+            Assert.Equal(dataInCache.MoveBetsDay, moveBetsDay);
         }
 
-        [Test]
+        [Fact]
         public void GetBalanceUpDay_Always_ReturnTheSameDateSetToCache()
         {
             // Arrange
@@ -89,10 +87,10 @@
             var actual = service.GetBalanceUpDay();
 
             // Assert
-            Assert.AreEqual(dataInCache.BalanceUpDay, actual);
+            Assert.Equal(dataInCache.BalanceUpDay, actual);
         }
 
-        [Test]
+        [Fact]
         public void GetMoveBetsDay_Always_ReturnTheSameDateSetToCache()
         {
             // Arrange
@@ -103,7 +101,7 @@
             var actual = service.GetMoveBetsDay();
 
             // Assert
-            Assert.AreEqual(dataInCache.MoveBetsDay, actual);
+            Assert.Equal(dataInCache.MoveBetsDay, actual);
         }
     }
 }

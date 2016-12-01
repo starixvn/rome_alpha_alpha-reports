@@ -1,13 +1,12 @@
 ﻿namespace Alpha.Reports.Tests.Constants
 {
     using System;
-    using NUnit.Framework;
     using Reports.Constants;
+    using Xunit;
 
-    [TestFixture]
     public class DefaultVariablesTests
     {
-        [Test]
+        [Fact]
         public void GetCacheItemOptions_Always_SlidingExpirationIsOneHour()
         {
             // Arrange
@@ -17,7 +16,7 @@
             var cacheItemOptions = DefaultVariables.CacheItemOptions;
 
             // Assert
-            Assert.AreEqual(cacheItemOptions.SlidingExpiration, expectedTimeSpan);
+            Assert.Equal(cacheItemOptions.SlidingExpiration, expectedTimeSpan);
         }
     }
 }

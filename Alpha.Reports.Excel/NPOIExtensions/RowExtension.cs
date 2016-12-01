@@ -20,7 +20,7 @@
             }
 
             var firstCellNum = sourceRow.FirstCellNum;
-            var lastCellNum = Math.Min(sourceRow.LastCellNum, int.MaxValue);
+            var lastCellNum = sourceRow.LastCellNum;
 
             for (var i = firstCellNum; i < lastCellNum; i++)
             {

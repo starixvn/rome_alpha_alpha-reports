@@ -1,28 +1,27 @@
 ﻿namespace Alpha.Reports.Tests.Models
 {
     using System;
-    using Alpha.Reports.Models;
     using NSubstitute;
-    using NUnit.Framework;
+    using Reports.Models;
+    using Xunit;
 
-    [TestFixture]
     public class BalanceUpDayAndMoveBetsDayTests
     {
-        [Test]
+        [Fact]
         public void BalanceUpDay_Always_GetDateSetFromCtor()
         {
             // Arrange
-            var balanceUpDay = new DateTime(2000, 1, 1);            
+            var balanceUpDay = new DateTime(2000, 1, 1);
             var date = new BalanceUpDayAndMoveBetsDay(balanceUpDay, Arg.Any<DateTime>());
 
             // Act
             var actual = date.BalanceUpDay;
 
             // Assert
-            Assert.AreEqual(balanceUpDay, actual);
+            Assert.Equal(balanceUpDay, actual);
         }
 
-        [Test]
+        [Fact]
         public void MoveBetsDay_Always_GetDateSetFromCtor()
         {
             // Arrange
@@ -33,7 +32,7 @@
             var actual = date.MoveBetsDay;
 
             // Assert
-            Assert.AreEqual(moveBetsDay, actual);
+            Assert.Equal(moveBetsDay, actual);
         }
     }
 }

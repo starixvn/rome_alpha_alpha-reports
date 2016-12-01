@@ -1,17 +1,17 @@
 ﻿namespace Alpha.Reports.Tests.Criteria.WinLossDetail
 {
     using System;
-    using NUnit.Framework;
     using Reports.Criteria.WinLossDetail;
     using Reports.Models;
     using Reports.Models.Enumerations;
+    using Xunit;
 
-    [TestFixture]
     public class WinLossDetailCriteriaTests
     {
-        [TestCase(2, "Age_Rpt_WinLossDetail_Member")]
-        [TestCase(3, "Age_Rpt_WinLossDetail_Agent")]
-        [TestCase(4, "Age_Rpt_WinLossDetail_Master")]
+        [Theory]
+        [InlineData(2, "Age_Rpt_WinLossDetail_Member")]
+        [InlineData(3, "Age_Rpt_WinLossDetail_Agent")]
+        [InlineData(4, "Age_Rpt_WinLossDetail_Master")]
         public void WinLossDetailCriteria_WithCorrectUserLevel_ReturnsValidSettingKey(byte levelId, string expectedSettingKey)
         {
             // Arrange
@@ -22,7 +22,7 @@
             var actualSettingKey = winLossDetailCriteria.GetSettingKey();
 
             // Assert
-            Assert.AreEqual(expectedSettingKey, actualSettingKey);
+            Assert.Equal(expectedSettingKey, actualSettingKey);
         }
     }
 }

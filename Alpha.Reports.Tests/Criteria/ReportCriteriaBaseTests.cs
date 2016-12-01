@@ -1,14 +1,14 @@
 ﻿namespace Alpha.Reports.Tests.Criteria
 {
     using System;
-    using NUnit.Framework;
+    using Xunit;
 
-    [TestFixture]
     public class ReportCriteriaBaseTests
     {
-        [TestCase(0)]
-        [TestCase(-1)]
-        [TestCase(int.MinValue)]
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        [InlineData(int.MinValue)]
         public void IsValid_InvalidCustId_ReturnsInvalid(int custId)
         {
             // Arrange
@@ -19,11 +19,12 @@
             var actualIsValid = reportCriteriaBase.IsValid();
 
             // Assert
-            Assert.AreEqual(expectedIsValid, actualIsValid);
+            Assert.Equal(expectedIsValid, actualIsValid);
         }
 
-        [TestCase(1)]
-        [TestCase(int.MaxValue)]
+        [Theory]
+        [InlineData(1)]
+        [InlineData(int.MaxValue)]
         public void IsValid_ValidCustId_ReturnsValid(int custId)
         {
             // Arrange
@@ -34,10 +35,10 @@
             var actualIsValid = reportCriteriaBase.IsValid();
 
             // Assert
-            Assert.AreEqual(expectedIsValid, actualIsValid);
+            Assert.Equal(expectedIsValid, actualIsValid);
         }
 
-        [Test]
+        [Fact]
         public void IsValid_ToDateLessThanFromDate_ReturnsInvalid()
         {
             // Arrange
@@ -50,10 +51,10 @@
             var actualIsValid = reportCriteriaBase.IsValid();
 
             // Assert
-            Assert.AreEqual(expectedIsValid, actualIsValid);
+            Assert.Equal(expectedIsValid, actualIsValid);
         }
 
-        [Test]
+        [Fact]
         public void IsValid_ToDateNotLessThanFromDate_ReturnsValid()
         {
             // Arrange
@@ -66,11 +67,12 @@
             var actualIsValid = reportCriteriaBase.IsValid();
 
             // Assert
-            Assert.AreEqual(expectedIsValid, actualIsValid);
+            Assert.Equal(expectedIsValid, actualIsValid);
         }
 
-        [TestCase(-1)]
-        [TestCase(int.MinValue)]
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(int.MinValue)]
         public void IsValid_InvalidPageIndex_ReturnsInvalid(int pageIndex)
         {
             // Arrange
@@ -81,12 +83,13 @@
             var actualIsValid = reportCriteriaBase.IsValid();
 
             // Assert
-            Assert.AreEqual(expectedIsValid, actualIsValid);
+            Assert.Equal(expectedIsValid, actualIsValid);
         }
 
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(int.MaxValue)]
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(int.MaxValue)]
         public void IsValid_ValidPageIndex_ReturnsValid(int pageIndex)
         {
             // Arrange
@@ -97,10 +100,10 @@
             var actualIsValid = reportCriteriaBase.IsValid();
 
             // Assert
-            Assert.AreEqual(expectedIsValid, actualIsValid);
+            Assert.Equal(expectedIsValid, actualIsValid);
         }
 
-        [Test]
+        [Fact]
         public void IsNotValid_ValidCriteria_ReturnsFalse()
         {
             // Arrange
@@ -111,10 +114,10 @@
             var actualIsNotValid = reportCriteriaBase.IsNotValid();
 
             // Assert
-            Assert.AreEqual(expectedIsNotValid, actualIsNotValid);
+            Assert.Equal(expectedIsNotValid, actualIsNotValid);
         }
 
-        [Test]
+        [Fact]
         public void IsNotValid_InvalidCriteria_ReturnsTrue()
         {
             // Arrange
@@ -125,10 +128,10 @@
             var actualIsNotValid = reportCriteriaBase.IsNotValid();
 
             // Assert
-            Assert.AreEqual(expectedIsNotValid, actualIsNotValid);
+            Assert.Equal(expectedIsNotValid, actualIsNotValid);
         }
 
-        [Test]
+        [Fact]
         public void GetPageSize_Always_ReturnsInitialValue()
         {
             // Arrange
@@ -140,10 +143,10 @@
             var actualValue = reportCriteriaBase.PageSize;
 
             // Assert
-            Assert.AreEqual(expectedValue, actualValue);
+            Assert.Equal(expectedValue, actualValue);
         }
 
-        [Test]
+        [Fact]
         public void GetBalanceUpDay_Always_ReturnsInitialValue()
         {
             // Arrange
@@ -155,10 +158,10 @@
             var actualValue = reportCriteriaBase.BalanceUpDay;
 
             // Assert
-            Assert.AreEqual(expectedValue, actualValue);
+            Assert.Equal(expectedValue, actualValue);
         }
 
-        [Test]
+        [Fact]
         public void GetMoveBetsDay_Always_ReturnsInitialValue()
         {
             // Arrange
@@ -170,7 +173,7 @@
             var actualValue = reportCriteriaBase.MoveBetsDay;
 
             // Assert
-            Assert.AreEqual(expectedValue, actualValue);
+            Assert.Equal(expectedValue, actualValue);
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿namespace Alpha.Reports.Tests.Criteria
 {
-    using NUnit.Framework;
     using Reports.Criteria;
+    using Xunit;
 
-    [TestFixture]
     public class GetBalanceUpDayAndMoveBetsDayCriteriaTests
     {
-        [Test]
+        [Fact]
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
@@ -17,10 +16,10 @@
             var actualSettingKey = getBalanceUpDayAndMoveBetsDayCriteria.GetSettingKey();
 
             // Assert
-            Assert.AreEqual(expectedSettingKey, actualSettingKey);
+            Assert.Equal(expectedSettingKey, actualSettingKey);
         }
 
-        [Test]
+        [Fact]
         public void IsValid_Always_ReturnsValid()
         {
             // Arrange
@@ -31,7 +30,7 @@
             var actualIsValid = getBalanceUpDayAndMoveBetsDayCriteria.IsValid();
 
             // Assert
-            Assert.AreEqual(expectedIsValid, actualIsValid);
+            Assert.Equal(expectedIsValid, actualIsValid);
         }
     }
 }

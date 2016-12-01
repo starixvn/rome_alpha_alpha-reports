@@ -1,0 +1,22 @@
+﻿namespace Alpha.Reports.Tests.TestCases
+{
+    using System.Collections.Generic;
+
+    public class StringExtensionsTestCases
+    {
+        private static IEnumerable<object[]> stringContainsNonNumericCharactersCases = new List<object[]>()
+        {
+            new object[] { "1, abc, 3, d, 4", new List<int> { 1, 3, 4 } },
+            new object[] { "1, 200, 343, 33, abc", new List<int> { 1, 200, 343, 33 } },
+            new object[] { "1000000000000000000000, ab, 12", new List<int> { 12 } }
+        };
+
+        public static IEnumerable<object[]> StringContainsNonNumericCharactersCases
+        {
+            get
+            {
+                return stringContainsNonNumericCharactersCases;
+            }
+        }
+    }
+}

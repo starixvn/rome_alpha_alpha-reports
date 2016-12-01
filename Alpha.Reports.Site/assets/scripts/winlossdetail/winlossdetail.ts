@@ -297,15 +297,15 @@ class WinLossDetailView {
     };
 }
 
-const winLossDetailView = new WinLossDetailView(
-    $,
-    new DateRangePickerComponent($),
-    new PagerComponent($),
-    new ProductMultiSelectionComponent($),
-    new SortComponent($),
-    new ReportTooltip($),
-    new MonthPickerComponent($));
+$(() => {
+    const winLossDetailView = new WinLossDetailView(
+        $,
+        new DateRangePickerComponent($),
+        new PagerComponent($),
+        new ProductMultiSelectionComponent($),
+        new SortComponent($),
+        new ReportTooltip($),
+        new MonthPickerComponent($));
 
-$(function () {
     winLossDetailView.init();
 });

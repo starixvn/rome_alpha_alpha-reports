@@ -2,17 +2,17 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using NUnit.Framework;
     using Reports.Models;
     using Reports.Models.Enumerations;
+    using Xunit;
 
-    [TestFixture]
     public class EnumerationTests
     {
-        [TestCase(4, 4, 0)]
-        [TestCase(4, 3, 1)]
-        [TestCase(4, 2, 2)]
-        [TestCase(4, 1, 3)]
+        [Theory]
+        [InlineData(4, 4, 0)]
+        [InlineData(4, 3, 1)]
+        [InlineData(4, 2, 2)]
+        [InlineData(4, 1, 3)]
         public void AbsoluteDifference_Always_ReturnCorrectDifference(
             byte firstValue,
             byte secondValue,
@@ -26,23 +26,24 @@
             var actualDifference = Enumeration.AbsoluteDifference(firstEnum, secondEnum);
 
             // Assert
-            Assert.AreEqual(expectedDifference, actualDifference);
+            Assert.Equal(expectedDifference, actualDifference);
         }
 
-        [TestCase("Super", 4)]
-        [TestCase("Master", 3)]
-        [TestCase("Agent", 2)]
-        [TestCase("Member", 1)]
+        [Theory]
+        [InlineData("Super", 4)]
+        [InlineData("Master", 3)]
+        [InlineData("Agent", 2)]
+        [InlineData("Member", 1)]
         public void FromDisplayName_StateUnderTest_ExpectedBehaviour(string displayName, int expectedValue)
         {
             // Act
             var actualValue = Enumeration.FromDisplayName<UserLevel>(displayName).Value;
 
             // Assert
-            Assert.AreEqual(expectedValue, actualValue);
+            Assert.Equal(expectedValue, actualValue);
         }
 
-        [Test]
+        [Fact]
         public void GetAll_GetAllUserLevels_ReturnsAllUserLevels()
         {
             // Arrange
@@ -58,7 +59,7 @@
             var actualValues = Enumeration.GetAll(typeof(UserLevel)).Cast<UserLevel>();
 
             // Assert
-            Assert.IsTrue(actualValues.Count() == expectedUserLevels.Count() &&
+            Assert.True(actualValues.Count() == expectedUserLevels.Count() &&
                 expectedUserLevels.Where(userLevel1 => actualValues.Where(userLevel2 => userLevel2.Value == userLevel1.Value).FirstOrDefault() == null)
                 .FirstOrDefault() == null);
         }
