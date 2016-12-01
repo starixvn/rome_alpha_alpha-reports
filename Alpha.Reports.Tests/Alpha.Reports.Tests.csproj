@@ -96,12 +96,14 @@
     <Compile Include="Constants\DefaultVariablesTests.cs" />
     <Compile Include="Constants\RoleId.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteriaTests.cs" />
+    <Compile Include="Criteria\GetProductsCriteriaTests.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseForTesting.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseTests.cs" />
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
     <Compile Include="Enumerations\EnumerationTests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
+    <Compile Include="Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="ModelsForTesting\NetWinLossForTesting.cs" />
     <Compile Include="ModelsForTesting\WinLossDetailForTesting.cs" />

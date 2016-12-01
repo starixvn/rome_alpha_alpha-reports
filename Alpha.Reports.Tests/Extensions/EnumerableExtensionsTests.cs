@@ -5,6 +5,7 @@
     using ModelsForTesting;
     using Reports.Extensions;
     using Reports.Models.WinlossDetails;
+    using Xunit;
 
     public class EnumerableExtensionsTests
     {
@@ -14,8 +15,7 @@
 
         private List<WinLossDetail> ascendingSortedListByWinLoss;
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
+        public EnumerableExtensionsTests()
         {
             winLossDetails = new List<WinLossDetail>();
             descendingSortedListByWinLoss = new List<WinLossDetail>();
@@ -63,24 +63,25 @@
             }
         }
 
-        [TestCase("CustId")]
-        [TestCase("CustName")]
-        [TestCase("Turnover")]
-        [TestCase("NetTurnover")]
-        [TestCase("GrossComm")]
-        [TestCase("NumberOfTickets")]
-        [TestCase("MemberNetWinLoss.WinLoss")]
-        [TestCase("MemberNetWinLoss.Comm")]
-        [TestCase("MemberNetWinLoss.Total")]
-        [TestCase("AgentNetWinLoss.WinLoss")]
-        [TestCase("AgentNetWinLoss.Comm")]
-        [TestCase("AgentNetWinLoss.Total")]
-        [TestCase("MasterNetWinLoss.WinLoss")]
-        [TestCase("MasterNetWinLoss.Comm")]
-        [TestCase("MasterNetWinLoss.Total")]
-        [TestCase("SuperNetWinLoss.WinLoss")]
-        [TestCase("SuperNetWinLoss.Comm")]
-        [TestCase("SuperNetWinLoss.Total")]
+        [Theory]
+        [InlineData("CustId")]
+        [InlineData("CustName")]
+        [InlineData("Turnover")]
+        [InlineData("NetTurnover")]
+        [InlineData("GrossComm")]
+        [InlineData("NumberOfTickets")]
+        [InlineData("MemberNetWinLoss.WinLoss")]
+        [InlineData("MemberNetWinLoss.Comm")]
+        [InlineData("MemberNetWinLoss.Total")]
+        [InlineData("AgentNetWinLoss.WinLoss")]
+        [InlineData("AgentNetWinLoss.Comm")]
+        [InlineData("AgentNetWinLoss.Total")]
+        [InlineData("MasterNetWinLoss.WinLoss")]
+        [InlineData("MasterNetWinLoss.Comm")]
+        [InlineData("MasterNetWinLoss.Total")]
+        [InlineData("SuperNetWinLoss.WinLoss")]
+        [InlineData("SuperNetWinLoss.Comm")]
+        [InlineData("SuperNetWinLoss.Total")]
         public void OrderBy_OrderByDescending_ReturnsDescendingOrder(string propertyName)
         {
             // Arrange
@@ -90,10 +91,11 @@
             var actualList = winLossDetails.OrderBy(propertyName).ToList();
 
             // Assert
-            Assert.AreEqual(expectedList, actualList);
+            Assert.Equal(expectedList, actualList);
         }
 
-        [TestCase("Company")]
+        [Theory]
+        [InlineData("Company")]
         public void OrderBy_OrderByDescendingCompany_ReturnsDescendingOrder(string propertyName)
         {
             // Arrange
@@ -103,27 +105,28 @@
             var actualList = winLossDetails.OrderBy(propertyName).ToList();
 
             // Assert
-            Assert.AreEqual(expectedList, actualList);
+            Assert.Equal(expectedList, actualList);
         }
 
-        [TestCase("CustId")]
-        [TestCase("CustName")]
-        [TestCase("Turnover")]
-        [TestCase("NetTurnover")]
-        [TestCase("GrossComm")]
-        [TestCase("NumberOfTickets")]
-        [TestCase("MemberNetWinLoss.WinLoss")]
-        [TestCase("MemberNetWinLoss.Comm")]
-        [TestCase("MemberNetWinLoss.Total")]
-        [TestCase("AgentNetWinLoss.WinLoss")]
-        [TestCase("AgentNetWinLoss.Comm")]
-        [TestCase("AgentNetWinLoss.Total")]
-        [TestCase("MasterNetWinLoss.WinLoss")]
-        [TestCase("MasterNetWinLoss.Comm")]
-        [TestCase("MasterNetWinLoss.Total")]
-        [TestCase("SuperNetWinLoss.WinLoss")]
-        [TestCase("SuperNetWinLoss.Comm")]
-        [TestCase("SuperNetWinLoss.Total")]
+        [Theory]
+        [InlineData("CustId")]
+        [InlineData("CustName")]
+        [InlineData("Turnover")]
+        [InlineData("NetTurnover")]
+        [InlineData("GrossComm")]
+        [InlineData("NumberOfTickets")]
+        [InlineData("MemberNetWinLoss.WinLoss")]
+        [InlineData("MemberNetWinLoss.Comm")]
+        [InlineData("MemberNetWinLoss.Total")]
+        [InlineData("AgentNetWinLoss.WinLoss")]
+        [InlineData("AgentNetWinLoss.Comm")]
+        [InlineData("AgentNetWinLoss.Total")]
+        [InlineData("MasterNetWinLoss.WinLoss")]
+        [InlineData("MasterNetWinLoss.Comm")]
+        [InlineData("MasterNetWinLoss.Total")]
+        [InlineData("SuperNetWinLoss.WinLoss")]
+        [InlineData("SuperNetWinLoss.Comm")]
+        [InlineData("SuperNetWinLoss.Total")]
         public void OrderBy_OrderByAscending_ReturnsAscendingOrder(string propertyName)
         {
             // Arrange
@@ -133,10 +136,11 @@
             var actualList = winLossDetails.OrderBy(propertyName, descending: false).ToList();
 
             // Assert
-            Assert.AreEqual(expectedList, actualList);
+            Assert.Equal(expectedList, actualList);
         }
 
-        [TestCase("Company")]
+        [Theory]
+        [InlineData("Company")]
         public void OrderBy_OrderByAscendingCompany_ReturnsAscendingOrder(string propertyName)
         {
             // Arrange
@@ -146,7 +150,24 @@
             var actualList = winLossDetails.OrderBy(propertyName, descending: false).ToList();
 
             // Assert
-            Assert.AreEqual(expectedList, actualList);
+            Assert.Equal(expectedList, actualList);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("WrongPropertyName")]
+        public void OrderBy_OrderByWrongPropertyName_ReturnsAscendingOrder(string propertyName)
+        {
+            // Arrange
+            var expectedList = winLossDetails;
+
+            // Act
+            var actualList = winLossDetails.OrderBy(propertyName, descending: false).ToList();
+
+            // Assert
+            Assert.Equal(expectedList, actualList);
         }
     }
 }
