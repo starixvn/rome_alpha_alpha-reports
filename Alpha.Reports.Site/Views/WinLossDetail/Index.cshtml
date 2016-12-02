@@ -97,9 +97,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                    .ReportData
-                    .DataSource
-                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                        .ReportData
+                        .DataSource
+                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
@@ -124,6 +124,7 @@
     <input type="hidden" name="UserSelectedProductIds" value="@Model.UserSelectedProductIds" />
     <input type="hidden" name="UserLevelId" value="@Model.UserLevel.Value" />
 </form>
+@Html.Hidden("HasSubmittedParams", Model.HasSubmittedParams)
 @Pager.Render(Model.PagerViewModel)
 
 @section Scripts {

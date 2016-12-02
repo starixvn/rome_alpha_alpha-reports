@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
+    using System;
     using MediatR;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
@@ -53,5 +54,13 @@
         public int UserSelectedDateRangeOption { get; set; }
 
         public byte UserLevelId { get; set; }
+
+        public bool HasSubmittedParams
+        {
+            get
+            {
+                return FromDate != DateTime.MinValue;
+            }
+        }
     }
 }

@@ -172,7 +172,7 @@
 
         [Theory]
         [InlineData(null)]
-        public void OrderBy_OrderByNullPropertyName_ReturnsAscendingOrder(string propertyName)
+        public void OrderBy_OrderByNullPropertyName_ThrowsNullReferenceException(string propertyName)
         {
             // Arrange
             var expectedList = winLossDetails;

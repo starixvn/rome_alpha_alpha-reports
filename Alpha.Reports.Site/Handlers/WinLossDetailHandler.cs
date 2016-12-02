@@ -4,12 +4,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Enumerations;
     using Excel.Params;
     using Excel.Services;
     using Extensions;
     using MediatR;
     using Models;
-    using Models.Enumerations;
     using Models.WinlossDetails;
     using Params;
     using Requests.WinLossDetails;
@@ -67,7 +67,8 @@
                 IsDirectReportViewAction = message.IsDirectReportViewAction,
 
                 SortPropertyName = winLossDetailParam.SortByPropertyName,
-                IsDescendingSort = winLossDetailParam.IsDescendingSort
+                IsDescendingSort = winLossDetailParam.IsDescendingSort,
+                HasSubmittedParams = message.HasSubmittedParams
             };
 
             return viewModel;

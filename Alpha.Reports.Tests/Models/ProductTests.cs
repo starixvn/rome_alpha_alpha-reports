@@ -6,7 +6,7 @@
     public class ProductTests
     {
         [Fact]
-        public void Id_Always_GetIdFromCtor()
+        public void Id_Always_ReturnsIdFromCtor()
         {
             // Arrange
             var productId = 1;
@@ -20,7 +20,7 @@
         }
 
         [Fact]
-        public void Name_Always_GetNameFromCtor()
+        public void Name_Always_ReturnsNameFromCtor()
         {
             // Arrange
             var productName = "product";
@@ -34,7 +34,7 @@
         }
 
         [Fact]
-        public void DisplayName_SetFromProductName_GetDisplayNameFromCtor()
+        public void DisplayName_SetFromProductName_ReturnsDisplayNameFromCtor()
         {
             // Arrange
             var productDisplayName = "productDisplayName";
@@ -48,7 +48,7 @@
         }
 
         [Fact]
-        public void DisplayName_SetFunctionGetDisplayName_GetDisplayNameFromCtor()
+        public void DisplayName_SetFunctionGetDisplayName_ReturnsDisplayNameFromCtor()
         {
             // Arrange
             var productDisplayName = "productDisplayName";

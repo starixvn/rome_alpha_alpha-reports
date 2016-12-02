@@ -121,5 +121,7 @@
                 return Resources.MemberWinLossDetail;
             }
         }
+
+        public bool HasSubmittedParams { get; set; }
     }
 }

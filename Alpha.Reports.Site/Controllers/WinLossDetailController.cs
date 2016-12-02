@@ -7,7 +7,6 @@
     using Extensions;
     using MediatR;
     using Requests.WinLossDetails;
-    using Web;
 
     public class WinLossDetailController : BaseReportController
     {

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Models.Enumerations
+﻿namespace Alpha.Reports.Enumerations
 {
     using System;
     using System.Collections;
@@ -35,20 +35,20 @@
             get { return _value; }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", 
-            "CA1062:Validate arguments of public methods", 
-            MessageId = "1", 
-            Justification = "Reviewed"),
-        System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
             "CA1062:Validate arguments of public methods",
-            MessageId = "0", 
+            MessageId = "1",
+            Justification = "Reviewed"),
+        System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design",
+            "CA1062:Validate arguments of public methods",
+            MessageId = "0",
             Justification = "Reviewed")]
         public static byte AbsoluteDifference(Enumeration firstValue, Enumeration secondValue)
         {
             var absoluteDifference = (byte)Math.Abs(firstValue.Value - secondValue.Value);
             return absoluteDifference;
         }
-                
+
         public static T FromDisplayName<T>(string displayName) where T : Enumeration, new()
         {
             var matchingItem = Parse<T, string>(displayName, "display name", item => item.DisplayName == displayName);

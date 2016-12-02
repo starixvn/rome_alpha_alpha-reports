@@ -8,6 +8,8 @@
 
     public class WinLossDetailParam
     {
+        private ApplicationContext applicationContext;
+
         public WinLossDetailParam(
             int custId,
             int pageIndex,
@@ -18,8 +20,11 @@
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
-            bool isHistoricReport)
+            bool isHistoricReport,
+            ApplicationContext applicationContext = null)
         {
+            this.applicationContext = applicationContext ?? new ReportApplicationContext();
+
             CustId = custId;
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;
@@ -28,14 +33,14 @@
 
             if (fromDate == DateTime.MinValue)
             {
-                FromDate = isHistoricReport ? DateTime.Now.FirstDayOfMonth() : DateTime.Now;
+                FromDate = isHistoricReport ? this.applicationContext.CurrentDate.FirstDayOfMonth() : this.applicationContext.CurrentDate;
             }
             else
             {
                 FromDate = fromDate;
             }
 
-            ToDate = toDate == DateTime.MinValue ? DateTime.Now : toDate;
+            ToDate = toDate == DateTime.MinValue ? this.applicationContext.CurrentDate : toDate;
 
             ReportLevel = reportLevel;
 
@@ -103,13 +108,13 @@
         {
             if (IsHistoryReport)
             {
-                return DateTime.Now.AddYears(-3).FirstDayOfYear() <= FromDate
+                return applicationContext.CurrentDate.AddYears(-3).FirstDayOfYear() <= FromDate
                     && FromDate <= ToDate
                     && ToDate.Year == FromDate.Year
                     && ToDate.Month == FromDate.Month;
             }
 
-            return DateTime.Now.AddMonths(-3).FirstDayOfMonth() <= FromDate
+            return applicationContext.CurrentDate.AddMonths(-3).FirstDayOfMonth() <= FromDate
                    && FromDate <= ToDate;
         }
     }

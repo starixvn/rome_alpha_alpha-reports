@@ -29,6 +29,7 @@ class WinLossDetailView {
     $toDate: any;
     $exportExcelForm: any;
     $iconNormalColumn: any;
+    $hasSubmittedParams: any;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -92,8 +93,9 @@ class WinLossDetailView {
 
         this.$tableReport.stickyTableHeaders();
 
-        if (alphaReports.screenSmallThan768()) {
-            this.onSwitchMode();
+        if (this.$hasSubmittedParams.val().toString().toLowerCase() !== "true"
+            && alphaReports.screenSmallThan768()) {
+            this.setStackMode();
             this.reportTooltip.show(new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0)));
         }
 
@@ -116,6 +118,7 @@ class WinLossDetailView {
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
         this.$iconNormalColumn = this.$("#icon-normal-column");
+        this.$hasSubmittedParams = this.$("#HasSubmittedParams");
     };
     registerEvents = () => {
         this.$reportSwitch.on("click", this.onSwitchReport);
@@ -145,6 +148,27 @@ class WinLossDetailView {
         }
 
         this.replaceDrilldownParam("IsFilterVisible", !currentHideState);
+    };
+    setStackMode = () => {
+        let tableReport = this.$tableReport;
+        this.$pageTitle.addClass("stack-mode");
+        tableReport.addClass("stack-mode");
+
+        this.replaceDrilldownParam("IsStackMode", true);
+
+        let this$ = this.$;
+        alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 3, "text-right col-turnover-combined");
+
+        let levels = this.levels;
+        this$.each(levels, function (index: number) {
+            let level = levels[index];
+            let cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
+            alphaReports.combineConsecutiveCells(this$("td.col-" + level + "-winloss"), 3, cellCss);
+        });
+
+        this.isFirstSwitchMode = false;
+
+        this.sortComponent.bindTableSorter(this.getSortedColumnName());
     };
     onSwitchMode = () => {
         let tableReport = this.$tableReport;

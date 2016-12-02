@@ -3,8 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using ModelsForTesting;
+    using Reports.Enumerations;
     using Reports.Models;
-    using Reports.Models.Enumerations;
     using Xunit;
 
     public class EnumerationTests
@@ -42,6 +43,20 @@
 
             // Assert
             Assert.Equal(expectedValue, actualValue);
+        }
+
+        [Fact]
+        public void Equal_CompareNullAndNotNullValue_ReturnsFalse()
+        {
+            // Arrange
+            UserLevel left = null;
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act
+            var actual = left == right;
+
+            // Assert
+            Assert.False(actual);
         }
 
         [Fact]
@@ -263,6 +278,131 @@
 
             // Assert
             Assert.False(actualGreaterThan);
+        }
+
+        [Fact]
+        public void Equals_CompareWithNull_ReturnsFalse()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = null;
+
+            // Act
+            var actual = left.Equals(right);
+
+            // Assert
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void Equals_CompareWithOtherEnumeration_ReturnsFalse()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            var right = 2;
+
+            // Act
+            var actual = left.Equals(right);
+
+            // Assert
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void Equals_CompareWithSubEnumeration_ReturnsFalse()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevelForTesting right = Enumeration.FromValue<UserLevelForTesting>(0);
+
+            // Act
+            var actual = left.Equals(right);
+
+            // Assert
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void Equals_CompareWithDifferentValue_ReturnsFalse()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = Enumeration.FromValue<UserLevel>(2);
+
+            // Act
+            var actual = left.Equals(right);
+
+            // Assert
+            Assert.False(actual);
+        }
+
+        [Fact]
+        public void Equals_CompareWithSameEnumerationValue_ReturnsTrue()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = Enumeration.FromValue<UserLevel>(1);
+
+            // Act
+            var actual = left.Equals(right);
+
+            // Assert
+            Assert.True(actual);
+        }
+
+        [Fact]
+        public void GetHashCode_Always_ReturnsHashCode()
+        {
+            // Arrange
+            UserLevel value = Enumeration.FromValue<UserLevel>(1);
+            var expectedHashCode = 1;
+
+            // Act
+            var actual = value.GetHashCode();
+
+            // Assert
+            Assert.Equal(expectedHashCode, actual);
+        }
+
+        [Theory]
+        [InlineData(2, 2, 0)]
+        [InlineData(2, 3, -1)]
+        [InlineData(2, 1, 1)]
+        public void CompareTo_CompareWithNotNullValue_ReturnsExpectedCompareValue(
+            byte leftValue,
+            byte rightValue,
+            int expectedCompareValue)
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(leftValue);
+            UserLevel right = Enumeration.FromValue<UserLevel>(rightValue);
+
+            // Act
+            var actual = left.CompareTo(right);
+
+            // Assert
+            Assert.Equal(expectedCompareValue, actual);
+        }
+
+        [Fact]
+        public void CompareTo_CompareWithNullValue_ReturnsExpectedCompareValue()
+        {
+            // Arrange
+            UserLevel left = Enumeration.FromValue<UserLevel>(1);
+            UserLevel right = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => left.CompareTo(right));
+        }
+
+        [Fact]
+        public void Parse_NoMatchingItem_ThrowsArgumentOutOfRangeException()
+        {
+            // Arrange
+            byte noMatchingValue = 0;
+
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => Enumeration.FromValue<UserLevel>(noMatchingValue));
         }
     }
 }

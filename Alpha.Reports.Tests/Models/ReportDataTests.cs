@@ -8,7 +8,7 @@
     public class ReportDataTests
     {
         [Fact]
-        public void DataSource_Always_GetDataSourceFromCtor()
+        public void DataSource_Always_ReturnsDataSourceFromCtor()
         {
             // Arrange
             var dataSource = Enumerable.Empty<WinLossDetail>();
@@ -22,7 +22,7 @@
         }
 
         [Fact]
-        public void TotalData_Always_GetTotalDataFromCtor()
+        public void TotalData_Always_ReturnsTotalDataFromCtor()
         {
             // Arrange
             var totalData = new WinLossDetail();
@@ -36,7 +36,7 @@
         }
 
         [Fact]
-        public void CurrentPageIndex_Always_GetCurrentPageIndexFromCtor()
+        public void CurrentPageIndex_Always_ReturnsCurrentPageIndexFromCtor()
         {
             // Arrange
             var currentPageIndex = 1;
@@ -50,7 +50,7 @@
         }
 
         [Fact]
-        public void PageSize_Always_GetPageSizeFromCtor()
+        public void PageSize_Always_ReturnsPageSizeFromCtor()
         {
             // Arrange
             var pageSize = 1;
@@ -64,7 +64,7 @@
         }
 
         [Fact]
-        public void TotalRecords_Always_GetTotalRecordsFromCtor()
+        public void TotalRecords_Always_ReturnsTotalRecordsFromCtor()
         {
             // Arrange
             var totalRecords = 1;

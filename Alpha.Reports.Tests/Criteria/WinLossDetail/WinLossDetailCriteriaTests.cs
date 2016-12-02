@@ -2,8 +2,8 @@
 {
     using System;
     using Reports.Criteria.WinLossDetail;
+    using Reports.Enumerations;
     using Reports.Models;
-    using Reports.Models.Enumerations;
     using Xunit;
 
     public class WinLossDetailCriteriaTests

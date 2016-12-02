@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Tests.Models
 {
     using Constants;
+    using Reports.Enumerations;
     using Reports.Models;
-    using Reports.Models.Enumerations;
     using TestCases;
     using Xunit;
 

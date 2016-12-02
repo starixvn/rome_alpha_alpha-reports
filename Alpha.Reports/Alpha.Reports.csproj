@@ -112,9 +112,11 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ReportApplicationContext.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\UserLevel.cs" />
     <Compile Include="Models\WinlossDetails\NetWinLoss.cs" />

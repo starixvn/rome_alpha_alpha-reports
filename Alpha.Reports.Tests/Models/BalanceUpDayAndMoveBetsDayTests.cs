@@ -8,7 +8,7 @@
     public class BalanceUpDayAndMoveBetsDayTests
     {
         [Fact]
-        public void BalanceUpDay_Always_GetDateSetFromCtor()
+        public void BalanceUpDay_Always_ReturnsDateSetFromCtor()
         {
             // Arrange
             var balanceUpDay = new DateTime(2000, 1, 1);
@@ -22,7 +22,7 @@
         }
 
         [Fact]
-        public void MoveBetsDay_Always_GetDateSetFromCtor()
+        public void MoveBetsDay_Always_ReturnsDateSetFromCtor()
         {
             // Arrange
             var moveBetsDay = new DateTime(2000, 1, 1);

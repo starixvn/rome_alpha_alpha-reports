@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Tests.Constants
 {
     using System;
-    using Reports.Constants;
     using Xunit;
+    using ReportsConstants = Reports.Constants;
 
     public class DefaultVariablesTests
     {
@@ -13,7 +13,7 @@
             var expectedTimeSpan = TimeSpan.FromHours(1);
 
             // Act
-            var cacheItemOptions = DefaultVariables.CacheItemOptions;
+            var cacheItemOptions = ReportsConstants.DefaultVariables.CacheItemOptions;
 
             // Assert
             Assert.Equal(cacheItemOptions.SlidingExpiration, expectedTimeSpan);
