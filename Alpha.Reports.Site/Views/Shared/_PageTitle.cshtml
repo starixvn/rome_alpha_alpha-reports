@@ -4,6 +4,14 @@
      @(Model.IsStackMode ? "stack-mode" : string.Empty)
      @(Model.HideFilter ? "hide-filter" : string.Empty)">
     <span class="pull-left">@Model.Title</span>
+    <div class="breadcrumb-container">
+        <ul class="breadcrumb">
+            <li><a href="#">Dam</a></li>
+            <li><a href="#">Dam11</a></li>
+            <li>Dam1122</li>
+        </ul>
+    </div>
+    
     <div class="list-icon">
         <ul>
             @if (Model.HasHideFilterIcon)
