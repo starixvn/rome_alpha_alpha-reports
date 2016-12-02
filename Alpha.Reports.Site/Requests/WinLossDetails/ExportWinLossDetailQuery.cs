@@ -42,5 +42,7 @@
         public DateTime FromDate => viewModel.FromDate;
 
         public DateTime ToDate => viewModel.ToDate;
+
+        public string UserSelectedProductIds => viewModel.UserSelectedProductIds;
     }
 }

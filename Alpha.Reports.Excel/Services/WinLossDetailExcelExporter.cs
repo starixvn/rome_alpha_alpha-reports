@@ -1,11 +1,10 @@
 ﻿namespace Alpha.Reports.Excel.Services
 {
+    using Models.WinlossDetails;
     using Params;
-    using Reports.Models;
-    using Reports.Models.WinlossDetails;
 
     public interface WinLossDetailExcelExporter
     {
-        byte[] Export(ExportExcelParam<WinLossDetail> param, UserLevel userLevel);
+        byte[] Export(ExportExcelParam<WinLossDetail> param, ExportWinLossDetailParam exportWinLossDetailParam);
     }
 }

@@ -61,6 +61,18 @@
             return custProducts;
         }
 
+        public IEnumerable<string> GetProductNames(IEnumerable<int> productIds)
+        {
+            var productNames = new List<string>();
+
+            foreach (var productId in productIds)
+            {
+                productNames.Add(getProductName(productId));
+            }
+
+            return productNames;
+        }
+
         private IEnumerable<Product> GetProductsForReport()
         {
             var products = CacheService

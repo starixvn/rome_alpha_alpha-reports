@@ -8,5 +8,7 @@
         IEnumerable<Product> GetProductsForCustomer(int custId);
 
         IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds);
+
+        IEnumerable<string> GetProductNames(IEnumerable<int> productIds);
     }
 }

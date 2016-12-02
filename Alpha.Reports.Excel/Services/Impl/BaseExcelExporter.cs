@@ -53,6 +53,13 @@
             return workbook.ToBytes();
         }
 
+        protected virtual void FillTitle<T>(ISheet sheet, ExportExcelParam<T> param) where T : class
+        {
+            var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}";
+
+            sheet.SetCellValue(TitleRowIndex, StartColIndex, reportTitle);
+        }
+
         protected abstract void FillHeader(ISheet sheet);
 
         protected virtual void LoadTemplate(HSSFWorkbook workbook)
@@ -151,13 +158,6 @@
             }
 
             FreezePanel(resultSheet);
-        }
-
-        private void FillTitle<T>(ISheet sheet, ExportExcelParam<T> param) where T : class
-        {
-            var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}";
-
-            sheet.SetCellValue(TitleRowIndex, StartColIndex, reportTitle);
         }
     }
 }

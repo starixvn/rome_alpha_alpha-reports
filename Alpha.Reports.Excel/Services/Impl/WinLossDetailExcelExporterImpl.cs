@@ -3,19 +3,32 @@
     using System;
     using System.Collections.Generic;
     using AppResources;
+    using Extensions;
     using Models;
     using Models.WinlossDetails;
     using NPOI.SS.UserModel;
     using NPOIExtensions;
     using Params;
+    using Reports.Services;
 
     public class WinLossDetailExcelExporterImpl : BaseExcelExporter, WinLossDetailExcelExporter
     {
+        private ProductService productService;
+
+        private ExportWinLossDetailParam exportWinLossDetailParam;
+
         private List<string> levelGroups;
 
-        public byte[] Export(ExportExcelParam<WinLossDetail> param, UserLevel userLevel)
+        public WinLossDetailExcelExporterImpl(ProductService productService)
         {
-            levelGroups = GetLevelGroups(userLevel);
+            this.productService = productService;
+        }
+
+        public byte[] Export(ExportExcelParam<WinLossDetail> param, ExportWinLossDetailParam exportWinLossDetailParam)
+        {
+            this.exportWinLossDetailParam = exportWinLossDetailParam;
+
+            levelGroups = GetLevelGroups(exportWinLossDetailParam.UserLevel);
             GetRowValuesFunc = (genericData) =>
             {
                 var result = new List<object>()
@@ -38,6 +51,14 @@
             };
 
             return Export(param);
+        }
+
+        protected override void FillTitle<T>(ISheet sheet, ExportExcelParam<T> param)
+        {
+            var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}" +
+                $" {Resources.of} " + string.Join(", ", productService.GetProductNames(exportWinLossDetailParam.UserSelectedProductIds));
+
+            sheet.SetCellValue(TitleRowIndex, StartColIndex, reportTitle);
         }
 
         protected override void FillHeader(ISheet sheet)

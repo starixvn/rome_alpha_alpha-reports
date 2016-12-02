@@ -76,6 +76,7 @@
     <Compile Include="NPOIExtensions\RowExtension.cs" />
     <Compile Include="NPOIExtensions\SheetExtension.cs" />
     <Compile Include="Params\ExportExcelParam.cs" />
+    <Compile Include="Params\ExportWinLossDetailParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Impl\BaseExcelExporter.cs" />
     <Compile Include="Services\Impl\WinLossDetailExcelExporterImpl.cs" />

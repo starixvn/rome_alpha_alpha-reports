@@ -148,4 +148,7 @@
   <data name="NoInformationIsAvailable" xml:space="preserve">
     <value>No information is available</value>
   </data>
+  <data name="of" xml:space="preserve">
+    <value>of</value>
+  </data>
 </root>

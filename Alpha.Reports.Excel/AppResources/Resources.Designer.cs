@@ -169,6 +169,15 @@ namespace Alpha.Reports.Excel.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to of.
+        /// </summary>
+        public static string of {
+            get {
+                return ResourceManager.GetString("of", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Super.
         /// </summary>
         public static string Super {

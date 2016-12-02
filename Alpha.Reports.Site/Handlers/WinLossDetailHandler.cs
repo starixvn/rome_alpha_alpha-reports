@@ -91,7 +91,7 @@
                     FromDate = message.FromDate,
                     ToDate = message.ToDate
                 },
-                message.UserLevel);
+                new ExportWinLossDetailParam(message.UserLevel, message.UserSelectedProductIds));
 
             return fileContents;
         }
