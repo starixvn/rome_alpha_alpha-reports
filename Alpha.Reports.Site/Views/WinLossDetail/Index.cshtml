@@ -8,14 +8,13 @@
 }
 
 @Html.Partial("_NetTurnoverTooltips", Model.NetTurnoverTooltips)
-@Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible))
+@Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevels))
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
     {
         { "IsStackMode", Model.IsStackMode },
         { "IsDescendingSort", Model.IsDescendingSort },
-        { "SortPropertyName", Model.SortPropertyName },
-        { "HasBackIcon", !Model.IsDirectReportViewAction }
+        { "SortPropertyName", Model.SortPropertyName }
     })
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
@@ -97,9 +96,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                        .ReportData
-                        .DataSource
-                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                        .ReportData
+                                        .DataSource
+                                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
@@ -164,7 +163,7 @@
                               linkText: data.CustName,
                               actionName: "Index",
                               controllerName: "WinLossDetail",
-                              routeValues: Model.LinkActionViewModel(data.CustId),
+                              routeValues: Model.LinkActionViewModel(data),
                               htmlAttributes: new
                               {
                                   @class = "downline-link"

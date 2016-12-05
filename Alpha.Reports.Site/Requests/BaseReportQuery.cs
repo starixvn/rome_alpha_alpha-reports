@@ -6,6 +6,8 @@
     {
         public int CustId { get; set; }
 
+        public string CustName { get; set; }
+
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }

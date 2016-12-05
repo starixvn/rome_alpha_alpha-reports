@@ -14,7 +14,7 @@
 
         public static string GetFileName(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName))
+            if (string.IsNullOrWhiteSpace(fileName))
             {
                 throw new ArgumentNullException("fileName");
             }

@@ -30,6 +30,7 @@ class WinLossDetailView {
     $exportExcelForm: any;
     $iconNormalColumn: any;
     $hasSubmittedParams: any;
+    $breadcrumbLinks: any;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -119,6 +120,7 @@ class WinLossDetailView {
         this.$toDate = this.$("#to-date");
         this.$iconNormalColumn = this.$("#icon-normal-column");
         this.$hasSubmittedParams = this.$("#HasSubmittedParams");
+        this.$breadcrumbLinks = this.$(".breadcrumb-link");
     };
     registerEvents = () => {
         this.$reportSwitch.on("click", this.onSwitchReport);
@@ -147,14 +149,14 @@ class WinLossDetailView {
             this.hideFilter();
         }
 
-        this.replaceDrilldownParam("IsFilterVisible", !currentHideState);
+        this.replaceHrefParam("IsFilterVisible", !currentHideState);
     };
     setStackMode = () => {
         let tableReport = this.$tableReport;
         this.$pageTitle.addClass("stack-mode");
         tableReport.addClass("stack-mode");
 
-        this.replaceDrilldownParam("IsStackMode", true);
+        this.replaceHrefParam("IsStackMode", true);
 
         let this$ = this.$;
         alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 3, "text-right col-turnover-combined");
@@ -182,7 +184,7 @@ class WinLossDetailView {
             tableReport.addClass("stack-mode");
         }
 
-        this.replaceDrilldownParam("IsStackMode", !currentStackModeState);
+        this.replaceHrefParam("IsStackMode", !currentStackModeState);
 
         let levels = this.levels;
         let this$ = this.$;
@@ -219,8 +221,8 @@ class WinLossDetailView {
     };
     afterSort = () => {
         if (this.hasAllDataOnClient) {
-            this.replaceDrilldownParam("SortPropertyName", this.$tableReport.data("sortedcolumn"));
-            this.replaceDrilldownParam(
+            this.replaceHrefParam("SortPropertyName", this.$tableReport.data("sortedcolumn"));
+            this.replaceHrefParam(
                 "IsDescendingSort",
                 this.$tableReport.data("descendingsort") === "1" ||
                 this.$tableReport.data("descendingsort") === "true");
@@ -257,10 +259,16 @@ class WinLossDetailView {
     clearError = () => {
         this.$multiSelectButton.removeClass("error");
     };
-    replaceDrilldownParam = (paramName: string, paramValue: any) => {
+    replaceHrefParam = (paramName: string, paramValue: any) => {
         let this$ = this.$;
 
         this.$drilldownLinks.each(function () {
+            let queryString = this$(this).attr("href");
+            let newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
+            this$(this).attr("href", newQueryString);
+        });
+
+        this.$breadcrumbLinks.each(function () {
             let queryString = this$(this).attr("href");
             let newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
             this$(this).attr("href", newQueryString);

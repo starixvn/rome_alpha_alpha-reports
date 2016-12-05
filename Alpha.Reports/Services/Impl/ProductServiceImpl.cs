@@ -65,6 +65,11 @@
         {
             var productNames = new List<string>();
 
+            if (productIds == null)
+            {
+                return productNames;
+            }
+
             foreach (var productId in productIds)
             {
                 productNames.Add(getProductName(productId));

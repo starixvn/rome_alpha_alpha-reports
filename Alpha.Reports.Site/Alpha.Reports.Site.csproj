@@ -267,6 +267,7 @@
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\ReportPageViewModel.cs" />
+    <Compile Include="ViewModels\BreadcrumbViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetails\LinkActionViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailViewModel.cs" />

@@ -1,17 +1,44 @@
 ﻿@model PageHeaderViewModel
+@{
+    var breadcrumbIndex = 0;
+    var breadcrumbLength = Model.BreadcrumbLevels.Count();
+}
 
 <div class="page-title
      @(Model.IsStackMode ? "stack-mode" : string.Empty)
      @(Model.HideFilter ? "hide-filter" : string.Empty)">
     <span class="pull-left">@Model.Title</span>
-    <div class="breadcrumb-container">
-        <ul class="breadcrumb">
-            <li><a href="#">Dam</a></li>
-            <li><a href="#">Dam11</a></li>
-            <li>Dam1122</li>
-        </ul>
-    </div>
-    
+    @if (breadcrumbLength != 0)
+    {
+        <div class="breadcrumb-container">
+            <ul class="breadcrumb">
+                @foreach (var breadcrumb in Model.BreadcrumbLevels)
+                {
+                    if (breadcrumbIndex == breadcrumbLength - 1)
+                    {
+                        <li>@breadcrumb.LinkText</li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink(
+                           linkText: breadcrumb.LinkText,
+                           actionName: breadcrumb.ActionName,
+                           controllerName: breadcrumb.ControllerName,
+                           routeValues: breadcrumb.RouteValues,
+                           htmlAttributes: new
+                           {
+                               @class = "breadcrumb-link"
+                           })
+                        </li>
+                    }
+
+                    breadcrumbIndex++;
+                }
+            </ul>
+        </div>
+    }
+
     <div class="list-icon">
         <ul>
             @if (Model.HasHideFilterIcon)

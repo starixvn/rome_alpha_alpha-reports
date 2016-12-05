@@ -12,7 +12,7 @@
             string userSelectedProductIds)
         {
             UserLevel = userLevel;
-            UserSelectedProductIds = string.IsNullOrEmpty(userSelectedProductIds)
+            UserSelectedProductIds = string.IsNullOrWhiteSpace(userSelectedProductIds)
                 ? Enumerable.Empty<int>()
                 : userSelectedProductIds.Split(',').Select(s => Converter.ToInt(s));
         }

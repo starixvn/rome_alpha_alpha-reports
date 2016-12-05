@@ -3,13 +3,14 @@
     using System;
     using App_GlobalResources;
     using Components;
+    using Extensions;
     using Models;
-    using Reports.Extensions;
 
     public class WinLossDetailFilterViewModel
     {
         public WinLossDetailFilterViewModel(
             int custId,
+            string custName,
             UserLevel userLevel,
             bool isHictoricReport,
             DateRangePickerViewModel dateRangePickerViewModel,
@@ -17,9 +18,11 @@
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
             bool isDirectReportViewAction,
             bool visible,
-            DateTime minDate)
+            DateTime minDate,
+            string breadcrumbLevels)
         {
             CustId = custId;
+            CustName = custName;
             IsHistoricReport = isHictoricReport;
             DateRangePickerViewModel = dateRangePickerViewModel;
             MonthPickerViewModel = monthPickerViewModel;
@@ -32,9 +35,12 @@
             IsDirectReportViewAction = isDirectReportViewAction;
             Visible = visible;
             UserLevel = userLevel;
+            BreadcrumbLevels = breadcrumbLevels;
         }
 
         public int CustId { get; }
+
+        public string CustName { get; }
 
         public UserLevel UserLevel { get; }
 
@@ -53,5 +59,7 @@
         public string ViewDataInstructionMessage { get; }
 
         public string ViewActionMessage => IsHistoricReport ? Resources.BackToCurrentReport : Resources.ViewHistoryReport;
+
+        public string BreadcrumbLevels { get; }
     }
 }

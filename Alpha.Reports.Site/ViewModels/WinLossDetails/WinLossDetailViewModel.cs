@@ -9,12 +9,15 @@
     using Extensions;
     using Models;
     using Models.WinlossDetails;
+    using Requests.WinLossDetails;
 
     public class WinLossDetailViewModel
     {
         private const int AllBetProductId = 21;
 
         public int CustId { get; set; }
+
+        public string CustName { get; set; }
 
         public DateTime MinDate => IsHistoricReport
             ? DateTime.Now.AddYears(-3).FirstDayOfYear()
@@ -78,6 +81,7 @@
         public WinLossDetailFilterViewModel FilterViewModel =>
             new WinLossDetailFilterViewModel(
                 CustId,
+                CustName,
                 UserLevel,
                 IsHistoricReport,
                 DateRangePickerViewModel,
@@ -85,11 +89,19 @@
                 ProductMultiSelectionViewModel,
                 IsDirectReportViewAction,
                 IsFilterVisible,
-                MinDate);
+                MinDate,
+                ((WinLossDetailQuery)BreadcrumbLevels.Last().RouteValues).BreadcrumbLevels);
 
-        public LinkActionViewModel LinkActionViewModel(int custId) =>
-            new LinkActionViewModel(
-                    custId,
+        public LinkActionViewModel LinkActionViewModel(WinLossDetail winLossDetail)
+        {
+            if (winLossDetail == null)
+            {
+                throw new ArgumentNullException("winLossDetail");
+            }
+
+            return new LinkActionViewModel(
+                    winLossDetail.CustId,
+                    winLossDetail.CustName,
                     (byte)(UserLevel.Value - 1),
                     FromDate,
                     ToDate,
@@ -100,7 +112,9 @@
                     IsHistoricReport,
                     IsFilterVisible,
                     IsStackMode,
-                    ReportData.PageSize);
+                    ReportData.PageSize,
+                    BreadcrumbLevels);
+        }
 
         public UserLevel UserLevel { get; set; }
 
@@ -123,5 +137,7 @@
         }
 
         public bool HasSubmittedParams { get; set; }
+
+        public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
     using System;
+    using System.Collections.Generic;
     using MediatR;
+    using Models;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLossDetails;
@@ -23,6 +25,7 @@
             if (CustId <= 0)
             {
                 CustId = this.userSession.CustId;
+                CustName = this.userSession.UserName;
                 UserLevelId = this.userSession.RoleId;
             }
 
@@ -62,5 +65,7 @@
                 return FromDate != DateTime.MinValue;
             }
         }
+
+        public string BreadcrumbLevels { get; set; }
     }
 }

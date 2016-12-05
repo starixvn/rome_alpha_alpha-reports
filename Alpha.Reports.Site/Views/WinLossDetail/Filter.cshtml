@@ -15,10 +15,6 @@
 
     <div class="form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
-        @if ((bool)ViewData["HasBackIcon"])
-        {
-            <span class="icon-back"></span>
-        }
     </div>
 
     <div class="note">
@@ -36,7 +32,9 @@
     @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
 
     @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("IsDirectReportViewAction", Model.IsDirectReportViewAction)
+    @Html.Hidden("BreadcrumbLevels", Model.BreadcrumbLevels)
 if (!Model.IsDirectReportViewAction)
 {
         @Html.Hidden("UserLevelId", Model.UserLevel.Value)

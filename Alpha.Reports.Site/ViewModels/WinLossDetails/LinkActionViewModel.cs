@@ -1,11 +1,17 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetails
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Models;
+    using Newtonsoft.Json;
+    using Requests.WinLossDetails;
 
     public class LinkActionViewModel
     {
         public LinkActionViewModel(
             int custId,
+            string custName,
             byte userLevelId,
             DateTime fromDate,
             DateTime toDate,
@@ -16,9 +22,11 @@
             bool isHictoricReport,
             bool isFilterVisible,
             bool isStackMode,
-            int pageSize)
+            int pageSize,
+            IEnumerable<ActionLinkViewModel> breadcrumbLevels)
         {
             CustId = custId;
+            CustName = custName;
             UserLevelId = userLevelId;
             FromDate = fromDate;
             ToDate = toDate;
@@ -30,9 +38,12 @@
             IsFilterVisible = isFilterVisible;
             PageSize = pageSize;
             IsStackMode = isStackMode;
+            BreadcrumbLevels = ((WinLossDetailQuery)breadcrumbLevels.Last().RouteValues).BreadcrumbLevels;
         }
 
         public int CustId { get; }
+
+        public string CustName { get; }
 
         public byte UserLevelId { get; }
 
@@ -55,5 +66,7 @@
         public bool IsStackMode { get; }
 
         public int PageSize { get; }
+
+        public string BreadcrumbLevels { get; }
     }
 }
