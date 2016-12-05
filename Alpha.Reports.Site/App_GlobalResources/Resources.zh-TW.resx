@@ -247,4 +247,7 @@
   <data name="ViewHistoryReport" xml:space="preserve">
     <value>選檢閱歷史報告。</value>
   </data>
+  <data name="TurnoverAbbr" xml:space="preserve">
+    <value>投注額</value>
+  </data>
 </root>

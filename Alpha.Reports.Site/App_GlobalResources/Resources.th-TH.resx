@@ -257,7 +257,7 @@
     <value>เงินหมุนเวียน/เงินหมุนเวียน</value>
   </data>
   <data name="NetTurnoverAndGrossComm" xml:space="preserve">
-    <value>(ไม่รวมยอดเสมอ)/ยอดรวมของคอมมิชชั่น</value>
+    <value>/เงินหมุนเวียน (ไม่รวมยอดเสมอ)/ยอดรวมของคอมมิชชั่น</value>
   </data>
   <data name="WinLossAbbr" xml:space="preserve">
     <value>ชนะ</value>

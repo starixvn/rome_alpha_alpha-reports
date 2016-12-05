@@ -165,4 +165,10 @@
   <data name="NoInformationIsAvailable" xml:space="preserve">
     <value>情報がありません</value>
   </data>
+  <data name="TurnoverAbbr" xml:space="preserve">
+    <value>合計ベットポイント</value>
+  </data>
+  <data name="CommAndTotal" xml:space="preserve">
+    <value>/手数料/合計</value>
+  </data>
 </root>
