@@ -96,9 +96,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                                            .ReportData
-                                            .DataSource
-                                            .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                .ReportData
+                .DataSource
+                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
@@ -132,7 +132,7 @@
 
 @helper RenderRow(WinLossDetail data, bool isTotalRow, string betListPath)
 {
-    <tr @(isTotalRow ? "class=\"tbl-footer\"" : string.Empty)>
+    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
         <td data-islink="true">
             @if (isTotalRow)
             {
@@ -160,14 +160,14 @@
                 else
                 {
                     @Html.ActionLink(
-                              linkText: data.CustName,
-                              actionName: "Index",
-                              controllerName: "WinLossDetail",
-                              routeValues: Model.LinkActionViewModel(data),
-                              htmlAttributes: new
-                              {
-                                  @class = "downline-link"
-                              })
+                        linkText: data.CustName,
+                        actionName: "Index",
+                        controllerName: "WinLossDetail",
+                        routeValues: Model.LinkActionViewModel(data),
+                        htmlAttributes: new
+                        {
+                            @class = "downline-link"
+                        })
                 }
             }
         </td>
