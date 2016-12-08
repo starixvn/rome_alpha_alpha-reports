@@ -20,7 +20,7 @@ class ReportTooltip {
 
     show = (tooltipOption: ReportTooltipOption = new ReportTooltipOption()) => {
         let tooltipCookieId = this.tooltipCookieId + "-" + tooltipOption.tooltipId + "-" + tooltipOption.custId;
-        let tooltipShowCount = alphaReports.localStorage.get(tooltipCookieId) || 0;
+        let tooltipShowCount = parseInt(alphaReports.localStorage.get(tooltipCookieId), 0) || 0;
         if (tooltipShowCount >= alphaReports.maxTimesToShowTooltip) {
             return;
         }

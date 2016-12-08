@@ -27,7 +27,7 @@ class NetTurnoverTooltipComponent {
         var closeNetTurnoverTooltipButton = this.$("#" + pickerOptions.closeTooltipId);
 
         var self = this;
-        var netTurnoverTooltipShowCount = alphaReports.localStorage.get(this.cookieNetTurnoverTooltip) || 0;
+        var netTurnoverTooltipShowCount = parseInt(alphaReports.localStorage.get(this.cookieNetTurnoverTooltip), 0) || 0;
 
         if (netTurnoverTooltipShowCount &&
             netTurnoverTooltipShowCount >= alphaReports.maxTimesToShowTooltip) {
