@@ -347,5 +347,9 @@ a {
             font-size: $font-size-mobile;
             padding: 6px 12px;
         }
+
+        &.bottom {
+            padding-bottom: 0;
+        }
     }
 }
