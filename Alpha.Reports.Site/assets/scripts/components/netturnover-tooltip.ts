@@ -58,10 +58,12 @@ class NetTurnoverTooltipComponent {
 
         var netTurnoverPosition = this.$(".col-netturnover-header").position();
 
-        netTurnoverTooltip.css({
-            left: 0,
-            top: netTurnoverPosition.top - 22
-        });
+        if (netTurnoverPosition.top) {
+            netTurnoverTooltip.css({
+                left: 0,
+                top: netTurnoverPosition.top - 22
+            });
+        }
     };
     registerEvents = (netTurnoverTooltip: any) => {
         var self = this;

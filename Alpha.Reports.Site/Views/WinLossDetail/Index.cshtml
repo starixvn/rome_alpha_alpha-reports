@@ -29,7 +29,7 @@
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode col-netturnover-header sorting" data-sortedname="NetTurnover" data-colindex="3">@Resources.NetTurnover</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="4">@Resources.GrossComm</th>
-            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="2">
+            <th rowspan="2" class="visible-stack-mode col-netturnover-header col-combine sorting" data-sortedname="Turnover" data-colindex="2">
                 <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>@Resources.NetTurnoverAndGrossComm
             </th>
 
@@ -96,9 +96,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                        .ReportData
-                        .DataSource
-                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                            .ReportData
+                            .DataSource
+                            .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
