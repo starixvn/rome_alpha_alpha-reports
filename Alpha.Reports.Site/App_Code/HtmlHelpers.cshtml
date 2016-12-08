@@ -10,7 +10,7 @@
 
 @helper RenderStackCell(string css, int colspan, params decimal[] cellValues)
 {
-    <td class="text-right combinedcell @css" @(colspan > 1 ? "colspan=" + colspan : string.Empty)>
+    <td class="text-right visible-stack-mode combinedcell @css" @(colspan > 1 ? "colspan=" + colspan : string.Empty)>
         <ul>
             @foreach (var cellValue in cellValues)
             {
