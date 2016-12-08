@@ -137,14 +137,13 @@ class WinLossDetailView {
     };
     onClickIconFilter = () => {
         let filter = this.$reportForm;
-        let currentHideState = filter.is(":hidden");
+        let currentHideState = filter.hasClass("hide");
         let $netTurnoverTooltip = this.$netTurnoverTooltip;
 
         if (currentHideState) {
             this.$pageTitle.removeClass("hide-filter");
-            filter.slideDown("fast", undefined, function () {
-                netTurnoverTooltipComponent.positionNetTurnoverTooltip($netTurnoverTooltip);
-            });
+            this.$reportForm.removeClass("hide");
+            netTurnoverTooltipComponent.positionNetTurnoverTooltip($netTurnoverTooltip);
         } else {
             this.hideFilter();
         }
@@ -159,12 +158,12 @@ class WinLossDetailView {
         this.replaceHrefParam("IsStackMode", true);
 
         let this$ = this.$;
-        alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 3, "text-right col-turnover-combined");
+        alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 3, "col-turnover-combined");
 
         let levels = this.levels;
         this$.each(levels, function (index: number) {
             let level = levels[index];
-            let cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
+            let cellCss = "col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
             alphaReports.combineConsecutiveCells(this$("td.col-" + level + "-winloss"), 3, cellCss);
         });
 
@@ -198,11 +197,11 @@ class WinLossDetailView {
                     alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
                 });
             } else {
-                alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 3, "text-right col-turnover-combined");
+                alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 3, "col-turnover-combined");
 
                 this$.each(levels, function (index: number) {
                     let level = levels[index];
-                    let cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
+                    let cellCss = "col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
                     alphaReports.combineConsecutiveCells(this$("td.col-" + level + "-winloss"), 3, cellCss);
                 });
             }
@@ -235,9 +234,9 @@ class WinLossDetailView {
         let $netTurnoverTooltip = this.$netTurnoverTooltip;
 
         this.$pageTitle.addClass("hide-filter");
-        this.$reportForm.slideUp("fast", undefined, function () {
-            netTurnoverTooltipComponent.positionNetTurnoverTooltip($netTurnoverTooltip);
-        });
+
+        this.$reportForm.addClass("hide");
+        netTurnoverTooltipComponent.positionNetTurnoverTooltip($netTurnoverTooltip);
     };
     getParams = () => {
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();

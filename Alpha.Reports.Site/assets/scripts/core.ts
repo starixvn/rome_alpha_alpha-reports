@@ -46,7 +46,7 @@ class AlphaReports {
             var oldCells = "";
 
             for (var i = 0, lastCellIndex = cellsLength - 1; i < cellsLength; i++) {
-                oldCells += "<td class=\"text-right hidden-stack-mode " + cellClass +
+                oldCells += "<td class=\"hidden-stack-mode " + cellClass +
                     (i === lastCellIndex ? " bold" : "") + "\">" +
                     self.$(oldValues[i]).html() +
                     "</td>";

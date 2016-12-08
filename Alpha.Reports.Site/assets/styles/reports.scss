@@ -105,6 +105,7 @@ a {
 // Tables
 .tblRpt {
     margin-top: 12px;
+    text-align: right;
 
     .visible-stack-mode {
         display: none;
@@ -187,7 +188,6 @@ a {
     .icon-back {
         margin-left: 20px;
         font-size: 20px;
-
     }
 
     select.select-multiple {
@@ -206,7 +206,7 @@ a {
 
     .input-group.date .form-control {
         -webkit-appearance: none;
-    }    
+    }
 
     .daterange-picker .input-group.date {
         width: 128px;
@@ -215,8 +215,7 @@ a {
     .form-group {
         .btn-submit, .btn-group {
             float: left;
-            
-        }        
+        }
     }
 }
 
@@ -251,6 +250,7 @@ a {
         .modal-body {
             padding-bottom: 0;
         }
+
         #msg-content {
             padding: 12px 0;
         }
@@ -336,7 +336,7 @@ a {
         }
     }
 
-    #netturnovertooltip .modal-dialog {        
+    #netturnovertooltip .modal-dialog {
         width: 100%;
     }
 

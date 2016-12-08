@@ -96,9 +96,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                .ReportData
-                .DataSource
-                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                        .ReportData
+                        .DataSource
+                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
@@ -133,7 +133,7 @@
 @helper RenderRow(WinLossDetail data, bool isTotalRow, string betListPath)
 {
     <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
-        <td data-islink="true">
+        <td data-islink="true" class="text-left">
             @if (isTotalRow)
             {
                 @Resources.Total
@@ -172,7 +172,7 @@
             }
         </td>
 
-        <td class="text-right">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
+        <td>@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
             @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
@@ -193,7 +193,7 @@
             @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
             @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
         }
-        <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
+        <td>@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
 
