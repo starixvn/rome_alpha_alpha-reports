@@ -96,9 +96,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                            .ReportData
-                            .DataSource
-                            .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                .ReportData
+                                .DataSource
+                                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
@@ -153,6 +153,7 @@
                         FDate = Model.FromDate,
                         TDate = Model.ToDate,
                         ProductIds = Model.UserSelectedProductIds,
+                        FilterPostback = 1,
                         Type = "WLByDate"
                     },
                     htmlAttributes: null)
