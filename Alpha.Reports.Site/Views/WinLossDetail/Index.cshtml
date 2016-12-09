@@ -16,7 +16,7 @@
         { "IsDescendingSort", Model.IsDescendingSort },
         { "SortPropertyName", Model.SortPropertyName }
     })
-<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter
+<table style="display: none;" class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.TotalRecords"
        data-custid="@Model.CustId"

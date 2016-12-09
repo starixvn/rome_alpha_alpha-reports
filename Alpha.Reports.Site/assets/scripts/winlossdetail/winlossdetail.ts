@@ -7,6 +7,7 @@
 /// <reference path="../components/sort.ts" />
 
 "use strict";
+declare var isMobile: any;
 
 class WinLossDetailView {
     $: any;
@@ -63,6 +64,7 @@ class WinLossDetailView {
     }
 
     init = () => {
+        this.$.blockUI();
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         this.isHistoricReport
@@ -101,6 +103,13 @@ class WinLossDetailView {
         }
 
         this.registerEvents();
+
+        if (isMobile.any) {
+            this.$tableReport.removeClass("tblRpt-hover");
+        }
+
+        this.$tableReport.show();
+        this.$.unblockUI();
     };
     cacheElements = () => {
         this.$pageTitle = this.$(".page-title ");
@@ -151,6 +160,8 @@ class WinLossDetailView {
         this.replaceHrefParam("IsFilterVisible", !currentHideState);
     };
     setStackMode = () => {
+        this.$.blockUI();
+
         let tableReport = this.$tableReport;
         this.$pageTitle.addClass("stack-mode");
         tableReport.addClass("stack-mode");
@@ -170,8 +181,11 @@ class WinLossDetailView {
         this.isFirstSwitchMode = false;
 
         this.sortComponent.bindTableSorter(this.getSortedColumnName());
+
+        this.$.unblockUI();
     };
     onSwitchMode = () => {
+        this.$.blockUI();
         let tableReport = this.$tableReport;
         let currentStackModeState = tableReport.hasClass("stack-mode");
 
@@ -210,6 +224,7 @@ class WinLossDetailView {
         }
 
         this.sortComponent.bindTableSorter(this.getSortedColumnName());
+        this.$.unblockUI();
     };
     onExportExcel = () => {
         this.$exportExcelForm.submit();
