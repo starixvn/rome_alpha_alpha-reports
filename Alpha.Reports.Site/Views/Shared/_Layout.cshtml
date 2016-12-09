@@ -14,6 +14,7 @@
 </head>
 <body>
     @RenderBody()
+    @AssetScripts.Render("/bundles/common/common")
     @AssetScripts.Render("/bundles/site-reports/default")
     @RenderSection("Scripts", required: false)
 </body>
