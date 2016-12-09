@@ -55,6 +55,14 @@
       <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ONEbook.SpreadSheets, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ONEbook.SpreadSheets.1.0.0-beta-03\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ONEbook.SpreadSheets.NPOI.1.0.0-beta-04\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -71,14 +79,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Helpers\ExcelHelper.cs" />
-    <Compile Include="NPOIExtensions\HSSFWorkbookExtension.cs" />
-    <Compile Include="NPOIExtensions\CellExtension.cs" />
-    <Compile Include="NPOIExtensions\RowExtension.cs" />
-    <Compile Include="NPOIExtensions\SheetExtension.cs" />
     <Compile Include="Params\ExportExcelParam.cs" />
     <Compile Include="Params\ExportWinLossDetailParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Impl\BaseExcelExporter.cs" />
     <Compile Include="Services\Impl\WinLossDetailExcelExporterImpl.cs" />
     <Compile Include="Services\WinLossDetailExcelExporter.cs" />
   </ItemGroup>
