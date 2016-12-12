@@ -80,7 +80,7 @@
 
             var columnName = 'L';
             columnName = AddNetWinLossColumns(data.MasterNetWinLoss, result, columnName);
-            columnName = AddNetWinLossColumns(data.MasterNetWinLoss, result, columnName);
+            columnName = AddNetWinLossColumns(data.SuperNetWinLoss, result, columnName);
             result.Add(columnName.ToString(), data.Company);
 
             return result;

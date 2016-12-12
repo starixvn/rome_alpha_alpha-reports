@@ -9,7 +9,7 @@
     public class UserLevelTests
     {
         [Fact]
-        public void IsAgentLevel_UserLevelIsAgent_ReturnTrue()
+        public void IsAgentLevel_UserLevelIsAgent_ReturnsTrue()
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(UserLevel.Agent.Value);
@@ -22,7 +22,7 @@
         }
 
         [Fact]
-        public void IsNotAgentLevel_UserLevelIsAgent_ReturnFalse()
+        public void IsNotAgentLevel_UserLevelIsAgent_ReturnsFalse()
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(UserLevel.Agent.Value);
@@ -35,7 +35,7 @@
         }
 
         [Fact]
-        public void IsMasterLevel_UserLevelIsMaster_ReturnTrue()
+        public void IsMasterLevel_UserLevelIsMaster_ReturnsTrue()
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(UserLevel.Master.Value);
@@ -48,7 +48,7 @@
         }
 
         [Fact]
-        public void IsNotMasterLevel_UserLevelIsMaster_ReturnFalse()
+        public void IsNotMasterLevel_UserLevelIsMaster_ReturnsFalse()
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(UserLevel.Master.Value);
@@ -61,7 +61,7 @@
         }
 
         [Fact]
-        public void IsSuperLevel_UserLevelIsSuper_ReturnTrue()
+        public void IsSuperLevel_UserLevelIsSuper_ReturnsTrue()
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(UserLevel.Super.Value);
@@ -76,7 +76,7 @@
         [Theory]
         [InlineData(4)]
         [InlineData(3)]
-        public void IsMasterOrSuperLevel_UserLevelIsSuperOrMaster_ReturnTrue(byte levelId)
+        public void IsMasterOrSuperLevel_UserLevelIsSuperOrMaster_ReturnsTrue(byte levelId)
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(levelId);
@@ -89,7 +89,7 @@
         }
 
         [Fact]
-        public void IsMemberLevel_UserLevelIsMember_ReturnTrue()
+        public void IsMemberLevel_UserLevelIsMember_ReturnsTrue()
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(UserLevel.Member.Value);
@@ -102,7 +102,7 @@
         }
 
         [Fact]
-        public void IsNotSuperLevel_UserLevelIsSuper_ReturnFalse()
+        public void IsNotSuperLevel_UserLevelIsSuper_ReturnsFalse()
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(UserLevel.Super.Value);
@@ -115,7 +115,7 @@
         }
 
         [Fact]
-        public void IsDirectUplineOf_CustomerLevelIsNull_ReturnFalse()
+        public void IsDirectUplineOf_CustomerLevelIsNull_ReturnsFalse()
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(UserLevel.Super.Value);
@@ -129,7 +129,7 @@
 
         [Theory]
         [MemberData("UplineUserLevelAndDownlineValueDataSources", MemberType = typeof(UserLevelTestCases))]
-        public void IsDirectUplineOf_Always_ReturnValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
+        public void IsDirectUplineOf_Always_ReturnsValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
         {
             var actualResult = uplineLevel.IsDirectUplineOf(downlineLevelValue);
 
@@ -138,7 +138,7 @@
 
         [Theory]
         [MemberData("UplineUserLevelAndDownlineValueDataSources", MemberType = typeof(UserLevelTestCases))]
-        public void IsDirectUplineOf_ValidCustomerLevel_ReturnValidValue(UserLevel uplineLevel, byte downlineLevelValue, bool result)
+        public void IsDirectUplineOf_ValidCustomerLevel_ReturnsValidValue(UserLevel uplineLevel, byte downlineLevelValue, bool result)
         {
             // Act
             var actualResult = uplineLevel
@@ -150,7 +150,7 @@
 
         [Theory]
         [MemberData("UplineUserLevelAndDownlineValueDataSources", MemberType = typeof(UserLevelTestCases))]
-        public void IsNotDirectUplineOf_ValidDownlineLevelValue_ReturnValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
+        public void IsNotDirectUplineOf_ValidDownlineLevelValue_ReturnsValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
         {
             var actualResult = uplineLevel.IsNotDirectUplineOf(downlineLevelValue);
 
@@ -159,7 +159,7 @@
 
         [Theory]
         [MemberData("UplineUserLevelAndDownlineValueDataSources", MemberType = typeof(UserLevelTestCases))]
-        public void IsNotDirectUplineOf_DownlineLevelIsNotNull_ReturnValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
+        public void IsNotDirectUplineOf_DownlineLevelIsNotNull_ReturnsValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
         {
             // Arrange
             var downLineLevel = Enumeration.FromValue<UserLevel>(downlineLevelValue);
@@ -172,7 +172,7 @@
         }
 
         [Fact]
-        public void IsDirectDownlineOf_CustomerLevelIsNull_ReturnFalse()
+        public void IsDirectDownlineOf_CustomerLevelIsNull_ReturnsFalse()
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(UserLevel.Super.Value);
@@ -186,7 +186,7 @@
 
         [Theory]
         [MemberData("DownlineUserLevelAndUplineValueDataSources", MemberType = typeof(UserLevelTestCases))]
-        public void IsDirectDownlineOf_CustomerLevelIsNotNull_ReturnValidResult(UserLevel downlineLevel, byte uplineLevelValue, bool result)
+        public void IsDirectDownlineOf_CustomerLevelIsNotNull_ReturnsValidResult(UserLevel downlineLevel, byte uplineLevelValue, bool result)
         {
             // Arrange
             var uplineLevel = Enumeration.FromValue<UserLevel>(uplineLevelValue);
@@ -200,7 +200,7 @@
 
         [Theory]
         [MemberData("DownlineUserLevelAndUplineValueDataSources", MemberType = typeof(UserLevelTestCases))]
-        public void IsNotDirectDownlineOf_CustomerLevelIsNotNull_ReturnValidResult(UserLevel downlineLevel, byte uplineLevelValue, bool result)
+        public void IsNotDirectDownlineOf_CustomerLevelIsNotNull_ReturnsValidResult(UserLevel downlineLevel, byte uplineLevelValue, bool result)
         {
             // Arrange
             var uplineLevel = Enumeration.FromValue<UserLevel>(uplineLevelValue);
@@ -216,7 +216,7 @@
         [InlineData(RoleId.Super)]
         [InlineData(RoleId.Master)]
         [InlineData(RoleId.Agent)]
-        public void Is_UserLevelIsNull_ReturnFalse(byte userLevelValue)
+        public void Is_UserLevelIsNull_ReturnsFalse(byte userLevelValue)
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(userLevelValue);
@@ -230,7 +230,7 @@
 
         [Theory]
         [MemberData("SameUseLevelDataSource", MemberType = typeof(UserLevelTestCases))]
-        public void Is_UserLevelIsNotNull_ReturnExpectedResult(UserLevel userLevel1, UserLevel userLevel2, bool result)
+        public void Is_UserLevelIsNotNull_ReturnsExpectedResult(UserLevel userLevel1, UserLevel userLevel2, bool result)
         {
             var actualResult = userLevel1.Is(userLevel2);
 
@@ -239,7 +239,7 @@
 
         [Theory]
         [MemberData("SameUseLevelDataSource", MemberType = typeof(UserLevelTestCases))]
-        public void IsNot_UserLevelIsNotNull_ReturnExpectedResult(UserLevel userLevel1, UserLevel userLevel2, bool result)
+        public void IsNot_UserLevelIsNotNull_ReturnsExpectedResult(UserLevel userLevel1, UserLevel userLevel2, bool result)
         {
             var actualResult = userLevel1.IsNot(userLevel2);
 

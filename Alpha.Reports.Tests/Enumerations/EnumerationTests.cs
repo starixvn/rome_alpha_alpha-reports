@@ -15,7 +15,7 @@
         [InlineData(4, 3, 1)]
         [InlineData(4, 2, 2)]
         [InlineData(4, 1, 3)]
-        public void AbsoluteDifference_Always_ReturnCorrectDifference(
+        public void AbsoluteDifference_Always_ReturnsCorrectDifference(
             byte firstValue,
             byte secondValue,
             byte expectedDifference)
@@ -36,7 +36,7 @@
         [InlineData("Master", 3)]
         [InlineData("Agent", 2)]
         [InlineData("Member", 1)]
-        public void FromDisplayName_StateUnderTest_ExpectedBehaviour(string displayName, int expectedValue)
+        public void FromDisplayName_Always_ReturnsExpectedValue(string displayName, int expectedValue)
         {
             // Act
             var actualValue = Enumeration.FromDisplayName<UserLevel>(displayName).Value;

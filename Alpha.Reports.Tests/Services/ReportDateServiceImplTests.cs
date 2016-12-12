@@ -28,7 +28,7 @@
         }
 
         [Fact]
-        public void GetBalanceUpDayAndMoveBetsDay_DataInCache_ReturnDataGetFromCache()
+        public void GetBalanceUpDayAndMoveBetsDay_DataInCache_ReturnsDataGetFromCache()
         {
             // Arrange            
             var dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
@@ -77,7 +77,7 @@
         }
 
         [Fact]
-        public void GetBalanceUpDay_Always_ReturnTheSameDateSetToCache()
+        public void GetBalanceUpDay_Always_ReturnsTheSameDateSetToCache()
         {
             // Arrange
             var dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
@@ -91,7 +91,7 @@
         }
 
         [Fact]
-        public void GetMoveBetsDay_Always_ReturnTheSameDateSetToCache()
+        public void GetMoveBetsDay_Always_ReturnsTheSameDateSetToCache()
         {
             // Arrange
             var dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);

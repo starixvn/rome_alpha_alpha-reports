@@ -9,7 +9,7 @@
     public class ReportProductCriteriaTests
     {
         [Fact]
-        public void GetProductIds_EmptyProductList_ReturnEmpty()
+        public void GetProductIds_EmptyProductList_ReturnsEmpty()
         {
             // Arrange
             var reportProductCriteria = new ReportProductCriteria(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
@@ -23,7 +23,7 @@
         }
 
         [Fact]
-        public void GetProductIds_WithProductList_ReturnCorrectProductIds()
+        public void GetProductIds_WithProductList_ReturnsCorrectProductIds()
         {
             // Arrange
             var reportProductCriteria = new ReportProductCriteria(
@@ -56,7 +56,7 @@
         }
 
         [Fact]
-        public void IsValid_EmptyProductIds_ReturnInvalid()
+        public void IsValid_EmptyProductIds_ReturnsInvalid()
         {
             // Arrange
             var reportProductCriteria = new ReportProductCriteria(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
