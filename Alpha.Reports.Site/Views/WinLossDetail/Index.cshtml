@@ -16,7 +16,7 @@
         { "IsDescendingSort", Model.IsDescendingSort },
         { "SortPropertyName", Model.SortPropertyName }
     })
-<table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter
+<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.TotalRecords"
        data-custid="@Model.CustId"
@@ -94,17 +94,20 @@
     </thead>
     @if (Model.ReportData.Any())
     {
+        var isEvenRow = false;
+
         <tbody>
             @foreach (var data in Model
-                    .ReportData
-                    .DataSource
-                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                .ReportData
+                .DataSource
+                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
-                @RenderRow(data, false, ViewBag.BetListPath)
+                @RenderRow(data, false, ViewBag.BetListPath, isEvenRow)
+                isEvenRow = !isEvenRow;
             }
         </tbody>
         <tfoot>
-            @RenderRow(Model.ReportData.TotalData, true, ViewBag.BetListPath)
+            @RenderRow(Model.ReportData.TotalData, true, ViewBag.BetListPath, false)
         </tfoot>
     }
     else
@@ -130,9 +133,9 @@
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
 }
 
-@helper RenderRow(WinLossDetail data, bool isTotalRow, string betListPath)
+@helper RenderRow(WinLossDetail data, bool isTotalRow, string betListPath, bool isEvenRow)
 {
-    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
+    <tr class="@(isTotalRow ? "tbl-footer" : string.Empty) @(isEvenRow? "even-row":string.Empty)">
         <td data-islink="true" class="text-left">
             @if (isTotalRow)
             {

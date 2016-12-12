@@ -7,7 +7,6 @@
 /// <reference path="../components/sort.ts" />
 
 "use strict";
-declare var isMobile: any;
 
 class WinLossDetailView {
     $: any;
@@ -103,11 +102,6 @@ class WinLossDetailView {
         }
 
         this.registerEvents();
-
-        if (!isMobile.any) {
-            this.$tableReport.addClass("tblRpt-hover");
-        }
-
         this.$.unblockUI();
     };
     cacheElements = () => {
