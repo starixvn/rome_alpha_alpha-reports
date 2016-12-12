@@ -11,8 +11,7 @@
     using Fanex.Data.Repository;
     using MediatR;
     using ONEbook.SpreadSheets;
-    using ONEbook.SpreadSheets.Models;
-    using ONEbook.SpreadSheets.NPOI.Models;
+    using ONEbook.SpreadSheets.NPOI;
     using RemotingRef;
     using Services;
     using Services.Impl;

@@ -5,7 +5,6 @@
     using Extensions;
     using Models.WinlossDetails;
     using ONEbook.SpreadSheets;
-    using ONEbook.SpreadSheets.Models;
     using Params;
     using Reports.Services;
 
@@ -48,8 +47,8 @@
                 { "Total", Resources.Total }
             };
 
-            workbook = workbook.Load(param.TemplatePath);
-            var spreadSheetLayout = new SpreadSheetLayout(workbook, noInfomationText: Resources.NoInformationIsAvailable);
+            workbook.Load(param.TemplatePath);
+            var spreadSheetLayout = new SpreadSheetLayout(noInfomationText: Resources.NoInformationIsAvailable);
 
             var spreadSheet = (new SpreadSheet<WinLossDetail>())
                 .AddTitle(reportTitle)
@@ -59,7 +58,7 @@
                 .AddSheetName(param.SheetName)
                 .SetLayout(spreadSheetLayout.SetFreezePanel(4, "B"));
 
-            return spreadSheetEngine.Export(spreadSheet);
+            return spreadSheetEngine.Export(spreadSheet, workbook);
         }
 
         private static IDictionary<string, object> BodyRowMapping(WinLossDetail data, int rowIndex)

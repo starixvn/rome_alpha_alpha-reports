@@ -3,13 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Models;
-    using Newtonsoft.Json;
     using Requests.WinLossDetails;
 
-    public class LinkActionViewModel
+    public class WinLossDetailsActionLinkViewModel
     {
-        public LinkActionViewModel(
+        public WinLossDetailsActionLinkViewModel(
             int custId,
             string custName,
             byte userLevelId,
