@@ -5,7 +5,7 @@
     using Fanex.Data;
     using Models;
 
-    public class WinLossDetailCriteria : ReportProductCriteria
+    public class WinLossDetailCriteria : PagingReportProductCriteria
     {
         public WinLossDetailCriteria(
             int custId,

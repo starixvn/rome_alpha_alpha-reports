@@ -1,0 +1,23 @@
+﻿@model EnteredResultFilterViewModel
+
+<form class="form-inline filter" role="form" id="report-form" action="WinLoss/WinLoss">
+    @RenderHiddenFields()
+    @DateRangePicker.Render(Model.DateRangePickerViewModel)
+    
+    <div class="form-group">
+        <input type="submit" value="@Resources.Submit" class="btn-submit" />
+    </div>
+
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="report-switch"  href="#">@Model.ViewActionMessage</a>
+    </div>
+</form>
+
+@helper RenderHiddenFields()
+{
+    @Html.Hidden("IsHistoricReport", true)
+}

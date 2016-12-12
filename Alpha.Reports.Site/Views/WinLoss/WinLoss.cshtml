@@ -1,0 +1,239 @@
+﻿@using Alpha.Reports.Site.Helpers
+@using Alpha.Reports.Site.Configurations
+
+@model WinLossViewModel
+
+@{
+    ViewBag.BetListPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_BetList/BetList.aspx";
+    string currentLevel = string.Empty;
+    string downlineLevel = string.Empty;
+    string winlossLevel = string.Empty;
+
+    if (Model.UserLevel.IsSuperLevel())
+    {
+        currentLevel = Resources.Super;
+        downlineLevel = Resources.Master;
+        winlossLevel = "SuperNetWinLoss";
+    }
+    else if (Model.UserLevel.IsMasterLevel())
+    {
+        currentLevel = Resources.Master;
+        downlineLevel = Resources.Agent;
+        winlossLevel = "MasterNetWinLoss";
+    }
+    else
+    {
+        currentLevel = Resources.Agent;
+        downlineLevel = Resources.Member;
+        winlossLevel = "AgentNetWinLoss";
+    }
+}
+
+@Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevels))
+@Html.Partial("_WinLossFilter", Model.FilterViewModel,
+    new ViewDataDictionary
+    {
+        { "IsStackMode", Model.IsStackMode },
+        { "IsDescendingSort", Model.IsDescendingSort },
+        { "SortPropertyName", Model.SortPropertyName },
+        { "HasBackIcon", !Model.IsDirectReportViewAction }
+    })
+<table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
+       @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
+       data-totalrecords="@Model.ReportData.TotalRecords"
+       data-custid="@Model.CustId"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
+    <thead>
+        <tr>
+            <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="0">@downlineLevel</th>
+            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="1">@Resources.Turnover</th>
+            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="2">@Resources.GrossComm</th>
+            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="1">
+                <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>
+                @(Model.UserLevel.IsAgentLevel() ? Resources.GrossComm :
+                  (Model.UserLevel.IsSuperLevel() ? Resources.GrossComAndMasterTotal : Resources.GrossComAndAgentTotal))
+            </th>
+
+            @if (Model.UserLevel.IsSuperLevel())
+            {
+                <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="MasterNetWinLoss.Total" data-colindex="3">@Resources.MasterTotal</th>
+            }
+
+            @if (Model.UserLevel.IsMasterLevel())
+            {
+                <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="AgentNetWinLoss.Total" data-colindex="3">@Resources.AgentTotal</th>
+            }
+
+            @if (Model.UserLevel.IsAgentLevel())
+            {
+                <th colspan="3" class="col-level hidden-stack-mode">@Resources.Member</th>
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="4">
+                    @Resources.Member
+                    <br />
+                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                </th>
+            }
+
+            <th colspan="3" class="col-level hidden-stack-mode">@currentLevel</th>
+            <th class="visible-stack-mode col-combine sorting" data-sortedname="@(winlossLevel + ".WinLoss")" rowspan="2" data-colindex="4">
+                @currentLevel
+                <br />
+                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+            </th>
+
+            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="7">@Resources.Company</th>
+        </tr>
+        <tr class="thead-row2">
+            @if (Model.UserLevel.IsAgentLevel())
+            {
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MemberNetWinLoss.WinLoss" data-colindex="4">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Comm" data-colindex="5">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Total" data-colindex="6">@Resources.Total</th>
+            }
+
+            <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(winlossLevel + ".WinLoss")" data-colindex="7">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode sorting" data-sortedname="@(winlossLevel  + ".Comm")" data-colindex="8">@Resources.Comm</th>
+            <th class="hidden-stack-mode sorting" data-sortedname="@(winlossLevel  + ".Total")" data-colindex="9">@Resources.Total</th>
+        </tr>
+    </thead>
+    @if (Model.ReportData.Any())
+    {
+        <tbody>
+            @foreach (var data in Model
+                    .ReportData
+                    .DataSource
+                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+            {
+                @RenderRow(data, false, ViewBag.BetListPath)
+            }
+        </tbody>
+        <tfoot>
+            @RenderRow(Model.ReportData.TotalData, true, ViewBag.BetListPath)
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(colspan: Model.UserLevel.IsAgentLevel() ? 10 : 8)
+    }
+</table>
+
+@section Scripts {
+    @ReportsScripts.Render("~/assets/bundles/winloss/winloss")
+}
+
+@helper RenderRow(WinLoss data, bool isTotalRow, string betListPath)
+{
+    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
+        <td data-islink="true" class="text-left">
+            @if (isTotalRow)
+            {
+                @Resources.Total
+            }
+            else
+            {
+                if (Model.UserLevel.IsAgentLevel())
+                {
+                    @Html.ActionLink(
+                    linkText: data.CustName,
+                    actionName: betListPath,
+                    controllerName: string.Empty,
+                    routeValues: new
+                    {
+                        Custid = data.CustId,
+                        Username = data.CustName,
+                        FDate = Model.FromDate,
+                        TDate = Model.ToDate,
+                        ProductIds = Model.UserSelectedProductIds,
+                        FilterPostback = 1,
+                        Type = "WLByDate"
+                    },
+                    htmlAttributes: null)
+                }
+                else
+                {
+                    @Html.ActionLink(
+                              linkText: data.CustName,
+                              actionName: "WinLoss",
+                              controllerName: "WinLoss",
+                              routeValues: Model.LinkActionViewModel(data),
+                              htmlAttributes: new
+                              {
+                                  @class = "downline-link"
+                              })
+                }
+            }
+        </td>
+
+        @if (Model.IsStackMode)
+        {
+            if (Model.UserLevel.IsAgentLevel())
+            {
+                @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.GrossComm);
+
+            }
+            else
+            {
+                @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.GrossComm,
+                                            Model.UserLevel.IsSuperLevel() ? data.MasterNetWinLoss.Total : data.AgentNetWinLoss.Total);
+            }
+
+            @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
+            @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
+            @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss);
+            @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
+        }
+        else
+        {
+            @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
+            @HtmlHelpers.RenderNumberCell(data.GrossComm)
+
+            @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
+            @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, Model.UserLevel.IsAgentLevel() ? true : false)
+            @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss, Model.UserLevel.IsMasterLevel() ? true : false)
+            @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
+        }
+        <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
+    </tr>
+}
+
+@helper RenderStackNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
+{
+if (netWinLoss == null)
+{
+    return;
+}
+
+var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+
+if (netWinLoss.WinLoss != null)
+{
+        @HtmlHelpers.RenderStackCell(
+        $"col-{level.DisplayName.ToLower()}-winloss-combined {highlightCellClass}",
+        1,
+        netWinLoss.WinLoss.Value,
+        netWinLoss.Comm.Value,
+        netWinLoss.Total);
+}
+}
+
+@helper RenderNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
+{
+if (netWinLoss == null)
+{
+    return;
+}
+
+var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+if (netWinLoss.WinLoss != null)
+{
+        @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss.Value, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
+        @HtmlHelpers.RenderNumberCell(netWinLoss.Comm.Value, highlightCellClass)
+}
+
+if (netWinLoss.Total != null)
+{
+        @HtmlHelpers.RenderNumberCell(netWinLoss.Total, $"bold {highlightCellClass}")
+}
+
+}

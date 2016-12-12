@@ -88,11 +88,16 @@
     <Compile Include="Constants\SortDirectionConstant.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
     <Compile Include="Criteria\GetProductsCriteria.cs" />
+    <Compile Include="Criteria\PagingReportProductCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
+    <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteria.cs" />
+    <Compile Include="Criteria\WinLoss\WinLossCriteria.cs" />
+    <Compile Include="DataAccesses\Impl\WinLossDataAccessImpl.cs" />
     <Compile Include="DataAccesses\Impl\WinLossDetailDataAccessImpl.cs" />
     <Compile Include="DataAccesses\ObjectDbFactory.cs" />
+    <Compile Include="DataAccesses\WinLossDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccess.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -106,16 +111,23 @@
     <Compile Include="Models\UserLevel.cs" />
     <Compile Include="Models\WinlossDetails\NetWinLoss.cs" />
     <Compile Include="Models\WinlossDetails\WinLossDetail.cs" />
+    <Compile Include="Models\Winloss\EnteredSportDaily.cs" />
+    <Compile Include="Models\Winloss\EnteredSportResult.cs" />
+    <Compile Include="Models\Winloss\IWinLossDetail.cs" />
+    <Compile Include="Models\Winloss\WinLoss.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
+    <Compile Include="Params\WinLossParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DateTimeManager.cs" />
     <Compile Include="Services\Impl\ProductServiceImpl.cs" />
+    <Compile Include="Services\Impl\WinLossServiceImpl.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\Impl\ReportDateServiceImpl.cs" />
     <Compile Include="Services\Impl\WinLossDetailServiceImpl.cs" />
     <Compile Include="Services\WinLossDetailService.cs" />
+    <Compile Include="Services\WinLossService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

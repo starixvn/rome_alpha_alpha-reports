@@ -7,14 +7,12 @@
     {
         public ReportProductCriteria(
             int custId,
-            int pageIndex,
-            int pageSize,
             DateTime fromDate,
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay,
             IEnumerable<int> productIds)
-            : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay)
+            : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay)
         {
             ProductIds = productIds == null ? string.Empty : string.Join(",", productIds);
         }

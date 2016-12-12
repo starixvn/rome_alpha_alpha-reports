@@ -8,16 +8,12 @@
     {
         protected ReportCriteriaBase(
             int custId,
-            int pageIndex,
-            int pageSize,
             DateTime fromDate,
             DateTime toDate,
             DateTime balanceUpDay,
             DateTime moveBetsDay)
         {
             CustId = custId;
-            PageIndex = pageIndex;
-            PageSize = pageSize;
             FromDate = fromDate.GetBeginningOfDate();
             ToDate = toDate.GetBeginningOfDate();
             BalanceUpDay = balanceUpDay;
@@ -25,12 +21,6 @@
         }
 
         public int CustId { get; }
-
-        public int PageIndex { get; }
-
-        public int PageSize { get; }
-
-        public int TotalRecords { get; set; }
 
         public DateTime FromDate { get; }
 
@@ -43,8 +33,7 @@
         public override bool IsValid()
         {
             return CustId > 0
-                && FromDate <= ToDate
-                && PageIndex >= 0;
+                && FromDate <= ToDate;
         }
 
         public bool IsNotValid() => !IsValid();

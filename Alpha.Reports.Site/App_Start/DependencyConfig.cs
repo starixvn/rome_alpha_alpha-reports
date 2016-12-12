@@ -67,9 +67,8 @@
         {
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
             container.RegisterPerWebRequest<IUserSession, UserSessionExt>();
-
             container.RegisterPerWebRequest<ReportDateService, ReportDateServiceImpl>();           
-            
+            container.Register<WinLossService, WinLossServiceImpl>(Lifestyle.Transient);
             container.RegisterPerWebRequest<WinLossDetailService, WinLossDetailServiceImpl>();
 
             container.Register<ProductService>(
@@ -86,6 +85,7 @@
         {
             container.RegisterPerWebRequest<IDynamicRepository, DynamicRepository>();
             container.RegisterPerWebRequest<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
+            container.Register<WinLossDataAccess, WinLossDataAccessImpl>(Lifestyle.Transient);
         }
     }
 }

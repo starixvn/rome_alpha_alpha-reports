@@ -213,8 +213,8 @@ var highlightCellClass = isHighlight ? "altercol" : string.Empty;
     @HtmlHelpers.RenderStackCell(
         $"col-{level.DisplayName.ToLower()}-winloss-combined {highlightCellClass}",
         1,
-        netWinLoss.WinLoss,
-        netWinLoss.Comm,
+        netWinLoss.WinLoss.Value,
+        netWinLoss.Comm.Value,
         netWinLoss.Total);
 }
 
@@ -227,7 +227,7 @@ if (netWinLoss == null)
 
 var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
-    @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
-    @HtmlHelpers.RenderNumberCell(netWinLoss.Comm, highlightCellClass)
+    @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss.Value, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
+    @HtmlHelpers.RenderNumberCell(netWinLoss.Comm.Value, highlightCellClass)
     @HtmlHelpers.RenderNumberCell(netWinLoss.Total, $"bold {highlightCellClass}")
 }

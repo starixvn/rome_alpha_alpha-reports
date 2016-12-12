@@ -19,6 +19,22 @@
             TotalData = totalData;
         }
 
+        public ReportData(
+            IEnumerable<T> dataSource,
+            int totalRecords,
+            T totalData)
+        {
+            DataSource = dataSource ?? Enumerable.Empty<T>();
+            TotalRecords = totalRecords;
+            TotalData = totalData;
+        }
+
+        public ReportData(
+            IEnumerable<T> dataSource)
+        {
+            DataSource = dataSource ?? Enumerable.Empty<T>();
+        }
+
         public IEnumerable<T> DataSource { get; }
 
         public T TotalData { get; }
@@ -29,7 +45,7 @@
 
         public int TotalRecords { get; }
 
-        public bool Any() => TotalRecords > 0;
+        public bool Any() => (TotalRecords > 0) || DataSource.Count() > 0;
 
         public bool MoreThanOne() => TotalRecords > 1;
     }

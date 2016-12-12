@@ -7,12 +7,10 @@
     {
         public ReportCriteriaBaseForTesting(
             int custId,
-            int pageIndex,
-            int pageSize,
             DateTime fromDate,
             DateTime toDate,
             DateTime balanceUpDay,
-            DateTime moveBetsDay) : base(custId, pageIndex, pageSize, fromDate, toDate, balanceUpDay, moveBetsDay)
+            DateTime moveBetsDay) : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay)
         {
         }
 

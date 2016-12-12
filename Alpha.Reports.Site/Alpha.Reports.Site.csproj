@@ -257,6 +257,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Configurations\SiteSettings.cs" />
     <Compile Include="Controllers\BaseReportController.cs" />
+    <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -264,6 +265,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetailHandler.cs" />
+    <Compile Include="Handlers\WinLossHandler.cs" />
     <Compile Include="Helpers\AppPathHelper.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="Helpers\HttpAdapter.cs" />
@@ -278,6 +280,8 @@
     <Compile Include="Requests\BaseReportQuery.cs" />
     <Compile Include="Requests\WinLossDetails\ExportWinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLossDetails\WinLossDetailQuery.cs" />
+    <Compile Include="Requests\WinLoss\EnterResultQuery.cs" />
+    <Compile Include="Requests\WinLoss\WinLosQuery.cs" />
     <Compile Include="ViewModels\Components\DataGridViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
     <Compile Include="ViewModels\Components\FilterControlViewModel.cs" />
@@ -290,6 +294,11 @@
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailsActionLinkViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailViewModel.cs" />
+    <Compile Include="ViewModels\WinLoss\EnteredResultFilterViewModel.cs" />
+    <Compile Include="ViewModels\WinLoss\EnteredResultViewModel.cs" />
+    <Compile Include="ViewModels\WinLoss\WinLossActionLinkViewModel.cs" />
+    <Compile Include="ViewModels\WinLoss\WinLossFilterViewModel.cs" />
+    <Compile Include="ViewModels\WinLoss\WinLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
@@ -313,6 +322,14 @@
     <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
     <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\winloss\enteredresult.js" />
+    <Content Include="assets\bundles\winloss\enteredresult.min.js">
+      <DependentUpon>enteredresult.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\winloss\winloss.js" />
+    <Content Include="assets\bundles\winloss\winloss.min.js">
+      <DependentUpon>winloss.js</DependentUpon>
     </Content>
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
@@ -353,8 +370,11 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\AuthorizationSection.config" />
+    <Content Include="Views\WinLoss\EnteredResult.cshtml" />
     <Content Include="Views\Shared\Piwik.cshtml" />
     <Content Include="Web.AppSettings.backupMNL.config">
+    <Content Include="Views\WinLoss\_EnteredResultFilter.cshtml" />
+    <Content Include="Views\WinLoss\_WinLossFilter.cshtml" />
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.backupMNL2.config">
@@ -444,6 +464,8 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <TypeScriptCompile Include="assets\scripts\winloss\enteredresult.ts" />
+    <TypeScriptCompile Include="assets\scripts\winloss\winloss.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\styles\reports.scss" />

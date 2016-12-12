@@ -1,0 +1,60 @@
+﻿@using Alpha.Reports.Site.Helpers
+@using Alpha.Reports.Site.Configurations
+
+@model EnteredResultViewModel
+
+@Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, false, true, false, false, new List<ActionLinkViewModel>()))
+@Html.Partial("_EnteredResultFilter", Model.FilterViewModel)
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
+       data-totalrecords="@Model.ReportData.DataSource.Count()"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="false">
+    <thead>
+        <tr>
+            <th>@Resources.Date</th>
+            <th colspan="2">@String.Format("{0:MM/dd/yyyy}", DateTime.Now.AddDays(-1))</th>
+            <th colspan="2">@String.Format("{0:MM/dd/yyyy}", DateTime.Now)</th>
+        </tr>
+        <tr class="thead-row2">
+            <th class="sorting" data-sortedname="SportName" data-colindex="0">@Resources.Results</th>
+            <th class="sorting" data-colindex="1">@Resources.Entered</th>
+            <th class="sorting" data-colindex="2">@Resources.NonEntered</th>
+            <th class="sorting" data-colindex="3">@Resources.Entered</th>
+            <th class="sorting" data-colindex="4">@Resources.NonEntered</th>
+        </tr>
+    </thead>
+    @if (Model.ReportData.Any())
+    {
+        <tbody>
+            @foreach (var enteredSportResult in Model.ReportData.DataSource)
+            {
+                <tr>
+                    <td class="col-highline">@enteredSportResult.SportName</td>
+                    @RenderEnteredResult(enteredSportResult.EnterSportYesterday)
+                    @RenderEnteredResult(enteredSportResult.EnterSportToday)
+                </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        @NoInformation.Render(5)
+    }
+</table>
+
+@section Scripts {
+    @ReportsScripts.Render("~/assets/bundles/winloss/enteredresult")
+}
+
+@helper RenderEnteredResult(EnteredSportDaily enteredSportDaily)
+{
+if (enteredSportDaily == null)
+{
+        <td class="text-right">0</td>
+        <td class="text-right">0</td>
+    return;
+}
+
+<td class="text-right">@enteredSportDaily.Entered</td>
+<td class="text-right">@enteredSportDaily.NonEntered</td>
+}

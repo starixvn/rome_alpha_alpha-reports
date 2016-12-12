@@ -12,7 +12,7 @@
         public void GetProductIds_EmptyProductList_ReturnsEmpty()
         {
             // Arrange
-            var reportProductCriteria = new ReportProductCriteria(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
+            var reportProductCriteria = new ReportProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
             var expectedProductIds = string.Empty;
 
             // Act
@@ -27,8 +27,6 @@
         {
             // Arrange
             var reportProductCriteria = new ReportProductCriteria(
-                0,
-                0,
                 0,
                 DateTime.Now,
                 DateTime.Now,
@@ -49,7 +47,7 @@
         public void GetSettingKey_Always_ThrowsNotImplementedException()
         {
             // Arrange
-            var reportProductCriteria = new ReportProductCriteria(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
+            var reportProductCriteria = new ReportProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
 
             // Act & Assert
             Assert.Throws<NotImplementedException>(() => reportProductCriteria.GetSettingKey());
@@ -59,7 +57,7 @@
         public void IsValid_EmptyProductIds_ReturnsInvalid()
         {
             // Arrange
-            var reportProductCriteria = new ReportProductCriteria(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
+            var reportProductCriteria = new ReportProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, Enumerable.Empty<int>());
             var expectedIsValid = false;
 
             // Act

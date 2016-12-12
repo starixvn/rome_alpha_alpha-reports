@@ -70,6 +70,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agent Total.
+        /// </summary>
+        public static string AgentTotal {
+            get {
+                return ResourceManager.GetString("AgentTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agent Win Loss.
+        /// </summary>
+        public static string AgentWinLoss {
+            get {
+                return ResourceManager.GetString("AgentWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agent Win Loss Detail.
         /// </summary>
         public static string AgentWinLossDetail {
@@ -178,6 +196,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to December.
         /// </summary>
         public static string December {
@@ -196,6 +223,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entered.
+        /// </summary>
+        public static string Entered {
+            get {
+                return ResourceManager.GetString("Entered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export to Excel.
         /// </summary>
         public static string ExportToExcel {
@@ -210,6 +246,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string February {
             get {
                 return ResourceManager.GetString("February", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Gross Comm/ Agent Total.
+        /// </summary>
+        public static string GrossComAndAgentTotal {
+            get {
+                return ResourceManager.GetString("GrossComAndAgentTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Gross Comm/ Master Total.
+        /// </summary>
+        public static string GrossComAndMasterTotal {
+            get {
+                return ResourceManager.GetString("GrossComAndMasterTotal", resourceCulture);
             }
         }
         
@@ -295,6 +349,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Master Total.
+        /// </summary>
+        public static string MasterTotal {
+            get {
+                return ResourceManager.GetString("MasterTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Master Win Loss.
+        /// </summary>
+        public static string MasterWinLoss {
+            get {
+                return ResourceManager.GetString("MasterWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Master Win Loss Detail.
         /// </summary>
         public static string MasterWinLossDetail {
@@ -318,6 +390,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Member {
             get {
                 return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member Turnover.
+        /// </summary>
+        public static string MemberTurnOver {
+            get {
+                return ResourceManager.GetString("MemberTurnOver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member Win Loss.
+        /// </summary>
+        public static string MemberWinLoss {
+            get {
+                return ResourceManager.GetString("MemberWinLoss", resourceCulture);
             }
         }
         
@@ -354,6 +444,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string NoInformationIsAvailable {
             get {
                 return ResourceManager.GetString("NoInformationIsAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NonEntered.
+        /// </summary>
+        public static string NonEntered {
+            get {
+                return ResourceManager.GetString("NonEntered", resourceCulture);
             }
         }
         
@@ -430,6 +529,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string Results {
+            get {
+                return ResourceManager.GetString("Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to selected.
         /// </summary>
         public static string Selected {
@@ -498,6 +606,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Super {
             get {
                 return ResourceManager.GetString("Super", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Super Total.
+        /// </summary>
+        public static string SuperTotal {
+            get {
+                return ResourceManager.GetString("SuperTotal", resourceCulture);
             }
         }
         

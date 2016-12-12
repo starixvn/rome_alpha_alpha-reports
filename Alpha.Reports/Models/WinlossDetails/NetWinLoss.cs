@@ -6,12 +6,18 @@
         {
             WinLoss = winloss;
             Comm = comm;
+            Total = winloss + comm;
         }
 
-        public decimal WinLoss { get; }
+        public NetWinLoss(decimal total)
+        {
+            Total = total;
+        }
 
-        public decimal Comm { get; }
+        public decimal? WinLoss { get; }
 
-        public decimal Total => WinLoss + Comm;
+        public decimal? Comm { get; }
+
+        public decimal Total { get; }
     }
 }
