@@ -79,6 +79,7 @@
                 Lifestyle.Scoped);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);           
+            container.RegisterPerWebRequest<WinLossExcelExporter, WinLossExcelExporterImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

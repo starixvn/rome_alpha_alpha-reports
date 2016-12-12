@@ -18,6 +18,8 @@
 
         public int CustId { get; set; }
 
+        public string CustName { get; set; }
+
         public DateTime MinDate => IsHistoricReport
             ? DateTime.Now.AddYears(-3).FirstDayOfMonth()
             : DateTime.Now.AddMonths(-3).FirstDayOfMonth();
@@ -62,6 +64,7 @@
         public WinLossFilterViewModel FilterViewModel =>
             new WinLossFilterViewModel(
                 CustId,
+                CustName,
                 UserLevel,
                 IsHistoricReport,
                 DateRangePickerViewModel,

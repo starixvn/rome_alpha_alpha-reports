@@ -1,0 +1,48 @@
+﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
+{
+    using System;
+    using System.Web;
+    using Alpha.Reports.Models.Winloss;
+    using MediatR;
+    using Models;
+    using ViewModels.WinLoss;
+
+    public class ExportWinLossQuery : IRequest<byte[]>
+    {
+        private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLoss/";
+        private WinLossViewModel viewModel;
+
+        public ExportWinLossQuery(WinLossViewModel viewModel)
+        {
+            if (viewModel == null)
+            {
+                throw new ArgumentNullException("viewModel");
+            }
+
+            this.viewModel = viewModel;
+
+            var excelTemplatePath = ExcelTemplateDir +
+                (viewModel.UserLevel.IsSuperLevel()
+                ? "Master.xls"
+                : viewModel.UserLevel.IsMasterLevel()
+                ? "Agent.xls"
+                : "Member.xls");
+
+            TemplatePath = HttpContext.Current.Server.MapPath(excelTemplatePath);
+        }
+
+        public string TemplatePath { get; set; }
+
+        public UserLevel UserLevel => viewModel.UserLevel;
+
+        public string Title => viewModel.Title;
+
+        public ReportData<WinLoss> ReportData => viewModel.ReportData;
+
+        public DateTime FromDate => viewModel.FromDate;
+
+        public DateTime ToDate => viewModel.ToDate;
+
+        public string UserSelectedProductIds => viewModel.UserSelectedProductIds;
+    }
+}

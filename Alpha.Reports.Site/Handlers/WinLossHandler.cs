@@ -5,30 +5,38 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using Alpha.Reports.Excel.Services;
     using Alpha.Reports.Site.Requests.WinLoss;
     using Enumerations;
+    using Excel.Params;
     using MediatR;
     using Models;
+    using Models.Winloss;
     using Newtonsoft.Json;
     using Params;
     using Reports.Extensions;
+    using Requests.WinLossDetails;
     using Services;
     using ViewModels;
     using ViewModels.WinLoss;
 
     public class WinLossHandler :
         IRequestHandler<WinLossQuery, WinLossViewModel>,
-        IRequestHandler<EnterResultQuery, EnteredResultViewModel>
+        IRequestHandler<EnterResultQuery, EnteredResultViewModel>,
+        IRequestHandler<ExportWinLossQuery, byte[]>
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
+        private readonly WinLossExcelExporter excelExporter;
 
         public WinLossHandler(
             ProductService productService,
-            WinLossService reportService)
+            WinLossService reportService,
+            WinLossExcelExporter excelExporter)
         {
             this.productService = productService;
             this.reportService = reportService;
+            this.excelExporter = excelExporter;
         }
 
         public EnteredResultViewModel Handle(EnterResultQuery message)
@@ -73,6 +81,7 @@
             var viewModel = new WinLossViewModel
             {
                 CustId = winLossParam.CustId,
+                CustName = message.CustName,
                 UserLevel = userLevel,
                 FromDate = winLossParam.FromDate,
                 ToDate = winLossParam.ToDate,
@@ -95,6 +104,28 @@
             };
 
             return viewModel;
+        }
+
+        public byte[] Handle(ExportWinLossQuery message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            var fileContents = excelExporter.Export(
+                new ExportExcelParam<WinLoss>
+                {
+                    TemplatePath = message.TemplatePath,
+                    ReportName = message.Title,
+                    SheetName = message.Title,
+                    ReportData = message.ReportData,
+                    FromDate = message.FromDate,
+                    ToDate = message.ToDate
+                },
+                new ExportWinLossParam(message.UserLevel, message.UserSelectedProductIds));
+
+            return fileContents;
         }
 
         private WinLossParam CreateWinLossParamater(

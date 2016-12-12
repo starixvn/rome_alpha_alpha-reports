@@ -113,7 +113,6 @@
     <Compile Include="Models\WinlossDetails\WinLossDetail.cs" />
     <Compile Include="Models\Winloss\EnteredSportDaily.cs" />
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
-    <Compile Include="Models\Winloss\IWinLossDetail.cs" />
     <Compile Include="Models\Winloss\WinLoss.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />

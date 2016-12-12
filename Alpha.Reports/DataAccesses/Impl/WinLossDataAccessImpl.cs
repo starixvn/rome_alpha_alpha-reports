@@ -35,15 +35,15 @@
             return dailyMatchevents;
         }
 
-        public ReportData<WinLoss> GetWinLoss(WinLossCriteria criteria)
+        public ReportData<Models.Winloss.WinLoss> GetWinLoss(WinLossCriteria criteria)
         {
             if (criteria == null)
             {
                 throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
             }
 
-            var winLosses = new List<WinLoss>();
-            var totalWinLoss = new WinLoss();
+            var winLosses = new List<Models.Winloss.WinLoss>();
+            var totalWinLoss = new Models.Winloss.WinLoss();
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -64,7 +64,7 @@
                 }
             }
 
-            return new ReportData<WinLoss>(winLosses, winLosses.Count, totalWinLoss);
+            return new ReportData<Models.Winloss.WinLoss>(winLosses, winLosses.Count, totalWinLoss);
         }
 
         private EnteredSportDaily BuildDailyMatchEvent(IDataReader reader)
@@ -82,7 +82,7 @@
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
         private WinLoss BuildWinLoss(IDataReader reader, UserLevel reportLevel)
         {
-            var winLoss = new WinLoss(
+            var winLoss = new Models.Winloss.WinLoss(
                  custId: reader.ToInt("CustId"),
                  custName: reader.ToString("CustName"),
                  turnover: reader.ToDecimal("TurnOver"),

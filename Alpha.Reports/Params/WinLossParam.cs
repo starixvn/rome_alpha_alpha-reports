@@ -8,6 +8,8 @@
 
     public class WinLossParam
     {
+        private ApplicationContext applicationContext;
+
         public WinLossParam(
             int custId,
             DateTime fromDate,
@@ -16,9 +18,14 @@
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
-            bool isHistoricReport)
+            bool isHistoricReport,
+            ApplicationContext applicationContext = null)
         {
+            this.applicationContext = applicationContext ?? new ReportApplicationContext();
+
             CustId = custId;
+
+            IsHistoryReport = isHistoricReport;
 
             if (fromDate == DateTime.MinValue)
             {
@@ -53,6 +60,8 @@
 
         public string SortByPropertyName { get; }
 
+        public bool IsHistoryReport { get; }
+
         public bool IsDescendingSort { get; }
 
         private string GetDefaultSortedProperty()
@@ -85,6 +94,20 @@
             }
 
             return sortedProperty;
+        }
+
+        public bool IsValid()
+        {
+            if (IsHistoryReport)
+            {
+                return applicationContext.CurrentDate.AddYears(-3).FirstDayOfYear() <= FromDate
+                    && FromDate <= ToDate
+                    && ToDate.Year == FromDate.Year
+                    && ToDate.Month == FromDate.Month;
+            }
+
+            return applicationContext.CurrentDate.AddMonths(-3).FirstDayOfMonth() <= FromDate
+                   && FromDate <= ToDate;
         }
     }
 }

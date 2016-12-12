@@ -281,6 +281,7 @@
     <Compile Include="Requests\WinLossDetails\ExportWinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLossDetails\WinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLoss\EnterResultQuery.cs" />
+    <Compile Include="Requests\WinLoss\ExportWinLossQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLosQuery.cs" />
     <Compile Include="ViewModels\Components\DataGridViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
@@ -375,6 +376,9 @@
     <Content Include="Web.AppSettings.backupMNL.config">
     <Content Include="Views\WinLoss\_EnteredResultFilter.cshtml" />
     <Content Include="Views\WinLoss\_WinLossFilter.cshtml" />
+    <Content Include="App_Data\ExcelTemplates\WinLoss\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLoss\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLoss\Member.xls" />
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.backupMNL2.config">

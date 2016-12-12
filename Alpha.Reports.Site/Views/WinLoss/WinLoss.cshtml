@@ -122,7 +122,7 @@
     @ReportsScripts.Render("~/assets/bundles/winloss/winloss")
 }
 
-@helper RenderRow(WinLoss data, bool isTotalRow, string betListPath)
+@helper RenderRow(Alpha.Reports.Models.Winloss.WinLoss data, bool isTotalRow, string betListPath)
 {
     <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
         <td data-islink="true" class="text-left">

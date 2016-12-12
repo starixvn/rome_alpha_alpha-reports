@@ -10,6 +10,7 @@
     {
         public WinLossFilterViewModel(
             int custId,
+            string custName,
             UserLevel userLevel,
             bool isHictoricReport,
             DateRangePickerViewModel dateRangePickerViewModel,
@@ -21,6 +22,7 @@
             string breadcrumbLevels)
         {
             CustId = custId;
+            CustName = custName;
             IsHistoricReport = isHictoricReport;
             DateRangePickerViewModel = dateRangePickerViewModel;
             MonthPickerViewModel = monthPickerViewModel;
