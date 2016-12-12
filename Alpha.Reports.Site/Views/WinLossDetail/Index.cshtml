@@ -16,7 +16,7 @@
         { "IsDescendingSort", Model.IsDescendingSort },
         { "SortPropertyName", Model.SortPropertyName }
     })
-<table style="display: none;" class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
+<table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.TotalRecords"
        data-custid="@Model.CustId"
@@ -96,9 +96,9 @@
     {
         <tbody>
             @foreach (var data in Model
-                                .ReportData
-                                .DataSource
-                                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                    .ReportData
+                    .DataSource
+                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }

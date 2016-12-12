@@ -11,5 +11,11 @@
             return System.Web.Optimization.Styles.Render(
                 paths.Select(path => $"{SiteSettings.AssetAppPath}{path}{BaseStaticResources.MinText}.css?v={BaseStaticResources.StaticResourcesVersion}").ToArray());
         }
+
+        public static IHtmlString RenderCommon(params string[] paths)
+        {
+            return System.Web.Optimization.Styles.Render(
+                paths.Select(path => $"{SiteSettings.AssetAppPath}{path}{BaseStaticResources.MinText}.css").ToArray());
+        }
     }
 }

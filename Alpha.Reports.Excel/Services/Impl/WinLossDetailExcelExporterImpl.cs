@@ -6,7 +6,6 @@
     using Models.WinlossDetails;
     using ONEbook.SpreadSheets;
     using ONEbook.SpreadSheets.Models;
-    using ONEbook.SpreadSheets.NPOI.Models;
     using Params;
     using Reports.Services;
 
@@ -14,9 +13,18 @@
     {
         private ProductService productService;
 
-        public WinLossDetailExcelExporterImpl(ProductService productService)
+        private SpreadSheetEngine spreadSheetEngine;
+
+        private Workbook workbook;
+
+        public WinLossDetailExcelExporterImpl(
+            ProductService productService,
+            SpreadSheetEngine spreadSheetEngine,
+            Workbook workbook)
         {
             this.productService = productService;
+            this.spreadSheetEngine = spreadSheetEngine;
+            this.workbook = workbook;
         }
 
         public byte[] Export(ExportExcelParam<WinLossDetail> param, ExportWinLossDetailParam exportWinLossDetailParam)
@@ -40,26 +48,14 @@
                 { "Total", Resources.Total }
             };
 
-            var spreadSheetEngine = new SpreadSheetEngineImpl();
-            var npoiWorkbook = new NpoiWorkbook().Load(param.TemplatePath);
-            var spreadSheetLayout = new SpreadSheetLayout(
-                npoiWorkbook,
-                titleIndex: 1,
-                headerStartIndex: 2,
-                bodyStartIndex: 4,
-                columnStartIndex: 1,
-                resultSheetIndex: 1,
-                oddRowTemplateIndex: 4,
-                evenRowTemplateIndex: 5,
-                footerRowsTemplateStartIndex: 6,
-                footerRowsTemplateEndIndex: 6,
-                noInfomationText: Resources.NoInformationIsAvailable);
+            workbook = workbook.Load(param.TemplatePath);
+            var spreadSheetLayout = new SpreadSheetLayout(workbook, noInfomationText: Resources.NoInformationIsAvailable);
 
             var spreadSheet = (new SpreadSheet<WinLossDetail>())
                 .AddTitle(reportTitle)
                 .AddHeaderTexts(headerTexts)
                 .AddBody(param.ReportData.DataSource, BodyRowMapping)
-                .AddFooter(new List<WinLossDetail>() { param.ReportData.TotalData }, FooterRowMapping)
+                .AddFooter(param.ReportData.TotalData, FooterRowMapping)
                 .AddSheetName(param.SheetName)
                 .SetLayout(spreadSheetLayout.SetFreezePanel(4, "B"));
 

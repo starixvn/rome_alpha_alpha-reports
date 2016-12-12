@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="~/favico.ico" />
 
-    @AssetStyles.Render("/bundles/common/common")
+    @AssetStyles.RenderCommon("/bundles/common/common")
     @AssetStyles.Render("/bundles/site-reports/default")
     @ReportsStyles.Render("~/assets/bundles/default")
     @RenderSection("Styles", required: false)
 </head>
 <body>
     @RenderBody()
-    @AssetScripts.Render("/bundles/common/common")
+    @AssetScripts.RenderCommon("/bundles/common/common")
     @AssetScripts.Render("/bundles/site-reports/default")
     @RenderSection("Scripts", required: false)
 </body>

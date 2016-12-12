@@ -10,6 +10,9 @@
     using Excel.Services.Impl;
     using Fanex.Data.Repository;
     using MediatR;
+    using ONEbook.SpreadSheets;
+    using ONEbook.SpreadSheets.Models;
+    using ONEbook.SpreadSheets.NPOI.Models;
     using RemotingRef;
     using Services;
     using Services.Impl;
@@ -72,6 +75,8 @@
 
             container.RegisterPerWebRequest<WinLossDetailService, WinLossDetailServiceImpl>();
             container.RegisterPerWebRequest<WinLossDetailExcelExporter, WinLossDetailExcelExporterImpl>();
+            container.RegisterPerWebRequest<SpreadSheetEngine, SpreadSheetEngineImpl>();
+            container.RegisterPerWebRequest<Workbook, NpoiWorkbook>();
         }
 
         private static void RegisterDataAccesses(Container container)

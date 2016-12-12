@@ -104,11 +104,10 @@ class WinLossDetailView {
 
         this.registerEvents();
 
-        if (isMobile.any) {
-            this.$tableReport.removeClass("tblRpt-hover");
+        if (!isMobile.any) {
+            this.$tableReport.addClass("tblRpt-hover");
         }
 
-        this.$tableReport.show();
         this.$.unblockUI();
     };
     cacheElements = () => {
