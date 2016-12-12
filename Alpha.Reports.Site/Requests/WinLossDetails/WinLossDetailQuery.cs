@@ -62,7 +62,7 @@
         {
             get
             {
-                return FromDate != DateTime.MinValue;
+                return !string.IsNullOrWhiteSpace(UserSelectedProductIds);
             }
         }
 
