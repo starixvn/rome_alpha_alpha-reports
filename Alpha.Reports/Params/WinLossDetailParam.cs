@@ -5,11 +5,10 @@
     using Constants;
     using Extensions;
     using Models;
+    using Services;
 
     public class WinLossDetailParam
     {
-        private ApplicationContext applicationContext;
-
         public WinLossDetailParam(
             int custId,
             int pageIndex,
@@ -20,11 +19,8 @@
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
-            bool isHistoricReport,
-            ApplicationContext applicationContext = null)
+            bool isHistoricReport)
         {
-            this.applicationContext = applicationContext ?? new ReportApplicationContext();
-
             CustId = custId;
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;
@@ -33,14 +29,14 @@
 
             if (fromDate == DateTime.MinValue)
             {
-                FromDate = isHistoricReport ? this.applicationContext.CurrentDate.FirstDayOfMonth() : this.applicationContext.CurrentDate;
+                FromDate = isHistoricReport ? DateTimeAdapter.Now.FirstDayOfMonth() : DateTimeAdapter.Now;
             }
             else
             {
                 FromDate = fromDate;
             }
 
-            ToDate = toDate == DateTime.MinValue ? this.applicationContext.CurrentDate : toDate;
+            ToDate = toDate == DateTime.MinValue ? DateTimeAdapter.Now : toDate;
 
             ReportLevel = reportLevel;
 
@@ -108,13 +104,13 @@
         {
             if (IsHistoryReport)
             {
-                return applicationContext.CurrentDate.AddYears(-3).FirstDayOfYear() <= FromDate
+                return DateTimeAdapter.Now.AddYears(-3).FirstDayOfYear() <= FromDate
                     && FromDate <= ToDate
                     && ToDate.Year == FromDate.Year
                     && ToDate.Month == FromDate.Month;
             }
 
-            return applicationContext.CurrentDate.AddMonths(-3).FirstDayOfMonth() <= FromDate
+            return DateTimeAdapter.Now.AddMonths(-3).FirstDayOfMonth() <= FromDate
                    && FromDate <= ToDate;
         }
     }

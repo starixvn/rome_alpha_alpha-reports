@@ -112,12 +112,10 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
-    <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
     <Compile Include="Models\CustInfo.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ReportApplicationContext.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\UserLevel.cs" />
     <Compile Include="Models\WinlossDetails\NetWinLoss.cs" />
@@ -125,6 +123,7 @@
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DateTimeAdapter.cs" />
     <Compile Include="Services\Impl\ProductServiceImpl.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\ReportDateService.cs" />

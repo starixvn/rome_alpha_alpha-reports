@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Params
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using Constants;
     using Fanex.Common;
@@ -9,17 +8,14 @@
     using Reports.Extensions;
     using Reports.Models;
     using Reports.Params;
-    using TestFixtures;
+    using Reports.Services;
     using Xunit;
 
-    [Collection("ReportCollection")]
     public class WinLossDetailParamTests
     {
-        private TestContextFixture testContextFixture;
-
-        public WinLossDetailParamTests(TestContextFixture testContextFixture)
+        public WinLossDetailParamTests()
         {
-            this.testContextFixture = testContextFixture;
+            DateTimeAdapter.Now = DefaultVariables.CurrentDate;
         }
 
         [Fact]
@@ -45,8 +41,8 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false, testContextFixture);
-            var expectedDate = testContextFixture.CurrentDate;
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
+            var expectedDate = DefaultVariables.CurrentDate;
 
             // Act
             var actualDate = winLossDetailParam.FromDate;
@@ -62,8 +58,8 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true, testContextFixture);
-            var expectedDate = testContextFixture.CurrentDate.FirstDayOfMonth();
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true);
+            var expectedDate = DefaultVariables.CurrentDate.FirstDayOfMonth();
 
             // Act
             var actualDate = winLossDetailParam.FromDate;
@@ -79,10 +75,10 @@
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-            DateTime fromDate = testContextFixture.CurrentDate;
+            DateTime fromDate = DefaultVariables.CurrentDate;
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, fromDate, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, isHistoricReport, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, fromDate, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, isHistoricReport);
             var expectedDate = fromDate;
 
             // Act
@@ -109,10 +105,9 @@
                     reportLevel,
                     string.Empty,
                     false,
-                    isHistoricReport,
-                    testContextFixture);
+                    isHistoricReport);
 
-            var expectedDate = testContextFixture.CurrentDate;
+            var expectedDate = DefaultVariables.CurrentDate;
 
             // Act
             var actualDate = winLossDetailParam.ToDate;
@@ -128,10 +123,10 @@
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-            DateTime toDate = testContextFixture.CurrentDate;
+            DateTime toDate = DefaultVariables.CurrentDate;
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, isHistoricReport, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, isHistoricReport);
             var expectedDate = toDate;
 
             // Act
@@ -148,7 +143,7 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
             var expectedReportLevel = reportLevel;
 
             // Act
@@ -176,8 +171,7 @@
                 reportLevel,
                 string.Empty,
                 isDescendingSort,
-                false,
-                testContextFixture);
+                false);
             var expectedIsDescendingSort = isDescendingSort;
 
             // Act
@@ -198,7 +192,7 @@
             var userSelectedProductIdList = userSelectedProductIds.Split(',').Select(id => Converter.ToInt(id)).ToList();
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, userSelectedProductIdList, reportLevel, string.Empty, false, false, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, userSelectedProductIdList, reportLevel, string.Empty, false, false);
             var expectedUserSelectedProductIds = userSelectedProductIdList;
 
             // Act
@@ -218,7 +212,7 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(userLevel);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
 
             // Act
             var actualSortByPropertyName = winLossDetailParam.SortByPropertyName;
@@ -255,8 +249,7 @@
                 reportLevel,
                 notInRangeSortByPropertyName,
                 false,
-                false,
-                testContextFixture);
+                false);
 
             // Act
             var actualSortByPropertyName = winLossDetailParam.SortByPropertyName;
@@ -322,8 +315,7 @@
                 reportLevel,
                 inRangeSortByPropertyName,
                 false,
-                false,
-                testContextFixture);
+                false);
             var expectedSortByPropertyName = inRangeSortByPropertyName;
 
             // Act
@@ -338,10 +330,10 @@
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-            DateTime fromDate = testContextFixture.CurrentDate.AddYears(-4);
+            DateTime fromDate = DefaultVariables.CurrentDate.AddYears(-4);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, fromDate, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, fromDate, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true);
 
             // Act
             var actualIsValid = winLossDetailParam.IsValid();
@@ -355,11 +347,11 @@
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-            DateTime fromDate = testContextFixture.CurrentDate;
-            DateTime toDate = testContextFixture.CurrentDate.AddDays(-1);
+            DateTime fromDate = DefaultVariables.CurrentDate;
+            DateTime toDate = DefaultVariables.CurrentDate.AddDays(-1);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true);
 
             // Act
             var actualIsValid = winLossDetailParam.IsValid();
@@ -375,11 +367,11 @@
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-            DateTime fromDate = testContextFixture.CurrentDate;
-            DateTime toDate = testContextFixture.CurrentDate.AddMonths(monthDiff);
+            DateTime fromDate = DefaultVariables.CurrentDate;
+            DateTime toDate = DefaultVariables.CurrentDate.AddMonths(monthDiff);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true);
 
             // Act
             var actualIsValid = winLossDetailParam.IsValid();
@@ -395,11 +387,11 @@
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-            DateTime fromDate = testContextFixture.CurrentDate;
-            DateTime toDate = testContextFixture.CurrentDate;
+            DateTime fromDate = DefaultVariables.CurrentDate;
+            DateTime toDate = DefaultVariables.CurrentDate;
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true);
 
             // Act
             var actualIsValid = winLossDetailParam.IsValid();
@@ -413,10 +405,10 @@
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-            DateTime fromDate = testContextFixture.CurrentDate.AddMonths(-4);
+            DateTime fromDate = DefaultVariables.CurrentDate.AddMonths(-4);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, fromDate, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, fromDate, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
 
             // Act
             var actualIsValid = winLossDetailParam.IsValid();
@@ -430,11 +422,11 @@
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-            DateTime fromDate = testContextFixture.CurrentDate;
-            DateTime toDate = testContextFixture.CurrentDate.AddDays(-1);
+            DateTime fromDate = DefaultVariables.CurrentDate;
+            DateTime toDate = DefaultVariables.CurrentDate.AddDays(-1);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
 
             // Act
             var actualIsValid = winLossDetailParam.IsValid();
@@ -448,11 +440,11 @@
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-            DateTime fromDate = testContextFixture.CurrentDate;
-            DateTime toDate = testContextFixture.CurrentDate;
+            DateTime fromDate = DefaultVariables.CurrentDate;
+            DateTime toDate = DefaultVariables.CurrentDate;
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
 
             // Act
             var actualIsValid = winLossDetailParam.IsValid();
@@ -468,7 +460,7 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
             var expectedPageIndex = DefaultVariables.PageIndex;
 
             // Act
@@ -499,8 +491,7 @@
                 reportLevel,
                 string.Empty,
                 false,
-                false,
-                testContextFixture);
+                false);
             var expectedPageIndex = pageIndex;
 
             // Act
@@ -517,7 +508,7 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false, testContextFixture);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
             var expectedPageSize = DefaultVariables.PageSize;
 
             // Act
@@ -548,8 +539,7 @@
                 reportLevel,
                 string.Empty,
                 false,
-                false,
-                testContextFixture);
+                false);
             var expectedPageSize = pageSize;
 
             // Act
