@@ -2,6 +2,7 @@
 {
     using System;
     using System.Web.Mvc;
+    using Excel.AppResources;
     using Excel.Helpers;
     using Excel.Services;
     using Extensions;
@@ -53,6 +54,23 @@
                 fileContent,
                 ExcelHelper.ContentType,
                 ExcelHelper.GetFileName($"{viewModel.Title}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}"));
+        }
+
+        [HttpGet]
+        public ActionResult EnteredResultExcel(EnterResultQuery message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            var viewModel = mediator.Send(message);
+            var fileContent = mediator.Send(new ExportEnteredResultQuery(viewModel));
+
+            return File(
+                fileContent,
+                ExcelHelper.ContentType,
+                ExcelHelper.GetFileName($"{Resources.MatchResultEntered}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}"));
         }
     }
 }

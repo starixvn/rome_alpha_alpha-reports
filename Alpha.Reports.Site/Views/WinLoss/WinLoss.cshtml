@@ -118,6 +118,15 @@
     }
 </table>
 
+
+<form class="form-inline hide" role="form" id="export-excel-form" action="~/WinLoss/WinLossExcel">
+    <input type="hidden" name="CustId" value="@Model.CustId" />
+    <input type="hidden" name="FromDate" value="@Model.FromDate" />
+    <input type="hidden" name="ToDate" value="@Model.ToDate" />
+    <input type="hidden" name="UserSelectedProductIds" value="@Model.UserSelectedProductIds" />
+    <input type="hidden" name="UserLevelId" value="@Model.UserLevel.Value" />
+</form>
+
 @section Scripts {
     @ReportsScripts.Render("~/assets/bundles/winloss/winloss")
 }

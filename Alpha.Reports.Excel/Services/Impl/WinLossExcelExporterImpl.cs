@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Excel.Services.Impl
 {
+    using System;
     using System.Collections.Generic;
     using AppResources;
     using Extensions;
@@ -27,7 +28,7 @@
             this.workbook = workbook;
         }
 
-        public byte[] Export(ExportExcelParam<Models.Winloss.WinLoss> param, ExportWinLossParam exportWinLossParam)
+        public byte[] ExportWinLossExcel(ExportExcelParam<WinLoss> param, ExportWinLossParam exportWinLossParam)
         {
             var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of} " + string.Join(", ", productService.GetProductNames(exportWinLossParam.UserSelectedProductIds));
@@ -51,18 +52,43 @@
             workbook.Load(param.TemplatePath);
             var spreadSheetLayout = new SpreadSheetLayout(noInfomationText: Resources.NoInformationIsAvailable);
 
-            var spreadSheet = (new SpreadSheet<Models.Winloss.WinLoss>())
+            var spreadSheet = (new SpreadSheet<WinLoss>())
                 .AddTitle(reportTitle)
                 .AddHeaderTexts(headerTexts)
-                .AddBody(param.ReportData.DataSource, BodyRowMapping)
-                .AddFooter(param.ReportData.TotalData, FooterRowMapping)
+                .AddBody(param.ReportData.DataSource, WinLossBodyRowMapping)
+                .AddFooter(param.ReportData.TotalData, WinLossFooterRowMapping)
                 .AddSheetName(param.SheetName)
-                .SetLayout(spreadSheetLayout.SetFreezePanel(4, "B"));
+                .SetLayout(spreadSheetLayout);
 
             return spreadSheetEngine.Export(spreadSheet, workbook);
         }
 
-        private static IDictionary<string, object> BodyRowMapping(Models.Winloss.WinLoss data, int rowIndex)
+        public byte[] ExportEnteredResultExcel(ExportExcelParam<EnteredSportResult> param)
+        {
+            var headerTexts = new Dictionary<string, string>
+            {
+                { "Date", Resources.Date },
+                { "Yesterday", string.Format("{0:MM/dd/yyyy}", DateTime.Now.AddDays(-1)) },
+                { "Today", string.Format("{0:MM/dd/yyyy}", DateTime.Now) },
+                { "Results", Resources.Results },
+                { "Entered", Resources.Entered },
+                { "Non-Entered", Resources.NonEntered },
+            };
+
+            workbook.Load(param.TemplatePath);
+            var spreadSheetLayout = new SpreadSheetLayout(noInfomationText: Resources.NoInformationIsAvailable);
+
+            var spreadSheet = (new SpreadSheet<EnteredSportResult>())
+                .AddTitle(Resources.MatchResultEntered)
+                .AddHeaderTexts(headerTexts)
+                .AddBody(param.ReportData.DataSource, EnteredResultsBodyRowMapping)
+                .AddSheetName(param.SheetName)
+                .SetLayout(spreadSheetLayout);
+
+            return spreadSheetEngine.Export(spreadSheet, workbook);
+        }
+
+        private static IDictionary<string, object> WinLossBodyRowMapping(WinLoss data, int rowIndex)
         {
             var result = new Dictionary<string, object>
             {
@@ -81,9 +107,9 @@
             return result;
         }
 
-        private static IDictionary<string, object> FooterRowMapping(Models.Winloss.WinLoss data, int rowIndex)
+        private static IDictionary<string, object> WinLossFooterRowMapping(WinLoss data, int rowIndex)
         {
-            var result = BodyRowMapping(data, rowIndex);
+            var result = WinLossBodyRowMapping(data, rowIndex);
             result["A"] = Resources.Total;
 
             return result;
@@ -106,6 +132,31 @@
             }
 
             resultColumns.Add(columnName.ToString(), netWinLoss.Total);
+            columnName++;
+
+            return columnName;
+        }
+
+        private static IDictionary<string, object> EnteredResultsBodyRowMapping(EnteredSportResult data, int rowIndex)
+        {
+            var result = new Dictionary<string, object>
+            {
+                { "A", data.SportName },
+            };
+
+            var columnName = 'B';
+            columnName = AddEnteredSportDailyColumns(data.EnterSportYesterday, result, columnName);
+            columnName = AddEnteredSportDailyColumns(data.EnterSportToday, result, columnName);
+
+            return result;
+        }
+
+        private static char AddEnteredSportDailyColumns(EnteredSportDaily enteredSportDaily, Dictionary<string, object> resultColumns, char columnName)
+        {
+            resultColumns.Add(columnName.ToString(), enteredSportDaily == null ? 0 : enteredSportDaily.Entered);
+            columnName++;
+
+            resultColumns.Add(columnName.ToString(), enteredSportDaily == null ? 0 : enteredSportDaily.NonEntered);
             columnName++;
 
             return columnName;

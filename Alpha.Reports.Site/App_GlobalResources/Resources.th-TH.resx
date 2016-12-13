@@ -292,4 +292,19 @@
   <data name="of2" xml:space="preserve">
     <value>ของ</value>
   </data>
+  <data name="AgentTotal" xml:space="preserve">
+    <value>รวม เอเจนต์</value>
+  </data>
+  <data name="AgentWinLoss" xml:space="preserve">
+    <value>เอเจนต์ ได้เสีย</value>
+  </data>
+  <data name="MasterTotal" xml:space="preserve">
+    <value>รวม Master</value>
+  </data>
+  <data name="MasterWinLoss" xml:space="preserve">
+    <value>ตัวแทนหลัก ชนะ แพ้</value>
+  </data>
+  <data name="MemberWinLoss" xml:space="preserve">
+    <value>สมาชิก (ชนะ แพ้)</value>
+  </data>
 </root>

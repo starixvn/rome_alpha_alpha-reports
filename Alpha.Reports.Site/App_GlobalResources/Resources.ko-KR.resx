@@ -256,9 +256,18 @@
     <value>리포트 내역 보기</value>
   </data>
   <data name="AgentTotal" xml:space="preserve">
-    <value>Agent Total</value>
+    <value>총 에이전트</value>
+  </data>
+  <data name="AgentWinLoss" xml:space="preserve">
+    <value>에이전트 승 패</value>
   </data>
   <data name="MasterTotal" xml:space="preserve">
-    <value>Master Total</value>
+    <value>마스터 총계</value>
+  </data>
+  <data name="MasterWinLoss" xml:space="preserve">
+    <value>마스터 승리 패배</value>
+  </data>
+  <data name="MemberWinLoss" xml:space="preserve">
+    <value>สมาชิก (ชนะ แพ้)</value>
   </data>
 </root>

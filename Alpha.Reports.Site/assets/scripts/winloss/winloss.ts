@@ -23,6 +23,7 @@ class WinLossView {
     $reportForm: any;
     $userSelectedDateRangeOption: any;
     $reportSwitch: any;
+    $exportExcelForm: any;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -115,7 +116,10 @@ class WinLossView {
 
             self.replaceDrilldownParam("IsFilterVisible", !currentHideState);
         });
-
+        this.$("#icon-excel").on("click", function () {
+            self.$("#export-excel-form").submit();
+            self.$.unblockUI();
+        });
         this.$(".icon-switchmode").on("click", function () {
             var tableReport = self.$tableReport;
             var currentStackModeState = tableReport.hasClass("stack-mode");
@@ -160,18 +164,6 @@ class WinLossView {
         });
 
         this.$reportForm.submit(this.onSubmitReportEvent);
-
-        this.$("#icon-excel").on("click", function () {
-            self.$reportForm.attr("action", "WinLoss/WinLossExcel");
-            self.$reportForm.submit();
-
-            self.$reportForm.attr("action", null);
-            self.$.unblockUI();
-        });
-
-        this.$(".icon-back").on("click", function () {
-            window.history.back();
-        });
     };
     hideFilter = () => {
         var self = this;

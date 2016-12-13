@@ -106,6 +106,24 @@ namespace Alpha.Reports.Excel.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entered.
+        /// </summary>
+        public static string Entered {
+            get {
+                return ResourceManager.GetString("Entered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gross Comm.
         /// </summary>
         public static string GrossComm {
@@ -138,6 +156,15 @@ namespace Alpha.Reports.Excel.AppResources {
         public static string MasterWinLossDetail {
             get {
                 return ResourceManager.GetString("MasterWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match Result Entered.
+        /// </summary>
+        public static string MatchResultEntered {
+            get {
+                return ResourceManager.GetString("MatchResultEntered", resourceCulture);
             }
         }
         
@@ -178,6 +205,15 @@ namespace Alpha.Reports.Excel.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Non-Entered.
+        /// </summary>
+        public static string NonEntered {
+            get {
+                return ResourceManager.GetString("NonEntered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No. of Tickets.
         /// </summary>
         public static string NoOfTickets {
@@ -192,6 +228,15 @@ namespace Alpha.Reports.Excel.AppResources {
         public static string of {
             get {
                 return ResourceManager.GetString("of", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        public static string Results {
+            get {
+                return ResourceManager.GetString("Results", resourceCulture);
             }
         }
         

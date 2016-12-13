@@ -376,6 +376,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match Result Entered.
+        /// </summary>
+        public static string MatchResultEntered {
+            get {
+                return ResourceManager.GetString("MatchResultEntered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to May.
         /// </summary>
         public static string May {

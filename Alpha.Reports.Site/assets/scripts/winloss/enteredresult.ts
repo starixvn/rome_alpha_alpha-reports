@@ -72,17 +72,14 @@ class EnterResultView {
             }
         });
 
+        this.$("#icon-excel").on("click", function () {
+            self.$("#export-excel-form").submit();
+            self.$.unblockUI();
+        });
+
         this.$(".btn-submit").on("click", function () {
             self.$("#IsHistoricReport").val(false);
             self.onSubmitReportEvent();
-        });
-
-        this.$("#icon-excel").on("click", function () {
-            self.$reportForm.attr("action", "WinLoss/EnteredResultExcel");
-            self.$reportForm.submit();
-
-            self.$reportForm.attr("action", null);
-            self.$.unblockUI();
         });
     };
     hideFilter = () => {

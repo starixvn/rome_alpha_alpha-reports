@@ -23,7 +23,8 @@
     public class WinLossHandler :
         IRequestHandler<WinLossQuery, WinLossViewModel>,
         IRequestHandler<EnterResultQuery, EnteredResultViewModel>,
-        IRequestHandler<ExportWinLossQuery, byte[]>
+        IRequestHandler<ExportWinLossQuery, byte[]>,
+        IRequestHandler<ExportEnteredResultQuery, byte[]>
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
@@ -113,7 +114,7 @@
                 throw new ArgumentNullException("message");
             }
 
-            var fileContents = excelExporter.Export(
+            var fileContents = excelExporter.ExportWinLossExcel(
                 new ExportExcelParam<WinLoss>
                 {
                     TemplatePath = message.TemplatePath,
@@ -124,6 +125,25 @@
                     ToDate = message.ToDate
                 },
                 new ExportWinLossParam(message.UserLevel, message.UserSelectedProductIds));
+
+            return fileContents;
+        }
+
+        public byte[] Handle(ExportEnteredResultQuery message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            var fileContents = excelExporter.ExportEnteredResultExcel(
+                new ExportExcelParam<EnteredSportResult>
+                {
+                    TemplatePath = message.TemplatePath,
+                    ReportName = message.Title,
+                    SheetName = message.Title,
+                    ReportData = message.ReportData,
+                });
 
             return fileContents;
         }
