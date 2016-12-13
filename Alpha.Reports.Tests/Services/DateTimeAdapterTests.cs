@@ -1,19 +1,27 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
-    using System;
+    using Constants;
     using Reports.Services;
     using Xunit;
 
     public class DateTimeAdapterTests
     {
-        [Fact]
-        public void Now_Always_ReturnsDateNotLaterThan1Millisecond()
+        public DateTimeAdapterTests()
         {
+            DateTimeAdapter.Now = DefaultVariables.CurrentDate;
+        }
+
+        [Fact]
+        public void Now_Always_ReturnsCurrentDate()
+        {
+            // Arrange
+            var expectedDate = DefaultVariables.CurrentDate;
+
             // Act
             var actualDate = DateTimeAdapter.Now;
 
             // Assert
-            Assert.True((DateTime.Now - actualDate).Milliseconds <= 1);
+            Assert.Equal(expectedDate, actualDate);
         }
     }
 }
