@@ -4,12 +4,12 @@
 
     public static class DateTimeAdapter
     {
-        private static DateTime? _now;
+        private static DateTime? now;
 
         public static DateTime Now
         {
-            get { return _now ?? DateTime.Now; }
-            set { _now = value; }
+            get { return now ?? DateTime.Now; }
+            set { now = value; }
         }
     }
 }

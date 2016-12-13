@@ -3,9 +3,9 @@
     using System;
     using System.Linq;
     using Comparers;
-    using DataAccesses;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
+    using Reports.DataAccesses;
     using Reports.Enumerations;
     using Reports.Models;
     using Reports.Models.WinlossDetails;

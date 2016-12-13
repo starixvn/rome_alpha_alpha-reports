@@ -5,9 +5,9 @@
     using System.Data;
     using Criteria.WinLossDetail;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Models;
     using Models.WinlossDetails;
+    using Services;
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {
@@ -21,7 +21,7 @@
             var winLossDetails = new List<WinLossDetail>();
             var totalWinLoss = new WinLossDetail();
 
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateObjectDbFunc(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria))
                 {

@@ -112,6 +112,7 @@
     <Compile Include="Criteria\ReportCriteriaBaseTests.cs" />
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
+    <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Enumerations\EnumerationTests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTests.cs" />
