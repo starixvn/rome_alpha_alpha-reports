@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Excel.Services.Impl
 {
+    using System;
     using System.Collections.Generic;
     using AppResources;
     using Extensions;
@@ -28,6 +29,16 @@
 
         public byte[] Export(ExportExcelParam<WinLossDetail> param, ExportWinLossDetailParam exportWinLossDetailParam)
         {
+            if (param == null)
+            {
+                throw new ArgumentNullException(nameof(param));
+            }
+
+            if (exportWinLossDetailParam == null)
+            {
+                throw new ArgumentNullException(nameof(exportWinLossDetailParam));
+            }
+
             var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of} " + string.Join(", ", productService.GetProductNames(exportWinLossDetailParam.UserSelectedProductIds));
             var headerTexts = new Dictionary<string, string>
