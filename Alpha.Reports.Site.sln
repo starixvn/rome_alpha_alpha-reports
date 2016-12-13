@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Excel", "Alph
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Excel.Tests", "Alpha.Reports.Excel.Tests\Alpha.Reports.Excel.Tests.csproj", "{6E63EA3D-EBC9-44D2-B633-1051D9AE273A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.AppResources", "Alpha.Reports.AppResources\Alpha.Reports.AppResources.csproj", "{40E67A44-A6B5-4DE4-81CE-01FF7145C96C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{6E63EA3D-EBC9-44D2-B633-1051D9AE273A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E63EA3D-EBC9-44D2-B633-1051D9AE273A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E63EA3D-EBC9-44D2-B633-1051D9AE273A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40E67A44-A6B5-4DE4-81CE-01FF7145C96C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40E67A44-A6B5-4DE4-81CE-01FF7145C96C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40E67A44-A6B5-4DE4-81CE-01FF7145C96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40E67A44-A6B5-4DE4-81CE-01FF7145C96C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

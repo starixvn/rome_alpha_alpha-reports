@@ -255,11 +255,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_GlobalResources\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Configurations\SiteSettings.cs" />
@@ -479,6 +474,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Alpha.Reports.AppResources\Alpha.Reports.AppResources.csproj">
+      <Project>{40e67a44-a6b5-4de4-81ce-01ff7145c96c}</Project>
+      <Name>Alpha.Reports.AppResources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Alpha.Reports.Excel\Alpha.Reports.Excel.csproj">
       <Project>{d3a67502-185c-4c96-8179-2744d5c810d4}</Project>
       <Name>Alpha.Reports.Excel</Name>
@@ -490,19 +489,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="App_GlobalResources\Resources.ja-JP.resx" />
-    <EmbeddedResource Include="App_GlobalResources\Resources.ko-KR.resx" />
-    <EmbeddedResource Include="App_GlobalResources\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="App_GlobalResources\Resources.th-TH.resx" />
-    <EmbeddedResource Include="App_GlobalResources\Resources.vi-VN.resx" />
-    <EmbeddedResource Include="App_GlobalResources\Resources.zh-CN.resx" />
-    <EmbeddedResource Include="App_GlobalResources\Resources.zh-TW.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

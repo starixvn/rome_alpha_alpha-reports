@@ -5,8 +5,8 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using App_GlobalResources;
     using App_Start;
+    using AppResources;
     using Auth.Filters;
     using Configurations;
     using Fanex.Data;

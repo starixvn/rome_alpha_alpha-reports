@@ -73,11 +73,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppResources\Resources.Designer.cs">
-      <DependentUpon>Resources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="Params\ExportExcelParam.cs" />
     <Compile Include="Params\ExportWinLossDetailParam.cs" />
@@ -86,23 +81,14 @@
     <Compile Include="Services\WinLossDetailExcelExporter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Alpha.Reports.AppResources\Alpha.Reports.AppResources.csproj">
+      <Project>{40e67a44-a6b5-4de4-81ce-01ff7145c96c}</Project>
+      <Name>Alpha.Reports.AppResources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Alpha.Reports\Alpha.Reports.csproj">
       <Project>{B868E639-F3F9-4D54-B02E-57F3BEE0965E}</Project>
       <Name>Alpha.Reports</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="AppResources\Resources.ja-JP.resx" />
-    <EmbeddedResource Include="AppResources\Resources.ko-KR.resx" />
-    <EmbeddedResource Include="AppResources\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AppResources\Resources.th-TH.resx" />
-    <EmbeddedResource Include="AppResources\Resources.vi-VN.resx" />
-    <EmbeddedResource Include="AppResources\Resources.zh-CN.resx" />
-    <EmbeddedResource Include="AppResources\Resources.zh-TW.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

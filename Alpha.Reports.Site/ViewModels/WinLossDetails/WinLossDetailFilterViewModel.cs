@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetails
 {
     using System;
-    using App_GlobalResources;
+    using AppResources;
     using Components;
     using Extensions;
     using Models;

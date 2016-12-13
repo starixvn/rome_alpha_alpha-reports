@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using App_GlobalResources;
+    using AppResources;
 
     public class DateRangePickerViewModel
     {
