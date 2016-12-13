@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using App_GlobalResources;
@@ -10,7 +9,6 @@
     using Extensions;
     using Models;
     using Models.WinlossDetails;
-    using Newtonsoft.Json;
     using Requests.WinLossDetails;
 
     public class WinLossDetailViewModel
@@ -140,81 +138,6 @@
 
         public bool HasSubmittedParams { get; set; }
 
-        public WinLossDetailQuery Message { get; set; }
-
-        public IEnumerable<ActionLinkViewModel> BreadcrumbLevels => BuildBreadcrumbLevels(Message);
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        private IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels(WinLossDetailQuery message)
-        {
-            var drilldownLevels = new List<ActionLinkViewModel>();
-            var breadcrumbLevels = new List<CustInfo>();
-
-            if (!string.IsNullOrWhiteSpace(message.BreadcrumbLevels))
-            {
-                var messageBreadcrumbLevels = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(message.BreadcrumbLevels.Replace("'", "\""));
-
-                foreach (var custInfo in messageBreadcrumbLevels)
-                {
-                    if (custInfo.UserLevelId == message.UserLevelId)
-                    {
-                        break;
-                    }
-
-                    breadcrumbLevels.Add(custInfo);
-
-                    var actionLinkViewModel = new ActionLinkViewModel(
-                        controllerName: "WinLossDetail",
-                        actionName: "Index",
-                        linkText: custInfo.CustName,
-                        routeValues: new WinLossDetailQuery
-                        {
-                            CustId = custInfo.CustId,
-                            CustName = custInfo.CustName,
-                            PageSize = message.PageSize,
-                            FromDate = message.FromDate,
-                            ToDate = message.ToDate,
-
-                            UserSelectedProductIds = message.UserSelectedProductIds,
-                            SortPropertyName = message.SortPropertyName,
-                            IsDescendingSort = message.IsDescendingSort,
-                            IsStackMode = message.IsStackMode,
-                            IsHistoricReport = message.IsHistoricReport,
-                            IsFilterVisible = message.IsFilterVisible,
-                            UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                            UserLevelId = custInfo.UserLevelId,
-                            BreadcrumbLevels = JsonConvert.SerializeObject(breadcrumbLevels).Replace("\"", "'")
-                        });
-
-                    drilldownLevels.Add(actionLinkViewModel);
-                }
-            }
-
-            breadcrumbLevels.Add(new CustInfo(message.CustId, message.CustName, message.UserLevelId));
-            drilldownLevels.Add(new ActionLinkViewModel(
-                controllerName: "WinLossDetail",
-                actionName: "Index",
-                linkText: message.CustName,
-                routeValues: new WinLossDetailQuery
-                {
-                    CustId = message.CustId,
-                    CustName = message.CustName,
-                    PageSize = message.PageSize,
-                    FromDate = message.FromDate,
-                    ToDate = message.ToDate,
-
-                    UserSelectedProductIds = message.UserSelectedProductIds,
-                    SortPropertyName = message.SortPropertyName,
-                    IsDescendingSort = message.IsDescendingSort,
-                    IsStackMode = message.IsStackMode,
-                    IsHistoricReport = message.IsHistoricReport,
-                    IsFilterVisible = message.IsFilterVisible,
-                    UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                    UserLevelId = message.UserLevelId,
-                    BreadcrumbLevels = JsonConvert.SerializeObject(breadcrumbLevels).Replace("\"", "'")
-                }));
-
-            return drilldownLevels;
-        }
+        public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
     }
 }

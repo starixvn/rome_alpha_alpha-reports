@@ -3,6 +3,7 @@
     using System;
     using Criteria;
     using Fanex.Caching;
+    using Fanex.Caching.Memory;
     using Fanex.Data.Repository;
     using Models;
 

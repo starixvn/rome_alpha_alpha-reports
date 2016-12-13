@@ -1,9 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
-    using System;
-    using System.Collections.Generic;
     using MediatR;
-    using Models;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLossDetails;
@@ -56,8 +53,6 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public byte UserLevelId { get; set; }
-
         public bool HasSubmittedParams
         {
             get
@@ -65,7 +60,5 @@
                 return !string.IsNullOrWhiteSpace(UserSelectedProductIds);
             }
         }
-
-        public string BreadcrumbLevels { get; set; }
     }
 }

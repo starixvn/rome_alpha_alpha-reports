@@ -8,6 +8,10 @@
 
         public string CustName { get; set; }
 
+        public byte UserLevelId { get; set; }
+
+        public string BreadcrumbLevels { get; set; }
+
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }

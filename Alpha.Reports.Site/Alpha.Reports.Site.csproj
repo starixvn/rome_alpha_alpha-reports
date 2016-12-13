@@ -270,6 +270,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetailHandler.cs" />
     <Compile Include="Helpers\AppPathHelper.cs" />
     <Compile Include="Helpers\Impl\MicroSitesImpl.cs" />

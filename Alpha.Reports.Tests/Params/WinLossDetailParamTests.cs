@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Constants;
     using Fanex.Common;
     using Reports.Enumerations;
     using Reports.Extensions;
@@ -458,6 +459,104 @@
 
             // Assert
             Assert.True(actualIsValid);
+        }
+
+        [Fact]
+        public void PageIndex_NotSupportPageIndex_ReturnsDefaultPageIndex()
+        {
+            // Arrange
+            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
+
+            var winLossDetailParam =
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false, testContextFixture);
+            var expectedPageIndex = DefaultVariables.PageIndex;
+
+            // Act
+            var actualPageIndex = winLossDetailParam.PageIndex;
+
+            // Assert
+            Assert.Equal(expectedPageIndex, actualPageIndex);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(-1)]
+        [InlineData(1000)]
+        [InlineData(2)]
+        [InlineData(int.MinValue)]
+        [InlineData(int.MaxValue)]
+        public void PageIndex_SupportPageIndex_ReturnsSupportedPageIndex(int pageIndex)
+        {
+            // Arrange
+            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                pageIndex,
+                0,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                reportLevel,
+                string.Empty,
+                false,
+                false,
+                testContextFixture);
+            var expectedPageIndex = pageIndex;
+
+            // Act
+            var actualPageIndex = winLossDetailParam.PageIndex;
+
+            // Assert
+            Assert.Equal(expectedPageIndex, actualPageIndex);
+        }
+
+        [Fact]
+        public void PageSize_NotSupportPageSize_ReturnsDefaultPageSize()
+        {
+            // Arrange
+            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
+
+            var winLossDetailParam =
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false, testContextFixture);
+            var expectedPageSize = DefaultVariables.PageSize;
+
+            // Act
+            var actualPageSize = winLossDetailParam.PageSize;
+
+            // Assert
+            Assert.Equal(expectedPageSize, actualPageSize);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(-1)]
+        [InlineData(1000)]
+        [InlineData(2)]
+        [InlineData(int.MinValue)]
+        [InlineData(int.MaxValue)]
+        public void PageSize_SupportPageSize_ReturnsSupportedPageSize(int pageSize)
+        {
+            // Arrange
+            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                0,
+                pageSize,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                reportLevel,
+                string.Empty,
+                false,
+                false,
+                testContextFixture);
+            var expectedPageSize = pageSize;
+
+            // Act
+            var actualPageSize = winLossDetailParam.PageSize;
+
+            // Assert
+            Assert.Equal(expectedPageSize, actualPageSize);
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Web.Mvc;
     using Enumerations;
     using Excel.Params;
     using Excel.Services;
@@ -17,6 +16,7 @@
     using ViewModels.WinLossDetails;
 
     public class WinLossDetailHandler :
+        BaseHandler,
         IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>,
         IRequestHandler<ExportWinLossDetailQuery, byte[]>
     {
@@ -34,6 +34,7 @@
             this.excelExporter = excelExporter;
         }
 
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public WinLossDetailViewModel Handle(WinLossDetailQuery message)
         {
             if (message == null)
@@ -70,7 +71,26 @@
                 SortPropertyName = winLossDetailParam.SortByPropertyName,
                 IsDescendingSort = winLossDetailParam.IsDescendingSort,
                 HasSubmittedParams = message.HasSubmittedParams,
-                Message = message
+                BreadcrumbLevels = BuildBreadcrumbLevels(
+                    message,
+                    (custInfo, query, breadcrumbLevels) => new WinLossDetailQuery
+                    {
+                        CustId = custInfo.CustId,
+                        CustName = custInfo.CustName,
+                        PageSize = message.PageSize,
+                        FromDate = message.FromDate,
+                        ToDate = message.ToDate,
+
+                        UserSelectedProductIds = message.UserSelectedProductIds,
+                        SortPropertyName = message.SortPropertyName,
+                        IsDescendingSort = message.IsDescendingSort,
+                        IsStackMode = message.IsStackMode,
+                        IsHistoricReport = message.IsHistoricReport,
+                        IsFilterVisible = message.IsFilterVisible,
+                        UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
+                        UserLevelId = custInfo.UserLevelId,
+                        BreadcrumbLevels = breadcrumbLevels
+                    })
             };
 
             return viewModel;
@@ -117,29 +137,6 @@
                  message.SortPropertyName,
                  message.IsDescendingSort,
                  message.IsHistoricReport);
-        }
-
-        private IEnumerable<SelectListItem> BuildProductSelectListItems(
-            IEnumerable<int> userSelectedProductIds,
-            IEnumerable<Product> products)
-        {
-            if (products == null
-                || !products.Any())
-            {
-                return Enumerable.Empty<SelectListItem>();
-            }
-
-            return products.Select(product =>
-            {
-                var productSelectListItem = new SelectListItem
-                {
-                    Text = product.DisplayName,
-                    Value = product.Id.ToString(),
-                    Selected = userSelectedProductIds.Contains(product.Id)
-                };
-
-                return productSelectListItem;
-            });
         }
     }
 }
