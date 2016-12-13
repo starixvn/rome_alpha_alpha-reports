@@ -45,3 +45,5 @@ bundles
 *.js.map
 */assets/scripts/**/*.js
 */bundles/**/*.js
+*.ncrunchproject
+*.ncrunchsolution
