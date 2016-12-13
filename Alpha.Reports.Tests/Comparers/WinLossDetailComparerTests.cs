@@ -68,5 +68,20 @@
             // Assert
             Assert.True(actualEqual);
         }
+
+        [Fact]
+        public void Equals_NullLists_ReturnTrue()
+        {
+            // Arrange
+            List<WinLossDetail> winLossDetailA = null;
+
+            List<WinLossDetail> winLossDetailB = null;
+
+            // Act
+            var actualEqual = WinLossDetailComparer.Equals(winLossDetailA, winLossDetailB);
+
+            // Assert
+            Assert.True(actualEqual);
+        }
     }
 }

@@ -34,5 +34,20 @@
             // Assert
             Assert.False(actualEqual);
         }
+
+        [Fact]
+        public void Equals_CompareNotNulls_ReturnFalse()
+        {
+            // Arrange
+            var netWinLossA = new NetWinLoss(0, 0);
+
+            NetWinLoss netWinLossB = null;
+
+            // Act
+            var actualEqual = NetWinLossComparer.Equals(netWinLossA, netWinLossB);
+
+            // Assert
+            Assert.False(actualEqual);
+        }
     }
 }
