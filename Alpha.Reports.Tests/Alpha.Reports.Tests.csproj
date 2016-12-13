@@ -41,6 +41,10 @@
       <HintPath>..\packages\Fanex.Caching.2.0.0\lib\net461\Fanex.Caching.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.Common, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fanex.Common.1.1.0.1\lib\net40\Fanex.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.Data, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Data.2.0.2.1\lib\net461\Fanex.Data.dll</HintPath>
       <Private>True</Private>
@@ -109,7 +113,9 @@
     <Compile Include="ModelsForTesting\UserLevelForTesting.cs" />
     <Compile Include="ModelsForTesting\WinLossDetailForTesting.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
+    <Compile Include="Models\CustInfoTests.cs" />
     <Compile Include="Models\ProductTests.cs" />
+    <Compile Include="Models\ReportApplicationContextTests.cs" />
     <Compile Include="Models\ReportDataTests.cs" />
     <Compile Include="Models\UserLevelTests.cs" />
     <Compile Include="Params\ProductByCustomerParamTests.cs" />
