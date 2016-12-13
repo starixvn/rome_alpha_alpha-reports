@@ -97,6 +97,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparers\NetWinLossComparer.cs" />
+    <Compile Include="Comparers\NetWinLossComparerTests.cs" />
+    <Compile Include="Comparers\WinLossDetailComparer.cs" />
+    <Compile Include="Comparers\WinLossDetailComparerTests.cs" />
+    <Compile Include="Comparers\WinLossDetailReportDataComparer.cs" />
+    <Compile Include="Comparers\WinLossDetailReportDataComparerTests.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\DefaultVariablesTests.cs" />
     <Compile Include="Constants\RoleId.cs" />
@@ -110,9 +116,7 @@
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
-    <Compile Include="ModelsForTesting\NetWinLossForTesting.cs" />
     <Compile Include="ModelsForTesting\UserLevelForTesting.cs" />
-    <Compile Include="ModelsForTesting\WinLossDetailForTesting.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
     <Compile Include="Models\CustInfoTests.cs" />
     <Compile Include="Models\ProductTests.cs" />
@@ -124,6 +128,7 @@
     <Compile Include="Services\DateTimeAdapterTests.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
+    <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
     <Compile Include="TestCases\StringExtensionsTestCases.cs" />
     <Compile Include="TestCases\UserLevelTestCases.cs" />
   </ItemGroup>

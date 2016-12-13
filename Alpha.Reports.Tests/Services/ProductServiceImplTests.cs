@@ -18,7 +18,6 @@
         private readonly Func<int, bool> canViewProduct;
         private readonly Func<int, string> getProductName;
         private readonly IDynamicRepository dynamicRepository;
-        private readonly ProductServiceImpl productServiceImpl;
         private readonly Cache cacheForTesting;
         private readonly IEnumerable<Product> allCustomerProductIds = new List<Product>()
         {
@@ -27,10 +26,12 @@
             new Product(3, "Product 3")
         };
 
+        private ProductServiceImpl productServiceImpl;
+
         public ProductServiceImplTests()
         {
             canViewProduct = (productId) => true;
-            getProductName = (productId) => string.Empty;
+            getProductName = (productId) => $"Product {productId}";
             dynamicRepository = Substitute.For<IDynamicRepository>();
             productServiceImpl = new ProductServiceImpl(dynamicRepository, canViewProduct, getProductName);
 
@@ -47,6 +48,7 @@
             // Arrange
             IEnumerable<int> productIds = null;
             var expectedProductIds = Enumerable.Empty<int>();
+            productServiceImpl = new ProductServiceImpl(dynamicRepository);
 
             // Act
             var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, productIds);
@@ -112,6 +114,34 @@
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
+        }
+
+        [Fact]
+        public void GetProductNames_NullProductIds_ReturnsEmptyNameList()
+        {
+            // Arrange
+            IEnumerable<int> productIds = null;
+            var expectedProductNames = Enumerable.Empty<string>();
+
+            // Act
+            var actualProductNames = productServiceImpl.GetProductNames(productIds);
+
+            // Assert
+            Assert.Equal(expectedProductNames, actualProductNames);
+        }
+
+        [Fact]
+        public void GetProductNames_NotNullProductIds_ReturnsCorrectNameList()
+        {
+            // Arrange
+            IEnumerable<int> productIds = new List<int> { 1, 2, 3 };
+            var expectedProductNames = new List<string> { "Product 1", "Product 2", "Product 3" };
+
+            // Act
+            var actualProductNames = productServiceImpl.GetProductNames(productIds);
+
+            // Assert
+            Assert.Equal(expectedProductNames, actualProductNames);
         }
     }
 }

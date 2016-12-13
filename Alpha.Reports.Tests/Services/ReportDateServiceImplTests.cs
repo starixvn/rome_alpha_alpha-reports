@@ -22,10 +22,9 @@
 
         public ReportDateServiceImplTests()
         {
-            CacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
-
             cacheForTesting = Substitute.For<Cache>();
             CacheService.SwitchCacheStorage(cacheForTesting);
+            CacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
 
             repository = Substitute.For<IDynamicRepository>();
             service = new ReportDateServiceImpl(repository);
@@ -84,7 +83,7 @@
             service.GetBalanceUpDayAndMoveBetsDay();
 
             // Assert
-            cacheForTesting.Received().Set<BalanceUpDayAndMoveBetsDay>(
+            cacheForTesting.Received().Set(
                 BalanceUpDayAndMoveBetsDayCacheKey,
                 Arg.Is<BalanceUpDayAndMoveBetsDay>(data => data.BalanceUpDay == reportDates.BalanceUpDay && data.MoveBetsDay == reportDates.MoveBetsDay),
                 Arg.Any<CacheItemOptions>());
@@ -104,6 +103,7 @@
                 return true;
             });
 
+            CacheService.SwitchCacheStorage(cacheForTesting);
             CacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
 
             // Act

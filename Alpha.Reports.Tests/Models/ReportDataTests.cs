@@ -8,7 +8,21 @@
     public class ReportDataTests
     {
         [Fact]
-        public void DataSource_Always_ReturnsDataSourceFromCtor()
+        public void DataSource_NullDataSource_ReturnsEmptyWinLossDetailListFromCtor()
+        {
+            // Arrange
+            var reportData = new ReportData<WinLossDetail>(null, 0, 0, 0, default(WinLossDetail));
+            var expectedDataSource = Enumerable.Empty<WinLossDetail>();
+
+            // Act
+            var actual = reportData.DataSource;
+
+            // Assert
+            Assert.Equal(expectedDataSource, actual);
+        }
+
+        [Fact]
+        public void DataSource_NotNullDataSource_ReturnsDataSourceFromCtor()
         {
             // Arrange
             var dataSource = Enumerable.Empty<WinLossDetail>();

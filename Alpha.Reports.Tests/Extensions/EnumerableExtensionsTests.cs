@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using ModelsForTesting;
+    using Comparers;
     using Reports.Extensions;
     using Reports.Models.WinlossDetails;
     using Xunit;
@@ -25,42 +25,42 @@
             var numberOfRecords = 3;
             for (var i = 1; i <= numberOfRecords; i++)
             {
-                winLossDetails.Add(new WinLossDetailForTesting(
+                winLossDetails.Add(new WinLossDetail(
                     i,
                     $"Cust Name {i}",
                     i,
                     i,
                     i,
                     i,
-                    new NetWinLossForTesting(i, i),
-                    new NetWinLossForTesting(i, i),
-                    new NetWinLossForTesting(i, i),
-                    new NetWinLossForTesting(i, i)));
+                    new NetWinLoss(i, i),
+                    new NetWinLoss(i, i),
+                    new NetWinLoss(i, i),
+                    new NetWinLoss(i, i)));
 
-                ascendingSortedListByWinLoss.Add(new WinLossDetailForTesting(
+                ascendingSortedListByWinLoss.Add(new WinLossDetail(
                     i,
                     $"Cust Name {i}",
                     i,
                     i,
                     i,
                     i,
-                    new NetWinLossForTesting(i, i),
-                    new NetWinLossForTesting(i, i),
-                    new NetWinLossForTesting(i, i),
-                    new NetWinLossForTesting(i, i)));
+                    new NetWinLoss(i, i),
+                    new NetWinLoss(i, i),
+                    new NetWinLoss(i, i),
+                    new NetWinLoss(i, i)));
 
                 var descendingValue = numberOfRecords - i + 1;
-                descendingSortedListByWinLoss.Add(new WinLossDetailForTesting(
+                descendingSortedListByWinLoss.Add(new WinLossDetail(
                     descendingValue,
                     $"Cust Name {descendingValue}",
                     descendingValue,
                     descendingValue,
                     descendingValue,
                     descendingValue,
-                    new NetWinLossForTesting(descendingValue, descendingValue),
-                    new NetWinLossForTesting(descendingValue, descendingValue),
-                    new NetWinLossForTesting(descendingValue, descendingValue),
-                    new NetWinLossForTesting(descendingValue, descendingValue)));
+                    new NetWinLoss(descendingValue, descendingValue),
+                    new NetWinLoss(descendingValue, descendingValue),
+                    new NetWinLoss(descendingValue, descendingValue),
+                    new NetWinLoss(descendingValue, descendingValue)));
             }
         }
 
@@ -92,7 +92,7 @@
             var actualList = winLossDetails.OrderBy(propertyName).ToList();
 
             // Assert
-            Assert.Equal(expectedList, actualList);
+            Assert.True(WinLossDetailComparer.Equals(expectedList, actualList));
         }
 
         [Theory]
@@ -106,7 +106,7 @@
             var actualList = winLossDetails.OrderBy(propertyName).ToList();
 
             // Assert
-            Assert.Equal(expectedList, actualList);
+            Assert.True(WinLossDetailComparer.Equals(expectedList, actualList));
         }
 
         [Theory]
@@ -137,7 +137,7 @@
             var actualList = winLossDetails.OrderBy(propertyName, descending: false).ToList();
 
             // Assert
-            Assert.Equal(expectedList, actualList);
+            Assert.True(WinLossDetailComparer.Equals(expectedList, actualList));
         }
 
         [Theory]
@@ -151,7 +151,7 @@
             var actualList = winLossDetails.OrderBy(propertyName, descending: false).ToList();
 
             // Assert
-            Assert.Equal(expectedList, actualList);
+            Assert.True(WinLossDetailComparer.Equals(expectedList, actualList));
         }
 
         [Theory]
@@ -167,7 +167,7 @@
             var actualList = winLossDetails.OrderBy(propertyName, descending: false).ToList();
 
             // Assert
-            Assert.Equal(expectedList, actualList);
+            Assert.True(WinLossDetailComparer.Equals(expectedList, actualList));
         }
 
         [Theory]
