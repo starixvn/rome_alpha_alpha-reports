@@ -2,12 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Alpha.RemotingRef;
+    using AppResources;
     using Criteria.WinLoss;
     using DataAccesses;
     using Models;
     using Models.Winloss;
+    using Models.WinlossDetails;
     using Params;
 
     public class WinLossServiceImpl : WinLossService
@@ -45,9 +48,11 @@
                 validUserSelectedProductIds,
                 param.ReportLevel);
 
-            var winLossData = dataAccess.GetWinLoss(criteria);            
+            var winlossess = dataAccess.GetWinLosses(criteria);
 
-            return winLossData;
+            var totalWinLoss = BuildGrandTotal(winlossess, param.ReportLevel);
+
+            return new ReportData<WinLoss>(winlossess, winlossess.Count, totalWinLoss); 
         }
 
         public ReportData<EnteredSportResult> GetEnteredSportResults()
@@ -63,6 +68,63 @@
                     y.ToList().Where(x => !x.IsToday).FirstOrDefault())).ToList();
         
             return new ReportData<EnteredSportResult>(enteredResults);
+        }
+
+        private WinLoss BuildGrandTotal(List<WinLoss> winlossess, UserLevel reportLevel)
+        {
+            var grantTotal = new WinLoss(
+                 custId: 0,
+                 custName: Resources.Total,
+                 turnover: winlossess.Sum(x => x.Turnover),
+                 grossComm: winlossess.Sum(x => x.GrossComm),
+                 memberNetWinLoss: BuildGrandTotalMemberWinLoss(winlossess, reportLevel),
+                 agentNetWinLoss: BuildGrandTotalAgentWinLoss(winlossess, reportLevel),
+                 masterNetWinLoss: BuildGrandTotalMasterWinLoss(winlossess, reportLevel),
+                 superNetWinLoss: BuildGrandTotalSuperWinLoss(winlossess, reportLevel));
+
+            return grantTotal;
+        }
+
+        private NetWinLoss BuildGrandTotalMemberWinLoss(List<WinLoss> winlossess, UserLevel reportLevel)
+        {
+            var memberNetWinLoss = reportLevel.IsAgentLevel() ? new NetWinLoss(
+                                       winloss: winlossess.Sum(x => x.MemberNetWinLoss.WinLoss.Value),
+                                       comm: winlossess.Sum(x => x.MemberNetWinLoss.Comm.Value)) : null;
+
+            return memberNetWinLoss;
+        }
+
+        private NetWinLoss BuildGrandTotalAgentWinLoss(List<WinLoss> winlossess, UserLevel reportLevel)
+        {
+            var agentNetWinLoss = reportLevel.IsNotSuperLevel() ?
+                                  (reportLevel.IsMasterLevel() ? new NetWinLoss(total: winlossess.Sum(x => x.AgentNetWinLoss.Total))
+                                   : new NetWinLoss(
+                                        winloss: winlossess.Sum(x => x.AgentNetWinLoss.WinLoss.Value),
+                                        comm: winlossess.Sum(x => x.AgentNetWinLoss.Comm.Value))) : null;
+
+            return agentNetWinLoss;
+        }
+
+        private NetWinLoss BuildGrandTotalMasterWinLoss(List<WinLoss> winlossess, UserLevel reportLevel)
+        {
+            var masterNetWinLoss = reportLevel.IsMasterOrSuperLevel() ?
+                                   (reportLevel.IsMasterLevel() ?
+                                   new NetWinLoss(
+                                        winloss: winlossess.Sum(x => x.MasterNetWinLoss.WinLoss.Value),
+                                        comm: winlossess.Sum(x => x.MasterNetWinLoss.Comm.Value))
+                                  : new NetWinLoss(total: winlossess.Sum(x => x.MasterNetWinLoss.Total))) : null;
+
+            return masterNetWinLoss;
+        }
+
+        private NetWinLoss BuildGrandTotalSuperWinLoss(List<WinLoss> winlossess, UserLevel reportLevel)
+        {
+            var superNetWinLoss = reportLevel.IsSuperLevel() ?
+                                    new NetWinLoss(
+                                        winloss: winlossess.Sum(x => x.SuperNetWinLoss.WinLoss.Value),
+                                        comm: winlossess.Sum(x => x.SuperNetWinLoss.Comm.Value)) : null;
+
+            return superNetWinLoss;
         }
     }
 }

@@ -54,8 +54,6 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public byte UserLevelId { get; set; }
-
         public bool HasSubmittedParams
         {
             get
@@ -63,7 +61,5 @@
                 return FromDate != DateTime.MinValue;
             }
         }
-
-        public string BreadcrumbLevels { get; set; }
     }
 }

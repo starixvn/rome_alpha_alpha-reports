@@ -212,7 +212,7 @@ class WinLossView {
             return;
         }
 
-        this.$hideFilter.val(params.HideFilter);
+        this.$hideFilter.val(params.HideFilter ? true : params.HideFilter);
         this.$isDescendingSort.val(params.IsDescendingSort);
         this.$isHistoricReport.val(params.IsHistoricReport);
         this.$isStackMode.val(params.IsStackMode);

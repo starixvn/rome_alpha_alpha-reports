@@ -29,7 +29,5 @@
         }
 
         public string Language { get; }
-
-        public byte UserLevelId { get; set; }
     }
 }

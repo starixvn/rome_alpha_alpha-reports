@@ -35,16 +35,15 @@
             return dailyMatchevents;
         }
 
-        public ReportData<Models.Winloss.WinLoss> GetWinLoss(WinLossCriteria criteria)
+        public List<WinLoss> GetWinLosses(WinLossCriteria criteria)
         {
             if (criteria == null)
             {
                 throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
             }
 
-            var winLosses = new List<Models.Winloss.WinLoss>();
-            var totalWinLoss = new Models.Winloss.WinLoss();
-
+            var winLosses = new List<WinLoss>();
+            
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria))
@@ -55,16 +54,11 @@
                         {
                             winLosses.Add(BuildWinLoss(reader, criteria.ReportLevel));
                         }
-
-                        if (reader.NextResult() && reader.Read())
-                        {
-                            totalWinLoss = BuildWinLoss(reader, criteria.ReportLevel);
-                        }
                     }
                 }
             }
 
-            return new ReportData<Models.Winloss.WinLoss>(winLosses, winLosses.Count, totalWinLoss);
+            return winLosses;
         }
 
         private EnteredSportDaily BuildDailyMatchEvent(IDataReader reader)
@@ -82,7 +76,7 @@
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
         private WinLoss BuildWinLoss(IDataReader reader, UserLevel reportLevel)
         {
-            var winLoss = new Models.Winloss.WinLoss(
+            var winLoss = new WinLoss(
                  custId: reader.ToInt("CustId"),
                  custName: reader.ToString("CustName"),
                  turnover: reader.ToDecimal("TurnOver"),
