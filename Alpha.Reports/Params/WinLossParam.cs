@@ -5,11 +5,9 @@
     using Constants;
     using Extensions;
     using Models;
-
+    using Services;
     public class WinLossParam
     {
-        private ApplicationContext applicationContext;
-
         public WinLossParam(
             int custId,
             DateTime fromDate,
@@ -18,25 +16,22 @@
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
-            bool isHistoricReport,
-            ApplicationContext applicationContext = null)
+            bool isHistoricReport)
         {
-            this.applicationContext = applicationContext ?? new ReportApplicationContext();
-
             CustId = custId;
 
             IsHistoryReport = isHistoricReport;
 
             if (fromDate == DateTime.MinValue)
             {
-                FromDate = isHistoricReport ? DateTime.Now.FirstDayOfMonth() : DateTime.Now;
+                FromDate = isHistoricReport ? DateTime.Now.FirstDayOfMonth() : DateTimeAdapter.Now;
             }
             else
             {
                 FromDate = fromDate;
             }
 
-            ToDate = toDate == DateTime.MinValue ? DateTime.Now : toDate;
+            ToDate = toDate == DateTime.MinValue ? DateTimeAdapter.Now : toDate;
 
             ReportLevel = reportLevel;
 
@@ -100,13 +95,13 @@
         {
             if (IsHistoryReport)
             {
-                return applicationContext.CurrentDate.AddYears(-3).FirstDayOfYear() <= FromDate
+                return DateTimeAdapter.Now.AddYears(-3).FirstDayOfYear() <= FromDate
                     && FromDate <= ToDate
                     && ToDate.Year == FromDate.Year
                     && ToDate.Month == FromDate.Month;
             }
 
-            return applicationContext.CurrentDate.AddMonths(-3).FirstDayOfMonth() <= FromDate
+            return DateTimeAdapter.Now.AddMonths(-3).FirstDayOfMonth() <= FromDate
                    && FromDate <= ToDate;
         }
     }

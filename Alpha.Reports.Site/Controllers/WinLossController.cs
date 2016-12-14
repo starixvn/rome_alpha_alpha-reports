@@ -2,7 +2,7 @@
 {
     using System;
     using System.Web.Mvc;
-    using Excel.AppResources;
+    using AppResources;
     using Excel.Helpers;
     using Excel.Services;
     using Extensions;

@@ -176,14 +176,14 @@
             Assert.Equal(expectedValue, actualValue);
         }
 
-        [Fact]
-        public void GetSettingKey_Always_ThrowsNotImplementedException()
-        {
-            // Arrange
-            var reportCriteriaBase = new ReportCriteriaBaseForTesting(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
+        ////[Fact]
+        ////public void GetSettingKey_Always_ThrowsNotImplementedException()
+        ////{
+        ////    // Arrange
+        ////    var reportCriteriaBase = new ReportCriteriaBaseForTesting(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
 
-            // Act& Assert
-            Assert.Throws<NotImplementedException>(() => reportCriteriaBase.GetSettingKey());
-        }
+        ////    // Act& Assert
+        ////    Assert.Throws<NotImplementedException>(() => reportCriteriaBase.GetSettingKey());
+        ////}
     }
 }
