@@ -33,17 +33,14 @@
 @Html.Partial("_WinLossFilter", Model.FilterViewModel,
     new ViewDataDictionary
     {
-        { "IsStackMode", Model.IsStackMode },
-        { "IsDescendingSort", Model.IsDescendingSort },
-        { "SortPropertyName", Model.SortPropertyName },
-        { "HasBackIcon", !Model.IsDirectReportViewAction }
+        { "IsStackMode", Model.IsStackMode }
     })
 <table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.TotalRecords"
        data-custid="@Model.CustId"
-       data-sortedcolumn="@Model.SortPropertyName"
-       data-descendingsort="@Model.IsDescendingSort">
+       data-sortedcolumn="CustName"
+       data-descendingsort="false">
     <thead>
         <tr>
             <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="0">@downlineLevel</th>
@@ -100,10 +97,7 @@
     @if (Model.ReportData.Any())
     {
         <tbody>
-            @foreach (var data in Model
-                    .ReportData
-                    .DataSource
-                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+            @foreach (var data in Model.ReportData.DataSource)
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }

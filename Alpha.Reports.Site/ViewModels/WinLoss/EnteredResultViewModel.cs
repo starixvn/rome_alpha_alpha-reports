@@ -23,8 +23,6 @@
 
         public ReportData<EnteredSportResult> ReportData { get; set; }
 
-        public string SortPropertyName { get; set; }
-
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 

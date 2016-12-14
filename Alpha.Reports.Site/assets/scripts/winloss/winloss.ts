@@ -15,10 +15,8 @@ class WinLossView {
     $multiSelectButton: any;
 
     $drilldownLinks: any;
-    $hideFilter: any;
+    $isFilterVisible: any;
     $isStackMode: any;
-    $isDescendingSort: any;
-    $sortPropertyName: any;
     $isAgentLevel: any;
     $reportForm: any;
     $userSelectedDateRangeOption: any;
@@ -59,7 +57,7 @@ class WinLossView {
         this.productMultiSelectionComponent.render();
         this.cacheDOMElements();
 
-        if (this.$hideFilter.val() === "True") {
+        if (this.$isFilterVisible.val().toString().toLowerCase() === "false") {
             this.hideFilter();
         }
 
@@ -70,10 +68,7 @@ class WinLossView {
             headers: {
                 0: { sorter: "text" }
             },
-            afterSortFunction: function () {
-                self.replaceDrilldownParam("SortPropertyName", self.$tableReport.data("sortedcolumn"));
-                self.replaceDrilldownParam("IsDescendingSort", self.$tableReport.data("descendingsort"));
-            }
+            afterSortFunction: function () {}
         });
 
         this.$tableReport.stickyTableHeaders();
@@ -84,10 +79,8 @@ class WinLossView {
         this.$pageTitle = this.$(".page-title ");
         this.$tableReport = this.$("#tbl-report");
         this.$drilldownLinks = this.$(".downline-link");
-        this.$hideFilter = this.$("#IsFilterVisible");
+        this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
-        this.$isDescendingSort = this.$("#IsDescendingSort");
-        this.$sortPropertyName = this.$("#SortPropertyName");
         this.$isAgentLevel = this.$("#IsAgentLevel");
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
@@ -168,7 +161,7 @@ class WinLossView {
     hideFilter = () => {
         var self = this;
 
-        this.$pageTitle.addClass("hide-filter");
+        this.$pageTitle.removeClass("hide-filter");
         this.$reportForm.slideUp("fast", undefined, function () {});
     };
     getParams = () => {
@@ -179,8 +172,6 @@ class WinLossView {
         return {
             CustId: tableReport.data("custid"),
             IsAnyProductSelected: selectedProducts.length > 0,
-            SortPropertyName: sortInfo.sortPropertyName,
-            IsDescendingSort: sortInfo.isDescendingSort,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
             HideFilter: this.$reportForm.is(":hidden"),
@@ -212,16 +203,9 @@ class WinLossView {
             return;
         }
 
-        this.$hideFilter.val(params.HideFilter ? true : params.HideFilter);
-        this.$isDescendingSort.val(params.IsDescendingSort);
+        this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? params.HideFilter : true );
         this.$isHistoricReport.val(params.IsHistoricReport);
         this.$isStackMode.val(params.IsStackMode);
-        this.$sortPropertyName.val(params.SortPropertyName);
-
-        if (alphaReports.screenSmallThan768()) {
-            this.$pageTitle.addClass("hide-filter");
-            this.$reportForm.slideUp("fast");
-        }
     };
     getSortedColumnName = () => {
         let sortedColumn = this.$tableReport.data("sortedcolumn");
@@ -229,7 +213,7 @@ class WinLossView {
             return sortedColumn;
         }
 
-        if (sortedColumn === "NetTurnover" || sortedColumn === "GrossComm") {
+        if (sortedColumn === "GrossComm") {
             return "Turnover";
         }
 

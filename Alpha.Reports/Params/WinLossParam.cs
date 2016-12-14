@@ -14,8 +14,6 @@
             DateTime toDate,
             IEnumerable<int> userSelectedProductIds,
             UserLevel reportLevel,
-            string sortByPropertyName,
-            bool isDescendingSort,
             bool isHistoricReport)
         {
             CustId = custId;
@@ -35,12 +33,7 @@
 
             ReportLevel = reportLevel;
 
-            SortByPropertyName = string.IsNullOrWhiteSpace(sortByPropertyName)
-                ? GetDefaultSortedProperty()
-                : GetSortedProperty(sortByPropertyName);
-
             UserSelectedProductIds = userSelectedProductIds;
-            IsDescendingSort = isDescendingSort;
         }
 
         public int CustId { get; }
@@ -53,11 +46,7 @@
 
         public UserLevel ReportLevel { get; }
 
-        public string SortByPropertyName { get; }
-
         public bool IsHistoryReport { get; }
-
-        public bool IsDescendingSort { get; }
 
         private string GetDefaultSortedProperty()
         {
@@ -72,23 +61,6 @@
             }
 
             return "AgentNetWinLoss.WinLoss";
-        }
-
-        private string GetSortedProperty(string sortedProperty)
-        {
-            var isInRange =
-                ReportLevel.IsSuperLevel()
-                || (ReportLevel.IsMasterLevel() && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
-                || (ReportLevel.IsAgentLevel()
-                        && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
-                        && !sortedProperty.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
-
-            if (!isInRange)
-            {
-                return GetDefaultSortedProperty();
-            }
-
-            return sortedProperty;
         }
 
         public bool IsValid()

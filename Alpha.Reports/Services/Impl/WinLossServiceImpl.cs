@@ -48,7 +48,7 @@
                 validUserSelectedProductIds,
                 param.ReportLevel);
 
-            var winlossess = dataAccess.GetWinLosses(criteria);
+            var winlossess = dataAccess.GetWinLosses(criteria).OrderBy(x => x.CustName).ToList();
 
             var totalWinLoss = BuildGrandTotal(winlossess, param.ReportLevel);
 
@@ -65,7 +65,7 @@
                     y.Key,
                     CacheRef.GetSportName(y.Key),
                     y.ToList().Where(x => x.IsToday).FirstOrDefault(),
-                    y.ToList().Where(x => !x.IsToday).FirstOrDefault())).ToList();
+                    y.ToList().Where(x => !x.IsToday).FirstOrDefault())).OrderBy(x => x.SportName).ToList();
         
             return new ReportData<EnteredSportResult>(enteredResults);
         }

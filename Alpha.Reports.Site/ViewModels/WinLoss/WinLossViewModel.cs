@@ -37,10 +37,6 @@
 
         public ReportData<WinLoss> ReportData { get; set; }
 
-        public string SortPropertyName { get; set; }
-
-        public bool IsDescendingSort { get; set; }
-
         public bool IsStackMode { get; set; }
 
         public bool IsHistoricReport { get; set; }
@@ -89,12 +85,9 @@
                     ToDate,
                     UserSelectedDateRangeOption,
                     UserSelectedProductIds,
-                    SortPropertyName,
-                    IsDescendingSort,
                     IsHistoricReport,
                     IsFilterVisible,
                     IsStackMode,
-                    ReportData.PageSize,
                     BreadcrumbLevels);
         }
 

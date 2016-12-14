@@ -20,4 +20,5 @@
 @helper RenderHiddenFields()
 {
     @Html.Hidden("IsHistoricReport", true)
+    @Html.Hidden("IsFilterVisible", Model.Visible)
 }

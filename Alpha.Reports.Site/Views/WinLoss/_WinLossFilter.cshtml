@@ -1,6 +1,6 @@
 ﻿@model WinLossFilterViewModel
 
-<form class="form-inline filter" role="form" id="report-form">
+<form class="form-inline filter @(Model.Visible ? string.Empty : "display-none")" role="form" id="report-form">
     @RenderHiddenFields()
 
     @(Model.IsHistoricReport
@@ -29,8 +29,6 @@
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 
     @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
-    @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
-    @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
     @Html.Hidden("IsAgentLevel", Model.UserLevel.IsAgentLevel())
 
     @Html.Hidden("CustId", Model.CustId)

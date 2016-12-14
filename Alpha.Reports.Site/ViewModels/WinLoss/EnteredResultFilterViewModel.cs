@@ -22,6 +22,8 @@
 
         public UserLevel UserLevel { get; }
 
+        public bool Visible { get; }
+
         public DateRangePickerViewModel DateRangePickerViewModel { get; }
 
         public string ViewDataInstructionMessage { get; }

@@ -15,12 +15,9 @@
             DateTime toDate,
             int userSelectedDateRangeOption,
             string userSelectedProductIds,
-            string sortPropertyName,
-            bool isDescendingSort,
             bool isHictoricReport,
             bool isFilterVisible,
             bool isStackMode,
-            int pageSize,
             IEnumerable<ActionLinkViewModel> breadcrumbLevels)
         {
             CustId = custId;
@@ -30,11 +27,8 @@
             ToDate = toDate;
             UserSelectedDateRangeOption = userSelectedDateRangeOption;
             UserSelectedProductIds = userSelectedProductIds;
-            SortPropertyName = sortPropertyName;
-            IsDescendingSort = isDescendingSort;
             IsHistoricReport = isHictoricReport;
             IsFilterVisible = isFilterVisible;
-            PageSize = pageSize;
             IsStackMode = isStackMode;
             BreadcrumbLevels = ((WinLossQuery)breadcrumbLevels.Last().RouteValues).BreadcrumbLevels;
         }
@@ -51,10 +45,6 @@
 
         public string UserSelectedProductIds { get; }
 
-        public string SortPropertyName { get; }
-
-        public bool IsDescendingSort { get; }
-
         public bool IsHistoricReport { get; }
 
         public int UserSelectedDateRangeOption { get; }
@@ -62,8 +52,6 @@
         public bool IsFilterVisible { get; }
 
         public bool IsStackMode { get; }
-
-        public int PageSize { get; }
 
         public string BreadcrumbLevels { get; }
     }

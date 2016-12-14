@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Web.Mvc;
     using Alpha.Reports.Excel.Services;
     using Alpha.Reports.Site.Requests.WinLoss;
     using Enumerations;
@@ -59,8 +58,7 @@
                 ToDate = DateTime.Now,
                 Language = message.Language,
                 ReportData = reportData,
-                UserSelectedDateRangeOption = 0,
-                SortPropertyName = "SportName"
+                UserSelectedDateRangeOption = 0
             };
 
             return viewModel;
@@ -99,29 +97,8 @@
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
                 IsDirectReportViewAction = message.IsDirectReportViewAction,
 
-                SortPropertyName = winLossParam.SortByPropertyName,
-                IsDescendingSort = winLossParam.IsDescendingSort,
                 HasSubmittedParams = message.HasSubmittedParams,
-                BreadcrumbLevels = BuildBreadcrumbLevels(
-                    message,
-                    (custInfo, query, breadcrumbLevels) => new WinLossQuery
-                    {
-                        CustId = custInfo.CustId,
-                        CustName = custInfo.CustName,
-                        PageSize = message.PageSize,
-                        FromDate = message.FromDate,
-                        ToDate = message.ToDate,
-
-                        UserSelectedProductIds = message.UserSelectedProductIds,
-                        SortPropertyName = message.SortPropertyName,
-                        IsDescendingSort = message.IsDescendingSort,
-                        IsStackMode = message.IsStackMode,
-                        IsHistoricReport = message.IsHistoricReport,
-                        IsFilterVisible = message.IsFilterVisible,
-                        UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                        UserLevelId = custInfo.UserLevelId,
-                        BreadcrumbLevels = breadcrumbLevels
-                    })
+                BreadcrumbLevels = BuildBreadcrumbLevels(message)
             };
 
             return viewModel;
@@ -182,9 +159,73 @@
                  message.ToDate,
                  validUserSelectedProductIds,
                  userLevel,
-                 message.SortPropertyName,
-                 message.IsDescendingSort,
                  message.IsHistoricReport);
+        }
+
+        private IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels(WinLossQuery message)
+        {
+            var drilldownLevels = new List<ActionLinkViewModel>();
+            var breadcrumbLevels = new List<CustInfo>();
+
+            if (!string.IsNullOrWhiteSpace(message.BreadcrumbLevels))
+            {
+                var messageBreadcrumbLevels = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(message.BreadcrumbLevels.Replace("'", "\""));
+
+                foreach (var custInfo in messageBreadcrumbLevels)
+                {
+                    if (custInfo.UserLevelId == message.UserLevelId)
+                    {
+                        break;
+                    }
+
+                    breadcrumbLevels.Add(custInfo);
+
+                    var actionLinkViewModel = new ActionLinkViewModel(
+                        controllerName: "WinLoss",
+                        actionName: "WinLoss",
+                        linkText: custInfo.CustName,
+                        routeValues: new WinLossQuery
+                        {
+                            CustId = custInfo.CustId,
+                            CustName = custInfo.CustName,
+                            FromDate = message.FromDate,
+                            ToDate = message.ToDate,
+
+                            UserSelectedProductIds = message.UserSelectedProductIds,
+                            IsStackMode = message.IsStackMode,
+                            IsHistoricReport = message.IsHistoricReport,
+                            IsFilterVisible = message.IsFilterVisible,
+                            UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
+                            UserLevelId = custInfo.UserLevelId,
+                            BreadcrumbLevels = JsonConvert.SerializeObject(breadcrumbLevels).Replace("\"", "'")
+                        });
+
+                    drilldownLevels.Add(actionLinkViewModel);
+                }
+            }
+
+            breadcrumbLevels.Add(new CustInfo(message.CustId, message.CustName, message.UserLevelId));
+            drilldownLevels.Add(new ActionLinkViewModel(
+                controllerName: "WinLoss",
+                actionName: "WinLoss",
+                linkText: message.CustName,
+                routeValues: new WinLossQuery
+                {
+                    CustId = message.CustId,
+                    CustName = message.CustName,
+                    FromDate = message.FromDate,
+                    ToDate = message.ToDate,
+                    UserSelectedProductIds = message.UserSelectedProductIds,
+
+                    IsStackMode = message.IsStackMode,
+                    IsHistoricReport = message.IsHistoricReport,
+                    IsFilterVisible = message.IsFilterVisible,
+                    UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
+                    UserLevelId = message.UserLevelId,
+                    BreadcrumbLevels = JsonConvert.SerializeObject(breadcrumbLevels).Replace("\"", "'")
+                }));
+
+            return drilldownLevels;
         }
     }
 }

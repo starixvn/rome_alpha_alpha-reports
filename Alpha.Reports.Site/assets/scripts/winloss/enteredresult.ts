@@ -9,6 +9,7 @@ class EnterResultView {
     $pageTitle: any;
     $tableReport: any;
     $reportForm: any;
+    $isFilterVisible: any;
     $userSelectedDateRangeOption: any;
     $reportSwitch: any;
     isSwitchView = false;
@@ -49,6 +50,7 @@ class EnterResultView {
         this.$pageTitle = this.$(".page-title ");
         this.$tableReport = this.$("#tbl-report");
         this.$reportForm = this.$("#report-form");
+        this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$reportSwitch = this.$("#report-switch");
     };
@@ -56,7 +58,7 @@ class EnterResultView {
         var self = this;
 
         this.$reportSwitch.on("click", function () {
-            self.isSwitchView = true;           
+            self.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
             self.$reportForm.trigger("submit");
         });
 
@@ -79,6 +81,7 @@ class EnterResultView {
 
         this.$(".btn-submit").on("click", function () {
             self.$("#IsHistoricReport").val(false);
+            self.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
             self.onSubmitReportEvent();
         });
     };
