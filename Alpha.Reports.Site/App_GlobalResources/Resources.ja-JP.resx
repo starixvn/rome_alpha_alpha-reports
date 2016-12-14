@@ -172,18 +172,15 @@
     <value>/手数料/合計</value>
   </data>
   <data name="Date" xml:space="preserve">
-    <value>Date</value>
+    <value>日付</value>
   </data>
   <data name="Entered" xml:space="preserve">
-    <value>Entered</value>
+    <value>入力されています</value>
   </data>
   <data name="NonEntered" xml:space="preserve">
-    <value>Non-Entered</value>
+    <value>入力されていません</value>
   </data>
   <data name="Results" xml:space="preserve">
-    <value>Results</value>
-  </data>
-  <data name="MatchResultEntered" xml:space="preserve">
-    <value>Match Result Entered</value>
+    <value>結果</value>
   </data>
 </root>

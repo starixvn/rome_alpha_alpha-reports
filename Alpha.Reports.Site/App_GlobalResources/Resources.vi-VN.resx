@@ -294,4 +294,16 @@
   <data name="MemberWinLoss" xml:space="preserve">
     <value>Thắng thua của Member</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="Entered" xml:space="preserve">
+    <value>Kết thúc</value>
+  </data>
+  <data name="NonEntered" xml:space="preserve">
+    <value>Chưa có kết quả</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>Kết quả</value>
+  </data>
 </root>

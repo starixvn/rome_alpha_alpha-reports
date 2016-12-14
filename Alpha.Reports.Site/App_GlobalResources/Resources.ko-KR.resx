@@ -270,4 +270,16 @@
   <data name="MemberWinLoss" xml:space="preserve">
     <value>สมาชิก (ชนะ แพ้)</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>날짜</value>
+  </data>
+  <data name="Entered" xml:space="preserve">
+    <value>입력됨</value>
+  </data>
+  <data name="NonEntered" xml:space="preserve">
+    <value>기록되지 않은 것</value>
+  </data>
+  <data name="Results" xml:space="preserve">
+    <value>결과 확인</value>
+  </data>
 </root>
