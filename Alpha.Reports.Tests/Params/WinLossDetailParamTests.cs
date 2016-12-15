@@ -380,15 +380,13 @@
             Assert.False(actualIsValid);
         }
 
-        [Theory]
-        [InlineData(1)]
-        [InlineData(12)]
-        public void IsValid_IsHistoryReportAndValidRange_ReturnsTrue(int monthDiff)
+        [Fact]
+        public void IsValid_IsHistoryReportAndValidRange_ReturnsTrue()
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             DateTime fromDate = DefaultVariables.CurrentDate;
-            DateTime toDate = DefaultVariables.CurrentDate.AddMonths(monthDiff);
+            DateTime toDate = DefaultVariables.CurrentDate;
 
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true);
