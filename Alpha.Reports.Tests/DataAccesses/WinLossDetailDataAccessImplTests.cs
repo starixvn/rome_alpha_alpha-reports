@@ -76,7 +76,83 @@
         }
 
         [Fact]
-        public void GetData_NullDataReturnFromDb_ReturnsDataFromObjectDb()
+        public void GetData_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
+        {
+            // Arrange
+            var winLossDetailCriteria = new WinLossDetailCriteria(
+                0,
+                0,
+                0,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now,
+                null,
+                Enumeration.FromValue<UserLevel>(3));
+
+            var dataSet = WinLossDetailDatabase.AgentWinLoss.CreateDataReader();
+            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+
+            var winLossDetails = new List<WinLossDetail>()
+            {
+                new WinLossDetail(1, "Agent1", 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), null),
+                new WinLossDetail(11, "Agent2", 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), null)
+            };
+
+            var expectedData = new ReportData<WinLossDetail>(
+                winLossDetails,
+                0,
+                0,
+                0,
+                new WinLossDetail(0, "Total", 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null));
+
+            // Act 
+            var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
+
+            // Assert
+            Assert.True(WinLossDetailReportDataComparer.Equals(expectedData, actualData));
+        }
+
+        [Fact]
+        public void GetData_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
+        {
+            // Arrange
+            var winLossDetailCriteria = new WinLossDetailCriteria(
+                0,
+                0,
+                0,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now,
+                null,
+                Enumeration.FromValue<UserLevel>(2));
+
+            var dataSet = WinLossDetailDatabase.MemberWinLoss.CreateDataReader();
+            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+
+            var winLossDetails = new List<WinLossDetail>()
+            {
+                new WinLossDetail(1, "Member1", 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), null, null),
+                new WinLossDetail(11, "Member2", 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), null, null)
+            };
+
+            var expectedData = new ReportData<WinLossDetail>(
+                winLossDetails,
+                0,
+                0,
+                0,
+                new WinLossDetail(0, "Total", 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null));
+
+            // Act 
+            var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
+
+            // Assert
+            Assert.True(WinLossDetailReportDataComparer.Equals(expectedData, actualData));
+        }
+
+        [Fact]
+        public void GetData_NullDataReturnFromDb_ReturnsDefaultData()
         {
             // Arrange
             var winLossDetailCriteria = new WinLossDetailCriteria(
@@ -108,7 +184,7 @@
         }
 
         [Fact]
-        public void GetData_MasterWinLossReportHasDataWinNoTotalTable_ReturnsDataFromObjectDb()
+        public void GetData_MasterWinLossReportHasDataWinNoTotalTable_ReturnsDataFromObjectDbAndDefaultTotal()
         {
             // Arrange
             var winLossDetailCriteria = new WinLossDetailCriteria(
