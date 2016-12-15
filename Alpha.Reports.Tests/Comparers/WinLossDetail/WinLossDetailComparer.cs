@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Comparers.WinLossDetail
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Reports.Models.WinlossDetails;
 
     public static class WinLossDetailComparer
@@ -29,16 +30,19 @@
                 NetWinLossComparer.Equals(winLossDetailA.SuperNetWinLoss, winLossDetailB.SuperNetWinLoss);
         }
 
-        public static bool Equals(List<WinLossDetail> winLossDetailA, List<WinLossDetail> winLossDetailB)
+        public static bool Equals(IEnumerable<WinLossDetail> winLossDetailA, IEnumerable<WinLossDetail> winLossDetailB)
         {
-            var isEqual = (winLossDetailA == null && winLossDetailB == null) ||
-                (winLossDetailA != null && winLossDetailB != null && winLossDetailA.Count == winLossDetailB.Count);
+            var listA = winLossDetailA?.ToList();
+            var listB = winLossDetailB?.ToList();
 
-            var length = winLossDetailA == null ? 0 : winLossDetailA.Count;
+            var isEqual = (listA == null && listB == null) ||
+                (listA != null && listB != null && listA.Count == listB.Count);
+
+            var length = listA == null ? 0 : listA.Count;
 
             for (var i = 0; i < length; i++)
             {
-                if (!Equals(winLossDetailA[i], winLossDetailB[i]))
+                if (!Equals(listA[i], listB[i]))
                 {
                     return false;
                 }

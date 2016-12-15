@@ -7,11 +7,21 @@
     {
         private static DataSet masterWinLoss = FileHelper.LoadDataSet("\\Database\\WinLossDetail\\MasterWinLossDetailHasData.xml");
 
+        private static DataSet masterWinLossWinNoTotalTable = FileHelper.LoadDataSet("\\Database\\WinLossDetail\\MasterWinLossDetailHasData WinNoTotalTable.xml");
+
         public static DataSet MasterWinLoss
         {
             get
             {
                 return masterWinLoss;
+            }
+        }
+
+        public static DataSet MasterWinLossWinNoTotalTable
+        {
+            get
+            {
+                return masterWinLossWinNoTotalTable;
             }
         }
     }
