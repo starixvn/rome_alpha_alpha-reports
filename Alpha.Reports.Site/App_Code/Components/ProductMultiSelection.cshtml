@@ -14,10 +14,7 @@
                 multiple="multiple" class="select-multiple">
             @foreach (var product in model.Products)
             {
-                <option value="@product.Value"
-                        @(product.Selected ? " selected=\"selected\"" : string.Empty)>
-                    @product.Text
-                    </option>
+                <option value="@product.Value" @(product.Selected ? " selected=\"selected\"" : string.Empty)>@product.Text</option>
             }
         </select>
         <input type="hidden" name="UserSelectedProductIds" id="product-ids" value="@model.UserSelectedProductIds" />
