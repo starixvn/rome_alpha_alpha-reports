@@ -322,7 +322,9 @@
       <DependentUpon>reports.css</DependentUpon>
     </Content>
     <Content Include="bundleconfig.json" />
-    <CodeAnalysisDictionary Include="CodeAnalysis\CustomDictionary.xml" />
+    <CodeAnalysisDictionary Include="CodeAnalysis\CustomDictionary.xml">
+      <SubType>Designer</SubType>
+    </CodeAnalysisDictionary>
     <Content Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
