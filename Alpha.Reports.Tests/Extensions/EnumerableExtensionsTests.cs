@@ -174,9 +174,6 @@
         [InlineData(null)]
         public void OrderBy_OrderByNullPropertyName_ThrowsNullReferenceException(string propertyName)
         {
-            // Arrange
-            var expectedList = winLossDetails;
-
             // Act & Assert
             Assert.Throws<NullReferenceException>(() => winLossDetails.OrderBy(propertyName, descending: false).ToList());
         }

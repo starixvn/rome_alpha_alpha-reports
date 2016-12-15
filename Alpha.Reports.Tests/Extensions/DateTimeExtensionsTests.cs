@@ -108,7 +108,7 @@
         public void ToOffsetHour_BeginningOfDate_ReturnsCorrectTime(int gmt, int hour, int expectedHour)
         {
             // Arrange
-            var dateTime = new DateTime(2016, 11, 24, 0, 0, 0, DateTimeKind.Utc);
+            var dateTime = new DateTime(2016, 11, 24, hour, 0, 0, DateTimeKind.Utc);
 
             // Act
             var actualHour = dateTime.ToOffsetHour(gmt).Hour;

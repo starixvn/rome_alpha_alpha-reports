@@ -388,7 +388,7 @@
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             DateTime fromDate = DefaultVariables.CurrentDate;
-            DateTime toDate = DefaultVariables.CurrentDate;
+            DateTime toDate = DefaultVariables.CurrentDate.AddMonths(monthDiff);
 
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true);

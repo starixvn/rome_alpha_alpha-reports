@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class StringExtensionsTestCases
+    public static class StringExtensionsTestCases
     {
         private static IEnumerable<object[]> stringContainsNonNumericCharactersCases = new List<object[]>()
         {

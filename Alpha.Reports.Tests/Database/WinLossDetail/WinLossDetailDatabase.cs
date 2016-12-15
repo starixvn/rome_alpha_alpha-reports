@@ -3,7 +3,7 @@
     using System.Data;
     using Helper;
 
-    public class WinLossDetailDatabase
+    public static class WinLossDetailDatabase
     {
         private static DataSet masterWinLoss = FileHelper.LoadDataSet("\\Database\\WinLossDetail\\MasterWinLossDetailHasData.xml");
         private static DataSet agentWinLoss = FileHelper.LoadDataSet("\\Database\\WinLossDetail\\AgentWinLossDetailHasData.xml");

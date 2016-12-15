@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Reports.Models;
 
-    public class UserLevelTestCases
+    public static class UserLevelTestCases
     {
         private static IEnumerable<object[]> uplineUserLevelAndDownlineValueDataSources = new List<object[]>()
         {
