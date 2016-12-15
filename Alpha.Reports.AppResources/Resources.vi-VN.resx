@@ -125,7 +125,7 @@
     <value>Từ tháng trước</value>
   </data>
   <data name="SpecificDate" xml:space="preserve">
-    <value>Thời điểm chi tiết</value>
+    <value>Ngày riêng biệt</value>
   </data>
   <data name="January" xml:space="preserve">
     <value>Tháng 1</value>
@@ -237,5 +237,26 @@
   </data>
   <data name="ViewHistoryReport" xml:space="preserve">
     <value>Xem báo cáo trước đó</value>
+  </data>
+  <data name="Tip_ShowReportInStackColumnView" xml:space="preserve">
+    <value>Nhóm các cột</value>
+  </data>
+  <data name="Tip_ShowReportInNormalView" xml:space="preserve">
+    <value>Tách các cột</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>Tuần này</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Tháng này</value>
+  </data>
+  <data name="HideFilter" xml:space="preserve">
+    <value>Ẩn bộ lọc dữ liệu</value>
+  </data>
+  <data name="ShowFilter" xml:space="preserve">
+    <value>Hiện bộ lọc dữ liệu</value>
+  </data>
+  <data name="of2" xml:space="preserve">
+    <value>của</value>
   </data>
 </root>

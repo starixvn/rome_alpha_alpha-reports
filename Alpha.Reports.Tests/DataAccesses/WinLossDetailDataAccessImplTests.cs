@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using Database.WinLossDetail;
     using Fanex.Data;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
@@ -48,21 +49,14 @@
                 null,
                 Enumeration.FromValue<UserLevel>(4));
 
-            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(WinLossDetailDataReader());
+            var dataSet = WinLossDetailDatabase.MasterWinLoss.CreateDataReader();
+            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
 
             // Act 
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
             Assert.Equal(actualData, actualData);
-        }
-
-        private IDataReader WinLossDetailDataReader()
-        {
-            var table = new DataTable();
-            var reader = table.CreateDataReader();
-
-            return default(IDataReader);
         }
     }
 }

@@ -125,7 +125,7 @@
     <value>从上个月起</value>
   </data>
   <data name="SpecificDate" xml:space="preserve">
-    <value>具体日期</value>
+    <value>特定日期</value>
   </data>
   <data name="January" xml:space="preserve">
     <value>一月</value>
@@ -249,5 +249,26 @@
   </data>
   <data name="ViewHistoryReport" xml:space="preserve">
     <value>选检阅历史报告。</value>
+  </data>
+  <data name="Tip_ShowReportInStackColumnView" xml:space="preserve">
+    <value>组列</value>
+  </data>
+  <data name="Tip_ShowReportInNormalView" xml:space="preserve">
+    <value>取消分组列</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>这星期</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>这个月</value>
+  </data>
+  <data name="HideFilter" xml:space="preserve">
+    <value>隐藏筛选</value>
+  </data>
+  <data name="ShowFilter" xml:space="preserve">
+    <value>显示筛选</value>
+  </data>
+  <data name="of2" xml:space="preserve">
+    <value>于</value>
   </data>
 </root>

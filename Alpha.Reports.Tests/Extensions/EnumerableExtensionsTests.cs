@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Comparers;
+    using Comparers.WinLossDetail;
     using Reports.Extensions;
     using Reports.Models.WinlossDetails;
     using Xunit;

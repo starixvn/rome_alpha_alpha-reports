@@ -125,7 +125,7 @@
     <value>從上個月起</value>
   </data>
   <data name="SpecificDate" xml:space="preserve">
-    <value>具體日期</value>
+    <value>特定日期</value>
   </data>
   <data name="January" xml:space="preserve">
     <value>一月</value>
@@ -249,5 +249,26 @@
   </data>
   <data name="TurnoverAbbr" xml:space="preserve">
     <value>投注額</value>
+  </data>
+  <data name="Tip_ShowReportInStackColumnView" xml:space="preserve">
+    <value>組列</value>
+  </data>
+  <data name="Tip_ShowReportInNormalView" xml:space="preserve">
+    <value>取消分組列</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>这星期</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>這個月</value>
+  </data>
+  <data name="HideFilter" xml:space="preserve">
+    <value>隱藏篩選</value>
+  </data>
+  <data name="ShowFilter" xml:space="preserve">
+    <value>顯示篩選</value>
+  </data>
+  <data name="of2" xml:space="preserve">
+    <value>於</value>
   </data>
 </root>

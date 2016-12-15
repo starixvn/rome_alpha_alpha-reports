@@ -271,4 +271,25 @@
   <data name="ViewHistoryReport" xml:space="preserve">
     <value>ตรวจสอบประวัติรายงาน</value>
   </data>
+  <data name="Tip_ShowReportInStackColumnView" xml:space="preserve">
+    <value>กรุ๊ปคอลัมน์</value>
+  </data>
+  <data name="Tip_ShowReportInNormalView" xml:space="preserve">
+    <value>ยกเลิกกรุ๊ปคอลัมน์</value>
+  </data>
+  <data name="ThisWeek" xml:space="preserve">
+    <value>สัปดาห์นี้</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>เดือนนี้</value>
+  </data>
+  <data name="HideFilter" xml:space="preserve">
+    <value>ซ่อนตัวกรอง</value>
+  </data>
+  <data name="ShowFilter" xml:space="preserve">
+    <value>แสดงผลตัวกรอง</value>
+  </data>
+  <data name="of2" xml:space="preserve">
+    <value>ของ</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Tests.Comparers
+﻿namespace Alpha.Reports.Tests.Comparers.WinLossDetail
 {
     using Reports.Models;
     using Reports.Models.WinlossDetails;

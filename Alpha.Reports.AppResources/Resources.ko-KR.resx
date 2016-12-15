@@ -124,9 +124,6 @@
   <data name="SinceLastMonth" xml:space="preserve">
     <value>지난달부터</value>
   </data>
-  <data name="SpecificDate" xml:space="preserve">
-    <value>특정 날짜</value>
-  </data>
   <data name="January" xml:space="preserve">
     <value>1월</value>
   </data>

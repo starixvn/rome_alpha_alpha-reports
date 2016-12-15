@@ -97,12 +97,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comparers\NetWinLossComparer.cs" />
-    <Compile Include="Comparers\NetWinLossComparerTests.cs" />
-    <Compile Include="Comparers\WinLossDetailComparer.cs" />
-    <Compile Include="Comparers\WinLossDetailComparerTests.cs" />
-    <Compile Include="Comparers\WinLossDetailReportDataComparer.cs" />
-    <Compile Include="Comparers\WinLossDetailReportDataComparerTests.cs" />
+    <Compile Include="Comparers\WinLossDetail\NetWinLossComparer.cs" />
+    <Compile Include="Comparers\WinLossDetail\NetWinLossComparerTests.cs" />
+    <Compile Include="Comparers\WinLossDetail\WinLossDetailComparer.cs" />
+    <Compile Include="Comparers\WinLossDetail\WinLossDetailComparerTests.cs" />
+    <Compile Include="Comparers\WinLossDetail\WinLossDetailReportDataComparer.cs" />
+    <Compile Include="Comparers\WinLossDetail\WinLossDetailReportDataComparerTests.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\DefaultVariablesTests.cs" />
     <Compile Include="Constants\RoleId.cs" />
@@ -113,10 +113,12 @@
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
+    <Compile Include="Database\WinLossDetail\WinLossDetailDatabase.cs" />
     <Compile Include="Enumerations\EnumerationTests.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
+    <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="ModelsForTesting\UserLevelForTesting.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
     <Compile Include="Models\CustInfoTests.cs" />
@@ -148,7 +150,11 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Database\WinLossDetail\MasterWinLossDetailHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-    using Comparers;
+    using Comparers.WinLossDetail;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
     using Reports.DataAccesses;

@@ -38,7 +38,7 @@
             exportWinLossDetailParam = reportParam;
 
             var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}" +
-                $" {Resources.of} " + string.Join(", ", productService.GetProductNames(reportParam.UserSelectedProductIds));
+                $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(reportParam.UserSelectedProductIds));
 
             var templateInfo = new TemplateInfo(templatePath: param.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable)
                  .FreezePanel(4, Column.B);

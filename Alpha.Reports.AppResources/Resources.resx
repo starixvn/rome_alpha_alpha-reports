@@ -107,10 +107,10 @@
     <value>Member Win Loss Detail</value>
   </data>
   <data name="Tip_ShowReportInStackColumnView" xml:space="preserve">
-    <value>Show report in stack column view</value>
+    <value>Group columns</value>
   </data>
   <data name="Tip_ShowReportInNormalView" xml:space="preserve">
-    <value>Show report in normal view</value>
+    <value>Ungroup columns</value>
   </data>
   <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
     <value>You can view the report data from {0}. For more historic data, please click to</value>
@@ -182,7 +182,7 @@
     <value>You can view the report data from {0}.</value>
   </data>
   <data name="HideFilter" xml:space="preserve">
-    <value>Hide filter</value>
+    <value>Hide filters</value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>Product</value>
@@ -200,7 +200,7 @@
     <value>selected</value>
   </data>
   <data name="ShowFilter" xml:space="preserve">
-    <value>Show Filter</value>
+    <value>Show filters</value>
   </data>
   <data name="Page" xml:space="preserve">
     <value>Page</value>
@@ -291,5 +291,8 @@
   </data>
   <data name="ViewHistoryReport" xml:space="preserve">
     <value>View History Report</value>
+  </data>
+  <data name="of2" xml:space="preserve">
+    <value>of</value>
   </data>
 </root>
