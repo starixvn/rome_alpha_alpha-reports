@@ -1,9 +1,9 @@
 ﻿namespace Alpha.Reports.Excel.Services.Impl
 {
     using System;
-    using System.Collections.Generic;
     using AppResources;
     using Extensions;
+    using Helpers;
     using Models.WinlossDetails;
     using ONEbook.SpreadSheets;
     using Params;
@@ -13,115 +13,89 @@
     {
         private ProductService productService;
 
-        private SpreadSheetEngine spreadSheetEngine;
+        private Workbook<WinLossDetail> workbook;
 
-        private Workbook workbook;
+        private ExportWinLossDetailParam exportWinLossDetailParam;
 
-        public WinLossDetailExcelExporterImpl(
-            ProductService productService,
-            SpreadSheetEngine spreadSheetEngine,
-            Workbook workbook)
+        public WinLossDetailExcelExporterImpl(ProductService productService, Workbook<WinLossDetail> workbook)
         {
             this.productService = productService;
-            this.spreadSheetEngine = spreadSheetEngine;
             this.workbook = workbook;
         }
 
-        public byte[] Export(ExportExcelParam<WinLossDetail> param, ExportWinLossDetailParam exportWinLossDetailParam)
+        public byte[] Export(ExportExcelParam<WinLossDetail> param, ExportWinLossDetailParam reportParam)
         {
             if (param == null)
             {
                 throw new ArgumentNullException(nameof(param));
             }
 
-            if (exportWinLossDetailParam == null)
+            if (reportParam == null)
             {
-                throw new ArgumentNullException(nameof(exportWinLossDetailParam));
+                throw new ArgumentNullException(nameof(reportParam));
             }
+
+            exportWinLossDetailParam = reportParam;
 
             var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}" +
-                $" {Resources.of} " + string.Join(", ", productService.GetProductNames(exportWinLossDetailParam.UserSelectedProductIds));
-            var headerTexts = new Dictionary<string, string>
-            {
-                { "Username", Resources.Username },
-                { "No. of Tickets", Resources.NoOfTickets },
-                { "Turnover", Resources.Turnover },
-                { "Net Turnover", Resources.NetTurnover },
-                { "Gross Comm", Resources.GrossComm },
-                { "Member", Resources.Member },
-                { "Agent", Resources.Agent },
-                { "Master", Resources.Master },
-                { "Super", Resources.Super },
-                { "Company", Resources.Company },
-                { "Win Loss", Resources.WinLoss },
-                { "Comm", Resources.Comm },
-                { "Total", Resources.Total }
-            };
+                $" {Resources.of} " + string.Join(", ", productService.GetProductNames(reportParam.UserSelectedProductIds));
 
-            workbook.Load(param.TemplatePath);
-            var spreadSheetLayout = new SpreadSheetLayout(noInfomationText: Resources.NoInformationIsAvailable);
+            var templateInfo = new TemplateInfo(templatePath: param.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable)
+                 .FreezePanel(4, Column.B);
 
-            var spreadSheet = (new SpreadSheet<WinLossDetail>())
-                .AddTitle(reportTitle)
-                .AddHeaderTexts(headerTexts)
-                .AddBody(param.ReportData.DataSource, BodyRowMapping)
-                .AddFooter(param.ReportData.TotalData, FooterRowMapping)
-                .AddSheetName(param.SheetName)
-                .SetLayout(spreadSheetLayout.SetFreezePanel(4, "B"));
-
-            return spreadSheetEngine.Export(spreadSheet, workbook);
-        }
-
-        private static IDictionary<string, object> BodyRowMapping(WinLossDetail data, int rowIndex)
-        {
-            var result = new Dictionary<string, object>
-            {
-                { "A", data.CustName },
-                { "B", data.NumberOfTickets },
-                { "C", data.Turnover },
-                { "D", data.NetTurnover },
-                { "E", data.GrossComm },
-                { "F", data.MemberNetWinLoss.WinLoss },
-                { "G", data.MemberNetWinLoss.Comm },
-                { "H", data.MemberNetWinLoss.Total },
-                { "I", data.AgentNetWinLoss.WinLoss },
-                { "J", data.AgentNetWinLoss.Comm },
-                { "K", data.AgentNetWinLoss.Total }
-            };
-
-            var columnName = 'L';
-            columnName = AddNetWinLossColumns(data.MasterNetWinLoss, result, columnName);
-            columnName = AddNetWinLossColumns(data.SuperNetWinLoss, result, columnName);
-            result.Add(columnName.ToString(), data.Company);
+            var result = workbook
+                .UseTemplate(templateInfo)
+                .Title(reportTitle)
+                .Header(ExcelHelper.HeaderTitleMapping)
+                .Body(param.ReportData.DataSource, GetRowMapper(isTotal: false))
+                .Footer(param.ReportData.TotalData, GetRowMapper(isTotal: true))
+                .Sheet(param.SheetName)
+                .ExportToBytes();
 
             return result;
         }
 
-        private static IDictionary<string, object> FooterRowMapping(WinLossDetail data, int rowIndex)
+        private Mapper<WinLossDetail> GetRowMapper(bool isTotal)
         {
-            var result = BodyRowMapping(data, rowIndex);
-            result["A"] = Resources.Total;
+            var mapper = new Mapper<WinLossDetail>()
+                .Map(Column.A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
+                .Map(Column.B, winLossDetail => winLossDetail.NumberOfTickets)
+                .Map(Column.C, winLossDetail => winLossDetail.Turnover)
+                .Map(Column.D, winLossDetail => winLossDetail.NetTurnover)
+                .Map(Column.E, winLossDetail => winLossDetail.GrossComm)
+                .Map(Column.F, winLossDetail => winLossDetail.MemberNetWinLoss.WinLoss)
+                .Map(Column.G, winLossDetail => winLossDetail.MemberNetWinLoss.Comm)
+                .Map(Column.H, winLossDetail => winLossDetail.MemberNetWinLoss.Total)
+                .Map(Column.I, winLossDetail => winLossDetail.AgentNetWinLoss.WinLoss)
+                .Map(Column.J, winLossDetail => winLossDetail.AgentNetWinLoss.Comm)
+                .Map(Column.K, winLossDetail => winLossDetail.AgentNetWinLoss.Total);
 
-            return result;
-        }
-
-        private static char AddNetWinLossColumns(NetWinLoss netWinLoss, Dictionary<string, object> resultColumns, char columnName)
-        {
-            if (netWinLoss == null)
+            if (exportWinLossDetailParam.UserLevel.IsAgentLevel())
             {
-                return columnName;
+                mapper.Map(Column.L, winLossDetail => winLossDetail.Company);
             }
 
-            resultColumns.Add(columnName.ToString(), netWinLoss.WinLoss);
-            columnName++;
+            if (exportWinLossDetailParam.UserLevel.IsMasterOrSuperLevel())
+            {
+                mapper.Map(Column.L, winLossDetail => winLossDetail.MasterNetWinLoss.WinLoss)
+                    .Map(Column.M, winLossDetail => winLossDetail.MasterNetWinLoss.Comm)
+                    .Map(Column.N, winLossDetail => winLossDetail.MasterNetWinLoss.Total);
+            }
 
-            resultColumns.Add(columnName.ToString(), netWinLoss.Comm);
-            columnName++;
+            if (exportWinLossDetailParam.UserLevel.IsMasterLevel())
+            {
+                mapper.Map(Column.O, winLossDetail => winLossDetail.Company);
+            }
 
-            resultColumns.Add(columnName.ToString(), netWinLoss.Total);
-            columnName++;
+            if (exportWinLossDetailParam.UserLevel.IsSuperLevel())
+            {
+                mapper.Map(Column.O, winLossDetail => winLossDetail.SuperNetWinLoss.WinLoss)
+                    .Map(Column.P, winLossDetail => winLossDetail.SuperNetWinLoss.Comm)
+                    .Map(Column.Q, winLossDetail => winLossDetail.SuperNetWinLoss.Total)
+                    .Map(Column.R, winLossDetail => winLossDetail.Company);
+            }
 
-            return columnName;
+            return mapper;
         }
     }
 }

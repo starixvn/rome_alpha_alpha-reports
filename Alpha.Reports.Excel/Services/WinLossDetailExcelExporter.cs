@@ -5,6 +5,6 @@
 
     public interface WinLossDetailExcelExporter
     {
-        byte[] Export(ExportExcelParam<WinLossDetail> param, ExportWinLossDetailParam exportWinLossDetailParam);
+        byte[] Export(ExportExcelParam<WinLossDetail> param, ExportWinLossDetailParam reportParam);
     }
 }

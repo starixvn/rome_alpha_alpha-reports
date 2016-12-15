@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Excel.Helpers
 {
     using System;
+    using AppResources;
 
     public static class ExcelHelper
     {
@@ -20,6 +21,11 @@
             }
 
             return $"{fileName.Replace(' ', '_').Replace('/', '_')}.xls";
+        }
+
+        public static string HeaderTitleMapping(string resourceKey)
+        {
+            return Resources.ResourceManager.GetString(resourceKey);
         }
     }
 }
