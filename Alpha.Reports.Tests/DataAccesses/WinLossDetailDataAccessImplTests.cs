@@ -23,8 +23,7 @@
         public WinLossDetailDataAccessImplTests()
         {
             objectDb = Substitute.For<IObjectDb>();
-            ObjectDbFactory.CreateObjectDbFunc = (settingKey) => objectDb;
-            winLossDetailDataAccessImpl = new WinLossDetailDataAccessImpl();
+            winLossDetailDataAccessImpl = new WinLossDetailDataAccessImpl((settingKey) => objectDb);
         }
 
         [Fact]
