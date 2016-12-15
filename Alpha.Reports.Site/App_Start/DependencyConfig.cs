@@ -8,6 +8,7 @@
     using DataAccesses.Impl;
     using Fanex.Data.Repository;
     using MediatR;
+    using Models.Winloss;
     using ONEbook.SpreadSheets;
     using ONEbook.SpreadSheets.NPOI;
     using RemotingRef;
@@ -67,9 +68,12 @@
         {
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
             container.RegisterPerWebRequest<IUserSession, UserSessionExt>();
+
             container.RegisterPerWebRequest<ReportDateService, ReportDateServiceImpl>();           
-            container.Register<WinLossService, WinLossServiceImpl>(Lifestyle.Transient);
+
             container.RegisterPerWebRequest<WinLossDetailService, WinLossDetailServiceImpl>();
+            container.Register<WinLossService, WinLossServiceImpl>(Lifestyle.Transient);
+            container.RegisterPerWebRequest<WinLossExcelExporter, WinLossExcelExporterImpl>();
 
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
@@ -79,7 +83,6 @@
                 Lifestyle.Scoped);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);           
-            container.RegisterPerWebRequest<WinLossExcelExporter, WinLossExcelExporterImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

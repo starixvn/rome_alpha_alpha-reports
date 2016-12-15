@@ -5,7 +5,7 @@
 
     public interface WinLossExcelExporter
     {
-        byte[] ExportWinLossExcel(ExportExcelParam<WinLoss> param, ExportWinLossParam exportWinLossParam);
+        byte[] ExportWinLossExcel(ExportExcelParam<WinLoss> param, ExportWinLossParam reportParam);
 
         byte[] ExportEnteredResultExcel(ExportExcelParam<EnteredSportResult> param);
     }

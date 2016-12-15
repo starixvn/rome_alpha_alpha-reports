@@ -76,7 +76,7 @@
 
             var winLossParam = CreateWinLossParamater(message, userLevel);
 
-            var reportData = reportService.GetWinLoss(winLossParam);
+            var reportData = reportService.GetWinLosses(winLossParam);
 
             var viewModel = new WinLossViewModel
             {
@@ -96,8 +96,6 @@
                 ReportData = reportData,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
                 IsDirectReportViewAction = message.IsDirectReportViewAction,
-
-                HasSubmittedParams = message.HasSubmittedParams,
                 BreadcrumbLevels = BuildBreadcrumbLevels(message)
             };
 

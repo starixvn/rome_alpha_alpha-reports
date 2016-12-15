@@ -7,7 +7,7 @@
 
     public interface WinLossService
     {
-        ReportData<WinLoss> GetWinLoss(WinLossParam param);
+        ReportData<WinLoss> GetWinLosses(WinLossParam param);
 
         ReportData<EnteredSportResult> GetEnteredSportResults();
     }

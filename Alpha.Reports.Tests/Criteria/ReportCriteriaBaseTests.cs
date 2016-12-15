@@ -70,39 +70,6 @@
             Assert.Equal(expectedIsValid, actualIsValid);
         }
 
-        ////[Theory]
-        ////[InlineData(-1)]
-        ////[InlineData(int.MinValue)]
-        ////public void IsValid_InvalidPageIndex_ReturnsInvalid(int pageIndex)
-        ////{
-        ////    // Arrange
-        ////    var expectedIsValid = false;
-        ////    var reportCriteriaBase = new ReportCriteriaBaseForTesting(0, pageIndex, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
-
-        ////    // Act
-        ////    var actualIsValid = reportCriteriaBase.IsValid();
-
-        ////    // Assert
-        ////    Assert.Equal(expectedIsValid, actualIsValid);
-        ////}
-
-        ////[Theory]
-        ////[InlineData(0)]
-        ////[InlineData(1)]
-        ////[InlineData(int.MaxValue)]
-        ////public void IsValid_ValidPageIndex_ReturnsValid(int pageIndex)
-        ////{
-        ////    // Arrange
-        ////    var expectedIsValid = true;
-        ////    var reportCriteriaBase = new ReportCriteriaBaseForTesting(1, pageIndex, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
-
-        ////    // Act
-        ////    var actualIsValid = reportCriteriaBase.IsValid();
-
-        ////    // Assert
-        ////    Assert.Equal(expectedIsValid, actualIsValid);
-        ////}
-
         [Fact]
         public void IsNotValid_ValidCriteria_ReturnsFalse()
         {
@@ -131,20 +98,6 @@
             Assert.Equal(expectedIsNotValid, actualIsNotValid);
         }
 
-        ////[Fact]
-        ////public void GetPageSize_Always_ReturnsInitialValue()
-        ////{
-        ////    // Arrange
-        ////    var initValue = 0;
-        ////    var expectedValue = initValue;
-        ////    var reportCriteriaBase = new ReportCriteriaBaseForTesting(0, 0, initValue, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
-
-        ////    // Act
-        ////    var actualValue = reportCriteriaBase.PageSize;
-
-        ////    // Assert
-        ////    Assert.Equal(expectedValue, actualValue);
-        ////}
 
         [Fact]
         public void GetBalanceUpDay_Always_ReturnsInitialValue()
@@ -176,14 +129,14 @@
             Assert.Equal(expectedValue, actualValue);
         }
 
-        ////[Fact]
-        ////public void GetSettingKey_Always_ThrowsNotImplementedException()
-        ////{
-        ////    // Arrange
-        ////    var reportCriteriaBase = new ReportCriteriaBaseForTesting(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
+        [Fact]
+        public void GetSettingKey_Always_ThrowsNotImplementedException()
+        {
+            // Arrange
+            var reportCriteriaBase = new ReportCriteriaBaseForTesting(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
 
-        ////    // Act& Assert
-        ////    Assert.Throws<NotImplementedException>(() => reportCriteriaBase.GetSettingKey());
-        ////}
+            // Act& Assert
+            Assert.Throws<NotImplementedException>(() => reportCriteriaBase.GetSettingKey());
+        }
     }
 }

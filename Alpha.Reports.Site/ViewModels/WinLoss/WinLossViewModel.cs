@@ -111,8 +111,6 @@
             }
         }
 
-        public bool HasSubmittedParams { get; set; }
-
         public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
     }
 }

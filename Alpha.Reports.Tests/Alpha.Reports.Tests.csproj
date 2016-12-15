@@ -104,17 +104,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparers\WinLoss\WinLossComparer.cs" />
+    <Compile Include="Comparers\WinLoss\WinLossComparerTests.cs" />
+    <Compile Include="Comparers\WinLoss\WinLossReportDataComparerTests.cs" />
+    <Compile Include="Comparers\WinLoss\WinLossReportDataComparer.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\DefaultVariablesTests.cs" />
     <Compile Include="Constants\RoleId.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteriaTests.cs" />
+    <Compile Include="Criteria\PagingReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsCriteriaTests.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseForTesting.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseTests.cs" />
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
+    <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
+    <Compile Include="Criteria\WinLoss\WinLossCriteriaTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Database\WinLossDetail\WinLossDetailDatabase.cs" />
+    <Compile Include="DataAccesses\WinLoss\WinLossDataAccessImplTests.cs" />
     <Compile Include="Enumerations\EnumerationTests.cs" />
     <Compile Include="Extensions\AssertExtension.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
@@ -134,6 +142,8 @@
     <Compile Include="Services\DateTimeManagerTests.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
+    <Compile Include="Services\WinLoss\WinLossDataTest.cs" />
+    <Compile Include="Services\WinLoss\WinLossServiceImplTests.cs" />
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
     <Compile Include="TestCases\StringExtensionsTestCases.cs" />
     <Compile Include="TestCases\UserLevelTestCases.cs" />

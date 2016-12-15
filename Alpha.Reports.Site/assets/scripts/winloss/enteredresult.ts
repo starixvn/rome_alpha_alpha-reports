@@ -12,6 +12,7 @@ class EnterResultView {
     $isFilterVisible: any;
     $userSelectedDateRangeOption: any;
     $reportSwitch: any;
+    $isStackMode: any;
     isSwitchView = false;
 
     dateRangePickerComponent: DateRangePickerComponent;
@@ -51,6 +52,7 @@ class EnterResultView {
         this.$tableReport = this.$("#tbl-report");
         this.$reportForm = this.$("#report-form");
         this.$isFilterVisible = this.$("#IsFilterVisible");
+        this.$isStackMode = this.$("#IsStackMode");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$reportSwitch = this.$("#report-switch");
     };
@@ -59,6 +61,7 @@ class EnterResultView {
 
         this.$reportSwitch.on("click", function () {
             self.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
+            self.$isStackMode.val(alphaReports.screenSmallThan768());
             self.$reportForm.trigger("submit");
         });
 
@@ -82,6 +85,7 @@ class EnterResultView {
         this.$(".btn-submit").on("click", function () {
             self.$("#IsHistoricReport").val(false);
             self.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
+            self.$isStackMode.val(alphaReports.screenSmallThan768());
             self.onSubmitReportEvent();
         });
     };

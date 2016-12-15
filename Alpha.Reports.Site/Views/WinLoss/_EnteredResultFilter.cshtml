@@ -15,10 +15,12 @@
     <div class="note">
         <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="report-switch"  href="#">@Model.ViewActionMessage</a>
     </div>
-</form>
 
-@helper RenderHiddenFields()
-{
+
+    @helper RenderHiddenFields()
+    {
     @Html.Hidden("IsHistoricReport", true)
     @Html.Hidden("IsFilterVisible", Model.Visible)
+    @Html.Hidden("IsStackMode", false)
 }
+</form>

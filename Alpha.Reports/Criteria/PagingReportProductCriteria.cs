@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
 
-    public abstract class PagingReportProductCriteria : ReportProductCriteria
+    public class PagingReportProductCriteria : ReportProductCriteria
     {
-        protected PagingReportProductCriteria(
+        public PagingReportProductCriteria(
             int custId,
             int pageIndex,
             int pageSize,
@@ -27,7 +27,7 @@
 
         public override bool IsValid()
         {
-            return IsInvalid() && PageIndex >= 0;
+            return base.IsValid() && PageIndex >= 0;
         }
     }
 }
