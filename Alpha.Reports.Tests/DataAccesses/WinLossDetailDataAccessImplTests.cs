@@ -186,6 +186,9 @@
         public void GetData_MasterWinLossReportHasDataWinNoTotalTable_ReturnsDataFromObjectDbAndDefaultTotal()
         {
             // Arrange
+            var objectDb = Substitute.For<IObjectDb>();
+            var dataAccessImpl = new WinLossDetailDataAccessImpl((settingKey) => objectDb);
+
             var winLossDetailCriteria = new WinLossDetailCriteria(
                 0,
                 0,
@@ -214,7 +217,7 @@
                 new WinLossDetail());
 
             // Act 
-            var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
+            var actualData = dataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
             Assert.True(WinLossDetailReportDataComparer.Equals(expectedData, actualData));
