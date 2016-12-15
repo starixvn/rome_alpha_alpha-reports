@@ -32,12 +32,6 @@ class SortComponent {
         }
 
         let self = this;
-        sortColumns
-            .off("click.sortcomponent")
-            .on("click.sortcomponent",
-            function () {
-                self.onSort(self.$(this).data("sortedname"));
-            });
 
         if (!this.options.hasAllDataOnClient) {
             let isDecendingSort = this.$sortContainer.data("descendingsort").toLowerCase() === "true";
@@ -46,6 +40,13 @@ class SortComponent {
             this.$sortContainer
                 .find("[data-sortedname='" + this.$sortContainer.data("sortedcolumn") + "']")
                 .addClass(sortClass);
+
+            sortColumns
+                .off("click.sortcomponent")
+                .on("click.sortcomponent",
+                function () {
+                    self.onSort(self.$(this).data("sortedname"));
+                });
         }
 
         this.bindTableSorter(this.$sortContainer.data("sortedcolumn"));
@@ -110,5 +111,7 @@ class SortComponent {
                     return $node.html();
                 }
             });
+
+        this.$sortContainer.off("sortEnd").on("sortEnd", this.options.afterSortFunction);
     };
 }

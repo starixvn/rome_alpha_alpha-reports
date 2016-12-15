@@ -227,12 +227,25 @@ class WinLossDetailView {
         window.history.back();
     };
     afterSort = () => {
+        var this$ = this.$;
         if (this.hasAllDataOnClient) {
             this.replaceHrefParam("SortPropertyName", this.$tableReport.data("sortedcolumn"));
             this.replaceHrefParam(
                 "IsDescendingSort",
                 this.$tableReport.data("descendingsort") === "1" ||
                 this.$tableReport.data("descendingsort") === "true");
+
+            var isEvenRow = false;
+            this.$tableReport.find("tbody > tr").each(function () {
+                var $row = this$(this);
+                if ($row.hasClass("even-row") && !isEvenRow) {
+                    $row.removeClass("even-row");
+                } else if (!$row.hasClass("even-row") && isEvenRow) {
+                    $row.addClass("even-row");
+                }
+
+                isEvenRow = !isEvenRow;
+            });
         } else {
             this.$reportForm.trigger("submit");
         }
