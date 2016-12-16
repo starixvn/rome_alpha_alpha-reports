@@ -75,7 +75,8 @@
 
             container.RegisterPerWebRequest<WinLossDetailService, WinLossDetailServiceImpl>();
             container.RegisterPerWebRequest<WinLossDetailExcelExporter, WinLossDetailExcelExporterImpl>();
-            container.RegisterPerWebRequest<Workbook<WinLossDetail>, NpoiWorkbook<WinLossDetail>>();
+
+            container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
         }
 
         private static void RegisterDataAccesses(Container container)
