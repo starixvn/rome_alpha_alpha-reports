@@ -1,10 +1,19 @@
 ﻿namespace Alpha.Reports.Excel.Helpers
 {
     using System;
+    using System.Resources;
     using AppResources;
 
     public static class ExcelHelper
     {
+        private static ResourceManager resourceManager;
+
+        public static ResourceManager ResourceManager
+        {
+            get { return resourceManager ?? Resources.ResourceManager; }
+            set { resourceManager = value; }
+        }
+
         public static string ContentType
         {
             get
@@ -25,7 +34,7 @@
 
         public static string HeaderTitleMapping(string resourceKey)
         {
-            return Resources.ResourceManager.GetString(resourceKey);
+            return ResourceManager.GetString(resourceKey);
         }
     }
 }
