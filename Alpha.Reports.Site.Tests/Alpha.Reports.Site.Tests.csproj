@@ -69,6 +69,20 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Alpha.Reports.Excel\Alpha.Reports.Excel.csproj">
+      <Project>{d3a67502-185c-4c96-8179-2744d5c810d4}</Project>
+      <Name>Alpha.Reports.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alpha.Reports.Site\Alpha.Reports.Site.csproj">
+      <Project>{55ff4c22-5630-4fb9-92ff-a1feaf6dcf08}</Project>
+      <Name>Alpha.Reports.Site</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alpha.Reports\Alpha.Reports.csproj">
+      <Project>{b868e639-f3f9-4d54-b02e-57f3bee0965e}</Project>
+      <Name>Alpha.Reports</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

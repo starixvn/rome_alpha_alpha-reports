@@ -10,7 +10,6 @@
     using Excel.Services.Impl;
     using Fanex.Data.Repository;
     using MediatR;
-    using Models.WinlossDetails;
     using ONEbook.SpreadSheets;
     using ONEbook.SpreadSheets.NPOI;
     using RemotingRef;
