@@ -40,30 +40,6 @@
         }
 
         [Fact]
-        public void GetWinLossDetail_InvalidParam_ReturnsDefaultReportData()
-        {
-            // Arrange
-            WinLossDetailParam param = new WinLossDetailParam(
-                0,
-                0,
-                0,
-                DateTime.Now.AddYears(-4),
-                DateTime.Now,
-                Enumerable.Empty<int>(),
-                Enumeration.FromValue<UserLevel>(4),
-                string.Empty,
-                false,
-                false);
-            var expectedReportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), param.PageIndex, param.PageSize, 0, new WinLossDetail());
-
-            // Act
-            var actualReportData = winLossDetailServiceImpl.GetWinLossDetail(param);
-
-            // Assert
-            Assert.True(WinLossDetailReportDataComparer.Equals(expectedReportData, actualReportData));
-        }
-
-        [Fact]
         public void GetWinLossDetail_ValidParam_ReturnsDefaultReportData()
         {
             // Arrange
@@ -83,6 +59,30 @@
             dataAccess.GetData(Arg.Any<WinLossDetailCriteria>()).Returns(reportData);
 
             var expectedReportData = reportData;
+
+            // Act
+            var actualReportData = winLossDetailServiceImpl.GetWinLossDetail(param);
+
+            // Assert
+            Assert.True(WinLossDetailReportDataComparer.Equals(expectedReportData, actualReportData));
+        }
+
+        [Fact]
+        public void GetWinLossDetail_InvalidParam_ReturnsDefaultReportData()
+        {
+            // Arrange
+            WinLossDetailParam param = new WinLossDetailParam(
+                0,
+                0,
+                0,
+                DateTime.Now.AddYears(-4),
+                DateTime.Now,
+                Enumerable.Empty<int>(),
+                Enumeration.FromValue<UserLevel>(4),
+                string.Empty,
+                false,
+                false);
+            var expectedReportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), param.PageIndex, param.PageSize, 0, new WinLossDetail());
 
             // Act
             var actualReportData = winLossDetailServiceImpl.GetWinLossDetail(param);
