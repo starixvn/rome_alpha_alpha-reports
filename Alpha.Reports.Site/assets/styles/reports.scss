@@ -22,6 +22,7 @@ a {
 .page-title {
     display: table;
     width: 100%;
+    position: relative;
 
     .hidefilter-element {
         display: none;
@@ -161,6 +162,10 @@ a {
 }
 
 .filter {
+    display: table;
+    width: 100%;
+    clear: both;
+
     #historicreport-switch {
         text-decoration: none !important;
     }
@@ -213,6 +218,14 @@ a {
     .form-group {
         .btn-submit, .btn-group {
             float: left;
+        }
+
+        &.daterange-picker {
+            margin-bottom: 0;
+
+            .ui_nexdatepicker_edit_field, .ui_nexdatepicker_lbl_field   {
+                margin-bottom: 15px;
+            }
         }
     }
 }
@@ -272,19 +285,19 @@ a {
     }
 }
 
+// For mobile
+@media only screen and (max-device-width : $screen-device-greater1024) {
+    .page-title .list-icon {
+        float: left;
+        margin-left: 20px;
+    }
+}
 
 // For mobile
-@media only screen and (max-device-width : $conent-device-lower768) {
+@media only screen and (max-device-width : $screen-device-lower768) {
     body {
         background-color: #fff;
         font-size: $font-size-mobile;
-    }
-
-    .page-title {
-        .list-icon {
-            float: left;
-            margin-left: 20px;
-        }
     }
 
     .filter {
@@ -297,17 +310,18 @@ a {
         }
 
         .daterange-picker {
-            .input-group.date {
-                width: 128px;
-
-                .form-control {
-                    -webkit-appearance: none;
-                }
+            .ui_nexdatepicker_datetextbox.form-control {
+                -webkit-appearance: none;
             }
 
             .ui_nexdatepicker_lbl_field {
                 padding: 8px 6px 8px 0px;
             }
+
+            .input-group.date .form-control {
+                font-size: $font-size-mobile;
+            }
+
         }
 
         .btn-group button.multiselect {
@@ -348,6 +362,69 @@ a {
 
         &.bottom {
             padding-bottom: 0;
+        }
+    }
+}
+
+
+@media only screen and (max-device-width : $screen-device-lower768) and (orientation: landscape) {
+    .filter {
+        .daterange-picker {
+            margin-right: 16px;
+
+            .ui_nexdatepicker_datetextbox {
+                width: 90px !important;
+            }
+
+            .ui_nexdatepicker_lbl_field.separator {
+                    margin-right: 12px;
+            }
+
+            .ui_nexdatepicker_edit_field.fromdate {
+                margin-right: 16px;
+            }
+
+            .ui_nexdatepicker_edit_field.daterange-container {
+                display: inline-block;
+                float: left;
+                margin-bottom: 15px;
+                width: auto;
+            }
+
+        }
+
+    }
+}
+
+
+@media only screen and (max-device-width : $screen-device-lower768) and (orientation: portrait) {
+    .filter {
+        .daterange-picker {
+            margin-right: 0;
+            display: table;
+            clear: both;
+            width: 100%;
+
+            .ui_nexdatepicker_datetextbox {
+                width: 160px !important;
+            }
+
+            .ui_nexdatepicker_lbl_field.separator {
+                    margin-right: 8px;
+            }
+
+            .ui_nexdatepicker_edit_field.fromdate {
+                margin-right: 8px;
+            }
+
+            .ui_nexdatepicker_edit_field.daterange-container {
+                display: inline-block;
+                float: none;
+                margin-bottom: 10px;
+                width: 100%;
+                clear: both;                
+            }
+
         }
     }
 }
