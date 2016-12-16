@@ -22,7 +22,8 @@
         public WinLossDetailDataAccessImplTests()
         {
             objectDb = Substitute.For<IObjectDb>();
-            winLossDetailDataAccessImpl = new WinLossDetailDataAccessImpl((settingKey) => objectDb);
+            winLossDetailDataAccessImpl = new WinLossDetailDataAccessImpl();
+            winLossDetailDataAccessImpl.SetCreateObjectDbFunc((settingKey) => objectDb);
         }
 
         [Fact]
@@ -197,7 +198,7 @@
                 Enumeration.FromValue<UserLevel>(4));
 
             var dataSet = WinLossDetailDatabase.MasterWinLossWinNoTotalTable.CreateDataReader();
-            objectDb.ExecuteReader((dynamic)Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetail>()
             {

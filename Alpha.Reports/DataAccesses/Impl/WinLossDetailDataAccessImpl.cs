@@ -11,11 +11,11 @@
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {
-        private Func<string, IObjectDb> createObjectDbFunc;
+        private Func<string, IObjectDb> createObjectDbFunc = (settingKey) => new ObjectDb(settingKey);
 
-        public WinLossDetailDataAccessImpl(Func<string, IObjectDb> createObjectDbFunc = null)
+        public void SetCreateObjectDbFunc(Func<string, IObjectDb> func)
         {
-            this.createObjectDbFunc = createObjectDbFunc ?? ((settingKey) => new ObjectDb(settingKey));
+            this.createObjectDbFunc = func;
         }
 
         public ReportData<WinLossDetail> GetData(WinLossDetailCriteria criteria)
