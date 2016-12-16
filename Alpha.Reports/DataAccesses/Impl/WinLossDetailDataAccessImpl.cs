@@ -15,7 +15,7 @@
 
         public void SetCreateObjectDbFunc(Func<string, IObjectDb> func)
         {
-            this.createObjectDbFunc = func;
+            createObjectDbFunc = func;
         }
 
         public ReportData<WinLossDetail> GetData(WinLossDetailCriteria criteria)
