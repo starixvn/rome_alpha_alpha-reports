@@ -12,7 +12,6 @@
     using Reports.Enumerations;
     using Reports.Models;
     using Reports.Models.WinlossDetails;
-    using Reports.Services;
     using Xunit;
 
     public class WinLossDetailDataAccessImplTests
@@ -186,9 +185,6 @@
         public void GetData_MasterWinLossReportHasDataWinNoTotalTable_ReturnsDataFromObjectDbAndDefaultTotal()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            var dataAccessImpl = new WinLossDetailDataAccessImpl((settingKey) => objectDb);
-
             var winLossDetailCriteria = new WinLossDetailCriteria(
                 0,
                 0,
@@ -201,7 +197,7 @@
                 Enumeration.FromValue<UserLevel>(4));
 
             var dataSet = WinLossDetailDatabase.MasterWinLossWinNoTotalTable.CreateDataReader();
-            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            objectDb.ExecuteReader((dynamic)Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetail>()
             {
@@ -217,7 +213,7 @@
                 new WinLossDetail());
 
             // Act 
-            var actualData = dataAccessImpl.GetData(winLossDetailCriteria);
+            var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
             Assert.True(WinLossDetailReportDataComparer.Equals(expectedData, actualData));
