@@ -11,13 +11,13 @@
         public EnteredSportDaily(
             bool isToday,
             DateTime eventDate,
-            int sportTypeId,
+            int sportType,
             int entered,
             int nonEntered)
         {
             IsToday = IsToday;
             EventDate = eventDate;
-            SportTypeId = sportTypeId;
+            SportType = sportType;
             Entered = entered;
             NonEntered = nonEntered;
         }
@@ -26,7 +26,7 @@
 
         public DateTime EventDate { get; }
 
-        public int SportTypeId { get; }
+        public int SportType { get; }
 
         public int Entered { get; }
 

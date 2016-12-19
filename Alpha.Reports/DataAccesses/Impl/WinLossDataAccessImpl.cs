@@ -13,29 +13,7 @@
 
     public class WinLossDataAccessImpl : WinLossDataAccess
     {
-        public List<EnteredSportDaily> GetEnteredSportDailies()
-        {
-            var criteria = new EnteredSportDailyCriteria();
-            var dailyMatchevents = new List<EnteredSportDaily>();
-
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                using (var reader = db.ExecuteReader(criteria))
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            dailyMatchevents.Add(BuildDailyMatchEvent(reader));
-                        }
-                    }
-                }
-            }
-
-            return dailyMatchevents;
-        }
-
-        public List<WinLoss> GetWinLosses(WinLossCriteria criteria)
+        public IEnumerable<WinLoss> GetWinLosses(WinLossCriteria criteria)
         {
             if (criteria == null)
             {
@@ -43,7 +21,7 @@
             }
 
             var winLosses = new List<WinLoss>();
-            
+
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria))
@@ -59,18 +37,6 @@
             }
 
             return winLosses;
-        }
-
-        private EnteredSportDaily BuildDailyMatchEvent(IDataReader reader)
-        {
-            var dailyMatchEvent = new EnteredSportDaily(
-                 isToday: reader.ToBool("IsToday"),
-                 eventDate: reader.ToDateTime("EventDate"),
-                 sportTypeId: reader.ToInt("Sporttype"),
-                 entered: reader.ToInt("Entered"),
-                 nonEntered: reader.ToInt("NonEntered"));
-
-            return dailyMatchEvent;
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]

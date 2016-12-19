@@ -142,8 +142,8 @@
     <Compile Include="Services\DateTimeManagerTests.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
-    <Compile Include="Services\WinLoss\WinLossDataTest.cs" />
-    <Compile Include="Services\WinLoss\WinLossServiceImplTests.cs" />
+    <Compile Include="TestCases\WinLossTestCases.cs" />
+    <Compile Include="Services\WinLossServiceImplTests.cs" />
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
     <Compile Include="TestCases\StringExtensionsTestCases.cs" />
     <Compile Include="TestCases\UserLevelTestCases.cs" />

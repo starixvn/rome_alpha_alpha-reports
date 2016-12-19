@@ -6,8 +6,6 @@
 
     public interface WinLossDataAccess
     {
-        List<WinLoss> GetWinLosses(WinLossCriteria criteria);
-
-        List<EnteredSportDaily> GetEnteredSportDailies();
+        IEnumerable<WinLoss> GetWinLosses(WinLossCriteria criteria);
     }
 }

@@ -2,6 +2,11 @@
 {
     public class NetWinLoss
     {
+        public NetWinLoss(decimal total)
+        {
+            Total = total;
+        }
+
         public NetWinLoss(decimal winloss, decimal comm)
         {
             WinLoss = winloss;
@@ -9,8 +14,10 @@
             Total = winloss + comm;
         }
 
-        public NetWinLoss(decimal total)
+        public NetWinLoss(decimal? winloss, decimal? comm, decimal total)
         {
+            WinLoss = winloss;
+            Comm = comm;
             Total = total;
         }
 
@@ -19,5 +26,18 @@
         public decimal? Comm { get; }
 
         public decimal Total { get; }
+
+        public static NetWinLoss operator +(NetWinLoss winlossA, NetWinLoss winlossB)
+        {
+            if(winlossA == null || winlossB == null)
+            {
+                return null;
+            }
+
+            return new NetWinLoss( 
+                winloss:  winlossA?.WinLoss + winlossB?.WinLoss, 
+                comm: winlossA?.Comm + winlossB?.Comm,
+                total: winlossA.Total + winlossB.Total);
+        }
     }
 }

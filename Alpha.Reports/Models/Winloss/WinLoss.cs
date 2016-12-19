@@ -49,5 +49,17 @@
             + (AgentNetWinLoss?.Total ?? 0)
             + (MasterNetWinLoss?.Total ?? 0)
             + (SuperNetWinLoss?.Total ?? 0));
+
+        public static WinLoss operator +(WinLoss winlossA, WinLoss winlossB)
+        {
+            return new WinLoss(custId: 0,
+                               custName: "Total",
+                               grossComm: winlossA.GrossComm + winlossB.GrossComm,
+                               turnover: winlossA.Turnover + winlossB.Turnover,
+                               memberNetWinLoss: winlossA.MemberNetWinLoss + winlossB.MemberNetWinLoss,
+                               agentNetWinLoss: winlossA.AgentNetWinLoss + winlossB.AgentNetWinLoss,
+                               masterNetWinLoss: winlossA.MasterNetWinLoss + winlossB.MasterNetWinLoss,
+                               superNetWinLoss: winlossA.SuperNetWinLoss + winlossB.SuperNetWinLoss);
+        }
     }
 }

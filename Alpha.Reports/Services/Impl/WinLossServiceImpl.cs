@@ -3,15 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Alpha.RemotingRef;
-    using AppResources;
     using Criteria.WinLoss;
     using DataAccesses;
     using Fanex.Caching;
+    using Fanex.Data.Repository;
     using Models;
     using Models.Winloss;
-    using Models.WinlossDetails;
     using Params;
+    using RemotingRef;
 
     public class WinLossServiceImpl : WinLossService
     {
@@ -20,12 +19,15 @@
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly WinLossDataAccess dataAccess;
+        private readonly IDynamicRepository dynamicRepository;
 
         public WinLossServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
-            WinLossDataAccess dataAccess)
+            WinLossDataAccess dataAccess,
+            IDynamicRepository dynamicRepository)
         {
+            this.dynamicRepository = dynamicRepository;
             this.reportDateService = reportDateService;
             this.productService = productService;
             this.dataAccess = dataAccess;
@@ -56,10 +58,14 @@
                 param.ReportLevel);
 
             var winlossess = dataAccess.GetWinLosses(criteria).OrderBy(x => x.CustName).ToList();
+           
+            if(winlossess.Count() > 0)
+            {
+                var totalWinLoss = BuildGrandTotal(winlossess, param.ReportLevel);
+                return new ReportData<WinLoss>(winlossess, winlossess.Count, totalWinLoss);
+            }
 
-            var totalWinLoss = BuildGrandTotal(winlossess, param.ReportLevel);
-
-            return new ReportData<WinLoss>(winlossess, winlossess.Count, totalWinLoss); 
+            return new ReportData<WinLoss>(Enumerable.Empty<WinLoss>(), 0, new WinLoss());
         }
 
         public ReportData<EnteredSportResult> GetEnteredSportResults()
@@ -76,9 +82,9 @@
         private ReportData<EnteredSportResult> GetDatabaseEnteredSportResults()
         {
             var enteredResults = new List<EnteredSportResult>();
-            List<EnteredSportDaily> enteredSportDailies = dataAccess.GetEnteredSportDailies();
+            IEnumerable<EnteredSportDaily> enteredSportDailies = GetEnteredSportDailies();
 
-            enteredResults = enteredSportDailies.GroupBy(x => x.SportTypeId)
+            enteredResults = enteredSportDailies.GroupBy(x => x.SportType)
                     .Select(y => new EnteredSportResult(
                     y.Key,
                     CacheRef.GetSportName(y.Key),
@@ -88,66 +94,24 @@
             return new ReportData<EnteredSportResult>(enteredResults);
         }
 
+        private IEnumerable<EnteredSportDaily> GetEnteredSportDailies()
+        {
+            IEnumerable<EnteredSportDaily> enteredSportDailies = dynamicRepository.Fetch<EnteredSportDaily>(new EnteredSportDailyCriteria());
+
+            return enteredSportDailies;
+        }
+
         internal virtual WinLoss BuildGrandTotal(List<WinLoss> winlossess, UserLevel reportLevel)
         {
-            if(winlossess == null || winlossess.Count().Equals(0) || reportLevel == null)
+            WinLoss grandTotal;
+            int i;
+
+            for (i = 1, grandTotal = winlossess[0]; i < winlossess.Count(); i++)
             {
-                return new WinLoss();
+                grandTotal += winlossess[i];
             }
 
-            var grantTotal = new WinLoss(
-                 custId: 0,
-                 custName: Resources.Total,
-                 turnover: winlossess.Sum(x => x.Turnover),
-                 grossComm: winlossess.Sum(x => x.GrossComm),
-                 memberNetWinLoss: BuildGrandTotalMemberWinLoss(winlossess, reportLevel),
-                 agentNetWinLoss: BuildGrandTotalAgentWinLoss(winlossess, reportLevel),
-                 masterNetWinLoss: BuildGrandTotalMasterWinLoss(winlossess, reportLevel),
-                 superNetWinLoss: BuildGrandTotalSuperWinLoss(winlossess, reportLevel));
-
-            return grantTotal;
-        }
-
-        private NetWinLoss BuildGrandTotalMemberWinLoss(List<WinLoss> winlossess, UserLevel reportLevel)
-        {
-            var memberNetWinLoss = reportLevel.IsAgentLevel() ? new NetWinLoss(
-                        winloss: winlossess.Sum(x => x.MemberNetWinLoss.WinLoss.Value),
-                        comm: winlossess.Sum(x => x.MemberNetWinLoss.Comm.Value)) : null;
-
-            return memberNetWinLoss;
-        }
-
-        private NetWinLoss BuildGrandTotalAgentWinLoss(List<WinLoss> winlossess, UserLevel reportLevel)
-        {
-            var agentNetWinLoss = reportLevel.IsNotSuperLevel() ?
-                        (reportLevel.IsMasterLevel() ? new NetWinLoss(total: winlossess.Sum(x => x.AgentNetWinLoss.Total))
-                        : new NetWinLoss(
-                        winloss: winlossess.Sum(x => x.AgentNetWinLoss.WinLoss.Value),
-                        comm: winlossess.Sum(x => x.AgentNetWinLoss.Comm.Value))) : null;
-
-            return agentNetWinLoss;
-        }
-
-        private NetWinLoss BuildGrandTotalMasterWinLoss(List<WinLoss> winlossess, UserLevel reportLevel)
-        {
-            var masterNetWinLoss = reportLevel.IsMasterOrSuperLevel() ?
-                        (reportLevel.IsMasterLevel() ?
-                        new NetWinLoss(
-                        winloss: winlossess.Sum(x => x.MasterNetWinLoss.WinLoss.Value),
-                        comm: winlossess.Sum(x => x.MasterNetWinLoss.Comm.Value))
-                        : new NetWinLoss(total: winlossess.Sum(x => x.MasterNetWinLoss.Total))) : null;
-
-            return masterNetWinLoss;
-        }
-
-        private NetWinLoss BuildGrandTotalSuperWinLoss(List<WinLoss> winlossess, UserLevel reportLevel)
-        {
-            var superNetWinLoss = reportLevel.IsSuperLevel() ?
-                        new NetWinLoss(
-                        winloss: winlossess.Sum(x => x.SuperNetWinLoss.WinLoss.Value),
-                        comm: winlossess.Sum(x => x.SuperNetWinLoss.Comm.Value)) : null;
-
-            return superNetWinLoss;
+            return grandTotal;
         }
     }
 }
