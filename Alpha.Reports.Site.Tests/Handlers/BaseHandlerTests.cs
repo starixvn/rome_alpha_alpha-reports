@@ -1,0 +1,159 @@
+﻿namespace Alpha.Reports.Site.Tests.Handlers
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using KellermanSoftware.CompareNetObjects;
+    using Models;
+    using Models.WinlossDetails;
+    using NSubstitute;
+    using Requests;
+    using Requests.WinLossDetails;
+    using Site.Handlers;
+    using Sunplus.Agent.Model.Entities;
+    using ViewModels;
+    using Xunit;
+
+    public class BaseHandlerTests
+    {
+        private readonly BaseHandler baseHandler;
+        private readonly CompareLogic compareLogic;
+        private readonly IUserSession userSession;
+
+        public BaseHandlerTests()
+        {
+            baseHandler = new BaseHandler();
+            compareLogic = new CompareLogic();
+            userSession = Substitute.For<IUserSession>();
+        }
+
+        [Fact]
+        public void BuildProductSelectListItems_NullProducts_ReturnsEmptySelectListItem()
+        {
+            // Arrange
+            IEnumerable<Product> products = null;
+            var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
+
+            // Act
+            var actualSelectListItems = baseHandler.BuildProductSelectListItems(Enumerable.Empty<int>(), products);
+
+            // Assert
+            Assert.Equal(expectedSelectListItems, actualSelectListItems);
+        }
+
+        [Fact]
+        public void BuildProductSelectListItems_EmptyProductList_ReturnsEmptySelectListItem()
+        {
+            // Arrange
+            IEnumerable<Product> products = Enumerable.Empty<Product>();
+            var userSelectedProductIds = Enumerable.Empty<int>();
+            var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
+
+            // Act
+            var actualSelectListItems = baseHandler.BuildProductSelectListItems(userSelectedProductIds, products);
+
+            // Assert
+            Assert.Equal(expectedSelectListItems, actualSelectListItems);
+        }
+
+        [Fact]
+        public void BuildProductSelectListItems_HasDataProductList_ReturnsCorrectSelectListItem()
+        {
+            // Arrange
+            Func<int, string> getProductDisplayName = (id) => $"Product {id}";
+
+            IEnumerable<Product> products = new List<Product>
+            {
+                new Product(1, "Product 1", getProductDisplayName),
+                new Product(2, "Product 2", getProductDisplayName),
+                new Product(3, "Product 3", getProductDisplayName)
+            };
+
+            var userSelectedProductIds = new List<int> { 1, 3 };
+            IEnumerable<SelectListItem> expectedSelectListItems = new List<SelectListItem>
+            {
+                new SelectListItem
+                {
+                    Text = "Product 1",
+                    Value = "1",
+                    Selected = true
+                },
+                new SelectListItem
+                {
+                    Text = "Product 2",
+                    Value = "2",
+                    Selected = false
+                },
+                new SelectListItem
+                {
+                    Text = "Product 3",
+                    Value = "3",
+                    Selected = true
+                }
+            };
+
+            // Act
+            var actualSelectListItems = baseHandler.BuildProductSelectListItems(userSelectedProductIds, products).ToList();
+
+            // Assert
+            Assert.True(compareLogic.Compare(expectedSelectListItems, actualSelectListItems).AreEqual);
+        }
+
+        [Fact]
+        public void BuildBreadcrumbLevels_NullQuery_ThrowsArgumentNullException()
+        {
+            // Arrange
+            BaseReportQuery message = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(
+                message,
+                (custInfo, baseReportQuery, jsonBreadcrumbLevels) => default(WinLossDetail)));
+        }
+
+        [Fact]
+        public void BuildBreadcrumbLevels_NullBuildActionLinkViewModelFunc_ThrowsArgumentNullException()
+        {
+            // Arrange
+            Func<CustInfo, BaseReportQuery, string, WinLossDetail> buildActionLinkViewModelFunc = null;
+            var message = new BaseReportQuery();
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("  ")]
+        public void BuildBreadcrumbLevels_QueryHasNullOrWhiteSpaceBreadcrumbLevels_ReturnsTopLevelBreadcrumbs(
+            string breadcrumbLevels)
+        {
+            // Arrange
+            Func<CustInfo, BaseReportQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
+                (custInfo, baseReportQuery, jsonBreadcrumbLevels) => new WinLossDetailQuery(userSession);
+
+            var message = new BaseReportQuery
+            {
+                BreadcrumbLevels = breadcrumbLevels
+            };
+
+            var expectedDrilldownLevels = new List<ActionLinkViewModel>
+            {
+                new ActionLinkViewModel(
+                    controllerName: "WinLossDetail",
+                    actionName: "Index",
+                    linkText: message.CustName,
+                    routeValues: new WinLossDetailQuery(userSession))
+            };
+
+            // Act 
+            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc);
+
+            // Assert
+            Assert.True(compareLogic.Compare(actualDrilldownLevels, actualDrilldownLevels).AreEqual);
+        }
+    }
+}

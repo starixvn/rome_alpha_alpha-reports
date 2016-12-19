@@ -11,7 +11,7 @@
 
     public class BaseHandler
     {
-        protected IEnumerable<SelectListItem> BuildProductSelectListItems(
+        internal IEnumerable<SelectListItem> BuildProductSelectListItems(
             IEnumerable<int> userSelectedProductIds,
             IEnumerable<Product> products)
         {
@@ -34,7 +34,7 @@
             });
         }
 
-        protected IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels<T>(
+        internal IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels<T>(
             BaseReportQuery message,
             Func<CustInfo, BaseReportQuery, string, T> buildActionLinkViewModelFunc) where T : class
         {

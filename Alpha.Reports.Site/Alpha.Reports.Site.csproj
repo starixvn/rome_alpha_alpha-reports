@@ -268,6 +268,7 @@
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetailHandler.cs" />
     <Compile Include="Helpers\AppPathHelper.cs" />
+    <Compile Include="Helpers\HttpAdapter.cs" />
     <Compile Include="Helpers\Impl\MicroSitesImpl.cs" />
     <Compile Include="Helpers\Impl\StaticResources\AssetScripts.cs" />
     <Compile Include="Helpers\Impl\StaticResources\AssetStyles.cs" />
