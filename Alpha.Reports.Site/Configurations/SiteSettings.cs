@@ -1,11 +1,14 @@
 ﻿namespace Alpha.Reports.Site.Configurations
 {
     using System;
+    using System.Collections.Specialized;
     using System.Configuration;
     using Fanex.Common;
 
     public static class SiteSettings
     {
+        private static NameValueCollection appSettings = ConfigurationManager.AppSettings;
+
         public static string OldMainAppPath => GetConfigValue("OldMainAppPath");
 
         public static string AccessDeniedPage => GetConfigValue("AccessDeniedPage");
@@ -16,7 +19,13 @@
 
         public static string AssetAppPath => GetConfigValue("AssetAppPath");
 
-        public static string GetConfigValue(string configName) => ConfigurationManager.AppSettings[configName];
+        internal static NameValueCollection AppSettings
+        {
+            get { return appSettings; }
+            set { appSettings = value; }
+        }
+
+        public static string GetConfigValue(string configName) => appSettings[configName];
 
         public static void Verify()
         {

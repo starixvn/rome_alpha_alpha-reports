@@ -306,6 +306,7 @@
     <TypeScriptCompile Include="assets\scripts\components\daterangepicker.ts" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="assets\bundles\default.css" />
     <Content Include="assets\bundles\default.min.css">
       <DependentUpon>default.css</DependentUpon>
@@ -314,7 +315,6 @@
     <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
     </Content>
@@ -354,6 +354,60 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\AuthorizationSection.config" />
+    <None Include="Web.AppSettings.backupMNL.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </None>
+    <None Include="Web.AppSettings.backupMNL2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </None>
+    <None Include="Web.AppSettings.backupMNLExNap.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </None>
+    <None Include="Web.AppSettings.backupMNLExNap2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </None>
+    <None Include="Web.AppSettings.backupMNLNap.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </None>
+    <None Include="Web.AppSettings.backupMNLNap2.config">
+      <DependentUpon>Web.AppSettings.config</DependentUpon>
+    </None>
+    <None Include="Web.backupMNL.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </None>
+    <None Include="Web.backupMNL2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </None>
+    <None Include="Web.backupMNLExNap.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </None>
+    <None Include="Web.backupMNLExNap2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </None>
+    <None Include="Web.backupMNLNap.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </None>
+    <None Include="Web.backupMNLNap2.config">
+      <DependentUpon>Web.local.config</DependentUpon>
+    </None>
+    <None Include="Web.ConnectionStrings.backupMNL.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </None>
+    <None Include="Web.ConnectionStrings.backupMNL2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </None>
+    <None Include="Web.ConnectionStrings.backupMNLExNap.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </None>
+    <None Include="Web.ConnectionStrings.backupMNLExNap2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </None>
+    <None Include="Web.ConnectionStrings.backupMNLNap.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </None>
+    <None Include="Web.ConnectionStrings.backupMNLNap2.config">
+      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
+    </None>
     <None Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </None>
