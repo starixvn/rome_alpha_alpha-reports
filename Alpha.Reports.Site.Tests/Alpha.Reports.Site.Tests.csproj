@@ -110,13 +110,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\ResourcesTests.cs" />
     <Compile Include="Configurations\SiteSettingsTests.cs" />
+    <Compile Include="Constants\DefaultVariables.cs" />
+    <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandlerTests.cs" />
     <Compile Include="Helpers\AppPathHelperTests.cs" />
+    <Compile Include="Helpers\ExcelHelperTests.cs" />
     <Compile Include="Helpers\Impl\MicroSitesImplTests.cs" />
     <Compile Include="Helpers\Impl\StaticResources\BaseStaticResourcesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCases\ExportWinLossDetailParamTestCases.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -124,10 +129,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Alpha.Reports.Excel\Alpha.Reports.Excel.csproj">
-      <Project>{d3a67502-185c-4c96-8179-2744d5c810d4}</Project>
-      <Name>Alpha.Reports.Excel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Alpha.Reports.Site\Alpha.Reports.Site.csproj">
       <Project>{55ff4c22-5630-4fb9-92ff-a1feaf6dcf08}</Project>
       <Name>Alpha.Reports.Site</Name>

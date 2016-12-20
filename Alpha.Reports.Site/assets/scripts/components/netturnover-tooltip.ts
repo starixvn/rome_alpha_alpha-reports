@@ -58,7 +58,6 @@ class NetTurnoverTooltipComponent {
 
         var netTurnoverHeader = this.$(".col-netturnover-header");
         var netTurnoverPosition = netTurnoverHeader.position();
-        console.log(netTurnoverPosition.left + "_" + netTurnoverHeader.outerWidth());
 
         if (netTurnoverPosition.top) {
             if (alphaReports.screenSmallThan768()) {
@@ -71,14 +70,14 @@ class NetTurnoverTooltipComponent {
                 });
             } else {
                 netTurnoverTooltip.css({
-                    left: netTurnoverPosition.left + netTurnoverHeader.outerWidth() - 16, // Next to netturnover label
+                    left: netTurnoverPosition.left + netTurnoverHeader.outerWidth() - 16, // Next to net turnover label
                     right: "auto",
                     bottom: "auto",
                     top: netTurnoverPosition.top - 22, // verical align: middle with header
                     width: "auto"
                 });
             }
-        } 
+        }
     };
     registerEvents = (netTurnoverTooltip: any) => {
         var self = this;

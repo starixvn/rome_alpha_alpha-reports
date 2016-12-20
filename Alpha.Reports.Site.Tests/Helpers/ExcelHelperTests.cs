@@ -1,9 +1,9 @@
-﻿namespace Alpha.Reports.Excel.Tests.Helpers
+﻿namespace Alpha.Reports.Site.Tests.Helpers
 {
     using System;
     using System.Resources;
-    using Excel.Helpers;
     using NSubstitute;
+    using Site.Helpers;
     using Xunit;
 
     public class ExcelHelperTests

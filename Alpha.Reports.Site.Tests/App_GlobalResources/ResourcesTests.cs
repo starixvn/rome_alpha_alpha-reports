@@ -1,5 +1,6 @@
-﻿namespace Alpha.Reports.AppResources.Tests
+﻿namespace Alpha.Reports.Site.Tests.App_GlobalResources
 {
+    using Site.App_GlobalResources;
     using Xunit;
 
     public class ResourcesTests

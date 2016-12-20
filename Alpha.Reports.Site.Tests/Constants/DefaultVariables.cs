@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Excel.Tests.Constants
+﻿namespace Alpha.Reports.Site.Tests.Constants
 {
     using System;
 

@@ -6,8 +6,6 @@
     using Controllers;
     using DataAccesses;
     using DataAccesses.Impl;
-    using Excel.Services;
-    using Excel.Services.Impl;
     using Fanex.Data.Repository;
     using MediatR;
     using ONEbook.SpreadSheets;
@@ -73,7 +71,6 @@
             container.RegisterPerWebRequest<ProductService, ProductServiceImpl>();
 
             container.RegisterPerWebRequest<WinLossDetailService, WinLossDetailServiceImpl>();
-            container.RegisterPerWebRequest<WinLossDetailExcelExporter, WinLossDetailExcelExporterImpl>();
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
         }

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Excel.Tests.TestCases
+﻿namespace Alpha.Reports.Site.Tests.TestCases
 {
     using System.Collections.Generic;
 

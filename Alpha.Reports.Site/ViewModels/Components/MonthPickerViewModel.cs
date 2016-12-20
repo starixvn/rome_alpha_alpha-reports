@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Components
 {
     using System;
-    using static AppResources.Resources;
+    using static App_GlobalResources.Resources;
 
     public class MonthPickerViewModel
     {

@@ -13,14 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Site.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Site", "Alpha.Reports.Site\Alpha.Reports.Site.csproj", "{55FF4C22-5630-4FB9-92FF-A1FEAF6DCF08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Excel", "Alpha.Reports.Excel\Alpha.Reports.Excel.csproj", "{D3A67502-185C-4C96-8179-2744D5C810D4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.AppResources", "Alpha.Reports.AppResources\Alpha.Reports.AppResources.csproj", "{40E67A44-A6B5-4DE4-81CE-01FF7145C96C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Excel.Tests", "Alpha.Reports.Excel.Tests\Alpha.Reports.Excel.Tests.csproj", "{58318743-D630-473D-9C91-94D3B40A545C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.AppResources.Tests", "Alpha.Reports.AppResources.Tests\Alpha.Reports.AppResources.Tests.csproj", "{9CC97292-D84F-4B80-B779-C46E9F6A64E1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,22 +35,6 @@ Global
 		{55FF4C22-5630-4FB9-92FF-A1FEAF6DCF08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55FF4C22-5630-4FB9-92FF-A1FEAF6DCF08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55FF4C22-5630-4FB9-92FF-A1FEAF6DCF08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D3A67502-185C-4C96-8179-2744D5C810D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3A67502-185C-4C96-8179-2744D5C810D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3A67502-185C-4C96-8179-2744D5C810D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3A67502-185C-4C96-8179-2744D5C810D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{40E67A44-A6B5-4DE4-81CE-01FF7145C96C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40E67A44-A6B5-4DE4-81CE-01FF7145C96C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{40E67A44-A6B5-4DE4-81CE-01FF7145C96C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{40E67A44-A6B5-4DE4-81CE-01FF7145C96C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58318743-D630-473D-9C91-94D3B40A545C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58318743-D630-473D-9C91-94D3B40A545C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58318743-D630-473D-9C91-94D3B40A545C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58318743-D630-473D-9C91-94D3B40A545C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CC97292-D84F-4B80-B779-C46E9F6A64E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CC97292-D84F-4B80-B779-C46E9F6A64E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CC97292-D84F-4B80-B779-C46E9F6A64E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CC97292-D84F-4B80-B779-C46E9F6A64E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,8 +42,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{0F9FDF8D-E083-47E3-99AB-9AC53C74C366} = {84A6FE33-9D5F-4416-A134-FD2F5B47E071}
 		{635DD698-CB5A-47C4-B767-223AA7B65943} = {84A6FE33-9D5F-4416-A134-FD2F5B47E071}
-		{58318743-D630-473D-9C91-94D3B40A545C} = {84A6FE33-9D5F-4416-A134-FD2F5B47E071}
-		{9CC97292-D84F-4B80-B779-C46E9F6A64E1} = {84A6FE33-9D5F-4416-A134-FD2F5B47E071}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45

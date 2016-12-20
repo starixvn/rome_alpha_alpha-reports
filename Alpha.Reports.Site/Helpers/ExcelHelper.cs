@@ -1,8 +1,8 @@
-﻿namespace Alpha.Reports.Excel.Helpers
+﻿namespace Alpha.Reports.Site.Helpers
 {
     using System;
     using System.Resources;
-    using AppResources;
+    using App_GlobalResources;
 
     public static class ExcelHelper
     {
