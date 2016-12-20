@@ -5,19 +5,11 @@
     using System.Data;
     using Criteria.WinLossDetail;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Models;
     using Models.WinlossDetails;
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {
-        private Func<string, IObjectDb> createObjectDbFunc = (settingKey) => new ObjectDb(settingKey);
-
-        public void SetCreateObjectDbFunc(Func<string, IObjectDb> func)
-        {
-            createObjectDbFunc = func;
-        }
-
         public ReportData<WinLossDetail> GetData(WinLossDetailCriteria criteria)
         {
             if (criteria == null)
@@ -28,7 +20,7 @@
             var winLossDetails = new List<WinLossDetail>();
             var totalWinLoss = new WinLossDetail();
 
-            using (var db = createObjectDbFunc(criteria.GetSettingKey()))
+            using (var db = ObjectDbAdapter.CreateObjectDbFunc(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria))
                 {

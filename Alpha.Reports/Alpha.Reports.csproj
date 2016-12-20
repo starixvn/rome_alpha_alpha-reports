@@ -107,6 +107,7 @@
     <Compile Include="Criteria\ReportProductCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
     <Compile Include="DataAccesses\Impl\WinLossDetailDataAccessImpl.cs" />
+    <Compile Include="DataAccesses\ObjectDbAdapter.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccess.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

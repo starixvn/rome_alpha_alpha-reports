@@ -8,6 +8,7 @@
     using Fanex.Data;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
+    using Reports.DataAccesses;
     using Reports.DataAccesses.Impl;
     using Reports.Enumerations;
     using Reports.Models;
@@ -23,7 +24,7 @@
         {
             objectDb = Substitute.For<IObjectDb>();
             winLossDetailDataAccessImpl = new WinLossDetailDataAccessImpl();
-            winLossDetailDataAccessImpl.SetCreateObjectDbFunc((settingKey) => objectDb);
+            ObjectDbAdapter.CreateObjectDbFunc = (settingKey) => objectDb;
         }
 
         [Fact]
