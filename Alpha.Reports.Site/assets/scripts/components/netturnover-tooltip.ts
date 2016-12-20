@@ -56,14 +56,29 @@ class NetTurnoverTooltipComponent {
             return;
         }
 
-        var netTurnoverPosition = this.$(".col-netturnover-header").position();
+        var netTurnoverHeader = this.$(".col-netturnover-header");
+        var netTurnoverPosition = netTurnoverHeader.position();
+        console.log(netTurnoverPosition.left + "_" + netTurnoverHeader.outerWidth());
 
         if (netTurnoverPosition.top) {
-            netTurnoverTooltip.css({
-                left: 0,
-                top: netTurnoverPosition.top - 22
-            });
-        }
+            if (alphaReports.screenSmallThan768()) {
+                netTurnoverTooltip.css({
+                    left: 0,
+                    right: 0,
+                    bottom: "auto",
+                    top: netTurnoverPosition.top - 22,
+                    width: "auto"
+                });
+            } else {
+                netTurnoverTooltip.css({
+                    left: netTurnoverPosition.left + netTurnoverHeader.outerWidth() - 16, // Next to netturnover label
+                    right: "auto",
+                    bottom: "auto",
+                    top: netTurnoverPosition.top - 22, // verical align: middle with header
+                    width: "auto"
+                });
+            }
+        } 
     };
     registerEvents = (netTurnoverTooltip: any) => {
         var self = this;
