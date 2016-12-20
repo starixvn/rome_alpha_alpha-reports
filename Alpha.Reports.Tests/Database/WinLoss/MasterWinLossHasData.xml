@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WinLoss>
+  <TableWinLoss>
+    <CustId>1</CustId>
+    <CustName>Master01</CustName>
+    <Turnover>0</Turnover>
+    <GrossComm>1</GrossComm>
+    <MAgTotal>2</MAgTotal>
+    <SAgWinLoss>3</SAgWinLoss>
+    <SAgComm>4</SAgComm>
+  </TableWinLoss>
+  <TableWinLoss>
+    <CustId>1</CustId>
+    <CustName>Master02</CustName>
+    <Turnover>5</Turnover>
+    <GrossComm>6</GrossComm>
+    <MAgTotal>7</MAgTotal>
+    <SAgWinLoss>8</SAgWinLoss>
+    <SAgComm>9</SAgComm>
+  </TableWinLoss>
+</WinLoss>

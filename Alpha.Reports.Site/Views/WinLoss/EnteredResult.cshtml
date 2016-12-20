@@ -6,7 +6,7 @@
 @Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, false, true, false, false, new List<ActionLinkViewModel>()))
 @Html.Partial("_EnteredResultFilter", Model.FilterViewModel)
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
-       data-totalrecords="@Model.ReportData.DataSource.Count()"
+       data-totalrecords="@Model.ReportData.Count()"
        data-sortedcolumn="SportName"
        data-descendingsort="false">
     <thead>
@@ -26,7 +26,7 @@
     @if (Model.ReportData.Any())
     {
         <tbody>
-            @foreach (var enteredSportResult in Model.ReportData.DataSource)
+            @foreach (var enteredSportResult in Model.ReportData)
             {
                 <tr>
                     <td class="text-left col-first">@enteredSportResult.SportName</td>

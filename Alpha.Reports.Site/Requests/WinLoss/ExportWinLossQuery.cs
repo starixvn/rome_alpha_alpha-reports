@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
     using System;
+    using System.Collections.Generic;
     using System.Web;
     using Alpha.Reports.Models.Winloss;
     using MediatR;
@@ -37,7 +38,9 @@
 
         public string Title => viewModel.Title;
 
-        public ReportData<WinLoss> ReportData => viewModel.ReportData;
+        public IEnumerable<WinLoss> ReportData => viewModel.ReportData;
+
+        public WinLoss GrantTotal => viewModel.GrantTotal;
 
         public DateTime FromDate => viewModel.FromDate;
 

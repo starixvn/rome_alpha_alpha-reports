@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Excel.Services.Impl
 {
     using System;
+    using System.Linq;
     using AppResources;
     using Extensions;
     using Helpers;
@@ -29,13 +30,8 @@
             this.enteredSportResultWorkbook = enteredSportResultWorkbook;
         }
 
-        public byte[] ExportWinLossExcel(ExportExcelParam<WinLoss> param, ExportWinLossParam reportParam)
+        public byte[] ExportWinLossExcel(ExportWinLossParam reportParam)
         {
-            if (param == null)
-            {
-                throw new ArgumentNullException(nameof(param));
-            }
-
             if (reportParam == null)
             {
                 throw new ArgumentNullException(nameof(reportParam));
@@ -43,41 +39,40 @@
 
             exportWinLossParam = reportParam;
 
-            var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}" +
+            var reportTitle = $"{reportParam.ReportName} {reportParam.FromDate.ToShortDateWithSlash()} --> {reportParam.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(reportParam.UserSelectedProductIds));
 
-            var templateInfo = new TemplateInfo(templatePath: param.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable);
+            var templateInfo = new TemplateInfo(templatePath: reportParam.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable);
 
             var result = winLossWorkbook
                 .UseTemplate(templateInfo)
                 .Title(reportTitle)
                 .Header(ExcelHelper.HeaderTitleMapping)
-                .Body(param.ReportData.DataSource, GetWinLossRowMapper(isTotal: false))
-                .Footer(param.ReportData.TotalData, GetWinLossRowMapper(isTotal: true))
-                .Sheet(param.SheetName)
+                .Body(reportParam.ReportData, GetWinLossRowMapper(isTotal: false))
+                .Footer(reportParam.GrantTotal, GetWinLossRowMapper(isTotal: true))
+                .Sheet(reportParam.SheetName)
                 .ExportToBytes();
 
             return result;
         }
 
-        public byte[] ExportEnteredResultExcel(ExportExcelParam<EnteredSportResult> param)
+        public byte[] ExportEnteredResultExcel(ExportEnteredResultParam reportParam)
         {
-            if (param == null)
+            if (reportParam == null)
             {
-                throw new ArgumentNullException(nameof(param));
+                throw new ArgumentNullException(nameof(reportParam));
             }
 
 
-            var reportTitle = $"{param.ReportName} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()}" +
-                $" {Resources.of2} ";
+            var reportTitle = reportParam.ReportName;
 
-            var templateInfo = new TemplateInfo(templatePath: param.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable, titleStartIndex: 0, headerStartIndex: 1, bodyStartIndex: 3, bodyEndIndex: 4);
+            var templateInfo = new TemplateInfo(templatePath: reportParam.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable, titleStartIndex: 0, headerStartIndex: 1, bodyStartIndex: 3, bodyEndIndex: 4);
 
             var result = enteredSportResultWorkbook
                 .UseTemplate(templateInfo)
                 .Header(ExcelHelper.HeaderTitleMapping)
-                .Body(param.ReportData.DataSource, GetEnteredSportResultRowMapper())
-                .Sheet(param.SheetName)
+                .Body(reportParam.ReportData, GetEnteredSportResultRowMapper())
+                .Sheet(reportParam.SheetName)
                 .ExportToBytes();
 
             return result;

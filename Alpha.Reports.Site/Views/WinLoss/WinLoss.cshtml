@@ -37,7 +37,7 @@
     })
 <table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
-       data-totalrecords="@Model.ReportData.TotalRecords"
+       data-totalrecords="@Model.ReportData.Count()"
        data-custid="@Model.CustId"
        data-sortedcolumn="CustName"
        data-descendingsort="false">
@@ -97,13 +97,13 @@
     @if (Model.ReportData.Any())
     {
         <tbody>
-            @foreach (var data in Model.ReportData.DataSource)
+            @foreach (var data in Model.ReportData)
             {
                 @RenderRow(data, false, ViewBag.BetListPath)
             }
         </tbody>
         <tfoot>
-            @RenderRow(Model.ReportData.TotalData, true, ViewBag.BetListPath)
+            @RenderRow(Model.GrantTotal, true, ViewBag.BetListPath)
         </tfoot>
     }
     else

@@ -9,9 +9,6 @@
             return "Age_Rpt_MatchSelResultEntered";
         }
 
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public override bool IsValid() => true;
     }
 }

@@ -2,18 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Alpha.Reports.Excel.Services;
-    using Alpha.Reports.Site.Requests.WinLoss;
+    using Excel.Services;
+    using Requests.WinLoss;
     using Enumerations;
     using Excel.Params;
     using MediatR;
     using Models;
-    using Models.Winloss;
     using Newtonsoft.Json;
     using Params;
-    using Reports.Extensions;
+    using Extensions;
     using Requests.WinLossDetails;
     using Services;
     using ViewModels;
@@ -76,9 +74,9 @@
 
             var winLossParam = CreateWinLossParamater(message, userLevel);
 
-            var reportData = reportService.GetWinLosses(winLossParam);
+            var reportData = reportService.GetWinLoss(winLossParam);
 
-            var viewModel = new WinLossViewModel
+            var viewModel = new WinLossViewModel(reportData.ToList())
             {
                 CustId = winLossParam.CustId,
                 CustName = message.CustName,
@@ -93,7 +91,6 @@
                 IsHistoricReport = message.IsHistoricReport,
                 IsFilterVisible = message.IsFilterVisible,
 
-                ReportData = reportData,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
                 IsDirectReportViewAction = message.IsDirectReportViewAction,
                 BreadcrumbLevels = BuildBreadcrumbLevels(message)
@@ -110,16 +107,16 @@
             }
 
             var fileContents = excelExporter.ExportWinLossExcel(
-                new ExportExcelParam<WinLoss>
-                {
-                    TemplatePath = message.TemplatePath,
-                    ReportName = message.Title,
-                    SheetName = message.Title,
-                    ReportData = message.ReportData,
-                    FromDate = message.FromDate,
-                    ToDate = message.ToDate
-                },
-                new ExportWinLossParam(message.UserLevel, message.UserSelectedProductIds));
+                new ExportWinLossParam(
+                    templatePath: message.TemplatePath,
+                    sheetName: message.Title,
+                    reportName: message.Title,
+                    reportData: message.ReportData,
+                    grantTotal: message.GrantTotal,
+                    fromDate: message.FromDate,
+                    toDate: message.ToDate,
+                    userLevel: message.UserLevel,
+                    userSelectedProductIds: message.UserSelectedProductIds));
 
             return fileContents;
         }
@@ -132,13 +129,11 @@
             }
 
             var fileContents = excelExporter.ExportEnteredResultExcel(
-                new ExportExcelParam<EnteredSportResult>
-                {
-                    TemplatePath = message.TemplatePath,
-                    ReportName = message.Title,
-                    SheetName = message.Title,
-                    ReportData = message.ReportData,
-                });
+                new ExportEnteredResultParam(
+                    templatePath: message.TemplatePath,
+                    reportName: message.Title,
+                    sheetName: message.Title,
+                    reportData: message.ReportData));
 
             return fileContents;
         }

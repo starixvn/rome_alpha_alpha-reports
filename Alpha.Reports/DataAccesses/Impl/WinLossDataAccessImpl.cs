@@ -13,16 +13,23 @@
 
     public class WinLossDataAccessImpl : WinLossDataAccess
     {
-        public IEnumerable<WinLoss> GetWinLosses(WinLossCriteria criteria)
+        private Func<string, IObjectDb> createObjectDbFunc = (settingKey) => new ObjectDb(settingKey);
+
+        public void SetCreateObjectDbFunc(Func<string, IObjectDb> func)
+        {
+            createObjectDbFunc = func;
+        }
+
+        public IEnumerable<WinLoss> GetWinLoss(WinLossCriteria criteria)
         {
             if (criteria == null)
             {
                 throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
             }
 
-            var winLosses = new List<WinLoss>();
+            var winlossData = new List<WinLoss>();
 
-            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            using (var db = createObjectDbFunc(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria))
                 {
@@ -30,13 +37,13 @@
                     {
                         while (reader.Read())
                         {
-                            winLosses.Add(BuildWinLoss(reader, criteria.ReportLevel));
+                            winlossData.Add(BuildWinLoss(reader, criteria.ReportLevel));
                         }
                     }
                 }
             }
 
-            return winLosses;
+            return winlossData;
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]

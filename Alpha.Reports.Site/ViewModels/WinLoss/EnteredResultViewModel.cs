@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLoss
 {
     using System;
+    using System.Collections.Generic;
     using AppResources;
     using Components;
     using Extensions;
@@ -21,7 +22,7 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public ReportData<EnteredSportResult> ReportData { get; set; }
+        public IEnumerable<EnteredSportResult> ReportData { get; set; }
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);

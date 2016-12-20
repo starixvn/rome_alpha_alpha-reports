@@ -13,7 +13,19 @@
 
     public class WinLossViewModel
     {
-        private const int AllBetProductId = 21;
+        public WinLossViewModel(List<WinLoss> reportData)
+        {
+            ReportData = reportData.OrderBy(x => x.CustName).ToList();
+           
+            if (reportData.Any())
+            {
+                int index, count;
+                for (index = 1, count = reportData.Count, GrantTotal = reportData[0]; index < count; index++)
+                {
+                    GrantTotal += reportData[index];
+                }
+            }
+        }
 
         public int CustId { get; set; }
 
@@ -35,7 +47,9 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public ReportData<WinLoss> ReportData { get; set; }
+        public IEnumerable<WinLoss> ReportData { get; set; }
+
+        public WinLoss GrantTotal { get; }
 
         public bool IsStackMode { get; set; }
 

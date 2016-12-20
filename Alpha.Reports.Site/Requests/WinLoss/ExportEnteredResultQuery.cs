@@ -1,10 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
     using System;
+    using System.Collections.Generic;
     using System.Web;
-    using Alpha.Reports.Models.Winloss;
+    using Models.Winloss;
     using MediatR;
-    using Models;
     using ViewModels.WinLoss;
 
     public class ExportEnteredResultQuery : IRequest<byte[]>
@@ -28,6 +28,6 @@
 
         public string Title => viewModel.Title;
 
-        public ReportData<EnteredSportResult> ReportData => viewModel.ReportData;
+        public IEnumerable<EnteredSportResult> ReportData => viewModel.ReportData;
     }
 }

@@ -7,8 +7,8 @@
 
     public interface WinLossService
     {
-        ReportData<WinLoss> GetWinLosses(WinLossParam param);
+        IEnumerable<WinLoss> GetWinLoss(WinLossParam param);
 
-        ReportData<EnteredSportResult> GetEnteredSportResults();
+        IEnumerable<EnteredSportResult> GetEnteredSportResults();
     }
 }

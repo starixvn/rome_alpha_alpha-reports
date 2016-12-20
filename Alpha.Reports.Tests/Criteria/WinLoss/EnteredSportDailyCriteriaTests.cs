@@ -11,13 +11,26 @@
         {
             // Arrange
             var expectedSettingKey = "Age_Rpt_MatchSelResultEntered";
-            var winLossCriteria = new EnteredSportDailyCriteria();
+            var enteredSportDailyCriteria = new EnteredSportDailyCriteria();
 
             // Act
-            var actualSettingKey = winLossCriteria.GetSettingKey();
+            var actualSettingKey = enteredSportDailyCriteria.GetSettingKey();
 
             // Assert
             Assert.Equal(expectedSettingKey, actualSettingKey);
+        }
+
+        [Fact]
+        public void IsValid_Always_ReturnsTrue()
+        {
+            // Arrange
+            var enteredSportDailyCriteria = new EnteredSportDailyCriteria();
+
+            // Act
+            var actualIsValid = enteredSportDailyCriteria.IsValid();
+
+            // Assert
+            Assert.True(actualIsValid);
         }
     }
 }

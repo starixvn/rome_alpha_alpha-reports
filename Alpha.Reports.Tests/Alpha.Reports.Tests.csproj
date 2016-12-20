@@ -121,8 +121,9 @@
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteriaTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
+    <Compile Include="Database\WinLoss\WinLossDatabase.cs" />
     <Compile Include="Database\WinLossDetail\WinLossDetailDatabase.cs" />
-    <Compile Include="DataAccesses\WinLoss\WinLossDataAccessImplTests.cs" />
+    <Compile Include="DataAccesses\WinLossDataAccessImplTests.cs" />
     <Compile Include="Enumerations\EnumerationTests.cs" />
     <Compile Include="Extensions\AssertExtension.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
@@ -165,6 +166,15 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Database\WinLoss\AgentWinLossHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\WinLoss\MasterWinLossHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\WinLoss\MemberWinLossHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Database\WinLossDetail\MemberWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
