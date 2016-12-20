@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using KellermanSoftware.CompareNetObjects;
@@ -153,7 +154,103 @@
             var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc);
 
             // Assert
-            Assert.True(compareLogic.Compare(actualDrilldownLevels, actualDrilldownLevels).AreEqual);
+            Assert.True(compareLogic.Compare(expectedDrilldownLevels, actualDrilldownLevels).AreEqual);
+        }
+
+        [Fact]
+        public void BuildBreadcrumbLevels_SubmitOnTopLevel_ReturnsTopLevelBreadcrumbs()
+        {
+            // Arrange
+            Func<CustInfo, BaseReportQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
+                (custInfo, baseReportQuery, jsonBreadcrumbLevels) => new WinLossDetailQuery(userSession);
+
+            var message = new BaseReportQuery
+            {
+                BreadcrumbLevels = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]",
+                UserLevelId = 4
+            };
+
+            var expectedDrilldownLevels = new List<ActionLinkViewModel>
+            {
+                new ActionLinkViewModel(
+                    controllerName: "WinLossDetail",
+                    actionName: "Index",
+                    linkText: message.CustName,
+                    routeValues: new WinLossDetailQuery(userSession))
+            };
+
+            // Act 
+            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc);
+
+            // Assert
+            Assert.True(compareLogic.Compare(expectedDrilldownLevels, actualDrilldownLevels).AreEqual);
+        }
+
+        [Fact]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        public void BuildBreadcrumbLevels_GetDownLineReport_ReturnsCorrectBreadcrumbs()
+        {
+            // Arrange
+            var message = new WinLossDetailQuery(userSession);
+            message.BreadcrumbLevels = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]";
+            message.UserLevelId = 3;
+            message.CustId = 2;
+            message.CustName = "MASTER1";
+
+            Func<CustInfo, BaseReportQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
+                (custInfo, baseReportQuery, jsonBreadcrumbLevels) =>
+                {
+                    var query = new WinLossDetailQuery(userSession);
+
+                    query.CustId = custInfo.CustId;
+                    query.CustName = custInfo.CustName;
+                    query.PageSize = message.PageSize;
+                    query.FromDate = message.FromDate;
+                    query.ToDate = message.ToDate;
+
+                    query.UserSelectedProductIds = message.UserSelectedProductIds;
+                    query.SortPropertyName = message.SortPropertyName;
+                    query.IsDescendingSort = message.IsDescendingSort;
+                    query.IsStackMode = message.IsStackMode;
+                    query.IsHistoricReport = message.IsHistoricReport;
+                    query.IsFilterVisible = message.IsFilterVisible;
+                    query.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
+                    query.UserLevelId = custInfo.UserLevelId;
+                    query.BreadcrumbLevels = jsonBreadcrumbLevels;
+
+                    return query;
+                };
+
+            var winLossDetailQuery = new WinLossDetailQuery(userSession);
+            winLossDetailQuery.CustId = 1;
+            winLossDetailQuery.CustName = "SUPER1";
+            winLossDetailQuery.UserLevelId = 4;
+            winLossDetailQuery.BreadcrumbLevels = message.BreadcrumbLevels;
+
+            var expectedDrilldownLevels = new List<ActionLinkViewModel>();
+            expectedDrilldownLevels.Add(new ActionLinkViewModel(
+                    controllerName: "WinLossDetail",
+                    actionName: "Index",
+                    linkText: "SUPER1",
+                    routeValues: winLossDetailQuery));
+
+            winLossDetailQuery = new WinLossDetailQuery(userSession);
+            winLossDetailQuery.CustId = 2;
+            winLossDetailQuery.CustName = "MASTER1";
+            winLossDetailQuery.UserLevelId = 3;
+            winLossDetailQuery.BreadcrumbLevels = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4},{'CustId':2,'CustName':'MASTER1','UserLevelId':3}]";
+
+            expectedDrilldownLevels.Add(new ActionLinkViewModel(
+                    controllerName: "WinLossDetail",
+                    actionName: "Index",
+                    linkText: message.CustName,
+                    routeValues: winLossDetailQuery));
+
+            // Act 
+            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc);
+
+            // Assert
+            Assert.True(compareLogic.Compare(expectedDrilldownLevels, actualDrilldownLevels).AreEqual);
         }
     }
 }
