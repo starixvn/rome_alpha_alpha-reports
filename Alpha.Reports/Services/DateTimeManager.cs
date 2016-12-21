@@ -2,10 +2,10 @@
 {
     using System;
 
-    public static class DateTimeAdapter
+    public static class DateTimeManager
     {
         private static DateTime? now;
-
+                
         public static DateTime Now
         {
             get { return now ?? DateTime.Now; }

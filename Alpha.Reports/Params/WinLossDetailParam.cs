@@ -29,14 +29,14 @@
 
             if (fromDate == DateTime.MinValue)
             {
-                FromDate = isHistoricReport ? DateTimeAdapter.Now.FirstDayOfMonth() : DateTimeAdapter.Now;
+                FromDate = isHistoricReport ? DateTimeManager.Now.FirstDayOfMonth() : DateTimeManager.Now;
             }
             else
             {
                 FromDate = fromDate;
             }
 
-            ToDate = toDate == DateTime.MinValue ? DateTimeAdapter.Now : toDate;
+            ToDate = toDate == DateTime.MinValue ? DateTimeManager.Now : toDate;
 
             ReportLevel = reportLevel;
 
@@ -104,13 +104,13 @@
         {
             if (IsHistoryReport)
             {
-                return DateTimeAdapter.Now.AddYears(-3).FirstDayOfYear() <= FromDate
+                return DateTimeManager.Now.AddYears(-3).FirstDayOfYear() <= FromDate
                     && FromDate <= ToDate
                     && ToDate.Year == FromDate.Year
                     && ToDate.Month == FromDate.Month;
             }
 
-            return DateTimeAdapter.Now.AddMonths(-3).FirstDayOfMonth() <= FromDate
+            return DateTimeManager.Now.AddMonths(-3).FirstDayOfMonth() <= FromDate
                    && FromDate <= ToDate;
         }
     }

@@ -24,7 +24,7 @@
         {
             objectDb = Substitute.For<IObjectDb>();
             winLossDetailDataAccessImpl = new WinLossDetailDataAccessImpl();
-            ObjectDbAdapter.CreateObjectDbFunc = (settingKey) => objectDb;
+            ObjectDbFactory.CreateInstance = (settingKey) => objectDb;
         }
 
         [Fact]

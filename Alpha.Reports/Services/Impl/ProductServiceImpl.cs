@@ -7,8 +7,6 @@
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models;
-    using RemotingRef;
-    using Sunplus.Agent.Model.Entities.Permission;
 
     public class ProductServiceImpl : ProductService
     {
@@ -18,18 +16,18 @@
         private readonly Func<int, string> getProductName;
         private readonly IDynamicRepository dynamicRepository;
 
-        public ProductServiceImpl(IDynamicRepository dynamicRepository) : this(dynamicRepository, null, null)
+        internal ProductServiceImpl(IDynamicRepository dynamicRepository) : this(dynamicRepository, null, null)
         {
         }
 
-        internal ProductServiceImpl(
+        public ProductServiceImpl(
             IDynamicRepository dynamicRepository,
             Func<int, bool> canViewProduct,
             Func<int, string> getProductName)
         {
             this.dynamicRepository = dynamicRepository;
-            this.canViewProduct = canViewProduct ?? UserPermission.HasPermissionOnProduct;
-            this.getProductName = getProductName ?? new CacheRefServiceImpl().GetProductName;
+            this.canViewProduct = canViewProduct;
+            this.getProductName = getProductName;
         }
 
         public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds)

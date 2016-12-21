@@ -3,18 +3,16 @@
     using System;
     using Criteria;
     using Fanex.Caching;
-    using Fanex.Caching.Memory;
     using Fanex.Data.Repository;
     using Models;
 
     public class ReportDateServiceImpl : ReportDateService
     {
-        private const string BalanceUpDayAndMoveBetsDayCacheKey = "Alpha.Reports.BalanceUpDayAndMoveBetsDay";
-        private const string ReportDateRangeCacheKey = "Alpha.Reports.ReportDateRange";
+        private const string BalanceUpDayAndMoveBetsDayCacheKey = "Alpha.Reports.BalanceUpDayAndMoveBetsDay";        
 
         private readonly IDynamicRepository dynamicRepository;
 
-        public ReportDateServiceImpl(IDynamicRepository dynamicRepository = null)
+        public ReportDateServiceImpl(IDynamicRepository dynamicRepository)
         {
             this.dynamicRepository = dynamicRepository;
         }

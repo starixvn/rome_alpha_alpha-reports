@@ -31,7 +31,9 @@
 
         private readonly Workbook<WinLossDetail> workbook;
         private readonly WinLossDetailHandler winLossDetailHandler;
+#pragma warning disable CS0618 // 'IUserSession' is obsolete: 'Should rename to Sunplus.Agent.Model.Base'
         private readonly IUserSession userSession;
+#pragma warning restore CS0618 // 'IUserSession' is obsolete: 'Should rename to Sunplus.Agent.Model.Base'
 
         public WinLossDetailHandlerTests()
         {
@@ -50,8 +52,7 @@
 
             userSession = Substitute.For<IUserSession>();
             winLossDetailHandler = new WinLossDetailHandler(productService, reportService, workbook, userSession);
-
-            DateTimeAdapter.Now = DefaultVariables.CurrentDate;
+            DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 

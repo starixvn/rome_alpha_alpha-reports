@@ -20,7 +20,7 @@
             var winLossDetails = new List<WinLossDetail>();
             var totalWinLoss = new WinLossDetail();
 
-            using (var db = ObjectDbAdapter.CreateObjectDbFunc(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria))
                 {

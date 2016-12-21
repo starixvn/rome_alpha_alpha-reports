@@ -20,11 +20,14 @@
     public class BaseHandlerTests
     {
         private readonly BaseHandler baseHandler;
+#pragma warning disable CS0618 // 'IUserSession' is obsolete: 'Should rename to Sunplus.Agent.Model.Base'
         private readonly IUserSession userSession;
+#pragma warning restore CS0618 // 'IUserSession' is obsolete: 'Should rename to Sunplus.Agent.Model.Base'
 
         public BaseHandlerTests()
         {
             baseHandler = new BaseHandler();
+#pragma warning disable CS0618 // 'IUserSession' is obsolete: 'Should rename to Sunplus.Agent.Model.Base'
             userSession = Substitute.For<IUserSession>();
             HttpAdapter.HasContext = true;
         }

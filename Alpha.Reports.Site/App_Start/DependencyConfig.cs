@@ -18,6 +18,7 @@
     using SimpleInjector.Integration.Web.Mvc;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
+    using Sunplus.Agent.Model.Entities.Permission;
 
     public static class DependencyConfig
     {
@@ -67,12 +68,18 @@
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
             container.RegisterPerWebRequest<IUserSession, UserSessionExt>();
 
-            container.RegisterPerWebRequest<ReportDateService, ReportDateServiceImpl>();
-            container.RegisterPerWebRequest<ProductService, ProductServiceImpl>();
-
+            container.RegisterPerWebRequest<ReportDateService, ReportDateServiceImpl>();           
+            
             container.RegisterPerWebRequest<WinLossDetailService, WinLossDetailServiceImpl>();
 
-            container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
+            container.Register<ProductService>(
+                () => new ProductServiceImpl(
+                    container.GetInstance<IDynamicRepository>(),
+                    UserPermission.HasPermissionOnProduct,
+                    new CacheRefServiceImpl().GetProductName), 
+                Lifestyle.Scoped);
+
+            container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);           
         }
 
         private static void RegisterDataAccesses(Container container)

@@ -15,7 +15,7 @@
     {
         public WinLossDetailParamTests()
         {
-            DateTimeAdapter.Now = DefaultVariables.CurrentDate;
+            DateTimeManager.Now = DefaultVariables.CurrentDate;
         }
 
         [Fact]
