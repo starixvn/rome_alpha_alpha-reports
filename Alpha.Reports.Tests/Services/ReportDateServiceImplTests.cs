@@ -90,30 +90,6 @@
         }
 
         [Fact]
-        public void GetBalanceUpDay_Always_ReturnsTheSameDateSetInCache()
-        {
-            // Arrange
-            var dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
-
-            BalanceUpDayAndMoveBetsDay balanceUpDayAndMoveBetsDay;
-            cacheForTesting.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
-            {
-                x[1] = dataInCache;
-
-                return true;
-            });
-
-            CacheService.SwitchCacheStorage(cacheForTesting);
-            CacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
-
-            // Act
-            var actual = service.GetBalanceUpDay();
-
-            // Assert
-            Assert.Equal(dataInCache.BalanceUpDay, actual);
-        }
-
-        [Fact]
         public void GetMoveBetsDay_Always_ReturnsTheSameDateSetInCache()
         {
             // Arrange
@@ -135,6 +111,30 @@
 
             // Assert
             Assert.Equal(dataInCache.MoveBetsDay, actual);
+        }
+
+        [Fact]
+        public void GetBalanceUpDay_Always_ReturnsTheSameDateSetInCache()
+        {
+            // Arrange
+            var dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
+
+            BalanceUpDayAndMoveBetsDay balanceUpDayAndMoveBetsDay;
+            cacheForTesting.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
+            {
+                x[1] = dataInCache;
+
+                return true;
+            });
+
+            CacheService.SwitchCacheStorage(cacheForTesting);
+            CacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
+
+            // Act
+            var actual = service.GetBalanceUpDay();
+
+            // Assert
+            Assert.Equal(dataInCache.BalanceUpDay, actual);
         }
     }
 }

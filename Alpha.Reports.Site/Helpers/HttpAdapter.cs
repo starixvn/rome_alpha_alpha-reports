@@ -9,6 +9,8 @@
 
         private static Func<string, string> applyAppPathModifierFunc;
 
+        private static Func<string, string> serverMapPathFunc;
+
         private static string appDomainAppVirtualPath;
 
         public static bool HasContext
@@ -27,6 +29,12 @@
         {
             get { return appDomainAppVirtualPath ?? HttpRuntime.AppDomainAppVirtualPath; }
             set { appDomainAppVirtualPath = value; }
+        }
+
+        public static Func<string, string> ServerMapPathFunc
+        {
+            get { return serverMapPathFunc ?? HttpContext.Current.Server.MapPath; }
+            set { serverMapPathFunc = value; }
         }
     }
 }

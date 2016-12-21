@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
     using System;
-    using System.Web;
+    using Helpers;
     using MediatR;
     using Models;
     using Models.WinlossDetails;
@@ -28,7 +28,7 @@
                 ? "Agent.xls"
                 : "Member.xls");
 
-            TemplatePath = HttpContext.Current.Server.MapPath(excelTemplatePath);
+            TemplatePath = HttpAdapter.ServerMapPathFunc(excelTemplatePath);
         }
 
         public string TemplatePath { get; set; }

@@ -5,7 +5,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
-    using KellermanSoftware.CompareNetObjects;
+    using Extensions;
     using Models;
     using Models.WinlossDetails;
     using NSubstitute;
@@ -19,13 +19,11 @@
     public class BaseHandlerTests
     {
         private readonly BaseHandler baseHandler;
-        private readonly CompareLogic compareLogic;
         private readonly IUserSession userSession;
 
         public BaseHandlerTests()
         {
             baseHandler = new BaseHandler();
-            compareLogic = new CompareLogic();
             userSession = Substitute.For<IUserSession>();
         }
 
@@ -98,7 +96,7 @@
             var actualSelectListItems = baseHandler.BuildProductSelectListItems(userSelectedProductIds, products).ToList();
 
             // Assert
-            Assert.True(compareLogic.Compare(expectedSelectListItems, actualSelectListItems).AreEqual);
+            AssertExtension.Equal(expectedSelectListItems, actualSelectListItems);
         }
 
         [Fact]
@@ -143,18 +141,14 @@
 
             var expectedDrilldownLevels = new List<ActionLinkViewModel>
             {
-                new ActionLinkViewModel(
-                    controllerName: "WinLossDetail",
-                    actionName: "Index",
-                    linkText: message.CustName,
-                    routeValues: new WinLossDetailQuery(userSession))
+                new ActionLinkViewModel("WinLossDetail", "Index", message.CustName, new WinLossDetailQuery(userSession))
             };
 
             // Act 
             var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc);
 
             // Assert
-            Assert.True(compareLogic.Compare(expectedDrilldownLevels, actualDrilldownLevels).AreEqual);
+            AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
         }
 
         [Fact]
@@ -172,18 +166,14 @@
 
             var expectedDrilldownLevels = new List<ActionLinkViewModel>
             {
-                new ActionLinkViewModel(
-                    controllerName: "WinLossDetail",
-                    actionName: "Index",
-                    linkText: message.CustName,
-                    routeValues: new WinLossDetailQuery(userSession))
+                new ActionLinkViewModel("WinLossDetail", "Index", message.CustName, new WinLossDetailQuery(userSession))
             };
 
             // Act 
             var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc);
 
             // Assert
-            Assert.True(compareLogic.Compare(expectedDrilldownLevels, actualDrilldownLevels).AreEqual);
+            AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
         }
 
         [Fact]
@@ -250,7 +240,7 @@
             var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc);
 
             // Assert
-            Assert.True(compareLogic.Compare(expectedDrilldownLevels, actualDrilldownLevels).AreEqual);
+            AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
         }
     }
 }

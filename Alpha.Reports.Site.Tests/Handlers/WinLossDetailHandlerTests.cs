@@ -3,7 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Linq;
+    using System.Threading;
     using System.Web.Mvc;
     using Constants;
     using Enumerations;
@@ -16,6 +18,7 @@
     using Requests.WinLossDetails;
     using Services;
     using Site.Handlers;
+    using Site.Helpers;
     using Sunplus.Agent.Model.Entities;
     using ViewModels;
     using ViewModels.WinLossDetails;
@@ -30,6 +33,14 @@
         private readonly WinLossDetailHandler winLossDetailHandler;
         private readonly IUserSession userSession;
 
+        private readonly WinLossDetailViewModel masterWinLossDetail = new WinLossDetailViewModel
+        {
+            UserLevel = Enumeration.FromValue<UserLevel>(4),
+            FromDate = DefaultVariables.CurrentDate,
+            ToDate = DefaultVariables.CurrentDate,
+            ReportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), 0, 0, 0, default(WinLossDetail))
+        };
+
         public WinLossDetailHandlerTests()
         {
             productService = Substitute.For<ProductService>();
@@ -37,7 +48,12 @@
             workbook = Substitute.For<Workbook<WinLossDetail>>();
             userSession = Substitute.For<IUserSession>();
             winLossDetailHandler = new WinLossDetailHandler(productService, reportService, workbook, userSession);
+
             DateTimeAdapter.Now = DefaultVariables.CurrentDate;
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+
+            HttpAdapter.ServerMapPathFunc = (path) => path;
         }
 
         [Fact]
@@ -59,7 +75,7 @@
         [InlineData("1,2")]
         [InlineData("1,2,3")]
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public void HandlerWinLossDetailQuery_NullOrWhiteSpaceUserSelectedProductIds_ReturnsCorrectViewModel(
+        public void HandlerWinLossDetailQuery_AnyUserSelectedProductIds_ReturnsCorrectViewModel(
             string userSelectedProductIds)
         {
             // Arrange
@@ -115,6 +131,50 @@
 
             // Assert
             AssertExtension.Equal(expectedWinLossDetailViewModel, actualWinLossDetailViewModel);
+        }
+
+        [Fact]
+        public void HandleExportWinLossDetailQuery_NullMessage_ThrowsArgumentNullException()
+        {
+            // Arrange
+            ExportWinLossDetailQuery nullMessage = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => winLossDetailHandler.Handle(nullMessage));
+        }
+
+        [Fact]
+        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_UsesCorrectTemplateInfo()
+        {
+            // Arrange
+            var message = new ExportWinLossDetailQuery(masterWinLossDetail);
+
+            // Act
+            winLossDetailHandler.Handle(message);
+
+            // Assert
+            workbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
+                tp => tp.TemplatePath == "~/App_Data/ExcelTemplates/WinLossDetail/Master.xls" &&
+                tp.NoInfomationText == "No information is available" &&
+                tp.FreezeColumnName == "B" &&
+                tp.FreezeRowIndex == 3));
+        }
+
+        [Fact]
+        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectTitle()
+        {
+            // Arrange
+            var message = new ExportWinLossDetailQuery(masterWinLossDetail);
+
+            productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
+
+            workbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(workbook);
+
+            // Act
+            winLossDetailHandler.Handle(message);
+
+            // Assert
+            workbook.Received().Title(Arg.Is<string>(s => string.Equals(s, "Master Win Loss Detail 12/02/2016 --> 12/02/2016 of Product Name")));
         }
     }
 }
