@@ -2,27 +2,21 @@
 {
     using System;
     using System.Web.Mvc;
-    using AppResources;
-    using Excel.Helpers;
-    using Excel.Services;
+    using App_GlobalResources;
     using Extensions;
+    using Helpers;
     using MediatR;
     using Requests.WinLoss;
     using Requests.WinLossDetails;
-    using Web;
 
-    public class WinLossController : BaseController
+    public class WinLossController : BaseReportController
     {
-        private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLoss/";
         private readonly IMediator mediator;
-        private readonly WinLossExcelExporter excelExporter;
 
         public WinLossController(
-            IMediator mediator,
-            WinLossExcelExporter excelExporter)
+            IMediator mediator)
         {
             this.mediator = mediator;
-            this.excelExporter = excelExporter;
         }
 
         public ActionResult WinLoss(WinLossQuery message)
@@ -44,7 +38,7 @@
         {
             if (message == null)
             {
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException("message", "message cannot be a null reference");
             }
 
             var viewModel = mediator.Send(message);

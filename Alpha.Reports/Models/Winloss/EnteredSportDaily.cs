@@ -15,7 +15,7 @@
             int entered,
             int nonEntered)
         {
-            IsToday = IsToday;
+            IsToday = isToday;
             EventDate = eventDate;
             SportType = sportType;
             Entered = entered;

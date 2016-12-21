@@ -1,10 +1,10 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLoss
 {
     using System;
-    using AppResources;
+    using App_GlobalResources;
     using Components;
+    using Extensions;
     using Models;
-    using Reports.Extensions;
 
     public class WinLossFilterViewModel
     {

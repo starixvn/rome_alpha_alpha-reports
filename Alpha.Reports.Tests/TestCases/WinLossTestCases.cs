@@ -8,14 +8,14 @@
 
     public class WinLossTestCases : IEnumerable<object[]>
     {
-        public List<WinLoss> superWinLosses = new List<WinLoss>();
-        public WinLoss expectedSuperGrantTotal;
+        private List<WinLoss> superWinLosses = new List<WinLoss>();
+        private WinLoss expectedSuperGrantTotal;
 
-        public List<WinLoss> masterWinLosses = new List<WinLoss>();
-        public WinLoss expectedMasterGrantTotal;
+        private List<WinLoss> masterWinLosses = new List<WinLoss>();
+        private WinLoss expectedMasterGrantTotal;
 
-        public List<WinLoss> agentWinLosses = new List<WinLoss>();
-        public WinLoss expectedAgentGrantTotal;
+        private List<WinLoss> agentWinLosses = new List<WinLoss>();
+        private WinLoss expectedAgentGrantTotal;
 
         public WinLossTestCases()
         {

@@ -50,16 +50,22 @@
             + (MasterNetWinLoss?.Total ?? 0)
             + (SuperNetWinLoss?.Total ?? 0));
 
-        public static WinLoss operator +(WinLoss winlossA, WinLoss winlossB)
+        public static WinLoss Add(WinLoss winlossA, WinLoss winlossB)
         {
-            return new WinLoss(custId: 0,
-                               custName: "Total",
-                               grossComm: winlossA.GrossComm + winlossB.GrossComm,
-                               turnover: winlossA.Turnover + winlossB.Turnover,
-                               memberNetWinLoss: winlossA.MemberNetWinLoss + winlossB.MemberNetWinLoss,
-                               agentNetWinLoss: winlossA.AgentNetWinLoss + winlossB.AgentNetWinLoss,
-                               masterNetWinLoss: winlossA.MasterNetWinLoss + winlossB.MasterNetWinLoss,
-                               superNetWinLoss: winlossA.SuperNetWinLoss + winlossB.SuperNetWinLoss);
+            if (winlossA == null || winlossB == null)
+            {
+                return new WinLoss();
+            }
+
+            return new WinLoss(
+                custId: 0,
+                custName: "Total",
+                grossComm: winlossA.GrossComm + winlossB.GrossComm,
+                turnover: winlossA.Turnover + winlossB.Turnover,
+                memberNetWinLoss: NetWinLoss.Add(winlossA.MemberNetWinLoss, winlossB.MemberNetWinLoss),
+                agentNetWinLoss: NetWinLoss.Add(winlossA.AgentNetWinLoss, winlossB.AgentNetWinLoss),
+                masterNetWinLoss: NetWinLoss.Add(winlossA.MasterNetWinLoss, winlossB.MasterNetWinLoss),
+                superNetWinLoss: NetWinLoss.Add(winlossA.SuperNetWinLoss, winlossB.SuperNetWinLoss));
         }
     }
 }

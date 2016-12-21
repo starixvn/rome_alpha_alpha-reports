@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using AppResources;
+    using App_GlobalResources;
     using Components;
     using Extensions;
     using Models;
@@ -15,14 +15,17 @@
     {
         public WinLossViewModel(List<WinLoss> reportData)
         {
-            ReportData = reportData.OrderBy(x => x.CustName).ToList();
-           
-            if (reportData.Any())
+            if (reportData != null)
             {
-                int index, count;
-                for (index = 1, count = reportData.Count, GrantTotal = reportData[0]; index < count; index++)
+                ReportData = reportData.OrderBy(x => x.CustName).ToList();
+
+                if (reportData.Any())
                 {
-                    GrantTotal += reportData[index];
+                    int index, count;
+                    for (index = 1, count = reportData.Count, GrantTotal = reportData[0]; index < count; index++)
+                    {
+                        GrantTotal = WinLoss.Add(GrantTotal, reportData[index]);
+                    }
                 }
             }
         }
@@ -84,16 +87,16 @@
                 MinDate,
                 ((WinLossQuery)BreadcrumbLevels.Last().RouteValues).BreadcrumbLevels);
 
-        public WinLossActionLinkViewModel LinkActionViewModel(WinLoss winLossDetail)
+        public WinLossActionLinkViewModel LinkActionViewModel(WinLoss winLoss)
         {
-            if (winLossDetail == null)
+            if (winLoss == null)
             {
-                throw new ArgumentNullException("winLoss");
+                throw new ArgumentNullException("winLoss", "winLoss cannot be a null reference");
             }
 
             return new WinLossActionLinkViewModel(
-                    winLossDetail.CustId,
-                    winLossDetail.CustName,
+                    winLoss.CustId,
+                    winLoss.CustName,
                     (byte)(UserLevel.Value - 1),
                     FromDate,
                     ToDate,

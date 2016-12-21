@@ -2,29 +2,32 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using Database.WinLoss;
     using Fanex.Data;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLoss;
     using Reports.DataAccesses.Impl;
     using Reports.Enumerations;
     using Reports.Models;
-    using Xunit;
     using Reports.Models.Winloss;
     using Reports.Models.WinlossDetails;
-    using Comparers.WinLoss;
+    using Xunit;
 
     [Trait("Category", "WinLoss")]
     public class WinLossDataAccessImplTests
     {
         private readonly IObjectDb objectDb;
         private readonly WinLossDataAccessImpl winLossDataAccessImpl;
+        private CompareLogic _compare;
 
         public WinLossDataAccessImplTests()
         {
             objectDb = Substitute.For<IObjectDb>();
             winLossDataAccessImpl = new WinLossDataAccessImpl();
             winLossDataAccessImpl.SetCreateObjectDbFunc((settingKey) => objectDb);
+            _compare = new CompareLogic();
         }
 
         [Fact]
@@ -61,10 +64,70 @@
 
             // Act 
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
+            var result = _compare.Compare(expectedData, actualData);
 
             // Assert
-            Assert.True(WinLossReportDataComparer.Equals(expectedData, actualData));
+            Assert.True(result.AreEqual);
         }
 
+        [Fact]
+        public void GetWinLoss_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
+        {
+            // Arrange
+            var winLossCriteria = new WinLossCriteria(
+                0,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now,
+                null,
+                Enumeration.FromValue<UserLevel>(3));
+
+            var dataSet = WinLossDatabase.AgentWinLoss.CreateDataReader();
+            objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+
+            var expectedData = new List<WinLoss>()
+            {
+                new WinLoss(1, "Agent01", 0, 1, null, new NetWinLoss(2), new NetWinLoss(3, 4), null),
+                new WinLoss(2, "Agent02", 5, 6, null, new NetWinLoss(7), new NetWinLoss(8, 9), null)
+            };
+
+            // Act 
+            var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
+            var result = _compare.Compare(expectedData, actualData);
+
+            // Assert
+            Assert.True(result.AreEqual);
+        }
+
+        [Fact]
+        public void GetWinLoss_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
+        {
+            // Arrange
+            var winLossCriteria = new WinLossCriteria(
+                0,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.Now,
+                null,
+                Enumeration.FromValue<UserLevel>(2));
+
+            var dataSet = WinLossDatabase.MemberWinLoss.CreateDataReader();
+            objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+
+            var expectedData = new List<WinLoss>()
+            {
+                new WinLoss(1, "Member01", 0, 1, new NetWinLoss(2, 3), new NetWinLoss(4, 5), null, null),
+                new WinLoss(2, "Member02", 6, 7, new NetWinLoss(8, 9), new NetWinLoss(10, 11), null, null)
+            };
+
+            // Act 
+            var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
+            var result = _compare.Compare(expectedData, actualData);
+
+            // Assert
+            Assert.True(result.AreEqual);
+        }
     }
 }

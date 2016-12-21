@@ -55,7 +55,7 @@
                 validUserSelectedProductIds,
                 param.ReportLevel);
 
-            var winlossData= dataAccess.GetWinLoss(criteria);
+            var winlossData = dataAccess.GetWinLoss(criteria);
 
             return winlossData;
         }
@@ -79,7 +79,7 @@
             enteredResultData = enteredSportDailyData.GroupBy(x => x.SportType)
                     .Select(y => new EnteredSportResult(
                     y.Key,
-                    CacheRef.GetSportName(y.Key),
+                    CacheRefFactory.CacheRef.GetSportName(y.Key),
                     y.ToList().Where(x => x.IsToday).FirstOrDefault(),
                     y.ToList().Where(x => !x.IsToday).FirstOrDefault())).OrderBy(x => x.SportName).ToList();
         

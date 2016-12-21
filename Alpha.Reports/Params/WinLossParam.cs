@@ -22,14 +22,14 @@
 
             if (fromDate == DateTime.MinValue)
             {
-                FromDate = isHistoricReport ? DateTime.Now.FirstDayOfMonth() : DateTimeAdapter.Now;
+                FromDate = isHistoricReport ? DateTimeManager.Now.FirstDayOfMonth() : DateTimeManager.Now;
             }
             else
             {
                 FromDate = fromDate;
             }
 
-            ToDate = toDate == DateTime.MinValue ? DateTimeAdapter.Now : toDate;
+            ToDate = toDate == DateTime.MinValue ? DateTimeManager.Now : toDate;
 
             ReportLevel = reportLevel;
 
@@ -48,32 +48,17 @@
 
         public bool IsHistoryReport { get; }
 
-        private string GetDefaultSortedProperty()
-        {
-            if (ReportLevel.IsSuperLevel())
-            {
-                return "SuperNetWinLoss.WinLoss";
-            }
-
-            if (ReportLevel.IsMasterLevel())
-            {
-                return "MasterNetWinLoss.WinLoss";
-            }
-
-            return "AgentNetWinLoss.WinLoss";
-        }
-
         public bool IsValid()
         {
             if (IsHistoryReport)
             {
-                return DateTimeAdapter.Now.AddYears(-3).FirstDayOfYear() <= FromDate
+                return DateTimeManager.Now.AddYears(-3).FirstDayOfYear() <= FromDate
                     && FromDate <= ToDate
                     && ToDate.Year == FromDate.Year
                     && ToDate.Month == FromDate.Month;
             }
 
-            return DateTimeAdapter.Now.AddMonths(-3).FirstDayOfMonth() <= FromDate
+            return DateTimeManager.Now.AddMonths(-3).FirstDayOfMonth() <= FromDate
                    && FromDate <= ToDate;
         }
     }

@@ -27,15 +27,15 @@
 
         public decimal Total { get; }
 
-        public static NetWinLoss operator +(NetWinLoss winlossA, NetWinLoss winlossB)
+        public static NetWinLoss Add(NetWinLoss winlossA, NetWinLoss winlossB)
         {
-            if(winlossA == null || winlossB == null)
+            if (winlossA == null || winlossB == null)
             {
                 return null;
             }
 
             return new NetWinLoss( 
-                winloss:  winlossA?.WinLoss + winlossB?.WinLoss, 
+                winloss: winlossA?.WinLoss + winlossB?.WinLoss, 
                 comm: winlossA?.Comm + winlossB?.Comm,
                 total: winlossA.Total + winlossB.Total);
         }

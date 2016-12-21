@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Web;
-    using Alpha.Reports.Models.Winloss;
     using MediatR;
     using Models;
+    using Models.Winloss;
     using ViewModels.WinLoss;
 
     public class ExportWinLossQuery : IRequest<byte[]>

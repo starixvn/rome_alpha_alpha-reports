@@ -98,7 +98,6 @@
             Assert.Equal(expectedIsNotValid, actualIsNotValid);
         }
 
-
         [Fact]
         public void GetBalanceUpDay_Always_ReturnsInitialValue()
         {

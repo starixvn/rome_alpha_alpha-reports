@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Web;
-    using Models.Winloss;
     using MediatR;
+    using Models.Winloss;
     using ViewModels.WinLoss;
 
     public class ExportEnteredResultQuery : IRequest<byte[]>

@@ -73,7 +73,6 @@
 
             container.RegisterPerWebRequest<WinLossDetailService, WinLossDetailServiceImpl>();
             container.Register<WinLossService, WinLossServiceImpl>(Lifestyle.Transient);
-            container.RegisterPerWebRequest<WinLossExcelExporter, WinLossExcelExporterImpl>();
 
             container.Register<ProductService>(
                 () => new ProductServiceImpl(

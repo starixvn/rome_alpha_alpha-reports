@@ -2,16 +2,20 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Excel.Services;
-    using Requests.WinLoss;
+    using App_GlobalResources;
     using Enumerations;
-    using Excel.Params;
+    using Extensions;
+    using Fanex.Common;
+    using Helpers;
     using MediatR;
     using Models;
+    using Models.Winloss;
     using Newtonsoft.Json;
+    using ONEbook.SpreadSheets;
     using Params;
-    using Extensions;
+    using Requests.WinLoss;
     using Requests.WinLossDetails;
     using Services;
     using ViewModels;
@@ -26,16 +30,19 @@
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
-        private readonly WinLossExcelExporter excelExporter;
+        private Workbook<WinLoss> winlossWorkbook;
+        private Workbook<EnteredSportResult> enteredSportResultWorkbook;
 
         public WinLossHandler(
             ProductService productService,
             WinLossService reportService,
-            WinLossExcelExporter excelExporter)
+            Workbook<WinLoss> workbook,
+            Workbook<EnteredSportResult> enteredSportResultWorkbook)
         {
             this.productService = productService;
             this.reportService = reportService;
-            this.excelExporter = excelExporter;
+            this.winlossWorkbook = workbook;
+            this.enteredSportResultWorkbook = enteredSportResultWorkbook;
         }
 
         public EnteredResultViewModel Handle(EnterResultQuery message)
@@ -106,19 +113,25 @@
                 throw new ArgumentNullException("message");
             }
 
-            var fileContents = excelExporter.ExportWinLossExcel(
-                new ExportWinLossParam(
-                    templatePath: message.TemplatePath,
-                    sheetName: message.Title,
-                    reportName: message.Title,
-                    reportData: message.ReportData,
-                    grantTotal: message.GrantTotal,
-                    fromDate: message.FromDate,
-                    toDate: message.ToDate,
-                    userLevel: message.UserLevel,
-                    userSelectedProductIds: message.UserSelectedProductIds));
+            var products = string.IsNullOrWhiteSpace(message.UserSelectedProductIds)
+                ? Enumerable.Empty<int>()
+                : message.UserSelectedProductIds.Split(',').Select(s => Converter.ToInt(s));
 
-            return fileContents;
+            var reportTitle = $"{message.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+                $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
+
+            var templateInfo = new TemplateInfo(templatePath: message.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable);
+
+            var result = winlossWorkbook
+                .UseTemplate(templateInfo)
+                .Title(reportTitle)
+                .Header(ExcelHelper.HeaderTitleMapping)
+                .Body(message.ReportData, GetWinLossRowMapper(message, isTotal: false))
+                .Footer(message.GrantTotal, GetWinLossRowMapper(message, isTotal: true))
+                .Sheet(message.Title)
+                .ExportToBytes();
+
+            return result;
         }
 
         public byte[] Handle(ExportEnteredResultQuery message)
@@ -128,14 +141,75 @@
                 throw new ArgumentNullException("message");
             }
 
-            var fileContents = excelExporter.ExportEnteredResultExcel(
-                new ExportEnteredResultParam(
-                    templatePath: message.TemplatePath,
-                    reportName: message.Title,
-                    sheetName: message.Title,
-                    reportData: message.ReportData));
+            var reportTitle = message.Title;
+            var templateInfo = new TemplateInfo(
+                templatePath: message.TemplatePath, 
+                noInfomationText: Resources.NoInformationIsAvailable, 
+                titleStartIndex: 0, 
+                headerStartIndex: 1, 
+                bodyStartIndex: 3, 
+                bodyEndIndex: 4);
 
-            return fileContents;
+            var result = enteredSportResultWorkbook
+               .UseTemplate(templateInfo)
+               .Title(reportTitle)
+               .Header(ExcelHelper.HeaderTitleMapping)
+               .Body(message.ReportData, GetEnteredSportResultRowMapper())
+               .Sheet(message.Title)
+               .ExportToBytes();
+
+            return result;
+        }
+
+        private Mapper<WinLoss> GetWinLossRowMapper(ExportWinLossQuery message, bool isTotal)
+        {
+            var mapper = new Mapper<WinLoss>()
+                .Map(Column.A, winLoss => isTotal ? Resources.Total : winLoss.CustName)
+                .Map(Column.B, winLoss => winLoss.Turnover)
+                .Map(Column.C, winLoss => winLoss.GrossComm);
+
+            if (message.UserLevel.IsAgentLevel())
+            {
+                mapper.Map(Column.D, winLoss => winLoss.MemberNetWinLoss.WinLoss)
+                 .Map(Column.E, winLoss => winLoss.MemberNetWinLoss.Comm)
+                 .Map(Column.F, winLoss => winLoss.MemberNetWinLoss.Total)
+                 .Map(Column.G, winLoss => winLoss.AgentNetWinLoss.WinLoss)
+                 .Map(Column.H, winLoss => winLoss.AgentNetWinLoss.Comm)
+                 .Map(Column.I, winLoss => winLoss.AgentNetWinLoss.Total)
+                 .Map(Column.J, winLoss => winLoss.Company);
+            }
+
+            if (message.UserLevel.IsMasterLevel())
+            {
+                mapper.Map(Column.D, winLoss => winLoss.AgentNetWinLoss.Total)
+                   .Map(Column.E, winLoss => winLoss.MasterNetWinLoss.WinLoss)
+                   .Map(Column.F, winLoss => winLoss.MasterNetWinLoss.Comm)
+                   .Map(Column.G, winLoss => winLoss.MasterNetWinLoss.Total)
+                   .Map(Column.H, winLoss => winLoss.Company);
+            }
+
+            if (message.UserLevel.IsSuperLevel())
+            {
+                mapper.Map(Column.D, winLoss => winLoss.MasterNetWinLoss.Total)
+                    .Map(Column.E, winLoss => winLoss.SuperNetWinLoss.WinLoss)
+                    .Map(Column.F, winLoss => winLoss.SuperNetWinLoss.Comm)
+                    .Map(Column.G, winLoss => winLoss.SuperNetWinLoss.Total)
+                    .Map(Column.H, winLoss => winLoss.Company);
+            }
+
+            return mapper;
+        }
+
+        private Mapper<EnteredSportResult> GetEnteredSportResultRowMapper()
+        {
+            var mapper = new Mapper<EnteredSportResult>()
+                .Map(Column.A, enteredSportResult => enteredSportResult.SportName)
+                .Map(Column.B, enteredSportResult => enteredSportResult.EnterSportYesterday?.Entered ?? 0)
+                .Map(Column.C, enteredSportResult => enteredSportResult.EnterSportYesterday?.NonEntered ?? 0)
+                .Map(Column.D, enteredSportResult => enteredSportResult.EnterSportToday?.Entered ?? 0)
+                .Map(Column.E, enteredSportResult => enteredSportResult.EnterSportToday?.NonEntered ?? 0);
+
+            return mapper;
         }
 
         private WinLossParam CreateWinLossParamater(
@@ -155,6 +229,7 @@
                  message.IsHistoricReport);
         }
 
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels(WinLossQuery message)
         {
             var drilldownLevels = new List<ActionLinkViewModel>();

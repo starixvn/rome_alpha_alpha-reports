@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using AppResources;
+    using App_GlobalResources;
     using Components;
     using Extensions;
     using Models;
