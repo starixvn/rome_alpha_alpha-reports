@@ -15,8 +15,6 @@
 
         public static string StoreProcedurePath => GetConfigValue("StoreProcedurePath");
 
-        public static bool IsShowKenoSetting => Converter.ToBool(GetConfigValue("IsShowKenoSetting"));
-
         public static string AssetAppPath => GetConfigValue("AssetAppPath");
 
         internal static NameValueCollection AppSettings

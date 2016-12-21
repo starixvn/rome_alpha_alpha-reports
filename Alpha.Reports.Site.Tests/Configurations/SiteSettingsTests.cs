@@ -16,8 +16,7 @@
                 ["OldMainAppPath"] = "OldMainAppPath",
                 ["StoreProcedurePath"] = "StoreProcedurePath",
                 ["AssetAppPath"] = "AssetAppPath",
-                ["AccessDeniedPage"] = "AccessDeniedPage",
-                ["IsShowKenoSetting"] = "IsShowKenoSetting"
+                ["AccessDeniedPage"] = "AccessDeniedPage"
             };
             SiteSettings.AppSettings = expectedAppSettings;
 
@@ -131,8 +130,7 @@
                 ["OldMainAppPath"] = "OldMainAppPath",
                 ["StoreProcedurePath"] = "StoreProcedurePath",
                 ["AssetAppPath"] = "AssetAppPath",
-                ["AccessDeniedPage"] = expectedSettings,
-                ["IsShowKenoSetting"] = "IsShowKenoSetting"
+                ["AccessDeniedPage"] = expectedSettings
             };
 
             SiteSettings.AppSettings = appSettings;
@@ -142,33 +140,6 @@
 
             // Assert
             Assert.Equal(expectedSettings, actualSettings);
-        }
-
-        [Theory]
-        [InlineData("1", false)]
-        [InlineData("0", false)]
-        [InlineData("a", false)]
-        [InlineData("true", true)]
-        [InlineData("false", false)]
-        public void IsShowKenoSetting_Always_ReturnsSetValue(string setting, bool expectedIsShowKenoSetting)
-        {
-            // Arrange
-            var appSettings = new NameValueCollection
-            {
-                ["OldMainAppPath"] = "OldMainAppPath",
-                ["StoreProcedurePath"] = "StoreProcedurePath",
-                ["AssetAppPath"] = "AssetAppPath",
-                ["AccessDeniedPage"] = "AccessDeniedPage",
-                ["IsShowKenoSetting"] = setting
-            };
-
-            SiteSettings.AppSettings = appSettings;
-
-            // Act
-            var actualSettings = SiteSettings.IsShowKenoSetting;
-
-            // Assert
-            Assert.Equal(expectedIsShowKenoSetting, actualSettings);
         }
 
         private bool VerifyHasException()

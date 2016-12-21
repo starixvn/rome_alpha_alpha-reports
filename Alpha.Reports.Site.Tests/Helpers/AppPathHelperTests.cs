@@ -8,20 +8,6 @@
 
     public class AppPathHelperTests
     {
-        [Fact]
-        public void GetAppPath_WithAppNameAndVirtualPath_ReturnsEmpty()
-        {
-            // Arrange
-            var validAppName = "ValidAppName";
-            var validVirtualPath = "ValidVirtualPath";
-
-            // Act
-            var actualAppPath = AppPathHelper.GetAppPath(validAppName, validVirtualPath);
-
-            // Assert
-            Assert.Empty(actualAppPath);
-        }
-
         [Theory]
         [InlineData(null)]
         [InlineData("")]
@@ -42,21 +28,6 @@
         {
             // Act & Assert
             Assert.Throws<ArgumentException>(() => AppPathHelper.GetAppPath(string.Empty, virtualPath));
-        }
-
-        [Fact]
-        public void GetAppPath_WithAppNameAndVirtualPathAndNotHasContext_ReturnsEmpty()
-        {
-            // Arrange
-            var validAppName = "ValidAppName";
-            var validVirtualPath = "ValidVirtualPath";
-            HttpAdapter.HasContext = false;
-
-            // Act
-            var actualAppPath = AppPathHelper.GetAppPath(validAppName, validVirtualPath);
-
-            // Assert
-            Assert.Empty(actualAppPath);
         }
 
         [Theory]
@@ -86,6 +57,21 @@
 
             // Assert
             Assert.Equal(expectedPath, actualAppPath);
+        }
+
+        [Fact]
+        public void GetAppPath_WithAppNameAndVirtualPathAndNotHasContext_ReturnsEmpty()
+        {
+            // Arrange
+            var validAppName = "ValidAppName";
+            var validVirtualPath = "ValidVirtualPath";
+            HttpAdapter.HasContext = false;
+
+            // Act
+            var actualAppPath = AppPathHelper.GetAppPath(validAppName, validVirtualPath);
+
+            // Assert
+            Assert.Empty(actualAppPath);
         }
 
         [Theory]
