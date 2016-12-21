@@ -137,6 +137,7 @@
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
     <Compile Include="TestCases\StringExtensionsTestCases.cs" />
     <Compile Include="TestCases\UserLevelTestCases.cs" />
+    <Compile Include="TestCases\WinLossDetailPropertyTestCases.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

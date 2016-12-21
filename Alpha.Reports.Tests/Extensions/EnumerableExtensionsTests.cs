@@ -6,6 +6,7 @@
     using Comparers.WinLossDetail;
     using Reports.Extensions;
     using Reports.Models.WinlossDetails;
+    using TestCases;
     using Xunit;
 
     public class EnumerableExtensionsTests
@@ -65,24 +66,7 @@
         }
 
         [Theory]
-        [InlineData("CustId")]
-        [InlineData("CustName")]
-        [InlineData("Turnover")]
-        [InlineData("NetTurnover")]
-        [InlineData("GrossComm")]
-        [InlineData("NumberOfTickets")]
-        [InlineData("MemberNetWinLoss.WinLoss")]
-        [InlineData("MemberNetWinLoss.Comm")]
-        [InlineData("MemberNetWinLoss.Total")]
-        [InlineData("AgentNetWinLoss.WinLoss")]
-        [InlineData("AgentNetWinLoss.Comm")]
-        [InlineData("AgentNetWinLoss.Total")]
-        [InlineData("MasterNetWinLoss.WinLoss")]
-        [InlineData("MasterNetWinLoss.Comm")]
-        [InlineData("MasterNetWinLoss.Total")]
-        [InlineData("SuperNetWinLoss.WinLoss")]
-        [InlineData("SuperNetWinLoss.Comm")]
-        [InlineData("SuperNetWinLoss.Total")]
+        [MemberData("AllProperties", MemberType = typeof(WinLossDetailPropertyTestCases))]
         public void OrderBy_OrderByDescending_ReturnsDescendingOrder(string propertyName)
         {
             // Arrange
@@ -110,24 +94,7 @@
         }
 
         [Theory]
-        [InlineData("CustId")]
-        [InlineData("CustName")]
-        [InlineData("Turnover")]
-        [InlineData("NetTurnover")]
-        [InlineData("GrossComm")]
-        [InlineData("NumberOfTickets")]
-        [InlineData("MemberNetWinLoss.WinLoss")]
-        [InlineData("MemberNetWinLoss.Comm")]
-        [InlineData("MemberNetWinLoss.Total")]
-        [InlineData("AgentNetWinLoss.WinLoss")]
-        [InlineData("AgentNetWinLoss.Comm")]
-        [InlineData("AgentNetWinLoss.Total")]
-        [InlineData("MasterNetWinLoss.WinLoss")]
-        [InlineData("MasterNetWinLoss.Comm")]
-        [InlineData("MasterNetWinLoss.Total")]
-        [InlineData("SuperNetWinLoss.WinLoss")]
-        [InlineData("SuperNetWinLoss.Comm")]
-        [InlineData("SuperNetWinLoss.Total")]
+        [MemberData("AllProperties", MemberType = typeof(WinLossDetailPropertyTestCases))]
         public void OrderBy_OrderByAscending_ReturnsAscendingOrder(string propertyName)
         {
             // Arrange

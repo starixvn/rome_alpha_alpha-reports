@@ -159,11 +159,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="ONEbook.SpreadSheets, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ONEbook.SpreadSheets.1.0.0-beta-09\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
+      <HintPath>..\packages\ONEbook.SpreadSheets.1.0.0-beta-10\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ONEbook.SpreadSheets.NPOI.1.0.0-beta-10\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
+      <HintPath>..\packages\ONEbook.SpreadSheets.NPOI.1.0.0-beta-11\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ONEbook.UM, Version=2.0.2.7, Culture=neutral, processorArchitecture=MSIL">
@@ -361,6 +361,7 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\AuthorizationSection.config" />
+    <Content Include="Views\Shared\Piwik.cshtml" />
     <None Include="Web.AppSettings.backupMNL.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </None>

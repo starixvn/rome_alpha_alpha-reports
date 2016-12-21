@@ -15,6 +15,7 @@
     using Params;
     using Requests.WinLossDetails;
     using Services;
+    using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLossDetails;
 
     public class WinLossDetailHandler :
@@ -25,16 +26,19 @@
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
 
-        private Workbook<WinLossDetail> workbook;
+        private readonly Workbook<WinLossDetail> workbook;
+        private readonly IUserSession userSession;
 
         public WinLossDetailHandler(
             ProductService productService,
             WinLossDetailService reportService,
-            Workbook<WinLossDetail> workbook)
+            Workbook<WinLossDetail> workbook,
+            IUserSession userSession)
         {
             this.productService = productService;
             this.reportService = reportService;
             this.workbook = workbook;
+            this.userSession = userSession;
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
@@ -48,7 +52,7 @@
             var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
             var products = productService.GetProductsForCustomer(message.CustId);
 
-            var winLossDetailParam = CreateParamater(message, userLevel);
+            var winLossDetailParam = CreateParameter(message, userLevel);
 
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
 
@@ -76,23 +80,26 @@
                 HasSubmittedParams = message.HasSubmittedParams,
                 BreadcrumbLevels = BuildBreadcrumbLevels(
                     message,
-                    (custInfo, query, breadcrumbLevels) => new WinLossDetailQuery
+                    (custInfo, query, breadcrumbLevels) =>
                     {
-                        CustId = custInfo.CustId,
-                        CustName = custInfo.CustName,
-                        PageSize = message.PageSize,
-                        FromDate = message.FromDate,
-                        ToDate = message.ToDate,
+                        var routeValues = new WinLossDetailQuery(userSession);
+                        routeValues.CustId = custInfo.CustId;
+                        routeValues.CustName = custInfo.CustName;
+                        routeValues.PageSize = message.PageSize;
+                        routeValues.FromDate = message.FromDate;
+                        routeValues.ToDate = message.ToDate;
 
-                        UserSelectedProductIds = message.UserSelectedProductIds,
-                        SortPropertyName = message.SortPropertyName,
-                        IsDescendingSort = message.IsDescendingSort,
-                        IsStackMode = message.IsStackMode,
-                        IsHistoricReport = message.IsHistoricReport,
-                        IsFilterVisible = message.IsFilterVisible,
-                        UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                        UserLevelId = custInfo.UserLevelId,
-                        BreadcrumbLevels = breadcrumbLevels
+                        routeValues.UserSelectedProductIds = message.UserSelectedProductIds;
+                        routeValues.SortPropertyName = message.SortPropertyName;
+                        routeValues.IsDescendingSort = message.IsDescendingSort;
+                        routeValues.IsStackMode = message.IsStackMode;
+                        routeValues.IsHistoricReport = message.IsHistoricReport;
+                        routeValues.IsFilterVisible = message.IsFilterVisible;
+                        routeValues.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
+                        routeValues.UserLevelId = custInfo.UserLevelId;
+                        routeValues.BreadcrumbLevels = breadcrumbLevels;
+
+                        return query;
                     })
             };
 
@@ -126,7 +133,7 @@
             return result;
         }
 
-        private WinLossDetailParam CreateParamater(
+        private WinLossDetailParam CreateParameter(
             WinLossDetailQuery message,
             UserLevel userLevel)
         {
