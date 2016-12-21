@@ -497,6 +497,7 @@
     </Content>
     <Content Include="Web.AppSettings.uat2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.ConnectionStrings.config" />
     <Content Include="Web.ConnectionStrings.local.config">

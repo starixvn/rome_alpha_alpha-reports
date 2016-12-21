@@ -10,10 +10,11 @@
     using Models.WinlossDetails;
     using NSubstitute;
     using Site.Handlers;
+    using Site.Helpers;
     using Site.Requests;
     using Site.Requests.WinLossDetails;
+    using Site.ViewModels;
     using Sunplus.Agent.Model.Entities;
-    using ViewModels;
     using Xunit;
 
     public class BaseHandlerTests
@@ -25,6 +26,7 @@
         {
             baseHandler = new BaseHandler();
             userSession = Substitute.For<IUserSession>();
+            HttpAdapter.HasContext = true;
         }
 
         [Fact]

@@ -5,12 +5,16 @@
 
     public static class HttpAdapter
     {
+        [ThreadStatic]
         private static bool? hasContext;
 
+        [ThreadStatic]
         private static Func<string, string> applyAppPathModifierFunc;
 
+        [ThreadStatic]
         private static Func<string, string> serverMapPathFunc;
 
+        [ThreadStatic]
         private static string appDomainAppVirtualPath;
 
         public static bool HasContext

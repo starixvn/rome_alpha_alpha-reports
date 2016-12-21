@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
+    using Helpers;
     using MediatR;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
@@ -19,6 +20,11 @@
         {
             this.userSession = userSession ?? new UserSessionExt();
 
+            if (!HttpAdapter.HasContext)
+            {
+                return;
+            }
+
             if (CustId <= 0)
             {
                 CustId = this.userSession.CustId;
@@ -33,7 +39,7 @@
         {
             get
             {
-                return CustId == userSession.CustId;
+                return !HttpAdapter.HasContext || CustId == userSession.CustId;
             }
         }
 

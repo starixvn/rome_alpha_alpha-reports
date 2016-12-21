@@ -2,7 +2,7 @@
 {
     using System;
     using Site.Requests.WinLossDetails;
-    using ViewModels.WinLossDetails;
+    using Site.ViewModels.WinLossDetails;
     using Xunit;
 
     public class ExportWinLossDetailQueryTests
@@ -11,10 +11,10 @@
         public void Create_FromNullWinLossDetailViewModel_ThrowsArgumentNullException()
         {
             // Arrange
-            WinLossDetailViewModel viewModel = null;
+            WinLossDetailViewModel nullViewModel = null;
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new ExportWinLossDetailQuery(viewModel));
+            Assert.Throws<ArgumentNullException>(() => new ExportWinLossDetailQuery(nullViewModel));
         }
     }
 }

@@ -19,9 +19,9 @@
     using Site.Handlers;
     using Site.Helpers;
     using Site.Requests.WinLossDetails;
+    using Site.ViewModels;
+    using Site.ViewModels.WinLossDetails;
     using Sunplus.Agent.Model.Entities;
-    using ViewModels;
-    using ViewModels.WinLossDetails;
     using Xunit;
 
     public class WinLossDetailHandlerTests
@@ -56,6 +56,7 @@
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
             HttpAdapter.ServerMapPathFunc = (path) => path;
+            HttpAdapter.HasContext = true;
         }
 
         [Fact]
