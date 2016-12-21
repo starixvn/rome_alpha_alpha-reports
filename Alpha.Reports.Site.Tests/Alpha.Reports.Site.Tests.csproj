@@ -151,7 +151,7 @@
     <Compile Include="Helpers\Impl\MicroSitesImplTests.cs" />
     <Compile Include="Helpers\Impl\StaticResources\BaseStaticResourcesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCases\ExportWinLossDetailParamTestCases.cs" />
+    <Compile Include="Requests\WinLossDetails\ExportWinLossDetailQueryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

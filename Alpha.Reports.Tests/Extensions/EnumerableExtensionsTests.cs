@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Comparers.WinLossDetail;
     using Reports.Extensions;
     using Reports.Models.WinlossDetails;
     using TestCases;
@@ -76,7 +75,7 @@
             var actualList = winLossDetails.OrderBy(propertyName).ToList();
 
             // Assert
-            Assert.True(WinLossDetailComparer.Equals(expectedList, actualList));
+            AssertExtension.Equal(expectedList, actualList);
         }
 
         [Theory]
@@ -90,7 +89,7 @@
             var actualList = winLossDetails.OrderBy(propertyName).ToList();
 
             // Assert
-            Assert.True(WinLossDetailComparer.Equals(expectedList, actualList));
+            AssertExtension.Equal(expectedList, actualList);
         }
 
         [Theory]
@@ -104,7 +103,7 @@
             var actualList = winLossDetails.OrderBy(propertyName, descending: false).ToList();
 
             // Assert
-            Assert.True(WinLossDetailComparer.Equals(expectedList, actualList));
+            AssertExtension.Equal(expectedList, actualList);
         }
 
         [Theory]
@@ -118,7 +117,7 @@
             var actualList = winLossDetails.OrderBy(propertyName, descending: false).ToList();
 
             // Assert
-            Assert.True(WinLossDetailComparer.Equals(expectedList, actualList));
+            AssertExtension.Equal(expectedList, actualList);
         }
 
         [Theory]
@@ -134,7 +133,7 @@
             var actualList = winLossDetails.OrderBy(propertyName, descending: false).ToList();
 
             // Assert
-            Assert.True(WinLossDetailComparer.Equals(expectedList, actualList));
+            AssertExtension.Equal(expectedList, actualList);
         }
 
         [Theory]

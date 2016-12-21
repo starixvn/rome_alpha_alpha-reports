@@ -51,8 +51,8 @@
         public NetWinLoss SuperNetWinLoss { get; }
 
         public decimal Company =>
-            -(MemberNetWinLoss.Total
-            + AgentNetWinLoss.Total
+            -((MemberNetWinLoss?.Total ?? 0)
+            + (AgentNetWinLoss?.Total ?? 0)
             + (MasterNetWinLoss?.Total ?? 0)
             + (SuperNetWinLoss?.Total ?? 0));
     }

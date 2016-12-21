@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Comparers.WinLossDetail;
     using Database.WinLossDetail;
+    using Extensions;
     using Fanex.Data;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
@@ -72,7 +72,7 @@
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
-            Assert.True(WinLossDetailReportDataComparer.Equals(expectedData, actualData));
+            AssertExtension.Equal(expectedData, actualData);
         }
 
         [Fact]
@@ -110,7 +110,7 @@
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
-            Assert.True(WinLossDetailReportDataComparer.Equals(expectedData, actualData));
+            AssertExtension.Equal(expectedData, actualData);
         }
 
         [Fact]
@@ -148,7 +148,7 @@
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
-            Assert.True(WinLossDetailReportDataComparer.Equals(expectedData, actualData));
+            AssertExtension.Equal(expectedData, actualData);
         }
 
         [Fact]
@@ -180,7 +180,7 @@
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
-            Assert.True(WinLossDetailReportDataComparer.Equals(expectedData, actualData));
+            AssertExtension.Equal(expectedData, actualData);
         }
 
         [Fact]
@@ -218,7 +218,7 @@
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
-            Assert.True(WinLossDetailReportDataComparer.Equals(expectedData, actualData));
+            AssertExtension.Equal(expectedData, actualData);
         }
     }
 }

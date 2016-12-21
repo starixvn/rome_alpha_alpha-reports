@@ -55,6 +55,10 @@
       <HintPath>..\packages\Fanex.Data.Repository.1.0.1\lib\net461\Fanex.Data.Repository.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NSubstitute, Version=1.10.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
       <Private>True</Private>
@@ -99,12 +103,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comparers\WinLossDetail\NetWinLossComparer.cs" />
-    <Compile Include="Comparers\WinLossDetail\NetWinLossComparerTests.cs" />
-    <Compile Include="Comparers\WinLossDetail\WinLossDetailComparer.cs" />
-    <Compile Include="Comparers\WinLossDetail\WinLossDetailComparerTests.cs" />
-    <Compile Include="Comparers\WinLossDetail\WinLossDetailReportDataComparer.cs" />
-    <Compile Include="Comparers\WinLossDetail\WinLossDetailReportDataComparerTests.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\DefaultVariablesTests.cs" />
     <Compile Include="Constants\RoleId.cs" />
@@ -117,6 +115,7 @@
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Database\WinLossDetail\WinLossDetailDatabase.cs" />
     <Compile Include="Enumerations\EnumerationTests.cs" />
+    <Compile Include="Extensions\AssertExtension.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />

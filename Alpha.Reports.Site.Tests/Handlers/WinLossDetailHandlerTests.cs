@@ -15,10 +15,10 @@
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Params;
-    using Requests.WinLossDetails;
     using Services;
     using Site.Handlers;
     using Site.Helpers;
+    using Site.Requests.WinLossDetails;
     using Sunplus.Agent.Model.Entities;
     using ViewModels;
     using ViewModels.WinLossDetails;
@@ -33,19 +33,21 @@
         private readonly WinLossDetailHandler winLossDetailHandler;
         private readonly IUserSession userSession;
 
-        private readonly WinLossDetailViewModel masterWinLossDetail = new WinLossDetailViewModel
-        {
-            UserLevel = Enumeration.FromValue<UserLevel>(4),
-            FromDate = DefaultVariables.CurrentDate,
-            ToDate = DefaultVariables.CurrentDate,
-            ReportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), 0, 0, 0, default(WinLossDetail))
-        };
-
         public WinLossDetailHandlerTests()
         {
             productService = Substitute.For<ProductService>();
+            productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
+
             reportService = Substitute.For<WinLossDetailService>();
+
             workbook = Substitute.For<Workbook<WinLossDetail>>();
+            workbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(workbook);
+            workbook.Title(Arg.Any<string>()).Returns(workbook);
+            workbook.Header(Arg.Any<Func<string, string>>()).Returns(workbook);
+            workbook.Body(Arg.Any<IEnumerable<WinLossDetail>>(), Arg.Any<Mapper<WinLossDetail>>()).Returns(workbook);
+            workbook.Footer(Arg.Any<WinLossDetail>(), Arg.Any<Mapper<WinLossDetail>>()).Returns(workbook);
+            workbook.Sheet(Arg.Any<string>()).Returns(workbook);
+
             userSession = Substitute.For<IUserSession>();
             winLossDetailHandler = new WinLossDetailHandler(productService, reportService, workbook, userSession);
 
@@ -147,7 +149,7 @@
         public void HandleExportWinLossDetailQuery_MasterWinLossDetail_UsesCorrectTemplateInfo()
         {
             // Arrange
-            var message = new ExportWinLossDetailQuery(masterWinLossDetail);
+            var message = CreateExportExcelQuery(userLevel: 4);
 
             // Act
             winLossDetailHandler.Handle(message);
@@ -164,17 +166,119 @@
         public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectTitle()
         {
             // Arrange
-            var message = new ExportWinLossDetailQuery(masterWinLossDetail);
-
-            productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
-
-            workbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(workbook);
+            var message = CreateExportExcelQuery(userLevel: 4);
 
             // Act
             winLossDetailHandler.Handle(message);
 
             // Assert
             workbook.Received().Title(Arg.Is<string>(s => string.Equals(s, "Master Win Loss Detail 12/02/2016 --> 12/02/2016 of Product Name")));
+        }
+
+        [Fact]
+        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectHeader()
+        {
+            // Arrange
+            var message = CreateExportExcelQuery(userLevel: 4);
+
+            // Act
+            winLossDetailHandler.Handle(message);
+
+            // Assert
+            workbook.Received().Header(Arg.Is<Func<string, string>>(func => func == ExcelHelper.HeaderTitleMapping));
+        }
+
+        [Fact]
+        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectBody()
+        {
+            // Arrange
+            var message = CreateExportExcelQuery(userLevel: 4);
+
+            // Act
+            winLossDetailHandler.Handle(message);
+
+            // Assert
+            workbook.Received().Body(
+                Arg.Is<IEnumerable<WinLossDetail>>(dataSource => dataSource == message.ReportData.DataSource),
+                Arg.Any<Mapper<WinLossDetail>>());
+        }
+
+        [Fact]
+        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectFooter()
+        {
+            // Arrange
+            var message = CreateExportExcelQuery(userLevel: 4);
+
+            // Act
+            winLossDetailHandler.Handle(message);
+
+            // Assert
+            workbook.Received().Footer(Arg.Is<WinLossDetail>(total => total == message.ReportData.TotalData), Arg.Any<Mapper<WinLossDetail>>());
+        }
+
+        [Fact]
+        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectSheetName()
+        {
+            // Arrange
+            var message = CreateExportExcelQuery(userLevel: 4);
+
+            // Act
+            winLossDetailHandler.Handle(message);
+
+            // Assert
+            workbook.Received().Sheet(Arg.Is<string>(sheetName => sheetName == message.Title));
+        }
+
+        [Fact]
+        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsExcelToBytes()
+        {
+            // Arrange
+            var message = CreateExportExcelQuery(userLevel: 4);
+
+            // Act
+            winLossDetailHandler.Handle(message);
+
+            // Assert
+            workbook.Received().ExportToBytes();
+        }
+
+        [Fact]
+        public void HandleExportWinLossDetailQuery_AgentWinLossDetail_ExportsExcelToBytes()
+        {
+            // Arrange
+            var message = CreateExportExcelQuery(userLevel: 3);
+
+            // Act
+            winLossDetailHandler.Handle(message);
+
+            // Assert
+            workbook.Received().ExportToBytes();
+        }
+
+        [Fact]
+        public void HandleExportWinLossDetailQuery_MemberWinLossDetail_ExportsExcelToBytes()
+        {
+            // Arrange
+            var message = CreateExportExcelQuery(userLevel: 2);
+
+            // Act
+            winLossDetailHandler.Handle(message);
+
+            // Assert
+            workbook.Received().ExportToBytes();
+        }
+
+        private ExportWinLossDetailQuery CreateExportExcelQuery(byte userLevel)
+        {
+            var viewModel = new WinLossDetailViewModel
+            {
+                UserLevel = Enumeration.FromValue<UserLevel>(userLevel),
+                FromDate = DefaultVariables.CurrentDate,
+                ToDate = DefaultVariables.CurrentDate,
+                ReportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), 0, 0, 0, default(WinLossDetail))
+            };
+
+            return new ExportWinLossDetailQuery(viewModel);
         }
     }
 }

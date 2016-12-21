@@ -9,9 +9,9 @@
     using Models;
     using Models.WinlossDetails;
     using NSubstitute;
-    using Requests;
-    using Requests.WinLossDetails;
     using Site.Handlers;
+    using Site.Requests;
+    using Site.Requests.WinLossDetails;
     using Sunplus.Agent.Model.Entities;
     using ViewModels;
     using Xunit;

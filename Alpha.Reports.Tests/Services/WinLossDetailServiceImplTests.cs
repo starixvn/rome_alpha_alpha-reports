@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-    using Comparers.WinLossDetail;
+    using Extensions;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
     using Reports.DataAccesses;
@@ -64,7 +64,7 @@
             var actualReportData = winLossDetailServiceImpl.GetWinLossDetail(param);
 
             // Assert
-            Assert.True(WinLossDetailReportDataComparer.Equals(expectedReportData, actualReportData));
+            AssertExtension.Equal(expectedReportData, actualReportData);
         }
 
         [Fact]
@@ -88,7 +88,7 @@
             var actualReportData = winLossDetailServiceImpl.GetWinLossDetail(param);
 
             // Assert
-            Assert.True(WinLossDetailReportDataComparer.Equals(expectedReportData, actualReportData));
+            AssertExtension.Equal(expectedReportData, actualReportData);
         }
     }
 }
