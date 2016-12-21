@@ -70,7 +70,7 @@ class NetTurnoverTooltipComponent {
                 });
             } else {
                 netTurnoverTooltip.css({
-                    left: netTurnoverPosition.left + netTurnoverHeader.outerWidth() - 16, // Next to net turnover label
+                    left: netTurnoverPosition.left + netTurnoverHeader.outerWidth() - 16, // next to net turnover label
                     right: "auto",
                     bottom: "auto",
                     top: netTurnoverPosition.top - 22, // verical align: middle with header
