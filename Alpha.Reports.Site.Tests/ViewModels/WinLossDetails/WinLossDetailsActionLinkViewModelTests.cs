@@ -31,7 +31,7 @@
             var expectedCustId = custId;
             var breadcrumbLevels = new List<ActionLinkViewModel>
             {
-                new ActionLinkViewModel("ControllerName","Index","Link", new WinLossDetailQuery(userSession))
+                new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(userSession))
             };
 
             var winLossDetailsActionLinkViewModel = new WinLossDetailsActionLinkViewModel(

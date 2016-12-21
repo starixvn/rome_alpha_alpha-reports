@@ -156,6 +156,7 @@
     <Compile Include="Requests\WinLossDetails\WinLossDetailQueryTests.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailsActionLinkViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossDetails\WinLossDetailViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
