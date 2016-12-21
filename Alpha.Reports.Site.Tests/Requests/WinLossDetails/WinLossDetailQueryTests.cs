@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.Requests.WinLossDetails
 {
     using Extensions;
+    using Site.Helpers;
     using Site.Requests.WinLossDetails;
     using Xunit;
 
@@ -10,6 +11,7 @@
         public void UseDefaultConstructor_Always_ReturnsDefaultInstance()
         {
             // Arrange
+            HttpAdapter.HasContext = false;
             var expectedWinLossDetailQuery = new WinLossDetailQuery
             {
                 UserSelectedProductIds = null,
