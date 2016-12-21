@@ -2,7 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Web.Mvc;
+    using Constants;
+    using Enumerations;
+    using Extensions;
     using Models;
     using Models.WinlossDetails;
     using NSubstitute;
@@ -12,6 +17,8 @@
     using Services;
     using Site.Handlers;
     using Sunplus.Agent.Model.Entities;
+    using ViewModels;
+    using ViewModels.WinLossDetails;
     using Xunit;
 
     public class WinLossDetailHandlerTests
@@ -30,6 +37,7 @@
             workbook = Substitute.For<Workbook<WinLossDetail>>();
             userSession = Substitute.For<IUserSession>();
             winLossDetailHandler = new WinLossDetailHandler(productService, reportService, workbook, userSession);
+            DateTimeAdapter.Now = DefaultVariables.CurrentDate;
         }
 
         [Fact]
@@ -47,7 +55,11 @@
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("  ")]
-        public void HandlerWinLossDetailQuery_NullOrWhiteSpaceUserSelectedProductIds_ThrowsArgumentNullException2(
+        [InlineData("1")]
+        [InlineData("1,2")]
+        [InlineData("1,2,3")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        public void HandlerWinLossDetailQuery_NullOrWhiteSpaceUserSelectedProductIds_ReturnsCorrectViewModel(
             string userSelectedProductIds)
         {
             // Arrange
@@ -61,14 +73,48 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            ReportData<WinLossDetail> reportData = null;
+            ReportData<WinLossDetail> reportData = new ReportData<WinLossDetail>(
+                Enumerable.Empty<WinLossDetail>(),
+                0,
+                0,
+                0,
+                null);
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
+
+            var routeValue = new WinLossDetailQuery(userSession);
+            routeValue.UserLevelId = 4;
+            routeValue.UserSelectedProductIds = userSelectedProductIds;
+
+            var expectedWinLossDetailViewModel = new WinLossDetailViewModel
+            {
+                CustName = string.Empty,
+                Language = string.Empty,
+                SortPropertyName = "SuperNetWinLoss.WinLoss",
+                IsDescendingSort = true,
+                IsDirectReportViewAction = true,
+                UserSelectedProductIds = string.Empty,
+                UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
+                FromDate = DefaultVariables.CurrentDate,
+                ToDate = DefaultVariables.CurrentDate,
+                HasSubmittedParams = !string.IsNullOrWhiteSpace(userSelectedProductIds),
+
+                Products = Enumerable.Empty<SelectListItem>(),
+                ReportData = reportData,
+                BreadcrumbLevels = new List<ActionLinkViewModel>
+                {
+                    new ActionLinkViewModel(
+                        controllerName: "WinLossDetail",
+                        actionName: "Index",
+                        linkText: message.CustName,
+                        routeValues: routeValue)
+                }
+            };
 
             // Act
             var actualWinLossDetailViewModel = winLossDetailHandler.Handle(message);
 
             // Assert
-            Assert.Equal(actualWinLossDetailViewModel, actualWinLossDetailViewModel);
+            AssertExtension.Equal(expectedWinLossDetailViewModel, actualWinLossDetailViewModel);
         }
     }
 }
