@@ -72,7 +72,7 @@
             container.RegisterPerWebRequest<ReportDateService, ReportDateServiceImpl>();           
 
             container.RegisterPerWebRequest<WinLossDetailService, WinLossDetailServiceImpl>();
-            container.Register<WinLossService, WinLossServiceImpl>(Lifestyle.Transient);
+            container.RegisterPerWebRequest<WinLossService, WinLossServiceImpl>();
 
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
@@ -88,7 +88,7 @@
         {
             container.RegisterPerWebRequest<IDynamicRepository, DynamicRepository>();
             container.RegisterPerWebRequest<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
-            container.Register<WinLossDataAccess, WinLossDataAccessImpl>(Lifestyle.Transient);
+            container.RegisterPerWebRequest<WinLossDataAccess, WinLossDataAccessImpl>();
         }
     }
 }
