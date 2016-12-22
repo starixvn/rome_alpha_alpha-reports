@@ -354,90 +354,90 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\AuthorizationSection.config" />
     <Content Include="Views\Shared\Piwik.cshtml" />
-    <None Include="Web.AppSettings.backupMNL.config">
+    <Content Include="Web.AppSettings.backupMNL.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </None>
-    <None Include="Web.AppSettings.backupMNL2.config">
+    </Content>
+    <Content Include="Web.AppSettings.backupMNL2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </None>
-    <None Include="Web.AppSettings.backupMNLExNap.config">
+    </Content>
+    <Content Include="Web.AppSettings.backupMNLExNap.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </None>
-    <None Include="Web.AppSettings.backupMNLExNap2.config">
+    </Content>
+    <Content Include="Web.AppSettings.backupMNLExNap2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </None>
-    <None Include="Web.AppSettings.backupMNLNap.config">
+    </Content>
+    <Content Include="Web.AppSettings.backupMNLNap.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </None>
-    <None Include="Web.AppSettings.backupMNLNap2.config">
+    </Content>
+    <Content Include="Web.AppSettings.backupMNLNap2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
-    </None>
-    <None Include="Web.backupMNL.config">
+    </Content>
+    <Content Include="Web.backupMNL.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.backupMNL2.config">
+    </Content>
+    <Content Include="Web.backupMNL2.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.backupMNLExNap.config">
+    </Content>
+    <Content Include="Web.backupMNLExNap.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.backupMNLExNap2.config">
+    </Content>
+    <Content Include="Web.backupMNLExNap2.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.backupMNLNap.config">
+    </Content>
+    <Content Include="Web.backupMNLNap.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.backupMNLNap2.config">
+    </Content>
+    <Content Include="Web.backupMNLNap2.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.ConnectionStrings.backupMNL.config">
+    </Content>
+    <Content Include="Web.ConnectionStrings.backupMNL.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </None>
-    <None Include="Web.ConnectionStrings.backupMNL2.config">
+    </Content>
+    <Content Include="Web.ConnectionStrings.backupMNL2.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </None>
-    <None Include="Web.ConnectionStrings.backupMNLExNap.config">
+    </Content>
+    <Content Include="Web.ConnectionStrings.backupMNLExNap.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </None>
-    <None Include="Web.ConnectionStrings.backupMNLExNap2.config">
+    </Content>
+    <Content Include="Web.ConnectionStrings.backupMNLExNap2.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </None>
-    <None Include="Web.ConnectionStrings.backupMNLNap.config">
+    </Content>
+    <Content Include="Web.ConnectionStrings.backupMNLNap.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </None>
-    <None Include="Web.ConnectionStrings.backupMNLNap2.config">
+    </Content>
+    <Content Include="Web.ConnectionStrings.backupMNLNap2.config">
       <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </None>
-    <None Include="Web.uat2.config">
+    </Content>
+    <Content Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.uat.config">
+    </Content>
+    <Content Include="Web.uat.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.sit2.config">
+    </Content>
+    <Content Include="Web.sit2.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.sit.config">
+    </Content>
+    <Content Include="Web.sit.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.pro2.config">
+    </Content>
+    <Content Include="Web.pro2.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.pro.config">
+    </Content>
+    <Content Include="Web.pro.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.napinternal2.config">
+    </Content>
+    <Content Include="Web.napinternal2.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.napinternal.config">
+    </Content>
+    <Content Include="Web.napinternal.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.napexternal2.config">
+    </Content>
+    <Content Include="Web.napexternal2.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
-    <None Include="Web.napexternal.config">
+    </Content>
+    <Content Include="Web.napexternal.config">
       <DependentUpon>Web.local.config</DependentUpon>
-    </None>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
