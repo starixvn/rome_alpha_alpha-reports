@@ -8,7 +8,6 @@
     using DataAccesses.Impl;
     using Fanex.Data.Repository;
     using MediatR;
-    using Models.Winloss;
     using ONEbook.SpreadSheets;
     using ONEbook.SpreadSheets.NPOI;
     using RemotingRef;

@@ -6,9 +6,6 @@
     using System.Threading;
     using System.Web.Mvc;
     using Constants;
-    using Enumerations;
-    using Extensions;
-    using Models;
     using Models.WinlossDetails;
     using Site.ViewModels.WinLossDetails;
     using Xunit;

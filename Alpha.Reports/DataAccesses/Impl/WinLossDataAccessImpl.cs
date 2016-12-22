@@ -6,7 +6,6 @@
     using System.Diagnostics.CodeAnalysis;
     using Criteria.WinLoss;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Models;
     using Models.Winloss;
     using Models.WinlossDetails;

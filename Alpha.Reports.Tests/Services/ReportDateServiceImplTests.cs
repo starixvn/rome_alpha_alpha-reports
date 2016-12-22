@@ -2,7 +2,6 @@
 {
     using System;
     using Fanex.Caching;
-    using Fanex.Caching.Memory;
     using Fanex.Data.Repository;
     using NSubstitute;
     using Reports.Criteria;
