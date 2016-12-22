@@ -30,8 +30,8 @@
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
-        private Workbook<WinLoss> winlossWorkbook;
-        private Workbook<EnteredSportResult> enteredSportResultWorkbook;
+        private readonly Workbook<WinLoss> winlossWorkbook;
+        private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
 
         public WinLossHandler(
             ProductService productService,

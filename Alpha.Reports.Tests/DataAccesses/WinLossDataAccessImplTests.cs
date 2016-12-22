@@ -2,12 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using Database.WinLoss;
     using Fanex.Data;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLoss;
+    using Reports.DataAccesses;
     using Reports.DataAccesses.Impl;
     using Reports.Enumerations;
     using Reports.Models;
@@ -20,13 +20,13 @@
     {
         private readonly IObjectDb objectDb;
         private readonly WinLossDataAccessImpl winLossDataAccessImpl;
-        private CompareLogic _compare;
+        private readonly CompareLogic _compare;
 
         public WinLossDataAccessImplTests()
         {
             objectDb = Substitute.For<IObjectDb>();
             winLossDataAccessImpl = new WinLossDataAccessImpl();
-            winLossDataAccessImpl.SetCreateObjectDbFunc((settingKey) => objectDb);
+            ObjectDbFactory.CreateInstance = (settingKey) => objectDb;
             _compare = new CompareLogic();
         }
 

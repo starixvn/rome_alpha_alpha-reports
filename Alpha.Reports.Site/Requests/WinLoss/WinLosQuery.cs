@@ -8,7 +8,7 @@
 
     public class WinLossQuery : IRequest<WinLossViewModel>
     {
-        private IUserSession userSession;
+        private readonly IUserSession userSession;
 
         public WinLossQuery() : this(null)
         {

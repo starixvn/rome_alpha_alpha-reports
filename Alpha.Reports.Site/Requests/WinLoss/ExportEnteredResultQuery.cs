@@ -10,7 +10,7 @@
     public class ExportEnteredResultQuery : IRequest<byte[]>
     {
         private const string ExcelTemplatePath = "~/App_Data/ExcelTemplates/WinLoss/MatchResultEntered.xls";
-        private EnteredResultViewModel viewModel;
+        private readonly EnteredResultViewModel viewModel;
 
         public ExportEnteredResultQuery(EnteredResultViewModel viewModel)
         {

@@ -5,11 +5,9 @@
     using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLoss;
 
-    public class EnterResultQuery :
-        BaseReportQuery,
-        IRequest<EnteredResultViewModel>
+    public class EnterResultQuery : IRequest<EnteredResultViewModel>
     {
-        private IUserSession userSession;
+        private readonly IUserSession userSession;
 
         public EnterResultQuery() : this(null)
         {
@@ -27,6 +25,12 @@
 
             Language = this.userSession.Language;
         }
+
+        public int CustId { get; set; }
+
+        public string CustName { get; set; }
+
+        public byte UserLevelId { get; set; }
 
         public string Language { get; }
     }

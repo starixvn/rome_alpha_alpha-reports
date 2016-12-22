@@ -10,7 +10,7 @@
     public class ExportWinLossDetailQuery : IRequest<byte[]>
     {
         private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLossDetail/";
-        private WinLossDetailViewModel viewModel;
+        private readonly WinLossDetailViewModel viewModel;
 
         public ExportWinLossDetailQuery(WinLossDetailViewModel viewModel)
         {

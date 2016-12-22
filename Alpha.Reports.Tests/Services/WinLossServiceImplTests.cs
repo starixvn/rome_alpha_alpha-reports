@@ -26,7 +26,7 @@
         private readonly WinLossServiceImpl winLossServiceImpl;
         private readonly IDynamicRepository dynamicRepository;
         private readonly Cache cacheForTesting;
-        private CompareLogic _compare;
+        private readonly CompareLogic _compare;
 
         public WinLossServiceImplTests()
         {
@@ -123,7 +123,9 @@
 
         ////    var cachedEnteredSportResult = Enumerable.Empty<EnteredSportResult>();
         ////    cacheForTesting.TryGet(EnteredResultsCacheKey, out cachedEnteredSportResult).Returns(false);
-        ////    dynamicRepository.Fetch<EnteredSportResult>(Arg.Any<EnteredSportDailyCriteria>()).Returns(expectedData);
+
+        ////    var dataEnteredSport = Enumerable.Empty<DailyEnteredSport>();
+        ////    dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dataEnteredSport);
 
         ////    // Act
         ////    var actualData = winLossServiceImpl.GetEnteredSportResults();

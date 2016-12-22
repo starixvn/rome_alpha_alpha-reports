@@ -13,13 +13,6 @@
 
     public class WinLossDataAccessImpl : WinLossDataAccess
     {
-        private Func<string, IObjectDb> createObjectDbFunc = (settingKey) => new ObjectDb(settingKey);
-
-        public void SetCreateObjectDbFunc(Func<string, IObjectDb> func)
-        {
-            createObjectDbFunc = func;
-        }
-
         public IEnumerable<WinLoss> GetWinLoss(WinLossCriteria criteria)
         {
             if (criteria == null)
@@ -29,7 +22,7 @@
 
             var winlossData = new List<WinLoss>();
 
-            using (var db = createObjectDbFunc(criteria.GetSettingKey()))
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria))
                 {

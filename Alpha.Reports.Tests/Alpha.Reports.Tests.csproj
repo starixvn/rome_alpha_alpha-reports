@@ -172,6 +172,7 @@
     </Content>
     <Content Include="Database\WinLoss\MasterWinLossHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Database\WinLoss\MemberWinLossHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

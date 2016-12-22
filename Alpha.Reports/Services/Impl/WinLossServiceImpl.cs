@@ -79,8 +79,8 @@
                     .Select(y => new EnteredSportResult(
                     y.Key,
                     CacheRefFactory.CacheRef.GetSportName(y.Key),
-                    y.ToList().Where(x => x.IsToday).FirstOrDefault(),
-                    y.ToList().Where(x => !x.IsToday).FirstOrDefault())).OrderBy(x => x.SportName).ToList();
+                    y.FirstOrDefault(x => x.IsToday),
+                    y.FirstOrDefault(x => !x.IsToday))).OrderBy(x => x.SportName).ToList();
         
             return enteredResultData;
         }
