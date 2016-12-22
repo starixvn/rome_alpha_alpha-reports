@@ -225,11 +225,14 @@ class WinLossDetailView {
     afterSort = () => {
         var this$ = this.$;
         if (this.hasAllDataOnClient) {
-            this.replaceHrefParam("SortPropertyName", this.$tableReport.data("sortedcolumn"));
-            this.replaceHrefParam(
-                "IsDescendingSort",
-                this.$tableReport.data("descendingsort") === "1" ||
-                this.$tableReport.data("descendingsort") === "true");
+            var sortedColumn = this$(".sorting-asc");
+            var direction = !sortedColumn.length;
+            if (sortedColumn.length === 0) {
+                var sortedColumn = this$(".sorting-desc");
+            }
+
+            this.replaceHrefParam("SortPropertyName", sortedColumn.data("sortedname"));
+            this.replaceHrefParam("IsDescendingSort", direction);
 
             var isEvenRow = false;
             this.$tableReport.find("tbody > tr").each(function () {
