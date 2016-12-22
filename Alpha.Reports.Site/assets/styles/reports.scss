@@ -252,6 +252,7 @@ a {
     overflow: hidden;
     width: 100%;
     height: auto;
+    position: absolute;
     @include box-shadow-multiple(none);
 
     .modal-dialog {
