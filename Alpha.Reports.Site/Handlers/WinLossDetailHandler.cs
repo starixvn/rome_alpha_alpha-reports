@@ -99,7 +99,7 @@
                         routeValues.UserLevelId = custInfo.UserLevelId;
                         routeValues.BreadcrumbLevels = breadcrumbLevels;
 
-                        return query;
+                        return routeValues;
                     })
             };
 
