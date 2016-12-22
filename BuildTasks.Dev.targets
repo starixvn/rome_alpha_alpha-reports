@@ -6,10 +6,10 @@
   
   <Target Name="MyTargets">
 	<Exec Command="_tools\Nuget\NuGet restore Alpha.Reports.Site.sln"/>
-	<PropertyGroup>
-		<RunXunitTests>true</RunXunitTests>
-	</PropertyGroup>
-	<MSBuild Projects="Alpha.Reports.Site.sln" />
+
+	<MSBuild 
+	Projects="Alpha.Reports.Site.sln" 
+	Properties="RunXunitTests=true;RunNunitTests=true;TreatWarningsAsErrors=true;RunCodeAnalysis=true;StyleCopEnabled=true" />
   </Target>
   
 </Project>
