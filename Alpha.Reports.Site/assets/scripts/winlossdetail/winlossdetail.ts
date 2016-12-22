@@ -308,7 +308,7 @@ class WinLossDetailView {
             return;
         }
 
-        this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? true : params.IsFilterVisible);
+        this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible);
         this.$isDescendingSort.val(params.IsDescendingSort);
         this.$isHistoricReport.val(params.IsHistoricReport);
         this.$isStackMode.val(params.IsStackMode);
