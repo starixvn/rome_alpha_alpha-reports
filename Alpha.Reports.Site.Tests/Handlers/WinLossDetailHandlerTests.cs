@@ -31,9 +31,8 @@
 
         private readonly Workbook<WinLossDetail> workbook;
         private readonly WinLossDetailHandler winLossDetailHandler;
-#pragma warning disable CS0618 // 'IUserSession' is obsolete: 'Should rename to Sunplus.Agent.Model.Base'
+
         private readonly IUserSession userSession;
-#pragma warning restore CS0618 // 'IUserSession' is obsolete: 'Should rename to Sunplus.Agent.Model.Base'
 
         public WinLossDetailHandlerTests()
         {
