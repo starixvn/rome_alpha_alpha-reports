@@ -20,14 +20,14 @@
     {
         private readonly IObjectDb objectDb;
         private readonly WinLossDataAccessImpl winLossDataAccessImpl;
-        private readonly CompareLogic _compare;
+        private readonly CompareLogic compareLogic;
 
         public WinLossDataAccessImplTests()
         {
             objectDb = Substitute.For<IObjectDb>();
             winLossDataAccessImpl = new WinLossDataAccessImpl();
             ObjectDbFactory.CreateInstance = (settingKey) => objectDb;
-            _compare = new CompareLogic();
+            compareLogic = new CompareLogic();
         }
 
         [Fact]
@@ -64,7 +64,7 @@
 
             // Act 
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
-            var result = _compare.Compare(expectedData, actualData);
+            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
             Assert.True(result.AreEqual);
@@ -94,7 +94,7 @@
 
             // Act 
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
-            var result = _compare.Compare(expectedData, actualData);
+            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
             Assert.True(result.AreEqual);
@@ -124,7 +124,7 @@
 
             // Act 
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
-            var result = _compare.Compare(expectedData, actualData);
+            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
             Assert.True(result.AreEqual);

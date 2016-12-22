@@ -18,9 +18,10 @@
     using Requests.WinLoss;
     using Requests.WinLossDetails;
     using Services;
+    using Sunplus.Agent.Model.Entities;
     using ViewModels;
     using ViewModels.WinLoss;
-
+    
     public class WinLossHandler :
         BaseHandler,
         IRequestHandler<WinLossQuery, WinLossViewModel>,
@@ -32,17 +33,20 @@
         private readonly WinLossService reportService;
         private readonly Workbook<WinLoss> winlossWorkbook;
         private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
+        private readonly IUserSession userSession;
 
         public WinLossHandler(
             ProductService productService,
             WinLossService reportService,
             Workbook<WinLoss> workbook,
-            Workbook<EnteredSportResult> enteredSportResultWorkbook)
+            Workbook<EnteredSportResult> enteredSportResultWorkbook,
+            IUserSession userSession)
         {
             this.productService = productService;
             this.reportService = reportService;
             this.winlossWorkbook = workbook;
             this.enteredSportResultWorkbook = enteredSportResultWorkbook;
+            this.userSession = userSession;
         }
 
         public EnteredResultViewModel Handle(EnterResultQuery message)

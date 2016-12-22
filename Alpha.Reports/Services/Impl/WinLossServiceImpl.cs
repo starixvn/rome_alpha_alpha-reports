@@ -18,17 +18,20 @@
         private readonly ProductService productService;
         private readonly WinLossDataAccess dataAccess;
         private readonly IDynamicRepository dynamicRepository;
+        private readonly CacheRefService cacheRefService;
 
         public WinLossServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
             WinLossDataAccess dataAccess,
-            IDynamicRepository dynamicRepository)
+            IDynamicRepository dynamicRepository,
+            CacheRefService cacheRefService)
         {
             this.dynamicRepository = dynamicRepository;
             this.reportDateService = reportDateService;
             this.productService = productService;
             this.dataAccess = dataAccess;
+            this.cacheRefService = cacheRefService;
         }
 
         public IEnumerable<WinLoss> GetWinLoss(WinLossParam param)
@@ -71,18 +74,22 @@
             return reportData;
         }
 
-        private IEnumerable<EnteredSportResult> GetDataEnteredSportResults()
+        internal virtual IEnumerable<EnteredSportResult> GetDataEnteredSportResults()
         {
             var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria());
 
-            var enteredResultData = dailyEnteredSportData.GroupBy(x => x.SportType)
-                    .Select(y => new EnteredSportResult(
-                    y.Key,
-                    CacheRefFactory.CacheRef.GetSportName(y.Key),
-                    y.FirstOrDefault(x => x.IsToday),
-                    y.FirstOrDefault(x => !x.IsToday))).OrderBy(x => x.SportName).ToList();
-        
-            return enteredResultData;
+            if (dailyEnteredSportData.Any())
+            {
+                return dailyEnteredSportData.GroupBy(dailyEnteredSport => dailyEnteredSport.SportType)
+                    .Select(dailyEnteredSports => new EnteredSportResult(
+                    dailyEnteredSports.Key,
+                    cacheRefService.GetSportName(dailyEnteredSports.Key),
+                    dailyEnteredSports.FirstOrDefault(enteredSportResult => enteredSportResult.IsToday),
+                    dailyEnteredSports.FirstOrDefault(enteredSportResult => !enteredSportResult.IsToday)))
+                    .OrderBy(enteredSportResult => enteredSportResult.SportName).ToList();
+            }
+
+            return Enumerable.Empty<EnteredSportResult>();
         }
     }
 }

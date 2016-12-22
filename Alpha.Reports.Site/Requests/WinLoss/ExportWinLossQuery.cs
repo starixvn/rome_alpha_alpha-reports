@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
+    using Helpers;
     using MediatR;
     using Models;
     using Models.Winloss;
@@ -29,7 +29,7 @@
                 ? "Agent.xls"
                 : "Member.xls");
 
-            TemplatePath = HttpContext.Current.Server.MapPath(excelTemplatePath);
+            TemplatePath = HttpAdapter.ServerMapPathFunc(excelTemplatePath);
         }
 
         public string TemplatePath { get; set; }

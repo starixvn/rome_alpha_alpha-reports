@@ -1,11 +1,13 @@
 ﻿namespace Alpha.Reports.Tests.Services.WinLoss
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
+    using RemotingRef;
     using Reports.Criteria.WinLoss;
     using Reports.DataAccesses;
     using Reports.Enumerations;
@@ -14,6 +16,7 @@
     using Reports.Params;
     using Reports.Services;
     using Reports.Services.Impl;
+    using TestCases;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -26,7 +29,8 @@
         private readonly WinLossServiceImpl winLossServiceImpl;
         private readonly IDynamicRepository dynamicRepository;
         private readonly Cache cacheForTesting;
-        private readonly CompareLogic _compare;
+        private readonly CompareLogic compareLogic;
+        private readonly CacheRefService cacheRefService;
 
         public WinLossServiceImplTests()
         {
@@ -34,11 +38,12 @@
             reportDateService = Substitute.For<ReportDateService>();
             productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<WinLossDataAccess>();
-            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, dataAccess, dynamicRepository);
+            cacheRefService = Substitute.For<CacheRefService>();
+            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, dataAccess, dynamicRepository, cacheRefService);
 
             cacheForTesting = Substitute.For<Cache>();
             CacheService.SwitchCacheStorage(cacheForTesting);
-            _compare = new CompareLogic();
+            compareLogic = new CompareLogic();
         }
 
         [Fact]
@@ -67,7 +72,7 @@
 
             // Act
             var actualData = winLossServiceImpl.GetWinLoss(param);
-            var result = _compare.Compare(expectedData, actualData);
+            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
             Assert.True(result.AreEqual);
@@ -90,7 +95,7 @@
             // Act
             dataAccess.GetWinLoss(Arg.Any<WinLossCriteria>()).Returns(expectedData);
             var actualData = winLossServiceImpl.GetWinLoss(param);
-            var result = _compare.Compare(expectedData, actualData);
+            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
             Assert.True(result.AreEqual);
@@ -115,69 +120,59 @@
             dataAccess.Received().GetWinLoss(Arg.Any<WinLossCriteria>());
         }
 
-        ////[Fact]
-        ////public void GetEnteredSportResults_IsValid_ReturnsDefaultReportData()
-        ////{
-        ////    // Arrange
-        ////    var expectedData = Enumerable.Empty<EnteredSportResult>();
+        [Fact]
+        public void GetEnteredSportResults_IsValid_ReturnsDefaultReportData()
+        {
+            // Arrange
+            var expectedData = Enumerable.Empty<EnteredSportResult>();
 
-        ////    var cachedEnteredSportResult = Enumerable.Empty<EnteredSportResult>();
-        ////    cacheForTesting.TryGet(EnteredResultsCacheKey, out cachedEnteredSportResult).Returns(false);
+            var cachedEnteredSportResult = Enumerable.Empty<EnteredSportResult>();
+            cacheForTesting.TryGet(EnteredResultsCacheKey, out cachedEnteredSportResult).Returns(false);
 
-        ////    var dataEnteredSport = Enumerable.Empty<DailyEnteredSport>();
-        ////    dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dataEnteredSport);
+            var dataEnteredSport = Enumerable.Empty<DailyEnteredSport>();
+            dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dataEnteredSport);
 
-        ////    // Act
-        ////    var actualData = winLossServiceImpl.GetEnteredSportResults();
-        ////    var result = _compare.Compare(expectedData, actualData);
+            // Act
+            var actualData = winLossServiceImpl.GetEnteredSportResults();
+            var result = compareLogic.Compare(expectedData, actualData);
 
-        ////    // Assert
-        ////    Assert.True(result.AreEqual);
-        ////}
+            // Assert
+            Assert.True(result.AreEqual);
+        }
 
-        ////[Theory]
-        ////[ClassData(typeof(WinLossTestCases))]
-        ////public void GetWinLoss_ValidParam_ReturnsDefaultReportData()
-        ////{
-        ////    // Arrange
-        ////    WinLossParam param = new WinLossParam(
-        ////        0,
-        ////        DateTime.Now,
-        ////        DateTime.Now,
-        ////        Enumerable.Empty<int>(),
-        ////        Enumeration.FromValue<UserLevel>(4),
-        ////        false);
+        [Theory]
+        [ClassData(typeof(EnteredResultsTestCases))]
+        public void GetDataEnteredSportResults_IsValid_ReturnsReportData(
+            List<DailyEnteredSport> dailyEnteredSportData,
+            List<EnteredSportResult> expectedEnteredSportResultData)
+        {
+            // Arrange
+            dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dailyEnteredSportData);
+            cacheRefService.GetSportName(1).Returns("Soccer");
+            cacheRefService.GetSportName(2).Returns("BasketBall");
 
-        ////    var grantTotal = new WinLoss();
-        ////    var winLossServiceImplSubstitute = Substitute.ForPartsOf<WinLossServiceImpl>(reportDateService, productService, dataAccess);
+            // Act
+            var actualEnteredSportResultData = winLossServiceImpl.GetEnteredSportResults();
+            var result = compareLogic.Compare(expectedEnteredSportResultData, actualEnteredSportResultData);
 
-        ////    winLossServiceImplSubstitute.BuildGrandTotal(superWinLoss, UserLevel.Super).Returns(grantTotal);
-        ////    dataAccess.GetWinLosses(Arg.Any<WinLossCriteria>()).Returns(superWinLoss);
-        ////    var expectedReportData = new ReportData<WinLoss>(superWinLoss, 0, grantTotal);
+            // Assert
+            Assert.True(result.AreEqual);
+        }
+      
+        [Fact]
+        public void GetDataEnteredSportResults_DailyEnteredSportEmpty_ReturnsDefaultReportData()
+        {
+            // Arrange
+            var expectedEnteredSportResultData = Enumerable.Empty<EnteredSportResult>();
+            var dailyEnteredSportData = Enumerable.Empty<DailyEnteredSport>();
+            dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dailyEnteredSportData);
 
-        ////    var expectedReportData = new ReportData<WinLoss>(Enumerable.Empty<WinLoss>(), 0, new WinLoss());
+            // Act
+            var actualEnteredSportResultData = winLossServiceImpl.GetEnteredSportResults();
+            var result = compareLogic.Compare(expectedEnteredSportResultData, actualEnteredSportResultData);
 
-        ////    // Act
-        ////    var actualReportData = winLossServiceImpl.GetWinLoss(param);
-
-        ////    // Assert
-        ////    Assert.True(WinLossReportDataComparer.Equals(expectedReportData, actualReportData));
-        ////}
-
-        ////[Theory]
-        ////[ClassData(typeof(WinLossTestCases))]
-        ////public void BuildGrandTotal_ValidParam_ReturnsCorrectGrandTotalWinLoss(
-        ////    List<WinLoss> winLosses, 
-        ////    UserLevel userLevel,
-        ////    WinLoss expectedGrantTotal)
-        ////{
-        ////    // Arrange
-
-        ////    // Act
-        ////    var actualGrantTotal = winLossServiceImpl.BuildGrandTotal(winLosses, userLevel);
-
-        ////    // Assert
-        ////    Assert.True(WinLossComparer.Equals(expectedGrantTotal, actualGrantTotal));
-        ////}
+            // Assert
+            Assert.True(result.AreEqual);
+        }
     }
 }
