@@ -2,7 +2,7 @@
 {
     using Fanex.Data.Repository;
 
-    public class EnteredSportDailyCriteria : CriteriaBase
+    public class DailyEnteredSportCriteria : CriteriaBase
     {
         public override string GetSettingKey()
         {

@@ -2,13 +2,13 @@
 {
     using System;
 
-    public class EnteredSportDaily
+    public class DailyEnteredSport
     {
-        public EnteredSportDaily()
+        public DailyEnteredSport()
         {
         }
 
-        public EnteredSportDaily(
+        public DailyEnteredSport(
             bool isToday,
             DateTime eventDate,
             int sportType,

@@ -65,18 +65,17 @@
             var reportData = CacheService
                  .GetOrSet(
                  EnteredResultsCacheKey,
-                 () => GetDatabaseEnteredSportResults(),
+                 () => GetDataEnteredSportResults(),
                  new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(1)));
 
             return reportData;
         }
 
-        private IEnumerable<EnteredSportResult> GetDatabaseEnteredSportResults()
+        private IEnumerable<EnteredSportResult> GetDataEnteredSportResults()
         {
-            var enteredResultData = new List<EnteredSportResult>();
-            IEnumerable<EnteredSportDaily> enteredSportDailyData = dynamicRepository.Fetch<EnteredSportDaily>(new EnteredSportDailyCriteria());
+            var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria());
 
-            enteredResultData = enteredSportDailyData.GroupBy(x => x.SportType)
+            var enteredResultData = dailyEnteredSportData.GroupBy(x => x.SportType)
                     .Select(y => new EnteredSportResult(
                     y.Key,
                     CacheRefFactory.CacheRef.GetSportName(y.Key),
