@@ -92,7 +92,7 @@
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
-    <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteria.cs" />
+    <Compile Include="Criteria\WinLoss\DailyEnteredSportCriteria.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteria.cs" />
     <Compile Include="DataAccesses\Impl\WinLossDataAccessImpl.cs" />
     <Compile Include="DataAccesses\Impl\WinLossDetailDataAccessImpl.cs" />
@@ -111,7 +111,7 @@
     <Compile Include="Models\UserLevel.cs" />
     <Compile Include="Models\WinlossDetails\NetWinLoss.cs" />
     <Compile Include="Models\WinlossDetails\WinLossDetail.cs" />
-    <Compile Include="Models\Winloss\EnteredSportDaily.cs" />
+    <Compile Include="Models\Winloss\DailyEnteredSport.cs" />
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
     <Compile Include="Models\Winloss\WinLoss.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
