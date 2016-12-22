@@ -1,6 +1,6 @@
 ﻿@model WinLossDetailFilterViewModel
 
-<form class="form-inline filter" role="form" id="report-form">
+<form class="form-inline filter  @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form">
     @RenderHiddenFields()
 
     @(Model.IsHistoricReport
@@ -24,7 +24,7 @@
 
 @helper RenderHiddenFields()
 {
-    @Html.Hidden("IsFilterVisible", Model.Visible)
+    @Html.Hidden("IsFilterVisible", Model.Visible ? "true" : "false")
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 
     @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)

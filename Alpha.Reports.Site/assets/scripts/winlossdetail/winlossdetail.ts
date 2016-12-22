@@ -17,7 +17,7 @@ class WinLossDetailView {
     $multiSelectButton: any;
 
     $drilldownLinks: any;
-    $hideFilter: any;
+    $isFilterVisible: any;
     $isStackMode: any;
     $isDescendingSort: any;
     $sortPropertyName: any;
@@ -73,10 +73,6 @@ class WinLossDetailView {
 
         this.cacheElements();
 
-        if (this.$hideFilter.val().toString().toLowerCase() === "true") {
-            this.hideFilter();
-        }
-
         this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
         this.pagerComponent.render();
 
@@ -108,7 +104,7 @@ class WinLossDetailView {
         this.$pageTitle = this.$(".page-title ");
         this.$tableReport = this.$("#tbl-report");
         this.$drilldownLinks = this.$(".downline-link");
-        this.$hideFilter = this.$("#IsFilterVisible");
+        this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
@@ -150,7 +146,7 @@ class WinLossDetailView {
             this.hideFilter();
         }
 
-        this.replaceHrefParam("IsFilterVisible", !currentHideState);
+        this.replaceHrefParam("IsFilterVisible", currentHideState);
     };
     setStackMode = () => {
         this.$.blockUI();
@@ -270,7 +266,7 @@ class WinLossDetailView {
             IsDescendingSort: sortInfo.isDescendingSort,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
-            HideFilter: this.$reportForm.is(":hidden")
+            IsFilterVisible: !this.$reportForm.is(":hidden")
         };
     };
     showValidateProductError = () => {
@@ -312,7 +308,7 @@ class WinLossDetailView {
             return;
         }
 
-        this.$hideFilter.val(alphaReports.screenSmallThan768() ? true : params.HideFilter);
+        this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? true : params.IsFilterVisible);
         this.$isDescendingSort.val(params.IsDescendingSort);
         this.$isHistoricReport.val(params.IsHistoricReport);
         this.$isStackMode.val(params.IsStackMode);
