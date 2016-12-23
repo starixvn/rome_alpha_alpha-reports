@@ -199,7 +199,7 @@
                 Enumeration.FromValue<UserLevel>(4));
 
             var dataSet = WinLossDetailDatabase.MasterWinLossWinNoTotalTable.CreateDataReader();
-            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            objectDb.ExecuteReader(Arg.Is<WinLossDetailCriteria>(criteria => criteria.CustId == 0)).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetail>()
             {

@@ -18,33 +18,37 @@
         private readonly DateTime balanceUpDay;
         private readonly DateTime moveBetsDay;
         private readonly Cache cacheForTesting;
+        private BalanceUpDayAndMoveBetsDay dataInCache;
 
         public ReportDateServiceImplTests()
         {
             cacheForTesting = Substitute.For<Cache>();
+            BalanceUpDayAndMoveBetsDay balanceUpDayAndMoveBetsDay;
+            balanceUpDay = new DateTime(2000, 1, 1);
+            moveBetsDay = new DateTime(2010, 1, 1);
+            dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
+            cacheForTesting.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
+            {
+                x[1] = dataInCache;
+
+                return dataInCache != null;
+            });
+
             CacheService.SwitchCacheStorage(cacheForTesting);
             CacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
 
             repository = Substitute.For<IDynamicRepository>();
+            repository
+                .Get<BalanceUpDayAndMoveBetsDay>(Arg.Any<GetBalanceUpDayAndMoveBetsDayCriteria>())
+                .Returns(new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay));
+
             service = new ReportDateServiceImpl(repository);
-            balanceUpDay = new DateTime(2000, 1, 1);
-            moveBetsDay = new DateTime(2010, 1, 1);
         }
 
         [Fact]
         public void GetBalanceUpDayAndMoveBetsDay_DataInCache_ReturnsDataGetFromCache()
         {
             // Arrange
-            var dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
-
-            BalanceUpDayAndMoveBetsDay balanceUpDayAndMoveBetsDay;
-            cacheForTesting.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
-            {
-                x[1] = dataInCache;
-
-                return true;
-            });
-
             CacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
 
             // Act
@@ -58,9 +62,7 @@
         public void GetBalanceUpDayAndMoveBetsDay_NoDataInCache_DynamicRepositoryGetWasCalled()
         {
             // Arrange
-            repository
-                .Get<BalanceUpDayAndMoveBetsDay>(Arg.Any<GetBalanceUpDayAndMoveBetsDayCriteria>())
-                .Returns(new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay));
+            dataInCache = null;
 
             // Act
             service.GetBalanceUpDayAndMoveBetsDay();
@@ -73,10 +75,7 @@
         public void GetBalanceUpDayAndMoveBetsDay_DataReturnedFromRepository_WasAddedToCache()
         {
             // Arrange
-            var reportDates = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
-            repository
-                .Get<BalanceUpDayAndMoveBetsDay>(new GetBalanceUpDayAndMoveBetsDayCriteria())
-                .ReturnsForAnyArgs(reportDates);
+            dataInCache = null;
 
             // Act
             service.GetBalanceUpDayAndMoveBetsDay();
@@ -84,7 +83,7 @@
             // Assert
             cacheForTesting.Received().Set(
                 BalanceUpDayAndMoveBetsDayCacheKey,
-                Arg.Is<BalanceUpDayAndMoveBetsDay>(data => data.BalanceUpDay == reportDates.BalanceUpDay && data.MoveBetsDay == reportDates.MoveBetsDay),
+                Arg.Is<BalanceUpDayAndMoveBetsDay>(data => data.BalanceUpDay == balanceUpDay && data.MoveBetsDay == moveBetsDay),
                 Arg.Any<CacheItemOptions>());
         }
 
@@ -92,17 +91,6 @@
         public void GetMoveBetsDay_Always_ReturnsTheSameDateSetInCache()
         {
             // Arrange
-            var dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
-
-            BalanceUpDayAndMoveBetsDay balanceUpDayAndMoveBetsDay;
-            cacheForTesting.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
-            {
-                x[1] = dataInCache;
-
-                return true;
-            });
-
-            CacheService.SwitchCacheStorage(cacheForTesting);
             CacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
 
             // Act
@@ -116,17 +104,6 @@
         public void GetBalanceUpDay_Always_ReturnsTheSameDateSetInCache()
         {
             // Arrange
-            var dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
-
-            BalanceUpDayAndMoveBetsDay balanceUpDayAndMoveBetsDay;
-            cacheForTesting.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
-            {
-                x[1] = dataInCache;
-
-                return true;
-            });
-
-            CacheService.SwitchCacheStorage(cacheForTesting);
             CacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
 
             // Act

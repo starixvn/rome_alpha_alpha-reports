@@ -66,7 +66,7 @@
             IEnumerable<int> productIds = null;
             var expectedProductIds = allCustomerProductIds.Select(product => product.Id);
 
-            var cachedProducts = Enumerable.Empty<Product>();
+            IEnumerable<Product> cachedProducts;
             cacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
 
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
@@ -104,7 +104,7 @@
             var productIds = Enumerable.Empty<int>();
             var expectedProductIds = allCustomerProductIds.Select(product => product.Id);
 
-            var cachedProducts = Enumerable.Empty<Product>();
+            IEnumerable<Product> cachedProducts;
             cacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
 
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
