@@ -16,15 +16,13 @@
 
     public class WinLossDetailServiceImplTests
     {
-        private readonly ReportDateService reportDateService;
-        private readonly ProductService productService;
         private readonly WinLossDetailDataAccess dataAccess;
         private readonly WinLossDetailServiceImpl winLossDetailServiceImpl;
 
         public WinLossDetailServiceImplTests()
         {
-            reportDateService = Substitute.For<ReportDateService>();
-            productService = Substitute.For<ProductService>();
+            var reportDateService = Substitute.For<ReportDateService>();
+            var productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<WinLossDetailDataAccess>();
             winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, dataAccess);
         }
@@ -56,7 +54,7 @@
                 false);
 
             var reportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), param.PageIndex, param.PageSize, 0, new WinLossDetail());
-            dataAccess.GetData(Arg.Any<WinLossDetailCriteria>()).Returns(reportData);
+            dataAccess.GetData(Arg.Is<WinLossDetailCriteria>(criteria => criteria.CustId == 0)).Returns(reportData);
 
             var expectedReportData = reportData;
 
