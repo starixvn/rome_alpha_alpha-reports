@@ -156,11 +156,7 @@
             };
 
             // Act 
-            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
-                message,
-                ControllerName,
-                ActionName,
-                buildActionLinkViewModelFunc);
+            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, ControllerName, ActionName, buildActionLinkViewModelFunc);
 
             // Assert
             AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
@@ -185,11 +181,7 @@
             };
 
             // Act 
-            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
-                message,
-                ControllerName,
-                ActionName,
-                buildActionLinkViewModelFunc);
+            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, ControllerName, ActionName, buildActionLinkViewModelFunc);
 
             // Assert
             AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
