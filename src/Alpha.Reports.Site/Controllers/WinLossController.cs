@@ -40,7 +40,7 @@
             return File(
                 fileContent,
                 ExcelHelper.ContentType,
-                ExcelHelper.GetFileName($"{viewModel.Title}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}"));
+                ExcelHelper.StandardizeFileName($"{viewModel.Title}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}"));
         }
 
         public ActionResult WinLoss(WinLossQuery message)
@@ -64,7 +64,7 @@
             return File(
                 fileContent,
                 ExcelHelper.ContentType,
-                ExcelHelper.GetFileName($"{Resources.MatchResultEntered}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}"));
+                ExcelHelper.StandardizeFileName($"{Resources.MatchResultEntered}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}"));
         }
     }
 }

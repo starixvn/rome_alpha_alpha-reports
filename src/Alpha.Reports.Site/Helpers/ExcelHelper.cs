@@ -22,7 +22,7 @@
             }
         }
 
-        public static string GetFileName(string fileName)
+        public static string StandardizeFileName(string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
             {

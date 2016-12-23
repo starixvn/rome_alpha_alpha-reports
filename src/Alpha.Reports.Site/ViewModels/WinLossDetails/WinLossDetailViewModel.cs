@@ -35,8 +35,6 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public ReportData<WinLossDetail> ReportData { get; set; }
-
         public string SortPropertyName { get; set; }
 
         public bool IsDescendingSort { get; set; }
@@ -116,27 +114,13 @@
                     BreadcrumbLevels);
         }
 
-        public UserLevel UserLevel { get; set; }
-
-        public string Title
-        {
-            get
-            {
-                if (UserLevel.IsSuperLevel())
-                {
-                    return Resources.MasterWinLossDetail;
-                }
-
-                if (UserLevel.IsMasterLevel())
-                {
-                    return Resources.AgentWinLossDetail;
-                }
-
-                return Resources.MemberWinLossDetail;
-            }
-        }
+        public string Title { get; set; }
 
         public bool HasSubmittedParams { get; set; }
+
+        public UserLevel UserLevel { get; set; }
+
+        public ReportData<WinLossDetail> ReportData { get; set; }
 
         public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
     }

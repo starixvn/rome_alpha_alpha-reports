@@ -16,12 +16,13 @@
     using Requests.WinLossDetails;
     using Services;
     using Sunplus.Agent.Model.Entities;
+    using ViewModels;
     using ViewModels.WinLossDetails;
 
     public class WinLossDetailHandler :
         BaseHandler,
         IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>,
-        IRequestHandler<ExportWinLossDetailQuery, byte[]>
+        IRequestHandler<ExportWinLossDetailQuery, ExcelFileViewModel>
     {
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
@@ -63,6 +64,7 @@
                 UserLevel = userLevel,
                 FromDate = winLossDetailParam.FromDate,
                 ToDate = winLossDetailParam.ToDate,
+                Title = GetReportTitle(userLevel),
 
                 Products = BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products),
                 UserSelectedProductIds = string.Join(",", winLossDetailParam.UserSelectedProductIds),
@@ -108,31 +110,37 @@
             return viewModel;
         }
 
-        public byte[] Handle(ExportWinLossDetailQuery message)
+        public ExcelFileViewModel Handle(ExportWinLossDetailQuery message)
         {
             if (message == null)
             {
                 throw new ArgumentNullException("message");
             }
 
+            var title = GetReportTitle(message.UserLevel);
             var products = string.IsNullOrWhiteSpace(message.UserSelectedProductIds)
                 ? Enumerable.Empty<int>()
-                : message.UserSelectedProductIds.Split(',').Select(s => Converter.ToInt(s));
-            var reportTitle = $"{message.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+              : message.UserSelectedProductIds.Split(',').Select(s => Converter.ToInt(s));
+            var reportTitle = $"{title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
+
+            var winLossDetailParam = CreateParameter(message, message.UserLevel);
+            var reportData = reportService.GetWinLossDetail(winLossDetailParam);
+
             var templateInfo = new TemplateInfo(templatePath: message.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable)
                  .FreezePanel(4, Column.B);
-
-            var result = workbook
+            var fileContent = workbook
                 .UseTemplate(templateInfo)
                 .Title(reportTitle)
                 .Header(ExcelHelper.HeaderTitleMapping)
-                .Body(message.ReportData.DataSource, GetRowMapper(message, isTotal: false))
-                .Footer(message.ReportData.TotalData, GetRowMapper(message, isTotal: true))
-                .Sheet(message.Title)
+                .Body(reportData.DataSource, GetRowMapper(message, isTotal: false))
+                .Footer(reportData.TotalData, GetRowMapper(message, isTotal: true))
+                .Sheet(title)
                 .ExportToBytes();
 
-            return result;
+            return new ExcelFileViewModel(
+                ExcelHelper.StandardizeFileName($"{title}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}"),
+                fileContent);
         }
 
         private WinLossDetailParam CreateParameter(
@@ -197,6 +205,21 @@
             }
 
             return mapper;
+        }
+
+        private string GetReportTitle(UserLevel userLevel)
+        {
+            if (userLevel.IsSuperLevel())
+            {
+                return Resources.MasterWinLossDetail;
+            }
+
+            if (userLevel.IsMasterLevel())
+            {
+                return Resources.AgentWinLossDetail;
+            }
+
+            return Resources.MemberWinLossDetail;
         }
     }
 }

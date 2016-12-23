@@ -29,7 +29,7 @@
         public void GetFileName_NullOrWhiteSpaceFileName_ThrowsArgumentNullException(string fileName)
         {
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => ExcelHelper.GetFileName(fileName));
+            Assert.Throws<ArgumentNullException>(() => ExcelHelper.StandardizeFileName(fileName));
         }
 
         [Theory]
@@ -46,7 +46,7 @@
             string expectedFileName)
         {
             // Act
-            var actualFileName = ExcelHelper.GetFileName(fileName);
+            var actualFileName = ExcelHelper.StandardizeFileName(fileName);
 
             // Assert
             Assert.Equal(expectedFileName, actualFileName);

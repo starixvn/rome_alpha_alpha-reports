@@ -1,12 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
-    using System;
     using System.Web.Mvc;
-    using Constants;
-    using Extensions;
-    using Helpers;
     using MediatR;
     using Requests.WinLossDetails;
+    using ViewModels;
 
     public class WinLossDetailController : BaseReportController
     {
@@ -25,23 +22,11 @@
         }
 
         [HttpGet]
-        public ActionResult Excel(WinLossDetailQuery message)
+        public ActionResult Excel(ExportWinLossDetailQuery message)
         {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
+            var excelFile = mediator.Send<ExcelFileViewModel>(message);
 
-            message.PageIndex = DefaultVariables.PageIndex;
-            message.PageSize = DefaultVariables.MaxRowExcelFile;
-
-            var viewModel = mediator.Send(message);
-            var fileContent = mediator.Send(new ExportWinLossDetailQuery(viewModel));
-
-            return File(
-                fileContent,
-                ExcelHelper.ContentType,
-                ExcelHelper.GetFileName($"{viewModel.Title}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}"));
+            return File(excelFile.Content, excelFile.ContentType, excelFile.Name);
         }
     }
 }

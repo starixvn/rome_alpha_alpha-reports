@@ -6,7 +6,6 @@
     using NSubstitute;
     using Reports.Criteria;
     using Reports.Models;
-    using Reports.Services;
     using Reports.Services.Impl;
     using Xunit;
 
@@ -14,7 +13,7 @@
     {
         private const string BalanceUpDayAndMoveBetsDayCacheKey = "Alpha.Reports.BalanceUpDayAndMoveBetsDay";
         private readonly IDynamicRepository repository;
-        private readonly ReportDateService service;
+        private readonly ReportDateServiceImpl service;
         private readonly DateTime balanceUpDay;
         private readonly DateTime moveBetsDay;
         private readonly Cache cacheForTesting;

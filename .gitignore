@@ -43,8 +43,8 @@ _CodeCoverageReport
 bundles
 *.css
 *.js.map
-*/assets/scripts/**/*.js
-*/bundles/**/*.js
+*/**/assets/scripts/**/*.js
+*/**/bundles/**/*.js
 *.ncrunchproject
 *.ncrunchsolution
 
