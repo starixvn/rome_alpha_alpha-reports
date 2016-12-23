@@ -2,14 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
+    using Helpers;
     using MediatR;
     using Models.Winloss;
     using ViewModels.WinLoss;
 
     public class ExportEnteredResultQuery : IRequest<byte[]>
     {
-        private const string ExcelTemplatePath = "~/App_Data/ExcelTemplates/WinLoss/MatchResultEntered.xls";
+        private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLoss/MatchResultEntered.xls";
         private readonly EnteredResultViewModel viewModel;
 
         public ExportEnteredResultQuery(EnteredResultViewModel viewModel)
@@ -21,7 +21,7 @@
 
             this.viewModel = viewModel;
 
-            TemplatePath = HttpContext.Current.Server.MapPath(ExcelTemplatePath);
+            TemplatePath = HttpAdapter.ServerMapPathFunc(ExcelTemplateDir);
         }
 
         public string TemplatePath { get; set; }

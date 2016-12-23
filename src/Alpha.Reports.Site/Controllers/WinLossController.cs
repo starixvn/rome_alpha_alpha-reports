@@ -19,13 +19,6 @@
             this.mediator = mediator;
         }
 
-        public ActionResult WinLoss(WinLossQuery message)
-        {
-            var viewModel = mediator.Send(message);
-
-            return View(viewModel);
-        }
-
         public ActionResult EnteredResult(EnterResultQuery message)
         {
             var viewModel = mediator.Send(message);
@@ -48,6 +41,13 @@
                 fileContent,
                 ExcelHelper.ContentType,
                 ExcelHelper.GetFileName($"{viewModel.Title}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}"));
+        }
+
+        public ActionResult WinLoss(WinLossQuery message)
+        {
+            var viewModel = mediator.Send(message);
+
+            return View(viewModel);
         }
 
         [HttpGet]

@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Extensions;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
@@ -127,7 +126,7 @@
             // Arrange
             var expectedData = Enumerable.Empty<EnteredSportResult>();
 
-            var cachedEnteredSportResult = Enumerable.Empty<EnteredSportResult>();
+            IEnumerable<EnteredSportResult> cachedEnteredSportResult;
             cacheForTesting.TryGet(EnteredResultsCacheKey, out cachedEnteredSportResult).Returns(false);
 
             var dataEnteredSport = Enumerable.Empty<DailyEnteredSport>();
@@ -141,26 +140,26 @@
             Assert.True(result.AreEqual);
         }
 
-        ////[Theory]
-        ////[ClassData(typeof(EnteredResultsTestCases))]
-        ////public void GetDataEnteredSportResults_IsValid_ReturnsReportData(
-        ////    List<DailyEnteredSport> dailyEnteredSportData,
-        ////    List<EnteredSportResult> expectedEnteredSportResultData)
-        ////{
-        ////    // Arrange
-        ////    dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dailyEnteredSportData);
-        ////    cacheRefService.GetSportName(1).Returns("Soccer");
-        ////    cacheRefService.GetSportName(2).Returns("Soccer");
+        [Theory]
+        [ClassData(typeof(EnteredResultsTestCases))]
+        public void GetDataEnteredSportResults_IsValid_ReturnsReportData(
+            List<DailyEnteredSport> dailyEnteredSportData,
+            List<EnteredSportResult> expectedEnteredSportResultData)
+        {
+            // Arrange
+            dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dailyEnteredSportData);
+            cacheRefService.GetSportName(1).Returns("Soccer");
+            cacheRefService.GetSportName(2).Returns("BasketBall");
 
-        ////    // Act
-        ////    var actualEnteredSportResultData = winLossServiceImpl.GetEnteredSportResults();
-        ////    var result = compareLogic.Compare(expectedEnteredSportResultData, actualEnteredSportResultData);
+            // Act
+            var actualEnteredSportResultData = winLossServiceImpl.GetEnteredSportResults();
+            var result = compareLogic.Compare(expectedEnteredSportResultData, actualEnteredSportResultData);
 
-        ////    // Assert
-        ////    AssertExtension.Equal(expectedEnteredSportResultData, actualEnteredSportResultData);
-        ////    //Assert.True(result.AreEqual);
-        ////}
-      
+            // Assert
+            ////AssertExtension.Equal(expectedEnteredSportResultData, actualEnteredSportResultData);
+            Assert.True(result.AreEqual);
+        }
+
         [Fact]
         public void GetDataEnteredSportResults_DailyEnteredSportEmpty_ReturnsDefaultReportData()
         {

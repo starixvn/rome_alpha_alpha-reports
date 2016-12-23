@@ -45,6 +45,10 @@
 
         public string Language { get; }
 
+        public int PageIndex { get; set; }
+
+        public int PageSize { get; set; }
+
         public string UserSelectedProductIds { get; set; }
 
         public string SortPropertyName { get; set; }

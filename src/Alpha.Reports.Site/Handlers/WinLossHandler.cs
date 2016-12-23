@@ -73,6 +73,33 @@
             return viewModel;
         }
 
+        public byte[] Handle(ExportEnteredResultQuery message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            var reportTitle = message.Title;
+            var templateInfo = new TemplateInfo(
+                templatePath: message.TemplatePath,
+                noInfomationText: Resources.NoInformationIsAvailable,
+                titleStartIndex: 0,
+                headerStartIndex: 1,
+                bodyStartIndex: 3,
+                bodyEndIndex: 4);
+
+            var result = enteredSportResultWorkbook
+               .UseTemplate(templateInfo)
+               .Title(reportTitle)
+               .Header(ExcelHelper.HeaderTitleMapping)
+               .Body(message.ReportData, GetEnteredSportResultRowMapper())
+               .Sheet(message.Title)
+               .ExportToBytes();
+
+            return result;
+        }
+
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public WinLossViewModel Handle(WinLossQuery message)
         {
@@ -85,7 +112,6 @@
             var products = productService.GetProductsForCustomer(message.CustId);
 
             var winLossParam = CreateWinLossParamater(message, userLevel);
-
             var reportData = reportService.GetWinLoss(winLossParam);
 
             var viewModel = new WinLossViewModel(reportData.ToList())
@@ -98,36 +124,35 @@
 
                 Products = BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products),
                 UserSelectedProductIds = string.Join(",", winLossParam.UserSelectedProductIds),
-                ////Language = message.Language,
-                Language = userSession.Language,
+                Language = message.Language,
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
                 IsFilterVisible = message.IsFilterVisible,
 
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
                 IsDirectReportViewAction = message.IsDirectReportViewAction,
-                ////BreadcrumbLevels = BuildBreadcrumbLevels(
-                ////    message,
-                ////    "WinLoss",
-                ////    "WinLoss",
-                ////    (custInfo, query, breadcrumbLevels) =>
-                ////    {
-                ////        var routeValues = new WinLossDetailQuery(userSession);
-                ////        routeValues.CustId = custInfo.CustId;
-                ////        routeValues.CustName = custInfo.CustName;
-                ////        routeValues.FromDate = message.FromDate;
-                ////        routeValues.ToDate = message.ToDate;
+                BreadcrumbLevels = BuildBreadcrumbLevels(
+                    message,
+                    "WinLoss",
+                    "WinLoss",
+                    (custInfo, query, breadcrumbLevels) =>
+                    {
+                        var routeValues = new WinLossQuery(userSession);
+                        routeValues.CustId = custInfo.CustId;
+                        routeValues.CustName = custInfo.CustName;
+                        routeValues.FromDate = message.FromDate;
+                        routeValues.ToDate = message.ToDate;
 
-                ////        routeValues.UserSelectedProductIds = message.UserSelectedProductIds;
-                ////        routeValues.IsStackMode = message.IsStackMode;
-                ////        routeValues.IsHistoricReport = message.IsHistoricReport;
-                ////        routeValues.IsFilterVisible = message.IsFilterVisible;
-                ////        routeValues.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-                ////        routeValues.UserLevelId = custInfo.UserLevelId;
-                ////        routeValues.BreadcrumbLevels = breadcrumbLevels;
+                        routeValues.UserSelectedProductIds = message.UserSelectedProductIds;
+                        routeValues.IsStackMode = message.IsStackMode;
+                        routeValues.IsHistoricReport = message.IsHistoricReport;
+                        routeValues.IsFilterVisible = message.IsFilterVisible;
+                        routeValues.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
+                        routeValues.UserLevelId = custInfo.UserLevelId;
+                        routeValues.BreadcrumbLevels = breadcrumbLevels;
 
-                ////        return routeValues;
-                ////    })
+                        return routeValues;
+                    })
             };
 
             return viewModel;
@@ -157,33 +182,6 @@
                 .Footer(message.GrantTotal, GetWinLossRowMapper(message, isTotal: true))
                 .Sheet(message.Title)
                 .ExportToBytes();
-
-            return result;
-        }
-
-        public byte[] Handle(ExportEnteredResultQuery message)
-        {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
-
-            var reportTitle = message.Title;
-            var templateInfo = new TemplateInfo(
-                templatePath: message.TemplatePath, 
-                noInfomationText: Resources.NoInformationIsAvailable, 
-                titleStartIndex: 0, 
-                headerStartIndex: 1, 
-                bodyStartIndex: 3, 
-                bodyEndIndex: 4);
-
-            var result = enteredSportResultWorkbook
-               .UseTemplate(templateInfo)
-               .Title(reportTitle)
-               .Header(ExcelHelper.HeaderTitleMapping)
-               .Body(message.ReportData, GetEnteredSportResultRowMapper())
-               .Sheet(message.Title)
-               .ExportToBytes();
 
             return result;
         }

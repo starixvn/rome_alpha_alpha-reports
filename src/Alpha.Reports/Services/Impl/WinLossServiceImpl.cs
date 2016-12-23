@@ -34,6 +34,17 @@
             this.cacheRefService = cacheRefService;
         }
 
+        public IEnumerable<EnteredSportResult> GetEnteredSportResults()
+        {
+            var reportData = CacheService
+                 .GetOrSet(
+                 EnteredResultsCacheKey,
+                 () => GetDataEnteredSportResults(),
+                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(1)));
+
+            return reportData;
+        }
+
         public IEnumerable<WinLoss> GetWinLoss(WinLossParam param)
         {
             if (param == null)
@@ -61,17 +72,6 @@
             var winlossData = dataAccess.GetWinLoss(criteria);
 
             return winlossData;
-        }
-
-        public IEnumerable<EnteredSportResult> GetEnteredSportResults()
-        {
-            var reportData = CacheService
-                 .GetOrSet(
-                 EnteredResultsCacheKey,
-                 () => GetDataEnteredSportResults(),
-                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(1)));
-
-            return reportData;
         }
 
         internal virtual IEnumerable<EnteredSportResult> GetDataEnteredSportResults()

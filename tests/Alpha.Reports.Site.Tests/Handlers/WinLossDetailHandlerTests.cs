@@ -103,7 +103,7 @@
         ////    var routeValue = new WinLossDetailQuery(userSession);
         ////    routeValue.UserLevelId = 4;
         ////    routeValue.UserSelectedProductIds = userSelectedProductIds;
-            routeValue.BreadcrumbLevels = "[{'CustId':0,'CustName':'','UserLevelId':4}]";
+        ////    routeValue.BreadcrumbLevels = "[{'CustId':0,'CustName':'','UserLevelId':4}]";
 
         ////    var expectedWinLossDetailViewModel = new WinLossDetailViewModel
         ////    {
@@ -117,7 +117,7 @@
         ////        FromDate = DefaultVariables.CurrentDate,
         ////        ToDate = DefaultVariables.CurrentDate,
         ////        HasSubmittedParams = !string.IsNullOrWhiteSpace(userSelectedProductIds),
-                IsFilterVisible = true,
+        ////        IsFilterVisible = true,
 
         ////        Products = Enumerable.Empty<SelectListItem>(),
         ////        ReportData = reportData,
