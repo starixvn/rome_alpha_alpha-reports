@@ -28,7 +28,7 @@
                 IsDescendingSort = true,
                 IsStackMode = false,
                 IsHistoricReport = false,
-                IsFilterVisible = false,
+                IsFilterVisible = true,
                 UserSelectedDateRangeOption = 0
             };
 
