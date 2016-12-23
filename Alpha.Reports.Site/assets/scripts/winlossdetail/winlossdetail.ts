@@ -64,14 +64,21 @@ class WinLossDetailView {
 
     init = () => {
         this.$.blockUI();
+        this.cacheElements();
+
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
-        this.isHistoricReport
-            ? this.monthPickerComponent.render()
-            : this.dateRangePickerComponent.render();
-        this.productMultiSelectionComponent.render();
+        if (this.isHistoricReport) {
+            this.$reportForm.removeClass("hide");
+            this.monthPickerComponent.render();
+            if (this.$isFilterVisible.val().toLowerCase() !== "true") {
+                this.$reportForm.addClass("hide");
+            }
+        } else {
+            this.dateRangePickerComponent.render();
+        }
 
-        this.cacheElements();
+        this.productMultiSelectionComponent.render();
 
         this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
         this.pagerComponent.render();
@@ -231,7 +238,9 @@ class WinLossDetailView {
                 var sortedColumn = this$(".sorting-desc");
             }
 
-            this.replaceHrefParam("SortPropertyName", sortedColumn.data("sortedname"));
+            var sortedColumnName = sortedColumn.data("sortedname");
+
+            this.replaceHrefParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
             this.replaceHrefParam("IsDescendingSort", direction);
 
             var isEvenRow = false;
