@@ -10,7 +10,7 @@
         BaseReportQuery,
         IRequest<WinLossDetailViewModel>
     {
-        private IUserSession userSession;
+        private readonly IUserSession userSession;
 
         public WinLossDetailQuery() : this(null)
         {

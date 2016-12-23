@@ -19,15 +19,15 @@
 
     public class BaseHandlerTests
     {
+        private const string ControllerName = "WinLossDetail";
+        private const string ActionName = "Index";
+
         private readonly BaseHandler baseHandler;
-#pragma warning disable CS0618 // 'IUserSession' is obsolete: 'Should rename to Sunplus.Agent.Model.Base'
         private readonly IUserSession userSession;
-#pragma warning restore CS0618 // 'IUserSession' is obsolete: 'Should rename to Sunplus.Agent.Model.Base'
 
         public BaseHandlerTests()
         {
             baseHandler = new BaseHandler();
-#pragma warning disable CS0618 // 'IUserSession' is obsolete: 'Should rename to Sunplus.Agent.Model.Base'
             userSession = Substitute.For<IUserSession>();
             HttpAdapter.HasContext = true;
         }
@@ -113,6 +113,8 @@
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(
                 message,
+                ControllerName,
+                ActionName,
                 (custInfo, baseReportQuery, jsonBreadcrumbLevels) => default(WinLossDetail)));
         }
 
@@ -124,7 +126,11 @@
             var message = new BaseReportQuery();
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc));
+            Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(
+                message,
+                ControllerName,
+                ActionName,
+                buildActionLinkViewModelFunc));
         }
 
         [Theory]
@@ -146,11 +152,15 @@
 
             var expectedDrilldownLevels = new List<ActionLinkViewModel>
             {
-                new ActionLinkViewModel("WinLossDetail", "Index", message.CustName, new WinLossDetailQuery(userSession))
+                new ActionLinkViewModel(ControllerName, ActionName, message.CustName, new WinLossDetailQuery(userSession))
             };
 
             // Act 
-            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc);
+            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
+                message,
+                ControllerName,
+                ActionName,
+                buildActionLinkViewModelFunc);
 
             // Assert
             AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
@@ -171,11 +181,15 @@
 
             var expectedDrilldownLevels = new List<ActionLinkViewModel>
             {
-                new ActionLinkViewModel("WinLossDetail", "Index", message.CustName, new WinLossDetailQuery(userSession))
+                new ActionLinkViewModel(ControllerName, ActionName, message.CustName, new WinLossDetailQuery(userSession))
             };
 
             // Act 
-            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc);
+            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
+                message,
+                ControllerName,
+                ActionName,
+                buildActionLinkViewModelFunc);
 
             // Assert
             AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
@@ -224,8 +238,8 @@
 
             var expectedDrilldownLevels = new List<ActionLinkViewModel>();
             expectedDrilldownLevels.Add(new ActionLinkViewModel(
-                    controllerName: "WinLossDetail",
-                    actionName: "Index",
+                    controllerName: ControllerName,
+                    actionName: ActionName,
                     linkText: "SUPER1",
                     routeValues: winLossDetailQuery));
 
@@ -236,13 +250,17 @@
             winLossDetailQuery.BreadcrumbLevels = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4},{'CustId':2,'CustName':'MASTER1','UserLevelId':3}]";
 
             expectedDrilldownLevels.Add(new ActionLinkViewModel(
-                    controllerName: "WinLossDetail",
-                    actionName: "Index",
+                    ControllerName,
+                    ActionName,
                     linkText: message.CustName,
                     routeValues: winLossDetailQuery));
 
             // Act 
-            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, buildActionLinkViewModelFunc);
+            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
+                message,
+                ControllerName,
+                ActionName,
+                buildActionLinkViewModelFunc);
 
             // Assert
             AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);

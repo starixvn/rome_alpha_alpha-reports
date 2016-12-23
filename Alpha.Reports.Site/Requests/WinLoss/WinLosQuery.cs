@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLoss
 {
     using System;
+    using Helpers;
     using MediatR;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
@@ -17,6 +18,11 @@
         public WinLossQuery(IUserSession userSession)
         {
             this.userSession = userSession ?? new UserSessionExt();
+
+            if (!HttpAdapter.HasContext)
+            {
+                return;
+            }
 
             if (CustId <= 0)
             {

@@ -101,7 +101,7 @@
 
         ////    reportService.GetWinLoss(Arg.Any<WinLossParam>()).Returns(reportData);
 
-        ////    var routeValue = new WinLossDetailQuery(userSession);
+        ////    var routeValue = new WinLossQuery(userSession);
         ////    routeValue.UserLevelId = 4;
         ////    routeValue.UserSelectedProductIds = userSelectedProductIds;
 

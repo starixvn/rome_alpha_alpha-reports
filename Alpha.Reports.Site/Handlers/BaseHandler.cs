@@ -36,6 +36,8 @@
 
         internal IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels<T>(
             BaseReportQuery message,
+            string controllerName,
+            string actionName,
             Func<CustInfo, BaseReportQuery, string, T> buildActionLinkViewModelFunc) where T : class
         {
             if (message == null)
@@ -64,8 +66,8 @@
 
                     breadcrumbLevels.Add(custInfo);
                     var actionLinkViewModel = new ActionLinkViewModel(
-                        controllerName: "WinLossDetail",
-                        actionName: "Index",
+                        controllerName: controllerName,
+                        actionName: actionName,
                         linkText: custInfo.CustName,
                         routeValues: buildActionLinkViewModelFunc(custInfo, message, ConvertBreadcrumbLevelsToJson(breadcrumbLevels)));
                     drilldownLevels.Add(actionLinkViewModel);
@@ -79,8 +81,8 @@
                 ConvertBreadcrumbLevelsToJson(breadcrumbLevels));
 
             drilldownLevels.Add(new ActionLinkViewModel(
-                controllerName: "WinLossDetail",
-                actionName: "Index",
+                controllerName: controllerName,
+                actionName: actionName,
                 linkText: message.CustName,
                 routeValues: routeValues));
 

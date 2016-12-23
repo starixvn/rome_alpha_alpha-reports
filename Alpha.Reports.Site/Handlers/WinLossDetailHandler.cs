@@ -80,6 +80,8 @@
                 HasSubmittedParams = message.HasSubmittedParams,
                 BreadcrumbLevels = BuildBreadcrumbLevels(
                     message,
+                    "WinLossDetail",
+                    "Index",
                     (custInfo, query, breadcrumbLevels) =>
                     {
                         var routeValues = new WinLossDetailQuery(userSession);

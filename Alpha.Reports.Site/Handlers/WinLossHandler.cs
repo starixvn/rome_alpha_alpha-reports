@@ -73,6 +73,7 @@
             return viewModel;
         }
 
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public WinLossViewModel Handle(WinLossQuery message)
         {
             if (message == null)
@@ -97,14 +98,36 @@
 
                 Products = BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products),
                 UserSelectedProductIds = string.Join(",", winLossParam.UserSelectedProductIds),
-                Language = message.Language,
+                ////Language = message.Language,
+                Language = userSession.Language,
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
                 IsFilterVisible = message.IsFilterVisible,
 
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
                 IsDirectReportViewAction = message.IsDirectReportViewAction,
-                BreadcrumbLevels = BuildBreadcrumbLevels(message)
+                ////BreadcrumbLevels = BuildBreadcrumbLevels(
+                ////    message,
+                ////    "WinLoss",
+                ////    "WinLoss",
+                ////    (custInfo, query, breadcrumbLevels) =>
+                ////    {
+                ////        var routeValues = new WinLossDetailQuery(userSession);
+                ////        routeValues.CustId = custInfo.CustId;
+                ////        routeValues.CustName = custInfo.CustName;
+                ////        routeValues.FromDate = message.FromDate;
+                ////        routeValues.ToDate = message.ToDate;
+
+                ////        routeValues.UserSelectedProductIds = message.UserSelectedProductIds;
+                ////        routeValues.IsStackMode = message.IsStackMode;
+                ////        routeValues.IsHistoricReport = message.IsHistoricReport;
+                ////        routeValues.IsFilterVisible = message.IsFilterVisible;
+                ////        routeValues.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
+                ////        routeValues.UserLevelId = custInfo.UserLevelId;
+                ////        routeValues.BreadcrumbLevels = breadcrumbLevels;
+
+                ////        return routeValues;
+                ////    })
             };
 
             return viewModel;
@@ -231,73 +254,6 @@
                  validUserSelectedProductIds,
                  userLevel,
                  message.IsHistoricReport);
-        }
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        private IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels(WinLossQuery message)
-        {
-            var drilldownLevels = new List<ActionLinkViewModel>();
-            var breadcrumbLevels = new List<CustInfo>();
-
-            if (!string.IsNullOrWhiteSpace(message.BreadcrumbLevels))
-            {
-                var messageBreadcrumbLevels = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(message.BreadcrumbLevels.Replace("'", "\""));
-
-                foreach (var custInfo in messageBreadcrumbLevels)
-                {
-                    if (custInfo.UserLevelId == message.UserLevelId)
-                    {
-                        break;
-                    }
-
-                    breadcrumbLevels.Add(custInfo);
-
-                    var actionLinkViewModel = new ActionLinkViewModel(
-                        controllerName: "WinLoss",
-                        actionName: "WinLoss",
-                        linkText: custInfo.CustName,
-                        routeValues: new WinLossQuery
-                        {
-                            CustId = custInfo.CustId,
-                            CustName = custInfo.CustName,
-                            FromDate = message.FromDate,
-                            ToDate = message.ToDate,
-
-                            UserSelectedProductIds = message.UserSelectedProductIds,
-                            IsStackMode = message.IsStackMode,
-                            IsHistoricReport = message.IsHistoricReport,
-                            IsFilterVisible = message.IsFilterVisible,
-                            UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                            UserLevelId = custInfo.UserLevelId,
-                            BreadcrumbLevels = JsonConvert.SerializeObject(breadcrumbLevels).Replace("\"", "'")
-                        });
-
-                    drilldownLevels.Add(actionLinkViewModel);
-                }
-            }
-
-            breadcrumbLevels.Add(new CustInfo(message.CustId, message.CustName, message.UserLevelId));
-            drilldownLevels.Add(new ActionLinkViewModel(
-                controllerName: "WinLoss",
-                actionName: "WinLoss",
-                linkText: message.CustName,
-                routeValues: new WinLossQuery
-                {
-                    CustId = message.CustId,
-                    CustName = message.CustName,
-                    FromDate = message.FromDate,
-                    ToDate = message.ToDate,
-                    UserSelectedProductIds = message.UserSelectedProductIds,
-
-                    IsStackMode = message.IsStackMode,
-                    IsHistoricReport = message.IsHistoricReport,
-                    IsFilterVisible = message.IsFilterVisible,
-                    UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                    UserLevelId = message.UserLevelId,
-                    BreadcrumbLevels = JsonConvert.SerializeObject(breadcrumbLevels).Replace("\"", "'")
-                }));
-
-            return drilldownLevels;
         }
     }
 }

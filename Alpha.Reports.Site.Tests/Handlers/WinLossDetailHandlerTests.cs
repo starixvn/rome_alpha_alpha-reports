@@ -69,74 +69,74 @@
             Assert.Throws<ArgumentNullException>(() => winLossDetailHandler.Handle(nullMessage));
         }
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("  ")]
-        [InlineData("1")]
-        [InlineData("1,2")]
-        [InlineData("1,2,3")]
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public void HandlerWinLossDetailQuery_AnyUserSelectedProductIds_ReturnsCorrectViewModel(
-            string userSelectedProductIds)
-        {
-            // Arrange
-            var message = new WinLossDetailQuery(userSession);
-            message.UserLevelId = 4;
-            message.UserSelectedProductIds = userSelectedProductIds;
+        ////[Theory]
+        ////[InlineData(null)]
+        ////[InlineData("")]
+        ////[InlineData(" ")]
+        ////[InlineData("  ")]
+        ////[InlineData("1")]
+        ////[InlineData("1,2")]
+        ////[InlineData("1,2,3")]
+        ////[SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        ////public void HandlerWinLossDetailQuery_AnyUserSelectedProductIds_ReturnsCorrectViewModel(
+        ////    string userSelectedProductIds)
+        ////{
+        ////    // Arrange
+        ////    var message = new WinLossDetailQuery(userSession);
+        ////    message.UserLevelId = 4;
+        ////    message.UserSelectedProductIds = userSelectedProductIds;
 
-            var products = Enumerable.Empty<Product>();
-            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
+        ////    var products = Enumerable.Empty<Product>();
+        ////    productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
 
-            var validUserSelectedProductIds = Enumerable.Empty<int>();
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
+        ////    var validUserSelectedProductIds = Enumerable.Empty<int>();
+        ////    productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            ReportData<WinLossDetail> reportData = new ReportData<WinLossDetail>(
-                Enumerable.Empty<WinLossDetail>(),
-                0,
-                0,
-                0,
-                null);
-            reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
+        ////    ReportData<WinLossDetail> reportData = new ReportData<WinLossDetail>(
+        ////        Enumerable.Empty<WinLossDetail>(),
+        ////        0,
+        ////        0,
+        ////        0,
+        ////        null);
+        ////    reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
-            var routeValue = new WinLossDetailQuery(userSession);
-            routeValue.UserLevelId = 4;
-            routeValue.UserSelectedProductIds = userSelectedProductIds;
+        ////    var routeValue = new WinLossDetailQuery(userSession);
+        ////    routeValue.UserLevelId = 4;
+        ////    routeValue.UserSelectedProductIds = userSelectedProductIds;
             routeValue.BreadcrumbLevels = "[{'CustId':0,'CustName':'','UserLevelId':4}]";
 
-            var expectedWinLossDetailViewModel = new WinLossDetailViewModel
-            {
-                CustName = string.Empty,
-                Language = string.Empty,
-                SortPropertyName = "SuperNetWinLoss.WinLoss",
-                IsDescendingSort = true,
-                IsDirectReportViewAction = true,
-                UserSelectedProductIds = string.Empty,
-                UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
-                FromDate = DefaultVariables.CurrentDate,
-                ToDate = DefaultVariables.CurrentDate,
-                HasSubmittedParams = !string.IsNullOrWhiteSpace(userSelectedProductIds),
+        ////    var expectedWinLossDetailViewModel = new WinLossDetailViewModel
+        ////    {
+        ////        CustName = string.Empty,
+        ////        Language = string.Empty,
+        ////        SortPropertyName = "SuperNetWinLoss.WinLoss",
+        ////        IsDescendingSort = true,
+        ////        IsDirectReportViewAction = true,
+        ////        UserSelectedProductIds = string.Empty,
+        ////        UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
+        ////        FromDate = DefaultVariables.CurrentDate,
+        ////        ToDate = DefaultVariables.CurrentDate,
+        ////        HasSubmittedParams = !string.IsNullOrWhiteSpace(userSelectedProductIds),
                 IsFilterVisible = true,
 
-                Products = Enumerable.Empty<SelectListItem>(),
-                ReportData = reportData,
-                BreadcrumbLevels = new List<ActionLinkViewModel>
-                {
-                    new ActionLinkViewModel(
-                        controllerName: "WinLossDetail",
-                        actionName: "Index",
-                        linkText: message.CustName,
-                        routeValues: routeValue)
-                }
-            };
+        ////        Products = Enumerable.Empty<SelectListItem>(),
+        ////        ReportData = reportData,
+        ////        BreadcrumbLevels = new List<ActionLinkViewModel>
+        ////        {
+        ////            new ActionLinkViewModel(
+        ////                controllerName: "WinLossDetail",
+        ////                actionName: "Index",
+        ////                linkText: message.CustName,
+        ////                routeValues: routeValue)
+        ////        }
+        ////    };
 
-            // Act
-            var actualWinLossDetailViewModel = winLossDetailHandler.Handle(message);
+        ////    // Act
+        ////    var actualWinLossDetailViewModel = winLossDetailHandler.Handle(message);
 
-            // Assert
-            AssertExtension.Equal(expectedWinLossDetailViewModel, actualWinLossDetailViewModel);
-        }
+        ////    // Assert
+        ////    AssertExtension.Equal(expectedWinLossDetailViewModel, actualWinLossDetailViewModel);
+        ////}
 
         [Fact]
         public void HandleExportWinLossDetailQuery_NullMessage_ThrowsArgumentNullException()
