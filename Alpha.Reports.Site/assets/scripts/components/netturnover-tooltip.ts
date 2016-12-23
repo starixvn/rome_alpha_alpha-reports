@@ -56,7 +56,7 @@ class NetTurnoverTooltipComponent {
             return;
         }
 
-        var netTurnoverHeader = this.$(".col-netturnover-header");
+        var netTurnoverHeader = this.$(".col-netturnover-header:visible");
         var netTurnoverPosition = netTurnoverHeader.position();
 
         if (netTurnoverPosition.top) {
