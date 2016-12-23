@@ -47,3 +47,5 @@ bundles
 */bundles/**/*.js
 *.ncrunchproject
 *.ncrunchsolution
+
+artifacts/

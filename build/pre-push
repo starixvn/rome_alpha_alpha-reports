@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# cmd "/C BuildTask.Release.bat"
+cmd "/C build.cmd"
