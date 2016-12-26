@@ -271,7 +271,7 @@
     <Compile Include="Requests\BaseReportQuery.cs" />
     <Compile Include="Requests\WinLossDetails\ExportWinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLossDetails\WinLossDetailQuery.cs" />
-    <Compile Include="Requests\WinLoss\EnterResultQuery.cs" />
+    <Compile Include="Requests\WinLoss\EnteredResultQuery.cs" />
     <Compile Include="Requests\WinLoss\ExportEnteredResultQuery.cs" />
     <Compile Include="Requests\WinLoss\ExportWinLossQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLosQuery.cs" />

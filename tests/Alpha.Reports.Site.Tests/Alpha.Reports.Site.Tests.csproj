@@ -142,6 +142,7 @@
     <Compile Include="Configurations\SiteSettingsTests.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
+    <Compile Include="Controllers\WinLossControllerTests.cs" />
     <Compile Include="Controllers\WinLossDetailControllerTests.cs" />
     <Compile Include="Extensions\AssertExtension.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\WinLossDetails\WinLossDetailQueryTests.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLoss\WinLossDetailViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailsActionLinkViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailViewModelTests.cs" />
   </ItemGroup>

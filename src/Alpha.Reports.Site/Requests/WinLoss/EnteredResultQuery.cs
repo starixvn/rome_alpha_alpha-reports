@@ -1,21 +1,27 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLoss
 {
+    using Helpers;
     using MediatR;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLoss;
 
-    public class EnterResultQuery : IRequest<EnteredResultViewModel>
+    public class EnteredResultQuery : IRequest<EnteredResultViewModel>
     {
         private readonly IUserSession userSession;
 
-        public EnterResultQuery() : this(null)
+        public EnteredResultQuery() : this(null)
         {
         }
 
-        public EnterResultQuery(IUserSession userSession)
+        public EnteredResultQuery(IUserSession userSession)
         {
             this.userSession = userSession ?? new UserSessionExt();
+
+            if (!HttpAdapter.HasContext)
+            {
+                return;
+            }
 
             if (CustId <= 0)
             {

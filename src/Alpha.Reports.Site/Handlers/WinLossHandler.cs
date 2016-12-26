@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using App_GlobalResources;
@@ -12,22 +11,20 @@
     using MediatR;
     using Models;
     using Models.Winloss;
-    using Newtonsoft.Json;
     using ONEbook.SpreadSheets;
     using Params;
     using Requests.WinLoss;
-    using Requests.WinLossDetails;
     using Services;
     using Sunplus.Agent.Model.Entities;
     using ViewModels;
     using ViewModels.WinLoss;
-    
+
     public class WinLossHandler :
         BaseHandler,
+        IRequestHandler<EnteredResultQuery, EnteredResultViewModel>,
+        IRequestHandler<ExportEnteredResultQuery, ExcelFileViewModel>,
         IRequestHandler<WinLossQuery, WinLossViewModel>,
-        IRequestHandler<EnterResultQuery, EnteredResultViewModel>,
-        IRequestHandler<ExportWinLossQuery, byte[]>,
-        IRequestHandler<ExportEnteredResultQuery, byte[]>
+        IRequestHandler<ExportWinLossQuery, ExcelFileViewModel> 
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
@@ -38,18 +35,85 @@
         public WinLossHandler(
             ProductService productService,
             WinLossService reportService,
-            Workbook<WinLoss> workbook,
             Workbook<EnteredSportResult> enteredSportResultWorkbook,
+            Workbook<WinLoss> workbook,
             IUserSession userSession)
         {
             this.productService = productService;
             this.reportService = reportService;
-            this.winlossWorkbook = workbook;
             this.enteredSportResultWorkbook = enteredSportResultWorkbook;
+            this.winlossWorkbook = workbook;
             this.userSession = userSession;
         }
 
-        public EnteredResultViewModel Handle(EnterResultQuery message)
+        public EnteredResultViewModel Handle(EnteredResultQuery message)
+        {
+            return BuildEnteredResultViewModel(message);
+        }
+
+        public ExcelFileViewModel Handle(ExportEnteredResultQuery message)
+        {
+            var enteredResultViewModel = BuildEnteredResultViewModel(message);
+
+            var templateInfo = new TemplateInfo(
+                templatePath: message.TemplatePath,
+                noInfomationText: Resources.NoInformationIsAvailable,
+                titleStartIndex: 0,
+                headerStartIndex: 1,
+                bodyStartIndex: 3,
+                bodyEndIndex: 4);
+
+            var result = enteredSportResultWorkbook
+               .UseTemplate(templateInfo)
+               .Header(ExcelHelper.HeaderTitleMapping)
+               .Body(enteredResultViewModel.ReportData, GetEnteredSportResultRowMapper())
+               .Sheet(enteredResultViewModel.Title)
+               .ExportToBytes();
+
+            return new ExcelFileViewModel(
+               ExcelHelper.StandardizeFileName(enteredResultViewModel.Title),
+               result);
+        }
+
+        public WinLossViewModel Handle(WinLossQuery message)
+        {
+            return BuildWinLossViewModel(message);
+        }
+
+        public ExcelFileViewModel Handle(ExportWinLossQuery message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            var winlossViewModel = BuildWinLossViewModel(message);
+
+            var products = string.IsNullOrWhiteSpace(message.UserSelectedProductIds)
+                ? Enumerable.Empty<int>()
+                : message.UserSelectedProductIds.Split(',').Select(s => Converter.ToInt(s));
+
+            var reportTitle = $"{winlossViewModel.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+                $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
+
+            var templateInfo = new TemplateInfo(templatePath: message.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable);
+
+            var result = winlossWorkbook
+                .UseTemplate(templateInfo)
+                .Title(reportTitle)
+                .Header(ExcelHelper.HeaderTitleMapping)
+                .Body(winlossViewModel.ReportData, GetWinLossRowMapper(message, isTotal: false))
+                .Footer(winlossViewModel.GrantTotal, GetWinLossRowMapper(message, isTotal: true))
+                .Sheet(winlossViewModel.Title)
+                .ExportToBytes();
+
+            return new ExcelFileViewModel(
+               ExcelHelper.StandardizeFileName(
+                   $"{winlossViewModel.Title}-{winlossViewModel.FromDate.ToShortDateWithSlash()}-{winlossViewModel.ToDate.ToShortDateWithSlash()}"),
+               result);
+        }
+
+        private EnteredResultViewModel BuildEnteredResultViewModel(EnteredResultQuery message)
         {
             if (message == null)
             {
@@ -73,35 +137,8 @@
             return viewModel;
         }
 
-        public byte[] Handle(ExportEnteredResultQuery message)
-        {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
-
-            var reportTitle = message.Title;
-            var templateInfo = new TemplateInfo(
-                templatePath: message.TemplatePath,
-                noInfomationText: Resources.NoInformationIsAvailable,
-                titleStartIndex: 0,
-                headerStartIndex: 1,
-                bodyStartIndex: 3,
-                bodyEndIndex: 4);
-
-            var result = enteredSportResultWorkbook
-               .UseTemplate(templateInfo)
-               .Title(reportTitle)
-               .Header(ExcelHelper.HeaderTitleMapping)
-               .Body(message.ReportData, GetEnteredSportResultRowMapper())
-               .Sheet(message.Title)
-               .ExportToBytes();
-
-            return result;
-        }
-
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public WinLossViewModel Handle(WinLossQuery message)
+        private WinLossViewModel BuildWinLossViewModel(WinLossQuery message)
         {
             if (message == null)
             {
@@ -156,34 +193,6 @@
             };
 
             return viewModel;
-        }
-
-        public byte[] Handle(ExportWinLossQuery message)
-        {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
-
-            var products = string.IsNullOrWhiteSpace(message.UserSelectedProductIds)
-                ? Enumerable.Empty<int>()
-                : message.UserSelectedProductIds.Split(',').Select(s => Converter.ToInt(s));
-
-            var reportTitle = $"{message.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-                $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
-
-            var templateInfo = new TemplateInfo(templatePath: message.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable);
-
-            var result = winlossWorkbook
-                .UseTemplate(templateInfo)
-                .Title(reportTitle)
-                .Header(ExcelHelper.HeaderTitleMapping)
-                .Body(message.ReportData, GetWinLossRowMapper(message, isTotal: false))
-                .Footer(message.GrantTotal, GetWinLossRowMapper(message, isTotal: true))
-                .Sheet(message.Title)
-                .ExportToBytes();
-
-            return result;
         }
 
         private Mapper<WinLoss> GetWinLossRowMapper(ExportWinLossQuery message, bool isTotal)

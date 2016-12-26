@@ -1,13 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
-    using System;
     using System.Web.Mvc;
-    using App_GlobalResources;
-    using Extensions;
-    using Helpers;
     using MediatR;
     using Requests.WinLoss;
     using Requests.WinLossDetails;
+    using ViewModels;
 
     public class WinLossController : BaseReportController
     {
@@ -19,7 +16,7 @@
             this.mediator = mediator;
         }
 
-        public ActionResult EnteredResult(EnterResultQuery message)
+        public ActionResult EnteredResult(EnteredResultQuery message)
         {
             var viewModel = mediator.Send(message);
 
@@ -27,20 +24,11 @@
         }
 
         [HttpGet]
-        public ActionResult WinLossExcel(WinLossQuery message)
+        public ActionResult EnteredResultExcel(ExportEnteredResultQuery message)
         {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message", "message cannot be a null reference");
-            }
+            var excelFile = mediator.Send<ExcelFileViewModel>(message);
 
-            var viewModel = mediator.Send(message);
-            var fileContent = mediator.Send(new ExportWinLossQuery(viewModel));
-
-            return File(
-                fileContent,
-                ExcelHelper.ContentType,
-                ExcelHelper.StandardizeFileName($"{viewModel.Title}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}"));
+            return File(excelFile.Content, excelFile.ContentType, excelFile.Name);
         }
 
         public ActionResult WinLoss(WinLossQuery message)
@@ -51,20 +39,11 @@
         }
 
         [HttpGet]
-        public ActionResult EnteredResultExcel(EnterResultQuery message)
+        public ActionResult WinLossExcel(ExportWinLossQuery message)
         {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
+            var excelFile = mediator.Send<ExcelFileViewModel>(message);
 
-            var viewModel = mediator.Send(message);
-            var fileContent = mediator.Send(new ExportEnteredResultQuery(viewModel));
-
-            return File(
-                fileContent,
-                ExcelHelper.ContentType,
-                ExcelHelper.StandardizeFileName($"{Resources.MatchResultEntered}-{viewModel.FromDate.ToShortDateWithSlash()}-{viewModel.ToDate.ToShortDateWithSlash()}"));
+            return File(excelFile.Content, excelFile.ContentType, excelFile.Name);
         }
     }
 }

@@ -1,33 +1,29 @@
-﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
+﻿namespace Alpha.Reports.Site.Requests.WinLoss
 {
-    using System;
-    using System.Collections.Generic;
     using Helpers;
     using MediatR;
-    using Models.Winloss;
-    using ViewModels.WinLoss;
+    using Sunplus.Agent.Model.Entities;
+    using ViewModels;
+    using WinLoss;
 
-    public class ExportEnteredResultQuery : IRequest<byte[]>
+    public class ExportEnteredResultQuery : EnteredResultQuery, IRequest<ExcelFileViewModel>
     {
         private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLoss/MatchResultEntered.xls";
-        private readonly EnteredResultViewModel viewModel;
 
-        public ExportEnteredResultQuery(EnteredResultViewModel viewModel)
+        public ExportEnteredResultQuery() : this(null)
         {
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException("viewModel");
-            }
-
-            this.viewModel = viewModel;
-
-            TemplatePath = HttpAdapter.ServerMapPathFunc(ExcelTemplateDir);
         }
 
-        public string TemplatePath { get; set; }
+        public ExportEnteredResultQuery(IUserSession userSession) : base(userSession)
+        {
+        }
 
-        public string Title => viewModel.Title;
-
-        public IEnumerable<EnteredSportResult> ReportData => viewModel.ReportData;
+        public string TemplatePath
+        {
+            get
+            {
+                return HttpAdapter.ServerMapPathFunc(ExcelTemplateDir);
+            }
+        }
     }
 }

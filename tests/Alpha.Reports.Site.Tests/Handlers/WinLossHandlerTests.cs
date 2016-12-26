@@ -12,6 +12,7 @@
     using Extensions;
     using Models;
     using Models.Winloss;
+    using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Params;
@@ -19,7 +20,6 @@
     using Site.Handlers;
     using Site.Helpers;
     using Site.Requests.WinLoss;
-    using Site.Requests.WinLossDetails;
     using Site.ViewModels;
     using Site.ViewModels.WinLoss;
     using Sunplus.Agent.Model.Entities;
@@ -30,7 +30,7 @@
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
-
+        
         private readonly Workbook<WinLoss> winlossWorkbook;
         private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
         private readonly WinLossHandler winLossHandler;
@@ -40,7 +40,6 @@
         {
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
-
             reportService = Substitute.For<WinLossService>();
 
             winlossWorkbook = Substitute.For<Workbook<WinLoss>>();
@@ -58,7 +57,7 @@
             enteredSportResultWorkbook.Sheet(Arg.Any<string>()).Returns(enteredSportResultWorkbook);
 
             userSession = Substitute.For<IUserSession>();
-            winLossHandler = new WinLossHandler(productService, reportService, winlossWorkbook, enteredSportResultWorkbook, userSession);
+            winLossHandler = new WinLossHandler(productService, reportService, enteredSportResultWorkbook, winlossWorkbook, userSession);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -68,20 +67,74 @@
         }
 
         [Fact]
-        public void HandlerEnterResultQuery_NullMessage_ThrowsArgumentNullException()
+        public void HandleEnteredResultQuery_NullMessage_ThrowsException()
         {
             // Arrange
-            EnterResultQuery nullMessage = null;
+            EnteredResultQuery nullMessage = null;
 
-            // Act &  Assert
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => winLossHandler.Handle(nullMessage));
+        }
+
+        ////[Fact]
+        ////public void HandleEnteredResultQuery_ValidMessage_ReturnsDefaultData()
+        ////{
+        ////    // Arrange
+        ////    var message = new EnteredResultQuery(userSession);
+        ////    message.UserLevelId = (byte)4;
+        ////    message.CustId = 1596;
+
+        ////    var expectedResult = new WinLossViewModel(new List<WinLoss>());
+
+        ////    // Act
+        ////    var actualResult = winLossHandler.Handle(message);
+
+        ////    // Assert
+        ////    Assert.Equal(actualResult, actualResult);
+        ////}
+
+        [Fact]
+        public void HandleExportEnteredResultQuery_NullMessage_ThrowsException()
+        {
+            // Arrange
+            ExportEnteredResultQuery nullMessage = null;
+
+            // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossHandler.Handle(nullMessage));
         }
 
         [Fact]
-        public void HandleExportEnteredResultQuery_NullMessage_ThrowsArgumentNullException()
+        public void HandleWinLossQuery_NullMessage_ThrowsException()
         {
             // Arrange
-            ExportEnteredResultQuery nullMessage = null;
+            WinLossQuery nullMessage = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => winLossHandler.Handle(nullMessage));
+        }
+
+        ////[Fact]
+        ////public void HandleWinLossQuery_ValidMessage_ReturnsDefaultData()
+        ////{
+        ////    // Arrange
+        ////    var message = new WinLossQuery(userSession);
+        ////    message.UserLevelId = (byte)4;
+        ////    message.CustId = 1596;
+
+        ////    var expectedResult = new WinLossViewModel(new List<WinLoss>());
+
+        ////    // Act
+        ////    var actualResult = winLossHandler.Handle(message);
+
+        ////    // Assert
+        ////    Assert.Equal(actualResult, actualResult);
+        ////}
+
+        [Fact]
+        public void HandleExportWinLossQuery_NullMessage_ThrowsException()
+        {
+            // Arrange
+            ExportWinLossQuery nullMessage = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossHandler.Handle(nullMessage));
@@ -102,59 +155,60 @@
                 tp.NoInfomationText == "No information is available"));
         }
 
-        ////[Fact]
-        ////public void HandleExportEnteredResultQuery_ExportsCorrectHeader()
-        ////{
-        ////    // Arrange
-        ////    var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+        [Fact]
+        public void HandleExportEnteredResultQuery_ExportsCorrectHeader()
+        {
+            // Arrange
+            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
 
-        ////    // Act
-        ////    winLossHandler.Handle(message);
+            // Act
+            winLossHandler.Handle(message);
 
-        ////    // Assert
-        ////    enteredSportResultWorkbook.Received().Header(Arg.Is<Func<string, string>>(func => func == ExcelHelper.HeaderTitleMapping));
-        ////}
+            // Assert
+            enteredSportResultWorkbook.Received().Header(Arg.Is<Func<string, string>>(func => func == ExcelHelper.HeaderTitleMapping));
+        }
 
-        ////[Fact]
-        ////public void HandleExportEnteredResultQuery_ExportsCorrectBody()
-        ////{
-        ////    // Arrange
-        ////    var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+        [Fact]
+        public void HandleExportEnteredResultQuery_ExportsCorrectBody()
+        {
+            // Arrange
+            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+            var enteredResultReportData = Enumerable.Empty<EnteredSportResult>();
 
-        ////    // Act
-        ////    winLossHandler.Handle(message);
+            // Act
+            winLossHandler.Handle(message);
 
-        ////    // Assert
-        ////    enteredSportResultWorkbook.Received().Body(
-        ////        Arg.Is<IEnumerable<EnteredSportResult>>(dataSource => dataSource == message.ReportData),
-        ////        Arg.Any<Mapper<EnteredSportResult>>());
-        ////}
+            // Assert
+            enteredSportResultWorkbook.Received().Body(
+                Arg.Is<IEnumerable<EnteredSportResult>>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(enteredResultReportData)),
+                Arg.Any<Mapper<EnteredSportResult>>());
+        }
 
-        ////[Fact]
-        ////public void HandleExportEnteredResultQuery_ExportsCorrectSheetName()
-        ////{
-        ////    // Arrange
-        ////    var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+        [Fact]
+        public void HandleExportEnteredResultQuery_ExportsCorrectSheetName()
+        {
+            // Arrange
+            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
 
-        ////    // Act
-        ////    winLossHandler.Handle(message);
+            // Act
+            winLossHandler.Handle(message);
 
-        ////    // Assert
-        ////    enteredSportResultWorkbook.Received().Sheet(Arg.Is<string>(sheetName => sheetName == message.Title));
-        ////}
+            // Assert
+            enteredSportResultWorkbook.Received().Sheet(Arg.Is<string>(sheetName => string.Equals(sheetName, "Master Win Loss")));
+        }
 
-        ////[Fact]
-        ////public void HandleExportEnteredResultQuery_ExportsExcelToBytes()
-        ////{
-        ////    // Arrange
-        ////    var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+        [Fact]
+        public void HandleExportEnteredResultQuery_ExportsExcelToBytes()
+        {
+            // Arrange
+            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
 
-        ////    // Act
-        ////    winLossHandler.Handle(message);
+            // Act
+            winLossHandler.Handle(message);
 
-        ////    // Assert
-        ////    enteredSportResultWorkbook.Received().ExportToBytes();
-        ////}
+            // Assert
+            enteredSportResultWorkbook.Received().ExportToBytes();
+        }
 
         [Fact]
         public void HandlerWinLossQuery_NullMessage_ThrowsArgumentNullException()
@@ -177,7 +231,7 @@
         }
 
         [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLoss_UsesCorrectTemplateInfo()
+        public void HandleExportWinLossQuery_MasterWinLoss_UsesCorrectTemplateInfo()
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(userLevel: 4);
@@ -192,7 +246,7 @@
         }
 
         [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLoss_ExportsCorrectTitle()
+        public void HandleExportWinLossQuery_MasterWinLoss_ExportsCorrectTitle()
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(userLevel: 4);
@@ -205,7 +259,7 @@
         }
 
         [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLoss_ExportsCorrectHeader()
+        public void HandleExportWinLossQuery_MasterWinLoss_ExportsCorrectHeader()
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(userLevel: 4);
@@ -218,22 +272,39 @@
         }
 
         [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLoss_ExportsCorrectBody()
+        public void HandleExportWinLossQuery_MasterWinLoss_ExportsCorrectBody()
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(userLevel: 4);
+            var winlossReportData = Enumerable.Empty<WinLoss>();
 
             // Act
             winLossHandler.Handle(message);
 
             // Assert
             winlossWorkbook.Received().Body(
-                Arg.Is<IEnumerable<WinLoss>>(dataSource => dataSource == message.ReportData),
+                Arg.Is<IEnumerable<WinLoss>>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossReportData)),
                 Arg.Any<Mapper<WinLoss>>());
         }
 
         [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLoss_ExportsCorrectFooter()
+        public void HandleExportWinLossQuery_MasterWinLoss_ExportsCorrectFooter()
+        {
+            // Arrange
+            var message = CreateExportWinlossExcelQuery(userLevel: 4);
+            var winlossViewModel = new WinLossViewModel(new List<WinLoss>());
+
+            // Act
+            winLossHandler.Handle(message);
+
+            // Assert
+            winlossWorkbook.Received().Footer(
+                Arg.Is<WinLoss>(total => total == winlossViewModel.GrantTotal), 
+                Arg.Any<Mapper<WinLoss>>());
+        }
+
+        [Fact]
+        public void HandleExportWinLossQuery_MasterWinLoss_ExportsCorrectSheetName()
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(userLevel: 4);
@@ -242,24 +313,11 @@
             winLossHandler.Handle(message);
 
             // Assert
-            winlossWorkbook.Received().Footer(Arg.Is<WinLoss>(total => total == message.GrantTotal), Arg.Any<Mapper<WinLoss>>());
+            winlossWorkbook.Received().Sheet(Arg.Is<string>(sheetName => string.Equals(sheetName, "Master Win Loss")));
         }
 
         [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLoss_ExportsCorrectSheetName()
-        {
-            // Arrange
-            var message = CreateExportWinlossExcelQuery(userLevel: 4);
-
-            // Act
-            winLossHandler.Handle(message);
-
-            // Assert
-            winlossWorkbook.Received().Sheet(Arg.Is<string>(sheetName => sheetName == message.Title));
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLoss_ExportsExcelToBytes()
+        public void HandleExportWinLossQuery_MasterWinLoss_ExportsExcelToBytes()
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(userLevel: 4);
@@ -272,10 +330,10 @@
         }
 
         [Fact]
-        public void HandleExportWinLossDetailQuery_AgentWinLossDetail_ExportsExcelToBytes()
+        public void HandleExportWinLossQuery_AgentWinLoss_ExportsExcelToBytes()
         {
             // Arrange
-            var message = CreateExportWinlossExcelQuery(userLevel: 3);
+            var message = CreateExportWinlossExcelQuery(userLevel: 4);
 
             // Act
             winLossHandler.Handle(message);
@@ -284,100 +342,94 @@
             winlossWorkbook.Received().ExportToBytes();
         }
 
-        [Fact]
-        public void HandleExportWinLossDetailQuery_MemberWinLossDetail_ExportsExcelToBytes()
+        [Theory]
+        [InlineData(4)]
+        [InlineData(3)]
+        [InlineData(2)]
+        public void HandleExportWinLossQuery_MemberWinLoss_ExportsExcelToBytes(byte userLevel)
         {
             // Arrange
-            var message = CreateExportWinlossExcelQuery(userLevel: 2);
+            var message = CreateExportWinlossExcelQuery(userLevel);
 
             // Act
             winLossHandler.Handle(message);
 
             // Assert
             winlossWorkbook.Received().ExportToBytes();
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("1")]
+        [InlineData("1,2")]
+        [InlineData("1,2,3")]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("  ")]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        public void HandlerWinLossQuery_AnyUserSelectedProductIds_ReturnsCorrectViewModel(
+            string userSelectedProductIds)
+        {
+            // Arrange
+            var message = new WinLossQuery(userSession);
+            message.UserLevelId = 3;
+            message.UserSelectedProductIds = userSelectedProductIds;
+
+            var products = Enumerable.Empty<Product>();
+            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
+
+            var routeValue = new WinLossQuery(userSession);
+            routeValue.UserLevelId = 3;
+            routeValue.UserSelectedProductIds = userSelectedProductIds;
+            routeValue.BreadcrumbLevels = "[{'CustId':0,'CustName':'','UserLevelId':3}]";
+
+            var validUserSelectedProductIds = Enumerable.Empty<int>();
+            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
+
+            var expectedWinLossViewModel = new WinLossViewModel(new List<WinLoss>())
+            {
+                CustName = string.Empty,
+                Language = string.Empty,
+                IsDirectReportViewAction = true,
+                UserSelectedProductIds = string.Empty,
+                UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
+                FromDate = DefaultVariables.CurrentDate,
+                ToDate = DefaultVariables.CurrentDate,
+                IsFilterVisible = false,
+                Products = Enumerable.Empty<SelectListItem>(),
+                BreadcrumbLevels = new List<ActionLinkViewModel>
+                {
+                    new ActionLinkViewModel(
+                        controllerName: "WinLoss",
+                        actionName: "WinLoss",
+                        linkText: message.CustName,
+                        routeValues: routeValue)
+                }
+            };
+
+            // Act
+            var actualWinLossViewModel = winLossHandler.Handle(message);
+
+            // Assert
+            AssertExtension.Equal(expectedWinLossViewModel, actualWinLossViewModel);
         }
 
         private ExportWinLossQuery CreateExportWinlossExcelQuery(byte userLevel)
         {
-            var viewModel = new WinLossViewModel(new List<WinLoss>())
-            {
-                UserLevel = Enumeration.FromValue<UserLevel>(userLevel),
-                FromDate = DefaultVariables.CurrentDate,
-                ToDate = DefaultVariables.CurrentDate
-            };
-
-            return new ExportWinLossQuery(viewModel);
+            var exportWinLossQuery = new ExportWinLossQuery(userSession);
+            exportWinLossQuery.UserLevelId = userLevel;
+            exportWinLossQuery.FromDate = DefaultVariables.CurrentDate;
+            exportWinLossQuery.ToDate = DefaultVariables.CurrentDate;
+          
+            return exportWinLossQuery;
         }
 
         private ExportEnteredResultQuery CreateExportEnteredResultsExcelQuery(byte userLevel)
         {
-            var viewModel = new EnteredResultViewModel()
-            {
-                UserLevel = Enumeration.FromValue<UserLevel>(userLevel),
-                ReportData = new List<EnteredSportResult>(),
-                FromDate = DefaultVariables.CurrentDate,
-                ToDate = DefaultVariables.CurrentDate
-            };
+            var exportEnteredResultQuery = new ExportEnteredResultQuery(userSession);
+            exportEnteredResultQuery.UserLevelId = userLevel;
 
-            return new ExportEnteredResultQuery(viewModel);
+            return exportEnteredResultQuery;
         }
-
-        ////[Theory]
-        ////[InlineData(null)]
-        ////[InlineData("")]
-        ////[InlineData(" ")]
-        ////[InlineData("  ")]
-        ////[InlineData("1")]
-        ////[InlineData("1,2")]
-        ////[InlineData("1,2,3")]
-        ////[SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        ////public void HandlerWinLossQuery_AnyUserSelectedProductIds_ReturnsCorrectViewModel(
-        ////    string userSelectedProductIds)
-        ////{
-        ////    // Arrange
-        ////    var message = new WinLossQuery(userSession);
-        ////    message.UserLevelId = 4;
-        ////    message.UserSelectedProductIds = userSelectedProductIds;
-
-        ////    var products = Enumerable.Empty<Product>();
-        ////    productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
-
-        ////    var validUserSelectedProductIds = Enumerable.Empty<int>();
-        ////    productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
-
-        ////    var reportData = Enumerable.Empty<WinLoss>();
-        ////    reportService.GetWinLoss(Arg.Any<WinLossParam>()).Returns(reportData);
-
-        ////    var routeValue = new WinLossQuery(userSession);
-        ////    routeValue.UserLevelId = 4;
-        ////    routeValue.UserSelectedProductIds = userSelectedProductIds;
-
-        ////    var expectedWinLossViewModel = new WinLossViewModel(reportData.ToList())
-        ////    {
-        ////        CustName = string.Empty,
-        ////        Language = string.Empty,
-        ////        IsDirectReportViewAction = true,
-        ////        UserSelectedProductIds = string.Empty,
-        ////        UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
-        ////        FromDate = DefaultVariables.CurrentDate,
-        ////        ToDate = DefaultVariables.CurrentDate,
-        ////        Products = Enumerable.Empty<SelectListItem>(),
-        ////        ReportData = reportData.ToList(),
-        ////        BreadcrumbLevels = new List<ActionLinkViewModel>
-        ////        {
-        ////            new ActionLinkViewModel(
-        ////                controllerName: "WinLoss",
-        ////                actionName: "WinLoss",
-        ////                linkText: message.CustName,
-        ////                routeValues: routeValue)
-        ////        }
-        ////    };
-
-        ////    // Act
-        ////    var actualWinLossViewModel = winLossHandler.Handle(message);
-
-        ////    // Assert
-        ////    AssertExtension.Equal(expectedWinLossViewModel, actualWinLossViewModel);
-        ////}
     }
 }

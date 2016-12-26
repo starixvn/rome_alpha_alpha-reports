@@ -54,7 +54,7 @@
         {
             if (winlossA == null || winlossB == null)
             {
-                return new WinLoss();
+                return winlossA ?? winlossB;
             }
 
             return new WinLoss(
