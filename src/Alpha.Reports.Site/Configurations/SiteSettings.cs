@@ -21,20 +21,9 @@
 
         internal static NameValueCollection AppSettings
         {
-            get
-            {
-                if (appSettings == null)
-                {
-                    appSettings = ConfigurationManager.AppSettings;
-                }
+            get { return appSettings ?? ConfigurationManager.AppSettings; }
 
-                return appSettings;
-            }
-
-            set
-            {
-                appSettings = value;
-            }
+            set { appSettings = value; }
         }
 
         public static string GetConfigValue(string configName) => AppSettings[configName];
