@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.Helpers
 {
     using System;
+    using Adapters;
     using Site.Helpers;
     using Xunit;
 
@@ -41,7 +42,7 @@
 
             HttpAdapter.HasContext = true;
             HttpAdapter.AppDomainAppVirtualPath = "/site-reports";
-            HttpAdapter.ApplyAppPathModifierFunc = (relativePath) =>
+            HttpAdapter.FuncApplyAppPathModifier = (relativePath) =>
             {
                 var result = string.IsNullOrEmpty(relativePath)
                 ? HttpAdapter.AppDomainAppVirtualPath

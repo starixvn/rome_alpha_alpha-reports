@@ -2,13 +2,14 @@
 {
     using System.Linq;
     using System.Web;
+    using Adapters;
 
     public static class ReportsScripts
     {
         public static IHtmlString Render(params string[] paths)
         {
-            return System.Web.Optimization.Scripts.Render(
-                  paths.Select(path => VirtualPathUtility.ToAbsolute($"{path}{BaseStaticResources.MinText}.js?v={BaseStaticResources.StaticResourcesVersion}"))
+            return WebOptimizationAdapter.FuncRenderScripts(
+                  paths.Select(path => VirtualPathUtilityAdapter.FuncToAbsolute($"{path}{BaseStaticResources.MinText}.js?v={BaseStaticResources.StaticResourcesVersion}"))
                       .ToArray());
         }
     }

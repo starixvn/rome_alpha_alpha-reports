@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
+    using Adapters;
     using Constants;
     using Enumerations;
     using Extensions;
@@ -58,7 +59,7 @@
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
-            HttpAdapter.ServerMapPathFunc = (path) => path;
+            HttpAdapter.FuncServerMapPath = (path) => path;
             HttpAdapter.HasContext = true;
         }
 

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Helpers
+﻿namespace Alpha.Reports.Site.Adapters
 {
     using System;
     using System.Web;
@@ -9,10 +9,10 @@
         private static bool? hasContext;
 
         [ThreadStatic]
-        private static Func<string, string> applyAppPathModifierFunc;
+        private static Func<string, string> funcApplyAppPathModifier;
 
         [ThreadStatic]
-        private static Func<string, string> serverMapPathFunc;
+        private static Func<string, string> funcServerMapPath;
 
         [ThreadStatic]
         private static string appDomainAppVirtualPath;
@@ -23,10 +23,10 @@
             set { hasContext = value; }
         }
 
-        public static Func<string, string> ApplyAppPathModifierFunc
+        public static Func<string, string> FuncApplyAppPathModifier
         {
-            get { return applyAppPathModifierFunc ?? HttpContext.Current.Response.ApplyAppPathModifier; }
-            set { applyAppPathModifierFunc = value; }
+            get { return funcApplyAppPathModifier ?? HttpContext.Current.Response.ApplyAppPathModifier; }
+            set { funcApplyAppPathModifier = value; }
         }
 
         public static string AppDomainAppVirtualPath
@@ -35,10 +35,10 @@
             set { appDomainAppVirtualPath = value; }
         }
 
-        public static Func<string, string> ServerMapPathFunc
+        public static Func<string, string> FuncServerMapPath
         {
-            get { return serverMapPathFunc ?? HttpContext.Current.Server.MapPath; }
-            set { serverMapPathFunc = value; }
+            get { return funcServerMapPath ?? HttpContext.Current.Server.MapPath; }
+            set { funcServerMapPath = value; }
         }
     }
 }

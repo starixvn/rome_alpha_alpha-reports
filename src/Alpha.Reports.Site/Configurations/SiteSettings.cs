@@ -6,7 +6,8 @@
 
     public static class SiteSettings
     {
-        private static NameValueCollection appSettings = ConfigurationManager.AppSettings;
+        [ThreadStatic]
+        private static NameValueCollection appSettings;
 
         public static string OldMainAppPath => GetConfigValue("OldMainAppPath");
 
@@ -16,13 +17,27 @@
 
         public static string AssetAppPath => GetConfigValue("AssetAppPath");
 
+        public static string StaticResourcesVersion => GetConfigValue("ContentApp:StaticResourcesVersion");
+
         internal static NameValueCollection AppSettings
         {
-            get { return appSettings; }
-            set { appSettings = value; }
+            get
+            {
+                if (appSettings == null)
+                {
+                    appSettings = ConfigurationManager.AppSettings;
+                }
+
+                return appSettings;
+            }
+
+            set
+            {
+                appSettings = value;
+            }
         }
 
-        public static string GetConfigValue(string configName) => appSettings[configName];
+        public static string GetConfigValue(string configName) => AppSettings[configName];
 
         public static void Verify()
         {

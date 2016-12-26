@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.Helpers.Impl
 {
     using System.Collections.Specialized;
+    using Adapters;
     using Site.Configurations;
     using Site.Helpers;
     using Site.Helpers.Impl;
@@ -19,7 +20,7 @@
 
             HttpAdapter.HasContext = true;
             HttpAdapter.AppDomainAppVirtualPath = "/site-reports";
-            HttpAdapter.ApplyAppPathModifierFunc = (relativePath) =>
+            HttpAdapter.FuncApplyAppPathModifier = (relativePath) =>
             {
                 var result = string.IsNullOrEmpty(relativePath)
                 ? HttpAdapter.AppDomainAppVirtualPath

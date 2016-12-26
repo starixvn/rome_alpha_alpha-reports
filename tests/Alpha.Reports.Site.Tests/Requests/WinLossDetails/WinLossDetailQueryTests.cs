@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Tests.Requests.WinLossDetails
 {
+    using Adapters;
     using Extensions;
     using NSubstitute;
     using Site.Helpers;

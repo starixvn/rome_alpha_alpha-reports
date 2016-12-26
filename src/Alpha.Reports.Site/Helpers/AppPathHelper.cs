@@ -2,6 +2,7 @@
 {
     using System;
     using System.Text.RegularExpressions;
+    using Adapters;
     using Fanex.Common.Helper;
 
     public static class AppPathHelper
@@ -16,7 +17,7 @@
                 return string.Empty;
             }
 
-            var appPath = HttpAdapter.ApplyAppPathModifierFunc(virtualPath);
+            var appPath = HttpAdapter.FuncApplyAppPathModifier(virtualPath);
             appPath = Regex.Replace(appPath, HttpAdapter.AppDomainAppVirtualPath, appName, RegexOptions.IgnoreCase);
 
             return appPath;

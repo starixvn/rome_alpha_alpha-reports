@@ -2,13 +2,15 @@
 {
     using System.Linq;
     using System.Web;
+    using Adapters;
 
     public static class ReportsStyles
     {
         public static IHtmlString Render(params string[] paths)
         {
-            return System.Web.Optimization.Styles.Render(
-                paths.Select(path => VirtualPathUtility.ToAbsolute($"{path}{BaseStaticResources.MinText}.css?v={BaseStaticResources.StaticResourcesVersion}"))
+            return WebOptimizationAdapter.FuncRenderStyles(
+                paths.Select(path =>
+                    VirtualPathUtilityAdapter.FuncToAbsolute($"{path}{BaseStaticResources.MinText}.css?v={BaseStaticResources.StaticResourcesVersion}"))
                     .ToArray());
         }
     }

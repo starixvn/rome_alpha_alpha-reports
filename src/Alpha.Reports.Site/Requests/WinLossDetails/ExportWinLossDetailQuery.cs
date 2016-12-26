@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
+    using Adapters;
     using Constants;
     using Enumerations;
-    using Helpers;
     using MediatR;
     using Models;
     using Sunplus.Agent.Model.Entities;
@@ -33,7 +33,7 @@
                     ? "Agent.xls"
                     : "Member.xls");
 
-                return HttpAdapter.ServerMapPathFunc(excelTemplatePath);
+                return HttpAdapter.FuncServerMapPath(excelTemplatePath);
             }
         }
 

@@ -258,8 +258,10 @@
     <Compile Include="Handlers\WinLossDetailHandler.cs" />
     <Compile Include="Handlers\WinLossHandler.cs" />
     <Compile Include="Helpers\AppPathHelper.cs" />
+    <Compile Include="Adapters\AssemblyAdapter.cs" />
+    <Compile Include="Adapters\ConfigurationManagerAdapter.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
-    <Compile Include="Helpers\HttpAdapter.cs" />
+    <Compile Include="Adapters\HttpAdapter.cs" />
     <Compile Include="Helpers\Impl\MicroSitesImpl.cs" />
     <Compile Include="Helpers\Impl\StaticResources\AssetScripts.cs" />
     <Compile Include="Helpers\Impl\StaticResources\AssetStyles.cs" />
@@ -267,6 +269,8 @@
     <Compile Include="Helpers\Impl\StaticResources\ReportsScripts.cs" />
     <Compile Include="Helpers\Impl\StaticResources\ReportsStyles.cs" />
     <Compile Include="Helpers\MicroSites.cs" />
+    <Compile Include="Adapters\VirtualPathUtilityAdapter.cs" />
+    <Compile Include="Adapters\WebOptimizationAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\BaseReportQuery.cs" />
     <Compile Include="Requests\WinLossDetails\ExportWinLossDetailQuery.cs" />

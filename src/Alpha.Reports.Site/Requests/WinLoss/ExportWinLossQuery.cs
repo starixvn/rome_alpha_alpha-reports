@@ -1,40 +1,51 @@
-﻿namespace Alpha.Reports.Site.Requests.WinLoss
+﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
 {
-    using Enumerations;
-    using Helpers;
+    using System;
+    using System.Collections.Generic;
+    using Adapters;
     using MediatR;
     using Models;
-    using Sunplus.Agent.Model.Entities;
-    using ViewModels;
-    using WinLoss;
+    using Models.Winloss;
+    using ViewModels.WinLoss;
 
-    public class ExportWinLossQuery : WinLossQuery, IRequest<ExcelFileViewModel>
+    public class ExportWinLossQuery : IRequest<byte[]>
     {
         private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLoss/";
+        private readonly WinLossViewModel viewModel;
 
-        public ExportWinLossQuery() : this(null)
+        public ExportWinLossQuery(WinLossViewModel viewModel)
         {
-        }
-
-        public ExportWinLossQuery(IUserSession userSession) : base(userSession)
-        {
-        }
-
-        public string TemplatePath
-        {
-            get
+            if (viewModel == null)
             {
-                var excelTemplatePath = ExcelTemplateDir +
-                    (UserLevel.IsSuperLevel()
-                    ? "Master.xls"
-                    : UserLevel.IsMasterLevel()
-                    ? "Agent.xls"
-                    : "Member.xls");
-
-                return HttpAdapter.ServerMapPathFunc(excelTemplatePath);
+                throw new ArgumentNullException("viewModel");
             }
+
+            this.viewModel = viewModel;
+
+            var excelTemplatePath = ExcelTemplateDir +
+                (viewModel.UserLevel.IsSuperLevel()
+                ? "Master.xls"
+                : viewModel.UserLevel.IsMasterLevel()
+                ? "Agent.xls"
+                : "Member.xls");
+
+            TemplatePath = HttpAdapter.FuncServerMapPath(excelTemplatePath);
         }
 
-        public UserLevel UserLevel => Enumeration.FromValue<UserLevel>(UserLevelId);
+        public string TemplatePath { get; set; }
+
+        public UserLevel UserLevel => viewModel.UserLevel;
+
+        public string Title => viewModel.Title;
+
+        public IEnumerable<WinLoss> ReportData => viewModel.ReportData;
+
+        public WinLoss GrantTotal => viewModel.GrantTotal;
+
+        public DateTime FromDate => viewModel.FromDate;
+
+        public DateTime ToDate => viewModel.ToDate;
+
+        public string UserSelectedProductIds => viewModel.UserSelectedProductIds;
     }
 }
