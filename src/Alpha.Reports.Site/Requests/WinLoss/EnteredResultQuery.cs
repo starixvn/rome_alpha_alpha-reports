@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLoss
 {
-    using Helpers;
+    using Adapters;
     using MediatR;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;

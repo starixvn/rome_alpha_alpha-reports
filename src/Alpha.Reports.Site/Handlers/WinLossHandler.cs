@@ -14,6 +14,7 @@
     using ONEbook.SpreadSheets;
     using Params;
     using Requests.WinLoss;
+    using Requests.WinLossDetails;
     using Services;
     using Sunplus.Agent.Model.Entities;
     using ViewModels;
@@ -24,7 +25,7 @@
         IRequestHandler<EnteredResultQuery, EnteredResultViewModel>,
         IRequestHandler<ExportEnteredResultQuery, ExcelFileViewModel>,
         IRequestHandler<WinLossQuery, WinLossViewModel>,
-        IRequestHandler<ExportWinLossQuery, ExcelFileViewModel> 
+        IRequestHandler<ExportWinLossQuery, ExcelFileViewModel>
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
