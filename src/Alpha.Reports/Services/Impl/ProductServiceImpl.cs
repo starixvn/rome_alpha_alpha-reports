@@ -16,10 +16,6 @@
         private readonly Func<int, string> getProductName;
         private readonly IDynamicRepository dynamicRepository;
 
-        internal ProductServiceImpl(IDynamicRepository dynamicRepository) : this(dynamicRepository, null, null)
-        {
-        }
-
         public ProductServiceImpl(
             IDynamicRepository dynamicRepository,
             Func<int, bool> canViewProduct,

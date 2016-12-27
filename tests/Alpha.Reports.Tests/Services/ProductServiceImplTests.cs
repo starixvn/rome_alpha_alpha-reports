@@ -46,7 +46,7 @@
             // Arrange
             IEnumerable<int> productIds = null;
             var expectedProductIds = Enumerable.Empty<int>();
-            productServiceImpl = new ProductServiceImpl(dynamicRepository);
+            productServiceImpl = new ProductServiceImpl(dynamicRepository, null, null);
 
             // Act
             var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, productIds);
