@@ -8,6 +8,7 @@
     using Site.ViewModels;
     using Xunit;
 
+    [Trait("Category", "WinLoss Detail")]
     public class WinLossDetailControllerTests : IDisposable
     {
         private readonly IMediator mediator;

@@ -10,11 +10,11 @@
 
     public class EnumerableExtensionsTests
     {
-        private List<WinLossDetail> winLossDetails;
+        private readonly List<WinLossDetail> winLossDetails;
 
-        private List<WinLossDetail> descendingSortedListByWinLoss;
+        private readonly List<WinLossDetail> descendingSortedListByWinLoss;
 
-        private List<WinLossDetail> ascendingSortedListByWinLoss;
+        private readonly List<WinLossDetail> ascendingSortedListByWinLoss;
 
         public EnumerableExtensionsTests()
         {

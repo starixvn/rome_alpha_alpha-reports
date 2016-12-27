@@ -6,37 +6,67 @@
     using Reports.Models.Winloss;
     using Reports.Models.WinlossDetails;
 
-    public class WinLossViewModelTestCases : IEnumerable<object[]>
+    public static class WinLossViewModelTestCases
     {
-        private readonly List<WinLoss> superWinLossData = new List<WinLoss>();
-        private readonly List<WinLoss> masterWinLossData = new List<WinLoss>();
-        private readonly List<WinLoss> agentWinLossData = new List<WinLoss>();
-
-        private WinLoss expectedSuperGrantTotal;
-        private WinLoss expectedMasterGrantTotal;
-        private WinLoss expectedAgentGrantTotal;
-
-        public WinLossViewModelTestCases()
+        private static IEnumerable<object[]> winLossViewModel = new List<object[]>()
         {
-            BuildSuperDataTest();
-            BuildMasterDataTest();
-            BuildAgentDataTest();
+            new object[] { BuildSuperDataTest(), ExpectedSuperGrantTotal },
+            new object[] { BuildMasterDataTest(), ExpectedMasterGrantTotal },
+            new object[] { BuildAgentDataTest(), ExpectedAgentGrantTotal }
+        };
+
+        private static WinLoss ExpectedSuperGrantTotal
+        {
+            get
+            {
+                return new WinLoss(
+                           custId: 0,
+                           custName: "Total",
+                           turnover: (decimal)375732807.36,
+                           grossComm: (decimal)2998559.76,
+                           memberNetWinLoss: null,
+                           agentNetWinLoss: null,
+                           masterNetWinLoss: new NetWinLoss((decimal)-111173383.51),
+                           superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54));
+            }
         }
 
-        public IEnumerator<object[]> GetEnumerator()
+        private static WinLoss ExpectedMasterGrantTotal
         {
-            yield return new object[] { superWinLossData, expectedSuperGrantTotal };
-            yield return new object[] { masterWinLossData, expectedMasterGrantTotal };
-            yield return new object[] { agentWinLossData, expectedAgentGrantTotal };
+            get
+            {
+                return new WinLoss(
+                          custId: 0,
+                          custName: "Total",
+                          turnover: (decimal)375732807.36,
+                          grossComm: (decimal)2998559.76,
+                          memberNetWinLoss: null,
+                          agentNetWinLoss: new NetWinLoss((decimal)-111173383.51),
+                          masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54),
+                          superNetWinLoss: null);
+            }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        private static WinLoss ExpectedAgentGrantTotal
         {
-            return GetEnumerator();
+            get
+            {
+                return new WinLoss(
+                          custId: 0,
+                          custName: "Total",
+                          turnover: (decimal)6225.00,
+                          grossComm: (decimal)34.83,
+                          memberNetWinLoss: new NetWinLoss((decimal)-2576.25, (decimal)21.00),
+                          agentNetWinLoss: new NetWinLoss((decimal)1267.88, (decimal)-3.38),
+                          masterNetWinLoss: null,
+                          superNetWinLoss: null);
+            }
         }
 
-        private void BuildSuperDataTest()
+        private static List<WinLoss> BuildSuperDataTest()
         {
+            var superWinLossData = new List<WinLoss>();
+
             superWinLossData.Add(new WinLoss(
                  custId: 1382145,
                  custName: "ACGUUS38",
@@ -57,19 +87,13 @@
                  masterNetWinLoss: new NetWinLoss((decimal)9.65),
                  superNetWinLoss: new NetWinLoss((decimal)0.00, (decimal)0.15)));
 
-            expectedSuperGrantTotal = new WinLoss(
-               custId: 0,
-               custName: "Total",
-               turnover: (decimal)375732807.36,
-               grossComm: (decimal)2998559.76,
-               memberNetWinLoss: null,
-               agentNetWinLoss: null,
-               masterNetWinLoss: new NetWinLoss((decimal)-111173383.51),
-               superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54));
+            return superWinLossData;
         }
 
-        private void BuildMasterDataTest()
+        private static List<WinLoss> BuildMasterDataTest()
         {
+            var masterWinLossData = new List<WinLoss>();
+
             masterWinLossData.Add(new WinLoss(
                  custId: 1382145,
                  custName: "ACGUUS3801",
@@ -90,19 +114,13 @@
                  masterNetWinLoss: new NetWinLoss((decimal)0.00, (decimal)0.15),
                  superNetWinLoss: null));
 
-            expectedMasterGrantTotal = new WinLoss(
-                  custId: 0,
-                  custName: "Total",
-                  turnover: (decimal)375732807.36,
-                  grossComm: (decimal)2998559.76,
-                  memberNetWinLoss: null,
-                  agentNetWinLoss: new NetWinLoss((decimal)-111173383.51),
-                  masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54),
-                  superNetWinLoss: null);
+            return masterWinLossData;
         }
 
-        private void BuildAgentDataTest()
+        private static List<WinLoss> BuildAgentDataTest()
         {
+            var agentWinLossData = new List<WinLoss>();
+
             agentWinLossData.Add(new WinLoss(
                  custId: 1382145,
                  custName: "ACGUUS3838000",
@@ -123,15 +141,15 @@
                  masterNetWinLoss: null,
                  superNetWinLoss: null));
 
-            expectedAgentGrantTotal = new WinLoss(
-                  custId: 0,
-                  custName: "Total",
-                  turnover: (decimal)6225.00,
-                  grossComm: (decimal)34.83,
-                  memberNetWinLoss: new NetWinLoss((decimal)-2576.25, (decimal)21.00),
-                  agentNetWinLoss: new NetWinLoss((decimal)1267.88, (decimal)-3.38),
-                  masterNetWinLoss: null,
-                  superNetWinLoss: null);
+            return agentWinLossData;
+        }
+ 
+        public static IEnumerable<object[]> WinLossViewModelSources
+        {
+            get
+            {
+                return winLossViewModel;
+            }
         }
     }
 }

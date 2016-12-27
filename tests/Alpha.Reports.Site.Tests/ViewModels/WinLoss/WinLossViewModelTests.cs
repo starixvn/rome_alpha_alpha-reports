@@ -98,7 +98,8 @@
             AssertExtension.Equal(expectedActionLinkViewModel, actualActionLinkViewModel);
         }
 
-        [Theory, ClassData(typeof(WinLossViewModelTestCases))]
+        [Theory]
+        [MemberData("WinLossViewModelSources", MemberType = typeof(WinLossViewModelTestCases))]
         public void WinLossViewModel_ValidReportData_ReturnsCorrectGrandTotal(
            List<WinLoss> winlossData,
            WinLoss expectedGrantTotal)

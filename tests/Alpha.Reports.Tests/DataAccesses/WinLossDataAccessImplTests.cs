@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using Database.WinLoss;
+    using Extensions;
     using Fanex.Data;
-    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLoss;
     using Reports.DataAccesses;
@@ -20,14 +20,12 @@
     {
         private readonly IObjectDb objectDb;
         private readonly WinLossDataAccessImpl winLossDataAccessImpl;
-        private readonly CompareLogic compareLogic;
 
         public WinLossDataAccessImplTests()
         {
             objectDb = Substitute.For<IObjectDb>();
             winLossDataAccessImpl = new WinLossDataAccessImpl();
             ObjectDbFactory.CreateInstance = (settingKey) => objectDb;
-            compareLogic = new CompareLogic();
         }
 
         [Fact]
@@ -64,10 +62,9 @@
 
             // Act 
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
-            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
-            Assert.True(result.AreEqual);
+            AssertExtension.Equal(expectedData, actualData);
         }
 
         [Fact]
@@ -94,10 +91,9 @@
 
             // Act 
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
-            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
-            Assert.True(result.AreEqual);
+            AssertExtension.Equal(expectedData, actualData);
         }
 
         [Fact]
@@ -124,10 +120,9 @@
 
             // Act 
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
-            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
-            Assert.True(result.AreEqual);
+            AssertExtension.Equal(expectedData, actualData);
         }
     }
 }

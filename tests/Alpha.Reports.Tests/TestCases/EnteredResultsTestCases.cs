@@ -1,75 +1,69 @@
 ﻿namespace Alpha.Reports.Tests.TestCases
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using Reports.Models.Winloss;
+    using Reports.Services;
 
-    public class EnteredResultsTestCases : IEnumerable<object[]>
+    public static class EnteredResultsTestCases
     {
-        private DailyEnteredSport YesterdayDailyEnteredSoccer
+        private static IEnumerable<object[]> enteredResultsSources = new List<object[]>()
+        {
+            new object[] { BuildDailyEnteredSportData(), BuildEnteredSportResultData() }
+        };
+
+        private static DailyEnteredSport YesterdayDailyEnteredSoccer
         {
             get
             {
                 return new DailyEnteredSport(
                     isToday: false,
-                    eventDate: DateTime.Now.AddDays(-1),
+                    eventDate: DateTimeManager.Now.AddDays(-1),
                     sportType: 1,
                     entered: 5,
                     nonEntered: 6);
             }
         }
 
-        private DailyEnteredSport TodayDailyEnteredSoccer
+        private static DailyEnteredSport TodayDailyEnteredSoccer
         {
             get
             {
                 return new DailyEnteredSport(
                     isToday: true,
-                    eventDate: DateTime.Now,
+                    eventDate: DateTimeManager.Now,
                     sportType: 1,
                     entered: 5,
                     nonEntered: 6);
             }
-        } 
+        }
 
-        private DailyEnteredSport YesterdayDailyEnteredBasketball
+        private static DailyEnteredSport YesterdayDailyEnteredBasketball
         {
             get
             {
                 return new DailyEnteredSport(
                    isToday: false,
-                   eventDate: DateTime.Now.AddDays(-1),
+                   eventDate: DateTimeManager.Now.AddDays(-1),
                    sportType: 2,
                    entered: 5,
                    nonEntered: 6);
             }
-        } 
+        }
 
-        private DailyEnteredSport TodaydayDailyEnteredBasketball
+        private static DailyEnteredSport TodaydayDailyEnteredBasketball
         {
             get
             {
                 return new DailyEnteredSport(
                     isToday: true,
-                    eventDate: DateTime.Now,
+                    eventDate: DateTimeManager.Now,
                     sportType: 2,
                     entered: 5,
                     nonEntered: 6);
             }
-        } 
-
-        public IEnumerator<object[]> GetEnumerator()
-        {
-            yield return new object[] { BuildDailyEnteredSportData(), BuildEnteredSportResultData() };
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public List<DailyEnteredSport> BuildDailyEnteredSportData()
+        public static List<DailyEnteredSport> BuildDailyEnteredSportData()
         {
             var dailyEnteredSportData = new List<DailyEnteredSport>();
 
@@ -82,7 +76,7 @@
             return dailyEnteredSportData;
         }
 
-        public List<EnteredSportResult> BuildEnteredSportResultData()
+        public static List<EnteredSportResult> BuildEnteredSportResultData()
         {
             var enteredSportResultData = new List<EnteredSportResult>();
 
@@ -101,6 +95,14 @@
                     enterSportYesterday: YesterdayDailyEnteredSoccer));
 
             return enteredSportResultData;
+        }
+
+        public static IEnumerable<object[]> EnteredResultsSources
+        {
+            get
+            {
+                return enteredResultsSources;
+            }
         }
     }
 }

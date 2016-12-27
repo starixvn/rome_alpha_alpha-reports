@@ -3,9 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Constants;
+    using Extensions;
     using Fanex.Caching;
     using Fanex.Data.Repository;
-    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using RemotingRef;
     using Reports.Criteria.WinLoss;
@@ -29,7 +30,6 @@
         private readonly WinLossServiceImpl winLossServiceImpl;
         private readonly IDynamicRepository dynamicRepository;
         private readonly Cache cacheForTesting;
-        private readonly CompareLogic compareLogic;
         private readonly CacheRefService cacheRefService;
 
         public WinLossServiceImplTests()
@@ -43,7 +43,7 @@
 
             cacheForTesting = Substitute.For<Cache>();
             CacheService.SwitchCacheStorage(cacheForTesting);
-            compareLogic = new CompareLogic();
+            DateTimeManager.Now = DefaultVariables.CurrentDate;
         }
 
         [Fact]
@@ -62,8 +62,8 @@
             // Arrange
             WinLossParam param = new WinLossParam(
                 0,
-                DateTime.Now.AddYears(-4),
-                DateTime.Now,
+                DateTimeManager.Now.AddYears(-4),
+                DateTimeManager.Now,
                 Enumerable.Empty<int>(),
                 Enumeration.FromValue<UserLevel>(4),
                 false);
@@ -72,10 +72,9 @@
 
             // Act
             var actualData = winLossServiceImpl.GetWinLoss(param);
-            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
-            Assert.True(result.AreEqual);
+            AssertExtension.Equal(expectedData, actualData);
         }
 
         [Fact]
@@ -84,8 +83,8 @@
             // Arrange
             WinLossParam param = new WinLossParam(
                 0,
-                DateTime.Now,
-                DateTime.Now,
+                DateTimeManager.Now,
+                DateTimeManager.Now,
                 Enumerable.Empty<int>(),
                 Enumeration.FromValue<UserLevel>(4),
                 false);
@@ -95,10 +94,9 @@
             // Act
             dataAccess.GetWinLoss(Arg.Any<WinLossCriteria>()).Returns(expectedData);
             var actualData = winLossServiceImpl.GetWinLoss(param);
-            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
-            Assert.True(result.AreEqual);
+            AssertExtension.Equal(expectedData, actualData);
         }
 
         [Fact]
@@ -107,8 +105,8 @@
             // Arrange
             WinLossParam param = new WinLossParam(
                 0,
-                DateTime.Now,
-                DateTime.Now,
+                DateTimeManager.Now,
+                DateTimeManager.Now,
                 Enumerable.Empty<int>(),
                 Enumeration.FromValue<UserLevel>(4),
                 false);
@@ -134,14 +132,13 @@
 
             // Act
             var actualData = winLossServiceImpl.GetEnteredSportResults();
-            var result = compareLogic.Compare(expectedData, actualData);
 
             // Assert
-            Assert.True(result.AreEqual);
+            AssertExtension.Equal(expectedData, actualData);
         }
 
         [Theory]
-        [ClassData(typeof(EnteredResultsTestCases))]
+        [MemberData("EnteredResultsSources", MemberType = typeof(EnteredResultsTestCases))]
         public void GetDataEnteredSportResults_IsValid_ReturnsReportData(
             List<DailyEnteredSport> dailyEnteredSportData,
             List<EnteredSportResult> expectedEnteredSportResultData)
@@ -153,11 +150,9 @@
 
             // Act
             var actualEnteredSportResultData = winLossServiceImpl.GetEnteredSportResults();
-            var result = compareLogic.Compare(expectedEnteredSportResultData, actualEnteredSportResultData);
 
             // Assert
-            ////AssertExtension.Equal(expectedEnteredSportResultData, actualEnteredSportResultData);
-            Assert.True(result.AreEqual);
+            AssertExtension.Equal(expectedEnteredSportResultData, actualEnteredSportResultData);
         }
 
         [Fact]
@@ -170,10 +165,9 @@
 
             // Act
             var actualEnteredSportResultData = winLossServiceImpl.GetEnteredSportResults();
-            var result = compareLogic.Compare(expectedEnteredSportResultData, actualEnteredSportResultData);
 
             // Assert
-            Assert.True(result.AreEqual);
+            AssertExtension.Equal(expectedEnteredSportResultData, actualEnteredSportResultData);
         }
     }
 }
