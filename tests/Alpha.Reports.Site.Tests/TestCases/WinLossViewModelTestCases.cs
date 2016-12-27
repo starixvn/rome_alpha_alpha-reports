@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Tests.TestCases
+﻿namespace Alpha.Reports.Site.Tests.TestCases
 {
     using System.Collections;
     using System.Collections.Generic;
@@ -6,17 +6,17 @@
     using Reports.Models.Winloss;
     using Reports.Models.WinlossDetails;
 
-    public class WinLossTestCases : IEnumerable<object[]>
+    public class WinLossViewModelTestCases : IEnumerable<object[]>
     {
-        private readonly List<WinLoss> superWinLosses = new List<WinLoss>();
-        private readonly List<WinLoss> masterWinLosses = new List<WinLoss>();
-        private readonly List<WinLoss> agentWinLosses = new List<WinLoss>();
+        private readonly List<WinLoss> superWinLossData = new List<WinLoss>();
+        private readonly List<WinLoss> masterWinLossData = new List<WinLoss>();
+        private readonly List<WinLoss> agentWinLossData = new List<WinLoss>();
 
         private WinLoss expectedSuperGrantTotal;
         private WinLoss expectedMasterGrantTotal;
         private WinLoss expectedAgentGrantTotal;
 
-        public WinLossTestCases()
+        public WinLossViewModelTestCases()
         {
             BuildSuperDataTest();
             BuildMasterDataTest();
@@ -25,9 +25,9 @@
 
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[] { superWinLosses, UserLevel.Super, expectedSuperGrantTotal };
-            yield return new object[] { masterWinLosses, UserLevel.Master, expectedMasterGrantTotal };
-            yield return new object[] { agentWinLosses, UserLevel.Agent, expectedAgentGrantTotal };
+            yield return new object[] { superWinLossData, expectedSuperGrantTotal };
+            yield return new object[] { masterWinLossData, expectedMasterGrantTotal };
+            yield return new object[] { agentWinLossData, expectedAgentGrantTotal };
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -37,7 +37,7 @@
 
         private void BuildSuperDataTest()
         {
-            superWinLosses.Add(new WinLoss(
+            superWinLossData.Add(new WinLoss(
                  custId: 1382145,
                  custName: "ACGUUS38",
                  turnover: (decimal)375732407.36,
@@ -47,7 +47,7 @@
                  masterNetWinLoss: new NetWinLoss((decimal)-111173393.16),
                  superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69)));
 
-            superWinLosses.Add(new WinLoss(
+            superWinLossData.Add(new WinLoss(
                  custId: 18187823,
                  custName: "ACGUUSOP",
                  turnover: (decimal)400.00,
@@ -70,7 +70,7 @@
 
         private void BuildMasterDataTest()
         {
-            masterWinLosses.Add(new WinLoss(
+            masterWinLossData.Add(new WinLoss(
                  custId: 1382145,
                  custName: "ACGUUS3801",
                  turnover: (decimal)375732407.36,
@@ -80,7 +80,7 @@
                  masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69),
                  superNetWinLoss: null));
 
-            masterWinLosses.Add(new WinLoss(
+            masterWinLossData.Add(new WinLoss(
                  custId: 18187823,
                  custName: "ACGUUS3802",
                  turnover: (decimal)400.00,
@@ -103,7 +103,7 @@
 
         private void BuildAgentDataTest()
         {
-            agentWinLosses.Add(new WinLoss(
+            agentWinLossData.Add(new WinLoss(
                  custId: 1382145,
                  custName: "ACGUUS3838000",
                  turnover: (decimal)4000.00,
@@ -113,7 +113,7 @@
                  masterNetWinLoss: null,
                  superNetWinLoss: null));
 
-            agentWinLosses.Add(new WinLoss(
+            agentWinLossData.Add(new WinLoss(
                  custId: 18187823,
                  custName: "ACGUUS3838006",
                  turnover: (decimal)2225.00,

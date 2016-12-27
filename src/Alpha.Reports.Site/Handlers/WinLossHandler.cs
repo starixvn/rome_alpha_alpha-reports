@@ -72,7 +72,7 @@
                .ExportToBytes();
 
             return new ExcelFileViewModel(
-               ExcelHelper.StandardizeFileName(enteredResultViewModel.Title),
+               ExcelHelper.StandardizeFileName(Resources.MatchResultEntered),
                result);
         }
 
@@ -128,8 +128,8 @@
             var viewModel = new EnteredResultViewModel
             {
                 UserLevel = userLevel,
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
+                FromDate = DateTimeManager.Now,
+                ToDate = DateTimeManager.Now,
                 Language = message.Language,
                 ReportData = reportData,
                 UserSelectedDateRangeOption = 0

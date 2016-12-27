@@ -159,8 +159,10 @@
     <Compile Include="Helpers\Impl\StaticResources\ReportsStylesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\WinLossDetails\WinLossDetailQueryTests.cs" />
+    <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
-    <Compile Include="ViewModels\WinLoss\WinLossDetailViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLoss\WinLossViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailsActionLinkViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailViewModelTests.cs" />
   </ItemGroup>
@@ -176,6 +178,10 @@
     <ProjectReference Include="..\..\src\Alpha.Reports\Alpha.Reports.csproj">
       <Project>{b868e639-f3f9-4d54-b02e-57f3bee0965e}</Project>
       <Name>Alpha.Reports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alpha.Reports.Tests\Alpha.Reports.Tests.csproj">
+      <Project>{0F9FDF8D-E083-47E3-99AB-9AC53C74C366}</Project>
+      <Name>Alpha.Reports.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

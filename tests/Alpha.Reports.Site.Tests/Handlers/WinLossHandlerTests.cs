@@ -17,6 +17,7 @@
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Params;
+    using Reports.Tests.TestCases;
     using Services;
     using Site.Handlers;
     using Site.Helpers;
@@ -77,22 +78,30 @@
             Assert.Throws<ArgumentNullException>(() => winLossHandler.Handle(nullMessage));
         }
 
-        ////[Fact]
-        ////public void HandleEnteredResultQuery_ValidMessage_ReturnsDefaultData()
-        ////{
-        ////    // Arrange
-        ////    var message = new EnteredResultQuery(userSession);
-        ////    message.UserLevelId = (byte)4;
-        ////    message.CustId = 1596;
+        [Fact]
+        public void HandleEnteredResultQuery_ValidMessage_ReturnsDefaultData()
+        {
+            // Arrange
+            var message = new EnteredResultQuery(userSession);
+            message.UserLevelId = (byte)4;
+            message.CustId = 1596;
 
-        ////    var expectedResult = new WinLossViewModel(new List<WinLoss>());
+            var expectedResult = new EnteredResultViewModel
+            {
+                UserLevel = Enumeration.FromValue<UserLevel>(4),
+                FromDate = DateTimeManager.Now,
+                ToDate = DateTimeManager.Now,
+                Language = message.Language,
+                ReportData = Enumerable.Empty<EnteredSportResult>(),
+                UserSelectedDateRangeOption = 0
+            };
 
-        ////    // Act
-        ////    var actualResult = winLossHandler.Handle(message);
+            // Act
+            var actualResult = winLossHandler.Handle(message);
 
-        ////    // Assert
-        ////    Assert.Equal(actualResult, actualResult);
-        ////}
+            // Assert
+            Assert.Equal(JsonConvert.SerializeObject(expectedResult), JsonConvert.SerializeObject(actualResult));
+        }
 
         [Fact]
         public void HandleExportEnteredResultQuery_NullMessage_ThrowsException()
@@ -113,23 +122,6 @@
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossHandler.Handle(nullMessage));
         }
-
-        ////[Fact]
-        ////public void HandleWinLossQuery_ValidMessage_ReturnsDefaultData()
-        ////{
-        ////    // Arrange
-        ////    var message = new WinLossQuery(userSession);
-        ////    message.UserLevelId = (byte)4;
-        ////    message.CustId = 1596;
-
-        ////    var expectedResult = new WinLossViewModel(new List<WinLoss>());
-
-        ////    // Act
-        ////    var actualResult = winLossHandler.Handle(message);
-
-        ////    // Assert
-        ////    Assert.Equal(actualResult, actualResult);
-        ////}
 
         [Fact]
         public void HandleExportWinLossQuery_NullMessage_ThrowsException()

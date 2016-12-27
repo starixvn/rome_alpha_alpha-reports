@@ -13,18 +13,20 @@
     using Models;
     using Models.WinlossDetails;
     using NSubstitute;
+    using Reports.Tests.TestCases;
+    using Requests.WinLossDetails;
     using Site.Requests.WinLoss;
     using Site.Requests.WinLossDetails;
     using Site.ViewModels;
     using Site.ViewModels.WinLoss;
     using Site.ViewModels.WinLossDetails;
     using Sunplus.Agent.Model.Entities;
+    using TestCases;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
     public class WinLossViewModelTests
     {
-        private const int AllBetProductId = 21;
         private readonly WinLossViewModel winLossViewModel;
         private readonly IUserSession userSession;
 
@@ -51,7 +53,7 @@
         [InlineData(4, "Master Win Loss")]
         [InlineData(3, "Agent Win Loss")]
         [InlineData(2, "Member Win Loss")]
-        public void Title_MasterLevel_ReturnCorrectTitle(
+        public void Title_WinLossLevel_ReturnCorrectTitle(
             byte userLevel,
             string expectedTitle)
         {
@@ -94,6 +96,20 @@
 
             // Assert
             AssertExtension.Equal(expectedActionLinkViewModel, actualActionLinkViewModel);
+        }
+
+        [Theory, ClassData(typeof(WinLossViewModelTestCases))]
+        public void WinLossViewModel_ValidReportData_ReturnsCorrectGrandTotal(
+           List<WinLoss> winlossData,
+           WinLoss expectedGrantTotal)
+        {
+            // Arrange
+
+            // Act
+            var actualGrantTotal = new WinLossViewModel(winlossData).GrantTotal;
+
+            // Assert
+            AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);
         }
     }
 }

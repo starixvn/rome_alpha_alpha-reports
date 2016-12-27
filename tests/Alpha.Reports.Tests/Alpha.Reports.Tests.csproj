@@ -153,7 +153,6 @@
     <Compile Include="Services\ProductServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />
-    <Compile Include="TestCases\WinLossTestCases.cs" />
     <Compile Include="Services\WinLossServiceImplTests.cs" />
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
     <Compile Include="TestCases\StringExtensionsTestCases.cs" />

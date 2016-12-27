@@ -465,6 +465,7 @@
     <Content Include="Web.napexternal.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
+    <Content Include="Views\WinLoss\WinLoss.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
