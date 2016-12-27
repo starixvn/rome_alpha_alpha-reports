@@ -60,7 +60,6 @@
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
             HttpAdapter.FuncServerMapPath = (path) => path;
-            HttpAdapter.HasContext = true;
         }
 
         [Fact]

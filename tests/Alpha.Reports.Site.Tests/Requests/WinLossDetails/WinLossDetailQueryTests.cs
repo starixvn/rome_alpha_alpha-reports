@@ -18,33 +18,9 @@
         }
 
         [Fact]
-        public void UseDefaultConstructor_Always_ReturnsDefaultInstance()
-        {
-            // Arrange
-            HttpAdapter.HasContext = false;
-            var expectedWinLossDetailQuery = new WinLossDetailQuery
-            {
-                UserSelectedProductIds = null,
-                SortPropertyName = null,
-                IsDescendingSort = true,
-                IsStackMode = false,
-                IsHistoricReport = false,
-                IsFilterVisible = true,
-                UserSelectedDateRangeOption = 0
-            };
-
-            // Act
-            var actualWinLossDetailQuery = new WinLossDetailQuery();
-
-            // Assert
-            AssertExtension.Equal(expectedWinLossDetailQuery, actualWinLossDetailQuery);
-        }
-
-        [Fact]
         public void CustId_NotSetCustId_ReturnsCustIdOfUserSession()
         {
             // Arrange
-            HttpAdapter.HasContext = true;
             var expectedCustId = 1;
             userSession.CustId.Returns(expectedCustId);
             var winLossDetailQuery = new WinLossDetailQuery(userSession);
@@ -60,7 +36,6 @@
         public void CustName_NotSetCustId_ReturnsCustNameOfUserSession()
         {
             // Arrange
-            HttpAdapter.HasContext = true;
             var expectedCustName = "CustName";
             userSession.UserName.Returns(expectedCustName);
             var winLossDetailQuery = new WinLossDetailQuery(userSession);
@@ -76,7 +51,6 @@
         public void UserLevelId_NotSetCustId_ReturnsRoleIdOfUserSession()
         {
             // Arrange
-            HttpAdapter.HasContext = true;
             var expectedRoleId = (byte)4;
             userSession.RoleId.Returns(expectedRoleId);
             var winLossDetailQuery = new WinLossDetailQuery(userSession);

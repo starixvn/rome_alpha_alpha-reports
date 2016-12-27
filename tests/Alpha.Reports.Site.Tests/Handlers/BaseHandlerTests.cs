@@ -30,7 +30,6 @@
         {
             baseHandler = new BaseHandler();
             userSession = Substitute.For<IUserSession>();
-            HttpAdapter.HasContext = true;
         }
 
         [Fact]
