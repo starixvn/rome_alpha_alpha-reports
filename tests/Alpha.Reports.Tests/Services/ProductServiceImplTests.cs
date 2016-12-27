@@ -15,8 +15,6 @@
     {
         private const string ProductCacheKey = "Alpha.Reports.Services.Impl.ProductsForCustomer";
 
-        private readonly Func<int, bool> canViewProduct;
-        private readonly Func<int, string> getProductName;
         private readonly IDynamicRepository dynamicRepository;
         private readonly Cache cacheForTesting;
         private readonly IEnumerable<Product> allCustomerProductIds = new List<Product>()
@@ -30,8 +28,8 @@
 
         public ProductServiceImplTests()
         {
-            canViewProduct = (productId) => true;
-            getProductName = (productId) => $"Product {productId}";
+            Func<int, bool> canViewProduct = (productId) => true;
+            Func<int, string> getProductName = (productId) => $"Product {productId}";
             dynamicRepository = Substitute.For<IDynamicRepository>();
             productServiceImpl = new ProductServiceImpl(dynamicRepository, canViewProduct, getProductName);
 

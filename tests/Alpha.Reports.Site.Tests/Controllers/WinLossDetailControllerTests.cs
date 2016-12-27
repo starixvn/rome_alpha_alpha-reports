@@ -27,10 +27,7 @@
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                winLossDetailController.Dispose();
-            }
+            winLossDetailController.Dispose();
         }
 
         [Fact]
