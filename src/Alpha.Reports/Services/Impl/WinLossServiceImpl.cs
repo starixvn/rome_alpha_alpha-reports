@@ -74,7 +74,7 @@
             return winlossData;
         }
 
-        private IEnumerable<EnteredSportResult> GetDataEnteredSportResults()
+        internal IEnumerable<EnteredSportResult> GetDataEnteredSportResults()
         {
             var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria());
 
