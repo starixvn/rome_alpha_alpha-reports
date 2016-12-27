@@ -11,15 +11,11 @@
     using Enumerations;
     using Extensions;
     using Models;
-    using Models.WinlossDetails;
     using NSubstitute;
     using Reports.Tests.TestCases;
-    using Requests.WinLossDetails;
     using Site.Requests.WinLoss;
-    using Site.Requests.WinLossDetails;
     using Site.ViewModels;
     using Site.ViewModels.WinLoss;
-    using Site.ViewModels.WinLossDetails;
     using Sunplus.Agent.Model.Entities;
     using TestCases;
     using Xunit;
@@ -34,7 +30,7 @@
         {
             userSession = Substitute.For<IUserSession>();
             winLossViewModel = new WinLossViewModel(new List<WinLoss>());
-            
+
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }

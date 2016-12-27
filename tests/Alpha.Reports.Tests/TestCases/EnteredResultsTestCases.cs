@@ -16,7 +16,7 @@
             get
             {
                 return new DailyEnteredSport(
-                    isToday: false,
+                    isToday: 0,
                     eventDate: DateTimeManager.Now.AddDays(-1),
                     sportType: 1,
                     entered: 5,
@@ -29,7 +29,7 @@
             get
             {
                 return new DailyEnteredSport(
-                    isToday: true,
+                    isToday: 1,
                     eventDate: DateTimeManager.Now,
                     sportType: 1,
                     entered: 5,
@@ -42,7 +42,7 @@
             get
             {
                 return new DailyEnteredSport(
-                   isToday: false,
+                   isToday: 0,
                    eventDate: DateTimeManager.Now.AddDays(-1),
                    sportType: 2,
                    entered: 5,
@@ -55,7 +55,7 @@
             get
             {
                 return new DailyEnteredSport(
-                    isToday: true,
+                    isToday: 1,
                     eventDate: DateTimeManager.Now,
                     sportType: 2,
                     entered: 5,

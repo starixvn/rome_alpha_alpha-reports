@@ -32,7 +32,7 @@
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
-        
+
         private readonly Workbook<WinLoss> winlossWorkbook;
         private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
         private readonly WinLossHandler winLossHandler;
@@ -292,7 +292,7 @@
 
             // Assert
             winlossWorkbook.Received().Footer(
-                Arg.Is<WinLoss>(total => total == winlossViewModel.GrantTotal), 
+                Arg.Is<WinLoss>(total => total == winlossViewModel.GrantTotal),
                 Arg.Any<Mapper<WinLoss>>());
         }
 
@@ -413,7 +413,7 @@
             exportWinLossQuery.UserLevelId = userLevel;
             exportWinLossQuery.FromDate = DefaultVariables.CurrentDate;
             exportWinLossQuery.ToDate = DefaultVariables.CurrentDate;
-          
+
             return exportWinLossQuery;
         }
 

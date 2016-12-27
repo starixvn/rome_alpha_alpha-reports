@@ -26,13 +26,7 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
 
             var custId = 1;
-            var winLossParam = new WinLossParam(
-                custId, 
-                DateTimeManager.Now, 
-                DateTimeManager.Now, 
-                Enumerable.Empty<int>(),
-                reportLevel, 
-                false);
+            var winLossParam = new WinLossParam(custId, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), reportLevel, false);
 
             // Act
             var actual = winLossParam.CustId;
@@ -47,13 +41,7 @@
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
 
-            var winLossParam = new WinLossParam(
-                0, 
-                DateTime.MinValue, 
-                DateTimeManager.Now, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                false);
+            var winLossParam = new WinLossParam(0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), reportLevel, false);
 
             var expectedDate = DefaultVariables.CurrentDate;
 
@@ -70,13 +58,7 @@
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
 
-            var winLossParam = new WinLossParam(
-                0, 
-                DateTime.MinValue, 
-                DateTimeManager.Now, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                true);
+            var winLossParam = new WinLossParam(0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), reportLevel, true);
 
             var expectedDate = DefaultVariables.CurrentDate.FirstDayOfMonth();
 
@@ -96,14 +78,8 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             DateTime fromDate = DefaultVariables.CurrentDate;
 
-            var winLossParam = new WinLossParam(
-                0, 
-                fromDate, 
-                DateTimeManager.Now, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                isHistoricReport);
-           
+            var winLossParam = new WinLossParam(0, fromDate, DateTime.Now, Enumerable.Empty<int>(), reportLevel, isHistoricReport);
+
             var expectedDate = fromDate;
 
             // Act
@@ -120,13 +96,7 @@
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-            var winLossParam = new WinLossParam(
-                0, 
-                DateTime.MinValue, 
-                DateTime.MinValue, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                isHistoricReport);
+            var winLossParam = new WinLossParam(0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, isHistoricReport);
 
             var expectedDate = DefaultVariables.CurrentDate;
 
@@ -146,14 +116,7 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             DateTime toDate = DefaultVariables.CurrentDate;
 
-            var winLossParam = new WinLossParam(
-                0, 
-                DateTime.MinValue, 
-                toDate, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                isHistoricReport);
-
+            var winLossParam = new WinLossParam(0, DateTime.MinValue, toDate, Enumerable.Empty<int>(), reportLevel, isHistoricReport);
             var expectedDate = toDate;
 
             // Act
@@ -169,14 +132,7 @@
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
 
-            var winLossParam = new WinLossParam(
-                0, 
-                DateTime.MinValue, 
-                DateTime.MinValue, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                false);
-
+            var winLossParam = new WinLossParam(0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, false);
             var expectedReportLevel = reportLevel;
 
             // Act
@@ -196,14 +152,7 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             var userSelectedProductIdList = userSelectedProductIds.Split(',').Select(id => Converter.ToInt(id)).ToList();
 
-            var winLossParam = new WinLossParam(
-                0, 
-                DateTime.MinValue, 
-                DateTime.MinValue, 
-                userSelectedProductIdList, 
-                reportLevel, 
-                false);
-
+            var winLossParam = new WinLossParam(0, DateTime.MinValue, DateTime.MinValue, userSelectedProductIdList, reportLevel, false);
             var expectedUserSelectedProductIds = userSelectedProductIdList;
 
             // Act
@@ -220,13 +169,7 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             DateTime fromDate = DefaultVariables.CurrentDate.AddYears(-4);
 
-            var winLossParam = new WinLossParam(
-                0, 
-                fromDate, 
-                DateTimeManager.Now, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                false);
+            var winLossParam = new WinLossParam(0, fromDate, DateTime.Now, Enumerable.Empty<int>(), reportLevel, false);
 
             // Act
             var actualIsValid = winLossParam.IsValid();
@@ -243,13 +186,7 @@
             DateTime fromDate = DefaultVariables.CurrentDate;
             DateTime toDate = DefaultVariables.CurrentDate.AddDays(-1);
 
-            var winLossParam = new WinLossParam(
-                0, 
-                fromDate, 
-                toDate, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                false);
+            var winLossParam = new WinLossParam(0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, false);
 
             // Act
             var actualIsValid = winLossParam.IsValid();
@@ -268,13 +205,7 @@
             DateTime fromDate = DefaultVariables.CurrentDate;
             DateTime toDate = DefaultVariables.CurrentDate.AddMonths(monthDiff);
 
-            var winLossParam = new WinLossParam(
-                0, 
-                fromDate, 
-                toDate, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                true);
+            var winLossParam = new WinLossParam(0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, true);
 
             // Act
             var actualIsValid = winLossParam.IsValid();
@@ -291,13 +222,7 @@
             DateTime fromDate = DefaultVariables.CurrentDate;
             DateTime toDate = DefaultVariables.CurrentDate;
 
-            var winLossParam = new WinLossParam(
-                0, 
-                fromDate, 
-                toDate, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                false);
+            var winLossParam = new WinLossParam(0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, false);
 
             // Act
             var actualIsValid = winLossParam.IsValid();
@@ -313,13 +238,7 @@
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             DateTime fromDate = DefaultVariables.CurrentDate.AddMonths(-4);
 
-            var winLossParam = new WinLossParam(
-                0, 
-                fromDate, 
-                DateTimeManager.Now, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                false);
+            var winLossParam = new WinLossParam(0, fromDate, DateTime.Now, Enumerable.Empty<int>(), reportLevel, false);
 
             // Act
             var actualIsValid = winLossParam.IsValid();
@@ -336,13 +255,7 @@
             DateTime fromDate = DefaultVariables.CurrentDate;
             DateTime toDate = DefaultVariables.CurrentDate.AddDays(-1);
 
-            var winLossParam = new WinLossParam(
-                0, 
-                fromDate, 
-                toDate, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                false);
+            var winLossParam = new WinLossParam(0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, false);
 
             // Act
             var actualIsValid = winLossParam.IsValid();
@@ -359,13 +272,7 @@
             DateTime fromDate = DefaultVariables.CurrentDate;
             DateTime toDate = DefaultVariables.CurrentDate;
 
-            var winLossParam = new WinLossParam(
-                0, 
-                fromDate, 
-                toDate, 
-                Enumerable.Empty<int>(), 
-                reportLevel, 
-                false);
+            var winLossParam = new WinLossParam(0, fromDate, toDate, Enumerable.Empty<int>(), reportLevel, false);
 
             // Act
             var actualIsValid = winLossParam.IsValid();

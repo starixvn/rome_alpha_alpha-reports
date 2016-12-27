@@ -1,24 +1,15 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLoss
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
     using Alpha.Reports.Models.Winloss;
     using Constants;
     using Enumerations;
-    using Extensions;
     using Models;
-    using Models.WinlossDetails;
     using NSubstitute;
-    using Site.Requests.WinLoss;
-    using Site.Requests.WinLossDetails;
     using Site.ViewModels;
     using Site.ViewModels.WinLoss;
-    using Site.ViewModels.WinLossDetails;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -29,7 +20,7 @@
         public EnteredResultViewModelTests()
         {
             enteredResultViewModel = new EnteredResultViewModel();
-            
+
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }

@@ -9,12 +9,12 @@
     public class WinLossTest
     {
         [Fact]
-        public void Add_NullWinLossB_ReturnWinLossA()
+        public void Add_NullWinLossA_ReturnWinLossB()
         {
             // Arrange
-            var winLossA = new WinLoss();
-            WinLoss winLossB = null;
-            var expectedWinLoss = winLossA;
+            WinLoss winLossA = null;
+            var winLossB = new WinLoss();
+            var expectedWinLoss = winLossB;
 
             // Act
             var actuaWinLoss = WinLoss.Add(winLossA, winLossB);

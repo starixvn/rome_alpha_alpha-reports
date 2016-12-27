@@ -24,8 +24,7 @@
     public class WinLossServiceImplTests
     {
         private const string EnteredResultsCacheKey = "Alpha.Reports.Services.Impl.WinLossServiceImpl.EnteredResults";
-        private readonly ReportDateService reportDateService;
-        private readonly ProductService productService;
+
         private readonly WinLossDataAccess dataAccess;
         private readonly WinLossServiceImpl winLossServiceImpl;
         private readonly IDynamicRepository dynamicRepository;
@@ -35,8 +34,8 @@
         public WinLossServiceImplTests()
         {
             dynamicRepository = Substitute.For<IDynamicRepository>();
-            reportDateService = Substitute.For<ReportDateService>();
-            productService = Substitute.For<ProductService>();
+            var reportDateService = Substitute.For<ReportDateService>();
+            var productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<WinLossDataAccess>();
             cacheRefService = Substitute.For<CacheRefService>();
             winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, dataAccess, dynamicRepository, cacheRefService);

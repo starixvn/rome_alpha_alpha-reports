@@ -86,7 +86,7 @@
                     cacheRefService.GetSportName(dailyEnteredSports.Key),
                     dailyEnteredSports.FirstOrDefault(enteredSportResult => enteredSportResult.IsToday),
                     dailyEnteredSports.FirstOrDefault(enteredSportResult => !enteredSportResult.IsToday)))
-                    .OrderBy(enteredSportResult => enteredSportResult.SportName).ToList();
+                    .OrderBy(enteredSportResult => enteredSportResult.SportName);
             }
 
             return Enumerable.Empty<EnteredSportResult>();

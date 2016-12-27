@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
+    using Constants;
     using Database.WinLoss;
     using Extensions;
     using Fanex.Data;
@@ -13,6 +15,7 @@
     using Reports.Models;
     using Reports.Models.Winloss;
     using Reports.Models.WinlossDetails;
+    using Reports.Services;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -26,6 +29,7 @@
             objectDb = Substitute.For<IObjectDb>();
             winLossDataAccessImpl = new WinLossDataAccessImpl();
             ObjectDbFactory.CreateInstance = (settingKey) => objectDb;
+            DateTimeManager.Now = DefaultVariables.CurrentDate;
         }
 
         [Fact]
@@ -42,14 +46,8 @@
         public void GetWinLoss_MasterWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(
-                0,
-                DateTime.Now,
-                DateTime.Now,
-                DateTime.Now,
-                DateTime.Now,
-                null,
-                Enumeration.FromValue<UserLevel>(4));
+            var userlevel = Enumeration.FromValue<UserLevel>(4);
+            var winLossCriteria = new WinLossCriteria(0, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, null, userlevel);
 
             var dataSet = WinLossDatabase.MasterWinLoss.CreateDataReader();
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -60,7 +58,7 @@
                 new WinLoss(2, "Master02", 5, 6, null, null, new NetWinLoss(7), new NetWinLoss(8, 9))
             };
 
-            // Act 
+            // Act
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
 
             // Assert
@@ -71,14 +69,8 @@
         public void GetWinLoss_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(
-                0,
-                DateTime.Now,
-                DateTime.Now,
-                DateTime.Now,
-                DateTime.Now,
-                null,
-                Enumeration.FromValue<UserLevel>(3));
+            var userlevel = Enumeration.FromValue<UserLevel>(3);
+            var winLossCriteria = new WinLossCriteria(0, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, null, userlevel);
 
             var dataSet = WinLossDatabase.AgentWinLoss.CreateDataReader();
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -89,7 +81,7 @@
                 new WinLoss(2, "Agent02", 5, 6, null, new NetWinLoss(7), new NetWinLoss(8, 9), null)
             };
 
-            // Act 
+            // Act
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
 
             // Assert
@@ -100,14 +92,8 @@
         public void GetWinLoss_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(
-                0,
-                DateTime.Now,
-                DateTime.Now,
-                DateTime.Now,
-                DateTime.Now,
-                null,
-                Enumeration.FromValue<UserLevel>(2));
+            var userlevel = Enumeration.FromValue<UserLevel>(2);
+            var winLossCriteria = new WinLossCriteria(0, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, null, userlevel);
 
             var dataSet = WinLossDatabase.MemberWinLoss.CreateDataReader();
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -118,7 +104,26 @@
                 new WinLoss(2, "Member02", 6, 7, new NetWinLoss(8, 9), new NetWinLoss(10, 11), null, null)
             };
 
-            // Act 
+            // Act
+            var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
+
+            // Assert
+            AssertExtension.Equal(expectedData, actualData);
+        }
+
+        [Fact]
+        public void GetWinLoss_NullDataReturnFromDb_ReturnsDefaultData()
+        {
+            // Arrange
+            var userlevel = Enumeration.FromValue<UserLevel>(2);
+            var winLossCriteria = new WinLossCriteria(0, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, null, userlevel);
+
+            IDataReader dataReader = null;
+            objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataReader);
+
+            var expectedData = new List<WinLoss>();
+
+            // Act
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
 
             // Assert

@@ -8,28 +8,21 @@
 
     public class EnteredResultQuery : IRequest<EnteredResultViewModel>
     {
-        private readonly IUserSession userSession;
-
         public EnteredResultQuery() : this(null)
         {
         }
 
         public EnteredResultQuery(IUserSession userSession)
         {
-            this.userSession = userSession ?? new UserSessionExt();
-
-            if (!HttpAdapter.HasContext)
-            {
-                return;
-            }
+            var session = userSession ?? new UserSessionExt();
 
             if (CustId <= 0)
             {
-                CustId = this.userSession.CustId;
-                UserLevelId = this.userSession.RoleId;
+                CustId = session.CustId;
+                UserLevelId = session.RoleId;
             }
 
-            Language = this.userSession.Language;
+            Language = session.Language;
         }
 
         public int CustId { get; set; }

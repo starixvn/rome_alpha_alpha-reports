@@ -20,11 +20,6 @@
         {
             this.userSession = userSession ?? new UserSessionExt();
 
-            if (!HttpAdapter.HasContext)
-            {
-                return;
-            }
-
             if (CustId <= 0)
             {
                 CustId = this.userSession.CustId;

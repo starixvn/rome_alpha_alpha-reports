@@ -7,39 +7,28 @@
     using Site.Requests.WinLoss;
     using Site.Requests.WinLossDetails;
     using Site.ViewModels;
+    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
-    public class WinLossControllerTests : IDisposable
+    public class WinLossControllerTests
     {
         private readonly IMediator mediator;
         private readonly WinLossController winLossController;
+        private readonly IUserSession userSession;
 
         public WinLossControllerTests()
         {
             mediator = Substitute.For<IMediator>();
             winLossController = new WinLossController(mediator);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                winLossController.Dispose();
-            }
+            userSession = Substitute.For<IUserSession>();
         }
 
         [Fact]
         public void EnteredResult_Always_CallsMediatorSendEnteredResultQuery()
         {
             // Arrange
-            var message = new EnteredResultQuery();
+            var message = new EnteredResultQuery(userSession);
 
             // Act
             winLossController.EnteredResult(message);
@@ -52,7 +41,7 @@
         public void EnteredResultExcel_Always_CallsMediatorSendExportEnteredResultQuery()
         {
             // Arrange
-            var message = new ExportEnteredResultQuery();
+            var message = new ExportEnteredResultQuery(userSession);
             mediator.Send<ExcelFileViewModel>(Arg.Any<ExportEnteredResultQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
@@ -66,7 +55,7 @@
         public void WinLoss_Always_CallsMediatorSendWinLossQuery()
         {
             // Arrange
-            var message = new WinLossQuery();
+            var message = new WinLossQuery(userSession);
 
             // Act
             winLossController.WinLoss(message);
@@ -79,7 +68,7 @@
         public void WinLossExcel_Always_CallsMediatorSendExportWinLossQuery()
         {
             // Arrange
-            var message = new ExportWinLossQuery();
+            var message = new ExportWinLossQuery(userSession);
             mediator.Send<ExcelFileViewModel>(Arg.Any<ExportWinLossQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
