@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site
+﻿namespace Alpha.Reports.Site.App_Start
 {
     using System.Web.Mvc;
     using System.Web.Routing;
