@@ -15,18 +15,18 @@
     {
         public WinLossViewModel(List<WinLoss> reportData)
         {
-            if (reportData != null)
+            if (reportData != null && reportData.Any())
             {
                 ReportData = reportData.OrderBy(x => x.CustName).ToList();
-
-                if (reportData.Any())
+                int index, count;
+                for (index = 1, count = reportData.Count, GrantTotal = reportData[0]; index < count; index++)
                 {
-                    int index, count;
-                    for (index = 1, count = reportData.Count, GrantTotal = reportData[0]; index < count; index++)
-                    {
-                        GrantTotal = WinLoss.Add(GrantTotal, reportData[index]);
-                    }
+                    GrantTotal = WinLoss.Add(GrantTotal, reportData[index]);
                 }
+            }
+            else
+            {
+                GrantTotal = new WinLoss();
             }
         }
 

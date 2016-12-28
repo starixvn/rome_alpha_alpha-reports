@@ -65,7 +65,7 @@
         {
             // Arrange
             var winLoss = new WinLoss();
-            winLossViewModel.UserLevel = Enumeration.FromValue<UserLevel>(4);
+            winLossViewModel.UserLevel = UserLevel.Super;
             winLossViewModel.FromDate = DefaultVariables.CurrentDate;
             winLossViewModel.ToDate = DefaultVariables.CurrentDate;
             winLossViewModel.ReportData = Enumerable.Empty<WinLoss>();
@@ -104,6 +104,32 @@
 
             // Act
             var actualGrantTotal = new WinLossViewModel(winlossData).GrantTotal;
+
+            // Assert
+            AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);
+        }
+
+        [Fact]
+        public void WinLossViewModel_NullReportData_ReturnsDefaultGrandTotal()
+        {
+            // Arrange 
+            var expectedGrantTotal = new WinLoss();
+
+            // Act
+            var actualGrantTotal = new WinLossViewModel(null).GrantTotal;
+
+            // Assert
+            AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);
+        }
+
+        [Fact]
+        public void WinLossViewModel_EmptyReportData_ReturnsDefaultGrandTotal()
+        {
+            // Arrange 
+            var expectedGrantTotal = new WinLoss();
+
+            // Act
+            var actualGrantTotal = new WinLossViewModel(new List<WinLoss>()).GrantTotal;
 
             // Assert
             AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);

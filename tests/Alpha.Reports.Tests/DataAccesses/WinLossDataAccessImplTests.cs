@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Constants;
     using Database.WinLoss;
     using Extensions;
     using Fanex.Data;
@@ -15,7 +14,6 @@
     using Reports.Models;
     using Reports.Models.Winloss;
     using Reports.Models.WinlossDetails;
-    using Reports.Services;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -24,12 +22,13 @@
         private readonly IObjectDb objectDb;
         private readonly WinLossDataAccessImpl winLossDataAccessImpl;
 
+        private readonly DateTime currentDate = new DateTime(2016, 12, 28);
+
         public WinLossDataAccessImplTests()
         {
             objectDb = Substitute.For<IObjectDb>();
             winLossDataAccessImpl = new WinLossDataAccessImpl();
             ObjectDbFactory.CreateInstance = (settingKey) => objectDb;
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
         }
 
         [Fact]
@@ -47,7 +46,7 @@
         {
             // Arrange
             var userlevel = Enumeration.FromValue<UserLevel>(4);
-            var winLossCriteria = new WinLossCriteria(0, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, null, userlevel);
+            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
 
             var dataSet = WinLossDatabase.MasterWinLoss.CreateDataReader();
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -70,7 +69,7 @@
         {
             // Arrange
             var userlevel = Enumeration.FromValue<UserLevel>(3);
-            var winLossCriteria = new WinLossCriteria(0, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, null, userlevel);
+            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
 
             var dataSet = WinLossDatabase.AgentWinLoss.CreateDataReader();
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -93,7 +92,7 @@
         {
             // Arrange
             var userlevel = Enumeration.FromValue<UserLevel>(2);
-            var winLossCriteria = new WinLossCriteria(0, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, null, userlevel);
+            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
 
             var dataSet = WinLossDatabase.MemberWinLoss.CreateDataReader();
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -116,7 +115,7 @@
         {
             // Arrange
             var userlevel = Enumeration.FromValue<UserLevel>(2);
-            var winLossCriteria = new WinLossCriteria(0, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, DateTimeManager.Now, null, userlevel);
+            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
 
             IDataReader dataReader = null;
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataReader);

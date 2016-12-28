@@ -269,14 +269,15 @@
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(userLevel: 4);
-            var winlossReportData = Enumerable.Empty<WinLoss>();
+            var winlossReportData = new List<WinLoss>();
+            var winlossViewModel = new WinLossViewModel(winlossReportData);
 
             // Act
             winLossHandler.Handle(message);
 
             // Assert
             winlossWorkbook.Received().Body(
-                Arg.Is<IEnumerable<WinLoss>>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossReportData)),
+                Arg.Is<IEnumerable<WinLoss>>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossViewModel.ReportData)),
                 Arg.Any<Mapper<WinLoss>>());
         }
 
@@ -292,7 +293,7 @@
 
             // Assert
             winlossWorkbook.Received().Footer(
-                Arg.Is<WinLoss>(winlossViewModel.GrantTotal),
+                Arg.Is<WinLoss>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossViewModel.GrantTotal)),
                 Arg.Any<Mapper<WinLoss>>());
         }
 

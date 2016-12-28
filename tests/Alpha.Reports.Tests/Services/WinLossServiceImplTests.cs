@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Constants;
     using Extensions;
     using Fanex.Data.Repository;
     using Fixtures;
@@ -11,7 +10,6 @@
     using RemotingRef;
     using Reports.Criteria.WinLoss;
     using Reports.DataAccesses;
-    using Reports.Enumerations;
     using Reports.Models;
     using Reports.Models.Winloss;
     using Reports.Params;
@@ -31,6 +29,7 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly FanexCacheFixture fanexCacheFixture;
         private readonly CacheRefService cacheRefService;
+        private readonly DateTime currentDate = new DateTime(2016, 12, 28);
 
         public WinLossServiceImplTests(FanexCacheFixture fanexCacheFixture)
         {
@@ -42,7 +41,6 @@
             winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, dataAccess, dynamicRepository, cacheRefService);
 
             this.fanexCacheFixture = fanexCacheFixture;
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
         }
 
         [Fact]
@@ -61,10 +59,10 @@
             // Arrange
             WinLossParam param = new WinLossParam(
                 0,
-                DateTimeManager.Now.AddYears(-4),
-                DateTimeManager.Now,
+                currentDate.AddYears(-4),
+                currentDate,
                 Enumerable.Empty<int>(),
-                Enumeration.FromValue<UserLevel>(4),
+                UserLevel.Super,
                 false);
 
             var expectedData = Enumerable.Empty<WinLoss>();
@@ -82,10 +80,10 @@
             // Arrange
             WinLossParam param = new WinLossParam(
                 0,
-                DateTimeManager.Now,
-                DateTimeManager.Now,
+                currentDate,
+                currentDate,
                 Enumerable.Empty<int>(),
-                Enumeration.FromValue<UserLevel>(4),
+                UserLevel.Super,
                 false);
 
             var expectedData = Enumerable.Empty<WinLoss>();
@@ -104,10 +102,10 @@
             // Arrange
             WinLossParam param = new WinLossParam(
                 0,
-                DateTimeManager.Now,
-                DateTimeManager.Now,
+                currentDate,
+                currentDate,
                 Enumerable.Empty<int>(),
-                Enumeration.FromValue<UserLevel>(4),
+                UserLevel.Super,
                 false);
 
             // Act

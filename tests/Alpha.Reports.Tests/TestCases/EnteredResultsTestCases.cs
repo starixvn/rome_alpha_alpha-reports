@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Reports.Models.Winloss;
-    using Reports.Services;
 
     public static class EnteredResultsTestCases
     {
