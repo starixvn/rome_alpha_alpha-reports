@@ -16,7 +16,7 @@
             get
             {
                 return new DailyEnteredSport(
-                    isToday: 0,
+                    isToday: false,
                     eventDate: new DateTime(2016, 12, 1),
                     sportType: 1,
                     entered: 5,
@@ -29,7 +29,7 @@
             get
             {
                 return new DailyEnteredSport(
-                    isToday: 1,
+                    isToday: true,
                     eventDate: new DateTime(2016, 12, 2),
                     sportType: 1,
                     entered: 5,
@@ -42,7 +42,7 @@
             get
             {
                 return new DailyEnteredSport(
-                   isToday: 0,
+                   isToday: false,
                    eventDate: new DateTime(2016, 12, 1),
                    sportType: 2,
                    entered: 5,
@@ -55,7 +55,7 @@
             get
             {
                 return new DailyEnteredSport(
-                    isToday: 1,
+                    isToday: true,
                     eventDate: new DateTime(2016, 12, 2),
                     sportType: 2,
                     entered: 5,
@@ -76,19 +76,19 @@
             return dailyEnteredSportData;
         }
 
-        public static List<EnteredSportResult> BuildEnteredSportResultData()
+        public static List<EnteredMatchResult> BuildEnteredSportResultData()
         {
-            var enteredSportResultData = new List<EnteredSportResult>();
+            var enteredSportResultData = new List<EnteredMatchResult>();
 
             enteredSportResultData.Add(
-               new EnteredSportResult(
+               new EnteredMatchResult(
                    sportTypeId: 2,
                    sportName: "BasketBall",
                    enterSportToday: TodaydayDailyEnteredBasketball,
                    enterSportYesterday: YesterdayDailyEnteredBasketball));
 
             enteredSportResultData.Add(
-                new EnteredSportResult(
+                new EnteredMatchResult(
                     sportTypeId: 1,
                     sportName: "Soccer",
                     enterSportToday: TodayDailyEnteredSoccer,

@@ -17,6 +17,7 @@
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Params;
+    using Reports.Extensions;
     using Reports.Tests.TestCases;
     using Services;
     using Site.Handlers;
@@ -34,7 +35,7 @@
         private readonly WinLossService reportService;
 
         private readonly Workbook<WinLoss> winlossWorkbook;
-        private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
+        private readonly Workbook<EnteredMatchResult> enteredSportResultWorkbook;
         private readonly WinLossHandler winLossHandler;
         private readonly IUserSession userSession;
 
@@ -52,10 +53,10 @@
             winlossWorkbook.Footer(Arg.Any<WinLoss>(), Arg.Any<Mapper<WinLoss>>()).Returns(winlossWorkbook);
             winlossWorkbook.Sheet(Arg.Any<string>()).Returns(winlossWorkbook);
 
-            enteredSportResultWorkbook = Substitute.For<Workbook<EnteredSportResult>>();
+            enteredSportResultWorkbook = Substitute.For<Workbook<EnteredMatchResult>>();
             enteredSportResultWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(enteredSportResultWorkbook);
             enteredSportResultWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(enteredSportResultWorkbook);
-            enteredSportResultWorkbook.Body(Arg.Any<IEnumerable<EnteredSportResult>>(), Arg.Any<Mapper<EnteredSportResult>>()).Returns(enteredSportResultWorkbook);
+            enteredSportResultWorkbook.Body(Arg.Any<IEnumerable<EnteredMatchResult>>(), Arg.Any<Mapper<EnteredMatchResult>>()).Returns(enteredSportResultWorkbook);
             enteredSportResultWorkbook.Sheet(Arg.Any<string>()).Returns(enteredSportResultWorkbook);
 
             userSession = Substitute.For<IUserSession>();
@@ -92,7 +93,7 @@
                 FromDate = DateTimeManager.Now,
                 ToDate = DateTimeManager.Now,
                 Language = message.Language,
-                ReportData = Enumerable.Empty<EnteredSportResult>(),
+                ReportData = Enumerable.Empty<EnteredMatchResult>(),
                 UserSelectedDateRangeOption = 0
             };
 
@@ -149,32 +150,19 @@
         }
 
         [Fact]
-        public void HandleExportEnteredResultQuery_ExportsCorrectHeader()
-        {
-            // Arrange
-            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
-
-            // Act
-            winLossHandler.Handle(message);
-
-            // Assert
-            enteredSportResultWorkbook.Received().Header(Arg.Is<Func<string, string>>(ExcelHelper.HeaderTitleMapping));
-        }
-
-        [Fact]
         public void HandleExportEnteredResultQuery_ExportsCorrectBody()
         {
             // Arrange
             var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
-            var enteredResultReportData = Enumerable.Empty<EnteredSportResult>();
+            var enteredResultReportData = Enumerable.Empty<EnteredMatchResult>();
 
             // Act
             winLossHandler.Handle(message);
 
             // Assert
             enteredSportResultWorkbook.Received().Body(
-                Arg.Is<IEnumerable<EnteredSportResult>>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(enteredResultReportData)),
-                Arg.Any<Mapper<EnteredSportResult>>());
+                Arg.Is<IEnumerable<EnteredMatchResult>>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(enteredResultReportData)),
+                Arg.Any<Mapper<EnteredMatchResult>>());
         }
 
         [Fact]

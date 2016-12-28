@@ -119,9 +119,9 @@
         public void GetEnteredSportResults_IsValid_ReturnsDefaultReportData()
         {
             // Arrange
-            var expectedData = Enumerable.Empty<EnteredSportResult>();
+            var expectedData = Enumerable.Empty<EnteredMatchResult>();
 
-            IEnumerable<EnteredSportResult> cachedEnteredSportResult;
+            IEnumerable<EnteredMatchResult> cachedEnteredSportResult;
             fanexCacheFixture.CacheForTesting.TryGet(EnteredResultsCacheKey, out cachedEnteredSportResult).Returns(false);
 
             var dataEnteredSport = Enumerable.Empty<DailyEnteredSport>();
@@ -138,7 +138,7 @@
         [MemberData("EnteredResultsSources", MemberType = typeof(EnteredResultsTestCases))]
         public void GetDataEnteredSportResults_IsValid_ReturnsReportData(
             List<DailyEnteredSport> dailyEnteredSportData,
-            List<EnteredSportResult> expectedEnteredSportResultData)
+            List<EnteredMatchResult> expectedEnteredSportResultData)
         {
             // Arrange
             dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dailyEnteredSportData);
@@ -156,7 +156,7 @@
         public void GetDataEnteredSportResults_DailyEnteredSportEmpty_ReturnsDefaultReportData()
         {
             // Arrange
-            var expectedEnteredSportResultData = Enumerable.Empty<EnteredSportResult>();
+            var expectedEnteredSportResultData = Enumerable.Empty<EnteredMatchResult>();
             var dailyEnteredSportData = Enumerable.Empty<DailyEnteredSport>();
             dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dailyEnteredSportData);
 

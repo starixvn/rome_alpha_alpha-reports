@@ -5,13 +5,13 @@
     public class DailyEnteredSport
     {
         public DailyEnteredSport(
-            int isToday,
+            bool isToday,
             DateTime eventDate,
             int sportType,
             int entered,
             int nonEntered)
         {
-            IsToday = !isToday.Equals(0);
+            IsToday = isToday;
             EventDate = eventDate;
             SportType = sportType;
             Entered = entered;

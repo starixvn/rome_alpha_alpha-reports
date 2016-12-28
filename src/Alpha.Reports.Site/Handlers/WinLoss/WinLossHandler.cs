@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using App_GlobalResources;
@@ -30,13 +31,13 @@
         private readonly ProductService productService;
         private readonly WinLossService reportService;
         private readonly Workbook<Models.WinLoss> winlossWorkbook;
-        private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
+        private readonly Workbook<EnteredMatchResult> enteredSportResultWorkbook;
         private readonly IUserSession userSession;
 
         public WinLossHandler(
             ProductService productService,
             WinLossService reportService,
-            Workbook<EnteredSportResult> enteredSportResultWorkbook,
+            Workbook<EnteredMatchResult> enteredSportResultWorkbook,
             Workbook<Models.WinLoss> workbook,
             IUserSession userSession)
         {
@@ -54,6 +55,12 @@
 
         public ExcelFileViewModel Handle(EnteredMatchResultExcelQuery message)
         {
+            var resources = new Dictionary<string, string>
+            {
+                ["Yesterday"] = DateTimeManager.Now.AddDays(-1).ToShortDateWithSlash(),
+                ["Today"] = DateTimeManager.Now.ToShortDateWithSlash()
+            };
+
             var enteredResultViewModel = BuildEnteredResultViewModel(message);
 
             var templateInfo = new TemplateInfo(
@@ -66,7 +73,7 @@
 
             var result = enteredSportResultWorkbook
                .UseTemplate(templateInfo)
-               .Header(ExcelHelper.HeaderTitleMapping)
+               .Header(key => resources.ContainsKey(key) ? resources[key] : Resources.ResourceManager.GetString(key))
                .Body(enteredResultViewModel.ReportData, GetEnteredSportResultRowMapper())
                .Sheet(enteredResultViewModel.Title)
                .ExportToBytes();
@@ -235,9 +242,9 @@
             return mapper;
         }
 
-        private Mapper<EnteredSportResult> GetEnteredSportResultRowMapper()
+        private Mapper<EnteredMatchResult> GetEnteredSportResultRowMapper()
         {
-            var mapper = new Mapper<EnteredSportResult>()
+            var mapper = new Mapper<EnteredMatchResult>()
                 .Map(Column.A, enteredSportResult => enteredSportResult.SportName)
                 .Map(Column.B, enteredSportResult => enteredSportResult.EnterSportYesterday?.Entered ?? 0)
                 .Map(Column.C, enteredSportResult => enteredSportResult.EnterSportYesterday?.NonEntered ?? 0)
