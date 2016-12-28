@@ -11,6 +11,9 @@
         {
         }
 
+        [Route("winlossdetail/super")]
+        [Route("winlossdetail/master")]
+        [Route("winlossdetail/agent")]
         public ActionResult Index(WinLossDetailQuery message)
             => View(mediator.Send(message));
 

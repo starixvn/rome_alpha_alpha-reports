@@ -12,6 +12,9 @@
         {
         }
 
+        [Route("enteredresult/super")]
+        [Route("enteredresult/master")]
+        [Route("enteredresult/agent")]
         public ActionResult EnteredResult(EnteredMatchResultQuery message)
             => View(mediator.Send(message));
 
