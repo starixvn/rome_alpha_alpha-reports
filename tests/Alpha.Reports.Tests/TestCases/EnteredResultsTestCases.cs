@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.TestCases
 {
+    using System;
     using System.Collections.Generic;
     using Reports.Models.Winloss;
     using Reports.Services;
@@ -17,7 +18,7 @@
             {
                 return new DailyEnteredSport(
                     isToday: 0,
-                    eventDate: DateTimeManager.Now.AddDays(-1),
+                    eventDate: new DateTime(2016, 12, 1),
                     sportType: 1,
                     entered: 5,
                     nonEntered: 6);
@@ -30,7 +31,7 @@
             {
                 return new DailyEnteredSport(
                     isToday: 1,
-                    eventDate: DateTimeManager.Now,
+                    eventDate: new DateTime(2016, 12, 2),
                     sportType: 1,
                     entered: 5,
                     nonEntered: 6);
@@ -43,7 +44,7 @@
             {
                 return new DailyEnteredSport(
                    isToday: 0,
-                   eventDate: DateTimeManager.Now.AddDays(-1),
+                   eventDate: new DateTime(2016, 12, 1),
                    sportType: 2,
                    entered: 5,
                    nonEntered: 6);
@@ -56,7 +57,7 @@
             {
                 return new DailyEnteredSport(
                     isToday: 1,
-                    eventDate: DateTimeManager.Now,
+                    eventDate: new DateTime(2016, 12, 2),
                     sportType: 2,
                     entered: 5,
                     nonEntered: 6);
