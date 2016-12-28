@@ -34,7 +34,7 @@
             winLossController.EnteredResult(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is<EnteredResultQuery>(m => message == m));
+            mediator.Received().Send(Arg.Is<EnteredResultQuery>(message));
         }
 
         [Fact]
@@ -48,7 +48,7 @@
             winLossController.EnteredResultExcel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<ExportEnteredResultQuery>(m => message == m));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<ExportEnteredResultQuery>(message));
         }
 
         [Fact]
@@ -61,7 +61,7 @@
             winLossController.WinLoss(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is<WinLossQuery>(m => message == m));
+            mediator.Received().Send(Arg.Is<WinLossQuery>(message));
         }
 
         [Fact]
@@ -75,7 +75,7 @@
             winLossController.WinLossExcel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<ExportWinLossQuery>(m => message == m));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<ExportWinLossQuery>(message));
         }
     }
 }

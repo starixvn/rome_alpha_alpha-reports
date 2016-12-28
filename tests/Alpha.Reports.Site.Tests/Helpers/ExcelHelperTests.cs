@@ -85,7 +85,7 @@
             ExcelHelper.HeaderTitleMapping(resourceKey);
 
             // Assert
-            resourceManager.Received().GetString(Arg.Is<string>(s => string.Equals(resourceKey, s)));
+            resourceManager.Received().GetString(Arg.Is<string>(resourceKey));
         }
     }
 }

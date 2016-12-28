@@ -171,7 +171,7 @@
             winLossDetailHandler.Handle(message);
 
             // Assert
-            workbook.Received().Title(Arg.Is<string>(s => string.Equals(s, "Master Win Loss Detail 12/02/2016 --> 12/02/2016 of Product Name")));
+            workbook.Received().Title(Arg.Is<string>("Master Win Loss Detail 12/02/2016 --> 12/02/2016 of Product Name"));
         }
 
         [Fact]
@@ -184,7 +184,7 @@
             winLossDetailHandler.Handle(message);
 
             // Assert
-            workbook.Received().Header(Arg.Is<Func<string, string>>(func => func == ExcelHelper.HeaderTitleMapping));
+            workbook.Received().Header(Arg.Is<Func<string, string>>(ExcelHelper.HeaderTitleMapping));
         }
 
         [Fact]
@@ -198,7 +198,7 @@
 
             // Assert
             workbook.Received().Body(
-                Arg.Is<IEnumerable<WinLossDetail>>(dataSource => dataSource == reportData.DataSource),
+                Arg.Is<IEnumerable<WinLossDetail>>(reportData.DataSource),
                 Arg.Any<Mapper<WinLossDetail>>());
         }
 
@@ -212,7 +212,7 @@
             winLossDetailHandler.Handle(message);
 
             // Assert
-            workbook.Received().Footer(Arg.Is<WinLossDetail>(total => total == reportData.TotalData), Arg.Any<Mapper<WinLossDetail>>());
+            workbook.Received().Footer(Arg.Is<WinLossDetail>(reportData.TotalData), Arg.Any<Mapper<WinLossDetail>>());
         }
 
         [Fact]
@@ -225,7 +225,7 @@
             winLossDetailHandler.Handle(message);
 
             // Assert
-            workbook.Received().Sheet(Arg.Is<string>(sheetName => sheetName == "Master Win Loss Detail"));
+            workbook.Received().Sheet(Arg.Is<string>("Master Win Loss Detail"));
         }
 
         [Fact]

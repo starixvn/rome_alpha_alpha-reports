@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Models
 {
     using System;
+    using Constants;
     using NSubstitute;
     using Reports.Models;
     using Xunit;
@@ -12,7 +13,7 @@
         {
             // Arrange
             var balanceUpDay = new DateTime(2000, 1, 1);
-            var date = new BalanceUpDayAndMoveBetsDay(balanceUpDay, Arg.Any<DateTime>());
+            var date = new BalanceUpDayAndMoveBetsDay(balanceUpDay, DefaultVariables.CurrentDate);
 
             // Act
             var actual = date.BalanceUpDay;
@@ -26,7 +27,7 @@
         {
             // Arrange
             var moveBetsDay = new DateTime(2000, 1, 1);
-            var date = new BalanceUpDayAndMoveBetsDay(Arg.Any<DateTime>(), moveBetsDay);
+            var date = new BalanceUpDayAndMoveBetsDay(DefaultVariables.CurrentDate, moveBetsDay);
 
             // Act
             var actual = date.MoveBetsDay;

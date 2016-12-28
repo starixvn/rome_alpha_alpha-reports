@@ -158,7 +158,7 @@
             winLossHandler.Handle(message);
 
             // Assert
-            enteredSportResultWorkbook.Received().Header(Arg.Is<Func<string, string>>(func => func == ExcelHelper.HeaderTitleMapping));
+            enteredSportResultWorkbook.Received().Header(Arg.Is<Func<string, string>>(ExcelHelper.HeaderTitleMapping));
         }
 
         [Fact]
@@ -187,7 +187,7 @@
             winLossHandler.Handle(message);
 
             // Assert
-            enteredSportResultWorkbook.Received().Sheet(Arg.Is<string>(sheetName => string.Equals(sheetName, "Master Win Loss")));
+            enteredSportResultWorkbook.Received().Sheet(Arg.Is<string>("Master Win Loss"));
         }
 
         [Fact]
@@ -248,7 +248,7 @@
             winLossHandler.Handle(message);
 
             // Assert
-            winlossWorkbook.Received().Title(Arg.Is<string>(s => string.Equals(s, "Master Win Loss 12/02/2016 --> 12/02/2016 of Product Name")));
+            winlossWorkbook.Received().Title(Arg.Is<string>("Master Win Loss 12/02/2016 --> 12/02/2016 of Product Name"));
         }
 
         [Fact]
@@ -261,7 +261,7 @@
             winLossHandler.Handle(message);
 
             // Assert
-            winlossWorkbook.Received().Header(Arg.Is<Func<string, string>>(func => func == ExcelHelper.HeaderTitleMapping));
+            winlossWorkbook.Received().Header(Arg.Is<Func<string, string>>(ExcelHelper.HeaderTitleMapping));
         }
 
         [Fact]
@@ -292,7 +292,7 @@
 
             // Assert
             winlossWorkbook.Received().Footer(
-                Arg.Is<WinLoss>(total => total == winlossViewModel.GrantTotal),
+                Arg.Is<WinLoss>(winlossViewModel.GrantTotal),
                 Arg.Any<Mapper<WinLoss>>());
         }
 
@@ -306,7 +306,7 @@
             winLossHandler.Handle(message);
 
             // Assert
-            winlossWorkbook.Received().Sheet(Arg.Is<string>(sheetName => string.Equals(sheetName, "Master Win Loss")));
+            winlossWorkbook.Received().Sheet(Arg.Is<string>("Master Win Loss"));
         }
 
         [Fact]

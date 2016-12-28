@@ -54,7 +54,7 @@
                 false);
 
             var reportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), param.PageIndex, param.PageSize, 0, new WinLossDetail());
-            dataAccess.GetData(Arg.Is<WinLossDetailCriteria>(criteria => criteria.CustId == 0)).Returns(reportData);
+            dataAccess.GetData(Arg.Any<WinLossDetailCriteria>()).Returns(reportData);
 
             var expectedReportData = reportData;
 
