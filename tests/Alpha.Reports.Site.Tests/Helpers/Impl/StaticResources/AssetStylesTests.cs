@@ -15,7 +15,7 @@
             SiteSettings.AppSettings = new NameValueCollection
             {
                 ["AssetAppPath"] = "AssetAppPath",
-                ["ContentApp:StaticResourcesVersion"] = "444"
+                ["AssetsApp:StaticResourcesVersion"] = "444"
             };
 
             BaseStaticResources.StaticResourcesVersion = "StaticResourcesVersion";

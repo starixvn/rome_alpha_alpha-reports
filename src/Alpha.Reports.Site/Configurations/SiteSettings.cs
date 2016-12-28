@@ -17,7 +17,7 @@
 
         public static string AssetAppPath => GetConfigValue("AssetAppPath");
 
-        public static string StaticResourcesVersion => GetConfigValue("ContentApp:StaticResourcesVersion");
+        public static string StaticResourcesVersion => GetConfigValue("AssetsApp:StaticResourcesVersion");
 
         internal static NameValueCollection AppSettings
         {
