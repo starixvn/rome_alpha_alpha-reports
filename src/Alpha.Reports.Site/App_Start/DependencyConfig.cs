@@ -66,28 +66,27 @@
         private static void RegisterServices(Container container)
         {
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
-            container.RegisterPerWebRequest<IUserSession, UserSessionExt>();
+            container.RegisterSingleton<IUserSession, UserSessionExt>();
+            container.RegisterSingleton<ReportDateService, ReportDateServiceImpl>();           
 
-            container.RegisterPerWebRequest<ReportDateService, ReportDateServiceImpl>();           
-
-            container.RegisterPerWebRequest<WinLossDetailService, WinLossDetailServiceImpl>();
-            container.RegisterPerWebRequest<WinLossService, WinLossServiceImpl>();
+            container.RegisterSingleton<WinLossDetailService, WinLossDetailServiceImpl>();
+            container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
 
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
                     UserPermission.HasPermissionOnProduct,
                     new CacheRefServiceImpl().GetProductName), 
-                Lifestyle.Scoped);
+                Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);           
         }
 
         private static void RegisterDataAccesses(Container container)
         {
-            container.RegisterPerWebRequest<IDynamicRepository, DynamicRepository>();
-            container.RegisterPerWebRequest<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
-            container.RegisterPerWebRequest<WinLossDataAccess, WinLossDataAccessImpl>();
+            container.RegisterSingleton<IDynamicRepository, DynamicRepository>();
+            container.RegisterSingleton<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
+            container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
         }
     }
 }
