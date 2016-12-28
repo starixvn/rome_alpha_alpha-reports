@@ -184,7 +184,7 @@
             winLossDetailHandler.Handle(message);
 
             // Assert
-            workbook.Received().Header(Arg.Is<Func<string, string>>(ExcelHelper.HeaderTitleMapping));
+            workbook.Received().Header(Arg.Any<Func<string, string>>());
         }
 
         [Fact]
