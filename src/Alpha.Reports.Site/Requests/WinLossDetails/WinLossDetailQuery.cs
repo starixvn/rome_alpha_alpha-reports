@@ -19,12 +19,9 @@
         {
             this.userSession = userSession ?? new UserSessionExt();
 
-            if (CustId <= 0)
-            {
-                CustId = this.userSession.CustId;
-                CustName = this.userSession.UserName;
-                UserLevelId = this.userSession.RoleId;
-            }
+            CustId = this.userSession.CustId;
+            CustName = this.userSession.UserName;
+            UserLevelId = this.userSession.RoleId;
 
             Language = this.userSession.Language;
         }

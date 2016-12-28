@@ -15,11 +15,8 @@
         {
             var session = userSession ?? new UserSessionExt();
 
-            if (CustId <= 0)
-            {
-                CustId = session.CustId;
-                UserLevelId = session.RoleId;
-            }
+            CustId = session.CustId;
+            UserLevelId = session.RoleId;
 
             Language = session.Language;
         }
