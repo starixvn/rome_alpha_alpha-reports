@@ -24,6 +24,21 @@
         }
 
         [Fact]
+        public void Add_NullWinLossB_ReturnWinLossA()
+        {
+            // Arrange
+            WinLoss winLossB = null;
+            var winLossA = new WinLoss();
+            var expectedWinLoss = winLossA;
+
+            // Act
+            var actuaWinLoss = WinLoss.Add(winLossA, winLossB);
+
+            // Assert
+            AssertExtension.Equal(expectedWinLoss, actuaWinLoss);
+        }
+
+        [Fact]
         public void Add_ValidWinLoss_ReturnCorrectData()
         {
             // Arrange
