@@ -110,6 +110,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collection\FanexCacheCollection.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\DefaultVariablesTests.cs" />
     <Compile Include="Constants\RoleId.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
+    <Compile Include="Fixtures\FanexCacheFixture.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="ModelsForTesting\UserLevelForTesting.cs" />

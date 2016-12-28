@@ -50,7 +50,7 @@
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("  ")]
-        public void Verify_NullOrWhiteSpaceAccessDeniedPage_ThrowsInvalidOperationException(string storeProcedurePath)
+        public void Verify_NullOrWhiteSpaceStoreProcedurePath_ThrowsInvalidOperationException(string storeProcedurePath)
         {
             // Arrange
             SiteSettings.AppSettings = new NameValueCollection
@@ -84,6 +84,49 @@
             Assert.Equal("path is null or whitespace", ex.Message);
         }
 
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("  ")]
+        public void Verify_NullOrWhiteSpaceAccessDeniedPage_ThrowsInvalidOperationException(string accessDeniedPage)
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["OldMainAppPath"] = "OldMainAppPath",
+                ["StoreProcedurePath"] = "StoreProcedurePath",
+                ["AssetAppPath"] = "AssetAppPath",
+                ["AccessDeniedPage"] = accessDeniedPage
+            };
+
+            // Act & Assert
+            Exception ex = Assert.Throws<InvalidOperationException>(() => SiteSettings.Verify());
+            Assert.Equal("path is null or whitespace", ex.Message);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("  ")]
+        public void Verify_NullOrWhiteSpaceStaticResourcesVersion_ThrowsInvalidOperationException(string staticResourcesVersion)
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["OldMainAppPath"] = "OldMainAppPath",
+                ["StoreProcedurePath"] = "StoreProcedurePath",
+                ["AssetAppPath"] = "AssetAppPath",
+                ["AccessDeniedPage"] = "AccessDeniedPage",
+                ["AssetsApp:StaticResourcesVersion"] = staticResourcesVersion
+            };
+
+            // Act & Assert
+            Exception ex = Assert.Throws<InvalidOperationException>(() => SiteSettings.Verify());
+            Assert.Equal("path is null or whitespace", ex.Message);
+        }
+
         [Fact]
         public void Verify_HasRequiredSettings_NotThrowsInvalidOperationException()
         {
@@ -92,7 +135,9 @@
             {
                 ["OldMainAppPath"] = "OldMainAppPath",
                 ["StoreProcedurePath"] = "StoreProcedurePath",
-                ["AssetAppPath"] = "AssetAppPath"
+                ["AssetAppPath"] = "AssetAppPath",
+                ["AccessDeniedPage"] = "AccessDeniedPage",
+                ["AssetsApp:StaticResourcesVersion"] = "AssetsApp:StaticResourcesVersion"
             };
 
             // Act
@@ -110,7 +155,9 @@
             {
                 ["OldMainAppPath"] = string.Empty,
                 ["StoreProcedurePath"] = string.Empty,
-                ["AssetAppPath"] = string.Empty
+                ["AssetAppPath"] = string.Empty,
+                ["AccessDeniedPage"] = string.Empty,
+                ["AssetsApp:StaticResourcesVersion"] = string.Empty
             };
 
             // Act

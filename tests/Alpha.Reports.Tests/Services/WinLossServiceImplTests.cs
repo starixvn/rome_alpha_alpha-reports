@@ -5,8 +5,8 @@
     using System.Linq;
     using Constants;
     using Extensions;
-    using Fanex.Caching;
     using Fanex.Data.Repository;
+    using Fixtures;
     using NSubstitute;
     using RemotingRef;
     using Reports.Criteria.WinLoss;
@@ -21,6 +21,7 @@
     using Xunit;
 
     [Trait("Category", "WinLoss")]
+    [Collection("FanexCacheCollection")]
     public class WinLossServiceImplTests
     {
         private const string EnteredResultsCacheKey = "Alpha.Reports.Services.Impl.WinLossServiceImpl.EnteredResults";
@@ -28,10 +29,10 @@
         private readonly WinLossDataAccess dataAccess;
         private readonly WinLossServiceImpl winLossServiceImpl;
         private readonly IDynamicRepository dynamicRepository;
-        private readonly Cache cacheForTesting;
+        private readonly FanexCacheFixture fanexCacheFixture;
         private readonly CacheRefService cacheRefService;
 
-        public WinLossServiceImplTests()
+        public WinLossServiceImplTests(FanexCacheFixture fanexCacheFixture)
         {
             dynamicRepository = Substitute.For<IDynamicRepository>();
             var reportDateService = Substitute.For<ReportDateService>();
@@ -40,8 +41,7 @@
             cacheRefService = Substitute.For<CacheRefService>();
             winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, dataAccess, dynamicRepository, cacheRefService);
 
-            cacheForTesting = Substitute.For<Cache>();
-            CacheService.SwitchCacheStorage(cacheForTesting);
+            this.fanexCacheFixture = fanexCacheFixture;
             DateTimeManager.Now = DefaultVariables.CurrentDate;
         }
 
@@ -124,7 +124,7 @@
             var expectedData = Enumerable.Empty<EnteredSportResult>();
 
             IEnumerable<EnteredSportResult> cachedEnteredSportResult;
-            cacheForTesting.TryGet(EnteredResultsCacheKey, out cachedEnteredSportResult).Returns(false);
+            fanexCacheFixture.CacheForTesting.TryGet(EnteredResultsCacheKey, out cachedEnteredSportResult).Returns(false);
 
             var dataEnteredSport = Enumerable.Empty<DailyEnteredSport>();
             dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dataEnteredSport);

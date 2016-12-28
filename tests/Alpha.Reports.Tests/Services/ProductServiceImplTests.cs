@@ -3,20 +3,22 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Caching;
     using Fanex.Data.Repository;
+    using Fixtures;
     using NSubstitute;
     using Reports.Criteria;
     using Reports.Models;
     using Reports.Services.Impl;
     using Xunit;
 
+    [Collection("FanexCacheCollection")]
     public class ProductServiceImplTests
     {
         private const string ProductCacheKey = "Alpha.Reports.Services.Impl.ProductsForCustomer";
 
         private readonly IDynamicRepository dynamicRepository;
-        private readonly Cache cacheForTesting;
+        private readonly FanexCacheFixture fanexCacheFixture;
+
         private readonly IEnumerable<Product> allCustomerProductIds = new List<Product>()
         {
             new Product(1, "Product 1"),
@@ -26,15 +28,13 @@
 
         private ProductServiceImpl productServiceImpl;
 
-        public ProductServiceImplTests()
+        public ProductServiceImplTests(FanexCacheFixture fanexCacheFixture)
         {
+            this.fanexCacheFixture = fanexCacheFixture;
             Func<int, bool> canViewProduct = (productId) => true;
             Func<int, string> getProductName = (productId) => $"Product {productId}";
             dynamicRepository = Substitute.For<IDynamicRepository>();
             productServiceImpl = new ProductServiceImpl(dynamicRepository, canViewProduct, getProductName);
-
-            cacheForTesting = Substitute.For<Cache>();
-            CacheService.SwitchCacheStorage(cacheForTesting);
         }
 
         [Theory]
@@ -65,7 +65,7 @@
             var expectedProductIds = allCustomerProductIds.Select(product => product.Id);
 
             IEnumerable<Product> cachedProducts;
-            cacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
+            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
 
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
 
@@ -103,7 +103,7 @@
             var expectedProductIds = allCustomerProductIds.Select(product => product.Id);
 
             IEnumerable<Product> cachedProducts;
-            cacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
+            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
 
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
 

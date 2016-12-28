@@ -33,6 +33,8 @@
             CheckNullOrWhiteSpace(OldMainAppPath);
             CheckNullOrWhiteSpace(StoreProcedurePath);
             CheckNullOrWhiteSpace(AssetAppPath);
+            CheckNullOrWhiteSpace(AccessDeniedPage);
+            CheckNullOrWhiteSpace(StaticResourcesVersion);
         }
 
         private static void CheckNullOrWhiteSpace(string path)

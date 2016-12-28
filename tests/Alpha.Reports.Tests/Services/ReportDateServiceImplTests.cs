@@ -3,12 +3,14 @@
     using System;
     using Fanex.Caching;
     using Fanex.Data.Repository;
+    using Fixtures;
     using NSubstitute;
     using Reports.Criteria;
     using Reports.Models;
     using Reports.Services.Impl;
     using Xunit;
 
+    [Collection("FanexCacheCollection")]
     public class ReportDateServiceImplTests
     {
         private const string BalanceUpDayAndMoveBetsDayCacheKey = "Alpha.Reports.BalanceUpDayAndMoveBetsDay";
@@ -16,24 +18,24 @@
         private readonly ReportDateServiceImpl service;
         private readonly DateTime balanceUpDay;
         private readonly DateTime moveBetsDay;
-        private readonly Cache cacheForTesting;
+        private readonly FanexCacheFixture fanexCacheFixture;
         private BalanceUpDayAndMoveBetsDay dataInCache;
 
-        public ReportDateServiceImplTests()
+        public ReportDateServiceImplTests(FanexCacheFixture fanexCacheFixture)
         {
-            cacheForTesting = Substitute.For<Cache>();
+            this.fanexCacheFixture = fanexCacheFixture;
+
             BalanceUpDayAndMoveBetsDay balanceUpDayAndMoveBetsDay;
             balanceUpDay = new DateTime(2000, 1, 1);
             moveBetsDay = new DateTime(2010, 1, 1);
             dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
-            cacheForTesting.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
+            fanexCacheFixture.CacheForTesting.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
             {
                 x[1] = dataInCache;
 
                 return dataInCache != null;
             });
 
-            CacheService.SwitchCacheStorage(cacheForTesting);
             CacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
 
             repository = Substitute.For<IDynamicRepository>();
@@ -80,8 +82,8 @@
             service.GetBalanceUpDayAndMoveBetsDay();
 
             // Assert
-            cacheForTesting.Received().Set(
-                BalanceUpDayAndMoveBetsDayCacheKey,
+            fanexCacheFixture.CacheForTesting.Received().Set(
+                Arg.Is(BalanceUpDayAndMoveBetsDayCacheKey),
                 Arg.Is<BalanceUpDayAndMoveBetsDay>(data => data.BalanceUpDay == balanceUpDay && data.MoveBetsDay == moveBetsDay),
                 Arg.Any<CacheItemOptions>());
         }
