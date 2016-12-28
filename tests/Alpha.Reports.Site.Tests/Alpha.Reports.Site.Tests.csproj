@@ -161,7 +161,9 @@
     <Compile Include="Requests\WinLossDetails\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossDetails\WinLossDetailFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLoss\WinLossFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailsActionLinkViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetails\WinLossDetailViewModelTests.cs" />
