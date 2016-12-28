@@ -8,15 +8,15 @@
     using Sunplus.Agent.Model.Entities;
     using ViewModels;
 
-    public class ExportWinLossDetailQuery : WinLossDetailQuery, IRequest<ExcelFileViewModel>
+    public class WinLossDetailExcelQuery : WinLossDetailQuery, IRequest<ExcelFileViewModel>
     {
         private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLossDetail/";
 
-        public ExportWinLossDetailQuery() : this(null)
+        public WinLossDetailExcelQuery() : this(null)
         {
         }
 
-        public ExportWinLossDetailQuery(IUserSession userSession) : base(userSession)
+        public WinLossDetailExcelQuery(IUserSession userSession) : base(userSession)
         {
             PageIndex = DefaultVariables.PageIndex;
             PageSize = DefaultVariables.PageSize;

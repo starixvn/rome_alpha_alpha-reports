@@ -22,7 +22,7 @@
     public class WinLossDetailHandler :
         BaseHandler,
         IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>,
-        IRequestHandler<ExportWinLossDetailQuery, ExcelFileViewModel>
+        IRequestHandler<WinLossDetailExcelQuery, ExcelFileViewModel>
     {
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
@@ -110,7 +110,7 @@
             return viewModel;
         }
 
-        public ExcelFileViewModel Handle(ExportWinLossDetailQuery message)
+        public ExcelFileViewModel Handle(WinLossDetailExcelQuery message)
         {
             if (message == null)
             {
@@ -164,7 +164,7 @@
                  message.IsHistoricReport);
         }
 
-        private Mapper<WinLossDetail> GetRowMapper(ExportWinLossDetailQuery message, bool isTotal)
+        private Mapper<WinLossDetail> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossDetail>()
                 .Map(Column.A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)

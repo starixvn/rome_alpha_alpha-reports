@@ -28,27 +28,27 @@
         public void EnteredResult_Always_CallsMediatorSendEnteredResultQuery()
         {
             // Arrange
-            var message = new EnteredResultQuery(userSession);
+            var message = new EnteredMatchResultQuery(userSession);
 
             // Act
             winLossController.EnteredResult(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is<EnteredResultQuery>(message));
+            mediator.Received().Send(Arg.Is<EnteredMatchResultQuery>(message));
         }
 
         [Fact]
         public void EnteredResultExcel_Always_CallsMediatorSendExportEnteredResultQuery()
         {
             // Arrange
-            var message = new ExportEnteredResultQuery(userSession);
-            mediator.Send<ExcelFileViewModel>(Arg.Any<ExportEnteredResultQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
+            var message = new Site.Requests.WinLoss.EnteredMatchResultExcelQuery(userSession);
+            mediator.Send<ExcelFileViewModel>(Arg.Any<EnteredMatchResultExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
             winLossController.EnteredResultExcel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<ExportEnteredResultQuery>(message));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<Site.Requests.WinLoss.EnteredMatchResultExcelQuery>(message));
         }
 
         [Fact]
@@ -68,14 +68,14 @@
         public void WinLossExcel_Always_CallsMediatorSendExportWinLossQuery()
         {
             // Arrange
-            var message = new ExportWinLossQuery(userSession);
-            mediator.Send<ExcelFileViewModel>(Arg.Any<ExportWinLossQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
+            var message = new WinLossExcelQuery(userSession);
+            mediator.Send<ExcelFileViewModel>(Arg.Any<WinLossExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
             winLossController.WinLossExcel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<ExportWinLossQuery>(message));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<WinLossExcelQuery>(message));
         }
     }
 }

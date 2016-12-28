@@ -5,15 +5,15 @@
     using Sunplus.Agent.Model.Entities;
     using ViewModels;
 
-    public class ExportEnteredResultQuery : EnteredResultQuery, IRequest<ExcelFileViewModel>
+    public class EnteredMatchResultExcelQuery : EnteredMatchResultQuery, IRequest<ExcelFileViewModel>
     {
         private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLoss/MatchResultEntered.xls";
 
-        public ExportEnteredResultQuery() : this(null)
+        public EnteredMatchResultExcelQuery() : this(null)
         {
         }
 
-        public ExportEnteredResultQuery(IUserSession userSession) : base(userSession)
+        public EnteredMatchResultExcelQuery(IUserSession userSession) : base(userSession)
         {
         }
 

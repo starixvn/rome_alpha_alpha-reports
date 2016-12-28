@@ -3,47 +3,27 @@
     using System.Web.Mvc;
     using MediatR;
     using Requests.WinLoss;
-    using Requests.WinLossDetails;
     using ViewModels;
 
-    public class WinLossController : BaseReportController
+    public class WinLossController : ReportControllerBase
     {
-        private readonly IMediator mediator;
-
-        public WinLossController(
-            IMediator mediator)
+        public WinLossController(IMediator mediator) 
+            : base(mediator)
         {
-            this.mediator = mediator;
         }
 
-        public ActionResult EnteredResult(EnteredResultQuery message)
-        {
-            var viewModel = mediator.Send(message);
-
-            return View(viewModel);
-        }
+        public ActionResult EnteredResult(EnteredMatchResultQuery message)
+            => View(mediator.Send(message));
 
         [HttpGet]
-        public ActionResult EnteredResultExcel(ExportEnteredResultQuery message)
-        {
-            var excelFile = mediator.Send<ExcelFileViewModel>(message);
-
-            return File(excelFile.Content, excelFile.ContentType, excelFile.Name);
-        }
+        public ActionResult EnteredResultExcel(EnteredMatchResultExcelQuery message)
+            => ExcelFile(mediator.Send<ExcelFileViewModel>(message));
 
         public ActionResult WinLoss(WinLossQuery message)
-        {
-            var viewModel = mediator.Send(message);
-
-            return View(viewModel);
-        }
+            => View(mediator.Send(message));
 
         [HttpGet]
-        public ActionResult WinLossExcel(ExportWinLossQuery message)
-        {
-            var excelFile = mediator.Send<ExcelFileViewModel>(message);
-
-            return File(excelFile.Content, excelFile.ContentType, excelFile.Name);
-        }
+        public ActionResult WinLossExcel(WinLossExcelQuery message)
+            => ExcelFile(mediator.Send<ExcelFileViewModel>(message));      
     }
 }

@@ -14,22 +14,22 @@
     using ONEbook.SpreadSheets;
     using Params;
     using Requests.WinLoss;
-    using Requests.WinLossDetails;
     using Services;
     using Sunplus.Agent.Model.Entities;
     using ViewModels;
     using ViewModels.WinLoss;
+    using Models = Models.Winloss;
 
     public class WinLossHandler :
         BaseHandler,
-        IRequestHandler<EnteredResultQuery, EnteredResultViewModel>,
-        IRequestHandler<ExportEnteredResultQuery, ExcelFileViewModel>,
+        IRequestHandler<EnteredMatchResultQuery, EnteredResultViewModel>,
+        IRequestHandler<EnteredMatchResultExcelQuery, ExcelFileViewModel>,
         IRequestHandler<WinLossQuery, WinLossViewModel>,
-        IRequestHandler<ExportWinLossQuery, ExcelFileViewModel>
+        IRequestHandler<WinLossExcelQuery, ExcelFileViewModel>
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
-        private readonly Workbook<WinLoss> winlossWorkbook;
+        private readonly Workbook<Models.WinLoss> winlossWorkbook;
         private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
         private readonly IUserSession userSession;
 
@@ -37,7 +37,7 @@
             ProductService productService,
             WinLossService reportService,
             Workbook<EnteredSportResult> enteredSportResultWorkbook,
-            Workbook<WinLoss> workbook,
+            Workbook<Models.WinLoss> workbook,
             IUserSession userSession)
         {
             this.productService = productService;
@@ -47,12 +47,12 @@
             this.userSession = userSession;
         }
 
-        public EnteredResultViewModel Handle(EnteredResultQuery message)
+        public EnteredResultViewModel Handle(EnteredMatchResultQuery message)
         {
             return BuildEnteredResultViewModel(message);
         }
 
-        public ExcelFileViewModel Handle(ExportEnteredResultQuery message)
+        public ExcelFileViewModel Handle(EnteredMatchResultExcelQuery message)
         {
             var enteredResultViewModel = BuildEnteredResultViewModel(message);
 
@@ -81,7 +81,7 @@
             return BuildWinLossViewModel(message);
         }
 
-        public ExcelFileViewModel Handle(ExportWinLossQuery message)
+        public ExcelFileViewModel Handle(WinLossExcelQuery message)
         {
             if (message == null)
             {
@@ -114,7 +114,7 @@
                result);
         }
 
-        private EnteredResultViewModel BuildEnteredResultViewModel(EnteredResultQuery message)
+        private EnteredResultViewModel BuildEnteredResultViewModel(EnteredMatchResultQuery message)
         {
             if (message == null)
             {
@@ -196,9 +196,9 @@
             return viewModel;
         }
 
-        private Mapper<WinLoss> GetWinLossRowMapper(ExportWinLossQuery message, bool isTotal)
+        private Mapper<Models.WinLoss> GetWinLossRowMapper(WinLossExcelQuery message, bool isTotal)
         {
-            var mapper = new Mapper<WinLoss>()
+            var mapper = new Mapper<Models.WinLoss>()
                 .Map(Column.A, winLoss => isTotal ? Resources.Total : winLoss.CustName)
                 .Map(Column.B, winLoss => winLoss.Turnover)
                 .Map(Column.C, winLoss => winLoss.GrossComm);

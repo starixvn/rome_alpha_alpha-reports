@@ -138,7 +138,7 @@
         public void HandleExportWinLossDetailQuery_NullMessage_ThrowsArgumentNullException()
         {
             // Arrange
-            ExportWinLossDetailQuery nullMessage = null;
+            WinLossDetailExcelQuery nullMessage = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossDetailHandler.Handle(nullMessage));
@@ -267,9 +267,9 @@
             workbook.Received().ExportToBytes();
         }
 
-        private ExportWinLossDetailQuery CreateExportExcelQuery(byte userLevel)
+        private WinLossDetailExcelQuery CreateExportExcelQuery(byte userLevel)
         {
-            var result = new ExportWinLossDetailQuery(userSession);
+            var result = new WinLossDetailExcelQuery(userSession);
             result.UserLevelId = userLevel;
             result.FromDate = DefaultVariables.CurrentDate;
             result.ToDate = DefaultVariables.CurrentDate;

@@ -7,15 +7,15 @@
     using Sunplus.Agent.Model.Entities;
     using ViewModels;
 
-    public class ExportWinLossQuery : WinLossQuery, IRequest<ExcelFileViewModel>
+    public class WinLossExcelQuery : WinLossQuery, IRequest<ExcelFileViewModel>
     {
         private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLoss/";
 
-        public ExportWinLossQuery() : this(null)
+        public WinLossExcelQuery() : this(null)
         {
         }
 
-        public ExportWinLossQuery(IUserSession userSession) : base(userSession)
+        public WinLossExcelQuery(IUserSession userSession) : base(userSession)
         {
         }
 

@@ -72,7 +72,7 @@
         public void HandleEnteredResultQuery_NullMessage_ThrowsException()
         {
             // Arrange
-            EnteredResultQuery nullMessage = null;
+            EnteredMatchResultQuery nullMessage = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossHandler.Handle(nullMessage));
@@ -82,7 +82,7 @@
         public void HandleEnteredResultQuery_ValidMessage_ReturnsDefaultData()
         {
             // Arrange
-            var message = new EnteredResultQuery(userSession);
+            var message = new EnteredMatchResultQuery(userSession);
             message.UserLevelId = (byte)4;
             message.CustId = 1596;
 
@@ -107,7 +107,7 @@
         public void HandleExportEnteredResultQuery_NullMessage_ThrowsException()
         {
             // Arrange
-            ExportEnteredResultQuery nullMessage = null;
+            EnteredMatchResultExcelQuery nullMessage = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossHandler.Handle(nullMessage));
@@ -127,7 +127,7 @@
         public void HandleExportWinLossQuery_NullMessage_ThrowsException()
         {
             // Arrange
-            ExportWinLossQuery nullMessage = null;
+            WinLossExcelQuery nullMessage = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossHandler.Handle(nullMessage));
@@ -217,7 +217,7 @@
         public void HandleExportWinLossQuery_NullMessage_ThrowsArgumentNullException()
         {
             // Arrange
-            ExportWinLossQuery nullMessage = null;
+            WinLossExcelQuery nullMessage = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossHandler.Handle(nullMessage));
@@ -407,9 +407,9 @@
             AssertExtension.Equal(expectedWinLossViewModel, actualWinLossViewModel);
         }
 
-        private ExportWinLossQuery CreateExportWinlossExcelQuery(byte userLevel)
+        private WinLossExcelQuery CreateExportWinlossExcelQuery(byte userLevel)
         {
-            var exportWinLossQuery = new ExportWinLossQuery(userSession);
+            var exportWinLossQuery = new WinLossExcelQuery(userSession);
             exportWinLossQuery.UserLevelId = userLevel;
             exportWinLossQuery.FromDate = DefaultVariables.CurrentDate;
             exportWinLossQuery.ToDate = DefaultVariables.CurrentDate;
@@ -417,9 +417,9 @@
             return exportWinLossQuery;
         }
 
-        private ExportEnteredResultQuery CreateExportEnteredResultsExcelQuery(byte userLevel)
+        private EnteredMatchResultExcelQuery CreateExportEnteredResultsExcelQuery(byte userLevel)
         {
-            var exportEnteredResultQuery = new ExportEnteredResultQuery(userSession);
+            var exportEnteredResultQuery = new EnteredMatchResultExcelQuery(userSession);
             exportEnteredResultQuery.UserLevelId = userLevel;
 
             return exportEnteredResultQuery;

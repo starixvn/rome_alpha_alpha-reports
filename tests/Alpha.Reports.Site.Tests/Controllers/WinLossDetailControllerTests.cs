@@ -39,14 +39,14 @@
         public void Excel_Always_CallsMediatorSendExportWinLossDetailQuery()
         {
             // Arrange
-            var message = new ExportWinLossDetailQuery(userSession);
-            mediator.Send<ExcelFileViewModel>(Arg.Any<ExportWinLossDetailQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
+            var message = new WinLossDetailExcelQuery(userSession);
+            mediator.Send<ExcelFileViewModel>(Arg.Any<WinLossDetailExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
             winLossDetailController.Excel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<ExportWinLossDetailQuery>(message));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<WinLossDetailExcelQuery>(message));
         }
     }
 }

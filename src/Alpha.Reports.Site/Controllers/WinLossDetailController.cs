@@ -5,28 +5,17 @@
     using Requests.WinLossDetails;
     using ViewModels;
 
-    public class WinLossDetailController : BaseReportController
+    public class WinLossDetailController : ReportControllerBase
     {
-        private readonly IMediator mediator;
-
-        public WinLossDetailController(IMediator mediator)
+        public WinLossDetailController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
         }
 
         public ActionResult Index(WinLossDetailQuery message)
-        {
-            var viewModel = mediator.Send(message);
-
-            return View(viewModel);
-        }
+            => View(mediator.Send(message));
 
         [HttpGet]
-        public ActionResult Excel(ExportWinLossDetailQuery message)
-        {
-            var excelFile = mediator.Send<ExcelFileViewModel>(message);
-
-            return File(excelFile.Content, excelFile.ContentType, excelFile.Name);
-        }
+        public ActionResult Excel(WinLossDetailExcelQuery message)
+            => ExcelFile(mediator.Send<ExcelFileViewModel>(message));
     }
 }

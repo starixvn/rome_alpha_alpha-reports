@@ -1,14 +1,14 @@
 ﻿namespace Alpha.Reports.Site.ViewModels
 {
-    using Helpers;
-
     public class ExcelFileViewModel
     {
+        private const string ExcelContentType = "application/vnd.ms-excel";
+
         public ExcelFileViewModel(string name, byte[] content)
         {
             Name = name;
             Content = content;
-            ContentType = ExcelHelper.ContentType;
+            ContentType = ExcelContentType;
         }
 
         public string Name { get; }
