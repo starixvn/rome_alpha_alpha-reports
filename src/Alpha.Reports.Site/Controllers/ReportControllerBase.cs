@@ -1,11 +1,13 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using MediatR;
     using ViewModels;
     using Web;
 
+    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter", Justification = "Reviewed")]
     [SessionState(SessionStateBehavior.ReadOnly)]
     public abstract class ReportControllerBase : BaseController
     {
