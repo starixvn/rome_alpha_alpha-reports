@@ -44,7 +44,7 @@
                 return Enumerable.Empty<Product>();
             }
 
-            var custProducts = CacheService
+            var custProducts = ConfiguredCacheService
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
                 () => GetProductsForReport()
@@ -74,7 +74,7 @@
 
         private IEnumerable<Product> GetProductsForReport()
         {
-            var products = CacheService
+            var products = ConfiguredCacheService
                 .GetOrSet(
                 ProductsCacheKey,
                 () => dynamicRepository.Fetch<Product>(new GetProductsCriteria()),

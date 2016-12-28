@@ -36,7 +36,7 @@
                 return dataInCache != null;
             });
 
-            CacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
+            ConfiguredCacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
 
             repository = Substitute.For<IDynamicRepository>();
             repository
@@ -50,7 +50,7 @@
         public void GetBalanceUpDayAndMoveBetsDay_DataInCache_ReturnsDataGetFromCache()
         {
             // Arrange
-            CacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
+            ConfiguredCacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
 
             // Act
             var actual = service.GetBalanceUpDayAndMoveBetsDay();
@@ -92,7 +92,7 @@
         public void GetMoveBetsDay_Always_ReturnsTheSameDateSetInCache()
         {
             // Arrange
-            CacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
+            ConfiguredCacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
 
             // Act
             var actual = service.GetMoveBetsDay();
@@ -105,7 +105,7 @@
         public void GetBalanceUpDay_Always_ReturnsTheSameDateSetInCache()
         {
             // Arrange
-            CacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
+            ConfiguredCacheService.Set(BalanceUpDayAndMoveBetsDayCacheKey, dataInCache);
 
             // Act
             var actual = service.GetBalanceUpDay();

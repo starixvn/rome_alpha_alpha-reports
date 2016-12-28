@@ -36,7 +36,7 @@
 
         public IEnumerable<EnteredSportResult> GetEnteredSportResults()
         {
-            var reportData = CacheService
+            var reportData = ConfiguredCacheService
                  .GetOrSet(
                  EnteredResultsCacheKey,
                  () => GetDataEnteredSportResults(),
@@ -57,7 +57,7 @@
                 return Enumerable.Empty<WinLoss>();
             }
 
-            var validUserSelectedProductIds = 
+            var validUserSelectedProductIds =
                 productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds);
 
             var criteria = new WinLossCriteria(

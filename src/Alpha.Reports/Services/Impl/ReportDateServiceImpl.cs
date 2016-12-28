@@ -8,7 +8,7 @@
 
     public class ReportDateServiceImpl : ReportDateService
     {
-        private const string BalanceUpDayAndMoveBetsDayCacheKey = "Alpha.Reports.BalanceUpDayAndMoveBetsDay";        
+        private const string BalanceUpDayAndMoveBetsDayCacheKey = "Alpha.Reports.BalanceUpDayAndMoveBetsDay";
 
         private readonly IDynamicRepository dynamicRepository;
 
@@ -23,7 +23,7 @@
 
         public BalanceUpDayAndMoveBetsDay GetBalanceUpDayAndMoveBetsDay()
         {
-            var balanceUpDayAndMoveBetsDay = CacheService.GetOrSet(
+            var balanceUpDayAndMoveBetsDay = ConfiguredCacheService.GetOrSet(
                 BalanceUpDayAndMoveBetsDayCacheKey,
                 () =>
                 {

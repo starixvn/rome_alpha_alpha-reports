@@ -8,7 +8,7 @@
         public FanexCacheFixture()
         {
             CacheForTesting = Substitute.For<Cache>();
-            CacheService.SwitchCacheStorage(CacheForTesting);
+            ConfiguredCacheService.SwitchCacheStorage(CacheForTesting);
         }
 
         public Cache CacheForTesting { get; private set; }
