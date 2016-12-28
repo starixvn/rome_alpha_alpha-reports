@@ -32,7 +32,6 @@
                 .UseDefaultConnectionStringProvider()
                 .UseDefaultDbSettingProvider(
                     resourcePath: SiteSettings.StoreProcedurePath,
-                    ignoreRedundantParameters: false,
                     enableWatching: true)
                 .Run();
 
