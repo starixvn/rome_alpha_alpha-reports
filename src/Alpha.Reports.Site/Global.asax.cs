@@ -11,6 +11,7 @@
     using Configurations;
     using Fanex.Data;
     using ONEbook.UM.Filters;
+    using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Utilities;
     using Web;
 
@@ -54,7 +55,7 @@
 
             if (!isIgnoreError)
             {
-                Logs.FilterInfoWarnOrError(ex);
+                Logs.FilterInfoWarnOrError(ex, UserSession.Current.CustId);
             }
         }
 
