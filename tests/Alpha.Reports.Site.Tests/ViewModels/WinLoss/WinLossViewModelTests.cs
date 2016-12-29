@@ -5,14 +5,12 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
     using Alpha.Reports.Models.Winloss;
     using Constants;
     using Enumerations;
     using Extensions;
     using Models;
     using NSubstitute;
-    using Reports.Tests.TestCases;
     using Site.Requests.WinLoss;
     using Site.ViewModels;
     using Site.ViewModels.WinLoss;
@@ -29,7 +27,7 @@
         public WinLossViewModelTests()
         {
             userSession = Substitute.For<IUserSession>();
-            winLossViewModel = new WinLossViewModel(new List<WinLoss>());
+            winLossViewModel = new WinLossViewModel(new List<WinLossModel>());
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -39,7 +37,7 @@
         public void ActionLinkViewModel_NullWinLoss_ThrowsArgumentNullException()
         {
             // Arrange
-            WinLoss nullWinLoss = null;
+            WinLossModel nullWinLoss = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossViewModel.ActionLinkViewModel(nullWinLoss));
@@ -64,11 +62,11 @@
         public void ActionLinkViewModel_NotNullWinLoss_ReturnsCorrectActionLinkViewModel()
         {
             // Arrange
-            var winLoss = new WinLoss();
+            var winLoss = new WinLossModel();
             winLossViewModel.UserLevel = UserLevel.Super;
             winLossViewModel.FromDate = DefaultVariables.CurrentDate;
             winLossViewModel.ToDate = DefaultVariables.CurrentDate;
-            winLossViewModel.ReportData = Enumerable.Empty<WinLoss>();
+            winLossViewModel.ReportData = Enumerable.Empty<WinLossModel>();
             winLossViewModel.BreadcrumbLevels = new List<ActionLinkViewModel>
             {
                 new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossQuery(userSession))
@@ -97,8 +95,8 @@
         [Theory]
         [MemberData("WinLossViewModelSources", MemberType = typeof(WinLossViewModelTestCases))]
         public void WinLossViewModel_ValidReportData_ReturnsCorrectGrandTotal(
-           List<WinLoss> winlossData,
-           WinLoss expectedGrantTotal)
+           List<WinLossModel> winlossData,
+           WinLossModel expectedGrantTotal)
         {
             // Arrange
 
@@ -112,8 +110,8 @@
         [Fact]
         public void WinLossViewModel_NullReportData_ReturnsDefaultGrandTotal()
         {
-            // Arrange 
-            var expectedGrantTotal = new WinLoss();
+            // Arrange
+            var expectedGrantTotal = new WinLossModel();
 
             // Act
             var actualGrantTotal = new WinLossViewModel(null).GrantTotal;
@@ -125,11 +123,11 @@
         [Fact]
         public void WinLossViewModel_EmptyReportData_ReturnsDefaultReportData()
         {
-            // Arrange 
-            var expectedReportData = Enumerable.Empty<WinLoss>();
+            // Arrange
+            var expectedReportData = Enumerable.Empty<WinLossModel>();
 
             // Act
-            var actualReportData = new WinLossViewModel(new List<WinLoss>()).ReportData;
+            var actualReportData = new WinLossViewModel(new List<WinLossModel>()).ReportData;
 
             // Assert
             AssertExtension.Equal(actualReportData, expectedReportData);
@@ -138,11 +136,11 @@
         [Fact]
         public void WinLossViewModel_EmptyReportData_ReturnsDefaultGrandTotal()
         {
-            // Arrange 
-            var expectedGrantTotal = new WinLoss();
+            // Arrange
+            var expectedGrantTotal = new WinLossModel();
 
             // Act
-            var actualGrantTotal = new WinLossViewModel(new List<WinLoss>()).GrantTotal;
+            var actualGrantTotal = new WinLossViewModel(new List<WinLossModel>()).GrantTotal;
 
             // Assert
             AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);

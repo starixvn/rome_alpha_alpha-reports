@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLoss
 {
+    using System;
     using System.Collections.Generic;
     using App_GlobalResources;
     using Extensions;
@@ -10,8 +11,7 @@
     using Services;
     using ViewModels;
 
-    public class EnteredSportResultExcelHandler:
-        IRequestHandler<EnteredSportResultExcelQuery, ExcelFileViewModel>
+    public class EnteredSportResultExcelHandler : IRequestHandler<EnteredSportResultExcelQuery, ExcelFileViewModel>
     {
         private readonly WinLossService reportService;
         private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
@@ -26,6 +26,11 @@
 
         public ExcelFileViewModel Handle(EnteredSportResultExcelQuery message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
             var reportData = reportService.GetEnteredSportResults();
             var resources = new Dictionary<string, string>
             {

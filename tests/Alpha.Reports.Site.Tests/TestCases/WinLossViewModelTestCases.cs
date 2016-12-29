@@ -1,8 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Tests.TestCases
 {
-    using System.Collections;
     using System.Collections.Generic;
-    using Reports.Models;
     using Reports.Models.Winloss;
     using Reports.Models.WinLossDetail;
 
@@ -15,11 +13,11 @@
             new object[] { BuildAgentDataTest(), ExpectedAgentGrantTotal }
         };
 
-        private static WinLoss ExpectedSuperGrantTotal
+        private static WinLossModel ExpectedSuperGrantTotal
         {
             get
             {
-                return new WinLoss(
+                return new WinLossModel(
                            custId: 0,
                            custName: "Total",
                            turnover: (decimal)375732807.36,
@@ -31,11 +29,11 @@
             }
         }
 
-        private static WinLoss ExpectedMasterGrantTotal
+        private static WinLossModel ExpectedMasterGrantTotal
         {
             get
             {
-                return new WinLoss(
+                return new WinLossModel(
                           custId: 0,
                           custName: "Total",
                           turnover: (decimal)375732807.36,
@@ -47,11 +45,11 @@
             }
         }
 
-        private static WinLoss ExpectedAgentGrantTotal
+        private static WinLossModel ExpectedAgentGrantTotal
         {
             get
             {
-                return new WinLoss(
+                return new WinLossModel(
                           custId: 0,
                           custName: "Total",
                           turnover: (decimal)6225.00,
@@ -63,11 +61,11 @@
             }
         }
 
-        private static List<WinLoss> BuildSuperDataTest()
+        private static List<WinLossModel> BuildSuperDataTest()
         {
-            var superWinLossData = new List<WinLoss>();
+            var superWinLossData = new List<WinLossModel>();
 
-            superWinLossData.Add(new WinLoss(
+            superWinLossData.Add(new WinLossModel(
                  custId: 1382145,
                  custName: "ACGUUS38",
                  turnover: (decimal)375732407.36,
@@ -77,7 +75,7 @@
                  masterNetWinLoss: new NetWinLoss((decimal)-111173393.16),
                  superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69)));
 
-            superWinLossData.Add(new WinLoss(
+            superWinLossData.Add(new WinLossModel(
                  custId: 18187823,
                  custName: "ACGUUSOP",
                  turnover: (decimal)400.00,
@@ -90,11 +88,11 @@
             return superWinLossData;
         }
 
-        private static List<WinLoss> BuildMasterDataTest()
+        private static List<WinLossModel> BuildMasterDataTest()
         {
-            var masterWinLossData = new List<WinLoss>();
+            var masterWinLossData = new List<WinLossModel>();
 
-            masterWinLossData.Add(new WinLoss(
+            masterWinLossData.Add(new WinLossModel(
                  custId: 1382145,
                  custName: "ACGUUS3801",
                  turnover: (decimal)375732407.36,
@@ -104,7 +102,7 @@
                  masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69),
                  superNetWinLoss: null));
 
-            masterWinLossData.Add(new WinLoss(
+            masterWinLossData.Add(new WinLossModel(
                  custId: 18187823,
                  custName: "ACGUUS3802",
                  turnover: (decimal)400.00,
@@ -117,11 +115,11 @@
             return masterWinLossData;
         }
 
-        private static List<WinLoss> BuildAgentDataTest()
+        private static List<WinLossModel> BuildAgentDataTest()
         {
-            var agentWinLossData = new List<WinLoss>();
+            var agentWinLossData = new List<WinLossModel>();
 
-            agentWinLossData.Add(new WinLoss(
+            agentWinLossData.Add(new WinLossModel(
                  custId: 1382145,
                  custName: "ACGUUS3838000",
                  turnover: (decimal)4000.00,
@@ -131,7 +129,7 @@
                  masterNetWinLoss: null,
                  superNetWinLoss: null));
 
-            agentWinLossData.Add(new WinLoss(
+            agentWinLossData.Add(new WinLossModel(
                  custId: 18187823,
                  custName: "ACGUUS3838006",
                  turnover: (decimal)2225.00,

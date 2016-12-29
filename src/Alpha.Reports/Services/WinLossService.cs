@@ -8,6 +8,6 @@
     {
         IEnumerable<EnteredSportResult> GetEnteredSportResults();
 
-        IEnumerable<WinLoss> GetWinLoss(WinLossParam param); 
+        IEnumerable<WinLossModel> GetWinLoss(WinLossParam param); 
     }
 }

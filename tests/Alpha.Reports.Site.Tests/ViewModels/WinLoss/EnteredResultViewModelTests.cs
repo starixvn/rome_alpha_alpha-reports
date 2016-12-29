@@ -1,14 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLoss
 {
-    using System;
     using System.Globalization;
     using System.Threading;
-    using Alpha.Reports.Models.Winloss;
     using Constants;
     using Enumerations;
     using Models;
-    using NSubstitute;
-    using Site.ViewModels;
     using Site.ViewModels.WinLoss;
     using Xunit;
 

@@ -25,19 +25,16 @@
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
-        private readonly Workbook<Models.WinLoss> winlossWorkbook;
-        private readonly IUserSession userSession;
+        private readonly Workbook<Models.WinLossModel> winlossWorkbook;
 
         public WinLossExcelHandler(
             ProductService productService,
             WinLossService reportService,
-            Workbook<Models.WinLoss> workbook,
-            IUserSession userSession) : base(productService, reportService)
+            Workbook<Models.WinLossModel> workbook) : base(productService, reportService)
         {
             this.productService = productService;
             this.reportService = reportService;
             this.winlossWorkbook = workbook;
-            this.userSession = userSession;
         }
 
         public ExcelFileViewModel Handle(WinLossExcelQuery message)
@@ -50,7 +47,10 @@
             var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
             var winLossParam = CreateWinLossParamater(message, userLevel);
             var reportData = reportService.GetWinLoss(winLossParam);
-            var winlossViewModel = new WinLossViewModel(reportData.ToList());
+            var winlossViewModel = new WinLossViewModel(reportData.ToList())
+            {
+                UserLevel = userLevel
+            };
 
             var products = string.IsNullOrWhiteSpace(message.UserSelectedProductIds)
                 ? Enumerable.Empty<int>()
@@ -75,28 +75,9 @@
                    result);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        private WinLossViewModel BuildWinLossViewModel(WinLossQuery message)
+        private Mapper<Models.WinLossModel> GetWinLossRowMapper(WinLossExcelQuery message, bool isTotal)
         {
-            if (message == null)
-            {
-                throw new ArgumentNullException("message");
-            }
-
-            var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
-            var products = productService.GetProductsForCustomer(message.CustId);
-
-            var winLossParam = CreateWinLossParamater(message, userLevel);
-            var reportData = reportService.GetWinLoss(winLossParam);
-
-            var viewModel = new WinLossViewModel(reportData.ToList());
-         
-            return viewModel;
-        }
-
-        private Mapper<Models.WinLoss> GetWinLossRowMapper(WinLossExcelQuery message, bool isTotal)
-        {
-            var mapper = new Mapper<Models.WinLoss>()
+            var mapper = new Mapper<Models.WinLossModel>()
                 .Map(Column.A, winLoss => isTotal ? Resources.Total : winLoss.CustName)
                 .Map(Column.B, winLoss => winLoss.Turnover)
                 .Map(Column.C, winLoss => winLoss.GrossComm);

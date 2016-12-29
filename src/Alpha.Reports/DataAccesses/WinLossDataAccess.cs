@@ -6,6 +6,6 @@
 
     public interface WinLossDataAccess
     {
-        IEnumerable<WinLoss> GetWinLoss(WinLossCriteria criteria);
+        IEnumerable<WinLossModel> GetWinLoss(WinLossCriteria criteria);
     }
 }

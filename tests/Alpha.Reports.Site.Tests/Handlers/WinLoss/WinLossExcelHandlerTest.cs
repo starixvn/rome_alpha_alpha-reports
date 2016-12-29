@@ -2,27 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
-    using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
     using Constants;
-    using Enumerations;
-    using Extensions;
-    using Models;
     using Models.Winloss;
     using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
-    using Params;
-    using Reports.Extensions;
-    using Reports.Tests.TestCases;
     using Services;
     using Site.Handlers;
-    using Site.Helpers;
     using Site.Requests.WinLoss;
-    using Site.ViewModels;
     using Site.ViewModels.WinLoss;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
@@ -32,8 +21,7 @@
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
-
-        private readonly Workbook<WinLoss> winlossWorkbook;
+        private readonly Workbook<WinLossModel> winlossWorkbook;
         private readonly WinLossExcelHandler winLossExcelHandler;
         private readonly IUserSession userSession;
 
@@ -43,19 +31,29 @@
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
             reportService = Substitute.For<WinLossService>();
 
-            winlossWorkbook = Substitute.For<Workbook<WinLoss>>();
+            winlossWorkbook = Substitute.For<Workbook<WinLossModel>>();
             winlossWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(winlossWorkbook);
             winlossWorkbook.Title(Arg.Any<string>()).Returns(winlossWorkbook);
             winlossWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(winlossWorkbook);
-            winlossWorkbook.Body(Arg.Any<IEnumerable<WinLoss>>(), Arg.Any<Mapper<WinLoss>>()).Returns(winlossWorkbook);
-            winlossWorkbook.Footer(Arg.Any<WinLoss>(), Arg.Any<Mapper<WinLoss>>()).Returns(winlossWorkbook);
+            winlossWorkbook.Body(Arg.Any<IEnumerable<WinLossModel>>(), Arg.Any<Mapper<WinLossModel>>()).Returns(winlossWorkbook);
+            winlossWorkbook.Footer(Arg.Any<WinLossModel>(), Arg.Any<Mapper<WinLossModel>>()).Returns(winlossWorkbook);
             winlossWorkbook.Sheet(Arg.Any<string>()).Returns(winlossWorkbook);
 
             userSession = Substitute.For<IUserSession>();
-            winLossExcelHandler = new WinLossExcelHandler(productService, reportService, winlossWorkbook, userSession);
+            winLossExcelHandler = new WinLossExcelHandler(productService, reportService, winlossWorkbook);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+        }
+
+        [Fact]
+        public void HandleExportWinLossQuery_NullMessage_ThrowsArgumentNullException()
+        {
+            // Arrange
+            WinLossExcelQuery nullMessage = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => winLossExcelHandler.Handle(nullMessage));
         }
 
         [Fact]
@@ -69,8 +67,7 @@
 
             // Assert
             winlossWorkbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
-                tp => tp.TemplatePath == "~/App_Data/ExcelTemplates/WinLoss/Master.xls" &&
-                tp.NoInfomationText == "No information is available"));
+                tp => tp.NoInfomationText == "No information is available"));
         }
 
         [Fact]
@@ -104,7 +101,7 @@
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(userLevel: 4);
-            var winlossReportData = new List<WinLoss>();
+            var winlossReportData = new List<WinLossModel>();
             var winlossViewModel = new WinLossViewModel(winlossReportData);
 
             // Act
@@ -112,8 +109,8 @@
 
             // Assert
             winlossWorkbook.Received().Body(
-                Arg.Is<IEnumerable<WinLoss>>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossViewModel.ReportData)),
-                Arg.Any<Mapper<WinLoss>>());
+                Arg.Is<IEnumerable<WinLossModel>>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossViewModel.ReportData)),
+                Arg.Any<Mapper<WinLossModel>>());
         }
 
         [Fact]
@@ -121,15 +118,15 @@
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(userLevel: 4);
-            var winlossViewModel = new WinLossViewModel(new List<WinLoss>());
+            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>());
 
             // Act
             winLossExcelHandler.Handle(message);
 
             // Assert
             winlossWorkbook.Received().Footer(
-                Arg.Is<WinLoss>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossViewModel.GrantTotal)),
-                Arg.Any<Mapper<WinLoss>>());
+                Arg.Is<WinLossModel>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossViewModel.GrantTotal)),
+                Arg.Any<Mapper<WinLossModel>>());
         }
 
         [Fact]
@@ -187,6 +184,23 @@
             winlossWorkbook.Received().ExportToBytes();
         }
 
+        [Theory]
+        [InlineData(4, "~/App_Data/ExcelTemplates/WinLoss/Master.xls")]
+        [InlineData(3, "~/App_Data/ExcelTemplates/WinLoss/Agent.xls")]
+        [InlineData(2, "~/App_Data/ExcelTemplates/WinLoss/Member.xls")]
+        public void BuildExcelTemplatePath_Always_ReturnsCorrectPathByUserLevel(byte userLevelId, string expectedPath)
+        {
+            // Arrange
+            var winLossQuery = new WinLossExcelQuery(userSession);
+            winLossQuery.UserLevelId = userLevelId;
+
+            // Act
+            var actualPath = winLossQuery.BuildExcelTemplatePath();
+
+            // Assert
+            Assert.Equal(expectedPath, actualPath);
+        }
+
         private WinLossExcelQuery CreateExportWinlossExcelQuery(byte userLevel)
         {
             var exportWinLossQuery = new WinLossExcelQuery(userSession);
@@ -196,6 +210,5 @@
 
             return exportWinLossQuery;
         }
-
     }
 }

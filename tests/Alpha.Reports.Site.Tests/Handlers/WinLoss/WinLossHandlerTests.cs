@@ -12,15 +12,9 @@
     using Extensions;
     using Models;
     using Models.Winloss;
-    using Newtonsoft.Json;
     using NSubstitute;
-    using ONEbook.SpreadSheets;
-    using Params;
-    using Reports.Extensions;
-    using Reports.Tests.TestCases;
     using Services;
     using Site.Handlers;
-    using Site.Helpers;
     using Site.Requests.WinLoss;
     using Site.ViewModels;
     using Site.ViewModels.WinLoss;
@@ -45,6 +39,7 @@
             winLossHandler = new WinLossHandler(productService, reportService, userSession);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+            DateTimeManager.Now = DefaultVariables.CurrentDate;
         }
 
         [Fact]
@@ -85,7 +80,7 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var expectedWinLossViewModel = new WinLossViewModel(new List<WinLoss>())
+            var expectedWinLossViewModel = new WinLossViewModel(new List<WinLossModel>())
             {
                 CustName = string.Empty,
                 Language = string.Empty,

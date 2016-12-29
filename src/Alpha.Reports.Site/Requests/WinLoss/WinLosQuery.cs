@@ -22,17 +22,10 @@
             CustId = this.userSession.CustId;
             CustName = this.userSession.UserName;
             UserLevelId = this.userSession.RoleId;
-
             Language = this.userSession.Language;
         }
 
-        public bool IsDirectReportViewAction
-        {
-            get
-            {
-                return CustId == userSession.CustId;
-            }
-        }
+        public bool IsDirectReportViewAction => CustId == userSession.CustId;
 
         public string Language { get; }
 

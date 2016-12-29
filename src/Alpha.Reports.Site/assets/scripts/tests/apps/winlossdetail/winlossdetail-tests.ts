@@ -1,11 +1,9 @@
-﻿describe("WinLossDetail_", () => {
-    const winLossDetailView = new WinLossDetailView($,
+﻿describe("WinLoss_", () => {
+    const winLossView = new WinLossView($,
         new DateRangePickerComponent($),
-        new PagerComponent($),
         new ProductMultiSelectionComponent($),
         new SortComponent($),
-        new ReportTooltip($),
         new MonthPickerComponent($));
 
-    winLossDetailView.init();
+    winLossView.init();
 });

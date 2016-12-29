@@ -2,29 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.Linq;
-    using System.Threading;
-    using System.Web.Mvc;
-    using Constants;
-    using Enumerations;
-    using Extensions;
-    using Models;
     using Models.Winloss;
     using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
-    using Params;
-    using Reports.Extensions;
-    using Reports.Tests.TestCases;
     using Services;
-    using Site.Handlers;
     using Site.Handlers.WinLoss;
-    using Site.Helpers;
     using Site.Requests.WinLoss;
-    using Site.ViewModels;
-    using Site.ViewModels.WinLoss;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
 
@@ -70,8 +55,7 @@
 
             // Assert
             enteredSportResultWorkbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
-                tp => tp.TemplatePath == "~/App_Data/ExcelTemplates/WinLoss/MatchResultEntered.xls" &&
-                tp.NoInfomationText == "No information is available"));
+                tp => tp.NoInfomationText == "No information is available"));
         }
 
         [Fact]
@@ -100,7 +84,7 @@
             enteredSportResultExcelHandler.Handle(message);
 
             // Assert
-            enteredSportResultWorkbook.Received().Sheet(Arg.Is<string>("Master Win Loss"));
+            enteredSportResultWorkbook.Received().Sheet(Arg.Is<string>("Match Result Entered"));
         }
 
         [Fact]

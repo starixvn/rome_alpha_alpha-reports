@@ -2,13 +2,13 @@
 {
     using Alpha.Reports.Models.WinLossDetail;
 
-    public class WinLoss
+    public class WinLossModel
     {
-        public WinLoss()
+        public WinLossModel()
         {
         }
 
-        public WinLoss(
+        public WinLossModel(
             int custId,
             string custName,
             decimal grossComm,
@@ -50,14 +50,14 @@
             + (MasterNetWinLoss?.Total ?? 0)
             + (SuperNetWinLoss?.Total ?? 0));
 
-        public static WinLoss Add(WinLoss winlossA, WinLoss winlossB)
+        public static WinLossModel Add(WinLossModel winlossA, WinLossModel winlossB)
         {
             if (winlossA == null || winlossB == null)
             {
                 return winlossA ?? winlossB;
             }
 
-            return new WinLoss(
+            return new WinLossModel(
                 custId: 0,
                 custName: "Total",
                 grossComm: winlossA.GrossComm + winlossB.GrossComm,

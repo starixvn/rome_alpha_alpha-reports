@@ -45,7 +45,7 @@
             return reportData;
         }
 
-        public IEnumerable<WinLoss> GetWinLoss(WinLossParam param)
+        public IEnumerable<WinLossModel> GetWinLoss(WinLossParam param)
         {
             if (param == null)
             {
@@ -54,7 +54,7 @@
 
             if (!param.IsValid())
             {
-                return Enumerable.Empty<WinLoss>();
+                return Enumerable.Empty<WinLossModel>();
             }
 
             var validUserSelectedProductIds =

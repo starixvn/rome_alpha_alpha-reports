@@ -65,7 +65,7 @@
                 UserLevel.Super,
                 false);
 
-            var expectedData = Enumerable.Empty<WinLoss>();
+            var expectedData = Enumerable.Empty<WinLossModel>();
 
             // Act
             var actualData = winLossServiceImpl.GetWinLoss(param);
@@ -86,7 +86,7 @@
                 UserLevel.Super,
                 false);
 
-            var expectedData = Enumerable.Empty<WinLoss>();
+            var expectedData = Enumerable.Empty<WinLossModel>();
 
             // Act
             dataAccess.GetWinLoss(Arg.Any<WinLossCriteria>()).Returns(expectedData);

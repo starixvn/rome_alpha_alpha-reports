@@ -12,14 +12,14 @@
 
     public class WinLossDataAccessImpl : WinLossDataAccess
     {
-        public IEnumerable<WinLoss> GetWinLoss(WinLossCriteria criteria)
+        public IEnumerable<WinLossModel> GetWinLoss(WinLossCriteria criteria)
         {
             if (criteria == null)
             {
                 throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
             }
 
-            var winlossData = new List<WinLoss>();
+            var winlossData = new List<WinLossModel>();
 
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
@@ -39,9 +39,9 @@
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
-        private WinLoss BuildWinLoss(IDataReader reader, UserLevel reportLevel)
+        private WinLossModel BuildWinLoss(IDataReader reader, UserLevel reportLevel)
         {
-            var winLoss = new WinLoss(
+            var winLoss = new WinLossModel(
                  custId: reader.ToInt("CustId"),
                  custName: reader.ToString("CustName"),
                  turnover: reader.ToDecimal("TurnOver"),

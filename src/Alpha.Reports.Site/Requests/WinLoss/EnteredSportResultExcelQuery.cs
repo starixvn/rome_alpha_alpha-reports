@@ -17,12 +17,6 @@
         {
         }
 
-        public string TemplatePath
-        {
-            get
-            {
-                return HttpContext.Current != null ? HttpContext.Current.Server.MapPath(ExcelTemplateDir) : string.Empty;
-            }
-        }
+        public string TemplatePath => HttpContext.Current != null ? HttpContext.Current.Server.MapPath(ExcelTemplateDir) : string.Empty;
     }
 }

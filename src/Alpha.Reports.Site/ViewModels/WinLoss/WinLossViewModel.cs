@@ -13,7 +13,7 @@
 
     public class WinLossViewModel
     {
-        public WinLossViewModel(List<WinLoss> reportData)
+        public WinLossViewModel(List<WinLossModel> reportData)
         {
             if (reportData != null && reportData.Any())
             {
@@ -21,13 +21,13 @@
                 int index, count;
                 for (index = 1, count = reportData.Count, GrantTotal = reportData[0]; index < count; index++)
                 {
-                    GrantTotal = WinLoss.Add(GrantTotal, reportData[index]);
+                    GrantTotal = WinLossModel.Add(GrantTotal, reportData[index]);
                 }
             }
             else
             {
-                ReportData = Enumerable.Empty<WinLoss>();
-                GrantTotal = new WinLoss();
+                ReportData = Enumerable.Empty<WinLossModel>();
+                GrantTotal = new WinLossModel();
             }
         }
 
@@ -51,9 +51,9 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public IEnumerable<WinLoss> ReportData { get; set; }
+        public IEnumerable<WinLossModel> ReportData { get; set; }
 
-        public WinLoss GrantTotal { get; }
+        public WinLossModel GrantTotal { get; }
 
         public bool IsStackMode { get; set; }
 
@@ -88,7 +88,7 @@
                 MinDate,
                 ((WinLossQuery)BreadcrumbLevels.Last().RouteValues).BreadcrumbLevels);
 
-        public WinLossActionLinkViewModel ActionLinkViewModel(WinLoss winLoss)
+        public WinLossActionLinkViewModel ActionLinkViewModel(WinLossModel winLoss)
         {
             if (winLoss == null)
             {

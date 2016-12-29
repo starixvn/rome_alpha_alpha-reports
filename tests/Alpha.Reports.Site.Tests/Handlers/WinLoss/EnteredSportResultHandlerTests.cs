@@ -1,28 +1,18 @@
 ﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLoss
 {
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
     using Constants;
     using Enumerations;
-    using Extensions;
     using Models;
     using Models.Winloss;
     using Newtonsoft.Json;
     using NSubstitute;
-    using Params;
-    using Reports.Extensions;
-    using Reports.Tests.TestCases;
     using Services;
-    using Site.Handlers;
     using Site.Handlers.WinLoss;
-    using Site.Helpers;
     using Site.Requests.WinLoss;
-    using Site.ViewModels;
     using Site.ViewModels.WinLoss;
     using Sunplus.Agent.Model.Entities;
     using Xunit;

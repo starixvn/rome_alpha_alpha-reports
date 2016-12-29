@@ -51,10 +51,10 @@
             var dataSet = WinLossDatabase.MasterWinLoss.CreateDataReader();
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
 
-            var expectedData = new List<WinLoss>()
+            var expectedData = new List<WinLossModel>()
             {
-                new WinLoss(1, "Master01", 0, 1, null, null, new NetWinLoss(2), new NetWinLoss(3, 4)),
-                new WinLoss(2, "Master02", 5, 6, null, null, new NetWinLoss(7), new NetWinLoss(8, 9))
+                new WinLossModel(1, "Master01", 0, 1, null, null, new NetWinLoss(2), new NetWinLoss(3, 4)),
+                new WinLossModel(2, "Master02", 5, 6, null, null, new NetWinLoss(7), new NetWinLoss(8, 9))
             };
 
             // Act
@@ -74,10 +74,10 @@
             var dataSet = WinLossDatabase.AgentWinLoss.CreateDataReader();
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
 
-            var expectedData = new List<WinLoss>()
+            var expectedData = new List<WinLossModel>()
             {
-                new WinLoss(1, "Agent01", 0, 1, null, new NetWinLoss(2), new NetWinLoss(3, 4), null),
-                new WinLoss(2, "Agent02", 5, 6, null, new NetWinLoss(7), new NetWinLoss(8, 9), null)
+                new WinLossModel(1, "Agent01", 0, 1, null, new NetWinLoss(2), new NetWinLoss(3, 4), null),
+                new WinLossModel(2, "Agent02", 5, 6, null, new NetWinLoss(7), new NetWinLoss(8, 9), null)
             };
 
             // Act
@@ -97,10 +97,10 @@
             var dataSet = WinLossDatabase.MemberWinLoss.CreateDataReader();
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
 
-            var expectedData = new List<WinLoss>()
+            var expectedData = new List<WinLossModel>()
             {
-                new WinLoss(1, "Member01", 0, 1, new NetWinLoss(2, 3), new NetWinLoss(4, 5), null, null),
-                new WinLoss(2, "Member02", 6, 7, new NetWinLoss(8, 9), new NetWinLoss(10, 11), null, null)
+                new WinLossModel(1, "Member01", 0, 1, new NetWinLoss(2, 3), new NetWinLoss(4, 5), null, null),
+                new WinLossModel(2, "Member02", 6, 7, new NetWinLoss(8, 9), new NetWinLoss(10, 11), null, null)
             };
 
             // Act
@@ -120,7 +120,7 @@
             IDataReader dataReader = null;
             objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataReader);
 
-            var expectedData = new List<WinLoss>();
+            var expectedData = new List<WinLossModel>();
 
             // Act
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);

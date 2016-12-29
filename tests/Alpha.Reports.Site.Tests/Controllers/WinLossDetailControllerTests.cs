@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Tests.Controllers
 {
-    using System;
     using MediatR;
     using NSubstitute;
     using Site.Controllers;

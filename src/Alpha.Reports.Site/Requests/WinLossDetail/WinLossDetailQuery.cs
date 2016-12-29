@@ -26,14 +26,8 @@
             Language = this.userSession.Language;
         }
 
-        public bool IsDirectReportViewAction
-        {
-            get
-            {
-                return CustId == userSession.CustId;
-            }
-        }
-
+        public bool IsDirectReportViewAction => CustId == userSession.CustId;
+        
         public string Language { get; }
 
         public int PageIndex { get; set; }
@@ -54,12 +48,6 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public bool HasSubmittedParams
-        {
-            get
-            {
-                return !string.IsNullOrWhiteSpace(UserSelectedProductIds);
-            }
-        }
+        public bool HasSubmittedParams => !string.IsNullOrWhiteSpace(UserSelectedProductIds);
     }
 }

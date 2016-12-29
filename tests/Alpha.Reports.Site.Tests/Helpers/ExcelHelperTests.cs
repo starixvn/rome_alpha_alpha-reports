@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Tests.Helpers
 {
-    using System;
     using System.Resources;
     using NSubstitute;
     using Site.Helpers;
