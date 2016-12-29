@@ -9,11 +9,11 @@
 
     [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter", Justification = "Reviewed")]
     [SessionState(SessionStateBehavior.ReadOnly)]
-    public abstract class ReportControllerBase : BaseController
+    public abstract class ReportBaseController : BaseController
     {
         protected readonly IMediator mediator;
 
-        protected ReportControllerBase(IMediator mediator)
+        protected ReportBaseController(IMediator mediator)
         {
             this.mediator = mediator;
         }

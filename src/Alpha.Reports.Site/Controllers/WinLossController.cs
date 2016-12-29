@@ -4,7 +4,7 @@
     using MediatR;
     using Requests.WinLoss;
 
-    public class WinLossController : ReportControllerBase
+    public class WinLossController : ReportBaseController
     {
         public WinLossController(IMediator mediator) 
             : base(mediator)
