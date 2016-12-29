@@ -9,9 +9,10 @@
     using MediatR;
     using Models.WinlossDetails;
     using ONEbook.SpreadSheets;
+    using static ONEbook.SpreadSheets.Column;
     using Requests.WinLossDetails;
     using Services;
-    using ViewModels;
+    using ViewModels;    
 
     public class WinLossDetailExcelHandler :
         BaseWinLossDetailHandler,
@@ -49,7 +50,7 @@
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
 
             var templateInfo = new TemplateInfo(templatePath: message.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable)
-                 .FreezePanel(4, Column.B);
+                 .FreezePanel(4, B);
             var fileContent = workbook
                 .UseTemplate(templateInfo)
                 .Title(reportTitle)
@@ -67,41 +68,43 @@
         private Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossDetailModel>()
-                .Map(Column.A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
-                .Map(Column.B, winLossDetail => winLossDetail.NumberOfTickets)
-                .Map(Column.C, winLossDetail => winLossDetail.Turnover)
-                .Map(Column.D, winLossDetail => winLossDetail.NetTurnover)
-                .Map(Column.E, winLossDetail => winLossDetail.GrossComm)
-                .Map(Column.F, winLossDetail => winLossDetail.MemberNetWinLoss.WinLoss)
-                .Map(Column.G, winLossDetail => winLossDetail.MemberNetWinLoss.Comm)
-                .Map(Column.H, winLossDetail => winLossDetail.MemberNetWinLoss.Total)
-                .Map(Column.I, winLossDetail => winLossDetail.AgentNetWinLoss.WinLoss)
-                .Map(Column.J, winLossDetail => winLossDetail.AgentNetWinLoss.Comm)
-                .Map(Column.K, winLossDetail => winLossDetail.AgentNetWinLoss.Total);
+                .Map(A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
+                .Map(B, winLossDetail => winLossDetail.NumberOfTickets)
+                .Map(C, winLossDetail => winLossDetail.Turnover)
+                .Map(D, winLossDetail => winLossDetail.NetTurnover)
+                .Map(E, winLossDetail => winLossDetail.GrossComm)
+                .Map(F, winLossDetail => winLossDetail.MemberNetWinLoss.WinLoss)
+                .Map(G, winLossDetail => winLossDetail.MemberNetWinLoss.Comm)
+                .Map(H, winLossDetail => winLossDetail.MemberNetWinLoss.Total)
+                .Map(I, winLossDetail => winLossDetail.AgentNetWinLoss.WinLoss)
+                .Map(J, winLossDetail => winLossDetail.AgentNetWinLoss.Comm)
+                .Map(K, winLossDetail => winLossDetail.AgentNetWinLoss.Total);
 
             if (message.UserLevel.IsAgentLevel())
             {
-                mapper.Map(Column.L, winLossDetail => winLossDetail.Company);
+                mapper.Map(L, winLossDetail => winLossDetail.Company);
             }
 
             if (message.UserLevel.IsMasterOrSuperLevel())
             {
-                mapper.Map(Column.L, winLossDetail => winLossDetail.MasterNetWinLoss.WinLoss)
-                    .Map(Column.M, winLossDetail => winLossDetail.MasterNetWinLoss.Comm)
-                    .Map(Column.N, winLossDetail => winLossDetail.MasterNetWinLoss.Total);
+                mapper
+                    .Map(L, winLossDetail => winLossDetail.MasterNetWinLoss.WinLoss)
+                    .Map(M, winLossDetail => winLossDetail.MasterNetWinLoss.Comm)
+                    .Map(N, winLossDetail => winLossDetail.MasterNetWinLoss.Total);
             }
 
             if (message.UserLevel.IsMasterLevel())
             {
-                mapper.Map(Column.O, winLossDetail => winLossDetail.Company);
+                mapper.Map(O, winLossDetail => winLossDetail.Company);
             }
 
             if (message.UserLevel.IsSuperLevel())
             {
-                mapper.Map(Column.O, winLossDetail => winLossDetail.SuperNetWinLoss.WinLoss)
-                    .Map(Column.P, winLossDetail => winLossDetail.SuperNetWinLoss.Comm)
-                    .Map(Column.Q, winLossDetail => winLossDetail.SuperNetWinLoss.Total)
-                    .Map(Column.R, winLossDetail => winLossDetail.Company);
+                mapper
+                    .Map(O, winLossDetail => winLossDetail.SuperNetWinLoss.WinLoss)
+                    .Map(P, winLossDetail => winLossDetail.SuperNetWinLoss.Comm)
+                    .Map(Q, winLossDetail => winLossDetail.SuperNetWinLoss.Total)
+                    .Map(R, winLossDetail => winLossDetail.Company);
             }
 
             return mapper;

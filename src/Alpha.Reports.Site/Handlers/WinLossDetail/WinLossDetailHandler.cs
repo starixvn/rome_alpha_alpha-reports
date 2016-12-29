@@ -10,6 +10,7 @@
     using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLossDetails;
 
+    [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
     public class WinLossDetailHandler :
         BaseWinLossDetailHandler,
         IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>
@@ -23,8 +24,7 @@
         {
             this.userSession = userSession;
         }
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        
         public WinLossDetailViewModel Handle(WinLossDetailQuery message)
         {
             if (message == null)
