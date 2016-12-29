@@ -34,7 +34,7 @@
             this.cacheRefService = cacheRefService;
         }
 
-        public IEnumerable<EnteredMatchResult> GetEnteredSportResults()
+        public IEnumerable<EnteredSportResult> GetEnteredSportResults()
         {
             var reportData = ConfiguredCacheService
                  .GetOrSet(
@@ -74,14 +74,14 @@
             return winlossData;
         }
 
-        internal IEnumerable<EnteredMatchResult> GetDataEnteredSportResults()
+        internal IEnumerable<EnteredSportResult> GetDataEnteredSportResults()
         {
             var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria());
 
             if (dailyEnteredSportData.Any())
             {
                 return dailyEnteredSportData.GroupBy(dailyEnteredSport => dailyEnteredSport.SportType)
-                    .Select(dailyEnteredSports => new EnteredMatchResult(
+                    .Select(dailyEnteredSports => new EnteredSportResult(
                     dailyEnteredSports.Key,
                     cacheRefService.GetSportName(dailyEnteredSports.Key),
                     dailyEnteredSports.FirstOrDefault(enteredSportResult => enteredSportResult.IsToday),
@@ -89,7 +89,7 @@
                     .OrderBy(enteredSportResult => enteredSportResult.SportName);
             }
 
-            return Enumerable.Empty<EnteredMatchResult>();
+            return Enumerable.Empty<EnteredSportResult>();
         }
     }
 }

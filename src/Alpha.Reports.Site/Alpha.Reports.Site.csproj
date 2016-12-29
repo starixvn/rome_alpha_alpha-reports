@@ -258,8 +258,9 @@
     <Compile Include="Handlers\WinLossDetail\BaseWinLossDetailHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandler.cs" />
-    <Compile Include="Handlers\WinLoss\EnteredMatchResultExcelHandler.cs" />
-    <Compile Include="Handlers\WinLoss\EnteredMatchResultHandler.cs" />
+    <Compile Include="Handlers\WinLoss\BaseWinLossHandler.cs" />
+    <Compile Include="Handlers\WinLoss\EnteredSportResultExcelHandler.cs" />
+    <Compile Include="Handlers\WinLoss\EnteredSportResultHandler.cs" />
     <Compile Include="Handlers\WinLoss\WinLossExcelHandler.cs" />
     <Compile Include="Handlers\WinLoss\WinLossHandler.cs" />
     <Compile Include="Helpers\AppPathHelper.cs" />
@@ -275,8 +276,8 @@
     <Compile Include="Requests\BaseReportQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
-    <Compile Include="Requests\WinLoss\EnteredMatchResultQuery.cs" />
-    <Compile Include="Requests\WinLoss\EnteredMatchResultExcelQuery.cs" />
+    <Compile Include="Requests\WinLoss\EnteredSportResultQuery.cs" />
+    <Compile Include="Requests\WinLoss\EnteredSportResultExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLosQuery.cs" />
     <Compile Include="ViewModels\Components\DataGridViewModel.cs" />

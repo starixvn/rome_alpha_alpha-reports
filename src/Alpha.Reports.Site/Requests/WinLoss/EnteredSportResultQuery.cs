@@ -5,13 +5,13 @@
     using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLoss;
 
-    public class EnteredMatchResultQuery : IRequest<EnteredResultViewModel>
+    public class EnteredSportResultQuery : IRequest<EnteredResultViewModel>
     {
-        public EnteredMatchResultQuery() : this(null)
+        public EnteredSportResultQuery() : this(null)
         {
         }
 
-        public EnteredMatchResultQuery(IUserSession userSession)
+        public EnteredSportResultQuery(IUserSession userSession)
         {
             var session = userSession ?? new UserSessionExt();
 

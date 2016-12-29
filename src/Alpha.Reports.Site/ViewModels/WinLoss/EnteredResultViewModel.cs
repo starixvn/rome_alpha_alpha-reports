@@ -22,7 +22,7 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public IEnumerable<EnteredMatchResult> ReportData { get; set; }
+        public IEnumerable<EnteredSportResult> ReportData { get; set; }
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);

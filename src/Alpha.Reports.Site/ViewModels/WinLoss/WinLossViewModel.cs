@@ -26,6 +26,7 @@
             }
             else
             {
+                ReportData = Enumerable.Empty<WinLoss>();
                 GrantTotal = new WinLoss();
             }
         }

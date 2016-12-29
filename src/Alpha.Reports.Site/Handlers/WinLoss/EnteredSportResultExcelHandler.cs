@@ -1,0 +1,66 @@
+﻿namespace Alpha.Reports.Site.Handlers.WinLoss
+{
+    using System.Collections.Generic;
+    using App_GlobalResources;
+    using Extensions;
+    using MediatR;
+    using Models.Winloss;
+    using ONEbook.SpreadSheets;
+    using Requests.WinLoss;
+    using Services;
+    using ViewModels;
+
+    public class EnteredSportResultExcelHandler:
+        IRequestHandler<EnteredSportResultExcelQuery, ExcelFileViewModel>
+    {
+        private readonly WinLossService reportService;
+        private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
+
+        public EnteredSportResultExcelHandler(
+         WinLossService reportService,
+         Workbook<EnteredSportResult> enteredSportResultWorkbook)
+        {
+            this.reportService = reportService;
+            this.enteredSportResultWorkbook = enteredSportResultWorkbook;
+        }
+
+        public ExcelFileViewModel Handle(EnteredSportResultExcelQuery message)
+        {
+            var reportData = reportService.GetEnteredSportResults();
+            var resources = new Dictionary<string, string>
+            {
+                ["Yesterday"] = DateTimeManager.Now.AddDays(-1).ToShortDateWithSlash(),
+                ["Today"] = DateTimeManager.Now.ToShortDateWithSlash()
+            };
+
+            var templateInfo = new TemplateInfo(
+                templatePath: message.TemplatePath,
+                noInfomationText: Resources.NoInformationIsAvailable,
+                titleStartIndex: 0,
+                headerStartIndex: 1,
+                bodyStartIndex: 3,
+                bodyEndIndex: 4);
+
+            var result = enteredSportResultWorkbook
+               .UseTemplate(templateInfo)
+               .Header(key => resources.ContainsKey(key) ? resources[key] : Resources.ResourceManager.GetString(key))
+               .Body(reportData, GetEnteredSportResultRowMapper())
+               .Sheet(Resources.MatchResultEntered)
+               .ExportToBytes();
+
+            return new ExcelFileViewModel(Resources.MatchResultEntered, result);
+        }
+
+        private Mapper<EnteredSportResult> GetEnteredSportResultRowMapper()
+        {
+            var mapper = new Mapper<EnteredSportResult>()
+                .Map(Column.A, enteredSportResult => enteredSportResult.SportName)
+                .Map(Column.B, enteredSportResult => enteredSportResult.EnterSportYesterday?.Entered ?? 0)
+                .Map(Column.C, enteredSportResult => enteredSportResult.EnterSportYesterday?.NonEntered ?? 0)
+                .Map(Column.D, enteredSportResult => enteredSportResult.EnterSportToday?.Entered ?? 0)
+                .Map(Column.E, enteredSportResult => enteredSportResult.EnterSportToday?.NonEntered ?? 0);
+
+            return mapper;
+        }
+    }
+}

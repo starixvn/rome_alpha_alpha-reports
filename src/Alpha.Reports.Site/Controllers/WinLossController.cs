@@ -14,11 +14,11 @@
         [Route("enteredresult/super")]
         [Route("enteredresult/master")]
         [Route("enteredresult/agent")]
-        public ActionResult EnteredResult(EnteredMatchResultQuery message)
+        public ActionResult EnteredResult(EnteredSportResultQuery message)
             => View(message);
 
         [HttpGet]
-        public ActionResult EnteredResultExcel(EnteredMatchResultExcelQuery message)
+        public ActionResult EnteredResultExcel(EnteredSportResultExcelQuery message)
             => ExcelView(message);
 
         public ActionResult WinLoss(WinLossQuery message)

@@ -123,6 +123,19 @@
         }
 
         [Fact]
+        public void WinLossViewModel_EmptyReportData_ReturnsDefaultReportData()
+        {
+            // Arrange 
+            var expectedReportData = Enumerable.Empty<WinLoss>();
+
+            // Act
+            var actualReportData = new WinLossViewModel(new List<WinLoss>()).ReportData;
+
+            // Assert
+            AssertExtension.Equal(actualReportData, expectedReportData);
+        }
+
+        [Fact]
         public void WinLossViewModel_EmptyReportData_ReturnsDefaultGrandTotal()
         {
             // Arrange 

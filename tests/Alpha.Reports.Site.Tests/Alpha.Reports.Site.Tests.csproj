@@ -148,7 +148,10 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />
-    <Compile Include="Handlers\WinLossHandlerTests.cs" />
+    <Compile Include="Handlers\WinLoss\EnteredSportResultExcelHandlerTests.cs" />
+    <Compile Include="Handlers\WinLoss\EnteredSportResultHandlerTests.cs" />
+    <Compile Include="Handlers\WinLoss\WinLossExcelHandlerTest.cs" />
+    <Compile Include="Handlers\WinLoss\WinLossHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandlerTests.cs" />
     <Compile Include="Helpers\AppPathHelperTests.cs" />
     <Compile Include="Helpers\ExcelHelperTests.cs" />

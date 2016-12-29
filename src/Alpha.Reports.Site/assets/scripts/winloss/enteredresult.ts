@@ -28,7 +28,7 @@ class EnterResultView {
     }
 
     init = () => {
-        var self = this;
+        let self = this;
 
         this.dateRangePickerComponent.render();
         this.cacheDOMElements();
@@ -57,60 +57,51 @@ class EnterResultView {
         this.$reportSwitch = this.$("#report-switch");
     };
     registerEvents = () => {
-        var self = this;
-
-        this.$reportSwitch.on("click", function () {
-            self.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
-            self.$isStackMode.val(alphaReports.screenSmallThan768());
-            self.$reportForm.trigger("submit");
-        });
-
-        this.$(".icon-filter").on("click", function () {
-            var filter = self.$reportForm;
-            var currentHideState = filter.is(":hidden");
-
-            if (currentHideState) {
-                self.$pageTitle.removeClass("hide-filter");
-                filter.slideDown("fast", undefined, function () { });
-            } else {
-                self.hideFilter();
-            }
-        });
-
-        this.$("#icon-excel").on("click", function () {
-            self.$("#export-excel-form").submit();
-            self.$.unblockUI();
-        });
-
-        this.$(".btn-submit").on("click", function () {
-            self.$("#IsHistoricReport").val(false);
-            self.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
-            self.$isStackMode.val(alphaReports.screenSmallThan768());
-            self.onSubmitReportEvent();
-        });
+        this.$reportSwitch.on("click", this.onSwitchModeEvent);
+        this.$(".icon-filter").on("click", this.onFilterEvent);
+        this.$("#icon-excel").on("click", this.onExportExcelEvent);
+        this.$(".btn-submit").on("click", this.onSubmitReportEvent);
     };
-    hideFilter = () => {
-        var self = this;
+    onFilterEvent = () => {
+        let filter = this.$reportForm;
+        let currentHideState = filter.is(":hidden");
 
-        this.$pageTitle.addClass("hide-filter");
-        this.$reportForm.slideUp("fast", undefined, function () { });
+        if (currentHideState) {
+            this.$pageTitle.removeClass("hide-filter");
+            filter.slideDown("fast", undefined, function () { });
+        } else {
+            this.$pageTitle.addClass("hide-filter");
+            this.$reportForm.slideUp("fast", undefined, function () { });
+        }
+    };
+    onExportExcelEvent = () => {
+        this.$("#export-excel-form").submit();
+        this.$.unblockUI();
     };
     onSubmitReportEvent = () => {
+        this.$("#IsHistoricReport").val(false);
+        this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
+        this.$isStackMode.val(alphaReports.screenSmallThan768());
         this.$.blockUI();
     };
+    onSwitchModeEvent = () => {
+        this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
+        this.$isStackMode.val(alphaReports.screenSmallThan768());
+        this.$reportForm.trigger("submit");
+    };
     bindTableSorter = () => {
-        var self = this;
+        let self = this;
 
-        var headers = {
+        let headers = {
             0: { sorter: "text" }
         };
 
-        var disabledSortColumns = self.$tableReport.find("th[data-disabledsort='true']");
+        let disabledSortColumns = self.$tableReport.find("th[data-disabledsort='true']");
         disabledSortColumns.each(function () {
             headers[this.cellIndex] = { sorter: false };
         });
 
-        var sortedColumnHeader = self.$tableReport.find("[data-sortedname='" + self.$tableReport.data("sortedcolumn") + "']")[0];
+        let sortedColumnHeader = self.$tableReport.find("[data-sortedname='" + self.$tableReport.data("sortedcolumn") + "']")[0];
 
         this.$tableReport.tablesorter(
             {

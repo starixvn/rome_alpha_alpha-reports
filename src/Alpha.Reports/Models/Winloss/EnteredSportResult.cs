@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Models.Winloss
 {
-    public class EnteredMatchResult
+    public class EnteredSportResult
     {
-        public EnteredMatchResult(
+        public EnteredSportResult(
             int sportTypeId,
             string sportName,
             DailyEnteredSport enterSportToday,

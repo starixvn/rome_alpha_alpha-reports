@@ -6,7 +6,7 @@
 
     public interface WinLossService
     {
-        IEnumerable<EnteredMatchResult> GetEnteredSportResults();
+        IEnumerable<EnteredSportResult> GetEnteredSportResults();
 
         IEnumerable<WinLoss> GetWinLoss(WinLossParam param); 
     }

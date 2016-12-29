@@ -76,19 +76,19 @@
             return dailyEnteredSportData;
         }
 
-        public static List<EnteredMatchResult> BuildEnteredSportResultData()
+        public static List<EnteredSportResult> BuildEnteredSportResultData()
         {
-            var enteredSportResultData = new List<EnteredMatchResult>();
+            var enteredSportResultData = new List<EnteredSportResult>();
 
             enteredSportResultData.Add(
-               new EnteredMatchResult(
+               new EnteredSportResult(
                    sportTypeId: 2,
                    sportName: "BasketBall",
                    enterSportToday: TodaydayDailyEnteredBasketball,
                    enterSportYesterday: YesterdayDailyEnteredBasketball));
 
             enteredSportResultData.Add(
-                new EnteredMatchResult(
+                new EnteredSportResult(
                     sportTypeId: 1,
                     sportName: "Soccer",
                     enterSportToday: TodayDailyEnteredSoccer,

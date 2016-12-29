@@ -28,27 +28,27 @@
         public void EnteredResult_Always_CallsMediatorSendEnteredResultQuery()
         {
             // Arrange
-            var message = new EnteredMatchResultQuery(userSession);
+            var message = new EnteredSportResultQuery(userSession);
 
             // Act
             winLossController.EnteredResult(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is<EnteredMatchResultQuery>(message));
+            mediator.Received().Send(Arg.Is<EnteredSportResultQuery>(message));
         }
 
         [Fact]
         public void EnteredResultExcel_Always_CallsMediatorSendExportEnteredResultQuery()
         {
             // Arrange
-            var message = new Site.Requests.WinLoss.EnteredMatchResultExcelQuery(userSession);
-            mediator.Send<ExcelFileViewModel>(Arg.Any<EnteredMatchResultExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
+            var message = new Site.Requests.WinLoss.EnteredSportResultExcelQuery(userSession);
+            mediator.Send<ExcelFileViewModel>(Arg.Any<EnteredSportResultExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
             winLossController.EnteredResultExcel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<Site.Requests.WinLoss.EnteredMatchResultExcelQuery>(message));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<Site.Requests.WinLoss.EnteredSportResultExcelQuery>(message));
         }
 
         [Fact]
