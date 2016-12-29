@@ -1,7 +1,7 @@
-﻿namespace Alpha.Reports.Site.Tests.Requests.WinLossDetails
+﻿namespace Alpha.Reports.Site.Tests.Requests.WinLossDetail
 {
     using NSubstitute;
-    using Site.Requests.WinLossDetails;
+    using Site.Requests.WinLossDetail;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
 

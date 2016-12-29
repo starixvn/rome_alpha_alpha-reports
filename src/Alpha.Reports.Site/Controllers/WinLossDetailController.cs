@@ -2,7 +2,7 @@
 {
     using System.Web.Mvc;
     using MediatR;
-    using Requests.WinLossDetails;
+    using Requests.WinLossDetail;
 
     public class WinLossDetailController : ReportBaseController
     {

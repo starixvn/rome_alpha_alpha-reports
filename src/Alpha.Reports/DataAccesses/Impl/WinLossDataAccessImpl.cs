@@ -8,7 +8,7 @@
     using Fanex.Common.Extensions;
     using Models;
     using Models.Winloss;
-    using Models.WinlossDetails;
+    using Models.WinLossDetail;
 
     public class WinLossDataAccessImpl : WinLossDataAccess
     {
@@ -48,10 +48,10 @@
                  grossComm: reader.ToDecimal("GrossComm"),
                  memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,
                  agentNetWinLoss: reportLevel.IsNotSuperLevel() ?
-                                   (reportLevel.IsMasterLevel() ? 
+                                   (reportLevel.IsMasterLevel() ?
                                    new NetWinLoss(reader.ToDecimal("AgTotal")) : new NetWinLoss(reader.ToDecimal("AgWinLoss"), reader.ToDecimal("AgComm"))) : null,
                  masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ?
-                                   (reportLevel.IsMasterLevel() ? 
+                                   (reportLevel.IsMasterLevel() ?
                                    new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) : new NetWinLoss(reader.ToDecimal("MAgTotal"))) : null,
                  superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null);
 

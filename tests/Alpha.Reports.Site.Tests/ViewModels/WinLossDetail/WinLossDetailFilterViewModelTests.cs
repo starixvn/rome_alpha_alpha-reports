@@ -5,7 +5,7 @@
     using Constants;
     using Enumerations;
     using Models;
-    using Site.ViewModels.WinLossDetails;
+    using Site.ViewModels.WinLossDetail;
     using Xunit;
 
     public class WinLossDetailFilterViewModelTests

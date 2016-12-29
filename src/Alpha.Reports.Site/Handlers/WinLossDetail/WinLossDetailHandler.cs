@@ -5,10 +5,10 @@
     using Enumerations;
     using MediatR;
     using Models;
-    using Requests.WinLossDetails;
+    using Requests.WinLossDetail;
     using Services;
     using Sunplus.Agent.Model.Entities;
-    using ViewModels.WinLossDetails;
+    using ViewModels.WinLossDetail;
 
     [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
     public class WinLossDetailHandler :
@@ -24,7 +24,7 @@
         {
             this.userSession = userSession;
         }
-        
+
         public WinLossDetailViewModel Handle(WinLossDetailQuery message)
         {
             if (message == null)

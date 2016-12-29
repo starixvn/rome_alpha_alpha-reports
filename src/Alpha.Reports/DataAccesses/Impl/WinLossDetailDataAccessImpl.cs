@@ -6,7 +6,7 @@
     using Criteria.WinLossDetail;
     using Fanex.Common.Extensions;
     using Models;
-    using Models.WinlossDetails;
+    using Models.WinLossDetail;
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {

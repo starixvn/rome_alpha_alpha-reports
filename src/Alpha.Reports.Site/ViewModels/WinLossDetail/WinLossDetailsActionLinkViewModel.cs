@@ -1,9 +1,9 @@
-﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetails
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Requests.WinLossDetails;
+    using Requests.WinLossDetail;
 
     public class WinLossDetailsActionLinkViewModel
     {

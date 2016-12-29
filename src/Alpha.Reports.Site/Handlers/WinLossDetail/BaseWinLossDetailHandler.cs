@@ -5,7 +5,7 @@
     using Extensions;
     using Models;
     using Params;
-    using Requests.WinLossDetails;
+    using Requests.WinLossDetail;
     using Services;
 
     public class BaseWinLossDetailHandler : BaseHandler

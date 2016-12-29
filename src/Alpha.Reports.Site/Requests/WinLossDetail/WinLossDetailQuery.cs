@@ -1,9 +1,9 @@
-﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
+﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
     using MediatR;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
-    using ViewModels.WinLossDetails;
+    using ViewModels.WinLossDetail;
 
     public class WinLossDetailQuery :
         BaseReportQuery,

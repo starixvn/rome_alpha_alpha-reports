@@ -4,9 +4,9 @@
     using Constants;
     using Extensions;
     using NSubstitute;
-    using Site.Requests.WinLossDetails;
+    using Site.Requests.WinLossDetail;
     using Site.ViewModels;
-    using Site.ViewModels.WinLossDetails;
+    using Site.ViewModels.WinLossDetail;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
 

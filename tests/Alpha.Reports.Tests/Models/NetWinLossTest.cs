@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Models
 {
     using Extensions;
-    using Reports.Models.WinlossDetails;
+    using Reports.Models.WinLossDetail;
     using Xunit;
 
     [Trait("Category", "WinLoss")]

@@ -4,7 +4,7 @@
     using MediatR;
     using NSubstitute;
     using Site.Controllers;
-    using Site.Requests.WinLossDetails;
+    using Site.Requests.WinLossDetail;
     using Site.ViewModels;
     using Sunplus.Agent.Model.Entities;
     using Xunit;

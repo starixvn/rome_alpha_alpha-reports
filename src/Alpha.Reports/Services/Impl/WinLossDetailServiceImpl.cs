@@ -5,7 +5,7 @@
     using Criteria.WinLossDetail;
     using DataAccesses;
     using Models;
-    using Models.WinlossDetails;
+    using Models.WinLossDetail;
     using Params;
 
     public class WinLossDetailServiceImpl : WinLossDetailService

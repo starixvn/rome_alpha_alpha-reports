@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetails
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
 {
     using System;
     using System.Collections.Generic;
@@ -8,8 +8,8 @@
     using Components;
     using Extensions;
     using Models;
-    using Models.WinlossDetails;
-    using Requests.WinLossDetails;
+    using Models.WinLossDetail;
+    using Requests.WinLossDetail;
 
     public class WinLossDetailViewModel
     {

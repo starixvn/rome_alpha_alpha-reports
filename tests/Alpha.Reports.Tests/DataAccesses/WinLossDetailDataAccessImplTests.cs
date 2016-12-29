@@ -12,7 +12,7 @@
     using Reports.DataAccesses.Impl;
     using Reports.Enumerations;
     using Reports.Models;
-    using Reports.Models.WinlossDetails;
+    using Reports.Models.WinLossDetail;
     using Xunit;
 
     public class WinLossDetailDataAccessImplTests

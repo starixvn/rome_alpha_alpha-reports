@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Requests.WinLossDetails
+﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
     using System.Web;
     using Constants;

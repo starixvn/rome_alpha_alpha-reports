@@ -7,12 +7,12 @@
     using System.Web.Mvc;
     using Extensions;
     using Models;
-    using Models.WinlossDetails;
+    using Models.WinLossDetail;
     using NSubstitute;
     using Site.Handlers;
     using Site.Helpers;
     using Site.Requests;
-    using Site.Requests.WinLossDetails;
+    using Site.Requests.WinLossDetail;
     using Site.ViewModels;
     using Sunplus.Agent.Model.Entities;
     using Xunit;

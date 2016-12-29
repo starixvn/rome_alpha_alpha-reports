@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Alpha.Reports.Models.WinlossDetails
+namespace Alpha.Reports.Models.WinLossDetail
 {
     public class NetWinLoss
     {
@@ -36,8 +36,8 @@ namespace Alpha.Reports.Models.WinlossDetails
                 return null;
             }
 
-            return new NetWinLoss( 
-                winloss: winlossA?.WinLoss + winlossB?.WinLoss, 
+            return new NetWinLoss(
+                winloss: winlossA?.WinLoss + winlossB?.WinLoss,
                 comm: winlossA?.Comm + winlossB?.Comm,
                 total: winlossA.Total + winlossB.Total);
         }

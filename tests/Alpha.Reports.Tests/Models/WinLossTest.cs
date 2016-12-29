@@ -2,7 +2,7 @@
 {
     using Extensions;
     using Reports.Models.Winloss;
-    using Reports.Models.WinlossDetails;
+    using Reports.Models.WinLossDetail;
     using Xunit;
 
     [Trait("Category", "WinLoss")]

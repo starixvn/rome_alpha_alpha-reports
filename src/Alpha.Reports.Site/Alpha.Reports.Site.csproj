@@ -273,8 +273,8 @@
     <Compile Include="Helpers\MicroSites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\BaseReportQuery.cs" />
-    <Compile Include="Requests\WinLossDetails\WinLossDetailExcelQuery.cs" />
-    <Compile Include="Requests\WinLossDetails\WinLossDetailQuery.cs" />
+    <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
+    <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLoss\EnteredMatchResultQuery.cs" />
     <Compile Include="Requests\WinLoss\EnteredMatchResultExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossExcelQuery.cs" />
@@ -289,9 +289,9 @@
     <Compile Include="ViewModels\Components\ReportPageViewModel.cs" />
     <Compile Include="ViewModels\BreadcrumbViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetails\WinLossDetailsActionLinkViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetails\WinLossDetailFilterViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetails\WinLossDetailViewModel.cs" />
+    <Compile Include="ViewModels\WinLossDetail\WinLossDetailsActionLinkViewModel.cs" />
+    <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
+    <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossActionLinkViewModel.cs" />

@@ -108,8 +108,8 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\UserLevel.cs" />
-    <Compile Include="Models\WinlossDetails\NetWinLoss.cs" />
-    <Compile Include="Models\WinlossDetails\WinLossDetail.cs" />
+    <Compile Include="Models\WinLossDetail\NetWinLoss.cs" />
+    <Compile Include="Models\WinLossDetail\WinLossDetailModel.cs" />
     <Compile Include="Models\Winloss\DailyEnteredSport.cs" />
     <Compile Include="Models\Winloss\EnteredMatchResult.cs" />
     <Compile Include="Models\Winloss\WinLoss.cs" />

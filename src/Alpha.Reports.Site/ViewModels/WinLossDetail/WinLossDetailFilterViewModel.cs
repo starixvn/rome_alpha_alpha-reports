@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetails
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
 {
     using System;
     using App_GlobalResources;

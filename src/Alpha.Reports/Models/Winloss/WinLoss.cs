@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Models.Winloss
 {
-    using WinlossDetails;
+    using Alpha.Reports.Models.WinLossDetail;
 
     public class WinLoss
     {

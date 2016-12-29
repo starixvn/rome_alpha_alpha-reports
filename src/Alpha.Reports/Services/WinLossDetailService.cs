@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Services
 {
     using Models;
-    using Models.WinlossDetails;
+    using Models.WinLossDetail;
     using Params;
 
     public interface WinLossDetailService

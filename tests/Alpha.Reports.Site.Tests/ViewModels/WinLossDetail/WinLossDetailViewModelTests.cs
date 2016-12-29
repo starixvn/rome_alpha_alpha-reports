@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossDetails
+﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossDetail
 {
     using System;
     using System.Collections.Generic;
@@ -10,11 +10,11 @@
     using Enumerations;
     using Extensions;
     using Models;
-    using Models.WinlossDetails;
+    using Models.WinLossDetail;
     using NSubstitute;
-    using Site.Requests.WinLossDetails;
+    using Site.Requests.WinLossDetail;
     using Site.ViewModels;
-    using Site.ViewModels.WinLossDetails;
+    using Site.ViewModels.WinLossDetail;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
 

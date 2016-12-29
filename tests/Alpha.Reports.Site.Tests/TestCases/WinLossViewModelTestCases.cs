@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using Reports.Models;
     using Reports.Models.Winloss;
-    using Reports.Models.WinlossDetails;
+    using Reports.Models.WinLossDetail;
 
     public static class WinLossViewModelTestCases
     {
@@ -143,7 +143,7 @@
 
             return agentWinLossData;
         }
- 
+
         public static IEnumerable<object[]> WinLossViewModelSources
         {
             get

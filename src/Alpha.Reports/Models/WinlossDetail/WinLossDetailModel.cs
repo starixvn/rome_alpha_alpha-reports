@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Models.WinlossDetails
+﻿namespace Alpha.Reports.Models.WinLossDetail
 {
     public class WinLossDetailModel
     {

@@ -2,7 +2,7 @@
 {
     using Criteria.WinLossDetail;
     using Models;
-    using Models.WinlossDetails;
+    using Models.WinLossDetail;
 
     public interface WinLossDetailDataAccess
     {

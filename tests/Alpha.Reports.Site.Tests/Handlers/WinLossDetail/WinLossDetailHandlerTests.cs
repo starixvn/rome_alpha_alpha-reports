@@ -11,7 +11,7 @@
     using Enumerations;
     using Extensions;
     using Models;
-    using Models.WinlossDetails;
+    using Models.WinLossDetail;
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Params;
@@ -19,9 +19,9 @@
     using Site.Handlers;
     using Site.Handlers.WinLossDetail;
     using Site.Helpers;
-    using Site.Requests.WinLossDetails;
+    using Site.Requests.WinLossDetail;
     using Site.ViewModels;
-    using Site.ViewModels.WinLossDetails;
+    using Site.ViewModels.WinLossDetail;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
 

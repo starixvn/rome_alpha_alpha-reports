@@ -8,7 +8,7 @@
     using Reports.DataAccesses;
     using Reports.Enumerations;
     using Reports.Models;
-    using Reports.Models.WinlossDetails;
+    using Reports.Models.WinLossDetail;
     using Reports.Params;
     using Reports.Services;
     using Reports.Services.Impl;

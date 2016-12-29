@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using Reports.Models;
-    using Reports.Models.WinlossDetails;
+    using Reports.Models.WinLossDetail;
     using Xunit;
 
     public class ReportDataTests

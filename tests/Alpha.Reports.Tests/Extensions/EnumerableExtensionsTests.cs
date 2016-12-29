@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Reports.Extensions;
-    using Reports.Models.WinlossDetails;
+    using Reports.Models.WinLossDetail;
     using TestCases;
     using Xunit;
 

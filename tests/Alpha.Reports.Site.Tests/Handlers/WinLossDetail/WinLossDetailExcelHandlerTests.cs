@@ -7,14 +7,14 @@
     using System.Threading;
     using Constants;
     using Models;
-    using Models.WinlossDetails;
+    using Models.WinLossDetail;
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Params;
     using Services;
     using Site.Handlers;
     using Site.Handlers.WinLossDetail;
-    using Site.Requests.WinLossDetails;
+    using Site.Requests.WinLossDetail;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
 
