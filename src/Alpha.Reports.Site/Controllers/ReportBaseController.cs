@@ -7,7 +7,7 @@
     using ViewModels;
     using Web;
 
-    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter", Justification = "Reviewed")]
+    [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter", Justification = "Reviewed")]    
     [SessionState(SessionStateBehavior.ReadOnly)]
     public abstract class ReportBaseController : BaseController
     {
