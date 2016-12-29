@@ -18,8 +18,13 @@
             this.mediator = mediator;
         }
 
-        [NonAction]
-        public FileContentResult ExcelFile(ExcelFileViewModel viewModel)
+        private FileContentResult GetExcelContent(ExcelFileViewModel viewModel)
             => File(viewModel.Content, viewModel.ContentType, viewModel.Name);
+
+        protected ActionResult View<TResponse>(IRequest<TResponse> message)
+            => View(mediator.Send(message));
+
+        protected FileContentResult ExcelView(IRequest<ExcelFileViewModel> message)
+            => GetExcelContent(mediator.Send(message));        
     }   
-}   
+}

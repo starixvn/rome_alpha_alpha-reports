@@ -16,17 +16,17 @@
         [Route("enteredresult/master")]
         [Route("enteredresult/agent")]
         public ActionResult EnteredResult(EnteredMatchResultQuery message)
-            => View(mediator.Send(message));
+            => View(message);
 
         [HttpGet]
         public ActionResult EnteredResultExcel(EnteredMatchResultExcelQuery message)
-            => ExcelFile(mediator.Send<ExcelFileViewModel>(message));
+            => ExcelView(message);
 
         public ActionResult WinLoss(WinLossQuery message)
-            => View(mediator.Send(message));
+            => View(message);
 
         [HttpGet]
         public ActionResult WinLossExcel(WinLossExcelQuery message)
-            => ExcelFile(mediator.Send<ExcelFileViewModel>(message));      
+            => ExcelView(message);      
     }
 }

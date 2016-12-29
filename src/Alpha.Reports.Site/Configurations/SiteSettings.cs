@@ -28,16 +28,17 @@
 
         public static void Verify()
         {
-            CheckNullOrWhiteSpace(OldMainAppPath);
-            CheckNullOrWhiteSpace(StoreProcedurePath);
-            CheckNullOrWhiteSpace(AssetAppPath);
+            Require(OldMainAppPath, nameof(OldMainAppPath));
+            Require(StoreProcedurePath, nameof(StoreProcedurePath));
+            Require(AssetAppPath, nameof(AssetAppPath));
+            Require(AccessDeniedPage, nameof(AccessDeniedPage));            
         }
 
-        private static void CheckNullOrWhiteSpace(string path)
+        private static void Require(string key, string keyName)
         {
-            if (string.IsNullOrWhiteSpace(path))
+            if (string.IsNullOrWhiteSpace(key))
             {
-                throw new InvalidOperationException($"{nameof(path)} is null or whitespace");
+                throw new ConfigurationErrorsException($"{keyName} is null or whitespace");
             }
         }
     }
