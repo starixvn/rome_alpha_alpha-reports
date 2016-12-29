@@ -22,21 +22,20 @@
             PageSize = DefaultVariables.PageSize;
         }
 
-        public string TemplatePath
-        {
-            get
-            {
-                var excelTemplatePath = ExcelTemplateDir +
-                    (UserLevel.IsSuperLevel()
-                    ? "Master.xls"
-                    : UserLevel.IsMasterLevel()
-                    ? "Agent.xls"
-                    : "Member.xls");
-
-                return HttpContext.Current != null ? HttpContext.Current.Server.MapPath(excelTemplatePath) : string.Empty;
-            }
-        }
+        public string TemplatePath => HttpContext.Current != null
+            ? HttpContext.Current.Server.MapPath(BuildExcelTemplatePath())
+            : string.Empty;
 
         public UserLevel UserLevel => Enumeration.FromValue<UserLevel>(UserLevelId);
+
+        private string BuildExcelTemplatePath()
+        {
+            return ExcelTemplateDir +
+                (UserLevel.IsSuperLevel()
+                ? "Master.xls"
+                : UserLevel.IsMasterLevel()
+                ? "Agent.xls"
+                : "Member.xls");
+        }
     }
 }
