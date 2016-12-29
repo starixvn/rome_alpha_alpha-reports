@@ -9,37 +9,6 @@
     public class ExcelHelperTests
     {
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("  ")]
-        public void GetFileName_NullOrWhiteSpaceFileName_ThrowsArgumentNullException(string fileName)
-        {
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => ExcelHelper.StandardizeFileName(fileName));
-        }
-
-        [Theory]
-        [InlineData("FileName/", "FileName_.xls")]
-        [InlineData("FileName ", "FileName_.xls")]
-        [InlineData("FileName/Name Name", "FileName_Name_Name.xls")]
-        [InlineData("FileName Name/Name", "FileName_Name_Name.xls")]
-        [InlineData("FileName/Name/Name", "FileName_Name_Name.xls")]
-        [InlineData("FileName Name Name", "FileName_Name_Name.xls")]
-        [InlineData("FileName", "FileName.xls")]
-        [InlineData("<>FileName<>", "<>FileName<>.xls")]
-        public void GetFileName_FileNameHasSlashOrSpaceOrNot_Returns(
-            string fileName,
-            string expectedFileName)
-        {
-            // Act
-            var actualFileName = ExcelHelper.StandardizeFileName(fileName);
-
-            // Assert
-            Assert.Equal(expectedFileName, actualFileName);
-        }
-
-        [Theory]
         [InlineData("ResourceKey")]
         public void HeaderTitleMapping_Always_ReturnsTextFromResourceManager(string resourceKey)
         {

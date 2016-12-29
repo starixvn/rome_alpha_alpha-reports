@@ -60,7 +60,7 @@
                 .ExportToBytes();
 
             return new ExcelFileViewModel(
-                ExcelHelper.StandardizeFileName($"{title}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}"),
+                $"{title}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}",
                 fileContent);
         }
 

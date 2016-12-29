@@ -78,9 +78,7 @@
                .Sheet(enteredResultViewModel.Title)
                .ExportToBytes();
 
-            return new ExcelFileViewModel(
-               ExcelHelper.StandardizeFileName(Resources.MatchResultEntered),
-               result);
+            return new ExcelFileViewModel(Resources.MatchResultEntered, result);
         }
 
         public WinLossViewModel Handle(WinLossQuery message)
@@ -108,16 +106,15 @@
 
             var result = winlossWorkbook
                 .UseTemplate(templateInfo)
-                .Title(reportTitle)
+                .Title(reportTitle) 
                 .Header(ExcelHelper.HeaderTitleMapping)
                 .Body(winlossViewModel.ReportData, GetWinLossRowMapper(message, isTotal: false))
                 .Footer(winlossViewModel.GrantTotal, GetWinLossRowMapper(message, isTotal: true))
                 .Sheet(winlossViewModel.Title)
                 .ExportToBytes();
 
-            return new ExcelFileViewModel(
-               ExcelHelper.StandardizeFileName(
-                   $"{winlossViewModel.Title}-{winlossViewModel.FromDate.ToShortDateWithSlash()}-{winlossViewModel.ToDate.ToShortDateWithSlash()}"),
+            return new ExcelFileViewModel(               
+                   $"{winlossViewModel.Title}-{winlossViewModel.FromDate.ToShortDateWithSlash()}-{winlossViewModel.ToDate.ToShortDateWithSlash()}",
                result);
         }
 

@@ -3,7 +3,6 @@
     using System.Web.Mvc;
     using MediatR;
     using Requests.WinLoss;
-    using ViewModels;
 
     public class WinLossController : ReportControllerBase
     {
