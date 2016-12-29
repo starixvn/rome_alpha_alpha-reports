@@ -1,0 +1,28 @@
+﻿namespace Alpha.Reports.Site.Tests.Requests.WinLossDetails
+{
+    using NSubstitute;
+    using Site.Requests.WinLossDetails;
+    using Sunplus.Agent.Model.Entities;
+    using Xunit;
+
+    public class WinLossDetailExcelQueryTests
+    {
+        [Theory]
+        [InlineData(4, "~/App_Data/ExcelTemplates/WinLossDetail/Master.xls")]
+        [InlineData(3, "~/App_Data/ExcelTemplates/WinLossDetail/Agent.xls")]
+        [InlineData(2, "~/App_Data/ExcelTemplates/WinLossDetail/Member.xls")]
+        public void BuildExcelTemplatePath_Always_ReturnsCorrectPathByUserLevel(byte userLevelId, string expectedPath)
+        {
+            // Arrange
+            var userSession = Substitute.For<IUserSession>();
+            var winLossDetailQuery = new WinLossDetailExcelQuery(userSession);
+            winLossDetailQuery.UserLevelId = userLevelId;
+
+            // Act
+            var actualPath = winLossDetailQuery.BuildExcelTemplatePath();
+
+            // Assert
+            Assert.Equal(expectedPath, actualPath);
+        }
+    }
+}

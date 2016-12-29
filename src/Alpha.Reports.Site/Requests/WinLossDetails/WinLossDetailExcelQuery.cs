@@ -28,7 +28,7 @@
 
         public UserLevel UserLevel => Enumeration.FromValue<UserLevel>(UserLevelId);
 
-        private string BuildExcelTemplatePath()
+        internal string BuildExcelTemplatePath()
         {
             return ExcelTemplateDir +
                 (UserLevel.IsSuperLevel()
