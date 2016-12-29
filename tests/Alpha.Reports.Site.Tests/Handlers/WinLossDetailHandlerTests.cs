@@ -29,10 +29,7 @@
     {
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
-
-        private readonly Workbook<WinLossDetail> workbook;
         private readonly WinLossDetailHandler winLossDetailHandler;
-
         private readonly IUserSession userSession;
         private readonly ReportData<WinLossDetail> reportData;
 
@@ -45,16 +42,8 @@
             reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
-            workbook = Substitute.For<Workbook<WinLossDetail>>();
-            workbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(workbook);
-            workbook.Title(Arg.Any<string>()).Returns(workbook);
-            workbook.Header(Arg.Any<Func<string, string>>()).Returns(workbook);
-            workbook.Body(Arg.Any<IEnumerable<WinLossDetail>>(), Arg.Any<Mapper<WinLossDetail>>()).Returns(workbook);
-            workbook.Footer(Arg.Any<WinLossDetail>(), Arg.Any<Mapper<WinLossDetail>>()).Returns(workbook);
-            workbook.Sheet(Arg.Any<string>()).Returns(workbook);
-
             userSession = Substitute.For<IUserSession>();
-            winLossDetailHandler = new WinLossDetailHandler(productService, reportService, workbook, userSession);
+            winLossDetailHandler = new WinLossDetailHandler(productService, reportService, userSession);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -132,149 +121,6 @@
 
             // Assert
             AssertExtension.Equal(expectedWinLossDetailViewModel, actualWinLossDetailViewModel);
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_NullMessage_ThrowsArgumentNullException()
-        {
-            // Arrange
-            WinLossDetailExcelQuery nullMessage = null;
-
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => winLossDetailHandler.Handle(nullMessage));
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_UsesCorrectTemplateInfo()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
-
-            // Act
-            winLossDetailHandler.Handle(message);
-
-            // Assert
-            workbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
-                tp => tp.TemplatePath == "~/App_Data/ExcelTemplates/WinLossDetail/Master.xls" &&
-                tp.NoInfomationText == "No information is available" &&
-                tp.FreezeColumnName == "B" &&
-                tp.FreezeRowIndex == 3));
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectTitle()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
-
-            // Act
-            winLossDetailHandler.Handle(message);
-
-            // Assert
-            workbook.Received().Title(Arg.Is<string>("Master Win Loss Detail 12/02/2016 --> 12/02/2016 of Product Name"));
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectHeader()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
-
-            // Act
-            winLossDetailHandler.Handle(message);
-
-            // Assert
-            workbook.Received().Header(Arg.Any<Func<string, string>>());
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectBody()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
-
-            // Act
-            winLossDetailHandler.Handle(message);
-
-            // Assert
-            workbook.Received().Body(
-                Arg.Is<IEnumerable<WinLossDetail>>(reportData.DataSource),
-                Arg.Any<Mapper<WinLossDetail>>());
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectFooter()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
-
-            // Act
-            winLossDetailHandler.Handle(message);
-
-            // Assert
-            workbook.Received().Footer(Arg.Is<WinLossDetail>(reportData.TotalData), Arg.Any<Mapper<WinLossDetail>>());
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectSheetName()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
-
-            // Act
-            winLossDetailHandler.Handle(message);
-
-            // Assert
-            workbook.Received().Sheet(Arg.Is<string>("Master Win Loss Detail"));
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsExcelToBytes()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
-
-            // Act
-            winLossDetailHandler.Handle(message);
-
-            // Assert
-            workbook.Received().ExportToBytes();
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_AgentWinLossDetail_ExportsExcelToBytes()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(userLevel: 3);
-
-            // Act
-            winLossDetailHandler.Handle(message);
-
-            // Assert
-            workbook.Received().ExportToBytes();
-        }
-
-        [Fact]
-        public void HandleExportWinLossDetailQuery_MemberWinLossDetail_ExportsExcelToBytes()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(userLevel: 2);
-
-            // Act
-            winLossDetailHandler.Handle(message);
-
-            // Assert
-            workbook.Received().ExportToBytes();
-        }
-
-        private WinLossDetailExcelQuery CreateExportExcelQuery(byte userLevel)
-        {
-            var result = new WinLossDetailExcelQuery(userSession);
-            result.UserLevelId = userLevel;
-            result.FromDate = DefaultVariables.CurrentDate;
-            result.ToDate = DefaultVariables.CurrentDate;
-
-            return result;
         }
     }
 }

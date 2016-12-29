@@ -1,6 +1,4 @@
 ﻿"use strict";
-declare var store: any;
-declare var $: any;
 
 class AlphaReports {
     $: any;

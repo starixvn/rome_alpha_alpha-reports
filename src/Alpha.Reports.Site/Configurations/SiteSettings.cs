@@ -11,8 +11,6 @@
 
         public static string OldMainAppPath => GetConfigValue("OldMainAppPath");
 
-        public static string AccessDeniedPage => GetConfigValue("AccessDeniedPage");
-
         public static string StoreProcedurePath => GetConfigValue("StoreProcedurePath");
 
         public static string AssetAppPath => GetConfigValue("AssetAppPath");
@@ -33,8 +31,6 @@
             CheckNullOrWhiteSpace(OldMainAppPath);
             CheckNullOrWhiteSpace(StoreProcedurePath);
             CheckNullOrWhiteSpace(AssetAppPath);
-            CheckNullOrWhiteSpace(AccessDeniedPage);
-            CheckNullOrWhiteSpace(StaticResourcesVersion);
         }
 
         private static void CheckNullOrWhiteSpace(string path)

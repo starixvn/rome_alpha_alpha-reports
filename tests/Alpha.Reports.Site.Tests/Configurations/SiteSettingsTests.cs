@@ -15,8 +15,7 @@
             {
                 ["OldMainAppPath"] = "OldMainAppPath",
                 ["StoreProcedurePath"] = "StoreProcedurePath",
-                ["AssetAppPath"] = "AssetAppPath",
-                ["AccessDeniedPage"] = "AccessDeniedPage"
+                ["AssetAppPath"] = "AssetAppPath"
             };
             SiteSettings.AppSettings = expectedAppSettings;
 
@@ -84,49 +83,6 @@
             Assert.Equal("path is null or whitespace", ex.Message);
         }
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("  ")]
-        public void Verify_NullOrWhiteSpaceAccessDeniedPage_ThrowsInvalidOperationException(string accessDeniedPage)
-        {
-            // Arrange
-            SiteSettings.AppSettings = new NameValueCollection
-            {
-                ["OldMainAppPath"] = "OldMainAppPath",
-                ["StoreProcedurePath"] = "StoreProcedurePath",
-                ["AssetAppPath"] = "AssetAppPath",
-                ["AccessDeniedPage"] = accessDeniedPage
-            };
-
-            // Act & Assert
-            Exception ex = Assert.Throws<InvalidOperationException>(() => SiteSettings.Verify());
-            Assert.Equal("path is null or whitespace", ex.Message);
-        }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("  ")]
-        public void Verify_NullOrWhiteSpaceStaticResourcesVersion_ThrowsInvalidOperationException(string staticResourcesVersion)
-        {
-            // Arrange
-            SiteSettings.AppSettings = new NameValueCollection
-            {
-                ["OldMainAppPath"] = "OldMainAppPath",
-                ["StoreProcedurePath"] = "StoreProcedurePath",
-                ["AssetAppPath"] = "AssetAppPath",
-                ["AccessDeniedPage"] = "AccessDeniedPage",
-                ["AssetsApp:StaticResourcesVersion"] = staticResourcesVersion
-            };
-
-            // Act & Assert
-            Exception ex = Assert.Throws<InvalidOperationException>(() => SiteSettings.Verify());
-            Assert.Equal("path is null or whitespace", ex.Message);
-        }
-
         [Fact]
         public void Verify_HasRequiredSettings_NotThrowsInvalidOperationException()
         {
@@ -136,7 +92,6 @@
                 ["OldMainAppPath"] = "OldMainAppPath",
                 ["StoreProcedurePath"] = "StoreProcedurePath",
                 ["AssetAppPath"] = "AssetAppPath",
-                ["AccessDeniedPage"] = "AccessDeniedPage",
                 ["AssetsApp:StaticResourcesVersion"] = "AssetsApp:StaticResourcesVersion"
             };
 
@@ -156,7 +111,6 @@
                 ["OldMainAppPath"] = string.Empty,
                 ["StoreProcedurePath"] = string.Empty,
                 ["AssetAppPath"] = string.Empty,
-                ["AccessDeniedPage"] = string.Empty,
                 ["AssetsApp:StaticResourcesVersion"] = string.Empty
             };
 
@@ -165,28 +119,6 @@
 
             // Assert
             Assert.True(actualHasException);
-        }
-
-        [Fact]
-        public void AccessDeniedPage_Always_ReturnsSetValue()
-        {
-            // Arrange
-            var expectedSettings = "AccessDeniedPage";
-            var appSettings = new NameValueCollection
-            {
-                ["OldMainAppPath"] = "OldMainAppPath",
-                ["StoreProcedurePath"] = "StoreProcedurePath",
-                ["AssetAppPath"] = "AssetAppPath",
-                ["AccessDeniedPage"] = expectedSettings
-            };
-
-            SiteSettings.AppSettings = appSettings;
-
-            // Act
-            var actualSettings = SiteSettings.AccessDeniedPage;
-
-            // Assert
-            Assert.Equal(expectedSettings, actualSettings);
         }
 
         private bool VerifyHasException()

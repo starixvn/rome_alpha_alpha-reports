@@ -15,3 +15,5 @@
 \\packages.config
 \\Web.Debug.config
 \\Web.Release.config
+
+\\typings\\*

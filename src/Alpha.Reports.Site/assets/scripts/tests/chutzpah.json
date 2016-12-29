@@ -1,0 +1,36 @@
+﻿{
+  "Framework": "jasmine",
+  "EnableCodeCoverage": "true",
+  "Compile": {
+    "Mode": "External",
+    "Extensions": [ ".ts" ]
+  },
+  "CodeCoverageExcludes": [
+    "*\\libs\\*"
+  ],
+  "CodeCoverageIgnores": [
+    "*\\tests\\*"
+  ],
+  "References": [
+    { "Path": "libs/jquery.js" },
+    { "Path": "libs/jasmine.js" },
+    { "Path": "libs/jasmine-jquery.js" },
+
+    { "Path": "../core.ts" },
+    { "Path": "../components/daterangepicker.ts" },
+    { "Path": "../components/monthpicker.ts" },
+    { "Path": "../components/netturnover-tooltip.ts" },
+    { "Path": "../components/pager.ts" },
+    { "Path": "../components/productmultiselection.ts" },
+    { "Path": "../components/sort.ts" },
+    { "Path": "../components/tooltip.ts" },
+
+    { "Path": "../winlossdetail/winlossdetail.ts" }
+  ],
+  "Tests": [
+    {
+      "Path": "apps/winlossdetail",
+      "Excludes": [ "**.js.map" ]
+    }
+  ]
+}
