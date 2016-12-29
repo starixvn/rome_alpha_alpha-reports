@@ -98,9 +98,9 @@
 
         <tbody>
             @foreach (var data in Model
-                                                .ReportData
-                                                .DataSource
-                                                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                                    .ReportData
+                                                    .DataSource
+                                                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath, isEvenRow)
                 isEvenRow = !isEvenRow;
@@ -133,7 +133,7 @@
     @ReportsScripts.Render("~/assets/bundles/winlossdetail/winlossdetail")
 }
 
-@helper RenderRow(WinLossDetail data, bool isTotalRow, string betListPath, bool isEvenRow)
+@helper RenderRow(WinLossDetailModel data, bool isTotalRow, string betListPath, bool isEvenRow)
 {
     <tr class="@(isTotalRow ? "tbl-footer" : string.Empty) @(isEvenRow? "even-row":string.Empty)">
         <td data-islink="true" class="text-left">

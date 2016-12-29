@@ -69,7 +69,7 @@
         public void ActionLinkViewModel_NullWinLossDetail_ThrowsArgumentNullException()
         {
             // Arrange
-            WinLossDetail nullWinLossDetail = null;
+            WinLossDetailModel nullWinLossDetail = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossDetailViewModel.ActionLinkViewModel(nullWinLossDetail));
@@ -79,11 +79,11 @@
         public void ActionLinkViewModel_NotNullWinLossDetail_ReturnsCorrectActionLinkViewModel()
         {
             // Arrange
-            var winLossDetail = new WinLossDetail();
+            var winLossDetail = new WinLossDetailModel();
             winLossDetailViewModel.UserLevel = Enumeration.FromValue<UserLevel>(4);
             winLossDetailViewModel.FromDate = DefaultVariables.CurrentDate;
             winLossDetailViewModel.ToDate = DefaultVariables.CurrentDate;
-            winLossDetailViewModel.ReportData = new ReportData<WinLossDetail>(null, 0, 0, 0, default(WinLossDetail));
+            winLossDetailViewModel.ReportData = new ReportData<WinLossDetailModel>(null, 0, 0, 0, default(WinLossDetailModel));
             winLossDetailViewModel.BreadcrumbLevels = new List<ActionLinkViewModel>
             {
                 new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(userSession))

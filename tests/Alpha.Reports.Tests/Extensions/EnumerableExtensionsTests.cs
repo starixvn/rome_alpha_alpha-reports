@@ -10,22 +10,22 @@
 
     public class EnumerableExtensionsTests
     {
-        private readonly List<WinLossDetail> winLossDetails;
+        private readonly List<WinLossDetailModel> winLossDetails;
 
-        private readonly List<WinLossDetail> descendingSortedListByWinLoss;
+        private readonly List<WinLossDetailModel> descendingSortedListByWinLoss;
 
-        private readonly List<WinLossDetail> ascendingSortedListByWinLoss;
+        private readonly List<WinLossDetailModel> ascendingSortedListByWinLoss;
 
         public EnumerableExtensionsTests()
         {
-            winLossDetails = new List<WinLossDetail>();
-            descendingSortedListByWinLoss = new List<WinLossDetail>();
-            ascendingSortedListByWinLoss = new List<WinLossDetail>();
+            winLossDetails = new List<WinLossDetailModel>();
+            descendingSortedListByWinLoss = new List<WinLossDetailModel>();
+            ascendingSortedListByWinLoss = new List<WinLossDetailModel>();
 
             var numberOfRecords = 3;
             for (var i = 1; i <= numberOfRecords; i++)
             {
-                winLossDetails.Add(new WinLossDetail(
+                winLossDetails.Add(new WinLossDetailModel(
                     i,
                     $"Cust Name {i}",
                     i,
@@ -37,7 +37,7 @@
                     new NetWinLoss(i, i),
                     new NetWinLoss(i, i)));
 
-                ascendingSortedListByWinLoss.Add(new WinLossDetail(
+                ascendingSortedListByWinLoss.Add(new WinLossDetailModel(
                     i,
                     $"Cust Name {i}",
                     i,
@@ -50,7 +50,7 @@
                     new NetWinLoss(i, i)));
 
                 var descendingValue = numberOfRecords - i + 1;
-                descendingSortedListByWinLoss.Add(new WinLossDetail(
+                descendingSortedListByWinLoss.Add(new WinLossDetailModel(
                     descendingValue,
                     $"Cust Name {descendingValue}",
                     descendingValue,

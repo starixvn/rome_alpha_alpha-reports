@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Tests.Handlers
+﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossDetail
 {
     using System;
     using System.Collections.Generic;
@@ -13,17 +13,18 @@
     using Params;
     using Services;
     using Site.Handlers;
+    using Site.Handlers.WinLossDetail;
     using Site.Requests.WinLossDetails;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     public class WinLossDetailExcelHandlerTests
     {
-        private readonly Workbook<WinLossDetail> workbook;
+        private readonly Workbook<WinLossDetailModel> workbook;
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
         private readonly WinLossDetailExcelHandler winLossDetailExcelHandler;
-        private readonly ReportData<WinLossDetail> reportData;
+        private readonly ReportData<WinLossDetailModel> reportData;
         private readonly IUserSession userSession;
 
         public WinLossDetailExcelHandlerTests()
@@ -31,16 +32,16 @@
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
 
-            reportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), 0, 0, 0, default(WinLossDetail));
+            reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
-            workbook = Substitute.For<Workbook<WinLossDetail>>();
+            workbook = Substitute.For<Workbook<WinLossDetailModel>>();
             workbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(workbook);
             workbook.Title(Arg.Any<string>()).Returns(workbook);
             workbook.Header(Arg.Any<Func<string, string>>()).Returns(workbook);
-            workbook.Body(Arg.Any<IEnumerable<WinLossDetail>>(), Arg.Any<Mapper<WinLossDetail>>()).Returns(workbook);
-            workbook.Footer(Arg.Any<WinLossDetail>(), Arg.Any<Mapper<WinLossDetail>>()).Returns(workbook);
+            workbook.Body(Arg.Any<IEnumerable<WinLossDetailModel>>(), Arg.Any<Mapper<WinLossDetailModel>>()).Returns(workbook);
+            workbook.Footer(Arg.Any<WinLossDetailModel>(), Arg.Any<Mapper<WinLossDetailModel>>()).Returns(workbook);
             workbook.Sheet(Arg.Any<string>()).Returns(workbook);
 
             userSession = Substitute.For<IUserSession>();
@@ -113,8 +114,8 @@
 
             // Assert
             workbook.Received().Body(
-                Arg.Is<IEnumerable<WinLossDetail>>(reportData.DataSource),
-                Arg.Any<Mapper<WinLossDetail>>());
+                Arg.Is<IEnumerable<WinLossDetailModel>>(reportData.DataSource),
+                Arg.Any<Mapper<WinLossDetailModel>>());
         }
 
         [Fact]
@@ -127,7 +128,7 @@
             winLossDetailExcelHandler.Handle(message);
 
             // Assert
-            workbook.Received().Footer(Arg.Is<WinLossDetail>(reportData.TotalData), Arg.Any<Mapper<WinLossDetail>>());
+            workbook.Received().Footer(Arg.Is<WinLossDetailModel>(reportData.TotalData), Arg.Any<Mapper<WinLossDetailModel>>());
         }
 
         [Fact]

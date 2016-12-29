@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Handlers
+﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
     using System;
     using System.Linq;
@@ -19,12 +19,12 @@
     {
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
-        private readonly Workbook<WinLossDetail> workbook;
+        private readonly Workbook<WinLossDetailModel> workbook;
 
         public WinLossDetailExcelHandler(
             ProductService productService,
             WinLossDetailService reportService,
-            Workbook<WinLossDetail> workbook) : base(productService, reportService)
+            Workbook<WinLossDetailModel> workbook) : base(productService, reportService)
         {
             this.productService = productService;
             this.reportService = reportService;
@@ -64,9 +64,9 @@
                 fileContent);
         }
 
-        private Mapper<WinLossDetail> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
+        private Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
         {
-            var mapper = new Mapper<WinLossDetail>()
+            var mapper = new Mapper<WinLossDetailModel>()
                 .Map(Column.A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
                 .Map(Column.B, winLossDetail => winLossDetail.NumberOfTickets)
                 .Map(Column.C, winLossDetail => winLossDetail.Turnover)

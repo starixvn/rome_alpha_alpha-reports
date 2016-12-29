@@ -24,7 +24,7 @@
             this.dataAccess = dataAccess;
         }
 
-        public ReportData<WinLossDetail> GetWinLossDetail(WinLossDetailParam param)
+        public ReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param)
         {
             if (param == null)
             {
@@ -33,7 +33,7 @@
 
             if (!param.IsValid())
             {
-                return new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), param.PageIndex, param.PageSize, 0, new WinLossDetail());
+                return new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
             }
 
             var validUserSelectedProductIds =

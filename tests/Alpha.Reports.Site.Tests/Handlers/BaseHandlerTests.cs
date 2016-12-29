@@ -114,14 +114,14 @@
                 message,
                 ControllerName,
                 ActionName,
-                (custInfo, baseReportQuery, jsonBreadcrumbLevels) => default(WinLossDetail)));
+                (custInfo, baseReportQuery, jsonBreadcrumbLevels) => default(WinLossDetailModel)));
         }
 
         [Fact]
         public void BuildBreadcrumbLevels_NullBuildActionLinkViewModelFunc_ThrowsArgumentNullException()
         {
             // Arrange
-            Func<CustInfo, BaseReportQuery, string, WinLossDetail> buildActionLinkViewModelFunc = null;
+            Func<CustInfo, BaseReportQuery, string, WinLossDetailModel> buildActionLinkViewModelFunc = null;
             var message = new BaseReportQuery();
 
             // Act & Assert

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Handlers
+﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
     using System.Linq;
     using App_GlobalResources;

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Tests.Handlers
+﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossDetail
 {
     using System;
     using System.Collections.Generic;
@@ -17,6 +17,7 @@
     using Params;
     using Services;
     using Site.Handlers;
+    using Site.Handlers.WinLossDetail;
     using Site.Helpers;
     using Site.Requests.WinLossDetails;
     using Site.ViewModels;
@@ -30,14 +31,14 @@
         private readonly WinLossDetailService reportService;
         private readonly WinLossDetailHandler winLossDetailHandler;
         private readonly IUserSession userSession;
-        private readonly ReportData<WinLossDetail> reportData;
+        private readonly ReportData<WinLossDetailModel> reportData;
 
         public WinLossDetailHandlerTests()
         {
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
 
-            reportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), 0, 0, 0, default(WinLossDetail));
+            reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 

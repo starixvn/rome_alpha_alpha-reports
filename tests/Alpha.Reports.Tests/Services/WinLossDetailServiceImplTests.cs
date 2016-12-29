@@ -53,7 +53,7 @@
                 false,
                 false);
 
-            var reportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), param.PageIndex, param.PageSize, 0, new WinLossDetail());
+            var reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
             dataAccess.GetData(Arg.Any<WinLossDetailCriteria>()).Returns(reportData);
 
             var expectedReportData = reportData;
@@ -80,7 +80,12 @@
                 string.Empty,
                 false,
                 false);
-            var expectedReportData = new ReportData<WinLossDetail>(Enumerable.Empty<WinLossDetail>(), param.PageIndex, param.PageSize, 0, new WinLossDetail());
+            var expectedReportData = new ReportData<WinLossDetailModel>(
+                Enumerable.Empty<WinLossDetailModel>(),
+                param.PageIndex,
+                param.PageSize,
+                0,
+                new WinLossDetailModel());
 
             // Act
             var actualReportData = winLossDetailServiceImpl.GetWinLossDetail(param);

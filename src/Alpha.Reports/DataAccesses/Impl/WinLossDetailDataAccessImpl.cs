@@ -10,15 +10,15 @@
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {
-        public ReportData<WinLossDetail> GetData(WinLossDetailCriteria criteria)
+        public ReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria)
         {
             if (criteria == null)
             {
                 throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
             }
 
-            var winLossDetails = new List<WinLossDetail>();
-            var totalWinLoss = new WinLossDetail();
+            var winLossDetails = new List<WinLossDetailModel>();
+            var totalWinLoss = new WinLossDetailModel();
 
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
@@ -39,7 +39,7 @@
                 }
             }
 
-            return new ReportData<WinLossDetail>(
+            return new ReportData<WinLossDetailModel>(
                 winLossDetails,
                 criteria.PageIndex,
                 criteria.PageSize,
@@ -47,9 +47,9 @@
                 totalWinLoss);
         }
 
-        private WinLossDetail BuildWinLossDetail(IDataReader reader, UserLevel reportLevel)
+        private WinLossDetailModel BuildWinLossDetail(IDataReader reader, UserLevel reportLevel)
         {
-            var winLossDetail = new WinLossDetail(
+            var winLossDetail = new WinLossDetailModel(
                 custId: reader.ToInt("CustId"),
                 custName: reader.ToString("CustName"),
                 turnover: reader.ToDecimal("Turnover"),

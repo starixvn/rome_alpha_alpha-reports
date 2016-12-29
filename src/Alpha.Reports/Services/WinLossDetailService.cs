@@ -6,6 +6,6 @@
 
     public interface WinLossDetailService
     {
-        ReportData<WinLossDetail> GetWinLossDetail(WinLossDetailParam param);
+        ReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
     }
 }

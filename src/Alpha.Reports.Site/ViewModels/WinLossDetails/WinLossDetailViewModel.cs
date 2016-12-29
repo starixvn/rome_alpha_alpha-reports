@@ -90,7 +90,7 @@
                 MinDate,
                 ((WinLossDetailQuery)BreadcrumbLevels.Last().RouteValues).BreadcrumbLevels);
 
-        public WinLossDetailsActionLinkViewModel ActionLinkViewModel(WinLossDetail winLossDetail)
+        public WinLossDetailsActionLinkViewModel ActionLinkViewModel(WinLossDetailModel winLossDetail)
         {
             if (winLossDetail == null)
             {
@@ -120,7 +120,7 @@
 
         public UserLevel UserLevel { get; set; }
 
-        public ReportData<WinLossDetail> ReportData { get; set; }
+        public ReportData<WinLossDetailModel> ReportData { get; set; }
 
         public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
     }

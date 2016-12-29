@@ -149,7 +149,7 @@
     <Compile Include="Handlers\BaseHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\WinLossHandlerTests.cs" />
-    <Compile Include="Handlers\WinLossDetailHandlerTests.cs" />
+    <Compile Include="Handlers\WinLossDetail\WinLossDetailHandlerTests.cs" />
     <Compile Include="Helpers\AppPathHelperTests.cs" />
     <Compile Include="Helpers\ExcelHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

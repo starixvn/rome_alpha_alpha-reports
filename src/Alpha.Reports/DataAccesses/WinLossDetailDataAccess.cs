@@ -6,6 +6,6 @@
 
     public interface WinLossDetailDataAccess
     {
-        ReportData<WinLossDetail> GetData(WinLossDetailCriteria criteria);
+        ReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria);
     }
 }

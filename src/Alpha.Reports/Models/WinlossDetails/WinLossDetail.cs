@@ -1,12 +1,12 @@
 ﻿namespace Alpha.Reports.Models.WinlossDetails
 {
-    public class WinLossDetail
+    public class WinLossDetailModel
     {
-        public WinLossDetail()
+        public WinLossDetailModel()
         {
         }
 
-        public WinLossDetail(
+        public WinLossDetailModel(
             int custId,
             string custName,
             decimal grossComm,
