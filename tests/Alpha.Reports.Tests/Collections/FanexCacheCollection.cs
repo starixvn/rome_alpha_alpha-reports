@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Tests.Collection
+﻿namespace Alpha.Reports.Tests.Collections
 {
     using Fixtures;
     using Xunit;

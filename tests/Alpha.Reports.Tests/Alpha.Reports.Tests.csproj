@@ -111,7 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collection\FanexCacheCollection.cs" />
+    <Compile Include="Collections\FanexCacheCollection.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\DefaultVariablesTests.cs" />
     <Compile Include="Constants\RoleId.cs" />
