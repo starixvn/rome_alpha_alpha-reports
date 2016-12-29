@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using App_GlobalResources;
     using Enumerations;
@@ -13,7 +12,6 @@
     using ONEbook.SpreadSheets;
     using Requests.WinLoss;
     using Services;
-    using Sunplus.Agent.Model.Entities;
     using ViewModels;
     using ViewModels.WinLoss;
     using WinLoss;
