@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Tests.Helpers
 {
     using System;
-    using Adapters;
     using Site.Helpers;
     using Xunit;
 
@@ -29,42 +28,12 @@
             Assert.Throws<ArgumentException>(() => AppPathHelper.GetAppPath(string.Empty, virtualPath));
         }
 
-        [Theory]
-        [InlineData("~/", "/ValidAppName/")]
-        [InlineData("~/ValidVirtualPath", "/ValidAppName/ValidVirtualPath")]
-        [InlineData("/", "/ValidAppName/")]
-        public void GetAppPath_WithAppNameAndVirtualPathAndHasContext_ReturnsCorrectPath(
-            string virtualPath,
-            string expectedPath)
-        {
-            // Arrange
-            var validAppName = "/ValidAppName";
-
-            HttpAdapter.HasContext = true;
-            HttpAdapter.AppDomainAppVirtualPath = "/site-reports";
-            HttpAdapter.FuncApplyAppPathModifier = (relativePath) =>
-            {
-                var result = string.IsNullOrEmpty(relativePath)
-                ? HttpAdapter.AppDomainAppVirtualPath
-                : HttpAdapter.AppDomainAppVirtualPath + relativePath.Replace("~", string.Empty);
-
-                return result;
-            };
-
-            // Act
-            var actualAppPath = AppPathHelper.GetAppPath(validAppName, virtualPath);
-
-            // Assert
-            Assert.Equal(expectedPath, actualAppPath);
-        }
-
         [Fact]
         public void GetAppPath_WithAppNameAndVirtualPathAndNotHasContext_ReturnsEmpty()
         {
             // Arrange
             var validAppName = "ValidAppName";
             var validVirtualPath = "ValidVirtualPath";
-            HttpAdapter.HasContext = false;
 
             // Act
             var actualAppPath = AppPathHelper.GetAppPath(validAppName, validVirtualPath);

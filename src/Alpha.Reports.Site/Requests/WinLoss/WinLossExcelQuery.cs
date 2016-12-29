@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLoss
 {
-    using Adapters;
+    using System.Web;
     using Enumerations;
     using MediatR;
     using Models;
@@ -30,7 +30,7 @@
                     ? "Agent.xls"
                     : "Member.xls");
 
-                return HttpAdapter.FuncServerMapPath(excelTemplatePath);
+                return HttpContext.Current != null ? HttpContext.Current.Server.MapPath(excelTemplatePath) : string.Empty;
             }
         }
 

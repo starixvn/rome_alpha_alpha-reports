@@ -7,7 +7,6 @@
     using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
-    using Adapters;
     using Constants;
     using Enumerations;
     using Extensions;
@@ -47,8 +46,6 @@
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-
-            HttpAdapter.FuncServerMapPath = (path) => path;
         }
 
         [Fact]

@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLoss
 {
-    using Adapters;
+    using System.Web;
     using MediatR;
     using Sunplus.Agent.Model.Entities;
     using ViewModels;
@@ -21,7 +21,7 @@
         {
             get
             {
-                return HttpAdapter.FuncServerMapPath(ExcelTemplateDir);
+                return HttpContext.Current != null ? HttpContext.Current.Server.MapPath(ExcelTemplateDir) : string.Empty;
             }
         }
     }

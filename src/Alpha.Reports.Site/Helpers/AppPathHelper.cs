@@ -2,7 +2,7 @@
 {
     using System;
     using System.Text.RegularExpressions;
-    using Adapters;
+    using System.Web;
     using Fanex.Common.Helper;
 
     public static class AppPathHelper
@@ -12,13 +12,13 @@
             Check.Argument.IsNotEmpty(appName, nameof(appName));
             Check.Argument.IsNotEmpty(virtualPath, nameof(virtualPath));
 
-            if (!HttpAdapter.HasContext)
+            if (HttpContext.Current == null || HttpContext.Current.CurrentHandler == null)
             {
                 return string.Empty;
             }
 
-            var appPath = HttpAdapter.FuncApplyAppPathModifier(virtualPath);
-            appPath = Regex.Replace(appPath, HttpAdapter.AppDomainAppVirtualPath, appName, RegexOptions.IgnoreCase);
+            var appPath = HttpContext.Current.Response.ApplyAppPathModifier(virtualPath);
+            appPath = Regex.Replace(appPath, HttpRuntime.AppDomainAppVirtualPath, appName, RegexOptions.IgnoreCase);
 
             return appPath;
         }

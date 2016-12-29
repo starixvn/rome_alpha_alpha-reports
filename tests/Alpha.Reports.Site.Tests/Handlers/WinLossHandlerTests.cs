@@ -7,7 +7,6 @@
     using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
-    using Adapters;
     using Constants;
     using Enumerations;
     using Extensions;
@@ -64,9 +63,6 @@
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-
-            HttpAdapter.FuncServerMapPath = (path) => path;
-            HttpAdapter.HasContext = true;
         }
 
         [Fact]
@@ -145,8 +141,7 @@
 
             // Assert
             enteredSportResultWorkbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
-                tp => tp.TemplatePath == "~/App_Data/ExcelTemplates/WinLoss/MatchResultEntered.xls" &&
-                tp.NoInfomationText == "No information is available"));
+                tp => tp.NoInfomationText == "No information is available"));
         }
 
         [Fact]
@@ -222,8 +217,7 @@
 
             // Assert
             winlossWorkbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
-                tp => tp.TemplatePath == "~/App_Data/ExcelTemplates/WinLoss/Master.xls" &&
-                tp.NoInfomationText == "No information is available"));
+                tp => tp.NoInfomationText == "No information is available"));
         }
 
         [Fact]

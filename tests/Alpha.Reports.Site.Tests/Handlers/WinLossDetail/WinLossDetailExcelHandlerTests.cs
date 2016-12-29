@@ -5,7 +5,6 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using Adapters;
     using Constants;
     using Models;
     using Models.WinlossDetails;
@@ -49,8 +48,6 @@
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-
-            HttpAdapter.FuncServerMapPath = (path) => path;
         }
 
         [Fact]
@@ -74,8 +71,7 @@
 
             // Assert
             workbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
-                tp => tp.TemplatePath == "~/App_Data/ExcelTemplates/WinLossDetail/Master.xls" &&
-                tp.NoInfomationText == "No information is available" &&
+                tp => tp.NoInfomationText == "No information is available" &&
                 tp.FreezeColumnName == "B" &&
                 tp.FreezeRowIndex == 3));
         }

@@ -1,8 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Helpers.Impl.StaticResources
 {
     using System;
+    using System.Configuration;
+    using System.Diagnostics;
+    using System.Reflection;
     using System.Web.Configuration;
-    using Adapters;
 
     public static class BaseStaticResources
     {
@@ -36,7 +38,7 @@
             {
                 if (staticResourcesVersion == null)
                 {
-                    staticResourcesVersion = AssemblyAdapter.Version;
+                    staticResourcesVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
                 }
 
                 return staticResourcesVersion;
@@ -50,7 +52,7 @@
 
         private static bool IsDebugMode()
         {
-            var compilationSection = (CompilationSection)ConfigurationManagerAdapter.GetSection(@"system.web/compilation");
+            var compilationSection = (CompilationSection)ConfigurationManager.GetSection(@"system.web/compilation");
 
             return compilationSection.Debug;
         }
