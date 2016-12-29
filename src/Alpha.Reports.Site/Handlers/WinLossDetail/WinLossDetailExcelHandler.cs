@@ -9,10 +9,10 @@
     using MediatR;
     using Models.WinlossDetails;
     using ONEbook.SpreadSheets;
-    using static ONEbook.SpreadSheets.Column;
     using Requests.WinLossDetails;
     using Services;
-    using ViewModels;    
+    using ViewModels;
+    using static ONEbook.SpreadSheets.Column;
 
     public class WinLossDetailExcelHandler :
         BaseWinLossDetailHandler,
