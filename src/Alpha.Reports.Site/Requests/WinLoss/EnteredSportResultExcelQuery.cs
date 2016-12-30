@@ -9,10 +9,6 @@
     {
         private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLoss/MatchResultEntered.xls";
 
-        public EnteredSportResultExcelQuery() : this(null)
-        {
-        }
-
         public EnteredSportResultExcelQuery(User user) : base(user)
         {
         }

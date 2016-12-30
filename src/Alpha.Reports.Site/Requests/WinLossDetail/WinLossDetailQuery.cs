@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
-    using System.Web.Mvc;
     using MediatR;
     using Reports.Models;
     using ViewModels.WinLossDetail;
@@ -9,21 +8,12 @@
         BaseReportQuery,
         IRequest<WinLossDetailViewModel>
     {
-        private readonly User user;
-
-        public WinLossDetailQuery() : this(null)
-        {
-        }
-
         public WinLossDetailQuery(User user)
         {
-            this.user = user ?? DependencyResolver.Current.GetService<User>();
-
-            CustId = this.user.CustId;
-            CustName = this.user.CustName;
-            UserLevelId = this.user.UserLevelId;
-
-            Language = this.user.Language;
+            CustId = user.CustId;
+            CustName = user.CustName;
+            UserLevelId = user.UserLevelId;
+            Language = user.Language;
         }
 
         public string Language { get; }

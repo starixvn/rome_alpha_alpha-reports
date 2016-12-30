@@ -11,6 +11,7 @@
     using Configurations;
     using Fanex.Data;
     using ONEbook.UM.Filters;
+    using Requests;
     using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Utilities;
     using Web;
@@ -42,6 +43,8 @@
             GlobalFilters.Filters.Add(new CheckBelongingFilter());
 
             SiteSettings.Verify();
+
+            ModelBinders.Binders.DefaultBinder = new UserModelBinder();
 
             Logs.WriteInfo(Resources.AppStart_Message);
         }

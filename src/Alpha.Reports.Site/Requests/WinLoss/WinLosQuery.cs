@@ -11,20 +11,12 @@
          BaseReportQuery,
          IRequest<WinLossViewModel>
     {
-        private readonly User user;
-
-        public WinLossQuery() : this(null)
-        {
-        }
-
         public WinLossQuery(User user)
         {
-            this.user = user ?? DependencyResolver.Current.GetService<User>();
-
-            CustId = this.user.CustId;
-            CustName = this.user.CustName;
-            UserLevelId = this.user.UserLevelId;
-            Language = this.user.Language;
+            CustId = user.CustId;
+            CustName = user.CustName;
+            UserLevelId = user.UserLevelId;
+            Language = user.Language;
         }
 
         public string Language { get; }
