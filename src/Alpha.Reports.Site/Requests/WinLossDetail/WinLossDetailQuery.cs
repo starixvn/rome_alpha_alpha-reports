@@ -5,7 +5,7 @@
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailQuery :
-        BaseReportQuery,
+        ReportBaseQuery,
         IRequest<WinLossDetailViewModel>
     {
         public WinLossDetailQuery(IUser user)

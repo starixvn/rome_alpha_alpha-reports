@@ -8,7 +8,7 @@
     using ViewModels.WinLoss;
 
     public class WinLossQuery :
-         BaseReportQuery,
+         ReportBaseQuery,
          IRequest<WinLossViewModel>
     {
         public WinLossQuery(IUser user)

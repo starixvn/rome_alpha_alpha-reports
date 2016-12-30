@@ -24,6 +24,8 @@
     { "Path": "libs/bootstrap-multiselect.js" },
     { "Path": "libs/store.js" },
 
+    { "Path": "libs/bootstrap.nexDatePicker.js" },
+
     { "Path": "../core.ts" },
     { "Path": "../components/daterangepicker.ts" },
     { "Path": "../components/monthpicker.ts" },

@@ -35,10 +35,10 @@
         }
 
         internal IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels<T>(
-            BaseReportQuery message,
+            ReportBaseQuery message,
             string controllerName,
             string actionName,
-            Func<CustInfo, BaseReportQuery, string, T> buildActionLinkViewModelFunc) where T : class
+            Func<CustInfo, ReportBaseQuery, string, T> buildActionLinkViewModelFunc) where T : class
         {
             if (message == null)
             {

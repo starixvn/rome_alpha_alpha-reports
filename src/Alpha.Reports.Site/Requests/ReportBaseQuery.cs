@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class BaseReportQuery
+    public class ReportBaseQuery
     {
         public int CustId { get; set; }
 

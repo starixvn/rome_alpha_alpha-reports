@@ -106,7 +106,7 @@
         public void BuildBreadcrumbLevels_NullQuery_ThrowsArgumentNullException()
         {
             // Arrange
-            BaseReportQuery message = null;
+            ReportBaseQuery message = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(
@@ -120,8 +120,8 @@
         public void BuildBreadcrumbLevels_NullBuildActionLinkViewModelFunc_ThrowsArgumentNullException()
         {
             // Arrange
-            Func<CustInfo, BaseReportQuery, string, WinLossDetailModel> buildActionLinkViewModelFunc = null;
-            var message = new BaseReportQuery();
+            Func<CustInfo, ReportBaseQuery, string, WinLossDetailModel> buildActionLinkViewModelFunc = null;
+            var message = new ReportBaseQuery();
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(
@@ -140,10 +140,10 @@
             string breadcrumbLevels)
         {
             // Arrange
-            Func<CustInfo, BaseReportQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
+            Func<CustInfo, ReportBaseQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
                 (custInfo, baseReportQuery, jsonBreadcrumbLevels) => new WinLossDetailQuery(user);
 
-            var message = new BaseReportQuery
+            var message = new ReportBaseQuery
             {
                 BreadcrumbLevels = breadcrumbLevels
             };
@@ -164,10 +164,10 @@
         public void BuildBreadcrumbLevels_SubmitOnTopLevel_ReturnsTopLevelBreadcrumbs()
         {
             // Arrange
-            Func<CustInfo, BaseReportQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
+            Func<CustInfo, ReportBaseQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
                 (custInfo, baseReportQuery, jsonBreadcrumbLevels) => new WinLossDetailQuery(user);
 
-            var message = new BaseReportQuery
+            var message = new ReportBaseQuery
             {
                 BreadcrumbLevels = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]",
                 UserLevelId = 4
@@ -196,7 +196,7 @@
             message.CustId = 2;
             message.CustName = "MASTER1";
 
-            Func<CustInfo, BaseReportQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
+            Func<CustInfo, ReportBaseQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
                 (custInfo, baseReportQuery, jsonBreadcrumbLevels) =>
                 {
                     var query = new WinLossDetailQuery(user);

@@ -67,6 +67,7 @@ class WinLossDetailView {
         this.cacheElements();
 
         this.$isHistoricReport = this.$("#IsHistoricReport");
+        console.log(this.$isHistoricReport.length);
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         if (this.isHistoricReport) {
             this.$reportForm.removeClass("hide");
