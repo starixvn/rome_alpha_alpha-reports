@@ -49,8 +49,8 @@
       <HintPath>..\..\packages\Alpha.RemotingRef.1.0.0.1\lib\net40\Alpha.RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Alpha.Web, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Web.1.0.0.4\lib\net40\Alpha.Web.dll</HintPath>
+    <Reference Include="Alpha.Web, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.Web.1.0.0.5-WinLossReport-03\lib\net40\Alpha.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
@@ -263,15 +263,7 @@
     <Compile Include="Handlers\WinLoss\EnteredSportResultHandler.cs" />
     <Compile Include="Handlers\WinLoss\WinLossExcelHandler.cs" />
     <Compile Include="Handlers\WinLoss\WinLossHandler.cs" />
-    <Compile Include="Helpers\AppPathHelper.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
-    <Compile Include="Helpers\Impl\MicroSitesImpl.cs" />
-    <Compile Include="Helpers\Impl\StaticResources\AssetScripts.cs" />
-    <Compile Include="Helpers\Impl\StaticResources\AssetStyles.cs" />
-    <Compile Include="Helpers\Impl\StaticResources\BaseStaticResources.cs" />
-    <Compile Include="Helpers\Impl\StaticResources\ReportsScripts.cs" />
-    <Compile Include="Helpers\Impl\StaticResources\ReportsStyles.cs" />
-    <Compile Include="Helpers\MicroSites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\ReportBaseQuery.cs" />
     <Compile Include="Models\User.cs" />
@@ -636,6 +628,9 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\Impl\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,7 +1,4 @@
-﻿@using Alpha.Reports.Site.Helpers
-@using Alpha.Reports.Site.Configurations
-
-@model WinLossViewModel
+﻿@model WinLossViewModel
 
 @{
     ViewBag.BetListPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_BetList/BetList.aspx";
@@ -122,7 +119,7 @@
 </form>
 
 @section Scripts {
-    @ReportsScripts.Render("~/assets/bundles/winloss/winloss")
+    @StaticResources.RenderScripts("~/assets/bundles/winloss/winloss")
 }
 
 @helper RenderRow(WinLossModel data, bool isTotalRow, string betListPath)

@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site
 {
     using System;
+    using System.Diagnostics;
     using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
@@ -15,6 +16,7 @@
     using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Utilities;
     using Web;
+    using Web.Helpers;
 
     public class MvcApplication : HttpApplication
     {
@@ -46,10 +48,12 @@
 
             ModelBinders.Binders.DefaultBinder = new UserModelBinder();
 
+            StaticResources.Init(GetBuildVersion());
+
             Logs.WriteInfo(Resources.AppStart_Message);
         }
 
-        protected void Application_Error(object sender, EventArgs e)
+        protected void Application_Error()
         {
             Exception ex = Server.GetLastError().GetBaseException();
             var isIgnoreError = Request.IsLocal ||
@@ -96,6 +100,14 @@
                 shutDownStack);
 
             Logs.WriteInfo(logMessage);
+        }
+
+        private static string GetBuildVersion()
+        {
+            Assembly assembly = Assembly.GetCallingAssembly();
+            FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+
+            return versionInfo.FileVersion;
         }
     }
 }
