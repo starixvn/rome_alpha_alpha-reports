@@ -7,8 +7,8 @@
     using Fanex.Common;
     using Helpers;
     using MediatR;
-    using Models.WinLossDetail;
     using ONEbook.SpreadSheets;
+    using Reports.Models.WinLossDetail;
     using Requests.WinLossDetail;
     using Services;
     using ViewModels;

@@ -8,9 +8,9 @@
     using Constants;
     using Enumerations;
     using Extensions;
-    using Models;
-    using Models.WinLossDetail;
     using NSubstitute;
+    using Reports.Models;
+    using Reports.Models.WinLossDetail;
     using Site.Requests.WinLossDetail;
     using Site.ViewModels;
     using Site.ViewModels.WinLossDetail;
@@ -21,12 +21,12 @@
     {
         private const int AllBetProductId = 21;
         private readonly WinLossDetailViewModel winLossDetailViewModel;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossDetailViewModelTests()
         {
             winLossDetailViewModel = new WinLossDetailViewModel();
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -85,7 +85,7 @@
             winLossDetailViewModel.ReportData = new ReportData<WinLossDetailModel>(null, 0, 0, 0, default(WinLossDetailModel));
             winLossDetailViewModel.BreadcrumbLevels = new List<ActionLinkViewModel>
             {
-                new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(userSession))
+                new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(user))
             };
 
             var expectedActionLinkViewModel = new WinLossDetailsActionLinkViewModel(

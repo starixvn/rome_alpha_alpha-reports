@@ -1,33 +1,31 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
+    using System.Web.Mvc;
     using MediatR;
-    using Sunplus.Agent.Model.Base;
-    using Sunplus.Agent.Model.Entities;
+    using Reports.Models;
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailQuery :
         BaseReportQuery,
         IRequest<WinLossDetailViewModel>
     {
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossDetailQuery() : this(null)
         {
         }
 
-        public WinLossDetailQuery(IUserSession userSession)
+        public WinLossDetailQuery(User user)
         {
-            this.userSession = userSession ?? new UserSessionExt();
+            this.user = user ?? DependencyResolver.Current.GetService<User>();
 
-            CustId = this.userSession.CustId;
-            CustName = this.userSession.UserName;
-            UserLevelId = this.userSession.RoleId;
+            CustId = this.user.CustId;
+            CustName = this.user.CustName;
+            UserLevelId = this.user.UserLevelId;
 
-            Language = this.userSession.Language;
+            Language = this.user.Language;
         }
 
-        public bool IsDirectReportViewAction => CustId == userSession.CustId;
-        
         public string Language { get; }
 
         public int PageIndex { get; set; }

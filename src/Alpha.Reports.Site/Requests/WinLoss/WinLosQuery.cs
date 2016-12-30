@@ -1,6 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLoss
 {
+    using System.Web.Mvc;
     using MediatR;
+    using Reports.Models;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLoss;
@@ -9,23 +11,21 @@
          BaseReportQuery,
          IRequest<WinLossViewModel>
     {
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossQuery() : this(null)
         {
         }
 
-        public WinLossQuery(IUserSession userSession)
+        public WinLossQuery(User user)
         {
-            this.userSession = userSession ?? new UserSessionExt();
+            this.user = user ?? DependencyResolver.Current.GetService<User>();
 
-            CustId = this.userSession.CustId;
-            CustName = this.userSession.UserName;
-            UserLevelId = this.userSession.RoleId;
-            Language = this.userSession.Language;
+            CustId = this.user.CustId;
+            CustName = this.user.CustName;
+            UserLevelId = this.user.UserLevelId;
+            Language = this.user.Language;
         }
-
-        public bool IsDirectReportViewAction => CustId == userSession.CustId;
 
         public string Language { get; }
 

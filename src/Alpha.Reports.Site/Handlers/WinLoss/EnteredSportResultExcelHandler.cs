@@ -5,8 +5,8 @@
     using App_GlobalResources;
     using Extensions;
     using MediatR;
-    using Models.Winloss;
     using ONEbook.SpreadSheets;
+    using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
     using ViewModels;

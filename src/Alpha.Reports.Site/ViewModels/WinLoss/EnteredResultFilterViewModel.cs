@@ -4,7 +4,7 @@
     using App_GlobalResources;
     using Components;
     using Extensions;
-    using Models;
+    using Reports.Models;
 
     public class EnteredResultFilterViewModel
     {

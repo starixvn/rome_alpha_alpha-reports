@@ -6,6 +6,7 @@
     using Enumerations;
     using MediatR;
     using Models;
+    using Reports.Models;
     using Requests.WinLoss;
     using Services;
     using Sunplus.Agent.Model.Entities;
@@ -18,16 +19,16 @@
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossHandler(
             ProductService productService,
             WinLossService reportService,
-            IUserSession userSession) : base(productService, reportService)
+            User user) : base(productService, reportService)
         {
             this.productService = productService;
             this.reportService = reportService;
-            this.userSession = userSession;
+            this.user = user;
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
@@ -60,14 +61,13 @@
                 IsFilterVisible = message.IsFilterVisible,
 
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                IsDirectReportViewAction = message.IsDirectReportViewAction,
                 BreadcrumbLevels = BuildBreadcrumbLevels(
                     message,
                     "WinLoss",
                     "WinLoss",
                     (custInfo, query, breadcrumbLevels) =>
                     {
-                        var routeValues = new WinLossQuery(userSession);
+                        var routeValues = new WinLossQuery(user);
                         routeValues.CustId = custInfo.CustId;
                         routeValues.CustName = custInfo.CustName;
                         routeValues.FromDate = message.FromDate;

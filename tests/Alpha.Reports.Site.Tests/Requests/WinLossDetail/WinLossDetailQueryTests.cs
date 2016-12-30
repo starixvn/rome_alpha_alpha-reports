@@ -1,17 +1,18 @@
 ﻿namespace Alpha.Reports.Site.Tests.Requests.WinLossDetail
 {
     using NSubstitute;
+    using Reports.Models;
     using Site.Requests.WinLossDetail;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     public class WinLossDetailQueryTests
     {
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossDetailQueryTests()
         {
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
         }
 
         [Fact]
@@ -19,8 +20,8 @@
         {
             // Arrange
             var expectedCustId = 1;
-            userSession.CustId.Returns(expectedCustId);
-            var winLossDetailQuery = new WinLossDetailQuery(userSession);
+            user.CustId.Returns(expectedCustId);
+            var winLossDetailQuery = new WinLossDetailQuery(user);
 
             // Act
             var actualCustId = winLossDetailQuery.CustId;
@@ -34,8 +35,8 @@
         {
             // Arrange
             var expectedCustName = "CustName";
-            userSession.UserName.Returns(expectedCustName);
-            var winLossDetailQuery = new WinLossDetailQuery(userSession);
+            user.CustName.Returns(expectedCustName);
+            var winLossDetailQuery = new WinLossDetailQuery(user);
 
             // Act
             var actualCustName = winLossDetailQuery.CustName;
@@ -49,8 +50,8 @@
         {
             // Arrange
             var expectedRoleId = (byte)4;
-            userSession.RoleId.Returns(expectedRoleId);
-            var winLossDetailQuery = new WinLossDetailQuery(userSession);
+            user.UserLevelId.Returns(expectedRoleId);
+            var winLossDetailQuery = new WinLossDetailQuery(user);
 
             // Act
             var actualRoleId = winLossDetailQuery.UserLevelId;

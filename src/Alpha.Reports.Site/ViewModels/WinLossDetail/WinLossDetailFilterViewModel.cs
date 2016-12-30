@@ -4,7 +4,7 @@
     using App_GlobalResources;
     using Components;
     using Extensions;
-    using Models;
+    using Reports.Models;
 
     public class WinLossDetailFilterViewModel
     {
@@ -16,7 +16,6 @@
             DateRangePickerViewModel dateRangePickerViewModel,
             MonthPickerViewModel monthPickerViewModel,
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
-            bool isDirectReportViewAction,
             bool visible,
             DateTime minDate,
             string breadcrumbLevels)
@@ -32,7 +31,6 @@
               ? Resources.CanOnlyViewDataAfterTimeHistoryReport
               : Resources.CanOnlyViewDataAfterTimeCurrentReport,
             minDate.ToShortDateWithSlash());
-            IsDirectReportViewAction = isDirectReportViewAction;
             Visible = visible;
             UserLevel = userLevel;
             BreadcrumbLevels = breadcrumbLevels;
@@ -51,8 +49,6 @@
         public MonthPickerViewModel MonthPickerViewModel { get; }
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
-
-        public bool IsDirectReportViewAction { get; }
 
         public bool Visible { get; }
 

@@ -4,8 +4,7 @@
     using Constants;
     using Enumerations;
     using MediatR;
-    using Models;
-    using Sunplus.Agent.Model.Entities;
+    using Reports.Models;
     using ViewModels;
 
     public class WinLossDetailExcelQuery : WinLossDetailQuery, IRequest<ExcelFileViewModel>
@@ -16,7 +15,7 @@
         {
         }
 
-        public WinLossDetailExcelQuery(IUserSession userSession) : base(userSession)
+        public WinLossDetailExcelQuery(User user) : base(user)
         {
             PageIndex = DefaultVariables.PageIndex;
             PageSize = DefaultVariables.PageSize;

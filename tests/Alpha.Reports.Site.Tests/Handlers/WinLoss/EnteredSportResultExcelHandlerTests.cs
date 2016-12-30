@@ -3,10 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Models.Winloss;
     using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
+    using Reports.Models;
+    using Reports.Models.Winloss;
     using Services;
     using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
@@ -19,7 +20,7 @@
         private readonly WinLossService reportService;
         private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
         private readonly EnteredSportResultExcelHandler enteredSportResultExcelHandler;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public EnteredSportResultExcelHandlerTests()
         {
@@ -31,7 +32,7 @@
             enteredSportResultWorkbook.Sheet(Arg.Any<string>()).Returns(enteredSportResultWorkbook);
 
             enteredSportResultExcelHandler = new EnteredSportResultExcelHandler(reportService, enteredSportResultWorkbook);
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
         }
 
         [Fact]
@@ -102,7 +103,7 @@
 
         private EnteredSportResultExcelQuery CreateExportEnteredResultsExcelQuery(byte userLevel)
         {
-            var exportEnteredResultQuery = new EnteredSportResultExcelQuery(userSession);
+            var exportEnteredResultQuery = new EnteredSportResultExcelQuery(user);
             exportEnteredResultQuery.UserLevelId = userLevel;
 
             return exportEnteredResultQuery;

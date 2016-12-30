@@ -3,7 +3,7 @@
     using System;
     using Enumerations;
     using MediatR;
-    using Models;
+    using Reports.Models;
     using Requests.WinLoss;
     using Services;
     using ViewModels.WinLoss;

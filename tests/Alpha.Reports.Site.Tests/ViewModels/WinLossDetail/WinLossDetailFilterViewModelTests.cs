@@ -5,6 +5,7 @@
     using Constants;
     using Enumerations;
     using Models;
+    using Reports.Models;
     using Site.ViewModels.WinLossDetail;
     using Xunit;
 
@@ -28,7 +29,6 @@
                 null,
                 null,
                 null,
-                false,
                 false,
                 DefaultVariables.CurrentDate,
                 string.Empty);

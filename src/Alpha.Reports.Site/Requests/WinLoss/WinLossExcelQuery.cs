@@ -3,8 +3,7 @@
     using System.Web;
     using Enumerations;
     using MediatR;
-    using Models;
-    using Sunplus.Agent.Model.Entities;
+    using Reports.Models;
     using ViewModels;
 
     public class WinLossExcelQuery : WinLossQuery, IRequest<ExcelFileViewModel>
@@ -15,7 +14,7 @@
         {
         }
 
-        public WinLossExcelQuery(IUserSession userSession) : base(userSession)
+        public WinLossExcelQuery(User user) : base(user)
         {
         }
 

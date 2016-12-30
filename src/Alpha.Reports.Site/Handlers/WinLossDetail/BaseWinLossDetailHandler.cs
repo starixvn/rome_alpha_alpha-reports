@@ -5,6 +5,7 @@
     using Extensions;
     using Models;
     using Params;
+    using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
 

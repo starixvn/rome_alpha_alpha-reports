@@ -7,8 +7,8 @@
     using App_GlobalResources;
     using Components;
     using Extensions;
-    using Models;
-    using Models.WinLossDetail;
+    using Reports.Models;
+    using Reports.Models.WinLossDetail;
     using Requests.WinLossDetail;
 
     public class WinLossDetailViewModel
@@ -44,8 +44,6 @@
         public bool IsHistoricReport { get; set; }
 
         public bool IsFilterVisible { get; set; }
-
-        public bool IsDirectReportViewAction { get; set; }
 
         public IEnumerable<string> NetTurnoverTooltips
         {
@@ -85,7 +83,6 @@
                 DateRangePickerViewModel,
                 MonthPickerViewModel,
                 ProductMultiSelectionViewModel,
-                IsDirectReportViewAction,
                 IsFilterVisible,
                 MinDate,
                 ((WinLossDetailQuery)BreadcrumbLevels.Last().RouteValues).BreadcrumbLevels);

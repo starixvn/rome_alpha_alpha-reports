@@ -8,14 +8,14 @@
     using Fanex.Common;
     using Helpers;
     using MediatR;
-    using Models;
     using ONEbook.SpreadSheets;
+    using Reports.Models;
     using Requests.WinLoss;
     using Services;
     using ViewModels;
     using ViewModels.WinLoss;
     using WinLoss;
-    using Models = Models.Winloss;
+    using Models = Alpha.Reports.Models.Winloss;
 
     public class WinLossExcelHandler :
         BaseWinLossHandler,

@@ -6,11 +6,11 @@
     using System.Linq;
     using System.Threading;
     using Constants;
-    using Models;
-    using Models.WinLossDetail;
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Params;
+    using Reports.Models;
+    using Reports.Models.WinLossDetail;
     using Services;
     using Site.Handlers.WinLossDetail;
     using Site.Requests.WinLossDetail;
@@ -24,7 +24,7 @@
         private readonly WinLossDetailService reportService;
         private readonly WinLossDetailExcelHandler winLossDetailExcelHandler;
         private readonly ReportData<WinLossDetailModel> reportData;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossDetailExcelHandlerTests()
         {
@@ -43,7 +43,7 @@
             workbook.Footer(Arg.Any<WinLossDetailModel>(), Arg.Any<Mapper<WinLossDetailModel>>()).Returns(workbook);
             workbook.Sheet(Arg.Any<string>()).Returns(workbook);
 
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
             winLossDetailExcelHandler = new WinLossDetailExcelHandler(productService, reportService, workbook);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
@@ -184,7 +184,7 @@
 
         private WinLossDetailExcelQuery CreateExportExcelQuery(byte userLevel)
         {
-            var result = new WinLossDetailExcelQuery(userSession);
+            var result = new WinLossDetailExcelQuery(user);
             result.UserLevelId = userLevel;
             result.FromDate = DefaultVariables.CurrentDate;
             result.ToDate = DefaultVariables.CurrentDate;

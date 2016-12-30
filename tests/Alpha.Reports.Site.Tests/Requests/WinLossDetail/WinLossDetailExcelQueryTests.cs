@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Tests.Requests.WinLossDetail
 {
     using NSubstitute;
+    using Reports.Models;
     using Site.Requests.WinLossDetail;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     public class WinLossDetailExcelQueryTests
@@ -14,8 +14,8 @@
         public void BuildExcelTemplatePath_Always_ReturnsCorrectPathByUserLevel(byte userLevelId, string expectedPath)
         {
             // Arrange
-            var userSession = Substitute.For<IUserSession>();
-            var winLossDetailQuery = new WinLossDetailExcelQuery(userSession);
+            var user = Substitute.For<User>();
+            var winLossDetailQuery = new WinLossDetailExcelQuery(user);
             winLossDetailQuery.UserLevelId = userLevelId;
 
             // Act

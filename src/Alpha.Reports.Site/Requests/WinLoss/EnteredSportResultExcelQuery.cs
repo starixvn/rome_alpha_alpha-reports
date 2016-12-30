@@ -2,7 +2,7 @@
 {
     using System.Web;
     using MediatR;
-    using Sunplus.Agent.Model.Entities;
+    using Reports.Models;
     using ViewModels;
 
     public class EnteredSportResultExcelQuery : EnteredSportResultQuery, IRequest<ExcelFileViewModel>
@@ -13,7 +13,7 @@
         {
         }
 
-        public EnteredSportResultExcelQuery(IUserSession userSession) : base(userSession)
+        public EnteredSportResultExcelQuery(User user) : base(user)
         {
         }
 

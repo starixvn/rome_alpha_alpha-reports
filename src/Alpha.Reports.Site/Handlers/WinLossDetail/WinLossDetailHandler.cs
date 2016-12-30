@@ -5,6 +5,7 @@
     using Enumerations;
     using MediatR;
     using Models;
+    using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
     using Sunplus.Agent.Model.Entities;
@@ -15,14 +16,14 @@
         BaseWinLossDetailHandler,
         IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>
     {
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossDetailHandler(
             ProductService productService,
             WinLossDetailService reportService,
-            IUserSession userSession) : base(productService, reportService)
+            User user) : base(productService, reportService)
         {
-            this.userSession = userSession;
+            this.user = user;
         }
 
         public WinLossDetailViewModel Handle(WinLossDetailQuery message)
@@ -57,7 +58,6 @@
 
                 ReportData = reportData,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                IsDirectReportViewAction = message.IsDirectReportViewAction,
 
                 SortPropertyName = winLossDetailParam.SortByPropertyName,
                 IsDescendingSort = winLossDetailParam.IsDescendingSort,
@@ -68,7 +68,7 @@
                     "Index",
                     (custInfo, query, breadcrumbLevels) =>
                     {
-                        var routeValues = new WinLossDetailQuery(userSession);
+                        var routeValues = new WinLossDetailQuery(user);
                         routeValues.CustId = custInfo.CustId;
                         routeValues.CustName = custInfo.CustName;
                         routeValues.PageSize = message.PageSize;

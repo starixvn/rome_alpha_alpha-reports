@@ -6,10 +6,10 @@
     using System.Threading;
     using Constants;
     using Enumerations;
-    using Models;
-    using Models.Winloss;
     using Newtonsoft.Json;
     using NSubstitute;
+    using Reports.Models;
+    using Reports.Models.Winloss;
     using Services;
     using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
@@ -22,12 +22,12 @@
     {
         private readonly WinLossService reportService;
         private readonly EnteredSportResultHandler enteredSportResultHandler;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public EnteredSportResultHandlerTests()
         {
             reportService = Substitute.For<WinLossService>();
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
             enteredSportResultHandler = new EnteredSportResultHandler(reportService);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
@@ -48,7 +48,7 @@
         public void HandleEnteredResultQuery_ValidMessage_ReturnsDefaultData()
         {
             // Arrange
-            var message = new EnteredSportResultQuery(userSession);
+            var message = new EnteredSportResultQuery(user);
             message.UserLevelId = (byte)4;
             message.CustId = 1596;
 

@@ -2,6 +2,7 @@
 {
     using MediatR;
     using NSubstitute;
+    using Reports.Models;
     using Site.Controllers;
     using Site.Requests.WinLossDetail;
     using Site.ViewModels;
@@ -12,20 +13,20 @@
     {
         private readonly IMediator mediator;
         private readonly WinLossDetailController winLossDetailController;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossDetailControllerTests()
         {
             mediator = Substitute.For<IMediator>();
             winLossDetailController = new WinLossDetailController(mediator);
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
         }
 
         [Fact]
         public void Index_Always_CallsMediatorSendWinLossDetailQuery()
         {
             // Arrange
-            var message = new WinLossDetailQuery(userSession);
+            var message = new WinLossDetailQuery(user);
 
             // Act
             winLossDetailController.Index(message);
@@ -38,7 +39,7 @@
         public void Excel_Always_CallsMediatorSendExportWinLossDetailQuery()
         {
             // Arrange
-            var message = new WinLossDetailExcelQuery(userSession);
+            var message = new WinLossDetailExcelQuery(user);
             mediator.Send<ExcelFileViewModel>(Arg.Any<WinLossDetailExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act

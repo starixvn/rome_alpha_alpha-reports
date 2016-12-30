@@ -5,10 +5,11 @@
     using System.Globalization;
     using System.Threading;
     using Constants;
-    using Models.Winloss;
     using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
+    using Reports.Models;
+    using Reports.Models.Winloss;
     using Services;
     using Site.Handlers;
     using Site.Requests.WinLoss;
@@ -23,7 +24,7 @@
         private readonly WinLossService reportService;
         private readonly Workbook<WinLossModel> winlossWorkbook;
         private readonly WinLossExcelHandler winLossExcelHandler;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossExcelHandlerTest()
         {
@@ -39,7 +40,7 @@
             winlossWorkbook.Footer(Arg.Any<WinLossModel>(), Arg.Any<Mapper<WinLossModel>>()).Returns(winlossWorkbook);
             winlossWorkbook.Sheet(Arg.Any<string>()).Returns(winlossWorkbook);
 
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
             winLossExcelHandler = new WinLossExcelHandler(productService, reportService, winlossWorkbook);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
@@ -191,7 +192,7 @@
         public void BuildExcelTemplatePath_Always_ReturnsCorrectPathByUserLevel(byte userLevelId, string expectedPath)
         {
             // Arrange
-            var winLossQuery = new WinLossExcelQuery(userSession);
+            var winLossQuery = new WinLossExcelQuery(user);
             winLossQuery.UserLevelId = userLevelId;
 
             // Act
@@ -203,7 +204,7 @@
 
         private WinLossExcelQuery CreateExportWinlossExcelQuery(byte userLevel)
         {
-            var exportWinLossQuery = new WinLossExcelQuery(userSession);
+            var exportWinLossQuery = new WinLossExcelQuery(user);
             exportWinLossQuery.UserLevelId = userLevel;
             exportWinLossQuery.FromDate = DefaultVariables.CurrentDate;
             exportWinLossQuery.ToDate = DefaultVariables.CurrentDate;

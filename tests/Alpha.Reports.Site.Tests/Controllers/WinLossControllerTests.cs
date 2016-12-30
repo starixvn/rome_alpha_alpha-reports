@@ -2,6 +2,7 @@
 {
     using MediatR;
     using NSubstitute;
+    using Reports.Models;
     using Site.Controllers;
     using Site.Requests.WinLoss;
     using Site.ViewModels;
@@ -13,20 +14,20 @@
     {
         private readonly IMediator mediator;
         private readonly WinLossController winLossController;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossControllerTests()
         {
             mediator = Substitute.For<IMediator>();
             winLossController = new WinLossController(mediator);
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
         }
 
         [Fact]
         public void EnteredResult_Always_CallsMediatorSendEnteredResultQuery()
         {
             // Arrange
-            var message = new EnteredSportResultQuery(userSession);
+            var message = new EnteredSportResultQuery(user);
 
             // Act
             winLossController.EnteredResult(message);
@@ -39,7 +40,7 @@
         public void EnteredResultExcel_Always_CallsMediatorSendExportEnteredResultQuery()
         {
             // Arrange
-            var message = new Site.Requests.WinLoss.EnteredSportResultExcelQuery(userSession);
+            var message = new Site.Requests.WinLoss.EnteredSportResultExcelQuery(user);
             mediator.Send<ExcelFileViewModel>(Arg.Any<EnteredSportResultExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
@@ -53,7 +54,7 @@
         public void WinLoss_Always_CallsMediatorSendWinLossQuery()
         {
             // Arrange
-            var message = new WinLossQuery(userSession);
+            var message = new WinLossQuery(user);
 
             // Act
             winLossController.WinLoss(message);
@@ -66,7 +67,7 @@
         public void WinLossExcel_Always_CallsMediatorSendExportWinLossQuery()
         {
             // Arrange
-            var message = new WinLossExcelQuery(userSession);
+            var message = new WinLossExcelQuery(user);
             mediator.Send<ExcelFileViewModel>(Arg.Any<WinLossExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act

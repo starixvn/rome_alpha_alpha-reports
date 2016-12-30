@@ -8,9 +8,11 @@
     using DataAccesses.Impl;
     using Fanex.Data.Repository;
     using MediatR;
+    using Models;
     using ONEbook.SpreadSheets;
     using ONEbook.SpreadSheets.NPOI;
     using RemotingRef;
+    using Reports.Models;
     using Services;
     using Services.Impl;
     using SimpleInjector;
@@ -67,6 +69,7 @@
         {
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
             container.RegisterSingleton<IUserSession, UserSessionExt>();
+            container.RegisterSingleton<User, UserImpl>();
             container.RegisterSingleton<ReportDateService, ReportDateServiceImpl>();           
 
             container.RegisterSingleton<WinLossDetailService, WinLossDetailServiceImpl>();

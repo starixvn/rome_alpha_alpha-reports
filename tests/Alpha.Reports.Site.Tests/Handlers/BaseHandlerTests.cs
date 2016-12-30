@@ -6,9 +6,9 @@
     using System.Linq;
     using System.Web.Mvc;
     using Extensions;
-    using Models;
-    using Models.WinLossDetail;
     using NSubstitute;
+    using Reports.Models;
+    using Reports.Models.WinLossDetail;
     using Site.Handlers;
     using Site.Requests;
     using Site.Requests.WinLossDetail;
@@ -22,12 +22,12 @@
         private const string ActionName = "Index";
 
         private readonly BaseHandler baseHandler;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public BaseHandlerTests()
         {
             baseHandler = new BaseHandler();
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
         }
 
         [Fact]
@@ -141,7 +141,7 @@
         {
             // Arrange
             Func<CustInfo, BaseReportQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
-                (custInfo, baseReportQuery, jsonBreadcrumbLevels) => new WinLossDetailQuery(userSession);
+                (custInfo, baseReportQuery, jsonBreadcrumbLevels) => new WinLossDetailQuery(user);
 
             var message = new BaseReportQuery
             {
@@ -150,10 +150,10 @@
 
             var expectedDrilldownLevels = new List<ActionLinkViewModel>
             {
-                new ActionLinkViewModel(ControllerName, ActionName, message.CustName, new WinLossDetailQuery(userSession))
+                new ActionLinkViewModel(ControllerName, ActionName, message.CustName, new WinLossDetailQuery(user))
             };
 
-            // Act 
+            // Act
             var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, ControllerName, ActionName, buildActionLinkViewModelFunc);
 
             // Assert
@@ -165,7 +165,7 @@
         {
             // Arrange
             Func<CustInfo, BaseReportQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
-                (custInfo, baseReportQuery, jsonBreadcrumbLevels) => new WinLossDetailQuery(userSession);
+                (custInfo, baseReportQuery, jsonBreadcrumbLevels) => new WinLossDetailQuery(user);
 
             var message = new BaseReportQuery
             {
@@ -175,10 +175,10 @@
 
             var expectedDrilldownLevels = new List<ActionLinkViewModel>
             {
-                new ActionLinkViewModel(ControllerName, ActionName, message.CustName, new WinLossDetailQuery(userSession))
+                new ActionLinkViewModel(ControllerName, ActionName, message.CustName, new WinLossDetailQuery(user))
             };
 
-            // Act 
+            // Act
             var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(message, ControllerName, ActionName, buildActionLinkViewModelFunc);
 
             // Assert
@@ -190,7 +190,7 @@
         public void BuildBreadcrumbLevels_GetDownLineReport_ReturnsCorrectBreadcrumbs()
         {
             // Arrange
-            var message = new WinLossDetailQuery(userSession);
+            var message = new WinLossDetailQuery(user);
             message.BreadcrumbLevels = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]";
             message.UserLevelId = 3;
             message.CustId = 2;
@@ -199,7 +199,7 @@
             Func<CustInfo, BaseReportQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
                 (custInfo, baseReportQuery, jsonBreadcrumbLevels) =>
                 {
-                    var query = new WinLossDetailQuery(userSession);
+                    var query = new WinLossDetailQuery(user);
 
                     query.CustId = custInfo.CustId;
                     query.CustName = custInfo.CustName;
@@ -220,7 +220,7 @@
                     return query;
                 };
 
-            var winLossDetailQuery = new WinLossDetailQuery(userSession);
+            var winLossDetailQuery = new WinLossDetailQuery(user);
             winLossDetailQuery.CustId = 1;
             winLossDetailQuery.CustName = "SUPER1";
             winLossDetailQuery.UserLevelId = 4;
@@ -233,7 +233,7 @@
                     linkText: "SUPER1",
                     routeValues: winLossDetailQuery));
 
-            winLossDetailQuery = new WinLossDetailQuery(userSession);
+            winLossDetailQuery = new WinLossDetailQuery(user);
             winLossDetailQuery.CustId = 2;
             winLossDetailQuery.CustName = "MASTER1";
             winLossDetailQuery.UserLevelId = 3;
@@ -245,7 +245,7 @@
                     linkText: message.CustName,
                     routeValues: winLossDetailQuery));
 
-            // Act 
+            // Act
             var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
                 message,
                 ControllerName,

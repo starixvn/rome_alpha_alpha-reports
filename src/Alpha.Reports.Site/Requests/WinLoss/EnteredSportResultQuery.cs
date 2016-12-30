@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLoss
 {
+    using System.Web.Mvc;
     using MediatR;
-    using Sunplus.Agent.Model.Base;
-    using Sunplus.Agent.Model.Entities;
+    using Reports.Models;
     using ViewModels.WinLoss;
 
     public class EnteredSportResultQuery : IRequest<EnteredResultViewModel>
@@ -11,14 +11,14 @@
         {
         }
 
-        public EnteredSportResultQuery(IUserSession userSession)
+        public EnteredSportResultQuery(User user)
         {
-            var session = userSession ?? new UserSessionExt();
+            user = user ?? DependencyResolver.Current.GetService<User>();
 
-            CustId = session.CustId;
-            UserLevelId = session.RoleId;
+            CustId = user.CustId;
+            UserLevelId = user.UserLevelId;
 
-            Language = session.Language;
+            Language = user.Language;
         }
 
         public int CustId { get; set; }

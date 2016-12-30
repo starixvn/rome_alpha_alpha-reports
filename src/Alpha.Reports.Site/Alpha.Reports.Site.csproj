@@ -274,6 +274,7 @@
     <Compile Include="Helpers\MicroSites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\BaseReportQuery.cs" />
+    <Compile Include="Models\UserImpl.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLoss\EnteredSportResultQuery.cs" />

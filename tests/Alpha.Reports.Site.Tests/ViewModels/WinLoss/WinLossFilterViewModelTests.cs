@@ -4,7 +4,7 @@
     using System.Threading;
     using Constants;
     using Enumerations;
-    using Models;
+    using Reports.Models;
     using Site.ViewModels.WinLoss;
     using Xunit;
 
@@ -28,7 +28,6 @@
                 null,
                 null,
                 null,
-                false,
                 false,
                 DefaultVariables.CurrentDate,
                 string.Empty);

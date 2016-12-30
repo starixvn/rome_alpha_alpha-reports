@@ -4,6 +4,7 @@
     using Constants;
     using Extensions;
     using NSubstitute;
+    using Reports.Models;
     using Site.Requests.WinLossDetail;
     using Site.ViewModels;
     using Site.ViewModels.WinLossDetail;
@@ -12,11 +13,11 @@
 
     public class WinLossDetailsActionLinkViewModelTests
     {
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossDetailsActionLinkViewModelTests()
         {
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
         }
 
         [Theory]
@@ -31,7 +32,7 @@
             var expectedCustId = custId;
             var breadcrumbLevels = new List<ActionLinkViewModel>
             {
-                new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(userSession))
+                new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(user))
             };
 
             var winLossDetailsActionLinkViewModel = new WinLossDetailsActionLinkViewModel(

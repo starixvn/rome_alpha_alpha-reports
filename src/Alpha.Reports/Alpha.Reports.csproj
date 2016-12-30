@@ -107,6 +107,7 @@
     <Compile Include="Models\CustInfo.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ReportData.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserLevel.cs" />
     <Compile Include="Models\WinLossDetail\NetWinLoss.cs" />
     <Compile Include="Models\WinLossDetail\WinLossDetailModel.cs" />

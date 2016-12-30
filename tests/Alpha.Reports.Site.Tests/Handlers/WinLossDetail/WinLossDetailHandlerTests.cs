@@ -10,10 +10,10 @@
     using Constants;
     using Enumerations;
     using Extensions;
-    using Models;
-    using Models.WinLossDetail;
     using NSubstitute;
     using Params;
+    using Reports.Models;
+    using Reports.Models.WinLossDetail;
     using Services;
     using Site.Handlers.WinLossDetail;
     using Site.Requests.WinLossDetail;
@@ -27,7 +27,7 @@
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
         private readonly WinLossDetailHandler winLossDetailHandler;
-        private readonly IUserSession userSession;
+        private readonly User user;
         private readonly ReportData<WinLossDetailModel> reportData;
 
         public WinLossDetailHandlerTests()
@@ -39,8 +39,8 @@
             reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
-            userSession = Substitute.For<IUserSession>();
-            winLossDetailHandler = new WinLossDetailHandler(productService, reportService, userSession);
+            user = Substitute.For<User>();
+            winLossDetailHandler = new WinLossDetailHandler(productService, reportService, user);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -69,7 +69,7 @@
             string userSelectedProductIds)
         {
             // Arrange
-            var message = new WinLossDetailQuery(userSession);
+            var message = new WinLossDetailQuery(user);
             message.UserLevelId = 4;
             message.UserSelectedProductIds = userSelectedProductIds;
 
@@ -79,7 +79,7 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var routeValue = new WinLossDetailQuery(userSession);
+            var routeValue = new WinLossDetailQuery(user);
             routeValue.UserLevelId = 4;
             routeValue.UserSelectedProductIds = userSelectedProductIds;
             routeValue.BreadcrumbLevels = "[{'CustId':0,'CustName':'','UserLevelId':4}]";
@@ -90,7 +90,6 @@
                 Language = string.Empty,
                 SortPropertyName = "SuperNetWinLoss.WinLoss",
                 IsDescendingSort = true,
-                IsDirectReportViewAction = true,
                 UserSelectedProductIds = string.Empty,
                 UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
                 FromDate = DefaultVariables.CurrentDate,

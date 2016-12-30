@@ -9,8 +9,8 @@
     using Constants;
     using Enumerations;
     using Extensions;
-    using Models;
     using NSubstitute;
+    using Reports.Models;
     using Site.Requests.WinLoss;
     using Site.ViewModels;
     using Site.ViewModels.WinLoss;
@@ -22,11 +22,11 @@
     public class WinLossViewModelTests
     {
         private readonly WinLossViewModel winLossViewModel;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossViewModelTests()
         {
-            userSession = Substitute.For<IUserSession>();
+            user = Substitute.For<User>();
             winLossViewModel = new WinLossViewModel(new List<WinLossModel>());
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
@@ -69,7 +69,7 @@
             winLossViewModel.ReportData = Enumerable.Empty<WinLossModel>();
             winLossViewModel.BreadcrumbLevels = new List<ActionLinkViewModel>
             {
-                new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossQuery(userSession))
+                new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossQuery(user))
             };
 
             var expectedActionLinkViewModel = new WinLossActionLinkViewModel(

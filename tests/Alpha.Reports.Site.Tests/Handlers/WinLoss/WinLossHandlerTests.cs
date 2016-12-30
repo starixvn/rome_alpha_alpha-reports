@@ -10,9 +10,9 @@
     using Constants;
     using Enumerations;
     using Extensions;
-    using Models;
-    using Models.Winloss;
     using NSubstitute;
+    using Reports.Models;
+    using Reports.Models.Winloss;
     using Services;
     using Site.Handlers;
     using Site.Requests.WinLoss;
@@ -27,7 +27,7 @@
         private readonly ProductService productService;
         private readonly WinLossService reportService;
         private readonly WinLossHandler winLossHandler;
-        private readonly IUserSession userSession;
+        private readonly User user;
 
         public WinLossHandlerTests()
         {
@@ -35,8 +35,8 @@
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
             reportService = Substitute.For<WinLossService>();
 
-            userSession = Substitute.For<IUserSession>();
-            winLossHandler = new WinLossHandler(productService, reportService, userSession);
+            user = Substitute.For<User>();
+            winLossHandler = new WinLossHandler(productService, reportService, user);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             DateTimeManager.Now = DefaultVariables.CurrentDate;
@@ -65,14 +65,14 @@
             string userSelectedProductIds)
         {
             // Arrange
-            var message = new WinLossQuery(userSession);
+            var message = new WinLossQuery(user);
             message.UserLevelId = 3;
             message.UserSelectedProductIds = userSelectedProductIds;
 
             var products = Enumerable.Empty<Product>();
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
 
-            var routeValue = new WinLossQuery(userSession);
+            var routeValue = new WinLossQuery(user);
             routeValue.UserLevelId = 3;
             routeValue.UserSelectedProductIds = userSelectedProductIds;
             routeValue.BreadcrumbLevels = "[{'CustId':0,'CustName':'','UserLevelId':3}]";
@@ -84,7 +84,6 @@
             {
                 CustName = string.Empty,
                 Language = string.Empty,
-                IsDirectReportViewAction = true,
                 UserSelectedProductIds = string.Empty,
                 UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
                 FromDate = DefaultVariables.CurrentDate,

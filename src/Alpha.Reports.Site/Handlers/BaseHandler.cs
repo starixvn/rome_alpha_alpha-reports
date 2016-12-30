@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Models;
     using Newtonsoft.Json;
+    using Reports.Models;
     using Requests;
     using ViewModels;
 

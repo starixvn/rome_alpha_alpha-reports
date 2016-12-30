@@ -33,10 +33,6 @@
 
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
-    @Html.Hidden("IsDirectReportViewAction", Model.IsDirectReportViewAction)
     @Html.Hidden("BreadcrumbLevels", Model.BreadcrumbLevels)
-if (!Model.IsDirectReportViewAction)
-{
-        @Html.Hidden("UserLevelId", Model.UserLevel.Value)
-}
+    @Html.Hidden("UserLevelId", Model.UserLevel.Value)
 }
