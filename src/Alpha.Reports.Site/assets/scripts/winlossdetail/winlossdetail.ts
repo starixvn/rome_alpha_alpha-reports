@@ -66,43 +66,43 @@ class WinLossDetailView {
         this.$.blockUI();
         this.cacheElements();
 
-        //this.$isHistoricReport = this.$("#IsHistoricReport");
-        //this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
-        //if (this.isHistoricReport) {
-        //    this.$reportForm.removeClass("hide");
-        //    this.monthPickerComponent.render();
-        //    if (this.$isFilterVisible.val().toLowerCase() !== "true") {
-        //        this.$reportForm.addClass("hide");
-        //    }
-        //} else {
-        //    this.dateRangePickerComponent.render();
-        //}
+        this.$isHistoricReport = this.$("#IsHistoricReport");
+        this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
+        if (this.isHistoricReport) {
+            this.$reportForm.removeClass("hide");
+            this.monthPickerComponent.render();
+            if (this.$isFilterVisible.val().toLowerCase() !== "true") {
+                this.$reportForm.addClass("hide");
+            }
+        } else {
+            this.dateRangePickerComponent.render();
+        }
 
         this.productMultiSelectionComponent.render();
 
-        //this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
-        //this.pagerComponent.render();
+        this.$netTurnoverTooltip = netTurnoverTooltipComponent.render();
+        this.pagerComponent.render();
 
-        //this.hasAllDataOnClient = this.pagerComponent.hasAllDataOnClient();
+        this.hasAllDataOnClient = this.pagerComponent.hasAllDataOnClient();
 
-        //let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
-        //this.sortComponent.render({
-        //    sortContainer: this.$tableReport,
-        //    canSort: canSort,
-        //    hasAllDataOnClient: this.hasAllDataOnClient,
-        //    headers: {
-        //        0: { sorter: "text" }
-        //    },
-        //    afterSortFunction: this.afterSort
-        //});
+        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
+        this.sortComponent.render({
+            sortContainer: this.$tableReport,
+            canSort: canSort,
+            hasAllDataOnClient: this.hasAllDataOnClient,
+            headers: {
+                0: { sorter: "text" }
+            },
+            afterSortFunction: this.afterSort
+        });
 
-        //this.$tableReport.stickyTableHeaders();
+        this.$tableReport.stickyTableHeaders();
 
-        //if (this.$hasSubmittedParams.val().toString().toLowerCase() !== "true"
-        //    && alphaReports.screenSmallThan768()) {
-        //    this.setStackMode();
-        //    this.reportTooltip.show(new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0)));
-        //}
+        if (this.$hasSubmittedParams.val().toString().toLowerCase() !== "true"
+            && alphaReports.screenSmallThan768()) {
+            this.setStackMode();
+            this.reportTooltip.show(new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0)));
+        }
 
         this.registerEvents();
         this.$.unblockUI();

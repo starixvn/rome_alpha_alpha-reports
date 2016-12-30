@@ -339,6 +339,7 @@
       <DependentUpon>winloss.js</DependentUpon>
     </Content>
     <Content Include="assets\scripts\tests\libs\bootstrap-datetimepicker.js" />
+    <Content Include="assets\scripts\tests\libs\bootstrap-multiselect.js" />
     <Content Include="assets\scripts\tests\libs\datepicker.js" />
     <Content Include="assets\scripts\tests\libs\jasmine-jquery.js" />
     <Content Include="assets\scripts\tests\libs\jasmine.js" />
