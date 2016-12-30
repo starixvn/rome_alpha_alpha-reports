@@ -11,10 +11,18 @@
   "CodeCoverageIgnores": [
     "*\\tests\\*"
   ],
+
+  "CodeCoverageExecutionMode": "Manual",
   "References": [
     { "Path": "libs/jquery.js" },
     { "Path": "libs/jasmine.js" },
     { "Path": "libs/jasmine-jquery.js" },
+    { "Path": "libs/moment.js" },
+    { "Path": "libs/datepicker.js" },
+    { "Path": "libs/jquery-blockui.js" },
+    { "Path": "libs/bootstrap-datetimepicker.js" },
+    { "Path": "libs/bootstrap-multiselect.js" },
+    { "Path": "libs/store.js" },
 
     { "Path": "../core.ts" },
     { "Path": "../components/daterangepicker.ts" },

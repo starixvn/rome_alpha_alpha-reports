@@ -338,9 +338,14 @@
     <Content Include="assets\bundles\winloss\winloss.min.js">
       <DependentUpon>winloss.js</DependentUpon>
     </Content>
+    <Content Include="assets\scripts\tests\libs\bootstrap-datetimepicker.js" />
+    <Content Include="assets\scripts\tests\libs\datepicker.js" />
     <Content Include="assets\scripts\tests\libs\jasmine-jquery.js" />
     <Content Include="assets\scripts\tests\libs\jasmine.js" />
+    <Content Include="assets\scripts\tests\libs\jquery-blockui.js" />
     <Content Include="assets\scripts\tests\libs\jquery.js" />
+    <Content Include="assets\scripts\tests\libs\moment.js" />
+    <Content Include="assets\scripts\tests\libs\store.js" />
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
     </Content>
