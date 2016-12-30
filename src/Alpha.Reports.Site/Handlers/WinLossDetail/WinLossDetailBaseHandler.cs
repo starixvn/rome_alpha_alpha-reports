@@ -9,18 +9,13 @@
     using Requests.WinLossDetail;
     using Services;
 
+    [SuppressMessage(
+        "StyleCop.CSharp.NamingRules",
+        "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
+        Justification = "Reviewed. Suppression is OK here.")]
     public class WinLossDetailBaseHandler : BaseHandler
     {
-        [SuppressMessage(
-            "StyleCop.CSharp.NamingRules",
-            "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
-            Justification = "Reviewed. Suppression is OK here.")]
         protected readonly ProductService productService;
-
-        [SuppressMessage(
-            "StyleCop.CSharp.NamingRules",
-            "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
-            Justification = "Reviewed. Suppression is OK here.")]
         protected readonly WinLossDetailService reportService;
 
         public WinLossDetailBaseHandler(

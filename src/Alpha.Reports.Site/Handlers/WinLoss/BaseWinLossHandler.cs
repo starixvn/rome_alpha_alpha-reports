@@ -1,17 +1,22 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLoss
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Extensions;
-    using Models;
     using Params;
     using Reports.Models;
     using Requests.WinLoss;
     using Services;
 
+    [SuppressMessage(
+        "StyleCop.CSharp.NamingRules",
+        "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
+        Justification = "Reviewed. Suppression is OK here.")]
     public class BaseWinLossHandler : BaseHandler
     {
-        private readonly ProductService productService;
-        private readonly WinLossService reportService;
+        protected readonly ProductService productService;
+
+        protected readonly WinLossService reportService;
 
         public BaseWinLossHandler(
             ProductService productService,
@@ -19,22 +24,6 @@
         {
             this.productService = productService;
             this.reportService = reportService;
-        }
-
-        protected ProductService ProductService
-        {
-            get
-            {
-                return productService;
-            }
-        }
-
-        protected WinLossService ReportService
-        {
-            get
-            {
-                return reportService;
-            }
         }
 
         protected WinLossParam CreateWinLossParamater(

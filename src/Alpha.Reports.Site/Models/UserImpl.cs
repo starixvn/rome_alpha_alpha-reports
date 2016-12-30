@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Models
 {
-    using Alpha.Reports.Models;
+    using Reports.Models;
     using Sunplus.Agent.Model.Entities;
 
     public class UserImpl : User
@@ -12,36 +12,12 @@
             this.userSession = userSession;
         }
 
-        public int CustId
-        {
-            get
-            {
-                return userSession.CustId;
-            }
-        }
+        public int CustId => userSession.CustId;
 
-        public string CustName
-        {
-            get
-            {
-                return userSession.UserName;
-            }
-        }
+        public string CustName => userSession.UserName;
 
-        public string Language
-        {
-            get
-            {
-                return userSession.Language;
-            }
-        }
+        public string Language => userSession.Language;
 
-        public byte UserLevelId
-        {
-            get
-            {
-                return userSession.RoleId;
-            }
-        }
+        public byte UserLevelId => userSession.RoleId;
     }
 }

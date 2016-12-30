@@ -75,9 +75,8 @@
             var actualValues = Enumeration.GetAll(typeof(UserLevel)).Cast<UserLevel>();
 
             // Assert
-            Assert.True(actualValues.Count() == expectedUserLevels.Count() &&
-                expectedUserLevels.Where(userLevel1 => actualValues.Where(userLevel2 => userLevel2.Value == userLevel1.Value).FirstOrDefault() == null)
-                .FirstOrDefault() == null);
+            Assert.True(actualValues.Count() == expectedUserLevels.Count &&
+                expectedUserLevels.FirstOrDefault(userLevel1 => actualValues.FirstOrDefault(userLevel2 => userLevel2.Value == userLevel1.Value) == null) == null);
         }
 
         [Fact]

@@ -24,14 +24,12 @@
 
         public UserLevel UserLevel => Enumeration.FromValue<UserLevel>(UserLevelId);
 
-        internal string BuildExcelTemplatePath()
-        {
-            return ExcelTemplateDir +
-                (UserLevel.IsSuperLevel()
-                ? "Master.xls"
-                : UserLevel.IsMasterLevel()
-                ? "Agent.xls"
-                : "Member.xls");
-        }
+        internal string BuildExcelTemplatePath() =>
+            ExcelTemplateDir +
+            (UserLevel.IsSuperLevel()
+            ? "Master.xls"
+            : UserLevel.IsMasterLevel()
+            ? "Agent.xls"
+            : "Member.xls");
     }
 }

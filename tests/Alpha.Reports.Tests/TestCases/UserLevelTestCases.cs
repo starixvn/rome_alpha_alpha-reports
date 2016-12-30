@@ -44,28 +44,10 @@
             new object[] { UserLevel.Agent,  UserLevel.Agent, true }
         };
 
-        public static IEnumerable<object[]> UplineUserLevelAndDownlineValueDataSources
-        {
-            get
-            {
-                return uplineUserLevelAndDownlineValueDataSources;
-            }
-        }
+        public static IEnumerable<object[]> UplineUserLevelAndDownlineValueDataSources => uplineUserLevelAndDownlineValueDataSources;
 
-        public static IEnumerable<object[]> DownlineUserLevelAndUplineValueDataSources
-        {
-            get
-            {
-                return downlineUserLevelAndUplineValueDataSources;
-            }
-        }
+        public static IEnumerable<object[]> DownlineUserLevelAndUplineValueDataSources => downlineUserLevelAndUplineValueDataSources;
 
-        public static IEnumerable<object[]> SameUseLevelDataSource
-        {
-            get
-            {
-                return sameUseLevelDataSource;
-            }
-        }
+        public static IEnumerable<object[]> SameUseLevelDataSource => sameUseLevelDataSource;
     }
 }

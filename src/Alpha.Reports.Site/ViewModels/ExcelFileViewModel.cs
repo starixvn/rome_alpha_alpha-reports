@@ -8,7 +8,7 @@
         public ExcelFileViewModel(string name, byte[] content)
         {
             Name = GetValidFileName(name);
-            Content = content;            
+            Content = content;
         }
 
         public string Name { get; }

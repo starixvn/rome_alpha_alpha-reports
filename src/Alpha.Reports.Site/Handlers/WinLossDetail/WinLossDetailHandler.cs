@@ -4,11 +4,9 @@
     using System.Diagnostics.CodeAnalysis;
     using Enumerations;
     using MediatR;
-    using Models;
     using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
-    using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLossDetail;
 
     [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]

@@ -24,7 +24,6 @@
             throw new NotImplementedException();
         }
 
-        public override bool IsValid() => base.IsValid()
-            && !string.IsNullOrWhiteSpace(ProductIds);
+        public override bool IsValid() => base.IsValid() && !string.IsNullOrWhiteSpace(ProductIds);
     }
 }

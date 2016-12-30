@@ -13,53 +13,38 @@
             new object[] { BuildAgentDataTest(), ExpectedAgentGrantTotal }
         };
 
-        private static WinLossModel ExpectedSuperGrantTotal
-        {
-            get
-            {
-                return new WinLossModel(
-                           custId: 0,
-                           custName: "Total",
-                           turnover: (decimal)375732807.36,
-                           grossComm: (decimal)2998559.76,
-                           memberNetWinLoss: null,
-                           agentNetWinLoss: null,
-                           masterNetWinLoss: new NetWinLoss((decimal)-111173383.51),
-                           superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54));
-            }
-        }
+        private static WinLossModel ExpectedSuperGrantTotal =>
+            new WinLossModel(
+                custId: 0,
+                custName: "Total",
+                turnover: (decimal)375732807.36,
+                grossComm: (decimal)2998559.76,
+                memberNetWinLoss: null,
+                agentNetWinLoss: null,
+                masterNetWinLoss: new NetWinLoss((decimal)-111173383.51),
+                superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54));
 
-        private static WinLossModel ExpectedMasterGrantTotal
-        {
-            get
-            {
-                return new WinLossModel(
-                          custId: 0,
-                          custName: "Total",
-                          turnover: (decimal)375732807.36,
-                          grossComm: (decimal)2998559.76,
-                          memberNetWinLoss: null,
-                          agentNetWinLoss: new NetWinLoss((decimal)-111173383.51),
-                          masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54),
-                          superNetWinLoss: null);
-            }
-        }
+        private static WinLossModel ExpectedMasterGrantTotal =>
+            new WinLossModel(
+                custId: 0,
+                custName: "Total",
+                turnover: (decimal)375732807.36,
+                grossComm: (decimal)2998559.76,
+                memberNetWinLoss: null,
+                agentNetWinLoss: new NetWinLoss((decimal)-111173383.51),
+                masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54),
+                superNetWinLoss: null);
 
-        private static WinLossModel ExpectedAgentGrantTotal
-        {
-            get
-            {
-                return new WinLossModel(
-                          custId: 0,
-                          custName: "Total",
-                          turnover: (decimal)6225.00,
-                          grossComm: (decimal)34.83,
-                          memberNetWinLoss: new NetWinLoss((decimal)-2576.25, (decimal)21.00),
-                          agentNetWinLoss: new NetWinLoss((decimal)1267.88, (decimal)-3.38),
-                          masterNetWinLoss: null,
-                          superNetWinLoss: null);
-            }
-        }
+        private static WinLossModel ExpectedAgentGrantTotal =>
+            new WinLossModel(
+                custId: 0,
+                custName: "Total",
+                turnover: (decimal)6225.00,
+                grossComm: (decimal)34.83,
+                memberNetWinLoss: new NetWinLoss((decimal)-2576.25, (decimal)21.00),
+                agentNetWinLoss: new NetWinLoss((decimal)1267.88, (decimal)-3.38),
+                masterNetWinLoss: null,
+                superNetWinLoss: null);
 
         private static List<WinLossModel> BuildSuperDataTest()
         {
@@ -142,12 +127,6 @@
             return agentWinLossData;
         }
 
-        public static IEnumerable<object[]> WinLossViewModelSources
-        {
-            get
-            {
-                return winLossViewModel;
-            }
-        }
+        public static IEnumerable<object[]> WinLossViewModelSources => winLossViewModel;
     }
 }

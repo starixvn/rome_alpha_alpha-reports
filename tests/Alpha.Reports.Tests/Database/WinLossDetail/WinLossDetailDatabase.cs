@@ -11,36 +11,12 @@
 
         private static DataSet masterWinLossWinNoTotalTable = FileHelper.LoadDataSet("\\Database\\WinLossDetail\\MasterWinLossDetailHasData WinNoTotalTable.xml");
 
-        public static DataSet MasterWinLoss
-        {
-            get
-            {
-                return masterWinLoss;
-            }
-        }
+        public static DataSet MasterWinLoss => masterWinLoss;
 
-        public static DataSet AgentWinLoss
-        {
-            get
-            {
-                return agentWinLoss;
-            }
-        }
+        public static DataSet AgentWinLoss => agentWinLoss;
 
-        public static DataSet MemberWinLoss
-        {
-            get
-            {
-                return memberWinLoss;
-            }
-        }
+        public static DataSet MemberWinLoss => memberWinLoss;
 
-        public static DataSet MasterWinLossWinNoTotalTable
-        {
-            get
-            {
-                return masterWinLossWinNoTotalTable;
-            }
-        }
+        public static DataSet MasterWinLossWinNoTotalTable => masterWinLossWinNoTotalTable;
     }
 }

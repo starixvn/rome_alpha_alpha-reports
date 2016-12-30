@@ -9,28 +9,10 @@
         private static DataSet agentWinLoss = FileHelper.LoadDataSet("\\Database\\WinLoss\\AgentWinLossHasData.xml");
         private static DataSet memberWinLoss = FileHelper.LoadDataSet("\\Database\\WinLoss\\MemberWinLossHasData.xml");
 
-        public static DataSet MasterWinLoss
-        {
-            get
-            {
-                return masterWinLoss;
-            }
-        }
+        public static DataSet MasterWinLoss => masterWinLoss;
 
-        public static DataSet AgentWinLoss
-        {
-            get
-            {
-                return agentWinLoss;
-            }
-        }
+        public static DataSet AgentWinLoss => agentWinLoss;
 
-        public static DataSet MemberWinLoss
-        {
-            get
-            {
-                return memberWinLoss;
-            }
-        }
+        public static DataSet MemberWinLoss => memberWinLoss;
     }
 }

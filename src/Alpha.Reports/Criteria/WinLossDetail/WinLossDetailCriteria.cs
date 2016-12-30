@@ -23,7 +23,7 @@
         }
 
         [SpParam(Ignored = true)]
-        public UserLevel ReportLevel { get; }      
+        public UserLevel ReportLevel { get; }
 
         public override string GetSettingKey()
         {

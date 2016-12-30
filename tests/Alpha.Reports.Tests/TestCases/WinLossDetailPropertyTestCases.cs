@@ -26,12 +26,6 @@
             new object[] { "SuperNetWinLoss.Total" }
         };
 
-        public static IEnumerable<object[]> AllProperties
-        {
-            get
-            {
-                return allProperties;
-            }
-        }
+        public static IEnumerable<object[]> AllProperties => allProperties;
     }
 }

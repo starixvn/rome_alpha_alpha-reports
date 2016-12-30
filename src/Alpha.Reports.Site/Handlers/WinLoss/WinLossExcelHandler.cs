@@ -15,14 +15,12 @@
     using ViewModels;
     using ViewModels.WinLoss;
     using WinLoss;
-    using Models = Alpha.Reports.Models.Winloss;
+    using Models = Reports.Models.Winloss;
 
     public class WinLossExcelHandler :
         BaseWinLossHandler,
         IRequestHandler<WinLossExcelQuery, ExcelFileViewModel>
     {
-        private readonly ProductService productService;
-        private readonly WinLossService reportService;
         private readonly Workbook<Models.WinLossModel> winlossWorkbook;
 
         public WinLossExcelHandler(
@@ -30,9 +28,7 @@
             WinLossService reportService,
             Workbook<Models.WinLossModel> workbook) : base(productService, reportService)
         {
-            this.productService = productService;
-            this.reportService = reportService;
-            this.winlossWorkbook = workbook;
+            winlossWorkbook = workbook;
         }
 
         public ExcelFileViewModel Handle(WinLossExcelQuery message)

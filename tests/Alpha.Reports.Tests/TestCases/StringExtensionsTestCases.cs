@@ -11,12 +11,6 @@
             new object[] { "1000000000000000000000, ab, 12", new List<int> { 12 } }
         };
 
-        public static IEnumerable<object[]> StringContainsNonNumericCharactersCases
-        {
-            get
-            {
-                return stringContainsNonNumericCharactersCases;
-            }
-        }
+        public static IEnumerable<object[]> StringContainsNonNumericCharactersCases => stringContainsNonNumericCharactersCases;
     }
 }

@@ -11,57 +11,37 @@
             new object[] { BuildDailyEnteredSportData(), BuildEnteredSportResultData() }
         };
 
-        private static DailyEnteredSport YesterdayDailyEnteredSoccer
-        {
-            get
-            {
-                return new DailyEnteredSport(
-                    isToday: false,
-                    eventDate: new DateTime(2016, 12, 1),
-                    sportType: 1,
-                    entered: 5,
-                    nonEntered: 6);
-            }
-        }
+        private static DailyEnteredSport YesterdayDailyEnteredSoccer =>
+            new DailyEnteredSport(
+                isToday: false,
+                eventDate: new DateTime(2016, 12, 1),
+                sportType: 1,
+                entered: 5,
+                nonEntered: 6);
 
-        private static DailyEnteredSport TodayDailyEnteredSoccer
-        {
-            get
-            {
-                return new DailyEnteredSport(
-                    isToday: true,
-                    eventDate: new DateTime(2016, 12, 2),
-                    sportType: 1,
-                    entered: 5,
-                    nonEntered: 6);
-            }
-        }
+        private static DailyEnteredSport TodayDailyEnteredSoccer =>
+            new DailyEnteredSport(
+                isToday: true,
+                eventDate: new DateTime(2016, 12, 2),
+                sportType: 1,
+                entered: 5,
+                nonEntered: 6);
 
-        private static DailyEnteredSport YesterdayDailyEnteredBasketball
-        {
-            get
-            {
-                return new DailyEnteredSport(
-                   isToday: false,
-                   eventDate: new DateTime(2016, 12, 1),
-                   sportType: 2,
-                   entered: 5,
-                   nonEntered: 6);
-            }
-        }
+        private static DailyEnteredSport YesterdayDailyEnteredBasketball =>
+            new DailyEnteredSport(
+                isToday: false,
+                eventDate: new DateTime(2016, 12, 1),
+                sportType: 2,
+                entered: 5,
+                nonEntered: 6);
 
-        private static DailyEnteredSport TodaydayDailyEnteredBasketball
-        {
-            get
-            {
-                return new DailyEnteredSport(
-                    isToday: true,
-                    eventDate: new DateTime(2016, 12, 2),
-                    sportType: 2,
-                    entered: 5,
-                    nonEntered: 6);
-            }
-        }
+        private static DailyEnteredSport TodaydayDailyEnteredBasketball =>
+            new DailyEnteredSport(
+                isToday: true,
+                eventDate: new DateTime(2016, 12, 2),
+                sportType: 2,
+                entered: 5,
+                nonEntered: 6);
 
         public static List<DailyEnteredSport> BuildDailyEnteredSportData()
         {
@@ -97,12 +77,6 @@
             return enteredSportResultData;
         }
 
-        public static IEnumerable<object[]> EnteredResultsSources
-        {
-            get
-            {
-                return enteredResultsSources;
-            }
-        }
+        public static IEnumerable<object[]> EnteredResultsSources => enteredResultsSources;
     }
 }

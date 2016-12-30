@@ -30,11 +30,7 @@
 
         public DateTime MoveBetsDay { get; }
 
-        public override bool IsValid()
-        {
-            return CustId > 0
-                && FromDate <= ToDate;
-        }
+        public override bool IsValid() => CustId > 0 && FromDate <= ToDate;
 
         public bool IsNotValid() => !IsValid();
     }

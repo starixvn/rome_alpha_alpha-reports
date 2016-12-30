@@ -5,11 +5,8 @@
 
     public static class ReportsScripts
     {
-        public static IHtmlString Render(params string[] paths)
-        {
-            return System.Web.Optimization.Scripts.Render(
-                  paths.Select(path => VirtualPathUtility.ToAbsolute($"{path}{BaseStaticResources.MinText}.js?v={BaseStaticResources.StaticResourcesVersion}"))
-                      .ToArray());
-        }
+        public static IHtmlString Render(params string[] paths) => System.Web.Optimization.Scripts.Render(
+            paths.Select(path => VirtualPathUtility.ToAbsolute($"{path}{BaseStaticResources.MinText}.js?v={BaseStaticResources.StaticResourcesVersion}"))
+            .ToArray());
     }
 }

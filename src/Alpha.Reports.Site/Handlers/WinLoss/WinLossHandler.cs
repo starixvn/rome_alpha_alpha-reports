@@ -5,11 +5,9 @@
     using System.Linq;
     using Enumerations;
     using MediatR;
-    using Models;
     using Reports.Models;
     using Requests.WinLoss;
     using Services;
-    using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLoss;
     using WinLoss;
 
@@ -17,8 +15,6 @@
         BaseWinLossHandler,
         IRequestHandler<WinLossQuery, WinLossViewModel>
     {
-        private readonly ProductService productService;
-        private readonly WinLossService reportService;
         private readonly User user;
 
         public WinLossHandler(
@@ -26,8 +22,6 @@
             WinLossService reportService,
             User user) : base(productService, reportService)
         {
-            this.productService = productService;
-            this.reportService = reportService;
             this.user = user;
         }
 

@@ -25,9 +25,6 @@
 
         public int TotalRecords { get; set; }
 
-        public override bool IsValid()
-        {
-            return base.IsValid() && PageIndex >= 0;
-        }
+        public override bool IsValid() => base.IsValid() && PageIndex >= 0;
     }
 }

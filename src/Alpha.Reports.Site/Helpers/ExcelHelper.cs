@@ -11,9 +11,9 @@
         {
             get { return resourceManager ?? Resources.ResourceManager; }
             set { resourceManager = value; }
-        }      
+        }
 
-        public static string HeaderTitleMapping(string resourceKey) 
-            => ResourceManager.GetString(resourceKey);        
+        public static string HeaderTitleMapping(string resourceKey)
+            => ResourceManager.GetString(resourceKey);
     }
 }

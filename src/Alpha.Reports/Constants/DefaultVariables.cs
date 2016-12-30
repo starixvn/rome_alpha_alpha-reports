@@ -10,15 +10,9 @@
 
         public const int MaxRowExcelFile = 65536;
 
-        public static CacheItemOptions CacheItemOptions
+        public static CacheItemOptions CacheItemOptions => new CacheItemOptions
         {
-            get
-            {
-                return new CacheItemOptions
-                {
-                    SlidingExpiration = TimeSpan.FromHours(1)
-                };
-            }
-        }
+            SlidingExpiration = TimeSpan.FromHours(1)
+        };
     }
 }

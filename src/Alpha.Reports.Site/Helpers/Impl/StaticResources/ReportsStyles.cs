@@ -5,12 +5,9 @@
 
     public static class ReportsStyles
     {
-        public static IHtmlString Render(params string[] paths)
-        {
-            return System.Web.Optimization.Styles.Render(
-                paths.Select(path =>
-                    VirtualPathUtility.ToAbsolute($"{path}{BaseStaticResources.MinText}.css?v={BaseStaticResources.StaticResourcesVersion}"))
-                    .ToArray());
-        }
+        public static IHtmlString Render(params string[] paths) => System.Web.Optimization.Styles.Render(
+            paths.Select(path =>
+            VirtualPathUtility.ToAbsolute($"{path}{BaseStaticResources.MinText}.css?v={BaseStaticResources.StaticResourcesVersion}"))
+            .ToArray());
     }
 }
