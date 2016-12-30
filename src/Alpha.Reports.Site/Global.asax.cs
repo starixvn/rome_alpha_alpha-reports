@@ -11,8 +11,8 @@
     using Auth.Filters;
     using Configurations;
     using Fanex.Data;
+    using Helpers;
     using ONEbook.UM.Filters;
-    using Requests;
     using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Utilities;
     using Web;
@@ -46,7 +46,7 @@
 
             SiteSettings.Verify();
 
-            ModelBinders.Binders.DefaultBinder = new UserModelBinder();
+            ModelBinders.Binders.DefaultBinder = new QueryEntityModelBinder();
 
             StaticResources.Init(GetBuildVersion());
 

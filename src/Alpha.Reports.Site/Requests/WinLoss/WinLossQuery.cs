@@ -1,10 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLoss
 {
-    using System.Web.Mvc;
     using MediatR;
     using Reports.Models;
-    using Sunplus.Agent.Model.Base;
-    using Sunplus.Agent.Model.Entities;
     using ViewModels.WinLoss;
 
     public class WinLossQuery :

@@ -10,7 +10,6 @@
         {
             CustId = user.CustId;
             UserLevelId = user.UserLevelId;
-
             Language = user.Language;
         }
 
