@@ -15,11 +15,9 @@
     using static ONEbook.SpreadSheets.Column;
 
     public class WinLossDetailExcelHandler :
-        BaseWinLossDetailHandler,
+        WinLossDetailBaseHandler,
         IRequestHandler<WinLossDetailExcelQuery, ExcelFileViewModel>
     {
-        private readonly ProductService productService;
-        private readonly WinLossDetailService reportService;
         private readonly Workbook<WinLossDetailModel> workbook;
 
         public WinLossDetailExcelHandler(
@@ -27,8 +25,6 @@
             WinLossDetailService reportService,
             Workbook<WinLossDetailModel> workbook) : base(productService, reportService)
         {
-            this.productService = productService;
-            this.reportService = reportService;
             this.workbook = workbook;
         }
 

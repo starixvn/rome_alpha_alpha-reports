@@ -255,7 +255,7 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
-    <Compile Include="Handlers\WinLossDetail\BaseWinLossDetailHandler.cs" />
+    <Compile Include="Handlers\WinLossDetail\WinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandler.cs" />
     <Compile Include="Handlers\WinLoss\BaseWinLossHandler.cs" />

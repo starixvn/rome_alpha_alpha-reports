@@ -1,41 +1,34 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using App_GlobalResources;
     using Extensions;
-    using Models;
     using Params;
     using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
 
-    public class BaseWinLossDetailHandler : BaseHandler
+    public class WinLossDetailBaseHandler : BaseHandler
     {
-        private readonly ProductService productService;
-        private readonly WinLossDetailService reportService;
+        [SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
+            Justification = "Reviewed. Suppression is OK here.")]
+        protected readonly ProductService productService;
 
-        public BaseWinLossDetailHandler(
+        [SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
+            Justification = "Reviewed. Suppression is OK here.")]
+        protected readonly WinLossDetailService reportService;
+
+        public WinLossDetailBaseHandler(
             ProductService productService,
             WinLossDetailService reportService)
         {
             this.productService = productService;
             this.reportService = reportService;
-        }
-
-        protected ProductService ProductService
-        {
-            get
-            {
-                return productService;
-            }
-        }
-
-        protected WinLossDetailService ReportService
-        {
-            get
-            {
-                return reportService;
-            }
         }
 
         protected WinLossDetailParam CreateParameter(

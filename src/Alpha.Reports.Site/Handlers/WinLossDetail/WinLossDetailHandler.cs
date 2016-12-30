@@ -13,7 +13,7 @@
 
     [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
     public class WinLossDetailHandler :
-        BaseWinLossDetailHandler,
+        WinLossDetailBaseHandler,
         IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>
     {
         private readonly User user;
@@ -34,11 +34,11 @@
             }
 
             var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
-            var products = ProductService.GetProductsForCustomer(message.CustId);
+            var products = productService.GetProductsForCustomer(message.CustId);
 
             var winLossDetailParam = CreateParameter(message, userLevel);
 
-            var reportData = ReportService.GetWinLossDetail(winLossDetailParam);
+            var reportData = reportService.GetWinLossDetail(winLossDetailParam);
 
             var viewModel = new WinLossDetailViewModel
             {
