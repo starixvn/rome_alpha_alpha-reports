@@ -258,7 +258,7 @@
     <Compile Include="Handlers\WinLossDetail\WinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandler.cs" />
-    <Compile Include="Handlers\WinLoss\BaseWinLossHandler.cs" />
+    <Compile Include="Handlers\WinLoss\WinLossBaseHandler.cs" />
     <Compile Include="Handlers\WinLoss\EnteredSportResultExcelHandler.cs" />
     <Compile Include="Handlers\WinLoss\EnteredSportResultHandler.cs" />
     <Compile Include="Handlers\WinLoss\WinLossExcelHandler.cs" />

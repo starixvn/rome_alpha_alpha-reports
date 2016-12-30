@@ -18,7 +18,7 @@
     using Models = Reports.Models.Winloss;
 
     public class WinLossExcelHandler :
-        BaseWinLossHandler,
+        WinLossBaseHandler,
         IRequestHandler<WinLossExcelQuery, ExcelFileViewModel>
     {
         private readonly Workbook<Models.WinLossModel> winlossWorkbook;

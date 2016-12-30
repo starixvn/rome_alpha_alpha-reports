@@ -12,7 +12,7 @@
     using WinLoss;
 
     public class WinLossHandler :
-        BaseWinLossHandler,
+        WinLossBaseHandler,
         IRequestHandler<WinLossQuery, WinLossViewModel>
     {
         private readonly User user;

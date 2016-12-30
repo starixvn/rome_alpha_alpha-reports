@@ -12,13 +12,13 @@
         "StyleCop.CSharp.NamingRules",
         "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
         Justification = "Reviewed. Suppression is OK here.")]
-    public class BaseWinLossHandler : BaseHandler
+    public class WinLossBaseHandler : BaseHandler
     {
         protected readonly ProductService productService;
 
         protected readonly WinLossService reportService;
 
-        public BaseWinLossHandler(
+        public WinLossBaseHandler(
             ProductService productService,
             WinLossService reportService)
         {
