@@ -24,7 +24,7 @@
         private readonly WinLossDetailService reportService;
         private readonly WinLossDetailExcelHandler winLossDetailExcelHandler;
         private readonly ReportData<WinLossDetailModel> reportData;
-        private readonly User user;
+        private readonly IUser user;
 
         public WinLossDetailExcelHandlerTests()
         {
@@ -43,7 +43,7 @@
             workbook.Footer(Arg.Any<WinLossDetailModel>(), Arg.Any<Mapper<WinLossDetailModel>>()).Returns(workbook);
             workbook.Sheet(Arg.Any<string>()).Returns(workbook);
 
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
             winLossDetailExcelHandler = new WinLossDetailExcelHandler(productService, reportService, workbook);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);

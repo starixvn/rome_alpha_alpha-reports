@@ -13,11 +13,11 @@
 
     public class WinLossDetailsActionLinkViewModelTests
     {
-        private readonly User user;
+        private readonly IUser user;
 
         public WinLossDetailsActionLinkViewModelTests()
         {
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
         }
 
         [Theory]

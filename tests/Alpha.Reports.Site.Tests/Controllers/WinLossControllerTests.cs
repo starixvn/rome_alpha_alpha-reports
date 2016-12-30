@@ -14,13 +14,13 @@
     {
         private readonly IMediator mediator;
         private readonly WinLossController winLossController;
-        private readonly User user;
+        private readonly IUser user;
 
         public WinLossControllerTests()
         {
             mediator = Substitute.For<IMediator>();
             winLossController = new WinLossController(mediator);
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
         }
 
         [Fact]

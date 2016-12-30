@@ -3,11 +3,11 @@
     using Reports.Models;
     using Sunplus.Agent.Model.Entities;
 
-    public class UserImpl : User
+    public class User : IUser
     {
         private readonly IUserSession userSession;
 
-        public UserImpl(IUserSession userSession)
+        public User(IUserSession userSession)
         {
             this.userSession = userSession;
         }

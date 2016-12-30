@@ -11,7 +11,7 @@
     {
         private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLossDetail/";
 
-        public WinLossDetailExcelQuery(User user) : base(user)
+        public WinLossDetailExcelQuery(IUser user) : base(user)
         {
             PageIndex = DefaultVariables.PageIndex;
             PageSize = DefaultVariables.PageSize;

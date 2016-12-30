@@ -27,7 +27,7 @@
         private readonly ProductService productService;
         private readonly WinLossDetailService reportService;
         private readonly WinLossDetailHandler winLossDetailHandler;
-        private readonly User user;
+        private readonly IUser user;
         private readonly ReportData<WinLossDetailModel> reportData;
 
         public WinLossDetailHandlerTests()
@@ -39,7 +39,7 @@
             reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
             winLossDetailHandler = new WinLossDetailHandler(productService, reportService, user);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);

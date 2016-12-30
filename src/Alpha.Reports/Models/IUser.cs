@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Models
 {
-    public interface User
+    public interface IUser
     {
         int CustId { get; }
 

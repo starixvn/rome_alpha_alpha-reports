@@ -21,12 +21,12 @@
     {
         private const int AllBetProductId = 21;
         private readonly WinLossDetailViewModel winLossDetailViewModel;
-        private readonly User user;
+        private readonly IUser user;
 
         public WinLossDetailViewModelTests()
         {
             winLossDetailViewModel = new WinLossDetailViewModel();
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

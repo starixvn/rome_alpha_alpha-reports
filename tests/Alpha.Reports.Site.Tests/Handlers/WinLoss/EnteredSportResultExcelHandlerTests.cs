@@ -20,7 +20,7 @@
         private readonly WinLossService reportService;
         private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
         private readonly EnteredSportResultExcelHandler enteredSportResultExcelHandler;
-        private readonly User user;
+        private readonly IUser user;
 
         public EnteredSportResultExcelHandlerTests()
         {
@@ -32,7 +32,7 @@
             enteredSportResultWorkbook.Sheet(Arg.Any<string>()).Returns(enteredSportResultWorkbook);
 
             enteredSportResultExcelHandler = new EnteredSportResultExcelHandler(reportService, enteredSportResultWorkbook);
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
         }
 
         [Fact]

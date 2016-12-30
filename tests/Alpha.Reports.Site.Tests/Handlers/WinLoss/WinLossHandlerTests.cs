@@ -27,7 +27,7 @@
         private readonly ProductService productService;
         private readonly WinLossService reportService;
         private readonly WinLossHandler winLossHandler;
-        private readonly User user;
+        private readonly IUser user;
 
         public WinLossHandlerTests()
         {
@@ -35,7 +35,7 @@
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
             reportService = Substitute.For<WinLossService>();
 
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
             winLossHandler = new WinLossHandler(productService, reportService, user);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

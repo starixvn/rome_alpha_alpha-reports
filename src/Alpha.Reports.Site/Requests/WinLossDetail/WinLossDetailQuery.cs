@@ -8,7 +8,7 @@
         BaseReportQuery,
         IRequest<WinLossDetailViewModel>
     {
-        public WinLossDetailQuery(User user)
+        public WinLossDetailQuery(IUser user)
         {
             CustId = user.CustId;
             CustName = user.CustName;

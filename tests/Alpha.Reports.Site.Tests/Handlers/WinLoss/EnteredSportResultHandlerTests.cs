@@ -22,12 +22,12 @@
     {
         private readonly WinLossService reportService;
         private readonly EnteredSportResultHandler enteredSportResultHandler;
-        private readonly User user;
+        private readonly IUser user;
 
         public EnteredSportResultHandlerTests()
         {
             reportService = Substitute.For<WinLossService>();
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
             enteredSportResultHandler = new EnteredSportResultHandler(reportService);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);

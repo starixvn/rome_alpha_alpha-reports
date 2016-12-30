@@ -8,11 +8,11 @@
 
     public class WinLossDetailQueryTests
     {
-        private readonly User user;
+        private readonly IUser user;
 
         public WinLossDetailQueryTests()
         {
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
         }
 
         [Fact]

@@ -14,12 +14,12 @@
         WinLossDetailBaseHandler,
         IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>
     {
-        private readonly User user;
+        private readonly IUser user;
 
         public WinLossDetailHandler(
             ProductService productService,
             WinLossDetailService reportService,
-            User user) : base(productService, reportService)
+            IUser user) : base(productService, reportService)
         {
             this.user = user;
         }

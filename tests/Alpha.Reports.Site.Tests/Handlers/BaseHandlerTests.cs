@@ -22,12 +22,12 @@
         private const string ActionName = "Index";
 
         private readonly BaseHandler baseHandler;
-        private readonly User user;
+        private readonly IUser user;
 
         public BaseHandlerTests()
         {
             baseHandler = new BaseHandler();
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
         }
 
         [Fact]

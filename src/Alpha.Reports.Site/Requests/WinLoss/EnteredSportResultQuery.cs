@@ -6,7 +6,7 @@
 
     public class EnteredSportResultQuery : IRequest<EnteredResultViewModel>
     {
-        public EnteredSportResultQuery(User user)
+        public EnteredSportResultQuery(IUser user)
         {
             CustId = user.CustId;
             UserLevelId = user.UserLevelId;

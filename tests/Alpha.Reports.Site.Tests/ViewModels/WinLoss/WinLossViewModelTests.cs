@@ -22,11 +22,11 @@
     public class WinLossViewModelTests
     {
         private readonly WinLossViewModel winLossViewModel;
-        private readonly User user;
+        private readonly IUser user;
 
         public WinLossViewModelTests()
         {
-            user = Substitute.For<User>();
+            user = Substitute.For<IUser>();
             winLossViewModel = new WinLossViewModel(new List<WinLossModel>());
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);

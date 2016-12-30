@@ -14,7 +14,7 @@
         public void BuildExcelTemplatePath_Always_ReturnsCorrectPathByUserLevel(byte userLevelId, string expectedPath)
         {
             // Arrange
-            var user = Substitute.For<User>();
+            var user = Substitute.For<IUser>();
             var winLossDetailQuery = new WinLossDetailExcelQuery(user);
             winLossDetailQuery.UserLevelId = userLevelId;
 

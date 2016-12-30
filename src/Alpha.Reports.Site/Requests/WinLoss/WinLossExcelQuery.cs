@@ -10,7 +10,7 @@
     {
         private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLoss/";
 
-        public WinLossExcelQuery(User user) : base(user)
+        public WinLossExcelQuery(IUser user) : base(user)
         {
         }
 

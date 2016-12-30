@@ -19,9 +19,9 @@
                 {
                     foreach (var parameter in constructor.GetParameters())
                     {
-                        if (parameter.ParameterType == typeof(User))
+                        if (parameter.ParameterType == typeof(IUser))
                         {
-                            return Activator.CreateInstance(modelType, DependencyResolver.Current.GetService<User>());
+                            return Activator.CreateInstance(modelType, DependencyResolver.Current.GetService<IUser>());
                         }
                     }
                 }

@@ -69,7 +69,7 @@
         {
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
             container.RegisterSingleton<IUserSession, UserSessionExt>();
-            container.RegisterSingleton<User, UserImpl>();
+            container.RegisterSingleton<IUser, User>();
             container.RegisterSingleton<ReportDateService, ReportDateServiceImpl>();           
 
             container.RegisterSingleton<WinLossDetailService, WinLossDetailServiceImpl>();
