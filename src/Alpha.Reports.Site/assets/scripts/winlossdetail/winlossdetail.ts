@@ -62,12 +62,16 @@ class WinLossDetailView {
         this.monthPickerComponent = monthPickerComponent;
     }
 
-    init = () => {
+    init = (isDocumentReady) => {
+        if (!isDocumentReady) {
+            return;
+        }
+
         this.$.blockUI();
         this.cacheElements();
 
         this.$isHistoricReport = this.$("#IsHistoricReport");
-        console.log(this.$isHistoricReport.length);
+
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         if (this.isHistoricReport) {
             this.$reportForm.removeClass("hide");
@@ -116,7 +120,7 @@ class WinLossDetailView {
         this.$isStackMode = this.$("#IsStackMode");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
-        this.$reportForm = this.$("#report-form");
+        this.cacheReportForm();
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
@@ -128,6 +132,10 @@ class WinLossDetailView {
         this.$hasSubmittedParams = this.$("#HasSubmittedParams");
         this.$breadcrumbLinks = this.$(".breadcrumb-link");
     };
+    cacheReportForm = () => {
+        this.$reportForm = this.$("#report-form");
+    };
+
     registerEvents = () => {
         this.$reportSwitch.on("click", this.onSwitchReport);
         this.$(".icon-filter").on("click", this.onClickIconFilter);
@@ -236,7 +244,7 @@ class WinLossDetailView {
             var sortedColumn = this$(".sorting-asc");
             var direction = !sortedColumn.length;
             if (sortedColumn.length === 0) {
-                var sortedColumn = this$(".sorting-desc");
+                sortedColumn = this$(".sorting-desc");
             }
 
             var sortedColumnName = sortedColumn.data("sortedname");
@@ -368,5 +376,5 @@ $(() => {
         new ReportTooltip($),
         new MonthPickerComponent($));
 
-    winLossDetailView.init();
+    winLossDetailView.init(document.readyState === 'complete');
 });

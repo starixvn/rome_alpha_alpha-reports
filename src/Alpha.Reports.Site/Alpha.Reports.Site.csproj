@@ -318,6 +318,7 @@
     <TypeScriptCompile Include="assets\scripts\components\monthpicker.ts" />
     <TypeScriptCompile Include="assets\scripts\components\daterangepicker.ts" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
@@ -339,16 +340,34 @@
     <Content Include="assets\bundles\winloss\winloss.min.js">
       <DependentUpon>winloss.js</DependentUpon>
     </Content>
-    <Content Include="assets\scripts\tests\libs\bootstrap-datetimepicker.js" />
-    <Content Include="assets\scripts\tests\libs\bootstrap-multiselect.js" />
-    <Content Include="assets\scripts\tests\libs\bootstrap.nexDatePicker.js" />
+    <Content Include="assets\scripts\tests\libs\autocomplete.js" />
+    <Content Include="assets\scripts\tests\libs\bootbox.js" />
+    <Content Include="assets\scripts\tests\libs\bootstrap\button.js" />
+    <Content Include="assets\scripts\tests\libs\bootstrap\collapse.js" />
+    <Content Include="assets\scripts\tests\libs\bootstrap\datetimepicker.js" />
+    <Content Include="assets\scripts\tests\libs\bootstrap\dropdown.js" />
+    <Content Include="assets\scripts\tests\libs\bootstrap\modal.js" />
+    <Content Include="assets\scripts\tests\libs\bootstrap\multiselect.js" />
+    <Content Include="assets\scripts\tests\libs\bootstrap\nexDatePicker.js" />
+    <Content Include="assets\scripts\tests\libs\bootstrap\tooltip.js" />
+    <Content Include="assets\scripts\tests\libs\bootstrap\transition.js" />
     <Content Include="assets\scripts\tests\libs\datepicker.js" />
     <Content Include="assets\scripts\tests\libs\jasmine-jquery.js" />
     <Content Include="assets\scripts\tests\libs\jasmine.js" />
-    <Content Include="assets\scripts\tests\libs\jquery-blockui.js" />
-    <Content Include="assets\scripts\tests\libs\jquery.js" />
+    <Content Include="assets\scripts\tests\libs\jquery\blockUI.js" />
+    <Content Include="assets\scripts\tests\libs\jquery\cookie.js" />
+    <Content Include="assets\scripts\tests\libs\jquery\jquery-1.11.3.js" />
+    <Content Include="assets\scripts\tests\libs\jquery\stickytableheaders.js" />
+    <Content Include="assets\scripts\tests\libs\mobile\isMobile.js" />
     <Content Include="assets\scripts\tests\libs\moment.js" />
+    <Content Include="assets\scripts\tests\libs\monPickr-0.0.3.js" />
+    <Content Include="assets\scripts\tests\libs\pagination\jquery.draggable.js" />
+    <Content Include="assets\scripts\tests\libs\pagination\jquery.linkbutton.js" />
+    <Content Include="assets\scripts\tests\libs\pagination\jquery.pagination.js" />
+    <Content Include="assets\scripts\tests\libs\pagination\jquery.parser.js" />
+    <Content Include="assets\scripts\tests\libs\pagination\jquery.resizable.js" />
     <Content Include="assets\scripts\tests\libs\store.js" />
+    <Content Include="assets\scripts\tests\libs\tablesorter.js" />
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
     </Content>

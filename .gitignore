@@ -49,3 +49,4 @@ bundles
 *.ncrunchsolution
 
 artifacts/
+_Chutzpah.coverage.html

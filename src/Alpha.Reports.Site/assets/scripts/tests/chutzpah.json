@@ -14,17 +14,36 @@
 
   "CodeCoverageExecutionMode": "Manual",
   "References": [
-    { "Path": "libs/jquery.js" },
+    { "Path": "libs/jquery/jquery-1.11.3.js" },
     { "Path": "libs/jasmine.js" },
     { "Path": "libs/jasmine-jquery.js" },
+
+    { "Path": "libs/bootstrap/button.js" },
+    { "Path": "libs/bootstrap/dropdown.js" },
+    { "Path": "libs/bootstrap/modal.js" },
+    { "Path": "libs/bootstrap/tooltip.js" },
+    { "Path": "libs/mobile/isMobile.js" },
+    { "Path": "libs/jquery/blockUI.js" },
+    { "Path": "libs/bootbox.js" },
+
+    { "Path": "libs/bootstrap/transition.js" },
+    { "Path": "libs/bootstrap/collapse.js" },
     { "Path": "libs/moment.js" },
     { "Path": "libs/datepicker.js" },
-    { "Path": "libs/jquery-blockui.js" },
-    { "Path": "libs/bootstrap-datetimepicker.js" },
-    { "Path": "libs/bootstrap-multiselect.js" },
+    { "Path": "libs/bootstrap/datetimepicker.js" },
+    { "Path": "libs/bootstrap/nexDatePicker.js" },
+    { "Path": "libs/monPickr-0.0.3.js" },
+    { "Path": "libs/pagination/jquery.draggable.js" },
+    { "Path": "libs/pagination/jquery.resizable.js" },
+    { "Path": "libs/pagination/jquery.parser.js" },
+    { "Path": "libs/pagination/jquery.linkbutton.js" },
+    { "Path": "libs/pagination/jquery.pagination.js" },
+    { "Path": "libs/autocomplete.js" },
+    { "Path": "libs/jquery/cookie.js" },
+    { "Path": "libs/bootstrap/multiselect.js" },
+    { "Path": "libs/jquery/stickytableheaders.js" },
+    { "Path": "libs/tablesorter.js" },
     { "Path": "libs/store.js" },
-
-    { "Path": "libs/bootstrap.nexDatePicker.js" },
 
     { "Path": "../core.ts" },
     { "Path": "../components/daterangepicker.ts" },
@@ -35,7 +54,9 @@
     { "Path": "../components/sort.ts" },
     { "Path": "../components/tooltip.ts" },
 
-    { "Path": "../winlossdetail/winlossdetail.ts" }
+    { "Path": "../winlossdetail/winlossdetail.ts" },
+
+    { "Path": "apps/winlossdetail/winlossdetail-template.ts" }
   ],
   "Tests": [
     {
