@@ -16,11 +16,21 @@
             var result = 0;
 
             var ids = delimitedString
-                .Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
                 .Where(str => int.TryParse(str, out result))
                 .Select(str => Convert.ToInt32(str)).ToList();
 
             return ids;
+        }
+
+        public static bool IsNullOrBlank(this string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return true;
+            }
+
+            return string.IsNullOrWhiteSpace(input);
         }
     }
 }

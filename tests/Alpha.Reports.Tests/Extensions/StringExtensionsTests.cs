@@ -44,5 +44,44 @@
             // Assert
             Assert.Equal(expected, ids);
         }
+
+        [Fact]
+        public void IsNullOrBlank_NullInput_ReturnTrue()
+        {
+            // Arrange
+            string input = null;
+
+            // Act
+            var expected = StringExtensions.IsNullOrBlank(input);
+
+            // Assert
+            Assert.Equal(expected, true);
+        }
+
+        [Fact]
+        public void IsNullOrBlank_EmtpyInput_ReturnTrue()
+        {
+            // Arrange
+            string input = string.Empty;
+
+            // Act
+            var expected = StringExtensions.IsNullOrBlank(input);
+
+            // Assert
+            Assert.Equal(expected, true);
+        }
+
+        [Fact]
+        public void IsNullOrBlank_WhiteSpacenput_ReturnTrue()
+        {
+            // Arrange
+            string input = "   ";
+
+            // Act
+            var expected = StringExtensions.IsNullOrBlank(input);
+
+            // Assert
+            Assert.Equal(expected, true);
+        }
     }
 }
