@@ -123,7 +123,7 @@ class WinLossDetailView {
         this.$isStackMode = this.$("#IsStackMode");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
-        this.cacheReportForm();
+        this.$reportForm = this.$("#report-form");
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
@@ -134,9 +134,6 @@ class WinLossDetailView {
         this.$iconNormalColumn = this.$("#icon-normal-column");
         this.$hasSubmittedParams = this.$("#HasSubmittedParams");
         this.$breadcrumbLinks = this.$(".breadcrumb-link");
-    };
-    cacheReportForm = () => {
-        this.$reportForm = this.$("#report-form");
     };
 
     registerEvents = () => {

@@ -91,37 +91,51 @@
         });
     });
     describe("init_", () => {
-        it("Historic Report -> Renders Month Picker And Not Render Date Range Picker", () => {
-            console.log("1234");
+        it("Historic Report With Hidden Filter -> Renders Month Picker And Not Render Date Range Picker", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.historicReportHasHiddenFilter);
+            setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
+            renderMonthPickerComponent = spyOn(monthPickerComponent, "render");
 
-            let reportForm = $("#report-form");
-            spyOn(winLossDetailView, "cacheReportForm").and.callFake(function () {
-                winLossDetailView.$reportForm = reportForm;
-            });
+            // act
+            winLossDetailView.init();
 
-            let expectedCallOrder = "Shows $reportForm > Renders monthPickerComponent > Hides $reportForm";
+            // assert
+            expect(monthPickerComponent.render).toHaveBeenCalled();
+            expect(dateRangePickerComponent.render).not.toHaveBeenCalled();
+        });
+    });
+    describe("init_", () => {
+        // Historic report: we must show filter before render month picker
+        it("Historic Report With Hidden Filter -> Shows Filter Before Renders Month Picker", () => {
+            // arrange
+            setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
 
-            let actualCallOrder = "";
-            spyOn(reportForm, "removeClass").and.callFake(function (className: string) {
-                actualCallOrder += (className === "hide") ? "Shows $reportForm" : "";
-            });
-
-            spyOn(reportForm, "addClass").and.callFake(function (className: string) {
-                actualCallOrder += (className === "hide") ? " > Hides $reportForm" : "";
-            });
-
-            spyOn(monthPickerComponent, "render").and.callFake(function () {
-                actualCallOrder += " > Renders monthPickerComponent";
+            let actualIsHidden;
+            spyOn(monthPickerComponent, "render").and.callFake(() => {
+                actualIsHidden = $("#report-form").hasClass("hide");
             });
 
             // act
             winLossDetailView.init();
 
             // assert
-            expect(dateRangePickerComponent.render).not.toHaveBeenCalled();
-            expect(expectedCallOrder).toEqual(actualCallOrder);
+            expect(actualIsHidden).toBeFalsy();
+        });
+    });
+    describe("init_", () => {
+        // Historic report: we must show filter before render month picker
+        // Therefore, after init we also hide it if before that it is hidden
+        it("Historic Report With Hidden Filter -> Hides Filter Is Hidden After Init", () => {
+            // arrange
+            setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
+            spyOn(monthPickerComponent, "render").and.callThrough();
+
+            // act
+            winLossDetailView.init();
+            var actualIsHidden = $("#report-form").hasClass("hide");
+
+            // assert
+            expect(actualIsHidden).toBeTruthy();
         });
     });
 });
