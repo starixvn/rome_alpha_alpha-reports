@@ -113,7 +113,7 @@
             enteredSportResultExcelHandler.Handle(message);
 
             // Assert
-            enteredSportResultExcelHandler.Received().MapExcelFilePath(message.ReportName, "MatchResultEntered");
+            enteredSportResultExcelHandler.Received().GetExcelTemplatePath(message.ReportName, "MatchResultEntered");
         }
 
         private EnteredSportResultExcelQuery CreateExportEnteredResultsExcelQuery(byte userLevel)

@@ -40,7 +40,7 @@
                 ["Today"] = DateTimeManager.Now.ToShortDateWithSlash()
             };
 
-            var templatePath = MapExcelFilePath(message.ReportName, "MatchResultEntered");
+            var templatePath = GetExcelTemplatePath(message.ReportName, "MatchResultEntered");
             var templateInfo = new TemplateInfo(
                 templatePath: templatePath,
                 noInfomationText: Resources.NoInformationIsAvailable,

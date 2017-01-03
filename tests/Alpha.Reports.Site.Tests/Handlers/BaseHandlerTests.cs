@@ -264,7 +264,7 @@
         public void MapExcelFilePath_ReportNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string reportName)
         {
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => baseHandler.MapExcelFilePath(reportName, "filename"));
+            Assert.Throws<ArgumentNullException>(() => baseHandler.GetExcelTemplatePath(reportName, "filename"));
         }
 
         [Theory]
@@ -275,7 +275,7 @@
         public void MapExcelFilePath_FileNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string fileName)
         {
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => baseHandler.MapExcelFilePath("reportName", fileName));
+            Assert.Throws<ArgumentNullException>(() => baseHandler.GetExcelTemplatePath("reportName", fileName));
         }
 
         [Theory]
@@ -291,7 +291,7 @@
             baseHandler.MapPathFunc = path => path;
 
             // Act
-            var actualPath = baseHandler.MapExcelFilePath(reportName, fileName, extension);
+            var actualPath = baseHandler.GetExcelTemplatePath(reportName, fileName, extension);
 
             // Assert
             Assert.Equal(expectedPath, actualPath);

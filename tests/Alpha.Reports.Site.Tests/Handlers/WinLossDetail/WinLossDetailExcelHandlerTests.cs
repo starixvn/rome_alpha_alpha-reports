@@ -213,7 +213,7 @@
             winLossDetailExcelHandler.Handle(message);
 
             // Assert
-            winLossDetailExcelHandler.Received().MapExcelFilePath(message.ReportName, fileName);
+            winLossDetailExcelHandler.Received().GetExcelTemplatePath(message.ReportName, fileName);
         }
 
         private WinLossDetailExcelQuery CreateExportExcelQuery(byte userLevel)

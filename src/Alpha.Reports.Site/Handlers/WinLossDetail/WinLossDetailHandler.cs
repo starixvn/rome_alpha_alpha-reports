@@ -45,7 +45,7 @@
                 UserLevel = userLevel,
                 FromDate = winLossDetailParam.FromDate,
                 ToDate = winLossDetailParam.ToDate,
-                Title = GetReportTitle(userLevel),
+                Title = GetReportNameByLevel(userLevel),
 
                 Products = BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products),
                 UserSelectedProductIds = string.Join(",", winLossDetailParam.UserSelectedProductIds),

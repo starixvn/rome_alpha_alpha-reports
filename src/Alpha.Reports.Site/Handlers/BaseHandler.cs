@@ -105,7 +105,7 @@
             return JsonConvert.SerializeObject(breadcrumbLevels).Replace("\"", "'");
         }
 
-        internal virtual string MapExcelFilePath(string reportName, string fileName, string fileExtension = "xls")
+        internal virtual string GetExcelTemplatePath(string reportName, string fileName, string fileExtension = "xls")
         {
             if (string.IsNullOrWhiteSpace(reportName))
             {

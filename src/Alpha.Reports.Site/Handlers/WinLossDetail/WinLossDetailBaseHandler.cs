@@ -47,7 +47,7 @@
                  message.IsHistoricReport);
         }
 
-        protected string GetReportTitle(UserLevel userLevel)
+        protected string GetReportNameByLevel(UserLevel userLevel)
             => userLevel.IsSuperLevel()
             ? Resources.MasterWinLossDetail
             : userLevel.IsMasterLevel()

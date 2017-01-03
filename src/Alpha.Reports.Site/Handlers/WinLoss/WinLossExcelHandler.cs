@@ -52,7 +52,7 @@
             var reportTitle = $"{winlossViewModel.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
 
-            var templatePath = MapExcelFilePath(message.ReportName, GetFileName(message.UserLevel));
+            var templatePath = GetExcelTemplatePath(message.ReportName, GetFileName(message.UserLevel));
             var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable);
 
             var result = winlossWorkbook

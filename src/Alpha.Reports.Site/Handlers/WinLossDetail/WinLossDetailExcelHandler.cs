@@ -35,16 +35,16 @@
                 throw new ArgumentNullException("message");
             }
 
-            var title = GetReportTitle(message.UserLevel);
+            var reportNameByLevel = GetReportNameByLevel(message.UserLevel);
             var products = string.IsNullOrWhiteSpace(message.UserSelectedProductIds)
                 ? Enumerable.Empty<int>()
               : message.UserSelectedProductIds.Split(',').Select(s => Converter.ToInt(s));
-            var reportTitle = $"{title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+            var reportTitle = $"{reportNameByLevel} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
 
             var winLossDetailParam = CreateParameter(message, message.UserLevel);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
-            var templatePath = MapExcelFilePath(message.ReportName, GetFileName(message.UserLevel));
+            var templatePath = GetExcelTemplatePath(message.ReportName, GetFileName(message.UserLevel));
 
             var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable)
                  .FreezePanel(4, B);
@@ -54,11 +54,11 @@
                 .Header(Resources.ResourceManager.GetString)
                 .Body(reportData.DataSource, GetRowMapper(message, isTotal: false))
                 .Footer(reportData.TotalData, GetRowMapper(message, isTotal: true))
-                .Sheet(title)
+                .Sheet(reportNameByLevel)
                 .ExportToBytes();
 
             return new ExcelFileViewModel(
-                $"{title}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}",
+                $"{reportNameByLevel}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}",
                 fileContent);
         }
 
