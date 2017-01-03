@@ -59,7 +59,7 @@
             var result = winlossWorkbook
                 .UseTemplate(templateInfo)
                 .Title(reportTitle)
-                .Header(ExcelHelper.HeaderTitleMapping)
+                .Header(Resources.ResourceManager.GetString)
                 .Body(winlossViewModel.ReportData, GetWinLossRowMapper(message, isTotal: false))
                 .Footer(winlossViewModel.GrantTotal, GetWinLossRowMapper(message, isTotal: true))
                 .Sheet(winlossViewModel.Title)

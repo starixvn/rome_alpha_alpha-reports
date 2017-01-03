@@ -53,7 +53,7 @@
             var fileContent = workbook
                 .UseTemplate(templateInfo)
                 .Title(reportTitle)
-                .Header(ExcelHelper.HeaderTitleMapping)
+                .Header(Resources.ResourceManager.GetString)
                 .Body(reportData.DataSource, GetRowMapper(message, isTotal: false))
                 .Footer(reportData.TotalData, GetRowMapper(message, isTotal: true))
                 .Sheet(title)
