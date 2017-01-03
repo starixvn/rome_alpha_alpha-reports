@@ -42,10 +42,17 @@
     describe("init_", () => {
         it("Document is not ready -> Does not call any Method", () => {
             // act
-            winLossDetailView.init(false);
+            winLossDetailView.init();
 
             // assert
             expect(winLossDetailView.cacheElements).not.toHaveBeenCalled();
+            expect(winLossDetailView.registerEvents).not.toHaveBeenCalled();
+            expect(jQueryFake.blockUI).not.toHaveBeenCalled();
+            expect(jQueryFake.unblockUI).not.toHaveBeenCalled();
+
+            expect(productMultiSelectionComponent.render).not.toHaveBeenCalled();
+            expect(pagerComponent.render).not.toHaveBeenCalled();
+            expect(sortComponent.render).not.toHaveBeenCalled();
         });
     });
 
@@ -55,7 +62,7 @@
             setFixtures(winLossDetailTemplate.currentReport);
 
             // act
-            winLossDetailView.init(true);
+            winLossDetailView.init();
 
             // assert
             expect(winLossDetailView.cacheElements).toHaveBeenCalled();

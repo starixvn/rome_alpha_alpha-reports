@@ -62,8 +62,8 @@ class WinLossDetailView {
         this.monthPickerComponent = monthPickerComponent;
     }
 
-    init = (isDocumentReady) => {
-        if (!isDocumentReady) {
+    init = () => {
+        if (!this.checkReady()) {
             return;
         }
 
@@ -111,6 +111,9 @@ class WinLossDetailView {
 
         this.registerEvents();
         this.$.unblockUI();
+    };
+    checkReady = () => {
+        return this.$("#IsHistoricReport").length > 0;
     };
     cacheElements = () => {
         this.$pageTitle = this.$(".page-title ");
@@ -376,5 +379,5 @@ $(() => {
         new ReportTooltip($),
         new MonthPickerComponent($));
 
-    winLossDetailView.init(document.readyState === 'complete');
+    winLossDetailView.init();
 });
