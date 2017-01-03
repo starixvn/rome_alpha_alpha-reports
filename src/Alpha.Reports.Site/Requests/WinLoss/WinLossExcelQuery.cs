@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLoss
 {
-    using System.Web;
     using Enumerations;
     using MediatR;
     using Reports.Models;

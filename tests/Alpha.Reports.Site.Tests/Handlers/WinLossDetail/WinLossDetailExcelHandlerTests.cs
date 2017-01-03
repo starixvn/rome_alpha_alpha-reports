@@ -46,7 +46,8 @@
 
             user = Substitute.For<IUser>();
             winLossDetailExcelHandler = Substitute.ForPartsOf<WinLossDetailExcelHandler>(productService, reportService, workbook);
-            winLossDetailExcelHandler.MapPathFunc = (path) => path;
+            winLossDetailExcelHandler.MapPath = (path) => path;
+            winLossDetailExcelHandler.IsFileExist = (path) => true;
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -194,7 +195,7 @@
             var message = CreateExportExcelQuery(userLevel: userLevelId);
 
             // Act
-            var actualPath = winLossDetailExcelHandler.GetFileName(message.UserLevel);
+            var actualPath = winLossDetailExcelHandler.GetTemplateName(message.UserLevel);
 
             // Assert
             Assert.Equal(expectedPath, actualPath);
@@ -204,7 +205,7 @@
         [InlineData(4, "Master")]
         [InlineData(3, "Agent")]
         [InlineData(2, "Member")]
-        public void HandleExportWinLossQuery_CallMapExcelFilePath(byte userLevelId, string fileName)
+        public void HandleExportWinLossQuery_CallMapExcelTemplatePath(byte userLevelId, string fileName)
         {
             // Arrange
             var message = CreateExportExcelQuery(userLevel: userLevelId);

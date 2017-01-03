@@ -33,7 +33,8 @@
             enteredSportResultWorkbook.Sheet(Arg.Any<string>()).Returns(enteredSportResultWorkbook);
 
             enteredSportResultExcelHandler = Substitute.ForPartsOf<EnteredSportResultExcelHandler>(reportService, enteredSportResultWorkbook);
-            enteredSportResultExcelHandler.MapPathFunc = Substitute.For<Func<string, string>>();
+            enteredSportResultExcelHandler.MapPath = Substitute.For<Func<string, string>>();
+            enteredSportResultExcelHandler.IsFileExist = (path) => true;
             user = Substitute.For<IUser>();
         }
 
@@ -104,7 +105,7 @@
         }
 
         [Fact]
-        public void HandleExportEnteredResultQuery_CallMapExcelFilePath()
+        public void HandleExportEnteredResultQuery_CallMapExcelTemplatePath()
         {
             // Arrange
             var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);

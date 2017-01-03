@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO;
     using System.Linq;
     using System.Web.Mvc;
     using Extensions;
@@ -261,7 +262,7 @@
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("  ")]
-        public void MapExcelFilePath_ReportNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string reportName)
+        public void MapExcelTemplatePath_ReportNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string reportName)
         {
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => baseHandler.GetExcelTemplatePath(reportName, "filename"));
@@ -272,7 +273,7 @@
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("  ")]
-        public void MapExcelFilePath_FileNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string fileName)
+        public void MapExcelTemplatePath_FileNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string fileName)
         {
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => baseHandler.GetExcelTemplatePath("reportName", fileName));
@@ -281,20 +282,32 @@
         [Theory]
         [InlineData("reportName", "filePath", "xls", "~/App_Data/ExcelTemplates/reportName/filePath.xls")]
         [InlineData("reportName1", "filePath1", "xls1", "~/App_Data/ExcelTemplates/reportName1/filePath1.xls1")]
-        public void MapExcelFilePath_ReturnCorrectFilePathWithExtension(
+        public void MapExcelTemplatePath_ReturnCorrectFilePathWithExtension(
             string reportName, 
             string fileName, 
             string extension, 
             string expectedPath)
         {
             // Arrange
-            baseHandler.MapPathFunc = path => path;
+            baseHandler.MapPath = path => path;
+            baseHandler.IsFileExist = path => true;
 
             // Act
             var actualPath = baseHandler.GetExcelTemplatePath(reportName, fileName, extension);
 
             // Assert
             Assert.Equal(expectedPath, actualPath);
+        }
+
+        [Fact]
+        public void MapExcelTemplatePath_TemplateFileDoesNotExist_ThrowFileNotFoundException()
+        {
+            // Arrange
+            baseHandler.MapPath = path => path;
+            baseHandler.IsFileExist = path => false;
+
+            // Act && Assert
+            Assert.Throws<FileNotFoundException>(() => baseHandler.GetExcelTemplatePath("reportName", "filename"));
         }
     }
 }

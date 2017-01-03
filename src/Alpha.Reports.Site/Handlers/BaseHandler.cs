@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -16,11 +17,13 @@
 
         private Func<string, string> mapPath;
 
-        internal Func<string, string> MapPathFunc
+        internal Func<string, string> MapPath
         {
             get { return mapPath ?? HttpContext.Current.Server.MapPath; }
             set { mapPath = value; }
         }
+
+        internal Func<string, bool> IsFileExist { get; set; } = File.Exists;
 
         internal IEnumerable<SelectListItem> BuildProductSelectListItems(
             IEnumerable<int> userSelectedProductIds,
@@ -105,21 +108,28 @@
             return JsonConvert.SerializeObject(breadcrumbLevels).Replace("\"", "'");
         }
 
-        internal virtual string GetExcelTemplatePath(string reportName, string fileName, string fileExtension = "xls")
+        internal virtual string GetExcelTemplatePath(string reportName, string templateName, string fileExtension = "xls")
         {
             if (string.IsNullOrWhiteSpace(reportName))
             {
                 throw new ArgumentNullException(nameof(reportName), "Report Name cannot be null or empty");
             }
 
-            if (string.IsNullOrWhiteSpace(fileName))
+            if (string.IsNullOrWhiteSpace(templateName))
             {
-                throw new ArgumentNullException(nameof(fileName), "File Name cannot be null or empty");
+                throw new ArgumentNullException(nameof(templateName), "Template Name cannot be null or empty");
             }
 
-            var filePath = string.Format(ExcelTemplateDir, reportName, fileName, fileExtension);
+            var relativePath = string.Format(ExcelTemplateDir, reportName, templateName, fileExtension);
 
-            return MapPathFunc(filePath);
+            var absolutePath = MapPath(relativePath);
+
+            if (IsFileExist(absolutePath))
+            {
+                return absolutePath;
+            }
+
+            throw new FileNotFoundException($"Template {absolutePath} does not exist");
         }
     }
 }

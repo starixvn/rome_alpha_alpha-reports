@@ -43,7 +43,8 @@
 
             user = Substitute.For<IUser>();
             winLossExcelHandler = Substitute.ForPartsOf<WinLossExcelHandler>(productService, reportService, winlossWorkbook);
-            winLossExcelHandler.MapPathFunc = (path) => path;
+            winLossExcelHandler.MapPath = (path) => path;
+            winLossExcelHandler.IsFileExist = (path) => true;
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -207,7 +208,7 @@
         [InlineData(4, "Master")]
         [InlineData(3, "Agent")]
         [InlineData(2, "Member")]
-        public void HandleExportWinLossQuery_CallMapExcelFilePath(byte userLevelId, string fileName)
+        public void HandleExportWinLossQuery_CallMapExcelTemplatePath(byte userLevelId, string fileName)
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(userLevel: userLevelId);

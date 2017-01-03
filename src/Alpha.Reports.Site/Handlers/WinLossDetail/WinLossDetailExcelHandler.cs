@@ -44,7 +44,7 @@
 
             var winLossDetailParam = CreateParameter(message, message.UserLevel);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
-            var templatePath = GetExcelTemplatePath(message.ReportName, GetFileName(message.UserLevel));
+            var templatePath = GetExcelTemplatePath(message.ReportName, GetTemplateName(message.UserLevel));
 
             var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable)
                  .FreezePanel(4, B);
@@ -62,7 +62,7 @@
                 fileContent);
         }
 
-        internal string GetFileName(UserLevel userLevel) =>
+        internal string GetTemplateName(UserLevel userLevel) =>
                     userLevel.IsSuperLevel()
                         ? "Master"
                         : userLevel.IsMasterLevel()
