@@ -6,8 +6,7 @@
 
     public class WinLossController : ReportBaseController
     {
-        public WinLossController(IMediator mediator) 
-            : base(mediator)
+        public WinLossController(IMediator mediator) : base(mediator)
         {
         }
 

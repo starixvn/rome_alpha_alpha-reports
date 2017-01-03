@@ -65,7 +65,7 @@
                 .ExportToBytes();
 
             return new ExcelFileViewModel(
-                   $"{winlossViewModel.Title}-{winlossViewModel.FromDate.ToShortDateWithSlash()}-{winlossViewModel.ToDate.ToShortDateWithSlash()}",
+                   $"{winlossViewModel.Title}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}",
                    result);
         }
 
