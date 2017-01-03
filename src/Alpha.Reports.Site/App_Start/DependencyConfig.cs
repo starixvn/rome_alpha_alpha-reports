@@ -70,7 +70,7 @@
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
             container.RegisterSingleton<IUserSession, UserSessionExt>();
             container.RegisterSingleton<IUser, User>();
-            container.RegisterSingleton<ReportDateService, ReportDateServiceImpl>();           
+            container.RegisterSingleton<ReportDateService, ReportDateServiceImpl>();
 
             container.RegisterSingleton<WinLossDetailService, WinLossDetailServiceImpl>();
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
@@ -79,10 +79,10 @@
                 () => new ProductServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
                     UserPermission.HasPermissionOnProduct,
-                    new CacheRefServiceImpl().GetProductName), 
+                    new CacheRefServiceImpl().GetProductName),
                 Lifestyle.Singleton);
 
-            container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);           
+            container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
         }
 
         private static void RegisterDataAccesses(Container container)

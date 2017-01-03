@@ -2,12 +2,14 @@
 {
     using System;
     using System.Linq;
+    using System.Web;
     using App_GlobalResources;
     using Extensions;
     using Fanex.Common;
     using Helpers;
     using MediatR;
-    using ONEbook.SpreadSheets;    
+    using ONEbook.SpreadSheets;
+    using Reports.Models;
     using Reports.Models.WinLossDetail;
     using Requests.WinLossDetail;
     using Services;
@@ -44,8 +46,9 @@
 
             var winLossDetailParam = CreateParameter(message, message.UserLevel);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
+            var templatePath = MapExcelFilePath(message.ReportName, GetFileName(message.UserLevel));
 
-            var templateInfo = new TemplateInfo(templatePath: message.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable)
+            var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable)
                  .FreezePanel(4, B);
             var fileContent = workbook
                 .UseTemplate(templateInfo)
@@ -60,6 +63,13 @@
                 $"{title}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}",
                 fileContent);
         }
+
+        internal string GetFileName(UserLevel userLevel) => 
+                    userLevel.IsSuperLevel()
+                        ? "Master"
+                        : userLevel.IsMasterLevel()
+                            ? "Agent"
+                            : "Member";
 
         private Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
         {

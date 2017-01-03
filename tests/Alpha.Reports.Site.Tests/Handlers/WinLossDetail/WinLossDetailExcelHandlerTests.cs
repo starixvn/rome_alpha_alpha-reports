@@ -13,6 +13,7 @@
     using Reports.Models.WinLossDetail;
     using Services;
     using Site.Handlers.WinLossDetail;
+    using Site.Helpers;
     using Site.Requests.WinLossDetail;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
@@ -45,6 +46,7 @@
 
             user = Substitute.For<IUser>();
             winLossDetailExcelHandler = new WinLossDetailExcelHandler(productService, reportService, workbook);
+            winLossDetailExcelHandler.MapPathFunc = (path) => path;
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -180,6 +182,22 @@
 
             // Assert
             workbook.Received().ExportToBytes();
+        }
+
+        [Theory]
+        [InlineData(4, "Master")]
+        [InlineData(3, "Agent")]
+        [InlineData(2, "Member")]
+        public void BuildExcelTemplatePath_Always_ReturnsCorrectPathByUserLevel(byte userLevelId, string expectedPath)
+        {
+            // Arrange
+            var message = CreateExportExcelQuery(userLevel: userLevelId);
+
+            // Act
+            var actualPath = winLossDetailExcelHandler.GetFileName(message.UserLevel);
+
+            // Assert
+            Assert.Equal(expectedPath, actualPath);
         }
 
         private WinLossDetailExcelQuery CreateExportExcelQuery(byte userLevel)

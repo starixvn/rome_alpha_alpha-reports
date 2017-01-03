@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using App_GlobalResources;
     using Extensions;
+    using Helpers;
     using MediatR;
     using ONEbook.SpreadSheets;
     using Reports.Models.Winloss;
@@ -11,7 +12,9 @@
     using Services;
     using ViewModels;
 
-    public class EnteredSportResultExcelHandler : IRequestHandler<EnteredSportResultExcelQuery, ExcelFileViewModel>
+    public class EnteredSportResultExcelHandler :
+        BaseHandler, 
+        IRequestHandler<EnteredSportResultExcelQuery, ExcelFileViewModel>
     {
         private readonly WinLossService reportService;
         private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
@@ -38,8 +41,9 @@
                 ["Today"] = DateTimeManager.Now.ToShortDateWithSlash()
             };
 
+            var templatePath = MapExcelFilePath(message.ReportName, "MatchResultEntered");
             var templateInfo = new TemplateInfo(
-                templatePath: message.TemplatePath,
+                templatePath: templatePath,
                 noInfomationText: Resources.NoInformationIsAvailable,
                 titleStartIndex: 0,
                 headerStartIndex: 1,

@@ -10,6 +10,7 @@
     using Reports.Models.Winloss;
     using Services;
     using Site.Handlers.WinLoss;
+    using Site.Helpers;
     using Site.Requests.WinLoss;
     using Sunplus.Agent.Model.Entities;
     using Xunit;
@@ -32,6 +33,7 @@
             enteredSportResultWorkbook.Sheet(Arg.Any<string>()).Returns(enteredSportResultWorkbook);
 
             enteredSportResultExcelHandler = new EnteredSportResultExcelHandler(reportService, enteredSportResultWorkbook);
+            enteredSportResultExcelHandler.MapPathFunc = (path) => path;
             user = Substitute.For<IUser>();
         }
 

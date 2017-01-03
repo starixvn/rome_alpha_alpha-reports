@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
-    using System.Web;
     using Constants;
     using Enumerations;
     using MediatR;
@@ -9,26 +8,14 @@
 
     public class WinLossDetailExcelQuery : WinLossDetailQuery, IRequest<ExcelFileViewModel>
     {
-        private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLossDetail/";
-
         public WinLossDetailExcelQuery(IUser user) : base(user)
         {
             PageIndex = DefaultVariables.PageIndex;
             PageSize = DefaultVariables.PageSize;
         }
 
-        public string TemplatePath => HttpContext.Current != null
-            ? HttpContext.Current.Server.MapPath(BuildExcelTemplatePath())
-            : string.Empty;
-
         public UserLevel UserLevel => Enumeration.FromValue<UserLevel>(UserLevelId);
 
-        internal string BuildExcelTemplatePath() =>
-            ExcelTemplateDir +
-            (UserLevel.IsSuperLevel()
-            ? "Master.xls"
-            : UserLevel.IsMasterLevel()
-            ? "Agent.xls"
-            : "Member.xls");
+        public string ReportName { get; } = "WinLossDetail";
     }
 }

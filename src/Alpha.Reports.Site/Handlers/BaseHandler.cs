@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
     using Newtonsoft.Json;
     using Reports.Models;
@@ -11,6 +12,16 @@
 
     public class BaseHandler
     {
+        private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/{0}/{1}.{2}";
+
+        private Func<string, string> mapPath;
+
+        internal Func<string, string> MapPathFunc
+        {
+            get { return mapPath ?? HttpContext.Current.Server.MapPath; }
+            set { mapPath = value; }
+        }
+
         internal IEnumerable<SelectListItem> BuildProductSelectListItems(
             IEnumerable<int> userSelectedProductIds,
             IEnumerable<Product> products)
@@ -92,6 +103,23 @@
         private string ConvertBreadcrumbLevelsToJson(IEnumerable<CustInfo> breadcrumbLevels)
         {
             return JsonConvert.SerializeObject(breadcrumbLevels).Replace("\"", "'");
+        }
+
+        internal string MapExcelFilePath(string reportName, string fileName, string fileExtension = "xls")
+        {
+            if (string.IsNullOrWhiteSpace(reportName))
+            {
+                throw new ArgumentNullException(nameof(reportName), "Report Name cannot be null or empty");
+            }
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentNullException(nameof(fileName), "File Name cannot be null or empty");
+            }
+
+            var filePath = string.Format(ExcelTemplateDir, reportName, fileName, fileExtension);
+
+            return MapPathFunc(filePath);
         }
     }
 }

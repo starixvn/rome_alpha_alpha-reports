@@ -8,24 +8,12 @@
 
     public class WinLossExcelQuery : WinLossQuery, IRequest<ExcelFileViewModel>
     {
-        private const string ExcelTemplateDir = "~/App_Data/ExcelTemplates/WinLoss/";
-
         public WinLossExcelQuery(IUser user) : base(user)
         {
         }
 
-        public string TemplatePath => HttpContext.Current != null
-           ? HttpContext.Current.Server.MapPath(BuildExcelTemplatePath())
-           : string.Empty;
-
         public UserLevel UserLevel => Enumeration.FromValue<UserLevel>(UserLevelId);
 
-        internal string BuildExcelTemplatePath() =>
-            ExcelTemplateDir +
-            (UserLevel.IsSuperLevel()
-            ? "Master.xls"
-            : UserLevel.IsMasterLevel()
-            ? "Agent.xls"
-            : "Member.xls");
+        public string ReportName { get; } = "WinLoss";
     }
 }

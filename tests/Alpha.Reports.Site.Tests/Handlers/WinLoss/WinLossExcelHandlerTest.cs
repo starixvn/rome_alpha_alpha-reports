@@ -12,6 +12,7 @@
     using Reports.Models.Winloss;
     using Services;
     using Site.Handlers;
+    using Site.Helpers;
     using Site.Requests.WinLoss;
     using Site.ViewModels.WinLoss;
     using Sunplus.Agent.Model.Entities;
@@ -42,6 +43,7 @@
 
             user = Substitute.For<IUser>();
             winLossExcelHandler = new WinLossExcelHandler(productService, reportService, winlossWorkbook);
+            winLossExcelHandler.MapPathFunc = (path) => path;
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -186,20 +188,19 @@
         }
 
         [Theory]
-        [InlineData(4, "~/App_Data/ExcelTemplates/WinLoss/Master.xls")]
-        [InlineData(3, "~/App_Data/ExcelTemplates/WinLoss/Agent.xls")]
-        [InlineData(2, "~/App_Data/ExcelTemplates/WinLoss/Member.xls")]
-        public void BuildExcelTemplatePath_Always_ReturnsCorrectPathByUserLevel(byte userLevelId, string expectedPath)
+        [InlineData(4, "Master")]
+        [InlineData(3, "Agent")]
+        [InlineData(2, "Member")]
+        public void GetFileName_Always_ReturnsCorrectNameByUserLevel(byte userLevelId, string expectedName)
         {
             // Arrange
-            var winLossQuery = new WinLossExcelQuery(user);
-            winLossQuery.UserLevelId = userLevelId;
+            var message = CreateExportWinlossExcelQuery(userLevelId);
 
             // Act
-            var actualPath = winLossQuery.BuildExcelTemplatePath();
+            var actualName = winLossExcelHandler.GetFileName(message.UserLevel);
 
             // Assert
-            Assert.Equal(expectedPath, actualPath);
+            Assert.Equal(expectedName, actualName);
         }
 
         private WinLossExcelQuery CreateExportWinlossExcelQuery(byte userLevel)

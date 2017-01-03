@@ -53,7 +53,8 @@
             var reportTitle = $"{winlossViewModel.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
 
-            var templateInfo = new TemplateInfo(templatePath: message.TemplatePath, noInfomationText: Resources.NoInformationIsAvailable);
+            var templatePath = MapExcelFilePath(message.ReportName, GetFileName(message.UserLevel));
+            var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable);
 
             var result = winlossWorkbook
                 .UseTemplate(templateInfo)
@@ -68,6 +69,13 @@
                    $"{winlossViewModel.Title}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}",
                    result);
         }
+
+        internal string GetFileName(UserLevel userLevel) =>
+                    userLevel.IsSuperLevel()
+                        ? "Master"
+                        : userLevel.IsMasterLevel()
+                            ? "Agent"
+                            : "Member";
 
         private Mapper<Models.WinLossModel> GetWinLossRowMapper(WinLossExcelQuery message, bool isTotal)
         {
