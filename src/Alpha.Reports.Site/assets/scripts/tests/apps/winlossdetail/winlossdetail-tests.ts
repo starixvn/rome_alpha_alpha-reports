@@ -5,6 +5,7 @@
     const sortComponent = new SortComponent($);
     const monthPickerComponent = new MonthPickerComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
+    const reportTooltip = new ReportTooltip($);
 
     const winLossDetailView = new WinLossDetailView(
         jQueryFake,
@@ -12,7 +13,7 @@
         pagerComponent,
         productMultiSelectionComponent,
         sortComponent,
-        new ReportTooltip($),
+        reportTooltip,
         monthPickerComponent);
 
     let cacheElements: jasmine.Spy,
@@ -22,7 +23,6 @@
         renderProductMultiSelectionComponent: jasmine.Spy,
         renderPagerComponent: jasmine.Spy,
         renderSortComponent: jasmine.Spy,
-        renderMonthPickerComponent: jasmine.Spy,
         renderdateRangePickerComponent: jasmine.Spy;
 
     beforeEach(() => {
@@ -80,7 +80,7 @@
         it("Current Report -> Renders Date Range Picker And Not Render Month Picker", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReport);
-            renderMonthPickerComponent = spyOn(monthPickerComponent, "render");
+            spyOn(monthPickerComponent, "render");
 
             // act
             winLossDetailView.init();
@@ -94,7 +94,7 @@
         it("Historic Report With Hidden Filter -> Renders Month Picker And Not Render Date Range Picker", () => {
             // arrange
             setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
-            renderMonthPickerComponent = spyOn(monthPickerComponent, "render");
+            spyOn(monthPickerComponent, "render");
 
             // act
             winLossDetailView.init();
@@ -105,7 +105,7 @@
         });
     });
     describe("init_", () => {
-        // Historic report: we must show filter before render month picker
+        // historic report: we must show filter before render month picker
         it("Historic Report With Hidden Filter -> Shows Filter Before Renders Month Picker", () => {
             // arrange
             setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
@@ -123,8 +123,8 @@
         });
     });
     describe("init_", () => {
-        // Historic report: we must show filter before render month picker
-        // Therefore, after init we also hide it if before that it is hidden
+        // historic report: we must show filter before render month picker
+        // therefore, after init we also hide it if before that it is hidden
         it("Historic Report With Hidden Filter -> Hides Filter Is Hidden After Init", () => {
             // arrange
             setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
@@ -136,6 +136,35 @@
 
             // assert
             expect(actualIsHidden).toBeTruthy();
+        });
+    });
+
+    describe("init_", () => {
+        it("Report Of Top Level With no-Submit Param on Mobile -> Set Stack Mode as Default", () => {
+            // arrange
+            setFixtures(winLossDetailTemplate.reportOfTopLevel);
+            let setStackMode = spyOn(winLossDetailView, "setStackMode");
+            spyOn(alphaReports, "screenSmallThan768").and.callFake(() => true);
+
+            // act
+            winLossDetailView.init();
+
+            // assert
+            expect(setStackMode).toHaveBeenCalled();
+        });
+    });
+    describe("init_", () => {
+        it("Report Of Top Level With no-Submit Param on Mobile -> Show Stack Mode Tooltip with correct options", () => {
+            // arrange
+            setFixtures(winLossDetailTemplate.reportOfTopLevel);
+            spyOn(alphaReports, "screenSmallThan768").and.callFake(() => true);
+            spyOn(reportTooltip, "show");
+
+            // act
+            winLossDetailView.init();
+
+            // assert
+            expect(reportTooltip.show).toHaveBeenCalledWith(new ReportTooltipOption("icon-normal-column", 1));
         });
     });
 });

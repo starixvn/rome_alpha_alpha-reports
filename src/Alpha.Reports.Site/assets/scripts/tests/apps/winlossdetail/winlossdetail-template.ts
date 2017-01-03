@@ -40,5 +40,17 @@
                         <input id="IsHistoricReport" value="False" type="hidden" />
                         <input id="IsFilterVisible" value="True" type="hidden" />
                         <input id="HasSubmittedParams" value="False" type="hidden" />
-                    </body>`
+                    </body>`,
+
+    reportOfTopLevel: `<body>
+                            <div id="dropdown-product"></div>
+                            <div id="netturnovertooltip"></div>
+                            <div id="tbl-report" data-totalrecords="0">
+                                <div class="col-netturnover-header"></div>
+                            </div>
+                            <input id="IsHistoricReport" value="False" type="hidden" />
+                            <input id="IsFilterVisible" value="True" type="hidden" />
+                            <input id="HasSubmittedParams" value="False" type="hidden" />
+                            <input id="CustId" value="1" type="hidden" />
+                        </body>`
 };
