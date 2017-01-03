@@ -48,18 +48,10 @@
         }
 
         protected string GetReportTitle(UserLevel userLevel)
-        {
-            if (userLevel.IsSuperLevel())
-            {
-                return Resources.MasterWinLossDetail;
-            }
-
-            if (userLevel.IsMasterLevel())
-            {
-                return Resources.AgentWinLossDetail;
-            }
-
-            return Resources.MemberWinLossDetail;
-        }
+            => userLevel.IsSuperLevel()
+            ? Resources.MasterWinLossDetail
+            : userLevel.IsMasterLevel()
+                ? Resources.AgentWinLossDetail
+                : Resources.MemberWinLossDetail;
     }
 }
