@@ -2,11 +2,9 @@
 {
     using System;
     using System.Linq;
-    using System.Web;
     using App_GlobalResources;
     using Extensions;
     using Fanex.Common;
-    using Helpers;
     using MediatR;
     using ONEbook.SpreadSheets;
     using Reports.Models;
@@ -64,7 +62,7 @@
                 fileContent);
         }
 
-        internal string GetFileName(UserLevel userLevel) => 
+        internal string GetFileName(UserLevel userLevel) =>
                     userLevel.IsSuperLevel()
                         ? "Master"
                         : userLevel.IsMasterLevel()

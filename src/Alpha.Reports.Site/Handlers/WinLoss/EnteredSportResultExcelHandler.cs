@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using App_GlobalResources;
     using Extensions;
-    using Helpers;
     using MediatR;
     using ONEbook.SpreadSheets;
     using Reports.Models.Winloss;
@@ -13,7 +12,7 @@
     using ViewModels;
 
     public class EnteredSportResultExcelHandler :
-        BaseHandler, 
+        BaseHandler,
         IRequestHandler<EnteredSportResultExcelQuery, ExcelFileViewModel>
     {
         private readonly WinLossService reportService;

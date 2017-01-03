@@ -25,6 +25,6 @@
 
         [HttpGet]
         public ActionResult WinLossExcel(WinLossExcelQuery message)
-            => ExcelView(message);      
+            => ExcelView(message);
     }
 }
