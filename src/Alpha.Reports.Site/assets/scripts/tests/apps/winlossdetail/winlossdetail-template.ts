@@ -11,9 +11,10 @@
                         <input id="IsHistoricReport" value="True" type="hidden" />
                         <input id="IsFilterVisible" value="True" type="hidden" />
                         <input id="HasSubmittedParams" value="False" type="hidden" />
+                        <div id="report-switch" data-is-historic-report="true"></div>
                     </body>`,
     historicReportWithHiddenFilter: `<body>
-                        <form id="report-form">
+                        <form id="report-form" class="hide">
                             <div id="dropdown-product"></div>
                             <div id="dropdown-month" 
                                 data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"
@@ -32,14 +33,37 @@
                         <input id="HasSubmittedParams" value="False" type="hidden" />
                     </body>`,
     currentReport: `<body>
-                        <div id="dropdown-product"></div>
-                        <div id="netturnovertooltip"></div>
+                        <div class="page-title"></div>
                         <div id="tbl-report" data-totalrecords="0">
                             <div class="col-netturnover-header"></div>
                         </div>
-                        <input id="IsHistoricReport" value="False" type="hidden" />
+                        <div class="downline-link"></div>
                         <input id="IsFilterVisible" value="True" type="hidden" />
+                        <input id="IsStackMode" value="True" type="hidden" />
+                        <input id="IsDescendingSort" value="True" type="hidden" />
+                        <input id="SortPropertyName" value="" type="hidden" />
+
+                        <form id="report-form"></form>
+                        <form id="export-excel-form"></form>
+                        <input id="UserSelectedDateRangeOption" value="" type="hidden" />
+                        <div>
+                            <div id="dropdown-product"></div>
+                            <button class="multiselect btn"></button>
+                        </div>
+
+                        <div id="report-switch" data-is-historic-report="false"></div>
+                        <div id="from-date"></div>
+                        <div id="to-date"></div>
+                        <div id="icon-normal-column"></div>
                         <input id="HasSubmittedParams" value="False" type="hidden" />
+                        <input class="breadcrumb-link" />
+
+                        <div id="netturnovertooltip"></div>
+                        <input id="IsHistoricReport" value="False" type="hidden" />
+
+                        <div class="icon-filter"></div>
+                        <div class="icon-switchmode"></div>
+                        <div id="icon-excel"></div>
                     </body>`,
 
     reportOfTopLevel: `<body>
