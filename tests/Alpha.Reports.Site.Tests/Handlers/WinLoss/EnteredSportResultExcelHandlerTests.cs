@@ -32,8 +32,8 @@
             enteredSportResultWorkbook.Body(Arg.Any<IEnumerable<EnteredSportResult>>(), Arg.Any<Mapper<EnteredSportResult>>()).Returns(enteredSportResultWorkbook);
             enteredSportResultWorkbook.Sheet(Arg.Any<string>()).Returns(enteredSportResultWorkbook);
 
-            enteredSportResultExcelHandler = new EnteredSportResultExcelHandler(reportService, enteredSportResultWorkbook);
-            enteredSportResultExcelHandler.MapPathFunc = (path) => path;
+            enteredSportResultExcelHandler = Substitute.ForPartsOf<EnteredSportResultExcelHandler>(reportService, enteredSportResultWorkbook);
+            enteredSportResultExcelHandler.MapPathFunc = Substitute.For<Func<string, string>>();
             user = Substitute.For<IUser>();
         }
 
@@ -101,6 +101,19 @@
 
             // Assert
             enteredSportResultWorkbook.Received().ExportToBytes();
+        }
+
+        [Fact]
+        public void HandleExportEnteredResultQuery_CallMapExcelFilePath()
+        {
+            // Arrange
+            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+
+            // Act
+            enteredSportResultExcelHandler.Handle(message);
+
+            // Assert
+            enteredSportResultExcelHandler.Received().MapExcelFilePath(message.ReportName, "MatchResultEntered");
         }
 
         private EnteredSportResultExcelQuery CreateExportEnteredResultsExcelQuery(byte userLevel)

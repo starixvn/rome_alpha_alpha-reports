@@ -255,5 +255,46 @@
             // Assert
             AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
         }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("  ")]
+        public void MapExcelFilePath_ReportNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string reportName)
+        {
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => baseHandler.MapExcelFilePath(reportName, "filename"));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("  ")]
+        public void MapExcelFilePath_FileNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string fileName)
+        {
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => baseHandler.MapExcelFilePath("reportName", fileName));
+        }
+
+        [Theory]
+        [InlineData("reportName", "filePath", "xls", "~/App_Data/ExcelTemplates/reportName/filePath.xls")]
+        [InlineData("reportName1", "filePath1", "xls1", "~/App_Data/ExcelTemplates/reportName1/filePath1.xls1")]
+        public void MapExcelFilePath_ReturnCorrectFilePathWithExtension(
+            string reportName, 
+            string fileName, 
+            string extension, 
+            string expectedPath)
+        {
+            // Arrange
+            baseHandler.MapPathFunc = path => path;
+
+            // Act
+            var actualPath = baseHandler.MapExcelFilePath(reportName, fileName, extension);
+
+            // Assert
+            Assert.Equal(expectedPath, actualPath);
+        }
     }
 }

@@ -45,7 +45,7 @@
             workbook.Sheet(Arg.Any<string>()).Returns(workbook);
 
             user = Substitute.For<IUser>();
-            winLossDetailExcelHandler = new WinLossDetailExcelHandler(productService, reportService, workbook);
+            winLossDetailExcelHandler = Substitute.ForPartsOf<WinLossDetailExcelHandler>(productService, reportService, workbook);
             winLossDetailExcelHandler.MapPathFunc = (path) => path;
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
@@ -198,6 +198,22 @@
 
             // Assert
             Assert.Equal(expectedPath, actualPath);
+        }
+
+        [Theory]
+        [InlineData(4, "Master")]
+        [InlineData(3, "Agent")]
+        [InlineData(2, "Member")]
+        public void HandleExportWinLossQuery_CallMapExcelFilePath(byte userLevelId, string fileName)
+        {
+            // Arrange
+            var message = CreateExportExcelQuery(userLevel: userLevelId);
+
+            // Act
+            winLossDetailExcelHandler.Handle(message);
+
+            // Assert
+            winLossDetailExcelHandler.Received().MapExcelFilePath(message.ReportName, fileName);
         }
 
         private WinLossDetailExcelQuery CreateExportExcelQuery(byte userLevel)
