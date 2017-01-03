@@ -8,15 +8,9 @@
         ReportBaseQuery,
         IRequest<WinLossDetailViewModel>
     {
-        public WinLossDetailQuery(IUser user)
+        public WinLossDetailQuery(IUser user) : base(user)
         {
-            CustId = user.CustId;
-            CustName = user.CustName;
-            UserLevelId = user.UserLevelId;
-            Language = user.Language;
         }
-
-        public string Language { get; }
 
         public int PageIndex { get; set; }
 

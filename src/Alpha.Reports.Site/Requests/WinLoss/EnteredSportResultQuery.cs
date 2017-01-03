@@ -4,21 +4,10 @@
     using Reports.Models;
     using ViewModels.WinLoss;
 
-    public class EnteredSportResultQuery : IRequest<EnteredResultViewModel>
+    public class EnteredSportResultQuery : ReportBaseQuery, IRequest<EnteredResultViewModel>
     {
-        public EnteredSportResultQuery(IUser user)
+        public EnteredSportResultQuery(IUser user) : base(user)
         {
-            CustId = user.CustId;
-            UserLevelId = user.UserLevelId;
-            Language = user.Language;
         }
-
-        public int CustId { get; set; }
-
-        public string CustName { get; set; }
-
-        public byte UserLevelId { get; set; }
-
-        public string Language { get; }
     }
 }
