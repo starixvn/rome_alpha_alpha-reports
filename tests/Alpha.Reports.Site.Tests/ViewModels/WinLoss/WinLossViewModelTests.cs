@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using Alpha.Reports.Models.Winloss;
+    using Reports.Models.Winloss;
     using Constants;
     using Enumerations;
     using Extensions;
@@ -14,7 +14,6 @@
     using Site.Requests.WinLoss;
     using Site.ViewModels;
     using Site.ViewModels.WinLoss;
-    using Sunplus.Agent.Model.Entities;
     using TestCases;
     using Xunit;
 

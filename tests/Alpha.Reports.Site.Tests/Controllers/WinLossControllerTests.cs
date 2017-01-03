@@ -39,7 +39,7 @@
         public void EnteredResultExcel_Always_CallsMediatorSendExportEnteredResultQuery()
         {
             // Arrange
-            var message = new Site.Requests.WinLoss.EnteredSportResultExcelQuery(user);
+            var message = new EnteredSportResultExcelQuery(user);
             mediator.Send<ExcelFileViewModel>(Arg.Any<EnteredSportResultExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
