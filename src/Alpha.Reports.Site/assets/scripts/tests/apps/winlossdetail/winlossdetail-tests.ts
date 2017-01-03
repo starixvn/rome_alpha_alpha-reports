@@ -83,7 +83,7 @@
             renderMonthPickerComponent = spyOn(monthPickerComponent, "render");
 
             // act
-            winLossDetailView.init(true);
+            winLossDetailView.init();
 
             // assert
             expect(dateRangePickerComponent.render).toHaveBeenCalled();
@@ -104,12 +104,12 @@
             let expectedCallOrder = "Shows $reportForm > Renders monthPickerComponent > Hides $reportForm";
 
             let actualCallOrder = "";
-            spyOn(reportForm, "removeClass").and.callFake(function (className) {
-                actualCallOrder += (className == "hide") ? "Shows $reportForm" : "";
+            spyOn(reportForm, "removeClass").and.callFake(function (className: string) {
+                actualCallOrder += (className === "hide") ? "Shows $reportForm" : "";
             });
 
-            spyOn(reportForm, "addClass").and.callFake(function (className) {
-                actualCallOrder += (className == "hide") ? " > Hides $reportForm" : "";
+            spyOn(reportForm, "addClass").and.callFake(function (className: string) {
+                actualCallOrder += (className === "hide") ? " > Hides $reportForm" : "";
             });
 
             spyOn(monthPickerComponent, "render").and.callFake(function () {
@@ -117,7 +117,7 @@
             });
 
             // act
-            winLossDetailView.init(true);
+            winLossDetailView.init();
 
             // assert
             expect(dateRangePickerComponent.render).not.toHaveBeenCalled();
