@@ -2,7 +2,7 @@
 using Alpha.Reports.Models.Outstanding;
 using Fanex.Data;
 
-namespace Alpha.Reports.DataAccesses.Impl
+namespace Alpha.Reports.DataAccesses.Outstanding
 {
     public class OutstandingDataAccessImpl : OutstandingDataAccess
     {

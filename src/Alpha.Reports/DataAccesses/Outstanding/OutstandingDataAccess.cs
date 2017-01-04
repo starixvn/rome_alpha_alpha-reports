@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Alpha.Reports.Models.Outstanding;
 
-namespace Alpha.Reports.DataAccesses
+namespace Alpha.Reports.DataAccesses.Outstanding
 {
     public interface OutstandingDataAccess
     {

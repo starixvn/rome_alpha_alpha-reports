@@ -2,7 +2,7 @@
 using Alpha.Reports.Models;
 using Alpha.Reports.Models.Outstanding;
 
-namespace Alpha.Reports.Services
+namespace Alpha.Reports.Services.Outstanding
 {
     public interface OutstandingService
     {
