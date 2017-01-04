@@ -1,4 +1,6 @@
-﻿describe("WinLossDetail_", () => {
+﻿// split test file because:
+// error: Timeout occurred when executing test file
+describe("WinLossDetail_", () => {
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     const pagerComponent = new PagerComponent($);
@@ -8,7 +10,7 @@
     const reportTooltip = new ReportTooltip($);
     const netTurnoverTooltipComponent = new NetTurnoverTooltipComponent($);
 
-    let winLossDetailView;
+    let winLossDetailView: WinLossDetailView;
 
     let cacheElements: jasmine.Spy,
         registerEvents: jasmine.Spy,
@@ -44,7 +46,6 @@
         renderSortComponent = spyOn(sortComponent, "render");
         renderdateRangePickerComponent = spyOn(dateRangePickerComponent, "render");
     });
-
     describe("init", () => {
         it("Document is not ready -> Does not call any Method", () => {
             // act
@@ -60,11 +61,10 @@
             expect(pagerComponent.render).not.toHaveBeenCalled();
             expect(sortComponent.render).not.toHaveBeenCalled();
         });
-    });
-    describe("init", () => {
+
         it("Document is ready -> Calls Specific Methods", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReport);
+            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
 
             // act
             winLossDetailView.init();
@@ -79,11 +79,10 @@
             expect(pagerComponent.render).toHaveBeenCalled();
             expect(sortComponent.render).toHaveBeenCalled();
         });
-    });
-    describe("init", () => {
+
         it("Current Report -> Renders Date Range Picker And Not Render Month Picker", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReport);
+            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             spyOn(monthPickerComponent, "render");
 
             // act
@@ -93,8 +92,7 @@
             expect(dateRangePickerComponent.render).toHaveBeenCalled();
             expect(monthPickerComponent.render).not.toHaveBeenCalled();
         });
-    });
-    describe("init", () => {
+
         it("Historic Report With Hidden Filter -> Renders Month Picker And Not Render Date Range Picker", () => {
             // arrange
             setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
@@ -107,8 +105,7 @@
             expect(monthPickerComponent.render).toHaveBeenCalled();
             expect(dateRangePickerComponent.render).not.toHaveBeenCalled();
         });
-    });
-    describe("init", () => {
+
         // historic report: we must show filter before render month picker
         it("Historic Report With Hidden Filter -> Shows Filter Before Renders Month Picker", () => {
             // arrange
@@ -125,9 +122,7 @@
             // assert
             expect(actualIsHidden).toBeFalsy();
         });
-    });
 
-    describe("init", () => {
         // historic report: we must show filter before render month picker
         // therefore, after init we also hide it if before that it is hidden
         it("Historic Report With Hidden Filter -> Hides Filter Is Hidden After Init", () => {
@@ -171,7 +166,7 @@
 
         it("Always -> Render sort component with correct options", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReport);
+            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             spyOn(pagerComponent, "hasAllDataOnClient").and.callFake(() => true);
 
             // act
@@ -187,7 +182,6 @@
             ));
         });
     });
-
     describe("checkReady", () => {
         it("Document is not loaded yet (empty) -> Returns False", () => {
             // arrange
@@ -199,10 +193,9 @@
             // assert
             expect(actualIsReady).toBeFalsy();
         });
-
         it("Document is loaded (ready) -> Returns True", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReport);
+            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
 
             // act
             var actualIsReady = winLossDetailView.checkReady();
@@ -211,11 +204,10 @@
             expect(actualIsReady).toBeTruthy();
         });
     });
-
     describe("cacheElements", () => {
         it("Always -> All neccessary elements have been cached", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReport);
+            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
 
             // act
             winLossDetailView.cacheElements();
@@ -243,7 +235,7 @@
     describe("registerEvents", () => {
         it("Always -> All neccessary functions have been registered", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReport);
+            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             winLossDetailView.cacheElements();
 
             spyOn(winLossDetailView, "onSwitchReport");
@@ -272,106 +264,4 @@
             expect(winLossDetailView.onSubmitReport).toHaveBeenCalled();
         });
     });
-    describe("onSwitchReport", () => {
-        it("Current Report -> Switch to Historic Report and Submit", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.currentReport);
-            winLossDetailView.cacheElements();
-            spyOn(winLossDetailView.$reportForm, "trigger");
-
-            // act
-            winLossDetailView.onSwitchReport();
-
-            // assert
-            expect(winLossDetailView.isSwitchView).toBeTruthy();
-            expect(winLossDetailView.isHistoricReport).toBeTruthy();
-            expect(winLossDetailView.$reportForm.trigger).toHaveBeenCalledWith("submit");
-        });
-
-        it("Historic Report -> Switch to Current Report and Submit", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.historicReportWithShownFilter);
-            winLossDetailView.cacheElements();
-            spyOn(winLossDetailView.$reportForm, "trigger");
-
-            // act
-            winLossDetailView.onSwitchReport();
-
-            // assert
-            expect(winLossDetailView.isSwitchView).toBeTruthy();
-            expect(winLossDetailView.isHistoricReport).toBeFalsy();
-            expect(winLossDetailView.$reportForm.trigger).toHaveBeenCalledWith("submit");
-        });
-    });
-
-    describe("onClickIconFilter", () => {
-        it("Filter is currently shown -> Hides Filter and Update Href Param to False", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.historicReportWithShownFilter);
-            winLossDetailView.cacheElements();
-
-            spyOn(winLossDetailView, "hideFilter");
-            spyOn(winLossDetailView, "replaceHrefParam");
-
-            // act
-            winLossDetailView.onClickIconFilter();
-
-            // assert
-            expect(winLossDetailView.hideFilter).toHaveBeenCalled();
-            expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsFilterVisible", false);
-        });
-        it("Filter is currently hidden -> Hides Filter and Update Href Param to True", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
-            winLossDetailView.cacheElements();
-
-            spyOn(netTurnoverTooltipComponent, "positionNetTurnoverTooltip");
-            spyOn(winLossDetailView, "replaceHrefParam");
-
-            // act
-            winLossDetailView.onClickIconFilter();
-
-            // assert
-            expect(winLossDetailView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
-            expect(winLossDetailView.$reportForm.hasClass("hide")).toBeFalsy();
-            expect(netTurnoverTooltipComponent.positionNetTurnoverTooltip).toHaveBeenCalled();
-            expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsFilterVisible", true);
-        });
-    });
-    describe("setStackMode", () => {
-        it("Filter is currently hidden -> Hides Filter and Update Href Param to True", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.currentReport);
-            winLossDetailView.cacheElements();
-            spyOn(winLossDetailView, "replaceHrefParam");
-            var combineConsecutiveCellsSpy = spyOn(alphaReports, "combineConsecutiveCells");
-
-            // act
-            winLossDetailView.setStackMode();
-
-            // assert
-            expect(jQueryFake.blockUI).toHaveBeenCalled();
-            expect(winLossDetailView.$pageTitle.hasClass("stack-mode")).toBeTruthy();
-            expect(winLossDetailView.$tableReport.hasClass("stack-mode")).toBeTruthy();
-            expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsStackMode", true);
-
-            expect(combineConsecutiveCellsSpy.calls.allArgs()[0]).toEqual([
-                jasmine.any(Object), 3, "col-turnover-combined"]);
-            expect(combineConsecutiveCellsSpy.calls.allArgs()[1]).toEqual([
-                jasmine.any(Object), 3, "col-member-winloss-combined"]);
-            expect(combineConsecutiveCellsSpy.calls.allArgs()[2]).toEqual([
-                jasmine.any(Object), 3, "col-agent-winloss-combined altercol"]);
-            expect(combineConsecutiveCellsSpy.calls.allArgs()[3]).toEqual([
-                jasmine.any(Object), 3, "col-master-winloss-combined"]);
-            expect(combineConsecutiveCellsSpy.calls.allArgs()[4]).toEqual([
-                jasmine.any(Object), 3, "col-super-winloss-combined altercol"]);
-
-            expect(jQueryFake.unblockUI).toHaveBeenCalled();
-        });
-    });
-    describe("onSwitchMode", () => {
-
-    });
-
-
 });

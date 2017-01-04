@@ -260,6 +260,7 @@ class WinLossDetailView {
                 isEvenRow = !isEvenRow;
             });
         } else {
+            console.log(21);
             this.$reportForm.trigger("submit");
         }
     };

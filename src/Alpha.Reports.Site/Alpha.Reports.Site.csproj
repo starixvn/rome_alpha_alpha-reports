@@ -305,9 +305,11 @@
     <TypeScriptCompile Include="assets\scripts\components\monthpicker.ts" />
     <TypeScriptCompile Include="assets\scripts\components\daterangepicker.ts" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-2-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-aftersort-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-1-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
