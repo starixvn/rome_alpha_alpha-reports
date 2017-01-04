@@ -9,6 +9,7 @@
     using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
+    using Services.WinLoss;
     using ViewModels;
 
     public class EnteredSportResultExcelHandler :

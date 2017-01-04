@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Services.Impl
+﻿namespace Alpha.Reports.Services.WinLossDetail
 {
     using System;
     using System.Linq;

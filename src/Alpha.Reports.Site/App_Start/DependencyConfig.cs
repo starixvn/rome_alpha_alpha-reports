@@ -14,7 +14,8 @@
     using RemotingRef;
     using Reports.Models;
     using Services;
-    using Services.Impl;
+    using Services.WinLoss;
+    using Services.WinLossDetail;
     using SimpleInjector;
     using SimpleInjector.Integration.Web;
     using SimpleInjector.Integration.Web.Mvc;

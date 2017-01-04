@@ -8,6 +8,7 @@
     using Reports.Models;
     using Requests.WinLoss;
     using Services;
+    using Services.WinLoss;
     using ViewModels.WinLoss;
 
     public class WinLossHandler :

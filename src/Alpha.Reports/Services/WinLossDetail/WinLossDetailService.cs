@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Services
+﻿namespace Alpha.Reports.Services.WinLossDetail
 {
     using Models;
     using Models.WinLossDetail;

@@ -14,7 +14,7 @@
     using Reports.Models.Winloss;
     using Reports.Params;
     using Reports.Services;
-    using Reports.Services.Impl;
+    using Reports.Services.WinLoss;
     using TestCases;
     using Xunit;
 

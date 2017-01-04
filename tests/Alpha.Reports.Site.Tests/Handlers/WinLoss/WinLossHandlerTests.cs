@@ -14,6 +14,7 @@
     using Reports.Models;
     using Reports.Models.Winloss;
     using Services;
+    using Services.WinLoss;
     using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
     using Site.ViewModels;

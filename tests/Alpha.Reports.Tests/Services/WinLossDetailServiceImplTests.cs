@@ -5,14 +5,13 @@
     using Extensions;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
-    using Reports.DataAccesses;
     using Reports.DataAccesses.WinLossDetail;
     using Reports.Enumerations;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
     using Reports.Params;
     using Reports.Services;
-    using Reports.Services.Impl;
+    using Reports.Services.WinLossDetail;
     using Xunit;
 
     public class WinLossDetailServiceImplTests

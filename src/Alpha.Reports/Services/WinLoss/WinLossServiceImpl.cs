@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Services.Impl
+﻿namespace Alpha.Reports.Services.WinLoss
 {
     using System;
     using System.Collections.Generic;

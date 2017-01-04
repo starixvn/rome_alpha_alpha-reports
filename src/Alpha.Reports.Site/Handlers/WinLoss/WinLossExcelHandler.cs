@@ -10,6 +10,7 @@
     using Reports.Models;
     using Requests.WinLoss;
     using Services;
+    using Services.WinLoss;
     using ViewModels;
     using ViewModels.WinLoss;
     using Models = Reports.Models.Winloss;
