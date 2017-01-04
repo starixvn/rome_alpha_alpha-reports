@@ -45,9 +45,7 @@
                 UserLevel = userLevel
             };
 
-            var products = string.IsNullOrWhiteSpace(message.UserSelectedProductIds)
-                ? Enumerable.Empty<int>()
-                : message.UserSelectedProductIds.Split(',').Select(s => Converter.ToInt(s));
+            var products = message.UserSelectedProductIds.ToListInt();
 
             var reportTitle = $"{winlossViewModel.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));

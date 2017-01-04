@@ -32,7 +32,7 @@
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
-                string.IsNullOrWhiteSpace(message.UserSelectedProductIds) ? Enumerable.Empty<int>() : message.UserSelectedProductIds.ToListInt());
+                message.UserSelectedProductIds.ToListInt());
 
             return new WinLossDetailParam(
                  message.CustId,

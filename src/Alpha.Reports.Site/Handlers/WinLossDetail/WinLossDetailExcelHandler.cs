@@ -36,9 +36,7 @@
             }
 
             var reportNameByLevel = GetReportNameByLevel(message.UserLevel);
-            var products = string.IsNullOrWhiteSpace(message.UserSelectedProductIds)
-                ? Enumerable.Empty<int>()
-              : message.UserSelectedProductIds.Split(',').Select(s => Converter.ToInt(s));
+            var products = message.UserSelectedProductIds.ToListInt();
             var reportTitle = $"{reportNameByLevel} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
 
