@@ -56,11 +56,18 @@
 
     { "Path": "../winlossdetail/winlossdetail.ts" },
 
-    { "Path": "apps/winlossdetail/winlossdetail-template.ts" }
+    { "Path": "apps/winlossdetail/winlossdetail-template.ts" },
+
+      { "Path": "../winloss/winloss.ts" }
+
   ],
   "Tests": [
     {
       "Path": "apps/winlossdetail",
+      "Excludes": [ "**.js.map" ]
+    },
+     {
+      "Path": "apps/winloss",
       "Excludes": [ "**.js.map" ]
     }
   ]
