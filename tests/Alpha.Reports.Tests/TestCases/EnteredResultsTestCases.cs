@@ -47,11 +47,11 @@
         {
             var dailyEnteredSportData = new List<DailyEnteredSport>();
 
+            dailyEnteredSportData.Add(TodaydayDailyEnteredBasketball);
+            dailyEnteredSportData.Add(YesterdayDailyEnteredBasketball);
+
             dailyEnteredSportData.Add(TodayDailyEnteredSoccer);
             dailyEnteredSportData.Add(YesterdayDailyEnteredSoccer);
-
-            dailyEnteredSportData.Add(YesterdayDailyEnteredBasketball);
-            dailyEnteredSportData.Add(TodaydayDailyEnteredBasketball);
 
             return dailyEnteredSportData;
         }
@@ -64,15 +64,15 @@
                new EnteredSportResult(
                    sportTypeId: 2,
                    sportName: "BasketBall",
-                   enterSportToday: TodaydayDailyEnteredBasketball,
-                   enterSportYesterday: YesterdayDailyEnteredBasketball));
+                   enteredSportToday: TodaydayDailyEnteredBasketball,
+                   enteredSportYesterday: YesterdayDailyEnteredBasketball));
 
             enteredSportResultData.Add(
                 new EnteredSportResult(
                     sportTypeId: 1,
                     sportName: "Soccer",
-                    enterSportToday: TodayDailyEnteredSoccer,
-                    enterSportYesterday: YesterdayDailyEnteredSoccer));
+                    enteredSportToday: TodayDailyEnteredSoccer,
+                    enteredSportYesterday: YesterdayDailyEnteredSoccer));
 
             return enteredSportResultData;
         }

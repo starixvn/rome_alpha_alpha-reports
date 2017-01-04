@@ -7,8 +7,8 @@
 @Html.Partial("_EnteredResultFilter", Model.FilterViewModel)
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
        data-totalrecords="@Model.ReportData.Count()"
-       data-sortedcolumn="SportName"
-       data-descendingsort="false">
+       data-sortedcolumn="EnteredSportYesterday.NonEntered"
+       data-descendingsort="true">
     <thead>
         <tr>
             <th>@Resources.Date</th>
@@ -16,9 +16,9 @@
             <th colspan="2">@String.Format("{0:MM/dd/yyyy}", DateTime.Now)</th>
         </tr>
         <tr class="thead-row2">
-            <th class="sorting" data-sortedname="SportName" data-colindex="0">@Resources.Results</th>
+            <th class="sorting" data-colindex="0">@Resources.Results</th>
             <th class="sorting width-15per" data-colindex="1">@Resources.Entered</th>
-            <th class="sorting width-15per" data-colindex="2">@Resources.NonEntered</th>
+            <th class="sorting width-15per" data-sortedname="EnteredSportYesterday.NonEntered"  data-colindex="2">@Resources.NonEntered</th>
             <th class="sorting width-15per" data-colindex="3">@Resources.Entered</th>
             <th class="sorting width-15per" data-colindex="4">@Resources.NonEntered</th>
         </tr>
@@ -30,8 +30,8 @@
             {
                 <tr>
                     <td class="text-left col-first">@enteredSportResult.SportName</td>
-                    @RenderEnteredResult(enteredSportResult.EnterSportYesterday)
-                    @RenderEnteredResult(enteredSportResult.EnterSportToday)
+                    @RenderEnteredResult(enteredSportResult.EnteredSportYesterday)
+                    @RenderEnteredResult(enteredSportResult.EnteredSportToday)
                 </tr>
             }
         </tbody>

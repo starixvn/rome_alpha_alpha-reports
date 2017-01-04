@@ -5,21 +5,21 @@
         public EnteredSportResult(
             int sportTypeId,
             string sportName,
-            DailyEnteredSport enterSportToday,
-            DailyEnteredSport enterSportYesterday)
+            DailyEnteredSport enteredSportToday,
+            DailyEnteredSport enteredSportYesterday)
         {
             SportTypeId = sportTypeId;
             SportName = sportName;
-            EnterSportToday = enterSportToday;
-            EnterSportYesterday = enterSportYesterday;
+            EnteredSportToday = enteredSportToday;
+            EnteredSportYesterday = enteredSportYesterday;
         }
 
         public int SportTypeId { get; }
 
         public string SportName { get; }
 
-        public DailyEnteredSport EnterSportToday { get; }
+        public DailyEnteredSport EnteredSportToday { get; }
 
-        public DailyEnteredSport EnterSportYesterday { get; }
+        public DailyEnteredSport EnteredSportYesterday { get; }
     }
 }

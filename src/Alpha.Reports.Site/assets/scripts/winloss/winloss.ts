@@ -47,8 +47,6 @@ class WinLossView {
     }
 
     init = () => {
-        var self = this;
-
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         this.isHistoricReport
@@ -87,32 +85,37 @@ class WinLossView {
         this.$multiSelectButton = this.$(".multiselect.btn");
         this.$reportSwitch = this.$("#report-switch");
     };
+    onFilterEvent = () => {
+        var filter = this.$reportForm;
+        var currentHideState = filter.is(":hidden");
+
+        if (currentHideState) {
+            this.$pageTitle.removeClass("hide-filter");
+            filter.slideDown("fast", undefined, function () { });
+        } else {
+            this.hideFilter();
+        }
+
+        this.replaceDrilldownParam("IsFilterVisible", !currentHideState);
+    };
+    onExportExcelEvent = () => {
+        this.$("#export-excel-form").submit();
+        this.$.unblockUI();
+    };
+    onReportSwitchEvent = () => {
+        this.isSwitchView = true;
+        this.isHistoricReport = !this.$reportSwitch.data("is-historic-report");
+        this.$reportForm.trigger("submit");
+    };
+    onStackModeEvent = () => {
+
+    };
     registerEvents = () => {
         var self = this;
 
-        this.$reportSwitch.on("click", function () {
-            self.isSwitchView = true;
-            self.isHistoricReport = !self.$reportSwitch.data("is-historic-report");
-            self.$reportForm.trigger("submit");
-        });
-
-        this.$(".icon-filter").on("click", function () {
-            var filter = self.$reportForm;
-            var currentHideState = filter.is(":hidden");
-
-            if (currentHideState) {
-                self.$pageTitle.removeClass("hide-filter");
-                filter.slideDown("fast", undefined, function () {});
-            } else {
-                self.hideFilter();
-            }
-
-            self.replaceDrilldownParam("IsFilterVisible", !currentHideState);
-        });
-        this.$("#icon-excel").on("click", function () {
-            self.$("#export-excel-form").submit();
-            self.$.unblockUI();
-        });
+        this.$reportSwitch.on("click", this.onReportSwitchEvent);
+        this.$(".icon-filter").on("click", this.onFilterEvent);
+        this.$("#icon-excel").on("click", this.onExportExcelEvent);
         this.$(".icon-switchmode").on("click", function () {
             var tableReport = self.$tableReport;
             var currentStackModeState = tableReport.hasClass("stack-mode");
@@ -153,14 +156,12 @@ class WinLossView {
                 self.isFirstSwitchMode = false;
             }
 
-            this.sortComponent.bindTableSorter(this.getSortedColumnName());
+            self.sortComponent.bindTableSorter(self.getSortedColumnName());
         });
 
-        this.$reportForm.submit(this.onSubmitReportEvent);
+        self.$reportForm.submit(this.onSubmitReportEvent);
     };
     hideFilter = () => {
-        var self = this;
-
         this.$pageTitle.removeClass("hide-filter");
         this.$reportForm.slideUp("fast", undefined, function () {});
     };

@@ -64,10 +64,10 @@
         {
             var mapper = new Mapper<EnteredSportResult>()
                 .Map(Column.A, enteredSportResult => enteredSportResult.SportName)
-                .Map(Column.B, enteredSportResult => enteredSportResult.EnterSportYesterday?.Entered ?? 0)
-                .Map(Column.C, enteredSportResult => enteredSportResult.EnterSportYesterday?.NonEntered ?? 0)
-                .Map(Column.D, enteredSportResult => enteredSportResult.EnterSportToday?.Entered ?? 0)
-                .Map(Column.E, enteredSportResult => enteredSportResult.EnterSportToday?.NonEntered ?? 0);
+                .Map(Column.B, enteredSportResult => enteredSportResult.EnteredSportYesterday?.Entered ?? 0)
+                .Map(Column.C, enteredSportResult => enteredSportResult.EnteredSportYesterday?.NonEntered ?? 0)
+                .Map(Column.D, enteredSportResult => enteredSportResult.EnteredSportToday?.Entered ?? 0)
+                .Map(Column.E, enteredSportResult => enteredSportResult.EnteredSportToday?.NonEntered ?? 0);
 
             return mapper;
         }

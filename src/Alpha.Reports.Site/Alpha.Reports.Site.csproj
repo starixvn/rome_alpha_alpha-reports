@@ -307,6 +307,7 @@
     <TypeScriptCompile Include="assets\scripts\core.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\enteredResult-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
@@ -317,9 +318,6 @@
       <DependentUpon>default.css</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
-    <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
-      <DependentUpon>winlossdetail.js</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\winloss\enteredresult.js" />
     <Content Include="assets\bundles\winloss\enteredresult.min.js">
       <DependentUpon>enteredresult.js</DependentUpon>

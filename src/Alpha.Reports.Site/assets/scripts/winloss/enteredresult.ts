@@ -28,8 +28,6 @@ class EnterResultView {
     }
 
     init = () => {
-        let self = this;
-
         this.dateRangePickerComponent.render();
         this.cacheDOMElements();
 
@@ -42,7 +40,7 @@ class EnterResultView {
             },
             afterSortFunction: function () {}
         });
-
+        
         this.$tableReport.stickyTableHeaders();
 
         this.registerEvents();
@@ -88,28 +86,6 @@ class EnterResultView {
         this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
         this.$isStackMode.val(alphaReports.screenSmallThan768());
         this.$reportForm.trigger("submit");
-    };
-    bindTableSorter = () => {
-        let self = this;
-
-        let headers = {
-            0: { sorter: "text" }
-        };
-
-        let disabledSortColumns = self.$tableReport.find("th[data-disabledsort='true']");
-        disabledSortColumns.each(function () {
-            headers[this.cellIndex] = { sorter: false };
-        });
-
-        let sortedColumnHeader = self.$tableReport.find("[data-sortedname='" + self.$tableReport.data("sortedcolumn") + "']")[0];
-
-        this.$tableReport.tablesorter(
-            {
-                defaultParser: 1,
-                headers: headers,
-                sortList: [[self.$(sortedColumnHeader).data("colindex"), 1]],
-                textExtraction: function () {}
-            });
     };
 }
 

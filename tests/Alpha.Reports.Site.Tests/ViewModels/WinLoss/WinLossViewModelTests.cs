@@ -5,12 +5,12 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using Reports.Models.Winloss;
     using Constants;
     using Enumerations;
     using Extensions;
     using NSubstitute;
     using Reports.Models;
+    using Reports.Models.Winloss;
     using Site.Requests.WinLoss;
     using Site.ViewModels;
     using Site.ViewModels.WinLoss;
