@@ -8,6 +8,7 @@
     using NSubstitute;
     using Reports.Criteria;
     using Reports.Models;
+    using Reports.Services;
     using Reports.Services.Impl;
     using Xunit;
 

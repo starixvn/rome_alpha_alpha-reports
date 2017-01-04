@@ -9,7 +9,7 @@
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
     using Reports.DataAccesses;
-    using Reports.DataAccesses.Impl;
+    using Reports.DataAccesses.WinLossDetail;
     using Reports.Enumerations;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
@@ -68,7 +68,7 @@
                 0,
                 new WinLossDetailModel(0, "Total", 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), new NetWinLoss(29, 210)));
 
-            // Act 
+            // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
@@ -106,7 +106,7 @@
                 0,
                 new WinLossDetailModel(0, "Total", 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null));
 
-            // Act 
+            // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
@@ -144,7 +144,7 @@
                 0,
                 new WinLossDetailModel(0, "Total", 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null));
 
-            // Act 
+            // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
@@ -176,7 +176,7 @@
                 0,
                 new WinLossDetailModel());
 
-            // Act 
+            // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
@@ -214,7 +214,7 @@
                 0,
                 new WinLossDetailModel());
 
-            // Act 
+            // Act
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert

@@ -28,7 +28,7 @@
         {
             if (message == null)
             {
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
             }
 
             var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);

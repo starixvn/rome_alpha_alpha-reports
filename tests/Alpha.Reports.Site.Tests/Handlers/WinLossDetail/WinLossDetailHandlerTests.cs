@@ -19,7 +19,6 @@
     using Site.Requests.WinLossDetail;
     using Site.ViewModels;
     using Site.ViewModels.WinLossDetail;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     public class WinLossDetailHandlerTests

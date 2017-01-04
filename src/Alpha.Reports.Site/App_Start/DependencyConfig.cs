@@ -4,8 +4,8 @@
     using System.Reflection;
     using System.Web.Mvc;
     using Controllers;
-    using DataAccesses;
-    using DataAccesses.Impl;
+    using DataAccesses.WinLoss;
+    using DataAccesses.WinLossDetail;
     using Fanex.Data.Repository;
     using MediatR;
     using Models;

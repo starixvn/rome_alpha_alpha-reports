@@ -1,11 +1,10 @@
-﻿namespace Alpha.Reports.Site.Handlers
+﻿namespace Alpha.Reports.Site.Handlers.WinLoss
 {
     using System;
     using System.Linq;
     using App_GlobalResources;
     using Enumerations;
     using Extensions;
-    using Fanex.Common;
     using MediatR;
     using ONEbook.SpreadSheets;
     using Reports.Models;
@@ -13,7 +12,6 @@
     using Services;
     using ViewModels;
     using ViewModels.WinLoss;
-    using WinLoss;
     using Models = Reports.Models.Winloss;
 
     public class WinLossExcelHandler :
@@ -34,7 +32,7 @@
         {
             if (message == null)
             {
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
             }
 
             var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
@@ -50,7 +48,7 @@
             var reportTitle = $"{winlossViewModel.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
 
-            var templatePath = GetExcelTemplatePath(message.ReportName, GetFileName(message.UserLevel));
+            var templatePath = GetExcelTemplatePath(GetFileName(message.UserLevel));
             var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable);
 
             var result = winlossWorkbook

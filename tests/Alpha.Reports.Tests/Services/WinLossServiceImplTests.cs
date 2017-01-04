@@ -9,7 +9,7 @@
     using NSubstitute;
     using RemotingRef;
     using Reports.Criteria.WinLoss;
-    using Reports.DataAccesses;
+    using Reports.DataAccesses.WinLoss;
     using Reports.Models;
     using Reports.Models.Winloss;
     using Reports.Params;

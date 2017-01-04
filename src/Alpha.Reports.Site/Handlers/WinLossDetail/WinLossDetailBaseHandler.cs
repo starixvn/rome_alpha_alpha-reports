@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using App_GlobalResources;
     using Extensions;
     using Params;

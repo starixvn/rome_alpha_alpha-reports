@@ -4,6 +4,7 @@
     using System.Linq;
     using Criteria.WinLossDetail;
     using DataAccesses;
+    using DataAccesses.WinLossDetail;
     using Models;
     using Models.WinLossDetail;
     using Params;

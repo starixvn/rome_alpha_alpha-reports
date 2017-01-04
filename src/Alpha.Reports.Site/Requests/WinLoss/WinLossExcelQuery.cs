@@ -12,7 +12,5 @@
         }
 
         public UserLevel UserLevel => Enumeration.FromValue<UserLevel>(UserLevelId);
-
-        public string ReportName { get; } = "WinLoss";
     }
 }

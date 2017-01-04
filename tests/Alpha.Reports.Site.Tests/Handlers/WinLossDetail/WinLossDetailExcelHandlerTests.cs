@@ -13,9 +13,7 @@
     using Reports.Models.WinLossDetail;
     using Services;
     using Site.Handlers.WinLossDetail;
-    using Site.Helpers;
     using Site.Requests.WinLossDetail;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     public class WinLossDetailExcelHandlerTests
@@ -214,7 +212,7 @@
             winLossDetailExcelHandler.Handle(message);
 
             // Assert
-            winLossDetailExcelHandler.Received().GetExcelTemplatePath(message.ReportName, fileName);
+            winLossDetailExcelHandler.Received().GetExcelTemplatePath(fileName);
         }
 
         private WinLossDetailExcelQuery CreateExportExcelQuery(byte userLevel)

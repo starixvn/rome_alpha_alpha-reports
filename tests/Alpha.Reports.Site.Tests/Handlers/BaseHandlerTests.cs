@@ -14,7 +14,6 @@
     using Site.Requests;
     using Site.Requests.WinLossDetail;
     using Site.ViewModels;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     public class BaseHandlerTests
@@ -262,30 +261,18 @@
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("  ")]
-        public void MapExcelTemplatePath_ReportNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string reportName)
+        public void GetExcelTemplatePath_FileNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string fileName)
         {
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => baseHandler.GetExcelTemplatePath(reportName, "filename"));
+            Assert.Throws<ArgumentNullException>(() => baseHandler.GetExcelTemplatePath(fileName));
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("  ")]
-        public void MapExcelTemplatePath_FileNameIsNullOrWhiteSpace_ThrowsArgumentNullException(string fileName)
-        {
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => baseHandler.GetExcelTemplatePath("reportName", fileName));
-        }
-
-        [Theory]
-        [InlineData("reportName", "filePath", "xls", "~/App_Data/ExcelTemplates/reportName/filePath.xls")]
-        [InlineData("reportName1", "filePath1", "xls1", "~/App_Data/ExcelTemplates/reportName1/filePath1.xls1")]
+        [InlineData("filePath", "xls", "~/App_Data/ExcelTemplates/Handlers/filePath.xls")]
+        [InlineData("filePath1", "xls1", "~/App_Data/ExcelTemplates/Handlers/filePath1.xls1")]
         public void MapExcelTemplatePath_ReturnCorrectFilePathWithExtension(
-            string reportName, 
-            string fileName, 
-            string extension, 
+            string fileName,
+            string extension,
             string expectedPath)
         {
             // Arrange
@@ -293,7 +280,7 @@
             baseHandler.IsFileExist = path => true;
 
             // Act
-            var actualPath = baseHandler.GetExcelTemplatePath(reportName, fileName, extension);
+            var actualPath = baseHandler.GetExcelTemplatePath(fileName, extension);
 
             // Assert
             Assert.Equal(expectedPath, actualPath);

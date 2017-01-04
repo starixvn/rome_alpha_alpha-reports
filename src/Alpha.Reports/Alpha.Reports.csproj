@@ -93,11 +93,11 @@
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLoss\DailyEnteredSportCriteria.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteria.cs" />
-    <Compile Include="DataAccesses\Impl\WinLossDataAccessImpl.cs" />
-    <Compile Include="DataAccesses\Impl\WinLossDetailDataAccessImpl.cs" />
+    <Compile Include="DataAccesses\WinLoss\WinLossDataAccessImpl.cs" />
+    <Compile Include="DataAccesses\WinLossDetail\WinLossDetailDataAccessImpl.cs" />
     <Compile Include="DataAccesses\ObjectDbFactory.cs" />
-    <Compile Include="DataAccesses\WinLossDataAccess.cs" />
-    <Compile Include="DataAccesses\WinLossDetailDataAccess.cs" />
+    <Compile Include="DataAccesses\WinLoss\WinLossDataAccess.cs" />
+    <Compile Include="DataAccesses\WinLossDetail\WinLossDetailDataAccess.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -119,14 +119,14 @@
     <Compile Include="Params\WinLossParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DateTimeManager.cs" />
-    <Compile Include="Services\Impl\ProductServiceImpl.cs" />
-    <Compile Include="Services\Impl\WinLossServiceImpl.cs" />
+    <Compile Include="Services\ProductServiceImpl.cs" />
+    <Compile Include="Services\WinLoss\WinLossServiceImpl.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\ReportDateService.cs" />
-    <Compile Include="Services\Impl\ReportDateServiceImpl.cs" />
-    <Compile Include="Services\Impl\WinLossDetailServiceImpl.cs" />
-    <Compile Include="Services\WinLossDetailService.cs" />
-    <Compile Include="Services\WinLossService.cs" />
+    <Compile Include="Services\ReportDateServiceImpl.cs" />
+    <Compile Include="Services\WinLossDetail\WinLossDetailServiceImpl.cs" />
+    <Compile Include="Services\WinLossDetail\WinLossDetailService.cs" />
+    <Compile Include="Services\WinLoss\WinLossService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

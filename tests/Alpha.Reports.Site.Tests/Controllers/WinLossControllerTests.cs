@@ -6,7 +6,6 @@
     using Site.Controllers;
     using Site.Requests.WinLoss;
     using Site.ViewModels;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     [Trait("Category", "WinLoss")]

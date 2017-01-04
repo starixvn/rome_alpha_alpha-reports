@@ -6,6 +6,7 @@
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
     using Reports.DataAccesses;
+    using Reports.DataAccesses.WinLossDetail;
     using Reports.Enumerations;
     using Reports.Models;
     using Reports.Models.WinLossDetail;

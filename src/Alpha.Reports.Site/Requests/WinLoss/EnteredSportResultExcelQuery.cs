@@ -9,7 +9,5 @@
         public EnteredSportResultExcelQuery(IUser user) : base(user)
         {
         }
-
-        public string ReportName { get; } = "WinLoss";
     }
 }

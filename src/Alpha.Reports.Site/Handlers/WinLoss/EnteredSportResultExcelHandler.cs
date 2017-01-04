@@ -30,7 +30,7 @@
         {
             if (message == null)
             {
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
             }
 
             var reportData = reportService.GetEnteredSportResults();
@@ -40,7 +40,7 @@
                 ["Today"] = DateTimeManager.Now.ToShortDateWithSlash()
             };
 
-            var templatePath = GetExcelTemplatePath(message.ReportName, "MatchResultEntered");
+            var templatePath = GetExcelTemplatePath("MatchResultEntered");
             var templateInfo = new TemplateInfo(
                 templatePath: templatePath,
                 noInfomationText: Resources.NoInformationIsAvailable,

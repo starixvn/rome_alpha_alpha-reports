@@ -14,11 +14,10 @@
     using Reports.Models;
     using Reports.Models.Winloss;
     using Services;
-    using Site.Handlers;
+    using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
     using Site.ViewModels;
     using Site.ViewModels.WinLoss;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     [Trait("Category", "WinLoss")]

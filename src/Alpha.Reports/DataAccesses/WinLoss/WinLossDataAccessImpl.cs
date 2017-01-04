@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.DataAccesses.Impl
+﻿namespace Alpha.Reports.DataAccesses.WinLoss
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Handlers
+﻿namespace Alpha.Reports.Site.Handlers.WinLoss
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -9,7 +9,6 @@
     using Requests.WinLoss;
     using Services;
     using ViewModels.WinLoss;
-    using WinLoss;
 
     public class WinLossHandler :
         WinLossBaseHandler,
@@ -30,7 +29,7 @@
         {
             if (message == null)
             {
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
             }
 
             var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);

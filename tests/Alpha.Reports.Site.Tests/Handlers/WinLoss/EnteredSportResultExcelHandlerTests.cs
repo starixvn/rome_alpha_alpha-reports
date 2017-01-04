@@ -10,9 +10,7 @@
     using Reports.Models.Winloss;
     using Services;
     using Site.Handlers.WinLoss;
-    using Site.Helpers;
     using Site.Requests.WinLoss;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -114,7 +112,7 @@
             enteredSportResultExcelHandler.Handle(message);
 
             // Assert
-            enteredSportResultExcelHandler.Received().GetExcelTemplatePath(message.ReportName, "MatchResultEntered");
+            enteredSportResultExcelHandler.Received().GetExcelTemplatePath("MatchResultEntered");
         }
 
         private EnteredSportResultExcelQuery CreateExportEnteredResultsExcelQuery(byte userLevel)

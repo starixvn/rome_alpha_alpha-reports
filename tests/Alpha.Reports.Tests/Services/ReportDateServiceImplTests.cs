@@ -7,7 +7,7 @@
     using NSubstitute;
     using Reports.Criteria;
     using Reports.Models;
-    using Reports.Services.Impl;
+    using Reports.Services;
     using Xunit;
 
     [Collection("FanexCacheCollection")]

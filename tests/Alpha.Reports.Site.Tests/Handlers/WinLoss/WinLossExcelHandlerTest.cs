@@ -11,11 +11,9 @@
     using Reports.Models;
     using Reports.Models.Winloss;
     using Services;
-    using Site.Handlers;
-    using Site.Helpers;
+    using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
     using Site.ViewModels.WinLoss;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -217,7 +215,7 @@
             winLossExcelHandler.Handle(message);
 
             // Assert
-            winLossExcelHandler.Received().GetExcelTemplatePath(message.ReportName, fileName);
+            winLossExcelHandler.Received().GetExcelTemplatePath(fileName);
         }
 
         private WinLossExcelQuery CreateExportWinlossExcelQuery(byte userLevel)

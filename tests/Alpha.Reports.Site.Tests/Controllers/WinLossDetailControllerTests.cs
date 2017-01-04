@@ -6,7 +6,6 @@
     using Site.Controllers;
     using Site.Requests.WinLossDetail;
     using Site.ViewModels;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     public class WinLossDetailControllerTests

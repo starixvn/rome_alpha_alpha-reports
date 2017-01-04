@@ -3,7 +3,6 @@
     using NSubstitute;
     using Reports.Models;
     using Site.Requests.WinLossDetail;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     public class WinLossDetailQueryTests

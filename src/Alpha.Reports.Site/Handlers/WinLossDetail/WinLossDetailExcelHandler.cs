@@ -1,10 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
     using System;
-    using System.Linq;
     using App_GlobalResources;
     using Extensions;
-    using Fanex.Common;
     using MediatR;
     using ONEbook.SpreadSheets;
     using Reports.Models;
@@ -32,7 +30,7 @@
         {
             if (message == null)
             {
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
             }
 
             var reportNameByLevel = GetReportNameByLevel(message.UserLevel);
@@ -42,7 +40,7 @@
 
             var winLossDetailParam = CreateParameter(message, message.UserLevel);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
-            var templatePath = GetExcelTemplatePath(message.ReportName, GetTemplateName(message.UserLevel));
+            var templatePath = GetExcelTemplatePath(GetTemplateName(message.UserLevel));
 
             var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable)
                  .FreezePanel(4, B);

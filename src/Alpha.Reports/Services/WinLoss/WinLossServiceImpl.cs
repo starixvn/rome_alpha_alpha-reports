@@ -5,6 +5,7 @@
     using System.Linq;
     using Criteria.WinLoss;
     using DataAccesses;
+    using DataAccesses.WinLoss;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models.Winloss;

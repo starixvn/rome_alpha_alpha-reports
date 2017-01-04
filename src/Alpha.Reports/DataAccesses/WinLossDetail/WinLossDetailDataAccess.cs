@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.DataAccesses
+﻿namespace Alpha.Reports.DataAccesses.WinLossDetail
 {
     using Criteria.WinLossDetail;
     using Models;

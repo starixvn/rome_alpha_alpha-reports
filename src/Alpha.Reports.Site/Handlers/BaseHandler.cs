@@ -49,78 +49,74 @@
         }
 
         internal IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels<T>(
-            ReportBaseQuery message,
+            ReportBaseQuery query,
             string controllerName,
             string actionName,
-            Func<CustInfo, ReportBaseQuery, string, T> buildActionLinkViewModelFunc) where T : class
+            Func<CustInfo, ReportBaseQuery, string, T> buildRouteValues) where T : class
         {
-            if (message == null)
+            if (query == null)
             {
-                throw new ArgumentNullException(nameof(message));
+                throw new ArgumentNullException(nameof(query));
             }
 
-            if (buildActionLinkViewModelFunc == null)
+            if (buildRouteValues == null)
             {
-                throw new ArgumentNullException(nameof(buildActionLinkViewModelFunc));
+                throw new ArgumentNullException(nameof(buildRouteValues));
             }
 
-            var drilldownLevels = new List<ActionLinkViewModel>();
-            var breadcrumbLevels = new List<CustInfo>();
+            var breadcrumbLevels = new List<ActionLinkViewModel>();
+            var lineInfo = new List<CustInfo>();
 
-            if (!string.IsNullOrWhiteSpace(message.BreadcrumbLevels))
+            // If breadcumbs has data, then re-assign old data first
+            if (!string.IsNullOrWhiteSpace(query.BreadcrumbLevels))
             {
-                var messageBreadcrumbLevels = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(message.BreadcrumbLevels.Replace("'", "\""));
+                var oldLineInfo = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(query.BreadcrumbLevels.Replace("'", "\""));
 
-                foreach (var custInfo in messageBreadcrumbLevels)
+                foreach (var custInfo in oldLineInfo)
                 {
-                    if (custInfo.UserLevelId == message.UserLevelId)
+                    if (custInfo.UserLevelId == query.UserLevelId)
                     {
                         break;
                     }
 
-                    breadcrumbLevels.Add(custInfo);
+                    lineInfo.Add(custInfo);
                     var actionLinkViewModel = new ActionLinkViewModel(
                         controllerName: controllerName,
                         actionName: actionName,
                         linkText: custInfo.CustName,
-                        routeValues: buildActionLinkViewModelFunc(custInfo, message, ConvertBreadcrumbLevelsToJson(breadcrumbLevels)));
-                    drilldownLevels.Add(actionLinkViewModel);
+                        routeValues: buildRouteValues(custInfo, query, ToJson(lineInfo)));
+
+                    breadcrumbLevels.Add(actionLinkViewModel);
                 }
             }
 
-            breadcrumbLevels.Add(new CustInfo(message.CustId, message.CustName, message.UserLevelId));
-            var routeValues = buildActionLinkViewModelFunc(
-                new CustInfo(message.CustId, message.CustName, message.UserLevelId),
-                message,
-                ConvertBreadcrumbLevelsToJson(breadcrumbLevels));
+            // For current drilldown customer
+            lineInfo.Add(new CustInfo(query.CustId, query.CustName, query.UserLevelId));
 
-            drilldownLevels.Add(new ActionLinkViewModel(
+            var routeValues = buildRouteValues(new CustInfo(query.CustId, query.CustName, query.UserLevelId), query, ToJson(lineInfo));
+            breadcrumbLevels.Add(
+                new ActionLinkViewModel(
                 controllerName: controllerName,
                 actionName: actionName,
-                linkText: message.CustName,
+                linkText: query.CustName,
                 routeValues: routeValues));
 
-            return drilldownLevels;
+            return breadcrumbLevels;
         }
 
-        private string ConvertBreadcrumbLevelsToJson(IEnumerable<CustInfo> breadcrumbLevels)
+        private string ToJson(object data)
         {
-            return JsonConvert.SerializeObject(breadcrumbLevels).Replace("\"", "'");
+            return JsonConvert.SerializeObject(data).Replace("\"", "'");
         }
 
-        internal virtual string GetExcelTemplatePath(string reportName, string templateName, string fileExtension = "xls")
+        internal virtual string GetExcelTemplatePath(string templateName, string fileExtension = "xls")
         {
-            if (string.IsNullOrWhiteSpace(reportName))
-            {
-                throw new ArgumentNullException(nameof(reportName), "Report Name cannot be null or empty");
-            }
-
             if (string.IsNullOrWhiteSpace(templateName))
             {
                 throw new ArgumentNullException(nameof(templateName), "Template Name cannot be null or empty");
             }
 
-            var relativePath = string.Format(ExcelTemplateDir, reportName, templateName, fileExtension);
+            var relativePath = string.Format(ExcelTemplateDir, GetExcelTemplateFolder(), templateName, fileExtension);
 
             var absolutePath = MapPath(relativePath);
 
@@ -130,6 +126,22 @@
             }
 
             throw new FileNotFoundException($"Template {absolutePath} does not exist");
+        }
+
+        private string GetExcelTemplateFolder()
+        {
+            var reportNamespace = GetType().Namespace;
+
+            var lastIndexOfDot = reportNamespace.LastIndexOf(".", StringComparison.Ordinal) + 1;
+
+            if (lastIndexOfDot <= 0)
+            {
+                throw new ArgumentException("Namespace does not contain any dot character, wrong report convention.");
+            }
+
+            var templateFolderName = reportNamespace.Substring(lastIndexOfDot);
+
+            return templateFolderName;
         }
     }
 }
