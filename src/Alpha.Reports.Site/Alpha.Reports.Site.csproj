@@ -272,14 +272,11 @@
     <Compile Include="Requests\WinLoss\EnteredSportResultExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossQuery.cs" />
-    <Compile Include="ViewModels\Components\DataGridViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
-    <Compile Include="ViewModels\Components\FilterControlViewModel.cs" />
     <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
-    <Compile Include="ViewModels\Components\ReportPageViewModel.cs" />
     <Compile Include="ViewModels\BreadcrumbViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailsActionLinkViewModel.cs" />
