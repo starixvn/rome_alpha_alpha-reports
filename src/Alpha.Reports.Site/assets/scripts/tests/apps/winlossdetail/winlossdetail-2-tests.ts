@@ -158,7 +158,7 @@ describe("WinLossDetail_", () => {
             expect(winLossDetailView.hideFilter).toHaveBeenCalled();
             expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsFilterVisible", false);
         });
-    })
+    });
     describe("onSwitchMode", () => {
         it(`1st Switch on Normal Mode -> 
                 Blocks/Unblocks UI;
