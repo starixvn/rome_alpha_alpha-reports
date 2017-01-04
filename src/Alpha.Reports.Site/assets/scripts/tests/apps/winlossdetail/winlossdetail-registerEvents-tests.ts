@@ -1,6 +1,6 @@
 ﻿// winLossDetailView.$reportForm.trigger("submit") make error
 // error: Timeout occurred when executing test file
-// while Running:D:\Nexcel\GitLab\Rome\AgencyI1\alpha-reports\src\Alpha.Reports.Site\assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts
+// while Running: alpha-reports\src\Alpha.Reports.Site\assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts
 describe("WinLossDetail_", () => {
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
