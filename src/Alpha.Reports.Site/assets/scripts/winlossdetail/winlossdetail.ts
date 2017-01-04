@@ -311,7 +311,6 @@ class WinLossDetailView {
         let this$ = this.$;
 
         this$.blockUI();
-
         let params = this.getParams();
 
         if (this.isSwitchView) {
