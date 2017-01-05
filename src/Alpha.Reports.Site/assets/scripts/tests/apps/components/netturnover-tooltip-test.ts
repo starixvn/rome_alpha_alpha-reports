@@ -63,6 +63,8 @@
             expect(alphaReports.localStorage.get(cookieNetTurnoverTooltip)).toBe(maxTimesToShowTooltip);
             expect(netTurnoverTooltipComponent.closeNetTurnoverTooltip).toHaveBeenCalledWith(netTurnoverTooltip);
         });
+
+        // this test case does not work
         //it("Not reach max times to show tooltip -> Auto close tooltip after 10000", () => {
         //    // arrange
         //    setFixtures(`<body>
@@ -73,11 +75,13 @@
         //    spyOn(netTurnoverTooltipComponent, "closeNetTurnoverTooltip");
 
         //    // act
+        //    jasmine.clock().install();
         //    let netTurnoverTooltip = netTurnoverTooltipComponent.render();
-        //    jasmine.clock().tick(10000);
+        //    jasmine.clock().tick(100001);
+        //    jasmine.clock().uninstall();
 
         //    // assert
-        //    expect($("#netturnovertooltip").length).toBe(0);
+        //    expect(netTurnoverTooltipComponent.closeNetTurnoverTooltip).toHaveBeenCalledWith(netTurnoverTooltip);
         //});
     });
 });
