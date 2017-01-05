@@ -65,19 +65,19 @@
   "Tests": [
     {
       "Path": "apps/winlossdetail",
-      "Excludes": [ "**.js.map" ]
+      "Excludes": [ "**.js.map", "**.js" ]
     },
     {
       "Path": "apps/winloss",
-      "Excludes": [ "**.js.map" ]
+      "Excludes": [ "**.js.map", "**.js" ]
     },
     {
       "Path": "apps/core",
-      "Excludes": [ "**.js.map" ]
+      "Excludes": [ "**.js.map", "**.js" ]
     },
     {
       "Path": "apps/components",
-      "Excludes": [ "**.js.map" ]
+      "Excludes": [ "**.js.map", "**.js" ]
     }
   ]
 }
