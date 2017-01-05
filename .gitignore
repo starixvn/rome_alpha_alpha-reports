@@ -50,3 +50,5 @@ bundles
 
 artifacts/
 _Chutzpah.coverage.html
+
+*.test.html
