@@ -205,10 +205,6 @@
       <Project>{b868e639-f3f9-4d54-b02e-57f3bee0965e}</Project>
       <Name>Alpha.Reports</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Alpha.Reports.Tests\Alpha.Reports.Tests.csproj">
-      <Project>{0F9FDF8D-E083-47E3-99AB-9AC53C74C366}</Project>
-      <Name>Alpha.Reports.Tests</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

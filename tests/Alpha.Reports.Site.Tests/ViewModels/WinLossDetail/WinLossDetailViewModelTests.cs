@@ -14,7 +14,6 @@
     using Site.Requests.WinLossDetail;
     using Site.ViewModels;
     using Site.ViewModels.WinLossDetail;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
@@ -88,6 +87,7 @@
             {
                 new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(user))
             };
+            winLossDetailViewModel.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]";
 
             var expectedActionLinkViewModel = new WinLossDetailsActionLinkViewModel(
                     0,
@@ -103,7 +103,7 @@
                     false,
                     false,
                     0,
-                    winLossDetailViewModel.BreadcrumbLevels);
+                     "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]");
 
             // Act
             var actualActionLinkViewModel = winLossDetailViewModel.ActionLinkViewModel(winLossDetail);

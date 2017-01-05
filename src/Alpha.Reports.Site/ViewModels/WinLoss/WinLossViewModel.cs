@@ -9,7 +9,6 @@
     using Extensions;
     using Reports.Models;
     using Reports.Models.Winloss;
-    using Requests.WinLoss;
 
     public class WinLossViewModel
     {
@@ -83,7 +82,7 @@
                 ProductMultiSelectionViewModel,
                 IsFilterVisible,
                 MinDate,
-                ((WinLossQuery)BreadcrumbLevels.Last().RouteValues).BreadcrumbLevels);
+                DrillDownInfoJson);
 
         public WinLossActionLinkViewModel ActionLinkViewModel(WinLossModel winLoss)
         {
@@ -103,7 +102,7 @@
                     IsHistoricReport,
                     IsFilterVisible,
                     IsStackMode,
-                    BreadcrumbLevels);
+                    DrillDownInfoJson);
         }
 
         public UserLevel UserLevel { get; set; }
@@ -127,5 +126,7 @@
         }
 
         public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
+
+        public string DrillDownInfoJson { get; set; }
     }
 }

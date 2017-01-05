@@ -5,7 +5,7 @@
 
     public class ReportBaseQuery
     {
-        public ReportBaseQuery()
+        internal ReportBaseQuery()
         {
         }
 
@@ -25,7 +25,7 @@
 
         public byte UserLevelId { get; set; }
 
-        public string BreadcrumbLevels { get; set; }
+        public string DrillDownInfoJson { get; set; }
 
         public DateTime FromDate { get; set; }
 

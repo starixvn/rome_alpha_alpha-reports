@@ -17,7 +17,7 @@
 
         private Func<string, string> mapPath;
 
-        internal Func<string, string> MapPath
+        protected internal Func<string, string> MapPath
         {
             get { return mapPath ?? HttpContext.Current.Server.MapPath; }
             set { mapPath = value; }
@@ -25,7 +25,7 @@
 
         internal Func<string, bool> IsFileExist { get; set; } = File.Exists;
 
-        internal IEnumerable<SelectListItem> BuildProductSelectListItems(
+        protected internal IEnumerable<SelectListItem> BuildProductSelectListItems(
             IEnumerable<int> userSelectedProductIds,
             IEnumerable<Product> products)
         {
@@ -48,7 +48,8 @@
             });
         }
 
-        internal IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels<T>(
+        protected internal IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels<T>(
+            IEnumerable<CustInfo> drillDownInfo,
             ReportBaseQuery query,
             string controllerName,
             string actionName,
@@ -65,51 +66,54 @@
             }
 
             var breadcrumbLevels = new List<ActionLinkViewModel>();
-            var lineInfo = new List<CustInfo>();
+            var drillDonwInfoByLevels = new List<CustInfo>();
 
-            // If breadcumbs has data, then re-assign old data first
-            if (!string.IsNullOrWhiteSpace(query.BreadcrumbLevels))
+            foreach (var custInfo in drillDownInfo)
             {
-                var oldLineInfo = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(query.BreadcrumbLevels.Replace("'", "\""));
+                drillDonwInfoByLevels.Add(custInfo);
 
-                foreach (var custInfo in oldLineInfo)
+                var actionLinkViewModel = new ActionLinkViewModel(
+                    controllerName: controllerName,
+                    actionName: actionName,
+                    linkText: custInfo.CustName,
+                    routeValues: buildRouteValues(custInfo, query, ToJson(drillDonwInfoByLevels)));
+
+                breadcrumbLevels.Add(actionLinkViewModel);
+            }
+
+            return breadcrumbLevels;
+        }
+
+        protected internal IEnumerable<CustInfo> BuildDrillDownInfo(ReportBaseQuery query)
+        {
+            var drillDownInfo = new List<CustInfo>();
+
+            if (!string.IsNullOrWhiteSpace(query.DrillDownInfoJson))
+            {
+                var previousDrillDownInfo = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(query.DrillDownInfoJson.Replace("'", "\""));
+
+                foreach (var custInfo in previousDrillDownInfo)
                 {
                     if (custInfo.UserLevelId == query.UserLevelId)
                     {
                         break;
                     }
 
-                    lineInfo.Add(custInfo);
-                    var actionLinkViewModel = new ActionLinkViewModel(
-                        controllerName: controllerName,
-                        actionName: actionName,
-                        linkText: custInfo.CustName,
-                        routeValues: buildRouteValues(custInfo, query, ToJson(lineInfo)));
-
-                    breadcrumbLevels.Add(actionLinkViewModel);
+                    drillDownInfo.Add(custInfo);
                 }
             }
 
-            // For current drilldown customer
-            lineInfo.Add(new CustInfo(query.CustId, query.CustName, query.UserLevelId));
+            drillDownInfo.Add(new CustInfo(query.CustId, query.CustName, query.UserLevelId));
 
-            var routeValues = buildRouteValues(new CustInfo(query.CustId, query.CustName, query.UserLevelId), query, ToJson(lineInfo));
-            breadcrumbLevels.Add(
-                new ActionLinkViewModel(
-                controllerName: controllerName,
-                actionName: actionName,
-                linkText: query.CustName,
-                routeValues: routeValues));
-
-            return breadcrumbLevels;
+            return drillDownInfo;
         }
 
-        private string ToJson(object data)
+        protected internal string ToJson(object data)
         {
             return JsonConvert.SerializeObject(data).Replace("\"", "'");
         }
 
-        internal virtual string GetExcelTemplatePath(string templateName, string fileExtension = "xls")
+        protected internal virtual string GetExcelTemplatePath(string templateName, string fileExtension = "xls")
         {
             if (string.IsNullOrWhiteSpace(templateName))
             {
@@ -128,7 +132,7 @@
             throw new FileNotFoundException($"Template {absolutePath} does not exist");
         }
 
-        private string GetExcelTemplateFolder()
+        protected internal string GetExcelTemplateFolder()
         {
             var reportNamespace = GetType().Namespace;
 

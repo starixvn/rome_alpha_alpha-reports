@@ -85,7 +85,7 @@
                 ProductMultiSelectionViewModel,
                 IsFilterVisible,
                 MinDate,
-                ((WinLossDetailQuery)BreadcrumbLevels.Last().RouteValues).BreadcrumbLevels);
+                DrillDownInfoJson);
 
         public WinLossDetailsActionLinkViewModel ActionLinkViewModel(WinLossDetailModel winLossDetail)
         {
@@ -108,7 +108,7 @@
                     IsFilterVisible,
                     IsStackMode,
                     ReportData.PageSize,
-                    BreadcrumbLevels);
+                    DrillDownInfoJson);
         }
 
         public string Title { get; set; }
@@ -120,5 +120,7 @@
         public ReportData<WinLossDetailModel> ReportData { get; set; }
 
         public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
+
+        public string DrillDownInfoJson { get; set; }
     }
 }

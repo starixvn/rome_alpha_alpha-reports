@@ -1,26 +1,13 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossDetails
 {
-    using System.Collections.Generic;
     using Constants;
     using Extensions;
-    using NSubstitute;
-    using Reports.Models;
-    using Site.Requests.WinLossDetail;
-    using Site.ViewModels;
     using Site.ViewModels.WinLossDetail;
-    using Sunplus.Agent.Model.Entities;
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
     public class WinLossDetailsActionLinkViewModelTests
     {
-        private readonly IUser user;
-
-        public WinLossDetailsActionLinkViewModelTests()
-        {
-            user = Substitute.For<IUser>();
-        }
-
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
@@ -31,10 +18,6 @@
         {
             // Arrange
             var expectedCustId = custId;
-            var breadcrumbLevels = new List<ActionLinkViewModel>
-            {
-                new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(user))
-            };
 
             var winLossDetailsActionLinkViewModel = new WinLossDetailsActionLinkViewModel(
                 custId,
@@ -50,7 +33,7 @@
                 false,
                 false,
                 0,
-                breadcrumbLevels);
+                 "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]");
 
             // Act
             var actualCustId = winLossDetailsActionLinkViewModel.CustId;

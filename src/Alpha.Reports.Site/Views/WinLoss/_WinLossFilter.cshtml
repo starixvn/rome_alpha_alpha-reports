@@ -6,7 +6,6 @@
     @(Model.IsHistoricReport
         ? MonthPicker.Render(Model.MonthPickerViewModel)
         : DateRangePicker.Render(Model.DateRangePickerViewModel))
-    
 
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
@@ -32,7 +31,7 @@
 
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
-    @Html.Hidden("BreadcrumbLevels", Model.BreadcrumbLevels)
+    @Html.Hidden("DrillDownInfoJson", Model.DrillDownInfoJson)
     @Html.Hidden("UserLevelId", Model.UserLevel.Value)
 }
 </form>

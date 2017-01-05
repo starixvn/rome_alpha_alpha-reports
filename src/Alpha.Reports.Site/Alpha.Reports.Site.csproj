@@ -278,7 +278,7 @@
     <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
-    <Compile Include="ViewModels\BreadcrumbViewModel.cs" />
+    <Compile Include="ViewModels\ActionLinkViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailsActionLinkViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
@@ -321,6 +321,9 @@
       <DependentUpon>default.css</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
+    <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
+      <DependentUpon>winlossdetail.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\winloss\enteredresult.js" />
     <Content Include="assets\bundles\winloss\enteredresult.min.js">
       <DependentUpon>enteredresult.js</DependentUpon>

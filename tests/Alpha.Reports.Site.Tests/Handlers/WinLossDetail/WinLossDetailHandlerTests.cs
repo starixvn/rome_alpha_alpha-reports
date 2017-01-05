@@ -83,7 +83,7 @@
             var routeValue = new WinLossDetailQuery(user);
             routeValue.UserLevelId = 4;
             routeValue.UserSelectedProductIds = userSelectedProductIds;
-            routeValue.BreadcrumbLevels = "[{'CustId':0,'CustName':'','UserLevelId':4}]";
+            routeValue.DrillDownInfoJson = "[{'CustId':0,'CustName':'','UserLevelId':4}]";
 
             var expectedWinLossDetailViewModel = new WinLossDetailViewModel
             {
@@ -108,7 +108,8 @@
                         actionName: "Index",
                         linkText: message.CustName,
                         routeValues: routeValue)
-                }
+                },
+                DrillDownInfoJson = "[{'CustId':0,'CustName':'','UserLevelId':4}]"
             };
 
             // Act

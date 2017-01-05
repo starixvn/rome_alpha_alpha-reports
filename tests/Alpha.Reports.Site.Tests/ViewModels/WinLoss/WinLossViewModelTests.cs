@@ -70,6 +70,7 @@
             {
                 new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossQuery(user))
             };
+            winLossViewModel.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]";
 
             var expectedActionLinkViewModel = new WinLossActionLinkViewModel(
                     0,
@@ -82,7 +83,7 @@
                     false,
                     false,
                     false,
-                    winLossViewModel.BreadcrumbLevels);
+                     "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]");
 
             // Act
             var actualActionLinkViewModel = winLossViewModel.ActionLinkViewModel(winLoss);

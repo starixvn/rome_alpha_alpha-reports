@@ -38,6 +38,7 @@
             var winLossDetailParam = CreateParameter(message, userLevel);
 
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
+            var drillDownInfo = BuildDrillDownInfo(message);
 
             var viewModel = new WinLossDetailViewModel
             {
@@ -61,11 +62,13 @@
                 SortPropertyName = winLossDetailParam.SortByPropertyName,
                 IsDescendingSort = winLossDetailParam.IsDescendingSort,
                 HasSubmittedParams = message.HasSubmittedParams,
+                DrillDownInfoJson = ToJson(drillDownInfo),
                 BreadcrumbLevels = BuildBreadcrumbLevels(
+                    drillDownInfo,
                     message,
                     "WinLossDetail",
                     "Index",
-                    (custInfo, query, breadcrumbLevels) =>
+                    (custInfo, query, drillDownInfoByLevelJson) =>
                     {
                         var routeValues = new WinLossDetailQuery(user);
                         routeValues.CustId = custInfo.CustId;
@@ -82,7 +85,7 @@
                         routeValues.IsFilterVisible = message.IsFilterVisible;
                         routeValues.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
                         routeValues.UserLevelId = custInfo.UserLevelId;
-                        routeValues.BreadcrumbLevels = breadcrumbLevels;
+                        routeValues.DrillDownInfoJson = drillDownInfoByLevelJson;
 
                         return routeValues;
                     })

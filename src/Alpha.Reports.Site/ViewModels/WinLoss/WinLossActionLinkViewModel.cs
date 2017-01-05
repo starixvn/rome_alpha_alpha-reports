@@ -18,7 +18,7 @@
             bool isHictoricReport,
             bool isFilterVisible,
             bool isStackMode,
-            IEnumerable<ActionLinkViewModel> breadcrumbLevels)
+            string drillDownInfoJson)
         {
             CustId = custId;
             CustName = custName;
@@ -30,7 +30,7 @@
             IsHistoricReport = isHictoricReport;
             IsFilterVisible = isFilterVisible;
             IsStackMode = isStackMode;
-            BreadcrumbLevels = ((WinLossQuery)breadcrumbLevels.Last().RouteValues).BreadcrumbLevels;
+            DrillDownInfoJson = drillDownInfoJson;
         }
 
         public int CustId { get; }
@@ -53,6 +53,6 @@
 
         public bool IsStackMode { get; }
 
-        public string BreadcrumbLevels { get; }
+        public string DrillDownInfoJson { get; }
     }
 }
