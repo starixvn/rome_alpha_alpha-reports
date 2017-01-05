@@ -17,6 +17,7 @@
     using Sunplus.Agent.Model.Entities;
     using Xunit;
 
+    [Trait("Category", "WinLossDetail")]
     public class WinLossDetailViewModelTests
     {
         private const int AllBetProductId = 21;

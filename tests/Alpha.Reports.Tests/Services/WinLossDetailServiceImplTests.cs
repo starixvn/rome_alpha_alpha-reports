@@ -14,6 +14,7 @@
     using Reports.Services.WinLossDetail;
     using Xunit;
 
+    [Trait("Category", "WinLossDetail")]
     public class WinLossDetailServiceImplTests
     {
         private readonly WinLossDetailDataAccess dataAccess;

@@ -9,6 +9,7 @@
     using Site.ViewModels.WinLossDetail;
     using Xunit;
 
+    [Trait("Category", "WinLossDetail")]
     public class WinLossDetailFilterViewModelTests
     {
         public WinLossDetailFilterViewModelTests()

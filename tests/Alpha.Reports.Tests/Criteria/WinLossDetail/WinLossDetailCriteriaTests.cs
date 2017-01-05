@@ -6,6 +6,7 @@
     using Reports.Models;
     using Xunit;
 
+    [Trait("Category", "WinLossDetail")]
     public class WinLossDetailCriteriaTests
     {
         [Theory]

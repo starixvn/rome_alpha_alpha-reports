@@ -11,6 +11,7 @@
     using Sunplus.Agent.Model.Entities;
     using Xunit;
 
+    [Trait("Category", "WinLossDetail")]
     public class WinLossDetailsActionLinkViewModelTests
     {
         private readonly IUser user;

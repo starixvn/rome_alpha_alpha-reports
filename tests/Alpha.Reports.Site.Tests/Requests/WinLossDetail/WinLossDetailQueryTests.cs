@@ -5,6 +5,7 @@
     using Site.Requests.WinLossDetail;
     using Xunit;
 
+    [Trait("Category", "WinLossDetail")]
     public class WinLossDetailQueryTests
     {
         private readonly IUser user;

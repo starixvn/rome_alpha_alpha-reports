@@ -15,6 +15,7 @@
     using Reports.Models.WinLossDetail;
     using Xunit;
 
+    [Trait("Category", "WinLossDetail")]
     public class WinLossDetailDataAccessImplTests
     {
         private readonly IObjectDb objectDb;

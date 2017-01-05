@@ -11,6 +11,7 @@
     using Reports.Services;
     using Xunit;
 
+    [Trait("Category", "WinLossDetail")]
     public class WinLossDetailParamTests
     {
         public WinLossDetailParamTests()

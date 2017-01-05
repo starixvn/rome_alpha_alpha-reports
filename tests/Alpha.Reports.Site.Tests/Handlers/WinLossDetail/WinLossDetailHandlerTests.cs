@@ -22,6 +22,7 @@
     using Site.ViewModels.WinLossDetail;
     using Xunit;
 
+    [Trait("Category", "WinLossDetail")]
     public class WinLossDetailHandlerTests
     {
         private readonly ProductService productService;

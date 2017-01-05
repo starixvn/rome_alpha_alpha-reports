@@ -17,6 +17,7 @@
     using Site.Requests.WinLossDetail;
     using Xunit;
 
+    [Trait("Category", "WinLossDetail")]
     public class WinLossDetailExcelHandlerTests
     {
         private readonly Workbook<WinLossDetailModel> workbook;
