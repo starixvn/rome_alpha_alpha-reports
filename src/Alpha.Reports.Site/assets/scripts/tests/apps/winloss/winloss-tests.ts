@@ -389,4 +389,83 @@
          });
      });
 
+
+     describe("getSortedColumnName", () => {
+         it("Normal Mode => Returns Sorted Column name data on table report", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.init();
+
+             // act
+             var actualSortedColumnName = winLossView.getSortedColumnName();
+
+             // assert
+             expect(actualSortedColumnName).toEqual("WinLoss");
+         });
+
+         let sortReportOnStackModeTest = (sortedColumnName: string, expectedSortedCoumnResult: string) => {
+             // arrange
+             setFixtures(winLossDetailTemplate.currentReportWithStackMode);
+             winLossView.init();
+             winLossView.$tableReport.data("sortedcolumn", sortedColumnName);
+
+             // act
+             var actualSortedColumnName = winLossView.getSortedColumnName();
+
+             // assert
+             expect(actualSortedColumnName).toEqual(expectedSortedCoumnResult);
+         };
+
+         it("Stack Mode, Sort on GrossComm => Returns Name Turnover", () => {
+             sortReportOnStackModeTest("GrossComm", "Turnover");
+         });
+
+         it("Stack Mode, Sort on MemberNetWinLoss.Comm => Returns Name MemberNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("MemberNetWinLoss.Comm", "MemberNetWinLoss.WinLoss");
+         });
+         it("Stack Mode, Sort on MemberNetWinLoss.Total => Returns Name MemberNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("MemberNetWinLoss.Total", "MemberNetWinLoss.WinLoss");
+         });
+         it("Stack Mode, Sort on AgentNetWinLoss.Comm => Returns Name AgentNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("AgentNetWinLoss.Comm", "AgentNetWinLoss.WinLoss");
+         });
+         it("Stack Mode, Sort on AgentNetWinLoss.Total => Returns Name AgentNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("AgentNetWinLoss.Total", "AgentNetWinLoss.WinLoss");
+         });
+         it("Stack Mode, Sort on MasterNetWinLoss.Comm => Returns Name MasterNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("MasterNetWinLoss.Comm", "MasterNetWinLoss.WinLoss");
+         });
+         it("Stack Mode, Sort on MasterNetWinLoss.Total => Returns Name MasterNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("MasterNetWinLoss.Total", "MasterNetWinLoss.WinLoss");
+         });
+         it("Stack Mode, Sort on SuperNetWinLoss.Comm => Returns Name SuperNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("SuperNetWinLoss.Comm", "SuperNetWinLoss.WinLoss");
+         });
+         it("Stack Mode, Sort on SuperNetWinLoss.Total => Returns Name SuperNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("SuperNetWinLoss.Total", "SuperNetWinLoss.WinLoss");
+         });
+
+         it("Stack Mode, Sort on Username => Returns Name Username", () => {
+             sortReportOnStackModeTest("Username", "Username");
+         });
+         it("Stack Mode, Sort on Turnover => Returns Name Turnover", () => {
+             sortReportOnStackModeTest("Turnover", "Turnover");
+         });
+         it("Stack Mode, Sort on Company => Returns Name Company", () => {
+             sortReportOnStackModeTest("Company", "Company");
+         });
+
+         it("Stack Mode, Sort on MemberNetWinLoss.WinLoss => Returns Name MemberNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("MemberNetWinLoss.WinLoss", "MemberNetWinLoss.WinLoss");
+         });
+         it("Stack Mode, Sort on AgentNetWinLoss.WinLoss => Returns Name AgentNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("AgentNetWinLoss.Total", "AgentNetWinLoss.WinLoss");
+         });
+         it("Stack Mode, Sort on MasterNetWinLoss.WinLoss => Returns Name MasterNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("MasterNetWinLoss.Total", "MasterNetWinLoss.WinLoss");
+         });
+         it("Stack Mode, Sort on SuperNetWinLoss.WinLoss => Returns Name SuperNetWinLoss.WinLoss", () => {
+             sortReportOnStackModeTest("SuperNetWinLoss.WinLoss", "SuperNetWinLoss.WinLoss");
+         });
+     });
 });

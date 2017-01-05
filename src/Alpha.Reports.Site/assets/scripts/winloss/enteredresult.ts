@@ -14,6 +14,7 @@ class EnterResultView {
     $reportSwitch: any;
     $isStackMode: any;
     isSwitchView = false;
+    $exportExcelForm: any;
 
     dateRangePickerComponent: DateRangePickerComponent;
     sortComponent: SortComponent;
@@ -36,15 +37,13 @@ class EnterResultView {
         this.dateRangePickerComponent.render();
         this.cacheDOMElements();
 
-        this.sortComponent.render({
-            sortContainer: this.$tableReport,
-            canSort: parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
-            hasAllDataOnClient: true,
-            headers: {
-                0: { sorter: "text" }
-            },
-            afterSortFunction: function () {}
-        });
+        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
+        this.sortComponent.render(new SortOption(
+            this.$tableReport,
+            canSort,
+            true,
+            function () { },
+            { 0: { sorter: "text" } }));
         
         this.$tableReport.stickyTableHeaders();
 
@@ -59,6 +58,7 @@ class EnterResultView {
         this.$tableReport = this.$("#tbl-report");
         this.$reportForm = this.$("#report-form");
         this.$isFilterVisible = this.$("#IsFilterVisible");
+        this.$exportExcelForm = this.$("#export-excel-form");
         this.$isStackMode = this.$("#IsStackMode");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$reportSwitch = this.$("#report-switch");
@@ -70,19 +70,19 @@ class EnterResultView {
         this.$(".btn-submit").on("click", this.onSubmitReportEvent);
     };
     onFilterEvent = () => {
-        let filter = this.$reportForm;
-        let currentHideState = filter.is(":hidden");
-
-        if (currentHideState) {
-            this.$pageTitle.removeClass("hide-filter");
-            filter.slideDown("fast", undefined, function () { });
-        } else {
-            this.$pageTitle.addClass("hide-filter");
-            this.$reportForm.slideUp("fast", undefined, function () { });
-        }
+        let currentHideState = this.$reportForm.hasClass("hide");
+        currentHideState ? this.showFilter() : this.hideFilter();
+    };
+    showFilter = () => {
+        this.$pageTitle.removeClass("hide-filter");
+        this.$reportForm.removeClass("hide");
+    };
+    hideFilter = () => {
+        this.$pageTitle.addClass("hide-filter");
+        this.$reportForm.addClass("hide");
     };
     onExportExcelEvent = () => {
-        this.$("#export-excel-form").submit();
+        this.$exportExcelForm.submit();
         this.$.unblockUI();
     };
     onSubmitReportEvent = () => {
