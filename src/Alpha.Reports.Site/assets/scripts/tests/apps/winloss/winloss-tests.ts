@@ -120,7 +120,7 @@
                  winLossView.$tableReport,
                  false,
                  true,
-                 function () { },
+                 jasmine.any(Function),
                  { 0: { sorter: "text" } }
              ));
          });
@@ -162,6 +162,7 @@
              expect(winLossView.$pageTitle).toBeDefined();
              expect(winLossView.$tableReport).toBeDefined();
              expect(winLossView.$drilldownLinks).toBeDefined();
+             expect(winLossView.$reportForm).toBeDefined();
              expect(winLossView.$isFilterVisible).toBeDefined();
              expect(winLossView.$isStackMode).toBeDefined();
              expect(winLossView.$isAgentLevel).toBeDefined();
@@ -171,4 +172,221 @@
              expect(winLossView.$reportSwitch).toBeDefined();
          });
      });
+
+     describe("onReportSwitchEvent", () => {
+         it("Current Report -> Switch to Historic Report and Submit", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+             spyOn(winLossView.$reportForm, "trigger");
+
+             // act
+             winLossView.onReportSwitchEvent();
+
+             // assert
+             expect(winLossView.isSwitchView).toBeTruthy();
+             expect(winLossView.isHistoricReport).toBeTruthy();
+             expect(winLossView.$reportForm.trigger).toHaveBeenCalledWith("submit");
+         });
+         it("Historic Report -> Switch to Current Report and Submit", () => {
+             // arrange
+             setFixtures(winLossTemplate.historicReportWithShownFilter);
+             winLossView.cacheDOMElements();
+             spyOn(winLossView.$reportForm, "trigger");
+
+             // act
+             winLossView.onReportSwitchEvent();
+
+             // assert
+             expect(winLossView.isSwitchView).toBeTruthy();
+             expect(winLossView.isHistoricReport).toBeFalsy();
+             expect(winLossView.$reportForm.trigger).toHaveBeenCalledWith("submit");
+         });
+     });
+
+     describe("onFilterEvent", () => {
+         it("Filter is currently shown -> Hides Filter and Update Href Param to False", () => {
+             // arrange
+             setFixtures(winLossTemplate.historicReportWithShownFilter);
+             winLossView.cacheDOMElements();
+
+             spyOn(winLossView, "hideFilter");
+             spyOn(winLossView, "showFilter");
+             spyOn(winLossView, "replaceDrilldownParam");
+
+             // act
+             winLossView.onFilterEvent();
+
+             // assert
+             expect(winLossView.hideFilter).toHaveBeenCalled();
+             expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsFilterVisible", false);
+         });
+
+         it("Filter is currently hidden -> Hides Filter and Update Href Param to True", () => {
+             // arrange
+             setFixtures(winLossTemplate.historicReportWithHiddenFilter);
+             winLossView.cacheDOMElements();
+
+             spyOn(winLossView, "hideFilter");
+             spyOn(winLossView, "showFilter");
+             spyOn(winLossView, "replaceDrilldownParam");
+
+             // act
+             winLossView.onFilterEvent();
+
+             // assert
+             expect(winLossView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
+             expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsFilterVisible", true);
+         });
+     });
+
+     describe("onExportExcelEvent", () => {
+         it("Always -> Submits Export Excel Form And Unblocks UI", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+             spyOn(winLossView.$exportExcelForm, "submit");
+
+             // act
+             winLossView.onExportExcelEvent();
+
+             // assert
+             expect(winLossView.$exportExcelForm.submit).toHaveBeenCalled();
+             expect(jQueryFake.unblockUI).toHaveBeenCalled();
+         });
+     });
+
+     describe("hideFilter", () => {
+         it("Always -> Add Hide class and hide filter", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+
+             // act
+             winLossView.hideFilter();
+
+             // assert
+             expect(winLossView.$pageTitle.hasClass("hide-filter")).toBeTruthy();
+             expect(winLossView.$reportForm.hasClass("hide")).toBeTruthy();
+         });
+     });
+
+     describe("showFilter", () => {
+         it("Always -> Remove Hide class and showfilter", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+
+             // act
+             winLossView.showFilter();
+
+             // assert
+             expect(winLossView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
+             expect(winLossView.$reportForm.hasClass("hide")).toBeFalsy();
+         });
+     });
+
+     describe("getParams", () => {
+
+         let getParamsTest = (selectedProduct: Array<number>, expectedIsAnyProductSelected: boolean) => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+             spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => selectedProduct);
+            
+             // act
+             var actualParam = winLossView.getParams();
+
+             // assert
+             expect(actualParam).toEqual({
+                 IsAnyProductSelected: expectedIsAnyProductSelected,
+                 IsStackMode: false,
+                 IsHistoricReport: false,
+                 IsFilterVisible: true
+             });
+         };
+     });
+
+     describe("showValidaProductError", () => {
+         it("Always -> Adds class error to multiple select button of dropdown product", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+
+             // act
+             winLossView.showValidaProductError();
+
+             // assert
+             expect(winLossView.$multiSelectButton.hasClass("error")).toBeTruthy();
+         });
+     });
+
+     describe("clearError", () => {
+         it("Always -> Removes class error from multiple select button of dropdown product", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+
+             // act
+             winLossView.clearError();
+
+             // assert
+             expect(winLossView.$multiSelectButton.hasClass("error")).toBeFalsy();
+         });
+     });
+
+     describe("onSubmitReportEvent", () => {
+         it("Switch View -> Blocks UI; Empty FromDate/Todate; Sets params to hidden fields", () => {
+             // arrange
+             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+             renderProductMultiSelectionComponent.and.callThrough();
+             renderSortComponent.and.callThrough();
+             winLossView.init();
+             winLossView.isSwitchView = true;
+
+             // act
+             winLossView.onSubmitReportEvent(null);
+
+             // assert
+             expect(jQueryFake.blockUI).toHaveBeenCalled();
+
+             expect(winLossView.$isFilterVisible.val()).toBeTruthy();
+             expect(winLossView.$isHistoricReport.val()).toEqual("false");
+         });
+
+         it("Switch View on Mobile -> Set Filter Is Visible to false", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             renderProductMultiSelectionComponent.and.callThrough();
+             renderSortComponent.and.callThrough();
+             winLossView.init();
+             winLossView.isSwitchView = true;
+
+             // act
+             winLossView.onSubmitReportEvent(null);
+
+             // assert
+             expect(winLossView.$isFilterVisible.val()).toEqual("true");
+         });
+
+         it("Not switch view and not select any product -> Blocks UI; Shows Validate Product Error; Unblock UI;", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             renderProductMultiSelectionComponent.and.callThrough();
+             renderSortComponent.and.callThrough();
+             winLossView.init();
+             winLossView.isSwitchView = false;
+             spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
+
+             var event = { preventDefault: jasmine.createSpy("preventDefault", () => null) };
+
+             // act
+             winLossView.onSubmitReportEvent(event);
+
+             // assert
+             expect(jQueryFake.blockUI).toHaveBeenCalled();
+             expect(jQueryFake.unblockUI).toHaveBeenCalled();
+         });
+     });
+
 });

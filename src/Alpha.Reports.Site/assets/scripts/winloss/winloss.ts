@@ -87,26 +87,19 @@ class WinLossView {
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$isAgentLevel = this.$("#IsAgentLevel");
+        this.$exportExcelForm = this.$("#export-excel-form");
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$multiSelectButton = this.$(".multiselect.btn");
         this.$reportSwitch = this.$("#report-switch");
     };
     onFilterEvent = () => {
-        var filter = this.$reportForm;
-        var currentHideState = filter.is(":hidden");
-
-        if (currentHideState) {
-            this.$pageTitle.removeClass("hide-filter");
-            filter.slideDown("fast", undefined, function () { });
-        } else {
-            this.hideFilter();
-        }
-
-        this.replaceDrilldownParam("IsFilterVisible", !currentHideState);
+        let currentHideState = this.$reportForm.hasClass("hide");
+        currentHideState ? this.showFilter() : this.hideFilter();
+        this.replaceDrilldownParam("IsFilterVisible", currentHideState);
     };
     onExportExcelEvent = () => {
-        this.$("#export-excel-form").submit();
+        this.$exportExcelForm.submit();
         this.$.unblockUI();
     };
     onReportSwitchEvent = () => {
@@ -168,13 +161,16 @@ class WinLossView {
 
         self.$reportForm.submit(this.onSubmitReportEvent);
     };
-    hideFilter = () => {
+    showFilter = () =>{
         this.$pageTitle.removeClass("hide-filter");
-        this.$reportForm.slideUp("fast", undefined, function () {});
+        this.$reportForm.removeClass("hide");
+    };
+    hideFilter = () => {
+        this.$pageTitle.addClass("hide-filter");
+        this.$reportForm.addClass("hide");
     };
     getParams = () => {
         var selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
-        var sortInfo = this.sortComponent.getSortInfo();
         var tableReport = this.$tableReport;
 
         return {

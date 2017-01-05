@@ -1,6 +1,6 @@
 ﻿@model WinLossFilterViewModel
 
-<form class="form-inline filter @(Model.Visible ? string.Empty : "display-none")" role="form" id="report-form">
+<form class="form-inline filter @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @RenderHiddenFields()
 
     @(Model.IsHistoricReport
