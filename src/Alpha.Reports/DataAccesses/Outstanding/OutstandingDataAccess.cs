@@ -5,10 +5,10 @@ namespace Alpha.Reports.DataAccesses.Outstanding
 {
     public interface OutstandingDataAccess
     {
-        IEnumerable<OutstandingModel> GetMemberOutstandingForSuper(int custId);
+        IEnumerable<OutstandingModel> GetMemberOutstandingForSuper(int superId);
 
-        IEnumerable<OutstandingModel> GetMemberOutstandingForMaster(int custId);
+        IEnumerable<OutstandingModel> GetMemberOutstandingForMaster(int masterId);
 
-        IEnumerable<OutstandingModel> GetMemberOutstandingForAgent(int custId);
+        IEnumerable<OutstandingModel> GetMemberOutstandingForAgent(int agentId);
     }
 }

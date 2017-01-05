@@ -13,6 +13,7 @@
     using RemotingRef;
     using Reports.Models;
     using Services;
+    using Services.Outstanding;
     using SimpleInjector;
     using SimpleInjector.Integration.Web;
     using SimpleInjector.Integration.Web.Mvc;
@@ -74,6 +75,7 @@
 
             container.RegisterSingleton<WinLossDetailService, WinLossDetailServiceImpl>();
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
+            container.RegisterSingleton<OutstandingService, OutstandingServiceImpl>();
 
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
@@ -90,6 +92,7 @@
             container.RegisterSingleton<IDynamicRepository, DynamicRepository>();
             container.RegisterSingleton<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
             container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
+            container.RegisterSingleton<OutstandingDataAccess, OutstandingDataAccessImpl>();
         }
 
         private static void RegisterStaticInstances(Container container)

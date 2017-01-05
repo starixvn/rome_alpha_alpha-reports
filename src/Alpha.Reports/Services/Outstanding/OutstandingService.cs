@@ -6,6 +6,6 @@ namespace Alpha.Reports.Services.Outstanding
 {
     public interface OutstandingService
     {
-        IEnumerable<OutstandingModel> GetOutstanding(int custId, UserLevel userLevel);
+        IEnumerable<OutstandingModel> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId);
     }
 }
