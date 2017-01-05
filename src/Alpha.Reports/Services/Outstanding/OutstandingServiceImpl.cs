@@ -21,24 +21,19 @@ namespace Alpha.Reports.Services.Outstanding
             {
                 if (custLevel == UserLevel.Super)
                 {
-                    _outstandingDataAccess.GetMemberOutstandingForSuper(custId);
+                    return _outstandingDataAccess.GetMemberOutstandingForSuper(custId);
                 }
                 else if (custLevel == UserLevel.Master)
                 {
-                    _outstandingDataAccess.GetMemberOutstandingForMaster(custId);
+                    return _outstandingDataAccess.GetMemberOutstandingForMaster(custId);
                 }
                 else if (custLevel == UserLevel.Agent)
                 {
-                    _outstandingDataAccess.GetMemberOutstandingForAgent(custId);
+                    return _outstandingDataAccess.GetMemberOutstandingForAgent(custId);
                 }
             }
 
             return new List<OutstandingModel>();
-        }
-
-        public object GetMemberOutstanding(object super, int v1, int v2)
-        {
-            throw new NotImplementedException();
         }
     }
 }

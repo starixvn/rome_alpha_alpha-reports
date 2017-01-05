@@ -26,8 +26,10 @@ namespace Alpha.Reports.Site.Handlers.Outstanding
 
             var outstandings = _outstandingServiceImpl.GetMemberOutstanding(userLevel, custLevel, message.CustId);
 
+            var viewModel = new OutstandingViewModel();
+            viewModel.Outstandings = outstandings;
 
-            return new OutstandingViewModel();
+            return viewModel;
         }
     }
 }

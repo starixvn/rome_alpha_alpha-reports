@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Web.Mvc;
 using Alpha.Reports.Site.Requests.Outstanding;
 using MediatR;
 
@@ -10,6 +11,7 @@ namespace Alpha.Reports.Site.Controllers
         {
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed")]
         [Route("outstanding/super")]
         [Route("outstanding/master")]
         [Route("outstanding/agent")]

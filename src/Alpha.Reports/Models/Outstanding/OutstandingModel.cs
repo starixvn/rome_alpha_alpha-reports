@@ -2,5 +2,16 @@
 {
     public class OutstandingModel
     {
+        public string Username { get; set; }
+
+        public int CustId { get; set; }
+
+        public decimal Outstanding { get; set; }
+
+        public decimal PositionTaking { get; set; }
+
+        public decimal CasinoTransfer { get; set; }
+
+        public decimal CasinoOutstanding { get; set; }
     }
 }
