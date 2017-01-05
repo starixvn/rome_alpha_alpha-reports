@@ -33,24 +33,24 @@ class AlphaReports {
     };
 
     splitCell = (firstCell: string, cellClass: string = "") => {
-        var self = this;
+        var this$ = this.$;
 
         var combinedCells = this.$("." + firstCell + "-combined");
 
         combinedCells.each(function (index: number) {
 
-            var oldValues = self.$(this).find("li");
+            var oldValues = this$(this).find("li");
             var cellsLength = oldValues.length;
             var oldCells = "";
 
             for (var i = 0, lastCellIndex = cellsLength - 1; i < cellsLength; i++) {
                 oldCells += "<td class=\"hidden-stack-mode " + cellClass +
                     (i === lastCellIndex ? " bold" : "") + "\">" +
-                    self.$(oldValues[i]).html() +
+                    this$(oldValues[i]).html() +
                     "</td>";
             }
 
-            self.$(combinedCells[index]).before(oldCells);
+            this$(combinedCells[index]).before(oldCells);
         });
     };
 
@@ -64,7 +64,7 @@ class AlphaReports {
             return;
         }
 
-        var self = this;
+        var this$ = this.$;
 
         firstCells.each(function (index: number) {
 
@@ -73,22 +73,33 @@ class AlphaReports {
                 combinedCellClass + "\" colspan=\"" + combinedCellColSpan + "\">\
                     <ul>";
 
-            var currentCell = self.$(firstCells[index]);
+            var currentCell = this$(firstCells[index]);
 
+            let isLastCell = false;
             for (var i = 0; i < numberOfCombinedCells; i++) {
                 newCell += "<li>" + currentCell.html() + "</li>";
-                currentCell = currentCell.next();
+
+                if (currentCell.next().length) {
+                    currentCell = currentCell.next();
+                } else {
+                    isLastCell = true;
+                }
             }
 
             newCell += "</ul>\
                         </td>";
 
-            currentCell.prev().after(newCell);
+            if (isLastCell) {
+                currentCell.after(newCell);
+            } else {
+                currentCell.prev().after(newCell);
+            }
         });
     };
 
     localStorage = {
         get: (key: string) => {
+            console.log(this.store.enabled);
             return this.store.enabled ? this.store.get(key) : this.$.cookie(key);
         },
 
