@@ -99,7 +99,6 @@ class AlphaReports {
 
     localStorage = {
         get: (key: string) => {
-            console.log(this.store.enabled);
             return this.store.enabled ? this.store.get(key) : this.$.cookie(key);
         },
 
