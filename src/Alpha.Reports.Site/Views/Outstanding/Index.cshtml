@@ -1,6 +1,40 @@
 ﻿@model OutstandingViewModel
 
 <div class="page-title">
-    <span class="pull-left">Test</span>
+    <span class="pull-left">@Model.Title</span>
 </div>
 
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per" id="tbl-report">
+    <thead class="tableFloatingHeaderOriginal">
+        <tr>
+            <th rowspan="2" class="header">Username</th>
+            <th colspan="2" class="header">Outstanding</th>
+        </tr>
+        <tr class="thead-row2">
+            <th>Member</th>
+            <th>Super</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var outstanding in Model.Outstandings)
+        {
+            <tr>
+                @if (Model.CustLevel.IsMemberLevel())
+                {
+                    <td class="text-left">@outstanding.Username</td>
+                    @*TODO: Link to Betlist*@
+                    <td>@outstanding.Outstanding</td>
+                }
+                else
+                {
+                    <td class="text-left">
+                        @Html.ActionLink(outstanding.Username, "Index", "Outstanding", new { custLevelId = Model.CustLevel.Value, custId = outstanding.CustId })
+                    </td>
+                    <td>@outstanding.Outstanding</td>
+
+                }
+                <td>@outstanding.PositionTaking</td>
+            </tr>
+        }
+    </tbody>
+</table>

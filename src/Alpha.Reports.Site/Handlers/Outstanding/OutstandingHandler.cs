@@ -1,33 +1,49 @@
-﻿using Alpha.Reports.Enumerations;
-using Alpha.Reports.Models;
-using Alpha.Reports.Services.Outstanding;
-using Alpha.Reports.Site.Requests.Outstanding;
-using Alpha.Reports.Site.ViewModels.Outstanding;
-using MediatR;
-using Sunplus.Agent.Model.Entities;
+﻿using System.Collections.Generic;
+using Alpha.Reports.Models.Outstanding;
 
 namespace Alpha.Reports.Site.Handlers.Outstanding
 {
+    using Enumerations;
+    using Reports.Models;
+    using Services.Outstanding;
+    using Requests.Outstanding;
+    using ViewModels.Outstanding;
+    using MediatR;
+    using Sunplus.Agent.Model.Entities;
+
     public class OutstandingHandler : IRequestHandler<OutstandingQuery, OutstandingViewModel>
     {
-        private readonly OutstandingService _outstandingServiceImpl;
-        private readonly IUserSession _userSession;
+        private readonly OutstandingService outstandingServiceImpl;
+        private readonly IUserSession userSession;
 
         public OutstandingHandler(OutstandingService outstandingServiceImpl, IUserSession userSession)
         {
-            _outstandingServiceImpl = outstandingServiceImpl;
-            _userSession = userSession;
+            this.outstandingServiceImpl = outstandingServiceImpl;
+            this.userSession = userSession;
         }
 
         public OutstandingViewModel Handle(OutstandingQuery message)
         {
-            var userLevel = Enumeration.FromValue<UserLevel>(_userSession.RoleId);
-            var custLevel = Enumeration.FromValue<UserLevel>(3);
+            var userLevel = Enumeration.FromValue<UserLevel>(userSession.RoleId);
 
-            var outstandings = _outstandingServiceImpl.GetMemberOutstanding(userLevel, custLevel, message.CustId);
+            IEnumerable<OutstandingModel> outstandings;
+            int nextCustLevel;
+            if (message.CustLevelId == 0)
+            {
+                outstandings = outstandingServiceImpl.GetMemberOutstanding(userLevel, userLevel, userSession.CustId);
+                nextCustLevel = userLevel.Value - 1;
+            }
+            else
+            {
+                outstandings = outstandingServiceImpl.GetMemberOutstanding(userLevel, Enumeration.FromValue<UserLevel>(message.CustLevelId), message.CustId);
+                nextCustLevel = message.CustLevelId - 1;
+            }
 
-            var viewModel = new OutstandingViewModel();
-            viewModel.Outstandings = outstandings;
+            var viewModel = new OutstandingViewModel
+            {
+                Outstandings = outstandings,
+                CustLevel = Enumeration.FromValue<UserLevel>((byte)nextCustLevel)
+            };
 
             return viewModel;
         }

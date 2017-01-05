@@ -1,36 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using Alpha.Reports.DataAccesses.Outstanding;
-using Alpha.Reports.Models;
-using Alpha.Reports.Models.Outstanding;
-
-namespace Alpha.Reports.Services.Outstanding
+﻿namespace Alpha.Reports.Services.Outstanding
 {
+    using System.Collections.Generic;
+    using Criteria.Outstanding;
+    using Fanex.Data.Repository;
+    using Models;
+    using Models.Outstanding;
+
     public class OutstandingServiceImpl : OutstandingService
     {
-        private readonly OutstandingDataAccess _outstandingDataAccess;
+        private readonly IDynamicRepository repository;
 
-        public OutstandingServiceImpl(OutstandingDataAccess outstandingDataAccess)
+        public OutstandingServiceImpl(IDynamicRepository dynamicRepository)
         {
-            _outstandingDataAccess = outstandingDataAccess;
+            repository = dynamicRepository;
         }
 
         public IEnumerable<OutstandingModel> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId)
         {
             if (userLevel >= custLevel)
             {
-                if (custLevel == UserLevel.Super)
-                {
-                    return _outstandingDataAccess.GetMemberOutstandingForSuper(custId);
-                }
-                else if (custLevel == UserLevel.Master)
-                {
-                    return _outstandingDataAccess.GetMemberOutstandingForMaster(custId);
-                }
-                else if (custLevel == UserLevel.Agent)
-                {
-                    return _outstandingDataAccess.GetMemberOutstandingForAgent(custId);
-                }
+                OutstandingCriteria criteria = new OutstandingCriteria(custLevel, custId);
+
+                return repository.Fetch<OutstandingModel>(criteria);
             }
 
             return new List<OutstandingModel>();

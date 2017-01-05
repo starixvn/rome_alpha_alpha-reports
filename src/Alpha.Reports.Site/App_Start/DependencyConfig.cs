@@ -92,7 +92,6 @@
             container.RegisterSingleton<IDynamicRepository, DynamicRepository>();
             container.RegisterSingleton<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
             container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
-            container.RegisterSingleton<OutstandingDataAccess, OutstandingDataAccessImpl>();
         }
 
         private static void RegisterStaticInstances(Container container)
