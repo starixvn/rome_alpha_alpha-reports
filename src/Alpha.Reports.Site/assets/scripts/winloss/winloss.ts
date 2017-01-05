@@ -47,6 +47,11 @@ class WinLossView {
     }
 
     init = () => {
+        if (!this.checkReady()) {
+            return;
+        }
+
+        this.$.blockUI();
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         this.isHistoricReport
@@ -59,19 +64,21 @@ class WinLossView {
             this.hideFilter();
         }
 
-        this.sortComponent.render({
-            sortContainer: this.$tableReport,
-            canSort: parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
-            hasAllDataOnClient: true,
-            headers: {
-                0: { sorter: "text" }
-            },
-            afterSortFunction: function () {}
-        });
+        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
+        this.sortComponent.render(new SortOption(
+            this.$tableReport,
+            canSort,
+            true,
+            function () { },
+            { 0: { sorter: "text" } }));
 
         this.$tableReport.stickyTableHeaders();
 
         this.registerEvents();
+        this.$.unblockUI();
+    };
+    checkReady = () => {
+        return this.$("#IsHistoricReport").length > 0;
     };
     cacheDOMElements = () => {
         this.$pageTitle = this.$(".page-title ");

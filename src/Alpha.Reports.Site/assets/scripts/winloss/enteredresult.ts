@@ -28,6 +28,11 @@ class EnterResultView {
     }
 
     init = () => {
+        if (!this.checkReady()) {
+            return;
+        }
+
+        this.$.blockUI();
         this.dateRangePickerComponent.render();
         this.cacheDOMElements();
 
@@ -44,6 +49,10 @@ class EnterResultView {
         this.$tableReport.stickyTableHeaders();
 
         this.registerEvents();
+        this.$.unblockUI();
+    };
+    checkReady = () => {
+        return this.$("#IsHistoricReport").length > 0;
     };
     cacheDOMElements = () => {
         this.$pageTitle = this.$(".page-title ");

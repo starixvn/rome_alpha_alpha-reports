@@ -58,8 +58,9 @@
 
     { "Path": "apps/winlossdetail/winlossdetail-template.ts" },
     { "Path": "apps/core/core-tests-template.ts" },
-    { "Path": "../winloss/enteredresult.ts" }
-
+    { "Path": "../winloss/enteredresult.ts" },
+    { "Path": "apps/winloss/winloss-template.ts" },
+    { "Path": "../winloss/winloss.ts" }
   ],
   "Tests": [
     {
@@ -67,7 +68,7 @@
       "Excludes": [ "**.js.map" ]
     },
     {
-      "Path": "apps/enteredResult",
+      "Path": "apps/winloss",
       "Excludes": [ "**.js.map" ]
     },
     {
