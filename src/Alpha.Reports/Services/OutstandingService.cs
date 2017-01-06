@@ -6,6 +6,11 @@
     using Models;
     using Models.Outstanding;
 
+    public interface OutstandingService
+    {
+        IEnumerable<OutstandingModel> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId);
+    }
+
     public class OutstandingServiceImpl : OutstandingService
     {
         private readonly IDynamicRepository repository;
@@ -19,7 +24,7 @@
         {
             if (userLevel >= custLevel)
             {
-                OutstandingCriteria criteria = new OutstandingCriteria(custLevel, custId);
+                var criteria = new OutstandingCriteria(custLevel, custId);
 
                 return repository.Fetch<OutstandingModel>(criteria);
             }

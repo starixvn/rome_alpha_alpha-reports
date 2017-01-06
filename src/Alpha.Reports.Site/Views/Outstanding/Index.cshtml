@@ -1,5 +1,9 @@
 ﻿@model OutstandingViewModel
 
+@{
+    var betlistPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
+}
+
 <div class="page-title">
     <span class="pull-left">@Model.Title</span>
 </div>
@@ -35,39 +39,30 @@
             <tr>
                 @if (Model.CustLevel.IsMemberLevel())
                 {
-                    <td class="text-left">@outstanding.CustName</td>
+                    <td class="text-left">
+                        <a href="@($"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall={"on"}")">@outstanding.CustName</a>
+                    </td>
                 }
                 else
                 {
                     <td class="text-left">
                         @Html.ActionLink(outstanding.CustName, "Index", new { custLevelId = Model.CustLevel.Value, custId = outstanding.CustId })
                     </td>
-
                 }
-                @if (Model.CustLevel.IsMemberLevel())
-                {
-                    <td>
-                        TODO: Link to Betlist!
-                        @*<span class="downline_link" onclick="viewSBBetList('14123341','???','RunByDate_Mem')">1,800.00</span>*@
-                    </td>
-                }
-                else
-                {
-                    <td>@outstanding.MemberOutstanding</td>
-                }
+                <td>@HtmlHelpers.FormatNumber(outstanding.MemberOutstanding)</td>
                 @for (int i = Model.CustLevel.Value; i <= UserLevel.Super.Value; i++)
                 {
                     if (UserLevel.Member.Value == i)
                     {
-                        <td>@outstanding.AgentOutstanding</td>
+                        <td>@HtmlHelpers.FormatNumber(outstanding.AgentOutstanding)</td>
                     }
                     if (UserLevel.Agent.Value == i)
                     {
-                        <td>@outstanding.MasterOutstanding</td>
+                        <td>@HtmlHelpers.FormatNumber(outstanding.MasterOutstanding)</td>
                     }
                     if (UserLevel.Master.Value == i)
                     {
-                        <td>@outstanding.SuperOutstanding</td>
+                        <td>@HtmlHelpers.FormatNumber(outstanding.SuperOutstanding)</td>
                     }
                 }
             </tr>
