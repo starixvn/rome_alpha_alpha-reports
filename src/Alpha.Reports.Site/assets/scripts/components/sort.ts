@@ -34,7 +34,8 @@ class SortComponent {
         let self = this;
 
         if (!this.options.hasAllDataOnClient) {
-            let isDecendingSort = this.$sortContainer.data("descendingsort").toLowerCase() === "true";
+            let isDecendingSort = this.$sortContainer.data("descendingsort").toString() === "1"
+                || this.$sortContainer.data("descendingsort").toLowerCase() === "true";
             let sortClass = isDecendingSort ? "sorting-desc" : "sorting-asc";
 
             this.$sortContainer
