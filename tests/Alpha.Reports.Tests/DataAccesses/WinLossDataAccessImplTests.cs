@@ -9,7 +9,6 @@
     using NSubstitute;
     using Reports.Criteria.WinLoss;
     using Reports.DataAccesses;
-    using Reports.DataAccesses.WinLoss;
     using Reports.Enumerations;
     using Reports.Models;
     using Reports.Models.Winloss;

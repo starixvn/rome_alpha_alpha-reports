@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.DataAccesses.WinLossDetail
+﻿namespace Alpha.Reports.DataAccesses
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,11 @@
     using Fanex.Common.Extensions;
     using Models;
     using Models.WinLossDetail;
+
+    public interface WinLossDetailDataAccess
+    {
+        ReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria);
+    }
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {

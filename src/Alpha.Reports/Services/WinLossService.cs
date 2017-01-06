@@ -1,16 +1,22 @@
-﻿namespace Alpha.Reports.Services.WinLoss
+﻿namespace Alpha.Reports.Services
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using Criteria.WinLoss;
     using DataAccesses;
-    using DataAccesses.WinLoss;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models.Winloss;
     using Params;
     using RemotingRef;
+
+    public interface WinLossService
+    {
+        IEnumerable<EnteredSportResult> GetEnteredSportResults();
+
+        IEnumerable<WinLossModel> GetWinLoss(WinLossParam param);
+    }
 
     public class WinLossServiceImpl : WinLossService
     {

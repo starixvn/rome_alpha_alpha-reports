@@ -9,7 +9,6 @@
     using Reports.Models.WinLossDetail;
     using Requests.WinLossDetail;
     using Services;
-    using Services.WinLossDetail;
     using ViewModels;
     using static ONEbook.SpreadSheets.Column;
 

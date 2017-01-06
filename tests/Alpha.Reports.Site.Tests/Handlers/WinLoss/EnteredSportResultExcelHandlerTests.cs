@@ -8,7 +8,7 @@
     using ONEbook.SpreadSheets;
     using Reports.Models;
     using Reports.Models.Winloss;
-    using Services.WinLoss;
+    using Services;
     using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
     using Xunit;

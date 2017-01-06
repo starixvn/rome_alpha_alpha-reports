@@ -6,7 +6,6 @@
     using Reports.Models;
     using Requests.WinLoss;
     using Services;
-    using Services.WinLoss;
     using ViewModels.WinLoss;
 
     public class EnteredSportResultHandler :
@@ -24,7 +23,7 @@
         {
             if (message == null)
             {
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
             }
 
             var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);

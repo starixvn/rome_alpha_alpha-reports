@@ -1,13 +1,17 @@
-﻿namespace Alpha.Reports.Services.WinLossDetail
+﻿namespace Alpha.Reports.Services
 {
     using System;
     using System.Linq;
     using Criteria.WinLossDetail;
     using DataAccesses;
-    using DataAccesses.WinLossDetail;
     using Models;
     using Models.WinLossDetail;
     using Params;
+
+    public interface WinLossDetailService
+    {
+        ReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
+    }
 
     public class WinLossDetailServiceImpl : WinLossDetailService
     {

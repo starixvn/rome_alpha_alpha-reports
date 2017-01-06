@@ -8,23 +8,22 @@
     using MediatR;
     using ONEbook.SpreadSheets;
     using Reports.Models;
+    using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
-    using Services.WinLoss;
     using ViewModels;
     using ViewModels.WinLoss;
-    using Models = Reports.Models.Winloss;
 
     public class WinLossExcelHandler :
         WinLossBaseHandler,
         IRequestHandler<WinLossExcelQuery, ExcelFileViewModel>
     {
-        private readonly Workbook<Models.WinLossModel> winlossWorkbook;
+        private readonly Workbook<WinLossModel> winlossWorkbook;
 
         public WinLossExcelHandler(
             ProductService productService,
             WinLossService reportService,
-            Workbook<Models.WinLossModel> workbook) : base(productService, reportService)
+            Workbook<WinLossModel> workbook) : base(productService, reportService)
         {
             winlossWorkbook = workbook;
         }
@@ -73,9 +72,9 @@
                             ? "Agent"
                             : "Member";
 
-        private Mapper<Models.WinLossModel> GetWinLossRowMapper(WinLossExcelQuery message, bool isTotal)
+        private Mapper<WinLossModel> GetWinLossRowMapper(WinLossExcelQuery message, bool isTotal)
         {
-            var mapper = new Mapper<Models.WinLossModel>()
+            var mapper = new Mapper<WinLossModel>()
                 .Map(Column.A, winLoss => isTotal ? Resources.Total : winLoss.CustName)
                 .Map(Column.B, winLoss => winLoss.Turnover)
                 .Map(Column.C, winLoss => winLoss.GrossComm);

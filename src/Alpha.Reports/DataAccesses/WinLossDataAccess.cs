@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.DataAccesses.WinLoss
+﻿namespace Alpha.Reports.DataAccesses
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +9,11 @@
     using Models;
     using Models.Winloss;
     using Models.WinLossDetail;
+
+    public interface WinLossDataAccess
+    {
+        IEnumerable<WinLossModel> GetWinLoss(WinLossCriteria criteria);
+    }
 
     public class WinLossDataAccessImpl : WinLossDataAccess
     {

@@ -6,7 +6,6 @@
     using Reports.Models;
     using Requests.WinLoss;
     using Services;
-    using Services.WinLoss;
 
     [SuppressMessage(
         "StyleCop.CSharp.NamingRules",

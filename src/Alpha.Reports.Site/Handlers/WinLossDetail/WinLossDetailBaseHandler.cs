@@ -7,7 +7,6 @@
     using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
-    using Services.WinLossDetail;
 
     [SuppressMessage(
         "StyleCop.CSharp.NamingRules",

@@ -7,7 +7,6 @@
     using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
-    using Services.WinLossDetail;
     using ViewModels.WinLossDetail;
 
     [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]

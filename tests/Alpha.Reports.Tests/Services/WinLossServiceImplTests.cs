@@ -9,12 +9,11 @@
     using NSubstitute;
     using RemotingRef;
     using Reports.Criteria.WinLoss;
-    using Reports.DataAccesses.WinLoss;
+    using Reports.DataAccesses;
     using Reports.Models;
     using Reports.Models.Winloss;
     using Reports.Params;
     using Reports.Services;
-    using Reports.Services.WinLoss;
     using TestCases;
     using Xunit;
 

@@ -4,8 +4,7 @@
     using System.Reflection;
     using System.Web.Mvc;
     using Controllers;
-    using DataAccesses.WinLoss;
-    using DataAccesses.WinLossDetail;
+    using DataAccesses;
     using Fanex.Data.Repository;
     using MediatR;
     using Models;
@@ -14,8 +13,6 @@
     using RemotingRef;
     using Reports.Models;
     using Services;
-    using Services.WinLoss;
-    using Services.WinLossDetail;
     using SimpleInjector;
     using SimpleInjector.Integration.Web;
     using SimpleInjector.Integration.Web.Mvc;
