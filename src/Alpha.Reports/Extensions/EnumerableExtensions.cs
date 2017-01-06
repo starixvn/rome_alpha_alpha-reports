@@ -11,11 +11,18 @@
         public static IQueryable<T> OrderBy<T>(
             this IEnumerable<T> source,
             string propertyName,
-            bool descending = true)
+            bool descending)
         {
             return descending
                 ? ApplyOrder(source.AsQueryable(), propertyName, "OrderByDescending")
                 : ApplyOrder(source.AsQueryable(), propertyName, "OrderBy");
+        }
+
+        public static IQueryable<T> OrderBy<T>(
+            this IEnumerable<T> source,
+            string propertyName)
+        {
+            return OrderBy(source, propertyName, true);
         }
 
         private static IOrderedQueryable<T> ApplyOrder<T>(IQueryable<T> source, string propertyName, string methodName)

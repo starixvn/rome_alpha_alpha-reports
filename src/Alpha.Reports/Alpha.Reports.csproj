@@ -119,11 +119,9 @@
     <Compile Include="Params\WinLossParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DateTimeManager.cs" />
-    <Compile Include="Services\ProductServiceImpl.cs" />
     <Compile Include="Services\WinLoss\WinLossServiceImpl.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\ReportDateService.cs" />
-    <Compile Include="Services\ReportDateServiceImpl.cs" />
     <Compile Include="Services\WinLossDetail\WinLossDetailServiceImpl.cs" />
     <Compile Include="Services\WinLossDetail\WinLossDetailService.cs" />
     <Compile Include="Services\WinLoss\WinLossService.cs" />
