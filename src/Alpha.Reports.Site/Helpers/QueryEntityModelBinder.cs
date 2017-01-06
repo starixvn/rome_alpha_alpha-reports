@@ -7,7 +7,7 @@
 
     public class QueryEntityModelBinder : DefaultModelBinder
     {
-        private static readonly Type[] IUserType = new[] { typeof(IUser) };
+        private static readonly Type[] IUserType = { typeof(IUser) };
         private static readonly Type ReportBaseQueryType = typeof(ReportBaseQuery);
 
         protected override object CreateModel(
@@ -19,9 +19,22 @@
                 && ReportBaseQueryType.IsAssignableFrom(modelType)
                 && modelType.GetConstructor(IUserType) != null)
             {
-                return Activator.CreateInstance(modelType, DependencyResolver.Current.GetService<IUser>());
+                return CreateInstanceOfAssignableReportBaseQuery(modelType);
             }
 
+            return CallBaseCreateModel(controllerContext, bindingContext, modelType);
+        }
+
+        protected virtual object CreateInstanceOfAssignableReportBaseQuery(Type modelType)
+        {
+            return Activator.CreateInstance(modelType, DependencyResolver.Current.GetService<IUser>());
+        }
+
+        protected virtual object CallBaseCreateModel(
+           ControllerContext controllerContext,
+           ModelBindingContext bindingContext,
+           Type modelType)
+        {
             return base.CreateModel(controllerContext, bindingContext, modelType);
         }
     }

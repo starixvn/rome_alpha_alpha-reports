@@ -181,6 +181,8 @@
     <Compile Include="Handlers\WinLoss\WinLossExcelHandlerTest.cs" />
     <Compile Include="Handlers\WinLoss\WinLossHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandlerTests.cs" />
+    <Compile Include="Helpers\QueryEntityModelBinderTests.cs" />
+    <Compile Include="Models\UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
