@@ -37,9 +37,9 @@
   </Function>
 
   <Function Name="Outstanding">
-    <Setting Key="Age_Rpt_Outstanding_Ag" SpName="Age_Rpt_Outstanding_Ag" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_Outstanding_MAg" SpName="Age_Rpt_Outstanding_MAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_Outstanding_SAg" SpName="Age_Rpt_Outstanding_SAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_Outstanding_Master" SpName="Age_Rpt_Outstanding_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_Outstanding_Agent" SpName="Age_Rpt_Outstanding_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 
 </Functions>

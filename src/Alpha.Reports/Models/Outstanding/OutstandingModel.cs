@@ -2,12 +2,16 @@
 {
     public class OutstandingModel
     {
-        public string Username { get; set; }
+        public string CustName { get; set; }
 
         public int CustId { get; set; }
 
-        public decimal Outstanding { get; set; }
+        public decimal MemberOutstanding { get; set; }
 
-        public decimal PositionTaking { get; set; }
+        public decimal SuperOutstanding { get; set; }
+
+        public decimal MasterOutstanding { get; set; }
+
+        public decimal AgentOutstanding { get; set; }
     }
 }

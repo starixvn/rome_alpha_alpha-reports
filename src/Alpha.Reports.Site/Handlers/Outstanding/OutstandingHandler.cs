@@ -43,7 +43,7 @@
                 Outstandings = outstandings,
                 CustLevel = Enumeration.FromValue<UserLevel>((byte)nextCustLevel)
             };
-
+           
             return viewModel;
         }
     }

@@ -21,20 +21,20 @@
         {
             if (CustLevel.IsSuperLevel())
             {
-                return "Age_Rpt_Outstanding_SAg";
+                return "Age_Rpt_Outstanding_Master";
             }
 
             if (CustLevel.IsMasterLevel())
             {
-                return "Age_Rpt_Outstanding_MAg";
+                return "Age_Rpt_Outstanding_Agent";
             }
 
-            return "Age_Rpt_Outstanding_Ag";
+            return "Age_Rpt_Outstanding_Member";
         }
 
         public override bool IsValid()
         {
-            return CustLevel.IsMemberLevel() ? false : true;
+            return !CustLevel.IsMemberLevel();
         }
     }
 }
