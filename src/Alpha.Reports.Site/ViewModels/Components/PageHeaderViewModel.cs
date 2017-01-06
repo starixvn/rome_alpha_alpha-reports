@@ -26,6 +26,8 @@
 
         public bool HasHideFilterIcon { get; }
 
+        public bool IsShowActionIcons => HasStackIcon || HasHideFilterIcon;
+
         public bool IsStackMode { get; }
 
         public bool HideFilter { get; }

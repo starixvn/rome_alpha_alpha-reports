@@ -323,7 +323,7 @@
         });
     });
     describe("onSwitchMode", () => {
-        it(`1st Switch on Normal Mode -> 
+        it(`1st Switch on Normal Mode ->
                 Blocks/Unblocks UI;
                 Adds Class stack-mode to Table Report/Page Title;
                 Updates HRef Param;
@@ -355,7 +355,7 @@
                 expect(sortComponent.bindTableSorter).toHaveBeenCalledWith(winLossDetailView.getSortedColumnName());
                 expect(jQueryFake.unblockUI).toHaveBeenCalled();
             });
-        it(`1st Switch on Stack Mode -> 
+        it(`1st Switch on Stack Mode ->
                 Blocks/Unblocks UI;
                 Removes Class stack-mode to Table Report/Page Title;
                 Updates HRef Param;
@@ -512,7 +512,6 @@
         });
     });
     describe("getParams", () => {
-
         let getParamsTest = (selectedProduct: Array<number>, expectedIsAnyProductSelected: boolean) => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
