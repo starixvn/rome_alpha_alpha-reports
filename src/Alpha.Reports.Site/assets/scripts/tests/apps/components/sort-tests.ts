@@ -187,4 +187,161 @@
                 expect(sortComponent.options.afterSortFunction).toHaveBeenCalled();
             });
     });
+    describe("getSortInfo", () => {
+        it("Descending Sort -> Returns Sort Info from table data", () => {
+            // arrange
+            setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="1" data-sortedcolumn="Column1">
+                                <th class="sorting" data-sortedname="Column1">Column 1</th>
+                                <th class="sorting" data-sortedname="Column2">Column 2</th>
+                            </table>
+                        </body>`);
+            sortComponent.$sortContainer = $("#table-report");
+
+            // act
+            var actalSortInfo = sortComponent.getSortInfo();
+
+            // assert
+            expect(actalSortInfo.sortPropertyName).toBe("Column1");
+            expect(actalSortInfo.isDescendingSort).toBeTruthy();
+        });
+        it("Ascending Sort -> Returns Sort Info from table data", () => {
+            // arrange
+            setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
+                                <th class="sorting" data-sortedname="Column1">Column 1</th>
+                                <th class="sorting" data-sortedname="Column2">Column 2</th>
+                            </table>
+                        </body>`);
+            sortComponent.$sortContainer = $("#table-report");
+
+            // act
+            var actalSortInfo = sortComponent.getSortInfo();
+
+            // assert
+            expect(actalSortInfo.sortPropertyName).toBe("Column1");
+            expect(actalSortInfo.isDescendingSort).toBeFalsy();
+        });
+    });
+    describe("bindTableSorter", () => {
+        it("Cannot Sort -> Don't bind tablesorter and event sort end", () => {
+            // arrange
+            setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
+                                <th class="sorting" data-sortedname="Column1">Column 1</th>
+                                <th class="sorting" data-sortedname="Column2">Column 2</th>
+                            </table>
+                        </body>`);
+
+            sortComponent.options.canSort = false;
+            sortComponent.$sortContainer = $("#table-report");
+            sortComponent.options.afterSortFunction = () => null;
+            spyOn($.fn, "tablesorter");
+            spyOn(sortComponent.options, "afterSortFunction");
+
+            // act
+            sortComponent.bindTableSorter("Column1");
+
+            // assert
+            expect($.fn.tablesorter).not.toHaveBeenCalled();
+            sortComponent.$sortContainer.trigger("sortEnd");
+            expect(sortComponent.options.afterSortFunction).not.toHaveBeenCalled();
+        });
+        it("Don't have all data on client -> Don't bind tablesorter and event sort end", () => {
+            // arrange
+            setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
+                                <th class="sorting" data-sortedname="Column1">Column 1</th>
+                                <th class="sorting" data-sortedname="Column2">Column 2</th>
+                            </table>
+                        </body>`);
+
+            sortComponent.options.canSort = true;
+            sortComponent.options.hasAllDataOnClient = false;
+            sortComponent.$sortContainer = $("#table-report");
+            sortComponent.options.afterSortFunction = () => null;
+            spyOn($.fn, "tablesorter");
+            spyOn(sortComponent.options, "afterSortFunction");
+
+            // act
+            sortComponent.bindTableSorter("Column1");
+
+            // assert
+            expect($.fn.tablesorter).not.toHaveBeenCalled();
+            sortComponent.$sortContainer.trigger("sortEnd");
+            expect(sortComponent.options.afterSortFunction).not.toHaveBeenCalled();
+        });
+        it("Can sort;Have all data on client -> Bind tablesorter and event sort end", () => {
+            // arrange
+            setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
+                                <th class="sorting" data-sortedname="Column1" data-colindex="0">Column 1</th>
+                                <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
+                            </table>
+                        </body>`);
+
+            sortComponent.render(new SortOption($("#table-report"), true, true, () => null, {}));
+            spyOn($.fn, "tablesorter");
+            spyOn(sortComponent.options, "afterSortFunction");
+
+            // act
+            sortComponent.bindTableSorter("Column1");
+
+            // assert
+            expect($.fn.tablesorter).toHaveBeenCalledWith({
+                defaultParser: 1,
+                headers: { 1: { sorter: false } },
+                sortList: [[0, 0]],
+                textExtraction: jasmine.any(Function)
+            });
+            sortComponent.$sortContainer.trigger("sortEnd");
+            expect(sortComponent.options.afterSortFunction).toHaveBeenCalled();
+        });
+    });
+    describe("textExtraction", () => {
+        it("Combined Cell -> Returns First Child Data (Sort Combined Column mean Sort By Win Loss)", () => {
+            // arrange
+            setFixtures(`<body>
+                            <div id="extracted-element" class="combinedcell">
+                                <ul>
+                                    <li>Win Loss</li>
+                                    <li>Comm</li>
+                                    <li>Total</li>
+                                </ul>
+                            </div>
+                        </body>`);
+
+            // act
+            var actualData = sortComponent.textExtraction($("#extracted-element"));
+
+            // assert
+            expect(actualData).toBe("Win Loss");
+        });
+        it("Link Cell -> Returns HRef Data", () => {
+            // arrange
+            setFixtures(`<body>
+                            <div id="extracted-element" data-islink="true">
+                                <a>Cust Name</a>
+                            </div>
+                        </body>`);
+
+            // act
+            var actualData = sortComponent.textExtraction($("#extracted-element"));
+
+            // assert
+            expect(actualData).toBe("Cust Name");
+        });
+        it("Not Combined Cell/Not Link Cell -> Returns Text in Node", () => {
+            // arrange
+            setFixtures(`<body>
+                            <div id="extracted-element">Node Data</div>
+                        </body>`);
+
+            // act
+            var actualData = sortComponent.textExtraction($("#extracted-element"));
+
+            // assert
+            expect(actualData).toBe("Node Data");
+        });
+    });
 });

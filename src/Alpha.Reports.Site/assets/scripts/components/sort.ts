@@ -93,26 +93,26 @@ class SortComponent {
         let isDescendingSort = this.$sortContainer.data("descendingsort") === "1" ||
             this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true";
 
-        this.$sortContainer.tablesorter(
-            {
-                defaultParser: 1,
-                headers: this.options.headers,
-                sortList: [[this.$(sortedColumnHeader).data("colindex"), isDescendingSort ? 1 : 0]],
-                textExtraction: function (node: any) {
-                    let $node = self.$(node);
-
-                    if ($node.hasClass("combinedcell")) {
-                        return $node.find("ul>li:first-child").html();
-                    }
-
-                    if ($node.data("islink")) {
-                        return $node.find("a").html();
-                    }
-
-                    return $node.html();
-                }
-            });
+        this.$sortContainer.tablesorter({
+            defaultParser: 1,
+            headers: this.options.headers,
+            sortList: [[this.$(sortedColumnHeader).data("colindex"), isDescendingSort ? 1 : 0]],
+            textExtraction: this.textExtraction
+        });
 
         this.$sortContainer.off("sortEnd").on("sortEnd", this.options.afterSortFunction);
+    };
+    textExtraction = (node: any) => {
+        let $node = this.$(node);
+
+        if ($node.hasClass("combinedcell")) {
+            return $node.find("ul>li:first-child").html();
+        }
+
+        if ($node.data("islink")) {
+            return $node.find("a").html();
+        }
+
+        return $node.html();
     };
 }
