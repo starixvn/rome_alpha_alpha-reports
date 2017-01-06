@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-using Alpha.Reports.Models.Outstanding;
-
-namespace Alpha.Reports.Site.Handlers.Outstanding
+﻿namespace Alpha.Reports.Site.Handlers.Outstanding
 {
+    using System.Collections.Generic;
     using Enumerations;
-    using Reports.Models;
-    using Services.Outstanding;
-    using Requests.Outstanding;
-    using ViewModels.Outstanding;
     using MediatR;
+    using Reports.Models;
+    using Reports.Models.Outstanding;
+    using Requests.Outstanding;
+    using Services.Outstanding;
     using Sunplus.Agent.Model.Entities;
+    using ViewModels.Outstanding;
 
-    public class OutstandingHandler : IRequestHandler<OutstandingQuery, OutstandingViewModel>
+    public class OutstandingHandler : BaseHandler, IRequestHandler<OutstandingQuery, OutstandingViewModel>
     {
         private readonly OutstandingService outstandingServiceImpl;
         private readonly IUserSession userSession;

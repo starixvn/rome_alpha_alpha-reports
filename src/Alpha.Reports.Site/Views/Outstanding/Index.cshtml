@@ -22,13 +22,12 @@
                 @if (Model.CustLevel.IsMemberLevel())
                 {
                     <td class="text-left">@outstanding.Username</td>
-                    @*TODO: Link to Betlist*@
                     <td>@outstanding.Outstanding</td>
                 }
                 else
                 {
                     <td class="text-left">
-                        @Html.ActionLink(outstanding.Username, "Index", "Outstanding", new { custLevelId = Model.CustLevel.Value, custId = outstanding.CustId })
+                        @Html.ActionLink(outstanding.Username, "Index", new { custLevelId = Model.CustLevel.Value, custId = outstanding.CustId })
                     </td>
                     <td>@outstanding.Outstanding</td>
 

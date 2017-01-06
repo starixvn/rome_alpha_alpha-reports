@@ -10,12 +10,12 @@
         {
             get
             {
-                if (CustLevel.IsSuperLevel())
+                if (CustLevel.IsMasterLevel())
                 {
                     return "Master Outstanding";
                 }
 
-                if (CustLevel.IsMasterLevel())
+                if (CustLevel.IsAgentLevel())
                 {
                     return "Agent Outstanding";
                 }
@@ -24,13 +24,10 @@
             }
         }
 
-        //public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
-
         public UserLevel CustLevel { get; set; }
 
         public IEnumerable<OutstandingModel> Outstandings { get; set; }
 
         public OutstandingModel Total { get; set; }
-
     }
 }
