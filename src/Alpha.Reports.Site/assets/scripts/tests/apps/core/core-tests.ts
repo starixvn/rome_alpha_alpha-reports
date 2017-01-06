@@ -86,13 +86,13 @@
             // arrange
             alphaReports.store.enabled = false;
             alphaReports.localStorage.set("SomeKey", "SomeValue");
-            spyOn(jQueryFake, "cookie").and.callThrough();
+            spyOn(jQueryFake, "cookie").and.callFake(() => "SomeValue");
 
             // act
             var actualValue = alphaReports.localStorage.get("SomeKey");
 
             // assert
-            expect(alphaReports.$.cookie).toHaveBeenCalled();
+            expect(jQueryFake.cookie).toHaveBeenCalled();
             expect(actualValue).toEqual("SomeValue");
         });
     });

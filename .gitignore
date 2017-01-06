@@ -52,3 +52,4 @@ artifacts/
 _Chutzpah.coverage.html
 
 *.test.html
+src/Alpha.Reports.Site/jsUnitTest.xml
