@@ -64,25 +64,25 @@
             expect(netTurnoverTooltipComponent.closeNetTurnoverTooltip).toHaveBeenCalledWith(netTurnoverTooltip);
         });
 
-        ////this test case does not work
-        // it("Not reach max times to show tooltip -> Auto close tooltip after 10000", () => {
-        //    // arrange
-        //    setFixtures(`<body>
-        //                    <div id="netturnovertooltip"></div>
-        //                    <div id="close-netturnover-tooltip"></div>
-        //                </body>`);
-        //    spyOn(netTurnoverTooltipComponent, "positionNetTurnoverTooltip");
-        //    spyOn(netTurnoverTooltipComponent, "closeNetTurnoverTooltip");
+        it("Not reach max times to show tooltip -> Auto close tooltip after 10000", () => {
+            // arrange
+            jasmine.clock().install();
+            setFixtures(`<body>
+                            <div id="netturnovertooltip"></div>
+                            <div id="close-netturnover-tooltip"></div>
+                        </body>`);
+            spyOn(netTurnoverTooltipComponent, "positionNetTurnoverTooltip");
+            spyOn(netTurnoverTooltipComponent, "closeNetTurnoverTooltip");
+            alphaReports.localStorage.set(cookieNetTurnoverTooltip, 0);
 
-        //    // act
-        //    //jasmine.clock().install();
-        //    let netTurnoverTooltip = netTurnoverTooltipComponent.render();
-        //    //jasmine.clock().tick(100001);
-        //    //jasmine.clock().uninstall();
+            // act
+            let netTurnoverTooltip = netTurnoverTooltipComponent.render();
+            jasmine.clock().tick(10001);
 
-        //    // assert
-        //    expect(netTurnoverTooltipComponent.closeNetTurnoverTooltip).toHaveBeenCalledWith(netTurnoverTooltip);
-        // });
+            // assert
+            expect(netTurnoverTooltipComponent.closeNetTurnoverTooltip).toHaveBeenCalledWith(netTurnoverTooltip);
+            jasmine.clock().uninstall();
+        });
     });
 
     describe("positionNetTurnoverTooltip", () => {
@@ -164,7 +164,7 @@
             netTurnoverTooltipComponent.closeNetTurnoverTooltip(netTurnoverTooltip);
 
             // assert
-            expect(netTurnoverTooltip.css("display")).toBe("");
+            expect(netTurnoverTooltip.css("display")).toBe("none");
         });
     });
     describe("registerEvents", () => {

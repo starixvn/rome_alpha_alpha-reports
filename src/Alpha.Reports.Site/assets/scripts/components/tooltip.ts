@@ -31,9 +31,10 @@ class ReportTooltip {
         tooltipElement.tooltip("show");
         alphaReports.localStorage.set(tooltipCookieId, tooltipShowCount + 1);
 
+        let this$ = this.$;
         setTimeout(function () {
             tooltipElement.tooltip("hide");
-            this.$(document).off("click.tooltip");
+            this$(document).off("click.tooltip");
         }, this.timeToShowTooltip);
 
         this.$(document).off("click.tooltip").on("click.tooltip", function () {

@@ -71,4 +71,102 @@
             expect($("#page-size").val()).toBe("100");
         });
     });
+    describe("onChange", () => {
+        it("Always -> Submit Report", () => {
+            // arrange
+            setFixtures(`<body>
+                            <form id="report-form" type="hidden"></form>
+                         </body>`);
+            pagerComponent.$reportForm = $("#report-form");
+            spyOn(pagerComponent.$reportForm, "trigger");
+
+            // act
+            pagerComponent.onChange();
+
+            // assert
+            expect(pagerComponent.$reportForm.trigger).toHaveBeenCalledWith("submit");
+        });
+    });
+    describe("render", () => {
+        it("Not Show Pager -> Add Class Hide to pager; Not bind pagination to pager", () => {
+            // arrange
+            setFixtures(`<body>
+                            <div id="report-pager"
+                                 data-totalrecords="0"
+                                 data-pagesize="100"
+                                 data-pageindex="1"></div>
+                            <form id="report-form" type="hidden"></form>
+                         </body>`);
+            let pager = $("#report-pager");
+            spyOn($.fn, "pagination");
+
+            // act
+            pagerComponent.render();
+
+            // assert
+            expect(pager.hasClass("hide")).toBeTruthy();
+            expect($.fn.pagination).not.toHaveBeenCalled();
+        });
+        it("Show Pager -> Remove Class Hide from pager; Bind pagination to pager", () => {
+            // arrange
+            setFixtures(`<body>
+                            <div id="report-pager"
+                                 data-totalrecords="2000"
+                                 data-pagesize="1000"
+                                 data-pageindex="1"
+                                 data-lablepage="Page"
+                                 data-labelof="of"
+                                 data-labeldisplayitems="Displays"
+                                 class="hide"></div>
+                            <form id="report-form" type="hidden"></form>
+                         </body>`);
+            let pager = $("#report-pager");
+            spyOn($.fn, "pagination");
+
+            // act
+            pagerComponent.render();
+
+            // assert
+            expect(pager.hasClass("hide")).toBeFalsy();
+            expect($.fn.pagination).toHaveBeenCalledWith({
+                pageList: [1000, 2000, 3000, 5000],
+                total: 2000,
+                pageSize: 1000,
+                pageNumber: 1,
+
+                showRefresh: false,
+                onSelectPage: jasmine.any(Function),
+                beforePageText: "Page",
+                afterPageText: "of {pages}",
+                displayMsg: "Displays"
+            });
+        });
+    });
+    describe("onSelectPage", () => {
+        it("Always -> Update Hidden Fields and Call On Change Event", () => {
+            // arrange
+            setFixtures(`<body>
+                            <div id="report-pager"
+                                 data-totalrecords="4000"
+                                 data-pagesize="1000"
+                                 data-pageindex="1"
+                                 data-lablepage="Page"
+                                 data-labelof="of"
+                                 data-labeldisplayitems="Displays"
+                                 class="hide"></div>
+                            <form id="report-form" type="hidden"></form>
+                         </body>`);
+            pagerComponent.$reportForm = $("#report-form");
+            spyOn(pagerComponent, "updateHiddenFields");
+            spyOn(pagerComponent, "onChange");
+            pagerComponent.render();
+
+            // act
+            $(".pagination-next").trigger("click");
+
+            // assert
+            expect(pagerComponent.updateHiddenFields).toHaveBeenCalledWith(2, 1000);
+            expect(pagerComponent.onChange).toHaveBeenCalled();
+        });
+    });
 });
