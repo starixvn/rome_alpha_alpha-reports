@@ -3,11 +3,9 @@
     using System;
     using System.Collections.Generic;
     using Constants;
-    using Extensions;
     using Models;
-    using Services;
 
-    public class WinLossDetailParam
+    public class WinLossDetailParam : DateRangeReportParam
     {
         public WinLossDetailParam(
             int custId,
@@ -19,24 +17,11 @@
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
-            bool isHistoricReport)
+            bool isHistoricReport) : base(fromDate, toDate, isHistoricReport)
         {
             CustId = custId;
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;
-
-            IsHistoryReport = isHistoricReport;
-
-            if (fromDate == DateTime.MinValue)
-            {
-                FromDate = isHistoricReport ? DateTimeManager.Now.FirstDayOfMonth() : DateTimeManager.Now;
-            }
-            else
-            {
-                FromDate = fromDate;
-            }
-
-            ToDate = toDate == DateTime.MinValue ? DateTimeManager.Now : toDate;
 
             ReportLevel = reportLevel;
 
@@ -54,10 +39,6 @@
 
         public int PageSize { get; }
 
-        public DateTime FromDate { get; }
-
-        public DateTime ToDate { get; }
-
         public IEnumerable<int> UserSelectedProductIds { get; }
 
         public UserLevel ReportLevel { get; }
@@ -65,8 +46,6 @@
         public string SortByPropertyName { get; }
 
         public bool IsDescendingSort { get; }
-
-        public bool IsHistoryReport { get; }
 
         private string GetDefaultSortedProperty()
         {
@@ -98,20 +77,6 @@
             }
 
             return sortedProperty;
-        }
-
-        public bool IsValid()
-        {
-            if (IsHistoryReport)
-            {
-                return DateTimeManager.Now.AddYears(-3).FirstDayOfYear() <= FromDate
-                    && FromDate <= ToDate
-                    && ToDate.Year == FromDate.Year
-                    && ToDate.Month == FromDate.Month;
-            }
-
-            return DateTimeManager.Now.AddMonths(-3).FirstDayOfMonth() <= FromDate
-                   && FromDate <= ToDate;
         }
     }
 }
