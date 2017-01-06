@@ -11,7 +11,7 @@
         public static Func<string, IObjectDb> CreateInstance
         {
             get { return createInstance ?? ((settingKey) => new ObjectDb(settingKey)); }
-            set { createInstance = value; }
+            internal set { createInstance = value; }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿describe("MonthPickerComponent_", () => {
+﻿describe("NetTurnoverTooltipComponent_", () => {
     let netTurnoverTooltipComponent: NetTurnoverTooltipComponent;
     let cookieNetTurnoverTooltip = "NetTurnoverTooltipShowCount";
     let maxTimesToShowTooltip = 5;
@@ -64,8 +64,8 @@
             expect(netTurnoverTooltipComponent.closeNetTurnoverTooltip).toHaveBeenCalledWith(netTurnoverTooltip);
         });
 
-        // this test case does not work
-        //it("Not reach max times to show tooltip -> Auto close tooltip after 10000", () => {
+        ////this test case does not work
+        // it("Not reach max times to show tooltip -> Auto close tooltip after 10000", () => {
         //    // arrange
         //    setFixtures(`<body>
         //                    <div id="netturnovertooltip"></div>
@@ -75,13 +75,115 @@
         //    spyOn(netTurnoverTooltipComponent, "closeNetTurnoverTooltip");
 
         //    // act
-        //    jasmine.clock().install();
+        //    //jasmine.clock().install();
         //    let netTurnoverTooltip = netTurnoverTooltipComponent.render();
-        //    jasmine.clock().tick(100001);
-        //    jasmine.clock().uninstall();
+        //    //jasmine.clock().tick(100001);
+        //    //jasmine.clock().uninstall();
 
         //    // assert
         //    expect(netTurnoverTooltipComponent.closeNetTurnoverTooltip).toHaveBeenCalledWith(netTurnoverTooltip);
-        //});
+        // });
+    });
+
+    describe("positionNetTurnoverTooltip", () => {
+        it("Not Have Net Turnover Tooltip -> Do nothing; No Exception Throwed", () => {
+            // act & assert
+            expect(() => netTurnoverTooltipComponent.positionNetTurnoverTooltip(undefined)).not.toThrow();
+        });
+
+        it("Have Net Turnover Tooltip/Screen Smaller Than 768/Header Not On Top -> Positions Tooltip Correctly", () => {
+            // arrange
+            setFixtures(`<body>
+                                <div class="col-netturnover-header" style="top: 10px; left: 10px;position: static;"></div>
+                                <div id="netturnovertooltip"></div>
+                                <div id="close-netturnover-tooltip" style="position: absolute;"></div>
+                            </body>`);
+            spyOn(alphaReports, "screenSmallThan768").and.callFake(() => true);
+
+            var netTurnoverTooltip = netTurnoverTooltipComponent.render();
+
+            // act
+            netTurnoverTooltipComponent.positionNetTurnoverTooltip(netTurnoverTooltip);
+
+            // assert
+            expect(netTurnoverTooltip.css("bottom")).toBe("auto");
+            // can not test other properties (width/top/left/right)
+        });
+
+        it("Have Net Turnover Tooltip/Screen Larger Than 768/Header Not On Top -> Positions Tooltip Correctly", () => {
+            // arrange
+            setFixtures(`<body style="postion: absolute; top: 0px;">
+                                <div class="col-netturnover-header" style="top: 10px; left: 10px;position: static;width: 10px;"></div>
+                                <div id="netturnovertooltip"></div>
+                                <div id="close-netturnover-tooltip" style="position: absolute;"></div>
+                            </body>`);
+            spyOn(alphaReports, "screenSmallThan768").and.callFake(() => false);
+
+            var netTurnoverTooltip = $("#netturnovertooltip");
+
+            // act
+            netTurnoverTooltipComponent.positionNetTurnoverTooltip(netTurnoverTooltip);
+
+            // assert
+            expect(netTurnoverTooltip.css("right")).toBe("auto");
+            expect(netTurnoverTooltip.css("bottom")).toBe("auto");
+            // can not test other properties (width/top/left)
+        });
+
+        // can not set position for col-netturnover-header => can not test
+        // it("Have Net Turnover Tooltip/Screnn Larger Than 768/Header On Top -> Positions Tooltip Correctly", () => {
+        //    // arrange
+        //    setFixtures(`<body style="postion: absolute; top: 0px;">
+        //                        <div class="col-netturnover-header" style="top: 10px; left: 10px;position: static;width: 10px;"></div>
+        //                        <div id="netturnovertooltip"></div>
+        //                        <div id="close-netturnover-tooltip" style="position: absolute;"></div>
+        //                    </body>`);
+
+        //    var netTurnoverTooltip = $("#netturnovertooltip");
+        //    spyOn($.fn, "css");
+
+        //    // act
+        //    netTurnoverTooltipComponent.positionNetTurnoverTooltip(netTurnoverTooltip);
+
+        //    // assert
+        //    expect($.fn.css).not.toHaveBeenCalled();
+        // });
+    });
+
+    describe("closeNetTurnoverTooltip", () => {
+        it("Always -> Adds class hide to modal", () => {
+            // arrange
+            setFixtures(`<body style="postion: absolute; top: 0px;">
+                                <div class="col-netturnover-header" style="top: 10px; left: 10px;position: static;width: 10px;"></div>
+                                <div id="netturnovertooltip"></div>
+                                <div id="close-netturnover-tooltip" style="position: absolute;"></div>
+                            </body>`);
+            var netTurnoverTooltip = netTurnoverTooltipComponent.render();
+
+            // act
+            netTurnoverTooltipComponent.closeNetTurnoverTooltip(netTurnoverTooltip);
+
+            // assert
+            expect(netTurnoverTooltip.css("display")).toBe("");
+        });
+    });
+    describe("registerEvents", () => {
+        it("Window Resize -> Position Net Turnover Tooltip", () => {
+            // arrange
+            setFixtures(`<body style="postion: absolute; top: 0px;">
+                                <div class="col-netturnover-header" style="top: 10px; left: 10px;position: static;width: 10px;"></div>
+                                <div id="netturnovertooltip"></div>
+                                <div id="close-netturnover-tooltip" style="position: absolute;"></div>
+                            </body>`);
+            var netTurnoverTooltip = $("#netturnovertooltip");
+            spyOn(netTurnoverTooltipComponent, "positionNetTurnoverTooltip");
+
+            // act
+            netTurnoverTooltipComponent.registerEvents(netTurnoverTooltip);
+            $(window).resize();
+
+            // assert
+            expect(netTurnoverTooltipComponent.positionNetTurnoverTooltip).toHaveBeenCalledWith(netTurnoverTooltip);
+        });
     });
 });

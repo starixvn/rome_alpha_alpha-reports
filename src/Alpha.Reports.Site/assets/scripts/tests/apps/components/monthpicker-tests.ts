@@ -26,7 +26,7 @@
 
             // assert
             expect(console.warn).toHaveBeenCalledWith("Oops! \"Invalid Date\" is an invalid Date");
-        })
+        });
     });
     describe("onChange ", () => {
         it("Always -> Update textbox FromDate/ToDate", () => {

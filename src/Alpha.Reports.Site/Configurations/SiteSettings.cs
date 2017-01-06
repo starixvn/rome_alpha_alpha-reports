@@ -30,7 +30,7 @@
         {
             Require(OldMainAppPath, nameof(OldMainAppPath));
             Require(StoreProcedurePath, nameof(StoreProcedurePath));
-            Require(AssetAppPath, nameof(AssetAppPath));                   
+            Require(AssetAppPath, nameof(AssetAppPath));
         }
 
         private static void Require(string key, string keyName)

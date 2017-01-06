@@ -10,7 +10,7 @@
         public static DateTime Now
         {
             get { return now ?? DateTime.Now; }
-            set { now = value; }
+            internal set { now = value; }
         }
     }
 }
