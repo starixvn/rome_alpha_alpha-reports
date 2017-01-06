@@ -176,11 +176,11 @@
         });
     });
     describe("isIe", () => {
-        let setUserAgent = (window, userAgent) => {
-            if (window.navigator.userAgent != userAgent) {
+        let setUserAgent = (window: any, userAgent: string) => {
+            if (window.navigator.userAgent !== userAgent) {
                 var userAgentProp = { get: function () { return userAgent; } };
                 try {
-                    Object.defineProperty(window.navigator, 'userAgent', userAgentProp);
+                    Object.defineProperty(window.navigator, "userAgent", userAgentProp);
                 } catch (e) {
                     window.navigator = Object.create(navigator, {
                         userAgent: userAgentProp
