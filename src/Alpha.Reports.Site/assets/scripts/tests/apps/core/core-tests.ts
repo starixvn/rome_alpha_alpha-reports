@@ -175,4 +175,39 @@
             expect(actualNewQueryString).toEqual(expectNewQueryString);
         });
     });
+    describe("isIe", () => {
+        let setUserAgent = (window, userAgent) => {
+            if (window.navigator.userAgent != userAgent) {
+                var userAgentProp = { get: function () { return userAgent; } };
+                try {
+                    Object.defineProperty(window.navigator, 'userAgent', userAgentProp);
+                } catch (e) {
+                    window.navigator = Object.create(navigator, {
+                        userAgent: userAgentProp
+                    });
+                }
+            }
+        };
+
+        it("MSIE -> Returns true", () => {
+            // arrange
+            setUserAgent(window, "Browser MSIE ");
+
+            // act
+            let actualIsIE = alphaReports.isIe();
+
+            // assert
+            expect(actualIsIE).toBeTruthy();
+        });
+        it("Trident -> Returns true", () => {
+            // arrange
+            setUserAgent(window, "Browser Trident.*rv:11.");
+
+            // act
+            let actualIsIE = alphaReports.isIe();
+
+            // assert
+            expect(actualIsIE).toBeTruthy();
+        });
+    });
 });

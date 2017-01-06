@@ -120,12 +120,7 @@ class AlphaReports {
         var ua = window.navigator.userAgent;
         var msie = ua.indexOf("MSIE ");
 
-        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
-            // if internet Explorer, return version number
-            return true;
-        }
-
-        return false;
+        return msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./);
     };
     replaceQueryStringValue = (queryString: string, paramName: string, paramValue: any) => {
         var regex = new RegExp("([?&])" + paramName + "=[^&]*", "i");
