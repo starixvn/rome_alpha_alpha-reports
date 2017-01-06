@@ -169,11 +169,14 @@
              expect(winLossView.$reportForm).toBeDefined();
              expect(winLossView.$userSelectedDateRangeOption).toBeDefined();
              expect(winLossView.$multiSelectButton).toBeDefined();
-             expect(winLossView.$reportSwitch).toBeDefined();
+             expect(winLossView.$historicReport).toBeDefined();
+             expect(winLossView.$filterIcon).toBeDefined();
+             expect(winLossView.$excelIcon).toBeDefined();
+             expect(winLossView.$switchModeIcon).toBeDefined();
          });
      });
 
-     describe("onReportSwitchEvent", () => {
+     describe("onSubmitHistoricReportEvent", () => {
          it("Current Report -> Switch to Historic Report and Submit", () => {
              // arrange
              setFixtures(winLossTemplate.currentReportWithNormalMode);
@@ -181,13 +184,14 @@
              spyOn(winLossView.$reportForm, "trigger");
 
              // act
-             winLossView.onReportSwitchEvent();
+             winLossView.onSubmitHistoricReportEvent();
 
              // assert
              expect(winLossView.isSwitchView).toBeTruthy();
              expect(winLossView.isHistoricReport).toBeTruthy();
              expect(winLossView.$reportForm.trigger).toHaveBeenCalledWith("submit");
          });
+
          it("Historic Report -> Switch to Current Report and Submit", () => {
              // arrange
              setFixtures(winLossTemplate.historicReportWithShownFilter);
@@ -195,11 +199,11 @@
              spyOn(winLossView.$reportForm, "trigger");
 
              // act
-             winLossView.onReportSwitchEvent();
+             winLossView.onSubmitHistoricReportEvent();
 
              // assert
              expect(winLossView.isSwitchView).toBeTruthy();
-             expect(winLossView.isHistoricReport).toBeFalsy();
+             expect(winLossView.isHistoricReport).toBeTruthy();
              expect(winLossView.$reportForm.trigger).toHaveBeenCalledWith("submit");
          });
      });
@@ -389,7 +393,6 @@
          });
      });
 
-
      describe("getSortedColumnName", () => {
          it("Normal Mode => Returns Sorted Column name data on table report", () => {
              // arrange
@@ -467,5 +470,214 @@
          it("Stack Mode, Sort on SuperNetWinLoss.WinLoss => Returns Name SuperNetWinLoss.WinLoss", () => {
              sortReportOnStackModeTest("SuperNetWinLoss.WinLoss", "SuperNetWinLoss.WinLoss");
          });
+     });
+
+     describe("renderAtFirstSwitchMode", () => {
+         it("Stack Mode Switch to Normal Mode -> Call Split Columns Method", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+             spyOn(winLossView, "splitColumns");
+
+             // act
+             winLossView.renderAtFirstSwitchMode(true);
+
+             // assert
+             expect(winLossView.splitColumns).toHaveBeenCalled();
+         });
+
+         it("Normal Mode Switch to Stack Mode -> Call Split combineColumns Method", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+             spyOn(winLossView, "combineColumns");
+
+             // act
+             winLossView.renderAtFirstSwitchMode(false);
+
+             // assert
+             expect(winLossView.combineColumns).toHaveBeenCalled();
+         });
+     });
+
+     describe("setCssBySwitchMode", () => {
+         it("Stack Mode Switch to Normal Mode -> Remove stack-mode class", () => {          
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+
+             // act
+             winLossView.setCssBySwitchMode(true);
+
+             // assert
+             expect(winLossView.$pageTitle.hasClass("stack-mode")).toBeFalsy();
+             expect(winLossView.$tableReport.hasClass("stack-mode")).toBeFalsy();
+         });
+
+         it("Normal Mode Switch to Stack Mode -> Add stack-mode class", () => {  
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+            
+             // act
+             winLossView.setCssBySwitchMode(false);
+
+             // assert
+             expect(winLossView.$pageTitle.hasClass("stack-mode")).toBeTruthy();
+             expect(winLossView.$tableReport.hasClass("stack-mode")).toBeTruthy();
+         });
+     });
+
+     describe("combineColumns", () => {
+         it("Stack Mode At Agent Level -> Call combineToTurnOverColumnAgentLevel Method", () => {
+             // arrange
+             spyOn(winLossView, "combineToTurnOverColumnAgentLevel");
+             spyOn(winLossView, "combineToWinLossColumn");
+
+             // act
+             winLossView.combineColumns(true);
+
+             // assert
+             expect(winLossView.combineToTurnOverColumnAgentLevel).toHaveBeenCalled();
+             expect(winLossView.combineToWinLossColumn).toHaveBeenCalled();
+         });
+
+         it("Stack Mode At Super Master Level -> Call combineToTurnOverColumnSuperMasterLevel AndcombineToWinLossColumn Method", () => {
+             // arrange
+             spyOn(winLossView, "combineToTurnOverColumnSuperMasterLevel");
+             spyOn(winLossView, "combineToWinLossColumn");
+
+             // act
+             winLossView.combineColumns(false);
+
+             // assert
+             expect(winLossView.combineToTurnOverColumnSuperMasterLevel).toHaveBeenCalled();
+             expect(winLossView.combineToWinLossColumn).toHaveBeenCalled();
+         });
+     });
+
+     describe("combineToWinLossColumn", () => {
+         it("Switch Normal Mode to Normal Mode -> Call combineConsecutiveCells Method", () => {
+             // arrange
+             var combineConsecutiveCellsSpy = spyOn(alphaReports, "combineConsecutiveCells");
+
+             // act
+             winLossView.combineToWinLossColumn('agent', 1);
+
+             // assert
+             expect(combineConsecutiveCellsSpy.calls.allArgs()).toEqual([
+                 [jasmine.any(Object), 3, "text-right col-agent-winloss-combined altercol"]]);
+         });
+     });
+
+     describe("combineToTurnOverColumnAgentLevel", () => {
+         it("Switch Normal Mode to Normal Mode -> Call combineConsecutiveCells Method", () => {
+             // arrange
+             var combineConsecutiveCellsSpy = spyOn(alphaReports, "combineConsecutiveCells");
+
+             // act
+             winLossView.combineToTurnOverColumnAgentLevel();
+
+             // assert
+             expect(combineConsecutiveCellsSpy.calls.allArgs()).toEqual([
+                 [jasmine.any(Object), 2, "text-right col-turnover-combined"]]);
+         });
+     });
+
+     describe("combineToTurnOverColumnSuperMasterLevel", () => {
+         it("Switch Normal Mode to Normal Mode -> Call combineConsecutiveCells Method", () => {
+             // arrange
+             var combineConsecutiveCellsSpy = spyOn(alphaReports, "combineConsecutiveCells");
+
+             // act
+             winLossView.combineToTurnOverColumnSuperMasterLevel();
+
+             // assert
+             expect(combineConsecutiveCellsSpy.calls.allArgs()).toEqual([
+                 [jasmine.any(Object), 3, "text-right col-turnover-combined"]]);
+         });
+     });
+
+     describe("splitColumns ", () => {
+         it("Switch Normal Mode to Normal Mode -> Call splitCell Method", () => {
+             // arrange
+             var splitCellSpy = spyOn(alphaReports, "splitCell");
+
+             // act
+             winLossView.splitColumns();
+
+             // assert
+             expect(splitCellSpy.calls.allArgs()).toEqual([
+                 ["col-turnover"],
+                 ["col-member-winloss", ""],
+                 ["col-agent-winloss", " altercol"],
+                 ["col-master-winloss", ""],
+                 ["col-super-winloss", " altercol"]]);
+         });
+     });
+
+     describe("replaceDrilldownParam  ", () => {
+         it("Drill Down-> Call replaceQueryStringValue Method", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+             spyOn(alphaReports,"replaceQueryStringValue");
+
+             // act
+             winLossView.replaceDrilldownParam("IsFilterVisible", true);
+
+             // assert
+             expect(alphaReports.replaceQueryStringValue).toHaveBeenCalled();
+         });
+     });
+
+     describe("onSwitchModeEvent   ", () => {
+         it(`First Switch Mode-> 
+            Call setCssBySwitchMode Method,
+            Call bindTableSorter Method,
+            Call renderAtFirstSwitchMode Method,
+            Set isFirstSwitchMode is False,
+            Call replaceDrilldownParam Method`, () => {
+
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             winLossView.cacheDOMElements();
+             
+             spyOn(winLossView, "renderAtFirstSwitchMode");
+             spyOn(winLossView, "setCssBySwitchMode");
+             spyOn(winLossView, "replaceDrilldownParam");
+             spyOn(sortComponent, "bindTableSorter");
+
+             // act
+             winLossView.onSwitchModeEvent();
+
+             // assert
+             expect(winLossView.setCssBySwitchMode).toHaveBeenCalled();
+             expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsStackMode", true);
+             expect(winLossView.renderAtFirstSwitchMode).toHaveBeenCalledWith(false);
+             expect(sortComponent.bindTableSorter).toHaveBeenCalled();
+             expect(winLossView.isFirstSwitchMode).toBeFalsy();
+             });
+
+         it(`From Second Switch Mode-> 
+            Call setCssBySwitchMode Method,
+            Call bindTableSorter Method,
+            Call replaceDrilldownParam Method`, () => {
+
+                 // arrange
+                 setFixtures(winLossTemplate.currentReportWithNormalMode);
+                 winLossView.cacheDOMElements();
+                 spyOn(sortComponent, "bindTableSorter");
+                 spyOn(winLossView, "setCssBySwitchMode");
+                 spyOn(winLossView, "replaceDrilldownParam");
+
+                 // act
+                 winLossView.onSwitchModeEvent();
+
+                 // assert
+                 expect(winLossView.setCssBySwitchMode).toHaveBeenCalled();
+                 expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsStackMode", true);
+                 expect(sortComponent.bindTableSorter).toHaveBeenCalled();
+             });
      });
 });

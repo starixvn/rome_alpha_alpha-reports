@@ -20,8 +20,12 @@ class WinLossView {
     $isAgentLevel: any;
     $reportForm: any;
     $userSelectedDateRangeOption: any;
-    $reportSwitch: any;
+    $historicReport: any;
     $exportExcelForm: any;
+    $filterIcon: any;
+    $excelIcon: any;
+    $submitButton: any;
+    $switchModeIcon: any;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -77,9 +81,11 @@ class WinLossView {
         this.registerEvents();
         this.$.unblockUI();
     };
+
     checkReady = () => {
         return this.$("#IsHistoricReport").length > 0;
     };
+
     cacheDOMElements = () => {
         this.$pageTitle = this.$(".page-title ");
         this.$tableReport = this.$("#tbl-report");
@@ -91,84 +97,110 @@ class WinLossView {
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$multiSelectButton = this.$(".multiselect.btn");
-        this.$reportSwitch = this.$("#report-switch");
+        this.$historicReport = this.$("#historic-report");
+        this.$filterIcon = this.$(".icon-filter");
+        this.$excelIcon = this.$("#icon-excel"); 
+        this.$switchModeIcon = this.$(".icon-switchmode"); 
     };
+
+    registerEvents = () => {
+        this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
+        this.$filterIcon.on("click", this.onFilterEvent);
+        this.$excelIcon.on("click", this.onExportExcelEvent);
+        this.$switchModeIcon.on("click", this.onSwitchModeEvent);
+        this.$reportForm.submit(this.onSubmitReportEvent);
+    };
+
     onFilterEvent = () => {
         let currentHideState = this.$reportForm.hasClass("hide");
         currentHideState ? this.showFilter() : this.hideFilter();
         this.replaceDrilldownParam("IsFilterVisible", currentHideState);
     };
+
     onExportExcelEvent = () => {
         this.$exportExcelForm.submit();
         this.$.unblockUI();
     };
-    onReportSwitchEvent = () => {
+
+    onSubmitHistoricReportEvent = () => {
         this.isSwitchView = true;
-        this.isHistoricReport = !this.$reportSwitch.data("is-historic-report");
+        this.isHistoricReport = !this.$historicReport.data("is-historic-report");
         this.$reportForm.trigger("submit");
     };
-    onStackModeEvent = () => {
 
+    onSwitchModeEvent = () => {
+        var isStackMode = this.$tableReport.hasClass("stack-mode");
+
+        this.setCssBySwitchMode(isStackMode);
+        this.replaceDrilldownParam("IsStackMode", !isStackMode);
+
+        if (this.isFirstSwitchMode) {
+            this.renderAtFirstSwitchMode(isStackMode);
+            this.isFirstSwitchMode = false;
+        }
+
+        this.sortComponent.bindTableSorter(this.getSortedColumnName());
     };
-    registerEvents = () => {
+
+    renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {
+        let isAgentLevel = this.$isAgentLevel.val().toLocaleLowerCase() === "true";
+        isSwitchToNormalMode ? this.splitColumns() : this.combineColumns(isAgentLevel);
+    }
+
+    setCssBySwitchMode = (isSwitchToNormalMode: boolean) => {
+        if (isSwitchToNormalMode) {
+            this.$pageTitle.removeClass("stack-mode");
+            this.$tableReport.removeClass("stack-mode");
+        } else {
+            this.$pageTitle.addClass("stack-mode");
+            this.$tableReport.addClass("stack-mode");
+        }
+    };
+
+    splitColumns = () => {
+        let this$ = this.$;
+        let levels = this.levels;
+
+        alphaReports.splitCell("col-turnover");
+        this$.each(levels, function (index: number) {
+            var level = levels[index];
+            alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
+        });
+    };
+
+    combineColumns = (isAgentLevel: boolean) => {
+        let levels = this.levels;
         var self = this;
 
-        this.$reportSwitch.on("click", this.onReportSwitchEvent);
-        this.$(".icon-filter").on("click", this.onFilterEvent);
-        this.$("#icon-excel").on("click", this.onExportExcelEvent);
-        this.$(".icon-switchmode").on("click", function () {
-            var tableReport = self.$tableReport;
-            var currentStackModeState = tableReport.hasClass("stack-mode");
-
-            if (currentStackModeState) {
-                self.$pageTitle.removeClass("stack-mode");
-                tableReport.removeClass("stack-mode");
-            } else {
-                self.$pageTitle.addClass("stack-mode");
-                tableReport.addClass("stack-mode");
-            }
-
-            self.replaceDrilldownParam("IsStackMode", !currentStackModeState);
-
-            if (self.isFirstSwitchMode) {
-                if (currentStackModeState) {
-                    alphaReports.splitCell("col-turnover");
-
-                    self.$.each(self.levels, function (index: number) {
-                        var level = self.levels[index];
-                        alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
-                    });
-                } else {
-                    if (self.$isAgentLevel.val().toLocaleLowerCase() === "true") {
-                        alphaReports.combineConsecutiveCells(self.$("td.col-turnover"), 2, "text-right col-turnover-combined");
-                    }
-                    else {
-                        alphaReports.combineConsecutiveCells(self.$("td.col-turnover"), 3, "text-right col-turnover-combined");
-                    }
-
-                    self.$.each(self.levels, function (index: number) {
-                        var level = self.levels[index];
-                        var cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
-                        alphaReports.combineConsecutiveCells(self.$("td.col-" + level + "-winloss"), 3, cellCss);
-                    });
-                }
-
-                self.isFirstSwitchMode = false;
-            }
-
-            self.sortComponent.bindTableSorter(self.getSortedColumnName());
+        isAgentLevel ? this.combineToTurnOverColumnAgentLevel() : this.combineToTurnOverColumnSuperMasterLevel();   
+        this.$.each(levels, function (index: number) {
+            self.combineToWinLossColumn(levels[index], index);
         });
-
-        self.$reportForm.submit(this.onSubmitReportEvent);
     };
+
+    combineToTurnOverColumnAgentLevel = () => {
+        alphaReports.combineConsecutiveCells(this.$("td.col-turnover"), 2, "text-right col-turnover-combined");
+    };
+
+    combineToTurnOverColumnSuperMasterLevel = () => {
+        alphaReports.combineConsecutiveCells(this.$("td.col-turnover"), 3, "text-right col-turnover-combined");
+    };
+
+    combineToWinLossColumn = (level: string, index: number) => {
+        var cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
+        alphaReports.combineConsecutiveCells(this.$("td.col-" + level + "-winloss"), 3, cellCss);
+    };
+
     showFilter = () =>{
         this.$pageTitle.removeClass("hide-filter");
         this.$reportForm.removeClass("hide");
     };
+
     hideFilter = () => {
         this.$pageTitle.addClass("hide-filter");
         this.$reportForm.addClass("hide");
     };
+
     getParams = () => {
         var selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
         var tableReport = this.$tableReport;
@@ -181,12 +213,15 @@ class WinLossView {
             HideFilter: this.$reportForm.is(":hidden"),
         };
     };
+
     showValidaProductError = () => {
         this.$multiSelectButton.addClass("error");
     };
+
     clearError = () => {
         this.$multiSelectButton.removeClass("error");
     };
+
     replaceDrilldownParam = (paramName: string, paramValue: any) => {
         var self = this;
         this.$drilldownLinks.each(function () {
@@ -195,6 +230,7 @@ class WinLossView {
             self.$(this).attr("href", newQueryString);
         });
     };
+
     onSubmitReportEvent = (e: any) => {
         this.$.blockUI();
 
@@ -211,6 +247,7 @@ class WinLossView {
         this.$isHistoricReport.val(params.IsHistoricReport);
         this.$isStackMode.val(params.IsStackMode);
     };
+
     getSortedColumnName = () => {
         let sortedColumn = this.$tableReport.data("sortedcolumn");
         if (!this.$tableReport.hasClass("stack-mode")) {

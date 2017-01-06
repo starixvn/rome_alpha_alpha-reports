@@ -130,7 +130,10 @@
             expect(enterResultView.$isStackMode).toBeDefined();
             expect(enterResultView.$reportForm).toBeDefined();
             expect(enterResultView.$userSelectedDateRangeOption).toBeDefined();
-            expect(enterResultView.$reportSwitch).toBeDefined();
+            expect(enterResultView.$historicReport).toBeDefined();
+            expect(enterResultView.$filterIcon).toBeDefined();
+            expect(enterResultView.$excelIcon).toBeDefined();
+            expect(enterResultView.$submitButton).toBeDefined();
         });
     });
 
@@ -196,7 +199,7 @@
         });
     });
 
-    describe("onSubmitReportEvent", () => {
+    describe("onExportExcelEvent", () => {
         it("Always -> Submits Export Excel Form And Unblocks UI", () => {
             // arrange
             setFixtures(enteredResultTemplate.reportContent);
@@ -212,51 +215,61 @@
         });
     });
 
-    describe("onSwitchModeEvent ", () => {
-        it("Switch View -> Blocks UI; Empty FromDate/Todate; Sets params to hidden fields", () => {
+    describe("setHiddenValue", () => {
+        it("Submit Normal Report -> Blocks UI; Sets params to hidden fields", () => {
             // arrange
             setFixtures(enteredResultTemplate.reportContent);
             enterResultView.init();
-            enterResultView.isSwitchView = true;
 
             // act
-            enterResultView.onSubmitReportEvent();
+            enterResultView.setHiddenValue(true);
 
             // assert
             expect(jQueryFake.blockUI).toHaveBeenCalled();
 
             expect(enterResultView.$isFilterVisible.val()).toBeTruthy();
+            expect(enterResultView.$isHistoricReport.val()).toBeTruthy();
         });
 
-        ////it("Switch View on Mobile -> Set Filter Is Visible to false", () => {
-        ////    // arrange
-        ////    setFixtures(enteredResultTemplate.reportContent);
-        ////    renderSortComponent.and.callThrough();
-        ////    enterResultView.init();
-        ////    enterResultView.isSwitchView = true;
 
-        ////    // act
-        ////    enterResultView.onSubmitReportEvent();
-
-        ////    // assert
-        ////    expect(winLossView.$isFilterVisible.val()).toEqual("true");
-        ////});
-
-        it("Not switch view and not select any product -> Blocks UI; Shows Validate Product Error; Unblock UI;", () => {
+        it("Submit Historic Report -> Blocks UI; Sets params to hidden fields", () => {
             // arrange
             setFixtures(enteredResultTemplate.reportContent);
-            renderSortComponent.and.callThrough();
             enterResultView.init();
-            enterResultView.isSwitchView = false;
-
-            var event = { preventDefault: jasmine.createSpy("preventDefault", () => null) };
 
             // act
-            enterResultView.onSubmitReportEvent();
+            enterResultView.setHiddenValue(false);
 
             // assert
-            expect(jQueryFake.blockUI).toHaveBeenCalled();
-            expect(jQueryFake.unblockUI).toHaveBeenCalled();
+            expect(enterResultView.$isFilterVisible.val()).toBeTruthy();
+            expect(enterResultView.$isHistoricReport.val()).toEqual("false");
+        });
+    });
+
+    describe("onSubmitNormalReportEvent", () => {
+        it("Submit Normal Report -> Set Value For Hidden Field Before Submit", () => {
+            // arrange
+            spyOn(enterResultView, "setHiddenValue");
+           
+            // act
+            enterResultView.onSubmitNormalReportEvent();
+
+            // assert
+            expect(enterResultView.setHiddenValue).toHaveBeenCalledWith(false);
+        });
+    });
+
+    describe("onSubmitHistoricReportEvent", () => {
+        it("Submit Historic Report -> Set Value For Hidden Field Before Submit", () => {
+            // arrange
+            spyOn(enterResultView, "setHiddenValue");
+            enterResultView.cacheDOMElements();
+
+            // act
+            enterResultView.onSubmitHistoricReportEvent();
+
+            // assert
+            expect(enterResultView.setHiddenValue).toHaveBeenCalledWith(true);
         });
     });
 });

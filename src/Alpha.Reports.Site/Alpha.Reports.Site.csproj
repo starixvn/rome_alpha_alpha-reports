@@ -329,9 +329,6 @@
       <DependentUpon>default.css</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
-    <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
-      <DependentUpon>winlossdetail.js</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\winloss\enteredresult.js" />
     <Content Include="assets\bundles\winloss\enteredresult.min.js">
       <DependentUpon>enteredresult.js</DependentUpon>

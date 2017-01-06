@@ -11,10 +11,13 @@ class EnterResultView {
     $reportForm: any;
     $isFilterVisible: any;
     $userSelectedDateRangeOption: any;
-    $reportSwitch: any;
+    $historicReport: any;
+    $isHistoricReport: any;
     $isStackMode: any;
-    isSwitchView = false;
     $exportExcelForm: any;
+    $filterIcon: any;
+    $excelIcon: any;
+    $submitButton: any;
 
     dateRangePickerComponent: DateRangePickerComponent;
     sortComponent: SortComponent;
@@ -58,16 +61,20 @@ class EnterResultView {
         this.$tableReport = this.$("#tbl-report");
         this.$reportForm = this.$("#report-form");
         this.$isFilterVisible = this.$("#IsFilterVisible");
+        this.$historicReport = this.$("#historic-report");
+        this.$isHistoricReport = this.$("#IsHistoricReport");
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$isStackMode = this.$("#IsStackMode");
-        this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
-        this.$reportSwitch = this.$("#report-switch");
+        this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");   
+        this.$filterIcon = this.$(".icon-filter");
+        this.$excelIcon = this.$("#icon-excel");
+        this.$submitButton = this.$(".btn-submit");
     };
     registerEvents = () => {
-        this.$reportSwitch.on("click", this.onSwitchModeEvent);
-        this.$(".icon-filter").on("click", this.onFilterEvent);
-        this.$("#icon-excel").on("click", this.onExportExcelEvent);
-        this.$(".btn-submit").on("click", this.onSubmitReportEvent);
+        this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
+        this.$filterIcon.on("click", this.onFilterEvent);
+        this.$excelIcon.on("click", this.onExportExcelEvent);
+        this.$submitButton.on("click", this.onSubmitNormalReportEvent);
     };
     onFilterEvent = () => {
         let currentHideState = this.$reportForm.hasClass("hide");
@@ -85,16 +92,18 @@ class EnterResultView {
         this.$exportExcelForm.submit();
         this.$.unblockUI();
     };
-    onSubmitReportEvent = () => {
-        this.$("#IsHistoricReport").val(false);
+    onSubmitNormalReportEvent = () => {
+        this.setHiddenValue(false); 
+    };
+    onSubmitHistoricReportEvent = () => {
+        this.setHiddenValue(true);
+        this.$reportForm.trigger("submit");
+    };
+    setHiddenValue = (isHistoryReport: boolean) => {
+        this.$isHistoricReport.val(isHistoryReport);
         this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
         this.$isStackMode.val(alphaReports.screenSmallThan768());
         this.$.blockUI();
-    };
-    onSwitchModeEvent = () => {
-        this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
-        this.$isStackMode.val(alphaReports.screenSmallThan768());
-        this.$reportForm.trigger("submit");
     };
 }
 

@@ -18,20 +18,20 @@
     </div>
 
     <div class="note">
-        <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="report-switch" data-is-historic-report="@Model.IsHistoricReport.ToString().ToLower()" href="#">@Model.ViewActionMessage</a>
+        <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" data-is-historic-report="@Model.IsHistoricReport.ToString().ToLower()" href="#">@Model.ViewActionMessage</a>
     </div>
 
     @helper RenderHiddenFields()
     {
-    @Html.Hidden("IsFilterVisible", Model.Visible)
-    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
+        @Html.Hidden("IsFilterVisible", Model.Visible)
+        @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 
-    @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
-    @Html.Hidden("IsAgentLevel", Model.UserLevel.IsAgentLevel())
+        @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+        @Html.Hidden("IsAgentLevel", Model.UserLevel.IsAgentLevel())
 
-    @Html.Hidden("CustId", Model.CustId)
-    @Html.Hidden("CustName", Model.CustName)
-    @Html.Hidden("DrillDownInfoJson", Model.DrillDownInfoJson)
-    @Html.Hidden("UserLevelId", Model.UserLevel.Value)
-}
+        @Html.Hidden("CustId", Model.CustId)
+        @Html.Hidden("CustName", Model.CustName)
+        @Html.Hidden("DrillDownInfoJson", Model.DrillDownInfoJson)
+        @Html.Hidden("UserLevelId", Model.UserLevel.Value)
+    }
 </form>
