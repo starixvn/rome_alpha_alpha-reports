@@ -10,9 +10,9 @@
         {
         }
 
-        [Route("enteredresult/super")]
         [Route("enteredresult/master")]
         [Route("enteredresult/agent")]
+        [Route("enteredresult/member")]
         public ActionResult EnteredResult(EnteredSportResultQuery message)
             => View(message);
 

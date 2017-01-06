@@ -9,7 +9,6 @@
     using Extensions;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
-    using Requests.WinLossDetail;
 
     public class WinLossDetailViewModel
     {

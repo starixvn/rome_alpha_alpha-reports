@@ -9,13 +9,13 @@
         protected DateRangeReportParam(
             DateTime fromDate,
             DateTime toDate,
-            bool isHistoricReport)
+            bool isHistoryReport)
         {
-            IsHistoryReport = isHistoricReport;
+            IsHistoryReport = isHistoryReport;
 
             if (fromDate == DateTime.MinValue)
             {
-                FromDate = isHistoricReport ? DateTimeManager.Now.FirstDayOfMonth() : DateTimeManager.Now;
+                FromDate = isHistoryReport ? DateTimeManager.Now.FirstDayOfMonth() : DateTimeManager.Now;
             }
             else
             {

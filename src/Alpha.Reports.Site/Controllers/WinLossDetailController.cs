@@ -10,9 +10,9 @@
         {
         }
 
-        [Route("winlossdetail/super")]
         [Route("winlossdetail/master")]
         [Route("winlossdetail/agent")]
+        [Route("winlossdetail/member")]
         public ActionResult Index(WinLossDetailQuery message)
             => View(message);
 
