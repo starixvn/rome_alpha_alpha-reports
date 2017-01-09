@@ -8,7 +8,7 @@
 
     public interface OutstandingService
     {
-        IEnumerable<OutstandingModel> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId);
+        IEnumerable<OutstandingData> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId);
     }
 
     public class OutstandingServiceImpl : OutstandingService
@@ -20,16 +20,16 @@
             repository = dynamicRepository;
         }
 
-        public IEnumerable<OutstandingModel> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId)
+        public IEnumerable<OutstandingData> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId)
         {
             if (userLevel >= custLevel)
             {
                 var criteria = new OutstandingCriteria(custLevel, custId);
 
-                return repository.Fetch<OutstandingModel>(criteria);
+                return repository.Fetch<OutstandingData>(criteria);
             }
 
-            return new List<OutstandingModel>();
+            return new List<OutstandingData>();
         }
     }
 }

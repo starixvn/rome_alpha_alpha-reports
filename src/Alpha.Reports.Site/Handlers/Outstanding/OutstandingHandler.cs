@@ -7,38 +7,35 @@
     using Reports.Models.Outstanding;
     using Requests.Outstanding;
     using Services.Outstanding;
-    using Sunplus.Agent.Model.Entities;
     using ViewModels.Outstanding;
 
     public class OutstandingHandler : BaseHandler, IRequestHandler<OutstandingQuery, OutstandingViewModel>
     {
         private readonly OutstandingService outstandingServiceImpl;
-        private readonly IUserSession userSession;
 
-        public OutstandingHandler(OutstandingService outstandingServiceImpl, IUserSession userSession)
+        public OutstandingHandler(OutstandingService outstandingServiceImpl)
         {
             this.outstandingServiceImpl = outstandingServiceImpl;
-            this.userSession = userSession;
         }
 
         public OutstandingViewModel Handle(OutstandingQuery message)
         {
-            var userLevel = Enumeration.FromValue<UserLevel>(userSession.RoleId);
+            var viwerLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
 
-            IEnumerable<OutstandingModel> outstandings;
+            IEnumerable<OutstandingData> outstandings;
             int nextCustLevel;
             if (message.CustLevelId == 0)
             {
-                outstandings = outstandingServiceImpl.GetMemberOutstanding(userLevel, userLevel, userSession.CustId);
-                nextCustLevel = userLevel.Value - 1;
+                outstandings = outstandingServiceImpl.GetMemberOutstanding(viwerLevel, viwerLevel, message.CustId);
+                nextCustLevel = viwerLevel.Value - 1;
             }
             else
             {
-                outstandings = outstandingServiceImpl.GetMemberOutstanding(userLevel, Enumeration.FromValue<UserLevel>(message.CustLevelId), message.CustId);
+                outstandings = outstandingServiceImpl.GetMemberOutstanding(viwerLevel, Enumeration.FromValue<UserLevel>(message.CustLevelId), message.CustId);
                 nextCustLevel = message.CustLevelId - 1;
             }
 
-            var viewModel = new OutstandingViewModel(Enumeration.FromValue<UserLevel>((byte)nextCustLevel), outstandings);
+            var viewModel = new OutstandingViewModel(viwerLevel, Enumeration.FromValue<UserLevel>((byte)nextCustLevel), outstandings);
 
             return viewModel;
         }

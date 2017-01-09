@@ -1,48 +1,67 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Outstanding
 {
     using System.Collections.Generic;
-    using System.Linq;
+    using App_GlobalResources;
     using Reports.Models;
     using Reports.Models.Outstanding;
 
     public class OutstandingViewModel
     {
-        public OutstandingViewModel(UserLevel custLevel, IEnumerable<OutstandingModel> outstandings)
+        public OutstandingViewModel(UserLevel viewerLevel, UserLevel custLevel, IEnumerable<OutstandingData> outstandings)
         {
-            CustLevel = custLevel;
+            ViewerLevel = viewerLevel;
+            ReportLevel = custLevel;
             Outstandings = outstandings;
 
-            Total = new OutstandingModel(
-                "Total",
-                0,
-                outstandings.Sum(n => n.MemberOutstanding),
-                outstandings.Sum(n => n.AgentOutstanding),
-                outstandings.Sum(n => n.MasterOutstanding),
-                outstandings.Sum(n => n.SuperOutstanding));
+            Total = new OutstandingData();
+            foreach (var outstanding in outstandings)
+            {
+                Total.Accumulate(outstanding);
+            }
         }
 
         public string Title
         {
             get
             {
-                if (CustLevel.IsMasterLevel())
+                if (ReportLevel.IsMasterLevel())
                 {
-                    return "Master Outstanding";
+                    return Resources.MasterOutstanding;
                 }
 
-                if (CustLevel.IsAgentLevel())
+                if (ReportLevel.IsAgentLevel())
                 {
-                    return "Agent Outstanding";
+                    return Resources.AgentOutstanding;
                 }
 
-                return "Member Outstanding";
+                return Resources.MemberOutstanding;
             }
         }
 
-        public UserLevel CustLevel { get; }
+        public string Level
+        {
+            get
+            {
+                if (ReportLevel.IsMasterLevel())
+                {
+                    return Resources.Master;
+                }
 
-        public IEnumerable<OutstandingModel> Outstandings { get; }
+                if (ReportLevel.IsAgentLevel())
+                {
+                    return Resources.Agent;
+                }
 
-        public OutstandingModel Total { get; }
+                return Resources.Member;
+            }
+        }
+
+        public UserLevel ViewerLevel { get; }
+
+        public UserLevel ReportLevel { get; }
+
+        public IEnumerable<OutstandingData> Outstandings { get; }
+
+        public OutstandingData Total { get; }
     }
 }

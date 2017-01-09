@@ -9,31 +9,30 @@
 </div>
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
-        data-totalrecords="@Model.Outstandings.Count()"
-        data-sortedcolumn="Outstanding.Username"
-        data-descendingsort="false"
-       >
+       data-totalrecords="@Model.Outstandings.Count()"
+       data-sortedcolumn="Outstanding.Username"
+       data-descendingsort="false">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
-            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Outstanding.Username" >Username</th>
-            <th colspan="@(UserLevel.Super.Value - Model.CustLevel.Value + 1)" class="header">Outstanding</th>
+            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Outstanding.Username">@Model.Level</th>
+            <th colspan="@(Model.ViewerLevel.Value - Model.ReportLevel.Value + 1)" class="header">@Resources.Outstanding</th>
         </tr>
         <tr class="thead-row2">
-            <th class="sorting" data-colindex="1" data-sortedname>Member</th>
-            @if (Model.CustLevel.IsMasterLevel())
+            <th class="sorting" data-colindex="1" data-sortedname>@Resources.Member</th>
+            @for (int reportLevel = Model.ReportLevel.Value; reportLevel < Model.ViewerLevel.Value; reportLevel++)
             {
-                <th class="sorting" data-colindex="2" data-sortedname>Super</th>
-            }
-            @if (Model.CustLevel.IsAgentLevel())
-            {
-                <th class="sorting" data-colindex="2" data-sortedname>Master</th>
-                <th class="sorting" data-colindex="3" data-sortedname>Super</th>
-            }
-            @if (Model.CustLevel.IsMemberLevel())
-            {
-                <th class="sorting" data-colindex="2" data-sortedname>Agent</th>
-                <th class="sorting" data-colindex="3" data-sortedname>Master</th>
-                <th class="sorting" data-colindex="4" data-sortedname>Super</th>
+                if (UserLevel.Member.Value == reportLevel)
+                {
+                    <th class="sorting" data-colindex="2" data-sortedname>@Resources.Agent</th>
+                }
+                if (UserLevel.Agent.Value == reportLevel)
+                {
+                    <th class="sorting" data-colindex="3" data-sortedname>@Resources.Master</th>
+                }
+                if (UserLevel.Master.Value == reportLevel)
+                {
+                    <th class="sorting" data-colindex="4" data-sortedname>@Resources.Super</th>
+                }
             }
         </tr>
     </thead>
@@ -41,7 +40,7 @@
         @foreach (var outstanding in Model.Outstandings)
         {
             <tr>
-                @if (Model.CustLevel.IsMemberLevel())
+                @if (Model.ReportLevel.IsMemberLevel())
                 {
                     <td class="text-left" data-islink="true">
                         <a href="@($"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall={"on"}")">@outstanding.CustName</a>
@@ -50,7 +49,7 @@
                 else
                 {
                     <td class="text-left" data-islink="true">
-                        @Html.ActionLink(outstanding.CustName, "Index", new { custLevelId = Model.CustLevel.Value, custId = outstanding.CustId })
+                        @Html.ActionLink(outstanding.CustName, "Index", new { custLevelId = Model.ReportLevel.Value, custId = outstanding.CustId })
                     </td>
                 }
                 <td>@HtmlHelpers.FormatNumber(outstanding.MemberOutstanding)</td>
@@ -60,7 +59,7 @@
     </tbody>
     <tfoot>
         <tr class="tbl-footer">
-            <td class="text-left">@Model.Total.CustName</td>
+            <td class="text-left">@Resources.Total</td>
             <td>@HtmlHelpers.FormatNumber(@Model.Total.MemberOutstanding)</td>
             @RenderSMARow(Model.Total)
         </tr>
@@ -71,23 +70,23 @@
     @StaticResources.RenderScripts("~/assets/bundles/outstanding/outstanding")
 }
 
-@helper RenderSMARow(OutstandingModel outstanding)
+@helper RenderSMARow(OutstandingData outstanding)
 {
-if (Model.CustLevel.IsMasterLevel())
-{
-        <td>@HtmlHelpers.FormatNumber(outstanding.SuperOutstanding)</td>
-}
-if (Model.CustLevel.IsAgentLevel())
-{
-        <td>@HtmlHelpers.FormatNumber(outstanding.MasterOutstanding)</td>
-        <td>@HtmlHelpers.FormatNumber(outstanding.SuperOutstanding)</td>
-}
-if (Model.CustLevel.IsMemberLevel())
-{
-        <td>@HtmlHelpers.FormatNumber(outstanding.AgentOutstanding)</td>
-        <td>@HtmlHelpers.FormatNumber(outstanding.MasterOutstanding)</td>
-        <td>@HtmlHelpers.FormatNumber(outstanding.SuperOutstanding)</td>
-}
+    for (int reportLevel = Model.ReportLevel.Value; reportLevel < Model.ViewerLevel.Value; reportLevel++)
+    {
+        if (UserLevel.Member.Value == reportLevel)
+        {
+                <td>@HtmlHelpers.FormatNumber(outstanding.AgentOutstanding)</td>
+        }
+        if (UserLevel.Agent.Value == reportLevel)
+        {
+                <td>@HtmlHelpers.FormatNumber(outstanding.MasterOutstanding)</td>
+        }
+        if (UserLevel.Master.Value == reportLevel)
+        {
+                <td>@HtmlHelpers.FormatNumber(outstanding.SuperOutstanding)</td>
+        }
+    }
 }
 
 
