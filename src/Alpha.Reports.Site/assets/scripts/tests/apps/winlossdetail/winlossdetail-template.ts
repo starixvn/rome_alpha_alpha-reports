@@ -10,7 +10,7 @@
                         </div>
                         <input id="IsHistoricReport" value="True" type="hidden" />
                         <input id="IsFilterVisible" value="True" type="hidden" />
-                        <input id="HasSubmittedParams" value="False" type="hidden" />
+                        <input id="IsSetDefaultStackMode" value="True" type="hidden" />
                         <div id="report-switch" data-is-historic-report="true"></div>
                     </body>`,
     historicReportWithHiddenFilter: `<body>
@@ -30,7 +30,7 @@
                         </div>
                         <input id="IsHistoricReport" value="True" type="hidden" />
                         <input id="IsFilterVisible" value="False" type="hidden" />
-                        <input id="HasSubmittedParams" value="False" type="hidden" />
+                        <input id="IsSetDefaultStackMode" value="True" type="hidden" />
                     </body>`,
     currentReportWithNormalMode: `<body>
                                     <div class="page-title"></div>
@@ -57,7 +57,7 @@
                                     <div id="from-date"></div>
                                     <div id="to-date"></div>
                                     <div id="icon-normal-column"></div>
-                                    <input id="HasSubmittedParams" value="False" type="hidden" />
+                                    <input id="IsSetDefaultStackMode" value="True" type="hidden" />
                                     <input class="breadcrumb-link" />
 
                                     <div id="netturnovertooltip"></div>
@@ -90,7 +90,7 @@
                                     <div id="from-date"></div>
                                     <div id="to-date"></div>
                                     <div id="icon-normal-column"></div>
-                                    <input id="HasSubmittedParams" value="False" type="hidden" />
+                                    <input id="IsSetDefaultStackMode" value="True" type="hidden" />
                                     <input class="breadcrumb-link" />
 
                                     <div id="netturnovertooltip"></div>
@@ -108,7 +108,7 @@
                             </div>
                             <input id="IsHistoricReport" value="False" type="hidden" />
                             <input id="IsFilterVisible" value="True" type="hidden" />
-                            <input id="HasSubmittedParams" value="False" type="hidden" />
+                            <input id="IsSetDefaultStackMode" value="True" type="hidden" />
                             <input id="CustId" value="1" type="hidden" />
                         </body>`,
 
@@ -144,7 +144,7 @@
                             <div id="from-date"></div>
                             <div id="to-date"></div>
                             <div id="icon-normal-column"></div>
-                            <input id="HasSubmittedParams" value="False" type="hidden" />
+                            <input id="IsSetDefaultStackMode" value="True" type="hidden" />
                             <input class="breadcrumb-link" />
 
                             <div id="netturnovertooltip"></div>
@@ -178,7 +178,7 @@
                             <div id="from-date"></div>
                             <div id="to-date"></div>
                             <div id="icon-normal-column"></div>
-                            <input id="HasSubmittedParams" value="False" type="hidden" />
+                            <input id="IsSetDefaultStackMode" value="True" type="hidden" />
                             <input class="breadcrumb-link" />
 
                             <div id="netturnovertooltip"></div>
@@ -212,7 +212,7 @@
                             <div id="from-date"></div>
                             <div id="to-date"></div>
                             <div id="icon-normal-column"></div>
-                            <input id="HasSubmittedParams" value="False" type="hidden" />
+                            <input id="IsSetDefaultStackMode" value="True" type="hidden" />
                             <input class="breadcrumb-link" />
 
                             <div id="netturnovertooltip"></div>

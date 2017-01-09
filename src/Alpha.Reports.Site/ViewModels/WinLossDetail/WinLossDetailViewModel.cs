@@ -112,7 +112,7 @@
 
         public string Title { get; set; }
 
-        public bool HasSubmittedParams { get; set; }
+        public bool IsSetDefaultStackMode { get; set; }
 
         public UserLevel UserLevel { get; set; }
 

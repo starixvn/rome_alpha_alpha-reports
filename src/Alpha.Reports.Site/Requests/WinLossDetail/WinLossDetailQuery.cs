@@ -30,6 +30,6 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public bool HasSubmittedParams => !string.IsNullOrWhiteSpace(UserSelectedProductIds);
+        public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
     }
 }

@@ -56,7 +56,7 @@
             enteredSportResultExcelHandler.Handle(message);
 
             // Assert
-            enteredSportResultWorkbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
+            enteredSportResultWorkbook.Received().UseTemplate(Arg.Is<TemplateInfo>(
                 tp => tp.NoInfomationText == "No information is available"));
         }
 
@@ -86,7 +86,7 @@
             enteredSportResultExcelHandler.Handle(message);
 
             // Assert
-            enteredSportResultWorkbook.Received().Sheet(Arg.Is<string>("Match Result Entered"));
+            enteredSportResultWorkbook.Received().Sheet(Arg.Is("Match Result Entered"));
         }
 
         [Fact]

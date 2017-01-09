@@ -68,7 +68,7 @@
             winLossExcelHandler.Handle(message);
 
             // Assert
-            winlossWorkbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
+            winlossWorkbook.Received().UseTemplate(Arg.Is<TemplateInfo>(
                 tp => tp.NoInfomationText == "No information is available"));
         }
 
@@ -82,7 +82,7 @@
             winLossExcelHandler.Handle(message);
 
             // Assert
-            winlossWorkbook.Received().Title(Arg.Is<string>("Master Win Loss 12/02/2016 --> 12/02/2016 of Product Name"));
+            winlossWorkbook.Received().Title(Arg.Is("Master Win Loss 12/02/2016 --> 12/02/2016 of Product Name"));
         }
 
         [Fact]
@@ -141,7 +141,7 @@
             winLossExcelHandler.Handle(message);
 
             // Assert
-            winlossWorkbook.Received().Sheet(Arg.Is<string>("Master Win Loss"));
+            winlossWorkbook.Received().Sheet(Arg.Is("Master Win Loss"));
         }
 
         [Fact]

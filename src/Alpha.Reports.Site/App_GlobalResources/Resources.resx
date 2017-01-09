@@ -360,4 +360,7 @@
   <data name="DefaultSheetName" xml:space="preserve">
     <value>Sheet 1</value>
   </data>
+  <data name="WinLossDetail" xml:space="preserve">
+    <value>Win Loss Detail</value>
+  </data>
 </root>

@@ -29,7 +29,7 @@ class WinLossDetailView {
     $toDate: any;
     $exportExcelForm: any;
     $iconNormalColumn: any;
-    $hasSubmittedParams: any;
+    $isSetDefaultStackMode: any;
     $breadcrumbLinks: any;
 
     isFirstSwitchMode = true;
@@ -103,7 +103,7 @@ class WinLossDetailView {
 
         this.$tableReport.stickyTableHeaders();
 
-        if (this.$hasSubmittedParams.val().toString().toLowerCase() !== "true"
+        if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
             && alphaReports.screenSmallThan768()) {
             this.setStackMode();
             this.reportTooltip.show(new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0)));
@@ -132,7 +132,7 @@ class WinLossDetailView {
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
         this.$iconNormalColumn = this.$("#icon-normal-column");
-        this.$hasSubmittedParams = this.$("#HasSubmittedParams");
+        this.$isSetDefaultStackMode = this.$("#IsSetDefaultStackMode");
         this.$breadcrumbLinks = this.$(".breadcrumb-link");
     };
 

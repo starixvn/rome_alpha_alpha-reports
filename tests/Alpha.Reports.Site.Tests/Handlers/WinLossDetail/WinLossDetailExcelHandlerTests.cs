@@ -72,7 +72,7 @@
             winLossDetailExcelHandler.Handle(message);
 
             // Assert
-            workbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
+            workbook.Received().UseTemplate(Arg.Is<TemplateInfo>(
                 tp => tp.NoInfomationText == "No information is available" &&
                 tp.FreezeColumnName == "B" &&
                 tp.FreezeRowIndex == 3));
@@ -88,7 +88,7 @@
             winLossDetailExcelHandler.Handle(message);
 
             // Assert
-            workbook.Received().Title(Arg.Is<string>("Master Win Loss Detail 12/02/2016 --> 12/02/2016 of Product Name"));
+            workbook.Received().Title(Arg.Is("Win Loss Detail 12/02/2016 --> 12/02/2016 of Product Name"));
         }
 
         [Fact]
@@ -115,7 +115,7 @@
 
             // Assert
             workbook.Received().Body(
-                Arg.Is<IEnumerable<WinLossDetailModel>>(reportData.DataSource),
+                Arg.Is(reportData.DataSource),
                 Arg.Any<Mapper<WinLossDetailModel>>());
         }
 
@@ -129,7 +129,7 @@
             winLossDetailExcelHandler.Handle(message);
 
             // Assert
-            workbook.Received().Footer(Arg.Is<WinLossDetailModel>(reportData.TotalData), Arg.Any<Mapper<WinLossDetailModel>>());
+            workbook.Received().Footer(Arg.Is(reportData.TotalData), Arg.Any<Mapper<WinLossDetailModel>>());
         }
 
         [Fact]
@@ -142,7 +142,7 @@
             winLossDetailExcelHandler.Handle(message);
 
             // Assert
-            workbook.Received().Sheet(Arg.Is<string>("Master Win Loss Detail"));
+            workbook.Received().Sheet(Arg.Is("Sheet 1"));
         }
 
         [Fact]

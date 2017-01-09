@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using App_GlobalResources;
     using Enumerations;
     using MediatR;
     using Reports.Models;
@@ -60,7 +61,7 @@
 
                 SortPropertyName = winLossDetailParam.SortByPropertyName,
                 IsDescendingSort = winLossDetailParam.IsDescendingSort,
-                HasSubmittedParams = message.HasSubmittedParams,
+                IsSetDefaultStackMode = message.IsSetDefaultStackMode,
                 DrillDownInfoJson = ToJson(drillDownInfo),
                 BreadcrumbLevels = BuildBreadcrumbLevels(
                     drillDownInfo,
@@ -92,5 +93,12 @@
 
             return viewModel;
         }
+
+        private string GetReportNameByLevel(UserLevel userLevel)
+            => userLevel.IsSuperLevel()
+            ? Resources.MasterWinLossDetail
+            : userLevel.IsMasterLevel()
+                ? Resources.AgentWinLossDetail
+                : Resources.MemberWinLossDetail;
     }
 }

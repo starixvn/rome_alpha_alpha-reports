@@ -94,7 +94,7 @@
                 UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
                 FromDate = DefaultVariables.CurrentDate,
                 ToDate = DefaultVariables.CurrentDate,
-                HasSubmittedParams = !string.IsNullOrWhiteSpace(userSelectedProductIds),
+                IsSetDefaultStackMode = string.IsNullOrWhiteSpace(userSelectedProductIds),
                 IsFilterVisible = true,
                 Title = "Master Win Loss Detail",
 

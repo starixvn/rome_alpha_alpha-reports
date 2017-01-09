@@ -33,9 +33,8 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var reportNameByLevel = GetReportNameByLevel(message.UserLevel);
             var products = message.UserSelectedProductIds.ToListInt();
-            var reportTitle = $"{reportNameByLevel} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+            var reportTitle = $"{Resources.WinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
 
             var winLossDetailParam = CreateParameter(message, message.UserLevel);
@@ -50,11 +49,11 @@
                 .Header(Resources.ResourceManager.GetString)
                 .Body(reportData.DataSource, GetRowMapper(message, isTotal: false))
                 .Footer(reportData.TotalData, GetRowMapper(message, isTotal: true))
-                .Sheet(reportNameByLevel)
+                .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
             return new ExcelFileViewModel(
-                $"{reportNameByLevel}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}",
+                $"{Resources.WinLossDetail}-{message.CustName}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}",
                 fileContent);
         }
 

@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
     using System.Diagnostics.CodeAnalysis;
-    using App_GlobalResources;
     using Extensions;
     using Params;
     using Reports.Models;
@@ -45,12 +44,5 @@
                  message.IsDescendingSort,
                  message.IsHistoricReport);
         }
-
-        protected string GetReportNameByLevel(UserLevel userLevel)
-            => userLevel.IsSuperLevel()
-            ? Resources.MasterWinLossDetail
-            : userLevel.IsMasterLevel()
-                ? Resources.AgentWinLossDetail
-                : Resources.MemberWinLossDetail;
     }
 }

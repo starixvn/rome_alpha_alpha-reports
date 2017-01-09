@@ -226,7 +226,7 @@
             expect(winLossDetailView.$fromDate).toBeDefined();
             expect(winLossDetailView.$toDate).toBeDefined();
             expect(winLossDetailView.$iconNormalColumn).toBeDefined();
-            expect(winLossDetailView.$hasSubmittedParams).toBeDefined();
+            expect(winLossDetailView.$isSetDefaultStackMode).toBeDefined();
             expect(winLossDetailView.$breadcrumbLinks).toBeDefined();
         });
     });

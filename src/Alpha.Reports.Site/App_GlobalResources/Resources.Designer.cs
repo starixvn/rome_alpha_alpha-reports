@@ -781,6 +781,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Win Loss Detail.
+        /// </summary>
+        public static string WinLossDetail {
+            get {
+                return ResourceManager.GetString("WinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yesterday.
         /// </summary>
         public static string Yesterday {
