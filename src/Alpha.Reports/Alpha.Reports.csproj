@@ -84,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\DefaultVariables.cs" />
-    <Compile Include="Constants\SortDirectionConstant.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
     <Compile Include="Criteria\GetProductsCriteria.cs" />
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
