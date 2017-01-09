@@ -38,12 +38,8 @@
                 nextCustLevel = message.CustLevelId - 1;
             }
 
-            var viewModel = new OutstandingViewModel
-            {
-                Outstandings = outstandings,
-                CustLevel = Enumeration.FromValue<UserLevel>((byte)nextCustLevel)
-            };
-           
+            var viewModel = new OutstandingViewModel(Enumeration.FromValue<UserLevel>((byte)nextCustLevel), outstandings);
+
             return viewModel;
         }
     }

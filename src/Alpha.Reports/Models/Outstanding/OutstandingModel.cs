@@ -2,16 +2,36 @@
 {
     public class OutstandingModel
     {
-        public string CustName { get; set; }
+        public OutstandingModel()
+        {
+        }
+
+        public OutstandingModel(
+            string custName,
+            int custId,
+            decimal memberOutstanding,
+            decimal agentOutstanding,
+            decimal masterOutstanding,
+            decimal superOutstanding)
+        {
+            CustName = custName;
+            CustId = custId;
+            MemberOutstanding = memberOutstanding;
+            AgentOutstanding = agentOutstanding;
+            MasterOutstanding = masterOutstanding;
+            SuperOutstanding = superOutstanding;
+        }
+
+        public string CustName { get; }
 
         public int CustId { get; set; }
 
-        public decimal MemberOutstanding { get; set; }
+        public decimal MemberOutstanding { get; }
 
-        public decimal SuperOutstanding { get; set; }
+        public decimal SuperOutstanding { get; }
 
-        public decimal MasterOutstanding { get; set; }
+        public decimal MasterOutstanding { get; }
 
-        public decimal AgentOutstanding { get; set; }
+        public decimal AgentOutstanding { get; }
     }
 }
