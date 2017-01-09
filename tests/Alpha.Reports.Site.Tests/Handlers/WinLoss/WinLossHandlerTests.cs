@@ -9,7 +9,7 @@
     using System.Web.Mvc;
     using Constants;
     using Enumerations;
-    using Extensions;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Models;
     using Reports.Models.Winloss;
@@ -27,6 +27,7 @@
         private readonly WinLossService reportService;
         private readonly WinLossHandler winLossHandler;
         private readonly IUser user;
+        private CompareLogic compareLogic;
 
         public WinLossHandlerTests()
         {
@@ -39,6 +40,8 @@
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             DateTimeManager.Now = DefaultVariables.CurrentDate;
+
+            compareLogic = new CompareLogic();
         }
 
         [Fact]
@@ -94,7 +97,7 @@
                 {
                     new ActionLinkViewModel(
                         controllerName: "WinLoss",
-                        actionName: "WinLoss",
+                        actionName: "Index",
                         linkText: message.CustName,
                         routeValues: routeValue)
                 }
@@ -104,7 +107,8 @@
             var actualWinLossViewModel = winLossHandler.Handle(message);
 
             // Assert
-            AssertExtension.Equal(expectedWinLossViewModel, actualWinLossViewModel);
+            var result = compareLogic.Compare(expectedWinLossViewModel, actualWinLossViewModel);
+            Assert.True(result.AreEqual);
         }
     }
 }

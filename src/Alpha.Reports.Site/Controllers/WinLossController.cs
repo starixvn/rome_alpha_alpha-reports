@@ -10,21 +10,11 @@
         {
         }
 
-        [Route("enteredresult/master")]
-        [Route("enteredresult/agent")]
-        [Route("enteredresult/member")]
-        public ActionResult EnteredResult(EnteredSportResultQuery message)
+        public ActionResult Index(WinLossQuery message)
             => View(message);
 
         [HttpGet]
-        public ActionResult EnteredResultExcel(EnteredSportResultExcelQuery message)
-            => ExcelView(message);
-
-        public ActionResult WinLoss(WinLossQuery message)
-            => View(message);
-
-        [HttpGet]
-        public ActionResult WinLossExcel(WinLossExcelQuery message)
+        public ActionResult Excel(WinLossExcelQuery message)
             => ExcelView(message);
     }
 }

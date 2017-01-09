@@ -1,12 +1,19 @@
 ﻿namespace Alpha.Reports.Tests.Models
 {
-    using Extensions;
+    using KellermanSoftware.CompareNetObjects;
     using Reports.Models.WinLossDetail;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
     public class NetWinLossTest
     {
+        private readonly CompareLogic compareLogic;
+
+        public NetWinLossTest()
+        {
+            compareLogic = new CompareLogic();
+        }
+
         [Fact]
         public void NetWinLoss_WinLossComTotalParams_ReturnsModelFromCtor()
         {
@@ -20,7 +27,8 @@
                 expectedWinlossModel.Total);
 
             // Assert
-            AssertExtension.Equal(actualModel, expectedWinlossModel);
+            var result = compareLogic.Compare(actualModel, expectedWinlossModel);
+            Assert.True(result.AreEqual);
         }
 
         [Fact]
@@ -49,7 +57,8 @@
             var actualNetWinLoss = NetWinLoss.Add(netWinLossA, netWinLossB);
 
             // Assert
-            AssertExtension.Equal(expectedNetWinLoss, actualNetWinLoss);
+            var result = compareLogic.Compare(expectedNetWinLoss, actualNetWinLoss);
+            Assert.True(result.AreEqual);
         }
     }
 }

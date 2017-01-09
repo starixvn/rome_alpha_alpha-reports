@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Data;
     using Database.WinLoss;
-    using Extensions;
     using Fanex.Data;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLoss;
     using Reports.DataAccesses;
@@ -22,12 +22,14 @@
         private readonly WinLossDataAccessImpl winLossDataAccessImpl;
 
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
+        private readonly CompareLogic compareLogic;
 
         public WinLossDataAccessImplTests()
         {
             objectDb = Substitute.For<IObjectDb>();
             winLossDataAccessImpl = new WinLossDataAccessImpl();
             ObjectDbFactory.CreateInstance = (settingKey) => objectDb;
+            compareLogic = new CompareLogic();
         }
 
         [Fact]
@@ -60,7 +62,8 @@
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
 
             // Assert
-            AssertExtension.Equal(expectedData, actualData);
+            var result = compareLogic.Compare(expectedData, actualData);
+            Assert.True(result.AreEqual);
         }
 
         [Fact]
@@ -83,7 +86,8 @@
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
 
             // Assert
-            AssertExtension.Equal(expectedData, actualData);
+            var result = compareLogic.Compare(expectedData, actualData);
+            Assert.True(result.AreEqual);
         }
 
         [Fact]
@@ -106,7 +110,8 @@
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
 
             // Assert
-            AssertExtension.Equal(expectedData, actualData);
+            var result = compareLogic.Compare(expectedData, actualData);
+            Assert.True(result.AreEqual);
         }
 
         [Fact]
@@ -125,7 +130,8 @@
             var actualData = winLossDataAccessImpl.GetWinLoss(winLossCriteria);
 
             // Assert
-            AssertExtension.Equal(expectedData, actualData);
+            var result = compareLogic.Compare(expectedData, actualData);
+            Assert.True(result.AreEqual);
         }
     }
 }

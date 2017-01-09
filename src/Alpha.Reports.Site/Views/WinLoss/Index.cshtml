@@ -36,8 +36,8 @@
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.Count()"
        data-custid="@Model.CustId"
-        data-sortedcolumn="@(winlossLevel + ".WinLoss")"
-       data-descendingsort="true">
+       data-sortedcolumn="CustName"
+       data-descendingsort="false">
     <thead>
         <tr>
             <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="0">@downlineLevel</th>
@@ -124,7 +124,7 @@
 </table>
 
 
-<form class="form-inline hide" role="form" id="export-excel-form" action="~/WinLoss/WinLossExcel">
+<form class="form-inline hide" role="form" id="export-excel-form" action="~/WinLoss/Excel">
     <input type="hidden" name="CustId" value="@Model.CustId" />
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
@@ -168,7 +168,7 @@
                 {
                     @Html.ActionLink(
                               linkText: data.CustName,
-                              actionName: "WinLoss",
+                              actionName: "Index",
                               controllerName: "WinLoss",
                               routeValues: Model.ActionLinkViewModel(data),
                               htmlAttributes: new

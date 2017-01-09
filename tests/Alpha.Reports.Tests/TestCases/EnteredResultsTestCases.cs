@@ -8,7 +8,7 @@
     {
         private static IEnumerable<object[]> enteredResultsSources = new List<object[]>()
         {
-            new object[] { BuildDailyEnteredSportData(), BuildEnteredSportResultData() }
+            new object[] { DailyEnteredSportData(), EnteredSportResultData() }
         };
 
         private static DailyEnteredSport YesterdayDailyEnteredSoccer =>
@@ -43,38 +43,28 @@
                 entered: 5,
                 nonEntered: 6);
 
-        public static List<DailyEnteredSport> BuildDailyEnteredSportData()
+        private static IEnumerable<DailyEnteredSport> DailyEnteredSportData()
         {
-            var dailyEnteredSportData = new List<DailyEnteredSport>();
+            yield return TodaydayDailyEnteredBasketball;
+            yield return YesterdayDailyEnteredBasketball;
 
-            dailyEnteredSportData.Add(TodaydayDailyEnteredBasketball);
-            dailyEnteredSportData.Add(YesterdayDailyEnteredBasketball);
-
-            dailyEnteredSportData.Add(TodayDailyEnteredSoccer);
-            dailyEnteredSportData.Add(YesterdayDailyEnteredSoccer);
-
-            return dailyEnteredSportData;
+            yield return TodayDailyEnteredSoccer;
+            yield return YesterdayDailyEnteredSoccer;
         }
 
-        public static List<EnteredSportResult> BuildEnteredSportResultData()
+        private static IEnumerable<EnteredSportResult> EnteredSportResultData()
         {
-            var enteredSportResultData = new List<EnteredSportResult>();
+            yield return new EnteredSportResult(
+                  sportTypeId: 2,
+                  sportName: "BasketBall",
+                  enteredSportToday: TodaydayDailyEnteredBasketball,
+                  enteredSportYesterday: YesterdayDailyEnteredBasketball);
 
-            enteredSportResultData.Add(
-               new EnteredSportResult(
-                   sportTypeId: 2,
-                   sportName: "BasketBall",
-                   enteredSportToday: TodaydayDailyEnteredBasketball,
-                   enteredSportYesterday: YesterdayDailyEnteredBasketball));
-
-            enteredSportResultData.Add(
-                new EnteredSportResult(
+            yield return new EnteredSportResult(
                     sportTypeId: 1,
                     sportName: "Soccer",
                     enteredSportToday: TodayDailyEnteredSoccer,
-                    enteredSportYesterday: YesterdayDailyEnteredSoccer));
-
-            return enteredSportResultData;
+                    enteredSportYesterday: YesterdayDailyEnteredSoccer);
         }
 
         public static IEnumerable<object[]> EnteredResultsSources => enteredResultsSources;

@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Models
 {
-    using Extensions;
+    using KellermanSoftware.CompareNetObjects;
     using Reports.Models.Winloss;
     using Reports.Models.WinLossDetail;
     using Xunit;
@@ -8,6 +8,13 @@
     [Trait("Category", "WinLoss")]
     public class WinLossTest
     {
+        private readonly CompareLogic compareLogic;
+
+        public WinLossTest()
+        {
+            compareLogic = new CompareLogic();
+        }
+
         [Fact]
         public void Add_NullWinLossA_ReturnWinLossB()
         {
@@ -20,7 +27,8 @@
             var actuaWinLoss = WinLossModel.Add(winLossA, winLossB);
 
             // Assert
-            AssertExtension.Equal(expectedWinLoss, actuaWinLoss);
+            var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
+            Assert.True(result.AreEqual);
         }
 
         [Fact]
@@ -35,7 +43,8 @@
             var actuaWinLoss = WinLossModel.Add(winLossA, winLossB);
 
             // Assert
-            AssertExtension.Equal(expectedWinLoss, actuaWinLoss);
+            var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
+            Assert.True(result.AreEqual);
         }
 
         [Fact]
@@ -76,7 +85,8 @@
             var actuaWinLoss = WinLossModel.Add(winLossA, winLossB);
 
             // Assert
-            AssertExtension.Equal(expectedWinLoss, actuaWinLoss);
+            var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
+            Assert.True(result.AreEqual);
         }
     }
 }

@@ -6,7 +6,7 @@
     using System.Threading;
     using Constants;
     using Enumerations;
-    using Newtonsoft.Json;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Models;
     using Reports.Models.Winloss;
@@ -22,6 +22,7 @@
         private readonly WinLossService reportService;
         private readonly EnteredSportResultHandler enteredSportResultHandler;
         private readonly IUser user;
+        private readonly CompareLogic compareLogic;
 
         public EnteredSportResultHandlerTests()
         {
@@ -31,6 +32,8 @@
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+
+            compareLogic = new CompareLogic();
         }
 
         [Fact]
@@ -50,6 +53,8 @@
             var message = new EnteredSportResultQuery(user);
             message.UserLevelId = (byte)4;
             message.CustId = 1596;
+            var reportData = Enumerable.Empty<EnteredSportResult>();
+            reportService.GetEnteredSportResults().Returns(reportData);
 
             var expectedResult = new EnteredResultViewModel
             {
@@ -57,7 +62,7 @@
                 FromDate = DateTimeManager.Now,
                 ToDate = DateTimeManager.Now,
                 Language = message.Language,
-                ReportData = Enumerable.Empty<EnteredSportResult>(),
+                ReportData = reportData,
                 UserSelectedDateRangeOption = 0
             };
 
@@ -65,7 +70,8 @@
             var actualResult = enteredSportResultHandler.Handle(message);
 
             // Assert
-            Assert.Equal(JsonConvert.SerializeObject(expectedResult), JsonConvert.SerializeObject(actualResult));
+            var result = compareLogic.Compare(expectedResult, actualResult);
+            Assert.True(result.AreEqual);
         }
     }
 }

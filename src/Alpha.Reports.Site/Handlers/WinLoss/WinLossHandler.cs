@@ -61,7 +61,7 @@
                     drillDownInfo,
                     message,
                     "WinLoss",
-                    "WinLoss",
+                    "Index",
                     (custInfo, query, drillDownInfoByLevelJson) =>
                     {
                         var routeValues = new WinLossQuery(user);

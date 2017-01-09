@@ -255,6 +255,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\pager-tests.ts" />
     <Compile Include="Configurations\SiteSettings.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
+    <Compile Include="Controllers\EnteredResultController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -407,9 +408,7 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\AuthorizationSection.config" />
-    <Content Include="Views\WinLoss\EnteredResult.cshtml" />
     <Content Include="Views\Shared\Piwik.cshtml" />
-    <Content Include="Views\WinLoss\_EnteredResultFilter.cshtml" />
     <Content Include="Views\WinLoss\_WinLossFilter.cshtml" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Master.xls" />
@@ -499,7 +498,7 @@
     <Content Include="Web.napexternal.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-    <Content Include="Views\WinLoss\WinLoss.cshtml" />
+    <Content Include="Views\WinLoss\Index.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -511,6 +510,8 @@
     <Content Include="typings\globals\jquery\typings.json" />
     <Content Include="typings\globals\moment\typings.json" />
     <Content Include="typings\globals\storejs\typings.json" />
+    <Content Include="Views\EnteredResult\_EnteredResultFilter.cshtml" />
+    <Content Include="Views\EnteredResult\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

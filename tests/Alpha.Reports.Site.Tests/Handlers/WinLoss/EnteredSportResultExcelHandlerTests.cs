@@ -25,7 +25,7 @@
         {
             reportService = Substitute.For<WinLossService>();
             enteredSportResultWorkbook = Substitute.For<Workbook<EnteredSportResult>>();
-            enteredSportResultWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(enteredSportResultWorkbook);
+            enteredSportResultWorkbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(enteredSportResultWorkbook);
             enteredSportResultWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(enteredSportResultWorkbook);
             enteredSportResultWorkbook.Body(Arg.Any<IEnumerable<EnteredSportResult>>(), Arg.Any<Mapper<EnteredSportResult>>()).Returns(enteredSportResultWorkbook);
             enteredSportResultWorkbook.Sheet(Arg.Any<string>()).Returns(enteredSportResultWorkbook);

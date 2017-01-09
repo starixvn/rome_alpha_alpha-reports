@@ -23,43 +23,16 @@
         }
 
         [Fact]
-        public void EnteredResult_Always_CallsMediatorSendEnteredResultQuery()
-        {
-            // Arrange
-            var message = new EnteredSportResultQuery(user);
-
-            // Act
-            winLossController.EnteredResult(message);
-
-            // Assert
-            mediator.Received().Send(Arg.Is(message));
-        }
-
-        [Fact]
-        public void EnteredResultExcel_Always_CallsMediatorSendExportEnteredResultQuery()
-        {
-            // Arrange
-            var message = new EnteredSportResultExcelQuery(user);
-            mediator.Send<ExcelFileViewModel>(Arg.Any<EnteredSportResultExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
-
-            // Act
-            winLossController.EnteredResultExcel(message);
-
-            // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is(message));
-        }
-
-        [Fact]
         public void WinLoss_Always_CallsMediatorSendWinLossQuery()
         {
             // Arrange
             var message = new WinLossQuery(user);
 
             // Act
-            winLossController.WinLoss(message);
+            winLossController.Index(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is(message));
+            mediator.Received().Send(Arg.Is<WinLossQuery>(message));
         }
 
         [Fact]
@@ -70,10 +43,10 @@
             mediator.Send<ExcelFileViewModel>(Arg.Any<WinLossExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
-            winLossController.WinLossExcel(message);
+            winLossController.Excel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is(message));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<WinLossExcelQuery>(message));
         }
     }
 }
