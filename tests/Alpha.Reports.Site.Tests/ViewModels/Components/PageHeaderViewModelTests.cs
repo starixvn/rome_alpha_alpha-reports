@@ -96,5 +96,34 @@
             // Assert
             AssertExtension.Equal(expectedBreadcrumbLevels, actualBreadcrumbLevels);
         }
+
+        [Theory]
+        [InlineData(true, false)]
+        [InlineData(true, true)]
+        [InlineData(false, true)]
+        public void IsShowActionIcons_HasStackIconOrHasFilterIcon_ReturnsTrue(bool hasStackIcon, bool hasHideFilterIcon)
+        {
+            // Arrange
+            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, hasStackIcon, hasHideFilterIcon, false, false, null);
+
+            // Act
+            var actualIsShowActionIcons = pageHeaderViewModel.IsShowActionIcons;
+
+            // Assert
+            Assert.True(actualIsShowActionIcons);
+        }
+
+        [Fact]
+        public void IsShowActionIcons_NotHaveStackIconAndHasFilterIcon_ReturnsTrue()
+        {
+            // Arrange
+            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, false, false, false, false, null);
+
+            // Act
+            var actualIsShowActionIcons = pageHeaderViewModel.IsShowActionIcons;
+
+            // Assert
+            Assert.False(actualIsShowActionIcons);
+        }
     }
 }

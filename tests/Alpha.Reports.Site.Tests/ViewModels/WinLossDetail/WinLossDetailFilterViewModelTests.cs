@@ -4,7 +4,6 @@
     using System.Threading;
     using Constants;
     using Enumerations;
-    using Models;
     using Reports.Models;
     using Site.ViewModels.WinLossDetail;
     using Xunit;

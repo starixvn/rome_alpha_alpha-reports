@@ -31,25 +31,6 @@
         [InlineData(12, 0, 0)]
         [InlineData(13, 0, 0)]
         [InlineData(23, 59, 59)]
-        public void GetEndingOfDate_Always_ReturnsEndingOfDate(int hour, int minute, int second)
-        {
-            // Arrange
-            var dateTime = new DateTime(2016, 11, 24, hour, minute, second);
-            var expectedTime = new DateTime(2016, 11, 24, 23, 59, 59);
-
-            // Act
-            var actualTime = dateTime.GetEndingOfDate();
-
-            // Assert
-            Assert.Equal(expectedTime, actualTime);
-        }
-
-        [Theory]
-        [InlineData(0, 0, 0)]
-        [InlineData(1, 0, 0)]
-        [InlineData(12, 0, 0)]
-        [InlineData(13, 0, 0)]
-        [InlineData(23, 59, 59)]
         public void ToShortDayWithSlash_Always_ReturnsShortDayWithSlash(int hour, int minute, int second)
         {
             // Arrange
@@ -83,41 +64,6 @@
         }
 
         [Theory]
-        [InlineData(0, 0, 0, "11/24/2016<br/>12:00:00 AM")]
-        [InlineData(1, 0, 0, "11/24/2016<br/>01:00:00 AM")]
-        [InlineData(11, 59, 59, "11/24/2016<br/>11:59:59 AM")]
-        [InlineData(12, 0, 0, "11/24/2016<br/>12:00:00 PM")]
-        [InlineData(13, 0, 0, "11/24/2016<br/>01:00:00 PM")]
-        [InlineData(23, 59, 59, "11/24/2016<br/>11:59:59 PM")]
-        public void ToHtmlLongDateWithSlash_Always_ReturnsShortDayWithSlash(int hour, int minute, int second, string expectedDay)
-        {
-            // Arrange
-            var dateTime = new DateTime(2016, 11, 24, hour, minute, second);
-
-            // Act
-            var actualDay = dateTime.ToHtmlLongDateWithSlash();
-
-            // Assert
-            Assert.Equal(expectedDay, actualDay);
-        }
-
-        [Theory]
-        [InlineData(0, 0, 0)]
-        [InlineData(1, 0, 1)]
-        [InlineData(-4, 0, 20)]
-        public void ToOffsetHour_BeginningOfDate_ReturnsCorrectTime(int gmt, int hour, int expectedHour)
-        {
-            // Arrange
-            var dateTime = new DateTime(2016, 11, 24, hour, 0, 0, DateTimeKind.Utc);
-
-            // Act
-            var actualHour = dateTime.ToOffsetHour(gmt).Hour;
-
-            // Assert
-            Assert.Equal(expectedHour, actualHour);
-        }
-
-        [Theory]
         [InlineData(1, 1)]
         [InlineData(2, 1)]
         [InlineData(31, 1)]
@@ -138,29 +84,6 @@
             // Assert
             Assert.Equal(month, actualDate.Month);
             Assert.Equal(1, actualDate.Day);
-        }
-
-        [Theory]
-        [InlineData(1, 1, 31)]
-        [InlineData(2, 1, 31)]
-        [InlineData(31, 1, 31)]
-        [InlineData(1, 6, 30)]
-        [InlineData(2, 6, 30)]
-        [InlineData(30, 6, 30)]
-        [InlineData(1, 12, 31)]
-        [InlineData(2, 12, 31)]
-        [InlineData(31, 12, 31)]
-        public void LastDayOfMonth_Always_ReturnsLastDayOfMonth(int day, int month, int expectedLastDay)
-        {
-            // Arrange
-            var dateTime = new DateTime(2016, month, day);
-
-            // Act
-            var actualDate = dateTime.LastDayOfMonth();
-
-            // Assert
-            Assert.Equal(month, actualDate.Month);
-            Assert.Equal(expectedLastDay, actualDate.Day);
         }
 
         [Theory]

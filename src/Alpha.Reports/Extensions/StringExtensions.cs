@@ -25,12 +25,7 @@
 
         public static bool IsNullOrBlank(this string input)
         {
-            if (string.IsNullOrEmpty(input))
-            {
-                return true;
-            }
-
-            return string.IsNullOrWhiteSpace(input);
+            return string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input);
         }
     }
 }

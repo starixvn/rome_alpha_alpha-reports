@@ -32,7 +32,7 @@
             winLossDetailController.Index(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is<WinLossDetailQuery>(message));
+            mediator.Received().Send(Arg.Is(message));
         }
 
         [Fact]
@@ -46,7 +46,7 @@
             winLossDetailController.Excel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<WinLossDetailExcelQuery>(message));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is(message));
         }
     }
 }

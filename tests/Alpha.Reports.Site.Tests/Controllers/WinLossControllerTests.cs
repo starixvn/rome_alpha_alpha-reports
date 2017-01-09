@@ -32,7 +32,7 @@
             winLossController.EnteredResult(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is<EnteredSportResultQuery>(message));
+            mediator.Received().Send(Arg.Is(message));
         }
 
         [Fact]
@@ -46,7 +46,7 @@
             winLossController.EnteredResultExcel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<Site.Requests.WinLoss.EnteredSportResultExcelQuery>(message));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is(message));
         }
 
         [Fact]
@@ -59,7 +59,7 @@
             winLossController.WinLoss(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is<WinLossQuery>(message));
+            mediator.Received().Send(Arg.Is(message));
         }
 
         [Fact]
@@ -73,7 +73,7 @@
             winLossController.WinLossExcel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<WinLossExcelQuery>(message));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is(message));
         }
     }
 }

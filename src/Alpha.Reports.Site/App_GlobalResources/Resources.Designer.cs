@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alpha.Reports.Site.App_GlobalResources
-{
-
-
+namespace Alpha.Reports.Site.App_GlobalResources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -210,6 +210,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
         public static string December {
             get {
                 return ResourceManager.GetString("December", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sheet 1.
+        /// </summary>
+        public static string DefaultSheetName {
+            get {
+                return ResourceManager.GetString("DefaultSheetName", resourceCulture);
             }
         }
         
