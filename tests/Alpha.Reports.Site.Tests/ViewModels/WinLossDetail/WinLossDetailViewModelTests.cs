@@ -8,6 +8,7 @@
     using Constants;
     using Enumerations;
     using Extensions;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
@@ -22,6 +23,7 @@
         private const int AllBetProductId = 21;
         private readonly WinLossDetailViewModel winLossDetailViewModel;
         private readonly IUser user;
+        private readonly CompareLogic compareLogic;
 
         public WinLossDetailViewModelTests()
         {
@@ -30,6 +32,8 @@
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+
+            compareLogic = new CompareLogic();
         }
 
         [Fact]
@@ -109,7 +113,7 @@
             var actualActionLinkViewModel = winLossDetailViewModel.ActionLinkViewModel(winLossDetail);
 
             // Assert
-            AssertExtension.Equal(expectedActionLinkViewModel, actualActionLinkViewModel);
+            Assert.True(compareLogic.Compare(expectedActionLinkViewModel, actualActionLinkViewModel).AreEqual);
         }
     }
 }

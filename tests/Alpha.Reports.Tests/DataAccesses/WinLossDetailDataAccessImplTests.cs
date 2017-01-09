@@ -222,7 +222,7 @@
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
-            AssertExtension.Equal(expectedData, actualData);
+            Assert.True(compareLogic.Compare(expectedData, actualData).AreEqual);
         }
     }
 }

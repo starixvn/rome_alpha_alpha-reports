@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Extensions;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
     using Reports.DataAccesses;
@@ -19,6 +20,7 @@
         private readonly WinLossDetailDataAccess dataAccess;
         private readonly WinLossDetailServiceImpl winLossDetailServiceImpl;
         private readonly ReportDateService reportDateService;
+        private readonly CompareLogic compareLogic;
 
         public WinLossDetailServiceImplTests()
         {
@@ -27,6 +29,7 @@
             dataAccess = Substitute.For<WinLossDetailDataAccess>();
             winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, dataAccess);
             reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(true);
+            compareLogic = new CompareLogic();
         }
 
         [Fact]
@@ -64,7 +67,7 @@
             var actualReportData = winLossDetailServiceImpl.GetWinLossDetail(param);
 
             // Assert
-            AssertExtension.Equal(expectedReportData, actualReportData);
+            Assert.True(compareLogic.Compare(expectedReportData, actualReportData).AreEqual);
         }
 
         [Fact]
