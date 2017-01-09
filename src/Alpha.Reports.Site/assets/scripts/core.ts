@@ -1,10 +1,10 @@
 ﻿"use strict";
 
 class AlphaReports {
-    $: any;
-    store: any;
+    $: JQueryStatic;
+    store: StoreJSStatic;
 
-    constructor($: any, store: any) {
+    constructor($: JQueryStatic, store: StoreJSStatic) {
         this.$ = $;
         this.store = store;
     }
@@ -38,7 +38,6 @@ class AlphaReports {
         var combinedCells = this.$("." + firstCell + "-combined");
 
         combinedCells.each(function (index: number) {
-
             var oldValues = this$(this).find("li");
             var cellsLength = oldValues.length;
             var oldCells = "";
@@ -59,7 +58,6 @@ class AlphaReports {
         numberOfCombinedCells: number,
         combinedCellClass: string,
         combinedCellColSpan: number = 1) => {
-
         if (numberOfCombinedCells <= 1) {
             return;
         }
@@ -67,7 +65,6 @@ class AlphaReports {
         var this$ = this.$;
 
         firstCells.each(function (index: number) {
-
             var newCell =
                 "<td class=\"visible-stack-mode combinedcell " +
                 combinedCellClass + "\" colspan=\"" + combinedCellColSpan + "\">\
@@ -134,3 +131,7 @@ class AlphaReports {
 }
 
 const alphaReports = new AlphaReports($, store);
+
+interface JQuery {
+    stickyTableHeaders(): void;
+}

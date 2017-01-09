@@ -5,25 +5,25 @@
 "use strict";
 
 class EnterResultView {
-    $: any;
-    $pageTitle: any;
-    $tableReport: any;
-    $reportForm: any;
-    $isFilterVisible: any;
-    $userSelectedDateRangeOption: any;
-    $historicReport: any;
-    $isHistoricReport: any;
-    $isStackMode: any;
-    $exportExcelForm: any;
-    $filterIcon: any;
-    $excelIcon: any;
-    $submitButton: any;
+    $: JQueryStatic;
+    $pageTitle: JQuery;
+    $tableReport: JQuery;
+    $reportForm: JQuery;
+    $isFilterVisible: JQuery;
+    $userSelectedDateRangeOption: JQuery;
+    $historicReport: JQuery;
+    $isHistoricReport: JQuery;
+    $isStackMode: JQuery;
+    $exportExcelForm: JQuery;
+    $filterIcon: JQuery;
+    $excelIcon: JQuery;
+    $submitButton: JQuery;
 
     dateRangePickerComponent: DateRangePickerComponent;
     sortComponent: SortComponent;
 
     constructor(
-        $: any,
+        $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         sortComponent: SortComponent) {
         this.$ = $;
@@ -47,7 +47,7 @@ class EnterResultView {
             true,
             function () { },
             { 0: { sorter: "text" } }));
-        
+
         this.$tableReport.stickyTableHeaders();
 
         this.registerEvents();
@@ -65,7 +65,7 @@ class EnterResultView {
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$isStackMode = this.$("#IsStackMode");
-        this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");   
+        this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$filterIcon = this.$(".icon-filter");
         this.$excelIcon = this.$("#icon-excel");
         this.$submitButton = this.$(".btn-submit");
@@ -93,16 +93,16 @@ class EnterResultView {
         this.$.unblockUI();
     };
     onSubmitNormalReportEvent = () => {
-        this.setHiddenValue(false); 
+        this.setHiddenValue(false);
     };
     onSubmitHistoricReportEvent = () => {
         this.setHiddenValue(true);
         this.$reportForm.trigger("submit");
     };
     setHiddenValue = (isHistoryReport: boolean) => {
-        this.$isHistoricReport.val(isHistoryReport);
-        this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : true);
-        this.$isStackMode.val(alphaReports.screenSmallThan768());
+        this.$isHistoricReport.val(String(isHistoryReport));
+        this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : true));
+        this.$isStackMode.val(String(alphaReports.screenSmallThan768()));
         this.$.blockUI();
     };
 }

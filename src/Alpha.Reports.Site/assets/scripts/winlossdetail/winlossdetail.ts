@@ -9,28 +9,28 @@
 "use strict";
 
 class WinLossDetailView {
-    $: any;
-    $pageTitle: any;
-    $tableReport: any;
+    $: JQueryStatic;
+    $pageTitle: JQuery;
+    $tableReport: JQuery;
 
-    $isHistoricReport: any;
-    $multiSelectButton: any;
+    $isHistoricReport: JQuery;
+    $multiSelectButton: JQuery;
 
-    $drilldownLinks: any;
-    $isFilterVisible: any;
-    $isStackMode: any;
-    $isDescendingSort: any;
-    $sortPropertyName: any;
-    $reportForm: any;
-    $userSelectedDateRangeOption: any;
-    $netTurnoverTooltip: any;
-    $reportSwitch: any;
-    $fromDate: any;
-    $toDate: any;
-    $exportExcelForm: any;
-    $iconNormalColumn: any;
-    $isSetDefaultStackMode: any;
-    $breadcrumbLinks: any;
+    $drilldownLinks: JQuery;
+    $isFilterVisible: JQuery;
+    $isStackMode: JQuery;
+    $isDescendingSort: JQuery;
+    $sortPropertyName: JQuery;
+    $reportForm: JQuery;
+    $userSelectedDateRangeOption: JQuery;
+    $netTurnoverTooltip: JQuery;
+    $reportSwitch: JQuery;
+    $fromDate: JQuery;
+    $toDate: JQuery;
+    $exportExcelForm: JQuery;
+    $iconNormalColumn: JQuery;
+    $isSetDefaultStackMode: JQuery;
+    $breadcrumbLinks: JQuery;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -47,7 +47,7 @@ class WinLossDetailView {
     netTurnoverTooltipComponent: NetTurnoverTooltipComponent;
 
     constructor(
-        $: any,
+        $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         pageComponent: PagerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
@@ -324,10 +324,10 @@ class WinLossDetailView {
             return;
         }
 
-        this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible);
-        this.$isDescendingSort.val(params.IsDescendingSort);
-        this.$isHistoricReport.val(params.IsHistoricReport);
-        this.$isStackMode.val(params.IsStackMode);
+        this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
+        this.$isDescendingSort.val(String(params.IsDescendingSort));
+        this.$isHistoricReport.val(String(params.IsHistoricReport));
+        this.$isStackMode.val(String(params.IsStackMode));
         this.$sortPropertyName.val(params.SortPropertyName);
     };
 

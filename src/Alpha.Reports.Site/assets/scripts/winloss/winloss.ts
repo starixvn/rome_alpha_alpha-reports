@@ -7,25 +7,25 @@
 "use strict";
 
 class WinLossView {
-    $: any;
-    $pageTitle: any;
-    $tableReport: any;
+    $: JQueryStatic;
+    $pageTitle: JQuery;
+    $tableReport: JQuery;
 
-    $isHistoricReport: any;
-    $multiSelectButton: any;
+    $isHistoricReport: JQuery;
+    $multiSelectButton: JQuery;
 
-    $drilldownLinks: any;
-    $isFilterVisible: any;
-    $isStackMode: any;
-    $isAgentLevel: any;
-    $reportForm: any;
-    $userSelectedDateRangeOption: any;
-    $historicReport: any;
-    $exportExcelForm: any;
-    $filterIcon: any;
-    $excelIcon: any;
-    $submitButton: any;
-    $switchModeIcon: any;
+    $drilldownLinks: JQuery;
+    $isFilterVisible: JQuery;
+    $isStackMode: JQuery;
+    $isAgentLevel: JQuery;
+    $reportForm: JQuery;
+    $userSelectedDateRangeOption: JQuery;
+    $historicReport: JQuery;
+    $exportExcelForm: JQuery;
+    $filterIcon: JQuery;
+    $excelIcon: JQuery;
+    $submitButton: JQuery;
+    $switchModeIcon: JQuery;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -38,7 +38,7 @@ class WinLossView {
     monthPickerComponent: MonthPickerComponent;
 
     constructor(
-        $: any,
+        $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         sortComponent: SortComponent,
@@ -99,8 +99,8 @@ class WinLossView {
         this.$multiSelectButton = this.$(".multiselect.btn");
         this.$historicReport = this.$("#historic-report");
         this.$filterIcon = this.$(".icon-filter");
-        this.$excelIcon = this.$("#icon-excel"); 
-        this.$switchModeIcon = this.$(".icon-switchmode"); 
+        this.$excelIcon = this.$("#icon-excel");
+        this.$switchModeIcon = this.$(".icon-switchmode");
     };
 
     registerEvents = () => {
@@ -172,7 +172,7 @@ class WinLossView {
         let levels = this.levels;
         var self = this;
 
-        isAgentLevel ? this.combineToTurnOverColumnAgentLevel() : this.combineToTurnOverColumnSuperMasterLevel();   
+        isAgentLevel ? this.combineToTurnOverColumnAgentLevel() : this.combineToTurnOverColumnSuperMasterLevel();
         this.$.each(levels, function (index: number) {
             self.combineToWinLossColumn(levels[index], index);
         });
@@ -191,7 +191,7 @@ class WinLossView {
         alphaReports.combineConsecutiveCells(this.$("td.col-" + level + "-winloss"), 3, cellCss);
     };
 
-    showFilter = () =>{
+    showFilter = () => {
         this.$pageTitle.removeClass("hide-filter");
         this.$reportForm.removeClass("hide");
     };
@@ -243,9 +243,9 @@ class WinLossView {
             return;
         }
 
-        this.$isFilterVisible.val(alphaReports.screenSmallThan768() ? params.HideFilter : true );
-        this.$isHistoricReport.val(params.IsHistoricReport);
-        this.$isStackMode.val(params.IsStackMode);
+        this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
+        this.$isHistoricReport.val(String(params.IsHistoricReport));
+        this.$isStackMode.val(String(params.IsStackMode));
     };
 
     getSortedColumnName = () => {
