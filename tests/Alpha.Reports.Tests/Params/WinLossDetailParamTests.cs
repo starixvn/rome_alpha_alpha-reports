@@ -204,13 +204,14 @@
         }
 
         [Theory]
-        [InlineData(4, "SuperNetWinLoss.WinLoss")]
-        [InlineData(3, "MasterNetWinLoss.WinLoss")]
-        [InlineData(2, "AgentNetWinLoss.WinLoss")]
-        public void SortByPropertyName_NotSupportSortByPropertyName_ReturnsDefaultSortedPropertyByUserLevel(byte userLevel, string expectedSortByPropertyName)
+        [InlineData(4)]
+        [InlineData(3)]
+        [InlineData(2)]
+        public void SortByPropertyName_NotSupportSortByPropertyName_ReturnsCustName(byte userLevel)
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(userLevel);
+            var expectedSortByPropertyName = "CustName";
 
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
@@ -223,22 +224,22 @@
         }
 
         [Theory]
-        [InlineData(3, "SuperNetWinLoss.WinLoss", "MasterNetWinLoss.WinLoss")]
-        [InlineData(3, "SuperNetWinLoss.Comm", "MasterNetWinLoss.WinLoss")]
-        [InlineData(3, "SuperNetWinLoss.Total", "MasterNetWinLoss.WinLoss")]
-        [InlineData(2, "SuperNetWinLoss.WinLoss", "AgentNetWinLoss.WinLoss")]
-        [InlineData(2, "SuperNetWinLoss.Comm", "AgentNetWinLoss.WinLoss")]
-        [InlineData(2, "SuperNetWinLoss.Total", "AgentNetWinLoss.WinLoss")]
-        [InlineData(2, "MasterNetWinLoss.WinLoss", "AgentNetWinLoss.WinLoss")]
-        [InlineData(2, "MasterNetWinLoss.Comm", "AgentNetWinLoss.WinLoss")]
-        [InlineData(2, "MasterNetWinLoss.Total", "AgentNetWinLoss.WinLoss")]
-        public void SortByPropertyName_SupportedSortByPropertyNameNotInRange_ReturnsDefaultSortedPropertyByUserLevel(
+        [InlineData(3, "SuperNetWinLoss.WinLoss")]
+        [InlineData(3, "SuperNetWinLoss.Comm")]
+        [InlineData(3, "SuperNetWinLoss.Total")]
+        [InlineData(2, "SuperNetWinLoss.WinLoss")]
+        [InlineData(2, "SuperNetWinLoss.Comm")]
+        [InlineData(2, "SuperNetWinLoss.Total")]
+        [InlineData(2, "MasterNetWinLoss.WinLoss")]
+        [InlineData(2, "MasterNetWinLoss.Comm")]
+        [InlineData(2, "MasterNetWinLoss.Total")]
+        public void SortByPropertyName_SupportedSortByPropertyNameNotInRange_ReturnsCustName(
             byte userLevel,
-            string notInRangeSortByPropertyName,
-            string expectedSortByPropertyName)
+            string notInRangeSortByPropertyName)
         {
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(userLevel);
+            var expectedSortByPropertyName = "CustName";
 
             var winLossDetailParam = new WinLossDetailParam(
                 0,

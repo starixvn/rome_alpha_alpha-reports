@@ -9,6 +9,8 @@
     using Requests.WinLossDetail;
     using Services;
     using ViewModels.WinLossDetail;
+    using System.Linq;
+    using Constants;
 
     [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
     public class WinLossDetailHandler :
@@ -40,6 +42,7 @@
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
             var drillDownInfo = BuildDrillDownInfo(message);
 
+            var canSort = reportData.DataSource != null && reportData.DataSource.Count() > 1;
             var viewModel = new WinLossDetailViewModel
             {
                 CustId = winLossDetailParam.CustId,
@@ -59,8 +62,8 @@
                 ReportData = reportData,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
 
-                SortPropertyName = winLossDetailParam.SortByPropertyName,
-                IsDescendingSort = winLossDetailParam.IsDescendingSort,
+                SortPropertyName = canSort ? winLossDetailParam.SortByPropertyName : DefaultVariables.SortPropertyName,
+                IsDescendingSort = canSort && winLossDetailParam.IsDescendingSort,
                 IsSetDefaultStackMode = message.IsSetDefaultStackMode,
                 DrillDownInfoJson = ToJson(drillDownInfo),
                 BreadcrumbLevels = BuildBreadcrumbLevels(

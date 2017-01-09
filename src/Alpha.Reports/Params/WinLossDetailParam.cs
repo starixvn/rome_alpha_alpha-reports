@@ -26,7 +26,7 @@
             ReportLevel = reportLevel;
 
             SortByPropertyName = string.IsNullOrWhiteSpace(sortByPropertyName)
-                ? GetDefaultSortedProperty()
+                ? DefaultVariables.SortPropertyName
                 : GetSortedProperty(sortByPropertyName);
 
             UserSelectedProductIds = userSelectedProductIds;
@@ -47,21 +47,6 @@
 
         public bool IsDescendingSort { get; }
 
-        private string GetDefaultSortedProperty()
-        {
-            if (ReportLevel.IsSuperLevel())
-            {
-                return "SuperNetWinLoss.WinLoss";
-            }
-
-            if (ReportLevel.IsMasterLevel())
-            {
-                return "MasterNetWinLoss.WinLoss";
-            }
-
-            return "AgentNetWinLoss.WinLoss";
-        }
-
         private string GetSortedProperty(string sortedProperty)
         {
             var isInRange =
@@ -73,7 +58,7 @@
 
             if (!isInRange)
             {
-                return GetDefaultSortedProperty();
+                return DefaultVariables.SortPropertyName;
             }
 
             return sortedProperty;

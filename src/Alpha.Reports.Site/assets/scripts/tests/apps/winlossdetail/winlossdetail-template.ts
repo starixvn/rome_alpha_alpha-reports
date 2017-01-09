@@ -34,7 +34,7 @@
                     </body>`,
     currentReportWithNormalMode: `<body>
                                     <div class="page-title"></div>
-                                    <div id="tbl-report" data-totalrecords="0" data-sortedcolumn="WinLoss">
+                                    <div id="tbl-report" data-totalrecords="0" data-sortedcolumn="WinLoss" data-descendingsort="false">
                                         <div class="col-netturnover-header"></div>
                                     </div>
                                     <div class="downline-link"></div>

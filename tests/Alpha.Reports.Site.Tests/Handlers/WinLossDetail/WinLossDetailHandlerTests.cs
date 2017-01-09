@@ -88,8 +88,8 @@
             {
                 CustName = string.Empty,
                 Language = string.Empty,
-                SortPropertyName = "SuperNetWinLoss.WinLoss",
-                IsDescendingSort = true,
+                SortPropertyName = "CustName",
+                IsDescendingSort = false,
                 UserSelectedProductIds = string.Empty,
                 UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
                 FromDate = DefaultVariables.CurrentDate,

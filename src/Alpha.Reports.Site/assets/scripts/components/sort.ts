@@ -73,7 +73,8 @@ class SortComponent {
     getSortInfo = () => {
         return {
             sortPropertyName: this.$sortContainer.data("sortedcolumn"),
-            isDescendingSort: this.$sortContainer.data("descendingsort") ? true : false
+            isDescendingSort: this.$sortContainer.data("descendingsort").toString() === "1" ||
+            this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true"
         };
     };
     bindTableSorter = (sortedColumnName: string) => {
@@ -90,7 +91,7 @@ class SortComponent {
 
         let sortedColumnHeader = this.$sortContainer.find("[data-sortedname='" + sortedColumnName + "']" +
             (this.$sortContainer.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : ":not([class*='col-combine'])"))[0];
-        let isDescendingSort = this.$sortContainer.data("descendingsort") === "1" ||
+        let isDescendingSort = this.$sortContainer.data("descendingsort").toString() === "1" ||
             this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true";
 
         this.$sortContainer.tablesorter({

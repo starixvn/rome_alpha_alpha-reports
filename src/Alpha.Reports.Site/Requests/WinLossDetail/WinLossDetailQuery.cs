@@ -20,7 +20,7 @@
 
         public string SortPropertyName { get; set; }
 
-        public bool IsDescendingSort { get; set; } = true;
+        public bool IsDescendingSort { get; set; }
 
         public bool IsStackMode { get; set; }
 

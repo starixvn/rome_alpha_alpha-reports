@@ -6,6 +6,7 @@
     using Database.WinLossDetail;
     using Extensions;
     using Fanex.Data;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
     using Reports.DataAccesses;
@@ -19,12 +20,15 @@
     {
         private readonly IObjectDb objectDb;
         private readonly WinLossDetailDataAccessImpl winLossDetailDataAccessImpl;
+        private readonly CompareLogic compareLogic;
 
         public WinLossDetailDataAccessImplTests()
         {
             objectDb = Substitute.For<IObjectDb>();
             winLossDetailDataAccessImpl = new WinLossDetailDataAccessImpl();
             ObjectDbFactory.CreateInstance = (settingKey) => objectDb;
+
+            compareLogic = new CompareLogic();
         }
 
         [Fact]
@@ -180,7 +184,7 @@
             var actualData = winLossDetailDataAccessImpl.GetData(winLossDetailCriteria);
 
             // Assert
-            AssertExtension.Equal(expectedData, actualData);
+            Assert.True(compareLogic.Compare(expectedData, actualData).AreEqual);
         }
 
         [Fact]
