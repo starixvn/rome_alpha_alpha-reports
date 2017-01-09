@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using Models;
 
-    public class WinLossParam : DateRangeReportParam
+    public class WinLossParam : SupportedHistoryReportParam, ThreeMonthCurrentOrThreeYearHistory
     {
         public WinLossParam(
             int custId,

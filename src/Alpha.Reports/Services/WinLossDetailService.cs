@@ -36,7 +36,7 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            if (!param.IsValid())
+            if (!reportDateService.ValidateDateRange(param))
             {
                 return new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
             }

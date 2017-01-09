@@ -40,6 +40,7 @@
             winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, dataAccess, dynamicRepository, cacheRefService);
 
             this.fanexCacheFixture = fanexCacheFixture;
+            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(true);
         }
 
         [Fact]

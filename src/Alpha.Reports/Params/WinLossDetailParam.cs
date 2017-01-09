@@ -5,7 +5,7 @@
     using Constants;
     using Models;
 
-    public class WinLossDetailParam : DateRangeReportParam
+    public class WinLossDetailParam : SupportedHistoryReportParam, ThreeMonthCurrentOrThreeYearHistory
     {
         public WinLossDetailParam(
             int custId,

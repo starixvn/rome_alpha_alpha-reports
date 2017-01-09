@@ -90,7 +90,7 @@
         {
             if (winLossDetail == null)
             {
-                throw new ArgumentNullException("winLossDetail");
+                throw new ArgumentNullException(nameof(winLossDetail));
             }
 
             return new WinLossDetailsActionLinkViewModel(

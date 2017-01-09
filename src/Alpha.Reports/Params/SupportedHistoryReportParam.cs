@@ -4,9 +4,9 @@
     using Extensions;
     using Services;
 
-    public abstract class DateRangeReportParam
+    public abstract class SupportedHistoryReportParam
     {
-        protected DateRangeReportParam(
+        protected SupportedHistoryReportParam(
             DateTime fromDate,
             DateTime toDate,
             bool isHistoryReport)
@@ -30,19 +30,5 @@
         public DateTime ToDate { get; }
 
         public bool IsHistoryReport { get; }
-
-        public virtual bool IsValid()
-        {
-            if (IsHistoryReport)
-            {
-                return DateTimeManager.Now.AddYears(-3).FirstDayOfYear() <= FromDate
-                    && FromDate <= ToDate
-                    && ToDate.Year == FromDate.Year
-                    && ToDate.Month == FromDate.Month;
-            }
-
-            return DateTimeManager.Now.AddMonths(-3).FirstDayOfMonth() <= FromDate
-                   && FromDate <= ToDate;
-        }
     }
 }

@@ -103,6 +103,7 @@
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
     <Compile Include="Models\CustInfo.cs" />
+    <Compile Include="Models\DateRange.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />
@@ -112,7 +113,7 @@
     <Compile Include="Models\Winloss\DailyEnteredSport.cs" />
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
     <Compile Include="Models\Winloss\WinLoss.cs" />
-    <Compile Include="Params\DateRangeReportParam.cs" />
+    <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
     <Compile Include="Params\WinLossParam.cs" />

@@ -59,7 +59,7 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            if (!param.IsValid())
+            if (!reportDateService.ValidateDateRange(param))
             {
                 return Enumerable.Empty<WinLossModel>();
             }

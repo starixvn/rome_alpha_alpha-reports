@@ -18,13 +18,15 @@
     {
         private readonly WinLossDetailDataAccess dataAccess;
         private readonly WinLossDetailServiceImpl winLossDetailServiceImpl;
+        private readonly ReportDateService reportDateService;
 
         public WinLossDetailServiceImplTests()
         {
-            var reportDateService = Substitute.For<ReportDateService>();
+            reportDateService = Substitute.For<ReportDateService>();
             var productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<WinLossDetailDataAccess>();
             winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, dataAccess);
+            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(true);
         }
 
         [Fact]
@@ -86,6 +88,7 @@
                 param.PageSize,
                 0,
                 new WinLossDetailModel());
+            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(false);
 
             // Act
             var actualReportData = winLossDetailServiceImpl.GetWinLossDetail(param);

@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
     using System;
+    using Constants;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Fixtures;
@@ -112,6 +113,143 @@
 
             // Assert
             Assert.Equal(dataInCache.BalanceUpDay, actual);
+        }
+
+        [Fact]
+        public void ValidateDateRange_HistoryReportAndFromDateLessThan3Years_ReturnsFalse()
+        {
+            // Arrange
+            var dateRange = Substitute.For<ThreeMonthCurrentOrThreeYearHistory>();
+            dateRange.FromDate.Returns(DefaultVariables.CurrentDate.AddYears(-4));
+            dateRange.ToDate.Returns(DateTime.Now);
+            dateRange.IsHistoryReport.Returns(true);
+
+            // Act
+            var isValid = service.ValidateDateRange(dateRange);
+
+            // Assert
+            Assert.False(isValid);
+        }
+
+        [Fact]
+        public void ValidateDateRange_HistoryReportAndToDateLessThanFromDate_ReturnsFalse()
+        {
+            // Arrange
+            var dateRange = Substitute.For<ThreeMonthCurrentOrThreeYearHistory>();
+            dateRange.FromDate.Returns(DefaultVariables.CurrentDate);
+            dateRange.ToDate.Returns(DefaultVariables.CurrentDate.AddDays(-1));
+            dateRange.IsHistoryReport.Returns(true);
+
+            // Act
+            var isValid = service.ValidateDateRange(dateRange);
+
+            // Assert
+            Assert.False(isValid);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(12)]
+        public void ValidateDateRange_HistoryReportAndCrossMonthRange_ReturnsFalse(int monthDiff)
+        {
+            // Arrange
+            var dateRange = Substitute.For<ThreeMonthCurrentOrThreeYearHistory>();
+            dateRange.FromDate.Returns(DefaultVariables.CurrentDate);
+            dateRange.ToDate.Returns(DefaultVariables.CurrentDate.AddMonths(monthDiff));
+            dateRange.IsHistoryReport.Returns(true);
+
+            // Act
+            var isValid = service.ValidateDateRange(dateRange);
+
+            // Assert
+            Assert.False(isValid);
+        }
+
+        [Fact]
+        public void ValidateDateRange_HistoryReportAndValidRange_ReturnsTrue()
+        {
+            // Arrange
+            var dateRange = Substitute.For<ThreeMonthCurrentOrThreeYearHistory>();
+            dateRange.FromDate.Returns(DefaultVariables.CurrentDate);
+            dateRange.ToDate.Returns(DefaultVariables.CurrentDate);
+            dateRange.IsHistoryReport.Returns(true);
+
+            // Act
+            var isValid = service.ValidateDateRange(dateRange);
+
+            // Assert
+            Assert.True(isValid);
+        }
+
+        [Fact]
+        public void ValidateDateRange_NotHistoryReportAndFromDateLessThan3Months_ReturnsFalse()
+        {
+            // Arrange
+            var dateRange = Substitute.For<ThreeMonthCurrentOrThreeYearHistory>();
+            dateRange.FromDate.Returns(DefaultVariables.CurrentDate.AddMonths(-4));
+            dateRange.ToDate.Returns(DateTime.Now);
+            dateRange.IsHistoryReport.Returns(false);
+
+            // Act
+            var isValid = service.ValidateDateRange(dateRange);
+
+            // Assert
+            Assert.False(isValid);
+        }
+
+        [Fact]
+        public void ValidateDateRange_NotHistoryReportAndToDateLessThanFromDate_ReturnsFalse()
+        {
+            // Arrange
+            var dateRange = Substitute.For<ThreeMonthCurrentOrThreeYearHistory>();
+            dateRange.FromDate.Returns(DefaultVariables.CurrentDate);
+            dateRange.ToDate.Returns(DefaultVariables.CurrentDate.AddDays(-1));
+            dateRange.IsHistoryReport.Returns(false);
+
+            // Act
+            var isValid = service.ValidateDateRange(dateRange);
+
+            // Assert
+            Assert.False(isValid);
+        }
+
+        [Fact]
+        public void ValidateDateRange_NotHistoryReportAndValidDateRange_ReturnsFalse()
+        {
+            // Arrange
+            var dateRange = Substitute.For<ThreeMonthCurrentOrThreeYearHistory>();
+            dateRange.FromDate.Returns(DefaultVariables.CurrentDate);
+            dateRange.ToDate.Returns(DefaultVariables.CurrentDate);
+            dateRange.IsHistoryReport.Returns(true);
+
+            // Act
+            var isValid = service.ValidateDateRange(dateRange);
+
+            // Assert
+            Assert.True(isValid);
+        }
+
+        [Fact]
+        public void ValidateDateRange_DateRageTypeIsNotSupported_ReturnsFalse()
+        {
+            // Arrange
+            var dateRange = Substitute.For<DateRange>();
+
+            // Act
+            var isValid = service.ValidateDateRange(dateRange);
+
+            // Assert
+            Assert.False(isValid);
+        }
+
+        [Fact]
+        public void ValidateDateRange_NullParam_ThrowsArgumentNullException()
+        {
+            // Arrange
+            DateRange dateRange = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => service.ValidateDateRange(dateRange));
         }
     }
 }
