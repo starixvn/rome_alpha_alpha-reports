@@ -65,7 +65,7 @@
             return false;
         }
 
-        public bool ValidateThreeMonthCurrentOrThreeYearHistoryRange(ThreeMonthCurrentOrThreeYearHistory dateRange)
+        private bool ValidateThreeMonthCurrentOrThreeYearHistoryRange(ThreeMonthCurrentOrThreeYearHistory dateRange)
         {
             if (dateRange.IsHistoryReport)
             {
