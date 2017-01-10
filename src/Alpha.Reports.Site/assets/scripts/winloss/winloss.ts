@@ -26,6 +26,8 @@ class WinLossView {
     $excelIcon: JQuery;
     $submitButton: JQuery;
     $switchModeIcon: JQuery;
+    $fromDate: JQuery;
+    $toDate: JQuery;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -101,6 +103,8 @@ class WinLossView {
         this.$filterIcon = this.$(".icon-filter");
         this.$excelIcon = this.$("#icon-excel");
         this.$switchModeIcon = this.$(".icon-switchmode");
+        this.$fromDate = this.$("#from-date");
+        this.$toDate = this.$("#to-date");
     };
 
     registerEvents = () => {
@@ -123,6 +127,8 @@ class WinLossView {
     };
 
     onSubmitHistoricReportEvent = () => {
+        this.$fromDate.val("");
+        this.$toDate.val("");
         this.isSwitchView = true;
         this.isHistoricReport = !this.$historicReport.data("is-historic-report");
         this.$reportForm.trigger("submit");

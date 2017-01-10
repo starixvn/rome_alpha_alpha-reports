@@ -18,6 +18,8 @@ class EnterResultView {
     $filterIcon: JQuery;
     $excelIcon: JQuery;
     $submitButton: JQuery;
+    $fromDate: JQuery;
+    $toDate: JQuery;
 
     dateRangePickerComponent: DateRangePickerComponent;
     sortComponent: SortComponent;
@@ -69,6 +71,8 @@ class EnterResultView {
         this.$filterIcon = this.$(".icon-filter");
         this.$excelIcon = this.$("#icon-excel");
         this.$submitButton = this.$(".btn-submit");
+        this.$fromDate = this.$("#from-date");
+        this.$toDate = this.$("#to-date");
     };
     registerEvents = () => {
         this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
@@ -100,6 +104,10 @@ class EnterResultView {
         this.$reportForm.trigger("submit");
     };
     setHiddenValue = (isHistoryReport: boolean) => {
+        if (isHistoryReport) {
+            this.$fromDate.val("");
+            this.$toDate.val("");
+        }
         this.$isHistoricReport.val(String(isHistoryReport));
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : true));
         this.$isStackMode.val(String(alphaReports.screenSmallThan768()));

@@ -245,9 +245,5 @@ if (netWinLoss.WinLoss != null)
         @HtmlHelpers.RenderNumberCell(netWinLoss.Comm.Value, highlightCellClass)
 }
 
-if (netWinLoss.Total != null)
-{
-        @HtmlHelpers.RenderNumberCell(netWinLoss.Total, $"bold {highlightCellClass}")
-}
-
+   @HtmlHelpers.RenderNumberCell(netWinLoss.Total, $"bold {highlightCellClass}")
 }

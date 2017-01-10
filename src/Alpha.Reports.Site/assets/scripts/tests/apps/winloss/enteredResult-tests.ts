@@ -134,6 +134,8 @@
             expect(enterResultView.$filterIcon).toBeDefined();
             expect(enterResultView.$excelIcon).toBeDefined();
             expect(enterResultView.$submitButton).toBeDefined();
+            expect(enterResultView.$fromDate).toBeDefined();
+            expect(enterResultView.$toDate).toBeDefined();
         });
     });
 

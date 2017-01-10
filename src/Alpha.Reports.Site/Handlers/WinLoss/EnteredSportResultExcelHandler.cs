@@ -56,7 +56,9 @@
                .Sheet(Resources.MatchResultEntered)
                .ExportToBytes();
 
-            return new ExcelFileViewModel(Resources.MatchResultEntered, result);
+            return new ExcelFileViewModel(
+                $"{Resources.MatchResultEntered}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}",
+                result);
         }
 
         private Mapper<EnteredSportResult> GetEnteredSportResultRowMapper()

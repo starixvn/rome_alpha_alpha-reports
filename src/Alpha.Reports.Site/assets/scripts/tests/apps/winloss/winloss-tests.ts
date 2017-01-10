@@ -173,6 +173,8 @@
              expect(winLossView.$filterIcon).toBeDefined();
              expect(winLossView.$excelIcon).toBeDefined();
              expect(winLossView.$switchModeIcon).toBeDefined();
+             expect(winLossView.$fromDate).toBeDefined();
+             expect(winLossView.$toDate).toBeDefined();
          });
      });
 
