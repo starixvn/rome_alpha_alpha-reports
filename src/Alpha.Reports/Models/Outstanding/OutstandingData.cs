@@ -1,11 +1,10 @@
 ﻿namespace Alpha.Reports.Models.Outstanding
 {
     using System.Collections.Generic;
-  public class OutstandingData
-{
+
+    public class OutstandingData
+    {
         public int CustId { get; set; }
-
-
 
         public string CustName { get; set; }
 
