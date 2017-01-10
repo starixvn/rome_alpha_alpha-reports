@@ -212,7 +212,6 @@
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(userLevel);
             var expectedSortByPropertyName = "CustName";
-
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
 
@@ -240,7 +239,6 @@
             // Arrange
             UserLevel reportLevel = Enumeration.FromValue<UserLevel>(userLevel);
             var expectedSortByPropertyName = "CustName";
-
             var winLossDetailParam = new WinLossDetailParam(
                 0,
                 0,

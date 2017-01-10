@@ -64,7 +64,7 @@
                 </th>
             }
 
-            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="17">@Resources.Company</th>
+            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="@(Model.UserLevel.IsSuperLevel() ? 17 : (Model.UserLevel.IsMasterLevel() ? 14 : 11))">@Resources.Company</th>
         </tr>
         <tr class="thead-row2">
             <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MemberNetWinLoss.WinLoss" data-colindex="5">@Resources.WinLoss</th>
