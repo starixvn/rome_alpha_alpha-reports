@@ -109,8 +109,8 @@
             {
                 CustName = string.Empty,
                 Language = string.Empty,
-                SortPropertyName = "SuperNetWinLoss.WinLoss",
-                IsDescendingSort = true,
+                SortPropertyName = "CustName",
+                IsDescendingSort = false,
                 IsDirectReportViewAction = true,
                 UserSelectedProductIds = string.Empty,
                 UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
