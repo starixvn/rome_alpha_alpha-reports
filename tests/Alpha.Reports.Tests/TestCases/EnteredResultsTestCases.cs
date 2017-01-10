@@ -55,16 +55,16 @@
         private static IEnumerable<EnteredSportResult> EnteredSportResultData()
         {
             yield return new EnteredSportResult(
-                  sportTypeId: 2,
-                  sportName: "BasketBall",
-                  enteredSportToday: TodaydayDailyEnteredBasketball,
-                  enteredSportYesterday: YesterdayDailyEnteredBasketball);
-
-            yield return new EnteredSportResult(
                     sportTypeId: 1,
                     sportName: "Soccer",
                     enteredSportToday: TodayDailyEnteredSoccer,
                     enteredSportYesterday: YesterdayDailyEnteredSoccer);
+
+            yield return new EnteredSportResult(
+                  sportTypeId: 2,
+                  sportName: "BasketBall",
+                  enteredSportToday: TodaydayDailyEnteredBasketball,
+                  enteredSportYesterday: YesterdayDailyEnteredBasketball);     
         }
 
         public static IEnumerable<object[]> EnteredResultsSources => enteredResultsSources;

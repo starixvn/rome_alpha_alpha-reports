@@ -9,7 +9,7 @@
 
         public static DateTime Now
         {
-            get { return now ?? DateTime.Now.AddDays(-1); }
+            get { return now ?? DateTime.Now; }
             internal set { now = value; }
         }
     }
