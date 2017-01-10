@@ -1,22 +1,25 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Outstanding
 {
+    using System;
     using System.Collections.Generic;
     using App_GlobalResources;
+    using Enumerations;
     using Reports.Models;
     using Reports.Models.Outstanding;
 
     public class OutstandingViewModel
     {
+        private readonly List<UserLevel> outstandingLevels = new List<UserLevel>();
+
         public OutstandingViewModel(UserLevel viewerLevel, UserLevel custLevel, IEnumerable<OutstandingData> outstandings)
         {
             ViewerLevel = viewerLevel;
             ReportLevel = custLevel;
-            Outstandings = outstandings;
+            OutstandingDatasource = outstandings;
 
-            Total = new OutstandingData();
-            foreach (var outstanding in outstandings)
+            for (var level = ReportLevel.Value; level < ViewerLevel.Value; level++)
             {
-                Total.Accumulate(outstanding);
+                outstandingLevels.Add(Enumeration.FromValue<UserLevel>(level));
             }
         }
 
@@ -52,7 +55,7 @@
                     return Resources.Agent;
                 }
 
-                return Resources.Member;
+                return Resources.Username;
             }
         }
 
@@ -60,8 +63,30 @@
 
         public UserLevel ReportLevel { get; }
 
-        public IEnumerable<OutstandingData> Outstandings { get; }
+        public IEnumerable<OutstandingData> OutstandingDatasource { get; }
 
-        public OutstandingData Total { get; }
+        public OutstandingData Total => OutstandingData.GetAccumulatedData(OutstandingDatasource);
+
+        public List<UserLevel> OutstandingLevels => outstandingLevels;
+
+        public decimal GetOutstandingValue(OutstandingData data, UserLevel reportLevel)
+        {
+            if (reportLevel.IsMemberLevel())
+            {
+                return data.AgentOutstanding;
+            }
+
+            if (reportLevel.IsAgentLevel())
+            {
+                return data.MasterOutstanding;
+            }
+
+            if (reportLevel.IsMasterLevel())
+            {
+                return data.SuperOutstanding;
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(reportLevel));
+        }
     }
 }

@@ -1,8 +1,11 @@
 ﻿namespace Alpha.Reports.Models.Outstanding
 {
-    public class OutstandingData
-    {
+    using System.Collections.Generic;
+  public class OutstandingData
+{
         public int CustId { get; set; }
+
+
 
         public string CustName { get; set; }
 
@@ -14,12 +17,19 @@
 
         public decimal SuperOutstanding { get; set; }
 
-        public void Accumulate(OutstandingData outstanding)
+        public static OutstandingData GetAccumulatedData(IEnumerable<OutstandingData> outstandings)
         {
-            MemberOutstanding += outstanding.MemberOutstanding;
-            AgentOutstanding += outstanding.AgentOutstanding;
-            MasterOutstanding += outstanding.MasterOutstanding;
-            SuperOutstanding += outstanding.SuperOutstanding;
+            var accumulatedData = new OutstandingData();
+
+            foreach (var outstanding in outstandings)
+            {
+                accumulatedData.MemberOutstanding += outstanding.MemberOutstanding;
+                accumulatedData.AgentOutstanding += outstanding.AgentOutstanding;
+                accumulatedData.MasterOutstanding += outstanding.MasterOutstanding;
+                accumulatedData.SuperOutstanding += outstanding.SuperOutstanding;
+            }
+
+            return accumulatedData;
         }
     }
 }

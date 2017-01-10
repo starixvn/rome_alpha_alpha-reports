@@ -4,32 +4,40 @@
     var betlistPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
 }
 
+@helper RenderOutstandingCells(OutstandingData data)
+{
+foreach (var reportLevel in Model.OutstandingLevels)
+{
+        <td>@HtmlHelpers.FormatNumber(Model.GetOutstandingValue(data, reportLevel))</td>
+}
+}
+
 <div class="page-title">
     <span class="pull-left">@Model.Title</span>
 </div>
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
-       data-totalrecords="@Model.Outstandings.Count()"
+       data-totalrecords="@Model.OutstandingDatasource.Count()"
        data-sortedcolumn="Outstanding.Username"
        data-descendingsort="false">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
             <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Outstanding.Username">@Model.Level</th>
-            <th colspan="@(Model.ViewerLevel.Value - Model.ReportLevel.Value + 1)" class="header">@Resources.Outstanding</th>
+            <th colspan="@(Model.OutstandingLevels.Count + 1)" class="header">@Resources.Outstanding</th>
         </tr>
         <tr class="thead-row2">
             <th class="sorting" data-colindex="1" data-sortedname>@Resources.Member</th>
-            @for (int reportLevel = Model.ReportLevel.Value; reportLevel < Model.ViewerLevel.Value; reportLevel++)
+            @foreach (var reportLevel in Model.OutstandingLevels)
             {
-                if (UserLevel.Member.Value == reportLevel)
+                if (reportLevel.IsMemberLevel())
                 {
                     <th class="sorting" data-colindex="2" data-sortedname>@Resources.Agent</th>
                 }
-                if (UserLevel.Agent.Value == reportLevel)
+                if (reportLevel.IsAgentLevel())
                 {
                     <th class="sorting" data-colindex="3" data-sortedname>@Resources.Master</th>
                 }
-                if (UserLevel.Master.Value == reportLevel)
+                if (reportLevel.IsMasterLevel())
                 {
                     <th class="sorting" data-colindex="4" data-sortedname>@Resources.Super</th>
                 }
@@ -37,7 +45,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var outstanding in Model.Outstandings)
+        @foreach (var outstanding in Model.OutstandingDatasource)
         {
             <tr>
                 @if (Model.ReportLevel.IsMemberLevel())
@@ -53,7 +61,7 @@
                     </td>
                 }
                 <td>@HtmlHelpers.FormatNumber(outstanding.MemberOutstanding)</td>
-                @RenderSMARow(outstanding)
+                @RenderOutstandingCells(outstanding)
             </tr>
         }
     </tbody>
@@ -61,7 +69,7 @@
         <tr class="tbl-footer">
             <td class="text-left">@Resources.Total</td>
             <td>@HtmlHelpers.FormatNumber(@Model.Total.MemberOutstanding)</td>
-            @RenderSMARow(Model.Total)
+            @RenderOutstandingCells(Model.Total)
         </tr>
     </tfoot>
 </table>
@@ -69,24 +77,3 @@
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/outstanding/outstanding")
 }
-
-@helper RenderSMARow(OutstandingData outstanding)
-{
-    for (int reportLevel = Model.ReportLevel.Value; reportLevel < Model.ViewerLevel.Value; reportLevel++)
-    {
-        if (UserLevel.Member.Value == reportLevel)
-        {
-                <td>@HtmlHelpers.FormatNumber(outstanding.AgentOutstanding)</td>
-        }
-        if (UserLevel.Agent.Value == reportLevel)
-        {
-                <td>@HtmlHelpers.FormatNumber(outstanding.MasterOutstanding)</td>
-        }
-        if (UserLevel.Master.Value == reportLevel)
-        {
-                <td>@HtmlHelpers.FormatNumber(outstanding.SuperOutstanding)</td>
-        }
-    }
-}
-
-
