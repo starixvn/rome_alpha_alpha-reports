@@ -1,15 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.Outstanding
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Globalization;
-    using System.Threading;
-    using Constants;
-    using Enumerations;
     using NSubstitute;
     using Reports.Models;
     using Reports.Models.Outstanding;
+    using Site.ViewModels;
     using Site.ViewModels.Outstanding;
     using Xunit;
     using static Alpha.Reports.Models.UserLevel;
@@ -22,7 +17,12 @@
         {
             // Arrange
             var expected = new List<UserLevel> { Member, Super };
-            var viewModel = new OutstandingViewModel(Super, Master, Arg.Any<IEnumerable<OutstandingData>>());
+            var viewModel = new OutstandingViewModel(
+                Super,
+                Master,
+                Arg.Any<IEnumerable<OutstandingData>>(),
+                Arg.Any<string>(),
+                Arg.Any<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -36,7 +36,12 @@
         {
             // Arrange
             var expected = new List<UserLevel> { Member, Master, Super };
-            var viewModel = new OutstandingViewModel(Super, Agent, Arg.Any<IEnumerable<OutstandingData>>());
+            var viewModel = new OutstandingViewModel(
+                Super,
+                Agent,
+                Arg.Any<IEnumerable<OutstandingData>>(),
+                Arg.Any<string>(),
+                Arg.Any<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -50,7 +55,12 @@
         {
             // Arrange
             var expected = new List<UserLevel> { Member, Agent, Master, Super };
-            var viewModel = new OutstandingViewModel(Super, Member, Arg.Any<IEnumerable<OutstandingData>>());
+            var viewModel = new OutstandingViewModel(
+                Super,
+                Member,
+                Arg.Any<IEnumerable<OutstandingData>>(),
+                Arg.Any<string>(),
+                Arg.Any<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -64,7 +74,12 @@
         {
             // Arrange
             var expected = new List<UserLevel> { Member, Master };
-            var viewModel = new OutstandingViewModel(Master, Agent, Arg.Any<IEnumerable<OutstandingData>>());
+            var viewModel = new OutstandingViewModel(
+                Master,
+                Agent,
+                Arg.Any<IEnumerable<OutstandingData>>(),
+                Arg.Any<string>(),
+                Arg.Any<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -78,7 +93,12 @@
         {
             // Arrange
             var expected = new List<UserLevel> { Member, Agent, Master };
-            var viewModel = new OutstandingViewModel(Master, Member, Arg.Any<IEnumerable<OutstandingData>>());
+            var viewModel = new OutstandingViewModel(
+                Master,
+                Member,
+                Arg.Any<IEnumerable<OutstandingData>>(),
+                Arg.Any<string>(),
+                Arg.Any<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -92,7 +112,12 @@
         {
             // Arrange
             var expected = new List<UserLevel> { Member, Agent };
-            var viewModel = new OutstandingViewModel(Agent, Member, Arg.Any<IEnumerable<OutstandingData>>());
+            var viewModel = new OutstandingViewModel(
+                Agent,
+                Member,
+                Arg.Any<IEnumerable<OutstandingData>>(),
+                Arg.Any<string>(),
+                Arg.Any<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
