@@ -11,11 +11,18 @@
     {
         private readonly List<UserLevel> outstandingLevels = new List<UserLevel>();
 
-        public OutstandingViewModel(UserLevel viewerLevel, UserLevel custLevel, IEnumerable<OutstandingData> outstandings)
+        public OutstandingViewModel(
+            UserLevel viewerLevel, 
+            UserLevel custLevel, 
+            IEnumerable<OutstandingData> outstandings, 
+            string drillDownInfoJson, 
+            IEnumerable<ActionLinkViewModel> breadcrumbLevels)
         {
             ViewerLevel = viewerLevel;
             ReportLevel = custLevel;
             OutstandingDatasource = outstandings;
+            DrillDownInfoJson = drillDownInfoJson;
+            BreadcrumbLevels = breadcrumbLevels;
 
             for (var level = ReportLevel.Value; level < ViewerLevel.Value; level++)
             {
@@ -68,6 +75,10 @@
         public OutstandingData Total => OutstandingData.GetAccumulatedData(OutstandingDatasource);
 
         public List<UserLevel> OutstandingLevels => outstandingLevels;
+
+        public string DrillDownInfoJson { get; }
+
+        public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; }
 
         public decimal GetOutstandingValue(OutstandingData data, UserLevel reportLevel)
         {

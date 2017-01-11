@@ -12,9 +12,7 @@ foreach (var reportLevel in Model.OutstandingLevels)
 }
 }
 
-<div class="page-title">
-    <span class="pull-left">@Model.Title</span>
-</div>
+@Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, false, false, false, false, Model.BreadcrumbLevels))
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
        data-totalrecords="@Model.OutstandingDatasource.Count()"
@@ -57,7 +55,14 @@ foreach (var reportLevel in Model.OutstandingLevels)
                 else
                 {
                     <td class="text-left" data-islink="true">
-                        @Html.ActionLink(outstanding.CustName, "Index", new { custLevelId = Model.ReportLevel.Value, custId = outstanding.CustId })
+                        @Html.ActionLink(outstanding.CustName, "Index",
+                        new
+                        {
+                            custLevelId = Model.ReportLevel.Value,
+                            custId = outstanding.CustId,
+                            custName = outstanding.CustName,
+                            DrillDownInfoJson = Model.DrillDownInfoJson
+                        })
                     </td>
                 }
                 <td>@HtmlHelpers.FormatNumber(outstanding.MemberOutstanding)</td>
