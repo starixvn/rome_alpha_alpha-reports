@@ -6,7 +6,7 @@
 
 <div class="page-title
      @(Model.IsStackMode ? "stack-mode" : string.Empty)
-     @(Model.HideFilter ? "hide-filter" : string.Empty)">
+     @(Model.IsFilterVisible ? string.Empty : "hide-filter")">
 
     @if (!string.IsNullOrWhiteSpace(Model.Title))
     {
