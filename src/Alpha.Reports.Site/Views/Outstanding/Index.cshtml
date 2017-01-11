@@ -39,12 +39,12 @@
                     }
                     else
                     {
-                        @Html.ActionLink(outstanding.CustName, "Index",
+                        @Html.ActionLink(data.CustName, "Index",
                         new
                         {
                             custLevelId = Model.ReportLevel.Value,
-                            custId = outstanding.CustId,
-                            custName = outstanding.CustName,
+                            custId = data.CustId,
+                            custName = data.CustName,
                             DrillDownInfoJson = Model.DrillDownInfoJson
                         })
                     }
