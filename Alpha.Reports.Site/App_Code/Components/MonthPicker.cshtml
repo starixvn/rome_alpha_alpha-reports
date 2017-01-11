@@ -9,11 +9,11 @@
             <div id="dropdown-month"
                  data-longmonths-inyear="@string.Join(",", model.MonthNames)"
                  data-mindate="@model.MinDate.ToShortDateWithSlash()"
-                 data-maxdate="@DateTime.Now.ToShortDateWithSlash()"
+                 data-maxdate="@Alpha.Reports.Services.DateTimeManager.Now.ToShortDateWithSlash()"
                  data-dateinmonth="@model.FromDate.ToShortDateWithSlash()"
                  data-fromdate="@model.FromDate.Day"
                  data-todate="@model.ToDate.Day"
-                 data-currentdate="@DateTime.Now.ToShortDateWithSlash()"></div>
+                 data-currentdate="@Alpha.Reports.Services.DateTimeManager.Now.ToShortDateWithSlash()"></div>
         </div>
     </div>
     <input type="hidden" id="from-date" name="FromDate" value="@model.FromDate" />
