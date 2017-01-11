@@ -70,6 +70,8 @@
             var message = new WinLossQuery(user);
             message.UserLevelId = 3;
             message.UserSelectedProductIds = userSelectedProductIds;
+            message.IsDescendingSort = false;
+            message.SortPropertyName = "CustName";
 
             var products = Enumerable.Empty<Product>();
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
@@ -78,6 +80,7 @@
             routeValue.UserLevelId = 3;
             routeValue.UserSelectedProductIds = userSelectedProductIds;
             routeValue.DrillDownInfoJson = "[{'CustId':0,'CustName':'','UserLevelId':3}]";
+            routeValue.SortPropertyName = "CustName";
 
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
@@ -91,6 +94,8 @@
                 FromDate = DefaultVariables.CurrentDate,
                 ToDate = DefaultVariables.CurrentDate,
                 IsFilterVisible = false,
+                IsDescendingSort = false,
+                SortPropertyName = "CustName",
                 Products = Enumerable.Empty<SelectListItem>(),
                 DrillDownInfoJson = "[{'CustId':0,'CustName':'','UserLevelId':3}]",
                 BreadcrumbLevels = new List<ActionLinkViewModel>

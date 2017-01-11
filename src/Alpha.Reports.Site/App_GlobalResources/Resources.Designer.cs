@@ -466,7 +466,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NonEntered.
+        ///   Looks up a localized string similar to Non-Entered.
         /// </summary>
         public static string NonEntered {
             get {

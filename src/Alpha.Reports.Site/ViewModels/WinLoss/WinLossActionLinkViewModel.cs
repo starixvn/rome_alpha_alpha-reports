@@ -14,6 +14,8 @@
             string userSelectedProductIds,
             bool isHictoricReport,
             bool isFilterVisible,
+            string sortPropertyName,
+            bool isDescendingSort,
             bool isStackMode,
             string drillDownInfoJson)
         {
@@ -25,6 +27,8 @@
             UserSelectedDateRangeOption = userSelectedDateRangeOption;
             UserSelectedProductIds = userSelectedProductIds;
             IsHistoricReport = isHictoricReport;
+            SortPropertyName = sortPropertyName;
+            IsDescendingSort = isDescendingSort;
             IsFilterVisible = isFilterVisible;
             IsStackMode = isStackMode;
             DrillDownInfoJson = drillDownInfoJson;
@@ -43,6 +47,10 @@
         public string UserSelectedProductIds { get; }
 
         public bool IsHistoricReport { get; }
+
+        public string SortPropertyName { get; }
+
+        public bool IsDescendingSort { get; }
 
         public int UserSelectedDateRangeOption { get; }
 

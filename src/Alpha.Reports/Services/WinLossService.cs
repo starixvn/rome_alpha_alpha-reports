@@ -47,7 +47,7 @@
                  .GetOrSet(
                  EnteredResultsCacheKey,
                  () => GetDataEnteredSportResults(),
-                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(1)));
+                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(1)));
 
             return reportData;
         }
@@ -92,8 +92,7 @@
                     dailyEnteredSports.Key,
                     cacheRefService.GetSportName(dailyEnteredSports.Key),
                     dailyEnteredSports.FirstOrDefault(enteredSportResult => enteredSportResult.IsToday),
-                    dailyEnteredSports.FirstOrDefault(enteredSportResult => !enteredSportResult.IsToday)))
-                    .OrderBy(enteredSportResult => enteredSportResult.SportTypeId);
+                    dailyEnteredSports.FirstOrDefault(enteredSportResult => !enteredSportResult.IsToday)));
             }
 
             return Enumerable.Empty<EnteredSportResult>();

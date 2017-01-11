@@ -56,6 +56,10 @@
 
         public bool IsStackMode { get; set; }
 
+        public string SortPropertyName { get; set; }
+
+        public bool IsDescendingSort { get; set; }
+
         public bool IsHistoricReport { get; set; }
 
         public bool IsFilterVisible { get; set; }
@@ -101,6 +105,8 @@
                     UserSelectedProductIds,
                     IsHistoricReport,
                     IsFilterVisible,
+                    SortPropertyName,
+                    IsDescendingSort,
                     IsStackMode,
                     DrillDownInfoJson);
         }

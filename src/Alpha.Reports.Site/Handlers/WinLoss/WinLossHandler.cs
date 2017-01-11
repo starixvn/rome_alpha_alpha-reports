@@ -15,6 +15,7 @@
         IRequestHandler<WinLossQuery, WinLossViewModel>
     {
         private readonly IUser user;
+        private readonly string sortPropertyNameDefault = "CustName";
 
         public WinLossHandler(
             ProductService productService,
@@ -40,6 +41,7 @@
 
             var drillDownInfo = BuildDrillDownInfo(message);
 
+            var sortPropertyName = GetSortedProperty(message.UserLevelId, message.SortPropertyName);
             var viewModel = new WinLossViewModel(reportData.ToList())
             {
                 CustId = winLossParam.CustId,
@@ -54,6 +56,8 @@
                 IsStackMode = message.IsStackMode,
                 IsHistoricReport = message.IsHistoricReport,
                 IsFilterVisible = message.IsFilterVisible,
+                IsDescendingSort = message.IsDescendingSort,
+                SortPropertyName = sortPropertyName,
 
                 DrillDownInfoJson = ToJson(drillDownInfo),
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
@@ -71,6 +75,8 @@
                         routeValues.ToDate = message.ToDate;
 
                         routeValues.UserSelectedProductIds = message.UserSelectedProductIds;
+                        routeValues.SortPropertyName = sortPropertyName;
+                        routeValues.IsDescendingSort = message.IsDescendingSort;
                         routeValues.IsStackMode = message.IsStackMode;
                         routeValues.IsHistoricReport = message.IsHistoricReport;
                         routeValues.IsFilterVisible = message.IsFilterVisible;
@@ -83,6 +89,25 @@
             };
 
             return viewModel;
+        }
+
+        private string GetSortedProperty(byte userLevelId, string sortedProperty)
+        {
+            var userLevel = Enumeration.FromValue<UserLevel>(userLevelId);
+
+            var isInRange =
+                userLevel.IsSuperLevel()
+                || (userLevel.IsMasterLevel() && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
+                || (userLevel.IsAgentLevel()
+                        && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
+                        && !sortedProperty.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
+
+            if (!isInRange || string.IsNullOrEmpty(sortedProperty))
+            {
+                return sortPropertyNameDefault;
+            }
+
+            return sortedProperty;
         }
     }
 }

@@ -28,6 +28,8 @@ class WinLossView {
     $switchModeIcon: JQuery;
     $fromDate: JQuery;
     $toDate: JQuery;
+    $isDescendingSort: JQuery;
+    $sortPropertyName: JQuery;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -58,6 +60,7 @@ class WinLossView {
         }
 
         this.$.blockUI();
+        
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         this.isHistoricReport
@@ -69,13 +72,13 @@ class WinLossView {
         if (this.$isFilterVisible.val().toString().toLowerCase() === "false") {
             this.hideFilter();
         }
-
+       
         let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
         this.sortComponent.render(new SortOption(
             this.$tableReport,
             canSort,
             true,
-            function () { },
+            this.afterSort,
             { 0: { sorter: "text" } }));
 
         this.$tableReport.stickyTableHeaders();
@@ -105,6 +108,8 @@ class WinLossView {
         this.$switchModeIcon = this.$(".icon-switchmode");
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
+        this.$isDescendingSort = this.$("#IsDescendingSort");
+        this.$sortPropertyName = this.$("#SortPropertyName");
     };
 
     registerEvents = () => {
@@ -210,12 +215,15 @@ class WinLossView {
     getParams = () => {
         var selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
         var tableReport = this.$tableReport;
+        let sortInfo = this.sortComponent.getSortInfo();
 
         return {
             CustId: tableReport.data("custid"),
             IsAnyProductSelected: selectedProducts.length > 0,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
+            SortPropertyName: sortInfo.sortPropertyName,
+            IsDescendingSort: sortInfo.isDescendingSort,
             HideFilter: this.$reportForm.is(":hidden"),
         };
     };
@@ -237,6 +245,33 @@ class WinLossView {
         });
     };
 
+    afterSort = () => {
+        var this$ = this.$;
+            var sortedColumn = this$(".sorting-asc:visible");
+            var direction = !sortedColumn.length;
+            if (sortedColumn.length === 0) {
+                sortedColumn = this$(".sorting-desc");
+            }
+
+            var sortedColumnName = sortedColumn.data("sortedname");
+
+            this.replaceDrilldownParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
+            this.replaceDrilldownParam("IsDescendingSort", direction);
+
+            var isEvenRow = false;
+            this.$tableReport.find("tbody > tr").each(function () {
+                var $row = this$(this);
+                if ($row.hasClass("even-row") && !isEvenRow) {
+                    $row.removeClass("even-row");
+                } else if (!$row.hasClass("even-row") && isEvenRow) {
+                    $row.addClass("even-row");
+                }
+
+                isEvenRow = !isEvenRow;
+            });
+    };
+
+
     onSubmitReportEvent = (e: any) => {
         this.$.blockUI();
 
@@ -252,6 +287,8 @@ class WinLossView {
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
         this.$isHistoricReport.val(String(params.IsHistoricReport));
         this.$isStackMode.val(String(params.IsStackMode));
+        this.$sortPropertyName.val(params.SortPropertyName);
+        this.$isDescendingSort.val(String(params.IsDescendingSort));
     };
 
     getSortedColumnName = () => {

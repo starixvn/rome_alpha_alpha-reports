@@ -6,17 +6,15 @@
 @Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, false, true, false, false, new List<ActionLinkViewModel>()))
 @Html.Partial("_EnteredResultFilter", Model.FilterViewModel)
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
-       data-totalrecords="@Model.ReportData.Count()"
-       data-sortedcolumn="SportTypeId"
-       data-descendingsort="true">
+       data-totalrecords="@Model.ReportData.Count()">
     <thead>
         <tr>
             <th>@Resources.Date</th>
-            <th colspan="2">@String.Format("{0:MM/dd/yyyy}", DateTime.Now.AddDays(-1))</th>
-            <th colspan="2">@String.Format("{0:MM/dd/yyyy}", DateTime.Now)</th>
+            <th colspan="2">@DateTime.Now.AddDays(-1).ToShortDateWithSlash()</th>
+            <th colspan="2">@DateTime.Now.ToShortDateWithSlash()</th>
         </tr>
         <tr class="thead-row2">
-            <th class="sorting" data-sortedname="SportTypeId" data-colindex="0">@Resources.Results</th>
+            <th class="sorting" data-colindex="0">@Resources.Results</th>
             <th class="sorting width-15per" data-colindex="1">@Resources.Entered</th>
             <th class="sorting width-15per" data-colindex="2">@Resources.NonEntered</th>
             <th class="sorting width-15per" data-colindex="3">@Resources.Entered</th>

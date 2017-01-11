@@ -90,16 +90,23 @@ class SortComponent {
             self.options.headers[this.cellIndex] = { sorter: false };
         });
 
-        let sortedColumnHeader = this.$sortContainer.find("[data-sortedname='" + sortedColumnName + "']" +
-            (this.$sortContainer.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : ":not([class*='col-combine'])"))[0];
-        let isDescendingSort = this.$sortContainer.data("descendingsort").toString() === "1"
-            || this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true";
+        let sortList = [];
+        if (sortedColumnName && sortedColumnName !== "") {
+            let sortedColumnHeader = this.$sortContainer.find("[data-sortedname='" + sortedColumnName + "']" +
+                (this.$sortContainer.hasClass("stack-mode") ? ":not([class*='hidden-stack-mode'])" : ":not([class*='col-combine'])"))[0];
+            let isDescendingSort = this.$sortContainer.data("descendingsort").toString() === "1"
+                || this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true";
+
+            sortList = [[this.$(sortedColumnHeader).data("colindex"), isDescendingSort ? 1 : 0]];
+        }
+       
+
         try {
             this.$sortContainer.tablesorter(
                 {
                     defaultParser: 1,
                     headers: this.options.headers,
-                    sortList: [[this.$(sortedColumnHeader).data("colindex"), isDescendingSort ? 1 : 0]],
+                    sortList: sortList,
                     textExtraction: this.textExtraction
                 });
         }

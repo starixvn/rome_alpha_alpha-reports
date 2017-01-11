@@ -30,14 +30,16 @@
 @Html.Partial("_WinLossFilter", Model.FilterViewModel,
     new ViewDataDictionary
     {
-        { "IsStackMode", Model.IsStackMode }
+        { "IsStackMode", Model.IsStackMode },
+        { "IsDescendingSort", Model.IsDescendingSort },
+        { "SortPropertyName", Model.SortPropertyName }
     })
 <table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.Count()"
        data-custid="@Model.CustId"
-       data-sortedcolumn="CustName"
-       data-descendingsort="false">
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
             <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="0">@downlineLevel</th>
@@ -76,15 +78,22 @@
             }
             else
             {
-            <th colspan="3" class="col-level hidden-stack-mode">@currentLevel</th>
-            <th class="visible-stack-mode col-combine sorting" data-sortedname="@(winlossLevel + ".WinLoss")" rowspan="2" data-colindex="2">
-                @currentLevel
-                <br />
-                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
-            </th>
+                <th colspan="3" class="col-level hidden-stack-mode">@currentLevel</th>
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="@(winlossLevel + ".WinLoss")" rowspan="2" data-colindex="2">
+                    @currentLevel
+                    <br />
+                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                </th>
             }
 
-            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="9">@Resources.Company</th>
+            @if (Model.UserLevel.IsAgentLevel())
+            {
+                <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="9">@Resources.Company</th>
+            }
+            else
+            {
+                <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="7">@Resources.Company</th>
+            }
         </tr>
         <tr class="thead-row2">
             @if (Model.UserLevel.IsAgentLevel())
