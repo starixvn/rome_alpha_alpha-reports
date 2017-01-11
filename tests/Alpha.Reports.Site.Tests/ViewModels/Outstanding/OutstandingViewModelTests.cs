@@ -1,17 +1,19 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.Outstanding
 {
     using System.Collections.Generic;
-    using NSubstitute;
+    using Ploeh.AutoFixture;
     using Reports.Models;
     using Reports.Models.Outstanding;
     using Site.ViewModels;
     using Site.ViewModels.Outstanding;
     using Xunit;
-    using static Alpha.Reports.Models.UserLevel;
+    using static Reports.Models.UserLevel;
 
     [Trait("Category", "Outstanding")]
     public class OutstandingViewModelTests
     {
+        private readonly Fixture fixture = new Fixture();
+
         [Fact]
         public void DisplayOutstandingLevels_SuperViewMasterOutstanding_Show_Member_Super_Outstanding()
         {
@@ -20,9 +22,9 @@
             var viewModel = new OutstandingViewModel(
                 Super,
                 Master,
-                Arg.Any<IEnumerable<OutstandingData>>(),
-                Arg.Any<string>(),
-                Arg.Any<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<string>(),
+                fixture.Create<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -39,9 +41,9 @@
             var viewModel = new OutstandingViewModel(
                 Super,
                 Agent,
-                Arg.Any<IEnumerable<OutstandingData>>(),
-                Arg.Any<string>(),
-                Arg.Any<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<string>(),
+                fixture.Create<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -58,9 +60,9 @@
             var viewModel = new OutstandingViewModel(
                 Super,
                 Member,
-                Arg.Any<IEnumerable<OutstandingData>>(),
-                Arg.Any<string>(),
-                Arg.Any<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<string>(),
+                fixture.Create<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -77,9 +79,9 @@
             var viewModel = new OutstandingViewModel(
                 Master,
                 Agent,
-                Arg.Any<IEnumerable<OutstandingData>>(),
-                Arg.Any<string>(),
-                Arg.Any<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<string>(),
+                fixture.Create<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -96,9 +98,9 @@
             var viewModel = new OutstandingViewModel(
                 Master,
                 Member,
-                Arg.Any<IEnumerable<OutstandingData>>(),
-                Arg.Any<string>(),
-                Arg.Any<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<string>(),
+                fixture.Create<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -115,9 +117,9 @@
             var viewModel = new OutstandingViewModel(
                 Agent,
                 Member,
-                Arg.Any<IEnumerable<OutstandingData>>(),
-                Arg.Any<string>(),
-                Arg.Any<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<string>(),
+                fixture.Create<IEnumerable<ActionLinkViewModel>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
