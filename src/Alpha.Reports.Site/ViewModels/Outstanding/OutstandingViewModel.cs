@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Outstanding
 {
-    using System;
     using System.Collections.Generic;
     using App_GlobalResources;
     using Enumerations;
@@ -9,7 +8,8 @@
 
     public class OutstandingViewModel
     {
-        private readonly List<UserLevel> outstandingLevels = new List<UserLevel>();
+        // Always need to show member outstanding
+        private readonly List<UserLevel> displayOutstandingLevels = new List<UserLevel>() { UserLevel.Member };
 
         public OutstandingViewModel(
             UserLevel viewerLevel, 
@@ -24,9 +24,9 @@
             DrillDownInfoJson = drillDownInfoJson;
             BreadcrumbLevels = breadcrumbLevels;
 
-            for (var level = ReportLevel.Value; level < ViewerLevel.Value; level++)
+            for (var level = (byte)(ReportLevel.Value + 1); level <= ViewerLevel.Value; level++)
             {
-                outstandingLevels.Add(Enumeration.FromValue<UserLevel>(level));
+                displayOutstandingLevels.Add(Enumeration.FromValue<UserLevel>(level));
             }
         }
 
@@ -48,24 +48,6 @@
             }
         }
 
-        public string Level
-        {
-            get
-            {
-                if (ReportLevel.IsMasterLevel())
-                {
-                    return Resources.Master;
-                }
-
-                if (ReportLevel.IsAgentLevel())
-                {
-                    return Resources.Agent;
-                }
-
-                return Resources.Username;
-            }
-        }
-
         public UserLevel ViewerLevel { get; }
 
         public UserLevel ReportLevel { get; }
@@ -74,30 +56,12 @@
 
         public OutstandingData Total => OutstandingData.GetAccumulatedData(OutstandingDatasource);
 
-        public List<UserLevel> OutstandingLevels => outstandingLevels;
+        public List<UserLevel> DisplayOutstandingLevels => displayOutstandingLevels;
 
         public string DrillDownInfoJson { get; }
 
         public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; }
 
-        public decimal GetOutstandingValue(OutstandingData data, UserLevel reportLevel)
-        {
-            if (reportLevel.IsMemberLevel())
-            {
-                return data.AgentOutstanding;
-            }
-
-            if (reportLevel.IsAgentLevel())
-            {
-                return data.MasterOutstanding;
-            }
-
-            if (reportLevel.IsMasterLevel())
-            {
-                return data.SuperOutstanding;
-            }
-
-            throw new ArgumentOutOfRangeException(nameof(reportLevel));
-        }
+        public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
     }
 }

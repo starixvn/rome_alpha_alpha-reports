@@ -4,14 +4,6 @@
     var betlistPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
 }
 
-@helper RenderOutstandingCells(OutstandingData data)
-{
-foreach (var reportLevel in Model.OutstandingLevels)
-{
-        <td>@HtmlHelpers.FormatNumber(Model.GetOutstandingValue(data, reportLevel))</td>
-}
-}
-
 @Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, false, false, false, false, Model.BreadcrumbLevels))
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
@@ -20,41 +12,33 @@ foreach (var reportLevel in Model.OutstandingLevels)
        data-descendingsort="false">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
-            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Outstanding.Username">@Model.Level</th>
-            <th colspan="@(Model.OutstandingLevels.Count + 1)" class="header">@Resources.Outstanding</th>
+            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Outstanding.Username">
+                @HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
+            </th>
+            <th colspan="@Model.NumberOfOutstandingColumn" class="header">
+                @Resources.Outstanding
+            </th>
         </tr>
         <tr class="thead-row2">
-            <th class="sorting" data-colindex="1" data-sortedname>@Resources.Member</th>
-            @foreach (var reportLevel in Model.OutstandingLevels)
+            @foreach (var outstandingLevel in Model.DisplayOutstandingLevels)
             {
-                if (reportLevel.IsMemberLevel())
-                {
-                    <th class="sorting" data-colindex="2" data-sortedname>@Resources.Agent</th>
-                }
-                if (reportLevel.IsAgentLevel())
-                {
-                    <th class="sorting" data-colindex="3" data-sortedname>@Resources.Master</th>
-                }
-                if (reportLevel.IsMasterLevel())
-                {
-                    <th class="sorting" data-colindex="4" data-sortedname>@Resources.Super</th>
-                }
+                @RenderHeaderCellByLevel(outstandingLevel);
             }
         </tr>
     </thead>
     <tbody>
-        @foreach (var outstanding in Model.OutstandingDatasource)
+        @foreach (var data in Model.OutstandingDatasource)
         {
             <tr>
-                @if (Model.ReportLevel.IsMemberLevel())
-                {
-                    <td class="text-left" data-islink="true">
-                        <a href="@($"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall={"on"}")">@outstanding.CustName</a>
-                    </td>
-                }
-                else
-                {
-                    <td class="text-left" data-islink="true">
+                <td class="text-left" data-islink="true">
+                    @if (Model.ReportLevel.IsMemberLevel())
+                    {
+                        <a href="@($"{betlistPath}?custId={data.CustId}&username={data.CustName}&chkgetall={"on"}")">>
+                            @data.CustName
+                        </a>
+                    }
+                    else
+                    {
                         @Html.ActionLink(outstanding.CustName, "Index",
                         new
                         {
@@ -63,17 +47,15 @@ foreach (var reportLevel in Model.OutstandingLevels)
                             custName = outstanding.CustName,
                             DrillDownInfoJson = Model.DrillDownInfoJson
                         })
-                    </td>
-                }
-                <td>@HtmlHelpers.FormatNumber(outstanding.MemberOutstanding)</td>
-                @RenderOutstandingCells(outstanding)
+                    }
+                </td>
+                @RenderOutstandingCells(data)
             </tr>
         }
     </tbody>
     <tfoot>
         <tr class="tbl-footer">
             <td class="text-left">@Resources.Total</td>
-            <td>@HtmlHelpers.FormatNumber(@Model.Total.MemberOutstanding)</td>
             @RenderOutstandingCells(Model.Total)
         </tr>
     </tfoot>
@@ -81,4 +63,21 @@ foreach (var reportLevel in Model.OutstandingLevels)
 
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/outstanding/outstanding")
+}
+
+@helper RenderOutstandingCells(OutstandingData data)
+{
+foreach (var level in Model.DisplayOutstandingLevels)
+{
+        <td>
+            @HtmlHelpers.FormatNumber(data.GetValueByLevel(level))
+        </td>
+}
+}
+
+@helper RenderHeaderCellByLevel(UserLevel userLevel)
+{
+    <th class="sorting" data-colindex="@userLevel.Value" data-sortedname>
+        @HtmlHelpers.DisplayUserLevelText(userLevel)
+    </th>
 }

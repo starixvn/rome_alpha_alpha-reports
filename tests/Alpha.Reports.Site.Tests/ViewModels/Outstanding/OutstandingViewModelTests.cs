@@ -1,0 +1,104 @@
+﻿namespace Alpha.Reports.Site.Tests.ViewModels.Outstanding
+{
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Threading;
+    using Constants;
+    using Enumerations;
+    using NSubstitute;
+    using Reports.Models;
+    using Reports.Models.Outstanding;
+    using Site.ViewModels.Outstanding;
+    using Xunit;
+    using static Alpha.Reports.Models.UserLevel;
+
+    [Trait("Category", "Outstanding")]
+    public class OutstandingViewModelTests
+    {
+        [Fact]
+        public void DisplayOutstandingLevels_SuperViewMasterOutstanding_Show_Member_Super_Outstanding()
+        {
+            // Arrange
+            var expected = new List<UserLevel> { Member, Super };
+            var viewModel = new OutstandingViewModel(Super, Master, Arg.Any<IEnumerable<OutstandingData>>());
+
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DisplayOutstandingLevels_SuperViewAgentOutstanding_Show_Member_Master_Super_Outstanding()
+        {
+            // Arrange
+            var expected = new List<UserLevel> { Member, Master, Super };
+            var viewModel = new OutstandingViewModel(Super, Agent, Arg.Any<IEnumerable<OutstandingData>>());
+
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DisplayOutstandingLevels_SuperViewMemberOutstanding_Show_Member_Agent_Master_Super_Outstanding()
+        {
+            // Arrange
+            var expected = new List<UserLevel> { Member, Agent, Master, Super };
+            var viewModel = new OutstandingViewModel(Super, Member, Arg.Any<IEnumerable<OutstandingData>>());
+
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DisplayOutstandingLevels_MasterViewAgentOutstanding_Show_Member_Master_Outstanding()
+        {
+            // Arrange
+            var expected = new List<UserLevel> { Member, Master };
+            var viewModel = new OutstandingViewModel(Master, Agent, Arg.Any<IEnumerable<OutstandingData>>());
+
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DisplayOutstandingLevels_MasterViewMemberOutstanding_Show_Member_Agent_Master_Outstanding()
+        {
+            // Arrange
+            var expected = new List<UserLevel> { Member, Agent, Master };
+            var viewModel = new OutstandingViewModel(Master, Member, Arg.Any<IEnumerable<OutstandingData>>());
+
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DisplayOutstandingLevels_AgentViewMemberOutstanding_Show_Member_Agent_Outstanding()
+        {
+            // Arrange
+            var expected = new List<UserLevel> { Member, Agent };
+            var viewModel = new OutstandingViewModel(Agent, Member, Arg.Any<IEnumerable<OutstandingData>>());
+
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+    }
+}
