@@ -71,16 +71,16 @@
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public void HideFilter_Always_ReturnsHideFilterSetFromConstructor(bool expectedHideFilter)
+        public void IsFilterVisible_Always_ReturnsIsFilterVisibleSetFromConstructor(bool expectedIsFilterVisible)
         {
             // Arrange
-            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, false, false, false, expectedHideFilter, null);
+            var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, false, false, false, expectedIsFilterVisible, null);
 
             // Act
-            var actualHideFilter = pageHeaderViewModel.HideFilter;
+            var actualHideFilter = pageHeaderViewModel.IsFilterVisible;
 
             // Assert
-            AssertExtension.Equal(expectedHideFilter, actualHideFilter);
+            AssertExtension.Equal(expectedIsFilterVisible, actualHideFilter);
         }
 
         [Fact]
