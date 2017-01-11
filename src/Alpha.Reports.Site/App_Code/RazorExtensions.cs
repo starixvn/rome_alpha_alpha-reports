@@ -5,7 +5,7 @@
     using System.Web.WebPages;
     public static class RazorExtensions
     {
-        public static HelperResult List<T>(this List<T> items, Func<T, HelperResult> template)
+        public static HelperResult List<T>(this IEnumerable<T> items, Func<T, HelperResult> template)
         {
             return new HelperResult(writer =>
             {

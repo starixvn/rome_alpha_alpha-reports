@@ -1,4 +1,6 @@
-﻿@model OutstandingViewModel
+﻿@using Alpha.Reports.Site
+
+@model OutstandingViewModel
 
 @{
     var betlistPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
@@ -20,38 +22,20 @@
             </th>
         </tr>
         <tr class="thead-row2">
-            @foreach (var outstandingLevel in Model.DisplayOutstandingLevels)
-            {
-                @RenderHeaderCellByLevel(outstandingLevel);
-            }
+            @Model.DisplayOutstandingLevels.List(
+        @<th class="sorting" data-colindex="@item.Value" data-sortedname>
+            @HtmlHelpers.DisplayUserLevelText(@item)
+        </th>)
         </tr>
     </thead>
     <tbody>
-        @foreach (var data in Model.OutstandingDatasource)
-        {
-            <tr>
-                <td class="text-left" data-islink="true">
-                    @if (Model.ReportLevel.IsMemberLevel())
-                    {
-                        <a href="@($"{betlistPath}?custId={data.CustId}&username={data.CustName}&chkgetall={"on"}")">>
-                            @data.CustName
-                        </a>
-                    }
-                    else
-                    {
-                        @Html.ActionLink(data.CustName, "Index",
-                        new
-                        {
-                            custLevelId = Model.ReportLevel.Value,
-                            custId = data.CustId,
-                            custName = data.CustName,
-                            DrillDownInfoJson = Model.DrillDownInfoJson
-                        })
-                    }
-                </td>
-                @RenderOutstandingCells(data)
-            </tr>
-        }
+        @Model.OutstandingDatasource.List(
+    @<tr>
+        <td class="text-left" data-islink="true">
+            @ActionLink(@item, betlistPath)
+        </td>
+        @RenderOutstandingCells(@item)
+    </tr>)
     </tbody>
     <tfoot>
         <tr class="tbl-footer">
@@ -75,9 +59,23 @@ foreach (var level in Model.DisplayOutstandingLevels)
 }
 }
 
-@helper RenderHeaderCellByLevel(UserLevel userLevel)
+@helper ActionLink(OutstandingData data, string betlistPath)
 {
-    <th class="sorting" data-colindex="@userLevel.Value" data-sortedname>
-        @HtmlHelpers.DisplayUserLevelText(userLevel)
-    </th>
+if (Model.ReportLevel.IsMemberLevel())
+{
+        <a href="@($"{betlistPath}?custId={data.CustId}&username={data.CustName}&chkgetall={"on"}")">
+            @data.CustName
+        </a>
+}
+else
+{
+        @Html.ActionLink(data.CustName, "Index",
+                        new
+                        {
+                            custLevelId = Model.ReportLevel.Value,
+                            custId = data.CustId,
+                            custName = data.CustName,
+                            DrillDownInfoJson = Model.DrillDownInfoJson
+                        })
+}
 }
