@@ -148,7 +148,7 @@
                 Call After Sort Function`, () => {
                 // arrange
                 setFixtures(`<body>
-                                <table id="table-report" data-descendingsort="1" data-sortedcolumn="Column1">
+                                <table id="table-report" data-descendingsort="False" data-sortedcolumn="Column1">
                                     <th class="sorting" data-sortedname="Column1">Column 1</th>
                                     <th class="sorting" data-sortedname="Column2">Column 2</th>
                                 </table>
@@ -205,6 +205,7 @@
             expect(actalSortInfo.sortPropertyName).toBe("Column1");
             expect(actalSortInfo.isDescendingSort).toBeTruthy();
         });
+
         it("Ascending Sort -> Returns Sort Info from table data", () => {
             // arrange
             setFixtures(`<body>
@@ -294,8 +295,6 @@
                 sortList: [[0, 0]],
                 textExtraction: jasmine.any(Function)
             });
-            sortComponent.$sortContainer.trigger("sortEnd");
-            expect(sortComponent.options.afterSortFunction).toHaveBeenCalled();
         });
     });
     describe("textExtraction", () => {

@@ -34,26 +34,30 @@ class SortComponent {
         let self = this;
 
         if (!this.options.hasAllDataOnClient) {
-            let isDecendingSort = this.$sortContainer.data("descendingsort").toString() === "1"
-                || this.$sortContainer.data("descendingsort").toLowerCase() === "true";
-            let sortClass = isDecendingSort ? "sorting-desc" : "sorting-asc";
-
             this.$sortContainer
                 .find("[data-sortedname='" + this.$sortContainer.data("sortedcolumn") + "']")
-                .addClass(sortClass);
+                .addClass(this.getSortClassWhenSortOnServer());
 
             sortColumns
                 .off("click.sortcomponent")
                 .on("click.sortcomponent",
                 function () {
                     var $sortColumn = self.$(this);
-                    self.onSort($sortColumn.data("sortedname"), $sortColumn.hasClass("sorting-asc"));
+
+                    self.onSort($sortColumn.data("sortedname"), self.getSortClassWhenSortOnServer() === "sorting-asc");
                 });
         }
 
         this.bindTableSorter(this.$sortContainer.data("sortedcolumn"));
 
         return sortColumns;
+    };
+
+    getSortClassWhenSortOnServer = () => {
+        let isDecendingSort = this.$sortContainer.data("descendingsort").toString() === "1"
+            || this.$sortContainer.data("descendingsort").toLowerCase() === "true";
+
+        return isDecendingSort ? "sorting-desc" : "sorting-asc";
     };
 
     onSort = (sortedColumnName: string, isDecendingSort: boolean) => {
@@ -96,25 +100,11 @@ class SortComponent {
                     defaultParser: 1,
                     headers: this.options.headers,
                     sortList: [[this.$(sortedColumnHeader).data("colindex"), isDescendingSort ? 1 : 0]],
-            textExtraction: this.textExtraction
-        })catch (e) { };
-
-        this.$sortContainer.off("sortEnd").on("sortEnd", this.options.afterSortFunction);
-    };
-    textExtraction = (node: any) => {
-        let $node = this.$(node);
-
-        if ($node.hasClass("combinedcell")) {
-            return $node.find("ul>li:first-child").html();
+                    textExtraction: this.textExtraction
+                });
         }
+        catch (e) { }
 
-        if ($node.data("islink")) {
-            return $node.find("a").html();
-        }
-
-        return $node.html();
-        };
-        
         this.$sortContainer.off("sortEnd").on("sortEnd", () => {
             var $sortedcolumn = this.$sortContainer
                 .find("thead.tableFloatingHeaderOriginal th.sorting.sorting-asc,thead.tableFloatingHeaderOriginal th.sorting.sorting-desc");
@@ -128,5 +118,19 @@ class SortComponent {
                 this.onSort($sortedcolumn.attr("data-sortedname"), $sortedcolumn.hasClass("sorting-desc"));
             }
         });
+    };
+
+    textExtraction = (node: any) => {
+        let $node = this.$(node);
+
+        if ($node.hasClass("combinedcell")) {
+            return $node.find("ul>li:first-child").html();
+        }
+
+        if ($node.data("islink")) {
+            return $node.find("a").html();
+        }
+
+        return $node.html();
     };
 }
