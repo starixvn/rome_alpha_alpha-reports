@@ -57,11 +57,11 @@
                 .Header(Resources.ResourceManager.GetString)
                 .Body(winlossViewModel.ReportData, GetWinLossRowMapper(message, isTotal: false))
                 .Footer(winlossViewModel.GrantTotal, GetWinLossRowMapper(message, isTotal: true))
-                .Sheet(winlossViewModel.Title)
+                .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
             return new ExcelFileViewModel(
-                   $"{winlossViewModel.Title}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}",
+                   $"{Resources.WinLossTitle}-{message.CustName}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}",
                    result);
         }
 

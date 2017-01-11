@@ -86,14 +86,11 @@
                 </th>
             }
 
-            @if (Model.UserLevel.IsAgentLevel())
-            {
-                <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="9">@Resources.Company</th>
-            }
-            else
-            {
-                <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="7">@Resources.Company</th>
-            }
+  
+            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="@(Model.UserLevel.IsAgentLevel() ? 9 : 7)">
+                @Resources.Company
+            </th>
+
         </tr>
         <tr class="thead-row2">
             @if (Model.UserLevel.IsAgentLevel())

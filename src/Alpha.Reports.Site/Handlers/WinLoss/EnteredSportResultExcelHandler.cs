@@ -53,7 +53,7 @@
                .UseTemplate(templateInfo)
                .Header(key => resources.ContainsKey(key) ? resources[key] : Resources.ResourceManager.GetString(key))
                .Body(reportData, GetEnteredSportResultRowMapper())
-               .Sheet(Resources.MatchResultEntered)
+               .Sheet(Resources.DefaultSheetName)
                .ExportToBytes();
 
             return new ExcelFileViewModel(

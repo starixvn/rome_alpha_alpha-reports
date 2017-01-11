@@ -86,7 +86,7 @@
             enteredSportResultExcelHandler.Handle(message);
 
             // Assert
-            enteredSportResultWorkbook.Received().Sheet(Arg.Is("Match Result Entered"));
+            enteredSportResultWorkbook.Received().Sheet(Arg.Is("Sheet 1"));
         }
 
         [Fact]

@@ -363,4 +363,7 @@
   <data name="WinLossDetail" xml:space="preserve">
     <value>Win Loss Detail</value>
   </data>
+  <data name="WinLossTitle" xml:space="preserve">
+    <value>Win Loss</value>
+  </data>
 </root>

@@ -141,7 +141,7 @@
             winLossExcelHandler.Handle(message);
 
             // Assert
-            winlossWorkbook.Received().Sheet(Arg.Is("Master Win Loss"));
+            winlossWorkbook.Received().Sheet(Arg.Is("Sheet 1"));
         }
 
         [Fact]

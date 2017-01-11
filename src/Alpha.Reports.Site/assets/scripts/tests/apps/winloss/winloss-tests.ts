@@ -361,6 +361,40 @@
              expect(winLossView.$isFilterVisible.val()).toBeTruthy();
              expect(winLossView.$isHistoricReport.val()).toEqual("false");
          });
+
+         it("Switch View on Mobile -> Set Filter Is Visible to false", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             renderProductMultiSelectionComponent.and.callThrough();
+             renderSortComponent.and.callThrough();
+             winLossView.init();
+             winLossView.isSwitchView = true;
+
+             // act
+             winLossView.onSubmitReportEvent(null);
+
+             // assert
+             expect(winLossView.$isFilterVisible.val()).toEqual("true");
+         });
+
+         it("Not switch view and not select any product -> Blocks UI; Shows Validate Product Error; Unblock UI;", () => {
+             // arrange
+             setFixtures(winLossTemplate.currentReportWithNormalMode);
+             renderProductMultiSelectionComponent.and.callThrough();
+             renderSortComponent.and.callThrough();
+             winLossView.init();
+             winLossView.isSwitchView = false;
+             spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
+
+             var event = { preventDefault: jasmine.createSpy("preventDefault", () => null) };
+
+             // act
+             winLossView.onSubmitReportEvent(event);
+
+             // assert
+             expect(jQueryFake.blockUI).toHaveBeenCalled();
+             expect(jQueryFake.unblockUI).toHaveBeenCalled();
+         });
      });
 
      describe("getSortedColumnName", () => {

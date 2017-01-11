@@ -7,6 +7,8 @@
                         <div id="tbl-report" data-totalrecords="0"> </div>
                         <input id="IsHistoricReport" value="True" type="hidden" />
                         <input id="IsFilterVisible" value="True" type="hidden" />
+                        <input id="IsDescendingSort" value="True" type="hidden" />
+                        <input id="SortPropertyName" value="" type="hidden" />
                         <div id="report-switch" data-is-historic-report="true"></div>
                     </body>`,
     historicReportWithHiddenFilter: `<body>
@@ -23,15 +25,19 @@
                         <div id="tbl-report" data-totalrecords="0"> </div>
                         <input id="IsHistoricReport" value="True" type="hidden" />
                         <input id="IsFilterVisible" value="False" type="hidden" />
+                        <input id="IsDescendingSort" value="True" type="hidden" />
+                        <input id="SortPropertyName" value="" type="hidden" />
                     </body>`,
     currentReportWithNormalMode: `<body>
                                     <div class="page-title"></div>
-                                    <div id="tbl-report" data-totalrecords="0" data-sortedcolumn="WinLoss">
+                                    <div id="tbl-report" data-totalrecords="0" data-sortedcolumn="WinLoss" data-descendingsort="false">
                                     </div>
                                     <div class="downline-link"></div>
                                     <input id="IsFilterVisible" value="True" type="hidden" />
                                     <input id="IsStackMode" value="True" type="hidden" />
                                     <input id="IsAgentLevel" value="False" type="hidden">
+                                    <input id="IsDescendingSort" value="True" type="hidden" />
+                                    <input id="SortPropertyName" value="" type="hidden" />
 
                                     <form id="report-form" role="form"></form>
                                     <form id="export-excel-form"></form>
@@ -61,6 +67,8 @@
                                     <input id="IsFilterVisible" value="True" type="hidden" />
                                     <input id="IsStackMode" value="True" type="hidden" />
                                     <input id="IsAgentLevel" value="True" type="hidden">
+                                    <input id="IsDescendingSort" value="True" type="hidden" />
+                                    <input id="SortPropertyName" value="" type="hidden" />
 
                                     <form id="report-form"></form>
                                     <form id="export-excel-form"></form>
