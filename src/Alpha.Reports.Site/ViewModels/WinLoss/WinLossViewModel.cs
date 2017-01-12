@@ -12,8 +12,11 @@
 
     public class WinLossViewModel
     {
-        public WinLossViewModel(List<WinLossModel> reportData)
+        public WinLossViewModel(List<WinLossModel> reportData, UserLevel custLevel)
         {
+            CustLevel = custLevel;
+            BuildResources();
+
             if (reportData != null && reportData.Any())
             {
                 ReportData = reportData.OrderBy(x => x.CustName).ToList();
@@ -88,28 +91,43 @@
                 MinDate,
                 BreadcrumbLevelsJson);
 
-        public UserLevel CustLevel { get; set; }
-
-        public string Title
-        {
-            get
-            {
-                if (CustLevel.IsSuperLevel())
-                {
-                    return Resources.MasterWinLoss;
-                }
-
-                if (CustLevel.IsMasterLevel())
-                {
-                    return Resources.AgentWinLoss;
-                }
-
-                return Resources.MemberWinLoss;
-            }
-        }
+        public UserLevel CustLevel { get; }
 
         public IEnumerable<CustInfo> BreadcrumbLevels { get; set; }
 
         public string BreadcrumbLevelsJson { get; set; }
+
+        public string Title { get; private set; }
+
+        public string CustLevelName { get; private set; }
+
+        public string DownLineLevelName { get; private set; }
+
+        public string CustLevelNetWinLossName { get; private set; }
+
+        private void BuildResources()
+        {
+            if (CustLevel.IsSuperLevel())
+            {
+                this.Title = Resources.MasterWinLoss;
+                this.CustLevelName = Resources.Super;
+                this.DownLineLevelName = Resources.Master;
+                this.CustLevelNetWinLossName = "SuperNetWinLoss";
+            }
+            else if (CustLevel.IsMasterLevel())
+            {
+                this.Title = Resources.AgentWinLoss;
+                this.CustLevelName = Resources.Master;
+                this.DownLineLevelName = Resources.Agent;
+                this.CustLevelNetWinLossName = "MasterNetWinLoss";
+            }
+            else
+            {
+                this.Title = Resources.MemberWinLoss;
+                this.CustLevelName = Resources.Agent;
+                this.DownLineLevelName = Resources.Member;
+                this.CustLevelNetWinLossName = "AgentNetWinLoss";
+            }
+        }
     }
 }

@@ -79,30 +79,30 @@
                     new CustInfo(1, "CustName", 3)
                 };
 
+            var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
             var products = Enumerable.Empty<Product>();
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
 
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var expectedWinLossViewModel = new WinLossViewModel(new List<WinLossModel>())
+            var expectedWinLossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel)
             {
                 CustId = 1,
                 CustName = "CustName",
                 Language = string.Empty,
                 UserSelectedProductIds = string.Empty,
-                CustLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId),
                 FromDate = DefaultVariables.CurrentDate,
                 ToDate = DefaultVariables.CurrentDate,
                 IsFilterVisible = false,
                 IsDescendingSort = false,
                 SortPropertyName = "CustName",
                 Products = Enumerable.Empty<SelectListItem>(),
-                BreadcrumbLevelsJson = "[{'CustId':1,'CustName':'CustName','CustLevelId':3}]",
                 BreadcrumbLevels = new List<CustInfo>
                 {
                     new CustInfo(1, "CustName", 3)
-                }
+                },
+                BreadcrumbLevelsJson = "[{'CustId':1,'CustName':'CustName','CustLevelId':3}]"
             };
 
             // Act

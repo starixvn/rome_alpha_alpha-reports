@@ -35,13 +35,10 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var userLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
-            var winLossParam = CreateWinLossParamater(message, userLevel);
+            var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
+            var winLossParam = CreateWinLossParamater(message, custLevel);
             var reportData = reportService.GetWinLoss(winLossParam);
-            var winlossViewModel = new WinLossViewModel(reportData.ToList())
-            {
-                CustLevel = userLevel
-            };
+            var winlossViewModel = new WinLossViewModel(reportData.ToList(), custLevel);
 
             var products = message.UserSelectedProductIds.ToListInt();
 

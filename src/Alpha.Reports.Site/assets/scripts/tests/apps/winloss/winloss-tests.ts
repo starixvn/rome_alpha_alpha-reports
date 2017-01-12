@@ -181,6 +181,7 @@
             expect(winLossView.$toDate).toBeDefined();
             expect(winLossView.$sortPropertyName).toBeDefined();
             expect(winLossView.$isDescendingSort).toBeDefined();
+             expect(winLossView.$isHistoricReport).toBeDefined();
         });
     });
 

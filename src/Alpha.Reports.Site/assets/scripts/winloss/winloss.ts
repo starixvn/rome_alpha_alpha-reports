@@ -64,34 +64,14 @@ class WinLossView {
 
         this.$.blockUI();
 
-        this.$isHistoricReport = this.$("#IsHistoricReport");
-        this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
-        this.isHistoricReport
-            ? this.monthPickerComponent.render()
-            : this.dateRangePickerComponent.render();
-        this.productMultiSelectionComponent.render();
         this.cacheDOMElements();
 
-        if (this.$isFilterVisible.val().toString().toLowerCase() === "false") {
-            this.hideFilter();
-        }
-
-        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
-        this.sortComponent.render(new SortOption(
-            this.$tableReport,
-            canSort,
-            true,
-            this.afterSort,
-            { 0: { sorter: "text" } }));
-
+        this.bindFilter();
+        this.bindSorting();
         this.$tableReport.stickyTableHeaders();
         this.linkBuilderComponent.render();
         this.registerEvents();
         this.$.unblockUI();
-    };
-
-    checkReady = () => {
-        return this.$("#IsHistoricReport").length > 0;
     };
 
     cacheDOMElements = () => {
@@ -113,6 +93,34 @@ class WinLossView {
         this.$toDate = this.$("#to-date");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
+        this.$isHistoricReport = this.$("#IsHistoricReport");
+    };
+
+    checkReady = () => {
+        return this.$("#IsHistoricReport").length > 0;
+    };
+
+    bindFilter = () => {
+        this.productMultiSelectionComponent.render();
+
+        this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
+        this.isHistoricReport
+            ? this.monthPickerComponent.render()
+            : this.dateRangePickerComponent.render();
+
+        if (this.$isFilterVisible.val().toString().toLowerCase() === "false") {
+            this.hideFilter();
+        }
+    };
+
+    bindSorting = () => {
+        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
+        this.sortComponent.render(new SortOption(
+            this.$tableReport,
+            canSort,
+            true,
+            this.afterSort,
+            { 0: { sorter: "text" } }));
     };
 
     registerEvents = () => {

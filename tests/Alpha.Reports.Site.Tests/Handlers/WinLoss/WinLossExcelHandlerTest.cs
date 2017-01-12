@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Threading;
     using Constants;
+    using Enumerations;
     using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
@@ -103,8 +104,8 @@
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
-            var winlossReportData = new List<WinLossModel>();
-            var winlossViewModel = new WinLossViewModel(winlossReportData);
+            var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
+            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel);
 
             // Act
             winLossExcelHandler.Handle(message);
@@ -120,7 +121,8 @@
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
-            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>());
+            var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
+            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel);
 
             // Act
             winLossExcelHandler.Handle(message);

@@ -3,6 +3,7 @@
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using App_GlobalResources;
     using Enumerations;
     using MediatR;
     using Reports.Models;
@@ -39,11 +40,10 @@
             var breadcrumbLevels = BuildBreadcrumbLevels(message);
 
             var sortPropertyName = GetSortedProperty(message.CustLevelId, message.SortPropertyName);
-            var viewModel = new WinLossViewModel(reportData.ToList())
+            var viewModel = new WinLossViewModel(reportData.ToList(), custLevel)
             {
                 CustId = winLossParam.CustId,
                 CustName = message.CustName,
-                CustLevel = custLevel,
                 FromDate = winLossParam.FromDate,
                 ToDate = winLossParam.ToDate,
 

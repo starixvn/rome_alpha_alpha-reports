@@ -16,25 +16,11 @@
     [Trait("Category", "WinLoss")]
     public class WinLossViewModelTests
     {
-        private readonly WinLossViewModel winLossViewModel;
-
         public WinLossViewModelTests()
         {
-            winLossViewModel = new WinLossViewModel(new List<WinLossModel>());
-
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
-
-        ////[Fact]
-        ////public void ActionLinkViewModel_NullWinLoss_ThrowsArgumentNullException()
-        ////{
-        ////    // Arrange
-        ////    WinLossModel nullWinLoss = null;
-
-        ////    // Act & Assert
-        ////    Assert.Throws<ArgumentNullException>(() => winLossViewModel.ActionLinkViewModel(nullWinLoss));
-        ////}
 
         [Theory]
         [InlineData(4, "Master Win Loss")]
@@ -45,48 +31,12 @@
             string expectedTitle)
         {
             // Arrange
-            winLossViewModel.CustLevel = Enumeration.FromValue<UserLevel>(custLevelId);
+            var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
+            var winLossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel);
 
             // Act & Assert
             Assert.Equal(winLossViewModel.Title, expectedTitle);
         }
-
-        ////[Fact]
-        ////public void ActionLinkViewModel_NotNullWinLoss_ReturnsCorrectActionLinkViewModel()
-        ////{
-        ////    // Arrange
-        ////    var winLoss = new WinLossModel();
-        ////    winLossViewModel.CustLevel = UserLevel.Super;
-        ////    winLossViewModel.FromDate = DefaultVariables.CurrentDate;
-        ////    winLossViewModel.ToDate = DefaultVariables.CurrentDate;
-        ////    winLossViewModel.ReportData = Enumerable.Empty<WinLossModel>();
-        ////    winLossViewModel.BreadcrumbLevels = new List<ActionLinkViewModel>
-        ////    {
-        ////        new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossQuery(user))
-        ////    };
-        ////    winLossViewModel.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
-
-        ////    var expectedActionLinkViewModel = new WinLossActionLinkViewModel(
-        ////            0,
-        ////            null,
-        ////            3,
-        ////            DefaultVariables.CurrentDate,
-        ////            DefaultVariables.CurrentDate,
-        ////            0,
-        ////            null,
-        ////            false,
-        ////            false,
-        ////            null,
-        ////            false,
-        ////            false,
-        ////             "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]");
-
-        ////    // Act
-        ////    var actualActionLinkViewModel = winLossViewModel.ActionLinkViewModel(winLoss);
-
-        ////    // Assert
-        ////    AssertExtension.Equal(expectedActionLinkViewModel, actualActionLinkViewModel);
-        ////}
 
         [Theory]
         [MemberData("WinLossViewModelSources", MemberType = typeof(WinLossViewModelTestCases))]
@@ -97,7 +47,7 @@
             // Arrange
 
             // Act
-            var actualGrantTotal = new WinLossViewModel(winlossData).GrantTotal;
+            var actualGrantTotal = new WinLossViewModel(winlossData, UserLevel.Super).GrantTotal;
 
             // Assert
             AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);
@@ -110,7 +60,7 @@
             var expectedGrantTotal = new WinLossModel();
 
             // Act
-            var actualGrantTotal = new WinLossViewModel(null).GrantTotal;
+            var actualGrantTotal = new WinLossViewModel(null, UserLevel.Super).GrantTotal;
 
             // Assert
             AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);
@@ -123,7 +73,7 @@
             var expectedReportData = Enumerable.Empty<WinLossModel>();
 
             // Act
-            var actualReportData = new WinLossViewModel(new List<WinLossModel>()).ReportData;
+            var actualReportData = new WinLossViewModel(new List<WinLossModel>(), UserLevel.Super).ReportData;
 
             // Assert
             AssertExtension.Equal(actualReportData, expectedReportData);
@@ -136,7 +86,7 @@
             var expectedGrantTotal = new WinLossModel();
 
             // Act
-            var actualGrantTotal = new WinLossViewModel(new List<WinLossModel>()).GrantTotal;
+            var actualGrantTotal = new WinLossViewModel(new List<WinLossModel>(), UserLevel.Super).GrantTotal;
 
             // Assert
             AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);
