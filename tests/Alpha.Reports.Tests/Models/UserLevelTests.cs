@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Models
 {
+    using System;
     using Constants;
     using Reports.Enumerations;
     using Reports.Models;
@@ -244,6 +245,32 @@
             var actualResult = userLevel1.IsNot(userLevel2);
 
             Assert.Equal(!result, actualResult);
+        }
+
+        [Theory]
+        [InlineData(RoleId.Super, RoleId.Master)]
+        [InlineData(RoleId.Master, RoleId.Agent)]
+        [InlineData(RoleId.Agent, RoleId.Member)]
+        public void GetDirectDownLineLevel_SMALevel_ReturnsDirectDownline(byte roleId, byte expectedDirectDownlineRoleId)
+        {
+            // Arrange
+            var userLevel = Enumeration.FromValue<UserLevel>(roleId);
+
+            // Act
+            var actualDirectDownlineRoleId = userLevel.GetDirectDownLineLevel().Value;
+
+            // Assert
+            Assert.Equal(expectedDirectDownlineRoleId, actualDirectDownlineRoleId);
+        }
+
+        [Fact]
+        public void GetDirectDownLineLevel_MemberLevel_ThrowsArgumentOutOfRangeException()
+        {
+            // Arrange
+            var userLevel = Enumeration.FromValue<UserLevel>(RoleId.Member);
+
+            // Act & Assert
+            Assert.Throws<ArgumentOutOfRangeException>(() => userLevel.GetDirectDownLineLevel());
         }
     }
 }
