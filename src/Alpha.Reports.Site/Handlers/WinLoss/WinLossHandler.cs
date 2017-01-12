@@ -33,10 +33,10 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var userLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
+            var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
             var products = productService.GetProductsForCustomer(message.CustId);
 
-            var winLossParam = CreateWinLossParamater(message, userLevel);
+            var winLossParam = CreateWinLossParamater(message, custLevel);
             var reportData = reportService.GetWinLoss(winLossParam);
 
             var drillDownInfo = BuildDrillDownInfo(message);
@@ -46,7 +46,7 @@
             {
                 CustId = winLossParam.CustId,
                 CustName = message.CustName,
-                CustLevel = userLevel,
+                CustLevel = custLevel,
                 FromDate = winLossParam.FromDate,
                 ToDate = winLossParam.ToDate,
 

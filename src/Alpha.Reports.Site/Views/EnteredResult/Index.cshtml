@@ -3,7 +3,7 @@
 
 @model EnteredResultViewModel
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, new List<ActionLinkViewModel>()), Html)
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, true, new List<ActionLinkViewModel>()), Html)
 
 @Html.Partial("_EnteredResultFilter", Model.FilterViewModel)
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
