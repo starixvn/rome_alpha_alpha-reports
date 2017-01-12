@@ -1,0 +1,39 @@
+﻿@using System.Web.Mvc.Html
+@using Alpha.Reports.Site.ViewModels
+
+@helper Render(IEnumerable<ActionLinkViewModel> links, System.Web.Mvc.HtmlHelper html)
+{
+var linkLength = links.Count();
+var linkIndex = 0;
+
+if (linkLength > 0)
+{
+        <div class="breadcrumb-container">
+            <ul class="breadcrumb">
+                @foreach (var link in links)
+                {
+                    if (linkIndex == linkLength - 1)
+                    {
+                        <li>@link.LinkText</li>
+                    }
+                    else
+                    {
+                        <li>
+                            @(html.ActionLink(
+                                linkText: link.LinkText,
+                                actionName: link.ActionName,
+                                controllerName: link.ControllerName,
+                                routeValues: link.RouteValues,
+                                htmlAttributes: new Dictionary<string, object>
+                                    {
+                                    { "class", "downline-link" }
+                                    }))
+                        </li>
+                    }
+
+                    linkIndex++;
+                }
+            </ul>
+        </div>
+}
+}

@@ -3,7 +3,8 @@
 
 @model EnteredResultViewModel
 
-@Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, false, true, false, false, new List<ActionLinkViewModel>()))
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, new List<ActionLinkViewModel>()), Html)
+
 @Html.Partial("_EnteredResultFilter", Model.FilterViewModel)
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
        data-totalrecords="@Model.ReportData.Count()">
@@ -45,7 +46,6 @@
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
 </form>
 
-
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/winloss/enteredresult")
 }
@@ -59,6 +59,6 @@ if (enteredSportDaily == null)
     return;
 }
 
-<td>@enteredSportDaily.Entered</td>
-<td>@enteredSportDaily.NonEntered</td>
+    <td>@enteredSportDaily.Entered</td>
+    <td>@enteredSportDaily.NonEntered</td>
 }

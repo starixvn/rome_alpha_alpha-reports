@@ -4,8 +4,10 @@
     ViewBag.BetListPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_BetList/BetList.aspx";
 }
 
-@Html.Partial("_NetTurnoverTooltips", Model.NetTurnoverTooltips)
-@Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevels))
+@NetTurnoverTooltips.Render(Model.NetTurnoverTooltips)
+
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevels), Html)
+
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
     {
@@ -13,6 +15,7 @@
         { "IsDescendingSort", Model.IsDescendingSort },
         { "SortPropertyName", Model.SortPropertyName }
     })
+
 <table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.TotalRecords"
@@ -95,9 +98,9 @@
 
         <tbody>
             @foreach (var data in Model
-                                    .ReportData
-                                    .DataSource
-                                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                                        .ReportData
+                                                        .DataSource
+                                                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath, isEvenRow)
                 isEvenRow = !isEvenRow;
@@ -124,7 +127,9 @@
     <input type="hidden" name="UserSelectedProductIds" value="@Model.UserSelectedProductIds" />
     <input type="hidden" name="UserLevelId" value="@Model.UserLevel.Value" />
 </form>
+
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
+
 @Pager.Render(Model.PagerViewModel)
 
 @section Scripts {

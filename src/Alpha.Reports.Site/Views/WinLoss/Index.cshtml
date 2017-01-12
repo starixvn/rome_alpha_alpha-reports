@@ -26,7 +26,8 @@
     }
 }
 
-@Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevels))
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevels), Html)
+
 @Html.Partial("_WinLossFilter", Model.FilterViewModel,
     new ViewDataDictionary
     {
@@ -105,9 +106,9 @@
             }
             else
             {
-            <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(winlossLevel + ".WinLoss")" data-colindex="4">@Resources.WinLoss</th>
-            <th class="hidden-stack-mode sorting" data-sortedname="@(winlossLevel + ".Comm")" data-colindex="5">@Resources.Comm</th>
-            <th class="hidden-stack-mode sorting" data-sortedname="@(winlossLevel + ".Total")" data-colindex="6">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(winlossLevel + ".WinLoss")" data-colindex="4">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(winlossLevel + ".Comm")" data-colindex="5">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(winlossLevel + ".Total")" data-colindex="6">@Resources.Total</th>
             }
         </tr>
     </thead>
@@ -128,7 +129,6 @@
         @NoInformation.Render(colspan: Model.UserLevel.IsAgentLevel() ? 10 : 8)
     }
 </table>
-
 
 <form class="form-inline hide" role="form" id="export-excel-form" action="~/WinLoss/Excel">
     <input type="hidden" name="CustId" value="@Model.CustId" />
@@ -251,5 +251,5 @@ if (netWinLoss.WinLoss != null)
         @HtmlHelpers.RenderNumberCell(netWinLoss.Comm.Value, highlightCellClass)
 }
 
-   @HtmlHelpers.RenderNumberCell(netWinLoss.Total, $"bold {highlightCellClass}")
+    @HtmlHelpers.RenderNumberCell(netWinLoss.Total, $"bold {highlightCellClass}")
 }

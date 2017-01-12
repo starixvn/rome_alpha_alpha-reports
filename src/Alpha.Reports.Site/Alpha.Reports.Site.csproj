@@ -395,8 +395,6 @@
     <Content Include="assets\styles\_variables.scss" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="App_Code\HtmlHelpers.cshtml" />
-    <Content Include="Views\Shared\_PageTitle.cshtml" />
-    <Content Include="Views\Shared\_NetTurnoverTooltips.cshtml" />
     <Content Include="App_Code\Components\DateRangePicker.cshtml" />
     <Content Include="App_Code\Components\Pager.cshtml" />
     <Content Include="App_Code\Components\MonthPicker.cshtml" />
@@ -499,6 +497,9 @@
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Views\WinLoss\Index.cshtml" />
+    <Content Include="App_Code\Components\ReportTitle.cshtml" />
+    <Content Include="App_Code\Components\NetTurnoverTooltips.cshtml" />
+    <Content Include="App_Code\Components\Breadcrumb.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
