@@ -18,7 +18,6 @@
     using Services;
     using Site.Handlers.WinLossDetail;
     using Site.Requests.WinLossDetail;
-    using Site.ViewModels;
     using Site.ViewModels.WinLossDetail;
     using Xunit;
 
@@ -41,7 +40,7 @@
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
             this.userFixture = userFixture;
-            winLossDetailHandler = new WinLossDetailHandler(productService, reportService, userFixture.User);
+            winLossDetailHandler = new WinLossDetailHandler(productService, reportService);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
