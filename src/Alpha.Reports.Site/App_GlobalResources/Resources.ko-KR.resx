@@ -282,4 +282,10 @@
   <data name="Results" xml:space="preserve">
     <value>결과 확인</value>
   </data>
+  <data name="GrossComAndAgentTotal" xml:space="preserve">
+    <value>/전체 수수료/총 에이전트</value>
+  </data>
+  <data name="GrossComAndMasterTotal" xml:space="preserve">
+    <value>/전체 수수료/마스터 총계</value>
+  </data>
 </root>

@@ -318,4 +318,10 @@
   <data name="Results" xml:space="preserve">
     <value>赛果</value>
   </data>
+  <data name="GrossComAndAgentTotal" xml:space="preserve">
+    <value>/总佣金/代理总和</value>
+  </data>
+  <data name="GrossComAndMasterTotal" xml:space="preserve">
+    <value>/总佣金/总代理总数</value>
+  </data>
 </root>

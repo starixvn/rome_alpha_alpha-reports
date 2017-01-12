@@ -319,4 +319,10 @@
   <data name="Results" xml:space="preserve">
     <value>ผลการแข่งขัน</value>
   </data>
+  <data name="GrossComAndAgentTotal" xml:space="preserve">
+    <value>/ยอดรวมของคอมมิชชั่น/รวม เอเจนต์</value>
+  </data>
+  <data name="GrossComAndMasterTotal" xml:space="preserve">
+    <value>/ยอดรวมของคอมมิชชั่น/รวม Master</value>
+  </data>
 </root>

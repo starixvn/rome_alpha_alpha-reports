@@ -279,7 +279,7 @@
   <data name="of2" xml:space="preserve">
     <value>của</value>
   </data>
-   <data name="AgentTotal" xml:space="preserve">
+  <data name="AgentTotal" xml:space="preserve">
     <value>Tổng giao dịch của Agent</value>
   </data>
   <data name="AgentWinLoss" xml:space="preserve">
@@ -305,5 +305,11 @@
   </data>
   <data name="Results" xml:space="preserve">
     <value>Kết quả</value>
+  </data>
+  <data name="GrossComAndAgentTotal" xml:space="preserve">
+    <value>/Tổng hoa hồng/Tổng giao dịch của Agent</value>
+  </data>
+  <data name="GrossComAndMasterTotal" xml:space="preserve">
+    <value>/Tổng hoa hồng/Tổng giao dịch của Master</value>
   </data>
 </root>

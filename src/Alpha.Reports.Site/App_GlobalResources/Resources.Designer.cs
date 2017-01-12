@@ -259,7 +259,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Gross Comm/ Agent Total.
+        ///   Looks up a localized string similar to /Gross Comm/Agent Total.
         /// </summary>
         public static string GrossComAndAgentTotal {
             get {
@@ -268,7 +268,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Gross Comm/ Master Total.
+        ///   Looks up a localized string similar to /Gross Comm/Master Total.
         /// </summary>
         public static string GrossComAndMasterTotal {
             get {

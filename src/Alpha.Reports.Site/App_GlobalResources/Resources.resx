@@ -349,10 +349,10 @@
     <value>Results</value>
   </data>
   <data name="GrossComAndAgentTotal" xml:space="preserve">
-    <value>/Gross Comm/ Agent Total</value>
+    <value>/Gross Comm/Agent Total</value>
   </data>
   <data name="GrossComAndMasterTotal" xml:space="preserve">
-    <value>/Gross Comm/ Master Total</value>
+    <value>/Gross Comm/Master Total</value>
   </data>
   <data name="MatchResultEntered" xml:space="preserve">
     <value>Match Result Entered</value>
