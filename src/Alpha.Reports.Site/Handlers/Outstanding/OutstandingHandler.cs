@@ -37,9 +37,6 @@
             {
                 outstandings = outstandingServiceImpl.GetMemberOutstanding(reportLevel, Enumeration.FromValue<UserLevel>(message.CustLevelId), message.CustId);
                 nextCustLevel = message.CustLevelId - 1;
-
-                // TODO: Will be Removed. ReportBaseQuery.UserLevelId should change to ReportBaseQuery.CustLevelId
-                message.CustLevelId = message.CustLevelId;
                 drillDownInfo = BuildDrillDownInfo(message);
             }
 

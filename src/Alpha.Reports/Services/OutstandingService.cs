@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Services.Outstanding
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Criteria.Outstanding;
     using Fanex.Data.Repository;
     using Models;
@@ -22,14 +23,14 @@
 
         public IEnumerable<OutstandingData> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId)
         {
-            if (userLevel >= custLevel)
+            if (custId <= 0 || custLevel > userLevel)
             {
-                var criteria = new OutstandingCriteria(custLevel, custId);
-
-                return repository.Fetch<OutstandingData>(criteria);
+                return Enumerable.Empty<OutstandingData>();
             }
 
-            return new List<OutstandingData>();
+            var criteria = new OutstandingCriteria(custLevel, custId);
+
+            return repository.Fetch<OutstandingData>(criteria);
         }
     }
 }
