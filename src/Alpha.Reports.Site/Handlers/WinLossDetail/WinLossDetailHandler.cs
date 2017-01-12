@@ -17,14 +17,10 @@
         WinLossDetailBaseHandler,
         IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>
     {
-        private readonly IUser user;
-
         public WinLossDetailHandler(
             ProductService productService,
-            WinLossDetailService reportService,
-            IUser user) : base(productService, reportService)
+            WinLossDetailService reportService) : base(productService, reportService)
         {
-            this.user = user;
         }
 
         public WinLossDetailViewModel Handle(WinLossDetailQuery message)
@@ -40,7 +36,7 @@
             var winLossDetailParam = CreateParameter(message, userLevel);
 
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
-            var drillDownInfo = BuildDrillDownInfo(message);
+            var breadcrumbLevels = BuildBreadcrumbLevels(message);
 
             var canSort = reportData.DataSource != null && reportData.DataSource.Count() > 1;
             var viewModel = new WinLossDetailViewModel
@@ -65,33 +61,8 @@
                 SortPropertyName = canSort ? winLossDetailParam.SortByPropertyName : DefaultVariables.SortPropertyName,
                 IsDescendingSort = canSort && winLossDetailParam.IsDescendingSort,
                 IsSetDefaultStackMode = message.IsSetDefaultStackMode,
-                DrillDownInfoJson = ToJson(drillDownInfo),
-                BreadcrumbLevels = BuildBreadcrumbLevels(
-                    drillDownInfo,
-                    message,
-                    "WinLossDetail",
-                    "Index",
-                    (custInfo, query, drillDownInfoByLevelJson) =>
-                    {
-                        var routeValues = new WinLossDetailQuery(user);
-                        routeValues.CustId = custInfo.CustId;
-                        routeValues.CustName = custInfo.CustName;
-                        routeValues.PageSize = message.PageSize;
-                        routeValues.FromDate = message.FromDate;
-                        routeValues.ToDate = message.ToDate;
-
-                        routeValues.UserSelectedProductIds = message.UserSelectedProductIds;
-                        routeValues.SortPropertyName = message.SortPropertyName;
-                        routeValues.IsDescendingSort = message.IsDescendingSort;
-                        routeValues.IsStackMode = message.IsStackMode;
-                        routeValues.IsHistoricReport = message.IsHistoricReport;
-                        routeValues.IsFilterVisible = message.IsFilterVisible;
-                        routeValues.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-                        routeValues.CustLevelId = custInfo.CustLevelId;
-                        routeValues.DrillDownInfoJson = drillDownInfoByLevelJson;
-
-                        return routeValues;
-                    })
+                BreadcrumbLevelsJson = ToJson(breadcrumbLevels),
+                BreadcrumbLevels = breadcrumbLevels
             };
 
             return viewModel;

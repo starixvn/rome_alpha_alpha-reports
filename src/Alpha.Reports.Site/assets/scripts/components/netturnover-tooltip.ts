@@ -9,11 +9,11 @@ class NetTurnoverTooltipOption {
 }
 
 class NetTurnoverTooltipComponent {
-    $: any;
+    $: JQueryStatic;
 
     options = new NetTurnoverTooltipOption();
 
-    constructor($: any) {
+    constructor($: JQueryStatic) {
         this.$ = $;
     }
 

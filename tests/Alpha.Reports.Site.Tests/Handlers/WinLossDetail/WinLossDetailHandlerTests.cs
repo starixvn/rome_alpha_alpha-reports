@@ -40,7 +40,7 @@
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
             user = Substitute.For<IUser>();
-            winLossDetailHandler = new WinLossDetailHandler(productService, reportService, user);
+            winLossDetailHandler = new WinLossDetailHandler(productService, reportService);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -79,11 +79,6 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var routeValue = new WinLossDetailQuery(user);
-            routeValue.CustLevelId = 4;
-            routeValue.UserSelectedProductIds = userSelectedProductIds;
-            routeValue.DrillDownInfoJson = "[{'CustId':0,'CustName':'','CustLevelId':4}]";
-
             var expectedWinLossDetailViewModel = new WinLossDetailViewModel
             {
                 CustName = string.Empty,
@@ -100,15 +95,11 @@
 
                 Products = Enumerable.Empty<SelectListItem>(),
                 ReportData = reportData,
-                BreadcrumbLevels = new List<ActionLinkViewModel>
+                BreadcrumbLevels = new List<CustInfo>
                 {
-                    new ActionLinkViewModel(
-                        controllerName: "WinLossDetail",
-                        actionName: "Index",
-                        linkText: message.CustName,
-                        routeValues: routeValue)
+                    new CustInfo(0, string.Empty, 4)
                 },
-                DrillDownInfoJson = "[{'CustId':0,'CustName':'','CustLevelId':4}]"
+                BreadcrumbLevelsJson = "[{'CustId':0,'CustName':'','CustLevelId':4}]"
             };
 
             // Act

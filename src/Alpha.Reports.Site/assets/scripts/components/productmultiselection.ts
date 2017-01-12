@@ -1,5 +1,9 @@
 ﻿/// <reference path="../core.ts" />
 "use strict";
+interface JQuery {
+    multiselect(option: any): void;
+}
+
 class ProductMultiSelectionOption {
     constructor(
         public dropdownId: string = "dropdown-product",
@@ -9,14 +13,14 @@ class ProductMultiSelectionOption {
 }
 
 class ProductMultiSelectionComponent {
-    $: any;
-    $hiddenInput: any;
-    $dropdownProduct: any;
-    $multiSelectButton: any;
+    $: JQueryStatic;
+    $hiddenInput: JQuery;
+    $dropdownProduct: JQuery;
+    $multiSelectButton: JQuery;
 
     options = new ProductMultiSelectionOption();
 
-    constructor($: any) {
+    constructor($: JQueryStatic) {
         this.$ = $;
     }
 

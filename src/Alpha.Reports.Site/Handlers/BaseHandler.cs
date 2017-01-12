@@ -48,51 +48,13 @@
             });
         }
 
-        protected internal IEnumerable<ActionLinkViewModel> BuildBreadcrumbLevels<T>(
-            IEnumerable<CustInfo> drillDownInfo,
-            ReportBaseQuery query,
-            string controllerName,
-            string actionName,
-            Func<CustInfo, ReportBaseQuery, string, T> buildRouteValues) where T : class
-        {
-            if (query == null)
-            {
-                throw new ArgumentNullException(nameof(query));
-            }
-
-            if (buildRouteValues == null)
-            {
-                throw new ArgumentNullException(nameof(buildRouteValues));
-            }
-
-            var breadcrumbLevels = new List<ActionLinkViewModel>();
-            var drillDonwInfoByLevels = new List<CustInfo>();
-
-            foreach (var custInfo in drillDownInfo)
-            {
-                drillDonwInfoByLevels.Add(custInfo);
-
-                var actionLinkViewModel = new ActionLinkViewModel(
-                    controllerName: controllerName,
-                    actionName: actionName,
-                    linkText: custInfo.CustName,
-                    routeValues: buildRouteValues(custInfo, query, ToJson(drillDonwInfoByLevels)));
-
-                breadcrumbLevels.Add(actionLinkViewModel);
-            }
-
-            return breadcrumbLevels;
-        }
-
-        protected internal IEnumerable<CustInfo> BuildDrillDownInfo(ReportBaseQuery query)
+        protected internal IEnumerable<CustInfo> BuildBreadcrumbLevels(ReportBaseQuery query)
         {
             var drillDownInfo = new List<CustInfo>();
 
-            if (!string.IsNullOrWhiteSpace(query.DrillDownInfoJson))
+            if (query.BreadcrumbLevels.Any())
             {
-                var previousDrillDownInfo = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(query.DrillDownInfoJson.Replace("'", "\""));
-
-                foreach (var custInfo in previousDrillDownInfo)
+                foreach (var custInfo in query.BreadcrumbLevels)
                 {
                     if (custInfo.CustLevelId == query.CustLevelId)
                     {

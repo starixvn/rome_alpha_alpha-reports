@@ -40,18 +40,21 @@ class WinLossView {
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     sortComponent: SortComponent;
     monthPickerComponent: MonthPickerComponent;
+    linkBuilderComponent: LinkBuilderComponent;
 
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         sortComponent: SortComponent,
-        monthPickerComponent: MonthPickerComponent) {
+        monthPickerComponent: MonthPickerComponent,
+        linkBuilderComponent: LinkBuilderComponent) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.sortComponent = sortComponent;
         this.monthPickerComponent = monthPickerComponent;
+        this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
@@ -60,7 +63,7 @@ class WinLossView {
         }
 
         this.$.blockUI();
-        
+
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         this.isHistoricReport
@@ -72,7 +75,7 @@ class WinLossView {
         if (this.$isFilterVisible.val().toString().toLowerCase() === "false") {
             this.hideFilter();
         }
-       
+
         let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
         this.sortComponent.render(new SortOption(
             this.$tableReport,
@@ -82,7 +85,7 @@ class WinLossView {
             { 0: { sorter: "text" } }));
 
         this.$tableReport.stickyTableHeaders();
-
+        this.linkBuilderComponent.render();
         this.registerEvents();
         this.$.unblockUI();
     };
@@ -247,30 +250,29 @@ class WinLossView {
 
     afterSort = () => {
         var this$ = this.$;
-            var sortedColumn = this$(".sorting-asc:visible");
-            var direction = !sortedColumn.length;
-            if (sortedColumn.length === 0) {
-                sortedColumn = this$(".sorting-desc");
+        var sortedColumn = this$(".sorting-asc:visible");
+        var direction = !sortedColumn.length;
+        if (sortedColumn.length === 0) {
+            sortedColumn = this$(".sorting-desc");
+        }
+
+        var sortedColumnName = sortedColumn.data("sortedname");
+
+        this.replaceDrilldownParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
+        this.replaceDrilldownParam("IsDescendingSort", direction);
+
+        var isEvenRow = false;
+        this.$tableReport.find("tbody > tr").each(function () {
+            var $row = this$(this);
+            if ($row.hasClass("even-row") && !isEvenRow) {
+                $row.removeClass("even-row");
+            } else if (!$row.hasClass("even-row") && isEvenRow) {
+                $row.addClass("even-row");
             }
 
-            var sortedColumnName = sortedColumn.data("sortedname");
-
-            this.replaceDrilldownParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
-            this.replaceDrilldownParam("IsDescendingSort", direction);
-
-            var isEvenRow = false;
-            this.$tableReport.find("tbody > tr").each(function () {
-                var $row = this$(this);
-                if ($row.hasClass("even-row") && !isEvenRow) {
-                    $row.removeClass("even-row");
-                } else if (!$row.hasClass("even-row") && isEvenRow) {
-                    $row.addClass("even-row");
-                }
-
-                isEvenRow = !isEvenRow;
-            });
+            isEvenRow = !isEvenRow;
+        });
     };
-
 
     onSubmitReportEvent = (e: any) => {
         this.$.blockUI();
@@ -326,7 +328,8 @@ const winLossView = new WinLossView(
     new DateRangePickerComponent($),
     new ProductMultiSelectionComponent($),
     new SortComponent($),
-    new MonthPickerComponent($));
+    new MonthPickerComponent($),
+    new LinkBuilderComponent($));
 
 $(function () {
     winLossView.init();

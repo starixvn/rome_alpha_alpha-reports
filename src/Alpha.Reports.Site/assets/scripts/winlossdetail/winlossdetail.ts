@@ -5,6 +5,7 @@
 /// <reference path="../components/pager.ts" />
 /// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/sort.ts" />
+/// <reference path="../components/link-builder.ts" />
 
 "use strict";
 
@@ -45,6 +46,7 @@ class WinLossDetailView {
     reportTooltip: ReportTooltip;
     monthPickerComponent: MonthPickerComponent;
     netTurnoverTooltipComponent: NetTurnoverTooltipComponent;
+    linkBuilderComponent: LinkBuilderComponent;
 
     constructor(
         $: JQueryStatic,
@@ -54,7 +56,8 @@ class WinLossDetailView {
         sortComponent: SortComponent,
         reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
-        netTurnoverTooltipComponent: NetTurnoverTooltipComponent) {
+        netTurnoverTooltipComponent: NetTurnoverTooltipComponent,
+        linkBuilderComponent: LinkBuilderComponent) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.pagerComponent = pageComponent;
@@ -63,6 +66,7 @@ class WinLossDetailView {
         this.reportTooltip = reportTooltip;
         this.monthPickerComponent = monthPickerComponent;
         this.netTurnoverTooltipComponent = netTurnoverTooltipComponent;
+        this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
@@ -108,7 +112,7 @@ class WinLossDetailView {
             this.setStackMode();
             this.reportTooltip.show(new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0)));
         }
-
+        this.linkBuilderComponent.render();
         this.registerEvents();
         this.$.unblockUI();
     };
@@ -370,7 +374,8 @@ $(() => {
         new SortComponent($),
         new ReportTooltip($),
         new MonthPickerComponent($),
-        new NetTurnoverTooltipComponent($));
+        new NetTurnoverTooltipComponent($),
+        new LinkBuilderComponent($));
 
     winLossDetailView.init();
 });

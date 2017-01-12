@@ -1,5 +1,8 @@
 ﻿/// <reference path="../core.ts" />
 "use strict";
+interface JQuery {
+    tablesorter(option: any): void;
+}
 
 class SortOption {
     constructor(
@@ -12,11 +15,11 @@ class SortOption {
 }
 
 class SortComponent {
-    $: any;
-    $sortContainer: any;
+    $: JQueryStatic;
+    $sortContainer: JQuery;
     options = new SortOption();
 
-    constructor($: any) {
+    constructor($: JQueryStatic) {
         this.$ = $;
     }
 
@@ -99,7 +102,6 @@ class SortComponent {
 
             sortList = [[this.$(sortedColumnHeader).data("colindex"), isDescendingSort ? 1 : 0]];
         }
-       
 
         try {
             this.$sortContainer.tablesorter(

@@ -1,6 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Requests
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Reports.Models;
 
     public class ReportBaseQuery
@@ -25,7 +27,7 @@
 
         public byte CustLevelId { get; set; }
 
-        public string DrillDownInfoJson { get; set; }
+        public IEnumerable<CustInfo> BreadcrumbLevels { get; set; } = Enumerable.Empty<CustInfo>();
 
         public DateTime FromDate { get; set; }
 

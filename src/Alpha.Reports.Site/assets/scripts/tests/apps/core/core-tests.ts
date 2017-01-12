@@ -165,8 +165,8 @@
         });
         it("Not Have Param -> Appends New Param", () => {
             // arrange
-            var queryString = "&ParamName1=ParamValue1";
-            var expectNewQueryString = "&ParamName1=ParamValue1&ParamName2=ParamValue2";
+            var queryString = "http://demo?ParamName1=ParamValue1";
+            var expectNewQueryString = "http://demo?ParamName1=ParamValue1&ParamName2=ParamValue2";
 
             // act
             var actualNewQueryString = alphaReports.replaceQueryStringValue(queryString, "ParamName2", "ParamValue2");

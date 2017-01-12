@@ -1,5 +1,9 @@
 ﻿/// <reference path="../core.ts" />
 "use strict";
+interface JQuery {
+    pagination(option: any): void;
+}
+
 class PagerOption {
     constructor(
         public onSelectPage: () => void = null,
@@ -11,10 +15,10 @@ class PagerOption {
 }
 
 class PagerComponent {
-    $: any;
-    $pageIndex: any;
-    $pageSize: any;
-    $reportForm: any;
+    $: JQueryStatic;
+    $pageIndex: JQuery;
+    $pageSize: JQuery;
+    $reportForm: JQuery;
 
     totalRecords: number;
     pageSize: number;
@@ -24,7 +28,7 @@ class PagerComponent {
 
     options = new PagerOption(this.onChange);
 
-    constructor($: any) {
+    constructor($: JQueryStatic) {
         this.$ = $;
     }
 

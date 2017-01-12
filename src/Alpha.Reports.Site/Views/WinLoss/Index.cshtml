@@ -26,7 +26,7 @@
     }
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevels), Html)
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevels), Request.RawUrl)
 
 @Html.Partial("_WinLossFilter", Model.FilterViewModel,
     new ViewDataDictionary
@@ -168,19 +168,20 @@
                         FilterPostback = 1,
                         Type = "WLByDate"
                     },
-                    htmlAttributes: null)
+                    htmlAttributes: new
+                    {
+                        IsMember = true
+                    })
                 }
                 else
                 {
-                    @Html.ActionLink(
-                              linkText: data.CustName,
-                              actionName: "Index",
-                              controllerName: "WinLoss",
-                              routeValues: Model.ActionLinkViewModel(data),
-                              htmlAttributes: new
-                              {
-                                  @class = "downline-link"
-                              })
+                    <a data-cust-id="@data.CustId"
+                       data-cust-name="@data.CustName"
+                       data-cust-level-id="@(Model.CustLevel.GetDirectDownLineLevel().Value)"
+                       href="@(Request.RawUrl)"
+                       class="downline-link">
+                        @data.CustName
+                    </a>
                 }
             }
         </td>

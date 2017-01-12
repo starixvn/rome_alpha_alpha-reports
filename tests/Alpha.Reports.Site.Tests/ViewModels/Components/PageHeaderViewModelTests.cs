@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using Extensions;
+    using Reports.Models;
     using Site.ViewModels;
     using Site.ViewModels.Components;
     using Xunit;
@@ -87,7 +88,7 @@
         public void BreadcrumbLevels_Always_ReturnsBreadcrumbLevelsSetFromConstructor()
         {
             // Arrange
-            var expectedBreadcrumbLevels = Enumerable.Empty<ActionLinkViewModel>();
+            var expectedBreadcrumbLevels = Enumerable.Empty<CustInfo>();
             var pageHeaderViewModel = new PageHeaderViewModel(string.Empty, false, false, false, false, expectedBreadcrumbLevels);
 
             // Act

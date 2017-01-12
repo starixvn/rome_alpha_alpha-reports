@@ -86,30 +86,7 @@
                 ProductMultiSelectionViewModel,
                 IsFilterVisible,
                 MinDate,
-                DrillDownInfoJson);
-
-        public WinLossActionLinkViewModel ActionLinkViewModel(WinLossModel winLoss)
-        {
-            if (winLoss == null)
-            {
-                throw new ArgumentNullException("winLoss", "winLoss cannot be a null reference");
-            }
-
-            return new WinLossActionLinkViewModel(
-                    winLoss.CustId,
-                    winLoss.CustName,
-                    (byte)(CustLevel.Value - 1),
-                    FromDate,
-                    ToDate,
-                    UserSelectedDateRangeOption,
-                    UserSelectedProductIds,
-                    IsHistoricReport,
-                    IsFilterVisible,
-                    SortPropertyName,
-                    IsDescendingSort,
-                    IsStackMode,
-                    DrillDownInfoJson);
-        }
+                BreadcrumbLevelsJson);
 
         public UserLevel CustLevel { get; set; }
 
@@ -131,8 +108,8 @@
             }
         }
 
-        public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
+        public IEnumerable<CustInfo> BreadcrumbLevels { get; set; }
 
-        public string DrillDownInfoJson { get; set; }
+        public string BreadcrumbLevelsJson { get; set; }
     }
 }

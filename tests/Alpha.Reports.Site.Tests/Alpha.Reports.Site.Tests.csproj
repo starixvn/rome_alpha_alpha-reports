@@ -196,7 +196,6 @@
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossViewModelTests.cs" />
-    <Compile Include="ViewModels\WinLossDetail\WinLossDetailsActionLinkViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>

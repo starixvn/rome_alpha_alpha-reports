@@ -1,19 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossDetail
 {
-    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Threading;
     using System.Web.Mvc;
     using Constants;
-    using Enumerations;
-    using Extensions;
-    using KellermanSoftware.CompareNetObjects;
-    using NSubstitute;
-    using Reports.Models;
-    using Reports.Models.WinLossDetail;
-    using Site.Requests.WinLossDetail;
-    using Site.ViewModels;
     using Site.ViewModels.WinLossDetail;
     using Xunit;
 
@@ -22,18 +13,13 @@
     {
         private const int AllBetProductId = 21;
         private readonly WinLossDetailViewModel winLossDetailViewModel;
-        private readonly IUser user;
-        private readonly CompareLogic compareLogic;
 
         public WinLossDetailViewModelTests()
         {
             winLossDetailViewModel = new WinLossDetailViewModel();
-            user = Substitute.For<IUser>();
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-
-            compareLogic = new CompareLogic();
         }
 
         [Fact]
@@ -68,52 +54,52 @@
             Assert.Equal(expectedNetTurnoverTooltips, actualNetTurnoverTooltips);
         }
 
-        [Fact]
-        public void ActionLinkViewModel_NullWinLossDetail_ThrowsArgumentNullException()
-        {
-            // Arrange
-            WinLossDetailModel nullWinLossDetail = null;
+        ////[Fact]
+        ////public void ActionLinkViewModel_NullWinLossDetail_ThrowsArgumentNullException()
+        ////{
+        ////    // Arrange
+        ////    WinLossDetailModel nullWinLossDetail = null;
 
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => winLossDetailViewModel.ActionLinkViewModel(nullWinLossDetail));
-        }
+        ////    // Act & Assert
+        ////    Assert.Throws<ArgumentNullException>(() => winLossDetailViewModel.ActionLinkViewModel(nullWinLossDetail));
+        ////}
 
-        [Fact]
-        public void ActionLinkViewModel_NotNullWinLossDetail_ReturnsCorrectActionLinkViewModel()
-        {
-            // Arrange
-            var winLossDetail = new WinLossDetailModel();
-            winLossDetailViewModel.CustLevel = Enumeration.FromValue<UserLevel>(4);
-            winLossDetailViewModel.FromDate = DefaultVariables.CurrentDate;
-            winLossDetailViewModel.ToDate = DefaultVariables.CurrentDate;
-            winLossDetailViewModel.ReportData = new ReportData<WinLossDetailModel>(null, 0, 0, 0, default(WinLossDetailModel));
-            winLossDetailViewModel.BreadcrumbLevels = new List<ActionLinkViewModel>
-            {
-                new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(user))
-            };
-            winLossDetailViewModel.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
+        ////[Fact]
+        ////public void ActionLinkViewModel_NotNullWinLossDetail_ReturnsCorrectActionLinkViewModel()
+        ////{
+        ////    // Arrange
+        ////    var winLossDetail = new WinLossDetailModel();
+        ////    winLossDetailViewModel.CustLevel = Enumeration.FromValue<UserLevel>(4);
+        ////    winLossDetailViewModel.FromDate = DefaultVariables.CurrentDate;
+        ////    winLossDetailViewModel.ToDate = DefaultVariables.CurrentDate;
+        ////    winLossDetailViewModel.ReportData = new ReportData<WinLossDetailModel>(null, 0, 0, 0, default(WinLossDetailModel));
+        ////    winLossDetailViewModel.BreadcrumbLevels = new List<ActionLinkViewModel>
+        ////    {
+        ////        new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(user))
+        ////    };
+        ////    winLossDetailViewModel.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
 
-            var expectedActionLinkViewModel = new WinLossDetailsActionLinkViewModel(
-                    0,
-                    null,
-                    3,
-                    DefaultVariables.CurrentDate,
-                    DefaultVariables.CurrentDate,
-                    0,
-                    null,
-                    null,
-                    false,
-                    false,
-                    false,
-                    false,
-                    0,
-                     "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]");
+        ////    var expectedActionLinkViewModel = new WinLossDetailsActionLinkViewModel(
+        ////            0,
+        ////            null,
+        ////            3,
+        ////            DefaultVariables.CurrentDate,
+        ////            DefaultVariables.CurrentDate,
+        ////            0,
+        ////            null,
+        ////            null,
+        ////            false,
+        ////            false,
+        ////            false,
+        ////            false,
+        ////            0,
+        ////             "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]");
 
-            // Act
-            var actualActionLinkViewModel = winLossDetailViewModel.ActionLinkViewModel(winLossDetail);
+        ////    // Act
+        ////    var actualActionLinkViewModel = winLossDetailViewModel.ActionLinkViewModel(winLossDetail);
 
-            // Assert
-            Assert.True(compareLogic.Compare(expectedActionLinkViewModel, actualActionLinkViewModel).AreEqual);
-        }
+        ////    // Assert
+        ////    Assert.True(compareLogic.Compare(expectedActionLinkViewModel, actualActionLinkViewModel).AreEqual);
+        ////}
     }
 }

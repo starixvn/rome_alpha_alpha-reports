@@ -36,7 +36,7 @@
             reportService = Substitute.For<WinLossService>();
 
             user = Substitute.For<IUser>();
-            winLossHandler = new WinLossHandler(productService, reportService, user);
+            winLossHandler = new WinLossHandler(productService, reportService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             DateTimeManager.Now = DefaultVariables.CurrentDate;
@@ -68,26 +68,27 @@
         {
             // Arrange
             var message = new WinLossQuery(user);
+            message.CustId = 1;
+            message.CustName = "CustName";
             message.CustLevelId = 3;
             message.UserSelectedProductIds = userSelectedProductIds;
             message.IsDescendingSort = false;
             message.SortPropertyName = "CustName";
+            message.BreadcrumbLevels = new List<CustInfo>
+                {
+                    new CustInfo(1, "CustName", 3)
+                };
 
             var products = Enumerable.Empty<Product>();
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
-
-            var routeValue = new WinLossQuery(user);
-            routeValue.CustLevelId = 3;
-            routeValue.UserSelectedProductIds = userSelectedProductIds;
-            routeValue.DrillDownInfoJson = "[{'CustId':0,'CustName':'','CustLevelId':3}]";
-            routeValue.SortPropertyName = "CustName";
 
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
             var expectedWinLossViewModel = new WinLossViewModel(new List<WinLossModel>())
             {
-                CustName = string.Empty,
+                CustId = 1,
+                CustName = "CustName",
                 Language = string.Empty,
                 UserSelectedProductIds = string.Empty,
                 CustLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId),
@@ -97,14 +98,10 @@
                 IsDescendingSort = false,
                 SortPropertyName = "CustName",
                 Products = Enumerable.Empty<SelectListItem>(),
-                DrillDownInfoJson = "[{'CustId':0,'CustName':'','CustLevelId':3}]",
-                BreadcrumbLevels = new List<ActionLinkViewModel>
+                BreadcrumbLevelsJson = "[{'CustId':1,'CustName':'CustName','CustLevelId':3}]",
+                BreadcrumbLevels = new List<CustInfo>
                 {
-                    new ActionLinkViewModel(
-                        controllerName: "WinLoss",
-                        actionName: "Index",
-                        linkText: message.CustName,
-                        routeValues: routeValue)
+                    new CustInfo(1, "CustName", 3)
                 }
             };
 

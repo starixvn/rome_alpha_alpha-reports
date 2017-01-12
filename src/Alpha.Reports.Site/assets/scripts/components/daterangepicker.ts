@@ -2,6 +2,10 @@
 
 "use strict";
 
+interface JQuery {
+    nexDatePicker(option: any): void;
+}
+
 class DateRangePickerOption {
     selectorId: string;
 
@@ -11,11 +15,11 @@ class DateRangePickerOption {
 }
 
 class DateRangePickerComponent {
-    $: any;
+    $: JQueryStatic;
 
     options = new DateRangePickerOption();
 
-    constructor($: any, options: DateRangePickerOption = new DateRangePickerOption()) {
+    constructor($: JQueryStatic, options: DateRangePickerOption = new DateRangePickerOption()) {
         this.$ = $;
         this.options = this.$.extend({}, this.options, options);
     }

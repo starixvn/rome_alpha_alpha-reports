@@ -1,33 +1,29 @@
-﻿@using System.Web.Mvc.Html
-@using Alpha.Reports.Site.ViewModels
+﻿@using Alpha.Reports.Models
 
-@helper Render(IEnumerable<ActionLinkViewModel> links, System.Web.Mvc.HtmlHelper html)
+@helper Render(IEnumerable<CustInfo> custInfoList, string currentRequestUrl)
 {
-var linkLength = links.Count();
+var linkLength = custInfoList.Count();
 var linkIndex = 0;
 
 if (linkLength > 0)
 {
         <div class="breadcrumb-container">
             <ul class="breadcrumb">
-                @foreach (var link in links)
+                @foreach (var custinfo in custInfoList)
                 {
+                    // TODO: Last customer just need to render by text, not link, will refactor soon
                     if (linkIndex == linkLength - 1)
                     {
-                        <li>@link.LinkText</li>
+                        <li>@(custinfo.CustName)</li>
                     }
                     else
                     {
                         <li>
-                            @(html.ActionLink(
-                                linkText: link.LinkText,
-                                actionName: link.ActionName,
-                                controllerName: link.ControllerName,
-                                routeValues: link.RouteValues,
-                                htmlAttributes: new Dictionary<string, object>
-                                    {
-                                    { "class", "downline-link" }
-                                    }))
+                            <a data-cust-id="@(custinfo.CustId)"
+                               data-cust-name="@(custinfo.CustName)"
+                               data-cust-level-id="@(custinfo.CustLevelId)"
+                               class="breadcrumb-link"
+                               href="@(currentRequestUrl)">@(custinfo.CustName)</a>
                         </li>
                     }
 

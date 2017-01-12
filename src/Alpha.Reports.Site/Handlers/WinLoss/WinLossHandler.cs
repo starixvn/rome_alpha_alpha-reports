@@ -14,15 +14,12 @@
         WinLossBaseHandler,
         IRequestHandler<WinLossQuery, WinLossViewModel>
     {
-        private readonly IUser user;
         private readonly string sortPropertyNameDefault = "CustName";
 
         public WinLossHandler(
             ProductService productService,
-            WinLossService reportService,
-            IUser user) : base(productService, reportService)
+            WinLossService reportService) : base(productService, reportService)
         {
-            this.user = user;
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
@@ -39,7 +36,7 @@
             var winLossParam = CreateWinLossParamater(message, custLevel);
             var reportData = reportService.GetWinLoss(winLossParam);
 
-            var drillDownInfo = BuildDrillDownInfo(message);
+            var breadcrumbLevels = BuildBreadcrumbLevels(message);
 
             var sortPropertyName = GetSortedProperty(message.CustLevelId, message.SortPropertyName);
             var viewModel = new WinLossViewModel(reportData.ToList())
@@ -59,33 +56,9 @@
                 IsDescendingSort = message.IsDescendingSort,
                 SortPropertyName = sortPropertyName,
 
-                DrillDownInfoJson = ToJson(drillDownInfo),
+                BreadcrumbLevelsJson = ToJson(breadcrumbLevels),
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                BreadcrumbLevels = BuildBreadcrumbLevels(
-                    drillDownInfo,
-                    message,
-                    "WinLoss",
-                    "Index",
-                    (custInfo, query, drillDownInfoByLevelJson) =>
-                    {
-                        var routeValues = new WinLossQuery(user);
-                        routeValues.CustId = custInfo.CustId;
-                        routeValues.CustName = custInfo.CustName;
-                        routeValues.FromDate = message.FromDate;
-                        routeValues.ToDate = message.ToDate;
-
-                        routeValues.UserSelectedProductIds = message.UserSelectedProductIds;
-                        routeValues.SortPropertyName = sortPropertyName;
-                        routeValues.IsDescendingSort = message.IsDescendingSort;
-                        routeValues.IsStackMode = message.IsStackMode;
-                        routeValues.IsHistoricReport = message.IsHistoricReport;
-                        routeValues.IsFilterVisible = message.IsFilterVisible;
-                        routeValues.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-                        routeValues.CustLevelId = custInfo.CustLevelId;
-                        routeValues.DrillDownInfoJson = drillDownInfoByLevelJson;
-
-                        return routeValues;
-                    })
+                BreadcrumbLevels = breadcrumbLevels
             };
 
             return viewModel;

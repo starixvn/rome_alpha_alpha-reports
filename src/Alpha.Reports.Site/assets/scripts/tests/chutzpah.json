@@ -53,6 +53,7 @@
     { "Path": "../components/productmultiselection.ts" },
     { "Path": "../components/sort.ts" },
     { "Path": "../components/tooltip.ts" },
+    { "Path": "../components/link-builder.ts" },
 
     { "Path": "../winlossdetail/winlossdetail.ts" },
 

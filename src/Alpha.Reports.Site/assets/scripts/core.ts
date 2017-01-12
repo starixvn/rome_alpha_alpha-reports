@@ -120,11 +120,16 @@ class AlphaReports {
         return msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./);
     };
     replaceQueryStringValue = (queryString: string, paramName: string, paramValue: any) => {
+        if (typeof (queryString) === undefined
+            || queryString == null) {
+            return "";
+        }
+
         var regex = new RegExp("([?&])" + paramName + "=[^&]*", "i");
 
         var newQueryString = regex.test(queryString)
             ? queryString.replace(regex, "$1" + paramName + "=" + paramValue)
-            : queryString + "&" + paramName + "=" + paramValue;
+            : queryString + (queryString.indexOf("?") > 0 ? "&" : "?") + paramName + "=" + paramValue;
 
         return newQueryString;
     };

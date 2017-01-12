@@ -2,18 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
     using Extensions;
-    using NSubstitute;
     using Reports.Models;
-    using Reports.Models.WinLossDetail;
     using Site.Handlers;
     using Site.Requests;
-    using Site.Requests.WinLossDetail;
-    using Site.ViewModels;
     using Xunit;
 
     public class BaseHandlerTests
@@ -22,12 +17,10 @@
         private const string ActionName = "Index";
 
         private readonly BaseHandler baseHandler;
-        private readonly IUser user;
 
         public BaseHandlerTests()
         {
             baseHandler = new BaseHandler();
-            user = Substitute.For<IUser>();
         }
 
         [Fact]
@@ -102,173 +95,173 @@
             AssertExtension.Equal(expectedSelectListItems, actualSelectListItems);
         }
 
-        [Fact]
-        public void BuildBreadcrumbLevels_NullQuery_ThrowsArgumentNullException()
-        {
-            // Arrange
-            ReportBaseQuery message = null;
+        ////[Fact]
+        ////public void BuildBreadcrumbLevels_NullQuery_ThrowsArgumentNullException()
+        ////{
+        ////    // Arrange
+        ////    ReportBaseQuery message = null;
 
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(
-                Enumerable.Empty<CustInfo>(),
-                message,
-                ControllerName,
-                ActionName,
-                (custInfo, baseReportQuery, drillDownInfoJson) => default(WinLossDetailModel)));
-        }
+        ////    // Act & Assert
+        ////    Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(
+        ////        Enumerable.Empty<CustInfo>(),
+        ////        message,
+        ////        ControllerName,
+        ////        ActionName,
+        ////        (custInfo, baseReportQuery, drillDownInfoJson) => default(WinLossDetailModel)));
+        ////}
 
-        [Fact]
-        public void BuildBreadcrumbLevels_NullBuildActionLinkViewModelFunc_ThrowsArgumentNullException()
-        {
-            // Arrange
-            Func<CustInfo, ReportBaseQuery, string, WinLossDetailModel> buildActionLinkViewModelFunc = null;
-            var message = new ReportBaseQuery();
+        ////[Fact]
+        ////public void BuildBreadcrumbLevels_NullBuildActionLinkViewModelFunc_ThrowsArgumentNullException()
+        ////{
+        ////    // Arrange
+        ////    Func<CustInfo, ReportBaseQuery, string, WinLossDetailModel> buildActionLinkViewModelFunc = null;
+        ////    var message = new ReportBaseQuery();
 
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(
-                Enumerable.Empty<CustInfo>(),
-                message,
-                ControllerName,
-                ActionName,
-                buildActionLinkViewModelFunc));
-        }
+        ////    // Act & Assert
+        ////    Assert.Throws<ArgumentNullException>(() => baseHandler.BuildBreadcrumbLevels(
+        ////        Enumerable.Empty<CustInfo>(),
+        ////        message,
+        ////        ControllerName,
+        ////        ActionName,
+        ////        buildActionLinkViewModelFunc));
+        ////}
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("  ")]
-        public void BuildBreadcrumbLevels_QueryHasNullOrWhiteSpaceBreadcrumbLevels_ReturnsTopLevelBreadcrumbs(
-            string drillDownInfoJson)
-        {
-            // Arrange
-            Func<CustInfo, ReportBaseQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
-                (custInfo, baseReportQuery, drillDownInfoJsonByLevel) => new WinLossDetailQuery(user);
+        ////[Theory]
+        ////[InlineData(null)]
+        ////[InlineData("")]
+        ////[InlineData(" ")]
+        ////[InlineData("  ")]
+        ////public void BuildBreadcrumbLevels_QueryHasNullOrWhiteSpaceBreadcrumbLevels_ReturnsTopLevelBreadcrumbs(
+        ////    string drillDownInfoJson)
+        ////{
+        ////    // Arrange
+        ////    Func<CustInfo, ReportBaseQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
+        ////        (custInfo, baseReportQuery, drillDownInfoJsonByLevel) => new WinLossDetailQuery(user);
 
-            var message = new ReportBaseQuery
-            {
-                DrillDownInfoJson = drillDownInfoJson
-            };
+        ////    var message = new ReportBaseQuery
+        ////    {
+        ////        DrillDownInfoJson = drillDownInfoJson
+        ////    };
 
-            var expectedDrilldownLevels = new List<ActionLinkViewModel>
-            {
-                new ActionLinkViewModel(ControllerName, ActionName, message.CustName, new WinLossDetailQuery(user))
-            };
+        ////    var expectedDrilldownLevels = new List<ActionLinkViewModel>
+        ////    {
+        ////        new ActionLinkViewModel(ControllerName, ActionName, message.CustName, new WinLossDetailQuery(user))
+        ////    };
 
-            // Act
-            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
-                baseHandler.BuildDrillDownInfo(message),
-                message,
-                ControllerName,
-                ActionName,
-                buildActionLinkViewModelFunc);
+        ////    // Act
+        ////    var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
+        ////        baseHandler.BuildDrillDownInfo(message),
+        ////        message,
+        ////        ControllerName,
+        ////        ActionName,
+        ////        buildActionLinkViewModelFunc);
 
-            // Assert
-            AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
-        }
+        ////    // Assert
+        ////    AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
+        ////}
 
-        [Fact]
-        public void BuildBreadcrumbLevels_SubmitOnTopLevel_ReturnsTopLevelBreadcrumbs()
-        {
-            // Arrange
-            Func<CustInfo, ReportBaseQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
-                (custInfo, baseReportQuery, drillDownInfoJsonByLevel) => new WinLossDetailQuery(user);
+        ////[Fact]
+        ////public void BuildBreadcrumbLevels_SubmitOnTopLevel_ReturnsTopLevelBreadcrumbs()
+        ////{
+        ////    // Arrange
+        ////    Func<CustInfo, ReportBaseQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
+        ////        (custInfo, baseReportQuery, drillDownInfoJsonByLevel) => new WinLossDetailQuery(user);
 
-            var message = new ReportBaseQuery
-            {
-                DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]",
-                CustLevelId = 4
-            };
+        ////    var message = new ReportBaseQuery
+        ////    {
+        ////        DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]",
+        ////        CustLevelId = 4
+        ////    };
 
-            var expectedDrilldownLevels = new List<ActionLinkViewModel>
-            {
-                new ActionLinkViewModel(ControllerName, ActionName, message.CustName, new WinLossDetailQuery(user))
-            };
+        ////    var expectedDrilldownLevels = new List<ActionLinkViewModel>
+        ////    {
+        ////        new ActionLinkViewModel(ControllerName, ActionName, message.CustName, new WinLossDetailQuery(user))
+        ////    };
 
-            // Act
-            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
-                baseHandler.BuildDrillDownInfo(message),
-                message,
-                ControllerName,
-                ActionName,
-                buildActionLinkViewModelFunc);
+        ////    // Act
+        ////    var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
+        ////        baseHandler.BuildDrillDownInfo(message),
+        ////        message,
+        ////        ControllerName,
+        ////        ActionName,
+        ////        buildActionLinkViewModelFunc);
 
-            // Assert
-            AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
-        }
+        ////    // Assert
+        ////    AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
+        ////}
 
-        [Fact]
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public void BuildBreadcrumbLevels_GetDownLineReport_ReturnsCorrectBreadcrumbs()
-        {
-            // Arrange
-            var message = new WinLossDetailQuery(user);
-            message.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
-            message.CustLevelId = 3;
-            message.CustId = 2;
-            message.CustName = "MASTER1";
+        ////[Fact]
+        ////[SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        ////public void BuildBreadcrumbLevels_GetDownLineReport_ReturnsCorrectBreadcrumbs()
+        ////{
+        ////    // Arrange
+        ////    var message = new WinLossDetailQuery(user);
+        ////    message.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
+        ////    message.CustLevelId = 3;
+        ////    message.CustId = 2;
+        ////    message.CustName = "MASTER1";
 
-            Func<CustInfo, ReportBaseQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
-                (custInfo, baseReportQuery, drillDownInfoJsonByLevel) =>
-                {
-                    var query = new WinLossDetailQuery(user);
+        ////    Func<CustInfo, ReportBaseQuery, string, WinLossDetailQuery> buildActionLinkViewModelFunc =
+        ////        (custInfo, baseReportQuery, drillDownInfoJsonByLevel) =>
+        ////        {
+        ////            var query = new WinLossDetailQuery(user);
 
-                    query.CustId = custInfo.CustId;
-                    query.CustName = custInfo.CustName;
-                    query.PageSize = message.PageSize;
-                    query.FromDate = message.FromDate;
-                    query.ToDate = message.ToDate;
+        ////            query.CustId = custInfo.CustId;
+        ////            query.CustName = custInfo.CustName;
+        ////            query.PageSize = message.PageSize;
+        ////            query.FromDate = message.FromDate;
+        ////            query.ToDate = message.ToDate;
 
-                    query.UserSelectedProductIds = message.UserSelectedProductIds;
-                    query.SortPropertyName = message.SortPropertyName;
-                    query.IsDescendingSort = message.IsDescendingSort;
-                    query.IsStackMode = message.IsStackMode;
-                    query.IsHistoricReport = message.IsHistoricReport;
-                    query.IsFilterVisible = message.IsFilterVisible;
-                    query.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-                    query.CustLevelId = custInfo.CustLevelId;
-                    query.DrillDownInfoJson = drillDownInfoJsonByLevel;
+        ////            query.UserSelectedProductIds = message.UserSelectedProductIds;
+        ////            query.SortPropertyName = message.SortPropertyName;
+        ////            query.IsDescendingSort = message.IsDescendingSort;
+        ////            query.IsStackMode = message.IsStackMode;
+        ////            query.IsHistoricReport = message.IsHistoricReport;
+        ////            query.IsFilterVisible = message.IsFilterVisible;
+        ////            query.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
+        ////            query.CustLevelId = custInfo.CustLevelId;
+        ////            query.DrillDownInfoJson = drillDownInfoJsonByLevel;
 
-                    return query;
-                };
+        ////            return query;
+        ////        };
 
-            var superWinLossDetailQuery = new WinLossDetailQuery(user);
-            superWinLossDetailQuery.CustId = 1;
-            superWinLossDetailQuery.CustName = "SUPER1";
-            superWinLossDetailQuery.CustLevelId = 4;
-            superWinLossDetailQuery.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
+        ////    var superWinLossDetailQuery = new WinLossDetailQuery(user);
+        ////    superWinLossDetailQuery.CustId = 1;
+        ////    superWinLossDetailQuery.CustName = "SUPER1";
+        ////    superWinLossDetailQuery.CustLevelId = 4;
+        ////    superWinLossDetailQuery.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
 
-            var masterWinLossDetailQuery = new WinLossDetailQuery(user);
-            masterWinLossDetailQuery.CustId = 2;
-            masterWinLossDetailQuery.CustName = "MASTER1";
-            masterWinLossDetailQuery.CustLevelId = 3;
-            masterWinLossDetailQuery.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4},{'CustId':2,'CustName':'MASTER1','CustLevelId':3}]";
+        ////    var masterWinLossDetailQuery = new WinLossDetailQuery(user);
+        ////    masterWinLossDetailQuery.CustId = 2;
+        ////    masterWinLossDetailQuery.CustName = "MASTER1";
+        ////    masterWinLossDetailQuery.CustLevelId = 3;
+        ////    masterWinLossDetailQuery.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4},{'CustId':2,'CustName':'MASTER1','CustLevelId':3}]";
 
-            var expectedDrilldownLevels = new List<ActionLinkViewModel>
-            {
-                new ActionLinkViewModel(
-                    ControllerName,
-                    ActionName,
-                    "SUPER1",
-                    superWinLossDetailQuery),
-                new ActionLinkViewModel(
-                    ControllerName,
-                    ActionName,
-                    "MASTER1",
-                    masterWinLossDetailQuery)
-            };
+        ////    var expectedDrilldownLevels = new List<ActionLinkViewModel>
+        ////    {
+        ////        new ActionLinkViewModel(
+        ////            ControllerName,
+        ////            ActionName,
+        ////            "SUPER1",
+        ////            superWinLossDetailQuery),
+        ////        new ActionLinkViewModel(
+        ////            ControllerName,
+        ////            ActionName,
+        ////            "MASTER1",
+        ////            masterWinLossDetailQuery)
+        ////    };
 
-            // Act
-            var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
-                baseHandler.BuildDrillDownInfo(message),
-                message,
-                ControllerName,
-                ActionName,
-                buildActionLinkViewModelFunc);
+        ////    // Act
+        ////    var actualDrilldownLevels = baseHandler.BuildBreadcrumbLevels(
+        ////        baseHandler.BuildDrillDownInfo(message),
+        ////        message,
+        ////        ControllerName,
+        ////        ActionName,
+        ////        buildActionLinkViewModelFunc);
 
-            // Assert
-            AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
-        }
+        ////    // Assert
+        ////    AssertExtension.Equal(expectedDrilldownLevels, actualDrilldownLevels);
+        ////}
 
         [Theory]
         [InlineData(null)]
@@ -312,7 +305,7 @@
         }
 
         [Fact]
-        public void BuildDrillDownInfo_DrillDownInfoHasNoData_ReturnDrillDownInfoWithCurrentCust()
+        public void BuildBreadcrumbLevels_DrillDownInfoHasNoData_ReturnDrillDownInfoWithCurrentCust()
         {
             // Arrange
             var query = new ReportBaseQuery
@@ -323,7 +316,7 @@
             };
 
             // Act
-            var actualDrillDownInfo = baseHandler.BuildDrillDownInfo(query);
+            var actualDrillDownInfo = baseHandler.BuildBreadcrumbLevels(query);
 
             // Assert
             AssertExtension.Equal(
@@ -335,7 +328,7 @@
         }
 
         [Fact]
-        public void BuildDrillDownInfo_DrillDownInfoHasData_ReturnPreviousDrillDownInfoAndCombinedWithCurrentCust()
+        public void BuildBreadcrumbLevels_DrillDownInfoHasData_ReturnPreviousDrillDownInfoAndCombinedWithCurrentCust()
         {
             // Arrange
             var query = new ReportBaseQuery
@@ -343,11 +336,14 @@
                 CustId = 2,
                 CustName = "Master",
                 CustLevelId = 3,
-                DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]"
+                BreadcrumbLevels = new List<CustInfo>()
+                {
+                    new CustInfo(1, "SUPER1", 4)
+                }
             };
 
             // Act
-            var actualDrillDownInfo = baseHandler.BuildDrillDownInfo(query);
+            var actualDrillDownInfo = baseHandler.BuildBreadcrumbLevels(query);
 
             // Assert
             AssertExtension.Equal(
@@ -360,7 +356,7 @@
         }
 
         [Fact]
-        public void BuildDrillDownInfo_DrillDownInfoContainsCurrentCust_RemoveDownlineDrillDownInfo()
+        public void BuildBreadcrumbLevels_DrillDownInfoContainsCurrentCust_RemoveDownlineDrillDownInfo()
         {
             // Arrange
             var query = new ReportBaseQuery
@@ -368,11 +364,15 @@
                 CustId = 1,
                 CustName = "SUPER1",
                 CustLevelId = 4,
-                DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}, {'CustId':2,'CustName':'Master1','CustLevelId':3}]"
+                BreadcrumbLevels = new List<CustInfo>()
+                {
+                    new CustInfo(1, "SUPER1", 4),
+                    new CustInfo(2, "Master1", 3)
+                }
             };
 
             // Act
-            var actualDrillDownInfo = baseHandler.BuildDrillDownInfo(query);
+            var actualDrillDownInfo = baseHandler.BuildBreadcrumbLevels(query);
 
             // Assert
             AssertExtension.Equal(

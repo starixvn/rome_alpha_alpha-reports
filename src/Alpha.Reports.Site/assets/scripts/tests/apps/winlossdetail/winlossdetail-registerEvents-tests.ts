@@ -10,6 +10,7 @@ describe("WinLossDetail_", () => {
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const reportTooltip = new ReportTooltip($);
     const netTurnoverTooltipComponent = new NetTurnoverTooltipComponent($);
+    const linkBuilderComponent = new LinkBuilderComponent($);
 
     let winLossDetailView: WinLossDetailView;
 
@@ -30,7 +31,8 @@ describe("WinLossDetail_", () => {
             sortComponent,
             reportTooltip,
             monthPickerComponent,
-            netTurnoverTooltipComponent);
+            netTurnoverTooltipComponent,
+            linkBuilderComponent);
 
         cacheElements = spyOn(winLossDetailView, "cacheElements");
         cacheElements.and.callThrough();

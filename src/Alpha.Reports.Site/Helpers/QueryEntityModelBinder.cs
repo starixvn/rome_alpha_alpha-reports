@@ -1,7 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Helpers
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Mvc;
+    using Newtonsoft.Json;
     using Reports.Models;
     using Requests;
 
@@ -36,6 +38,23 @@
            Type modelType)
         {
             return base.CreateModel(controllerContext, bindingContext, modelType);
+        }
+
+        public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        {
+            var boundModel = base.BindModel(controllerContext, bindingContext);
+
+            var reportBaseQuery = boundModel as ReportBaseQuery;
+            if (reportBaseQuery != null
+                    && !string.IsNullOrWhiteSpace(controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelsJson"]))
+            {
+                var drillDownInfoText = controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelsJson"];
+                reportBaseQuery.BreadcrumbLevels = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(drillDownInfoText);
+
+                return reportBaseQuery;
+            }
+
+            return boundModel;
         }
     }
 }

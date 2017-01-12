@@ -11,7 +11,7 @@
             setFixtures(`<body>
                             <input id="from-date" value="" />
                             <input id="to-date" value="" />
-                            <div id="dropdown-month"  
+                            <div id="dropdown-month"
                                 data-longmonths-inyear="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
                                 data-mindate="01/01/2013"
                                 data-dateinmonth="0/1/2017"
@@ -34,7 +34,7 @@
             setFixtures(`<body>
                             <input id="from-date" value="" />
                             <input id="to-date" value="" />
-                            <div id="dropdown-month"  
+                            <div id="dropdown-month"
                                 data-longmonths-inyear="Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
                                 data-mindate="01/01/2013"
                                 data-dateinmonth="1/1/2017"
@@ -45,8 +45,8 @@
             var dropdownMonth = monthPickerComponent.render();
 
             // act
-            dropdownMonth.monPickr("setFromDay", 1);
-            dropdownMonth.monPickr("setToDay", 2);
+            dropdownMonth.monPickr("setFromDay", "1");
+            dropdownMonth.monPickr("setToDay", "2");
 
             // assert
             expect($("#from-date").val()).toEqual("01/01/2017");

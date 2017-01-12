@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Components
 {
     using System.Collections.Generic;
+    using Reports.Models;
 
     public class PageHeaderViewModel
     {
@@ -10,7 +11,7 @@
             bool hasHideFilterIcon,
             bool isStackMode,
             bool isFilterVisible,
-            IEnumerable<ActionLinkViewModel> breadcrumbLevels)
+            IEnumerable<CustInfo> breadcrumbLevels)
         {
             Title = title;
             HasStackIcon = hasStackIcon;
@@ -32,6 +33,6 @@
 
         public bool IsFilterVisible { get; }
 
-        public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
+        public IEnumerable<CustInfo> BreadcrumbLevels { get; set; }
     }
 }

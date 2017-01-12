@@ -245,6 +245,7 @@
     </Compile>
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\daterangepicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\netturnover-tooltip-test.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\productmultiselection-tests.ts" />
@@ -288,12 +289,10 @@
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\ActionLinkViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetail\WinLossDetailsActionLinkViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModel.cs" />
-    <Compile Include="ViewModels\WinLoss\WinLossActionLinkViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossViewModel.cs" />
   </ItemGroup>

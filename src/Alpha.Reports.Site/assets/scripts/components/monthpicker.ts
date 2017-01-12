@@ -1,25 +1,30 @@
 ﻿/// <reference path="../core.ts" />
 
 "use strict";
+
+interface JQuery {
+    monPickr(option: any): void;
+    monPickr(methodName: string, format: any): string;
+}
+
 class MonthPickerOption {
     selectorId: string;
 
     constructor(selectorId: string = "dropdown-month",
         longMonthsInYear: Array<string> = null) {
-
         this.selectorId = selectorId;
     }
 }
 
 class MonthPickerComponent {
-    $: any;
-    $fromDate: any;
-    $toDate: any;
-    $dropdownMonth: any;
+    $: JQueryStatic;
+    $fromDate: JQuery;
+    $toDate: JQuery;
+    $dropdownMonth: JQuery;
 
     options = new MonthPickerOption();
 
-    constructor($: any) {
+    constructor($: JQueryStatic) {
         this.$ = $;
     }
 

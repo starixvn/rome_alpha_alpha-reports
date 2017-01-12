@@ -9,9 +9,9 @@ class ReportTooltipOption {
 }
 
 class ReportTooltip {
-    $: any;
+    $: JQueryStatic;
 
-    constructor($: any) {
+    constructor($: JQueryStatic) {
         this.$ = $;
     }
 

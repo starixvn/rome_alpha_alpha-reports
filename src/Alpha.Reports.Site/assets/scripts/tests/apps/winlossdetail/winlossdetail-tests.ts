@@ -7,6 +7,7 @@
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const reportTooltip = new ReportTooltip($);
     const netTurnoverTooltipComponent = new NetTurnoverTooltipComponent($);
+    const linkBuilderComponent = new LinkBuilderComponent($);
 
     let winLossDetailView: WinLossDetailView;
 
@@ -16,7 +17,8 @@
         unblockUI: jasmine.Spy,
         renderProductMultiSelectionComponent: jasmine.Spy,
         renderPagerComponent: jasmine.Spy,
-        renderSortComponent: jasmine.Spy;
+        renderSortComponent: jasmine.Spy,
+        renderLinkBuilderComponent: jasmine.Spy;
 
     beforeEach(() => {
         winLossDetailView = new WinLossDetailView(
@@ -27,7 +29,8 @@
             sortComponent,
             reportTooltip,
             monthPickerComponent,
-            netTurnoverTooltipComponent);
+            netTurnoverTooltipComponent,
+            linkBuilderComponent);
 
         cacheElements = spyOn(winLossDetailView, "cacheElements");
         cacheElements.and.callThrough();
@@ -41,6 +44,7 @@
         renderProductMultiSelectionComponent = spyOn(productMultiSelectionComponent, "render");
         renderPagerComponent = spyOn(pagerComponent, "render");
         renderSortComponent = spyOn(sortComponent, "render");
+        renderLinkBuilderComponent = spyOn(linkBuilderComponent, "render");
         spyOn(dateRangePickerComponent, "render");
     });
 
