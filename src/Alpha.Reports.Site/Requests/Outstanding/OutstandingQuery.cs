@@ -9,7 +9,5 @@ namespace Alpha.Reports.Site.Requests.Outstanding
         public OutstandingQuery(IUser user) : base(user)
         {
         }
-
-        public byte CustLevelId { get; set; }
     }
 }

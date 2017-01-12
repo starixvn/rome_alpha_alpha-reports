@@ -6,7 +6,10 @@
     var betlistPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
 }
 
-@Html.Partial("_PageTitle", new PageHeaderViewModel(Model.Title, false, false, false, false, Model.BreadcrumbLevels))
+<div class="page-title">
+    <span class="pull-left">@Model.Title</span>
+    @Breadcrumb.Render(Model.BreadcrumbLevels, Html)
+</div>
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
        data-totalrecords="@Model.OutstandingDatasource.Count()"

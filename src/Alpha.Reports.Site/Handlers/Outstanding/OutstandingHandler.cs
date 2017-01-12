@@ -22,7 +22,7 @@
 
         public OutstandingViewModel Handle(OutstandingQuery message)
         {
-            var reportLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
+            var reportLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
 
             IEnumerable<OutstandingData> outstandings;
             IEnumerable<CustInfo> drillDownInfo;
@@ -39,7 +39,7 @@
                 nextCustLevel = message.CustLevelId - 1;
 
                 // TODO: Will be Removed. ReportBaseQuery.UserLevelId should change to ReportBaseQuery.CustLevelId
-                message.UserLevelId = message.CustLevelId;
+                message.CustLevelId = message.CustLevelId;
                 drillDownInfo = BuildDrillDownInfo(message);
             }
 
@@ -56,7 +56,7 @@
                     (custInfo, query, drillDownInfoByLevelJson) =>
                     {
                         var routeValues = new OutstandingQuery(user);
-                        routeValues.CustLevelId = custInfo.UserLevelId;
+                        routeValues.CustLevelId = custInfo.CustLevelId;
                         routeValues.CustId = custInfo.CustId;
                         routeValues.CustName = custInfo.CustName;
                         routeValues.DrillDownInfoJson = drillDownInfoByLevelJson;
