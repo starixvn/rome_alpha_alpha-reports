@@ -47,7 +47,7 @@
                 (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
-            @if (Model.UserLevel.IsMasterOrSuperLevel())
+            @if (Model.CustLevel.IsMasterOrSuperLevel())
             {
                 <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Master</th>
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="MasterNetWinLoss.WinLoss" rowspan="2" data-colindex="5">
@@ -57,7 +57,7 @@
                 </th>
             }
 
-            @if (Model.UserLevel.IsSuperLevel())
+            @if (Model.CustLevel.IsSuperLevel())
             {
                 <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Super</th>
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperNetWinLoss.WinLoss" rowspan="2" data-colindex="6">
@@ -67,7 +67,7 @@
                 </th>
             }
 
-            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="@(Model.UserLevel.IsSuperLevel() ? 17 : (Model.UserLevel.IsMasterLevel() ? 14 : 11))">@Resources.Company</th>
+            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="@(Model.CustLevel.IsSuperLevel() ? 17 : (Model.CustLevel.IsMasterLevel() ? 14 : 11))">@Resources.Company</th>
         </tr>
         <tr class="thead-row2">
             <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MemberNetWinLoss.WinLoss" data-colindex="5">@Resources.WinLoss</th>
@@ -77,14 +77,14 @@
             <th class="hidden-stack-mode col-winloss sorting" data-sortedname="AgentNetWinLoss.WinLoss" data-colindex="8">@Resources.WinLoss</th>
             <th class="hidden-stack-mode sorting" data-sortedname="AgentNetWinLoss.Comm" data-colindex="9">@Resources.Comm</th>
             <th class="hidden-stack-mode sorting" data-sortedname="AgentNetWinLoss.Total" data-colindex="10">@Resources.Total</th>
-            @if (Model.UserLevel.IsMasterOrSuperLevel())
+            @if (Model.CustLevel.IsMasterOrSuperLevel())
             {
                 <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MasterNetWinLoss.WinLoss" data-colindex="11">@Resources.WinLoss</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="MasterNetWinLoss.Comm" data-colindex="12">@Resources.Comm</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="MasterNetWinLoss.Total" data-colindex="13">@Resources.Total</th>
             }
 
-            @if (Model.UserLevel.IsSuperLevel())
+            @if (Model.CustLevel.IsSuperLevel())
             {
                 <th class="hidden-stack-mode col-winloss sorting" data-sortedname="SuperNetWinLoss.WinLoss" data-colindex="14">@Resources.WinLoss</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="SuperNetWinLoss.Comm" data-colindex="15">@Resources.Comm</th>
@@ -98,9 +98,9 @@
 
         <tbody>
             @foreach (var data in Model
-                                                        .ReportData
-                                                        .DataSource
-                                                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                                                .ReportData
+                                                                .DataSource
+                                                                .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath, isEvenRow)
                 isEvenRow = !isEvenRow;
@@ -113,9 +113,9 @@
     else
     {
         @NoInformation.Render(colspan:
-            Model.UserLevel.IsSuperLevel()
+            Model.CustLevel.IsSuperLevel()
             ? 18
-            : (Model.UserLevel.IsMasterLevel() ? 15 : 12))
+            : (Model.CustLevel.IsMasterLevel() ? 15 : 12))
     }
 </table>
 
@@ -125,7 +125,7 @@
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
     <input type="hidden" name="UserSelectedProductIds" value="@Model.UserSelectedProductIds" />
-    <input type="hidden" name="UserLevelId" value="@Model.UserLevel.Value" />
+    <input type="hidden" name="CustLevelId" value="@Model.CustLevel.Value" />
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
@@ -146,7 +146,7 @@
             }
             else
             {
-                if (Model.UserLevel.IsAgentLevel())
+                if (Model.CustLevel.IsAgentLevel())
                 {
                     @Html.ActionLink(
                     linkText: data.CustName,

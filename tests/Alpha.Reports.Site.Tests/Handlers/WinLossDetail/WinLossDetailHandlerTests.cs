@@ -70,7 +70,7 @@
         {
             // Arrange
             var message = new WinLossDetailQuery(user);
-            message.UserLevelId = 4;
+            message.CustLevelId = 4;
             message.UserSelectedProductIds = userSelectedProductIds;
 
             var products = Enumerable.Empty<Product>();
@@ -80,9 +80,9 @@
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
             var routeValue = new WinLossDetailQuery(user);
-            routeValue.UserLevelId = 4;
+            routeValue.CustLevelId = 4;
             routeValue.UserSelectedProductIds = userSelectedProductIds;
-            routeValue.DrillDownInfoJson = "[{'CustId':0,'CustName':'','UserLevelId':4}]";
+            routeValue.DrillDownInfoJson = "[{'CustId':0,'CustName':'','CustLevelId':4}]";
 
             var expectedWinLossDetailViewModel = new WinLossDetailViewModel
             {
@@ -91,7 +91,7 @@
                 SortPropertyName = "CustName",
                 IsDescendingSort = false,
                 UserSelectedProductIds = string.Empty,
-                UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
+                CustLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId),
                 FromDate = DefaultVariables.CurrentDate,
                 ToDate = DefaultVariables.CurrentDate,
                 IsSetDefaultStackMode = string.IsNullOrWhiteSpace(userSelectedProductIds),
@@ -108,7 +108,7 @@
                         linkText: message.CustName,
                         routeValues: routeValue)
                 },
-                DrillDownInfoJson = "[{'CustId':0,'CustName':'','UserLevelId':4}]"
+                DrillDownInfoJson = "[{'CustId':0,'CustName':'','CustLevelId':4}]"
             };
 
             // Act

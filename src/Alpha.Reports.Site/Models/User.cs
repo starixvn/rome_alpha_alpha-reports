@@ -12,12 +12,12 @@
             this.userSession = userSession;
         }
 
-        public int CustId => userSession.CustId;
+        public int Id => userSession.CustId;
 
-        public string CustName => userSession.UserName;
+        public string Name => userSession.UserName;
 
         public string Language => userSession.Language;
 
-        public byte UserLevelId => userSession.RoleId;
+        public byte LevelId => userSession.RoleId;
     }
 }

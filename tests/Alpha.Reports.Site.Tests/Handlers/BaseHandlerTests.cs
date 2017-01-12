@@ -176,8 +176,8 @@
 
             var message = new ReportBaseQuery
             {
-                DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]",
-                UserLevelId = 4
+                DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]",
+                CustLevelId = 4
             };
 
             var expectedDrilldownLevels = new List<ActionLinkViewModel>
@@ -203,8 +203,8 @@
         {
             // Arrange
             var message = new WinLossDetailQuery(user);
-            message.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]";
-            message.UserLevelId = 3;
+            message.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
+            message.CustLevelId = 3;
             message.CustId = 2;
             message.CustName = "MASTER1";
 
@@ -226,7 +226,7 @@
                     query.IsHistoricReport = message.IsHistoricReport;
                     query.IsFilterVisible = message.IsFilterVisible;
                     query.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-                    query.UserLevelId = custInfo.UserLevelId;
+                    query.CustLevelId = custInfo.CustLevelId;
                     query.DrillDownInfoJson = drillDownInfoJsonByLevel;
 
                     return query;
@@ -235,14 +235,14 @@
             var superWinLossDetailQuery = new WinLossDetailQuery(user);
             superWinLossDetailQuery.CustId = 1;
             superWinLossDetailQuery.CustName = "SUPER1";
-            superWinLossDetailQuery.UserLevelId = 4;
-            superWinLossDetailQuery.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]";
+            superWinLossDetailQuery.CustLevelId = 4;
+            superWinLossDetailQuery.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
 
             var masterWinLossDetailQuery = new WinLossDetailQuery(user);
             masterWinLossDetailQuery.CustId = 2;
             masterWinLossDetailQuery.CustName = "MASTER1";
-            masterWinLossDetailQuery.UserLevelId = 3;
-            masterWinLossDetailQuery.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4},{'CustId':2,'CustName':'MASTER1','UserLevelId':3}]";
+            masterWinLossDetailQuery.CustLevelId = 3;
+            masterWinLossDetailQuery.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4},{'CustId':2,'CustName':'MASTER1','CustLevelId':3}]";
 
             var expectedDrilldownLevels = new List<ActionLinkViewModel>
             {
@@ -319,7 +319,7 @@
             {
                 CustId = 1,
                 CustName = "Master",
-                UserLevelId = 3
+                CustLevelId = 3
             };
 
             // Act
@@ -342,8 +342,8 @@
             {
                 CustId = 2,
                 CustName = "Master",
-                UserLevelId = 3,
-                DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]"
+                CustLevelId = 3,
+                DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]"
             };
 
             // Act
@@ -367,8 +367,8 @@
             {
                 CustId = 1,
                 CustName = "SUPER1",
-                UserLevelId = 4,
-                DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}, {'CustId':2,'CustName':'Master1','UserLevelId':3}]"
+                CustLevelId = 4,
+                DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}, {'CustId':2,'CustName':'Master1','CustLevelId':3}]"
             };
 
             // Act

@@ -29,22 +29,22 @@
 
         public EnteredResultFilterViewModel FilterViewModel =>
             new EnteredResultFilterViewModel(
-                UserLevel,
+                CustLevel,
                 DateRangePickerViewModel,
                 MinDate);
 
-        public UserLevel UserLevel { get; set; }
+        public UserLevel CustLevel { get; set; }
 
         public string Title
         {
             get
             {
-                if (UserLevel.IsSuperLevel())
+                if (CustLevel.IsSuperLevel())
                 {
                     return Resources.MasterWinLoss;
                 }
 
-                if (UserLevel.IsMasterLevel())
+                if (CustLevel.IsMasterLevel())
                 {
                     return Resources.AgentWinLoss;
                 }

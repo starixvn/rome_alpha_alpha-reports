@@ -94,7 +94,7 @@
 
                 foreach (var custInfo in previousDrillDownInfo)
                 {
-                    if (custInfo.UserLevelId == query.UserLevelId)
+                    if (custInfo.CustLevelId == query.CustLevelId)
                     {
                         break;
                     }
@@ -103,7 +103,7 @@
                 }
             }
 
-            drillDownInfo.Add(new CustInfo(query.CustId, query.CustName, query.UserLevelId));
+            drillDownInfo.Add(new CustInfo(query.CustId, query.CustName, query.CustLevelId));
 
             return drillDownInfo;
         }

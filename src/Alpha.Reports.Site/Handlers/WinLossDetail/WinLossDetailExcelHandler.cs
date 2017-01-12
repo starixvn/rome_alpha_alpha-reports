@@ -37,9 +37,9 @@
             var reportTitle = $"{Resources.WinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
 
-            var winLossDetailParam = CreateParameter(message, message.UserLevel);
+            var winLossDetailParam = CreateParameter(message, message.CustLevel);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
-            var templatePath = GetExcelTemplatePath(GetTemplateName(message.UserLevel));
+            var templatePath = GetExcelTemplatePath(GetTemplateName(message.CustLevel));
 
             var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable)
                  .FreezePanel(4, B);
@@ -79,12 +79,12 @@
                 .Map(J, winLossDetail => winLossDetail.AgentNetWinLoss.Comm)
                 .Map(K, winLossDetail => winLossDetail.AgentNetWinLoss.Total);
 
-            if (message.UserLevel.IsAgentLevel())
+            if (message.CustLevel.IsAgentLevel())
             {
                 mapper.Map(L, winLossDetail => winLossDetail.Company);
             }
 
-            if (message.UserLevel.IsMasterOrSuperLevel())
+            if (message.CustLevel.IsMasterOrSuperLevel())
             {
                 mapper
                     .Map(L, winLossDetail => winLossDetail.MasterNetWinLoss.WinLoss)
@@ -92,12 +92,12 @@
                     .Map(N, winLossDetail => winLossDetail.MasterNetWinLoss.Total);
             }
 
-            if (message.UserLevel.IsMasterLevel())
+            if (message.CustLevel.IsMasterLevel())
             {
                 mapper.Map(O, winLossDetail => winLossDetail.Company);
             }
 
-            if (message.UserLevel.IsSuperLevel())
+            if (message.CustLevel.IsSuperLevel())
             {
                 mapper
                     .Map(O, winLossDetail => winLossDetail.SuperNetWinLoss.WinLoss)

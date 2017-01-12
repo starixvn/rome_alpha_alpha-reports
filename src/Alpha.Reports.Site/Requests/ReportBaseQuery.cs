@@ -11,9 +11,9 @@
 
         protected ReportBaseQuery(IUser user)
         {
-            CustId = user.CustId;
-            CustName = user.CustName;
-            UserLevelId = user.UserLevelId;
+            CustId = user.Id;
+            CustName = user.Name;
+            CustLevelId = user.LevelId;
             Language = user.Language;
         }
 
@@ -23,7 +23,7 @@
 
         public string CustName { get; set; }
 
-        public byte UserLevelId { get; set; }
+        public byte CustLevelId { get; set; }
 
         public string DrillDownInfoJson { get; set; }
 

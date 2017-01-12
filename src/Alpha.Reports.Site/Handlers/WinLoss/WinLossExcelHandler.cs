@@ -35,12 +35,12 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
+            var userLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
             var winLossParam = CreateWinLossParamater(message, userLevel);
             var reportData = reportService.GetWinLoss(winLossParam);
             var winlossViewModel = new WinLossViewModel(reportData.ToList())
             {
-                UserLevel = userLevel
+                CustLevel = userLevel
             };
 
             var products = message.UserSelectedProductIds.ToListInt();
@@ -48,7 +48,7 @@
             var reportTitle = $"{winlossViewModel.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                 $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
 
-            var templatePath = GetExcelTemplatePath(GetFileName(message.UserLevel));
+            var templatePath = GetExcelTemplatePath(GetFileName(message.CustLevel));
             var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable);
 
             var result = winlossWorkbook
@@ -79,7 +79,7 @@
                 .Map(Column.B, winLoss => winLoss.Turnover)
                 .Map(Column.C, winLoss => winLoss.GrossComm);
 
-            if (message.UserLevel.IsAgentLevel())
+            if (message.CustLevel.IsAgentLevel())
             {
                 mapper.Map(Column.D, winLoss => winLoss.MemberNetWinLoss.WinLoss)
                  .Map(Column.E, winLoss => winLoss.MemberNetWinLoss.Comm)
@@ -90,7 +90,7 @@
                  .Map(Column.J, winLoss => winLoss.Company);
             }
 
-            if (message.UserLevel.IsMasterLevel())
+            if (message.CustLevel.IsMasterLevel())
             {
                 mapper.Map(Column.D, winLoss => winLoss.AgentNetWinLoss.Total)
                    .Map(Column.E, winLoss => winLoss.MasterNetWinLoss.WinLoss)
@@ -99,7 +99,7 @@
                    .Map(Column.H, winLoss => winLoss.Company);
             }
 
-            if (message.UserLevel.IsSuperLevel())
+            if (message.CustLevel.IsSuperLevel())
             {
                 mapper.Map(Column.D, winLoss => winLoss.MasterNetWinLoss.Total)
                     .Map(Column.E, winLoss => winLoss.SuperNetWinLoss.WinLoss)

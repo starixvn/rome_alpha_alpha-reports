@@ -47,11 +47,11 @@
         [InlineData(3, "Agent Win Loss")]
         [InlineData(2, "Member Win Loss")]
         public void Title_WinLossLevel_ReturnCorrectTitle(
-            byte userLevel,
+            byte custLevelId,
             string expectedTitle)
         {
             // Arrange
-            winLossViewModel.UserLevel = Enumeration.FromValue<UserLevel>(userLevel);
+            winLossViewModel.CustLevel = Enumeration.FromValue<UserLevel>(custLevelId);
 
             // Act & Assert
             Assert.Equal(winLossViewModel.Title, expectedTitle);
@@ -62,7 +62,7 @@
         {
             // Arrange
             var winLoss = new WinLossModel();
-            winLossViewModel.UserLevel = UserLevel.Super;
+            winLossViewModel.CustLevel = UserLevel.Super;
             winLossViewModel.FromDate = DefaultVariables.CurrentDate;
             winLossViewModel.ToDate = DefaultVariables.CurrentDate;
             winLossViewModel.ReportData = Enumerable.Empty<WinLossModel>();
@@ -70,7 +70,7 @@
             {
                 new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossQuery(user))
             };
-            winLossViewModel.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]";
+            winLossViewModel.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
 
             var expectedActionLinkViewModel = new WinLossActionLinkViewModel(
                     0,
@@ -85,7 +85,7 @@
                     null,
                     false,
                     false,
-                     "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]");
+                     "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]");
 
             // Act
             var actualActionLinkViewModel = winLossViewModel.ActionLinkViewModel(winLoss);

@@ -50,7 +50,7 @@
         public void HandleExportEnteredResultQuery_UsesCorrectTemplateInfo()
         {
             // Arrange
-            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+            var message = CreateExportEnteredResultsExcelQuery(custLevelId: 4);
 
             // Act
             enteredSportResultExcelHandler.Handle(message);
@@ -64,7 +64,7 @@
         public void HandleExportEnteredResultQuery_ExportsCorrectBody()
         {
             // Arrange
-            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+            var message = CreateExportEnteredResultsExcelQuery(custLevelId: 4);
             var enteredResultReportData = Enumerable.Empty<EnteredSportResult>();
 
             // Act
@@ -80,7 +80,7 @@
         public void HandleExportEnteredResultQuery_ExportsCorrectSheetName()
         {
             // Arrange
-            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+            var message = CreateExportEnteredResultsExcelQuery(custLevelId: 4);
 
             // Act
             enteredSportResultExcelHandler.Handle(message);
@@ -93,7 +93,7 @@
         public void HandleExportEnteredResultQuery_ExportsExcelToBytes()
         {
             // Arrange
-            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+            var message = CreateExportEnteredResultsExcelQuery(custLevelId: 4);
 
             // Act
             enteredSportResultExcelHandler.Handle(message);
@@ -106,7 +106,7 @@
         public void HandleExportEnteredResultQuery_CallMapExcelTemplatePath()
         {
             // Arrange
-            var message = CreateExportEnteredResultsExcelQuery(userLevel: 4);
+            var message = CreateExportEnteredResultsExcelQuery(custLevelId: 4);
 
             // Act
             enteredSportResultExcelHandler.Handle(message);
@@ -115,10 +115,10 @@
             enteredSportResultExcelHandler.Received().GetExcelTemplatePath("MatchResultEntered");
         }
 
-        private EnteredSportResultExcelQuery CreateExportEnteredResultsExcelQuery(byte userLevel)
+        private EnteredSportResultExcelQuery CreateExportEnteredResultsExcelQuery(byte custLevelId)
         {
             var exportEnteredResultQuery = new EnteredSportResultExcelQuery(user);
-            exportEnteredResultQuery.UserLevelId = userLevel;
+            exportEnteredResultQuery.CustLevelId = custLevelId;
 
             return exportEnteredResultQuery;
         }

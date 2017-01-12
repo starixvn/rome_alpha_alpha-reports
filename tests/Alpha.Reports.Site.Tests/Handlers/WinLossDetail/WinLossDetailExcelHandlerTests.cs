@@ -66,7 +66,7 @@
         public void HandleExportWinLossDetailQuery_MasterWinLossDetail_UsesCorrectTemplateInfo()
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
+            var message = CreateExportExcelQuery(custLevelId: 4);
 
             // Act
             winLossDetailExcelHandler.Handle(message);
@@ -82,7 +82,7 @@
         public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectTitle()
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
+            var message = CreateExportExcelQuery(custLevelId: 4);
 
             // Act
             winLossDetailExcelHandler.Handle(message);
@@ -95,7 +95,7 @@
         public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectHeader()
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
+            var message = CreateExportExcelQuery(custLevelId: 4);
 
             // Act
             winLossDetailExcelHandler.Handle(message);
@@ -108,7 +108,7 @@
         public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectBody()
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
+            var message = CreateExportExcelQuery(custLevelId: 4);
 
             // Act
             winLossDetailExcelHandler.Handle(message);
@@ -123,7 +123,7 @@
         public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectFooter()
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
+            var message = CreateExportExcelQuery(custLevelId: 4);
 
             // Act
             winLossDetailExcelHandler.Handle(message);
@@ -136,7 +136,7 @@
         public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsCorrectSheetName()
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
+            var message = CreateExportExcelQuery(custLevelId: 4);
 
             // Act
             winLossDetailExcelHandler.Handle(message);
@@ -149,7 +149,7 @@
         public void HandleExportWinLossDetailQuery_MasterWinLossDetail_ExportsExcelToBytes()
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: 4);
+            var message = CreateExportExcelQuery(custLevelId: 4);
 
             // Act
             winLossDetailExcelHandler.Handle(message);
@@ -162,7 +162,7 @@
         public void HandleExportWinLossDetailQuery_AgentWinLossDetail_ExportsExcelToBytes()
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: 3);
+            var message = CreateExportExcelQuery(custLevelId: 3);
 
             // Act
             winLossDetailExcelHandler.Handle(message);
@@ -175,7 +175,7 @@
         public void HandleExportWinLossDetailQuery_MemberWinLossDetail_ExportsExcelToBytes()
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: 2);
+            var message = CreateExportExcelQuery(custLevelId: 2);
 
             // Act
             winLossDetailExcelHandler.Handle(message);
@@ -188,13 +188,13 @@
         [InlineData(4, "Master")]
         [InlineData(3, "Agent")]
         [InlineData(2, "Member")]
-        public void BuildExcelTemplatePath_Always_ReturnsCorrectPathByUserLevel(byte userLevelId, string expectedPath)
+        public void BuildExcelTemplatePath_Always_ReturnsCorrectPathByCustLevelId(byte custLevelId, string expectedPath)
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: userLevelId);
+            var message = CreateExportExcelQuery(custLevelId: custLevelId);
 
             // Act
-            var actualPath = winLossDetailExcelHandler.GetTemplateName(message.UserLevel);
+            var actualPath = winLossDetailExcelHandler.GetTemplateName(message.CustLevel);
 
             // Assert
             Assert.Equal(expectedPath, actualPath);
@@ -204,10 +204,10 @@
         [InlineData(4, "Master")]
         [InlineData(3, "Agent")]
         [InlineData(2, "Member")]
-        public void HandleExportWinLossQuery_CallMapExcelTemplatePath(byte userLevelId, string fileName)
+        public void HandleExportWinLossQuery_CallMapExcelTemplatePath(byte custLevelId, string fileName)
         {
             // Arrange
-            var message = CreateExportExcelQuery(userLevel: userLevelId);
+            var message = CreateExportExcelQuery(custLevelId: custLevelId);
 
             // Act
             winLossDetailExcelHandler.Handle(message);
@@ -216,10 +216,10 @@
             winLossDetailExcelHandler.Received().GetExcelTemplatePath(fileName);
         }
 
-        private WinLossDetailExcelQuery CreateExportExcelQuery(byte userLevel)
+        private WinLossDetailExcelQuery CreateExportExcelQuery(byte custLevelId)
         {
             var result = new WinLossDetailExcelQuery(user);
-            result.UserLevelId = userLevel;
+            result.CustLevelId = custLevelId;
             result.FromDate = DefaultVariables.CurrentDate;
             result.ToDate = DefaultVariables.CurrentDate;
 

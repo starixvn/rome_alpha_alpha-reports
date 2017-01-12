@@ -83,7 +83,7 @@
         {
             // Arrange
             var winLossDetail = new WinLossDetailModel();
-            winLossDetailViewModel.UserLevel = Enumeration.FromValue<UserLevel>(4);
+            winLossDetailViewModel.CustLevel = Enumeration.FromValue<UserLevel>(4);
             winLossDetailViewModel.FromDate = DefaultVariables.CurrentDate;
             winLossDetailViewModel.ToDate = DefaultVariables.CurrentDate;
             winLossDetailViewModel.ReportData = new ReportData<WinLossDetailModel>(null, 0, 0, 0, default(WinLossDetailModel));
@@ -91,7 +91,7 @@
             {
                 new ActionLinkViewModel("ControllerName", "Index", "Link", new WinLossDetailQuery(user))
             };
-            winLossDetailViewModel.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]";
+            winLossDetailViewModel.DrillDownInfoJson = "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]";
 
             var expectedActionLinkViewModel = new WinLossDetailsActionLinkViewModel(
                     0,
@@ -107,7 +107,7 @@
                     false,
                     false,
                     0,
-                     "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]");
+                     "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]");
 
             // Act
             var actualActionLinkViewModel = winLossDetailViewModel.ActionLinkViewModel(winLossDetail);

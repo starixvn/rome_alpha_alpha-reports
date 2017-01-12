@@ -22,9 +22,9 @@
 
             // Assert
             Assert.True(
-                user.CustId == 1
-                && user.CustName == "username"
-                && user.UserLevelId == (byte)2
+                user.Id == 1
+                && user.Name == "username"
+                && user.LevelId == (byte)2
                 && user.Language == "en-US");
         }
     }

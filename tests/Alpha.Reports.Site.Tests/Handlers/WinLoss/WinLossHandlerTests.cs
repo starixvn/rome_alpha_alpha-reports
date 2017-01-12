@@ -68,7 +68,7 @@
         {
             // Arrange
             var message = new WinLossQuery(user);
-            message.UserLevelId = 3;
+            message.CustLevelId = 3;
             message.UserSelectedProductIds = userSelectedProductIds;
             message.IsDescendingSort = false;
             message.SortPropertyName = "CustName";
@@ -77,9 +77,9 @@
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
 
             var routeValue = new WinLossQuery(user);
-            routeValue.UserLevelId = 3;
+            routeValue.CustLevelId = 3;
             routeValue.UserSelectedProductIds = userSelectedProductIds;
-            routeValue.DrillDownInfoJson = "[{'CustId':0,'CustName':'','UserLevelId':3}]";
+            routeValue.DrillDownInfoJson = "[{'CustId':0,'CustName':'','CustLevelId':3}]";
             routeValue.SortPropertyName = "CustName";
 
             var validUserSelectedProductIds = Enumerable.Empty<int>();
@@ -90,14 +90,14 @@
                 CustName = string.Empty,
                 Language = string.Empty,
                 UserSelectedProductIds = string.Empty,
-                UserLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId),
+                CustLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId),
                 FromDate = DefaultVariables.CurrentDate,
                 ToDate = DefaultVariables.CurrentDate,
                 IsFilterVisible = false,
                 IsDescendingSort = false,
                 SortPropertyName = "CustName",
                 Products = Enumerable.Empty<SelectListItem>(),
-                DrillDownInfoJson = "[{'CustId':0,'CustName':'','UserLevelId':3}]",
+                DrillDownInfoJson = "[{'CustId':0,'CustName':'','CustLevelId':3}]",
                 BreadcrumbLevels = new List<ActionLinkViewModel>
                 {
                     new ActionLinkViewModel(

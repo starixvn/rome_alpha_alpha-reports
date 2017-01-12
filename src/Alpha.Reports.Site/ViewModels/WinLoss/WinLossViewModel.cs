@@ -79,7 +79,7 @@
             new WinLossFilterViewModel(
                 CustId,
                 CustName,
-                UserLevel,
+                CustLevel,
                 IsHistoricReport,
                 DateRangePickerViewModel,
                 MonthPickerViewModel,
@@ -98,7 +98,7 @@
             return new WinLossActionLinkViewModel(
                     winLoss.CustId,
                     winLoss.CustName,
-                    (byte)(UserLevel.Value - 1),
+                    (byte)(CustLevel.Value - 1),
                     FromDate,
                     ToDate,
                     UserSelectedDateRangeOption,
@@ -111,18 +111,18 @@
                     DrillDownInfoJson);
         }
 
-        public UserLevel UserLevel { get; set; }
+        public UserLevel CustLevel { get; set; }
 
         public string Title
         {
             get
             {
-                if (UserLevel.IsSuperLevel())
+                if (CustLevel.IsSuperLevel())
                 {
                     return Resources.MasterWinLoss;
                 }
 
-                if (UserLevel.IsMasterLevel())
+                if (CustLevel.IsMasterLevel())
                 {
                     return Resources.AgentWinLoss;
                 }

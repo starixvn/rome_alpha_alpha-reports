@@ -33,7 +33,7 @@
                 false,
                 false,
                 0,
-                 "[{'CustId':1,'CustName':'SUPER1','UserLevelId':4}]");
+                 "[{'CustId':1,'CustName':'SUPER1','CustLevelId':4}]");
 
             // Act
             var actualCustId = winLossDetailsActionLinkViewModel.CustId;

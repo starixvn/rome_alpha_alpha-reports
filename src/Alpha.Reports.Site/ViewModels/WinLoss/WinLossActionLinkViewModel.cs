@@ -7,7 +7,7 @@
         public WinLossActionLinkViewModel(
             int custId,
             string custName,
-            byte userLevelId,
+            byte custLevelId,
             DateTime fromDate,
             DateTime toDate,
             int userSelectedDateRangeOption,
@@ -21,7 +21,7 @@
         {
             CustId = custId;
             CustName = custName;
-            UserLevelId = userLevelId;
+            CustLevelId = custLevelId;
             FromDate = fromDate;
             ToDate = toDate;
             UserSelectedDateRangeOption = userSelectedDateRangeOption;
@@ -38,7 +38,7 @@
 
         public string CustName { get; }
 
-        public byte UserLevelId { get; }
+        public byte CustLevelId { get; }
 
         public DateTime FromDate { get; }
 

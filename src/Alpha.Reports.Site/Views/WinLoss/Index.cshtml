@@ -6,13 +6,13 @@
     string downlineLevel = string.Empty;
     string winlossLevel = string.Empty;
 
-    if (Model.UserLevel.IsSuperLevel())
+    if (Model.CustLevel.IsSuperLevel())
     {
         currentLevel = Resources.Super;
         downlineLevel = Resources.Master;
         winlossLevel = "SuperNetWinLoss";
     }
-    else if (Model.UserLevel.IsMasterLevel())
+    else if (Model.CustLevel.IsMasterLevel())
     {
         currentLevel = Resources.Master;
         downlineLevel = Resources.Agent;
@@ -48,21 +48,21 @@
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="2">@Resources.GrossComm</th>
             <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="1">
                 <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>
-                @(Model.UserLevel.IsAgentLevel() ? Resources.GrossComm :
-                  (Model.UserLevel.IsSuperLevel() ? Resources.GrossComAndMasterTotal : Resources.GrossComAndAgentTotal))
+                @(Model.CustLevel.IsAgentLevel() ? Resources.GrossComm :
+                  (Model.CustLevel.IsSuperLevel() ? Resources.GrossComAndMasterTotal : Resources.GrossComAndAgentTotal))
             </th>
 
-            @if (Model.UserLevel.IsSuperLevel())
+            @if (Model.CustLevel.IsSuperLevel())
             {
                 <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="MasterNetWinLoss.WinLoss" data-colindex="2">@Resources.MasterTotal</th>
             }
 
-            @if (Model.UserLevel.IsMasterLevel())
+            @if (Model.CustLevel.IsMasterLevel())
             {
                 <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="AgentNetWinLoss.WinLoss" data-colindex="2">@Resources.AgentTotal</th>
             }
 
-            @if (Model.UserLevel.IsAgentLevel())
+            @if (Model.CustLevel.IsAgentLevel())
             {
                 <th colspan="3" class="col-level hidden-stack-mode">@Resources.Member</th>
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="2">
@@ -87,14 +87,12 @@
                 </th>
             }
 
-  
-            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="@(Model.UserLevel.IsAgentLevel() ? 9 : 7)">
+            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="@(Model.CustLevel.IsAgentLevel() ? 9 : 7)">
                 @Resources.Company
             </th>
-
         </tr>
         <tr class="thead-row2">
-            @if (Model.UserLevel.IsAgentLevel())
+            @if (Model.CustLevel.IsAgentLevel())
             {
                 <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MemberNetWinLoss.WinLoss" data-colindex="3">@Resources.WinLoss</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Comm" data-colindex="4">@Resources.Comm</th>
@@ -126,7 +124,7 @@
     }
     else
     {
-        @NoInformation.Render(colspan: Model.UserLevel.IsAgentLevel() ? 10 : 8)
+        @NoInformation.Render(colspan: Model.CustLevel.IsAgentLevel() ? 10 : 8)
     }
 </table>
 
@@ -135,7 +133,7 @@
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
     <input type="hidden" name="UserSelectedProductIds" value="@Model.UserSelectedProductIds" />
-    <input type="hidden" name="UserLevelId" value="@Model.UserLevel.Value" />
+    <input type="hidden" name="CustLevelId" value="@Model.CustLevel.Value" />
 </form>
 
 @section Scripts {
@@ -152,7 +150,7 @@
             }
             else
             {
-                if (Model.UserLevel.IsAgentLevel())
+                if (Model.CustLevel.IsAgentLevel())
                 {
                     @Html.ActionLink(
                     linkText: data.CustName,
@@ -187,7 +185,7 @@
 
         @if (Model.IsStackMode)
         {
-            if (Model.UserLevel.IsAgentLevel())
+            if (Model.CustLevel.IsAgentLevel())
             {
                 @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.GrossComm);
 
@@ -195,7 +193,7 @@
             else
             {
                 @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.GrossComm,
-                                            Model.UserLevel.IsSuperLevel() ? data.MasterNetWinLoss.Total : data.AgentNetWinLoss.Total);
+                                            Model.CustLevel.IsSuperLevel() ? data.MasterNetWinLoss.Total : data.AgentNetWinLoss.Total);
             }
 
             @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
@@ -209,8 +207,8 @@
             @HtmlHelpers.RenderNumberCell(data.GrossComm)
 
             @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
-            @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, Model.UserLevel.IsAgentLevel() ? true : false)
-            @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss, Model.UserLevel.IsMasterLevel() ? true : false)
+            @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, Model.CustLevel.IsAgentLevel() ? true : false)
+            @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss, Model.CustLevel.IsMasterLevel() ? true : false)
             @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
         }
         <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>

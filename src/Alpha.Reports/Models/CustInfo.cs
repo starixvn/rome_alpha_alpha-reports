@@ -2,17 +2,17 @@
 {
     public class CustInfo
     {
-        public CustInfo(int custId, string custName, byte userLevelId)
+        public CustInfo(int custId, string custName, byte custLevelId)
         {
             CustId = custId;
             CustName = custName;
-            UserLevelId = userLevelId;
+            CustLevelId = custLevelId;
         }
 
         public int CustId { get; }
 
         public string CustName { get; }
 
-        public byte UserLevelId { get; }
+        public byte CustLevelId { get; }
     }
 }

@@ -33,7 +33,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
+            var userLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
             var products = productService.GetProductsForCustomer(message.CustId);
 
             var winLossParam = CreateWinLossParamater(message, userLevel);
@@ -41,12 +41,12 @@
 
             var drillDownInfo = BuildDrillDownInfo(message);
 
-            var sortPropertyName = GetSortedProperty(message.UserLevelId, message.SortPropertyName);
+            var sortPropertyName = GetSortedProperty(message.CustLevelId, message.SortPropertyName);
             var viewModel = new WinLossViewModel(reportData.ToList())
             {
                 CustId = winLossParam.CustId,
                 CustName = message.CustName,
-                UserLevel = userLevel,
+                CustLevel = userLevel,
                 FromDate = winLossParam.FromDate,
                 ToDate = winLossParam.ToDate,
 
@@ -81,7 +81,7 @@
                         routeValues.IsHistoricReport = message.IsHistoricReport;
                         routeValues.IsFilterVisible = message.IsFilterVisible;
                         routeValues.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-                        routeValues.UserLevelId = custInfo.UserLevelId;
+                        routeValues.CustLevelId = custInfo.CustLevelId;
                         routeValues.DrillDownInfoJson = drillDownInfoByLevelJson;
 
                         return routeValues;

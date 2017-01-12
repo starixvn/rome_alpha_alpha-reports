@@ -2,11 +2,11 @@
 {
     public interface IUser
     {
-        int CustId { get; }
+        int Id { get; }
 
-        string CustName { get; }
+        string Name { get; }
 
-        byte UserLevelId { get; }
+        byte LevelId { get; }
 
         string Language { get; }
     }

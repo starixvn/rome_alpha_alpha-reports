@@ -34,7 +34,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
+            var userLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
             var products = productService.GetProductsForCustomer(message.CustId);
 
             var winLossDetailParam = CreateParameter(message, userLevel);
@@ -47,7 +47,7 @@
             {
                 CustId = winLossDetailParam.CustId,
                 CustName = message.CustName,
-                UserLevel = userLevel,
+                CustLevel = userLevel,
                 FromDate = winLossDetailParam.FromDate,
                 ToDate = winLossDetailParam.ToDate,
                 Title = GetReportNameByLevel(userLevel),
@@ -87,7 +87,7 @@
                         routeValues.IsHistoricReport = message.IsHistoricReport;
                         routeValues.IsFilterVisible = message.IsFilterVisible;
                         routeValues.UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-                        routeValues.UserLevelId = custInfo.UserLevelId;
+                        routeValues.CustLevelId = custInfo.CustLevelId;
                         routeValues.DrillDownInfoJson = drillDownInfoByLevelJson;
 
                         return routeValues;

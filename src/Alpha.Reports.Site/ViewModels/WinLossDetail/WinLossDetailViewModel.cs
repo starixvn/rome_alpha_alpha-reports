@@ -77,7 +77,7 @@
             new WinLossDetailFilterViewModel(
                 CustId,
                 CustName,
-                UserLevel,
+                CustLevel,
                 IsHistoricReport,
                 DateRangePickerViewModel,
                 MonthPickerViewModel,
@@ -96,7 +96,7 @@
             return new WinLossDetailsActionLinkViewModel(
                     winLossDetail.CustId,
                     winLossDetail.CustName,
-                    (byte)(UserLevel.Value - 1),
+                    (byte)(CustLevel.Value - 1),
                     FromDate,
                     ToDate,
                     UserSelectedDateRangeOption,
@@ -114,7 +114,7 @@
 
         public bool IsSetDefaultStackMode { get; set; }
 
-        public UserLevel UserLevel { get; set; }
+        public UserLevel CustLevel { get; set; }
 
         public ReportData<WinLossDetailModel> ReportData { get; set; }
 

@@ -55,7 +55,7 @@
             var custInfo = new CustInfo(0, string.Empty, userLevelId);
 
             // Act
-            var actualUserLevelId = custInfo.UserLevelId;
+            var actualUserLevelId = custInfo.CustLevelId;
 
             // Assert
             Assert.Equal(expectedUserLevelId, actualUserLevelId);

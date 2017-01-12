@@ -11,7 +11,7 @@
         public WinLossDetailFilterViewModel(
             int custId,
             string custName,
-            UserLevel userLevel,
+            UserLevel custLevel,
             bool isHictoricReport,
             DateRangePickerViewModel dateRangePickerViewModel,
             MonthPickerViewModel monthPickerViewModel,
@@ -32,7 +32,7 @@
               : Resources.CanOnlyViewDataAfterTimeCurrentReport,
             minDate.ToShortDateWithSlash());
             Visible = visible;
-            UserLevel = userLevel;
+            CustLevel = custLevel;
             DrillDownInfoJson = drillDownInfoJson;
         }
 
@@ -40,7 +40,7 @@
 
         public string CustName { get; }
 
-        public UserLevel UserLevel { get; }
+        public UserLevel CustLevel { get; }
 
         public bool IsHistoricReport { get; }
 

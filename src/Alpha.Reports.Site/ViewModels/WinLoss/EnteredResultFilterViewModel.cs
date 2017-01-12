@@ -9,7 +9,7 @@
     public class EnteredResultFilterViewModel
     {
         public EnteredResultFilterViewModel(
-            UserLevel userLevel,
+            UserLevel custLevel,
             DateRangePickerViewModel dateRangePickerViewModel,
             DateTime minDate)
         {
@@ -17,10 +17,10 @@
             ViewDataInstructionMessage = string.Format(
                Resources.CanOnlyViewDataAfterTimeCurrentReport,
             minDate.ToShortDateWithSlash());
-            UserLevel = userLevel;
+            CustLevel = custLevel;
         }
 
-        public UserLevel UserLevel { get; }
+        public UserLevel CustLevel { get; }
 
         public bool Visible { get; }
 

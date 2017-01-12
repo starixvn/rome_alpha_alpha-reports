@@ -26,11 +26,11 @@
         [InlineData(3, "Agent Win Loss")]
         [InlineData(2, "Member Win Loss")]
         public void Title_EnteredResult_ReturnCorrectTitle(
-            byte userLevel,
+            byte custLevelId,
             string expectedTitle)
         {
             // Arrange
-            enteredResultViewModel.UserLevel = Enumeration.FromValue<UserLevel>(userLevel);
+            enteredResultViewModel.CustLevel = Enumeration.FromValue<UserLevel>(custLevelId);
 
             // Act & Assert
             Assert.Equal(enteredResultViewModel.Title, expectedTitle);

@@ -51,14 +51,14 @@
         {
             // Arrange
             var message = new EnteredSportResultQuery(user);
-            message.UserLevelId = (byte)4;
+            message.CustLevelId = (byte)4;
             message.CustId = 1596;
             var reportData = Enumerable.Empty<EnteredSportResult>();
             reportService.GetEnteredSportResults().Returns(reportData);
 
             var expectedResult = new EnteredResultViewModel
             {
-                UserLevel = Enumeration.FromValue<UserLevel>(4),
+                CustLevel = Enumeration.FromValue<UserLevel>(4),
                 FromDate = DateTimeManager.Now,
                 ToDate = DateTimeManager.Now,
                 Language = message.Language,

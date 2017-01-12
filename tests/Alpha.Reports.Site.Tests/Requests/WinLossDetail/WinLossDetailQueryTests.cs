@@ -20,7 +20,7 @@
         {
             // Arrange
             var expectedCustId = 1;
-            user.CustId.Returns(expectedCustId);
+            user.Id.Returns(expectedCustId);
             var winLossDetailQuery = new WinLossDetailQuery(user);
 
             // Act
@@ -35,7 +35,7 @@
         {
             // Arrange
             var expectedCustName = "CustName";
-            user.CustName.Returns(expectedCustName);
+            user.Name.Returns(expectedCustName);
             var winLossDetailQuery = new WinLossDetailQuery(user);
 
             // Act
@@ -49,15 +49,15 @@
         public void UserLevelId_NotSetCustId_ReturnsRoleIdOfUserSession()
         {
             // Arrange
-            var expectedRoleId = (byte)4;
-            user.UserLevelId.Returns(expectedRoleId);
+            var expectedCustLevelId = (byte)4;
+            user.LevelId.Returns(expectedCustLevelId);
             var winLossDetailQuery = new WinLossDetailQuery(user);
 
             // Act
-            var actualRoleId = winLossDetailQuery.UserLevelId;
+            var actualCustLevelId = winLossDetailQuery.CustLevelId;
 
             // Assert
-            Assert.Equal(expectedRoleId, actualRoleId);
+            Assert.Equal(expectedCustLevelId, actualCustLevelId);
         }
     }
 }
