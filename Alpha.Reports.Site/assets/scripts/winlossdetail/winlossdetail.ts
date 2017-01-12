@@ -232,7 +232,7 @@ class WinLossDetailView {
     afterSort = () => {
         var this$ = this.$;
         if (this.hasAllDataOnClient) {
-            var sortedColumn = this$(".sorting-asc");
+            var sortedColumn = this$(".sorting-asc:visible");
             var direction = !sortedColumn.length;
             if (sortedColumn.length === 0) {
                 var sortedColumn = this$(".sorting-desc");

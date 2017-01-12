@@ -9,14 +9,14 @@
             bool hasStackIcon,
             bool hasHideFilterIcon,
             bool isStackMode,
-            bool hideFilter,
+            bool isFilterVisible,
             IEnumerable<ActionLinkViewModel> breadcrumbLevels)
         {
             Title = title;
             HasStackIcon = hasStackIcon;
             HasHideFilterIcon = hasHideFilterIcon;
             IsStackMode = isStackMode;
-            HideFilter = hideFilter;
+            IsFilterVisible = isFilterVisible;
             BreadcrumbLevels = breadcrumbLevels;
         }
 
@@ -28,7 +28,7 @@
 
         public bool IsStackMode { get; }
 
-        public bool HideFilter { get; }
+        public bool IsFilterVisible { get; }
 
         public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; set; }
     }

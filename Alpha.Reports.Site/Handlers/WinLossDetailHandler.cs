@@ -4,6 +4,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using App_GlobalResources;
+    using Constants;
     using Enumerations;
     using Extensions;
     using Fanex.Common;
@@ -46,7 +47,7 @@
         {
             if (message == null)
             {
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
             }
 
             var userLevel = Enumeration.FromValue<UserLevel>(message.UserLevelId);
@@ -56,6 +57,7 @@
 
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
 
+            var canSort = reportData.DataSource != null && reportData.DataSource.Count() > 1;
             var viewModel = new WinLossDetailViewModel
             {
                 CustId = winLossDetailParam.CustId,
@@ -75,8 +77,8 @@
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
                 IsDirectReportViewAction = message.IsDirectReportViewAction,
 
-                SortPropertyName = winLossDetailParam.SortByPropertyName,
-                IsDescendingSort = winLossDetailParam.IsDescendingSort,
+                SortPropertyName = canSort ? winLossDetailParam.SortByPropertyName : DefaultVariables.SortPropertyName,
+                IsDescendingSort = canSort && winLossDetailParam.IsDescendingSort,
                 HasSubmittedParams = message.HasSubmittedParams,
                 BreadcrumbLevels = BuildBreadcrumbLevels(
                     message,
@@ -110,7 +112,7 @@
         {
             if (message == null)
             {
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
             }
 
             var products = string.IsNullOrWhiteSpace(message.UserSelectedProductIds)

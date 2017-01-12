@@ -25,7 +25,7 @@
             {
                 UserSelectedProductIds = null,
                 SortPropertyName = null,
-                IsDescendingSort = true,
+                IsDescendingSort = false,
                 IsStackMode = false,
                 IsHistoricReport = false,
                 IsFilterVisible = true,

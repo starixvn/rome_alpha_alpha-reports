@@ -9,6 +9,7 @@
         public const int PageIndex = 1;
 
         public const int MaxRowExcelFile = 65536;
+        public const string SortPropertyName = "CustName";
 
         public static CacheItemOptions CacheItemOptions
         {

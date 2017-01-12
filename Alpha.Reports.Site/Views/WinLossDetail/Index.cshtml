@@ -67,7 +67,21 @@
                 </th>
             }
 
-            <th class="sorting" rowspan="2" data-sortedname="Company" data-colindex="17">@Resources.Company</th>
+            @if (Model.UserLevel.IsAgentLevel())
+            {
+                <th class="sorting hidden-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="11">@Resources.Company</th>
+                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="5">@Resources.Company</th>
+            }
+            else if (Model.UserLevel.IsMasterLevel())
+            {
+                <th class="sorting hidden-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="14">@Resources.Company</th>
+                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="6">@Resources.Company</th>
+            }
+            else
+            {
+                <th class="sorting hidden-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="17">@Resources.Company</th>
+                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="7">@Resources.Company</th>
+            }
         </tr>
         <tr class="thead-row2">
             <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MemberNetWinLoss.WinLoss" data-colindex="5">@Resources.WinLoss</th>
@@ -98,9 +112,9 @@
 
         <tbody>
             @foreach (var data in Model
-                    .ReportData
-                    .DataSource
-                    .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                                        .ReportData
+                                                        .DataSource
+                                                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath, isEvenRow)
                 isEvenRow = !isEvenRow;
