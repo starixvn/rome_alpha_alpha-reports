@@ -5,7 +5,7 @@
     using System.Data;
     using Database.WinLossDetail;
     using Extensions;
-    using Fanex.Data;
+    using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
@@ -16,18 +16,17 @@
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
+    [Collection("ObjectDbCollection")]
     public class WinLossDetailDataAccessImplTests
     {
-        private readonly IObjectDb objectDb;
+        private readonly ObjectDbFixture objectDbFixture;
         private readonly WinLossDetailDataAccessImpl winLossDetailDataAccessImpl;
         private readonly CompareLogic compareLogic;
 
-        public WinLossDetailDataAccessImplTests()
+        public WinLossDetailDataAccessImplTests(ObjectDbFixture objectDbFixture)
         {
-            objectDb = Substitute.For<IObjectDb>();
+            this.objectDbFixture = objectDbFixture;
             winLossDetailDataAccessImpl = new WinLossDetailDataAccessImpl();
-            ObjectDbFactory.CreateInstance = (settingKey) => objectDb;
-
             compareLogic = new CompareLogic();
         }
 
@@ -57,7 +56,7 @@
                 Enumeration.FromValue<UserLevel>(4));
 
             var dataSet = WinLossDetailDatabase.MasterWinLoss.CreateDataReader();
-            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetailModel>()
             {
@@ -95,7 +94,7 @@
                 Enumeration.FromValue<UserLevel>(3));
 
             var dataSet = WinLossDetailDatabase.AgentWinLoss.CreateDataReader();
-            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetailModel>()
             {
@@ -133,7 +132,7 @@
                 Enumeration.FromValue<UserLevel>(2));
 
             var dataSet = WinLossDetailDatabase.MemberWinLoss.CreateDataReader();
-            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetailModel>()
             {
@@ -171,7 +170,7 @@
                 Enumeration.FromValue<UserLevel>(4));
 
             IDataReader dataReader = null;
-            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataReader);
+            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataReader);
 
             var expectedData = new ReportData<WinLossDetailModel>(
                 new List<WinLossDetailModel>(),
@@ -203,7 +202,7 @@
                 Enumeration.FromValue<UserLevel>(4));
 
             var dataSet = WinLossDetailDatabase.MasterWinLossWinNoTotalTable.CreateDataReader();
-            objectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
+            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
 
             var winLossDetails = new List<WinLossDetailModel>()
             {

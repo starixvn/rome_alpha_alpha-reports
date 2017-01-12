@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\FanexCacheCollection.cs" />
+    <Compile Include="Collections\ObjectDbCollection.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\RoleId.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteriaTests.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Extensions\EnumerableExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
     <Compile Include="Fixtures\FanexCacheFixture.cs" />
+    <Compile Include="Fixtures\ObjectDbFixture.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="ModelsForTesting\UserLevelForTesting.cs" />

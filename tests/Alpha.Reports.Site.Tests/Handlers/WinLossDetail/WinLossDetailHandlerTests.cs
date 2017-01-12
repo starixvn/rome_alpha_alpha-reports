@@ -10,6 +10,7 @@
     using Constants;
     using Enumerations;
     using Extensions;
+    using Fixtures;
     using NSubstitute;
     using Params;
     using Reports.Models;
@@ -22,25 +23,25 @@
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
+    [Collection("UserCollection")]
     public class WinLossDetailHandlerTests
     {
         private readonly ProductService productService;
-        private readonly WinLossDetailService reportService;
         private readonly WinLossDetailHandler winLossDetailHandler;
-        private readonly IUser user;
+        private readonly UserFixture userFixture;
         private readonly ReportData<WinLossDetailModel> reportData;
 
-        public WinLossDetailHandlerTests()
+        public WinLossDetailHandlerTests(UserFixture userFixture)
         {
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
 
             reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
-            reportService = Substitute.For<WinLossDetailService>();
+            var reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
-            user = Substitute.For<IUser>();
-            winLossDetailHandler = new WinLossDetailHandler(productService, reportService);
+            this.userFixture = userFixture;
+            winLossDetailHandler = new WinLossDetailHandler(productService, reportService, userFixture.User);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -69,7 +70,7 @@
             string userSelectedProductIds)
         {
             // Arrange
-            var message = new WinLossDetailQuery(user);
+            var message = new WinLossDetailQuery(userFixture.User);
             message.CustLevelId = 4;
             message.UserSelectedProductIds = userSelectedProductIds;
 

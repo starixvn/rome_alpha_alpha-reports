@@ -5,18 +5,22 @@
     using System.Threading;
     using System.Web.Mvc;
     using Constants;
+    using Fixtures;
     using Site.ViewModels.WinLossDetail;
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
+    [Collection("UserCollection")]
     public class WinLossDetailViewModelTests
     {
         private const int AllBetProductId = 21;
         private readonly WinLossDetailViewModel winLossDetailViewModel;
+        private readonly UserFixture userFixture;
 
-        public WinLossDetailViewModelTests()
+        public WinLossDetailViewModelTests(UserFixture userFixture)
         {
             winLossDetailViewModel = new WinLossDetailViewModel();
+            this.userFixture = userFixture;
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

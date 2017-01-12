@@ -24,7 +24,7 @@
             Assert.True(
                 user.Id == 1
                 && user.Name == "username"
-                && user.LevelId == (byte)2
+                && user.LevelId == 2
                 && user.Language == "en-US");
         }
     }

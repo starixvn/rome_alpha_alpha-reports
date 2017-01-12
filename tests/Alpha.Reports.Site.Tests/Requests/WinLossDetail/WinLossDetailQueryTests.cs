@@ -12,6 +12,7 @@
 
         public WinLossDetailQueryTests()
         {
+            // this substitute make test slow
             user = Substitute.For<IUser>();
         }
 

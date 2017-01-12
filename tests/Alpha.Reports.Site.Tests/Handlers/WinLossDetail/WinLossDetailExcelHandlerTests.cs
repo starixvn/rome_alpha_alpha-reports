@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Threading;
     using Constants;
+    using Fixtures;
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Params;
@@ -17,22 +18,21 @@
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
+    [Collection("UserCollection")]
     public class WinLossDetailExcelHandlerTests
     {
         private readonly Workbook<WinLossDetailModel> workbook;
-        private readonly ProductService productService;
-        private readonly WinLossDetailService reportService;
         private readonly WinLossDetailExcelHandler winLossDetailExcelHandler;
         private readonly ReportData<WinLossDetailModel> reportData;
-        private readonly IUser user;
+        private readonly UserFixture userFixture;
 
-        public WinLossDetailExcelHandlerTests()
+        public WinLossDetailExcelHandlerTests(UserFixture userFixture)
         {
-            productService = Substitute.For<ProductService>();
+            var productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
 
             reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
-            reportService = Substitute.For<WinLossDetailService>();
+            var reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
             workbook = Substitute.For<Workbook<WinLossDetailModel>>();
@@ -43,7 +43,7 @@
             workbook.Footer(Arg.Any<WinLossDetailModel>(), Arg.Any<Mapper<WinLossDetailModel>>()).Returns(workbook);
             workbook.Sheet(Arg.Any<string>()).Returns(workbook);
 
-            user = Substitute.For<IUser>();
+            this.userFixture = userFixture;
             winLossDetailExcelHandler = Substitute.ForPartsOf<WinLossDetailExcelHandler>(productService, reportService, workbook);
             winLossDetailExcelHandler.MapPath = (path) => path;
             winLossDetailExcelHandler.IsFileExist = (path) => true;
@@ -218,7 +218,7 @@
 
         private WinLossDetailExcelQuery CreateExportExcelQuery(byte custLevelId)
         {
-            var result = new WinLossDetailExcelQuery(user);
+            var result = new WinLossDetailExcelQuery(userFixture.User);
             result.CustLevelId = custLevelId;
             result.FromDate = DefaultVariables.CurrentDate;
             result.ToDate = DefaultVariables.CurrentDate;

@@ -6,21 +6,25 @@
     using System.Linq;
     using System.Web.Mvc;
     using Extensions;
+    using Fixtures;
     using Reports.Models;
     using Site.Handlers;
     using Site.Requests;
     using Xunit;
 
+    [Collection("UserCollection")]
     public class BaseHandlerTests
     {
         private const string ControllerName = "WinLossDetail";
         private const string ActionName = "Index";
 
         private readonly BaseHandler baseHandler;
+        private readonly UserFixture userFixture;
 
-        public BaseHandlerTests()
+        public BaseHandlerTests(UserFixture userFixture)
         {
             baseHandler = new BaseHandler();
+            this.userFixture = userFixture;
         }
 
         [Fact]
