@@ -23,7 +23,7 @@
 
         public IEnumerable<OutstandingData> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId)
         {
-            if (custId <= 0 || custLevel > userLevel)
+            if (custId <= 0 || custLevel.IsUplineOf(userLevel))
             {
                 return Enumerable.Empty<OutstandingData>();
             }
