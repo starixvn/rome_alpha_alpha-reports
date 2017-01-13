@@ -296,7 +296,83 @@
                 textExtraction: jasmine.any(Function)
             });
         });
+
+        describe("Had Data On Client", () => {
+            beforeEach(() => {
+            });
+
+            it("Table sorter sorted descending column on normal mode => onSort was called", () => {
+                // arrange
+                setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
+                                <thead class="tableFloatingHeaderOriginal">
+                                    <th class="sorting sorting-desc" data-sortedname="Column1" data-colindex="0">Column 1</th>
+                                    <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
+                                </thead>
+                            </table>
+                        </body>`);
+                sortComponent.render(new SortOption($("#table-report"), true, true, () => null, {}));
+                spyOn(sortComponent, "onSort");
+
+                // act
+                sortComponent.bindTableSorter("Column1");
+                sortComponent.$sortContainer.trigger("sortEnd");
+
+                // assert
+                let isDescendingSort = true;
+                let sortColumnName = "Column1";
+                expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
+            });
+
+            it("Table sorter sorted ascending column on normal mode => onSort was called", () => {
+                // arrange
+                setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
+                                <thead class="tableFloatingHeaderOriginal">
+                                    <th class="sorting sorting-asc" data-sortedname="Column1" data-colindex="0">Column 1</th>
+                                    <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
+                                </thead>
+                            </table>
+                        </body>`);
+                sortComponent.render(new SortOption($("#table-report"), true, true, () => null, {}));
+                spyOn(sortComponent, "onSort");
+
+                // act
+                sortComponent.bindTableSorter("Column1");
+                sortComponent.$sortContainer.trigger("sortEnd");
+
+                // assert
+                let isDescendingSort = false;
+                let sortColumnName = "Column1";
+                expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
+            });
+
+            it("Table sorter sorted ascending column on stack mode => onSort was called", () => {
+                // arrange
+                setFixtures(`<body>
+                            <table id="table-report2" class="stack-mode" data-descendingsort="0" data-sortedcolumn="Column1">
+                                <thead class="tableFloatingHeaderOriginal">
+                                    <th class="sorting sorting-asc visible-stack-mode" data-sortedname="Column1" data-colindex="0">Column 1</th>
+                                    <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
+                                </thead>
+                            </table>
+                        </body>`);
+                sortComponent.render(new SortOption($("#table-report2"), true, true, () => null, {}));
+                spyOn(sortComponent, "onSort");
+                spyOn($.fn, "tablesorter").and.callFake(() => null);
+
+                // act
+                sortComponent.bindTableSorter("Column1");
+                sortComponent.$sortContainer.trigger("sortEnd");
+
+                // assert
+                let isDescendingSort = false;
+                let sortColumnName = "Column1";
+                expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
+            });
+        });
     });
+
     describe("textExtraction", () => {
         it("Combined Cell -> Returns First Child Data (Sort Combined Column mean Sort By Win Loss)", () => {
             // arrange
