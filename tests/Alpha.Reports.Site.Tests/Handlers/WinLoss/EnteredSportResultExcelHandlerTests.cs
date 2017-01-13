@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Fixtures;
     using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
@@ -14,14 +15,16 @@
     using Xunit;
 
     [Trait("Category", "WinLoss")]
+    [Collection("UserCollection")]
+
     public class EnteredSportResultExcelHandlerTests
     {
         private readonly WinLossService reportService;
         private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
         private readonly EnteredSportResultExcelHandler enteredSportResultExcelHandler;
-        private readonly IUser user;
+        private readonly UserFixture userFixture;
 
-        public EnteredSportResultExcelHandlerTests()
+        public EnteredSportResultExcelHandlerTests(UserFixture userFixture)
         {
             reportService = Substitute.For<WinLossService>();
             enteredSportResultWorkbook = Substitute.For<Workbook<EnteredSportResult>>();
@@ -33,7 +36,7 @@
             enteredSportResultExcelHandler = Substitute.ForPartsOf<EnteredSportResultExcelHandler>(reportService, enteredSportResultWorkbook);
             enteredSportResultExcelHandler.MapPath = Substitute.For<Func<string, string>>();
             enteredSportResultExcelHandler.IsFileExist = (path) => true;
-            user = Substitute.For<IUser>();
+            this.userFixture = userFixture;
         }
 
         [Fact]
@@ -117,7 +120,7 @@
 
         private EnteredSportResultExcelQuery CreateExportEnteredResultsExcelQuery(byte custLevelId)
         {
-            var exportEnteredResultQuery = new EnteredSportResultExcelQuery(user);
+            var exportEnteredResultQuery = new EnteredSportResultExcelQuery(userFixture.User);
             exportEnteredResultQuery.CustLevelId = custLevelId;
 
             return exportEnteredResultQuery;

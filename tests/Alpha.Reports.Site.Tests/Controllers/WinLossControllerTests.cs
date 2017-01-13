@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Tests.Controllers
 {
+    using Fixtures;
     using MediatR;
     using NSubstitute;
     using Reports.Models;
@@ -9,24 +10,25 @@
     using Xunit;
 
     [Trait("Category", "WinLoss")]
+    [Collection("UserCollection")]
     public class WinLossControllerTests
     {
         private readonly IMediator mediator;
         private readonly WinLossController winLossController;
-        private readonly IUser user;
+        private readonly UserFixture userFixture;
 
-        public WinLossControllerTests()
+        public WinLossControllerTests(UserFixture userFixture)
         {
             mediator = Substitute.For<IMediator>();
             winLossController = new WinLossController(mediator);
-            user = Substitute.For<IUser>();
+            this.userFixture = userFixture;
         }
 
         [Fact]
         public void WinLoss_Always_CallsMediatorSendWinLossQuery()
         {
             // Arrange
-            var message = new WinLossQuery(user);
+            var message = new WinLossQuery(userFixture.User);
 
             // Act
             winLossController.Index(message);
@@ -39,7 +41,7 @@
         public void WinLossExcel_Always_CallsMediatorSendExportWinLossQuery()
         {
             // Arrange
-            var message = new WinLossExcelQuery(user);
+            var message = new WinLossExcelQuery(userFixture.User);
             mediator.Send<ExcelFileViewModel>(Arg.Any<WinLossExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act

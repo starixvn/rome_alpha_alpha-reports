@@ -6,6 +6,7 @@
     using System.Threading;
     using Constants;
     using Enumerations;
+    using Fixtures;
     using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
@@ -18,15 +19,16 @@
     using Xunit;
 
     [Trait("Category", "WinLoss")]
+    [Collection("UserCollection")]
     public class WinLossExcelHandlerTest
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
         private readonly Workbook<WinLossModel> winlossWorkbook;
         private readonly WinLossExcelHandler winLossExcelHandler;
-        private readonly IUser user;
+        private readonly UserFixture userFixture;
 
-        public WinLossExcelHandlerTest()
+        public WinLossExcelHandlerTest(UserFixture userFixture)
         {
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
@@ -40,7 +42,7 @@
             winlossWorkbook.Footer(Arg.Any<WinLossModel>(), Arg.Any<Mapper<WinLossModel>>()).Returns(winlossWorkbook);
             winlossWorkbook.Sheet(Arg.Any<string>()).Returns(winlossWorkbook);
 
-            user = Substitute.For<IUser>();
+            this.userFixture = userFixture;
             winLossExcelHandler = Substitute.ForPartsOf<WinLossExcelHandler>(productService, reportService, winlossWorkbook);
             winLossExcelHandler.MapPath = (path) => path;
             winLossExcelHandler.IsFileExist = (path) => true;
@@ -222,7 +224,7 @@
 
         private WinLossExcelQuery CreateExportWinlossExcelQuery(byte custLevelId)
         {
-            var exportWinLossQuery = new WinLossExcelQuery(user);
+            var exportWinLossQuery = new WinLossExcelQuery(userFixture.User);
             exportWinLossQuery.CustLevelId = custLevelId;
             exportWinLossQuery.FromDate = DefaultVariables.CurrentDate;
             exportWinLossQuery.ToDate = DefaultVariables.CurrentDate;

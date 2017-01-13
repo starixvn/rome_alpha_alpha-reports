@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using Database.WinLoss;
-    using Fanex.Data;
+    using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLoss;
@@ -16,19 +16,19 @@
     using Xunit;
 
     [Trait("Category", "WinLoss")]
+    [Collection("ObjectDbCollection")]
     public class WinLossDataAccessImplTests
     {
-        private readonly IObjectDb objectDb;
+        private readonly ObjectDbFixture objectDbFixture;
         private readonly WinLossDataAccessImpl winLossDataAccessImpl;
 
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
         private readonly CompareLogic compareLogic;
 
-        public WinLossDataAccessImplTests()
+        public WinLossDataAccessImplTests(ObjectDbFixture objectDbFixture)
         {
-            objectDb = Substitute.For<IObjectDb>();
+            this.objectDbFixture = objectDbFixture;
             winLossDataAccessImpl = new WinLossDataAccessImpl();
-            ObjectDbFactory.CreateInstance = (settingKey) => objectDb;
             compareLogic = new CompareLogic();
         }
 
@@ -50,7 +50,7 @@
             var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
 
             var dataSet = WinLossDatabase.MasterWinLoss.CreateDataReader();
-            objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossModel>()
             {
@@ -74,7 +74,7 @@
             var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
 
             var dataSet = WinLossDatabase.AgentWinLoss.CreateDataReader();
-            objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossModel>()
             {
@@ -98,7 +98,7 @@
             var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
 
             var dataSet = WinLossDatabase.MemberWinLoss.CreateDataReader();
-            objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
+            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossModel>()
             {
@@ -122,7 +122,7 @@
             var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
 
             IDataReader dataReader = null;
-            objectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataReader);
+            objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataReader);
 
             var expectedData = new List<WinLossModel>();
 
