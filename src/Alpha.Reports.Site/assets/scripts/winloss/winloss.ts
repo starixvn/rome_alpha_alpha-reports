@@ -104,9 +104,15 @@ class WinLossView {
         this.productMultiSelectionComponent.render();
 
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
-        this.isHistoricReport
-            ? this.monthPickerComponent.render()
-            : this.dateRangePickerComponent.render();
+        if (this.isHistoricReport) {
+            this.$reportForm.removeClass("hide");
+            this.monthPickerComponent.render();
+            if (this.$isFilterVisible.val().toLowerCase() !== "true") {
+                this.$reportForm.addClass("hide");
+            }
+        } else {
+            this.dateRangePickerComponent.render();
+        }
 
         if (this.$isFilterVisible.val().toString().toLowerCase() === "false") {
             this.hideFilter();
