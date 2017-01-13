@@ -5,8 +5,8 @@
         productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     });
 
-    describe("validate", () => {
-        it("Always -> Return Selected Items", () => {
+    describe("_validate", () => {
+        it("_Always -> Return Selected Items", () => {
             // arrange
             setFixtures(`<body>
                         <select id="dropdown-product">
@@ -24,8 +24,8 @@
             expect(actualSelectedItems).toEqual(actualSelectedItems);
         });
     });
-    describe("getSelectedItems", () => {
-        it("Validate Before Submit; Reselect Items after Validate Error -> Remove Class Error from dropdown", () => {
+    describe("_getSelectedItems", () => {
+        it("_Validate Before Submit; Reselect Items after Validate Error -> Remove Class Error from dropdown", () => {
             // arrange
             setFixtures(`<body>
                             <select id="dropdown-product">
@@ -45,7 +45,7 @@
             // assert
             expect(productMultiSelectionComponent.$multiSelectButton.hasClass("error")).toBeFalsy();
         });
-        it("Not Validate Before Submit; Select Items after Validate Error -> Do nothing", () => {
+        it("_Not Validate Before Submit; Select Items after Validate Error -> Do nothing", () => {
             // arrange
             setFixtures(`<body>
                             <select id="dropdown-product">
@@ -65,7 +65,7 @@
             // assert
             expect(productMultiSelectionComponent.$multiSelectButton.hasClass("error")).toBeTruthy();
         });
-        it("Validate Before Submit; Not Select Items after Validate Error -> Do nothing", () => {
+        it("_Validate Before Submit; Not Select Items after Validate Error -> Do nothing", () => {
             // arrange
             setFixtures(`<body>
                             <div id="dropdown-product">
@@ -85,7 +85,7 @@
             // assert
             expect(productMultiSelectionComponent.$multiSelectButton.hasClass("error")).toBeTruthy();
         });
-        it("Validate Before Submit; Select Items after Validate Success -> Do nothing", () => {
+        it("_Validate Before Submit; Select Items after Validate Success -> Do nothing", () => {
             // arrange
             setFixtures(`<body>
                             <div id="dropdown-product">
@@ -105,7 +105,7 @@
             // assert
             expect(productMultiSelectionComponent.$multiSelectButton.hasClass("error")).toBeFalsy();
         });
-        it("Validate Before Submit; Select Items after Validate Error;Don't have button select -> Do nothing", () => {
+        it("_Validate Before Submit; Select Items after Validate Error;Don't have button select -> Do nothing", () => {
             // arrange
             setFixtures(`<body>
                             <div id="dropdown-product">
@@ -126,8 +126,8 @@
             expect($.fn.removeClass).not.toHaveBeenCalledWith("error");
         });
     });
-    describe("onChange", () => {
-        it("Always -> Validate and Update hidden input", () => {
+    describe("_onChange_Always", () => {
+        beforeEach(() => {
             // arrange
             setFixtures(`<body><div id="product-ids"></div></body>`);
             spyOn(productMultiSelectionComponent, "validate");
@@ -136,16 +136,23 @@
 
             // act
             productMultiSelectionComponent.onChange(null, false);
+        });
 
+        it("_Validate", () => {
             // assert
             expect(productMultiSelectionComponent.validate).toHaveBeenCalled();
+        });
+
+        it("_Update hidden input", () => {
+            // assert
             expect(productMultiSelectionComponent.$hiddenInput.val()).toBe("1,2,3");
         });
     });
-    describe("render", () => {
-        it("Has Product -> Bind multi selection; Cache element;", () => {
-            // arrange
-            setFixtures(`<body>
+    describe("_render", () => {
+        describe("_Has Product", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(`<body>
                             <select id="dropdown-product"
                                     data-has-any-product="true"
                                     data-label-select-products="Select Product"
@@ -159,28 +166,37 @@
                             <div class="multiselect btn"></div>
                             <div id="product-ids"></div>
                         </body>`);
-            spyOn($.fn, "multiselect");
+                spyOn($.fn, "multiselect");
 
-            // act
-            productMultiSelectionComponent.render();
-
-            // assert
-            expect($.fn.multiselect).toHaveBeenCalledWith({
-                maxHeight: 300,
-                numberDisplayed: 1,
-                nonSelectedText: "Select Product",
-                nSelectedText: " # selected",
-                allSelectedText: "All selected",
-                includeSelectAllOption: true,
-                onChange: productMultiSelectionComponent.onChange,
-                onSelectAll: productMultiSelectionComponent.onChange,
-                language: "en"
+                // act
+                productMultiSelectionComponent.render();
             });
-            expect(productMultiSelectionComponent.$multiSelectButton).toBeDefined();
+
+            it("_Bind multi selection", () => {
+                // assert
+                expect($.fn.multiselect).toHaveBeenCalledWith({
+                    maxHeight: 300,
+                    numberDisplayed: 1,
+                    nonSelectedText: "Select Product",
+                    nSelectedText: " # selected",
+                    allSelectedText: "All selected",
+                    includeSelectAllOption: true,
+                    onChange: productMultiSelectionComponent.onChange,
+                    onSelectAll: productMultiSelectionComponent.onChange,
+                    language: "en"
+                });
+            });
+
+            it("_Cache element;", () => {
+                // assert
+                expect(productMultiSelectionComponent.$multiSelectButton).toBeDefined();
+            });
         });
-        it("Not Have Product -> Bind multi selection; Cache element;", () => {
-            // arrange
-            setFixtures(`<body>
+
+        describe("_Not Have Product", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(`<body>
                             <select id="dropdown-product"
                                     data-has-any-product="false"
                                     data-label-there-is-no-product="No Product Found"
@@ -194,24 +210,29 @@
                             <div class="multiselect btn"></div>
                             <div id="product-ids"></div>
                         </body>`);
-            spyOn($.fn, "multiselect");
+                spyOn($.fn, "multiselect");
 
-            // act
-            productMultiSelectionComponent.render();
-
-            // assert
-            expect($.fn.multiselect).toHaveBeenCalledWith({
-                maxHeight: 300,
-                numberDisplayed: 1,
-                nonSelectedText: "No Product Found",
-                nSelectedText: " # selected",
-                allSelectedText: "All selected",
-                includeSelectAllOption: false,
-                onChange: productMultiSelectionComponent.onChange,
-                onSelectAll: productMultiSelectionComponent.onChange,
-                language: "en"
+                // act
+                productMultiSelectionComponent.render();
             });
-            expect(productMultiSelectionComponent.$multiSelectButton).toBeDefined();
+            it("_Bind multi selection", () => {
+                // assert
+                expect($.fn.multiselect).toHaveBeenCalledWith({
+                    maxHeight: 300,
+                    numberDisplayed: 1,
+                    nonSelectedText: "No Product Found",
+                    nSelectedText: " # selected",
+                    allSelectedText: "All selected",
+                    includeSelectAllOption: false,
+                    onChange: productMultiSelectionComponent.onChange,
+                    onSelectAll: productMultiSelectionComponent.onChange,
+                    language: "en"
+                });
+            });
+            it("_Cache element;", () => {
+                // assert
+                expect(productMultiSelectionComponent.$multiSelectButton).toBeDefined();
+            });
         });
     });
 });

@@ -7,8 +7,8 @@
         reportTooltip = new ReportTooltip($);
     });
 
-    describe("show", () => {
-        it("Reach max times to show tooltip -> Do nothing", () => {
+    describe("_show", () => {
+        it("_Reach max times to show tooltip -> Do nothing", () => {
             // arrange
             alphaReports.localStorage.set(tooltipCookieId + "-tooltip-0", 5);
             spyOn($.fn, "tooltip");
@@ -19,7 +19,7 @@
             // assert
             expect($.fn.tooltip).not.toHaveBeenCalled();
         });
-        it("Not reach max times to show tooltip -> Bind tooltip plugin", () => {
+        it("_Not reach max times to show tooltip -> Bind tooltip plugin", () => {
             // arrange
             alphaReports.localStorage.set(tooltipCookieId + "-tooltip-0", undefined);
             var tooltipSpy = spyOn($.fn, "tooltip");
@@ -33,7 +33,7 @@
                 ["show"]
             ]);
         });
-        it("Not reach max times to show tooltip -> Bind tooltip click event", () => {
+        it("_Not reach max times to show tooltip -> Bind tooltip click event", () => {
             // arrange
             setFixtures(`<body><div id="tooltip"></div></body>`);
             alphaReports.localStorage.set(tooltipCookieId + "-tooltip-0", undefined);
@@ -50,17 +50,34 @@
                 ["hide"]
             ]);
         });
-        it("Test Clock", () => {
+        it("_Not reach max times to show tooltip -> Auto Close tooltip after 5s", () => {
             // arrange
             setFixtures(`<body><div id="tooltip"></div></body>`);
             alphaReports.localStorage.set(tooltipCookieId + "-tooltip-0", undefined);
             var tooltipSpy = spyOn($.fn, "tooltip");
-            spyOn($.fn, "off").and.callThrough();
             jasmine.clock().install();
 
             // act
             reportTooltip.show();
             jasmine.clock().tick(5100);
+
+            // assert
+            expect(tooltipSpy.calls.allArgs()).toEqual([
+                [{ placement: "bottom" }],
+                ["show"],
+                ["hide"]
+            ]);
+            jasmine.clock().uninstall();
+        });
+        it("_Not reach max times to show tooltip/Click on tooltip -> Call click event", () => {
+            // arrange
+            setFixtures(`<body><div id="tooltip"></div></body>`);
+            alphaReports.localStorage.set(tooltipCookieId + "-tooltip-0", undefined);
+            var tooltipSpy = spyOn($.fn, "tooltip");
+            spyOn($.fn, "off").and.callThrough();
+
+            // act
+            reportTooltip.show();
 
             // assert
             $("#tooltip").trigger("click");
@@ -70,7 +87,6 @@
                 ["hide"]
             ]);
             expect($.fn.off).toHaveBeenCalledWith("click.tooltip");
-            jasmine.clock().uninstall();
         });
     });
 });

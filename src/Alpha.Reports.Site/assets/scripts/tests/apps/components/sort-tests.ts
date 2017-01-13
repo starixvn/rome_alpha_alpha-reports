@@ -5,8 +5,8 @@
         sortComponent = new SortComponent($);
     });
 
-    describe("render", () => {
-        it("Can not sort -> Remove icon sorting from sorting column", () => {
+    describe("_render", () => {
+        it("_Cannot sort -> Remove icon sorting from sorting column", () => {
             // arrange
             setFixtures(`<body>
                             <table id="table-report">
@@ -21,10 +21,9 @@
             // assert
             expect($(".sorting").length).toEqual(0);
         });
-        it(`Can sort/Have all data on client ->
-                Remove icon sorting from sorting column;
-                Bind Table Sorter;
-                Not bind on sort event;`, () => {
+
+        describe("_Can sort/Have all data on client", () => {
+            beforeEach(() => {
                 // arrange
                 setFixtures(`<body>
                             <table id="table-report">
@@ -37,18 +36,24 @@
 
                 // act
                 sortComponent.render(new SortOption($("#table-report"), true, true));
+            });
 
+            it("_Not Remove icon sorting from sorting column", () => {
                 // assert
                 expect($(".sorting").length).not.toEqual(0);
+            });
+            it("_Bind Table Sorter", () => {
+                // assert
                 expect(sortComponent.bindTableSorter).toHaveBeenCalled();
-
-                $("[data-sortedname=\"Column2\"]").trigger("click");
+            });
+            it("Not bind on sort event", () => {
+                // assert
                 expect(sortComponent.onSort).not.toHaveBeenCalled();
             });
-        it(`Can sort/Not Have all data on client/Descending Sort ->
-                Remove icon sorting from sorting column;
-                Bind Table Sorter;
-                Bind on sort event;`, () => {
+        });
+
+        describe("_Can sort/Not Have all data on client/Descending Sort", () => {
+            beforeEach(() => {
                 // arrange
                 setFixtures(`<body>
                                 <table id="table-report" data-descendingsort="True" data-sortedcolumn="Column1">
@@ -61,19 +66,25 @@
 
                 // act
                 sortComponent.render(new SortOption($("#table-report"), true, false));
-
+            });
+            it("_Not Remove icon sorting from sorting column", () => {
                 // assert
                 expect($(".sorting").length).not.toEqual(0);
-                expect(sortComponent.bindTableSorter).toHaveBeenCalled();
-
+            });
+            it("_Bind Table Sorter", () => {
+                // assert
                 expect($("[data-sortedname=\"Column1\"]").hasClass("sorting-desc")).toBeTruthy();
+                expect(sortComponent.bindTableSorter).toHaveBeenCalled();
+            });
+            it("_Bind on sort event", () => {
+                // assert
                 $("[data-sortedname=\"Column2\"]").trigger("click");
                 expect(sortComponent.onSort).toHaveBeenCalled();
             });
-        it(`Can sort/Not Have all data on client/Ascending Sort ->
-                Remove icon sorting from sorting column;
-                Bind Table Sorter;
-                Bind on sort event;`, () => {
+        });
+
+        describe("_Can sort/Not Have all data on client/Ascending Sort", () => {
+            beforeEach(() => {
                 // arrange
                 setFixtures(`<body>
                                 <table id="table-report" data-descendingsort="False" data-sortedcolumn="Column1">
@@ -86,15 +97,23 @@
 
                 // act
                 sortComponent.render(new SortOption($("#table-report"), true, false));
-
+            });
+            it("_Not Remove icon sorting from sorting column", () => {
                 // assert
                 expect($(".sorting").length).not.toEqual(0);
+            });
+            it("_Bind Table Sorter", () => {
+                // assert
                 expect(sortComponent.bindTableSorter).toHaveBeenCalled();
 
                 expect($("[data-sortedname=\"Column1\"]").hasClass("sorting-asc")).toBeTruthy();
+            });
+            it("_Bind on sort event", () => {
+                // assert
                 $("[data-sortedname=\"Column2\"]").trigger("click");
                 expect(sortComponent.onSort).toHaveBeenCalled();
             });
+        });
     });
 
     describe("onSort", () => {
@@ -187,8 +206,8 @@
                 expect(sortComponent.options.afterSortFunction).toHaveBeenCalled();
             });
     });
-    describe("getSortInfo", () => {
-        it("Descending Sort -> Returns Sort Info from table data", () => {
+    describe("_getSortInfo", () => {
+        it("_Descending Sort -> Returns Sort Info from table data", () => {
             // arrange
             setFixtures(`<body>
                             <table id="table-report" data-descendingsort="1" data-sortedcolumn="Column1">
@@ -206,7 +225,7 @@
             expect(actalSortInfo.isDescendingSort).toBeTruthy();
         });
 
-        it("Ascending Sort -> Returns Sort Info from table data", () => {
+        it("_Ascending Sort -> Returns Sort Info from table data", () => {
             // arrange
             setFixtures(`<body>
                             <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
@@ -225,7 +244,7 @@
         });
     });
     describe("bindTableSorter", () => {
-        it("Cannot Sort -> Don't bind tablesorter and event sort end", () => {
+        it("_Cannot Sort -> Don't bind tablesorter and event sort end", () => {
             // arrange
             setFixtures(`<body>
                             <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
@@ -248,7 +267,7 @@
             sortComponent.$sortContainer.trigger("sortEnd");
             expect(sortComponent.options.afterSortFunction).not.toHaveBeenCalled();
         });
-        it("Don't have all data on client -> Don't bind tablesorter and event sort end", () => {
+        it("_Don't have all data on client -> Don't bind tablesorter and event sort end", () => {
             // arrange
             setFixtures(`<body>
                             <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
@@ -272,7 +291,7 @@
             sortComponent.$sortContainer.trigger("sortEnd");
             expect(sortComponent.options.afterSortFunction).not.toHaveBeenCalled();
         });
-        it("Can sort;Have all data on client -> Bind tablesorter and event sort end", () => {
+        it("_Can sort;Have all data on client -> Bind tablesorter and event sort end", () => {
             // arrange
             setFixtures(`<body>
                             <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
@@ -297,11 +316,11 @@
             });
         });
 
-        describe("Had Data On Client", () => {
+        describe("_Had Data On Client", () => {
             beforeEach(() => {
             });
 
-            it("Table sorter sorted descending column on normal mode => onSort was called", () => {
+            it("_Table sorter sorted descending column on normal mode => onSort was called", () => {
                 // arrange
                 setFixtures(`<body>
                             <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
@@ -324,7 +343,7 @@
                 expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
             });
 
-            it("Table sorter sorted ascending column on normal mode => onSort was called", () => {
+            it("_Table sorter sorted ascending column on normal mode => onSort was called", () => {
                 // arrange
                 setFixtures(`<body>
                             <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
@@ -347,7 +366,7 @@
                 expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
             });
 
-            it("Table sorter sorted ascending column on stack mode => onSort was called", () => {
+            it("_Table sorter sorted ascending column on stack mode => onSort was called", () => {
                 // arrange
                 setFixtures(`<body>
                             <table id="table-report2" class="stack-mode" data-descendingsort="0" data-sortedcolumn="Column1">
@@ -373,8 +392,8 @@
         });
     });
 
-    describe("textExtraction", () => {
-        it("Combined Cell -> Returns First Child Data (Sort Combined Column mean Sort By Win Loss)", () => {
+    describe("_textExtraction", () => {
+        it("_Combined Cell -> Returns First Child Data (Sort Combined Column mean Sort By Win Loss)", () => {
             // arrange
             setFixtures(`<body>
                             <div id="extracted-element" class="combinedcell">
@@ -392,7 +411,7 @@
             // assert
             expect(actualData).toBe("Win Loss");
         });
-        it("Link Cell -> Returns HRef Data", () => {
+        it("_Link Cell -> Returns HRef Data", () => {
             // arrange
             setFixtures(`<body>
                             <div id="extracted-element" data-islink="true">
@@ -406,7 +425,7 @@
             // assert
             expect(actualData).toBe("Cust Name");
         });
-        it("Not Combined Cell/Not Link Cell -> Returns Text in Node", () => {
+        it("_Not Combined Cell/Not Link Cell -> Returns Text in Node", () => {
             // arrange
             setFixtures(`<body>
                             <div id="extracted-element">Node Data</div>

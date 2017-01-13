@@ -1,12 +1,12 @@
-﻿describe("NetTurnoverTooltipComponent_", () => {
+﻿describe("PagerComponent", () => {
     let pagerComponent: PagerComponent;
 
     beforeEach(() => {
         pagerComponent = new PagerComponent($);
     });
 
-    describe("hasAllDataOnClient", () => {
-        it("Total Records Not Greater Than Page Size => Returns true", () => {
+    describe("_hasAllDataOnClient", () => {
+        it("_Total Records Not Greater Than Page Size => Returns true", () => {
             // arrange
             pagerComponent.totalRecords = 1;
             pagerComponent.pageSize = 2;
@@ -17,7 +17,7 @@
             // assert
             expect(actualHasAllDataOnClient).toBeTruthy();
         });
-        it("Total Records  Greater Than Page Size => Returns false", () => {
+        it("_Total Records  Greater Than Page Size => Returns false", () => {
             // arrange
             pagerComponent.totalRecords = 3;
             pagerComponent.pageSize = 2;
@@ -29,8 +29,8 @@
             expect(actualHasAllDataOnClient).toBeFalsy();
         });
     });
-    describe("isShow", () => {
-        it("Total Records Less Than Min Page Size => Returns false", () => {
+    describe("_isShow", () => {
+        it("_Total Records Less Than Min Page Size => Returns false", () => {
             // arrange
             pagerComponent.totalRecords = 1;
             pagerComponent.pageList = [10, 20, 30, 50];
@@ -41,7 +41,7 @@
             // assert
             expect(actualIsSHow).toBeFalsy();
         });
-        it("Total Records Not Less Than Min Page Size => Returns true", () => {
+        it("_Total Records Not Less Than Min Page Size => Returns true", () => {
             // arrange
             pagerComponent.totalRecords = 100;
             pagerComponent.pageList = [10, 20, 30, 50];
@@ -53,8 +53,8 @@
             expect(actualIsShow).toBeTruthy();
         });
     });
-    describe("updateHiddenFields", () => {
-        it("Always -> Set values to hidden fields", () => {
+    describe("_updateHiddenFields", () => {
+        beforeEach(() => {
             // arrange
             setFixtures(`<body>
                             <input id="page-index" type="hidden"/>
@@ -65,14 +65,19 @@
 
             // act
             pagerComponent.updateHiddenFields(1, 100);
+        });
 
+        it("_Always -> Set values to Page Index", () => {
             // assert
             expect($("#page-index").val()).toBe("1");
+        });
+        it("_Always -> Set values to Page Size", () => {
+            // assert
             expect($("#page-size").val()).toBe("100");
         });
     });
-    describe("onChange", () => {
-        it("Always -> Submit Report", () => {
+    describe("_onChange", () => {
+        it("_Always -> Submit Report", () => {
             // arrange
             setFixtures(`<body>
                             <form id="report-form" type="hidden"></form>
@@ -87,29 +92,41 @@
             expect(pagerComponent.$reportForm.trigger).toHaveBeenCalledWith("submit");
         });
     });
-    describe("render", () => {
-        it("Not Show Pager -> Add Class Hide to pager; Not bind pagination to pager", () => {
-            // arrange
-            setFixtures(`<body>
+    describe("_render", () => {
+        describe("_Not Show Pager", () => {
+            let pager: JQuery;
+            beforeEach(() => {
+                // arrange
+                setFixtures(`<body>
                             <div id="report-pager"
                                  data-totalrecords="0"
                                  data-pagesize="100"
                                  data-pageindex="1"></div>
                             <form id="report-form" type="hidden"></form>
                          </body>`);
-            let pager = $("#report-pager");
-            spyOn($.fn, "pagination");
+                pager = $("#report-pager");
+                spyOn($.fn, "pagination");
 
-            // act
-            pagerComponent.render();
+                // act
+                pagerComponent.render();
+            });
 
-            // assert
-            expect(pager.hasClass("hide")).toBeTruthy();
-            expect($.fn.pagination).not.toHaveBeenCalled();
+            it("_Add Class Hide to pager", () => {
+                // assert
+                expect(pager.hasClass("hide")).toBeTruthy();
+            });
+
+            it("_Not bind pagination to pager", () => {
+                // assert
+                expect($.fn.pagination).not.toHaveBeenCalled();
+            });
         });
-        it("Show Pager -> Remove Class Hide from pager; Bind pagination to pager", () => {
-            // arrange
-            setFixtures(`<body>
+
+        describe("_Show Pager", () => {
+            let pager: JQuery;
+            beforeEach(() => {
+                // arrange
+                setFixtures(`<body>
                             <div id="report-pager"
                                  data-totalrecords="2000"
                                  data-pagesize="1000"
@@ -120,30 +137,36 @@
                                  class="hide"></div>
                             <form id="report-form" type="hidden"></form>
                          </body>`);
-            let pager = $("#report-pager");
-            spyOn($.fn, "pagination");
+                pager = $("#report-pager");
+                spyOn($.fn, "pagination");
 
-            // act
-            pagerComponent.render();
+                // act
+                pagerComponent.render();
+            });
 
-            // assert
-            expect(pager.hasClass("hide")).toBeFalsy();
-            expect($.fn.pagination).toHaveBeenCalledWith({
-                pageList: [1000, 2000, 3000, 5000],
-                total: 2000,
-                pageSize: 1000,
-                pageNumber: 1,
+            it("_Remove Class Hide from pager", () => {
+                // assert
+                expect(pager.hasClass("hide")).toBeFalsy();
+            });
+            it("_Bind pagination to pager", () => {
+                // assert
+                expect($.fn.pagination).toHaveBeenCalledWith({
+                    pageList: [1000, 2000, 3000, 5000],
+                    total: 2000,
+                    pageSize: 1000,
+                    pageNumber: 1,
 
-                showRefresh: false,
-                onSelectPage: jasmine.any(Function),
-                beforePageText: "Page",
-                afterPageText: "of {pages}",
-                displayMsg: "Displays"
+                    showRefresh: false,
+                    onSelectPage: jasmine.any(Function),
+                    beforePageText: "Page",
+                    afterPageText: "of {pages}",
+                    displayMsg: "Displays"
+                });
             });
         });
     });
-    describe("onSelectPage", () => {
-        it("Always -> Update Hidden Fields and Call On Change Event", () => {
+    describe("_onSelectPage_Always", () => {
+        beforeEach(() => {
             // arrange
             setFixtures(`<body>
                             <div id="report-pager"
@@ -163,9 +186,15 @@
 
             // act
             $(".pagination-next").trigger("click");
+        });
 
+        it("_Update Hidden Fieldst", () => {
             // assert
             expect(pagerComponent.updateHiddenFields).toHaveBeenCalledWith(2, 1000);
+        });
+
+        it("_Call On Change Event", () => {
+            // assert
             expect(pagerComponent.onChange).toHaveBeenCalled();
         });
     });

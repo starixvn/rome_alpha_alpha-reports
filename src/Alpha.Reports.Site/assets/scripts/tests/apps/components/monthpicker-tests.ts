@@ -1,12 +1,12 @@
-﻿describe("MonthPickerComponent_", () => {
+﻿describe("MonthPickerComponent", () => {
     let monthPickerComponent: MonthPickerComponent;
 
     beforeEach(() => {
         monthPickerComponent = new MonthPickerComponent($);
     });
 
-    describe("render", () => {
-        it("Invalid Date -> Log Warning Message", () => {
+    describe("_render", () => {
+        it("_Invalid Date -> Log Warning Message", () => {
             // arrange
             setFixtures(`<body>
                             <input id="from-date" value="" />
@@ -28,8 +28,9 @@
             expect(console.warn).toHaveBeenCalledWith("Oops! \"Invalid Date\" is an invalid Date");
         });
     });
-    describe("onChange ", () => {
-        it("Always -> Update textbox FromDate/ToDate", () => {
+    describe("_onChange", () => {
+        let dropdownMonth: JQuery;
+        beforeEach(() => {
             // arrange
             setFixtures(`<body>
                             <input id="from-date" value="" />
@@ -42,14 +43,22 @@
                                 data-todate="3"
                                 data-currentdate="3/1/2017"></div>
                          </body>`);
-            var dropdownMonth = monthPickerComponent.render();
+            dropdownMonth = monthPickerComponent.render();
+        });
 
+        it("_Change From Date-> Update textbox FromDate", () => {
             // act
             dropdownMonth.monPickr("setFromDay", "1");
-            dropdownMonth.monPickr("setToDay", "2");
 
             // assert
             expect($("#from-date").val()).toEqual("01/01/2017");
+        });
+
+        it("_Change To Date-> Update textbox ToDate", () => {
+            // act
+            dropdownMonth.monPickr("setToDay", "2");
+
+            // assert
             expect($("#to-date").val()).toEqual("01/02/2017");
         });
     });
