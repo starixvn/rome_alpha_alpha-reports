@@ -1,7 +1,7 @@
 ﻿// winLossDetailView.$reportForm.trigger("submit") make error
 // error: Timeout occurred when executing test file
 // while Running: alpha-reports\src\Alpha.Reports.Site\assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts
-describe("WinLossDetail_", () => {
+describe("WinLossDetail", () => {
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     const pagerComponent = new PagerComponent($);
@@ -49,12 +49,15 @@ describe("WinLossDetail_", () => {
         spyOn(dateRangePickerComponent, "render");
     });
 
-    describe("registerEvents", () => {
-        it("Always -> All neccessary functions have been registered", () => {
+    describe("_registerEvents_Always", () => {
+        beforeEach(() => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             winLossDetailView.cacheElements();
+        });
 
+        it("_All neccessary functions have been registered", () => {
+            // arrange
             spyOn(winLossDetailView, "onSwitchReport");
             spyOn(winLossDetailView, "onClickIconFilter");
             spyOn(winLossDetailView, "onSwitchMode");
@@ -73,11 +76,8 @@ describe("WinLossDetail_", () => {
             expect(winLossDetailView.onSwitchMode).toHaveBeenCalled();
             expect(winLossDetailView.onExportExcel).toHaveBeenCalled();
         });
-        it("Always -> Submit functions have been registered", () => {
+        it("_Submit functions have been registered", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
-            winLossDetailView.cacheElements();
-
             spyOn(winLossDetailView, "onSubmitReport");
 
             // act

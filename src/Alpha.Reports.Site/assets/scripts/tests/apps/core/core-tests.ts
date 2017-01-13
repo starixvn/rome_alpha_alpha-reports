@@ -1,4 +1,4 @@
-﻿describe("AlphaReports_", () => {
+﻿describe("AlphaReports", () => {
     let alphaReports: AlphaReports;
     const jQueryFake = $;
     const storeFake = store;
@@ -6,8 +6,8 @@
     beforeEach(() => {
         alphaReports = new AlphaReports(jQueryFake, storeFake);
     });
-    describe("format", () => {
-        it("Always -> Uses correct format", () => {
+    describe("_format", () => {
+        it("_Always -> Uses correct format", () => {
             // arrange
             let expectedFormat = {
                 monthFormat: "MMMM - yyyy",
@@ -27,8 +27,8 @@
     // screen.width: IE, can't be spied
     // browser used to run test is IE => not call to this.$(window).width()
 
-    describe("splitCell", () => {
-        it("Always -> Splits corresponding columns; Not Split other columns; Appends columns before assigned columns", () => {
+    describe("_splitCell", () => {
+        it("_Always -> Splits corresponding columns; Not Split other columns; Appends columns before assigned columns", () => {
             // arrange
             setFixtures(coreTestsTemplate.tableWithCombinedColumns);
             let expectedSplittedTableBody = $(coreTestsTemplate.tableWithSplittedColumns).html().replace(/[ \r\n]/g, "");
@@ -41,8 +41,8 @@
             expect(actualSplittedTableBody).toEqual(expectedSplittedTableBody);
         });
     });
-    describe("combineConsecutiveCells", () => {
-        it("Combines 1 column -> Does nothing", () => {
+    describe("_combineConsecutiveCells", () => {
+        it("_Combines 1 column -> Does nothing", () => {
             // arrange
             setFixtures(coreTestsTemplate.tableNeedCombinedColumns);
             let expectedTableBody = $(coreTestsTemplate.tableNeedCombinedColumns).html().replace(/[ \r\n]/g, "");
@@ -54,7 +54,7 @@
             // assert
             expect(actualTableBody).toEqual(expectedTableBody);
         });
-        it("Combines 2+ columns -> Appends combined column to last cell", () => {
+        it("_Combines 2+ columns -> Appends combined column to last cell", () => {
             // arrange
             setFixtures(coreTestsTemplate.tableNeedCombinedColumns);
             let expectedTableBody = $(coreTestsTemplate.tableAfterCombinedColumns).html().replace(/[ \r\n]/g, "");
@@ -68,8 +68,8 @@
             expect(actualTableBody).toEqual(expectedTableBody);
         });
     });
-    describe("localStorage.get", () => {
-        it("Enable store -> Gets data from store", () => {
+    describe("_localStorage.get", () => {
+        it("_Enable store -> Gets data from store", () => {
             // arrange
             alphaReports.store.enabled = true;
             alphaReports.localStorage.set("SomeKey", "SomeValue");
@@ -82,7 +82,7 @@
             expect(actualValue).toEqual("SomeValue");
             expect(jQueryFake.cookie).not.toHaveBeenCalled();
         });
-        it("Disable store -> Gets data from cookie", () => {
+        it("_Disable store -> Gets data from cookie", () => {
             // arrange
             alphaReports.store.enabled = false;
             alphaReports.localStorage.set("SomeKey", "SomeValue");
@@ -96,8 +96,8 @@
             expect(actualValue).toEqual("SomeValue");
         });
     });
-    describe("localStorage.set", () => {
-        it("Enable store -> Sets data to store", () => {
+    describe("_localStorage.set", () => {
+        it("_Enable store -> Sets data to store", () => {
             // arrange
             alphaReports.store.enabled = true;
             spyOn(storeFake, "set");
@@ -110,7 +110,7 @@
             expect(storeFake.set).toHaveBeenCalled();
             expect(jQueryFake.cookie).not.toHaveBeenCalled();
         });
-        it("Disable store -> Sets data to cookie", () => {
+        it("_Disable store -> Sets data to cookie", () => {
             // arrange
             alphaReports.store.enabled = false;
             spyOn(storeFake, "set");
@@ -124,8 +124,8 @@
             expect(storeFake.set).not.toHaveBeenCalled();
         });
     });
-    describe("localStorage.getCookieExpireOptions", () => {
-        it("IE -> Returns expire days", () => {
+    describe("_localStorage.getCookieExpireOptions", () => {
+        it("_IE -> Returns expire days", () => {
             // arrange
             spyOn(alphaReports, "isIe").and.callFake(() => true);
             let expectedCookieExpireOptions = { expires: 365 };
@@ -136,7 +136,7 @@
             // assert
             expect(actualCookieExpireOptions).toEqual(expectedCookieExpireOptions);
         });
-        it("Not IE -> Returns expire days and path", () => {
+        it("_Not IE -> Returns expire days and path", () => {
             // arrange
             spyOn(alphaReports, "isIe").and.callFake(() => false);
             let expectedCookieExpireOptions = { expires: 365, path: window.location.pathname };
@@ -151,8 +151,8 @@
 
     // isIE: can't be tested
     // window.navigator.userAgent: can't be spied
-    describe("replaceQueryStringValue", () => {
-        it("Url Already Had Param -> Replaces Value", () => {
+    describe("_replaceQueryStringValue", () => {
+        it("_Url Already Had Param -> Replaces Value", () => {
             // arrange
             let queryString = "http://demo?ParamName1=ParamValue1&ParamName=ParamValue";
             let expectNewQueryString = "http://demo?ParamName1=ParamValue1&ParamName=NewParamValue";
@@ -164,7 +164,7 @@
             expect(actualNewQueryString).toEqual(expectNewQueryString);
         });
 
-        it("Url Did Not Have Param -> Appends New Param", () => {
+        it("_Url Did Not Have Param -> Appends New Param", () => {
             // arrange
             let queryString = "http://demo?ParamName1=ParamValue1";
             let expectNewQueryString = "http://demo?ParamName1=ParamValue1&ParamName2=ParamValue2";
@@ -176,7 +176,7 @@
             expect(actualNewQueryString).toEqual(expectNewQueryString);
         });
 
-        it("Url Did Not Have Query String -> Appends New Param With Question Mark", () => {
+        it("_Url Did Not Have Query String -> Appends New Param With Question Mark", () => {
             // arrange
             let queryString = "http://demo";
             let expectNewQueryString = "http://demo?ParamName2=ParamValue2";
@@ -188,7 +188,7 @@
             expect(actualNewQueryString).toEqual(expectNewQueryString);
         });
 
-        it("Url Is Null -> Return String empty", () => {
+        it("_Url Is Null -> Return String empty", () => {
             // arrange
             let queryString = null;
 
@@ -199,7 +199,7 @@
             expect(actualNewQueryString).toEqual("");
         });
 
-        it("Url Is Undifined -> Return String empty", () => {
+        it("_Url Is Undifined -> Return String empty", () => {
             // arrange
             let queryString;
 
@@ -211,7 +211,7 @@
         });
     });
 
-    describe("isIe", () => {
+    describe("_isIe", () => {
         let setUserAgent = (window: any, userAgent: string) => {
             if (window.navigator.userAgent !== userAgent) {
                 let userAgentProp = { get: function () { return userAgent; } };
@@ -225,7 +225,7 @@
             }
         };
 
-        it("MSIE -> Returns true", () => {
+        it("_MSIE -> Returns true", () => {
             // arrange
             setUserAgent(window, "Browser MSIE ");
 
@@ -235,7 +235,7 @@
             // assert
             expect(actualIsIE).toBeTruthy();
         });
-        it("Trident -> Returns true", () => {
+        it("_Trident -> Returns true", () => {
             // arrange
             setUserAgent(window, "Browser Trident.*rv:11.");
 

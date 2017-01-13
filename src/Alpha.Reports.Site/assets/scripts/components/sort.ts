@@ -113,7 +113,9 @@ class SortComponent {
                     textExtraction: this.textExtraction
                 });
         }
-        catch (e) { }
+        catch (e) {
+            console.log(e);
+        }
 
         this.$sortContainer.off("sortEnd").on("sortEnd", () => {
             var $sortedcolumn = this.$sortContainer
@@ -124,7 +126,7 @@ class SortComponent {
                 : ".visible-stack-mode";
             $sortedcolumn = $sortedcolumn.not(modeFilterClass);
 
-            if ($sortedcolumn.length == 1) {
+            if ($sortedcolumn.length === 1) {
                 this.onSort($sortedcolumn.attr("data-sortedname"), $sortedcolumn.hasClass("sorting-desc"));
             }
         });

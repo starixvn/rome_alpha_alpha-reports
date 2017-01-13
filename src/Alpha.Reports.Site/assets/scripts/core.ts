@@ -120,8 +120,8 @@ class AlphaReports {
         return msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./);
     };
     replaceQueryStringValue = (queryString: string, paramName: string, paramValue: any) => {
-        if (typeof (queryString) === undefined
-            || queryString == null) {
+        if (typeof (queryString) === "undefined"
+            || queryString === null) {
             return "";
         }
 
