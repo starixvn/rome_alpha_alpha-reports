@@ -13,13 +13,13 @@
 
         public OutstandingViewModel(
             UserLevel viewerLevel, 
-            UserLevel custLevel, 
+            UserLevel reportLevel, 
             IEnumerable<OutstandingData> outstandings, 
             string drillDownInfoJson, 
             IEnumerable<ActionLinkViewModel> breadcrumbLevels)
         {
             ViewerLevel = viewerLevel;
-            ReportLevel = custLevel;
+            ReportLevel = reportLevel;
             OutstandingDatasource = outstandings;
             DrillDownInfoJson = drillDownInfoJson;
             BreadcrumbLevels = breadcrumbLevels;

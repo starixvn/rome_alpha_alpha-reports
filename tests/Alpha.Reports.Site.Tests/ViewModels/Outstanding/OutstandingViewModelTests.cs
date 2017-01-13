@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.Outstanding
 {
     using System.Collections.Generic;
+    using System.Resources;
     using Ploeh.AutoFixture;
     using Reports.Models;
     using Reports.Models.Outstanding;

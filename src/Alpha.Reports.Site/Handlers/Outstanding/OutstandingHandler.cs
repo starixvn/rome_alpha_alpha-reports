@@ -11,12 +11,12 @@
 
     public class OutstandingHandler : BaseHandler, IRequestHandler<OutstandingQuery, OutstandingViewModel>
     {
-        private readonly OutstandingService outstandingServiceImpl;
+        private readonly OutstandingService outstandingService;
         private readonly IUser user;
 
-        public OutstandingHandler(OutstandingService outstandingServiceImpl, IUser user)
+        public OutstandingHandler(OutstandingService outstandingService, IUser user)
         {
-            this.outstandingServiceImpl = outstandingServiceImpl;
+            this.outstandingService = outstandingService;
             this.user = user;
         }
 
@@ -29,13 +29,13 @@
             int nextCustLevel;
             if (message.CustLevelId == 0)
             {
-                outstandings = outstandingServiceImpl.GetMemberOutstanding(reportLevel, reportLevel, message.CustId);
+                outstandings = outstandingService.GetMemberOutstanding(reportLevel, reportLevel, message.CustId);
                 nextCustLevel = reportLevel.Value - 1;
                 drillDownInfo = BuildDrillDownInfo(message);
             }
             else
             {
-                outstandings = outstandingServiceImpl.GetMemberOutstanding(reportLevel, Enumeration.FromValue<UserLevel>(message.CustLevelId), message.CustId);
+                outstandings = outstandingService.GetMemberOutstanding(reportLevel, Enumeration.FromValue<UserLevel>(message.CustLevelId), message.CustId);
                 nextCustLevel = message.CustLevelId - 1;
                 drillDownInfo = BuildDrillDownInfo(message);
             }
