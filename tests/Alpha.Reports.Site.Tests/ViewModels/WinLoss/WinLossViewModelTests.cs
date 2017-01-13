@@ -7,6 +7,7 @@
     using Constants;
     using Enumerations;
     using Extensions;
+    using KellermanSoftware.CompareNetObjects;
     using Reports.Models;
     using Reports.Models.Winloss;
     using Site.ViewModels.WinLoss;
@@ -16,10 +17,14 @@
     [Trait("Category", "WinLoss")]
     public class WinLossViewModelTests
     {
+        private CompareLogic compareLogic;
+
         public WinLossViewModelTests()
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+
+            compareLogic = new CompareLogic();
         }
 
         [Theory]
@@ -63,7 +68,8 @@
             var actualGrantTotal = new WinLossViewModel(null, UserLevel.Super).GrantTotal;
 
             // Assert
-            AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);
+            var result = compareLogic.Compare(actualGrantTotal, expectedGrantTotal);
+            Assert.True(result.AreEqual);
         }
 
         [Fact]
@@ -76,7 +82,8 @@
             var actualReportData = new WinLossViewModel(new List<WinLossModel>(), UserLevel.Super).ReportData;
 
             // Assert
-            AssertExtension.Equal(actualReportData, expectedReportData);
+            var result = compareLogic.Compare(actualReportData, expectedReportData);
+            Assert.True(result.AreEqual);
         }
 
         [Fact]
@@ -89,7 +96,8 @@
             var actualGrantTotal = new WinLossViewModel(new List<WinLossModel>(), UserLevel.Super).GrantTotal;
 
             // Assert
-            AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);
+            var result = compareLogic.Compare(actualGrantTotal, expectedGrantTotal);
+            Assert.True(result.AreEqual);
         }
     }
 }

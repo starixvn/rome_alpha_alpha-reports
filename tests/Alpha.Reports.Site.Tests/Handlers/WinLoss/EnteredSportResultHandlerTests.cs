@@ -6,6 +6,7 @@
     using System.Threading;
     using Constants;
     using Enumerations;
+    using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Models;
@@ -17,17 +18,18 @@
     using Xunit;
 
     [Trait("Category", "WinLoss")]
+    [Collection("UserCollection")]
     public class EnteredSportResultHandlerTests
     {
         private readonly WinLossService reportService;
         private readonly EnteredSportResultHandler enteredSportResultHandler;
-        private readonly IUser user;
+        private readonly UserFixture userFixture;
         private readonly CompareLogic compareLogic;
 
-        public EnteredSportResultHandlerTests()
+        public EnteredSportResultHandlerTests(UserFixture userFixture)
         {
             reportService = Substitute.For<WinLossService>();
-            user = Substitute.For<IUser>();
+            this.userFixture = userFixture;
             enteredSportResultHandler = new EnteredSportResultHandler(reportService);
             DateTimeManager.Now = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
@@ -50,7 +52,7 @@
         public void HandleEnteredResultQuery_ValidMessage_ReturnsDefaultData()
         {
             // Arrange
-            var message = new EnteredSportResultQuery(user);
+            var message = new EnteredSportResultQuery(userFixture.User);
             message.CustLevelId = (byte)4;
             message.CustId = 1596;
             var reportData = Enumerable.Empty<EnteredSportResult>();

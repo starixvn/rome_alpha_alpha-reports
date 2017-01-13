@@ -9,6 +9,7 @@
     using System.Web.Mvc;
     using Constants;
     using Enumerations;
+    using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Models;
@@ -16,26 +17,26 @@
     using Services;
     using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
-    using Site.ViewModels;
     using Site.ViewModels.WinLoss;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
+    [Collection("UserCollection")]
     public class WinLossHandlerTests
     {
         private readonly ProductService productService;
         private readonly WinLossService reportService;
         private readonly WinLossHandler winLossHandler;
-        private readonly IUser user;
+        private readonly UserFixture userFixture;
         private CompareLogic compareLogic;
 
-        public WinLossHandlerTests()
+        public WinLossHandlerTests(UserFixture userFixture)
         {
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
             reportService = Substitute.For<WinLossService>();
 
-            user = Substitute.For<IUser>();
+            this.userFixture = userFixture;
             winLossHandler = new WinLossHandler(productService, reportService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -67,7 +68,7 @@
             string userSelectedProductIds)
         {
             // Arrange
-            var message = new WinLossQuery(user);
+            var message = new WinLossQuery(userFixture.User);
             message.CustId = 1;
             message.CustName = "CustName";
             message.CustLevelId = 3;
