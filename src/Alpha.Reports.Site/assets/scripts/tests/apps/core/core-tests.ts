@@ -9,14 +9,14 @@
     describe("format", () => {
         it("Always -> Uses correct format", () => {
             // arrange
-            var expectedFormat = {
+            let expectedFormat = {
                 monthFormat: "MMMM - yyyy",
                 shortDateWithSlash_DatePicker: "MM/DD/YYYY",
                 shortDateWithSlash_MonthPicker: "MM/dd/yyyy"
             };
 
             // act
-            var actualFormat = alphaReports.format;
+            let actualFormat = alphaReports.format;
 
             // assert
             expect(actualFormat).toEqual(expectedFormat);
@@ -76,7 +76,7 @@
             spyOn(jQueryFake, "cookie");
 
             // act
-            var actualValue = alphaReports.localStorage.get("SomeKey");
+            let actualValue = alphaReports.localStorage.get("SomeKey");
 
             // assert
             expect(actualValue).toEqual("SomeValue");
@@ -89,7 +89,7 @@
             spyOn(jQueryFake, "cookie").and.callFake(() => "SomeValue");
 
             // act
-            var actualValue = alphaReports.localStorage.get("SomeKey");
+            let actualValue = alphaReports.localStorage.get("SomeKey");
 
             // assert
             expect(jQueryFake.cookie).toHaveBeenCalled();
@@ -131,7 +131,7 @@
             let expectedCookieExpireOptions = { expires: 365 };
 
             // act
-            var actualCookieExpireOptions = alphaReports.localStorage.getCookieExpireOptions();
+            let actualCookieExpireOptions = alphaReports.localStorage.getCookieExpireOptions();
 
             // assert
             expect(actualCookieExpireOptions).toEqual(expectedCookieExpireOptions);
@@ -142,7 +142,7 @@
             let expectedCookieExpireOptions = { expires: 365, path: window.location.pathname };
 
             // act
-            var actualCookieExpireOptions = alphaReports.localStorage.getCookieExpireOptions();
+            let actualCookieExpireOptions = alphaReports.localStorage.getCookieExpireOptions();
 
             // assert
             expect(actualCookieExpireOptions).toEqual(expectedCookieExpireOptions);
@@ -152,33 +152,69 @@
     // isIE: can't be tested
     // window.navigator.userAgent: can't be spied
     describe("replaceQueryStringValue", () => {
-        it("Has Param -> Replaces Value", () => {
+        it("Url Already Had Param -> Replaces Value", () => {
             // arrange
-            var queryString = "&ParamName=ParamValue";
-            var expectNewQueryString = "&ParamName=NewParamValue";
+            let queryString = "http://demo?ParamName1=ParamValue1&ParamName=ParamValue";
+            let expectNewQueryString = "http://demo?ParamName1=ParamValue1&ParamName=NewParamValue";
 
             // act
-            var actualNewQueryString = alphaReports.replaceQueryStringValue(queryString, "ParamName", "NewParamValue");
+            let actualNewQueryString = alphaReports.replaceQueryStringValue(queryString, "ParamName", "NewParamValue");
 
             // assert
             expect(actualNewQueryString).toEqual(expectNewQueryString);
         });
-        it("Not Have Param -> Appends New Param", () => {
+
+        it("Url Did Not Have Param -> Appends New Param", () => {
             // arrange
-            var queryString = "http://demo?ParamName1=ParamValue1";
-            var expectNewQueryString = "http://demo?ParamName1=ParamValue1&ParamName2=ParamValue2";
+            let queryString = "http://demo?ParamName1=ParamValue1";
+            let expectNewQueryString = "http://demo?ParamName1=ParamValue1&ParamName2=ParamValue2";
 
             // act
-            var actualNewQueryString = alphaReports.replaceQueryStringValue(queryString, "ParamName2", "ParamValue2");
+            let actualNewQueryString = alphaReports.replaceQueryStringValue(queryString, "ParamName2", "ParamValue2");
 
             // assert
             expect(actualNewQueryString).toEqual(expectNewQueryString);
+        });
+
+        it("Url Did Not Have Query String -> Appends New Param With Question Mark", () => {
+            // arrange
+            let queryString = "http://demo";
+            let expectNewQueryString = "http://demo?ParamName2=ParamValue2";
+
+            // act
+            let actualNewQueryString = alphaReports.replaceQueryStringValue(queryString, "ParamName2", "ParamValue2");
+
+            // assert
+            expect(actualNewQueryString).toEqual(expectNewQueryString);
+        });
+
+        it("Url Is Null -> Return String empty", () => {
+            // arrange
+            let queryString = null;
+
+            // act
+            let actualNewQueryString = alphaReports.replaceQueryStringValue(queryString, "ParamName2", "ParamValue2");
+
+            // assert
+            expect(actualNewQueryString).toEqual("");
+        });
+
+        it("Url Is Undifined -> Return String empty", () => {
+            // arrange
+            let queryString;
+
+            // act
+            let actualNewQueryString = alphaReports.replaceQueryStringValue(queryString, "ParamName2", "ParamValue2");
+
+            // assert
+            expect(actualNewQueryString).toEqual("");
         });
     });
+
     describe("isIe", () => {
         let setUserAgent = (window: any, userAgent: string) => {
             if (window.navigator.userAgent !== userAgent) {
-                var userAgentProp = { get: function () { return userAgent; } };
+                let userAgentProp = { get: function () { return userAgent; } };
                 try {
                     Object.defineProperty(window.navigator, "userAgent", userAgentProp);
                 } catch (e) {

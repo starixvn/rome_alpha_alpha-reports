@@ -81,6 +81,7 @@ class SortComponent {
             || this.$sortContainer.data("descendingsort").toString().toLowerCase() === "true"
         };
     };
+
     bindTableSorter = (sortedColumnName: string) => {
         if (!this.options.canSort || !this.options.hasAllDataOnClient) {
             return;

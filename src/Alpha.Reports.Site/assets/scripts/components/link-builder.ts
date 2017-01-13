@@ -1,7 +1,7 @@
 ﻿class LinkBuilderOption {
     linkClasses: string[];
 
-    constructor(linkClasses: string[] = [".breadcrumb-link,.downline-link"]) {
+    constructor(linkClasses: string[] = ["a.breadcrumb-link,a.downline-link"]) {
         this.linkClasses = linkClasses;
     }
 }
@@ -27,7 +27,7 @@ class LinkBuilderComponent {
 
     updateCustIdAndCustNameAndDrillDownInfoParams = (index: number, element: Element) => {
         let $link = this.$(element);
-        var currentUrl = $link.attr("href");
+        let currentUrl = $link.attr("href");
 
         currentUrl = alphaReports.replaceQueryStringValue(currentUrl, "CustId", $link.data("cust-id"));
         currentUrl = alphaReports.replaceQueryStringValue(currentUrl, "CustName", $link.data("cust-name"));
@@ -39,13 +39,13 @@ class LinkBuilderComponent {
     };
 
     updateParam = (name: string, value: string) => {
-        var me = this;
+        let me = this;
         this.options.linkClasses.forEach((className: string) => {
             let $linkClass = this.$(className);
 
             $linkClass.each((index: number, element: Element) => {
                 let $link = me.$(element);
-                var currentUrl = $link.attr("href");
+                let currentUrl = $link.attr("href");
 
                 currentUrl = alphaReports.replaceQueryStringValue(currentUrl, name, value);
 
