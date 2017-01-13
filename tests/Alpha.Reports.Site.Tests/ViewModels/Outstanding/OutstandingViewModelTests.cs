@@ -25,7 +25,7 @@
                 Master,
                 fixture.Create<IEnumerable<OutstandingData>>(),
                 fixture.Create<string>(),
-                fixture.Create<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<CustInfo>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -44,7 +44,7 @@
                 Agent,
                 fixture.Create<IEnumerable<OutstandingData>>(),
                 fixture.Create<string>(),
-                fixture.Create<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<CustInfo>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -63,7 +63,7 @@
                 Member,
                 fixture.Create<IEnumerable<OutstandingData>>(),
                 fixture.Create<string>(),
-                fixture.Create<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<CustInfo>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -82,7 +82,7 @@
                 Agent,
                 fixture.Create<IEnumerable<OutstandingData>>(),
                 fixture.Create<string>(),
-                fixture.Create<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<CustInfo>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -101,7 +101,7 @@
                 Member,
                 fixture.Create<IEnumerable<OutstandingData>>(),
                 fixture.Create<string>(),
-                fixture.Create<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<CustInfo>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -120,7 +120,7 @@
                 Member,
                 fixture.Create<IEnumerable<OutstandingData>>(),
                 fixture.Create<string>(),
-                fixture.Create<IEnumerable<ActionLinkViewModel>>());
+                fixture.Create<IEnumerable<CustInfo>>());
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;

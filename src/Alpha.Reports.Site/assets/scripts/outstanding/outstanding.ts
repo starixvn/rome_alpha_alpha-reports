@@ -7,12 +7,15 @@ class OutstandingView {
     $tableReport: any;
 
     sortComponent: SortComponent;
+    linkBuilderComponent: LinkBuilderComponent;
 
-    constructor(sortComponent: SortComponent) {
+    constructor(sortComponent: SortComponent, linkBuilderComponent: LinkBuilderComponent) {
         this.sortComponent = sortComponent;
+        this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
+        this.linkBuilderComponent.render();
 
         this.$tableReport = $("#tbl-report");
 
@@ -30,7 +33,7 @@ class OutstandingView {
     };
 }
 
-const outstandingView = new OutstandingView(new SortComponent($));
+const outstandingView = new OutstandingView(new SortComponent($), new LinkBuilderComponent($));
 
 $(function () {
     outstandingView.init();

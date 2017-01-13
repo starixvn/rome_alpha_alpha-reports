@@ -12,16 +12,16 @@
         private readonly List<UserLevel> displayOutstandingLevels = new List<UserLevel>() { UserLevel.Member };
 
         public OutstandingViewModel(
-            UserLevel viewerLevel, 
-            UserLevel reportLevel, 
-            IEnumerable<OutstandingData> outstandings, 
-            string drillDownInfoJson, 
-            IEnumerable<ActionLinkViewModel> breadcrumbLevels)
+            UserLevel viewerLevel,
+            UserLevel reportLevel,
+            IEnumerable<OutstandingData> outstandings,
+            string breadcrumbLevelsJson,
+            IEnumerable<CustInfo> breadcrumbLevels)
         {
             ViewerLevel = viewerLevel;
             ReportLevel = reportLevel;
             OutstandingDatasource = outstandings;
-            DrillDownInfoJson = drillDownInfoJson;
+            BreadcrumbLevelsJson = breadcrumbLevelsJson;
             BreadcrumbLevels = breadcrumbLevels;
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= ViewerLevel.Value; level++)
@@ -58,9 +58,9 @@
 
         public List<UserLevel> DisplayOutstandingLevels => displayOutstandingLevels;
 
-        public string DrillDownInfoJson { get; }
+        public string BreadcrumbLevelsJson { get; }
 
-        public IEnumerable<ActionLinkViewModel> BreadcrumbLevels { get; }
+        public IEnumerable<CustInfo> BreadcrumbLevels { get; }
 
         public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
     }

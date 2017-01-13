@@ -18,7 +18,7 @@
             // Arrange
             var service = Substitute.For<OutstandingService>();
             var user = Substitute.For<IUser>();
-            var handler = new OutstandingHandler(service, user);
+            var handler = new OutstandingHandler(service);
             var query = new OutstandingQuery(user);
             query.CustLevelId = reportLevelId;
 
