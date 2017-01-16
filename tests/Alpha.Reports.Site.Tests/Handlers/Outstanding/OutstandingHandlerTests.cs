@@ -16,17 +16,36 @@
         public void Handle_WhenSmaCalls_DereaseReportLevelByOne(byte reportLevelId)
         {
             // Arrange
-            var service = Substitute.For<OutstandingService>();
             var user = Substitute.For<IUser>();
-            var handler = new OutstandingHandler(service);
+            user.LevelId.Returns((byte)2);
             var query = new OutstandingQuery(user);
             query.CustLevelId = reportLevelId;
+            var handler = new OutstandingHandler(Substitute.For<OutstandingService>());
 
             // Act
             var viewModel = handler.Handle(query);
 
             // Assert
             Assert.Equal(viewModel.ReportLevel.Value, reportLevelId - 1);
+        }
+
+        [Theory]
+        [InlineData(4)]
+        [InlineData(2)]
+        public void Handle_WhenSmaCalls_ReturnsViewerLevel(byte viewerLevelId)
+        {
+            // Arrange
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns(viewerLevelId);
+            var query = new OutstandingQuery(user);
+            query.CustLevelId = 2;
+            var handler = new OutstandingHandler(Substitute.For<OutstandingService>());
+
+            // Act
+            var viewModel = handler.Handle(query);
+
+            // Assert
+            Assert.Equal(viewerLevelId, viewModel.ViewerLevel.Value);
         }
     }
 }

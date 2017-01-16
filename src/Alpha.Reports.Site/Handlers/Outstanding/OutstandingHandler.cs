@@ -37,7 +37,7 @@
             }
 
             var viewModel = new OutstandingViewModel(
-               reportLevel,
+               Enumeration.FromValue<UserLevel>(message.LoginUserLevelId),
                Enumeration.FromValue<UserLevel>((byte)nextCustLevel),
                outstandings,
                ToJson(drillDownInfo),
