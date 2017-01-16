@@ -111,7 +111,7 @@
     <Compile Include="Models\WinLossDetail\WinLossDetailModel.cs" />
     <Compile Include="Models\Winloss\DailyEnteredSport.cs" />
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
-    <Compile Include="Models\Winloss\WinLoss.cs" />
+    <Compile Include="Models\Winloss\WinLossModel.cs" />
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />

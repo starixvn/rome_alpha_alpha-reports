@@ -10,7 +10,5 @@
         public WinLossExcelQuery(IUser viewer) : base(viewer)
         {
         }
-
-        public UserLevel CustLevel => Enumeration.FromValue<UserLevel>(CustLevelId);
     }
 }

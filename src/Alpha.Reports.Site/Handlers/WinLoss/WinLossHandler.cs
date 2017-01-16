@@ -3,7 +3,6 @@
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Enumerations;
     using MediatR;
     using Reports.Models;
     using Requests.WinLoss;
@@ -30,16 +29,15 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
             var products = productService.GetProductsForCustomer(message.CustId);
 
-            var winLossParam = CreateWinLossParamater(message, custLevel);
+            var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);
 
             var breadcrumbLevels = BuildBreadcrumbLevels(message);
+            var sortPropertyName = GetSortedProperty(message.CustLevel, message.SortPropertyName);
 
-            var sortPropertyName = GetSortedProperty(message.CustLevelId, message.SortPropertyName);
-            var viewModel = new WinLossViewModel(reportData.ToList(), custLevel)
+            var viewModel = new WinLossViewModel(reportData.ToList(), message.CustLevel)
             {
                 CustId = winLossParam.CustId,
                 CustName = message.CustName,
@@ -63,18 +61,16 @@
             return viewModel;
         }
 
-        private string GetSortedProperty(byte userLevelId, string sortedProperty)
+        private string GetSortedProperty(UserLevel custLevel, string sortedProperty)
         {
-            var userLevel = Enumeration.FromValue<UserLevel>(userLevelId);
-
-            var isInRange =
-                userLevel.IsSuperLevel()
-                || (userLevel.IsMasterLevel() && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
-                || (userLevel.IsAgentLevel()
+            var isSortedPropertyInRange =
+                custLevel.IsSuperLevel()
+                || (custLevel.IsMasterLevel() && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
+                || (custLevel.IsAgentLevel()
                         && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
                         && !sortedProperty.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
 
-            if (!isInRange || string.IsNullOrEmpty(sortedProperty))
+            if (!isSortedPropertyInRange || string.IsNullOrEmpty(sortedProperty))
             {
                 return sortPropertyNameDefault;
             }

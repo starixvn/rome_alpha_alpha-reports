@@ -3,7 +3,6 @@
     using System.Diagnostics.CodeAnalysis;
     using Extensions;
     using Params;
-    using Reports.Models;
     using Requests.WinLoss;
     using Services;
 
@@ -25,9 +24,7 @@
             this.reportService = reportService;
         }
 
-        protected WinLossParam CreateWinLossParamater(
-             WinLossQuery message,
-             UserLevel userLevel)
+        protected WinLossParam CreateWinLossParamater(WinLossQuery message)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
@@ -38,7 +35,7 @@
                  message.FromDate,
                  message.ToDate,
                  validUserSelectedProductIds,
-                 userLevel,
+                 message.CustLevel,
                  message.IsHistoricReport);
         }
     }

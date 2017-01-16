@@ -13,7 +13,5 @@
             PageIndex = DefaultVariables.PageIndex;
             PageSize = DefaultVariables.PageSize;
         }
-
-        public UserLevel CustLevel => Enumeration.FromValue<UserLevel>(CustLevelId);
     }
 }
