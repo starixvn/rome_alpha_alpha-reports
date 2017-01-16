@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class OutstandingData
+    public class OutstandingModel
     {
         public int CustId { get; set; }
 
@@ -16,9 +16,9 @@
 
         public decimal SuperOutstanding { get; set; }
 
-        public static OutstandingData GetAccumulatedData(IEnumerable<OutstandingData> outstandings)
+        public static OutstandingModel GetAccumulatedData(IEnumerable<OutstandingModel> outstandings)
         {
-            var accumulatedData = new OutstandingData();
+            var accumulatedData = new OutstandingModel();
 
             foreach (var outstanding in outstandings)
             {

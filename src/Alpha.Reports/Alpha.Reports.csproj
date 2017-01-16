@@ -105,7 +105,7 @@
     <Compile Include="Enumerations\Enumeration.cs" />
     <Compile Include="Models\CustInfo.cs" />
     <Compile Include="Models\PagedReportData.cs" />
-    <Compile Include="Models\Outstanding\OutstandingData.cs" />
+    <Compile Include="Models\Outstanding\OutstandingModel.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />

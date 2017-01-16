@@ -2,10 +2,6 @@
 
 @model OutstandingViewModel
 
-@{
-    var betlistPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
-}
-
 <div class="page-title">
     <span class="pull-left">@Model.Title</span>
     @Breadcrumb.Render(Model.BreadcrumbLevels, Request.RawUrl)
@@ -61,7 +57,7 @@
     @StaticResources.RenderScripts("~/assets/bundles/outstanding/outstanding")
 }
 
-@helper RenderOutstandingCells(OutstandingData data)
+@helper RenderOutstandingCells(OutstandingModel data)
 {
 foreach (var level in Model.DisplayOutstandingLevels)
 {

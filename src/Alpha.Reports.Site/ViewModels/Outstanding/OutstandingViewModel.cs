@@ -16,7 +16,7 @@
         public OutstandingViewModel(
             UserLevel viewerLevel,
             UserLevel reportLevel,
-            IEnumerable<OutstandingData> outstandings,
+            IEnumerable<OutstandingModel> outstandings,
             string breadcrumbLevelsJson,
             IEnumerable<CustInfo> breadcrumbLevels)
         {
@@ -54,9 +54,9 @@
 
         public UserLevel ReportLevel { get; }
 
-        public IEnumerable<OutstandingData> OutstandingDatasource { get; }
+        public IEnumerable<OutstandingModel> OutstandingDatasource { get; }
 
-        public OutstandingData Total => OutstandingData.GetAccumulatedData(OutstandingDatasource);
+        public OutstandingModel Total => OutstandingModel.GetAccumulatedData(OutstandingDatasource);
 
         public List<UserLevel> DisplayOutstandingLevels => displayOutstandingLevels;
 
@@ -68,7 +68,7 @@
 
         public string BetListPath => $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
 
-        public string GetUserActionLink(OutstandingData outstanding, string betlistPath)
+        public string GetUserActionLink(OutstandingModel outstanding, string betlistPath)
         {
             if (ReportLevel.IsMemberLevel())
             {

@@ -19,7 +19,7 @@
         {
             // Arrange
             var viewModel = new OutstandingViewModel(Super, Member, null, null, null);
-            var outstanding = new OutstandingData { CustId = 1, CustName = "CustName" };
+            var outstanding = new OutstandingModel { CustId = 1, CustName = "CustName" };
             var betlistPath = "betlistPath";
             var expectedLink = $"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
 
@@ -39,7 +39,7 @@
             var reportLevel = Enumeration.FromValue<UserLevel>(roleId);
             var breadcrumbLevelsJson = "breadcrumbLevelsJson";
             var viewModel = new OutstandingViewModel(Super, reportLevel, null, breadcrumbLevelsJson, null);
-            var outstanding = new OutstandingData { CustId = 1, CustName = "CustName" };
+            var outstanding = new OutstandingModel { CustId = 1, CustName = "CustName" };
             var expectedLink = $"?custLevelId={reportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}&breadcrumbLevelsJson={breadcrumbLevelsJson}";
 
             // Act
@@ -57,7 +57,7 @@
             var viewModel = new OutstandingViewModel(
                 Super,
                 Master,
-                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<IEnumerable<OutstandingModel>>(),
                 fixture.Create<string>(),
                 fixture.Create<IEnumerable<CustInfo>>());
 
@@ -76,7 +76,7 @@
             var viewModel = new OutstandingViewModel(
                 Super,
                 Agent,
-                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<IEnumerable<OutstandingModel>>(),
                 fixture.Create<string>(),
                 fixture.Create<IEnumerable<CustInfo>>());
 
@@ -95,7 +95,7 @@
             var viewModel = new OutstandingViewModel(
                 Super,
                 Member,
-                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<IEnumerable<OutstandingModel>>(),
                 fixture.Create<string>(),
                 fixture.Create<IEnumerable<CustInfo>>());
 
@@ -114,7 +114,7 @@
             var viewModel = new OutstandingViewModel(
                 Master,
                 Agent,
-                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<IEnumerable<OutstandingModel>>(),
                 fixture.Create<string>(),
                 fixture.Create<IEnumerable<CustInfo>>());
 
@@ -133,7 +133,7 @@
             var viewModel = new OutstandingViewModel(
                 Master,
                 Member,
-                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<IEnumerable<OutstandingModel>>(),
                 fixture.Create<string>(),
                 fixture.Create<IEnumerable<CustInfo>>());
 
@@ -152,7 +152,7 @@
             var viewModel = new OutstandingViewModel(
                 Agent,
                 Member,
-                fixture.Create<IEnumerable<OutstandingData>>(),
+                fixture.Create<IEnumerable<OutstandingModel>>(),
                 fixture.Create<string>(),
                 fixture.Create<IEnumerable<CustInfo>>());
 

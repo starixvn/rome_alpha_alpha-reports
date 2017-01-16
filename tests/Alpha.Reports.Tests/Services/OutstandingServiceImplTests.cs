@@ -20,7 +20,7 @@
             // Arrange
             UserLevel userLevel = UserLevel.Agent;
             UserLevel custLevel = UserLevel.Master;
-            var repository = GetFakeRepository(new List<OutstandingData>());
+            var repository = GetFakeRepository(new List<OutstandingModel>());
             var outstandingService = new OutstandingServiceImpl(repository);
 
             // Act
@@ -38,7 +38,7 @@
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(userLevelId);
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var repository = GetFakeRepository(new List<OutstandingData> { null });
+            var repository = GetFakeRepository(new List<OutstandingModel> { null });
             var outstandingService = new OutstandingServiceImpl(repository);
 
             // Act
@@ -63,10 +63,10 @@
             Assert.True(!outstandings.Any());
         }
 
-        private IDynamicRepository GetFakeRepository(IEnumerable<OutstandingData> outstandings)
+        private IDynamicRepository GetFakeRepository(IEnumerable<OutstandingModel> outstandings)
         {
             var repository = Substitute.For<IDynamicRepository>();
-            repository.Fetch<OutstandingData>(Arg.Any<OutstandingCriteria>()).Returns(outstandings);
+            repository.Fetch<OutstandingModel>(Arg.Any<OutstandingCriteria>()).Returns(outstandings);
 
             return repository;
         }
