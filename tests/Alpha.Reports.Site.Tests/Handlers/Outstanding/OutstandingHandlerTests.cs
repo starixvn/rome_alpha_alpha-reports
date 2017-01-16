@@ -17,7 +17,7 @@
         {
             // Arrange
             var user = Substitute.For<IUser>();
-            user.LevelId.Returns((byte)2);
+            user.LevelId.Returns(reportLevelId);
             var query = new OutstandingQuery(user);
             query.CustLevelId = reportLevelId;
             var handler = new OutstandingHandler(Substitute.For<OutstandingService>());
@@ -38,7 +38,6 @@
             var user = Substitute.For<IUser>();
             user.LevelId.Returns(viewerLevelId);
             var query = new OutstandingQuery(user);
-            query.CustLevelId = 2;
             var handler = new OutstandingHandler(Substitute.For<OutstandingService>());
 
             // Act
