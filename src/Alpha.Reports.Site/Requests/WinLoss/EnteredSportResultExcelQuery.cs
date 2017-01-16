@@ -6,7 +6,7 @@
 
     public class EnteredSportResultExcelQuery : EnteredSportResultQuery, IRequest<ExcelFileViewModel>
     {
-        public EnteredSportResultExcelQuery(IUser user) : base(user)
+        public EnteredSportResultExcelQuery(IUser viewer) : base(viewer)
         {
         }
     }

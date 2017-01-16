@@ -7,7 +7,7 @@
 
     public class WinLossExcelQuery : WinLossQuery, IRequest<ExcelFileViewModel>
     {
-        public WinLossExcelQuery(IUser user) : base(user)
+        public WinLossExcelQuery(IUser viewer) : base(viewer)
         {
         }
 

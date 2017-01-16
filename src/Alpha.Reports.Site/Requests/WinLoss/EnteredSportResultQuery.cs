@@ -6,7 +6,7 @@
 
     public class EnteredSportResultQuery : ReportBaseQuery, IRequest<EnteredResultViewModel>
     {
-        public EnteredSportResultQuery(IUser user) : base(user)
+        public EnteredSportResultQuery(IUser viewer) : base(viewer)
         {
         }
     }

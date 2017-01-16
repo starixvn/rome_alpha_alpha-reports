@@ -14,6 +14,7 @@
         {
             // this substitute make test slow
             user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)4);
         }
 
         [Fact]

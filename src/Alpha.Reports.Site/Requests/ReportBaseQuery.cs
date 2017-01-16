@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Enumerations;
     using Reports.Models;
 
     public class ReportBaseQuery
@@ -11,17 +12,18 @@
         {
         }
 
-        protected ReportBaseQuery(IUser loginUser)
+        protected ReportBaseQuery(IUser viewer)
         {
             // Default data, if query string had data, then get from query string.
-            CustId = loginUser.Id;
-            CustName = loginUser.Name;
-            CustLevelId = loginUser.LevelId;
+            CustId = viewer.Id;
+            CustName = viewer.Name;
+            CustLevelId = viewer.LevelId;
 
-            Language = loginUser.Language;
+            Language = viewer.Language;
 
-            LoginUserId = loginUser.Id;
-            LoginUserLevelId = loginUser.LevelId;
+            ViewerId = viewer.Id;
+            ViewerLevelId = viewer.LevelId;
+            ViewerLevel = Enumeration.FromValue<UserLevel>(ViewerLevelId);
         }
 
         public string Language { get; }
@@ -32,14 +34,18 @@
 
         public byte CustLevelId { get; set; }
 
+        public UserLevel CustLevel => Enumeration.FromValue<UserLevel>(CustLevelId);
+
+        public int ViewerId { get; }
+
+        public byte ViewerLevelId { get; }
+
+        public UserLevel ViewerLevel { get; }
+
         public IEnumerable<CustInfo> BreadcrumbLevels { get; set; } = Enumerable.Empty<CustInfo>();
 
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
-
-        public int LoginUserId { get; }
-
-        public byte LoginUserLevelId { get; }
     }
 }

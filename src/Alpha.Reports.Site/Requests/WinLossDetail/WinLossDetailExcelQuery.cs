@@ -8,7 +8,7 @@
 
     public class WinLossDetailExcelQuery : WinLossDetailQuery, IRequest<ExcelFileViewModel>
     {
-        public WinLossDetailExcelQuery(IUser user) : base(user)
+        public WinLossDetailExcelQuery(IUser viewer) : base(viewer)
         {
             PageIndex = DefaultVariables.PageIndex;
             PageSize = DefaultVariables.PageSize;

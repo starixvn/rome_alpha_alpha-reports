@@ -8,7 +8,7 @@
          ReportBaseQuery,
          IRequest<WinLossViewModel>
     {
-        public WinLossQuery(IUser user) : base(user)
+        public WinLossQuery(IUser viewer) : base(viewer)
         {
         }
 

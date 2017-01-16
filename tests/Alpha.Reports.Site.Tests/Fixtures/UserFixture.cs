@@ -8,6 +8,7 @@
         public UserFixture()
         {
             User = Substitute.For<IUser>();
+            User.LevelId.Returns((byte)4);
         }
 
         public IUser User { get; private set; }
