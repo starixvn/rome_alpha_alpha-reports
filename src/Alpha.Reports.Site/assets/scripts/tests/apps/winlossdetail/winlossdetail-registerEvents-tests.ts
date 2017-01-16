@@ -54,34 +54,47 @@ describe("WinLossDetail", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             winLossDetailView.cacheElements();
-        });
 
-        it("_All neccessary functions have been registered", () => {
-            // arrange
             spyOn(winLossDetailView, "onSwitchReport");
             spyOn(winLossDetailView, "onClickIconFilter");
             spyOn(winLossDetailView, "onSwitchMode");
             spyOn(winLossDetailView, "onExportExcel");
-
-            // act
-            winLossDetailView.registerEvents();
-            winLossDetailView.$reportSwitch.trigger("click");
-            $(".icon-filter").trigger("click");
-            winLossDetailView.$(".icon-switchmode").trigger("click");
-            winLossDetailView.$("#icon-excel").trigger("click");
-
-            // assert
-            expect(winLossDetailView.onSwitchReport).toHaveBeenCalled();
-            expect(winLossDetailView.onClickIconFilter).toHaveBeenCalled();
-            expect(winLossDetailView.onSwitchMode).toHaveBeenCalled();
-            expect(winLossDetailView.onExportExcel).toHaveBeenCalled();
-        });
-        it("_Submit functions have been registered", () => {
-            // arrange
             spyOn(winLossDetailView, "onSubmitReport");
 
             // act
             winLossDetailView.registerEvents();
+        });
+
+        it("_Bind onSwitchReport", () => {
+            // act
+            winLossDetailView.$reportSwitch.trigger("click");
+
+            // assert
+            expect(winLossDetailView.onSwitchReport).toHaveBeenCalled();
+        });
+        it("_Bind onClickIconFilter", () => {
+            // act
+            $(".icon-filter").trigger("click");
+
+            // assert
+            expect(winLossDetailView.onClickIconFilter).toHaveBeenCalled();
+        });
+        it("_Bind onSwitchMode", () => {
+            // act
+            winLossDetailView.$(".icon-switchmode").trigger("click");
+
+            // assert
+            expect(winLossDetailView.onSwitchMode).toHaveBeenCalled();
+        });
+        it("_Bind onExportExcel", () => {
+            // act
+            winLossDetailView.$("#icon-excel").trigger("click");
+
+            // assert
+            expect(winLossDetailView.onExportExcel).toHaveBeenCalled();
+        });
+        it("_Submit functions have been registered", () => {
+            // act
             winLossDetailView.$reportForm.trigger("submit");
 
             // assert

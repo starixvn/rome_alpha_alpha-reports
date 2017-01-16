@@ -1,4 +1,4 @@
-﻿describe("WinLossDetail_", () => {
+﻿describe("WinLossDetail", () => {
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     const pagerComponent = new PagerComponent($);
@@ -48,41 +48,81 @@
         spyOn(dateRangePickerComponent, "render");
     });
 
-    describe("init", () => {
-        it("Document is not ready -> Does not call any Method", () => {
-            // act
-            winLossDetailView.init();
+    describe("_init", () => {
+        describe("_Document is not ready", () => {
+            beforeEach(() => {
+                // act
+                winLossDetailView.init();
+            });
+            it("_Does not call cacheElements", () => {
+                // assert
+                expect(winLossDetailView.cacheElements).not.toHaveBeenCalled();
+            });
+            it("_Does not call registerEvents", () => {
+                // assert
+                expect(winLossDetailView.registerEvents).not.toHaveBeenCalled();
+            });
+            it("_Does not call blockUI", () => {
+                // assert
+                expect(jQueryFake.blockUI).not.toHaveBeenCalled();
+            });
+            it("_Does not call unblockUI", () => {
+                // assert
+                expect(jQueryFake.unblockUI).not.toHaveBeenCalled();
+            });
+            it("_Does not call productMultiSelectionComponent.render", () => {
+                // assert
+                expect(productMultiSelectionComponent.render).not.toHaveBeenCalled();
+            });
+            it("_Does not call pagerComponent.render", () => {
+                // assert
+                expect(pagerComponent.render).not.toHaveBeenCalled();
+            });
+            it("_Does not call sortComponent.render", () => {
+                // assert
+                expect(sortComponent.render).not.toHaveBeenCalled();
+            });
+        });
+        describe("_Document is ready", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
 
-            // assert
-            expect(winLossDetailView.cacheElements).not.toHaveBeenCalled();
-            expect(winLossDetailView.registerEvents).not.toHaveBeenCalled();
-            expect(jQueryFake.blockUI).not.toHaveBeenCalled();
-            expect(jQueryFake.unblockUI).not.toHaveBeenCalled();
+                // act
+                winLossDetailView.init();
+            });
 
-            expect(productMultiSelectionComponent.render).not.toHaveBeenCalled();
-            expect(pagerComponent.render).not.toHaveBeenCalled();
-            expect(sortComponent.render).not.toHaveBeenCalled();
+            it("_Calls cacheElements", () => {
+                // assert
+                expect(winLossDetailView.cacheElements).toHaveBeenCalled();
+            });
+            it("_Calls registerEvents", () => {
+                // assert
+                expect(winLossDetailView.registerEvents).toHaveBeenCalled();
+            });
+            it("_Calls blockUI", () => {
+                // assert
+                expect(jQueryFake.blockUI).toHaveBeenCalled();
+            });
+            it("_Calls unblockUI", () => {
+                // assert
+                expect(jQueryFake.unblockUI).toHaveBeenCalled();
+            });
+            it("_Calls productMultiSelectionComponent.render", () => {
+                // assert
+                expect(productMultiSelectionComponent.render).toHaveBeenCalled();
+            });
+            it("_Calls pagerComponent.render", () => {
+                // assert
+                expect(pagerComponent.render).toHaveBeenCalled();
+            });
+            it("_Calls sortComponent.render", () => {
+                // assert
+                expect(sortComponent.render).toHaveBeenCalled();
+            });
         });
 
-        it("Document is ready -> Calls Specific Methods", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
-
-            // act
-            winLossDetailView.init();
-
-            // assert
-            expect(winLossDetailView.cacheElements).toHaveBeenCalled();
-            expect(winLossDetailView.registerEvents).toHaveBeenCalled();
-            expect(jQueryFake.blockUI).toHaveBeenCalled();
-            expect(jQueryFake.unblockUI).toHaveBeenCalled();
-
-            expect(productMultiSelectionComponent.render).toHaveBeenCalled();
-            expect(pagerComponent.render).toHaveBeenCalled();
-            expect(sortComponent.render).toHaveBeenCalled();
-        });
-
-        it("Current Report -> Renders Date Range Picker And Not Render Month Picker", () => {
+        it("_Current Report -> Renders Date Range Picker And Not Render Month Picker", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             spyOn(monthPickerComponent, "render");
@@ -95,7 +135,7 @@
             expect(monthPickerComponent.render).not.toHaveBeenCalled();
         });
 
-        it("Historic Report With Hidden Filter -> Renders Month Picker And Not Render Date Range Picker", () => {
+        it("_Historic Report With Hidden Filter -> Renders Month Picker And Not Render Date Range Picker", () => {
             // arrange
             setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
             spyOn(monthPickerComponent, "render");
@@ -109,7 +149,7 @@
         });
 
         // historic report: we must show filter before render month picker
-        it("Historic Report With Hidden Filter -> Shows Filter Before Renders Month Picker", () => {
+        it("_Historic Report With Hidden Filter -> Shows Filter Before Renders Month Picker", () => {
             // arrange
             setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
 
@@ -127,7 +167,7 @@
 
         // historic report: we must show filter before render month picker
         // therefore, after init we also hide it if before that it is hidden
-        it("Historic Report With Hidden Filter -> Hides Filter Is Hidden After Init", () => {
+        it("_Historic Report With Hidden Filter -> Hides Filter Is Hidden After Init", () => {
             // arrange
             setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
             spyOn(monthPickerComponent, "render").and.callThrough();
@@ -140,7 +180,7 @@
             expect(actualIsHidden).toBeTruthy();
         });
 
-        it("Report Of Top Level With no-Submit Param on Mobile -> Set Stack Mode as Default", () => {
+        it("_Report Of Top Level With no-Submit Param on Mobile -> Set Stack Mode as Default", () => {
             // arrange
             setFixtures(winLossDetailTemplate.reportOfTopLevel);
             let setStackMode = spyOn(winLossDetailView, "setStackMode");
@@ -153,7 +193,7 @@
             expect(setStackMode).toHaveBeenCalled();
         });
 
-        it("Report Of Top Level With no-Submit Param on Mobile -> Show Stack Mode Tooltip with correct options", () => {
+        it("_Report Of Top Level With no-Submit Param on Mobile -> Show Stack Mode Tooltip with correct options", () => {
             // arrange
             setFixtures(winLossDetailTemplate.reportOfTopLevel);
             spyOn(alphaReports, "screenSmallThan768").and.callFake(() => true);
@@ -166,7 +206,7 @@
             expect(reportTooltip.show).toHaveBeenCalledWith(new ReportTooltipOption("icon-normal-column", 1));
         });
 
-        it("Always -> Render sort component with correct options", () => {
+        it("_Always -> Render sort component with correct options", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             spyOn(pagerComponent, "hasAllDataOnClient").and.callFake(() => true);
@@ -184,8 +224,8 @@
             ));
         });
     });
-    describe("checkReady", () => {
-        it("Document is not loaded yet (empty) -> Returns False", () => {
+    describe("_checkReady", () => {
+        it("_Document is not loaded yet (empty) -> Returns False", () => {
             // arrange
             setFixtures("");
 
@@ -195,7 +235,7 @@
             // assert
             expect(actualIsReady).toBeFalsy();
         });
-        it("Document is loaded (ready) -> Returns True", () => {
+        it("_Document is loaded (ready) -> Returns True", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
 
@@ -206,8 +246,8 @@
             expect(actualIsReady).toBeTruthy();
         });
     });
-    describe("cacheElements", () => {
-        it("Always -> All neccessary elements have been cached", () => {
+    describe("_cacheElements", () => {
+        it("_Always -> All neccessary elements have been cached", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
 
@@ -234,197 +274,277 @@
             expect(winLossDetailView.$breadcrumbLinks).toBeDefined();
         });
     });
-    describe("onSwitchReport", () => {
-        it("Current Report -> Switch to Historic Report and Submit", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
-            winLossDetailView.cacheElements();
-            spyOn(winLossDetailView.$reportForm, "trigger");
+    describe("_onSwitchReport", () => {
+        describe("_Current Report", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+                winLossDetailView.cacheElements();
+                spyOn(winLossDetailView.$reportForm, "trigger");
 
-            // act
-            winLossDetailView.onSwitchReport();
+                // act
+                winLossDetailView.onSwitchReport();
+            });
 
-            // assert
-            expect(winLossDetailView.isSwitchView).toBeTruthy();
-            expect(winLossDetailView.isHistoricReport).toBeTruthy();
-            expect(winLossDetailView.$reportForm.trigger).toHaveBeenCalledWith("submit");
+            it("_Switch to Historic Report", () => {
+                // assert
+                expect(winLossDetailView.isSwitchView).toBeTruthy();
+                expect(winLossDetailView.isHistoricReport).toBeTruthy();
+            });
+            it("_Submit", () => {
+                // assert
+                expect(winLossDetailView.$reportForm.trigger).toHaveBeenCalledWith("submit");
+            });
         });
-        it("Historic Report -> Switch to Current Report and Submit", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.historicReportWithShownFilter);
-            winLossDetailView.cacheElements();
-            spyOn(winLossDetailView.$reportForm, "trigger");
+        describe("_Historic Report", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(winLossDetailTemplate.historicReportWithShownFilter);
+                winLossDetailView.cacheElements();
+                spyOn(winLossDetailView.$reportForm, "trigger");
 
-            // act
-            winLossDetailView.onSwitchReport();
-
-            // assert
-            expect(winLossDetailView.isSwitchView).toBeTruthy();
-            expect(winLossDetailView.isHistoricReport).toBeFalsy();
-            expect(winLossDetailView.$reportForm.trigger).toHaveBeenCalledWith("submit");
+                // act
+                winLossDetailView.onSwitchReport();
+            });
+            it("_Switch to Current Report", () => {
+                // assert
+                expect(winLossDetailView.isSwitchView).toBeTruthy();
+                expect(winLossDetailView.isHistoricReport).toBeFalsy();
+            });
+            it("_Submit", () => {
+                // assert
+                expect(winLossDetailView.$reportForm.trigger).toHaveBeenCalledWith("submit");
+            });
         });
     });
-    describe("setStackMode", () => {
-        it("Always -> Blocks UI; Set stack-mode to table reports; Combines Columns", () => {
+    describe("_setStackMode_Always", () => {
+        let combineConsecutiveCellsSpy: jasmine.Spy;
+        beforeEach(() => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             winLossDetailView.cacheElements();
             spyOn(winLossDetailView, "replaceHrefParam");
-            var combineConsecutiveCellsSpy = spyOn(alphaReports, "combineConsecutiveCells");
+            combineConsecutiveCellsSpy = spyOn(alphaReports, "combineConsecutiveCells");
 
             // act
             winLossDetailView.setStackMode();
+        });
 
+        it("_Blocks UI", () => {
             // assert
             expect(jQueryFake.blockUI).toHaveBeenCalled();
+        });
+        it("_Set stack-mode to table reports", () => {
+            // assert
             expect(winLossDetailView.$pageTitle.hasClass("stack-mode")).toBeTruthy();
             expect(winLossDetailView.$tableReport.hasClass("stack-mode")).toBeTruthy();
             expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsStackMode", true);
-
+        });
+        it("_Combines Columns", () => {
+            // assert
             expect(combineConsecutiveCellsSpy.calls.allArgs()).toEqual([
                 [jasmine.any(Object), 3, "col-turnover-combined"],
                 [jasmine.any(Object), 3, "col-member-winloss-combined"],
                 [jasmine.any(Object), 3, "col-agent-winloss-combined altercol"],
                 [jasmine.any(Object), 3, "col-master-winloss-combined"],
                 [jasmine.any(Object), 3, "col-super-winloss-combined altercol"]]);
-
+        });
+        it("_Unblocks UI", () => {
+            // assert
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
         });
     });
-    describe("onClickIconFilter", () => {
-        it("Filter is currently shown -> Hides Filter and Update Href Param to False", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.historicReportWithShownFilter);
-            winLossDetailView.cacheElements();
+    describe("_onClickIconFilter", () => {
+        describe("_Filter is currently shown", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(winLossDetailTemplate.historicReportWithShownFilter);
+                winLossDetailView.cacheElements();
 
-            spyOn(winLossDetailView, "hideFilter");
-            spyOn(winLossDetailView, "replaceHrefParam");
+                spyOn(winLossDetailView, "hideFilter");
+                spyOn(winLossDetailView, "replaceHrefParam");
 
-            // act
-            winLossDetailView.onClickIconFilter();
-
-            // assert
-            expect(winLossDetailView.hideFilter).toHaveBeenCalled();
-            expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsFilterVisible", false);
+                // act
+                winLossDetailView.onClickIconFilter();
+            });
+            it("_Hides Filter", () => {
+                // assert
+                expect(winLossDetailView.hideFilter).toHaveBeenCalled();
+            });
+            it("_Update Href Param to False", () => {
+                // assert
+                expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsFilterVisible", false);
+            });
         });
+        describe("_Filter is currently hidden", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
+                winLossDetailView.cacheElements();
 
-        it("Filter is currently hidden -> Hides Filter and Update Href Param to True", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.historicReportWithHiddenFilter);
-            winLossDetailView.cacheElements();
+                spyOn(netTurnoverTooltipComponent, "positionNetTurnoverTooltip");
+                spyOn(winLossDetailView, "replaceHrefParam");
 
-            spyOn(netTurnoverTooltipComponent, "positionNetTurnoverTooltip");
-            spyOn(winLossDetailView, "replaceHrefParam");
-
-            // act
-            winLossDetailView.onClickIconFilter();
-
-            // assert
-            expect(winLossDetailView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
-            expect(winLossDetailView.$reportForm.hasClass("hide")).toBeFalsy();
-            expect(netTurnoverTooltipComponent.positionNetTurnoverTooltip).toHaveBeenCalled();
-            expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsFilterVisible", true);
+                // act
+                winLossDetailView.onClickIconFilter();
+            });
+            it("_Hides Filter", () => {
+                // assert
+                expect(winLossDetailView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
+                expect(winLossDetailView.$reportForm.hasClass("hide")).toBeFalsy();
+            });
+            it("_Position Net Turnover Tooltip", () => {
+                // assert
+                expect(netTurnoverTooltipComponent.positionNetTurnoverTooltip).toHaveBeenCalled();
+            });
+            it("_Update Href Param to True", () => {
+                // assert
+                expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsFilterVisible", true);
+            });
         });
     });
-    describe("onSwitchMode", () => {
-        it(`1st Switch on Normal Mode ->
-                Blocks/Unblocks UI;
-                Adds Class stack-mode to Table Report/Page Title;
-                Updates HRef Param;
-                Combines Cells;
-                Rebinds Table Sorter`, () => {
+    describe("_onSwitchMode", () => {
+        describe("_1st Switch on Normal Mode", () => {
+            let combineConsecutiveCellsSpy: jasmine.Spy;
+            beforeEach(() => {
                 // arrange
                 setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
                 winLossDetailView.cacheElements();
                 spyOn(winLossDetailView, "replaceHrefParam");
                 spyOn(sortComponent, "bindTableSorter");
-                var combineConsecutiveCellsSpy = spyOn(alphaReports, "combineConsecutiveCells");
+                combineConsecutiveCellsSpy = spyOn(alphaReports, "combineConsecutiveCells");
 
                 // act
                 winLossDetailView.onSwitchMode();
+            });
 
+            it("_Blocks UI", () => {
                 // assert
                 expect(jQueryFake.blockUI).toHaveBeenCalled();
-                expect(winLossDetailView.$pageTitle.hasClass("stack-mode")).toBeTruthy();
+            });
+            it("_Unblocks UI", () => {
+                // assert
+                expect(jQueryFake.unblockUI).toHaveBeenCalled();
+            });
+            it("_Adds Class stack-mode to Table Report", () => {
+                // assert
                 expect(winLossDetailView.$tableReport.hasClass("stack-mode")).toBeTruthy();
-
+            });
+            it("_Adds Class stack-mode to Page Title", () => {
+                // assert
+                expect(winLossDetailView.$pageTitle.hasClass("stack-mode")).toBeTruthy();
+            });
+            it("_Updates HRef Param", () => {
+                // assert
                 expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsStackMode", true);
-
+            });
+            it("_Combines Cells", () => {
+                // assert
                 expect(combineConsecutiveCellsSpy.calls.allArgs()).toEqual([
                     [jasmine.any(Object), 3, "col-turnover-combined"],
                     [jasmine.any(Object), 3, "col-member-winloss-combined"],
                     [jasmine.any(Object), 3, "col-agent-winloss-combined altercol"],
                     [jasmine.any(Object), 3, "col-master-winloss-combined"],
                     [jasmine.any(Object), 3, "col-super-winloss-combined altercol"]]);
-                expect(sortComponent.bindTableSorter).toHaveBeenCalledWith(winLossDetailView.getSortedColumnName());
-                expect(jQueryFake.unblockUI).toHaveBeenCalled();
             });
-        it(`1st Switch on Stack Mode ->
-                Blocks/Unblocks UI;
-                Removes Class stack-mode to Table Report/Page Title;
-                Updates HRef Param;
-                Splits Cells;
-                Rebinds Table Sorter`, () => {
+            it("_Rebinds Table Sorter", () => {
+                // assert
+                expect(sortComponent.bindTableSorter).toHaveBeenCalledWith(winLossDetailView.getSortedColumnName());
+            });
+        });
+        describe("_1st Switch on Stack Mode", () => {
+            let splitCellSpy: jasmine.Spy;
+            beforeEach(() => {
                 // arrange
                 setFixtures(winLossDetailTemplate.currentReportWithStackMode);
                 winLossDetailView.cacheElements();
                 spyOn(winLossDetailView, "replaceHrefParam");
                 spyOn(sortComponent, "bindTableSorter");
-                var splitCellSpy = spyOn(alphaReports, "splitCell");
+                splitCellSpy = spyOn(alphaReports, "splitCell");
 
                 // act
                 winLossDetailView.onSwitchMode();
-
+            });
+            it("_Blocks UI", () => {
                 // assert
                 expect(jQueryFake.blockUI).toHaveBeenCalled();
-                expect(winLossDetailView.$pageTitle.hasClass("stack-mode")).toBeFalsy();
+            });
+            it("_Unblocks UI", () => {
+                // assert
+                expect(jQueryFake.unblockUI).toHaveBeenCalled();
+            });
+            it("_Removes Class stack-mode to Table Report", () => {
+                // assert
                 expect(winLossDetailView.$tableReport.hasClass("stack-mode")).toBeFalsy();
-
+            });
+            it("_Removes Class stack-mode to Page Title", () => {
+                // assert
+                expect(winLossDetailView.$pageTitle.hasClass("stack-mode")).toBeFalsy();
+            });
+            it("_Updates HRef Param", () => {
+                // assert
                 expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsStackMode", false);
-
+            });
+            it("_Splits Cells", () => {
+                // assert
                 expect(splitCellSpy.calls.allArgs()).toEqual([
                     ["col-turnover"],
                     ["col-member-winloss", ""],
                     ["col-agent-winloss", " altercol"],
                     ["col-master-winloss", ""],
                     ["col-super-winloss", " altercol"]]);
+            });
+            it("_Rebinds Table Sorter", () => {
+                // assert
                 expect(sortComponent.bindTableSorter).toHaveBeenCalledWith(winLossDetailView.getSortedColumnName());
-                expect(jQueryFake.unblockUI).toHaveBeenCalled();
+            });
+        });
+        describe("_2nd+ Switch on Normal Mode", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+                winLossDetailView.cacheElements();
+                winLossDetailView.isFirstSwitchMode = false;
+                spyOn(alphaReports, "combineConsecutiveCells");
+                spyOn(alphaReports, "splitCell");
+
+                // act
+                winLossDetailView.onSwitchMode();
+            });
+            it("_Not Combine Cells", () => {
+                // assert
+                expect(alphaReports.combineConsecutiveCells).not.toHaveBeenCalled();
+            });
+            it("_Not Splits Cells", () => {
+                // assert
+                expect(alphaReports.splitCell).not.toHaveBeenCalled();
+            });
+        });
+        describe("_2nd+ Switch on Stack Mode", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(winLossDetailTemplate.currentReportWithStackMode);
+                winLossDetailView.cacheElements();
+                winLossDetailView.isFirstSwitchMode = false;
+                spyOn(alphaReports, "combineConsecutiveCells");
+                spyOn(alphaReports, "splitCell");
+
+                // act
+                winLossDetailView.onSwitchMode();
             });
 
-        it(`2nd+ Switch on Normal Mode -> Not Combine Cells or Splits Cells`, () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
-            winLossDetailView.cacheElements();
-            winLossDetailView.isFirstSwitchMode = false;
-            spyOn(alphaReports, "combineConsecutiveCells");
-            spyOn(alphaReports, "splitCell");
-
-            // act
-            winLossDetailView.onSwitchMode();
-
-            // assert
-            expect(alphaReports.splitCell).not.toHaveBeenCalled();
-            expect(alphaReports.combineConsecutiveCells).not.toHaveBeenCalled();
-        });
-        it(`2nd+ Switch on Stack Mode -> Not Combine Cells or Splits Cells`, () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithStackMode);
-            winLossDetailView.cacheElements();
-            winLossDetailView.isFirstSwitchMode = false;
-            spyOn(alphaReports, "combineConsecutiveCells");
-            spyOn(alphaReports, "splitCell");
-
-            // act
-            winLossDetailView.onSwitchMode();
-
-            // assert
-            expect(alphaReports.splitCell).not.toHaveBeenCalled();
-            expect(alphaReports.combineConsecutiveCells).not.toHaveBeenCalled();
+            it("Not Combine Cells", () => {
+                // assert
+                expect(alphaReports.combineConsecutiveCells).not.toHaveBeenCalled();
+            });
+            it("Not Splits Cells", () => {
+                // assert
+                expect(alphaReports.splitCell).not.toHaveBeenCalled();
+            });
         });
     });
-    describe("onExportExcel", () => {
-        it("Always -> Submits Export Excel Form And Unblocks UI", () => {
+    describe("_onExportExcel_Always", () => {
+        beforeEach(() => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             winLossDetailView.cacheElements();
@@ -432,14 +552,18 @@
 
             // act
             winLossDetailView.onExportExcel();
-
+        });
+        it("_Submits Export Excel Form", () => {
             // assert
             expect(winLossDetailView.$exportExcelForm.submit).toHaveBeenCalled();
+        });
+        it("_Unblocks UI", () => {
+            // assert
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
         });
     });
-    describe("afterSort", () => {
-        it("Not Have All Data on Client -> Submits Report", () => {
+    describe("_afterSort", () => {
+        it("_Not Have All Data on Client -> Submits Report", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             winLossDetailView.hasAllDataOnClient = false;
@@ -476,7 +600,7 @@
             expect(actulaTableBody).toEqual(expectedTableBody);
         };
 
-        it(`Have All Data on Client and Currently Sorts ASC on Normal Mode ->
+        it(`_Have All Data on Client and Currently Sorts ASC on Normal Mode ->
             Updates Href Param;
             Not Submit Report;
             Updates even-row class for tbody`, () => {
@@ -486,21 +610,21 @@
                                     <tr class="even-row"><td>Row 4</td></tr>`);
             });
 
-        it(`Have All Data on Client and Currently Sorts DESC on Normal Mode ->
+        it(`_Have All Data on Client and Currently Sorts DESC on Normal Mode ->
             Updates Href Param;
             Not Submit Report;
             Updates even-row class for tbody`, () => {
                 haveAllDataOnClientTests(winLossDetailTemplate.sortDESCOnNormalMode, true, "");
             });
-        it(`Have All Data on Client and Currently Sorts DESC Combined Column on Stack Mode ->
+        it(`_Have All Data on Client and Currently Sorts DESC Combined Column on Stack Mode ->
             Updates Href Param;
             Not Submit Report;
             Updates even-row class for tbody`, () => {
                 haveAllDataOnClientTests(winLossDetailTemplate.sortDESCCombinedColumnOnStackMode, true, "");
             });
     });
-    describe("hideFilter", () => {
-        it("Always -> Updates Page Title/Filter/Net Turnover Tooltip", () => {
+    describe("_hideFilter_Always", () => {
+        beforeEach(() => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             winLossDetailView.cacheElements();
@@ -508,14 +632,21 @@
 
             // act
             winLossDetailView.hideFilter();
-
+        });
+        it("_Updates Page Title", () => {
             // assert
             expect(winLossDetailView.$pageTitle.hasClass("hide-filter")).toBeTruthy();
+        });
+        it("_Updates Filter", () => {
+            // assert
             expect(winLossDetailView.$reportForm.hasClass("hide")).toBeTruthy();
+        });
+        it("_Updates Net Turnover Tooltip", () => {
+            // assert
             expect(netTurnoverTooltipComponent.positionNetTurnoverTooltip).toHaveBeenCalledWith(winLossDetailView.$netTurnoverTooltip);
         });
     });
-    describe("getParams", () => {
+    describe("_getParams", () => {
         let getParamsTest = (selectedProduct: Array<number>, expectedIsAnyProductSelected: boolean) => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
@@ -542,15 +673,15 @@
             });
         };
 
-        it("No product selected -> Updates Page Title/Filter/Net Turnover Tooltip", () => {
+        it("_No product selected -> Returns correct params", () => {
             getParamsTest([], false);
         });
-        it("Have product selected -> Updates Page Title/Filter/Net Turnover Tooltip", () => {
+        it("_Have product selected -> Returns correct params", () => {
             getParamsTest([1], true);
         });
     });
-    describe("showValidateProductError", () => {
-        it("Always -> Adds class error to multiple select button of dropdown product", () => {
+    describe("_showValidateProductError", () => {
+        it("_Always -> Adds class error to multiple select button of dropdown product", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             winLossDetailView.cacheElements();
@@ -562,8 +693,8 @@
             expect(winLossDetailView.$multiSelectButton.hasClass("error")).toBeTruthy();
         });
     });
-    describe("clearError", () => {
-        it("Always -> Removes class error from multiple select button of dropdown product", () => {
+    describe("_clearError", () => {
+        it("_Always -> Removes class error from multiple select button of dropdown product", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             winLossDetailView.cacheElements();
@@ -575,30 +706,49 @@
             expect(winLossDetailView.$multiSelectButton.hasClass("error")).toBeFalsy();
         });
     });
-    describe("onSubmitReport", () => {
-        it("Switch View -> Blocks UI; Empty FromDate/Todate; Sets params to hidden fields", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
-            renderProductMultiSelectionComponent.and.callThrough();
-            renderSortComponent.and.callThrough();
-            winLossDetailView.init();
-            winLossDetailView.isSwitchView = true;
+    describe("_onSubmitReport", () => {
+        describe("_Switch View", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+                renderProductMultiSelectionComponent.and.callThrough();
+                renderSortComponent.and.callThrough();
+                winLossDetailView.init();
+                winLossDetailView.isSwitchView = true;
 
-            // act
-            winLossDetailView.onSubmitReport(null);
-
-            // assert
-            expect(jQueryFake.blockUI).toHaveBeenCalled();
-
-            expect(winLossDetailView.$fromDate.val()).toEqual("");
-            expect(winLossDetailView.$toDate.val()).toEqual("");
-            expect(winLossDetailView.$isFilterVisible.val()).toBeTruthy();
-            expect(winLossDetailView.$isDescendingSort.val()).toBeTruthy();
-            expect(winLossDetailView.$isHistoricReport.val()).toEqual("false");
-            expect(winLossDetailView.$isStackMode.val()).toEqual("false");
-            expect(winLossDetailView.$sortPropertyName.val()).toEqual("WinLoss");
+                // act
+                winLossDetailView.onSubmitReport(null);
+            });
+            it("_Blocks UI", () => {
+                // assert
+                expect(jQueryFake.blockUI).toHaveBeenCalled();
+            });
+            it("_Empty FromDate", () => {
+                // assert
+                expect(winLossDetailView.$fromDate.val()).toEqual("");
+            });
+            it("_Empty Todate", () => {
+                // assert
+                expect(winLossDetailView.$toDate.val()).toEqual("");
+            });
+            it("_Sets params to hidden fields", () => {
+                // assert
+                expect({
+                    isFilterVisible: winLossDetailView.$isFilterVisible.val(),
+                    isDescendingSort: winLossDetailView.$isDescendingSort.val(),
+                    isHistoricReport: winLossDetailView.$isHistoricReport.val(),
+                    isStackMode: winLossDetailView.$isStackMode.val(),
+                    sortPropertyName: winLossDetailView.$sortPropertyName.val()
+                }).toEqual({
+                    isFilterVisible: "true",
+                    isDescendingSort: "false",
+                    isHistoricReport: "false",
+                    isStackMode: "false",
+                    sortPropertyName: "WinLoss"
+                });
+            });
         });
-        it("Switch View on Mobile -> Set Filter Is Visible to false", () => {
+        it("_Switch View on Mobile -> Set Filter Is Visible to false", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             renderProductMultiSelectionComponent.and.callThrough();
@@ -612,7 +762,7 @@
             // assert
             expect(winLossDetailView.$isFilterVisible.val()).toEqual("true");
         });
-        it("Not switch view and not select any product -> Blocks UI; Shows Validate Product Error; Unblock UI;", () => {
+        it("_Not switch view and not select any product -> Blocks UI; Shows Validate Product Error; Unblock UI;", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             renderProductMultiSelectionComponent.and.callThrough();
@@ -631,8 +781,8 @@
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
         });
     });
-    describe("getSortedColumnName", () => {
-        it("Normal Mode => Returns Sorted Column name data on table report", () => {
+    describe("_getSortedColumnName", () => {
+        it("_Normal Mode => Returns Sorted Column name data on table report", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
             winLossDetailView.init();
@@ -657,60 +807,60 @@
             expect(actualSortedColumnName).toEqual(expectedSortedCoumnResult);
         };
 
-        it("Stack Mode, Sort on NetTurnover => Returns Name Turnover", () => {
+        it("_Stack Mode, Sort on NetTurnover => Returns Name Turnover", () => {
             sortReportOnStackModeTest("NetTurnover", "Turnover");
         });
-        it("Stack Mode, Sort on GrossComm => Returns Name Turnover", () => {
+        it("_Stack Mode, Sort on GrossComm => Returns Name Turnover", () => {
             sortReportOnStackModeTest("NetTurnover", "Turnover");
         });
-        it("Stack Mode, Sort on MemberNetWinLoss.Comm => Returns Name MemberNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on MemberNetWinLoss.Comm => Returns Name MemberNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("MemberNetWinLoss.Comm", "MemberNetWinLoss.WinLoss");
         });
-        it("Stack Mode, Sort on MemberNetWinLoss.Total => Returns Name MemberNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on MemberNetWinLoss.Total => Returns Name MemberNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("MemberNetWinLoss.Total", "MemberNetWinLoss.WinLoss");
         });
-        it("Stack Mode, Sort on AgentNetWinLoss.Comm => Returns Name AgentNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on AgentNetWinLoss.Comm => Returns Name AgentNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("AgentNetWinLoss.Comm", "AgentNetWinLoss.WinLoss");
         });
-        it("Stack Mode, Sort on AgentNetWinLoss.Total => Returns Name AgentNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on AgentNetWinLoss.Total => Returns Name AgentNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("AgentNetWinLoss.Total", "AgentNetWinLoss.WinLoss");
         });
-        it("Stack Mode, Sort on MasterNetWinLoss.Comm => Returns Name MasterNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on MasterNetWinLoss.Comm => Returns Name MasterNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("MasterNetWinLoss.Comm", "MasterNetWinLoss.WinLoss");
         });
-        it("Stack Mode, Sort on MasterNetWinLoss.Total => Returns Name MasterNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on MasterNetWinLoss.Total => Returns Name MasterNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("MasterNetWinLoss.Total", "MasterNetWinLoss.WinLoss");
         });
-        it("Stack Mode, Sort on SuperNetWinLoss.Comm => Returns Name SuperNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on SuperNetWinLoss.Comm => Returns Name SuperNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("SuperNetWinLoss.Comm", "SuperNetWinLoss.WinLoss");
         });
-        it("Stack Mode, Sort on SuperNetWinLoss.Total => Returns Name SuperNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on SuperNetWinLoss.Total => Returns Name SuperNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("SuperNetWinLoss.Total", "SuperNetWinLoss.WinLoss");
         });
 
-        it("Stack Mode, Sort on Username => Returns Name Username", () => {
+        it("_Stack Mode, Sort on Username => Returns Name Username", () => {
             sortReportOnStackModeTest("Username", "Username");
         });
-        it("Stack Mode, Sort on NoOfTickets => Returns Name NoOfTickets", () => {
+        it("_Stack Mode, Sort on NoOfTickets => Returns Name NoOfTickets", () => {
             sortReportOnStackModeTest("NoOfTickets", "NoOfTickets");
         });
-        it("Stack Mode, Sort on Turnover => Returns Name Turnover", () => {
+        it("_Stack Mode, Sort on Turnover => Returns Name Turnover", () => {
             sortReportOnStackModeTest("Turnover", "Turnover");
         });
-        it("Stack Mode, Sort on Company => Returns Name Company", () => {
+        it("_Stack Mode, Sort on Company => Returns Name Company", () => {
             sortReportOnStackModeTest("Company", "Company");
         });
 
-        it("Stack Mode, Sort on MemberNetWinLoss.WinLoss => Returns Name MemberNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on MemberNetWinLoss.WinLoss => Returns Name MemberNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("MemberNetWinLoss.WinLoss", "MemberNetWinLoss.WinLoss");
         });
-        it("Stack Mode, Sort on AgentNetWinLoss.WinLoss => Returns Name AgentNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on AgentNetWinLoss.WinLoss => Returns Name AgentNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("AgentNetWinLoss.Total", "AgentNetWinLoss.WinLoss");
         });
-        it("Stack Mode, Sort on MasterNetWinLoss.WinLoss => Returns Name MasterNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on MasterNetWinLoss.WinLoss => Returns Name MasterNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("MasterNetWinLoss.Total", "MasterNetWinLoss.WinLoss");
         });
-        it("Stack Mode, Sort on SuperNetWinLoss.WinLoss => Returns Name SuperNetWinLoss.WinLoss", () => {
+        it("_Stack Mode, Sort on SuperNetWinLoss.WinLoss => Returns Name SuperNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("SuperNetWinLoss.WinLoss", "SuperNetWinLoss.WinLoss");
         });
     });

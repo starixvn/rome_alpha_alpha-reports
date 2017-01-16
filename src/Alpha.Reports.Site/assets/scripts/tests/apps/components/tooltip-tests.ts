@@ -81,11 +81,6 @@
 
             // assert
             $("#tooltip").trigger("click");
-            expect(tooltipSpy.calls.allArgs()).toEqual([
-                [{ placement: "bottom" }],
-                ["show"],
-                ["hide"]
-            ]);
             expect($.fn.off).toHaveBeenCalledWith("click.tooltip");
         });
     });

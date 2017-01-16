@@ -77,8 +77,10 @@
                 expect(sortComponent.bindTableSorter).toHaveBeenCalled();
             });
             it("_Bind on sort event", () => {
-                // assert
+                // act
                 $("[data-sortedname=\"Column2\"]").trigger("click");
+
+                // assert
                 expect(sortComponent.onSort).toHaveBeenCalled();
             });
         });
@@ -109,18 +111,17 @@
                 expect($("[data-sortedname=\"Column1\"]").hasClass("sorting-asc")).toBeTruthy();
             });
             it("_Bind on sort event", () => {
-                // assert
+                // act
                 $("[data-sortedname=\"Column2\"]").trigger("click");
+
+                // assert
                 expect(sortComponent.onSort).toHaveBeenCalled();
             });
         });
     });
-
-    describe("onSort", () => {
-        it(`Switch Sort Column ->
-                Set Descending Sort;
-                Update Sort Column Name;
-                Call After Sort Function`, () => {
+    describe("_onSort", () => {
+        describe("_Switch Sort Column", () => {
+            beforeEach(() => {
                 // arrange
                 setFixtures(`<body>
                                 <table id="table-report" data-descendingsort="False" data-sortedcolumn="Column1">
@@ -133,16 +134,22 @@
 
                 // act
                 $("[data-sortedname=\"Column2\"]").trigger("click");
-
+            });
+            it("_Set Descending Sort", () => {
                 // assert
                 expect(sortComponent.$sortContainer.data("descendingsort")).toEqual("1");
+            });
+            it("_Update Sort Column Name", () => {
+                // assert
                 expect(sortComponent.$sortContainer.data("sortedcolumn")).toEqual("Column2");
+            });
+            it("_Call After Sort Function", () => {
+                // assert
                 expect(sortComponent.options.afterSortFunction).toHaveBeenCalled();
             });
-        it(`Not Switch Sort Column/Currently Ascending Sort ->
-                Set Descending Sort;
-                Not Change Sort Column Name;
-                Call After Sort Function`, () => {
+        });
+        describe("_Not Switch Sort Column/ Currently Ascending Sort", () => {
+            beforeEach(() => {
                 // arrange
                 setFixtures(`<body>
                                 <table id="table-report" data-descendingsort="False" data-sortedcolumn="Column1">
@@ -155,38 +162,22 @@
 
                 // act
                 $("[data-sortedname=\"Column1\"]").trigger("click");
-
+            });
+            it("_Set Descending Sort", () => {
                 // assert
                 expect(sortComponent.$sortContainer.data("descendingsort")).toEqual("1");
-                expect(sortComponent.$sortContainer.data("sortedcolumn")).toEqual("Column1");
-                expect(sortComponent.options.afterSortFunction).toHaveBeenCalled();
             });
-        it(`Not Switch Sort Column/Currently Ascending Sort ->
-                Set Descending Sort;
-                Not Change Sort Column Name;
-                Call After Sort Function`, () => {
-                // arrange
-                setFixtures(`<body>
-                                <table id="table-report" data-descendingsort="False" data-sortedcolumn="Column1">
-                                    <th class="sorting" data-sortedname="Column1">Column 1</th>
-                                    <th class="sorting" data-sortedname="Column2">Column 2</th>
-                                </table>
-                            </body>`);
-                sortComponent.render(new SortOption($("#table-report"), true, false, () => null));
-                spyOn(sortComponent.options, "afterSortFunction");
-
-                // act
-                $("[data-sortedname=\"Column1\"]").trigger("click");
-
+            it("_Not Change Sort Column Name", () => {
                 // assert
-                expect(sortComponent.$sortContainer.data("descendingsort")).toEqual("1");
                 expect(sortComponent.$sortContainer.data("sortedcolumn")).toEqual("Column1");
+            });
+            it("_Call After Sort Function", () => {
+                // assert
                 expect(sortComponent.options.afterSortFunction).toHaveBeenCalled();
             });
-        it(`Not Switch Sort Column/Currently Descending Sort ->
-                Set Ascending Sort;
-                Not Change Sort Column Name;
-                Call After Sort Function`, () => {
+        });
+        describe("_Not Switch Sort Column/Currently Descending Sort", () => {
+            beforeEach(() => {
                 // arrange
                 setFixtures(`<body>
                                 <table id="table-report" data-descendingsort="True" data-sortedcolumn="Column1">
@@ -199,12 +190,20 @@
 
                 // act
                 $("[data-sortedname=\"Column1\"]").trigger("click");
-
+            });
+            it("_Set Ascending Sort", () => {
                 // assert
                 expect(sortComponent.$sortContainer.data("descendingsort")).toEqual("0");
+            });
+            it("_Not Change Sort Column Name", () => {
+                // assert
                 expect(sortComponent.$sortContainer.data("sortedcolumn")).toEqual("Column1");
+            });
+            it("_Call After Sort Function", () => {
+                // assert
                 expect(sortComponent.options.afterSortFunction).toHaveBeenCalled();
             });
+        });
     });
     describe("_getSortInfo", () => {
         it("_Descending Sort -> Returns Sort Info from table data", () => {
@@ -221,8 +220,10 @@
             var actalSortInfo = sortComponent.getSortInfo();
 
             // assert
-            expect(actalSortInfo.sortPropertyName).toBe("Column1");
-            expect(actalSortInfo.isDescendingSort).toBeTruthy();
+            expect(actalSortInfo).toEqual({
+                sortPropertyName: "Column1",
+                isDescendingSort: true
+            });
         });
 
         it("_Ascending Sort -> Returns Sort Info from table data", () => {
@@ -239,156 +240,182 @@
             var actalSortInfo = sortComponent.getSortInfo();
 
             // assert
-            expect(actalSortInfo.sortPropertyName).toBe("Column1");
-            expect(actalSortInfo.isDescendingSort).toBeFalsy();
+            expect(actalSortInfo).toEqual({
+                sortPropertyName: "Column1",
+                isDescendingSort: false
+            });
         });
     });
-    describe("bindTableSorter", () => {
-        it("_Cannot Sort -> Don't bind tablesorter and event sort end", () => {
-            // arrange
-            setFixtures(`<body>
-                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
-                                <th class="sorting" data-sortedname="Column1">Column 1</th>
-                                <th class="sorting" data-sortedname="Column2">Column 2</th>
-                            </table>
-                        </body>`);
 
-            sortComponent.options.canSort = false;
-            sortComponent.$sortContainer = $("#table-report");
-            sortComponent.options.afterSortFunction = () => null;
-            spyOn($.fn, "tablesorter");
-            spyOn(sortComponent.options, "afterSortFunction");
-
-            // act
-            sortComponent.bindTableSorter("Column1");
-
-            // assert
-            expect($.fn.tablesorter).not.toHaveBeenCalled();
-            sortComponent.$sortContainer.trigger("sortEnd");
-            expect(sortComponent.options.afterSortFunction).not.toHaveBeenCalled();
-        });
-        it("_Don't have all data on client -> Don't bind tablesorter and event sort end", () => {
-            // arrange
-            setFixtures(`<body>
-                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
-                                <th class="sorting" data-sortedname="Column1">Column 1</th>
-                                <th class="sorting" data-sortedname="Column2">Column 2</th>
-                            </table>
-                        </body>`);
-
-            sortComponent.options.canSort = true;
-            sortComponent.options.hasAllDataOnClient = false;
-            sortComponent.$sortContainer = $("#table-report");
-            sortComponent.options.afterSortFunction = () => null;
-            spyOn($.fn, "tablesorter");
-            spyOn(sortComponent.options, "afterSortFunction");
-
-            // act
-            sortComponent.bindTableSorter("Column1");
-
-            // assert
-            expect($.fn.tablesorter).not.toHaveBeenCalled();
-            sortComponent.$sortContainer.trigger("sortEnd");
-            expect(sortComponent.options.afterSortFunction).not.toHaveBeenCalled();
-        });
-        it("_Can sort;Have all data on client -> Bind tablesorter and event sort end", () => {
-            // arrange
-            setFixtures(`<body>
-                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
-                                <th class="sorting" data-sortedname="Column1" data-colindex="0">Column 1</th>
-                                <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
-                            </table>
-                        </body>`);
-
-            sortComponent.render(new SortOption($("#table-report"), true, true, () => null, {}));
-            spyOn($.fn, "tablesorter");
-            spyOn(sortComponent.options, "afterSortFunction");
-
-            // act
-            sortComponent.bindTableSorter("Column1");
-
-            // assert
-            expect($.fn.tablesorter).toHaveBeenCalledWith({
-                defaultParser: 1,
-                headers: { 1: { sorter: false } },
-                sortList: [[0, 0]],
-                textExtraction: jasmine.any(Function)
-            });
-        });
-
-        describe("_Had Data On Client", () => {
+    describe("_bindTableSorter", () => {
+        describe("_Cannot Sort", () => {
             beforeEach(() => {
-            });
-
-            it("_Table sorter sorted descending column on normal mode => onSort was called", () => {
                 // arrange
                 setFixtures(`<body>
                             <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
+                                <th class="sorting" data-sortedname="Column1">Column 1</th>
+                                <th class="sorting" data-sortedname="Column2">Column 2</th>
+                            </table>
+                        </body>`);
+
+                sortComponent.options.canSort = false;
+                sortComponent.$sortContainer = $("#table-report");
+                sortComponent.options.afterSortFunction = () => null;
+                spyOn($.fn, "tablesorter");
+                spyOn(sortComponent.options, "afterSortFunction");
+
+                // act
+                sortComponent.bindTableSorter("Column1");
+            });
+            it("_Don't bind tablesorter", () => {
+                // assert
+                expect($.fn.tablesorter).not.toHaveBeenCalled();
+            });
+            it("_Don't bind event sort end", () => {
+                // assert
+                sortComponent.$sortContainer.trigger("sortEnd");
+                expect(sortComponent.options.afterSortFunction).not.toHaveBeenCalled();
+            });
+        });
+        describe("_Don't have all data on client", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
+                                <th class="sorting" data-sortedname="Column1">Column 1</th>
+                                <th class="sorting" data-sortedname="Column2">Column 2</th>
+                                <tbody></tbody>
+                            </table>
+                        </body>`);
+
+                sortComponent.options.canSort = true;
+                sortComponent.options.hasAllDataOnClient = false;
+                sortComponent.$sortContainer = $("#table-report");
+                sortComponent.options.afterSortFunction = () => null;
+                spyOn($.fn, "tablesorter");
+                spyOn(sortComponent.options, "afterSortFunction");
+
+                // act
+                sortComponent.bindTableSorter("Column1");
+            });
+            it("_Don't bind tablesorter", () => {
+                // assert
+                expect($.fn.tablesorter).not.toHaveBeenCalled();
+            });
+            it("_Don't bind event sort end", () => {
+                // assert
+                sortComponent.$sortContainer.trigger("sortEnd");
+                expect(sortComponent.options.afterSortFunction).not.toHaveBeenCalled();
+            });
+        });
+        describe("_Can sort;Have all data on client", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
+                                <th class="sorting" data-sortedname="Column1" data-colindex="0">Column 1</th>
+                                <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
+                                <tbody></tbody>
+                            </table>
+                        </body>`);
+
+                sortComponent.render(new SortOption($("#table-report"), true, true, () => null, {}));
+                spyOn($.fn, "tablesorter");
+                spyOn(sortComponent.options, "afterSortFunction");
+
+                // act
+                sortComponent.bindTableSorter("Column1");
+            });
+            it("_Bind tablesorter", () => {
+                // assert
+                expect($.fn.tablesorter).toHaveBeenCalledWith({
+                    defaultParser: 1,
+                    headers: { 1: { sorter: false } },
+                    sortList: [[0, 0]],
+                    textExtraction: jasmine.any(Function)
+                });
+            });
+        });
+    });
+    describe("_Had Data On Client", () => {
+        it("_Table sorter sorted descending column on normal mode => onSort was called with descending sort", () => {
+            // arrange
+            setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="1" data-sortedcolumn="Column1">
                                 <thead class="tableFloatingHeaderOriginal">
                                     <th class="sorting sorting-desc" data-sortedname="Column1" data-colindex="0">Column 1</th>
                                     <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
                                 </thead>
+                                <tbody>
+                                    <tr><td>Row 1 - Column 1</td><td>Row 1 - Column 2</td></tr>
+                                    <tr><td>Row 2 - Column 1</td><td>Row 2 - Column 2</td></tr>
+                                </tbody>
                             </table>
                         </body>`);
-                sortComponent.render(new SortOption($("#table-report"), true, true, () => null, {}));
-                spyOn(sortComponent, "onSort");
+            sortComponent.render(new SortOption($("#table-report"), true, true, () => null, {}));
+            spyOn(sortComponent, "onSort");
 
-                // act
-                sortComponent.bindTableSorter("Column1");
-                sortComponent.$sortContainer.trigger("sortEnd");
+            // act
+            sortComponent.bindTableSorter("Column1");
+            sortComponent.$sortContainer.trigger("sortEnd");
 
-                // assert
-                let isDescendingSort = true;
-                let sortColumnName = "Column1";
-                expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
-            });
-
-            it("_Table sorter sorted ascending column on normal mode => onSort was called", () => {
-                // arrange
-                setFixtures(`<body>
+            // assert
+            let isDescendingSort = true;
+            let sortColumnName = "Column1";
+            expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
+        });
+        it("_Table sorter sorted ascending column on normal mode => onSort was called with ascending sort", () => {
+            // arrange
+            setFixtures(`<body>
                             <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
                                 <thead class="tableFloatingHeaderOriginal">
                                     <th class="sorting sorting-asc" data-sortedname="Column1" data-colindex="0">Column 1</th>
                                     <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
                                 </thead>
+                                <tbody>
+                                    <tr><td>Row 1 - Column 1</td><td>Row 1 - Column 2</td></tr>
+                                    <tr><td>Row 2 - Column 1</td><td>Row 2 - Column 2</td></tr>
+                                </tbody>
                             </table>
                         </body>`);
-                sortComponent.render(new SortOption($("#table-report"), true, true, () => null, {}));
-                spyOn(sortComponent, "onSort");
+            sortComponent.render(new SortOption($("#table-report"), true, true, () => null, {}));
+            spyOn(sortComponent, "onSort");
 
-                // act
-                sortComponent.bindTableSorter("Column1");
-                sortComponent.$sortContainer.trigger("sortEnd");
+            // act
+            sortComponent.bindTableSorter("Column1");
+            sortComponent.$sortContainer.trigger("sortEnd");
 
-                // assert
-                let isDescendingSort = false;
-                let sortColumnName = "Column1";
-                expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
-            });
-
-            it("_Table sorter sorted ascending column on stack mode => onSort was called", () => {
-                // arrange
-                setFixtures(`<body>
-                            <table id="table-report2" class="stack-mode" data-descendingsort="0" data-sortedcolumn="Column1">
+            // assert
+            let isDescendingSort = false;
+            let sortColumnName = "Column1";
+            expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
+        });
+        it("_Table sorter sorted ascending column on stack mode => onSort was called with ascending sort", () => {
+            // arrange
+            setFixtures(`<body>
+                            <table id="table-report2" class="stack-mode" data-descendingsort="False" data-sortedcolumn="Column1">
                                 <thead class="tableFloatingHeaderOriginal">
                                     <th class="sorting sorting-asc visible-stack-mode" data-sortedname="Column1" data-colindex="0">Column 1</th>
                                     <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
                                 </thead>
+                                <tbody>
+                                    <tr><td>Row 1 - Column 1</td><td>Row 1 - Column 2</td></tr>
+                                    <tr><td>Row 2 - Column 1</td><td>Row 2 - Column 2</td></tr>
+                                </tbody>
                             </table>
                         </body>`);
-                sortComponent.render(new SortOption($("#table-report2"), true, true, () => null, {}));
-                spyOn(sortComponent, "onSort");
-                spyOn($.fn, "tablesorter").and.callFake(() => null);
+            sortComponent.render(new SortOption($("#table-report2"), true, true, () => null, {}));
+            spyOn(sortComponent, "onSort");
+            spyOn($.fn, "tablesorter").and.callFake(() => null);
 
-                // act
-                sortComponent.bindTableSorter("Column1");
-                sortComponent.$sortContainer.trigger("sortEnd");
+            // act
+            sortComponent.bindTableSorter("Column1");
+            sortComponent.$sortContainer.trigger("sortEnd");
 
-                // assert
-                let isDescendingSort = false;
-                let sortColumnName = "Column1";
-                expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
-            });
+            // assert
+            let isDescendingSort = false;
+            let sortColumnName = "Column1";
+            expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
         });
     });
 

@@ -1,11 +1,11 @@
-﻿describe("LinkBuilder_", () => {
+﻿describe("LinkBuilder", () => {
     let linkBuilderComponent: LinkBuilderComponent;
 
     beforeEach(() => {
         linkBuilderComponent = new LinkBuilderComponent($);
     });
 
-    describe("render", () => {
+    describe("_render", () => {
         beforeEach(() => {
             // arrange
             setFixtures(`<a data-cust-id="1176086"
@@ -25,7 +25,7 @@
                         <input id="BreadcrumbLevelsJson" name="BreadcrumbLevelsJson" type="hidden" value="[{'CustId':1176070,'CustName':'SUPERTEST1','CustLevelId':4},{'CustId':1176083,'CustName':'master1','CustLevelId':3}]">`);
         });
 
-        it("Always -> Insert CustId, CustName, LevelId, and Breadcrumb Level Json to href attribute for downline link", () => {
+        it("_Always -> Insert CustId, CustName, LevelId, and Breadcrumb Level Json to href attribute for downline link", () => {
             // act
             linkBuilderComponent.render();
 
@@ -33,7 +33,7 @@
             expect($(".downline-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=true&CustId=1176086&CustName=agent01&CustLevelId=2&BreadcrumbLevelsJson=%5B%7B'CustId':1176070,'CustName':'SUPERTEST1','CustLevelId':4%7D,%7B'CustId':1176083,'CustName':'master1','CustLevelId':3%7D%5D")
         });
 
-        it("Always -> Insert CustId, CustName, LevelId, and Breadcrumb Level Json to href attribute for bread crumb link", () => {
+        it("_Always -> Insert CustId, CustName, LevelId, and Breadcrumb Level Json to href attribute for bread crumb link", () => {
             // act
             linkBuilderComponent.render();
 
@@ -42,8 +42,8 @@
         });
     });
 
-    describe("updateParam ", () => {
-        it("Always -> Insert new param to href attribute for downline link", () => {
+    describe("_updateParam ", () => {
+        it("_Always -> Insert new param to href attribute for downline link", () => {
             // arrange
             setFixtures(`<a data-cust-id="1176086"
                             data-cust-name="agent01"
@@ -60,7 +60,7 @@
             expect($(".downline-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=true&param=paramvalue")
         });
 
-        it("Always -> Update param value to href attribute for downline link", () => {
+        it("_Always -> Update param value to href attribute for downline link", () => {
             // arrange
             setFixtures(`<a data-cust-id="1176086"
                             data-cust-name="agent01"
@@ -77,7 +77,7 @@
             expect($(".downline-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=true&param=paramvalue")
         });
 
-        it("Always -> Insert new param to href attribute for bread crumb link", () => {
+        it("_Always -> Insert new param to href attribute for bread crumb link", () => {
             // arrange
             setFixtures(`<a data-cust-id="1176070"
                             data-cust-name="SUPERTEST1"
@@ -94,7 +94,7 @@
             expect($(".breadcrumb-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=false&param=paramvalue")
         });
 
-        it("Always -> Update param to href attribute for bread crumb link", () => {
+        it("_Always -> Update param to href attribute for bread crumb link", () => {
             // arrange
             setFixtures(`<a data-cust-id="1176070"
                             data-cust-name="SUPERTEST1"
