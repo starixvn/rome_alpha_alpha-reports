@@ -11,17 +11,17 @@
         {
         }
 
-        protected ReportBaseQuery(IUser user)
+        protected ReportBaseQuery(IUser loginUser)
         {
             // Default data, if query string had data, then get from query string.
-            CustId = user.Id;
-            CustName = user.Name;
-            CustLevelId = user.LevelId;
+            CustId = loginUser.Id;
+            CustName = loginUser.Name;
+            CustLevelId = loginUser.LevelId;
 
-            Language = user.Language;
+            Language = loginUser.Language;
 
-            LoginUserId = user.Id;
-            LoginUserLevelId = user.LevelId;
+            LoginUserId = loginUser.Id;
+            LoginUserLevelId = loginUser.LevelId;
         }
 
         public string Language { get; }
