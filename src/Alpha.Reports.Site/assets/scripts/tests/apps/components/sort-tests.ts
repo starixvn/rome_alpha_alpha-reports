@@ -284,7 +284,6 @@
                             <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
                                 <th class="sorting" data-sortedname="Column1">Column 1</th>
                                 <th class="sorting" data-sortedname="Column2">Column 2</th>
-                                <tbody></tbody>
                             </table>
                         </body>`);
 
@@ -315,7 +314,6 @@
                             <table id="table-report" data-descendingsort="0" data-sortedcolumn="Column1">
                                 <th class="sorting" data-sortedname="Column1" data-colindex="0">Column 1</th>
                                 <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
-                                <tbody></tbody>
                             </table>
                         </body>`);
 
@@ -335,6 +333,29 @@
                     textExtraction: jasmine.any(Function)
                 });
             });
+        });
+
+        it("_Incorrect data", () => {
+            // arrange
+            setFixtures(`<body>
+                            <table id="table-report" data-descendingsort="1" data-sortedcolumn="Column1">
+                                <thead class="tableFloatingHeaderOriginal">
+                                    <th class="sorting sorting-desc" data-sortedname="Column1" data-colindex="0">Column 1</th>
+                                    <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
+                                </thead>
+                            </table>
+                        </body>`);
+
+            sortComponent.render(new SortOption($("#table-report"), true, true, () => null, {}));
+            spyOn(sortComponent, "onSort");
+            spyOn(console, "log");
+
+            // act
+            sortComponent.bindTableSorter("Column1");
+            sortComponent.$sortContainer.trigger("sortEnd");
+
+            // assert
+            expect(console.log).toHaveBeenCalled();
         });
     });
     describe("_Had Data On Client", () => {
