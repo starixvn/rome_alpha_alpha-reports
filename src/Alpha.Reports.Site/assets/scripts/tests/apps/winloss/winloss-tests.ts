@@ -5,7 +5,7 @@
     const monthPickerComponent = new MonthPickerComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const linkBuilderComponent = new LinkBuilderComponent($);
-
+    const reportTooltip = new ReportTooltip($);
     let winLossView: WinLossView;
 
     let cacheDOMElements: jasmine.Spy,
@@ -23,6 +23,7 @@
             dateRangePickerComponent,
             productMultiSelectionComponent,
             sortComponent,
+            reportTooltip,
             monthPickerComponent,
             linkBuilderComponent);
 

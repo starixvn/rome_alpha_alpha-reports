@@ -26,6 +26,7 @@
       "assets/scripts/core.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/monthpicker.js",
+      "assets/scripts/components/tooltip.js",
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",

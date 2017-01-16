@@ -6,6 +6,7 @@
 /// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/sort.ts" />
 /// <reference path="../components/link-builder.ts" />
+/// <reference path="../components/tooltip.ts" />
 
 "use strict";
 
@@ -110,7 +111,9 @@ class WinLossDetailView {
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
             && alphaReports.screenSmallThan768()) {
             this.setStackMode();
-            this.reportTooltip.show(new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0)));
+            this.reportTooltip.show(
+                new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0))
+            );
         }
         this.linkBuilderComponent.render();
         this.registerEvents();

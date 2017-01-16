@@ -1,4 +1,4 @@
-﻿describe("EnterResult_", () => {
+﻿describe("EnterResult", () => {
     const jQueryFake = $;
 
     const sortComponent = new SortComponent($);
@@ -31,8 +31,8 @@
         spyOn(dateRangePickerComponent, "render");
     });
 
-    describe("init", () => {
-        it("Document is not ready -> Does not call any Method", () => {
+    describe("_init", () => {
+        it("_Document is not ready -> Does not call any Method", () => {
             // act
             enterResultView.init();
 
@@ -45,7 +45,7 @@
             expect(sortComponent.render).not.toHaveBeenCalled();
         });
 
-        it("Document is ready -> Calls Specific Methods", () => {
+        it("_Document is ready -> Calls Specific Methods", () => {
             // arrange
             setFixtures(enteredResultTemplate.reportContent);
 
@@ -61,7 +61,7 @@
             expect(sortComponent.render).toHaveBeenCalled();
         });
 
-        it("Current Report -> Renders Date Range Picker", () => {
+        it("_Current Report -> Renders Date Range Picker", () => {
             // arrange
             setFixtures(enteredResultTemplate.reportContent);
 
@@ -72,7 +72,7 @@
             expect(dateRangePickerComponent.render).toHaveBeenCalled();
         });
 
-        it("Always -> Render sort component with correct options", () => {
+        it("_Always -> Render sort component with correct options", () => {
             // arrange
             setFixtures(enteredResultTemplate.reportContent);
 
@@ -102,7 +102,7 @@
             expect(actualIsReady).toBeFalsy();
         });
 
-        it("Document is loaded (ready) -> Returns True", () => {
+        it("_Document is loaded (ready) -> Returns True", () => {
             // arrange
             setFixtures(enteredResultTemplate.reportContent);
 
@@ -172,17 +172,24 @@
     });
 
     describe("hideFilter", () => {
-        it("Always -> Add Hide class and hide filter", () => {
-            // arrange
-            setFixtures(enteredResultTemplate.reportContent);
-            enterResultView.cacheDOMElements();
 
-            // act
-            enterResultView.hideFilter();
+        describe("_Always", () => {
+            beforeEach(()=>{
+                // arrange
+                setFixtures(enteredResultTemplate.reportContent);
+                enterResultView.cacheDOMElements();
 
-            // assert
-            expect(enterResultView.$pageTitle.hasClass("hide-filter")).toBeTruthy();
-            expect(enterResultView.$reportForm.hasClass("hide")).toBeTruthy();
+                // act
+                enterResultView.hideFilter();
+            });
+            it("Add Hide class and hide filter", () => {
+                // assert
+                expect(enterResultView.$pageTitle.hasClass("hide-filter")).toBeTruthy();
+            });
+            it("Add Hide class and hide filter", () => {
+                 // assert
+                expect(enterResultView.$reportForm.hasClass("hide")).toBeTruthy();
+            });
         });
     });
 
@@ -208,7 +215,7 @@
             enterResultView.cacheDOMElements();
             spyOn(enterResultView.$exportExcelForm, "submit");
 
-            // act
+             // act
             enterResultView.onExportExcelEvent();
 
             // assert

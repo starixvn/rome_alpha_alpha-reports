@@ -1,6 +1,7 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/monthpicker.ts" />
+/// <reference path="../components/tooltip.ts" />
 /// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/sort.ts" />
 
@@ -39,6 +40,7 @@ class WinLossView {
     dateRangePickerComponent: DateRangePickerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     sortComponent: SortComponent;
+    reportTooltip: ReportTooltip;
     monthPickerComponent: MonthPickerComponent;
     linkBuilderComponent: LinkBuilderComponent;
 
@@ -47,12 +49,14 @@ class WinLossView {
         dateRangePickerComponent: DateRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         sortComponent: SortComponent,
+        reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
         linkBuilderComponent: LinkBuilderComponent) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.sortComponent = sortComponent;
+        this.reportTooltip = reportTooltip;
         this.monthPickerComponent = monthPickerComponent;
         this.linkBuilderComponent = linkBuilderComponent;
     }
@@ -102,6 +106,12 @@ class WinLossView {
 
     bindFilter = () => {
         this.productMultiSelectionComponent.render();
+
+        if (alphaReports.screenSmallThan768()) {
+            this.reportTooltip.show(
+                new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0))
+            );
+        }
 
         this.isHistoricReport = this.$isHistoricReport.val().toLocaleLowerCase() === "true";
         if (this.isHistoricReport) {
@@ -342,6 +352,7 @@ const winLossView = new WinLossView(
     new DateRangePickerComponent($),
     new ProductMultiSelectionComponent($),
     new SortComponent($),
+    new ReportTooltip($),
     new MonthPickerComponent($),
     new LinkBuilderComponent($));
 
