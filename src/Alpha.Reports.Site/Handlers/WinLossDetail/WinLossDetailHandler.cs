@@ -2,15 +2,14 @@
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using App_GlobalResources;
-    using Enumerations;
+    using Constants;
     using MediatR;
     using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
     using ViewModels.WinLossDetail;
-    using System.Linq;
-    using Constants;
 
     [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
     public class WinLossDetailHandler :
@@ -30,10 +29,9 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var userLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
             var products = productService.GetProductsForCustomer(message.CustId);
 
-            var winLossDetailParam = CreateParameter(message, userLevel);
+            var winLossDetailParam = CreateParameter(message, message.CustLevel);
 
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
             var breadcrumbLevels = BuildBreadcrumbLevels(message);
@@ -43,10 +41,10 @@
             {
                 CustId = winLossDetailParam.CustId,
                 CustName = message.CustName,
-                CustLevel = userLevel,
+                CustLevel = message.CustLevel,
                 FromDate = winLossDetailParam.FromDate,
                 ToDate = winLossDetailParam.ToDate,
-                Title = GetReportNameByLevel(userLevel),
+                Title = GetReportNameByLevel(message.CustLevel),
 
                 Products = BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products),
                 UserSelectedProductIds = string.Join(",", winLossDetailParam.UserSelectedProductIds),
