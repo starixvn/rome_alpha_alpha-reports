@@ -20,8 +20,8 @@
 
             Language = user.Language;
 
-            ViewerId = user.Id;
-            ViewerLevelId = user.LevelId;
+            LoginUserId = user.Id;
+            LoginUserLevelId = user.LevelId;
         }
 
         public string Language { get; }
@@ -38,8 +38,8 @@
 
         public DateTime ToDate { get; set; }
 
-        public int ViewerId { get; }
+        public int LoginUserId { get; }
 
-        public byte ViewerLevelId { get; }
+        public byte LoginUserLevelId { get; }
     }
 }
