@@ -32,21 +32,29 @@
         </th>)
         </tr>
     </thead>
-    <tbody>
-        @Model.OutstandingDatasource.List(
-    @<tr>
-        <td class="text-left" data-islink="true">
-            @ActionLink(@item, betlistPath)
-        </td>
-        @RenderOutstandingCells(@item)
-    </tr>)
-    </tbody>
-    <tfoot>
-        <tr class="tbl-footer">
-            <td class="text-left">@Resources.Total</td>
-            @RenderOutstandingCells(Model.Total)
-        </tr>
-    </tfoot>
+    @if (Model.OutstandingDatasource.Any())
+    {
+        <tbody>
+            @Model.OutstandingDatasource.List(
+        @<tr>
+            <td class="text-left" data-islink="true">
+                <a href="@Model.GetUserActionLink(@item, Model.BetListPath)">@item.CustName</a>
+            </td>
+            @RenderOutstandingCells(@item)
+        </tr>)
+        </tbody>
+        <tfoot>
+            <tr class="tbl-footer">
+                <td class="text-left">@Resources.Total</td>
+                @RenderOutstandingCells(Model.Total)
+            </tr>
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(Model.NumberOfOutstandingColumn + 1)
+    }
+
 </table>
 
 @section Scripts {
@@ -60,26 +68,5 @@ foreach (var level in Model.DisplayOutstandingLevels)
         <td>
             @HtmlHelpers.FormatNumber(data.GetValueByLevel(level))
         </td>
-}
-}
-
-@helper ActionLink(OutstandingData data, string betlistPath)
-{
-if (Model.ReportLevel.IsMemberLevel())
-{
-        <a href="@($"{betlistPath}?custId={data.CustId}&username={data.CustName}&chkgetall={"on"}")">
-            @data.CustName
-        </a>
-}
-else
-{
-        @Html.ActionLink(data.CustName, "Index",
-                        new
-                        {
-                            custLevelId = Model.ReportLevel.Value,
-                            custId = data.CustId,
-                            custName = data.CustName,
-                            BreadcrumbLevelsJson = Model.BreadcrumbLevelsJson
-                        })
 }
 }

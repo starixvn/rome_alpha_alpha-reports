@@ -2,9 +2,11 @@
 {
     using System.Collections.Generic;
     using App_GlobalResources;
+    using Configurations;
     using Enumerations;
     using Reports.Models;
     using Reports.Models.Outstanding;
+    using Web.Helpers;
 
     public class OutstandingViewModel
     {
@@ -63,5 +65,17 @@
         public IEnumerable<CustInfo> BreadcrumbLevels { get; }
 
         public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
+
+        public string BetListPath => $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
+
+        public string GetUserActionLink(OutstandingData outstanding, string betlistPath)
+        {
+            if (ReportLevel.IsMemberLevel())
+            {
+                return $"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
+            }
+
+            return $"?custLevelId={ReportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}&breadcrumbLevelsJson={BreadcrumbLevelsJson}";
+        }
     }
 }

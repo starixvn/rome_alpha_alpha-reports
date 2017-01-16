@@ -4,17 +4,17 @@
 
     public class OutstandingData
     {
-        public int CustId { get; private set; }
+        public int CustId { get; set; }
 
-        public string CustName { get; private set; }
+        public string CustName { get; set; }
 
-        public decimal MemberOutstanding { get; private set; }
+        public decimal MemberOutstanding { get; set; }
 
-        public decimal AgentOutstanding { get; private set; }
+        public decimal AgentOutstanding { get; set; }
 
-        public decimal MasterOutstanding { get; private set; }
+        public decimal MasterOutstanding { get; set; }
 
-        public decimal SuperOutstanding { get; private set; }
+        public decimal SuperOutstanding { get; set; }
 
         public static OutstandingData GetAccumulatedData(IEnumerable<OutstandingData> outstandings)
         {

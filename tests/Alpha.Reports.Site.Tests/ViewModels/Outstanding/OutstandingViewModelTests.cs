@@ -1,11 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.Outstanding
 {
     using System.Collections.Generic;
-    using System.Resources;
+    using Enumerations;
     using Ploeh.AutoFixture;
     using Reports.Models;
     using Reports.Models.Outstanding;
-    using Site.ViewModels;
     using Site.ViewModels.Outstanding;
     using Xunit;
     using static Reports.Models.UserLevel;
@@ -14,6 +13,41 @@
     public class OutstandingViewModelTests
     {
         private readonly Fixture fixture = new Fixture();
+
+        [Fact]
+        public void GetUserActionLink_WhenReportLevelIsMemberLevel_ReturnsBestlistLink()
+        {
+            // Arrange
+            var viewModel = new OutstandingViewModel(Super, Member, null, null, null);
+            var outstanding = new OutstandingData { CustId = 1, CustName = "CustName" };
+            var betlistPath = "betlistPath";
+            var expectedLink = $"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
+
+            // Act
+            var actualLink = viewModel.GetUserActionLink(outstanding, betlistPath);
+
+            // Assert
+            Assert.Equal(expectedLink, actualLink);
+        }
+
+        [Theory]
+        [InlineData(4)]
+        [InlineData(2)]
+        public void GetUserActionLink_WhenReportLevelIsNotMemberLevel_ReturnsDrilldownLink(byte roleId)
+        {
+            // Arrange
+            var reportLevel = Enumeration.FromValue<UserLevel>(roleId);
+            var breadcrumbLevelsJson = "breadcrumbLevelsJson";
+            var viewModel = new OutstandingViewModel(Super, reportLevel, null, breadcrumbLevelsJson, null);
+            var outstanding = new OutstandingData { CustId = 1, CustName = "CustName" };
+            var expectedLink = $"?custLevelId={reportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}&breadcrumbLevelsJson={breadcrumbLevelsJson}";
+
+            // Act
+            var actualLink = viewModel.GetUserActionLink(outstanding, null);
+
+            // Assert
+            Assert.Equal(expectedLink, actualLink);
+        }
 
         [Fact]
         public void DisplayOutstandingLevels_SuperViewMasterOutstanding_Show_Member_Super_Outstanding()
