@@ -3,7 +3,6 @@
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using App_GlobalResources;
     using Enumerations;
     using MediatR;
     using Reports.Models;

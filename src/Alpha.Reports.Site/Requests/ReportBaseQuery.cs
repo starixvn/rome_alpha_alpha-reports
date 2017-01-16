@@ -17,6 +17,8 @@
             CustName = user.Name;
             CustLevelId = user.LevelId;
             Language = user.Language;
+
+            User = user;
         }
 
         public string Language { get; }
@@ -32,5 +34,7 @@
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
+
+        public IUser User { get; }
     }
 }
