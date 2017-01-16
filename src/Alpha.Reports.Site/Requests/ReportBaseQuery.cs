@@ -13,12 +13,15 @@
 
         protected ReportBaseQuery(IUser user)
         {
+            // Default data, if query string had data, then get from query string.
             CustId = user.Id;
             CustName = user.Name;
             CustLevelId = user.LevelId;
+
             Language = user.Language;
 
-            User = user;
+            ViewerId = user.Id;
+            ViewerLevelId = user.LevelId;
         }
 
         public string Language { get; }
@@ -35,6 +38,8 @@
 
         public DateTime ToDate { get; set; }
 
-        public IUser User { get; }
+        public int ViewerId { get; }
+
+        public byte ViewerLevelId { get; }
     }
 }
