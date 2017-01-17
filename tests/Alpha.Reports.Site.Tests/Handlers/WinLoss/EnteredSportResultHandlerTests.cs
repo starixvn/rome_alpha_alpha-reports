@@ -60,7 +60,7 @@
 
             var expectedResult = new EnteredResultViewModel
             {
-                CustLevel = Enumeration.FromValue<UserLevel>(4),
+                CustLevel = UserLevel.Super,
                 FromDate = DateTimeManager.Now,
                 ToDate = DateTimeManager.Now,
                 Language = message.Language,

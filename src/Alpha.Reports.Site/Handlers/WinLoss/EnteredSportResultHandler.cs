@@ -26,13 +26,11 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var userLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
-
             var reportData = reportService.GetEnteredSportResults();
 
             var viewModel = new EnteredResultViewModel
             {
-                CustLevel = userLevel,
+                CustLevel = message.CustLevel,
                 FromDate = DateTimeManager.Now,
                 ToDate = DateTimeManager.Now,
                 Language = message.Language,

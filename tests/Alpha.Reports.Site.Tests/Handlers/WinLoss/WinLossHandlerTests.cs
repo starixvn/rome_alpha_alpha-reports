@@ -80,7 +80,6 @@
                     new CustInfo(1, "CustName", 3)
                 };
 
-            var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
             var products = Enumerable.Empty<Product>();
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
 

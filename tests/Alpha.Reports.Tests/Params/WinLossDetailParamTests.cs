@@ -23,10 +23,8 @@
         public void CustId_Always_ReturnsCustIdSetFromCtor()
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-
             var custId = 1;
-            var winLossDetailParam = new WinLossDetailParam(custId, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
+            var winLossDetailParam = new WinLossDetailParam(custId, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
 
             // Act
             var actual = winLossDetailParam.CustId;
@@ -39,10 +37,8 @@
         public void FromDate_CurrentReportAndNotSupportFromDate_ReturnsCurrentDate()
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
             var expectedDate = DefaultVariables.CurrentDate;
 
             // Act
@@ -56,10 +52,8 @@
         public void FromDate_HistoricReportAndNotSupportFromDate_ReturnsFirstDateOfThisMonth()
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, true);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, true);
             var expectedDate = DefaultVariables.CurrentDate.FirstDayOfMonth();
 
             // Act
@@ -75,11 +69,10 @@
         public void FromDate_SupportFromDate_ReturnsSupportedFromDate(bool isHistoricReport)
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             DateTime fromDate = DefaultVariables.CurrentDate;
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, fromDate, DateTime.Now, Enumerable.Empty<int>(), reportLevel, string.Empty, false, isHistoricReport);
+                new WinLossDetailParam(0, 0, 0, fromDate, DateTime.Now, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, isHistoricReport);
             var expectedDate = fromDate;
 
             // Act
@@ -95,7 +88,6 @@
         public void ToDate_NotSupportToDate_ReturnsCurrentDate(bool isHistoricReport)
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             var winLossDetailParam = new WinLossDetailParam(
                     0,
                     0,
@@ -103,7 +95,7 @@
                     DateTime.MinValue,
                     DateTime.MinValue,
                     Enumerable.Empty<int>(),
-                    reportLevel,
+                    UserLevel.Super,
                     string.Empty,
                     false,
                     isHistoricReport);
@@ -123,11 +115,10 @@
         public void ToDate_SupportToDate_ReturnsSupportedToDate(bool isHistoricReport)
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             DateTime toDate = DefaultVariables.CurrentDate;
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, toDate, Enumerable.Empty<int>(), reportLevel, string.Empty, false, isHistoricReport);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, toDate, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, isHistoricReport);
             var expectedDate = toDate;
 
             // Act
@@ -141,10 +132,8 @@
         public void ReportLevel_Always_ReturnsReportLevelFromConstructor()
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
             var expectedReportLevel = reportLevel;
 
             // Act
@@ -160,8 +149,6 @@
         public void IsDescendingSort_Always_ReturnsISDescendingSortFromConstructor(bool isDescendingSort)
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-
             var winLossDetailParam = new WinLossDetailParam(
                 0,
                 0,
@@ -169,7 +156,7 @@
                 DateTime.MinValue,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
-                reportLevel,
+                UserLevel.Super,
                 string.Empty,
                 isDescendingSort,
                 false);
@@ -189,11 +176,10 @@
         public void UserSelectedProductIds_Always_ReturnsUserSelectedProductIdsFromConstructor(string userSelectedProductIds)
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             var userSelectedProductIdList = userSelectedProductIds.Split(',').Select(id => Converter.ToInt(id)).ToList();
 
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, userSelectedProductIdList, reportLevel, string.Empty, false, false);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, userSelectedProductIdList, UserLevel.Super, string.Empty, false, false);
             var expectedUserSelectedProductIds = userSelectedProductIdList;
 
             // Act
@@ -207,10 +193,10 @@
         [InlineData(4)]
         [InlineData(3)]
         [InlineData(2)]
-        public void SortByPropertyName_NotSupportSortByPropertyName_ReturnsCustName(byte userLevel)
+        public void SortByPropertyName_NotSupportSortByPropertyName_ReturnsCustName(byte custLevelId)
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(userLevel);
+            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(custLevelId);
             var expectedSortByPropertyName = "CustName";
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
@@ -233,11 +219,11 @@
         [InlineData(2, "MasterNetWinLoss.Comm")]
         [InlineData(2, "MasterNetWinLoss.Total")]
         public void SortByPropertyName_SupportedSortByPropertyNameNotInRange_ReturnsCustName(
-            byte userLevel,
+            byte custLevelId,
             string notInRangeSortByPropertyName)
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(userLevel);
+            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(custLevelId);
             var expectedSortByPropertyName = "CustName";
             var winLossDetailParam = new WinLossDetailParam(
                 0,
@@ -299,11 +285,11 @@
         [InlineData(2, "NumberOfTickets")]
         [InlineData(2, "Company")]
         public void SortByPropertyName_SupportedSortByPropertyNameInRange_ReturnsSupportedSortByPropertyName(
-            byte userLevel,
+            byte custLevelId,
             string inRangeSortByPropertyName)
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(userLevel);
+            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(custLevelId);
 
             var winLossDetailParam = new WinLossDetailParam(
                 0,
@@ -329,10 +315,8 @@
         public void PageIndex_NotSupportPageIndex_ReturnsDefaultPageIndex()
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
             var expectedPageIndex = DefaultVariables.PageIndex;
 
             // Act
@@ -352,7 +336,6 @@
         public void PageIndex_SupportPageIndex_ReturnsSupportedPageIndex(int pageIndex)
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             var winLossDetailParam = new WinLossDetailParam(
                 0,
                 pageIndex,
@@ -360,7 +343,7 @@
                 DateTime.MinValue,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
-                reportLevel,
+                UserLevel.Super,
                 string.Empty,
                 false,
                 false);
@@ -377,10 +360,8 @@
         public void PageSize_NotSupportPageSize_ReturnsDefaultPageSize()
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
-
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), reportLevel, string.Empty, false, false);
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
             var expectedPageSize = DefaultVariables.PageSize;
 
             // Act
@@ -400,7 +381,6 @@
         public void PageSize_SupportPageSize_ReturnsSupportedPageSize(int pageSize)
         {
             // Arrange
-            UserLevel reportLevel = Enumeration.FromValue<UserLevel>(4);
             var winLossDetailParam = new WinLossDetailParam(
                 0,
                 0,
@@ -408,7 +388,7 @@
                 DateTime.MinValue,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
-                reportLevel,
+                UserLevel.Super,
                 string.Empty,
                 false,
                 false);

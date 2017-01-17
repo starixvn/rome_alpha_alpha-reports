@@ -46,8 +46,7 @@
         public void GetWinLoss_MasterWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var userlevel = Enumeration.FromValue<UserLevel>(4);
-            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
+            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, UserLevel.Super);
 
             var dataSet = WinLossDatabase.MasterWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -70,8 +69,7 @@
         public void GetWinLoss_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var userlevel = Enumeration.FromValue<UserLevel>(3);
-            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
+            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, UserLevel.Master);
 
             var dataSet = WinLossDatabase.AgentWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -94,8 +92,7 @@
         public void GetWinLoss_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var userlevel = Enumeration.FromValue<UserLevel>(2);
-            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
+            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, UserLevel.Agent);
 
             var dataSet = WinLossDatabase.MemberWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -118,8 +115,7 @@
         public void GetWinLoss_NullDataReturnFromDb_ReturnsDefaultData()
         {
             // Arrange
-            var userlevel = Enumeration.FromValue<UserLevel>(2);
-            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, userlevel);
+            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, UserLevel.Agent);
 
             IDataReader dataReader = null;
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataReader);

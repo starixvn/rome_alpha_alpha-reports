@@ -107,7 +107,7 @@
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
-            var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
+            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), message.CustLevel);
             var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel, Enumerable.Empty<CustInfo>());
 
             // Act
@@ -124,7 +124,7 @@
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
-            var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
+            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), message.CustLevel);
             var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel, Enumerable.Empty<CustInfo>());
 
             // Act

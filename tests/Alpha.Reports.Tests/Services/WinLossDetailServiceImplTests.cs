@@ -53,7 +53,7 @@
                 DateTime.Now,
                 DateTime.Now,
                 Enumerable.Empty<int>(),
-                Enumeration.FromValue<UserLevel>(4),
+                UserLevel.Super,
                 string.Empty,
                 false,
                 false);
@@ -81,7 +81,7 @@
                 DateTime.Now.AddYears(-4),
                 DateTime.Now,
                 Enumerable.Empty<int>(),
-                Enumeration.FromValue<UserLevel>(4),
+                UserLevel.Super,
                 string.Empty,
                 false,
                 false);

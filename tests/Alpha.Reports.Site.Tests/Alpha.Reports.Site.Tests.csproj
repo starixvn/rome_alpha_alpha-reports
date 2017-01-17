@@ -176,6 +176,7 @@
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
+    <Compile Include="Controllers\WinLossByBetTypeControllerTests.cs" />
     <Compile Include="Controllers\WinLossControllerTests.cs" />
     <Compile Include="Controllers\WinLossDetailControllerTests.cs" />
     <Compile Include="Extensions\AssertExtension.cs" />

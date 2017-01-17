@@ -23,7 +23,7 @@
             var winLossFilterViewModel = new WinLossFilterViewModel(
                 0,
                 string.Empty,
-                Enumeration.FromValue<UserLevel>(4),
+                UserLevel.Super,
                 true,
                 null,
                 null,
