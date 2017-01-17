@@ -14,52 +14,50 @@
 
         public static Func<string, string> MapExMainPath { get; internal set; } = MicroSites.OldMainUrl;
 
-        private static string AddQueryStringParams(string url, IDictionary<string, object> routeValues)
-        {
-            var queryString = string.Join("&", routeValues.Select(kvp => $"{kvp.Key}={kvp.Value}"));
-
-            return $"{url}?{queryString}";
-        }
-
-        private static string ReplaceOrAddQueryStringParams(string url, IDictionary<string, object> routeValues)
+        internal static string AddQueryStringParams(string url, IDictionary<string, object> routeValues)
         {
             if (!routeValues.Any())
             {
                 return url;
             }
 
-            if (!url.Contains("?"))
-            {
-                return AddQueryStringParams(url, routeValues);
-            }
+            var queryString = string.Join("&", routeValues.Select(kvp => $"{kvp.Key}={kvp.Value}"));
 
-            foreach (var routeValue in routeValues)
-            {
-                url = ReplaceOrAddQueryStringParam(url, routeValue.Key, routeValue.Value);
-            }
-
-            return url;
+            return $"{url}?{queryString}".ToLower();
         }
 
-        private static string ReplaceOrAddQueryStringParam(string url, string paramName, object paramValue)
+        internal static string ReplaceOrAddQueryStringParams(string url, IDictionary<string, object> routeValues)
+        {
+            if (routeValues.Any())
+            {
+                if (!url.Contains("?"))
+                {
+                    return AddQueryStringParams(url, routeValues);
+                }
+
+                foreach (var routeValue in routeValues)
+                {
+                    url = ReplaceOrAddQueryStringParam(url, routeValue.Key, routeValue.Value);
+                }
+            }
+
+            return url.ToLower();
+        }
+
+        internal static string ReplaceOrAddQueryStringParam(string url, string paramName, object paramValue)
         {
             if (string.IsNullOrWhiteSpace(paramName) || paramValue == null)
             {
                 return url;
             }
 
-            if (url.Contains("?"))
+            var regexParamName = @"([?&]" + paramName + ")=[^?&]+";
+            if (Regex.IsMatch(url, regexParamName))
             {
-                var regexParamName = @"([?&]" + paramName + ")=[^?&]+";
-                if (Regex.IsMatch(url, regexParamName))
-                {
-                    return Regex.Replace(url, regexParamName, "$1=" + paramValue);
-                }
-
-                return url + $"&{paramName}={paramValue}";
+                return Regex.Replace(url, regexParamName, "$1=" + paramValue);
             }
 
-            return url + $"?{paramName}={paramValue}";
+            return url + $"&{paramName}={paramValue}";
         }
     }
 }

@@ -7,6 +7,7 @@
     using Site.Requests.WinLossDetail;
     using Xunit;
 
+    [Trait("Category", "Site.Helpers")]
     public class QueryEntityModelBinderTests : QueryEntityModelBinder
     {
         protected override object CreateInstanceOfAssignableReportBaseQuery(Type modelType)
