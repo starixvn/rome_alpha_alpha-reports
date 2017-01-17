@@ -2,13 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
     using Constants;
-    using Enumerations;
     using Extensions;
     using Fixtures;
     using NSubstitute;
@@ -77,7 +75,18 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var winLossDetailParam = new WinLossDetailParam(0, 0, 0, DefaultVariables.CurrentDate, DefaultVariables.CurrentDate, Enumerable.Empty<int>(), message.CustLevel, "CustName", false, false);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                0,
+                0,
+                DefaultVariables.CurrentDate,
+                DefaultVariables.CurrentDate,
+                Enumerable.Empty<int>(),
+                message.CustLevel,
+                "CustName",
+                false,
+                false);
+
             var expectedWinLossDetailViewModel = new WinLossDetailViewModel(
                 message,
                 winLossDetailParam,
