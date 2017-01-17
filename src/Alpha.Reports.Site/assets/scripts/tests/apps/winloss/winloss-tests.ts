@@ -182,7 +182,7 @@
             expect(winLossView.$toDate).toBeDefined();
             expect(winLossView.$sortPropertyName).toBeDefined();
             expect(winLossView.$isDescendingSort).toBeDefined();
-             expect(winLossView.$isHistoricReport).toBeDefined();
+            expect(winLossView.$isHistoricReport).toBeDefined();
         });
     });
 
@@ -626,17 +626,17 @@
     });
 
     describe("replaceDrilldownParam  ", () => {
-        it("Drill Down-> Call replaceQueryStringValue Method", () => {
+        it("Drill Down-> Call updateParam Method", () => {
             // arrange
             setFixtures(winLossTemplate.currentReportWithNormalMode);
             winLossView.cacheDOMElements();
-            spyOn(alphaReports, "replaceQueryStringValue");
+            spyOn(linkBuilderComponent, "updateParam");
 
             // act
             winLossView.replaceDrilldownParam("IsFilterVisible", true);
 
             // assert
-            expect(alphaReports.replaceQueryStringValue).toHaveBeenCalled();
+            expect(linkBuilderComponent.updateParam).toHaveBeenCalled();
         });
     });
 

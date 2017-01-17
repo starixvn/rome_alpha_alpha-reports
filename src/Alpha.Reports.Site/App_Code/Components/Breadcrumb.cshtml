@@ -1,15 +1,15 @@
-﻿@using Alpha.Reports.Models
+﻿@using Alpha.Reports.Site.ViewModels.Components
 
-@helper Render(IEnumerable<CustInfo> custInfoList, string currentRequestUrl)
+@helper Render(BreadcrumbLevelsViewModel viewModel, string currentRequestUrl)
 {
-var linkLength = custInfoList.Count();
+var linkLength = viewModel.BreadcrumbLevels.Count();
 var linkIndex = 0;
 
 if (linkLength > 0)
 {
         <div class="breadcrumb-container">
             <ul class="breadcrumb">
-                @foreach (var custinfo in custInfoList)
+                @foreach (var custinfo in viewModel.BreadcrumbLevels)
                 {
                     // TODO: Last customer just need to render by text, not link, will refactor soon
                     if (linkIndex == linkLength - 1)
@@ -19,11 +19,10 @@ if (linkLength > 0)
                     else
                     {
                         <li>
-                            <a data-cust-id="@(custinfo.CustId)"
-                               data-cust-name="@(custinfo.CustName)"
-                               data-cust-level-id="@(custinfo.CustLevelId)"
-                               class="breadcrumb-link"
-                               href="@(currentRequestUrl)">@(custinfo.CustName)</a>
+                            <a class="breadcrumb-link"
+                               href="@(viewModel.BuildBreadcrumbLink(custinfo, currentRequestUrl))">
+                                @(custinfo.CustName)
+                            </a>
                         </li>
                     }
 

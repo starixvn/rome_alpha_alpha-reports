@@ -264,12 +264,7 @@ class WinLossView {
     };
 
     replaceDrilldownParam = (paramName: string, paramValue: any) => {
-        var self = this;
-        this.$drilldownLinks.each(function () {
-            var queryString = self.$(this).attr("href");
-            var newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
-            self.$(this).attr("href", newQueryString);
-        });
+        this.linkBuilderComponent.updateParam(paramName, paramValue);
     };
 
     afterSort = () => {

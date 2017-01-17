@@ -300,19 +300,7 @@ class WinLossDetailView {
         this.$multiSelectButton.removeClass("error");
     };
     replaceHrefParam = (paramName: string, paramValue: any) => {
-        let this$ = this.$;
-
-        this.$drilldownLinks.each(function () {
-            let queryString = this$(this).attr("href");
-            let newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
-            this$(this).attr("href", newQueryString);
-        });
-
-        this.$breadcrumbLinks.each(function () {
-            let queryString = this$(this).attr("href");
-            let newQueryString = alphaReports.replaceQueryStringValue(queryString, paramName, paramValue);
-            this$(this).attr("href", newQueryString);
-        });
+        this.linkBuilderComponent.updateParam(paramName, paramValue);
     };
     onSubmitReport = (e: any) => {
         let this$ = this.$;

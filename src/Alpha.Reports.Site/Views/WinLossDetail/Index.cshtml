@@ -1,12 +1,8 @@
 ﻿@model WinLossDetailViewModel
 
-@{
-    ViewBag.BetListPath = $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_BetList/BetList.aspx";
-}
-
 @NetTurnoverTooltips.Render(Model.NetTurnoverTooltips)
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevels), Request.RawUrl)
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevels, Model.BreadcrumbLevelsJson), Request.Url.Query)
 
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
@@ -111,10 +107,7 @@
         var isEvenRow = false;
 
         <tbody>
-            @foreach (var data in Model
-                                                        .ReportData
-                                                        .DataSource
-                                                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+            @foreach (var data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath, isEvenRow)
                 isEvenRow = !isEvenRow;
@@ -160,37 +153,10 @@
             }
             else
             {
-                if (Model.CustLevel.IsAgentLevel())
-                {
-                    @Html.ActionLink(
-                    linkText: data.CustName,
-                    actionName: betListPath,
-                    controllerName: string.Empty,
-                    routeValues: new
-                    {
-                        Custid = data.CustId,
-                        Username = data.CustName,
-                        FDate = Model.FromDate,
-                        TDate = Model.ToDate,
-                        ProductIds = Model.UserSelectedProductIds,
-                        FilterPostback = 1,
-                        Type = "WLByDate"
-                    },
-                    htmlAttributes: new
-                    {
-                        IsMember = true
-                    })
-                }
-                else
-                {
-                    <a data-cust-id="@data.CustId"
-                       data-cust-name="@data.CustName"
-                       data-cust-level-id="@(Model.CustLevel.GetDirectDownLineLevel().Value)"
-                       href="@(Request.RawUrl)"
-                       class="downline-link">
-                        @data.CustName
-                    </a>
-                }
+                <a href="@Model.BuildDrillDownLink(data, Request.Url.Query)"
+                class="@(Model.CustLevel.IsAgentLevel() ? string.Empty : "downline-link")">
+                @data.CustName
+                </a>
             }
         </td>
 

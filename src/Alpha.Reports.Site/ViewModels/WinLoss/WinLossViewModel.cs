@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using App_GlobalResources;
@@ -9,6 +10,7 @@
     using Extensions;
     using Reports.Models;
     using Reports.Models.Winloss;
+    using Web.Helpers;
 
     public class WinLossViewModel
     {
@@ -128,6 +130,43 @@
                 this.DownLineLevelName = Resources.Member;
                 this.CustLevelNetWinLossName = "AgentNetWinLoss";
             }
+        }
+
+        public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel =>
+           new BreadcrumbLevelsViewModel(BreadcrumbLevels, BreadcrumbLevelsJson);
+
+        public virtual string BetListPath => MicroSites.OldMainUrl("~/_BetList/BetList.aspx");
+
+        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed")]
+        public string BuildDrillDownLink(
+            WinLossModel model,
+            string currentUrl)
+        {
+            if (CustLevel.IsAgentLevel())
+            {
+                return Helpers.UrlHelper.AddQueryStringParamsFunc(
+                    BetListPath,
+                    new Dictionary<string, object>
+                     {
+                         { "Custid", model.CustId },
+                         { "Username",  model.CustName },
+                         { "FDate",  FromDate },
+                         { "TDate",  ToDate },
+                         { "ProductIds",  UserSelectedProductIds },
+                         { "FilterPostback",  1 },
+                         { "Type",  "WLByDate" }
+                     });
+            }
+
+            return Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(
+                currentUrl,
+                new Dictionary<string, object>
+                {
+                    { "CustId", model.CustId },
+                    { "CustName", model.CustName },
+                    { "CustLevelId", CustLevel.GetDirectDownLineLevel().Value },
+                    { "BreadcrumbLevelsJson", BreadcrumbLevelsJson }
+                });
         }
     }
 }

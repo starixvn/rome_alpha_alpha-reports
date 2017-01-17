@@ -14,7 +14,7 @@
 
         @if (!string.IsNullOrWhiteSpace(currentRequestUrl))
         {
-            @Breadcrumb.Render(model.BreadcrumbLevels, currentRequestUrl)
+            @Breadcrumb.Render(model.BreadcrumbLevelsViewModel, currentRequestUrl)
         }
 
         @if (model.IsShowActionIcons)

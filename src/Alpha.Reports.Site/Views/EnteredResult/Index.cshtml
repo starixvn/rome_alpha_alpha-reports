@@ -1,9 +1,6 @@
-﻿@using Alpha.Reports.Site.Helpers
-@using Alpha.Reports.Site.Configurations
+﻿@model EnteredResultViewModel
 
-@model EnteredResultViewModel
-
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>()))
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty))
 
 @Html.Partial("_EnteredResultFilter", Model.FilterViewModel)
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
