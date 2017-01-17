@@ -1,8 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Handlers.Outstanding
 {
+    using Helpers;
     using MediatR;
     using Requests.Outstanding;
     using Services.Outstanding;
+    using ViewModels.Components;
     using ViewModels.Outstanding;
 
     public class OutstandingHandler : BaseHandler, IRequestHandler<OutstandingQuery, OutstandingViewModel>
@@ -21,12 +23,13 @@
 
             var drillDownInfo = BuildBreadcrumbLevels(message);
 
+            var breadcrumbLevelsViewModel = new BreadcrumbLevelsViewModel(drillDownInfo, JsonHelper.ToJsonFunc(drillDownInfo));
+
             var viewModel = new OutstandingViewModel(
-               message.ViewerLevel,
-               nextCustLevel,
-               outstandings,
-               ToJson(drillDownInfo),
-               drillDownInfo);
+                message.ViewerLevel,
+                nextCustLevel,
+                outstandings,
+                breadcrumbLevelsViewModel);
 
             return viewModel;
         }

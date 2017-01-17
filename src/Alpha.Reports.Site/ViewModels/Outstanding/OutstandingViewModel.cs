@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using App_GlobalResources;
+    using Components;
     using Configurations;
     using Enumerations;
     using Reports.Models;
@@ -17,14 +18,12 @@
             UserLevel viewerLevel,
             UserLevel reportLevel,
             IEnumerable<OutstandingModel> outstandings,
-            string breadcrumbLevelsJson,
-            IEnumerable<CustInfo> breadcrumbLevels)
+            BreadcrumbLevelsViewModel breadcrumbLevelsViewModel)
         {
             ViewerLevel = viewerLevel;
             ReportLevel = reportLevel;
             OutstandingDatasource = outstandings;
-            BreadcrumbLevelsJson = breadcrumbLevelsJson;
-            BreadcrumbLevels = breadcrumbLevels;
+            BreadcrumbLevelsViewModel = breadcrumbLevelsViewModel;
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= ViewerLevel.Value; level++)
             {
@@ -60,9 +59,7 @@
 
         public List<UserLevel> DisplayOutstandingLevels => displayOutstandingLevels;
 
-        public string BreadcrumbLevelsJson { get; }
-
-        public IEnumerable<CustInfo> BreadcrumbLevels { get; }
+        public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel { get; }
 
         public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
 
@@ -75,7 +72,7 @@
                 return $"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
             }
 
-            return $"?custLevelId={ReportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}&breadcrumbLevelsJson={BreadcrumbLevelsJson}";
+            return $"?custLevelId={ReportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}&breadcrumbLevelsJson={BreadcrumbLevelsViewModel.BreadcrumbLevelsJson}";
         }
     }
 }

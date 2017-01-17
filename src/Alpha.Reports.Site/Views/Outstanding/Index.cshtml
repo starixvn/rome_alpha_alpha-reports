@@ -1,11 +1,12 @@
 ﻿@using Alpha.Reports.Site
+@using Alpha.Reports.Site.App_GlobalResources;
 
 @model OutstandingViewModel
 
 <div class="page-title">
     <span class="pull-left">@Model.Title</span>
-    @Breadcrumb.Render(Model.BreadcrumbLevels, Request.RawUrl)
-    @Html.Hidden("BreadcrumbLevelsJson", Model.BreadcrumbLevelsJson)
+    @Breadcrumb.Render(Model.BreadcrumbLevelsViewModel, Request.RawUrl)
+    @Html.Hidden("BreadcrumbLevelsJson", Model.BreadcrumbLevelsViewModel.BreadcrumbLevelsJson)
 </div>
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
