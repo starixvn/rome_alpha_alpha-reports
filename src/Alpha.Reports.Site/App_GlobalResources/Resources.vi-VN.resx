@@ -333,4 +333,22 @@
   <data name="BetType" xml:space="preserve">
     <value>Loại cược</value>
   </data>
+  <data name="Outright" xml:space="preserve">
+    <value>Cược Thắng</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>Vòng đua</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Tổng phụ</value>
+  </data>
+  <data name="MatchWinLossDetail" xml:space="preserve">
+    <value>Kết quả chi tiết trận đấu</value>
+  </data>
+  <data name="SelectLeague" xml:space="preserve">
+    <value>Lựa chọn giải đấu</value>
+  </data>
+  <data name="AllLeagues" xml:space="preserve">
+    <value>Tất cả giải đấu</value>
+  </data>
 </root>

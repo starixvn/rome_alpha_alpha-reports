@@ -28,7 +28,7 @@ class ProductMultiSelectionComponent {
         this.options = <ProductMultiSelectionOption>this.$.extend({}, this.options, options);
 
         this.$dropdownProduct = this.$("#" + this.options.dropdownId);
-        let hasAnyProduct = this.$dropdownProduct.data("has-any-product");
+        let hasAnyProduct = alphaReports.convertAttributeToBool(this.$dropdownProduct.data("has-any-product"));
         this.$hiddenInput = this.$("#" + this.options.productsInputId);
 
         this.$dropdownProduct.multiselect({

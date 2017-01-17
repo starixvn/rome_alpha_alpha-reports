@@ -354,4 +354,28 @@
   <data name="BetType" xml:space="preserve">
     <value>投注类别</value>
   </data>
+  <data name="Outright" xml:space="preserve">
+    <value>优胜冠军</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>赛事</value>
+  </data>
+  <data name="HorseRacing" xml:space="preserve">
+    <value>赛马</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>数字游戏</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>小计</value>
+  </data>
+  <data name="MatchWinLossDetail" xml:space="preserve">
+    <value>输赢报告资料</value>
+  </data>
+  <data name="SelectLeague" xml:space="preserve">
+    <value>选择联赛</value>
+  </data>
+  <data name="AllLeagues" xml:space="preserve">
+    <value>所有联赛</value>
+  </data>
 </root>

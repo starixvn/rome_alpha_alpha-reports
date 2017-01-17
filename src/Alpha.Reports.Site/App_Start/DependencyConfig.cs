@@ -6,6 +6,7 @@
     using Controllers;
     using DataAccesses;
     using Fanex.Data.Repository;
+    using Handlers.MatchWinLossDetail;
     using MediatR;
     using Models;
     using ONEbook.SpreadSheets;
@@ -76,6 +77,8 @@
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
             container.RegisterSingleton<MatchWinLossService, MatchWinLossServiceImpl>();
 
+            container.RegisterSingleton<MatchWinLossDetailService, MatchWinLossDetailServiceImpl>();
+
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
@@ -84,6 +87,9 @@
                 Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
+
+            container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
+            container.RegisterSingleton<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)
@@ -91,6 +97,8 @@
             container.RegisterSingleton<IDynamicRepository, DynamicRepository>();
             container.RegisterSingleton<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
             container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
+
+            container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
         }
 
         private static void RegisterStaticInstances(Container container)

@@ -355,4 +355,28 @@
   <data name="BetType" xml:space="preserve">
     <value>ประเภทการเดิมพัน</value>
   </data>
+  <data name="Outright" xml:space="preserve">
+    <value>ทายผลผู้ชนะ</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>แข่งขัน</value>
+  </data>
+  <data name="HorseRacing" xml:space="preserve">
+    <value>การแข่งขันความเร็ว</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>เกมหมายเลข</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>ยอดรวม</value>
+  </data>
+  <data name="MatchWinLossDetail" xml:space="preserve">
+    <value>รายละเอียดการได้หรือเสีย</value>
+  </data>
+  <data name="SelectLeague" xml:space="preserve">
+    <value>เลือก ลีก</value>
+  </data>
+  <data name="AllLeagues" xml:space="preserve">
+    <value>ลีคทั้งหมด</value>
+  </data>
 </root>

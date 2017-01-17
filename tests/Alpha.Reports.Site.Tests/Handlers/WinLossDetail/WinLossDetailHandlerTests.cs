@@ -47,7 +47,7 @@
         }
 
         [Fact]
-        public void HandlerWinLossDetailQuery_NullMessage_ThrowsArgumentNullException()
+        public void HandleWinLossDetailQuery_NullMessage_ThrowsArgumentNullException()
         {
             // Arrange
             WinLossDetailQuery nullMessage = null;

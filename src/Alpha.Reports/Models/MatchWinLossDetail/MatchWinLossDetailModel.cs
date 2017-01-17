@@ -1,0 +1,84 @@
+﻿namespace Alpha.Reports.Models.MatchWinLossDetail
+{
+    using Models;
+
+    public class MatchWinLossDetailModel
+    {
+        public MatchWinLossDetailModel(
+            bool isParlay,
+            int matchId,
+            int homeId,
+            int awayId,
+            int betType,
+            bool liveIndicator,
+            int leagueId,
+            int race,
+            string matchCode,
+            bool isNeutral,
+            string showTime,
+            decimal turnover,
+            decimal grossComm,
+            NetWinLoss memberNetWinLoss,
+            NetWinLoss agentNetWinLoss,
+            NetWinLoss masterNetWinLoss,
+            NetWinLoss superNetWinLoss,
+            NetWinLoss companyNetWinLoss)
+        {
+            IsParlay = isParlay;
+            MatchId = matchId;
+            HomeId = homeId;
+            AwayId = awayId;
+            BetType = betType;
+            LiveIndicator = liveIndicator;
+            LeagueId = leagueId;
+            Race = race;
+            MatchCode = matchCode;
+            IsNeutral = isNeutral;
+            ShowTime = showTime;
+            Turnover = turnover;
+            GrossComm = grossComm;
+
+            MemberNetWinLoss = memberNetWinLoss;
+            AgentNetWinLoss = agentNetWinLoss;
+            MasterNetWinLoss = masterNetWinLoss;
+            SuperNetWinLoss = superNetWinLoss;
+            CompanyNetWinLoss = companyNetWinLoss;
+        }
+
+        public bool IsParlay { get; }
+
+        public int MatchId { get; }
+
+        public int HomeId { get; }
+
+        public int AwayId { get; }
+
+        public int BetType { get; }
+
+        public bool LiveIndicator { get; }
+
+        public int LeagueId { get; }
+
+        public int Race { get; }
+
+        public string MatchCode { get; }
+
+        public bool IsNeutral { get; }
+
+        public string ShowTime { get; }
+
+        public decimal Turnover { get; }
+
+        public decimal GrossComm { get; }
+
+        public NetWinLoss MemberNetWinLoss { get; }
+
+        public NetWinLoss AgentNetWinLoss { get; }
+
+        public NetWinLoss MasterNetWinLoss { get; }
+
+        public NetWinLoss SuperNetWinLoss { get; }
+
+        public NetWinLoss CompanyNetWinLoss { get; }
+    }
+}

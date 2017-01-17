@@ -48,7 +48,7 @@
                 .Get<BalanceUpDayAndMoveBetsDay>(Arg.Any<GetBalanceUpDayAndMoveBetsDayCriteria>())
                 .Returns(new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay));
 
-            service = new ReportDateServiceImpl(repository);
+            service = Substitute.For<ReportDateServiceImpl>(repository);
         }
 
         [Fact]

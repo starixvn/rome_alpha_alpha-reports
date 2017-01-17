@@ -399,4 +399,31 @@
   <data name="BetType" xml:space="preserve">
     <value>Bet Type</value>
   </data>
+  <data name="Outright" xml:space="preserve">
+    <value>Outright</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>Race</value>
+  </data>
+  <data name="HorseRacing" xml:space="preserve">
+    <value>Racing</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>Number Game</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="MatchWinLossDetail" xml:space="preserve">
+    <value>Match Win Loss Detail</value>
+  </data>
+  <data name="SelectLeague" xml:space="preserve">
+    <value>Select League</value>
+  </data>
+  <data name="AllLeagues" xml:space="preserve">
+    <value>All Leagues</value>
+  </data>
+  <data name="ThereIsNoLeague" xml:space="preserve">
+    <value>There is no League.</value>
+  </data>
 </root>
