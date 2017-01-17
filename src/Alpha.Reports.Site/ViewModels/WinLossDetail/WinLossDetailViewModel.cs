@@ -7,25 +7,54 @@
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
+    using Constants;
     using Extensions;
     using Helpers;
+    using Params;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
+    using Requests.WinLossDetail;
 
     public class WinLossDetailViewModel
     {
         private const int AllBetProductId = 21;
 
-        public WinLossDetailViewModel(IEnumerable<CustInfo> breadcrumbLevels)
+        public WinLossDetailViewModel(
+            WinLossDetailQuery message,
+            WinLossDetailParam winLossDetailParam,
+            ReportData<WinLossDetailModel> reportData,
+            IEnumerable<CustInfo> breadcrumbLevels,
+            IEnumerable<SelectListItem> products)
         {
+            CustName = message.CustName;
+            CustLevel = message.CustLevel;
+            Language = message.Language;
+            IsStackMode = message.IsStackMode;
+            IsHistoricReport = message.IsHistoricReport;
+            IsFilterVisible = message.IsFilterVisible;
+            UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
+            IsSetDefaultStackMode = message.IsSetDefaultStackMode;
+            Title = GetReportNameByLevel(message.CustLevel);
+
+            CustId = winLossDetailParam.CustId;
+            FromDate = winLossDetailParam.FromDate;
+            ToDate = winLossDetailParam.ToDate;
+            UserSelectedProductIds = string.Join(",", winLossDetailParam.UserSelectedProductIds);
+
+            ReportData = reportData;
+            var canSort = reportData.DataSource != null && reportData.DataSource.Count() > 1;
+            SortPropertyName = canSort ? winLossDetailParam.SortByPropertyName : DefaultVariables.SortPropertyName;
+            IsDescendingSort = canSort && winLossDetailParam.IsDescendingSort;
+
             BetListPath = Helpers.UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
             BreadcrumbLevels = breadcrumbLevels;
             BreadcrumbLevelsJson = JsonHelper.ToJsonFunc(breadcrumbLevels);
+            Products = products;
         }
 
-        public int CustId { get; set; }
+        public int CustId { get; }
 
-        public string CustName { get; set; }
+        public string CustName { get; }
 
         public DateTime MinDate => IsHistoricReport
             ? DateTime.Now.AddYears(-3).FirstDayOfYear()
@@ -33,25 +62,25 @@
 
         public DateTime MaxDate => DateTime.MaxValue;
 
-        public DateTime FromDate { get; set; }
+        public DateTime FromDate { get; }
 
-        public DateTime ToDate { get; set; }
+        public DateTime ToDate { get; }
 
-        public string Language { get; set; }
+        public string Language { get; }
 
-        public string UserSelectedProductIds { get; set; }
+        public string UserSelectedProductIds { get; }
 
-        public int UserSelectedDateRangeOption { get; set; }
+        public int UserSelectedDateRangeOption { get; }
 
-        public string SortPropertyName { get; set; }
+        public string SortPropertyName { get; }
 
-        public bool IsDescendingSort { get; set; }
+        public bool IsDescendingSort { get; }
 
-        public bool IsStackMode { get; set; }
+        public bool IsStackMode { get; }
 
-        public bool IsHistoricReport { get; set; }
+        public bool IsHistoricReport { get; }
 
-        public bool IsFilterVisible { get; set; }
+        public bool IsFilterVisible { get; }
 
         public IEnumerable<string> NetTurnoverTooltips
         {
@@ -68,7 +97,7 @@
             }
         }
 
-        public IEnumerable<SelectListItem> Products { get; set; }
+        public IEnumerable<SelectListItem> Products { get; }
 
         public PagerViewModel PagerViewModel =>
             new PagerViewModel(ReportData.CurrentPageIndex, ReportData.PageSize, ReportData.TotalRecords);
@@ -98,13 +127,13 @@
         public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel =>
             new BreadcrumbLevelsViewModel(BreadcrumbLevels, BreadcrumbLevelsJson);
 
-        public string Title { get; set; }
+        public string Title { get; }
 
-        public bool IsSetDefaultStackMode { get; set; }
+        public bool IsSetDefaultStackMode { get; }
 
-        public UserLevel CustLevel { get; set; }
+        public UserLevel CustLevel { get; }
 
-        public ReportData<WinLossDetailModel> ReportData { get; set; }
+        public ReportData<WinLossDetailModel> ReportData { get; }
 
         public IEnumerable<CustInfo> BreadcrumbLevels { get; }
 
@@ -143,5 +172,12 @@
                     { "BreadcrumbLevelsJson", BreadcrumbLevelsJson }
                 });
         }
+
+        private string GetReportNameByLevel(UserLevel userLevel)
+            => userLevel.IsSuperLevel()
+            ? Resources.MasterWinLossDetail
+            : userLevel.IsMasterLevel()
+                ? Resources.AgentWinLossDetail
+                : Resources.MemberWinLossDetail;
     }
 }

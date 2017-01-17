@@ -33,7 +33,7 @@
         public WinLossDetailHandlerTests(UserFixture userFixture)
         {
             productService = Substitute.For<ProductService>();
-            productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
+            productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string> { "Product Name" });
 
             reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             var reportService = Substitute.For<WinLossDetailService>();
@@ -64,9 +64,7 @@
         [InlineData("1")]
         [InlineData("1,2")]
         [InlineData("1,2,3")]
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public void HandlerWinLossDetailQuery_AnyUserSelectedProductIds_ReturnsCorrectViewModel(
-            string userSelectedProductIds)
+        public void HandlerWinLossDetailQuery_AnyUserSelectedProductIds_ReturnsCorrectViewModel(string userSelectedProductIds)
         {
             // Arrange
             var message = new WinLossDetailQuery(userFixture.User);
@@ -79,26 +77,15 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var expectedWinLossDetailViewModel = new WinLossDetailViewModel(new List<CustInfo>
+            var expectedWinLossDetailViewModel = new WinLossDetailViewModel(
+                message,
+                new WinLossDetailParam(0, 0, 0, DefaultVariables.CurrentDate, DefaultVariables.CurrentDate, Enumerable.Empty<int>(), message.CustLevel, "CustName", false, false),
+                reportData,
+                new List<CustInfo>
                 {
                     new CustInfo(0, string.Empty, 4)
-                })
-            {
-                CustName = string.Empty,
-                Language = string.Empty,
-                SortPropertyName = "CustName",
-                IsDescendingSort = false,
-                UserSelectedProductIds = string.Empty,
-                CustLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId),
-                FromDate = DefaultVariables.CurrentDate,
-                ToDate = DefaultVariables.CurrentDate,
-                IsSetDefaultStackMode = string.IsNullOrWhiteSpace(userSelectedProductIds),
-                IsFilterVisible = true,
-                Title = "Master Win Loss Detail",
-
-                Products = Enumerable.Empty<SelectListItem>(),
-                ReportData = reportData
-            };
+                },
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             var actualWinLossDetailViewModel = winLossDetailHandler.Handle(message);
