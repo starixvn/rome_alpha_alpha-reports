@@ -1,9 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLoss
 {
     using System;
-    using Enumerations;
     using MediatR;
-    using Reports.Models;
     using Requests.WinLoss;
     using Services;
     using ViewModels.WinLoss;
