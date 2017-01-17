@@ -91,10 +91,7 @@
                 message,
                 winLossDetailParam,
                 reportData,
-                new List<CustInfo>
-                {
-                    new CustInfo(0, string.Empty, 4)
-                },
+                new List<CustInfo> { new CustInfo(0, string.Empty, 4) },
                 Enumerable.Empty<SelectListItem>());
 
             // Act
