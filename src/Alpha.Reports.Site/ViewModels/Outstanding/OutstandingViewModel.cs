@@ -17,12 +17,12 @@
         public OutstandingViewModel(
             UserLevel viewerLevel,
             UserLevel reportLevel,
-            IEnumerable<OutstandingModel> outstandings,
+            IEnumerable<OutstandingModel> outstandingDataSource,
             BreadcrumbLevelsViewModel breadcrumbLevelsViewModel)
         {
             ViewerLevel = viewerLevel;
             ReportLevel = reportLevel;
-            OutstandingDatasource = outstandings;
+            OutstandingDatasource = outstandingDataSource;
             BreadcrumbLevelsViewModel = breadcrumbLevelsViewModel;
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= ViewerLevel.Value; level++)
@@ -72,7 +72,8 @@
                 return $"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
             }
 
-            return $"?custLevelId={ReportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}&breadcrumbLevelsJson={BreadcrumbLevelsViewModel.BreadcrumbLevelsJson}";
+            return $"?custLevelId={ReportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}" +
+                    $"&breadcrumbLevelsJson={BreadcrumbLevelsViewModel.BreadcrumbLevelsJson}";
         }
     }
 }

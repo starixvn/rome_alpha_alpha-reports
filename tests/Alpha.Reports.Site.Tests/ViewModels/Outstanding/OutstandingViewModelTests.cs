@@ -5,6 +5,7 @@
     using Ploeh.AutoFixture;
     using Reports.Models;
     using Reports.Models.Outstanding;
+    using Site.ViewModels.Components;
     using Site.ViewModels.Outstanding;
     using Xunit;
     using static Reports.Models.UserLevel;
@@ -18,7 +19,7 @@
         public void GetUserActionLink_WhenReportLevelIsMemberLevel_ReturnsBestlistLink()
         {
             // Arrange
-            var viewModel = new OutstandingViewModel(Super, Member, null, null, null);
+            var viewModel = new OutstandingViewModel(Super, Member, null, null);
             var outstanding = new OutstandingModel { CustId = 1, CustName = "CustName" };
             var betlistPath = "betlistPath";
             var expectedLink = $"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
@@ -38,7 +39,8 @@
             // Arrange
             var reportLevel = Enumeration.FromValue<UserLevel>(roleId);
             var breadcrumbLevelsJson = "breadcrumbLevelsJson";
-            var viewModel = new OutstandingViewModel(Super, reportLevel, null, breadcrumbLevelsJson, null);
+            var breadcrumbLevelsViewModel = new BreadcrumbLevelsViewModel(null, breadcrumbLevelsJson);
+            var viewModel = new OutstandingViewModel(Super, reportLevel, null, breadcrumbLevelsViewModel);
             var outstanding = new OutstandingModel { CustId = 1, CustName = "CustName" };
             var expectedLink = $"?custLevelId={reportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}&breadcrumbLevelsJson={breadcrumbLevelsJson}";
 
@@ -58,8 +60,7 @@
                 Super,
                 Master,
                 fixture.Create<IEnumerable<OutstandingModel>>(),
-                fixture.Create<string>(),
-                fixture.Create<IEnumerable<CustInfo>>());
+                null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -77,8 +78,7 @@
                 Super,
                 Agent,
                 fixture.Create<IEnumerable<OutstandingModel>>(),
-                fixture.Create<string>(),
-                fixture.Create<IEnumerable<CustInfo>>());
+                null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -96,8 +96,7 @@
                 Super,
                 Member,
                 fixture.Create<IEnumerable<OutstandingModel>>(),
-                fixture.Create<string>(),
-                fixture.Create<IEnumerable<CustInfo>>());
+                null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -115,8 +114,7 @@
                 Master,
                 Agent,
                 fixture.Create<IEnumerable<OutstandingModel>>(),
-                fixture.Create<string>(),
-                fixture.Create<IEnumerable<CustInfo>>());
+                null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -134,8 +132,7 @@
                 Master,
                 Member,
                 fixture.Create<IEnumerable<OutstandingModel>>(),
-                fixture.Create<string>(),
-                fixture.Create<IEnumerable<CustInfo>>());
+                null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -153,8 +150,7 @@
                 Agent,
                 Member,
                 fixture.Create<IEnumerable<OutstandingModel>>(),
-                fixture.Create<string>(),
-                fixture.Create<IEnumerable<CustInfo>>());
+                null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;

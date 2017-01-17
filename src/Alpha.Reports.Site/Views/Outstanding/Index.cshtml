@@ -5,8 +5,7 @@
 
 <div class="page-title">
     <span class="pull-left">@Model.Title</span>
-    @Breadcrumb.Render(Model.BreadcrumbLevelsViewModel, Request.RawUrl)
-    @Html.Hidden("BreadcrumbLevelsJson", Model.BreadcrumbLevelsViewModel.BreadcrumbLevelsJson)
+    @Breadcrumb.Render(Model.BreadcrumbLevelsViewModel, Request.Path)
 </div>
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"

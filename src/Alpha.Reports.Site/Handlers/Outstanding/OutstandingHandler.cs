@@ -18,17 +18,16 @@
 
         public OutstandingViewModel Handle(OutstandingQuery message)
         {
-            var outstandings = outstandingService.GetMemberOutstanding(message.ViewerLevel, message.CustLevel, message.CustId);
+            var outstandingDataSource = outstandingService.GetMemberOutstanding(message.ViewerLevel, message.CustLevel, message.CustId);
             var nextCustLevel = message.CustLevel.GetDirectDownLineLevel();
 
             var drillDownInfo = BuildBreadcrumbLevels(message);
-
-            var breadcrumbLevelsViewModel = new BreadcrumbLevelsViewModel(drillDownInfo, JsonHelper.ToJsonFunc(drillDownInfo));
+            var breadcrumbLevelsViewModel = new BreadcrumbLevelsViewModel(drillDownInfo);
 
             var viewModel = new OutstandingViewModel(
                 message.ViewerLevel,
                 nextCustLevel,
-                outstandings,
+                outstandingDataSource,
                 breadcrumbLevelsViewModel);
 
             return viewModel;

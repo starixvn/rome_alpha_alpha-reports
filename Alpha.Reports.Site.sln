@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Site", "src\A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CDD7C777-3340-42E2-9A1D-559FEBB65EB7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{99EE09CE-F495-4E91-A958-325C65844274}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Tests", "tests\Alpha.Reports.Tests\Alpha.Reports.Tests.csproj", "{0F9FDF8D-E083-47E3-99AB-9AC53C74C366}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Site.Tests", "tests\Alpha.Reports.Site.Tests\Alpha.Reports.Site.Tests.csproj", "{635DD698-CB5A-47C4-B767-223AA7B65943}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +29,14 @@ Global
 		{55FF4C22-5630-4FB9-92FF-A1FEAF6DCF08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55FF4C22-5630-4FB9-92FF-A1FEAF6DCF08}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{55FF4C22-5630-4FB9-92FF-A1FEAF6DCF08}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{0F9FDF8D-E083-47E3-99AB-9AC53C74C366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F9FDF8D-E083-47E3-99AB-9AC53C74C366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F9FDF8D-E083-47E3-99AB-9AC53C74C366}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F9FDF8D-E083-47E3-99AB-9AC53C74C366}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{635DD698-CB5A-47C4-B767-223AA7B65943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{635DD698-CB5A-47C4-B767-223AA7B65943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{635DD698-CB5A-47C4-B767-223AA7B65943}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{635DD698-CB5A-47C4-B767-223AA7B65943}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +44,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B868E639-F3F9-4D54-B02E-57F3BEE0965E} = {CDD7C777-3340-42E2-9A1D-559FEBB65EB7}
 		{55FF4C22-5630-4FB9-92FF-A1FEAF6DCF08} = {CDD7C777-3340-42E2-9A1D-559FEBB65EB7}
+		{0F9FDF8D-E083-47E3-99AB-9AC53C74C366} = {99EE09CE-F495-4E91-A958-325C65844274}
+		{635DD698-CB5A-47C4-B767-223AA7B65943} = {99EE09CE-F495-4E91-A958-325C65844274}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
