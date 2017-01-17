@@ -34,10 +34,9 @@
             var winLossDetailParam = CreateParameter(message, message.CustLevel);
 
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
-            var breadcrumbLevels = BuildBreadcrumbLevels(message);
 
             var canSort = reportData.DataSource != null && reportData.DataSource.Count() > 1;
-            var viewModel = new WinLossDetailViewModel
+            var viewModel = new WinLossDetailViewModel(BuildBreadcrumbLevels(message))
             {
                 CustId = winLossDetailParam.CustId,
                 CustName = message.CustName,
@@ -58,9 +57,7 @@
 
                 SortPropertyName = canSort ? winLossDetailParam.SortByPropertyName : DefaultVariables.SortPropertyName,
                 IsDescendingSort = canSort && winLossDetailParam.IsDescendingSort,
-                IsSetDefaultStackMode = message.IsSetDefaultStackMode,
-                BreadcrumbLevelsJson = ToJson(breadcrumbLevels),
-                BreadcrumbLevels = breadcrumbLevels
+                IsSetDefaultStackMode = message.IsSetDefaultStackMode
             };
 
             return viewModel;

@@ -4,13 +4,15 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using System.Web;
+    using Web.Helpers;
 
     public static class UrlHelper
     {
         public static Func<string, IDictionary<string, object>, string> AddQueryStringParamsFunc { get; internal set; } = AddQueryStringParams;
 
         public static Func<string, IDictionary<string, object>, string> ReplaceOrAddQueryStringParamsFunc { get; internal set; } = ReplaceOrAddQueryStringParams;
+
+        public static Func<string, string> MapExMainPath { get; internal set; } = MicroSites.OldMainUrl;
 
         private static string AddQueryStringParams(string url, IDictionary<string, object> routeValues)
         {

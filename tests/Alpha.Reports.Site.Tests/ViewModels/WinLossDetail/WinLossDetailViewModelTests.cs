@@ -2,9 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
     using Constants;
+    using Reports.Models;
     using Site.ViewModels.WinLossDetail;
     using Xunit;
 
@@ -16,7 +18,7 @@
 
         public WinLossDetailViewModelTests()
         {
-            winLossDetailViewModel = new WinLossDetailViewModel();
+            winLossDetailViewModel = new WinLossDetailViewModel(Enumerable.Empty<CustInfo>());
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

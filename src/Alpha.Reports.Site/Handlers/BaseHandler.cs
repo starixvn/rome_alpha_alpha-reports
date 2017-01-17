@@ -70,11 +70,6 @@
             return drillDownInfo;
         }
 
-        protected internal string ToJson(object data)
-        {
-            return JsonConvert.SerializeObject(data).Replace("\"", "'");
-        }
-
         protected internal virtual string GetExcelTemplatePath(string templateName, string fileExtension = "xls")
         {
             if (string.IsNullOrWhiteSpace(templateName))

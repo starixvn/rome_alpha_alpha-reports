@@ -79,7 +79,10 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var expectedWinLossDetailViewModel = new WinLossDetailViewModel
+            var expectedWinLossDetailViewModel = new WinLossDetailViewModel(new List<CustInfo>
+                {
+                    new CustInfo(0, string.Empty, 4)
+                })
             {
                 CustName = string.Empty,
                 Language = string.Empty,
@@ -94,12 +97,7 @@
                 Title = "Master Win Loss Detail",
 
                 Products = Enumerable.Empty<SelectListItem>(),
-                ReportData = reportData,
-                BreadcrumbLevels = new List<CustInfo>
-                {
-                    new CustInfo(0, string.Empty, 4)
-                },
-                BreadcrumbLevelsJson = "[{'CustId':0,'CustName':'','CustLevelId':4}]"
+                ReportData = reportData
             };
 
             // Act

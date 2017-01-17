@@ -8,13 +8,14 @@
     using App_GlobalResources;
     using Components;
     using Extensions;
+    using Helpers;
     using Reports.Models;
     using Reports.Models.Winloss;
     using Web.Helpers;
 
     public class WinLossViewModel
     {
-        public WinLossViewModel(List<WinLossModel> reportData, UserLevel custLevel)
+        public WinLossViewModel(List<WinLossModel> reportData, UserLevel custLevel, IEnumerable<CustInfo> breadcrumbLevels)
         {
             CustLevel = custLevel;
             BuildResources();
@@ -33,6 +34,10 @@
                 ReportData = Enumerable.Empty<WinLossModel>();
                 GrantTotal = new WinLossModel();
             }
+
+            BetListPath = Helpers.UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
+            BreadcrumbLevels = breadcrumbLevels;
+            BreadcrumbLevelsJson = JsonHelper.ToJsonFunc(breadcrumbLevels);
         }
 
         public int CustId { get; set; }
@@ -95,9 +100,9 @@
 
         public UserLevel CustLevel { get; }
 
-        public IEnumerable<CustInfo> BreadcrumbLevels { get; set; }
+        public IEnumerable<CustInfo> BreadcrumbLevels { get; }
 
-        public string BreadcrumbLevelsJson { get; set; }
+        public string BreadcrumbLevelsJson { get; }
 
         public string Title { get; private set; }
 
@@ -135,7 +140,7 @@
         public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel =>
            new BreadcrumbLevelsViewModel(BreadcrumbLevels, BreadcrumbLevelsJson);
 
-        public virtual string BetListPath => MicroSites.OldMainUrl("~/_BetList/BetList.aspx");
+        public string BetListPath { get; }
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed")]
         public string BuildDrillDownLink(

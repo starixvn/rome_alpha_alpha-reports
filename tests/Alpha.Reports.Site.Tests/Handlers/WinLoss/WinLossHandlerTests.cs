@@ -87,7 +87,13 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var expectedWinLossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel)
+            var expectedWinLossViewModel = new WinLossViewModel(
+                new List<WinLossModel>(),
+                custLevel,
+                new List<CustInfo>
+                {
+                    new CustInfo(1, "CustName", 3)
+                })
             {
                 CustId = 1,
                 CustName = "CustName",
@@ -98,12 +104,7 @@
                 IsFilterVisible = false,
                 IsDescendingSort = false,
                 SortPropertyName = "CustName",
-                Products = Enumerable.Empty<SelectListItem>(),
-                BreadcrumbLevels = new List<CustInfo>
-                {
-                    new CustInfo(1, "CustName", 3)
-                },
-                BreadcrumbLevelsJson = "[{'CustId':1,'CustName':'CustName','CustLevelId':3}]"
+                Products = Enumerable.Empty<SelectListItem>()
             };
 
             // Act

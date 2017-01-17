@@ -273,6 +273,7 @@
     <Compile Include="Handlers\WinLoss\EnteredSportResultHandler.cs" />
     <Compile Include="Handlers\WinLoss\WinLossExcelHandler.cs" />
     <Compile Include="Handlers\WinLoss\WinLossHandler.cs" />
+    <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\ReportBaseQuery.cs" />

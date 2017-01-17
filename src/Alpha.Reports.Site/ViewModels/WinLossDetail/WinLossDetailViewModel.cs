@@ -8,13 +8,20 @@
     using App_GlobalResources;
     using Components;
     using Extensions;
+    using Helpers;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
-    using Web.Helpers;
 
     public class WinLossDetailViewModel
     {
         private const int AllBetProductId = 21;
+
+        public WinLossDetailViewModel(IEnumerable<CustInfo> breadcrumbLevels)
+        {
+            BetListPath = Helpers.UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
+            BreadcrumbLevels = breadcrumbLevels;
+            BreadcrumbLevelsJson = JsonHelper.ToJsonFunc(breadcrumbLevels);
+        }
 
         public int CustId { get; set; }
 
@@ -99,11 +106,11 @@
 
         public ReportData<WinLossDetailModel> ReportData { get; set; }
 
-        public IEnumerable<CustInfo> BreadcrumbLevels { get; set; }
+        public IEnumerable<CustInfo> BreadcrumbLevels { get; }
 
-        public string BreadcrumbLevelsJson { get; set; }
+        public string BreadcrumbLevelsJson { get; }
 
-        public virtual string BetListPath => MicroSites.OldMainUrl("~/_BetList/BetList.aspx");
+        public string BetListPath { get; }
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed")]
         public string BuildDrillDownLink(

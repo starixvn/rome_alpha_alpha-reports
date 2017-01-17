@@ -38,7 +38,7 @@
             var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
             var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);
-            var winlossViewModel = new WinLossViewModel(reportData.ToList(), custLevel);
+            var winlossViewModel = new WinLossViewModel(reportData.ToList(), custLevel, Enumerable.Empty<CustInfo>());
 
             var products = message.UserSelectedProductIds.ToListInt();
 

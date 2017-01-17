@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Threading;
     using Constants;
     using Enumerations;
@@ -107,7 +108,7 @@
             // Arrange
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
             var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
-            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel);
+            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel, Enumerable.Empty<CustInfo>());
 
             // Act
             winLossExcelHandler.Handle(message);
@@ -124,7 +125,7 @@
             // Arrange
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
             var custLevel = Enumeration.FromValue<UserLevel>(message.CustLevelId);
-            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel);
+            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel, Enumerable.Empty<CustInfo>());
 
             // Act
             winLossExcelHandler.Handle(message);

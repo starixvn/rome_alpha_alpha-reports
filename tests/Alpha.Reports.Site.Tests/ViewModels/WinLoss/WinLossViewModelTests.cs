@@ -37,7 +37,7 @@
         {
             // Arrange
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var winLossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel);
+            var winLossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel, Enumerable.Empty<CustInfo>());
 
             // Act & Assert
             Assert.Equal(winLossViewModel.Title, expectedTitle);
@@ -52,7 +52,7 @@
             // Arrange
 
             // Act
-            var actualGrantTotal = new WinLossViewModel(winlossData, UserLevel.Super).GrantTotal;
+            var actualGrantTotal = new WinLossViewModel(winlossData, UserLevel.Super, Enumerable.Empty<CustInfo>()).GrantTotal;
 
             // Assert
             AssertExtension.Equal(actualGrantTotal, expectedGrantTotal);
@@ -65,7 +65,7 @@
             var expectedGrantTotal = new WinLossModel();
 
             // Act
-            var actualGrantTotal = new WinLossViewModel(null, UserLevel.Super).GrantTotal;
+            var actualGrantTotal = new WinLossViewModel(null, UserLevel.Super, Enumerable.Empty<CustInfo>()).GrantTotal;
 
             // Assert
             var result = compareLogic.Compare(actualGrantTotal, expectedGrantTotal);
@@ -79,7 +79,7 @@
             var expectedReportData = Enumerable.Empty<WinLossModel>();
 
             // Act
-            var actualReportData = new WinLossViewModel(new List<WinLossModel>(), UserLevel.Super).ReportData;
+            var actualReportData = new WinLossViewModel(new List<WinLossModel>(), UserLevel.Super, Enumerable.Empty<CustInfo>()).ReportData;
 
             // Assert
             var result = compareLogic.Compare(actualReportData, expectedReportData);
@@ -93,7 +93,7 @@
             var expectedGrantTotal = new WinLossModel();
 
             // Act
-            var actualGrantTotal = new WinLossViewModel(new List<WinLossModel>(), UserLevel.Super).GrantTotal;
+            var actualGrantTotal = new WinLossViewModel(new List<WinLossModel>(), UserLevel.Super, Enumerable.Empty<CustInfo>()).GrantTotal;
 
             // Assert
             var result = compareLogic.Compare(actualGrantTotal, expectedGrantTotal);

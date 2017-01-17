@@ -34,10 +34,9 @@
             var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);
 
-            var breadcrumbLevels = BuildBreadcrumbLevels(message);
             var sortPropertyName = GetSortedProperty(message.CustLevel, message.SortPropertyName);
 
-            var viewModel = new WinLossViewModel(reportData.ToList(), message.CustLevel)
+            var viewModel = new WinLossViewModel(reportData.ToList(), message.CustLevel, BuildBreadcrumbLevels(message))
             {
                 CustId = winLossParam.CustId,
                 CustName = message.CustName,
@@ -53,9 +52,7 @@
                 IsDescendingSort = message.IsDescendingSort,
                 SortPropertyName = sortPropertyName,
 
-                BreadcrumbLevelsJson = ToJson(breadcrumbLevels),
-                UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                BreadcrumbLevels = breadcrumbLevels
+                UserSelectedDateRangeOption = message.UserSelectedDateRangeOption
             };
 
             return viewModel;
