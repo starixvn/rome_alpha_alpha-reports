@@ -139,7 +139,7 @@
 
         public string BreadcrumbLevelsJson { get; }
 
-        public string BetListPath { get; }
+        public virtual string BetListPath { get; }
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed")]
         public string BuildDrillDownLink(
@@ -148,20 +148,14 @@
         {
             if (CustLevel.IsAgentLevel())
             {
-                return Helpers.UrlHelper.AddQueryStringParamsFunc(
-                    BetListPath,
-                    new Dictionary<string, object>
-                     {
-                         { "Custid", model.CustId },
-                         { "Username",  model.CustName },
-                         { "FDate",  FromDate },
-                         { "TDate",  ToDate },
-                         { "ProductIds",  UserSelectedProductIds },
-                         { "FilterPostback",  1 },
-                         { "Type",  "WLByDate" }
-                     });
+                return BuildBetListLink(model);
             }
 
+            return BuildDownlineLink(model, currentUrl);
+        }
+
+        private string BuildDownlineLink(WinLossDetailModel model, string currentUrl)
+        {
             return Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(
                 currentUrl,
                 new Dictionary<string, object>
@@ -171,6 +165,22 @@
                     { "CustLevelId", CustLevel.GetDirectDownLineLevel().Value },
                     { "BreadcrumbLevelsJson", BreadcrumbLevelsJson }
                 });
+        }
+
+        private string BuildBetListLink(WinLossDetailModel model)
+        {
+            return Helpers.UrlHelper.AddQueryStringParamsFunc(
+                BetListPath,
+                new Dictionary<string, object>
+                 {
+                         { "Custid", model.CustId },
+                         { "Username",  model.CustName },
+                         { "FDate",  FromDate },
+                         { "TDate",  ToDate },
+                         { "ProductIds",  UserSelectedProductIds },
+                         { "FilterPostback",  1 },
+                         { "Type",  "WLByDate" }
+                 });
         }
 
         private string GetReportNameByLevel(UserLevel userLevel)

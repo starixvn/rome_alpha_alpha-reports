@@ -2,14 +2,17 @@
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using Helpers;
     using Reports.Models;
 
     public class BreadcrumbLevelsViewModel
     {
-        public BreadcrumbLevelsViewModel(IEnumerable<CustInfo> breadcrumbLevels, string breadcrumbLevelsJson)
+        public BreadcrumbLevelsViewModel(
+            IEnumerable<CustInfo> breadcrumbLevels,
+            string breadcrumbLevelsJson = null)
         {
             BreadcrumbLevels = breadcrumbLevels;
-            BreadcrumbLevelsJson = breadcrumbLevelsJson;
+            BreadcrumbLevelsJson = breadcrumbLevelsJson ?? JsonHelper.ToJsonFunc(breadcrumbLevels);
         }
 
         public IEnumerable<CustInfo> BreadcrumbLevels { get; }
