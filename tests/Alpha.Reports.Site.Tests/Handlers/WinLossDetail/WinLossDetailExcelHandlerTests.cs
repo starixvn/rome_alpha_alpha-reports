@@ -188,22 +188,6 @@
         [InlineData(4, "Master")]
         [InlineData(3, "Agent")]
         [InlineData(2, "Member")]
-        public void BuildExcelTemplatePath_Always_ReturnsCorrectPathByCustLevelId(byte custLevelId, string expectedPath)
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(custLevelId: custLevelId);
-
-            // Act
-            var actualPath = winLossDetailExcelHandler.GetTemplateName(message.CustLevel);
-
-            // Assert
-            Assert.Equal(expectedPath, actualPath);
-        }
-
-        [Theory]
-        [InlineData(4, "Master")]
-        [InlineData(3, "Agent")]
-        [InlineData(2, "Member")]
         public void HandleExportWinLossQuery_CallMapExcelTemplatePath(byte custLevelId, string fileName)
         {
             // Arrange

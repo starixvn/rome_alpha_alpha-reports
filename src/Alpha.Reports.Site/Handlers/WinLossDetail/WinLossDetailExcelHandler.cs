@@ -5,7 +5,7 @@
     using Extensions;
     using MediatR;
     using ONEbook.SpreadSheets;
-    using Reports.Models;
+    using Params;
     using Reports.Models.WinLossDetail;
     using Requests.WinLossDetail;
     using Services;
@@ -33,13 +33,10 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = message.UserSelectedProductIds.ToListInt();
-            var reportTitle = $"{Resources.WinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-                $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
-
+            var reportTitle = GetReporTitle(message);
             var winLossDetailParam = CreateParameter(message, message.CustLevel);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
-            var templatePath = GetExcelTemplatePath(GetTemplateName(message.CustLevel));
+            var templatePath = GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName);
 
             var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable)
                  .FreezePanel(4, B);
@@ -52,17 +49,21 @@
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
-            return new ExcelFileViewModel(
-                $"{Resources.WinLossDetail}-{message.CustName}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}",
-                fileContent);
+            return new ExcelFileViewModel(GetExcelFileName(message, winLossDetailParam), fileContent);
         }
 
-        internal string GetTemplateName(UserLevel userLevel) =>
-                    userLevel.IsSuperLevel()
-                        ? "Master"
-                        : userLevel.IsMasterLevel()
-                            ? "Agent"
-                            : "Member";
+        private string GetReporTitle(WinLossDetailExcelQuery message)
+        {
+            var products = message.UserSelectedProductIds.ToListInt();
+
+            return $"{Resources.WinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+                $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
+        }
+
+        private string GetExcelFileName(WinLossDetailExcelQuery message, WinLossDetailParam winLossDetailParam)
+        {
+            return $"{Resources.WinLossDetail}-{message.CustName}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}";
+        }
 
         private Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
         {
