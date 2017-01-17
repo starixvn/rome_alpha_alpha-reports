@@ -23,7 +23,7 @@
             var actualUrl = UrlHelper.AddQueryStringParams(url, routeValue);
 
             // Assert
-            Assert.Equal("?paramname=paramvalue&nullvalue=&emptyvalue=", actualUrl);
+            Assert.Equal("?paramName=paramValue&nullValue=&emptyValue=", actualUrl);
         }
 
         [Fact]
@@ -51,7 +51,7 @@
             var actualUrl = UrlHelper.ReplaceOrAddQueryStringParams(url, routeValue);
 
             // Assert
-            Assert.Equal("url", actualUrl);
+            Assert.Equal("URL", actualUrl);
         }
 
         [Fact]
@@ -70,14 +70,14 @@
             var actualUrl = UrlHelper.ReplaceOrAddQueryStringParams(url, routeValue);
 
             // Assert
-            Assert.Equal("?paramname=paramvalue&nullvalue=&emptyvalue=", actualUrl);
+            Assert.Equal("?paramName=paramValue&nullValue=&emptyValue=", actualUrl);
         }
 
         [Fact]
         public void ReplaceOrAddQueryStringParams_UrlHasParam_ReturnReplacedParamValueUrl()
         {
             // Arrange
-            var url = "URL?paramName=paramValue";
+            var url = "url?paramName=paramValue";
             var routeValues = new Dictionary<string, object>
             {
                 { "paramName", "paramValue2" }
@@ -87,7 +87,7 @@
             var actualUrl = UrlHelper.ReplaceOrAddQueryStringParams(url, routeValues);
 
             // Assert
-            Assert.Equal("url?paramname=paramvalue2", actualUrl);
+            Assert.Equal("url?paramName=paramValue2", actualUrl);
         }
 
         [Fact]
@@ -104,7 +104,7 @@
             var actualUrl = UrlHelper.ReplaceOrAddQueryStringParams(url, routeValues);
 
             // Assert
-            Assert.Equal("url?paramname123=paramvalue&paramnameadding=paramvalue2", actualUrl);
+            Assert.Equal("URL?paramName123=paramValue&paramNameAdding=paramValue2", actualUrl);
         }
 
         [Fact]
@@ -122,7 +122,7 @@
             var actualUrl = UrlHelper.ReplaceOrAddQueryStringParams(url, routeValues);
 
             // Assert
-            Assert.Equal("url?paramname123=paramvalue", actualUrl);
+            Assert.Equal("url?paramName123=paramValue", actualUrl);
         }
     }
 }

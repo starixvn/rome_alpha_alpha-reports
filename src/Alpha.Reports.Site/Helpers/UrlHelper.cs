@@ -23,25 +23,27 @@
 
             var queryString = string.Join("&", routeValues.Select(kvp => $"{kvp.Key}={kvp.Value}"));
 
-            return $"{url}?{queryString}".ToLower();
+            return $"{url}?{queryString}";
         }
 
         internal static string ReplaceOrAddQueryStringParams(string url, IDictionary<string, object> routeValues)
         {
-            if (routeValues.Any())
+            if (!routeValues.Any())
             {
-                if (!url.Contains("?"))
-                {
-                    return AddQueryStringParams(url, routeValues);
-                }
-
-                foreach (var routeValue in routeValues)
-                {
-                    url = ReplaceOrAddQueryStringParam(url, routeValue.Key, routeValue.Value);
-                }
+                return url;
             }
 
-            return url.ToLower();
+            if (!url.Contains("?"))
+            {
+                return AddQueryStringParams(url, routeValues);
+            }
+
+            foreach (var routeValue in routeValues)
+            {
+                url = ReplaceOrAddQueryStringParam(url, routeValue.Key, routeValue.Value);
+            }
+
+            return url;
         }
 
         internal static string ReplaceOrAddQueryStringParam(string url, string paramName, object paramValue)
