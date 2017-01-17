@@ -2,9 +2,115 @@
 /// <reference path="../jquery-1.8.2.js" />
 /// <reference path="../jquery-ui-1.9.1.js" />
 
+//// Helper for Calculation Date
+var NexDatePickerHelper = NexDatePickerHelper ||
+{
+    getShortDateString: function (date) {
+        // month is 0 based (0 - 11)
+        var strDate = NexDatePickerHelper.getDateStr(date.getMonth() + 1) + "/";
+        strDate += NexDatePickerHelper.getDateStr(date.getDate()) + "/";
+        strDate += NexDatePickerHelper.getDateStr(date.getFullYear());
+        return strDate;
+    },
+    getDateStr: function (date) {
+        if (!date) {
+            return '';
+        }
+        if (date < 10) {
+            return '0' + date.toString();
+        }
+        return date.toString();
+    },
+    getDateRangeOfCurrentWeek: function (today) {
+        var date = new Date(today);
+        var lastDate = new Date(today);
+        var baseDate = NexDatePickerHelper.getBaseDateOfWeek(date);
+        var startDate = new Date(date.setDate(baseDate));
+
+        return [startDate, lastDate];
+    },
+    getDateRangeOfLastWeek: function (today) {
+        var baseDateOfCurrentWeek = NexDatePickerHelper.getBaseDateOfWeek(new Date(today)); // Monday
+        var baseDateOfLastWeek = baseDateOfCurrentWeek - 7; // Seek 7 days
+
+        var lastWeek = new Date(today);
+        lastWeek.setDate(baseDateOfLastWeek);
+        var startDate = NexDatePickerHelper.getShortDateString(lastWeek);
+
+        lastWeek.setDate(lastWeek.getDate() + 6); // Seek 6 days: Monday->Sunday
+        var endDate = NexDatePickerHelper.getShortDateString(lastWeek);
+
+        return [new Date(startDate), new Date(endDate)];
+    },
+    getDateRangeOfCurrentMonth: function (today) {
+        today = new Date(today);
+        var startDate = new Date(today);
+        startDate.setDate(1);
+        startDate.setMonth(today.getMonth());
+        var endDate = new Date(today.setMonth(today.getMonth()));
+        return [startDate, endDate];
+    },
+    getDateRangeOfLastMonth: function (today) {
+        var currentDate = new Date(today);
+        var currentMonth = currentDate.getMonth();
+        var currentYear = currentDate.getFullYear();
+        var lastYear = currentDate.getFullYear() - 1;
+        var startDate = new Date();
+        var endDate = new Date();
+
+        //// If Current month is Jan, so switch to Last year
+        if (currentMonth == 0) {
+            startDate = new Date(lastYear, 11, 1);
+            endDate = new Date(lastYear, 11, 31);
+        }
+        else {
+            var month = currentMonth - 1;
+            startDate = new Date(currentYear, month, 1);
+            endDate = new Date(currentYear,
+                                month,
+            //// Add 1 month because month of JS is 0 > 11
+                                NexDatePickerHelper.getTotalDayOfMonth(month + 1, currentYear)
+                                );
+        }
+
+        return [startDate, endDate];
+    },
+    getTotalDayOfMonth: function (month, year) {
+        //// Note Month fomr 1 > 12
+        var m = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        if (month != 2) return m[month - 1];
+
+        if (NexDatePickerHelper.isLeapYear(year)) return m[1] + 1;
+
+        return m[1];
+    },
+    correctDateInRange: function (inputDate, minDate, maxDate) {
+        if (minDate && inputDate < minDate) {
+            return minDate;
+        }
+
+        if (maxDate && maxDate < inputDate) {
+            return maxDate;
+        }
+
+        return inputDate;
+    },
+
+    isLeapYear: function (year) {
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    },
+    getBaseDateOfWeek: function (date) {
+        // Base date from Monday
+        var day = date.getDay();            // Sun:0 -> Sat:6
+
+        return day === 0                    // Sun:0: default of system
+            ? date.getDate() - 6            // Sunday<-Mon: 6
+            : date.getDate() - day + 1;     // other days<-Mon: date.getDay() - 1
+    }
+};
 
 (function () {
-
     //// Method expose for user use
     var methods = {
         createNexDatePicker: function (opts) {
@@ -28,7 +134,6 @@
         }
     };
 
-
     $.fn.nexDatePicker = function (options) {
         if (methods[options]) {
             return methods[options].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -50,6 +155,8 @@
         },
         subDatePickerStyle: "",
         onSelectDatePicker: function () {
+        },
+        onQuickChooseChange: function () {
         },
         minDate: null
     };
@@ -155,12 +262,12 @@
             var options = this.Options;
             if (options.nexDatePickerType !== "single") {
                 me.$select.parent().on("change", "#dropdown-daterange", function () {
-                    var selectValue = $(this).val();
+                    var selectValue = parseInt($(this).val());
                     var dt = new Date(me.CurrentDate);
                     var fDate = new Date(me.CurrentDate);
                     var tDate = new Date(me.CurrentDate);
                     var dateRange = [fDate, tDate];
-                    switch (parseInt(selectValue)) {
+                    switch (selectValue) {
                         case 0:
                             dateRange = [dt, dt];
                             break;
@@ -212,101 +319,10 @@
 
                     $(this).val(selectValue);
                     me.$dropDownList.multiselect('refresh');
+
+                    me.Options.onQuickChooseChange(selectValue);
                 });
             }
-        }
-    };
-
-    //// Helper for Calculation Date
-    var NexDatePickerHelper =
-    {
-        getShortDateString: function (date) {
-            // month is 0 based (0 - 11)
-            var strDate = NexDatePickerHelper.getDateStr(date.getMonth() + 1) + "/";
-            strDate += NexDatePickerHelper.getDateStr(date.getDate()) + "/";
-            strDate += NexDatePickerHelper.getDateStr(date.getFullYear());
-            return strDate;
-        },
-        getDateStr: function (date) {
-            if (!date) {
-                return '';
-            }
-            if (date < 10) {
-                return '0' + date.toString();
-            }
-            return date.toString();
-        },
-        getDateRangeOfCurrentWeek: function (today) {
-            var date = new Date(today);
-            var lastDate = new Date(today);
-            var day = date.getDay();
-            var diff = date.getDate() - day + 1; // adjust when day is monday
-            var startDate = new Date(date.setDate(diff));
-
-            return [startDate, lastDate];
-        },
-        getDateRangeOfLastWeek: function (today) {
-            var lastWeek = new Date(today);
-            // set the date to last week's Monday
-            lastWeek.setDate(lastWeek.getDate() - lastWeek.getDay() - 6);
-            var startDate = NexDatePickerHelper.getShortDateString(lastWeek);
-            // set the date to last week's Sunday
-            lastWeek.setDate(lastWeek.getDate() + 6);
-            var endDate = NexDatePickerHelper.getShortDateString(lastWeek);
-
-            return [new Date(startDate), new Date(endDate)];
-        },
-        getDateRangeOfCurrentMonth: function (today) {
-            today = new Date(today);
-            var startDate = new Date(today);
-            startDate.setDate(1);
-            startDate.setMonth(today.getMonth());
-            var endDate = new Date(today.setMonth(today.getMonth()));
-            return [startDate, endDate];
-        },
-        getDateRangeOfLastMonth: function (today) {
-            var currentDate = new Date(today);
-            var currentMonth = currentDate.getMonth();
-            var currentYear = currentDate.getFullYear();
-            var lastYear = currentDate.getFullYear() - 1;
-            var startDate = new Date();
-            var endDate = new Date();
-
-            //// If Current month is Jan, so switch to Last year
-            if (currentMonth == 0) {
-                startDate = new Date(lastYear, 11, 1);
-                endDate = new Date(lastYear, 11, 31);
-            }
-            else {
-                var month = currentMonth - 1;
-                startDate = new Date(currentYear, month, 1);
-                endDate = new Date(currentYear,
-                                    month,
-                //// Add 1 month because month of JS is 0 > 11
-                                    NexDatePickerHelper.getTotalDayOfMonth(month + 1, currentYear)
-                                    );
-            }
-
-            return [startDate, endDate];
-        },
-        getTotalDayOfMonth: function (month, year) {
-            //// Note Month fomr 1 > 12
-            var m = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            if (month != 2) return m[month - 1];
-            if (year % 4 !== 0) return m[1];
-            if (year % 100 === 0 && year % 400 !== 0) return m[1];
-            return m[1] + 1;
-        },
-        correctDateInRange: function (inputDate, minDate, maxDate) {
-            if (minDate && inputDate < minDate) {
-                return minDate;
-            }
-
-            if (maxDate && maxDate < inputDate) {
-                return maxDate;
-            }
-
-            return inputDate;
         }
     };
 }(jQuery));

@@ -92,6 +92,7 @@ class WinLossDetailView {
         }
 
         this.productMultiSelectionComponent.render();
+        this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
         this.$netTurnoverTooltip = this.netTurnoverTooltipComponent.render();
         this.pagerComponent.render();
@@ -133,7 +134,6 @@ class WinLossDetailView {
         this.$reportForm = this.$("#report-form");
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
-        this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
         this.$reportSwitch = this.$("#report-switch");
 
         this.$fromDate = this.$("#from-date");

@@ -3,11 +3,11 @@
 <form class="form-inline filter @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @RenderHiddenFields()
 
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+
     @(Model.IsHistoricReport
         ? MonthPicker.Render(Model.MonthPickerViewModel)
         : DateRangePicker.Render(Model.DateRangePickerViewModel))
-
-    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
     <div class="form-group">
         <input type="submit" value="@Resources.Submit" class="btn-submit" />

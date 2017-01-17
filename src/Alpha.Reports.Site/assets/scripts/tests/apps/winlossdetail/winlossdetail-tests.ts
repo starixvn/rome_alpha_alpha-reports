@@ -265,7 +265,6 @@
             expect(winLossDetailView.$reportForm).toBeDefined();
             expect(winLossDetailView.$exportExcelForm).toBeDefined();
             expect(winLossDetailView.$userSelectedDateRangeOption).toBeDefined();
-            expect(winLossDetailView.$multiSelectButton).toBeDefined();
             expect(winLossDetailView.$reportSwitch).toBeDefined();
             expect(winLossDetailView.$fromDate).toBeDefined();
             expect(winLossDetailView.$toDate).toBeDefined();
@@ -684,7 +683,7 @@
         it("_Always -> Adds class error to multiple select button of dropdown product", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
-            winLossDetailView.cacheElements();
+            winLossDetailView.init();
 
             // act
             winLossDetailView.showValidateProductError();
@@ -697,7 +696,7 @@
         it("_Always -> Removes class error from multiple select button of dropdown product", () => {
             // arrange
             setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
-            winLossDetailView.cacheElements();
+            winLossDetailView.init();
 
             // act
             winLossDetailView.clearError();
