@@ -9,40 +9,50 @@
     using Components;
     using Extensions;
     using Helpers;
+    using Params;
     using Reports.Models;
     using Reports.Models.Winloss;
-    using Web.Helpers;
+    using Requests.WinLoss;
 
     public class WinLossViewModel
     {
-        public WinLossViewModel(List<WinLossModel> reportData, UserLevel custLevel, IEnumerable<CustInfo> breadcrumbLevels)
+        private readonly string sortPropertyNameDefault = "CustName";
+
+        public WinLossViewModel(
+            IEnumerable<WinLossModel> reportData,
+            WinLossQuery message,
+            WinLossParam winLossParam,
+            IEnumerable<CustInfo> breadcrumbLevels,
+            IEnumerable<SelectListItem> products)
         {
-            CustLevel = custLevel;
-            BuildResources();
+            CustId = message.CustId;
+            CustName = message.CustName;
+            CustLevel = message.CustLevel;
+            FromDate = winLossParam.FromDate;
+            ToDate = winLossParam.ToDate;
+            Language = message.Language;
 
-            if (reportData != null && reportData.Any())
-            {
-                ReportData = reportData.OrderBy(x => x.CustName).ToList();
-                int index, count;
-                for (index = 1, count = reportData.Count, GrantTotal = reportData[0]; index < count; index++)
-                {
-                    GrantTotal = WinLossModel.Add(GrantTotal, reportData[index]);
-                }
-            }
-            else
-            {
-                ReportData = Enumerable.Empty<WinLossModel>();
-                GrantTotal = new WinLossModel();
-            }
-
+            Products = products;
+            IsStackMode = message.IsStackMode;
+            IsHistoricReport = message.IsHistoricReport;
+            IsFilterVisible = message.IsFilterVisible;
+            IsDescendingSort = message.IsDescendingSort;
+            SortPropertyName = GetSortedProperty(message.CustLevel, message.SortPropertyName);
+            UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
+            UserSelectedProductIds = string.Join(",", winLossParam.UserSelectedProductIds);
+            
             BetListPath = Helpers.UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
             BreadcrumbLevels = breadcrumbLevels;
             BreadcrumbLevelsJson = JsonHelper.ToJsonFunc(breadcrumbLevels);
+            ReportData = reportData;
+     
+            AccumulateGrantTotal(reportData);
+            BuildResources();
         }
 
-        public int CustId { get; set; }
+        public int CustId { get; }
 
-        public string CustName { get; set; }
+        public string CustName { get; }
 
         public DateTime MinDate => IsHistoricReport
             ? DateTime.Now.AddYears(-3).FirstDayOfMonth()
@@ -50,31 +60,31 @@
 
         public DateTime MaxDate => DateTime.MaxValue;
 
-        public DateTime FromDate { get; set; }
+        public DateTime FromDate { get; }
 
-        public DateTime ToDate { get; set; }
+        public DateTime ToDate { get; }
 
-        public string Language { get; set; }
+        public string Language { get; }
 
-        public string UserSelectedProductIds { get; set; }
+        public string UserSelectedProductIds { get; }
 
-        public int UserSelectedDateRangeOption { get; set; }
+        public int UserSelectedDateRangeOption { get; }
 
-        public IEnumerable<WinLossModel> ReportData { get; set; }
+        public IEnumerable<WinLossModel> ReportData { get; private set; }
 
-        public WinLossModel GrantTotal { get; }
+        public WinLossModel GrantTotal { get; private set; }
 
-        public bool IsStackMode { get; set; }
+        public bool IsStackMode { get; }
 
-        public string SortPropertyName { get; set; }
+        public string SortPropertyName { get; }
 
-        public bool IsDescendingSort { get; set; }
+        public bool IsDescendingSort { get; }
 
-        public bool IsHistoricReport { get; set; }
+        public bool IsHistoricReport { get; }
 
-        public bool IsFilterVisible { get; set; }
+        public bool IsFilterVisible { get; }
 
-        public IEnumerable<SelectListItem> Products { get; set; }
+        public IEnumerable<SelectListItem> Products { get; }
 
         private MonthPickerViewModel MonthPickerViewModel =>
             new MonthPickerViewModel(MinDate, FromDate, ToDate);
@@ -112,31 +122,6 @@
 
         public string CustLevelNetWinLossName { get; private set; }
 
-        private void BuildResources()
-        {
-            if (CustLevel.IsSuperLevel())
-            {
-                this.Title = Resources.MasterWinLoss;
-                this.CustLevelName = Resources.Super;
-                this.DownLineLevelName = Resources.Master;
-                this.CustLevelNetWinLossName = "SuperNetWinLoss";
-            }
-            else if (CustLevel.IsMasterLevel())
-            {
-                this.Title = Resources.AgentWinLoss;
-                this.CustLevelName = Resources.Master;
-                this.DownLineLevelName = Resources.Agent;
-                this.CustLevelNetWinLossName = "MasterNetWinLoss";
-            }
-            else
-            {
-                this.Title = Resources.MemberWinLoss;
-                this.CustLevelName = Resources.Agent;
-                this.DownLineLevelName = Resources.Member;
-                this.CustLevelNetWinLossName = "AgentNetWinLoss";
-            }
-        }
-
         public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel =>
            new BreadcrumbLevelsViewModel(BreadcrumbLevels, BreadcrumbLevelsJson);
 
@@ -172,6 +157,66 @@
                     { "CustLevelId", CustLevel.GetDirectDownLineLevel().Value },
                     { "BreadcrumbLevelsJson", BreadcrumbLevelsJson }
                 });
+        }
+
+        private void AccumulateGrantTotal(IEnumerable<WinLossModel> reportData)
+        {
+            var reportDataCopy = reportData.ToList();
+            if (reportDataCopy != null && reportDataCopy.Any())
+            {
+                int index, count;
+                for (index = 1, count = reportDataCopy.Count, GrantTotal = reportDataCopy[0]; index < count; index++)
+                {
+                    GrantTotal = WinLossModel.Add(GrantTotal, reportDataCopy[index]);
+                }
+            }
+            else
+            {
+                ReportData = Enumerable.Empty<WinLossModel>();
+                GrantTotal = new WinLossModel();
+            }
+        }
+
+        private string GetSortedProperty(UserLevel custLevel, string sortedProperty)
+        {
+            if (string.IsNullOrEmpty(sortedProperty))
+            {
+                return sortPropertyNameDefault;
+            }
+
+            var isSortedPropertyInRange =
+                custLevel.IsSuperLevel()
+                || (custLevel.IsMasterLevel() && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
+                || (custLevel.IsAgentLevel()
+                        && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
+                        && !sortedProperty.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
+
+            return isSortedPropertyInRange ? sortedProperty : sortPropertyNameDefault;
+        }
+
+        private void BuildResources()
+        {
+            if (CustLevel.IsSuperLevel())
+            {
+                this.Title = Resources.MasterWinLoss;
+                this.CustLevelName = Resources.Super;
+                this.DownLineLevelName = Resources.Master;
+                this.CustLevelNetWinLossName = "SuperNetWinLoss";
+            }
+            else if (CustLevel.IsMasterLevel())
+            {
+                this.Title = Resources.AgentWinLoss;
+                this.CustLevelName = Resources.Master;
+                this.DownLineLevelName = Resources.Agent;
+                this.CustLevelNetWinLossName = "MasterNetWinLoss";
+            }
+            else
+            {
+                this.Title = Resources.MemberWinLoss;
+                this.CustLevelName = Resources.Agent;
+                this.DownLineLevelName = Resources.Member;
+                this.CustLevelNetWinLossName = "AgentNetWinLoss";
+            }
         }
     }
 }

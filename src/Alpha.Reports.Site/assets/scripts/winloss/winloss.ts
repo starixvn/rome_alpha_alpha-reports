@@ -88,7 +88,6 @@ class WinLossView {
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
-        this.$multiSelectButton = this.$(".multiselect.btn");
         this.$historicReport = this.$("#historic-report");
         this.$filterIcon = this.$(".icon-filter");
         this.$excelIcon = this.$("#icon-excel");
@@ -106,6 +105,7 @@ class WinLossView {
 
     bindFilter = () => {
         this.productMultiSelectionComponent.render();
+        this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
         if (alphaReports.screenSmallThan768()) {
             this.reportTooltip.show(
@@ -140,11 +140,11 @@ class WinLossView {
     };
 
     registerEvents = () => {
+        this.$reportForm.submit(this.onSubmitReportEvent);
         this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
         this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$switchModeIcon.on("click", this.onSwitchModeEvent);
-        this.$reportForm.submit(this.onSubmitReportEvent);
     };
 
     onFilterEvent = () => {

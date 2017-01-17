@@ -37,13 +37,16 @@
 
             var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);
-            var winlossViewModel = new WinLossViewModel(reportData.ToList(), custLevel, Enumerable.Empty<CustInfo>());
+            var products = productService.GetProductsForCustomer(message.CustId);
 
-            var products = message.UserSelectedProductIds.ToListInt();
+            var winlossViewModel = new WinLossViewModel(
+                                            reportData, 
+                                            message,
+                                            winLossParam,
+                                            Enumerable.Empty<CustInfo>(),
+                                            BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products));
 
-            var reportTitle = $"{winlossViewModel.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-                $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
-
+            var reportTitle = BuildReportTitlte(winlossViewModel.Title, message);
             var templatePath = GetExcelTemplatePath(GetFileName(message.CustLevel));
             var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable);
 
@@ -56,9 +59,8 @@
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
-            return new ExcelFileViewModel(
-                   $"{Resources.WinLossTitle}-{message.CustName}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}",
-                   result);
+            var excelFileName = BuildExcelFileName(message);
+            return new ExcelFileViewModel(excelFileName, result);
         }
 
         internal string GetFileName(UserLevel userLevel) =>
@@ -105,6 +107,19 @@
             }
 
             return mapper;
+        }
+
+        private string BuildReportTitlte(string title, WinLossExcelQuery message)
+        {
+            var products = message.UserSelectedProductIds.ToListInt();
+
+            return $"{title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+                $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
+        }
+
+        private string BuildExcelFileName(WinLossExcelQuery message)
+        {
+          return $"{Resources.WinLossTitle}-{message.CustName}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}";
         }
     }
 }

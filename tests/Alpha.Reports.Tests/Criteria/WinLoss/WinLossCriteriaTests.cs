@@ -13,10 +13,10 @@
         [InlineData(2, "Age_Rpt_WinLoss_Member")]
         [InlineData(3, "Age_Rpt_WinLoss_Agent")]
         [InlineData(4, "Age_Rpt_WinLoss_Master")]
-        public void WinLossCriteria_WithCorrectUserLevel_ReturnsValidSettingKey(byte levelId, string expectedSettingKey)
+        public void WinLossCriteria_WithCorrectUserLevel_ReturnsValidSettingKey(byte custLevelId, string expectedSettingKey)
         {
             // Arrange
-            var userLevel = Enumeration.FromValue<UserLevel>(levelId);
+            var userLevel = Enumeration.FromValue<UserLevel>(custLevelId);
             var winLossCriteria = new WinLossCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, null, userLevel);
 
             // Act

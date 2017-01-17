@@ -2,9 +2,7 @@
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using MediatR;
-    using Reports.Models;
     using Requests.WinLoss;
     using Services;
     using ViewModels.WinLoss;
@@ -13,8 +11,6 @@
         WinLossBaseHandler,
         IRequestHandler<WinLossQuery, WinLossViewModel>
     {
-        private readonly string sortPropertyNameDefault = "CustName";
-
         public WinLossHandler(
             ProductService productService,
             WinLossService reportService) : base(productService, reportService)
@@ -34,45 +30,14 @@
             var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);
 
-            var sortPropertyName = GetSortedProperty(message.CustLevel, message.SortPropertyName);
-
-            var viewModel = new WinLossViewModel(reportData.ToList(), message.CustLevel, BuildBreadcrumbLevels(message))
-            {
-                CustId = winLossParam.CustId,
-                CustName = message.CustName,
-                FromDate = winLossParam.FromDate,
-                ToDate = winLossParam.ToDate,
-
-                Products = BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products),
-                UserSelectedProductIds = string.Join(",", winLossParam.UserSelectedProductIds),
-                Language = message.Language,
-                IsStackMode = message.IsStackMode,
-                IsHistoricReport = message.IsHistoricReport,
-                IsFilterVisible = message.IsFilterVisible,
-                IsDescendingSort = message.IsDescendingSort,
-                SortPropertyName = sortPropertyName,
-
-                UserSelectedDateRangeOption = message.UserSelectedDateRangeOption
-            };
+            var viewModel = new WinLossViewModel(
+                reportData,
+                message,
+                winLossParam,
+                BuildBreadcrumbLevels(message),
+                BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products));
 
             return viewModel;
-        }
-
-        private string GetSortedProperty(UserLevel custLevel, string sortedProperty)
-        {
-            var isSortedPropertyInRange =
-                custLevel.IsSuperLevel()
-                || (custLevel.IsMasterLevel() && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
-                || (custLevel.IsAgentLevel()
-                        && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
-                        && !sortedProperty.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
-
-            if (!isSortedPropertyInRange || string.IsNullOrEmpty(sortedProperty))
-            {
-                return sortPropertyNameDefault;
-            }
-
-            return sortedProperty;
         }
     }
 }

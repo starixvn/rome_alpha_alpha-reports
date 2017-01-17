@@ -5,12 +5,14 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
+    using System.Web.Mvc;
     using Constants;
-    using Enumerations;
     using Fixtures;
     using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
+    using Params;
+    using Ploeh.AutoFixture;
     using Reports.Models;
     using Reports.Models.Winloss;
     using Services;
@@ -28,6 +30,7 @@
         private readonly Workbook<WinLossModel> winlossWorkbook;
         private readonly WinLossExcelHandler winLossExcelHandler;
         private readonly UserFixture userFixture;
+        private readonly Fixture fixture = new Fixture();
 
         public WinLossExcelHandlerTest(UserFixture userFixture)
         {
@@ -72,7 +75,7 @@
             winLossExcelHandler.Handle(message);
 
             // Assert
-            winlossWorkbook.Received().UseTemplate(Arg.Is<TemplateInfo>(
+            winlossWorkbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
                 tp => tp.NoInfomationText == "No information is available"));
         }
 
@@ -107,8 +110,12 @@
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
-            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), message.CustLevel);
-            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel, Enumerable.Empty<CustInfo>());
+            var winlossViewModel = new WinLossViewModel(
+                Enumerable.Empty<WinLossModel>(),
+                message,
+                fixture.Create<WinLossParam>(),
+                Enumerable.Empty<CustInfo>(),
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             winLossExcelHandler.Handle(message);
@@ -124,8 +131,12 @@
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
-            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), message.CustLevel);
-            var winlossViewModel = new WinLossViewModel(new List<WinLossModel>(), custLevel, Enumerable.Empty<CustInfo>());
+            var winlossViewModel = new WinLossViewModel(
+                Enumerable.Empty<WinLossModel>(),
+                message,
+                fixture.Create<WinLossParam>(),
+                Enumerable.Empty<CustInfo>(),
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             winLossExcelHandler.Handle(message);
@@ -214,7 +225,7 @@
         public void HandleExportWinLossQuery_CallMapExcelTemplatePath(byte custLevelId, string fileName)
         {
             // Arrange
-            var message = CreateExportWinlossExcelQuery(custLevelId: custLevelId);
+            var message = CreateExportWinlossExcelQuery(custLevelId);
 
             // Act
             winLossExcelHandler.Handle(message);

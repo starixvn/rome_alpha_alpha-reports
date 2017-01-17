@@ -231,27 +231,13 @@
             enterResultView.init();
 
             // act
-            enterResultView.setHiddenValue(true);
+            enterResultView.setHiddenValue();
 
             // assert
             expect(jQueryFake.blockUI).toHaveBeenCalled();
 
             expect(enterResultView.$isFilterVisible.val()).toBeTruthy();
             expect(enterResultView.$isHistoricReport.val()).toBeTruthy();
-        });
-
-
-        it("Submit Historic Report -> Blocks UI; Sets params to hidden fields", () => {
-            // arrange
-            setFixtures(enteredResultTemplate.reportContent);
-            enterResultView.init();
-
-            // act
-            enterResultView.setHiddenValue(false);
-
-            // assert
-            expect(enterResultView.$isFilterVisible.val()).toBeTruthy();
-            expect(enterResultView.$isHistoricReport.val()).toEqual("false");
         });
     });
 
@@ -264,7 +250,7 @@
             enterResultView.onSubmitNormalReportEvent();
 
             // assert
-            expect(enterResultView.setHiddenValue).toHaveBeenCalledWith(false);
+            expect(enterResultView.setHiddenValue).toHaveBeenCalled();
         });
     });
 
@@ -278,7 +264,7 @@
             enterResultView.onSubmitHistoricReportEvent();
 
             // assert
-            expect(enterResultView.setHiddenValue).toHaveBeenCalledWith(true);
+            expect(enterResultView.setHiddenValue).toHaveBeenCalled();
         });
     });
 });

@@ -132,9 +132,10 @@
         public void ReportLevel_Always_ReturnsReportLevelFromConstructor()
         {
             // Arrange
+            var custLevel = UserLevel.Super;
             var winLossDetailParam =
-                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
-            var expectedReportLevel = reportLevel;
+                new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), custLevel, string.Empty, false, false);
+            var expectedReportLevel = custLevel;
 
             // Act
             var actualReportLevel = winLossDetailParam.ReportLevel;

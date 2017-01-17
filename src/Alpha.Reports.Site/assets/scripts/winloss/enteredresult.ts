@@ -77,8 +77,8 @@ class EnterResultView {
     registerEvents = () => {
         this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
-        this.$excelIcon.on("click", this.onExportExcelEvent);
-        this.$submitButton.on("click", this.onSubmitNormalReportEvent);
+        this.$excelIcon.on("click", this.onExportExcelEvent); 
+        this.$reportForm.submit(this.onSubmitNormalReportEvent);
     };
     onFilterEvent = () => {
         let currentHideState = this.$reportForm.hasClass("hide");
@@ -97,18 +97,16 @@ class EnterResultView {
         this.$.unblockUI();
     };
     onSubmitNormalReportEvent = () => {
-        this.setHiddenValue(false);
+        this.setHiddenValue();
     };
     onSubmitHistoricReportEvent = () => {
-        this.setHiddenValue(true);
+        this.$fromDate.val("");
+        this.$toDate.val("");
+        this.$isHistoricReport.val("true");
+        this.setHiddenValue();
         this.$reportForm.trigger("submit");
     };
-    setHiddenValue = (isHistoryReport: boolean) => {
-        if (isHistoryReport) {
-            this.$fromDate.val("");
-            this.$toDate.val("");
-        }
-        this.$isHistoricReport.val(String(isHistoryReport));
+    setHiddenValue = () => {
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : true));
         this.$isStackMode.val(String(alphaReports.screenSmallThan768()));
         this.$.blockUI();

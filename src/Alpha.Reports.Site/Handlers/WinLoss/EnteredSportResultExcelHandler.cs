@@ -56,9 +56,8 @@
                .Sheet(Resources.DefaultSheetName)
                .ExportToBytes();
 
-            return new ExcelFileViewModel(
-                $"{Resources.MatchResultEntered}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}",
-                result);
+            var excelFileName = BuildExcelFileName(message);
+            return new ExcelFileViewModel(excelFileName, result);
         }
 
         private Mapper<EnteredSportResult> GetEnteredSportResultRowMapper()
@@ -71,6 +70,11 @@
                 .Map(Column.E, enteredSportResult => enteredSportResult.EnteredSportToday?.NonEntered ?? 0);
 
             return mapper;
+        }
+
+        private string BuildExcelFileName(EnteredSportResultExcelQuery message)
+        {
+            return $"{Resources.MatchResultEntered}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}";
         }
     }
 }

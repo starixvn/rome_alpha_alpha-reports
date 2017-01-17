@@ -8,10 +8,11 @@
     using System.Threading;
     using System.Web.Mvc;
     using Constants;
-    using Enumerations;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
+    using Params;
+    using Ploeh.AutoFixture;
     using Reports.Models;
     using Reports.Models.Winloss;
     using Services;
@@ -29,7 +30,7 @@
         private readonly WinLossHandler winLossHandler;
         private readonly UserFixture userFixture;
         private CompareLogic compareLogic;
-
+        
         public WinLossHandlerTests(UserFixture userFixture)
         {
             productService = Substitute.For<ProductService>();
@@ -69,42 +70,36 @@
         {
             // Arrange
             var message = new WinLossQuery(userFixture.User);
+            var custInfoData = new List<CustInfo>
+                {
+                    new CustInfo(1, "CustName", 3)
+                };
+
             message.CustId = 1;
             message.CustName = "CustName";
             message.CustLevelId = 3;
             message.UserSelectedProductIds = userSelectedProductIds;
             message.IsDescendingSort = false;
             message.SortPropertyName = "CustName";
-            message.BreadcrumbLevels = new List<CustInfo>
-                {
-                    new CustInfo(1, "CustName", 3)
-                };
+            message.BreadcrumbLevels = custInfoData;
 
-            var products = Enumerable.Empty<Product>();
-            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(products);
+            var winLossParam = new WinLossParam(
+                0,
+                DefaultVariables.CurrentDate,
+                DefaultVariables.CurrentDate,
+                Enumerable.Empty<int>(),
+                message.CustLevel,
+                false);
 
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
             var expectedWinLossViewModel = new WinLossViewModel(
-                new List<WinLossModel>(),
-                custLevel,
-                new List<CustInfo>
-                {
-                    new CustInfo(1, "CustName", 3)
-                })
-            {
-                CustId = 1,
-                CustName = "CustName",
-                Language = string.Empty,
-                UserSelectedProductIds = string.Empty,
-                FromDate = DefaultVariables.CurrentDate,
-                ToDate = DefaultVariables.CurrentDate,
-                IsFilterVisible = false,
-                IsDescendingSort = false,
-                SortPropertyName = "CustName",
-                Products = Enumerable.Empty<SelectListItem>()
-            };
+                Enumerable.Empty<WinLossModel>(),
+                message,
+                winLossParam,
+                custInfoData,
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             var actualWinLossViewModel = winLossHandler.Handle(message);
