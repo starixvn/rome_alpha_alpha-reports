@@ -16,14 +16,14 @@
         IRequestHandler<EnteredSportResultExcelQuery, ExcelFileViewModel>
     {
         private readonly WinLossService reportService;
-        private readonly Workbook<EnteredSportResult> enteredSportResultWorkbook;
+        private readonly Workbook<EnteredSportResult> workbook;
 
         public EnteredSportResultExcelHandler(
          WinLossService reportService,
-         Workbook<EnteredSportResult> enteredSportResultWorkbook)
+         Workbook<EnteredSportResult> workbook)
         {
             this.reportService = reportService;
-            this.enteredSportResultWorkbook = enteredSportResultWorkbook;
+            this.workbook = workbook;
         }
 
         public ExcelFileViewModel Handle(EnteredSportResultExcelQuery message)
@@ -40,7 +40,7 @@
                 ["Today"] = DateTimeManager.Now.ToShortDateWithSlash()
             };
 
-            var result = enteredSportResultWorkbook
+            var result = workbook
                .UseTemplate(GetTemplateInfo())
                .Header(key => resources.ContainsKey(key) ? resources[key] : Resources.ResourceManager.GetString(key))
                .Body(reportData, GetEnteredSportResultRowMapper())

@@ -15,14 +15,14 @@
         WinLossBaseHandler,
         IRequestHandler<WinLossExcelQuery, ExcelFileViewModel>
     {
-        private readonly Workbook<WinLossModel> winlossWorkbook;
+        private readonly Workbook<WinLossModel> workbook;
 
         public WinLossExcelHandler(
             ProductService productService,
             WinLossService reportService,
             Workbook<WinLossModel> workbook) : base(productService, reportService)
         {
-            winlossWorkbook = workbook;
+            this.workbook = workbook;
         }
 
         public ExcelFileViewModel Handle(WinLossExcelQuery message)
@@ -36,19 +36,25 @@
             var reportData = reportService.GetWinLoss(winLossParam);
             var grandTotal = AccumulateGrantTotal(reportData);
 
-            var result = winlossWorkbook
+            var result = workbook
                 .UseTemplate(GetTemplateInfo(message))
                 .Title(GetReporTitle(message))
                 .Header(Resources.ResourceManager.GetString)
-                .Body(reportData, GetWinLossRowMapper(message, isTotal: false))
-                .Footer(grandTotal, GetWinLossRowMapper(message, isTotal: true))
+                .Body(reportData, GetBodyRowMapper(message))
+                .Footer(grandTotal, GetTotalRowMapper(message))
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
             return new ExcelFileViewModel(GetExcelFileName(message, winLossParam), result);
         }
 
-        private Mapper<WinLossModel> GetWinLossRowMapper(WinLossExcelQuery message, bool isTotal)
+        private Mapper<WinLossModel> GetBodyRowMapper(WinLossExcelQuery message)
+          => GetRowMapper(message, isTotal: false);
+
+        private Mapper<WinLossModel> GetTotalRowMapper(WinLossExcelQuery message)
+            => GetRowMapper(message, isTotal: true);
+
+        private Mapper<WinLossModel> GetRowMapper(WinLossExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossModel>()
                 .Map(Column.A, winLoss => isTotal ? Resources.Total : winLoss.CustName)
