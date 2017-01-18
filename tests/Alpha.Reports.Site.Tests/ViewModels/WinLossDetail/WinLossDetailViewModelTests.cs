@@ -79,6 +79,8 @@
         public void BuildDrillDownLink_ViewingAgentReport_CallAddQueryStringParamsFuncToBuildBetListLink()
         {
             // Arrange
+            SetUpForHelpers();
+
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
             var message = new WinLossDetailQuery(userFixture.User);
@@ -92,7 +94,6 @@
                  {
                      new SelectListItem { Value = AllBetProductId.ToString() }
                  });
-            winLossDetailViewModel.BetListPath.Returns("BetListPath");
             var winlossDetailViewModel = new WinLossDetailModel(1, "CustName", 0, 0, 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
@@ -119,15 +120,13 @@
         public void BuildDrillDownLink_ViewingSuperOrMasterReport_CallReplaceOrAddQueryStringParamsFuncToBuildDrillDownLink(byte custLevelId)
         {
             // Arrange
-            Site.Helpers.JsonHelper.ToJsonFunc = Substitute.For<Func<object, string>>();
-            Site.Helpers.JsonHelper.ToJsonFunc.Invoke(Arg.Any<object>()).Returns("parsedJson");
+            SetUpForHelpers();
 
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
             var message = new WinLossDetailQuery(userFixture.User);
             message.CustLevelId = custLevelId; // Agent Level
             var winLossDetailViewModel = CreateWinLossDetailViewModel(fromDate, toDate, message);
-            winLossDetailViewModel.BetListPath.Returns("BetListPath");
             var winlossDetailViewModel = new WinLossDetailModel(1, "CustName", 0, 0, 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
@@ -143,6 +142,14 @@
                         && (string)routeValue["CustName"] == "CustName"
                         && (byte)routeValue["CustLevelId"] == (custLevelId - 1)
                         && (string)routeValue["BreadcrumbLevelsJson"] == "parsedJson"));
+        }
+
+        private static void SetUpForHelpers()
+        {
+            Site.Helpers.JsonHelper.ToJsonFunc = Substitute.For<Func<object, string>>();
+            Site.Helpers.JsonHelper.ToJsonFunc.Invoke(Arg.Any<object>()).Returns("parsedJson");
+            Site.Helpers.UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
+            Site.Helpers.UrlHelper.MapExMainPath("~/_BetList/BetList.aspx").Returns("BetListPath");
         }
 
         private static WinLossDetailViewModel CreateWinLossDetailViewModel(DateTime fromDate, DateTime toDate, WinLossDetailQuery message)

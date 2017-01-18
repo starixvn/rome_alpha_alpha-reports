@@ -40,12 +40,12 @@
             SortPropertyName = GetSortedProperty(message.CustLevel, message.SortPropertyName);
             UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
             UserSelectedProductIds = string.Join(",", winLossParam.UserSelectedProductIds);
-            
+
             BetListPath = Helpers.UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
             BreadcrumbLevels = breadcrumbLevels;
             BreadcrumbLevelsJson = JsonHelper.ToJsonFunc(breadcrumbLevels);
             ReportData = reportData;
-     
+
             AccumulateGrantTotal(reportData);
             BuildResources();
         }
@@ -125,7 +125,7 @@
         public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel =>
            new BreadcrumbLevelsViewModel(BreadcrumbLevels, BreadcrumbLevelsJson);
 
-        public string BetListPath { get; }
+        private string BetListPath { get; }
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed")]
         public string BuildDrillDownLink(

@@ -20,7 +20,7 @@
     [Trait("Category", "WinLoss")]
     [Collection("UserCollection")]
     public class WinLossViewModelTests
-    { 
+    {
         private readonly UserFixture userFixture;
         private readonly Fixture fixture = new Fixture();
         private CompareLogic compareLogic;
@@ -50,7 +50,7 @@
                  fixture.Create<WinLossParam>(),
                  Enumerable.Empty<CustInfo>(),
                  Enumerable.Empty<SelectListItem>());
-            
+
             // Act & Assert
             Assert.Equal(winlossViewModel.Title, expectedTitle);
         }
@@ -111,7 +111,7 @@
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<SelectListItem>());
-            
+
             // Act
             var actualReportData = winlossViewModel.ReportData;
 
@@ -140,6 +140,8 @@
             var result = compareLogic.Compare(actualGrantTotal, expectedGrantTotal);
             Assert.True(result.AreEqual);
         }
+
+        ////public void BuildDrillDownLink_ViewAgentReport_
 
         private WinLossQuery CreateWinlossQuery(byte custLevelId)
         {
