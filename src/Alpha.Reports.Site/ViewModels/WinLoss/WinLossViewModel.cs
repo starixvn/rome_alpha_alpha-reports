@@ -134,20 +134,14 @@
         {
             if (CustLevel.IsAgentLevel())
             {
-                return Helpers.UrlHelper.AddQueryStringParamsFunc(
-                    BetListPath,
-                    new Dictionary<string, object>
-                     {
-                         { "Custid", model.CustId },
-                         { "Username",  model.CustName },
-                         { "FDate",  FromDate },
-                         { "TDate",  ToDate },
-                         { "ProductIds",  UserSelectedProductIds },
-                         { "FilterPostback",  1 },
-                         { "Type",  "WLByDate" }
-                     });
+                return BuildBetListLink(model);
             }
 
+            return BuildDownlineLink(model, currentUrl);
+        }
+
+        private string BuildDownlineLink(WinLossModel model, string currentUrl)
+        {
             return Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(
                 currentUrl,
                 new Dictionary<string, object>
@@ -157,6 +151,22 @@
                     { "CustLevelId", CustLevel.GetDirectDownLineLevel().Value },
                     { "BreadcrumbLevelsJson", BreadcrumbLevelsJson }
                 });
+        }
+
+        private string BuildBetListLink(WinLossModel model)
+        {
+            return Helpers.UrlHelper.AddQueryStringParamsFunc(
+                BetListPath,
+                new Dictionary<string, object>
+                 {
+                         { "Custid", model.CustId },
+                         { "Username",  model.CustName },
+                         { "FDate",  FromDate },
+                         { "TDate",  ToDate },
+                         { "ProductIds",  UserSelectedProductIds },
+                         { "FilterPostback",  1 },
+                         { "Type",  "WLByDate" }
+                 });
         }
 
         private void AccumulateGrantTotal(IEnumerable<WinLossModel> reportData)

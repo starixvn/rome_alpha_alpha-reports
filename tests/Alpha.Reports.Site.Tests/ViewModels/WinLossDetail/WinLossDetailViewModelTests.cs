@@ -94,11 +94,11 @@
                  {
                      new SelectListItem { Value = AllBetProductId.ToString() }
                  });
-            var winlossDetailViewModel = new WinLossDetailModel(1, "CustName", 0, 0, 0, 0, null, null, null, null);
+            var winlossDetailModel = new WinLossDetailModel(1, "CustName", 0, 0, 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
             // Act
-            winLossDetailViewModel.BuildDrillDownLink(winlossDetailViewModel, "currentUrl");
+            winLossDetailViewModel.BuildDrillDownLink(winlossDetailModel, "currentUrl");
 
             // Assert
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
@@ -127,11 +127,11 @@
             var message = new WinLossDetailQuery(userFixture.User);
             message.CustLevelId = custLevelId; // Agent Level
             var winLossDetailViewModel = CreateWinLossDetailViewModel(fromDate, toDate, message);
-            var winlossDetailViewModel = new WinLossDetailModel(1, "CustName", 0, 0, 0, 0, null, null, null, null);
+            var winlossDetailModel = new WinLossDetailModel(1, "CustName", 0, 0, 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
             // Act
-            winLossDetailViewModel.BuildDrillDownLink(winlossDetailViewModel, "currentUrl");
+            winLossDetailViewModel.BuildDrillDownLink(winlossDetailModel, "currentUrl");
 
             // Assert
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(
@@ -149,7 +149,7 @@
             Site.Helpers.JsonHelper.ToJsonFunc = Substitute.For<Func<object, string>>();
             Site.Helpers.JsonHelper.ToJsonFunc.Invoke(Arg.Any<object>()).Returns("parsedJson");
             Site.Helpers.UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
-            Site.Helpers.UrlHelper.MapExMainPath("~/_BetList/BetList.aspx").Returns("BetListPath");
+            Site.Helpers.UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
         }
 
         private static WinLossDetailViewModel CreateWinLossDetailViewModel(DateTime fromDate, DateTime toDate, WinLossDetailQuery message)
