@@ -1,11 +1,13 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.Outstanding
 {
+    using System;
     using System.Collections.Generic;
-    using Configurations;
     using Enumerations;
+    using NSubstitute;
     using Ploeh.AutoFixture;
     using Reports.Models;
     using Reports.Models.Outstanding;
+    using Site.Helpers;
     using Site.ViewModels.Components;
     using Site.ViewModels.Outstanding;
     using Xunit;
@@ -20,15 +22,16 @@
         public void GetUserActionLink_WhenReportLevelIsMemberLevel_ReturnsBestlistLink()
         {
             // Arrange
+            var betlistPath = "BetListPath";
+            UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
+            UrlHelper.MapExMainPath(Arg.Any<string>()).Returns(betlistPath);
             var viewModel = new OutstandingViewModel(Super, Member, null, null);
-            var outstanding = new OutstandingModel { CustId = 1, CustName = "CustName" };
-            var outstandingDetail = "OutstandingDetail.aspx";
- 
+
             // Act
-            var actualLink = viewModel.GetUserActionLink(outstanding);
+            var actualLink = viewModel.GetUserActionLink(fixture.Create<OutstandingModel>());
 
             // Assert
-            Assert.True(actualLink.Contains(outstandingDetail));
+            Assert.True(actualLink.Contains(betlistPath));
         }
 
         [Theory]
@@ -37,16 +40,15 @@
         public void GetUserActionLink_WhenReportLevelIsNotMemberLevel_ReturnsDrilldownLink(byte roleId)
         {
             // Arrange
+            var betlistPath = "BetListPath";
             var reportLevel = Enumeration.FromValue<UserLevel>(roleId);
-            var viewModel = new OutstandingViewModel(Super, reportLevel, null, new BreadcrumbLevelsViewModel(null, "breadcrumbLevelsJson"));
-            var outstanding = new OutstandingModel { CustId = 1, CustName = "CustName" };
-            var outstandingDetail = "OutstandingDetail.aspx";
+            var viewModel = new OutstandingViewModel(Super, reportLevel, null, new BreadcrumbLevelsViewModel(null, null));
 
             // Act
-            var actualLink = viewModel.GetUserActionLink(outstanding);
+            var actualLink = viewModel.GetUserActionLink(fixture.Create<OutstandingModel>());
 
             // Assert
-            Assert.True(!actualLink.Contains(outstandingDetail));
+            Assert.True(!actualLink.Contains(betlistPath));
         }
 
         [Fact]

@@ -5,6 +5,7 @@
     using Components;
     using Configurations;
     using Enumerations;
+    using Helpers;
     using Reports.Models;
     using Reports.Models.Outstanding;
     using Web.Helpers;
@@ -14,7 +15,7 @@
         // Always need to show member outstanding
         private readonly List<UserLevel> displayOutstandingLevels = new List<UserLevel>() { UserLevel.Member };
 
-        private string BetListPath => $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
+        private string betListPath = UrlHelper.MapExMainPath("~/_Reports/BetList/OutstandingDetail.aspx");
 
         public OutstandingViewModel(
             UserLevel viewerLevel,
@@ -69,7 +70,7 @@
         {
             if (ReportLevel.IsMemberLevel())
             {
-                return $"{BetListPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
+                return $"{betListPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
             }
 
             return $"?custLevelId={ReportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}" +
