@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Database.WinLoss
 {
     using System.Data;
-    using Helper;
+    using Helpers;
 
     public static class WinLossDatabase
     {

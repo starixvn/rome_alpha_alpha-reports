@@ -1,9 +1,9 @@
 ﻿describe("EnterResult", () => {
     const jQueryFake = $;
 
-    const sortComponent = new SortComponent($);
+    const sortComponent = new SortComponent($, new LinkBuilderComponent($));
     const dateRangePickerComponent = new DateRangePickerComponent($);
-  
+
     let enterResultView: EnterResultView;
 
     let cacheDOMElements: jasmine.Spy,
@@ -173,7 +173,7 @@
     describe("hideFilter", () => {
 
         describe("_Always", () => {
-            beforeEach(()=>{
+            beforeEach(() => {
                 // arrange
                 setFixtures(enteredResultTemplate.reportContent);
                 enterResultView.cacheDOMElements();
@@ -186,7 +186,7 @@
                 expect(enterResultView.$pageTitle.hasClass("hide-filter")).toBeTruthy();
             });
             it("Add Hide class and hide filter", () => {
-                 // assert
+                // assert
                 expect(enterResultView.$reportForm.hasClass("hide")).toBeTruthy();
             });
         });
@@ -214,7 +214,7 @@
             enterResultView.cacheDOMElements();
             spyOn(enterResultView.$exportExcelForm, "submit");
 
-             // act
+            // act
             enterResultView.onExportExcelEvent();
 
             // assert
@@ -244,7 +244,7 @@
         it("Submit Normal Report -> Set Value For Hidden Field Before Submit", () => {
             // arrange
             spyOn(enterResultView, "setHiddenValue");
-           
+
             // act
             enterResultView.onSubmitNormalReportEvent();
 

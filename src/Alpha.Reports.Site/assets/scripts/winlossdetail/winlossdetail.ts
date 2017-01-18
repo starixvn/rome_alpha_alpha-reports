@@ -104,8 +104,9 @@ class WinLossDetailView {
             this.$tableReport,
             canSort,
             this.hasAllDataOnClient,
-            this.afterSort,
-            { 0: { sorter: "text" } }));
+            this.sortComponent.afterSort,
+            { 0: { sorter: "text" } },
+            this.$reportForm));
 
         this.$tableReport.stickyTableHeaders();
 
@@ -241,35 +242,6 @@ class WinLossDetailView {
         this.$exportExcelForm.submit();
         this.$.unblockUI();
     };
-    afterSort = () => {
-        var this$ = this.$;
-        if (this.hasAllDataOnClient) {
-            var sortedColumn = this$(".sorting-asc:visible");
-            var direction = !sortedColumn.length;
-            if (sortedColumn.length === 0) {
-                sortedColumn = this$(".sorting-desc");
-            }
-
-            var sortedColumnName = sortedColumn.data("sortedname");
-
-            this.replaceHrefParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
-            this.replaceHrefParam("IsDescendingSort", direction);
-
-            var isEvenRow = false;
-            this.$tableReport.find("tbody > tr").each(function () {
-                var $row = this$(this);
-                if ($row.hasClass("even-row") && !isEvenRow) {
-                    $row.removeClass("even-row");
-                } else if (!$row.hasClass("even-row") && isEvenRow) {
-                    $row.addClass("even-row");
-                }
-
-                isEvenRow = !isEvenRow;
-            });
-        } else {
-            this.$reportForm.trigger("submit");
-        }
-    };
 
     hideFilter = () => {
         let $netTurnoverTooltip = this.$netTurnoverTooltip;
@@ -357,16 +329,17 @@ class WinLossDetailView {
 }
 
 $(() => {
+    const linkBuilderComponent = new LinkBuilderComponent($);
     const winLossDetailView = new WinLossDetailView(
         $,
         new DateRangePickerComponent($),
         new PagerComponent($),
         new ProductMultiSelectionComponent($),
-        new SortComponent($),
+        new SortComponent($, linkBuilderComponent),
         new ReportTooltip($),
         new MonthPickerComponent($),
         new NetTurnoverTooltipComponent($),
-        new LinkBuilderComponent($));
+        linkBuilderComponent);
 
     winLossDetailView.init();
 });

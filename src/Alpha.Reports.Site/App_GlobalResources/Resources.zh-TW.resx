@@ -333,4 +333,28 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>輸贏</value>
   </data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>數字遊戲編號</value>
+  </data>
+  <data name="LiveCasino" xml:space="preserve">
+    <value>娛樂廳</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>下一頁</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>全場</value>
+  </data>
+  <data name="MatchWinLoss" xml:space="preserve">
+    <value>球賽輸贏</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>賽事</value>
+  </data>
+  <data name="PositionTaking" xml:space="preserve">
+    <value>佔成數</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>投注類別</value>
+  </data>
 </root>

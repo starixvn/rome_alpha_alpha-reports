@@ -10,7 +10,7 @@ class DateRangePickerOption {
     selectorId: string;
     reportFormId: string;
 
-    constructor(selectorId: string = "daterange-picker", reportFormId = "report-form") {
+    constructor(selectorId: string = "daterange-picker", reportFormId: string = "report-form") {
         this.selectorId = selectorId;
         this.reportFormId = reportFormId;
     }
@@ -46,7 +46,7 @@ class DateRangePickerComponent {
             minDate: new Date(minDate),
             maxDate: maxDate === "" ? null : maxDate,
             currentDate: new Date(currentDate),
-            onQuickChooseChange: (selectValue) => {
+            onQuickChooseChange: (selectValue: number) => {
                 if (this.isCompleteInitDateRangePicker && selectValue !== this.quickChooseType.specificDates) {
                     this.$reportForm.submit();
                 }

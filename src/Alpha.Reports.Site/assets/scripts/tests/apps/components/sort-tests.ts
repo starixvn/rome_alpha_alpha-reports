@@ -1,8 +1,10 @@
 ﻿describe("SortComponent", () => {
     let sortComponent: SortComponent;
+    let linkBuilderComponent: LinkBuilderComponent;
 
     beforeEach(() => {
-        sortComponent = new SortComponent($);
+        linkBuilderComponent = new LinkBuilderComponent($);
+        sortComponent = new SortComponent($, linkBuilderComponent);
     });
 
     describe("_render", () => {
@@ -415,7 +417,8 @@
             setFixtures(`<body>
                             <table id="table-report2" class="stack-mode" data-descendingsort="False" data-sortedcolumn="Column1">
                                 <thead class="tableFloatingHeaderOriginal">
-                                    <th class="sorting sorting-asc visible-stack-mode" data-sortedname="Column1" data-colindex="0">Column 1</th>
+                                    <th class="sorting sorting-asc visible-stack-mode" 
+                                        data-sortedname="Column1" data-colindex="0">Column 1</th>
                                     <th class="sorting" data-sortedname="Column2" data-disabledsort="true">Column 2</th>
                                 </thead>
                                 <tbody>
@@ -483,5 +486,67 @@
             // assert
             expect(actualData).toBe("Node Data");
         });
+    });
+
+    describe("_afterSort", () => {
+        it("_Not Have All Data on Client -> Submits Report", () => {
+            // arrange
+            setFixtures(`<body><form id="report-form" role="form"></form></body>`);
+            sortComponent.options.hasAllDataOnClient = false;
+            sortComponent.$reportForm = $("#report-form");
+
+            spyOn(sortComponent.$reportForm, "trigger");
+
+            // act
+            sortComponent.afterSort();
+
+            // assert
+            expect(sortComponent.$reportForm.trigger).toHaveBeenCalledWith("submit");
+        });
+
+        let haveAllDataOnClientTests = (currentHtml: string, expectedIsDescendingSort: string, expectedTableBody: string) => {
+            // arrange
+            setFixtures(currentHtml);
+            sortComponent.options.hasAllDataOnClient = true;
+            sortComponent.options.sortContainer = $("#tbl-report");
+            sortComponent.$reportForm = $("#report-form");
+            spyOn(sortComponent.$reportForm, "trigger");
+            let replaceHrefParamSpy = spyOn(linkBuilderComponent, "updateParam");
+
+            // act
+            sortComponent.afterSort();
+            let actualTableBody = $.trim(sortComponent.options.sortContainer.find("tbody").html());
+
+            // assert
+            expect(sortComponent.$reportForm.trigger).not.toHaveBeenCalledWith("submit");
+            expect(replaceHrefParamSpy.calls.allArgs()).toEqual([
+                ["SortPropertyName", "WinLoss"],
+                ["IsDescendingSort", expectedIsDescendingSort]]);
+
+            expect(actualTableBody).toEqual(expectedTableBody);
+        };
+
+        it(`_Have All Data on Client and Currently Sorts ASC on Normal Mode ->
+            Updates Href Param;
+            Not Submit Report;
+            Updates even-row class for tbody`, () => {
+                haveAllDataOnClientTests(sortTemplate.sortASCOnNormalMode, "false", `<tr class=""><td>Row 1</td></tr>
+                                    <tr class="even-row"><td>Row 2</td></tr>
+                                    <tr><td>Row 3</td></tr>
+                                    <tr class="even-row"><td>Row 4</td></tr>`);
+            });
+
+        it(`_Have All Data on Client and Currently Sorts DESC on Normal Mode ->
+            Updates Href Param;
+            Not Submit Report;
+            Updates even-row class for tbody`, () => {
+                haveAllDataOnClientTests(sortTemplate.sortDESCOnNormalMode, "true", "");
+            });
+        it(`_Have All Data on Client and Currently Sorts DESC Combined Column on Stack Mode ->
+            Updates Href Param;
+            Not Submit Report;
+            Updates even-row class for tbody`, () => {
+                haveAllDataOnClientTests(sortTemplate.sortDESCCombinedColumnOnStackMode, "true", "");
+            });
     });
 });

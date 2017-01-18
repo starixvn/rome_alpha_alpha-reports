@@ -20,7 +20,7 @@
             linkBuilderComponent.updateParam("param", "paramvalue");
 
             // assert
-            expect($(".downline-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=true&param=paramvalue")
+            expect($(".downline-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=true&param=paramvalue");
         });
 
         it("_Always -> Update param value to href attribute for downline link", () => {
@@ -37,7 +37,7 @@
             linkBuilderComponent.updateParam("param", "paramvalue");
 
             // assert
-            expect($(".downline-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=true&param=paramvalue")
+            expect($(".downline-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=true&param=paramvalue");
         });
 
         it("_Always -> Insert new param to href attribute for bread crumb link", () => {
@@ -54,7 +54,7 @@
             linkBuilderComponent.updateParam("param", "paramvalue");
 
             // assert
-            expect($(".breadcrumb-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=false&param=paramvalue")
+            expect($(".breadcrumb-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=false&param=paramvalue");
         });
 
         it("_Always -> Update param to href attribute for bread crumb link", () => {
@@ -71,7 +71,7 @@
             linkBuilderComponent.updateParam("param", "paramvalue");
 
             // assert
-            expect($(".breadcrumb-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=false&param=paramvalue")
+            expect($(".breadcrumb-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=false&param=paramvalue");
         });
     });
 });

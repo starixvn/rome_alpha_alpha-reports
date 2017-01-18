@@ -151,11 +151,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\AnyValueCreatorCollection.cs" />
     <Compile Include="Collections\FanexCacheCollection.cs" />
     <Compile Include="Collections\ObjectDbCollection.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\RoleId.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteriaTests.cs" />
+    <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteriaTest.cs" />
     <Compile Include="Criteria\PagingReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsCriteriaTests.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseForTesting.cs" />
@@ -172,23 +174,29 @@
     <Compile Include="Extensions\AssertExtension.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTests.cs" />
+    <Compile Include="Extensions\IntExtensionsTests.cs" />
     <Compile Include="Extensions\StringExtensionsTests.cs" />
+    <Compile Include="Fixtures\AnyValueCreatorFixture.cs" />
     <Compile Include="Fixtures\FanexCacheFixture.cs" />
     <Compile Include="Fixtures\ObjectDbFixture.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="Helpers\BetTypeHelperTest.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="ModelsForTesting\UserLevelForTesting.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
     <Compile Include="Models\CustInfoTests.cs" />
+    <Compile Include="Models\MatchWinLoss\MatchWinLossModelTest.cs" />
     <Compile Include="Models\WinLossTest.cs" />
     <Compile Include="Models\NetWinLossTest.cs" />
     <Compile Include="Models\ProductTests.cs" />
     <Compile Include="Models\ReportDataTests.cs" />
     <Compile Include="Models\UserLevelTests.cs" />
+    <Compile Include="Params\MatchWinLossParamTests.cs" />
     <Compile Include="Params\ProductByCustomerParamTests.cs" />
     <Compile Include="Params\WinLossParamTests.cs" />
     <Compile Include="Params\WinLossDetailParamTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\MatchWinLossServiceImplTest.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />

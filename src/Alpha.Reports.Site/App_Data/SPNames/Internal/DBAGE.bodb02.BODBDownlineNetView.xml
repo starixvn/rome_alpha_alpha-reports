@@ -37,4 +37,7 @@
     <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0">
     </Setting>
   </Function>
+  <Function Name="Match Win Loss">
+    <Setting Key="Age_Rpt_MatchWinLoss_Member" SpName="Age_Rpt_MatchWinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
+  </Function>
 </Functions>

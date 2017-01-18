@@ -192,4 +192,10 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>勝ち負け</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>試合</value>
+  </data>
 </root>
