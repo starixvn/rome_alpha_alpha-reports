@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLoss
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -134,6 +135,7 @@
             var winlossParam = new WinLossParam(1, fromDate, toDate, new List<int> { 1 }, UserLevel.Agent, false);
             var winlossViewModel = new WinLossViewModel(
                 Enumerable.Empty<WinLossModel>(),
+                fixture.Create<WinLossModel>(),
                 message,
                 winlossParam,
                 Enumerable.Empty<CustInfo>(),
@@ -172,6 +174,7 @@
             var winlossParam = new WinLossParam(1, fromDate, toDate, new List<int> { 1 }, UserLevel.Agent, false);
             var winlossViewModel = new WinLossViewModel(
                             Enumerable.Empty<WinLossModel>(),
+                            fixture.Create<WinLossModel>(),
                             message,
                             winlossParam,
                             Enumerable.Empty<CustInfo>(),

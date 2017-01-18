@@ -37,7 +37,7 @@
             this.userFixture = userFixture;
 
             productService = Substitute.For<ProductService>();
-            productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
+            productService.ConcatProductNames(Arg.Any<string>()).Returns("Product Name");
             reportService = Substitute.For<WinLossService>();
 
             winlossWorkbook = Substitute.For<Workbook<WinLossModel>>();

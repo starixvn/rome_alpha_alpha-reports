@@ -40,24 +40,14 @@
                 ["Today"] = DateTimeManager.Now.ToShortDateWithSlash()
             };
 
-            var templatePath = GetExcelTemplatePath("MatchResultEntered");
-            var templateInfo = new TemplateInfo(
-                templatePath: templatePath,
-                noInfomationText: Resources.NoInformationIsAvailable,
-                titleStartIndex: 0,
-                headerStartIndex: 1,
-                bodyStartIndex: 3,
-                bodyEndIndex: 4);
-
             var result = enteredSportResultWorkbook
-               .UseTemplate(templateInfo)
+               .UseTemplate(GetTemplateInfo())
                .Header(key => resources.ContainsKey(key) ? resources[key] : Resources.ResourceManager.GetString(key))
                .Body(reportData, GetEnteredSportResultRowMapper())
                .Sheet(Resources.DefaultSheetName)
                .ExportToBytes();
 
-            var excelFileName = BuildExcelFileName(message);
-            return new ExcelFileViewModel(excelFileName, result);
+            return new ExcelFileViewModel(GetExcelFileName(message), result);
         }
 
         private Mapper<EnteredSportResult> GetEnteredSportResultRowMapper()
@@ -72,14 +62,20 @@
             return mapper;
         }
 
-        private string BuildExcelFileName(EnteredSportResultExcelQuery message)
-        {
-            return string.Join(
-                Resources.MatchResultEntered,
-                "-",
-                message.FromDate.ToShortDateWithSlash(),
-                "-",
-                message.ToDate.ToShortDateWithSlash());
-        }
+        private TemplateInfo GetTemplateInfo()
+            => new TemplateInfo(
+                templatePath: GetExcelTemplatePath("MatchResultEntered"),
+                noInfomationText: Resources.NoInformationIsAvailable,
+                titleStartIndex: 0,
+                headerStartIndex: 1,
+                bodyStartIndex: 3,
+                bodyEndIndex: 4);
+
+        private string GetExcelFileName(EnteredSportResultExcelQuery message)
+          => string.Join(
+              "-",
+              Resources.MatchResultEntered,
+              message.FromDate.ToShortDateWithSlash(),
+              message.ToDate.ToShortDateWithSlash());
     }
 }

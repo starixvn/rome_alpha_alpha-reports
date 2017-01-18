@@ -42,7 +42,7 @@
                  message.IsHistoricReport);
         }
 
-        internal virtual WinLossModel AccumulateGrantTotal(IEnumerable<WinLossModel> reportData)
+        internal WinLossModel AccumulateGrantTotal(IEnumerable<WinLossModel> reportData)
         {
             var grantTotal = new WinLossModel();
            

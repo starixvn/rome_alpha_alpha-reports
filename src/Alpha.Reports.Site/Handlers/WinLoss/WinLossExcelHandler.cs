@@ -1,17 +1,15 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLoss
 {
     using System;
-    using System.Linq;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
     using ONEbook.SpreadSheets;
-    using Reports.Models;
+    using Params;
     using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
     using ViewModels;
-    using ViewModels.WinLoss;
 
     public class WinLossExcelHandler :
         WinLossBaseHandler,
@@ -36,24 +34,18 @@
 
             var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);
-            var products = productService.GetProductsForCustomer(message.CustId);
             var grandTotal = AccumulateGrantTotal(reportData);
 
-            var reportTitle = BuildReportTitlte(message);
-            var templatePath = GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName);
-            var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable);
-
             var result = winlossWorkbook
-                .UseTemplate(templateInfo)
-                .Title(reportTitle)
+                .UseTemplate(GetTemplateInfo(message))
+                .Title(GetReporTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(reportData, GetWinLossRowMapper(message, isTotal: false))
                 .Footer(grandTotal, GetWinLossRowMapper(message, isTotal: true))
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
-            var excelFileName = BuildExcelFileName(message);
-            return new ExcelFileViewModel(excelFileName, result);
+            return new ExcelFileViewModel(GetExcelFileName(message, winLossParam), result);
         }
 
         private Mapper<WinLossModel> GetWinLossRowMapper(WinLossExcelQuery message, bool isTotal)
@@ -95,35 +87,21 @@
             return mapper;
         }
 
-        private string BuildReportTitlte(WinLossExcelQuery message)
-        {
-            var products = message.UserSelectedProductIds.ToListInt();
+        private TemplateInfo GetTemplateInfo(WinLossExcelQuery message)
+            => new TemplateInfo(
+                GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
+                noInfomationText: Resources.NoInformationIsAvailable);
 
-            return $"{Resources.WinLossTitle} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-              $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
+        private string GetReporTitle(WinLossExcelQuery message)
+            => $"{Resources.WinLossTitle} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+            $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
 
-            //return string.Join(
-            //        title,
-            //        " ",
-            //        message.FromDate.ToShortDateWithSlash(),
-            //        " --> ",
-            //        message.ToDate.ToShortDateWithSlash(),
-            //        " ",
-            //        Resources.of2,
-            //        " ",
-            //        string.Join(", ", productService.GetProductNames(products)));
-        }
-
-        private string BuildExcelFileName(WinLossExcelQuery message)
-        {
-            return string.Join(
-                    Resources.WinLossTitle,
-                    "-",
-                    message.CustName,
-                    "-",
-                    message.FromDate.ToShortDateWithSlash(),
-                    "-",
-                    message.ToDate.ToShortDateWithSlash());
-        }
+        private string GetExcelFileName(WinLossExcelQuery message, WinLossParam winLossParam)
+           => string.Join(
+               "-",
+               Resources.WinLossTitle,
+               message.CustName,
+               winLossParam.FromDate.ToShortDateWithSlash(),
+               winLossParam.ToDate.ToShortDateWithSlash());
     }
 }

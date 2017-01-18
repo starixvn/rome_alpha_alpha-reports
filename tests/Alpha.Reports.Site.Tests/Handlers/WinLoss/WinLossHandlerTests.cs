@@ -30,7 +30,6 @@
         private readonly WinLossService reportService;
         private readonly WinLossHandler winLossHandler;
         private readonly UserFixture userFixture;
-        private readonly Fixture fixture = new Fixture();
         private CompareLogic compareLogic;
         
         public WinLossHandlerTests(UserFixture userFixture)
@@ -74,7 +73,6 @@
             Assert.True(result.AreEqual);
         }
 
-
         [Theory]
         [InlineData(null)]
         [InlineData("1")]
@@ -115,7 +113,6 @@
             reportService.GetWinLoss(Arg.Any<WinLossParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
-
 
             var expectedWinLossViewModel = new WinLossViewModel(
                 reportData,
