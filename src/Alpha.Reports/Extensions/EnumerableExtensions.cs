@@ -58,5 +58,10 @@
 
             return (IOrderedQueryable<T>)result;
         }
+
+        public static string JoinWithComma<T>(this IEnumerable<T> source)
+        {
+            return string.Join(",", source);
+        }
     }
 }

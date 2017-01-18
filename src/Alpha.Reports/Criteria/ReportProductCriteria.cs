@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Extensions;
 
     public class ReportProductCriteria : ReportCriteriaBase
     {
@@ -14,7 +15,7 @@
             IEnumerable<int> productIds)
             : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay)
         {
-            ProductIds = productIds == null ? string.Empty : string.Join(",", productIds);
+            ProductIds = productIds == null ? string.Empty : productIds.JoinWithComma();
         }
 
         public string ProductIds { get; }

@@ -30,7 +30,7 @@
             this.winLossDetailParam = winLossDetailParam;
 
             Title = GetReportNameByLevel(message.CustLevel);
-            UserSelectedProductIds = string.Join(",", winLossDetailParam.UserSelectedProductIds);
+            UserSelectedProductIds = winLossDetailParam.UserSelectedProductIds.JoinWithComma();
 
             ReportData = reportData;
             var canSort = reportData.DataSource != null && reportData.DataSource.Count() > 1;

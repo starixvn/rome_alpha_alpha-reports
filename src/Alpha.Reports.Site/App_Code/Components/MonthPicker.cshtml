@@ -6,7 +6,7 @@
     <div class="form-group monthpicker-container">
         <div id="monthPickerID">
             <div id="dropdown-month"
-                 data-longmonths-inyear="@string.Join(",", model.MonthNames)"
+                 data-longmonths-inyear="@model.MonthNames.JoinWithComma()"
                  data-mindate="@model.MinDate.ToShortDateWithSlash()"
                  data-maxdate="@Alpha.Reports.Services.DateTimeManager.Now.ToShortDateWithSlash()"
                  data-dateinmonth="@model.FromDate.ToShortDateWithSlash()"
