@@ -46,10 +46,10 @@
 
             var reportBaseQuery = boundModel as ReportBaseQuery;
             if (reportBaseQuery != null
-                    && !string.IsNullOrWhiteSpace(controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelsJson"]))
+                    && !string.IsNullOrWhiteSpace(controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"]))
             {
-                var drillDownInfoText = controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelsJson"];
-                reportBaseQuery.BreadcrumbLevels = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(drillDownInfoText);
+                var drillDownInfoText = controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"];
+                reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(drillDownInfoText);
 
                 return reportBaseQuery;
             }

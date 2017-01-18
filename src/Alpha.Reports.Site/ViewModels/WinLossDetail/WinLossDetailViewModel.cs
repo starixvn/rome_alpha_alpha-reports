@@ -23,8 +23,8 @@
             WinLossDetailQuery message,
             WinLossDetailParam winLossDetailParam,
             ReportData<WinLossDetailModel> reportData,
-            IEnumerable<CustInfo> breadcrumbLevels,
-            IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevels)
+            IEnumerable<CustInfo> breadcrumbLevel,
+            IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevel)
         {
             this.message = message;
             this.winLossDetailParam = winLossDetailParam;
@@ -110,10 +110,10 @@
                 ProductMultiSelectionViewModel,
                 IsFilterVisible,
                 MinDate,
-                BreadcrumbLevelsJson);
+                BreadcrumbLevelJson);
 
-        public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel =>
-            new BreadcrumbLevelsViewModel(BreadcrumbLevels, BreadcrumbLevelsJson);
+        public BreadcrumbLevelViewModel BreadcrumbLevelViewModel =>
+            new BreadcrumbLevelViewModel(BreadcrumbLevel, BreadcrumbLevelJson);
 
         public string Title { get; }
 

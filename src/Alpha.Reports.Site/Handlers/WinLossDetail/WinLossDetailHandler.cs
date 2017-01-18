@@ -33,7 +33,7 @@
                 message,
                 winLossDetailParam,
                 reportData,
-                BuildBreadcrumbLevels(message),
+                BuildBreadcrumbLevel(message),
                 BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products));
 
             return viewModel;

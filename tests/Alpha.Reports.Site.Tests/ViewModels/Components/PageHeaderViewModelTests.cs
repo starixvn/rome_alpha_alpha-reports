@@ -86,10 +86,10 @@
         }
 
         [Fact]
-        public void BreadcrumbLevels_Always_ReturnsBreadcrumbLevelsSetFromConstructor()
+        public void BreadcrumbLevel_Always_ReturnsBreadcrumbLevelSetFromConstructor()
         {
             // Arrange
-            var expectedBreadcrumbLevelsViewModel = new BreadcrumbLevelsViewModel(
+            var expectedBreadcrumbLevelViewModel = new BreadcrumbLevelViewModel(
                 new List<CustInfo>
                 {
                     new CustInfo(1, "Name", 1)
@@ -101,14 +101,14 @@
                 false,
                 false,
                 false,
-                expectedBreadcrumbLevelsViewModel.BreadcrumbLevels,
-                expectedBreadcrumbLevelsViewModel.BreadcrumbLevelsJson);
+                expectedBreadcrumbLevelViewModel.BreadcrumbLevel,
+                expectedBreadcrumbLevelViewModel.BreadcrumbLevelJson);
 
             // Act
-            var actualBreadcrumbLevelsViewModel = pageHeaderViewModel.BreadcrumbLevelsViewModel;
+            var actualBreadcrumbLevelViewModel = pageHeaderViewModel.BreadcrumbLevelViewModel;
 
             // Assert
-            AssertExtension.Equal(expectedBreadcrumbLevelsViewModel, actualBreadcrumbLevelsViewModel);
+            AssertExtension.Equal(expectedBreadcrumbLevelViewModel, actualBreadcrumbLevelViewModel);
         }
 
         [Theory]

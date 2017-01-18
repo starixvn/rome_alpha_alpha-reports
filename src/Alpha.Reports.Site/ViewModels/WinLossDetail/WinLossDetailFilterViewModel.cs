@@ -18,7 +18,7 @@
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
             bool visible,
             DateTime minDate,
-            string breadcrumbLevelsJson)
+            string breadcrumbLevelJson)
         {
             CustId = custId;
             CustName = custName;
@@ -33,7 +33,7 @@
             minDate.ToShortDateWithSlash());
             Visible = visible;
             CustLevel = custLevel;
-            BreadcrumbLevelsJson = breadcrumbLevelsJson;
+            BreadcrumbLevelJson = breadcrumbLevelJson;
         }
 
         public int CustId { get; }
@@ -56,6 +56,6 @@
 
         public string ViewActionMessage => IsHistoricReport ? Resources.BackToCurrentReport : Resources.ViewHistoryReport;
 
-        public string BreadcrumbLevelsJson { get; }
+        public string BreadcrumbLevelJson { get; }
     }
 }

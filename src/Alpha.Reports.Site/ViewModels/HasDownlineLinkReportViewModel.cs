@@ -11,19 +11,19 @@
 
         protected HasDownlineLinkReportViewModel(
             UserLevel custLevel,
-            IEnumerable<CustInfo> breadcrumbLevels)
+            IEnumerable<CustInfo> breadcrumbLevel)
         {
             BetListPath = UrlHelper.MapExMainPath(DefaultBetListPath);
             CustLevel = custLevel;
-            BreadcrumbLevels = breadcrumbLevels;
-            BreadcrumbLevelsJson = JsonHelper.ToJsonFunc(breadcrumbLevels);
+            BreadcrumbLevel = breadcrumbLevel;
+            BreadcrumbLevelJson = JsonHelper.ToJsonFunc(breadcrumbLevel);
         }
 
         public UserLevel CustLevel { get; }
 
-        public IEnumerable<CustInfo> BreadcrumbLevels { get; }
+        public IEnumerable<CustInfo> BreadcrumbLevel { get; }
 
-        public string BreadcrumbLevelsJson { get; }
+        public string BreadcrumbLevelJson { get; }
 
         protected string BetListPath { get; }
 
@@ -47,7 +47,7 @@
                 new Dictionary<string, object>(routeValues)
                 {
                     { "CustLevelId", CustLevel.GetDirectDownLineLevel().Value },
-                    { "BreadcrumbLevelsJson", BreadcrumbLevelsJson }
+                    { "BreadcrumbLevelJson", BreadcrumbLevelJson }
                 });
         }
 

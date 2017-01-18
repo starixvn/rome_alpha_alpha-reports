@@ -5,19 +5,19 @@
     using Helpers;
     using Reports.Models;
 
-    public class BreadcrumbLevelsViewModel
+    public class BreadcrumbLevelViewModel
     {
-        public BreadcrumbLevelsViewModel(
-            IEnumerable<CustInfo> breadcrumbLevels,
-            string breadcrumbLevelsJson = null)
+        public BreadcrumbLevelViewModel(
+            IEnumerable<CustInfo> breadcrumbLevel,
+            string breadcrumbLevelJson = null)
         {
-            BreadcrumbLevels = breadcrumbLevels;
-            BreadcrumbLevelsJson = breadcrumbLevelsJson ?? JsonHelper.ToJsonFunc(breadcrumbLevels);
+            BreadcrumbLevel = breadcrumbLevel;
+            BreadcrumbLevelJson = breadcrumbLevelJson ?? JsonHelper.ToJsonFunc(breadcrumbLevel);
         }
 
-        public IEnumerable<CustInfo> BreadcrumbLevels { get; }
+        public IEnumerable<CustInfo> BreadcrumbLevel { get; }
 
-        public string BreadcrumbLevelsJson { get; }
+        public string BreadcrumbLevelJson { get; }
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed")]
         public string BuildBreadcrumbLink(
@@ -31,7 +31,7 @@
                     { "CustId", model.CustId },
                     { "CustName", model.CustName },
                     { "CustLevelId", model.CustLevelId },
-                    { "BreadcrumbLevelsJson", BreadcrumbLevelsJson }
+                    { "BreadcrumbLevelJson", BreadcrumbLevelJson }
                 });
         }
     }

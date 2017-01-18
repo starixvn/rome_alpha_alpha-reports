@@ -42,7 +42,7 @@
 
         public UserLevel ViewerLevel { get; }
 
-        public IEnumerable<CustInfo> BreadcrumbLevels { get; set; } = Enumerable.Empty<CustInfo>();
+        public IEnumerable<CustInfo> BreadcrumbLevel { get; set; } = Enumerable.Empty<CustInfo>();
 
         public DateTime FromDate { get; set; }
 

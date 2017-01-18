@@ -81,7 +81,7 @@
             message.UserSelectedProductIds = userSelectedProductIds;
             message.IsDescendingSort = false;
             message.SortPropertyName = "CustName";
-            message.BreadcrumbLevels = custInfoData;
+            message.BreadcrumbLevel = custInfoData;
 
             var winLossParam = new WinLossParam(
                 0,

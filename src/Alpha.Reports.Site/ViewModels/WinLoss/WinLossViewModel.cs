@@ -22,8 +22,8 @@
             IEnumerable<WinLossModel> reportData,
             WinLossQuery message,
             WinLossParam winLossParam,
-            IEnumerable<CustInfo> breadcrumbLevels,
-            IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevels)
+            IEnumerable<CustInfo> breadcrumbLevel,
+            IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevel)
         {
             CustId = message.CustId;
             CustName = message.CustName;
@@ -102,7 +102,7 @@
                 ProductMultiSelectionViewModel,
                 IsFilterVisible,
                 MinDate,
-                BreadcrumbLevelsJson);
+                BreadcrumbLevelJson);
 
         public string Title { get; private set; }
 
@@ -112,8 +112,8 @@
 
         public string CustLevelNetWinLossName { get; private set; }
 
-        public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel =>
-           new BreadcrumbLevelsViewModel(BreadcrumbLevels, BreadcrumbLevelsJson);
+        public BreadcrumbLevelViewModel BreadcrumbLevelViewModel =>
+           new BreadcrumbLevelViewModel(BreadcrumbLevel, BreadcrumbLevelJson);
 
         private void AccumulateGrantTotal(IEnumerable<WinLossModel> reportData)
         {

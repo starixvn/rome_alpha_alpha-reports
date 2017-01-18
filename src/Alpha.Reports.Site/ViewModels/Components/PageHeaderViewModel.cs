@@ -11,15 +11,15 @@
             bool hasHideFilterIcon,
             bool isStackMode,
             bool isFilterVisible,
-            IEnumerable<CustInfo> breadcrumbLevels,
-            string breadcrumbLevelsJson)
+            IEnumerable<CustInfo> breadcrumbLevel,
+            string breadcrumbLevelJson)
         {
             Title = title;
             HasStackIcon = hasStackIcon;
             HasHideFilterIcon = hasHideFilterIcon;
             IsStackMode = isStackMode;
             IsFilterVisible = isFilterVisible;
-            BreadcrumbLevelsViewModel = new BreadcrumbLevelsViewModel(breadcrumbLevels, breadcrumbLevelsJson);
+            BreadcrumbLevelViewModel = new BreadcrumbLevelViewModel(breadcrumbLevel, breadcrumbLevelJson);
         }
 
         public string Title { get; }
@@ -34,6 +34,6 @@
 
         public bool IsFilterVisible { get; }
 
-        public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel { get; set; }
+        public BreadcrumbLevelViewModel BreadcrumbLevelViewModel { get; set; }
     }
 }

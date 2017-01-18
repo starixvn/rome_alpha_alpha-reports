@@ -18,8 +18,8 @@
         {
             // Arrange
             var custInfo = new CustInfo(1, "CustName", 2);
-            var viewModel = new BreadcrumbLevelsViewModel(Enumerable.Empty<CustInfo>());
-            JsonHelper.ToJsonFunc = (data) => "BreadcrumbLevelsJson";
+            var viewModel = new BreadcrumbLevelViewModel(Enumerable.Empty<CustInfo>());
+            JsonHelper.ToJsonFunc = (data) => "BreadcrumbLevelJson";
             UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
             // Act
@@ -34,7 +34,7 @@
                     routeValues => (int)routeValues["CustId"] == custInfo.CustId
                                 && (string)routeValues["CustName"] == custInfo.CustName
                                 && (byte)routeValues["CustLevelId"] == custInfo.CustLevelId
-                                && (string)routeValues["BreadcrumbLevelsJson"] == viewModel.BreadcrumbLevelsJson));
+                                && (string)routeValues["BreadcrumbLevelJson"] == viewModel.BreadcrumbLevelJson));
         }
     }
 }

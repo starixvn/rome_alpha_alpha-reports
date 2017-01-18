@@ -46,26 +46,26 @@
             });
         }
 
-        protected internal IEnumerable<CustInfo> BuildBreadcrumbLevels(ReportBaseQuery query)
+        protected internal IEnumerable<CustInfo> BuildBreadcrumbLevel(ReportBaseQuery query)
         {
-            var drillDownInfo = new List<CustInfo>();
+            var breadcrumbLevel = new List<CustInfo>();
 
-            if (query.BreadcrumbLevels.Any())
+            if (query.BreadcrumbLevel.Any())
             {
-                foreach (var custInfo in query.BreadcrumbLevels)
+                foreach (var custInfo in query.BreadcrumbLevel)
                 {
                     if (custInfo.CustLevelId == query.CustLevelId)
                     {
                         break;
                     }
 
-                    drillDownInfo.Add(custInfo);
+                    breadcrumbLevel.Add(custInfo);
                 }
             }
 
-            drillDownInfo.Add(new CustInfo(query.CustId, query.CustName, query.CustLevelId));
+            breadcrumbLevel.Add(new CustInfo(query.CustId, query.CustName, query.CustLevelId));
 
-            return drillDownInfo;
+            return breadcrumbLevel;
         }
 
         protected internal virtual string GetExcelTemplatePath(string templateName, string fileExtension = "xls")
