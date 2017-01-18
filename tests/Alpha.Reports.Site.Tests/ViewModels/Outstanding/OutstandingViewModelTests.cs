@@ -42,7 +42,7 @@
             // Arrange
             var betlistPath = "BetListPath";
             var reportLevel = Enumeration.FromValue<UserLevel>(roleId);
-            var viewModel = new OutstandingViewModel(Super, reportLevel, null, new BreadcrumbLevelsViewModel(null, null));
+            var viewModel = new OutstandingViewModel(Super, reportLevel, null, new BreadcrumbLevelViewModel(null, null));
 
             // Act
             var actualLink = viewModel.GetUserActionLink(fixture.Create<OutstandingModel>());

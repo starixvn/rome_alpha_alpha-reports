@@ -3,12 +3,10 @@
     using System.Collections.Generic;
     using App_GlobalResources;
     using Components;
-    using Configurations;
     using Enumerations;
     using Helpers;
     using Reports.Models;
     using Reports.Models.Outstanding;
-    using Web.Helpers;
 
     public class OutstandingViewModel
     {
@@ -21,12 +19,12 @@
             UserLevel viewerLevel,
             UserLevel reportLevel,
             IEnumerable<OutstandingModel> outstandingDataSource,
-            BreadcrumbLevelsViewModel breadcrumbLevelsViewModel)
+            BreadcrumbLevelViewModel breadcrumbLevelViewModel)
         {
             ViewerLevel = viewerLevel;
             ReportLevel = reportLevel;
             OutstandingDatasource = outstandingDataSource;
-            BreadcrumbLevelsViewModel = breadcrumbLevelsViewModel;
+            BreadcrumbLevelViewModel = breadcrumbLevelViewModel;
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= ViewerLevel.Value; level++)
             {
@@ -62,7 +60,7 @@
 
         public List<UserLevel> DisplayOutstandingLevels => displayOutstandingLevels;
 
-        public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel { get; }
+        public BreadcrumbLevelViewModel BreadcrumbLevelViewModel { get; }
 
         public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
 
@@ -74,7 +72,7 @@
             }
 
             return $"?custLevelId={ReportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}" +
-                    $"&breadcrumbLevelsJson={BreadcrumbLevelsViewModel.BreadcrumbLevelsJson}";
+                    $"&breadcrumbLevelJson={BreadcrumbLevelViewModel.BreadcrumbLevelJson}";
         }
     }
 }

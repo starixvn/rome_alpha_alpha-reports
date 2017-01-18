@@ -20,8 +20,8 @@
             var outstandingDataSource = outstandingService.GetMemberOutstanding(message.ViewerLevel, message.CustLevel, message.CustId);
             var nextCustLevel = message.CustLevel.GetDirectDownLineLevel();
 
-            var drillDownInfo = BuildBreadcrumbLevels(message);
-            var breadcrumbLevelsViewModel = new BreadcrumbLevelsViewModel(drillDownInfo);
+            var drillDownInfo = BuildBreadcrumbLevel(message);
+            var breadcrumbLevelsViewModel = new BreadcrumbLevelViewModel(drillDownInfo);
 
             var viewModel = new OutstandingViewModel(
                 message.ViewerLevel,
