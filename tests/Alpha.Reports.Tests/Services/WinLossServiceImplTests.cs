@@ -29,22 +29,20 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly FanexCacheFixture fanexCacheFixture;
         private readonly CacheRefService cacheRefService;
-        private readonly ReportDateService reportDateService;
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
-        private CompareLogic compareLogic;
+        private readonly CompareLogic compareLogic;
 
         public WinLossServiceImplTests(FanexCacheFixture fanexCacheFixture)
         {
             dynamicRepository = Substitute.For<IDynamicRepository>();
-            reportDateService = Substitute.For<ReportDateService>();
             var productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<WinLossDataAccess>();
             cacheRefService = Substitute.For<CacheRefService>();
-            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, dataAccess, dynamicRepository, cacheRefService);
+            winLossServiceImpl = new WinLossServiceImpl(Substitute.For<ReportDateService>(), productService, dataAccess, dynamicRepository, cacheRefService);
             compareLogic = new CompareLogic();
 
             this.fanexCacheFixture = fanexCacheFixture;
-            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(true);
+            ReportDateRangeManager.ValidateDateRangeFunc = range => true;
         }
 
         [Fact]
@@ -70,7 +68,7 @@
                 false);
 
             var expectedData = Enumerable.Empty<WinLossModel>();
-            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(false);
+            ReportDateRangeManager.ValidateDateRangeFunc = range => false;
 
             // Act
             var actualData = winLossServiceImpl.GetWinLoss(param);

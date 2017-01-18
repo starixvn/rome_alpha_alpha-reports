@@ -29,6 +29,8 @@
             this.dataAccess = dataAccess;
         }
 
+        internal static DateRangeType DateRangeType { get; set; }
+
         public ReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param)
         {
             if (param == null)
@@ -36,7 +38,8 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            if (!reportDateService.ValidateDateRange(param))
+            if (!ReportDateRangeManager.ValidateDateRangeFunc(
+                new DateRange(DateRangeType, param.FromDate, param.ToDate, param.IsHistoryReport)))
             {
                 return new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
             }

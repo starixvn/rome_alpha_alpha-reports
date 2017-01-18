@@ -13,6 +13,7 @@
     using Fanex.Data;
     using Helpers;
     using ONEbook.UM.Filters;
+    using Services;
     using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Utilities;
     using Web;
@@ -49,6 +50,7 @@
             ModelBinders.Binders.DefaultBinder = new QueryEntityModelBinder();
 
             StaticResources.Init(GetBuildVersion());
+            ReportDateRangeManager.Init();
 
             Logs.WriteInfo(Resources.AppStart_Message);
         }

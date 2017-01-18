@@ -41,6 +41,8 @@
             this.cacheRefService = cacheRefService;
         }
 
+        internal static DateRangeType DateRangeType { get; set; }
+
         public IEnumerable<EnteredSportResult> GetEnteredSportResults()
         {
             var reportData = ConfiguredCacheService
@@ -59,7 +61,8 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            if (!reportDateService.ValidateDateRange(param))
+            if (!ReportDateRangeManager.ValidateDateRangeFunc(
+                new DateRange(DateRangeType, param.FromDate, param.ToDate, param.IsHistoryReport)))
             {
                 return Enumerable.Empty<WinLossModel>();
             }

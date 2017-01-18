@@ -2,7 +2,6 @@
 {
     using System;
     using Criteria;
-    using Extensions;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models;
@@ -14,8 +13,6 @@
         DateTime GetBalanceUpDay();
 
         DateTime GetMoveBetsDay();
-
-        bool ValidateDateRange(DateRange dateRange);
     }
 
     public class ReportDateServiceImpl : ReportDateService
@@ -47,36 +44,6 @@
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
 
             return balanceUpDayAndMoveBetsDay;
-        }
-
-        public bool ValidateDateRange(DateRange dateRange)
-        {
-            if (dateRange == null)
-            {
-                throw new ArgumentNullException(nameof(dateRange));
-            }
-
-            var threeMonthCurrentOrThreeYearHistory = dateRange as ThreeMonthCurrentOrThreeYearHistory;
-            if (threeMonthCurrentOrThreeYearHistory != null)
-            {
-                return ValidateThreeMonthCurrentOrThreeYearHistoryRange(threeMonthCurrentOrThreeYearHistory);
-            }
-
-            return false;
-        }
-
-        private bool ValidateThreeMonthCurrentOrThreeYearHistoryRange(ThreeMonthCurrentOrThreeYearHistory dateRange)
-        {
-            if (dateRange.IsHistoryReport)
-            {
-                return DateTimeManager.Now.AddYears(-3).FirstDayOfYear() <= dateRange.FromDate
-                    && dateRange.FromDate <= dateRange.ToDate
-                    && dateRange.ToDate.Year == dateRange.FromDate.Year
-                    && dateRange.ToDate.Month == dateRange.FromDate.Month;
-            }
-
-            return DateTimeManager.Now.AddMonths(-3).FirstDayOfMonth() <= dateRange.FromDate
-                   && dateRange.FromDate <= dateRange.ToDate;
         }
     }
 }

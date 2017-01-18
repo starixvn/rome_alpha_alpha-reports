@@ -51,7 +51,7 @@
 
         public string Language => message.Language;
 
-        public string UserSelectedProductIds => string.Join(",", winLossParam.UserSelectedProductIds);
+        public string UserSelectedProductIds => winLossParam.UserSelectedProductIds.JoinWithComma();
 
         public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
