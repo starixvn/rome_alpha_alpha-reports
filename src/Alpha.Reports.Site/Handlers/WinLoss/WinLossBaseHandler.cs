@@ -1,8 +1,11 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLoss
 {
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Extensions;
     using Params;
+    using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
 
@@ -37,6 +40,23 @@
                  validUserSelectedProductIds,
                  message.CustLevel,
                  message.IsHistoricReport);
+        }
+
+        internal virtual WinLossModel AccumulateGrantTotal(IEnumerable<WinLossModel> reportData)
+        {
+            var grantTotal = new WinLossModel();
+           
+            if (reportData != null && reportData.Any())
+            {
+                var reportDataCopy = reportData.ToList();
+                int index, count;
+                for (index = 1, count = reportDataCopy.Count, grantTotal = reportDataCopy[0]; index < count; index++)
+                {
+                    grantTotal = WinLossModel.Add(grantTotal, reportDataCopy[index]);
+                }
+            }
+
+            return grantTotal;
         }
     }
 }

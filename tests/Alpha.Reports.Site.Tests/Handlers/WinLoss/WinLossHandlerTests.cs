@@ -19,6 +19,7 @@
     using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
     using Site.ViewModels.WinLoss;
+    using TestCases;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -29,6 +30,7 @@
         private readonly WinLossService reportService;
         private readonly WinLossHandler winLossHandler;
         private readonly UserFixture userFixture;
+        private readonly Fixture fixture = new Fixture();
         private CompareLogic compareLogic;
         
         public WinLossHandlerTests(UserFixture userFixture)
@@ -57,6 +59,23 @@
         }
 
         [Theory]
+        [MemberData("WinLossViewModelSources", MemberType = typeof(WinLossViewModelTestCases))]
+        public void AccumulateGrantTotal_ValidReportData_ReturnsCorrectGrandTotal(
+        IEnumerable<WinLossModel> winlossData,
+        WinLossModel expectedGrantTotal)
+        {
+            // Arrange
+
+            // Act
+            var actualGrantTotal = winLossHandler.AccumulateGrantTotal(winlossData);
+
+            // Assert
+            var result = compareLogic.Compare(actualGrantTotal, expectedGrantTotal);
+            Assert.True(result.AreEqual);
+        }
+
+
+        [Theory]
         [InlineData(null)]
         [InlineData("1")]
         [InlineData("1,2")]
@@ -83,6 +102,8 @@
             message.SortPropertyName = "CustName";
             message.BreadcrumbLevel = custInfoData;
 
+            var reportData = Enumerable.Empty<WinLossModel>();
+            var grandTotal = new WinLossModel();
             var winLossParam = new WinLossParam(
                 0,
                 DefaultVariables.CurrentDate,
@@ -91,11 +112,14 @@
                 message.CustLevel,
                 false);
 
+            reportService.GetWinLoss(Arg.Any<WinLossParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
+
             var expectedWinLossViewModel = new WinLossViewModel(
-                Enumerable.Empty<WinLossModel>(),
+                reportData,
+                grandTotal,
                 message,
                 winLossParam,
                 custInfoData,

@@ -1,21 +1,24 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLoss
 {
     using System.Globalization;
+    using System.Linq;
     using System.Threading;
     using Constants;
-    using Enumerations;
-    using Reports.Models;
+    using Fixtures;
+    using Reports.Models.Winloss;
+    using Site.Requests.WinLoss;
     using Site.ViewModels.WinLoss;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
+    [Collection("UserCollection")]
     public class EnteredResultViewModelTests
     {
-        private readonly EnteredResultViewModel enteredResultViewModel;
+        private readonly UserFixture userFixture;
 
-        public EnteredResultViewModelTests()
+        public EnteredResultViewModelTests(UserFixture userFixture)
         {
-            enteredResultViewModel = new EnteredResultViewModel();
+            this.userFixture = userFixture;
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -30,9 +33,13 @@
             string expectedTitle)
         {
             // Arrange
-            enteredResultViewModel.CustLevel = Enumeration.FromValue<UserLevel>(custLevelId);
+            var message = new EnteredSportResultQuery(userFixture.User);
+            message.CustLevelId = custLevelId;
 
-            // Act & Assert
+            // Act
+            var enteredResultViewModel = new EnteredResultViewModel(message, Enumerable.Empty<EnteredSportResult>());
+
+            // Assert
             Assert.Equal(enteredResultViewModel.Title, expectedTitle);
         }
     }

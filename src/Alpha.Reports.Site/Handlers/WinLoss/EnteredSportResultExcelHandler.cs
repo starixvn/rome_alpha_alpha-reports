@@ -74,7 +74,12 @@
 
         private string BuildExcelFileName(EnteredSportResultExcelQuery message)
         {
-            return $"{Resources.MatchResultEntered}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}";
+            return string.Join(
+                Resources.MatchResultEntered,
+                "-",
+                message.FromDate.ToShortDateWithSlash(),
+                "-",
+                message.ToDate.ToShortDateWithSlash());
         }
     }
 }

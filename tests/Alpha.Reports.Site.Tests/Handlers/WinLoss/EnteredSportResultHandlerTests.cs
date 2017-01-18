@@ -58,15 +58,7 @@
             var reportData = Enumerable.Empty<EnteredSportResult>();
             reportService.GetEnteredSportResults().Returns(reportData);
 
-            var expectedResult = new EnteredResultViewModel
-            {
-                CustLevel = UserLevel.Super,
-                FromDate = DateTimeManager.Now,
-                ToDate = DateTimeManager.Now,
-                Language = message.Language,
-                ReportData = reportData,
-                UserSelectedDateRangeOption = 0
-            };
+            var expectedResult = new EnteredResultViewModel(message, reportData);
 
             // Act
             var actualResult = enteredSportResultHandler.Handle(message);

@@ -37,37 +37,24 @@
             var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);
             var products = productService.GetProductsForCustomer(message.CustId);
+            var grandTotal = AccumulateGrantTotal(reportData);
 
-            var winlossViewModel = new WinLossViewModel(
-                                            reportData, 
-                                            message,
-                                            winLossParam,
-                                            Enumerable.Empty<CustInfo>(),
-                                            BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products));
-
-            var reportTitle = BuildReportTitlte(winlossViewModel.Title, message);
-            var templatePath = GetExcelTemplatePath(GetFileName(message.CustLevel));
+            var reportTitle = BuildReportTitlte(message);
+            var templatePath = GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName);
             var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable);
 
             var result = winlossWorkbook
                 .UseTemplate(templateInfo)
                 .Title(reportTitle)
                 .Header(Resources.ResourceManager.GetString)
-                .Body(winlossViewModel.ReportData, GetWinLossRowMapper(message, isTotal: false))
-                .Footer(winlossViewModel.GrantTotal, GetWinLossRowMapper(message, isTotal: true))
+                .Body(reportData, GetWinLossRowMapper(message, isTotal: false))
+                .Footer(grandTotal, GetWinLossRowMapper(message, isTotal: true))
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
             var excelFileName = BuildExcelFileName(message);
             return new ExcelFileViewModel(excelFileName, result);
         }
-
-        internal string GetFileName(UserLevel userLevel) =>
-                    userLevel.IsSuperLevel()
-                        ? "Master"
-                        : userLevel.IsMasterLevel()
-                            ? "Agent"
-                            : "Member";
 
         private Mapper<WinLossModel> GetWinLossRowMapper(WinLossExcelQuery message, bool isTotal)
         {
@@ -108,17 +95,35 @@
             return mapper;
         }
 
-        private string BuildReportTitlte(string title, WinLossExcelQuery message)
+        private string BuildReportTitlte(WinLossExcelQuery message)
         {
             var products = message.UserSelectedProductIds.ToListInt();
 
-            return $"{title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-                $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
+            return $"{Resources.WinLossTitle} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+              $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
+
+            //return string.Join(
+            //        title,
+            //        " ",
+            //        message.FromDate.ToShortDateWithSlash(),
+            //        " --> ",
+            //        message.ToDate.ToShortDateWithSlash(),
+            //        " ",
+            //        Resources.of2,
+            //        " ",
+            //        string.Join(", ", productService.GetProductNames(products)));
         }
 
         private string BuildExcelFileName(WinLossExcelQuery message)
         {
-          return $"{Resources.WinLossTitle}-{message.CustName}-{message.FromDate.ToShortDateWithSlash()}-{message.ToDate.ToShortDateWithSlash()}";
+            return string.Join(
+                    Resources.WinLossTitle,
+                    "-",
+                    message.CustName,
+                    "-",
+                    message.FromDate.ToShortDateWithSlash(),
+                    "-",
+                    message.ToDate.ToShortDateWithSlash());
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLoss
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -16,7 +15,6 @@
     using Reports.Models.Winloss;
     using Site.Requests.WinLoss;
     using Site.ViewModels.WinLoss;
-    using TestCases;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -48,6 +46,7 @@
             var message = CreateWinlossQuery(custLevelId);
             var winlossViewModel = new WinLossViewModel(
                  Enumerable.Empty<WinLossModel>(),
+                 fixture.Create<WinLossModel>(),
                  message,
                  fixture.Create<WinLossParam>(),
                  Enumerable.Empty<CustInfo>(),
@@ -55,29 +54,6 @@
 
             // Act & Assert
             Assert.Equal(winlossViewModel.Title, expectedTitle);
-        }
-
-        [Theory]
-        [MemberData("WinLossViewModelSources", MemberType = typeof(WinLossViewModelTestCases))]
-        public void WinLossViewModel_ValidReportData_ReturnsCorrectGrandTotal(
-           List<WinLossModel> winlossData,
-           WinLossModel expectedGrantTotal)
-        {
-            // Arrange
-            var message = CreateWinlossQuery(4);
-            var winlossViewModel = new WinLossViewModel(
-                winlossData,
-                message,
-                fixture.Create<WinLossParam>(),
-                Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
-
-            // Act
-            var actualGrantTotal = winlossViewModel.GrantTotal;
-
-            // Assert
-            var result = compareLogic.Compare(actualGrantTotal, expectedGrantTotal);
-            Assert.True(result.AreEqual);
         }
 
         [Fact]
@@ -88,6 +64,7 @@
             var message = CreateWinlossQuery(4);
             var winlossViewModel = new WinLossViewModel(
                 Enumerable.Empty<WinLossModel>(),
+                fixture.Create<WinLossModel>(),
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
@@ -109,6 +86,7 @@
             var message = CreateWinlossQuery(4);
             var winlossViewModel = new WinLossViewModel(
                 Enumerable.Empty<WinLossModel>(),
+                fixture.Create<WinLossModel>(),
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
@@ -130,6 +108,7 @@
             var message = CreateWinlossQuery(4);
             var winlossViewModel = new WinLossViewModel(
                 Enumerable.Empty<WinLossModel>(),
+                fixture.Create<WinLossModel>(),
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),

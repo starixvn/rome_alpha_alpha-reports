@@ -29,9 +29,11 @@
 
             var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);
+            var grandTotal = AccumulateGrantTotal(reportData);
 
             var viewModel = new WinLossViewModel(
                 reportData,
+                grandTotal,
                 message,
                 winLossParam,
                 BuildBreadcrumbLevel(message),

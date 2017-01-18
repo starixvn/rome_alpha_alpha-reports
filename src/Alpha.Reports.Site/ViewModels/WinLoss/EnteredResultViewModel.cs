@@ -7,22 +7,32 @@
     using Extensions;
     using Reports.Models;
     using Reports.Models.Winloss;
+    using Requests.WinLoss;
+    using Services;
 
     public class EnteredResultViewModel
     {
+        public EnteredResultViewModel(
+            EnteredSportResultQuery message,
+            IEnumerable<EnteredSportResult> reportData)
+        {
+            ReportData = reportData;
+            CustLevel = message.CustLevel;
+        }
+
         public DateTime MinDate => DateTime.Now.AddMonths(-3).FirstDayOfMonth();
 
         public DateTime MaxDate => DateTime.MaxValue;
 
-        public DateTime FromDate { get; set; }
+        public DateTime FromDate => DateTimeManager.Now;
 
-        public DateTime ToDate { get; set; }
+        public DateTime ToDate => DateTimeManager.Now;
 
-        public string Language { get; set; }
+        public string Language { get; }
 
-        public int UserSelectedDateRangeOption { get; set; }
+        public int UserSelectedDateRangeOption => 0;
 
-        public IEnumerable<EnteredSportResult> ReportData { get; set; }
+        public IEnumerable<EnteredSportResult> ReportData { get; }
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
@@ -33,7 +43,7 @@
                 DateRangePickerViewModel,
                 MinDate);
 
-        public UserLevel CustLevel { get; set; }
+        public UserLevel CustLevel { get; }
 
         public string Title
         {

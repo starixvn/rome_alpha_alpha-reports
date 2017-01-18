@@ -34,6 +34,8 @@
 
         public WinLossExcelHandlerTest(UserFixture userFixture)
         {
+            this.userFixture = userFixture;
+
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
             reportService = Substitute.For<WinLossService>();
@@ -46,11 +48,11 @@
             winlossWorkbook.Footer(Arg.Any<WinLossModel>(), Arg.Any<Mapper<WinLossModel>>()).Returns(winlossWorkbook);
             winlossWorkbook.Sheet(Arg.Any<string>()).Returns(winlossWorkbook);
 
-            this.userFixture = userFixture;
             winLossExcelHandler = Substitute.ForPartsOf<WinLossExcelHandler>(productService, reportService, winlossWorkbook);
             winLossExcelHandler.MapPath = (path) => path;
             winLossExcelHandler.IsFileExist = (path) => true;
             DateTimeManager.Now = DefaultVariables.CurrentDate;
+
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
@@ -89,7 +91,7 @@
             winLossExcelHandler.Handle(message);
 
             // Assert
-            winlossWorkbook.Received().Title(Arg.Is("Master Win Loss 12/02/2016 --> 12/02/2016 of Product Name"));
+            winlossWorkbook.Received().Title(Arg.Is("Win Loss 12/02/2016 --> 12/02/2016 of Product Name"));
         }
 
         [Fact]
@@ -112,6 +114,7 @@
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
             var winlossViewModel = new WinLossViewModel(
                 Enumerable.Empty<WinLossModel>(),
+                fixture.Create<WinLossModel>(),
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
@@ -133,6 +136,7 @@
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
             var winlossViewModel = new WinLossViewModel(
                 Enumerable.Empty<WinLossModel>(),
+                fixture.Create<WinLossModel>(),
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
@@ -200,22 +204,6 @@
 
             // Assert
             winlossWorkbook.Received().ExportToBytes();
-        }
-
-        [Theory]
-        [InlineData(4, "Master")]
-        [InlineData(3, "Agent")]
-        [InlineData(2, "Member")]
-        public void GetFileName_Always_ReturnsCorrectNameByCustLevelId(byte custLevelId, string expectedName)
-        {
-            // Arrange
-            var message = CreateExportWinlossExcelQuery(custLevelId);
-
-            // Act
-            var actualName = winLossExcelHandler.GetFileName(message.CustLevel);
-
-            // Assert
-            Assert.Equal(expectedName, actualName);
         }
 
         [Theory]

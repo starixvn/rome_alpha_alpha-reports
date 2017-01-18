@@ -14,41 +14,34 @@
     using Reports.Models.Winloss;
     using Requests.WinLoss;
 
-    public class WinLossViewModel : DrillDownableReportViewModel<WinLossModel>
+    public class WinLossViewModel
     {
         private readonly string sortPropertyNameDefault = "CustName";
+        private readonly WinLossQuery message;
+        private readonly WinLossParam winLossParam;
 
         public WinLossViewModel(
             IEnumerable<WinLossModel> reportData,
+            WinLossModel grandTotal,
             WinLossQuery message,
             WinLossParam winLossParam,
-            IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevel)
+            IEnumerable<CustInfo> breadcrumbLevels,
+            IEnumerable<SelectListItem> products)
         {
-            CustId = message.CustId;
-            CustName = message.CustName;
-            FromDate = winLossParam.FromDate;
-            ToDate = winLossParam.ToDate;
-            Language = message.Language;
+            this.message = message;
+            this.winLossParam = winLossParam;
 
             Products = products;
-            IsStackMode = message.IsStackMode;
-            IsHistoricReport = message.IsHistoricReport;
-            IsFilterVisible = message.IsFilterVisible;
-            IsDescendingSort = message.IsDescendingSort;
-            SortPropertyName = GetSortedProperty(message.CustLevel, message.SortPropertyName);
-            UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-            UserSelectedProductIds = string.Join(",", winLossParam.UserSelectedProductIds);
-
+            BreadcrumbLevels = breadcrumbLevels;
             ReportData = reportData;
+            GrantTotal = grandTotal;
 
-            AccumulateGrantTotal(reportData);
             BuildResources();
         }
 
-        public int CustId { get; }
+        public int CustId => message.CustId;
 
-        public string CustName { get; }
+        public string CustName => message.CustName;
 
         public DateTime MinDate => IsHistoricReport
             ? DateTime.Now.AddYears(-3).FirstDayOfMonth()
@@ -56,31 +49,45 @@
 
         public DateTime MaxDate => DateTime.MaxValue;
 
-        public DateTime FromDate { get; }
+        public DateTime FromDate => winLossParam.FromDate;
 
-        public DateTime ToDate { get; }
+        public DateTime ToDate => winLossParam.ToDate;
 
-        public string Language { get; }
+        public string Language => message.Language;
 
-        public string UserSelectedProductIds { get; }
+        public string UserSelectedProductIds => string.Join(",", winLossParam.UserSelectedProductIds);
 
-        public int UserSelectedDateRangeOption { get; }
+        public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
-        public IEnumerable<WinLossModel> ReportData { get; private set; }
+        public IEnumerable<WinLossModel> ReportData { get; }
 
-        public WinLossModel GrantTotal { get; private set; }
+        public WinLossModel GrantTotal { get; }
 
-        public bool IsStackMode { get; }
+        public bool IsStackMode => message.IsStackMode;
 
-        public string SortPropertyName { get; }
+        public string SortPropertyName => GetSortedProperty(message.CustLevel, message.SortPropertyName);
 
-        public bool IsDescendingSort { get; }
+        public bool IsDescendingSort => message.IsDescendingSort;
 
-        public bool IsHistoricReport { get; }
+        public bool IsHistoricReport => message.IsHistoricReport;
 
-        public bool IsFilterVisible { get; }
+        public bool IsFilterVisible => message.IsFilterVisible;
 
         public IEnumerable<SelectListItem> Products { get; }
+
+        public UserLevel CustLevel => message.CustLevel;
+
+        public IEnumerable<CustInfo> BreadcrumbLevels { get; }
+
+        public string BreadcrumbLevelsJson => JsonHelper.ToJsonFunc(BreadcrumbLevels);
+
+        public string Title { get; private set; }
+
+        public string CustLevelName { get; private set; }
+
+        public string DownLineLevelName { get; private set; }
+
+        public string CustLevelNetWinLossName { get; private set; }
 
         private MonthPickerViewModel MonthPickerViewModel =>
             new MonthPickerViewModel(MinDate, FromDate, ToDate);
@@ -102,35 +109,43 @@
                 ProductMultiSelectionViewModel,
                 IsFilterVisible,
                 MinDate,
-                BreadcrumbLevelJson);
+                BreadcrumbLevelsJson);
+     
+        public BreadcrumbLevelsViewModel BreadcrumbLevelsViewModel =>
+           new BreadcrumbLevelsViewModel(BreadcrumbLevels, BreadcrumbLevelsJson);
 
-        public string Title { get; private set; }
+        public string BetListPath => Helpers.UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
 
-        public string CustLevelName { get; private set; }
-
-        public string DownLineLevelName { get; private set; }
-
-        public string CustLevelNetWinLossName { get; private set; }
-
-        public BreadcrumbLevelViewModel BreadcrumbLevelViewModel =>
-           new BreadcrumbLevelViewModel(BreadcrumbLevel, BreadcrumbLevelJson);
-
-        private void AccumulateGrantTotal(IEnumerable<WinLossModel> reportData)
+        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed")]
+        public string BuildDrillDownLink(
+            WinLossModel model,
+            string currentUrl)
         {
-            var reportDataCopy = reportData.ToList();
-            if (reportDataCopy != null && reportDataCopy.Any())
+            if (CustLevel.IsAgentLevel())
             {
-                int index, count;
-                for (index = 1, count = reportDataCopy.Count, GrantTotal = reportDataCopy[0]; index < count; index++)
+                return Helpers.UrlHelper.AddQueryStringParamsFunc(
+                    BetListPath,
+                    new Dictionary<string, object>
+                     {
+                         { "Custid", model.CustId },
+                         { "Username",  model.CustName },
+                         { "FDate",  FromDate },
+                         { "TDate",  ToDate },
+                         { "ProductIds",  UserSelectedProductIds },
+                         { "FilterPostback",  1 },
+                         { "Type",  "WLByDate" }
+                     });
+            }
+
+            return Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(
+                currentUrl,
+                new Dictionary<string, object>
                 {
-                    GrantTotal = WinLossModel.Add(GrantTotal, reportDataCopy[index]);
-                }
-            }
-            else
-            {
-                ReportData = Enumerable.Empty<WinLossModel>();
-                GrantTotal = new WinLossModel();
-            }
+                    { "CustId", model.CustId },
+                    { "CustName", model.CustName },
+                    { "CustLevelId", CustLevel.GetDirectDownLineLevel().Value },
+                    { "BreadcrumbLevelsJson", BreadcrumbLevelsJson }
+                });
         }
 
         private string GetSortedProperty(UserLevel custLevel, string sortedProperty)
@@ -173,29 +188,6 @@
                 this.DownLineLevelName = Resources.Member;
                 this.CustLevelNetWinLossName = "AgentNetWinLoss";
             }
-        }
-
-        protected override IDictionary<string, object> GetDownlineLinkRouteValues(WinLossModel model)
-        {
-            return new Dictionary<string, object>
-            {
-                { "CustId", model.CustId },
-                { "CustName", model.CustName }
-            };
-        }
-
-        protected override IDictionary<string, object> GetBetListLinkRouteValues(WinLossModel model)
-        {
-            return new Dictionary<string, object>
-            {
-                { "Custid", model.CustId },
-                { "Username", model.CustName },
-                { "FDate",  FromDate },
-                { "TDate", ToDate },
-                { "ProductIds", UserSelectedProductIds },
-                { "FilterPostback", 1 },
-                { "Type", "WLByDate" }
-            };
         }
     }
 }
