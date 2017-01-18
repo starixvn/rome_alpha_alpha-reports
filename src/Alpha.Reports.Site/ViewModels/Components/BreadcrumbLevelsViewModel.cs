@@ -24,7 +24,7 @@
             CustInfo model,
             string currentUrl)
         {
-            return Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(
+            return UrlHelper.ReplaceOrAddQueryStringParamsFunc(
                 currentUrl,
                 new Dictionary<string, object>
                 {

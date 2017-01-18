@@ -2,20 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
     using Constants;
     using Extensions;
-    using Helpers;
     using Params;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
     using Requests.WinLossDetail;
 
-    public class WinLossDetailViewModel
+    public class WinLossDetailViewModel : HasDownlineLinkReportViewModel<WinLossDetailModel>
     {
         private const int AllBetProductId = 21;
         private readonly WinLossDetailQuery message;
@@ -26,7 +24,7 @@
             WinLossDetailParam winLossDetailParam,
             ReportData<WinLossDetailModel> reportData,
             IEnumerable<CustInfo> breadcrumbLevels,
-            IEnumerable<SelectListItem> products)
+            IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevels)
         {
             this.message = message;
             this.winLossDetailParam = winLossDetailParam;
@@ -39,9 +37,6 @@
             SortPropertyName = canSort ? winLossDetailParam.SortByPropertyName : DefaultVariables.SortPropertyName;
             IsDescendingSort = canSort && winLossDetailParam.IsDescendingSort;
 
-            BetListPath = Helpers.UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
-            BreadcrumbLevels = breadcrumbLevels;
-            BreadcrumbLevelsJson = JsonHelper.ToJsonFunc(breadcrumbLevels);
             Products = products;
         }
 
@@ -124,57 +119,7 @@
 
         public bool IsSetDefaultStackMode => message.IsSetDefaultStackMode;
 
-        public UserLevel CustLevel => message.CustLevel;
-
         public ReportData<WinLossDetailModel> ReportData { get; }
-
-        public IEnumerable<CustInfo> BreadcrumbLevels { get; }
-
-        public string BreadcrumbLevelsJson { get; }
-
-        private string BetListPath { get; }
-
-        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed")]
-        public string BuildDrillDownLink(
-            WinLossDetailModel model,
-            string currentUrl)
-        {
-            if (CustLevel.IsAgentLevel())
-            {
-                return BuildBetListLink(model);
-            }
-
-            return BuildDownlineLink(model, currentUrl);
-        }
-
-        private string BuildDownlineLink(WinLossDetailModel model, string currentUrl)
-        {
-            return Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(
-                currentUrl,
-                new Dictionary<string, object>
-                {
-                    { "CustId", model.CustId },
-                    { "CustName", model.CustName },
-                    { "CustLevelId", CustLevel.GetDirectDownLineLevel().Value },
-                    { "BreadcrumbLevelsJson", BreadcrumbLevelsJson }
-                });
-        }
-
-        private string BuildBetListLink(WinLossDetailModel model)
-        {
-            return Helpers.UrlHelper.AddQueryStringParamsFunc(
-                BetListPath,
-                new Dictionary<string, object>
-                 {
-                         { "Custid", model.CustId },
-                         { "Username",  model.CustName },
-                         { "FDate",  FromDate },
-                         { "TDate",  ToDate },
-                         { "ProductIds",  UserSelectedProductIds },
-                         { "FilterPostback",  1 },
-                         { "Type",  "WLByDate" }
-                 });
-        }
 
         private string GetReportNameByLevel(UserLevel userLevel)
             => userLevel.IsSuperLevel()
@@ -182,5 +127,28 @@
             : userLevel.IsMasterLevel()
                 ? Resources.AgentWinLossDetail
                 : Resources.MemberWinLossDetail;
+
+        protected override IDictionary<string, object> GetDownlineLinkRouteValues(WinLossDetailModel model)
+        {
+            return new Dictionary<string, object>
+            {
+                { "CustId", model.CustId },
+                { "CustName", model.CustName }
+            };
+        }
+
+        protected override IDictionary<string, object> GetBetListLinkRouteValues(WinLossDetailModel model)
+        {
+            return new Dictionary<string, object>
+            {
+                { "Custid", model.CustId },
+                { "Username", model.CustName },
+                { "FDate",  FromDate },
+                { "TDate", ToDate },
+                { "ProductIds", UserSelectedProductIds },
+                { "FilterPostback", 1 },
+                { "Type", "WLByDate" }
+            };
+        }
     }
 }

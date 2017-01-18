@@ -6,10 +6,8 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using Newtonsoft.Json;
     using Reports.Models;
     using Requests;
-    using ViewModels;
 
     public class BaseHandler
     {

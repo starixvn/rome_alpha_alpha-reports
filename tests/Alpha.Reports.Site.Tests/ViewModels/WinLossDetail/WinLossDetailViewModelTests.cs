@@ -85,15 +85,7 @@
             var toDate = new DateTime(1989, 5, 29);
             var message = new WinLossDetailQuery(userFixture.User);
             message.CustLevelId = 2; // Agent Level
-            var winLossDetailViewModel = Substitute.ForPartsOf<WinLossDetailViewModel>(
-                message,
-                new WinLossDetailParam(0, 0, 0, fromDate, toDate, new List<int> { 1 }, message.CustLevel, "CustName", false, false),
-                new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
-                Enumerable.Empty<CustInfo>(),
-                 new List<SelectListItem>
-                 {
-                     new SelectListItem { Value = AllBetProductId.ToString() }
-                 });
+            var winLossDetailViewModel = CreateWinLossDetailViewModel(fromDate, toDate, message);
             var winlossDetailModel = new WinLossDetailModel(1, "CustName", 0, 0, 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
