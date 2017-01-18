@@ -39,8 +39,8 @@
                 .UseTemplate(GetTemplateInfo(message))
                 .Title(GetReporTitle(message))
                 .Header(Resources.ResourceManager.GetString)
-                .Body(reportData.DataSource, GetRowMapper(message, isTotal: false))
-                .Footer(reportData.TotalData, GetRowMapper(message, isTotal: true))
+                .Body(reportData.DataSource, GetBodyRowMapper(message))
+                .Footer(reportData.TotalData, GetTotalRowMapper(message))
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
@@ -64,8 +64,18 @@
         {
             var templatePath = GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName);
 
-            return new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable)
+            return new TemplateInfo(templatePath, noInfomationText: Resources.NoInformationIsAvailable)
                  .FreezePanel(4, B);
+        }
+
+        private Mapper<WinLossDetailModel> GetBodyRowMapper(WinLossDetailExcelQuery message)
+        {
+            return GetRowMapper(message, isTotal: false);
+        }
+
+        private Mapper<WinLossDetailModel> GetTotalRowMapper(WinLossDetailExcelQuery message)
+        {
+            return GetRowMapper(message, isTotal: true);
         }
 
         private Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
