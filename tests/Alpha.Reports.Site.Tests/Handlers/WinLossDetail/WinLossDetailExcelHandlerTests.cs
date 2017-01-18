@@ -29,7 +29,7 @@
         public WinLossDetailExcelHandlerTests(UserFixture userFixture)
         {
             var productService = Substitute.For<ProductService>();
-            productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
+            productService.ConcatProductNames(Arg.Any<string>()).Returns("Product Name");
 
             reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             var reportService = Substitute.For<WinLossDetailService>();

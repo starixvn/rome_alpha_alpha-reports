@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Criteria;
+    using Extensions;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models;
@@ -15,6 +16,8 @@
         IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds);
 
         IEnumerable<string> GetProductNames(IEnumerable<int> productIds);
+
+        string ConcatProductNames(string productIds);
     }
 
     public class ProductServiceImpl : ProductService
@@ -80,6 +83,9 @@
 
             return productNames;
         }
+
+        public string ConcatProductNames(string productIds)
+            => string.Join(", ", GetProductNames(productIds.ToListInt()));
 
         private IEnumerable<Product> GetProductsForReport()
         {

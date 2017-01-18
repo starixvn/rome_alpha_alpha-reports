@@ -48,40 +48,28 @@
         }
 
         private string GetReporTitle(WinLossDetailExcelQuery message)
-        {
-            var products = message.UserSelectedProductIds.ToListInt();
-
-            return $"{Resources.WinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-                $" {Resources.of2} " + string.Join(", ", productService.GetProductNames(products));
-        }
+            => $"{Resources.WinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+            $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
 
         private string GetExcelFileName(WinLossDetailExcelQuery message, WinLossDetailParam winLossDetailParam)
-        {
-            return string.Join(
+            => string.Join(
                 "-",
                 Resources.WinLossDetail,
                 message.CustName,
                 winLossDetailParam.FromDate.ToShortDateWithSlash(),
                 winLossDetailParam.ToDate.ToShortDateWithSlash());
-        }
 
         private TemplateInfo GetTemplateInfo(WinLossDetailExcelQuery message)
-        {
-            var templatePath = GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName);
-
-            return new TemplateInfo(templatePath, noInfomationText: Resources.NoInformationIsAvailable)
-                 .FreezePanel(4, B);
-        }
+            => new TemplateInfo(
+                GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
+                noInfomationText: Resources.NoInformationIsAvailable)
+            .FreezePanel(4, B);
 
         private Mapper<WinLossDetailModel> GetBodyRowMapper(WinLossDetailExcelQuery message)
-        {
-            return GetRowMapper(message, isTotal: false);
-        }
+            => GetRowMapper(message, isTotal: false);
 
         private Mapper<WinLossDetailModel> GetTotalRowMapper(WinLossDetailExcelQuery message)
-        {
-            return GetRowMapper(message, isTotal: true);
-        }
+            => GetRowMapper(message, isTotal: true);
 
         private Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
         {

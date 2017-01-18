@@ -141,5 +141,33 @@
             // Assert
             Assert.Equal(expectedProductNames, actualProductNames);
         }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("  ")]
+        public void ConcatProductNames_NullOrEmptyProductIds_ReturnsEmpty(string productIds)
+        {
+            // Act
+            var actualProductNames = productServiceImpl.ConcatProductNames(productIds);
+
+            // Assert
+            Assert.Empty(actualProductNames);
+        }
+
+        [Fact]
+        public void ConcatProductNames_NotNullOrEmptyProductIds_ReturnsCorrectNames()
+        {
+            // Arrange
+            var productIds = "1,2,3";
+            var expectedProductNames = "Product 1, Product 2, Product 3";
+
+            // Act
+            var actualProductNames = productServiceImpl.ConcatProductNames(productIds);
+
+            // Assert
+            Assert.Equal(expectedProductNames, actualProductNames);
+        }
     }
 }
