@@ -33,16 +33,11 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var reportTitle = GetReporTitle(message);
             var winLossDetailParam = CreateParameter(message, message.CustLevel);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
-            var templatePath = GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName);
-
-            var templateInfo = new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable)
-                 .FreezePanel(4, B);
             var fileContent = workbook
-                .UseTemplate(templateInfo)
-                .Title(reportTitle)
+                .UseTemplate(GetTemplateInfo(message))
+                .Title(GetReporTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(reportData.DataSource, GetRowMapper(message, isTotal: false))
                 .Footer(reportData.TotalData, GetRowMapper(message, isTotal: true))
@@ -63,6 +58,14 @@
         private string GetExcelFileName(WinLossDetailExcelQuery message, WinLossDetailParam winLossDetailParam)
         {
             return $"{Resources.WinLossDetail}-{message.CustName}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}";
+        }
+
+        private TemplateInfo GetTemplateInfo(WinLossDetailExcelQuery message)
+        {
+            var templatePath = GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName);
+
+            return new TemplateInfo(templatePath: templatePath, noInfomationText: Resources.NoInformationIsAvailable)
+                 .FreezePanel(4, B);
         }
 
         private Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
