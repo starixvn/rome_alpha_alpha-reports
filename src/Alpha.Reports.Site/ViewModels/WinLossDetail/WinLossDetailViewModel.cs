@@ -18,6 +18,8 @@
     public class WinLossDetailViewModel
     {
         private const int AllBetProductId = 21;
+        private readonly WinLossDetailQuery message;
+        private readonly WinLossDetailParam winLossDetailParam;
 
         public WinLossDetailViewModel(
             WinLossDetailQuery message,
@@ -26,19 +28,10 @@
             IEnumerable<CustInfo> breadcrumbLevels,
             IEnumerable<SelectListItem> products)
         {
-            CustName = message.CustName;
-            CustLevel = message.CustLevel;
-            Language = message.Language;
-            IsStackMode = message.IsStackMode;
-            IsHistoricReport = message.IsHistoricReport;
-            IsFilterVisible = message.IsFilterVisible;
-            UserSelectedDateRangeOption = message.UserSelectedDateRangeOption;
-            IsSetDefaultStackMode = message.IsSetDefaultStackMode;
-            Title = GetReportNameByLevel(message.CustLevel);
+            this.message = message;
+            this.winLossDetailParam = winLossDetailParam;
 
-            CustId = winLossDetailParam.CustId;
-            FromDate = winLossDetailParam.FromDate;
-            ToDate = winLossDetailParam.ToDate;
+            Title = GetReportNameByLevel(message.CustLevel);
             UserSelectedProductIds = string.Join(",", winLossDetailParam.UserSelectedProductIds);
 
             ReportData = reportData;
@@ -52,9 +45,9 @@
             Products = products;
         }
 
-        public int CustId { get; }
+        public int CustId => winLossDetailParam.CustId;
 
-        public string CustName { get; }
+        public string CustName => message.CustName;
 
         public DateTime MinDate => IsHistoricReport
             ? DateTime.Now.AddYears(-3).FirstDayOfYear()
@@ -62,25 +55,25 @@
 
         public DateTime MaxDate => DateTime.MaxValue;
 
-        public DateTime FromDate { get; }
+        public DateTime FromDate => winLossDetailParam.FromDate;
 
-        public DateTime ToDate { get; }
+        public DateTime ToDate => winLossDetailParam.ToDate;
 
-        public string Language { get; }
+        public string Language => message.Language;
 
         public string UserSelectedProductIds { get; }
 
-        public int UserSelectedDateRangeOption { get; }
+        public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
         public string SortPropertyName { get; }
 
         public bool IsDescendingSort { get; }
 
-        public bool IsStackMode { get; }
+        public bool IsStackMode => message.IsStackMode;
 
-        public bool IsHistoricReport { get; }
+        public bool IsHistoricReport => message.IsHistoricReport;
 
-        public bool IsFilterVisible { get; }
+        public bool IsFilterVisible => message.IsFilterVisible;
 
         public IEnumerable<string> NetTurnoverTooltips
         {
@@ -129,9 +122,9 @@
 
         public string Title { get; }
 
-        public bool IsSetDefaultStackMode { get; }
+        public bool IsSetDefaultStackMode => message.IsSetDefaultStackMode;
 
-        public UserLevel CustLevel { get; }
+        public UserLevel CustLevel => message.CustLevel;
 
         public ReportData<WinLossDetailModel> ReportData { get; }
 
