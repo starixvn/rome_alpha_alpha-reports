@@ -57,7 +57,12 @@
 
         private string GetExcelFileName(WinLossDetailExcelQuery message, WinLossDetailParam winLossDetailParam)
         {
-            return $"{Resources.WinLossDetail}-{message.CustName}-{winLossDetailParam.FromDate.ToShortDateWithSlash()}-{winLossDetailParam.ToDate.ToShortDateWithSlash()}";
+            return string.Join(
+                "-",
+                Resources.WinLossDetail,
+                message.CustName,
+                winLossDetailParam.FromDate.ToShortDateWithSlash(),
+                winLossDetailParam.ToDate.ToShortDateWithSlash());
         }
 
         private TemplateInfo GetTemplateInfo(WinLossDetailExcelQuery message)
