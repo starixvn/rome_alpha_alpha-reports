@@ -139,7 +139,7 @@ class WinLossView {
             this.$tableReport,
             canSort,
             true,
-            this.afterSort,
+            this.sortComponent.afterSort,
             { 0: { sorter: "text" } }));
     };
 
@@ -291,32 +291,6 @@ class WinLossView {
         this.linkBuilderComponent.updateParam(paramName, paramValue);
     };
 
-    afterSort = () => {
-        var this$ = this.$;
-        var sortedColumn = this$(".sorting-asc:visible");
-        var direction = !sortedColumn.length;
-        if (sortedColumn.length === 0) {
-            sortedColumn = this$(".sorting-desc");
-        }
-
-        var sortedColumnName = sortedColumn.data("sortedname");
-
-        this.replaceDrilldownParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
-        this.replaceDrilldownParam("IsDescendingSort", direction);
-
-        var isEvenRow = false;
-        this.$tableReport.find("tbody > tr").each(function () {
-            var $row = this$(this);
-            if ($row.hasClass("even-row") && !isEvenRow) {
-                $row.removeClass("even-row");
-            } else if (!$row.hasClass("even-row") && isEvenRow) {
-                $row.addClass("even-row");
-            }
-
-            isEvenRow = !isEvenRow;
-        });
-    };
-
     onSubmitReportEvent = (e: any) => {
         this.$.blockUI();
 
@@ -370,7 +344,7 @@ const winLossView = new WinLossView(
     $,
     new DateRangePickerComponent($),
     new ProductMultiSelectionComponent($),
-    new SortComponent($),
+    new SortComponent($, new LinkBuilderComponent($)),
     new ReportTooltip($),
     new MonthPickerComponent($),
     new LinkBuilderComponent($));

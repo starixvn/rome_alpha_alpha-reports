@@ -372,4 +372,34 @@
   <data name="BetCount" xml:space="preserve">
     <value>Bet Count</value>
   </data>
+    <data name="NumberGameNo" xml:space="preserve">
+    <value>Number Game No</value>
+  </data>
+  <data name="LiveCasino" xml:space="preserve">
+    <value>Live Casino</value>
+  </data>
+  <data name="Neutral" xml:space="preserve">
+    <value> (N)</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>FT</value>
+  </data>
+  <data name="vs" xml:space="preserve">
+    <value>-vs-</value>
+  </data>
+  <data name="MatchWinLoss" xml:space="preserve">
+    <value>Match Win Loss</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Match</value>
+  </data>
+  <data name="PositionTaking" xml:space="preserve">
+    <value>Position Taking</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>Bet Type</value>
+  </data>
 </root>

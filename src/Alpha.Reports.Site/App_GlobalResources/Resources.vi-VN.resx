@@ -321,4 +321,16 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>Thắng thua</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Kế tiếp</value>
+  </data>
+  <data name="MatchWinLoss" xml:space="preserve">
+    <value>Thắng thua theo trận</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Trận đấu</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>Loại cược</value>
+  </data>
 </root>

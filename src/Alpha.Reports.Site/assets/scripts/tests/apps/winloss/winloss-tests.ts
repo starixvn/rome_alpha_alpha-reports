@@ -1,10 +1,10 @@
 ﻿describe("WinLoss_", () => {
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
-    const sortComponent = new SortComponent($);
     const monthPickerComponent = new MonthPickerComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const linkBuilderComponent = new LinkBuilderComponent($);
+    const sortComponent = new SortComponent($, linkBuilderComponent);
     const reportTooltip = new ReportTooltip($);
     let winLossView: WinLossView;
 

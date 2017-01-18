@@ -57,14 +57,25 @@
 
     { "Path": "../winlossdetail/winlossdetail.ts" },
 
+    { "Path": "apps/components/sort-tests-template.ts" },
+
     { "Path": "apps/winlossdetail/winlossdetail-template.ts" },
     { "Path": "apps/core/core-tests-template.ts" },
     { "Path": "apps/winloss/enteredresult-template.ts" },
     { "Path": "../winloss/enteredresult.ts" },
     { "Path": "apps/winloss/winloss-template.ts" },
-    { "Path": "../winloss/winloss.ts" }
+    { "Path": "../winloss/winloss.ts" },
+    { "Path": "../matchwinloss/matchwinloss.ts" }
   ],
   "Tests": [
+    {
+      "Path": "apps/core",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/components",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
     {
       "Path": "apps/winlossdetail",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
@@ -74,11 +85,7 @@
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     },
     {
-      "Path": "apps/core",
-      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
-    },
-    {
-      "Path": "apps/components",
+      "Path": "apps/matchwinloss",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     }
   ]

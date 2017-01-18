@@ -2,7 +2,7 @@
 
 @helper Render(BreadcrumbLevelViewModel viewModel, string currentRequestUrl)
 {
-var linkLength = viewModel.BreadcrumbLevel.Count();
+var linkLength = viewModel.BreadcrumbLevel != null ? viewModel.BreadcrumbLevel.Count() : 0;
 var linkIndex = 0;
 var lastLinkIndex = linkLength - 1;
 

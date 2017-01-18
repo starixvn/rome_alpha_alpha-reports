@@ -2,12 +2,12 @@
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     const pagerComponent = new PagerComponent($);
-    const sortComponent = new SortComponent($);
     const monthPickerComponent = new MonthPickerComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const reportTooltip = new ReportTooltip($);
     const netTurnoverTooltipComponent = new NetTurnoverTooltipComponent($);
     const linkBuilderComponent = new LinkBuilderComponent($);
+    const sortComponent = new SortComponent($, linkBuilderComponent);
 
     let winLossDetailView: WinLossDetailView;
 
@@ -45,6 +45,8 @@
         renderPagerComponent = spyOn(pagerComponent, "render");
         renderSortComponent = spyOn(sortComponent, "render");
         renderLinkBuilderComponent = spyOn(linkBuilderComponent, "render");
+        renderLinkBuilderComponent.and.callThrough();
+
         spyOn(dateRangePickerComponent, "render");
     });
 
@@ -219,8 +221,9 @@
                 winLossDetailView.$tableReport,
                 false,
                 true,
-                winLossDetailView.afterSort,
-                { 0: { sorter: "text" } }
+                sortComponent.afterSort,
+                { 0: { sorter: "text" } },
+                winLossDetailView.$reportForm
             ));
         });
     });
@@ -560,67 +563,6 @@
             // assert
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
         });
-    });
-    describe("_afterSort", () => {
-        it("_Not Have All Data on Client -> Submits Report", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
-            winLossDetailView.hasAllDataOnClient = false;
-            winLossDetailView.cacheElements();
-            spyOn(winLossDetailView.$reportForm, "trigger");
-            spyOn(winLossDetailView, "onSubmitReport");
-
-            // act
-            winLossDetailView.afterSort();
-
-            // assert
-            expect(winLossDetailView.$reportForm.trigger).toHaveBeenCalledWith("submit");
-        });
-
-        let haveAllDataOnClientTests = (currentHtml: string, expectedIsDescendingSort: boolean, expectedTableBody: string) => {
-            // arrange
-            setFixtures(currentHtml);
-            winLossDetailView.hasAllDataOnClient = true;
-            winLossDetailView.cacheElements();
-            spyOn(winLossDetailView.$reportForm, "trigger");
-            spyOn(winLossDetailView, "onSubmitReport");
-            let replaceHrefParamSpy = spyOn(winLossDetailView, "replaceHrefParam");
-
-            // act
-            winLossDetailView.afterSort();
-            let actulaTableBody = $.trim(winLossDetailView.$tableReport.find("tbody").html());
-
-            // assert
-            expect(winLossDetailView.$reportForm.trigger).not.toHaveBeenCalledWith("submit");
-            expect(replaceHrefParamSpy.calls.allArgs()).toEqual([
-                ["SortPropertyName", "WinLoss"],
-                ["IsDescendingSort", expectedIsDescendingSort]]);
-
-            expect(actulaTableBody).toEqual(expectedTableBody);
-        };
-
-        it(`_Have All Data on Client and Currently Sorts ASC on Normal Mode ->
-            Updates Href Param;
-            Not Submit Report;
-            Updates even-row class for tbody`, () => {
-                haveAllDataOnClientTests(winLossDetailTemplate.sortASCOnNormalMode, false, `<tr class=""><td>Row 1</td></tr>
-                                    <tr class="even-row"><td>Row 2</td></tr>
-                                    <tr><td>Row 3</td></tr>
-                                    <tr class="even-row"><td>Row 4</td></tr>`);
-            });
-
-        it(`_Have All Data on Client and Currently Sorts DESC on Normal Mode ->
-            Updates Href Param;
-            Not Submit Report;
-            Updates even-row class for tbody`, () => {
-                haveAllDataOnClientTests(winLossDetailTemplate.sortDESCOnNormalMode, true, "");
-            });
-        it(`_Have All Data on Client and Currently Sorts DESC Combined Column on Stack Mode ->
-            Updates Href Param;
-            Not Submit Report;
-            Updates even-row class for tbody`, () => {
-                haveAllDataOnClientTests(winLossDetailTemplate.sortDESCCombinedColumnOnStackMode, true, "");
-            });
     });
     describe("_hideFilter_Always", () => {
         beforeEach(() => {

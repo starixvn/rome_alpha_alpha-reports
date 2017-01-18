@@ -74,6 +74,7 @@
 
             container.RegisterSingleton<WinLossDetailService, WinLossDetailServiceImpl>();
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
+            container.RegisterSingleton<MatchWinLossService, MatchWinLossServiceImpl>();
 
             container.Register<ProductService>(
                 () => new ProductServiceImpl(

@@ -120,7 +120,7 @@ class AlphaReports {
         return msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./);
     };
     replaceQueryStringValue = (queryString: string, paramName: string, paramValue: any) => {
-        if (typeof (queryString) === "undefined"
+        if (typeof queryString === "undefined"
             || queryString === null) {
             return "";
         }
@@ -132,6 +132,22 @@ class AlphaReports {
             : queryString + (queryString.indexOf("?") >= 0 ? "&" : "?") + paramName + "=" + paramValue;
 
         return newQueryString;
+    };
+
+    correctEvenRowClass = ($tableReport: JQuery) => {
+        var this$ = this.$;
+
+        var isEvenRow = false;
+        $tableReport.find("tbody > tr").each(function () {
+            var $row = this$(this);
+            if ($row.hasClass("even-row") && !isEvenRow) {
+                $row.removeClass("even-row");
+            } else if (!$row.hasClass("even-row") && isEvenRow) {
+                $row.addClass("even-row");
+            }
+
+            isEvenRow = !isEvenRow;
+        });
     };
 }
 

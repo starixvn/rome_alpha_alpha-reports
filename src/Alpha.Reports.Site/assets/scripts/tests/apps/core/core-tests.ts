@@ -246,4 +246,31 @@
             expect(actualIsIE).toBeTruthy();
         });
     });
+
+    describe("_correctEvenRowClass", () => {
+        it("_Always -> Correct table rows", () => {
+            // arrange
+            setFixtures(`<body>
+                            <table id="tbl-report">
+                                <tbody>
+                                    <tr class="even-row"><td>Row 1</td></tr>
+                                    <tr><td>Row 2</td></tr>
+                                    <tr><td>Row 3</td></tr>
+                                    <tr class="even-row"><td>Row 4</td></tr>
+                                </tbody>
+                            </table>
+                        </body>`);
+            let $tableReport = $("#tbl-report");
+            let expectedTableBody = `<tr class=""><td>Row 1</td></tr>
+                                    <tr class="even-row"><td>Row 2</td></tr>
+                                    <tr><td>Row 3</td></tr>
+                                    <tr class="even-row"><td>Row 4</td></tr>`;
+            // act
+            alphaReports.correctEvenRowClass($tableReport);
+            let actualTableBody = $.trim($tableReport.find("tbody").html());
+
+            // assert
+            expect(actualTableBody).toEqual(expectedTableBody);
+        });
+    });
 });

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Tests.Helper
+﻿namespace Alpha.Reports.Tests.Helpers
 {
     using System;
     using System.Data;
