@@ -34,7 +34,7 @@
             @Model.OutstandingDatasource.List(
         @<tr>
             <td class="text-left" data-islink="true">
-                <a href="@Model.GetUserActionLink(@item, Model.BetListPath)">@item.CustName</a>
+                <a href="@Model.GetUserActionLink(@item)">@item.CustName</a>
             </td>
             @RenderOutstandingCells(@item)
         </tr>)

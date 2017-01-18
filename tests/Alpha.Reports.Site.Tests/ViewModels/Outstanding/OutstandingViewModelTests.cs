@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.Outstanding
 {
     using System.Collections.Generic;
+    using Configurations;
     using Enumerations;
     using Ploeh.AutoFixture;
     using Reports.Models;
@@ -21,14 +22,13 @@
             // Arrange
             var viewModel = new OutstandingViewModel(Super, Member, null, null);
             var outstanding = new OutstandingModel { CustId = 1, CustName = "CustName" };
-            var betlistPath = "betlistPath";
-            var expectedLink = $"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
-
+            var outstandingDetail = "OutstandingDetail.aspx";
+ 
             // Act
-            var actualLink = viewModel.GetUserActionLink(outstanding, betlistPath);
+            var actualLink = viewModel.GetUserActionLink(outstanding);
 
             // Assert
-            Assert.Equal(expectedLink, actualLink);
+            Assert.True(actualLink.Contains(outstandingDetail));
         }
 
         [Theory]
@@ -38,17 +38,15 @@
         {
             // Arrange
             var reportLevel = Enumeration.FromValue<UserLevel>(roleId);
-            var breadcrumbLevelsJson = "breadcrumbLevelsJson";
-            var breadcrumbLevelsViewModel = new BreadcrumbLevelsViewModel(null, breadcrumbLevelsJson);
-            var viewModel = new OutstandingViewModel(Super, reportLevel, null, breadcrumbLevelsViewModel);
+            var viewModel = new OutstandingViewModel(Super, reportLevel, null, new BreadcrumbLevelsViewModel(null, "breadcrumbLevelsJson"));
             var outstanding = new OutstandingModel { CustId = 1, CustName = "CustName" };
-            var expectedLink = $"?custLevelId={reportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}&breadcrumbLevelsJson={breadcrumbLevelsJson}";
+            var outstandingDetail = "OutstandingDetail.aspx";
 
             // Act
-            var actualLink = viewModel.GetUserActionLink(outstanding, null);
+            var actualLink = viewModel.GetUserActionLink(outstanding);
 
             // Assert
-            Assert.Equal(expectedLink, actualLink);
+            Assert.True(!actualLink.Contains(outstandingDetail));
         }
 
         [Fact]

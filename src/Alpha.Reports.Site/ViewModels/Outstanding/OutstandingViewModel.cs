@@ -14,6 +14,8 @@
         // Always need to show member outstanding
         private readonly List<UserLevel> displayOutstandingLevels = new List<UserLevel>() { UserLevel.Member };
 
+        private string BetListPath => $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
+
         public OutstandingViewModel(
             UserLevel viewerLevel,
             UserLevel reportLevel,
@@ -63,13 +65,11 @@
 
         public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
 
-        public string BetListPath => $"../../{AppPathHelper.GetAppPath(SiteSettings.OldMainAppPath, "~/")}_Reports/BetList/OutstandingDetail.aspx";
-
-        public string GetUserActionLink(OutstandingModel outstanding, string betlistPath)
+        public string GetUserActionLink(OutstandingModel outstanding)
         {
             if (ReportLevel.IsMemberLevel())
             {
-                return $"{betlistPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
+                return $"{BetListPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
             }
 
             return $"?custLevelId={ReportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}" +
