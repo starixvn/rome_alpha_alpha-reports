@@ -13,7 +13,7 @@
     using Reports.Models.WinLossDetail;
     using Requests.WinLossDetail;
 
-    public class WinLossDetailViewModel : HasDownlineLinkReportViewModel<WinLossDetailModel>
+    public class WinLossDetailViewModel : DrillDownableReportViewModel<WinLossDetailModel>
     {
         private const int AllBetProductId = 21;
         private readonly WinLossDetailQuery message;

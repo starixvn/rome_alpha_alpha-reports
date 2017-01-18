@@ -5,11 +5,11 @@
     using Helpers;
     using Reports.Models;
 
-    public abstract class HasDownlineLinkReportViewModel<T> where T : class
+    public abstract class DrillDownableReportViewModel<T> where T : class
     {
         private const string DefaultBetListPath = "~/_BetList/BetList.aspx";
 
-        protected HasDownlineLinkReportViewModel(
+        protected DrillDownableReportViewModel(
             UserLevel custLevel,
             IEnumerable<CustInfo> breadcrumbLevel)
         {

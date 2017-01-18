@@ -292,7 +292,7 @@
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
-    <Compile Include="ViewModels\HasDownlineLinkReportViewModel.cs" />
+    <Compile Include="ViewModels\DrillDownableReportViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultFilterViewModel.cs" />

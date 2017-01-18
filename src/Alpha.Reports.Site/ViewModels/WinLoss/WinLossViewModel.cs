@@ -14,7 +14,7 @@
     using Reports.Models.Winloss;
     using Requests.WinLoss;
 
-    public class WinLossViewModel : HasDownlineLinkReportViewModel<WinLossModel>
+    public class WinLossViewModel : DrillDownableReportViewModel<WinLossModel>
     {
         private readonly string sortPropertyNameDefault = "CustName";
 
