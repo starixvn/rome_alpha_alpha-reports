@@ -9,7 +9,7 @@
 
         private static string ToJson(object data)
         {
-            return JsonConvert.SerializeObject(data).Replace("\"", "'");
+            return JsonConvert.SerializeObject(data);
         }
     }
 }
