@@ -42,21 +42,21 @@
                  message.IsHistoricReport);
         }
 
-        internal WinLossModel AccumulateGrantTotal(IEnumerable<WinLossModel> reportData)
+        internal WinLossModel AccumulateGrandTotal(IEnumerable<WinLossModel> reportData)
         {
-            var grantTotal = new WinLossModel();
+            var grandTotal = new WinLossModel();
            
             if (reportData != null && reportData.Any())
             {
                 var reportDataCopy = reportData.ToList();
                 int index, count;
-                for (index = 1, count = reportDataCopy.Count, grantTotal = reportDataCopy[0]; index < count; index++)
+                for (index = 1, count = reportDataCopy.Count, grandTotal = reportDataCopy[0]; index < count; index++)
                 {
-                    grantTotal = WinLossModel.Add(grantTotal, reportDataCopy[index]);
+                    grandTotal = WinLossModel.Add(grandTotal, reportDataCopy[index]);
                 }
             }
 
-            return grantTotal;
+            return grandTotal;
         }
     }
 }

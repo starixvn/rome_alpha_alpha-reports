@@ -150,7 +150,7 @@
 
             // Assert
             winlossWorkbook.Received().Footer(
-                Arg.Is<WinLossModel>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossViewModel.GrantTotal)),
+                Arg.Is<WinLossModel>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossViewModel.GrandTotal)),
                 Arg.Any<Mapper<WinLossModel>>());
         }
 

@@ -59,17 +59,17 @@
 
         [Theory]
         [MemberData("WinLossViewModelSources", MemberType = typeof(WinLossViewModelTestCases))]
-        public void AccumulateGrantTotal_ValidReportData_ReturnsCorrectGrandTotal(
+        public void AccumulateGrandTotal_ValidReportData_ReturnsCorrectGrandTotal(
         IEnumerable<WinLossModel> winlossData,
-        WinLossModel expectedGrantTotal)
+        WinLossModel expectedGrandTotal)
         {
             // Arrange
 
             // Act
-            var actualGrantTotal = winLossHandler.AccumulateGrantTotal(winlossData);
+            var actualGrandTotal = winLossHandler.AccumulateGrandTotal(winlossData);
 
             // Assert
-            var result = compareLogic.Compare(actualGrantTotal, expectedGrantTotal);
+            var result = compareLogic.Compare(actualGrandTotal, expectedGrandTotal);
             Assert.True(result.AreEqual);
         }
 

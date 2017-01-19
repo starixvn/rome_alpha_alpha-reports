@@ -31,7 +31,7 @@
 
             Products = products;
             ReportData = reportData;
-            GrantTotal = grandTotal;
+            GrandTotal = grandTotal;
 
             BuildResources();
 
@@ -58,7 +58,7 @@
 
         public IEnumerable<WinLossModel> ReportData { get; }
 
-        public WinLossModel GrantTotal { get; }
+        public WinLossModel GrandTotal { get; }
 
         public bool IsStackMode => message.IsStackMode;
 

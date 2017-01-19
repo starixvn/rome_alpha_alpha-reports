@@ -8,12 +8,12 @@
     {
         private static IEnumerable<object[]> winLossViewModel = new List<object[]>()
         {
-            new object[] { BuildSuperDataTest(), ExpectedSuperGrantTotal },
-            new object[] { BuildMasterDataTest(), ExpectedMasterGrantTotal },
-            new object[] { BuildAgentDataTest(), ExpectedAgentGrantTotal }
+            new object[] { BuildSuperDataTest(), ExpectedSuperGrandTotal },
+            new object[] { BuildMasterDataTest(), ExpectedMasterGrandTotal },
+            new object[] { BuildAgentDataTest(), ExpectedAgentGrandTotal }
         };
 
-        private static WinLossModel ExpectedSuperGrantTotal =>
+        private static WinLossModel ExpectedSuperGrandTotal =>
             new WinLossModel(
                 custId: 0,
                 custName: "Total",
@@ -24,7 +24,7 @@
                 masterNetWinLoss: new NetWinLoss((decimal)-111173383.51),
                 superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54));
 
-        private static WinLossModel ExpectedMasterGrantTotal =>
+        private static WinLossModel ExpectedMasterGrandTotal =>
             new WinLossModel(
                 custId: 0,
                 custName: "Total",
@@ -35,7 +35,7 @@
                 masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54),
                 superNetWinLoss: null);
 
-        private static WinLossModel ExpectedAgentGrantTotal =>
+        private static WinLossModel ExpectedAgentGrandTotal =>
             new WinLossModel(
                 custId: 0,
                 custName: "Total",

@@ -62,7 +62,7 @@
         public void WinLossViewModel_NullReportData_ReturnsDefaultGrandTotal()
         {
             // Arrange
-            var expectedGrantTotal = new WinLossModel();
+            var expectedGrandTotal = new WinLossModel();
             var message = CreateWinlossQuery(4);
             var winlossViewModel = new WinLossViewModel(
                 Enumerable.Empty<WinLossModel>(),
@@ -74,10 +74,10 @@
                 DateTime.Now);
 
             // Act
-            var actualGrantTotal = winlossViewModel.GrantTotal;
+            var actualGrandTotal = winlossViewModel.GrandTotal;
 
             // Assert
-            var result = compareLogic.Compare(actualGrantTotal, expectedGrantTotal);
+            var result = compareLogic.Compare(actualGrandTotal, expectedGrandTotal);
             Assert.True(result.AreEqual);
         }
 
@@ -108,7 +108,7 @@
         public void WinLossViewModel_EmptyReportData_ReturnsDefaultGrandTotal()
         {
             // Arrange
-            var expectedGrantTotal = new WinLossModel();
+            var expectedGrandTotal = new WinLossModel();
             var message = CreateWinlossQuery(4);
             var winlossViewModel = new WinLossViewModel(
                 Enumerable.Empty<WinLossModel>(),
@@ -120,10 +120,10 @@
                 DateTime.Now);
 
             // Act
-            var actualGrantTotal = winlossViewModel.GrantTotal;
+            var actualGrandTotal = winlossViewModel.GrandTotal;
 
             // Assert
-            var result = compareLogic.Compare(actualGrantTotal, expectedGrantTotal);
+            var result = compareLogic.Compare(actualGrandTotal, expectedGrandTotal);
             Assert.True(result.AreEqual);
         }
 
