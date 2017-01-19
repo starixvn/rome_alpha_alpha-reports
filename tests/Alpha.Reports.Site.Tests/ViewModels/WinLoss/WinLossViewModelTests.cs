@@ -24,7 +24,7 @@
     {
         private readonly UserFixture userFixture;
         private readonly Fixture fixture = new Fixture();
-        private CompareLogic compareLogic;
+        private readonly CompareLogic compareLogic;
 
         public WinLossViewModelTests(UserFixture userFixture)
         {
@@ -51,7 +51,8 @@
                  message,
                  fixture.Create<WinLossParam>(),
                  Enumerable.Empty<CustInfo>(),
-                 Enumerable.Empty<SelectListItem>());
+                 Enumerable.Empty<SelectListItem>(),
+                 DateTime.Now);
 
             // Act & Assert
             Assert.Equal(winlossViewModel.Title, expectedTitle);
@@ -69,7 +70,8 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<SelectListItem>(),
+                DateTime.Now);
 
             // Act
             var actualGrantTotal = winlossViewModel.GrantTotal;
@@ -91,7 +93,8 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<SelectListItem>(),
+                DateTime.Now);
 
             // Act
             var actualReportData = winlossViewModel.ReportData;
@@ -113,7 +116,8 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<SelectListItem>(),
+                DateTime.Now);
 
             // Act
             var actualGrantTotal = winlossViewModel.GrantTotal;
@@ -139,7 +143,8 @@
                 message,
                 winlossParam,
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<SelectListItem>(),
+                DateTime.Now);
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
@@ -178,7 +183,8 @@
                             message,
                             winlossParam,
                             Enumerable.Empty<CustInfo>(),
-                            Enumerable.Empty<SelectListItem>());
+                            Enumerable.Empty<SelectListItem>(),
+                            DateTime.Now);
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 

@@ -30,8 +30,8 @@
         private readonly WinLossService reportService;
         private readonly WinLossHandler winLossHandler;
         private readonly UserFixture userFixture;
-        private CompareLogic compareLogic;
-        
+        private readonly CompareLogic compareLogic;
+
         public WinLossHandlerTests(UserFixture userFixture)
         {
             productService = Substitute.For<ProductService>();
@@ -114,13 +114,17 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
+            var minDate = new DateTime(1989, 5, 28);
+            reportService.GetMinDate(message.IsHistoricReport).Returns(minDate);
+
             var expectedWinLossViewModel = new WinLossViewModel(
                 reportData,
                 grandTotal,
                 message,
                 winLossParam,
                 custInfoData,
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<SelectListItem>(),
+                minDate);
 
             // Act
             var actualWinLossViewModel = winLossHandler.Handle(message);

@@ -20,13 +20,15 @@
         private readonly WinLossDetailDataAccess dataAccess;
         private readonly WinLossDetailServiceImpl winLossDetailServiceImpl;
         private readonly CompareLogic compareLogic;
+        private readonly ReportDateService reportDateService;
 
         public WinLossDetailServiceImplTests()
         {
             var productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<WinLossDetailDataAccess>();
-            winLossDetailServiceImpl = new WinLossDetailServiceImpl(Substitute.For<ReportDateService>(), productService, dataAccess);
-            ReportDateRangeManager.ValidateDateRangeFunc = range => true;
+            reportDateService = Substitute.For<ReportDateService>();
+            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, dataAccess);
+            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(true);
             compareLogic = new CompareLogic();
         }
 
@@ -89,13 +91,28 @@
                 param.PageSize,
                 0,
                 new WinLossDetailModel());
-            ReportDateRangeManager.ValidateDateRangeFunc = range => false;
+            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(false);
 
             // Act
             var actualReportData = winLossDetailServiceImpl.GetWinLossDetail(param);
 
             // Assert
             AssertExtension.Equal(expectedReportData, actualReportData);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GetMinDate_Always_CallReportDateServiceToGetMinDate(bool isHistoricReport)
+        {
+            // Arrange
+            WinLossServiceImpl.DateRangeType = DateRangeType.ThreeMonthCurrentOrThreeYearHistory;
+
+            // Act
+            winLossDetailServiceImpl.GetMinDate(isHistoricReport);
+
+            // Assert
+            reportDateService.Received().GetMinDate(DateRangeType.ThreeMonthCurrentOrThreeYearHistory, isHistoricReport);
         }
     }
 }

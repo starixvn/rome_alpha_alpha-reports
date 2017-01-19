@@ -7,6 +7,7 @@
     using DataAccesses;
     using Fanex.Caching;
     using Fanex.Data.Repository;
+    using Models;
     using Models.Winloss;
     using Params;
     using RemotingRef;
@@ -16,6 +17,8 @@
         IEnumerable<EnteredSportResult> GetEnteredSportResults();
 
         IEnumerable<WinLossModel> GetWinLoss(WinLossParam param);
+
+        DateTime GetMinDate(bool isHistoricReport);
     }
 
     public class WinLossServiceImpl : WinLossService
@@ -67,7 +70,7 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            if (!ReportDateRangeManager.ValidateDateRangeFunc(
+            if (!reportDateService.ValidateDateRange(
                 new DateRange(DateRangeType, param.FromDate, param.ToDate, param.IsHistoryReport)))
             {
                 return Enumerable.Empty<WinLossModel>();
@@ -88,6 +91,11 @@
             var winlossData = dataAccess.GetWinLoss(criteria);
 
             return winlossData;
+        }
+
+        public DateTime GetMinDate(bool isHistoricReport)
+        {
+            return reportDateService.GetMinDate(DateRangeType, isHistoricReport);
         }
     }
 }

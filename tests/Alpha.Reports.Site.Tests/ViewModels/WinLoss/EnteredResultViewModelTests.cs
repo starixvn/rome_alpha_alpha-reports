@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLoss
 {
+    using System;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -37,7 +38,7 @@
             message.CustLevelId = custLevelId;
 
             // Act
-            var enteredResultViewModel = new EnteredResultViewModel(message, Enumerable.Empty<EnteredSportResult>());
+            var enteredResultViewModel = new EnteredResultViewModel(message, Enumerable.Empty<EnteredSportResult>(), DateTime.Now);
 
             // Assert
             Assert.Equal(enteredResultViewModel.Title, expectedTitle);

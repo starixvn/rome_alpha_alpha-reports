@@ -11,9 +11,10 @@
 
         protected DrillDownableReportViewModel(
             UserLevel custLevel,
-            IEnumerable<CustInfo> breadcrumbLevel)
+            IEnumerable<CustInfo> breadcrumbLevel,
+            string defaultBetListPath = DefaultBetListPath)
         {
-            BetListPath = UrlHelper.MapExMainPath(DefaultBetListPath);
+            BetListPath = UrlHelper.MapExMainPath(defaultBetListPath);
             CustLevel = custLevel;
             BreadcrumbLevel = breadcrumbLevel;
             BreadcrumbLevelJson = JsonHelper.ToJsonFunc(breadcrumbLevel);

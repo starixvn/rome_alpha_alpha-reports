@@ -191,7 +191,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DateTimeManagerTests.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />
-    <Compile Include="Services\ReportDateRangeManagerTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />
     <Compile Include="Services\WinLossServiceImplTests.cs" />

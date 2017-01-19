@@ -11,6 +11,8 @@
     public interface WinLossDetailService
     {
         ReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
+
+        DateTime GetMinDate(bool isHistoricReport);
     }
 
     public class WinLossDetailServiceImpl : WinLossDetailService
@@ -38,7 +40,7 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            if (!ReportDateRangeManager.ValidateDateRangeFunc(
+            if (!reportDateService.ValidateDateRange(
                 new DateRange(DateRangeType, param.FromDate, param.ToDate, param.IsHistoryReport)))
             {
                 return new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
@@ -61,6 +63,11 @@
             var winLossDetailData = dataAccess.GetData(criteria);
 
             return winLossDetailData;
+        }
+
+        public DateTime GetMinDate(bool isHistoricReport)
+        {
+            return reportDateService.GetMinDate(DateRangeType, isHistoricReport);
         }
     }
 }

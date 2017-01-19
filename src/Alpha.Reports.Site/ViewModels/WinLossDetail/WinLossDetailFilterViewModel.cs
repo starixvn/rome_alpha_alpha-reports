@@ -12,7 +12,7 @@
             int custId,
             string custName,
             UserLevel custLevel,
-            bool isHictoricReport,
+            bool isHistoricReport,
             DateRangePickerViewModel dateRangePickerViewModel,
             MonthPickerViewModel monthPickerViewModel,
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
@@ -22,7 +22,7 @@
         {
             CustId = custId;
             CustName = custName;
-            IsHistoricReport = isHictoricReport;
+            IsHistoricReport = isHistoricReport;
             DateRangePickerViewModel = dateRangePickerViewModel;
             MonthPickerViewModel = monthPickerViewModel;
             ProductMultiSelectionViewModel = productMultiSelectionViewModel;

@@ -31,6 +31,7 @@
         private readonly CacheRefService cacheRefService;
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
         private readonly CompareLogic compareLogic;
+        private readonly ReportDateService reportDateService;
 
         public WinLossServiceImplTests(FanexCacheFixture fanexCacheFixture)
         {
@@ -38,11 +39,13 @@
             var productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<WinLossDataAccess>();
             cacheRefService = Substitute.For<CacheRefService>();
-            winLossServiceImpl = new WinLossServiceImpl(Substitute.For<ReportDateService>(), productService, dataAccess, dynamicRepository, cacheRefService);
+            reportDateService = Substitute.For<ReportDateService>();
+            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, dataAccess, dynamicRepository, cacheRefService);
             compareLogic = new CompareLogic();
 
+            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(true);
+
             this.fanexCacheFixture = fanexCacheFixture;
-            ReportDateRangeManager.ValidateDateRangeFunc = range => true;
         }
 
         [Fact]
@@ -68,7 +71,7 @@
                 false);
 
             var expectedData = Enumerable.Empty<WinLossModel>();
-            ReportDateRangeManager.ValidateDateRangeFunc = range => false;
+            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(false);
 
             // Act
             var actualData = winLossServiceImpl.GetWinLoss(param);
@@ -173,6 +176,21 @@
             // Assert
             var result = compareLogic.Compare(expectedEnteredSportResultData, actualEnteredSportResultData);
             Assert.True(result.AreEqual);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void GetMinDate_Always_CallReportDateServiceToGetMinDate(bool isHistoricReport)
+        {
+            // Arrange
+            WinLossServiceImpl.DateRangeType = DateRangeType.ThreeMonthCurrentOrThreeYearHistory;
+
+            // Act
+            winLossServiceImpl.GetMinDate(isHistoricReport);
+
+            // Assert
+            reportDateService.Received().GetMinDate(DateRangeType.ThreeMonthCurrentOrThreeYearHistory, isHistoricReport);
         }
     }
 }

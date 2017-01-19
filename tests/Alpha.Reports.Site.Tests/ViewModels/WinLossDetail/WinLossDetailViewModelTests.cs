@@ -41,7 +41,8 @@
                 new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, "CustName", false, false),
                 new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<SelectListItem>(),
+                DateTime.Now);
             var expectedNetTurnoverTooltips = new List<string>();
 
             // Act
@@ -64,7 +65,8 @@
                  new List<SelectListItem>
                  {
                      new SelectListItem { Value = AllBetProductId.ToString() }
-                 });
+                 },
+                 DateTime.Now);
 
             var expectedNetTurnoverTooltips = new List<string> { "- For AllBet, Net Turnover is total valid bets that we use to compute commission." };
 
@@ -154,7 +156,8 @@
                  new List<SelectListItem>
                  {
                      new SelectListItem { Value = AllBetProductId.ToString() }
-                 });
+                 },
+                 DateTime.Now);
         }
     }
 }

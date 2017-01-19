@@ -112,13 +112,15 @@
         {
             // Arrange
             var message = CreateExportWinlossExcelQuery(custLevelId: 4);
+
             var winlossViewModel = new WinLossViewModel(
                 Enumerable.Empty<WinLossModel>(),
                 fixture.Create<WinLossModel>(),
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<SelectListItem>(),
+                DateTimeManager.Now);
 
             // Act
             winLossExcelHandler.Handle(message);
@@ -140,7 +142,8 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<SelectListItem>(),
+                DateTimeManager.Now);
 
             // Act
             winLossExcelHandler.Handle(message);

@@ -27,6 +27,7 @@
         private readonly WinLossDetailHandler winLossDetailHandler;
         private readonly UserFixture userFixture;
         private readonly ReportData<WinLossDetailModel> reportData;
+        private readonly WinLossDetailService reportService;
 
         public WinLossDetailHandlerTests(UserFixture userFixture)
         {
@@ -34,7 +35,7 @@
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string> { "Product Name" });
 
             reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
-            var reportService = Substitute.For<WinLossDetailService>();
+            reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
             this.userFixture = userFixture;
@@ -75,6 +76,9 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
+            var minDate = new DateTime(1989, 5, 28);
+            reportService.GetMinDate(message.IsHistoricReport).Returns(minDate);
+
             var winLossDetailParam = new WinLossDetailParam(
                 0,
                 0,
@@ -92,7 +96,8 @@
                 winLossDetailParam,
                 reportData,
                 new List<CustInfo> { new CustInfo(0, string.Empty, 4) },
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<SelectListItem>(),
+                minDate);
 
             // Act
             var actualWinLossDetailViewModel = winLossDetailHandler.Handle(message);
