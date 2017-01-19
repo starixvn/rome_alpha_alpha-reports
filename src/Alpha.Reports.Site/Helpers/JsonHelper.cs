@@ -5,11 +5,6 @@
 
     public static class JsonHelper
     {
-        public static Func<object, string> ToJsonFunc { get; internal set; } = ToJson;
-
-        private static string ToJson(object data)
-        {
-            return JsonConvert.SerializeObject(data);
-        }
+        public static Func<object, string> ToJsonFunc { get; internal set; } = JsonConvert.SerializeObject;
     }
 }

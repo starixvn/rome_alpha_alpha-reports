@@ -8,30 +8,18 @@
         private const string LongDateWithSlash = "MM/dd/yyyy hh:mm:ss tt";
 
         public static DateTime GetBeginningOfDate(this DateTime dateTime)
-        {
-            var beginningDateTime = dateTime.ToShortDateString() + " 00:00:00 AM";
-
-            return Convert.ToDateTime(beginningDateTime);
-        }
+            => Convert.ToDateTime(dateTime.ToShortDateString() + " 00:00:00 AM");
 
         public static string ToShortDateWithSlash(this DateTime dateTime)
-        {
-            return dateTime.ToString(ShortDateWithSlash);
-        }
+            => dateTime.ToString(ShortDateWithSlash);
 
         public static string ToLongDateWithSlash(this DateTime dateTime)
-        {
-            return dateTime.ToString(LongDateWithSlash);
-        }
+            => dateTime.ToString(LongDateWithSlash);
 
         public static DateTime FirstDayOfMonth(this DateTime dateTime)
-        {
-            return new DateTime(dateTime.Year, dateTime.Month, 1);
-        }
+            => new DateTime(dateTime.Year, dateTime.Month, 1);
 
         public static DateTime FirstDayOfYear(this DateTime dateTime)
-        {
-            return new DateTime(dateTime.Year, 1, 1);
-        }
+            => new DateTime(dateTime.Year, 1, 1);
     }
 }

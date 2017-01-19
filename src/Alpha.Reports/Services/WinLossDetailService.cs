@@ -65,9 +65,6 @@
             return winLossDetailData;
         }
 
-        public DateTime GetMinDate(bool isHistoricReport)
-        {
-            return reportDateService.GetMinDate(DateRangeType, isHistoricReport);
-        }
+        public DateTime GetMinDate(bool isHistoricReport) => reportDateService.GetMinDate(DateRangeType, isHistoricReport);
     }
 }

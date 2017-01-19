@@ -23,9 +23,6 @@
             return ids;
         }
 
-        public static bool IsNullOrBlank(this string input)
-        {
-            return string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input);
-        }
+        public static bool IsNullOrBlank(this string input) => string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input);
     }
 }

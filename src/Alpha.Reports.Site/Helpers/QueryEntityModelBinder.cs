@@ -28,17 +28,12 @@
         }
 
         protected virtual object CreateInstanceOfAssignableReportBaseQuery(Type modelType)
-        {
-            return Activator.CreateInstance(modelType, DependencyResolver.Current.GetService<IUser>());
-        }
+            => Activator.CreateInstance(modelType, DependencyResolver.Current.GetService<IUser>());
 
         protected virtual object CallBaseCreateModel(
            ControllerContext controllerContext,
            ModelBindingContext bindingContext,
-           Type modelType)
-        {
-            return base.CreateModel(controllerContext, bindingContext, modelType);
-        }
+           Type modelType) => base.CreateModel(controllerContext, bindingContext, modelType);
 
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {

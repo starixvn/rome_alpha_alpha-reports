@@ -12,11 +12,9 @@
             this IEnumerable<T> source,
             string propertyName,
             bool descending)
-        {
-            return descending
+            => descending
                 ? ApplyOrder(source.AsQueryable(), propertyName, "OrderByDescending")
                 : ApplyOrder(source.AsQueryable(), propertyName, "OrderBy");
-        }
 
         public static IQueryable<T> OrderBy<T>(
             this IEnumerable<T> source,
@@ -59,9 +57,6 @@
             return (IOrderedQueryable<T>)result;
         }
 
-        public static string JoinWithComma<T>(this IEnumerable<T> source)
-        {
-            return string.Join(",", source);
-        }
+        public static string JoinWithComma<T>(this IEnumerable<T> source) => string.Join(",", source);
     }
 }

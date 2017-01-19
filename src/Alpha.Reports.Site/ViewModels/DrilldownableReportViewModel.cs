@@ -53,11 +53,9 @@
         }
 
         protected virtual string BuildBetListLink(T model)
-        {
-            return UrlHelper.AddQueryStringParamsFunc(
+            => UrlHelper.AddQueryStringParamsFunc(
                 BetListPath,
                 GetBetListLinkRouteValues(model));
-        }
 
         protected abstract IDictionary<string, object> GetDownlineLinkRouteValues(T model);
 

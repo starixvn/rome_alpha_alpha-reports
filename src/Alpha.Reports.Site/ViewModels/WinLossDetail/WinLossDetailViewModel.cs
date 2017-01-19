@@ -129,17 +129,14 @@
                 : Resources.MemberWinLossDetail;
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(WinLossDetailModel model)
-        {
-            return new Dictionary<string, object>
+            => new Dictionary<string, object>
             {
                 { "CustId", model.CustId },
                 { "CustName", model.CustName }
             };
-        }
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(WinLossDetailModel model)
-        {
-            return new Dictionary<string, object>
+            => new Dictionary<string, object>
             {
                 { "Custid", model.CustId },
                 { "Username", model.CustName },
@@ -149,6 +146,5 @@
                 { "FilterPostback", 1 },
                 { "Type", "WLByDate" }
             };
-        }
     }
 }

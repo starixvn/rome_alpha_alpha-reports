@@ -105,10 +105,8 @@
         }
 
         private static DateTime GetThreeMonthCurrentOrThreeYearHistoryMinDate(bool isHistoricReport)
-        {
-            return isHistoricReport
+            => isHistoricReport
                 ? DateTimeManager.Now.AddYears(-3).FirstDayOfMonth()
                 : DateTimeManager.Now.AddMonths(-3).FirstDayOfMonth();
-        }
     }
 }
