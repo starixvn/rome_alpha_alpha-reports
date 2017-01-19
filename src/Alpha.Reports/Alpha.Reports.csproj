@@ -108,6 +108,7 @@
     <Compile Include="Models\PagedReportData.cs" />
     <Compile Include="Models\Outstanding\OutstandingModel.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\RacingCommission\RacingCommissionModel.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\UserLevel.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
     <Compile Include="Models\Winloss\WinLossModel.cs" />
     <Compile Include="Params\OutstandingParam.cs" />
+    <Compile Include="Params\RacingCommissionParam.cs" />
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Params\WinLossParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ReportDateService.cs" />
+    <Compile Include="Services\RacingCommissionService.cs" />
     <Compile Include="Services\WinLossService.cs" />
     <Compile Include="Services\OutstandingService.cs" />
     <Compile Include="Services\ProductService.cs" />

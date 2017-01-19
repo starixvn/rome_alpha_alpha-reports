@@ -63,6 +63,11 @@
 
         public bool IsDirectDownlineOf(Enumeration uplineLevel)
             => (uplineLevel != null) && GapBetweenTwoLevels(uplineLevel.Value, Value) == 1;
+        public bool IsUplineOf(Enumeration downlineLevel)
+        {
+            return GapBetweenTwoLevels(this.Value, downlineLevel.Value) > 0;
+        }
+
 
         public bool Is(Enumeration level)
             => (level != null) && this == level;
