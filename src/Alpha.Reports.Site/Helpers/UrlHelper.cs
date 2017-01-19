@@ -54,9 +54,9 @@
             }
 
             var regexParamName = @"([?&]" + paramName + ")=[^?&]+";
-            if (Regex.IsMatch(url, regexParamName))
+            if (Regex.IsMatch(url, regexParamName, RegexOptions.IgnoreCase))
             {
-                return Regex.Replace(url, regexParamName, "$1=" + paramValue);
+                return Regex.Replace(url, regexParamName, "$1=" + paramValue, RegexOptions.IgnoreCase);
             }
 
             return url + $"&{paramName}={paramValue}";

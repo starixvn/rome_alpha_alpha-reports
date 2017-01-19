@@ -77,17 +77,19 @@
         public void ReplaceOrAddQueryStringParams_UrlHasParam_ReturnReplacedParamValueUrl()
         {
             // Arrange
-            var url = "url?paramName=paramValue";
+            var url = "url?paramName=paramValue&paramName1=paramValue&paramName2=paramValue";
             var routeValues = new Dictionary<string, object>
             {
-                { "paramName", "paramValue2" }
+                { "PARAMNAME", "paramValue2" },
+                { "paramname1", "paramValue4" },
+                { "paramName2", "paramValue6" },
             };
 
             // Act
             var actualUrl = UrlHelper.ReplaceOrAddQueryStringParams(url, routeValues);
 
             // Assert
-            Assert.Equal("url?paramName=paramValue2", actualUrl);
+            Assert.Equal("url?paramName=paramValue2&paramName1=paramValue4&paramName2=paramValue6", actualUrl);
         }
 
         [Fact]
