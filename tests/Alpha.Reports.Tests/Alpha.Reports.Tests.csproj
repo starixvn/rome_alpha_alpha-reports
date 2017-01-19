@@ -159,6 +159,7 @@
     <Compile Include="Criteria\Outstanding\OutstandingCriteriaTests.cs" />
     <Compile Include="Criteria\PagingReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsCriteriaTests.cs" />
+    <Compile Include="Criteria\RacingCommission\RacingCommissionCriteriaTests.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseForTesting.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseTests.cs" />
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />

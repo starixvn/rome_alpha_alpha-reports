@@ -89,6 +89,7 @@
     <Compile Include="Criteria\GetProductsCriteria.cs" />
     <Compile Include="Criteria\Outstanding\OutstandingCriteria.cs" />
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
+    <Compile Include="Criteria\RacingCommission\RacingCommissionCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
