@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
     using System.Web.Mvc;
+    using System.Web.UI;
     using MediatR;
     using Requests.WinLoss;
 
@@ -13,6 +14,7 @@
         [Route("enteredresult/master")]
         [Route("enteredresult/agent")]
         [Route("enteredresult/member")]
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.Server, VaryByParam = "none")]
         public ActionResult Index(EnteredSportResultQuery message)
             => View(message);
 

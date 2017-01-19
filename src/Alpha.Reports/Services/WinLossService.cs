@@ -45,13 +45,19 @@
 
         public IEnumerable<EnteredSportResult> GetEnteredSportResults()
         {
-            var reportData = ConfiguredCacheService
-                 .GetOrSet(
-                 EnteredResultsCacheKey,
-                 () => GetDataEnteredSportResults(),
-                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(1)));
+            var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria());
 
-            return reportData;
+            if (dailyEnteredSportData.Any())
+            {
+                return dailyEnteredSportData.GroupBy(dailyEnteredSport => dailyEnteredSport.SportType)
+                    .Select(dailyEnteredSports => new EnteredSportResult(
+                    dailyEnteredSports.Key,
+                    cacheRefService.GetSportName(dailyEnteredSports.Key),
+                    dailyEnteredSports.FirstOrDefault(enteredSportResult => enteredSportResult.IsToday),
+                    dailyEnteredSports.FirstOrDefault(enteredSportResult => !enteredSportResult.IsToday)));
+            }
+
+            return Enumerable.Empty<EnteredSportResult>();
         }
 
         public IEnumerable<WinLossModel> GetWinLoss(WinLossParam param)
@@ -82,23 +88,6 @@
             var winlossData = dataAccess.GetWinLoss(criteria);
 
             return winlossData;
-        }
-
-        internal IEnumerable<EnteredSportResult> GetDataEnteredSportResults()
-        {
-            var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria());
-
-            if (dailyEnteredSportData.Any())
-            {
-                return dailyEnteredSportData.GroupBy(dailyEnteredSport => dailyEnteredSport.SportType)
-                    .Select(dailyEnteredSports => new EnteredSportResult(
-                    dailyEnteredSports.Key,
-                    cacheRefService.GetSportName(dailyEnteredSports.Key),
-                    dailyEnteredSports.FirstOrDefault(enteredSportResult => enteredSportResult.IsToday),
-                    dailyEnteredSports.FirstOrDefault(enteredSportResult => !enteredSportResult.IsToday)));
-            }
-
-            return Enumerable.Empty<EnteredSportResult>();
         }
     }
 }

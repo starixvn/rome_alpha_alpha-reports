@@ -19,7 +19,7 @@
 
         public WinLossViewModel(
             IEnumerable<WinLossModel> reportData,
-             WinLossModel grandTotal,
+            WinLossModel grandTotal,
             WinLossQuery message,
             WinLossParam winLossParam,
             IEnumerable<CustInfo> breadcrumbLevel,
