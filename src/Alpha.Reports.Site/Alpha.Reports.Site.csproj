@@ -41,7 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Alpha.Auth, Version=3.0.1.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Auth.3.0.1.3-DuplicationLogin-02\lib\net40\Alpha.Auth.dll</HintPath>
+      <HintPath>..\..\packages\Alpha.Auth.3.0.1.3-DuplicationLogin-03\lib\net40\Alpha.Auth.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Alpha.RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -301,13 +301,17 @@
     <Compile Include="ViewModels\WinLoss\WinLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\SPNames\Internal\DBLOG.bodb_CustomerLog.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Local\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Pro\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\SIT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <TypeScriptCompile Include="assets\scripts\components\netturnover-tooltip.ts" />
@@ -327,6 +331,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-template.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
+    <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="assets\bundles\default.css" />
     <Content Include="assets\bundles\default.min.css">
