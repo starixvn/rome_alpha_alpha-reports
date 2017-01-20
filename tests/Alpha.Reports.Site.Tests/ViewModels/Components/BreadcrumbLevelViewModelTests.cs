@@ -3,14 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using NSubstitute;
     using Reports.Models;
     using Site.Helpers;
     using Site.ViewModels.Components;
     using Xunit;
 
+    [Trait("Category", "Site.Components")]
     public class BreadcrumbLevelViewModelTests
     {
         [Fact]

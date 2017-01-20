@@ -2,7 +2,7 @@
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
-@Html.Partial("_WinLossFilter", Model.FilterViewModel,
+@Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
     {
         { "IsStackMode", Model.IsStackMode },

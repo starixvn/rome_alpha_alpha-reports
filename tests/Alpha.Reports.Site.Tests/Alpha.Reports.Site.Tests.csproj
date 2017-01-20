@@ -207,6 +207,7 @@
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModelTests.cs" />
+    <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />

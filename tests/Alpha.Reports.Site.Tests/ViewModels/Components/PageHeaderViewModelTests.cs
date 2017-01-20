@@ -1,13 +1,12 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.Components
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Extensions;
     using Reports.Models;
-    using Site.ViewModels;
     using Site.ViewModels.Components;
     using Xunit;
 
+    [Trait("Category", "Site.Components")]
     public class PageHeaderViewModelTests
     {
         [Fact]

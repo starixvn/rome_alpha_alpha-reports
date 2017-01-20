@@ -415,7 +415,7 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\AuthorizationSection.config" />
     <Content Include="Views\Shared\Piwik.cshtml" />
-    <Content Include="Views\WinLoss\_WinLossFilter.cshtml" />
+    <Content Include="Views\WinLoss\Filter.cshtml" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Member.xls" />
@@ -519,7 +519,7 @@
     <Content Include="typings\globals\jquery\typings.json" />
     <Content Include="typings\globals\moment\typings.json" />
     <Content Include="typings\globals\storejs\typings.json" />
-    <Content Include="Views\EnteredResult\_EnteredResultFilter.cshtml" />
+    <Content Include="Views\EnteredResult\Filter.cshtml" />
     <Content Include="Views\EnteredResult\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

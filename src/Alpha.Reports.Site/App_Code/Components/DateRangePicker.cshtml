@@ -1,5 +1,6 @@
 ﻿@using Alpha.Reports.Extensions;
 @using Alpha.Reports.Site.ViewModels.Components;
+@using Alpha.Reports.Site.App_GlobalResources;
 
 @helper Render(DateRangePickerViewModel model)
 {
@@ -8,16 +9,6 @@
          data-currentdate="@Alpha.Reports.Services.DateTimeManager.Now"
          data-mindate="@model.MinDate.ToShortDateWithSlash()"
          data-maxdate="@model.MaxDate.ToShortDateWithSlash()">
-        <div class="ui_nexdatepicker_edit_field daterange-container">
-            <select id="dropdown-daterange"
-                    name="UserSelectedDateRangeOption"
-                    class="dropdown-daterange">
-                @foreach (var rangeOption in model.RangeOptions)
-                {
-                    <option value="@rangeOption.Value" @(rangeOption.Selected ? " selected=\"selected\"" : string.Empty)>@rangeOption.Text</option>
-                }
-            </select>
-        </div>
 
         <div id="from-date-container"
              class="input-group date ui_nexdatepicker_edit_field css fromdate">
@@ -43,6 +34,22 @@
             <span class="input-group-addon">
                 <span class="icon-calendar" id="tdate_trigger"></span>
             </span>
+        </div>
+
+        @if (model.IsRenderSubmitButton)
+        {
+            <input type="submit" value="@Resources.Submit" class="btn-submit" />
+        }
+
+        <div class="ui_nexdatepicker_edit_field daterange-container">
+            <select id="dropdown-daterange"
+                    name="UserSelectedDateRangeOption"
+                    class="dropdown-daterange">
+                @foreach (var rangeOption in model.RangeOptions)
+                {
+                    <option value="@rangeOption.Value" @(rangeOption.Selected ? " selected=\"selected\"" : string.Empty)>@rangeOption.Text</option>
+                }
+            </select>
         </div>
     </div>
 }
