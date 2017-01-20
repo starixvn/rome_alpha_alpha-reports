@@ -47,5 +47,13 @@
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
+
+        public virtual bool IsValid
+            => FromDate <= ToDate
+            && CustId > 0
+            && !string.IsNullOrWhiteSpace(CustName)
+            && ViewerId > 0
+            && ViewerLevel.IsUplineOf(CustLevel)
+            && !string.IsNullOrWhiteSpace(Language);
     }
 }
