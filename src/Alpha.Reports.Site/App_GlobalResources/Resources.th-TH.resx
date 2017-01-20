@@ -325,4 +325,10 @@
   <data name="GrossComAndMasterTotal" xml:space="preserve">
     <value>/ยอดรวมของคอมมิชชั่น/รวม Master</value>
   </data>
+  <data name="To" xml:space="preserve">
+    <value>ถึง</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>จาก</value>
+  </data>
 </root>

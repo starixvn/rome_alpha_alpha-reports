@@ -10,6 +10,8 @@
          data-mindate="@model.MinDate.ToShortDateWithSlash()"
          data-maxdate="@model.MaxDate.ToShortDateWithSlash()">
 
+        <div class="ui_nexdatepicker_lbl_field separator">@Resources.From</div>
+
         <div id="from-date-container"
              class="input-group date ui_nexdatepicker_edit_field css fromdate">
             <input type="text"
@@ -22,7 +24,9 @@
                 <span class="icon-calendar" id="fdate_trigger"></span>
             </span>
         </div>
-        <div class="ui_nexdatepicker_lbl_field separator">-</div>
+
+        <div class="ui_nexdatepicker_lbl_field separator">@Resources.To</div>
+
         <div id="to-date-container"
              class="input-group date ui_nexdatepicker_edit_field  todate">
             <input type="text"
@@ -41,15 +45,18 @@
             <input type="submit" value="@Resources.Submit" class="btn-submit" />
         }
 
-        <div class="ui_nexdatepicker_edit_field daterange-container">
-            <select id="dropdown-daterange"
-                    name="UserSelectedDateRangeOption"
-                    class="dropdown-daterange">
+        <div class="dropdown daterange-container" id="dropdown-daterange">
+            <input type="hidden" name="UserSelectedDateRangeOption" id="hidden-range-option" value="@model.SelectedRangeOption.Value" />
+            <button class="btn-submit dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span id="range-label">@model.SelectedRangeOption.Text</span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="range-label">
                 @foreach (var rangeOption in model.RangeOptions)
                 {
-                    <option value="@rangeOption.Value" @(rangeOption.Selected ? " selected=\"selected\"" : string.Empty)>@rangeOption.Text</option>
+                    <li><a href="#" class="range-option" data-value="@rangeOption.Value">@rangeOption.Text</a></li>
                 }
-            </select>
+            </ul>
         </div>
     </div>
 }

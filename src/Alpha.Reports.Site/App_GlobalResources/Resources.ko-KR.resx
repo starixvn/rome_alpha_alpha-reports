@@ -288,4 +288,10 @@
   <data name="GrossComAndMasterTotal" xml:space="preserve">
     <value>/전체 수수료/마스터 총계</value>
   </data>
+  <data name="To" xml:space="preserve">
+    <value>종료일</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>시작일</value>
+  </data>
 </root>

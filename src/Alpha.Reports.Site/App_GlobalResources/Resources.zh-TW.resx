@@ -324,4 +324,10 @@
   <data name="GrossComAndMasterTotal" xml:space="preserve">
     <value>/總佣金/總代理總數</value>
   </data>
+  <data name="To" xml:space="preserve">
+    <value>到</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>從</value>
+  </data>
 </root>

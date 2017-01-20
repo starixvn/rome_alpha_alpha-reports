@@ -183,4 +183,10 @@
   <data name="Results" xml:space="preserve">
     <value>結果</value>
   </data>
+  <data name="To" xml:space="preserve">
+    <value>から</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>送金元</value>
+  </data>
 </root>

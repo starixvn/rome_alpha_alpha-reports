@@ -53,10 +53,6 @@ class DateRangePickerComponent {
             }
         });
 
-        this.$("#dropdown-daterange").multiselect({
-            maxHeight: 300
-        });
-
         this.isCompleteInitDateRangePicker = true;
 
         return dateRangePicker;

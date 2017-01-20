@@ -312,4 +312,10 @@
   <data name="GrossComAndMasterTotal" xml:space="preserve">
     <value>/Tổng hoa hồng/Tổng giao dịch của Master</value>
   </data>
+  <data name="To" xml:space="preserve">
+    <value>Đến</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Từ</value>
+  </data>
 </root>

@@ -9,9 +9,9 @@
         describe("_Always", () => {
             beforeEach(() => {
                 // arrange
-                setFixtures(`<div id="daterange-picker" 
+                setFixtures(`<div id="daterange-picker"
                                 data-currentdate="01/05/2016"
-                                data-mindate="01/05/2013" 
+                                data-mindate="01/05/2013"
                                 data-maxdate=""
                                 data-selecteddaterange="0">
                          </div>`);
@@ -35,12 +35,6 @@
                     onQuickChooseChange: jasmine.any(Function)
                 });
             });
-            it("_Binds quick choose option", () => {
-                // assert
-                expect($.fn.multiselect).toHaveBeenCalledWith({
-                    maxHeight: 300
-                });
-            });
         });
     });
     describe("_onQuickChooseChange", () => {
@@ -48,9 +42,9 @@
         beforeEach(() => {
             // arrange
             setFixtures(`<body>
-                            <div id="daterange-picker" 
+                            <div id="daterange-picker"
                                     data-currentdate="01/05/2016"
-                                    data-mindate="01/05/2013" 
+                                    data-mindate="01/05/2013"
                                     data-maxdate=""
                                     data-selecteddaterange="0">
                                  <div class="ui_nexdatepicker_edit_field daterange-container">
@@ -104,7 +98,7 @@
             // arrange
             dateRangePickerComponent.isCompleteInitDateRangePicker = false;
 
-            // act 
+            // act
             this.$("#dropdown-daterange").val("1").change();
 
             // assert
@@ -112,7 +106,7 @@
         });
 
         it("_CompleteRender;NotChooseSpecificDates => Call Submit", () => {
-            // act 
+            // act
             this.$("#dropdown-daterange").val("1").change();
 
             // assert
@@ -120,7 +114,7 @@
         });
 
         it("_CompleteRender_ChooseSpecificDates => Not Call Submit", () => {
-            // act 
+            // act
             this.$("#dropdown-daterange").val("7").change();
 
             // assert

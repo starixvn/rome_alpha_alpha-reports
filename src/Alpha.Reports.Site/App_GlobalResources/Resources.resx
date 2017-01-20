@@ -366,4 +366,10 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>Win Loss</value>
   </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
 </root>
