@@ -5,6 +5,8 @@
 
     public static class JsonHelper
     {
-        public static Func<object, string> ToJsonFunc { get; internal set; } = JsonConvert.SerializeObject;
+        public static Func<object, string> ToJsonFunc { get; internal set; } = ToJson;
+
+        private static string ToJson(object data) => JsonConvert.SerializeObject(data).Replace("\"", "'");
     }
 }
