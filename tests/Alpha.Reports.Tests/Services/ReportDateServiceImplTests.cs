@@ -295,7 +295,7 @@
         public void Init_Always_SetupReportDateRangeTypes()
         {
             // Act
-            ReportDateServiceImpl.Init();
+            ReportDateServiceImpl.RegisterReportDateRangeTypes();
 
             // Assert
             Assert.True(

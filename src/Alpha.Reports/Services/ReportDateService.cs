@@ -31,7 +31,7 @@
             this.dynamicRepository = dynamicRepository;
         }
 
-        public static void Init()
+        public static void RegisterReportDateRangeTypes()
         {
             // ThreeMonthCurrentOrThreeYearHistory means user cannot view report before 3 months in current report
             // and 3 years in historic report
