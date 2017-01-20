@@ -1,6 +1,5 @@
 ﻿@using Alpha.Reports.Extensions;
 @using Alpha.Reports.Site.ViewModels.Components;
-@using Alpha.Reports.Site.App_GlobalResources;
 
 @helper Render(DateRangePickerViewModel model)
 {
@@ -29,7 +28,7 @@
                    class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control"
                    value="@model.FromDate.ToShortDateWithSlash()" />
             <span class="input-group-addon">
-                <span class="icon-calendar"></span>
+                <span class="icon-calendar" id="fdate_trigger"></span>
             </span>
         </div>
         <div class="ui_nexdatepicker_lbl_field separator">-</div>
@@ -42,7 +41,7 @@
                    class="ui_nexdatepicker_datetextbox ui_nexdatepicker_todate form-control"
                    value="@model.ToDate.ToShortDateWithSlash()" />
             <span class="input-group-addon">
-                <span class="icon-calendar"></span>
+                <span class="icon-calendar" id="tdate_trigger"></span>
             </span>
         </div>
     </div>
