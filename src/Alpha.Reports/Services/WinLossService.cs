@@ -23,7 +23,6 @@
 
     public class WinLossServiceImpl : WinLossService
     {
-        private const string EnteredResultsCacheKey = "Alpha.Reports.Services.Impl.WinLossServiceImpl.EnteredResults";
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly WinLossDataAccess dataAccess;

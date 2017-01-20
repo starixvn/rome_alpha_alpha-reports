@@ -149,29 +149,6 @@
             Assert.Equal(result, actualResult);
         }
 
-        [Theory]
-        [MemberData("UplineUserLevelAndDownlineValueDataSources", MemberType = typeof(UserLevelTestCases))]
-        public void IsNotDirectUplineOf_ValidDownlineLevelValue_ReturnsValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
-        {
-            var actualResult = uplineLevel.IsNotDirectUplineOf(downlineLevelValue);
-
-            Assert.Equal(!result, actualResult);
-        }
-
-        [Theory]
-        [MemberData("UplineUserLevelAndDownlineValueDataSources", MemberType = typeof(UserLevelTestCases))]
-        public void IsNotDirectUplineOf_DownlineLevelIsNotNull_ReturnsValidResult(UserLevel uplineLevel, byte downlineLevelValue, bool result)
-        {
-            // Arrange
-            var downLineLevel = Enumeration.FromValue<UserLevel>(downlineLevelValue);
-
-            // Act
-            var actualResult = uplineLevel.IsNotDirectUplineOf(downLineLevel);
-
-            // Assert
-            Assert.Equal(!result, actualResult);
-        }
-
         [Fact]
         public void IsDirectDownlineOf_CustomerLevelIsNull_ReturnsFalse()
         {
@@ -197,20 +174,6 @@
 
             // Assert
             Assert.Equal(result, actualResult);
-        }
-
-        [Theory]
-        [MemberData("DownlineUserLevelAndUplineValueDataSources", MemberType = typeof(UserLevelTestCases))]
-        public void IsNotDirectDownlineOf_CustomerLevelIsNotNull_ReturnsValidResult(UserLevel downlineLevel, byte uplineLevelValue, bool result)
-        {
-            // Arrange
-            var uplineLevel = Enumeration.FromValue<UserLevel>(uplineLevelValue);
-
-            // Act
-            var actualResult = downlineLevel.IsNotDirectDownlineOf(uplineLevel);
-
-            // Assert
-            Assert.Equal(!result, actualResult);
         }
 
         [Theory]

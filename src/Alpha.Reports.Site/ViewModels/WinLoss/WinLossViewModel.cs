@@ -126,24 +126,24 @@
         {
             if (CustLevel.IsSuperLevel())
             {
-                this.Title = Resources.MasterWinLoss;
-                this.CustLevelName = Resources.Super;
-                this.DownLineLevelName = Resources.Master;
-                this.CustLevelNetWinLossName = "SuperNetWinLoss";
+                Title = Resources.MasterWinLoss;
+                CustLevelName = Resources.Super;
+                DownLineLevelName = Resources.Master;
+                CustLevelNetWinLossName = "SuperNetWinLoss";
             }
             else if (CustLevel.IsMasterLevel())
             {
-                this.Title = Resources.AgentWinLoss;
-                this.CustLevelName = Resources.Master;
-                this.DownLineLevelName = Resources.Agent;
-                this.CustLevelNetWinLossName = "MasterNetWinLoss";
+                Title = Resources.AgentWinLoss;
+                CustLevelName = Resources.Master;
+                DownLineLevelName = Resources.Agent;
+                CustLevelNetWinLossName = "MasterNetWinLoss";
             }
             else
             {
-                this.Title = Resources.MemberWinLoss;
-                this.CustLevelName = Resources.Agent;
-                this.DownLineLevelName = Resources.Member;
-                this.CustLevelNetWinLossName = "AgentNetWinLoss";
+                Title = Resources.MemberWinLoss;
+                CustLevelName = Resources.Agent;
+                DownLineLevelName = Resources.Member;
+                CustLevelNetWinLossName = "AgentNetWinLoss";
             }
         }
 
