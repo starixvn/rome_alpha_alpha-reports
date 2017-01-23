@@ -129,7 +129,7 @@ class AlphaReports {
 
         var newQueryString = regex.test(queryString)
             ? queryString.replace(regex, "$1" + paramName + "=" + paramValue)
-            : queryString + (queryString.indexOf("?") > 0 ? "&" : "?") + paramName + "=" + paramValue;
+            : queryString + (queryString.indexOf("?") >= 0 ? "&" : "?") + paramName + "=" + paramValue;
 
         return newQueryString;
     };
