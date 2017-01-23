@@ -1,5 +1,61 @@
-﻿@using Alpha.Reports.Site.ViewModels.RacingCommission
-
+﻿@using Alpha.Reports.Models.RacingCommission;
+@using Alpha.Reports.Site.ViewModels.RacingCommission
 @model RacingCommissionViewModel
 
-    Testing
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty))
+
+@Html.Partial("_RacingCommissionFilter", Model.RacingCommissionFilter)
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per" id="tbl-report"
+       data-totalrecords="@Model.RacingCommissions.Count()">
+    <thead class="tableFloatingHeaderOriginal">
+        <tr>
+            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Outstanding.Username">
+                Username
+            </th>
+            <th colspan="4" class="header">
+                Tote
+            </th>
+        </tr>
+        <tr class="thead-row2">
+            <th class="sorting" data-colindex="0">Win</th>
+            <th class="sorting" data-colindex="0">Place</th>
+            <th class="sorting" data-colindex="0">WinPlace</th>
+            <th class="sorting" data-colindex="0">Total</th>
+        </tr>
+    </thead>
+    @if (Model.RacingCommissions.Any())
+    {
+        <tbody>
+            @foreach (var commission in Model.RacingCommissions)
+            {
+                <tr>
+                    <td class="text-left">@commission.CustName</td>
+                    @RenderCellValue(commission)
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="tbl-footer">
+                <td class="text-left">@Resources.Total</td>
+                @RenderCellValue(Model.Total)
+            </tr>
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(5)
+    }
+</table>
+
+@helper RenderCellValue(RacingCommissionModel commission)
+{
+    <td>@HtmlHelpers.FormatNumber(commission.ToteWin)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.TotePlace)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.ToteWinPlace)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.Total)</td>
+}
+
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/racingcommission/racingcommission")
+}

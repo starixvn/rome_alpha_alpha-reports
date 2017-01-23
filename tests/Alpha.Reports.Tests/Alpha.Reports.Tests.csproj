@@ -182,6 +182,7 @@
     <Compile Include="ModelsForTesting\UserLevelForTesting.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
     <Compile Include="Models\CustInfoTests.cs" />
+    <Compile Include="Models\RacingCommissionModelTests.cs" />
     <Compile Include="Models\WinLossTest.cs" />
     <Compile Include="Models\NetWinLossTest.cs" />
     <Compile Include="Models\ProductTests.cs" />

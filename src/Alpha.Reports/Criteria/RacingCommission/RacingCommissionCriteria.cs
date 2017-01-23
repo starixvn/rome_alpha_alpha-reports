@@ -28,15 +28,15 @@
         {
             if (CustLevel.IsSuperLevel())
             {
-                return "Age_Rpt_RacingCommission_Master";
+                return "Age_Rpt_CommByBettype_HR_Master";
             }
 
             if (CustLevel.IsMasterLevel())
             {
-                return "Age_Rpt_RacingCommission_Agent";
+                return "Age_Rpt_CommByBettype_HR_Agent";
             }
 
-            return "Age_Rpt_RacingCommission_Member";
+            return "Age_Rpt_CommByBettype_HR_Member";
         }
 
         public override bool IsValid()

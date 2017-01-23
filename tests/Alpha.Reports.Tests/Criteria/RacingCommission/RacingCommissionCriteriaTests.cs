@@ -10,9 +10,9 @@
     public class RacingCommissionCriteriaTests
     {
         [Theory]
-        [InlineData(2, "Age_Rpt_RacingCommission_Member")]
-        [InlineData(3, "Age_Rpt_RacingCommission_Agent")]
-        [InlineData(4, "Age_Rpt_RacingCommission_Master")]
+        [InlineData(2, "Age_Rpt_CommByBettype_HR_Member")]
+        [InlineData(3, "Age_Rpt_CommByBettype_HR_Agent")]
+        [InlineData(4, "Age_Rpt_CommByBettype_HR_Master")]
         public void RacingCommissionCriteria_WithCorrectCustLevel_ReturnsValidSettingKey(byte custLevelId, string expectedSettingKey)
         {
             // Arrange

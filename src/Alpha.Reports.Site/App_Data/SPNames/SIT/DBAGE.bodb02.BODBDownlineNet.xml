@@ -44,8 +44,8 @@
     <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Racing Commission">
-    <Setting Key="Age_Rpt_RacingCommission_Master" SpName="Age_Rpt_CommByBettype_HR_SAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
-    <Setting Key="Age_Rpt_RacingCommission_Agent" SpName="Age_Rpt_CommByBettype_HR_MAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
-    <Setting Key="Age_Rpt_RacingCommission_Member" SpName="Age_Rpt_CommByBettype_HR_Ag" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
+    <Setting Key="Age_Rpt_CommByBettype_HR_Master" SpName="Age_Rpt_CommByBettype_HR_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
+    <Setting Key="Age_Rpt_CommByBettype_HR_Agent" SpName="Age_Rpt_CommByBettype_HR_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
+    <Setting Key="Age_Rpt_CommByBettype_HR_Member" SpName="Age_Rpt_CommByBettype_HR_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
   </Function> 
 </Functions>
