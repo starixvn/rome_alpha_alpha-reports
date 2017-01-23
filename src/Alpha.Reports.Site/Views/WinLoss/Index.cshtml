@@ -117,7 +117,7 @@
 @helper RenderRow(WinLossModel data, bool isTotalRow, string betListPath)
 {
     <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
-        <td data-islink="true" class="text-left">
+        <td data-islink="true" class="text-left col-username">
             @if (isTotalRow)
             {
                 @Resources.Total
@@ -152,14 +152,14 @@
         else
         {
             @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
-            @HtmlHelpers.RenderNumberCell(data.GrossComm)
+            @HtmlHelpers.RenderNumberCell(data.GrossComm, "col-gross-com")
 
             @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
-            @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, Model.CustLevel.IsAgentLevel() ? true : false)
-            @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss, Model.CustLevel.IsMasterLevel() ? true : false)
+            @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, Model.CustLevel.IsAgentLevel())
+            @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss, Model.CustLevel.IsMasterLevel())
             @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
         }
-        <td class="text-right">@HtmlHelpers.FormatNumber(data.Company)</td>
+        <td class="text-right col-company">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
 
@@ -197,5 +197,5 @@ if (netWinLoss.WinLoss != null)
         @HtmlHelpers.RenderNumberCell(netWinLoss.Comm.Value, highlightCellClass)
 }
 
-    @HtmlHelpers.RenderNumberCell(netWinLoss.Total, $"bold {highlightCellClass}")
+    @HtmlHelpers.RenderNumberCell(netWinLoss.Total, $"bold {highlightCellClass} col-cust-total")
 }

@@ -146,7 +146,7 @@
 @helper RenderRow(WinLossDetailModel data, bool isTotalRow, string betListPath, bool isEvenRow)
 {
     <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)@(isEvenRow? "even-row":string.Empty)">
-        <td data-islink="true" class="text-left">
+        <td data-islink="true" class="text-left col-username">
             @if (isTotalRow)
             {
                 @Resources.Total
@@ -160,7 +160,7 @@
             }
         </td>
 
-        <td>@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
+        <td class="col-number-of-tickets">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
         @if (Model.IsStackMode)
         {
             @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
@@ -173,15 +173,15 @@
         else
         {
             @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
-            @HtmlHelpers.RenderNumberCell(data.NetTurnover)
-            @HtmlHelpers.RenderNumberCell(data.GrossComm)
+            @HtmlHelpers.RenderNumberCell(data.NetTurnover, "col-net-turnover")
+            @HtmlHelpers.RenderNumberCell(data.GrossComm, "col-gross-com")
 
             @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
             @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
             @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
             @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
         }
-        <td>@HtmlHelpers.FormatNumber(data.Company)</td>
+        <td class="col-company">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
 
