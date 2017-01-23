@@ -6,6 +6,8 @@
     using Newtonsoft.Json;
     using Reports.Models;
     using Requests;
+    using Sunplus.Agent.Model.Entities;
+    using Sunplus.Agent.Utilities;
 
     public class QueryEntityModelBinder : DefaultModelBinder
     {
@@ -44,7 +46,15 @@
                     && !string.IsNullOrWhiteSpace(controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"]))
             {
                 var drillDownInfoText = controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"];
-                reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(drillDownInfoText);
+
+                try
+                {
+                    reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(drillDownInfoText);
+                }
+                catch (JsonReaderException ex)
+                {
+                    Logs.WriteWarn(ex, UserSession.Current.CustId);
+                }
 
                 return reportBaseQuery;
             }
