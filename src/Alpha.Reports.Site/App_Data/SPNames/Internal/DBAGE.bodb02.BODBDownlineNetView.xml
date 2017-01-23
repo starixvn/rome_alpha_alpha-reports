@@ -52,10 +52,17 @@
   <Function Name="Match Win Loss">
     <Setting Key="Age_Rpt_MatchWinLoss_Member" SpName="Age_Rpt_MatchWinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
   </Function>
-
-  <Function Name="Outstanding">
+  
+ <Function Name="Outstanding">
     <Setting Key="Age_Rpt_Outstanding_Master" SpName="Age_Rpt_Outstanding_Master" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
     <Setting Key="Age_Rpt_Outstanding_Agent" SpName="Age_Rpt_Outstanding_Agent" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
     <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
+  </Function>
+
+  <Function Name="Win Loss by Bettype">
+    <Setting Key="Age_Rpt_WinLossByBettype_Ag" SpName="Age_Rpt_WinLossByBettype_Ag" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByBettype_MAg" SpName="Age_Rpt_WinLossByBettype_MAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByBettype_SAg" SpName="Age_Rpt_WinLossByBettype_SAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="WinLossByBettype_Details" SpName="Age_Rpt_WinLossByBettype_Details" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 </Functions>

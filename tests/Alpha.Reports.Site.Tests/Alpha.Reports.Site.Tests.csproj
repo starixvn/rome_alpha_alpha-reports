@@ -207,6 +207,7 @@
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
     <Compile Include="Controllers\ReportLegendControllerTests.cs" />
+    <Compile Include="Controllers\WinLossByBetTypeControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossControllerTests.cs" />
     <Compile Include="Controllers\LeagueControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossDetailControllerTests.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandlerTests.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />
+    <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbookImplTests.cs">
@@ -243,6 +245,7 @@
     <Compile Include="Requests\ReportDefaultDateRangeQueryTests.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\MatchWinLossDetailTestCases.cs" />
+    <Compile Include="TestCases\WinLossByBettypeViewModelTestCases.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />

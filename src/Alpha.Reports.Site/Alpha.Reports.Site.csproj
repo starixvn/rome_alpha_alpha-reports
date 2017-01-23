@@ -269,9 +269,10 @@
     <Compile Include="Controllers\MatchWinLossController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\MatchWinLossDetailController.cs" />
-    <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
     <Compile Include="Controllers\ReportLegendController.cs" />
+    <Compile Include="Controllers\ReportBaseController.cs" />
+    <Compile Include="Controllers\WinLossByBettypeController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -282,6 +283,7 @@
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
+    <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
@@ -312,6 +314,7 @@
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
+    <Compile Include="Requests\WinLossByBettype\WinLossByBettypeQuery.cs" />
     <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
@@ -332,6 +335,8 @@
     <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
+    <Compile Include="ViewModels\WinLossByBettype\WinLossByBettypeFilterViewModel.cs" />
+    <Compile Include="ViewModels\WinLossByBettype\WinLossByBettypeViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailFilterViewModel.cs" />
