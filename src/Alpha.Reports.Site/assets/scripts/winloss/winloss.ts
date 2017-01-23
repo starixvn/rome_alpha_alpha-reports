@@ -31,6 +31,7 @@ class WinLossView {
     $toDate: JQuery;
     $isDescendingSort: JQuery;
     $sortPropertyName: JQuery;
+    $isSetDefaultStackMode: JQuery;
 
     isFirstSwitchMode = true;
     isHistoricReport = false;
@@ -97,6 +98,7 @@ class WinLossView {
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
         this.$isHistoricReport = this.$("#IsHistoricReport");
+        this.$isSetDefaultStackMode = this.$("#IsSetDefaultStackMode");
     };
 
     checkReady = () => {
@@ -107,7 +109,9 @@ class WinLossView {
         this.productMultiSelectionComponent.render();
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
-        if (alphaReports.screenSmallThan768()) {
+        if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
+            && alphaReports.screenSmallThan768()) {
+            this.setCssBySwitchMode(false);
             this.reportTooltip.show(
                 new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0))
             );

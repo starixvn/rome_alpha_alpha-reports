@@ -60,6 +60,8 @@
 
         public WinLossModel GrandTotal { get; }
 
+        public bool IsSetDefaultStackMode => message.IsSetDefaultStackMode;
+
         public bool IsStackMode => message.IsStackMode;
 
         public string SortPropertyName => GetSortedProperty(message.CustLevel, message.SortPropertyName);
