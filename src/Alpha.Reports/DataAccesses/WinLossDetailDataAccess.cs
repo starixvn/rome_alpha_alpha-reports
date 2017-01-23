@@ -60,7 +60,7 @@
                 turnover: reader.ToDecimal("Turnover"),
                 netTurnover: reader.ToDecimal("NetTurnover"),
                 grossComm: reader.ToDecimal("GrossComm"),
-                numberOfTickets: reader.ToInt("NumberOfTickets"),
+                betCount: reader.ToInt("NumberOfTickets"),
                 memberNetWinLoss: new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")),
                 agentNetWinLoss: new NetWinLoss(reader.ToDecimal("AgWinLoss"), reader.ToDecimal("AgComm")),
                 masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ? new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) : null,

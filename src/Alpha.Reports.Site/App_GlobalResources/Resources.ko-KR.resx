@@ -294,4 +294,7 @@
   <data name="From" xml:space="preserve">
     <value>시작일</value>
   </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>베팅카운트</value>
+  </data>
 </root>

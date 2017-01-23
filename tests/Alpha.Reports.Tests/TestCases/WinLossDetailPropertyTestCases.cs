@@ -11,7 +11,7 @@
             new object[] { "Turnover" },
             new object[] { "NetTurnover" },
             new object[] { "GrossComm" },
-            new object[] { "NumberOfTickets" },
+            new object[] { "BetCount" },
             new object[] { "MemberNetWinLoss.WinLoss" },
             new object[] { "MemberNetWinLoss.Comm" },
             new object[] { "MemberNetWinLoss.Total" },

@@ -201,9 +201,6 @@
   <data name="Username" xml:space="preserve">
     <value>ชื่อผู้ใช้ระบบ</value>
   </data>
-  <data name="NoOfTickets" xml:space="preserve">
-    <value>นับเดิมพัน</value>
-  </data>
   <data name="Turnover" xml:space="preserve">
     <value>เงินหมุนเวียน</value>
   </data>
@@ -330,5 +327,8 @@
   </data>
   <data name="From" xml:space="preserve">
     <value>จาก</value>
+  </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>นับเดิมพัน</value>
   </data>
 </root>

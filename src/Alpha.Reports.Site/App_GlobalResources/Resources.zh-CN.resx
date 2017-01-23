@@ -201,9 +201,6 @@
   <data name="Username" xml:space="preserve">
     <value>用户名</value>
   </data>
-  <data name="NoOfTickets" xml:space="preserve">
-    <value>投注统计</value>
-  </data>
   <data name="Turnover" xml:space="preserve">
     <value>投注额</value>
   </data>
@@ -329,5 +326,8 @@
   </data>
   <data name="From" xml:space="preserve">
     <value>从</value>
+  </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>投注统计</value>
   </data>
 </root>

@@ -204,9 +204,6 @@
   <data name="Username" xml:space="preserve">
     <value>Tên đăng nhập</value>
   </data>
-  <data name="NoOfTickets" xml:space="preserve">
-    <value>Số lượng cược</value>
-  </data>
   <data name="Turnover" xml:space="preserve">
     <value>Tiền Cược</value>
   </data>
@@ -317,5 +314,8 @@
   </data>
   <data name="From" xml:space="preserve">
     <value>Từ</value>
+  </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>Số lượng cược</value>
   </data>
 </root>

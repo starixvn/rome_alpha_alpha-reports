@@ -142,6 +142,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet Count.
+        /// </summary>
+        public static string BetCount {
+            get {
+                return ResourceManager.GetString("BetCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can view the report data from {0}. For more historic data, please click to.
         /// </summary>
         public static string CanOnlyViewDataAfterTimeCurrentReport {
@@ -480,15 +489,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string NonEntered {
             get {
                 return ResourceManager.GetString("NonEntered", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No. of Tickets.
-        /// </summary>
-        public static string NoOfTickets {
-            get {
-                return ResourceManager.GetString("NoOfTickets", resourceCulture);
             }
         }
         

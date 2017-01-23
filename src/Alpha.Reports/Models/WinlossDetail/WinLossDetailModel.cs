@@ -12,7 +12,7 @@
             decimal grossComm,
             decimal netTurnover,
             decimal turnover,
-            int numberOfTickets,
+            int betCount,
             NetWinLoss memberNetWinLoss,
             NetWinLoss agentNetWinLoss,
             NetWinLoss masterNetWinLoss,
@@ -23,7 +23,7 @@
             GrossComm = grossComm;
             NetTurnover = netTurnover;
             Turnover = turnover;
-            NumberOfTickets = numberOfTickets;
+            BetCount = betCount;
             MemberNetWinLoss = memberNetWinLoss;
             AgentNetWinLoss = agentNetWinLoss;
             MasterNetWinLoss = masterNetWinLoss;
@@ -40,7 +40,7 @@
 
         public decimal GrossComm { get; }
 
-        public int NumberOfTickets { get; }
+        public int BetCount { get; }
 
         public NetWinLoss MemberNetWinLoss { get; }
 

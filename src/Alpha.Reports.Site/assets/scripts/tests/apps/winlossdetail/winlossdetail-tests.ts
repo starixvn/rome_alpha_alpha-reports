@@ -840,8 +840,8 @@
         it("_Stack Mode, Sort on Username => Returns Name Username", () => {
             sortReportOnStackModeTest("Username", "Username");
         });
-        it("_Stack Mode, Sort on NoOfTickets => Returns Name NoOfTickets", () => {
-            sortReportOnStackModeTest("NoOfTickets", "NoOfTickets");
+        it("_Stack Mode, Sort on BetCount => Returns Name BetCount", () => {
+            sortReportOnStackModeTest("BetCount", "BetCount");
         });
         it("_Stack Mode, Sort on Turnover => Returns Name Turnover", () => {
             sortReportOnStackModeTest("Turnover", "Turnover");

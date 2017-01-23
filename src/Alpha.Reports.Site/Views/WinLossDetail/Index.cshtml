@@ -21,7 +21,7 @@
     <thead>
         <tr>
             <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="0">@Resources.Username</th>
-            <th class="sorting" rowspan="2" data-sortedname="NumberOfTickets" data-colindex="1">@Resources.NoOfTickets</th>
+            <th class="sorting" rowspan="2" data-sortedname="BetCount" data-colindex="1">@Resources.BetCount</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode col-netturnover-header sorting" data-sortedname="NetTurnover" data-colindex="3">@Resources.NetTurnover</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="4">@Resources.GrossComm</th>
@@ -161,7 +161,7 @@
             }
         </td>
 
-        <td class="col-number-of-tickets">@HtmlHelpers.FormatNumber(data.NumberOfTickets)</td>
+        <td class="col-number-of-tickets">@HtmlHelpers.FormatNumber(data.BetCount)</td>
         @if (Model.IsStackMode)
         {
             @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);

@@ -260,7 +260,7 @@
         [InlineData(4, "Turnover")]
         [InlineData(4, "NetTurnover")]
         [InlineData(4, "GrossComm")]
-        [InlineData(4, "NumberOfTickets")]
+        [InlineData(4, "BetCount")]
         [InlineData(4, "Company")]
         [InlineData(3, "MasterNetWinLoss.WinLoss")]
         [InlineData(3, "MasterNetWinLoss.Comm")]
@@ -273,7 +273,7 @@
         [InlineData(3, "Turnover")]
         [InlineData(3, "NetTurnover")]
         [InlineData(3, "GrossComm")]
-        [InlineData(3, "NumberOfTickets")]
+        [InlineData(3, "BetCount")]
         [InlineData(3, "Company")]
         [InlineData(2, "AgentNetWinLoss.WinLoss")]
         [InlineData(2, "AgentNetWinLoss.Comm")]
@@ -283,7 +283,7 @@
         [InlineData(2, "Turnover")]
         [InlineData(2, "NetTurnover")]
         [InlineData(2, "GrossComm")]
-        [InlineData(2, "NumberOfTickets")]
+        [InlineData(2, "BetCount")]
         [InlineData(2, "Company")]
         public void SortByPropertyName_SupportedSortByPropertyNameInRange_ReturnsSupportedSortByPropertyName(
             byte custLevelId,

@@ -75,7 +75,7 @@
         {
             var mapper = new Mapper<WinLossDetailModel>()
                 .Map(A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)
-                .Map(B, winLossDetail => winLossDetail.NumberOfTickets)
+                .Map(B, winLossDetail => winLossDetail.BetCount)
                 .Map(C, winLossDetail => winLossDetail.Turnover)
                 .Map(D, winLossDetail => winLossDetail.NetTurnover)
                 .Map(E, winLossDetail => winLossDetail.GrossComm)
