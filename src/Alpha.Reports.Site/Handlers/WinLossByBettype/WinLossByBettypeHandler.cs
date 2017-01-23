@@ -1,15 +1,17 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossByBettype
 {
     using System;
-    using System.Linq;
     using MediatR;
-    using Reports.Models.WinlossByBettype;
     using Requests.WinLossByBettype;
+    using Services;
     using ViewModels.WinLossByBettype;
+    using WinLoss;
 
-    public class WinLossByBettypeHandler : IRequestHandler<WinLossByBettypeQuery, WinLossByBettypeViewModel>
+    public class WinLossByBettypeHandler :
+         WinLossByBettypeBaseHandler
+        , IRequestHandler<WinLossByBettypeQuery, WinLossByBettypeViewModel>
     {
-        public WinLossByBettypeHandler()
+        public WinLossByBettypeHandler(WinLossByBettypeService reportService) : base(reportService)
         {
         }
 
@@ -20,8 +22,9 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var reportData = Enumerable.Empty<WinlossByBettypeModel>();
-            var grandTotal = new WinlossByBettypeModel();
+            var winLossByBettypeParam = CreateWinLossParamater(message);
+            var reportData = reportService.GetWinLossByBettype(winLossByBettypeParam);
+            var grandTotal = AccumulateGrandTotal(reportData);
 
             return new WinLossByBettypeViewModel(reportData, grandTotal, message);
         }

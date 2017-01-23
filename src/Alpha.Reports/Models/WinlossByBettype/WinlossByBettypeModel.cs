@@ -55,22 +55,23 @@
             + (MasterNetWinLoss?.Total ?? 0)
             + (SuperNetWinLoss?.Total ?? 0));
 
-        public static WinLossModel Add(WinLossModel winlossA, WinLossModel winlossB)
+        public static WinlossByBettypeModel Add(WinlossByBettypeModel winlossByBettypeA, WinlossByBettypeModel winlossByBettypeB)
         {
-            if (winlossA == null || winlossB == null)
+            if (winlossByBettypeA == null || winlossByBettypeB == null)
             {
-                return winlossA ?? winlossB;
+                return winlossByBettypeA ?? winlossByBettypeB;
             }
 
-            return new WinLossModel(
+            return new WinlossByBettypeModel(
                 custId: 0,
                 custName: "Total",
-                grossComm: winlossA.GrossComm + winlossB.GrossComm,
-                turnover: winlossA.Turnover + winlossB.Turnover,
-                memberNetWinLoss: NetWinLoss.Add(winlossA.MemberNetWinLoss, winlossB.MemberNetWinLoss),
-                agentNetWinLoss: NetWinLoss.Add(winlossA.AgentNetWinLoss, winlossB.AgentNetWinLoss),
-                masterNetWinLoss: NetWinLoss.Add(winlossA.MasterNetWinLoss, winlossB.MasterNetWinLoss),
-                superNetWinLoss: NetWinLoss.Add(winlossA.SuperNetWinLoss, winlossB.SuperNetWinLoss));
+                numberOfTickets: winlossByBettypeA.NumberOfTickets + winlossByBettypeB.NumberOfTickets,
+                grossComm: winlossByBettypeA.GrossComm + winlossByBettypeB.GrossComm,
+                turnover: winlossByBettypeA.Turnover + winlossByBettypeB.Turnover,
+                memberNetWinLoss: NetWinLoss.Add(winlossByBettypeA.MemberNetWinLoss, winlossByBettypeB.MemberNetWinLoss),
+                agentNetWinLoss: NetWinLoss.Add(winlossByBettypeA.AgentNetWinLoss, winlossByBettypeB.AgentNetWinLoss),
+                masterNetWinLoss: NetWinLoss.Add(winlossByBettypeA.MasterNetWinLoss, winlossByBettypeB.MasterNetWinLoss),
+                superNetWinLoss: NetWinLoss.Add(winlossByBettypeA.SuperNetWinLoss, winlossByBettypeB.SuperNetWinLoss));
         }
     }
 }

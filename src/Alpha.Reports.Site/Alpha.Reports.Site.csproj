@@ -283,6 +283,7 @@
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
+    <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeBaseHandler.cs" />
     <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
@@ -611,6 +612,8 @@
     <Content Include="Views\Shared\InvalidReport.cshtml" />
     <Content Include="Views\ReportLegend\Index.cshtml" />
     <Content Include="Views\WinLossDetail\ReportLegend.cshtml" />
+    <Content Include="Views\WinLossByBettype\Filter.cshtml" />
+    <Content Include="Views\WinLossByBettype\Index.cshtml" />
     <Content Include="Views\MatchWinLoss\Index.cshtml" />
     <Content Include="Views\League\LeaguesByCustomer.cshtml" />
     <Content Include="Views\MatchWinLossDetail\Index.cshtml" />

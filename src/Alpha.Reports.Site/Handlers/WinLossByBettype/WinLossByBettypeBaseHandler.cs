@@ -1,0 +1,50 @@
+﻿namespace Alpha.Reports.Site.Handlers.WinLoss
+{
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using Params;
+    using Reports.Models.WinlossByBettype;
+    using Requests.WinLossByBettype;
+    using Services;
+
+    [SuppressMessage(
+        "StyleCop.CSharp.NamingRules",
+        "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
+        Justification = "Reviewed. Suppression is OK here.")]
+    public class WinLossByBettypeBaseHandler : BaseHandler
+    {
+        protected readonly WinLossByBettypeService reportService;
+
+        public WinLossByBettypeBaseHandler(WinLossByBettypeService reportService)
+        {
+            this.reportService = reportService;
+        }
+
+        protected WinLossByBettypeParam CreateWinLossParamater(WinLossByBettypeQuery message)
+        {
+            return new WinLossByBettypeParam(
+                 message.CustId,
+                 message.FromDate,
+                 message.ToDate,
+                 message.CustLevel);
+        }
+
+        internal WinlossByBettypeModel AccumulateGrandTotal(IEnumerable<WinlossByBettypeModel> reportData)
+        {
+            var grandTotal = new WinlossByBettypeModel();
+           
+            if (reportData != null && reportData.Any())
+            {
+                var reportDataCopy = reportData.ToList();
+                int index, count;
+                for (index = 1, count = reportDataCopy.Count, grandTotal = reportDataCopy[0]; index < count; index++)
+                {
+                    grandTotal = WinlossByBettypeModel.Add(grandTotal, reportDataCopy[index]);
+                }
+            }
+
+            return grandTotal;
+        }
+    }
+}
