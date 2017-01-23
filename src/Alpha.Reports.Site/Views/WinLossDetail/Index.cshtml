@@ -154,7 +154,8 @@
             else
             {
                 <a href="@Model.BuildDrillDownLink(data, Request.Url.Query)"
-                   class="@(Model.CustLevel.IsAgentLevel() ? string.Empty : "downline-link")">
+                   class="@(Model.CustLevel.IsAgentLevel() ? string.Empty : "downline-link")"
+                   data-custname="@data.CustName">
                     @data.CustName
                 </a>
             }
