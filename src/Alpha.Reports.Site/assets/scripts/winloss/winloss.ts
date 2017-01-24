@@ -179,10 +179,10 @@ class WinLossView {
 
     setStackMode = (isSwitchToNormalMode: boolean) => {
         this.setCssBySwitchMode(isSwitchToNormalMode);
-        if (this.isFirstSwitchMode) {
-            this.renderAtFirstSwitchMode(isSwitchToNormalMode);
-            this.isFirstSwitchMode = false;
-        }  
+        this.renderAtFirstSwitchMode(isSwitchToNormalMode);
+            if (this.isFirstSwitchMode) {
+                this.isFirstSwitchMode = false;
+        }
     };
 
     renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {
