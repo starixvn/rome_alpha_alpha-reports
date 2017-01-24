@@ -127,7 +127,7 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@AppPathHelper.GetAppPath(ConfigurationManager.AppSettings["ReportsAppPath"] , "~/WinLossDetail/Excel")">
+      action="@Url.Action("Excel", "WinLossDetail")">
     <input type="hidden" name="CustId" value="@Model.CustId" />
     <input type="hidden" name="CustName" value="@Model.CustName" />
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
