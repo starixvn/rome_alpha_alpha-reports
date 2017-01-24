@@ -116,7 +116,7 @@
     @StaticResources.RenderScripts("~/assets/bundles/winlossbybettype/winlossbybettype")
 }
 
-@helper RenderRow(WinlossByBettypeModel data, bool isTotalRow, string betListPath)
+@helper RenderRow(WinLossByBetTypeModel data, bool isTotalRow, string betListPath)
 {
     <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
         <td data-islink="true" class="text-left col-username">
@@ -128,16 +128,16 @@
             {
                 <a href=""
                    class="@(Model.CustLevel.IsAgentLevel() ? string.Empty : "downline-link")"
-                   data-custname="@data.CustName">
-                    @data.CustName
+                   data-custname="@data.BetTypeName">
+                    @data.BetTypeName
                 </a>
             }
         </td>
 
+        <td>@data.BetCount</td>
+
         @if (Model.IsStackMode)
         {
-            @HtmlHelpers.RenderNumberCell(data.NumberOfTickets, "")
-
             if (Model.CustLevel.IsAgentLevel())
             {
                 @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.GrossComm);
@@ -156,7 +156,6 @@
         }
         else
         {
-            @HtmlHelpers.RenderNumberCell(data.NumberOfTickets, "")
             @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
             @HtmlHelpers.RenderNumberCell(data.GrossComm, "col-gross-com")
 

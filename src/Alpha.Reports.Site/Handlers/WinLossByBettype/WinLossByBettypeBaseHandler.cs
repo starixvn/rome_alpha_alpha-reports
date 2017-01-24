@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Handlers.WinLossByBettype
+﻿namespace Alpha.Reports.Site.Handlers.WinLossByBetType
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -12,27 +12,27 @@
         "StyleCop.CSharp.NamingRules",
         "SA1304:NonPrivateReadonlyFieldsMustBeginWithUpperCaseLetter",
         Justification = "Reviewed. Suppression is OK here.")]
-    public class WinLossByBettypeBaseHandler : BaseHandler
+    public class WinLossByBetTypeBaseHandler : BaseHandler
     {
-        protected readonly WinLossByBettypeService reportService;
+        protected readonly WinLossByBetTypeService reportService;
 
-        public WinLossByBettypeBaseHandler(WinLossByBettypeService reportService)
+        public WinLossByBetTypeBaseHandler(WinLossByBetTypeService reportService)
         {
             this.reportService = reportService;
         }
 
-        protected WinLossByBettypeParam CreateWinLossByBettypeParamater(WinLossByBettypeQuery message)
+        protected WinLossByBetTypeParam CreateWinLossByBettypeParamater(WinLossByBettypeQuery message)
         {
-            return new WinLossByBettypeParam(
+            return new WinLossByBetTypeParam(
                  message.CustId,
                  message.FromDate,
                  message.ToDate,
                  message.CustLevel);
         }
 
-        internal WinlossByBettypeModel AccumulateGrandTotal(IEnumerable<WinlossByBettypeModel> reportData)
+        internal WinLossByBetTypeModel AccumulateGrandTotal(IEnumerable<WinLossByBetTypeModel> reportData)
         {
-            var grandTotal = new WinlossByBettypeModel();
+            var grandTotal = new WinLossByBetTypeModel();
            
             if (reportData != null && reportData.Any())
             {
@@ -40,7 +40,7 @@
                 int index, count;
                 for (index = 1, count = reportDataCopy.Count, grandTotal = reportDataCopy[0]; index < count; index++)
                 {
-                    grandTotal = WinlossByBettypeModel.Add(grandTotal, reportDataCopy[index]);
+                    grandTotal = WinLossByBetTypeModel.Add(grandTotal, reportDataCopy[index]);
                 }
             }
 

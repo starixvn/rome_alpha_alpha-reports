@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Handlers.WinLossByBettype
+﻿namespace Alpha.Reports.Site.Handlers.WinLossByBetType
 {
     using System;
     using App_GlobalResources;
@@ -7,19 +7,19 @@
     using ONEbook.SpreadSheets;
     using Params;
     using Reports.Models.WinlossByBettype;
-    using Requests.WinLoss;
+    using Requests.WinLossByBettype;
     using Services;
     using ViewModels;
 
-    public class WinLossByBettypeExcelHandler :
-        WinLossByBettypeBaseHandler,
+    public class WinLossByBetTypeExcelHandler :
+        WinLossByBetTypeBaseHandler,
         IRequestHandler<WinLossByBettypeExcelQuery, ExcelFileViewModel>
     {
-        private readonly Workbook<WinlossByBettypeModel> workbook;
+        private readonly Workbook<WinLossByBetTypeModel> workbook;
 
-        public WinLossByBettypeExcelHandler(
-            WinLossByBettypeService reportService,
-            Workbook<WinlossByBettypeModel> workbook) : base(reportService)
+        public WinLossByBetTypeExcelHandler(
+            WinLossByBetTypeService reportService,
+            Workbook<WinLossByBetTypeModel> workbook) : base(reportService)
         {
             this.workbook = workbook;
         }
@@ -31,8 +31,8 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var winLossParam = CreateWinLossByBettypeParamater(message);
-            var reportData = reportService.GetWinLossByBettype(winLossParam);
+            var winLossByBetTypeParam = CreateWinLossByBettypeParamater(message);
+            var reportData = reportService.GetWinLossByBetType(winLossByBetTypeParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
             var result = workbook
@@ -44,49 +44,50 @@
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
-            return new ExcelFileViewModel(GetExcelFileName(message, winLossParam), result);
+            return new ExcelFileViewModel(GetExcelFileName(message, winLossByBetTypeParam), result);
         }
 
-        private Mapper<WinlossByBettypeModel> GetBodyRowMapper(WinLossByBettypeExcelQuery message)
+        private Mapper<WinLossByBetTypeModel> GetBodyRowMapper(WinLossByBettypeExcelQuery message)
           => GetRowMapper(message, isTotal: false);
 
-        private Mapper<WinlossByBettypeModel> GetTotalRowMapper(WinLossByBettypeExcelQuery message)
+        private Mapper<WinLossByBetTypeModel> GetTotalRowMapper(WinLossByBettypeExcelQuery message)
             => GetRowMapper(message, isTotal: true);
 
-        private Mapper<WinlossByBettypeModel> GetRowMapper(WinLossByBettypeExcelQuery message, bool isTotal)
+        private Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByBettypeExcelQuery message, bool isTotal)
         {
-            var mapper = new Mapper<WinlossByBettypeModel>()
-                .Map(Column.A, winLoss => isTotal ? Resources.Total : winLoss.CustName)
-                .Map(Column.B, winLoss => winLoss.Turnover)
-                .Map(Column.C, winLoss => winLoss.GrossComm);
+            var mapper = new Mapper<WinLossByBetTypeModel>()
+                .Map(Column.A, data => isTotal ? Resources.Total : data.BetTypeName)
+                .Map(Column.B, data => data.BetCount)
+                .Map(Column.C, data => data.Turnover)
+                .Map(Column.D, data => data.GrossComm);
 
             if (message.CustLevel.IsAgentLevel())
             {
-                mapper.Map(Column.D, winLoss => winLoss.MemberNetWinLoss.WinLoss)
-                 .Map(Column.E, winLoss => winLoss.MemberNetWinLoss.Comm)
-                 .Map(Column.F, winLoss => winLoss.MemberNetWinLoss.Total)
-                 .Map(Column.G, winLoss => winLoss.AgentNetWinLoss.WinLoss)
-                 .Map(Column.H, winLoss => winLoss.AgentNetWinLoss.Comm)
-                 .Map(Column.I, winLoss => winLoss.AgentNetWinLoss.Total)
-                 .Map(Column.J, winLoss => winLoss.Company);
+                mapper.Map(Column.E, data => data.MemberNetWinLoss.WinLoss)
+                 .Map(Column.F, data => data.MemberNetWinLoss.Comm)
+                 .Map(Column.G, data => data.MemberNetWinLoss.Total)
+                 .Map(Column.H, data => data.AgentNetWinLoss.WinLoss)
+                 .Map(Column.I, data => data.AgentNetWinLoss.Comm)
+                 .Map(Column.J, data => data.AgentNetWinLoss.Total)
+                 .Map(Column.K, data => data.Company);
             }
 
             if (message.CustLevel.IsMasterLevel())
             {
-                mapper.Map(Column.D, winLoss => winLoss.AgentNetWinLoss.Total)
-                   .Map(Column.E, winLoss => winLoss.MasterNetWinLoss.WinLoss)
-                   .Map(Column.F, winLoss => winLoss.MasterNetWinLoss.Comm)
-                   .Map(Column.G, winLoss => winLoss.MasterNetWinLoss.Total)
-                   .Map(Column.H, winLoss => winLoss.Company);
+                mapper.Map(Column.E, data => data.AgentNetWinLoss.Total)
+                   .Map(Column.F, data => data.MasterNetWinLoss.WinLoss)
+                   .Map(Column.G, data => data.MasterNetWinLoss.Comm)
+                   .Map(Column.H, data => data.MasterNetWinLoss.Total)
+                   .Map(Column.I, data => data.Company);
             }
 
             if (message.CustLevel.IsSuperLevel())
             {
-                mapper.Map(Column.D, winLoss => winLoss.MasterNetWinLoss.Total)
-                    .Map(Column.E, winLoss => winLoss.SuperNetWinLoss.WinLoss)
-                    .Map(Column.F, winLoss => winLoss.SuperNetWinLoss.Comm)
-                    .Map(Column.G, winLoss => winLoss.SuperNetWinLoss.Total)
-                    .Map(Column.H, winLoss => winLoss.Company);
+                mapper.Map(Column.E, data => data.MasterNetWinLoss.Total)
+                    .Map(Column.F, data => data.SuperNetWinLoss.WinLoss)
+                    .Map(Column.G, data => data.SuperNetWinLoss.Comm)
+                    .Map(Column.H, data => data.SuperNetWinLoss.Total)
+                    .Map(Column.I, data => data.Company);
             }
 
             return mapper;
@@ -100,12 +101,12 @@
         private string GetReporTitle(WinLossByBettypeExcelQuery message)
             => $"{Resources.WinLossTitle} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 
-        private string GetExcelFileName(WinLossByBettypeExcelQuery message, WinLossByBettypeParam winLossParam)
+        private string GetExcelFileName(WinLossByBettypeExcelQuery message, WinLossByBetTypeParam winLossByBetTypeParam)
            => string.Join(
                "-",
                Resources.WinLossTitle,
                message.CustName,
-               winLossParam.FromDate.ToShortDateWithSlash(),
-               winLossParam.ToDate.ToShortDateWithSlash());
+               winLossByBetTypeParam.FromDate.ToShortDateWithSlash(),
+               winLossByBetTypeParam.ToDate.ToShortDateWithSlash());
     }
 }

@@ -1,18 +1,15 @@
 ﻿namespace Alpha.Reports.Models.WinlossByBettype
 {
-    using Winloss;
-    using WinLossDetail;
-
-    public class WinlossByBettypeModel
+    public class WinLossByBetTypeModel
     {
-        public WinlossByBettypeModel()
+        public WinLossByBetTypeModel()
         {
         }
 
-        public WinlossByBettypeModel(
-            int custId,
-            string custName,
-            int numberOfTickets,
+        public WinLossByBetTypeModel(
+            int betTypeId,
+            string betTypeName,
+            int betCount,
             decimal grossComm,
             decimal turnover,
             NetWinLoss memberNetWinLoss,
@@ -20,22 +17,22 @@
             NetWinLoss masterNetWinLoss,
             NetWinLoss superNetWinLoss)
         {
-            CustId = custId;
-            CustName = custName;
+            BetTypeId = betTypeId;
+            BetTypeName = betTypeName;
             GrossComm = grossComm;
             Turnover = turnover;
-            NumberOfTickets = numberOfTickets;
+            BetCount = betCount;
             MemberNetWinLoss = memberNetWinLoss;
             AgentNetWinLoss = agentNetWinLoss;
             MasterNetWinLoss = masterNetWinLoss;
             SuperNetWinLoss = superNetWinLoss;
         }
 
-        public int CustId { get; }
+        public int BetTypeId { get; }
 
-        public string CustName { get; }
+        public string BetTypeName { get; }
 
-        public int NumberOfTickets { get; }
+        public int BetCount { get; }
 
         public decimal Turnover { get; }
 
@@ -55,17 +52,17 @@
             + (MasterNetWinLoss?.Total ?? 0)
             + (SuperNetWinLoss?.Total ?? 0));
 
-        public static WinlossByBettypeModel Add(WinlossByBettypeModel winlossByBettypeA, WinlossByBettypeModel winlossByBettypeB)
+        public static WinLossByBetTypeModel Add(WinLossByBetTypeModel winlossByBettypeA, WinLossByBetTypeModel winlossByBettypeB)
         {
             if (winlossByBettypeA == null || winlossByBettypeB == null)
             {
                 return winlossByBettypeA ?? winlossByBettypeB;
             }
 
-            return new WinlossByBettypeModel(
-                custId: 0,
-                custName: "Total",
-                numberOfTickets: winlossByBettypeA.NumberOfTickets + winlossByBettypeB.NumberOfTickets,
+            return new WinLossByBetTypeModel(
+                betTypeId: 0,
+                betTypeName: string.Empty,
+                betCount: winlossByBettypeA.BetCount + winlossByBettypeB.BetCount,
                 grossComm: winlossByBettypeA.GrossComm + winlossByBettypeB.GrossComm,
                 turnover: winlossByBettypeA.Turnover + winlossByBettypeB.Turnover,
                 memberNetWinLoss: NetWinLoss.Add(winlossByBettypeA.MemberNetWinLoss, winlossByBettypeB.MemberNetWinLoss),

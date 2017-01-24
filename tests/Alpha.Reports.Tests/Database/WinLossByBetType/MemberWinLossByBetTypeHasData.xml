@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WinLossByBetType>
+  <TableWinLoss>
+    <Bettype>71</Bettype>
+    <Liveindicator>0</Liveindicator>
+    <GrossComm>0</GrossComm>
+    <Turnover>1</Turnover>
+    <MemberWinLoss>2</MemberWinLoss>
+    <MemberComm>3</MemberComm>
+    <AgWinLoss>4</AgWinLoss>
+    <AgComm>5</AgComm>
+    <NumberOfTickets>4</NumberOfTickets>
+  </TableWinLoss>
+  <TableWinLoss>
+    <Bettype>1101</Bettype>
+    <Liveindicator>0</Liveindicator>
+    <GrossComm>6</GrossComm>
+    <Turnover>7</Turnover>
+    <MemberWinLoss>8</MemberWinLoss>
+    <MemberComm>9</MemberComm>
+    <AgWinLoss>10</AgWinLoss>
+    <AgComm>11</AgComm>
+    <NumberOfTickets>4</NumberOfTickets>
+  </TableWinLoss>
+</WinLossByBetType>

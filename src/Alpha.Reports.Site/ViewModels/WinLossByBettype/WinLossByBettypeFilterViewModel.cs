@@ -22,7 +22,7 @@
 
             DateRangePickerViewModel = dateRangePickerViewModel;
             ViewDataInstructionMessage = string.Format(
-                Resources.CanOnlyViewDataAfterTimeCurrentReport,
+                Resources.CanOnlyViewDataAfterTimeHistoryReport,
                 minDate.ToShortDateWithSlash());
            Visible = visible;         
         }
@@ -38,7 +38,5 @@
         public bool Visible { get; }
 
         public string ViewDataInstructionMessage { get; }
-
-        public string ViewActionMessage => Resources.BackToCurrentReport;
     }
 }

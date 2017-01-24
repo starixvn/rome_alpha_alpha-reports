@@ -2,11 +2,11 @@
 {
     using System;
     using Models;
-    using Services;
+    using Utils;
 
-    public class WinLossByBettypeParam
+    public class WinLossByBetTypeParam
     {
-        public WinLossByBettypeParam(
+        public WinLossByBetTypeParam(
             int custId,
             DateTime fromDate,
             DateTime toDate,
@@ -16,14 +16,14 @@
             CustLevel = custLevel;
             if (fromDate == DateTime.MinValue)
             {
-                FromDate = DateTimeManager.Now;
+                FromDate = SystemTime.Today;
             }
             else
             {
                 FromDate = fromDate;
             }
 
-            ToDate = toDate == DateTime.MinValue ? DateTimeManager.Now : toDate;
+            ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
         }
 
         public int CustId { get; }

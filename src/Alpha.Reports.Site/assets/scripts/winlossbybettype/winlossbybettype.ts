@@ -1,6 +1,5 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../components/daterangepicker.ts" />
-/// <reference path="../components/monthpicker.ts" />
 /// <reference path="../components/tooltip.ts" />
 /// <reference path="../components/sort.ts" />
 

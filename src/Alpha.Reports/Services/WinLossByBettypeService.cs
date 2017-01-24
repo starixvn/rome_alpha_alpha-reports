@@ -2,53 +2,38 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using Criteria.WinLoss;
+    using Criteria.WinLossByBetTypeCriteria;
     using DataAccesses;
-    using Models;
     using Models.WinlossByBettype;
     using Params;
     using RemotingRef;
 
-    public interface WinLossByBettypeService
+    public interface WinLossByBetTypeService
     {
-        IEnumerable<WinlossByBettypeModel> GetWinLossByBettype(WinLossByBettypeParam param);
-
-        DateTime GetMinDate();
+        IEnumerable<WinLossByBetTypeModel> GetWinLossByBetType(WinLossByBetTypeParam param);
     }
 
-    public class WinLossByBettypeServiceImpl : WinLossByBettypeService
+    public class WinLossByBettypeServiceImpl : WinLossByBetTypeService
     {
         private readonly ReportDateService reportDateService;
-        private readonly WinLossByBettypeDataAccess dataAccess;
-        private readonly CacheRefService cacheRefService;
+        private readonly WinLossByBetTypeDataAccess dataAccess;
 
         public WinLossByBettypeServiceImpl(
             ReportDateService reportDateService,
-            WinLossByBettypeDataAccess dataAccess,
-            CacheRefService cacheRefService)
+            WinLossByBetTypeDataAccess dataAccess)
         {
             this.reportDateService = reportDateService;
             this.dataAccess = dataAccess;
-            this.cacheRefService = cacheRefService;
         }
 
-        internal static DateRangeType DateRangeType { get; set; }
-
-        public IEnumerable<WinlossByBettypeModel> GetWinLossByBettype(WinLossByBettypeParam param)
+        public IEnumerable<WinLossByBetTypeModel> GetWinLossByBetType(WinLossByBetTypeParam param)
         {
             if (param == null)
             {
                 throw new ArgumentNullException(nameof(param));
             }
 
-            if (!reportDateService.ValidateDateRange(
-                new DateRange(DateRangeType, param.FromDate, param.ToDate, false)))
-            {
-                return Enumerable.Empty<WinlossByBettypeModel>();
-            }
-
-            var criteria = new WinLossByBettypeCriteria(
+            var criteria = new WinLossByBetTypeCriteria(
                 param.CustId,
                 param.FromDate,
                 param.ToDate,
@@ -59,7 +44,5 @@
 
             return winlossData;
         }
-
-        public DateTime GetMinDate() => reportDateService.GetBalanceUpDay();
     }
 }

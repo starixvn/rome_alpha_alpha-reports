@@ -8,7 +8,7 @@
     using Site.Requests.WinLossByBettype;
     using Xunit;
 
-    [Trait("Category", "WinLossByBettype")]
+    [Trait("Category", "WinLossByBetType")]
     [Collection("UserCollection")]
     public class WinLossByBetTypeControllerTests
     {

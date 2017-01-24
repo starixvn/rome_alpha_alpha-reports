@@ -1,9 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Tests.TestCases
 {
     using System.Collections.Generic;
-    using Reports.Models.Winloss;
+    using Reports.Models;
     using Reports.Models.WinlossByBettype;
-    using Reports.Models.WinLossDetail;
 
     public static class WinLossByBettypeViewModelTestCases
     {
@@ -14,11 +13,11 @@
             new object[] { BuildAgentDataTest(), ExpectedAgentGrantTotal }
         };
 
-        private static WinlossByBettypeModel ExpectedSuperGrantTotal =>
-            new WinlossByBettypeModel(
-                custId: 0,
-                custName: "Total",
-                numberOfTickets: 6,
+        private static WinLossByBetTypeModel ExpectedSuperGrantTotal =>
+            new WinLossByBetTypeModel(
+                betTypeId: 0,
+                betTypeName: "Total",
+                betCount: 6,
                 turnover: (decimal)375732807.36,
                 grossComm: (decimal)2998559.76,
                 memberNetWinLoss: null,
@@ -26,11 +25,11 @@
                 masterNetWinLoss: new NetWinLoss((decimal)-111173383.51),
                 superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54));
 
-        private static WinlossByBettypeModel ExpectedMasterGrantTotal =>
-            new WinlossByBettypeModel(
-                custId: 0,
-                custName: "Total",
-                numberOfTickets: 6,
+        private static WinLossByBetTypeModel ExpectedMasterGrantTotal =>
+            new WinLossByBetTypeModel(
+                betTypeId: 0,
+                betTypeName: "Total",
+                betCount: 6,
                 turnover: (decimal)375732807.36,
                 grossComm: (decimal)2998559.76,
                 memberNetWinLoss: null,
@@ -38,11 +37,11 @@
                 masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.54),
                 superNetWinLoss: null);
 
-        private static WinlossByBettypeModel ExpectedAgentGrantTotal =>
-            new WinlossByBettypeModel(
-                custId: 0,
-                custName: "Total",
-                numberOfTickets: 6,
+        private static WinLossByBetTypeModel ExpectedAgentGrantTotal =>
+            new WinLossByBetTypeModel(
+                betTypeId: 0,
+                betTypeName: "Total",
+                betCount: 6,
                 turnover: (decimal)6225.00,
                 grossComm: (decimal)34.83,
                 memberNetWinLoss: new NetWinLoss((decimal)-2576.25, (decimal)21.00),
@@ -50,14 +49,14 @@
                 masterNetWinLoss: null,
                 superNetWinLoss: null);
 
-        private static List<WinlossByBettypeModel> BuildSuperDataTest()
+        private static List<WinLossByBetTypeModel> BuildSuperDataTest()
         {
-            var superWinLossData = new List<WinlossByBettypeModel>();
+            var superWinLossData = new List<WinLossByBetTypeModel>();
 
-            superWinLossData.Add(new WinlossByBettypeModel(
-                 custId: 1382145,
-                 custName: "ACGUUS38",
-                 numberOfTickets: 4,
+            superWinLossData.Add(new WinLossByBetTypeModel(
+                 betTypeId: 1,
+                 betTypeName: "Baccarat",
+                 betCount: 4,
                  turnover: (decimal)375732407.36,
                  grossComm: (decimal)2998557.31,
                  memberNetWinLoss: null,
@@ -65,10 +64,10 @@
                  masterNetWinLoss: new NetWinLoss((decimal)-111173393.16),
                  superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69)));
 
-            superWinLossData.Add(new WinlossByBettypeModel(
-                 custId: 18187823,
-                 custName: "ACGUUSOP",
-                 numberOfTickets: 2,
+            superWinLossData.Add(new WinLossByBetTypeModel(
+                 betTypeId: 2,
+                 betTypeName: "Blackjack",
+                 betCount: 2,
                  turnover: (decimal)400.00,
                  grossComm: (decimal)2.45,
                  memberNetWinLoss: null,
@@ -79,14 +78,14 @@
             return superWinLossData;
         }
 
-        private static List<WinlossByBettypeModel> BuildMasterDataTest()
+        private static List<WinLossByBetTypeModel> BuildMasterDataTest()
         {
-            var masterWinLossData = new List<WinlossByBettypeModel>();
+            var masterWinLossData = new List<WinLossByBetTypeModel>();
 
-            masterWinLossData.Add(new WinlossByBettypeModel(
-                 custId: 1382145,
-                 custName: "ACGUUS3801",
-                 numberOfTickets: 4,
+            masterWinLossData.Add(new WinLossByBetTypeModel(
+                 betTypeId: 1,
+                 betTypeName: "Baccarat",
+                 betCount: 4,
                  turnover: (decimal)375732407.36,
                  grossComm: (decimal)2998557.31,
                  memberNetWinLoss: null,
@@ -94,10 +93,10 @@
                  masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69),
                  superNetWinLoss: null));
 
-            masterWinLossData.Add(new WinlossByBettypeModel(
-                 custId: 18187823,
-                 custName: "ACGUUS3802",
-                 numberOfTickets: 2,
+            masterWinLossData.Add(new WinLossByBetTypeModel(
+                 betTypeId: 2,
+                 betTypeName: "Blackjack",
+                 betCount: 2,
                  turnover: (decimal)400.00,
                  grossComm: (decimal)2.45,
                  memberNetWinLoss: null,
@@ -108,14 +107,14 @@
             return masterWinLossData;
         }
 
-        private static List<WinlossByBettypeModel> BuildAgentDataTest()
+        private static List<WinLossByBetTypeModel> BuildAgentDataTest()
         {
-            var agentWinLossData = new List<WinlossByBettypeModel>();
+            var agentWinLossData = new List<WinLossByBetTypeModel>();
 
-            agentWinLossData.Add(new WinlossByBettypeModel(
-                 custId: 1382145,
-                 custName: "ACGUUS3838000",
-                 numberOfTickets: 4,
+            agentWinLossData.Add(new WinLossByBetTypeModel(
+                  betTypeId: 1,
+                 betTypeName: "Baccarat",
+                 betCount: 4,
                  turnover: (decimal)4000.00,
                  grossComm: (decimal)21.00,
                  memberNetWinLoss: new NetWinLoss((decimal)-2025.00, (decimal)21.00),
@@ -123,10 +122,10 @@
                  masterNetWinLoss: null,
                  superNetWinLoss: null));
 
-            agentWinLossData.Add(new WinlossByBettypeModel(
-                 custId: 18187823,
-                 custName: "ACGUUS3838006",
-                 numberOfTickets: 2,
+            agentWinLossData.Add(new WinLossByBetTypeModel(
+                 betTypeId: 2,
+                 betTypeName: "Blackjack",
+                 betCount: 2,
                  turnover: (decimal)2225.00,
                  grossComm: (decimal)13.83,
                  memberNetWinLoss: new NetWinLoss((decimal)-551.25, (decimal)0.00),

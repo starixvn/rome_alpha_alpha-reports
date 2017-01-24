@@ -5,7 +5,7 @@
     using ViewModels.WinLossByBettype;
 
     public class WinLossByBettypeQuery :
-        ReportBaseQuery,
+        ReportDefaultDateRangeQuery,
         IRequest<WinLossByBettypeViewModel>
     {
         public WinLossByBettypeQuery(IUser viewer) : base(viewer)

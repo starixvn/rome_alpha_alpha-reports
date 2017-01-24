@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using App_GlobalResources;
     using Components;
-    using Extensions;
     using Params;
     using Reports.Models;
     using Reports.Models.WinlossByBettype;
@@ -14,18 +14,22 @@
         private readonly string sortPropertyNameDefault = "Bettype";
 
         private readonly WinLossByBettypeQuery message;
-        private readonly WinLossByBettypeParam winLossByBettypeParam;
+        private readonly WinLossByBetTypeParam winLossByBettypeParam;
 
         public WinLossByBettypeViewModel(
-            IEnumerable<WinlossByBettypeModel> reportData,
-            WinlossByBettypeModel grandTotal,
+            IEnumerable<WinLossByBetTypeModel> reportData,
+            WinLossByBetTypeModel grandTotal,
             WinLossByBettypeQuery message,
-            WinLossByBettypeParam winLossByBettypeParam)
-        { 
+            WinLossByBetTypeParam winLossByBettypeParam,
+            DateTime balanceUpDay)
+        {
             this.message = message;
             this.winLossByBettypeParam = winLossByBettypeParam;
+            MinDate = balanceUpDay;
             ReportData = reportData;
             GrandTotal = grandTotal;
+
+            BuildResources();
         }
 
         public int CustId => message.CustId;
@@ -34,7 +38,7 @@
 
         public UserLevel CustLevel => message.CustLevel;
 
-        public DateTime MinDate => DateTime.Now.AddMonths(-3).FirstDayOfMonth();
+        public DateTime MinDate { get; }
 
         public DateTime MaxDate => DateTime.MaxValue;
 
@@ -48,9 +52,9 @@
 
         public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
-        public IEnumerable<WinlossByBettypeModel> ReportData { get; }
+        public IEnumerable<WinLossByBetTypeModel> ReportData { get; }
 
-        public WinlossByBettypeModel GrandTotal { get; }
+        public WinLossByBetTypeModel GrandTotal { get; }
 
         public bool IsStackMode => message.IsStackMode;
 
@@ -60,7 +64,13 @@
 
         public bool IsFilterVisible => message.IsFilterVisible;
 
-        public string Title { get; }
+        public string Title { get; private set; }
+
+        public string CustLevelName { get; private set; }
+
+        public string DownLineLevelName { get; private set; }
+
+        public string CustLevelNetWinLossName { get; private set; }
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
@@ -89,6 +99,34 @@
                         && !sortedProperty.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
 
             return isSortedPropertyInRange ? sortedProperty : sortPropertyNameDefault;
+        }
+
+        ///// <summary>
+        ///// TODO refactor Title
+        ///// </summary>
+        private void BuildResources()
+        {
+            if (CustLevel.IsSuperLevel())
+            {
+                Title = Resources.MasterWinLoss;
+                CustLevelName = Resources.Super;
+                DownLineLevelName = Resources.Master;
+                CustLevelNetWinLossName = "SuperNetWinLoss";
+            }
+            else if (CustLevel.IsMasterLevel())
+            {
+                Title = Resources.AgentWinLoss;
+                CustLevelName = Resources.Master;
+                DownLineLevelName = Resources.Agent;
+                CustLevelNetWinLossName = "MasterNetWinLoss";
+            }
+            else
+            {
+                Title = Resources.MemberWinLoss;
+                CustLevelName = Resources.Agent;
+                DownLineLevelName = Resources.Member;
+                CustLevelNetWinLossName = "AgentNetWinLoss";
+            }
         }
     }
 }

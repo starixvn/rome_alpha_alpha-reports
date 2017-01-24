@@ -1,18 +1,20 @@
-﻿namespace Alpha.Reports.Site.Handlers.WinLossByBettype
+﻿namespace Alpha.Reports.Site.Handlers.WinLossByBetType
 {
     using System;
     using MediatR;
     using Requests.WinLossByBettype;
     using Services;
     using ViewModels.WinLossByBettype;
-    using WinLoss;
 
-    public class WinLossByBettypeHandler :
-         WinLossByBettypeBaseHandler
-        , IRequestHandler<WinLossByBettypeQuery, WinLossByBettypeViewModel>
+    public class WinLossByBetTypeHandler :
+        WinLossByBetTypeBaseHandler,
+        IRequestHandler<WinLossByBettypeQuery, WinLossByBettypeViewModel>
     {
-        public WinLossByBettypeHandler(WinLossByBettypeService reportService) : base(reportService)
+        private readonly ReportDateService reportDateService;
+
+        public WinLossByBetTypeHandler(WinLossByBetTypeService reportService, ReportDateService reportDateService) : base(reportService)
         {
+            this.reportDateService = reportDateService;
         }
 
         public WinLossByBettypeViewModel Handle(WinLossByBettypeQuery message)
@@ -23,10 +25,10 @@
             }
 
             var winLossByBettypeParam = CreateWinLossByBettypeParamater(message);
-            var reportData = reportService.GetWinLossByBettype(winLossByBettypeParam);
+            var reportData = reportService.GetWinLossByBetType(winLossByBettypeParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
-            return new WinLossByBettypeViewModel(reportData, grandTotal, message, winLossByBettypeParam);
+            return new WinLossByBettypeViewModel(reportData, grandTotal, message, winLossByBettypeParam, reportDateService.GetBalanceUpDay());
         }
     }
 }

@@ -4,27 +4,34 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using Criteria.WinLoss;
+    using Criteria.WinLossByBetTypeCriteria;
     using Fanex.Common.Extensions;
     using Models;
     using Models.WinlossByBettype;
-    using Models.WinLossDetail;
+    using RemotingRef;
 
-    public interface WinLossByBettypeDataAccess
+    public interface WinLossByBetTypeDataAccess
     {
-        IEnumerable<WinlossByBettypeModel> GetWinLossByBettype(WinLossByBettypeCriteria criteria);
+        IEnumerable<WinLossByBetTypeModel> GetWinLossByBettype(WinLossByBetTypeCriteria criteria);
     }
 
-    public class WinLossByBettypeDataAccessImpl : WinLossByBettypeDataAccess
+    public class WinLossByBettypeDataAccessImpl : WinLossByBetTypeDataAccess
     {
-        public IEnumerable<WinlossByBettypeModel> GetWinLossByBettype(WinLossByBettypeCriteria criteria)
+        private readonly CacheRefService cacheRefService;
+
+        public WinLossByBettypeDataAccessImpl(CacheRefService cacheRefService)
+        {
+            this.cacheRefService = cacheRefService;
+        }
+
+        public IEnumerable<WinLossByBetTypeModel> GetWinLossByBettype(WinLossByBetTypeCriteria criteria)
         {
             if (criteria == null)
             {
                 throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
             }
 
-            var winlossByBettypeData = new List<WinlossByBettypeModel>();
+            var winlossByBettypeData = new List<WinLossByBetTypeModel>();
 
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
@@ -34,7 +41,7 @@
                     {
                         while (reader.Read())
                         {
-                            winlossByBettypeData.Add(BuildWinLoss(reader, criteria.CustLevel));
+                            winlossByBettypeData.Add(BuildWinLossByBetType(reader, criteria.CustLevel));
                         }
                     }
                 }
@@ -44,12 +51,14 @@
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
-        private WinlossByBettypeModel BuildWinLoss(IDataReader reader, UserLevel reportLevel)
+        private WinLossByBetTypeModel BuildWinLossByBetType(IDataReader reader, UserLevel reportLevel)
         {
-            var winLossByBettype = new WinlossByBettypeModel(
-                 custId: reader.ToInt("CustId"),
-                 custName: reader.ToString("CustName"),
-                 numberOfTickets: 102, ////reader.ToInt("NoOfTicket"),
+            var bettypeId = reader.ToInt("bettype");
+
+            var winLossByBettype = new WinLossByBetTypeModel(
+                 betTypeId: bettypeId,
+                 betTypeName: cacheRefService.GetBetTypeName(bettypeId),
+                 betCount: reader.ToInt("NumberOfTickets"),
                  turnover: reader.ToDecimal("TurnOver"),
                  grossComm: reader.ToDecimal("GrossComm"),
                  memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,

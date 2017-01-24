@@ -2,7 +2,6 @@
 {
     using System.Web.Mvc;
     using MediatR;
-    using Requests.WinLoss;
     using Requests.WinLossByBettype;
 
     public class WinLossByBettypeController : ReportBaseController

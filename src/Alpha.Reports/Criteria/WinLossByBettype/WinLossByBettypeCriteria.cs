@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Criteria.WinLoss
+﻿namespace Alpha.Reports.Criteria.WinLossByBetTypeCriteria
 {
     using System;
     using Extensions;
@@ -6,9 +6,9 @@
     using Fanex.Data.Repository;
     using Models;
 
-    public class WinLossByBettypeCriteria : CriteriaBase
+    public class WinLossByBetTypeCriteria : CriteriaBase
     {
-        public WinLossByBettypeCriteria(
+        public WinLossByBetTypeCriteria(
             int custId,
             DateTime fromDate,
             DateTime toDate,
@@ -33,42 +33,20 @@
 
         public DateTime BalanceUpDay { get; }
 
-        /// <summary>
-        /// remove MoveBetsDay and ProductIds
-        /// </summary>
-        public DateTime MoveBetsDay => new DateTime(2017, 1, 15);
-
-        public string ProductIds => "1,2,3,4,5,6,8,12,15,21,22";
-
         public override string GetSettingKey()
         {
             if (CustLevel.IsAgentLevel())
             {
-                return "Age_Rpt_WinLoss_Member";
+                return "Age_Rpt_WinLossByBettype_Member";
             }
 
             if (CustLevel.IsMasterLevel())
             {
-                return "Age_Rpt_WinLoss_Agent";
+                return "Age_Rpt_WinLossByBettype_Agent";
             }
 
-            return "Age_Rpt_WinLoss_Master";
+            return "Age_Rpt_WinLossByBettype_Master";
         }
-
-        ////public override string GetSettingKey()
-        ////{
-        ////    if (CustLevel.IsAgentLevel())
-        ////    {
-        ////        return "Age_Rpt_WinLossByBettype_Ag";
-        ////    }
-
-        ////    if (CustLevel.IsMasterLevel())
-        ////    {
-        ////        return "Age_Rpt_WinLossByBettype_MAg";
-        ////    }
-
-        ////    return "Age_Rpt_WinLossByBettype_SAg";
-        ////}
 
         public override bool IsValid() => CustId > 0 && FromDate <= ToDate;
 
