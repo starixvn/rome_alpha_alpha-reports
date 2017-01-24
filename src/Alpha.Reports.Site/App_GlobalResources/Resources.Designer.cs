@@ -149,7 +149,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("BetCount", resourceCulture);
             }
         }
-                
+        
         /// <summary>
         ///   Looks up a localized string similar to Bet Type.
         /// </summary>
@@ -158,7 +158,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("BetType", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to You can view the report data from {0}. For more historic data, please click to.
         /// </summary>
@@ -293,7 +293,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("FT", resourceCulture);
             }
         }
-   
+        
         /// <summary>
         ///   Looks up a localized string similar to /Gross Comm/Agent Total.
         /// </summary>
@@ -372,15 +372,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string LastWeek {
             get {
                 return ResourceManager.GetString("LastWeek", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Live Casino.
-        /// </summary>
-        public static string LiveCasino {
-            get {
-                return ResourceManager.GetString("LiveCasino", resourceCulture);
             }
         }
         

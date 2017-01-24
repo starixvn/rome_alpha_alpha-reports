@@ -303,9 +303,6 @@
   <data name="NumberGameNo" xml:space="preserve">
     <value>라이브빙고 번호</value>
   </data>
-  <data name="LiveCasino" xml:space="preserve">
-    <value>라이브 카지노</value>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>다음</value>
   </data>
