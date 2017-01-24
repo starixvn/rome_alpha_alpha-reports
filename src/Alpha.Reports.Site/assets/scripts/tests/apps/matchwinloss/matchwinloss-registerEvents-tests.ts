@@ -52,6 +52,9 @@
             expect(matchWinLossView.onExportExcel).toHaveBeenCalled();
         });
         it("_Submit functions have been registered", () => {
+            // arrange
+            matchWinLossView.init();
+
             // act
             matchWinLossView.$reportForm.trigger("submit");
 
