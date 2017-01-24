@@ -135,14 +135,15 @@ class SortComponent {
     textExtraction = (node: any) => {
         let $node = this.$(node);
 
-        if ($node.hasClass("combinedcell")) {
-            return $node.find("ul>li:first-child").html();
-        }
-
         if ($node.data("islink")) {
             return $node.find("a").html();
         }
 
-        return $node.html();
+        var isText = $node.data("isText") === "1";
+        var html = $node.hasClass("combinedcell") ?
+            $node.find("ul>li:first-child").html() :
+            $node.html();
+
+        return isText ? html : html.replace(/,/g, "");
     };
 }
