@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Handlers.WinLoss
+﻿namespace Alpha.Reports.Site.Handlers.WinLossByBettype
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -21,7 +21,7 @@
             this.reportService = reportService;
         }
 
-        protected WinLossByBettypeParam CreateWinLossParamater(WinLossByBettypeQuery message)
+        protected WinLossByBettypeParam CreateWinLossByBettypeParamater(WinLossByBettypeQuery message)
         {
             return new WinLossByBettypeParam(
                  message.CustId,

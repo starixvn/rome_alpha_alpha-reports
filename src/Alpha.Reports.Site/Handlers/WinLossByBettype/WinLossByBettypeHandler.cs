@@ -22,7 +22,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var winLossByBettypeParam = CreateWinLossParamater(message);
+            var winLossByBettypeParam = CreateWinLossByBettypeParamater(message);
             var reportData = reportService.GetWinLossByBettype(winLossByBettypeParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 

@@ -2,6 +2,7 @@
 {
     using System.Web.Mvc;
     using MediatR;
+    using Requests.WinLoss;
     using Requests.WinLossByBettype;
 
     public class WinLossByBettypeController : ReportBaseController
@@ -15,5 +16,9 @@
         [Route("WinLossByBettype/member")]
         public ActionResult Index(WinLossByBettypeQuery message)
             => View(message);
+
+        [HttpGet]
+        public ActionResult Excel(WinLossByBettypeExcelQuery message)
+          => ExcelView(message);
     }
 }

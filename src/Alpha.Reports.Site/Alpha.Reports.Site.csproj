@@ -286,6 +286,7 @@
     <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeBaseHandler.cs" />
     <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
+    <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
@@ -317,6 +318,7 @@
     <Compile Include="Requests\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossByBettype\WinLossByBettypeQuery.cs" />
     <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
+    <Compile Include="Requests\WinLossByBettype\WinLossExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLoss\EnteredSportResultQuery.cs" />
@@ -596,6 +598,9 @@
     <Content Include="App_Code\Components\ReportLegend.cshtml" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLoss\Member.xls" />
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.scss" />
+    <Content Include="App_Data\ExcelTemplates\WinLossByBettype\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossByBettype\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossByBettype\Member.xls" />
     <Content Include="App_Code\Components\LeagueMultiSelection.cshtml" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Agent.xls" />
