@@ -173,18 +173,16 @@ class WinLossView {
     onSwitchModeEvent = () => {
         var isStackMode = this.$tableReport.hasClass("stack-mode");
         this.replaceDrilldownParam("IsStackMode", !isStackMode);
-
-        if (this.isFirstSwitchMode) {
-            this.setStackMode(isStackMode);
-        }
-
+        this.setStackMode(isStackMode);
         this.sortComponent.bindTableSorter(this.getSortedColumnName());
     };
 
     setStackMode = (isSwitchToNormalMode: boolean) => {
         this.setCssBySwitchMode(isSwitchToNormalMode);
-        this.renderAtFirstSwitchMode(isSwitchToNormalMode);
-        this.isFirstSwitchMode = false;
+        if (this.isFirstSwitchMode) {
+            this.renderAtFirstSwitchMode(isSwitchToNormalMode);
+            this.isFirstSwitchMode = false;
+        }  
     };
 
     renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {
