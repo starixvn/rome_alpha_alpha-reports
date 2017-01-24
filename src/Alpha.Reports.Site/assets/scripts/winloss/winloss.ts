@@ -111,7 +111,7 @@ class WinLossView {
 
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
             && alphaReports.screenSmallThan768()) {
-            this.setCssBySwitchMode(false);
+            this.onSwitchModeEvent();
             this.reportTooltip.show(
                 new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0))
             );
