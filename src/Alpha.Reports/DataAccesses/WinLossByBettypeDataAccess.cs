@@ -49,7 +49,7 @@
             var winLossByBettype = new WinlossByBettypeModel(
                  custId: reader.ToInt("CustId"),
                  custName: reader.ToString("CustName"),
-                 numberOfTickets: reader.ToInt("NoOfTicket"),
+                 numberOfTickets: 102, ////reader.ToInt("NoOfTicket"),
                  turnover: reader.ToDecimal("TurnOver"),
                  grossComm: reader.ToDecimal("GrossComm"),
                  memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,

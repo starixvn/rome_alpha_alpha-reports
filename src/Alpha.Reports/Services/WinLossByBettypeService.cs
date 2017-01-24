@@ -43,7 +43,7 @@
             }
 
             if (!reportDateService.ValidateDateRange(
-                new DateRange(DateRangeType, param.FromDate, param.ToDate, true)))
+                new DateRange(DateRangeType, param.FromDate, param.ToDate, false)))
             {
                 return Enumerable.Empty<WinlossByBettypeModel>();
             }

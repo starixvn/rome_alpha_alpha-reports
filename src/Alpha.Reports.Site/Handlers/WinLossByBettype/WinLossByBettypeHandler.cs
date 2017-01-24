@@ -26,7 +26,7 @@
             var reportData = reportService.GetWinLossByBettype(winLossByBettypeParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
-            return new WinLossByBettypeViewModel(reportData, grandTotal, message);
+            return new WinLossByBettypeViewModel(reportData, grandTotal, message, winLossByBettypeParam);
         }
     }
 }

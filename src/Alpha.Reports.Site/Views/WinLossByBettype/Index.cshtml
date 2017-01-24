@@ -18,9 +18,10 @@
     <thead>
         <tr>
             <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="0">Bet Type</th>
-            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="1">@Resources.Turnover</th>
-            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="2">@Resources.GrossComm</th>
-            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="1">
+            <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="1">Bet Count</th>
+            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
+            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="3">@Resources.GrossComm</th>
+            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="2">
                 <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>
                 @(Model.CustLevel.IsAgentLevel() ? Resources.GrossComm :
                   (Model.CustLevel.IsSuperLevel() ? Resources.GrossComAndMasterTotal : Resources.GrossComAndAgentTotal))
@@ -28,59 +29,59 @@
 
             @if (Model.CustLevel.IsSuperLevel())
             {
-                <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="MasterNetWinLoss.WinLoss" data-colindex="2">@Resources.MasterTotal</th>
+                <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="MasterNetWinLoss.WinLoss" data-colindex="3">@Resources.MasterTotal</th>
             }
 
             @if (Model.CustLevel.IsMasterLevel())
             {
-                <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="AgentNetWinLoss.WinLoss" data-colindex="2">@Resources.AgentTotal</th>
+                <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="AgentNetWinLoss.WinLoss" data-colindex="3">@Resources.AgentTotal</th>
             }
 
             @if (Model.CustLevel.IsAgentLevel())
             {
                 <th colspan="3" class="col-level hidden-stack-mode">@Resources.Member</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="2">
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="3">
                     @Resources.Member
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
                 <th colspan="3" class="col-level hidden-stack-mode">Bet Type</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" rowspan="2" data-colindex="3">
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" rowspan="2" data-colindex="4">
                     Bet Type
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
-                <th class="sorting hidden-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="9">@Resources.Company</th>
-                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="4">@Resources.Company</th>
+                <th class="sorting hidden-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="10">@Resources.Company</th>
+                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="5">@Resources.Company</th>
             }
             else
             {
                 <th colspan="3" class="col-level hidden-stack-mode">Bet Type</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="" rowspan="2" data-colindex="2">
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="" rowspan="2" data-colindex="3">
                     Bet Type
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
-                <th class="sorting hidden-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="7">@Resources.Company</th>
-                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="3">@Resources.Company</th>
+                <th class="sorting hidden-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="8">@Resources.Company</th>
+                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="4">@Resources.Company</th>
             }
         </tr>
         <tr class="thead-row2">
             @if (Model.CustLevel.IsAgentLevel())
             {
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MemberNetWinLoss.WinLoss" data-colindex="3">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Comm" data-colindex="4">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Total" data-colindex="5">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="MemberNetWinLoss.WinLoss" data-colindex="4">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Comm" data-colindex="5">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Total" data-colindex="6">@Resources.Total</th>
 
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="" data-colindex="6">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="7">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="8">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="" data-colindex="7">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="8">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="9">@Resources.Total</th>
             }
             else
             {
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="" data-colindex="4">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="5">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="6">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="" data-colindex="5">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="6">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="7">@Resources.Total</th>
             }
         </tr>
     </thead>
@@ -98,7 +99,7 @@
     }
     else
     {
-        @NoInformation.Render(colspan: Model.CustLevel.IsAgentLevel() ? 10 : 8)
+        @NoInformation.Render(colspan: Model.CustLevel.IsAgentLevel() ? 11 : 9)
     }
 </table>
 
@@ -135,6 +136,8 @@
 
         @if (Model.IsStackMode)
         {
+            @HtmlHelpers.RenderNumberCell(data.NumberOfTickets, "")
+
             if (Model.CustLevel.IsAgentLevel())
             {
                 @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.GrossComm);
@@ -153,6 +156,7 @@
         }
         else
         {
+            @HtmlHelpers.RenderNumberCell(data.NumberOfTickets, "")
             @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
             @HtmlHelpers.RenderNumberCell(data.GrossComm, "col-gross-com")
 

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Components;
     using Extensions;
+    using Params;
     using Reports.Models;
     using Reports.Models.WinlossByBettype;
     using Requests.WinLossByBettype;
@@ -13,13 +14,16 @@
         private readonly string sortPropertyNameDefault = "Bettype";
 
         private readonly WinLossByBettypeQuery message;
+        private readonly WinLossByBettypeParam winLossByBettypeParam;
 
         public WinLossByBettypeViewModel(
             IEnumerable<WinlossByBettypeModel> reportData,
             WinlossByBettypeModel grandTotal,
-            WinLossByBettypeQuery message)
+            WinLossByBettypeQuery message,
+            WinLossByBettypeParam winLossByBettypeParam)
         { 
             this.message = message;
+            this.winLossByBettypeParam = winLossByBettypeParam;
             ReportData = reportData;
             GrandTotal = grandTotal;
         }
@@ -34,9 +38,9 @@
 
         public DateTime MaxDate => DateTime.MaxValue;
 
-        public DateTime FromDate => message.FromDate;
+        public DateTime FromDate => winLossByBettypeParam.FromDate;
 
-        public DateTime ToDate => message.ToDate;
+        public DateTime ToDate => winLossByBettypeParam.ToDate;
 
         public bool IsSetDefaultStackMode => message.IsSetDefaultStackMode;
 
