@@ -2,7 +2,7 @@
 {
     using MediatR;
     using Params;
-    using Requests.WinLoss;
+    using Requests.RacingCommission;
     using Services;
     using ViewModels.RacingCommission;
 
@@ -23,7 +23,9 @@
 
             var commissions = racingCommissionService.GetCustomerCommission(param);
 
-            return new RacingCommissionViewModel(message, commissions, reportDateService.GetBalanceUpDay());
+            var breadcrumbLevel = BuildBreadcrumbLevel(message);
+
+            return new RacingCommissionViewModel(message, commissions, reportDateService.GetBalanceUpDay(), breadcrumbLevel);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Requests.WinLoss
+﻿namespace Alpha.Reports.Site.Requests.RacingCommission
 {
     using System;
     using MediatR;

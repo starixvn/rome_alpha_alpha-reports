@@ -2,7 +2,7 @@
 @using Alpha.Reports.Site.ViewModels.RacingCommission
 @model RacingCommissionViewModel
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty))
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, false, false, false, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
 @Html.Partial("_RacingCommissionFilter", Model.RacingCommissionFilter)
 
@@ -30,7 +30,9 @@
             @foreach (var commission in Model.RacingCommissions)
             {
                 <tr>
-                    <td class="text-left">@commission.CustName</td>
+                    <td class="text-left">
+                        <a href="@Model.BuildDrillDownLink(commission, Request.Url.Query)">@commission.CustName</a>
+                    </td>
                     @RenderCellValue(commission)
                 </tr>
             }
@@ -47,6 +49,13 @@
         @NoInformation.Render(5)
     }
 </table>
+
+<form class="form-inline hide" role="form" id="export-excel-form" action="~/RacingCommission/Excel">
+    <input type="hidden" name="CustId" value="@Model.Query.CustId" />
+    <input type="hidden" name="CustLevelId" value="@Model.Query.CustLevel.Value" />
+    <input type="hidden" name="FromDate" value="@Model.Query.FromDate" />
+    <input type="hidden" name="ToDate" value="@Model.Query.ToDate" />
+</form>
 
 @helper RenderCellValue(RacingCommissionModel commission)
 {
