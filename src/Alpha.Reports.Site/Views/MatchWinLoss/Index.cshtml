@@ -22,7 +22,9 @@
 
 <table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover"
        id="tbl-report"
-       data-totalrecords="@Model.ReportData.Count()">
+       data-totalrecords="@Model.ReportData.Count()"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
             <th class="sorting" data-sortedname="EventInfo" data-colindex="0">@Resources.Match</th>

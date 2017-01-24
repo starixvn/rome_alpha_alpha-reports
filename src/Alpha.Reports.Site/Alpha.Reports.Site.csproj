@@ -334,6 +334,7 @@
     <TypeScriptCompile Include="assets\scripts\components\daterangepicker.ts" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-registerEvents-tests.ts" />

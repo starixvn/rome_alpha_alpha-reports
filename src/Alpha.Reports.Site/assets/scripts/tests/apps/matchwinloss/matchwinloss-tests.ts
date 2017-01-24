@@ -13,17 +13,25 @@
 
         spyOn(matchWinLossView, "cacheElements").and.callThrough();
         spyOn(matchWinLossView, "registerEvents").and.callThrough();
+        spyOn(matchWinLossView, "onSubmitReport").and.callThrough();
         spyOn(jQueryFake, "blockUI");
         spyOn(jQueryFake, "unblockUI");
 
         spyOn(dateRangePickerComponent, "render");
-        spyOn(sortComponent, "render");
+        spyOn(sortComponent, "render").and.callThrough();
 
         spyOn(jQueryFake.fn, "stickyTableHeaders");
 
         setFixtures(`<body>
+                        <form id="report-form" role="form">
+                            <input id="IsDescendingSort" value="False" type="hidden" />
+                            <input id="SortPropertyName" value="EventInfo" type="hidden" />
+                        </form>
                         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
-                        <table id="tbl-report" data-totalrecords="0"></table>
+                        <table id="tbl-report" data-totalrecords="0"
+                            data-sortedcolumn="Event Info"
+                            data-descendingsort="False">
+                        </table>
                     </body>`);
     });
 
@@ -71,23 +79,9 @@
             expect(matchWinLossView.$tableReport).toBeDefined();
             expect(matchWinLossView.$reportForm).toBeDefined();
             expect(matchWinLossView.$exportExcelForm).toBeDefined();
-        });
-    });
-    describe("_registerEvents_Always", () => {
-        beforeEach(() => {
-            // arrange
-            matchWinLossView.cacheElements();
-            spyOn(matchWinLossView, "onExportExcel");
 
-            // act
-            matchWinLossView.registerEvents();
-        });
-        it("_Bind onExportExcel", () => {
-            // act
-            matchWinLossView.$("#icon-excel").trigger("click");
-
-            // assert
-            expect(matchWinLossView.onExportExcel).toHaveBeenCalled();
+            expect(matchWinLossView.$isDescendingSort).toBeDefined();
+            expect(matchWinLossView.$sortPropertyName).toBeDefined();
         });
     });
     describe("_onExportExcel_Always", () => {
@@ -105,6 +99,19 @@
         });
         it("_Unblocks UI", () => {
             // assert
+            expect(jQueryFake.unblockUI).toHaveBeenCalled();
+        });
+    });
+    describe("_onSubmitReport", () => {
+        it("_Always -> Blocks UI; Unblock UI;", () => {
+            // arrange
+            matchWinLossView.init();
+
+            // act
+            matchWinLossView.onSubmitReport();
+
+            // assert
+            expect(jQueryFake.blockUI).toHaveBeenCalled();
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
         });
     });

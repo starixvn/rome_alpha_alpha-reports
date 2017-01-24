@@ -11,6 +11,8 @@ class MatchWinLossView {
     $tableReport: JQuery;
     $reportForm: JQuery;
     $exportExcelForm: JQuery;
+    $isDescendingSort: JQuery;
+    $sortPropertyName: JQuery;
 
     constructor(
         $: JQueryStatic,
@@ -44,13 +46,24 @@ class MatchWinLossView {
         this.$tableReport = this.$("#tbl-report");
         this.$reportForm = this.$("#report-form");
         this.$exportExcelForm = this.$("#export-excel-form");
+        this.$isDescendingSort = this.$("#IsDescendingSort");
+        this.$sortPropertyName = this.$("#SortPropertyName");
     };
     registerEvents = () => {
         this.$("#icon-excel").on("click", this.onExportExcel);
+        this.$reportForm.submit(this.onSubmitReport);
     };
     onExportExcel = () => {
         this.$exportExcelForm.submit();
         this.$.unblockUI();
+    };
+    onSubmitReport = () => {
+        let this$ = this.$;
+        this$.blockUI();
+
+        let sortInfo = this.sortComponent.getSortInfo();
+        this.$isDescendingSort.val(String(sortInfo.isDescendingSort));
+        this.$sortPropertyName.val(sortInfo.sortPropertyName);
     };
 }
 
