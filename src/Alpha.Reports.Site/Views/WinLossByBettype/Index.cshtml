@@ -109,9 +109,10 @@
     <input type="hidden" name="CustLevelId" value="@Model.CustLevel.Value" />
 </form>
 
+@Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
 
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/winloss/winloss")
+    @StaticResources.RenderScripts("~/assets/bundles/winlossbybettype/winlossbybettype")
 }
 
 @helper RenderRow(WinlossByBettypeModel data, bool isTotalRow, string betListPath)

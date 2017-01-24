@@ -2,6 +2,7 @@
 {
     using System;
     using Models;
+    using Services;
 
     public class WinLossByBettypeParam
     {
@@ -13,8 +14,16 @@
         {
             CustId = custId;
             CustLevel = custLevel;
-            FromDate = fromDate;
-            ToDate = toDate;
+            if (fromDate == DateTime.MinValue)
+            {
+                FromDate = DateTimeManager.Now;
+            }
+            else
+            {
+                FromDate = fromDate;
+            }
+
+            ToDate = toDate == DateTime.MinValue ? DateTimeManager.Now : toDate;
         }
 
         public int CustId { get; }

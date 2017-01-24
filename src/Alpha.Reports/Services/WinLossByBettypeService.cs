@@ -43,7 +43,7 @@
             }
 
             if (!reportDateService.ValidateDateRange(
-                new DateRange(DateRangeType, param.FromDate, param.ToDate, false)))
+                new DateRange(DateRangeType, param.FromDate, param.ToDate, true)))
             {
                 return Enumerable.Empty<WinlossByBettypeModel>();
             }
@@ -53,7 +53,6 @@
                 param.FromDate,
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
-                reportDateService.GetMoveBetsDay(),
                 param.CustLevel);
 
             var winlossData = dataAccess.GetWinLossByBettype(criteria);

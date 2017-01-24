@@ -20,6 +20,8 @@
 
         public bool IsDescendingSort { get; set; }
 
-        public bool IsFilterVisible { get; set; }
+        public bool IsFilterVisible { get; set; } = true;
+
+        public bool IsSetDefaultStackMode => false;
     }
 }

@@ -28,7 +28,7 @@
 
         public string CustName => message.CustName;
 
-        public UserLevel CustLevel { get; }
+        public UserLevel CustLevel => message.CustLevel;
 
         public DateTime MinDate => DateTime.Now.AddMonths(-3).FirstDayOfMonth();
 
@@ -37,6 +37,8 @@
         public DateTime FromDate => message.FromDate;
 
         public DateTime ToDate => message.ToDate;
+
+        public bool IsSetDefaultStackMode => message.IsSetDefaultStackMode;
 
         public string Language => message.Language;
 
