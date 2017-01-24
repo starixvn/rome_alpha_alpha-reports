@@ -4,48 +4,59 @@
 
 @helper Render(DateRangePickerViewModel model)
 {
+
     <div id="daterange-picker"
-         class="form-group daterange-picker"
+         class="daterange-picker"
          data-currentdate="@Alpha.Reports.Services.DateTimeManager.Now"
          data-mindate="@model.MinDate.ToShortDateWithSlash()"
          data-maxdate="@model.MaxDate.ToShortDateWithSlash()">
+    </div>
 
-        <div class="ui_nexdatepicker_lbl_field separator">@Resources.From</div>
+    <div class="form-group">
+        <label>@Resources.From</label>
 
-        <div id="from-date-container"
-             class="input-group date ui_nexdatepicker_edit_field css fromdate">
-            <input type="text"
-                   id="from-date"
-                   name="FromDate"
-                   readonly="readonly"
-                   class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control"
-                   value="@model.FromDate.ToShortDateWithSlash()" />
-            <span class="input-group-addon">
-                <span class="icon-calendar" id="fdate_trigger"></span>
-            </span>
+        <div class="control date">
+            <div id="from-date-container"
+                 class="input-group date fromdate">
+                <input type="text"
+                       id="from-date"
+                       name="FromDate"
+                       readonly="readonly"
+                       class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control"
+                       value="@model.FromDate.ToShortDateWithSlash()" />
+                <span class="input-group-addon">
+                    <span class="icon-calendar" id="fdate_trigger"></span>
+                </span>
+            </div>
         </div>
+    </div>
+    <div class="form-group">
+        <label>@Resources.To</label>
 
-        <div class="ui_nexdatepicker_lbl_field separator">@Resources.To</div>
-
-        <div id="to-date-container"
-             class="input-group date ui_nexdatepicker_edit_field  todate">
-            <input type="text"
-                   id="to-date"
-                   name="ToDate"
-                   readonly="readonly"
-                   class="ui_nexdatepicker_datetextbox ui_nexdatepicker_todate form-control"
-                   value="@model.ToDate.ToShortDateWithSlash()" />
-            <span class="input-group-addon">
-                <span class="icon-calendar" id="tdate_trigger"></span>
-            </span>
+        <div class="control date">
+            <div id="to-date-container"
+                 class="input-group date todate">
+                <input type="text"
+                       id="to-date"
+                       name="ToDate"
+                       readonly="readonly"
+                       class="ui_nexdatepicker_datetextbox ui_nexdatepicker_todate form-control"
+                       value="@model.ToDate.ToShortDateWithSlash()" />
+                <span class="input-group-addon">
+                    <span class="icon-calendar" id="tdate_trigger"></span>
+                </span>
+            </div>
         </div>
+    </div>
 
-        @if (model.IsRenderSubmitButton)
-        {
+if (model.IsRenderSubmitButton)
+{
+        <div class="form-group">
             <input type="submit" value="@Resources.Submit" class="btn-submit" />
-        }
-
-        <div class="dropdown daterange-container" id="dropdown-daterange">
+        </div>
+}
+    <div class="form-group daterange-container">
+        <div class="dropdown daterange-dropdown" id="dropdown-daterange">
             <input type="hidden" name="UserSelectedDateRangeOption" id="hidden-range-option" value="@model.SelectedRangeOption.Value" />
             <button class="btn-submit dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span id="range-label">@model.SelectedRangeOption.Text</span>
@@ -59,4 +70,5 @@
             </ul>
         </div>
     </div>
+
 }
