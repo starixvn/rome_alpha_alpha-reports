@@ -139,11 +139,10 @@ class SortComponent {
             return $node.find("a").html();
         }
 
-        var isText = $node.data("isText") === "1";
         var html = $node.hasClass("combinedcell") ?
             $node.find("ul>li:first-child").html() :
             $node.html();
 
-        return isText ? html : html.replace(/,/g, "");
+        return html;
     };
 }

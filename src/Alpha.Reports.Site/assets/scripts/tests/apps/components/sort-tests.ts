@@ -246,7 +246,6 @@
             });
         });
     });
-
     describe("_bindTableSorter", () => {
         describe("_Cannot Sort", () => {
             beforeEach(() => {
@@ -439,8 +438,21 @@
             expect(sortComponent.onSort).toHaveBeenCalledWith(sortColumnName, isDescendingSort);
         });
     });
-
     describe("_textExtraction", () => {
+        it("_Link Cell -> Returns HRef Data", () => {
+            // arrange
+            setFixtures(`<body>
+                            <div id="extracted-element" data-islink="true">
+                                <a>Cust Name</a>
+                            </div>
+                        </body>`);
+
+            // act
+            var actualData = sortComponent.textExtraction($("#extracted-element"));
+
+            // assert
+            expect(actualData).toBe("Cust Name");
+        });
         it("_Combined Cell -> Returns First Child Data (Sort Combined Column mean Sort By Win Loss)", () => {
             // arrange
             setFixtures(`<body>
@@ -458,20 +470,6 @@
 
             // assert
             expect(actualData).toBe("Win Loss");
-        });
-        it("_Link Cell -> Returns HRef Data", () => {
-            // arrange
-            setFixtures(`<body>
-                            <div id="extracted-element" data-islink="true">
-                                <a>Cust Name</a>
-                            </div>
-                        </body>`);
-
-            // act
-            var actualData = sortComponent.textExtraction($("#extracted-element"));
-
-            // assert
-            expect(actualData).toBe("Cust Name");
         });
         it("_Not Combined Cell/Not Link Cell -> Returns Text in Node", () => {
             // arrange
