@@ -65,11 +65,6 @@
                 return $"{Resources.NumberGameNo} {matchWinLossModel.MatchCode}";
             }
 
-            if (BetTypeHelper.IsLiveCasino(matchWinLossModel.BetType))
-            {
-                return $"{Resources.LiveCasino}: {cacheRefService.GetBetType(matchWinLossModel.BetType)} {matchWinLossModel.ShowTime}";
-            }
-
             return string.Join(
                 " ",
                 cacheRefService.GetTeamName(matchWinLossModel.HomeId) + (matchWinLossModel.IsNeutral ? Resources.Neutral : string.Empty),

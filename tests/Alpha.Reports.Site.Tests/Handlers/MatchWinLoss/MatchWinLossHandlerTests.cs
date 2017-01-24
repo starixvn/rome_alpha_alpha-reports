@@ -103,7 +103,6 @@
                 new MatchWinLossModel(1, 2, 3, 85, false, false, "Match Code", "Show Time", 0, 0, 0),
                 new MatchWinLossModel(1, 2, 3, 86, false, false, "Match Code", "Show Time", 0, 0, 0),
                 new MatchWinLossModel(1, 2, 3, 86, true, false, "Match Code", "Show Time", 0, 0, 0),
-                new MatchWinLossModel(1, 2, 3, 1101, false, false, "Match Code", "Show Time", 0, 0, 0),
                 new MatchWinLossModel(1, 2, 3, 1105, false, false, "Match Code", "Show Time", 0, 0, 0),
                 new MatchWinLossModel(1, 2, 3, 1105, false, true, "Match Code", "Show Time", 0, 0, 0)
             };
@@ -120,9 +119,8 @@
                     new MatchWinLossViewModel("Number Game No Match Code", "Next Bet Type 85", rawData[1]),
                     new MatchWinLossViewModel("Number Game No Match Code", "FT Bet Type 86", rawData[2]),
                     new MatchWinLossViewModel("Number Game No Match Code", "Next Bet Type 86", rawData[3]),
-                    new MatchWinLossViewModel("Live Casino: Bet Type 1101 Show Time", "Bet Type 1101", rawData[4]),
-                    new MatchWinLossViewModel("Team 2 -vs- Team 3", "Bet Type 1105", rawData[5]),
-                    new MatchWinLossViewModel("Team 2 (N) -vs- Team 3", "Bet Type 1105", rawData[6])
+                    new MatchWinLossViewModel("Team 2 -vs- Team 3", "Bet Type 1105", rawData[4]),
+                    new MatchWinLossViewModel("Team 2 (N) -vs- Team 3", "Bet Type 1105", rawData[5])
                 },
                 anyValueGenerator.Create<MatchWinLossViewModel>());
 
