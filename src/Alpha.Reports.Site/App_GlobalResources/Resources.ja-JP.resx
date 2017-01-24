@@ -183,10 +183,10 @@
 	<data name="Results" xml:space="preserve">
     <value>結果</value>
   </data>
-  <data name="To" xml:space="preserve">
+	<data name="To" xml:space="preserve">
     <value>から</value>
   </data>
-  <data name="From" xml:space="preserve">
+	<data name="From" xml:space="preserve">
     <value>送金元</value>
   </data>
   <data name="WinLossTitle" xml:space="preserve">
@@ -203,5 +203,20 @@
 	</data>
 	<data name="MasterOutstanding" xml:space="preserve">
 		<value>マスター未払い残高</value>
+	</data>	
+	<data name="RacingCommission" xml:space="preserve">
+		<value>Racing Commission</value>
+	</data>
+	<data name="Tote" xml:space="preserve">
+		<value>Tote</value>
+	</data>
+	<data name="Win" xml:space="preserve">
+		<value>Win</value>
+	</data>
+	<data name="Place" xml:space="preserve">
+		<value>Place</value>
+	</data>
+	<data name="WinPlace" xml:space="preserve">
+		<value>Win Place</value>
 	</data>
 </root>

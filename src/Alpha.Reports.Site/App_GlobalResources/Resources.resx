@@ -354,22 +354,22 @@
 	<data name="MatchResultEntered" xml:space="preserve">
     <value>Match Result Entered</value>
   </data>
-  <data name="DefaultSheetName" xml:space="preserve">
+	<data name="DefaultSheetName" xml:space="preserve">
     <value>Sheet 1</value>
   </data>
-  <data name="WinLossDetail" xml:space="preserve">
+	<data name="WinLossDetail" xml:space="preserve">
     <value>Win Loss Detail</value>
   </data>
-  <data name="WinLossTitle" xml:space="preserve">
+	<data name="WinLossTitle" xml:space="preserve">
     <value>Win Loss</value>
   </data>
-  <data name="To" xml:space="preserve">
+	<data name="To" xml:space="preserve">
     <value>To</value>
   </data>
-  <data name="From" xml:space="preserve">
+	<data name="From" xml:space="preserve">
     <value>From</value>
   </data>
-  <data name="BetCount" xml:space="preserve">
+	<data name="BetCount" xml:space="preserve">
     <value>Bet Count</value>
   </data>
 	<data name="Outstanding" xml:space="preserve">
@@ -383,5 +383,23 @@
 	</data>
 	<data name="MasterOutstanding" xml:space="preserve">
 		<value>Master Outstanding</value>
+	</data>
+	<data name="WinPlace" xml:space="preserve">
+		<value>Win Place</value>
+	</data>
+	<data name="RacingCommission" xml:space="preserve">
+		<value>Racing Commission</value>
+	</data>
+	<data name="Tote" xml:space="preserve">
+		<value>Tote</value>
+	</data>
+	<data name="Win" xml:space="preserve">
+		<value>Win</value>
+	</data>
+	<data name="Place" xml:space="preserve">
+		<value>Place</value>
+	</data>
+	<data name="WinPlace" xml:space="preserve">
+		<value>Win Place</value>
 	</data>
 </root>

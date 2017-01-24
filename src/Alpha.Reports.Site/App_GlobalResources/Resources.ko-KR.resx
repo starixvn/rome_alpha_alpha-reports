@@ -282,19 +282,19 @@
 	<data name="Results" xml:space="preserve">
     <value>결과 확인</value>
   </data>
-  <data name="GrossComAndAgentTotal" xml:space="preserve">
+	<data name="GrossComAndAgentTotal" xml:space="preserve">
     <value>/전체 수수료/총 에이전트</value>
   </data>
-  <data name="GrossComAndMasterTotal" xml:space="preserve">
+	<data name="GrossComAndMasterTotal" xml:space="preserve">
     <value>/전체 수수료/마스터 총계</value>
   </data>
-  <data name="To" xml:space="preserve">
+	<data name="To" xml:space="preserve">
     <value>종료일</value>
   </data>
-  <data name="From" xml:space="preserve">
+	<data name="From" xml:space="preserve">
     <value>시작일</value>
   </data>
-  <data name="BetCount" xml:space="preserve">
+	<data name="BetCount" xml:space="preserve">
     <value>베팅카운트</value>
   </data>
   <data name="WinLossTitle" xml:space="preserve">
@@ -311,5 +311,20 @@
 	</data>
 	<data name="MasterOutstanding" xml:space="preserve">
 		<value>마스터 대기 포인트</value>
+	</data>
+	<data name="RacingCommission" xml:space="preserve">
+		<value>경마 수수료</value>
+	</data>
+	<data name="Tote" xml:space="preserve">
+		<value>Tote</value>
+	</data>
+	<data name="Win" xml:space="preserve">
+		<value>승</value>
+	</data>
+	<data name="Place" xml:space="preserve">
+		<value>순위</value>
+	</data>
+	<data name="WinPlace" xml:space="preserve">
+		<value>승리 순위</value>
 	</data>
 </root>

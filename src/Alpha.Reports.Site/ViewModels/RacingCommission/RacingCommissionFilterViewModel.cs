@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.RacingCommission
 {
     using System;
+    using App_GlobalResources;
     using Components;
 
     public class RacingCommissionFilterViewModel
@@ -9,7 +10,7 @@
         {
             DateRangePicker = dateRangePicker;
 
-            ViewDataInstructionMessage = $"You can view the report data from {balanceUpDate.ToShortDateString()}";
+            ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, balanceUpDate.ToShortDateString());
         }
 
         public string ViewDataInstructionMessage { get; }

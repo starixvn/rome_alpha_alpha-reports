@@ -59,9 +59,9 @@
                noInfomationText: Resources.NoInformationIsAvailable);
 
         private string GetReporTitle(RacingCommissionExcelQuery message)
-         => $"{"Racing Commission"} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
+            => $"{Resources.RacingCommission} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 
         private string GetExcelFileName(RacingCommissionExcelQuery message, RacingCommissionParam winLossParam)
-           => string.Join("-", "Racing Commission", message.CustName, winLossParam.FromDate.ToShortDateWithSlash(), winLossParam.ToDate.ToShortDateWithSlash());
+            => string.Join("-", Resources.RacingCommission, message.CustName, winLossParam.FromDate.ToShortDateWithSlash(), winLossParam.ToDate.ToShortDateWithSlash());
     }
 }

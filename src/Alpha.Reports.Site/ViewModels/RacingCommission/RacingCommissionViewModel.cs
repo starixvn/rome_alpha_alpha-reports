@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using App_GlobalResources;
     using Components;
     using Reports.Models;
     using Reports.Models.RacingCommission;
@@ -33,7 +34,7 @@
         {
             get
             {
-                return "Racing Commission";
+                return Resources.RacingCommission;
             }
         }
 

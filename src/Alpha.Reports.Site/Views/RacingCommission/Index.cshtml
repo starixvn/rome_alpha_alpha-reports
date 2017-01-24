@@ -11,17 +11,17 @@
     <thead class="tableFloatingHeaderOriginal">
         <tr>
             <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Outstanding.Username">
-                Username
+                @Resources.Username
             </th>
             <th colspan="4" class="header">
                 Tote
             </th>
         </tr>
         <tr class="thead-row2">
-            <th class="sorting" data-colindex="0">Win</th>
-            <th class="sorting" data-colindex="0">Place</th>
-            <th class="sorting" data-colindex="0">WinPlace</th>
-            <th class="sorting" data-colindex="0">Total</th>
+            <th class="sorting" data-colindex="0">@Resources.Win</th>
+            <th class="sorting" data-colindex="0">@Resources.Place</th>
+            <th class="sorting" data-colindex="0">@Resources.WinPlace</th>
+            <th class="sorting" data-colindex="0">@Resources.Total</th>
         </tr>
     </thead>
     @if (Model.RacingCommissions.Any())

@@ -276,7 +276,7 @@
 	<data name="of2" xml:space="preserve">
     <value>của</value>
   </data>
-  <data name="AgentTotal" xml:space="preserve">
+	<data name="AgentTotal" xml:space="preserve">
     <value>Tổng giao dịch của Agent</value>
   </data>
 	<data name="AgentWinLoss" xml:space="preserve">
@@ -303,19 +303,19 @@
 	<data name="Results" xml:space="preserve">
     <value>Kết quả</value>
   </data>
-  <data name="GrossComAndAgentTotal" xml:space="preserve">
+	<data name="GrossComAndAgentTotal" xml:space="preserve">
     <value>/Tổng hoa hồng/Tổng giao dịch của Agent</value>
   </data>
-  <data name="GrossComAndMasterTotal" xml:space="preserve">
+	<data name="GrossComAndMasterTotal" xml:space="preserve">
     <value>/Tổng hoa hồng/Tổng giao dịch của Master</value>
   </data>
-  <data name="To" xml:space="preserve">
+	<data name="To" xml:space="preserve">
     <value>Đến</value>
   </data>
-  <data name="From" xml:space="preserve">
+	<data name="From" xml:space="preserve">
     <value>Từ</value>
   </data>
-  <data name="BetCount" xml:space="preserve">
+	<data name="BetCount" xml:space="preserve">
     <value>Số lượng cược</value>
   </data>
   <data name="WinLossTitle" xml:space="preserve">
@@ -332,5 +332,20 @@
 	</data>
 	<data name="MasterOutstanding" xml:space="preserve">
 		<value>Tiền chưa xử lý của Master</value>
+	</data>
+	<data name="RacingCommission" xml:space="preserve">
+		<value>Hoa hồng cho Racing</value>
+	</data>
+	<data name="Tote" xml:space="preserve">
+		<value>Tote</value>
+	</data>
+	<data name="Win" xml:space="preserve">
+		<value>Win</value>
+	</data>
+	<data name="Place" xml:space="preserve">
+		<value>Place</value>
+	</data>
+	<data name="WinPlace" xml:space="preserve">
+		<value>Win Place</value>
 	</data>
 </root>

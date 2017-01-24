@@ -316,19 +316,19 @@
 	<data name="Results" xml:space="preserve">
     <value>ผลการแข่งขัน</value>
   </data>
-  <data name="GrossComAndAgentTotal" xml:space="preserve">
+	<data name="GrossComAndAgentTotal" xml:space="preserve">
     <value>/ยอดรวมของคอมมิชชั่น/รวม เอเจนต์</value>
   </data>
-  <data name="GrossComAndMasterTotal" xml:space="preserve">
+	<data name="GrossComAndMasterTotal" xml:space="preserve">
     <value>/ยอดรวมของคอมมิชชั่น/รวม Master</value>
   </data>
-  <data name="To" xml:space="preserve">
+	<data name="To" xml:space="preserve">
     <value>ถึง</value>
   </data>
-  <data name="From" xml:space="preserve">
+	<data name="From" xml:space="preserve">
     <value>จาก</value>
   </data>
-  <data name="BetCount" xml:space="preserve">
+	<data name="BetCount" xml:space="preserve">
     <value>นับเดิมพัน</value>
   </data>
   <data name="WinLossTitle" xml:space="preserve">
@@ -345,5 +345,20 @@
 	</data>
 	<data name="MasterOutstanding" xml:space="preserve">
 		<value>การเดิมพันที่ยังไม่สิ้นสุดของ Master</value>
+	</data>
+	<data name="RacingCommission" xml:space="preserve">
+		<value>คอมมิสชั่นการแข่งขันม้า</value>
+	</data>
+	<data name="Tote" xml:space="preserve">
+		<value>ยอดรวม</value>
+	</data>
+	<data name="Win" xml:space="preserve">
+		<value>ชนะ</value>
+	</data>
+	<data name="Place" xml:space="preserve">
+		<value>วาง</value>
+	</data>
+	<data name="WinPlace" xml:space="preserve">
+		<value>ชนะ / ตำแหน่ง</value>
 	</data>
 </root>

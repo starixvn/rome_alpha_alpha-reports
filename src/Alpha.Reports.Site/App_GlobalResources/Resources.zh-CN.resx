@@ -315,19 +315,19 @@
 	<data name="Results" xml:space="preserve">
     <value>赛果</value>
   </data>
-  <data name="GrossComAndAgentTotal" xml:space="preserve">
+	<data name="GrossComAndAgentTotal" xml:space="preserve">
     <value>/总佣金/代理总和</value>
   </data>
-  <data name="GrossComAndMasterTotal" xml:space="preserve">
+	<data name="GrossComAndMasterTotal" xml:space="preserve">
     <value>/总佣金/总代理总数</value>
   </data>
-  <data name="To" xml:space="preserve">
+	<data name="To" xml:space="preserve">
     <value>到</value>
   </data>
-  <data name="From" xml:space="preserve">
+	<data name="From" xml:space="preserve">
     <value>从</value>
   </data>
-  <data name="BetCount" xml:space="preserve">
+	<data name="BetCount" xml:space="preserve">
     <value>投注统计</value>
   </data>
   <data name="WinLossTitle" xml:space="preserve">
@@ -344,5 +344,20 @@
 	</data>
 	<data name="MasterOutstanding" xml:space="preserve">
 		<value>总代理未结束交易</value>
+	</data>
+	<data name="RacingCommission" xml:space="preserve">
+		<value>赛马佣金</value>
+	</data>
+	<data name="Tote" xml:space="preserve">
+		<value>体彩</value>
+	</data>
+	<data name="Win" xml:space="preserve">
+		<value>独赢</value>
+	</data>
+	<data name="Place" xml:space="preserve">
+		<value>位置</value>
+	</data>
+	<data name="WinPlace" xml:space="preserve">
+		<value>独赢及位置</value>
 	</data>
 </root>

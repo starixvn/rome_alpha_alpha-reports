@@ -583,11 +583,29 @@ namespace Alpha.Reports.Site.App_GlobalResources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Place.
+        /// </summary>
+        public static string Place {
+            get {
+                return ResourceManager.GetString("Place", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product.
         /// </summary>
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Racing Commission.
+        /// </summary>
+        public static string RacingCommission {
+            get {
+                return ResourceManager.GetString("RacingCommission", resourceCulture);
             }
         }
         
@@ -781,6 +799,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tote.
+        /// </summary>
+        public static string Tote {
+            get {
+                return ResourceManager.GetString("Tote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Turnover.
         /// </summary>
         public static string Turnover {
@@ -817,6 +844,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Win.
+        /// </summary>
+        public static string Win {
+            get {
+                return ResourceManager.GetString("Win", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Win/Loss.
         /// </summary>
         public static string WinLoss {
@@ -849,6 +885,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
         public static string WinLossTitle {
             get {
                 return ResourceManager.GetString("WinLossTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win Place.
+        /// </summary>
+        public static string WinPlace {
+            get {
+                return ResourceManager.GetString("WinPlace", resourceCulture);
             }
         }
         
