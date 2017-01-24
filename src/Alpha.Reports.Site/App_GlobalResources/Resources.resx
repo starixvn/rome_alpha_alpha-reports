@@ -372,11 +372,8 @@
   <data name="BetCount" xml:space="preserve">
     <value>Bet Count</value>
   </data>
-    <data name="NumberGameNo" xml:space="preserve">
+  <data name="NumberGameNo" xml:space="preserve">
     <value>Number Game No</value>
-  </data>
-  <data name="LiveCasino" xml:space="preserve">
-    <value>Live Casino</value>
   </data>
   <data name="Neutral" xml:space="preserve">
     <value> (N)</value>

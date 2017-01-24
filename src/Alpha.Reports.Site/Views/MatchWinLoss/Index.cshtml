@@ -2,7 +2,7 @@
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, false, false, true, null, null), Request.Url.Query)
 
-<form class="form-inline filter  @(Model.FilterViewModel.Visible ? string.Empty:"hide")" role="form" id="report-form">
+<form class="form-inline filter  @(Model.FilterViewModel.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @Html.Hidden("IsFilterVisible", Model.FilterViewModel.Visible ? "true" : "false")
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
@@ -72,7 +72,7 @@
         @NoInformation.Render(colspan: 6)
     }
 </table>
-<form class="form-inline hide" role="form" id="export-excel-form" action="~/MatchWinLoss/Excel">
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", "MatchWinLoss")">
     <input type="hidden" name="CustId" value="@Model.CustId" />
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />

@@ -337,9 +337,6 @@
   <data name="NumberGameNo" xml:space="preserve">
     <value>เกมหมายเลข เลขที่</value>
   </data>
-  <data name="LiveCasino" xml:space="preserve">
-    <value>คาสิโนเกมสด</value>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>ต่อไป</value>
   </data>

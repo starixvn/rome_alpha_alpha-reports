@@ -336,9 +336,6 @@
   <data name="NumberGameNo" xml:space="preserve">
     <value>数字游戏编号</value>
   </data>
-  <data name="LiveCasino" xml:space="preserve">
-    <value>娱乐厅</value>
-  </data>
   <data name="Next" xml:space="preserve">
     <value>下一页</value>
   </data>
