@@ -116,11 +116,11 @@
     <Compile Include="Params\WinLossDetailParam.cs" />
     <Compile Include="Params\WinLossParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\DateTimeManager.cs" />
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\WinLossService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\WinLossDetailService.cs" />
+    <Compile Include="Utils\DateTimeUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

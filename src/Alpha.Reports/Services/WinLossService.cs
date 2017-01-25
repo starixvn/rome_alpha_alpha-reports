@@ -6,7 +6,6 @@
     using Criteria.WinLoss;
     using DataAccesses;
     using Fanex.Data.Repository;
-    using Models;
     using Models.Winloss;
     using Params;
     using RemotingRef;

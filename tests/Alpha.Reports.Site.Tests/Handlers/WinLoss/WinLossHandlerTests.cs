@@ -20,6 +20,7 @@
     using Site.Requests.WinLoss;
     using Site.ViewModels.WinLoss;
     using TestCases;
+    using Utils;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -42,7 +43,7 @@
             winLossHandler = new WinLossHandler(productService, reportService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            DateTimeUtility.Today = DefaultVariables.CurrentDate;
 
             compareLogic = new CompareLogic();
         }

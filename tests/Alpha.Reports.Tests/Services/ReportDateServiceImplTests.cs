@@ -10,6 +10,7 @@
     using Reports.Extensions;
     using Reports.Models;
     using Reports.Services;
+    using Utils;
     using Xunit;
 
     [Collection("FanexCacheCollection")]
@@ -37,7 +38,7 @@
 
                 return dataInCache != null;
             });
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            DateTimeUtility.Today = DefaultVariables.CurrentDate;
 
             ConfiguredCacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
 

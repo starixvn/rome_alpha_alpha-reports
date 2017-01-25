@@ -2,6 +2,7 @@
 {
     using Constants;
     using Reports.Services;
+    using Utils;
     using Xunit;
 
     public class DateTimeManagerTests
@@ -11,10 +12,10 @@
         {
             // Arrange
             var expectedDate = DefaultVariables.CurrentDate;
-            DateTimeManager.Now = expectedDate;
+            DateTimeUtility.Today = expectedDate;
 
             // Act
-            var actualDate = DateTimeManager.Now;
+            var actualDate = DateTimeUtility.Today;
 
             // Assert
             Assert.Equal(expectedDate, actualDate);

@@ -17,6 +17,7 @@
     using Site.Handlers.WinLossDetail;
     using Site.Requests.WinLossDetail;
     using Site.ViewModels.WinLossDetail;
+    using Utils;
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
@@ -40,7 +41,7 @@
 
             this.userFixture = userFixture;
             winLossDetailHandler = new WinLossDetailHandler(productService, reportService);
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            DateTimeUtility.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }

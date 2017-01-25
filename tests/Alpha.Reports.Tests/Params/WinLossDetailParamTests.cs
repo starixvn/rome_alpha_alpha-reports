@@ -9,6 +9,7 @@
     using Reports.Models;
     using Reports.Params;
     using Reports.Services;
+    using Utils;
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
@@ -16,7 +17,7 @@
     {
         public WinLossDetailParamTests()
         {
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            DateTimeUtility.Today = DefaultVariables.CurrentDate;
         }
 
         [Fact]

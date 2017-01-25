@@ -9,6 +9,7 @@
     using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
+    using Utils;
 
     public class EnteredResultViewModel
     {
@@ -20,13 +21,13 @@
             CustLevel = message.CustLevel;
         }
 
-        public DateTime MinDate => DateTimeManager.Now.AddMonths(-3).FirstDayOfMonth();
+        public DateTime MinDate => DateTimeUtility.Today.AddMonths(-3).FirstDayOfMonth();
 
         public DateTime MaxDate => DateTime.MaxValue;
 
-        public DateTime FromDate => DateTimeManager.Now;
+        public DateTime FromDate => DateTimeUtility.Today;
 
-        public DateTime ToDate => DateTimeManager.Now;
+        public DateTime ToDate => DateTimeUtility.Today;
 
         public string Language { get; }
 

@@ -9,6 +9,7 @@
     using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
+    using Utils;
     using ViewModels;
 
     public class EnteredSportResultExcelHandler :
@@ -36,8 +37,8 @@
             var reportData = reportService.GetEnteredSportResults();
             var resources = new Dictionary<string, string>
             {
-                ["Yesterday"] = DateTimeManager.Now.AddDays(-1).ToShortDateWithSlash(),
-                ["Today"] = DateTimeManager.Now.ToShortDateWithSlash()
+                ["Yesterday"] = DateTimeUtility.Today.AddDays(-1).ToShortDateWithSlash(),
+                ["Today"] = DateTimeUtility.Today.ToShortDateWithSlash()
             };
 
             var result = workbook
@@ -75,7 +76,7 @@
           => string.Join(
               "-",
               Resources.MatchResultEntered,
-              DateTimeManager.Now.ToShortDateWithSlash(),
-              DateTimeManager.Now.AddDays(-1).ToShortDateWithSlash());
+              DateTimeUtility.Today.ToShortDateWithSlash(),
+              DateTimeUtility.Today.AddDays(-1).ToShortDateWithSlash());
     }
 }

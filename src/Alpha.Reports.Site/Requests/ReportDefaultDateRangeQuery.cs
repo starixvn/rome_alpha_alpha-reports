@@ -3,13 +3,13 @@
     using System;
     using Extensions;
     using Reports.Models;
-    using Services;
+    using Utils;
 
     public class ReportDefaultDateRangeQuery : ReportBaseQuery
     {
         internal ReportDefaultDateRangeQuery(IUser viewer) : base(viewer)
         {
-            ToDate = DateTimeManager.Now;
+            ToDate = DateTimeUtility.Today;
             FromDate = DateTime.MinValue;
         }
 
@@ -20,8 +20,8 @@
         public bool IsHistoricReport { get; set; }
 
         public DateTime MinDate => IsHistoricReport
-                ? DateTimeManager.Now.AddYears(-3).FirstDayOfMonth()
-                : DateTimeManager.Now.AddMonths(-3).FirstDayOfMonth();
+                ? DateTimeUtility.Today.AddYears(-3).FirstDayOfMonth()
+                : DateTimeUtility.Today.AddMonths(-3).FirstDayOfMonth();
 
         public override bool IsValid()
         {
@@ -29,13 +29,13 @@
             if (FromDate == DateTime.MinValue)
             {
                 FromDate = IsHistoricReport
-                    ? DateTimeManager.Now.FirstDayOfMonth()
-                    : DateTimeManager.Now;
+                    ? DateTimeUtility.Today.FirstDayOfMonth()
+                    : DateTimeUtility.Today;
             }
 
             return base.IsValid()
-                && FromDate.Date <= ToDate.Date
-                && FromDate.Date >= MinDate.Date
+                && FromDate <= ToDate
+                && FromDate >= MinDate
                 && (!IsHistoricReport || FromDate.IsSameMonthWith(ToDate));
         }
     }

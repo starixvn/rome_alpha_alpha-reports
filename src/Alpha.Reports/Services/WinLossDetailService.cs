@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System;
-    using System.Linq;
     using Criteria.WinLossDetail;
     using DataAccesses;
     using Models;
