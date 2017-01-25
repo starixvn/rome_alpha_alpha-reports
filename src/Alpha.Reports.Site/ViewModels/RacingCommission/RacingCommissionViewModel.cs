@@ -12,7 +12,7 @@
     {
         public RacingCommissionViewModel(
             RacingCommissionQuery query,
-            IEnumerable<RacingCommissionModel> racingCommission,
+            IEnumerable<RacingCommissionModel> racingCommissions,
             DateTime balanceUpDate,
             IEnumerable<CustInfo> breadcrumbLevel)
             : base(query.CustLevel, breadcrumbLevel)
@@ -27,18 +27,12 @@
                 query.UserSelectedDateRangeOption);
 
             RacingCommissionFilter = new RacingCommissionFilterViewModel(dateRangePickerViewModel, balanceUpDate);
-            RacingCommissions = racingCommission;
-        }
-
-        public string Title
-        {
-            get
-            {
-                return Resources.RacingCommission;
-            }
+            RacingCommissions = racingCommissions;
         }
 
         public RacingCommissionQuery Query { get; }
+
+        public string Title => Resources.RacingCommission;
 
         public RacingCommissionFilterViewModel RacingCommissionFilter { get; }
 
