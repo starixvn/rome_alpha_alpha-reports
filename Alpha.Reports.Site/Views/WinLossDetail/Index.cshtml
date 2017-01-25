@@ -112,9 +112,9 @@
 
         <tbody>
             @foreach (var data in Model
-                                                        .ReportData
-                                                        .DataSource
-                                                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                                                                        .ReportData
+                                                                        .DataSource
+                                                                        .OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 @RenderRow(data, false, ViewBag.BetListPath, isEvenRow)
                 isEvenRow = !isEvenRow;
@@ -134,11 +134,12 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form" action="WinLossDetail/Excel">
-    <input type="hidden" name="CustId" value="@Model.CustId" />
-    <input type="hidden" name="FromDate" value="@Model.FromDate" />
-    <input type="hidden" name="ToDate" value="@Model.ToDate" />
-    <input type="hidden" name="UserSelectedProductIds" value="@Model.UserSelectedProductIds" />
-    <input type="hidden" name="UserLevelId" value="@Model.UserLevel.Value" />
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds)
+    @Html.Hidden("UserLevelId", Model.UserLevel.Value)
+    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 </form>
 @Html.Hidden("HasSubmittedParams", Model.HasSubmittedParams)
 @Pager.Render(Model.PagerViewModel)
