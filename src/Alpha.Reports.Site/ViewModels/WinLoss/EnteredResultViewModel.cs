@@ -14,15 +14,13 @@
     {
         public EnteredResultViewModel(
             EnteredSportResultQuery message,
-            IEnumerable<EnteredSportResult> reportData,
-            DateTime minDate)
+            IEnumerable<EnteredSportResult> reportData)
         {
             ReportData = reportData;
             CustLevel = message.CustLevel;
-            MinDate = minDate;
         }
 
-        public DateTime MinDate { get; }
+        public DateTime MinDate => DateTimeManager.Now.AddMonths(-3).FirstDayOfMonth();
 
         public DateTime MaxDate => DateTime.MaxValue;
 

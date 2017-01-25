@@ -33,7 +33,7 @@
             winLossDetailController.Index(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is(message));
+            mediator.Received().Send(message);
         }
 
         [Fact]

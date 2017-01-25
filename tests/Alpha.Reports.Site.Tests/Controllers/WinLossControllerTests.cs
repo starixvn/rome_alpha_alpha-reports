@@ -34,7 +34,7 @@
             winLossController.Index(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is<WinLossQuery>(message));
+            mediator.Received().Send(message);
         }
 
         [Fact]

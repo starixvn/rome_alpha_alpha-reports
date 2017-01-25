@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using System.Web.SessionState;
     using MediatR;
+    using Requests;
     using ViewModels;
     using Web;
 
@@ -22,9 +23,27 @@
             => File(viewModel.Content, viewModel.ContentType, viewModel.Name);
 
         protected ActionResult View<TResponse>(IRequest<TResponse> message)
-            => View(mediator.Send(message));
+        {
+            var baseQuery = message as ReportBaseQuery;
+            if (baseQuery != null && !baseQuery.IsValid())
+            {
+                //// TODO: this is pseudo code
+                return RedirectToAction("InvalidReport");
+            }
+
+            return View(mediator.Send(message));
+        }
 
         protected FileContentResult ExcelView(IRequest<ExcelFileViewModel> message)
-            => GetExcelContent(mediator.Send(message));
+        {
+            var baseQuery = message as ReportBaseQuery;
+            if (baseQuery != null && !baseQuery.IsValid())
+            {
+                //// TODO: this is pseudo code
+                //// return RedirectToAction("EmptyFileContent");
+            }
+
+            return GetExcelContent(mediator.Send(message));
+        }
     }
 }

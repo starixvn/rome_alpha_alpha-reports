@@ -58,10 +58,7 @@
             var reportData = Enumerable.Empty<EnteredSportResult>();
             reportService.GetEnteredSportResults().Returns(reportData);
 
-            var minDate = new DateTime(1989, 5, 28);
-            var expectedResult = new EnteredResultViewModel(message, reportData, minDate);
-
-            reportService.GetMinDate(false).Returns(minDate);
+            var expectedResult = new EnteredResultViewModel(message, reportData);
 
             // Act
             var actualResult = enteredSportResultHandler.Handle(message);

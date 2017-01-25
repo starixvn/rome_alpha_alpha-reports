@@ -76,11 +76,8 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var minDate = new DateTime(1989, 5, 28);
-            reportService.GetMinDate(message.IsHistoricReport).Returns(minDate);
-
             var winLossDetailParam = new WinLossDetailParam(
-                0,
+                10,
                 0,
                 0,
                 DefaultVariables.CurrentDate,
@@ -95,9 +92,8 @@
                 message,
                 winLossDetailParam,
                 reportData,
-                new List<CustInfo> { new CustInfo(0, string.Empty, 4) },
-                Enumerable.Empty<SelectListItem>(),
-                minDate);
+                new List<CustInfo> { new CustInfo(10, "Name", 4) },
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             var actualWinLossDetailViewModel = winLossDetailHandler.Handle(message);

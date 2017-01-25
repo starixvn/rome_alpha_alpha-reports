@@ -119,8 +119,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
-                DateTimeManager.Now);
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             winLossExcelHandler.Handle(message);
@@ -142,8 +141,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
-                DateTimeManager.Now);
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             winLossExcelHandler.Handle(message);

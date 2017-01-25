@@ -16,8 +16,6 @@
         IEnumerable<EnteredSportResult> GetEnteredSportResults();
 
         IEnumerable<WinLossModel> GetWinLoss(WinLossParam param);
-
-        DateTime GetMinDate(bool isHistoricReport);
     }
 
     public class WinLossServiceImpl : WinLossService
@@ -41,8 +39,6 @@
             this.dataAccess = dataAccess;
             this.cacheRefService = cacheRefService;
         }
-
-        internal static DateRangeType DateRangeType { get; set; }
 
         public IEnumerable<EnteredSportResult> GetEnteredSportResults()
         {
@@ -68,12 +64,6 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            if (!reportDateService.ValidateDateRange(
-                new DateRange(DateRangeType, param.FromDate, param.ToDate, param.IsHistoryReport)))
-            {
-                return Enumerable.Empty<WinLossModel>();
-            }
-
             var validUserSelectedProductIds =
                 productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds);
 
@@ -90,7 +80,5 @@
 
             return winlossData;
         }
-
-        public DateTime GetMinDate(bool isHistoricReport) => reportDateService.GetMinDate(DateRangeType, isHistoricReport);
     }
 }

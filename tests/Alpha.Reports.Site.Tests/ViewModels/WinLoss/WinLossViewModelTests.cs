@@ -51,8 +51,7 @@
                  message,
                  fixture.Create<WinLossParam>(),
                  Enumerable.Empty<CustInfo>(),
-                 Enumerable.Empty<SelectListItem>(),
-                 DateTime.Now);
+                 Enumerable.Empty<SelectListItem>());
 
             // Act & Assert
             Assert.Equal(winlossViewModel.Title, expectedTitle);
@@ -70,8 +69,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
-                DateTime.Now);
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             var actualGrandTotal = winlossViewModel.GrandTotal;
@@ -93,8 +91,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
-                DateTime.Now);
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             var actualReportData = winlossViewModel.ReportData;
@@ -116,8 +113,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
-                DateTime.Now);
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             var actualGrandTotal = winlossViewModel.GrandTotal;
@@ -143,8 +139,7 @@
                 message,
                 winlossParam,
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
-                DateTime.Now);
+                Enumerable.Empty<SelectListItem>());
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
@@ -183,8 +178,7 @@
                             message,
                             winlossParam,
                             Enumerable.Empty<CustInfo>(),
-                            Enumerable.Empty<SelectListItem>(),
-                            DateTime.Now);
+                            Enumerable.Empty<SelectListItem>());
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 

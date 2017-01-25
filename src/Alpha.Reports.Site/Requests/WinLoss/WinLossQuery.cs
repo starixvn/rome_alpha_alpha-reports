@@ -5,7 +5,7 @@
     using ViewModels.WinLoss;
 
     public class WinLossQuery :
-         ReportBaseQuery,
+         ThreeMonthsOrThreeYearsMinDate,
          IRequest<WinLossViewModel>
     {
         public WinLossQuery(IUser viewer) : base(viewer)
@@ -19,8 +19,6 @@
         public string SortPropertyName { get; set; }
 
         public bool IsDescendingSort { get; set; }
-
-        public bool IsHistoricReport { get; set; }
 
         public bool IsFilterVisible { get; set; }
 

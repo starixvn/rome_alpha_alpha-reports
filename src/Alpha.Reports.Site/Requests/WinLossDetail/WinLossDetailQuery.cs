@@ -5,7 +5,7 @@
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailQuery :
-        ReportBaseQuery,
+        ThreeMonthsOrThreeYearsMinDate,
         IRequest<WinLossDetailViewModel>
     {
         public WinLossDetailQuery(IUser viewer) : base(viewer)
@@ -23,8 +23,6 @@
         public bool IsDescendingSort { get; set; }
 
         public bool IsStackMode { get; set; }
-
-        public bool IsHistoricReport { get; set; }
 
         public bool IsFilterVisible { get; set; } = true;
 

@@ -26,7 +26,7 @@
 
             var reportData = reportService.GetEnteredSportResults();
 
-            return new EnteredResultViewModel(message, reportData, reportService.GetMinDate(isHistoricReport: false));
+            return new EnteredResultViewModel(message, reportData);
         }
     }
 }

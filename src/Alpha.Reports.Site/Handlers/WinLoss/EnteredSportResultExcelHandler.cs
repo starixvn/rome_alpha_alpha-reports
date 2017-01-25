@@ -47,7 +47,7 @@
                .Sheet(Resources.DefaultSheetName)
                .ExportToBytes();
 
-            return new ExcelFileViewModel(GetExcelFileName(message), result);
+            return new ExcelFileViewModel(GetExcelFileName(), result);
         }
 
         private Mapper<EnteredSportResult> GetEnteredSportResultRowMapper()
@@ -71,11 +71,11 @@
                 bodyStartIndex: 3,
                 bodyEndIndex: 4);
 
-        private string GetExcelFileName(EnteredSportResultExcelQuery message)
+        private string GetExcelFileName()
           => string.Join(
               "-",
               Resources.MatchResultEntered,
-              message.FromDate.ToShortDateWithSlash(),
-              message.ToDate.ToShortDateWithSlash());
+              DateTimeManager.Now.ToShortDateWithSlash(),
+              DateTimeManager.Now.AddDays(-1).ToShortDateWithSlash());
     }
 }

@@ -37,8 +37,7 @@
                 message,
                 winLossParam,
                 BuildBreadcrumbLevel(message),
-                BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products),
-                reportService.GetMinDate(message.IsHistoricReport));
+                BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products));
 
             return viewModel;
         }

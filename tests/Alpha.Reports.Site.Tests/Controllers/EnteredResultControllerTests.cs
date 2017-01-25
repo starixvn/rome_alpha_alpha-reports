@@ -33,7 +33,7 @@
             enteredResultController.Index(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is<EnteredSportResultQuery>(message));
+            mediator.Received().Send(message);
         }
 
         [Fact]
