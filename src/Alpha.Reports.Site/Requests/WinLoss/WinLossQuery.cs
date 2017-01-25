@@ -5,7 +5,7 @@
     using ViewModels.WinLoss;
 
     public class WinLossQuery :
-         ThreeMonthsOrThreeYearsMinDate,
+         ReportDefaultDateRangeQuery,
          IRequest<WinLossViewModel>
     {
         public WinLossQuery(IUser viewer) : base(viewer)

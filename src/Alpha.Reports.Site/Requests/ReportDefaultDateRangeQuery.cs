@@ -5,11 +5,12 @@
     using Reports.Models;
     using Services;
 
-    public class ThreeMonthsOrThreeYearsMinDate : ReportBaseQuery
+    public class ReportDefaultDateRangeQuery : ReportBaseQuery
     {
-        internal ThreeMonthsOrThreeYearsMinDate(IUser viewer) : base(viewer)
+        internal ReportDefaultDateRangeQuery(IUser viewer) : base(viewer)
         {
             ToDate = DateTimeManager.Now;
+            FromDate = DateTime.MinValue;
         }
 
         public DateTime FromDate { get; set; }
@@ -34,7 +35,8 @@
 
             return base.IsValid()
                 && FromDate.Date <= ToDate.Date
-                && FromDate.Date >= MinDate.Date;
+                && FromDate.Date >= MinDate.Date
+                && (!IsHistoricReport || FromDate.SameMonth(ToDate));
         }
     }
 }
