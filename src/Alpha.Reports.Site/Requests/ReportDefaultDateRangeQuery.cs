@@ -36,7 +36,7 @@
             return base.IsValid()
                 && FromDate.Date <= ToDate.Date
                 && FromDate.Date >= MinDate.Date
-                && (!IsHistoricReport || FromDate.IsInOneMonth(ToDate));
+                && (!IsHistoricReport || FromDate.IsSameMonthWith(ToDate));
         }
     }
 }

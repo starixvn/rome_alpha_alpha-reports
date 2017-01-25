@@ -22,7 +22,7 @@
         public static DateTime FirstDayOfYear(this DateTime dateTime)
             => new DateTime(dateTime.Year, 1, 1);
 
-        public static bool IsInOneMonth(this DateTime dateTime, DateTime otherDateTime)
+        public static bool IsSameMonthWith(this DateTime dateTime, DateTime otherDateTime)
             => dateTime.Month == otherDateTime.Month && dateTime.Year == otherDateTime.Year;
     }
 }
