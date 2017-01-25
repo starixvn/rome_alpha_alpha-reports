@@ -50,9 +50,9 @@
         {
             { nameof(RacingCommissionModel.CustId), model.CustId },
             { nameof(RacingCommissionModel.CustName), model.CustName },
-            { nameof(RacingCommissionQuery.FromDate),  Query.FromDate },
-            { nameof(RacingCommissionQuery.ToDate),  Query.ToDate },
-            { nameof(RacingCommissionQuery.UserSelectedDateRangeOption),  Query.UserSelectedDateRangeOption }
+            { "fDate",  Query.FromDate },
+            { "tDate",  Query.ToDate },
+            { "type", "NonMixParlay" }
         };
     }
 }

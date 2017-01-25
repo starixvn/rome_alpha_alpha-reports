@@ -30,7 +30,7 @@
 
             var criteria = new RacingCommissionCriteria(param.CustLevel, param.CustId, param.FromDate, param.ToDate);
 
-            return repository.Fetch<RacingCommissionModel>(criteria);
+            return repository.Fetch<RacingCommissionModel>(criteria); 
         }
     }
 }

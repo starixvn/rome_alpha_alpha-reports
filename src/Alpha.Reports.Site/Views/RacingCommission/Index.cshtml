@@ -6,11 +6,13 @@
 
 @Html.Partial("_RacingCommissionFilter", Model.RacingCommissionFilter)
 
-<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per" id="tbl-report"
-       data-totalrecords="@Model.RacingCommissions.Count()">
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
+        data-totalrecords="@Model.RacingCommissions.Count()"
+        data-sortedcolumn="Username"
+        data-descendingsort="false">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
-            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Outstanding.Username">
+            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Username">
                 @Resources.Username
             </th>
             <th colspan="4" class="header">
@@ -18,10 +20,10 @@
             </th>
         </tr>
         <tr class="thead-row2">
-            <th class="sorting" data-colindex="0">@Resources.Win</th>
-            <th class="sorting" data-colindex="0">@Resources.Place</th>
-            <th class="sorting" data-colindex="0">@Resources.WinPlace</th>
-            <th class="sorting" data-colindex="0">@Resources.Total</th>
+            <th class="sorting" data-sortedname>@Resources.Win</th>
+            <th class="sorting" data-sortedname>@Resources.Place</th>
+            <th class="sorting" data-sortedname>@Resources.WinPlace</th>
+            <th class="sorting" data-sortedname>@Resources.Total</th>
         </tr>
     </thead>
     @if (Model.RacingCommissions.Any())
