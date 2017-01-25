@@ -102,14 +102,15 @@
     }
 </table>
 
-<form class="form-inline hide" role="form" id="export-excel-form" 
+<form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", "WinLoss")">
-    <input type="hidden" name="CustId" value="@Model.CustId" />
-    <input type="hidden" name="CustName" value="@Model.CustName" />
-    <input type="hidden" name="FromDate" value="@Model.FromDate" />
-    <input type="hidden" name="ToDate" value="@Model.ToDate" />
-    <input type="hidden" name="UserSelectedProductIds" value="@Model.UserSelectedProductIds" />
-    <input type="hidden" name="CustLevelId" value="@Model.CustLevel.Value" />
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds)
+    @Html.Hidden("UserLevelId", Model.CustLevel.Value)
+    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
