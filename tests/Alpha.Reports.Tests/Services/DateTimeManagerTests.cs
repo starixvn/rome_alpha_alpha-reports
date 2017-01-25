@@ -12,10 +12,10 @@
         {
             // Arrange
             var expectedDate = DefaultVariables.CurrentDate;
-            DateTimeUtility.Today = expectedDate;
+            SystemTime.Today = expectedDate;
 
             // Act
-            var actualDate = DateTimeUtility.Today;
+            var actualDate = SystemTime.Today;
 
             // Assert
             Assert.Equal(expectedDate, actualDate);

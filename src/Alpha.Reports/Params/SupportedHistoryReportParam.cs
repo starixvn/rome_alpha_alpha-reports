@@ -15,14 +15,14 @@
 
             if (fromDate == DateTime.MinValue)
             {
-                FromDate = isHistoryReport ? DateTimeUtility.Today.FirstDayOfMonth() : DateTimeUtility.Today;
+                FromDate = isHistoryReport ? SystemTime.Today.FirstDayOfMonth() : SystemTime.Today;
             }
             else
             {
                 FromDate = fromDate;
             }
 
-            ToDate = toDate == DateTime.MinValue ? DateTimeUtility.Today : toDate;
+            ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
         }
 
         public DateTime FromDate { get; }

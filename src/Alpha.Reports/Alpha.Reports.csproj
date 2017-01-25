@@ -120,7 +120,7 @@
     <Compile Include="Services\WinLossService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\WinLossDetailService.cs" />
-    <Compile Include="Utils\DateTimeUtility.cs" />
+    <Compile Include="Utils\SystemTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

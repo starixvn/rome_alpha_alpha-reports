@@ -52,7 +52,7 @@
             winLossExcelHandler = Substitute.ForPartsOf<WinLossExcelHandler>(productService, reportService, winlossWorkbook);
             winLossExcelHandler.MapPath = (path) => path;
             winLossExcelHandler.IsFileExist = (path) => true;
-            DateTimeUtility.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

@@ -32,7 +32,7 @@
             reportService = Substitute.For<WinLossService>();
             this.userFixture = userFixture;
             enteredSportResultHandler = new EnteredSportResultHandler(reportService);
-            DateTimeUtility.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 

@@ -41,7 +41,7 @@
 
             this.userFixture = userFixture;
             winLossDetailHandler = new WinLossDetailHandler(productService, reportService);
-            DateTimeUtility.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }

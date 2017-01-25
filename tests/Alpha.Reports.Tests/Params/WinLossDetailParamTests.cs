@@ -17,7 +17,7 @@
     {
         public WinLossDetailParamTests()
         {
-            DateTimeUtility.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
         }
 
         [Fact]

@@ -9,7 +9,7 @@
     {
         internal ReportDefaultDateRangeQuery(IUser viewer) : base(viewer)
         {
-            ToDate = DateTimeUtility.Today;
+            ToDate = SystemTime.Today;
             FromDate = DateTime.MinValue;
         }
 
@@ -20,8 +20,8 @@
         public bool IsHistoricReport { get; set; }
 
         public DateTime MinDate => IsHistoricReport
-                ? DateTimeUtility.Today.AddYears(-3).FirstDayOfMonth()
-                : DateTimeUtility.Today.AddMonths(-3).FirstDayOfMonth();
+                ? SystemTime.Today.AddYears(-3).FirstDayOfMonth()
+                : SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
 
         public override bool IsValid()
         {
@@ -29,8 +29,8 @@
             if (FromDate == DateTime.MinValue)
             {
                 FromDate = IsHistoricReport
-                    ? DateTimeUtility.Today.FirstDayOfMonth()
-                    : DateTimeUtility.Today;
+                    ? SystemTime.Today.FirstDayOfMonth()
+                    : SystemTime.Today;
             }
 
             return base.IsValid()

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public static class DateTimeUtility
+    public static class SystemTime
     {
         [ThreadStatic]
         private static DateTime? today;

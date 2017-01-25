@@ -37,8 +37,8 @@
             var reportData = reportService.GetEnteredSportResults();
             var resources = new Dictionary<string, string>
             {
-                ["Yesterday"] = DateTimeUtility.Today.AddDays(-1).ToShortDateWithSlash(),
-                ["Today"] = DateTimeUtility.Today.ToShortDateWithSlash()
+                ["Yesterday"] = SystemTime.Today.AddDays(-1).ToShortDateWithSlash(),
+                ["Today"] = SystemTime.Today.ToShortDateWithSlash()
             };
 
             var result = workbook
@@ -76,7 +76,7 @@
           => string.Join(
               "-",
               Resources.MatchResultEntered,
-              DateTimeUtility.Today.ToShortDateWithSlash(),
-              DateTimeUtility.Today.AddDays(-1).ToShortDateWithSlash());
+              SystemTime.Today.ToShortDateWithSlash(),
+              SystemTime.Today.AddDays(-1).ToShortDateWithSlash());
     }
 }

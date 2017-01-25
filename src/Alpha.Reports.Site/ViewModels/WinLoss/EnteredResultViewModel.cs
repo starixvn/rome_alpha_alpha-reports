@@ -21,13 +21,13 @@
             CustLevel = message.CustLevel;
         }
 
-        public DateTime MinDate => DateTimeUtility.Today.AddMonths(-3).FirstDayOfMonth();
+        public DateTime MinDate => SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
 
         public DateTime MaxDate => DateTime.MaxValue;
 
-        public DateTime FromDate => DateTimeUtility.Today;
+        public DateTime FromDate => SystemTime.Today;
 
-        public DateTime ToDate => DateTimeUtility.Today;
+        public DateTime ToDate => SystemTime.Today;
 
         public string Language { get; }
 
