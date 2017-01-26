@@ -104,7 +104,7 @@
         }
 
         [Fact]
-        public void GetMatchWinLoss_NotNullParam_ReturnsDataFromDynamicRepository()
+        public void GetMatchWinLoss_ValidParam_ReturnsDataFromDynamicRepository()
         {
             var param = new MatchWinLossParam(
                 anyValueCreatorFixture.Create<int>(),
