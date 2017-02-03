@@ -144,7 +144,7 @@
             var actualMinDate = query.MinDate;
 
             // Assert
-            Assert.Equal(DefaultVariables.CurrentDate.AddYears(-3).FirstDayOfMonth(), actualMinDate);
+            Assert.Equal(DefaultVariables.CurrentDate.AddYears(-3).FirstDayOfYear(), actualMinDate);
         }
 
         [Fact]
