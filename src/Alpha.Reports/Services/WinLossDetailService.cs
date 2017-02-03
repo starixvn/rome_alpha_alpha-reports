@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System;
-    using System.Linq;
     using Criteria.WinLossDetail;
     using DataAccesses;
     using Models;
@@ -11,8 +10,6 @@
     public interface WinLossDetailService
     {
         ReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
-
-        DateTime GetMinDate(bool isHistoricReport);
     }
 
     public class WinLossDetailServiceImpl : WinLossDetailService
@@ -31,19 +28,11 @@
             this.dataAccess = dataAccess;
         }
 
-        internal static DateRangeType DateRangeType { get; set; }
-
         public ReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param)
         {
             if (param == null)
             {
                 throw new ArgumentNullException(nameof(param));
-            }
-
-            if (!reportDateService.ValidateDateRange(
-                new DateRange(DateRangeType, param.FromDate, param.ToDate, param.IsHistoryReport)))
-            {
-                return new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
             }
 
             var validUserSelectedProductIds =
@@ -64,7 +53,5 @@
 
             return winLossDetailData;
         }
-
-        public DateTime GetMinDate(bool isHistoricReport) => reportDateService.GetMinDate(DateRangeType, isHistoricReport);
     }
 }

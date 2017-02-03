@@ -17,6 +17,7 @@
     using Site.Handlers.WinLossDetail;
     using Site.Requests.WinLossDetail;
     using Site.ViewModels.WinLossDetail;
+    using Utils;
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
@@ -40,7 +41,7 @@
 
             this.userFixture = userFixture;
             winLossDetailHandler = new WinLossDetailHandler(productService, reportService);
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
@@ -76,11 +77,8 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var minDate = new DateTime(1989, 5, 28);
-            reportService.GetMinDate(message.IsHistoricReport).Returns(minDate);
-
             var winLossDetailParam = new WinLossDetailParam(
-                0,
+                10,
                 0,
                 0,
                 DefaultVariables.CurrentDate,
@@ -95,9 +93,8 @@
                 message,
                 winLossDetailParam,
                 reportData,
-                new List<CustInfo> { new CustInfo(0, string.Empty, 4) },
-                Enumerable.Empty<SelectListItem>(),
-                minDate);
+                new List<CustInfo> { new CustInfo(10, "Name", 4) },
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             var actualWinLossDetailViewModel = winLossDetailHandler.Handle(message);

@@ -24,8 +24,7 @@
             WinLossDetailParam winLossDetailParam,
             ReportData<WinLossDetailModel> reportData,
             IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<SelectListItem> products,
-            DateTime minDate) : base(message.CustLevel, breadcrumbLevel)
+            IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevel)
         {
             this.message = message;
             this.winLossDetailParam = winLossDetailParam;
@@ -39,14 +38,13 @@
             IsDescendingSort = canSort && winLossDetailParam.IsDescendingSort;
 
             Products = products;
-            MinDate = minDate;
         }
 
         public int CustId => winLossDetailParam.CustId;
 
         public string CustName => message.CustName;
 
-        public DateTime MinDate { get; }
+        public DateTime MinDate => message.MinDate;
 
         public DateTime MaxDate => DateTime.MaxValue;
 

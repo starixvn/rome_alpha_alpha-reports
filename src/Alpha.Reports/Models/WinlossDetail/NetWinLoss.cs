@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Alpha.Reports.Models.WinLossDetail
+﻿namespace Alpha.Reports.Models.WinLossDetail
 {
     public class NetWinLoss
     {

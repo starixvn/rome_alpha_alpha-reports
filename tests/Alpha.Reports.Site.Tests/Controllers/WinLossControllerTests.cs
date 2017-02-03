@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Tests.Controllers
 {
+    using System.Web.Mvc;
     using Fixtures;
     using MediatR;
     using NSubstitute;
@@ -34,7 +35,7 @@
             winLossController.Index(message);
 
             // Assert
-            mediator.Received().Send(Arg.Is<WinLossQuery>(message));
+            mediator.Received().Send(message);
         }
 
         [Fact]
@@ -49,6 +50,36 @@
 
             // Assert
             mediator.Received().Send<ExcelFileViewModel>(Arg.Is<WinLossExcelQuery>(message));
+        }
+
+        [Fact]
+        public void Index_QueryIsNotValid_ReturnInvalidReportView()
+        {
+            // Arrange
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)2);
+            var message = new WinLossQuery(user);
+
+            // Act
+            var actualView = winLossController.Index(message) as ViewResult;
+
+            // Assert
+            Assert.Equal("~/Views/Shared/InvalidReport.cshtml", actualView.ViewName);
+        }
+
+        [Fact]
+        public void Excel_QueryIsNotValid_ReturnInvalidReportExcelFile()
+        {
+            // Arrange
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)2);
+            var message = new WinLossExcelQuery(user);
+
+            // Act
+            var actualView = winLossController.Excel(message) as FileContentResult;
+
+            // Assert
+            Assert.Equal("InvalidReport.xls", actualView.FileDownloadName);
         }
     }
 }

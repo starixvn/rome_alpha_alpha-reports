@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using System.Web.SessionState;
     using MediatR;
+    using Requests;
     using ViewModels;
     using Web;
 
@@ -11,6 +12,9 @@
     [SessionState(SessionStateBehavior.ReadOnly)]
     public abstract class ReportBaseController : BaseController
     {
+        private const string InvalidReportViewPath = "~/Views/Shared/InvalidReport.cshtml";
+        private const string InvalidReportExcelFileName = "InvalidReport";
+
         protected readonly IMediator mediator;
 
         protected ReportBaseController(IMediator mediator)
@@ -22,9 +26,25 @@
             => File(viewModel.Content, viewModel.ContentType, viewModel.Name);
 
         protected ActionResult View<TResponse>(IRequest<TResponse> message)
-            => View(mediator.Send(message));
+        {
+            var baseQuery = message as ReportBaseQuery;
+            if (baseQuery != null && !baseQuery.IsValid())
+            {
+                return View(InvalidReportViewPath);
+            }
+
+            return View(mediator.Send(message));
+        }
 
         protected FileContentResult ExcelView(IRequest<ExcelFileViewModel> message)
-            => GetExcelContent(mediator.Send(message));
+        {
+            var baseQuery = message as ReportBaseQuery;
+            if (baseQuery != null && !baseQuery.IsValid())
+            {
+                return GetExcelContent(new ExcelFileViewModel(InvalidReportExcelFileName, new byte[] { }));
+            }
+
+            return GetExcelContent(mediator.Send(message));
+        }
     }
 }

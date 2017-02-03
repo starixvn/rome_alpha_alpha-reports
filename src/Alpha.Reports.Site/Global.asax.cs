@@ -50,7 +50,6 @@
             ModelBinders.Binders.DefaultBinder = new QueryEntityModelBinder();
 
             StaticResources.Init(GetBuildVersion());
-            ReportDateServiceImpl.RegisterReportDateRangeTypes();
 
             Logs.WriteInfo(Resources.AppStart_Message);
         }

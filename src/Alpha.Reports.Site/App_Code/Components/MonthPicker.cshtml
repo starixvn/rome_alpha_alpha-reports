@@ -1,5 +1,6 @@
 ﻿@using Alpha.Reports.Extensions;
 @using Alpha.Reports.Site.ViewModels.Components;
+@using Alpha.Reports.Utils;
 
 @helper Render(MonthPickerViewModel model)
 {
@@ -8,11 +9,11 @@
             <div id="dropdown-month"
                  data-longmonths-inyear="@model.MonthNames.JoinWithComma()"
                  data-mindate="@model.MinDate.ToShortDateWithSlash()"
-                 data-maxdate="@Alpha.Reports.Services.DateTimeManager.Now.ToShortDateWithSlash()"
+                 data-maxdate="@SystemTime.Today.ToShortDateWithSlash()"
                  data-dateinmonth="@model.FromDate.ToShortDateWithSlash()"
                  data-fromdate="@model.FromDate.Day"
                  data-todate="@model.ToDate.Day"
-                 data-currentdate="@Alpha.Reports.Services.DateTimeManager.Now.ToShortDateWithSlash()"></div>
+                 data-currentdate="@SystemTime.Today.ToShortDateWithSlash()"></div>
         </div>
     </div>
     <input type="hidden" id="from-date" name="FromDate" value="@model.FromDate" />

@@ -15,6 +15,7 @@
     using Services;
     using Site.Handlers.WinLossDetail;
     using Site.Requests.WinLossDetail;
+    using Utils;
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
@@ -47,7 +48,7 @@
             winLossDetailExcelHandler = Substitute.ForPartsOf<WinLossDetailExcelHandler>(productService, reportService, workbook);
             winLossDetailExcelHandler.MapPath = (path) => path;
             winLossDetailExcelHandler.IsFileExist = (path) => true;
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }

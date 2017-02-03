@@ -23,8 +23,7 @@
             WinLossQuery message,
             WinLossParam winLossParam,
             IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<SelectListItem> products,
-            DateTime minDate) : base(message.CustLevel, breadcrumbLevel)
+            IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevel)
         {
             this.message = message;
             this.winLossParam = winLossParam;
@@ -34,15 +33,13 @@
             GrandTotal = grandTotal;
 
             BuildResources();
-
-            MinDate = minDate;
         }
 
         public int CustId => message.CustId;
 
         public string CustName => message.CustName;
 
-        public DateTime MinDate { get; }
+        public DateTime MinDate => message.MinDate;
 
         public DateTime MaxDate => DateTime.MaxValue;
 

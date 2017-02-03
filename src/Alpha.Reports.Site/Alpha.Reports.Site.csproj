@@ -279,6 +279,7 @@
     <Compile Include="Requests\ReportBaseQuery.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
+    <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLoss\EnteredSportResultQuery.cs" />
@@ -521,6 +522,7 @@
     <Content Include="typings\globals\storejs\typings.json" />
     <Content Include="Views\EnteredResult\Filter.cshtml" />
     <Content Include="Views\EnteredResult\Index.cshtml" />
+    <Content Include="Views\Shared\InvalidReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -19,6 +19,7 @@
     using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
     using Site.ViewModels.WinLoss;
+    using Utils;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -51,7 +52,7 @@
             winLossExcelHandler = Substitute.ForPartsOf<WinLossExcelHandler>(productService, reportService, winlossWorkbook);
             winLossExcelHandler.MapPath = (path) => path;
             winLossExcelHandler.IsFileExist = (path) => true;
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -119,8 +120,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
-                DateTimeManager.Now);
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             winLossExcelHandler.Handle(message);
@@ -142,8 +142,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
-                DateTimeManager.Now);
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             winLossExcelHandler.Handle(message);

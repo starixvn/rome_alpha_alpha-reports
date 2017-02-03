@@ -15,6 +15,7 @@
     using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
     using Site.ViewModels.WinLoss;
+    using Utils;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -31,7 +32,7 @@
             reportService = Substitute.For<WinLossService>();
             this.userFixture = userFixture;
             enteredSportResultHandler = new EnteredSportResultHandler(reportService);
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
@@ -58,10 +59,7 @@
             var reportData = Enumerable.Empty<EnteredSportResult>();
             reportService.GetEnteredSportResults().Returns(reportData);
 
-            var minDate = new DateTime(1989, 5, 28);
-            var expectedResult = new EnteredResultViewModel(message, reportData, minDate);
-
-            reportService.GetMinDate(false).Returns(minDate);
+            var expectedResult = new EnteredResultViewModel(message, reportData);
 
             // Act
             var actualResult = enteredSportResultHandler.Handle(message);

@@ -39,27 +39,44 @@
 
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            var boundModel = base.BindModel(controllerContext, bindingContext);
+            var boundModel = CallBaseBindModel(controllerContext, bindingContext);
 
             var reportBaseQuery = boundModel as ReportBaseQuery;
-            if (reportBaseQuery != null
-                    && !string.IsNullOrWhiteSpace(controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"]))
+            if (reportBaseQuery != null)
             {
-                var drillDownInfoText = controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"];
+                var breadcrumbLevelJson = GetBreadcrumbLevelJson(controllerContext);
 
-                try
+                if (!string.IsNullOrWhiteSpace(breadcrumbLevelJson))
                 {
-                    reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(drillDownInfoText);
-                }
-                catch (JsonReaderException ex)
-                {
-                    Logs.WriteWarn(ex, UserSession.Current.CustId);
+                    try
+                    {
+                        reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(breadcrumbLevelJson);
+                    }
+                    catch (JsonReaderException ex)
+                    {
+                        LogWarning(ex);
+                    }
                 }
 
                 return reportBaseQuery;
             }
 
             return boundModel;
+        }
+
+        protected virtual object CallBaseBindModel(
+           ControllerContext controllerContext,
+           ModelBindingContext bindingContext)
+            => base.BindModel(controllerContext, bindingContext);
+
+        protected virtual string GetBreadcrumbLevelJson(ControllerContext controllerContext)
+        {
+            return controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"];
+        }
+
+        protected virtual void LogWarning(JsonReaderException ex)
+        {
+            Logs.WriteWarn(ex, UserSession.Current.CustId);
         }
     }
 }

@@ -9,6 +9,7 @@
     using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
+    using Utils;
     using ViewModels;
 
     public class EnteredSportResultExcelHandler :
@@ -36,8 +37,8 @@
             var reportData = reportService.GetEnteredSportResults();
             var resources = new Dictionary<string, string>
             {
-                ["Yesterday"] = DateTimeManager.Now.AddDays(-1).ToShortDateWithSlash(),
-                ["Today"] = DateTimeManager.Now.ToShortDateWithSlash()
+                ["Yesterday"] = SystemTime.Today.AddDays(-1).ToShortDateWithSlash(),
+                ["Today"] = SystemTime.Today.ToShortDateWithSlash()
             };
 
             var result = workbook
@@ -47,7 +48,7 @@
                .Sheet(Resources.DefaultSheetName)
                .ExportToBytes();
 
-            return new ExcelFileViewModel(GetExcelFileName(message), result);
+            return new ExcelFileViewModel(GetExcelFileName(), result);
         }
 
         private Mapper<EnteredSportResult> GetEnteredSportResultRowMapper()
@@ -71,11 +72,11 @@
                 bodyStartIndex: 3,
                 bodyEndIndex: 4);
 
-        private string GetExcelFileName(EnteredSportResultExcelQuery message)
+        private string GetExcelFileName()
           => string.Join(
               "-",
               Resources.MatchResultEntered,
-              message.FromDate.ToShortDateWithSlash(),
-              message.ToDate.ToShortDateWithSlash());
+              SystemTime.Today.ToShortDateWithSlash(),
+              SystemTime.Today.AddDays(-1).ToShortDateWithSlash());
     }
 }

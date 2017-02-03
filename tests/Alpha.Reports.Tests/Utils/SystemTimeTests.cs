@@ -1,20 +1,20 @@
-﻿namespace Alpha.Reports.Tests.Services
+﻿namespace Alpha.Reports.Tests.Utils
 {
     using Constants;
-    using Reports.Services;
+    using Reports.Utils;
     using Xunit;
 
-    public class DateTimeManagerTests
+    public class SystemTimeTests
     {
         [Fact]
         public void Now_Always_ReturnsValueSetToNowProperty()
         {
             // Arrange
             var expectedDate = DefaultVariables.CurrentDate;
-            DateTimeManager.Now = expectedDate;
+            SystemTime.Today = expectedDate;
 
             // Act
-            var actualDate = DateTimeManager.Now;
+            var actualDate = SystemTime.Today;
 
             // Assert
             Assert.Equal(expectedDate, actualDate);

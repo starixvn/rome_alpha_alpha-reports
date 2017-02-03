@@ -56,6 +56,9 @@
         public bool IsUplineOf(Enumeration downlineLevel)
             => (downlineLevel != null) && IsUplineOf(downlineLevel.Value);
 
+        public bool IsEqualOrUplineOf(Enumeration custLevel)
+           => this.Value == custLevel.Value || IsUplineOf(custLevel.Value);
+
         public UserLevel GetDirectDownLineLevel() => FromValue<UserLevel>((byte)(Value - 1));
 
         public bool IsDirectDownlineOf(Enumeration uplineLevel)

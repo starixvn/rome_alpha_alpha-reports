@@ -2,7 +2,7 @@
 {
     using System;
     using Extensions;
-    using Services;
+    using Utils;
 
     public abstract class SupportedHistoryReportParam
     {
@@ -15,14 +15,14 @@
 
             if (fromDate == DateTime.MinValue)
             {
-                FromDate = isHistoryReport ? DateTimeManager.Now.FirstDayOfMonth() : DateTimeManager.Now;
+                FromDate = isHistoryReport ? SystemTime.Today.FirstDayOfMonth() : SystemTime.Today;
             }
             else
             {
                 FromDate = fromDate;
             }
 
-            ToDate = toDate == DateTime.MinValue ? DateTimeManager.Now : toDate;
+            ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
         }
 
         public DateTime FromDate { get; }

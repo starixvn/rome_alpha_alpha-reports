@@ -7,9 +7,9 @@
     using Fixtures;
     using NSubstitute;
     using Reports.Criteria;
-    using Reports.Extensions;
     using Reports.Models;
     using Reports.Services;
+    using Reports.Utils;
     using Xunit;
 
     [Collection("FanexCacheCollection")]
@@ -37,7 +37,7 @@
 
                 return dataInCache != null;
             });
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
 
             ConfiguredCacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
 
@@ -115,192 +115,6 @@
 
             // Assert
             Assert.Equal(dataInCache.BalanceUpDay, actual);
-        }
-
-        [Fact]
-        public void ValidateDateRange_HistoryReportAndFromDateLessThan3Years_ReturnsFalse()
-        {
-            // Arrange
-            var dateRange = new DateRange(
-                DateRangeType.ThreeMonthCurrentOrThreeYearHistory,
-                fromDate: DefaultVariables.CurrentDate.AddYears(-4),
-                toDate: DateTime.Now,
-                isHistoricReport: true);
-
-            // Act
-            var isValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.False(isValid);
-        }
-
-        [Fact]
-        public void ValidateDateRange_HistoryReportAndToDateLessThanFromDate_ReturnsFalse()
-        {
-            // Arrange
-            var dateRange = new DateRange(
-                DateRangeType.ThreeMonthCurrentOrThreeYearHistory,
-                fromDate: DefaultVariables.CurrentDate,
-                toDate: DefaultVariables.CurrentDate.AddDays(-1),
-                isHistoricReport: true);
-
-            // Act
-            var isValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.False(isValid);
-        }
-
-        [Theory]
-        [InlineData(1)]
-        [InlineData(12)]
-        public void ValidateDateRange_HistoryReportAndCrossMonthRange_ReturnsFalse(int monthDiff)
-        {
-            // Arrange
-            var dateRange = new DateRange(
-                DateRangeType.ThreeMonthCurrentOrThreeYearHistory,
-                fromDate: DefaultVariables.CurrentDate,
-                toDate: DefaultVariables.CurrentDate.AddMonths(monthDiff),
-                isHistoricReport: true);
-
-            // Act
-            var isValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.False(isValid);
-        }
-
-        [Fact]
-        public void ValidateDateRange_HistoryReportAndValidRange_ReturnsTrue()
-        {
-            // Arrange
-            var dateRange = new DateRange(
-                DateRangeType.ThreeMonthCurrentOrThreeYearHistory,
-                fromDate: DefaultVariables.CurrentDate,
-                toDate: DefaultVariables.CurrentDate,
-                isHistoricReport: true);
-
-            // Act
-            var isValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.True(isValid);
-        }
-
-        [Fact]
-        public void ValidateDateRange_NotHistoryReportAndFromDateLessThan3Months_ReturnsFalse()
-        {
-            // Arrange
-            var dateRange = new DateRange(
-                DateRangeType.ThreeMonthCurrentOrThreeYearHistory,
-                fromDate: DefaultVariables.CurrentDate.AddMonths(-4),
-                toDate: DateTime.Now,
-                isHistoricReport: false);
-
-            // Act
-            var isValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.False(isValid);
-        }
-
-        [Fact]
-        public void ValidateDateRange_NotHistoryReportAndToDateLessThanFromDate_ReturnsFalse()
-        {
-            // Arrange
-            var dateRange = new DateRange(
-                DateRangeType.ThreeMonthCurrentOrThreeYearHistory,
-                fromDate: DefaultVariables.CurrentDate,
-                toDate: DefaultVariables.CurrentDate.AddDays(-1),
-                isHistoricReport: false);
-
-            // Act
-            var isValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.False(isValid);
-        }
-
-        [Fact]
-        public void ValidateDateRange_NotHistoryReportAndValidDateRange_ReturnsFalse()
-        {
-            // Arrange
-            var dateRange = new DateRange(
-                DateRangeType.ThreeMonthCurrentOrThreeYearHistory,
-                fromDate: DefaultVariables.CurrentDate,
-                toDate: DefaultVariables.CurrentDate,
-                isHistoricReport: false);
-
-            // Act
-            var isValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.True(isValid);
-        }
-
-        [Fact]
-        public void ValidateDateRange_DateRageTypeIsNotSupported_ReturnsFalse()
-        {
-            // Arrange
-            var dateRange = new DateRange((DateRangeType)10, DateTime.Now, DateTime.Now);
-
-            // Act
-            var isValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.False(isValid);
-        }
-
-        [Fact]
-        public void ValidateDateRange_NullParam_ThrowsArgumentNullException()
-        {
-            // Arrange
-            DateRange dateRange = null;
-
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => service.ValidateDateRange(dateRange));
-        }
-
-        [Fact]
-        public void GetMinDate_ThreeMonthCurrentOrThreeYearHistory_HistoricReport_ReturnFirstDateOfPrevious3Years()
-        {
-            // Act
-            var actualMinDate = service.GetMinDate(DateRangeType.ThreeMonthCurrentOrThreeYearHistory, isHistoricReport: true);
-
-            // Assert
-            Assert.Equal(DefaultVariables.CurrentDate.AddYears(-3).FirstDayOfMonth(), actualMinDate);
-        }
-
-        [Fact]
-        public void GetMinDate_ThreeMonthCurrentOrThreeYearHistory_CurrentReport_ReturnFirstDateOfPrevious3Months()
-        {
-            // Act
-            var actualMinDate = service.GetMinDate(DateRangeType.ThreeMonthCurrentOrThreeYearHistory, isHistoricReport: false);
-
-            // Assert
-            Assert.Equal(DefaultVariables.CurrentDate.AddMonths(-3).FirstDayOfMonth(), actualMinDate);
-        }
-
-        [Fact]
-        public void GetMinDate_DateRangeTypeIsUnknown_ReturnCurrentDate()
-        {
-            // Act
-            var actualMinDate = service.GetMinDate((DateRangeType)10, isHistoricReport: false);
-
-            // Assert
-            Assert.Equal(DefaultVariables.CurrentDate, actualMinDate);
-        }
-
-        [Fact]
-        public void Init_Always_SetupReportDateRangeTypes()
-        {
-            // Act
-            ReportDateServiceImpl.RegisterReportDateRangeTypes();
-
-            // Assert
-            Assert.True(
-                WinLossServiceImpl.DateRangeType == DateRangeType.ThreeMonthCurrentOrThreeYearHistory
-                && WinLossDetailServiceImpl.DateRangeType == DateRangeType.ThreeMonthCurrentOrThreeYearHistory);
         }
     }
 }

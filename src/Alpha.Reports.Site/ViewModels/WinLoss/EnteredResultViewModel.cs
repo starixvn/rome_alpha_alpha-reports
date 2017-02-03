@@ -9,26 +9,25 @@
     using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
+    using Utils;
 
     public class EnteredResultViewModel
     {
         public EnteredResultViewModel(
             EnteredSportResultQuery message,
-            IEnumerable<EnteredSportResult> reportData,
-            DateTime minDate)
+            IEnumerable<EnteredSportResult> reportData)
         {
             ReportData = reportData;
             CustLevel = message.CustLevel;
-            MinDate = minDate;
         }
 
-        public DateTime MinDate { get; }
+        public DateTime MinDate => SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
 
         public DateTime MaxDate => DateTime.MaxValue;
 
-        public DateTime FromDate => DateTimeManager.Now;
+        public DateTime FromDate => SystemTime.Today;
 
-        public DateTime ToDate => DateTimeManager.Now;
+        public DateTime ToDate => SystemTime.Today;
 
         public string Language { get; }
 
