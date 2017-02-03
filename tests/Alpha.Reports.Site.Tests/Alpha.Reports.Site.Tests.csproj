@@ -204,6 +204,7 @@
     <Compile Include="Helpers\UrlHelperTests.cs" />
     <Compile Include="Models\UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\ReportDefaultDateRangeQueryTests.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModelTests.cs" />

@@ -12,6 +12,9 @@
     [SessionState(SessionStateBehavior.ReadOnly)]
     public abstract class ReportBaseController : BaseController
     {
+        private const string InvalidReportViewPath = "~/Views/Shared/InvalidReport.cshtml";
+        private const string InvalidReportExcelFileName = "InvalidReport";
+
         protected readonly IMediator mediator;
 
         protected ReportBaseController(IMediator mediator)
@@ -27,8 +30,7 @@
             var baseQuery = message as ReportBaseQuery;
             if (baseQuery != null && !baseQuery.IsValid())
             {
-                //// TODO: this is pseudo code
-                return RedirectToAction("InvalidReport");
+                return View(InvalidReportViewPath);
             }
 
             return View(mediator.Send(message));
@@ -39,8 +41,7 @@
             var baseQuery = message as ReportBaseQuery;
             if (baseQuery != null && !baseQuery.IsValid())
             {
-                //// TODO: this is pseudo code
-                //// return RedirectToAction("EmptyFileContent");
+                return GetExcelContent(new ExcelFileViewModel(InvalidReportExcelFileName, new byte[] { }));
             }
 
             return GetExcelContent(mediator.Send(message));

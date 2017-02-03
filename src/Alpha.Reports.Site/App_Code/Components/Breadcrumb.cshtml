@@ -4,6 +4,7 @@
 {
 var linkLength = viewModel.BreadcrumbLevel.Count();
 var linkIndex = 0;
+var lastLinkIndex = linkLength - 1;
 
 if (linkLength > 0)
 {
@@ -12,9 +13,11 @@ if (linkLength > 0)
                 @foreach (var custinfo in viewModel.BreadcrumbLevel)
                 {
                     // TODO: Last customer just need to render by text, not link, will refactor soon
-                    if (linkIndex == linkLength - 1)
+                    if (linkIndex == lastLinkIndex)
                     {
-                        <li>@(custinfo.CustName)</li>
+                        <li>
+                            @(custinfo.CustName)
+                        </li>
                     }
                     else
                     {

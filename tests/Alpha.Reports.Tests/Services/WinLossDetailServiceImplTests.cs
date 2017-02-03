@@ -68,50 +68,5 @@
             // Assert
             Assert.True(compareLogic.Compare(expectedReportData, actualReportData).AreEqual);
         }
-
-        ////[Fact]
-        ////public void GetWinLossDetail_InvalidParam_ReturnsDefaultReportData()
-        ////{
-        ////    // Arrange
-        ////    WinLossDetailParam param = new WinLossDetailParam(
-        ////        0,
-        ////        0,
-        ////        0,
-        ////        DateTime.Now.AddYears(-4),
-        ////        DateTime.Now,
-        ////        Enumerable.Empty<int>(),
-        ////        UserLevel.Super,
-        ////        string.Empty,
-        ////        false,
-        ////        false);
-
-        ////    var expectedReportData = new ReportData<WinLossDetailModel>(
-        ////        Enumerable.Empty<WinLossDetailModel>(),
-        ////        param.PageIndex,
-        ////        param.PageSize,
-        ////        0,
-        ////        new WinLossDetailModel());
-
-        ////    // Act
-        ////    var actualReportData = winLossDetailServiceImpl.GetWinLossDetail(param);
-
-        ////    // Assert
-        ////    AssertExtension.Equal(expectedReportData, actualReportData);
-        ////}
-
-        ////[Theory]
-        ////[InlineData(true)]
-        ////[InlineData(false)]
-        ////public void GetMinDate_Always_CallReportDateServiceToGetMinDate(bool isHistoricReport)
-        ////{
-        ////    // Arrange
-        ////    WinLossServiceImpl.DateRangeType = DateRangeType.ThreeMonthCurrentOrThreeYearHistory;
-
-        ////    // Act
-        ////    winLossDetailServiceImpl.GetMinDate(isHistoricReport);
-
-        ////    // Assert
-        ////    reportDateService.Received().GetMinDate(DateRangeType.ThreeMonthCurrentOrThreeYearHistory, isHistoricReport);
-        ////}
     }
 }

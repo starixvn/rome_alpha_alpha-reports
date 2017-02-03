@@ -1,11 +1,10 @@
-﻿namespace Alpha.Reports.Tests.Services
+﻿namespace Alpha.Reports.Tests.Utils
 {
     using Constants;
-    using Reports.Services;
-    using Utils;
+    using Reports.Utils;
     using Xunit;
 
-    public class DateTimeManagerTests
+    public class SystemTimeTests
     {
         [Fact]
         public void Now_Always_ReturnsValueSetToNowProperty()

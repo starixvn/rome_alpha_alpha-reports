@@ -6,8 +6,7 @@
     using Reports.Extensions;
     using Reports.Models;
     using Reports.Params;
-    using Reports.Services;
-    using Utils;
+    using Reports.Utils;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
