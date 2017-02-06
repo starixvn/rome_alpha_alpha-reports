@@ -56,7 +56,7 @@
 
         private TemplateInfo GetTemplateInfo(RacingCommissionExcelQuery message) => new TemplateInfo(
                GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
-               noInfomationText: Resources.NoInformationIsAvailable);
+               Resources.NoInformationIsAvailable);
 
         private string GetReporTitle(RacingCommissionExcelQuery message)
             => $"{Resources.RacingCommission} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
