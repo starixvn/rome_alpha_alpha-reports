@@ -8,6 +8,7 @@
     using Fanex.Common.Extensions;
     using Models;
     using Models.WinlossByGameType;
+    using RemotingRef;
 
     public interface WinLossByGameTypeDataAccess
     {
@@ -16,6 +17,13 @@
 
     public class WinLossByGameTypeDataAccessImpl : WinLossByGameTypeDataAccess
     {
+        private readonly CacheRefService cacheRefService;
+
+        public WinLossByGameTypeDataAccessImpl(CacheRefService cacheRefService)
+        {
+            this.cacheRefService = cacheRefService;
+        }
+
         public IEnumerable<WinLossByGameTypeModel> GetWinLossByGameType(WinLossByGameTypeCriteria criteria)
         {
             if (criteria == null)
@@ -23,7 +31,7 @@
                 throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
             }
 
-            var winlossByBettypeData = new List<WinLossByGameTypeModel>();
+            var winlossByGameTypeData = new List<WinLossByGameTypeModel>();
 
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
@@ -33,21 +41,23 @@
                     {
                         while (reader.Read())
                         {
-                            winlossByBettypeData.Add(BuildWinLossByGameType(reader, criteria.CustLevel));
+                            winlossByGameTypeData.Add(BuildWinLossByGameType(reader, criteria.CustLevel));
                         }
                     }
                 }
             }
 
-            return winlossByBettypeData;
+            return winlossByGameTypeData;
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
         private WinLossByGameTypeModel BuildWinLossByGameType(IDataReader reader, UserLevel reportLevel)
         {
-            var winLossByBettype = new WinLossByGameTypeModel(
-                 gameTypeId: reader.ToInt("CustId"),
-                 gameTypeName: reader.ToString("CustName"),
+            var gameTypeId = reader.ToInt("GameTypeID");
+
+            var winLossByGameType = new WinLossByGameTypeModel(
+                 gameTypeId: gameTypeId,
+                 gameTypeName: cacheRefService.GetBetTypeName(gameTypeId),
                  turnover: reader.ToDecimal("TurnOver"),
                  memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,
                  agentNetWinLoss: reportLevel.IsNotSuperLevel() ?
@@ -58,7 +68,7 @@
                                    new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) : new NetWinLoss(reader.ToDecimal("MAgTotal"))) : null,
                  superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null);
 
-            return winLossByBettype;
+            return winLossByGameType;
         }
     }
 }

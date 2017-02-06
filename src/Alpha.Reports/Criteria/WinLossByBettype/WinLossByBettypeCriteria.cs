@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria.WinLossByBetTypeCriteria
 {
     using System;
-    using Extensions;
     using Fanex.Data;
     using Fanex.Data.Repository;
     using Models;
@@ -16,8 +15,8 @@
             UserLevel custLevel)
         {
             CustId = custId;
-            FromDate = fromDate.GetBeginningOfDate();
-            ToDate = toDate.GetBeginningOfDate();
+            FromDate = fromDate.Date;
+            ToDate = toDate.Date;
             BalanceUpDay = balanceUpDay;
             CustLevel = custLevel;
         }

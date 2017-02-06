@@ -8,11 +8,13 @@
     {
         public WinLossByGameTypeParam(
             int custId,
+            int productId,
             DateTime fromDate,
             DateTime toDate,
             UserLevel custLevel)
         {
             CustId = custId;
+            ProductId = productId;
             CustLevel = custLevel;
             if (fromDate == DateTime.MinValue)
             {
@@ -27,6 +29,8 @@
         }
 
         public int CustId { get; }
+
+        public int ProductId { get; }
 
         public DateTime FromDate { get; }
 

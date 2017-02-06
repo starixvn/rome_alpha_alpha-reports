@@ -64,7 +64,7 @@
 
         public bool IsFilterVisible => message.IsFilterVisible;
 
-        public string Title { get; private set; }
+        public string Title => Resources.WinLossByBetType;
 
         public string CustLevelName { get; private set; }
 
@@ -108,21 +108,18 @@
         {
             if (CustLevel.IsSuperLevel())
             {
-                Title = Resources.MasterWinLoss;
                 CustLevelName = Resources.Super;
                 DownLineLevelName = Resources.Master;
                 CustLevelNetWinLossName = "SuperNetWinLoss";
             }
             else if (CustLevel.IsMasterLevel())
             {
-                Title = Resources.AgentWinLoss;
                 CustLevelName = Resources.Master;
                 DownLineLevelName = Resources.Agent;
                 CustLevelNetWinLossName = "MasterNetWinLoss";
             }
             else
             {
-                Title = Resources.MemberWinLoss;
                 CustLevelName = Resources.Agent;
                 DownLineLevelName = Resources.Member;
                 CustLevelNetWinLossName = "AgentNetWinLoss";

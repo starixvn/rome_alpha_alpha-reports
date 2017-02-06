@@ -6,7 +6,6 @@
     using DataAccesses;
     using Models.WinlossByGameType;
     using Params;
-    using RemotingRef;
 
     public interface WinLossByGameTypeService
     {
@@ -35,6 +34,7 @@
 
             var criteria = new WinLossByGameTypeCriteria(
                 param.CustId,
+                param.ProductId,
                 param.FromDate,
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),

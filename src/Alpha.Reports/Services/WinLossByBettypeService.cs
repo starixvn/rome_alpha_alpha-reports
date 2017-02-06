@@ -6,7 +6,6 @@
     using DataAccesses;
     using Models.WinlossByBettype;
     using Params;
-    using RemotingRef;
 
     public interface WinLossByBetTypeService
     {
@@ -40,7 +39,7 @@
                 reportDateService.GetBalanceUpDay(),
                 param.CustLevel);
 
-            var winlossData = dataAccess.GetWinLossByBettype(criteria);
+            var winlossData = dataAccess.GetWinLossByBetType(criteria);
 
             return winlossData;
         }

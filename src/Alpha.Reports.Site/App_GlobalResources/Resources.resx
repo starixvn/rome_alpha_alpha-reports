@@ -396,6 +396,10 @@
   <data name="MasterOutstanding" xml:space="preserve">
 		<value>Master Outstanding</value>
 	</data>
+ <data name="WinLossByBetType" xml:space="preserve">
+    <value>Win Loss By Bet Type</value>
+  </data>
+
   <data name="DelayIssueLegend" xml:space="preserve">
     <value>- Data of {0} will be delayed up to 5 minutes after settling tickets.</value>
   </data>

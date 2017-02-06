@@ -16,7 +16,7 @@
         private static WinLossByBetTypeModel ExpectedSuperGrantTotal =>
             new WinLossByBetTypeModel(
                 betTypeId: 0,
-                betTypeName: "Total",
+                betTypeName: string.Empty,
                 betCount: 6,
                 turnover: (decimal)375732807.36,
                 grossComm: (decimal)2998559.76,
@@ -28,7 +28,7 @@
         private static WinLossByBetTypeModel ExpectedMasterGrantTotal =>
             new WinLossByBetTypeModel(
                 betTypeId: 0,
-                betTypeName: "Total",
+                betTypeName: string.Empty,
                 betCount: 6,
                 turnover: (decimal)375732807.36,
                 grossComm: (decimal)2998559.76,
@@ -40,7 +40,7 @@
         private static WinLossByBetTypeModel ExpectedAgentGrantTotal =>
             new WinLossByBetTypeModel(
                 betTypeId: 0,
-                betTypeName: "Total",
+                betTypeName: string.Empty,
                 betCount: 6,
                 turnover: (decimal)6225.00,
                 grossComm: (decimal)34.83,

@@ -1015,6 +1015,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Win Loss By Bet Type.
+        /// </summary>
+        public static string WinLossByBetType {
+            get {
+                return ResourceManager.GetString("WinLossByBetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Win Loss Detail.
         /// </summary>
         public static string WinLossDetail {

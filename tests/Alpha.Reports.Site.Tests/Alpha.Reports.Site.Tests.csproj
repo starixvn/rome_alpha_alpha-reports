@@ -222,11 +222,14 @@
     <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />
     <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeHandlerTests.cs" />
-    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
+      <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbookImplTests.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
+ <Compile Include="Handlers\WinLossByBettype\WinLossByBetTypeHandlerTestsExcelHandlerTest.cs" />
+    <Compile Include="Handlers\WinLossByBettype\WinLossByBetTypeHandlerTestsHandlerTests.cs" />
+
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandlerTests.cs" />
     <Compile Include="Handlers\LeagueHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />
@@ -255,6 +258,7 @@
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossByBetType\WinLossByBetTypeViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />

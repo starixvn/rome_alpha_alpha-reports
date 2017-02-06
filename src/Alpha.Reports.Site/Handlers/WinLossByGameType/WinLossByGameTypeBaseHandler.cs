@@ -25,6 +25,7 @@
         {
             return new WinLossByGameTypeParam(
                  message.CustId,
+                 message.ProductId,
                  message.FromDate,
                  message.ToDate,
                  message.CustLevel);

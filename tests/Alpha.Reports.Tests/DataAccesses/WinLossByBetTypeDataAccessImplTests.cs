@@ -42,7 +42,7 @@
             WinLossByBetTypeCriteria nullCriteria = null;
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => winLossByBettypeDataAccessImpl.GetWinLossByBettype(nullCriteria));
+            Assert.Throws<ArgumentNullException>(() => winLossByBettypeDataAccessImpl.GetWinLossByBetType(nullCriteria));
         }
 
         [Fact]
@@ -61,7 +61,7 @@
             };
 
             // Act
-            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBettype(winLossByBetTypeCriteria);
+            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBetType(winLossByBetTypeCriteria);
 
             // Assert
             var result = compareLogic.Compare(expectedData, actualData);
@@ -84,7 +84,7 @@
             };
 
             // Act
-            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBettype(winLossByBetTypeCriteria);
+            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBetType(winLossByBetTypeCriteria);
 
             // Assert
             var result = compareLogic.Compare(expectedData, actualData);
@@ -107,7 +107,7 @@
             };
 
             // Act
-            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBettype(winLossByBetTypeCriteria);
+            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBetType(winLossByBetTypeCriteria);
 
             // Assert
             var result = compareLogic.Compare(expectedData, actualData);
@@ -126,7 +126,7 @@
             var expectedData = new List<WinLossByBetTypeModel>();
 
             // Act
-            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBettype(winLossByBetTypeCriteria);
+            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBetType(winLossByBetTypeCriteria);
 
             // Assert
             var result = compareLogic.Compare(expectedData, actualData);

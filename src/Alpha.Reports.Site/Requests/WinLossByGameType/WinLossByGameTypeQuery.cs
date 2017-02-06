@@ -14,6 +14,8 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
+        public int ProductId { get; set; }
+
         public bool IsStackMode { get; set; }
 
         public string SortPropertyName { get; set; }

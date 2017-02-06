@@ -12,7 +12,7 @@
 
     public interface WinLossByBetTypeDataAccess
     {
-        IEnumerable<WinLossByBetTypeModel> GetWinLossByBettype(WinLossByBetTypeCriteria criteria);
+        IEnumerable<WinLossByBetTypeModel> GetWinLossByBetType(WinLossByBetTypeCriteria criteria);
     }
 
     public class WinLossByBettypeDataAccessImpl : WinLossByBetTypeDataAccess
@@ -24,7 +24,7 @@
             this.cacheRefService = cacheRefService;
         }
 
-        public IEnumerable<WinLossByBetTypeModel> GetWinLossByBettype(WinLossByBetTypeCriteria criteria)
+        public IEnumerable<WinLossByBetTypeModel> GetWinLossByBetType(WinLossByBetTypeCriteria criteria)
         {
             if (criteria == null)
             {
