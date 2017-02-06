@@ -12,25 +12,6 @@
         [InlineData(12, 0, 0)]
         [InlineData(13, 0, 0)]
         [InlineData(23, 59, 59)]
-        public void GetBeginningOfDate_Always_ReturnsBeginningOfDate(int hour, int minute, int second)
-        {
-            // Arrange
-            var dateTime = new DateTime(2016, 11, 24, hour, minute, second);
-            var expectedTime = new DateTime(2016, 11, 24, 0, 0, 0);
-
-            // Act
-            var actualTime = dateTime.GetBeginningOfDate();
-
-            // Assert
-            Assert.Equal(expectedTime, actualTime);
-        }
-
-        [Theory]
-        [InlineData(0, 0, 0)]
-        [InlineData(1, 0, 0)]
-        [InlineData(12, 0, 0)]
-        [InlineData(13, 0, 0)]
-        [InlineData(23, 59, 59)]
         public void ToShortDayWithSlash_Always_ReturnsShortDayWithSlash(int hour, int minute, int second)
         {
             // Arrange

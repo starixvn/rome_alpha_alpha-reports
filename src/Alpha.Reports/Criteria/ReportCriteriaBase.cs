@@ -14,8 +14,8 @@
             DateTime moveBetsDay)
         {
             CustId = custId;
-            FromDate = fromDate.GetBeginningOfDate();
-            ToDate = toDate.GetBeginningOfDate();
+            FromDate = fromDate.Date;
+            ToDate = toDate.Date;
             BalanceUpDay = balanceUpDay;
             MoveBetsDay = moveBetsDay;
         }

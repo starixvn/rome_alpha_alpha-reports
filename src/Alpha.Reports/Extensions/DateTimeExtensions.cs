@@ -7,9 +7,6 @@
         private const string ShortDateWithSlash = "MM/dd/yyyy";
         private const string LongDateWithSlash = "MM/dd/yyyy hh:mm:ss tt";
 
-        public static DateTime GetBeginningOfDate(this DateTime dateTime)
-            => Convert.ToDateTime(dateTime.ToShortDateString() + " 00:00:00 AM");
-
         public static string ToShortDateWithSlash(this DateTime dateTime)
             => dateTime.ToString(ShortDateWithSlash);
 
