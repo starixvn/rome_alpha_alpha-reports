@@ -50,9 +50,12 @@
         {
             { "CustId", model.CustId },
             { "CustName", model.CustName },
-            { "fDate",  Query.FromDate },
-            { "tDate",  Query.ToDate },
-            { "type", "NonMixParlay" }
+            { "Type", "WLByDate" },
+            { "FDate",  Query.FromDate },
+            { "TDate",  Query.ToDate },
+            { "ProductIds", "2" },
+            { "FilterPostback", 1 },
+            { "IsHistoryReport", 0 }
         };
     }
 }
