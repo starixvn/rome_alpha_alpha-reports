@@ -29,6 +29,10 @@
         protected IEnumerable<MatchWinLossViewModel> ConvertToViewModel(IEnumerable<MatchWinLossModel> rawData)
         {
             var viewModels = new List<MatchWinLossViewModel>();
+            if (rawData == null)
+            {
+                return viewModels;
+            }
 
             foreach (var matchWinLossModel in rawData)
             {
@@ -45,7 +49,7 @@
         {
             var grandTotal = new MatchWinLossViewModel(string.Empty, string.Empty, 0, 0, false, 0, 0, 0);
 
-            if (reportData != null && reportData.Any())
+            if (reportData.Any())
             {
                 var reportDataCopy = reportData.ToList();
                 int index, count;

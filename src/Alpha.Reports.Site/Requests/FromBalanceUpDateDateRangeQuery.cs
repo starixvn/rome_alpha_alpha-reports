@@ -10,7 +10,7 @@
         internal FromBalanceUpDateDateRangeQuery(IUser viewer) : base(viewer)
         {
             ToDate = SystemTime.Today;
-            FromDate = DateTime.MinValue;
+            FromDate = SystemTime.Today;
         }
 
         public DateTime FromDate { get; set; }
@@ -21,11 +21,6 @@
 
         public override bool IsValid()
         {
-            if (FromDate == DateTime.MinValue)
-            {
-                FromDate = ReportDateServiceImpl.Instance.GetBalanceUpDay();
-            }
-
             return base.IsValid()
                 && MinDate <= FromDate
                 && FromDate <= ToDate;

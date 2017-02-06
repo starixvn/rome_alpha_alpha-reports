@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria.MatchWinLoss
 {
     using System;
-    using Extensions;
     using Fanex.Data.Repository;
 
     public class GetMatchWinLossCriteria : CriteriaBase
@@ -9,8 +8,8 @@
         public GetMatchWinLossCriteria(int custId, DateTime fromDate, DateTime toDate)
         {
             CustId = custId;
-            FromDate = fromDate.GetBeginningOfDate();
-            ToDate = toDate.GetBeginningOfDate();
+            FromDate = fromDate.Date;
+            ToDate = toDate.Date;
         }
 
         public int CustId { get; }
