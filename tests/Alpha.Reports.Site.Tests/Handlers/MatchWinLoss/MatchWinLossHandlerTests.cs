@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Threading;
     using Constants;
     using Extensions;
@@ -122,6 +123,30 @@
                     new MatchWinLossViewModel("Team 2 -vs- Team 3", "Bet Type 1105", rawData[4]),
                     new MatchWinLossViewModel("Team 2 (N) -vs- Team 3", "Bet Type 1105", rawData[5])
                 },
+                anyValueGenerator.Create<MatchWinLossViewModel>());
+
+            // Act
+            var actualViewModel = matchWinLossHandler.Handle(message);
+
+            // Assert
+            AssertExtension.Equal(expectedViewModel.ReportData, actualViewModel.ReportData);
+        }
+
+        [Fact]
+        public void HandleMatchWinLossQuery_NullReportData_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new MatchWinLossQuery(userFixture.User);
+
+            List<MatchWinLossModel> rawData = null;
+
+            reportService.GetMatchWinLoss(Arg.Any<MatchWinLossParam>()).Returns(rawData);
+
+            var expectedViewModel = new MatchWinLossReportViewModel(
+                message,
+                anyValueGenerator.Create<DateTime>(),
+                anyValueGenerator.Create<MatchWinLossParam>(),
+                Enumerable.Empty<MatchWinLossViewModel>(),
                 anyValueGenerator.Create<MatchWinLossViewModel>());
 
             // Act

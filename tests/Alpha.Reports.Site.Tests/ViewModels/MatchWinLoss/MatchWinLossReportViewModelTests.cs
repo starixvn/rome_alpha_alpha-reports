@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.MatchWinLoss
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Threading;
     using Constants;
@@ -137,8 +138,10 @@
             AssertExtension.Equal(expectedFilterViewModel, actualFilterViewModel);
         }
 
-        [Fact]
-        public void BuildDrillDownLink_Always_ReturnsBetListLink()
+        [Theory]
+        [InlineData(true, "/ex-main/~/_BetList/BetList.aspx?MatchId=1&BetType=4&type=WLByBettypeMatch&islive=1")]
+        [InlineData(false, "/ex-main/~/_BetList/BetList.aspx?MatchId=1&BetType=4&type=WLByBettypeMatch&islive=0")]
+        public void BuildDrillDownLink_Always_ReturnsBetListLink(bool indicator, string expectedDrillDownLink)
         {
             // Arrange
             var param = new MatchWinLossParam(0, DateTime.Now, DateTime.Now);
@@ -149,8 +152,7 @@
                 null,
                 null);
 
-            var matchWinLossModel = new MatchWinLossModel(1, 2, 3, 4, false, false, "Match Code", "Show Time", 0, 0, 0);
-            var expectedDrillDownLink = "/ex-main/~/_BetList/BetList.aspx?MatchId=1&BetType=4&type=WLByBettypeMatch&islive=0";
+            var matchWinLossModel = new MatchWinLossModel(1, 2, 3, 4, indicator, false, "Match Code", "Show Time", 0, 0, 0);
 
             // Act
             var actualDrillDownLink = matchWinLossReportViewModel.BuildDrillDownLink(
@@ -180,6 +182,39 @@
             Assert.Throws<NotImplementedException>(() => matchWinLossReportViewModel.BuildDrillDownLink(
                 new MatchWinLossViewModel(string.Empty, string.Empty, matchWinLossModel),
                 string.Empty));
+        }
+
+        [Theory]
+        [InlineData(null, "EventInfo")]
+        [InlineData("", "EventInfo")]
+        [InlineData(" ", "EventInfo")]
+        [InlineData("  ", "EventInfo")]
+        [InlineData("EventInfo", "EventInfo")]
+        [InlineData("Turnover", "Turnover")]
+        public void SortPropertyName_CanSort_ReturnsCorrectSortPropertyName(string sortPropertyName, string expectedSortPropertyName)
+        {
+            // Arrange
+            var query = new MatchWinLossQuery(user);
+            query.SortPropertyName = sortPropertyName;
+
+            var reportData = new List<MatchWinLossViewModel>
+            {
+                new MatchWinLossViewModel(string.Empty, string.Empty, 0, 0, false, 0, 0, 0),
+                new MatchWinLossViewModel(string.Empty, string.Empty, 0, 0, false, 0, 0, 0)
+            };
+
+            var matchWinLossReportViewModel = new MatchWinLossReportViewModel(
+                query,
+                DateTime.Now,
+                new MatchWinLossParam(0, DateTime.Now, DateTime.Now),
+                reportData,
+                null);
+
+            // Act
+            var actualSortPropertyName = matchWinLossReportViewModel.SortPropertyName;
+
+            // Assert
+            Assert.Equal(expectedSortPropertyName, actualSortPropertyName);
         }
     }
 }
