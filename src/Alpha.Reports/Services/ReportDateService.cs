@@ -26,6 +26,8 @@
             this.dynamicRepository = dynamicRepository;
         }
 
+        public static ReportDateService Instance { get; set; }
+
         public DateTime GetBalanceUpDay() => GetBalanceUpDayAndMoveBetsDay().BalanceUpDay;
 
         public DateTime GetMoveBetsDay() => GetBalanceUpDayAndMoveBetsDay().MoveBetsDay;

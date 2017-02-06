@@ -16,6 +16,7 @@
     using Site.Handlers.MatchWinLoss;
     using Site.Requests.MatchWinLoss;
     using Site.ViewModels.MatchWinLoss;
+    using Utils;
     using Xunit;
 
     [Trait("Category", "MatchWinLoss")]
@@ -25,12 +26,11 @@
         private readonly MatchWinLossService reportService;
         private readonly MatchWinLossHandler matchWinLossHandler;
         private readonly UserFixture userFixture;
-        private readonly ReportDateService reportDateService;
         private readonly Fixture anyValueGenerator;
 
         public MatchWinLossHandlerTests(UserFixture userFixture)
         {
-            reportDateService = Substitute.For<ReportDateService>();
+            var reportDateService = Substitute.For<ReportDateService>();
             reportService = Substitute.For<MatchWinLossService>();
             var cacheRefService = Substitute.For<CacheRefService>();
             cacheRefService.GetTeamName(Arg.Any<int>()).Returns(callInfo => "Team " + callInfo.Args()[0]);
@@ -41,7 +41,7 @@
             this.userFixture = userFixture;
             anyValueGenerator = new Fixture();
 
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
@@ -129,6 +129,16 @@
 
             // Assert
             AssertExtension.Equal(expectedViewModel.ReportData, actualViewModel.ReportData);
+        }
+
+        [Fact]
+        public void HandlerMatchWinLossQuery_NullMessage_ThrowsArgumentNullException()
+        {
+            // Arrange
+            MatchWinLossQuery nullMessage = null;
+
+            // Act &  Assert
+            Assert.Throws<ArgumentNullException>(() => matchWinLossHandler.Handle(nullMessage));
         }
     }
 }

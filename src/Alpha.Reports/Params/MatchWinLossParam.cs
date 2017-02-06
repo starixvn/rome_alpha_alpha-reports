@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Params
 {
     using System;
-    using Services;
+    using Utils;
 
     public class MatchWinLossParam
     {
@@ -11,8 +11,8 @@
             DateTime toDate)
         {
             CustId = custId;
-            FromDate = fromDate == DateTime.MinValue ? DateTimeManager.Now : fromDate;
-            ToDate = toDate == DateTime.MinValue ? DateTimeManager.Now : toDate;
+            FromDate = fromDate == DateTime.MinValue ? SystemTime.Today : fromDate;
+            ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
         }
 
         public int CustId { get; }

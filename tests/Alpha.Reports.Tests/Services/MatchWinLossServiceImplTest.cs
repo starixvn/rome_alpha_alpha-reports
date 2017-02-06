@@ -8,7 +8,6 @@
     using Fixtures;
     using NSubstitute;
     using Reports.Criteria.MatchWinLoss;
-    using Reports.Models;
     using Reports.Models.MatchWinLoss;
     using Reports.Params;
     using Reports.Services;
@@ -21,14 +20,11 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly MatchWinLossServiceImpl matchWinLossServiceImpl;
         private readonly AnyValueCreatorFixture anyValueCreatorFixture;
-        private readonly ReportDateService reportDateService;
 
         public MatchWinLossServiceImplTest(AnyValueCreatorFixture anyValueCreatorFixture)
         {
-            reportDateService = Substitute.For<ReportDateService>();
             dynamicRepository = Substitute.For<IDynamicRepository>();
-            MatchWinLossServiceImpl.DateRangeType = DateRangeType.FromBalanceUpDay;
-            matchWinLossServiceImpl = new MatchWinLossServiceImpl(reportDateService, dynamicRepository);
+            matchWinLossServiceImpl = new MatchWinLossServiceImpl(dynamicRepository);
 
             this.anyValueCreatorFixture = anyValueCreatorFixture;
         }
@@ -44,46 +40,6 @@
         }
 
         [Fact]
-        public void GetMatchWinLoss_FromDateLessThanBalanceUpDay_ReturnsEmptyData()
-        {
-            // Arrange
-            var balanceUpDay = anyValueCreatorFixture.Create<DateTime>();
-            reportDateService.GetBalanceUpDay().Returns(balanceUpDay);
-
-            var fromDate = balanceUpDay.AddDays(-1);
-
-            var param = new MatchWinLossParam(
-                anyValueCreatorFixture.Create<int>(),
-                fromDate,
-                DefaultVariables.CurrentDate);
-
-            // Act
-            var actualData = matchWinLossServiceImpl.GetMatchWinLoss(param);
-
-            // Assert
-            Assert.Empty(actualData);
-        }
-
-        [Fact]
-        public void GetMatchWinLoss_ToDateLessThanFromDate_ReturnsEmptyData()
-        {
-            // Arrange
-            var balanceUpDay = anyValueCreatorFixture.Create<DateTime>();
-            reportDateService.GetBalanceUpDay().Returns(balanceUpDay);
-
-            var fromDate = balanceUpDay;
-            var toDate = fromDate.AddDays(-1);
-
-            var param = new MatchWinLossParam(anyValueCreatorFixture.Create<int>(), fromDate, toDate);
-
-            // Act
-            var actualData = matchWinLossServiceImpl.GetMatchWinLoss(param);
-
-            // Assert
-            Assert.Empty(actualData);
-        }
-
-        [Fact]
         public void GetMatchWinLoss_ValidParam_CallsDynamicRepository()
         {
             // Arrange
@@ -91,7 +47,6 @@
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariables.CurrentDate,
                 DefaultVariables.CurrentDate);
-            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(true);
 
             // Act
             matchWinLossServiceImpl.GetMatchWinLoss(param);
@@ -110,7 +65,6 @@
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariables.CurrentDate,
                 DefaultVariables.CurrentDate);
-            reportDateService.ValidateDateRange(Arg.Any<DateRange>()).Returns(true);
 
             var expectedMatchWinLossModels = new List<MatchWinLossModel>
             {

@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.MatchWinLoss
 {
+    using System;
     using MediatR;
     using Params;
     using RemotingRef;
@@ -23,6 +24,11 @@
 
         public MatchWinLossReportViewModel Handle(MatchWinLossQuery message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
+
             var matchWinLossParam = new MatchWinLossParam(message.CustId, message.FromDate, message.ToDate);
             var rawData = reportService.GetMatchWinLoss(matchWinLossParam);
             var reportData = ConvertToViewModel(rawData);

@@ -1,8 +1,12 @@
 ﻿namespace Alpha.Reports.Site.Tests.Controllers
 {
+    using System.Web.Mvc;
+    using Constants;
     using Fixtures;
     using MediatR;
     using NSubstitute;
+    using Reports.Models;
+    using Services;
     using Site.Controllers;
     using Site.Requests.MatchWinLoss;
     using Site.ViewModels;
@@ -21,11 +25,15 @@
             mediator = Substitute.For<IMediator>();
             matchWinLossController = new MatchWinLossController(mediator);
 
+            var reportDateService = Substitute.For<ReportDateService>();
+            ReportDateServiceImpl.Instance = reportDateService;
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariables.BalanceUpDate);
+
             this.userFixture = userFixture;
         }
 
         [Fact]
-        public void Index_Always_CallsMediatorSendMatchWinLossQuery()
+        public void Index_ValidQuery_CallsMediatorSendMatchWinLossQuery()
         {
             // Arrange
             var message = new MatchWinLossQuery(userFixture.User);
@@ -38,7 +46,7 @@
         }
 
         [Fact]
-        public void Excel_Always_CallsMediatorSendMatchWinLossExcelQuery()
+        public void Excel_ValidQuery_CallsMediatorSendMatchWinLossExcelQuery()
         {
             // Arrange
             var message = new MatchWinLossExcelQuery(userFixture.User);
@@ -49,6 +57,36 @@
 
             // Assert
             mediator.Received().Send(Arg.Is(message));
+        }
+
+        [Fact]
+        public void Index_QueryIsNotValid_ReturnInvalidReportView()
+        {
+            // Arrange
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)2);
+            var message = new MatchWinLossQuery(user);
+
+            // Act
+            var actualView = matchWinLossController.Index(message) as ViewResult;
+
+            // Assert
+            Assert.Equal("~/Views/Shared/InvalidReport.cshtml", actualView.ViewName);
+        }
+
+        [Fact]
+        public void Excel_QueryIsNotValid_ReturnInvalidReportExcelFile()
+        {
+            // Arrange
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)2);
+            var message = new MatchWinLossExcelQuery(user);
+
+            // Act
+            var actualView = matchWinLossController.Excel(message) as FileContentResult;
+
+            // Assert
+            Assert.Equal("InvalidReport.xls", actualView.FileDownloadName);
         }
     }
 }
