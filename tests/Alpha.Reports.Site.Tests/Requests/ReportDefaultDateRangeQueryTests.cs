@@ -169,6 +169,7 @@
             query.IsHistoricReport = true;
 
             // Act
+            query.IsValid();
             var actualFromDate = query.FromDate;
 
             // Assert
@@ -183,6 +184,7 @@
             query.IsHistoricReport = false;
 
             // Act
+            query.IsValid();
             var actualFromDate = query.FromDate;
 
             // Assert
@@ -196,7 +198,7 @@
             var query = new ReportDefaultDateRangeQuery(user);
 
             // Assert
-            Assert.True(query.FromDate == DefaultVariables.CurrentDate && query.ToDate == DefaultVariables.CurrentDate);
+            Assert.True(query.FromDate == DateTime.MinValue && query.ToDate == DefaultVariables.CurrentDate);
         }
     }
 }
