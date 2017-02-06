@@ -31,7 +31,7 @@
                 .Title(GetReporTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(commissions, GetBodyRowMapper())
-                .Footer(commissions, GetTotalRowMapper())
+                .Footer(RacingCommissionModel.GetAccumulatedCommission(commissions), GetTotalRowMapper())
                 .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
