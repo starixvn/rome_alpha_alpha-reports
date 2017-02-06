@@ -5,7 +5,7 @@
     using Reports.Models;
     using ViewModels.RacingCommission;
 
-    public class RacingCommissionQuery : ReportBaseQuery, IRequest<RacingCommissionViewModel>
+    public class RacingCommissionQuery : ReportDefaultDateRangeQuery, IRequest<RacingCommissionViewModel>
     {
         public RacingCommissionQuery(IUser viewer) : base(viewer)
         {
