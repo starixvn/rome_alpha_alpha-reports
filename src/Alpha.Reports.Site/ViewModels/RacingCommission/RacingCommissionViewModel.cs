@@ -42,14 +42,14 @@
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(RacingCommissionModel model) => new Dictionary<string, object>
         {
-            { nameof(RacingCommissionModel.CustId), model.CustId },
-            { nameof(RacingCommissionModel.CustName), model.CustName }
+            { "CustId", model.CustId },
+            { "CustName", model.CustName },
         };
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(RacingCommissionModel model) => new Dictionary<string, object>
         {
-            { nameof(RacingCommissionModel.CustId), model.CustId },
-            { nameof(RacingCommissionModel.CustName), model.CustName },
+            { "CustId", model.CustId },
+            { "CustName", model.CustName },
             { "fDate",  Query.FromDate },
             { "tDate",  Query.ToDate },
             { "type", "NonMixParlay" }
