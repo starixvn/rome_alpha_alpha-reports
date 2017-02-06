@@ -650,7 +650,6 @@
                 setFixtures(winLossTemplate.currentReportWithNormalMode);
                 winLossView.cacheDOMElements();
 
-                spyOn(winLossView, "renderAtFirstSwitchMode");
                 spyOn(winLossView, "setCssBySwitchMode");
                 spyOn(winLossView, "replaceDrilldownParam");
                 spyOn(sortComponent, "bindTableSorter");
@@ -659,11 +658,9 @@
                 winLossView.onSwitchModeEvent();
 
                 // assert
-                expect(winLossView.setCssBySwitchMode).toHaveBeenCalled();
+                expect(winLossView.setCssBySwitchMode).toHaveBeenCalledWith(true);
                 expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsStackMode", true);
-                expect(winLossView.renderAtFirstSwitchMode).toHaveBeenCalledWith(false);
                 expect(sortComponent.bindTableSorter).toHaveBeenCalled();
-                expect(winLossView.isFirstSwitchMode).toBeFalsy();
             });
 
         it(`From Second Switch Mode->

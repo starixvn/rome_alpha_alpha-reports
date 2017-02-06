@@ -22,7 +22,7 @@
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="2">@Resources.GrossComm</th>
             <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="1">
                 <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>
-                @(Model.CustLevel.IsAgentLevel() ? Resources.GrossComm :
+                @(Model.CustLevel.IsAgentLevel() ? "/ " + Resources.GrossComm :
                   (Model.CustLevel.IsSuperLevel() ? Resources.GrossComAndMasterTotal : Resources.GrossComAndAgentTotal))
             </th>
 
