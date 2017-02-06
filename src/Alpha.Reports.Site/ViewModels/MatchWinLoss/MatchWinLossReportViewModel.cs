@@ -29,7 +29,9 @@
             GrantTotal = grandTotal;
 
             var canSort = reportData != null && reportData.Count() > 1;
-            SortPropertyName = canSort ? matchWinLossQuery.SortPropertyName : "EventInfo";
+            SortPropertyName = canSort && !string.IsNullOrWhiteSpace(matchWinLossQuery.SortPropertyName)
+                ? matchWinLossQuery.SortPropertyName
+                : "EventInfo";
             IsDescendingSort = canSort && matchWinLossQuery.IsDescendingSort;
         }
 

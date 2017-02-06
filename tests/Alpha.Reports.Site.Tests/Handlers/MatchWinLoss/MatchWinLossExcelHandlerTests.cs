@@ -16,6 +16,7 @@
     using Site.Handlers.MatchWinLoss;
     using Site.Requests.MatchWinLoss;
     using Site.ViewModels.MatchWinLoss;
+    using Utils;
     using Xunit;
     using static ONEbook.SpreadSheets.Column;
 
@@ -54,7 +55,7 @@
             matchWinLossExcelHandler = Substitute.ForPartsOf<MatchWinLossExcelHandler>(reportService, cacheRefService, workbook);
             matchWinLossExcelHandler.MapPath = (path) => path;
             matchWinLossExcelHandler.IsFileExist = (path) => true;
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 

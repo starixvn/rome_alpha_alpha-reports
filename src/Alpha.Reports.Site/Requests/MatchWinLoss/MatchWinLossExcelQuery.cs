@@ -4,7 +4,7 @@
     using Reports.Models;
     using ViewModels;
 
-    public class MatchWinLossExcelQuery : ReportBaseQuery, IRequest<ExcelFileViewModel>
+    public class MatchWinLossExcelQuery : FromBalanceUpDateDateRangeQuery, IRequest<ExcelFileViewModel>
     {
         public MatchWinLossExcelQuery(IUser viewer) : base(viewer)
         {

@@ -4,7 +4,7 @@
     using Constants;
     using Fixtures;
     using Reports.Params;
-    using Reports.Services;
+    using Reports.Utils;
     using Xunit;
 
     [Trait("Category", "MatchWinLoss")]
@@ -16,7 +16,7 @@
         public MatchWinLossParamTests(AnyValueCreatorFixture anyValueCreatorFixture)
         {
             this.anyValueCreatorFixture = anyValueCreatorFixture;
-            DateTimeManager.Now = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariables.CurrentDate;
         }
 
         [Fact]

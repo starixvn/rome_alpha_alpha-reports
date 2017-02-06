@@ -21,13 +21,11 @@
         private readonly DateTime balanceUpDay;
         private readonly DateTime moveBetsDay;
         private readonly FanexCacheFixture fanexCacheFixture;
-        private readonly AnyValueCreatorFixture anyValueCreatorFixture;
         private BalanceUpDayAndMoveBetsDay dataInCache;
 
         public ReportDateServiceImplTests(FanexCacheFixture fanexCacheFixture)
         {
             this.fanexCacheFixture = fanexCacheFixture;
-            anyValueCreatorFixture = new AnyValueCreatorFixture();
 
             BalanceUpDayAndMoveBetsDay balanceUpDayAndMoveBetsDay;
             balanceUpDay = new DateTime(2000, 1, 1);
@@ -118,51 +116,5 @@
             // Assert
             Assert.Equal(dataInCache.BalanceUpDay, actual);
         }
-        }
-
-        [Fact]
-        public void ValidateDateRange_FromDateLessThanBalanceUpDay_ReturnsFalse()
-        {
-            // Arrange
-            var dateRange = new DateRange(
-                DateRangeType.FromBalanceUpDay,
-                new DateTime(1999, 1, 1),
-                anyValueCreatorFixture.Create<DateTime>());
-
-            // Act
-            var actualValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.False(actualValid);
-        }
-
-        [Fact]
-        public void ValidateDateRange_ToDateLessThanFromDate_ReturnsFalse()
-        {
-            // Arrange
-            var fromDate = new DateTime(2000, 1, 3);
-            var toDate = new DateTime(2000, 1, 2);
-            var dateRange = new DateRange(DateRangeType.FromBalanceUpDay, fromDate, toDate);
-
-            // Act
-            var actualValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.False(actualValid);
-        }
-
-        [Fact]
-        public void ValidateDateRange_ValidRange_ReturnsTrue()
-        {
-            // Arrange
-            var fromDate = new DateTime(2000, 1, 3);
-            var toDate = new DateTime(2000, 1, 3);
-            var dateRange = new DateRange(DateRangeType.FromBalanceUpDay, fromDate, toDate);
-
-            // Act
-            var actualValid = service.ValidateDateRange(dateRange);
-
-            // Assert
-            Assert.True(actualValid);
     }
 }
