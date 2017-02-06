@@ -7,13 +7,34 @@
 
     public class ReportDefaultDateRangeQuery : ReportBaseQuery
     {
+        private DateTime fromDate;
+
         internal ReportDefaultDateRangeQuery(IUser viewer) : base(viewer)
         {
             ToDate = SystemTime.Today;
-            FromDate = DateTime.MinValue;
+            fromDate = DateTime.MinValue;
         }
 
-        public DateTime FromDate { get; set; }
+        public DateTime FromDate
+        {
+            get
+            {
+                // Set data here because default value of from date depends on whether report is hictoric or not.
+                if (fromDate == DateTime.MinValue)
+                {
+                    fromDate = IsHistoricReport
+                        ? SystemTime.Today.FirstDayOfMonth()
+                        : SystemTime.Today;
+                }
+
+                return fromDate;
+            }
+
+            set
+            {
+                fromDate = value;
+            }
+        }
 
         public DateTime ToDate { get; set; }
 
@@ -25,14 +46,6 @@
 
         public override bool IsValid()
         {
-            //// TODO: Side effect here
-            if (FromDate == DateTime.MinValue)
-            {
-                FromDate = IsHistoricReport
-                    ? SystemTime.Today.FirstDayOfMonth()
-                    : SystemTime.Today;
-            }
-
             return base.IsValid()
                 && FromDate <= ToDate
                 && FromDate >= MinDate
