@@ -112,8 +112,7 @@ class WinLossView {
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
             && alphaReports.screenSmallThan768()) {
             this.setCssBySwitchMode(false);
-            this.renderAtFirstSwitchMode(true);
-            this.isFirstSwitchMode = false;
+            this.renderAtFirstSwitchMode(false);
             this.reportTooltip.show(
                 new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0))
             );
@@ -174,8 +173,12 @@ class WinLossView {
 
     onSwitchModeEvent = () => {
         var isStackMode = this.$tableReport.hasClass("stack-mode");
-        this.replaceDrilldownParam("IsStackMode", !isStackMode);
-        this.setCssBySwitchMode(true);
+        this.replaceDrilldownParam("IsStackMode", !isStackMode); 
+        this.setCssBySwitchMode(isStackMode);
+        if (this.isFirstSwitchMode) {
+            this.renderAtFirstSwitchMode(isStackMode);
+            this.isFirstSwitchMode = false;
+        }
         this.sortComponent.bindTableSorter(this.getSortedColumnName());
     };
 

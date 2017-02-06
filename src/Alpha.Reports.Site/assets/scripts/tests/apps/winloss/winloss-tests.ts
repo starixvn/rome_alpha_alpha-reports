@@ -658,7 +658,7 @@
                 winLossView.onSwitchModeEvent();
 
                 // assert
-                expect(winLossView.setCssBySwitchMode).toHaveBeenCalledWith(true);
+                expect(winLossView.setCssBySwitchMode).toHaveBeenCalledWith(false);
                 expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsStackMode", true);
                 expect(sortComponent.bindTableSorter).toHaveBeenCalled();
             });
