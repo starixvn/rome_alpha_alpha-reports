@@ -14,7 +14,6 @@
         [Route("enteredresult/master")]
         [Route("enteredresult/agent")]
         [Route("enteredresult/member")]
-        [OutputCache(Duration = 60, Location = OutputCacheLocation.Server, VaryByParam = "none")]
         public ActionResult Index(EnteredSportResultQuery message)
             => View(message);
 

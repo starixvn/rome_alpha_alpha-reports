@@ -5,6 +5,7 @@
     using System.Linq;
     using Criteria.WinLoss;
     using DataAccesses;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models.Winloss;
     using Params;
@@ -19,6 +20,7 @@
 
     public class WinLossServiceImpl : WinLossService
     {
+        private const string EnteredResultsCacheKey = "Alpha.Reports.Services.Impl.WinLossServiceImpl.EnteredResults";
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly WinLossDataAccess dataAccess;
@@ -41,19 +43,13 @@
 
         public IEnumerable<EnteredSportResult> GetEnteredSportResults()
         {
-            var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria());
+            var reportData = ConfiguredCacheService
+                 .GetOrSet(
+                 EnteredResultsCacheKey,
+                 () => GetDataEnteredSportResults(),
+                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(1)));
 
-            if (dailyEnteredSportData.Any())
-            {
-                return dailyEnteredSportData.GroupBy(dailyEnteredSport => dailyEnteredSport.SportType)
-                    .Select(dailyEnteredSports => new EnteredSportResult(
-                    dailyEnteredSports.Key,
-                    cacheRefService.GetSportName(dailyEnteredSports.Key),
-                    dailyEnteredSports.FirstOrDefault(enteredSportResult => enteredSportResult.IsToday),
-                    dailyEnteredSports.FirstOrDefault(enteredSportResult => !enteredSportResult.IsToday)));
-            }
-
-            return Enumerable.Empty<EnteredSportResult>();
+            return reportData;
         }
 
         public IEnumerable<WinLossModel> GetWinLoss(WinLossParam param)
@@ -78,6 +74,23 @@
             var winlossData = dataAccess.GetWinLoss(criteria);
 
             return winlossData;
+        }
+
+        internal IEnumerable<EnteredSportResult> GetDataEnteredSportResults()
+        {
+            var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria());
+
+            if (dailyEnteredSportData.Any())
+            {
+                return dailyEnteredSportData.GroupBy(dailyEnteredSport => dailyEnteredSport.SportType)
+                    .Select(dailyEnteredSports => new EnteredSportResult(
+                    dailyEnteredSports.Key,
+                    cacheRefService.GetSportName(dailyEnteredSports.Key),
+                    dailyEnteredSports.FirstOrDefault(enteredSportResult => enteredSportResult.IsToday),
+                    dailyEnteredSports.FirstOrDefault(enteredSportResult => !enteredSportResult.IsToday)));
+            }
+
+            return Enumerable.Empty<EnteredSportResult>();
         }
     }
 }

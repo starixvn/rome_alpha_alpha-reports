@@ -76,7 +76,7 @@
           => string.Join(
               "-",
               Resources.MatchResultEntered,
-              SystemTime.Today.ToShortDateWithSlash(),
-              SystemTime.Today.AddDays(-1).ToShortDateWithSlash());
+              SystemTime.Today.AddDays(-1).ToShortDateWithSlash(),
+              SystemTime.Today.ToShortDateWithSlash());
     }
 }
