@@ -68,7 +68,7 @@
         {
             if (ReportLevel.IsMemberLevel())
             {
-                return $"{betListPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on";
+                return $"{betListPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on&type=RunByDate_Mem";
             }
 
             return $"?custLevelId={ReportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}" +
