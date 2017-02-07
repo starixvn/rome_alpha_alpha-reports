@@ -58,6 +58,8 @@
             var winLossByBettype = new WinLossByBetTypeModel(
                  betTypeId: bettypeId,
                  betTypeName: cacheRefService.GetBetTypeName(bettypeId),
+                 productId: reader.ToInt("ProductID"),
+                 liveIndicator: reader.ToBool("liveindicator"),
                  betCount: reader.ToInt("NumberOfTickets"),
                  turnover: reader.ToDecimal("TurnOver"),
                  grossComm: reader.ToDecimal("GrossComm"),

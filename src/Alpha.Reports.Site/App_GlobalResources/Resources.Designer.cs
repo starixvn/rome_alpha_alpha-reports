@@ -113,6 +113,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("AllLeagues", resourceCulture);
             }
         }
+ 	/// <summary>
+        ///   Looks up a localized string similar to Allbet.
+        /// </summary>
+        public static string Allbet {
+            get {
+                return ResourceManager.GetString("Allbet", resourceCulture);
+            }
+        }
+
         
         /// <summary>
         ///   Looks up a localized string similar to All Products.
@@ -321,7 +330,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
-        /// <summary>
+         /// <summary>
         ///   Looks up a localized string similar to Grand Total.
         /// </summary>
         public static string GrandTotal {
@@ -329,6 +338,16 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("GrandTotal", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gold Deluxe.
+        /// </summary>
+        public static string GoldDeluxe {
+            get {
+                return ResourceManager.GetString("GoldDeluxe", resourceCulture);
+            }
+        }
+
         
         /// <summary>
         ///   Looks up a localized string similar to /Gross Comm/Agent Total.
@@ -417,6 +436,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string LastWeek {
             get {
                 return ResourceManager.GetString("LastWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Live Game.
+        /// </summary>
+        public static string LiveGame {
+            get {
+                return ResourceManager.GetString("LiveGame", resourceCulture);
             }
         }
         
@@ -591,6 +619,17 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
+         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+
         /// <summary>
         ///   Looks up a localized string similar to Next.
         /// </summary>
@@ -717,6 +756,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
+         /// <summary>
+        ///   Looks up a localized string similar to Pre Game.
+        /// </summary>
+        public static string PreGame {
+            get {
+                return ResourceManager.GetString("PreGame", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Product.
         /// </summary>
@@ -993,6 +1041,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string vs {
             get {
                 return ResourceManager.GetString("vs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Sports.
+        /// </summary>
+        public static string VirtualSports {
+            get {
+                return ResourceManager.GetString("VirtualSports", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Macau Games.
+        /// </summary>
+        public static string Voidbridge {
+            get {
+                return ResourceManager.GetString("Voidbridge", resourceCulture);
             }
         }
         

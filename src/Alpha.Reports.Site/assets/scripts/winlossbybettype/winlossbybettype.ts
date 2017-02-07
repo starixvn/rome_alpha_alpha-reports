@@ -10,7 +10,6 @@ class WinLossByBettypeView {
     $pageTitle: JQuery;
     $tableReport: JQuery;
 
-    $isHistoricReport: JQuery;
     $multiSelectButton: JQuery;
 
     $drilldownLinks: JQuery;
@@ -32,7 +31,6 @@ class WinLossByBettypeView {
     $isSetDefaultStackMode: JQuery;
 
     isFirstSwitchMode = true;
-    isHistoricReport = false;
     isSwitchView = false;
     levels = ["member", "agent", "master", "super"];
 
@@ -60,7 +58,13 @@ class WinLossByBettypeView {
         this.cacheDOMElements();
 
         this.bindFilter();
-        this.bindSorting();
+        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
+        this.sortComponent.render(new SortOption(
+            this.$tableReport,
+            canSort,
+            true,
+            function () { },
+            { 0: { sorter: "text" } }));
         this.$tableReport.stickyTableHeaders();
         this.linkBuilderComponent.render();
         this.registerEvents();
@@ -85,7 +89,6 @@ class WinLossByBettypeView {
         this.$toDate = this.$("#to-date");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
-        this.$isHistoricReport = this.$("#IsHistoricReport");
         this.$isSetDefaultStackMode = this.$("#IsSetDefaultStackMode");
     };
 
@@ -140,7 +143,6 @@ class WinLossByBettypeView {
         this.$fromDate.val("");
         this.$toDate.val("");
         this.isSwitchView = true;
-        this.isHistoricReport = !this.$historicReport.data("is-historic-report");
         this.$reportForm.trigger("submit");
     };
 
@@ -224,7 +226,6 @@ class WinLossByBettypeView {
         return {
             CustId: tableReport.data("custid"),
             IsStackMode: tableReport.hasClass("stack-mode"),
-            IsHistoricReport: this.isHistoricReport,
             SortPropertyName: sortInfo.sortPropertyName,
             IsDescendingSort: sortInfo.isDescendingSort,
             HideFilter: this.$reportForm.is(":hidden"),
@@ -275,7 +276,6 @@ class WinLossByBettypeView {
         var params = this.getParams();
 
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
-        this.$isHistoricReport.val(String(params.IsHistoricReport));
         this.$isStackMode.val(String(params.IsStackMode));
         this.$sortPropertyName.val(params.SortPropertyName);
         this.$isDescendingSort.val(String(params.IsDescendingSort));

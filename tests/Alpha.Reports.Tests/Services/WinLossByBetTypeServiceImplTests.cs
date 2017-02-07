@@ -22,7 +22,7 @@
         private readonly CompareLogic compareLogic;
         private readonly ReportDateService reportDateService;
 
-        public WinLossByBetTypeServiceImplTests(FanexCacheFixture fanexCacheFixture)
+        public WinLossByBetTypeServiceImplTests()
         {
             dataAccess = Substitute.For<WinLossByBetTypeDataAccess>();
             reportDateService = Substitute.For<ReportDateService>();

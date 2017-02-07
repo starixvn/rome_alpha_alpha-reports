@@ -9,6 +9,8 @@
         public WinLossByBetTypeModel(
             int betTypeId,
             string betTypeName,
+            int productId,
+            bool liveIndicator,
             int betCount,
             decimal grossComm,
             decimal turnover,
@@ -19,6 +21,9 @@
         {
             BetTypeId = betTypeId;
             BetTypeName = betTypeName;
+            ProductId = productId;
+            LiveIndicator = liveIndicator;
+
             GrossComm = grossComm;
             Turnover = turnover;
             BetCount = betCount;
@@ -30,8 +35,14 @@
 
         public int BetTypeId { get; }
 
-        public string BetTypeName { get; }
+        public string BetTypeName { get; set; }
 
+        public int ProductId { get; }
+
+        public bool IsAllowViewGameType { get; set; }
+
+        public bool LiveIndicator { get; }
+        
         public int BetCount { get; }
 
         public decimal Turnover { get; }
@@ -62,6 +73,8 @@
             return new WinLossByBetTypeModel(
                 betTypeId: 0,
                 betTypeName: string.Empty,
+                productId: 0,
+                liveIndicator: false,
                 betCount: winlossByBettypeA.BetCount + winlossByBettypeB.BetCount,
                 grossComm: winlossByBettypeA.GrossComm + winlossByBettypeB.GrossComm,
                 turnover: winlossByBettypeA.Turnover + winlossByBettypeB.Turnover,

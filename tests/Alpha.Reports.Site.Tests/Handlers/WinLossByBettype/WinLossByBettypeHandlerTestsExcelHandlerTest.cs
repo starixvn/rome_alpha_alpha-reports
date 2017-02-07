@@ -132,7 +132,7 @@
             var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
             var winlossByBetTypeViewModel = new WinLossByBettypeViewModel(
                 Enumerable.Empty<WinLossByBetTypeModel>(),
-                fixture.Create<WinLossByBetTypeModel>(),
+                new WinLossByBetTypeModel(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
                 SystemTime.Today);

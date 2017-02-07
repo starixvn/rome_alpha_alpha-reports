@@ -17,6 +17,8 @@
             new WinLossByBetTypeModel(
                 betTypeId: 0,
                 betTypeName: string.Empty,
+                productId: 0,
+                liveIndicator: false,
                 betCount: 6,
                 turnover: (decimal)375732807.36,
                 grossComm: (decimal)2998559.76,
@@ -29,6 +31,8 @@
             new WinLossByBetTypeModel(
                 betTypeId: 0,
                 betTypeName: string.Empty,
+                productId: 0,
+                liveIndicator: false,
                 betCount: 6,
                 turnover: (decimal)375732807.36,
                 grossComm: (decimal)2998559.76,
@@ -41,6 +45,8 @@
             new WinLossByBetTypeModel(
                 betTypeId: 0,
                 betTypeName: string.Empty,
+                productId: 0,
+                liveIndicator: false,
                 betCount: 6,
                 turnover: (decimal)6225.00,
                 grossComm: (decimal)34.83,
@@ -56,6 +62,8 @@
             superWinLossData.Add(new WinLossByBetTypeModel(
                  betTypeId: 1,
                  betTypeName: "Baccarat",
+                 productId: 0,
+                 liveIndicator: false,
                  betCount: 4,
                  turnover: (decimal)375732407.36,
                  grossComm: (decimal)2998557.31,
@@ -67,6 +75,8 @@
             superWinLossData.Add(new WinLossByBetTypeModel(
                  betTypeId: 2,
                  betTypeName: "Blackjack",
+                 productId: 0,
+                 liveIndicator: false,
                  betCount: 2,
                  turnover: (decimal)400.00,
                  grossComm: (decimal)2.45,
@@ -85,6 +95,8 @@
             masterWinLossData.Add(new WinLossByBetTypeModel(
                  betTypeId: 1,
                  betTypeName: "Baccarat",
+                 productId: 0,
+                 liveIndicator: false,
                  betCount: 4,
                  turnover: (decimal)375732407.36,
                  grossComm: (decimal)2998557.31,
@@ -96,6 +108,8 @@
             masterWinLossData.Add(new WinLossByBetTypeModel(
                  betTypeId: 2,
                  betTypeName: "Blackjack",
+                 productId: 0,
+                 liveIndicator: false,
                  betCount: 2,
                  turnover: (decimal)400.00,
                  grossComm: (decimal)2.45,
@@ -112,8 +126,10 @@
             var agentWinLossData = new List<WinLossByBetTypeModel>();
 
             agentWinLossData.Add(new WinLossByBetTypeModel(
-                  betTypeId: 1,
+                 betTypeId: 1,
                  betTypeName: "Baccarat",
+                 productId: 0,
+                 liveIndicator: false,
                  betCount: 4,
                  turnover: (decimal)4000.00,
                  grossComm: (decimal)21.00,
@@ -125,6 +141,8 @@
             agentWinLossData.Add(new WinLossByBetTypeModel(
                  betTypeId: 2,
                  betTypeName: "Blackjack",
+                 productId: 0,
+                 liveIndicator: false,
                  betCount: 2,
                  turnover: (decimal)2225.00,
                  grossComm: (decimal)13.83,

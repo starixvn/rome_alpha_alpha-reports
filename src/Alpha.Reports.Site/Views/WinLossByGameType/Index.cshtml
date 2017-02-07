@@ -7,7 +7,8 @@
     {
         { "IsStackMode", Model.IsStackMode },
         { "IsDescendingSort", Model.IsDescendingSort },
-        { "SortPropertyName", Model.SortPropertyName }
+        { "SortPropertyName", Model.SortPropertyName },
+        { "ProductId", Model.ProductId }
     })
 <table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
@@ -17,7 +18,7 @@
        data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
-            <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="0">Game Type Name</th>
+            <th class="sorting" rowspan="2" data-sortedname="GameTypeName" data-colindex="0">Game Type Name</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="1">@Resources.Turnover</th>
             <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="1">
                 <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>
@@ -88,11 +89,11 @@
         <tbody>
             @foreach (var data in Model.ReportData)
             {
-                @RenderRow(data, false, ViewBag.BetListPath)
+                @RenderRow(data, false)
             }
         </tbody>
         <tfoot>
-            @RenderRow(Model.GrandTotal, true, ViewBag.BetListPath)
+            @RenderRow(Model.GrandTotal, true)
         </tfoot>
     }
     else
@@ -101,11 +102,13 @@
     }
 </table>
 
-<form class="form-inline hide" role="form" id="export-excel-form" action="~/WinLossByGameType/Excel">
+<form class="form-inline hide" role="form" id="export-excel-form" 
+      action="@Url.Action("Excel", "WinLossByGameType")">
     <input type="hidden" name="CustId" value="@Model.CustId" />
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
     <input type="hidden" name="CustLevelId" value="@Model.CustLevel.Value" />
+    <input type="hidden" name="ProductId" value="@Model.ProductId" />
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
@@ -114,21 +117,18 @@
     @StaticResources.RenderScripts("~/assets/bundles/winlossbygametype/winlossbygametype")
 }
 
-@helper RenderRow(WinLossByGameTypeModel data, bool isTotalRow, string betListPath)
+@helper RenderRow(WinLossByGameTypeModel data, bool isTotalRow)
 {
     <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
-        <td data-islink="true" class="text-left col-username">
+        <td class="text-left col-username">
             @if (isTotalRow)
             {
                 @Resources.Total
             }
             else
             {
-                <a href=""
-                   class="@(Model.CustLevel.IsAgentLevel() ? string.Empty : "downline-link")"
-                   data-custname="@data.GameTypeName">
-                    @data.GameTypeName
-                </a>
+                
+                @data.GameTypeName
             }
         </td>
 

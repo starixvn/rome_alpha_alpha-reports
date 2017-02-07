@@ -10,14 +10,12 @@
     {
         public WinLossByBettypeFilterViewModel(
             int custId,
-            string custName,
             UserLevel custLevel,
             DateRangePickerViewModel dateRangePickerViewModel,
             bool visible,
             DateTime minDate)
         {
             CustId = custId;
-            CustName = custName;
             CustLevel = custLevel;
 
             DateRangePickerViewModel = dateRangePickerViewModel;
@@ -28,8 +26,6 @@
         }
 
         public int CustId { get; }
-
-        public string CustName { get; }
 
         public UserLevel CustLevel { get; }
 

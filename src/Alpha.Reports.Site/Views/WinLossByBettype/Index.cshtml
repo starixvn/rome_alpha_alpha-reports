@@ -17,8 +17,8 @@
        data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
-            <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="0">Bet Type</th>
-            <th class="sorting" rowspan="2" data-sortedname="CustName" data-colindex="1">Bet Count</th>
+            <th class="sorting" rowspan="2" data-sortedname="BetTypeName" data-colindex="0">Bet Type</th>
+            <th class="sorting" rowspan="2" data-sortedname="BetCount" data-colindex="1">Bet Count</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="3">@Resources.GrossComm</th>
             <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="2">
@@ -45,9 +45,9 @@
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
-                <th colspan="3" class="col-level hidden-stack-mode">Bet Type</th>
+                <th colspan="3" class="col-level hidden-stack-mode">@Model.CustLevelName</th>
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" rowspan="2" data-colindex="4">
-                    Bet Type
+                    @Model.CustLevelName
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
@@ -56,9 +56,9 @@
             }
             else
             {
-                <th colspan="3" class="col-level hidden-stack-mode">Bet Type</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="" rowspan="2" data-colindex="3">
-                    Bet Type
+                <th colspan="3" class="col-level hidden-stack-mode">@Model.CustLevelName</th>
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".WinLoss")" rowspan="2" data-colindex="3">
+                    @Model.CustLevelName
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
@@ -73,15 +73,15 @@
                 <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Comm" data-colindex="5">@Resources.Comm</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Total" data-colindex="6">@Resources.Total</th>
 
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="" data-colindex="7">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="8">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="9">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".WinLoss")" data-colindex="7">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".Comm")" data-colindex="8">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".Total")" data-colindex="9">@Resources.Total</th>
             }
             else
             {
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="" data-colindex="5">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="6">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="" data-colindex="7">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".WinLoss")" data-colindex="5">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".Comm")" data-colindex="6">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".Total")" data-colindex="7">@Resources.Total</th>
             }
         </tr>
     </thead>
@@ -90,11 +90,11 @@
         <tbody>
             @foreach (var data in Model.ReportData)
             {
-                @RenderRow(data, false, string.Empty)
+                @RenderRow(data, false)
             }
         </tbody>
         <tfoot>
-            @RenderRow(Model.GrandTotal, true, ViewBag.BetListPath)
+            @RenderRow(Model.GrandTotal, true)
         </tfoot>
     }
     else
@@ -103,7 +103,8 @@
     }
 </table>
 
-<form class="form-inline hide" role="form" id="export-excel-form" action="~/WinLossByBettype/Excel">
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "WinLossByBettype")">
     <input type="hidden" name="CustId" value="@Model.CustId" />
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
@@ -116,21 +117,30 @@
     @StaticResources.RenderScripts("~/assets/bundles/winlossbybettype/winlossbybettype")
 }
 
-@helper RenderRow(WinLossByBetTypeModel data, bool isTotalRow, string betListPath)
+@helper RenderRow(WinLossByBetTypeModel data, bool isTotalRow)
 {
     <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
-        <td data-islink="true" class="text-left col-username">
+        <td @(data.IsAllowViewGameType? "data-islink=\"true\"":"") class="text-left col-username">
             @if (isTotalRow)
             {
                 @Resources.Total
             }
             else
             {
-                <a href=""
-                   class="@(Model.CustLevel.IsAgentLevel() ? string.Empty : "downline-link")"
-                   data-custname="@data.BetTypeName">
-                    @data.BetTypeName
+
+                BetTypeDetailViewModel betTypeDetailViewModel = Model.BuildBetTypeDetailViewModel(data.BetTypeId, data.BetTypeName, data.LiveIndicator);
+
+                if (betTypeDetailViewModel.IsAllowViewGameType)
+                {
+                <a href="@Model.BuildWinLossByGameTypePath(data.ProductId, betTypeDetailViewModel.WinLossByGameTypeTitle)"
+                    class= "downline-link" data-custname="@data.BetTypeName">
+                    @betTypeDetailViewModel.BetTypeNameViewer
                 </a>
+                }
+                else
+                {
+                    @betTypeDetailViewModel.BetTypeNameViewer
+                }
             }
         </td>
 
