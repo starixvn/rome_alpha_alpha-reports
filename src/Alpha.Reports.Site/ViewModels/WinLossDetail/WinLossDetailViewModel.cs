@@ -22,7 +22,7 @@
         public WinLossDetailViewModel(
             WinLossDetailQuery message,
             WinLossDetailParam winLossDetailParam,
-            ReportData<WinLossDetailModel> reportData,
+            PagedReportData<WinLossDetailModel> reportData,
             IEnumerable<CustInfo> breadcrumbLevel,
             IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevel)
         {
@@ -117,7 +117,7 @@
 
         public bool IsSetDefaultStackMode => message.IsSetDefaultStackMode;
 
-        public ReportData<WinLossDetailModel> ReportData { get; }
+        public PagedReportData<WinLossDetailModel> ReportData { get; }
 
         private string GetReportNameByLevel(UserLevel userLevel)
             => userLevel.IsSuperLevel()

@@ -32,7 +32,7 @@
             var productService = Substitute.For<ProductService>();
             productService.ConcatProductNames(Arg.Any<string>()).Returns("Product Name");
 
-            reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
+            reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             var reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 

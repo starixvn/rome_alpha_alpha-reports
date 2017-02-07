@@ -64,7 +64,7 @@
                 new WinLossDetailModel(11, "Master2", 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110))
             };
 
-            var expectedData = new ReportData<WinLossDetailModel>(
+            var expectedData = new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
                 0,
                 0,
@@ -102,7 +102,7 @@
                 new WinLossDetailModel(11, "Agent2", 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), null)
             };
 
-            var expectedData = new ReportData<WinLossDetailModel>(
+            var expectedData = new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
                 0,
                 0,
@@ -140,7 +140,7 @@
                 new WinLossDetailModel(11, "Member2", 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), null, null)
             };
 
-            var expectedData = new ReportData<WinLossDetailModel>(
+            var expectedData = new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
                 0,
                 0,
@@ -172,7 +172,7 @@
             IDataReader dataReader = null;
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataReader);
 
-            var expectedData = new ReportData<WinLossDetailModel>(
+            var expectedData = new PagedReportData<WinLossDetailModel>(
                 new List<WinLossDetailModel>(),
                 0,
                 0,
@@ -210,7 +210,7 @@
                 new WinLossDetailModel(11, "Master2", 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110))
             };
 
-            var expectedData = new ReportData<WinLossDetailModel>(
+            var expectedData = new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
                 0,
                 0,

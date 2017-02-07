@@ -39,7 +39,7 @@
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 message,
                 new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, "CustName", false, false),
-                new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
+                new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<SelectListItem>());
             var expectedNetTurnoverTooltips = new List<string>();
@@ -59,7 +59,7 @@
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 message,
                 new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, "CustName", false, false),
-                new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
+                new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                  new List<SelectListItem>
                  {
@@ -149,7 +149,7 @@
             return Substitute.ForPartsOf<WinLossDetailViewModel>(
                 message,
                 new WinLossDetailParam(0, 0, 0, fromDate, toDate, new List<int> { 1 }, message.CustLevel, "CustName", false, false),
-                new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
+                new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                  new List<SelectListItem>
                  {

@@ -7,15 +7,9 @@
     {
         public ReportData(
             IEnumerable<T> dataSource,
-            int currentPageIndex,
-            int pageSize,
-            int totalRecords,
             T totalData)
         {
             DataSource = dataSource ?? Enumerable.Empty<T>();
-            CurrentPageIndex = currentPageIndex;
-            PageSize = pageSize;
-            TotalRecords = totalRecords;
             TotalData = totalData;
         }
 
@@ -23,14 +17,8 @@
 
         public T TotalData { get; }
 
-        public int CurrentPageIndex { get; }
+        public virtual bool Any() => DataSource.Any();
 
-        public int PageSize { get; }
-
-        public int TotalRecords { get; }
-
-        public bool Any() => TotalRecords > 0;
-
-        public bool MoreThanOne() => TotalRecords > 1;
+        public virtual bool MoreThanOne() => DataSource.Count() > 1;
     }
 }

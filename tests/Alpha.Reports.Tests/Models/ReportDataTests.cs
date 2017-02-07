@@ -11,7 +11,7 @@
         public void DataSource_NullDataSource_ReturnsEmptyWinLossDetailListFromCtor()
         {
             // Arrange
-            var reportData = new ReportData<WinLossDetailModel>(null, 0, 0, 0, default(WinLossDetailModel));
+            var reportData = new PagedReportData<WinLossDetailModel>(null, 0, 0, 0, default(WinLossDetailModel));
             var expectedDataSource = Enumerable.Empty<WinLossDetailModel>();
 
             // Act
@@ -26,7 +26,7 @@
         {
             // Arrange
             var dataSource = Enumerable.Empty<WinLossDetailModel>();
-            var reportData = new ReportData<WinLossDetailModel>(dataSource, 0, 0, 0, default(WinLossDetailModel));
+            var reportData = new PagedReportData<WinLossDetailModel>(dataSource, 0, 0, 0, default(WinLossDetailModel));
 
             // Act
             var actual = reportData.DataSource;
@@ -40,7 +40,7 @@
         {
             // Arrange
             var totalData = new WinLossDetailModel();
-            var reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, totalData);
+            var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, totalData);
 
             // Act
             var actual = reportData.TotalData;
@@ -54,7 +54,7 @@
         {
             // Arrange
             var currentPageIndex = 1;
-            var reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), currentPageIndex, 0, 0, default(WinLossDetailModel));
+            var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), currentPageIndex, 0, 0, default(WinLossDetailModel));
 
             // Act
             var actual = reportData.CurrentPageIndex;
@@ -68,7 +68,7 @@
         {
             // Arrange
             var pageSize = 1;
-            var reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, pageSize, 0, default(WinLossDetailModel));
+            var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, pageSize, 0, default(WinLossDetailModel));
 
             // Act
             var actual = reportData.PageSize;
@@ -82,7 +82,7 @@
         {
             // Arrange
             var totalRecords = 1;
-            var reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, totalRecords, default(WinLossDetailModel));
+            var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, totalRecords, default(WinLossDetailModel));
 
             // Act
             var actual = reportData.TotalRecords;
@@ -98,7 +98,7 @@
         public void Any_LessThan1Record_ReturnsFalse(int totalRecords)
         {
             // Arrange
-            var reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, totalRecords, default(WinLossDetailModel));
+            var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, totalRecords, default(WinLossDetailModel));
 
             // Act
             var actual = reportData.Any();
@@ -113,7 +113,7 @@
         public void Any_AtLeast1Record_ReturnsTrue(int totalRecords)
         {
             // Arrange
-            var reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, totalRecords, default(WinLossDetailModel));
+            var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, totalRecords, default(WinLossDetailModel));
 
             // Act
             var actual = reportData.Any();
@@ -130,7 +130,7 @@
         public void Any_LessThan2Records_ReturnsFalse(int totalRecords)
         {
             // Arrange
-            var reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, totalRecords, default(WinLossDetailModel));
+            var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, totalRecords, default(WinLossDetailModel));
 
             // Act
             var actual = reportData.MoreThanOne();
@@ -145,7 +145,7 @@
         public void Any_MoreThan1Record_ReturnsFalse(int totalRecords)
         {
             // Arrange
-            var reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, totalRecords, default(WinLossDetailModel));
+            var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, totalRecords, default(WinLossDetailModel));
 
             // Act
             var actual = reportData.MoreThanOne();

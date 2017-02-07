@@ -102,6 +102,7 @@
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
     <Compile Include="Models\CustInfo.cs" />
+    <Compile Include="Models\PagedReportData.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />

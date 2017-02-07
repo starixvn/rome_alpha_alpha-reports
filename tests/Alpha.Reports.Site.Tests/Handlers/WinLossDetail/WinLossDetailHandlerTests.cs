@@ -27,7 +27,7 @@
         private readonly ProductService productService;
         private readonly WinLossDetailHandler winLossDetailHandler;
         private readonly UserFixture userFixture;
-        private readonly ReportData<WinLossDetailModel> reportData;
+        private readonly PagedReportData<WinLossDetailModel> reportData;
         private readonly WinLossDetailService reportService;
 
         public WinLossDetailHandlerTests(UserFixture userFixture)
@@ -35,7 +35,7 @@
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string> { "Product Name" });
 
-            reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
+            reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 

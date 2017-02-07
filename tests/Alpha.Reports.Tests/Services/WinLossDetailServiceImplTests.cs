@@ -57,7 +57,7 @@
                 false,
                 false);
 
-            var reportData = new ReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
+            var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
             dataAccess.GetData(Arg.Any<WinLossDetailCriteria>()).Returns(reportData);
 
             var expectedReportData = reportData;

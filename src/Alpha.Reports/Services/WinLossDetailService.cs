@@ -9,7 +9,7 @@
 
     public interface WinLossDetailService
     {
-        ReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
+        PagedReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
     }
 
     public class WinLossDetailServiceImpl : WinLossDetailService
@@ -28,7 +28,7 @@
             this.dataAccess = dataAccess;
         }
 
-        public ReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param)
+        public PagedReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param)
         {
             if (param == null)
             {

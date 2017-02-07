@@ -10,12 +10,12 @@
 
     public interface WinLossDetailDataAccess
     {
-        ReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria);
+        PagedReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria);
     }
 
     public class WinLossDetailDataAccessImpl : WinLossDetailDataAccess
     {
-        public ReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria)
+        public PagedReportData<WinLossDetailModel> GetData(WinLossDetailCriteria criteria)
         {
             if (criteria == null)
             {
@@ -44,7 +44,7 @@
                 }
             }
 
-            return new ReportData<WinLossDetailModel>(
+            return new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
                 criteria.PageIndex,
                 criteria.PageSize,
