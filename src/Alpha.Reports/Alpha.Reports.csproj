@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
+    <Compile Include="Criteria\CommissionByBettype\CommissionByBettypeCriteria.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
     <Compile Include="Criteria\GetProductsCriteria.cs" />
     <Compile Include="Criteria\Outstanding\OutstandingCriteria.cs" />
@@ -95,7 +96,6 @@
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLoss\DailyEnteredSportCriteria.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteria.cs" />
-    <Compile Include="DataAccesses\CommissionByBettypeDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccess.cs" />
     <Compile Include="DataAccesses\ObjectDbFactory.cs" />
@@ -120,6 +120,7 @@
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
     <Compile Include="Models\Winloss\WinLossModel.cs" />
     <Compile Include="Params\OutstandingParam.cs" />
+    <Compile Include="Params\CommissionByBettypeParam.cs" />
     <Compile Include="Params\RacingCommissionParam.cs" />
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
