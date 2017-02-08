@@ -259,6 +259,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\monthpicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\pager-tests.ts" />
     <Compile Include="Controllers\OutstandingController.cs" />
+    <Compile Include="Controllers\CommissionByBettypeController.cs" />
     <Compile Include="Controllers\RacingCommissionController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
+    <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandler.cs" />
     <Compile Include="Handlers\RacingCommission\RacingCommissionExcelHandler.cs" />
     <Compile Include="Handlers\RacingCommission\RacingCommissionHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailBaseHandler.cs" />
@@ -285,6 +287,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
     <Compile Include="Requests\RacingCommission\RacingCommissionExcelQuery.cs" />
+    <Compile Include="Requests\CommissionByBettype\CommissionByBettypeQuery.cs" />
     <Compile Include="Requests\RacingCommission\RacingCommissionQuery.cs" />
     <Compile Include="Requests\Outstanding\OutstandingQuery.cs" />
     <Compile Include="Requests\ReportBaseQuery.cs" />
@@ -297,6 +300,7 @@
     <Compile Include="Requests\WinLoss\EnteredSportResultExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossQuery.cs" />
+    <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeViewModel.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
     <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
@@ -548,6 +552,7 @@
     <Content Include="Views\Outstanding\Index.cshtml" />
     <Content Include="Views\EnteredResult\Index.cshtml" />
     <Content Include="Views\Shared\InvalidReport.cshtml" />
+    <Content Include="Views\CommissionByBettype\Index.cshtml" />
     <Content Include="Views\RacingCommission\Index.cshtml" />
     <Content Include="Views\RacingCommission\_RacingCommissionFilter.cshtml" />
     <None Include="Web.Debug.config">
