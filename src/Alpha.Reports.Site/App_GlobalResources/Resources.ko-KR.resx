@@ -297,4 +297,7 @@
   <data name="BetCount" xml:space="preserve">
     <value>베팅카운트</value>
   </data>
+  <data name="WinLossTitle" xml:space="preserve">
+    <value>승리 패배</value>
+  </data>
 </root>

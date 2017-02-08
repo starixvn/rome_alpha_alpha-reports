@@ -330,4 +330,7 @@
   <data name="BetCount" xml:space="preserve">
     <value>投注統計</value>
   </data>
+  <data name="WinLossTitle" xml:space="preserve">
+    <value>輸贏</value>
+  </data>
 </root>

@@ -331,4 +331,7 @@
   <data name="BetCount" xml:space="preserve">
     <value>นับเดิมพัน</value>
   </data>
+  <data name="WinLossTitle" xml:space="preserve">
+    <value>ได้ เสีย</value>
+  </data>
 </root>

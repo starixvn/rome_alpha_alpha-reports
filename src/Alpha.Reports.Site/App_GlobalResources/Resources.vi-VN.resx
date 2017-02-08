@@ -318,4 +318,7 @@
   <data name="BetCount" xml:space="preserve">
     <value>Số lượng cược</value>
   </data>
+  <data name="WinLossTitle" xml:space="preserve">
+    <value>Thắng thua</value>
+  </data>
 </root>

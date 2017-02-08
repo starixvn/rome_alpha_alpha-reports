@@ -189,4 +189,7 @@
   <data name="From" xml:space="preserve">
     <value>送金元</value>
   </data>
+  <data name="WinLossTitle" xml:space="preserve">
+    <value>勝ち負け</value>
+  </data>
 </root>
