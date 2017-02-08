@@ -12,11 +12,11 @@
     using ONEbook.SpreadSheets;
     using Params;
     using Ploeh.AutoFixture;
-    using Reports.Models.WinlossByBettype;
+    using Reports.Models.WinlossByBetType;
     using Services;
     using Site.Handlers.WinLossByBetType;
-    using Site.Requests.WinLossByBettype;
-    using Site.ViewModels.WinLossByBettype;
+    using Site.Requests.WinLossByBetType;
+    using Site.ViewModels.WinLossByBetType;
     using Utils;
     using Xunit;
 
@@ -56,7 +56,7 @@
         public void HandleExportWinLossByBetTypeQuery_NullMessage_ThrowsArgumentNullException()
         {
             // Arrange
-            WinLossByBettypeExcelQuery nullMessage = null;
+            WinLossByBetTypeExcelQuery nullMessage = null;
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => winLossByBetTypeExcelHandler.Handle(nullMessage));
@@ -108,7 +108,7 @@
             // Arrange
             var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
 
-            var winlossByBetTypeViewModel = new WinLossByBettypeViewModel(
+            var winlossByBetTypeViewModel = new WinLossByBetTypeViewModel(
                 Enumerable.Empty<WinLossByBetTypeModel>(),
                 fixture.Create<WinLossByBetTypeModel>(),
                 message,
@@ -130,7 +130,7 @@
         {
             // Arrange
             var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
-            var winlossByBetTypeViewModel = new WinLossByBettypeViewModel(
+            var winlossByBetTypeViewModel = new WinLossByBetTypeViewModel(
                 Enumerable.Empty<WinLossByBetTypeModel>(),
                 new WinLossByBetTypeModel(),
                 message,
@@ -217,9 +217,9 @@
             winLossByBetTypeExcelHandler.Received().GetExcelTemplatePath(fileName);
         }
 
-        private WinLossByBettypeExcelQuery CreateExportWinlossByBetTypeExcelQuery(byte custLevelId)
+        private WinLossByBetTypeExcelQuery CreateExportWinlossByBetTypeExcelQuery(byte custLevelId)
         {
-            var exportWinLossByBetTypeQuery = new WinLossByBettypeExcelQuery(userFixture.User);
+            var exportWinLossByBetTypeQuery = new WinLossByBetTypeExcelQuery(userFixture.User);
             exportWinLossByBetTypeQuery.CustLevelId = custLevelId;
             exportWinLossByBetTypeQuery.FromDate = DefaultVariables.CurrentDate;
             exportWinLossByBetTypeQuery.ToDate = DefaultVariables.CurrentDate;

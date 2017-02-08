@@ -1,14 +1,14 @@
-﻿namespace Alpha.Reports.Site.Requests.WinLossByBettype
+﻿namespace Alpha.Reports.Site.Requests.WinLossByBetType
 {
     using MediatR;
     using Reports.Models;
-    using ViewModels.WinLossByBettype;
+    using ViewModels.WinLossByBetType;
 
-    public class WinLossByBettypeQuery :
+    public class WinLossByBetTypeQuery :
         ReportDefaultDateRangeQuery,
-        IRequest<WinLossByBettypeViewModel>
+        IRequest<WinLossByBetTypeViewModel>
     {
-        public WinLossByBettypeQuery(IUser viewer) : base(viewer)
+        public WinLossByBetTypeQuery(IUser viewer) : base(viewer)
         {
         }
 

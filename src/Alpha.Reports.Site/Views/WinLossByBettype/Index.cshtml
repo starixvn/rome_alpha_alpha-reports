@@ -1,4 +1,4 @@
-﻿@model WinLossByBettypeViewModel
+﻿@model WinLossByBetTypeViewModel
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
 
@@ -17,8 +17,8 @@
        data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
-            <th class="sorting" rowspan="2" data-sortedname="BetTypeName" data-colindex="0">Bet Type</th>
-            <th class="sorting" rowspan="2" data-sortedname="BetCount" data-colindex="1">Bet Count</th>
+            <th class="sorting" rowspan="2" data-sortedname="BetTypeName" data-colindex="0">@Resources.BetType</th>
+            <th class="sorting" rowspan="2" data-sortedname="BetCount" data-colindex="1">@Resources.BetCount</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="3">@Resources.GrossComm</th>
             <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="2">
@@ -104,7 +104,7 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", "WinLossByBettype")">
+      action="@Url.Action("Excel", "WinLossByBetType")">
     <input type="hidden" name="CustId" value="@Model.CustId" />
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
@@ -134,12 +134,12 @@
                 {
                 <a href="@Model.BuildWinLossByGameTypePath(data.ProductId, betTypeDetailViewModel.WinLossByGameTypeTitle)"
                     class= "downline-link" data-custname="@data.BetTypeName">
-                    @betTypeDetailViewModel.BetTypeNameViewer
+                    @betTypeDetailViewModel.BetTypeNameDisplay
                 </a>
                 }
                 else
                 {
-                    @betTypeDetailViewModel.BetTypeNameViewer
+                    @betTypeDetailViewModel.BetTypeNameDisplay
                 }
             }
         </td>

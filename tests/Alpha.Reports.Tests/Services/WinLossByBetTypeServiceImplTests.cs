@@ -8,7 +8,7 @@
     using Reports.Criteria.WinLossByBetTypeCriteria;
     using Reports.DataAccesses;
     using Reports.Models;
-    using Reports.Models.WinlossByBettype;
+    using Reports.Models.WinlossByBetType;
     using Reports.Params;
     using Reports.Services;
     using Xunit;

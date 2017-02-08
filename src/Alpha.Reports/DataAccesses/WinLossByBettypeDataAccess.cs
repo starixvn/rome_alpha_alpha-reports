@@ -7,7 +7,7 @@
     using Criteria.WinLossByBetTypeCriteria;
     using Fanex.Common.Extensions;
     using Models;
-    using Models.WinlossByBettype;
+    using Models.WinlossByBetType;
     using RemotingRef;
 
     public interface WinLossByBetTypeDataAccess

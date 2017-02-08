@@ -475,5 +475,7 @@
   <data name="Voidbridge" xml:space="preserve">
     <value>Macau Games</value>
   </data>
-
+  <data name="BetType" xml:space="preserve">
+    <value>Bet Type</value>
+  </data>
 </root>

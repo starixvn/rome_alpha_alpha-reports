@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using Criteria.WinLossByBetTypeCriteria;
     using DataAccesses;
-    using Models.WinlossByBettype;
+    using Models.WinlossByBetType;
     using Params;
 
     public interface WinLossByBetTypeService

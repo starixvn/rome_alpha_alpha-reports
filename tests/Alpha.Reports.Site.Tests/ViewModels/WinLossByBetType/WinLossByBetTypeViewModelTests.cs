@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLoss
+﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossByBetType
 {
     using System.Globalization;
     using System.Linq;
@@ -7,9 +7,9 @@
     using Fixtures;
     using Params;
     using Ploeh.AutoFixture;
-    using Reports.Models.WinlossByBettype;
-    using Site.Requests.WinLossByBettype;
-    using Site.ViewModels.WinLossByBettype;
+    using Reports.Models.WinlossByBetType;
+    using Site.Requests.WinLossByBetType;
+    using Site.ViewModels.WinLossByBetType;
     using Utils;
     using Xunit;
 
@@ -34,7 +34,7 @@
             // Arrange
             var expectedTitle = "Win Loss By Bet Type";
             var message = CreateWinlossByBetTypeQuery(4);
-            var winlossByBettypeViewModel = new WinLossByBettypeViewModel(
+            var winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
                 Enumerable.Empty<WinLossByBetTypeModel>(),
                 fixture.Create<WinLossByBetTypeModel>(),
                 message,
@@ -45,9 +45,9 @@
             Assert.Equal(winlossByBettypeViewModel.Title, expectedTitle);
         }
 
-        private WinLossByBettypeQuery CreateWinlossByBetTypeQuery(byte custLevelId)
+        private WinLossByBetTypeQuery CreateWinlossByBetTypeQuery(byte custLevelId)
         {
-            var winLossBettypeQuery = new WinLossByBettypeQuery(userFixture.User);
+            var winLossBettypeQuery = new WinLossByBetTypeQuery(userFixture.User);
             winLossBettypeQuery.CustLevelId = custLevelId;
             winLossBettypeQuery.FromDate = DefaultVariables.CurrentDate;
             winLossBettypeQuery.ToDate = DefaultVariables.CurrentDate;

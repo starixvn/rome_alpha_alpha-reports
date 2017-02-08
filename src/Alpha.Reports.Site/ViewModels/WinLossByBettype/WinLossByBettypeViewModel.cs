@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.ViewModels.WinLossByBettype
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossByBetType
 {
     using System;
     using System.Collections.Generic;
@@ -9,23 +9,23 @@
     using Helpers;
     using Params;
     using Reports.Models;
-    using Reports.Models.WinlossByBettype;
-    using Requests.WinLossByBettype;
+    using Reports.Models.WinlossByBetType;
+    using Requests.WinLossByBetType;
     using Sunplus.Agent.Model.BL.Definitions;
     using Web.Helpers;
 
-    public class WinLossByBettypeViewModel
+    public class WinLossByBetTypeViewModel
     {
         private readonly string sortPropertyNameDefault = "BetTypeName";
         private readonly string winLossByGameTypePath = "WinLossByGameType/Index";
 
-        private readonly WinLossByBettypeQuery message;
+        private readonly WinLossByBetTypeQuery message;
         private readonly WinLossByBetTypeParam winLossByBettypeParam;
 
-        public WinLossByBettypeViewModel(
+        public WinLossByBetTypeViewModel(
             IEnumerable<WinLossByBetTypeModel> reportData,
             WinLossByBetTypeModel grandTotal,
-            WinLossByBettypeQuery message,
+            WinLossByBetTypeQuery message,
             WinLossByBetTypeParam winLossByBettypeParam,
             DateTime balanceUpDay)
         {
@@ -79,8 +79,8 @@
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
-        public WinLossByBettypeFilterViewModel FilterViewModel =>
-            new WinLossByBettypeFilterViewModel(
+        public WinLossByBetTypeFilterViewModel FilterViewModel =>
+            new WinLossByBetTypeFilterViewModel(
                 CustId,
                 CustLevel,
                 DateRangePickerViewModel,

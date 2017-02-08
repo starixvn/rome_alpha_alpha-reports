@@ -2,11 +2,11 @@
 {
     using System.Collections.Generic;
     using Reports.Models;
-    using Reports.Models.WinlossByBettype;
+    using Reports.Models.WinlossByBetType;
 
-    public static class WinLossByBettypeViewModelTestCases
+    public static class WinLossByBetTypeViewModelTestCases
     {
-        private static IEnumerable<object[]> winLossByBettypeViewModel = new List<object[]>()
+        private static IEnumerable<object[]> winLossByBetTypeViewModel = new List<object[]>()
         {
             new object[] { BuildSuperDataTest(), ExpectedSuperGrantTotal },
             new object[] { BuildMasterDataTest(), ExpectedMasterGrantTotal },
@@ -154,6 +154,6 @@
             return agentWinLossData;
         }
 
-        public static IEnumerable<object[]> WinLossByBettypeViewModelSources => winLossByBettypeViewModel;
+        public static IEnumerable<object[]> WinLossByBetTypeViewModelSources => winLossByBetTypeViewModel;
     }
 }

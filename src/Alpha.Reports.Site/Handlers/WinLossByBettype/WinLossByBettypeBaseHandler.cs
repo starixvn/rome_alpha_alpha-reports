@@ -4,8 +4,8 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Params;
-    using Reports.Models.WinlossByBettype;
-    using Requests.WinLossByBettype;
+    using Reports.Models.WinlossByBetType;
+    using Requests.WinLossByBetType;
     using Services;
 
     [SuppressMessage(
@@ -21,7 +21,7 @@
             this.reportService = reportService;
         }
 
-        protected WinLossByBetTypeParam CreateWinLossByBettypeParamater(WinLossByBettypeQuery message)
+        protected WinLossByBetTypeParam CreateWinLossByBettypeParamater(WinLossByBetTypeQuery message)
         {
             return new WinLossByBetTypeParam(
                  message.CustId,

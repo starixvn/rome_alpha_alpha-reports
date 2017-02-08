@@ -6,14 +6,14 @@
     using MediatR;
     using ONEbook.SpreadSheets;
     using Params;
-    using Reports.Models.WinlossByBettype;
-    using Requests.WinLossByBettype;
+    using Reports.Models.WinlossByBetType;
+    using Requests.WinLossByBetType;
     using Services;
     using ViewModels;
 
     public class WinLossByBetTypeExcelHandler :
         WinLossByBetTypeBaseHandler,
-        IRequestHandler<WinLossByBettypeExcelQuery, ExcelFileViewModel>
+        IRequestHandler<WinLossByBetTypeExcelQuery, ExcelFileViewModel>
     {
         private readonly Workbook<WinLossByBetTypeModel> workbook;
 
@@ -24,7 +24,7 @@
             this.workbook = workbook;
         }
 
-        public ExcelFileViewModel Handle(WinLossByBettypeExcelQuery message)
+        public ExcelFileViewModel Handle(WinLossByBetTypeExcelQuery message)
         {
             if (message == null)
             {
@@ -47,13 +47,13 @@
             return new ExcelFileViewModel(GetExcelFileName(message, winLossByBetTypeParam), result);
         }
 
-        private Mapper<WinLossByBetTypeModel> GetBodyRowMapper(WinLossByBettypeExcelQuery message)
+        private Mapper<WinLossByBetTypeModel> GetBodyRowMapper(WinLossByBetTypeExcelQuery message)
           => GetRowMapper(message, isTotal: false);
 
-        private Mapper<WinLossByBetTypeModel> GetTotalRowMapper(WinLossByBettypeExcelQuery message)
+        private Mapper<WinLossByBetTypeModel> GetTotalRowMapper(WinLossByBetTypeExcelQuery message)
             => GetRowMapper(message, isTotal: true);
 
-        private Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByBettypeExcelQuery message, bool isTotal)
+        private Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByBetTypeExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossByBetTypeModel>()
                 .Map(Column.A, data => isTotal ? Resources.Total : data.BetTypeName)
@@ -93,15 +93,15 @@
             return mapper;
         }
 
-        private TemplateInfo GetTemplateInfo(WinLossByBettypeExcelQuery message)
+        private TemplateInfo GetTemplateInfo(WinLossByBetTypeExcelQuery message)
             => new TemplateInfo(
                 GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
                 noInfomationText: Resources.NoInformationIsAvailable);
 
-        private string GetReporTitle(WinLossByBettypeExcelQuery message)
+        private string GetReporTitle(WinLossByBetTypeExcelQuery message)
             => $"{Resources.WinLossByBetType} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 
-        private string GetExcelFileName(WinLossByBettypeExcelQuery message, WinLossByBetTypeParam winLossByBetTypeParam)
+        private string GetExcelFileName(WinLossByBetTypeExcelQuery message, WinLossByBetTypeParam winLossByBetTypeParam)
            => string.Join(
                "-",
                Resources.WinLossByBetType,

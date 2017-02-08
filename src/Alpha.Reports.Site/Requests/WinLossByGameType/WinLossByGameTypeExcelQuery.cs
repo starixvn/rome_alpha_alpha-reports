@@ -3,7 +3,6 @@
     using MediatR;
     using Reports.Models;
     using ViewModels;
-    using WinLossByBettype;
 
     public class WinLossByGameTypeExcelQuery : WinLossByGameTypeQuery, IRequest<ExcelFileViewModel>
     {

@@ -120,8 +120,8 @@
       <HintPath>..\..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture.Xunit2, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AutoFixture.Xunit2.3.50.2\lib\net45\Ploeh.AutoFixture.Xunit2.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture.Xunit, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoFixture.Xunit.3.50.2\lib\net40\Ploeh.AutoFixture.Xunit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -207,6 +207,7 @@
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
     <Compile Include="Controllers\ReportLegendControllerTests.cs" />
+    <Compile Include="Controllers\WinLossByGameTypeControllerTests.cs" />
     <Compile Include="Controllers\WinLossByBetTypeControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossControllerTests.cs" />
     <Compile Include="Controllers\LeagueControllerTests.cs" />
@@ -219,16 +220,17 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandlerTests.cs" />
-    <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
+    <Compile Include="Handlers\WinLossByBetType\WinLossByBetTypeHandlerTestsExcelHandlerTest.cs" />
+    <Compile Include="Handlers\WinLossByBetType\WinLossByBetTypeHandlerTestsHandlerTests.cs" />
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />
-    <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeHandlerTests.cs" />
+    <Compile Include="Handlers\WinLossByGameType\WinLossByGameTypeHandlerTestsExcelHandlerTest.cs" />
+    <Compile Include="Handlers\WinLossByGameType\WinLossByGameTypeHandlerTestsHandlerTests.cs" />
       <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbookImplTests.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
  <Compile Include="Handlers\WinLossByBettype\WinLossByBetTypeHandlerTestsExcelHandlerTest.cs" />
-    <Compile Include="Handlers\WinLossByBettype\WinLossByBetTypeHandlerTestsHandlerTests.cs" />
 
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandlerTests.cs" />
     <Compile Include="Handlers\LeagueHandlerTests.cs" />
@@ -248,13 +250,14 @@
     <Compile Include="Requests\ReportDefaultDateRangeQueryTests.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\MatchWinLossDetailTestCases.cs" />
-    <Compile Include="TestCases\WinLossByBettypeViewModelTestCases.cs" />
+    <Compile Include="TestCases\WinLossByGameTypeViewModelTestCases.cs" />
+    <Compile Include="TestCases\WinLossByBetTypeViewModelTestCases.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModelTests.cs" />
-    <Compile Include="ViewModels\Outstanding\OutstandingViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossByGameType\WinLossByGameTypeViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModelTests.cs" />

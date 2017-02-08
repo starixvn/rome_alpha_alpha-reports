@@ -11,7 +11,7 @@
     using Reports.Criteria.WinLossByBetTypeCriteria;
     using Reports.DataAccesses;
     using Reports.Models;
-    using Reports.Models.WinlossByBettype;
+    using Reports.Models.WinlossByBetType;
     using Xunit;
 
     [Trait("Category", "WinLossByBetType")]

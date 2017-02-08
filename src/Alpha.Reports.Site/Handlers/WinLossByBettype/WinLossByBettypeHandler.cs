@@ -2,13 +2,13 @@
 {
     using System;
     using MediatR;
-    using Requests.WinLossByBettype;
+    using Requests.WinLossByBetType;
     using Services;
-    using ViewModels.WinLossByBettype;
+    using ViewModels.WinLossByBetType;
 
     public class WinLossByBetTypeHandler :
         WinLossByBetTypeBaseHandler,
-        IRequestHandler<WinLossByBettypeQuery, WinLossByBettypeViewModel>
+        IRequestHandler<WinLossByBetTypeQuery, WinLossByBetTypeViewModel>
     {
         private readonly ReportDateService reportDateService;
 
@@ -17,7 +17,7 @@
             this.reportDateService = reportDateService;
         }
 
-        public WinLossByBettypeViewModel Handle(WinLossByBettypeQuery message)
+        public WinLossByBetTypeViewModel Handle(WinLossByBetTypeQuery message)
         {
             if (message == null)
             {
@@ -28,7 +28,7 @@
             var reportData = reportService.GetWinLossByBetType(winLossByBettypeParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
-            return new WinLossByBettypeViewModel(reportData, grandTotal, message, winLossByBettypeParam, reportDateService.GetBalanceUpDay());
+            return new WinLossByBetTypeViewModel(reportData, grandTotal, message, winLossByBettypeParam, reportDateService.GetBalanceUpDay());
         }
     }
 }

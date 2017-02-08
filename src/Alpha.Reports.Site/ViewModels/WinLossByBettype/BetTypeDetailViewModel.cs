@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.ViewModels.WinLossByBettype
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossByBetType
 {
     public class BetTypeDetailViewModel
     {
@@ -7,12 +7,12 @@
            bool isAllowViewGameType,
            string winLossByGameTypeTitle)
         {
-            BetTypeNameViewer = betTypeNameViewer;
+            BetTypeNameDisplay = betTypeNameViewer;
             IsAllowViewGameType = isAllowViewGameType;
             WinLossByGameTypeTitle = winLossByGameTypeTitle;
         }
 
-        public string BetTypeNameViewer { get; }
+        public string BetTypeNameDisplay { get; }
 
         public bool IsAllowViewGameType { get; }
 

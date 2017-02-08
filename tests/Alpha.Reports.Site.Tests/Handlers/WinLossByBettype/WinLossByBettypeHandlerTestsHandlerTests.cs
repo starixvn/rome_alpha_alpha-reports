@@ -8,10 +8,10 @@
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
-    using Reports.Models.WinlossByBettype;
+    using Reports.Models.WinlossByBetType;
     using Services;
     using Site.Handlers.WinLossByBetType;
-    using Site.Requests.WinLossByBettype;
+    using Site.Requests.WinLossByBetType;
     using TestCases;
     using Utils;
     using Xunit;
@@ -44,14 +44,14 @@
         public void HandlerWinLossByBettypeQuery_NullMessage_ThrowsArgumentNullException()
         {
             // Arrange
-            WinLossByBettypeQuery nullMessage = null;
+            WinLossByBetTypeQuery nullMessage = null;
 
             // Act &  Assert
             Assert.Throws<ArgumentNullException>(() => winLossByBetTypeHandler.Handle(nullMessage));
         }
 
         [Theory]
-        [MemberData("WinLossByBettypeViewModelSources", MemberType = typeof(WinLossByBettypeViewModelTestCases))]
+        [MemberData("WinLossByBetTypeViewModelSources", MemberType = typeof(WinLossByBetTypeViewModelTestCases))]
         public void AccumulateGrandTotal_ValidReportData_ReturnsCorrectGrandTotal(
         IEnumerable<WinLossByBetTypeModel> data,
         WinLossByBetTypeModel expectedGrandTotal)

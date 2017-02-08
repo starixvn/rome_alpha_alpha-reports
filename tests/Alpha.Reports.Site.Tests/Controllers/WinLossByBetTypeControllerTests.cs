@@ -5,7 +5,7 @@
     using MediatR;
     using NSubstitute;
     using Site.Controllers;
-    using Site.Requests.WinLossByBettype;
+    using Site.Requests.WinLossByBetType;
     using Xunit;
 
     [Trait("Category", "WinLossByBetType")]
@@ -13,14 +13,14 @@
     public class WinLossByBetTypeControllerTests
     {
         private readonly IMediator mediator;
-        private readonly WinLossByBettypeController controller;
-        private readonly WinLossByBettypeQuery message;
+        private readonly WinLossByBetTypeController controller;
+        private readonly WinLossByBetTypeQuery message;
 
         public WinLossByBetTypeControllerTests(UserFixture userFixture)
         {
             mediator = Substitute.For<IMediator>();
-            controller = new WinLossByBettypeController(mediator);
-            message = new WinLossByBettypeQuery(userFixture.User);
+            controller = new WinLossByBetTypeController(mediator);
+            message = new WinLossByBetTypeQuery(userFixture.User);
         }
 
         [Fact]
@@ -44,7 +44,7 @@
             controller.Index(message);
 
             // Assert
-            mediator.Received().Send(Arg.Any<WinLossByBettypeQuery>());
+            mediator.Received().Send(Arg.Any<WinLossByBetTypeQuery>());
         }
 
         [Fact]

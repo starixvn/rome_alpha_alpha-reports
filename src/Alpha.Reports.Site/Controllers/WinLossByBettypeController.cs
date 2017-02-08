@@ -2,22 +2,22 @@
 {
     using System.Web.Mvc;
     using MediatR;
-    using Requests.WinLossByBettype;
+    using Requests.WinLossByBetType;
 
-    public class WinLossByBettypeController : ReportBaseController
+    public class WinLossByBetTypeController : ReportBaseController
     {
-        public WinLossByBettypeController(IMediator mediator) : base(mediator)
+        public WinLossByBetTypeController(IMediator mediator) : base(mediator)
         {
         }
 
         [Route("WinLossByBettype/master")]
         [Route("WinLossByBettype/agent")]
         [Route("WinLossByBettype/member")]
-        public ActionResult Index(WinLossByBettypeQuery message)
+        public ActionResult Index(WinLossByBetTypeQuery message)
             => View(message);
 
         [HttpGet]
-        public ActionResult Excel(WinLossByBettypeExcelQuery message)
+        public ActionResult Excel(WinLossByBetTypeExcelQuery message)
           => ExcelView(message);
     }
 }

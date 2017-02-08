@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.ViewModels.WinLossByBettype
+﻿namespace Alpha.Reports.Site.ViewModels.WinLossByBetType
 {
     using System;
     using App_GlobalResources;
@@ -6,9 +6,9 @@
     using Extensions;
     using Reports.Models;
 
-    public class WinLossByBettypeFilterViewModel
+    public class WinLossByBetTypeFilterViewModel
     {
-        public WinLossByBettypeFilterViewModel(
+        public WinLossByBetTypeFilterViewModel(
             int custId,
             UserLevel custLevel,
             DateRangePickerViewModel dateRangePickerViewModel,
