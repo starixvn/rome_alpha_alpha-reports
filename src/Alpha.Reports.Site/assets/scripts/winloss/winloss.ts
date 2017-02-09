@@ -114,6 +114,7 @@ class WinLossView {
             this.setCssBySwitchMode(false);
             this.renderAtFirstSwitchMode(false);
             this.isFirstSwitchMode = false;
+            this.replaceDrilldownParam("IsStackMode", true); 
 
             this.reportTooltip.show(
                 new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0))
