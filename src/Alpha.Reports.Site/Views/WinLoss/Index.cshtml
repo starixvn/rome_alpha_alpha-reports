@@ -151,8 +151,8 @@
             }
 
             @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
-            @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
-            @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss);
+            @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, Model.CustLevel.IsAgentLevel());
+            @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss, Model.CustLevel.IsMasterLevel());
             @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
         }
         else

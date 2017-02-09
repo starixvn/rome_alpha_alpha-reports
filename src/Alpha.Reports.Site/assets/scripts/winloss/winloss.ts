@@ -230,7 +230,15 @@ class WinLossView {
     };
 
     combineToWinLossColumn = (level: string, index: number) => {
-        var cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
+        var cellCss = "text-right col-" + level + "-winloss-combined";
+
+        if (level == "master") {
+            cellCss = cellCss + (index % 2 ? "" : " altercol");
+        }
+        else {
+            cellCss = cellCss + (index % 2 ? " altercol" : "");
+        }
+
         alphaReports.combineConsecutiveCells(this.$("td.col-" + level + "-winloss"), 3, cellCss);
     };
 
