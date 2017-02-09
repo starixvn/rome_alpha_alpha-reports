@@ -149,8 +149,17 @@
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(WinLossModel model)
             => new Dictionary<string, object>
             {
+                { "IsFilterVisible", IsFilterVisible },
+                { "IsHistoricReport", IsHistoricReport },
+                { "IsStackMode", IsStackMode },
+                { "IsDescendingSort", IsDescendingSort },
+                { "SortPropertyName", SortPropertyName },
                 { "CustId", model.CustId },
-                { "CustName", model.CustName }
+                { "CustName", model.CustName },
+                { "UserSelectedDateRangeOption", UserSelectedDateRangeOption },
+                { "UserSelectedProductIds", UserSelectedProductIds },
+                { "FromDate", FromDate },
+                { "ToDate", ToDate }
             };
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(WinLossModel model)
