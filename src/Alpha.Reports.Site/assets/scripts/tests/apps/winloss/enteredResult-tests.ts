@@ -127,7 +127,6 @@
             expect(enterResultView.$tableReport).toBeDefined();
             expect(enterResultView.$reportForm).toBeDefined();
             expect(enterResultView.$isFilterVisible).toBeDefined();
-            expect(enterResultView.$isStackMode).toBeDefined();
             expect(enterResultView.$reportForm).toBeDefined();
             expect(enterResultView.$userSelectedDateRangeOption).toBeDefined();
             expect(enterResultView.$historicReport).toBeDefined();

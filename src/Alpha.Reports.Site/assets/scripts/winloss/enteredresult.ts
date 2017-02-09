@@ -13,7 +13,6 @@ class EnterResultView {
     $userSelectedDateRangeOption: JQuery;
     $historicReport: JQuery;
     $isHistoricReport: JQuery;
-    $isStackMode: JQuery;
     $exportExcelForm: JQuery;
     $filterIcon: JQuery;
     $excelIcon: JQuery;
@@ -66,7 +65,6 @@ class EnterResultView {
         this.$historicReport = this.$("#historic-report");
         this.$isHistoricReport = this.$("#IsHistoricReport");
         this.$exportExcelForm = this.$("#export-excel-form");
-        this.$isStackMode = this.$("#IsStackMode");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$filterIcon = this.$(".icon-filter");
         this.$excelIcon = this.$("#icon-excel");
@@ -108,7 +106,6 @@ class EnterResultView {
     };
     setHiddenValue = () => {
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : true));
-        this.$isStackMode.val(String(alphaReports.screenSmallThan768()));
         this.$.blockUI();
     };
 }
