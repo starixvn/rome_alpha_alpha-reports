@@ -336,6 +336,19 @@
   <data name="Outright" xml:space="preserve">
     <value>순위,승자 등</value>
   </data>
+   <data name="BetType" xml:space="preserve">
+    <value>배팅 유형</value>
+  </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>카지노 승리/패배</value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>게임 형식이름</value>
+  </data>
+  <data name="WinLossByBetType" xml:space="preserve">
+    <value>배팅 종류별 승리 패배</value>
+  </data>
+
   <data name="Race" xml:space="preserve">
     <value>경주</value>
   </data>

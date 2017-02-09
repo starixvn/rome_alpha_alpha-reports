@@ -17,7 +17,7 @@
        data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
-            <th class="sorting" rowspan="2" data-sortedname="BetTypeName" data-colindex="0">@Resources.BetType</th>
+            <th rowspan="2" data-disabledsort="true" data-colindex="0">@Resources.BetType</th>
             <th class="sorting" rowspan="2" data-sortedname="BetCount" data-colindex="1">@Resources.BetCount</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="3">@Resources.GrossComm</th>
@@ -119,27 +119,27 @@
 
 @helper RenderRow(WinLossByBetTypeModel data, bool isTotalRow)
 {
+    WinLossGameTypeInfoViewModel winLossGameTypeInfoViewModel = Model.BuildWinLossGameTypeInfoViewModel(data.BetTypeId);
     <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
-        <td @(data.IsAllowViewGameType? "data-islink=\"true\"":"") class="text-left col-username">
+        <td @(winLossGameTypeInfoViewModel.IsAllowViewGameType? "data-islink=\"true\"":"") class="text-left col-username">
             @if (isTotalRow)
             {
                 @Resources.Total
             }
             else
             {
+                string displayedBetTypeName = Model.BuildDisplayedBettypeName(data.BetTypeId, data.BetTypeName, data.LiveIndicator);
 
-                BetTypeDetailViewModel betTypeDetailViewModel = Model.BuildBetTypeDetailViewModel(data.BetTypeId, data.BetTypeName, data.LiveIndicator);
-
-                if (betTypeDetailViewModel.IsAllowViewGameType)
+                if (winLossGameTypeInfoViewModel.IsAllowViewGameType)
                 {
-                <a href="@Model.BuildWinLossByGameTypePath(data.ProductId, betTypeDetailViewModel.WinLossByGameTypeTitle)"
+                <a href="@Model.BuildWinLossByGameTypePath(data.ProductId, winLossGameTypeInfoViewModel.WinLossByGameTypeTitle)"
                     class= "downline-link" data-custname="@data.BetTypeName">
-                    @betTypeDetailViewModel.BetTypeNameDisplay
+                    @displayedBetTypeName
                 </a>
                 }
                 else
                 {
-                    @betTypeDetailViewModel.BetTypeNameDisplay
+                   @displayedBetTypeName
                 }
             }
         </td>

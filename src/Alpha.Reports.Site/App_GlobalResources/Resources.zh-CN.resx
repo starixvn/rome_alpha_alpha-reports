@@ -369,6 +369,19 @@
   <data name="Outright" xml:space="preserve">
     <value>优胜冠军</value>
   </data>
+   <data name="BetType" xml:space="preserve">
+    <value>投注类别</value>
+  </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>赌场输赢</value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>游戏名称</value>
+  </data>
+  <data name="WinLossByBetType" xml:space="preserve">
+    <value>投注类别输赢</value>
+  </data>
+
   <data name="Race" xml:space="preserve">
     <value>赛事</value>
   </data>

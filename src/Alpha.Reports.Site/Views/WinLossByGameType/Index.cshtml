@@ -8,7 +8,8 @@
         { "IsStackMode", Model.IsStackMode },
         { "IsDescendingSort", Model.IsDescendingSort },
         { "SortPropertyName", Model.SortPropertyName },
-        { "ProductId", Model.ProductId }
+        { "ProductId", Model.ProductId },
+        { "Title", Model.Title }
     })
 <table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
@@ -18,7 +19,7 @@
        data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
-            <th class="sorting" rowspan="2" data-sortedname="GameTypeName" data-colindex="0">Game Type Name</th>
+            <th rowspan="2" data-disabledsort="true" data-colindex="0">@Resources.GameTypeName</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="1">@Resources.Turnover</th>
             <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="1">
                 <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>

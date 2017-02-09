@@ -49,7 +49,7 @@
         public void GetWinLossByGameType_MasterWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossByGameTypeCriteria = new WinLossByGameTypeCriteria(0, 0, currentDate, currentDate, currentDate, UserLevel.Super);
+            var winLossByGameTypeCriteria = new WinLossByGameTypeCriteria(0, 0, currentDate, currentDate, currentDate, currentDate, UserLevel.Super);
 
             var dataSet = WinLossByGameTypeDatabase.MasterWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByGameTypeCriteria>()).Returns(dataSet);
@@ -72,7 +72,7 @@
         public void GetWinLossByGameType_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossByGameTypeCriteria = new WinLossByGameTypeCriteria(0, 0, currentDate, currentDate, currentDate, UserLevel.Master);
+            var winLossByGameTypeCriteria = new WinLossByGameTypeCriteria(0, 0, currentDate, currentDate, currentDate, currentDate, UserLevel.Master);
 
             var dataSet = WinLossByGameTypeDatabase.AgentWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByGameTypeCriteria>()).Returns(dataSet);
@@ -95,7 +95,7 @@
         public void GetWinLossByGameType_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossByGameTypeCriteria = new WinLossByGameTypeCriteria(0, 0, currentDate, currentDate, currentDate, UserLevel.Agent);
+            var winLossByGameTypeCriteria = new WinLossByGameTypeCriteria(0, 0, currentDate, currentDate, currentDate, currentDate, UserLevel.Agent);
 
             var dataSet = WinLossByGameTypeDatabase.MemberWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByGameTypeCriteria>()).Returns(dataSet);
@@ -118,7 +118,7 @@
         public void GetWinLossByGameType_NullDataReturnFromDb_ReturnsDefaultData()
         {
             // Arrange
-            var winLossByGameTypeCriteria = new WinLossByGameTypeCriteria(0, 0, currentDate, currentDate, currentDate, UserLevel.Agent);
+            var winLossByGameTypeCriteria = new WinLossByGameTypeCriteria(0, 0, currentDate, currentDate, currentDate, currentDate, UserLevel.Agent);
 
             IDataReader dataReader = null;
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByGameTypeCriteria>()).Returns(dataReader);

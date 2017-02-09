@@ -5,32 +5,22 @@
     using Fanex.Data.Repository;
     using Models;
 
-    public class WinLossByBetTypeCriteria : CriteriaBase
+    public class WinLossByBetTypeCriteria : ReportCriteriaBase
     {
         public WinLossByBetTypeCriteria(
             int custId,
             DateTime fromDate,
             DateTime toDate,
             DateTime balanceUpDay,
+            DateTime moveBetsDay,
             UserLevel custLevel)
+            : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay)
         {
-            CustId = custId;
-            FromDate = fromDate.Date;
-            ToDate = toDate.Date;
-            BalanceUpDay = balanceUpDay;
             CustLevel = custLevel;
         }
 
         [SpParam(Ignored = true)]
         public UserLevel CustLevel { get; }
-
-        public int CustId { get; }
-
-        public DateTime FromDate { get; }
-
-        public DateTime ToDate { get; }
-
-        public DateTime BalanceUpDay { get; }
 
         public override string GetSettingKey()
         {
@@ -46,9 +36,5 @@
 
             return "Age_Rpt_WinLossByBettype_Master";
         }
-
-        public override bool IsValid() => CustId > 0 && FromDate <= ToDate;
-
-        public bool IsNotValid() => !IsValid();
     }
 }

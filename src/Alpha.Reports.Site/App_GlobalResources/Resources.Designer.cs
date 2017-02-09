@@ -205,6 +205,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Casino Win Loss.
+        /// </summary>
+        public static string CasinoWinLoss {
+            get {
+                return ResourceManager.GetString("CasinoWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Close {
@@ -336,6 +345,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string GrandTotal {
             get {
                 return ResourceManager.GetString("GrandTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game Type Name.
+        /// </summary>
+        public static string GameTypeName {
+            get {
+                return ResourceManager.GetString("GameTypeName", resourceCulture);
             }
         }
         

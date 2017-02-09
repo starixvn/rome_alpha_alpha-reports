@@ -478,4 +478,10 @@
   <data name="BetType" xml:space="preserve">
     <value>Bet Type</value>
   </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>Casino Win Loss</value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>Game Type Name</value>
+  </data>
 </root>

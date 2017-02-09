@@ -370,6 +370,19 @@
   <data name="Outright" xml:space="preserve">
     <value>ทายผลผู้ชนะ</value>
   </data>
+   <data name="BetType" xml:space="preserve">
+    <value>ประเภทการเดิมพัน</value>
+  </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>ยอดได้เสียของคาสิโน</value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>ประเภทชื่อเกม</value>
+  </data>
+  <data name="WinLossByBetType" xml:space="preserve">
+    <value>ชนะ แพ้ โดยชนิดของการวางเดิมพัน</value>
+  </data>
+  
   <data name="Race" xml:space="preserve">
     <value>แข่งขัน</value>
   </data>

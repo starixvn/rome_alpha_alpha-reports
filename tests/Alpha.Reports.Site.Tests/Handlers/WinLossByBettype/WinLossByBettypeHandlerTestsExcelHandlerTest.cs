@@ -12,6 +12,7 @@
     using ONEbook.SpreadSheets;
     using Params;
     using Ploeh.AutoFixture;
+    using RemotingRef;
     using Reports.Models.WinlossByBetType;
     using Services;
     using Site.Handlers.WinLossByBetType;
@@ -27,6 +28,7 @@
         private readonly WinLossByBetTypeService reportService;
         private readonly Workbook<WinLossByBetTypeModel> winlossByBetTypeWorkbook;
         private readonly WinLossByBetTypeExcelHandler winLossByBetTypeExcelHandler;
+        private readonly CacheRefService cacheRefService;
         private readonly UserFixture userFixture;
         private readonly Fixture fixture = new Fixture();
 
@@ -34,6 +36,7 @@
         {
             this.userFixture = userFixture;
             reportService = Substitute.For<WinLossByBetTypeService>();
+            cacheRefService = Substitute.For<CacheRefService>();
 
             winlossByBetTypeWorkbook = Substitute.For<Workbook<WinLossByBetTypeModel>>();
             winlossByBetTypeWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(winlossByBetTypeWorkbook);
@@ -43,7 +46,7 @@
             winlossByBetTypeWorkbook.Footer(Arg.Any<WinLossByBetTypeModel>(), Arg.Any<Mapper<WinLossByBetTypeModel>>()).Returns(winlossByBetTypeWorkbook);
             winlossByBetTypeWorkbook.Sheet(Arg.Any<string>()).Returns(winlossByBetTypeWorkbook);
 
-            winLossByBetTypeExcelHandler = Substitute.ForPartsOf<WinLossByBetTypeExcelHandler>(reportService, winlossByBetTypeWorkbook);
+            winLossByBetTypeExcelHandler = Substitute.ForPartsOf<WinLossByBetTypeExcelHandler>(reportService, cacheRefService, winlossByBetTypeWorkbook);
             winLossByBetTypeExcelHandler.MapPath = (path) => path;
             winLossByBetTypeExcelHandler.IsFileExist = (path) => true;
             SystemTime.Today = DefaultVariables.CurrentDate;
@@ -113,7 +116,8 @@
                 fixture.Create<WinLossByBetTypeModel>(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
-                SystemTime.Today);
+                SystemTime.Today,
+                fixture.Create<Func<int, string, bool, string>>());
 
             // Act
             winLossByBetTypeExcelHandler.Handle(message);
@@ -135,7 +139,8 @@
                 new WinLossByBetTypeModel(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
-                SystemTime.Today);
+                SystemTime.Today,
+                fixture.Create<Func<int, string, bool, string>>());
 
             // Act
             winLossByBetTypeExcelHandler.Handle(message);

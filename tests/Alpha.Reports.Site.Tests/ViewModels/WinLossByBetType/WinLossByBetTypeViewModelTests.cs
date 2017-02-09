@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossByBetType
 {
+    using System;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -39,7 +40,8 @@
                 fixture.Create<WinLossByBetTypeModel>(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
-                SystemTime.Today);
+                SystemTime.Today,
+                fixture.Create<Func<int, string, bool, string>>());
 
             // Act & Assert
             Assert.Equal(winlossByBettypeViewModel.Title, expectedTitle);

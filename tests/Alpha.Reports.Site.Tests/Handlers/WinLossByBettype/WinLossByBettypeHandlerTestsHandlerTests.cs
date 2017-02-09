@@ -8,6 +8,7 @@
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
+    using RemotingRef;
     using Reports.Models.WinlossByBetType;
     using Services;
     using Site.Handlers.WinLossByBetType;
@@ -22,6 +23,7 @@
     {
         private readonly WinLossByBetTypeService reportService;
         private readonly ReportDateService reportDateService;
+        private readonly CacheRefService cacheRefService;
         private readonly WinLossByBetTypeHandler winLossByBetTypeHandler;
         private readonly UserFixture userFixture;
         private readonly CompareLogic compareLogic;
@@ -30,9 +32,10 @@
         {
             reportService = Substitute.For<WinLossByBetTypeService>();
             reportDateService = Substitute.For<ReportDateService>();
+            cacheRefService = Substitute.For<CacheRefService>();
 
             this.userFixture = userFixture;
-            winLossByBetTypeHandler = new WinLossByBetTypeHandler(reportService, reportDateService);
+            winLossByBetTypeHandler = new WinLossByBetTypeHandler(reportService, reportDateService, cacheRefService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             SystemTime.Today = DefaultVariables.CurrentDate;

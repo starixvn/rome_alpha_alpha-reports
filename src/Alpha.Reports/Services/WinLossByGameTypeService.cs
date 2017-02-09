@@ -38,6 +38,7 @@
                 param.FromDate,
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
+                reportDateService.GetMoveBetsDay(),
                 param.CustLevel);
 
             var winlossData = dataAccess.GetWinLossByGameType(criteria);

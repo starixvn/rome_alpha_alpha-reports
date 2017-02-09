@@ -35,11 +35,9 @@
 
         public int BetTypeId { get; }
 
-        public string BetTypeName { get; set; }
+        public string BetTypeName { get; }
 
         public int ProductId { get; }
-
-        public bool IsAllowViewGameType { get; set; }
 
         public bool LiveIndicator { get; }
         

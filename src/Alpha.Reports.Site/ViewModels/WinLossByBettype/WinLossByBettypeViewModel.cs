@@ -27,7 +27,8 @@
             WinLossByBetTypeModel grandTotal,
             WinLossByBetTypeQuery message,
             WinLossByBetTypeParam winLossByBettypeParam,
-            DateTime balanceUpDay)
+            DateTime balanceUpDay,
+            Func<int, string, bool, string> buildDisplayedBettypeName)
         {
             this.message = message;
             this.winLossByBettypeParam = winLossByBettypeParam;
@@ -35,6 +36,7 @@
             ReportData = reportData;
             GrandTotal = grandTotal;
 
+            BuildDisplayedBettypeName = buildDisplayedBettypeName;
             BuildResources();
         }
 
@@ -148,73 +150,30 @@
             });
         }
 
+        [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.")]
+        public Func<int, string, bool, string> BuildDisplayedBettypeName;
+
         /// <summary>
-        /// TODO : Rafactor and edit title when drill down to winloss by gametype
+        /// TODO: Multiple Language
         /// </summary>
         /// <param name="betTypeId"></param>
-        /// <param name="betTypeName"></param>
-        /// <param name="liveIndicator"></param>
         /// <returns></returns>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public BetTypeDetailViewModel BuildBetTypeDetailViewModel(int betTypeId, string betTypeName, bool liveIndicator)
+        public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(int betTypeId)
         {
-            string betTypeNameViewer = string.Empty;
             bool isAllowViewGameType = false;
             string winLossByGameTypeTitle = string.Empty;
 
             switch (betTypeId)
             {
-                case (int)BetType.Casino_Games:  //// 71
+                case (int)BetType.Casino_Games:
                     {
-                        betTypeNameViewer = betTypeName;
                         isAllowViewGameType = true;
-                        winLossByGameTypeTitle = "Casino Win Loss";
+                        winLossByGameTypeTitle = Resources.CasinoWinLoss;
                     }
 
                     break;
-                case (int)BetType.N_Over_Under: //// Number game Over/Under
-                    betTypeNameViewer = Resources.Next + " " + betTypeName + " (" + Resources.NumberGame + ")";
-                    break;
-                case (int)BetType.N_Odd_Even: //// Number game Odd/Even
-                    string strNextCombo = liveIndicator ? Resources.Next + " " : Resources.FT + ". ";
-                    betTypeNameViewer = strNextCombo + betTypeName + " (" + Resources.NumberGame + ")";
-                    break;
-                case (int)BetType.NumberWheel: //// Number game - NumberWheel
-                    string typeNumberWheel = liveIndicator ? Resources.LiveGame : Resources.PreGame;
-                    betTypeNameViewer = betTypeName + " (" + typeNumberWheel + ")";
-                    break;
-                //// For Live Casino
-                case (int)BetType.Baccarat: //// 1101
-                case (int)BetType.Roulette: //// 1102
-                case (int)BetType.Sicbo: //// 1103
-                    betTypeNameViewer = betTypeName;
-                    break;
-                //// For Virtual Sports
-                case (int)BetType.VS_1X2:
-                case (int)BetType.VS_CorrectScore:
-                case (int)BetType.VS_DoubleChange:
-                case (int)BetType.VS_Handicap:
-                case (int)BetType.VS_OverUnder:
-                case (int)BetType.VS_TotalGoal:
-                case (int)BetType.VHR_Win:
-                case (int)BetType.VHR_Place:
-                case (int)BetType.VHR_WinPlace:
-                case (int)BetType.VHR_Forecast:
-                case (int)BetType.VHR_Tricast:
-                case (int)BetType.VT_PlayerWin:
-                case (int)BetType.VT_ScoreBet:
-                case (int)BetType.VT_TotalPoints:
-                    betTypeNameViewer = betTypeName + " (" + Resources.VirtualSports + ")";
-                    break;
-                //// For Gold Deluxe
-                case (int)BetType.GoldDeluxeBaccarat:
-                case (int)BetType.GoldDeluxeRoulette:
-                case (int)BetType.GoldDeluxeParlayBaccarat:
-                    betTypeNameViewer = betTypeName + " (" + Resources.GoldDeluxe + ")";
-                    break;
-                case (int)BetType.VoidbridgeRangeStart:
+                case (int)BetType.VoidbridgeRangeStart: //// {ProductName} + Win Loss
                     {
-                        betTypeNameViewer = Resources.Voidbridge;
                         isAllowViewGameType = true;
                         winLossByGameTypeTitle = "Macau Games Win Loss";
                     }
@@ -222,28 +181,15 @@
                     break;
                 case (int)BetType.NG2Start + 1:
                     {
-                        ////betTypeNameViewer = cacheRefService.GetProductName(ProductIdConstants.NG2);
-                        betTypeNameViewer = Resources.Voidbridge;
                         isAllowViewGameType = true;
                         winLossByGameTypeTitle = "Cache Ref RG2 Win Loss";
                     }
 
                     break;
-                default:
-                    if (betTypeId >= (int)BetType.AllBetRangeStart && betTypeId <= (int)BetType.AllBetRangeEnd)
-                    {
-                        betTypeNameViewer = betTypeName + " (" + Resources.Allbet + ")";
-                    }
-                    else
-                    {
-                        betTypeNameViewer = betTypeName;
-                    }
-
-                    break;
+                default: break;
             }
 
-            return new BetTypeDetailViewModel(
-                betTypeNameViewer: betTypeNameViewer,
+            return new WinLossGameTypeInfoViewModel(
                 isAllowViewGameType: isAllowViewGameType,
                 winLossByGameTypeTitle: winLossByGameTypeTitle);
         }

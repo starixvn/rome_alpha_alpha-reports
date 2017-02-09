@@ -2,6 +2,7 @@
 {
     using System;
     using MediatR;
+    using RemotingRef;
     using Requests.WinLossByBetType;
     using Services;
     using ViewModels.WinLossByBetType;
@@ -12,7 +13,8 @@
     {
         private readonly ReportDateService reportDateService;
 
-        public WinLossByBetTypeHandler(WinLossByBetTypeService reportService, ReportDateService reportDateService) : base(reportService)
+        public WinLossByBetTypeHandler(WinLossByBetTypeService reportService, ReportDateService reportDateService, CacheRefService cacheRefService) 
+            : base(reportService, cacheRefService)
         {
             this.reportDateService = reportDateService;
         }
@@ -28,7 +30,7 @@
             var reportData = reportService.GetWinLossByBetType(winLossByBettypeParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
-            return new WinLossByBetTypeViewModel(reportData, grandTotal, message, winLossByBettypeParam, reportDateService.GetBalanceUpDay());
+            return new WinLossByBetTypeViewModel(reportData, grandTotal, message, winLossByBettypeParam, reportDateService.GetBalanceUpDay(), BuildDisplayedBetTypeName);
         }
     }
 }

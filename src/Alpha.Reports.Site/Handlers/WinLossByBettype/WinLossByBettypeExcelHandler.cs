@@ -6,6 +6,7 @@
     using MediatR;
     using ONEbook.SpreadSheets;
     using Params;
+    using RemotingRef;
     using Reports.Models.WinlossByBetType;
     using Requests.WinLossByBetType;
     using Services;
@@ -19,7 +20,8 @@
 
         public WinLossByBetTypeExcelHandler(
             WinLossByBetTypeService reportService,
-            Workbook<WinLossByBetTypeModel> workbook) : base(reportService)
+            CacheRefService cacheRefService,
+            Workbook<WinLossByBetTypeModel> workbook) : base(reportService, cacheRefService)
         {
             this.workbook = workbook;
         }
@@ -56,7 +58,7 @@
         private Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByBetTypeExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossByBetTypeModel>()
-                .Map(Column.A, data => isTotal ? Resources.Total : data.BetTypeName)
+                .Map(Column.A, data => isTotal ? Resources.Total : BuildDisplayedBetTypeName(data.BetTypeId, data.BetTypeName, data.LiveIndicator))
                 .Map(Column.B, data => data.BetCount)
                 .Map(Column.C, data => data.Turnover)
                 .Map(Column.D, data => data.GrossComm);
