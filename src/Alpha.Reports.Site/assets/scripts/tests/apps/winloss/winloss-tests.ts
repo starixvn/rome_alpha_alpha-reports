@@ -218,6 +218,57 @@
     });
 
     describe("onFilterEvent", () => {
+        it("Nevigate from dashboard on Mobile-> Set Stack Mode as Default", () => {
+            // arrange
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
+            let setStackMode = spyOn(winLossView, "setStackMode");
+            spyOn(alphaReports, "screenSmallThan768").and.callFake(() => true);
+
+            // act
+            winLossView.init();
+
+            // assert
+            expect(setStackMode).toHaveBeenCalled();
+        });
+    });
+
+    describe("setStackMode", () => {
+        let combineConsecutiveCellsSpy: jasmine.Spy;
+        beforeEach(() => {
+            // arrange
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
+            winLossView.cacheDOMElements();
+            spyOn(winLossView, "setCssBySwitchMode");
+            spyOn(winLossView, "renderAtFirstSwitchMode");
+            spyOn(winLossView, "replaceDrilldownParam");
+
+            // act
+            winLossView.setStackMode();
+        });
+
+        it("Always -> Blocks UI", () => {
+            // assert
+            expect(jQueryFake.blockUI).toHaveBeenCalled();
+        });
+
+        it(`Navigate From dashboard on mobile->
+            Call setCssBySwitchMode Method,
+            Call renderAtFirstSwitchMode Method,
+            Call replaceDrilldownParam Method`, () => {
+
+            // assert
+            expect(winLossView.setCssBySwitchMode).toHaveBeenCalledWith(false);
+            expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsStackMode", true);
+            expect(winLossView.renderAtFirstSwitchMode).toHaveBeenCalledWith(false);
+        });
+
+        it("Always -> Unblocks UI", () => {
+            // assert
+            expect(jQueryFake.unblockUI).toHaveBeenCalled();
+        });
+    });
+
+    describe("onFilterEvent", () => {
         it("Filter is currently shown -> Hides Filter and Update Href Param to False", () => {
             // arrange
             setFixtures(winLossTemplate.historicReportWithShownFilter);
@@ -619,7 +670,7 @@
                 ["col-turnover"],
                 ["col-member-winloss", ""],
                 ["col-agent-winloss", " altercol"],
-                ["col-master-winloss", ""],
+                ["col-master-winloss", " altercol"],
                 ["col-super-winloss", " altercol"]]);
         });
     });
@@ -642,9 +693,7 @@
     describe("onSwitchModeEvent   ", () => {
         it(`First Switch Mode->
             Call setCssBySwitchMode Method,
-            Call bindTableSorter Method,
             Call renderAtFirstSwitchMode Method,
-            Set isFirstSwitchMode is False,
             Call replaceDrilldownParam Method`, () => {
                 // arrange
                 setFixtures(winLossTemplate.currentReportWithNormalMode);

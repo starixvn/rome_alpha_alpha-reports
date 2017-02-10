@@ -111,11 +111,7 @@ class WinLossView {
 
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
             && alphaReports.screenSmallThan768()) {
-            this.setCssBySwitchMode(false);
-            this.renderAtFirstSwitchMode(false);
-            this.isFirstSwitchMode = false;
-            this.replaceDrilldownParam("IsStackMode", true); 
-
+            this.setStackMode();
             this.reportTooltip.show(
                 new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0))
             );
@@ -190,6 +186,15 @@ class WinLossView {
         isSwitchToNormalMode ? this.splitColumns() : this.combineColumns(isAgentLevel);
     }
 
+    setStackMode = () => {
+        this.$.blockUI();
+        this.setCssBySwitchMode(false);
+        this.renderAtFirstSwitchMode(false);
+        this.isFirstSwitchMode = false;
+        this.replaceDrilldownParam("IsStackMode", true); 
+        this.$.unblockUI();
+    }
+
     setCssBySwitchMode = (isSwitchToNormalMode: boolean) => {
         if (isSwitchToNormalMode) {
             this.$pageTitle.removeClass("stack-mode");
@@ -207,7 +212,13 @@ class WinLossView {
         alphaReports.splitCell("col-turnover");
         this$.each(levels, function (index: number) {
             var level = levels[index];
-            alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
+            if (level == "master") {
+                alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? "" : " altercol");
+            }
+            else {
+                alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
+            }
+           
         });
     };
 
