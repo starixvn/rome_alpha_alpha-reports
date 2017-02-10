@@ -191,7 +191,6 @@
     <Compile Include="Fixtures\ObjectDbFixture.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\BetTypeHelperTest.cs" />
-    <Compile Include="Helper\BetTypeHelperTests.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="ModelsForTesting\UserLevelForTesting.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
