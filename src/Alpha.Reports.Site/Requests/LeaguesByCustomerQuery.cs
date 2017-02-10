@@ -8,7 +8,7 @@
 
     public class LeaguesByCustomerQuery : IRequest<LeaguesByCustomerViewModel>
     {
-        public LeaguesByCustomerQuery()
+        internal LeaguesByCustomerQuery()
         {
         }
 

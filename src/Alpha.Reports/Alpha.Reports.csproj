@@ -90,7 +90,7 @@
     <Compile Include="Criteria\GetLeaguesByCustomerCriteria.cs" />
     <Compile Include="Criteria\GetProductsCriteria.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteria.cs" />
-    <Compile Include="Criteria\MatchWinLossDetail\WinLossByLeagueCriteria.cs" />
+    <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />

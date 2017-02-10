@@ -1,7 +1,5 @@
 ﻿namespace Alpha.Reports.Models
 {
-    using System;
-
     public class League
     {
         public League(int id, string name, int sportTypeId)

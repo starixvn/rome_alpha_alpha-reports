@@ -9,6 +9,7 @@
     using Services;
     using Site.Controllers;
     using Site.Requests.MatchWinLossDetail;
+    using Site.ViewModels;
     using Xunit;
 
     [Trait("Category", "MatchWinLossDetail")]
@@ -56,6 +57,35 @@
 
             // Assert
             Assert.Equal("~/Views/Shared/InvalidReport.cshtml", actualView.ViewName);
+        }
+
+        [Fact]
+        public void Excel_ValidQuery_CallsMediatorSendMatchWinLossExcelQuery()
+        {
+            // Arrange
+            var message = new MatchWinLossDetailExcelQuery(userFixture.User);
+            mediator.Send<ExcelFileViewModel>(Arg.Any<MatchWinLossDetailExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
+
+            // Act
+            matchWinLossDetailController.Excel(message);
+
+            // Assert
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is(message));
+        }
+
+        [Fact]
+        public void Excel_QueryIsNotValid_ReturnInvalidReportExcelFile()
+        {
+            // Arrange
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)2);
+            var message = new MatchWinLossDetailExcelQuery(user);
+
+            // Act
+            var actualView = matchWinLossDetailController.Excel(message) as FileContentResult;
+
+            // Assert
+            Assert.Equal("InvalidReport.xls", actualView.FileDownloadName);
         }
     }
 }

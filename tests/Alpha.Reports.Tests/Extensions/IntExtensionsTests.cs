@@ -3,6 +3,7 @@
     using Reports.Extensions;
     using Xunit;
 
+    [Trait("Category", "Extensions")]
     public class IntExtensionsTests
     {
         [Fact]

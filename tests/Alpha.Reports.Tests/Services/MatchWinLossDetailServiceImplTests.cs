@@ -123,7 +123,7 @@
         [InlineData("1,2,5", "1,2,5")]
         [InlineData("1", "1")]
         [InlineData("", "")]
-        public void GetProductsForCustomer_StateUnderTest_ExpectedBehaviour(
+        public void GetProductsForCustomer_Always_FiltersSelectedProductsWithData(
             string productIds,
             string expectProductIds)
         {

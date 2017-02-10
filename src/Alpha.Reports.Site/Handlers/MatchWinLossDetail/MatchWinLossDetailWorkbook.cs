@@ -39,26 +39,39 @@
     {
         private const int ReportSheetIndex = 1;
 
-        private IEnumerable<MatchWinLossDetailViewModel> noParlayMatchWinLossDetail;
-        private BetTypeWinLossViewModel noParlayWinLossTotal;
-        private BetTypeWinLossViewModel mixParlay;
-        private BetTypeWinLossViewModel systemParlay;
-        private BetTypeWinLossViewModel grandTotal;
-
-        private Row matchTitleRowTemplate;
-        private Row oddRowTemplate;
-        private Row evenRowTemplate;
-        private Row subTotalRowTemplate;
-        private Row totalRowTemplate;
-        private Row mixParlayRowTemplate;
-        private Row systemParlayRowTemplate;
-        private Row grandTotalRowTemplate;
-
-        private Mapper<BetTypeWinLossViewModel> betTypeRowMapper;
-        private Mapper<BetTypeWinLossViewModel> subTotalRowMapper;
-        private Mapper<BetTypeWinLossViewModel> totalRowMapper;
-
         private int currentRowIndex;
+
+        internal IEnumerable<MatchWinLossDetailViewModel> NoParlayMatchWinLossDetail { get; set; }
+
+        internal BetTypeWinLossViewModel NoParlayWinLossTotal { get; set; }
+
+        internal BetTypeWinLossViewModel MixParlay { get; set; }
+
+        internal BetTypeWinLossViewModel SystemParlay { get; set; }
+
+        internal BetTypeWinLossViewModel GrandTotal { get; set; }
+
+        internal Mapper<BetTypeWinLossViewModel> BetTypeRowMapper { get; set; }
+
+        internal Mapper<BetTypeWinLossViewModel> SubTotalRowMapper { get; set; }
+
+        internal Mapper<BetTypeWinLossViewModel> TotalRowMapper { get; set; }
+
+        internal Row MatchTitleRowTemplate { get; set; }
+
+        internal Row OddRowTemplate { get; set; }
+
+        internal Row EvenRowTemplate { get; set; }
+
+        internal Row SubTotalRowTemplate { get; set; }
+
+        internal Row TotalRowTemplate { get; set; }
+
+        internal Row MixParlayRowTemplate { get; set; }
+
+        internal Row SystemParlayRowTemplate { get; set; }
+
+        internal Row GrandTotalRowTemplate { get; set; }
 
         public MatchWinLossDetailWorkbook SetData(
             IEnumerable<MatchWinLossDetailViewModel> noParlayMatchWinLossDetail,
@@ -67,11 +80,11 @@
             BetTypeWinLossViewModel systemParlay,
             BetTypeWinLossViewModel grandTotal)
         {
-            this.noParlayMatchWinLossDetail = noParlayMatchWinLossDetail;
-            this.noParlayWinLossTotal = noParlayWinLossTotal;
-            this.mixParlay = mixParlay;
-            this.systemParlay = systemParlay;
-            this.grandTotal = grandTotal;
+            NoParlayMatchWinLossDetail = noParlayMatchWinLossDetail;
+            NoParlayWinLossTotal = noParlayWinLossTotal;
+            MixParlay = mixParlay;
+            SystemParlay = systemParlay;
+            GrandTotal = grandTotal;
 
             return this;
         }
@@ -81,25 +94,75 @@
             Mapper<BetTypeWinLossViewModel> subTotalRowMapper,
             Mapper<BetTypeWinLossViewModel> totalRowMapper)
         {
-            this.betTypeRowMapper = betTypeRowMapper;
-            this.subTotalRowMapper = subTotalRowMapper;
-            this.totalRowMapper = totalRowMapper;
+            BetTypeRowMapper = betTypeRowMapper;
+            SubTotalRowMapper = subTotalRowMapper;
+            TotalRowMapper = totalRowMapper;
 
             return this;
+        }
+
+        internal void FillMatchTitle(Sheet sheet, int rowIndex, MatchWinLossDetailViewModel data)
+        {
+            var row = sheet.GetRow(rowIndex);
+            row.CopyCellsFrom(MatchTitleRowTemplate);
+
+            var title = $"{data.LeagueName} >> {data.MatchName}".ToUpper(CultureInfo.InvariantCulture);
+            sheet.SetCellRangeValue(rowIndex, row.FirstCellIndex, rowIndex, row.LastCellIndex - 1, title);
+        }
+
+        internal void FillBetTypeWinLoss(
+            Sheet sheet,
+            int rowIndex,
+            bool isEvenRow,
+            BetTypeWinLossViewModel betTypeWinLoss)
+        {
+            var row = sheet.GetRow(rowIndex);
+            var templateRow = isEvenRow ? EvenRowTemplate : OddRowTemplate;
+
+            row.CopyCellsFrom(templateRow);
+            FillCells(row, betTypeWinLoss, BetTypeRowMapper.Mappings);
+        }
+
+        internal void FillMatchTotal(Sheet sheet, int rowIndex, BetTypeWinLossViewModel data)
+        {
+            var row = sheet.GetRow(rowIndex);
+            row.CopyCellsFrom(SubTotalRowTemplate);
+            FillCells(row, data, SubTotalRowMapper.Mappings);
+        }
+
+        internal void FillTotal(Sheet sheet, int rowIndex, BetTypeWinLossViewModel data)
+        {
+            var row = sheet.GetRow(rowIndex);
+            row.CopyCellsFrom(TotalRowTemplate);
+            FillCells(row, data, TotalRowMapper.Mappings);
+        }
+
+        internal void FillMixParlayWinLoss(Sheet sheet, int rowIndex)
+        {
+            var row = sheet.GetRow(rowIndex);
+            row.CopyCellsFrom(MixParlayRowTemplate);
+            FillCells(row, MixParlay, BetTypeRowMapper.Mappings);
+        }
+
+        internal void FillSystemParlayWinLoss(Sheet sheet, int rowIndex)
+        {
+            var row = sheet.GetRow(rowIndex);
+            row.CopyCellsFrom(SystemParlayRowTemplate);
+            FillCells(row, SystemParlay, BetTypeRowMapper.Mappings);
         }
 
         protected override Sheet LoadTemplateSheet()
         {
             var sheet = GetSheetAt(TemplateInfo.SheetIndex);
 
-            matchTitleRowTemplate = sheet.GetRow(3);
-            oddRowTemplate = sheet.GetRow(4);
-            evenRowTemplate = sheet.GetRow(5);
-            subTotalRowTemplate = sheet.GetRow(6);
-            totalRowTemplate = sheet.GetRow(7);
-            mixParlayRowTemplate = sheet.GetRow(8);
-            systemParlayRowTemplate = sheet.GetRow(9);
-            grandTotalRowTemplate = sheet.GetRow(10);
+            MatchTitleRowTemplate = sheet.GetRow(3);
+            OddRowTemplate = sheet.GetRow(4);
+            EvenRowTemplate = sheet.GetRow(5);
+            SubTotalRowTemplate = sheet.GetRow(6);
+            TotalRowTemplate = sheet.GetRow(7);
+            MixParlayRowTemplate = sheet.GetRow(8);
+            SystemParlayRowTemplate = sheet.GetRow(9);
+            GrandTotalRowTemplate = sheet.GetRow(10);
 
             return GetSheetAt(ReportSheetIndex);
         }
@@ -128,7 +191,7 @@
                 rowIndex,
                 colIndex,
                 rowIndex,
-                matchTitleRowTemplate.LastCellIndex - 1,
+                MatchTitleRowTemplate.LastCellIndex - 1,
                 TemplateInfo.NoInfomationText);
 
             sheet.GetCell(rowIndex, colIndex).SetCenterHorizontalAlignment();
@@ -143,9 +206,9 @@
 
             RemoveTemplateRows(sheet);
 
-            var hasData = (noParlayMatchWinLossDetail != null && noParlayMatchWinLossDetail.Any())
-                || mixParlay != null
-                || systemParlay != null;
+            var hasData = (NoParlayMatchWinLossDetail != null && NoParlayMatchWinLossDetail.Any())
+                || MixParlay != null
+                || SystemParlay != null;
 
             if (hasData)
             {
@@ -167,7 +230,7 @@
 
             currentRowIndex = TemplateInfo.BodyStartIndex;
 
-            foreach (var data in noParlayMatchWinLossDetail)
+            foreach (var data in NoParlayMatchWinLossDetail)
             {
                 FillMatchTitle(sheet, currentRowIndex++, data);
 
@@ -181,18 +244,18 @@
                 FillMatchTotal(sheet, currentRowIndex++, data.Total);
             }
 
-            if (noParlayWinLossTotal != null &&
-                (mixParlay != null || systemParlay != null))
+            if (NoParlayWinLossTotal != null &&
+                (MixParlay != null || SystemParlay != null))
             {
-                FillTotal(sheet, currentRowIndex++, noParlayWinLossTotal);
+                FillTotal(sheet, currentRowIndex++, NoParlayWinLossTotal);
             }
 
-            if (mixParlay != null)
+            if (MixParlay != null)
             {
                 FillMixParlayWinLoss(sheet, currentRowIndex++);
             }
 
-            if (systemParlay != null)
+            if (SystemParlay != null)
             {
                 FillSystemParlayWinLoss(sheet, currentRowIndex++);
             }
@@ -211,58 +274,8 @@
             }
 
             var row = sheet.GetRow(currentRowIndex);
-            row.CopyCellsFrom(grandTotalRowTemplate);
-            FillCells(row, grandTotal, totalRowMapper.Mappings);
-        }
-
-        private void FillMatchTitle(Sheet sheet, int rowIndex, MatchWinLossDetailViewModel data)
-        {
-            var row = sheet.GetRow(rowIndex);
-            row.CopyCellsFrom(matchTitleRowTemplate);
-
-            var title = $"{data.LeagueName} >> {data.MatchName}".ToUpper(CultureInfo.InvariantCulture);
-            sheet.SetCellRangeValue(rowIndex, row.FirstCellIndex, rowIndex, row.LastCellIndex - 1, title);
-        }
-
-        private void FillBetTypeWinLoss(
-            Sheet sheet,
-            int rowIndex,
-            bool isEvenRow,
-            BetTypeWinLossViewModel betTypeWinLoss)
-        {
-            var row = sheet.GetRow(rowIndex);
-            var templateRow = isEvenRow ? evenRowTemplate : oddRowTemplate;
-
-            row.CopyCellsFrom(templateRow);
-            FillCells(row, betTypeWinLoss, betTypeRowMapper.Mappings);
-        }
-
-        private void FillMatchTotal(Sheet sheet, int rowIndex, BetTypeWinLossViewModel data)
-        {
-            var row = sheet.GetRow(rowIndex);
-            row.CopyCellsFrom(subTotalRowTemplate);
-            FillCells(row, data, subTotalRowMapper.Mappings);
-        }
-
-        private void FillTotal(Sheet sheet, int rowIndex, BetTypeWinLossViewModel data)
-        {
-            var row = sheet.GetRow(rowIndex);
-            row.CopyCellsFrom(totalRowTemplate);
-            FillCells(row, data, totalRowMapper.Mappings);
-        }
-
-        private void FillMixParlayWinLoss(Sheet sheet, int rowIndex)
-        {
-            var row = sheet.GetRow(rowIndex);
-            row.CopyCellsFrom(mixParlayRowTemplate);
-            FillCells(row, mixParlay, betTypeRowMapper.Mappings);
-        }
-
-        private void FillSystemParlayWinLoss(Sheet sheet, int rowIndex)
-        {
-            var row = sheet.GetRow(rowIndex);
-            row.CopyCellsFrom(systemParlayRowTemplate);
-            FillCells(row, systemParlay, betTypeRowMapper.Mappings);
+            row.CopyCellsFrom(GrandTotalRowTemplate);
+            FillCells(row, GrandTotal, TotalRowMapper.Mappings);
         }
     }
 }

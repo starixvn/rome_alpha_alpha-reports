@@ -12,6 +12,7 @@
     using Reports.Utils;
     using Xunit;
 
+    [Trait("Category", "BaseFunction")]
     [Collection("FanexCacheCollection")]
     public class ReportDateServiceImplTests
     {

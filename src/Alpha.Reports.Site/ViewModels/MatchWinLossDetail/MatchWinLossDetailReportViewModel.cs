@@ -40,17 +40,15 @@
             this.query = query;
             this.param = param;
 
-            MinDate = query.MinDate;
             Products = products;
             Leagues = leagues;
-            CustLevel = query.CustLevel;
         }
 
         public string Title => Resources.MatchWinLossDetail;
 
         public int CustId => param.CustId;
 
-        public DateTime MinDate { get; }
+        public DateTime MinDate => query.MinDate;
 
         public DateTime MaxDate => DateTime.MaxValue;
 
@@ -84,7 +82,7 @@
 
         public bool IsSetDefaultStackMode => query.IsSetDefaultStackMode;
 
-        public UserLevel CustLevel { get; }
+        public UserLevel CustLevel => query.CustLevel;
 
         public IEnumerable<SelectListItem> Products { get; }
 

@@ -70,82 +70,10 @@
 
             reportService.GetMatchWinLossDetail(Arg.Any<MatchWinLossDetailParam>()).Returns(new List<MatchWinLossDetailModel>
             {
-                new MatchWinLossDetailModel(
-                    isParlay: false,
-                    matchId: 1,
-                    homeId: 1,
-                    awayId: 1,
-                    betType: 1,
-                    liveIndicator: false,
-                    leagueId: 1,
-                    race: 1,
-                    matchCode: "Match Code 1",
-                    isNeutral: false,
-                    showTime: "Show Time 1",
-                    turnover: 1,
-                    grossComm: 1,
-                    memberNetWinLoss: null,
-                    agentNetWinLoss: null,
-                    masterNetWinLoss: null,
-                    superNetWinLoss: null,
-                    companyNetWinLoss: null),
-                new MatchWinLossDetailModel(
-                    isParlay: false,
-                    matchId: 1,
-                    homeId: 1,
-                    awayId: 1,
-                    betType: 2,
-                    liveIndicator: false,
-                    leagueId: 1,
-                    race: 1,
-                    matchCode: "Match Code 1",
-                    isNeutral: false,
-                    showTime: "Show Time 1",
-                    turnover: 1,
-                    grossComm: 1,
-                    memberNetWinLoss: null,
-                    agentNetWinLoss: null,
-                    masterNetWinLoss: null,
-                    superNetWinLoss: null,
-                    companyNetWinLoss: null),
-                new MatchWinLossDetailModel(
-                    isParlay: true,
-                    matchId: 1,
-                    homeId: 1,
-                    awayId: 1,
-                    betType: 9,
-                    liveIndicator: false,
-                    leagueId: 1,
-                    race: 1,
-                    matchCode: "Match Code 1",
-                    isNeutral: false,
-                    showTime: "Show Time 1",
-                    turnover: 1,
-                    grossComm: 1,
-                    memberNetWinLoss: null,
-                    agentNetWinLoss: null,
-                    masterNetWinLoss: null,
-                    superNetWinLoss: null,
-                    companyNetWinLoss: null),
-                new MatchWinLossDetailModel(
-                    isParlay: true,
-                    matchId: 1,
-                    homeId: 1,
-                    awayId: 1,
-                    betType: 29,
-                    liveIndicator: false,
-                    leagueId: 1,
-                    race: 1,
-                    matchCode: "Match Code 1",
-                    isNeutral: false,
-                    showTime: "Show Time 1",
-                    turnover: 1,
-                    grossComm: 1,
-                    memberNetWinLoss: null,
-                    agentNetWinLoss: null,
-                    masterNetWinLoss: null,
-                    superNetWinLoss: null,
-                    companyNetWinLoss: null)
+                CreateMatchWinLossDetailModel(betType: 1, showTime: "Show Time 1"),
+                CreateMatchWinLossDetailModel(betType: 2, showTime: "Show Time 1"),
+                CreateMatchWinLossDetailModel(betType: 9, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true),
+                CreateMatchWinLossDetailModel(betType: 29, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true)
             });
 
             leagueService.GetLeagueNames(Arg.Any<IEnumerable<int>>()).Returns(new Dictionary<int, string>
@@ -298,30 +226,12 @@
         [Theory]
         [InlineData(10, "League Name_Match1")]
         [InlineData(31, "League Name_Race1")]
-        [InlineData(81, "League Name_MatchCodeMatch Code 1")]
+        [InlineData(81, "League Name_MatchCode1")]
         [InlineData(1239, "League Name_MatchId1")]
         public void GetGroupId_NotVirtualHorseRacingBetType_ReturnsCorrectId(int betType, string expectedId)
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: betType,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "Match Code 1",
-                isNeutral: false,
-                showTime: "Show Time 1",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: betType, showTime: "Show Time 1");
             var leagueName = "League Name";
 
             // Act
@@ -335,25 +245,7 @@
         public void GetGroupId_VirtualHorseRacingBetTypeAndValidShowTime_ReturnsCorrectId()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 1231,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "Match Code 1",
-                isNeutral: false,
-                showTime: "01/01/2017",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1231, showTime: "01/01/2017");
             var leagueName = "League Name";
             var expectedId = "League Name_ShowTime01/01/2017";
 
@@ -368,25 +260,7 @@
         public void GetGroupId_VirtualHorseRacingBetTypeAndInvalidShowTime_ReturnsCorrectId()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 1231,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "Match Code 1",
-                isNeutral: false,
-                showTime: "Invalid Time",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1231, showTime: "Show Time 1");
             var leagueName = "League Name";
             var expectedId = "League Name";
 
@@ -401,25 +275,7 @@
         public void GetGroupId_OutrightBetType_ReturnsCorrectTitle()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 10,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: false,
-                showTime: "Show Time 1",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 10, showTime: "Show Time 1");
             var expectedTitle = string.Empty;
 
             // Act
@@ -433,25 +289,7 @@
         public void GetGroupId_RacingBetType_ReturnsCorrectTitle()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 31,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: false,
-                showTime: "Show Time 1",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 31, showTime: "Show Time 1");
             var expectedTitle = "Race 1";
 
             // Act
@@ -465,25 +303,7 @@
         public void GetGroupId_NumberGameBetType_ReturnsCorrectTitle()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 91,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: false,
-                showTime: "Show Time 1",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 91, showTime: "Show Time 1");
             var expectedTitle = "Number Game No 1";
 
             // Act
@@ -497,25 +317,7 @@
         public void GetGroupId_HorseRacingAndValidShowTime_ReturnsCorrectTitle()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 1231,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: false,
-                showTime: "01/01/2017",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1231, showTime: "01/01/2017");
             var expectedTitle = "01/01/2017 12:00:00 AM";
 
             // Act
@@ -529,25 +331,7 @@
         public void GetGroupId_HorseRacingAndInvalidShowTime_ReturnsCorrectTitle()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 1231,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: false,
-                showTime: "Invalid Time",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1231, showTime: "Show Time 1");
             var expectedTitle = string.Empty;
 
             // Act
@@ -561,25 +345,7 @@
         public void GetGroupId_OtherBetTypeAndNeutral_ReturnsCorrectTitle()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 1239,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: true,
-                showTime: "Show Time",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1239, showTime: "Show Time 1", liveIndicator: false, isNeutral: true);
             var expectedTitle = "Team 1 (N)-vs-Team 1";
             var teamName = new Dictionary<int, string>
             {
@@ -597,25 +363,7 @@
         public void GetGroupId_OtherBetTypeAndNotNeutral_ReturnsCorrectTitle()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 1239,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: false,
-                showTime: "Show Time",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1239, showTime: "Show Time 1");
             var expectedTitle = "Team 1-vs-Team 1";
             var teamName = new Dictionary<int, string>
             {
@@ -633,25 +381,7 @@
         public void GetLeagueTitle_RacingBetType_ReturnsCorrectLeagueTitle()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 31,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: false,
-                showTime: "Show Time 1",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 31, showTime: "Show Time 1");
             var leagueName = "League Name";
             var expectedTitle = "Racing - League Name";
 
@@ -668,25 +398,7 @@
         public void GetLeagueTitle_NumberGameBetType_ReturnsCorrectLeagueTitle(string leagueName, string expectedTitle)
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 91,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: false,
-                showTime: "Show Time 1",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 91, showTime: "Show Time 1");
 
             // Act
             var actualTitle = matchWinLossDetailHandler.GetLeagueTitle(matchWinLossDetailModel, leagueName);
@@ -701,25 +413,7 @@
         public void GetLeagueTitle_VirtualHorseRacingBetType_ReturnsCorrectLeagueTitle(string showTime, string expectedTitle)
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 1231,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: false,
-                showTime: showTime,
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1231, showTime: showTime);
             var leagueName = "League Name";
 
             // Act
@@ -733,25 +427,7 @@
         public void GetLeagueTitle_OtherBetTypes_ReturnsCorrectLeagueTitle()
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
-                matchId: 1,
-                homeId: 1,
-                awayId: 1,
-                betType: 1239,
-                liveIndicator: false,
-                leagueId: 1,
-                race: 1,
-                matchCode: "1",
-                isNeutral: false,
-                showTime: "Show Time 1",
-                turnover: 1,
-                grossComm: 1,
-                memberNetWinLoss: null,
-                agentNetWinLoss: null,
-                masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1239, showTime: "Show Time 1");
             var leagueName = "League Name";
             var expectedTitle = leagueName;
 
@@ -775,8 +451,23 @@
             string expectedPrefix)
         {
             // Arrange
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(
-                isParlay: false,
+            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: betType, showTime: "Show Time 1", liveIndicator: liveIndicator);
+
+            // Act
+            var actualPrefix = matchWinLossDetailHandler.GetBetTypePrefix(matchWinLossDetailModel);
+
+            // Assert
+            Assert.Equal(expectedPrefix, actualPrefix);
+        }
+
+        private MatchWinLossDetailModel CreateMatchWinLossDetailModel(
+            int betType,
+            string showTime,
+            bool liveIndicator = false,
+            bool isNeutral = false,
+            bool isParlay = false)
+            => new MatchWinLossDetailModel(
+                isParlay: isParlay,
                 matchId: 1,
                 homeId: 1,
                 awayId: 1,
@@ -785,8 +476,8 @@
                 leagueId: 1,
                 race: 1,
                 matchCode: "1",
-                isNeutral: false,
-                showTime: "Show Time 1",
+                isNeutral: isNeutral,
+                showTime: showTime,
                 turnover: 1,
                 grossComm: 1,
                 memberNetWinLoss: null,
@@ -794,12 +485,5 @@
                 masterNetWinLoss: null,
                 superNetWinLoss: null,
                 companyNetWinLoss: null);
-
-            // Act
-            var actualPrefix = matchWinLossDetailHandler.GetBetTypePrefix(matchWinLossDetailModel);
-
-            // Assert
-            Assert.Equal(expectedPrefix, actualPrefix);
-        }
     }
 }

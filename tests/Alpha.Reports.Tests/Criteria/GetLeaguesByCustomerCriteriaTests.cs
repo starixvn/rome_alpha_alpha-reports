@@ -8,11 +8,11 @@
 
     [Trait("Category", "BaseFunction")]
     [Collection("AnyValueCreatorCollection")]
-    public class GetLeaguesByCustomerCriteriaTest
+    public class GetLeaguesByCustomerCriteriaTests
     {
         private readonly AnyValueCreatorFixture anyValueCreator;
 
-        public GetLeaguesByCustomerCriteriaTest(AnyValueCreatorFixture anyValueCreator)
+        public GetLeaguesByCustomerCriteriaTests(AnyValueCreatorFixture anyValueCreator)
         {
             this.anyValueCreator = anyValueCreator;
         }

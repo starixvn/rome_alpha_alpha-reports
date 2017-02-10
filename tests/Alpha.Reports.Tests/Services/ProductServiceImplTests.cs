@@ -11,6 +11,7 @@
     using Reports.Services;
     using Xunit;
 
+    [Trait("Category", "BaseFunction")]
     [Collection("FanexCacheCollection")]
     public class ProductServiceImplTests
     {
