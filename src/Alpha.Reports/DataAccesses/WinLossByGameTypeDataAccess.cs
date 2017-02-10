@@ -50,6 +50,12 @@
             return winlossByGameTypeData;
         }
 
+        /// <summary>
+        /// TODO: check business get gametypeName
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="reportLevel"></param>
+        /// <returns></returns>
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
         private WinLossByGameTypeModel BuildWinLossByGameType(IDataReader reader, UserLevel reportLevel)
         {
@@ -57,7 +63,7 @@
 
             var winLossByGameType = new WinLossByGameTypeModel(
                  gameTypeId: gameTypeId,
-                 gameTypeName: cacheRefService.GetBetTypeName(gameTypeId),
+                 gameTypeName: cacheRefService.GetBetTypeName(gameTypeId), 
                  turnover: reader.ToDecimal("TurnOver"),
                  memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,
                  agentNetWinLoss: reportLevel.IsNotSuperLevel() ?

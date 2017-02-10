@@ -22,7 +22,6 @@
     public class WinLossByBetTypeHandlerTestsHandlerTests
     {
         private readonly WinLossByBetTypeService reportService;
-        private readonly ReportDateService reportDateService;
         private readonly CacheRefService cacheRefService;
         private readonly WinLossByBetTypeHandler winLossByBetTypeHandler;
         private readonly UserFixture userFixture;
@@ -31,11 +30,10 @@
         public WinLossByBetTypeHandlerTestsHandlerTests(UserFixture userFixture)
         {
             reportService = Substitute.For<WinLossByBetTypeService>();
-            reportDateService = Substitute.For<ReportDateService>();
             cacheRefService = Substitute.For<CacheRefService>();
 
             this.userFixture = userFixture;
-            winLossByBetTypeHandler = new WinLossByBetTypeHandler(reportService, reportDateService, cacheRefService);
+            winLossByBetTypeHandler = new WinLossByBetTypeHandler(reportService, cacheRefService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             SystemTime.Today = DefaultVariables.CurrentDate;

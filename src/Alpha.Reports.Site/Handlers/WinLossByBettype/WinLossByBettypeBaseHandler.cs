@@ -19,7 +19,7 @@
     public class WinLossByBetTypeBaseHandler : BaseHandler
     {
         protected readonly WinLossByBetTypeService reportService;
-        private readonly CacheRefService cacheRefService;
+        protected readonly CacheRefService cacheRefService;
 
         public WinLossByBetTypeBaseHandler(WinLossByBetTypeService reportService, CacheRefService cacheRefService)
         {

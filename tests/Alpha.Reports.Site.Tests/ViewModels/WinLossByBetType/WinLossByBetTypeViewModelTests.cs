@@ -6,8 +6,10 @@
     using System.Threading;
     using Constants;
     using Fixtures;
+    using NSubstitute;
     using Params;
     using Ploeh.AutoFixture;
+    using RemotingRef;
     using Reports.Models.WinlossByBetType;
     using Site.Requests.WinLossByBetType;
     using Site.ViewModels.WinLossByBetType;
@@ -20,9 +22,12 @@
     {
         private readonly UserFixture userFixture;
         private readonly Fixture fixture = new Fixture();
+        private readonly CacheRefService cacheRefService;
 
         public WinLossByBetTypeViewModelTests(UserFixture userFixture)
         {
+            cacheRefService = Substitute.For<CacheRefService>();
+
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             this.userFixture = userFixture;
@@ -40,8 +45,8 @@
                 fixture.Create<WinLossByBetTypeModel>(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
-                SystemTime.Today,
-                fixture.Create<Func<int, string, bool, string>>());
+                fixture.Create<Func<int, string, bool, string>>(),
+                cacheRefService);
 
             // Act & Assert
             Assert.Equal(winlossByBettypeViewModel.Title, expectedTitle);

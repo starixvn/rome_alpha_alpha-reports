@@ -119,7 +119,7 @@
 
 @helper RenderRow(WinLossByBetTypeModel data, bool isTotalRow)
 {
-    WinLossGameTypeInfoViewModel winLossGameTypeInfoViewModel = Model.BuildWinLossGameTypeInfoViewModel(data.BetTypeId);
+    WinLossGameTypeInfoViewModel winLossGameTypeInfoViewModel = Model.BuildWinLossGameTypeInfoViewModel(data.BetTypeId, data.ProductId);
     <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
         <td @(winLossGameTypeInfoViewModel.IsAllowViewGameType? "data-islink=\"true\"":"") class="text-left col-username">
             @if (isTotalRow)

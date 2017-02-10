@@ -8,6 +8,7 @@
     using Components;
     using Helpers;
     using Params;
+    using RemotingRef;
     using Reports.Models;
     using Reports.Models.WinlossByBetType;
     using Requests.WinLossByBetType;
@@ -16,25 +17,27 @@
 
     public class WinLossByBetTypeViewModel
     {
-        private readonly string sortPropertyNameDefault = "BetTypeName";
+        private readonly string sortPropertyNameDefault = "BetTypeName";    
         private readonly string winLossByGameTypePath = "WinLossByGameType/Index";
 
         private readonly WinLossByBetTypeQuery message;
         private readonly WinLossByBetTypeParam winLossByBettypeParam;
+        private readonly CacheRefService cacheRefService;
 
         public WinLossByBetTypeViewModel(
             IEnumerable<WinLossByBetTypeModel> reportData,
             WinLossByBetTypeModel grandTotal,
             WinLossByBetTypeQuery message,
             WinLossByBetTypeParam winLossByBettypeParam,
-            DateTime balanceUpDay,
-            Func<int, string, bool, string> buildDisplayedBettypeName)
+            Func<int, string, bool, string> buildDisplayedBettypeName,
+            CacheRefService cacheRefService)
         {
             this.message = message;
             this.winLossByBettypeParam = winLossByBettypeParam;
-            MinDate = balanceUpDay;
+            MinDate = message.MinDate;
             ReportData = reportData;
             GrandTotal = grandTotal;
+            this.cacheRefService = cacheRefService;
 
             BuildDisplayedBettypeName = buildDisplayedBettypeName;
             BuildResources();
@@ -158,7 +161,7 @@
         /// </summary>
         /// <param name="betTypeId"></param>
         /// <returns></returns>
-        public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(int betTypeId)
+        public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(int betTypeId, int productId)
         {
             bool isAllowViewGameType = false;
             string winLossByGameTypeTitle = string.Empty;
@@ -175,14 +178,14 @@
                 case (int)BetType.VoidbridgeRangeStart: //// {ProductName} + Win Loss
                     {
                         isAllowViewGameType = true;
-                        winLossByGameTypeTitle = "Macau Games Win Loss";
+                        winLossByGameTypeTitle = cacheRefService.GetProductName(productId) + Resources.WinLossTitle;
                     }
 
                     break;
                 case (int)BetType.NG2Start + 1:
                     {
                         isAllowViewGameType = true;
-                        winLossByGameTypeTitle = "Cache Ref RG2 Win Loss";
+                        winLossByGameTypeTitle = cacheRefService.GetProductName(productId) + Resources.WinLossTitle;
                     }
 
                     break;

@@ -116,8 +116,8 @@
                 fixture.Create<WinLossByBetTypeModel>(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
-                SystemTime.Today,
-                fixture.Create<Func<int, string, bool, string>>());
+                fixture.Create<Func<int, string, bool, string>>(),
+                cacheRefService);
 
             // Act
             winLossByBetTypeExcelHandler.Handle(message);
@@ -139,8 +139,8 @@
                 new WinLossByBetTypeModel(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
-                SystemTime.Today,
-                fixture.Create<Func<int, string, bool, string>>());
+                fixture.Create<Func<int, string, bool, string>>(),
+                cacheRefService);
 
             // Act
             winLossByBetTypeExcelHandler.Handle(message);

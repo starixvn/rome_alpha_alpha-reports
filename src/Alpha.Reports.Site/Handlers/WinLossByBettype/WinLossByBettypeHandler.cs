@@ -11,13 +11,9 @@
         WinLossByBetTypeBaseHandler,
         IRequestHandler<WinLossByBetTypeQuery, WinLossByBetTypeViewModel>
     {
-        private readonly ReportDateService reportDateService;
-
-        public WinLossByBetTypeHandler(WinLossByBetTypeService reportService, ReportDateService reportDateService, CacheRefService cacheRefService) 
+        public WinLossByBetTypeHandler(WinLossByBetTypeService reportService, CacheRefService cacheRefService) 
             : base(reportService, cacheRefService)
-        {
-            this.reportDateService = reportDateService;
-        }
+        {}
 
         public WinLossByBetTypeViewModel Handle(WinLossByBetTypeQuery message)
         {
@@ -30,7 +26,13 @@
             var reportData = reportService.GetWinLossByBetType(winLossByBettypeParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
-            return new WinLossByBetTypeViewModel(reportData, grandTotal, message, winLossByBettypeParam, reportDateService.GetBalanceUpDay(), BuildDisplayedBetTypeName);
+            return new WinLossByBetTypeViewModel(
+                    reportData, 
+                    grandTotal, 
+                    message, 
+                    winLossByBettypeParam, 
+                    BuildDisplayedBetTypeName, 
+                    cacheRefService);
         }
     }
 }
