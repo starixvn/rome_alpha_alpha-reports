@@ -11,7 +11,7 @@
         {
             // Arrange
             var expectedSettingKey = "Age_Rpt_MatchSelResultEntered";
-            var enteredSportDailyCriteria = new DailyEnteredSportCriteria();
+            var enteredSportDailyCriteria = new DailyEnteredSportCriteria(false);
 
             // Act
             var actualSettingKey = enteredSportDailyCriteria.GetSettingKey();
@@ -24,7 +24,7 @@
         public void IsValid_Always_ReturnsTrue()
         {
             // Arrange
-            var enteredSportDailyCriteria = new DailyEnteredSportCriteria();
+            var enteredSportDailyCriteria = new DailyEnteredSportCriteria(false);
 
             // Act
             var actualIsValid = enteredSportDailyCriteria.IsValid();

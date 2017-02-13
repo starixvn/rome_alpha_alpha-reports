@@ -1,21 +1,18 @@
-﻿namespace Alpha.Reports.Site.Configurations
+﻿namespace Alpha.Reports.Configurations
 {
     using System;
     using System.Collections.Specialized;
     using System.Configuration;
+    using Fanex.Common;
 
     public static class SiteSettings
     {
         [ThreadStatic]
         private static NameValueCollection appSettings;
 
-        public static string OldMainAppPath => GetConfigValue("OldMainAppPath");
+        public static bool LocalTest => Converter.ToBool(GetConfigValue("LocalTest"));
 
         public static string StoreProcedurePath => GetConfigValue("StoreProcedurePath");
-
-        public static string AssetAppPath => GetConfigValue("AssetAppPath");
-
-        public static string StaticResourcesVersion => GetConfigValue("AssetsApp:StaticResourcesVersion");
 
         internal static NameValueCollection AppSettings
         {
@@ -28,9 +25,7 @@
 
         public static void Verify()
         {
-            Require(OldMainAppPath, nameof(OldMainAppPath));
             Require(StoreProcedurePath, nameof(StoreProcedurePath));
-            Require(AssetAppPath, nameof(AssetAppPath));
         }
 
         private static void Require(string key, string keyName)
