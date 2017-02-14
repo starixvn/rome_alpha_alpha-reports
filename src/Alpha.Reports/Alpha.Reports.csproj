@@ -71,6 +71,10 @@
       <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.2.4\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -131,6 +135,7 @@
     <Compile Include="Services\CommissionByBettypeService.cs" />
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\RacingCommissionService.cs" />
+    <Compile Include="Services\UserPermissionService.cs" />
     <Compile Include="Services\WinLossService.cs" />
     <Compile Include="Services\OutstandingService.cs" />
     <Compile Include="Services\ProductService.cs" />

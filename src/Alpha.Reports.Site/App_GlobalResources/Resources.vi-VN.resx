@@ -321,6 +321,10 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>Thắng thua</value>
   </data>
+  <data name="CommissionByBettype" xml:space="preserve">
+		<value>Hoa hồng theo loại cược</value>
+	</data>
+
 	<data name="Outstanding" xml:space="preserve">
 		<value>Tiền chưa xử lý</value>
 	</data>

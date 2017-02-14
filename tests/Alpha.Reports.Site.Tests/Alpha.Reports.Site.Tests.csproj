@@ -195,6 +195,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandlerTests.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
+    <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandlerTests.cs" />
     <Compile Include="Handlers\RacingCommission\RacingCommissionHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\WinLoss\EnteredSportResultExcelHandlerTests.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Requests\ReportDefaultDateRangeQueryTests.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
+    <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeViewModelTests.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />

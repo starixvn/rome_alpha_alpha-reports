@@ -60,5 +60,14 @@
       "assets/scripts/components/sort.js",
       "assets/scripts/racingcommission/racingcommission.js"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles/commissionbybettype/commissionbybettype.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/commissionbybettype/commissionbybettype.js"
+    ]
   }
 ]

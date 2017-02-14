@@ -334,6 +334,9 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>ชนะ แพ้</value>
   </data>
+  	<data name="CommissionByBettype" xml:space="preserve">
+		<value>คอมมิชั่นจากประเภทพนัน</value>
+	</data>
 	<data name="Outstanding" xml:space="preserve">
 		<value>การเดิมพันที่ยังไม่สิ้นสุด</value>
 	</data>

@@ -205,6 +205,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Commission By Bet Type.
+        /// </summary>
+        public static string CommissionByBettype {
+            get {
+                return ResourceManager.GetString("CommissionByBettype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
         public static string Company {

@@ -333,6 +333,11 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>輸贏</value>
   </data>
+  <data name="CommissionByBettype" xml:space="preserve">
+		<value>投注產品分類佣金</value>
+	</data>
+
+
 	<data name="Outstanding" xml:space="preserve">
 		<value>未完成交易</value>
 	</data>

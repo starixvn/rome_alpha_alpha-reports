@@ -1,1 +1,96 @@
-﻿Hello Commission By Bet Type
+﻿@using Alpha.Reports.Models.CommissionByBettype
+@using Alpha.Reports.Site.ViewModels.CommissionByBettype
+@model CommissionByBettypeViewModel
+
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, false, false, false, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
+
+@Html.Partial("_CommissionByBettypeFilter", Model.CommissionByBettypeFilter)
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
+       data-totalrecords="@Model.CommissionByBettypes.Count()"
+       data-sortedcolumn="Username"
+       data-descendingsort="false">
+    <thead class="tableFloatingHeaderOriginal">
+        <tr>
+            <th class="sorting" data-colindex="0" data-sortedname="Username">@Resources.Username</th>
+            <th class="sorting" data-sortedname>Commission 1</th>
+            <th class="sorting" data-sortedname>Commission 2</th>
+            <th class="sorting" data-sortedname>Commission 3</th>
+            @if (Model.ShowChargeCommColumn)
+            {
+                <th class="sorting" data-sortedname>Charge Comm</th>
+            }
+            @if (Model.ShowMyanmarOddsColumn)
+            {
+                <th class="sorting" data-sortedname>% Odds</th>
+            }
+            <th class="sorting" data-sortedname>Gamming</th>
+            @if (Model.ShowOthersCommColumn)
+            {
+                <th class="sorting" data-sortedname>Other</th>
+            }
+        </tr>
+    </thead>
+    @if (Model.CommissionByBettypes.Any())
+    {
+        <tbody>
+            @foreach (var commission in Model.CommissionByBettypes)
+            {
+                <tr>
+                    <td class="text-left">
+                        @if (Model.CustLevel.IsAgentLevel())
+                        {
+                            @commission.CustName
+                        }
+                        else
+                        {
+                            <a href="@Model.BuildDrillDownLink(commission, Request.Url.Query)">@commission.CustName</a>
+                        }
+                    </td>
+                    @RenderCellValue(commission)
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="tbl-footer">
+                <td class="text-left">@Resources.Total</td>
+                @RenderCellValue(Model.Total)
+            </tr>
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(Model.GetNumCols())
+    }
+</table>
+
+<form class="form-inline hide" role="form" id="export-excel-form" action="~/CommissionByBettype/Excel">
+    <input type="hidden" name="CustId" value="@Model.Query.CustId" />
+    <input type="hidden" name="CustLevelId" value="@Model.Query.CustLevel.Value" />
+    <input type="hidden" name="FromDate" value="@Model.Query.FromDate" />
+    <input type="hidden" name="ToDate" value="@Model.Query.ToDate" />
+</form>
+
+@helper RenderCellValue(CommissionByBettypeModel commission)
+{
+    <td>@HtmlHelpers.FormatNumber(commission.TotalComm1)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.TotalComm2)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.TotalComm3)</td>
+    if (Model.ShowChargeCommColumn)
+    {
+    <td>@HtmlHelpers.FormatNumber(commission.ChargeComm)</td>
+    }
+    if (Model.ShowMyanmarOddsColumn)
+    {
+    <td>@HtmlHelpers.FormatNumber(commission.MOComm)</td>
+    }
+    <td>@HtmlHelpers.FormatNumber(commission.CasinoComm)</td>
+    if (Model.ShowOthersCommColumn)
+    {
+    <td>@HtmlHelpers.FormatNumber(commission.OtherComm)</td>
+    }
+}
+
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/commissionbybettype/commissionbybettype")
+}

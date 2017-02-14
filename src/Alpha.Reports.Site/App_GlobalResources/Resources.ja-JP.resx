@@ -192,6 +192,9 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>勝ち負け</value>
   </data>
+  	<data name="CommissionByBettype" xml:space="preserve">
+		<value>Commission By Bet Type</value>
+	</data>
 	<data name="Outstanding" xml:space="preserve">
 		<value>未払い</value>
 	</data>

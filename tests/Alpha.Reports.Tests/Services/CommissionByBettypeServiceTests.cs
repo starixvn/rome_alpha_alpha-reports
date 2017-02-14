@@ -21,8 +21,8 @@
         public void GetAllCommissionByBettypes_When_CustIdLessOrEqualZero_Returns_EmptyData(int custId)
         {
             // Arrange
-            var param = new CommissionByBettypeParam(UserLevel.Agent, UserLevel.Master, custId, default(DateTime), default(DateTime));
-            var service = new CommissionByBettypeServiceImpl(null, null);
+            var param = new CommissionByBettypeParam(UserLevel.Agent, UserLevel.Master, custId, default(DateTime), default(DateTime), default(DateTime));
+            var service = new CommissionByBettypeServiceImpl(null);
 
             // Act
             var commissions = service.GetAllCommissionByBettypes(param);
@@ -35,8 +35,8 @@
         public void GetAllCommissionByBettypes_When_UserLevelLessThanCustLevel_Returns_EmptyData()
         {
             // Arrange
-            var param = new CommissionByBettypeParam(UserLevel.Agent, UserLevel.Master, 0, default(DateTime), default(DateTime));
-            var service = new CommissionByBettypeServiceImpl(null, null);
+            var param = new CommissionByBettypeParam(UserLevel.Agent, UserLevel.Master, 0, default(DateTime), default(DateTime), default(DateTime));
+            var service = new CommissionByBettypeServiceImpl(null);
 
             // Act
             var commissions = service.GetAllCommissionByBettypes(param);
@@ -53,14 +53,14 @@
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(userLevelId);
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var param = new CommissionByBettypeParam(userLevel, custLevel, 1, default(DateTime), default(DateTime));
+            var param = new CommissionByBettypeParam(userLevel, custLevel, 1, default(DateTime), default(DateTime), default(DateTime));
 
             var dateService = Substitute.For<ReportDateService>();
             dateService.GetMoveBetsDay().Returns(new DateTime());
             var repository = Substitute.For<IDynamicRepository>();
             repository.Fetch<CommissionByBettypeModel>(Arg.Any<CommissionByBettypeCriteria>()).Returns(new List<CommissionByBettypeModel> { null });
 
-            var service = new CommissionByBettypeServiceImpl(dateService, repository);
+            var service = new CommissionByBettypeServiceImpl(repository);
 
             // Act
             var commissions = service.GetAllCommissionByBettypes(param);

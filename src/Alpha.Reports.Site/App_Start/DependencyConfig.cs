@@ -77,6 +77,8 @@
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
             container.RegisterSingleton<OutstandingService, OutstandingServiceImpl>();
             container.RegisterSingleton<RacingCommissionService, RacingCommissionServiceImpl>();
+            container.RegisterSingleton<CommissionByBettypeService, CommissionByBettypeServiceImpl>();
+            container.RegisterSingleton<UserPermissionService, UserPermissionServiceImpl>();
 
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
