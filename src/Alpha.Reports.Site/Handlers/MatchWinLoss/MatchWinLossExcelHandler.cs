@@ -36,7 +36,7 @@
 
             var matchWinLossParam = new MatchWinLossParam(message.CustId, message.FromDate, message.ToDate);
             var rawData = reportService.GetMatchWinLoss(matchWinLossParam);
-            var reportData = ConvertToViewModel(rawData);
+            var reportData = BuildViewModel(rawData);
             var fileContent = workbook
                 .UseTemplate(GetTemplateInfo(message))
                 .Title(GetReporTitle(message))

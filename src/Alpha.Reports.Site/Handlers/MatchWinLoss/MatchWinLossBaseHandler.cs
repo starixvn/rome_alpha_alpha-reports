@@ -26,15 +26,15 @@
             this.cacheRefService = cacheRefService;
         }
 
-        protected IEnumerable<MatchWinLossViewModel> ConvertToViewModel(IEnumerable<MatchWinLossModel> rawData)
+        protected IEnumerable<MatchWinLossViewModel> BuildViewModel(IEnumerable<MatchWinLossModel> models)
         {
             var viewModels = new List<MatchWinLossViewModel>();
-            if (rawData == null)
+            if (models == null)
             {
                 return viewModels;
             }
 
-            foreach (var matchWinLossModel in rawData)
+            foreach (var matchWinLossModel in models)
             {
                 var eventInfo = GetEventInfo(matchWinLossModel);
                 var betTypeName = $"{GetBetTypePrefix(matchWinLossModel)}{cacheRefService.GetBetType(matchWinLossModel.BetType)}";
@@ -45,46 +45,41 @@
             return viewModels;
         }
 
-        protected MatchWinLossViewModel AccumulateGrandTotal(IEnumerable<MatchWinLossViewModel> reportData)
+        protected MatchWinLossViewModel AccumulateGrandTotal(IEnumerable<MatchWinLossViewModel> models)
         {
             var grandTotal = new MatchWinLossViewModel(string.Empty, string.Empty, 0, 0, false, 0, 0, 0);
 
-            if (reportData.Any())
+            foreach (var model in models)
             {
-                var reportDataCopy = reportData.ToList();
-                int index, count;
-                for (index = 1, count = reportDataCopy.Count, grandTotal = reportDataCopy[0]; index < count; index++)
-                {
-                    grandTotal = MatchWinLossViewModel.Add(grandTotal, reportDataCopy[index]);
-                }
+                grandTotal.Add(model);
             }
 
             return grandTotal;
         }
 
-        private string GetEventInfo(MatchWinLossModel matchWinLossModel)
+        private string GetEventInfo(MatchWinLossModel model)
         {
-            if (BetTypeHelper.IsNumberGame(matchWinLossModel.BetType))
+            if (BetTypeHelper.IsNumberGame(model.BetType))
             {
-                return $"{Resources.NumberGameNo} {matchWinLossModel.MatchCode}";
+                return $"{Resources.NumberGameNo} {model.MatchCode}";
             }
 
             return string.Join(
                 " ",
-                cacheRefService.GetTeamName(matchWinLossModel.HomeId) + (matchWinLossModel.IsNeutral ? Resources.Neutral : string.Empty),
+                cacheRefService.GetTeamName(model.HomeId) + (model.IsNeutral ? Resources.Neutral : string.Empty),
                 Resources.vs,
-                cacheRefService.GetTeamName(matchWinLossModel.AwayId));
+                cacheRefService.GetTeamName(model.AwayId));
         }
 
-        private string GetBetTypePrefix(MatchWinLossModel matchWinLossModel)
+        private string GetBetTypePrefix(MatchWinLossModel model)
         {
-            switch (matchWinLossModel.BetType)
+            switch (model.BetType)
             {
                 case BetTypeIdConstants.NumberGameOverUnder:
                     return $"{Resources.Next} ";
 
                 case BetTypeIdConstants.NumberGameOddEven:
-                    if (matchWinLossModel.LiveIndicator)
+                    if (model.LiveIndicator)
                     {
                         return $"{Resources.Next} ";
                     }

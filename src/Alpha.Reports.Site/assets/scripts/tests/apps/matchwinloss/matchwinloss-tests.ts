@@ -28,7 +28,7 @@
                             <input id="SortPropertyName" value="EventInfo" type="hidden" />
                         </form>
                         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
-                        <table id="tbl-report" data-totalrecords="0"
+                        <table id="tbl-report" data-cansort="False"
                             data-sortedcolumn="Event Info"
                             data-descendingsort="False">
                         </table>

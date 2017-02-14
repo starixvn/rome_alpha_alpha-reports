@@ -22,7 +22,7 @@
 
 <table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover"
        id="tbl-report"
-       data-totalrecords="@Model.ReportData.Count()"
+       data-cansort="@Model.CanSort"
        data-sortedcolumn="@Model.SortPropertyName"
        data-descendingsort="@Model.IsDescendingSort">
     <thead>
