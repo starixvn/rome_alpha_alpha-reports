@@ -252,6 +252,7 @@
     <Compile Include="TestCases\MatchWinLossDetailTestCases.cs" />
     <Compile Include="TestCases\WinLossByGameTypeViewModelTestCases.cs" />
     <Compile Include="TestCases\WinLossByBetTypeViewModelTestCases.cs" />
+    <Compile Include="TestCases\WinLossGameTypeInfoViewModelCases.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />

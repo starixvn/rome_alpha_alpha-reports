@@ -13,7 +13,8 @@
     {
         public WinLossByBetTypeHandler(WinLossByBetTypeService reportService, CacheRefService cacheRefService) 
             : base(reportService, cacheRefService)
-        {}
+        {
+        }
 
         public WinLossByBetTypeViewModel Handle(WinLossByBetTypeQuery message)
         {

@@ -109,9 +109,6 @@
             return isSortedPropertyInRange ? sortedProperty : sortPropertyNameDefault;
         }
 
-        ///// <summary>
-        ///// TODO refactor Title
-        ///// </summary>
         private void BuildResources()
         {
             if (CustLevel.IsSuperLevel())
@@ -156,11 +153,6 @@
         [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.")]
         public Func<int, string, bool, string> BuildDisplayedBettypeName;
 
-        /// <summary>
-        /// TODO: Multiple Language
-        /// </summary>
-        /// <param name="betTypeId"></param>
-        /// <returns></returns>
         public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(int betTypeId, int productId)
         {
             bool isAllowViewGameType = false;
@@ -175,17 +167,17 @@
                     }
 
                     break;
-                case (int)BetType.VoidbridgeRangeStart: //// {ProductName} + Win Loss
+                case (int)BetType.VoidbridgeRangeStart:
                     {
                         isAllowViewGameType = true;
-                        winLossByGameTypeTitle = cacheRefService.GetProductName(productId) + Resources.WinLossTitle;
+                        winLossByGameTypeTitle = cacheRefService.GetProductName(productId) + " " + Resources.WinLossTitle;
                     }
 
                     break;
                 case (int)BetType.NG2Start + 1:
                     {
                         isAllowViewGameType = true;
-                        winLossByGameTypeTitle = cacheRefService.GetProductName(productId) + Resources.WinLossTitle;
+                        winLossByGameTypeTitle = cacheRefService.GetProductName(productId) + " " + Resources.WinLossTitle;
                     }
 
                     break;

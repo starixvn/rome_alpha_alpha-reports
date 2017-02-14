@@ -6,13 +6,16 @@
     using System.Threading;
     using Constants;
     using Fixtures;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Params;
     using Ploeh.AutoFixture;
     using RemotingRef;
     using Reports.Models.WinlossByBetType;
+    using Services;
     using Site.Requests.WinLossByBetType;
     using Site.ViewModels.WinLossByBetType;
+    using TestCases;
     using Utils;
     using Xunit;
 
@@ -23,24 +26,25 @@
         private readonly UserFixture userFixture;
         private readonly Fixture fixture = new Fixture();
         private readonly CacheRefService cacheRefService;
+        private readonly ReportDateService reportDateService;
+        private readonly WinLossByBetTypeViewModel winlossByBettypeViewModel;
+        private readonly CompareLogic compareLogic;
 
         public WinLossByBetTypeViewModelTests(UserFixture userFixture)
         {
             cacheRefService = Substitute.For<CacheRefService>();
+            reportDateService = Substitute.For<ReportDateService>();
+            ReportDateServiceImpl.Instance = reportDateService;
+            reportDateService.GetBalanceUpDay().Returns(SystemTime.Today);
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             this.userFixture = userFixture;
             SystemTime.Today = DefaultVariables.CurrentDate;
-        }
+            compareLogic = new CompareLogic();
 
-        [Fact]
-        public void Title_WinLossLevel_ReturnCorrectTitle()
-        {
-            // Arrange
-            var expectedTitle = "Win Loss By Bet Type";
             var message = CreateWinlossByBetTypeQuery(4);
-            var winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
+             winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
                 Enumerable.Empty<WinLossByBetTypeModel>(),
                 fixture.Create<WinLossByBetTypeModel>(),
                 message,
@@ -48,8 +52,35 @@
                 fixture.Create<Func<int, string, bool, string>>(),
                 cacheRefService);
 
+            cacheRefService.GetProductName(23).Returns("Macau Game");
+            cacheRefService.GetProductName(24).Returns("NG2");
+        }
+
+        [Fact]
+        public void Title_WinLossLevel_ReturnCorrectTitle()
+        {
+            // Arrange
+            var expectedTitle = "Win Loss By Bet Type";
+            
             // Act & Assert
             Assert.Equal(winlossByBettypeViewModel.Title, expectedTitle);
+        }
+
+        [Theory]
+        [MemberData("WinLossGameTypeInfoViewModelSources", MemberType = typeof(WinLossGameTypeInfoViewModelCases))]
+        public void BuildWinLossGameTypeInfoViewModel_Always_ReturnsCorrectData(
+          int betTypeId,
+          int productId,
+          WinLossGameTypeInfoViewModel expectedWinLossGameTypeInfoViewModel)
+        {
+            // Arrange
+
+            // Act
+            var actualWinLossGameTypeInfoViewModel = winlossByBettypeViewModel.BuildWinLossGameTypeInfoViewModel(betTypeId, productId);
+
+            // Assert
+            var result = compareLogic.Compare(expectedWinLossGameTypeInfoViewModel, actualWinLossGameTypeInfoViewModel);
+            Assert.True(result.AreEqual);
         }
 
         private WinLossByBetTypeQuery CreateWinlossByBetTypeQuery(byte custLevelId)

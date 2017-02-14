@@ -337,10 +337,10 @@
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossFilterViewModel.cs" />
     <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
-    <Compile Include="ViewModels\WinLossByBettype\BetTypeDetailViewModel.cs" />
+    <Compile Include="ViewModels\WinLossByBetType\WinLossGameTypeInfoViewModel.cs" />
+    <Compile Include="ViewModels\WinLossByBetType\WinLossByBetTypeFilterViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
-    <Compile Include="ViewModels\WinLossByBettype\WinLossByBetTypeFilterViewModel.cs" />
-    <Compile Include="ViewModels\WinLossByBettype\WinLossByBetTypeViewModel.cs" />
+    <Compile Include="ViewModels\WinLossByBetType\WinLossByBetTypeViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailFilterViewModel.cs" />
@@ -379,6 +379,10 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbybettype\winlossbybettype-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbybettype\winlossbybettype-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbygametype\winlossbygametype-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbygametype\winlossbygametype-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-registerEvents-tests.ts" />
@@ -392,10 +396,6 @@
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
-    <Content Include="assets\bundles\default.css" />
-    <Content Include="assets\bundles\default.min.css">
-      <DependentUpon>default.css</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\winlossbybettype\winlossbybettype.js" />
     <Content Include="assets\bundles\winlossbybettype\winlossbybettype.min.js">
       <DependentUpon>winlossbybettype.js</DependentUpon>
@@ -421,17 +421,8 @@
       <DependentUpon>matchwinloss.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
-    <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
-      <DependentUpon>winlossdetail.js</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\winloss\enteredresult.js" />
-    <Content Include="assets\bundles\winloss\enteredresult.min.js">
-      <DependentUpon>enteredresult.js</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\winloss\winloss.js" />
-    <Content Include="assets\bundles\winloss\winloss.min.js">
-      <DependentUpon>winloss.js</DependentUpon>
-    </Content>
     <Content Include="assets\scripts\tests\libs\autocomplete.js" />
     <Content Include="assets\scripts\tests\libs\bootbox.js" />
     <Content Include="assets\scripts\tests\libs\bootstrap\button.js" />

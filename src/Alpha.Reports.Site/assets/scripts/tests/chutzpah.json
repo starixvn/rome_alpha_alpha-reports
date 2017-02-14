@@ -70,6 +70,10 @@
     { "Path": "../matchwinloss/matchwinloss.ts" },
     { "Path": "apps/matchwinlossdetail/matchwinlossdetail-template.ts" },
     { "Path": "../matchwinlossdetail/matchwinlossdetail.ts" }
+    { "Path": "apps/winlossbybettype/winlossbybettype-template.ts" },
+    { "Path": "../winlossbybettype/winlossbybettype.ts" },
+    { "Path": "apps/winlossbygametype/winlossbygametype-template.ts" },
+    { "Path": "../winlossbygametype/winlossbygametype.ts" }
   ],
   "Tests": [
     {

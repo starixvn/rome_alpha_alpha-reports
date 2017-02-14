@@ -6,6 +6,7 @@
     using NSubstitute;
     using Site.Controllers;
     using Site.Requests.WinLossByGameType;
+    using Site.ViewModels;
     using Xunit;
 
     [Trait("Category", "WinLossByGameType")]
@@ -14,13 +15,15 @@
     {
         private readonly IMediator mediator;
         private readonly WinLossByGameTypeController controller;
-        private readonly WinLossByGameTypeQuery message;
+        private readonly WinLossByGameTypeQuery winLossByGameTypeQuery;
+        private readonly WinLossByGameTypeExcelQuery winLossByGameTypeExcelQuery;
 
         public WinLossByGameTypeControllerTests(UserFixture userFixture)
         {
             mediator = Substitute.For<IMediator>();
             controller = new WinLossByGameTypeController(mediator);
-            message = new WinLossByGameTypeQuery(userFixture.User);
+            winLossByGameTypeQuery = new WinLossByGameTypeQuery(userFixture.User);
+            winLossByGameTypeExcelQuery = new WinLossByGameTypeExcelQuery(userFixture.User);
         }
 
         [Fact]
@@ -29,7 +32,7 @@
             // Arrange
 
             // Act
-            ViewResult result = controller.Index(message) as ViewResult;
+            ViewResult result = controller.Index(winLossByGameTypeQuery) as ViewResult;
 
             // Assert
             Assert.NotNull(result);
@@ -41,7 +44,7 @@
             // Arrange
 
             // Act
-            controller.Index(message);
+            controller.Index(winLossByGameTypeQuery);
 
             // Assert
             mediator.Received().Send(Arg.Any<WinLossByGameTypeQuery>());
@@ -53,10 +56,23 @@
             // Arrange
 
             // Act
-            controller.Index(message);
+            controller.Index(winLossByGameTypeQuery);
 
             // Assert
-            mediator.Received().Send(Arg.Is(message));
+            mediator.Received().Send(Arg.Is(winLossByGameTypeQuery));
+        }
+
+        [Fact]
+        public void WinLossByGameTypeExcel_Always_CallsMediatorSendExportWinLossQuery()
+        {
+            // Arrange
+            mediator.Send<ExcelFileViewModel>(Arg.Any<WinLossByGameTypeExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
+
+            // Act
+            controller.Excel(winLossByGameTypeExcelQuery);
+
+            // Assert
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is(winLossByGameTypeExcelQuery));
         }
     }
 }

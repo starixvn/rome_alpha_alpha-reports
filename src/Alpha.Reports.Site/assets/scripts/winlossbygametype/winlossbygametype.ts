@@ -18,7 +18,6 @@ class WinLossByGameTypeView {
     $isAgentLevel: JQuery;
     $reportForm: JQuery;
     $userSelectedDateRangeOption: JQuery;
-    $historicReport: JQuery;
     $exportExcelForm: JQuery;
     $filterIcon: JQuery;
     $excelIcon: JQuery;
@@ -53,6 +52,10 @@ class WinLossByGameTypeView {
     }
 
     init = () => {
+        if (!this.checkReady()) {
+            return;
+        }
+
         this.$.blockUI();
 
         this.cacheDOMElements();
@@ -81,7 +84,6 @@ class WinLossByGameTypeView {
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
-        this.$historicReport = this.$("#historic-report");
         this.$filterIcon = this.$(".icon-filter");
         this.$excelIcon = this.$("#icon-excel");
         this.$switchModeIcon = this.$(".icon-switchmode");
@@ -90,6 +92,10 @@ class WinLossByGameTypeView {
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
         this.$isSetDefaultStackMode = this.$("#IsSetDefaultStackMode");
+    };
+
+    checkReady = () => {
+        return this.$("#IsSetDefaultStackMode").length > 0;
     };
 
     bindFilter = () => {
@@ -122,7 +128,6 @@ class WinLossByGameTypeView {
 
     registerEvents = () => {
         this.$reportForm.submit(this.onSubmitReportEvent);
-        this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
         this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$switchModeIcon.on("click", this.onSwitchModeEvent);
@@ -137,13 +142,6 @@ class WinLossByGameTypeView {
     onExportExcelEvent = () => {
         this.$exportExcelForm.submit();
         this.$.unblockUI();
-    };
-
-    onSubmitHistoricReportEvent = () => {
-        this.$fromDate.val("");
-        this.$toDate.val("");
-        this.isSwitchView = true;
-        this.$reportForm.trigger("submit");
     };
 
     onSwitchModeEvent = () => {
@@ -182,7 +180,13 @@ class WinLossByGameTypeView {
         alphaReports.splitCell("col-turnover");
         this$.each(levels, function (index: number) {
             var level = levels[index];
-            alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
+            if (level == "master") {
+                alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? "" : " altercol");
+            }
+            else {
+                alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
+            }
+
         });
     };
 
@@ -205,7 +209,15 @@ class WinLossByGameTypeView {
     };
 
     combineToWinLossColumn = (level: string, index: number) => {
-        var cellCss = "text-right col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
+        var cellCss = "text-right col-" + level + "-winloss-combined";
+
+        if (level == "master") {
+            cellCss = cellCss + (index % 2 ? "" : " altercol");
+        }
+        else {
+            cellCss = cellCss + (index % 2 ? " altercol" : "");
+        }
+
         alphaReports.combineConsecutiveCells(this.$("td.col-" + level + "-winloss"), 3, cellCss);
     };
 
@@ -230,14 +242,6 @@ class WinLossByGameTypeView {
             IsDescendingSort: sortInfo.isDescendingSort,
             HideFilter: this.$reportForm.is(":hidden"),
         };
-    };
-
-    showValidaProductError = () => {
-        this.$multiSelectButton.addClass("error");
-    };
-
-    clearError = () => {
-        this.$multiSelectButton.removeClass("error");
     };
 
     replaceDrilldownParam = (paramName: string, paramValue: any) => {

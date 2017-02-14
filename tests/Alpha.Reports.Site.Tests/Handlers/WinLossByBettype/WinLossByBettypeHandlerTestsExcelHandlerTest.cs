@@ -26,6 +26,7 @@
     public class WinLossByBetTypeHandlerTestsExcelHandlerTest
     {
         private readonly WinLossByBetTypeService reportService;
+        private readonly ReportDateService reportDateService;
         private readonly Workbook<WinLossByBetTypeModel> winlossByBetTypeWorkbook;
         private readonly WinLossByBetTypeExcelHandler winLossByBetTypeExcelHandler;
         private readonly CacheRefService cacheRefService;
@@ -36,10 +37,11 @@
         {
             this.userFixture = userFixture;
             reportService = Substitute.For<WinLossByBetTypeService>();
+            reportDateService = Substitute.For<ReportDateService>();
             cacheRefService = Substitute.For<CacheRefService>();
 
             winlossByBetTypeWorkbook = Substitute.For<Workbook<WinLossByBetTypeModel>>();
-            winlossByBetTypeWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(winlossByBetTypeWorkbook);
+            winlossByBetTypeWorkbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(winlossByBetTypeWorkbook);
             winlossByBetTypeWorkbook.Title(Arg.Any<string>()).Returns(winlossByBetTypeWorkbook);
             winlossByBetTypeWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(winlossByBetTypeWorkbook);
             winlossByBetTypeWorkbook.Body(Arg.Any<IEnumerable<WinLossByBetTypeModel>>(), Arg.Any<Mapper<WinLossByBetTypeModel>>()).Returns(winlossByBetTypeWorkbook);
@@ -50,6 +52,8 @@
             winLossByBetTypeExcelHandler.MapPath = (path) => path;
             winLossByBetTypeExcelHandler.IsFileExist = (path) => true;
             SystemTime.Today = DefaultVariables.CurrentDate;
+            ReportDateServiceImpl.Instance = reportDateService;
+            reportDateService.GetBalanceUpDay().Returns(SystemTime.Today);
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
