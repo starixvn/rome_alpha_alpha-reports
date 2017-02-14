@@ -27,12 +27,12 @@
        data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
-            <th class="sorting" data-sortedname="EventInfo" data-colindex="0">@Resources.Match</th>
-            <th class="sorting" data-sortedname="BetTypeName" data-colindex="1">@Resources.BetType</th>
-            <th class="sorting" data-sortedname="GrossComm" data-colindex="2">@Resources.GrossComm</th>
-            <th class="sorting" data-sortedname="Commission" data-colindex="3">@Resources.Comm</th>
-            <th class="sorting" data-sortedname="PositionTaking" data-colindex="4">@Resources.PositionTaking</th>
-            <th class="sorting" data-sortedname="Total" data-colindex="5">@Resources.Total</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.EventInfoPropertyName" data-colindex="0">@Resources.Match</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.BetTypeNamePropertyName" data-colindex="1">@Resources.BetType</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.GrossCommPropertyName" data-colindex="2">@Resources.GrossComm</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.CommissionPropertyName" data-colindex="3">@Resources.Comm</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.PositionTakingPropertyName" data-colindex="4">@Resources.PositionTaking</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.TotalPropertyName" data-colindex="5">@Resources.Total</th>
         </tr>
     </thead>
     @if (Model.ReportData.Any())

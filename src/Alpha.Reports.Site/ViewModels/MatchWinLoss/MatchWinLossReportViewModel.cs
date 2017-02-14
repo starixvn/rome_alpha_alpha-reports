@@ -6,11 +6,20 @@
     using App_GlobalResources;
     using Components;
     using Params;
+    using Reports.Models.MatchWinLoss;
     using Requests.MatchWinLoss;
 
     public class MatchWinLossReportViewModel : DrillDownableReportViewModel<MatchWinLossViewModel>
     {
         private const string DefaultSortProperty = "EventInfo";
+
+        public const string EventInfoPropertyName = nameof(MatchWinLossViewModel.EventInfo);
+        public const string BetTypeNamePropertyName = nameof(MatchWinLossViewModel.BetTypeName);
+        public const string GrossCommPropertyName = nameof(MatchWinLossViewModel.GrossComm);
+        public const string CommissionPropertyName = nameof(MatchWinLossViewModel.GrossComm);
+        public const string PositionTakingPropertyName = nameof(MatchWinLossViewModel.PositionTaking);
+        public const string TotalPropertyName = nameof(MatchWinLossViewModel.Total);
+
         private readonly MatchWinLossParam matchWinLossParam;
 
         public MatchWinLossReportViewModel(
