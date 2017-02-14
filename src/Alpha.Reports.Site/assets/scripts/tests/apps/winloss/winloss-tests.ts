@@ -145,7 +145,7 @@
 
         it("Document is loaded (ready) -> Returns True", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
 
             // act
             var actualIsReady = winLossView.checkReady();
@@ -158,7 +158,7 @@
     describe("cacheDOMElements", () => {
         it("Always -> All neccessary elements have been cached", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
 
             // act
             winLossView.cacheDOMElements();
@@ -401,7 +401,7 @@
     describe("onSubmitReportEvent", () => {
         it("Switch View -> Blocks UI; Empty FromDate/Todate; Sets params to hidden fields", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
             renderProductMultiSelectionComponent.and.callThrough();
             renderSortComponent.and.callThrough();
             winLossView.init();
@@ -467,7 +467,7 @@
 
         let sortReportOnStackModeTest = (sortedColumnName: string, expectedSortedCoumnResult: string) => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithStackMode);
+            setFixtures(winLossTemplate.currentReportWithStackMode);
             winLossView.init();
             winLossView.$tableReport.data("sortedcolumn", sortedColumnName);
 

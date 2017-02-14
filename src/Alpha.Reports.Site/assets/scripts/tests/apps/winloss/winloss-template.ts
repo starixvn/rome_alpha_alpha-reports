@@ -65,7 +65,9 @@
                                 </body>`,
     currentReportWithStackMode: `<body>
                                     <div class="page-title"></div>
-                                    <div id="tbl-report" data-totalrecords="0"> </div>
+                                    <div id="tbl-report" data-totalrecords="0" class="stack-mode">
+                                        <div class=""></div>
+                                    </div>
                                     <div class="downline-link"></div>
                                     <input id="IsFilterVisible" value="True" type="hidden" />
                                     <input id="IsStackMode" value="True" type="hidden" />
