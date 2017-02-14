@@ -12,14 +12,9 @@
         MatchWinLossBaseHandler,
         IRequestHandler<MatchWinLossQuery, MatchWinLossReportViewModel>
     {
-        private readonly ReportDateService reportDateService;
-
-        public MatchWinLossHandler(
-            MatchWinLossService reportService,
-            CacheRefService cacheRefService,
-            ReportDateService reportDateService) : base(reportService, cacheRefService)
+        public MatchWinLossHandler(MatchWinLossService reportService, CacheRefService cacheRefService)
+            : base(reportService, cacheRefService)
         {
-            this.reportDateService = reportDateService;
         }
 
         public MatchWinLossReportViewModel Handle(MatchWinLossQuery message)
@@ -34,7 +29,7 @@
             var reportData = ConvertToViewModel(rawData);
             var viewModel = new MatchWinLossReportViewModel(
                 message,
-                minDate: reportDateService.GetBalanceUpDay(),
+                minDate: message.MinDate,
                 matchWinLossParam: matchWinLossParam,
                 reportData: reportData,
                 grandTotal: AccumulateGrandTotal(reportData));
