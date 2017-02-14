@@ -31,13 +31,12 @@
 
         public MatchWinLossHandlerTests(UserFixture userFixture)
         {
-            var reportDateService = Substitute.For<ReportDateService>();
             reportService = Substitute.For<MatchWinLossService>();
             var cacheRefService = Substitute.For<CacheRefService>();
             cacheRefService.GetTeamName(Arg.Any<int>()).Returns(callInfo => "Team " + callInfo.Args()[0]);
             cacheRefService.GetBetType(Arg.Any<int>()).Returns(callInfo => "Bet Type " + callInfo.Args()[0]);
 
-            matchWinLossHandler = new MatchWinLossHandler(reportService, cacheRefService, reportDateService);
+            matchWinLossHandler = new MatchWinLossHandler(reportService, cacheRefService);
 
             this.userFixture = userFixture;
             anyValueGenerator = new Fixture();
@@ -45,6 +44,10 @@
             SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+
+            var reportDateService = Substitute.For<ReportDateService>();
+            ReportDateServiceImpl.Instance = reportDateService;
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariables.BalanceUpDate);
         }
 
         [Fact]
