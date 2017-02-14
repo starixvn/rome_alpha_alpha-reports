@@ -66,6 +66,7 @@
             matchWinLossDetailWorkbook.SetRowMappers(
                 Arg.Any<Mapper<BetTypeWinLossViewModel>>(),
                 Arg.Any<Mapper<BetTypeWinLossViewModel>>(),
+                Arg.Any<Mapper<BetTypeWinLossViewModel>>(),
                 Arg.Any<Mapper<BetTypeWinLossViewModel>>())
                 .Returns(matchWinLossDetailWorkbook);
 
@@ -129,6 +130,7 @@
 
             // Assert
             matchWinLossDetailWorkbook.Received().SetRowMappers(
+                Arg.Any<Mapper<BetTypeWinLossViewModel>>(),
                 Arg.Any<Mapper<BetTypeWinLossViewModel>>(),
                 Arg.Any<Mapper<BetTypeWinLossViewModel>>(),
                 Arg.Any<Mapper<BetTypeWinLossViewModel>>());

@@ -379,4 +379,7 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>ลีคทั้งหมด</value>
   </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>รวมทั้งสิ้น</value>
+  </data>
 </root>

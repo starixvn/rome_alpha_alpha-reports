@@ -63,14 +63,16 @@
             var betTypeRowMapper = anyValueCreatorFixture.Create<Mapper<BetTypeWinLossViewModel>>();
             var subTotalRowMapper = anyValueCreatorFixture.Create<Mapper<BetTypeWinLossViewModel>>();
             var totalRowMapper = anyValueCreatorFixture.Create<Mapper<BetTypeWinLossViewModel>>();
+            var grandTotalRowMapper = anyValueCreatorFixture.Create<Mapper<BetTypeWinLossViewModel>>();
 
             // Act
-            matchWinLossDetailWorkbookImpl.SetRowMappers(betTypeRowMapper, subTotalRowMapper, totalRowMapper);
+            matchWinLossDetailWorkbookImpl.SetRowMappers(betTypeRowMapper, subTotalRowMapper, totalRowMapper, grandTotalRowMapper);
 
             // Assert
             Assert.True(matchWinLossDetailWorkbookImpl.BetTypeRowMapper == betTypeRowMapper
                    && matchWinLossDetailWorkbookImpl.SubTotalRowMapper == subTotalRowMapper
-                   && matchWinLossDetailWorkbookImpl.TotalRowMapper == totalRowMapper);
+                   && matchWinLossDetailWorkbookImpl.TotalRowMapper == totalRowMapper
+                   && matchWinLossDetailWorkbookImpl.GrandTotalRowMapper == grandTotalRowMapper);
         }
 
         [Fact]

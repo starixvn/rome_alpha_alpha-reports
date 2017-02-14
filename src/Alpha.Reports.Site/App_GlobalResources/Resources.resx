@@ -426,4 +426,7 @@
   <data name="ThereIsNoLeague" xml:space="preserve">
     <value>There is no League.</value>
   </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
 </root>

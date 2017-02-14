@@ -378,4 +378,7 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>所有联赛</value>
   </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>总和</value>
+  </data>
 </root>

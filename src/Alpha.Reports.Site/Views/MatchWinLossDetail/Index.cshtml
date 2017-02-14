@@ -123,7 +123,7 @@
                 </tr>
             }
             @if (Model.NoParlayWinLossTotal != null
-                    && (Model.MixParlay != null || Model.SystemParlay != null))
+                        && (Model.MixParlay != null || Model.SystemParlay != null))
             {
                 <tr class="sub-total-row">
                     @RenderBetTypeRow(Model.NoParlayWinLossTotal, Resources.Total)
@@ -148,7 +148,7 @@
         </tbody>
         <tfoot>
             <tr class="tbl-footer">
-                @RenderBetTypeRow(Model.GrandTotal, Resources.Total)
+                @RenderBetTypeRow(Model.GrandTotal, Resources.GrandTotal)
             </tr>
         </tfoot>
     }

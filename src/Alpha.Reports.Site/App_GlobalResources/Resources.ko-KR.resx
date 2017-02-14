@@ -345,4 +345,7 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>모든 리그</value>
   </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>총 그랜드</value>
+  </data>
 </root>

@@ -30,7 +30,8 @@
         MatchWinLossDetailWorkbook SetRowMappers(
             Mapper<BetTypeWinLossViewModel> betTypeRowMapper,
             Mapper<BetTypeWinLossViewModel> subTotalRowMapper,
-            Mapper<BetTypeWinLossViewModel> totalRowMapper);
+            Mapper<BetTypeWinLossViewModel> totalRowMapper,
+            Mapper<BetTypeWinLossViewModel> grandTotalRowMapper);
     }
 
     public class MatchWinLossDetailWorkbookImpl :
@@ -56,6 +57,8 @@
         internal Mapper<BetTypeWinLossViewModel> SubTotalRowMapper { get; set; }
 
         internal Mapper<BetTypeWinLossViewModel> TotalRowMapper { get; set; }
+
+        internal Mapper<BetTypeWinLossViewModel> GrandTotalRowMapper { get; set; }
 
         internal Row MatchTitleRowTemplate { get; set; }
 
@@ -92,11 +95,13 @@
         public MatchWinLossDetailWorkbook SetRowMappers(
             Mapper<BetTypeWinLossViewModel> betTypeRowMapper,
             Mapper<BetTypeWinLossViewModel> subTotalRowMapper,
-            Mapper<BetTypeWinLossViewModel> totalRowMapper)
+            Mapper<BetTypeWinLossViewModel> totalRowMapper,
+            Mapper<BetTypeWinLossViewModel> grandTotalRowMapper)
         {
             BetTypeRowMapper = betTypeRowMapper;
             SubTotalRowMapper = subTotalRowMapper;
             TotalRowMapper = totalRowMapper;
+            GrandTotalRowMapper = grandTotalRowMapper;
 
             return this;
         }
@@ -275,7 +280,7 @@
 
             var row = sheet.GetRow(currentRowIndex);
             row.CopyCellsFrom(GrandTotalRowTemplate);
-            FillCells(row, GrandTotal, TotalRowMapper.Mappings);
+            FillCells(row, GrandTotal, GrandTotalRowMapper.Mappings);
         }
     }
 }

@@ -51,7 +51,11 @@
 
             var fileContent = workbook
                 .SetData(noParlayMatchWinLossDetail, noParlayWinLossTotal, mixParlay, systemParlay, grandTotal)
-                .SetRowMappers(GetBodyRowMapper(message.CustLevel), GetSubTotalRowMapper(message.CustLevel), GetTotalRowMapper(message.CustLevel))
+                .SetRowMappers(
+                    GetBodyRowMapper(message.CustLevel),
+                    GetSubTotalRowMapper(message.CustLevel),
+                    GetTotalRowMapper(message.CustLevel),
+                    GetGrandTotalRowMapper(message.CustLevel))
                 .UseTemplate(GetTemplateInfo(message))
                 .Sheet(Resources.DefaultSheetName)
                 .Title(GetReporTitle(message))
@@ -92,6 +96,8 @@
 
         private Mapper<BetTypeWinLossViewModel> GetTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.Total, custLevel);
 
+        private Mapper<BetTypeWinLossViewModel> GetGrandTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.GrandTotal, custLevel);
+
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private Mapper<BetTypeWinLossViewModel> GetRowMapper(int rowType, UserLevel custLevel)
         {
@@ -106,8 +112,10 @@
                     mapper.Map(A, betTypeWinLoss => Resources.SubTotal);
                     break;
                 case RowTypeConstant.Total:
-                case RowTypeConstant.GrandTotal:
                     mapper.Map(A, betTypeWinLoss => Resources.Total);
+                    break;
+                case RowTypeConstant.GrandTotal:
+                    mapper.Map(A, betTypeWinLoss => Resources.GrandTotal);
                     break;
             }
 
