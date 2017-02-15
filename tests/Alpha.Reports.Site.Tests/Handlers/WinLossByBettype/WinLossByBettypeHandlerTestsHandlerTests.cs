@@ -52,7 +52,6 @@
             Assert.Throws<ArgumentNullException>(() => winLossByBetTypeHandler.Handle(nullMessage));
         }
 
-
         [Theory]     
         [InlineData(71, "Casino", false, "Casino")]
         [InlineData(1101, "Baccarat", false, "Baccarat")]
