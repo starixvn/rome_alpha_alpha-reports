@@ -273,4 +273,30 @@
             expect(actualTableBody).toEqual(expectedTableBody);
         });
     });
+
+    describe("_convertAttributeToBool", () => {
+        let convertAttributeToBoolTestCase = (attributeValue: string, expectedValue: boolean) => {
+            // act
+            let actualValue = alphaReports.convertAttributeToBool(attributeValue);
+
+            // assert
+            expect(actualValue).toEqual(expectedValue);
+        };
+
+        it("_Null Attribute -> Returns False", () => {
+            convertAttributeToBoolTestCase(null, false);
+        });
+        it("_Empty Value -> Returns False", () => {
+            convertAttributeToBoolTestCase("", false);
+        });
+        it("_Not True Value -> Returns False", () => {
+            convertAttributeToBoolTestCase("False", false);
+            convertAttributeToBoolTestCase(" ", false);
+            convertAttributeToBoolTestCase("  ", false);
+        });
+        it("_True Value -> Returns True", () => {
+            convertAttributeToBoolTestCase("true", true);
+            convertAttributeToBoolTestCase("True", true);
+        });
+    });
 });

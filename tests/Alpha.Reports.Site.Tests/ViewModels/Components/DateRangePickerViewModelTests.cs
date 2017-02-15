@@ -84,7 +84,7 @@
         public void Constructor_Always_SetRenderingSubmitButton(bool isRenderSubmitButton)
         {
             // Act
-            var viewModel = new DateRangePickerViewModel(DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, 1, isRenderSubmitButton);
+            var viewModel = new DateRangePickerViewModel(DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, 1, null, isRenderSubmitButton);
 
             // Assert
             Assert.Equal(isRenderSubmitButton, viewModel.IsRenderSubmitButton);

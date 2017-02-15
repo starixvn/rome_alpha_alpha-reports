@@ -54,6 +54,7 @@
     { "Path": "../components/sort.ts" },
     { "Path": "../components/tooltip.ts" },
     { "Path": "../components/link-builder.ts" },
+    { "Path": "../components/league-multiselection.ts" },
 
     { "Path": "../winlossdetail/winlossdetail.ts" },
 
@@ -65,7 +66,9 @@
     { "Path": "../winloss/enteredresult.ts" },
     { "Path": "apps/winloss/winloss-template.ts" },
     { "Path": "../winloss/winloss.ts" },
-    { "Path": "../matchwinloss/matchwinloss.ts" }
+    { "Path": "../matchwinloss/matchwinloss.ts" },
+    { "Path": "apps/matchwinlossdetail/matchwinlossdetail-template.ts" },
+    { "Path": "../matchwinlossdetail/matchwinlossdetail.ts" }
   ],
   "Tests": [
     {
@@ -86,6 +89,10 @@
     },
     {
       "Path": "apps/matchwinloss",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/matchwinlossdetail",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     }
   ]

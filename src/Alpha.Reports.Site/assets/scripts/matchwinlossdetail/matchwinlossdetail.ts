@@ -1,7 +1,6 @@
 ﻿/// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/league-multiselection.ts" />
-/// <reference path="../components/link-builder.ts" />
 
 "use strict";
 class MatchWinLossDetailView {
@@ -10,7 +9,6 @@ class MatchWinLossDetailView {
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     leagueMultiSelectionComponent: LeagueMultiSelectionComponent;
     reportTooltip: ReportTooltip;
-    linkBuilderComponent: LinkBuilderComponent;
 
     $pageTitle: JQuery;
     $tableReport: JQuery;
@@ -41,17 +39,19 @@ class MatchWinLossDetailView {
         dateRangePickerComponent: DateRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         leagueMultiSelectionComponent: LeagueMultiSelectionComponent,
-        reportTooltip: ReportTooltip,
-        linkBuilderComponent: LinkBuilderComponent) {
+        reportTooltip: ReportTooltip) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.leagueMultiSelectionComponent = leagueMultiSelectionComponent;
         this.reportTooltip = reportTooltip;
-        this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
+        if (!this.checkReady()) {
+            return;
+        }
+
         this.$.blockUI();
 
         this.cacheElements();
@@ -78,6 +78,9 @@ class MatchWinLossDetailView {
         this.getLeaguesByCustomerParam = this.getLeagueParam();
 
         this.$.unblockUI();
+    };
+    checkReady = () => {
+        return this.$("#dropdown-product").length > 0;
     };
     cacheElements = () => {
         this.$pageTitle = this.$(".page-title");
@@ -137,11 +140,6 @@ class MatchWinLossDetailView {
             this.$pageTitle.addClass("hide-filter");
             this.$reportForm.addClass("hide");
         }
-
-        this.replaceHrefParam("IsFilterVisible", currentHideState);
-    };
-    replaceHrefParam = (paramName: string, paramValue: any) => {
-        this.linkBuilderComponent.updateParam(paramName, paramValue);
     };
     onSwitchMode = () => {
         this.$.blockUI();
@@ -155,8 +153,6 @@ class MatchWinLossDetailView {
             this.$pageTitle.addClass("stack-mode");
             tableReport.addClass("stack-mode");
         }
-
-        this.replaceHrefParam("IsStackMode", !currentStackModeState);
 
         let levels = this.levels;
         let this$ = this.$;
@@ -186,8 +182,6 @@ class MatchWinLossDetailView {
         let tableReport = this.$tableReport;
         this.$pageTitle.addClass("stack-mode");
         tableReport.addClass("stack-mode");
-
-        this.replaceHrefParam("IsStackMode", true);
 
         let this$ = this.$;
         let levels = this.levels;
@@ -221,7 +215,7 @@ class MatchWinLossDetailView {
         };
     };
     showLeagues = (event: any) => {
-        if (this.$buttonLeague.attr("aria-expanded") === "true") {
+        if (alphaReports.convertAttributeToBool(this.$buttonLeague.attr("aria-expanded"))) {
             return;
         }
 
@@ -250,17 +244,16 @@ class MatchWinLossDetailView {
             url: this.$loadLeagueURL.val(),
             cache: false,
             data: param,
-            success: (responseHtml) => {
-                self.$leagueContainer.empty().append(responseHtml);
-                self.leagueMultiSelectionComponent.render();
-                self.$buttonLeague = self.$("#dropdown-league").parent().find(".multiselect.btn");
-                self.$buttonLeague.on("click", self.showLeagues);
-                self.$buttonLeague.click();
-            },
-            complete: () => {
-                this$.unblockUI();
-            }
+            success: this.renderLeagues,
+            complete: this$.unblockUI
         });
+    };
+    renderLeagues = (html: string) => {
+        this.$leagueContainer.empty().append(html);
+        this.leagueMultiSelectionComponent.render();
+        this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
+        this.$buttonLeague.on("click", this.showLeagues);
+        this.$buttonLeague.click();
     };
 }
 
@@ -270,8 +263,7 @@ $(() => {
         new DateRangePickerComponent($),
         new ProductMultiSelectionComponent($),
         new LeagueMultiSelectionComponent($),
-        new ReportTooltip($),
-        new LinkBuilderComponent($));
+        new ReportTooltip($));
 
     matchWinLossDetailView.init();
 });

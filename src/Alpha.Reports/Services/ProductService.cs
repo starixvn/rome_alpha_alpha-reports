@@ -15,6 +15,8 @@
 
         IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds);
 
+        IEnumerable<Product> FilterProductsByCustomer(int custId, IEnumerable<int> productIds);
+
         IEnumerable<string> GetProductNames(IEnumerable<int> productIds);
 
         string ConcatProductNames(string productIds);
@@ -47,6 +49,13 @@
                 : customerProductIds.Where(product => productIds.Contains(product));
 
             return productIdList;
+        }
+
+        public IEnumerable<Product> FilterProductsByCustomer(int custId, IEnumerable<int> productIds)
+        {
+            var products = GetProductsForCustomer(custId).Where(product => productIds.Contains(product.Id));
+
+            return products;
         }
 
         public IEnumerable<Product> GetProductsForCustomer(int custId)

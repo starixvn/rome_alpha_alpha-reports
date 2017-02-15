@@ -52,7 +52,7 @@
                 query.Language);
 
             var userSelectedLeagueIds = string.IsNullOrWhiteSpace(query.UserSelectedLeagueIds)
-                ? string.Join(",", leagueService.GetLeaguesByCustomer(selectLeagueParam).Select(league => league.Id))
+                ? leagueService.GetLeaguesByCustomer(selectLeagueParam).Select(league => league.Id).JoinWithComma()
                 : query.UserSelectedLeagueIds;
 
             return new MatchWinLossDetailParam(

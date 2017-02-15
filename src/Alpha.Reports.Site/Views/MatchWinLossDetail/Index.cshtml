@@ -13,10 +13,6 @@
     @ProductMultiSelection.Render(Model.FilterViewModel.ProductMultiSelectionViewModel)
     @DateRangePicker.Render(Model.FilterViewModel.DateRangePickerViewModel)
 
-    <div id="dropdown-league-container" class="form-group">
-        @LeagueMultiSelection.Render(Model.FilterViewModel.LeagueMultiSelectionViewModel)
-    </div>
-
     <div class="form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
@@ -34,14 +30,14 @@
             <th rowspan="2" class="visible-stack-mode col-combine">
                 @Resources.Member
                 <br />
-                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
             <th class="hidden-stack-mode" colspan="3">@Resources.Agent</th>
             <th rowspan="2" class="visible-stack-mode col-combine">
                 @Resources.Agent
                 <br />
-                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
             @if (Model.CustLevel.IsMasterOrSuperLevel())
@@ -50,7 +46,7 @@
                 <th rowspan="2" class="visible-stack-mode col-combine">
                     @Resources.Master
                     <br />
-                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
             }
 
@@ -60,7 +56,7 @@
                 <th rowspan="2" class="visible-stack-mode col-combine">
                     @Resources.Super
                     <br />
-                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
             }
 
@@ -96,12 +92,18 @@
     @if (Model.HasData)
     {
         <tbody>
+            <tr class="tbl-footer">
+                @RenderBetTypeRow(Model.GrandTotal, Resources.GrandTotal)
+            </tr>
             @foreach (var data in Model.NoParlayMatchWinLossDetail)
             {
                 <tr class="match-title-row">
                     <td class="text-left col-username" colspan="@Model.ReportColumnsCount">
                         <span class="league-title">@data.LeagueName</span>
+                        @if (!string.IsNullOrWhiteSpace(data.MatchName))
+                        {
                         <span class="match-title">@data.MatchName</span>
+                        }
                     </td>
                 </tr>
 
@@ -118,12 +120,14 @@
                     isEvenRow = !isEvenRow;
                 }
 
-                <tr class="sub-total-row">
-                    @RenderBetTypeRow(data.Total, Resources.SubTotal)
-                </tr>
+                if (data.RenderSubTotal)
+                {
+                    <tr class="sub-total-row">
+                        @RenderBetTypeRow(data.Total, Resources.SubTotal)
+                    </tr>
+                }
             }
-            @if (Model.NoParlayWinLossTotal != null
-                        && (Model.MixParlay != null || Model.SystemParlay != null))
+            @if (Model.ShowTotalRow)
             {
                 <tr class="sub-total-row">
                     @RenderBetTypeRow(Model.NoParlayWinLossTotal, Resources.Total)

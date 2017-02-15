@@ -82,6 +82,8 @@
 
         public bool IsSetDefaultStackMode => query.IsSetDefaultStackMode;
 
+        public bool ShowTotalRow => NoParlayWinLossTotal != null && (MixParlay != null || SystemParlay != null);
+
         public UserLevel CustLevel => query.CustLevel;
 
         public IEnumerable<SelectListItem> Products { get; }
@@ -89,7 +91,7 @@
         public IEnumerable<SelectListItem> Leagues { get; }
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
-            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
+            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption, LeagueMultiSelectionViewModel);
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
@@ -104,7 +106,6 @@
                 CustLevel,
                 DateRangePickerViewModel,
                 ProductMultiSelectionViewModel,
-                LeagueMultiSelectionViewModel,
                 MinDate);
 
         public IEnumerable<MatchWinLossDetailViewModel> NoParlayMatchWinLossDetail { get; }

@@ -111,7 +111,8 @@
             var row = sheet.GetRow(rowIndex);
             row.CopyCellsFrom(MatchTitleRowTemplate);
 
-            var title = $"{data.LeagueName} >> {data.MatchName}".ToUpper(CultureInfo.InvariantCulture);
+            var title = (data.LeagueName + (string.IsNullOrEmpty(data.MatchName) ? string.Empty : $" >> {data.MatchName}"))
+                .ToUpper(CultureInfo.InvariantCulture);
             sheet.SetCellRangeValue(rowIndex, row.FirstCellIndex, rowIndex, row.LastCellIndex - 1, title);
         }
 
@@ -160,14 +161,16 @@
         {
             var sheet = GetSheetAt(TemplateInfo.SheetIndex);
 
-            MatchTitleRowTemplate = sheet.GetRow(3);
-            OddRowTemplate = sheet.GetRow(4);
-            EvenRowTemplate = sheet.GetRow(5);
-            SubTotalRowTemplate = sheet.GetRow(6);
-            TotalRowTemplate = sheet.GetRow(7);
-            MixParlayRowTemplate = sheet.GetRow(8);
-            SystemParlayRowTemplate = sheet.GetRow(9);
-            GrandTotalRowTemplate = sheet.GetRow(10);
+            currentRowIndex = TemplateInfo.BodyStartIndex;
+
+            MatchTitleRowTemplate = sheet.GetRow(currentRowIndex++);
+            OddRowTemplate = sheet.GetRow(currentRowIndex++);
+            EvenRowTemplate = sheet.GetRow(currentRowIndex++);
+            SubTotalRowTemplate = sheet.GetRow(currentRowIndex++);
+            TotalRowTemplate = sheet.GetRow(currentRowIndex++);
+            MixParlayRowTemplate = sheet.GetRow(currentRowIndex++);
+            SystemParlayRowTemplate = sheet.GetRow(currentRowIndex++);
+            GrandTotalRowTemplate = sheet.GetRow(currentRowIndex + 1);
 
             return GetSheetAt(ReportSheetIndex);
         }
@@ -235,6 +238,10 @@
 
             currentRowIndex = TemplateInfo.BodyStartIndex;
 
+            var row = sheet.GetRow(currentRowIndex++);
+            row.CopyCellsFrom(GrandTotalRowTemplate);
+            FillCells(row, GrandTotal, GrandTotalRowMapper.Mappings);
+
             foreach (var data in NoParlayMatchWinLossDetail)
             {
                 FillMatchTitle(sheet, currentRowIndex++, data);
@@ -246,7 +253,10 @@
                     isEvenRow = !isEvenRow;
                 }
 
-                FillMatchTotal(sheet, currentRowIndex++, data.Total);
+                if (data.RenderSubTotal)
+                {
+                    FillMatchTotal(sheet, currentRowIndex++, data.Total);
+                }
             }
 
             if (NoParlayWinLossTotal != null &&

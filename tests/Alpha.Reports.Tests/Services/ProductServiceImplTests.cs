@@ -3,10 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Extensions;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
     using Fixtures;
     using NSubstitute;
     using Reports.Criteria;
+    using Reports.Extensions;
     using Reports.Models;
     using Reports.Services;
     using Xunit;
@@ -169,6 +172,35 @@
 
             // Assert
             Assert.Equal(expectedProductNames, actualProductNames);
+        }
+
+        [Theory]
+        [InlineData("1,2,3,5", "1,2,3,5")]
+        [InlineData("1,2,3,5,6", "1,2,3,5")]
+        [InlineData("1,2,3,5,7,8", "1,2,3,5")]
+        [InlineData("1,2,5", "1,2,5")]
+        [InlineData("1", "1")]
+        [InlineData("", "")]
+        public void FilterProductsByCustomer_Always_FiltersSelectedProductsWithData(
+            string productIds,
+            string expectProductIds)
+        {
+            // Arrange
+            var custId = 2;
+            var customerProductIds = "1,2,3,5";
+            IEnumerable<Product> customerProducts = customerProductIds.ToListInt().Select(id => new Product(id, string.Empty));
+            IEnumerable<Product> cachedProducts;
+            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(x =>
+            {
+                x[1] = customerProducts;
+                return true;
+            });
+
+            // Act
+            var actualProducts = productServiceImpl.FilterProductsByCustomer(custId, productIds.ToListInt());
+
+            // Assert
+            AssertExtension.Equal(expectProductIds.ToListInt(), actualProducts.Select(product => product.Id).ToList());
         }
     }
 }

@@ -35,5 +35,7 @@
         public IEnumerable<BetTypeWinLossViewModel> BetTypeWinLoss { get; }
 
         public BetTypeWinLossViewModel Total { get; }
+
+        public bool RenderSubTotal => MatchId != 0 && Race != 0;
     }
 }

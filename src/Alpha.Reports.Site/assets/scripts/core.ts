@@ -149,8 +149,8 @@ class AlphaReports {
             isEvenRow = !isEvenRow;
         });
     };
-    convertAttributeToBool = (attrValue) => {
-        return attrValue && attrValue.toString().toLowerCase() === "true";
+    convertAttributeToBool = (attrValue: string) => {
+        return !!attrValue && (attrValue.toString().toLowerCase() === "true");
     };
 }
 

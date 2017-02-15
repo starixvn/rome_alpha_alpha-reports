@@ -34,12 +34,24 @@
         width: 800px;
     }
 
-    .multiselect-container > li.multiselect-all {
+    .multiselect-container > .multiselect-all {
         width: 100%;
+    }
+
+    .multiselect-container > li.filter {
+        width: 100%;
+
+        .input-group {
+            width: 97%;
+        }
     }
 
     .multiselect-container > li {
         width: 50%;
         display: inline-block;
     }
+}
+
+.tblRpt.tblRpt-hover tbody tr.tbl-footer:hover td {
+    background-color: #7f3d1d;
 }

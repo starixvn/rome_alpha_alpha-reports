@@ -69,11 +69,7 @@
 
         public IEnumerable<Product> GetProductsForCustomer(MatchWinLossDetailParam param)
         {
-            var products = productService
-                .GetProductsForCustomer(param.CustId)
-                .Where(product => supportedProducts.Contains(product.Id));
-
-            return products;
+            return productService.FilterProductsByCustomer(param.CustId, supportedProducts);
         }
     }
 }

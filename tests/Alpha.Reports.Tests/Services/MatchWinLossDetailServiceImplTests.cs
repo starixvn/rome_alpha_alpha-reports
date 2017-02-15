@@ -116,33 +116,20 @@
             AssertExtension.Equal(expectedMatchWinLossModels, actualMatchWinLossModels);
         }
 
-        [Theory]
-        [InlineData("1,2,3,5", "1,2,3,5")]
-        [InlineData("1,2,3,5,6", "1,2,3,5")]
-        [InlineData("1,2,3,5,7,8", "1,2,3,5")]
-        [InlineData("1,2,5", "1,2,5")]
-        [InlineData("1", "1")]
-        [InlineData("", "")]
-        public void GetProductsForCustomer_Always_FiltersSelectedProductsWithData(
-            string productIds,
-            string expectProductIds)
+        [Fact]
+        public void GetProductsForCustomer_Always_ReturnsFilteredProductsFromProductService()
         {
             // Arrange
-            var param = new MatchWinLossDetailParam(
-                anyValueCreatorFixture.Create<int>(),
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
-                anyValueCreatorFixture.Create<string>(),
-                anyValueCreatorFixture.Create<IEnumerable<int>>(),
-                anyValueCreatorFixture.Create<UserLevel>());
+            var expectedProducts = anyValueCreatorFixture.Create<IEnumerable<Product>>();
 
-            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(productIds.ToListInt().Select(id => new Product(id, string.Empty)));
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
+                .Returns(expectedProducts);
 
             // Act
-            var actualProductIds = matchWinLossDetailServiceImpl.GetProductsForCustomer(param);
+            var actualProducts = matchWinLossDetailServiceImpl.GetProductsForCustomer(Arg.Any<MatchWinLossDetailParam>());
 
             // Assert
-            Assert.Equal(expectProductIds.ToListInt(), actualProductIds.Select(product => product.Id).ToList());
+            AssertExtension.Equal(expectedProducts, actualProducts);
         }
     }
 }

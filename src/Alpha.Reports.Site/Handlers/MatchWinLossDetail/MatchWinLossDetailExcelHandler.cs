@@ -73,12 +73,12 @@
               titleStartIndex: 1,
               headerStartIndex: 2,
               bodyStartIndex: 4,
-              bodyEndIndex: 10,
+              bodyEndIndex: 11,
               freezeRowIndex: 0,
               freezeColumnName: A,
               columnStartName: A,
               sheetIndex: 1,
-              footerEndIndex: 11);
+              footerEndIndex: 12);
 
         private string GetReporTitle(MatchWinLossDetailExcelQuery query)
             => $"{Resources.MatchWinLossDetail} {query.FromDate.ToShortDateWithSlash()} --> {query.ToDate.ToShortDateWithSlash()}";

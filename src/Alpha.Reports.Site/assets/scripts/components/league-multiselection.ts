@@ -42,7 +42,8 @@ class LeagueMultiSelectionComponent {
             includeSelectAllOption: hasAnyLeague,
             onChange: this.onChange,
             onSelectAll: this.onChange,
-            language: this.$dropdownLeague.data("language")
+            language: this.$dropdownLeague.data("language"),
+            enableCaseInsensitiveFiltering: true
         });
 
         this.$multiSelectButton = this.$dropdownLeague.parent().find(".multiselect.btn");
