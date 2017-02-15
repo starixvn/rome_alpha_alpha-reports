@@ -332,6 +332,6 @@
     <value>นับเดิมพัน</value>
   </data>
   <data name="WinLossTitle" xml:space="preserve">
-    <value>ได้ เสีย</value>
+    <value>ชนะ แพ้</value>
   </data>
 </root>
