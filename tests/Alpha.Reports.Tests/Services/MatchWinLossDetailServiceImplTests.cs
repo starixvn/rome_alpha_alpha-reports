@@ -125,8 +125,10 @@
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
                 .Returns(expectedProducts);
 
+            var param = anyValueCreatorFixture.Create<MatchWinLossDetailParam>();
+
             // Act
-            var actualProducts = matchWinLossDetailServiceImpl.GetProductsForCustomer(Arg.Any<MatchWinLossDetailParam>());
+            var actualProducts = matchWinLossDetailServiceImpl.GetProductsForCustomer(param);
 
             // Assert
             AssertExtension.Equal(expectedProducts, actualProducts);
