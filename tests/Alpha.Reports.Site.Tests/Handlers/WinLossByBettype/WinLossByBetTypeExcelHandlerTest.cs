@@ -23,7 +23,7 @@
 
     [Trait("Category", "WinLossByBetType")]
     [Collection("UserCollection")]
-    public class WinLossByBetTypeHandlerTestsExcelHandlerTest
+    public class WinLossByBetTypeExcelHandlerTest
     {
         private readonly WinLossByBetTypeService reportService;
         private readonly ReportDateService reportDateService;
@@ -33,7 +33,7 @@
         private readonly UserFixture userFixture;
         private readonly Fixture fixture = new Fixture();
 
-        public WinLossByBetTypeHandlerTestsExcelHandlerTest(UserFixture userFixture)
+        public WinLossByBetTypeExcelHandlerTest(UserFixture userFixture)
         {
             this.userFixture = userFixture;
             reportService = Substitute.For<WinLossByBetTypeService>();

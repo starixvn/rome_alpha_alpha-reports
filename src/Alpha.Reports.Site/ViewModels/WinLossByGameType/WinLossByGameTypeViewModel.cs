@@ -12,8 +12,6 @@
 
     public class WinLossByGameTypeViewModel
     {
-        private readonly string sortPropertyNameDefault = "GameTypeName";
-
         private readonly WinLossByGameTypeQuery message;
         private readonly WinLossByGameTypeParam winLossByGameTypeParam;
 
@@ -57,8 +55,6 @@
 
         public bool IsStackMode => message.IsStackMode;
 
-        public string SortPropertyName => GetSortedProperty(message.CustLevel, message.SortPropertyName);
-
         public bool IsDescendingSort => message.IsDescendingSort;
 
         public bool IsFilterVisible => message.IsFilterVisible;
@@ -82,26 +78,6 @@
                 IsFilterVisible,
                 MinDate);
 
-        private string GetSortedProperty(UserLevel custLevel, string sortedProperty)
-        {
-            if (string.IsNullOrEmpty(sortedProperty))
-            {
-                return sortPropertyNameDefault;
-            }
-
-            var isSortedPropertyInRange =
-                custLevel.IsSuperLevel()
-                || (custLevel.IsMasterLevel() && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
-                || (custLevel.IsAgentLevel()
-                        && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
-                        && !sortedProperty.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
-
-            return isSortedPropertyInRange ? sortedProperty : sortPropertyNameDefault;
-        }
-
-        ///// <summary>
-        ///// TODO refactor Title
-        ///// </summary>
         private void BuildResources()
         {
             if (CustLevel.IsSuperLevel())

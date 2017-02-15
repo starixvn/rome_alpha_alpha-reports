@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Web;
     using App_GlobalResources;
     using Components;
     using Helpers;
@@ -13,13 +12,9 @@
     using Reports.Models.WinlossByBetType;
     using Requests.WinLossByBetType;
     using Sunplus.Agent.Model.BL.Definitions;
-    using Web.Helpers;
 
     public class WinLossByBetTypeViewModel
     {
-        private readonly string sortPropertyNameDefault = "BetTypeName";    
-        private readonly string winLossByGameTypePath = "WinLossByGameType/Index";
-
         private readonly WinLossByBetTypeQuery message;
         private readonly WinLossByBetTypeParam winLossByBettypeParam;
         private readonly CacheRefService cacheRefService;
@@ -34,11 +29,11 @@
         {
             this.message = message;
             this.winLossByBettypeParam = winLossByBettypeParam;
+            this.cacheRefService = cacheRefService;
             MinDate = message.MinDate;
             ReportData = reportData;
             GrandTotal = grandTotal;
-            this.cacheRefService = cacheRefService;
-
+            
             BuildDisplayedBettypeName = buildDisplayedBettypeName;
             BuildResources();
         }
@@ -67,8 +62,6 @@
 
         public bool IsStackMode => message.IsStackMode;
 
-        public string SortPropertyName => GetSortedProperty(message.CustLevel, message.SortPropertyName);
-
         public bool IsDescendingSort => message.IsDescendingSort;
 
         public bool IsFilterVisible => message.IsFilterVisible;
@@ -92,23 +85,6 @@
                 IsFilterVisible,
                 MinDate);
 
-        private string GetSortedProperty(UserLevel custLevel, string sortedProperty)
-        {
-            if (string.IsNullOrEmpty(sortedProperty))
-            {
-                return sortPropertyNameDefault;
-            }
-
-            var isSortedPropertyInRange =
-                custLevel.IsSuperLevel()
-                || (custLevel.IsMasterLevel() && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
-                || (custLevel.IsAgentLevel()
-                        && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
-                        && !sortedProperty.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
-
-            return isSortedPropertyInRange ? sortedProperty : sortPropertyNameDefault;
-        }
-
         private void BuildResources()
         {
             if (CustLevel.IsSuperLevel())
@@ -131,10 +107,10 @@
             }
         }
 
-        public string BuildWinLossByGameTypePath(int productId, string title)
+        public string BuildWinLossByGameTypePath(int productId, string title, string winLossByGameTypePath)
         {
             return UrlHelper.AddQueryStringParamsFunc(
-                 AppPathHelper.GetAppPath(HttpRuntime.AppDomainAppVirtualPath, "~/") + winLossByGameTypePath,
+                 winLossByGameTypePath,
                  new Dictionary<string, object>
             {
                 { "UserSelectedDateRangeOption", UserSelectedDateRangeOption },
@@ -142,7 +118,6 @@
                 { "ToDate", ToDate },
                 { "ProductId", productId },
                 { "IsStackMode",  IsStackMode },
-                { "SortPropertyName", SortPropertyName },
                 { "IsDescendingSort", IsDescendingSort },
                 { "IsFilterVisible", IsFilterVisible },
                 { "Title", title },
@@ -170,14 +145,14 @@
                 case (int)BetType.VoidbridgeRangeStart:
                     {
                         isAllowViewGameType = true;
-                        winLossByGameTypeTitle = cacheRefService.GetProductName(productId) + " " + Resources.WinLossTitle;
+                        winLossByGameTypeTitle = $"{cacheRefService.GetProductName(productId)} {Resources.WinLossTitle}";
                     }
 
                     break;
-                case (int)BetType.NG2Start + 1:
+                case (int)BetType.NG2Representative:
                     {
                         isAllowViewGameType = true;
-                        winLossByGameTypeTitle = cacheRefService.GetProductName(productId) + " " + Resources.WinLossTitle;
+                        winLossByGameTypeTitle = $"{cacheRefService.GetProductName(productId)} {Resources.WinLossTitle}";
                     }
 
                     break;

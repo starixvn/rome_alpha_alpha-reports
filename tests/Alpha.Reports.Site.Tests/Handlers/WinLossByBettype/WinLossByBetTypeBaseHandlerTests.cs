@@ -1,55 +1,37 @@
 ﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossByBetType
 {
-    using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.Threading;
     using Constants;
     using Fixtures;
-    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using RemotingRef;
-    using Reports.Models.WinlossByBetType;
     using Services;
     using Site.Handlers.WinLossByBetType;
-    using Site.Requests.WinLossByBetType;
-    using TestCases;
     using Utils;
     using Xunit;
 
     [Trait("Category", "WinLossByBetType")]
     [Collection("UserCollection")]
-    public class WinLossByBetTypeHandlerTestsHandlerTests
+    public class WinLossByBetTypeBaseHandlerTests
     {
         private readonly WinLossByBetTypeService reportService;
         private readonly CacheRefService cacheRefService;
-        private readonly WinLossByBetTypeHandler winLossByBetTypeHandler;
+        private readonly WinLossByBetTypeBaseHandler winLossByBetTypeBaseHandler;
         private readonly UserFixture userFixture;
-        private readonly CompareLogic compareLogic;
 
-        public WinLossByBetTypeHandlerTestsHandlerTests(UserFixture userFixture)
+        public WinLossByBetTypeBaseHandlerTests(UserFixture userFixture)
         {
             reportService = Substitute.For<WinLossByBetTypeService>();
             cacheRefService = Substitute.For<CacheRefService>();
 
             this.userFixture = userFixture;
-            winLossByBetTypeHandler = new WinLossByBetTypeHandler(reportService, cacheRefService);
+            winLossByBetTypeBaseHandler = new WinLossByBetTypeBaseHandler(reportService, cacheRefService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             SystemTime.Today = DefaultVariables.CurrentDate;
 
             cacheRefService.GetProductName(23).Returns("NG2");
-            compareLogic = new CompareLogic();
-        }
-
-        [Fact]
-        public void HandlerWinLossByBettypeQuery_NullMessage_ThrowsArgumentNullException()
-        {
-            // Arrange
-            WinLossByBetTypeQuery nullMessage = null;
-
-            // Act &  Assert
-            Assert.Throws<ArgumentNullException>(() => winLossByBetTypeHandler.Handle(nullMessage));
         }
 
         [Theory]     
@@ -94,26 +76,10 @@
             // Arrange
 
             // Act
-            var actualDisplayedBetTypeName = winLossByBetTypeHandler.BuildDisplayedBetTypeName(betTypeId, betTypeName, liveIndicator);
+            var actualDisplayedBetTypeName = winLossByBetTypeBaseHandler.BuildDisplayedBetTypeName(betTypeId, betTypeName, liveIndicator);
 
             // Assert
             Assert.Equal(actualDisplayedBetTypeName, expectedDisplayedBetTypeName);
-        }
-
-        [Theory]
-        [MemberData("WinLossByBetTypeViewModelSources", MemberType = typeof(WinLossByBetTypeViewModelTestCases))]
-        public void AccumulateGrandTotal_ValidReportData_ReturnsCorrectGrandTotal(
-        IEnumerable<WinLossByBetTypeModel> data,
-        WinLossByBetTypeModel expectedGrandTotal)
-        {
-            // Arrange
-
-            // Act
-            var actualGrandTotal = winLossByBetTypeHandler.AccumulateGrandTotal(data);
-
-            // Assert
-            var result = compareLogic.Compare(actualGrandTotal, expectedGrandTotal);
-            Assert.True(result.AreEqual);
         }
     }
 }

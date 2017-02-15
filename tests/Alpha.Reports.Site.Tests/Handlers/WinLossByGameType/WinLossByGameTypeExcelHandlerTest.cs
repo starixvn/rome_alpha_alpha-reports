@@ -22,7 +22,7 @@
 
     [Trait("Category", "WinLossByGameType")]
     [Collection("UserCollection")]
-    public class WinLossByGameTypeHandlerTestsExcelHandlerTest
+    public class WinLossByGameTypeExcelHandlerTest
     {
         private readonly WinLossByGameTypeService reportService;
         private readonly Workbook<WinLossByGameTypeModel> winlossByGameTypeWorkbook;
@@ -30,7 +30,7 @@
         private readonly UserFixture userFixture;
         private readonly Fixture fixture = new Fixture();
 
-        public WinLossByGameTypeHandlerTestsExcelHandlerTest(UserFixture userFixture)
+        public WinLossByGameTypeExcelHandlerTest(UserFixture userFixture)
         {
             this.userFixture = userFixture;
             reportService = Substitute.For<WinLossByGameTypeService>();

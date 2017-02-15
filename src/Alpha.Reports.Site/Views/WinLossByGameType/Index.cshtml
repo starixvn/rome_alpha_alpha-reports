@@ -7,7 +7,7 @@
     {
         { "IsStackMode", Model.IsStackMode },
         { "IsDescendingSort", Model.IsDescendingSort },
-        { "SortPropertyName", Model.SortPropertyName },
+        { "SortPropertyName", string.Empty },
         { "ProductId", Model.ProductId },
         { "Title", Model.Title }
     })
@@ -15,7 +15,7 @@
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.Count()"
        data-custid="@Model.CustId"
-       data-sortedcolumn="@Model.SortPropertyName"
+       data-sortedcolumn=""
        data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
