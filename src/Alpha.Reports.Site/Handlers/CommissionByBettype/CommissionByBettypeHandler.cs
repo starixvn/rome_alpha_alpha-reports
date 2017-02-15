@@ -13,7 +13,10 @@
         private ReportDateService reportDateService;
         private UserPermissionService userPermissionService;
 
-        public CommissionByBettypeHandler(CommissionByBettypeService commissionByBettypeServiceImpl, ReportDateService reportDateServiceImpl, UserPermissionService userPermissionServiceImpl)
+        public CommissionByBettypeHandler(
+            CommissionByBettypeService commissionByBettypeServiceImpl, 
+            ReportDateService reportDateServiceImpl, 
+            UserPermissionService userPermissionServiceImpl)
         {
             commissionService = commissionByBettypeServiceImpl;
             reportDateService = reportDateServiceImpl;
@@ -22,7 +25,14 @@
 
         public CommissionByBettypeViewModel Handle(CommissionByBettypeQuery message)
         {
-            var param = new CommissionByBettypeParam(message.ViewerLevel, message.CustLevel, message.CustId, message.FromDate, message.ToDate, reportDateService.GetMoveBetsDay());
+            var param = new CommissionByBettypeParam(
+                message.ViewerLevel, 
+                message.CustLevel, 
+                message.CustId, 
+                message.FromDate, 
+                message.ToDate, 
+                reportDateService.GetMoveBetsDay());
+
             var commissions = commissionService.GetAllCommissionByBettypes(param);
 
             var breadcrumbLevel = BuildBreadcrumbLevel(message);

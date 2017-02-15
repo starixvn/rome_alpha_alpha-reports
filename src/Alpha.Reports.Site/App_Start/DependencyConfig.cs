@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
     using System.Web.Mvc;
     using Controllers;
@@ -67,6 +68,7 @@
             yield return typeof(ReportBaseController).Assembly;
         }
 
+        [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed")]
         private static void RegisterServices(Container container)
         {
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
@@ -89,7 +91,7 @@
                 Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
-            container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbook>();
+            container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

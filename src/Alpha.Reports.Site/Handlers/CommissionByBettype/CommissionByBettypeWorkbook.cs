@@ -50,11 +50,13 @@
                 RemoveColumnIndex(npoiSheet, 7);
                 headerAddress.LastColumn--;
             }
+
             if (userPermissionService.IsShowMyanmarOdds() == false)
             {
                 RemoveColumnIndex(npoiSheet, 5);
                 headerAddress.LastColumn--;
             }
+
             if (userPermissionService.IsEnableProduct(ProductIdConstants.CockFighting) == false)
             {
                 RemoveColumnIndex(npoiSheet, 4);

@@ -47,24 +47,32 @@
 
         public CommissionByBettypeModel Total => CommissionByBettypeModel.GetAccumulatedCommission(CommissionByBettypes);
 
-        public int GetNumCols()
-        {
-            int numCols = 5;
-            if (ShowChargeCommColumn)
-                numCols++;
-            if (ShowMyanmarOddsColumn)
-                numCols++;
-            if (ShowOthersCommColumn)
-                numCols++;
-
-            return numCols;
-        }
-
         public bool ShowChargeCommColumn { get; }
 
         public bool ShowMyanmarOddsColumn { get; }
 
         public bool ShowOthersCommColumn { get; }
+
+        public int GetNumCols()
+        {
+            int numCols = 5;
+            if (ShowChargeCommColumn)
+            {
+                numCols++;
+            }
+
+            if (ShowMyanmarOddsColumn)
+            {
+                numCols++;
+            }
+
+            if (ShowOthersCommColumn)
+            {
+                numCols++;
+            }
+
+            return numCols;
+        }
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(CommissionByBettypeModel model)
         {

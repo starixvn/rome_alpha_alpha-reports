@@ -24,9 +24,10 @@
             var user = Substitute.For<IUser>();
             user.LevelId.Returns((byte)1);
             var query = new CommissionByBettypeQuery(user);
+            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), showChargeCommColumn, showMyanmarOddsColumn, showOthersCommColumn);
 
             // Act
-            var result = new CommissionByBettypeViewModel(query, null, null, default(DateTime), showChargeCommColumn, showMyanmarOddsColumn, showOthersCommColumn).GetNumCols();
+            var result = viewmodel.GetNumCols();
 
             // Assert
             Assert.Equal(exptectedValue, result);

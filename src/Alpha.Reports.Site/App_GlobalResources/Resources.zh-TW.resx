@@ -365,4 +365,19 @@
 	<data name="WinPlace" xml:space="preserve">
 		<value>獨贏及位置</value>
 	</data>
+	<data name="Commission" xml:space="preserve">
+		<value>佣金</value>
+	</data>
+	<data name="Gaming" xml:space="preserve">
+		<value>Gaming</value>
+	</data>
+	<data name="ChargeComm" xml:space="preserve">
+		<value>抽取傭金</value>
+	</data>
+	<data name="SymbolMyanmarOdds" xml:space="preserve">
+		<value>% Odds</value>
+	</data>
+	<data name="Others" xml:space="preserve">
+		<value>其他</value>
+	</data>
 </root>

@@ -6,21 +6,17 @@
     {
         public int CustId { get; set; }
 
-        public int Recommend { get; set; }
-
-        public int Mrecommend { get; set; }
-
         public string CustName { get; set; }
 
-        public decimal TotalComm1 { get; set; }
+        public decimal Comm1 { get; set; }
 
-        public decimal TotalComm2 { get; set; }
+        public decimal Comm2 { get; set; }
 
-        public decimal TotalComm3 { get; set; }
-
-        public decimal MOComm { get; set; }
+        public decimal Comm3 { get; set; }
 
         public decimal CasinoComm { get; set; }
+
+        public decimal MOComm { get; set; }
 
         public decimal OtherComm { get; set; }
 
@@ -32,12 +28,12 @@
 
             foreach (var commission in commissions)
             {
-                accumulatedCommission.TotalComm1 += commission.TotalComm1;
-                accumulatedCommission.TotalComm2 += commission.TotalComm2;
-                accumulatedCommission.TotalComm3 += commission.TotalComm3;
+                accumulatedCommission.Comm1 += commission.Comm1;
+                accumulatedCommission.Comm2 += commission.Comm2;
+                accumulatedCommission.Comm3 += commission.Comm3;
 
-                accumulatedCommission.MOComm += commission.MOComm;
                 accumulatedCommission.CasinoComm += commission.CasinoComm;
+                accumulatedCommission.MOComm += commission.MOComm;
                 accumulatedCommission.OtherComm += commission.OtherComm;
                 accumulatedCommission.ChargeComm += commission.ChargeComm;
             }

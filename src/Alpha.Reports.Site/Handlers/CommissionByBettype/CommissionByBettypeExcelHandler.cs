@@ -14,17 +14,29 @@
     public class CommissionByBettypeExcelHandler : BaseHandler, IRequestHandler<CommissionByBettypeExcelQuery, ExcelFileViewModel>
     {
         private readonly CommissionByBettypeService commissionService;
+        private readonly ReportDateService reportDateService;
         private readonly CommissionByBettypeWorkbook workbook;
 
-        public CommissionByBettypeExcelHandler(CommissionByBettypeService commissionServiceImpl, CommissionByBettypeWorkbook workbookImpl)
+        public CommissionByBettypeExcelHandler(
+            CommissionByBettypeService commissionServiceImpl, 
+            ReportDateService reportDateServiceImpl, 
+            CommissionByBettypeWorkbook workbookImpl)
         {
             commissionService = commissionServiceImpl;
+            reportDateService = reportDateServiceImpl;
             workbook = workbookImpl;
         }
 
         public ExcelFileViewModel Handle(CommissionByBettypeExcelQuery message)
         {
-            var param = new CommissionByBettypeParam(message.ViewerLevel, message.CustLevel, message.CustId, message.FromDate, message.ToDate, new DateTime());
+            var param = new CommissionByBettypeParam(
+                message.ViewerLevel, 
+                message.CustLevel, 
+                message.CustId, 
+                message.FromDate, 
+                message.ToDate, 
+                reportDateService.GetMoveBetsDay());
+
             var commissions = commissionService.GetAllCommissionByBettypes(param);
 
             var result = workbook
@@ -47,9 +59,9 @@
         {
             var mapper = new Mapper<CommissionByBettypeModel>()
             .Map(Column.A, commission => isTotal ? Resources.Total : commission.CustName)
-            .Map(Column.B, commission => commission.TotalComm1)
-            .Map(Column.C, commission => commission.TotalComm2)
-            .Map(Column.D, commission => commission.TotalComm3)
+            .Map(Column.B, commission => commission.Comm1)
+            .Map(Column.C, commission => commission.Comm2)
+            .Map(Column.D, commission => commission.Comm3)
             .Map(Column.E, commission => commission.ChargeComm)
             .Map(Column.F, commission => commission.MOComm)
             .Map(Column.G, commission => commission.CasinoComm)
@@ -68,6 +80,11 @@
             => $"{Resources.CommissionByBettype} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 
         private string GetExcelFileName(CommissionByBettypeExcelQuery message, CommissionByBettypeParam commissionParam)
-            => string.Join("-", Resources.CommissionByBettype, message.CustName, commissionParam.FromDate.ToShortDateWithSlash(), commissionParam.ToDate.ToShortDateWithSlash());
+            => string.Join(
+                "-", 
+                Resources.CommissionByBettype, 
+                message.CustName, 
+                commissionParam.FromDate.ToShortDateWithSlash(), 
+                commissionParam.ToDate.ToShortDateWithSlash());
     }
 }

@@ -13,21 +13,21 @@
     <thead class="tableFloatingHeaderOriginal">
         <tr>
             <th class="sorting" data-colindex="0" data-sortedname="Username">@Resources.Username</th>
-            <th class="sorting" data-sortedname>Commission 1</th>
-            <th class="sorting" data-sortedname>Commission 2</th>
-            <th class="sorting" data-sortedname>Commission 3</th>
+            <th class="sorting" data-sortedname>@Resources.Commission 1</th>
+            <th class="sorting" data-sortedname>@Resources.Commission 2</th>
+            <th class="sorting" data-sortedname>@Resources.Commission 3</th>
             @if (Model.ShowChargeCommColumn)
             {
-                <th class="sorting" data-sortedname>Charge Comm</th>
+                <th class="sorting" data-sortedname>@Resources.ChargeComm</th>
             }
             @if (Model.ShowMyanmarOddsColumn)
             {
-                <th class="sorting" data-sortedname>% Odds</th>
+                <th class="sorting" data-sortedname>@Resources.SymbolMyanmarOdds</th>
             }
-            <th class="sorting" data-sortedname>Gamming</th>
+            <th class="sorting" data-sortedname>@Resources.Gaming</th>
             @if (Model.ShowOthersCommColumn)
             {
-                <th class="sorting" data-sortedname>Other</th>
+                <th class="sorting" data-sortedname>@Resources.Others</th>
             }
         </tr>
     </thead>
@@ -73,9 +73,9 @@
 
 @helper RenderCellValue(CommissionByBettypeModel commission)
 {
-    <td>@HtmlHelpers.FormatNumber(commission.TotalComm1)</td>
-    <td>@HtmlHelpers.FormatNumber(commission.TotalComm2)</td>
-    <td>@HtmlHelpers.FormatNumber(commission.TotalComm3)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.Comm1)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.Comm2)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.Comm3)</td>
     if (Model.ShowChargeCommColumn)
     {
     <td>@HtmlHelpers.FormatNumber(commission.ChargeComm)</td>

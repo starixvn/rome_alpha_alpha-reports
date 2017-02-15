@@ -364,4 +364,19 @@
 	<data name="WinPlace" xml:space="preserve">
 		<value>ชนะ / ตำแหน่ง</value>
 	</data>
+	<data name="Commission" xml:space="preserve">
+		<value>คอมมิชชั่น</value>
+	</data>
+	<data name="Gaming" xml:space="preserve">
+		<value>Gaming</value>
+	</data>
+	<data name="ChargeComm" xml:space="preserve">
+		<value>ค่าธรรมเนียม คอมมิชชั่น</value>
+	</data>
+	<data name="SymbolMyanmarOdds" xml:space="preserve">
+		<value>% Odds</value>
+	</data>
+	<data name="Others" xml:space="preserve">
+		<value>อื่นๆ</value>
+	</data>
 </root>

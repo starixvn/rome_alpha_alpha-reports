@@ -178,6 +178,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ChargeComm.
+        /// </summary>
+        public static string ChargeComm {
+            get {
+                return ResourceManager.GetString("ChargeComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Close {
@@ -201,6 +210,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
         public static string CommAndTotal {
             get {
                 return ResourceManager.GetString("CommAndTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commission.
+        /// </summary>
+        public static string Commission {
+            get {
+                return ResourceManager.GetString("Commission", resourceCulture);
             }
         }
         
@@ -291,6 +309,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
         public static string From {
             get {
                 return ResourceManager.GetString("From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gaming.
+        /// </summary>
+        public static string Gaming {
+            get {
+                return ResourceManager.GetString("Gaming", resourceCulture);
             }
         }
         
@@ -571,7 +598,17 @@ namespace Alpha.Reports.Site.App_GlobalResources
             get {
                 return ResourceManager.GetString("Outstanding", resourceCulture);
             }
+        }        
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Others.
+        /// </summary>
+        public static string Others {
+            get {
+                return ResourceManager.GetString("Others", resourceCulture);
+            }
         }
+
         
         /// <summary>
         ///   Looks up a localized string similar to Page.
@@ -705,6 +742,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
         public static string SuperTotal {
             get {
                 return ResourceManager.GetString("SuperTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to % Odds.
+        /// </summary>
+        public static string SymbolMyanmarOdds {
+            get {
+                return ResourceManager.GetString("SymbolMyanmarOdds", resourceCulture);
             }
         }
         

@@ -24,7 +24,6 @@
 
         private readonly CommissionByBettypeExcelHandler excelHandler;
         private readonly CommissionByBettypeService reportService;
-        private readonly UserPermissionService permissionService;
         private readonly CommissionByBettypeWorkbook commissionWorkbook;
         private readonly Workbook<CommissionByBettypeModel> workbook;
 
@@ -32,12 +31,8 @@
         {
             this.userFixture = userFixture;
 
-            reportService = Substitute.For<CommissionByBettypeService>();
-            permissionService = Substitute.For<UserPermissionService>();
-
             commissionWorkbook = Substitute.For<CommissionByBettypeWorkbook>();
             workbook = Substitute.For<Workbook<CommissionByBettypeModel>>();
-
             commissionWorkbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(workbook);
             workbook.Title(Arg.Any<string>()).Returns(workbook);
             workbook.Header(Arg.Any<Func<string, string>>()).Returns(workbook);
@@ -45,7 +40,8 @@
             workbook.Footer(Arg.Any<CommissionByBettypeModel>(), Arg.Any<Mapper<CommissionByBettypeModel>>()).Returns(workbook);
             workbook.Sheet(Arg.Any<string>()).Returns(workbook);
 
-            excelHandler = Substitute.For<CommissionByBettypeExcelHandler>(reportService, commissionWorkbook);
+            reportService = Substitute.For<CommissionByBettypeService>();
+            excelHandler = Substitute.For<CommissionByBettypeExcelHandler>(reportService, Substitute.For<ReportDateService>(), commissionWorkbook);
         }
 
         [Fact]
@@ -111,13 +107,14 @@
             var message = CreateExportExcelQuery();
             var commissions = new List<CommissionByBettypeModel> { fixture.Create<CommissionByBettypeModel>() };
             reportService.GetAllCommissionByBettypes(Arg.Any<CommissionByBettypeParam>()).Returns(commissions);
+            var total = CommissionByBettypeModel.GetAccumulatedCommission(commissions);
 
             // Act
             excelHandler.Handle(message);
 
             // Assert
             workbook.Received().Footer(
-                Arg.Is<CommissionByBettypeModel>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(CommissionByBettypeModel.GetAccumulatedCommission(commissions))),
+                Arg.Is<CommissionByBettypeModel>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(total)),
                 Arg.Any<Mapper<CommissionByBettypeModel>>());
         }
 

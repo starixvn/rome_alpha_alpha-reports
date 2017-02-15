@@ -27,9 +27,9 @@
         }
 
         [Theory]
-        [InlineData(4, "Age_Rpt_CommByBettype_SAg")]
-        [InlineData(3, "Age_Rpt_CommByBettype_MAg")]
-        [InlineData(2, "Age_Rpt_CommByBettype_Ag")]
+        [InlineData(4, "Age_Rpt_CommByBettype_Master")]
+        [InlineData(3, "Age_Rpt_CommByBettype_Agent")]
+        [InlineData(2, "Age_Rpt_CommByBettype_Member")]
         public void With_ValidCustLevel_Returns_ValidSettingKey(byte custLevelId, string expectedSettingKey)
         {
             // Arrange
