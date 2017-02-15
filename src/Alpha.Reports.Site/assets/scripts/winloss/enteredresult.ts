@@ -59,7 +59,7 @@ class EnterResultView {
     };
     cacheDOMElements = () => {
         this.$pageTitle = this.$(".page-title ");
-        this.$tableReport = this.$("#tbl-report");
+        this.$tableReport = this.$("#tbl-enteredresult-report");
         this.$reportForm = this.$("#report-form");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$historicReport = this.$("#historic-report");
