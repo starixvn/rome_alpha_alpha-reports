@@ -195,6 +195,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandlerTests.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
+    <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandlerTests.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandlerTests.cs" />
     <Compile Include="Handlers\RacingCommission\RacingCommissionHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />

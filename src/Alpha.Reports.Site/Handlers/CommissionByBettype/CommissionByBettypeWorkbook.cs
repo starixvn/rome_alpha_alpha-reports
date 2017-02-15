@@ -1,25 +1,40 @@
 ﻿namespace Alpha.Reports.Site.Handlers.CommissionByBettype
 {
+    using System;
+    using System.Collections.Generic;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using ONEbook.SpreadSheets;
     using ONEbook.SpreadSheets.NPOI;
     using Reports.Models.CommissionByBettype;
+    using Services;
+    using Sunplus.Agent.Model.Definitions;
 
-    public class CommissionByBettypeWorkbook : NpoiWorkbook<CommissionByBettypeModel>
+    public interface CommissionByBettypeWorkbook
     {
-        public CommissionByBettypeWorkbook(bool showChargeCommColumn, bool showMyanmarOddsColumn, bool showOthersCommColumn)
+        Workbook<CommissionByBettypeModel> UseTemplate(TemplateInfo templateInfo);
+
+        Workbook<CommissionByBettypeModel> Title(string titleText);
+
+        Workbook<CommissionByBettypeModel> Header(Func<string, string> headerMapping);
+
+        Workbook<CommissionByBettypeModel> Body(IEnumerable<CommissionByBettypeModel> rows, Mapper<CommissionByBettypeModel> mapper);
+
+        Workbook<CommissionByBettypeModel> Footer(CommissionByBettypeModel row, Mapper<CommissionByBettypeModel> rowMapper);
+
+        Workbook<CommissionByBettypeModel> Sheet(string sheetName);
+
+        byte[] ExportToBytes();
+    }
+
+    public class CommissionByBettypeWorkbookImpl : NpoiWorkbook<CommissionByBettypeModel>, CommissionByBettypeWorkbook
+    {
+        private readonly UserPermissionService userPermissionService;
+
+        public CommissionByBettypeWorkbookImpl(UserPermissionService userPermissionServiceImpl)
         {
-            ShowChargeCommColumn = showChargeCommColumn;
-            ShowMyanmarOddsColumn = showMyanmarOddsColumn;
-            ShowOthersCommColumn = showOthersCommColumn;
+            userPermissionService = userPermissionServiceImpl;
         }
-
-        public bool ShowChargeCommColumn { get; }
-
-        public bool ShowMyanmarOddsColumn { get; }
-
-        public bool ShowOthersCommColumn { get; }
 
         protected override void FillBody(Sheet sheet)
         {
@@ -30,17 +45,17 @@
 
             npoiSheet.RemoveMergedRegion(0);
 
-            if (ShowOthersCommColumn == false)
+            if (userPermissionService.IsIMbcCustomer() == false)
             {
                 RemoveColumnIndex(npoiSheet, 7);
                 headerAddress.LastColumn--;
             }
-            if (ShowMyanmarOddsColumn == false)
+            if (userPermissionService.IsShowMyanmarOdds() == false)
             {
                 RemoveColumnIndex(npoiSheet, 5);
                 headerAddress.LastColumn--;
             }
-            if (ShowChargeCommColumn == false)
+            if (userPermissionService.IsEnableProduct(ProductIdConstants.CockFighting) == false)
             {
                 RemoveColumnIndex(npoiSheet, 4);
                 headerAddress.LastColumn--;
@@ -49,7 +64,7 @@
             npoiSheet.AddMergedRegion(headerAddress);
         }
 
-        public void RemoveColumnIndex(ISheet sheet, int colIndex)
+        private void RemoveColumnIndex(ISheet sheet, int colIndex)
         {
             var rowIter = sheet.GetEnumerator();
             while (rowIter.MoveNext())

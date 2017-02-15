@@ -6,6 +6,7 @@
     using Controllers;
     using DataAccesses;
     using Fanex.Data.Repository;
+    using Handlers.CommissionByBettype;
     using MediatR;
     using Models;
     using ONEbook.SpreadSheets;
@@ -78,8 +79,8 @@
             container.RegisterSingleton<OutstandingService, OutstandingServiceImpl>();
             container.RegisterSingleton<RacingCommissionService, RacingCommissionServiceImpl>();
             container.RegisterSingleton<CommissionByBettypeService, CommissionByBettypeServiceImpl>();
-            container.RegisterSingleton<UserPermissionService, UserPermissionServiceImpl>();
 
+            container.RegisterSingleton<UserPermissionService, UserPermissionServiceImpl>();
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
@@ -88,6 +89,7 @@
                 Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
+            container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbook>();
         }
 
         private static void RegisterDataAccesses(Container container)

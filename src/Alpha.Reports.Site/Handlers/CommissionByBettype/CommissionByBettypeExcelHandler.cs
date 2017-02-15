@@ -1,25 +1,25 @@
 ﻿namespace Alpha.Reports.Site.Handlers.CommissionByBettype
 {
-    using Services;
-    using App_GlobalResources;
-    using ONEbook.SpreadSheets;
-    using Requests.CommissionByBettype;
-    using ViewModels;
-    using Extensions;
-    using Reports.Models.CommissionByBettype;
-    using Params;
     using System;
+    using App_GlobalResources;
+    using Extensions;
     using MediatR;
+    using ONEbook.SpreadSheets;
+    using Params;
+    using Reports.Models.CommissionByBettype;
+    using Requests.CommissionByBettype;
+    using Services;
+    using ViewModels;
 
     public class CommissionByBettypeExcelHandler : BaseHandler, IRequestHandler<CommissionByBettypeExcelQuery, ExcelFileViewModel>
     {
         private readonly CommissionByBettypeService commissionService;
-        private readonly Workbook<CommissionByBettypeModel> workbook;
+        private readonly CommissionByBettypeWorkbook workbook;
 
-        public CommissionByBettypeExcelHandler(CommissionByBettypeService commissionService, Workbook<CommissionByBettypeModel> workbook)
+        public CommissionByBettypeExcelHandler(CommissionByBettypeService commissionServiceImpl, CommissionByBettypeWorkbook workbookImpl)
         {
-            this.commissionService = commissionService;
-            this.workbook = new CommissionByBettypeWorkbook(true, false, false);
+            commissionService = commissionServiceImpl;
+            workbook = workbookImpl;
         }
 
         public ExcelFileViewModel Handle(CommissionByBettypeExcelQuery message)
