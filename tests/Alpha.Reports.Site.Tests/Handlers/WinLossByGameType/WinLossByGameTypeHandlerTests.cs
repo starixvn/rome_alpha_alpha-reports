@@ -62,27 +62,14 @@
             message.IsDescendingSort = false;
 
             var expectedReportData = Enumerable.Empty<WinLossByGameTypeModel>();
-            var grandTotal = new WinLossByGameTypeModel();
-            var param = new WinLossByGameTypeParam(
-                0,
-                22,
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
-                message.CustLevel);
 
             reportService.GetWinLossByGameType(Arg.Any<WinLossByGameTypeParam>()).Returns(expectedReportData);
-
-            var expectedWinLossByGameTypeViewModel = new WinLossByGameTypeViewModel(
-                expectedReportData,
-                grandTotal,
-                message,
-                param);
 
             // Act
             var actualWinLossByGameTypeViewModel = winLossByGameTypeHandler.Handle(message);
 
             // Assert
-            var result = compareLogic.Compare(expectedWinLossByGameTypeViewModel.ReportData, expectedReportData);
+            var result = compareLogic.Compare(actualWinLossByGameTypeViewModel.ReportData, expectedReportData);
             Assert.True(result.AreEqual);
         }
 

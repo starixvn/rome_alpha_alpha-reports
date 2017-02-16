@@ -18,14 +18,12 @@
         private readonly WinLossByBetTypeService reportService;
         private readonly CacheRefService cacheRefService;
         private readonly WinLossByBetTypeBaseHandler winLossByBetTypeBaseHandler;
-        private readonly UserFixture userFixture;
 
-        public WinLossByBetTypeBaseHandlerTests(UserFixture userFixture)
+        public WinLossByBetTypeBaseHandlerTests()
         {
             reportService = Substitute.For<WinLossByBetTypeService>();
             cacheRefService = Substitute.For<CacheRefService>();
 
-            this.userFixture = userFixture;
             winLossByBetTypeBaseHandler = new WinLossByBetTypeBaseHandler(reportService, cacheRefService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

@@ -29,7 +29,6 @@
         private readonly CacheRefService cacheRefService;
         private readonly ReportDateService reportDateService;
         private readonly WinLossByBetTypeHandler winLossByBetTypeHandler;
-        private readonly Fixture fixture = new Fixture();
 
         private readonly UserFixture userFixture;
         private readonly CompareLogic compareLogic;
@@ -73,28 +72,14 @@
             message.IsDescendingSort = false;
 
             var expectedReportData = Enumerable.Empty<WinLossByBetTypeModel>();
-            var grandTotal = new WinLossByBetTypeModel();
-            var param = new WinLossByBetTypeParam(
-                0,
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
-                message.CustLevel);
 
             reportService.GetWinLossByBetType(Arg.Any<WinLossByBetTypeParam>()).Returns(expectedReportData);
-
-            var expectedWinLossByBetTypeViewModel = new WinLossByBetTypeViewModel(
-                expectedReportData,
-                grandTotal,
-                message,
-                param,
-                null,
-                cacheRefService);
 
             // Act
             var actualWinLossByBetTypeViewModel = winLossByBetTypeHandler.Handle(message);
 
             // Assert
-            var result = compareLogic.Compare(expectedWinLossByBetTypeViewModel.ReportData, expectedReportData);
+            var result = compareLogic.Compare(actualWinLossByBetTypeViewModel.ReportData, expectedReportData);
             Assert.True(result.AreEqual);
         }
       
