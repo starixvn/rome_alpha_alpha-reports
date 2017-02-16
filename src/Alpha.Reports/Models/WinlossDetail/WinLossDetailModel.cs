@@ -1,0 +1,59 @@
+﻿namespace Alpha.Reports.Models.WinLossDetail
+{
+    public class WinLossDetailModel
+    {
+        public WinLossDetailModel()
+        {
+        }
+
+        public WinLossDetailModel(
+            int custId,
+            string custName,
+            decimal grossComm,
+            decimal netTurnover,
+            decimal turnover,
+            int betCount,
+            NetWinLoss memberNetWinLoss,
+            NetWinLoss agentNetWinLoss,
+            NetWinLoss masterNetWinLoss,
+            NetWinLoss superNetWinLoss)
+        {
+            CustId = custId;
+            CustName = custName;
+            GrossComm = grossComm;
+            NetTurnover = netTurnover;
+            Turnover = turnover;
+            BetCount = betCount;
+            MemberNetWinLoss = memberNetWinLoss;
+            AgentNetWinLoss = agentNetWinLoss;
+            MasterNetWinLoss = masterNetWinLoss;
+            SuperNetWinLoss = superNetWinLoss;
+        }
+
+        public int CustId { get; }
+
+        public string CustName { get; }
+
+        public decimal Turnover { get; }
+
+        public decimal NetTurnover { get; }
+
+        public decimal GrossComm { get; }
+
+        public int BetCount { get; }
+
+        public NetWinLoss MemberNetWinLoss { get; }
+
+        public NetWinLoss AgentNetWinLoss { get; }
+
+        public NetWinLoss MasterNetWinLoss { get; }
+
+        public NetWinLoss SuperNetWinLoss { get; }
+
+        public decimal Company =>
+            -((MemberNetWinLoss?.Total ?? 0)
+            + (AgentNetWinLoss?.Total ?? 0)
+            + (MasterNetWinLoss?.Total ?? 0)
+            + (SuperNetWinLoss?.Total ?? 0));
+    }
+}

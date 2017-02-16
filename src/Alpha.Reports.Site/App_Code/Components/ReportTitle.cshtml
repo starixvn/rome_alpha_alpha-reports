@@ -1,0 +1,39 @@
+﻿@using Alpha.Reports.Site.ViewModels.Components;
+@using Alpha.Reports.Site.App_GlobalResources;
+
+@helper Render(PageHeaderViewModel model, string currentRequestUrl = null)
+{
+    <div class="page-title
+         @(model.IsStackMode ? "stack-mode" : string.Empty)
+         @(model.IsFilterVisible ? string.Empty : "hide-filter")">
+
+        @if (!string.IsNullOrWhiteSpace(model.Title))
+        {
+            <span class="pull-left">@model.Title</span>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(currentRequestUrl))
+        {
+            @Breadcrumb.Render(model.BreadcrumbLevelViewModel, currentRequestUrl)
+        }
+
+        @if (model.IsShowActionIcons)
+        {
+            <div class="list-icon">
+                <ul>
+                    @if (model.HasHideFilterIcon)
+                    {
+                        <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+                        <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+                    }
+
+                    @if (model.HasStackIcon)
+                    {
+                        <li class="normalview-element"><span id="icon-stack-column" class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
+                        <li class="stackcolumnview-element"><span id="icon-normal-column" class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+}

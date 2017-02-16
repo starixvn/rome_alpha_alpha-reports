@@ -1,0 +1,30 @@
+﻿namespace Alpha.Reports.Criteria
+{
+    using System;
+    using System.Collections.Generic;
+
+    public class PagingReportProductCriteria : ReportProductCriteria
+    {
+        public PagingReportProductCriteria(
+            int custId,
+            int pageIndex,
+            int pageSize,
+            DateTime fromDate,
+            DateTime toDate,
+            DateTime balanceUpDay,
+            DateTime moveBetsDay,
+            IEnumerable<int> productIds) : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
+        {
+            PageIndex = pageIndex;
+            PageSize = pageSize;
+        }
+
+        public int PageIndex { get; }
+
+        public int PageSize { get; }
+
+        public int TotalRecords { get; set; }
+
+        public override bool IsValid() => base.IsValid() && PageIndex >= 0;
+    }
+}

@@ -43,7 +43,13 @@ _CodeCoverageReport
 bundles
 *.css
 *.js.map
-*/assets/scripts/**/*.js
-*/bundles/**/*.js
+*/**/assets/scripts/**/*.js
+*/**/bundles/**/*.js
 *.ncrunchproject
 *.ncrunchsolution
+
+artifacts/
+_Chutzpah.coverage.html
+
+*.test.html
+src/Alpha.Reports.Site/jsUnitTest.xml
