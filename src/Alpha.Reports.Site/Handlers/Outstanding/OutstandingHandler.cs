@@ -1,7 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Handlers.Outstanding
 {
+    using Extensions;
     using MediatR;
+    using Params;
     using Requests.Outstanding;
+    using Services;
     using Services.Outstanding;
     using ViewModels.Components;
     using ViewModels.Outstanding;
@@ -10,23 +13,35 @@
     {
         private readonly OutstandingService outstandingService;
 
-        public OutstandingHandler(OutstandingService outstandingService)
+        private readonly ProductService productService;
+
+        public OutstandingHandler(OutstandingService outstandingServiceImpl, ProductService productServiceImpl)
         {
-            this.outstandingService = outstandingService;
+            outstandingService = outstandingServiceImpl;
+            productService = productServiceImpl;
         }
 
         public OutstandingViewModel Handle(OutstandingQuery message)
         {
-            var outstandingDataSource = outstandingService.GetMemberOutstanding(message.ViewerLevel, message.CustLevel, message.CustId);
-            var nextCustLevel = message.CustLevel.GetDirectDownLineLevel();
+            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(message.CustId, message.UserSelectedProductIds.ToListInt());
 
-            var drillDownInfo = BuildBreadcrumbLevel(message);
-            var breadcrumbLevelsViewModel = new BreadcrumbLevelViewModel(drillDownInfo);
+            var param = new OutstandingParam(
+                message.ViewerLevel,
+                message.CustLevel,
+                message.CustId,
+                validUserSelectedProductIds.JoinWithComma());
+
+            var outstandings = outstandingService.GetMemberOutstanding(param);
+
+            var products = productService.GetProductsForCustomer(message.CustId);
+
+            var breadcrumbLevelsViewModel = new BreadcrumbLevelViewModel(BuildBreadcrumbLevel(message));
 
             var viewModel = new OutstandingViewModel(
-                message.ViewerLevel,
-                nextCustLevel,
-                outstandingDataSource,
+                message,
+                outstandings,
+                validUserSelectedProductIds,
+                BuildProductSelectListItems(validUserSelectedProductIds, products),
                 breadcrumbLevelsViewModel);
 
             return viewModel;

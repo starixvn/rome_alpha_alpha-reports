@@ -6,16 +6,19 @@
 
     public class OutstandingCriteria : CriteriaBase
     {
-        public OutstandingCriteria(UserLevel custLevel, int custId)
+        public OutstandingCriteria(UserLevel custLevel, int custId, string productIds)
         {
             CustLevel = custLevel;
             CustId = custId;
+            ProductIds = productIds;
         }
 
-        public int CustId { get; private set; }
+        public int CustId { get; }
 
         [SpParam(Ignored = true)]
         public UserLevel CustLevel { get; }
+
+        public string ProductIds { get; }
 
         public override string GetSettingKey()
         {

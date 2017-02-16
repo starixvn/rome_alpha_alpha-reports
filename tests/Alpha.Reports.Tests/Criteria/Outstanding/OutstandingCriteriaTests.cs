@@ -16,7 +16,7 @@
         {
             // Arrange
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var criteria = new OutstandingCriteria(custLevel, 0);
+            var criteria = new OutstandingCriteria(custLevel, 0, null);
 
             // Act
             var actualSettingKey = criteria.GetSettingKey();
@@ -33,7 +33,7 @@
         {
             // Arrange
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var criteria = new OutstandingCriteria(custLevel, 0);
+            var criteria = new OutstandingCriteria(custLevel, 0, null);
 
             // Act
             var isValid = criteria.IsValid();

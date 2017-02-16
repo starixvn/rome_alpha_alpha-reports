@@ -7,16 +7,16 @@ class OutstandingView {
     $tableReport: any;
 
     sortComponent: SortComponent;
+    productMultiSelectionComponent: ProductMultiSelectionComponent;
     linkBuilderComponent: LinkBuilderComponent;
 
-    constructor(sortComponent: SortComponent, linkBuilderComponent: LinkBuilderComponent) {
+    constructor(sortComponent: SortComponent, productMultiSelectionComponent: ProductMultiSelectionComponent, linkBuilderComponent: LinkBuilderComponent) {
         this.sortComponent = sortComponent;
+        this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
-        this.linkBuilderComponent.render();
-
         this.$tableReport = $("#tbl-report");
 
         this.sortComponent.render({
@@ -30,10 +30,13 @@ class OutstandingView {
         });
 
         this.$tableReport.stickyTableHeaders();
+
+        this.productMultiSelectionComponent.render();
+        this.linkBuilderComponent.render();
     };
 }
 
-const outstandingView = new OutstandingView(new SortComponent($), new LinkBuilderComponent($));
+const outstandingView = new OutstandingView(new SortComponent($), new ProductMultiSelectionComponent($), new LinkBuilderComponent($));
 
 $(function () {
     outstandingView.init();

@@ -8,6 +8,7 @@
     using Reports.Enumerations;
     using Reports.Models;
     using Reports.Models.Outstanding;
+    using Reports.Params;
     using Reports.Services.Outstanding;
     using Xunit;
 
@@ -21,10 +22,11 @@
             UserLevel userLevel = UserLevel.Agent;
             UserLevel custLevel = UserLevel.Master;
             var repository = GetFakeRepository(new List<OutstandingModel>());
+            var param = new OutstandingParam(userLevel, custLevel, 1, null);
             var outstandingService = new OutstandingServiceImpl(repository);
 
             // Act
-            var outstandings = outstandingService.GetMemberOutstanding(userLevel, custLevel, 1);
+            var outstandings = outstandingService.GetMemberOutstanding(param);
 
             // Assert
             Assert.True(!outstandings.Any());
@@ -39,10 +41,11 @@
             var userLevel = Enumeration.FromValue<UserLevel>(userLevelId);
             var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
             var repository = GetFakeRepository(new List<OutstandingModel> { null });
+            var param = new OutstandingParam(userLevel, custLevel, 1, null);
             var outstandingService = new OutstandingServiceImpl(repository);
 
             // Act
-            var outstandings = outstandingService.GetMemberOutstanding(userLevel, custLevel, 1);
+            var outstandings = outstandingService.GetMemberOutstanding(param);
 
             // Assert
             Assert.True(outstandings.Any());
@@ -54,10 +57,11 @@
         public void GetMemberOutstanding_WhenCustIdLessOrEqualZero_ReturnsEmptyData(int custId)
         {
             // Arrange
+            var param = new OutstandingParam(null, null, custId, null);
             var outstandingService = new OutstandingServiceImpl(null);
 
             // Act
-            var outstandings = outstandingService.GetMemberOutstanding(null, null, custId);
+            var outstandings = outstandingService.GetMemberOutstanding(param);
 
             // Assert
             Assert.True(!outstandings.Any());

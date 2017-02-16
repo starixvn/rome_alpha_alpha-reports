@@ -1,13 +1,15 @@
-﻿using Alpha.Reports.Models;
-using Alpha.Reports.Site.ViewModels.Outstanding;
-using MediatR;
-
-namespace Alpha.Reports.Site.Requests.Outstanding
+﻿namespace Alpha.Reports.Site.Requests.Outstanding
 {
+    using Reports.Models;
+    using ViewModels.Outstanding;
+    using MediatR;
+
     public class OutstandingQuery : ReportBaseQuery, IRequest<OutstandingViewModel>
     {
         public OutstandingQuery(IUser user) : base(user)
         {
         }
+
+        public string UserSelectedProductIds { get; set; }
     }
 }

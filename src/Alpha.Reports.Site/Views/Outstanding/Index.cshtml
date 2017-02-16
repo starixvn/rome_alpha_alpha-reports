@@ -8,6 +8,14 @@
     @Breadcrumb.Render(Model.BreadcrumbLevelViewModel, Request.Path)
 </div>
 
+<form class="form-inline filter" role="form" id="report-form">
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+
+    <div class="form-group">
+        <input type="submit" value="@Resources.Submit" class="btn-submit" />
+    </div>
+</form>
+
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
        data-totalrecords="@Model.OutstandingDatasource.Count()"
        data-sortedcolumn="Outstanding.Username"

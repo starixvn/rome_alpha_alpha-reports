@@ -4,12 +4,12 @@
     using System.Linq;
     using Criteria.Outstanding;
     using Fanex.Data.Repository;
-    using Models;
     using Models.Outstanding;
+    using Params;
 
     public interface OutstandingService
     {
-        IEnumerable<OutstandingModel> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId);
+        IEnumerable<OutstandingModel> GetMemberOutstanding(OutstandingParam param);
     }
 
     public class OutstandingServiceImpl : OutstandingService
@@ -21,14 +21,14 @@
             repository = dynamicRepository;
         }
 
-        public IEnumerable<OutstandingModel> GetMemberOutstanding(UserLevel userLevel, UserLevel custLevel, int custId)
+        public IEnumerable<OutstandingModel> GetMemberOutstanding(OutstandingParam param)
         {
-            if (custId <= 0 || custLevel.IsUplineOf(userLevel))
+            if (param.CustId <= 0 || param.CustLevel.IsUplineOf(param.UserLevel))
             {
                 return Enumerable.Empty<OutstandingModel>();
             }
 
-            var criteria = new OutstandingCriteria(custLevel, custId);
+            var criteria = new OutstandingCriteria(param.CustLevel, param.CustId, param.ProductIds);
 
             return repository.Fetch<OutstandingModel>(criteria);
         }

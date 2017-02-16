@@ -1,32 +1,35 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Outstanding
 {
     using System.Collections.Generic;
+    using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
     using Enumerations;
-    using Helpers;
+    using Extensions;
     using Reports.Models;
     using Reports.Models.Outstanding;
+    using Requests.Outstanding;
 
     public class OutstandingViewModel
     {
         // Always need to show member outstanding
         private readonly List<UserLevel> displayOutstandingLevels = new List<UserLevel>() { UserLevel.Member };
 
-        private string betListPath = UrlHelper.MapExMainPath("~/_Reports/BetList/OutstandingDetail.aspx");
+        private string betListPath = Helpers.UrlHelper.MapExMainPath("~/_Reports/BetList/OutstandingDetail.aspx");
 
         public OutstandingViewModel(
-            UserLevel viewerLevel,
-            UserLevel reportLevel,
+            OutstandingQuery query,
             IEnumerable<OutstandingModel> outstandingDataSource,
+            IEnumerable<int> selectedProductIds,
+            IEnumerable<SelectListItem> products,
             BreadcrumbLevelViewModel breadcrumbLevelViewModel)
         {
-            ViewerLevel = viewerLevel;
-            ReportLevel = reportLevel;
+            Query = query;
             OutstandingDatasource = outstandingDataSource;
             BreadcrumbLevelViewModel = breadcrumbLevelViewModel;
+            ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), "");
 
-            for (var level = (byte)(ReportLevel.Value + 1); level <= ViewerLevel.Value; level++)
+            for (var level = (byte)(ReportLevel.Value + 1); level <= Query.ViewerLevel.Value; level++)
             {
                 displayOutstandingLevels.Add(Enumeration.FromValue<UserLevel>(level));
             }
@@ -50,15 +53,17 @@
             }
         }
 
-        public UserLevel ViewerLevel { get; }
+        public OutstandingQuery Query { get; }
 
-        public UserLevel ReportLevel { get; }
+        public UserLevel ReportLevel => Query.CustLevel.GetDirectDownLineLevel();
 
         public IEnumerable<OutstandingModel> OutstandingDatasource { get; }
 
         public OutstandingModel Total => OutstandingModel.GetAccumulatedData(OutstandingDatasource);
 
         public List<UserLevel> DisplayOutstandingLevels => displayOutstandingLevels;
+
+        public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
 
         public BreadcrumbLevelViewModel BreadcrumbLevelViewModel { get; }
 
