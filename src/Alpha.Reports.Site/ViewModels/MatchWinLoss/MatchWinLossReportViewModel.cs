@@ -6,10 +6,20 @@
     using App_GlobalResources;
     using Components;
     using Params;
+    using Reports.Models.MatchWinLoss;
     using Requests.MatchWinLoss;
 
     public class MatchWinLossReportViewModel : DrillDownableReportViewModel<MatchWinLossViewModel>
     {
+        private const string DefaultSortProperty = "EventInfo";
+
+        public const string EventInfoPropertyName = nameof(MatchWinLossViewModel.EventInfo);
+        public const string BetTypeNamePropertyName = nameof(MatchWinLossViewModel.BetTypeName);
+        public const string GrossCommPropertyName = nameof(MatchWinLossViewModel.GrossComm);
+        public const string CommissionPropertyName = nameof(MatchWinLossViewModel.GrossComm);
+        public const string PositionTakingPropertyName = nameof(MatchWinLossViewModel.PositionTaking);
+        public const string TotalPropertyName = nameof(MatchWinLossViewModel.Total);
+
         private readonly MatchWinLossParam matchWinLossParam;
 
         public MatchWinLossReportViewModel(
@@ -28,11 +38,10 @@
             ReportData = reportData;
             GrantTotal = grandTotal;
 
-            var canSort = reportData != null && reportData.Count() > 1;
-            SortPropertyName = canSort && !string.IsNullOrWhiteSpace(matchWinLossQuery.SortPropertyName)
+            SortPropertyName = CanSort && !string.IsNullOrWhiteSpace(matchWinLossQuery.SortPropertyName)
                 ? matchWinLossQuery.SortPropertyName
-                : "EventInfo";
-            IsDescendingSort = canSort && matchWinLossQuery.IsDescendingSort;
+                : DefaultSortProperty;
+            IsDescendingSort = CanSort && matchWinLossQuery.IsDescendingSort;
         }
 
         public string Title => Resources.MatchWinLoss;
@@ -54,6 +63,9 @@
         public string SortPropertyName { get; }
 
         public bool IsDescendingSort { get; }
+
+        public bool CanSort
+            => ReportData != null && ReportData.Count() > 1;
 
         public IEnumerable<MatchWinLossViewModel> ReportData { get; }
 

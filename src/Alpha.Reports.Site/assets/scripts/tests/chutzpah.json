@@ -80,11 +80,10 @@
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     },
     {
-      "Path": "apps/winlossdetail",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     },
     {
-      "Path": "apps/winloss",
+      "Path": "apps/components",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     },
     {

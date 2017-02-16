@@ -332,7 +332,28 @@
     <value>นับเดิมพัน</value>
   </data>
   <data name="WinLossTitle" xml:space="preserve">
-    <value>ได้ เสีย</value>
+    <value>ชนะ แพ้</value>
+  </data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>เกมหมายเลข เลขที่</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>ต่อไป</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>เต็มเวลา</value>
+  </data>
+  <data name="MatchWinLoss" xml:space="preserve">
+    <value>ผลแพ้ชนะต่อแมตช์</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>การแข่งขัน</value>
+  </data>
+  <data name="PositionTaking" xml:space="preserve">
+    <value>ค่าความเสี่ยง</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>ประเภทการเดิมพัน</value>
   </data>
   <data name="NumberGameNo" xml:space="preserve">
     <value>เกมหมายเลข เลขที่</value>

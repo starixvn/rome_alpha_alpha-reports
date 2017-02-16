@@ -29,10 +29,10 @@ class MatchWinLossView {
 
         this.dateRangePickerComponent.render();
 
-        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
+        let canSort = this.$tableReport.data("cansort");
         this.sortComponent.render(new SortOption(
             this.$tableReport,
-            canSort,
+            canSort && canSort.toLowerCase() === "true",
             true,
             this.sortComponent.afterSort,
             { 0: { sorter: "text" }, 1: { sorter: "text" } },

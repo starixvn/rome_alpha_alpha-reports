@@ -1,7 +1,7 @@
 ﻿const enteredResultTemplate = {
     reportContent: `<body>
                                     <div class="page-title"></div>
-                                    <div id="tbl-report" data-totalrecords="0" data-sortedcolumn="WinLoss">
+                                    <div id="tbl-enteredresult-report" data-totalrecords="0" data-sortedcolumn="WinLoss">
                                     </div>
                                     <div class="downline-link"></div>
                                     <input id="IsFilterVisible" value="True" type="hidden" />

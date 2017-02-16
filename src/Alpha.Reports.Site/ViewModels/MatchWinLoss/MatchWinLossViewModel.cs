@@ -49,30 +49,26 @@
 
         public bool LiveIndicator { get; }
 
-        public decimal GrossComm { get; }
+        public decimal GrossComm { get; private set; }
 
-        public decimal Commission { get; }
+        public decimal Commission { get; private set; }
 
-        public decimal PositionTaking { get; }
+        public decimal PositionTaking { get; private set; }
 
         public decimal Total => Commission + PositionTaking;
 
-        public static MatchWinLossViewModel Add(MatchWinLossViewModel winlossA, MatchWinLossViewModel winlossB)
+        public MatchWinLossViewModel Add(MatchWinLossViewModel model)
         {
-            if (winlossA == null || winlossB == null)
+            if (model == null)
             {
-                return winlossA ?? winlossB;
+                return this;
             }
 
-            return new MatchWinLossViewModel(
-                eventInfo: string.Empty,
-                betTypeName: string.Empty,
-                matchId: 0,
-                betTypeId: 0,
-                liveIndicator: false,
-                grossComm: winlossA.GrossComm + winlossB.GrossComm,
-                commission: winlossA.Commission + winlossB.Commission,
-                positionTaking: winlossA.PositionTaking + winlossB.PositionTaking);
+            GrossComm += model.GrossComm;
+            Commission += model.Commission;
+            PositionTaking += model.PositionTaking;
+
+            return this;
         }
     }
 }

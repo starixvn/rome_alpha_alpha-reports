@@ -145,7 +145,7 @@
 
         it("Document is loaded (ready) -> Returns True", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
 
             // act
             var actualIsReady = winLossView.checkReady();
@@ -158,7 +158,7 @@
     describe("cacheDOMElements", () => {
         it("Always -> All neccessary elements have been cached", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
 
             // act
             winLossView.cacheDOMElements();
@@ -214,6 +214,57 @@
             expect(winLossView.isSwitchView).toBeTruthy();
             expect(winLossView.isHistoricReport).toBeTruthy();
             expect(winLossView.$reportForm.trigger).toHaveBeenCalledWith("submit");
+        });
+    });
+
+    describe("onFilterEvent", () => {
+        it("Nevigate from dashboard on Mobile-> Set Stack Mode as Default", () => {
+            // arrange
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
+            let setStackMode = spyOn(winLossView, "setStackMode");
+            spyOn(alphaReports, "screenSmallThan768").and.callFake(() => true);
+
+            // act
+            winLossView.init();
+
+            // assert
+            expect(setStackMode).toHaveBeenCalled();
+        });
+    });
+
+    describe("setStackMode", () => {
+        let combineConsecutiveCellsSpy: jasmine.Spy;
+        beforeEach(() => {
+            // arrange
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
+            winLossView.cacheDOMElements();
+            spyOn(winLossView, "setCssBySwitchMode");
+            spyOn(winLossView, "renderAtFirstSwitchMode");
+            spyOn(winLossView, "replaceDrilldownParam");
+
+            // act
+            winLossView.setStackMode();
+        });
+
+        it("Always -> Blocks UI", () => {
+            // assert
+            expect(jQueryFake.blockUI).toHaveBeenCalled();
+        });
+
+        it(`Navigate From dashboard on mobile->
+            Call setCssBySwitchMode Method,
+            Call renderAtFirstSwitchMode Method,
+            Call replaceDrilldownParam Method`, () => {
+
+            // assert
+            expect(winLossView.setCssBySwitchMode).toHaveBeenCalledWith(false);
+            expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsStackMode", true);
+            expect(winLossView.renderAtFirstSwitchMode).toHaveBeenCalledWith(false);
+        });
+
+        it("Always -> Unblocks UI", () => {
+            // assert
+            expect(jQueryFake.unblockUI).toHaveBeenCalled();
         });
     });
 
@@ -350,7 +401,7 @@
     describe("onSubmitReportEvent", () => {
         it("Switch View -> Blocks UI; Empty FromDate/Todate; Sets params to hidden fields", () => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
             renderProductMultiSelectionComponent.and.callThrough();
             renderSortComponent.and.callThrough();
             winLossView.init();
@@ -416,7 +467,7 @@
 
         let sortReportOnStackModeTest = (sortedColumnName: string, expectedSortedCoumnResult: string) => {
             // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithStackMode);
+            setFixtures(winLossTemplate.currentReportWithStackMode);
             winLossView.init();
             winLossView.$tableReport.data("sortedcolumn", sortedColumnName);
 
@@ -619,7 +670,7 @@
                 ["col-turnover"],
                 ["col-member-winloss", ""],
                 ["col-agent-winloss", " altercol"],
-                ["col-master-winloss", ""],
+                ["col-master-winloss", " altercol"],
                 ["col-super-winloss", " altercol"]]);
         });
     });
@@ -642,9 +693,7 @@
     describe("onSwitchModeEvent   ", () => {
         it(`First Switch Mode->
             Call setCssBySwitchMode Method,
-            Call bindTableSorter Method,
             Call renderAtFirstSwitchMode Method,
-            Set isFirstSwitchMode is False,
             Call replaceDrilldownParam Method`, () => {
                 // arrange
                 setFixtures(winLossTemplate.currentReportWithNormalMode);

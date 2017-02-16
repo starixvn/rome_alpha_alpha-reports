@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
+    using Configurations;
     using Criteria.WinLoss;
     using DataAccesses;
     using Fanex.Caching;
@@ -43,10 +45,12 @@
 
         public IEnumerable<EnteredSportResult> GetEnteredSportResults()
         {
+            bool includeTestData = SiteSettings.LocalTest;
+
             var reportData = ConfiguredCacheService
                  .GetOrSet(
                  EnteredResultsCacheKey,
-                 () => GetDataEnteredSportResults(),
+                 () => GetDataEnteredSportResults(includeTestData),
                  new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(1)));
 
             return reportData;
@@ -76,9 +80,9 @@
             return winlossData;
         }
 
-        internal IEnumerable<EnteredSportResult> GetDataEnteredSportResults()
+        internal IEnumerable<EnteredSportResult> GetDataEnteredSportResults(bool includeTestData)
         {
-            var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria());
+            var dailyEnteredSportData = dynamicRepository.Fetch<DailyEnteredSport>(new DailyEnteredSportCriteria(includeTestData));
 
             if (dailyEnteredSportData.Any())
             {

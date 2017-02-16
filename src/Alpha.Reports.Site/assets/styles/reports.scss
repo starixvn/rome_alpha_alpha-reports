@@ -116,6 +116,10 @@ a {
         width: 15%;
     }
 
+    .width-17per {
+        width: 17%;
+    }
+
     .downline-link {
         color: $link-color;
         cursor: pointer;
@@ -406,5 +410,17 @@ a {
             width: 100%;
             clear: both;
         }
+    }
+}
+
+#tbl-enteredresult-report {
+    @extend #tbl-report;
+    width: 60%;
+}
+
+@media only screen and (max-device-width : $screen-device-lower768){
+    #tbl-enteredresult-report
+    {
+        width: 100%;
     }
 }
