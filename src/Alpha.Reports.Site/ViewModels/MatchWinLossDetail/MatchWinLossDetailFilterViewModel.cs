@@ -14,6 +14,7 @@
             UserLevel custLevel,
             DateRangePickerViewModel dateRangePickerViewModel,
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
+            LeagueMultiSelectionViewModel leagueMultiSelectionViewModel,
             DateTime minDate)
         {
             CustId = custId;
@@ -22,6 +23,7 @@
 
             DateRangePickerViewModel = dateRangePickerViewModel;
             ProductMultiSelectionViewModel = productMultiSelectionViewModel;
+            LeagueMultiSelectionViewModel = leagueMultiSelectionViewModel;
             ViewDataInstructionMessage = string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, minDate.ToShortDateWithSlash());
         }
 
@@ -36,6 +38,8 @@
         public DateRangePickerViewModel DateRangePickerViewModel { get; }
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
+
+        public LeagueMultiSelectionViewModel LeagueMultiSelectionViewModel { get; }
 
         public string ViewDataInstructionMessage { get; }
     }

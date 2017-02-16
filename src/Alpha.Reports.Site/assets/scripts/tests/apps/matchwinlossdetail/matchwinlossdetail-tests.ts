@@ -734,7 +734,7 @@
         });
     });
     describe("_renderLeagues", () => {
-        let leagueHtml = "<select id=\"dropdown-league\"></select>";
+        let leagueHtml = "<div id=\"dropdown-league-container\" class=\"form-group\"><select id=\"dropdown-league\"></select></div>";
 
         beforeEach(() => {
             // arrange
@@ -752,7 +752,7 @@
 
             // assert
             expect(matchWinLossDetailView.$leagueContainer.empty).toHaveBeenCalled();
-            expect(matchWinLossDetailView.$leagueContainer.append).toHaveBeenCalledWith(leagueHtml);
+            expect(matchWinLossDetailView.$leagueContainer.append).toHaveBeenCalledWith("<select id=\"dropdown-league\"></select>");
         });
 
         it("_render leagueMultiSelectionComponent", () => {

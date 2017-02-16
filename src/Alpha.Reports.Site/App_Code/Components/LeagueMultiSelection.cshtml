@@ -3,18 +3,20 @@
 
 @helper Render(LeagueMultiSelectionViewModel model)
 {
-    <select id="dropdown-league"
-            data-has-any-league="@model.Leagues.Any()"
-            data-label-select-leagues="@Resources.SelectLeague"
-            data-label-selected="@Resources.Selected"
-            data-label-all-leagues="@Resources.AllLeagues"
-            data-label-there-is-no-league="@Resources.ThereIsNoLeague"
-            data-language="@model.Language"
-            multiple="multiple" class="select-multiple">
-        @foreach (var league in model.Leagues)
-        {
-            <option value="@league.Value" @(league.Selected ? " selected=\"selected\"" : string.Empty)>@league.Text</option>
-        }
-    </select>
-    <input type="hidden" name="UserSelectedLeagueIds" id="league-ids" value="@model.UserSelectedLeagueIds" />
+    <div id="dropdown-league-container" class="form-group">
+        <select id="dropdown-league"
+                data-has-any-league="@model.Leagues.Any()"
+                data-label-select-leagues="@Resources.SelectLeague"
+                data-label-selected="@Resources.Selected"
+                data-label-all-leagues="@Resources.AllLeagues"
+                data-label-there-is-no-league="@Resources.ThereIsNoLeague"
+                data-language="@model.Language"
+                multiple="multiple" class="select-multiple">
+            @foreach (var league in model.Leagues)
+            {
+                <option value="@league.Value" @(league.Selected ? " selected=\"selected\"" : string.Empty)>@league.Text</option>
+            }
+        </select>
+        <input type="hidden" name="UserSelectedLeagueIds" id="league-ids" value="@model.UserSelectedLeagueIds" />
+    </div>
 }

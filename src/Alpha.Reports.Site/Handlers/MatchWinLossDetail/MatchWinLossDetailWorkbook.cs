@@ -161,7 +161,7 @@
         {
             var sheet = GetSheetAt(TemplateInfo.SheetIndex);
 
-            currentRowIndex = TemplateInfo.BodyStartIndex;
+            currentRowIndex = TemplateInfo.BodyStartIndex + 1;
 
             MatchTitleRowTemplate = sheet.GetRow(currentRowIndex++);
             OddRowTemplate = sheet.GetRow(currentRowIndex++);
@@ -170,7 +170,7 @@
             TotalRowTemplate = sheet.GetRow(currentRowIndex++);
             MixParlayRowTemplate = sheet.GetRow(currentRowIndex++);
             SystemParlayRowTemplate = sheet.GetRow(currentRowIndex++);
-            GrandTotalRowTemplate = sheet.GetRow(currentRowIndex + 1);
+            GrandTotalRowTemplate = sheet.GetRow(currentRowIndex);
 
             return GetSheetAt(ReportSheetIndex);
         }

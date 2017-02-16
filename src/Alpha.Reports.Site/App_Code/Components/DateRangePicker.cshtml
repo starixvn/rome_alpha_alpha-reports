@@ -2,7 +2,7 @@
 @using Alpha.Reports.Site.ViewModels.Components;
 @using Alpha.Reports.Site.App_GlobalResources;
 
-@helper Render(DateRangePickerViewModel model)
+@helper Render(DateRangePickerViewModel model, IEnumerable<HelperResult> presubmitControls = null)
 {
 
     <div id="daterange-picker"
@@ -49,12 +49,14 @@
         </div>
     </div>
 
-if (model.LeagueMultiSelectionViewModel != null)
+if (presubmitControls != null)
 {
-        <div id="dropdown-league-container" class="form-group">
-            @LeagueMultiSelection.Render(model.LeagueMultiSelectionViewModel)
-        </div>
+    foreach (var presubmitControl in presubmitControls)
+    {
+            @presubmitControl
+    }
 }
+
 if (model.IsRenderSubmitButton)
 {
         <div class="form-group">

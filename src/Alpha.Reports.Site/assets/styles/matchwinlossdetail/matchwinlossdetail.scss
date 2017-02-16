@@ -52,6 +52,12 @@
     }
 }
 
-.tblRpt.tblRpt-hover tbody tr.tbl-footer:hover td {
-    background-color: #7f3d1d;
+.tblRpt.tblRpt-hover tbody tr.tbl-footer:hover {
+    td {
+        background-color: #7f3d1d;
+    }
+
+    .altercol {
+        background-color: #432616;
+    }
 }

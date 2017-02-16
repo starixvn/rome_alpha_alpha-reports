@@ -31,7 +31,7 @@
         {
             if (winlossA == null || winlossB == null)
             {
-                return null;
+                return winlossA ?? winlossB;
             }
 
             return new NetWinLoss(

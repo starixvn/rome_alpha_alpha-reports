@@ -91,7 +91,7 @@
         public IEnumerable<SelectListItem> Leagues { get; }
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
-            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption, LeagueMultiSelectionViewModel);
+            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
@@ -106,6 +106,7 @@
                 CustLevel,
                 DateRangePickerViewModel,
                 ProductMultiSelectionViewModel,
+                LeagueMultiSelectionViewModel,
                 MinDate);
 
         public IEnumerable<MatchWinLossDetailViewModel> NoParlayMatchWinLossDetail { get; }

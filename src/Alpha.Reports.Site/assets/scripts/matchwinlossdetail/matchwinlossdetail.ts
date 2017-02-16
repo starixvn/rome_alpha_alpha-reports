@@ -220,7 +220,6 @@ class MatchWinLossDetailView {
         }
 
         let this$ = this.$;
-        let self = this;
         this$.blockUI();
 
         let param = this.getLeagueParam();
@@ -249,7 +248,7 @@ class MatchWinLossDetailView {
         });
     };
     renderLeagues = (html: string) => {
-        this.$leagueContainer.empty().append(html);
+        this.$leagueContainer.empty().append(this.$(html).html());
         this.leagueMultiSelectionComponent.render();
         this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
         this.$buttonLeague.on("click", this.showLeagues);

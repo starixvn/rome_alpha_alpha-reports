@@ -11,7 +11,9 @@
     @Html.Hidden("IsStackMode", Model.IsStackMode)
 
     @ProductMultiSelection.Render(Model.FilterViewModel.ProductMultiSelectionViewModel)
-    @DateRangePicker.Render(Model.FilterViewModel.DateRangePickerViewModel)
+    @DateRangePicker.Render(
+        Model.FilterViewModel.DateRangePickerViewModel,
+        new List<HelperResult> { LeagueMultiSelection.Render(Model.FilterViewModel.LeagueMultiSelectionViewModel) })
 
     <div class="form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
@@ -42,22 +44,22 @@
 
             @if (Model.CustLevel.IsMasterOrSuperLevel())
             {
-                <th class="hidden-stack-mode" colspan="3">@Resources.Master</th>
-                <th rowspan="2" class="visible-stack-mode col-combine">
-                    @Resources.Master
-                    <br />
-                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
-                </th>
+            <th class="hidden-stack-mode" colspan="3">@Resources.Master</th>
+            <th rowspan="2" class="visible-stack-mode col-combine">
+                @Resources.Master
+                <br />
+                (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+            </th>
             }
 
             @if (Model.CustLevel.IsSuperLevel())
             {
-                <th class="hidden-stack-mode" colspan="3">@Resources.Super</th>
-                <th rowspan="2" class="visible-stack-mode col-combine">
-                    @Resources.Super
-                    <br />
-                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
-                </th>
+            <th class="hidden-stack-mode" colspan="3">@Resources.Super</th>
+            <th rowspan="2" class="visible-stack-mode col-combine">
+                @Resources.Super
+                <br />
+                (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+            </th>
             }
 
             <th colspan="2">@Resources.Company</th>
@@ -74,15 +76,15 @@
             <th class="hidden-stack-mode">@Resources.Total</th>
             @if (Model.CustLevel.IsMasterOrSuperLevel())
             {
-                <th class="hidden-stack-mode">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode">@Resources.Comm</th>
-                <th class="hidden-stack-mode">@Resources.Total</th>
+            <th class="hidden-stack-mode">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode">@Resources.Comm</th>
+            <th class="hidden-stack-mode">@Resources.Total</th>
             }
             @if (Model.CustLevel.IsSuperLevel())
             {
-                <th class="hidden-stack-mode">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode">@Resources.Comm</th>
-                <th class="hidden-stack-mode">@Resources.Total</th>
+            <th class="hidden-stack-mode">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode">@Resources.Comm</th>
+            <th class="hidden-stack-mode">@Resources.Total</th>
             }
             <th>@Resources.Comm</th>
             <th>@Resources.Total</th>
@@ -91,74 +93,74 @@
 
     @if (Model.HasData)
     {
-        <tbody>
-            <tr class="tbl-footer">
-                @RenderBetTypeRow(Model.GrandTotal, Resources.GrandTotal)
-            </tr>
-            @foreach (var data in Model.NoParlayMatchWinLossDetail)
+    <tbody>
+        <tr class="tbl-footer">
+            @RenderBetTypeRow(Model.GrandTotal, Resources.GrandTotal)
+        </tr>
+        @foreach (var data in Model.NoParlayMatchWinLossDetail)
             {
-                <tr class="match-title-row">
-                    <td class="text-left col-username" colspan="@Model.ReportColumnsCount">
-                        <span class="league-title">@data.LeagueName</span>
-                        @if (!string.IsNullOrWhiteSpace(data.MatchName))
+        <tr class="match-title-row">
+            <td class="text-left col-username" colspan="@Model.ReportColumnsCount">
+                <span class="league-title">@data.LeagueName</span>
+                @if (!string.IsNullOrWhiteSpace(data.MatchName))
                         {
-                        <span class="match-title">@data.MatchName</span>
+                <span class="match-title">@data.MatchName</span>
                         }
-                    </td>
-                </tr>
+            </td>
+        </tr>
 
                 var isEvenRow = false;
                 foreach (var betType in data.BetTypeWinLoss)
                 {
-                    <tr class="@(isEvenRow? "even-row":string.Empty)">
-                        @RenderBetTypeRow(
+        <tr class="@(isEvenRow? "even-row":string.Empty)">
+            @RenderBetTypeRow(
                             betType,
                             "<a href=\"" + Model.GetBetListLink(Model.GetBetListLinkRouteValues(data, betType, Model.FromDate, Model.ToDate)) + "\">" + betType.Name + "</a>",
                             null,
                             isEvenRow)
-                    </tr>
+        </tr>
                     isEvenRow = !isEvenRow;
                 }
 
                 if (data.RenderSubTotal)
                 {
-                    <tr class="sub-total-row">
-                        @RenderBetTypeRow(data.Total, Resources.SubTotal)
-                    </tr>
+        <tr class="sub-total-row">
+            @RenderBetTypeRow(data.Total, Resources.SubTotal)
+        </tr>
                 }
             }
-            @if (Model.ShowTotalRow)
+        @if (Model.ShowTotalRow)
             {
-                <tr class="sub-total-row">
-                    @RenderBetTypeRow(Model.NoParlayWinLossTotal, Resources.Total)
-                </tr>
+        <tr class="sub-total-row">
+            @RenderBetTypeRow(Model.NoParlayWinLossTotal, Resources.Total)
+        </tr>
             }
-            @if (Model.MixParlay != null)
+        @if (Model.MixParlay != null)
             {
-                <tr>
-                    @RenderBetTypeRow(
+        <tr>
+            @RenderBetTypeRow(
                         Model.MixParlay,
                         "<a href=\"" + Model.GetBetListLink(Model.GetParlayBetListLinkRouteValues(Model.MixParlay.Id, Model.FromDate, Model.ToDate)) + "\">" + Model.MixParlay.Name + "</a>")
-                </tr>
+        </tr>
             }
-            @if (Model.SystemParlay != null)
+        @if (Model.SystemParlay != null)
             {
-                <tr>
-                    @RenderBetTypeRow(
+        <tr>
+            @RenderBetTypeRow(
                         Model.SystemParlay,
                         "<a href=\"" + Model.GetBetListLink(Model.GetParlayBetListLinkRouteValues(Model.SystemParlay.Id, Model.FromDate, Model.ToDate)) + "\">" + Model.SystemParlay.Name + "</a>")
-                </tr>
+        </tr>
             }
-        </tbody>
-        <tfoot>
-            <tr class="tbl-footer">
-                @RenderBetTypeRow(Model.GrandTotal, Resources.GrandTotal)
-            </tr>
-        </tfoot>
+    </tbody>
+    <tfoot>
+        <tr class="tbl-footer">
+            @RenderBetTypeRow(Model.GrandTotal, Resources.GrandTotal)
+        </tr>
+    </tfoot>
     }
     else
     {
-        @NoInformation.Render(colspan: Model.ReportColumnsCount)
+    @NoInformation.Render(colspan: Model.ReportColumnsCount)
     }
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)

@@ -182,7 +182,7 @@
             // Arrange
             var expectedExportData = new BetTypeWinLossViewModel(
                 id: 0,
-                name: "Sub Total",
+                name: null,
                 turnover: 2250000,
                 grossComm: (decimal)321.3,
                 isLive: false,
@@ -190,7 +190,7 @@
                 agentNetWinLoss: new NetWinLoss(3900, (decimal)218.75),
                 masterNetWinLoss: null,
                 superNetWinLoss: null,
-                companyNetWinLoss: new NetWinLoss(null, 225, (decimal)2233875));
+                companyNetWinLoss: new NetWinLoss(null, 225, 2233875));
 
             // Act
             matchWinLossDetailExcelHandler.Handle(matchWinLossDetailExcelQuery);

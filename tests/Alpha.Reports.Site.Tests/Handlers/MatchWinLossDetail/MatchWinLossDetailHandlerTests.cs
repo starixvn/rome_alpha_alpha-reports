@@ -111,12 +111,12 @@
                             new BetTypeWinLossViewModel(1, "Bet Type 1", 1, 1, false, null, null, null, null, null),
                             new BetTypeWinLossViewModel(2, "Bet Type 2", 1, 1, false, null, null, null, null, null)
                         },
-                        new BetTypeWinLossViewModel(0, "Sub Total", 2, 2, false, null, null, null, null, null))
+                        new BetTypeWinLossViewModel(0, null, 2, 2, false, null, null, null, null, null))
                 },
-                new BetTypeWinLossViewModel(0, "Sub Total", 2, 2, false, null, null, null, null, null),
+                new BetTypeWinLossViewModel(0, null, 2, 2, false, null, null, null, null, null),
                 new BetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, false, null, null, null, null, null),
                 new BetTypeWinLossViewModel(29, "Bet Type 29", 1, 1, false, null, null, null, null, null),
-                new BetTypeWinLossViewModel(0, "Sub Total", 4, 4, false, null, null, null, null, null),
+                new BetTypeWinLossViewModel(0, null, 4, 4, false, null, null, null, null, null),
                 query,
                 new MatchWinLossDetailParam(
                      query.CustId,
@@ -408,7 +408,7 @@
         }
 
         [Theory]
-        [InlineData("01/01/2017", "League Name - 01/01/2017 12:00:00 AM")]
+        [InlineData("01/01/2017", "League Name")]
         [InlineData("Invalid Show Time", "League Name")]
         public void GetLeagueTitle_VirtualHorseRacingBetType_ReturnsCorrectLeagueTitle(string showTime, string expectedTitle)
         {

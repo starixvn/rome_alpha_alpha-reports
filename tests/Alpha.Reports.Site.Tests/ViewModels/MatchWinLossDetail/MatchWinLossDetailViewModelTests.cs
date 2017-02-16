@@ -16,10 +16,10 @@
         }
 
         [Fact]
-        public void RenderSubTotal_NotHaveMatchId_ReturnsFalse()
+        public void RenderSubTotal_HaveMatchId_ReturnsTrue()
         {
             // Arrange
-            var matchId = 0;
+            var matchId = 1;
             var model = new MatchWinLossDetailViewModel(
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<string>(),
@@ -33,41 +33,18 @@
             var actualRenderSubTotal = model.RenderSubTotal;
 
             // Assert
-            Assert.False(actualRenderSubTotal);
+            Assert.True(actualRenderSubTotal);
         }
 
         [Fact]
-        public void RenderSubTotal_NotHaveRaceId_ReturnsFalse()
-        {
-            // Arrange
-            var raceId = 0;
-            var model = new MatchWinLossDetailViewModel(
-                anyValueCreatorFixture.Create<int>(),
-                anyValueCreatorFixture.Create<string>(),
-                anyValueCreatorFixture.Create<int>(),
-                anyValueCreatorFixture.Create<string>(),
-                raceId,
-                anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
-                anyValueCreatorFixture.Create<BetTypeWinLossViewModel>());
-
-            // Act
-            var actualRenderSubTotal = model.RenderSubTotal;
-
-            // Assert
-            Assert.False(actualRenderSubTotal);
-        }
-
-        [Fact]
-        public void RenderSubTotal_NotHaveRaceId_ReturnsTrue()
+        public void RenderSubTotal_HaveRaceId_ReturnsTrue()
         {
             // Arrange
             var raceId = 1;
-            var matchId = 1;
-
             var model = new MatchWinLossDetailViewModel(
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<string>(),
-                matchId,
+                anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<string>(),
                 raceId,
                 anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
@@ -78,6 +55,29 @@
 
             // Assert
             Assert.True(actualRenderSubTotal);
+        }
+
+        [Fact]
+        public void RenderSubTotal_NotHaveMatchIdAndNotHaveRaceId_ReturnsFalse()
+        {
+            // Arrange
+            var raceId = 0;
+            var matchId = 0;
+
+            var model = new MatchWinLossDetailViewModel(
+                anyValueCreatorFixture.Create<int>(),
+                anyValueCreatorFixture.Create<string>(),
+                matchId,
+                anyValueCreatorFixture.Create<string>(),
+                raceId,
+                anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
+                anyValueCreatorFixture.Create<BetTypeWinLossViewModel>());
+
+            // Act
+            var actualRenderSubTotal = model.RenderSubTotal;
+
+            // Assert
+            Assert.False(actualRenderSubTotal);
         }
     }
 }

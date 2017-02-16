@@ -23,7 +23,6 @@
             DateTime fromDate,
             DateTime toDate,
             int userSelectedDateRangeOption,
-            LeagueMultiSelectionViewModel leagueMultiSelectionViewModel = null,
             bool isRenderSubmitButton = true)
         {
             MinDate = minDate;
@@ -36,7 +35,6 @@
 
             SelectedRangeOption = RangeOptions.FirstOrDefault(item => item.Value == userSelectedDateRangeOption.ToString());
 
-            LeagueMultiSelectionViewModel = leagueMultiSelectionViewModel;
             IsRenderSubmitButton = isRenderSubmitButton;
         }
 
@@ -55,8 +53,6 @@
         public IEnumerable<SelectListItem> RangeOptions { get; }
 
         public SelectListItem SelectedRangeOption { get; private set; }
-
-        public LeagueMultiSelectionViewModel LeagueMultiSelectionViewModel { get; }
 
         private IEnumerable<SelectListItem> BuildRangeOptions(int userSelectedDateRangeOption)
         {

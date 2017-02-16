@@ -176,8 +176,7 @@
             var leagueName = leagueNames[firstWinLoss.LeagueId];
             var betTypeWinLoss = new List<BetTypeWinLossViewModel>();
 
-            BetTypeWinLossViewModel total = new BetTypeWinLossViewModel(firstWinLoss, GetBetTypePrefix(firstWinLoss) + betTypeNames[firstWinLoss.BetType]);
-            var isFirstRow = true;
+            var total = new BetTypeWinLossViewModel();
 
             foreach (var winLoss in matchGroup)
             {
@@ -194,13 +193,7 @@
                     winLoss.CompanyNetWinLoss);
 
                 betTypeWinLoss.Add(betTypeWinLossViewModel);
-
-                if (!isFirstRow)
-                {
-                    total = BetTypeWinLossViewModel.Add(total, betTypeWinLossViewModel);
-                }
-
-                isFirstRow = false;
+                total.Add(betTypeWinLossViewModel);
             }
 
             return new MatchWinLossDetailViewModel(
@@ -260,16 +253,6 @@
                     : $"{Resources.NumberGame} - {leagueName}";
             }
 
-            if (BetTypeHelper.IsVirtualHorseRacing(data.BetType))
-            {
-                DateTime eventTime;
-                bool isValidShowTime = DateTime.TryParse(data.ShowTime, out eventTime);
-
-                return isValidShowTime
-                    ? $"{leagueName} - {eventTime.ToLongDateWithSlash()}"
-                    : leagueName;
-            }
-
             return leagueName;
         }
 
@@ -295,13 +278,11 @@
 
         internal BetTypeWinLossViewModel BuildWinLossTotal(IEnumerable<MatchWinLossDetailViewModel> matchWinLossDetail)
         {
-            BetTypeWinLossViewModel total = null;
-            var isFirstRow = true;
+            var total = new BetTypeWinLossViewModel();
 
             foreach (var winLoss in matchWinLossDetail)
             {
-                total = isFirstRow ? winLoss.Total : BetTypeWinLossViewModel.Add(total, winLoss.Total);
-                isFirstRow = false;
+                total.Add(winLoss.Total);
             }
 
             return total;
@@ -312,8 +293,10 @@
             BetTypeWinLossViewModel mixParlay,
             BetTypeWinLossViewModel systemParlay)
         {
-            var grandTotal = BetTypeWinLossViewModel.Add(noParlayWinLossTotal, mixParlay);
-            grandTotal = BetTypeWinLossViewModel.Add(grandTotal, systemParlay);
+            var grandTotal = new BetTypeWinLossViewModel()
+                .Add(noParlayWinLossTotal)
+                .Add(mixParlay)
+                .Add(systemParlay);
 
             return grandTotal;
         }

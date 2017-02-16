@@ -36,6 +36,6 @@
 
         public BetTypeWinLossViewModel Total { get; }
 
-        public bool RenderSubTotal => MatchId != 0 && Race != 0;
+        public bool RenderSubTotal => MatchId != 0 || Race != 0;
     }
 }

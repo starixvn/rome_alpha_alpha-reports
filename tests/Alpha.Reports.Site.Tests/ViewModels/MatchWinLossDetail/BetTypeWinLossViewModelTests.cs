@@ -42,45 +42,30 @@
         }
 
         [Fact]
-        public void Add_NullWinLossA_ReturnsWinLossB()
+        public void Add_NullWinLoss_ReturnsCurrentWinLoss()
         {
             // Arrange
-            BetTypeWinLossViewModel winLossA = null;
-            var winLossB = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
-            var expectedTotal = winLossB;
+            var currentWinLoss = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
+            BetTypeWinLossViewModel winLoss = null;
+            var expectedTotal = currentWinLoss;
 
             // Act
-            var actualTotal = BetTypeWinLossViewModel.Add(winLossA, winLossB);
+            var actualTotal = currentWinLoss.Add(winLoss);
 
             // Assert
             AssertExtension.Equal(expectedTotal, actualTotal);
         }
 
         [Fact]
-        public void Add_NullWinLossB_ReturnsWinLossA()
+        public void Add_NotNullWinLoss_ReturnsCorrectTotal()
         {
             // Arrange
-            BetTypeWinLossViewModel winLossB = null;
-            var winLossA = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
-            var expectedTotal = winLossA;
+            var currentWinLoss = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
+            var winLoss = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
+            var expectedTotal = new BetTypeWinLossViewModel(1, "Bet Type Name", 2, 2, false, null, null, null, null, null);
 
             // Act
-            var actualTotal = BetTypeWinLossViewModel.Add(winLossA, winLossB);
-
-            // Assert
-            AssertExtension.Equal(expectedTotal, actualTotal);
-        }
-
-        [Fact]
-        public void Add_NotNullWinLoss_ReturnsWinLossA()
-        {
-            // Arrange
-            var winLossA = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
-            var winLossB = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
-            var expectedTotal = new BetTypeWinLossViewModel(0, "Sub Total", 2, 2, false, null, null, null, null, null);
-
-            // Act
-            var actualTotal = BetTypeWinLossViewModel.Add(winLossA, winLossB);
+            var actualTotal = currentWinLoss.Add(winLoss);
 
             // Assert
             AssertExtension.Equal(expectedTotal, actualTotal);

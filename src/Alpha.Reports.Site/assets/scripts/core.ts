@@ -150,7 +150,7 @@ class AlphaReports {
         });
     };
     convertAttributeToBool = (attrValue: string) => {
-        return !!attrValue && (attrValue.toString().toLowerCase() === "true");
+        return !!attrValue && attrValue.toString().toLowerCase() === "true";
     };
 }
 
