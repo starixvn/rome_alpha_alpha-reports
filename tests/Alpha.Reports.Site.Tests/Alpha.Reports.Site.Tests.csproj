@@ -216,7 +216,6 @@
     <Compile Include="Fixtures\UserFixture.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandlerTests.cs" />
-    <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
@@ -225,7 +224,6 @@
     </Compile>
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandlerTests.cs" />
     <Compile Include="Handlers\LeagueHandlerTests.cs" />
-    <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\WinLoss\EnteredSportResultExcelHandlerTests.cs" />
@@ -246,8 +244,6 @@
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
-    <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModelTests.cs" />
-    <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModelTests.cs" />

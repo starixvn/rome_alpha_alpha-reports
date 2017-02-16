@@ -26,7 +26,7 @@
             this.cacheRefService = cacheRefService;
         }
 
-        protected IEnumerable<MatchWinLossViewModel> ConvertToViewModel(IEnumerable<MatchWinLossModel> rawData)
+        protected IEnumerable<MatchWinLossViewModel> BuildViewModel(IEnumerable<MatchWinLossModel> rawData)
         {
             var viewModels = new List<MatchWinLossViewModel>();
             if (rawData == null)
@@ -51,11 +51,9 @@
 
             if (reportData.Any())
             {
-                var reportDataCopy = reportData.ToList();
-                int index, count;
-                for (index = 1, count = reportDataCopy.Count, grandTotal = reportDataCopy[0]; index < count; index++)
+                foreach (var data in reportData)
                 {
-                    grandTotal = MatchWinLossViewModel.Add(grandTotal, reportDataCopy[index]);
+                    grandTotal = grandTotal.Add(data);
                 }
             }
 
