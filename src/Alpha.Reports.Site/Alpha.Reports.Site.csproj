@@ -591,7 +591,6 @@
     <Content Include="Views\Shared\InvalidReport.cshtml" />
     <Content Include="Views\MatchWinLoss\Index.cshtml" />
     <Content Include="Views\League\LeaguesByCustomer.cshtml" />
-    <Content Include="Views\MatchWinLoss\Index.cshtml" />
     <Content Include="Views\MatchWinLossDetail\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
