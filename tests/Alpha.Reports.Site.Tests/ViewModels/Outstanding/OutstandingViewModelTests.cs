@@ -2,161 +2,202 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Enumerations;
+    using Fixtures;
     using NSubstitute;
-    using Ploeh.AutoFixture;
     using Reports.Models;
     using Reports.Models.Outstanding;
     using Site.Helpers;
-    using Site.ViewModels.Components;
+    using Site.Requests.Outstanding;
     using Site.ViewModels.Outstanding;
     using Xunit;
     using static Reports.Models.UserLevel;
 
-    //[Trait("Category", "Outstanding")]
-    //public class OutstandingViewModelTests
-    //{
-    //    private readonly Fixture fixture = new Fixture();
+    [Trait("Category", "Outstanding")]
+    [Collection("UserCollection")]
+    public class OutstandingViewModelTests
+    {
+        private readonly UserFixture userFixture;
 
-    //    [Fact]
-    //    public void GetUserActionLink_WhenReportLevelIsMemberLevel_ReturnsBestlistLink()
-    //    {
-    //        // Arrange
-    //        var betlistPath = "BetListPath";
-    //        UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
-    //        UrlHelper.MapExMainPath(Arg.Any<string>()).Returns(betlistPath);
-    //        var viewModel = new OutstandingViewModel(Super, Member, null, null);
+        public OutstandingViewModelTests(UserFixture userFixture)
+        {
+            this.userFixture = userFixture;
+        }
 
-    //        // Act
-    //        var actualLink = viewModel.GetUserActionLink(fixture.Create<OutstandingModel>());
+        [Fact]
+        public void BuildDrillDownLink_WhenViewerLevelIsAgent_CallAddQueryStringParamsFuncToBuilBetListLink()
+        {
+            // Arrange
+            SetUpForHelpers();
+            UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
+            var custId = 1;
+            var custName = "CustName";
 
-    //        // Assert
-    //        Assert.True(actualLink.Contains(betlistPath));
-    //    }
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            query.ViewerLevel.Returns(Agent);
+            query.CustLevel.Returns(Agent);
 
-    //    [Theory]
-    //    [InlineData(4)]
-    //    [InlineData(2)]
-    //    public void GetUserActionLink_WhenReportLevelIsNotMemberLevel_ReturnsDrilldownLink(byte roleId)
-    //    {
-    //        // Arrange
-    //        var betlistPath = "BetListPath";
-    //        var reportLevel = Enumeration.FromValue<UserLevel>(roleId);
-    //        var viewModel = new OutstandingViewModel(Super, reportLevel, null, new BreadcrumbLevelViewModel(null, null));
+            var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
 
-    //        // Act
-    //        var actualLink = viewModel.GetUserActionLink(fixture.Create<OutstandingModel>());
+            // Act
+            viewmodel.BuildDrillDownLink(new OutstandingModel { CustId = custId, CustName = custName }, null);
 
-    //        // Assert
-    //        Assert.True(!actualLink.Contains(betlistPath));
-    //    }
+            // Assert
+            UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
+                "BetListPath",
+                Arg.Is<Dictionary<string, object>>(
+                    routeValue =>
+                    (int)routeValue["CustId"] == custId
+                    && (string)routeValue["Username"] == custName
+                    && (string)routeValue["Type"] == "RunByDate_Mem"
+                    && (string)routeValue["Chkgetall"] == "on"));
+        }
 
-    //    [Fact]
-    //    public void DisplayOutstandingLevels_SuperViewMasterOutstanding_Show_Member_Super_Outstanding()
-    //    {
-    //        // Arrange
-    //        var expected = new List<UserLevel> { Member, Super };
-    //        var viewModel = new OutstandingViewModel(
-    //            Super,
-    //            Master,
-    //            fixture.Create<IEnumerable<OutstandingModel>>(),
-    //            null);
+        [Theory]
+        [InlineData(4)]
+        [InlineData(3)]
+        public void BuildDrillDownLink_WhenViewerLevelIsUplineOfAgent_CallReplaceOrAddQueryStringParamsFuncToBuildDrillDownLink(byte custLevelId)
+        {
+            // Arrange
+            SetUpForHelpers();
+            UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
+            var custId = 1;
+            var custName = "CustName";
+            var currentUrl = "CurrentUrl";
+            var custLevel = Enumeration.FromValue<UserLevel>(custLevelId);
 
-    //        // Act
-    //        var actual = viewModel.DisplayOutstandingLevels;
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            query.ViewerLevel.Returns(custLevel);
+            query.CustLevel.Returns(custLevel);
 
-    //        // Assert
-    //        Assert.Equal(expected, actual);
-    //    }
+            var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
 
-    //    [Fact]
-    //    public void DisplayOutstandingLevels_SuperViewAgentOutstanding_Show_Member_Master_Super_Outstanding()
-    //    {
-    //        // Arrange
-    //        var expected = new List<UserLevel> { Member, Master, Super };
-    //        var viewModel = new OutstandingViewModel(
-    //            Super,
-    //            Agent,
-    //            fixture.Create<IEnumerable<OutstandingModel>>(),
-    //            null);
+            // Act
+            viewmodel.BuildDrillDownLink(new OutstandingModel { CustId = custId, CustName = custName }, currentUrl);
 
-    //        // Act
-    //        var actual = viewModel.DisplayOutstandingLevels;
+            // Assert
+            UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(
+                currentUrl,
+                Arg.Is<Dictionary<string, object>>(
+                    routeValue =>
+                    (int)routeValue["CustId"] == custId
+                    && (string)routeValue["CustName"] == custName
+                    && (string)routeValue["UserSelectedProductIds"] == string.Empty
+                    && (byte)routeValue["CustLevelId"] == custLevelId - 1
+                    && (string)routeValue["BreadcrumbLevelJson"] == "parsedJson"));
+        }
 
-    //        // Assert
-    //        Assert.Equal(expected, actual);
-    //    }
+        [Fact]
+        public void DisplayOutstandingLevels_SuperViewMasterOutstanding_Show_Member_Super_Outstanding()
+        {
+            // Arrange
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            query.ViewerLevel.Returns(Super);
+            query.CustLevel.Returns(Super);
 
-    //    [Fact]
-    //    public void DisplayOutstandingLevels_SuperViewMemberOutstanding_Show_Member_Agent_Master_Super_Outstanding()
-    //    {
-    //        // Arrange
-    //        var expected = new List<UserLevel> { Member, Agent, Master, Super };
-    //        var viewModel = new OutstandingViewModel(
-    //            Super,
-    //            Member,
-    //            fixture.Create<IEnumerable<OutstandingModel>>(),
-    //            null);
+            var expected = new List<UserLevel> { Member, Super };
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
 
-    //        // Act
-    //        var actual = viewModel.DisplayOutstandingLevels;
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
 
-    //        // Assert
-    //        Assert.Equal(expected, actual);
-    //    }
+            // Assert
+            Assert.Equal(expected, actual);
+        }
 
-    //    [Fact]
-    //    public void DisplayOutstandingLevels_MasterViewAgentOutstanding_Show_Member_Master_Outstanding()
-    //    {
-    //        // Arrange
-    //        var expected = new List<UserLevel> { Member, Master };
-    //        var viewModel = new OutstandingViewModel(
-    //            Master,
-    //            Agent,
-    //            fixture.Create<IEnumerable<OutstandingModel>>(),
-    //            null);
+        [Fact]
+        public void DisplayOutstandingLevels_SuperViewAgentOutstanding_Show_Member_Master_Super_Outstanding()
+        {
+            // Arrange
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            query.ViewerLevel.Returns(Super);
+            query.CustLevel.Returns(Master);
 
-    //        // Act
-    //        var actual = viewModel.DisplayOutstandingLevels;
+            var expected = new List<UserLevel> { Member, Master, Super };
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
 
-    //        // Assert
-    //        Assert.Equal(expected, actual);
-    //    }
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
 
-    //    [Fact]
-    //    public void DisplayOutstandingLevels_MasterViewMemberOutstanding_Show_Member_Agent_Master_Outstanding()
-    //    {
-    //        // Arrange
-    //        var expected = new List<UserLevel> { Member, Agent, Master };
-    //        var viewModel = new OutstandingViewModel(
-    //            Master,
-    //            Member,
-    //            fixture.Create<IEnumerable<OutstandingModel>>(),
-    //            null);
+            // Assert
+            Assert.Equal(expected, actual);
+        }
 
-    //        // Act
-    //        var actual = viewModel.DisplayOutstandingLevels;
+        [Fact]
+        public void DisplayOutstandingLevels_SuperViewMemberOutstanding_Show_Member_Agent_Master_Super_Outstanding()
+        {
+            // Arrange
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            query.ViewerLevel.Returns(Super);
+            query.CustLevel.Returns(Agent);
+            var expected = new List<UserLevel> { Member, Agent, Master, Super };
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
 
-    //        // Assert
-    //        Assert.Equal(expected, actual);
-    //    }
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
 
-    //    [Fact]
-    //    public void DisplayOutstandingLevels_AgentViewMemberOutstanding_Show_Member_Agent_Outstanding()
-    //    {
-    //        // Arrange
-    //        var expected = new List<UserLevel> { Member, Agent };
-    //        var viewModel = new OutstandingViewModel(
-    //            Agent,
-    //            Member,
-    //            fixture.Create<IEnumerable<OutstandingModel>>(),
-    //            null);
+            // Assert
+            Assert.Equal(expected, actual);
+        }
 
-    //        // Act
-    //        var actual = viewModel.DisplayOutstandingLevels;
+        [Fact]
+        public void DisplayOutstandingLevels_MasterViewAgentOutstanding_Show_Member_Master_Outstanding()
+        {
+            // Arrange
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            query.ViewerLevel.Returns(Master);
+            query.CustLevel.Returns(Master);
+            var expected = new List<UserLevel> { Member, Master };
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
 
-    //        // Assert
-    //        Assert.Equal(expected, actual);
-    //    }
-    //}
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DisplayOutstandingLevels_MasterViewMemberOutstanding_Show_Member_Agent_Master_Outstanding()
+        {
+            // Arrange
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            query.ViewerLevel.Returns(Master);
+            query.CustLevel.Returns(Agent);
+            var expected = new List<UserLevel> { Member, Agent, Master };
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DisplayOutstandingLevels_AgentViewMemberOutstanding_Show_Member_Agent_Outstanding()
+        {
+            // Arrange
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            query.ViewerLevel.Returns(Agent);
+            query.CustLevel.Returns(Agent);
+            var expected = new List<UserLevel> { Member, Agent };
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+
+            // Act
+            var actual = viewModel.DisplayOutstandingLevels;
+
+            // Assert
+            Assert.Equal(expected, actual);
+        }
+
+        private static void SetUpForHelpers()
+        {
+            JsonHelper.ToJsonFunc = Substitute.For<Func<object, string>>();
+            JsonHelper.ToJsonFunc.Invoke(Arg.Any<object>()).Returns("parsedJson");
+            UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
+            UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
+        }
+    }
 }

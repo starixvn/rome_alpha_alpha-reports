@@ -10,24 +10,22 @@
     using Reports.Models.Outstanding;
     using Requests.Outstanding;
 
-    public class OutstandingViewModel
+    public class OutstandingViewModel : DrillDownableReportViewModel<OutstandingModel>
     {
         // Always need to show member outstanding
         private readonly List<UserLevel> displayOutstandingLevels = new List<UserLevel>() { UserLevel.Member };
-
-        private string betListPath = Helpers.UrlHelper.MapExMainPath("~/_Reports/BetList/OutstandingDetail.aspx");
 
         public OutstandingViewModel(
             OutstandingQuery query,
             IEnumerable<OutstandingModel> outstandingDataSource,
             IEnumerable<int> selectedProductIds,
             IEnumerable<SelectListItem> products,
-            BreadcrumbLevelViewModel breadcrumbLevelViewModel)
+            IEnumerable<CustInfo> breadcrumbLevel)
+               : base(query.CustLevel, breadcrumbLevel, "~/_Reports/BetList/OutstandingDetail.aspx")
         {
             Query = query;
             OutstandingDatasource = outstandingDataSource;
-            BreadcrumbLevelViewModel = breadcrumbLevelViewModel;
-            ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), "");
+            ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), string.Empty);
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= Query.ViewerLevel.Value; level++)
             {
@@ -65,19 +63,21 @@
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
 
-        public BreadcrumbLevelViewModel BreadcrumbLevelViewModel { get; }
-
         public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
 
-        public string GetUserActionLink(OutstandingModel outstanding)
+        protected override IDictionary<string, object> GetDownlineLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>
         {
-            if (ReportLevel.IsMemberLevel())
-            {
-                return $"{betListPath}?custId={outstanding.CustId}&username={outstanding.CustName}&chkgetall=on&type=RunByDate_Mem";
-            }
+            { "CustId", model.CustId },
+            { "CustName", model.CustName },
+            { "UserSelectedProductIds", ProductMultiSelectionViewModel.UserSelectedProductIds }
+        };
 
-            return $"?custLevelId={ReportLevel.Value}&custId={outstanding.CustId}&custName={outstanding.CustName}" +
-                    $"&breadcrumbLevelJson={BreadcrumbLevelViewModel.BreadcrumbLevelJson}";
-        }
+        protected override IDictionary<string, object> GetBetListLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>
+        {
+            { "CustId", model.CustId },
+            { "Username", model.CustName },
+            { "Chkgetall", "on" },
+            { "Type", "RunByDate_Mem" }
+        };
     }
 }

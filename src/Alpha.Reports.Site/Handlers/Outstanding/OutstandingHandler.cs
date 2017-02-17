@@ -6,13 +6,11 @@
     using Requests.Outstanding;
     using Services;
     using Services.Outstanding;
-    using ViewModels.Components;
     using ViewModels.Outstanding;
 
     public class OutstandingHandler : BaseHandler, IRequestHandler<OutstandingQuery, OutstandingViewModel>
     {
         private readonly OutstandingService outstandingService;
-
         private readonly ProductService productService;
 
         public OutstandingHandler(OutstandingService outstandingServiceImpl, ProductService productServiceImpl)
@@ -35,14 +33,12 @@
 
             var products = productService.GetProductsForCustomer(message.CustId);
 
-            var breadcrumbLevelsViewModel = new BreadcrumbLevelViewModel(BuildBreadcrumbLevel(message));
-
             var viewModel = new OutstandingViewModel(
                 message,
                 outstandings,
                 validUserSelectedProductIds,
                 BuildProductSelectListItems(validUserSelectedProductIds, products),
-                breadcrumbLevelsViewModel);
+                BuildBreadcrumbLevel(message));
 
             return viewModel;
         }

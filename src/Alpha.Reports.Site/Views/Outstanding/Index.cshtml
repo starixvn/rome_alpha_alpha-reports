@@ -3,10 +3,7 @@
 
 @model OutstandingViewModel
 
-<div class="page-title">
-    <span class="pull-left">@Model.Title</span>
-    @Breadcrumb.Render(Model.BreadcrumbLevelViewModel, Request.Path)
-</div>
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, false, false, false, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
 <form class="form-inline filter" role="form" id="report-form">
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
@@ -39,13 +36,15 @@
     @if (Model.OutstandingDatasource.Any())
     {
         <tbody>
-            @Model.OutstandingDatasource.List(
-        @<tr>
-            <td class="text-left" data-islink="true">
-                <a href="@Model.GetUserActionLink(@item)">@item.CustName</a>
-            </td>
-            @RenderOutstandingCells(@item)
-        </tr>)
+            @foreach (var outstanding in Model.OutstandingDatasource)
+            {
+                <tr>
+                    <td class="text-left" data-islink="true">
+                        <a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)">@outstanding.CustName</a>
+                    </td>
+                    @RenderOutstandingCells(outstanding)
+                </tr>
+            }
         </tbody>
         <tfoot>
             <tr class="tbl-footer">

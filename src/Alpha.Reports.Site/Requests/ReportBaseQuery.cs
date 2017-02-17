@@ -33,13 +33,13 @@
 
         public byte CustLevelId { get; set; }
 
-        public UserLevel CustLevel => Enumeration.FromValue<UserLevel>(CustLevelId);
+        public virtual UserLevel CustLevel => Enumeration.FromValue<UserLevel>(CustLevelId);
 
         public int ViewerId { get; }
 
         public byte ViewerLevelId { get; }
 
-        public UserLevel ViewerLevel { get; }
+        public virtual UserLevel ViewerLevel { get; }
 
         public IEnumerable<CustInfo> BreadcrumbLevel { get; set; } = Enumerable.Empty<CustInfo>();
 

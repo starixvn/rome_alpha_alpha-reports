@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Requests.Outstanding
 {
+    using MediatR;
     using Reports.Models;
     using ViewModels.Outstanding;
-    using MediatR;
 
     public class OutstandingQuery : ReportBaseQuery, IRequest<OutstandingViewModel>
     {
