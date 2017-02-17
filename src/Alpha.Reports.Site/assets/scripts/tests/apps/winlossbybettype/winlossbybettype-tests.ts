@@ -119,8 +119,6 @@
             expect(winLossByBettypeView.$switchModeIcon).toBeDefined();
             expect(winLossByBettypeView.$fromDate).toBeDefined();
             expect(winLossByBettypeView.$toDate).toBeDefined();
-            expect(winLossByBettypeView.$sortPropertyName).toBeDefined();
-            expect(winLossByBettypeView.$isDescendingSort).toBeDefined();
         });
     });
 

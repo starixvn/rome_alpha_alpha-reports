@@ -1,4 +1,4 @@
-﻿@model WinLossByGameTypeFilterViewModel
+﻿@model WinLossByBetTypeFilterViewModel
 
 <form class="form-inline filter @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @RenderHiddenFields()
@@ -22,9 +22,6 @@
 
     @Html.Hidden("ProductId", ViewData["ProductId"])
     @Html.Hidden("Title", ViewData["Title"])
-
-    @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
-    @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
 
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)

@@ -93,28 +93,6 @@
         }
 
         [Theory]
-        [InlineData(4, "SuperNetWinLoss")]
-        [InlineData(3, "MasterNetWinLoss")]
-        [InlineData(2, "AgentNetWinLoss")]
-        public void BuildResources_CustLevel_ReturnCorrectCustLevelNetWinLossName(
-          byte custLevelId,
-          string expectedCustLevelNetWinLossName)
-        {
-            // Arrange
-            var message = CreateWinlossByBetTypeQuery(custLevelId);
-            var winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
-               Enumerable.Empty<WinLossByBetTypeModel>(),
-               fixture.Create<WinLossByBetTypeModel>(),
-               message,
-               fixture.Create<WinLossByBetTypeParam>(),
-               fixture.Create<Func<int, string, bool, string>>(),
-               cacheRefService);
-
-            // Act & Assert
-            Assert.Equal(winlossByBettypeViewModel.CustLevelNetWinLossName, expectedCustLevelNetWinLossName);
-        }
-
-        [Theory]
         [InlineData(4, "Super")]
         [InlineData(3, "Master")]
         [InlineData(2, "Agent")]

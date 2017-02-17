@@ -75,7 +75,7 @@
                 case (int)BetType.VT_PlayerWin:
                 case (int)BetType.VT_ScoreBet:
                 case (int)BetType.VT_TotalPoints:
-                    displayedBetTypeName = betTypeName + " (" + Resources.VirtualSports + ")";
+                    displayedBetTypeName = $"{betTypeName} ({Resources.VirtualSports})";
                     break;
                 case (int)BetType.Casino_Games:
                 case (int)BetType.Baccarat:
@@ -86,18 +86,18 @@
                 case (int)BetType.GoldDeluxeBaccarat:
                 case (int)BetType.GoldDeluxeRoulette:
                 case (int)BetType.GoldDeluxeParlayBaccarat:
-                    displayedBetTypeName = betTypeName + " (" + Resources.GoldDeluxe + ")";
+                    displayedBetTypeName = $"{betTypeName} ({Resources.GoldDeluxe})";
                     break;
                 case (int)BetType.N_Over_Under:
-                    displayedBetTypeName = Resources.Next + " " + betTypeName + " (" + Resources.NumberGame + ")";
+                    displayedBetTypeName = $"{Resources.Next} {betTypeName} ({Resources.NumberGame})";
                     break;
                 case (int)BetType.N_Odd_Even:
                     string strNextCombo = liveIndicator ? Resources.Next + " " : Resources.FT + ". ";
-                    displayedBetTypeName = strNextCombo + betTypeName + " (" + Resources.NumberGame + ")";
+                    displayedBetTypeName = $"{strNextCombo}{betTypeName} ({Resources.NumberGame})";
                     break;
                 case (int)BetType.NumberWheel:
                     string typeNumberWheel = liveIndicator ? Resources.LiveGame : Resources.PreGame;
-                    displayedBetTypeName = betTypeName + " (" + typeNumberWheel + ")";
+                    displayedBetTypeName = $"{betTypeName} ({typeNumberWheel})";
                     break;            
                 case (int)BetType.VoidbridgeRangeStart:
                     displayedBetTypeName = Resources.Voidbridge;
@@ -109,7 +109,7 @@
                     displayedBetTypeName = betTypeName;
                     if (betTypeId >= (int)BetType.AllBetRangeStart && betTypeId <= (int)BetType.AllBetRangeEnd)
                     {
-                        displayedBetTypeName = betTypeName + " (" + Resources.Allbet + ")";
+                        displayedBetTypeName = displayedBetTypeName = $"{betTypeName} ({Resources.Allbet})";
                     }
 
                     break;

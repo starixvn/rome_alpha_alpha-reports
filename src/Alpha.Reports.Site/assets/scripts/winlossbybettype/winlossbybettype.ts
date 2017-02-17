@@ -25,8 +25,6 @@ class WinLossByBettypeView {
     $switchModeIcon: JQuery;
     $fromDate: JQuery;
     $toDate: JQuery;
-    $isDescendingSort: JQuery;
-    $sortPropertyName: JQuery;
     $isSetDefaultStackMode: JQuery;
 
     isFirstSwitchMode = true;
@@ -89,8 +87,6 @@ class WinLossByBettypeView {
         this.$switchModeIcon = this.$(".icon-switchmode");
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
-        this.$isDescendingSort = this.$("#IsDescendingSort");
-        this.$sortPropertyName = this.$("#SortPropertyName");
         this.$isSetDefaultStackMode = this.$("#IsSetDefaultStackMode");
     };
 
@@ -256,11 +252,6 @@ class WinLossByBettypeView {
             sortedColumn = this$(".sorting-desc");
         }
 
-        var sortedColumnName = sortedColumn.data("sortedname");
-
-        this.replaceDrilldownParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
-        this.replaceDrilldownParam("IsDescendingSort", direction);
-
         var isEvenRow = false;
         this.$tableReport.find("tbody > tr").each(function () {
             var $row = this$(this);
@@ -281,8 +272,6 @@ class WinLossByBettypeView {
 
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
         this.$isStackMode.val(String(params.IsStackMode));
-        this.$sortPropertyName.val(params.SortPropertyName);
-        this.$isDescendingSort.val(String(params.IsDescendingSort));
     };
 
     getSortedColumnName = () => {

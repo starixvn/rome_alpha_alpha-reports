@@ -72,8 +72,6 @@
 
         public string DownLineLevelName { get; private set; }
 
-        public string CustLevelNetWinLossName { get; private set; }
-
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
@@ -91,19 +89,16 @@
             {
                 CustLevelName = Resources.Super;
                 DownLineLevelName = Resources.Master;
-                CustLevelNetWinLossName = "SuperNetWinLoss";
             }
             else if (CustLevel.IsMasterLevel())
             {
                 CustLevelName = Resources.Master;
                 DownLineLevelName = Resources.Agent;
-                CustLevelNetWinLossName = "MasterNetWinLoss";
             }
             else
             {
                 CustLevelName = Resources.Agent;
                 DownLineLevelName = Resources.Member;
-                CustLevelNetWinLossName = "AgentNetWinLoss";
             }
         }
 

@@ -6,8 +6,6 @@
     new ViewDataDictionary
     {
         { "IsStackMode", Model.IsStackMode },
-        { "IsDescendingSort", Model.IsDescendingSort },
-        { "SortPropertyName", string.Empty },
         { "ProductId", Model.ProductId },
         { "Title", Model.Title }
     })
@@ -16,7 +14,7 @@
        data-totalrecords="@Model.ReportData.Count()"
        data-custid="@Model.CustId"
        data-sortedcolumn=""
-       data-descendingsort="@Model.IsDescendingSort">
+       data-descendingsort="">
     <thead>
         <tr>
             <th rowspan="2" data-disabledsort="true" data-colindex="0">@Resources.GameTypeName</th>
@@ -57,7 +55,7 @@
             else
             {
                 <th colspan="3" class="col-level hidden-stack-mode">@Model.CustLevelName</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".WinLoss")" rowspan="2" data-colindex="1">
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.WinLoss")" rowspan="2" data-colindex="1">
                     @Model.CustLevelName
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -73,15 +71,15 @@
                 <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Comm" data-colindex="3">@Resources.Comm</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Total" data-colindex="4">@Resources.Total</th>
 
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".WinLoss")" data-colindex="5">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".Comm")" data-colindex="6">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".Total")" data-colindex="7">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.WinLoss")" data-colindex="5">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.Comm")" data-colindex="6">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.Total")" data-colindex="7">@Resources.Total</th>
             }
             else
             {
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".WinLoss")" data-colindex="3">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".Comm")" data-colindex="4">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelNetWinLossName + ".Total")" data-colindex="5">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.WinLoss")" data-colindex="3">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.Comm")" data-colindex="4">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.Total")" data-colindex="5">@Resources.Total</th>
             }
         </tr>
     </thead>
@@ -110,12 +108,13 @@
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
     <input type="hidden" name="CustLevelId" value="@Model.CustLevel.Value" />
     <input type="hidden" name="ProductId" value="@Model.ProductId" />
+    <input type="hidden" name="Title" value="@Model.Title" />
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
 
 @section Scripts {
-    @StaticResources.RenderScripts("~/assets/bundles/winlossbygametype/winlossbygametype")
+    @StaticResources.RenderScripts("~/assets/bundles/winlossbybettype/winlossbybettype")
 }
 
 @helper RenderRow(WinLossByGameTypeModel data, bool isTotalRow)

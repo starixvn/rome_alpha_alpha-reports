@@ -260,7 +260,6 @@
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossByBetType\WinLossByBetTypeViewModelTestsFilterViewModelTests.cs" />
-    <Compile Include="ViewModels\WinLossByGameType\WinLossByGameTypeViewModelTestsFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossByGameType\WinLossByGameTypeViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModelTests.cs" />

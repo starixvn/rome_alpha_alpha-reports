@@ -9,6 +9,7 @@
     using Reports.Models;
     using Reports.Models.WinlossByGameType;
     using Requests.WinLossByGameType;
+    using WinLossByBetType;
 
     public class WinLossByGameTypeViewModel
     {
@@ -65,13 +66,11 @@
 
         public string DownLineLevelName { get; private set; }
 
-        public string CustLevelNetWinLossName { get; private set; }
-
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
-        public WinLossByGameTypeFilterViewModel FilterViewModel =>
-            new WinLossByGameTypeFilterViewModel(
+        public WinLossByBetTypeFilterViewModel FilterViewModel =>
+            new WinLossByBetTypeFilterViewModel(
                 CustId,
                 CustLevel,
                 DateRangePickerViewModel,
@@ -84,19 +83,16 @@
             {
                 CustLevelName = Resources.Super;
                 DownLineLevelName = Resources.Master;
-                CustLevelNetWinLossName = "SuperNetWinLoss";
             }
             else if (CustLevel.IsMasterLevel())
             {
                 CustLevelName = Resources.Master;
                 DownLineLevelName = Resources.Agent;
-                CustLevelNetWinLossName = "MasterNetWinLoss";
             }
             else
             {
                 CustLevelName = Resources.Agent;
                 DownLineLevelName = Resources.Member;
-                CustLevelNetWinLossName = "AgentNetWinLoss";
             }
         }
     }

@@ -20,9 +20,6 @@
         @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
         @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
 
-        @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
-        @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
-
         @Html.Hidden("CustId", Model.CustId)
         @Html.Hidden("CustLevelId", Model.CustLevel.Value)
     }

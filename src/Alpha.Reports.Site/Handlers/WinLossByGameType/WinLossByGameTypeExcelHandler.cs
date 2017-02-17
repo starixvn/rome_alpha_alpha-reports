@@ -97,12 +97,12 @@
                 noInfomationText: Resources.NoInformationIsAvailable);
 
         private string GetReporTitle(WinLossByGameTypeExcelQuery message)
-            => $"{Resources.WinLossTitle} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
+            => $"{message.Title} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 
         private string GetExcelFileName(WinLossByGameTypeExcelQuery message, WinLossByGameTypeParam winLossByGameTypeParam)
            => string.Join(
                "-",
-               Resources.WinLossTitle,
+               message.Title,
                message.CustName,
                winLossByGameTypeParam.FromDate.ToShortDateWithSlash(),
                winLossByGameTypeParam.ToDate.ToShortDateWithSlash());

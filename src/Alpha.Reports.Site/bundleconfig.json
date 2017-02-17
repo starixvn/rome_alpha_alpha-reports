@@ -92,17 +92,6 @@
       "assets/scripts/components/link-builder.js",
       "assets/scripts/winlossbybettype/winlossbybettype.js"
     ]
-  },
-  {
-    "outputFileName": "assets/bundles/winlossbygametype/winlossbygametype.js",
-    "inputFiles": [
-      "assets/scripts/core.js",
-      "assets/scripts/components/daterangepicker.js",
-      "assets/scripts/components/tooltip.js",
-      "assets/scripts/components/sort.js",
-      "assets/scripts/components/link-builder.js",
-      "assets/scripts/winlossbygametype/winlossbygametype.js"
-    ]
   }
 
 ]
