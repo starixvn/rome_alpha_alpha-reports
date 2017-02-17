@@ -86,7 +86,7 @@
                cacheRefService);
 
             // Act
-            var actualWinLossGameTypeInfoViewModel = winlossByBettypeViewModel.BuildWinLossGameTypeInfoViewModel(betTypeId, productId);
+            var actualWinLossGameTypeInfoViewModel = winlossByBettypeViewModel.BuildWinLossGameTypeInfoViewModel((BetType)betTypeId, productId);
 
             // Assert
             var result = compareLogic.Compare(expectedWinLossGameTypeInfoViewModel, actualWinLossGameTypeInfoViewModel);

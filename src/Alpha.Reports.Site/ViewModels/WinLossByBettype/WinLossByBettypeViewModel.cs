@@ -125,22 +125,22 @@
         [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.")]
         public Func<BetType, string, bool, string> BuildDisplayedBettypeName;
 
-        public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(int betTypeId, int productId)
+        public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(BetType betType, int productId)
         {
             bool isAllowViewGameType = false;
             string winLossByGameTypeTitle = string.Empty;
 
-            switch (betTypeId)
+            switch (betType)
             {
-                case (int)BetType.Casino_Games:
+                case BetType.Casino_Games:
                     {
                         isAllowViewGameType = true;
                         winLossByGameTypeTitle = Resources.CasinoWinLoss;
                     }
 
                     break;
-                case (int)BetType.VoidbridgeRangeStart:
-                case (int)BetType.NG2Representative:
+                case BetType.VoidbridgeRangeStart:
+                case BetType.NG2Representative:
                     {
                         isAllowViewGameType = true;
                         winLossByGameTypeTitle = $"{cacheRefService.GetProductName(productId)} {Resources.WinLossTitle}";
