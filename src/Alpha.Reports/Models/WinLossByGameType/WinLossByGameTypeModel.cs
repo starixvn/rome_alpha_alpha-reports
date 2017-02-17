@@ -28,37 +28,46 @@
 
         public string GameTypeName { get; }
 
-        public decimal Turnover { get; }
+        public decimal Turnover { get; private set; }
 
-        public NetWinLoss MemberNetWinLoss { get; }
+        public NetWinLoss MemberNetWinLoss { get; private set; }
 
-        public NetWinLoss AgentNetWinLoss { get; }
+        public NetWinLoss AgentNetWinLoss { get; private set; }
 
-        public NetWinLoss MasterNetWinLoss { get; }
+        public NetWinLoss MasterNetWinLoss { get; private set; }
 
-        public NetWinLoss SuperNetWinLoss { get; }
+        public NetWinLoss SuperNetWinLoss { get; private set; }
 
-        public decimal Company =>
-            -((MemberNetWinLoss?.Total ?? 0)
-            + (AgentNetWinLoss?.Total ?? 0)
-            + (MasterNetWinLoss?.Total ?? 0)
-            + (SuperNetWinLoss?.Total ?? 0));
-
-        public static WinLossByGameTypeModel Add(WinLossByGameTypeModel winlossByGameTypeA, WinLossByGameTypeModel winlossByGameTypeB)
+        public decimal Company
         {
-            if (winlossByGameTypeA == null || winlossByGameTypeB == null)
+            get
             {
-                return winlossByGameTypeA ?? winlossByGameTypeB;
+                return -((MemberNetWinLoss?.Total ?? 0)
+                        + (AgentNetWinLoss?.Total ?? 0)
+                        + (MasterNetWinLoss?.Total ?? 0)
+                        + (SuperNetWinLoss?.Total ?? 0));
             }
 
-            return new WinLossByGameTypeModel(
-                gameTypeId: 0,
-                gameTypeName: string.Empty,
-                turnover: winlossByGameTypeA.Turnover + winlossByGameTypeB.Turnover,
-                memberNetWinLoss: NetWinLoss.Add(winlossByGameTypeA.MemberNetWinLoss, winlossByGameTypeB.MemberNetWinLoss),
-                agentNetWinLoss: NetWinLoss.Add(winlossByGameTypeA.AgentNetWinLoss, winlossByGameTypeB.AgentNetWinLoss),
-                masterNetWinLoss: NetWinLoss.Add(winlossByGameTypeA.MasterNetWinLoss, winlossByGameTypeB.MasterNetWinLoss),
-                superNetWinLoss: NetWinLoss.Add(winlossByGameTypeA.SuperNetWinLoss, winlossByGameTypeB.SuperNetWinLoss));
+            private set
+            {
+            }
+        }
+
+        public WinLossByGameTypeModel Add(WinLossByGameTypeModel winlossByGameType)
+        {
+            if (winlossByGameType == null)
+            {
+                return this;
+            }
+
+            Turnover += winlossByGameType.Turnover;
+            Company += winlossByGameType.Company;
+            MemberNetWinLoss = NetWinLoss.Add(MemberNetWinLoss, winlossByGameType.MemberNetWinLoss);
+            AgentNetWinLoss = NetWinLoss.Add(AgentNetWinLoss, winlossByGameType.AgentNetWinLoss);
+            MasterNetWinLoss = NetWinLoss.Add(MasterNetWinLoss, winlossByGameType.MasterNetWinLoss);
+            SuperNetWinLoss = NetWinLoss.Add(SuperNetWinLoss, winlossByGameType.SuperNetWinLoss);
+
+            return this;
         }
     }
 }

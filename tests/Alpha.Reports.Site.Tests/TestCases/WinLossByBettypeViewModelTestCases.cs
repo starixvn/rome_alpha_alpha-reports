@@ -16,7 +16,7 @@
         private static WinLossByBetTypeModel ExpectedSuperGrantTotal =>
             new WinLossByBetTypeModel(
                 betTypeId: 0,
-                betTypeName: string.Empty,
+                betTypeName: null,
                 productId: 0,
                 liveIndicator: false,
                 betCount: 6,
@@ -30,7 +30,7 @@
         private static WinLossByBetTypeModel ExpectedMasterGrantTotal =>
             new WinLossByBetTypeModel(
                 betTypeId: 0,
-                betTypeName: string.Empty,
+                betTypeName: null,
                 productId: 0,
                 liveIndicator: false,
                 betCount: 6,
@@ -44,7 +44,7 @@
         private static WinLossByBetTypeModel ExpectedAgentGrantTotal =>
             new WinLossByBetTypeModel(
                 betTypeId: 0,
-                betTypeName: string.Empty,
+                betTypeName: null,
                 productId: 0,
                 liveIndicator: false,
                 betCount: 6,

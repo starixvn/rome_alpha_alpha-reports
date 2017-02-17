@@ -41,45 +41,52 @@
 
         public bool LiveIndicator { get; }
         
-        public int BetCount { get; }
+        public int BetCount { get; private set; }
 
-        public decimal Turnover { get; }
+        public decimal Turnover { get; private set; }
 
-        public decimal GrossComm { get; }
+        public decimal GrossComm { get; private set; }
 
-        public NetWinLoss MemberNetWinLoss { get; }
+        public NetWinLoss MemberNetWinLoss { get; private set; }
 
-        public NetWinLoss AgentNetWinLoss { get; }
+        public NetWinLoss AgentNetWinLoss { get; private set; }
 
-        public NetWinLoss MasterNetWinLoss { get; }
+        public NetWinLoss MasterNetWinLoss { get; private set; }
 
-        public NetWinLoss SuperNetWinLoss { get; }
+        public NetWinLoss SuperNetWinLoss { get; private set; }
 
-        public decimal Company =>
-            -((MemberNetWinLoss?.Total ?? 0)
-            + (AgentNetWinLoss?.Total ?? 0)
-            + (MasterNetWinLoss?.Total ?? 0)
-            + (SuperNetWinLoss?.Total ?? 0));
-
-        public static WinLossByBetTypeModel Add(WinLossByBetTypeModel winlossByBettypeA, WinLossByBetTypeModel winlossByBettypeB)
+        public decimal Company
         {
-            if (winlossByBettypeA == null || winlossByBettypeB == null)
+            get
             {
-                return winlossByBettypeA ?? winlossByBettypeB;
+                return -((MemberNetWinLoss?.Total ?? 0)
+                        + (AgentNetWinLoss?.Total ?? 0)
+                        + (MasterNetWinLoss?.Total ?? 0)
+                        + (SuperNetWinLoss?.Total ?? 0));
             }
 
-            return new WinLossByBetTypeModel(
-                betTypeId: 0,
-                betTypeName: string.Empty,
-                productId: 0,
-                liveIndicator: false,
-                betCount: winlossByBettypeA.BetCount + winlossByBettypeB.BetCount,
-                grossComm: winlossByBettypeA.GrossComm + winlossByBettypeB.GrossComm,
-                turnover: winlossByBettypeA.Turnover + winlossByBettypeB.Turnover,
-                memberNetWinLoss: NetWinLoss.Add(winlossByBettypeA.MemberNetWinLoss, winlossByBettypeB.MemberNetWinLoss),
-                agentNetWinLoss: NetWinLoss.Add(winlossByBettypeA.AgentNetWinLoss, winlossByBettypeB.AgentNetWinLoss),
-                masterNetWinLoss: NetWinLoss.Add(winlossByBettypeA.MasterNetWinLoss, winlossByBettypeB.MasterNetWinLoss),
-                superNetWinLoss: NetWinLoss.Add(winlossByBettypeA.SuperNetWinLoss, winlossByBettypeB.SuperNetWinLoss));
+            private set
+            {
+            }
+        }
+
+        public WinLossByBetTypeModel Add(WinLossByBetTypeModel winlossByBetType)
+        {
+            if (winlossByBetType == null)
+            {
+                return this;
+            }
+
+            BetCount += winlossByBetType.BetCount;
+            GrossComm += winlossByBetType.GrossComm;
+            Turnover += winlossByBetType.Turnover;
+            Company += winlossByBetType.Company;
+            MemberNetWinLoss = NetWinLoss.Add(MemberNetWinLoss, winlossByBetType.MemberNetWinLoss);
+            AgentNetWinLoss = NetWinLoss.Add(AgentNetWinLoss, winlossByBetType.AgentNetWinLoss);
+            MasterNetWinLoss = NetWinLoss.Add(MasterNetWinLoss, winlossByBetType.MasterNetWinLoss);
+            SuperNetWinLoss = NetWinLoss.Add(SuperNetWinLoss, winlossByBetType.SuperNetWinLoss);
+
+            return this;
         }
     }
 }

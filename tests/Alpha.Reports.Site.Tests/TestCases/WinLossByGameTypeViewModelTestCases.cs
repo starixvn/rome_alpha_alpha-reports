@@ -17,7 +17,7 @@
         private static WinLossByGameTypeModel ExpectedSuperGrantTotal =>
             new WinLossByGameTypeModel(
                 gameTypeId: 0,
-                gameTypeName: string.Empty,
+                gameTypeName: null,
                 turnover: (decimal)375732807.36,
                 memberNetWinLoss: null,
                 agentNetWinLoss: null,
@@ -27,7 +27,7 @@
         private static WinLossByGameTypeModel ExpectedMasterGrantTotal =>
             new WinLossByGameTypeModel(
                 gameTypeId: 0,
-                gameTypeName: string.Empty,
+                gameTypeName: null,
                 turnover: (decimal)375732807.36,
                 memberNetWinLoss: null,
                 agentNetWinLoss: new NetWinLoss((decimal)-111173383.51),
@@ -37,7 +37,7 @@
         private static WinLossByGameTypeModel ExpectedAgentGrantTotal =>
             new WinLossByGameTypeModel(
                 gameTypeId: 0,
-                gameTypeName: string.Empty,
+                gameTypeName: null,
                 turnover: (decimal)6225.00,
                 memberNetWinLoss: new NetWinLoss((decimal)-2576.25, (decimal)21.00),
                 agentNetWinLoss: new NetWinLoss((decimal)1267.88, (decimal)-3.38),

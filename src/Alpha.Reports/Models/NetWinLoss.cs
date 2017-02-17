@@ -21,11 +21,11 @@
             Total = total;
         }
 
-        public decimal? WinLoss { get; }
+        public decimal? WinLoss { get; private set; }
 
-        public decimal? Comm { get; }
+        public decimal? Comm { get; private set; }
 
-        public decimal Total { get; }
+        public decimal Total { get; private set; }
 
         public static NetWinLoss Add(NetWinLoss winlossA, NetWinLoss winlossB)
         {

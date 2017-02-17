@@ -16,7 +16,7 @@
         private static WinLossModel ExpectedSuperGrandTotal =>
             new WinLossModel(
                 custId: 0,
-                custName: "Total",
+                custName: null,
                 turnover: (decimal)375732807.36,
                 grossComm: (decimal)2998559.76,
                 memberNetWinLoss: null,
@@ -27,7 +27,7 @@
         private static WinLossModel ExpectedMasterGrandTotal =>
             new WinLossModel(
                 custId: 0,
-                custName: "Total",
+                custName: null,
                 turnover: (decimal)375732807.36,
                 grossComm: (decimal)2998559.76,
                 memberNetWinLoss: null,
@@ -38,7 +38,7 @@
         private static WinLossModel ExpectedAgentGrandTotal =>
             new WinLossModel(
                 custId: 0,
-                custName: "Total",
+                custName: null,
                 turnover: (decimal)6225.00,
                 grossComm: (decimal)34.83,
                 memberNetWinLoss: new NetWinLoss((decimal)-2576.25, (decimal)21.00),
@@ -106,7 +106,7 @@
 
             agentWinLossData.Add(new WinLossModel(
                  custId: 1382145,
-                 custName: "ACGUUS3838000",
+                 custName: "ACGUUS3801",
                  turnover: (decimal)4000.00,
                  grossComm: (decimal)21.00,
                  memberNetWinLoss: new NetWinLoss((decimal)-2025.00, (decimal)21.00),

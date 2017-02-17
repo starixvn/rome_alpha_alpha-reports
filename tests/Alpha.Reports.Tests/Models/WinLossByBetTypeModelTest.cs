@@ -16,18 +16,18 @@
         }
 
         [Fact]
-        public void Add_NullWinLossByBetTypeA_ReturnWinLossByBetTypeB()
+        public void Add_NullWinLossByBetType_ReturnCurrentWinLossByBetType()
         {
             // Arrange
-            WinLossByBetTypeModel winLossByBetTypeA = null;
-            var winLossByBetTypeB = new WinLossByBetTypeModel();
-            var expectedWinLoss = winLossByBetTypeB;
+            WinLossByBetTypeModel winLossByBetType = null;
+            var actualWinLossByBetType = new WinLossByBetTypeModel();
+            var expectedWinLossByBetType = actualWinLossByBetType;
 
             // Act
-            var actuaWinLoss = WinLossByBetTypeModel.Add(winLossByBetTypeA, winLossByBetTypeB);
+            actualWinLossByBetType.Add(winLossByBetType);
 
             // Assert
-            var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
+            var result = compareLogic.Compare(expectedWinLossByBetType, actualWinLossByBetType);
             Assert.True(result.AreEqual);
         }
 
@@ -35,15 +35,15 @@
         public void Add_NullWinLossByBetTypeB_ReturnWinLossByBetTypeA()
         {
             // Arrange
-            WinLossByBetTypeModel winLossByBetTypeB = null;
-            var winLossByBetTypeA = new WinLossByBetTypeModel();
-            var expectedWinLoss = winLossByBetTypeA;
+            WinLossByBetTypeModel winLossByBetType = null;
+            var actualWinLossByBetType = new WinLossByBetTypeModel();
+            var expectedWinLossByBetType = actualWinLossByBetType;
 
             // Act
-            var actuaWinLoss = WinLossByBetTypeModel.Add(winLossByBetTypeA, winLossByBetTypeB);
+            actualWinLossByBetType.Add(winLossByBetType);
 
             // Assert
-            var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
+            var result = compareLogic.Compare(expectedWinLossByBetType, actualWinLossByBetType);
             Assert.True(result.AreEqual);
         }
 
@@ -51,7 +51,7 @@
         public void Add_ValidWinLossByBetType_ReturnCorrectData()
         {
             // Arrange
-            var winLossByBetTypeA = new WinLossByBetTypeModel(
+            var actuaWinLossByBetTypeModel = new WinLossByBetTypeModel(
                 betTypeId: 1,
                 betTypeName: "Baccarat",
                 productId: 0,
@@ -64,7 +64,7 @@
                 masterNetWinLoss: new NetWinLoss(5, (decimal)0.2),
                 superNetWinLoss: new NetWinLoss((decimal)5.2));
 
-            var winLossByBetTypeB = new WinLossByBetTypeModel(
+            var winLossByBetType = new WinLossByBetTypeModel(
                 betTypeId: 2,
                 betTypeName: "Blackjack",
                 productId: 0,
@@ -78,8 +78,8 @@
                 superNetWinLoss: new NetWinLoss((decimal)5.2));
 
             var expectedWinLoss = new WinLossByBetTypeModel(
-                betTypeId: 0,
-                betTypeName: string.Empty,
+                betTypeId: 1,
+                betTypeName: "Baccarat",
                 productId: 0,
                 liveIndicator: false,
                 betCount: 6,
@@ -91,10 +91,10 @@
                 superNetWinLoss: new NetWinLoss((decimal)10.4));
 
             // Act
-            var actuaWinLoss = WinLossByBetTypeModel.Add(winLossByBetTypeA, winLossByBetTypeB);
+            actuaWinLossByBetTypeModel.Add(winLossByBetType);
 
             // Assert
-            var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
+            var result = compareLogic.Compare(expectedWinLoss, actuaWinLossByBetTypeModel);
             Assert.True(result.AreEqual);
         }
     }

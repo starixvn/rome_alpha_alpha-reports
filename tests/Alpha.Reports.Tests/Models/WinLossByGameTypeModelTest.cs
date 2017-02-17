@@ -16,34 +16,18 @@
         }
 
         [Fact]
-        public void Add_NullWinLossByGameTypeA_ReturnWinLossByGameTypeB()
+        public void Add_NullWinLossByGameType_ReturnCurrentWinLossByGameType()
         {
             // Arrange
-            WinLossByGameTypeModel winLossByGameTypeA = null;
-            var winLossByGameTypeB = new WinLossByGameTypeModel();
-            var expectedWinLoss = winLossByGameTypeB;
+            WinLossByGameTypeModel winLossByGameType = null;
+            var actualWinLossByGameType = new WinLossByGameTypeModel();
+            var expectedWinLoss = actualWinLossByGameType;
 
             // Act
-            var actuaWinLoss = WinLossByGameTypeModel.Add(winLossByGameTypeA, winLossByGameTypeB);
+            actualWinLossByGameType.Add(winLossByGameType);
 
             // Assert
-            var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
-            Assert.True(result.AreEqual);
-        }
-
-        [Fact]
-        public void Add_NullWinLossByGameTypeB_ReturnWinLossByGameTypeA()
-        {
-            // Arrange
-            WinLossByGameTypeModel winLossByGameTypeB = null;
-            var winLossByGameTypeA = new WinLossByGameTypeModel();
-            var expectedWinLoss = winLossByGameTypeA;
-
-            // Act
-            var actuaWinLoss = WinLossByGameTypeModel.Add(winLossByGameTypeA, winLossByGameTypeB);
-
-            // Assert
-            var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
+            var result = compareLogic.Compare(expectedWinLoss, actualWinLossByGameType);
             Assert.True(result.AreEqual);
         }
 
@@ -51,7 +35,7 @@
         public void Add_ValidWinLossByGameType_ReturnCorrectData()
         {
             // Arrange
-            var winLossByGameTypeA = new WinLossByGameTypeModel(
+            var actuaWinLossByGameTypeModel = new WinLossByGameTypeModel(
                 gameTypeId: 2176,
                 gameTypeName: "Sea Orchestra",
                 turnover: (decimal)400.01,
@@ -60,7 +44,7 @@
                 masterNetWinLoss: new NetWinLoss(5, (decimal)0.2),
                 superNetWinLoss: new NetWinLoss((decimal)5.2));
 
-            var winLossByGameTypeB = new WinLossByGameTypeModel(
+            var winLossByGameType = new WinLossByGameTypeModel(
                 gameTypeId: 2301,
                 gameTypeName: "(Mobile)Baccarat ",
                 turnover: (decimal)400.00,
@@ -70,8 +54,8 @@
                 superNetWinLoss: new NetWinLoss((decimal)5.2));
 
             var expectedWinLoss = new WinLossByGameTypeModel(
-                gameTypeId: 0,
-                gameTypeName: string.Empty,
+                gameTypeId: 2176,
+                gameTypeName: "Sea Orchestra",
                 turnover: (decimal)800.01,
                 memberNetWinLoss: null,
                 agentNetWinLoss: null,
@@ -79,10 +63,10 @@
                 superNetWinLoss: new NetWinLoss((decimal)10.4));
 
             // Act
-            var actuaWinLoss = WinLossByGameTypeModel.Add(winLossByGameTypeA, winLossByGameTypeB);
+            actuaWinLossByGameTypeModel.Add(winLossByGameType);
 
             // Assert
-            var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
+            var result = compareLogic.Compare(expectedWinLoss, actuaWinLossByGameTypeModel);
             Assert.True(result.AreEqual);
         }
     }

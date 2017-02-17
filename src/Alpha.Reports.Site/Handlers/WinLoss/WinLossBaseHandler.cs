@@ -48,11 +48,9 @@
            
             if (reportData != null && reportData.Any())
             {
-                var reportDataCopy = reportData.ToList();
-                int index, count;
-                for (index = 1, count = reportDataCopy.Count, grandTotal = reportDataCopy[0]; index < count; index++)
+                foreach (var data in reportData)
                 {
-                    grandTotal = WinLossModel.Add(grandTotal, reportDataCopy[index]);
+                    grandTotal.Add(data);
                 }
             }
 
