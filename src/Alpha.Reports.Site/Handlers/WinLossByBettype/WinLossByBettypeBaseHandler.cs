@@ -55,61 +55,61 @@
             "StyleCop.CSharp.StylecopPlus.Rules", 
             "SP2101:MethodMustNotContainMoreLinesThan", 
             Justification = "Reviewed. Suppression is OK here.")]
-        public string BuildDisplayedBetTypeName(int betTypeId, string betTypeName, bool liveIndicator)
+        public string BuildDisplayedBetTypeName(BetType betTypeId, string betTypeName, bool liveIndicator)
         {
-            string displayedBetTypeName = string.Empty;
+            string displayedBetTypeName;
 
             switch (betTypeId)
             {
-                case (int)BetType.VS_1X2:
-                case (int)BetType.VS_CorrectScore:
-                case (int)BetType.VS_DoubleChange:
-                case (int)BetType.VS_Handicap:
-                case (int)BetType.VS_OverUnder:
-                case (int)BetType.VS_TotalGoal:
-                case (int)BetType.VHR_Win:
-                case (int)BetType.VHR_Place:
-                case (int)BetType.VHR_WinPlace:
-                case (int)BetType.VHR_Forecast:
-                case (int)BetType.VHR_Tricast:
-                case (int)BetType.VT_PlayerWin:
-                case (int)BetType.VT_ScoreBet:
-                case (int)BetType.VT_TotalPoints:
+                case BetType.VS_1X2:
+                case BetType.VS_CorrectScore:
+                case BetType.VS_DoubleChange:
+                case BetType.VS_Handicap:
+                case BetType.VS_OverUnder:
+                case BetType.VS_TotalGoal:
+                case BetType.VHR_Win:
+                case BetType.VHR_Place:
+                case BetType.VHR_WinPlace:
+                case BetType.VHR_Forecast:
+                case BetType.VHR_Tricast:
+                case BetType.VT_PlayerWin:
+                case BetType.VT_ScoreBet:
+                case BetType.VT_TotalPoints:
                     displayedBetTypeName = $"{betTypeName} ({Resources.VirtualSports})";
                     break;
-                case (int)BetType.Casino_Games:
-                case (int)BetType.Baccarat:
-                case (int)BetType.Roulette:
-                case (int)BetType.Sicbo:
+                case BetType.Casino_Games:
+                case BetType.Baccarat:
+                case BetType.Roulette:
+                case BetType.Sicbo:
                     displayedBetTypeName = betTypeName;
                     break;
-                case (int)BetType.GoldDeluxeBaccarat:
-                case (int)BetType.GoldDeluxeRoulette:
-                case (int)BetType.GoldDeluxeParlayBaccarat:
+                case BetType.GoldDeluxeBaccarat:
+                case BetType.GoldDeluxeRoulette:
+                case BetType.GoldDeluxeParlayBaccarat:
                     displayedBetTypeName = $"{betTypeName} ({Resources.GoldDeluxe})";
                     break;
-                case (int)BetType.N_Over_Under:
+                case BetType.N_Over_Under:
                     displayedBetTypeName = $"{Resources.Next} {betTypeName} ({Resources.NumberGame})";
                     break;
-                case (int)BetType.N_Odd_Even:
+                case BetType.N_Odd_Even:
                     string strNextCombo = liveIndicator ? Resources.Next + " " : Resources.FT + ". ";
                     displayedBetTypeName = $"{strNextCombo}{betTypeName} ({Resources.NumberGame})";
                     break;
-                case (int)BetType.NumberWheel:
+                case BetType.NumberWheel:
                     string typeNumberWheel = liveIndicator ? Resources.LiveGame : Resources.PreGame;
                     displayedBetTypeName = $"{betTypeName} ({typeNumberWheel})";
                     break;            
-                case (int)BetType.VoidbridgeRangeStart:
+                case BetType.VoidbridgeRangeStart:
                     displayedBetTypeName = Resources.Voidbridge;
                     break;
-                case (int)BetType.NG2Start + 1:
+                case BetType.NG2Representative:
                     displayedBetTypeName = cacheRefService.GetProductName(ProductIdConstants.NG2);
                     break;
                 default:
                     displayedBetTypeName = betTypeName;
-                    if (betTypeId >= (int)BetType.AllBetRangeStart && betTypeId <= (int)BetType.AllBetRangeEnd)
+                    if (betTypeId >= BetType.AllBetRangeStart && betTypeId <= BetType.AllBetRangeEnd)
                     {
-                        displayedBetTypeName = displayedBetTypeName = $"{betTypeName} ({Resources.Allbet})";
+                        displayedBetTypeName = $"{betTypeName} ({Resources.Allbet})";
                     }
 
                     break;

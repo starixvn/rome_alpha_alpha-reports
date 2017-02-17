@@ -58,7 +58,7 @@
             else
             {
                 <th colspan="3" class="col-level hidden-stack-mode">@Model.CustLevelName</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.WinLoss")" rowspan="2" data-colindex="2">
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="@(Model.CustLevel.DisplayName + "NetWinLoss.WinLoss")" rowspan="2" data-colindex="2">
                     @Model.CustLevelName
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -74,15 +74,15 @@
                 <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Comm" data-colindex="4">@Resources.Comm</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Total" data-colindex="5">@Resources.Total</th>
 
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.WinLoss")" data-colindex="6">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.Comm")" data-colindex="7">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.Total")" data-colindex="8">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevel.DisplayName + "NetWinLoss.WinLoss")" data-colindex="6">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + "NetWinLoss.Comm")" data-colindex="7">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + "NetWinLoss.Total")" data-colindex="8">@Resources.Total</th>
             }
             else
             {
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.WinLoss")" data-colindex="4">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.Comm")" data-colindex="5">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevelName + "NetWinLoss.Total")" data-colindex="6">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevel.DisplayName + "NetWinLoss.WinLoss")" data-colindex="4">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + "NetWinLoss.Comm")" data-colindex="5">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + "NetWinLoss.Total")" data-colindex="6">@Resources.Total</th>
             }
         </tr>
     </thead>

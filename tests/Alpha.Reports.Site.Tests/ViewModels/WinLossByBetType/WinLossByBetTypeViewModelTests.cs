@@ -17,6 +17,7 @@
     using Services;
     using Site.Requests.WinLossByBetType;
     using Site.ViewModels.WinLossByBetType;
+    using Sunplus.Agent.Model.BL.Definitions;
     using TestCases;
     using Utils;
     using Xunit;
@@ -58,7 +59,7 @@
                fixture.Create<WinLossByBetTypeModel>(),
                message,
                fixture.Create<WinLossByBetTypeParam>(),
-               fixture.Create<Func<int, string, bool, string>>(),
+               fixture.Create<Func<BetType, string, bool, string>>(),
                cacheRefService);
             var expectedTitle = "Win Loss By Bet Type";
             
@@ -81,7 +82,7 @@
                fixture.Create<WinLossByBetTypeModel>(),
                message,
                fixture.Create<WinLossByBetTypeParam>(),
-               fixture.Create<Func<int, string, bool, string>>(),
+               fixture.Create<Func<BetType, string, bool, string>>(),
                cacheRefService);
 
             // Act
@@ -107,7 +108,7 @@
                fixture.Create<WinLossByBetTypeModel>(),
                message,
                fixture.Create<WinLossByBetTypeParam>(),
-               fixture.Create<Func<int, string, bool, string>>(),
+               fixture.Create<Func<BetType, string, bool, string>>(),
                cacheRefService);
 
             // Act & Assert
@@ -129,7 +130,7 @@
                fixture.Create<WinLossByBetTypeModel>(),
                message,
                fixture.Create<WinLossByBetTypeParam>(),
-               fixture.Create<Func<int, string, bool, string>>(),
+               fixture.Create<Func<BetType, string, bool, string>>(),
                cacheRefService);
 
             // Act & Assert
@@ -149,7 +150,7 @@
                fixture.Create<WinLossByBetTypeModel>(),
                message,
                winlossByBettypeParam,
-               fixture.Create<Func<int, string, bool, string>>(),
+               fixture.Create<Func<BetType, string, bool, string>>(),
                cacheRefService);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 

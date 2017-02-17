@@ -18,6 +18,7 @@
     using Site.Handlers.WinLossByBetType;
     using Site.Requests.WinLossByBetType;
     using Site.ViewModels.WinLossByBetType;
+    using Sunplus.Agent.Model.BL.Definitions;
     using Utils;
     using Xunit;
 
@@ -120,7 +121,7 @@
                 fixture.Create<WinLossByBetTypeModel>(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
-                fixture.Create<Func<int, string, bool, string>>(),
+                fixture.Create<Func<BetType, string, bool, string>>(),
                 cacheRefService);
 
             // Act
@@ -143,7 +144,7 @@
                 new WinLossByBetTypeModel(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
-                fixture.Create<Func<int, string, bool, string>>(),
+                fixture.Create<Func<BetType, string, bool, string>>(),
                 cacheRefService);
 
             // Act

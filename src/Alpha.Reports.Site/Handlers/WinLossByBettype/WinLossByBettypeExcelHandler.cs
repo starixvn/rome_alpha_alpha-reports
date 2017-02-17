@@ -10,6 +10,7 @@
     using Reports.Models.WinlossByBetType;
     using Requests.WinLossByBetType;
     using Services;
+    using Sunplus.Agent.Model.BL.Definitions;
     using ViewModels;
 
     public class WinLossByBetTypeExcelHandler :
@@ -58,7 +59,7 @@
         private Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByBetTypeExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossByBetTypeModel>()
-                .Map(Column.A, data => isTotal ? Resources.Total : BuildDisplayedBetTypeName(data.BetTypeId, data.BetTypeName, data.LiveIndicator))
+                .Map(Column.A, data => isTotal ? Resources.Total : BuildDisplayedBetTypeName((BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator))
                 .Map(Column.B, data => data.BetCount)
                 .Map(Column.C, data => data.Turnover)
                 .Map(Column.D, data => data.GrossComm);

@@ -8,6 +8,7 @@
     using RemotingRef;
     using Services;
     using Site.Handlers.WinLossByBetType;
+    using Sunplus.Agent.Model.BL.Definitions;
     using Utils;
     using Xunit;
 
@@ -74,7 +75,7 @@
             // Arrange
 
             // Act
-            var actualDisplayedBetTypeName = winLossByBetTypeBaseHandler.BuildDisplayedBetTypeName(betTypeId, betTypeName, liveIndicator);
+            var actualDisplayedBetTypeName = winLossByBetTypeBaseHandler.BuildDisplayedBetTypeName((BetType)betTypeId, betTypeName, liveIndicator);
 
             // Assert
             Assert.Equal(actualDisplayedBetTypeName, expectedDisplayedBetTypeName);
