@@ -27,6 +27,7 @@
                             <input id="IsDescendingSort" value="False" type="hidden" />
                             <input id="SortPropertyName" value="EventInfo" type="hidden" />
                         </form>
+                        <span class="icon-filter" title="Hide filters"></span>
                         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
                         <table id="tbl-report" data-cansort="False"
                             data-sortedcolumn="Event Info"
@@ -40,6 +41,7 @@
             // arrange
             matchWinLossView.cacheElements();
             spyOn(matchWinLossView, "onExportExcel");
+            spyOn(matchWinLossView, "onClickIconFilter");
 
             // act
             matchWinLossView.registerEvents();
@@ -60,6 +62,13 @@
 
             // assert
             expect(matchWinLossView.onSubmitReport).toHaveBeenCalled();
+        });
+        it("_Bind onClickIconFilter", () => {
+            // act
+            $(".icon-filter").trigger("click");
+
+            // assert
+            expect(matchWinLossView.onClickIconFilter).toHaveBeenCalled();
         });
     });
 });

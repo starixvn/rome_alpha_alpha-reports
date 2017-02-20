@@ -29,7 +29,7 @@
                 anyValueCreator.Create<int>(),
                 DateTime.MinValue,
                 anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<string>(),
+                anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
             var expectedDate = DefaultVariables.CurrentDate;
@@ -50,7 +50,7 @@
                 anyValueCreator.Create<int>(),
                 fromDate,
                 anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<string>(),
+                anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
             var expectedDate = fromDate;
@@ -70,7 +70,7 @@
                 anyValueCreator.Create<int>(),
                 anyValueCreator.Create<DateTime>(),
                 DateTime.MinValue,
-                anyValueCreator.Create<string>(),
+                anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
             var expectedDate = DefaultVariables.CurrentDate;
@@ -91,7 +91,7 @@
                 anyValueCreator.Create<int>(),
                 anyValueCreator.Create<DateTime>(),
                 toDate,
-                anyValueCreator.Create<string>(),
+                anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
             var expectedDate = toDate;

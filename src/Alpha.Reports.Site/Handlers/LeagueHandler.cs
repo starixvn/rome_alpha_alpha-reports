@@ -31,11 +31,11 @@
                 message.Products,
                 message.FromDate,
                 message.ToDate,
-                message.Language));
+                message.LanguageKey));
 
             return new LeaguesByCustomerViewModel(
                 message.Language,
-                BuildLeagueSelectListItems(string.Join(",", leagues.Select(league => league.Id)), leagues));
+                BuildLeagueSelectListItems(leagues.Select(league => league.Id), leagues));
         }
     }
 }

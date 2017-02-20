@@ -57,13 +57,12 @@
                 matchCode: reader.ToString("matchCode"),
                 isNeutral: reader.ToBool("isNeutral"),
                 showTime: reader.ToString("showTime"),
-                turnover: reader.ToInt("turnover"),
-                grossComm: reader.ToInt("grossComm"),
+                turnover: reader.ToDecimal("turnover"),
+                grossComm: reader.ToDecimal("grossComm"),
                 memberNetWinLoss: new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")),
                 agentNetWinLoss: new NetWinLoss(reader.ToDecimal("AgWinLoss"), reader.ToDecimal("AgComm")),
                 masterNetWinLoss: isAgent ? null : new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")),
-                superNetWinLoss: isSuper ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null,
-                companyNetWinLoss: new NetWinLoss(0, reader.ToDecimal("CompanyComm"), reader.ToDecimal("CompanyTotal")));
+                superNetWinLoss: isSuper ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null);
         }
     }
 }

@@ -25,10 +25,12 @@ class MatchWinLossDetailView {
     $toDate: JQuery;
     $leagueContainer: JQuery;
     $loadLeagueURL: JQuery;
+    $custId: JQuery;
 
     isFirstSwitchMode = true;
     levels = ["member", "agent", "master", "super"];
     getLeaguesByCustomerParam = {
+        custId: "",
         fromDate: "",
         toDate: "",
         products: ""
@@ -93,6 +95,7 @@ class MatchWinLossDetailView {
         this.$isStackMode = this.$("#IsStackMode");
         this.$leagueContainer = this.$("#dropdown-league-container");
         this.$loadLeagueURL = this.$("#LoadLeagueURL");
+        this.$custId = this.$("#CustId");
     };
     registerEvents = () => {
         this.$("#icon-excel").on("click", this.onExportExcel);
@@ -112,14 +115,6 @@ class MatchWinLossDetailView {
 
         if (!params.IsAnyProductSelected) {
             this.$buttonProduct.addClass("error");
-            this$.unblockUI();
-            e.preventDefault();
-
-            return;
-        }
-
-        if (!params.IsAnyLeagueSelected) {
-            this.$buttonLeague.addClass("error");
             this$.unblockUI();
             e.preventDefault();
 
@@ -159,16 +154,20 @@ class MatchWinLossDetailView {
 
         if (this.isFirstSwitchMode) {
             if (currentStackModeState) {
+                alphaReports.splitCell("col-turnover", "");
                 this$.each(levels, function (index: number) {
                     let level = levels[index];
                     alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
                 });
+                alphaReports.splitCell("col-company-winloss", "");
             } else {
+                alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 2, "col-turnover-combined");
                 this$.each(levels, function (index: number) {
                     let level = levels[index];
                     let cellCss = "col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
                     alphaReports.combineConsecutiveCells(this$("td.col-" + level + "-winloss"), 3, cellCss);
                 });
+                alphaReports.combineConsecutiveCells(this$("td.col-company-winloss"), 2, "col-company-winloss-combined");
             }
 
             this.isFirstSwitchMode = false;
@@ -184,7 +183,9 @@ class MatchWinLossDetailView {
         tableReport.addClass("stack-mode");
 
         let this$ = this.$;
+
         let levels = this.levels;
+        alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 2, "col-turnover-combined");
 
         this$.each(levels, function (index: number) {
             let level = levels[index];
@@ -192,23 +193,24 @@ class MatchWinLossDetailView {
             alphaReports.combineConsecutiveCells(this$("td.col-" + level + "-winloss"), 3, cellCss);
         });
 
+        alphaReports.combineConsecutiveCells(this$("td.col-company-winloss"), 2, "col-company-winloss-combined");
+
         this.isFirstSwitchMode = false;
         this.$.unblockUI();
     };
     getParams = () => {
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
-        let selectedLeagues = this.leagueMultiSelectionComponent.getSelectedItems();
         let tableReport = this.$tableReport;
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
-            IsAnyLeagueSelected: selectedLeagues.length > 0,
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsFilterVisible: !this.$reportForm.is(":hidden")
         };
     };
     getLeagueParam = () => {
         return {
+            custId: this.$custId.val(),
             fromDate: this.$fromDate.val(),
             toDate: this.$toDate.val(),
             products: this.productMultiSelectionComponent.getSelectedItems().join(",")

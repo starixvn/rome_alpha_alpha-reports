@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Extensions;
     using Fixtures;
     using NSubstitute;
@@ -49,10 +50,9 @@
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                DateTime.Now,
                 null,
                 level,
-                string.Empty);
+                Enumerable.Empty<int>());
 
             var reportData = dataSet.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<MatchWinLossDetailCriteria>()).Returns(reportData);
@@ -76,8 +76,7 @@
                     memberNetWinLoss: new NetWinLoss(3, 4),
                     agentNetWinLoss: new NetWinLoss(5, 6),
                     masterNetWinLoss: level.IsAgentLevel() ? null : new NetWinLoss(7, 8),
-                    superNetWinLoss: level.IsSuperLevel() ? new NetWinLoss(9, 10) : null,
-                    companyNetWinLoss: new NetWinLoss(0, 11, 12)),
+                    superNetWinLoss: level.IsSuperLevel() ? new NetWinLoss(9, 10) : null),
                 new MatchWinLossDetailModel(
                     isParlay: false,
                     matchId: 11,
@@ -95,8 +94,7 @@
                     memberNetWinLoss: new NetWinLoss(13, 14),
                     agentNetWinLoss: new NetWinLoss(15, 16),
                     masterNetWinLoss: level.IsAgentLevel() ? null : new NetWinLoss(17, 18),
-                    superNetWinLoss: level.IsSuperLevel() ? new NetWinLoss(19, 110) : null,
-                    companyNetWinLoss: new NetWinLoss(0, 111, 112))
+                    superNetWinLoss: level.IsSuperLevel() ? new NetWinLoss(19, 110) : null)
             };
 
             // Act
@@ -115,10 +113,9 @@
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                DateTime.Now,
                 null,
                 UserLevel.Super,
-                string.Empty);
+                Enumerable.Empty<int>());
 
             IDataReader dataReader = null;
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<MatchWinLossDetailCriteria>()).Returns(dataReader);

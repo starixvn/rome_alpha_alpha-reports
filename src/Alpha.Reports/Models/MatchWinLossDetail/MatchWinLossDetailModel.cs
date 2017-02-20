@@ -21,8 +21,7 @@
             NetWinLoss memberNetWinLoss,
             NetWinLoss agentNetWinLoss,
             NetWinLoss masterNetWinLoss,
-            NetWinLoss superNetWinLoss,
-            NetWinLoss companyNetWinLoss)
+            NetWinLoss superNetWinLoss)
         {
             IsParlay = isParlay;
             MatchId = matchId;
@@ -42,7 +41,19 @@
             AgentNetWinLoss = agentNetWinLoss;
             MasterNetWinLoss = masterNetWinLoss;
             SuperNetWinLoss = superNetWinLoss;
-            CompanyNetWinLoss = companyNetWinLoss;
+
+            var companyComm =
+                (memberNetWinLoss != null ? memberNetWinLoss.Comm.Value : 0) +
+                (agentNetWinLoss != null ? agentNetWinLoss.Comm.Value : 0) +
+                (masterNetWinLoss != null ? masterNetWinLoss.Comm.Value : 0) +
+                (superNetWinLoss != null ? superNetWinLoss.Comm.Value : 0);
+            var winLoss =
+                (memberNetWinLoss != null ? memberNetWinLoss.WinLoss.Value : 0) +
+                (agentNetWinLoss != null ? agentNetWinLoss.WinLoss.Value : 0) +
+                (masterNetWinLoss != null ? masterNetWinLoss.WinLoss.Value : 0) +
+                (superNetWinLoss != null ? superNetWinLoss.WinLoss.Value : 0);
+
+            CompanyNetWinLoss = new NetWinLoss(0, companyComm, -winLoss - companyComm);
         }
 
         public bool IsParlay { get; }

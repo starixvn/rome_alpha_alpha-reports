@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.MatchWinLossDetail
 {
     using Extensions;
+    using Reports.Models;
     using Reports.Models.MatchWinLossDetail;
     using Site.ViewModels.MatchWinLossDetail;
     using Xunit;
@@ -29,10 +30,19 @@
                 memberNetWinLoss: null,
                 agentNetWinLoss: null,
                 masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+                superNetWinLoss: null);
             var betTypeName = "Bet Type Name";
-            var expectedViewModel = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
+            var expectedViewModel = new BetTypeWinLossViewModel(
+                1,
+                "Bet Type Name",
+                1,
+                1,
+                false,
+                null,
+                null,
+                null,
+                null,
+                new NetWinLoss(0, 0));
 
             // Act
             var actualViewModel = new BetTypeWinLossViewModel(winLoss, betTypeName);

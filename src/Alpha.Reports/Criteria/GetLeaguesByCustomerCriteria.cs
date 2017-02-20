@@ -17,7 +17,7 @@
             }
 
             CustId = getLeaguesByCustomerParam.CustId;
-            Products = getLeaguesByCustomerParam.Products;
+            ProductIds = getLeaguesByCustomerParam.ProductIds;
             FromDate = getLeaguesByCustomerParam.FromDate;
             ToDate = getLeaguesByCustomerParam.ToDate;
             Language = getLeaguesByCustomerParam.Language;
@@ -26,7 +26,7 @@
 
         public int CustId { get; }
 
-        public string Products { get; }
+        public string ProductIds { get; }
 
         [SpParam(SqlParamName = "IsShowAll")]
         public bool IncludeTestLeagues => true;
@@ -39,11 +39,11 @@
 
         public string Language { get; }
 
-        public override string GetSettingKey() => "Age_Rpt_MatchWinloss_SelLeagueBySport";
+        public override string GetSettingKey() => "Age_Rpt_MatchWinloss_GetLeagueByProduct";
 
         public override bool IsValid() =>
             CustId > 0 &&
-            !string.IsNullOrWhiteSpace(Products) &&
+            !string.IsNullOrWhiteSpace(ProductIds) &&
             FromDate <= ToDate;
     }
 }

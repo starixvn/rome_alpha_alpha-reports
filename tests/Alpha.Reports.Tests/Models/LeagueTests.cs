@@ -20,7 +20,7 @@
         {
             // Arrange
             var leagueId = anyValueCreatorFixture.Create<int>();
-            var league = new League(leagueId, anyValueCreatorFixture.Create<string>(), anyValueCreatorFixture.Create<int>());
+            var league = new League(leagueId, anyValueCreatorFixture.Create<byte>(), anyValueCreatorFixture.Create<string>());
             var expectedId = leagueId;
 
             // Act
@@ -35,7 +35,7 @@
         {
             // Arrange
             var leagueName = anyValueCreatorFixture.Create<string>();
-            var league = new League(anyValueCreatorFixture.Create<int>(), leagueName, anyValueCreatorFixture.Create<int>());
+            var league = new League(anyValueCreatorFixture.Create<int>(), anyValueCreatorFixture.Create<byte>(), leagueName);
             var expectedName = leagueName;
 
             // Act
@@ -49,8 +49,8 @@
         public void SportTypeId_Always_ReturnsSportTypeIdSetFromConstructor()
         {
             // Arrange
-            var sportTypeId = anyValueCreatorFixture.Create<int>();
-            var league = new League(anyValueCreatorFixture.Create<int>(), anyValueCreatorFixture.Create<string>(), sportTypeId);
+            var sportTypeId = anyValueCreatorFixture.Create<byte>();
+            var league = new League(anyValueCreatorFixture.Create<int>(), sportTypeId, anyValueCreatorFixture.Create<string>());
             var expectedSportTypeId = sportTypeId;
 
             // Act
@@ -68,7 +68,7 @@
             var league = new League(
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<string>(),
-                anyValueCreatorFixture.Create<int>(),
+                anyValueCreatorFixture.Create<byte>(),
                 displayName);
             var expectedDisplayName = displayName;
 

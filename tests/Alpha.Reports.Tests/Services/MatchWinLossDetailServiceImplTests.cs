@@ -62,7 +62,7 @@
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariables.CurrentDate,
                 DefaultVariables.CurrentDate,
-                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 productIds.ToListInt(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
@@ -84,8 +84,7 @@
                 && criteria.ToDate == param.ToDate
                 && criteria.ProductIds == expectCalledProductIds
                 && criteria.ReportLevel == param.ReportLevel
-                && criteria.Leagues == param.Leagues
-                && criteria.BalanceUpDay == balanceUpDate
+                && criteria.Leagues == param.UserSelectedLeagueIds.JoinWithComma()
                 && criteria.MoveBetsDay == moveBetsDate));
         }
 
@@ -96,15 +95,14 @@
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariables.CurrentDate,
                 DefaultVariables.CurrentDate,
-                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
+            var matchWinLossDetailModel = new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null);
             var expectedMatchWinLossModels = new List<MatchWinLossDetailModel>
             {
-                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
-                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
-                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>()
+                matchWinLossDetailModel
             };
 
             dataAccess.GetData(Arg.Any<MatchWinLossDetailCriteria>()).Returns(expectedMatchWinLossModels);

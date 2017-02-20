@@ -43,7 +43,7 @@
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<DateTime>(),
                 anyValueCreatorFixture.Create<DateTime>(),
-                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
@@ -157,7 +157,7 @@
         public void UserSelectedLeagueIds_Always_ReturnsUserSelectedLeagueIdsFromParam()
         {
             // Arrange
-            var expectedUserSelectedLeagueIds = param.Leagues;
+            var expectedUserSelectedLeagueIds = param.UserSelectedLeagueIds.JoinWithComma();
 
             // Act
             var actualUserSelectedLeagueIds = viewModel.UserSelectedLeagueIds;

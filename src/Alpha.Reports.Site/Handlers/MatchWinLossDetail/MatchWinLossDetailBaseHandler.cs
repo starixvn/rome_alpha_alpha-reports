@@ -6,6 +6,7 @@
     using System.Linq;
     using App_GlobalResources;
     using Extensions;
+    using Fanex.Common;
     using Params;
     using RemotingRef;
     using Reports.Constants;
@@ -44,16 +45,9 @@
                 query.CustId,
                 query.UserSelectedProductIds.ToListInt());
 
-            var selectLeagueParam = new GetLeaguesByCustomerParam(
-                query.CustId,
-                query.UserSelectedProductIds,
-                query.FromDate,
-                query.ToDate,
-                query.Language);
-
             var userSelectedLeagueIds = string.IsNullOrWhiteSpace(query.UserSelectedLeagueIds)
-                ? leagueService.GetLeaguesByCustomer(selectLeagueParam).Select(league => league.Id).JoinWithComma()
-                : query.UserSelectedLeagueIds;
+                ? Enumerable.Empty<int>()
+                : query.UserSelectedLeagueIds.Split(',').Select(id => Converter.ToInt(id));
 
             return new MatchWinLossDetailParam(
                  query.CustId,

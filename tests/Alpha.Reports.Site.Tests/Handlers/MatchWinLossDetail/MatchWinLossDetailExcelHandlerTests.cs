@@ -190,7 +190,7 @@
                 agentNetWinLoss: new NetWinLoss(3900, (decimal)218.75),
                 masterNetWinLoss: null,
                 superNetWinLoss: null,
-                companyNetWinLoss: new NetWinLoss(null, 225, 2233875));
+                companyNetWinLoss: new NetWinLoss(0, 225, 2233875));
 
             // Act
             matchWinLossDetailExcelHandler.Handle(matchWinLossDetailExcelQuery);

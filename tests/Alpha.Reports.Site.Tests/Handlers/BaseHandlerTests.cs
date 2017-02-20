@@ -220,7 +220,7 @@
             var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
 
             // Act
-            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(string.Empty, leagues);
+            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<int>(), leagues);
 
             // Assert
             Assert.Equal(expectedSelectListItems, actualSelectListItems);
@@ -234,29 +234,24 @@
             var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
 
             // Act
-            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(string.Empty, leagues);
+            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<int>(), leagues);
 
             // Assert
             Assert.Equal(expectedSelectListItems, actualSelectListItems);
         }
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("  ")]
-        public void BuildLeagueSelectListItems_NullOrWhiteSpaceUserSelectedLeagueIds_ReturnsSelectListItem(
-            string userSelectedLeagueIds)
+        [Fact]
+        public void BuildLeagueSelectListItems_EmptyUserSelectedLeagueIds_ReturnsSelectListItem()
         {
             // Arrange
-            IEnumerable<League> leagues = new List<League> { new League(1, string.Empty, 1) };
+            IEnumerable<League> leagues = new List<League> { new League(1, 1, string.Empty) };
             var expectedSelectListItems = new List<SelectListItem>
             {
-                new SelectListItem { Text = null, Value = "1", Selected = false }
+                new SelectListItem { Text = string.Empty, Value = "1", Selected = false }
             };
 
             // Act
-            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(userSelectedLeagueIds, leagues);
+            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<int>(), leagues);
 
             // Assert
             AssertExtension.Equal(expectedSelectListItems, actualSelectListItems.ToList());

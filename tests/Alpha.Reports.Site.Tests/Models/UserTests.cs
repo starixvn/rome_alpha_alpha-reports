@@ -16,6 +16,7 @@
             userSession.UserName.Returns("username");
             userSession.RoleId.Returns((byte)2);
             userSession.Language.Returns("en-US");
+            userSession.LangKey.Returns("en");
 
             // Act
             var user = new User(userSession);
@@ -25,7 +26,8 @@
                 user.Id == 1
                 && user.Name == "username"
                 && user.LevelId == 2
-                && user.Language == "en-US");
+                && user.Language == "en-US"
+                && user.LanguageKey == "en");
         }
     }
 }

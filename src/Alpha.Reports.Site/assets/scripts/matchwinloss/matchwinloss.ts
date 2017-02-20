@@ -14,6 +14,9 @@ class MatchWinLossView {
     $isDescendingSort: JQuery;
     $sortPropertyName: JQuery;
 
+    $isFilterVisible: JQuery;
+    $pageTitle: JQuery;
+
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
@@ -43,6 +46,9 @@ class MatchWinLossView {
         this.$.unblockUI();
     };
     cacheElements = () => {
+        this.$isFilterVisible = this.$("#IsFilterVisible");
+        this.$pageTitle = this.$(".page-title");
+
         this.$tableReport = this.$("#tbl-report");
         this.$reportForm = this.$("#report-form");
         this.$exportExcelForm = this.$("#export-excel-form");
@@ -50,6 +56,7 @@ class MatchWinLossView {
         this.$sortPropertyName = this.$("#SortPropertyName");
     };
     registerEvents = () => {
+        this.$(".icon-filter").on("click", this.onClickIconFilter);
         this.$("#icon-excel").on("click", this.onExportExcel);
         this.$reportForm.submit(this.onSubmitReport);
     };
@@ -64,6 +71,19 @@ class MatchWinLossView {
         let sortInfo = this.sortComponent.getSortInfo();
         this.$isDescendingSort.val(String(sortInfo.isDescendingSort));
         this.$sortPropertyName.val(sortInfo.sortPropertyName);
+        this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : !this.$reportForm.is(":hidden")));
+    };
+    onClickIconFilter = () => {
+        let filter = this.$reportForm;
+        let currentHideState = filter.hasClass("hide");
+
+        if (currentHideState) {
+            this.$pageTitle.removeClass("hide-filter");
+            this.$reportForm.removeClass("hide");
+        } else {
+            this.$pageTitle.addClass("hide-filter");
+            this.$reportForm.addClass("hide");
+        }
     };
 }
 

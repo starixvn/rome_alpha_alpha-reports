@@ -56,11 +56,10 @@
                 param.CustId,
                 param.FromDate,
                 param.ToDate,
-                reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
                 validUserSelectedProductIds,
                 param.ReportLevel,
-                param.Leagues);
+                param.UserSelectedLeagueIds);
 
             var winLossData = dataAccess.GetData(criteria);
 

@@ -27,16 +27,22 @@
        @(Model.IsStackMode ? "stack-mode" : string.Empty)">
     <thead>
         <tr>
-            <th colspan="3"></th>
+            <th class="hidden-stack-mode" colspan="3"></th>
+            <th class="visible-stack-mode">@Resources.BetType</th>
+            <th class="visible-stack-mode">
+                @Resources.Turnover
+                <br />
+                @Resources.GrossComm
+            </th>
             <th class="hidden-stack-mode" colspan="3">@Resources.Member</th>
-            <th rowspan="2" class="visible-stack-mode col-combine">
+            <th class="visible-stack-mode col-combine">
                 @Resources.Member
                 <br />
                 (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
             <th class="hidden-stack-mode" colspan="3">@Resources.Agent</th>
-            <th rowspan="2" class="visible-stack-mode col-combine">
+            <th class="visible-stack-mode col-combine">
                 @Resources.Agent
                 <br />
                 (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -45,7 +51,7 @@
             @if (Model.CustLevel.IsMasterOrSuperLevel())
             {
                 <th class="hidden-stack-mode" colspan="3">@Resources.Master</th>
-                <th rowspan="2" class="visible-stack-mode col-combine">
+                <th class="visible-stack-mode col-combine">
                     @Resources.Master
                     <br />
                     (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -55,19 +61,24 @@
             @if (Model.CustLevel.IsSuperLevel())
             {
                 <th class="hidden-stack-mode" colspan="3">@Resources.Super</th>
-                <th rowspan="2" class="visible-stack-mode col-combine">
+                <th class="visible-stack-mode col-combine">
                     @Resources.Super
                     <br />
                     (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
             }
 
-            <th colspan="2">@Resources.Company</th>
+            <th class="hidden-stack-mode" colspan="2">@Resources.Company</th>
+            <th class="visible-stack-mode col-combine">
+                @Resources.Company
+                <br />
+                (<span>@Resources.Comm</span>@Resources.Total)
+            </th>
         </tr>
         <tr>
-            <th>@Resources.BetType</th>
-            <th>@Resources.Turnover</th>
-            <th>@Resources.GrossComm</th>
+            <th class="hidden-stack-mode">@Resources.BetType</th>
+            <th class="hidden-stack-mode">@Resources.Turnover</th>
+            <th class="hidden-stack-mode">@Resources.GrossComm</th>
             <th class="hidden-stack-mode">@Resources.WinLoss</th>
             <th class="hidden-stack-mode">@Resources.Comm</th>
             <th class="hidden-stack-mode">@Resources.Total</th>
@@ -86,8 +97,8 @@
                 <th class="hidden-stack-mode">@Resources.Comm</th>
                 <th class="hidden-stack-mode">@Resources.Total</th>
             }
-            <th>@Resources.Comm</th>
-            <th>@Resources.Total</th>
+            <th class="hidden-stack-mode">@Resources.Comm</th>
+            <th class="hidden-stack-mode">@Resources.Total</th>
         </tr>
     </thead>
 
@@ -131,7 +142,7 @@
             }
             @if (Model.ShowTotalRow)
             {
-                <tr class="sub-total-row">
+                <tr class="tbl-footer">
                     @RenderBetTypeRow(Model.NoParlayWinLossTotal, Resources.Total)
                 </tr>
             }
@@ -179,17 +190,19 @@
 @helper RenderBetTypeRow(BetTypeWinLossViewModel data, string betType, string betListPath = "", bool isEvenRow = false)
 {
     <td class="text-left">@Html.Raw(betType)</td>
-    <td>@HtmlHelpers.FormatNumber(data.Turnover)</td>
-    <td>@HtmlHelpers.FormatNumber(data.GrossComm)</td>
 if (Model.IsStackMode)
 {
+        @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.GrossComm)
         @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
         @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss)
         @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
         @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss)
+        @HtmlHelpers.RenderStackCell("col-company-winloss-combined", 1, data.CompanyNetWinLoss.Comm.Value, data.CompanyNetWinLoss.Total)
 }
 else
 {
+        <td class="hidden-stack-mode col-turnover">@HtmlHelpers.FormatNumber(data.Turnover)</td>
+        <td class="hidden-stack-mode">@HtmlHelpers.FormatNumber(data.GrossComm)</td>
         @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
         @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, true)
 
@@ -202,10 +215,10 @@ else
     {
             @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, true)
     }
+        <td class="hidden-stack-mode col-company-winloss">@HtmlHelpers.FormatNumber(data.CompanyNetWinLoss.Comm.Value)</td>
+        <td class="hidden-stack-mode">@HtmlHelpers.FormatNumber(data.CompanyNetWinLoss.Total)</td>
 
 }
-    <td>@HtmlHelpers.FormatNumber(data.CompanyNetWinLoss.Comm.Value)</td>
-    <td>@HtmlHelpers.FormatNumber(data.CompanyNetWinLoss.Total)</td>
 }
 
 @helper RenderNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)

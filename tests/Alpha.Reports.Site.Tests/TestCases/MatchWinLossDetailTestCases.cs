@@ -43,7 +43,6 @@
                 new NetWinLoss((decimal)-223800.00, (decimal)0.625),
                 new NetWinLoss((decimal)390.00, (decimal)21.875),
                 null,
-                null,
-                new NetWinLoss(null, (decimal)22.50, (decimal)223387.50));
+                null);
     }
 }

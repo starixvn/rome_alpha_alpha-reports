@@ -1,6 +1,6 @@
 ﻿@model MatchWinLossReportViewModel
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, false, false, true, null, null), Request.Url.Query)
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.FilterViewModel.Visible, null, null), Request.Url.Query)
 
 <form class="form-inline filter  @(Model.FilterViewModel.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @Html.Hidden("IsFilterVisible", Model.FilterViewModel.Visible ? "true" : "false")

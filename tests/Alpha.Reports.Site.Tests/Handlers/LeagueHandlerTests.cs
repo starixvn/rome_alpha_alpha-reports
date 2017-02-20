@@ -51,7 +51,7 @@
             // Assert
             leagueService.Received().GetLeaguesByCustomer(Arg.Is<GetLeaguesByCustomerParam>(
                 param => param.CustId == message.CustId
-                && param.Products == message.Products
+                && param.ProductIds == message.Products
                 && param.FromDate == message.FromDate
                 && param.ToDate == message.ToDate
                 && param.Language == message.Language));
@@ -65,16 +65,16 @@
 
             var leagues = new List<League>
             {
-                new League(1, "League 1", 1),
-                new League(2, "League 2", 2)
+                new League(1, 1, "League 1"),
+                new League(2, 2, "League 2")
             };
 
             var expectedLeaguesByCustomerViewModel = new LeaguesByCustomerViewModel(
                 string.Empty,
                 new List<SelectListItem>
                 {
-                    new SelectListItem { Value = "1", Selected = true },
-                    new SelectListItem { Value = "2", Selected = true }
+                    new SelectListItem { Value = "1", Selected = true, Text = "League 1" },
+                    new SelectListItem { Value = "2", Selected = true, Text = "League 2" }
                 });
 
             leagueService.GetLeaguesByCustomer(Arg.Any<GetLeaguesByCustomerParam>()).Returns(leagues);

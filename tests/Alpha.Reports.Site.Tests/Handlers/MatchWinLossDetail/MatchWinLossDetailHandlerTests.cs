@@ -12,6 +12,7 @@
     using NSubstitute;
     using Params;
     using RemotingRef;
+    using Reports.Extensions;
     using Reports.Models;
     using Reports.Models.MatchWinLossDetail;
     using Services;
@@ -92,10 +93,12 @@
 
             leagueService.GetLeaguesByCustomer(Arg.Any<GetLeaguesByCustomerParam>()).Returns(new List<League>
             {
-                new League(1, "League 1", 1),
-                new League(2, "League 2", 2)
+                new League(1, 1, "League 1"),
+                new League(2, 2, "League 2")
             });
-            query.UserSelectedLeagueIds = "2";
+
+            var leagueIds = new List<int> { 2 };
+            query.UserSelectedLeagueIds = leagueIds.JoinWithComma();
 
             var expectedViewModel = new MatchWinLossDetailReportViewModel(
                 new List<MatchWinLossDetailViewModel>
@@ -108,21 +111,21 @@
                         1,
                         new List<BetTypeWinLossViewModel>
                         {
-                            new BetTypeWinLossViewModel(1, "Bet Type 1", 1, 1, false, null, null, null, null, null),
-                            new BetTypeWinLossViewModel(2, "Bet Type 2", 1, 1, false, null, null, null, null, null)
+                            CreateBetTypeWinLossViewModel(1, "Bet Type 1", 1, 1),
+                            CreateBetTypeWinLossViewModel(2, "Bet Type 2", 1, 1)
                         },
-                        new BetTypeWinLossViewModel(0, null, 2, 2, false, null, null, null, null, null))
+                        CreateBetTypeWinLossViewModel(0, null, 2, 2))
                 },
-                new BetTypeWinLossViewModel(0, null, 2, 2, false, null, null, null, null, null),
-                new BetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, false, null, null, null, null, null),
-                new BetTypeWinLossViewModel(29, "Bet Type 29", 1, 1, false, null, null, null, null, null),
-                new BetTypeWinLossViewModel(0, null, 4, 4, false, null, null, null, null, null),
+                CreateBetTypeWinLossViewModel(0, null, 2, 2),
+                CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1),
+                CreateBetTypeWinLossViewModel(29, "Bet Type 29", 1, 1),
+                CreateBetTypeWinLossViewModel(0, null, 4, 4),
                 query,
                 new MatchWinLossDetailParam(
                      query.CustId,
                      query.FromDate,
                      query.ToDate,
-                     query.UserSelectedLeagueIds,
+                     leagueIds,
                      new List<int> { 1 },
                      query.CustLevel),
                 new List<SelectListItem>
@@ -144,13 +147,13 @@
                 {
                     new SelectListItem
                     {
-                        Text = null,
+                        Text = "League 1",
                         Value = "1",
                         Selected = false
                     },
                     new SelectListItem
                     {
-                        Text = null,
+                        Text = "League 2",
                         Value = "2",
                         Selected = true
                     }
@@ -483,7 +486,19 @@
                 memberNetWinLoss: null,
                 agentNetWinLoss: null,
                 masterNetWinLoss: null,
-                superNetWinLoss: null,
-                companyNetWinLoss: null);
+                superNetWinLoss: null);
+
+        private BetTypeWinLossViewModel CreateBetTypeWinLossViewModel(int id, string name, decimal turnover, decimal grossComm)
+            => new BetTypeWinLossViewModel(
+                id,
+                name,
+                turnover,
+                grossComm,
+                false,
+                null,
+                null,
+                null,
+                null,
+                new NetWinLoss(0, 0));
     }
 }

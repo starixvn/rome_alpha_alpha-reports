@@ -2,7 +2,7 @@
 <Functions>
   <Function Name="Base Functions">
     <Setting Key="Age_SelBalanceUpDay" SpName="Age_SelBalanceUpDay" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_MatchWinloss_SelLeagueBySport" SpName="Age_Rpt_MatchWinloss_SelLeagueBySport" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+    <Setting Key="Age_Rpt_MatchWinloss_GetLeagueByProduct" SpName="Age_Rpt_MatchWinloss_GetLeagueByProduct" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="LeagueId" ObjectProperty="Id" />
       <Mapping DataField="LeagueName" ObjectProperty="Name" />
       <Mapping DataField="SportType" ObjectProperty="SportTypeId" />
@@ -42,9 +42,9 @@
   </Function>
 
   <Function Name="Match Win Loss Detail">
-    <Setting Key="Age_Rpt_MatchWinLossDetail_Super" SpName="Age_Rpt_MatchWinLossDetail_SAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_MatchWinLossDetail_Master" SpName="Age_Rpt_MatchWinLossDetail_MAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_MatchWinLossDetail_Agent" SpName="Age_Rpt_MatchWinLossDetail_Ag" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_MatchWinlossDetail_Master" SpName="Age_Rpt_MatchWinlossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_MatchWinLossDetail_Agent" SpName="Age_Rpt_MatchWinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_MatchWinLossDetail_Member" SpName="Age_Rpt_MatchWinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Match Win Loss">
     <Setting Key="Age_Rpt_MatchWinLoss_Member" SpName="Age_Rpt_MatchWinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />

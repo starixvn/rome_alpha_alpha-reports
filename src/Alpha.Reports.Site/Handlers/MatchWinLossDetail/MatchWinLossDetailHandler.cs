@@ -1,7 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Handlers.MatchWinLossDetail
 {
     using System;
+    using System.Linq;
     using Extensions;
+    using Fanex.Common;
     using MediatR;
     using Params;
     using RemotingRef;
@@ -46,6 +48,17 @@
             var mixParlay = GetMixParlay(reportData);
             var systemParlay = GetSystemParlay(reportData);
 
+            var selectLeagueParam = new GetLeaguesByCustomerParam(
+                message.CustId,
+                message.UserSelectedProductIds,
+                message.FromDate,
+                message.ToDate,
+                message.Language);
+
+            var userSelectedLeagueIds = string.IsNullOrWhiteSpace(message.UserSelectedLeagueIds)
+                ? leagueService.GetLeaguesByCustomer(selectLeagueParam).Select(league => league.Id)
+                : message.UserSelectedLeagueIds.Split(',').Select(id => Converter.ToInt(id));
+
             return new MatchWinLossDetailReportViewModel(
                 noParlayMatchWinLossDetail,
                 noParlayWinLossTotal,
@@ -55,7 +68,7 @@
                 message,
                 matchWinLossDetailParam,
                 BuildProductSelectListItems(matchWinLossDetailParam.UserSelectedProductIds, products),
-                BuildLeagueSelectListItems(matchWinLossDetailParam.Leagues, leagues));
+                BuildLeagueSelectListItems(userSelectedLeagueIds, leagues));
         }
     }
 }

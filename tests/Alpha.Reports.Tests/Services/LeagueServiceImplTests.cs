@@ -63,7 +63,7 @@
             // Assert
             dynamicRepository.Received().Fetch<League>(Arg.Is<GetLeaguesByCustomerCriteria>(
                 criteria => criteria.CustId == param.CustId
-                && criteria.Products == param.Products
+                && criteria.ProductIds == param.ProductIds
                 && criteria.FromDate == param.FromDate
                 && criteria.ToDate == param.ToDate
                 && criteria.Language == param.Language
@@ -86,8 +86,8 @@
 
             var expectedLeagues = new List<League>
             {
-                new League(1, "League 1", 1),
-                new League(2, "League 2", 2)
+                new League(1, 1, "League 1"),
+                new League(2, 2, "League 2")
             };
 
             dynamicRepository.Fetch<League>(Arg.Any<GetLeaguesByCustomerCriteria>()).Returns(expectedLeagues);

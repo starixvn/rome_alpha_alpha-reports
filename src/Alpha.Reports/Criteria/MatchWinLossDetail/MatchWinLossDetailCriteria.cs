@@ -2,24 +2,30 @@
 {
     using System;
     using System.Collections.Generic;
+    using Extensions;
     using Fanex.Data;
+    using Fanex.Data.Repository;
     using Models;
 
-    public class MatchWinLossDetailCriteria : ReportProductCriteria
+    public class MatchWinLossDetailCriteria : CriteriaBase
     {
         public MatchWinLossDetailCriteria(
             int custId,
             DateTime fromDate,
             DateTime toDate,
-            DateTime balanceUpDay,
             DateTime moveBetsDay,
             IEnumerable<int> productIds,
             UserLevel reportLevel,
-            string leagues) :
-            base(custId, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
+            IEnumerable<int> leagues)
         {
             ReportLevel = reportLevel;
-            Leagues = leagues;
+            Leagues = leagues.JoinWithComma();
+
+            ProductIds = productIds == null ? string.Empty : productIds.JoinWithComma();
+            CustId = custId;
+            FromDate = fromDate.Date;
+            ToDate = toDate.Date;
+            MoveBetsDay = moveBetsDay;
         }
 
         [SpParam(SqlParamName = "League")]
@@ -28,19 +34,29 @@
         [SpParam(Ignored = true)]
         public UserLevel ReportLevel { get; }
 
+        public string ProductIds { get; }
+
+        public int CustId { get; }
+
+        public DateTime FromDate { get; }
+
+        public DateTime ToDate { get; }
+
+        public DateTime MoveBetsDay { get; }
+
         public override string GetSettingKey()
         {
             if (ReportLevel.IsAgentLevel())
             {
-                return "Age_Rpt_MatchWinLossDetail_Agent";
+                return "Age_Rpt_MatchWinLossDetail_Member";
             }
 
             if (ReportLevel.IsMasterLevel())
             {
-                return "Age_Rpt_MatchWinLossDetail_Master";
+                return "Age_Rpt_MatchWinLossDetail_Agent";
             }
 
-            return "Age_Rpt_MatchWinLossDetail_Super";
+            return "Age_Rpt_MatchWinlossDetail_Master";
         }
 
         public override bool IsValid() =>

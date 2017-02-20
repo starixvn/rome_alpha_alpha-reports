@@ -60,7 +60,7 @@
 
         public string UserSelectedProductIds => param.UserSelectedProductIds.JoinWithComma();
 
-        public string UserSelectedLeagueIds => param.Leagues;
+        public string UserSelectedLeagueIds => param.UserSelectedLeagueIds.JoinWithComma();
 
         public int UserSelectedDateRangeOption => query.UserSelectedDateRangeOption;
 

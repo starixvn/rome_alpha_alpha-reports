@@ -22,28 +22,17 @@
         }
 
         [Fact]
-        public void Create_DefaultConstructor_ReturnsQueryNotHaveData()
-        {
-            // Act
-            var actualQuery = new LeaguesByCustomerQuery();
-
-            // Assert
-            Assert.True(actualQuery.FromDate == DateTime.MinValue
-                && actualQuery.ToDate == DateTime.MinValue
-                && actualQuery.Products == null
-                && actualQuery.Language == null);
-        }
-
-        [Fact]
         public void Create_WithUser_ReturnsQueryHavingData()
         {
             // Arrange
             var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)1);
+
             var custId = anyValueCreatorFixture.Create<int>();
             user.Id.Returns(custId);
 
             var language = anyValueCreatorFixture.Create<string>();
-            user.Language.Returns(language);
+            user.LanguageKey.Returns(language);
 
             // Act
             var actualQuery = new LeaguesByCustomerQuery(user);
@@ -52,7 +41,7 @@
             Assert.True(actualQuery.FromDate == DefaultVariables.CurrentDate
                && actualQuery.ToDate == DefaultVariables.CurrentDate
                && actualQuery.CustId == custId
-               && actualQuery.Language == language);
+               && actualQuery.LanguageKey == language);
         }
     }
 }

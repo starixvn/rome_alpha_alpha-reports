@@ -6,21 +6,15 @@
     using Utils;
     using ViewModels;
 
-    public class LeaguesByCustomerQuery : IRequest<LeaguesByCustomerViewModel>
+    public class LeaguesByCustomerQuery : ReportBaseQuery, IRequest<LeaguesByCustomerViewModel>
     {
-        public LeaguesByCustomerQuery()
-        {
-        }
-
-        public LeaguesByCustomerQuery(IUser viewer)
+        public LeaguesByCustomerQuery(IUser viewer) : base(viewer)
         {
             CustId = viewer.Id;
             ToDate = SystemTime.Today;
             FromDate = SystemTime.Today;
-            Language = viewer.Language;
+            LanguageKey = viewer.LanguageKey;
         }
-
-        public int CustId { get; set; }
 
         public DateTime FromDate { get; set; }
 
@@ -28,6 +22,6 @@
 
         public string Products { get; set; }
 
-        public string Language { get; }
+        public string LanguageKey { get; }
     }
 }

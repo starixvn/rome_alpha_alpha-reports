@@ -21,9 +21,9 @@
         }
 
         [Theory]
-        [InlineData(2, "Age_Rpt_MatchWinLossDetail_Agent")]
-        [InlineData(3, "Age_Rpt_MatchWinLossDetail_Master")]
-        [InlineData(4, "Age_Rpt_MatchWinLossDetail_Super")]
+        [InlineData(2, "Age_Rpt_MatchWinLossDetail_Member")]
+        [InlineData(3, "Age_Rpt_MatchWinLossDetail_Agent")]
+        [InlineData(4, "Age_Rpt_MatchWinlossDetail_Master")]
         public void GetSettingKey_Always_ReturnsValidSettingKey(
             byte userLevelId,
             string expectedSettingKey)
@@ -34,10 +34,9 @@
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 Enumeration.FromValue<UserLevel>(userLevelId),
-                anyValueCreator.Create<string>());
+                anyValueCreator.Create<IEnumerable<int>>());
 
             // Act
             var actualSettingKey = matchWinLossDetailCriteria.GetSettingKey();
@@ -58,10 +57,9 @@
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>(),
-                anyValueCreator.Create<string>());
+                anyValueCreator.Create<IEnumerable<int>>());
 
             // Act
             var actualIsValid = matchWinLossDetailCriteria.IsValid();
@@ -79,10 +77,9 @@
                anyValueCreator.Create<DateTime>(),
                anyValueCreator.Create<DateTime>(),
                anyValueCreator.Create<DateTime>(),
-               anyValueCreator.Create<DateTime>(),
                Enumerable.Empty<int>(),
                anyValueCreator.Create<UserLevel>(),
-               anyValueCreator.Create<string>());
+               anyValueCreator.Create<IEnumerable<int>>());
 
             // Act
             var actualIsValid = matchWinLossDetailCriteria.IsValid();
@@ -102,10 +99,9 @@
                fromDate,
                toDate,
                anyValueCreator.Create<DateTime>(),
-               anyValueCreator.Create<DateTime>(),
                anyValueCreator.Create<IEnumerable<int>>(),
                anyValueCreator.Create<UserLevel>(),
-               anyValueCreator.Create<string>());
+               anyValueCreator.Create<IEnumerable<int>>());
 
             // Act
             var actualIsValid = matchWinLossDetailCriteria.IsValid();
@@ -114,23 +110,18 @@
             Assert.False(actualIsValid);
         }
 
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData("  ")]
-        public void IsValid_NullOrWhiteSpaceLeagues_ReturnsFalse(string leagues)
+        [Fact]
+        public void IsValid_EmptyLeague_ReturnsFalse()
         {
             // Arrange
             var matchWinLossDetailCriteria = new MatchWinLossDetailCriteria(
-             anyValueCreator.Create<int>(),
-             anyValueCreator.Create<DateTime>(),
-             anyValueCreator.Create<DateTime>(),
-             anyValueCreator.Create<DateTime>(),
-             anyValueCreator.Create<DateTime>(),
-             anyValueCreator.Create<IEnumerable<int>>(),
-             anyValueCreator.Create<UserLevel>(),
-             leagues);
+                anyValueCreator.Create<int>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<IEnumerable<int>>(),
+                anyValueCreator.Create<UserLevel>(),
+                Enumerable.Empty<int>());
 
             // Act
             var actualIsValid = matchWinLossDetailCriteria.IsValid();
@@ -150,10 +141,9 @@
                 fromDate,
                 toDate,
                 anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<DateTime>(),
                 new List<int> { 1, 2, 3 },
                 anyValueCreator.Create<UserLevel>(),
-                "4,5,6");
+                new List<int> { 4, 5, 6 });
 
             // Act
             var actualIsValid = matchWinLossDetailCriteria.IsValid();

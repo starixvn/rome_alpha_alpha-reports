@@ -48,7 +48,7 @@
         }
 
         protected internal IEnumerable<SelectListItem> BuildLeagueSelectListItems(
-            string userSelectedLeagueIds,
+            IEnumerable<int> userSelectedLeagueIds,
             IEnumerable<League> leagues)
         {
             if (leagues == null
@@ -57,17 +57,13 @@
                 return Enumerable.Empty<SelectListItem>();
             }
 
-            var userSelectedLeagueList = string.IsNullOrWhiteSpace(userSelectedLeagueIds)
-                ? Enumerable.Empty<int>()
-                : userSelectedLeagueIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(id => Converter.ToInt(id)).ToList();
-
             return leagues.Select(league =>
             {
                 var leagueSelectListItem = new SelectListItem
                 {
                     Text = league.DisplayName,
                     Value = league.Id.ToString(),
-                    Selected = userSelectedLeagueList.Contains(league.Id)
+                    Selected = userSelectedLeagueIds.Contains(league.Id)
                 };
 
                 return leagueSelectListItem;

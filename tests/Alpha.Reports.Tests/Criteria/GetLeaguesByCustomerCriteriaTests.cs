@@ -53,7 +53,7 @@
             var getLeaguesByCustomerCriteria = new GetLeaguesByCustomerCriteria(
                 param,
                 anyValueCreator.Create<DateTime>());
-            var expectedSettingKey = "Age_Rpt_MatchWinloss_SelLeagueBySport";
+            var expectedSettingKey = "Age_Rpt_MatchWinloss_GetLeagueByProduct";
 
             // Act
             var actualSettingKey = getLeaguesByCustomerCriteria.GetSettingKey();

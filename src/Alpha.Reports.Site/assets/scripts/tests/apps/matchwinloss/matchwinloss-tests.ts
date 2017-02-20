@@ -27,7 +27,9 @@
                             <input id="IsDescendingSort" value="False" type="hidden" />
                             <input id="SortPropertyName" value="EventInfo" type="hidden" />
                         </form>
+                        <span class="icon-filter" title="Hide filters"></span>
                         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+                        <div class="page-title"></div>
                         <table id="tbl-report" data-cansort="False"
                             data-sortedcolumn="Event Info"
                             data-descendingsort="False">
@@ -113,6 +115,48 @@
             // assert
             expect(jQueryFake.blockUI).toHaveBeenCalled();
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
+        });
+    });
+    describe("_onClickIconFilter", () => {
+        describe("_Filter is currently shown", () => {
+            it("_Hides Filter", () => {
+                // arrange
+                matchWinLossView.cacheElements();
+
+                // act
+                matchWinLossView.onClickIconFilter();
+
+                // assert
+                expect(matchWinLossView.$pageTitle.hasClass("hide-filter")).toBeTruthy();
+                expect(matchWinLossView.$reportForm.hasClass("hide")).toBeTruthy();
+            });
+        });
+        describe("_Filter is currently hidden", () => {
+            it("_Shows Filter", () => {
+                // arrange
+                setFixtures(`<body>
+                                <form id="report-form" role="form" class="hide">
+                                    <input id="IsDescendingSort" value="False" type="hidden" />
+                                    <input id="SortPropertyName" value="EventInfo" type="hidden" />
+                                </form>
+                                <span class="icon-filter hide" title="Hide filters"></span>
+                                <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+                                <div class="page-title hide-filter"></div>
+                                <table id="tbl-report" data-cansort="False"
+                                    data-sortedcolumn="Event Info"
+                                    data-descendingsort="False">
+                                </table>
+                            </body>`);
+
+                matchWinLossView.cacheElements();
+
+                // act
+                matchWinLossView.onClickIconFilter();
+
+                // assert
+                expect(matchWinLossView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
+                expect(matchWinLossView.$reportForm.hasClass("hide")).toBeFalsy();
+            });
         });
     });
 });

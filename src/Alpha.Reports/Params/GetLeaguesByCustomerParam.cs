@@ -13,7 +13,7 @@
             string language)
         {
             CustId = custId;
-            Products = products;
+            ProductIds = products;
             FromDate = fromDate == DateTime.MinValue ? SystemTime.Today : fromDate;
             ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
             Language = language;
@@ -21,7 +21,7 @@
 
         public int CustId { get; }
 
-        public string Products { get; }
+        public string ProductIds { get; }
 
         public DateTime FromDate { get; }
 

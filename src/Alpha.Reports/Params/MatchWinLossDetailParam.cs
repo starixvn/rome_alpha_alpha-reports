@@ -11,14 +11,14 @@
             int custId,
             DateTime fromDate,
             DateTime toDate,
-            string leagues,
+            IEnumerable<int> userSelectedLeagueIds,
             IEnumerable<int> userSelectedProductIds,
             UserLevel reportLevel)
         {
             CustId = custId;
             FromDate = fromDate == DateTime.MinValue ? SystemTime.Today : fromDate;
             ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
-            Leagues = leagues;
+            UserSelectedLeagueIds = userSelectedLeagueIds;
             UserSelectedProductIds = userSelectedProductIds;
             ReportLevel = reportLevel;
         }
@@ -29,7 +29,7 @@
 
         public DateTime ToDate { get; }
 
-        public string Leagues { get; }
+        public IEnumerable<int> UserSelectedLeagueIds { get; }
 
         public IEnumerable<int> UserSelectedProductIds { get; }
 

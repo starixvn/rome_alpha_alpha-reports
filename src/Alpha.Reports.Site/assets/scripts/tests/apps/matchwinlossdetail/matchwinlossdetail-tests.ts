@@ -177,23 +177,7 @@
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
             expect(matchWinLossDetailView.$buttonProduct.hasClass("error")).toBeTruthy();
         });
-        it("_Not select any league -> Blocks UI; Shows Validate League Error; Unblock UI;", () => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.init();
-            spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
-
-            let event = { preventDefault: jasmine.createSpy("preventDefault", () => null) };
-
-            // act
-            matchWinLossDetailView.onSubmitReport(event);
-
-            // assert
-            expect(jQueryFake.blockUI).toHaveBeenCalled();
-            expect(jQueryFake.unblockUI).toHaveBeenCalled();
-            expect(matchWinLossDetailView.$buttonLeague.hasClass("error")).toBeTruthy();
-        });
-        it("Have selected any products/leagues -> Blocks UI; Unblock UI; Set correct Params;", () => {
+        it("Have selected any products -> Blocks UI; Unblock UI; Set correct Params;", () => {
             // arrange
             setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
             renderProductMultiSelectionComponent.and.callThrough();
@@ -272,10 +256,12 @@
             it("_Combines Cells", () => {
                 // assert
                 expect(combineConsecutiveCellsSpy.calls.allArgs()).toEqual([
+                    [jasmine.any(Object), 2, "col-turnover-combined"],
                     [jasmine.any(Object), 3, "col-member-winloss-combined"],
                     [jasmine.any(Object), 3, "col-agent-winloss-combined altercol"],
                     [jasmine.any(Object), 3, "col-master-winloss-combined"],
-                    [jasmine.any(Object), 3, "col-super-winloss-combined altercol"]]);
+                    [jasmine.any(Object), 3, "col-super-winloss-combined altercol"],
+                    [jasmine.any(Object), 2, "col-company-winloss-combined"]]);
             });
         });
         describe("_1st Switch on Stack Mode", () => {
@@ -308,10 +294,12 @@
             it("_Splits Cells", () => {
                 // assert
                 expect(splitCellSpy.calls.allArgs()).toEqual([
+                    ["col-turnover", ""],
                     ["col-member-winloss", ""],
                     ["col-agent-winloss", " altercol"],
                     ["col-master-winloss", ""],
-                    ["col-super-winloss", " altercol"]]);
+                    ["col-super-winloss", " altercol"],
+                    ["col-company-winloss", ""]]);
             });
         });
         describe("_2nd+ Switch on Normal Mode", () => {
@@ -382,10 +370,12 @@
         it("_Combines Columns", () => {
             // assert
             expect(combineConsecutiveCellsSpy.calls.allArgs()).toEqual([
+                [jasmine.any(Object), 2, "col-turnover-combined"],
                 [jasmine.any(Object), 3, "col-member-winloss-combined"],
                 [jasmine.any(Object), 3, "col-agent-winloss-combined altercol"],
                 [jasmine.any(Object), 3, "col-master-winloss-combined"],
-                [jasmine.any(Object), 3, "col-super-winloss-combined altercol"]]);
+                [jasmine.any(Object), 3, "col-super-winloss-combined altercol"],
+                [jasmine.any(Object), 2, "col-company-winloss-combined"]]);
         });
         it("_Unblocks UI", () => {
             // assert
@@ -406,7 +396,6 @@
             // assert
             expect(actualParam).toEqual({
                 IsAnyProductSelected: false,
-                IsAnyLeagueSelected: false,
                 IsStackMode: false,
                 IsFilterVisible: true
             });
@@ -424,44 +413,6 @@
             // assert
             expect(actualParam).toEqual({
                 IsAnyProductSelected: true,
-                IsAnyLeagueSelected: false,
-                IsStackMode: false,
-                IsFilterVisible: true
-            });
-        });
-
-        it("_No league selected -> Returns correct params", () => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.cacheElements();
-            spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
-            spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
-
-            // act
-            let actualParam = matchWinLossDetailView.getParams();
-
-            // assert
-            expect(actualParam).toEqual({
-                IsAnyProductSelected: false,
-                IsAnyLeagueSelected: false,
-                IsStackMode: false,
-                IsFilterVisible: true
-            });
-        });
-        it("_Have league selected -> Returns correct params", () => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.cacheElements();
-            spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => [1]);
-            spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => [1]);
-
-            // act
-            let actualParam = matchWinLossDetailView.getParams();
-
-            // assert
-            expect(actualParam).toEqual({
-                IsAnyProductSelected: true,
-                IsAnyLeagueSelected: true,
                 IsStackMode: false,
                 IsFilterVisible: true
             });
@@ -473,6 +424,7 @@
             setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
             matchWinLossDetailView.$fromDate = matchWinLossDetailView.$("#from-date");
             matchWinLossDetailView.$toDate = matchWinLossDetailView.$("#to-date");
+            matchWinLossDetailView.$custId = matchWinLossDetailView.$("#CustId");
             spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => [1, 2, 3]);
 
             // act
@@ -480,6 +432,7 @@
 
             // assert
             expect(actualParam).toEqual({
+                custId: "1",
                 fromDate: "",
                 toDate: "",
                 products: "1,2,3"
@@ -504,6 +457,7 @@
             setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
             matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
             let oldParam = {
+                custId: "1",
                 fromDate: "01/01/2017",
                 toDate: "01/01/2017",
                 products: "1,2,3"
@@ -523,6 +477,7 @@
             setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
             matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
             let oldParam = {
+                custId: "1",
                 fromDate: "01/01/2017",
                 toDate: "01/01/2017",
                 products: "1,2,3"
@@ -550,6 +505,7 @@
             matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
             matchWinLossDetailView.$loadLeagueURL = matchWinLossDetailView.$("#LoadLeagueURL");
             let oldParam = {
+                custId: "1",
                 fromDate: "01/01/2017",
                 toDate: "01/01/2017",
                 products: "1,2,3"
@@ -586,6 +542,7 @@
             matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
             matchWinLossDetailView.$loadLeagueURL = matchWinLossDetailView.$("#LoadLeagueURL");
             let oldParam = {
+                custId: "1",
                 fromDate: "01/01/2017",
                 toDate: "01/01/2017",
                 products: "1,2,3"
@@ -620,6 +577,7 @@
             matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
             matchWinLossDetailView.$loadLeagueURL = matchWinLossDetailView.$("#LoadLeagueURL");
             let oldParam = {
+                custId: "1",
                 fromDate: "01/01/2017",
                 toDate: "01/01/2017",
                 products: "1,2,3"
@@ -661,6 +619,7 @@
             matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
             matchWinLossDetailView.$loadLeagueURL = matchWinLossDetailView.$("#LoadLeagueURL");
             let oldParam = {
+                custId: "1",
                 fromDate: "01/01/2017",
                 toDate: "01/01/2017",
                 products: "1,2,3"
@@ -695,42 +654,6 @@
                 success: jasmine.any(Function),
                 complete: jasmine.any(Function)
             });
-        });
-        it("_League is hidden/Change Param/Request Error -> call ajax/unblock UI", () => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
-            matchWinLossDetailView.$loadLeagueURL = matchWinLossDetailView.$("#LoadLeagueURL");
-            let oldParam = {
-                fromDate: "01/01/2017",
-                toDate: "01/01/2017",
-                products: "1,2,3"
-            };
-
-            matchWinLossDetailView.getLeaguesByCustomerParam = oldParam;
-
-            let newParam = {
-                fromDate: "02/01/2017",
-                toDate: "02/01/2017",
-                products: "1,2"
-            };
-
-            spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => newParam);
-
-            let event = {
-                preventDefault: jasmine.createSpy("preventDefault", () => null),
-                stopPropagation: jasmine.createSpy("stopPropagation", () => null)
-            };
-
-            // act
-            $.ajaxSetup({
-                async: false
-            });
-
-            matchWinLossDetailView.showLeagues(event);
-
-            // assert
-            expect(matchWinLossDetailView.$.unblockUI).toHaveBeenCalled();
         });
     });
     describe("_renderLeagues", () => {
