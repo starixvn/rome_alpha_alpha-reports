@@ -9,10 +9,10 @@
     {
         private static IEnumerable<object[]> winLossGameTypeInfoViewModel = new List<object[]>()
         {
-            new object[] { 71, 22, ExpectedCasinoGameInfo },
-            new object[] { 4001, 23, ExpectedMacauGameInfo },
-            new object[] { 2502, 24, ExpectedNG2Info },
-            new object[] { 1, 0, InValidGameTypeInfo }
+            new object[] { 6, ExpectedCasinoGameInfo },
+            new object[] { 22, ExpectedMacauGameInfo },
+            new object[] { 23, ExpectedNG2Info },
+            new object[] { 10, InValidGameTypeInfo }
         };
 
         private static WinLossGameTypeInfoViewModel ExpectedCasinoGameInfo =>

@@ -45,8 +45,8 @@
             SystemTime.Today = DefaultVariables.CurrentDate;
             compareLogic = new CompareLogic();
 
-            cacheRefService.GetProductName(23).Returns("Macau Game");
-            cacheRefService.GetProductName(24).Returns("NG2");
+            cacheRefService.GetProductName(22).Returns("Macau Game");
+            cacheRefService.GetProductName(23).Returns("NG2");
         }
 
         [Fact]
@@ -70,7 +70,6 @@
         [Theory]
         [MemberData("WinLossGameTypeInfoViewModelSources", MemberType = typeof(WinLossGameTypeInfoViewModelCases))]
         public void BuildWinLossGameTypeInfoViewModel_Always_ReturnsCorrectData(
-          int betTypeId,
           int productId,
           WinLossGameTypeInfoViewModel expectedWinLossGameTypeInfoViewModel)
         {
@@ -86,7 +85,7 @@
                cacheRefService);
 
             // Act
-            var actualWinLossGameTypeInfoViewModel = winlossByBettypeViewModel.BuildWinLossGameTypeInfoViewModel((BetType)betTypeId, productId);
+            var actualWinLossGameTypeInfoViewModel = winlossByBettypeViewModel.BuildWinLossGameTypeInfoViewModel(productId);
 
             // Assert
             var result = compareLogic.Compare(expectedWinLossGameTypeInfoViewModel, actualWinLossGameTypeInfoViewModel);

@@ -12,6 +12,7 @@
     using Reports.Models.WinlossByBetType;
     using Requests.WinLossByBetType;
     using Sunplus.Agent.Model.BL.Definitions;
+    using Sunplus.Agent.Model.Definitions;
 
     public class WinLossByBetTypeViewModel
     {
@@ -125,22 +126,22 @@
         [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.")]
         public Func<BetType, string, bool, string> BuildDisplayedBettypeName;
 
-        public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(BetType betType, int productId)
+        public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(int productId)
         {
             bool isAllowViewGameType = false;
             string winLossByGameTypeTitle = string.Empty;
 
-            switch (betType)
+            switch (productId)
             {
-                case BetType.Casino_Games:
+                case ProductIdConstants.RNGCasino:
                     {
                         isAllowViewGameType = true;
                         winLossByGameTypeTitle = Resources.CasinoWinLoss;
                     }
 
                     break;
-                case BetType.VoidbridgeRangeStart:
-                case BetType.NG2Representative:
+                case ProductIdConstants.NG2:
+                case ProductIdConstants.Voidbridge:
                     {
                         isAllowViewGameType = true;
                         winLossByGameTypeTitle = $"{cacheRefService.GetProductName(productId)} {Resources.WinLossTitle}";
