@@ -5,6 +5,7 @@
     using System.Diagnostics.CodeAnalysis;
     using App_GlobalResources;
     using RemotingRef;
+    using Sunplus.Agent.Model.BL.Definitions;
     using Sunplus.Agent.Model.Definitions;
     using ViewModels.WinLossByBetType;
 
