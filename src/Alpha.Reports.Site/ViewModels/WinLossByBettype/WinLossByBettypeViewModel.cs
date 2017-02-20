@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using App_GlobalResources;
+    using App_Start;
     using Components;
     using Helpers;
     using Params;
@@ -36,7 +37,7 @@
             MinDate = message.MinDate;
             ReportData = reportData;
             GrandTotal = grandTotal;
-            
+
             BuildDisplayedBettypeName = buildDisplayedBettypeName;
             BuildResources();
         }
@@ -128,32 +129,12 @@
 
         public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(int productId)
         {
-            bool isAllowViewGameType = false;
-            string winLossByGameTypeTitle = string.Empty;
-
-            switch (productId)
+            if (ProductConfig.DisplayWinLossByGameTypeRules.ContainsKey(productId))
             {
-                case ProductIdConstants.RNGCasino:
-                    {
-                        isAllowViewGameType = true;
-                        winLossByGameTypeTitle = Resources.CasinoWinLoss;
-                    }
-
-                    break;
-                case ProductIdConstants.NG2:
-                case ProductIdConstants.Voidbridge:
-                    {
-                        isAllowViewGameType = true;
-                        winLossByGameTypeTitle = $"{cacheRefService.GetProductName(productId)} {Resources.WinLossTitle}";
-                    }
-
-                    break;
-                default: break;
+                return ProductConfig.DisplayWinLossByGameTypeRules[productId](productId, cacheRefService);
             }
 
-            return new WinLossGameTypeInfoViewModel(
-                isAllowViewGameType: isAllowViewGameType,
-                winLossByGameTypeTitle: winLossByGameTypeTitle);
+            return new WinLossGameTypeInfoViewModel(false, string.Empty);
         }
     }
 }
