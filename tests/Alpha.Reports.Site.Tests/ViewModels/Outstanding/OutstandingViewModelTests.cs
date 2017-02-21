@@ -33,10 +33,12 @@
             UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
             var custId = 1;
             var custName = "CustName";
+            var userSelectedProductIds = "1,2,3";
 
             var query = Substitute.For<OutstandingQuery>(userFixture.User);
             query.ViewerLevel.Returns(Agent);
             query.CustLevel.Returns(Agent);
+            query.UserSelectedProductIds = userSelectedProductIds;
 
             var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
 
@@ -51,7 +53,9 @@
                     (int)routeValue["CustId"] == custId
                     && (string)routeValue["Username"] == custName
                     && (string)routeValue["Type"] == "RunByDate_Mem"
-                    && (string)routeValue["Chkgetall"] == "on"));
+                    && (string)routeValue["Chkgetall"] == "on"
+                    && (string)routeValue["ProductIds"] == userSelectedProductIds
+                    && (int)routeValue["FilterPostback"] == 1));
         }
 
         [Theory]

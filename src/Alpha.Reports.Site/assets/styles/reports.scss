@@ -120,6 +120,10 @@ a {
         width: 17%;
     }
 
+    &.width-60per {
+        width: 60%;
+    }
+
     .downline-link {
         color: $link-color;
         cursor: pointer;
