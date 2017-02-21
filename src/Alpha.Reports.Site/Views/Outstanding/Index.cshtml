@@ -1,5 +1,4 @@
-﻿@using Alpha.Reports.Site
-@using Alpha.Reports.Site.App_GlobalResources;
+﻿@using Alpha.Reports.Site.App_GlobalResources;
 
 @model OutstandingViewModel
 
@@ -22,15 +21,17 @@
             <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Outstanding.Username">
                 @HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
             </th>
-            <th colspan="@Model.NumberOfOutstandingColumn" class="header">
+            <th colspan="@Model.NumberOfOutstandingColumn" class="header" data-disabledsort="true">
                 @Resources.Outstanding
             </th>
         </tr>
         <tr class="thead-row2">
-            @Model.DisplayOutstandingLevels.List(
-        @<th class="sorting" data-colindex="@item.Value" data-sortedname>
-            @HtmlHelpers.DisplayUserLevelText(@item)
-        </th>)
+            @foreach (var userLevel in Model.DisplayOutstandingLevels)
+            {
+                <th class="sorting" data-colindex="@userLevel.Value" data-sortedname>
+                    @HtmlHelpers.DisplayUserLevelText(userLevel)
+                </th>
+            }
         </tr>
     </thead>
     @if (Model.OutstandingDatasource.Any())
