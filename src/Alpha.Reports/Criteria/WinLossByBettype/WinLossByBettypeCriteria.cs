@@ -2,7 +2,6 @@
 {
     using System;
     using Fanex.Data;
-    using Fanex.Data.Repository;
     using Models;
 
     public class WinLossByBetTypeCriteria : ReportCriteriaBase

@@ -16,6 +16,9 @@
         private readonly string sortPropertyNameDefault = "CustName";
         private readonly WinLossQuery message;
         private readonly WinLossParam winLossParam;
+        public static readonly string NetWinLossWinLoss = $"{nameof(WinLossModel.AgentNetWinLoss)}.{nameof(NetWinLoss.WinLoss)}";
+        public static readonly string NetWinLossComm = $"{nameof(WinLossModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Comm)}";
+        public static readonly string NetWinLossTotal = $"{nameof(WinLossModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Total)}";
 
         public WinLossViewModel(
             IEnumerable<WinLossModel> reportData,

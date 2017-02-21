@@ -7,15 +7,14 @@
     using RemotingRef;
     using Sunplus.Agent.Model.BL.Definitions;
     using Sunplus.Agent.Model.Definitions;
-    using ViewModels.WinLossByBetType;
 
     public static class BetTypeConfig
     {
         #region Win Loss By Bet Type
 
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Reviewed!")]
-        public static readonly IDictionary<int, Func<int, BetType, string, bool, CacheRefService, string>> DisplayWinLossByBetTypeRules
-           = new Dictionary<int, Func<int, BetType, string, bool, CacheRefService, string>>
+        public static readonly IDictionary<int, Func<BetType, string, bool, CacheRefService, string>> DisplayWinLossByBetTypeRules
+           = new Dictionary<int, Func<BetType, string, bool, CacheRefService, string>>
            {
                 { ProductIdConstants.RNGCasino, RNGCasinoBetTypeNameRule },
                 { ProductIdConstants.LiveCasino, LiveCasinoBetTypeNameRule },
@@ -27,30 +26,30 @@
                 { ProductIdConstants.NumberGame, NumberGameBetTypeNameRule }
            };
 
-        private static string RNGCasinoBetTypeNameRule(int productId, BetType betTypeId, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
-           => betTypeName;
+        private static string RNGCasinoBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
+            => betTypeName;
 
-        private static string LiveCasinoBetTypeNameRule(int productId, BetType betTypeId, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
-         => betTypeName;
+        private static string LiveCasinoBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
+            => betTypeName;
 
-        private static string VirtualSportsBetTypeNameRule(int productId, BetType betTypeId, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
-        => $"{betTypeName} ({Resources.VirtualSports})";
+        private static string VirtualSportsBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
+            => $"{betTypeName} ({Resources.VirtualSports})";
 
-        private static string GoldDeluxeBetTypeNameRule(int productId, BetType betTypeId, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
-         => $"{betTypeName} ({Resources.GoldDeluxe})";
+        private static string GoldDeluxeBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
+            => $"{betTypeName} ({Resources.GoldDeluxe})";
 
-        private static string VoidbridgeBetTypeNameRule(int productId, BetType betTypeId, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
-        => Resources.Voidbridge;
+        private static string VoidbridgeBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
+            => Resources.Voidbridge;
 
-        private static string NG2BetTypeNameRule(int productId, BetType betTypeId, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
+        private static string NG2BetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
          => cacheRefService.GetProductName(ProductIdConstants.NG2);
 
-        private static string AllBetBetTypeNameRule(int productId, BetType betTypeId, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
-       => $"{betTypeName} ({Resources.Allbet})";
+        private static string AllBetBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
+        => $"{betTypeName} ({Resources.Allbet})";
 
-        private static string NumberGameBetTypeNameRule(int productId, BetType betTypeId, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
+        private static string NumberGameBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
         {
-            switch (betTypeId)
+            switch (betType)
             {
                 case BetType.N_Over_Under:
                     return $"{Resources.Next} {betTypeName} ({Resources.NumberGame})";

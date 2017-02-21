@@ -72,14 +72,14 @@
                 <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Total" data-colindex="6">@Resources.Total</th>
 
                 <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossWinLoss)" data-colindex="7">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossWinLoss)" data-colindex="8">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossWinLoss)" data-colindex="9">@Resources.Total</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossComm)" data-colindex="8">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossTotal)" data-colindex="9">@Resources.Total</th>
             }
             else
             {
                 <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossWinLoss)" data-colindex="5">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossWinLoss)" data-colindex="6">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossWinLoss)" data-colindex="7">@Resources.Total</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossComm)" data-colindex="6">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossTotal)" data-colindex="7">@Resources.Total</th>
             }
         </tr>
     </thead>
@@ -117,7 +117,7 @@
 
 @helper RenderRow(WinLossByBetTypeModel data, bool isTotalRow)
 {
-    WinLossGameTypeInfoViewModel winLossGameTypeInfoViewModel = Model.BuildWinLossGameTypeInfoViewModel(data.BetTypeId, data.ProductId);
+    WinLossGameTypeInfoViewModel winLossGameTypeInfoViewModel = Model.BuildWinLossGameTypeInfoViewModel(data.ProductId);
     <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
         <td @(winLossGameTypeInfoViewModel.IsAllowViewGameType? "data-islink=\"true\"":"") class="text-left col-username">
             @if (isTotalRow)
@@ -126,7 +126,7 @@
             }
             else
             {
-                string displayedBetTypeName = Model.BuildDisplayedBettypeName((BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator);
+                string displayedBetTypeName = Model.BuildDisplayedBettypeName(data.ProductId, (BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator);
 
                 if (winLossGameTypeInfoViewModel.IsAllowViewGameType)
                 {

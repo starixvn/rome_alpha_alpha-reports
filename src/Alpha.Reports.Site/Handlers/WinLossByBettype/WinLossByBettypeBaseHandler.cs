@@ -3,14 +3,13 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using App_GlobalResources;
+    using App_Start;
     using Params;
     using RemotingRef;
     using Reports.Models.WinlossByBetType;
     using Requests.WinLossByBetType;
     using Services;
     using Sunplus.Agent.Model.BL.Definitions;
-    using Sunplus.Agent.Model.Definitions;
 
     [SuppressMessage(
         "StyleCop.CSharp.NamingRules",
@@ -57,50 +56,12 @@
             Justification = "Reviewed. Suppression is OK here.")]
         public string BuildDisplayedBetTypeName(int productId, BetType betTypeId, string betTypeName, bool liveIndicator)
         {
-            string displayedBetTypeName = betTypeName;
-
-            switch (productId)
+            if (BetTypeConfig.DisplayWinLossByBetTypeRules.ContainsKey(productId))
             {
-                case ProductIdConstants.RNGCasino:
-                case ProductIdConstants.LiveCasino:
-                    break;
-                case ProductIdConstants.VirtualSports:
-                    displayedBetTypeName = $"{betTypeName} ({Resources.VirtualSports})";
-                    break;
-                case ProductIdConstants.GoldDeluxe:
-                    displayedBetTypeName = $"{betTypeName} ({Resources.GoldDeluxe})";
-                    break;
-                case ProductIdConstants.NumberGame:
-                    {
-                        switch (betTypeId)
-                        {
-                            case BetType.N_Over_Under:
-                                displayedBetTypeName = $"{Resources.Next} {betTypeName} ({Resources.NumberGame})";
-                                break;
-                            case BetType.N_Odd_Even:
-                                string strNextCombo = liveIndicator ? Resources.Next + " " : Resources.FT + ". ";
-                                displayedBetTypeName = $"{strNextCombo}{betTypeName} ({Resources.NumberGame})";
-                                break;
-                            case BetType.NumberWheel:
-                                string typeNumberWheel = liveIndicator ? Resources.LiveGame : Resources.PreGame;
-                                displayedBetTypeName = $"{betTypeName} ({typeNumberWheel})";
-                                break;
-                        }
-                    }
-
-                    break;
-                case ProductIdConstants.Voidbridge:
-                    displayedBetTypeName = Resources.Voidbridge;
-                    break;
-                case ProductIdConstants.NG2:
-                    displayedBetTypeName = cacheRefService.GetProductName(ProductIdConstants.NG2);
-                    break;
-                case ProductIdConstants.AllBet:
-                    displayedBetTypeName = $"{betTypeName} ({Resources.Allbet})";
-                    break;
+                return BetTypeConfig.DisplayWinLossByBetTypeRules[productId](betTypeId, betTypeName, liveIndicator, cacheRefService);
             }
 
-            return displayedBetTypeName;
+            return betTypeName;
         }
     }
 }

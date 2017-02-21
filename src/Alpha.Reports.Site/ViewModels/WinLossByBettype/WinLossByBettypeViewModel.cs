@@ -20,15 +20,16 @@
         private readonly WinLossByBetTypeQuery message;
         private readonly WinLossByBetTypeParam winLossByBettypeParam;
         private readonly CacheRefService cacheRefService;
-
         public static readonly string NetWinLossWinLoss = $"{nameof(WinLossByBetTypeModel.AgentNetWinLoss)}.{nameof(NetWinLoss.WinLoss)}";
+        public static readonly string NetWinLossComm = $"{nameof(WinLossByBetTypeModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Comm)}";
+        public static readonly string NetWinLossTotal = $"{nameof(WinLossByBetTypeModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Total)}";
 
         public WinLossByBetTypeViewModel(
             IEnumerable<WinLossByBetTypeModel> reportData,
             WinLossByBetTypeModel grandTotal,
             WinLossByBetTypeQuery message,
             WinLossByBetTypeParam winLossByBettypeParam,
-            Func<BetType, string, bool, string> buildDisplayedBettypeName,
+            Func<int, BetType, string, bool, string> buildDisplayedBettypeName,
             CacheRefService cacheRefService)
         {
             this.message = message;
@@ -125,7 +126,7 @@
         }
 
         [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.")]
-        public Func<BetType, string, bool, string> BuildDisplayedBettypeName;
+        public Func<int, BetType, string, bool, string> BuildDisplayedBettypeName;
 
         public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(int productId)
         {

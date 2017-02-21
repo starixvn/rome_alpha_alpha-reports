@@ -15,6 +15,9 @@
     {
         private readonly WinLossByGameTypeQuery message;
         private readonly WinLossByGameTypeParam winLossByGameTypeParam;
+        public static readonly string NetWinLossWinLoss = $"{nameof(WinLossByGameTypeModel.AgentNetWinLoss)}.{nameof(NetWinLoss.WinLoss)}";
+        public static readonly string NetWinLossComm = $"{nameof(WinLossByGameTypeModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Comm)}";
+        public static readonly string NetWinLossTotal = $"{nameof(WinLossByGameTypeModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Total)}";
 
         public WinLossByGameTypeViewModel(
             IEnumerable<WinLossByGameTypeModel> reportData,

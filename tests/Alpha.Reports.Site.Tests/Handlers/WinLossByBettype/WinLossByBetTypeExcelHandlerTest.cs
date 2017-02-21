@@ -121,7 +121,7 @@
                 fixture.Create<WinLossByBetTypeModel>(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
-                fixture.Create<Func<BetType, string, bool, string>>(),
+                fixture.Create<Func<int, BetType, string, bool, string>>(),
                 cacheRefService);
 
             // Act
@@ -144,7 +144,7 @@
                 new WinLossByBetTypeModel(),
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
-                fixture.Create<Func<BetType, string, bool, string>>(),
+                fixture.Create<Func<int, BetType, string, bool, string>>(),
                 cacheRefService);
 
             // Act
