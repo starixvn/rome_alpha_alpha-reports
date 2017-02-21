@@ -77,7 +77,9 @@
             { "CustId", model.CustId },
             { "Username", model.CustName },
             { "Chkgetall", "on" },
-            { "Type", "RunByDate_Mem" }
+            { "Type", "RunByDate_Mem" },
+            { "ProductIds", Query.UserSelectedProductIds },
+            { "FilterPostback", 1 },
         };
     }
 }
