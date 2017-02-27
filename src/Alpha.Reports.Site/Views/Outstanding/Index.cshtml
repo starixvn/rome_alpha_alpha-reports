@@ -45,7 +45,7 @@
             {
                 <tr>
                     <td class="text-left" data-islink="true">
-                        <a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)">@outstanding.CustName</a>
+                        <a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)" data-custname="@outstanding.CustName">@outstanding.CustName</a>
                     </td>
                     @RenderOutstandingCells(outstanding)
                 </tr>
