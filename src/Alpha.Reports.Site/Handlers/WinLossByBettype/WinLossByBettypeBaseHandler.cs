@@ -4,6 +4,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using App_Start;
+    using Extensions;
     using Params;
     using RemotingRef;
     using Reports.Models.WinlossByBetType;
@@ -17,21 +18,28 @@
         Justification = "Reviewed. Suppression is OK here.")]
     public class WinLossByBetTypeBaseHandler : BaseHandler
     {
+        protected readonly ProductService productService;
         protected readonly WinLossByBetTypeService reportService;
         protected readonly CacheRefService cacheRefService;
 
-        public WinLossByBetTypeBaseHandler(WinLossByBetTypeService reportService, CacheRefService cacheRefService)
+        public WinLossByBetTypeBaseHandler(WinLossByBetTypeService reportService, ProductService productService, CacheRefService cacheRefService)
         {
+            this.productService = productService;
             this.reportService = reportService;
             this.cacheRefService = cacheRefService;
         }
 
         protected WinLossByBetTypeParam CreateWinLossByBettypeParamater(WinLossByBetTypeQuery message)
         {
+            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
+                  message.CustId,
+                  message.UserSelectedProductIds.ToListInt());
+
             return new WinLossByBetTypeParam(
                  message.CustId,
                  message.FromDate,
                  message.ToDate,
+                 validUserSelectedProductIds,
                  message.CustLevel);
         }
 

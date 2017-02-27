@@ -72,13 +72,13 @@
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
-        public WinLossByBetTypeFilterViewModel FilterViewModel =>
-            new WinLossByBetTypeFilterViewModel(
-                CustId,
-                CustLevel,
-                DateRangePickerViewModel,
-                IsFilterVisible,
-                MinDate);
+        ////public WinLossByBetTypeFilterViewModel FilterViewModel =>
+        ////    new WinLossByBetTypeFilterViewModel(
+        ////        CustId,
+        ////        CustLevel,
+        ////        DateRangePickerViewModel,
+        ////        IsFilterVisible,
+        ////        MinDate);
 
         private void BuildResources()
         {

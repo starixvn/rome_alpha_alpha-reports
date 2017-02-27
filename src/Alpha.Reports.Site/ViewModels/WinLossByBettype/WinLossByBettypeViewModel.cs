@@ -3,17 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Web.Mvc;
     using App_GlobalResources;
     using App_Start;
     using Components;
-    using Helpers;
+    using Extensions;
     using Params;
     using RemotingRef;
     using Reports.Models;
     using Reports.Models.WinlossByBetType;
     using Requests.WinLossByBetType;
     using Sunplus.Agent.Model.BL.Definitions;
-    using Sunplus.Agent.Model.Definitions;
 
     public class WinLossByBetTypeViewModel
     {
@@ -30,11 +30,13 @@
             WinLossByBetTypeQuery message,
             WinLossByBetTypeParam winLossByBettypeParam,
             Func<int, BetType, string, bool, string> buildDisplayedBettypeName,
+            IEnumerable<SelectListItem> products,
             CacheRefService cacheRefService)
         {
             this.message = message;
             this.winLossByBettypeParam = winLossByBettypeParam;
             this.cacheRefService = cacheRefService;
+            Products = products;
             MinDate = message.MinDate;
             ReportData = reportData;
             GrandTotal = grandTotal;
@@ -61,6 +63,10 @@
 
         public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
+        public string UserSelectedProductIds => winLossByBettypeParam.UserSelectedProductIds.JoinWithComma();
+
+        public IEnumerable<SelectListItem> Products { get; }
+
         public IEnumerable<WinLossByBetTypeModel> ReportData { get; }
 
         public WinLossByBetTypeModel GrandTotal { get; }
@@ -80,11 +86,15 @@
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
+        private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
+            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
+
         public WinLossByBetTypeFilterViewModel FilterViewModel =>
             new WinLossByBetTypeFilterViewModel(
                 CustId,
                 CustLevel,
                 DateRangePickerViewModel,
+                ProductMultiSelectionViewModel,
                 IsFilterVisible,
                 MinDate);
 
@@ -109,7 +119,7 @@
 
         public string BuildWinLossByGameTypePath(int productId, string title, string winLossByGameTypePath)
         {
-            return UrlHelper.AddQueryStringParamsFunc(
+            return Helpers.UrlHelper.AddQueryStringParamsFunc(
                  winLossByGameTypePath,
                  new Dictionary<string, object>
             {

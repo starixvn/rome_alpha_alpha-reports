@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
+    using System.Web.Mvc;
     using Constants;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
@@ -60,6 +61,7 @@
                message,
                fixture.Create<WinLossByBetTypeParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
+               Enumerable.Empty<SelectListItem>(),
                cacheRefService);
             var expectedTitle = "Win Loss By Bet Type";
             
@@ -82,6 +84,7 @@
                message,
                fixture.Create<WinLossByBetTypeParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
+               Enumerable.Empty<SelectListItem>(),
                cacheRefService);
 
             // Act
@@ -108,6 +111,7 @@
                message,
                fixture.Create<WinLossByBetTypeParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
+               Enumerable.Empty<SelectListItem>(),
                cacheRefService);
 
             // Act & Assert
@@ -130,6 +134,7 @@
                message,
                fixture.Create<WinLossByBetTypeParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
+               Enumerable.Empty<SelectListItem>(),
                cacheRefService);
 
             // Act & Assert
@@ -143,13 +148,14 @@
             var message = CreateWinlossByBetTypeQuery(4);
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
-            var winlossByBettypeParam = new WinLossByBetTypeParam(1, fromDate, toDate, UserLevel.Agent);
+            var winlossByBettypeParam = new WinLossByBetTypeParam(1, fromDate, toDate, Enumerable.Empty<int>(), UserLevel.Agent);
             var winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
                Enumerable.Empty<WinLossByBetTypeModel>(),
                fixture.Create<WinLossByBetTypeModel>(),
                message,
                winlossByBettypeParam,
                fixture.Create<Func<int, BetType, string, bool, string>>(),
+               Enumerable.Empty<SelectListItem>(),
                cacheRefService);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 

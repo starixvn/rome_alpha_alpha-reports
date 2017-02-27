@@ -28,6 +28,7 @@
         private readonly WinLossByBetTypeService reportService;
         private readonly CacheRefService cacheRefService;
         private readonly ReportDateService reportDateService;
+        private readonly ProductService productService;
         private readonly WinLossByBetTypeHandler winLossByBetTypeHandler;
 
         private readonly UserFixture userFixture;
@@ -37,13 +38,14 @@
         {
             reportService = Substitute.For<WinLossByBetTypeService>();
             cacheRefService = Substitute.For<CacheRefService>();
+            productService = Substitute.For<ProductService>();
 
             reportDateService = Substitute.For<ReportDateService>();
             ReportDateServiceImpl.Instance = reportDateService;
             reportDateService.GetBalanceUpDay().Returns(SystemTime.Today);
 
             this.userFixture = userFixture;
-            winLossByBetTypeHandler = new WinLossByBetTypeHandler(reportService, cacheRefService);
+            winLossByBetTypeHandler = new WinLossByBetTypeHandler(reportService, productService, cacheRefService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             SystemTime.Today = DefaultVariables.CurrentDate;

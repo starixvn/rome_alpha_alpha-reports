@@ -1,5 +1,6 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../components/daterangepicker.ts" />
+/// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/tooltip.ts" />
 /// <reference path="../components/sort.ts" />
 
@@ -32,6 +33,7 @@ class WinLossByBettypeView {
     levels = ["member", "agent", "master", "super"];
 
     dateRangePickerComponent: DateRangePickerComponent;
+    productMultiSelectionComponent: ProductMultiSelectionComponent;
     sortComponent: SortComponent;
     reportTooltip: ReportTooltip;
     linkBuilderComponent: LinkBuilderComponent;
@@ -39,11 +41,13 @@ class WinLossByBettypeView {
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
+        productMultiSelectionComponent: ProductMultiSelectionComponent,
         sortComponent: SortComponent,
         reportTooltip: ReportTooltip,
         linkBuilderComponent: LinkBuilderComponent) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
+        this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.sortComponent = sortComponent;
         this.reportTooltip = reportTooltip;
         this.linkBuilderComponent = linkBuilderComponent;
@@ -95,6 +99,7 @@ class WinLossByBettypeView {
     };
 
     bindFilter = () => {
+        this.productMultiSelectionComponent.render();
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
@@ -307,6 +312,7 @@ class WinLossByBettypeView {
 const winLossByBettypeView = new WinLossByBettypeView(
     $,
     new DateRangePickerComponent($),
+    new ProductMultiSelectionComponent($),
     new SortComponent($),
     new ReportTooltip($),
     new LinkBuilderComponent($));

@@ -79,6 +79,7 @@
             container.RegisterSingleton<MatchWinLossService, MatchWinLossServiceImpl>();
             container.RegisterSingleton<OutstandingService, OutstandingServiceImpl>();
             container.RegisterSingleton<WinLossByBettypeService, WinLossByBettypeServiceImpl>();
+            container.RegisterSingleton<WinLossByProductService, WinLossByProductServiceImpl>();
 
             container.RegisterSingleton<MatchWinLossDetailService, MatchWinLossDetailServiceImpl>();
 
@@ -102,6 +103,7 @@
             container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
             container.RegisterSingleton<WinLossByBettypeDataAccess, WinLossByBettypeDataAccessImpl>();
             container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
+            container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
         }
 
         private static void RegisterStaticInstances(Container container)

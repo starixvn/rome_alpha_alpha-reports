@@ -38,14 +38,14 @@
         private static string GoldDeluxeBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
             => $"{betTypeName} ({Resources.GoldDeluxe})";
 
+        private static string AllBetBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
+            => $"{betTypeName} ({Resources.Allbet})";
+
         private static string VoidbridgeBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
             => Resources.Voidbridge;
 
         private static string NG2BetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
-         => cacheRefService.GetProductName(ProductIdConstants.NG2);
-
-        private static string AllBetBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
-        => $"{betTypeName} ({Resources.Allbet})";
+            => cacheRefService.GetProductName(ProductIdConstants.NG2);
 
         private static string NumberGameBetTypeNameRule(BetType betType, string betTypeName, bool liveIndicator, CacheRefService cacheRefService)
         {

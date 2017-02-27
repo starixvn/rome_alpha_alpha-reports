@@ -11,8 +11,11 @@
         WinLossByBetTypeBaseHandler,
         IRequestHandler<WinLossByBetTypeQuery, WinLossByBetTypeViewModel>
     {
-        public WinLossByBetTypeHandler(WinLossByBetTypeService reportService, CacheRefService cacheRefService) 
-            : base(reportService, cacheRefService)
+        public WinLossByBetTypeHandler(
+            WinLossByBetTypeService reportService, 
+            ProductService productService, 
+            CacheRefService cacheRefService) 
+            : base(reportService, productService, cacheRefService)
         {
         }
 
@@ -23,6 +26,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
+            var products = productService.GetProductsForCustomer(message.CustId);
             var winLossByBettypeParam = CreateWinLossByBettypeParamater(message);
             var reportData = reportService.GetWinLossByBetType(winLossByBettypeParam);
             var grandTotal = AccumulateGrandTotal(reportData);
@@ -31,8 +35,9 @@
                     reportData, 
                     grandTotal, 
                     message, 
-                    winLossByBettypeParam, 
-                    BuildDisplayedBetTypeName, 
+                    winLossByBettypeParam,
+                    BuildDisplayedBetTypeName,
+                    BuildProductSelectListItems(winLossByBettypeParam.UserSelectedProductIds, products),
                     cacheRefService);
         }
     }

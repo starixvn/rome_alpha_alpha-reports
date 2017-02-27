@@ -16,6 +16,7 @@
     [Collection("UserCollection")]
     public class WinLossByBetTypeBaseHandlerTests
     {
+        private readonly ProductService productService;
         private readonly WinLossByBetTypeService reportService;
         private readonly CacheRefService cacheRefService;
         private readonly WinLossByBetTypeBaseHandler winLossByBetTypeBaseHandler;
@@ -24,8 +25,9 @@
         {
             reportService = Substitute.For<WinLossByBetTypeService>();
             cacheRefService = Substitute.For<CacheRefService>();
+            productService = Substitute.For<ProductService>();
 
-            winLossByBetTypeBaseHandler = new WinLossByBetTypeBaseHandler(reportService, cacheRefService);
+            winLossByBetTypeBaseHandler = new WinLossByBetTypeBaseHandler(reportService, productService, cacheRefService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             SystemTime.Today = DefaultVariables.CurrentDate;

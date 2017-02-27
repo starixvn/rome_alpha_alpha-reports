@@ -48,6 +48,7 @@
                 0,
                 currentDate,
                 currentDate,
+                Enumerable.Empty<int>(),
                 UserLevel.Super);
 
             var expectedData = Enumerable.Empty<WinLossByBetTypeModel>();
@@ -69,6 +70,7 @@
                 0,
                 currentDate,
                 currentDate,
+                Enumerable.Empty<int>(),
                 UserLevel.Super);
 
             // Act

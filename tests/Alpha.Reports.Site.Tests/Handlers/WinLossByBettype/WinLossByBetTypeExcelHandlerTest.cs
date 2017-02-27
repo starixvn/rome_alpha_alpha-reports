@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
+    using System.Web.Mvc;
     using Constants;
     using Fixtures;
     using Newtonsoft.Json;
@@ -42,7 +43,7 @@
             cacheRefService = Substitute.For<CacheRefService>();
 
             winlossByBetTypeWorkbook = Substitute.For<Workbook<WinLossByBetTypeModel>>();
-            winlossByBetTypeWorkbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(winlossByBetTypeWorkbook);
+            winlossByBetTypeWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(winlossByBetTypeWorkbook);
             winlossByBetTypeWorkbook.Title(Arg.Any<string>()).Returns(winlossByBetTypeWorkbook);
             winlossByBetTypeWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(winlossByBetTypeWorkbook);
             winlossByBetTypeWorkbook.Body(Arg.Any<IEnumerable<WinLossByBetTypeModel>>(), Arg.Any<Mapper<WinLossByBetTypeModel>>()).Returns(winlossByBetTypeWorkbook);
@@ -122,6 +123,7 @@
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
                 fixture.Create<Func<int, BetType, string, bool, string>>(),
+                Enumerable.Empty<SelectListItem>(),
                 cacheRefService);
 
             // Act
@@ -145,6 +147,7 @@
                 message,
                 fixture.Create<WinLossByBetTypeParam>(),
                 fixture.Create<Func<int, BetType, string, bool, string>>(),
+                Enumerable.Empty<SelectListItem>(),
                 cacheRefService);
 
             // Act

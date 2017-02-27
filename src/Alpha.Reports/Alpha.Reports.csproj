@@ -97,12 +97,14 @@
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
+    <Compile Include="Criteria\WinLossByProduct\WinLossByProductCriteria.cs" />
     <Compile Include="Criteria\WinLossByGameType\WinLossByGameTypeCriteria.cs" />
     <Compile Include="Criteria\WinLossByBetType\WinLossByBetTypeCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLoss\DailyEnteredSportCriteria.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteria.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetailDataAccess.cs" />
+    <Compile Include="DataAccesses\WinLossByProductDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossByGameTypeDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossByBetTypeDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDataAccess.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\UserLevel.cs" />
     <Compile Include="Models\NetWinLoss.cs" />
+    <Compile Include="Models\WinLossByProduct\WinLossByProductModel.cs" />
     <Compile Include="Models\WinLossByGameType\WinLossByGameTypeModel.cs" />
     <Compile Include="Models\WinlossByBetType\WinLossByBetTypeModel.cs" />
     <Compile Include="Models\NetWinLoss.cs" />
@@ -141,6 +144,7 @@
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\MatchWinLossDetailParam.cs" />
+    <Compile Include="Params\WinLossByProductParam.cs" />
     <Compile Include="Params\WinLossByGameTypeParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
     <Compile Include="Params\WinLossByBetTypeParam.cs" />
@@ -150,6 +154,7 @@
     <Compile Include="Services\MatchWinLossDetailService.cs" />
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\MatchWinLossService.cs" />
+    <Compile Include="Services\WinLossByProductService.cs" />
     <Compile Include="Services\WinLossByGameTypeService.cs" />
     <Compile Include="Services\WinLossByBetTypeService.cs" />
     <Compile Include="Services\WinLossService.cs" />

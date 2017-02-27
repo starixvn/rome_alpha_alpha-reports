@@ -13,6 +13,7 @@
         [Route("WinLossByBettype/master")]
         [Route("WinLossByBettype/agent")]
         [Route("WinLossByBettype/member")]
+        [Route("WinLossByBettype/Index")]
         public ActionResult Index(WinLossByBetTypeQuery message)
             => View(message);
 

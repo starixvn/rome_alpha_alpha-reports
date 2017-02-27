@@ -21,8 +21,9 @@
 
         public WinLossByBetTypeExcelHandler(
             WinLossByBetTypeService reportService,
+            ProductService productService,
             CacheRefService cacheRefService,
-            Workbook<WinLossByBetTypeModel> workbook) : base(reportService, cacheRefService)
+            Workbook<WinLossByBetTypeModel> workbook) : base(reportService, productService, cacheRefService)
         {
             this.workbook = workbook;
         }

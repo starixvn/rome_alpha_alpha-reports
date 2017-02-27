@@ -1108,6 +1108,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Win Loss By Product.
+        /// </summary>
+        public static string WinLossByProduct {
+            get {
+                return ResourceManager.GetString("WinLossByProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Win Loss Detail.
         /// </summary>
         public static string WinLossDetail {

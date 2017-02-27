@@ -4,6 +4,7 @@
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const linkBuilderComponent = new LinkBuilderComponent($);
     const reportTooltip = new ReportTooltip($);
+    const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     let winLossByBettypeView: WinLossByBettypeView;
 
     let cacheDOMElements: jasmine.Spy,
@@ -19,6 +20,7 @@
         winLossByBettypeView = new WinLossByBettypeView(
             jQueryFake,
             dateRangePickerComponent,
+            productMultiSelectionComponent,
             sortComponent,
             reportTooltip,
             linkBuilderComponent);
