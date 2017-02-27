@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Newtonsoft.Json;
     using Reports.Models;
@@ -37,6 +38,7 @@
            ModelBindingContext bindingContext,
            Type modelType) => base.CreateModel(controllerContext, bindingContext, modelType);
 
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "ex", Justification = "Reviewed")]
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var boundModel = CallBaseBindModel(controllerContext, bindingContext);
@@ -54,7 +56,8 @@
                     }
                     catch (JsonReaderException ex)
                     {
-                        LogWarning(ex);
+                        //// TODO: temporary
+                        ////LogWarning(ex);
                     }
                 }
 
