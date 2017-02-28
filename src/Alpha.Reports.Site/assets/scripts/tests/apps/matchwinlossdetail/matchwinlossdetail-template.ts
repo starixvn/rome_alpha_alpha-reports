@@ -20,6 +20,7 @@
                                             <option value="1" selected="selected"></option>
                                         </select>
                                         <button class="multiselect btn"></button>
+                                        <div id="league-ids" value=""></div>
                                     </div>
 
                                     <div id="from-date"></div>

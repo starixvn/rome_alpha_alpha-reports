@@ -177,7 +177,23 @@
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
             expect(matchWinLossDetailView.$buttonProduct.hasClass("error")).toBeTruthy();
         });
-        it("Have selected any products -> Blocks UI; Unblock UI; Set correct Params;", () => {
+        it("_Not select any league -> Blocks UI; Shows Validate League Error; Unblock UI;", () => {
+            // arrange
+            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            matchWinLossDetailView.init();
+            matchWinLossDetailView.$userSelectedLeagueIds.val("-1");
+
+            let event = { preventDefault: jasmine.createSpy("preventDefault", () => null) };
+
+            // act
+            matchWinLossDetailView.onSubmitReport(event);
+
+            // assert
+            expect(jQueryFake.blockUI).toHaveBeenCalled();
+            expect(jQueryFake.unblockUI).toHaveBeenCalled();
+            expect(matchWinLossDetailView.$buttonLeague.hasClass("error")).toBeTruthy();
+        });
+        it("Have selected any products/leagues -> Blocks UI; Unblock UI; Set correct Params;", () => {
             // arrange
             setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
             renderProductMultiSelectionComponent.and.callThrough();
@@ -387,8 +403,10 @@
             // arrange
             setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
             matchWinLossDetailView.cacheElements();
+            matchWinLossDetailView.$userSelectedLeagueIds = matchWinLossDetailView.$("#league-ids");
+            matchWinLossDetailView.$userSelectedLeagueIds.val("-1");
+
             spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
-            spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
 
             // act
             let actualParam = matchWinLossDetailView.getParams();
@@ -396,6 +414,7 @@
             // assert
             expect(actualParam).toEqual({
                 IsAnyProductSelected: false,
+                IsAnyLeagueSelected: false,
                 IsStackMode: false,
                 IsFilterVisible: true
             });
@@ -405,7 +424,9 @@
             setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
             matchWinLossDetailView.cacheElements();
             spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => [1]);
-            spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
+
+            matchWinLossDetailView.$userSelectedLeagueIds = matchWinLossDetailView.$("#league-ids");
+            matchWinLossDetailView.$userSelectedLeagueIds.val("-1");
 
             // act
             let actualParam = matchWinLossDetailView.getParams();
@@ -413,6 +434,48 @@
             // assert
             expect(actualParam).toEqual({
                 IsAnyProductSelected: true,
+                IsAnyLeagueSelected: false,
+                IsStackMode: false,
+                IsFilterVisible: true
+            });
+        });
+
+        it("_No league selected -> Returns correct params", () => {
+            // arrange
+            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            matchWinLossDetailView.cacheElements();
+            spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
+
+            matchWinLossDetailView.$userSelectedLeagueIds = matchWinLossDetailView.$("#league-ids");
+            matchWinLossDetailView.$userSelectedLeagueIds.val("-1");
+
+            // act
+            let actualParam = matchWinLossDetailView.getParams();
+
+            // assert
+            expect(actualParam).toEqual({
+                IsAnyProductSelected: false,
+                IsAnyLeagueSelected: false,
+                IsStackMode: false,
+                IsFilterVisible: true
+            });
+        });
+        it("_Have league selected -> Returns correct params", () => {
+            // arrange
+            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            matchWinLossDetailView.cacheElements();
+            spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => [1]);
+
+            matchWinLossDetailView.$userSelectedLeagueIds = matchWinLossDetailView.$("#league-ids");
+            matchWinLossDetailView.$userSelectedLeagueIds.val("1");
+
+            // act
+            let actualParam = matchWinLossDetailView.getParams();
+
+            // assert
+            expect(actualParam).toEqual({
+                IsAnyProductSelected: true,
+                IsAnyLeagueSelected: true,
                 IsStackMode: false,
                 IsFilterVisible: true
             });

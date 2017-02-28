@@ -10,6 +10,7 @@
     {
         public MatchWinLossDetailQuery(IUser viewer) : base(viewer)
         {
+            LanguageKey = viewer.LanguageKey;
         }
 
         public string UserSelectedProductIds { get; set; }
@@ -23,5 +24,7 @@
         public int UserSelectedDateRangeOption { get; set; }
 
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
+
+        public string LanguageKey { get; }
     }
 }

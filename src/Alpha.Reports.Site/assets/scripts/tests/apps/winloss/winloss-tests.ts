@@ -233,7 +233,6 @@
     });
 
     describe("setStackMode", () => {
-        let combineConsecutiveCellsSpy: jasmine.Spy;
         beforeEach(() => {
             // arrange
             setFixtures(winLossTemplate.currentReportWithNormalMode);
@@ -256,11 +255,11 @@
             Call renderAtFirstSwitchMode Method,
             Call replaceDrilldownParam Method`, () => {
 
-            // assert
-            expect(winLossView.setCssBySwitchMode).toHaveBeenCalledWith(false);
-            expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsStackMode", true);
-            expect(winLossView.renderAtFirstSwitchMode).toHaveBeenCalledWith(false);
-        });
+                // assert
+                expect(winLossView.setCssBySwitchMode).toHaveBeenCalledWith(false);
+                expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsStackMode", true);
+                expect(winLossView.renderAtFirstSwitchMode).toHaveBeenCalledWith(false);
+            });
 
         it("Always -> Unblocks UI", () => {
             // assert

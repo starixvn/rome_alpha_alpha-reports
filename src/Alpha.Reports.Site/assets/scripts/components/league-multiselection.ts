@@ -53,7 +53,9 @@ class LeagueMultiSelectionComponent {
 
     onChange = (option: any, checked: boolean) => {
         this.validate();
-        this.$hiddenInput.val(this.getSelectedItems().join(","));
+
+        var selectedItems = this.getSelectedItems();
+        this.$hiddenInput.val(selectedItems.length === 0 ? "-1" : selectedItems.join(","));
     };
 
     validate = () => {

@@ -172,7 +172,7 @@ class WinLossView {
 
     onSwitchModeEvent = () => {
         var isStackMode = this.$tableReport.hasClass("stack-mode");
-        this.replaceDrilldownParam("IsStackMode", !isStackMode); 
+        this.replaceDrilldownParam("IsStackMode", !isStackMode);
         this.setCssBySwitchMode(isStackMode);
         if (this.isFirstSwitchMode) {
             this.renderAtFirstSwitchMode(isStackMode);
@@ -191,7 +191,7 @@ class WinLossView {
         this.setCssBySwitchMode(false);
         this.renderAtFirstSwitchMode(false);
         this.isFirstSwitchMode = false;
-        this.replaceDrilldownParam("IsStackMode", true); 
+        this.replaceDrilldownParam("IsStackMode", true);
         this.$.unblockUI();
     }
 
@@ -218,7 +218,7 @@ class WinLossView {
             else {
                 alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
             }
-           
+
         });
     };
 
@@ -275,7 +275,7 @@ class WinLossView {
             IsHistoricReport: this.isHistoricReport,
             SortPropertyName: sortInfo.sortPropertyName,
             IsDescendingSort: sortInfo.isDescendingSort,
-            HideFilter: this.$reportForm.is(":hidden"),
+            HideFilter: this.$reportForm.is(":hidden")
         };
     };
 

@@ -38,25 +38,20 @@
             var noParlayWinLossTotal = BuildWinLossTotal(noParlayMatchWinLossDetail);
 
             var products = reportService.GetProductsForCustomer(matchWinLossDetailParam);
-            var leagues = leagueService.GetLeaguesByCustomer(new GetLeaguesByCustomerParam(
-                message.CustId,
-                matchWinLossDetailParam.UserSelectedProductIds.JoinWithComma(),
-                message.FromDate,
-                message.ToDate,
-                message.Language));
 
             var mixParlay = GetMixParlay(reportData);
             var systemParlay = GetSystemParlay(reportData);
 
             var selectLeagueParam = new GetLeaguesByCustomerParam(
                 message.CustId,
-                message.UserSelectedProductIds,
+                matchWinLossDetailParam.UserSelectedProductIds.JoinWithComma(),
                 message.FromDate,
                 message.ToDate,
-                message.Language);
+                message.LanguageKey);
+            var leagues = leagueService.GetLeaguesByCustomer(selectLeagueParam);
 
             var userSelectedLeagueIds = string.IsNullOrWhiteSpace(message.UserSelectedLeagueIds)
-                ? leagueService.GetLeaguesByCustomer(selectLeagueParam).Select(league => league.Id)
+                ? leagues.Select(league => league.Id)
                 : message.UserSelectedLeagueIds.Split(',').Select(id => Converter.ToInt(id));
 
             return new MatchWinLossDetailReportViewModel(

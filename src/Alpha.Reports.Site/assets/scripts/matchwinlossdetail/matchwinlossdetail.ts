@@ -17,6 +17,7 @@ class MatchWinLossDetailView {
 
     $buttonProduct: JQuery;
     $buttonLeague: JQuery;
+    $userSelectedLeagueIds: JQuery;
     $isSetDefaultStackMode: JQuery;
     $isFilterVisible: JQuery;
     $isStackMode: JQuery;
@@ -67,6 +68,7 @@ class MatchWinLossDetailView {
 
         this.leagueMultiSelectionComponent.render();
         this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
+        this.$userSelectedLeagueIds = this.$("#league-ids");
 
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
             && alphaReports.screenSmallThan768()) {
@@ -115,6 +117,14 @@ class MatchWinLossDetailView {
 
         if (!params.IsAnyProductSelected) {
             this.$buttonProduct.addClass("error");
+            this$.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+
+        if (!params.IsAnyLeagueSelected) {
+            this.$buttonLeague.addClass("error");
             this$.unblockUI();
             e.preventDefault();
 
@@ -204,6 +214,7 @@ class MatchWinLossDetailView {
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyLeagueSelected: this.$userSelectedLeagueIds.val() !== "-1",
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsFilterVisible: !this.$reportForm.is(":hidden")
         };
@@ -253,6 +264,7 @@ class MatchWinLossDetailView {
         this.$leagueContainer.empty().append(this.$(html).html());
         this.leagueMultiSelectionComponent.render();
         this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
+        this.$userSelectedLeagueIds = this.$("#league-ids");
         this.$buttonLeague.on("click", this.showLeagues);
         this.$buttonLeague.click();
     };
