@@ -4,20 +4,29 @@
 "use strict";
 
 class OutstandingView {
-    $tableReport: any;
+    $: JQueryStatic;
 
     sortComponent: SortComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     linkBuilderComponent: LinkBuilderComponent;
 
-    constructor(sortComponent: SortComponent, productMultiSelectionComponent: ProductMultiSelectionComponent, linkBuilderComponent: LinkBuilderComponent) {
+    $tableReport: JQuery;
+    $reportForm: JQuery;
+    $buttonProduct: JQuery;
+
+    constructor(
+        $: JQueryStatic,
+        sortComponent: SortComponent,
+        productMultiSelectionComponent: ProductMultiSelectionComponent,
+        linkBuilderComponent: LinkBuilderComponent) {
+        this.$ = $;
         this.sortComponent = sortComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
-        this.$tableReport = $("#tbl-report");
+        this.cacheElements();
 
         this.sortComponent.render({
             sortContainer: this.$tableReport,
@@ -26,18 +35,47 @@ class OutstandingView {
             headers: {
                 0: { sorter: "text" }
             },
-            afterSortFunction: function () { }
+            afterSortFunction: null
         });
 
         this.$tableReport.stickyTableHeaders();
 
         this.productMultiSelectionComponent.render();
+        this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
+
         this.linkBuilderComponent.render();
+
+        this.$reportForm.submit(this.onSubmitReport);
+    };
+    cacheElements = () => {
+        this.$tableReport = this.$("#tbl-report");
+        this.$reportForm = this.$("#report-form");
+    };
+    onSubmitReport = (e: any) => {
+        let this$ = this.$;
+
+        this$.blockUI();
+
+        let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
+        if (selectedProducts.length === 0) {
+            this.showValidateProductError();
+            this$.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+    };
+    showValidateProductError = () => {
+        this.$buttonProduct.addClass("error");
     };
 }
 
-const outstandingView = new OutstandingView(new SortComponent($), new ProductMultiSelectionComponent($), new LinkBuilderComponent($));
-
 $(function () {
+    const outstandingView = new OutstandingView(
+        $,
+        new SortComponent($),
+        new ProductMultiSelectionComponent($),
+        new LinkBuilderComponent($));
+
     outstandingView.init();
 });
