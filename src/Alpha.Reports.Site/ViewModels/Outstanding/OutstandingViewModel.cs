@@ -80,7 +80,7 @@
             { "CustId", model.CustId },
             { "CustName", model.CustName },
             { "UserSelectedProductIds", ProductMultiSelectionViewModel.UserSelectedProductIds },
-            { "SortPropertyName", SortPropertyName},
+            { "SortPropertyName", SortPropertyName },
             { "IsDescendingSort", IsDescendingSort },
         };
 
