@@ -2,9 +2,9 @@
 
 @model OutstandingViewModel
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, false, false, false, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
-<form class="form-inline filter" role="form" id="report-form">
+<form class="form-inline filter @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
     @Html.Hidden("CustId", Model.Query.CustId)
@@ -13,6 +13,7 @@
     @Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
     @Html.Hidden("SortPropertyName", Model.SortPropertyName)
     @Html.Hidden("IsDescendingSort", Model.IsDescendingSort)
+    @Html.Hidden("IsFilterVisible", Model.IsFilterVisible)
     <div class="form-group">
         <input type="submit" value="@Resources.Submit" class="btn-submit" />
     </div>

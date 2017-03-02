@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Outstanding
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
@@ -34,6 +35,10 @@
             {
                 displayOutstandingLevels.Add(Enumeration.FromValue<UserLevel>(level));
             }
+
+            var canSort = outstandingDataSource != null && outstandingDataSource.Count() > 1;
+            SortPropertyName = canSort && !string.IsNullOrWhiteSpace(query.SortPropertyName) ? query.SortPropertyName : DefaultVariables.SortPropertyName;
+            IsDescendingSort = canSort && query.IsDescendingSort;
         }
 
         public string Title
@@ -54,12 +59,11 @@
             }
         }
 
-        public string SortPropertyName
-            => string.IsNullOrWhiteSpace(Query.SortPropertyName)
-            ? DefaultVariables.SortPropertyName
-            : Query.SortPropertyName;
+        public string SortPropertyName { get; }
 
-        public bool IsDescendingSort => Query.IsDescendingSort;
+        public bool IsDescendingSort { get; }
+
+        public bool IsFilterVisible => Query.IsFilterVisible;
 
         public OutstandingQuery Query { get; }
 
@@ -82,6 +86,7 @@
             { "UserSelectedProductIds", ProductMultiSelectionViewModel.UserSelectedProductIds },
             { "SortPropertyName", SortPropertyName },
             { "IsDescendingSort", IsDescendingSort },
+            { "IsFilterVisible", IsFilterVisible }
         };
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>
@@ -91,7 +96,7 @@
             { "Chkgetall", "on" },
             { "Type", "RunByDate_Mem" },
             { "ProductIds", ProductMultiSelectionViewModel.UserSelectedProductIds },
-            { "FilterPostback", 1 },
+            { "FilterPostback", 1 }
         };
     }
 }

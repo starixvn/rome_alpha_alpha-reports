@@ -16,6 +16,8 @@ class OutstandingView {
 
     $sortPropertyName: JQuery;
     $isDescendingSort: JQuery;
+    $isFilterVisible: JQuery;
+    $pageTitle: JQuery;
 
     constructor(
         $: JQueryStatic,
@@ -48,7 +50,7 @@ class OutstandingView {
 
         this.linkBuilderComponent.render();
 
-        this.$reportForm.submit(this.onSubmitReport);
+        this.registerEvents();
     };
     cacheElements = () => {
         this.$tableReport = this.$("#tbl-report");
@@ -56,6 +58,12 @@ class OutstandingView {
 
         this.$sortPropertyName = this.$("#SortPropertyName");
         this.$isDescendingSort = this.$("#IsDescendingSort");
+        this.$isFilterVisible = this.$("#IsFilterVisible");
+        this.$pageTitle = this.$(".page-title");
+    };
+    registerEvents = () => {
+        this.$(".icon-filter").on("click", this.onClickIconFilter);
+        this.$reportForm.submit(this.onSubmitReport);
     };
     onSubmitReport = (e: any) => {
         let this$ = this.$;
@@ -73,16 +81,17 @@ class OutstandingView {
 
         this.$sortPropertyName.val(params.SortPropertyName);
         this.$isDescendingSort.val(String(params.IsDescendingSort));
+        this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
     };
     getParams = () => {
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
         let sortInfo = this.sortComponent.getSortInfo();
-        let tableReport = this.$tableReport;
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
             SortPropertyName: sortInfo.sortPropertyName,
-            IsDescendingSort: sortInfo.isDescendingSort
+            IsDescendingSort: sortInfo.isDescendingSort,
+            IsFilterVisible: !this.$reportForm.is(":hidden")
         };
     };
     showValidateProductError = () => {
@@ -115,6 +124,20 @@ class OutstandingView {
     };
     replaceHrefParam = (paramName: string, paramValue: any) => {
         this.linkBuilderComponent.updateParam(paramName, paramValue);
+    };
+    onClickIconFilter = () => {
+        let filter = this.$reportForm;
+        let currentHideState = filter.hasClass("hide");
+
+        if (currentHideState) {
+            this.$pageTitle.removeClass("hide-filter");
+            this.$reportForm.removeClass("hide");
+        } else {
+            this.$pageTitle.addClass("hide-filter");
+            this.$reportForm.addClass("hide");
+        }
+
+        this.replaceHrefParam("IsFilterVisible", currentHideState);
     };
 }
 
