@@ -11,6 +11,8 @@
     @Html.Hidden("CustName", Model.Query.CustName)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
     @Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
+    @Html.Hidden("SortPropertyName", Model.SortPropertyName)
+    @Html.Hidden("IsDescendingSort", Model.IsDescendingSort)
     <div class="form-group">
         <input type="submit" value="@Resources.Submit" class="btn-submit" />
     </div>
@@ -18,11 +20,11 @@
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-60per tablesorter" id="tbl-report"
        data-totalrecords="@Model.OutstandingDatasource.Count()"
-       data-sortedcolumn="Outstanding.Username"
-       data-descendingsort="false">
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
-            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Outstanding.Username">
+            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="@OutstandingViewModel.CustNamePropertyName">
                 @HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
             </th>
             <th colspan="@Model.NumberOfOutstandingColumn" class="header" data-disabledsort="true">
@@ -30,22 +32,29 @@
             </th>
         </tr>
         <tr class="thead-row2">
-            @foreach (var userLevel in Model.DisplayOutstandingLevels)
-            {
-                <th class="sorting" data-colindex="@userLevel.Value" data-sortedname>
-                    @HtmlHelpers.DisplayUserLevelText(userLevel)
-                </th>
+            @{
+                var sortIndex = 1;
+                foreach (var userLevel in Model.DisplayOutstandingLevels)
+                {
+                    <th class="sorting" data-colindex="@sortIndex" data-sortedname="@(userLevel.DisplayName)Outstanding">
+                        @HtmlHelpers.DisplayUserLevelText(userLevel)
+                    </th>
+
+                    sortIndex++;
+                }
             }
         </tr>
     </thead>
     @if (Model.OutstandingDatasource.Any())
     {
         <tbody>
-            @foreach (var outstanding in Model.OutstandingDatasource)
+            @foreach (var outstanding in Model.OutstandingDatasource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 <tr>
                     <td class="text-left" data-islink="true">
-                        <a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)" data-custname="@outstanding.CustName">@outstanding.CustName</a>
+                        <a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
+                           data-custname="@outstanding.CustName"
+                           class="downline-link">@outstanding.CustName</a>
                     </td>
                     @RenderOutstandingCells(outstanding)
                 </tr>

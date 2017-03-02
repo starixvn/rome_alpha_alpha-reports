@@ -4,6 +4,7 @@
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
+    using Constants;
     using Enumerations;
     using Extensions;
     using Reports.Models;
@@ -12,8 +13,10 @@
 
     public class OutstandingViewModel : DrillDownableReportViewModel<OutstandingModel>
     {
+        public const string CustNamePropertyName = nameof(OutstandingModel.CustName);
+
         // Always need to show member outstanding
-        private readonly List<UserLevel> displayOutstandingLevels = new List<UserLevel>() { UserLevel.Member };
+        private readonly List<UserLevel> displayOutstandingLevels = new List<UserLevel> { UserLevel.Member };
 
         public OutstandingViewModel(
             OutstandingQuery query,
@@ -51,6 +54,13 @@
             }
         }
 
+        public string SortPropertyName
+            => string.IsNullOrWhiteSpace(Query.SortPropertyName)
+            ? DefaultVariables.SortPropertyName
+            : Query.SortPropertyName;
+
+        public bool IsDescendingSort => Query.IsDescendingSort;
+
         public OutstandingQuery Query { get; }
 
         public UserLevel ReportLevel => Query.CustLevel.GetDirectDownLineLevel();
@@ -69,7 +79,9 @@
         {
             { "CustId", model.CustId },
             { "CustName", model.CustName },
-            { "UserSelectedProductIds", ProductMultiSelectionViewModel.UserSelectedProductIds }
+            { "UserSelectedProductIds", ProductMultiSelectionViewModel.UserSelectedProductIds },
+            { "SortPropertyName", SortPropertyName},
+            { "IsDescendingSort", IsDescendingSort },
         };
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>

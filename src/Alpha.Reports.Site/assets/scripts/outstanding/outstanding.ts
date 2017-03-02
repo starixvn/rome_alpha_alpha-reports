@@ -14,6 +14,9 @@ class OutstandingView {
     $reportForm: JQuery;
     $buttonProduct: JQuery;
 
+    $sortPropertyName: JQuery;
+    $isDescendingSort: JQuery;
+
     constructor(
         $: JQueryStatic,
         sortComponent: SortComponent,
@@ -35,7 +38,7 @@ class OutstandingView {
             headers: {
                 0: { sorter: "text" }
             },
-            afterSortFunction: null
+            afterSortFunction: this.afterSort
         });
 
         this.$tableReport.stickyTableHeaders();
@@ -50,23 +53,68 @@ class OutstandingView {
     cacheElements = () => {
         this.$tableReport = this.$("#tbl-report");
         this.$reportForm = this.$("#report-form");
+
+        this.$sortPropertyName = this.$("#SortPropertyName");
+        this.$isDescendingSort = this.$("#IsDescendingSort");
     };
     onSubmitReport = (e: any) => {
         let this$ = this.$;
 
         this$.blockUI();
 
-        let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
-        if (selectedProducts.length === 0) {
+        var params = this.getParams();
+        if (!params.IsAnyProductSelected) {
             this.showValidateProductError();
             this$.unblockUI();
             e.preventDefault();
 
             return;
         }
+
+        this.$sortPropertyName.val(params.SortPropertyName);
+        this.$isDescendingSort.val(String(params.IsDescendingSort));
+    };
+    getParams = () => {
+        let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
+        let sortInfo = this.sortComponent.getSortInfo();
+        let tableReport = this.$tableReport;
+
+        return {
+            IsAnyProductSelected: selectedProducts.length > 0,
+            SortPropertyName: sortInfo.sortPropertyName,
+            IsDescendingSort: sortInfo.isDescendingSort
+        };
     };
     showValidateProductError = () => {
         this.$buttonProduct.addClass("error");
+    };
+    afterSort = () => {
+        var this$ = this.$;
+        var sortedColumn = this$(".sorting-asc:visible");
+        var direction = !sortedColumn.length;
+        if (sortedColumn.length === 0) {
+            sortedColumn = this$(".sorting-desc");
+        }
+
+        var sortedColumnName = sortedColumn.data("sortedname");
+
+        this.replaceHrefParam("SortPropertyName", sortedColumnName);
+        this.replaceHrefParam("IsDescendingSort", direction);
+
+        var isEvenRow = false;
+        this.$tableReport.find("tbody > tr").each(function () {
+            var $row = this$(this);
+            if ($row.hasClass("even-row") && !isEvenRow) {
+                $row.removeClass("even-row");
+            } else if (!$row.hasClass("even-row") && isEvenRow) {
+                $row.addClass("even-row");
+            }
+
+            isEvenRow = !isEvenRow;
+        });
+    };
+    replaceHrefParam = (paramName: string, paramValue: any) => {
+        this.linkBuilderComponent.updateParam(paramName, paramValue);
     };
 }
 
