@@ -54,7 +54,7 @@
                     && (string)routeValue["Username"] == custName
                     && (string)routeValue["Type"] == "RunByDate_Mem"
                     && (string)routeValue["Chkgetall"] == "on"
-                    && (string)routeValue["ProductIds"] == userSelectedProductIds
+                    && (string)routeValue["ProductIds"] == string.Empty
                     && (int)routeValue["FilterPostback"] == 1));
         }
 
