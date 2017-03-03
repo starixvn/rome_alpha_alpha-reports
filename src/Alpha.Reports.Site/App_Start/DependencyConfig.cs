@@ -7,6 +7,7 @@
     using DataAccesses;
     using Fanex.Data.Repository;
     using Handlers.MatchWinLossDetail;
+    using Handlers.WinLossByBetType;
     using MediatR;
     using Models;
     using ONEbook.SpreadSheets;
@@ -93,6 +94,7 @@
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
 
             container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
+            container.RegisterSingleton<WinLossByBetTypeWorkbook, WinLossByBetTypeWorkbookImpl>();
             container.RegisterSingleton<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();
         }
 

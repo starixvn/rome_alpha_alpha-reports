@@ -86,13 +86,12 @@
     </thead>
     @if (Model.ReportData.Any())
     {
-        foreach (var data in Model.ReportData)
-        {
-            <tbody>
+        <tbody>
+            @foreach (var data in Model.ReportData)
+            {
                 @RenderProduct(data)
-            </tbody>
-        }
-
+            }
+        </tbody>
         <tfoot>
             @RenderWinLossByBetType(Model.GrandTotal, true)
         </tfoot>
@@ -104,7 +103,7 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", "WinLossByProduct")">
+      action="@Url.Action("Excel", "WinLossByBetType")">
     <input type="hidden" name="CustId" value="@Model.CustId" />
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
@@ -117,15 +116,12 @@
     @StaticResources.RenderScripts("~/assets/bundles/winlossbybettype/winlossbybettype")
 }
 
-@section Styles{
-
-}
-
 @helper RenderProduct(WinLossByProductModel data)
 {
     int colspan = Model.CustLevel.IsAgentLevel() ? 11 : 9;
-    <tr class="tbl-product" >
-        <td class="text-left col-username" colspan ="@colspan">
+    <tr class="tbl-product" id="@data.ProductName">
+        <td  class="text-left col-username" colspan ="@colspan">
+          <span class="pull-left icon-arrow-right" style="padding:3px 15px 0 0"></span>
           @data.ProductName
         </td>
     </tr>
@@ -142,7 +138,7 @@
 
 @helper RenderWinLossByBetType(WinLossByBetTypeModel data, bool isTotalRow)
 {
-    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty) >
+    <tr  @(isTotalRow ? "class=tbl-footer" : string.Empty) >
         <td class="text-left col-username" style="padding-left:  @(isTotalRow ? "5px" : "25px")">
             @if (isTotalRow)
             {

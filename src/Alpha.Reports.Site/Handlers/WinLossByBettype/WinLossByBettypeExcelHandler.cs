@@ -1,116 +1,134 @@
-﻿//namespace Alpha.Reports.Site.Handlers.WinLossByBetType
-//{
-//    using System;
-//    using App_GlobalResources;
-//    using Extensions;
-//    using MediatR;
-//    using ONEbook.SpreadSheets;
-//    using Params;
-//    using RemotingRef;
-//    using Reports.Models.WinlossByBetType;
-//    using Requests.WinLossByBetType;
-//    using Services;
-//    using Sunplus.Agent.Model.BL.Definitions;
-//    using ViewModels;
+﻿namespace Alpha.Reports.Site.Handlers.WinLossByBetType
+{
+    using System;
+    using App_GlobalResources;
+    using Extensions;
+    using MediatR;
+    using ONEbook.SpreadSheets;
+    using Params;
+    using RemotingRef;
+    using Reports.Models.WinlossByBetType;
+    using Requests.WinLossByBetType;
+    using Services;
+    using Sunplus.Agent.Model.BL.Definitions;
+    using ViewModels;
+    using static ONEbook.SpreadSheets.Column;
 
-//    public class WinLossByBetTypeExcelHandler :
-//        WinLossByBetTypeBaseHandler,
-//        IRequestHandler<WinLossByBetTypeExcelQuery, ExcelFileViewModel>
-//    {
-//        private readonly Workbook<WinLossByBetTypeModel> workbook;
+    public class WinLossByBetTypeExcelHandler :
+        WinLossByBetTypeBaseHandler,
+        IRequestHandler<WinLossByBetTypeExcelQuery, ExcelFileViewModel>
+    {
+        private readonly WinLossByBetTypeWorkbook workbook;
 
-//        public WinLossByBetTypeExcelHandler(
-//            WinLossByBetTypeService reportService,
-//            ProductService productService,
-//            CacheRefService cacheRefService,
-//            Workbook<WinLossByBetTypeModel> workbook) : base(reportService, productService, cacheRefService)
-//        {
-//            this.workbook = workbook;
-//        }
+        public WinLossByBetTypeExcelHandler(
+            WinLossByBetTypeService reportService,
+            ProductService productService,
+            CacheRefService cacheRefService,
+            WinLossByBetTypeWorkbook workbook) : base(reportService, productService, cacheRefService)
+        {
+            this.workbook = workbook;
+        }
 
-//        public ExcelFileViewModel Handle(WinLossByBetTypeExcelQuery message)
-//        {
-//            if (message == null)
-//            {
-//                throw new ArgumentNullException(nameof(message));
-//            }
+        public ExcelFileViewModel Handle(WinLossByBetTypeExcelQuery message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
 
-//            var winLossByBetTypeParam = CreateWinLossByBettypeParamater(message);
-//            var reportData = reportService.GetWinLossByBetType(winLossByBetTypeParam);
-//            var grandTotal = AccumulateGrandTotal(reportData);
+            var winLossByBetTypeParam = CreateWinLossByBettypeParamater(message);
+            var reportData = reportService.GetWinLossByBetType(winLossByBetTypeParam);
+            var grandTotal = AccumulateGrandTotal(reportData);
 
-//            var result = workbook
-//                .UseTemplate(GetTemplateInfo(message))
-//                .Title(GetReporTitle(message))
-//                .Header(Resources.ResourceManager.GetString)
-//                .Body(reportData, GetBodyRowMapper(message))
-//                .Footer(grandTotal, GetTotalRowMapper(message))
-//                .Sheet(Resources.DefaultSheetName)
-//                .ExportToBytes();
+            var fileContent = workbook
+                .SetData(reportData, grandTotal)
+                .SetRowMappers(
+                    GetBodyRowMapper(message),
+                    GetTotalRowMapper(message))
+                .UseTemplate(GetTemplateInfo(message))
+                .Sheet(Resources.DefaultSheetName)
+                .Title(GetReporTitle(message))
+                .Header(Resources.ResourceManager.GetString)
+                .Footer(grandTotal, GetTotalRowMapper(message))
+                .ExportToBytes();
 
-//            return new ExcelFileViewModel(GetExcelFileName(message, winLossByBetTypeParam), result);
-//        }
+            return new ExcelFileViewModel(GetExcelFileName(message, winLossByBetTypeParam), fileContent);
+        }
 
-//        private Mapper<WinLossByBetTypeModel> GetBodyRowMapper(WinLossByBetTypeExcelQuery message)
-//          => GetRowMapper(message, isTotal: false);
+        private Mapper<WinLossByBetTypeModel> GetBodyRowMapper(WinLossByBetTypeExcelQuery message)
+          => GetRowMapper(message, isTotal: false);
 
-//        private Mapper<WinLossByBetTypeModel> GetTotalRowMapper(WinLossByBetTypeExcelQuery message)
-//            => GetRowMapper(message, isTotal: true);
+        private Mapper<WinLossByBetTypeModel> GetTotalRowMapper(WinLossByBetTypeExcelQuery message)
+            => GetRowMapper(message, isTotal: true);
 
-//        private Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByBetTypeExcelQuery message, bool isTotal)
-//        {
-//            var mapper = new Mapper<WinLossByBetTypeModel>()
-//                .Map(Column.A, data => isTotal ? Resources.Total : BuildDisplayedBetTypeName(data.ProductId, (BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator))
-//                .Map(Column.B, data => data.BetCount)
-//                .Map(Column.C, data => data.Turnover)
-//                .Map(Column.D, data => data.GrossComm);
+        private Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByBetTypeExcelQuery message, bool isTotal)
+        {
+            var mapper = new Mapper<WinLossByBetTypeModel>()
+                .Map(Column.A, data => isTotal ? Resources.Total : BuildDisplayedBetTypeName(data.ProductId, (BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator))
+                .Map(Column.B, data => data.BetCount)
+                .Map(Column.C, data => data.Turnover)
+                .Map(Column.D, data => data.GrossComm);
 
-//            if (message.CustLevel.IsAgentLevel())
-//            {
-//                mapper.Map(Column.E, data => data.MemberNetWinLoss.WinLoss)
-//                 .Map(Column.F, data => data.MemberNetWinLoss.Comm)
-//                 .Map(Column.G, data => data.MemberNetWinLoss.Total)
-//                 .Map(Column.H, data => data.AgentNetWinLoss.WinLoss)
-//                 .Map(Column.I, data => data.AgentNetWinLoss.Comm)
-//                 .Map(Column.J, data => data.AgentNetWinLoss.Total)
-//                 .Map(Column.K, data => data.Company);
-//            }
+            if (message.CustLevel.IsAgentLevel())
+            {
+                mapper.Map(Column.E, data => data.MemberNetWinLoss.WinLoss)
+                 .Map(Column.F, data => data.MemberNetWinLoss.Comm)
+                 .Map(Column.G, data => data.MemberNetWinLoss.Total)
+                 .Map(Column.H, data => data.AgentNetWinLoss.WinLoss)
+                 .Map(Column.I, data => data.AgentNetWinLoss.Comm)
+                 .Map(Column.J, data => data.AgentNetWinLoss.Total)
+                 .Map(Column.K, data => data.Company);
+            }
 
-//            if (message.CustLevel.IsMasterLevel())
-//            {
-//                mapper.Map(Column.E, data => data.AgentNetWinLoss.Total)
-//                   .Map(Column.F, data => data.MasterNetWinLoss.WinLoss)
-//                   .Map(Column.G, data => data.MasterNetWinLoss.Comm)
-//                   .Map(Column.H, data => data.MasterNetWinLoss.Total)
-//                   .Map(Column.I, data => data.Company);
-//            }
+            if (message.CustLevel.IsMasterLevel())
+            {
+                mapper.Map(Column.E, data => data.AgentNetWinLoss.Total)
+                   .Map(Column.F, data => data.MasterNetWinLoss.WinLoss)
+                   .Map(Column.G, data => data.MasterNetWinLoss.Comm)
+                   .Map(Column.H, data => data.MasterNetWinLoss.Total)
+                   .Map(Column.I, data => data.Company);
+            }
 
-//            if (message.CustLevel.IsSuperLevel())
-//            {
-//                mapper.Map(Column.E, data => data.MasterNetWinLoss.Total)
-//                    .Map(Column.F, data => data.SuperNetWinLoss.WinLoss)
-//                    .Map(Column.G, data => data.SuperNetWinLoss.Comm)
-//                    .Map(Column.H, data => data.SuperNetWinLoss.Total)
-//                    .Map(Column.I, data => data.Company);
-//            }
+            if (message.CustLevel.IsSuperLevel())
+            {
+                mapper.Map(Column.E, data => data.MasterNetWinLoss.Total)
+                    .Map(Column.F, data => data.SuperNetWinLoss.WinLoss)
+                    .Map(Column.G, data => data.SuperNetWinLoss.Comm)
+                    .Map(Column.H, data => data.SuperNetWinLoss.Total)
+                    .Map(Column.I, data => data.Company);
+            }
 
-//            return mapper;
-//        }
+            return mapper;
+        }
 
-//        private TemplateInfo GetTemplateInfo(WinLossByBetTypeExcelQuery message)
-//            => new TemplateInfo(
-//                GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
-//                noInfomationText: Resources.NoInformationIsAvailable);
+        private TemplateInfo GetTemplateInfo(WinLossByBetTypeExcelQuery message)
+         => new TemplateInfo(
+             GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
+             noInfomationText: Resources.NoInformationIsAvailable,
+             titleStartIndex: 1,
+             headerStartIndex: 2,
+             bodyStartIndex: 4,
+             bodyEndIndex: 11,
+             freezeRowIndex: 0,
+             freezeColumnName: A,
+             columnStartName: A,
+             sheetIndex: 1,
+             footerEndIndex: 12);
 
-//        private string GetReporTitle(WinLossByBetTypeExcelQuery message)
-//            => $"{Resources.WinLossByBetType} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
+        //private TemplateInfo GetTemplateInfo(WinLossByBetTypeExcelQuery message)
+        //    => new TemplateInfo(
+        //        GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
+        //        noInfomationText: Resources.NoInformationIsAvailable);
 
-//        private string GetExcelFileName(WinLossByBetTypeExcelQuery message, WinLossByBetTypeParam winLossByBetTypeParam)
-//           => string.Join(
-//               "-",
-//               Resources.WinLossByBetType,
-//               message.CustName,
-//               winLossByBetTypeParam.FromDate.ToShortDateWithSlash(),
-//               winLossByBetTypeParam.ToDate.ToShortDateWithSlash());
-//    }
-//}
+        private string GetReporTitle(WinLossByBetTypeExcelQuery message)
+            => $"{Resources.WinLossByBetType} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
+
+        private string GetExcelFileName(WinLossByBetTypeExcelQuery message, WinLossByBetTypeParam winLossByBetTypeParam)
+           => string.Join(
+               "-",
+               Resources.WinLossByBetType,
+               message.CustName,
+               winLossByBetTypeParam.FromDate.ToShortDateWithSlash(),
+               winLossByBetTypeParam.ToDate.ToShortDateWithSlash());
+    }
+}
