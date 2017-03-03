@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Outstanding
 {
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
     using App_GlobalResources;
@@ -37,7 +38,7 @@
             }
 
             var canSort = outstandingDataSource != null && outstandingDataSource.Count() > 1;
-            SortPropertyName = canSort && !string.IsNullOrWhiteSpace(query.SortPropertyName) ? query.SortPropertyName : DefaultVariables.SortPropertyName;
+            SortPropertyName = canSort ? GetSortedProperty(query.SortPropertyName) : DefaultVariables.SortPropertyName;
             IsDescendingSort = canSort && query.IsDescendingSort;
         }
 
@@ -98,5 +99,22 @@
             { "ProductIds", ProductMultiSelectionViewModel.UserSelectedProductIds },
             { "FilterPostback", 1 }
         };
+
+        private string GetSortedProperty(string sortedProperty)
+        {
+            if (string.IsNullOrWhiteSpace(sortedProperty))
+            {
+                return DefaultVariables.SortPropertyName;
+            }
+
+            var sortableColumns = displayOutstandingLevels
+                .Select(level => (level.DisplayName + "Outstanding").ToUpperInvariant())
+                .ToList();
+            sortableColumns.Add(CustNamePropertyName);
+
+            return sortableColumns.Contains(sortedProperty.ToUpperInvariant())
+                ? sortedProperty
+                : DefaultVariables.SortPropertyName;
+        }
     }
 }
