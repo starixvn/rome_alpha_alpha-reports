@@ -62,7 +62,7 @@
 
             if (winLossByBetTypeData.Any())
             {
-                return winLossByBetTypeData.GroupBy(winLossByBetType =>  winLossByBetType.ProductId)
+                return winLossByBetTypeData.GroupBy(winLossByBetType => winLossByBetType.ProductId)
                     .Select(winLossByBetType => new WinLossByProductModel(
                     winLossByBetType.Key,
                     cacheRefService.GetProductName(winLossByBetType.Key),

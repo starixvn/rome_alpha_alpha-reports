@@ -6,9 +6,7 @@
     using App_Start;
     using Params;
     using RemotingRef;
-    using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
-    using Requests.WinLossByBetType;
     using Requests.WinLossByProduct;
     using Services;
     using Sunplus.Agent.Model.BL.Definitions;

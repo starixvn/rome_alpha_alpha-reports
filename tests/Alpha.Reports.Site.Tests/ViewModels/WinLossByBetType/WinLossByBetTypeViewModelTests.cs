@@ -69,31 +69,31 @@
             Assert.Equal(winlossByBettypeViewModel.Title, expectedTitle);
         }
 
-        [Theory]
-        [MemberData("WinLossGameTypeInfoViewModelSources", MemberType = typeof(WinLossGameTypeInfoViewModelCases))]
-        public void BuildWinLossGameTypeInfoViewModel_Always_ReturnsCorrectData(
-          int productId,
-          WinLossGameTypeInfoViewModel expectedWinLossGameTypeInfoViewModel)
-        {
-            // Arrange
-            var message = CreateWinlossByBetTypeQuery(4);
+        //[Theory]
+        //[MemberData("WinLossGameTypeInfoViewModelSources", MemberType = typeof(WinLossGameTypeInfoViewModelCases))]
+        //public void BuildWinLossGameTypeInfoViewModel_Always_ReturnsCorrectData(
+        //  int productId,
+        //  WinLossGameTypeInfoViewModel expectedWinLossGameTypeInfoViewModel)
+        //{
+        //    // Arrange
+        //    var message = CreateWinlossByBetTypeQuery(4);
             
-            var winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
-               Enumerable.Empty<WinLossByBetTypeModel>(),
-               fixture.Create<WinLossByBetTypeModel>(),
-               message,
-               fixture.Create<WinLossByBetTypeParam>(),
-               fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<SelectListItem>(),
-               cacheRefService);
+        //    var winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
+        //       Enumerable.Empty<WinLossByBetTypeModel>(),
+        //       fixture.Create<WinLossByBetTypeModel>(),
+        //       message,
+        //       fixture.Create<WinLossByBetTypeParam>(),
+        //       fixture.Create<Func<int, BetType, string, bool, string>>(),
+        //       Enumerable.Empty<SelectListItem>(),
+        //       cacheRefService);
 
-            // Act
-            var actualWinLossGameTypeInfoViewModel = winlossByBettypeViewModel.BuildWinLossGameTypeInfoViewModel(productId);
+        //    // Act
+        //    var actualWinLossGameTypeInfoViewModel = winlossByBettypeViewModel.BuildWinLossGameTypeInfoViewModel(productId);
 
-            // Assert
-            var result = compareLogic.Compare(expectedWinLossGameTypeInfoViewModel, actualWinLossGameTypeInfoViewModel);
-            Assert.True(result.AreEqual);
-        }
+        //    // Assert
+        //    var result = compareLogic.Compare(expectedWinLossGameTypeInfoViewModel, actualWinLossGameTypeInfoViewModel);
+        //    Assert.True(result.AreEqual);
+        //}
 
         [Theory]
         [InlineData(4, "Super")]

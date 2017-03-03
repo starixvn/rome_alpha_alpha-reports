@@ -5,13 +5,13 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using App_GlobalResources;
-    using App_Start;
     using Components;
     using Extensions;
     using Params;
     using RemotingRef;
     using Reports.Models;
     using Reports.Models.WinlossByBetType;
+    using Reports.Models.WinLossByProduct;
     using Requests.WinLossByBetType;
     using Sunplus.Agent.Model.BL.Definitions;
 
@@ -25,7 +25,7 @@
         public static readonly string NetWinLossTotal = $"{nameof(WinLossByBetTypeModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Total)}";
 
         public WinLossByBetTypeViewModel(
-            IEnumerable<WinLossByBetTypeModel> reportData,
+            IEnumerable<WinLossByProductModel> reportData,
             WinLossByBetTypeModel grandTotal,
             WinLossByBetTypeQuery message,
             WinLossByBetTypeParam winLossByBettypeParam,
@@ -67,7 +67,7 @@
 
         public IEnumerable<SelectListItem> Products { get; }
 
-        public IEnumerable<WinLossByBetTypeModel> ReportData { get; }
+        public IEnumerable<WinLossByProductModel> ReportData { get; }
 
         public WinLossByBetTypeModel GrandTotal { get; }
 
@@ -117,35 +117,7 @@
             }
         }
 
-        public string BuildWinLossByGameTypePath(int productId, string title, string winLossByGameTypePath)
-        {
-            return Helpers.UrlHelper.AddQueryStringParamsFunc(
-                 winLossByGameTypePath,
-                 new Dictionary<string, object>
-            {
-                { "UserSelectedDateRangeOption", UserSelectedDateRangeOption },
-                { "FromDate", FromDate },
-                { "ToDate", ToDate },
-                { "ProductId", productId },
-                { "IsStackMode",  IsStackMode },
-                { "IsDescendingSort", IsDescendingSort },
-                { "IsFilterVisible", IsFilterVisible },
-                { "Title", title },
-                { "IsSetDefaultStackMode", IsSetDefaultStackMode }
-            });
-        }
-
         [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:FieldsMustBePrivate", Justification = "Reviewed.")]
         public Func<int, BetType, string, bool, string> BuildDisplayedBettypeName;
-
-        public WinLossGameTypeInfoViewModel BuildWinLossGameTypeInfoViewModel(int productId)
-        {
-            if (ProductConfig.DisplayWinLossByGameTypeRules.ContainsKey(productId))
-            {
-                return ProductConfig.DisplayWinLossByGameTypeRules[productId](productId, cacheRefService);
-            }
-
-            return new WinLossGameTypeInfoViewModel(false, string.Empty);
-        }
     }
 }

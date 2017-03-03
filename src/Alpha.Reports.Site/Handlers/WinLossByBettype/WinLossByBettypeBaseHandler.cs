@@ -8,6 +8,7 @@
     using Params;
     using RemotingRef;
     using Reports.Models.WinlossByBetType;
+    using Reports.Models.WinLossByProduct;
     using Requests.WinLossByBetType;
     using Services;
     using Sunplus.Agent.Model.BL.Definitions;
@@ -43,15 +44,18 @@
                  message.CustLevel);
         }
 
-        internal WinLossByBetTypeModel AccumulateGrandTotal(IEnumerable<WinLossByBetTypeModel> reportData)
+        internal WinLossByBetTypeModel AccumulateGrandTotal(IEnumerable<WinLossByProductModel> reportData)
         {
             var grandTotal = new WinLossByBetTypeModel();
 
             if (reportData != null && reportData.Any())
             {
-                foreach (var data in reportData)
+                foreach (var winLossByProductModel in reportData)
                 {
-                    grandTotal.Add(data);
+                    foreach (var winLossByBetype in winLossByProductModel.WinLossByBetTypeData)
+                    {
+                        grandTotal.Add(winLossByBetype);
+                    }
                 }
             }
 

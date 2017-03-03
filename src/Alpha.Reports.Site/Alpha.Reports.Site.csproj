@@ -275,7 +275,6 @@
     <Compile Include="Controllers\ReportLegendController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\WinLossByBetTypeController.cs" />
-    <Compile Include="Controllers\WinLossByGameTypeController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
@@ -349,7 +348,6 @@
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByBetTypeInfoViewModel.cs" />
-    <Compile Include="ViewModels\WinLossByBetType\WinLossGameTypeInfoViewModel.cs" />
     <Compile Include="ViewModels\WinLossByBetType\WinLossByBetTypeFilterViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
     <Compile Include="ViewModels\WinLossByBetType\WinLossByBetTypeViewModel.cs" />

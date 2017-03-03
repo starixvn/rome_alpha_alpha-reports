@@ -7,6 +7,7 @@
     {
         { "IsStackMode", Model.IsStackMode }
     })
+
 <table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover
        @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report"
        data-totalrecords="@Model.ReportData.Count()"
@@ -15,7 +16,7 @@
        data-descendingsort="">
     <thead>
         <tr>
-            <th rowspan="2" data-disabledsort="true" data-colindex="0">@Resources.BetType</th>
+            <th rowspan="2" data-disabledsort="true" data-colindex="0">@Resources.Product/@Resources.BetType</th>
             <th class="sorting" rowspan="2" data-sortedname="BetCount" data-colindex="1">@Resources.BetCount</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="GrossComm" data-colindex="3">@Resources.GrossComm</th>
@@ -85,14 +86,15 @@
     </thead>
     @if (Model.ReportData.Any())
     {
-        <tbody>
-            @foreach (var data in Model.ReportData)
-            {
-                @RenderRow(data, false)
-            }
-        </tbody>
+        foreach (var data in Model.ReportData)
+        {
+            <tbody>
+                @RenderProduct(data)
+            </tbody>
+        }
+
         <tfoot>
-            @RenderRow(Model.GrandTotal, true)
+            @RenderWinLossByBetType(Model.GrandTotal, true)
         </tfoot>
     }
     else
@@ -102,7 +104,7 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", "WinLossByBetType")">
+      action="@Url.Action("Excel", "WinLossByProduct")">
     <input type="hidden" name="CustId" value="@Model.CustId" />
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
@@ -115,31 +117,40 @@
     @StaticResources.RenderScripts("~/assets/bundles/winlossbybettype/winlossbybettype")
 }
 
-@helper RenderRow(WinLossByBetTypeModel data, bool isTotalRow)
+@section Styles{
+
+}
+
+@helper RenderProduct(WinLossByProductModel data)
 {
-    WinLossGameTypeInfoViewModel winLossGameTypeInfoViewModel = Model.BuildWinLossGameTypeInfoViewModel(data.ProductId);
-    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
-        <td @(winLossGameTypeInfoViewModel.IsAllowViewGameType? "data-islink=\"true\"":"") class="text-left col-username">
+    int colspan = Model.CustLevel.IsAgentLevel() ? 11 : 9;
+    <tr class="tbl-product" >
+        <td class="text-left col-username" colspan ="@colspan">
+          @data.ProductName
+        </td>
+    </tr>
+
+    if (data.WinLossByBetTypeData.Any())
+    {
+        foreach (var winLossByBetType in data.WinLossByBetTypeData)
+        {
+            @RenderWinLossByBetType(winLossByBetType, false)
+        }
+    }
+}
+
+
+@helper RenderWinLossByBetType(WinLossByBetTypeModel data, bool isTotalRow)
+{
+    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty) >
+        <td class="text-left col-username" style="padding-left:  @(isTotalRow ? "5px" : "25px")">
             @if (isTotalRow)
             {
                 @Resources.Total
             }
             else
             {
-                string displayedBetTypeName = Model.BuildDisplayedBettypeName(data.ProductId, (BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator);
-
-                if (winLossGameTypeInfoViewModel.IsAllowViewGameType)
-                {
-                    var winLossByGameTypePath = AppPathHelper.GetAppPath(HttpRuntime.AppDomainAppVirtualPath, "~/") + "WinLossByGameType/Index";
-                    <a href="@Model.BuildWinLossByGameTypePath(data.ProductId, winLossGameTypeInfoViewModel.WinLossByGameTypeTitle, winLossByGameTypePath)"
-                        class= "downline-link" data-custname="@data.BetTypeName">
-                        @displayedBetTypeName
-                    </a>
-                }
-                else
-                {
-                   @displayedBetTypeName
-                }
+                @data.BetTypeName
             }
         </td>
 
@@ -155,7 +166,7 @@
             else
             {
                 @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.GrossComm,
-                                            Model.CustLevel.IsSuperLevel() ? data.MasterNetWinLoss.Total : data.AgentNetWinLoss.Total);
+                                               Model.CustLevel.IsSuperLevel() ? data.MasterNetWinLoss.Total : data.AgentNetWinLoss.Total);
             }
 
             @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
@@ -176,6 +187,7 @@
         <td class="text-right col-company">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>
 }
+
 
 @helper RenderStackNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
