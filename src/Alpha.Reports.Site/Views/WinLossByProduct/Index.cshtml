@@ -55,7 +55,7 @@
             else
             {
                 <th colspan="3" class="col-level hidden-stack-mode">@Model.CustLevelName</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossWinLoss)" rowspan="2" data-colindex="3">
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByProductViewModel.NetWinLossWinLoss)" rowspan="2" data-colindex="3">
                     @Model.CustLevelName
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -71,15 +71,15 @@
                 <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Comm" data-colindex="5">@Resources.Comm</th>
                 <th class="hidden-stack-mode sorting" data-sortedname="MemberNetWinLoss.Total" data-colindex="6">@Resources.Total</th>
 
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossWinLoss)" data-colindex="7">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossComm)" data-colindex="8">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossTotal)" data-colindex="9">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByProductViewModel.NetWinLossWinLoss)" data-colindex="7">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByProductViewModel.NetWinLossComm)" data-colindex="8">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByProductViewModel.NetWinLossTotal)" data-colindex="9">@Resources.Total</th>
             }
             else
             {
-                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossWinLoss)" data-colindex="5">@Resources.WinLoss</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossComm)" data-colindex="6">@Resources.Comm</th>
-                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByBetTypeViewModel.NetWinLossTotal)" data-colindex="7">@Resources.Total</th>
+                <th class="hidden-stack-mode col-winloss sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByProductViewModel.NetWinLossWinLoss)" data-colindex="5">@Resources.WinLoss</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByProductViewModel.NetWinLossComm)" data-colindex="6">@Resources.Comm</th>
+                <th class="hidden-stack-mode sorting" data-sortedname="@(Model.CustLevel.DisplayName + WinLossByProductViewModel.NetWinLossTotal)" data-colindex="7">@Resources.Total</th>
             }
         </tr>
     </thead>

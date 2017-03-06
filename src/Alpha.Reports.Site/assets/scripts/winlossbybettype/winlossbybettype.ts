@@ -2,7 +2,6 @@
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/tooltip.ts" />
-/// <reference path="../components/sort.ts" />
 
 "use strict";
 
@@ -12,8 +11,6 @@ class WinLossByBettypeView {
     $tableReport: JQuery;
 
     $multiSelectButton: JQuery;
-
-    $drilldownLinks: JQuery;
     $isFilterVisible: JQuery;
     $isStackMode: JQuery;
     $isAgentLevel: JQuery;
@@ -34,23 +31,17 @@ class WinLossByBettypeView {
 
     dateRangePickerComponent: DateRangePickerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
-    sortComponent: SortComponent;
     reportTooltip: ReportTooltip;
-    linkBuilderComponent: LinkBuilderComponent;
 
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
-        sortComponent: SortComponent,
-        reportTooltip: ReportTooltip,
-        linkBuilderComponent: LinkBuilderComponent) {
+        reportTooltip: ReportTooltip) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
-        this.sortComponent = sortComponent;
         this.reportTooltip = reportTooltip;
-        this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
@@ -63,15 +54,7 @@ class WinLossByBettypeView {
         this.cacheDOMElements();
 
         this.bindFilter();
-        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
-        this.sortComponent.render(new SortOption(
-            this.$tableReport,
-            canSort,
-            true,
-            function () { },
-            { 0: { sorter: "text" } }));
         this.$tableReport.stickyTableHeaders();
-        this.linkBuilderComponent.render();
         this.productToggle();
         this.registerEvents();
         this.$.unblockUI();
@@ -80,7 +63,6 @@ class WinLossByBettypeView {
     cacheDOMElements = () => {
         this.$pageTitle = this.$(".page-title ");
         this.$tableReport = this.$("#tbl-report");
-        this.$drilldownLinks = this.$(".downline-link");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$isAgentLevel = this.$("#IsAgentLevel");
@@ -132,16 +114,6 @@ class WinLossByBettypeView {
         }
     };
 
-    bindSorting = () => {
-        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
-        this.sortComponent.render(new SortOption(
-            this.$tableReport,
-            canSort,
-            true,
-            this.afterSort,
-            { 0: { sorter: "text" } }));
-    };
-
     registerEvents = () => {
         this.$reportForm.submit(this.onSubmitReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
@@ -152,7 +124,6 @@ class WinLossByBettypeView {
     onFilterEvent = () => {
         let currentHideState = this.$reportForm.hasClass("hide");
         currentHideState ? this.showFilter() : this.hideFilter();
-        this.replaceDrilldownParam("IsFilterVisible", currentHideState);
     };
 
     onExportExcelEvent = () => {
@@ -164,14 +135,11 @@ class WinLossByBettypeView {
         var isStackMode = this.$tableReport.hasClass("stack-mode");
 
         this.setCssBySwitchMode(isStackMode);
-        this.replaceDrilldownParam("IsStackMode", !isStackMode);
 
         if (this.isFirstSwitchMode) {
             this.renderAtFirstSwitchMode(isStackMode);
             this.isFirstSwitchMode = false;
         }
-
-        this.sortComponent.bindTableSorter(this.getSortedColumnName());
     };
 
     renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {
@@ -249,40 +217,12 @@ class WinLossByBettypeView {
 
     getParams = () => {
         var tableReport = this.$tableReport;
-        let sortInfo = this.sortComponent.getSortInfo();
 
         return {
             CustId: tableReport.data("custid"),
             IsStackMode: tableReport.hasClass("stack-mode"),
-            SortPropertyName: sortInfo.sortPropertyName,
-            IsDescendingSort: sortInfo.isDescendingSort,
             HideFilter: this.$reportForm.is(":hidden"),
         };
-    };
-
-    replaceDrilldownParam = (paramName: string, paramValue: any) => {
-        this.linkBuilderComponent.updateParam(paramName, paramValue);
-    };
-
-    afterSort = () => {
-        var this$ = this.$;
-        var sortedColumn = this$(".sorting-asc:visible");
-        var direction = !sortedColumn.length;
-        if (sortedColumn.length === 0) {
-            sortedColumn = this$(".sorting-desc");
-        }
-
-        var isEvenRow = false;
-        this.$tableReport.find("tbody > tr").each(function () {
-            var $row = this$(this);
-            if ($row.hasClass("even-row") && !isEvenRow) {
-                $row.removeClass("even-row");
-            } else if (!$row.hasClass("even-row") && isEvenRow) {
-                $row.addClass("even-row");
-            }
-
-            isEvenRow = !isEvenRow;
-        });
     };
 
     onSubmitReportEvent = (e: any) => {
@@ -293,44 +233,13 @@ class WinLossByBettypeView {
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
         this.$isStackMode.val(String(params.IsStackMode));
     };
-
-    getSortedColumnName = () => {
-        let sortedColumn = this.$tableReport.data("sortedcolumn");
-        if (!this.$tableReport.hasClass("stack-mode")) {
-            return sortedColumn;
-        }
-
-        if (sortedColumn === "GrossComm") {
-            return "Turnover";
-        }
-
-        if (sortedColumn === "MemberNetWinLoss.Comm" || sortedColumn === "MemberNetWinLoss.Total") {
-            return "MemberNetWinLoss.WinLoss";
-        }
-
-        if (sortedColumn === "AgentNetWinLoss.Comm" || sortedColumn === "AgentNetWinLoss.Total") {
-            return "AgentNetWinLoss.WinLoss";
-        }
-
-        if (sortedColumn === "MasterNetWinLoss.Comm" || sortedColumn === "MasterNetWinLoss.Total") {
-            return "MasterNetWinLoss.WinLoss";
-        }
-
-        if (sortedColumn === "SuperNetWinLoss.Comm" || sortedColumn === "SuperNetWinLoss.Total") {
-            return "SuperNetWinLoss.WinLoss";
-        }
-
-        return sortedColumn;
-    };
 }
 
 const winLossByBettypeView = new WinLossByBettypeView(
     $,
     new DateRangePickerComponent($),
     new ProductMultiSelectionComponent($),
-    new SortComponent($),
-    new ReportTooltip($),
-    new LinkBuilderComponent($));
+    new ReportTooltip($));
 
 $(function () {
     winLossByBettypeView.init();

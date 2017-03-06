@@ -109,7 +109,7 @@
             var reportSheet = GetSheetAt(ReportSheetIndex);
             reportSheet.OddRowTemplate = OddRowTemplate;
             reportSheet.EvenRowTemplate = EvenRowTemplate;
-            reportSheet.FooterRowsTemplate = new List<Row>{ TotalRowTemplate };
+            reportSheet.FooterRowsTemplate = new List<Row> { TotalRowTemplate };
             return reportSheet;
         }
 

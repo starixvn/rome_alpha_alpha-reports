@@ -115,11 +115,6 @@
              sheetIndex: 1,
              footerEndIndex: 12);
 
-        //private TemplateInfo GetTemplateInfo(WinLossByBetTypeExcelQuery message)
-        //    => new TemplateInfo(
-        //        GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
-        //        noInfomationText: Resources.NoInformationIsAvailable);
-
         private string GetReporTitle(WinLossByBetTypeExcelQuery message)
             => $"{Resources.WinLossByBetType} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 

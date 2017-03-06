@@ -62,10 +62,6 @@
             return grandTotal;
         }
 
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules", 
-            "SP2101:MethodMustNotContainMoreLinesThan", 
-            Justification = "Reviewed. Suppression is OK here.")]
         public string BuildDisplayedBetTypeName(int productId, BetType betTypeId, string betTypeName, bool liveIndicator)
         {
             if (BetTypeConfig.DisplayWinLossByBetTypeRules.ContainsKey(productId))

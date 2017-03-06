@@ -19,7 +19,7 @@
     public class WinLossByProductServiceImpl : WinLossByProductService
     {
         private readonly ReportDateService reportDateService;
-        //private readonly WinLossByProductDataAccess dataAccess;
+        ////private readonly WinLossByProductDataAccess dataAccess;
         private readonly WinLossByBetTypeDataAccess dataAccess;
         private readonly CacheRefService cacheRefService;
 
@@ -40,15 +40,15 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            //var criteria = new WinLossByProductCriteria(
-            //    param.CustId,
-            //    param.FromDate,
-            //    param.ToDate,
-            //    reportDateService.GetBalanceUpDay(),
-            //    reportDateService.GetMoveBetsDay(),
-            //    param.CustLevel);
+            ////var criteria = new WinLossByProductCriteria(
+            ////    param.CustId,
+            ////    param.FromDate,
+            ////    param.ToDate,
+            ////    reportDateService.GetBalanceUpDay(),
+            ////    reportDateService.GetMoveBetsDay(),
+            ////    param.CustLevel);
 
-            //var winLossByProductData = dataAccess.GetWinLossByProduct(criteria);
+            ////var winLossByProductData = dataAccess.GetWinLossByProduct(criteria);
 
             var criteria = new WinLossByBetTypeCriteria(
              param.CustId,

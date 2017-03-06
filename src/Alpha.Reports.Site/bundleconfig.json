@@ -83,18 +83,6 @@
     ]
   },
   {
-    "outputFileName": "assets/bundles/winlossbybettype/winlossbybettype.js",
-    "inputFiles": [
-      "assets/scripts/core.js",
-      "assets/scripts/components/daterangepicker.js",
-      "assets/scripts/components/productmultiselection.js",
-      "assets/scripts/components/tooltip.js",
-      "assets/scripts/components/sort.js",
-      "assets/scripts/components/link-builder.js",
-      "assets/scripts/winlossbybettype/winlossbybettype.js"
-    ]
-  },
-  {
     "outputFileName": "assets/bundles/winlossbyproduct/winlossbyproduct.js",
     "inputFiles": [
       "assets/scripts/core.js",
@@ -103,6 +91,16 @@
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
       "assets/scripts/winlossbyproduct/winlossbyproduct.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/winlossbybettype/winlossbybettype.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/winlossbybettype/winlossbybettype.js"
     ]
   }
 

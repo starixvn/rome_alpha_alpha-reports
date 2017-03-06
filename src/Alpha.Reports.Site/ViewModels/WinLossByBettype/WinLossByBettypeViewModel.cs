@@ -20,9 +20,6 @@
         private readonly WinLossByBetTypeQuery message;
         private readonly WinLossByBetTypeParam winLossByBettypeParam;
         private readonly CacheRefService cacheRefService;
-        public static readonly string NetWinLossWinLoss = $"{nameof(WinLossByBetTypeModel.AgentNetWinLoss)}.{nameof(NetWinLoss.WinLoss)}";
-        public static readonly string NetWinLossComm = $"{nameof(WinLossByBetTypeModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Comm)}";
-        public static readonly string NetWinLossTotal = $"{nameof(WinLossByBetTypeModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Total)}";
 
         public WinLossByBetTypeViewModel(
             IEnumerable<WinLossByProductModel> reportData,
@@ -72,8 +69,6 @@
         public WinLossByBetTypeModel GrandTotal { get; }
 
         public bool IsStackMode => message.IsStackMode;
-
-        public bool IsDescendingSort => message.IsDescendingSort;
 
         public bool IsFilterVisible => message.IsFilterVisible;
 

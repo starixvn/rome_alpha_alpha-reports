@@ -129,10 +129,10 @@
 
         public WinLossByBetTypeInfoViewModel BuildWinLossByBetTypeInfoViewModel(int productId)
         {
-            //if (ProductConfig.DisplayWinLossByGameTypeRules.ContainsKey(productId))
-            //{
-            //    ////return ProductConfig.DisplayWinLossByGameTypeRules[productId](productId, cacheRefService);
-            //}
+            ////if (ProductConfig.DisplayWinLossByGameTypeRules.ContainsKey(productId))
+            ////{
+            ////    ////return ProductConfig.DisplayWinLossByGameTypeRules[productId](productId, cacheRefService);
+            ////}
 
             return new WinLossByBetTypeInfoViewModel(false, string.Empty);
         }
