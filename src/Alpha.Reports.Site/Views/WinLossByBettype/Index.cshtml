@@ -86,14 +86,15 @@
     </thead>
     @if (Model.ReportData.Any())
     {
-        <tbody>
-            @foreach (var data in Model.ReportData)
+            foreach (var data in Model.ReportData)
             {
-                @RenderProduct(data)
+                <tbody>
+                    @RenderProduct(data)
+                </tbody>
             }
-        </tbody>
+
         <tfoot>
-            @RenderWinLossByBetType(Model.GrandTotal, true)
+            @RenderWinLossByBetType(Model.GrandTotal, true, string.Empty)
         </tfoot>
     }
     else
@@ -119,9 +120,9 @@
 @helper RenderProduct(WinLossByProductModel data)
 {
     int colspan = Model.CustLevel.IsAgentLevel() ? 11 : 9;
-    <tr class="tbl-product" id="@data.ProductName">
-        <td  class="text-left col-username" colspan ="@colspan">
-          <span class="pull-left icon-arrow-right" style="padding:3px 15px 0 0"></span>
+    <tr class="tbl-product">
+        <td  class="text-left col-username active" colspan ="@colspan">
+          <span class="pull-left icon-arrow-right" ></span>
           @data.ProductName
         </td>
     </tr>
@@ -130,24 +131,17 @@
     {
         foreach (var winLossByBetType in data.WinLossByBetTypeData)
         {
-            @RenderWinLossByBetType(winLossByBetType, false)
+            @RenderWinLossByBetType(winLossByBetType, false, data.ProductName)
         }
     }
 }
 
 
-@helper RenderWinLossByBetType(WinLossByBetTypeModel data, bool isTotalRow)
+@helper RenderWinLossByBetType(WinLossByBetTypeModel data, bool isTotalRow, string productName)
 {
-    <tr  @(isTotalRow ? "class=tbl-footer" : string.Empty) >
-        <td class="text-left col-username" style="padding-left:  @(isTotalRow ? "5px" : "25px")">
-            @if (isTotalRow)
-            {
-                @Resources.Total
-            }
-            else
-            {
-                @data.BetTypeName
-            }
+    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty) >
+        <td class="text-left col-username" style="padding-left:  @(isTotalRow ? "5px" : "35px")">
+                @(isTotalRow ? Resources.Total : data.BetTypeName)
         </td>
 
         <td>@data.BetCount</td>

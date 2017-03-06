@@ -79,7 +79,7 @@
         {
             var row = sheet.GetRow(rowIndex);
             row.CopyCellsFrom(WinLossByProductRowTemplate);
-            row.SetCellValue(row.FirstCellIndex, data.ProductName);
+            row.SetCellValue(row.FirstCellIndex, data.ProductName.ToUpper());
         }
 
         internal void FillWinLossByBetType(

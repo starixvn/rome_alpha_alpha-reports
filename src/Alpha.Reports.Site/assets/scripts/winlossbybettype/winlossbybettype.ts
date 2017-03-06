@@ -72,6 +72,7 @@ class WinLossByBettypeView {
             { 0: { sorter: "text" } }));
         this.$tableReport.stickyTableHeaders();
         this.linkBuilderComponent.render();
+        this.productToggle();
         this.registerEvents();
         this.$.unblockUI();
     };
@@ -96,6 +97,20 @@ class WinLossByBettypeView {
 
     checkReady = () => {
         return this.$("#IsSetDefaultStackMode").length > 0;
+    };
+
+    productToggle = () => {
+        let this$ = this.$;
+
+        this.$('tbody').each(function () {
+            this$(this).find('tr:first').click(
+                function () {
+                    let productRow = this$(this);
+                    let productRowFirstColumn = productRow.find('td:first');
+                    productRowFirstColumn.hasClass("active") ? productRowFirstColumn.removeClass("active") : productRowFirstColumn.addClass("active");
+                    productRow.parent().find("tr").slice(1).toggle();
+                });
+        });
     };
 
     bindFilter = () => {

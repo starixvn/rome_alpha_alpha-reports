@@ -69,6 +69,7 @@ class WinLossByProductView {
         this.$tableReport.stickyTableHeaders();
         this.linkBuilderComponent.render();
         this.registerEvents();
+      
         this.$.unblockUI();
     };
 

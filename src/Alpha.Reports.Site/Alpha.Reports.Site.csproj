@@ -408,14 +408,6 @@
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
-    <Content Include="assets\bundles\default.css" />
-    <Content Include="assets\bundles\default.min.css">
-      <DependentUpon>default.css</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\winlossbybettype\winlossbybettype.js" />
-    <Content Include="assets\bundles\winlossbybettype\winlossbybettype.min.js">
-      <DependentUpon>winlossbybettype.js</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\matchwinloss\matchwinloss.js" />
     <Content Include="assets\bundles\matchwinloss\matchwinloss.min.js">
       <DependentUpon>matchwinloss.js</DependentUpon>
@@ -429,10 +421,11 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
-     <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
+       <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
     <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.min.js">
       <DependentUpon>winlossbyproduct.js</DependentUpon>
     </Content>
+
 
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.js">
       <DependentUpon>matchwinlossdetail.js</DependentUpon>
@@ -440,18 +433,6 @@
     <Content Include="assets\bundles\matchwinloss\matchwinloss.js" />
     <Content Include="assets\bundles\matchwinloss\matchwinloss.min.js">
       <DependentUpon>matchwinloss.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
-    <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
-      <DependentUpon>winlossdetail.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\winloss\enteredresult.js" />
-    <Content Include="assets\bundles\winloss\enteredresult.min.js">
-      <DependentUpon>enteredresult.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\winloss\winloss.js" />
-    <Content Include="assets\bundles\winloss\winloss.min.js">
-      <DependentUpon>winloss.js</DependentUpon>
     </Content>
     <Content Include="assets\scripts\tests\libs\autocomplete.js" />
     <Content Include="assets\scripts\tests\libs\bootbox.js" />
