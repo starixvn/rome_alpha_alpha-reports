@@ -37,6 +37,11 @@
 
         protected override string GetBreadcrumbLevelJson(ControllerContext controllerContext)
         {
+            if (controllerContext != null)
+            {
+                return ",[{'CustId':1176070,'CustName':'SUPERTEST1','CustLevelId':4}]";
+            }
+
             return "[{'CustId':1176070,'CustName':'SUPERTEST1','CustLevelId':4}]";
         }
 
@@ -98,6 +103,19 @@
                 && superInfo.CustName == "SUPERTEST1"
                 && superInfo.CustLevelId == 4
                 && superInfo.CustId == 1176070);
+        }
+
+        [Fact]
+        public void BindModel_BreadcrumbLevelJsonHasValidData_ReturnEmptyBreadcrumbLevel()
+        {
+            // Arrange
+            var controllerContext = new ControllerContext();
+
+            // Act
+            var breadcrumbLevel = (BindModel(controllerContext, null) as ReportBaseQuery).BreadcrumbLevel;
+
+            // Assert
+            Assert.Empty(breadcrumbLevel);
         }
     }
 }
