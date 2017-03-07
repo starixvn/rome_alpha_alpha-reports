@@ -43,7 +43,8 @@
             var actualNetWinLoss = NetWinLoss.Add(netWinLossA, netWinLossB);
 
             // Assert
-            Assert.Equal(expectedNetWinLoss, actualNetWinLoss);
+            var result = compareLogic.Compare(netWinLossA, actualNetWinLoss);
+            Assert.True(result.AreEqual);
         }
 
         [Fact]

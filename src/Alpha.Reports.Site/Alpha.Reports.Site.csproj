@@ -272,6 +272,7 @@
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
     <Compile Include="Controllers\ReportLegendController.cs" />
+    <Compile Include="Controllers\WinLossAnalysisController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -283,6 +284,8 @@
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
+    <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisBaseHandler.cs" />
+    <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
@@ -304,6 +307,7 @@
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\Outstanding\OutstandingQuery.cs" />
     <Compile Include="Requests\MatchWinLoss\MatchWinLossExcelQuery.cs" />
+    <Compile Include="Requests\FromLast18MonthDateRangeQuery.cs" />
     <Compile Include="Requests\MatchWinLoss\MatchWinLossQuery.cs" />
     <Compile Include="Requests\LeaguesByCustomerQuery.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailQuery.cs" />
@@ -313,6 +317,8 @@
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
+    <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisExcelQuery.cs" />
+    <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLoss\EnteredSportResultQuery.cs" />
@@ -333,6 +339,9 @@
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
+    <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysislFilterViewModel.cs" />
+    <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisReportType.cs" />
+    <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModel.cs" />
@@ -378,6 +387,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\winlossanalysis\winlossanalysis.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
@@ -399,6 +409,11 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
+     <Content Include="assets\bundles\winlossanalysis\winlossanalysis.js" />
+    <Content Include="assets\bundles\winlossanalysis\winlossanalysis.min.js">
+      <DependentUpon>winlossanalysis.js</DependentUpon>
+    </Content>
+
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.js">
       <DependentUpon>matchwinlossdetail.js</DependentUpon>
     </Content>
@@ -606,6 +621,8 @@
     <Content Include="Views\Shared\InvalidReport.cshtml" />
     <Content Include="Views\ReportLegend\Index.cshtml" />
     <Content Include="Views\WinLossDetail\ReportLegend.cshtml" />
+    <Content Include="Views\WinLossAnalysis\Filter.cshtml" />
+    <Content Include="Views\WinLossAnalysis\Index.cshtml" />
     <Content Include="Views\MatchWinLoss\Index.cshtml" />
     <Content Include="Views\League\LeaguesByCustomer.cshtml" />
     <Content Include="Views\MatchWinLossDetail\Index.cshtml" />
