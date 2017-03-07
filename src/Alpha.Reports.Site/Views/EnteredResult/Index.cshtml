@@ -1,4 +1,7 @@
 ﻿@model EnteredResultViewModel
+@{
+    ViewBag.Title = "Win Loss Report";
+}
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty))
 
@@ -38,7 +41,7 @@
     }
 </table>
 
-<form class="form-inline hide" role="form" id="export-excel-form" 
+<form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", "EnteredResult")">
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
