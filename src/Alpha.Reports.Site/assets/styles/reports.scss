@@ -120,10 +120,6 @@ a {
         width: 17%;
     }
 
-    &.width-70per {
-        width: 70%;
-    }
-
     .downline-link {
         color: $link-color;
         cursor: pointer;
@@ -417,7 +413,7 @@ a {
     }
 }
 
-#tbl-enteredresult-report {
+#tbl-enteredresult-report, .tbl-outstanding {
     @extend #tbl-report;
     width: 60%;
 }
@@ -425,5 +421,9 @@ a {
 @media only screen and (max-device-width : $screen-device-lower768) {
     #tbl-enteredresult-report {
         width: 100%;
+    }
+
+    .tbl-outstanding {
+        width: 70%;
     }
 }
