@@ -120,8 +120,8 @@ a {
         width: 17%;
     }
 
-    &.width-60per {
-        width: 60%;
+    &.width-70per {
+        width: 70%;
     }
 
     .downline-link {
@@ -422,9 +422,8 @@ a {
     width: 60%;
 }
 
-@media only screen and (max-device-width : $screen-device-lower768){
-    #tbl-enteredresult-report
-    {
+@media only screen and (max-device-width : $screen-device-lower768) {
+    #tbl-enteredresult-report {
         width: 100%;
     }
 }
