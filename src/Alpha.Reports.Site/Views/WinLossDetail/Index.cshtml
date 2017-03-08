@@ -1,4 +1,7 @@
 ﻿@model WinLossDetailViewModel
+@{
+    ViewBag.Title = "Win Loss Detail Report";
+}
 
 @NetTurnoverTooltips.Render(Model.NetTurnoverTooltips)
 
@@ -151,38 +154,38 @@
         <td data-islink="true" class="text-left col-username">
             @if (isTotalRow)
             {
-            @Resources.Total
+                @Resources.Total
             }
             else
             {
-            <a href="@Model.BuildDrillDownLink(data, Request.Url.Query)"
-               class="@(Model.CustLevel.IsAgentLevel() ? string.Empty : "downline-link")"
-               data-custname="@data.CustName">
-                @data.CustName
-            </a>
+                <a href="@Model.BuildDrillDownLink(data, Request.Url.Query)"
+                   class="@(Model.CustLevel.IsAgentLevel() ? string.Empty : "downline-link")"
+                   data-custname="@data.CustName">
+                    @data.CustName
+                </a>
             }
         </td>
 
         <td class="col-number-of-tickets">@HtmlHelpers.FormatNumber(data.BetCount)</td>
         @if (Model.IsStackMode)
         {
-        @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
+            @HtmlHelpers.RenderStackCell("col-turnover-combined", 1, data.Turnover, data.NetTurnover, data.GrossComm);
 
-        @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
-        @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
-        @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss);
-        @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
+            @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
+            @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
+            @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss);
+            @RenderStackNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true);
         }
         else
         {
-        @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
-        @HtmlHelpers.RenderNumberCell(data.NetTurnover, "col-net-turnover")
-        @HtmlHelpers.RenderNumberCell(data.GrossComm, "col-gross-com")
+            @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
+            @HtmlHelpers.RenderNumberCell(data.NetTurnover, "col-net-turnover")
+            @HtmlHelpers.RenderNumberCell(data.GrossComm, "col-gross-com")
 
-        @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
-        @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
-        @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
-        @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
+            @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
+            @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)
+            @RenderNetWinLoss(UserLevel.Master, data.MasterNetWinLoss)
+            @RenderNetWinLoss(UserLevel.Super, data.SuperNetWinLoss, isHighlight: true)
         }
         <td class="col-company">@HtmlHelpers.FormatNumber(data.Company)</td>
     </tr>

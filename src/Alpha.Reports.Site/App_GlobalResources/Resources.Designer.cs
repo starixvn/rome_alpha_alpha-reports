@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alpha.Reports.Site.App_GlobalResources {
-    using System;
-    
-    
+namespace Alpha.Reports.Site.App_GlobalResources
+{
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -66,6 +66,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Agent {
             get {
                 return ResourceManager.GetString("Agent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agent Outstanding.
+        /// </summary>
+        public static string AgentOutstanding {
+            get {
+                return ResourceManager.GetString("AgentOutstanding", resourceCulture);
             }
         }
         
@@ -376,6 +385,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Master Outstanding.
+        /// </summary>
+        public static string MasterOutstanding {
+            get {
+                return ResourceManager.GetString("MasterOutstanding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Master Total.
         /// </summary>
         public static string MasterTotal {
@@ -426,6 +444,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Member {
             get {
                 return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member Outstanding.
+        /// </summary>
+        public static string MemberOutstanding {
+            get {
+                return ResourceManager.GetString("MemberOutstanding", resourceCulture);
             }
         }
         
@@ -525,6 +552,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string of2 {
             get {
                 return ResourceManager.GetString("of2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outstanding.
+        /// </summary>
+        public static string Outstanding {
+            get {
+                return ResourceManager.GetString("Outstanding", resourceCulture);
             }
         }
         

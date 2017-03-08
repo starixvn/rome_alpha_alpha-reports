@@ -1,5 +1,7 @@
 ﻿@model WinLossViewModel
-
+@{
+    ViewBag.Title = "Win Loss Report";
+}
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
 @Html.Partial("Filter", Model.FilterViewModel,

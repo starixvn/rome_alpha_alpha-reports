@@ -1,0 +1,54 @@
+﻿namespace Alpha.Reports.Models.Outstanding
+{
+    using System.Collections.Generic;
+
+    public class OutstandingModel
+    {
+        public int CustId { get; set; }
+
+        public string CustName { get; set; }
+
+        public decimal MemberOutstanding { get; set; }
+
+        public decimal AgentOutstanding { get; set; }
+
+        public decimal MasterOutstanding { get; set; }
+
+        public decimal SuperOutstanding { get; set; }
+
+        public static OutstandingModel GetAccumulatedData(IEnumerable<OutstandingModel> outstandings)
+        {
+            var accumulatedData = new OutstandingModel();
+
+            foreach (var outstanding in outstandings)
+            {
+                accumulatedData.MemberOutstanding += outstanding.MemberOutstanding;
+                accumulatedData.AgentOutstanding += outstanding.AgentOutstanding;
+                accumulatedData.MasterOutstanding += outstanding.MasterOutstanding;
+                accumulatedData.SuperOutstanding += outstanding.SuperOutstanding;
+            }
+
+            return accumulatedData;
+        }
+
+        public decimal GetValueByLevel(UserLevel level)
+        {
+            if (level.IsMemberLevel())
+            {
+                return MemberOutstanding;
+            }
+
+            if (level.IsAgentLevel())
+            {
+                return AgentOutstanding;
+            }
+
+            if (level.IsMasterLevel())
+            {
+                return MasterOutstanding;
+            }
+
+            return SuperOutstanding;
+        }
+    }
+}
