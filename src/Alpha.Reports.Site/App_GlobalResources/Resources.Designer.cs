@@ -753,6 +753,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
+         /// <summary>
+        ///   Looks up a localized string similar to Report by.
+        /// </summary>
+        public static string ReportBy {
+            get {
+                return ResourceManager.GetString("ReportBy", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Results.
         /// </summary>

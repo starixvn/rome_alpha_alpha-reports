@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Handlers.WinLoss
+﻿namespace Alpha.Reports.Site.Handlers.WinLossAnalysis
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;

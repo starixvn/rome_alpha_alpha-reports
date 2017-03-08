@@ -13,7 +13,6 @@
             int custId,
             string custName,
             UserLevel custLevel,
-            int reportType,
             DateRangePickerViewModel dateRangePickerViewModel,
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
             bool visible,
@@ -22,7 +21,6 @@
         {
             CustId = custId;
             CustName = custName;
-            ReportType = reportType;
             DateRangePickerViewModel = dateRangePickerViewModel;
             ProductMultiSelectionViewModel = productMultiSelectionViewModel;
             ViewDataInstructionMessage = string.Format(
@@ -38,8 +36,6 @@
         public int CustId { get; }
 
         public string CustName { get; }
-
-        public int ReportType { get; }
 
         public UserLevel CustLevel { get; }
 

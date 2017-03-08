@@ -16,7 +16,6 @@
         public ActionResult Index(WinLossAnalysisQuery message)
             => View(message);
 
-        [HttpGet]
         public ActionResult Excel(WinLossAnalysisExcelQuery message)
             => ExcelView(message);
     }

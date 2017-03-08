@@ -457,4 +457,7 @@
   <data name="GrandTotal" xml:space="preserve">
     <value>Grand Total</value>
   </data>
+  <data name="ReportBy" xml:space="preserve">
+    <value>Report by</value>
+  </data>
 </root>

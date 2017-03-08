@@ -13,20 +13,20 @@
     using Requests.WinLossAnalysis;
 
     public class WinLossAnalysisViewModel
-    {
-        private readonly string sortPropertyNameDefault = "ReportTypeValue";
+    {    
         private readonly WinLossAnalysisQuery message;
-        private readonly WinLossAnalysisParam winLossParam;
+        private readonly WinLossAnalysisParam param;
+        public readonly string SortPropertyNameDefault = nameof(WinLossAnalysisReportType.ReportTypeName);
 
         public WinLossAnalysisViewModel(
             IEnumerable<WinLossAnalysisModel> reportData,
             WinLossAnalysisModel grandTotal,
             WinLossAnalysisQuery message,
-            WinLossAnalysisParam winLossParam,
+            WinLossAnalysisParam param,
             IEnumerable<SelectListItem> products)
         {
             this.message = message;
-            this.winLossParam = winLossParam;
+            this.param = param;
 
             Products = products;
             ReportData = reportData;
@@ -43,13 +43,13 @@
 
         public DateTime MaxDate => DateTime.MaxValue;
 
-        public DateTime FromDate => winLossParam.FromDate;
+        public DateTime FromDate => param.FromDate;
 
-        public DateTime ToDate => winLossParam.ToDate;
+        public DateTime ToDate => param.ToDate;
 
         public string Language => message.Language;
 
-        public string UserSelectedProductIds => winLossParam.UserSelectedProductIds.JoinWithComma();
+        public string UserSelectedProductIds => param.UserSelectedProductIds.JoinWithComma();
 
         public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
@@ -59,11 +59,13 @@
 
         public IEnumerable<WinLossAnalysisReportType> ReportTypeData => BuildReportTypeData();
 
+        public int ReportTypeId => message.ReportTypeId;
+
         public bool IsSetDefaultStackMode => message.IsSetDefaultStackMode;
 
         public bool IsStackMode => message.IsStackMode;
 
-        public string SortPropertyName => sortPropertyNameDefault;
+        public string SortPropertyName => message.SortPropertyName.IsNullOrBlank() ? SortPropertyNameDefault : message.SortPropertyName;
 
         public bool IsDescendingSort => message.IsDescendingSort;
 
@@ -73,7 +75,7 @@
 
         public string ReportTypeName => ReportTypeData.FirstOrDefault(reportType => reportType.IsChecked.Equals(true)).ReportTypeName;
 
-        public string Title => Resources.WinLossAnalysis;
+        public string Title => $"{ReportTypeName} {Resources.WinLossAnalysis}";
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
@@ -86,7 +88,6 @@
                 CustId,
                 CustName,
                 CustLevel,
-                message.ReportTypeId,
                 DateRangePickerViewModel,
                 ProductMultiSelectionViewModel,
                 IsFilterVisible,

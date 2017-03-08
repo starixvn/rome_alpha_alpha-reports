@@ -285,6 +285,7 @@
     <Compile Include="Handlers\ReportLegendHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisBaseHandler.cs" />
+    <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisExcelHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
@@ -600,6 +601,9 @@
     <Content Include="App_Code\Components\ReportLegend.cshtml" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLoss\Member.xls" />
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.scss" />
+    <Content Include="App_Data\ExcelTemplates\WinLossAnalysis\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossAnalysis\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossAnalysis\Member.xls" />
     <Content Include="App_Code\Components\LeagueMultiSelection.cshtml" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Agent.xls" />

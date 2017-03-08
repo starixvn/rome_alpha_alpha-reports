@@ -1,113 +1,121 @@
-﻿////namespace Alpha.Reports.Site.Handlers.WinLoss
-////{
-////    using System;
-////    using App_GlobalResources;
-////    using Extensions;
-////    using MediatR;
-////    using ONEbook.SpreadSheets;
-////    using Params;
-////    using Reports.Models.WinLossAnalysis;
-////    using Requests.WinLossAnalysis;
-////    using Services;
-////    using ViewModels;
+﻿namespace Alpha.Reports.Site.Handlers.WinLossAnalysis
+{
+    using System;
+    using App_GlobalResources;
+    using Extensions;
+    using MediatR;
+    using ONEbook.SpreadSheets;
+    using Params;
+    using Reports.Models.WinLossAnalysis;
+    using Requests.WinLossAnalysis;
+    using Services;
+    using ViewModels;
+    using ViewModels.WinLossAnalysis;
+    using static ONEbook.SpreadSheets.Column;
 
-////    public class WinLossAnalysisExcelHandler :
-////        WinLossAnalysisBaseHandler,
-////        IRequestHandler<WinLossAnalysisExcelQuery, ExcelFileViewModel>
-////    {
-////        private readonly Workbook<WinLossAnalysisModel> workbook;
+    public class WinLossAnalysisExcelHandler :
+        WinLossAnalysisBaseHandler,
+        IRequestHandler<WinLossAnalysisExcelQuery, ExcelFileViewModel>
+    {
+        private readonly string reportTypeName = nameof(WinLossAnalysisReportType.ReportTypeName);
+        private readonly Workbook<WinLossAnalysisModel> workbook;
 
-////        public WinLossAnalysisExcelHandler(
-////            ProductService productService,
-////            WinLossAnalysisService reportService,
-////            Workbook<WinLossAnalysisModel> workbook) : base(productService, reportService)
-////        {
-////            this.workbook = workbook;
-////        }
+        public WinLossAnalysisExcelHandler(
+            ProductService productService,
+            WinLossAnalysisService reportService,
+            Workbook<WinLossAnalysisModel> workbook) : base(productService, reportService)
+        {
+            this.workbook = workbook;
+        }
 
-////        public ExcelFileViewModel Handle(WinLossAnalysisExcelQuery message)
-////        {
-////            if (message == null)
-////            {
-////                throw new ArgumentNullException(nameof(message));
-////            }
+        public ExcelFileViewModel Handle(WinLossAnalysisExcelQuery message)
+        {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
 
-////            var winLossAnalysisParam = CreateWinLossAnalysisParamater(message);
-////            var reportData = reportService.GetWinLossinLossAnalysis(winLossAnalysisParam);
-////            var grandTotal = AccumulateGrandTotal(reportData);
+            var winLossAnalysisParam = CreateWinLossAnalysisParamater(message);
+            var reportData = reportService.GetWinLossinLossAnalysis(winLossAnalysisParam);
+            var grandTotal = AccumulateGrandTotal(reportData);
 
-////            var result = workbook
-////                .UseTemplate(GetTemplateInfo(message))
-////                .Title(GetReporTitle(message))
-////                .Header(Resources.ResourceManager.GetString)
-////                .Body(reportData, GetBodyRowMapper(message))
-////                .Footer(grandTotal, GetTotalRowMapper(message))
-////                .Sheet(Resources.DefaultSheetName)
-////                .ExportToBytes();
+            var result = workbook
+                .UseTemplate(GetTemplateInfo(message))
+                .Title(GetReporTitle(message))
+                .Header(key => key.Equals(reportTypeName) ? Resources.ResourceManager.GetString(message.ReportTypeName) : Resources.ResourceManager.GetString(key))
+                .Body(reportData, GetBodyRowMapper(message))
+                .Footer(grandTotal, GetTotalRowMapper(message))
+                .Sheet(Resources.DefaultSheetName)
+                .ExportToBytes();
 
-////            return new ExcelFileViewModel(GetExcelFileName(message, winLossAnalysisParam), result);
-////        }
+            return new ExcelFileViewModel(GetExcelFileName(message, winLossAnalysisParam), result);
+        }
 
-////        private Mapper<WinLossAnalysisModel> GetBodyRowMapper(WinLossAnalysisExcelQuery message)
-////          => GetRowMapper(message, isTotal: false);
+        private Mapper<WinLossAnalysisModel> GetBodyRowMapper(WinLossAnalysisExcelQuery message)
+          => GetRowMapper(message, isTotal: false);
 
-////        private Mapper<WinLossAnalysisModel> GetTotalRowMapper(WinLossAnalysisExcelQuery message)
-////            => GetRowMapper(message, isTotal: true);
+        private Mapper<WinLossAnalysisModel> GetTotalRowMapper(WinLossAnalysisExcelQuery message)
+            => GetRowMapper(message, isTotal: true);
 
-////        private Mapper<WinLossAnalysisModel> GetRowMapper(WinLossAnalysisExcelQuery message, bool isTotal)
-////        {
-////            var mapper = new Mapper<WinLossAnalysisModel>()
-////                .Map(Column.A, winLoss => isTotal ? Resources.Total : winLoss.ReportTypeValue)
-////                .Map(Column.B, winLoss => winLoss.Turnover)
-////                .Map(Column.C, winLoss => winLoss.BetCount);
+        private Mapper<WinLossAnalysisModel> GetRowMapper(WinLossAnalysisExcelQuery message, bool isTotal)
+        {
+            var mapper = new Mapper<WinLossAnalysisModel>()
+                .Map(A, winLossAnalysis => isTotal ? Resources.Total : winLossAnalysis.ReportTypeValue)
+                .Map(B, winLossAnalysis => winLossAnalysis.BetCount)
+                .Map(C, winLossAnalysis => winLossAnalysis.Turnover)
+                .Map(D, winLossAnalysis => winLossAnalysis.MemberNetWinLoss.WinLoss)
+                .Map(E, winLossAnalysis => winLossAnalysis.MemberNetWinLoss.Comm)
+                .Map(F, winLossAnalysis => winLossAnalysis.MemberNetWinLoss.Total)
+                .Map(G, winLossAnalysis => winLossAnalysis.AgentNetWinLoss.WinLoss)
+                .Map(H, winLossAnalysis => winLossAnalysis.AgentNetWinLoss.Comm)
+                .Map(I, winLossAnalysis => winLossAnalysis.AgentNetWinLoss.Total);
 
-////            if (message.CustLevel.IsAgentLevel())
-////            {
-////                mapper.Map(Column.D, winLoss => winLoss.MemberNetWinLoss.WinLoss)
-////                 .Map(Column.E, winLoss => winLoss.MemberNetWinLoss.Comm)
-////                 .Map(Column.F, winLoss => winLoss.MemberNetWinLoss.Total)
-////                 .Map(Column.G, winLoss => winLoss.AgentNetWinLoss.WinLoss)
-////                 .Map(Column.H, winLoss => winLoss.AgentNetWinLoss.Comm)
-////                 .Map(Column.I, winLoss => winLoss.AgentNetWinLoss.Total)
-////                 .Map(Column.J, winLoss => winLoss.Company);
-////            }
+            if (message.CustLevel.IsAgentLevel())
+            {
+                mapper.Map(J, winLossAnalysis => winLossAnalysis.Company);
+            }
 
-////            if (message.CustLevel.IsMasterLevel())
-////            {
-////                mapper.Map(Column.D, winLoss => winLoss.AgentNetWinLoss.Total)
-////                   .Map(Column.E, winLoss => winLoss.MasterNetWinLoss.WinLoss)
-////                   .Map(Column.F, winLoss => winLoss.MasterNetWinLoss.Comm)
-////                   .Map(Column.G, winLoss => winLoss.MasterNetWinLoss.Total)
-////                   .Map(Column.H, winLoss => winLoss.Company);
-////            }
+            if (message.CustLevel.IsMasterOrSuperLevel())
+            {
+                mapper
+                    .Map(J, winLossAnalysis => winLossAnalysis.MasterNetWinLoss.WinLoss)
+                    .Map(K, winLossAnalysis => winLossAnalysis.MasterNetWinLoss.Comm)
+                    .Map(L, winLossAnalysis => winLossAnalysis.MasterNetWinLoss.Total);
+            }
 
-////            if (message.CustLevel.IsSuperLevel())
-////            {
-////                mapper.Map(Column.D, winLoss => winLoss.MasterNetWinLoss.Total)
-////                    .Map(Column.E, winLoss => winLoss.SuperNetWinLoss.WinLoss)
-////                    .Map(Column.F, winLoss => winLoss.SuperNetWinLoss.Comm)
-////                    .Map(Column.G, winLoss => winLoss.SuperNetWinLoss.Total)
-////                    .Map(Column.H, winLoss => winLoss.Company);
-////            }
+            if (message.CustLevel.IsMasterLevel())
+            {
+                mapper.Map(M, winLossAnalysis => winLossAnalysis.Company);
+            }
 
-////            return mapper;
-////        }
+            if (message.CustLevel.IsSuperLevel())
+            {
+                mapper
+                    .Map(M, winLossAnalysis => winLossAnalysis.SuperNetWinLoss.WinLoss)
+                    .Map(N, winLossAnalysis => winLossAnalysis.SuperNetWinLoss.Comm)
+                    .Map(O, winLossAnalysis => winLossAnalysis.SuperNetWinLoss.Total)
+                    .Map(P, winLossAnalysis => winLossAnalysis.Company);
+            }
 
-////        private TemplateInfo GetTemplateInfo(WinLossAnalysisExcelQuery message)
-////            => new TemplateInfo(
-////                GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
-////                noInfomationText: Resources.NoInformationIsAvailable);
+            return mapper;
+        }
 
-////        private string GetReporTitle(WinLossAnalysisExcelQuery message)
-////            => $"{Resources.WinLossTitle} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-////            $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
+        private TemplateInfo GetTemplateInfo(WinLossAnalysisExcelQuery message)
+            => new TemplateInfo(
+                GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
+                noInfomationText: Resources.NoInformationIsAvailable);
 
-////        private string GetExcelFileName(WinLossAnalysisExcelQuery message, WinLossAnalysisParam winLossParam)
-////           => string.Join(
-////               "-",
-////               Resources.WinLossTitle,
-////               message.CustName,
-////               winLossParam.FromDate.ToShortDateWithSlash(),
-////               winLossParam.ToDate.ToShortDateWithSlash());
-////    }
-////}
+        private string GetReporTitle(WinLossAnalysisExcelQuery message)
+            => $"{Resources.ResourceManager.GetString(message.ReportTypeName)} {Resources.WinLossAnalysis}" +
+               $" {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+               $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
+
+        private string GetExcelFileName(WinLossAnalysisExcelQuery message, WinLossAnalysisParam param)
+           => string.Join(
+               "-",
+               $"{Resources.ResourceManager.GetString(message.ReportTypeName)} {Resources.WinLossAnalysis}",
+               message.CustName,
+               param.FromDate.ToShortDateWithSlash(),
+               param.ToDate.ToShortDateWithSlash());
+    }
+}

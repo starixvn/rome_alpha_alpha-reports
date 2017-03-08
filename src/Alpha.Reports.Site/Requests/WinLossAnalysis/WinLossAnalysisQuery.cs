@@ -26,6 +26,8 @@
 
         public int ReportTypeId { get; set; } = 1;
 
+        public string ReportTypeName { get; set; }
+
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
     }
 }

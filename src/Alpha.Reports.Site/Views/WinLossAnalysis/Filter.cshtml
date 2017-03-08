@@ -15,29 +15,31 @@
         <span class="star">*</span>@Model.ViewDataInstructionMessage
     </div>
     <br />
-
-    @foreach (var data in Model.ReportTypeData)
-    {
-        <span style="margin-left: 5px;">
-            @Html.RadioButton("reportType", data.ReportTypeId, data.IsChecked)
-            @Html.Label(data.ReportTypeName)
-        </span>
-    }
+    
+    <div>
+        <label>@Resources.ReportBy</label> 
+        @foreach (var data in Model.ReportTypeData)
+        {
+            <span style="margin-left: 15px;">
+                @Html.RadioButton("reportType", data.ReportTypeId, data.IsChecked, new { id = data.ReportTypeName })
+                @Html.Label(data.ReportTypeName, data.ReportTypeName)
+            </span>
+        }
+    </div>
 
     @helper RenderHiddenFields()
     {
         @Html.Hidden("IsFilterVisible", Model.Visible)
-
-        @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
-        @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
-
-        @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
-        @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
-
-        @Html.Hidden("ReportTypeId", 1)
-
         @Html.Hidden("CustId", Model.CustId)
         @Html.Hidden("CustName", Model.CustName)
         @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+        @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
+
+        @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+        @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
+        @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
+        @Html.Hidden("ReportTypeId", ViewData["ReportTypeId"])
+        @Html.Hidden("ReportTypeName", ViewData["ReportTypeName"])
+   
     }
 </form>

@@ -12,13 +12,11 @@ class WinLossAnalysisView {
     $tableReport: JQuery;
 
     $multiSelectButton: JQuery;
-
-    $drilldownLinks: JQuery;
     $isFilterVisible: JQuery;
     $isStackMode: JQuery;
     $isAgentLevel: JQuery;
     $reportForm: JQuery;
-    $reportType: JQuery;
+    $reportTypeId: JQuery;
     $userSelectedDateRangeOption: JQuery;
     $exportExcelForm: JQuery;
     $filterIcon: JQuery;
@@ -39,21 +37,18 @@ class WinLossAnalysisView {
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     sortComponent: SortComponent;
     reportTooltip: ReportTooltip;
-    linkBuilderComponent: LinkBuilderComponent;
 
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         sortComponent: SortComponent,
-        reportTooltip: ReportTooltip,
-        linkBuilderComponent: LinkBuilderComponent) {
+        reportTooltip: ReportTooltip) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.sortComponent = sortComponent;
         this.reportTooltip = reportTooltip;
-        this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
@@ -68,7 +63,6 @@ class WinLossAnalysisView {
         this.bindFilter();
         this.bindSorting();
         this.$tableReport.stickyTableHeaders();
-        this.linkBuilderComponent.render();
         this.registerEvents();
         this.$.unblockUI();
     };
@@ -76,7 +70,6 @@ class WinLossAnalysisView {
     cacheDOMElements = () => {
         this.$pageTitle = this.$(".page-title ");
         this.$tableReport = this.$("#tbl-report");
-        this.$drilldownLinks = this.$(".downline-link");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$isAgentLevel = this.$("#IsAgentLevel");
@@ -89,7 +82,7 @@ class WinLossAnalysisView {
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
         this.$toDate = this.$("#to-date");
-        this.$reportType = this.$("#ReportTypeId");
+        this.$reportTypeId = this.$("#ReportTypeId");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
         this.$isSetDefaultStackMode = this.$("#IsSetDefaultStackMode");
@@ -156,7 +149,7 @@ class WinLossAnalysisView {
         this.$sortPropertyName.val(params.SortPropertyName);
         this.$isDescendingSort.val(String(params.IsDescendingSort));
         this.$isDescendingSort.val(String(params.IsDescendingSort));
-        this.$reportType.val(params.ReportType);
+        this.$reportTypeId.val(params.ReportTypeId);
 
         this.$reportForm.submit();
     }
@@ -178,13 +171,12 @@ class WinLossAnalysisView {
         this.$sortPropertyName.val(params.SortPropertyName);
         this.$isDescendingSort.val(String(params.IsDescendingSort));
         this.$isDescendingSort.val(String(params.IsDescendingSort));
-        this.$reportType.val(params.ReportType);
+        this.$reportTypeId.val(params.ReportTypeId);
     };
 
     onFilterEvent = () => {
         let currentHideState = this.$reportForm.hasClass("hide");
         currentHideState ? this.showFilter() : this.hideFilter();
-        this.replaceDrilldownParam("IsFilterVisible", currentHideState);
     };
 
     onExportExcelEvent = () => {
@@ -194,7 +186,6 @@ class WinLossAnalysisView {
 
     onSwitchModeEvent = () => {
         var isStackMode = this.$tableReport.hasClass("stack-mode");
-        this.replaceDrilldownParam("IsStackMode", !isStackMode); 
         this.setCssBySwitchMode(isStackMode);
         if (this.isFirstSwitchMode) {
             this.renderAtFirstSwitchMode(isStackMode);
@@ -213,7 +204,6 @@ class WinLossAnalysisView {
         this.setCssBySwitchMode(false);
         this.renderAtFirstSwitchMode(false);
         this.isFirstSwitchMode = false;
-        this.replaceDrilldownParam("IsStackMode", true); 
         this.$.unblockUI();
     }
 
@@ -272,7 +262,7 @@ class WinLossAnalysisView {
             SortPropertyName: sortInfo.sortPropertyName,
             IsDescendingSort: sortInfo.isDescendingSort,
             HideFilter: this.$reportForm.is(":hidden"),
-            ReportType: this.$('input[name=reportType]:checked').val()
+            ReportTypeId: this.$('input[name=reportType]:checked').val()  
         };
     };
 
@@ -284,10 +274,6 @@ class WinLossAnalysisView {
         this.$multiSelectButton.removeClass("error");
     };
 
-    replaceDrilldownParam = (paramName: string, paramValue: any) => {
-        this.linkBuilderComponent.updateParam(paramName, paramValue);
-    };
-
     afterSort = () => {
         var this$ = this.$;
         var sortedColumn = this$(".sorting-asc:visible");
@@ -295,11 +281,6 @@ class WinLossAnalysisView {
         if (sortedColumn.length === 0) {
             sortedColumn = this$(".sorting-desc");
         }
-
-        var sortedColumnName = sortedColumn.data("sortedname");
-
-        this.replaceDrilldownParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
-        this.replaceDrilldownParam("IsDescendingSort", direction);
 
         var isEvenRow = false;
         this.$tableReport.find("tbody > tr").each(function () {
@@ -349,8 +330,7 @@ const winLossAnalysisView = new WinLossAnalysisView(
     new DateRangePickerComponent($),
     new ProductMultiSelectionComponent($),
     new SortComponent($),
-    new ReportTooltip($),
-    new LinkBuilderComponent($));
+    new ReportTooltip($));
 
 $(function () {
     winLossAnalysisView.init();
