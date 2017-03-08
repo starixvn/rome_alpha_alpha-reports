@@ -55,7 +55,7 @@
                     {
                         reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(breadcrumbLevelJson);
                     }
-                    catch (JsonException ex)
+                    catch (JsonException)
                     {
                         //// TODO: temporary
                         ////LogWarning(ex);
