@@ -26,7 +26,7 @@
             var products = productService.GetProductsForCustomer(message.CustId);
 
             var winLossAnalysisParam = CreateWinLossAnalysisParamater(message);
-            var reportData = reportService.GetWinLossinLossAnalysis(winLossAnalysisParam);
+            var reportData = reportService.GetWinLossAnalysis(winLossAnalysisParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
             var viewModel = new WinLossAnalysisViewModel(

@@ -7,7 +7,7 @@
         }
 
         public WinLossAnalysisModel(
-            string reportTypeValue,
+            string rollupKey,
             decimal betCount,
             decimal turnover,
             NetWinLoss memberNetWinLoss,
@@ -15,7 +15,7 @@
             NetWinLoss masterNetWinLoss,
             NetWinLoss superNetWinLoss)
         {
-            ReportTypeValue = reportTypeValue;
+            RollupKey = rollupKey;
             BetCount = betCount;
             Turnover = turnover;
             MemberNetWinLoss = memberNetWinLoss;
@@ -24,7 +24,7 @@
             SuperNetWinLoss = superNetWinLoss;
         }
 
-        public string ReportTypeValue { get; }
+        public string RollupKey { get; }
 
         public decimal Turnover { get; private set; }
 

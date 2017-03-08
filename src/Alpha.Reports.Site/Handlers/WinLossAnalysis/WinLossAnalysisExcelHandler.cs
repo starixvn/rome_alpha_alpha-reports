@@ -36,7 +36,7 @@
             }
 
             var winLossAnalysisParam = CreateWinLossAnalysisParamater(message);
-            var reportData = reportService.GetWinLossinLossAnalysis(winLossAnalysisParam);
+            var reportData = reportService.GetWinLossAnalysis(winLossAnalysisParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
             var result = workbook
@@ -60,7 +60,7 @@
         private Mapper<WinLossAnalysisModel> GetRowMapper(WinLossAnalysisExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossAnalysisModel>()
-                .Map(A, winLossAnalysis => isTotal ? Resources.Total : winLossAnalysis.ReportTypeValue)
+                .Map(A, winLossAnalysis => isTotal ? Resources.Total : winLossAnalysis.RollupKey)
                 .Map(B, winLossAnalysis => winLossAnalysis.BetCount)
                 .Map(C, winLossAnalysis => winLossAnalysis.Turnover)
                 .Map(D, winLossAnalysis => winLossAnalysis.MemberNetWinLoss.WinLoss)

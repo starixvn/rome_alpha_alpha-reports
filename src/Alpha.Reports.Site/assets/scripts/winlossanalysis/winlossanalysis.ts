@@ -14,7 +14,6 @@ class WinLossAnalysisView {
     $multiSelectButton: JQuery;
     $isFilterVisible: JQuery;
     $isStackMode: JQuery;
-    $isAgentLevel: JQuery;
     $reportForm: JQuery;
     $reportTypeId: JQuery;
     $userSelectedDateRangeOption: JQuery;
@@ -59,11 +58,12 @@ class WinLossAnalysisView {
         this.$.blockUI();
 
         this.cacheDOMElements();
-
         this.bindFilter();
         this.bindSorting();
+   
         this.$tableReport.stickyTableHeaders();
         this.registerEvents();
+
         this.$.unblockUI();
     };
 
@@ -72,7 +72,6 @@ class WinLossAnalysisView {
         this.$tableReport = this.$("#tbl-report");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
-        this.$isAgentLevel = this.$("#IsAgentLevel");
         this.$exportExcelForm = this.$("#export-excel-form");
         this.$reportForm = this.$("#report-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
@@ -129,30 +128,10 @@ class WinLossAnalysisView {
 
         let self = this;
         this.$(':radio[name=reportType]').change(function () {
-            self.submit();
+            self.onSubmitReportEvent(this.form);
+            self.$reportForm.submit();
         });
     };
-
-    submit = () => {
-        this.$.blockUI();
-
-        var params = this.getParams();
-        if (!params.IsAnyProductSelected) {
-            this.showValidaProductError();
-            this.$.unblockUI();
-
-            return;
-        }
-
-        this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
-        this.$isStackMode.val(String(params.IsStackMode));
-        this.$sortPropertyName.val(params.SortPropertyName);
-        this.$isDescendingSort.val(String(params.IsDescendingSort));
-        this.$isDescendingSort.val(String(params.IsDescendingSort));
-        this.$reportTypeId.val(params.ReportTypeId);
-
-        this.$reportForm.submit();
-    }
 
     onSubmitReportEvent = (e: any) => {
         this.$.blockUI();
@@ -175,8 +154,8 @@ class WinLossAnalysisView {
     };
 
     onFilterEvent = () => {
-        let currentHideState = this.$reportForm.hasClass("hide");
-        currentHideState ? this.showFilter() : this.hideFilter();
+        let currentHiddenState = this.$reportForm.hasClass("hide");
+        currentHiddenState ? this.showFilter() : this.hideFilter();
     };
 
     onExportExcelEvent = () => {
@@ -195,8 +174,7 @@ class WinLossAnalysisView {
     };
 
     renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {
-        let isAgentLevel = this.$isAgentLevel.val().toLocaleLowerCase() === "true";
-        isSwitchToNormalMode ? this.splitColumns() : this.combineColumns(isAgentLevel);
+        isSwitchToNormalMode ? this.splitColumns() : this.combineColumns();
     }
 
     setStackMode = () => {
@@ -228,7 +206,7 @@ class WinLossAnalysisView {
         });
     };
 
-    combineColumns = (isAgentLevel: boolean) => {
+    combineColumns = () => {
         let levels = this.levels;
         let this$ = this.$;
 
@@ -301,8 +279,8 @@ class WinLossAnalysisView {
             return sortedColumn;
         }
 
-        if (sortedColumn === "GrossComm") {
-            return "Turnover";
+        if (sortedColumn === "Turnover") {
+            return "BetCount";
         }
 
         if (sortedColumn === "MemberNetWinLoss.Comm" || sortedColumn === "MemberNetWinLoss.Total") {

@@ -56,7 +56,7 @@
             var reportLevel = criteria.ReportLevel;
 
             var winLossAnalysis = new WinLossAnalysisModel(
-                reportTypeValue: criteria.ReportType.Equals(3) ? cacheRefService.GetProductName(reader.ToInt("breakdown")) : reader.ToString("breakdown"), 
+                rollupKey: criteria.ReportType.Equals(3) ? cacheRefService.GetProductName(reader.ToInt("RollupKey")) : reader.ToString("RollupKey"), 
                 turnover: reader.ToDecimal("TurnOver"),
                 betCount: reader.ToDecimal("BetCount"),
                 memberNetWinLoss: new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")),

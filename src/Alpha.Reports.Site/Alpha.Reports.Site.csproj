@@ -378,6 +378,8 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis\winloss-analysis-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis\winloss-analysis-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-tests.ts" />

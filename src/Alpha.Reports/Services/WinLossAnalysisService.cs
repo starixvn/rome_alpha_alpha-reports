@@ -9,7 +9,7 @@
 
     public interface WinLossAnalysisService
     {
-        IEnumerable<WinLossAnalysisModel> GetWinLossinLossAnalysis(WinLossAnalysisParam param);
+        IEnumerable<WinLossAnalysisModel> GetWinLossAnalysis(WinLossAnalysisParam param);
     }
 
     public class WinLossAnalysisServiceImpl : WinLossAnalysisService
@@ -28,7 +28,7 @@
             this.dataAccess = dataAccess;
         }
 
-        public IEnumerable<WinLossAnalysisModel> GetWinLossinLossAnalysis(WinLossAnalysisParam param)
+        public IEnumerable<WinLossAnalysisModel> GetWinLossAnalysis(WinLossAnalysisParam param)
         {
             if (param == null)
             {

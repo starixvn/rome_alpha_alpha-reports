@@ -136,8 +136,8 @@
     @Html.HiddenFor(model => model.UserSelectedProductIds)
     @Html.HiddenFor(model => model.ReportTypeId)
     <input id="ReportTypeName" name="ReportTypeName" value="@Model.ReportTypeName" type="hidden">
-    @*@Html.HiddenFor(model => model.ReportTypeName)
-    @Html.Hidden("ReportTypeName", Model.ReportTypeName)*@
+    @Html.HiddenFor(model => model.ReportTypeName)
+    @Html.Hidden("ReportTypeName", Model.ReportTypeName)
 </form>
 
 @Html.HiddenFor(model => model.IsSetDefaultStackMode)
@@ -150,7 +150,7 @@
 {
     <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)@(isEvenRow ? "even-row" : string.Empty)">
         <td class="text-left col-username">
-            @(isTotalRow ? Resources.Total: data.ReportTypeValue)
+            @(isTotalRow ? Resources.Total: data.RollupKey)
         </td>
 
         @if (Model.IsStackMode)
