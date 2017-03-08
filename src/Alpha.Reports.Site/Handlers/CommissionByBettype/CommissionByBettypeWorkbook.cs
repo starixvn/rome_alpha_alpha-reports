@@ -45,19 +45,19 @@
 
             npoiSheet.RemoveMergedRegion(0);
 
-            if (userPermissionService.IsIMbcCustomer() == false)
+            if (!userPermissionService.IsIMbcCustomer())
             {
                 RemoveColumnIndex(npoiSheet, 7);
                 headerAddress.LastColumn--;
             }
 
-            if (userPermissionService.IsShowMyanmarOdds() == false)
+            if (!userPermissionService.IsShowMyanmarOdds())
             {
                 RemoveColumnIndex(npoiSheet, 5);
                 headerAddress.LastColumn--;
             }
 
-            if (userPermissionService.IsEnableProduct(ProductIdConstants.CockFighting) == false)
+            if (!userPermissionService.IsEnableProduct(ProductIdConstants.CockFighting))
             {
                 RemoveColumnIndex(npoiSheet, 4);
                 headerAddress.LastColumn--;
@@ -74,11 +74,14 @@
                 var row = (HSSFRow)rowIter.Current;
                 var cell = row.GetCell(colIndex);
 
-                row.RemoveCell(cell);
-
-                for (int i = cell.ColumnIndex + 1; i <= row.Cells.Count; i++)
+                if (cell != null)
                 {
-                    row.MoveCell(row.GetCell(i), i - 1);
+                    row.RemoveCell(cell);
+
+                    for (int i = cell.ColumnIndex + 1; i <= row.Cells.Count; i++)
+                    {
+                        row.MoveCell(row.GetCell(i), i - 1);
+                    }
                 }
             }
         }

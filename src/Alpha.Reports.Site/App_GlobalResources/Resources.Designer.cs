@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alpha.Reports.Site.App_GlobalResources
-{
-
-
+namespace Alpha.Reports.Site.App_GlobalResources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -219,6 +219,33 @@ namespace Alpha.Reports.Site.App_GlobalResources
         public static string Commission {
             get {
                 return ResourceManager.GetString("Commission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commission 1.
+        /// </summary>
+        public static string Commission1 {
+            get {
+                return ResourceManager.GetString("Commission1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commission 2.
+        /// </summary>
+        public static string Commission2 {
+            get {
+                return ResourceManager.GetString("Commission2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Commission 3.
+        /// </summary>
+        public static string Commission3 {
+            get {
+                return ResourceManager.GetString("Commission3", resourceCulture);
             }
         }
         
@@ -592,15 +619,6 @@ namespace Alpha.Reports.Site.App_GlobalResources
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Outstanding.
-        /// </summary>
-        public static string Outstanding {
-            get {
-                return ResourceManager.GetString("Outstanding", resourceCulture);
-            }
-        }        
-        
-        /// <summary>
         ///   Looks up a localized string similar to Others.
         /// </summary>
         public static string Others {
@@ -608,7 +626,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
                 return ResourceManager.GetString("Others", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outstanding.
+        /// </summary>
+        public static string Outstanding {
+            get {
+                return ResourceManager.GetString("Outstanding", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Page.
@@ -949,6 +975,15 @@ namespace Alpha.Reports.Site.App_GlobalResources
         public static string WinPlace {
             get {
                 return ResourceManager.GetString("WinPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win Place.
+        /// </summary>
+        public static string WinPlace_Duplicate_1_ {
+            get {
+                return ResourceManager.GetString("WinPlace_Duplicate[1]", resourceCulture);
             }
         }
         

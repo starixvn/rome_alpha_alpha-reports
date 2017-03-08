@@ -7,9 +7,9 @@
 @Html.Partial("_RacingCommissionFilter", Model.RacingCommissionFilter)
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter" id="tbl-report"
-        data-totalrecords="@Model.RacingCommissions.Count()"
-        data-sortedcolumn="Username"
-        data-descendingsort="false">
+       data-totalrecords="@Model.RacingCommissions.Count()"
+       data-sortedcolumn="Username"
+       data-descendingsort="false">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
             <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="Username">
@@ -52,7 +52,7 @@
     }
 </table>
 
-<form class="form-inline hide" role="form" id="export-excel-form" action="~/RacingCommission/Excel">
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", "RacingCommission")">
     <input type="hidden" name="CustId" value="@Model.Query.CustId" />
     <input type="hidden" name="CustLevelId" value="@Model.Query.CustLevel.Value" />
     <input type="hidden" name="FromDate" value="@Model.Query.FromDate" />

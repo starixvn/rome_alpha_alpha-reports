@@ -13,9 +13,9 @@
     <thead class="tableFloatingHeaderOriginal">
         <tr>
             <th class="sorting" data-colindex="0" data-sortedname="Username">@Resources.Username</th>
-            <th class="sorting" data-sortedname>@Resources.Commission 1</th>
-            <th class="sorting" data-sortedname>@Resources.Commission 2</th>
-            <th class="sorting" data-sortedname>@Resources.Commission 3</th>
+            <th class="sorting" data-sortedname>@Resources.Commission1</th>
+            <th class="sorting" data-sortedname>@Resources.Commission2</th>
+            <th class="sorting" data-sortedname>@Resources.Commission3</th>
             @if (Model.ShowChargeCommColumn)
             {
                 <th class="sorting" data-sortedname>@Resources.ChargeComm</th>
@@ -64,7 +64,7 @@
     }
 </table>
 
-<form class="form-inline hide" role="form" id="export-excel-form" action="~/CommissionByBettype/Excel">
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", "CommissionByBettype")">
     <input type="hidden" name="CustId" value="@Model.Query.CustId" />
     <input type="hidden" name="CustLevelId" value="@Model.Query.CustLevel.Value" />
     <input type="hidden" name="FromDate" value="@Model.Query.FromDate" />
@@ -76,19 +76,19 @@
     <td>@HtmlHelpers.FormatNumber(commission.Comm1)</td>
     <td>@HtmlHelpers.FormatNumber(commission.Comm2)</td>
     <td>@HtmlHelpers.FormatNumber(commission.Comm3)</td>
-    if (Model.ShowChargeCommColumn)
-    {
-    <td>@HtmlHelpers.FormatNumber(commission.ChargeComm)</td>
-    }
-    if (Model.ShowMyanmarOddsColumn)
-    {
-    <td>@HtmlHelpers.FormatNumber(commission.MOComm)</td>
-    }
+if (Model.ShowChargeCommColumn)
+{
+        <td>@HtmlHelpers.FormatNumber(commission.ChargeComm)</td>
+}
+if (Model.ShowMyanmarOddsColumn)
+{
+        <td>@HtmlHelpers.FormatNumber(commission.MOComm)</td>
+}
     <td>@HtmlHelpers.FormatNumber(commission.CasinoComm)</td>
-    if (Model.ShowOthersCommColumn)
-    {
-    <td>@HtmlHelpers.FormatNumber(commission.OtherComm)</td>
-    }
+if (Model.ShowOthersCommColumn)
+{
+        <td>@HtmlHelpers.FormatNumber(commission.OtherComm)</td>
+}
 }
 
 @section Scripts {

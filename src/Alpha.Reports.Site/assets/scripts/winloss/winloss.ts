@@ -172,7 +172,7 @@ class WinLossView {
 
     onSwitchModeEvent = () => {
         var isStackMode = this.$tableReport.hasClass("stack-mode");
-        this.replaceDrilldownParam("IsStackMode", !isStackMode); 
+        this.replaceDrilldownParam("IsStackMode", !isStackMode);
         this.setCssBySwitchMode(isStackMode);
         if (this.isFirstSwitchMode) {
             this.renderAtFirstSwitchMode(isStackMode);
@@ -191,7 +191,7 @@ class WinLossView {
         this.setCssBySwitchMode(false);
         this.renderAtFirstSwitchMode(false);
         this.isFirstSwitchMode = false;
-        this.replaceDrilldownParam("IsStackMode", true); 
+        this.replaceDrilldownParam("IsStackMode", true);
         this.$.unblockUI();
     }
 
@@ -212,13 +212,13 @@ class WinLossView {
         alphaReports.splitCell("col-turnover");
         this$.each(levels, function (index: number) {
             var level = levels[index];
-            if (level == "master") {
+            if (level === "master") {
                 alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? "" : " altercol");
             }
             else {
                 alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
             }
-           
+
         });
     };
 
@@ -243,7 +243,7 @@ class WinLossView {
     combineToWinLossColumn = (level: string, index: number) => {
         var cellCss = "text-right col-" + level + "-winloss-combined";
 
-        if (level == "master") {
+        if (level === "master") {
             cellCss = cellCss + (index % 2 ? "" : " altercol");
         }
         else {
