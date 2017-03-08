@@ -239,6 +239,22 @@ a {
             }
         }
     }
+
+    .report-by{
+        padding-top: 15px;
+
+        span{
+            padding-left: 10px;
+        }
+
+        input{
+            margin-right: 0px;
+        }
+
+        label{
+            font-weight: normal;
+        }
+    }
 }
 
 // Ripple effect

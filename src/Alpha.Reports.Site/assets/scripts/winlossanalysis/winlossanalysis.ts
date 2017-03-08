@@ -259,18 +259,6 @@ class WinLossAnalysisView {
         if (sortedColumn.length === 0) {
             sortedColumn = this$(".sorting-desc");
         }
-
-        var isEvenRow = false;
-        this.$tableReport.find("tbody > tr").each(function () {
-            var $row = this$(this);
-            if ($row.hasClass("even-row") && !isEvenRow) {
-                $row.removeClass("even-row");
-            } else if (!$row.hasClass("even-row") && isEvenRow) {
-                $row.addClass("even-row");
-            }
-
-            isEvenRow = !isEvenRow;
-        });
     };
 
     getSortedColumnName = () => {

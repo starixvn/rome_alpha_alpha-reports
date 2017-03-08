@@ -14,13 +14,12 @@
     <div class="note">
         <span class="star">*</span>@Model.ViewDataInstructionMessage
     </div>
-    <br />
-    
-    <div>
-        <label>@Resources.ReportBy</label> 
+
+    <div class="report-by" >
+        <span>@Resources.ReportBy</span> 
         @foreach (var data in Model.ReportTypeData)
         {
-            <span style="margin-left: 15px;">
+            <span>
                 @Html.RadioButton("reportType", data.ReportTypeId, data.IsChecked, new { id = data.ReportTypeName })
                 @Html.Label(data.ReportTypeName, data.ReportTypeName)
             </span>
@@ -33,7 +32,6 @@
         @Html.Hidden("CustId", Model.CustId)
         @Html.Hidden("CustName", Model.CustName)
         @Html.Hidden("CustLevelId", Model.CustLevel.Value)
-        @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
 
         @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
         @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)

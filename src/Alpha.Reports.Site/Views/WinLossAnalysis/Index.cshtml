@@ -23,20 +23,20 @@
             <th class="sorting" rowspan="2" data-sortedname="@Model.SortPropertyNameDefault" data-colindex="0">@Model.ReportTypeName</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="BetCount" data-colindex="1">@Resources.BetCount</th>
             <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
-            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="2">
+            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="1">
                 <span class="prior-sortedcolumn">@Resources.BetCount</span>
                @Resources.TurnoverAbbr
             </th>
 
             <th colspan="3" class="col-level hidden-stack-mode">@Resources.Member</th>
-            <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="3">
+            <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="2">
                 @Resources.Member
                 <br />
                 (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
             <th colspan="3" class="col-level hidden-stack-mode">@Resources.Agent</th>
-            <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" rowspan="2" data-colindex="4">
+            <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" rowspan="2" data-colindex="3">
                 @Resources.Agent
                 <br />
                 (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -45,7 +45,7 @@
             @if (Model.CustLevel.IsMasterOrSuperLevel())
             {
                 <th colspan="3" class="col-level hidden-stack-mode">@Resources.Master</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="MasterNetWinLoss.WinLoss" rowspan="2" data-colindex="5">
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="MasterNetWinLoss.WinLoss" rowspan="2" data-colindex="4">
                     @Resources.Master
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -55,7 +55,7 @@
             @if (Model.CustLevel.IsSuperLevel())
             {
                 <th colspan="3" class="col-level hidden-stack-mode" >@Resources.Super</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperNetWinLoss.WinLoss" rowspan="2" data-colindex="6">
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperNetWinLoss.WinLoss" rowspan="2" data-colindex="5">
                     @Resources.Super
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -103,17 +103,14 @@
     </thead>
     @if (Model.ReportData.Any())
     {
-        var isEvenRow = false;
-
         <tbody>
           @foreach (var data in Model.ReportData)
           {
-                @RenderRow(data, false, isEvenRow)
-                isEvenRow = !isEvenRow;
+                @RenderRow(data, false)
             }
         </tbody>
         <tfoot>
-            @RenderRow(Model.GrandTotal, true, false)
+            @RenderRow(Model.GrandTotal, true)
         </tfoot>
     }
     else
@@ -125,19 +122,16 @@
     }
 </table>
 
-
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", "WinLossAnalysis")">
-    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
     @Html.HiddenFor(model => model.CustId)
     @Html.HiddenFor(model => model.CustName)
     @Html.HiddenFor(model => model.ToDate)
     @Html.HiddenFor(model => model.FromDate)
     @Html.HiddenFor(model => model.UserSelectedProductIds)
     @Html.HiddenFor(model => model.ReportTypeId)
-    <input id="ReportTypeName" name="ReportTypeName" value="@Model.ReportTypeName" type="hidden">
-    @Html.HiddenFor(model => model.ReportTypeName)
-    @Html.Hidden("ReportTypeName", Model.ReportTypeName)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    <input name="ReportTypeName" value="@Model.ReportTypeName" type="hidden">
 </form>
 
 @Html.HiddenFor(model => model.IsSetDefaultStackMode)
@@ -146,9 +140,9 @@
     @StaticResources.RenderScripts("~/assets/bundles/winlossanalysis/winlossanalysis")
 }
 
-@helper RenderRow(WinLossAnalysisModel data, bool isTotalRow, bool isEvenRow)
+@helper RenderRow(WinLossAnalysisModel data, bool isTotalRow)
 {
-    <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)@(isEvenRow ? "even-row" : string.Empty)">
+    <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)">
         <td class="text-left col-username">
             @(isTotalRow ? Resources.Total: data.RollupKey)
         </td>
