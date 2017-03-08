@@ -1,4 +1,7 @@
-﻿@helper FormatNumber(decimal value)
+﻿@using Alpha.Reports.Models
+@using Alpha.Reports.Site.App_GlobalResources;
+
+@helper FormatNumber(decimal value)
 {
     @value.ToString($"#,##0.00")
 }
@@ -25,4 +28,27 @@
     <td class="hidden-stack-mode @cellClass">
         @FormatNumber(cellValue)
     </td>
+}
+
+@helper DisplayUserLevelText(UserLevel userLevel)
+{
+if (userLevel.IsMemberLevel())
+{
+        @Resources.Member;
+}
+
+if (userLevel.IsAgentLevel())
+{
+        @Resources.Agent;
+}
+
+if (userLevel.IsMasterLevel())
+{
+        @Resources.Master;
+}
+
+if (userLevel.IsSuperLevel())
+{
+        @Resources.Super;
+}
 }

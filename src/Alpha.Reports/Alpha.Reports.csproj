@@ -91,6 +91,7 @@
     <Compile Include="Criteria\GetLeaguesByCustomerCriteria.cs" />
     <Compile Include="Criteria\GetProductsCriteria.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteria.cs" />
+    <Compile Include="Criteria\Outstanding\OutstandingCriteria.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Models\CustInfo.cs" />
     <Compile Include="Models\PagedReportData.cs" />
     <Compile Include="Models\MatchWinLoss\MatchWinLossModel.cs" />
+    <Compile Include="Models\Outstanding\OutstandingModel.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModel.cs" />
     <Compile Include="Models\Product.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
     <Compile Include="Models\Winloss\WinLossModel.cs" />
     <Compile Include="Params\MatchWinLossParam.cs" />
+    <Compile Include="Params\OutstandingParam.cs" />
     <Compile Include="Params\GetLeaguesByCustomerParam.cs" />
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
@@ -138,6 +141,7 @@
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\MatchWinLossService.cs" />
     <Compile Include="Services\WinLossService.cs" />
+    <Compile Include="Services\OutstandingService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\WinLossDetailService.cs" />
     <Compile Include="Utils\SystemTime.cs" />

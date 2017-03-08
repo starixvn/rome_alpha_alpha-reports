@@ -126,7 +126,7 @@ class SortComponent {
 
         this.$sortContainer.off("sortEnd").on("sortEnd", () => {
             var $sortedcolumn = this.$sortContainer
-                .find("thead.tableFloatingHeaderOriginal th.sorting.sorting-asc,thead.tableFloatingHeaderOriginal th.sorting.sorting-desc");
+                .find("thead.tableFloatingHeaderOriginal th.sorting.sorting-asc:visible,thead.tableFloatingHeaderOriginal th.sorting.sorting-desc:visible");
 
             var modeFilterClass = this.$sortContainer.hasClass("stack-mode")
                 ? ".hidden-stack-mode"

@@ -48,13 +48,14 @@
             {
                 var breadcrumbLevelJson = GetBreadcrumbLevelJson(controllerContext);
 
-                if (!string.IsNullOrWhiteSpace(breadcrumbLevelJson))
+                if (!string.IsNullOrWhiteSpace(breadcrumbLevelJson)
+                   && breadcrumbLevelJson.LastIndexOf(",[", StringComparison.OrdinalIgnoreCase) < 0)
                 {
                     try
                     {
                         reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(breadcrumbLevelJson);
                     }
-                    catch (JsonReaderException)
+                    catch (JsonException)
                     {
                         //// TODO: temporary
                         ////LogWarning(ex);
@@ -77,7 +78,7 @@
             return controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"];
         }
 
-        protected virtual void LogWarning(JsonReaderException ex)
+        protected virtual void LogWarning(JsonException ex)
         {
             Logs.WriteWarn(ex, UserSession.Current.CustId);
         }

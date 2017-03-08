@@ -43,6 +43,16 @@
     ]
   },
   {
+    "outputFileName": "assets/bundles/outstanding/outstanding.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/outstanding/outstanding.js"
+    ]
+  },
+  {
     "outputFileName": "assets/bundles/matchwinloss/matchwinloss.js",
     "inputFiles": [
       "assets/scripts/core.js",
