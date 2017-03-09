@@ -25,23 +25,13 @@
         public DateTime ToDate { get; }
 
         public override string GetSettingKey()
-        {
-            if (CustLevel.IsSuperLevel())
-            {
-                return "Age_Rpt_CommByBettype_HR_Master";
-            }
-
-            if (CustLevel.IsMasterLevel())
-            {
-                return "Age_Rpt_CommByBettype_HR_Agent";
-            }
-
-            return "Age_Rpt_CommByBettype_HR_Member";
-        }
+            => CustLevel.IsAgentLevel()
+            ? "Age_Rpt_CommByBettype_HR_Member"
+            : CustLevel.IsMasterLevel()
+            ? "Age_Rpt_CommByBettype_HR_Agent"
+            : "Age_Rpt_CommByBettype_HR_Master";
 
         public override bool IsValid()
-        {
-            return !CustLevel.IsMemberLevel();
-        }
+            => !CustLevel.IsMemberLevel();
     }
 }

@@ -28,23 +28,13 @@
         public DateTime MoveBetsDay { get; }
 
         public override string GetSettingKey()
-        {
-            if (CustLevel.IsSuperLevel())
-            {
-                return "Age_Rpt_CommByBettype_Master";
-            }
-
-            if (CustLevel.IsMasterLevel())
-            {
-                return "Age_Rpt_CommByBettype_Agent";
-            }
-
-            return "Age_Rpt_CommByBettype_Member";
-        }
+            => CustLevel.IsAgentLevel()
+            ? "Age_Rpt_CommByBettype_Member"
+            : CustLevel.IsMasterLevel()
+            ? "Age_Rpt_CommByBettype_Agent"
+            : "Age_Rpt_CommByBettype_Master";
 
         public override bool IsValid()
-        {
-            return !CustLevel.IsMemberLevel();
-        }
+            => !CustLevel.IsMemberLevel();
     }
 }
