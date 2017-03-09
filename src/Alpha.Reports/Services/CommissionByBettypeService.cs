@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Criteria.CommissionByBettype;
     using Fanex.Data.Repository;
     using Models.CommissionByBettype;
@@ -14,7 +13,7 @@
 
     public class CommissionByBettypeServiceImpl : CommissionByBettypeService
     {
-        private IDynamicRepository repository;
+        private readonly IDynamicRepository repository;
 
         public CommissionByBettypeServiceImpl(IDynamicRepository dynamicRepository)
         {
@@ -23,11 +22,6 @@
 
         public IEnumerable<CommissionByBettypeModel> GetAllCommissionByBettypes(CommissionByBettypeParam param)
         {
-            if (param.CustId <= 0 || param.CustLevel.IsUplineOf(param.UserLevel))
-            {
-                return Enumerable.Empty<CommissionByBettypeModel>();
-            }
-
             var criteria = new CommissionByBettypeCriteria(param.CustLevel, param.CustId, param.FromDate, param.ToDate, param.MoveBetsDay);
 
             return repository.Fetch<CommissionByBettypeModel>(criteria);

@@ -8,7 +8,6 @@
     using ONEbook.SpreadSheets.NPOI;
     using Reports.Models.CommissionByBettype;
     using Services;
-    using Sunplus.Agent.Model.Definitions;
 
     public interface CommissionByBettypeWorkbook
     {
@@ -54,12 +53,6 @@
             if (!userPermissionService.IsShowMyanmarOdds())
             {
                 RemoveColumnIndex(npoiSheet, 5);
-                headerAddress.LastColumn--;
-            }
-
-            if (!userPermissionService.IsEnableProduct(ProductIdConstants.CockFighting))
-            {
-                RemoveColumnIndex(npoiSheet, 4);
                 headerAddress.LastColumn--;
             }
 

@@ -357,16 +357,17 @@ class WinLossDetailView {
 }
 
 $(() => {
+    let linkBuilderComponent = new LinkBuilderComponent($);
     const winLossDetailView = new WinLossDetailView(
         $,
         new DateRangePickerComponent($),
         new PagerComponent($),
         new ProductMultiSelectionComponent($),
-        new SortComponent($),
+        new SortComponent($, linkBuilderComponent),
         new ReportTooltip($),
         new MonthPickerComponent($),
         new NetTurnoverTooltipComponent($),
-        new LinkBuilderComponent($));
+        linkBuilderComponent);
 
     winLossDetailView.init();
 });

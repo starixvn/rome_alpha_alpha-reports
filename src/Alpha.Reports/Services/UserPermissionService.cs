@@ -13,19 +13,10 @@
 
     public class UserPermissionServiceImpl : UserPermissionService
     {
-        public bool IsIMbcCustomer()
-        {
-            return UserPermission.IsIMBCCustomer;
-        }
+        public bool IsIMbcCustomer() => UserPermission.IsIMBCCustomer;
 
-        public bool IsShowMyanmarOdds()
-        {
-            return UserPermission.IsShowMyanmarOdds;
-        }
+        public bool IsShowMyanmarOdds() => UserPermission.IsShowMyanmarOdds;
 
-        public bool IsEnableProduct(int product)
-        {
-            return UserPermission.IsEnableProduct(product);
-        }
+        public bool IsEnableProduct(int product) => UserPermission.IsEnableProduct(product);
     }
 }

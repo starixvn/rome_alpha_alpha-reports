@@ -68,7 +68,6 @@
             yield return typeof(ReportBaseController).Assembly;
         }
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Reviewed")]
         private static void RegisterServices(Container container)
         {
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();

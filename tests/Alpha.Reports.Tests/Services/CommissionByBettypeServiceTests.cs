@@ -16,36 +16,6 @@
     public class CommissionByBettypeServiceTests
     {
         [Theory]
-        [InlineData(-1)]
-        [InlineData(0)]
-        public void GetAllCommissionByBettypes_When_CustIdLessOrEqualZero_Returns_EmptyData(int custId)
-        {
-            // Arrange
-            var param = new CommissionByBettypeParam(UserLevel.Agent, UserLevel.Master, custId, default(DateTime), default(DateTime), default(DateTime));
-            var service = new CommissionByBettypeServiceImpl(null);
-
-            // Act
-            var commissions = service.GetAllCommissionByBettypes(param);
-
-            // Assert
-            Assert.Empty(commissions);
-        }
-
-        [Fact]
-        public void GetAllCommissionByBettypes_When_UserLevelLessThanCustLevel_Returns_EmptyData()
-        {
-            // Arrange
-            var param = new CommissionByBettypeParam(UserLevel.Agent, UserLevel.Master, 0, default(DateTime), default(DateTime), default(DateTime));
-            var service = new CommissionByBettypeServiceImpl(null);
-
-            // Act
-            var commissions = service.GetAllCommissionByBettypes(param);
-
-            // Assert
-            Assert.Empty(commissions);
-        }
-
-        [Theory]
         [InlineData(3, 1)]
         [InlineData(3, 3)]
         public void GetAllCommissionByBettypes_When_UserLevelGreaterOrEqualCustLevel_Returns_NonEmptyData(byte userLevelId, byte custLevelId)

@@ -75,7 +75,7 @@ class EnterResultView {
     registerEvents = () => {
         this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
-        this.$excelIcon.on("click", this.onExportExcelEvent); 
+        this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$reportForm.submit(this.onSubmitNormalReportEvent);
     };
     onFilterEvent = () => {
@@ -110,11 +110,10 @@ class EnterResultView {
     };
 }
 
-const enterResultView = new EnterResultView(
-    $,
-    new DateRangePickerComponent($),
-    new SortComponent($));
-
 $(function () {
+    const enterResultView = new EnterResultView(
+        $,
+        new DateRangePickerComponent($),
+        new SortComponent($, new LinkBuilderComponent($)));
     enterResultView.init();
 });

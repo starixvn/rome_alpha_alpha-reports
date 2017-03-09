@@ -33,15 +33,12 @@ class OutstandingView {
     init = () => {
         this.cacheElements();
 
-        this.sortComponent.render({
-            sortContainer: this.$tableReport,
-            canSort: parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
-            hasAllDataOnClient: true,
-            headers: {
-                0: { sorter: "text" }
-            },
-            afterSortFunction: this.afterSort
-        });
+        this.sortComponent.render(new SortOption(
+            this.$tableReport,
+            parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
+            true,
+            { 0: { sorter: "text" } },
+            this.sortComponent.afterSort));
 
         this.$tableReport.stickyTableHeaders();
 
@@ -142,11 +139,12 @@ class OutstandingView {
 }
 
 $(function () {
+    let linkBuilderComponent = new LinkBuilderComponent($);
     const outstandingView = new OutstandingView(
         $,
-        new SortComponent($),
+        new SortComponent($, linkBuilderComponent),
         new ProductMultiSelectionComponent($),
-        new LinkBuilderComponent($));
+        linkBuilderComponent);
 
     outstandingView.init();
 });

@@ -33,7 +33,7 @@
             var viewmodel = new RacingCommissionViewModel(query, null, default(DateTime), null);
 
             // Act
-            viewmodel.BuildDrillDownLink(new RacingCommissionModel { CustId = custId, CustName = custName }, null);
+            viewmodel.BuildDrillDownLink(new RacingCommissionModel(custId, custName, 0, 0, 0), null);
 
             // Assert
             UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
@@ -70,7 +70,7 @@
             var viewmodel = new RacingCommissionViewModel(query, null, default(DateTime), null);
 
             // Act
-            viewmodel.BuildDrillDownLink(new RacingCommissionModel { CustId = custId, CustName = custName }, currentUrl);
+            viewmodel.BuildDrillDownLink(new RacingCommissionModel(custId, custName, 0, 0, 0), currentUrl);
 
             // Assert
             UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(

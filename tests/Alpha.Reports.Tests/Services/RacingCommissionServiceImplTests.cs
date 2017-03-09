@@ -16,36 +16,6 @@
     public class RacingCommissionServiceImplTests
     {
         [Theory]
-        [InlineData(-1)]
-        [InlineData(0)]
-        public void GetCustomerCommission_WhenCustIdLessOrEqualZero_ReturnsEmptyData(int custId)
-        {
-            // Arrange
-            var param = new RacingCommissionParam(UserLevel.Agent, UserLevel.Master, custId, default(DateTime), default(DateTime));
-            var service = new RacingCommissionServiceImpl(null);
-
-            // Act
-            var commissions = service.GetCustomerCommission(param);
-
-            // Assert
-            Assert.Empty(commissions);
-        }
-
-        [Fact]
-        public void GetCustomerCommission_WhenUserLevelLessThanCustLevel_ReturnsEmptyData()
-        {
-            // Arrange
-            var param = new RacingCommissionParam(UserLevel.Agent, UserLevel.Master, 0, default(DateTime), default(DateTime));
-            var service = new RacingCommissionServiceImpl(null);
-
-            // Act
-            var commissions = service.GetCustomerCommission(param);
-
-            // Assert
-            Assert.Empty(commissions);
-        }
-
-        [Theory]
         [InlineData(3, 1)]
         [InlineData(3, 3)]
         public void GetCustomerCommission_WhenUserLevelGreaterOrEqualCustLevel_ReturnsNonEmptyData(byte userLevelId, byte custLevelId)

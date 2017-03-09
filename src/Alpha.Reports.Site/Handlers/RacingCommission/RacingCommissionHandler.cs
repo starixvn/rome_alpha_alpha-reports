@@ -8,8 +8,8 @@
 
     public class RacingCommissionHandler : BaseHandler, IRequestHandler<RacingCommissionQuery, RacingCommissionViewModel>
     {
-        private RacingCommissionService racingCommissionService;
-        private ReportDateService reportDateService;
+        private readonly RacingCommissionService racingCommissionService;
+        private readonly ReportDateService reportDateService;
 
         public RacingCommissionHandler(RacingCommissionService racingCommissionService, ReportDateService reportDateService)
         {

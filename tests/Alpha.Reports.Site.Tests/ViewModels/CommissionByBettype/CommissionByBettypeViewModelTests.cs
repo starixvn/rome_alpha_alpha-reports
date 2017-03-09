@@ -14,17 +14,16 @@
     public class CommissionByBettypeViewModelTests
     {
         [Theory]
-        [InlineData(true, false, false, 6)]
-        [InlineData(false, true, false, 6)]
-        [InlineData(false, false, true, 6)]
-        [InlineData(false, false, false, 5)]
-        public void Should_ReturnCorrectNumberOfColumns(bool showChargeCommColumn, bool showMyanmarOddsColumn, bool showOthersCommColumn, int exptectedValue)
+        [InlineData(true, false, 6)]
+        [InlineData(false, true, 6)]
+        [InlineData(false, false, 5)]
+        public void Should_ReturnCorrectNumberOfColumns(bool showChargeCommColumn, bool showMyanmarOddsColumn, int exptectedValue)
         {
             // Arrange
             var user = Substitute.For<IUser>();
             user.LevelId.Returns((byte)1);
             var query = new CommissionByBettypeQuery(user);
-            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), showChargeCommColumn, showMyanmarOddsColumn, showOthersCommColumn);
+            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), showChargeCommColumn, showMyanmarOddsColumn);
 
             // Act
             var result = viewmodel.GetNumCols();
@@ -50,10 +49,10 @@
             var query = new CommissionByBettypeQuery(user);
             query.CustLevelId = custLevelId;
 
-            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), false, false, false);
+            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), false, false);
 
             // Act
-            viewmodel.BuildDrillDownLink(new CommissionByBettypeModel { CustId = custId, CustName = custName }, currentUrl);
+            viewmodel.BuildDrillDownLink(new CommissionByBettypeModel(custId, custName, 0, 0, 0, 0, 0, 0), currentUrl);
 
             // Assert
             UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(

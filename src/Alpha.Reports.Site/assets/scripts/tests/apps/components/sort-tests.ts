@@ -2,7 +2,7 @@
     let sortComponent: SortComponent;
 
     beforeEach(() => {
-        sortComponent = new SortComponent($);
+        sortComponent = new SortComponent($, new LinkBuilderComponent($));
     });
 
     describe("_render", () => {

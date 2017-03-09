@@ -58,6 +58,7 @@
       "assets/scripts/core.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
       "assets/scripts/racingcommission/racingcommission.js"
     ]
   },
@@ -67,6 +68,7 @@
       "assets/scripts/core.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
       "assets/scripts/commissionbybettype/commissionbybettype.js"
     ]
   }

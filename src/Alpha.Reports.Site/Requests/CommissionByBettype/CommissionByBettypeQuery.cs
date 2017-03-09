@@ -14,5 +14,11 @@
         }
 
         public int UserSelectedDateRangeOption { get; set; }
+
+        public string SortPropertyName { get; set; }
+
+        public bool IsDescendingSort { get; set; }
+
+        public bool IsFilterVisible { get; set; } = true;
     }
 }

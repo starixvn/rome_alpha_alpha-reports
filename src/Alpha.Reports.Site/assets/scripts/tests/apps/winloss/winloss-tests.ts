@@ -1,10 +1,10 @@
 ﻿describe("WinLoss_", () => {
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
-    const sortComponent = new SortComponent($);
+    const linkBuilderComponent = new LinkBuilderComponent($);
+    const sortComponent = new SortComponent($, linkBuilderComponent);
     const monthPickerComponent = new MonthPickerComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
-    const linkBuilderComponent = new LinkBuilderComponent($);
     const reportTooltip = new ReportTooltip($);
     let winLossView: WinLossView;
 
@@ -256,11 +256,11 @@
             Call renderAtFirstSwitchMode Method,
             Call replaceDrilldownParam Method`, () => {
 
-            // assert
-            expect(winLossView.setCssBySwitchMode).toHaveBeenCalledWith(false);
-            expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsStackMode", true);
-            expect(winLossView.renderAtFirstSwitchMode).toHaveBeenCalledWith(false);
-        });
+                // assert
+                expect(winLossView.setCssBySwitchMode).toHaveBeenCalledWith(false);
+                expect(winLossView.replaceDrilldownParam).toHaveBeenCalledWith("IsStackMode", true);
+                expect(winLossView.renderAtFirstSwitchMode).toHaveBeenCalledWith(false);
+            });
 
         it("Always -> Unblocks UI", () => {
             // assert

@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Handlers.CommissionByBettype
 {
-    using System;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -18,8 +17,8 @@
         private readonly CommissionByBettypeWorkbook workbook;
 
         public CommissionByBettypeExcelHandler(
-            CommissionByBettypeService commissionServiceImpl, 
-            ReportDateService reportDateServiceImpl, 
+            CommissionByBettypeService commissionServiceImpl,
+            ReportDateService reportDateServiceImpl,
             CommissionByBettypeWorkbook workbookImpl)
         {
             commissionService = commissionServiceImpl;
@@ -30,11 +29,11 @@
         public ExcelFileViewModel Handle(CommissionByBettypeExcelQuery message)
         {
             var param = new CommissionByBettypeParam(
-                message.ViewerLevel, 
-                message.CustLevel, 
-                message.CustId, 
-                message.FromDate, 
-                message.ToDate, 
+                message.ViewerLevel,
+                message.CustLevel,
+                message.CustId,
+                message.FromDate,
+                message.ToDate,
                 reportDateService.GetMoveBetsDay());
 
             var commissions = commissionService.GetAllCommissionByBettypes(param);
@@ -63,9 +62,8 @@
             .Map(Column.C, commission => commission.Comm2)
             .Map(Column.D, commission => commission.Comm3)
             .Map(Column.E, commission => commission.ChargeComm)
-            .Map(Column.F, commission => commission.MOComm)
-            .Map(Column.G, commission => commission.CasinoComm)
-            .Map(Column.H, commission => commission.OtherComm);
+            .Map(Column.F, commission => commission.MyanmarOddsComm)
+            .Map(Column.G, commission => commission.CasinoComm);
 
             return mapper;
         }
@@ -81,10 +79,10 @@
 
         private string GetExcelFileName(CommissionByBettypeExcelQuery message, CommissionByBettypeParam commissionParam)
             => string.Join(
-                "-", 
-                Resources.CommissionByBettype, 
-                message.CustName, 
-                commissionParam.FromDate.ToShortDateWithSlash(), 
+                "-",
+                Resources.CommissionByBettype,
+                message.CustName,
+                commissionParam.FromDate.ToShortDateWithSlash(),
                 commissionParam.ToDate.ToShortDateWithSlash());
     }
 }

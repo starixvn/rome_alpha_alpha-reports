@@ -12,12 +12,7 @@
         public void Total_WhenAcceses_ReturnsSumAllToteProperties()
         {
             // Arrange
-            var model = new RacingCommissionModel
-            {
-                ToteWin = 1,
-                TotePlace = 2,
-                ToteWinPlace = 3
-            };
+            var model = new RacingCommissionModel(0, string.Empty, 1, 2, 3);
             var expectedValue = model.ToteWin + model.TotePlace + model.ToteWinPlace;
 
             // Act
@@ -32,11 +27,11 @@
             // Arrange
             var commissions = new List<RacingCommissionModel>
             {
-                  new RacingCommissionModel { ToteWin = 1, TotePlace = 2, ToteWinPlace = 3 },
-                  new RacingCommissionModel { ToteWin = 4, TotePlace = 5, ToteWinPlace = 6 }
+                new RacingCommissionModel(0, string.Empty, 1, 2, 3),
+                new RacingCommissionModel(0, string.Empty, 4, 5, 6)
             };
 
-            var expectedCommission = new RacingCommissionModel { ToteWin = 5, TotePlace = 7, ToteWinPlace = 9 };
+            var expectedCommission = new RacingCommissionModel(0, string.Empty, 5, 7, 9);
 
             // Act
             var accumulatedCommission = RacingCommissionModel.GetAccumulatedCommission(commissions);

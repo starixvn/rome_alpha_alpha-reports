@@ -1,7 +1,7 @@
 ﻿@using Alpha.Reports.Site.ViewModels.RacingCommission
 @model RacingCommissionFilterViewModel
 
-<form class="form-inline filter" role="form" id="report-form" action="@Url.Action("Index")">
+<form class="form-inline filter @(Model.Visible ? string.Empty:"hide")" role="form" id="report-form" action="@Url.Action("Index")">
     @DateRangePicker.Render(Model.DateRangePicker)
 
     <div class="form-group">
@@ -11,4 +11,14 @@
     <div class="note">
         <span class="star">*</span>@Model.ViewDataInstructionMessage
     </div>
+
+    @Html.Hidden("IsFilterVisible", Model.Visible ? "true" : "false")
+
+    @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
+    @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
+
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
+    @Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
 </form>
