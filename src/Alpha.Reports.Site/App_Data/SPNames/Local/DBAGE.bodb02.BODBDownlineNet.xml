@@ -34,16 +34,6 @@
     <Setting Key="Age_Rpt_WinLoss_Agent" SpName="Age_Rpt_WinLoss_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
     <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
   </Function>
-  
-  <Function Name="Win Loss by Bettype">
-    <Setting Key="Age_Rpt_WinLossByBettype_Ag" SpName="Age_Rpt_WinLossByBettype_Ag" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossByBettype_MAg" SpName="Age_Rpt_WinLossByBettype_MAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossByBettype_SAg" SpName="Age_Rpt_WinLossByBettype_SAg" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-
-    <Setting Key="Age_Rpt_WinLossByGameType_Member" SpName="Age_Rpt_WinLossByGameType_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossByGameType_Agent" SpName="Age_Rpt_WinLossByGameType_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossByGameType_Master" SpName="Age_Rpt_WinLossByGameType_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-  </Function>
 
   <Function Name="Match Win Loss Detail">
     <Setting Key="Age_Rpt_MatchWinlossDetail_Master" SpName="Age_Rpt_MatchWinlossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
@@ -60,4 +50,9 @@
     <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 
+  <Function Name="Win Loss by Bettype">
+    <Setting Key="Age_Rpt_WinLossByBettype_Member" SpName="Age_Rpt_WinLossByBettype_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByBettype_Agent" SpName="Age_Rpt_WinLossByBettype_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByBettype_Master" SpName="Age_Rpt_WinLossByBettype_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+  </Function>
 </Functions>

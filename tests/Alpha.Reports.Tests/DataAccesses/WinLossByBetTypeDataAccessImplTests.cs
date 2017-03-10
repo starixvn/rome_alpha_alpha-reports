@@ -19,7 +19,7 @@
     public class WinLossByBetTypeDataAccessImplTests
     {
         private readonly ObjectDbFixture objectDbFixture;
-        private readonly WinLossByBettypeDataAccessImpl winLossByBettypeDataAccessImpl;
+        private readonly WinLossByBetTypeDataAccessImpl winLossByBettypeDataAccessImpl;
 
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
         private readonly CompareLogic compareLogic;
@@ -31,7 +31,7 @@
             cacheRefService = Substitute.For<CacheRefService>();
             cacheRefService.GetBetTypeName(71).Returns("Casino Games");
             cacheRefService.GetBetTypeName(1101).Returns("Premium Baccarat");
-            winLossByBettypeDataAccessImpl = new WinLossByBettypeDataAccessImpl(cacheRefService);
+            winLossByBettypeDataAccessImpl = new WinLossByBetTypeDataAccessImpl(cacheRefService);
             compareLogic = new CompareLogic();
         }
 

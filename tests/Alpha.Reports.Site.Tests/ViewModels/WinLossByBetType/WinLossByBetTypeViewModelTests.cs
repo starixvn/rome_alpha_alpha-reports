@@ -15,6 +15,7 @@
     using RemotingRef;
     using Reports.Models;
     using Reports.Models.WinlossByBetType;
+    using Reports.Models.WinLossByProduct;
     using Services;
     using Site.Requests.WinLossByBetType;
     using Site.ViewModels.WinLossByBetType;
@@ -56,7 +57,7 @@
             // Arrange
             var message = CreateWinlossByBetTypeQuery(4);
             var winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
-               Enumerable.Empty<WinLossByBetTypeModel>(),
+               Enumerable.Empty<WinLossByProductModel>(),
                fixture.Create<WinLossByBetTypeModel>(),
                message,
                fixture.Create<WinLossByBetTypeParam>(),
@@ -106,7 +107,7 @@
             // Arrange
             var message = CreateWinlossByBetTypeQuery(custLevelId);
             var winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
-               Enumerable.Empty<WinLossByBetTypeModel>(),
+               Enumerable.Empty<WinLossByProductModel>(),
                fixture.Create<WinLossByBetTypeModel>(),
                message,
                fixture.Create<WinLossByBetTypeParam>(),
@@ -129,7 +130,7 @@
             // Arrange
             var message = CreateWinlossByBetTypeQuery(custLevelId);
             var winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
-               Enumerable.Empty<WinLossByBetTypeModel>(),
+               Enumerable.Empty<WinLossByProductModel>(),
                fixture.Create<WinLossByBetTypeModel>(),
                message,
                fixture.Create<WinLossByBetTypeParam>(),
@@ -139,43 +140,6 @@
 
             // Act & Assert
             Assert.Equal(winlossByBettypeViewModel.DownLineLevelName, expectedDownLineLevelName);
-        }
-
-        [Fact]
-        public void BuildWinLossByGameTypePath_ViewWinLossByGameType_CallAddQueryStringParamsFuncToBuilWinLossByGameTypePath()
-        {
-            // Arrange
-            var message = CreateWinlossByBetTypeQuery(4);
-            var fromDate = new DateTime(1989, 5, 28);
-            var toDate = new DateTime(1989, 5, 29);
-            var winlossByBettypeParam = new WinLossByBetTypeParam(1, fromDate, toDate, Enumerable.Empty<int>(), UserLevel.Agent);
-            var winlossByBettypeViewModel = new WinLossByBetTypeViewModel(
-               Enumerable.Empty<WinLossByBetTypeModel>(),
-               fixture.Create<WinLossByBetTypeModel>(),
-               message,
-               winlossByBettypeParam,
-               fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<SelectListItem>(),
-               cacheRefService);
-            Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
-
-            // Act
-            winlossByBettypeViewModel.BuildWinLossByGameTypePath(22, "Casino Win Loss", "WinLossByGameTypePath");
-
-            // Assert
-            Site.Helpers.UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
-                "WinLossByGameTypePath",
-                Arg.Is<Dictionary<string, object>>(
-                    routeValue =>
-                        (int)routeValue["UserSelectedDateRangeOption"] == 0
-                        && (DateTime)routeValue["FromDate"] == fromDate
-                        && (DateTime)routeValue["ToDate"] == toDate
-                        && (int)routeValue["ProductId"] == 22
-                        && (bool)routeValue["IsStackMode"] == false
-                        && (bool)routeValue["IsDescendingSort"] == false
-                        && (bool)routeValue["IsFilterVisible"] == true
-                        && (string)routeValue["Title"] == "Casino Win Loss"
-                        && (bool)routeValue["IsSetDefaultStackMode"] == false));
         }
 
         private WinLossByBetTypeQuery CreateWinlossByBetTypeQuery(byte custLevelId)

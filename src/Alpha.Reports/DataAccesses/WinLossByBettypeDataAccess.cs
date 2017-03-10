@@ -15,11 +15,11 @@
         IEnumerable<WinLossByBetTypeModel> GetWinLossByBetType(WinLossByBetTypeCriteria criteria);
     }
 
-    public class WinLossByBettypeDataAccessImpl : WinLossByBetTypeDataAccess
+    public class WinLossByBetTypeDataAccessImpl : WinLossByBetTypeDataAccess
     {
         private readonly CacheRefService cacheRefService;
 
-        public WinLossByBettypeDataAccessImpl(CacheRefService cacheRefService)
+        public WinLossByBetTypeDataAccessImpl(CacheRefService cacheRefService)
         {
             this.cacheRefService = cacheRefService;
         }

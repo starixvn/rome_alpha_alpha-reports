@@ -14,13 +14,13 @@
         IEnumerable<WinLossByProductModel> GetWinLossByBetType(WinLossByBetTypeParam param);
     }
 
-    public class WinLossByBettypeServiceImpl : WinLossByBetTypeService
+    public class WinLossByBetTypeServiceImpl : WinLossByBetTypeService
     {
         private readonly ReportDateService reportDateService;
         private readonly WinLossByBetTypeDataAccess dataAccess;
         private readonly CacheRefService cacheRefService;
 
-        public WinLossByBettypeServiceImpl(
+        public WinLossByBetTypeServiceImpl(
             ReportDateService reportDateService,
             WinLossByBetTypeDataAccess dataAccess,
              CacheRefService cacheRefService)
