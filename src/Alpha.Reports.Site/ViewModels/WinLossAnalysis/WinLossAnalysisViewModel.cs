@@ -75,7 +75,7 @@
 
         public string ReportTypeName => ReportTypeData.FirstOrDefault(reportType => reportType.IsChecked.Equals(true)).ReportTypeName;
 
-        public string Title => $"{ReportTypeName} {Resources.WinLossAnalysis}";
+        public string Title => ReportTypeData.FirstOrDefault(reportType => reportType.IsChecked.Equals(true)).ReportTypeTitlte;
 
         private DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
@@ -98,9 +98,9 @@
         {
             var reportTypeData = new List<WinLossAnalysisReportType>()
             {
-                new WinLossAnalysisReportType(1, Resources.Daily, false),
-                new WinLossAnalysisReportType(2, Resources.Monthly, false),
-                new WinLossAnalysisReportType(3, Resources.Sport, false)
+                new WinLossAnalysisReportType(1, Resources.Daily, false, Resources.DailyWinLossAnalysis),
+                new WinLossAnalysisReportType(2, Resources.Monthly, false, Resources.MonthlyWinLossAnalysis),
+                new WinLossAnalysisReportType(3, Resources.Sport, false, Resources.SportWinLossAnalysis)
             };
 
             foreach (var reportType in reportTypeData.Where(data => data.ReportTypeId.Equals(message.ReportTypeId)))

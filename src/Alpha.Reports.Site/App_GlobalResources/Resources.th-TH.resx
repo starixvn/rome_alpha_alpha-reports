@@ -347,17 +347,17 @@
     <value>ผลแพ้ชนะต่อแมตช์</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
-		<value>การเดิมพันที่ยังไม่สิ้นสุด</value>
-	</data>
+    <value>การเดิมพันที่ยังไม่สิ้นสุด</value>
+  </data>
   <data name="MemberOutstanding" xml:space="preserve">
-		<value>การเดิมพันที่ยังไม่สิ้นสุดของ สมาชิก</value>
-	</data>
+    <value>การเดิมพันที่ยังไม่สิ้นสุดของ สมาชิก</value>
+  </data>
   <data name="AgentOutstanding" xml:space="preserve">
-		<value>เอเย่นต์ยอดคงค้าง</value>
-	</data>
+    <value>เอเย่นต์ยอดคงค้าง</value>
+  </data>
   <data name="MasterOutstanding" xml:space="preserve">
-		<value>การเดิมพันที่ยังไม่สิ้นสุดของ Master</value>
-	</data>
+    <value>การเดิมพันที่ยังไม่สิ้นสุดของ Master</value>
+  </data>
   <data name="Match" xml:space="preserve">
     <value>การแข่งขัน</value>
   </data>
@@ -379,6 +379,28 @@
   <data name="NumberGame" xml:space="preserve">
     <value>เกมหมายเลข</value>
   </data>
+   <data name="Daily" xml:space="preserve">
+    <value>รายวัน</value>
+  </data>
+  <data name="DailyWinLossAnalysis" xml:space="preserve">
+    <value>การวิเคราะห์ ผลได้เสีย รายวัน</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>รายเดือน</value>
+  </data>
+  <data name="MonthlyWinLossAnalysis" xml:space="preserve">
+    <value>การวิเคราะห์ ผลได้เสีย รายเดือน</value>
+  </data>
+  <data name="ReportBy" xml:space="preserve">
+    <value>รายงาน โดย</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>กีฬา</value>
+  </data>
+  <data name="SportWinLossAnalysis" xml:space="preserve">
+    <value>การวิเคราะห์ ผลได้เสีย รายการกีฬา</value>
+  </data>
+
   <data name="SubTotal" xml:space="preserve">
     <value>ยอดรวม</value>
   </data>

@@ -106,14 +106,14 @@
                 noInfomationText: Resources.NoInformationIsAvailable);
 
         private string GetReporTitle(WinLossAnalysisExcelQuery message)
-            => $"{Resources.ResourceManager.GetString(message.ReportTypeName)} {Resources.WinLossAnalysis}" +
+            => $"{message.ReportTypeTitle}" +
                $" {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
                $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
 
         private string GetExcelFileName(WinLossAnalysisExcelQuery message, WinLossAnalysisParam param)
            => string.Join(
                "-",
-               $"{Resources.ResourceManager.GetString(message.ReportTypeName)} {Resources.WinLossAnalysis}",
+               $"{message.ReportTypeTitle}",
                message.CustName,
                param.FromDate.ToShortDateWithSlash(),
                param.ToDate.ToShortDateWithSlash());

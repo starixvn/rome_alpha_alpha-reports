@@ -385,7 +385,7 @@
     <value>FT</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
-     <value>Outstanding</value>
+    <value>Outstanding</value>
   </data>
   <data name="MemberOutstanding" xml:space="preserve">
     <value>Member Outstanding</value>
@@ -459,5 +459,14 @@
   </data>
   <data name="ReportBy" xml:space="preserve">
     <value>Report by</value>
+  </data>
+  <data name="DailyWinLossAnalysis" xml:space="preserve">
+    <value>Daily Win Loss Analysis</value>
+  </data>
+  <data name="MonthlyWinLossAnalysis" xml:space="preserve">
+    <value>Monthly Win Loss Analysis</value>
+  </data>
+  <data name="SportWinLossAnalysis" xml:space="preserve">
+    <value>Sport Win Loss Analysis</value>
   </data>
 </root>

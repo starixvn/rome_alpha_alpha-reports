@@ -58,7 +58,8 @@
             message = CreateExportWinLossAnalysisExcelQuery(
                             custLevelId: 4,
                             reportTypeId: 2,
-                            reportTypeName: "Monthly");
+                            reportTypeName: "Monthly",
+                            reportTitle: "Monthly Win Loss Analysis");
 
             viewModel = new WinLossAnalysisViewModel(
                 reportData: Enumerable.Empty<WinLossAnalysisModel>(),
@@ -94,25 +95,26 @@
         }
 
         [Theory]
-        [InlineData(4, 1, "Daily", "Daily Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
-        [InlineData(4, 2, "Monthly", "Monthly Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
-        [InlineData(4, 3, "Sport", "Sport Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
+        [InlineData(4, 1, "Daily", "Daily Win Loss Analysis", "Daily Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
+        [InlineData(4, 2, "Monthly", "Monthly Win Loss Analysis", "Monthly Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
+        [InlineData(4, 3, "Sport", "Sport Win Loss Analysis", "Sport Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
 
-        [InlineData(3, 1, "Daily", "Daily Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
-        [InlineData(3, 2, "Monthly", "Monthly Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
-        [InlineData(3, 3, "Sport", "Sport Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
+        [InlineData(3, 1, "Daily", "Daily Win Loss Analysis", "Daily Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
+        [InlineData(3, 2, "Monthly", "Monthly Win Loss Analysis", "Monthly Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
+        [InlineData(3, 3, "Sport", "Sport Win Loss Analysis", "Sport Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
 
-        [InlineData(2, 1, "Daily", "Daily Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
-        [InlineData(2, 2, "Monthly", "Monthly Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
-        [InlineData(2, 3, "Sport", "Sport Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
+        [InlineData(2, 1, "Daily", "Daily Win Loss Analysis", "Daily Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
+        [InlineData(2, 2, "Monthly", "Monthly Win Loss Analysis", "Monthly Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
+        [InlineData(2, 3, "Sport", "Sport Win Loss Analysis", "Sport Win Loss Analysis 12/02/2016 --> 12/02/2016 of Product Name")]
         public void HandleExportWinLossAnalysisQuery_MasterWinLossAnalysis_ExportsCorrectTitle(
             byte custLevelId,
             byte reportTypeId,
             string reportTypeName,
+            string reportTypeTitle,
             string expectedTitle)
         {
             // Arrange
-            var query = CreateExportWinLossAnalysisExcelQuery(custLevelId, reportTypeId, reportTypeName);
+            var query = CreateExportWinLossAnalysisExcelQuery(custLevelId, reportTypeId, reportTypeName, reportTypeTitle);
 
             // Act
             winLossAnalysisExcelHandler.Handle(query);
@@ -202,7 +204,8 @@
             var query = CreateExportWinLossAnalysisExcelQuery(
                             custLevelId: custLevelId,
                             reportTypeId: 2,
-                            reportTypeName: "Monthly");
+                            reportTypeName: "Monthly",
+                            reportTitle: "Monthly Win Loss Analysis");
 
             // Act
             winLossAnalysisExcelHandler.Handle(query);
@@ -221,7 +224,8 @@
             var query = CreateExportWinLossAnalysisExcelQuery(
                             custLevelId: custLevelId,
                             reportTypeId: 2,
-                            reportTypeName: "Monthly");
+                            reportTypeName: "Monthly",
+                            reportTitle: "Monthly Win Loss Analysis");
 
             // Act
             winLossAnalysisExcelHandler.Handle(query);
@@ -230,12 +234,13 @@
             winLossAnalysisExcelHandler.Received().GetExcelTemplatePath(fileName);
         }
 
-        private WinLossAnalysisExcelQuery CreateExportWinLossAnalysisExcelQuery(byte custLevelId, byte reportTypeId, string reportTypeName)
+        private WinLossAnalysisExcelQuery CreateExportWinLossAnalysisExcelQuery(byte custLevelId, byte reportTypeId, string reportTypeName, string reportTitle)
         {
             var query = new WinLossAnalysisExcelQuery(userFixture.User);
             query.CustLevelId = custLevelId;
             query.ReportTypeId = reportTypeId;
             query.ReportTypeName = reportTypeName;
+            query.ReportTypeTitle = reportTitle;
             query.FromDate = DefaultVariables.CurrentDate;
             query.ToDate = DefaultVariables.CurrentDate;
 
