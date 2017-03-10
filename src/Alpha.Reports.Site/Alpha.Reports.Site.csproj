@@ -141,12 +141,12 @@
       <HintPath>..\..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ONEbook.SpreadSheets, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ONEbook.SpreadSheets.1.0.0\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
+    <Reference Include="ONEbook.SpreadSheets, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ONEbook.SpreadSheets.1.0.0.1\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
+    <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0.1-beta02\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ONEbook.UM, Version=2.0.2.7, Culture=neutral, processorArchitecture=MSIL">
@@ -247,16 +247,25 @@
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
+    <TypeScriptCompile Include="assets\scripts\base-report.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
+    <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-master-agent.ts" />
+    <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-member.ts" />
+    <TypeScriptCompile Include="assets\scripts\playforfun\playforfun.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\daterangepicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\link-builder-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\netturnover-tooltip-test.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\productmultiselection-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\single-selection-dropdown-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\tooltip-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\core\base-report-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\monthpicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\pager-tests.ts" />
+    <Compile Include="Controllers\PlayForFunController.cs" />
     <Compile Include="Controllers\OutstandingController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
@@ -268,6 +277,9 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
+    <Compile Include="Handlers\PlayForFun\PlayForFunBaseHandler.cs" />
+    <Compile Include="Handlers\PlayForFun\PlayForFunExcelHandler.cs" />
+    <Compile Include="Handlers\PlayForFun\PlayForFunHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandler.cs" />
@@ -281,6 +293,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
     <Compile Include="Requests\Outstanding\OutstandingQuery.cs" />
+    <Compile Include="Requests\PlayForFun\AgentPlayForFunExcelQuery.cs" />
+    <Compile Include="Requests\PlayForFun\MemberPlayForFunExcelQuery.cs" />
+    <Compile Include="Requests\PlayForFun\MasterPlayForFunExcelQuery.cs" />
+    <Compile Include="Requests\PlayForFun\MasterPlayForFunQuery.cs" />
+    <Compile Include="Requests\PlayForFun\AgentPlayForFunQuery.cs" />
+    <Compile Include="Requests\PlayForFun\MemberPlayForFunQuery.cs" />
+    <Compile Include="Requests\PlayForFun\PlayForFunQuery.cs" />
     <Compile Include="Requests\ReportBaseQuery.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
@@ -297,9 +316,16 @@
     <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
+    <Compile Include="ViewModels\Components\StatusSelectionViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\DrillDownableReportViewModel.cs" />
     <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
+    <Compile Include="ViewModels\PlayForFun\AgentPlayForFunReportViewModel.cs" />
+    <Compile Include="ViewModels\PlayForFun\MasterPlayForFunReportViewModel.cs" />
+    <Compile Include="ViewModels\PlayForFun\MemberPlayForFunReportViewModel.cs" />
+    <Compile Include="ViewModels\PlayForFun\MemberPlayForFunViewModel.cs" />
+    <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModel.cs" />
+    <Compile Include="ViewModels\PlayForFun\PlayForFunFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultFilterViewModel.cs" />
@@ -308,18 +334,23 @@
     <Compile Include="ViewModels\WinLoss\WinLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\SPNames\Internal\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Internal\DBLOG.bodb_CustomerLog.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
+    <Content Include="App_Data\SPNames\Local\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBONUSER.ON_USER.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Pro\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBONUSER.ON_USER.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\SIT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\UAT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <TypeScriptCompile Include="assets\scripts\components\netturnover-tooltip.ts" />
     <TypeScriptCompile Include="assets\scripts\components\pager.ts" />
@@ -329,6 +360,9 @@
     <TypeScriptCompile Include="assets\scripts\components\daterangepicker.ts" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-registerevents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-member-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\enteredresult-tests.ts" />
@@ -341,21 +375,24 @@
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="assets\bundles\default.css" />
-    <Content Include="assets\bundles\default.min.css">
-      <DependentUpon>default.css</DependentUpon>
-    </Content>
+    <Content Include="assets\bundles\default.min.css" />
     <Content Include="assets\bundles\outstanding\outstanding.js" />
     <Content Include="assets\bundles\outstanding\outstanding.min.js">
       <DependentUpon>outstanding.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\playforfun\playforfun-master-agent.js" />
+    <Content Include="assets\bundles\playforfun\playforfun-master-agent.min.js">
+      <DependentUpon>playforfun-master-agent.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\playforfun\playforfun-member.js" />
+    <Content Include="assets\bundles\playforfun\playforfun-member.min.js">
+      <DependentUpon>playforfun-member.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
     <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winloss\enteredresult.js" />
-    <Content Include="assets\bundles\winloss\enteredresult.min.js">
-      <DependentUpon>enteredresult.js</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\winloss\winloss.js" />
     <Content Include="assets\bundles\winloss\winloss.min.js">
       <DependentUpon>winloss.js</DependentUpon>
@@ -518,6 +555,12 @@
     <Content Include="App_Code\Components\ReportTitle.cshtml" />
     <Content Include="App_Code\Components\NetTurnoverTooltips.cshtml" />
     <Content Include="App_Code\Components\Breadcrumb.cshtml" />
+    <Content Include="App_Code\Components\StatusSelection.cshtml" />
+    <Content Include="App_Code\Components\ProductSingleSelection.cshtml" />
+    <Content Include="App_Code\Components\BreadcrumbByLevel.cshtml" />
+    <Content Include="App_Data\ExcelTemplates\PlayForFun\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\PlayForFun\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\PlayForFun\Member.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -533,6 +576,11 @@
     <Content Include="Views\Outstanding\Index.cshtml" />
     <Content Include="Views\EnteredResult\Index.cshtml" />
     <Content Include="Views\Shared\InvalidReport.cshtml" />
+    <Content Include="Views\PlayForFun\Member.cshtml" />
+    <Content Include="Views\PlayForFun\Agent.cshtml" />
+    <Content Include="Views\PlayForFun\Master.cshtml" />
+    <Content Include="Views\PlayForFun\Filter.cshtml" />
+    <Content Include="Views\PlayForFun\ExportExcel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -239,6 +239,11 @@ a {
             }
         }
     }
+
+    label[for="dropdown-statuses"] {
+        float: left;
+        padding: 3px 10px 0 0;
+    }
 }
 
 // Ripple effect

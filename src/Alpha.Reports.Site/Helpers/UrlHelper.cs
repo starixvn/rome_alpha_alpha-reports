@@ -4,6 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Configurations;
+    using Enumerations;
+    using Reports.Models;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -13,6 +16,8 @@
         public static Func<string, IDictionary<string, object>, string> ReplaceOrAddQueryStringParamsFunc { get; internal set; } = ReplaceOrAddQueryStringParams;
 
         public static Func<string, string> MapExMainPath { get; internal set; } = MicroSites.OldMainUrl;
+
+        public static Func<int, string, string> GetSiteUrl { get; internal set; } = GetUrl;
 
         internal static string AddQueryStringParams(string url, IDictionary<string, object> routeValues)
         {
@@ -60,6 +65,14 @@
             }
 
             return url + $"&{paramName}={paramValue}";
+        }
+
+        internal static string GetUrl(int custLevel, string currentQuery)
+        {
+            var relativePath = Enumeration.FromValue<UserLevel>((byte)custLevel).GetDirectDownLineLevel().DisplayName + currentQuery;
+            var url = AppPathHelper.GetAppPath(SiteSettings.ReportsAppPath, relativePath);
+
+            return url;
         }
     }
 }

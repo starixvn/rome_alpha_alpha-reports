@@ -10,22 +10,30 @@ class SortOption {
         public canSort: boolean = true,
         public hasAllDataOnClient: boolean = false,
         public afterSortFunction: any = null,
-        public headers: any = null) {
+        public headers: any = null,
+        public reportForm: JQuery = null) {
     }
 }
 
 class SortComponent {
     $: JQueryStatic;
     $sortContainer: JQuery;
+    $reportForm: JQuery;
+    linkBuilderComponent: LinkBuilderComponent;
+
     options = new SortOption();
 
-    constructor($: JQueryStatic) {
+    constructor(
+        $: JQueryStatic,
+        linkBuilderComponent: LinkBuilderComponent) {
         this.$ = $;
+        this.linkBuilderComponent = linkBuilderComponent;
     }
 
     render = (options: SortOption = new SortOption()) => {
         this.options = <SortOption>this.$.extend({}, this.options, options);
         this.$sortContainer = this.options.sortContainer;
+        this.$reportForm = this.options.reportForm;
 
         let sortColumns = this.$sortContainer.find("[data-sortedname]");
 
@@ -66,7 +74,7 @@ class SortComponent {
     onSort = (sortedColumnName: string, isDecendingSort: boolean) => {
         this.$sortContainer
             .data("descendingsort", isDecendingSort ? "1" : "0")
-            .data("sortedcolumn", sortedColumnName)
+            .data("sortedcolumn", sortedColumnName);
 
         if (this.options.afterSortFunction &&
             typeof this.options.afterSortFunction === "function") {
@@ -112,14 +120,14 @@ class SortComponent {
                     sortList: sortList,
                     textExtraction: this.textExtraction
                 });
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
 
         this.$sortContainer.off("sortEnd").on("sortEnd", () => {
             var $sortedcolumn = this.$sortContainer
-                .find("thead.tableFloatingHeaderOriginal th.sorting.sorting-asc:visible,thead.tableFloatingHeaderOriginal th.sorting.sorting-desc:visible");
+                .find("thead.tableFloatingHeaderOriginal th.sorting.sorting-asc:visible" +
+                ",thead.tableFloatingHeaderOriginal th.sorting.sorting-desc:visible");
 
             var modeFilterClass = this.$sortContainer.hasClass("stack-mode")
                 ? ".hidden-stack-mode"
@@ -144,5 +152,39 @@ class SortComponent {
             $node.html();
 
         return html;
+    };
+
+    afterSort = () => {
+        var this$ = this.$;
+        if (this.options.hasAllDataOnClient) {
+            var sortedColumn = this$(".sorting-asc:visible");
+            var direction = !sortedColumn.length;
+            if (sortedColumn.length === 0) {
+                sortedColumn = this$(".sorting-desc");
+            }
+
+            var sortedColumnName = sortedColumn.data("sortedname");
+
+            this.linkBuilderComponent.updateParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
+            this.linkBuilderComponent.updateParam("IsDescendingSort", direction.toString());
+
+            alphaReports.correctEvenRowClass(this.options.sortContainer);
+        } else {
+            this.$reportForm.trigger("submit");
+        }
+    };
+    mapSortedColumnToStackMode = (sortedColumn: string, stackColumnGroups: string[][]) => {
+        for (let i = 0; i < stackColumnGroups.length; i++) {
+            var stackColumnGroup = stackColumnGroups[i];
+            var firstColum = stackColumnGroup[0];
+
+            for (let j = 0; j < stackColumnGroup.length; j++) {
+                if (sortedColumn.toLowerCase() === stackColumnGroup[j].toLowerCase()) {
+                    return firstColum;
+                }
+            }
+        }
+
+        return sortedColumn;
     };
 }

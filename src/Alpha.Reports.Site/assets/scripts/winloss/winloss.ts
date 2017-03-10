@@ -4,6 +4,7 @@
 /// <reference path="../components/tooltip.ts" />
 /// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/sort.ts" />
+/// <reference path="../components/link-builder.ts" />
 
 "use strict";
 
@@ -139,7 +140,7 @@ class WinLossView {
             this.$tableReport,
             canSort,
             true,
-            this.afterSort,
+            this.sortComponent.afterSort,
             { 0: { sorter: "text" } }));
     };
 
@@ -172,7 +173,7 @@ class WinLossView {
 
     onSwitchModeEvent = () => {
         var isStackMode = this.$tableReport.hasClass("stack-mode");
-        this.replaceDrilldownParam("IsStackMode", !isStackMode); 
+        this.replaceDrilldownParam("IsStackMode", !isStackMode);
         this.setCssBySwitchMode(isStackMode);
         if (this.isFirstSwitchMode) {
             this.renderAtFirstSwitchMode(isStackMode);
@@ -184,16 +185,16 @@ class WinLossView {
     renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {
         let isAgentLevel = this.$isAgentLevel.val().toLocaleLowerCase() === "true";
         isSwitchToNormalMode ? this.splitColumns() : this.combineColumns(isAgentLevel);
-    }
+    };
 
     setStackMode = () => {
         this.$.blockUI();
         this.setCssBySwitchMode(false);
         this.renderAtFirstSwitchMode(false);
         this.isFirstSwitchMode = false;
-        this.replaceDrilldownParam("IsStackMode", true); 
+        this.replaceDrilldownParam("IsStackMode", true);
         this.$.unblockUI();
-    }
+    };
 
     setCssBySwitchMode = (isSwitchToNormalMode: boolean) => {
         if (isSwitchToNormalMode) {
@@ -212,13 +213,12 @@ class WinLossView {
         alphaReports.splitCell("col-turnover");
         this$.each(levels, function (index: number) {
             var level = levels[index];
-            if (level == "master") {
+            if (level === "master") {
                 alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? "" : " altercol");
-            }
-            else {
+            } else {
                 alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
             }
-           
+
         });
     };
 
@@ -243,10 +243,9 @@ class WinLossView {
     combineToWinLossColumn = (level: string, index: number) => {
         var cellCss = "text-right col-" + level + "-winloss-combined";
 
-        if (level == "master") {
+        if (level === "master") {
             cellCss = cellCss + (index % 2 ? "" : " altercol");
-        }
-        else {
+        } else {
             cellCss = cellCss + (index % 2 ? " altercol" : "");
         }
 
@@ -275,7 +274,7 @@ class WinLossView {
             IsHistoricReport: this.isHistoricReport,
             SortPropertyName: sortInfo.sortPropertyName,
             IsDescendingSort: sortInfo.isDescendingSort,
-            HideFilter: this.$reportForm.is(":hidden"),
+            HideFilter: this.$reportForm.is(":hidden")
         };
     };
 
@@ -289,32 +288,6 @@ class WinLossView {
 
     replaceDrilldownParam = (paramName: string, paramValue: any) => {
         this.linkBuilderComponent.updateParam(paramName, paramValue);
-    };
-
-    afterSort = () => {
-        var this$ = this.$;
-        var sortedColumn = this$(".sorting-asc:visible");
-        var direction = !sortedColumn.length;
-        if (sortedColumn.length === 0) {
-            sortedColumn = this$(".sorting-desc");
-        }
-
-        var sortedColumnName = sortedColumn.data("sortedname");
-
-        this.replaceDrilldownParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
-        this.replaceDrilldownParam("IsDescendingSort", direction);
-
-        var isEvenRow = false;
-        this.$tableReport.find("tbody > tr").each(function () {
-            var $row = this$(this);
-            if ($row.hasClass("even-row") && !isEvenRow) {
-                $row.removeClass("even-row");
-            } else if (!$row.hasClass("even-row") && isEvenRow) {
-                $row.addClass("even-row");
-            }
-
-            isEvenRow = !isEvenRow;
-        });
     };
 
     onSubmitReportEvent = (e: any) => {
@@ -370,7 +343,7 @@ const winLossView = new WinLossView(
     $,
     new DateRangePickerComponent($),
     new ProductMultiSelectionComponent($),
-    new SortComponent($),
+    new SortComponent($, new LinkBuilderComponent($)),
     new ReportTooltip($),
     new MonthPickerComponent($),
     new LinkBuilderComponent($));

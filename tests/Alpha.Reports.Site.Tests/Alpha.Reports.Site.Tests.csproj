@@ -100,12 +100,12 @@
       <HintPath>..\..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ONEbook.SpreadSheets, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ONEbook.SpreadSheets.1.0.0\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
+    <Reference Include="ONEbook.SpreadSheets, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ONEbook.SpreadSheets.1.0.0.1\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
+    <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0.1-beta02\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ploeh.AutoFixture, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
@@ -184,23 +184,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_GlobalResources\ResourcesTests.cs" />
+    <Compile Include="Collections\AnyValueCreatorCollection.cs" />
     <Compile Include="Collections\UserCollection.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
+    <Compile Include="Controllers\PlayForFunControllerTests.cs" />
     <Compile Include="Controllers\WinLossControllerTests.cs" />
     <Compile Include="Controllers\WinLossDetailControllerTests.cs" />
     <Compile Include="Extensions\AssertExtension.cs" />
+    <Compile Include="Fixtures\AnyValueCreatorFixture.cs" />
     <Compile Include="Fixtures\UserFixture.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandlerTests.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
+    <Compile Include="Handlers\PlayForFun\PlayForFunExcelHandlerTests.cs" />
+    <Compile Include="Handlers\PlayForFun\PlayForFunHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\WinLoss\EnteredSportResultExcelHandlerTests.cs" />
     <Compile Include="Handlers\WinLoss\EnteredSportResultHandlerTests.cs" />
     <Compile Include="Handlers\WinLoss\WinLossExcelHandlerTest.cs" />
     <Compile Include="Handlers\WinLoss\WinLossHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandlerTests.cs" />
+    <Compile Include="Helpers\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="Helpers\QueryEntityModelBinderTests.cs" />
     <Compile Include="Helpers\UrlHelperTests.cs" />
     <Compile Include="Models\UserTests.cs" />
@@ -212,6 +218,8 @@
     <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
     <Compile Include="ViewModels\Outstanding\OutstandingViewModelTests.cs" />
+    <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelForTesting.cs" />
+    <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossFilterViewModelTests.cs" />

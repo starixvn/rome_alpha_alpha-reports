@@ -1,7 +1,7 @@
 ﻿@using Alpha.Reports.Site.ViewModels.Components;
 @using Alpha.Reports.Site.App_GlobalResources;
 
-@helper Render(PageHeaderViewModel model, string currentRequestUrl = null)
+@helper Render(PageHeaderViewModel model, string currentRequestQuery = null, bool? isByLevel = null)
 {
     <div class="page-title
          @(model.IsStackMode ? "stack-mode" : string.Empty)
@@ -12,9 +12,16 @@
             <span class="pull-left">@model.Title</span>
         }
 
-        @if (!string.IsNullOrWhiteSpace(currentRequestUrl))
+        @if (!string.IsNullOrWhiteSpace(currentRequestQuery))
         {
-            @Breadcrumb.Render(model.BreadcrumbLevelViewModel, currentRequestUrl)
+            if (isByLevel.HasValue && isByLevel.Value)
+            {
+                @BreadcrumbByLevel.Render(model.BreadcrumbLevelViewModel, currentRequestQuery)
+            }
+            else
+            {
+                @Breadcrumb.Render(model.BreadcrumbLevelViewModel, currentRequestQuery)
+            }
         }
 
         @if (model.IsShowActionIcons)
@@ -23,14 +30,14 @@
                 <ul>
                     @if (model.HasHideFilterIcon)
                     {
-                        <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
-                        <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
+                    <li class="showfilter-element"><span class="icon-arrow-up-drop-circle icon-filter" title="@Resources.HideFilter"></span></li>
+                    <li class="hidefilter-element"><span class="icon-arrow-down-drop-circle icon-filter" title="@Resources.ShowFilter"></span></li>
                     }
 
                     @if (model.HasStackIcon)
                     {
-                        <li class="normalview-element"><span id="icon-stack-column" class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
-                        <li class="stackcolumnview-element"><span id="icon-normal-column" class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
+                    <li class="normalview-element"><span id="icon-stack-column" class="icon-stack-column icon-switchmode" title="@Resources.Tip_ShowReportInStackColumnView"></span></li>
+                    <li class="stackcolumnview-element"><span id="icon-normal-column" class="icon-normal-column icon-switchmode" title="@Resources.Tip_ShowReportInNormalView"></span></li>
                     }
                 </ul>
             </div>

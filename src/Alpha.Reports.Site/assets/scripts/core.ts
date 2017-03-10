@@ -133,6 +133,25 @@ class AlphaReports {
 
         return newQueryString;
     };
+
+    correctEvenRowClass = ($tableReport: JQuery) => {
+        var this$ = this.$;
+
+        var isEvenRow = false;
+        $tableReport.find("tbody > tr").each(function () {
+            var $row = this$(this);
+            if ($row.hasClass("even-row") && !isEvenRow) {
+                $row.removeClass("even-row");
+            } else if (!$row.hasClass("even-row") && isEvenRow) {
+                $row.addClass("even-row");
+            }
+
+            isEvenRow = !isEvenRow;
+        });
+    };
+    convertAttributeToBool = (attrValue: string) => {
+        return !!attrValue && attrValue.toString().toLowerCase() === "true";
+    };
 }
 
 const alphaReports = new AlphaReports($, store);

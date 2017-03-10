@@ -1,0 +1,11 @@
+﻿@model PlayForFunReportViewModel
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@(ViewData["FormAction"] as string)">
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("UserSelectedProductId", Model.UserSelectedProductId)
+    @Html.Hidden("UserSelectedStatusId", Model.UserSelectedStatusId)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+</form>

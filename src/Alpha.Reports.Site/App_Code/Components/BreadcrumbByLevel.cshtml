@@ -1,0 +1,37 @@
+﻿@using Alpha.Reports.Site.ViewModels.Components
+
+@helper Render(BreadcrumbLevelViewModel viewModel, string currentRequestQuery)
+{
+var linkLength = viewModel.BreadcrumbLevel.Count();
+var linkIndex = 0;
+var lastLinkIndex = linkLength - 1;
+
+if (linkLength > 0)
+{
+        <div class="breadcrumb-container">
+            <ul class="breadcrumb">
+                @foreach (var custinfo in viewModel.BreadcrumbLevel)
+                {
+                    // TODO: Last customer just need to render by text, not link, will refactor soon
+                    if (linkIndex == lastLinkIndex)
+                    {
+                <li>
+                    @(custinfo.CustName)
+                </li>
+                    }
+                    else
+                    {
+                <li>
+                    <a class="breadcrumb-link"
+                       href="@(viewModel.BuildBreadcrumbLinkByLevel(custinfo, currentRequestQuery))">
+                        @(custinfo.CustName)
+                    </a>
+                </li>
+                    }
+
+                    linkIndex++;
+                }
+            </ul>
+        </div>
+}
+}
