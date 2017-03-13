@@ -16,7 +16,8 @@
     @RenderBody()
     @StaticResources.AssetScripts.RenderCommon("/bundles/common/common")
     @StaticResources.AssetScripts.Render("/bundles/site-reports/default")
-    @Html.Partial("Piwik")
     @RenderSection("Scripts", required: false)
+
+    @Alpha.Web.Helpers.GoogleAnalyticHepler.Render()
 </body>
 </html>
