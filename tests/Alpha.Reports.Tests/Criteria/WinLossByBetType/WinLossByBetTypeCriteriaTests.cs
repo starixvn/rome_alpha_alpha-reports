@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Criteria.WinLossByBetType
 {
     using System;
-    using Reports.Criteria.WinLossByBetTypeCriteria;
+    using Reports.Criteria.WinLossByProductCriteria;
     using Reports.Enumerations;
     using Reports.Models;
     using Xunit;
@@ -17,7 +17,7 @@
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var winLossByBetTypeCriteria = new WinLossByBetTypeCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, userLevel);
+            var winLossByBetTypeCriteria = new WinLossByProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, userLevel);
 
             // Act
             var actualSettingKey = winLossByBetTypeCriteria.GetSettingKey();

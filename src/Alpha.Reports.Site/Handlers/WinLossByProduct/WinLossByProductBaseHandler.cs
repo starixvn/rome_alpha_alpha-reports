@@ -4,8 +4,10 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using App_Start;
+    using Extensions;
     using Params;
     using RemotingRef;
+    using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
     using Requests.WinLossByProduct;
     using Services;
@@ -17,44 +19,47 @@
         Justification = "Reviewed. Suppression is OK here.")]
     public class WinLossByProductBaseHandler : BaseHandler
     {
+        protected readonly ProductService productService;
         protected readonly WinLossByProductService reportService;
         protected readonly CacheRefService cacheRefService;
 
-        public WinLossByProductBaseHandler(WinLossByProductService reportService, CacheRefService cacheRefService)
+        public WinLossByProductBaseHandler(WinLossByProductService reportService, ProductService productService, CacheRefService cacheRefService)
         {
+            this.productService = productService;
             this.reportService = reportService;
             this.cacheRefService = cacheRefService;
         }
 
-        protected WinLossByProductParam CreateWinLossByProductParamater(WinLossByProductQuery message)
+        protected WinLossByProductParam CreateWinLossByBettypeParamater(WinLossByProductQuery message)
         {
+            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
+                  message.CustId,
+                  message.UserSelectedProductIds.ToListInt());
+
             return new WinLossByProductParam(
                  message.CustId,
                  message.FromDate,
                  message.ToDate,
+                 validUserSelectedProductIds,
                  message.CustLevel);
         }
 
-        internal WinLossByProductModel AccumulateGrandTotal(IEnumerable<WinLossByProductModel> reportData)
+        internal WinLossByBetTypeModel AccumulateGrandTotal(IEnumerable<WinLossByProductModel> reportData)
         {
-            var grandTotal = new WinLossByProductModel();
+            var grandTotal = new WinLossByBetTypeModel();
 
             if (reportData != null && reportData.Any())
             {
-                foreach (var data in reportData)
+                foreach (var winLossByProduct in reportData)
                 {
-                    grandTotal.Add(data);
+                    grandTotal.Add(winLossByProduct.Total);
                 }
             }
 
             return grandTotal;
         }
 
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules", 
-            "SP2101:MethodMustNotContainMoreLinesThan", 
-            Justification = "Reviewed. Suppression is OK here.")]
-        public string BuildDisplayedProdutName(int productId, BetType betTypeId, string betTypeName, bool liveIndicator)
+        public string BuildDisplayedBetTypeName(int productId, BetType betTypeId, string betTypeName, bool liveIndicator)
         {
             if (BetTypeConfig.DisplayWinLossByBetTypeRules.ContainsKey(productId))
             {

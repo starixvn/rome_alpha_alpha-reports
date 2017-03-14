@@ -4,17 +4,15 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Criteria.WinLossByProductCriteria;
     using Fanex.Common.Extensions;
     using Models;
     using Models.WinlossByBetType;
-    using Models.WinLossByProduct;
     using RemotingRef;
 
     public interface WinLossByProductDataAccess
     {
-        IEnumerable<WinLossByProductModel> GetWinLossByProduct(WinLossByProductCriteria criteria);
+        IEnumerable<WinLossByBetTypeModel> GetWinLossByBetType(WinLossByProductCriteria criteria);
     }
 
     public class WinLossByProductDataAccessImpl : WinLossByProductDataAccess
@@ -26,39 +24,41 @@
             this.cacheRefService = cacheRefService;
         }
 
-        [SuppressMessage("StyleCop.CSharp.OrderingRules", "SP2100:CodeLineMustBeNoLongerThan160Characters", Justification = "Reviewed.")]
-        public IEnumerable<WinLossByProductModel> GetWinLossByProduct(WinLossByProductCriteria criteria)
+        public IEnumerable<WinLossByBetTypeModel> GetWinLossByBetType(WinLossByProductCriteria criteria)
         {
             if (criteria == null)
             {
                 throw new ArgumentNullException(nameof(criteria), "Criteria cannot be null");
             }
 
-            ////using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
-            ////{
-            ////    using (var reader = db.ExecuteReader(criteria))
-            ////    {
-            ////        if (reader != null)
-            ////        {
-            ////            while (reader.Read())
-            ////            {
-            ////                winlossByProductData.Add(BuildWinLossByProductModel(reader, criteria.CustLevel));
-            ////            }
-            ////        }
-            ////    }
-            ////}
+            var winlossByBettypeData = new List<WinLossByBetTypeModel>();
 
-            return new List<WinLossByProductModel>();
+            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            {
+                using (var reader = db.ExecuteReader(criteria))
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            winlossByBettypeData.Add(BuildWinLossByBetType(reader, criteria.CustLevel));
+                        }
+                    }
+                }
+            }
+
+            return winlossByBettypeData;
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
-        private WinLossByProductModel BuildWinLossByProductModel(IDataReader reader, UserLevel reportLevel)
+        private WinLossByBetTypeModel BuildWinLossByBetType(IDataReader reader, UserLevel reportLevel)
         {
-            var productId = reader.ToInt("ProductID");
+            var bettypeId = reader.ToInt("bettype");
 
-            var winlossByProduct = new WinLossByProductModel(
-                 productId: productId,
-                 productName: cacheRefService.GetProductName(productId),
+            var winLossByBettype = new WinLossByBetTypeModel(
+                 betTypeId: bettypeId,
+                 betTypeName: cacheRefService.GetBetTypeName(bettypeId),
+                 productId: reader.ToInt("ProductID"),
                  liveIndicator: reader.ToBool("liveindicator"),
                  betCount: reader.ToInt("NumberOfTickets"),
                  turnover: reader.ToDecimal("TurnOver"),
@@ -70,10 +70,9 @@
                  masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ?
                                    (reportLevel.IsMasterLevel() ?
                                    new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) : new NetWinLoss(reader.ToDecimal("MAgTotal"))) : null,
-                 superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null,
-                 winLossByBetTypeData: Enumerable.Empty<WinLossByBetTypeModel>());
+                 superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null);
 
-            return winlossByProduct;
+            return winLossByBettype;
         }
     }
 }

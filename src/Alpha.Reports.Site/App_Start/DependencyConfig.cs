@@ -7,7 +7,7 @@
     using DataAccesses;
     using Fanex.Data.Repository;
     using Handlers.MatchWinLossDetail;
-    using Handlers.WinLossByBetType;
+    using Handlers.WinLossByProduct;
     using MediatR;
     using Models;
     using ONEbook.SpreadSheets;
@@ -79,7 +79,6 @@
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
             container.RegisterSingleton<MatchWinLossService, MatchWinLossServiceImpl>();
             container.RegisterSingleton<OutstandingService, OutstandingServiceImpl>();
-            container.RegisterSingleton<WinLossByBetTypeService, WinLossByBetTypeServiceImpl>();
             container.RegisterSingleton<WinLossByProductService, WinLossByProductServiceImpl>();
 
             container.RegisterSingleton<MatchWinLossDetailService, MatchWinLossDetailServiceImpl>();
@@ -94,7 +93,7 @@
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
 
             container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
-            container.RegisterSingleton<WinLossByBetTypeWorkbook, WinLossByBetTypeWorkbookImpl>();
+            container.RegisterSingleton<WinLossByProductWorkbook, WinLossByProductWorkbookImpl>();
             container.RegisterSingleton<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();
         }
 
@@ -103,7 +102,6 @@
             container.RegisterSingleton<IDynamicRepository, DynamicRepository>();
             container.RegisterSingleton<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
             container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
-            container.RegisterSingleton<WinLossByBetTypeDataAccess, WinLossByBetTypeDataAccessImpl>();
             container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
             container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
         }

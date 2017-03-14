@@ -1,7 +1,7 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../components/daterangepicker.ts" />
+/// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/tooltip.ts" />
-/// <reference path="../components/sort.ts" />
 
 "use strict";
 
@@ -11,8 +11,6 @@ class WinLossByProductView {
     $tableReport: JQuery;
 
     $multiSelectButton: JQuery;
-
-    $drilldownLinks: JQuery;
     $isFilterVisible: JQuery;
     $isStackMode: JQuery;
     $isAgentLevel: JQuery;
@@ -32,21 +30,18 @@ class WinLossByProductView {
     levels = ["member", "agent", "master", "super"];
 
     dateRangePickerComponent: DateRangePickerComponent;
-    sortComponent: SortComponent;
+    productMultiSelectionComponent: ProductMultiSelectionComponent;
     reportTooltip: ReportTooltip;
-    linkBuilderComponent: LinkBuilderComponent;
 
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
-        sortComponent: SortComponent,
-        reportTooltip: ReportTooltip,
-        linkBuilderComponent: LinkBuilderComponent) {
+        productMultiSelectionComponent: ProductMultiSelectionComponent,
+        reportTooltip: ReportTooltip) {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
-        this.sortComponent = sortComponent;
+        this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.reportTooltip = reportTooltip;
-        this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
@@ -59,24 +54,15 @@ class WinLossByProductView {
         this.cacheDOMElements();
 
         this.bindFilter();
-        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
-        this.sortComponent.render(new SortOption(
-            this.$tableReport,
-            canSort,
-            true,
-            function () { },
-            { 0: { sorter: "text" } }));
         this.$tableReport.stickyTableHeaders();
-        this.linkBuilderComponent.render();
+        this.productToggle();
         this.registerEvents();
-      
         this.$.unblockUI();
     };
 
     cacheDOMElements = () => {
         this.$pageTitle = this.$(".page-title ");
         this.$tableReport = this.$("#tbl-report");
-        this.$drilldownLinks = this.$(".downline-link");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$isAgentLevel = this.$("#IsAgentLevel");
@@ -95,7 +81,22 @@ class WinLossByProductView {
         return this.$("#IsSetDefaultStackMode").length > 0;
     };
 
+    productToggle = () => {
+        let this$ = this.$;
+
+        this.$('tbody').each(function () {
+            this$(this).find('tr:first').click(
+                function () {
+                    let productRow = this$(this);
+                    let productRowFirstColumn = productRow.find('td:first');
+                    productRowFirstColumn.hasClass("active") ? productRowFirstColumn.removeClass("active") : productRowFirstColumn.addClass("active");
+                    productRow.parent().find("tr").slice(1).toggle();
+                });
+        });
+    };
+
     bindFilter = () => {
+        this.productMultiSelectionComponent.render();
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
@@ -113,16 +114,6 @@ class WinLossByProductView {
         }
     };
 
-    bindSorting = () => {
-        let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
-        this.sortComponent.render(new SortOption(
-            this.$tableReport,
-            canSort,
-            true,
-            this.afterSort,
-            { 0: { sorter: "text" } }));
-    };
-
     registerEvents = () => {
         this.$reportForm.submit(this.onSubmitReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
@@ -133,7 +124,6 @@ class WinLossByProductView {
     onFilterEvent = () => {
         let currentHideState = this.$reportForm.hasClass("hide");
         currentHideState ? this.showFilter() : this.hideFilter();
-        this.replaceDrilldownParam("IsFilterVisible", currentHideState);
     };
 
     onExportExcelEvent = () => {
@@ -145,14 +135,11 @@ class WinLossByProductView {
         var isStackMode = this.$tableReport.hasClass("stack-mode");
 
         this.setCssBySwitchMode(isStackMode);
-        this.replaceDrilldownParam("IsStackMode", !isStackMode);
 
         if (this.isFirstSwitchMode) {
             this.renderAtFirstSwitchMode(isStackMode);
             this.isFirstSwitchMode = false;
         }
-
-        this.sortComponent.bindTableSorter(this.getSortedColumnName());
     };
 
     renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {
@@ -230,40 +217,12 @@ class WinLossByProductView {
 
     getParams = () => {
         var tableReport = this.$tableReport;
-        let sortInfo = this.sortComponent.getSortInfo();
 
         return {
             CustId: tableReport.data("custid"),
             IsStackMode: tableReport.hasClass("stack-mode"),
-            SortPropertyName: sortInfo.sortPropertyName,
-            IsDescendingSort: sortInfo.isDescendingSort,
             HideFilter: this.$reportForm.is(":hidden"),
         };
-    };
-
-    replaceDrilldownParam = (paramName: string, paramValue: any) => {
-        this.linkBuilderComponent.updateParam(paramName, paramValue);
-    };
-
-    afterSort = () => {
-        var this$ = this.$;
-        var sortedColumn = this$(".sorting-asc:visible");
-        var direction = !sortedColumn.length;
-        if (sortedColumn.length === 0) {
-            sortedColumn = this$(".sorting-desc");
-        }
-
-        var isEvenRow = false;
-        this.$tableReport.find("tbody > tr").each(function () {
-            var $row = this$(this);
-            if ($row.hasClass("even-row") && !isEvenRow) {
-                $row.removeClass("even-row");
-            } else if (!$row.hasClass("even-row") && isEvenRow) {
-                $row.addClass("even-row");
-            }
-
-            isEvenRow = !isEvenRow;
-        });
     };
 
     onSubmitReportEvent = (e: any) => {
@@ -274,43 +233,13 @@ class WinLossByProductView {
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
         this.$isStackMode.val(String(params.IsStackMode));
     };
-
-    getSortedColumnName = () => {
-        let sortedColumn = this.$tableReport.data("sortedcolumn");
-        if (!this.$tableReport.hasClass("stack-mode")) {
-            return sortedColumn;
-        }
-
-        if (sortedColumn === "GrossComm") {
-            return "Turnover";
-        }
-
-        if (sortedColumn === "MemberNetWinLoss.Comm" || sortedColumn === "MemberNetWinLoss.Total") {
-            return "MemberNetWinLoss.WinLoss";
-        }
-
-        if (sortedColumn === "AgentNetWinLoss.Comm" || sortedColumn === "AgentNetWinLoss.Total") {
-            return "AgentNetWinLoss.WinLoss";
-        }
-
-        if (sortedColumn === "MasterNetWinLoss.Comm" || sortedColumn === "MasterNetWinLoss.Total") {
-            return "MasterNetWinLoss.WinLoss";
-        }
-
-        if (sortedColumn === "SuperNetWinLoss.Comm" || sortedColumn === "SuperNetWinLoss.Total") {
-            return "SuperNetWinLoss.WinLoss";
-        }
-
-        return sortedColumn;
-    };
 }
 
 const winLossByProductView = new WinLossByProductView(
     $,
     new DateRangePickerComponent($),
-    new SortComponent($),
-    new ReportTooltip($),
-    new LinkBuilderComponent($));
+    new ProductMultiSelectionComponent($),
+    new ReportTooltip($));
 
 $(function () {
     winLossByProductView.init();

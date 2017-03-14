@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Handlers.WinLossByBetType
+﻿namespace Alpha.Reports.Site.Handlers.WinLossByProduct
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,7 @@
     using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
 
-    public interface WinLossByBetTypeWorkbook
+    public interface WinLossByProductWorkbook
     {
         Workbook<WinLossByBetTypeModel> UseTemplate(TemplateInfo templateInfo);
 
@@ -22,18 +22,18 @@
 
         byte[] ExportToBytes();
 
-        WinLossByBetTypeWorkbook SetData(
+        WinLossByProductWorkbook SetData(
             IEnumerable<WinLossByProductModel> winLossByProductData,
             WinLossByBetTypeModel total);
 
-        WinLossByBetTypeWorkbook SetRowMappers(
+        WinLossByProductWorkbook SetRowMappers(
             Mapper<WinLossByBetTypeModel> winLossByBetTypeMapper,
             Mapper<WinLossByBetTypeModel> totalMapper);
     }
 
-    public class WinLossByBetTypeWorkbookImpl :
+    public class WinLossByProductWorkbookImpl :
         NpoiWorkbook<WinLossByBetTypeModel>,
-        WinLossByBetTypeWorkbook
+        WinLossByProductWorkbook
     {
         private const int ReportSheetIndex = 1;
 
@@ -55,7 +55,7 @@
 
         internal Row TotalRowTemplate { get; set; }
 
-        public WinLossByBetTypeWorkbook SetData(
+        public WinLossByProductWorkbook SetData(
             IEnumerable<WinLossByProductModel> winLossByProductData,
             WinLossByBetTypeModel total)
         {
@@ -65,7 +65,7 @@
             return this;
         }
 
-        public WinLossByBetTypeWorkbook SetRowMappers(
+        public WinLossByProductWorkbook SetRowMappers(
             Mapper<WinLossByBetTypeModel> winLossByBetTypeMapper,
             Mapper<WinLossByBetTypeModel> totalMapper)
         {
@@ -79,6 +79,7 @@
         {
             var row = sheet.GetRow(rowIndex);
             row.CopyCellsFrom(WinLossByProductRowTemplate);
+            FillCells(row, data.Total, TotalMapper.Mappings);
             row.SetCellValue(row.FirstCellIndex, data.ProductName.ToUpper());
         }
 

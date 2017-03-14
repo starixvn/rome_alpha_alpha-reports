@@ -12,16 +12,14 @@
         {
         }
 
+        public string UserSelectedProductIds { get; set; }
+
         public int UserSelectedDateRangeOption { get; set; }
 
         public bool IsStackMode { get; set; }
 
-        public string SortPropertyName { get; set; }
-
-        public bool IsDescendingSort { get; set; }
-
         public bool IsFilterVisible { get; set; } = true;
 
-        public bool IsSetDefaultStackMode => false;
+        public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
     }
 }

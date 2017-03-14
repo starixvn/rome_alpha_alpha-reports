@@ -22,7 +22,7 @@
         {
             // Arrange
             var custId = 1;
-            var winLossByBetTypeParam = new WinLossByBetTypeParam(custId, currentDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
+            var winLossByBetTypeParam = new WinLossByProductParam(custId, currentDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
 
             // Act
             var actual = winLossByBetTypeParam.CustId;
@@ -35,7 +35,7 @@
         public void FromDate_CurrentReportAndNotSupportFromDate_ReturnsCurrentDate()
         {
             // Arrange
-            var winLossByBetTypeParam = new WinLossByBetTypeParam(0, DateTime.MinValue, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
+            var winLossByBetTypeParam = new WinLossByProductParam(0, DateTime.MinValue, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
             var expectedDate = currentDate;
 
             // Act
@@ -50,7 +50,7 @@
         {
             // Arrange
             DateTime fromDate = currentDate;
-            var winLossByBetTypeParam = new WinLossByBetTypeParam(0, fromDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
+            var winLossByBetTypeParam = new WinLossByProductParam(0, fromDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
 
             var expectedDate = fromDate;
 
@@ -65,7 +65,7 @@
         public void ToDate_NotSupportToDate_ReturnsCurrentDate()
         {
             // Arrange
-            var winLossByBetTypeParam = new WinLossByBetTypeParam(0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
+            var winLossByBetTypeParam = new WinLossByProductParam(0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
             var expectedDate = currentDate;
 
             // Act
@@ -81,7 +81,7 @@
             // Arrange
             DateTime toDate = currentDate;
 
-            var winLossByBetTypeParam = new WinLossByBetTypeParam(
+            var winLossByBetTypeParam = new WinLossByProductParam(
                 0, 
                 DateTime.MinValue, 
                 toDate,

@@ -3,11 +3,10 @@
     using System.Globalization;
     using System.Threading;
     using Constants;
-    using Fixtures;
     using NSubstitute;
     using RemotingRef;
     using Services;
-    using Site.Handlers.WinLossByBetType;
+    using Site.Handlers.WinLossByProduct;
     using Sunplus.Agent.Model.BL.Definitions;
     using Utils;
     using Xunit;
@@ -17,17 +16,17 @@
     public class WinLossByBetTypeBaseHandlerTests
     {
         private readonly ProductService productService;
-        private readonly WinLossByBetTypeService reportService;
+        private readonly WinLossByProductService reportService;
         private readonly CacheRefService cacheRefService;
-        private readonly WinLossByBetTypeBaseHandler winLossByBetTypeBaseHandler;
+        private readonly WinLossByProductBaseHandler winLossByBetTypeBaseHandler;
 
         public WinLossByBetTypeBaseHandlerTests()
         {
-            reportService = Substitute.For<WinLossByBetTypeService>();
+            reportService = Substitute.For<WinLossByProductService>();
             cacheRefService = Substitute.For<CacheRefService>();
             productService = Substitute.For<ProductService>();
 
-            winLossByBetTypeBaseHandler = new WinLossByBetTypeBaseHandler(reportService, productService, cacheRefService);
+            winLossByBetTypeBaseHandler = new WinLossByProductBaseHandler(reportService, productService, cacheRefService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             SystemTime.Today = DefaultVariables.CurrentDate;

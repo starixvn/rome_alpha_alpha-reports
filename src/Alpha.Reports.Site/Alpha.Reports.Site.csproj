@@ -246,7 +246,6 @@
     </Compile>
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\BetTypeConfig.cs" />
-    <Compile Include="App_Start\ProductConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
     <TypeScriptCompile Include="assets\scripts\components\league-multiselection.ts" />
@@ -274,7 +273,6 @@
     <Compile Include="Controllers\EnteredResultController.cs" />
     <Compile Include="Controllers\ReportLegendController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
-    <Compile Include="Controllers\WinLossByBetTypeController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
@@ -286,14 +284,11 @@
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
-    <Compile Include="Handlers\WinLossByBetType\WinLossByBetTypeWorkbook.cs" />
-    <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeBaseHandler.cs" />
-    <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeHandler.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductBaseHandler.cs" />
-    <Compile Include="Handlers\WinLossByProduct\WinLossByProductExcelHandler.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandler.cs" />
-    <Compile Include="Handlers\WinLossByBettype\WinLossByBettypeExcelHandler.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
@@ -323,10 +318,8 @@
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
-    <Compile Include="Requests\WinLossByProduct\WinLossByProductExcelQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductQuery.cs" />
-    <Compile Include="Requests\WinLossByBetType\WinLossByBetTypeQuery.cs" />
-    <Compile Include="Requests\WinLossByBetType\WinLossByBetTypeExcelQuery.cs" />
+    <Compile Include="Requests\WinLossByProduct\WinLossByProductExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
@@ -348,10 +341,7 @@
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModel.cs" />
-    <Compile Include="ViewModels\WinLossByProduct\WinLossByBetTypeInfoViewModel.cs" />
-    <Compile Include="ViewModels\WinLossByBetType\WinLossByBetTypeFilterViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
-    <Compile Include="ViewModels\WinLossByBetType\WinLossByBetTypeViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailFilterViewModel.cs" />
@@ -390,10 +380,10 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbyproduct\winlossbyproduct-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbyproduct\winlossbybettype-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-registerEvents-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbybettype\winlossbybettype-template.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbybettype\winlossbybettype-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-registerEvents-tests.ts" />
@@ -403,7 +393,6 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-template.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossbyproduct\winlossbyproduct.ts" />
-    <TypeScriptCompile Include="assets\scripts\winlossbybettype\winlossbybettype.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
@@ -411,10 +400,6 @@
     <Content Include="assets\bundles\matchwinloss\matchwinloss.js" />
     <Content Include="assets\bundles\matchwinloss\matchwinloss.min.js">
       <DependentUpon>matchwinloss.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\outstanding\outstanding.js" />
-    <Content Include="assets\bundles\outstanding\outstanding.min.js">
-      <DependentUpon>outstanding.js</DependentUpon>
     </Content>
      <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.css" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
@@ -439,9 +424,9 @@
     <Content Include="assets\bundles\default.min.css">
       <DependentUpon>default.css</DependentUpon>
     </Content>
-    <Content Include="assets\bundles\winlossbybettype\winlossbybettype.js" />
-    <Content Include="assets\bundles\winlossbybettype\winlossbybettype.min.js">
-      <DependentUpon>winlossbybettype.js</DependentUpon>
+    <Content Include="assets\bundles\outstanding\outstanding.js" />
+    <Content Include="assets\bundles\outstanding\outstanding.min.js">
+      <DependentUpon>outstanding.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
     <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.min.js">
@@ -626,9 +611,6 @@
     <Content Include="App_Code\Components\ReportLegend.cshtml" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLoss\Member.xls" />
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.scss" />
-    <Content Include="App_Data\ExcelTemplates\WinLossByBettype\Agent.xls" />
-    <Content Include="App_Data\ExcelTemplates\WinLossByBettype\Master.xls" />
-    <Content Include="App_Data\ExcelTemplates\WinLossByBettype\Member.xls" />
     <Content Include="App_Code\Components\LeagueMultiSelection.cshtml" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Agent.xls" />
@@ -653,8 +635,6 @@
     <Content Include="Views\Shared\InvalidReport.cshtml" />
     <Content Include="Views\ReportLegend\Index.cshtml" />
     <Content Include="Views\WinLossDetail\ReportLegend.cshtml" />
-    <Content Include="Views\WinLossByBettype\Filter.cshtml" />
-    <Content Include="Views\WinLossByBettype\Index.cshtml" />
     <Content Include="Views\MatchWinLoss\Index.cshtml" />
     <Content Include="Views\League\LeaguesByCustomer.cshtml" />
     <Content Include="Views\WinLossByProduct\Filter.cshtml" />

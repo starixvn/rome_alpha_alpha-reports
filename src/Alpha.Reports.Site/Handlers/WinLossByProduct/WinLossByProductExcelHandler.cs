@@ -7,21 +7,24 @@
     using ONEbook.SpreadSheets;
     using Params;
     using RemotingRef;
-    using Reports.Models.WinLossByProduct;
+    using Reports.Models.WinlossByBetType;
     using Requests.WinLossByProduct;
     using Services;
+    using Sunplus.Agent.Model.BL.Definitions;
     using ViewModels;
+    using static ONEbook.SpreadSheets.Column;
 
     public class WinLossByProductExcelHandler :
         WinLossByProductBaseHandler,
         IRequestHandler<WinLossByProductExcelQuery, ExcelFileViewModel>
     {
-        private readonly Workbook<WinLossByProductModel> workbook;
+        private readonly WinLossByProductWorkbook workbook;
 
         public WinLossByProductExcelHandler(
             WinLossByProductService reportService,
+            ProductService productService,
             CacheRefService cacheRefService,
-            Workbook<WinLossByProductModel> workbook) : base(reportService, cacheRefService)
+            WinLossByProductWorkbook workbook) : base(reportService, productService, cacheRefService)
         {
             this.workbook = workbook;
         }
@@ -33,32 +36,35 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var winLossByProductParam = CreateWinLossByProductParamater(message);
-            var reportData = reportService.GetWinLossByProduct(winLossByProductParam);
+            var winLossByBetTypeParam = CreateWinLossByBettypeParamater(message);
+            var reportData = reportService.GetWinLossByProduct(winLossByBetTypeParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
-            var result = workbook
+            var fileContent = workbook
+                .SetData(reportData, grandTotal)
+                .SetRowMappers(
+                    GetBodyRowMapper(message),
+                    GetTotalRowMapper(message))
                 .UseTemplate(GetTemplateInfo(message))
+                .Sheet(Resources.DefaultSheetName)
                 .Title(GetReporTitle(message))
                 .Header(Resources.ResourceManager.GetString)
-                .Body(reportData, GetBodyRowMapper(message))
                 .Footer(grandTotal, GetTotalRowMapper(message))
-                .Sheet(Resources.DefaultSheetName)
                 .ExportToBytes();
 
-            return new ExcelFileViewModel(GetExcelFileName(message, winLossByProductParam), result);
+            return new ExcelFileViewModel(GetExcelFileName(message, winLossByBetTypeParam), fileContent);
         }
 
-        private Mapper<WinLossByProductModel> GetBodyRowMapper(WinLossByProductExcelQuery message)
+        private Mapper<WinLossByBetTypeModel> GetBodyRowMapper(WinLossByProductExcelQuery message)
           => GetRowMapper(message, isTotal: false);
 
-        private Mapper<WinLossByProductModel> GetTotalRowMapper(WinLossByProductExcelQuery message)
+        private Mapper<WinLossByBetTypeModel> GetTotalRowMapper(WinLossByProductExcelQuery message)
             => GetRowMapper(message, isTotal: true);
 
-        private Mapper<WinLossByProductModel> GetRowMapper(WinLossByProductExcelQuery message, bool isTotal)
+        private Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByProductExcelQuery message, bool isTotal)
         {
-            var mapper = new Mapper<WinLossByProductModel>()
-                .Map(Column.A, data => isTotal ? Resources.Total : data.ProductName)
+            var mapper = new Mapper<WinLossByBetTypeModel>()
+                .Map(Column.A, data => isTotal ? Resources.Total : BuildDisplayedBetTypeName(data.ProductId, (BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator))
                 .Map(Column.B, data => data.BetCount)
                 .Map(Column.C, data => data.Turnover)
                 .Map(Column.D, data => data.GrossComm);
@@ -96,19 +102,28 @@
         }
 
         private TemplateInfo GetTemplateInfo(WinLossByProductExcelQuery message)
-            => new TemplateInfo(
-                GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
-                noInfomationText: Resources.NoInformationIsAvailable);
+         => new TemplateInfo(
+             GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
+             noInfomationText: Resources.NoInformationIsAvailable,
+             titleStartIndex: 1,
+             headerStartIndex: 2,
+             bodyStartIndex: 4,
+             bodyEndIndex: 11,
+             freezeRowIndex: 0,
+             freezeColumnName: A,
+             columnStartName: A,
+             sheetIndex: 1,
+             footerEndIndex: 12);
 
         private string GetReporTitle(WinLossByProductExcelQuery message)
             => $"{Resources.WinLossByProduct} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 
-        private string GetExcelFileName(WinLossByProductExcelQuery message, WinLossByProductParam winLossByProductParam)
+        private string GetExcelFileName(WinLossByProductExcelQuery message, WinLossByProductParam winLossByBetTypeParam)
            => string.Join(
                "-",
                Resources.WinLossByProduct,
                message.CustName,
-               winLossByProductParam.FromDate.ToShortDateWithSlash(),
-               winLossByProductParam.ToDate.ToShortDateWithSlash());
+               winLossByBetTypeParam.FromDate.ToShortDateWithSlash(),
+               winLossByBetTypeParam.ToDate.ToShortDateWithSlash());
     }
 }

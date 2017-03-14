@@ -3,10 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Criteria.WinLossByBetTypeCriteria;
     using Criteria.WinLossByProductCriteria;
     using DataAccesses;
-    using Models;
     using Models.WinLossByProduct;
     using Params;
     using RemotingRef;
@@ -19,13 +17,12 @@
     public class WinLossByProductServiceImpl : WinLossByProductService
     {
         private readonly ReportDateService reportDateService;
-        ////private readonly WinLossByProductDataAccess dataAccess;
-        private readonly WinLossByBetTypeDataAccess dataAccess;
+        private readonly WinLossByProductDataAccess dataAccess;
         private readonly CacheRefService cacheRefService;
 
         public WinLossByProductServiceImpl(
             ReportDateService reportDateService,
-             WinLossByBetTypeDataAccess dataAccess,
+             WinLossByProductDataAccess dataAccess,
              CacheRefService cacheRefService)
         {
             this.reportDateService = reportDateService;
@@ -40,17 +37,7 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            ////var criteria = new WinLossByProductCriteria(
-            ////    param.CustId,
-            ////    param.FromDate,
-            ////    param.ToDate,
-            ////    reportDateService.GetBalanceUpDay(),
-            ////    reportDateService.GetMoveBetsDay(),
-            ////    param.CustLevel);
-
-            ////var winLossByProductData = dataAccess.GetWinLossByProduct(criteria);
-
-            var criteria = new WinLossByBetTypeCriteria(
+            var criteria = new WinLossByProductCriteria(
              param.CustId,
              param.FromDate,
              param.ToDate,
@@ -63,18 +50,10 @@
             if (winLossByBetTypeData.Any())
             {
                 return winLossByBetTypeData.GroupBy(winLossByBetType => winLossByBetType.ProductId)
-                    .Select(winLossByBetType => new WinLossByProductModel(
-                    winLossByBetType.Key,
-                    cacheRefService.GetProductName(winLossByBetType.Key),
-                    false,
-                    101,
-                    56022,
-                    566121,
-                    winLossByBetType.FirstOrDefault().MemberNetWinLoss,
-                    winLossByBetType.FirstOrDefault().AgentNetWinLoss,
-                    winLossByBetType.FirstOrDefault().MasterNetWinLoss,
-                    winLossByBetType.FirstOrDefault().SuperNetWinLoss,
-                    winLossByBetType));
+                    .Select(winLossByProduct => new WinLossByProductModel(
+                    winLossByProduct.Key,
+                    cacheRefService.GetProductName(winLossByProduct.Key),
+                    winLossByProduct));
             }
 
             return Enumerable.Empty<WinLossByProductModel>();

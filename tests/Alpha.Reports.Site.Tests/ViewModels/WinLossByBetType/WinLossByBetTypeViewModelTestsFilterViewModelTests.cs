@@ -4,7 +4,7 @@
     using System.Threading;
     using Constants;
     using Reports.Models;
-    using Site.ViewModels.WinLossByBetType;
+    using Site.ViewModels.WinLossByProduct;
     using Xunit;
 
     [Trait("Category", "WinLossByBetType")]
@@ -20,7 +20,7 @@
         public void ViewDataInstructionMessage_HistoricReport_ReturnsHistoricNote()
         {
             // Arrange
-            var winLossByBetTypeFilterViewModel = new WinLossByBetTypeFilterViewModel(
+            var winLossByBetTypeFilterViewModel = new WinLossByProductFilterViewModel(
                 0,
                 UserLevel.Super,
                 null,

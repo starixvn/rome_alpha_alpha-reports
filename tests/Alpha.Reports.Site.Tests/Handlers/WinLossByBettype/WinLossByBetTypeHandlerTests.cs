@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossByBetType
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -10,15 +9,11 @@
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Params;
-    using Ploeh.AutoFixture;
     using RemotingRef;
-    using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
     using Services;
-    using Site.Handlers.WinLossByBetType;
-    using Site.Requests.WinLossByBetType;
-    using Site.ViewModels.WinLossByBetType;
-    using TestCases;
+    using Site.Handlers.WinLossByProduct;
+    using Site.Requests.WinLossByProduct;
     using Utils;
     using Xunit;
 
@@ -26,18 +21,18 @@
     [Collection("UserCollection")]
     public class WinLossByBetTypeHandlerTests
     {
-        private readonly WinLossByBetTypeService reportService;
+        private readonly WinLossByProductService reportService;
         private readonly CacheRefService cacheRefService;
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
-        private readonly WinLossByBetTypeHandler winLossByBetTypeHandler;
+        private readonly WinLossByProductHandler winLossByProductHandler;
 
         private readonly UserFixture userFixture;
         private readonly CompareLogic compareLogic;
 
         public WinLossByBetTypeHandlerTests(UserFixture userFixture)
         {
-            reportService = Substitute.For<WinLossByBetTypeService>();
+            reportService = Substitute.For<WinLossByProductService>();
             cacheRefService = Substitute.For<CacheRefService>();
             productService = Substitute.For<ProductService>();
 
@@ -46,7 +41,7 @@
             reportDateService.GetBalanceUpDay().Returns(SystemTime.Today);
 
             this.userFixture = userFixture;
-            winLossByBetTypeHandler = new WinLossByBetTypeHandler(reportService, productService, cacheRefService);
+            winLossByProductHandler = new WinLossByProductHandler(reportService, productService, cacheRefService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             SystemTime.Today = DefaultVariables.CurrentDate;
@@ -58,27 +53,27 @@
         public void HandlerWinLossByBetTypeQuery_NullMessage_ThrowsArgumentNullException()
         {
             // Arrange
-            WinLossByBetTypeQuery nullMessage = null;
+            WinLossByProductQuery nullMessage = null;
 
             // Act &  Assert
-            Assert.Throws<ArgumentNullException>(() => winLossByBetTypeHandler.Handle(nullMessage));
+            Assert.Throws<ArgumentNullException>(() => winLossByProductHandler.Handle(nullMessage));
         }
 
         [Fact]
         public void HandlerWinLossByBetTypeQuery_ValidMessage_ReturnCorrectReportData()
         {
             // Arrange
-            var message = new WinLossByBetTypeQuery(userFixture.User);
+            var message = new WinLossByProductQuery(userFixture.User);
             message.CustId = 1;
             message.CustName = "CustName";
             message.CustLevelId = 3;
 
             var expectedReportData = Enumerable.Empty<WinLossByProductModel>();
 
-            reportService.GetWinLossByBetType(Arg.Any<WinLossByBetTypeParam>()).Returns(expectedReportData);
+            reportService.GetWinLossByProduct(Arg.Any<WinLossByProductParam>()).Returns(expectedReportData);
 
             // Act
-            var actualWinLossByBetTypeViewModel = winLossByBetTypeHandler.Handle(message);
+            var actualWinLossByBetTypeViewModel = winLossByProductHandler.Handle(message);
 
             // Assert
             var result = compareLogic.Compare(actualWinLossByBetTypeViewModel.ReportData, expectedReportData);

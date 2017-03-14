@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Params
 {
     using System;
+    using System.Collections.Generic;
     using Models;
     using Utils;
 
@@ -10,10 +11,13 @@
             int custId,
             DateTime fromDate,
             DateTime toDate,
+            IEnumerable<int> userSelectedProductIds,
             UserLevel custLevel)
         {
             CustId = custId;
             CustLevel = custLevel;
+            UserSelectedProductIds = userSelectedProductIds;
+
             if (fromDate == DateTime.MinValue)
             {
                 FromDate = SystemTime.Today;
@@ -31,6 +35,8 @@
         public DateTime FromDate { get; }
 
         public DateTime ToDate { get; }
+
+        public IEnumerable<int> UserSelectedProductIds { get; }
 
         public UserLevel CustLevel { get; }
     }

@@ -47,7 +47,8 @@
 ////            winlossByBetTypeWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(winlossByBetTypeWorkbook);
 ////            winlossByBetTypeWorkbook.Title(Arg.Any<string>()).Returns(winlossByBetTypeWorkbook);
 ////            winlossByBetTypeWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(winlossByBetTypeWorkbook);
-////            winlossByBetTypeWorkbook.Body(Arg.Any<IEnumerable<WinLossByBetTypeModel>>(), Arg.Any<Mapper<WinLossByBetTypeModel>>()).Returns(winlossByBetTypeWorkbook);
+////            winlossByBetTypeWorkbook.Body(Arg.Any<IEnumerable<WinLossByBetTypeModel>>(), 
+////            Arg.Any<Mapper<WinLossByBetTypeModel>>()).Returns(winlossByBetTypeWorkbook);
 ////            winlossByBetTypeWorkbook.Footer(Arg.Any<WinLossByBetTypeModel>(), Arg.Any<Mapper<WinLossByBetTypeModel>>()).Returns(winlossByBetTypeWorkbook);
 ////            winlossByBetTypeWorkbook.Sheet(Arg.Any<string>()).Returns(winlossByBetTypeWorkbook);
 
@@ -156,7 +157,8 @@
 
 ////            // Assert
 ////            winlossByBetTypeWorkbook.Received().Footer(
-////                Arg.Is<WinLossByBetTypeModel>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossByBetTypeViewModel.GrandTotal)),
+////                Arg.Is<WinLossByBetTypeModel>
+////        (dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossByBetTypeViewModel.GrandTotal)),
 ////                Arg.Any<Mapper<WinLossByBetTypeModel>>());
 ////        }
 
