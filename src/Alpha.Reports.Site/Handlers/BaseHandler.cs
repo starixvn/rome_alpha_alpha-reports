@@ -50,7 +50,8 @@
         {
             var breadcrumbLevel = new List<CustInfo>();
 
-            if (query.BreadcrumbLevel.Any())
+            if (query.BreadcrumbLevel != null
+                && query.BreadcrumbLevel.Any())
             {
                 foreach (var custInfo in query.BreadcrumbLevel)
                 {
