@@ -31,13 +31,12 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var matchWinLossDetailParam = CreateParameter(message);
+            var products = reportService.GetProductsForCustomer(message.CustId);
+            var matchWinLossDetailParam = CreateParameter(message, products);
             var reportData = reportService.GetMatchWinLossDetail(matchWinLossDetailParam);
 
             var noParlayMatchWinLossDetail = GetNoParlayMatchWinLossDetail(reportData);
             var noParlayWinLossTotal = BuildWinLossTotal(noParlayMatchWinLossDetail);
-
-            var products = reportService.GetProductsForCustomer(matchWinLossDetailParam);
 
             var mixParlay = GetMixParlay(reportData);
             var systemParlay = GetSystemParlay(reportData);

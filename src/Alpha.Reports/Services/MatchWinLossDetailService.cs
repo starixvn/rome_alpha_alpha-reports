@@ -14,7 +14,7 @@
     {
         IEnumerable<MatchWinLossDetailModel> GetMatchWinLossDetail(MatchWinLossDetailParam param);
 
-        IEnumerable<Product> GetProductsForCustomer(MatchWinLossDetailParam param);
+        IEnumerable<Product> GetProductsForCustomer(int custId);
     }
 
     public class MatchWinLossDetailServiceImpl : MatchWinLossDetailService
@@ -66,9 +66,9 @@
             return winLossData;
         }
 
-        public IEnumerable<Product> GetProductsForCustomer(MatchWinLossDetailParam param)
+        public IEnumerable<Product> GetProductsForCustomer(int custId)
         {
-            return productService.FilterProductsByCustomer(param.CustId, supportedProducts);
+            return productService.FilterProductsByCustomer(custId, supportedProducts);
         }
     }
 }

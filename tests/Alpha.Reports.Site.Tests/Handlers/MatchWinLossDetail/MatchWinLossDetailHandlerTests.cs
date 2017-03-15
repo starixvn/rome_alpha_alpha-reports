@@ -82,7 +82,7 @@
                 [1] = "League 1"
             });
 
-            reportService.GetProductsForCustomer(Arg.Any<MatchWinLossDetailParam>()).Returns(new List<Product>
+            reportService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
                 new Product(1, "Product 1"),
                 new Product(2, "Product 2")

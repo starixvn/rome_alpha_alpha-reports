@@ -126,7 +126,7 @@
             var param = anyValueCreatorFixture.Create<MatchWinLossDetailParam>();
 
             // Act
-            var actualProducts = matchWinLossDetailServiceImpl.GetProductsForCustomer(param);
+            var actualProducts = matchWinLossDetailServiceImpl.GetProductsForCustomer(param.CustId);
 
             // Assert
             AssertExtension.Equal(expectedProducts, actualProducts);

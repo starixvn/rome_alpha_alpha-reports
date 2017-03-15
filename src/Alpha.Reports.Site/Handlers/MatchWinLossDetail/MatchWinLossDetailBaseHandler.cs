@@ -11,6 +11,7 @@
     using RemotingRef;
     using Reports.Constants;
     using Reports.Helpers;
+    using Reports.Models;
     using Reports.Models.MatchWinLossDetail;
     using Requests.MatchWinLossDetail;
     using Services;
@@ -39,11 +40,13 @@
             this.cacheRefService = cacheRefService;
         }
 
-        protected MatchWinLossDetailParam CreateParameter(MatchWinLossDetailQuery query)
+        protected MatchWinLossDetailParam CreateParameter(MatchWinLossDetailQuery query, IEnumerable<Product> supportedProducts)
         {
+            var productIds = supportedProducts.Select(product => product.Id);
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 query.CustId,
-                query.UserSelectedProductIds.ToListInt());
+                query.UserSelectedProductIds.ToListInt())
+                .Where(product => productIds.Contains(product));
 
             var userSelectedLeagueIds = string.IsNullOrWhiteSpace(query.UserSelectedLeagueIds)
                 ? Enumerable.Empty<int>()
