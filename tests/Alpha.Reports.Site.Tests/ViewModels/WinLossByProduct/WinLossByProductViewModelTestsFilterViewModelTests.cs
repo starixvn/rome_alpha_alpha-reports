@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossByBetType
+﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossByProduct
 {
     using System.Globalization;
     using System.Threading;
@@ -7,10 +7,10 @@
     using Site.ViewModels.WinLossByProduct;
     using Xunit;
 
-    [Trait("Category", "WinLossByBetType")]
-    public class WinLossByBetTypeViewModelTestsFilterViewModelTests
+    [Trait("Category", "WinLossByProduct")]
+    public class WinLossByProductViewModelTestsFilterViewModelTests
     {
-        public WinLossByBetTypeViewModelTestsFilterViewModelTests()
+        public WinLossByProductViewModelTestsFilterViewModelTests()
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

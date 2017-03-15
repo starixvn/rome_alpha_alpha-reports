@@ -254,11 +254,11 @@
     <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModelTests.cs" />
-    <Compile Include="ViewModels\WinLossByBetType\WinLossByBetTypeViewModelTestsFilterViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModelTestsFilterViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModelTests.cs" />
-    <Compile Include="ViewModels\WinLossByBetType\WinLossByBetTypeViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />
