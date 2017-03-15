@@ -1,4 +1,4 @@
-﻿const winlossbybettypeTemplate = {
+﻿const winlossbyproductTemplate = {
             reportWithNormalMode: `<body>
                                     <div class="page-title"></div>
                                     <div id="tbl-report" data-totalrecords="0" data-sortedcolumn="WinLossByBettype" data-descendingsort="false">

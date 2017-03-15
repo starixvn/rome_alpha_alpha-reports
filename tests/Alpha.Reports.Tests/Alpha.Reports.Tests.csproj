@@ -201,6 +201,7 @@
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
     <Compile Include="Models\CustInfoTests.cs" />
     <Compile Include="Models\LeagueTests.cs" />
+    <Compile Include="Models\WinLossByProductModelTest.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModelTests.cs" />
     <Compile Include="Models\WinLossByBetTypeModelTest.cs" />
     <Compile Include="Models\MatchWinLoss\MatchWinLossModelTest.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
     <Compile Include="TestCases\StringExtensionsTestCases.cs" />
     <Compile Include="TestCases\UserLevelTestCases.cs" />
+    <Compile Include="TestCases\WinLossByProductModelTestCases.cs" />
     <Compile Include="TestCases\WinLossDetailPropertyTestCases.cs" />
     <Compile Include="Utils\SystemTimeTests.cs" />
   </ItemGroup>

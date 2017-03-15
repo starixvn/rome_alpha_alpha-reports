@@ -9,6 +9,7 @@
     using Reports.DataAccesses;
     using Reports.Models;
     using Reports.Models.WinlossByBetType;
+    using Reports.Models.WinLossByProduct;
     using Reports.Params;
     using Reports.Services;
     using Xunit;
@@ -53,10 +54,11 @@
                 Enumerable.Empty<int>(),
                 UserLevel.Super);
 
-            var expectedData = Enumerable.Empty<WinLossByBetTypeModel>();
+            var winLossByBetTypeData = Enumerable.Empty<WinLossByBetTypeModel>();
+            var expectedData = Enumerable.Empty<WinLossByProductModel>();
 
             // Act
-            dataAccess.GetWinLossByBetType(Arg.Any<WinLossByProductCriteria>()).Returns(expectedData);
+            dataAccess.GetWinLossByBetType(Arg.Any<WinLossByProductCriteria>()).Returns(winLossByBetTypeData);
             var actualData = winLossByBetTypeServiceImpl.GetWinLossByProduct(param);
 
             // Assert

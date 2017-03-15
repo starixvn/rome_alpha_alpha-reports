@@ -18,6 +18,7 @@
         WinLossByProductBaseHandler,
         IRequestHandler<WinLossByProductExcelQuery, ExcelFileViewModel>
     {
+        private readonly string betTypeName = nameof(WinLossByBetTypeModel.BetTypeName);
         private readonly WinLossByProductWorkbook workbook;
 
         public WinLossByProductExcelHandler(
@@ -48,7 +49,7 @@
                 .UseTemplate(GetTemplateInfo(message))
                 .Sheet(Resources.DefaultSheetName)
                 .Title(GetReporTitle(message))
-                .Header(Resources.ResourceManager.GetString)
+                .Header(key => key.Equals(betTypeName) ? $"{Resources.Product}/{Resources.BetType}" : Resources.ResourceManager.GetString(key))
                 .Footer(grandTotal, GetTotalRowMapper(message))
                 .ExportToBytes();
 

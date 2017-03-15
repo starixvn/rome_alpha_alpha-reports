@@ -1,247 +1,192 @@
-﻿////namespace Alpha.Reports.Site.Tests.Handlers.WinLossByBetType
-////{
-////    using System;
-////    using System.Collections.Generic;
-////    using System.Globalization;
-////    using System.Linq;
-////    using System.Threading;
-////    using System.Web.Mvc;
-////    using Constants;
-////    using Fixtures;
-////    using Newtonsoft.Json;
-////    using NSubstitute;
-////    using ONEbook.SpreadSheets;
-////    using Params;
-////    using Ploeh.AutoFixture;
-////    using RemotingRef;
-////    using Reports.Models.WinlossByBetType;
-////    using Reports.Models.WinLossByProduct;
-////    using Services;
-////    using Site.Handlers.WinLossByBetType;
-////    using Site.Requests.WinLossByBetType;
-////    using Site.ViewModels.WinLossByBetType;
-////    using Sunplus.Agent.Model.BL.Definitions;
-////    using Utils;
-////    using Xunit;
+﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossByProduct
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Threading;
+    using Constants;
+    using Fixtures;
+    using KellermanSoftware.CompareNetObjects;
+    using NSubstitute;
+    using ONEbook.SpreadSheets;
+    using RemotingRef;
+    using Reports.Models.WinlossByBetType;
+    using Reports.Models.WinLossByProduct;
+    using Services;
+    using Site.Handlers.WinLossByProduct;
+    using Site.Requests.WinLossByProduct;
+    using Utils;
+    using Xunit;
 
-////    [Trait("Category", "WinLossByBetType")]
-////    [Collection("UserCollection")]
-////    public class WinLossByBetTypeExcelHandlerTest
-////    {
-////        private readonly WinLossByBetTypeService reportService;
-////        private readonly ReportDateService reportDateService;
-////        private readonly Workbook<WinLossByBetTypeModel> winlossByBetTypeWorkbook;
-////        private readonly WinLossByBetTypeExcelHandler winLossByBetTypeExcelHandler;
-////        private readonly CacheRefService cacheRefService;
-////        private readonly UserFixture userFixture;
-////        private readonly Fixture fixture = new Fixture();
+    [Trait("Category", "WinLossByProduct")]
+    [Collection("UserCollection")]
+    public class WinLossByProductExcelHandlerTest
+    {
+        private readonly WinLossByProductService reportService;
+        private readonly ReportDateService reportDateService;
+        private readonly ProductService productService;
 
-////        public WinLossByBetTypeExcelHandlerTest(UserFixture userFixture)
-////        {
-////            this.userFixture = userFixture;
-////            reportService = Substitute.For<WinLossByBetTypeService>();
-////            reportDateService = Substitute.For<ReportDateService>();
-////            cacheRefService = Substitute.For<CacheRefService>();
+        private readonly WinLossByProductWorkbook winLossByProductWorkbook;
+        private readonly Workbook<WinLossByBetTypeModel> onebookWorkbook;
+        private readonly WinLossByProductExcelHandler winLossByProductExcelHandler;
 
-////            winlossByBetTypeWorkbook = Substitute.For<Workbook<WinLossByBetTypeModel>>();
-////            winlossByBetTypeWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(winlossByBetTypeWorkbook);
-////            winlossByBetTypeWorkbook.Title(Arg.Any<string>()).Returns(winlossByBetTypeWorkbook);
-////            winlossByBetTypeWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(winlossByBetTypeWorkbook);
-////            winlossByBetTypeWorkbook.Body(Arg.Any<IEnumerable<WinLossByBetTypeModel>>(), 
-////            Arg.Any<Mapper<WinLossByBetTypeModel>>()).Returns(winlossByBetTypeWorkbook);
-////            winlossByBetTypeWorkbook.Footer(Arg.Any<WinLossByBetTypeModel>(), Arg.Any<Mapper<WinLossByBetTypeModel>>()).Returns(winlossByBetTypeWorkbook);
-////            winlossByBetTypeWorkbook.Sheet(Arg.Any<string>()).Returns(winlossByBetTypeWorkbook);
+        private readonly CacheRefService cacheRefService;
+        private readonly UserFixture userFixture;
 
-////            winLossByBetTypeExcelHandler = Substitute.ForPartsOf<WinLossByBetTypeExcelHandler>(reportService, cacheRefService, winlossByBetTypeWorkbook);
-////            winLossByBetTypeExcelHandler.MapPath = (path) => path;
-////            winLossByBetTypeExcelHandler.IsFileExist = (path) => true;
-////            SystemTime.Today = DefaultVariables.CurrentDate;
-////            ReportDateServiceImpl.Instance = reportDateService;
-////            reportDateService.GetBalanceUpDay().Returns(SystemTime.Today);
+        public WinLossByProductExcelHandlerTest(UserFixture userFixture)
+        {
+            this.userFixture = userFixture;
+            reportService = Substitute.For<WinLossByProductService>();
+            reportDateService = Substitute.For<ReportDateService>();
+            cacheRefService = Substitute.For<CacheRefService>();
+            productService = Substitute.For<ProductService>();
 
-////            Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
-////            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-////        }
+            winLossByProductWorkbook = Substitute.For<WinLossByProductWorkbook>();
+            onebookWorkbook = Substitute.For<Workbook<WinLossByBetTypeModel>>();
 
-////        [Fact]
-////        public void HandleExportWinLossByBetTypeQuery_NullMessage_ThrowsArgumentNullException()
-////        {
-////            // Arrange
-////            WinLossByBetTypeExcelQuery nullMessage = null;
+            winLossByProductWorkbook.SetData(
+                Arg.Any<IEnumerable<WinLossByProductModel>>(),
+                Arg.Any<WinLossByBetTypeModel>())
+                .Returns(winLossByProductWorkbook);
 
-////            // Act & Assert
-////            Assert.Throws<ArgumentNullException>(() => winLossByBetTypeExcelHandler.Handle(nullMessage));
-////        }
+            winLossByProductWorkbook.SetRowMappers(
+                Arg.Any<Mapper<WinLossByBetTypeModel>>(),
+                Arg.Any<Mapper<WinLossByBetTypeModel>>())
+                .Returns(winLossByProductWorkbook);
 
-////        [Fact]
-////        public void HandleExportWinLossByBetTypeQuery_MasterWinLoss_UsesCorrectTemplateInfo()
-////        {
-////            // Arrange
-////            var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
+            winLossByProductWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(onebookWorkbook);
+            onebookWorkbook.Sheet(Arg.Any<string>()).Returns(onebookWorkbook);
+            onebookWorkbook.Title(Arg.Any<string>()).Returns(onebookWorkbook);
+            onebookWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(onebookWorkbook);
+            onebookWorkbook.Footer(Arg.Any<IEnumerable<WinLossByBetTypeModel>>(), Arg.Any<Mapper<WinLossByBetTypeModel>>()).Returns(onebookWorkbook);
 
-////            // Act
-////            winLossByBetTypeExcelHandler.Handle(message);
+            winLossByProductExcelHandler = Substitute.ForPartsOf<WinLossByProductExcelHandler>(reportService, productService, cacheRefService, winLossByProductWorkbook);
+            winLossByProductExcelHandler.MapPath = (path) => path;
+            winLossByProductExcelHandler.IsFileExist = (path) => true;
+            SystemTime.Today = DefaultVariables.CurrentDate;
+            ReportDateServiceImpl.Instance = reportDateService;
+            reportDateService.GetBalanceUpDay().Returns(SystemTime.Today);
 
-////            // Assert
-////            winlossByBetTypeWorkbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(
-////                tp => tp.NoInfomationText == "No information is available"));
-////        }
+            winLossByProductExcelHandler.MapPath = (path) => path;
+            winLossByProductExcelHandler.IsFileExist = (path) => true;
 
-////        [Fact]
-////        public void HandleExportWinLossByBetTypeQuery_MasterWinLoss_ExportsCorrectTitle()
-////        {
-////            // Arrange
-////            var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+        }
 
-////            // Act
-////            winLossByBetTypeExcelHandler.Handle(message);
+        [Fact]
+        public void HandleExportWinLossByProductQuery_NullMessage_ThrowsArgumentNullException()
+        {
+            // Arrange
+            WinLossByProductExcelQuery nullMessage = null;
 
-////            // Assert
-////            winlossByBetTypeWorkbook.Received().Title(Arg.Is("Win Loss By Bet Type 12/02/2016 --> 12/02/2016"));
-////        }
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => winLossByProductExcelHandler.Handle(nullMessage));
+        }
 
-////        [Fact]
-////        public void HandleExportWinLossByBetTypeQuery_MasterWinLoss_ExportsCorrectHeader()
-////        {
-////            // Arrange
-////            var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
+        [Fact]
+        public void HandleExportWinLossByProductQuery_NotNullMessage_SetsDataToWorkbook()
+        {
+            // Act
+            var message = CreateExportWinlossByProductExcelQuery(custLevelId: 4);
+            winLossByProductExcelHandler.Handle(message);
 
-////            // Act
-////            winLossByBetTypeExcelHandler.Handle(message);
+            // Assert
+            winLossByProductWorkbook.Received().SetData(
+                Arg.Any<IEnumerable<WinLossByProductModel>>(),
+                Arg.Any<WinLossByBetTypeModel>());
+        }
 
-////            // Assert
-////            winlossByBetTypeWorkbook.Received().Header(Arg.Any<Func<string, string>>());
-////        }
+        [Fact]
+        public void HandleExportWinLossByProductQuery_NotNullMessage_SetRowMappers()
+        {
+            // Act
+            var message = CreateExportWinlossByProductExcelQuery(custLevelId: 4);
+            winLossByProductExcelHandler.Handle(message);
 
-////        [Fact]
-////        public void HandleExportWinLossByBetTypeQuery_MasterWinLoss_ExportsCorrectBody()
-////        {
-////            // Arrange
-////            var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
+            // Assert
+            winLossByProductWorkbook.Received().SetRowMappers(
+                Arg.Any<Mapper<WinLossByBetTypeModel>>(),
+                Arg.Any<Mapper<WinLossByBetTypeModel>>());
+        }
 
-////            var winlossByBetTypeViewModel = new WinLossByBetTypeViewModel(
-////                Enumerable.Empty<WinLossByProductModel>(),
-////                fixture.Create<WinLossByBetTypeModel>(),
-////                message,
-////                fixture.Create<WinLossByBetTypeParam>(),
-////                fixture.Create<Func<int, BetType, string, bool, string>>(),
-////                Enumerable.Empty<SelectListItem>(),
-////                cacheRefService);
+        [Fact]
+        public void HandleExportWinLossByProductQuery_MasterWinLoss_UsesCorrectTemplateInfo()
+        {
+            // Arrange
+            var message = CreateExportWinlossByProductExcelQuery(custLevelId: 4);
 
-////            // Act
-////            winLossByBetTypeExcelHandler.Handle(message);
+            // Act
+            winLossByProductExcelHandler.Handle(message);
 
-////            // Assert
-////            winlossByBetTypeWorkbook.Received().Body(
-////                Arg.Is<IEnumerable<WinLossByBetTypeModel>>(dataSource => 
-////                JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossByBetTypeViewModel.ReportData)),
-////                Arg.Any<Mapper<WinLossByBetTypeModel>>());
-////        }
+            // Assert
+            winLossByProductWorkbook.Received().UseTemplate(Arg.Is<ONEbook.SpreadSheets.TemplateInfo>(tp => tp.NoInfomationText == "No information is available"));
+        }
 
-////        [Fact]
-////        public void HandleExportWinLossByBetTypeQuery_MasterWinLoss_ExportsCorrectFooter()
-////        {
-////            // Arrange
-////            var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
-////            var winlossByBetTypeViewModel = new WinLossByBetTypeViewModel(
-////                Enumerable.Empty<WinLossByProductModel>(),
-////                new WinLossByBetTypeModel(),
-////                message,
-////                fixture.Create<WinLossByBetTypeParam>(),
-////                fixture.Create<Func<int, BetType, string, bool, string>>(),
-////                Enumerable.Empty<SelectListItem>(),
-////                cacheRefService);
+        [Fact]
+        public void HandleExportWinLossByProductQuery_MasterWinLoss_ExportsCorrectTitle()
+        {
+            // Arrange
+            var message = CreateExportWinlossByProductExcelQuery(custLevelId: 4);
 
-////            // Act
-////            winLossByBetTypeExcelHandler.Handle(message);
+            // Act
+            winLossByProductExcelHandler.Handle(message);
 
-////            // Assert
-////            winlossByBetTypeWorkbook.Received().Footer(
-////                Arg.Is<WinLossByBetTypeModel>
-////        (dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(winlossByBetTypeViewModel.GrandTotal)),
-////                Arg.Any<Mapper<WinLossByBetTypeModel>>());
-////        }
+            // Assert
+            onebookWorkbook.Received().Title(Arg.Is("Win Loss By Product 12/02/2016 --> 12/02/2016"));
+        }
 
-////        [Fact]
-////        public void HandleExportWinLossByBetTypeQuery_MasterWinLoss_ExportsCorrectSheetName()
-////        {
-////            // Arrange
-////            var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
+        [Fact]
+        public void HandleExportWinLossByProductQuery_MasterWinLoss_ExportsCorrectHeader()
+        {
+            // Arrange
+            var message = CreateExportWinlossByProductExcelQuery(custLevelId: 4);
 
-////            // Act
-////            winLossByBetTypeExcelHandler.Handle(message);
+            // Act
+            winLossByProductExcelHandler.Handle(message);
 
-////            // Assert
-////            winlossByBetTypeWorkbook.Received().Sheet(Arg.Is("Sheet 1"));
-////        }
+            // Assert
+            onebookWorkbook.Received().Header(Arg.Any<Func<string, string>>());
+        }
 
-////        [Fact]
-////        public void HandleExportWinLossByBetTypeQuery_MasterWinLoss_ExportsExcelToBytes()
-////        {
-////            // Arrange
-////            var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
+        [Fact]
+        public void HandleExportWinLossByProductQuery_MasterWinLoss_ExportsCorrectSheetName()
+        {
+            // Arrange
+            var message = CreateExportWinlossByProductExcelQuery(custLevelId: 4);
 
-////            // Act
-////            winLossByBetTypeExcelHandler.Handle(message);
+            // Act
+            winLossByProductExcelHandler.Handle(message);
 
-////            // Assert
-////            winlossByBetTypeWorkbook.Received().ExportToBytes();
-////        }
+            // Assert
+            onebookWorkbook.Received().Sheet(Arg.Is("Sheet 1"));
+        }
 
-////        [Fact]
-////        public void HandleExportWinLossByBetTypeQuery_AgentWinLoss_ExportsExcelToBytes()
-////        {
-////            // Arrange
-////            var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId: 4);
+        [Theory]
+        [InlineData(4, "Master")]
+        [InlineData(3, "Agent")]
+        [InlineData(2, "Member")]
+        public void HandleExportWinLossByProductQuery_CallMapExcelTemplatePath(byte custLevelId, string fileName)
+        {
+            // Arrange
+            var message = CreateExportWinlossByProductExcelQuery(custLevelId);
 
-////            // Act
-////            winLossByBetTypeExcelHandler.Handle(message);
+            // Act
+            winLossByProductExcelHandler.Handle(message);
 
-////            // Assert
-////            winlossByBetTypeWorkbook.Received().ExportToBytes();
-////        }
+            // Assert
+            winLossByProductExcelHandler.Received().GetExcelTemplatePath(fileName);
+        }
 
-////        [Theory]
-////        [InlineData(4)]
-////        [InlineData(3)]
-////        [InlineData(2)]
-////        public void HandleExportWinLossByBetTypeQuery_MemberWinLoss_ExportsExcelToBytes(byte custLevelId)
-////        {
-////            // Arrange
-////            var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId);
+        private WinLossByProductExcelQuery CreateExportWinlossByProductExcelQuery(byte custLevelId)
+        {
+            var exportWinLossByProductQuery = new WinLossByProductExcelQuery(userFixture.User);
+            exportWinLossByProductQuery.CustLevelId = custLevelId;
+            exportWinLossByProductQuery.UserSelectedProductIds = "1,2";
+            exportWinLossByProductQuery.FromDate = DefaultVariables.CurrentDate;
+            exportWinLossByProductQuery.ToDate = DefaultVariables.CurrentDate;
 
-////            // Act
-////            winLossByBetTypeExcelHandler.Handle(message);
-
-////            // Assert
-////            winlossByBetTypeWorkbook.Received().ExportToBytes();
-////        }
-
-////        [Theory]
-////        [InlineData(4, "Master")]
-////        [InlineData(3, "Agent")]
-////        [InlineData(2, "Member")]
-////        public void HandleExportWinLossByBetTypeQuery_CallMapExcelTemplatePath(byte custLevelId, string fileName)
-////        {
-////            // Arrange
-////            var message = CreateExportWinlossByBetTypeExcelQuery(custLevelId);
-
-////            // Act
-////            winLossByBetTypeExcelHandler.Handle(message);
-
-////            // Assert
-////            winLossByBetTypeExcelHandler.Received().GetExcelTemplatePath(fileName);
-////        }
-
-////        private WinLossByBetTypeExcelQuery CreateExportWinlossByBetTypeExcelQuery(byte custLevelId)
-////        {
-////            var exportWinLossByBetTypeQuery = new WinLossByBetTypeExcelQuery(userFixture.User);
-////            exportWinLossByBetTypeQuery.CustLevelId = custLevelId;
-////            exportWinLossByBetTypeQuery.UserSelectedProductIds = "1,2";
-////            exportWinLossByBetTypeQuery.FromDate = DefaultVariables.CurrentDate;
-////            exportWinLossByBetTypeQuery.ToDate = DefaultVariables.CurrentDate;
-
-////            return exportWinLossByBetTypeQuery;
-////        }
-////    }
-////}
+            return exportWinLossByProductQuery;
+        }
+    }
+}
