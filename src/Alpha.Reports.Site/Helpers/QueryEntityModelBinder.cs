@@ -3,8 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Web.Mvc;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
     using Reports.Models;
     using Requests;
     using Sunplus.Agent.Model.Entities;
@@ -53,12 +55,17 @@
                 {
                     try
                     {
-                        reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(breadcrumbLevelJson);
+                        reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(
+                            breadcrumbLevelJson,
+                            new JsonSerializerSettings
+                            {
+                                Error = HandleDeserializationError
+                            });
                     }
-                    catch (JsonException)
+                    catch (JsonException ex)
                     {
                         //// TODO: temporary
-                        ////LogWarning(ex);
+                        LogWarning(ex);
                     }
                 }
 
@@ -81,6 +88,14 @@
         protected virtual void LogWarning(JsonException ex)
         {
             Logs.WriteWarn(ex, UserSession.Current.CustId);
+        }
+
+        public void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
+        {
+            if (errorArgs.ErrorContext.Error.Message.Contains(".CustLevelId'"))
+            {
+                errorArgs.ErrorContext.Handled = true;
+            }
         }
     }
 }
