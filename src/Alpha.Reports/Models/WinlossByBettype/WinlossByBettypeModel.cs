@@ -1,6 +1,4 @@
-﻿using Alpha.Reports.Models.WinLossByProduct;
-
-namespace Alpha.Reports.Models.WinlossByBetType
+﻿namespace Alpha.Reports.Models.WinlossByBetType
 {
     public class WinLossByBetTypeModel
     {

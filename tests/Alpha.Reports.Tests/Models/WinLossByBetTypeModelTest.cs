@@ -5,7 +5,7 @@
     using Reports.Models.WinlossByBetType;
     using Xunit;
 
-    [Trait("Category", "WinLossByBetType")]
+    [Trait("Category", "WinLossByProduct")]
     public class WinLossByBetTypeModelTest
     {
         private readonly CompareLogic compareLogic;

@@ -1,0 +1,85 @@
+﻿namespace Alpha.Reports.Tests.Services.WinLossByProduct
+{
+    using System;
+    using System.Linq;
+    using KellermanSoftware.CompareNetObjects;
+    using NSubstitute;
+    using RemotingRef;
+    using Reports.Criteria.WinLossByProductCriteria;
+    using Reports.DataAccesses;
+    using Reports.Models;
+    using Reports.Models.WinlossByBetType;
+    using Reports.Params;
+    using Reports.Services;
+    using Xunit;
+
+    [Trait("Category", "WinLossByProduct")]
+    public class WinLossByProductServiceImplTests
+    {
+        private readonly WinLossByProductDataAccess dataAccess;
+        private readonly WinLossByProductServiceImpl winLossByBetTypeServiceImpl;
+        private readonly DateTime currentDate = new DateTime(2016, 12, 28);
+        private readonly CompareLogic compareLogic;
+        private readonly ReportDateService reportDateService;
+        private readonly CacheRefService cacheRefService;
+
+        public WinLossByProductServiceImplTests()
+        {
+            dataAccess = Substitute.For<WinLossByProductDataAccess>();
+            cacheRefService = Substitute.For<CacheRefService>();
+            reportDateService = Substitute.For<ReportDateService>();
+            winLossByBetTypeServiceImpl = new WinLossByProductServiceImpl(reportDateService, dataAccess, cacheRefService);
+            compareLogic = new CompareLogic();
+        }
+
+        [Fact]
+        public void GetWinLossByBetType_NullParam_ThrowsArgumentNullException()
+        {
+            // Arrange
+            WinLossByProductParam nullParam = null;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => winLossByBetTypeServiceImpl.GetWinLossByProduct(nullParam));
+        }
+
+        [Fact]
+        public void GetWinLossByBetType_ValidParam_ReturnsDefaultReportData()
+        {
+            // Arrange
+            var param = new WinLossByProductParam(
+                0,
+                currentDate,
+                currentDate,
+                Enumerable.Empty<int>(),
+                UserLevel.Super);
+
+            var expectedData = Enumerable.Empty<WinLossByBetTypeModel>();
+
+            // Act
+            dataAccess.GetWinLossByBetType(Arg.Any<WinLossByProductCriteria>()).Returns(expectedData);
+            var actualData = winLossByBetTypeServiceImpl.GetWinLossByProduct(param);
+
+            // Assert
+            var result = compareLogic.Compare(expectedData, actualData);
+            Assert.True(result.AreEqual);
+        }
+
+        [Fact]
+        public void GetWinLossByBetType_CallGetWinLossDataAccess()
+        {
+            // Arrange
+            var param = new WinLossByProductParam(
+                0,
+                currentDate,
+                currentDate,
+                Enumerable.Empty<int>(),
+                UserLevel.Super);
+
+            // Act
+            winLossByBetTypeServiceImpl.GetWinLossByProduct(param);
+
+            // Assert
+            dataAccess.Received().GetWinLossByBetType(Arg.Any<WinLossByProductCriteria>());
+        }
+    }
+}

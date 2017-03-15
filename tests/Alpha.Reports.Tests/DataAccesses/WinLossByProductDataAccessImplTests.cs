@@ -1,9 +1,9 @@
-﻿namespace Alpha.Reports.Tests.DataAccesses.WinLossByBetType
+﻿namespace Alpha.Reports.Tests.DataAccesses.WinLossByProduct
 {
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Database.WinLossByBetType;
+    using Database.WinLossByProduct;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -14,24 +14,26 @@
     using Reports.Models.WinlossByBetType;
     using Xunit;
 
-    [Trait("Category", "WinLossByBetType")]
+    [Trait("Category", "WinLossByProduct")]
     [Collection("ObjectDbCollection")]
-    public class WinLossByBetTypeDataAccessImplTests
+    public class WinLossByProductDataAccessImplTests
     {
         private readonly ObjectDbFixture objectDbFixture;
-        private readonly WinLossByProductDataAccessImpl winLossByBettypeDataAccessImpl;
+        private readonly WinLossByProductDataAccessImpl winLossByProductDataAccessImpl;
 
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
         private readonly CompareLogic compareLogic;
         private readonly CacheRefService cacheRefService;
 
-        public WinLossByBetTypeDataAccessImplTests(ObjectDbFixture objectDbFixture)
+        public WinLossByProductDataAccessImplTests(ObjectDbFixture objectDbFixture)
         {
             this.objectDbFixture = objectDbFixture;
+
             cacheRefService = Substitute.For<CacheRefService>();
             cacheRefService.GetBetTypeName(71).Returns("Casino Games");
             cacheRefService.GetBetTypeName(1101).Returns("Premium Baccarat");
-            winLossByBettypeDataAccessImpl = new WinLossByProductDataAccessImpl(cacheRefService);
+
+            winLossByProductDataAccessImpl = new WinLossByProductDataAccessImpl(cacheRefService);
             compareLogic = new CompareLogic();
         }
 
@@ -42,16 +44,16 @@
             WinLossByProductCriteria nullCriteria = null;
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => winLossByBettypeDataAccessImpl.GetWinLossByBetType(nullCriteria));
+            Assert.Throws<ArgumentNullException>(() => winLossByProductDataAccessImpl.GetWinLossByBetType(nullCriteria));
         }
 
         [Fact]
         public void GetWinLossByBettype_MasterWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossByBetTypeCriteria = new WinLossByProductCriteria(0, currentDate, currentDate, currentDate, currentDate, UserLevel.Super);
+            var winLossByProductCriteria = new WinLossByProductCriteria(0, currentDate, currentDate, currentDate, currentDate, UserLevel.Super);
 
-            var dataSet = WinLossByBetTypeDatabase.MasterWinLoss.CreateDataReader();
+            var dataSet = WinLossByProductDatabase.MasterWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByProductCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossByBetTypeModel>()
@@ -61,7 +63,7 @@
             };
 
             // Act
-            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBetType(winLossByBetTypeCriteria);
+            var actualData = winLossByProductDataAccessImpl.GetWinLossByBetType(winLossByProductCriteria);
 
             // Assert
             var result = compareLogic.Compare(expectedData, actualData);
@@ -72,9 +74,9 @@
         public void GetWinLossByBettype_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossByBetTypeCriteria = new WinLossByProductCriteria(0, currentDate, currentDate, currentDate, currentDate, UserLevel.Master);
+            var winLossByProductCriteria = new WinLossByProductCriteria(0, currentDate, currentDate, currentDate, currentDate, UserLevel.Master);
 
-            var dataSet = WinLossByBetTypeDatabase.AgentWinLoss.CreateDataReader();
+            var dataSet = WinLossByProductDatabase.AgentWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByProductCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossByBetTypeModel>()
@@ -84,7 +86,7 @@
             };
 
             // Act
-            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBetType(winLossByBetTypeCriteria);
+            var actualData = winLossByProductDataAccessImpl.GetWinLossByBetType(winLossByProductCriteria);
 
             // Assert
             var result = compareLogic.Compare(expectedData, actualData);
@@ -95,9 +97,9 @@
         public void GetWinLossByBettype_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossByBetTypeCriteria = new WinLossByProductCriteria(0, currentDate, currentDate, currentDate, currentDate, UserLevel.Agent);
+            var winLossByProductCriteria = new WinLossByProductCriteria(0, currentDate, currentDate, currentDate, currentDate, UserLevel.Agent);
 
-            var dataSet = WinLossByBetTypeDatabase.MemberWinLoss.CreateDataReader();
+            var dataSet = WinLossByProductDatabase.MemberWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByProductCriteria>()).Returns(dataSet);
 
             var expectedData = new List<WinLossByBetTypeModel>()
@@ -107,7 +109,7 @@
             };
 
             // Act
-            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBetType(winLossByBetTypeCriteria);
+            var actualData = winLossByProductDataAccessImpl.GetWinLossByBetType(winLossByProductCriteria);
 
             // Assert
             var result = compareLogic.Compare(expectedData, actualData);
@@ -118,7 +120,7 @@
         public void GetWinLossByBettype_NullDataReturnFromDb_ReturnsDefaultData()
         {
             // Arrange
-            var winLossByBetTypeCriteria = new WinLossByProductCriteria(0, currentDate, currentDate, currentDate, currentDate, UserLevel.Agent);
+            var winLossByProductCriteria = new WinLossByProductCriteria(0, currentDate, currentDate, currentDate, currentDate, UserLevel.Agent);
 
             IDataReader dataReader = null;
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossByProductCriteria>()).Returns(dataReader);
@@ -126,7 +128,7 @@
             var expectedData = new List<WinLossByBetTypeModel>();
 
             // Act
-            var actualData = winLossByBettypeDataAccessImpl.GetWinLossByBetType(winLossByBetTypeCriteria);
+            var actualData = winLossByProductDataAccessImpl.GetWinLossByBetType(winLossByProductCriteria);
 
             // Assert
             var result = compareLogic.Compare(expectedData, actualData);

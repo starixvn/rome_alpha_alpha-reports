@@ -38,12 +38,12 @@
             }
 
             var criteria = new WinLossByProductCriteria(
-             param.CustId,
-             param.FromDate,
-             param.ToDate,
-             reportDateService.GetBalanceUpDay(),
-             reportDateService.GetMoveBetsDay(),
-             param.CustLevel);
+                                 param.CustId,
+                                 param.FromDate,
+                                 param.ToDate,
+                                 reportDateService.GetBalanceUpDay(),
+                                 reportDateService.GetMoveBetsDay(),
+                                 param.CustLevel);
 
             var winLossByBetTypeData = dataAccess.GetWinLossByBetType(criteria);
 

@@ -33,15 +33,15 @@
         protected WinLossByProductParam CreateWinLossByBettypeParamater(WinLossByProductQuery message)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
-                  message.CustId,
-                  message.UserSelectedProductIds.ToListInt());
+                                                message.CustId,
+                                                message.UserSelectedProductIds.ToListInt());
 
             return new WinLossByProductParam(
-                 message.CustId,
-                 message.FromDate,
-                 message.ToDate,
-                 validUserSelectedProductIds,
-                 message.CustLevel);
+                        message.CustId,
+                        message.FromDate,
+                        message.ToDate,
+                        validUserSelectedProductIds,
+                        message.CustLevel);
         }
 
         internal WinLossByBetTypeModel AccumulateGrandTotal(IEnumerable<WinLossByProductModel> reportData)

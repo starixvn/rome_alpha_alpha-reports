@@ -3,10 +3,11 @@
     using System.Collections.Generic;
     using Reports.Models;
     using Reports.Models.WinlossByBetType;
+    using Reports.Models.WinLossByProduct;
 
-    public static class WinLossByBetTypeViewModelTestCases
+    public static class WinLossByProductViewModelTestCases
     {
-        private static IEnumerable<object[]> winLossByBetTypeViewModel = new List<object[]>()
+        private static IEnumerable<object[]> winLossByProductViewModel = new List<object[]>()
         {
             new object[] { BuildSuperDataTest(), ExpectedSuperGrantTotal },
             new object[] { BuildMasterDataTest(), ExpectedMasterGrantTotal },
@@ -55,44 +56,57 @@
                 masterNetWinLoss: null,
                 superNetWinLoss: null);
 
-        private static List<WinLossByBetTypeModel> BuildSuperDataTest()
+        private static List<WinLossByProductModel> BuildSuperDataTest()
         {
-            var superWinLossData = new List<WinLossByBetTypeModel>();
+            var winLossByProductData = new List<WinLossByProductModel>();
 
-            superWinLossData.Add(new WinLossByBetTypeModel(
-                 betTypeId: 1,
-                 betTypeName: "Baccarat",
-                 productId: 0,
-                 liveIndicator: false,
-                 betCount: 4,
-                 turnover: (decimal)375732407.36,
-                 grossComm: (decimal)2998557.31,
-                 memberNetWinLoss: null,
-                 agentNetWinLoss: null,
-                 masterNetWinLoss: new NetWinLoss((decimal)-111173393.16),
-                 superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69)));
+            var winLossByBetTypeLiveCasinoData = new List<WinLossByBetTypeModel>()
+                {
+                     new WinLossByBetTypeModel(
+                     betTypeId: 1,
+                     betTypeName: "Baccarat",
+                     productId: 0,
+                     liveIndicator: false,
+                     betCount: 4,
+                     turnover: (decimal)375732407.36,
+                     grossComm: (decimal)2998557.31,
+                     memberNetWinLoss: null,
+                     agentNetWinLoss: null,
+                     masterNetWinLoss: new NetWinLoss((decimal)-111173393.16),
+                     superNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69)),
 
-            superWinLossData.Add(new WinLossByBetTypeModel(
-                 betTypeId: 2,
-                 betTypeName: "Blackjack",
-                 productId: 0,
-                 liveIndicator: false,
-                 betCount: 2,
-                 turnover: (decimal)400.00,
-                 grossComm: (decimal)2.45,
-                 memberNetWinLoss: null,
-                 agentNetWinLoss: null,
-                 masterNetWinLoss: new NetWinLoss((decimal)9.65),
-                 superNetWinLoss: new NetWinLoss((decimal)0.00, (decimal)0.15)));
+                     new WinLossByBetTypeModel(
+                     betTypeId: 2,
+                     betTypeName: "Blackjack",
+                     productId: 0,
+                     liveIndicator: false,
+                     betCount: 2,
+                     turnover: (decimal)400.00,
+                     grossComm: (decimal)2.45,
+                     memberNetWinLoss: null,
+                     agentNetWinLoss: null,
+                     masterNetWinLoss: new NetWinLoss((decimal)9.65),
+                     superNetWinLoss: new NetWinLoss((decimal)0.00, (decimal)0.15))
+                };
 
-            return superWinLossData;
+
+            var winLossByLiveCasino = new WinLossByProductModel(
+                productId: 71,
+                productName: "Live Casino",
+                winLossByBetTypeData: winLossByBetTypeLiveCasinoData);
+
+            winLossByProductData.Add(winLossByLiveCasino);
+
+            return winLossByProductData;
         }
 
-        private static List<WinLossByBetTypeModel> BuildMasterDataTest()
+        private static List<WinLossByProductModel> BuildMasterDataTest()
         {
-            var masterWinLossData = new List<WinLossByBetTypeModel>();
+            var winLossByProductData = new List<WinLossByProductModel>();
 
-            masterWinLossData.Add(new WinLossByBetTypeModel(
+            var winLossByBetTypeLiveCasinoData = new List<WinLossByBetTypeModel>()
+            {
+                new WinLossByBetTypeModel(
                  betTypeId: 1,
                  betTypeName: "Baccarat",
                  productId: 0,
@@ -103,9 +117,9 @@
                  memberNetWinLoss: null,
                  agentNetWinLoss: new NetWinLoss((decimal)-111173393.16),
                  masterNetWinLoss: new NetWinLoss((decimal)74561618.35, (decimal)-374728.69),
-                 superNetWinLoss: null));
+                 superNetWinLoss: null),
 
-            masterWinLossData.Add(new WinLossByBetTypeModel(
+                new WinLossByBetTypeModel(
                  betTypeId: 2,
                  betTypeName: "Blackjack",
                  productId: 0,
@@ -116,16 +130,26 @@
                  memberNetWinLoss: null,
                  agentNetWinLoss: new NetWinLoss((decimal)9.65),
                  masterNetWinLoss: new NetWinLoss((decimal)0.00, (decimal)0.15),
-                 superNetWinLoss: null));
+                 superNetWinLoss: null)
+            };
 
-            return masterWinLossData;
+            var winLossByLiveCasino = new WinLossByProductModel(
+               productId: 71,
+               productName: "Live Casino",
+               winLossByBetTypeData: winLossByBetTypeLiveCasinoData);
+
+            winLossByProductData.Add(winLossByLiveCasino);
+
+            return winLossByProductData;
         }
 
-        private static List<WinLossByBetTypeModel> BuildAgentDataTest()
+        private static List<WinLossByProductModel> BuildAgentDataTest()
         {
-            var agentWinLossData = new List<WinLossByBetTypeModel>();
+            var winLossByProductData = new List<WinLossByProductModel>();
 
-            agentWinLossData.Add(new WinLossByBetTypeModel(
+            var winLossByBetTypeLiveCasinoData = new List<WinLossByBetTypeModel>()
+            {
+                new WinLossByBetTypeModel(
                  betTypeId: 1,
                  betTypeName: "Baccarat",
                  productId: 0,
@@ -136,9 +160,9 @@
                  memberNetWinLoss: new NetWinLoss((decimal)-2025.00, (decimal)21.00),
                  agentNetWinLoss: new NetWinLoss((decimal)992.25, (decimal)-10.29),
                  masterNetWinLoss: null,
-                 superNetWinLoss: null));
+                 superNetWinLoss: null),
 
-            agentWinLossData.Add(new WinLossByBetTypeModel(
+                new WinLossByBetTypeModel(
                  betTypeId: 2,
                  betTypeName: "Blackjack",
                  productId: 0,
@@ -149,11 +173,19 @@
                  memberNetWinLoss: new NetWinLoss((decimal)-551.25, (decimal)0.00),
                  agentNetWinLoss: new NetWinLoss((decimal)275.63, (decimal)6.91),
                  masterNetWinLoss: null,
-                 superNetWinLoss: null));
+                 superNetWinLoss: null)
+            };
 
-            return agentWinLossData;
+            var winLossByLiveCasino = new WinLossByProductModel(
+               productId: 71,
+               productName: "Live Casino",
+               winLossByBetTypeData: winLossByBetTypeLiveCasinoData);
+
+            winLossByProductData.Add(winLossByLiveCasino);
+
+            return winLossByProductData;
         }
 
-        public static IEnumerable<object[]> WinLossByBetTypeViewModelSources => winLossByBetTypeViewModel;
+        public static IEnumerable<object[]> WinLossByProductViewModelSources => winLossByProductViewModel;
     }
 }

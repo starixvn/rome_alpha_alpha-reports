@@ -207,7 +207,7 @@
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
     <Compile Include="Controllers\ReportLegendControllerTests.cs" />
-    <Compile Include="Controllers\WinLossByBetTypeControllerTests.cs" />
+    <Compile Include="Controllers\WinLossByProductControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossControllerTests.cs" />
     <Compile Include="Controllers\LeagueControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossDetailControllerTests.cs" />
@@ -219,9 +219,9 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandlerTests.cs" />
-    <Compile Include="Handlers\WinLossByBetType\WinLossByBetTypeExcelHandlerTest.cs" />
-    <Compile Include="Handlers\WinLossByBetType\WinLossByBetTypeBaseHandlerTests.cs" />
-    <Compile Include="Handlers\WinLossByBetType\WinLossByBetTypeHandlerTests.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductExcelHandlerTest.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductBaseHandlerTests.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandlerTests.cs" />
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />
       <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
@@ -248,7 +248,7 @@
     <Compile Include="Requests\ReportDefaultDateRangeQueryTests.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\MatchWinLossDetailTestCases.cs" />
-    <Compile Include="TestCases\WinLossByBetTypeViewModelTestCases.cs" />
+    <Compile Include="TestCases\WinLossByProductViewModelTestCases.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />

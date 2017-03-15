@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Alpha.Reports.Models.WinlossByBetType;
-
-namespace Alpha.Reports.Models.WinLossByProduct
+﻿namespace Alpha.Reports.Models.WinLossByProduct
 {
+    using System.Collections.Generic;
+    using WinlossByBetType;
+
     public class WinLossByProductModel
     {
         public WinLossByProductModel()

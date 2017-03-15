@@ -1,6 +1,7 @@
-﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossByBetType
+﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossByProduct
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -10,16 +11,18 @@
     using NSubstitute;
     using Params;
     using RemotingRef;
+    using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
     using Services;
     using Site.Handlers.WinLossByProduct;
     using Site.Requests.WinLossByProduct;
+    using TestCases;
     using Utils;
     using Xunit;
 
-    [Trait("Category", "WinLossByBetType")]
+    [Trait("Category", "WinLossByProduct")]
     [Collection("UserCollection")]
-    public class WinLossByBetTypeHandlerTests
+    public class WinLossByProductHandlerTests
     {
         private readonly WinLossByProductService reportService;
         private readonly CacheRefService cacheRefService;
@@ -30,8 +33,11 @@
         private readonly UserFixture userFixture;
         private readonly CompareLogic compareLogic;
 
-        public WinLossByBetTypeHandlerTests(UserFixture userFixture)
+        public WinLossByProductHandlerTests(UserFixture userFixture)
         {
+            this.userFixture = userFixture;
+            compareLogic = new CompareLogic();
+
             reportService = Substitute.For<WinLossByProductService>();
             cacheRefService = Substitute.For<CacheRefService>();
             productService = Substitute.For<ProductService>();
@@ -40,17 +46,15 @@
             ReportDateServiceImpl.Instance = reportDateService;
             reportDateService.GetBalanceUpDay().Returns(SystemTime.Today);
 
-            this.userFixture = userFixture;
             winLossByProductHandler = new WinLossByProductHandler(reportService, productService, cacheRefService);
+
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             SystemTime.Today = DefaultVariables.CurrentDate;
-
-            compareLogic = new CompareLogic();
         }
 
         [Fact]
-        public void HandlerWinLossByBetTypeQuery_NullMessage_ThrowsArgumentNullException()
+        public void HandlerWinLossByProductQuery_NullMessage_ThrowsArgumentNullException()
         {
             // Arrange
             WinLossByProductQuery nullMessage = null;
@@ -60,7 +64,7 @@
         }
 
         [Fact]
-        public void HandlerWinLossByBetTypeQuery_ValidMessage_ReturnCorrectReportData()
+        public void HandlerWinLossByProductQuery_ValidMessage_ReturnCorrectReportData()
         {
             // Arrange
             var message = new WinLossByProductQuery(userFixture.User);
@@ -73,27 +77,27 @@
             reportService.GetWinLossByProduct(Arg.Any<WinLossByProductParam>()).Returns(expectedReportData);
 
             // Act
-            var actualWinLossByBetTypeViewModel = winLossByProductHandler.Handle(message);
+            var actualWinLossByProductViewModel = winLossByProductHandler.Handle(message);
 
             // Assert
-            var result = compareLogic.Compare(actualWinLossByBetTypeViewModel.ReportData, expectedReportData);
+            var result = compareLogic.Compare(actualWinLossByProductViewModel.ReportData, expectedReportData);
             Assert.True(result.AreEqual);
         }
-      
-        ////[Theory]
-        ////[MemberData("WinLossByBetTypeViewModelSources", MemberType = typeof(WinLossByBetTypeViewModelTestCases))]
-        ////public void AccumulateGrandTotal_ValidReportData_ReturnsCorrectGrandTotal(
-        ////IEnumerable<WinLossByProductModel> data,
-        ////WinLossByBetTypeModel expectedGrandTotal)
-        ////{
-        ////    // Arrange
 
-        ////    // Act
-        ////    var actualGrandTotal = winLossByBetTypeHandler.AccumulateGrandTotal(data);
+        [Theory]
+        [MemberData("WinLossByProductViewModelSources", MemberType = typeof(WinLossByProductViewModelTestCases))]
+        public void AccumulateGrandTotal_ValidReportData_ReturnsCorrectGrandTotal(
+        IEnumerable<WinLossByProductModel> data,
+        WinLossByBetTypeModel expectedGrandTotal)
+        {
+            // Arrange
 
-        ////    // Assert
-        ////    var result = compareLogic.Compare(actualGrandTotal, expectedGrandTotal);
-        ////    Assert.True(result.AreEqual);
-        ////}
+            // Act
+            var actualGrandTotal = winLossByProductHandler.AccumulateGrandTotal(data);
+
+            // Assert
+            var result = compareLogic.Compare(actualGrandTotal, expectedGrandTotal);
+            Assert.True(result.AreEqual);
+        }
     }
 }

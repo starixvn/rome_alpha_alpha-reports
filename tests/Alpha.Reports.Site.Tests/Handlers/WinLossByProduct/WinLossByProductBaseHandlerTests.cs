@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossByBetType
+﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossByProduct
 {
     using System.Globalization;
     using System.Threading;
@@ -11,16 +11,16 @@
     using Utils;
     using Xunit;
 
-    [Trait("Category", "WinLossByBetType")]
+    [Trait("Category", "WinLossByProduct")]
     [Collection("UserCollection")]
-    public class WinLossByBetTypeBaseHandlerTests
+    public class WinLossByProductBaseHandlerTests
     {
         private readonly ProductService productService;
         private readonly WinLossByProductService reportService;
         private readonly CacheRefService cacheRefService;
         private readonly WinLossByProductBaseHandler winLossByBetTypeBaseHandler;
 
-        public WinLossByBetTypeBaseHandlerTests()
+        public WinLossByProductBaseHandlerTests()
         {
             reportService = Substitute.For<WinLossByProductService>();
             cacheRefService = Substitute.For<CacheRefService>();

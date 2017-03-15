@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WinLossByBetType>
+<WinLossByProduct>
   <TableWinLoss>
     <Bettype>71</Bettype>
     <ProductID>22</ProductID>
@@ -22,4 +22,4 @@
     <MAgComm>9</MAgComm>
     <NumberOfTickets>4</NumberOfTickets>
   </TableWinLoss>
-</WinLossByBetType>
+</WinLossByProduct>

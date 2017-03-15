@@ -172,16 +172,16 @@
     <Compile Include="Criteria\ReportCriteriaBaseForTesting.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseTests.cs" />
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />
-    <Compile Include="Criteria\WinLossByBetType\WinLossByBetTypeCriteriaTests.cs" />
+    <Compile Include="Criteria\WinLossByProduct\WinLossByProductCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteriaTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTestCases.cs" />
-    <Compile Include="DataAccesses\WinLossByBetTypeDataAccessImplTests.cs" />
+    <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Database\MatchWinLossDetail\MatchWinLossDetailDatabase.cs" />
-    <Compile Include="Database\WinLossByBetType\WinLossByBetTypeDatabase.cs" />
+    <Compile Include="Database\WinLossByProduct\WinLossByProductDatabase.cs" />
     <Compile Include="Database\WinLoss\WinLossDatabase.cs" />
     <Compile Include="Database\WinLossDetail\WinLossDetailDatabase.cs" />
     <Compile Include="DataAccesses\WinLossDataAccessImplTests.cs" />
@@ -214,7 +214,7 @@
     <Compile Include="Params\MatchWinLossParamTests.cs" />
     <Compile Include="Params\MatchWinLossDetailParamTests.cs" />
     <Compile Include="Params\ProductByCustomerParamTests.cs" />
-    <Compile Include="Params\WinLossByBetTypeParamTests.cs" />
+    <Compile Include="Params\WinLossByProductParamTests.cs" />
     <Compile Include="Params\WinLossParamTests.cs" />
     <Compile Include="Params\WinLossDetailParamTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -224,7 +224,7 @@
     <Compile Include="Services\MatchWinLossDetailServiceImplTests.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
-    <Compile Include="Services\WinLossByBetTypeServiceImplTests.cs" />
+    <Compile Include="Services\WinLossByProductServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />
     <Compile Include="Services\WinLossServiceImplTests.cs" />
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
@@ -252,7 +252,9 @@
   <ItemGroup>
     <CodeAnalysisDictionary Include="CodeAnalysis\CustomDictionary.xml">
       <SubType>Designer</SubType>
-    </CodeAnalysisDictionary>
+    </CodeAnalysisDictionary><Content Include="Database\WinLossByProduct\AgentWinLossByProductHasData.xml">
+ <Content Include="Database\WinLossByProduct\AgentWinLossByProductHasData.xml">
+
  <Content Include="Database\MatchWinLossDetail\AgentMatchWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -280,11 +282,11 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Database\WinLossByBetType\MasterWinLossByBetTypeHasData.xml">
+    <Content Include="Database\WinLossByProduct\MasterWinLossByProductHasData.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Database\WinLossByBetType\MemberWinLossByBetTypeHasData.xml">
+    <Content Include="Database\WinLossByProduct\MemberWinLossByProductHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
 
