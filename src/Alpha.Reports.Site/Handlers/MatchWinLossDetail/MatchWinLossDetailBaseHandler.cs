@@ -183,6 +183,7 @@
                     winLoss.Turnover,
                     winLoss.GrossComm,
                     winLoss.LiveIndicator,
+                    winLoss.Race,
                     winLoss.MemberNetWinLoss,
                     winLoss.AgentNetWinLoss,
                     winLoss.MasterNetWinLoss,

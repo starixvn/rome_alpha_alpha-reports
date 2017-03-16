@@ -186,6 +186,7 @@
                 turnover: 2250000,
                 grossComm: (decimal)321.3,
                 isLive: false,
+                race: 0,
                 memberNetWinLoss: new NetWinLoss(-2238000, (decimal)6.25),
                 agentNetWinLoss: new NetWinLoss(3900, (decimal)218.75),
                 masterNetWinLoss: null,

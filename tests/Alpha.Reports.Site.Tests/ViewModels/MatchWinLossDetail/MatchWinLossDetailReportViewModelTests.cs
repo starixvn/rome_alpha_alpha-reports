@@ -389,6 +389,7 @@
                 anyValueCreatorFixture.Create<decimal>(),
                 anyValueCreatorFixture.Create<decimal>(),
                 liveIndicator,
+                2,
                 anyValueCreatorFixture.Create<NetWinLoss>(),
                 anyValueCreatorFixture.Create<NetWinLoss>(),
                 anyValueCreatorFixture.Create<NetWinLoss>(),
@@ -403,7 +404,7 @@
                 ["leagueid"] = match.LeagueId,
                 ["fdate"] = fromDate,
                 ["tdate"] = toDate,
-                ["race"] = race
+                ["race"] = 2
             };
 
             // Act
@@ -424,7 +425,7 @@
             var toDate = anyValueCreatorFixture.Create<DateTime>();
             var match = new MatchWinLossDetailViewModel(0, string.Empty, 0, string.Empty, race, null, null);
 
-            var betType = new BetTypeWinLossViewModel(BetTypeIdConstants.Outright, string.Empty, 0, 0, liveIndicator, null, null, null, null, null);
+            var betType = new BetTypeWinLossViewModel(BetTypeIdConstants.Outright, string.Empty, 0, 0, liveIndicator, 0, null, null, null, null, null);
 
             var expectRouteValues = new Dictionary<string, object>
             {
@@ -455,7 +456,7 @@
             var toDate = anyValueCreatorFixture.Create<DateTime>();
             var match = new MatchWinLossDetailViewModel(0, string.Empty, 0, string.Empty, race, null, null);
 
-            var betType = new BetTypeWinLossViewModel(BetTypeIdConstants.MixParlay, string.Empty, 0, 0, liveIndicator, null, null, null, null, null);
+            var betType = new BetTypeWinLossViewModel(BetTypeIdConstants.MixParlay, string.Empty, 0, 0, liveIndicator, 0, null, null, null, null, null);
 
             var expectRouteValues = new Dictionary<string, object>
             {

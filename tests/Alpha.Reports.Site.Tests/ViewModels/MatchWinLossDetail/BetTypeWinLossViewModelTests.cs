@@ -38,6 +38,7 @@
                 1,
                 1,
                 false,
+                1,
                 null,
                 null,
                 null,
@@ -55,7 +56,7 @@
         public void Add_NullWinLoss_ReturnsCurrentWinLoss()
         {
             // Arrange
-            var currentWinLoss = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
+            var currentWinLoss = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, 0, null, null, null, null, null);
             BetTypeWinLossViewModel winLoss = null;
             var expectedTotal = currentWinLoss;
 
@@ -70,9 +71,9 @@
         public void Add_NotNullWinLoss_ReturnsCorrectTotal()
         {
             // Arrange
-            var currentWinLoss = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
-            var winLoss = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, null, null, null, null, null);
-            var expectedTotal = new BetTypeWinLossViewModel(1, "Bet Type Name", 2, 2, false, null, null, null, null, null);
+            var currentWinLoss = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, 0, null, null, null, null, null);
+            var winLoss = new BetTypeWinLossViewModel(1, "Bet Type Name", 1, 1, false, 0, null, null, null, null, null);
+            var expectedTotal = new BetTypeWinLossViewModel(1, "Bet Type Name", 2, 2, false, 0, null, null, null, null, null);
 
             // Act
             var actualTotal = currentWinLoss.Add(winLoss);

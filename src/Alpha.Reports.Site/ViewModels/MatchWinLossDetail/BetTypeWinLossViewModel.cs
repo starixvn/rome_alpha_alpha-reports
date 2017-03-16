@@ -15,6 +15,7 @@
             decimal turnover,
             decimal grossComm,
             bool isLive,
+            int race,
             NetWinLoss memberNetWinLoss,
             NetWinLoss agentNetWinLoss,
             NetWinLoss masterNetWinLoss,
@@ -26,6 +27,7 @@
             Turnover = turnover;
             GrossComm = grossComm;
             IsLive = isLive;
+            Race = race;
             MemberNetWinLoss = memberNetWinLoss;
             AgentNetWinLoss = agentNetWinLoss;
             MasterNetWinLoss = masterNetWinLoss;
@@ -40,6 +42,7 @@
                 winLoss.Turnover,
                 winLoss.GrossComm,
                 winLoss.LiveIndicator,
+                winLoss.Race,
                 winLoss.MemberNetWinLoss,
                 winLoss.AgentNetWinLoss,
                 winLoss.MasterNetWinLoss,
@@ -57,6 +60,8 @@
         public decimal GrossComm { get; private set; }
 
         public bool IsLive { get; }
+
+        public int Race { get; }
 
         public NetWinLoss MemberNetWinLoss { get; private set; }
 

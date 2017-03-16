@@ -111,15 +111,15 @@
                         1,
                         new List<BetTypeWinLossViewModel>
                         {
-                            CreateBetTypeWinLossViewModel(1, "Bet Type 1", 1, 1),
-                            CreateBetTypeWinLossViewModel(2, "Bet Type 2", 1, 1)
+                            CreateBetTypeWinLossViewModel(1, "Bet Type 1", 1, 1, 1),
+                            CreateBetTypeWinLossViewModel(2, "Bet Type 2", 1, 1, 1)
                         },
-                        CreateBetTypeWinLossViewModel(0, null, 2, 2))
+                        CreateBetTypeWinLossViewModel(0, null, 2, 2, 0))
                 },
-                CreateBetTypeWinLossViewModel(0, null, 2, 2),
-                CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1),
-                CreateBetTypeWinLossViewModel(29, "Bet Type 29", 1, 1),
-                CreateBetTypeWinLossViewModel(0, null, 4, 4),
+                CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
+                CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
+                CreateBetTypeWinLossViewModel(29, "Bet Type 29", 1, 1, 1),
+                CreateBetTypeWinLossViewModel(0, null, 4, 4, 0),
                 query,
                 new MatchWinLossDetailParam(
                      query.CustId,
@@ -488,13 +488,14 @@
                 masterNetWinLoss: null,
                 superNetWinLoss: null);
 
-        private BetTypeWinLossViewModel CreateBetTypeWinLossViewModel(int id, string name, decimal turnover, decimal grossComm)
+        private BetTypeWinLossViewModel CreateBetTypeWinLossViewModel(int id, string name, decimal turnover, decimal grossComm, int race = 0)
             => new BetTypeWinLossViewModel(
                 id,
                 name,
                 turnover,
                 grossComm,
                 false,
+                race,
                 null,
                 null,
                 null,

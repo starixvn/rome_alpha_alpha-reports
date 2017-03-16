@@ -140,7 +140,7 @@
                 result["leagueid"] = match.LeagueId;
                 result["fdate"] = fromDate;
                 result["tdate"] = toDate;
-                result["race"] = match.Race;
+                result["race"] = betType.Race;
             }
             else
             {
