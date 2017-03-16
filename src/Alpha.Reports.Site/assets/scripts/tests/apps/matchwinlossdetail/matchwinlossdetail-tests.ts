@@ -502,219 +502,40 @@
             });
         });
     });
-    describe("_showLeagues", () => {
-        it("_League is shown -> Not get param for call ajax", () => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalModeAndLeagueIsShown);
-            spyOn(matchWinLossDetailView, "getLeagueParam");
-            matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
+    describe("_loadLeagues_Always", () => {
+        let newParam = {
+            fromDate: "02/01/2017",
+            toDate: "02/01/2017",
+            products: "1,2"
+        };
 
-            // act
-            matchWinLossDetailView.showLeagues(null);
-
-            // assert
-            expect(matchWinLossDetailView.getLeagueParam).not.toHaveBeenCalled();
-        });
-        it("_League is hidden/Not Change Param -> Block UI/Unblock UI", () => {
+        beforeEach(() => {
             // arrange
             setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
-            let oldParam = {
-                custId: "1",
-                fromDate: "01/01/2017",
-                toDate: "01/01/2017",
-                products: "1,2,3"
-            };
-            matchWinLossDetailView.getLeaguesByCustomerParam = oldParam;
-            spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => oldParam);
+            matchWinLossDetailView.init();
+
+            spyOn(matchWinLossDetailView, "renderLeagues");
+            spyOn($, "ajax");
+
+            spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => newParam);
 
             // act
-            matchWinLossDetailView.showLeagues(null);
+            matchWinLossDetailView.loadLeagues();
+        });
 
+        it("_Block UI/Unblock UI", () => {
             // assert
             expect(jQueryFake.blockUI).toHaveBeenCalled();
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
         });
-        it("_League is hidden/Change Product to Empty -> Block UI/Unblock UI", () => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
-            let oldParam = {
-                custId: "1",
-                fromDate: "01/01/2017",
-                toDate: "01/01/2017",
-                products: "1,2,3"
-            };
-
-            matchWinLossDetailView.getLeaguesByCustomerParam = oldParam;
-            spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => {
-                return {
-                    fromDate: "01/01/2017",
-                    toDate: "01/01/2017",
-                    products: ""
-                };
-            });
-
-            // act
-            matchWinLossDetailView.showLeagues(null);
-
-            // assert
-            expect(jQueryFake.blockUI).toHaveBeenCalled();
-            expect(jQueryFake.unblockUI).toHaveBeenCalled();
-        });
-        it("_League is hidden/Change Product to Another Value (Not Empty) -> stopPropagation", () => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
-            matchWinLossDetailView.$loadLeagueURL = matchWinLossDetailView.$("#LoadLeagueURL");
-            let oldParam = {
-                custId: "1",
-                fromDate: "01/01/2017",
-                toDate: "01/01/2017",
-                products: "1,2,3"
-            };
-
-            matchWinLossDetailView.getLeaguesByCustomerParam = oldParam;
-            spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => {
-                return {
-                    fromDate: "01/01/2017",
-                    toDate: "01/01/2017",
-                    products: "1,2"
-                };
-            });
-
-            let event = {
-                preventDefault: jasmine.createSpy("preventDefault", () => null),
-                stopPropagation: jasmine.createSpy("stopPropagation", () => null)
-            };
-
-            spyOn($, "ajax");
-
-            // act
-            matchWinLossDetailView.showLeagues(event);
-
-            // assert
-            expect(jQueryFake.blockUI).toHaveBeenCalled();
-            expect(jQueryFake.unblockUI).not.toHaveBeenCalled();
-            expect(event.preventDefault).toHaveBeenCalled();
-            expect(event.stopPropagation).toHaveBeenCalled();
-        });
-        it("_League is hidden/Change Param -> set new param", () => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
-            matchWinLossDetailView.$loadLeagueURL = matchWinLossDetailView.$("#LoadLeagueURL");
-            let oldParam = {
-                custId: "1",
-                fromDate: "01/01/2017",
-                toDate: "01/01/2017",
-                products: "1,2,3"
-            };
-
-            matchWinLossDetailView.getLeaguesByCustomerParam = oldParam;
-
-            let newParam = {
-                fromDate: "02/01/2017",
-                toDate: "01/01/2017",
-                products: "1,2,3"
-            };
-
-            spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => newParam);
-
-            let event = {
-                preventDefault: jasmine.createSpy("preventDefault", () => null),
-                stopPropagation: jasmine.createSpy("stopPropagation", () => null)
-            };
-
-            spyOn($, "ajax");
-
-            // act
-            matchWinLossDetailView.showLeagues(event);
-
-            // assert
-            expect(matchWinLossDetailView.getLeaguesByCustomerParam).toEqual(newParam);
-        });
-        it("_League is hidden/Change Param -> call ajax", () => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
-            matchWinLossDetailView.$loadLeagueURL = matchWinLossDetailView.$("#LoadLeagueURL");
-            let oldParam = {
-                custId: "1",
-                fromDate: "01/01/2017",
-                toDate: "01/01/2017",
-                products: "1,2,3"
-            };
-
-            matchWinLossDetailView.getLeaguesByCustomerParam = oldParam;
-
-            let newParam = {
-                fromDate: "02/01/2017",
-                toDate: "02/01/2017",
-                products: "1,2"
-            };
-
-            spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => newParam);
-
-            let event = {
-                preventDefault: jasmine.createSpy("preventDefault", () => null),
-                stopPropagation: jasmine.createSpy("stopPropagation", () => null)
-            };
-
-            spyOn($, "ajax");
-
-            // act
-            matchWinLossDetailView.showLeagues(event);
-
+        it("_call ajax", () => {
             // assert
             expect($.ajax).toHaveBeenCalledWith({
                 method: "GET",
                 url: "League/LeaguesByCustomer",
                 cache: false,
                 data: newParam,
-                success: jasmine.any(Function),
-                complete: jasmine.any(Function)
-            });
-        });
-        it("_League is hidden/Change Param -> call ajax", () => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.$buttonLeague = matchWinLossDetailView.$("#dropdown-league").parent().find(".multiselect.btn");
-            matchWinLossDetailView.$loadLeagueURL = matchWinLossDetailView.$("#LoadLeagueURL");
-            let oldParam = {
-                custId: "1",
-                fromDate: "01/01/2017",
-                toDate: "01/01/2017",
-                products: "1,2,3"
-            };
-
-            matchWinLossDetailView.getLeaguesByCustomerParam = oldParam;
-
-            let newParam = {
-                fromDate: "02/01/2017",
-                toDate: "02/01/2017",
-                products: "1,2"
-            };
-
-            spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => newParam);
-
-            let event = {
-                preventDefault: jasmine.createSpy("preventDefault", () => null),
-                stopPropagation: jasmine.createSpy("stopPropagation", () => null)
-            };
-
-            spyOn($, "ajax");
-
-            // act
-            matchWinLossDetailView.showLeagues(event);
-
-            // assert
-            expect($.ajax).toHaveBeenCalledWith({
-                method: "GET",
-                url: "League/LeaguesByCustomer",
-                cache: false,
-                data: newParam,
-                success: jasmine.any(Function),
+                success: matchWinLossDetailView.renderLeagues,
                 complete: jasmine.any(Function)
             });
         });
@@ -747,27 +568,6 @@
 
             // assert
             expect(leagueMultiSelectionComponent.render).toHaveBeenCalled();
-        });
-        it("_rebind click event", () => {
-            // arrange
-            spyOn(matchWinLossDetailView, "showLeagues");
-
-            // act
-            matchWinLossDetailView.renderLeagues(leagueHtml);
-            matchWinLossDetailView.$buttonLeague.trigger("click");
-
-            // assert
-            expect(matchWinLossDetailView.showLeagues).toHaveBeenCalled();
-        });
-        it("_show league", () => {
-            // arrange
-            spyOn(matchWinLossDetailView, "showLeagues");
-
-            // act
-            matchWinLossDetailView.renderLeagues(leagueHtml);
-
-            // assert
-            expect(matchWinLossDetailView.showLeagues).toHaveBeenCalled();
         });
     });
 });

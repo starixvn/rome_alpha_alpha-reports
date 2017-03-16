@@ -1,47 +1,7 @@
 ﻿describe("DateRangePicker", () => {
     let dateRangePickerComponent: DateRangePickerComponent;
-
-    beforeEach(() => {
-        dateRangePickerComponent = new DateRangePickerComponent($);
-    });
-
-    describe("_render", () => {
-        describe("_Always", () => {
-            beforeEach(() => {
-                // arrange
-                setFixtures(`<div id="daterange-picker"
-                                data-currentdate="01/05/2016"
-                                data-mindate="01/05/2013"
-                                data-maxdate=""
-                                data-selecteddaterange="0">
-                         </div>`);
-                spyOn($.fn, "nexDatePicker");
-                spyOn($.fn, "multiselect");
-
-                // act
-                dateRangePickerComponent.render();
-            });
-
-            it("_Binds nexDatePicker to date range element", () => {
-                // assert
-                expect($.fn.nexDatePicker).toHaveBeenCalledWith({
-                    datePickerFormat: {
-                        dateFormat: "MM/DD/YYYY"
-                    },
-                    selectedItem: 0,
-                    minDate: new Date("01/05/2013"),
-                    maxDate: null,
-                    currentDate: new Date("01/05/2016"),
-                    onQuickChooseChange: jasmine.any(Function)
-                });
-            });
-        });
-    });
-    describe("_onQuickChooseChange", () => {
-        let $reportForm: JQuery;
-        beforeEach(() => {
-            // arrange
-            setFixtures(`<body>
+    let template = {
+        dateRange: `<body>
                             <div id="daterange-picker"
                                     data-currentdate="01/05/2016"
                                     data-mindate="01/05/2013"
@@ -88,7 +48,70 @@
                                 </div>
                              </div>
                             <form id="report-form"></form>
-                        </body>`);
+                        </body>`
+    };
+
+    beforeEach(() => {
+        dateRangePickerComponent = new DateRangePickerComponent($);
+    });
+
+    describe("_render", () => {
+        describe("_Always", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(`<div id="daterange-picker"
+                                data-currentdate="01/05/2016"
+                                data-mindate="01/05/2013"
+                                data-maxdate=""
+                                data-selecteddaterange="0">
+                         </div>`);
+                spyOn($.fn, "nexDatePicker");
+                spyOn($.fn, "multiselect");
+
+                // act
+                dateRangePickerComponent.render();
+            });
+
+            it("_Binds nexDatePicker to date range element", () => {
+                // assert
+                expect($.fn.nexDatePicker).toHaveBeenCalledWith({
+                    datePickerFormat: {
+                        dateFormat: "MM/DD/YYYY"
+                    },
+                    selectedItem: 0,
+                    minDate: new Date("01/05/2013"),
+                    maxDate: null,
+                    currentDate: new Date("01/05/2016"),
+                    onSelectDatePicker: jasmine.any(Function),
+                    onQuickChooseChange: jasmine.any(Function)
+                });
+            });
+        });
+    });
+    describe("_onSelectDatePicker", () => {
+        it("_Always_Calls Change Event", () => {
+            // arrange
+            setFixtures(template.dateRange);
+
+            let onChange = {
+                event: new Function()
+            };
+
+            spyOn(onChange, "event");
+            dateRangePickerComponent.render(new DateRangePickerOption("daterange-picker", "report-form", onChange.event));
+
+            // act
+            this.$("#dropdown-daterange").val("7").change();
+
+            // assert
+            expect(onChange.event).toHaveBeenCalled();
+        });
+    });
+    describe("_onQuickChooseChange", () => {
+        let $reportForm: JQuery;
+        beforeEach(() => {
+            // arrange
+            setFixtures(template.dateRange);
             dateRangePickerComponent.render();
             $reportForm = dateRangePickerComponent.$reportForm;
             spyOn($reportForm, "submit");

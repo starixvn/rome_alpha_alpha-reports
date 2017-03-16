@@ -59,11 +59,12 @@ class MatchWinLossDetailView {
 
         this.cacheElements();
 
-        this.dateRangePickerComponent.render();
+        this.dateRangePickerComponent.render(new DateRangePickerOption("daterange-picker", "report-form", this.loadLeagues));
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
 
-        this.productMultiSelectionComponent.render();
+        this.productMultiSelectionComponent.render(
+            new ProductMultiSelectionOption("dropdown-product", true, "product-ids", this.loadLeagues));
         this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
         this.leagueMultiSelectionComponent.render();
@@ -104,7 +105,6 @@ class MatchWinLossDetailView {
         this.$reportForm.submit(this.onSubmitReport);
         this.$(".icon-filter").on("click", this.onClickIconFilter);
         this.$(".icon-switchmode").on("click", this.onSwitchMode);
-        this.$buttonLeague.on("click", this.showLeagues);
     };
     onExportExcel = () => {
         this.$exportExcelForm.submit();
@@ -227,29 +227,11 @@ class MatchWinLossDetailView {
             products: this.productMultiSelectionComponent.getSelectedItems().join(",")
         };
     };
-    showLeagues = (event: any) => {
-        if (alphaReports.convertAttributeToBool(this.$buttonLeague.attr("aria-expanded"))) {
-            return;
-        }
-
+    loadLeagues = () => {
         let this$ = this.$;
         this$.blockUI();
 
         let param = this.getLeagueParam();
-        if (param.fromDate === this.getLeaguesByCustomerParam.fromDate
-            && param.toDate === this.getLeaguesByCustomerParam.toDate
-            && param.products === this.getLeaguesByCustomerParam.products) {
-            this$.unblockUI();
-            return;
-        }
-
-        if (param.products === "") {
-            this$.unblockUI();
-            return;
-        }
-
-        event.stopPropagation();
-        event.preventDefault();
         this.getLeaguesByCustomerParam = param;
         this.$.ajax({
             method: "GET",
@@ -265,8 +247,6 @@ class MatchWinLossDetailView {
         this.leagueMultiSelectionComponent.render();
         this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
         this.$userSelectedLeagueIds = this.$("#league-ids");
-        this.$buttonLeague.on("click", this.showLeagues);
-        this.$buttonLeague.click();
     };
 }
 

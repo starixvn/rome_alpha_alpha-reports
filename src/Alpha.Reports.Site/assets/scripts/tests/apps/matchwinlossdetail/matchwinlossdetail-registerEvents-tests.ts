@@ -55,7 +55,6 @@ describe("MatchWinLossDetail", () => {
             spyOn(matchWinLossDetailView, "onSubmitReport");
             spyOn(matchWinLossDetailView, "onClickIconFilter");
             spyOn(matchWinLossDetailView, "onSwitchMode");
-            spyOn(matchWinLossDetailView, "showLeagues");
 
             // act
             matchWinLossDetailView.registerEvents();
@@ -88,13 +87,6 @@ describe("MatchWinLossDetail", () => {
 
             // assert
             expect(matchWinLossDetailView.onSwitchMode).toHaveBeenCalled();
-        });
-        it("_Bind showLeagues", () => {
-            // act
-            matchWinLossDetailView.$buttonLeague.trigger("click");
-
-            // assert
-            expect(matchWinLossDetailView.showLeagues).toHaveBeenCalled();
         });
     });
 });
