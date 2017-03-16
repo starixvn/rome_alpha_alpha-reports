@@ -37,6 +37,8 @@ class MatchWinLossDetailView {
         products: ""
     };
 
+    isLoading = true;
+
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
@@ -83,6 +85,7 @@ class MatchWinLossDetailView {
         this.getLeaguesByCustomerParam = this.getLeagueParam();
 
         this.$.unblockUI();
+        this.isLoading = false;
     };
     checkReady = () => {
         return this.$("#dropdown-product").length > 0;
@@ -228,6 +231,10 @@ class MatchWinLossDetailView {
         };
     };
     loadLeagues = () => {
+        if (this.isLoading) {
+            return;
+        }
+
         let this$ = this.$;
         this$.blockUI();
 
@@ -247,6 +254,7 @@ class MatchWinLossDetailView {
         this.leagueMultiSelectionComponent.render();
         this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
         this.$userSelectedLeagueIds = this.$("#league-ids");
+        this.$userSelectedLeagueIds.val("");
     };
 }
 

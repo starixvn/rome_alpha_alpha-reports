@@ -152,7 +152,7 @@
             // arrange
             let onChange = {
                 event: () => {
-                    console.log(1)
+                    console.log(1);
                 }
             };
 

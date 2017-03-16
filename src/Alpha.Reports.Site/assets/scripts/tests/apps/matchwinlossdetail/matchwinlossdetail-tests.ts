@@ -46,6 +46,8 @@
         beforeEach(() => {
             // arrange
             setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            matchWinLossDetailView.isLoading = true;
+            spyOn(matchWinLossDetailView, "loadLeagues");
 
             // act
             matchWinLossDetailView.init();
@@ -101,6 +103,11 @@
 
             // assert
             expect(reportTooltip.show).toHaveBeenCalledWith(new ReportTooltipOption("icon-normal-column", 1));
+        });
+
+        it("_Not load leagues", () => {
+            // assert
+            expect(matchWinLossDetailView.loadLeagues).not.toHaveBeenCalledWith();
         });
     });
     describe("_checkReady", () => {
@@ -502,44 +509,65 @@
             });
         });
     });
-    describe("_loadLeagues_Always", () => {
-        let newParam = {
-            fromDate: "02/01/2017",
-            toDate: "02/01/2017",
-            products: "1,2"
-        };
+    describe("_loadLeagues", () => {
+        describe("_Page completely loaded", () => {
+            let newParam = {
+                fromDate: "02/01/2017",
+                toDate: "02/01/2017",
+                products: "1,2"
+            };
 
-        beforeEach(() => {
-            // arrange
-            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-            matchWinLossDetailView.init();
+            beforeEach(() => {
+                // arrange
+                setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+                matchWinLossDetailView.init();
 
-            spyOn(matchWinLossDetailView, "renderLeagues");
-            spyOn($, "ajax");
+                spyOn(matchWinLossDetailView, "renderLeagues");
+                spyOn($, "ajax");
 
-            spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => newParam);
+                spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => newParam);
+                matchWinLossDetailView.isLoading = false;
 
-            // act
-            matchWinLossDetailView.loadLeagues();
+                // act
+                matchWinLossDetailView.loadLeagues();
+            });
+
+            it("_Block UI/Unblock UI", () => {
+                // assert
+                expect(jQueryFake.blockUI).toHaveBeenCalled();
+                expect(jQueryFake.unblockUI).toHaveBeenCalled();
+            });
+            it("_call ajax", () => {
+                // assert
+                expect($.ajax).toHaveBeenCalledWith({
+                    method: "GET",
+                    url: "League/LeaguesByCustomer",
+                    cache: false,
+                    data: newParam,
+                    success: matchWinLossDetailView.renderLeagues,
+                    complete: jasmine.any(Function)
+                });
+            });
         });
+        describe("_Page is loading", () => {
+            beforeEach(() => {
+                // arrange
+                setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+                matchWinLossDetailView.init();
 
-        it("_Block UI/Unblock UI", () => {
-            // assert
-            expect(jQueryFake.blockUI).toHaveBeenCalled();
-            expect(jQueryFake.unblockUI).toHaveBeenCalled();
-        });
-        it("_call ajax", () => {
-            // assert
-            expect($.ajax).toHaveBeenCalledWith({
-                method: "GET",
-                url: "League/LeaguesByCustomer",
-                cache: false,
-                data: newParam,
-                success: matchWinLossDetailView.renderLeagues,
-                complete: jasmine.any(Function)
+                spyOn($, "ajax");
+                matchWinLossDetailView.isLoading = true;
+
+                // act
+                matchWinLossDetailView.loadLeagues();
+            });
+            it("_Not call ajax", () => {
+                // assert
+                expect($.ajax).not.toHaveBeenCalled();
             });
         });
     });
+
     describe("_renderLeagues", () => {
         let leagueHtml = "<div id=\"dropdown-league-container\" class=\"form-group\"><select id=\"dropdown-league\"></select></div>";
 

@@ -135,7 +135,7 @@
             leagueMultiSelectionComponent.$hiddenInput = $("#league-ids");
 
             // act
-            leagueMultiSelectionComponent.onChange(null, false);
+            leagueMultiSelectionComponent.onChange();
         });
 
         it("_Validate", () => {
@@ -146,6 +146,48 @@
         it("_Update hidden input", () => {
             // assert
             expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("1,2,3");
+        });
+    });
+    describe("_onSelectAll_Always", () => {
+        beforeEach(() => {
+            // arrange
+            setFixtures(`<body><div id="league-ids"></div></body>`);
+            spyOn(leagueMultiSelectionComponent, "validate");
+            spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => [1, 2, 3]);
+            leagueMultiSelectionComponent.$hiddenInput = $("#league-ids");
+        });
+
+        describe("_Select All", () => {
+            beforeEach(() => {
+                // act
+                leagueMultiSelectionComponent.onSelectAll(true);
+            });
+
+            it("_Validate", () => {
+                // assert
+                expect(leagueMultiSelectionComponent.validate).toHaveBeenCalled();
+            });
+
+            it("_Update hidden input", () => {
+                // assert
+                expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("");
+            });
+        });
+        describe("_Deselect All", () => {
+            beforeEach(() => {
+                // act
+                leagueMultiSelectionComponent.onSelectAll(false);
+            });
+
+            it("_Validate", () => {
+                // assert
+                expect(leagueMultiSelectionComponent.validate).toHaveBeenCalled();
+            });
+
+            it("_Update hidden input", () => {
+                // assert
+                expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("-1");
+            });
         });
     });
     describe("_render", () => {
@@ -181,7 +223,7 @@
                     allSelectedText: "All selected",
                     includeSelectAllOption: true,
                     onChange: leagueMultiSelectionComponent.onChange,
-                    onSelectAll: leagueMultiSelectionComponent.onChange,
+                    onSelectAll: leagueMultiSelectionComponent.onSelectAll,
                     language: "en",
                     enableCaseInsensitiveFiltering: true
                 });
@@ -223,7 +265,7 @@
                     allSelectedText: "All selected",
                     includeSelectAllOption: false,
                     onChange: leagueMultiSelectionComponent.onChange,
-                    onSelectAll: leagueMultiSelectionComponent.onChange,
+                    onSelectAll: leagueMultiSelectionComponent.onSelectAll,
                     language: "en",
                     enableCaseInsensitiveFiltering: true
                 });

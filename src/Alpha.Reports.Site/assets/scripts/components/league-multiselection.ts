@@ -41,7 +41,7 @@ class LeagueMultiSelectionComponent {
             allSelectedText: this.$dropdownLeague.data("label-all-leagues"),
             includeSelectAllOption: hasAnyLeague,
             onChange: this.onChange,
-            onSelectAll: this.onChange,
+            onSelectAll: this.onSelectAll,
             language: this.$dropdownLeague.data("language"),
             enableCaseInsensitiveFiltering: true
         });
@@ -51,11 +51,16 @@ class LeagueMultiSelectionComponent {
         return this.$dropdownLeague;
     };
 
-    onChange = (option: any, checked: boolean) => {
+    onChange = () => {
         this.validate();
 
         var selectedItems = this.getSelectedItems();
         this.$hiddenInput.val(selectedItems.length === 0 ? "-1" : selectedItems.join(","));
+    };
+    onSelectAll = (checked: boolean) => {
+
+        this.validate();
+        this.$hiddenInput.val(checked ? "" : "-1");
     };
 
     validate = () => {
