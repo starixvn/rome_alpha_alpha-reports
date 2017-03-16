@@ -112,7 +112,7 @@
             {
                 <tr class="match-title-row">
                     <td class="text-left col-username" colspan="@Model.ReportColumnsCount">
-                        <span class="league-title">@data.LeagueName</span>
+                        <span class="league-title" title="@data.LeagueName">@data.LeagueName</span>
                         @if (!string.IsNullOrWhiteSpace(data.MatchName))
                         {
                             <span class="match-title">@data.MatchName</span>

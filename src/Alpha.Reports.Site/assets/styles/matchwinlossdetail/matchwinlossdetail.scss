@@ -10,6 +10,9 @@
     text-transform: uppercase;
     width: 300px;
     display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: middle;
 }
 
 .match-title:before {
