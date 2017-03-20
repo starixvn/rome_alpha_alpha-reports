@@ -82,7 +82,8 @@
               footerEndIndex: 12);
 
         private string GetReporTitle(MatchWinLossDetailExcelQuery query)
-            => $"{Resources.MatchWinLossDetail} {query.FromDate.ToShortDateWithSlash()} --> {query.ToDate.ToShortDateWithSlash()}";
+            => $"{Resources.MatchWinLossDetail} {query.FromDate.ToShortDateWithSlash()} --> {query.ToDate.ToShortDateWithSlash()}" +
+            $" {Resources.of2} {productService.ConcatProductNames(query.UserSelectedProductIds)}";
 
         private string GetExcelFileName(MatchWinLossDetailExcelQuery query)
             => string.Join(

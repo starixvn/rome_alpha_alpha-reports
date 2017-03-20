@@ -27,7 +27,9 @@
        @(Model.IsStackMode ? "stack-mode" : string.Empty)">
     <thead>
         <tr>
-            <th class="hidden-stack-mode" colspan="3"></th>
+            <th class="hidden-stack-mode" rowspan="2">@Resources.BetType</th>
+            <th class="hidden-stack-mode" rowspan="2">@Resources.Turnover</th>
+            <th class="hidden-stack-mode" rowspan="2">@Resources.GrossComm</th>
             <th class="visible-stack-mode">@Resources.BetType</th>
             <th class="visible-stack-mode">
                 @Resources.Turnover
@@ -72,13 +74,10 @@
             <th class="visible-stack-mode col-combine">
                 @Resources.Company
                 <br />
-                (<span>@Resources.Comm</span>@Resources.Total)
+                (@Resources.Comm/@Resources.Total)
             </th>
         </tr>
         <tr>
-            <th class="hidden-stack-mode">@Resources.BetType</th>
-            <th class="hidden-stack-mode">@Resources.Turnover</th>
-            <th class="hidden-stack-mode">@Resources.GrossComm</th>
             <th class="hidden-stack-mode">@Resources.WinLoss</th>
             <th class="hidden-stack-mode">@Resources.Comm</th>
             <th class="hidden-stack-mode">@Resources.Total</th>

@@ -163,7 +163,7 @@
             matchWinLossDetailExcelHandler.Handle(matchWinLossDetailExcelQuery);
 
             // Assert
-            onebookWorkbook.Received().Title(Arg.Is("Match Win Loss Detail 12/02/2016 --> 12/02/2016"));
+            onebookWorkbook.Received().Title(Arg.Is("Match Win Loss Detail 12/02/2016 --> 12/02/2016 of "));
         }
 
         [Fact]
