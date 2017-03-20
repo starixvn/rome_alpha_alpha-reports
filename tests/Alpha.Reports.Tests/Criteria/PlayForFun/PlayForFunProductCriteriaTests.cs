@@ -20,7 +20,7 @@
         {
             // Arrange
             var criteria = anyValueCreatorFixture.Create<PlayForFunProductCriteria>();
-            var expectedSettingKey = "Age_Rpt_Product_PlayForFun_Sel";
+            var expectedSettingKey = "Age_Rpt_PlayForFun_ProductSel";
 
             // Act
             var actualSettingKey = criteria.GetSettingKey();

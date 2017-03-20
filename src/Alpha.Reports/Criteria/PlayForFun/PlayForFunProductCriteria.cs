@@ -13,6 +13,6 @@
 
         public override bool IsValid() => CustId > 0;
 
-        public override string GetSettingKey() => "Age_Rpt_Product_PlayForFun_Sel";
+        public override string GetSettingKey() => "Age_Rpt_PlayForFun_ProductSel";
     }
 }

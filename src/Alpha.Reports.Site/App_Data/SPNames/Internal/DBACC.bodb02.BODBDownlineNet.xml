@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
   <Function Name="PlayForFun">
-    <Setting Key="Age_Rpt_Product_PlayForFun_Sel" SpName="Age_Rpt_Product_PlayForFun_Sel" DbName="DBACC.bodb02.BODBDownlineNetView" Plain="0">
+    <Setting Key="Age_Rpt_PlayForFun_ProductSel" SpName="Age_Rpt_PlayForFun_ProductSel" DbName="DBACC.bodb02.BODBDownlineNetView" Plain="0">
       <Mapping DataField="ProductId" ObjectProperty="Id" />
       <Mapping DataField="ProductName" ObjectProperty="Name" />
     </Setting>
