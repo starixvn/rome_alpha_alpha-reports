@@ -39,9 +39,9 @@
 
             repository.Fetch<PlayForFunProduct>(Arg.Any<PlayForFunProductCriteria>()).Returns(new List<PlayForFunProduct>
             {
-                new PlayForFunProduct(6, string.Empty),
-                new PlayForFunProduct(22, string.Empty),
-                new PlayForFunProduct(24, string.Empty)
+                new PlayForFunProduct(6, string.Empty, false),
+                new PlayForFunProduct(22, string.Empty, false),
+                new PlayForFunProduct(24, string.Empty, false)
             });
         }
 
