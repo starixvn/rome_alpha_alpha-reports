@@ -286,6 +286,17 @@ a {
     }
 }
 
+#dropdown-league-container {
+    .multiselect-container > li {
+        vertical-align: top;
+
+        > a {
+            white-space: normal;
+        }
+    }
+}
+
+
 // Modals
 .modal-open {
     overflow: auto;
