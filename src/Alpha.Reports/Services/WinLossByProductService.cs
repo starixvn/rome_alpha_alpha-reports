@@ -43,6 +43,7 @@
                                  param.ToDate,
                                  reportDateService.GetBalanceUpDay(),
                                  reportDateService.GetMoveBetsDay(),
+                                 param.UserSelectedProductIds,
                                  param.CustLevel);
 
             var winLossByBetTypeData = dataAccess.GetWinLossByBetType(criteria);
@@ -53,7 +54,7 @@
                     .Select(winLossByProduct => new WinLossByProductModel(
                     winLossByProduct.Key,
                     cacheRefService.GetProductName(winLossByProduct.Key),
-                    winLossByProduct));
+                    winLossByProduct)).OrderBy(winLossByProduct => winLossByProduct.ProductId);
             }
 
             return Enumerable.Empty<WinLossByProductModel>();

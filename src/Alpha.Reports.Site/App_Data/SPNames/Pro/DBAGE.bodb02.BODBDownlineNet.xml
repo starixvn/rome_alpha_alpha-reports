@@ -59,9 +59,10 @@
     <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 
-  <Function Name="Win Loss by Bettype">
-    <Setting Key="Age_Rpt_WinLossByBettype_Member" SpName="Age_Rpt_WinLossByBettype_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossByBettype_Agent" SpName="Age_Rpt_WinLossByBettype_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossByBettype_Master" SpName="Age_Rpt_WinLossByBettype_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+  <Function Name="Win Loss by Product">
+    <Setting Key="Age_Rpt_WinLossByProduct_Member" SpName="Age_Rpt_WinLossByProduct_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByProduct_Agent" SpName="Age_Rpt_WinLossByProduct_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByProduct_Master" SpName="Age_Rpt_WinLossByProduct_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
+
 </Functions>

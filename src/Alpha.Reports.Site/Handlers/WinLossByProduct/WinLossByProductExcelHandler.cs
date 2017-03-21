@@ -117,7 +117,8 @@
              footerEndIndex: 12);
 
         private string GetReporTitle(WinLossByProductExcelQuery message)
-            => $"{Resources.WinLossByProduct} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
+           => $"{Resources.WinLossByProduct} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+           $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
 
         private string GetExcelFileName(WinLossByProductExcelQuery message, WinLossByProductParam winLossByBetTypeParam)
            => string.Join(

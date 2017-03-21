@@ -40,6 +40,7 @@
             reportDateService = Substitute.For<ReportDateService>();
             cacheRefService = Substitute.For<CacheRefService>();
             productService = Substitute.For<ProductService>();
+            productService.ConcatProductNames(Arg.Any<string>()).Returns("Product Name");
 
             winLossByProductWorkbook = Substitute.For<WinLossByProductWorkbook>();
             onebookWorkbook = Substitute.For<Workbook<WinLossByBetTypeModel>>();
@@ -133,7 +134,7 @@
             winLossByProductExcelHandler.Handle(message);
 
             // Assert
-            onebookWorkbook.Received().Title(Arg.Is("Win Loss By Product 12/02/2016 --> 12/02/2016"));
+            onebookWorkbook.Received().Title(Arg.Is("Win Loss By Product 12/02/2016 --> 12/02/2016 of Product Name"));
         }
 
         [Fact]

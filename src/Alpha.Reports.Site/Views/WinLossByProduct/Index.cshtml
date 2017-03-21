@@ -17,7 +17,7 @@
             <th rowspan="2" class="hidden-stack-mode">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode">@Resources.GrossComm</th>
             <th rowspan="2" class="visible-stack-mode col-combine">
-                <span class="prior-sortedcolumn">@Resources.TurnoverAbbr</span>
+                <span>@($"{Resources.TurnoverAbbr}/")</span>
                 @(Model.CustLevel.IsAgentLevel() ? Resources.GrossComm :
                   (Model.CustLevel.IsSuperLevel() ? Resources.GrossComAndMasterTotal : Resources.GrossComAndAgentTotal))
             </th>
@@ -38,16 +38,16 @@
                 <th class="visible-stack-mode col-combine" rowspan="2">
                     @Resources.Member
                     <br />
-                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
                 <th colspan="3" class="col-level hidden-stack-mode">@Model.CustLevelName</th>
                 <th class="visible-stack-mode col-combine" rowspan="2">
                     @Model.CustLevelName
                     <br />
-                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
-                <th class="sorting hidden-stack-mode" rowspan="2">@Resources.Company</th>
-                <th class="sorting visible-stack-mode" rowspan="2">@Resources.Company</th>
+                <th class="hidden-stack-mode" rowspan="2">@Resources.Company</th>
+                <th class="visible-stack-mode" rowspan="2">@Resources.Company</th>
             }
             else
             {
@@ -55,7 +55,7 @@
                 <th class="visible-stack-mode col-combine" rowspan="2">
                     @Model.CustLevelName
                     <br />
-                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
+                    (<span>@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
                 <th class="hidden-stack-mode" rowspan="2">@Resources.Company</th>
                 <th class="visible-stack-mode" rowspan="2">@Resources.Company</th>
@@ -82,21 +82,22 @@
     </thead>
     @if (Model.ReportData.Any())
     {
-        var winLossBySportsbook = Model.ReportData.FirstOrDefault(winLossByProduct => winLossByProduct.ProductId.Equals(1));
-        if (winLossBySportsbook != null)
-        {
+        var winlossByProducts = Model.ReportData.ToList();
+
         <tbody>
-            @RenderProduct(winLossBySportsbook, true)
+            @RenderProduct(winlossByProducts[0], true)
         </tbody>
-        }
 
-        var winLossByProductData = Model.ReportData.Where(winLossByProduct => !winLossByProduct.ProductId.Equals(1)).ToList();
-
-        foreach (var data in winLossByProductData)
+        if (winlossByProducts.Count() > 1)
         {
+            winlossByProducts.RemoveAt(0);
+
+            foreach (var data in winlossByProducts)
+            {
             <tbody>
                 @RenderProduct(data, false)
             </tbody>
+            }
         }
 
         <tfoot>
@@ -111,10 +112,11 @@
 
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", "WinLossByProduct")">
-    <input type="hidden" name="CustId" value="@Model.CustId" />
-    <input type="hidden" name="FromDate" value="@Model.FromDate" />
-    <input type="hidden" name="ToDate" value="@Model.ToDate" />
-    <input type="hidden" name="CustLevelId" value="@Model.CustLevel.Value" />
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
