@@ -23,7 +23,7 @@
         private readonly ProductService productService;
         private readonly MatchWinLossDetailDataAccess dataAccess;
 
-        private readonly IEnumerable<int> supportedProducts = new List<int>
+        private static readonly IEnumerable<int> supportedProducts = new List<int>
         {
             ProductIdConstants.Sportsbook,
             ProductIdConstants.Racing,

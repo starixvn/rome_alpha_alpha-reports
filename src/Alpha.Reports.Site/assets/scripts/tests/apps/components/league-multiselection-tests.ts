@@ -148,19 +148,30 @@
             expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("1,2,3");
         });
     });
-    describe("_onSelectAll_Always", () => {
+    describe("_onSelectAll", () => {
         beforeEach(() => {
             // arrange
-            setFixtures(`<body><div id="league-ids"></div></body>`);
+            setFixtures(`<body>
+                            <select id="dropdown-league">
+                                <option id="1">Option 1</option>
+                                <option id="2">Option 2</option>
+                                <option id="3">Option 3</option>
+                            </select>
+                            <div id="league-ids"></div>
+                        </body>`);
+
             spyOn(leagueMultiSelectionComponent, "validate");
-            spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => [1, 2, 3]);
             leagueMultiSelectionComponent.$hiddenInput = $("#league-ids");
+            leagueMultiSelectionComponent.$dropdownLeague = $("#dropdown-league");
         });
 
         describe("_Select All", () => {
             beforeEach(() => {
+                // arrange
+                spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => [1, 2, 3]);
+
                 // act
-                leagueMultiSelectionComponent.onSelectAll(true);
+                leagueMultiSelectionComponent.onSelectAll();
             });
 
             it("_Validate", () => {
@@ -173,10 +184,14 @@
                 expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("");
             });
         });
+
         describe("_Deselect All", () => {
             beforeEach(() => {
+                // arrange
+                spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
+
                 // act
-                leagueMultiSelectionComponent.onSelectAll(false);
+                leagueMultiSelectionComponent.onSelectAll();
             });
 
             it("_Validate", () => {
@@ -187,6 +202,26 @@
             it("_Update hidden input", () => {
                 // assert
                 expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("-1");
+            });
+        });
+
+        describe("_Remain some selected", () => {
+            beforeEach(() => {
+                // arrange
+                spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => [1, 2]);
+
+                // act
+                leagueMultiSelectionComponent.onSelectAll();
+            });
+
+            it("_Validate", () => {
+                // assert
+                expect(leagueMultiSelectionComponent.validate).toHaveBeenCalled();
+            });
+
+            it("_Update hidden input", () => {
+                // assert
+                expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("1,2");
             });
         });
     });

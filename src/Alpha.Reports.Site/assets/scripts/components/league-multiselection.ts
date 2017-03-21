@@ -57,10 +57,17 @@ class LeagueMultiSelectionComponent {
         var selectedItems = this.getSelectedItems();
         this.$hiddenInput.val(selectedItems.length === 0 ? "-1" : selectedItems.join(","));
     };
-    onSelectAll = (checked: boolean) => {
-
+    onSelectAll = () => {
         this.validate();
-        this.$hiddenInput.val(checked ? "" : "-1");
+
+        var selectedItems = this.getSelectedItems();
+        var isSelectAll = selectedItems.length === this.$dropdownLeague.find("option").length;
+
+        this.$hiddenInput.val(isSelectAll
+            ? ""
+            : selectedItems.length
+                ? selectedItems.join(",")
+                : "-1");
     };
 
     validate = () => {

@@ -48,15 +48,11 @@
                 query.UserSelectedProductIds.ToListInt())
                 .Where(product => productIds.Contains(product));
 
-            var userSelectedLeagueIds = string.IsNullOrWhiteSpace(query.UserSelectedLeagueIds)
-                ? Enumerable.Empty<int>()
-                : query.UserSelectedLeagueIds.Split(',').Select(id => Converter.ToInt(id));
-
             return new MatchWinLossDetailParam(
                  query.CustId,
                  query.FromDate,
                  query.ToDate,
-                 userSelectedLeagueIds,
+                  query.UserSelectedLeagueIds.ToListInt(),
                  validUserSelectedProductIds,
                  query.CustLevel);
         }
