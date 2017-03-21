@@ -21,22 +21,18 @@
     <thead>
         <tr>
             <th class="sorting" rowspan="2" data-sortedname="@Model.SortPropertyNameDefault" data-colindex="0">@Model.ReportTypeName</th>
-            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="BetCount" data-colindex="1">@Resources.BetCount</th>
-            <th rowspan="2" class="hidden-stack-mode sorting" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
-            <th rowspan="2" class="visible-stack-mode col-combine sorting" data-sortedname="Turnover" data-colindex="1">
-                <span class="prior-sortedcolumn">@Resources.BetCount</span>
-               @Resources.TurnoverAbbr
-            </th>
+            <th class="sorting" rowspan="2" data-sortedname="BetCount" data-colindex="1">@Resources.BetCount</th>
+            <th class="sorting" rowspan="2" data-sortedname="Turnover" data-colindex="2">@Resources.Turnover</th>
 
             <th colspan="3" class="col-level hidden-stack-mode">@Resources.Member</th>
-            <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="2">
+            <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberNetWinLoss.WinLoss" rowspan="2" data-colindex="3">
                 @Resources.Member
                 <br />
                 (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
             <th colspan="3" class="col-level hidden-stack-mode">@Resources.Agent</th>
-            <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" rowspan="2" data-colindex="3">
+            <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentNetWinLoss.WinLoss" rowspan="2" data-colindex="4">
                 @Resources.Agent
                 <br />
                 (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -45,7 +41,7 @@
             @if (Model.CustLevel.IsMasterOrSuperLevel())
             {
                 <th colspan="3" class="col-level hidden-stack-mode">@Resources.Master</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="MasterNetWinLoss.WinLoss" rowspan="2" data-colindex="4">
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="MasterNetWinLoss.WinLoss" rowspan="2" data-colindex="5">
                     @Resources.Master
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -55,7 +51,7 @@
             @if (Model.CustLevel.IsSuperLevel())
             {
                 <th colspan="3" class="col-level hidden-stack-mode" >@Resources.Super</th>
-                <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperNetWinLoss.WinLoss" rowspan="2" data-colindex="5">
+                <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperNetWinLoss.WinLoss" rowspan="2" data-colindex="6">
                     @Resources.Super
                     <br />
                     (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.CommAndTotal)
@@ -65,17 +61,17 @@
             @if (Model.CustLevel.IsAgentLevel())
             {
                 <th class="sorting hidden-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="9">@Resources.Company</th>
-                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="4">@Resources.Company</th>
+                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="5">@Resources.Company</th>
             }
             else if (Model.CustLevel.IsMasterLevel())
             {
                 <th class="sorting hidden-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="12">@Resources.Company</th>
-                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="5">@Resources.Company</th>
+                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="6">@Resources.Company</th>
             }
             else
             {
                 <th class="sorting hidden-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="15">@Resources.Company</th>
-                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="6">@Resources.Company</th>
+                <th class="sorting visible-stack-mode" rowspan="2" data-sortedname="Company" data-colindex="7">@Resources.Company</th>
             }
         </tr>
         <tr class="thead-row2">
@@ -147,11 +143,11 @@
         <td class="text-left col-username">
             @(isTotalRow ? Resources.Total: data.RollupKey)
         </td>
+        <td>@data.BetCount</td>
+        <td>@data.Turnover.ToString($"#,##0.00")</td>
 
         @if (Model.IsStackMode)
         {
-            @HtmlHelpers.RenderStackCell("col-number-of-tickets-combined", 1, data.BetCount, data.Turnover);
-
             @RenderStackNetWinLoss(UserLevel.Member, data.MemberNetWinLoss);
             @RenderStackNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true);
             @RenderStackNetWinLoss(UserLevel.Master, data.MasterNetWinLoss);
@@ -159,8 +155,6 @@
         }
         else
         {
-            @HtmlHelpers.RenderNumberCell(data.BetCount, "col-number-of-tickets")
-            @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
 
             @RenderNetWinLoss(UserLevel.Member, data.MemberNetWinLoss)
             @RenderNetWinLoss(UserLevel.Agent, data.AgentNetWinLoss, isHighlight: true)

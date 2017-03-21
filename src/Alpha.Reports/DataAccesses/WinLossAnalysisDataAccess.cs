@@ -58,7 +58,7 @@
             var winLossAnalysis = new WinLossAnalysisModel(
                 rollupKey: criteria.ReportType.Equals(3) ? cacheRefService.GetProductName(reader.ToInt("RollupKey")) : reader.ToString("RollupKey"), 
                 turnover: reader.ToDecimal("TurnOver"),
-                betCount: reader.ToDecimal("BetCount"),
+                betCount: reader.ToInt("BetCount"),
                 memberNetWinLoss: new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")),
                 agentNetWinLoss: new NetWinLoss(reader.ToDecimal("AgWinLoss"), reader.ToDecimal("AgComm")),
                 masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ? new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) : null,

@@ -199,7 +199,6 @@ class WinLossAnalysisView {
         let this$ = this.$;
         let levels = this.levels;
 
-        alphaReports.splitCell("col-number-of-tickets");
         this$.each(levels, function (index: number) {
             var level = levels[index];
             alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
@@ -210,7 +209,6 @@ class WinLossAnalysisView {
         let levels = this.levels;
         let this$ = this.$;
 
-        alphaReports.combineConsecutiveCells(this.$("td.col-number-of-tickets"), 2, "text-right col-number-of-tickets");
         this.$.each(levels, function (index: number) {
             let level = levels[index];
             let cellCss = "col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
@@ -277,10 +275,6 @@ class WinLossAnalysisView {
         let sortedColumn = this.$tableReport.data("sortedcolumn");
         if (!this.$tableReport.hasClass("stack-mode")) {
             return sortedColumn;
-        }
-
-        if (sortedColumn === "Turnover") {
-            return "BetCount";
         }
 
         if (sortedColumn === "MemberNetWinLoss.Comm" || sortedColumn === "MemberNetWinLoss.Total") {

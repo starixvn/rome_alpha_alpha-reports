@@ -8,7 +8,7 @@
 
         public WinLossAnalysisModel(
             string rollupKey,
-            decimal betCount,
+            int betCount,
             decimal turnover,
             NetWinLoss memberNetWinLoss,
             NetWinLoss agentNetWinLoss,
@@ -28,7 +28,7 @@
 
         public decimal Turnover { get; private set; }
 
-        public decimal BetCount { get; private set; }
+        public int BetCount { get; private set; }
 
         public NetWinLoss MemberNetWinLoss { get; private set; }
 

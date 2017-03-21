@@ -386,10 +386,6 @@
             expect(actualSortedColumnName).toEqual(expectedSortedCoumnResult);
         };
 
-        it("Stack Mode, Sort on Turnover => Returns Name BetCount", () => {
-            sortReportOnStackModeTest("Turnover", "BetCount");
-        });
-
         it("Stack Mode, Sort on MemberNetWinLoss.Comm => Returns Name MemberNetWinLoss.WinLoss", () => {
             sortReportOnStackModeTest("MemberNetWinLoss.Comm", "MemberNetWinLoss.WinLoss");
         });
@@ -506,7 +502,6 @@
 
             // assert
             expect(combineConsecutiveCellsSpy.calls.allArgs()).toEqual([
-                [jasmine.any(Object), 2, "text-right col-number-of-tickets"],
                 [jasmine.any(Object), 3, "col-member-winloss-combined"],
                 [jasmine.any(Object), 3, "col-agent-winloss-combined altercol"],
                 [jasmine.any(Object), 3, "col-master-winloss-combined"],
@@ -524,7 +519,6 @@
 
             // assert
             expect(splitCellSpy.calls.allArgs()).toEqual([
-                ["col-number-of-tickets"],
                 ["col-member-winloss", ""],
                 ["col-agent-winloss", " altercol"],
                 ["col-master-winloss", ""],
