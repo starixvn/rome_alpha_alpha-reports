@@ -197,6 +197,7 @@
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
     <Compile Include="Models\CustInfoTests.cs" />
     <Compile Include="Models\LeagueTests.cs" />
+    <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModelTests.cs" />
     <Compile Include="Models\MatchWinLoss\MatchWinLossModelTest.cs" />
     <Compile Include="Models\PagedReportDataTests.cs" />
     <Compile Include="Models\WinLossTest.cs" />

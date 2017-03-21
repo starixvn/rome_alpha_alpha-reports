@@ -43,15 +43,16 @@
             SuperNetWinLoss = superNetWinLoss;
 
             var companyComm =
-                (memberNetWinLoss != null ? memberNetWinLoss.Comm.Value : 0) +
-                (agentNetWinLoss != null ? agentNetWinLoss.Comm.Value : 0) +
-                (masterNetWinLoss != null ? masterNetWinLoss.Comm.Value : 0) +
-                (superNetWinLoss != null ? superNetWinLoss.Comm.Value : 0);
+                (memberNetWinLoss?.Comm ?? 0)
+                + (agentNetWinLoss?.Comm ?? 0)
+                + (masterNetWinLoss?.Comm ?? 0)
+                + (superNetWinLoss?.Comm ?? 0);
+
             var winLoss =
-                (memberNetWinLoss != null ? memberNetWinLoss.WinLoss.Value : 0) +
-                (agentNetWinLoss != null ? agentNetWinLoss.WinLoss.Value : 0) +
-                (masterNetWinLoss != null ? masterNetWinLoss.WinLoss.Value : 0) +
-                (superNetWinLoss != null ? superNetWinLoss.WinLoss.Value : 0);
+                (memberNetWinLoss?.WinLoss ?? 0)
+                + (agentNetWinLoss?.WinLoss ?? 0)
+                + (masterNetWinLoss?.WinLoss ?? 0)
+                + (superNetWinLoss?.WinLoss ?? 0);
 
             CompanyNetWinLoss = new NetWinLoss(0, companyComm, -winLoss - companyComm);
         }
