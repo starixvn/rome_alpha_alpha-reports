@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Alpha.Reports.Site.App_GlobalResources
-{
-
-
+namespace Alpha.Reports.Site.App_GlobalResources {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -664,20 +664,20 @@ namespace Alpha.Reports.Site.App_GlobalResources
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Outstanding.
-        /// </summary>
-        public static string Outstanding {
-            get {
-                return ResourceManager.GetString("Outstanding", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Outright.
         /// </summary>
         public static string Outright {
             get {
                 return ResourceManager.GetString("Outright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outstanding.
+        /// </summary>
+        public static string Outstanding {
+            get {
+                return ResourceManager.GetString("Outstanding", resourceCulture);
             }
         }
         
