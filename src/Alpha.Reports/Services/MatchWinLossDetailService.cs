@@ -19,17 +19,17 @@
 
     public class MatchWinLossDetailServiceImpl : MatchWinLossDetailService
     {
-        private readonly ReportDateService reportDateService;
-        private readonly ProductService productService;
-        private readonly MatchWinLossDetailDataAccess dataAccess;
-
-        private static readonly IEnumerable<int> supportedProducts = new List<int>
+        private static readonly IEnumerable<int> SupportedProducts = new List<int>
         {
             ProductIdConstants.Sportsbook,
             ProductIdConstants.Racing,
             ProductIdConstants.NumberGame,
             ProductIdConstants.VirtualSports
         };
+
+        private readonly ReportDateService reportDateService;
+        private readonly ProductService productService;
+        private readonly MatchWinLossDetailDataAccess dataAccess;
 
         public MatchWinLossDetailServiceImpl(
             ReportDateService reportDateService,
@@ -50,7 +50,7 @@
 
             var validUserSelectedProductIds = productService
                 .FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds)
-                .Where(product => supportedProducts.Contains(product));
+                .Where(product => SupportedProducts.Contains(product));
 
             var criteria = new MatchWinLossDetailCriteria(
                 param.CustId,
@@ -68,7 +68,7 @@
 
         public IEnumerable<Product> GetProductsForCustomer(int custId)
         {
-            return productService.FilterProductsByCustomer(custId, supportedProducts);
+            return productService.FilterProductsByCustomer(custId, SupportedProducts);
         }
     }
 }

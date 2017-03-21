@@ -126,7 +126,6 @@
                         @RenderBetTypeRow(
                             betType,
                             "<a href=\"" + Model.GetBetListLink(Model.GetBetListLinkRouteValues(data, betType, Model.FromDate, Model.ToDate)) + "\">" + betType.Name + "</a>",
-                            null,
                             isEvenRow)
                     </tr>
                     isEvenRow = !isEvenRow;
@@ -186,7 +185,7 @@
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/matchwinlossdetail/matchwinlossdetail")
 }
-@helper RenderBetTypeRow(BetTypeWinLossViewModel data, string betType, string betListPath = "", bool isEvenRow = false)
+@helper RenderBetTypeRow(BetTypeWinLossViewModel data, string betType, bool isEvenRow = false)
 {
     <td class="text-left">@Html.Raw(betType)</td>
 if (Model.IsStackMode)
