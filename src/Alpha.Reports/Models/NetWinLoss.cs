@@ -21,11 +21,11 @@
             Total = total;
         }
 
-        public decimal? WinLoss { get; }
+        public decimal? WinLoss { get; private set; }
 
-        public decimal? Comm { get; }
+        public decimal? Comm { get; private set; }
 
-        public decimal Total { get; }
+        public decimal Total { get; private set; }
 
         public static NetWinLoss Add(NetWinLoss winlossA, NetWinLoss winlossB)
         {
@@ -34,10 +34,16 @@
                 return winlossA ?? winlossB;
             }
 
-            return new NetWinLoss(
-                winloss: winlossA?.WinLoss + winlossB?.WinLoss,
-                comm: winlossA?.Comm + winlossB?.Comm,
-                total: winlossA.Total + winlossB.Total);
+            return winlossA.Add(winlossB);
+        }
+
+        public NetWinLoss Add(NetWinLoss netWinLoss)
+        {
+            WinLoss += netWinLoss.WinLoss;
+            Comm += netWinLoss.Comm;
+            Total += netWinLoss.Total;
+
+            return this;
         }
     }
 }
