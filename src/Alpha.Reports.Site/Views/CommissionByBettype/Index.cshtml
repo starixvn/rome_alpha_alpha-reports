@@ -40,16 +40,18 @@
             @foreach (var commission in Model.CommissionByBettypes.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
                 <tr>
-                    <td data-islink="true" class="text-left">
-                        @if (Model.CustLevel.IsAgentLevel())
-                        {
+                    @if (Model.CustLevel.IsAgentLevel())
+                    {
+                        <td class="text-left">
                             @commission.CustName
-                        }
-                        else
-                        {
+                        </td>
+                    }
+                    else
+                    {
+                        <td data-islink="true" class="text-left">
                             <a href="@Model.BuildDrillDownLink(commission, Request.Url.Query)">@commission.CustName</a>
-                        }
-                    </td>
+                        </td>
+                    }
                     @RenderCellValue(commission)
                 </tr>
             }

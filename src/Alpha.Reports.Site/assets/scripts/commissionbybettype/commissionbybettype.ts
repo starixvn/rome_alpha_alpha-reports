@@ -32,8 +32,8 @@ class CommissionByBettype {
             this.$tableReport,
             parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
             true,
-            { 0: { sorter: "text" } },
-            this.sorter.afterSort));
+            this.sorter.afterSort,
+            { 0: { sorter: "text" } }));
     };
 
     cacheDOMElements = () => {
