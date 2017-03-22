@@ -2,6 +2,7 @@
 <Functions>
   <Function Name="Base Functions">
     <Setting Key="Age_SelBalanceUpDay" SpName="Age_SelBalanceUpDay" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_GetProductListByRefTable" SpName="Age_Rpt_GetProductListByRefTable" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_MatchWinloss_GetLeagueByProduct" SpName="Age_Rpt_MatchWinloss_GetLeagueByProduct" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="LeagueId" ObjectProperty="Id" />
       <Mapping DataField="LeagueName" ObjectProperty="Name" />

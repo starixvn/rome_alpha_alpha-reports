@@ -1,7 +1,7 @@
 ﻿/// <reference path="../core.ts" />
+/// <reference path="../base-report.ts" />
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/monthpicker.ts" />
-/// <reference path="../components/netturnover-tooltip.ts" />
 /// <reference path="../components/pager.ts" />
 /// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/sort.ts" />
@@ -10,7 +10,7 @@
 
 "use strict";
 
-class WinLossDetailView {
+class WinLossDetailView extends BaseReport {
     $: JQueryStatic;
     $pageTitle: JQuery;
     $tableReport: JQuery;
@@ -25,7 +25,6 @@ class WinLossDetailView {
     $sortPropertyName: JQuery;
     $reportForm: JQuery;
     $userSelectedDateRangeOption: JQuery;
-    $netTurnoverTooltip: JQuery;
     $reportSwitch: JQuery;
     $fromDate: JQuery;
     $toDate: JQuery;
@@ -46,7 +45,6 @@ class WinLossDetailView {
     sortComponent: SortComponent;
     reportTooltip: ReportTooltip;
     monthPickerComponent: MonthPickerComponent;
-    netTurnoverTooltipComponent: NetTurnoverTooltipComponent;
     linkBuilderComponent: LinkBuilderComponent;
 
     constructor(
@@ -57,8 +55,9 @@ class WinLossDetailView {
         sortComponent: SortComponent,
         reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
-        netTurnoverTooltipComponent: NetTurnoverTooltipComponent,
         linkBuilderComponent: LinkBuilderComponent) {
+        super();
+
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.pagerComponent = pageComponent;
@@ -66,7 +65,6 @@ class WinLossDetailView {
         this.sortComponent = sortComponent;
         this.reportTooltip = reportTooltip;
         this.monthPickerComponent = monthPickerComponent;
-        this.netTurnoverTooltipComponent = netTurnoverTooltipComponent;
         this.linkBuilderComponent = linkBuilderComponent;
     }
 
@@ -94,7 +92,6 @@ class WinLossDetailView {
         this.productMultiSelectionComponent.render();
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
-        this.$netTurnoverTooltip = this.netTurnoverTooltipComponent.render();
         this.pagerComponent.render();
 
         this.hasAllDataOnClient = this.pagerComponent.hasAllDataOnClient();
@@ -119,6 +116,8 @@ class WinLossDetailView {
         }
         this.linkBuilderComponent.render();
         this.registerEvents();
+
+        this.initHelp();
         this.$.unblockUI();
     };
     checkReady = () => {
@@ -159,12 +158,10 @@ class WinLossDetailView {
     onClickIconFilter = () => {
         let filter = this.$reportForm;
         let currentHideState = filter.hasClass("hide");
-        let $netTurnoverTooltip = this.$netTurnoverTooltip;
 
         if (currentHideState) {
             this.$pageTitle.removeClass("hide-filter");
             this.$reportForm.removeClass("hide");
-            this.netTurnoverTooltipComponent.positionNetTurnoverTooltip($netTurnoverTooltip);
         } else {
             this.hideFilter();
         }
@@ -244,12 +241,8 @@ class WinLossDetailView {
     };
 
     hideFilter = () => {
-        let $netTurnoverTooltip = this.$netTurnoverTooltip;
-
         this.$pageTitle.addClass("hide-filter");
-
         this.$reportForm.addClass("hide");
-        this.netTurnoverTooltipComponent.positionNetTurnoverTooltip($netTurnoverTooltip);
     };
     getParams = () => {
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
@@ -338,7 +331,6 @@ $(() => {
         new SortComponent($, linkBuilderComponent),
         new ReportTooltip($),
         new MonthPickerComponent($),
-        new NetTurnoverTooltipComponent($),
         linkBuilderComponent);
 
     winLossDetailView.init();

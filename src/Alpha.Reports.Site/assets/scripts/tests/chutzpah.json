@@ -46,6 +46,7 @@
     { "Path": "libs/store.js" },
 
     { "Path": "../core.ts" },
+    { "Path": "../base-report.ts" },
     { "Path": "../components/daterangepicker.ts" },
     { "Path": "../components/monthpicker.ts" },
     { "Path": "../components/netturnover-tooltip.ts" },

@@ -15,7 +15,6 @@
 
     public class WinLossDetailViewModel : DrillDownableReportViewModel<WinLossDetailModel>
     {
-        private const int AllBetProductId = 21;
         private readonly WinLossDetailQuery message;
         private readonly WinLossDetailParam winLossDetailParam;
 
@@ -67,21 +66,6 @@
         public bool IsHistoricReport => message.IsHistoricReport;
 
         public bool IsFilterVisible => message.IsFilterVisible;
-
-        public IEnumerable<string> NetTurnoverTooltips
-        {
-            get
-            {
-                var netTurnoverTooltips = new List<string>();
-
-                if (Products.Any(product => Convert.ToInt32(product.Value) == AllBetProductId))
-                {
-                    netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
-                }
-
-                return netTurnoverTooltips;
-            }
-        }
 
         public IEnumerable<SelectListItem> Products { get; }
 

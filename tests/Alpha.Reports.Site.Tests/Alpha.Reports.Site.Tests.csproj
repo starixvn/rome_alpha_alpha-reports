@@ -206,6 +206,7 @@
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
+    <Compile Include="Controllers\ReportLegendControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossControllerTests.cs" />
     <Compile Include="Controllers\LeagueControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossDetailControllerTests.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Handlers\BaseHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandlerTests.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
+    <Compile Include="Handlers\ReportLegendHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbookImplTests.cs">

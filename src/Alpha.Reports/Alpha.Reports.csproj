@@ -90,6 +90,7 @@
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
     <Compile Include="Criteria\GetLeaguesByCustomerCriteria.cs" />
     <Compile Include="Criteria\GetProductsCriteria.cs" />
+    <Compile Include="Criteria\GetProductsByRefTableCriteria.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteria.cs" />
     <Compile Include="Criteria\Outstanding\OutstandingCriteria.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteria.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModel.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductsByRefTable.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\UserLevel.cs" />

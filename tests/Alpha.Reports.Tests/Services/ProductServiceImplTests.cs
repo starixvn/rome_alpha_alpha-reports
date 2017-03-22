@@ -19,6 +19,7 @@
     public class ProductServiceImplTests
     {
         private const string ProductCacheKey = "Alpha.Reports.Services.Impl.ProductsForCustomer";
+        private const string ProductsNeedDelayTimeToSumarizeDataCacheKey = "Alpha.Reports.Services.Impl.ProductsNeedDelayTimeToSumarizeData";
 
         private readonly IDynamicRepository dynamicRepository;
         private readonly FanexCacheFixture fanexCacheFixture;
@@ -31,6 +32,7 @@
         };
 
         private ProductServiceImpl productServiceImpl;
+        private IEnumerable<ProductsByRefTable> productsNeedDelayTimeToSumarizeDataInCache;
 
         public ProductServiceImplTests(FanexCacheFixture fanexCacheFixture)
         {
@@ -39,6 +41,23 @@
             Func<int, string> getProductName = (productId) => $"Product {productId}";
             dynamicRepository = Substitute.For<IDynamicRepository>();
             productServiceImpl = new ProductServiceImpl(dynamicRepository, canViewProduct, getProductName);
+
+            dynamicRepository.Fetch<ProductsByRefTable>(Arg.Any<GetProductsByRefTableCriteria>()).Returns(new List<ProductsByRefTable>
+            {
+                new ProductsByRefTable(1, 2),
+                new ProductsByRefTable(2, 2)
+            });
+
+            IEnumerable<ProductsByRefTable> productsNeedDelayTimeToSumarizeData;
+
+            fanexCacheFixture.CacheForTesting.TryGet(ProductsNeedDelayTimeToSumarizeDataCacheKey, out productsNeedDelayTimeToSumarizeData).Returns(x =>
+            {
+                x[1] = productsNeedDelayTimeToSumarizeDataInCache;
+
+                return productsNeedDelayTimeToSumarizeDataInCache != null;
+            });
+
+            ConfiguredCacheService.Set(ProductsNeedDelayTimeToSumarizeDataCacheKey, productsNeedDelayTimeToSumarizeDataInCache);
         }
 
         [Theory]
@@ -202,5 +221,19 @@
             // Assert
             AssertExtension.Equal(expectProductIds.ToListInt(), actualProducts.Select(product => product.Id).ToList());
         }
+        
+        [Fact]
+        public void GetProductsNeedDelayTimeToSumarizeDataByCustomer_Always_ReturnsCorrectProducts()
+        {
+            // Arrange
+            productsNeedDelayTimeToSumarizeDataInCache = null;
+            var expectProducts = new List<byte> { 1, 2 };
+
+            // Act
+            var actualProducts = productServiceImpl.GetProductsNeedDelayTimeToSumarizeDataByCustomer();
+
+            // Assert
+            Assert.Equal(expectProducts, actualProducts);
+        }            
     }
 }

@@ -7,7 +7,7 @@
 
 "use strict";
 
-class WinLossView {
+class WinLossView extends BaseReport {
     $: JQueryStatic;
     $pageTitle: JQuery;
     $tableReport: JQuery;
@@ -53,6 +53,8 @@ class WinLossView {
         reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
         linkBuilderComponent: LinkBuilderComponent) {
+        super();
+
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
@@ -76,6 +78,8 @@ class WinLossView {
         this.$tableReport.stickyTableHeaders();
         this.linkBuilderComponent.render();
         this.registerEvents();
+
+        this.initHelp();
         this.$.unblockUI();
     };
 
@@ -184,7 +188,7 @@ class WinLossView {
     renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {
         let isAgentLevel = this.$isAgentLevel.val().toLocaleLowerCase() === "true";
         isSwitchToNormalMode ? this.splitColumns() : this.combineColumns(isAgentLevel);
-    }
+    };
 
     setStackMode = () => {
         this.$.blockUI();
@@ -193,7 +197,7 @@ class WinLossView {
         this.isFirstSwitchMode = false;
         this.replaceDrilldownParam("IsStackMode", true);
         this.$.unblockUI();
-    }
+    };
 
     setCssBySwitchMode = (isSwitchToNormalMode: boolean) => {
         if (isSwitchToNormalMode) {
@@ -212,10 +216,9 @@ class WinLossView {
         alphaReports.splitCell("col-turnover");
         this$.each(levels, function (index: number) {
             var level = levels[index];
-            if (level == "master") {
+            if (level === "master") {
                 alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? "" : " altercol");
-            }
-            else {
+            } else {
                 alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
             }
 
@@ -243,7 +246,7 @@ class WinLossView {
     combineToWinLossColumn = (level: string, index: number) => {
         var cellCss = "text-right col-" + level + "-winloss-combined";
 
-        if (level == "master") {
+        if (level === "master") {
             cellCss = cellCss + (index % 2 ? "" : " altercol");
         }
         else {

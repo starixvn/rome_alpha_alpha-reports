@@ -31,7 +31,6 @@ describe("WinLossDetail", () => {
             sortComponent,
             reportTooltip,
             monthPickerComponent,
-            netTurnoverTooltipComponent,
             linkBuilderComponent);
 
         cacheElements = spyOn(winLossDetailView, "cacheElements");

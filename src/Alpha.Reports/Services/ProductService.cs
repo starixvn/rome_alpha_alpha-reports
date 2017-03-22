@@ -20,6 +20,10 @@
         IEnumerable<string> GetProductNames(IEnumerable<int> productIds);
 
         string ConcatProductNames(string productIds);
+
+        IEnumerable<ProductsByRefTable> GetProductsNeedDelayTimeToSumarizeData();
+
+        IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer();
     }
 
     public class ProductServiceImpl : ProductService
@@ -69,7 +73,7 @@
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
                 () => GetProductsForReport()
-                        .Where(product => canViewProduct(product.Id) == true)
+                        .Where(product => canViewProduct(product.Id))
                         .Select(product => new Product(product.Id, product.Name, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
@@ -95,6 +99,24 @@
 
         public string ConcatProductNames(string productIds)
             => string.Join(", ", GetProductNames(productIds.ToListInt()));
+
+        public IEnumerable<ProductsByRefTable> GetProductsNeedDelayTimeToSumarizeData()
+        {
+            var data = ConfiguredCacheService
+              .GetOrSet(
+              "Alpha.Reports.Services.Impl.ProductsNeedDelayTimeToSumarizeData",
+              () => dynamicRepository.Fetch<ProductsByRefTable>(new GetProductsByRefTableCriteria(null)),
+              new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
+
+            return data;
+        }
+
+        public IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer()
+        {
+            var data = GetProductsNeedDelayTimeToSumarizeData();
+
+            return data.Where(product => canViewProduct(product.ProductId)).Select(product => product.ProductId);
+        }
 
         private IEnumerable<Product> GetProductsForReport()
         {

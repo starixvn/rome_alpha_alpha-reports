@@ -259,6 +259,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - Data of {0} will be delayed up to 5 minutes after settling tickets..
+        /// </summary>
+        public static string DelayIssueLegend {
+            get {
+                return ResourceManager.GetString("DelayIssueLegend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do not show again.
         /// </summary>
         public static string DoNotShowAgain {

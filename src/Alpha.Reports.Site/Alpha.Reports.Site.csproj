@@ -248,6 +248,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
     <TypeScriptCompile Include="assets\scripts\components\league-multiselection.ts" />
+    <TypeScriptCompile Include="assets\scripts\base-report.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinloss\matchwinloss.ts" />
@@ -259,6 +260,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\tooltip-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\core\base-report-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\monthpicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\pager-tests.ts" />
@@ -269,6 +271,7 @@
     <Compile Include="Controllers\MatchWinLossDetailController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
+    <Compile Include="Controllers\ReportLegendController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -278,6 +281,7 @@
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
+    <Compile Include="Handlers\ReportLegendHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
@@ -307,6 +311,8 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
+    <Compile Include="Requests\ReportLegendQuery.cs" />
+    <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLoss\EnteredSportResultQuery.cs" />
@@ -576,6 +582,7 @@
     <Content Include="App_Code\Components\ReportTitle.cshtml" />
     <Content Include="App_Code\Components\NetTurnoverTooltips.cshtml" />
     <Content Include="App_Code\Components\Breadcrumb.cshtml" />
+    <Content Include="App_Code\Components\ReportLegend.cshtml" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLoss\Member.xls" />
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.scss" />
     <Content Include="App_Code\Components\LeagueMultiSelection.cshtml" />
@@ -597,6 +604,8 @@
     <Content Include="Views\Outstanding\Index.cshtml" />
     <Content Include="Views\EnteredResult\Index.cshtml" />
     <Content Include="Views\Shared\InvalidReport.cshtml" />
+    <Content Include="Views\ReportLegend\Index.cshtml" />
+    <Content Include="Views\WinLossDetail\ReportLegend.cshtml" />
     <Content Include="Views\MatchWinLoss\Index.cshtml" />
     <Content Include="Views\League\LeaguesByCustomer.cshtml" />
     <Content Include="Views\MatchWinLossDetail\Index.cshtml" />

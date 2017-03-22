@@ -32,50 +32,6 @@
         }
 
         [Fact]
-        public void NetTurnoverTooltips_ProductsNotContainAllBet_ReturnsEmptyList()
-        {
-            // Arrange
-            var message = new WinLossDetailQuery(userFixture.User);
-            var winLossDetailViewModel = new WinLossDetailViewModel(
-                message,
-                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, "CustName", false, false),
-                new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
-                Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
-            var expectedNetTurnoverTooltips = new List<string>();
-
-            // Act
-            var actualNetTurnoverTooltips = winLossDetailViewModel.NetTurnoverTooltips;
-
-            // Assert
-            Assert.Equal(expectedNetTurnoverTooltips, actualNetTurnoverTooltips);
-        }
-
-        [Fact]
-        public void NetTurnoverTooltips_ProductsContainsAllBet_ReturnsValueContainsAllBetTooltip()
-        {
-            // Arrange
-            var message = new WinLossDetailQuery(userFixture.User);
-            var winLossDetailViewModel = new WinLossDetailViewModel(
-                message,
-                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, "CustName", false, false),
-                new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
-                Enumerable.Empty<CustInfo>(),
-                 new List<SelectListItem>
-                 {
-                     new SelectListItem { Value = AllBetProductId.ToString() }
-                 });
-
-            var expectedNetTurnoverTooltips = new List<string> { "- For AllBet, Net Turnover is total valid bets that we use to compute commission." };
-
-            // Act
-            var actualNetTurnoverTooltips = winLossDetailViewModel.NetTurnoverTooltips;
-
-            // Assert
-            Assert.Equal(expectedNetTurnoverTooltips, actualNetTurnoverTooltips);
-        }
-
-        [Fact]
         public void BuildDrillDownLink_ViewingAgentReport_CallAddQueryStringParamsFuncToBuildBetListLink()
         {
             // Arrange

@@ -5,7 +5,6 @@
     const monthPickerComponent = new MonthPickerComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const reportTooltip = new ReportTooltip($);
-    const netTurnoverTooltipComponent = new NetTurnoverTooltipComponent($);
     const linkBuilderComponent = new LinkBuilderComponent($);
     const sortComponent = new SortComponent($, linkBuilderComponent);
 
@@ -29,7 +28,6 @@
             sortComponent,
             reportTooltip,
             monthPickerComponent,
-            netTurnoverTooltipComponent,
             linkBuilderComponent);
 
         cacheElements = spyOn(winLossDetailView, "cacheElements");
@@ -48,6 +46,11 @@
         renderLinkBuilderComponent.and.callThrough();
 
         spyOn(dateRangePickerComponent, "render");
+    });
+
+    it("Inherit BaseReport_Always_WinLossDetailView is BaseReport", () => {
+        // assert
+        expect(winLossDetailView instanceof BaseReport).toBeTruthy();
     });
 
     describe("_init", () => {
@@ -89,6 +92,7 @@
             beforeEach(() => {
                 // arrange
                 setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+                spyOn(winLossDetailView, "initHelp");
 
                 // act
                 winLossDetailView.init();
@@ -121,6 +125,10 @@
             it("_Calls sortComponent.render", () => {
                 // assert
                 expect(sortComponent.render).toHaveBeenCalled();
+            });
+            it("_Init Help", () => {
+                // assert
+                expect(winLossDetailView.initHelp).toHaveBeenCalled();
             });
         });
 
@@ -395,10 +403,6 @@
                 expect(winLossDetailView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
                 expect(winLossDetailView.$reportForm.hasClass("hide")).toBeFalsy();
             });
-            it("_Position Net Turnover Tooltip", () => {
-                // assert
-                expect(netTurnoverTooltipComponent.positionNetTurnoverTooltip).toHaveBeenCalled();
-            });
             it("_Update Href Param to True", () => {
                 // assert
                 expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsFilterVisible", true);
@@ -581,10 +585,6 @@
         it("_Updates Filter", () => {
             // assert
             expect(winLossDetailView.$reportForm.hasClass("hide")).toBeTruthy();
-        });
-        it("_Updates Net Turnover Tooltip", () => {
-            // assert
-            expect(netTurnoverTooltipComponent.positionNetTurnoverTooltip).toHaveBeenCalledWith(winLossDetailView.$netTurnoverTooltip);
         });
     });
     describe("_getParams", () => {
