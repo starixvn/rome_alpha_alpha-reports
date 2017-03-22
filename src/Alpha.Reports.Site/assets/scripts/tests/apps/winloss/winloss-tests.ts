@@ -26,6 +26,7 @@
             reportTooltip,
             monthPickerComponent,
             linkBuilderComponent);
+        spyOn(winLossView, "loadLegend");
 
         cacheDOMElements = spyOn(winLossView, "cacheDOMElements");
         cacheDOMElements.and.callThrough();
