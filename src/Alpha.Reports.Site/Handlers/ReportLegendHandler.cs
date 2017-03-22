@@ -21,11 +21,9 @@
         {
             var products = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Select(product => (int)product);
 
-            var legend = products.Any()
-                ? string.Format(Resources.DelayIssueLegend, productService.GetProductNames(products).JoinWithComma())
-                : Resources.NoInformationIsAvailable;
-
-            return new List<string> { legend };
+            return products.Any()
+                ? new List<string> { string.Format(Resources.DelayIssueLegend, string.Join(", ", productService.GetProductNames(products))) }
+                : Enumerable.Empty<string>();
         }
     }
 }

@@ -3,7 +3,7 @@
 
     let template = {
         normal: `<body>
-                    <div id="icon-help"></div>
+                    <div id="icon-information"></div>
                     <input type="hidden" id="LoadLegendURL" value="ReportLegend/Index" />
                 </body>`
     };
@@ -13,14 +13,25 @@
     });
 
     describe("_initHelp", () => {
-        it("_Always -> Bind Click to load legend event", () => {
+        it("_Always -> Bind Click to show legend event", () => {
+            // arrange
+            spyOn(baseReport, "showLegend");
+            setFixtures(template.normal);
+
+            // act
+            baseReport.initHelp();
+            baseReport.$iconInformation.trigger("click");
+
+            // assert
+            expect(baseReport.showLegend).toHaveBeenCalled();
+        });
+        it("_Always -> load Legend", () => {
             // arrange
             spyOn(baseReport, "loadLegend");
             setFixtures(template.normal);
 
             // act
             baseReport.initHelp();
-            baseReport.$iconHelp.trigger("click");
 
             // assert
             expect(baseReport.loadLegend).toHaveBeenCalled();
@@ -37,11 +48,6 @@
 
             // act
             baseReport.loadLegend();
-        });
-
-        it("_Always -> Block UI/Unblock UI", () => {
-            // assert
-            expect($.blockUI).toHaveBeenCalled();
         });
 
         it("_Always -> call ajax", () => { // assert
@@ -76,19 +82,9 @@
                 // assert
                 expect($("#report-legend").length).toBe(1);
             });
-            it("_Show Popup", () => {
+            it("_Show icon information", () => {
                 // assert
-                expect($.fn.modal).toHaveBeenCalledWith({ show: true, backdrop: false });
-            });
-            it("_Position Legend Popup by icon help", () => {
-                // assert
-                expect($.fn.css).toHaveBeenCalledWith({
-                    left: 20,
-                    right: "auto",
-                    bottom: "auto",
-                    top: 100,
-                    width: "auto"
-                });
+                expect(baseReport.$iconInformationContainer.hasClass("hide")).toBeFalsy();
             });
         });
         describe("_Already Load Legend Before", () => {
@@ -112,19 +108,60 @@
                 expect($("#report-legend.old-legend").length).toBe(0);
                 expect($("#report-legend").length).toBe(1);
             });
-            it("_Show Popup", () => {
+            it("_Show icon information", () => {
                 // assert
-                expect($.fn.modal).toHaveBeenCalledWith({ show: true, backdrop: false });
+                expect(baseReport.$iconInformationContainer.hasClass("hide")).toBeFalsy();
             });
-            it("_Position Legend Popup by icon help", () => {
+        });
+        describe("_Not Load Legend Before/New Legend is Empty", () => {
+            let newLegend = ` `;
+
+            beforeEach(() => {
+                // arrange
+                setFixtures(template.normal);
+                baseReport.initHelp();
+                spyOn($.fn, "modal");
+                spyOn($.fn, "css");
+                spyOn($.fn, "position").and.returnValue({ left: 40, top: 40 });
+
+                // act
+                baseReport.renderLegend(newLegend);
+            });
+
+            it("_Remove icon information", () => {
                 // assert
-                expect($.fn.css).toHaveBeenCalledWith({
-                    left: 20,
-                    right: "auto",
-                    bottom: "auto",
-                    top: 100,
-                    width: "auto"
-                });
+                expect($("#icon-information-container").length).toBe(0);
+            });
+        });
+    });
+    describe("_showLegend", () => {
+        let newLegend = `<div id="report-legend">New Legend</div>`;
+
+        beforeEach(() => {
+            // arrange
+            setFixtures(template.normal);
+            baseReport.initHelp();
+            spyOn($.fn, "modal");
+            spyOn($.fn, "css");
+            spyOn($.fn, "position").and.returnValue({ left: 40, top: 40 });
+            baseReport.renderLegend(newLegend);
+
+            // act
+            baseReport.showLegend();
+        });
+
+        it("_Always_Show Popup", () => {
+            // assert
+            expect($.fn.modal).toHaveBeenCalledWith({ show: true, backdrop: false });
+        });
+        it("_Always_Position Legend Popup by icon help", () => {
+            // assert
+            expect($.fn.css).toHaveBeenCalledWith({
+                left: 20,
+                right: "auto",
+                bottom: "auto",
+                top: 100,
+                width: "auto"
             });
         });
     });

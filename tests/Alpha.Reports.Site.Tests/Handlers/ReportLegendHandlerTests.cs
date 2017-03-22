@@ -49,7 +49,7 @@
             // Arrange
             var message = new ReportLegendQuery();
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
-            var expectedViewModel = new List<string> { "No information is available" };
+            var expectedViewModel = Enumerable.Empty<string>();
 
             // Act
             var actualViewModel = reportLegendHandler.Handle(message);

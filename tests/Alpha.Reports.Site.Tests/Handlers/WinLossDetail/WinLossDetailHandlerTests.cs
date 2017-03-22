@@ -39,7 +39,7 @@
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
             this.userFixture = userFixture;
-            winLossDetailHandler = new WinLossDetailHandler(productService, reportService);
+            winLossDetailHandler = new WinLossDetailHandler(productService, reportService, userFixture.User);
             SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -125,7 +125,7 @@
         public void HandleReportLegendQuery_ProductsContainAllBet_ReturnsCorrectViewModel()
         {
             // Arrange
-            var message = new ReportLegendQuery(userFixture.User);
+            var message = new ReportLegendQuery();
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
                 new Product(21, string.Empty)
@@ -150,7 +150,7 @@
         public void HandleReportLegendQuery_HaveProductsNeedDelayTimeToSumarizeData_ReturnsCorrectViewModel()
         {
             // Arrange
-            var message = new ReportLegendQuery(userFixture.User);
+            var message = new ReportLegendQuery();
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(new List<byte> { 1 });
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {

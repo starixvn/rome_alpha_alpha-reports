@@ -3,15 +3,17 @@
 class BaseReport {
     $loadLegendURL: JQuery;
     $reportLegend: JQuery;
-    $iconHelp: JQuery;
+    $iconInformation: JQuery;
+    $iconInformationContainer: JQuery;
 
     initHelp = () => {
         this.$loadLegendURL = $("#LoadLegendURL");
-        this.$iconHelp = $("#icon-help");
-        this.$iconHelp.on("click", this.loadLegend);
+        this.$iconInformation = $("#icon-information");
+        this.$iconInformationContainer = $("#icon-information-container");
+        this.loadLegend();
+        this.$iconInformation.on("click", this.showLegend);
     };
     loadLegend = () => {
-        $.blockUI();
         $.ajax({
             method: "GET",
             url: this.$loadLegendURL.val(),
@@ -27,10 +29,20 @@ class BaseReport {
         }
 
         $("body").append(html);
+
+        if ($.trim(html) === "") {
+            this.$iconInformationContainer.remove();
+        } else {
+            this.$iconInformationContainer.removeClass("hide");
+        }
+
         this.$reportLegend = $("#report-legend");
+    };
+
+    showLegend = () => {
         this.$reportLegend.modal({ show: true, backdrop: false });
 
-        var iconHelpPosition = this.$iconHelp.position();
+        var iconHelpPosition = this.$iconInformation.position();
         this.$reportLegend.css({
             left: iconHelpPosition.left - 20,
             right: "auto",

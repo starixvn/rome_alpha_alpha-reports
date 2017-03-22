@@ -2,26 +2,29 @@
 
 @helper Render(IEnumerable<string> legends)
 {
-    <div class="modal fade message-modal" id="report-legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="icon icon-close close" data-dismiss="modal" aria-label="@Resources.Close"><span aria-hidden="true"></span></button>
-                    <h4 class="modal-title">&nbsp;</h4>
-                </div>
-                <div class="modal-body">
-                    <div id="msg-content">
-                        <ul class="list-msg">
-                            @foreach (var legend in legends)
-                            {
-                                <li>
-                                    @legend
-                                </li>
-                            }
-                        </ul>
+if (legends.Any())
+{
+        <div class="modal fade message-modal" id="report-legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="icon icon-close close" data-dismiss="modal" aria-label="@Resources.Close"><span aria-hidden="true"></span></button>
+                        <h4 class="modal-title">&nbsp;</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="msg-content">
+                            <ul class="list-msg">
+                                @foreach (var legend in legends)
+                                {
+                                    <li>
+                                        @legend
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+}
 }

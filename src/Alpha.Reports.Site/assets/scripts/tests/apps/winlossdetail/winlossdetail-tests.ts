@@ -30,6 +30,7 @@
             monthPickerComponent,
             linkBuilderComponent);
 
+        spyOn(winLossDetailView, "loadLegend");
         cacheElements = spyOn(winLossDetailView, "cacheElements");
         cacheElements.and.callThrough();
 

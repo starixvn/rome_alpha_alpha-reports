@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using App_GlobalResources;
-    using Extensions;
     using MediatR;
+    using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
     using ViewModels.WinLossDetail;
@@ -16,11 +16,14 @@
         IRequestHandler<ReportLegendQuery, IEnumerable<string>>
     {
         private const int AllBetProductId = 21;
+        private readonly IUser viewer;
 
         public WinLossDetailHandler(
             ProductService productService,
-            WinLossDetailService reportService) : base(productService, reportService)
+            WinLossDetailService reportService,
+            IUser viewer) : base(productService, reportService)
         {
+            this.viewer = viewer;
         }
 
         public WinLossDetailViewModel Handle(WinLossDetailQuery message)
@@ -48,6 +51,7 @@
 
         public IEnumerable<string> Handle(ReportLegendQuery message)
         {
+            message.CustId = viewer.Id;
             var result = new List<string>();
             result.Add(Resources.Tooltip_NetTurnover);
 
