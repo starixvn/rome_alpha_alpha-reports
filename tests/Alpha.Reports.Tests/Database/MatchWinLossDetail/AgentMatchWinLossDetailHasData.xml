@@ -7,7 +7,7 @@
     <homeId>2</homeId>
     <awayId>4</awayId>
     <betType>13</betType>
-    <liveIndicator>false</liveIndicator>
+    <liveIndicator>0</liveIndicator>
     <leagueId>5</leagueId>
     <race>6</race>
     <matchCode>Match Code 1</matchCode>
@@ -30,7 +30,7 @@
     <homeId>12</homeId>
     <awayId>14</awayId>
     <betType>113</betType>
-    <liveIndicator>true</liveIndicator>
+    <liveIndicator>1</liveIndicator>
     <leagueId>15</leagueId>
     <race>16</race>
     <matchCode>Match Code 11</matchCode>

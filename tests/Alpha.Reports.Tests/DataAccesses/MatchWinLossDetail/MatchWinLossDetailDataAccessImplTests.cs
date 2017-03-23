@@ -40,7 +40,7 @@
         [Theory]
         [MemberData("ReportByLevel", MemberType = typeof(MatchWinLossDetailDataAccessImplTestCases))]
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public void GetData_SuperWinLossReportHasData_ReturnsDataFromObjectDb(
+        public void GetData_WinLossReportHasData_ReturnsDataFromObjectDb(
             UserLevel level,
             DataSet dataSet)
         {
