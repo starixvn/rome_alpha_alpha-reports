@@ -51,7 +51,7 @@
                 homeId: reader.ToInt("homeId"),
                 awayId: reader.ToInt("awayId"),
                 betType: reader.ToInt("betType"),
-                liveIndicator: reader.ToBool("liveIndicator"),
+                liveIndicator: reader.ToInt("liveIndicator") == 1,
                 leagueId: reader.ToInt("leagueId"),
                 race: reader.ToInt("race"),
                 matchCode: reader.ToString("matchCode"),
