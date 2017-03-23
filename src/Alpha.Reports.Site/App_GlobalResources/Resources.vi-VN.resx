@@ -363,4 +363,7 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>Tất cả giải đấu</value>
   </data>
+  <data name="DelayIssueLegend" xml:space="preserve">
+    <value>- Số liệu của {0} sẽ bị trì hoãn 5 phút kể từ khi hoàn thành các vé cược. </value>
+  </data>
 </root>

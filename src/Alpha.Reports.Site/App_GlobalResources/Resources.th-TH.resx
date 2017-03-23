@@ -394,4 +394,7 @@
   <data name="GrandTotal" xml:space="preserve">
     <value>รวมทั้งสิ้น</value>
   </data>
+  <data name="DelayIssueLegend" xml:space="preserve">
+    <value>- ข้อมูล {0} จะล่าช้าไม่เกิน 5 นาทีหลังจากเคลียร์ตั๋ว</value>
+  </data>
 </root>
