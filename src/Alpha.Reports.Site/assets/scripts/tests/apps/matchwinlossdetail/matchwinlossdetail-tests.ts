@@ -598,4 +598,16 @@
             expect(leagueMultiSelectionComponent.render).toHaveBeenCalled();
         });
     });
+    describe("_completeLoadLeages ", () => {
+        it("_page is not loading_unblock UI", () => {
+            // arrange
+            matchWinLossDetailView.isLoading = false;
+
+            // act
+            matchWinLossDetailView.completeLoadLeages();
+
+            // assert
+            expect(jQueryFake.unblockUI).toHaveBeenCalled();
+        });
+    });
 });

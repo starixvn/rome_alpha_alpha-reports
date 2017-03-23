@@ -113,6 +113,8 @@ class MatchWinLossDetailView {
         this.$exportExcelForm.submit();
     };
     onSubmitReport = (e: any) => {
+        this.isLoading = true;
+
         let this$ = this.$;
         this$.blockUI();
 
@@ -246,7 +248,7 @@ class MatchWinLossDetailView {
             cache: false,
             data: param,
             success: this.renderLeagues,
-            complete: this$.unblockUI
+            complete: this.completeLoadLeages
         });
     };
     renderLeagues = (html: string) => {
@@ -255,6 +257,11 @@ class MatchWinLossDetailView {
         this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
         this.$userSelectedLeagueIds = this.$("#league-ids");
         this.$userSelectedLeagueIds.val("");
+    };
+    completeLoadLeages = () => {
+        if (!this.isLoading) {
+            this.$.unblockUI();
+        }
     };
 }
 
