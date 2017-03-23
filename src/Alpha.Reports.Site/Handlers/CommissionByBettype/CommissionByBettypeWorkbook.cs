@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
     using ONEbook.SpreadSheets;
     using ONEbook.SpreadSheets.NPOI;
     using Reports.Models.CommissionByBettype;
@@ -39,6 +40,30 @@
         {
             base.FillBody(sheet);
 
+            RemoveNoPermissionInfo();
+        }
+
+        protected override void FillNoInfoRow(Sheet sheet)
+        {
+            var rowIndex = TemplateInfo.BodyStartIndex;
+            var colIndex = Column.GetColIndex(TemplateInfo.ColumnStartName);
+
+            var lastColumnIndex = sheet.OddRowTemplate.LastCellIndex - 1
+                - (!userPermissionService.IsIMbcCustomer() ? 1 : 0)
+                - (!userPermissionService.IsShowMyanmarOdds() ? 1 : 0);
+
+            sheet.SetCellRangeValue(
+                rowIndex,
+                colIndex,
+                rowIndex,
+                lastColumnIndex,
+                TemplateInfo.NoInfomationText);
+
+            sheet.GetCell(rowIndex, colIndex).SetCenterHorizontalAlignment();
+        }
+
+        private void RemoveNoPermissionInfo()
+        {
             var npoiSheet = Workbook.GetSheetAt(0);
             var headerAddress = npoiSheet.GetMergedRegion(0);
 
@@ -46,13 +71,13 @@
 
             if (!userPermissionService.IsIMbcCustomer())
             {
-                RemoveColumnIndex(npoiSheet, 7);
+                RemoveColumnIndex(npoiSheet, 4);
                 headerAddress.LastColumn--;
             }
 
             if (!userPermissionService.IsShowMyanmarOdds())
             {
-                RemoveColumnIndex(npoiSheet, 5);
+                RemoveColumnIndex(npoiSheet, 4);
                 headerAddress.LastColumn--;
             }
 
@@ -62,6 +87,7 @@
         private void RemoveColumnIndex(ISheet sheet, int colIndex)
         {
             var rowIter = sheet.GetEnumerator();
+
             while (rowIter.MoveNext())
             {
                 var row = (HSSFRow)rowIter.Current;
@@ -73,7 +99,8 @@
 
                     for (int i = cell.ColumnIndex + 1; i <= row.Cells.Count; i++)
                     {
-                        row.MoveCell(row.GetCell(i), i - 1);
+                        row.CopyCell(i, i - 1);
+                        row.RemoveCell(row.GetCell(i));
                     }
                 }
             }
