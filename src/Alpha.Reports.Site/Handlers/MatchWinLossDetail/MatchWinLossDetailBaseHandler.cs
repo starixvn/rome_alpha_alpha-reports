@@ -272,6 +272,11 @@
 
         internal BetTypeWinLossViewModel BuildWinLossTotal(IEnumerable<MatchWinLossDetailViewModel> matchWinLossDetail)
         {
+            if (!matchWinLossDetail.Any())
+            {
+                return null;
+            }
+
             var total = new BetTypeWinLossViewModel();
 
             foreach (var winLoss in matchWinLossDetail)

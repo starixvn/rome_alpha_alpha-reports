@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
+    using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
     using Constants;
@@ -461,6 +462,19 @@
 
             // Assert
             Assert.Equal(expectedPrefix, actualPrefix);
+        }
+
+        [Fact]
+        public void BuildWinLossTotal_EmptyData_ReturnsNull()
+        {
+            // Arrange
+            var data = Enumerable.Empty<MatchWinLossDetailViewModel>();
+
+            // Act
+            var actualTotal = matchWinLossDetailHandler.BuildWinLossTotal(data);
+
+            // Assert
+            Assert.Null(actualTotal);
         }
 
         private MatchWinLossDetailModel CreateMatchWinLossDetailModel(
