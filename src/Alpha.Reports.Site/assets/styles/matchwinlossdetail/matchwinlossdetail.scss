@@ -34,6 +34,10 @@
     font-weight: bold;
 }
 
+.filter .form-group {
+    vertical-align: bottom;
+}
+
 #dropdown-league-container {
     .multiselect-container.dropdown-menu {
         width: 800px;
@@ -54,6 +58,40 @@
     .multiselect-container > li {
         width: 50%;
         display: inline-block;
+    }
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 767px) and (orientation : portrait) {
+        .multiselect-container.dropdown-menu {
+            width: 350px;
+            left: 0 !important;
+            /*right: -51px !important;*/
+        }
+
+        .multiselect-container > li {
+            width: 100%;
+            display: inline-block;
+        }
+
+        .multiselect-container > li.filter {
+            width: 100%;
+
+            .input-group {
+                width: 93%;
+            }
+        }
+    }
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 767px) and (orientation : landscape) {
+        .multiselect-container.dropdown-menu {
+            width: 350px;
+            left: auto !important;
+            right: 0 !important;
+        }
+
+        .multiselect-container > li {
+            width: 100%;
+            display: inline-block;
+        }
     }
 }
 
