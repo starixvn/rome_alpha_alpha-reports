@@ -97,7 +97,7 @@
             new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
 
         private LeagueMultiSelectionViewModel LeagueMultiSelectionViewModel =>
-            new LeagueMultiSelectionViewModel(Leagues, UserSelectedLeagueIds, Language);
+            new LeagueMultiSelectionViewModel(Leagues, UserSelectedLeagueIds, Language, query.IsUserSelectsAllLeagues);
 
         public MatchWinLossDetailFilterViewModel FilterViewModel =>
             new MatchWinLossDetailFilterViewModel(

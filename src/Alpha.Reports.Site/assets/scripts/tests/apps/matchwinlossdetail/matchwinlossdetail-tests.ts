@@ -69,13 +69,15 @@
             // assert
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
         });
+        it("_Calls dateRangePickerComponent.render", () => {
+            // assert
+            expect(dateRangePickerComponent.render).toHaveBeenCalledWith(
+                new DateRangePickerOption("daterange-picker", "report-form", matchWinLossDetailView.showButtonLoadLeague));
+        });
         it("_Calls productMultiSelectionComponent.render", () => {
             // assert
-            expect(productMultiSelectionComponent.render).toHaveBeenCalled();
-        });
-        it("_Calls leagueMultiSelectionComponent.render", () => {
-            // assert
-            expect(leagueMultiSelectionComponent.render).toHaveBeenCalled();
+            expect(productMultiSelectionComponent.render).toHaveBeenCalledWith(
+                new ProductMultiSelectionOption("dropdown-product", true, "product-ids", matchWinLossDetailView.showButtonLoadLeague));
         });
         it("_Binds stickyTableHeaders", () => {
             // assert
@@ -110,6 +112,54 @@
             expect(matchWinLossDetailView.loadLeagues).not.toHaveBeenCalledWith();
         });
     });
+    describe("_init_RenderLeague", () => {
+        it("_Calls leagueMultiSelectionComponent.render if user has selected all leagues", () => {
+            // arrange 
+            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            matchWinLossDetailView.$isUserSelectsAllLeagues = matchWinLossDetailView.$("#IsUserSelectsAllLeagues");
+            matchWinLossDetailView.$isUserSelectsAllLeagues.val("true");
+            spyOn(matchWinLossDetailView, "loadLeagues");
+
+            // act
+            matchWinLossDetailView.init();
+
+            // assert
+            expect(leagueMultiSelectionComponent.render).toHaveBeenCalled();
+        });
+
+        it("_Calls leagueMultiSelectionComponent.render if user has selected some leagues", () => {
+            // arrange 
+            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            matchWinLossDetailView.$isUserSelectsAllLeagues = matchWinLossDetailView.$("#IsUserSelectsAllLeagues");
+            matchWinLossDetailView.$userSelectedLeagueIds = matchWinLossDetailView.$("#league-ids");
+            matchWinLossDetailView.$isUserSelectsAllLeagues.val("false");
+            matchWinLossDetailView.$userSelectedLeagueIds.val("1");
+            spyOn(matchWinLossDetailView, "loadLeagues");
+
+            // act
+            matchWinLossDetailView.init();
+
+            // assert
+            expect(leagueMultiSelectionComponent.render).toHaveBeenCalled();
+        });
+
+        it("_Not Calls leagueMultiSelectionComponent.render if user has selected some leagues", () => {
+            // arrange 
+            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            matchWinLossDetailView.$isUserSelectsAllLeagues = matchWinLossDetailView.$("#IsUserSelectsAllLeagues");
+            matchWinLossDetailView.$userSelectedLeagueIds = matchWinLossDetailView.$("#league-ids");
+            matchWinLossDetailView.$isUserSelectsAllLeagues.val("false");
+            matchWinLossDetailView.$userSelectedLeagueIds.val("");
+            spyOn(matchWinLossDetailView, "loadLeagues");
+
+            // act
+            matchWinLossDetailView.init();
+
+            // assert
+            expect(leagueMultiSelectionComponent.render).not.toHaveBeenCalled();
+        });
+    });
+
     describe("_checkReady", () => {
         it("_Document is not loaded yet (empty) -> Returns False", () => {
             // arrange
@@ -150,6 +200,9 @@
             expect(matchWinLossDetailView.$isStackMode).toBeDefined();
             expect(matchWinLossDetailView.$leagueContainer).toBeDefined();
             expect(matchWinLossDetailView.$loadLeagueURL).toBeDefined();
+
+            expect(matchWinLossDetailView.$buttonLoadLeague).toBeDefined();
+            expect(matchWinLossDetailView.$isUserSelectsAllLeagues).toBeDefined();
         });
     });
     describe("_onExportExcel_Always", () => {
@@ -510,70 +563,53 @@
         });
     });
     describe("_loadLeagues", () => {
-        describe("_Page completely loaded", () => {
-            let newParam = {
-                fromDate: "02/01/2017",
-                toDate: "02/01/2017",
-                products: "1,2"
-            };
+        let newParam = {
+            fromDate: "02/01/2017",
+            toDate: "02/01/2017",
+            products: "1,2"
+        };
 
-            beforeEach(() => {
-                // arrange
-                setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-                matchWinLossDetailView.init();
+        beforeEach(() => {
+            // arrange
+            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            matchWinLossDetailView.init();
 
-                spyOn(matchWinLossDetailView, "renderLeagues");
-                spyOn($, "ajax");
+            spyOn(matchWinLossDetailView, "renderLeagues");
+            spyOn($, "ajax");
 
-                spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => newParam);
-                matchWinLossDetailView.isLoading = false;
+            spyOn(matchWinLossDetailView, "getLeagueParam").and.callFake(() => newParam);
+            matchWinLossDetailView.isLoading = false;
 
-                // act
-                matchWinLossDetailView.loadLeagues();
-            });
-
-            it("_Block UI/Unblock UI", () => {
-                // assert
-                expect(jQueryFake.blockUI).toHaveBeenCalled();
-                expect(jQueryFake.unblockUI).toHaveBeenCalled();
-            });
-            it("_call ajax", () => {
-                // assert
-                expect($.ajax).toHaveBeenCalledWith({
-                    method: "GET",
-                    url: "League/LeaguesByCustomer",
-                    cache: false,
-                    data: newParam,
-                    success: matchWinLossDetailView.renderLeagues,
-                    complete: jasmine.any(Function)
-                });
-            });
+            // act
+            matchWinLossDetailView.loadLeagues();
         });
-        describe("_Page is loading", () => {
-            beforeEach(() => {
-                // arrange
-                setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
-                matchWinLossDetailView.init();
 
-                spyOn($, "ajax");
-                matchWinLossDetailView.isLoading = true;
-
-                // act
-                matchWinLossDetailView.loadLeagues();
-            });
-            it("_Not call ajax", () => {
-                // assert
-                expect($.ajax).not.toHaveBeenCalled();
+        it("_Block UI/Unblock UI", () => {
+            // assert
+            expect(jQueryFake.blockUI).toHaveBeenCalled();
+            expect(jQueryFake.unblockUI).toHaveBeenCalled();
+        });
+        it("_call ajax", () => {
+            // assert
+            expect($.ajax).toHaveBeenCalledWith({
+                method: "GET",
+                url: "League/LeaguesByCustomer",
+                cache: false,
+                data: newParam,
+                success: matchWinLossDetailView.renderLeagues,
+                complete: matchWinLossDetailView.$.unblockUI
             });
         });
     });
 
     describe("_renderLeagues", () => {
-        let leagueHtml = "<div id=\"dropdown-league-container\" class=\"form-group\"><select id=\"dropdown-league\"></select></div>";
+        let leagueHtml = "<div id=\"dropdown-league-container\" class=\"form-group\">" +
+            "<select id=\"dropdown-league\"></select><div id=\"btn-loadleague\" value=\"\"></div></div>";
 
         beforeEach(() => {
             // arrange
             setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            spyOn(matchWinLossDetailView, "loadLeagues");
             matchWinLossDetailView.init();
         });
 
@@ -587,7 +623,8 @@
 
             // assert
             expect(matchWinLossDetailView.$leagueContainer.empty).toHaveBeenCalled();
-            expect(matchWinLossDetailView.$leagueContainer.append).toHaveBeenCalledWith("<select id=\"dropdown-league\"></select>");
+            expect(matchWinLossDetailView.$leagueContainer.append)
+                .toHaveBeenCalledWith("<select id=\"dropdown-league\"></select><div id=\"btn-loadleague\" value=\"\"></div>");
         });
 
         it("_render leagueMultiSelectionComponent", () => {
@@ -597,17 +634,64 @@
             // assert
             expect(leagueMultiSelectionComponent.render).toHaveBeenCalled();
         });
+        it("_userSelectedLeagueIds is empty", () => {
+            // act
+            matchWinLossDetailView.renderLeagues(leagueHtml);
+
+            // assert
+            expect(matchWinLossDetailView.$userSelectedLeagueIds.val()).toBeUndefined();
+        });
+        it("_hide buttonLoadLeague", () => {
+            // act
+            matchWinLossDetailView.renderLeagues(leagueHtml);
+
+            // assert
+            expect(matchWinLossDetailView.$buttonLoadLeague.hasClass("hide")).toBeTruthy();
+        });
+        it("_show leagues", () => {
+            // act
+            spyOn($.fn, "click");
+            matchWinLossDetailView.renderLeagues(leagueHtml);
+
+            // assert
+            expect($.fn.click).toHaveBeenCalled();
+        });
+        it("_Bind loadLeagues", () => {
+            // act
+            matchWinLossDetailView.$buttonLoadLeague.trigger("click");
+
+            // assert
+            expect(matchWinLossDetailView.loadLeagues).toHaveBeenCalled();
+        });
     });
-    describe("_completeLoadLeages ", () => {
-        it("_page is not loading_unblock UI", () => {
+    describe("_showButtonLoadLeague", () => {
+        it("_page is loading_not show button load league", () => {
             // arrange
+            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            matchWinLossDetailView.init();
+            matchWinLossDetailView.isLoading = true;
+            matchWinLossDetailView.$buttonLoadLeague.addClass("hide");
+
+            // act
+            matchWinLossDetailView.showButtonLoadLeague();
+
+            // assert
+            expect(matchWinLossDetailView.$buttonLoadLeague.hasClass("hide")).toBeTruthy();
+        });
+        it("_page is not loading_show button load league", () => {
+            // arrange
+            setFixtures(matchWinLossDetailTemplate.currentReportWithNormalMode);
+            matchWinLossDetailView.init();
             matchWinLossDetailView.isLoading = false;
 
             // act
-            matchWinLossDetailView.completeLoadLeages();
+            matchWinLossDetailView.showButtonLoadLeague();
 
             // assert
-            expect(jQueryFake.unblockUI).toHaveBeenCalled();
+            expect(matchWinLossDetailView.$userSelectedLeagueIds.val()).toBe("");
+            expect(matchWinLossDetailView.$buttonLoadLeague.hasClass("hide")).toBeFalsy();
+            expect(matchWinLossDetailView.$leagueContainer.find("> .btn-group").hasClass("hide")).toBeTruthy();
+            expect(matchWinLossDetailView.$isUserSelectsAllLeagues.val()).toBe("false");
         });
     });
 });

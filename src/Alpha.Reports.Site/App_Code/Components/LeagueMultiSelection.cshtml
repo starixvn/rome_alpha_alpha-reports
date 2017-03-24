@@ -3,7 +3,11 @@
 
 @helper Render(LeagueMultiSelectionViewModel model)
 {
+var isShowDropdown = !string.IsNullOrWhiteSpace(model.UserSelectedLeagueIds) || model.IsUserSelectsAllLeagues;
     <div id="dropdown-league-container" class="form-group">
+        <button id="btn-loadleague" class="btn-submit @(isShowDropdown ? "hide":string.Empty)" type="button">
+            @Resources.AllLeagues
+        </button>
         <select id="dropdown-league"
                 data-has-any-league="@model.Leagues.Any()"
                 data-label-select-leagues="@Resources.SelectLeague"
@@ -11,12 +15,13 @@
                 data-label-all-leagues="@Resources.AllLeagues"
                 data-label-there-is-no-league="@Resources.ThereIsNoLeague"
                 data-language="@model.Language"
-                multiple="multiple" class="select-multiple">
+                multiple="multiple" class="select-multiple @(isShowDropdown?string.Empty:"hide")">
             @foreach (var league in model.Leagues)
             {
                 <option value="@league.Value" @(league.Selected ? " selected=\"selected\"" : string.Empty)>@league.Text</option>
             }
         </select>
         <input type="hidden" name="UserSelectedLeagueIds" id="league-ids" value="@model.UserSelectedLeagueIds" />
+        <input type="hidden" name="IsUserSelectsAllLeagues" id="IsUserSelectsAllLeagues" value="@model.IsUserSelectsAllLeagues.ToString()" />
     </div>
 }

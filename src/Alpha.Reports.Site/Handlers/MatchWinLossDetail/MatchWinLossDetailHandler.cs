@@ -7,6 +7,7 @@
     using MediatR;
     using Params;
     using RemotingRef;
+    using Reports.Models;
     using Requests.MatchWinLossDetail;
     using Services;
     using ViewModels.MatchWinLossDetail;
@@ -47,7 +48,9 @@
                 message.FromDate,
                 message.ToDate,
                 message.LanguageKey);
-            var leagues = leagueService.GetLeaguesByCustomer(selectLeagueParam);
+            var leagues = string.IsNullOrWhiteSpace(message.UserSelectedLeagueIds) && !message.IsUserSelectsAllLeagues
+                ? Enumerable.Empty<League>()
+                : leagueService.GetLeaguesByCustomer(selectLeagueParam);
 
             var userSelectedLeagueIds = string.IsNullOrWhiteSpace(message.UserSelectedLeagueIds)
                 ? leagues.Select(league => league.Id)

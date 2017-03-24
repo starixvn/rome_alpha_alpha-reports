@@ -129,10 +129,14 @@
     describe("_onChange_Always", () => {
         beforeEach(() => {
             // arrange
-            setFixtures(`<body><div id="league-ids"></div></body>`);
+            setFixtures(`<body>
+                            <div id="league-ids"></div>
+                            <input id="IsUserSelectsAllLeagues" type="hidden" />
+                        </body>`);
             spyOn(leagueMultiSelectionComponent, "validate");
             spyOn(leagueMultiSelectionComponent, "getSelectedItems").and.callFake(() => [1, 2, 3]);
             leagueMultiSelectionComponent.$hiddenInput = $("#league-ids");
+            leagueMultiSelectionComponent.$isUserSelectsAllLeagues = leagueMultiSelectionComponent.$("#IsUserSelectsAllLeagues");
 
             // act
             leagueMultiSelectionComponent.onChange();
@@ -146,6 +150,7 @@
         it("_Update hidden input", () => {
             // assert
             expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("1,2,3");
+            expect(leagueMultiSelectionComponent.$isUserSelectsAllLeagues.val()).toBe("false");
         });
     });
     describe("_onSelectAll", () => {
@@ -158,11 +163,13 @@
                                 <option id="3">Option 3</option>
                             </select>
                             <div id="league-ids"></div>
+                            <input id="IsUserSelectsAllLeagues" type="hidden" />
                         </body>`);
 
             spyOn(leagueMultiSelectionComponent, "validate");
             leagueMultiSelectionComponent.$hiddenInput = $("#league-ids");
             leagueMultiSelectionComponent.$dropdownLeague = $("#dropdown-league");
+            leagueMultiSelectionComponent.$isUserSelectsAllLeagues = leagueMultiSelectionComponent.$("#IsUserSelectsAllLeagues");
         });
 
         describe("_Select All", () => {
@@ -182,6 +189,7 @@
             it("_Update hidden input", () => {
                 // assert
                 expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("");
+                expect(leagueMultiSelectionComponent.$isUserSelectsAllLeagues.val()).toBe("true");
             });
         });
 
@@ -202,6 +210,7 @@
             it("_Update hidden input", () => {
                 // assert
                 expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("-1");
+                expect(leagueMultiSelectionComponent.$isUserSelectsAllLeagues.val()).toBe("false");
             });
         });
 
@@ -222,6 +231,7 @@
             it("_Update hidden input", () => {
                 // assert
                 expect(leagueMultiSelectionComponent.$hiddenInput.val()).toBe("1,2");
+                expect(leagueMultiSelectionComponent.$isUserSelectsAllLeagues.val()).toBe("false");
             });
         });
     });

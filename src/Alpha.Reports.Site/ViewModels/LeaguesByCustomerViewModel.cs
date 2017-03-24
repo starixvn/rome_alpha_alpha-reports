@@ -20,6 +20,6 @@
         public string LeagueIds => string.Join(",", Leagues.Select(league => league.Value));
 
         public LeagueMultiSelectionViewModel LeagueMultiSelectionViewModel =>
-            new LeagueMultiSelectionViewModel(Leagues, LeagueIds, Language);
+            new LeagueMultiSelectionViewModel(Leagues, LeagueIds, Language, true);
     }
 }

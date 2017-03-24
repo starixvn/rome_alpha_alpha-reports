@@ -64,6 +64,143 @@
         }
 
         [Fact]
+        public void HandleWinLossDetailQuery_DefaultLoading_NotCallGetLeaguesByCustomer()
+        {
+            // Arrange
+            var query = new MatchWinLossDetailQuery(userFixture.User)
+            {
+                UserSelectedLeagueIds = string.Empty,
+                IsUserSelectsAllLeagues = false
+            };
+
+            // Act
+            matchWinLossDetailHandler.Handle(query);
+
+            // Assert
+            leagueService.GetLeaguesByCustomer(Arg.Any<GetLeaguesByCustomerParam>()).DidNotReceive();
+        }
+
+        [Fact]
+        public void HandleWinLossDetailQuery_UserSelectAllLeagues_NotCallGetLeaguesByCustomer()
+        {
+            // Arrange
+            var query = new MatchWinLossDetailQuery(userFixture.User)
+            {
+                UserSelectedLeagueIds = string.Empty,
+                IsUserSelectsAllLeagues = true
+            };
+
+            // Act
+            matchWinLossDetailHandler.Handle(query);
+
+            // Assert
+            leagueService.Received().GetLeaguesByCustomer(Arg.Any<GetLeaguesByCustomerParam>());
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void HandleWinLossDetailQuery_UserSelectSomeLeagues_NotCallGetLeaguesByCustomer(bool isUserSelectsAllLeagues)
+        {
+            // Arrange
+            var query = new MatchWinLossDetailQuery(userFixture.User)
+            {
+                UserSelectedLeagueIds = "1,2",
+                IsUserSelectsAllLeagues = isUserSelectsAllLeagues
+            };
+
+            // Act
+            matchWinLossDetailHandler.Handle(query);
+
+            // Assert
+            leagueService.Received().GetLeaguesByCustomer(Arg.Any<GetLeaguesByCustomerParam>());
+        }
+
+        [Fact]
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        public void HandleWinLossDetailQuery_DefaultLoading_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var query = new MatchWinLossDetailQuery(userFixture.User)
+            {
+                UserSelectedLeagueIds = string.Empty
+            };
+
+            reportService.GetMatchWinLossDetail(Arg.Any<MatchWinLossDetailParam>()).Returns(new List<MatchWinLossDetailModel>
+            {
+                CreateMatchWinLossDetailModel(betType: 1, showTime: "Show Time 1"),
+                CreateMatchWinLossDetailModel(betType: 2, showTime: "Show Time 1"),
+                CreateMatchWinLossDetailModel(betType: 9, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true),
+                CreateMatchWinLossDetailModel(betType: 29, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true)
+            });
+
+            leagueService.GetLeagueNames(Arg.Any<IEnumerable<int>>()).Returns(new Dictionary<int, string>
+            {
+                [1] = "League 1"
+            });
+
+            reportService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
+            {
+                new Product(1, "Product 1"),
+                new Product(2, "Product 2")
+            });
+            query.UserSelectedProductIds = "1";
+            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
+                .Returns(new List<int> { 1 });
+
+            var expectedViewModel = new MatchWinLossDetailReportViewModel(
+                new List<MatchWinLossDetailViewModel>
+                {
+                    new MatchWinLossDetailViewModel(
+                        1,
+                        "League 1",
+                        1,
+                        "Team 1-vs-Team 1",
+                        1,
+                        new List<BetTypeWinLossViewModel>
+                        {
+                            CreateBetTypeWinLossViewModel(1, "Bet Type 1", 1, 1, 1),
+                            CreateBetTypeWinLossViewModel(2, "Bet Type 2", 1, 1, 1)
+                        },
+                        CreateBetTypeWinLossViewModel(0, null, 2, 2, 0))
+                },
+                CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
+                CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
+                CreateBetTypeWinLossViewModel(29, "Bet Type 29", 1, 1, 1),
+                CreateBetTypeWinLossViewModel(0, null, 4, 4, 0),
+                query,
+                new MatchWinLossDetailParam(
+                     query.CustId,
+                     query.FromDate,
+                     query.ToDate,
+                     Enumerable.Empty<int>(),
+                     new List<int> { 1 },
+                     query.CustLevel),
+                new List<SelectListItem>
+                {
+                    new SelectListItem
+                    {
+                        Text = null,
+                        Value = "1",
+                        Selected = true
+                    },
+                    new SelectListItem
+                    {
+                        Text = null,
+                        Value = "2",
+                        Selected = false
+                    }
+                },
+                Enumerable.Empty<SelectListItem>());
+
+            // Act
+            var actualViewModel = matchWinLossDetailHandler.Handle(query);
+
+            // Assert
+            AssertExtension.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Fact]
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public void HandleWinLossDetailQuery_NotNullMessage_ReturnsCorrectViewModel()
         {

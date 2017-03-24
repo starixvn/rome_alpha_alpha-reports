@@ -8,7 +8,8 @@ class LeagueMultiSelectionOption {
     constructor(
         public dropdownId: string = "dropdown-league",
         public validateBeforeSubmit: boolean = true,
-        public leaguesInputId: string = "league-ids") {
+        public leaguesInputId: string = "league-ids",
+        public isUserSelectsAllLeaguesInputId: string = "IsUserSelectsAllLeagues") {
     }
 }
 
@@ -17,6 +18,7 @@ class LeagueMultiSelectionComponent {
     $hiddenInput: JQuery;
     $dropdownLeague: JQuery;
     $multiSelectButton: JQuery;
+    $isUserSelectsAllLeagues: JQuery;
 
     options = new LeagueMultiSelectionOption();
 
@@ -30,6 +32,7 @@ class LeagueMultiSelectionComponent {
         this.$dropdownLeague = this.$("#" + this.options.dropdownId);
         let hasAnyLeague = alphaReports.convertAttributeToBool(this.$dropdownLeague.data("has-any-league"));
         this.$hiddenInput = this.$("#" + this.options.leaguesInputId);
+        this.$isUserSelectsAllLeagues = this.$("#" + this.options.isUserSelectsAllLeaguesInputId);
 
         this.$dropdownLeague.multiselect({
             maxHeight: 300,
@@ -56,6 +59,7 @@ class LeagueMultiSelectionComponent {
 
         var selectedItems = this.getSelectedItems();
         this.$hiddenInput.val(selectedItems.length === 0 ? "-1" : selectedItems.join(","));
+        this.$isUserSelectsAllLeagues.val("false");
     };
     onSelectAll = () => {
         this.validate();
@@ -68,6 +72,8 @@ class LeagueMultiSelectionComponent {
             : selectedItems.length
                 ? selectedItems.join(",")
                 : "-1");
+
+        this.$isUserSelectsAllLeagues.val(isSelectAll.toString());
     };
 
     validate = () => {

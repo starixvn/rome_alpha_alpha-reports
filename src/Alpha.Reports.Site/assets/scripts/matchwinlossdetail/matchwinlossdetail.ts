@@ -16,6 +16,7 @@ class MatchWinLossDetailView {
     $exportExcelForm: JQuery;
 
     $buttonProduct: JQuery;
+    $buttonLoadLeague: JQuery;
     $buttonLeague: JQuery;
     $userSelectedLeagueIds: JQuery;
     $isSetDefaultStackMode: JQuery;
@@ -27,6 +28,7 @@ class MatchWinLossDetailView {
     $leagueContainer: JQuery;
     $loadLeagueURL: JQuery;
     $custId: JQuery;
+    $isUserSelectsAllLeagues: JQuery;
 
     isFirstSwitchMode = true;
     levels = ["member", "agent", "master", "super"];
@@ -36,7 +38,6 @@ class MatchWinLossDetailView {
         toDate: "",
         products: ""
     };
-
     isLoading = true;
 
     constructor(
@@ -61,17 +62,20 @@ class MatchWinLossDetailView {
 
         this.cacheElements();
 
-        this.dateRangePickerComponent.render(new DateRangePickerOption("daterange-picker", "report-form", this.loadLeagues));
+        this.dateRangePickerComponent.render(new DateRangePickerOption("daterange-picker", "report-form", this.showButtonLoadLeague));
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
 
         this.productMultiSelectionComponent.render(
-            new ProductMultiSelectionOption("dropdown-product", true, "product-ids", this.loadLeagues));
+            new ProductMultiSelectionOption("dropdown-product", true, "product-ids", this.showButtonLoadLeague));
         this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
-        this.leagueMultiSelectionComponent.render();
-        this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
         this.$userSelectedLeagueIds = this.$("#league-ids");
+        if (this.$userSelectedLeagueIds.val() !== "" ||
+            alphaReports.convertAttributeToBool(this.$isUserSelectsAllLeagues.val())) {
+            this.leagueMultiSelectionComponent.render();
+            this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
+        }
 
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
             && alphaReports.screenSmallThan768()) {
@@ -102,12 +106,16 @@ class MatchWinLossDetailView {
         this.$leagueContainer = this.$("#dropdown-league-container");
         this.$loadLeagueURL = this.$("#LoadLeagueURL");
         this.$custId = this.$("#CustId");
+
+        this.$buttonLoadLeague = this.$("#btn-loadleague");
+        this.$isUserSelectsAllLeagues = this.$("#IsUserSelectsAllLeagues");
     };
     registerEvents = () => {
         this.$("#icon-excel").on("click", this.onExportExcel);
         this.$reportForm.submit(this.onSubmitReport);
         this.$(".icon-filter").on("click", this.onClickIconFilter);
         this.$(".icon-switchmode").on("click", this.onSwitchMode);
+        this.$buttonLoadLeague.on("click", this.loadLeagues);
     };
     onExportExcel = () => {
         this.$exportExcelForm.submit();
@@ -233,10 +241,6 @@ class MatchWinLossDetailView {
         };
     };
     loadLeagues = () => {
-        if (this.isLoading) {
-            return;
-        }
-
         let this$ = this.$;
         this$.blockUI();
 
@@ -248,20 +252,34 @@ class MatchWinLossDetailView {
             cache: false,
             data: param,
             success: this.renderLeagues,
-            complete: this.completeLoadLeages
+            complete: this.$.unblockUI
         });
     };
     renderLeagues = (html: string) => {
         this.$leagueContainer.empty().append(this.$(html).html());
         this.leagueMultiSelectionComponent.render();
+
+        this.$buttonLoadLeague = this.$("#btn-loadleague");
+        this.$buttonLoadLeague.on("click", this.loadLeagues);
+
         this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
         this.$userSelectedLeagueIds = this.$("#league-ids");
+
         this.$userSelectedLeagueIds.val("");
+        this.$buttonLoadLeague.addClass("hide");
+
+        this.$isUserSelectsAllLeagues = this.$("#IsUserSelectsAllLeagues");
+        this.$buttonLeague.click();
     };
-    completeLoadLeages = () => {
-        if (!this.isLoading) {
-            this.$.unblockUI();
+    showButtonLoadLeague = () => {
+        if (this.isLoading) {
+            return;
         }
+
+        this.$userSelectedLeagueIds.val("");
+        this.$buttonLoadLeague.removeClass("hide");
+        this.$leagueContainer.find("> .btn-group").addClass("hide");
+        this.$isUserSelectsAllLeagues.val("false");
     };
 }
 
