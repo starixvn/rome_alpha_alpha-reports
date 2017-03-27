@@ -1,5 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.MatchWinLossDetail
 {
+    using App_GlobalResources;
+    using Reports.Constants;
     using Reports.Models;
     using Reports.Models.MatchWinLossDetail;
 
@@ -7,6 +9,7 @@
     {
         public BetTypeWinLossViewModel()
         {
+            Name = string.Empty;
         }
 
         public BetTypeWinLossViewModel(
@@ -23,7 +26,6 @@
             NetWinLoss companyNetWinLoss)
         {
             Id = id;
-            Name = name;
             Turnover = turnover;
             GrossComm = grossComm;
             IsLive = isLive;
@@ -33,6 +35,8 @@
             MasterNetWinLoss = masterNetWinLoss;
             SuperNetWinLoss = superNetWinLoss;
             CompanyNetWinLoss = companyNetWinLoss;
+
+            Name = GetBetTypePrefix() + (name ?? string.Empty);
         }
 
         public BetTypeWinLossViewModel(MatchWinLossDetailModel winLoss, string betTypeName) :
@@ -90,6 +94,26 @@
             CompanyNetWinLoss = NetWinLoss.Add(CompanyNetWinLoss, winloss.CompanyNetWinLoss);
 
             return this;
+        }
+
+        private string GetBetTypePrefix()
+        {
+            switch (Id)
+            {
+                case BetTypeIdConstants.NumberGameOverUnder:
+                    return $"{Resources.Next} ";
+
+                case BetTypeIdConstants.NumberGameOddEven:
+                    if (IsLive)
+                    {
+                        return $"{Resources.Next} ";
+                    }
+
+                    return $"{Resources.FT} ";
+
+                default:
+                    return string.Empty;
+            }
         }
     }
 }

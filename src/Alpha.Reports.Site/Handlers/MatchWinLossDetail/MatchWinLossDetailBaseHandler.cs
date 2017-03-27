@@ -175,7 +175,7 @@
             {
                 var betTypeWinLossViewModel = new BetTypeWinLossViewModel(
                     winLoss.BetType,
-                    GetBetTypePrefix(winLoss) + betTypeNames[winLoss.BetType],
+                    betTypeNames[winLoss.BetType],
                     winLoss.Turnover,
                     winLoss.GrossComm,
                     winLoss.LiveIndicator,
@@ -192,82 +192,13 @@
 
             return new MatchWinLossDetailViewModel(
                 firstWinLoss.LeagueId,
-                GetLeagueTitle(firstWinLoss, leagueName),
+                leagueName,
                 firstWinLoss.MatchId,
-                GetMatchTitle(firstWinLoss, teamNames),
                 firstWinLoss.Race,
                 betTypeWinLoss,
-                total);
-        }
-
-        internal string GetMatchTitle(MatchWinLossDetailModel data, Dictionary<int, string> teamNames)
-        {
-            if (data.BetType == BetTypeIdConstants.Outright)
-            {
-                return string.Empty;
-            }
-
-            if (BetTypeHelper.IsRacing(data.BetType))
-            {
-                return $"{Resources.Race} {data.Race}";
-            }
-
-            if (BetTypeHelper.IsNumberGame(data.BetType))
-            {
-                return $"{Resources.NumberGameNo} {data.MatchCode}";
-            }
-
-            if (BetTypeHelper.IsVirtualHorseRacing(data.BetType))
-            {
-                DateTime eventTime;
-                bool isValidShowTime = DateTime.TryParse(data.ShowTime, out eventTime);
-
-                return isValidShowTime ? eventTime.ToLongDateWithSlash() : string.Empty;
-            }
-
-            return string.Join(
-                string.Empty,
-                teamNames[data.HomeId],
-                data.IsNeutral ? Resources.Neutral : string.Empty,
-                Resources.vs,
-                teamNames[data.AwayId]);
-        }
-
-        internal string GetLeagueTitle(MatchWinLossDetailModel data, string leagueName)
-        {
-            if (BetTypeHelper.IsRacing(data.BetType))
-            {
-                return $"{Resources.HorseRacing} - {leagueName}";
-            }
-
-            if (BetTypeHelper.IsNumberGame(data.BetType))
-            {
-                return string.IsNullOrWhiteSpace(leagueName)
-                    ? Resources.NumberGame
-                    : $"{Resources.NumberGame} - {leagueName}";
-            }
-
-            return leagueName;
-        }
-
-        internal string GetBetTypePrefix(MatchWinLossDetailModel winLoss)
-        {
-            switch (winLoss.BetType)
-            {
-                case BetTypeIdConstants.NumberGameOverUnder:
-                    return $"{Resources.Next} ";
-
-                case BetTypeIdConstants.NumberGameOddEven:
-                    if (winLoss.LiveIndicator)
-                    {
-                        return $"{Resources.Next} ";
-                    }
-
-                    return $"{Resources.FT} ";
-
-                default:
-                    return string.Empty;
-            }
+                total,
+                firstWinLoss,
+                teamNames);
         }
 
         internal BetTypeWinLossViewModel BuildWinLossTotal(IEnumerable<MatchWinLossDetailViewModel> matchWinLossDetail)

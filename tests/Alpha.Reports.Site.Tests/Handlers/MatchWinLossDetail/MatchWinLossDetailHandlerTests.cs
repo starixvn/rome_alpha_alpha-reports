@@ -155,14 +155,15 @@
                         1,
                         "League 1",
                         1,
-                        "Team 1-vs-Team 1",
                         1,
                         new List<BetTypeWinLossViewModel>
                         {
                             CreateBetTypeWinLossViewModel(1, "Bet Type 1", 1, 1, 1),
                             CreateBetTypeWinLossViewModel(2, "Bet Type 2", 1, 1, 1)
                         },
-                        CreateBetTypeWinLossViewModel(0, null, 2, 2, 0))
+                        CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
+                        new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
+                        new Dictionary<int, string> { [1] = "Team 1" })
                 },
                 CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                 CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
@@ -245,14 +246,15 @@
                         1,
                         "League 1",
                         1,
-                        "Team 1-vs-Team 1",
                         1,
                         new List<BetTypeWinLossViewModel>
                         {
                             CreateBetTypeWinLossViewModel(1, "Bet Type 1", 1, 1, 1),
                             CreateBetTypeWinLossViewModel(2, "Bet Type 2", 1, 1, 1)
                         },
-                        CreateBetTypeWinLossViewModel(0, null, 2, 2, 0))
+                        CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
+                        new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
+                        new Dictionary<int, string> { [1] = "Team 1" })
                 },
                 CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                 CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
@@ -410,195 +412,6 @@
 
             // Assert
             Assert.Equal(expectedId, actualId);
-        }
-
-        [Fact]
-        public void GetGroupId_OutrightBetType_ReturnsCorrectTitle()
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 10, showTime: "Show Time 1");
-            var expectedTitle = string.Empty;
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetMatchTitle(matchWinLossDetailModel, new Dictionary<int, string>());
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]
-        public void GetGroupId_RacingBetType_ReturnsCorrectTitle()
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 31, showTime: "Show Time 1");
-            var expectedTitle = "Race 1";
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetMatchTitle(matchWinLossDetailModel, new Dictionary<int, string>());
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]
-        public void GetGroupId_NumberGameBetType_ReturnsCorrectTitle()
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 91, showTime: "Show Time 1");
-            var expectedTitle = "Number Game No 1";
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetMatchTitle(matchWinLossDetailModel, new Dictionary<int, string>());
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]
-        public void GetGroupId_HorseRacingAndValidShowTime_ReturnsCorrectTitle()
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1231, showTime: "01/01/2017");
-            var expectedTitle = "01/01/2017 12:00:00 AM";
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetMatchTitle(matchWinLossDetailModel, new Dictionary<int, string>());
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]
-        public void GetGroupId_HorseRacingAndInvalidShowTime_ReturnsCorrectTitle()
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1231, showTime: "Show Time 1");
-            var expectedTitle = string.Empty;
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetMatchTitle(matchWinLossDetailModel, new Dictionary<int, string>());
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]
-        public void GetGroupId_OtherBetTypeAndNeutral_ReturnsCorrectTitle()
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1239, showTime: "Show Time 1", liveIndicator: false, isNeutral: true);
-            var expectedTitle = "Team 1 (N)-vs-Team 1";
-            var teamName = new Dictionary<int, string>
-            {
-                [1] = "Team 1"
-            };
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetMatchTitle(matchWinLossDetailModel, teamName);
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]
-        public void GetGroupId_OtherBetTypeAndNotNeutral_ReturnsCorrectTitle()
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1239, showTime: "Show Time 1");
-            var expectedTitle = "Team 1-vs-Team 1";
-            var teamName = new Dictionary<int, string>
-            {
-                [1] = "Team 1"
-            };
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetMatchTitle(matchWinLossDetailModel, teamName);
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]
-        public void GetLeagueTitle_RacingBetType_ReturnsCorrectLeagueTitle()
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 31, showTime: "Show Time 1");
-            var leagueName = "League Name";
-            var expectedTitle = "Racing - League Name";
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetLeagueTitle(matchWinLossDetailModel, leagueName);
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Theory]
-        [InlineData("", "Number Game")]
-        [InlineData("League Name", "Number Game - League Name")]
-        public void GetLeagueTitle_NumberGameBetType_ReturnsCorrectLeagueTitle(string leagueName, string expectedTitle)
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 91, showTime: "Show Time 1");
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetLeagueTitle(matchWinLossDetailModel, leagueName);
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Theory]
-        [InlineData("01/01/2017", "League Name")]
-        [InlineData("Invalid Show Time", "League Name")]
-        public void GetLeagueTitle_VirtualHorseRacingBetType_ReturnsCorrectLeagueTitle(string showTime, string expectedTitle)
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1231, showTime: showTime);
-            var leagueName = "League Name";
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetLeagueTitle(matchWinLossDetailModel, leagueName);
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]
-        public void GetLeagueTitle_OtherBetTypes_ReturnsCorrectLeagueTitle()
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: 1239, showTime: "Show Time 1");
-            var leagueName = "League Name";
-            var expectedTitle = leagueName;
-
-            // Act
-            var actualTitle = matchWinLossDetailHandler.GetLeagueTitle(matchWinLossDetailModel, leagueName);
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Theory]
-        [InlineData(85, true, "Next ")]
-        [InlineData(85, false, "Next ")]
-        [InlineData(86, true, "Next ")]
-        [InlineData(86, false, "FT ")]
-        [InlineData(100, true, "")]
-        [InlineData(100, false, "")]
-        public void GetBetTypePrefix_Always_ReturnsCorrectPrefix(
-            int betType,
-            bool liveIndicator,
-            string expectedPrefix)
-        {
-            // Arrange
-            var matchWinLossDetailModel = CreateMatchWinLossDetailModel(betType: betType, showTime: "Show Time 1", liveIndicator: liveIndicator);
-
-            // Act
-            var actualPrefix = matchWinLossDetailHandler.GetBetTypePrefix(matchWinLossDetailModel);
-
-            // Assert
-            Assert.Equal(expectedPrefix, actualPrefix);
         }
 
         [Fact]

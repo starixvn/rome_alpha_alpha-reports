@@ -52,6 +52,28 @@
             AssertExtension.Equal(expectedViewModel, actualViewModel);
         }
 
+        [Theory]
+        [InlineData(85, true, "Next ")]
+        [InlineData(85, false, "Next ")]
+        [InlineData(86, true, "Next ")]
+        [InlineData(86, false, "FT ")]
+        [InlineData(100, true, "")]
+        [InlineData(100, false, "")]
+        public void Name_Always_ReturnsCorrectNameWithPrefix(
+            int betType,
+            bool liveIndicator,
+            string expectedName)
+        {
+            // Arrange
+            var viewModel = new BetTypeWinLossViewModel(betType, string.Empty, 0, 0, liveIndicator, 0, null, null, null, null, null);
+
+            // Act
+            var actualName = viewModel.Name;
+
+            // Assert
+            Assert.Equal(expectedName, actualName);
+        }
+
         [Fact]
         public void Add_NullWinLoss_ReturnsCurrentWinLoss()
         {
