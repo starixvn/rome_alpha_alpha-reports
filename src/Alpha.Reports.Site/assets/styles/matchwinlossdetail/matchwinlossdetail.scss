@@ -81,13 +81,41 @@
     @media only screen and (max-device-width : 767px) and (orientation : landscape) {
         .multiselect-container.dropdown-menu {
             width: 350px;
-            /*left: auto !important;
-            right: 0 !important;*/
+            left: 0 !important;
         }
 
         .multiselect-container > li {
             width: 100%;
             display: inline-block;
+        }
+
+        .multiselect-container > li.filter {
+            width: 100%;
+
+            .input-group {
+                width: 93%;
+            }
+        }
+    }
+
+    @media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : landscape) {
+        .multiselect-container.dropdown-menu {
+            width: 350px;
+            left: auto !important;
+            right: 0 !important;
+        }
+
+        .multiselect-container > li {
+            width: 100%;
+            display: inline-block;
+        }
+
+        .multiselect-container > li.filter {
+            width: 100%;
+
+            .input-group {
+                width: 93%;
+            }
         }
     }
 }
@@ -99,5 +127,11 @@
 
     .altercol {
         background-color: #432616;
+    }
+}
+
+@media only screen and (max-device-width : 767px) and (orientation : landscape) {
+    .filter .form-group {
+        vertical-align: top;
     }
 }
