@@ -74,7 +74,7 @@ class MatchWinLossDetailView {
         if (this.$userSelectedLeagueIds.val() !== "" ||
             alphaReports.convertAttributeToBool(this.$isUserSelectsAllLeagues.val())) {
             this.leagueMultiSelectionComponent.render();
-            this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
+            this.$buttonLeague = this.leagueMultiSelectionComponent.$multiSelectButton;
         }
 
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
@@ -262,7 +262,7 @@ class MatchWinLossDetailView {
         this.$buttonLoadLeague = this.$("#btn-loadleague");
         this.$buttonLoadLeague.on("click", this.loadLeagues);
 
-        this.$buttonLeague = this.$("#dropdown-league").parent().find(".multiselect.btn");
+        this.$buttonLeague = this.leagueMultiSelectionComponent.$multiSelectButton;
         this.$userSelectedLeagueIds = this.$("#league-ids");
 
         this.$userSelectedLeagueIds.val("");
@@ -278,7 +278,7 @@ class MatchWinLossDetailView {
 
         this.$userSelectedLeagueIds.val("");
         this.$buttonLoadLeague.removeClass("hide");
-        this.$leagueContainer.find("> .btn-group").addClass("hide");
+        this.$leagueContainer.find("> .btn-group:not(.btn-loadleague-container)").addClass("hide");
         this.$isUserSelectsAllLeagues.val("false");
     };
 }

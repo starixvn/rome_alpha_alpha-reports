@@ -5,9 +5,12 @@
 {
 var isShowDropdown = !string.IsNullOrWhiteSpace(model.UserSelectedLeagueIds) || model.IsUserSelectsAllLeagues;
     <div id="dropdown-league-container" class="form-group">
-        <button id="btn-loadleague" class="btn-submit @(isShowDropdown ? "hide":string.Empty)" type="button">
-            @Resources.AllLeagues
-        </button>
+        <div class="btn-group btn-loadleague-container">
+            <button id="btn-loadleague" type="button" class="multiselect dropdown-toggle btn btn-default @(isShowDropdown ? "hide":string.Empty)" data-toggle="dropdown">
+                <span class="multiselect-selected-text">@Resources.AllLeagues</span>
+                <b class="caret"></b>
+            </button>
+        </div>
         <select id="dropdown-league"
                 data-has-any-league="@model.Leagues.Any()"
                 data-label-select-leagues="@Resources.SelectLeague"
@@ -18,7 +21,7 @@ var isShowDropdown = !string.IsNullOrWhiteSpace(model.UserSelectedLeagueIds) || 
                 multiple="multiple" class="select-multiple @(isShowDropdown?string.Empty:"hide")">
             @foreach (var league in model.Leagues)
             {
-                <option value="@league.Value" @(league.Selected ? " selected=\"selected\"" : string.Empty)>@league.Text</option>
+            <option value="@league.Value" @(league.Selected ? " selected=\"selected\"" : string.Empty)>@league.Text</option>
             }
         </select>
         <input type="hidden" name="UserSelectedLeagueIds" id="league-ids" value="@model.UserSelectedLeagueIds" />

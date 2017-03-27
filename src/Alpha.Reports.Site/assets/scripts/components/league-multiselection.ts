@@ -49,7 +49,7 @@ class LeagueMultiSelectionComponent {
             enableCaseInsensitiveFiltering: true
         });
 
-        this.$multiSelectButton = this.$dropdownLeague.parent().find(".multiselect.btn");
+        this.$multiSelectButton = this.$dropdownLeague.parent().find(".multiselect.btn:not(#btn-loadleague)");
 
         return this.$dropdownLeague;
     };
