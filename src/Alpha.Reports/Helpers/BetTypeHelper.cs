@@ -13,6 +13,10 @@
             => betType.IsBetween(BetTypeIdConstants.StartNumberGame, BetTypeIdConstants.EndNumberGame);
 
         public static bool IsVirtualHorseRacing(int betType)
-            => betType.IsBetween(BetTypeIdConstants.StartVirtualHorseRacing, BetTypeIdConstants.EndVirtualHorseRacing);
+            => betType == BetTypeIdConstants.VirtualHorseRacing_Win
+            || betType == BetTypeIdConstants.VirtualHorseRacing_Place
+            || betType == BetTypeIdConstants.VirtualHorseRacing_WinPlace
+            || betType == BetTypeIdConstants.VirtualHorseRacing_Forecast
+            || betType == BetTypeIdConstants.VirtualHorseRacing_Tricast;
     }
 }

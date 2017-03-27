@@ -70,6 +70,8 @@
         [Theory]
         [InlineData(1231)]
         [InlineData(1232)]
+        [InlineData(1233)]
+        [InlineData(1237)]
         [InlineData(1238)]
         public void IsVirtualHorseRacing_InVirtualHorseRacingRange_ReturnsTrue(int betType)
         {
@@ -83,6 +85,8 @@
         [Theory]
         [InlineData(int.MinValue)]
         [InlineData(1230)]
+        [InlineData(1235)]
+        [InlineData(1236)]
         [InlineData(1239)]
         [InlineData(int.MaxValue)]
         public void IsVirtualHorseRacing_NotInVirtualHorseRacingRange_ReturnsFalse(int betType)

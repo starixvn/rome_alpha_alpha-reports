@@ -18,7 +18,10 @@
         public const int NumberGameOverUnder = 85;
         public const int NumberGameOddEven = 86;
 
-        public const int StartVirtualHorseRacing = 1231;
-        public const int EndVirtualHorseRacing = 1238;
+        public const int VirtualHorseRacing_Win = 1231;
+        public const int VirtualHorseRacing_Place = 1232;
+        public const int VirtualHorseRacing_WinPlace = 1233;
+        public const int VirtualHorseRacing_Forecast = 1237;
+        public const int VirtualHorseRacing_Tricast = 1238;
     }
 }
