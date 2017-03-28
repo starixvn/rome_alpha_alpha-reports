@@ -398,6 +398,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-master-agent-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-registerevents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-member-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-tests.ts" />

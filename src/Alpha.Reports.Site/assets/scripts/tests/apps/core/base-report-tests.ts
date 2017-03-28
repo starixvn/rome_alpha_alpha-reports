@@ -27,6 +27,7 @@
     beforeEach(() => {
         baseReport = new BaseReport(jQueryFake, linkBuilderComponent);
         spyOn(baseReport, "onClickIconFilter").and.callThrough();
+        spyOn($, "ajax");
     });
 
     describe("_initHelp", () => {
@@ -61,7 +62,6 @@
             setFixtures(template.normal);
             baseReport.initHelp();
             spyOn($, "blockUI");
-            spyOn($, "ajax");
 
             // act
             baseReport.loadLegend();
