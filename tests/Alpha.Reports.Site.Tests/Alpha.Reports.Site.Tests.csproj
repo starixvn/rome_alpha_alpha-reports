@@ -222,13 +222,11 @@
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
-    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbookImplTests.cs">
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbookImplTests.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandlerTests.cs" />
     <Compile Include="Handlers\RacingCommission\RacingCommissionExcelHandlerTests.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandlerTests.cs" />
     <Compile Include="Handlers\RacingCommission\RacingCommissionHandlerTests.cs" />
-      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
-    </Compile>
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandlerTests.cs" />
     <Compile Include="Handlers\LeagueHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />
