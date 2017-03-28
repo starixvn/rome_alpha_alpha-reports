@@ -1,5 +1,4 @@
 ﻿/// <reference path="core.ts" />
-/// <reference path="components/link-builder.ts" />
 
 class BaseReport {
     $: JQueryStatic;
@@ -11,6 +10,11 @@ class BaseReport {
 
     $isFilterVisible: JQuery;
     $exportExcelForm: JQuery;
+
+    $loadLegendURL: JQuery;
+    $reportLegend: JQuery;
+    $iconInformation: JQuery;
+    $iconInformationContainer: JQuery;
 
     constructor($: JQueryStatic, linkBuilderComponent: LinkBuilderComponent) {
         this.$ = $;
@@ -25,9 +29,11 @@ class BaseReport {
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$exportExcelForm = this.$("#export-excel-form");
     }
+
     public registerEvents() {
         this.$(".icon-filter").on("click", this.onClickIconFilter);
     }
+
     onClickIconFilter = () => {
         let filter = this.$reportForm;
         let currentHideState = filter.hasClass("hide");
@@ -45,6 +51,50 @@ class BaseReport {
     replaceHrefParam = (paramName: string, paramValue: any) => {
         this.linkBuilderComponent.updateParam(paramName, paramValue);
     };
+
+    initHelp = () => {
+        this.$loadLegendURL = this.$("#LoadLegendURL");
+        this.$iconInformation = this.$("#icon-information");
+        this.$iconInformationContainer = this.$("#icon-information-container");
+        this.loadLegend();
+        this.$iconInformation.on("click", this.showLegend);
+    };
+    loadLegend = () => {
+        this.$.ajax({
+            method: "GET",
+            url: this.$loadLegendURL.val(),
+            cache: false,
+            data: {},
+            success: this.renderLegend,
+            complete: this.$.unblockUI
+        });
+    };
+    renderLegend = (html: string) => {
+        if (this.$reportLegend) {
+            this.$reportLegend.remove();
+        }
+
+        this.$("body").append(html);
+
+        if (this.$.trim(html) === "") {
+            this.$iconInformationContainer.remove();
+        } else {
+            this.$iconInformationContainer.removeClass("hide");
+        }
+
+        this.$reportLegend = this.$("#report-legend");
+    };
+
+    showLegend = () => {
+        this.$reportLegend.modal({ show: true, backdrop: false });
+
+        var iconHelpPosition = this.$iconInformation.position();
+        this.$reportLegend.css({
+            left: iconHelpPosition.left - 20,
+            right: "auto",
+            bottom: "auto",
+            top: iconHelpPosition.top + 60,
+            width: "auto"
+        });
+    };
 }
-
-

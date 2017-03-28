@@ -3,18 +3,23 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Extensions;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
     using Fixtures;
     using NSubstitute;
     using Reports.Criteria;
+    using Reports.Extensions;
     using Reports.Models;
     using Reports.Services;
     using Xunit;
 
+    [Trait("Category", "BaseFunction")]
     [Collection("FanexCacheCollection")]
     public class ProductServiceImplTests
     {
         private const string ProductCacheKey = "Alpha.Reports.Services.Impl.ProductsForCustomer";
+        private const string ProductsNeedDelayTimeToSumarizeDataCacheKey = "Alpha.Reports.Services.Impl.ProductsNeedDelayTimeToSumarizeData";
 
         private readonly IDynamicRepository dynamicRepository;
         private readonly FanexCacheFixture fanexCacheFixture;
@@ -27,6 +32,7 @@
         };
 
         private ProductServiceImpl productServiceImpl;
+        private IEnumerable<ProductsByRefTable> productsNeedDelayTimeToSumarizeDataInCache;
 
         public ProductServiceImplTests(FanexCacheFixture fanexCacheFixture)
         {
@@ -35,6 +41,23 @@
             Func<int, string> getProductName = (productId) => $"Product {productId}";
             dynamicRepository = Substitute.For<IDynamicRepository>();
             productServiceImpl = new ProductServiceImpl(dynamicRepository, canViewProduct, getProductName);
+
+            dynamicRepository.Fetch<ProductsByRefTable>(Arg.Any<GetProductsByRefTableCriteria>()).Returns(new List<ProductsByRefTable>
+            {
+                new ProductsByRefTable(1, 2),
+                new ProductsByRefTable(2, 2)
+            });
+
+            IEnumerable<ProductsByRefTable> productsNeedDelayTimeToSumarizeData;
+
+            fanexCacheFixture.CacheForTesting.TryGet(ProductsNeedDelayTimeToSumarizeDataCacheKey, out productsNeedDelayTimeToSumarizeData).Returns(x =>
+            {
+                x[1] = productsNeedDelayTimeToSumarizeDataInCache;
+
+                return productsNeedDelayTimeToSumarizeDataInCache != null;
+            });
+
+            ConfiguredCacheService.Set(ProductsNeedDelayTimeToSumarizeDataCacheKey, productsNeedDelayTimeToSumarizeDataInCache);
         }
 
         [Theory]
@@ -169,5 +192,48 @@
             // Assert
             Assert.Equal(expectedProductNames, actualProductNames);
         }
+
+        [Theory]
+        [InlineData("1,2,3,5", "1,2,3,5")]
+        [InlineData("1,2,3,5,6", "1,2,3,5")]
+        [InlineData("1,2,3,5,7,8", "1,2,3,5")]
+        [InlineData("1,2,5", "1,2,5")]
+        [InlineData("1", "1")]
+        [InlineData("", "")]
+        public void FilterProductsByCustomer_Always_FiltersSelectedProductsWithData(
+            string productIds,
+            string expectProductIds)
+        {
+            // Arrange
+            var custId = 2;
+            var customerProductIds = "1,2,3,5";
+            IEnumerable<Product> customerProducts = customerProductIds.ToListInt().Select(id => new Product(id, string.Empty));
+            IEnumerable<Product> cachedProducts;
+            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(x =>
+            {
+                x[1] = customerProducts;
+                return true;
+            });
+
+            // Act
+            var actualProducts = productServiceImpl.FilterProductsByCustomer(custId, productIds.ToListInt());
+
+            // Assert
+            AssertExtension.Equal(expectProductIds.ToListInt(), actualProducts.Select(product => product.Id).ToList());
+        }
+        
+        [Fact]
+        public void GetProductsNeedDelayTimeToSumarizeDataByCustomer_Always_ReturnsCorrectProducts()
+        {
+            // Arrange
+            productsNeedDelayTimeToSumarizeDataInCache = null;
+            var expectProducts = new List<byte> { 1, 2 };
+
+            // Act
+            var actualProducts = productServiceImpl.GetProductsNeedDelayTimeToSumarizeDataByCustomer();
+
+            // Assert
+            Assert.Equal(expectProducts, actualProducts);
+        }            
     }
 }

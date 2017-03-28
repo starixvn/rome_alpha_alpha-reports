@@ -1,0 +1,83 @@
+﻿@model MatchWinLossReportViewModel
+
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.FilterViewModel.Visible, null, null), Request.Url.Query)
+
+<form class="form-inline filter  @(Model.FilterViewModel.Visible ? string.Empty : "hide")" role="form" id="report-form">
+    @Html.Hidden("IsFilterVisible", Model.FilterViewModel.Visible ? "true" : "false")
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    @Html.Hidden("SortPropertyName", Model.SortPropertyName)
+    @Html.Hidden("IsDescendingSort", Model.IsDescendingSort)
+
+    @DateRangePicker.Render(Model.FilterViewModel.DateRangePickerViewModel)
+
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>@Model.FilterViewModel.ViewDataInstructionMessage
+    </div>
+</form>
+
+<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover"
+       id="tbl-report"
+       data-cansort="@Model.CanSort"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
+    <thead>
+        <tr>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.EventInfoPropertyName" data-colindex="0">@Resources.Match</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.BetTypeNamePropertyName" data-colindex="1">@Resources.BetType</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.GrossCommPropertyName" data-colindex="2">@Resources.GrossComm</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.CommissionPropertyName" data-colindex="3">@Resources.Comm</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.PositionTakingPropertyName" data-colindex="4">@Resources.PositionTaking</th>
+            <th class="sorting" data-sortedname="@MatchWinLossReportViewModel.TotalPropertyName" data-colindex="5">@Resources.Total</th>
+        </tr>
+    </thead>
+    @if (Model.ReportData.Any())
+    {
+        var isEvenRow = false;
+
+        <tbody>
+            @foreach (var data in Model.ReportData.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+            {
+                <tr class="@(isEvenRow? "even-row":string.Empty)">
+                    <td data-islink="true" class="text-left">
+                        <a href="@Model.BuildDrillDownLink(data, Request.Url.Query)">
+                            @data.EventInfo
+                        </a>
+                    </td>
+                    <td class="text-left">@data.BetTypeName</td>
+                    @HtmlHelpers.RenderNumberCell(data.GrossComm)
+                    @HtmlHelpers.RenderNumberCell(data.Commission)
+                    @HtmlHelpers.RenderNumberCell(data.PositionTaking)
+                    @HtmlHelpers.RenderNumberCell(data.Total)
+                </tr>
+                isEvenRow = !isEvenRow;
+            }
+        </tbody>
+        <tfoot>
+            <tr class="tbl-footer">
+                <td class="text-left" colspan="2">@Resources.Total</td>
+                @HtmlHelpers.RenderNumberCell(Model.GrantTotal.GrossComm)
+                @HtmlHelpers.RenderNumberCell(Model.GrantTotal.Commission)
+                @HtmlHelpers.RenderNumberCell(Model.GrantTotal.PositionTaking)
+                @HtmlHelpers.RenderNumberCell(Model.GrantTotal.Total)
+            </tr>
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(colspan: 6)
+    }
+</table>
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", "MatchWinLoss")">
+    <input type="hidden" name="CustId" value="@Model.CustId" />
+    <input type="hidden" name="FromDate" value="@Model.FromDate" />
+    <input type="hidden" name="ToDate" value="@Model.ToDate" />
+    <input type="hidden" name="CustLevelId" value="@Model.CustLevel.Value" />
+</form>
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/matchwinloss/matchwinloss")
+}

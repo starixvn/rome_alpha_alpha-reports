@@ -52,6 +52,7 @@
     { "Path": "apps/winloss/winloss-template.ts" },
 
     { "Path": "../core.ts" },
+    { "Path": "../base-report.ts" },
     { "Path": "../components/daterangepicker.ts" },
     { "Path": "../components/monthpicker.ts" },
     { "Path": "../components/netturnover-tooltip.ts" },
@@ -60,12 +61,17 @@
     { "Path": "../components/sort.ts" },
     { "Path": "../components/tooltip.ts" },
     { "Path": "../components/link-builder.ts" },
+    { "Path": "../components/league-multiselection.ts" },
     { "Path": "../components/single-selection-dropdown.ts" },
 
     { "Path": "../winlossdetail/winlossdetail.ts" },
+    { "Path": "apps/components/sort-tests-template.ts" },
+
     { "Path": "../winloss/enteredresult.ts" },
     { "Path": "../winloss/winloss.ts" },
-
+    { "Path": "../matchwinloss/matchwinloss.ts" },
+    { "Path": "apps/matchwinlossdetail/matchwinlossdetail-template.ts" },
+    { "Path": "../matchwinlossdetail/matchwinlossdetail.ts" },
 
     { "Path": "../base-report.ts" },
     { "Path": "../playforfun/playforfun.ts" },
@@ -74,19 +80,26 @@
   ],
   "Tests": [
     {
-      "Path": "apps/winlossdetail",
-      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
-    },
-    {
-      "Path": "apps/winloss",
-      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
-    },
-    {
       "Path": "apps/core",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     },
     {
       "Path": "apps/components",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/components",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/matchwinloss",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/matchwinlossdetail",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     },
     {

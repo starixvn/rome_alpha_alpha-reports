@@ -334,6 +334,18 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>ชนะ แพ้</value>
   </data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>เกมหมายเลข เลขที่</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>ต่อไป</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>เต็มเวลา</value>
+  </data>
+  <data name="MatchWinLoss" xml:space="preserve">
+    <value>ผลแพ้ชนะต่อแมตช์</value>
+  </data>
   <data name="Outstanding" xml:space="preserve">
 		<value>การเดิมพันที่ยังไม่สิ้นสุด</value>
 	</data>
@@ -354,5 +366,45 @@
   </data>
   <data name="Disabled" xml:space="preserve">
     <value>ปิดการใช้งาน</value>
+  </data>
+    <data name="Match" xml:space="preserve">
+    <value>การแข่งขัน</value>
+  </data>
+  <data name="PositionTaking" xml:space="preserve">
+    <value>ค่าความเสี่ยง</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>ประเภทการเดิมพัน</value>
+  </data>
+
+  <data name="Outright" xml:space="preserve">
+    <value>ทายผลผู้ชนะ</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>แข่งขัน</value>
+  </data>
+  <data name="HorseRacing" xml:space="preserve">
+    <value>การแข่งขันความเร็ว</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>เกมหมายเลข</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>ยอดรวม</value>
+  </data>
+  <data name="MatchWinLossDetail" xml:space="preserve">
+    <value>รายละเอียดการได้หรือเสีย</value>
+  </data>
+  <data name="SelectLeague" xml:space="preserve">
+    <value>เลือก ลีก</value>
+  </data>
+  <data name="AllLeagues" xml:space="preserve">
+    <value>ลีคทั้งหมด</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>รวมทั้งสิ้น</value>
+  </data>
+  <data name="DelayIssueLegend" xml:space="preserve">
+    <value>- ข้อมูล {0} จะล่าช้าไม่เกิน 5 นาทีหลังจากเคลียร์ตั๋ว</value>
   </data>
 </root>

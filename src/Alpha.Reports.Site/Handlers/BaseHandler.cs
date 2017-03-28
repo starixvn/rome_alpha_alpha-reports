@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using Fanex.Common;
     using Reports.Models;
     using Requests;
 
@@ -43,6 +44,29 @@
                 };
 
                 return productSelectListItem;
+            });
+        }
+
+        protected internal IEnumerable<SelectListItem> BuildLeagueSelectListItems(
+            IEnumerable<int> userSelectedLeagueIds,
+            IEnumerable<League> leagues)
+        {
+            if (leagues == null
+                || !leagues.Any())
+            {
+                return Enumerable.Empty<SelectListItem>();
+            }
+
+            return leagues.Select(league =>
+            {
+                var leagueSelectListItem = new SelectListItem
+                {
+                    Text = league.DisplayName,
+                    Value = league.Id.ToString(),
+                    Selected = userSelectedLeagueIds.Contains(league.Id)
+                };
+
+                return leagueSelectListItem;
             });
         }
 

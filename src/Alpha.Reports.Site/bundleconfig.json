@@ -9,9 +9,9 @@
     "outputFileName": "assets/bundles/winlossdetail/winlossdetail.js",
     "inputFiles": [
       "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/monthpicker.js",
-      "assets/scripts/components/netturnover-tooltip.js",
       "assets/scripts/components/pager.js",
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/sort.js",
@@ -24,6 +24,7 @@
     "outputFileName": "assets/bundles/winloss/winloss.js",
     "inputFiles": [
       "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/monthpicker.js",
       "assets/scripts/components/tooltip.js",
@@ -39,6 +40,7 @@
       "assets/scripts/core.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
       "assets/scripts/winloss/enteredresult.js"
     ]
   },
@@ -50,6 +52,34 @@
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
       "assets/scripts/outstanding/outstanding.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/matchwinloss/matchwinloss.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/matchwinloss/matchwinloss.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetail.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/league-multiselection.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/matchwinlossdetail/matchwinlossdetail.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetail.css",
+    "inputFiles": [
+      "assets/styles/matchwinlossdetail/matchwinlossdetail.css"
     ]
   },
   {

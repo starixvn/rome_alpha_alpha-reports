@@ -20,6 +20,8 @@
 
         public byte LevelId => userSession.RoleId;
 
+        public string LanguageKey => userSession.LangKey;
+        
         public bool GetHideProduct(int productId) => userSession.GetHideProduct(productId);
     }
 }

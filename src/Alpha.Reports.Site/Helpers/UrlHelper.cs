@@ -11,11 +11,25 @@
 
     public static class UrlHelper
     {
+        [ThreadStatic]
+        private static Func<string, string> mapExMainPath;
+
         public static Func<string, IDictionary<string, object>, string> AddQueryStringParamsFunc { get; internal set; } = AddQueryStringParams;
 
         public static Func<string, IDictionary<string, object>, string> ReplaceOrAddQueryStringParamsFunc { get; internal set; } = ReplaceOrAddQueryStringParams;
 
-        public static Func<string, string> MapExMainPath { get; internal set; } = MicroSites.OldMainUrl;
+        public static Func<string, string> MapExMainPath
+        {
+            get
+            {
+                return mapExMainPath ?? MicroSites.OldMainUrl;
+            }
+
+            internal set
+            {
+                mapExMainPath = value;
+            }
+        }
 
         public static Func<int, string, string> GetSiteUrl { get; internal set; } = GetUrl;
 

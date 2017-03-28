@@ -55,7 +55,7 @@
 
         public bool IsShowProduct(int productId)
         {
-            return productId != ProductId.FishingWorld || !user.GetHideProduct(productId);
+            return productId != ProductIdConstants.FishingWorld || !user.GetHideProduct(productId);
         }
 
         public IEnumerable<MasterAgentPlayForFunModel> MasterPlayForFun(PlayForFunParam param)

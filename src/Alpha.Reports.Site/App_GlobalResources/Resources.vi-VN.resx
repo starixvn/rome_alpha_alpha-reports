@@ -321,6 +321,18 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>Thắng thua</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Kế tiếp</value>
+  </data>
+  <data name="MatchWinLoss" xml:space="preserve">
+    <value>Thắng thua theo trận</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Trận đấu</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>Loại cược</value>
+  </data>
   <data name="Outstanding" xml:space="preserve">
 		<value>Tiền chưa xử lý</value>
 	</data>
@@ -341,5 +353,27 @@
   </data>
   <data name="Disabled" xml:space="preserve">
     <value>Vô hiệu hóa</value>
+  </data>
+    <data name="Outright" xml:space="preserve">
+    <value>Cược Thắng</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>Vòng đua</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Tổng phụ</value>
+  </data>
+
+  <data name="MatchWinLossDetail" xml:space="preserve">
+    <value>Chi tiết thắng thua theo trận</value>
+  </data>
+  <data name="SelectLeague" xml:space="preserve">
+    <value>Lựa chọn giải đấu</value>
+  </data>
+  <data name="AllLeagues" xml:space="preserve">
+    <value>Tất cả giải đấu</value>
+  </data>
+  <data name="DelayIssueLegend" xml:space="preserve">
+    <value>- Số liệu của {0} sẽ bị trì hoãn 5 phút kể từ khi hoàn thành các vé cược. </value>
   </data>
 </root>

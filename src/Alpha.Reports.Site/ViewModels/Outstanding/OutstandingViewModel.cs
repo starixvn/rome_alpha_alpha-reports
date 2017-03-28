@@ -1,14 +1,13 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Outstanding
 {
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
-    using Constants;
     using Enumerations;
     using Extensions;
+    using Reports.Constants;
     using Reports.Models;
     using Reports.Models.Outstanding;
     using Requests.Outstanding;

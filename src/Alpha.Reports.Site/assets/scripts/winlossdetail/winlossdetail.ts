@@ -1,7 +1,7 @@
 ﻿/// <reference path="../core.ts" />
+/// <reference path="../base-report.ts" />
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/monthpicker.ts" />
-/// <reference path="../components/netturnover-tooltip.ts" />
 /// <reference path="../components/pager.ts" />
 /// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/sort.ts" />
@@ -10,7 +10,7 @@
 
 "use strict";
 
-class WinLossDetailView {
+class WinLossDetailView extends BaseReport {
     $: JQueryStatic;
     $pageTitle: JQuery;
     $tableReport: JQuery;
@@ -25,7 +25,6 @@ class WinLossDetailView {
     $sortPropertyName: JQuery;
     $reportForm: JQuery;
     $userSelectedDateRangeOption: JQuery;
-    $netTurnoverTooltip: JQuery;
     $reportSwitch: JQuery;
     $fromDate: JQuery;
     $toDate: JQuery;
@@ -46,7 +45,6 @@ class WinLossDetailView {
     sortComponent: SortComponent;
     reportTooltip: ReportTooltip;
     monthPickerComponent: MonthPickerComponent;
-    netTurnoverTooltipComponent: NetTurnoverTooltipComponent;
     linkBuilderComponent: LinkBuilderComponent;
 
     constructor(
@@ -57,8 +55,9 @@ class WinLossDetailView {
         sortComponent: SortComponent,
         reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
-        netTurnoverTooltipComponent: NetTurnoverTooltipComponent,
         linkBuilderComponent: LinkBuilderComponent) {
+        super($, linkBuilderComponent);
+
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.pagerComponent = pageComponent;
@@ -66,7 +65,6 @@ class WinLossDetailView {
         this.sortComponent = sortComponent;
         this.reportTooltip = reportTooltip;
         this.monthPickerComponent = monthPickerComponent;
-        this.netTurnoverTooltipComponent = netTurnoverTooltipComponent;
         this.linkBuilderComponent = linkBuilderComponent;
     }
 
@@ -94,7 +92,6 @@ class WinLossDetailView {
         this.productMultiSelectionComponent.render();
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
-        this.$netTurnoverTooltip = this.netTurnoverTooltipComponent.render();
         this.pagerComponent.render();
 
         this.hasAllDataOnClient = this.pagerComponent.hasAllDataOnClient();
@@ -104,8 +101,9 @@ class WinLossDetailView {
             this.$tableReport,
             canSort,
             this.hasAllDataOnClient,
-            this.afterSort,
-            { 0: { sorter: "text" } }));
+            this.sortComponent.afterSort,
+            { 0: { sorter: "text" } },
+            this.$reportForm));
 
         this.$tableReport.stickyTableHeaders();
 
@@ -118,21 +116,20 @@ class WinLossDetailView {
         }
         this.linkBuilderComponent.render();
         this.registerEvents();
+
+        this.initHelp();
         this.$.unblockUI();
     };
     checkReady = () => {
         return this.$("#IsHistoricReport").length > 0;
     };
-    cacheElements = () => {
-        this.$pageTitle = this.$(".page-title");
-        this.$tableReport = this.$("#tbl-report");
+    public cacheElements() {
+        super.cacheElements();
+
         this.$drilldownLinks = this.$(".downline-link");
-        this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
-        this.$reportForm = this.$("#report-form");
-        this.$exportExcelForm = this.$("#export-excel-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$reportSwitch = this.$("#report-switch");
 
@@ -141,15 +138,16 @@ class WinLossDetailView {
         this.$iconNormalColumn = this.$("#icon-normal-column");
         this.$isSetDefaultStackMode = this.$("#IsSetDefaultStackMode");
         this.$breadcrumbLinks = this.$(".breadcrumb-link");
-    };
+    }
 
-    registerEvents = () => {
+    public registerEvents() {
+        super.registerEvents();
+
         this.$reportSwitch.on("click", this.onSwitchReport);
-        this.$(".icon-filter").on("click", this.onClickIconFilter);
         this.$(".icon-switchmode").on("click", this.onSwitchMode);
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#icon-excel").on("click", this.onExportExcel);
-    };
+    }
     onSwitchReport = () => {
         this.isSwitchView = true;
         this.isHistoricReport = !this.$reportSwitch.data("is-historic-report");
@@ -158,12 +156,10 @@ class WinLossDetailView {
     onClickIconFilter = () => {
         let filter = this.$reportForm;
         let currentHideState = filter.hasClass("hide");
-        let $netTurnoverTooltip = this.$netTurnoverTooltip;
 
         if (currentHideState) {
             this.$pageTitle.removeClass("hide-filter");
             this.$reportForm.removeClass("hide");
-            this.netTurnoverTooltipComponent.positionNetTurnoverTooltip($netTurnoverTooltip);
         } else {
             this.hideFilter();
         }
@@ -241,43 +237,10 @@ class WinLossDetailView {
         this.$exportExcelForm.submit();
         this.$.unblockUI();
     };
-    afterSort = () => {
-        var this$ = this.$;
-        if (this.hasAllDataOnClient) {
-            var sortedColumn = this$(".sorting-asc:visible");
-            var direction = !sortedColumn.length;
-            if (sortedColumn.length === 0) {
-                sortedColumn = this$(".sorting-desc");
-            }
-
-            var sortedColumnName = sortedColumn.data("sortedname");
-
-            this.replaceHrefParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
-            this.replaceHrefParam("IsDescendingSort", direction);
-
-            var isEvenRow = false;
-            this.$tableReport.find("tbody > tr").each(function () {
-                var $row = this$(this);
-                if ($row.hasClass("even-row") && !isEvenRow) {
-                    $row.removeClass("even-row");
-                } else if (!$row.hasClass("even-row") && isEvenRow) {
-                    $row.addClass("even-row");
-                }
-
-                isEvenRow = !isEvenRow;
-            });
-        } else {
-            this.$reportForm.trigger("submit");
-        }
-    };
 
     hideFilter = () => {
-        let $netTurnoverTooltip = this.$netTurnoverTooltip;
-
         this.$pageTitle.addClass("hide-filter");
-
         this.$reportForm.addClass("hide");
-        this.netTurnoverTooltipComponent.positionNetTurnoverTooltip($netTurnoverTooltip);
     };
     getParams = () => {
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
@@ -366,7 +329,6 @@ $(() => {
         new SortComponent($, linkBuilderComponent),
         new ReportTooltip($),
         new MonthPickerComponent($),
-        new NetTurnoverTooltipComponent($),
         linkBuilderComponent);
 
     winLossDetailView.init();

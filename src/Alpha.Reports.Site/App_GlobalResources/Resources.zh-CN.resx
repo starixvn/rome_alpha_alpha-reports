@@ -333,6 +333,18 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>输赢</value>
   </data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>数字游戏编号</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>全场</value>
+  </data>
+  <data name="MatchWinLoss" xml:space="preserve">
+    <value>球赛输赢</value>
+  </data>
   <data name="Outstanding" xml:space="preserve">
 		<value>未完成交易</value>
 	</data>
@@ -353,5 +365,45 @@
   </data>
   <data name="Disabled" xml:space="preserve">
     <value>禁用</value>
+  </data>
+    <data name="Match" xml:space="preserve">
+    <value>赛事</value>
+  </data>
+  <data name="PositionTaking" xml:space="preserve">
+    <value>占成数</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>投注类别</value>
+  </data>
+
+  <data name="Outright" xml:space="preserve">
+    <value>优胜冠军</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>赛事</value>
+  </data>
+  <data name="HorseRacing" xml:space="preserve">
+    <value>赛马</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>数字游戏</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>小计</value>
+  </data>
+  <data name="MatchWinLossDetail" xml:space="preserve">
+    <value>输赢报告资料</value>
+  </data>
+  <data name="SelectLeague" xml:space="preserve">
+    <value>选择联赛</value>
+  </data>
+  <data name="AllLeagues" xml:space="preserve">
+    <value>所有联赛</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>总和</value>
+  </data>
+  <data name="DelayIssueLegend" xml:space="preserve">
+    <value>- 在 {0} 结算后，数据库将会在大约5分钟内更新。</value>
   </data>
 </root>

@@ -8,7 +8,7 @@
 
 "use strict";
 
-class WinLossView {
+class WinLossView extends BaseReport {
     $: JQueryStatic;
     $pageTitle: JQuery;
     $tableReport: JQuery;
@@ -54,6 +54,8 @@ class WinLossView {
         reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
         linkBuilderComponent: LinkBuilderComponent) {
+        super($, linkBuilderComponent);
+
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
@@ -77,6 +79,8 @@ class WinLossView {
         this.$tableReport.stickyTableHeaders();
         this.linkBuilderComponent.render();
         this.registerEvents();
+
+        this.initHelp();
         this.$.unblockUI();
     };
 
@@ -144,13 +148,13 @@ class WinLossView {
             { 0: { sorter: "text" } }));
     };
 
-    registerEvents = () => {
+    public registerEvents() {
         this.$reportForm.submit(this.onSubmitReportEvent);
         this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
         this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$switchModeIcon.on("click", this.onSwitchModeEvent);
-    };
+    }
 
     onFilterEvent = () => {
         let currentHideState = this.$reportForm.hasClass("hide");

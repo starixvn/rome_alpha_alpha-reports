@@ -32,50 +32,6 @@
         }
 
         [Fact]
-        public void NetTurnoverTooltips_ProductsNotContainAllBet_ReturnsEmptyList()
-        {
-            // Arrange
-            var message = new WinLossDetailQuery(userFixture.User);
-            var winLossDetailViewModel = new WinLossDetailViewModel(
-                message,
-                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, "CustName", false, false),
-                new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
-                Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
-            var expectedNetTurnoverTooltips = new List<string>();
-
-            // Act
-            var actualNetTurnoverTooltips = winLossDetailViewModel.NetTurnoverTooltips;
-
-            // Assert
-            Assert.Equal(expectedNetTurnoverTooltips, actualNetTurnoverTooltips);
-        }
-
-        [Fact]
-        public void NetTurnoverTooltips_ProductsContainsAllBet_ReturnsValueContainsAllBetTooltip()
-        {
-            // Arrange
-            var message = new WinLossDetailQuery(userFixture.User);
-            var winLossDetailViewModel = new WinLossDetailViewModel(
-                message,
-                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, "CustName", false, false),
-                new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
-                Enumerable.Empty<CustInfo>(),
-                 new List<SelectListItem>
-                 {
-                     new SelectListItem { Value = AllBetProductId.ToString() }
-                 });
-
-            var expectedNetTurnoverTooltips = new List<string> { "- For AllBet, Net Turnover is total valid bets that we use to compute commission." };
-
-            // Act
-            var actualNetTurnoverTooltips = winLossDetailViewModel.NetTurnoverTooltips;
-
-            // Assert
-            Assert.Equal(expectedNetTurnoverTooltips, actualNetTurnoverTooltips);
-        }
-
-        [Fact]
         public void BuildDrillDownLink_ViewingAgentReport_CallAddQueryStringParamsFuncToBuildBetListLink()
         {
             // Arrange
@@ -134,6 +90,63 @@
                         && (string)routeValue["CustName"] == "CustName"
                         && (byte)routeValue["CustLevelId"] == (custLevelId - 1)
                         && (string)routeValue["BreadcrumbLevelJson"] == "parsedJson"));
+        }
+
+        [Fact]
+        public void SortPropertyName_CanSort_ReturnsSortByPropertyNameFromParam()
+        {
+            // Arrange
+            var message = new WinLossDetailQuery(userFixture.User);
+            var sortPropertyName = "Turnover";
+
+            var reportData = new List<WinLossDetailModel>
+            {
+                default(WinLossDetailModel),
+                default(WinLossDetailModel)
+            };
+
+            var winLossDetailViewModel = new WinLossDetailViewModel(
+                message,
+                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, sortPropertyName, false, false),
+                new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
+                Enumerable.Empty<CustInfo>(),
+                Enumerable.Empty<SelectListItem>());
+            var expectedSortPropertyName = sortPropertyName;
+
+            // Act
+            var actualSortPropertyName = winLossDetailViewModel.SortPropertyName;
+
+            // Assert
+            Assert.Equal(expectedSortPropertyName, actualSortPropertyName);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void IsDescendingSort_CanSort_ReturnsIsDescendingSortFromParam(bool isDescendingSort)
+        {
+            // Arrange
+            var message = new WinLossDetailQuery(userFixture.User);
+
+            var reportData = new List<WinLossDetailModel>
+            {
+                default(WinLossDetailModel),
+                default(WinLossDetailModel)
+            };
+
+            var winLossDetailViewModel = new WinLossDetailViewModel(
+                message,
+                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, "CustName", isDescendingSort, false),
+                new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
+                Enumerable.Empty<CustInfo>(),
+                Enumerable.Empty<SelectListItem>());
+            var expectedIsDescendingSort = isDescendingSort;
+
+            // Act
+            var actualIsDescendingSort = winLossDetailViewModel.IsDescendingSort;
+
+            // Assert
+            Assert.Equal(expectedIsDescendingSort, actualIsDescendingSort);
         }
 
         private static void SetUpForHelpers()

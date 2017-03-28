@@ -127,6 +127,7 @@
         });
     });
     describe("_onChange_Always", () => {
+
         beforeEach(() => {
             // arrange
             setFixtures(`<body><div id="product-ids"></div></body>`);
@@ -146,6 +147,23 @@
         it("_Update hidden input", () => {
             // assert
             expect(productMultiSelectionComponent.$hiddenInput.val()).toBe("1,2,3");
+        });
+        it("_Calls Onchange Event", () => {
+            // arrange
+            let onChange = {
+                event: () => {
+                    console.log(1);
+                }
+            };
+
+            spyOn(onChange, "event");
+
+            productMultiSelectionComponent.options =
+                new ProductMultiSelectionOption("dropdown-product", true, "product-ids", onChange.event);
+            productMultiSelectionComponent.onChange(null, false);
+
+            // assert
+            expect(productMultiSelectionComponent.options.onChange).toHaveBeenCalled();
         });
     });
     describe("_render", () => {

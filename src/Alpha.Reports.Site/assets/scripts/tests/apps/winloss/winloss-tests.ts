@@ -25,6 +25,7 @@
             reportTooltip,
             monthPickerComponent,
             linkBuilderComponent);
+        spyOn(winLossView, "loadLegend");
 
         cacheDOMElements = spyOn(winLossView, "cacheDOMElements");
         cacheDOMElements.and.callThrough();
@@ -39,6 +40,11 @@
         renderSortComponent = spyOn(sortComponent, "render");
         renderLinkBuilderComponent = spyOn(linkBuilderComponent, "render");
         spyOn(dateRangePickerComponent, "render");
+    });
+
+    it("Inherit BaseReport_Always_WinLossView is BaseReport", () => {
+        // assert
+        expect(winLossView instanceof BaseReport).toBeTruthy();
     });
 
     describe("init", () => {
@@ -127,6 +133,17 @@
                 jasmine.any(Function),
                 { 0: { sorter: "text" } }
             ));
+        });
+        it("Always -> Init Help", () => {
+            // arrange
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
+            spyOn(winLossView, "initHelp");
+
+            // act
+            winLossView.init();
+
+            // assert
+            expect(winLossView.initHelp).toHaveBeenCalled();
         });
     });
 

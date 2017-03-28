@@ -7,6 +7,7 @@
     using App_GlobalResources;
     using Constants;
     using Params;
+    using Reports.Constants;
     using Reports.Models;
     using Reports.Models.PlayForFun;
     using Requests.PlayForFun;

@@ -146,7 +146,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0.1-beta02\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
+      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0.1\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ONEbook.UM, Version=2.0.2.7, Culture=neutral, processorArchitecture=MSIL">
@@ -247,16 +247,21 @@
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\league-multiselection.ts" />
     <TypeScriptCompile Include="assets\scripts\base-report.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
+    <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
+    <TypeScriptCompile Include="assets\scripts\matchwinloss\matchwinloss.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-master-agent.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-member.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\daterangepicker-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\league-multiselection-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\link-builder-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\netturnover-tooltip-test.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\productmultiselection-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\single-selection-dropdown-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests.ts" />
@@ -265,10 +270,15 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\monthpicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\pager-tests.ts" />
+    <Compile Include="Constants\RowTypeConstant.cs" />
     <Compile Include="Controllers\PlayForFunController.cs" />
     <Compile Include="Controllers\OutstandingController.cs" />
+    <Compile Include="Controllers\MatchWinLossController.cs" />
+    <Compile Include="Controllers\LeagueController.cs" />
+    <Compile Include="Controllers\MatchWinLossDetailController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
+    <Compile Include="Controllers\ReportLegendController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -276,10 +286,19 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
+    <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
+    <Compile Include="Handlers\ReportLegendHandler.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\PlayForFun\PlayForFunBaseHandler.cs" />
     <Compile Include="Handlers\PlayForFun\PlayForFunExcelHandler.cs" />
     <Compile Include="Handlers\PlayForFun\PlayForFunHandler.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
+    <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
+    <Compile Include="Handlers\LeagueHandler.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandler.cs" />
+    <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandler.cs" />
@@ -292,7 +311,12 @@
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
+    <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\Outstanding\OutstandingQuery.cs" />
+    <Compile Include="Requests\MatchWinLoss\MatchWinLossExcelQuery.cs" />
+    <Compile Include="Requests\MatchWinLoss\MatchWinLossQuery.cs" />
+    <Compile Include="Requests\LeaguesByCustomerQuery.cs" />
+    <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailQuery.cs" />
     <Compile Include="Requests\PlayForFun\AgentPlayForFunExcelQuery.cs" />
     <Compile Include="Requests\PlayForFun\MemberPlayForFunExcelQuery.cs" />
     <Compile Include="Requests\PlayForFun\MasterPlayForFunExcelQuery.cs" />
@@ -304,6 +328,8 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
+    <Compile Include="Requests\ReportLegendQuery.cs" />
+    <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLoss\EnteredSportResultQuery.cs" />
@@ -312,6 +338,7 @@
     <Compile Include="Requests\WinLoss\WinLossQuery.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
+    <Compile Include="ViewModels\Components\LeagueMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
@@ -319,13 +346,21 @@
     <Compile Include="ViewModels\Components\StatusSelectionViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\DrillDownableReportViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLoss\MatchWinLossFilterViewModel.cs" />
     <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
+    <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailFilterViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModel.cs" />
     <Compile Include="ViewModels\PlayForFun\AgentPlayForFunReportViewModel.cs" />
     <Compile Include="ViewModels\PlayForFun\MasterPlayForFunReportViewModel.cs" />
     <Compile Include="ViewModels\PlayForFun\MemberPlayForFunReportViewModel.cs" />
     <Compile Include="ViewModels\PlayForFun\MemberPlayForFunViewModel.cs" />
     <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModel.cs" />
     <Compile Include="ViewModels\PlayForFun\PlayForFunFilterViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultFilterViewModel.cs" />
@@ -360,9 +395,14 @@
     <TypeScriptCompile Include="assets\scripts\components\daterangepicker.ts" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-registerevents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-member-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\enteredresult-tests.ts" />
@@ -375,7 +415,21 @@
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="assets\bundles\default.css" />
-    <Content Include="assets\bundles\default.min.css" />
+    <Content Include="assets\bundles\default.min.css">
+      <DependentUpon>default.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.css" />
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
+      <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.js">
+      <DependentUpon>matchwinlossdetail.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\matchwinloss\matchwinloss.js" />
+    <Content Include="assets\bundles\matchwinloss\matchwinloss.min.js">
+      <DependentUpon>matchwinloss.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\outstanding\outstanding.js" />
     <Content Include="assets\bundles\outstanding\outstanding.min.js">
       <DependentUpon>outstanding.js</DependentUpon>
@@ -393,6 +447,9 @@
       <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winloss\enteredresult.js" />
+    <Content Include="assets\bundles\winloss\enteredresult.min.js">
+      <DependentUpon>enteredresult.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\winloss\winloss.js" />
     <Content Include="assets\bundles\winloss\winloss.min.js">
       <DependentUpon>winloss.js</DependentUpon>
@@ -425,6 +482,12 @@
     <Content Include="assets\scripts\tests\libs\pagination\jquery.resizable.js" />
     <Content Include="assets\scripts\tests\libs\store.js" />
     <Content Include="assets\scripts\tests\libs\tablesorter.js" />
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.css">
+      <DependentUpon>matchwinlossdetail.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
+      <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
     </Content>
@@ -555,12 +618,19 @@
     <Content Include="App_Code\Components\ReportTitle.cshtml" />
     <Content Include="App_Code\Components\NetTurnoverTooltips.cshtml" />
     <Content Include="App_Code\Components\Breadcrumb.cshtml" />
+    <Content Include="App_Code\Components\ReportLegend.cshtml" />
+    <Content Include="App_Data\ExcelTemplates\MatchWinLoss\Member.xls" />
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.scss" />
+    <Content Include="App_Code\Components\LeagueMultiSelection.cshtml" />
+    <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Member.xls" />
+    <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Agent.xls" />
     <Content Include="App_Code\Components\StatusSelection.cshtml" />
     <Content Include="App_Code\Components\ProductSingleSelection.cshtml" />
     <Content Include="App_Code\Components\BreadcrumbByLevel.cshtml" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Member.xls" />
+    <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Master.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -576,6 +646,11 @@
     <Content Include="Views\Outstanding\Index.cshtml" />
     <Content Include="Views\EnteredResult\Index.cshtml" />
     <Content Include="Views\Shared\InvalidReport.cshtml" />
+    <Content Include="Views\ReportLegend\Index.cshtml" />
+    <Content Include="Views\WinLossDetail\ReportLegend.cshtml" />
+    <Content Include="Views\MatchWinLoss\Index.cshtml" />
+    <Content Include="Views\League\LeaguesByCustomer.cshtml" />
+    <Content Include="Views\MatchWinLossDetail\Index.cshtml" />
     <Content Include="Views\PlayForFun\Member.cshtml" />
     <Content Include="Views\PlayForFun\Agent.cshtml" />
     <Content Include="Views\PlayForFun\Master.cshtml" />

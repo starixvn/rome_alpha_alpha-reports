@@ -10,7 +10,6 @@
     using NSubstitute;
     using Reports.Criteria.WinLossDetail;
     using Reports.DataAccesses;
-    using Reports.Enumerations;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
     using Xunit;
@@ -58,7 +57,7 @@
             var dataSet = WinLossDetailDatabase.MasterWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
 
-            var winLossDetails = new List<WinLossDetailModel>()
+            var winLossDetails = new List<WinLossDetailModel>
             {
                 new WinLossDetailModel(1, "Master1", 2, 1, 0, 11, new NetWinLoss(3, 4), new NetWinLoss(5, 6), new NetWinLoss(7, 8), new NetWinLoss(9, 10)),
                 new WinLossDetailModel(11, "Master2", 12, 11, 10, 111, new NetWinLoss(13, 14), new NetWinLoss(15, 16), new NetWinLoss(17, 18), new NetWinLoss(19, 110))

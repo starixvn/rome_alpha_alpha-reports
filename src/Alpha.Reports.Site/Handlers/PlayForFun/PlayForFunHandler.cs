@@ -4,6 +4,7 @@
     using System.Linq;
     using Constants;
     using MediatR;
+    using Reports.Constants;
     using Reports.Models;
     using Reports.Models.PlayForFun;
     using Requests.PlayForFun;

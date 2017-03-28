@@ -1,6 +1,6 @@
 ﻿@model EnteredResultFilterViewModel
 
-<form class="form-inline filter" role="form" id="report-form" 
+<form class="form-inline filter" role="form" id="report-form"
       action="@Url.Action("Index", "WinLoss")">
     @RenderHiddenFields()
     @DateRangePicker.Render(Model.DateRangePickerViewModel)

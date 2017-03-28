@@ -192,6 +192,18 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>勝ち負け</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>試合</value>
+  </data>
+  <data name="Outright" xml:space="preserve">
+    <value>即座</value>
+  </data>
+  <data name="MatchWinLossDetail" xml:space="preserve">
+    <value>試合勝ち負け詳細</value>
+  </data>
   <data name="Outstanding" xml:space="preserve">
 		<value>未払い</value>
 	</data>
@@ -206,5 +218,13 @@
 	</data>
   <data name="Status" xml:space="preserve">
     <value>状態</value>
+  </data>
+  
+  <data name="SelectLeague" xml:space="preserve">
+    <value>リーグ選択</value>
+  </data>
+
+  <data name="AllLeagues" xml:space="preserve">
+    <value>すべてのリーグ</value>
   </data>
 </root>

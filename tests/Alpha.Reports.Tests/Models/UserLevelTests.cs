@@ -235,5 +235,59 @@
             // Act & Assert
             Assert.Throws<ArgumentOutOfRangeException>(() => userLevel.GetDirectDownLineLevel());
         }
+
+        [Fact]
+        public void IsUplineOf_GapBetweenTwoLevelsLessThan1_ReturnsFalse()
+        {
+            // Arrange
+            var userLevel = UserLevel.Master;
+
+            // Act
+            var actualIsUplineOf = userLevel.IsUplineOf(4);
+
+            // Assert
+            Assert.False(actualIsUplineOf);
+        }
+
+        [Fact]
+        public void IsUplineOf_GapBetweenTwoLevelsFrom1_ReturnsTrue()
+        {
+            // Arrange
+            var userLevel = UserLevel.Master;
+
+            // Act
+            var actualIsUplineOf = userLevel.IsUplineOf(2);
+
+            // Assert
+            Assert.True(actualIsUplineOf);
+        }
+
+        [Fact]
+        public void IsUplineOf_DownlineLevelIsNull_ReturnsFalse()
+        {
+            // Arrange
+            var userLevel = UserLevel.Master;
+            UserLevel downlineLevel = null;
+
+            // Act
+            var actualIsUplineOf = userLevel.IsUplineOf(downlineLevel);
+
+            // Assert
+            Assert.False(actualIsUplineOf);
+        }
+
+        [Fact]
+        public void IsUplineOf_ValidDownline_ReturnsTrue()
+        {
+            // Arrange
+            var userLevel = UserLevel.Master;
+            var downlineLevel = UserLevel.Agent;
+
+            // Act
+            var actualIsUplineOf = userLevel.IsUplineOf(downlineLevel);
+
+            // Assert
+            Assert.True(actualIsUplineOf);
+        }
     }
 }

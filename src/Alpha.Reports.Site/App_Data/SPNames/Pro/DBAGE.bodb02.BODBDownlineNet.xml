@@ -2,6 +2,12 @@
 <Functions>
   <Function Name="Base Functions">
     <Setting Key="Age_SelBalanceUpDay" SpName="Age_SelBalanceUpDay" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_GetProductListByRefTable" SpName="Age_Rpt_GetProductListByRefTable" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_MatchWinloss_GetLeagueByProduct" SpName="Age_Rpt_MatchWinloss_GetLeagueByProduct" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+      <Mapping DataField="LeagueId" ObjectProperty="Id" />
+      <Mapping DataField="LeagueName" ObjectProperty="Name" />
+      <Mapping DataField="SportType" ObjectProperty="SportTypeId" />
+    </Setting>
   </Function>
   <Function Name="Products">
     <Setting Key="Age_Rpt_GetProductList" SpName="Age_Rpt_GetProductList" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
@@ -38,9 +44,19 @@
     </Setting>
   </Function>
 
+  <Function Name="Match Win Loss Detail">
+    <Setting Key="Age_Rpt_MatchWinlossDetail_Master" SpName="Age_Rpt_MatchWinlossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_MatchWinLossDetail_Agent" SpName="Age_Rpt_MatchWinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_MatchWinLossDetail_Member" SpName="Age_Rpt_MatchWinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+  </Function>
+  <Function Name="Match Win Loss">
+    <Setting Key="Age_Rpt_MatchWinLoss_Member" SpName="Age_Rpt_MatchWinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+  </Function>
+
   <Function Name="Outstanding">
     <Setting Key="Age_Rpt_Outstanding_Master" SpName="Age_Rpt_Outstanding_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_Outstanding_Agent" SpName="Age_Rpt_Outstanding_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
+
 </Functions>

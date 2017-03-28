@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MatchWinLossDetail>
+  <TableWinLoss>
+    <BetGroup>3</BetGroup>
+
+    <MatchId>1</MatchId>
+    <homeId>2</homeId>
+    <awayId>4</awayId>
+    <betType>13</betType>
+    <liveIndicator>0</liveIndicator>
+    <leagueId>5</leagueId>
+    <race>6</race>
+    <matchCode>Match Code 1</matchCode>
+    <isNeutral>false</isNeutral>
+    <showTime>Show Time 1</showTime>
+
+    <turnover>1</turnover>
+    <grossComm>2</grossComm>
+    <MemberWinLoss>3</MemberWinLoss>
+    <MemberComm>4</MemberComm>
+    <AgWinLoss>5</AgWinLoss>
+    <AgComm>6</AgComm>
+    <CompanyComm>11</CompanyComm>
+    <CompanyTotal>12</CompanyTotal>
+  </TableWinLoss>
+  <TableWinLoss>
+    <BetGroup>2</BetGroup>
+
+    <MatchId>11</MatchId>
+    <homeId>12</homeId>
+    <awayId>14</awayId>
+    <betType>113</betType>
+    <liveIndicator>1</liveIndicator>
+    <leagueId>15</leagueId>
+    <race>16</race>
+    <matchCode>Match Code 11</matchCode>
+    <isNeutral>true</isNeutral>
+    <showTime>Show Time 11</showTime>
+
+    <turnover>11</turnover>
+    <grossComm>12</grossComm>
+    <MemberWinLoss>13</MemberWinLoss>
+    <MemberComm>14</MemberComm>
+    <AgWinLoss>15</AgWinLoss>
+    <AgComm>16</AgComm>
+    <CompanyComm>111</CompanyComm>
+    <CompanyTotal>112</CompanyTotal>
+  </TableWinLoss>
+</MatchWinLossDetail>

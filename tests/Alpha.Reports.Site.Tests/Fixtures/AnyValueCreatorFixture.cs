@@ -11,9 +11,6 @@
             anyValueGenerator = new Fixture();
         }
 
-        public T Create<T>()
-        {
-            return anyValueGenerator.Create<T>();
-        }
+        public T Create<T>() => anyValueGenerator.Create<T>();
     }
 }

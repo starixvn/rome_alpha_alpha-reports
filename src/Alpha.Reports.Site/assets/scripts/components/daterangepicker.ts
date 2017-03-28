@@ -7,12 +7,13 @@ interface JQuery {
 }
 
 class DateRangePickerOption {
-    selectorId: string;
-    reportFormId: string;
-
-    constructor(selectorId: string = "daterange-picker", reportFormId: string = "report-form") {
+    constructor(
+        public selectorId: string = "daterange-picker",
+        public reportFormId: string = "report-form",
+        public onChange: Function = null) {
         this.selectorId = selectorId;
         this.reportFormId = reportFormId;
+        this.onChange = onChange;
     }
 }
 
@@ -26,12 +27,13 @@ class DateRangePickerComponent {
     isCompleteInitDateRangePicker = false;
     $reportForm: JQuery;
 
-    constructor($: JQueryStatic, options: DateRangePickerOption = new DateRangePickerOption()) {
+    constructor($: JQueryStatic) {
         this.$ = $;
-        this.options = this.$.extend({}, this.options, options);
     }
 
-    render = () => {
+    render = (options: DateRangePickerOption = new DateRangePickerOption()) => {
+        this.options = this.$.extend({}, this.options, options);
+
         let dateRangePicker = this.$("#" + this.options.selectorId);
         let currentDate = dateRangePicker.data("currentdate");
         let minDate = dateRangePicker.data("mindate");
@@ -46,6 +48,11 @@ class DateRangePickerComponent {
             minDate: new Date(minDate),
             maxDate: maxDate === "" ? null : maxDate,
             currentDate: new Date(currentDate),
+            onSelectDatePicker: () => {
+                if (this.options.onChange) {
+                    this.options.onChange();
+                }
+            },
             onQuickChooseChange: (selectValue: number) => {
                 if (this.isCompleteInitDateRangePicker && selectValue !== this.quickChooseType.specificDates) {
                     this.$reportForm.submit();

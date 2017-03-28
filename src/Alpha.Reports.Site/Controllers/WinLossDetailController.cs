@@ -19,5 +19,7 @@
         [HttpGet]
         public ActionResult Excel(WinLossDetailExcelQuery message)
             => ExcelView(message);
+
+        public ActionResult ReportLegend(ReportLegendQuery message) => View(message);
     }
 }

@@ -50,7 +50,7 @@
         {
             // Arrange
             var custId = anyValueCreatorFixture.Create<int>();
-            user.GetHideProduct(ProductId.FishingWorld).Returns(true);
+            user.GetHideProduct(ProductIdConstants.FishingWorld).Returns(true);
             var expectedProductList = new List<Product>
             {
                 new Product(6, string.Empty,  cacheRefService.GetProductName),
@@ -69,7 +69,7 @@
         {
             // Arrange
             var custId = anyValueCreatorFixture.Create<int>();
-            user.GetHideProduct(ProductId.FishingWorld).Returns(false);
+            user.GetHideProduct(ProductIdConstants.FishingWorld).Returns(false);
             var expectedProductList = new List<Product>
             {
                 new Product(6, string.Empty,  cacheRefService.GetProductName),

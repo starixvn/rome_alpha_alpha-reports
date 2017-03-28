@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Models.WinLossDetail
+﻿namespace Alpha.Reports.Models
 {
     public class NetWinLoss
     {
@@ -31,13 +31,13 @@
         {
             if (winlossA == null || winlossB == null)
             {
-                return null;
+                return winlossA ?? winlossB;
             }
 
             return new NetWinLoss(
-                winloss: winlossA?.WinLoss + winlossB?.WinLoss,
-                comm: winlossA?.Comm + winlossB?.Comm,
-                total: winlossA.Total + winlossB.Total);
+               winloss: winlossA?.WinLoss + winlossB?.WinLoss,
+               comm: winlossA?.Comm + winlossB?.Comm,
+               total: winlossA.Total + winlossB.Total);
         }
     }
 }

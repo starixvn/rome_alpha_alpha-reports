@@ -211,5 +211,50 @@
                 },
                 actualDrillDownInfo);
         }
+
+        [Fact]
+        public void BuildLeagueSelectListItems_NullLeagues_ReturnsEmptySelectListItem()
+        {
+            // Arrange
+            IEnumerable<League> leagues = null;
+            var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
+
+            // Act
+            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<int>(), leagues);
+
+            // Assert
+            Assert.Equal(expectedSelectListItems, actualSelectListItems);
+        }
+
+        [Fact]
+        public void BuildLeagueSelectListItems_EmptyLeagues_ReturnsEmptySelectListItem()
+        {
+            // Arrange
+            IEnumerable<League> leagues = Enumerable.Empty<League>();
+            var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
+
+            // Act
+            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<int>(), leagues);
+
+            // Assert
+            Assert.Equal(expectedSelectListItems, actualSelectListItems);
+        }
+
+        [Fact]
+        public void BuildLeagueSelectListItems_EmptyUserSelectedLeagueIds_ReturnsSelectListItem()
+        {
+            // Arrange
+            IEnumerable<League> leagues = new List<League> { new League(1, 1, string.Empty) };
+            var expectedSelectListItems = new List<SelectListItem>
+            {
+                new SelectListItem { Text = string.Empty, Value = "1", Selected = false }
+            };
+
+            // Act
+            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<int>(), leagues);
+
+            // Assert
+            AssertExtension.Equal(expectedSelectListItems, actualSelectListItems.ToList());
+        }
     }
 }

@@ -73,7 +73,6 @@
             // arrange
             setFixtures(`<body><div id="tooltip"></div></body>`);
             alphaReports.localStorage.set(tooltipCookieId + "-tooltip-0", undefined);
-            var tooltipSpy = spyOn($.fn, "tooltip");
             spyOn($.fn, "off").and.callThrough();
 
             // act

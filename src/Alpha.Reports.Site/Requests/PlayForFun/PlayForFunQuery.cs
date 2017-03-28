@@ -2,6 +2,7 @@
 {
     using System;
     using Constants;
+    using Reports.Constants;
     using Reports.Models;
     using Utils;
 
