@@ -26,6 +26,7 @@
             reportTooltip,
             monthPickerComponent,
             linkBuilderComponent);
+        spyOn(winLossView, "loadLegend");
 
         cacheDOMElements = spyOn(winLossView, "cacheDOMElements");
         cacheDOMElements.and.callThrough();
@@ -40,6 +41,11 @@
         renderSortComponent = spyOn(sortComponent, "render");
         renderLinkBuilderComponent = spyOn(linkBuilderComponent, "render");
         spyOn(dateRangePickerComponent, "render");
+    });
+
+    it("Inherit BaseReport_Always_WinLossView is BaseReport", () => {
+        // assert
+        expect(winLossView instanceof BaseReport).toBeTruthy();
     });
 
     describe("init", () => {
@@ -128,6 +134,17 @@
                 jasmine.any(Function),
                 { 0: { sorter: "text" } }
             ));
+        });
+        it("Always -> Init Help", () => {
+            // arrange
+            setFixtures(winLossTemplate.currentReportWithNormalMode);
+            spyOn(winLossView, "initHelp");
+
+            // act
+            winLossView.init();
+
+            // assert
+            expect(winLossView.initHelp).toHaveBeenCalled();
         });
     });
 
@@ -233,7 +250,6 @@
     });
 
     describe("setStackMode", () => {
-        let combineConsecutiveCellsSpy: jasmine.Spy;
         beforeEach(() => {
             // arrange
             setFixtures(winLossTemplate.currentReportWithNormalMode);
@@ -348,26 +364,6 @@
             expect(winLossView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
             expect(winLossView.$reportForm.hasClass("hide")).toBeFalsy();
         });
-    });
-
-    describe("getParams", () => {
-        let getParamsTest = (selectedProduct: Array<number>, expectedIsAnyProductSelected: boolean) => {
-            // arrange
-            setFixtures(winLossTemplate.currentReportWithNormalMode);
-            winLossView.cacheDOMElements();
-            spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => selectedProduct);
-
-            // act
-            var actualParam = winLossView.getParams();
-
-            // assert
-            expect(actualParam).toEqual({
-                IsAnyProductSelected: expectedIsAnyProductSelected,
-                IsStackMode: false,
-                IsHistoricReport: false,
-                IsFilterVisible: true
-            });
-        };
     });
 
     describe("showValidaProductError", () => {
@@ -621,7 +617,7 @@
             var combineConsecutiveCellsSpy = spyOn(alphaReports, "combineConsecutiveCells");
 
             // act
-            winLossView.combineToWinLossColumn('agent', 1);
+            winLossView.combineToWinLossColumn("agent", 1);
 
             // assert
             expect(combineConsecutiveCellsSpy.calls.allArgs()).toEqual([

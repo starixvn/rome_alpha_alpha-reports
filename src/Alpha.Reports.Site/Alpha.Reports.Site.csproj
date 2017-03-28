@@ -141,12 +141,12 @@
       <HintPath>..\..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ONEbook.SpreadSheets, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ONEbook.SpreadSheets.1.0.0\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
+    <Reference Include="ONEbook.SpreadSheets, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ONEbook.SpreadSheets.1.0.0.1\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
+    <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0.1\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ONEbook.UM, Version=2.0.2.7, Culture=neutral, processorArchitecture=MSIL">
@@ -248,22 +248,34 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <TypeScriptCompile Include="assets\scripts\commissionbybettype\commissionbybettype.ts" />
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\league-multiselection.ts" />
+    <TypeScriptCompile Include="assets\scripts\base-report.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
+    <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\racingcommission\racingcommission.ts" />
+    <TypeScriptCompile Include="assets\scripts\matchwinloss\matchwinloss.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\daterangepicker-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\league-multiselection-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\link-builder-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\netturnover-tooltip-test.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\productmultiselection-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\tooltip-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\core\base-report-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\monthpicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\pager-tests.ts" />
+    <Compile Include="Constants\RowTypeConstant.cs" />
     <Compile Include="Controllers\OutstandingController.cs" />
+    <Compile Include="Controllers\MatchWinLossController.cs" />
+    <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\CommissionByBettypeController.cs" />
     <Compile Include="Controllers\RacingCommissionController.cs" />
+    <Compile Include="Controllers\MatchWinLossDetailController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
+    <Compile Include="Controllers\ReportLegendController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -271,12 +283,21 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
+    <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
+    <Compile Include="Handlers\ReportLegendHandler.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
+    <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandler.cs" />
     <Compile Include="Handlers\RacingCommission\RacingCommissionExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeWorkbook.cs" />
     <Compile Include="Handlers\RacingCommission\RacingCommissionHandler.cs" />
+    <Compile Include="Handlers\LeagueHandler.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandler.cs" />
+    <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandler.cs" />
@@ -289,15 +310,22 @@
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
+    <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\RacingCommission\RacingCommissionExcelQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeExcelQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeQuery.cs" />
     <Compile Include="Requests\RacingCommission\RacingCommissionQuery.cs" />
     <Compile Include="Requests\Outstanding\OutstandingQuery.cs" />
+    <Compile Include="Requests\MatchWinLoss\MatchWinLossExcelQuery.cs" />
+    <Compile Include="Requests\MatchWinLoss\MatchWinLossQuery.cs" />
+    <Compile Include="Requests\LeaguesByCustomerQuery.cs" />
+    <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailQuery.cs" />
     <Compile Include="Requests\ReportBaseQuery.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
+    <Compile Include="Requests\ReportLegendQuery.cs" />
+    <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLoss\EnteredSportResultQuery.cs" />
@@ -308,15 +336,24 @@
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeViewModel.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
+    <Compile Include="ViewModels\Components\LeagueMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\DrillDownableReportViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLoss\MatchWinLossFilterViewModel.cs" />
     <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
     <Compile Include="ViewModels\RacingCommission\RacingCommissionFilterViewModel.cs" />
     <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModel.cs" />
+    <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailFilterViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModel.cs" />
+    <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultFilterViewModel.cs" />
@@ -346,6 +383,11 @@
     <TypeScriptCompile Include="assets\scripts\components\daterangepicker.ts" />
     <TypeScriptCompile Include="assets\scripts\core.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\enteredresult-tests.ts" />
@@ -365,13 +407,29 @@
     <Content Include="assets\bundles\default.min.css">
       <DependentUpon>default.css</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\matchwinloss\matchwinloss.js" />
+    <Content Include="assets\bundles\matchwinloss\matchwinloss.min.js">
+      <DependentUpon>matchwinloss.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\outstanding\outstanding.js" />
     <Content Include="assets\bundles\outstanding\outstanding.min.js">
       <DependentUpon>outstanding.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.css" />
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
+      <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\racingcommission\racingcommission.js" />
     <Content Include="assets\bundles\racingcommission\racingcommission.min.js">
       <DependentUpon>racingcommission.js</DependentUpon>
+    </Content>    
+    <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.js">
+      <DependentUpon>matchwinlossdetail.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\matchwinloss\matchwinloss.js" />
+    <Content Include="assets\bundles\matchwinloss\matchwinloss.min.js">
+      <DependentUpon>matchwinloss.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossdetail\winlossdetail.js" />
     <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
@@ -413,6 +471,12 @@
     <Content Include="assets\scripts\tests\libs\pagination\jquery.resizable.js" />
     <Content Include="assets\scripts\tests\libs\store.js" />
     <Content Include="assets\scripts\tests\libs\tablesorter.js" />
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.css">
+      <DependentUpon>matchwinlossdetail.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
+      <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
     </Content>
@@ -543,12 +607,19 @@
     <Content Include="App_Code\Components\ReportTitle.cshtml" />
     <Content Include="App_Code\Components\NetTurnoverTooltips.cshtml" />
     <Content Include="App_Code\Components\Breadcrumb.cshtml" />
+    <Content Include="App_Code\Components\ReportLegend.cshtml" />
+    <Content Include="App_Data\ExcelTemplates\MatchWinLoss\Member.xls" />
+    <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.scss" />
+    <Content Include="App_Code\Components\LeagueMultiSelection.cshtml" />
+    <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Member.xls" />
+    <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\RacingCommission\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\RacingCommission\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\RacingCommission\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Member.xls" />
+    <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Master.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -564,10 +635,15 @@
     <Content Include="Views\Outstanding\Index.cshtml" />
     <Content Include="Views\EnteredResult\Index.cshtml" />
     <Content Include="Views\Shared\InvalidReport.cshtml" />
+    <Content Include="Views\ReportLegend\Index.cshtml" />
+    <Content Include="Views\WinLossDetail\ReportLegend.cshtml" />
+    <Content Include="Views\MatchWinLoss\Index.cshtml" />
+    <Content Include="Views\League\LeaguesByCustomer.cshtml" />
     <Content Include="Views\CommissionByBettype\Index.cshtml" />
     <Content Include="Views\RacingCommission\Index.cshtml" />
     <Content Include="Views\CommissionByBettype\_CommissionByBettypeFilter.cshtml" />
     <Content Include="Views\RacingCommission\_RacingCommissionFilter.cshtml" />
+    <Content Include="Views\MatchWinLossDetail\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

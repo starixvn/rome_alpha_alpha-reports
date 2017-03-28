@@ -9,5 +9,7 @@
         byte LevelId { get; }
 
         string Language { get; }
+
+        string LanguageKey { get; }
     }
 }

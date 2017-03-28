@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Tests.TestCases
 {
     using System.Collections.Generic;
+    using Reports.Models;
     using Reports.Models.Winloss;
-    using Reports.Models.WinLossDetail;
 
     public static class WinLossViewModelTestCases
     {

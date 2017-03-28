@@ -45,12 +45,12 @@ class CommissionByBettype {
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
-    }
+    };
 
     registerEvents = () => {
         this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$reportForm.submit(this.onSubmitReport);
-    }
+    };
 
     onExportExcelEvent = () => {
         this.$exportExcelForm.submit();

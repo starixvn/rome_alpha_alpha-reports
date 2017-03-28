@@ -7,7 +7,7 @@
 
 "use strict";
 
-class WinLossView {
+class WinLossView extends BaseReport {
     $: JQueryStatic;
     $pageTitle: JQuery;
     $tableReport: JQuery;
@@ -53,6 +53,8 @@ class WinLossView {
         reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
         linkBuilderComponent: LinkBuilderComponent) {
+        super();
+
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
@@ -76,6 +78,8 @@ class WinLossView {
         this.$tableReport.stickyTableHeaders();
         this.linkBuilderComponent.render();
         this.registerEvents();
+
+        this.initHelp();
         this.$.unblockUI();
     };
 
@@ -139,7 +143,7 @@ class WinLossView {
             this.$tableReport,
             canSort,
             true,
-            this.afterSort,
+            this.sortComponent.afterSort,
             { 0: { sorter: "text" } }));
     };
 
@@ -184,7 +188,7 @@ class WinLossView {
     renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {
         let isAgentLevel = this.$isAgentLevel.val().toLocaleLowerCase() === "true";
         isSwitchToNormalMode ? this.splitColumns() : this.combineColumns(isAgentLevel);
-    }
+    };
 
     setStackMode = () => {
         this.$.blockUI();
@@ -193,7 +197,7 @@ class WinLossView {
         this.isFirstSwitchMode = false;
         this.replaceDrilldownParam("IsStackMode", true);
         this.$.unblockUI();
-    }
+    };
 
     setCssBySwitchMode = (isSwitchToNormalMode: boolean) => {
         if (isSwitchToNormalMode) {
@@ -214,8 +218,7 @@ class WinLossView {
             var level = levels[index];
             if (level === "master") {
                 alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? "" : " altercol");
-            }
-            else {
+            } else {
                 alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
             }
 
@@ -245,8 +248,7 @@ class WinLossView {
 
         if (level === "master") {
             cellCss = cellCss + (index % 2 ? "" : " altercol");
-        }
-        else {
+        } else {
             cellCss = cellCss + (index % 2 ? " altercol" : "");
         }
 
@@ -275,7 +277,7 @@ class WinLossView {
             IsHistoricReport: this.isHistoricReport,
             SortPropertyName: sortInfo.sortPropertyName,
             IsDescendingSort: sortInfo.isDescendingSort,
-            HideFilter: this.$reportForm.is(":hidden"),
+            HideFilter: this.$reportForm.is(":hidden")
         };
     };
 
@@ -289,32 +291,6 @@ class WinLossView {
 
     replaceDrilldownParam = (paramName: string, paramValue: any) => {
         this.linkBuilderComponent.updateParam(paramName, paramValue);
-    };
-
-    afterSort = () => {
-        var this$ = this.$;
-        var sortedColumn = this$(".sorting-asc:visible");
-        var direction = !sortedColumn.length;
-        if (sortedColumn.length === 0) {
-            sortedColumn = this$(".sorting-desc");
-        }
-
-        var sortedColumnName = sortedColumn.data("sortedname");
-
-        this.replaceDrilldownParam("SortPropertyName", sortedColumnName || sortedColumn.parent().data("sortedname"));
-        this.replaceDrilldownParam("IsDescendingSort", direction);
-
-        var isEvenRow = false;
-        this.$tableReport.find("tbody > tr").each(function () {
-            var $row = this$(this);
-            if ($row.hasClass("even-row") && !isEvenRow) {
-                $row.removeClass("even-row");
-            } else if (!$row.hasClass("even-row") && isEvenRow) {
-                $row.addClass("even-row");
-            }
-
-            isEvenRow = !isEvenRow;
-        });
     };
 
     onSubmitReportEvent = (e: any) => {

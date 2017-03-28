@@ -8,7 +8,8 @@ class ProductMultiSelectionOption {
     constructor(
         public dropdownId: string = "dropdown-product",
         public validateBeforeSubmit: boolean = true,
-        public productsInputId: string = "product-ids") {
+        public productsInputId: string = "product-ids",
+        public onChange: Function = null) {
     }
 }
 
@@ -28,7 +29,7 @@ class ProductMultiSelectionComponent {
         this.options = <ProductMultiSelectionOption>this.$.extend({}, this.options, options);
 
         this.$dropdownProduct = this.$("#" + this.options.dropdownId);
-        let hasAnyProduct = this.$dropdownProduct.data("has-any-product");
+        let hasAnyProduct = alphaReports.convertAttributeToBool(this.$dropdownProduct.data("has-any-product"));
         this.$hiddenInput = this.$("#" + this.options.productsInputId);
 
         this.$dropdownProduct.multiselect({
@@ -53,6 +54,10 @@ class ProductMultiSelectionComponent {
     onChange = (option: any, checked: boolean) => {
         this.validate();
         this.$hiddenInput.val(this.getSelectedItems().join(","));
+
+        if (this.options.onChange) {
+            this.options.onChange();
+        }
     };
 
     validate = () => {

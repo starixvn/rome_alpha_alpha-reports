@@ -81,5 +81,18 @@
             // Assert
             Assert.Equal("InvalidReport.xls", actualView.FileDownloadName);
         }
+
+        [Fact]
+        public void ReportLegend_Always_CallsMediatorSendReportLegendQuery()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+
+            // Act
+            winLossDetailController.ReportLegend(message);
+
+            // Assert
+            mediator.Received().Send(message);
+        }
     }
 }

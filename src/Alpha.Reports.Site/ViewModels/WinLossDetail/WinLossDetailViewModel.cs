@@ -6,16 +6,15 @@
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
-    using Constants;
     using Extensions;
     using Params;
+    using Reports.Constants;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
     using Requests.WinLossDetail;
 
     public class WinLossDetailViewModel : DrillDownableReportViewModel<WinLossDetailModel>
     {
-        private const int AllBetProductId = 21;
         private readonly WinLossDetailQuery message;
         private readonly WinLossDetailParam winLossDetailParam;
 
@@ -67,21 +66,6 @@
         public bool IsHistoricReport => message.IsHistoricReport;
 
         public bool IsFilterVisible => message.IsFilterVisible;
-
-        public IEnumerable<string> NetTurnoverTooltips
-        {
-            get
-            {
-                var netTurnoverTooltips = new List<string>();
-
-                if (Products.Any(product => Convert.ToInt32(product.Value) == AllBetProductId))
-                {
-                    netTurnoverTooltips.Add(Resources.Tooltip_NetTurnover_21);
-                }
-
-                return netTurnoverTooltips;
-            }
-        }
 
         public IEnumerable<SelectListItem> Products { get; }
 

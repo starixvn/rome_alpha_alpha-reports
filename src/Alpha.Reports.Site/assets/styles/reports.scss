@@ -286,6 +286,45 @@ a {
     }
 }
 
+// report-legend
+#report-legend {
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    @include box-shadow-multiple(none);
+
+    .modal-dialog {
+        width: 850px;
+        margin: 0 auto;
+        padding: 16px;
+
+        .modal-body {
+            padding-bottom: 0;
+        }
+
+        #msg-content {
+            padding: 12px 0;
+        }
+
+        .list-msg {
+            line-height: 28px;
+            margin-bottom: 0;
+        }
+    }
+}
+
+#dropdown-league-container {
+    .multiselect-container > li {
+        vertical-align: top;
+
+        > a {
+            white-space: normal;
+        }
+    }
+}
+
+
 // Modals
 .modal-open {
     overflow: auto;

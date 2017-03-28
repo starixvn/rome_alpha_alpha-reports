@@ -27,6 +27,7 @@ class EnterResultView {
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         sortComponent: SortComponent) {
+
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.sortComponent = sortComponent;
@@ -52,6 +53,7 @@ class EnterResultView {
         this.$tableReport.stickyTableHeaders();
 
         this.registerEvents();
+
         this.$.unblockUI();
     };
     checkReady = () => {

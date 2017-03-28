@@ -8,7 +8,6 @@
     using Fanex.Common.Extensions;
     using Models;
     using Models.Winloss;
-    using Models.WinLossDetail;
 
     public interface WinLossDataAccess
     {

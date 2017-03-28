@@ -37,8 +37,9 @@ class OutstandingView {
             this.$tableReport,
             parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
             true,
+            this.afterSort,
             { 0: { sorter: "text" } },
-            this.sortComponent.afterSort));
+            this.$reportForm));
 
         this.$tableReport.stickyTableHeaders();
 

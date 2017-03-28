@@ -20,9 +20,12 @@ class SortComponent {
     $sortContainer: JQuery;
     linkBuilderComponent: LinkBuilderComponent;
     $reportForm: JQuery;
+
     options = new SortOption();
 
-    constructor($: JQueryStatic, linkBuilderComponent: LinkBuilderComponent) {
+    constructor(
+        $: JQueryStatic,
+        linkBuilderComponent: LinkBuilderComponent) {
         this.$ = $;
         this.linkBuilderComponent = linkBuilderComponent;
     }
@@ -71,7 +74,7 @@ class SortComponent {
     onSort = (sortedColumnName: string, isDecendingSort: boolean) => {
         this.$sortContainer
             .data("descendingsort", isDecendingSort ? "1" : "0")
-            .data("sortedcolumn", sortedColumnName)
+            .data("sortedcolumn", sortedColumnName);
 
         if (this.options.afterSortFunction &&
             typeof this.options.afterSortFunction === "function") {
@@ -117,8 +120,7 @@ class SortComponent {
                     sortList: sortList,
                     textExtraction: this.textExtraction
                 });
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
 

@@ -149,6 +149,9 @@ class AlphaReports {
             isEvenRow = !isEvenRow;
         });
     };
+    convertAttributeToBool = (attrValue: string) => {
+        return !!attrValue && attrValue.toString().toLowerCase() === "true";
+    };
 }
 
 const alphaReports = new AlphaReports($, store);

@@ -375,6 +375,18 @@
   <data name="CommissionByBettype" xml:space="preserve">
 		<value>Commission By Bet Type</value>
 	</data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>Number Game No</value>
+  </data>
+  <data name="Neutral" xml:space="preserve">
+    <value> (N)</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>FT</value>
+  </data>
   <data name="Outstanding" xml:space="preserve">
 		<value>Outstanding</value>
 	</data>
@@ -402,9 +414,6 @@
   <data name="Place" xml:space="preserve">
 		<value>Place</value>
 	</data>
-  <data name="WinPlace_Duplicate[1]" xml:space="preserve">
-		<value>Win Place</value>
-	</data>
   <data name="Commission" xml:space="preserve">
 		<value>Commission</value>
 	</data>
@@ -423,10 +432,58 @@
   <data name="Commission1" xml:space="preserve">
     <value>Commission 1</value>
   </data>
+  <data name="DelayIssueLegend" xml:space="preserve">
+    <value>- Data of {0} will be delayed up to 5 minutes after settling tickets.</value>
+  </data>
+  <data name="vs" xml:space="preserve">
+    <value>-vs-</value>
+  </data>
+  <data name="MatchWinLoss" xml:space="preserve">
+    <value>Match Win Loss</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Match</value>
+  </data>
+  <data name="PositionTaking" xml:space="preserve">
+    <value>Position Taking</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>Bet Type</value>
+  </data>
+  <data name="Outright" xml:space="preserve">
+    <value>Outright</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>Race</value>
+  </data>
+  <data name="HorseRacing" xml:space="preserve">
+    <value>Racing</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>Number Game</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="MatchWinLossDetail" xml:space="preserve">
+    <value>Match Win Loss Detail</value>
+  </data>
   <data name="Commission2" xml:space="preserve">
     <value>Commission 2</value>
   </data>
+  <data name="SelectLeague" xml:space="preserve">
+    <value>Select League</value>
+  </data>
   <data name="Commission3" xml:space="preserve">
     <value>Commission 3</value>
+  </data>
+  <data name="AllLeagues" xml:space="preserve">
+    <value>All Leagues</value>
+  </data>
+  <data name="ThereIsNoLeague" xml:space="preserve">
+    <value>There is no League.</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
   </data>
 </root>

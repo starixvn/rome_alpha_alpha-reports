@@ -3,8 +3,6 @@
     ViewBag.Title = "Win Loss Detail Report";
 }
 
-@NetTurnoverTooltips.Render(Model.NetTurnoverTooltips)
-
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
 @Html.Partial("Filter", Model.FilterViewModel,
@@ -128,7 +126,6 @@
             : (Model.CustLevel.IsMasterLevel() ? 15 : 12))
     }
 </table>
-
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", "WinLossDetail")">
     @Html.Hidden("CustId", Model.CustId)
@@ -141,6 +138,7 @@
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "WinLossDetail"))
 
 @Pager.Render(Model.PagerViewModel)
 
