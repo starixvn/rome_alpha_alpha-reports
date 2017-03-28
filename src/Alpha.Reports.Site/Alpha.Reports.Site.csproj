@@ -341,7 +341,7 @@
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysislFilterViewModel.cs" />
-    <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisReportType.cs" />
+    <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisReportTypeViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailFilterViewModel.cs" />
@@ -433,6 +433,9 @@
       <DependentUpon>enteredresult.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winloss\winloss.js" />
+    <Content Include="assets\bundles\winloss\winloss.min.js">
+      <DependentUpon>winloss.js</DependentUpon>
+    </Content>
     <Content Include="assets\scripts\tests\libs\autocomplete.js" />
     <Content Include="assets\scripts\tests\libs\bootbox.js" />
     <Content Include="assets\scripts\tests\libs\bootstrap\button.js" />

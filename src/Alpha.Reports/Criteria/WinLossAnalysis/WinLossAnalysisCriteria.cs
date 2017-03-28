@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Fanex.Data;
     using Models;
+    using Models.WinLossAnalysis;
 
     public class WinLossAnalysisCriteria : ReportProductCriteria
     {

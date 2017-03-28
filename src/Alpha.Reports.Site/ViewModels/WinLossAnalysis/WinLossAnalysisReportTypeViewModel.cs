@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLossAnalysis
 {
-    public class WinLossAnalysisReportType
+    public class WinLossAnalysisReportTypeViewModel
     {
-        public WinLossAnalysisReportType(
+        public WinLossAnalysisReportTypeViewModel(
             int reportTypeId,
             string reportTypeName,
             bool isChecked,

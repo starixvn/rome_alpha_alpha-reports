@@ -8,6 +8,7 @@
 
         public WinLossAnalysisModel(
             string rollupKey,
+            int? rollupKeyId,
             int betCount,
             decimal turnover,
             NetWinLoss memberNetWinLoss,
@@ -16,6 +17,7 @@
             NetWinLoss superNetWinLoss)
         {
             RollupKey = rollupKey;
+            RollupKeyId = rollupKeyId;
             BetCount = betCount;
             Turnover = turnover;
             MemberNetWinLoss = memberNetWinLoss;
@@ -25,6 +27,8 @@
         }
 
         public string RollupKey { get; }
+
+        public int? RollupKeyId { get; }
 
         public decimal Turnover { get; private set; }
 

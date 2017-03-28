@@ -17,7 +17,7 @@
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
             bool visible,
             DateTime minDate,
-            IEnumerable<WinLossAnalysisReportType> reportTypeData)
+            IEnumerable<WinLossAnalysisReportTypeViewModel> reportTypeData)
         {
             CustId = custId;
             CustName = custName;
@@ -31,7 +31,7 @@
             ReportTypeData = reportTypeData;
         }
 
-        public IEnumerable<WinLossAnalysisReportType> ReportTypeData { get; private set; }
+        public IEnumerable<WinLossAnalysisReportTypeViewModel> ReportTypeData { get; private set; }
 
         public int CustId { get; }
 

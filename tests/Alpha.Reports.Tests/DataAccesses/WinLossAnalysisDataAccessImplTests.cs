@@ -62,6 +62,7 @@
             {
                 new WinLossAnalysisModel(
                  rollupKey: "02/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 0,
                  memberNetWinLoss: new NetWinLoss(3, 4),
@@ -71,6 +72,7 @@
 
                 new WinLossAnalysisModel(
                  rollupKey: "03/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 20,
                  memberNetWinLoss: new NetWinLoss(13, 14),
@@ -108,6 +110,7 @@
             {
                 new WinLossAnalysisModel(
                  rollupKey: "02/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 0,
                  memberNetWinLoss: new NetWinLoss(3, 4),
@@ -117,6 +120,7 @@
 
                 new WinLossAnalysisModel(
                  rollupKey: "03/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 20,
                  memberNetWinLoss: new NetWinLoss(13, 14),
@@ -154,6 +158,7 @@
             {
                 new WinLossAnalysisModel(
                  rollupKey: "02/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 0,
                  memberNetWinLoss: new NetWinLoss(3, 4),
@@ -163,6 +168,7 @@
 
                new WinLossAnalysisModel(
                  rollupKey: "03/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 20,
                  memberNetWinLoss: new NetWinLoss(13, 14),

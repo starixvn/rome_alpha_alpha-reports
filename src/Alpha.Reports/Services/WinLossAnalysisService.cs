@@ -6,6 +6,7 @@
     using DataAccesses;
     using Models.WinLossAnalysis;
     using Params;
+    using System.Linq;
 
     public interface WinLossAnalysisService
     {
@@ -39,16 +40,21 @@
                 productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds);
 
             var criteria = new WinLossAnalysisCriteria(
-                param.CustId,
-                param.ReportTypeId,
-                param.FromDate,
-                param.ToDate,
-                reportDateService.GetBalanceUpDay(),
-                reportDateService.GetMoveBetsDay(),
-                validUserSelectedProductIds,
-                param.CustLevel);
+                                    param.CustId,
+                                    param.ReportTypeId,
+                                    param.FromDate,
+                                    param.ToDate,
+                                    reportDateService.GetBalanceUpDay(),
+                                    reportDateService.GetMoveBetsDay(),
+                                    validUserSelectedProductIds,
+                                    param.CustLevel);
 
             var winlossAnalysisData = dataAccess.GetWinLossAnalysis(criteria);
+
+            if (param.ReportTypeId.Equals(WinLossAnalysisConstants.Sport))
+            {
+                winlossAnalysisData = winlossAnalysisData.OrderBy(product => product.RollupKeyId);
+            }
 
             return winlossAnalysisData;
         }

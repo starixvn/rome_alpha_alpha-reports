@@ -2,6 +2,7 @@
 {
     using MediatR;
     using Reports.Models;
+    using Reports.Models.WinLossAnalysis;
     using ViewModels.WinLossAnalysis;
 
     public class WinLossAnalysisQuery :
@@ -24,7 +25,7 @@
 
         public int UserSelectedDateRangeOption { get; set; }
 
-        public int ReportTypeId { get; set; } = 1;
+        public int ReportTypeId { get; set; } = WinLossAnalysisConstants.Daily;
 
         public string ReportTypeName { get; set; }
 

@@ -18,6 +18,7 @@
         private static WinLossAnalysisModel ExpectedSuperGrandTotal =>
             new WinLossAnalysisModel(
                 rollupKey: null,
+                rollupKeyId: null,
                 betCount: 20,
                 turnover: 20,
                 memberNetWinLoss: new NetWinLoss(16, 18),
@@ -28,6 +29,7 @@
         private static WinLossAnalysisModel ExpectedMasterGrandTotal =>
             new WinLossAnalysisModel(
                 rollupKey: null,
+                rollupKeyId: null,
                 betCount: 20,
                 turnover: 20,
                 memberNetWinLoss: new NetWinLoss(16, 18),
@@ -38,6 +40,7 @@
         private static WinLossAnalysisModel ExpectedAgentGrandTotal =>
             new WinLossAnalysisModel(
                 rollupKey: null,
+                rollupKeyId: null,
                 betCount: 20,
                 turnover: 20,
                 memberNetWinLoss: new NetWinLoss(16, 18),
@@ -48,9 +51,10 @@
         private static List<WinLossAnalysisModel> BuildSuperDataTest()
         {
             var superWinLossAnalysisData = new List<WinLossAnalysisModel>();
-    
+
             superWinLossAnalysisData.Add(new WinLossAnalysisModel(
                  rollupKey: "02/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 0,
                  memberNetWinLoss: new NetWinLoss(3, 4),
@@ -60,6 +64,7 @@
 
             superWinLossAnalysisData.Add(new WinLossAnalysisModel(
                  rollupKey: "03/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 20,
                  memberNetWinLoss: new NetWinLoss(13, 14),
@@ -76,6 +81,7 @@
 
             masterWinLossAnalysisData.Add(new WinLossAnalysisModel(
                  rollupKey: "02/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 0,
                  memberNetWinLoss: new NetWinLoss(3, 4),
@@ -85,6 +91,7 @@
 
             masterWinLossAnalysisData.Add(new WinLossAnalysisModel(
                  rollupKey: "03/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 20,
                  memberNetWinLoss: new NetWinLoss(13, 14),
@@ -101,6 +108,7 @@
 
             agentWinLossAnalysisData.Add(new WinLossAnalysisModel(
                  rollupKey: "02/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 0,
                  memberNetWinLoss: new NetWinLoss(3, 4),
@@ -110,6 +118,7 @@
 
             agentWinLossAnalysisData.Add(new WinLossAnalysisModel(
                  rollupKey: "03/2017",
+                 rollupKeyId: null,
                  betCount: 10,
                  turnover: 20,
                  memberNetWinLoss: new NetWinLoss(13, 14),

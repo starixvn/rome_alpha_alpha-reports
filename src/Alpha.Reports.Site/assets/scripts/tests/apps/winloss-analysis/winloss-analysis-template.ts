@@ -9,7 +9,7 @@
                                     <input id="IsDescendingSort" value="True" type="hidden" />
                                     <input id="SortPropertyName" value="" type="hidden" />
                                     <input id="IsSetDefaultStackMode" value="true" type="hidden" />
-                                    <input id="ReportTypeId" value="2" type="hidden" />
+                                    <input id="ReportTypeId" value="3" type="hidden" />
 
                                     <form id="report-form" role="form"></form>
                                     <form id="export-excel-form"></form>
@@ -41,7 +41,7 @@
                                     <input id="IsDescendingSort" value="True" type="hidden" />
                                     <input id="SortPropertyName" value="" type="hidden" />
                                     <input id="IsSetDefaultStackMode" value="true" type="hidden" />
-                                    <input id="ReportTypeId" value="2" type="hidden" />
+                                    <input id="ReportTypeId" value="3" type="hidden" />
 
                                     <form id="report-form"></form>
                                     <form id="export-excel-form"></form>

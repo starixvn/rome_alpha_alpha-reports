@@ -125,8 +125,8 @@
     @Html.HiddenFor(model => model.ToDate)
     @Html.HiddenFor(model => model.FromDate)
     @Html.HiddenFor(model => model.UserSelectedProductIds)
-    @Html.HiddenFor(model => model.ReportTypeId)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    <input name="ReportTypeId" value="@Model.ReportTypeId" type="hidden">
     <input name="ReportTypeTitle" value="@Model.Title" type="hidden">
     <input name="ReportTypeName" value="@Model.ReportTypeName" type="hidden">
 </form>
@@ -140,7 +140,7 @@
 @helper RenderRow(WinLossAnalysisModel data, bool isTotalRow)
 {
     <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)">
-        <td class="text-left col-username">
+        <td class="text-left col-username" data-isdatetime="true">
             @(isTotalRow ? Resources.Total: data.RollupKey)
         </td>
         <td>@data.BetCount.ToString($"#,##0")</td>

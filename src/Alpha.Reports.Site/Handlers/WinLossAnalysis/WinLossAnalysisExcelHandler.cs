@@ -17,7 +17,7 @@
         WinLossAnalysisBaseHandler,
         IRequestHandler<WinLossAnalysisExcelQuery, ExcelFileViewModel>
     {
-        private readonly string reportTypeName = nameof(WinLossAnalysisReportType.ReportTypeName);
+        private readonly string reportTypeName = nameof(WinLossAnalysisReportTypeViewModel.ReportTypeName);
         private readonly Workbook<WinLossAnalysisModel> workbook;
 
         public WinLossAnalysisExcelHandler(
@@ -42,7 +42,7 @@
             var result = workbook
                 .UseTemplate(GetTemplateInfo(message))
                 .Title(GetReporTitle(message))
-                .Header(key => key.Equals(reportTypeName) ? Resources.ResourceManager.GetString(message.ReportTypeName) : Resources.ResourceManager.GetString(key))
+                .Header(key => key.Equals(reportTypeName) ? message.ReportTypeName : Resources.ResourceManager.GetString(key))
                 .Body(reportData, GetBodyRowMapper(message))
                 .Footer(grandTotal, GetTotalRowMapper(message))
                 .Sheet(Resources.DefaultSheetName)

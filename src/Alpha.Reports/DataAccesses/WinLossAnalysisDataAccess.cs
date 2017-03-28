@@ -54,9 +54,13 @@
         private WinLossAnalysisModel BuildWinLossAnalysisModel(IDataReader reader, WinLossAnalysisCriteria criteria)
         {
             var reportLevel = criteria.ReportLevel;
+            var reportType = criteria.ReportType;
+            int? rollupKeyId = null;
 
             var winLossAnalysis = new WinLossAnalysisModel(
-                rollupKey: criteria.ReportType.Equals(3) ? cacheRefService.GetProductName(reader.ToInt("RollupKey")) : reader.ToString("RollupKey"), 
+                rollupKey: reportType.Equals(WinLossAnalysisConstants.Sport) 
+                           ? cacheRefService.GetProductName(reader.ToInt("RollupKey")) : reader.ToString("RollupKey"),
+                rollupKeyId: reportType.Equals(WinLossAnalysisConstants.Sport) ? reader.ToInt("RollupKey") : rollupKeyId,
                 turnover: reader.ToDecimal("TurnOver"),
                 betCount: reader.ToInt("BetCount"),
                 memberNetWinLoss: new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")),

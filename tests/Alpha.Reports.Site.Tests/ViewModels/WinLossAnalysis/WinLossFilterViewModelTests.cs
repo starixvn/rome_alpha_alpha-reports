@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossAnalysis
 {
-    using System;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -30,7 +29,7 @@
                 null,
                 false,
                 DefaultVariables.CurrentDate,
-                Enumerable.Empty<WinLossAnalysisReportType>());
+                Enumerable.Empty<WinLossAnalysisReportTypeViewModel>());
 
             var expectedViewDataInstructionMessage = "You can view the report data from 12/02/2016.";
 

@@ -16,7 +16,7 @@
     {    
         private readonly WinLossAnalysisQuery message;
         private readonly WinLossAnalysisParam param;
-        public readonly string SortPropertyNameDefault = nameof(WinLossAnalysisReportType.ReportTypeName);
+        public readonly string SortPropertyNameDefault = nameof(WinLossAnalysisReportTypeViewModel.ReportTypeName);
 
         public WinLossAnalysisViewModel(
             IEnumerable<WinLossAnalysisModel> reportData,
@@ -57,7 +57,7 @@
 
         public WinLossAnalysisModel GrandTotal { get; }
 
-        public IEnumerable<WinLossAnalysisReportType> ReportTypeData => BuildReportTypeData();
+        public IEnumerable<WinLossAnalysisReportTypeViewModel> ReportTypeData => BuildReportTypeData();
 
         public int ReportTypeId => message.ReportTypeId;
 
@@ -65,7 +65,7 @@
 
         public bool IsStackMode => message.IsStackMode;
 
-        public string SortPropertyName => message.SortPropertyName.IsNullOrBlank() ? SortPropertyNameDefault : message.SortPropertyName;
+        public string SortPropertyName => GetSortPropertyName();
 
         public bool IsDescendingSort => message.IsDescendingSort;
 
@@ -94,13 +94,23 @@
                 MinDate,
                 ReportTypeData);
 
-        private IEnumerable<WinLossAnalysisReportType> BuildReportTypeData()
+        private string GetSortPropertyName()
         {
-            var reportTypeData = new List<WinLossAnalysisReportType>()
+            if (message.SortPropertyName.IsNullOrBlank())
             {
-                new WinLossAnalysisReportType(1, Resources.Daily, false, Resources.DailyWinLossAnalysis),
-                new WinLossAnalysisReportType(2, Resources.Monthly, false, Resources.MonthlyWinLossAnalysis),
-                new WinLossAnalysisReportType(3, Resources.Sport, false, Resources.SportWinLossAnalysis)
+                return ReportTypeId.Equals(WinLossAnalysisConstants.Sport) ? string.Empty : SortPropertyNameDefault;
+            }
+
+            return message.SortPropertyName;
+        }
+
+        private IEnumerable<WinLossAnalysisReportTypeViewModel> BuildReportTypeData()
+        {
+            var reportTypeData = new List<WinLossAnalysisReportTypeViewModel>()
+            {
+                new WinLossAnalysisReportTypeViewModel(WinLossAnalysisConstants.Daily, Resources.Daily, false, Resources.DailyWinLossAnalysis),
+                new WinLossAnalysisReportTypeViewModel(WinLossAnalysisConstants.Monthly, Resources.Monthly, false, Resources.MonthlyWinLossAnalysis),
+                new WinLossAnalysisReportTypeViewModel(WinLossAnalysisConstants.Sport, Resources.Sport, false, Resources.SportWinLossAnalysis)
             };
 
             foreach (var reportType in reportTypeData.Where(data => data.ReportTypeId.Equals(message.ReportTypeId)))

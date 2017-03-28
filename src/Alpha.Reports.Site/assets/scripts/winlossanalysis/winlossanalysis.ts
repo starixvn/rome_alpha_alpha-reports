@@ -87,9 +87,7 @@ class WinLossAnalysisView {
         this.$isSetDefaultStackMode = this.$("#IsSetDefaultStackMode");
     };
 
-    checkReady = () => {
-        return this.$("#IsSetDefaultStackMode").length > 0;
-    };
+    checkReady = () => this.$("#IsSetDefaultStackMode").length > 0;
 
     bindFilter = () => {
         this.productMultiSelectionComponent.render();
@@ -112,12 +110,21 @@ class WinLossAnalysisView {
 
     bindSorting = () => {
         let canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
+
         this.sortComponent.render(new SortOption(
             this.$tableReport,
             canSort,
             true,
             this.afterSort,
-            { 0: { sorter: "text" } }));
+            { 0: { sorter: this.getSorterName()} }));
+    };
+
+    getSorterName = () => {
+        switch (this.$reportTypeId.val()) {
+            case "1": return "shortDate";
+            case "2": return "shortMonth";
+            default: return "text";
+        }
     };
 
     registerEvents = () => {
@@ -147,16 +154,21 @@ class WinLossAnalysisView {
 
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
         this.$isStackMode.val(String(params.IsStackMode));
-        this.$sortPropertyName.val(params.SortPropertyName);
+        this.$sortPropertyName.val(this.getSortPropertyName(this.$sortPropertyName.val()));
         this.$isDescendingSort.val(String(params.IsDescendingSort));
         this.$isDescendingSort.val(String(params.IsDescendingSort));
         this.$reportTypeId.val(params.ReportTypeId);
     };
 
-    onFilterEvent = () => {
-        let currentHiddenState = this.$reportForm.hasClass("hide");
-        currentHiddenState ? this.showFilter() : this.hideFilter();
-    };
+    getSortPropertyName = (sortPropertyName: string) => this.$reportTypeId.val() == 3 && sortPropertyName == "ReportTypeName" ? "" : sortPropertyName;
+
+    onFilterEvent = () => this.$reportForm.hasClass("hide") ? this.showFilter() : this.hideFilter();
+
+    renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => isSwitchToNormalMode ? this.splitColumns() : this.combineColumns();
+
+    showValidaProductError = () => this.$multiSelectButton.addClass("error");
+
+    clearError = () => this.$multiSelectButton.removeClass("error");
 
     onExportExcelEvent = () => {
         this.$exportExcelForm.submit();
@@ -173,9 +185,6 @@ class WinLossAnalysisView {
         this.sortComponent.bindTableSorter(this.getSortedColumnName());
     };
 
-    renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {
-        isSwitchToNormalMode ? this.splitColumns() : this.combineColumns();
-    }
 
     setStackMode = () => {
         this.$.blockUI();
@@ -240,14 +249,6 @@ class WinLossAnalysisView {
             HideFilter: this.$reportForm.is(":hidden"),
             ReportTypeId: this.$('input[name=reportType]:checked').val()  
         };
-    };
-
-    showValidaProductError = () => {
-        this.$multiSelectButton.addClass("error");
-    };
-
-    clearError = () => {
-        this.$multiSelectButton.removeClass("error");
     };
 
     afterSort = () => {
