@@ -48,12 +48,12 @@
       <HintPath>..\..\packages\Fanex.Common.1.1.0.1\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Data, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Data.2.0.2.1\lib\net461\Fanex.Data.dll</HintPath>
+    <Reference Include="Fanex.Data, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.2.0.4-beta1\lib\net461\Fanex.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Data.Repository, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Data.Repository.1.0.1\lib\net461\Fanex.Data.Repository.dll</HintPath>
+    <Reference Include="Fanex.Data.Repository, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.Repository.1.0.2-beta1\lib\net461\Fanex.Data.Repository.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -166,6 +166,7 @@
     <Compile Include="Criteria\CommissionByBettype\CommissionByBettypeCriteriaTests.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsByRefTableTests.cs" />
+    <Compile Include="Criteria\Statement\TransferDetailsCriteriaTests.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteriaTest.cs" />
     <Compile Include="Criteria\Outstanding\OutstandingCriteriaTests.cs" />
     <Compile Include="Criteria\GetLeaguesByCustomerCriteriaTests.cs" />
@@ -180,6 +181,7 @@
     <Compile Include="Criteria\ReportCriteriaBaseForTesting.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseTests.cs" />
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />
+    <Compile Include="Criteria\Statement\GetStatementCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
@@ -216,6 +218,8 @@
     <Compile Include="Models\PlayForFun\PlayForFunModelTests.cs" />
     <Compile Include="Models\MatchWinLoss\MatchWinLossModelTest.cs" />
     <Compile Include="Models\PagedReportDataTests.cs" />
+    <Compile Include="Models\Statement\StatementDetailModelTests.cs" />
+    <Compile Include="Models\Statement\StatementModelTests.cs" />
     <Compile Include="Models\WinLossTest.cs" />
     <Compile Include="Models\NetWinLossTest.cs" />
     <Compile Include="Models\ProductTests.cs" />
@@ -238,6 +242,7 @@
     <Compile Include="Services\ProductServiceImplTests.cs" />
     <Compile Include="Services\RacingCommissionServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
+    <Compile Include="Services\StatementServiceImplTests.cs" />
     <Compile Include="Services\WinLossAnalysisServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />
     <Compile Include="Services\WinLossServiceImplTests.cs" />

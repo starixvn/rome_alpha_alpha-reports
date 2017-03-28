@@ -117,6 +117,46 @@
     ]
   },
   {
+    "outputFileName": "assets/bundles/statement/sma-statement.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/client-pager.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/statement/statement.js",
+      "assets/scripts/statement/sma-statement.js",
+      "assets/scripts/statement/sma-statement-init.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/statement/statement.css",
+
+    "inputFiles": [
+      "assets/styles/statement/statement.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/statement/statement-details.js",
+    "inputFiles": [
+      "assets/scripts/statement/statement-details.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/statement/member-statement.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/client-pager.js",
+      "assets/scripts/components/single-selection-dropdown.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/statement/statement.js",
+      "assets/scripts/statement/member-statement.js",
+      "assets/scripts/statement/member-statement-init.js"
+    ]
+  },
+  {
     "outputFileName": "assets/bundles/playforfun/playforfun-member.js",
     "inputFiles": [
       "assets/scripts/core.js",

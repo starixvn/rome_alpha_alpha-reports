@@ -52,12 +52,12 @@
       <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Data, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Data.2.0.2.1\lib\net461\Fanex.Data.dll</HintPath>
+    <Reference Include="Fanex.Data, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.2.0.4-beta1\lib\net461\Fanex.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Data.Repository, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Data.Repository.1.0.1\lib\net461\Fanex.Data.Repository.dll</HintPath>
+    <Reference Include="Fanex.Data.Repository, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.Repository.1.0.2-beta1\lib\net461\Fanex.Data.Repository.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -110,6 +110,8 @@
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
     <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteria.cs" />
+    <Compile Include="Criteria\Statement\GetStatementCriteria.cs" />
+    <Compile Include="Criteria\Statement\TransferDetailsCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLoss\DailyEnteredSportCriteria.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteria.cs" />
@@ -144,6 +146,9 @@
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\StatusModel.cs" />
+    <Compile Include="Models\Statement\StatementModel.cs" />
+    <Compile Include="Models\Statement\StatementDetailModel.cs" />
+    <Compile Include="Models\TimeRange.cs" />
     <Compile Include="Models\UserLevel.cs" />
     <Compile Include="Models\WinLossAnalysis\WinLossAnalysisConstants.cs" />
     <Compile Include="Models\WinLossAnalysis\WinLossAnalysisModel.cs" />
@@ -157,6 +162,8 @@
     <Compile Include="Params\CommissionByBettypeParam.cs" />
     <Compile Include="Params\PlayForFunParam.cs" />
     <Compile Include="Params\RacingCommissionParam.cs" />
+    <Compile Include="Params\Statement\GetStatementParam.cs" />
+    <Compile Include="Params\Statement\StatementDetailsParam.cs" />
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\MatchWinLossDetailParam.cs" />
@@ -174,6 +181,7 @@
     <Compile Include="Services\RacingCommissionService.cs" />
     <Compile Include="Services\WinLossAnalysisService.cs" />
     <Compile Include="Services\UserPermissionService.cs" />
+    <Compile Include="Services\StatementService.cs" />
     <Compile Include="Services\WinLossService.cs" />
     <Compile Include="Services\OutstandingService.cs" />
     <Compile Include="Services\ProductService.cs" />
@@ -184,6 +192,11 @@
     <None Include="Alpha.Reports.Debug.ruleset" />
     <None Include="Alpha.Reports.ruleset" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="CodeAnalysis\CustomDictionary.xml">
+      <SubType>Designer</SubType>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.5.9.0.1001\analyzers\Google.Protobuf.dll" />

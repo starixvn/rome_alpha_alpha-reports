@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Functions>
+  <Function Name="Statement Report">
+    <Setting Key="Statement_Report_GetList" SpName="Acc_StatementSel" DbName="DBACC.bodb02.BODBDownlineNetView" Plain="0">
+      <Mapping DataField="WinLostDate" ObjectProperty="WinLossDate" />
+      <Mapping DataField="TransferAmt" ObjectProperty="TransferAmount" />
+      <Mapping DataField="WinLost" ObjectProperty="WinLoss" />
+      <Mapping DataField="Comm" ObjectProperty="Commission" />
+      <Mapping DataField="VoidAmt" ObjectProperty="VoidAmount" />
+    </Setting>
+    <Setting Key="Statement_Report_TransferDetails" SpName="Acc_StatementSelTransfer" DbName="DBACC.bodb02.BODBDownlineNetView" Plain="0">
+      <Mapping DataField="ExRate" ObjectProperty="ExchangeRate" />
+    </Setting>
+  </Function>
+</Functions>

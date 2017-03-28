@@ -1,7 +1,9 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
     using System;
+    using System.Collections.Generic;
     using Constants;
+    using Extensions;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Fixtures;
@@ -116,6 +118,109 @@
 
             // Assert
             Assert.Equal(dataInCache.BalanceUpDay, actual);
+        }
+
+        [Fact]
+        public void GetTimeRanges_BothLessThanBalanceUpDay_ReturnFromToDate()
+        {
+            // Arrange
+            var fromDate = balanceUpDay.AddDays(-1);
+            var toDate = balanceUpDay.AddDays(-1);
+            var expectedTimeRange = new List<TimeRange> { new TimeRange(fromDate, toDate) };
+
+            // Act
+            var actualTimeRanges = service.GetTimeRangesToGetReportDataBetweenTables(fromDate, toDate);
+
+            // Assert
+            AssertExtension.Equal(expectedTimeRange, actualTimeRanges);
+        }
+
+        [Fact]
+        public void GetTimeRanges_FromDateLessThanBalanceUpdateAndToDateNotGreaterThanMoveBetsDate_ReturnCorrectRanges()
+        {
+            // Arrange
+            var fromDate = balanceUpDay.AddDays(-1);
+            var toDate = moveBetsDay;
+            var expectedTimeRange = new List<TimeRange>
+            {
+                new TimeRange(fromDate, balanceUpDay.AddDays(-1)),
+                new TimeRange(balanceUpDay, toDate)
+            };
+
+            // Act
+            var actualTimeRanges = service.GetTimeRangesToGetReportDataBetweenTables(fromDate, toDate);
+
+            // Assert
+            AssertExtension.Equal(expectedTimeRange, actualTimeRanges);
+        }
+
+        [Fact]
+        public void GetTimeRanges_FromDateLessThanBalanceUpdateAndToDateGreaterThanMoveBetsDate_ReturnCorrectRanges()
+        {
+            // Arrange
+            var fromDate = balanceUpDay.AddDays(-1);
+            var toDate = moveBetsDay.AddDays(1);
+            var expectedTimeRange = new List<TimeRange>
+            {
+                new TimeRange(fromDate, balanceUpDay.AddDays(-1)),
+                new TimeRange(balanceUpDay, moveBetsDay),
+                new TimeRange(moveBetsDay.AddDays(1), toDate),
+            };
+
+            // Act
+            var actualTimeRanges = service.GetTimeRangesToGetReportDataBetweenTables(fromDate, toDate);
+
+            // Assert
+            AssertExtension.Equal(expectedTimeRange, actualTimeRanges);
+        }
+
+        [Fact]
+        public void GetTimeRanges_FromDateNotGreaterThanMoveBetsDateAndToDateNotGreaterThanMoveBetsDate_ReturnCorrectRanges()
+        {
+            // Arrange
+            var fromDate = balanceUpDay;
+            var toDate = moveBetsDay;
+            var expectedTimeRange = new List<TimeRange> { new TimeRange(fromDate, toDate) };
+
+            // Act
+            var actualTimeRanges = service.GetTimeRangesToGetReportDataBetweenTables(fromDate, toDate);
+
+            // Assert
+            AssertExtension.Equal(expectedTimeRange, actualTimeRanges);
+        }
+
+        [Fact]
+        public void GetTimeRanges_FromDateNotGreaterThanMoveBetsDateAndToDateGreaterThanMoveBetsDate_ReturnCorrectRanges()
+        {
+            // Arrange
+            var fromDate = balanceUpDay;
+            var toDate = moveBetsDay.AddDays(1);
+            var expectedTimeRange = new List<TimeRange>
+            {
+                new TimeRange(fromDate, moveBetsDay),
+                new TimeRange(moveBetsDay.AddDays(1), toDate)
+            };
+
+            // Act
+            var actualTimeRanges = service.GetTimeRangesToGetReportDataBetweenTables(fromDate, toDate);
+
+            // Assert
+            AssertExtension.Equal(expectedTimeRange, actualTimeRanges);
+        }
+
+        [Fact]
+        public void GetTimeRanges_FromDateGreaterThanMoveBetsDateAndToDateGreaterThanMoveBetsDate_ReturnCorrectRanges()
+        {
+            // Arrange
+            var fromDate = moveBetsDay.AddDays(1);
+            var toDate = moveBetsDay.AddDays(1);
+            var expectedTimeRange = new List<TimeRange> { new TimeRange(fromDate, toDate) };
+
+            // Act
+            var actualTimeRanges = service.GetTimeRangesToGetReportDataBetweenTables(fromDate, toDate);
+
+            // Assert
+            AssertExtension.Equal(expectedTimeRange, actualTimeRanges);
         }
     }
 }

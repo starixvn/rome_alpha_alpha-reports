@@ -541,4 +541,97 @@
   <data name="SportWinLossAnalysis" xml:space="preserve">
     <value>Sport Win Loss Analysis</value>
   </data>
+  <data name="Statement" xml:space="preserve">
+    <value>Statement</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>Opening Balance</value>
+  </data>
+  <data name="TransferAmt" xml:space="preserve">
+    <value>Transfer Amt</value>
+  </data>
+  <data name="AccumulatedTotal" xml:space="preserve">
+    <value>Accumulated Total</value>
+  </data>
+  <data name="Commission" xml:space="preserve">
+    <value>Commission</value>
+  </data>
+  <data name="Symbol_NoDataNumber" xml:space="preserve">
+    <value>--</value>
+  </data>
+  <data name="StatementGuidelines" xml:space="preserve">
+    <value>Statement Guidelines</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
+    <value>your balance calculated till “From” date. If Opening Balance does not equal to Accumulated Total of previous date, then the Opening Balance will be highlighted in pink.</value>
+  </data>
+  <data name="Guidelines_Turnover" xml:space="preserve">
+    <value>total stakes of all tickets (exclude Void/Rejected/Outstanding/Refund tickets).</value>
+  </data>
+  <data name="Guidelines_WinLoss_SMA" xml:space="preserve">
+    <value>total win loss amount after Position Taking of bet tickets (exclude Void/Rejected/Outstanding tickets).</value>
+  </data>
+  <data name="Guidelines_Commission_SMA" xml:space="preserve">
+    <value>total net commission based on member tickets.</value>
+  </data>
+  <data name="Guidelines_TransferAmt_SMA" xml:space="preserve">
+    <value>total transfer amount. Click to view Transfer Details.</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_SMA" xml:space="preserve">
+    <value>your closing balance of each day within selected date range.</value>
+  </data>
+  <data name="Formular_Accumulated_Total" xml:space="preserve">
+    <value>Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt</value>
+  </data>
+  <data name="TransferDetails" xml:space="preserve">
+    <value>Transfer Details</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>Void</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="GrandPrize" xml:space="preserve">
+    <value>Grand Prize</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_Member" xml:space="preserve">
+    <value>member balance calculated till “From” date. If Opening Balance does not equal to Accumulated Total of previous date, then the Opening Balance will be highlighted in pink.</value>
+  </data>
+  <data name="Guidelines_VoidRejected" xml:space="preserve">
+    <value>total stakes of Void/Rejected tickets. Click to view Bet List of Void/Rejected tickets.</value>
+  </data>
+  <data name="Guidelines_Outstanding" xml:space="preserve">
+    <value>total stakes of Running tickets. Click to view Bet List of Running tickets.</value>
+  </data>
+  <data name="Guidelines_WinLoss_Member" xml:space="preserve">
+    <value>Total win loss amount (exclude member commission) of bet tickets (exclude Void/Rejected/Outstanding tickets). Click to view Bet list in details.</value>
+  </data>
+  <data name="Guidelines_Commission_Member" xml:space="preserve">
+    <value>total member commission.</value>
+  </data>
+  <data name="GrandPrize_Guidelines" xml:space="preserve">
+    <value>the grand winning amount of an event which is excluded from member balance.</value>
+  </data>
+  <data name="Guidelines_TransferAmt_Member" xml:space="preserve">
+    <value>total transfer amount between Agent and Member. Click to view Transfer Details.</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_Member" xml:space="preserve">
+    <value>member closing balance of each day within selected date range.</value>
+  </data>
+  <data name="DailyStatement" xml:space="preserve">
+    <value>Daily Statement</value>
+  </data>
+  <data name="BetList" xml:space="preserve">
+    <value>Bet List</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>Bet List (Running)</value>
+  </data>
 </root>

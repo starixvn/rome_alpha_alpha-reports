@@ -1,0 +1,50 @@
+﻿using System;
+using Alpha.Reports.Models;
+using Alpha.Reports.Site.Requests.Statement;
+using Alpha.Reports.Site.Tests.Constants;
+using Alpha.Reports.Site.Tests.Fixtures;
+using Alpha.Reports.Utils;
+using Xunit;
+
+namespace Alpha.Reports.Site.Tests.Requests.Statement
+{
+    [Trait("Category", "Statement")]
+    [Collection("UserCollection")]
+    public class SMAStatementQueryTests
+    {
+        private readonly IUser user;
+
+        public SMAStatementQueryTests(UserFixture userFixture)
+        {
+            this.user = userFixture.User;
+            SystemTime.Today = DefaultVariables.CurrentDate;
+        }
+
+        [Fact]
+        public void IsFilterVisible_DefaultValue_ReturnsTrue()
+        {
+            // Arrange
+            var query = new SMAStatementQuery(user);
+
+            // Act
+            var actualIsFilterVisible = query.IsFilterVisible;
+
+            // Assert
+            Assert.True(actualIsFilterVisible);
+        }
+
+        [Fact]
+        public void FromDate_DefaultValue_ReturnsYesterday()
+        {
+            // Arrange
+            var query = new SMAStatementQuery(user);
+            var expectedFromDate = new DateTime(2016, 12, 1);
+
+            // Act
+            var actualFromDate = query.FromDate;
+
+            // Assert
+            Assert.Equal(expectedFromDate, actualFromDate);
+        }
+    }
+}

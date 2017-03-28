@@ -1,0 +1,79 @@
+﻿@model StatementDetailViewModel
+@{
+    ViewBag.Title = $"{Resources.TransferDetails} ({Model.CustName})";
+}
+
+@section Styles {
+    @StaticResources.RenderStyles("~/assets/bundles/statement/statement")
+}
+
+<form class="form-inline filter" role="form" id="report-form">
+    <div class="form-group statement-details-excel">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+</form>
+
+<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover" id="tbl-report">
+    <thead>
+        <tr>
+            <th>@Resources.Date</th>
+            <th>@Resources.Remark</th>
+            <th>@Resources.Amount</th>
+        </tr>
+    </thead>
+    @if (Model.Statements.Any())
+    {
+        var isEvenRow = false;
+        <tbody>
+            @foreach (var data in Model.Statements)
+            {
+                <tr class="@(isEvenRow? "even-row":string.Empty)">
+                    <td class="text-center">
+                        @data.FullTransDateName
+                        <br />
+                        @data.TransDateString
+                        <br />
+                        @data.TransTimeString
+                    </td>
+                    <td class="text-left">
+                        @data.TransType
+                        <br />
+                        @data.TransDesc
+                    </td>
+                    <td>
+                        @RenderNegativeNumberCell(data.Amount)
+                    </td>
+                </tr>
+
+                isEvenRow = !isEvenRow;
+            }
+        </tbody>
+        <tfoot>
+            <tr class="tbl-footer">
+                <td colspan="2">@Resources.Total</td>
+                <td>
+                    @RenderNegativeNumberCell(Model.Total.Amount)
+                </td>
+            </tr>
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(colspan: 3)
+    }
+</table>
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("StatementDetailExcel", "Statement")">
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("TransferDate", Model.TransferDate)
+</form>
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/statement/statement-details")
+}
+
+@helper RenderNegativeNumberCell(decimal? cellValue)
+{
+    <span class="@(cellValue.HasValue && cellValue.Value < 0 ? "format-negative" : string.Empty)">
+        @(cellValue.HasValue ? cellValue.Value.ToString($"#,##0.00") : Resources.Symbol_NoDataNumber)
+    </span>
+}

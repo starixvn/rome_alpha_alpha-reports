@@ -94,17 +94,21 @@
     });
 
     describe("_onchange", () => {
-        it("_Always -> Stores Changed Value", () => {
+        it("_Always -> Stores Changed Value;Calls option.onchange", () => {
             // arrange
             setFixtures(template.hasOptionsSelection);
             singleSelectionDropdownComponent.render();
             let expectValue = "Option 3";
+
+            singleSelectionDropdownComponent.options.onChange = jasmine.any(Function);
+            spyOn(singleSelectionDropdownComponent.options, "onChange");
 
             // act
             $("#dropdown-container .dropdown-menu input[value=\"Option 3\"]").click();
 
             // assert
             expect(singleSelectionDropdownComponent.selectedValue).toBe(expectValue);
+            expect(singleSelectionDropdownComponent.options.onChange).toHaveBeenCalled();
         });
     });
 });

@@ -61,6 +61,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accumulated Total.
+        /// </summary>
+        public static string AccumulatedTotal {
+            get {
+                return ResourceManager.GetString("AccumulatedTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agent.
         /// </summary>
         public static string Agent {
@@ -142,6 +151,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alpha - Reports - Application Start.
         /// </summary>
         public static string AppStart_Message {
@@ -183,6 +201,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string BetCount {
             get {
                 return ResourceManager.GetString("BetCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet List.
+        /// </summary>
+        public static string BetList {
+            get {
+                return ResourceManager.GetString("BetList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bet List (Running).
+        /// </summary>
+        public static string BetList_Running {
+            get {
+                return ResourceManager.GetString("BetList_Running", resourceCulture);
             }
         }
         
@@ -313,6 +349,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Daily Statement.
+        /// </summary>
+        public static string DailyStatement {
+            get {
+                return ResourceManager.GetString("DailyStatement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Daily Win Loss Analysis.
         /// </summary>
         public static string DailyWinLossAnalysis {
@@ -412,6 +457,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt.
+        /// </summary>
+        public static string Formular_Accumulated_Total {
+            get {
+                return ResourceManager.GetString("Formular_Accumulated_Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         public static string From {
@@ -435,6 +489,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Gaming {
             get {
                 return ResourceManager.GetString("Gaming", resourceCulture);
+            }
+        }
+        
+         /// <summary>
+        ///   Looks up a localized string similar to Grand Prize.
+        /// </summary>
+        public static string GrandPrize {
+            get {
+                return ResourceManager.GetString("GrandPrize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the grand winning amount of an event which is excluded from member balance..
+        /// </summary>
+        public static string GrandPrize_Guidelines {
+            get {
+                return ResourceManager.GetString("GrandPrize_Guidelines", resourceCulture);
             }
         }
         
@@ -471,6 +543,123 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string GrossComm {
             get {
                 return ResourceManager.GetString("GrossComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to member closing balance of each day within selected date range..
+        /// </summary>
+        public static string Guidelines_AccumulatedTotal_Member {
+            get {
+                return ResourceManager.GetString("Guidelines_AccumulatedTotal_Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to your closing balance of each day within selected date range..
+        /// </summary>
+        public static string Guidelines_AccumulatedTotal_SMA {
+            get {
+                return ResourceManager.GetString("Guidelines_AccumulatedTotal_SMA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to total member commission..
+        /// </summary>
+        public static string Guidelines_Commission_Member {
+            get {
+                return ResourceManager.GetString("Guidelines_Commission_Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to total net commission based on member tickets..
+        /// </summary>
+        public static string Guidelines_Commission_SMA {
+            get {
+                return ResourceManager.GetString("Guidelines_Commission_SMA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to member balance calculated till “From” date. If Opening Balance does not equal to Accumulated Total of previous date, then the Opening Balance will be highlighted in pink..
+        /// </summary>
+        public static string Guidelines_OpeningBalance_Member {
+            get {
+                return ResourceManager.GetString("Guidelines_OpeningBalance_Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to your balance calculated till “From” date. If Opening Balance does not equal to Accumulated Total of previous date, then the Opening Balance will be highlighted in pink..
+        /// </summary>
+        public static string Guidelines_OpeningBalance_SMA {
+            get {
+                return ResourceManager.GetString("Guidelines_OpeningBalance_SMA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to total stakes of Running tickets. Click to view Bet List of Running tickets..
+        /// </summary>
+        public static string Guidelines_Outstanding {
+            get {
+                return ResourceManager.GetString("Guidelines_Outstanding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to total transfer amount between Agent and Member. Click to view Transfer Details..
+        /// </summary>
+        public static string Guidelines_TransferAmt_Member {
+            get {
+                return ResourceManager.GetString("Guidelines_TransferAmt_Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to total transfer amount. Click to view Transfer Details..
+        /// </summary>
+        public static string Guidelines_TransferAmt_SMA {
+            get {
+                return ResourceManager.GetString("Guidelines_TransferAmt_SMA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to total stakes of all tickets (exclude Void/Rejected/Outstanding/Refund tickets)..
+        /// </summary>
+        public static string Guidelines_Turnover {
+            get {
+                return ResourceManager.GetString("Guidelines_Turnover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to total stakes of Void/Rejected tickets. Click to view Bet List of Void/Rejected tickets..
+        /// </summary>
+        public static string Guidelines_VoidRejected {
+            get {
+                return ResourceManager.GetString("Guidelines_VoidRejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total win loss amount (exclude member commission) of bet tickets (exclude Void/Rejected/Outstanding tickets). Click to view Bet list in details..
+        /// </summary>
+        public static string Guidelines_WinLoss_Member {
+            get {
+                return ResourceManager.GetString("Guidelines_WinLoss_Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to total win loss amount after Position Taking of bet tickets (exclude Void/Rejected/Outstanding tickets)..
+        /// </summary>
+        public static string Guidelines_WinLoss_SMA {
+            get {
+                return ResourceManager.GetString("Guidelines_WinLoss_SMA", resourceCulture);
             }
         }
         
@@ -843,6 +1032,16 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
+         
+        /// <summary>
+        ///   Looks up a localized string similar to Opening Balance.
+        /// </summary>
+        public static string OpeningBalance {
+            get {
+                return ResourceManager.GetString("OpeningBalance", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Outright.
         /// </summary>
@@ -942,6 +1141,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
          
+        /// <summary>
+        ///   Looks up a localized string similar to Rejected.
+        /// </summary>
+        public static string Rejected {
+            get {
+                return ResourceManager.GetString("Rejected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Remark.
+        /// </summary>
+        public static string Remark {
+            get {
+                return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Report by.
         /// </summary>
@@ -1051,6 +1268,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Statement.
+        /// </summary>
+        public static string Statement {
+            get {
+                return ResourceManager.GetString("Statement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statement Guidelines.
+        /// </summary>
+        public static string StatementGuidelines {
+            get {
+                return ResourceManager.GetString("StatementGuidelines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         public static string Submit {
@@ -1095,6 +1330,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to --.
+        /// </summary>
+        public static string Symbol_NoDataNumber {
+            get {
+                return ResourceManager.GetString("Symbol_NoDataNumber", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to There is no League..
         /// </summary>
@@ -1213,6 +1457,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transfer Amt.
+        /// </summary>
+        public static string TransferAmt {
+            get {
+                return ResourceManager.GetString("TransferAmt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer Details.
+        /// </summary>
+        public static string TransferDetails {
+            get {
+                return ResourceManager.GetString("TransferDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Turnover.
         /// </summary>
         public static string Turnover {
@@ -1245,6 +1507,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string ViewHistoryReport {
             get {
                 return ResourceManager.GetString("ViewHistoryReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Void.
+        /// </summary>
+        public static string Void {
+            get {
+                return ResourceManager.GetString("Void", resourceCulture);
             }
         }
         

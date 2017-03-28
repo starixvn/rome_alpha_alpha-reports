@@ -435,5 +435,19 @@
     <data name="GrandTotal" xml:space="preserve">
     <value>총 그랜드</value>
   </data>
-
+  <data name="Statement" xml:space="preserve">
+    <value>기록</value>
+  </data>
+  <data name="Commission" xml:space="preserve">
+    <value>수수료</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>비고</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>총액</value>
+  </data>
+  <data name="DailyStatement" xml:space="preserve">
+    <value>일일 정책</value>
+  </data>
 </root>

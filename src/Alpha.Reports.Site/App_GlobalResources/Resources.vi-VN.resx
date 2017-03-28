@@ -472,4 +472,28 @@
   <data name="PlayForFun" xml:space="preserve">
     <value>Chơi Thử</value>
   </data>
+    <data name="Statement" xml:space="preserve">
+    <value>Sao kê</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>Số dư đầu ngày</value>
+  </data>
+  <data name="TransferAmt" xml:space="preserve">
+    <value>Chuyển khoản</value>
+  </data>
+  <data name="AccumulatedTotal" xml:space="preserve">
+    <value>Tổng tiền tích luỹ</value>
+  </data>
+  <data name="Commission" xml:space="preserve">
+    <value>Hoa hồng</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Ghi chú</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="DailyStatement" xml:space="preserve">
+    <value>Thông báo hằng ngày</value>
+  </data>
 </root>

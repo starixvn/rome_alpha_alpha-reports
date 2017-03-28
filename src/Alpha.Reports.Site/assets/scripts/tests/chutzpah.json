@@ -64,6 +64,7 @@
     { "Path": "../components/link-builder.ts" },
     { "Path": "../components/league-multiselection.ts" },
     { "Path": "../components/single-selection-dropdown.ts" },
+    { "Path": "../components/client-pager.ts" },
 
     { "Path": "../winlossdetail/winlossdetail.ts" },
     { "Path": "apps/components/sort-tests-template.ts" },
@@ -81,7 +82,12 @@
     { "Path": "../base-report.ts" },
     { "Path": "../playforfun/playforfun.ts" },
     { "Path": "../playforfun/playforfun-master-agent.ts" },
-    { "Path": "../playforfun/playforfun-member.ts" }
+    { "Path": "../playforfun/playforfun-member.ts" },
+    
+    { "Path": "../statement/statement-details.ts" },
+    { "Path": "../statement/statement.ts" },
+    { "Path": "../statement/sma-statement.ts" },
+    { "Path": "../statement/member-statement.ts" }
   ],
   "Tests": [
     {
@@ -100,6 +106,10 @@
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     },
     {
+      "Path": "apps/winlossdetail",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
       "Path": "apps/matchwinloss",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     },
@@ -110,6 +120,11 @@
     {
       "Path": "apps/playforfun",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/statement",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     }
+
   ]
 }

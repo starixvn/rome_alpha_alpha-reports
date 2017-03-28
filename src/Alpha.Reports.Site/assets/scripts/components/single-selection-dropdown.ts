@@ -7,7 +7,8 @@ interface JQuery {
 class SingleSelectionDropdownOption {
     constructor(
         public dropdownId: string = "dropdown-single",
-        public inputId: string = "UserSelectedId") {
+        public inputId: string = "UserSelectedId",
+        public onChange: Function = null) {
     }
 }
 
@@ -62,5 +63,9 @@ class SingleSelectionDropdownComponent {
 
     onchange = () => {
         this.selectedValue = this.getSelectedItem();
+
+        if (this.options.onChange) {
+            this.options.onChange();
+        }
     };
 }

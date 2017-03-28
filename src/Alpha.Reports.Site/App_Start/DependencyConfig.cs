@@ -8,6 +8,7 @@
     using Fanex.Data.Repository;
     using Handlers.CommissionByBettype;
     using Handlers.MatchWinLossDetail;
+    using Handlers.Statement;
     using MediatR;
     using Models;
     using ONEbook.SpreadSheets;
@@ -99,6 +100,10 @@
             container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbookImpl>();
             container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
             container.RegisterSingleton<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();
+
+            container.RegisterSingleton<StatementService, StatementServiceImpl>();
+            container.RegisterSingleton<SMAStatementWorkbook, SMAStatementWorkbookImpl>();
+            container.RegisterSingleton<MemberStatementWorkbook, MemberStatementWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

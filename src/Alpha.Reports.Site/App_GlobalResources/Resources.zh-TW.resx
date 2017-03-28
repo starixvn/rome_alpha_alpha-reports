@@ -504,5 +504,77 @@
   <data name="Enabled" xml:space="preserve">
     <value>已開啟</value>
   </data>
+    <data name="Statement" xml:space="preserve">
+    <value>帳目</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>期初余額</value>
+  </data>
+  <data name="TransferAmt" xml:space="preserve">
+    <value>轉帳金額</value>
+  </data>
+  <data name="AccumulatedTotal" xml:space="preserve">
+    <value>總累計余額</value>
+  </data>
+  <data name="Commission" xml:space="preserve">
+    <value>佣金</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
+    <value>客戶余額將計算至"從" 的日期。 若期初余額與前一天的累積余額不符，那期初余額將會顯示粉紅色。</value>
+  </data>
+  <data name="Guidelines_Turnover" xml:space="preserve">
+    <value>所有註單總投註額 (不包括作廢/取消/未結束投註/退款的註單)</value>
+  </data>
+  <data name="Guidelines_WinLoss_SMA" xml:space="preserve">
+    <value>占成後的總輸贏額度 (不包括作廢/取消/未結束投註的註單)</value>
+  </data>
+  <data name="Guidelines_Commission_SMA" xml:space="preserve">
+    <value>會員注單的淨總佣金</value>
+  </data>
+  <data name="Guidelines_TransferAmt_SMA" xml:space="preserve">
+    <value>轉賬金額 代理和會員的總轉賬額度。點擊查看轉賬細節。</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_SMA" xml:space="preserve">
+    <value>選定日期之間，每一天的期末余額</value>
+  </data>
 
+  <data name="Formular_Accumulated_Total" xml:space="preserve">
+    <value>總累計余額 = 期初余額 + 輸贏 + 傭金 + 轉帳金額</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>備註</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金額</value>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>作廢</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Guidelines_VoidRejected" xml:space="preserve">
+    <value>作廢/取消註單總投註額.。 點擊查看作廢/取消註單明細。</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_Member" xml:space="preserve">
+    <value>客戶余額將計算至"從" 的日期。若期初余額與前一天的累積余額不符，那期初余額將會顯示粉紅色。</value>
+  </data>
+  <data name="Guidelines_WinLoss_Member" xml:space="preserve">
+    <value>註單 (不包括作廢/取消/未結束投註的註單) 總輸贏額度 (不包括會員傭金)。 點擊查看註單明細。</value>
+  </data>
+  <data name="Guidelines_Commission_Member" xml:space="preserve">
+    <value>會員的總佣金</value>
+  </data>
+  <data name="Guidelines_TransferAmt_Member" xml:space="preserve">
+    <value>代理和會員的總轉賬額度。點擊查看轉賬細節。</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_Member" xml:space="preserve">
+    <value>選定日期之間，每一天的期末余額</value>
+  </data>
+  <data name="Guidelines_Outstanding" xml:space="preserve">
+    <value>未結束註單總投註額.。 點擊查看未結束註單明細。</value>
+  </data>
+  <data name="DailyStatement" xml:space="preserve">
+    <value>每日帳目</value>
+  </data>
 </root>

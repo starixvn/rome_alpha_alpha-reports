@@ -159,6 +159,14 @@ a {
     .combinedcell li:last-child {
         font-weight: bold;
     }
+
+    .note-opening-balance {
+        background-color: #f6a4a4;
+    }
+
+    .format-negative {
+        color: #b50000;
+    }
 }
 
 // Filter
@@ -360,7 +368,6 @@ a {
         }
     }
 }
-
 
 // Modals
 .modal-open {

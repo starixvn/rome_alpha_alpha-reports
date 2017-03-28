@@ -1,0 +1,46 @@
+﻿
+#report-legend {
+    font-size: 13px;
+    font-family: Roboto, Arial, Tahoma,helvetica,sans-serif;
+    line-height: 24px;
+}
+
+.bold-weight {
+    font-weight: bold;
+    color: #B50000;
+}
+
+.formular-accumulated-total {
+    padding-left: 50px;
+}
+
+.guideline-row {
+    margin-bottom: 10px;
+}
+
+#popup-statement-detail {
+    right: auto;
+    bottom: auto;
+
+    .modal-dialog {
+        width: 800px;
+    }
+}
+
+.statement-details-excel {
+    float: right;
+}
+
+#tbl-report {
+    .tbl-footer .format-negative {
+        color: #ffffff;
+    }
+
+    .column-transfer-amount, .col-void-amount, .col-outstanding, .col-win-loss, .col-grand-prize {
+        cursor: pointer;
+
+        &:hover {
+            color: #996600;
+        }
+    }
+}

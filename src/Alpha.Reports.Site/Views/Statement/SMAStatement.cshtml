@@ -1,0 +1,105 @@
+﻿@model SMAStatementViewModel
+@{
+    ViewBag.Title = "Statement Report";
+}
+
+@section Styles {
+    @StaticResources.RenderStyles("~/assets/bundles/statement/statement")
+}
+
+@ReportTitle.Render(new PageHeaderViewModel(Resources.Statement, false, true, false, Model.IsFilterVisible, null, null))
+
+<form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
+    @DateRangePicker.Render(Model.DateRangePickerViewModel)
+
+    <div class="form-group">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+    <div class="note">
+        <span class="star">*</span>@Model.ViewDataInstructionMessage
+    </div>
+
+    @Html.Hidden("IsFilterVisible", Model.IsFilterVisible ? "true" : "false")
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+</form>
+
+<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover" id="tbl-report">
+    <thead>
+        <tr>
+            <th>@Resources.Date</th>
+            <th>@Resources.OpeningBalance</th>
+            <th>@Resources.Turnover</th>
+            <th>@Resources.WinLoss</th>
+            <th>@Resources.Commission</th>
+            <th>@Resources.TransferAmt</th>
+            <th>@Resources.AccumulatedTotal</th>
+        </tr>
+    </thead>
+    @if (Model.Statements.Any())
+    {
+        var isEvenRow = false;
+        StatementModel previousStatement = null;
+
+        <tbody>
+            @foreach (var data in Model.Statements)
+            {
+                <tr class="@(isEvenRow? "even-row":string.Empty) hide">
+                    <td class="text-center">@data.WinLossDateString</td>
+                    <td class="@(data.IsNotedBalance(previousStatement)?"note-opening-balance":string.Empty)">
+                        @RenderNegativeNumberCell(data.OpeningBalance)
+                    </td>
+                    <td>@RenderNumberCell(data.Turnover)</td>
+                    <td>@RenderNegativeNumberCell(data.WinLoss)</td>
+                    <td>@RenderNegativeNumberCell(data.Commission)</td>
+                    <td>
+                        <span class=" @(data.TransferAmount.HasValue ? "column-transfer-amount" : string.Empty)
+                              @(data.TransferAmount.HasValue && data.TransferAmount.Value < 0 ? "format-negative" : string.Empty) "
+                              data-transfer-date="@data.WinLossDateString">
+                            @(data.TransferAmount.HasValue ? data.TransferAmount.Value.ToString($"#,##0.00") : Resources.Symbol_NoDataNumber)
+                        </span>
+                    </td>
+                    <td>@RenderNegativeNumberCell(data.ClosingBalance)</td>
+                </tr>
+                isEvenRow = !isEvenRow;
+                previousStatement = data;
+            }
+        </tbody>
+    }
+    else
+    {
+        @NoInformation.Render(colspan: 7)
+    }
+</table>
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("SMAStatementExcel", "Statement")">
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+</form>
+@Html.Hidden("LoadLegendURL", Url.Action("SMAReportLegend", "Statement"))
+@Html.Hidden("StatementDetailsURL", Url.Action("StatementDetails", "Statement"))
+
+@Pager.Render(Model.PagerViewModel)
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/statement/sma-statement")
+}
+
+@helper RenderNegativeNumberCell(decimal? cellValue)
+{
+    <span class="@(cellValue.HasValue && cellValue.Value < 0 ? "format-negative" : string.Empty)">
+        @(cellValue.HasValue ? cellValue.Value.ToString($"#,##0.00") : Resources.Symbol_NoDataNumber)
+    </span>
+}
+
+@helper RenderNumberCell(decimal? cellValue)
+{
+    <span>
+        @(cellValue.HasValue ? cellValue.Value.ToString($"#,##0.00") : Resources.Symbol_NoDataNumber)
+    </span>
+}

@@ -207,6 +207,7 @@
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
     <Compile Include="Controllers\ReportLegendControllerTests.cs" />
+    <Compile Include="Controllers\StatementControllerTests.cs" />
     <Compile Include="Controllers\WinLossAnalysisControllerTests.cs" />
     <Compile Include="Controllers\PlayForFunControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossControllerTests.cs" />
@@ -223,6 +224,14 @@
     <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
+    <Compile Include="Handlers\Statement\SMAStatementExcelHandlerTests.cs" />
+    <Compile Include="Handlers\Statement\MemberStatementExcelHandlerTests.cs" />
+    <Compile Include="Handlers\Statement\MemberStatementWorkbookImplForTesting.cs" />
+    <Compile Include="Handlers\Statement\SMAStatementWorkbookImplForTesting.cs" />
+    <Compile Include="Handlers\Statement\MemberStatementWorkbookImplTests.cs" />
+    <Compile Include="Handlers\Statement\SMAStatementWorkbookImplTests.cs" />
+    <Compile Include="Handlers\Statement\StatementDetailExcelHandlerTests.cs" />
+    <Compile Include="Handlers\Statement\StatementHandlerTests.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossExcelHandlerTest.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossHandlerTests.cs" />
     <Compile Include="Handlers\PlayForFun\PlayForFunExcelHandlerTests.cs" />
@@ -250,6 +259,11 @@
     <Compile Include="Requests\LeaguesByCustomerQueryTests.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailQueryTests.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQueryTests.cs" />
+    <Compile Include="Requests\Statement\SMAStatementQueryTests.cs" />
+    <Compile Include="Requests\Statement\MemberStatementQueryTests.cs" />
+    <Compile Include="Requests\Statement\SMAStatementExcelQueryTests.cs" />
+    <Compile Include="Requests\Statement\MemberStatementExcelQueryTests.cs" />
+    <Compile Include="Requests\Statement\StatementDetailsQueryTests.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\MatchWinLossDetailTestCases.cs" />
     <Compile Include="TestCases\WinLossAnalysisViewModelTestCases.cs" />
@@ -262,6 +276,9 @@
     <Compile Include="ViewModels\Outstanding\OutstandingViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
     <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModelTests.cs" />
+    <Compile Include="ViewModels\Statement\MemberStatementViewModelTests.cs" />
+    <Compile Include="ViewModels\Statement\SMAStatementViewModelTests.cs" />
+    <Compile Include="ViewModels\Statement\StatementDetailViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossFilterViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModelTests.cs" />
     <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelForTesting.cs" />

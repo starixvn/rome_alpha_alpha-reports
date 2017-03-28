@@ -275,4 +275,19 @@
   <data name="Commission3" xml:space="preserve">
     <value>手数料 3</value>
   </data>
+  <data name="Statement" xml:space="preserve">
+    <value>明細書</value>
+  </data>
+  <data name="Commission" xml:space="preserve">
+    <value>手数料</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>備考</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金額</value>
+  </data>
+  <data name="DailyStatement" xml:space="preserve">
+    <value>日別明細書</value>
+  </data>
 </root>
