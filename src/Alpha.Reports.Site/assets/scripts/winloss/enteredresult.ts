@@ -27,6 +27,7 @@ class EnterResultView {
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         sortComponent: SortComponent) {
+
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.sortComponent = sortComponent;
@@ -52,6 +53,7 @@ class EnterResultView {
         this.$tableReport.stickyTableHeaders();
 
         this.registerEvents();
+
         this.$.unblockUI();
     };
     checkReady = () => {
@@ -75,7 +77,7 @@ class EnterResultView {
     registerEvents = () => {
         this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
-        this.$excelIcon.on("click", this.onExportExcelEvent); 
+        this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$reportForm.submit(this.onSubmitNormalReportEvent);
     };
     onFilterEvent = () => {
@@ -113,7 +115,7 @@ class EnterResultView {
 const enterResultView = new EnterResultView(
     $,
     new DateRangePickerComponent($),
-    new SortComponent($));
+    new SortComponent($, new LinkBuilderComponent($)));
 
 $(function () {
     enterResultView.init();

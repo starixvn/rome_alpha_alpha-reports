@@ -2,12 +2,11 @@
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     const pagerComponent = new PagerComponent($);
-    const sortComponent = new SortComponent($);
     const monthPickerComponent = new MonthPickerComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const reportTooltip = new ReportTooltip($);
-    const netTurnoverTooltipComponent = new NetTurnoverTooltipComponent($);
     const linkBuilderComponent = new LinkBuilderComponent($);
+    const sortComponent = new SortComponent($, linkBuilderComponent);
 
     let winLossDetailView: WinLossDetailView;
 
@@ -29,9 +28,9 @@
             sortComponent,
             reportTooltip,
             monthPickerComponent,
-            netTurnoverTooltipComponent,
             linkBuilderComponent);
 
+        spyOn(winLossDetailView, "loadLegend");
         cacheElements = spyOn(winLossDetailView, "cacheElements");
         cacheElements.and.callThrough();
 
@@ -45,7 +44,14 @@
         renderPagerComponent = spyOn(pagerComponent, "render");
         renderSortComponent = spyOn(sortComponent, "render");
         renderLinkBuilderComponent = spyOn(linkBuilderComponent, "render");
+        renderLinkBuilderComponent.and.callThrough();
+
         spyOn(dateRangePickerComponent, "render");
+    });
+
+    it("Inherit BaseReport_Always_WinLossDetailView is BaseReport", () => {
+        // assert
+        expect(winLossDetailView instanceof BaseReport).toBeTruthy();
     });
 
     describe("_init", () => {
@@ -87,6 +93,7 @@
             beforeEach(() => {
                 // arrange
                 setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
+                spyOn(winLossDetailView, "initHelp");
 
                 // act
                 winLossDetailView.init();
@@ -119,6 +126,10 @@
             it("_Calls sortComponent.render", () => {
                 // assert
                 expect(sortComponent.render).toHaveBeenCalled();
+            });
+            it("_Init Help", () => {
+                // assert
+                expect(winLossDetailView.initHelp).toHaveBeenCalled();
             });
         });
 
@@ -219,8 +230,9 @@
                 winLossDetailView.$tableReport,
                 false,
                 true,
-                winLossDetailView.afterSort,
-                { 0: { sorter: "text" } }
+                sortComponent.afterSort,
+                { 0: { sorter: "text" } },
+                winLossDetailView.$reportForm
             ));
         });
     });
@@ -392,10 +404,6 @@
                 expect(winLossDetailView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
                 expect(winLossDetailView.$reportForm.hasClass("hide")).toBeFalsy();
             });
-            it("_Position Net Turnover Tooltip", () => {
-                // assert
-                expect(netTurnoverTooltipComponent.positionNetTurnoverTooltip).toHaveBeenCalled();
-            });
             it("_Update Href Param to True", () => {
                 // assert
                 expect(winLossDetailView.replaceHrefParam).toHaveBeenCalledWith("IsFilterVisible", true);
@@ -561,67 +569,6 @@
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
         });
     });
-    describe("_afterSort", () => {
-        it("_Not Have All Data on Client -> Submits Report", () => {
-            // arrange
-            setFixtures(winLossDetailTemplate.currentReportWithNormalMode);
-            winLossDetailView.hasAllDataOnClient = false;
-            winLossDetailView.cacheElements();
-            spyOn(winLossDetailView.$reportForm, "trigger");
-            spyOn(winLossDetailView, "onSubmitReport");
-
-            // act
-            winLossDetailView.afterSort();
-
-            // assert
-            expect(winLossDetailView.$reportForm.trigger).toHaveBeenCalledWith("submit");
-        });
-
-        let haveAllDataOnClientTests = (currentHtml: string, expectedIsDescendingSort: boolean, expectedTableBody: string) => {
-            // arrange
-            setFixtures(currentHtml);
-            winLossDetailView.hasAllDataOnClient = true;
-            winLossDetailView.cacheElements();
-            spyOn(winLossDetailView.$reportForm, "trigger");
-            spyOn(winLossDetailView, "onSubmitReport");
-            let replaceHrefParamSpy = spyOn(winLossDetailView, "replaceHrefParam");
-
-            // act
-            winLossDetailView.afterSort();
-            let actulaTableBody = $.trim(winLossDetailView.$tableReport.find("tbody").html());
-
-            // assert
-            expect(winLossDetailView.$reportForm.trigger).not.toHaveBeenCalledWith("submit");
-            expect(replaceHrefParamSpy.calls.allArgs()).toEqual([
-                ["SortPropertyName", "WinLoss"],
-                ["IsDescendingSort", expectedIsDescendingSort]]);
-
-            expect(actulaTableBody).toEqual(expectedTableBody);
-        };
-
-        it(`_Have All Data on Client and Currently Sorts ASC on Normal Mode ->
-            Updates Href Param;
-            Not Submit Report;
-            Updates even-row class for tbody`, () => {
-                haveAllDataOnClientTests(winLossDetailTemplate.sortASCOnNormalMode, false, `<tr class=""><td>Row 1</td></tr>
-                                    <tr class="even-row"><td>Row 2</td></tr>
-                                    <tr><td>Row 3</td></tr>
-                                    <tr class="even-row"><td>Row 4</td></tr>`);
-            });
-
-        it(`_Have All Data on Client and Currently Sorts DESC on Normal Mode ->
-            Updates Href Param;
-            Not Submit Report;
-            Updates even-row class for tbody`, () => {
-                haveAllDataOnClientTests(winLossDetailTemplate.sortDESCOnNormalMode, true, "");
-            });
-        it(`_Have All Data on Client and Currently Sorts DESC Combined Column on Stack Mode ->
-            Updates Href Param;
-            Not Submit Report;
-            Updates even-row class for tbody`, () => {
-                haveAllDataOnClientTests(winLossDetailTemplate.sortDESCCombinedColumnOnStackMode, true, "");
-            });
-    });
     describe("_hideFilter_Always", () => {
         beforeEach(() => {
             // arrange
@@ -639,10 +586,6 @@
         it("_Updates Filter", () => {
             // assert
             expect(winLossDetailView.$reportForm.hasClass("hide")).toBeTruthy();
-        });
-        it("_Updates Net Turnover Tooltip", () => {
-            // assert
-            expect(netTurnoverTooltipComponent.positionNetTurnoverTooltip).toHaveBeenCalledWith(winLossDetailView.$netTurnoverTooltip);
         });
     });
     describe("_getParams", () => {

@@ -246,4 +246,57 @@
             expect(actualIsIE).toBeTruthy();
         });
     });
+
+    describe("_correctEvenRowClass", () => {
+        it("_Always -> Correct table rows", () => {
+            // arrange
+            setFixtures(`<body>
+                            <table id="tbl-report">
+                                <tbody>
+                                    <tr class="even-row"><td>Row 1</td></tr>
+                                    <tr><td>Row 2</td></tr>
+                                    <tr><td>Row 3</td></tr>
+                                    <tr class="even-row"><td>Row 4</td></tr>
+                                </tbody>
+                            </table>
+                        </body>`);
+            let $tableReport = $("#tbl-report");
+            let expectedTableBody = `<tr class=""><td>Row 1</td></tr>
+                                    <tr class="even-row"><td>Row 2</td></tr>
+                                    <tr><td>Row 3</td></tr>
+                                    <tr class="even-row"><td>Row 4</td></tr>`;
+            // act
+            alphaReports.correctEvenRowClass($tableReport);
+            let actualTableBody = $.trim($tableReport.find("tbody").html());
+
+            // assert
+            expect(actualTableBody).toEqual(expectedTableBody);
+        });
+    });
+
+    describe("_convertAttributeToBool", () => {
+        let convertAttributeToBoolTestCase = (attributeValue: string, expectedValue: boolean) => {
+            // act
+            let actualValue = alphaReports.convertAttributeToBool(attributeValue);
+
+            // assert
+            expect(actualValue).toEqual(expectedValue);
+        };
+
+        it("_Null Attribute -> Returns False", () => {
+            convertAttributeToBoolTestCase(null, false);
+        });
+        it("_Empty Value -> Returns False", () => {
+            convertAttributeToBoolTestCase("", false);
+        });
+        it("_Not True Value -> Returns False", () => {
+            convertAttributeToBoolTestCase("False", false);
+            convertAttributeToBoolTestCase(" ", false);
+            convertAttributeToBoolTestCase("  ", false);
+        });
+        it("_True Value -> Returns True", () => {
+            convertAttributeToBoolTestCase("true", true);
+            convertAttributeToBoolTestCase("True", true);
+        });
+    });
 });

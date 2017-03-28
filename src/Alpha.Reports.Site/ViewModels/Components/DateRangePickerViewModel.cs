@@ -48,11 +48,11 @@
 
         public int UserSelectedDateRangeOption { get; }
 
+        public bool IsRenderSubmitButton { get; }
+
         public IEnumerable<SelectListItem> RangeOptions { get; }
 
         public SelectListItem SelectedRangeOption { get; private set; }
-
-        public bool IsRenderSubmitButton { get; }
 
         private IEnumerable<SelectListItem> BuildRangeOptions(int userSelectedDateRangeOption)
         {

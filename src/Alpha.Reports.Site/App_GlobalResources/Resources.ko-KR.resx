@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
+  <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,227 +59,227 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="metadata">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" />
-							</xsd:sequence>
-							<xsd:attribute name="name" use="required" type="xsd:string" />
-							<xsd:attribute name="type" type="xsd:string" />
-							<xsd:attribute name="mimetype" type="xsd:string" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="assembly">
-						<xsd:complexType>
-							<xsd:attribute name="alias" type="xsd:string" />
-							<xsd:attribute name="name" type="xsd:string" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-							<xsd:attribute ref="xml:space" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>2.0</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<data name="AgentWinLossDetail" xml:space="preserve">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AgentWinLossDetail" xml:space="preserve">
     <value>에이전트 승 패 상세보기</value>
   </data>
-	<data name="MasterWinLossDetail" xml:space="preserve">
+  <data name="MasterWinLossDetail" xml:space="preserve">
     <value>상세한 마스터 승리 패배</value>
   </data>
-	<data name="MemberWinLossDetail" xml:space="preserve">
+  <data name="MemberWinLossDetail" xml:space="preserve">
     <value>상세한 회원의 승리 패배</value>
   </data>
-	<data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
+  <data name="CanOnlyViewDataAfterTimeCurrentReport" xml:space="preserve">
     <value>You can view the report data from {0}. For more historic data, please click to </value>
   </data>
-	<data name="Today" xml:space="preserve">
+  <data name="Today" xml:space="preserve">
     <value>오늘</value>
   </data>
-	<data name="Yesterday" xml:space="preserve">
+  <data name="Yesterday" xml:space="preserve">
     <value>어제</value>
   </data>
-	<data name="LastWeek" xml:space="preserve">
+  <data name="LastWeek" xml:space="preserve">
     <value>마지막 주</value>
   </data>
-	<data name="LastMonth" xml:space="preserve">
+  <data name="LastMonth" xml:space="preserve">
     <value>마지막 달</value>
   </data>
-	<data name="SinceLastMonth" xml:space="preserve">
+  <data name="SinceLastMonth" xml:space="preserve">
     <value>지난달부터</value>
   </data>
-	<data name="January" xml:space="preserve">
+  <data name="January" xml:space="preserve">
     <value>1월</value>
   </data>
-	<data name="March" xml:space="preserve">
+  <data name="March" xml:space="preserve">
     <value>3월</value>
   </data>
-	<data name="February" xml:space="preserve">
+  <data name="February" xml:space="preserve">
     <value>2월</value>
   </data>
-	<data name="April" xml:space="preserve">
+  <data name="April" xml:space="preserve">
     <value>4월</value>
   </data>
-	<data name="May" xml:space="preserve">
+  <data name="May" xml:space="preserve">
     <value>5월</value>
   </data>
-	<data name="June" xml:space="preserve">
+  <data name="June" xml:space="preserve">
     <value>6월</value>
   </data>
-	<data name="July" xml:space="preserve">
+  <data name="July" xml:space="preserve">
     <value>7월</value>
   </data>
-	<data name="August" xml:space="preserve">
+  <data name="August" xml:space="preserve">
     <value>8월</value>
   </data>
-	<data name="September" xml:space="preserve">
+  <data name="September" xml:space="preserve">
     <value>9월</value>
   </data>
-	<data name="October" xml:space="preserve">
+  <data name="October" xml:space="preserve">
     <value>10월</value>
   </data>
-	<data name="November" xml:space="preserve">
+  <data name="November" xml:space="preserve">
     <value>11월</value>
   </data>
-	<data name="December" xml:space="preserve">
+  <data name="December" xml:space="preserve">
     <value>12월</value>
   </data>
-	<data name="Submit" xml:space="preserve">
+  <data name="Submit" xml:space="preserve">
     <value>확인</value>
   </data>
-	<data name="CanOnlyViewDataAfterTimeHistoryReport" xml:space="preserve">
+  <data name="CanOnlyViewDataAfterTimeHistoryReport" xml:space="preserve">
     <value>You can view the report data from {0}. </value>
   </data>
-	<data name="Page" xml:space="preserve">
+  <data name="Page" xml:space="preserve">
     <value>페이지</value>
   </data>
-	<data name="of" xml:space="preserve">
+  <data name="of" xml:space="preserve">
     <value>부터</value>
   </data>
-	<data name="Username" xml:space="preserve">
+  <data name="Username" xml:space="preserve">
     <value>사용자 이름</value>
   </data>
-	<data name="Turnover" xml:space="preserve">
+  <data name="Turnover" xml:space="preserve">
     <value>총 배팅한 금액</value>
   </data>
-	<data name="NetTurnover" xml:space="preserve">
+  <data name="NetTurnover" xml:space="preserve">
     <value>순매출</value>
   </data>
-	<data name="GrossComm" xml:space="preserve">
+  <data name="GrossComm" xml:space="preserve">
     <value>전체 수수료</value>
   </data>
-	<data name="Member" xml:space="preserve">
+  <data name="Member" xml:space="preserve">
     <value>회원</value>
   </data>
-	<data name="Agent" xml:space="preserve">
+  <data name="Agent" xml:space="preserve">
     <value>에이전트</value>
   </data>
-	<data name="Master" xml:space="preserve">
+  <data name="Master" xml:space="preserve">
     <value>마스터</value>
   </data>
-	<data name="Super" xml:space="preserve">
+  <data name="Super" xml:space="preserve">
     <value>슈퍼</value>
   </data>
-	<data name="Company" xml:space="preserve">
+  <data name="Company" xml:space="preserve">
     <value>회사</value>
   </data>
-	<data name="WinLoss" xml:space="preserve">
+  <data name="WinLoss" xml:space="preserve">
     <value>승/패</value>
   </data>
-	<data name="Comm" xml:space="preserve">
+  <data name="Comm" xml:space="preserve">
     <value>수수료</value>
   </data>
-	<data name="Total" xml:space="preserve">
+  <data name="Total" xml:space="preserve">
     <value>총</value>
   </data>
-	<data name="ExportToExcel" xml:space="preserve">
+  <data name="ExportToExcel" xml:space="preserve">
     <value>엘셀로 내보내기</value>
   </data>
-	<data name="DoNotShowAgain" xml:space="preserve">
+  <data name="DoNotShowAgain" xml:space="preserve">
     <value>이 페이지를 다시 표시하지않습니다.</value>
   </data>
-	<data name="NoInformationIsAvailable" xml:space="preserve">
+  <data name="NoInformationIsAvailable" xml:space="preserve">
     <value>가능한 정보가 없습니다</value>
   </data>
-	<data name="TurnoverAbbr" xml:space="preserve">
+  <data name="TurnoverAbbr" xml:space="preserve">
     <value>총 배팅한 금액</value>
   </data>
-	<data name="NetTurnoverAndGrossComm" xml:space="preserve">
+  <data name="NetTurnoverAndGrossComm" xml:space="preserve">
     <value>/순매출/전체 수수료</value>
   </data>
-	<data name="WinLossAbbr" xml:space="preserve">
+  <data name="WinLossAbbr" xml:space="preserve">
     <value>승/패</value>
   </data>
-	<data name="CommAndTotal" xml:space="preserve">
+  <data name="CommAndTotal" xml:space="preserve">
     <value>/수수료/총</value>
   </data>
-	<data name="BackToCurrentReport" xml:space="preserve">
+  <data name="BackToCurrentReport" xml:space="preserve">
     <value>현재기록으로 다시 가기</value>
   </data>
-	<data name="ViewHistoryReport" xml:space="preserve">
+  <data name="ViewHistoryReport" xml:space="preserve">
     <value>리포트 내역 보기</value>
   </data>
-	<data name="AgentTotal" xml:space="preserve">
+  <data name="AgentTotal" xml:space="preserve">
     <value>총 에이전트</value>
   </data>
-	<data name="AgentWinLoss" xml:space="preserve">
+  <data name="AgentWinLoss" xml:space="preserve">
     <value>에이전트 승 패</value>
   </data>
-	<data name="MasterTotal" xml:space="preserve">
+  <data name="MasterTotal" xml:space="preserve">
     <value>마스터 총계</value>
   </data>
-	<data name="MasterWinLoss" xml:space="preserve">
+  <data name="MasterWinLoss" xml:space="preserve">
     <value>마스터 승리 패배</value>
   </data>
-	<data name="MemberWinLoss" xml:space="preserve">
+  <data name="MemberWinLoss" xml:space="preserve">
     <value>สมาชิก (ชนะ แพ้)</value>
   </data>
-	<data name="Date" xml:space="preserve">
+  <data name="Date" xml:space="preserve">
     <value>날짜</value>
   </data>
-	<data name="Entered" xml:space="preserve">
+  <data name="Entered" xml:space="preserve">
     <value>입력됨</value>
   </data>
-	<data name="NonEntered" xml:space="preserve">
+  <data name="NonEntered" xml:space="preserve">
     <value>기록되지 않은 것</value>
   </data>
-	<data name="Results" xml:space="preserve">
+  <data name="Results" xml:space="preserve">
     <value>결과 확인</value>
   </data>
   <data name="GrossComAndAgentTotal" xml:space="preserve">
@@ -300,16 +300,64 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>승리 패배</value>
   </data>
-	<data name="Outstanding" xml:space="preserve">
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>라이브빙고 번호</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>다음</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>풀게임</value>
+  </data>
+  <data name="MatchWinLoss" xml:space="preserve">
+    <value>매치 승리 패배</value>
+  </data>
+  <data name="Outstanding" xml:space="preserve">
 		<value>대기 포인트</value>
 	</data>
-	<data name="MemberOutstanding" xml:space="preserve">
+  <data name="MemberOutstanding" xml:space="preserve">
 		<value>회원 아웃스텐딩</value>
 	</data>
-	<data name="AgentOutstanding" xml:space="preserve">
+  <data name="AgentOutstanding" xml:space="preserve">
 		<value>에이전트 아웃스텐딩</value>
 	</data>
-	<data name="MasterOutstanding" xml:space="preserve">
+  <data name="MasterOutstanding" xml:space="preserve">
 		<value>마스터 대기 포인트</value>
 	</data>
+  <data name="Match" xml:space="preserve">
+    <value>매치</value>
+  </data>
+  <data name="PositionTaking" xml:space="preserve">
+    <value>거래 조건</value>
+  </data>
+  <data name="BetType" xml:space="preserve">
+    <value>배팅 유형</value>
+  </data>
+  <data name="Outright" xml:space="preserve">
+    <value>순위,승자 등</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>경주</value>
+  </data>
+  <data name="HorseRacing" xml:space="preserve">
+    <value>경마</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>넘버게임 커미션</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>총 하위</value>
+  </data>
+  <data name="MatchWinLossDetail" xml:space="preserve">
+    <value>경기 승 패 상세보기</value>
+  </data>
+  <data name="SelectLeague" xml:space="preserve">
+    <value>리그 선택</value>
+  </data>
+  <data name="AllLeagues" xml:space="preserve">
+    <value>모든 리그</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>총 그랜드</value>
+  </data>
 </root>

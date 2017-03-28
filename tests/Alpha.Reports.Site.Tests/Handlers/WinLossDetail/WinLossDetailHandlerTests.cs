@@ -28,7 +28,6 @@
         private readonly WinLossDetailHandler winLossDetailHandler;
         private readonly UserFixture userFixture;
         private readonly PagedReportData<WinLossDetailModel> reportData;
-        private readonly WinLossDetailService reportService;
 
         public WinLossDetailHandlerTests(UserFixture userFixture)
         {
@@ -36,18 +35,18 @@
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string> { "Product Name" });
 
             reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
-            reportService = Substitute.For<WinLossDetailService>();
+            var reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
             this.userFixture = userFixture;
-            winLossDetailHandler = new WinLossDetailHandler(productService, reportService);
+            winLossDetailHandler = new WinLossDetailHandler(productService, reportService, userFixture.User);
             SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
 
         [Fact]
-        public void HandlerWinLossDetailQuery_NullMessage_ThrowsArgumentNullException()
+        public void HandleWinLossDetailQuery_NullMessage_ThrowsArgumentNullException()
         {
             // Arrange
             WinLossDetailQuery nullMessage = null;
@@ -101,6 +100,75 @@
 
             // Assert
             AssertExtension.Equal(expectedWinLossDetailViewModel, actualWinLossDetailViewModel);
+        }
+
+        [Fact]
+        public void HandleReportLegendQuery_ProductsNotContainAllBet_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>());
+
+            var expectedViewModel = new List<string>
+            {
+                "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets."
+            };
+
+            // Act
+            var actualViewModel = winLossDetailHandler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Fact]
+        public void HandleReportLegendQuery_ProductsContainAllBet_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
+            {
+                new Product(21, string.Empty)
+            });
+
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
+
+            var expectedViewModel = new List<string>
+            {
+                "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
+                "- For AllBet, Net Turnover is total valid bets that we use to compute commission."
+            };
+
+            // Act
+            var actualViewModel = winLossDetailHandler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Fact]
+        public void HandleReportLegendQuery_HaveProductsNeedDelayTimeToSumarizeData_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(new List<byte> { 1 });
+            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
+            {
+                new Product(21, string.Empty)
+            });
+
+            var expectedViewModel = new List<string>
+            {
+                "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
+                "- For AllBet, Net Turnover is total valid bets that we use to compute commission.",
+                "- Data of Product Name will be delayed up to 5 minutes after settling tickets."
+            };
+
+            // Act
+            var actualViewModel = winLossDetailHandler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
         }
     }
 }

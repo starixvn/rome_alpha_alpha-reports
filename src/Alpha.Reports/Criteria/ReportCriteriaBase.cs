@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria
 {
     using System;
-    using Extensions;
     using Fanex.Data.Repository;
 
     public abstract class ReportCriteriaBase : CriteriaBase

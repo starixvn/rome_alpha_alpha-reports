@@ -5,12 +5,12 @@ describe("WinLossDetail", () => {
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     const pagerComponent = new PagerComponent($);
-    const sortComponent = new SortComponent($);
     const monthPickerComponent = new MonthPickerComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const reportTooltip = new ReportTooltip($);
     const netTurnoverTooltipComponent = new NetTurnoverTooltipComponent($);
     const linkBuilderComponent = new LinkBuilderComponent($);
+    const sortComponent = new SortComponent($, linkBuilderComponent);
 
     let winLossDetailView: WinLossDetailView;
 
@@ -31,7 +31,6 @@ describe("WinLossDetail", () => {
             sortComponent,
             reportTooltip,
             monthPickerComponent,
-            netTurnoverTooltipComponent,
             linkBuilderComponent);
 
         cacheElements = spyOn(winLossDetailView, "cacheElements");

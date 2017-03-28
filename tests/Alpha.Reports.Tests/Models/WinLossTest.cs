@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Tests.Models
 {
     using KellermanSoftware.CompareNetObjects;
+    using Reports.Models;
     using Reports.Models.Winloss;
-    using Reports.Models.WinLossDetail;
     using Xunit;
 
     [Trait("Category", "WinLoss")]

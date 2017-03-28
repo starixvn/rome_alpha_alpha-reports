@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Models
 {
     using KellermanSoftware.CompareNetObjects;
-    using Reports.Models.WinLossDetail;
+    using Reports.Models;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -32,17 +32,18 @@
         }
 
         [Fact]
-        public void Add_NullNetWinLoss_ReturnNull()
+        public void Add_NullNetWinLoss_ReturnCurrentNetWinLoss()
         {
             // Arrange
             var netWinLossA = new NetWinLoss(5, (decimal)0.2, (decimal)5.2);
             NetWinLoss netWinLossB = null;
+            var expectedNetWinLoss = netWinLossA;
 
             // Act
             var actualNetWinLoss = NetWinLoss.Add(netWinLossA, netWinLossB);
 
             // Assert
-            Assert.Null(actualNetWinLoss);
+            Assert.Equal(expectedNetWinLoss, actualNetWinLoss);
         }
 
         [Fact]
