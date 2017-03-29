@@ -6,7 +6,7 @@
 
 "use strict";
 
-class WinLossAnalysisView {
+class WinLossAnalysisView extends BaseReport{
     $: JQueryStatic;
     $pageTitle: JQuery;
     $tableReport: JQuery;
@@ -36,13 +36,17 @@ class WinLossAnalysisView {
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     sortComponent: SortComponent;
     reportTooltip: ReportTooltip;
+    linkBuilderComponent: LinkBuilderComponent;
 
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         sortComponent: SortComponent,
-        reportTooltip: ReportTooltip) {
+        reportTooltip: ReportTooltip,
+        linkBuilderComponent: LinkBuilderComponent) {
+        super();
+
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
@@ -302,8 +306,9 @@ const winLossAnalysisView = new WinLossAnalysisView(
     $,
     new DateRangePickerComponent($),
     new ProductMultiSelectionComponent($),
-    new SortComponent($),
-    new ReportTooltip($));
+    new SortComponent($, new LinkBuilderComponent($)),
+    new ReportTooltip($),
+    new LinkBuilderComponent($));
 
 $(function () {
     winLossAnalysisView.init();

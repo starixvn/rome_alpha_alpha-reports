@@ -37,7 +37,6 @@
             // Arrange
             var netWinLossA = new NetWinLoss(5, (decimal)0.2, (decimal)5.2);
             NetWinLoss netWinLossB = null;
-            var expectedNetWinLoss = netWinLossA;
 
             // Act
             var actualNetWinLoss = NetWinLoss.Add(netWinLossA, netWinLossB);

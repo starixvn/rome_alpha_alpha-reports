@@ -126,7 +126,6 @@
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\UserLevel.cs" />
-    <Compile Include="Models\NetWinLoss.cs" />
     <Compile Include="Models\WinLossAnalysis\WinLossAnalysisConstants.cs" />
     <Compile Include="Models\WinLossAnalysis\WinLossAnalysisModel.cs" />
     <Compile Include="Models\WinLossDetail\WinLossDetailModel.cs" />

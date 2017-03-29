@@ -1,7 +1,8 @@
 ﻿describe("WinLossAnalysis_", () => {
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
-    const sortComponent = new SortComponent($);
+    const linkBuilderComponent = new LinkBuilderComponent($);
+    const sortComponent = new SortComponent($, linkBuilderComponent);
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const reportTooltip = new ReportTooltip($);
     let winLossAnalysisView: WinLossAnalysisView;
@@ -19,7 +20,8 @@
             dateRangePickerComponent,
             productMultiSelectionComponent,
             sortComponent,
-            reportTooltip);
+            reportTooltip,
+            linkBuilderComponent);
 
         cacheDOMElements = spyOn(winLossAnalysisView, "cacheDOMElements");
         cacheDOMElements.and.callThrough();
