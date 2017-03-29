@@ -121,7 +121,7 @@
                 {
                     new MatchWinLossViewModel("Number Game No Match Code", "Bet Type 81", rawData[0]),
                     new MatchWinLossViewModel("Number Game No Match Code", "Next Bet Type 85", rawData[1]),
-                    new MatchWinLossViewModel("Number Game No Match Code", "FT Bet Type 86", rawData[2]),
+                    new MatchWinLossViewModel("Number Game No Match Code", "FT. Bet Type 86", rawData[2]),
                     new MatchWinLossViewModel("Number Game No Match Code", "Next Bet Type 86", rawData[3]),
                     new MatchWinLossViewModel("Team 2 -vs- Team 3", "Bet Type 1105", rawData[4]),
                     new MatchWinLossViewModel("Team 2 (N) -vs- Team 3", "Bet Type 1105", rawData[5])

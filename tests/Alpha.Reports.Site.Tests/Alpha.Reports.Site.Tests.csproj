@@ -223,13 +223,11 @@
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductBaseHandlerTests.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandlerTests.cs" />
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />
-      <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
+    <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbookImplTests.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
- <Compile Include="Handlers\WinLossByBettype\WinLossByBetTypeHandlerTestsExcelHandlerTest.cs" />
-
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandlerTests.cs" />
     <Compile Include="Handlers\LeagueHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />

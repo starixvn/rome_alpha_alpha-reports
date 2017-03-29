@@ -254,10 +254,11 @@
   <ItemGroup>
     <CodeAnalysisDictionary Include="CodeAnalysis\CustomDictionary.xml">
       <SubType>Designer</SubType>
-    </CodeAnalysisDictionary><Content Include="Database\WinLossByProduct\AgentWinLossByProductHasData.xml">
- <Content Include="Database\WinLossByProduct\AgentWinLossByProductHasData.xml">
-
- <Content Include="Database\MatchWinLossDetail\AgentMatchWinLossDetailHasData.xml">
+    </CodeAnalysisDictionary>
+    <Content Include="Database\WinLossByProduct\AgentWinLossByProductHasData.xml">
+		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\MatchWinLossDetail\AgentMatchWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\MatchWinLossDetail\MasterMatchWinLossDetailHasData.xml">
@@ -267,23 +268,6 @@
     <Content Include="Database\MatchWinLossDetail\SuperMatchWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-       <Content Include="Database\WinLossByGameType\AgentWinLossByGameTypeHasData.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Database\WinLossByGameType\MasterWinLossByGameTypeHasData.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Database\WinLossByGameType\MemberWinLossByGameTypeHasData.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-
-
- <Content Include="Database\WinLossByBetType\AgentWinLossByBetTypeHasData.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Database\WinLossByProduct\MasterWinLossByProductHasData.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -291,7 +275,6 @@
     <Content Include="Database\WinLossByProduct\MemberWinLossByProductHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-
     <Content Include="Database\WinLoss\AgentWinLossHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

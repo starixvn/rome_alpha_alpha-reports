@@ -71,8 +71,7 @@
     { "Path": "../winloss/winloss.ts" },
     { "Path": "../matchwinloss/matchwinloss.ts" },
     { "Path": "apps/matchwinlossdetail/matchwinlossdetail-template.ts" },
-    { "Path": "../matchwinlossdetail/matchwinlossdetail.ts" }
-
+    { "Path": "../matchwinlossdetail/matchwinlossdetail.ts" },
     { "Path": "apps/winlossbyproduct/winlossbyproduct-template.ts" },
     { "Path": "../winlossbyproduct/winlossbyproduct.ts" }
   ],

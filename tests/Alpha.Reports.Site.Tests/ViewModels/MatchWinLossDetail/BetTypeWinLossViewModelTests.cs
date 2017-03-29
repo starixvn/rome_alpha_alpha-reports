@@ -56,7 +56,7 @@
         [InlineData(85, true, "Next ")]
         [InlineData(85, false, "Next ")]
         [InlineData(86, true, "Next ")]
-        [InlineData(86, false, "FT ")]
+        [InlineData(86, false, "FT. ")]
         [InlineData(100, true, "")]
         [InlineData(100, false, "")]
         public void Name_Always_ReturnsCorrectNameWithPrefix(
