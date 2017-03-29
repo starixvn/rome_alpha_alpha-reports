@@ -1,5 +1,9 @@
 ﻿@using Alpha.Reports.Models.RacingCommission;
 @using Alpha.Reports.Site.ViewModels.RacingCommission
+@{
+    ViewBag.Title = "Racing Commission Report";
+}
+
 @model RacingCommissionViewModel
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.RacingCommissionFilter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)

@@ -8,6 +8,8 @@ class CommissionByBettype {
     $: JQueryStatic;
     dateRangePicker: DateRangePickerComponent;
     sorter: SortComponent;
+    linkBuilderComponent: LinkBuilderComponent;
+
     $exportExcelForm: JQuery;
     $excelIcon: JQuery;
     $reportForm: JQuery;
@@ -15,11 +17,17 @@ class CommissionByBettype {
     $isDescendingSort: JQuery;
     $sortPropertyName: JQuery;
     $tableReport: JQuery;
+    $pageTitle: JQuery;
 
-    constructor($: JQueryStatic, dateRangePicker: DateRangePickerComponent, sorter: SortComponent) {
+    constructor(
+        $: JQueryStatic,
+        dateRangePicker: DateRangePickerComponent,
+        sorter: SortComponent,
+        linkBuilderComponent: LinkBuilderComponent) {
         this.$ = $;
         this.dateRangePicker = dateRangePicker;
         this.sorter = sorter;
+        this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
@@ -45,11 +53,13 @@ class CommissionByBettype {
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
+        this.$pageTitle = this.$(".page-title");
     };
 
     registerEvents = () => {
         this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$reportForm.submit(this.onSubmitReport);
+        this.$(".icon-filter").on("click", this.onClickIconFilter);
     };
 
     onExportExcelEvent = () => {
@@ -74,12 +84,31 @@ class CommissionByBettype {
             IsFilterVisible: !this.$reportForm.is(":hidden")
         };
     };
+    onClickIconFilter = () => {
+        let filter = this.$reportForm;
+        let currentHideState = filter.hasClass("hide");
+
+        if (currentHideState) {
+            this.$pageTitle.removeClass("hide-filter");
+            this.$reportForm.removeClass("hide");
+        } else {
+            this.$pageTitle.addClass("hide-filter");
+            this.$reportForm.addClass("hide");
+        }
+
+        this.replaceHrefParam("IsFilterVisible", currentHideState);
+    };
+    replaceHrefParam = (paramName: string, paramValue: any) => {
+        this.linkBuilderComponent.updateParam(paramName, paramValue);
+    };
 }
 
 $(function () {
+    const linkBuilderComponent = new LinkBuilderComponent($);
     const commissionByBettype = new CommissionByBettype(
         $,
         new DateRangePickerComponent($),
-        new SortComponent($, new LinkBuilderComponent($)));
+        new SortComponent($, linkBuilderComponent),
+        linkBuilderComponent);
     commissionByBettype.init();
 });

@@ -2,8 +2,10 @@
 @using Alpha.Reports.Site.ViewModels.CommissionByBettype
 @model CommissionByBettypeViewModel
 @{
+    ViewBag.Title = "Commission By Bet Type Report";
     var sortIndex = 4;
 }
+
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.CommissionByBettypeFilter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
 @Html.Partial("_CommissionByBettypeFilter", Model.CommissionByBettypeFilter,
@@ -49,7 +51,7 @@
                     else
                     {
                         <td data-islink="true" class="text-left">
-                            <a href="@Model.BuildDrillDownLink(commission, Request.Url.Query)">@commission.CustName</a>
+                            <a class="downline-link" href="@Model.BuildDrillDownLink(commission, Request.Url.Query)">@commission.CustName</a>
                         </td>
                     }
                     @RenderCellValue(commission)
