@@ -5,7 +5,7 @@
 
 "use strict";
 
-class WinLossByProductView {
+class WinLossByProductView extends BaseReport{
     $: JQueryStatic;
     $pageTitle: JQuery;
     $tableReport: JQuery;
@@ -32,12 +32,16 @@ class WinLossByProductView {
     dateRangePickerComponent: DateRangePickerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     reportTooltip: ReportTooltip;
+    linkBuilderComponent: LinkBuilderComponent;
 
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
-        reportTooltip: ReportTooltip) {
+        reportTooltip: ReportTooltip,
+        linkBuilderComponent: LinkBuilderComponent) {
+        super();
+
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
@@ -57,6 +61,8 @@ class WinLossByProductView {
         this.$tableReport.stickyTableHeaders();
         this.productToggle();
         this.registerEvents();
+
+        this.initHelp();
         this.$.unblockUI();
     };
 
@@ -239,7 +245,8 @@ const winLossByProductView = new WinLossByProductView(
     $,
     new DateRangePickerComponent($),
     new ProductMultiSelectionComponent($),
-    new ReportTooltip($));
+    new ReportTooltip($),
+    new LinkBuilderComponent($));
 
 $(function () {
     winLossByProductView.init();

@@ -4,6 +4,7 @@
     const reportTooltip = new ReportTooltip($);
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     let winLossByProductView: WinLossByProductView;
+    const linkBuilderComponent = new LinkBuilderComponent($);
 
     let cacheDOMElements: jasmine.Spy,
         registerEvents: jasmine.Spy,
@@ -19,7 +20,9 @@
             jQueryFake,
             dateRangePickerComponent,
             productMultiSelectionComponent,
-            reportTooltip);
+            reportTooltip,
+            linkBuilderComponent);
+        spyOn(winLossByProductView, "loadLegend");
 
         cacheDOMElements = spyOn(winLossByProductView, "cacheDOMElements");
         cacheDOMElements.and.callThrough();
