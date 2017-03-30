@@ -1,0 +1,446 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Collections
+Resource          ../common_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Interfaces/Main/in_m_edit_casino.txt
+
+*** Keywords ***
+Get Casino PT
+    [Arguments]    ${type}
+    Select Frame    main
+    ${ls_output}    Create List
+    # Get Super PT
+    ${tm_SuperPresetPT}    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_rng_superPrePT}
+    ${tm_MasterMaxPT}    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_rng_masterMaxPT}
+    ${tm_MasterMinPT}    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_rng_masterMinPT}
+    Run Keyword If    '${type}'=='Master'    Append To List    ${ls_output}    ${tm_SuperPresetPT}    ${tm_MasterMaxPT}    ${tm_MasterMinPT}
+    # Get Master PT
+    ${tm_MasterPresetPT}    Run Keyword If    '${type}'=='Agent'    Get Selected List Label    ${in_m_rng_masterPrePT}
+    ${tm_AgentMaxPT}    Run Keyword If    '${type}'=='Agent'    Get Selected List Label    ${in_m_rng_agentMaxPT}
+    ${tm_AgentMinPT}    Run Keyword If    '${type}'=='Agent'    Get Selected List Label    ${in_m_rng_agentMinPT}
+    Run Keyword If    '${type}'=='Agent'    Append To List    ${ls_output}    ${tm_MasterPresetPT}    ${tm_AgentMaxPT}    ${tm_AgentMinPT}
+    # Get Agent PT
+    ${tm_AgentPresetPT}    Run Keyword If    '${type}'=='Member'    Get Selected List Label    ${in_m_rng_agentPrePT}
+    Run Keyword If    '${type}'=='Member'    Append To List    ${ls_output}    ${tm_AgentPresetPT}
+    Unselect Frame
+    [Return]    ${ls_output}
+
+Edit Casino PT
+    [Arguments]    ${type}    ${ls_value}
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    @{ls_value}    Set Variable    ${ls_value}
+    Comment    Run Keyword If    '${type}' == 'Master'    Run Keywords    Select Value From List    ${in_m_rng_superPrePT}    @{ls_value}[0]
+    ...    AND    Select Value From List    ${in_m_rng_masterMaxPT}    @{ls_value}[1]
+    ...    AND    Select Value From List    ${in_m_rng_masterMinPT}    @{ls_value}[2]
+    Comment    Run Keyword If    '${type}' == 'Agent'    Run Keyword    Edit Casino PT Agent    ${in_m_CS_pt_cboM2}    @{ls_value}[0]
+    ...    AND    Select Value From List    ${in_m_rng_agentMaxPT}    @{ls_value}[1]
+    ...    AND    Select Value From List    ${in_m_rng_agentMinPT}    @{ls_value}[2]
+    Comment    Run Keyword If    '${type}' == 'Agent'    Run Keyword    Select Value From List    ${in_m_CS_pt_cboA2}    @{ls_value}[1]
+    Comment    Run Keyword If    '${type}' == 'Member'    Run Keyword    Select Value From List    ${in_m_CS_pt_cboA1}    @{ls_value}[0]
+    Comment    Sleep    2s
+    Comment    Click Element    ${in_m_CS_btnSubmit}
+    Comment    Sleep    10s
+    Run Keyword If    '${type}' == 'MasterAgent'    Edit Casino PT_MasterAgent
+    Run Keyword If    '${type}' == 'AgentMember'    Edit Casino PT_AgentPlayer    ${ls_value}
+    Unselect Frame
+
+Check Casino PT
+    [Arguments]    ${type}    @{expect}
+    select link in setting tab    Edit Casino
+    ${tm_Super}    Run Keyword If    '${type}' == 'Master'    Get Casino PT    Master
+    ${tm_Master}    Run Keyword If    '${type}' == 'Agent'    Get Casino PT    Agent
+    ${tm_Agent}    Run Keyword If    '${type}' == 'Member'    Get Casino PT    Member
+    Run Keyword If    '${type}' == 'Master'    Lists Should Be Equal    ${tm_Super}    @{expect}
+    Run Keyword If    '${type}' == 'Agent'    Lists Should Be Equal    ${tm_Master}    @{expect}
+    Run Keyword If    '${type}' == 'Member'    Lists Should Be Equal    ${tm_Agent}    @{expect}
+
+Edit RNG Casino PT
+    [Arguments]    ${action}=${EMPTY}    ${ptName}=${EMPTY}    ${value}=${EMPTY}
+    [Documentation]    This action is used to update Casino PT
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    ${tc_locator}    Set Variable    ${in_m_CS_pt_cbo${ptName}}
+    Wait Until Element Is Visible    ${tc_locator}
+    Run keyword if    '${value}'!='${EMPTY}'    select value from list    ${tc_locator}    ${value}
+    Run keyword if    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Unselect Frame
+
+Verify Casino PT
+    [Arguments]    ${ptName}    ${expectedValue}
+    Unselect Frame
+    Select Frame    main
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cbo${ptName}}
+    Should Be Equal    ${actualValue}    ${expectedValue}
+    Unselect Frame
+
+Edit Casino PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}    ${N3}=${EMPTY}
+    [Documentation]    *This Action is used to Update Casino Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_CS_pt_cboS3}    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboS3}    ${S3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboM3}    ${M3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    ${in_m_CS_pt_chkIs3}    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboUs3}    ${Us3}
+    Run Keyword If    '${N3}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboN3}    ${N3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Casino PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}    ${Us1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Casino Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_CS_pt_cboS1}    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboS1}    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    ${in_m_CS_pt_chkIs1}    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboUs1}    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Casino PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}    ${N2}=${EMPTY}
+    [Documentation]    *This Action is used to Update Casino Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_CS_pt_cboM2}    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboM2}    ${M2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboA2}    ${A2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    ${in_m_CS_pt_chkIm2}    ${Im2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboUm2}    ${Um2}
+    Run Keyword If    '${N2}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboN2}    ${N2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Casino PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}    ${Um1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Casino Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_CS_pt_cboM1}    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboM1}    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    ${in_m_CS_pt_chkIm1}    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboUm1}    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Casino PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${A1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Casino Position Taking - Agent Edit Member*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_CS_pt_cboA1}    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboA1}    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+
+Verify Casino PT_SuperMaster
+    [Arguments]    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    Unselect Frame
+    Select Frame    main
+    # Check S3
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CS_pt_cboS3}    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboS3}
+    Run keyword if    '${expectedS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check M3
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboM3}
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+    # Check Is3
+    ${actualValue}    Get Value    ${in_m_CS_pt_chkIs3}
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboUs3}
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    # Check N3
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboN3}
+    Run keyword if    '${expectedN3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedN3}
+    Unselect Frame
+
+Verify Casino PT_SuperPlayer
+    [Arguments]    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    Unselect Frame
+    Select Frame    main
+    # Check S1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CS_pt_cboS1}    ${cf_waitControl}
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboS1}
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Is1
+    ${actualValue}    Get Value    ${in_m_CS_pt_chkIs1}
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Us1
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboUs1}
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify Casino PT_MasterAgent
+    [Arguments]    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Master Edit Agent*
+    ...    - M2,A2, Im2, Um2
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    Unselect Frame
+    Select Frame    main
+    # Check M2
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CS_pt_cboM2}    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboM2}
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check A2
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboA2}
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+    # Check Im2
+    ${actualValue}    Get Value    ${in_m_CS_pt_chkIm2}
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboUm2}
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    # Check N2
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboN2}
+    Run keyword if    '${expectedN2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedN2}
+    Unselect Frame
+
+Verify Casino PT_MasterPlayer
+    [Arguments]    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}    ${expectedA1}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Maser Edit Member*
+    ...    - M1,Is1, Um1,A1
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    Unselect Frame
+    Select Frame    main
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CS_pt_cboM1}    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboM1}
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Get Value    ${in_m_CS_pt_chkIm1}
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboUm1}
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+
+Verify Casino PT_AgentPlayer
+    [Arguments]    ${expectedA1}
+    [Documentation]    *This action is used to Veriry PT Setting: Agent Edit Member*
+    ...    - A1
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    Unselect Frame
+    Select Frame    main
+    # Check A1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CS_pt_cboA1}    ${cfWaitControl}
+    ${ac_A1}    Get Selected List Label    ${in_m_CS_pt_cboA1}
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame
+
+Edit Multiple Casino PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}    ${N3}=${EMPTY}
+    [Documentation]    *This Action is used to Update Casino Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_CS_pt_cboS3}    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboS3}    ${S3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboM3}    ${M3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    ${in_m_CS_pt_chkIs3}    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboUs3}    ${Us3}
+    Run Keyword If    '${N3}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboN3}    ${N3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Casino PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}    ${Us1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Casino Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_CS_pt_cboS1}    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboS1}    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    ${in_m_CS_pt_chkIs1}    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboUs1}    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Casino PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}    ${N2}=${EMPTY}
+    [Documentation]    *This Action is used to Update Casino Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_CS_pt_cboM2}    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboM2}    ${M2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboA2}    ${A2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    ${in_m_CS_pt_chkIm2}    ${Im2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboUm2}    ${Um2}
+    Run Keyword If    '${N2}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboN2}    ${N2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Casino PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}    ${Um1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Casino Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_CS_pt_cboM1}    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboM1}    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    ${in_m_CS_pt_chkIm1}    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboUm1}    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Casino PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${A1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Casino Position Taking - Agent Edit Member*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_CS_pt_cboA1}    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select Value From List    ${in_m_CS_pt_cboA1}    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CS_btnSubmit}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Verify Multiple Casino PT_SuperMaster
+    [Arguments]    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S3
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CS_pt_cboS3}    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboS3}
+    Run keyword if    '${expectedS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check M3
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboM3}
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+    # Check Is3
+    ${actualValue}    Get Value    ${in_m_CS_pt_chkIs3}
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboUs3}
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    # Check N3
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboN3}
+    Run keyword if    '${expectedN3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedN3}
+    Unselect Frame
+
+Verify Multiple Casino PT_SuperPlayer
+    [Arguments]    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CS_pt_cboS1}    ${cf_waitControl}
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboS1}
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Is1
+    ${actualValue}    Get Value    ${in_m_CS_pt_chkIs1}
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Us1
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboUs1}
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify Multiple Casino PT_MasterAgent
+    [Arguments]    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Master Edit Agent*
+    ...    - M2,A2, Im2, Um2
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M2
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CS_pt_cboM2}    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboM2}
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check A2
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboA2}
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+    # Check Im2
+    ${actualValue}    Get Value    ${in_m_CS_pt_chkIm2}
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboUm2}
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    # Check N2
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboN2}
+    Run keyword if    '${expectedN2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedN2}
+    Unselect Frame
+
+Verify Multiple Casino PT_MasterPlayer
+    [Arguments]    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}    ${expectedA1}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Maser Edit Member*
+    ...    - M1,Is1, Um1,A1
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CS_pt_cboM1}    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboM1}
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Get Value    ${in_m_CS_pt_chkIm1}
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Get Selected List Label    ${in_m_CS_pt_cboUm1}
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+
+Verify Multiple Casino PT_AgentPlayer
+    [Arguments]    ${expectedA1}
+    [Documentation]    *This action is used to Veriry PT Setting: Agent Edit Member*
+    ...    - A1
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check A1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CS_pt_cboA1}    ${cfWaitControl}
+    ${ac_A1}    Get Selected List Label    ${in_m_CS_pt_cboA1}
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame

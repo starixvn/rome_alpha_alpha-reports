@@ -1,0 +1,83 @@
+*** Variables ***
+@{tc_32_soccer}    Soccer    10    100    1,000    ${EMPTY}    ${EMPTY}    ${EMPTY}
+...               ${EMPTY}
+@{tc_32_basketball}    Basketball    11    111    1,111    ${EMPTY}    ${EMPTY}    ${EMPTY}
+...               ${EMPTY}
+@{tc_32_football}    Football    12    112    1,112    ${EMPTY}    ${EMPTY}    ${EMPTY}
+...               ${EMPTY}
+@{tc_32_tennis}    Tennis    13    113    1,113    ${EMPTY}    ${EMPTY}    ${EMPTY}
+...               ${EMPTY}
+@{tc_32_baseball}    Baseball    14    114    1,114    ${EMPTY}    ${EMPTY}    ${EMPTY}
+...               ${EMPTY}
+@{tc_32_golf}     Golf    15    115    1,115    ${EMPTY}    ${EMPTY}    ${EMPTY}
+...               ${EMPTY}
+@{tc_32_motor}    Motor Sports    16    116    1,116    ${EMPTY}    ${EMPTY}    ${EMPTY}
+...               ${EMPTY}
+@{tc_32_other}    Other Sports    17    117    1,117    ${EMPTY}    ${EMPTY}    ${EMPTY}
+...               ${EMPTY}
+@{tc_32_mixpl}    Mix Sports Parlay    18    118    1,118    ${EMPTY}    ${EMPTY}    ${EMPTY}
+...               ${EMPTY}
+@{tc_32_hr}       HR Fixed Odds    19    119    1,119    ${EMPTY}    ${EMPTY}    ${EMPTY}
+...               ${EMPTY}
+@{tc_32_ng}       Number Game    20    120    1,120    85    ${EMPTY}    ${EMPTY}
+...               yes
+@{tc_33_unlimited}    Soccer    Basketball    Football    Tennis    Baseball    Golf    Motor Sports
+...               Other Sports    Mix Sports Parlay    HR Fixed Odds    Number Game
+@{tc_36_controls_disabled}    ${in_m_editsb_txtminbkball}    ${in_m_editsb_txtmaxbkball}    ${in_m_editsb_txtmaxperbkball}    ${in_m_editsb_txtminfball}    ${in_m_editsb_txtmaxfball}    ${in_m_editsb_txtmaxperfball}    ${in_m_editsb_txtmintennis}
+...               ${in_m_editsb_txtmaxtennis}    ${in_m_editsb_txtmaxpertennis}    ${in_m_editsb_txtminbsball}    ${in_m_editsb_txtmaxbsball}    ${in_m_editsb_txtmaxperbsball}    ${in_m_editsb_txtmingolf}    ${in_m_editsb_txtmaxgolf}
+...               ${in_m_editsb_txtmaxpergolf}    ${in_m_editsb_txtminmotor}    ${in_m_editsb_txtmaxmotor}    ${in_m_editsb_txtmaxpermotor}    ${in_m_editsb_txtminother}    ${in_m_editsb_txtmaxother}    ${in_m_editsb_txtmaxperother}
+...               ${in_m_editsb_txtminmix}    ${in_m_editsb_txtmaxmix}    ${in_m_editsb_txtmaxpermix}    ${in_m_editsb_txtminhr}    ${in_m_editsb_txtmaxhr}    ${in_m_editsb_txtmaxperhr}
+@{tc_36_copyproducts}    Soccer    Basketball    Football    Tennis    Baseball    Golf    Motor Sports
+...               Other Sports    Mix Sports Parlay    HR Fixed Odds
+@{tc_37_controls_disabled}    ${in_m_editsb_txtminfball}    ${in_m_editsb_txtmaxfball}    ${in_m_editsb_txtmaxperfball}    ${in_m_editsb_txtmintennis}    ${in_m_editsb_txtmaxtennis}    ${in_m_editsb_txtmaxpertennis}    ${in_m_editsb_txtminbsball}
+...               ${in_m_editsb_txtmaxbsball}    ${in_m_editsb_txtmaxperbsball}    ${in_m_editsb_txtmingolf}    ${in_m_editsb_txtmaxgolf}    ${in_m_editsb_txtmaxpergolf}    ${in_m_editsb_txtminmotor}    ${in_m_editsb_txtmaxmotor}
+...               ${in_m_editsb_txtmaxpermotor}    ${in_m_editsb_txtminother}    ${in_m_editsb_txtmaxother}    ${in_m_editsb_txtmaxperother}    ${in_m_editsb_txtminmix}    ${in_m_editsb_txtmaxmix}    ${in_m_editsb_txtmaxpermix}
+...               ${in_m_editsb_txtminhr}    ${in_m_editsb_txtmaxhr}    ${in_m_editsb_txtmaxperhr}
+@{tc_37_copyproducts}    Basketball    Football    Tennis    Baseball    Golf    Motor Sports    Other Sports
+...               Mix Sports Parlay    HR Fixed Odds
+@{tc_44_racing1}    Racing    UK/Irish    11    150    5,000    0    1
+...               no
+@{tc_44_greyhound1}    Greyhound    UK/Irish    23    333    4,560    0    1
+...               no
+@{tc_44_harness}    Harness    Aust    29    399    9,999    0    1
+...               yes
+@{tc_44_racing2}    Racing    SA    15    250    6,000    0    1
+...               no    Racing    Aust    30    330    7,500    0
+...               1    no
+@{tc_44_racing3}    Racing    Aust    30    330    7,500    0    1
+...               no
+@{tc_44_greyhound2}    Greyhound    Aust    22    260    3,490    0    1
+...               no
+@{tc_44_controls_disabled}    ${in_m_editrc_rc_sa_txtmin}    ${in_m_editrc_rc_sa_txtmax}    ${in_m_editrc_rc_sa_txtmpm}    ${in_m_editrc_rc_sa_drpcomm}    ${in_m_editrc_rc_sa_ckstatus1}    ${in_m_editrc_rc_sa_ckstatus2}    ${in_m_editrc_rc_aust_txtmin}
+...               ${in_m_editrc_rc_aust_txtmax}    ${in_m_editrc_rc_aust_txtmpm}    ${in_m_editrc_rc_aust_drpcomm}    ${in_m_editrc_rc_aust_ckstatus1}    ${in_m_editrc_rc_aust_ckstatus2}    ${in_m_editrc_greyh_uk_txtmin}    ${in_m_editrc_greyh_uk_txtmax}
+...               ${in_m_editrc_greyh_uk_txtmpm}    ${in_m_editrc_greyh_uk_drpcomm}    ${in_m_editrc_greyh_uk_ckstatus1}    ${in_m_editrc_greyh_uk_ckstatus2}    ${in_m_editrc_greyh_aust_txtmin}    ${in_m_editrc_greyh_aust_txtmax}    ${in_m_editrc_greyh_aust_txtmpm}
+...               ${in_m_editrc_greyh_aust_drpcomm}    ${in_m_editrc_greyh_aust_ckstatus1}    ${in_m_editrc_greyh_aust_ckstatus2}    ${in_m_editrc_harness_aust_txtmin    ${in_m_editrc_harness_aust_txtmax}    ${in_m_editrc_harness_aust_txtmpm}    ${in_m_editrc_harness_aust_drpcomm}
+...               ${in_m_editrc_harness_aust_ckstatus1}    ${in_m_editrc_harness_aust_ckstatus2}
+@{tc_49_soccer}    Virtual Soccer    55    555    5,555    no
+@{tc_49_tennis}    Virtual Tennis    31    231    3,268    no
+@{tc_49_hr}       Virtual Horse Racing    50    500    2,000    no
+@{tc_49_greyhounds}    Virtual Greyhounds    21    460    9,900    no
+@{tc_49_speedway}    Virtual Speedway    81    811    15,236    no
+@{tc_49_motor}    Virtual Motorsports    21    800    1,500    no
+@{tc_49_cycling}    Virtual Cycling    100    3,000    20,153    yes
+@{tc_53_all_party_baccarat}    0.5-100    0.5-50    5-500    25-1500    50-3000    100-300    100-5000
+...               200-10k    500-15k    2500-300k    3k-10k
+@{tc_53_all_party_roulette}    0.25-250    1-1500    10-10k
+@{tc_53_all_live_baccarat}    1-100    25-2500    50-500    1k-5k    25k-1m
+@{tc_53_all_live_roulette}    1-100
+#
+# Bet Setting Sets: Min Bet | Max Bet | Max Per March
+@{ds_Bet01_MasterDefault}    0    0    0
+@{ds_Bet01_MasterEdit}    110    210    2,100
+@{ds_Bet01_AgentDefault}    0    0    0
+@{ds_Bet01_AgentEdit}    55    155    1,550
+@{ds_Bet01_PlayerDefault}    0    0    0
+@{ds_Bet01_PlayerEdit}    20    150    1,100
+#
+# Bet Setting Sets: Min Bet | Max Bet | Max Per March | Match Per Ball
+@{ds_Bet02_MasterDefault}    0    0    0    0
+@{ds_Bet02_MasterEdit}    110    210    2,100    1,550
+@{ds_Bet02_AgentDefault}    0    0    0    0
+@{ds_Bet02_AgentEdit}    55    155    1,550    1,100
+@{ds_Bet02_PlayerDefault}    0    0    0    0
+@{ds_Bet02_PlayerEdit}    20    150    1,100    550

@@ -1,0 +1,40 @@
+*** Settings ***
+Documentation     This Module is used to verify Betlist with Super Login
+Suite Setup       Init BetList    SuperPlayer
+Suite Teardown
+Test Setup
+Test Teardown
+Force Tags
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Library           ExcelLibrary
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/menu/accountInfo_setting.txt
+Resource          ../../Data_set/accounts.txt
+Resource          ../../Interfaces/Main/in_m_betlist.txt
+Resource          ../../Actions/betlist.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+
+*** Test Cases ***
+TC01_BL_ACC_SuperPlayer
+    [Documentation]    This Module is used to verify Betlist with Super Login then View Player(Member) Betlist:
+    ...    - Search Member
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_viewUser}    set variable    ${init_gbMember}
+    COMMENT    ==============================>    MAIN STEPS
+    Open Betlist from AccountInfo    SuperPlayer    ${tc_viewUser}
+    Verify Betlist    SuperPlayer
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A

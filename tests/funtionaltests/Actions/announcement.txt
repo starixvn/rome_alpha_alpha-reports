@@ -1,0 +1,14 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../Interfaces/in_announcement.txt
+
+*** Keywords ***
+closed announcement
+    ${ac_isExist}    Run Keyword And Return Status    Wait Until Element Is Visible    ${in_a_btnClosed}    5s
+    Run Keyword If    '${ac_isExist}'=='True'    Click Element    ${in_a_btnClosed}

@@ -1,0 +1,59 @@
+*** Variables ***
+${in_m_partyba_chk0.5-100}    id=bettype_1
+${in_m_partyba_chk0.5-50}    id=bettype_140
+${in_m_partyba_chk5-500}    id=bettype_2
+${in_m_partyba_chk25-1500}    id=bettype_3
+${in_m_partyba_chk50-3000}    id=bettype_4
+${in_m_partyba_chk100-300}    id=bettype_6
+${in_m_partyba_chk100-5000}    id=bettype_5
+${in_m_partyba_chk200-10k}    id=bettype_7
+${in_m_partyba_chk500-15k}    id=bettype_8
+${in_m_partyba_chk2500-300k}    id=bettype_10
+${in_m_partyba_chk3k-10k}    id=bettype_9
+${in_m_partyro_chk0.25-250}    id=bettype_144
+${in_m_partyro_chk1-1500}    id=bettype_145
+${in_m_partyro_chk10-10k}    id=bettype_146
+${in_m_liveba_chk1-100}    id=bettype_1117
+${in_m_liveba_chk25-2500}    id=bettype_1324
+${in_m_liveba_chk50-500}    id=bettype_1951
+${in_m_liveba_chk1k-5k}    id=bettype_1952
+${in_m_liveba_chk25k-1m}    id=bettype_1325
+${in_m_livero_chk1-100}    id=bettype_1436
+${ddlS3}          id=ddlS3    # dropdown list S3
+${ddlM3}          id=ddlM3
+${ddlN3}          id=ddlN3
+${ddlCom}         id=ddlCom
+${ddlUs3}         id=ddlUs3
+${ddlM2}          id=ddlM2
+${ddlN2}          id=ddlN2
+${ddlUs2}         id=ddlUs2
+${ddlA2}          id=ddlA2
+${ddlA1}          id=ddlA1
+${ddlM1}          id=ddlM1
+${ddlS1}          id=ddlS1
+${ddlS2}          id=ddlS2
+${ddlUs1}         id=ddlUs1
+# PT Controls
+${in_m_LC_pt_cboS3}    //*[@id='ddlS3']    # S3 .//*[@id='ddlS3']
+${in_m_LC_pt_chkIs3}    //*[@id='cbIs3']    # is3: xpath.//*[@id='cbIs3']
+${in_m_LC_pt_cboUs3}    //*[@id='ddlUs3']    # us3
+${in_m_LC_pt_cboN3}    //*[@id='ddlN3']    # N3
+${in_m_LC_pt_cboM3}    //*[@id='ddlM3']    # M3
+${in_m_LC_pt_cboM2}    //*[@id='ddlM2']
+${in_m_LC_pt_cboA2}    //*[@id='ddlA2']
+${in_m_LC_pt_chkIm2}    //*[@id='cbIm2']
+${in_m_LC_pt_cboUm2}    //*[@id='ddlUm2']
+${in_m_LC_pt_cboN2}    //*[@id='ddlN2']
+${in_m_LC_pt_cboS1}    //*[@id='ddlS1']    # S1
+${in_m_LC_pt_cboM1}    //*[@id='ddlM1']    # M1
+${in_m_LC_pt_cboA1}    //*[@id='ddlA1']    # A1
+${in_m_LC_pt_chkIs1}    //*[@id='cbIs1']    # is1
+${in_m_LC_pt_cboUs1}    //*[@id='ddlUs1']    #us1
+${in_m_LC_pt_chkIm1}    //*[@id='cbIm1']    # im1
+${in_m_LC_pt_cboUm1}    //*[@id='ddlUm1']    #um1
+${in_m_LC_pt_lblS1}    xpath=//*[@id='tblPtComSetting']/table/tbody/tr/td[1]
+${in_m_LC_pt_lblM1}    xpath=//*[@id='tblPtComSetting']/table/tbody/tr/td[3]    # M1 value if Super View Member, A1 value if Master view Member
+${in_m_LC_pt_lblA1}    xpath=//*[@id='tblPtComSetting']/table/tbody/tr/td[4]    # A1 value if SuperView Member
+${in_m_LC_pt_btnPTCommSave}    xpath = //*[@id='tblPtComSetting']/div[1]/span[2]    # save button icon at Position Taking/Commision Group
+${in_m_LC_btnSubmit}    //*[@id='tblSetting']/div[8]/input    # submit button
+${in_m_LC_pt_message}    //*/div[@class="sub-message ng-scope"]

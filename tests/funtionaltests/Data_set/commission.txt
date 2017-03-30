@@ -1,0 +1,5 @@
+*** Variables ***
+@{ds_com01_default}    0.25    0.005    0.0075    0.01    0.0025    0.01    0
+...               0    # GroupA|GroupB|GroupC|GroupD|1x2 Comm|Others Comm|Number Game Comm|HR Fixed Odds
+@{ds_com01_edit}    0.2    0.005    0.0075    0.01    0.0025    0.01    0
+...               0    # GroupA|GroupB|GroupC|GroupD|1x2 Comm|Others Comm|Number Game Comm|HR Fixed Odds

@@ -1,0 +1,70 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Library           ExcelLibrary
+Library           DatabaseLibrary
+Resource          ../../Interfaces/in_login.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/Main/in_m_edit_sportsbook.txt
+Resource          ../../Interfaces/Main/in_m_edit_racing.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+
+*** Keywords ***
+update Line PT from excel by SQL
+    [Arguments]    ${excelSheet}    ${keyID}    ${sporttype}    ${bettype}    ${lineID}
+    # get data from excel
+    ${ac_title}    Create List in Range 0-1    0    9    1
+    ${ac_superPT}    Create List in Range 0-1    0    9    1
+    ${ac_masterPT}    Create List in Range 0-1    0    9    1
+    ${ac_agentPT}    Create List in Range 0-1    0    9    1
+    ${ac_memberPT}    Create List in Range 0-1    0    9    1
+    Comment    # read sport and bettype
+    Comment    ${ac_sport}    Read Cell Data By Coordinates    ${excelSheet}    2    1
+    Comment    ${ac_bettype}    Read Cell Data By Coordinates    ${excelSheet}    2    2
+    @{custid}    Split String    ${lineID}    ,
+    # found the row location of KeyID to read data
+    ${ac_startRow}    Find Row OfTextInColumn    ${keyID}    ${excelSheet}    1
+    ${ac_startRow}    Evaluate    ${ac_startRow}+1
+    Comment    Get Range In Row Values    ${excelSheet}    ${ac_startRow}    4    13    ${ac_superPT}
+    ${ac_superPT}    Get Range Excel In Row    ${excelSheet}    ${ac_startRow}    4    13
+    ${ac_startRow}    Evaluate    ${ac_startRow}+1
+    Comment    get range values excel in a row    ${excelSheet}    ${ac_startRow}    4    13    ${ac_masterPT}
+    ${ac_masterPT}    Get Range Excel In Row    ${excelSheet}    ${ac_startRow}    4    13
+    ${ac_startRow}    Evaluate    ${ac_startRow}+1
+    Comment    get range values excel in a row    ${excelSheet}    ${ac_startRow}    4    13    ${ac_agentPT}
+    ${ac_agentPT}    Get Range Excel In Row    ${excelSheet}    ${ac_startRow}    4    13
+    ${ac_startRow}    Evaluate    ${ac_startRow}+1
+    Comment    get range values excel in a row    ${excelSheet}    ${ac_startRow}    4    13    ${ac_memberPT}
+    ${ac_memberPT}    Get Range Excel In Row    ${excelSheet}    ${ac_startRow}    4    13
+    # Define sql string and execute it
+    # Super - s4,m4,a4,is,us,im,um
+    Comment    ${ac_custid}    Set Variable
+    ${ac_str}    set variable    Update CustsettingGame Set spositiontaking = ${ac_superPT[1]},mpositiontaking = ${ac_superPT[2]},apositiontaking = ${ac_superPT[3]} where custid = @{custid}[0] and sporttype = ${sporttype} and bettype =${bettype}
+    Execute Sql String    ${ac_str}
+    # Super - n4
+    ${ac_str}    set variable    Update custOverrideGame set minpositiontaking = ${ac_superPT[8]} Where custid = @{custid}[0] and sporttype = ${sporttype} and bettype =${bettype}
+    Execute Sql String    ${ac_str}
+    # Master - s4,m4,a4,is,us,im,um
+    ${ac_str}    set variable    Update CustsettingGame Set spositiontaking = ${ac_masterPT[1]},mpositiontaking = ${ac_masterPT[2]} ,isautopositiontaking = ${ac_masterPT[5]}, autopositiontaking = ${ac_masterPT[4]} where custid = @{custid}[1] and sporttype = ${sporttype} and bettype =${bettype}
+    Execute Sql String    ${ac_str}
+    # Master - n3
+    ${ac_str}    set variable    Update custOverrideGame set minpositiontaking = ${ac_masterPT[8]} Where custid = @{custid}[1] and sporttype = ${sporttype} and bettype =${bettype}
+    Execute Sql String    ${ac_str}
+    # Agent - s4,m4,a4,is,us,im,um
+    ${ac_str}    set variable    Update CustsettingGame Set mpositiontaking = ${ac_agentPT[2]},apositiontaking = ${ac_agentPT[3]}, isautompositiontaking = ${ac_agentPT[7]}, autompositiontaking = ${ac_agentPT[6]} where custid = @{custid}[2] and sporttype = ${sporttype} and bettype =${bettype}
+    Execute Sql String    ${ac_str}
+    # Agent - n2
+    ${ac_str}    set variable    Update custOverrideGame set minpositiontaking = ${ac_agentPT[8]} Where custid = @{custid}[2] and sporttype = ${sporttype} and bettype =${bettype}
+    Execute Sql String    ${ac_str}
+    # Member - s4,m4,a4,is,us,im,um
+    ${ac_str}    set variable    Update CustsettingGame Set spositiontaking = ${ac_memberPT[1]},mpositiontaking = ${ac_memberPT[2]},apositiontaking = ${ac_memberPT[3]},isautopositiontaking = ${ac_memberPT[5]}, autopositiontaking = ${ac_memberPT[4]}, isautompositiontaking = ${ac_memberPT[7]}, autompositiontaking = ${ac_memberPT[6]} where custid = @{custid}[3] and sporttype = ${sporttype} and bettype =${bettype}
+    Execute Sql String    ${ac_str}
+
+update Line PT from excel by Web

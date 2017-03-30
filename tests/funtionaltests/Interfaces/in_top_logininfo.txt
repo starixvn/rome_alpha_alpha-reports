@@ -1,0 +1,2 @@
+*** Variables ***
+${in_tl_username}    //*[@id='text_logo']/span

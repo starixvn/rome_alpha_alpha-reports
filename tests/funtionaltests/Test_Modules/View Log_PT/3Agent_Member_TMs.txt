@@ -1,0 +1,116 @@
+*** Settings ***
+Documentation     Agent Edit Member PT
+...               - View Log: Compare Value that Agent Edited Member PT
+Suite Teardown    Close Browser
+Force Tags        View Log PT    3Agent_Member_TMs
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/PT/pt_livecasino.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/Main/in_m_edit_livecasino.txt
+Resource          config_viewlog.txt
+
+*** Test Cases ***
+Agent Edit Member_ViewLog_LCS
+    [Documentation]    - Agent Edit Agent Preset PT on Member: Old = 0.9 => New =0.8
+    ...    - View Log Member:
+    ...    Expected result:
+    ...    - Log Date must be correct
+    ...    - Edited By must be correct
+    ...    - ACtion must be correct: Update Live Casino Position taking for member
+    ...    - Max PT: 0.80|0.90
+    #Preconditon    Master set Agent Max PT    0.9
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_s3}    Set Variable    0
+    ${tm_m3}    Set Variable    0.9
+    ${tm_passm3}    Set Variable    0.8
+    Open Page
+    Login    ${tm_agent}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    ${tm_master}
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Get old M3 value
+    Select Frame    main
+    ${tm_oldm3}=    Get Selected List Label    id=ddlA1
+    Unselect Frame
+    sleep    5s
+    # Edit Master's Max PT
+    ${tm_time}    Edit Live Casino PT    Member    ${EMPTY}    Yes    ${EMPTY}    ${tm_passm3}
+    ...    ${EMPTY}
+    Log    ${tm_time}
+    Comment    Page Should Contain    Position taking: Updated successfully.
+    Sleep    5s
+    # check log    user name    date log    action log    list check
+    Run Keyword If    '${tm_oldm3}'!='${tm_passm3}'    Check Live Casino PT Log    ${tm_member}    ${tm_time}    Update Live Casino Position taking for member    Max PT_0.80_0.90
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+AgentSub Edit Member_ViewLog_LCS
+    [Documentation]    - AgentSub Edit Agent Preset PT on Member: Old = 0.8 => New =0.9
+    ...    - View Log Member:
+    ...    Expected result:
+    ...    - Log Date must be correct
+    ...    - Edited By must be correct
+    ...    - ACtion must be correct: Update Live Casino Position taking for member
+    ...    - Max PT_0.90_0.80
+    ...    - Sub Acc name_${tm_agentsub}
+    #Preconditon
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO300
+    ${tm_s3}    Set Variable    0
+    ${tm_m3}    Set Variable    0.8
+    ${tm_passm3}    Set Variable    0.9
+    Open Page
+    # Login By Agentsub
+    Login    ${tm_agentsub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Get old M3 value
+    Select Frame    main
+    ${tm_oldm3}=    Get Selected List Label    id=ddlA1
+    Unselect Frame
+    sleep    5s
+    # Edit Master's Max PT
+    ${tm_time}    Edit Live Casino PT    Member    ${EMPTY}    Yes    ${EMPTY}    ${tm_passm3}
+    ...    ${EMPTY}
+    Log    ${tm_time}
+    Sleep    5s
+    Logout
+    # Log in by Agent
+    Login    ${tm_agent}    ${tm_acc_pass}    ${EMPTY}
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    # Check log Member who is edited by Agentsub    user name    date log    action log    list check
+    Run Keyword If    '${tm_oldm3}'!='${tm_passm3}'    Check Live Casino PT Log    ${tm_member}    ${tm_time}    Update Live Casino Position taking for member    Max PT_0.90_0.80
+    ...    Sub Acc name_${tm_agentsub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser

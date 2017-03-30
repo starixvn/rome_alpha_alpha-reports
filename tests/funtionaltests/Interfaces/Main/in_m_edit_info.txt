@@ -1,0 +1,3 @@
+*** Variables ***
+${in_m_eif_txtFirstName}    //*[@id='txtFName']
+${in_m_eif_btnUpdate}    //*[@id='btnSubmit']

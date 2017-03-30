@@ -1,0 +1,30 @@
+*** Settings ***
+Documentation     This is interface of Edit Setting Customer for Product {GoldDeluxe}
+...
+...               - Navigation: Account Info > Search Customer> Setting tab > Gold Deluxe
+...               - Note: under iframe 'main'
+
+*** Variables ***
+${in_m_editSetting_cboS3}    id=ddlS3    # S3 .//*[@id='ddlS3']
+${in_m_editSetting_chkIs3}    id=cbIs3    # is3: xpath.//*[@id='cbIs3']
+${in_m_editSetting_cboUs3}    id=ddlUs3    # us3
+${in_m_editSetting_cboN3}    id=ddlN3    # N3
+${in_m_editSetting_cboM3}    id=ddlM3    # M3
+${in_m_editSetting_cboM2}    id=ddlM2
+${in_m_editSetting_cboA2}    id=ddlA2
+${in_m_editSetting_chkIm2}    id=cbIm2
+${in_m_editSetting_cboUm2}    id=ddlUm2
+${in_m_editSetting_cboN2}    id=ddlN2
+${in_m_editSetting_cboS1}    id=ddlS1    # S1
+${in_m_editSetting_cboM1}    id=ddlM1    # M1
+${in_m_editSetting_cboA1}    id=ddlA1    # A1
+${in_m_editSetting_chkIs1}    id=cbIs1    # is1
+${in_m_editSetting_cboUs1}    id=ddlUs1    #us1
+${in_m_editSetting_chkIm1}    id=cbIm1    # im1
+${in_m_editSetting_cboUm1}    id=ddlUm1    #um1
+${in_m_editSetting_lblS1}    xpath=//*[@id='tblPtComSetting']/table/tbody/tr/td[1]
+${in_m_editSetting_lblM1}    xpath=//*[@id='tblPtComSetting']/table/tbody/tr/td[3]    # M1 value if Super View Member, A1 value if Master view Member
+${in_m_editSetting_lblA1}    xpath=//*[@id='tblPtComSetting']/table/tbody/tr/td[4]    # A1 value if SuperView Member
+${in_m_editSetting_btnPTCommSave}    xpath = //*[@id='tblPtComSetting']/div[1]/span[2]    # save button icon at Position Taking/Commision Group
+${in_m_editSetting_btnUpdate}    xpath=//*[@id='tblSetting']/div[*]/input    # submit button
+${in_m_editSetting_message}    //*/div[@class="sub-message ng-scope"]
