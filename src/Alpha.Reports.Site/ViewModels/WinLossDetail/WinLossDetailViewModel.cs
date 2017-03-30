@@ -5,6 +5,7 @@
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
+    using Configurations;
     using Params;
     using Reports.Constants;
     using Reports.Models;
@@ -28,6 +29,7 @@
 
             var canSort = reportData.DataSource != null && reportData.DataSource.Count() > 1;
             SortPropertyName = canSort ? GetSortedProperty(message.CustLevel, message.SortPropertyName) : DefaultVariables.SortPropertyName;
+            BetListPath = Helpers.UrlHelper.MapBetListPath("~/WinLoss/Index");
             IsDescendingSort = canSort && param.IsDescendingSort;
         }
 
@@ -68,7 +70,8 @@
              => new Dictionary<string, object>(base.GetBetListLinkRouteValues(model))
              {
                  ["CustId"] = model.CustId,
-                 ["Username"] = model.CustName
+                 ["CustName"] = model.CustName
+
              };
     }
 }

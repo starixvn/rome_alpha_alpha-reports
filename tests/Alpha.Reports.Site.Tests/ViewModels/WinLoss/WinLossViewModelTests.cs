@@ -118,6 +118,7 @@
             var message = CreateWinlossQuery(2);
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
+            message.IsHistoricReport = false;
             var winlossParam = new WinLossParam(1, fromDate, toDate, new List<int> { 1 }, UserLevel.Agent, false);
             var winlossViewModel = CreateWinLossViewModel(message, winlossParam);
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
@@ -125,8 +126,8 @@
 
             var expectedRouteValues = new Dictionary<string, object>
             {
-                ["FDate"] = fromDate,
-                ["TDate"] = toDate,
+                ["FromDate"] = fromDate,
+                ["ToDate"] = toDate,
                 ["ProductIds"] = "1",
                 ["FilterPostback"] = 1,
                 ["Type"] = "WLByDate",
@@ -139,8 +140,9 @@
 
             // Assert
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
-                "BetListPath",
+                "NewBetListPath",
                 Arg.Is<Dictionary<string, object>>(routeValue => compareLogic.Compare(expectedRouteValues, routeValue).AreEqual));
+
         }
 
         [Theory]
@@ -206,7 +208,9 @@
             Site.Helpers.JsonHelper.ToJsonFunc = Substitute.For<Func<object, string>>();
             Site.Helpers.JsonHelper.ToJsonFunc.Invoke(Arg.Any<object>()).Returns("parsedJson");
             Site.Helpers.UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
+            Site.Helpers.UrlHelper.MapBetListPath = Substitute.For<Func<string, string>>();
             Site.Helpers.UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
+            Site.Helpers.UrlHelper.MapBetListPath(Arg.Any<string>()).Returns("NewBetListPath");
         }
 
         private WinLossQuery CreateWinlossQuery(byte custLevelId)

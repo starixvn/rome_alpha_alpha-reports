@@ -26,8 +26,8 @@
             user = Substitute.For<IUser>();
             user.LevelId.Returns((byte)2);
 
-            UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
-            UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
+            UrlHelper.MapExMainPath = (url) => "/ex-main/" + url.Replace("~/", string.Empty);
+            UrlHelper.MapBetListPath = (url) => url;
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -140,8 +140,8 @@
         }
 
         [Theory]
-        [InlineData(true, "BetListPath?MatchId=1&BetType=4&type=WLByBettypeMatch&islive=1")]
-        [InlineData(false, "BetListPath?MatchId=1&BetType=4&type=WLByBettypeMatch&islive=0")]
+        [InlineData(true, "~/WinLossByMatch/Index?MatchId=1&BetType=4&LiveIndicator=1")]
+        [InlineData(false, "~/WinLossByMatch/Index?MatchId=1&BetType=4&LiveIndicator=0")]
         public void BuildDrillDownLink_Always_ReturnsBetListLink(bool indicator, string expectedDrillDownLink)
         {
             // Arrange

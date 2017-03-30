@@ -15,7 +15,6 @@
 
     public class MatchWinLossDetailReportViewModel
     {
-        private const string DefaultBetListPath = "~/_BetList/BetList.aspx";
         private readonly MatchWinLossDetailQuery query;
         private readonly MatchWinLossDetailParam param;
 
@@ -42,11 +41,17 @@
 
             Products = products;
             Leagues = leagues;
+
+            BetListPath = Helpers.UrlHelper.MapBetListPath("~/WinLossByMatch/Index");
         }
 
         public string Title => Resources.MatchWinLossDetail;
 
         public int CustId => param.CustId;
+
+        public string CustName => query.CustName;
+
+        public int CustLevelId => query.CustLevelId;
 
         public DateTime MinDate => query.MinDate;
 
@@ -119,8 +124,10 @@
 
         public BetTypeWinLossViewModel GrandTotal { get; }
 
+        public string BetListPath { get; }
+
         public string GetBetListLink(IDictionary<string, object> routeValues)
-            => ReportHelpers.UrlHelper.AddQueryStringParamsFunc(ReportHelpers.UrlHelper.MapExMainPath(DefaultBetListPath), routeValues);
+            => ReportHelpers.UrlHelper.AddQueryStringParamsFunc(ReportHelpers.UrlHelper.MapExMainPath(BetListPath), routeValues);
 
         public IDictionary<string, object> GetBetListLinkRouteValues(
             MatchWinLossDetailViewModel match,
@@ -130,40 +137,48 @@
         {
             var result = new Dictionary<string, object>
             {
+                ["CustId"] = CustId,
+                ["CustName"] = CustName,
+                ["CustLevelId"] = CustLevelId,
                 ["BetType"] = betType.Id,
-                ["Type"] = "WLByBettypeMatch",
-                ["IsLive"] = betType.IsLive ? 1 : 0
+                ["LiveIndicator"] = betType.IsLive ? 1 : 0
             };
 
             if (match.Race > 0)
             {
-                result["leagueid"] = match.LeagueId;
-                result["fdate"] = fromDate;
-                result["tdate"] = toDate;
-                result["race"] = betType.Race;
+                result["LeagueId"] = match.LeagueId;
+                result["FromDate"] = fromDate;
+                result["ToDate"] = toDate;
+                result["Race"] = betType.Race;
             }
             else
             {
-                result["matchid"] = match.MatchId;
+                result["MatchId"] = match.MatchId;
 
                 if (betType.Id == BetTypeIdConstants.Outright)
                 {
-                    result["leagueid"] = match.LeagueId;
-                    result["fdate"] = fromDate;
-                    result["tdate"] = toDate;
+                    result["LeagueId"] = match.LeagueId;
+                    result["FromDate"] = fromDate;
+                    result["ToDate"] = toDate;
                 }
             }
 
             return result;
         }
 
-        public IDictionary<string, object> GetParlayBetListLinkRouteValues(int betType, DateTime fromDate, DateTime toDate)
-            => new Dictionary<string, object>
+        public string GetParlayBetListLink(int betType, DateTime fromDate, DateTime toDate)
+        {
+            var routeValues = new Dictionary<string, object>
             {
-                ["fdate"] = fromDate,
-                ["tdate"] = toDate,
-                ["bettype"] = betType,
-                ["type"] = "MixParlayByMatch"
+                ["CustId"] = CustId,
+                ["CustName"] = CustName,
+                ["CustLevelId"] = CustLevelId,
+                ["FromDate"] = fromDate,
+                ["ToDate"] = toDate,
+                ["BetType"] = betType
             };
+
+            return ReportHelpers.UrlHelper.AddQueryStringParamsFunc(Helpers.UrlHelper.MapBetListPath("~/ParlayWinLossByMatch/Index"), routeValues);
+        }
     }
 }

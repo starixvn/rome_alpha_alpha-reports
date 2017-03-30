@@ -154,7 +154,7 @@
                 <tr>
                     @RenderBetTypeRow(
                         Model.MixParlay,
-                        "<a href=\"" + Model.GetBetListLink(Model.GetParlayBetListLinkRouteValues(Model.MixParlay.Id, Model.FromDate, Model.ToDate)) + "\">" + Model.MixParlay.Name + "</a>")
+                        "<a href=\"" + Model.GetParlayBetListLink(Model.MixParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.MixParlay.Name + "</a>")
                 </tr>
             }
             @if (Model.SystemParlay != null)
@@ -162,7 +162,7 @@
                 <tr>
                     @RenderBetTypeRow(
                         Model.SystemParlay,
-                        "<a href=\"" + Model.GetBetListLink(Model.GetParlayBetListLinkRouteValues(Model.SystemParlay.Id, Model.FromDate, Model.ToDate)) + "\">" + Model.SystemParlay.Name + "</a>")
+                        "<a href=\"" + Model.GetParlayBetListLink(Model.SystemParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.SystemParlay.Name + "</a>")
                 </tr>
             }
         </tbody>

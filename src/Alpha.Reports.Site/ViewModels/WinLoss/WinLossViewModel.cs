@@ -28,6 +28,7 @@
             GrandTotal = grandTotal;
 
             BuildResources();
+            BetListPath = Helpers.UrlHelper.MapBetListPath("~/WinLoss/Index");
 
             var canSort = reportData != null && reportData.Count() > 1;
             SortPropertyName = canSort ? GetSortedProperty(message.CustLevel, message.SortPropertyName) : DefaultVariables.SortPropertyName;
@@ -84,6 +85,7 @@
             {
                 ["CustId"] = model.CustId,
                 ["CustName"] = model.CustName
+
             };
     }
 }

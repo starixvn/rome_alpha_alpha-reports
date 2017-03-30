@@ -48,6 +48,7 @@
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
             var message = new WinLossDetailQuery(userFixture.User);
+            message.IsHistoricReport = false;
             message.CustLevelId = 2; // Agent Level
             var winLossDetailViewModel = CreateWinLossDetailViewModel(fromDate, toDate, message);
             var winlossDetailModel = new WinLossDetailModel(1, "CustName", 0, 0, 0, 0, null, null, null, null);
@@ -55,13 +56,13 @@
 
             var expectedRouteValues = new Dictionary<string, object>
             {
-                ["FDate"] = fromDate,
-                ["TDate"] = toDate,
+                ["FromDate"] = fromDate,
+                ["ToDate"] = toDate,
                 ["ProductIds"] = "1",
                 ["FilterPostback"] = 1,
                 ["Type"] = "WLByDate",
                 ["CustId"] = 1,
-                ["Username"] = "CustName"
+                ["CustName"] = "CustName"
             };
 
             // Act
@@ -69,8 +70,9 @@
 
             // Assert
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
-                "BetListPath",
+                "NewBetListPath",
                 Arg.Is<Dictionary<string, object>>(routeValue => compareLogic.Compare(expectedRouteValues, routeValue).AreEqual));
+
         }
 
         [Theory]
@@ -318,7 +320,9 @@
             Site.Helpers.JsonHelper.ToJsonFunc = Substitute.For<Func<object, string>>();
             Site.Helpers.JsonHelper.ToJsonFunc.Invoke(Arg.Any<object>()).Returns("parsedJson");
             Site.Helpers.UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
+            Site.Helpers.UrlHelper.MapBetListPath = Substitute.For<Func<string, string>>();
             Site.Helpers.UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
+            Site.Helpers.UrlHelper.MapBetListPath(Arg.Any<string>()).Returns("NewBetListPath");
         }
 
         private static WinLossDetailViewModel CreateWinLossDetailViewModel(DateTime fromDate, DateTime toDate, WinLossDetailQuery message)
