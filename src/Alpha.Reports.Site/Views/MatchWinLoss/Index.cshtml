@@ -1,4 +1,7 @@
 ﻿@model MatchWinLossReportViewModel
+@{
+    ViewBag.Title = "Match Win Loss Report";
+}
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.FilterViewModel.Visible, null, null), Request.Url.Query)
 

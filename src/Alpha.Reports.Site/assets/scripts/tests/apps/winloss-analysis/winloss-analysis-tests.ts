@@ -12,7 +12,8 @@
         blockUI: jasmine.Spy,
         unblockUI: jasmine.Spy,
         renderProductMultiSelectionComponent: jasmine.Spy,
-        renderSortComponent: jasmine.Spy;
+        renderSortComponent: jasmine.Spy,
+        renderLinkBuilderComponent: jasmine.Spy;
 
     beforeEach(() => {
         winLossAnalysisView = new WinLossAnalysisView(
@@ -23,6 +24,7 @@
             reportTooltip,
             linkBuilderComponent);
 
+        spyOn(winLossAnalysisView, "loadLegend");
         cacheDOMElements = spyOn(winLossAnalysisView, "cacheDOMElements");
         cacheDOMElements.and.callThrough();
 
@@ -34,6 +36,7 @@
 
         renderProductMultiSelectionComponent = spyOn(productMultiSelectionComponent, "render");
         renderSortComponent = spyOn(sortComponent, "render");
+        renderLinkBuilderComponent = spyOn(linkBuilderComponent, "render");
         spyOn(dateRangePickerComponent, "render");
     });
 

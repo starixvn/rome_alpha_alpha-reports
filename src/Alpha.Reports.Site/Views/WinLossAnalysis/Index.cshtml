@@ -1,4 +1,7 @@
 ﻿@model WinLossAnalysisViewModel
+@{
+    ViewBag.Title = "Win Loss Analysis Report";
+}
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
 
@@ -132,6 +135,7 @@
 </form>
 
 @Html.HiddenFor(model => model.IsSetDefaultStackMode)
+@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
 
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/winlossanalysis/winlossanalysis")

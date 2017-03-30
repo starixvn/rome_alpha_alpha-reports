@@ -68,6 +68,7 @@ class WinLossAnalysisView extends BaseReport{
         this.$tableReport.stickyTableHeaders();
         this.registerEvents();
 
+        this.initHelp();
         this.$.unblockUI();
     };
 
