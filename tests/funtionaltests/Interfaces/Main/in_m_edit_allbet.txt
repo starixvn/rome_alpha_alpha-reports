@@ -1,0 +1,10 @@
+*** Settings ***
+Documentation     This is interface of Allbet Edit Setting
+...               Navigate: Search Customer > Left Setting Tab > click "Allbet"
+
+*** Variables ***
+${in_m_AB_chkStaus}    //div[@data-bet-type='2401']//following::input[1]    # Allbet Status
+${in_m_AB_chkStausDL}    //div[@data-bet-type='2401']//following::input[2]
+${in_m_AB_chkStatusVipBaccarat}    //div[@data-bet-type='2401']//following::input[3]    # Allbet VIPBaccarat Status
+${in_m_AB_chkStatusVipBaccaratDL}    //div[@data-bet-type='2401']//following::input[4]
+${in_m_AB_btnUpdate}    //button[text()='Update']

@@ -1,0 +1,82 @@
+*** Settings ***
+Suite Setup       Init    ${ds_View01_A}
+Suite Teardown    Teardown Test Suit
+Test Setup
+Test Teardown
+Force Tags        Level_Agent    Funct_Report    NoRun
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Interfaces/in_top_menu.txt    #**************************************************INTERFACES*****************************************
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Actions/common_actions.txt    #**************************************************ACTIONS*****************************************
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/reports_actions.txt
+Resource          ../../Data_set/accounts.txt    #**************************************************DATASETS*****************************************
+
+*** Test Cases ***
+TC_Agent_Result_NoRun_Old
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Results
+    ${tc_selectedDate}    Set Variable    yesterday    # 'yesterday, today or specailday with format 'yyyy-mm-dd'    NOW-1 day
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Results    ${tc_selectedDate}
+
+TC_Agent_Real Time Casino Win Loss_NoRun
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Real Time Casino Win Loss
+    ${tc_member}    Set Variable    ${ds_View01_P}
+    ${tc_fromDate}    Set Variable    NOW-7 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Real Time Casino Win Loss    MEMBER    ${tc_fromDate}    ${tc_toDate}    ${EMPTY}    ${EMPTY}    ${tc_member}
+
+TC_Agent_Real Time Bingo Win Loss_NoRun
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Real Time Bingo Win Loss
+    ${tc_fromDate}    Set Variable    NOW-7 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Real Time Bingo Win Loss    MEMBER    ${tc_toDate}    ${tc_toDate}
+
+TC_03_Agent_Report_NoRun
+    [Tags]    NoRun
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_group}    Set Variable    REPORTS
+    ${tm_reportlevel}    Set Variable    Member
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Member Win Loss    ${in_Reports_Winloss_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Member Win Loss Detail    ${in_Reports_WinlossDetail_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Member Outstanding    ${in_Reports_Outstanding_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Match Win Loss    ${in_Reports_MatchWinLoss_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Match Win Loss Detail    ${in_Reports_MatchWinLossDetail_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Win Loss By Bet Type    ${in_Reports_WinLossByBetType_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Win Loss Analysis    ${in_Reports_WinlossAnalysis_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Commission By Bet Type    ${in_Reports_CommissionByBetType_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Racing Commission    ${in_Reports_RacingCommission_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Cancelled Bets    ${in_Reports_CancelledBets_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Statement    ${in_Reports_Statement_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Last Bets Monitoring    ${in_Reports_LastBetsMonitoring_ReportName}    ${in_Reports_tblData}
+    Comment    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Results    ${in_Reports_Results_ReportName}    ${in_Reports_tblResultData}
+
+TC_02_Agent_ForeCast
+    [Tags]
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_group}    Set Variable    FORECAST
+    Verify TotalBets Header Data    ${tm_group}    Handicap/Over Under/Live    ${in_ForeCast_Hadicap_ReportName}    ${in_ForeCast_tblData}
+    Verify TotalBets Header Data    ${tm_group}    1 X 2    ${in_ForeCast_1x2_ReportName}    ${in_ForeCast_tblData}
+    Verify TotalBets Header Data    ${tm_group}    Score Map    ${in_ForeCast_ScoreMap_ReportName}    ${in_ForeCast_ScoreMap_ReportName}

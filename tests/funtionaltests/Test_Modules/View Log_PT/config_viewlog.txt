@@ -1,0 +1,9 @@
+*** Variables ***
+${tm_super}       SUPERTESTAUTO3
+${tm_master}      SUPERTESTAUTO300
+${tm_agent}       SUPERTESTAUTO30000
+${tm_member}      SUPERTESTAUTO30000000
+${tm_acc_pass}    1234aaAA
+${tm_mastersub}    Supertestauto300sub01
+${tm_supersub}    Supertestauto3sub01
+${tm_agentsub}    Supertestauto30000sub01

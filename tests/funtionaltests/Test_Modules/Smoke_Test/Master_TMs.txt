@@ -1,0 +1,613 @@
+*** Settings ***
+Suite Setup       Init    ${ds_View01_M}
+Suite Teardown    Teardown Test Suit
+Test Setup
+Test Teardown
+Force Tags        Level_Master    Funct_Report
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Actions/account_info_general.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Data_set/accounts.txt
+Resource          ../../Actions/PT/pt_sportsbook.txt
+Resource          ../../Interfaces/Main/in_m_transfer.txt
+Resource          ../../Interfaces/Main/in_m_viewlog.txt
+Resource          ../../Actions/reports_actions.txt
+Resource          ../../Interfaces/Main/in_main_totalbet_report_forecast.txt
+Resource          ../../Interfaces/Main/in_main_memberinfo.txt
+Resource          ../../Actions/memberinfo.txt
+Resource          ../../Interfaces/Main/in_main_new_totalbets_forecast.txt
+Resource          ../../Interfaces/Main/in_m_betlist.txt
+Resource          ../../Interfaces/Main/in_m_edit_casino.txt
+Resource          ../../Actions/PT/pt_racing.txt
+Resource          ../../Interfaces/Main/in_m_securitycode_password.txt
+
+*** Test Cases ***
+TC_01_Master_Total Bets
+    [Documentation]    1. Login agency site with super account
+    ...    2. Select Total Bets
+    ...    3. Drill down to these areas and check page load successfully without error
+    ...    +Handicap/Over Under/Live
+    ...    +Money Line
+    ...    +Outright
+    ...    +Odd/Even + 1x2 + DND
+    ...    +Correct Score
+    ...    +FT & HT Toal Goal
+    ...    +Parlay
+    ...    +HT/FT
+    ...    +FT & HT FG/LG
+    ...    +Clean Sheet
+    ...    +Double Chance
+    ...    +Home/Draw/Away No Bet
+    ...    +Both/One/Neither Team To Score
+    ...    +To Win To Nil
+    ...    +3-Way Handicap
+    ...    +Number Game
+    ...    +Racing
+    ...    4. Logout and exit
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_group}    Set Variable    TOTAL BETS
+    Verify TotalBets Header Data New    ${tm_group}    Handicap/Over Under/Live    Handicap/Over Under/Live    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Money Line    Money Line    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Odd/Even + 1x2 + DND    Odd/Even + 1 X 2 + Draw/No Draw    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Correct Score    CORRECT SCORE    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    FT & HT Total Goal    Total Goal    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Parlay    Mix Parlay    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Outright    Outright    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    HT/FT    HT/FT    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    FT & HT FG/LG    FG/LG    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Clean Sheet    CLEAN SHEET    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Double Chance    DOUBLE CHANCE    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Home/Draw/Away No Bet    Home/Draw/Away No Bet    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Both/One/Neither Team To Score    BOTH/ONE/NEITHER TEAM TO SCORE    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    To Win To Nil    TO WIN TO NIL    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    3-Way Handicap    3-WAY HANDICAP    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Number Game    Number Game    ${in_TotalBets_tblData}
+    Verify TotalBets Header Data New    ${tm_group}    Racing    Racing    ${in_TotalBets_tblData}
+
+TC_02_Master_ForeCast Hdp
+    [Tags]    NoRun
+    ## Set variable
+    ${tm_btnInfo}    Set Variable    ${in_ForeCast_tblHdpOU}/tbody/tr[4]${in_ForeCast_btnInfo}
+    ## Check Forecast header
+    ${tm_ColName}    ${tm_LeagueName}    ${tm_Matchname}    Verify ForeCast Header Data    FORECAST    Handicap/Over Under/Live
+    ##
+    Open ForeCast Popup by JS    ${tm_btnInfo}
+    ## Forecast popup
+    Select Frame    ${in_ForeCast_iframePopup}
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_ForeCast_iframePopup_trHeader}    Team Score
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_ForeCast_iframePopup_tdBettype}    Handicap
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_ForeCast_iframePopup_lnkBetlist}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_ForeCast_iframePopup_lnkViewOtherForecast}
+    Click Element    ${in_ForeCast_iframePopup_lnkViewOtherForecast}
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_ForeCast_iframePopup_trHeader}    Team Score
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_ForeCast_iframePopup_tdBettype}    Over/Under
+    Click Element    ${in_ForeCast_iframePopup_lnkViewOtherForecast}
+    Click Element    ${in_ForeCast_iframePopup_lnkBetlist}
+    ## Betlist Popup
+    Unselect Frame
+    Select Frame    //iframe[@id='AGEWndIframe']
+    ${tm_LeagueName}    Evaluate    str("${tm_LeagueName}").upper()
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_betlist_title}    ${tm_LeagueName}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_betlist_icoExcel}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_betlist_tblData}
+    ## Close popup
+    Unselect Frame
+    Click Element    //div[@class='AGEWndCloseButton']
+
+TC_02_Master_ForeCast 1x2
+    [Tags]    NoRun
+    ## Set variable
+    ${tm_btnInfo}    Set Variable    ${in_ForeCast_tblHdpOU}/tbody/tr[4]${in_ForeCast_btnInfo}
+    ## Verify Header data
+    ${tm_ColName}    ${tm_LeagueName}    ${tm_Matchname}    Verify ForeCast Header Data    FORECAST    1 X 2
+    ## Go to belist page
+    Open ForeCast Popup by JS    ${tm_btnInfo}
+    ## Check Betlist page
+    ${tm_LeagueName}    Evaluate    str("${tm_LeagueName}").upper()
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_betlist_title}    ${tm_LeagueName}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_betlist_icoExcel}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_betlist_tblData}
+
+TC_02_Master_ForeCast Score Map
+    [Tags]
+    ${tm_group}    Set Variable    FORECAST
+    Select Left Menu    ${tm_group}    Score Map
+    Unselect Frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Contains    //div[@id='header_main']    SCORE MAP
+    Run Keyword And Continue On Failure    Element Should Be Visible    //select[@id='League']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //div[@id='RefreshLeagues']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //button[@id='dSelMatch']
+    Click Element    //button[@id='dSelMatch']
+    ## Open Match list popup
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //div[@id='match-box']    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='title-header']    Select Match
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //button[@id='dSubmitInMatch']    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    //ul[@class='match-list']/li[position()=last()]/input[@type='checkbox']
+    ${tm_Matchname}    Get Text    //ul[@class='match-list']/li[position()=last()]/label
+    Select Checkbox    //ul[@class='match-list']/li[position()=last()]/input[@type='checkbox']
+    Click Element    //button[@id='dSubmitInMatch']
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //table[@class='tblLiveDead']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='allBettypeLive']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='allBettypeDead']
+    ${tm_chkbettypeID}    Set Variable    liveBettype
+    ${tm_strListBettype}    Set Variable    1,2,3,5,20,24,26,25,13,27,28,4,6,121,122,123
+    @{tm_strListBettype}    Split String    ${tm_strListBettype}    ,
+    : FOR    ${tm_iBettype}    IN    @{tm_strListBettype}
+    \    ${tm_ichk}    Set Variable    //input[@id='liveBettype${tm_iBettype}']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${tm_ichk}
+    \    ${tm_ichk}    Set Variable    //input[@id='deadBettype${tm_iBettype}']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${tm_ichk}
+    Click Element    //button[@id='dSubmit']
+    ${tm_Matchname}    Replace String    ${tm_Matchname}    ${SPACE}-vs-${SPACE}    -vs-
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //span[contains(@id,'lnkGroupscoreMap')]    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Contain    //span[contains(@id,'lnkGroupscoreMap')]    ${tm_Matchname}
+
+TC_04_Master_Charts
+    [Tags]
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    REPORTS    Win Loss Analysis Chart
+    Unselect Frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_Charts_WinlossAnalysis_ReportName}    ${cf_timeout}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_Charts_tblData}    ${cf_timeout}
+    Unselect Frame
+
+TC_06_Master_Verify Trasfer menu
+    [Documentation]    "1. Login agency site with master account
+    ...    2. Navigate Transfer menu (top right menu)
+    ...    3. Verify that filter function work correctly without error:
+    ...    +Status=Open, Yesterday balance=true
+    ...    +Status=Suspended, Yesterday balance=true
+    ...    +Status=Closed, Yesterday balance=true
+    ...    +Status=Disabled, Yesterday balance=true
+    ...    "
+    COMMENT    ==============================>    PRE-CONDITION
+    @{tm_lstStatus}    Create List    All    Open    Suspended    Closed    Disabled
+    ${tm_txtheader}    Set Variable    Yesterday Username Yesterday Balance Agent Balance Yesterday Cash Balance Agent Cash Outstanding Given Credit Used Credit First Name Last Name Username
+    COMMENT    ==============================>    MAIN STEPS
+    Select Left Menu    TRANSFER    ${EMPTY}
+    Unselect Frame
+    Select Frame    main
+    : FOR    ${tm_iStatus}    IN    @{tm_lstStatus}
+    \    Filter Transfer    ${tm_iStatus}
+    \    Element Should Contain    //*[@id='tblTransferList']//thead/tr[@class="RptHeader"]    ${tm_txtheader}
+    \    Element Should Be Visible    ${in_m_transfer_tblTransfer}//tfoot/tr/td[@class="SubTitle"]
+    Unselect Frame
+
+TC_07_Master_Verify View Log menu
+    [Documentation]    "1. Login agency site with master account
+    ...    2. Navigate View Log menu (top right menu)
+    ...    3. Verify that Customer setting filter work correctly without error:
+    ...    +Viewby=All, Previous month
+    ...    +Viewby=Position Taking, Previous month
+    ...    +Viewby=Commission, Previous month
+    ...    +Viewby=Bet Setting, Previous month
+    ...    +Viewby=General Info, Previous month
+    ...    4. Verify that Status filter work correctly without error:
+    ...    +User=All, Previous month
+    ...    5. Verify that Credit filter work correctly without error:
+    ...    +User=All, Previous month
+    ...    6. Verify that Login filter work correctly without error:
+    ...    +User=All, Previous month"
+    COMMENT    ==============================>    PRE-CONDITION
+    @{tm_lstCustomerSettingViewBy}    Create List    All Types    Position Taking    Commission    Bet Setting    General Info
+    ${tm_txtCustSettingHeader}    Set Variable    Action Details
+    @{tm_lstLogType}    Create List    Status    Credit    Login
+    @{tm_txtHeader}    Create List    Action Details    Action Details IP    Action Details Domain Browser IP/Country
+    ${tm_index}    Set Variable    0
+    Select Left Menu    VIEW LOG    Setting
+    Unselect Frame
+    Select Frame    main
+    # Customer setting
+    : FOR    ${iType}    IN    @{tm_lstCustomerSettingViewBy}
+    \    Filter View Log    Setting    ${EMPTY}    ${iType}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_viewlog_tblLog}/thead[1]/tr    ${tm_txtCustSettingHeader}
+    # Status-->Login
+    : FOR    ${iType}    IN    @{tm_lstLogType}
+    \    Filter View Log    ${iType}    ${EMPTY}    ${EMPTY}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_viewlog_tblLog}/thead[1]/tr    @{tm_txtHeader}[${tm_index}]
+    \    ${tm_index}    Evaluate    ${tm_index} + 1
+    Unselect Frame
+
+TC_08_Master_AccountInfo
+    [Tags]
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    COMMENT    ==============================>    PRE-CONDITION
+    #Verfiy Agent
+    Search Account    ${tc_agentname}
+    Verify AccountInfo_MemberInfo_Direct    agent
+    Verify AccountInfo Customer List
+    Verify AccountInfo Statement_MasterAgent
+    Verify AccountInfo Downline
+    Verify AccountInfo BalanceInfo_Agent
+    Verify AccountInfo Login
+    Verify AccountInfo Online List
+    #Verfiy Member
+    Search Account    ${tc_membername}
+    Verify AccountInfo_MemberInfo_Indirect    member
+    Verify AccountInfo Bet List    ${tc_membername}
+    Verify AccountInfo Statement_Member    ${tc_membername}
+    Verify AccountInfo Downline Not Visible
+    Verify AccountInfo BalanceInfo_Member    0
+    Verify AccountInfo Login
+    Verify AccountInfo Online List
+
+TM_09_View_PositionTaking
+    [Tags]    NoRun
+    ## Set Variable
+    ${tc_mastername}    Set Variable    ${EMPTY}
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    ${tc_Level}    Set Variable    Master
+    ## Navigate to MemberInformation >> View PositionTaking
+    Select Left Menu    MEMBER INFORMATION    Position Taking (%)
+    ## Verify View PT page
+    Verify PositionTaking By Sport    ${tc_Level}    Sportsbook    Soccer    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify PositionTaking By Sport    ${tc_Level}    Racing    Racing    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify PositionTaking By Sport    ${tc_Level}    Number Game    Number Game    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify PositionTaking By Sport    ${tc_Level}    Live Casino    Live Casino    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify PositionTaking By Sport    ${tc_Level}    Virtual Sports    Virtual Soccer    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify PositionTaking By Sport    ${tc_Level}    Keno    Australia    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify PositionTaking By Sport    ${tc_Level}    Gold Deluxe    Gold Deluxe    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify PositionTaking By Sport    ${tc_Level}    Sportsbook 2    Muay Thai    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Comment    Verify PositionTaking By Sport    ${tc_Level}    Cockfighting    Cockfighting    ${tc_mastername}    ${tc_agentname}
+    ...    ${tc_membername}
+
+TM_10_View_CasinoPositionTaking
+    [Tags]
+    ## Set Variable
+    ${tc_mastername}    Set Variable    ${EMPTY}
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    ${tc_Level}    Set Variable    Master
+    ## Navigate to MemberInformation >> View PositionTaking
+    Select Left Menu    MEMBER INFORMATION    Casino Position Taking (%)
+    Unselect Frame
+    select frame    main
+    ## Verify View PT page
+    Verify PositionTaking By Level    ${tc_Level}    Agent    ${tc_agentname}    Casino    RnG Game
+    Verify PositionTaking By Level    ${tc_Level}    Member    ${tc_membername}    Casino    RnG Game
+    Verify Edit Member Casino PT Popup UI    ${tc_Level}    ${tc_membername}
+
+TM_12_Master_NewTotalBetForecast
+    [Tags]
+    ## Check New Total Bet Forecast UI
+    Verify NewTBF UI
+
+TC_13_Master_Agent List
+    [Tags]
+    ## Set Variable
+    ${tc_level}    Set Variable    Master
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    MEMBER INFORMATION    Agent List
+    ## Check Master Agent Customer list
+    ${tc_lstLevelName}    Create List    Agent_${tc_agentname}    Member_${tc_membername}
+    Verify Account List All    ${tc_level}    ${tc_lstLevelName}
+
+TC_15_Master_Results_Page
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Results
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Results Page    yes
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_16_Master_Agent Win Loss
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Agent Win Loss
+    ${tc_agent}    Set Variable    ${ds_View01_A}
+    ${tc_member}    Set Variable    ${ds_View01_P}
+    ${tc_fromDate}    Set Variable    NOW-7 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Win Loss    AGENT    ${tc_fromDate}    ${tc_toDate}    ${EMPTY}    ${tc_agent}    ${tc_member}
+
+TC_16_A_Master_Agent Win Loss_and_Export excel
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Agent Win Loss
+    ${tc_agent}    Set Variable    ${ds_View01_A}
+    ${tc_member}    Set Variable    ${ds_View01_P}
+    ${tc_fromDate}    Set Variable    NOW-21 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Win Loss_ExportExcel    AGENT    ${tc_fromDate}    ${tc_toDate}    ${EMPTY}    ${tc_agent}    ${tc_member}
+    ...    0
+
+TC_17_Master_Agent Win Loss Details_NoRun
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Agent Win Loss Detail
+    ${tc_agent}    Set Variable    ${ds_View01_A}
+    ${tc_member}    Set Variable    ${ds_View01_P}
+    ${tc_fromDate}    Set Variable    NOW-7 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Win Loss Detail    AGENT    ${tc_fromDate}    ${tc_toDate}    ${EMPTY}    ${tc_agent}    ${tc_member}
+
+TC_17_A_Master_Agent Win Loss Details and Export Excel_NoRun
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Agent Win Loss Detail
+    ${tc_agent}    Set Variable    ${ds_View01_A}
+    ${tc_member}    Set Variable    ${ds_View01_P}
+    ${tc_fromDate}    Set Variable    NOW-21 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Win Loss Detail_ExportExcel    AGENT    ${tc_fromDate}    ${tc_toDate}    ${EMPTY}    ${tc_agent}    ${tc_member}
+
+TC_17_Master_Agent Win Loss Detailsl_Smartphone
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Agent Win Loss Detail
+    ${tc_agent}    Set Variable    ${ds_View01_A}
+    ${tc_member}    Set Variable    ${ds_View01_P}
+    ${tc_fromDate}    Get time    yyyymmdd    UTC- 4 hour + 4 day
+    ${tc_toDate}    Get time    yyyymmdd    UTC- 4 hour
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Close Net TurnOver Tool tip
+    Verify Report Filter Product List    ${cfProductFilterList}
+    Verify Report Filter Date Range    Today,Today,Yesterday,This Week,Last Week,This Month,Last Month,Since Last Month,Specific Dates
+    SmartphoneFriendly Verify Report_Win Loss Detail_ExportExcel    AGENT    ${tc_fromDate}    ${tc_toDate}    ${EMPTY}    ${tc_agent}    ${tc_member}
+    ...    1
+
+TC_18_Master_Match Win Loss Detail
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Match Win Loss Detail
+    ${tc_fromDate}    Set Variable    NOW-7 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Match Win Loss Detail and Export Excel    ${tc_fromDate}    ${tc_toDate}
+
+TC_19_Master_Win Loss Analysis
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Win Loss Analysis
+    ${tc_fromDate}    Set Variable    NOW-7 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Win Loss Analysis and Export Excel    ${tc_fromDate}    ${tc_toDate}
+
+TC_20_Master_Commission by Bettype
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Commission By Bet Type
+    ${tc_agent}    Set Variable    ${ds_View01_A}
+    ${tc_member}    Set Variable    ${ds_View01_P}
+    ${tc_toDate}    Get time    yyyymmdd    UTC- 4 hour
+    ${tc_fromDate}    Get time    yyyymmdd    UTC- 4 hour + 3 day
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Commission By Bettype    ${tc_fromDate}    ${tc_toDate}    ${EMPTY}    ${tc_agent}    ${tc_member}
+
+TC_21_Master_Racing Commission
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Racing Commission
+    ${tc_agent}    Set Variable    ${ds_View01_A}
+    ${tc_member}    Set Variable    ${ds_View01_P}
+    ${tc_fromDate}    Set Variable    NOW-6 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Racing Commission and Export Excel    ${tc_fromDate}    ${tc_toDate}    ${EMPTY}    ${tc_agent}    ${tc_member}
+
+TC_22_Master_Cancelled Bets
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Cancelled Bets
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Cancelled Bets
+
+TC_23_Master_Statement
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Statement
+    ${tc_toDate}    Get time    yyyymmdd    UTC- 4 hour
+    ${tc_fromDate}    Get time    yyyymmdd    UTC- 4 hour + 7 day
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Statement and Export Excel    ${tc_fromDate}    ${tc_toDate}
+
+TC_24_Master_Agent Outstanding
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Agent Outstanding
+    ${tc_agent}    Set Variable    ${ds_View01_A}
+    ${tc_member}    Set Variable    ${ds_View01_P}
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_OutStanding    AGENT    ${EMPTY}    ${tc_agent}    ${tc_member}
+
+TC_25_Master_Member Commission
+    [Tags]
+    Set Variable
+    ${tm_agentname}    Set Variable    ${ds_View01_A}
+    ${tm_membername}    Set Variable    ${ds_View01_P}
+    ${tm_lstProduct}    Create List    Sportsbook    Racing    Live Casino    Casino    Gold Deluxe
+    ...    Macau Games
+    ## Check Member Commission UI
+    Verify Member Commission UI    Master    ${tm_lstProduct}    ${tm_membername}    ${tm_agentname}
+
+TC_26_Master_CreditBalance
+    [Tags]
+    ## Set variable
+    ${tm_agentname}    Set Variable    ${ds_View01_A}
+    ${tm_membername}    Set Variable    ${ds_View01_P}
+    Select Left Menu    MEMBER INFORMATION    Credit/Balance
+    ##
+    Verify CreditBalance By Level    Agent    ${tm_agentname}
+    Verify CreditBalance By Level    Member    ${tm_membername}
+
+TM_27_Master_View_PositionTaking SB
+    [Tags]
+    ## Set Variable
+    ${tc_mastername}    Set Variable    ${EMPTY}
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    ${tc_Level}    Set Variable    Master
+    ## Navigate to MemberInformation >> View PositionTaking
+    Select Left Menu    MEMBER INFORMATION    Position Taking (%)
+    ## Verify View PT page
+    Verify PositionTaking By Sport    ${tc_Level}    Sportsbook    Soccer    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify Edit Member SB PT Popup UI    ${tc_Level}    ${tc_membername}
+
+TM_28_Master_View_PositionTaking Racing
+    [Tags]
+    ## Set Variable
+    ${tc_mastername}    Set Variable    ${EMPTY}
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    ${tc_Level}    Set Variable    Master
+    ## Navigate to MemberInformation >> View PositionTaking
+    Select Left Menu    MEMBER INFORMATION    Position Taking (%)
+    ## Verify View PT page
+    Verify PositionTaking By Sport    ${tc_Level}    Racing    Racing    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify Edit Member Racing PT Popup UI    ${tc_Level}    ${tc_membername}
+
+TM_29_Master_View_PositionTaking LiveCasino
+    [Tags]
+    ## Set Variable
+    ${tc_mastername}    Set Variable    ${EMPTY}
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    ${tc_Level}    Set Variable    Master
+    ## Navigate to MemberInformation >> View PositionTaking
+    Select Left Menu    MEMBER INFORMATION    Position Taking (%)
+    ## Verify View PT page
+    Verify PositionTaking By Sport    ${tc_Level}    Live Casino    Live Casino    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify Edit Member LiveCasino PT Popup UI    ${tc_Level}    ${tc_membername}    Live Casino
+
+TM_30_Master_View_PositionTaking VirtualSports
+    [Tags]
+    ## Set Variable
+    ${tc_mastername}    Set Variable    ${EMPTY}
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    ${tc_Level}    Set Variable    Master
+    ## Navigate to MemberInformation >> View PositionTaking
+    Select Left Menu    MEMBER INFORMATION    Position Taking (%)
+    ## Verify View PT page
+    Verify PositionTaking By Sport    ${tc_Level}    Virtual Sports    Virtual Soccer    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify Edit Member Virtual Sports PT Popup UI    ${tc_Level}    ${tc_membername}
+
+TM_31_Master_View_PositionTaking Keno
+    [Tags]
+    ## Set Variable
+    ${tc_mastername}    Set Variable    ${EMPTY}
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    ${tc_Level}    Set Variable    Master
+    ## Navigate to MemberInformation >> View PositionTaking
+    Select Left Menu    MEMBER INFORMATION    Position Taking (%)
+    ## Verify View PT page
+    Verify PositionTaking By Sport    ${tc_Level}    Keno    Australia    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify Edit Member Keno PT Popup UI    ${tc_Level}    ${tc_membername}
+
+TM_32_Master_View_PositionTaking GoldDeluxe
+    [Tags]
+    ## Set Variable
+    ${tc_mastername}    Set Variable    ${EMPTY}
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    ${tc_Level}    Set Variable    Master
+    ## Navigate to MemberInformation >> View PositionTaking
+    Select Left Menu    MEMBER INFORMATION    Position Taking (%)
+    ## Verify View PT page
+    Verify PositionTaking By Sport    ${tc_Level}    Gold Deluxe    Gold Deluxe    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify Edit Member LiveCasino PT Popup UI    ${tc_Level}    ${tc_membername}    Gold Deluxe
+
+TM_33_Master_View_PositionTaking Sportbook2
+    [Tags]
+    ## Set Variable
+    ${tc_mastername}    Set Variable    ${EMPTY}
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    ${tc_Level}    Set Variable    Master
+    ## Navigate to MemberInformation >> View PositionTaking
+    Select Left Menu    MEMBER INFORMATION    Position Taking (%)
+    ## Verify View PT page
+    Verify PositionTaking By Sport    ${tc_Level}    Sportsbook 2    Muay Thai    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify Edit Member Sportbook2 PT Popup UI    ${tc_Level}    ${tc_membername}    16    44    Muay Thai
+
+TM_34_Master_View_PositionTaking Macau Games
+    [Tags]
+    ## Set Variable
+    ${tc_mastername}    Set Variable    ${EMPTY}
+    ${tc_agentname}    Set Variable    ${ds_View01_A}
+    ${tc_membername}    Set Variable    ${ds_View01_P}
+    ${tc_Level}    Set Variable    Master
+    ## Navigate to MemberInformation >> View PositionTaking
+    Select Left Menu    MEMBER INFORMATION    Position Taking (%)
+    ## Verify View PT page
+    Verify PositionTaking By Sport    ${tc_Level}    Macau Games    Macau Games    ${tc_mastername}    ${tc_agentname}    ${tc_membername}
+    Verify Edit Member Sportbook2 PT Popup UI    ${tc_Level}    ${tc_membername}    22    212    Macau Games
+
+TC_38_Master_Win Loss By Bet Type
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Win Loss By Bet Type
+    ${tc_fromDate}    Set Variable    NOW-7 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Winloss by bet type and Export Excel    ${tc_fromDate}    ${tc_toDate}
+
+TM_99_Change_Language
+    ## Set Variable
+    ${tm_controlTitle}    Set Variable    ${in_main_lblHomePageBlalanceTile}
+    ## Nagative to Home page
+    Unselect Frame
+    Click Element    ${in_tm_iconHome}
+    Select Frame    main
+    Wait Until Element Is Visible    ${tm_controlTitle}    ${cfWaitControlLong}
+    ## Check language
+    Run Keyword And Continue On Failure    Verify Language    繁體中文    餘額資料    ${tm_controlTitle}
+    Run Keyword And Continue On Failure    Verify Language    简体中文    余额资料    ${tm_controlTitle}
+    Run Keyword And Continue On Failure    Verify Language    日本語    BALANCE INFO    ${tm_controlTitle}
+    Run Keyword And Continue On Failure    Verify Language    ภาษาไทย    ข้อมูลยอดเงินคงเหลือ    ${tm_controlTitle}
+    Run Keyword And Continue On Failure    Verify Language    한국어    잔액정보    ${tm_controlTitle}
+    Run Keyword And Continue On Failure    Verify Language    Tiếng Việt    TÀI KHOẢN    ${tm_controlTitle}
+    Run Keyword And Continue On Failure    Verify Language    English    BALANCE INFO    ${tm_controlTitle}

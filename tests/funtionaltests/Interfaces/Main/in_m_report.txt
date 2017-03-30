@@ -1,0 +1,37 @@
+*** Variables ***
+${in_m_lblHeader}    //*[@id='header_main']/div[1]
+${in_m_txtSelectedDate}    //*[@id='ResultDate']
+${in_m_btnSelectedDate}    //*[@id='dpkContainer']/span/span
+${in_m_btnSubmit}    //input[@id='selected-day-results' or @id='dSubmit' or @class='btn-submit' or @id='dSubmit' or @value='Submit']
+${in_m_btnToday}    //*[@id='dToday']
+${in_m_btnYesterday}    //*[@id='dYesterday']
+${in_m_lblLimitDateText}    //*[@id='result-filter']/div[2]
+${in_m_tblHeader}    //div[@class='fn-rs-content-header']/table
+${in_m_tblHeaderCols}    //div[@class='fn-rs-content-header']/table/thead/tr/th
+${in_m_tblContent}    //div[@class='fn-rs-content-scroll']/table
+${in_m_btnNormal}    //a[@id='btnNormal']    # Result Page
+${in_m_btnOutright}    //a[@id='btnOutRight']    # Result Page
+${in_m_btnKeno}    //a[@id='btnKeno']    # Result Page
+${in_m_cboSport}    //select[@id='SportId']    # Result Page
+${in_m_cboLeagues}    //select[@id='LeagueId']    # Result Page
+${in_m_btnExportExcel}    //*[@id='excel-btn']
+${in_m_statusDetails}    //table[contains(@class,'fn-rs')]/tbody/tr[*]/td[contains(@class,'cl-status')]/*/span[@class='detail-link']
+${in_m_btnPreviousMonth}    //table[@class='table-condensed']/thead/tr[1]/th[1]/span
+${in_m_lblMonth}    //*[@id='dpkContainer']/div/ul/li[1]/div/div[1]/table/thead/tr[1]/th[2]
+${in_m_report_divReportTitle}    //div[contains(@class,'bl_title') or @id='header_main']
+${in_m_report_TotalRow}    //table[@id='tbl-rpt']/tbody/tr[@class='RptFooter']
+${in_m_report_tablebody}    //table[@id='tbl-rpt']/tbody
+${in_Reports_btnExportToExcel}    //input[@id='exporttoexcel']
+${in_m_report_btnExportExcel_Result_Normal}    //span[@id='excel-btn']
+${in_m_report_btnExportExcel_Result_OutRight}    //span[@id='btn-excel']
+${in_m_Report_Result_btnYesterdayOutRight}    //input[@id='btn-yesterday']
+${in_m_cboProductList}    //*[@id='dropdown-product']
+${in_m_lnk_SwitchViewReport}    //*[@id='historic-report' or @id='report-switch']    # this control is used to switch View Repor (current-<->history)
+${in_m_ddldatefrom}    //*[contains(@id,'fromDay')]    # Drop down list From date (history report view mode)
+${in_m_ddldateTo}    //*[contains(@id,'toDay')]    # Drop down list To date (history report view mode)
+${in_m_monthpicker}    //*[@id='dropdown-month']    #month picker (history report view mode)
+${in_m_report_icon_infomation}    //*[@id='view-guidelines-icon']
+${in_m_report_icon_showfilter}    //li[@class='showfilter-element']/span
+${in_m_report_icon_hidefilter}    //li[@class='hidefilter-element']/span
+${in_m_report_icon_normalview}    //li[@class='normalview-element']/span
+${in_m_report_icon_stackcolumnview}    //li[@class='stackcolumnview-element']/span

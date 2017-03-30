@@ -1,0 +1,3355 @@
+*** Settings ***
+Suite Setup       Init    SUPERTEST1Sub05
+Suite Teardown    Teardown Test Suit
+Test Setup
+Test Teardown
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Actions/reports_actions.txt
+Resource          ../../Data_set/bet_setting.txt
+Resource          ../../Interfaces/Main/in_m_edit_sportsbook.txt
+Resource          ../../Interfaces/Main/in_m_report.txt
+Resource          ../../Interfaces/Main/in_m_report_winloss_detail.txt
+Resource          ../../Interfaces/Main/in_m_report_winloss.txt
+
+*** Test Cases ***
+TC_Super_Precondition_00
+    [Documentation]    *Pre-condition for Reports tc*
+    ${tm_year_of18month_ago}    ${tm_month_of18month_ago}    Get Time    year month    NOW - 540 day
+    ${tm_year_of3month_ago}    ${tm_month_of3month_ago}    Get Time    year month    NOW - 90 day
+    ${tm_tempYesterday}    Get Time    day    NOW + 13h -2d
+    ${tm_templastweek}    Get Time    day    NOW + 13h -7d
+    ${tm_year_of3years_ago}    ${tm_month_of3years_ago}    Get Time    year month    NOW - 1080 day    #return year of 3 years ago
+    ${tc_year}    ${tc_month}    ${tc_day}    Get Time    year, month,day    NOW + 13h -1d
+    Set Global Variable    ${global_today}    ${tc_month}/${tc_day}/${tc_year}
+    Set Global Variable    ${global_yesterday}    ${tc_month}/${tm_tempYesterday}/${tc_year}
+    Set Global Variable    ${global_18months_ago}    ${tm_month_of18month_ago}/01/${tm_year_of18month_ago}
+    Set Global Variable    ${global_3months_ago}    ${tm_month_of3month_ago}/01/${tm_year_of3month_ago}
+    Set Global Variable    ${global_3years_ago}    01/01/${tm_year_of3years_ago}
+    Run Keyword And Continue On Failure    Execute Javascript    for (i =1; i <= 30000000; i++) { \ \ \ clearTimeout(i); }
+    @{day_lastweek}    Split String To Characters    ${tm_templastweek}
+    @{day_yesterday}    Split String To Characters    ${tm_tempYesterday}
+    @{day_today}    Split String To Characters    ${tc_day}
+    ${daylw}    Set Variable If    @{day_lastweek}[0]==0    @{day_lastweek}[1]    ${tm_templastweek}
+    ${dayyt}    Set Variable If    @{day_yesterday}[0]==0    @{day_yesterday}[1]    ${tm_tempYesterday}
+    ${daytd}    Set Variable If    @{day_today}[0]==0    @{day_today}[1]    ${tc_day}
+    Set Global Variable    ${global_lastweek_day}    ${daylw}
+    Set Global Variable    ${global_day_yesterday}    ${dayyt}
+    Set Global Variable    ${global_day_today}    ${daytd}
+
+TC_01_Super_Master WL_Verify filter current report
+    [Documentation]    *This test case is used to check filter functions of \ WL report- Current view mode*
+    ...
+    ...    Check points:
+    ...
+    ...    - Default value of date picker (Today is selected)
+    ...
+    ...    - Check data picker work (change date)
+    ...
+    ...    - Defaul value of Product list check box (ALL)
+    ...
+    ...    - Check Note msg
+    ...
+    ...    - Max date range of date picker (3 months ago)
+    ...
+    ...    - Check show/hidde filter by icon
+    ...
+    ...    - Check normal/Stack mode table
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_note}    Set Variable    You can view the report data from ${global_3months_ago}. For more historic data, please click to View History Report
+    ${tc_yesterday}    Set Variable    ${global_day_yesterday}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    "1. Observe the default selected date picker
+    check date picker    ${global_today}    ${global_today}    # Point check 1    1. Default date value of From date and To date picker is today
+    #step 2
+    Page Should Contain    ${tm_note}    #"2. Check note and \ ""View History Report"" link are showed
+    #step 3    "3. Click Yesterday button
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Yesterday
+    check date picker    ${global_yesterday}    ${global_yesterday}    #"3. Yesterday is selected "
+    #step 4    4. Click Today button
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Today
+    check date picker    ${global_today}    ${global_today}    # 4. Today is selected
+    #step 6    6. Click on product list control    6. Default value: All check boxes are checked
+    Select Frame    main
+    Click Element    //*[@class='btn-group']//span
+    Checkbox Should Be Selected    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='Select all']/input    #All products checkbox
+    #step 5    "5. Click on From date and To date picker    "5. Max date range should be 3+ months ago (3 months ago + current month)
+    ${tm_mindate}    Get Element Attribute    //*[@id='daterange-picker']@data-mindate
+    Should Be Equal    ${tm_mindate}    ${global_3months_ago}
+    #Step 7    7. Check Expand/Collapse icon
+    Element Should Be Visible    ${in_m_report_icon_showfilter}    #Defaut filter is showed
+    Click Element    ${in_m_report_icon_showfilter}
+    Element Should Not Be Visible    report-form    #filter is hidden
+    Click Element    ${in_m_report_icon_hidefilter}
+    Element Should Be Visible    report-form    # filter is showed
+    # Step 8    Check table view mode (normal and stack)
+    Click Element    ${in_m_report_icon_normalview}
+    sleep    1
+    Element Should Be Visible    //table[contains(@class,'stack-mode')]    #stack mode table
+    Click Element    ${in_m_report_icon_stackcolumnview}
+    sleep    1
+    Element Should Be Visible    //table[not(contains(@class,'stack-mode'))]    #Normal mode table
+    Unselect Frame
+
+TC_02_Super_Master WL_Verify drilldown member bet list of current report
+    [Documentation]    *This test case is used to check drill down functions_Current view mode*
+    ...
+    ...    Check points: Drill down from upline to member . in member stage: betlist of that member is showed
+    [Tags]    WinLoss
+    ## Set Variable
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Last Week
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Drill Down By Index    3
+    #Verify point    2. Check member bet list is showed
+    select frame    main
+    Verify Report General    MEMBER BET LIST    no
+    Unselect Frame
+
+TC_03_Super_Master WL_Verify filter history report
+    [Documentation]    *This test case is used to check filter functions of \ WL report- History view mode*
+    ...
+    ...    Check points:
+    ...
+    ...    - Default value of date picker (Today is selected)
+    ...
+    ...    - Check data picker work (change date)
+    ...
+    ...    - Defaul value of Product list check box (ALL)
+    ...
+    ...    - Check Note msg
+    ...
+    ...    - Max date range of date picker (3 months ago)
+    ...
+    ...    - Check show/hidde filter by icon
+    ...
+    ...    - Check normal/Stack mode table
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tc_today}    Set Variable    ${global_day_today}
+    ${tc_yesterday}    Set Variable    ${global_day_yesterday}
+    ${tm_note}    Set Variable    You can view the report data from ${global_3years_ago}. Back To Current Report
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    Switch report view
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    "1. Observe the default selected date picker
+    check date picker history    ${EMPTY}    ${tc_today}    # Point check 1    1. Default date value of From date and To date picker is today
+    #step 2
+    Page Should Contain    ${tm_note}    #"2. Check note and \ "Back To Current Report " link are showed
+    #step 3    Select yesterday range
+    Select Report Filter History    ${EMPTY}    ${tc_yesterday}    ${tc_yesterday}
+    Run Keyword And Continue On Failure    check date picker history    ${tc_yesterday}    ${tc_yesterday}    #"3. Yesterday is selected "
+    #step 4    4. Click Today button
+    Select Report Filter History    ${EMPTY}    ${tc_today}    ${tc_today}
+    Run Keyword And Continue On Failure    check date picker history    ${tc_today}    ${tc_today}    # 4. Today is selected
+    #step 6    6. Click on product list control    6. Default value: All check boxes are checked
+    Select Frame    main
+    Click Element    //*[@id='report-form']//button
+    Run Keyword And Continue On Failure    Checkbox Should Be Selected    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='Select all']/input    #All products checkbox
+    #step 5    "5. Click on From date and To date picker    5. Max date range should be 3+ years \ ago (3+ years ago+ current month)
+    ${tm_mindate}    Get Element Attribute    //*[@id='dropdown-month']@data-mindate
+    Run Keyword And Continue On Failure    Should Be Equal    ${tm_mindate}    ${global_3years_ago}
+    Unselect Frame
+
+TC_04_Super_Master WL_Verify drilldown member bet list of history report
+    [Documentation]    *This test case is used to check drill down functions_History view mode*
+    ...
+    ...    Check points: Drill down from upline to member . in member stage: betlist of that member is showed
+    [Tags]    WinLoss
+    ## Set Variable
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    Switch report view
+    COMMENT    ==============================>    MAIN STEPS
+    Select Report Filter History    submit    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Drill Down By Index    3
+    #Verify point    2. Check member bet list is showed
+    select frame    main
+    Verify Report General    MEMBER BET LIST    no
+    Unselect Frame
+
+TC_05_Super_Master WL_Verify today data of current report
+    [Documentation]    *Verify drilldown data for Today in Current report*
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filter data with \ the same condition to get comparison data (*)
+    ...
+    ...    1. Click today button
+    ...    1.1 Check super WL/comm and total
+    ...
+    ...    2. Get today data : (Total field)
+    ...    - Master
+    ...    - Turnover
+    ...    - Gross comm
+    ...    - Master total
+    ...    - Super WL
+    ...    - Super Comm
+    ...    - Supert Total
+    ...    - Company
+    ...    "
+    ...    3. Drill down to agent
+    ...
+    ...    4. Check data (total field)
+    ...
+    ...    5. Drill down to member
+    ...
+    ...    6. Check data
+    ...
+    ...    Expected
+    ...
+    ...    1.1 Super WL= Super WL(*)
+    ...    Super Comm= Super Comm (*)
+    ...    Super total = super total (*)
+    ...
+    ...    4. Member Turnover = Turnover (#2)
+    ...    Gross comm = Gross comm (#2)
+    ...    Agent total = Master total (#2)
+    ...    Company= Company (#2)
+    ...    Master WL= Master WL(*)
+    ...    Master Comm= Master Comm (*)
+    ...    Master total = Master total (*)
+    ...
+    ...
+    ...    6. Total tunrover=Member turnover (#4)
+    ...    Gross comm = Gross comm (#4)
+    ...    Company =Company (#4)
+    ...    Agent WL= Agent WL(*)
+    ...    Agent Comm= Agent Comm (*)
+    ...    Agent total = Agent total (*)
+    ...    Member WL=Member WL(*)
+    ...    Member Comm= Member Comm (*)
+    ...    Member total = Member total (*)
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Today
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    sleep    2s
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    ${tc_wldetail_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_super_wl}    Get Text    ${in_m_report_wldetail_total_super wl}
+    ${tc_wldetail_super_comm}    Get Text    ${in_m_report_wldetail_total_super comm}
+    ${tc_wldetail_super_total}    Get Text    ${in_m_report_wldetail_total_super total}
+    ${tc_wldetail_company}    Get Text    ${in_m_report_wldetail_total_company}
+    ${tc_wldetail_master_wl}    Get Text    ${in_m_report_wldetail_total_master wl}
+    ${tc_wldetail_master_comm}    Get Text    ${in_m_report_wldetail_total_master comm}
+    ${tc_wldetail_master_total}    Get Text    ${in_m_report_wldetail_total_master total}
+    ${tc_wldetail_agent_wl}    Get Text    ${in_m_report_wldetail_total_agent wl}
+    ${tc_wldetail_agent_comm}    Get Text    ${in_m_report_wldetail_total_agent comm}
+    ${tc_wldetail_agent_total}    Get Text    ${in_m_report_wldetail_total_agent total}
+    ${tc_wldetail_member_wl}    Get Text    ${in_m_report_wldetail_total_member wl}
+    ${tc_wldetail_member_comm}    Get Text    ${in_m_report_wldetail_total_member comm}
+    ${tc_wldetail_member_total}    Get Text    ${in_m_report_wldetail_total_member total}
+    Unselect Frame
+    Drill Down By Index    1
+    select frame    main
+    ${tc_wldetail_agent_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_agent_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_agent_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Unselect Frame
+    Drill Down By Index    1
+    select frame    main
+    ${tc_wldetail_member_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_member_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_member_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Unselect Frame
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    # Verify    1.1 Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = super total (*) Turnover = Turover (*) Gross comm= Gross comm (*) Master total = Agent company (*)
+    Verify Total Win Loss Report    Master    ${tc_wldetail_turnover}    ${tc_wldetail_grosscomm}    ${tc_wldetail_company}    ${tc_wldetail_super_wl}    ${tc_wldetail_super_comm}
+    ...    ${tc_wldetail_super_total}
+    #step3    3. Drill down to agent
+    Drill Down By Index    1
+    #4. Check data (total field)    4. Member Turnover = Member Turover (*) Gross comm = Agent Gross comm (*) Agent total = Member company (*) Company= Agent company (*) Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*)
+    Verify Total Win Loss Report    Agent    ${tc_wldetail_agent_total_turnover}    ${tc_wldetail_agent_total_grosscomm}    ${tc_wldetail_agent_total_company}
+    #step4    3. Drill down to member
+    Drill Down By Index    1
+    #6. Check data (total field)    6. Total tunrover=turnover (*) Gross comm = Member Gross comm (*) Company = Member Company (*) Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) Member WL=Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*)
+    Verify Total Win Loss Report    Member    ${tc_wldetail_member_total_turnover}    ${tc_wldetail_member_total_grosscomm}    ${tc_wldetail_member_total_company}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_06_Super_Master WL_Verify Yesterday data of current report
+    [Documentation]    *Verify drilldown data for Yesterday in Current report*
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filter data with \ the same condition to get comparison data (*)
+    ...
+    ...    1. Click Yesterday button
+    ...    1.1 Check super WL/comm and total
+    ...
+    ...    2. Get data : (Total field)
+    ...    - Master
+    ...    - Turnover
+    ...    - Gross comm
+    ...    - Master total
+    ...    - Super WL
+    ...    - Super Comm
+    ...    - Supert Total
+    ...    - Company
+    ...    "
+    ...    3. Drill down to agent
+    ...
+    ...    4. Check data (total field)
+    ...
+    ...    5. Drill down to member
+    ...
+    ...    6. Check data
+    ...
+    ...    Expected
+    ...
+    ...    1.1 Super WL= Super WL(*)
+    ...    Super Comm= Super Comm (*)
+    ...    Super total = super total (*)
+    ...
+    ...    4. Member Turnover = Turnover (#2)
+    ...    Gross comm = Gross comm (#2)
+    ...    Agent total = Master total (#2)
+    ...    Company= Company (#2)
+    ...    Master WL= Master WL(*)
+    ...    Master Comm= Master Comm (*)
+    ...    Master total = Master total (*)
+    ...
+    ...
+    ...    6. Total tunrover=Member turnover (#4)
+    ...    Gross comm = Gross comm (#4)
+    ...    Company =Company (#4)
+    ...    Agent WL= Agent WL(*)
+    ...    Agent Comm= Agent Comm (*)
+    ...    Agent total = Agent total (*)
+    ...    Member WL=Member WL(*)
+    ...    Member Comm= Member Comm (*)
+    ...    Member total = Member total (*)
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Yesterday
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    sleep    2s
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    ${tc_wldetail_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_super_wl}    Get Text    ${in_m_report_wldetail_total_super wl}
+    ${tc_wldetail_super_comm}    Get Text    ${in_m_report_wldetail_total_super comm}
+    ${tc_wldetail_super_total}    Get Text    ${in_m_report_wldetail_total_super total}
+    ${tc_wldetail_company}    Get Text    ${in_m_report_wldetail_total_company}
+    ${tc_wldetail_master_wl}    Get Text    ${in_m_report_wldetail_total_master wl}
+    ${tc_wldetail_master_comm}    Get Text    ${in_m_report_wldetail_total_master comm}
+    ${tc_wldetail_master_total}    Get Text    ${in_m_report_wldetail_total_master total}
+    ${tc_wldetail_agent_wl}    Get Text    ${in_m_report_wldetail_total_agent wl}
+    ${tc_wldetail_agent_comm}    Get Text    ${in_m_report_wldetail_total_agent comm}
+    ${tc_wldetail_agent_total}    Get Text    ${in_m_report_wldetail_total_agent total}
+    ${tc_wldetail_member_wl}    Get Text    ${in_m_report_wldetail_total_member wl}
+    ${tc_wldetail_member_comm}    Get Text    ${in_m_report_wldetail_total_member comm}
+    ${tc_wldetail_member_total}    Get Text    ${in_m_report_wldetail_total_member total}
+    Unselect Frame
+    Drill Down By Index    1
+    select frame    main
+    ${tc_wldetail_agent_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_agent_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_agent_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Unselect Frame
+    Drill Down By Index    1
+    select frame    main
+    ${tc_wldetail_member_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_member_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_member_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Unselect Frame
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    # Verify    1.1 Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = super total (*) Turnover = Turover (*) Gross comm= Gross comm (*) Master total = Agent company (*)
+    Verify Total Win Loss Report    Master    ${tc_wldetail_turnover}    ${tc_wldetail_grosscomm}    ${tc_wldetail_company}    ${tc_wldetail_super_wl}    ${tc_wldetail_super_comm}
+    ...    ${tc_wldetail_super_total}
+    #step3    3. Drill down to agent
+    Drill Down By Index    1
+    #4. Check data (total field)    4. Member Turnover = Member Turover (*) Gross comm = Agent Gross comm (*) Agent total = Member company (*) Company= Agent company (*) Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*)
+    Verify Total Win Loss Report    Agent    ${tc_wldetail_agent_total_turnover}    ${tc_wldetail_agent_total_grosscomm}    ${tc_wldetail_agent_total_company}
+    #step4    3. Drill down to member
+    Drill Down By Index    1
+    #6. Check data (total field)    6. Total tunrover=turnover (*) Gross comm = Member Gross comm (*) Company = Member Company (*) Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) Member WL=Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*)
+    Verify Total Win Loss Report    Member    ${tc_wldetail_member_total_turnover}    ${tc_wldetail_member_total_grosscomm}    ${tc_wldetail_member_total_company}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_07_Super_Master WL_Verify data in date range of current report
+    [Documentation]    *Check drilldown data for date range (last week) in Current report
+    ...    *
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filter data with the same condition to get comparison data (*)
+    ...
+    ...    1. Click Last week button
+    ...    1.1 Check super WL/comm and total
+    ...
+    ...    2. Get data : (Total field)
+    ...    - Master
+    ...    - Turnover
+    ...    - Gross comm
+    ...    - Master total
+    ...    - Super WL
+    ...    - Super Comm
+    ...    - Supert Total
+    ...    - Company
+    ...    "
+    ...    3. Drill down to agent
+    ...
+    ...    4. Check data (total field)
+    ...
+    ...    5. Drill down to member
+    ...
+    ...    6. Check data
+    ...
+    ...    Expected
+    ...
+    ...    1.1 Super WL= Super WL(*)
+    ...    Super Comm= Super Comm (*)
+    ...    Super total = super total (*)
+    ...
+    ...    4. Member Turnover = Turnover (#2)
+    ...    Gross comm = Gross comm (#2)
+    ...    Agent total = Master total (#2)
+    ...    Company= Company (#2)
+    ...    Master WL= Master WL(*)
+    ...    Master Comm= Master Comm (*)
+    ...    Master total = Master total (*)
+    ...
+    ...
+    ...    6. Total tunrover=Member turnover (#4)
+    ...    Gross comm = Gross comm (#4)
+    ...    Company =Company (#4)
+    ...    Agent WL= Agent WL(*)
+    ...    Agent Comm= Agent Comm (*)
+    ...    Agent total = Agent total (*)
+    ...    Member WL=Member WL(*)
+    ...    Member Comm= Member Comm (*)
+    ...    Member total = Member total (*)
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    sleep    2s
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    ${tc_wldetail_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_super_wl}    Get Text    ${in_m_report_wldetail_total_super wl}
+    ${tc_wldetail_super_comm}    Get Text    ${in_m_report_wldetail_total_super comm}
+    ${tc_wldetail_super_total}    Get Text    ${in_m_report_wldetail_total_super total}
+    ${tc_wldetail_company}    Get Text    ${in_m_report_wldetail_total_company}
+    ${tc_wldetail_master_wl}    Get Text    ${in_m_report_wldetail_total_master wl}
+    ${tc_wldetail_master_comm}    Get Text    ${in_m_report_wldetail_total_master comm}
+    ${tc_wldetail_master_total}    Get Text    ${in_m_report_wldetail_total_master total}
+    ${tc_wldetail_agent_wl}    Get Text    ${in_m_report_wldetail_total_agent wl}
+    ${tc_wldetail_agent_comm}    Get Text    ${in_m_report_wldetail_total_agent comm}
+    ${tc_wldetail_agent_total}    Get Text    ${in_m_report_wldetail_total_agent total}
+    ${tc_wldetail_member_wl}    Get Text    ${in_m_report_wldetail_total_member wl}
+    ${tc_wldetail_member_comm}    Get Text    ${in_m_report_wldetail_total_member comm}
+    ${tc_wldetail_member_total}    Get Text    ${in_m_report_wldetail_total_member total}
+    Unselect Frame
+    Drill Down By Index    1
+    select frame    main
+    ${tc_wldetail_agent_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_agent_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_agent_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Unselect Frame
+    Drill Down By Index    1
+    select frame    main
+    ${tc_wldetail_member_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_member_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_member_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Unselect Frame
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    # Verify    1.1 Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = super total (*) Turnover = Turover (*) Gross comm= Gross comm (*) Master total = Agent company (*)
+    Verify Total Win Loss Report    Master    ${tc_wldetail_turnover}    ${tc_wldetail_grosscomm}    ${tc_wldetail_company}    ${tc_wldetail_super_wl}    ${tc_wldetail_super_comm}
+    ...    ${tc_wldetail_super_total}
+    #step3    3. Drill down to agent
+    Drill Down By Index    1
+    #4. Check data (total field)    4. Member Turnover = Member Turover (*) Gross comm = Agent Gross comm (*) Agent total = Member company (*) Company= Agent company (*) Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*)
+    Verify Total Win Loss Report    Agent    ${tc_wldetail_agent_total_turnover}    ${tc_wldetail_agent_total_grosscomm}    ${tc_wldetail_agent_total_company}
+    #step4    3. Drill down to member
+    Drill Down By Index    1
+    #6. Check data (total field)    6. Total tunrover=turnover (*) Gross comm = Member Gross comm (*) Company = Member Company (*) Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) Member WL=Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*)
+    Verify Total Win Loss Report    Member    ${tc_wldetail_member_total_turnover}    ${tc_wldetail_member_total_grosscomm}    ${tc_wldetail_member_total_company}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_08_Super_Master WL_Verify Yesterday data of History report
+    [Documentation]    *Verify drilldown data for Yesterday in History report*
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filter data with \ the same condition to get comparison data (*)
+    ...
+    ...    (Click View History Report link )
+    ...    1. Click Yesterday button then check super WL/comm and total
+    ...
+    ...    2. Get data : (Total field)
+    ...    - Master
+    ...    - Turnover
+    ...    - Gross comm
+    ...    - Master total
+    ...    - Super WL
+    ...    - Super Comm
+    ...    - Supert Total
+    ...    - Company
+    ...    "
+    ...    3. Drill down to agent
+    ...
+    ...    4. Check data (total field)
+    ...
+    ...    5. Drill down to member
+    ...
+    ...    6. Check data
+    ...
+    ...    Expected
+    ...
+    ...    1.1 Super WL= Super WL(*)
+    ...    Super Comm= Super Comm (*)
+    ...    Super total = super total (*)
+    ...
+    ...    4. Member Turnover = Turnover (#2)
+    ...    Gross comm = Gross comm (#2)
+    ...    Agent total = Master total (#2)
+    ...    Company= Company (#2)
+    ...    Master WL= Master WL(*)
+    ...    Master Comm= Master Comm (*)
+    ...    Master total = Master total (*)
+    ...
+    ...
+    ...    6. Total tunrover=Member turnover (#4)
+    ...    Gross comm = Gross comm (#4)
+    ...    Company =Company (#4)
+    ...    Agent WL= Agent WL(*)
+    ...    Agent Comm= Agent Comm (*)
+    ...    Agent total = Agent total (*)
+    ...    Member WL=Member WL(*)
+    ...    Member Comm= Member Comm (*)
+    ...    Member total = Member total (*)
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    ${global_day_yesterday}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    sleep    2s
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Yesterday
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    ${tc_wldetail_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_super_wl}    Get Text    ${in_m_report_wldetail_total_super wl}
+    ${tc_wldetail_super_comm}    Get Text    ${in_m_report_wldetail_total_super comm}
+    ${tc_wldetail_super_total}    Get Text    ${in_m_report_wldetail_total_super total}
+    ${tc_wldetail_company}    Get Text    ${in_m_report_wldetail_total_company}
+    ${tc_wldetail_master_wl}    Get Text    ${in_m_report_wldetail_total_master wl}
+    ${tc_wldetail_master_comm}    Get Text    ${in_m_report_wldetail_total_master comm}
+    ${tc_wldetail_master_total}    Get Text    ${in_m_report_wldetail_total_master total}
+    ${tc_wldetail_agent_wl}    Get Text    ${in_m_report_wldetail_total_agent wl}
+    ${tc_wldetail_agent_comm}    Get Text    ${in_m_report_wldetail_total_agent comm}
+    ${tc_wldetail_agent_total}    Get Text    ${in_m_report_wldetail_total_agent total}
+    ${tc_wldetail_member_wl}    Get Text    ${in_m_report_wldetail_total_member wl}
+    ${tc_wldetail_member_comm}    Get Text    ${in_m_report_wldetail_total_member comm}
+    ${tc_wldetail_member_total}    Get Text    ${in_m_report_wldetail_total_member total}
+    Unselect Frame
+    Drill Down By Index    1
+    select frame    main
+    ${tc_wldetail_agent_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_agent_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_agent_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Unselect Frame
+    Drill Down By Index    1
+    select frame    main
+    ${tc_wldetail_member_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_member_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_member_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Unselect Frame
+    Select Left Menu    Reports    Master Win Loss
+    Switch report view
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Frame    main
+    Click Element    //*[@id='dropdown-month']//span[text()='Prev']    # Click previous month button
+    Unselect Frame
+    Select Report Filter History    submit    ${tm_daterange}    ${tm_daterange}
+    # Verify    1.1 Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = super total (*) Turnover = Turover (*) Gross comm= Gross comm (*) Master total = Agent company (*)
+    Verify Total Win Loss Report    Master    ${tc_wldetail_turnover}    ${tc_wldetail_grosscomm}    ${tc_wldetail_company}    ${tc_wldetail_super_wl}    ${tc_wldetail_super_comm}
+    ...    ${tc_wldetail_super_total}
+    #step3    3. Drill down to agent
+    Drill Down By Index    1
+    #4. Check data (total field)    4. Member Turnover = Member Turover (*) Gross comm = Agent Gross comm (*) Agent total = Member company (*) Company= Agent company (*) Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*)
+    Verify Total Win Loss Report    Agent    ${tc_wldetail_agent_total_turnover}    ${tc_wldetail_agent_total_grosscomm}    ${tc_wldetail_agent_total_company}
+    #step4    3. Drill down to member
+    Drill Down By Index    1
+    #6. Check data (total field)    6. Total tunrover=turnover (*) Gross comm = Member Gross comm (*) Company = Member Company (*) Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) Member WL=Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*)
+    Verify Total Win Loss Report    Member    ${tc_wldetail_member_total_turnover}    ${tc_wldetail_member_total_grosscomm}    ${tc_wldetail_member_total_company}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_09_Super_Master WL_Verify data in date range of History report
+    [Documentation]    *Check drilldown data for date range (last month) in History report*
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filter data with the same condition to get comparison data (*)
+    ...
+    ...    (Click View History Report link )
+    ...    1. Filtering data with date range = last week \ then check super WL/comm and total
+    ...
+    ...    2. Get data : (Total field)
+    ...    - Master
+    ...    - Turnover
+    ...    - Gross comm
+    ...    - Master total
+    ...    - Super WL
+    ...    - Super Comm
+    ...    - Supert Total
+    ...    - Company
+    ...    "
+    ...    3. Drill down to agent
+    ...
+    ...    4. Check data (total field)
+    ...
+    ...    5. Drill down to member
+    ...
+    ...    6. Check data
+    ...
+    ...    Expected
+    ...
+    ...    1.1 Super WL= Super WL(*)
+    ...    Super Comm= Super Comm (*)
+    ...    Super total = super total (*)
+    ...
+    ...    4. Member Turnover = Turnover (#2)
+    ...    Gross comm = Gross comm (#2)
+    ...    Agent total = Master total (#2)
+    ...    Company= Company (#2)
+    ...    Master WL= Master WL(*)
+    ...    Master Comm= Master Comm (*)
+    ...    Master total = Master total (*)
+    ...
+    ...
+    ...    6. Total tunrover=Member turnover (#4)
+    ...    Gross comm = Gross comm (#4)
+    ...    Company =Company (#4)
+    ...    Agent WL= Agent WL(*)
+    ...    Agent Comm= Agent Comm (*)
+    ...    Agent total = Agent total (*)
+    ...    Member WL=Member WL(*)
+    ...    Member Comm= Member Comm (*)
+    ...    Member total = Member total (*)
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Month
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    sleep    2s
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    ${tc_wldetail_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_super_wl}    Get Text    ${in_m_report_wldetail_total_super wl}
+    ${tc_wldetail_super_comm}    Get Text    ${in_m_report_wldetail_total_super comm}
+    ${tc_wldetail_super_total}    Get Text    ${in_m_report_wldetail_total_super total}
+    ${tc_wldetail_company}    Get Text    ${in_m_report_wldetail_total_company}
+    ${tc_wldetail_master_wl}    Get Text    ${in_m_report_wldetail_total_master wl}
+    ${tc_wldetail_master_comm}    Get Text    ${in_m_report_wldetail_total_master comm}
+    ${tc_wldetail_master_total}    Get Text    ${in_m_report_wldetail_total_master total}
+    ${tc_wldetail_agent_wl}    Get Text    ${in_m_report_wldetail_total_agent wl}
+    ${tc_wldetail_agent_comm}    Get Text    ${in_m_report_wldetail_total_agent comm}
+    ${tc_wldetail_agent_total}    Get Text    ${in_m_report_wldetail_total_agent total}
+    ${tc_wldetail_member_wl}    Get Text    ${in_m_report_wldetail_total_member wl}
+    ${tc_wldetail_member_comm}    Get Text    ${in_m_report_wldetail_total_member comm}
+    ${tc_wldetail_member_total}    Get Text    ${in_m_report_wldetail_total_member total}
+    Unselect Frame
+    Drill Down By Index    1
+    select frame    main
+    ${tc_wldetail_agent_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_agent_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_agent_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Unselect Frame
+    Drill Down By Index    1
+    select frame    main
+    ${tc_wldetail_member_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    ${tc_wldetail_member_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    ${tc_wldetail_member_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Unselect Frame
+    Select Left Menu    Reports    Master Win Loss
+    Switch report view
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Frame    main
+    Click Element    //*[@id='dropdown-month']//span[text()='Prev']    # Click previous month button
+    Unselect Frame
+    Select Report Filter History    submit    ${EMPTY}    ${EMPTY}
+    # Verify    1.1 Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = super total (*) Turnover = Turover (*) Gross comm= Gross comm (*) Master total = Agent company (*)
+    Verify Total Win Loss Report    Master    ${tc_wldetail_turnover}    ${tc_wldetail_grosscomm}    ${tc_wldetail_company}    ${tc_wldetail_super_wl}    ${tc_wldetail_super_comm}
+    ...    ${tc_wldetail_super_total}
+    #step3    3. Drill down to agent
+    Drill Down By Index    1
+    #4. Check data (total field)    4. Member Turnover = Member Turover (*) Gross comm = Agent Gross comm (*) Agent total = Member company (*) Company= Agent company (*) Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*)
+    Verify Total Win Loss Report    Agent    ${tc_wldetail_agent_total_turnover}    ${tc_wldetail_agent_total_grosscomm}    ${tc_wldetail_agent_total_company}
+    #step4    3. Drill down to member
+    Drill Down By Index    1
+    #6. Check data (total field)    6. Total tunrover=turnover (*) Gross comm = Member Gross comm (*) Company = Member Company (*) Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) Member WL=Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*)
+    Verify Total Win Loss Report    Member    ${tc_wldetail_member_total_turnover}    ${tc_wldetail_member_total_grosscomm}    ${tc_wldetail_member_total_company}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_10_Super_Master WL_Verify sum data of SportsBook in current report
+    [Documentation]    *Verify sum data of sportsbook is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Sportsbook
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    PART1    CHECK SPORTSBOOK
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL    # Check Total Master Values    Turnover    Gross Comm    Master Total
+    ...    # Super WinLoss    Super Comm    Super Total    # Company
+    @{tm_list_master_column_name}    Create List    Turnover    Gross Comm    Master Total    Super-WinLoss    Super-Comm
+    ...    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_master total}    ${in_m_report_wl_total_super wl}
+    ...    ${in_m_report_wl_total_super comm}    ${in_m_report_wl_total_super total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Turnover    Gross Comm    Agent Total    Master-WinLoss    Master-Comm
+    ...    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_agent total}    ${in_m_report_wl_total_master wl}
+    ...    ${in_m_report_wl_total_master comm}    ${in_m_report_wl_total_master total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Turnover    Gross Comm    Member-WinLoss    Member-Comm    Member-Total
+    ...    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_member wl}    ${in_m_report_wl_total_member comm}
+    ...    ${in_m_report_wl_total_member total}    ${in_m_report_wl_total_agent wl}    ${in_m_report_wl_total_agent comm}    ${in_m_report_wl_total_agent total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_11_Super_Master WL_Verify sum data of Racing in current report
+    [Documentation]    *Verify sum data of Racing is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Racing
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    PART1    CHECK SPORTSBOOK
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL    # Check Total Master Values    Turnover    Gross Comm    Master Total
+    ...    # Super WinLoss    Super Comm    Super Total    # Company
+    @{tm_list_master_column_name}    Create List    Turnover    Gross Comm    Master Total    Super-WinLoss    Super-Comm
+    ...    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_master total}    ${in_m_report_wl_total_super wl}
+    ...    ${in_m_report_wl_total_super comm}    ${in_m_report_wl_total_super total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Turnover    Gross Comm    Agent Total    Master-WinLoss    Master-Comm
+    ...    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_agent total}    ${in_m_report_wl_total_master wl}
+    ...    ${in_m_report_wl_total_master comm}    ${in_m_report_wl_total_master total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Turnover    Gross Comm    Member-WinLoss    Member-Comm    Member-Total
+    ...    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_member wl}    ${in_m_report_wl_total_member comm}
+    ...    ${in_m_report_wl_total_member total}    ${in_m_report_wl_total_agent wl}    ${in_m_report_wl_total_agent comm}    ${in_m_report_wl_total_agent total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_12_Super_Master WL_Verify sum data of Number Game in current report
+    [Documentation]    *Verify sum data of Number Game is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Number Game
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    PART1    CHECK SPORTSBOOK
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL    # Check Total Master Values    Turnover    Gross Comm    Master Total
+    ...    # Super WinLoss    Super Comm    Super Total    # Company
+    @{tm_list_master_column_name}    Create List    Turnover    Gross Comm    Master Total    Super-WinLoss    Super-Comm
+    ...    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_master total}    ${in_m_report_wl_total_super wl}
+    ...    ${in_m_report_wl_total_super comm}    ${in_m_report_wl_total_super total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Turnover    Gross Comm    Agent Total    Master-WinLoss    Master-Comm
+    ...    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_agent total}    ${in_m_report_wl_total_master wl}
+    ...    ${in_m_report_wl_total_master comm}    ${in_m_report_wl_total_master total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Turnover    Gross Comm    Member-WinLoss    Member-Comm    Member-Total
+    ...    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_member wl}    ${in_m_report_wl_total_member comm}
+    ...    ${in_m_report_wl_total_member total}    ${in_m_report_wl_total_agent wl}    ${in_m_report_wl_total_agent comm}    ${in_m_report_wl_total_agent total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_13_Super_Master WL_Verify sum data of Live Casino in current report
+    [Documentation]    *Verify sum data of Live Casino is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Live Casino
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    PART1    CHECK SPORTSBOOK
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL    # Check Total Master Values    Turnover    Gross Comm    Master Total
+    ...    # Super WinLoss    Super Comm    Super Total    # Company
+    @{tm_list_master_column_name}    Create List    Turnover    Gross Comm    Master Total    Super-WinLoss    Super-Comm
+    ...    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_master total}    ${in_m_report_wl_total_super wl}
+    ...    ${in_m_report_wl_total_super comm}    ${in_m_report_wl_total_super total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Turnover    Gross Comm    Agent Total    Master-WinLoss    Master-Comm
+    ...    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_agent total}    ${in_m_report_wl_total_master wl}
+    ...    ${in_m_report_wl_total_master comm}    ${in_m_report_wl_total_master total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Turnover    Gross Comm    Member-WinLoss    Member-Comm    Member-Total
+    ...    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_member wl}    ${in_m_report_wl_total_member comm}
+    ...    ${in_m_report_wl_total_member total}    ${in_m_report_wl_total_agent wl}    ${in_m_report_wl_total_agent comm}    ${in_m_report_wl_total_agent total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_14_Super_Master WL_Verify sum data of Virtual Sports in current report
+    [Documentation]    *Verify sum data of VS is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Virtual Sports
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    PART1    CHECK SPORTSBOOK
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL    # Check Total Master Values    Turnover    Gross Comm    Master Total
+    ...    # Super WinLoss    Super Comm    Super Total    # Company
+    @{tm_list_master_column_name}    Create List    Turnover    Gross Comm    Master Total    Super-WinLoss    Super-Comm
+    ...    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_master total}    ${in_m_report_wl_total_super wl}
+    ...    ${in_m_report_wl_total_super comm}    ${in_m_report_wl_total_super total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Turnover    Gross Comm    Agent Total    Master-WinLoss    Master-Comm
+    ...    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_agent total}    ${in_m_report_wl_total_master wl}
+    ...    ${in_m_report_wl_total_master comm}    ${in_m_report_wl_total_master total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Turnover    Gross Comm    Member-WinLoss    Member-Comm    Member-Total
+    ...    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_member wl}    ${in_m_report_wl_total_member comm}
+    ...    ${in_m_report_wl_total_member total}    ${in_m_report_wl_total_agent wl}    ${in_m_report_wl_total_agent comm}    ${in_m_report_wl_total_agent total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_15_Super_Master WL_Verify sum data of Casino in current report
+    [Documentation]    *Verify sum data of Casino is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Casino
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    PART1    CHECK SPORTSBOOK
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL    # Check Total Master Values    Turnover    Gross Comm    Master Total
+    ...    # Super WinLoss    Super Comm    Super Total    # Company
+    @{tm_list_master_column_name}    Create List    Turnover    Gross Comm    Master Total    Super-WinLoss    Super-Comm
+    ...    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_master total}    ${in_m_report_wl_total_super wl}
+    ...    ${in_m_report_wl_total_super comm}    ${in_m_report_wl_total_super total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Turnover    Gross Comm    Agent Total    Master-WinLoss    Master-Comm
+    ...    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_agent total}    ${in_m_report_wl_total_master wl}
+    ...    ${in_m_report_wl_total_master comm}    ${in_m_report_wl_total_master total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Turnover    Gross Comm    Member-WinLoss    Member-Comm    Member-Total
+    ...    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_member wl}    ${in_m_report_wl_total_member comm}
+    ...    ${in_m_report_wl_total_member total}    ${in_m_report_wl_total_agent wl}    ${in_m_report_wl_total_agent comm}    ${in_m_report_wl_total_agent total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_16_Super_Master WL_Verify sum data of Keno in current report
+    [Documentation]    *Verify sum data of Keno is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Keno
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    PART1    CHECK SPORTSBOOK
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL    # Check Total Master Values    Turnover    Gross Comm    Master Total
+    ...    # Super WinLoss    Super Comm    Super Total    # Company
+    @{tm_list_master_column_name}    Create List    Turnover    Gross Comm    Master Total    Super-WinLoss    Super-Comm
+    ...    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_master total}    ${in_m_report_wl_total_super wl}
+    ...    ${in_m_report_wl_total_super comm}    ${in_m_report_wl_total_super total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Turnover    Gross Comm    Agent Total    Master-WinLoss    Master-Comm
+    ...    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_agent total}    ${in_m_report_wl_total_master wl}
+    ...    ${in_m_report_wl_total_master comm}    ${in_m_report_wl_total_master total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Turnover    Gross Comm    Member-WinLoss    Member-Comm    Member-Total
+    ...    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_member wl}    ${in_m_report_wl_total_member comm}
+    ...    ${in_m_report_wl_total_member total}    ${in_m_report_wl_total_agent wl}    ${in_m_report_wl_total_agent comm}    ${in_m_report_wl_total_agent total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_17_Super_Master WL_Verify sum data of Gold Deluxe in current report
+    [Documentation]    *Verify sum data of Gold Deluxe is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLoss
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Gold Deluxe
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    PART1    CHECK SPORTSBOOK
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL    # Check Total Master Values    Turnover    Gross Comm    Master Total
+    ...    # Super WinLoss    Super Comm    Super Total    # Company
+    @{tm_list_master_column_name}    Create List    Turnover    Gross Comm    Master Total    Super-WinLoss    Super-Comm
+    ...    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_master total}    ${in_m_report_wl_total_super wl}
+    ...    ${in_m_report_wl_total_super comm}    ${in_m_report_wl_total_super total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Turnover    Gross Comm    Agent Total    Master-WinLoss    Master-Comm
+    ...    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_agent total}    ${in_m_report_wl_total_master wl}
+    ...    ${in_m_report_wl_total_master comm}    ${in_m_report_wl_total_master total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Turnover    Gross Comm    Member-WinLoss    Member-Comm    Member-Total
+    ...    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wl_total_turnover}    ${in_m_report_wl_total_gross comm}    ${in_m_report_wl_total_member wl}    ${in_m_report_wl_total_member comm}
+    ...    ${in_m_report_wl_total_member total}    ${in_m_report_wl_total_agent wl}    ${in_m_report_wl_total_agent comm}    ${in_m_report_wl_total_agent total_drilldown}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_01_Super_Master WL Detail_Verify filter current report
+    [Documentation]    *Summary: Verify filter of current Win Loss Detail report*
+    ...
+    ...
+    ...    Steps:
+    ...
+    ...    "1. Observe the default selected date picker
+    ...    "
+    ...    "2. Check note and \ ""View History Report"" link are showed
+    ...    "
+    ...    "3. Click Yesterday button
+    ...    "
+    ...    "4. Click Today button
+    ...    "
+    ...    "5. Click on From date and To date picker
+    ...    "
+    ...    "6. Click on product list control
+    ...    "
+    ...    7. Check expand/collapse button
+    ...    8. Click stack and normal icon
+    ...    "
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    "1. Default date value of From date and To date picker is today
+    ...    "
+    ...    "2 Verify ""You can view the report data from <3+ months >. For more historic data, please click to View History Report"" exist
+    ...    "
+    ...    "3. Yesterday is selected
+    ...    "
+    ...    "4. Today is selected
+    ...    "
+    ...    "5. Max date range should be 3+ months ago (3 months ago + current month)
+    ...    "
+    ...    "6. Default value: All check boxes are checked
+    ...    "
+    ...    7. Filter show/hidden
+    ...    8. Stack and normal table mode
+    [Tags]    WinLossDetail
+    ## Set Variable
+    ${tm_note}    Set Variable    You can view the report data from ${global_3months_ago}. For more historic data, please click to View History Report
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    sleep    2s
+    Select Frame    main
+    ${tm_popup}    Run Keyword And Return Status    Page Should Contain Element    close-netturnover-tooltip
+    Run Keyword If    '${tm_popup}'=='True'    Click Element    close-netturnover-tooltip
+    Unselect Frame
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    "1. Observe the default selected date picker
+    check date picker    ${global_today}    ${global_today}    # Point check 1    1. Default date value of From date and To date picker is today
+    #step 2
+    Page Should Contain    ${tm_note}    #"2. Check note and \ ""View History Report"" link are showed
+    #step 3    "3. Click Yesterday button
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Yesterday
+    check date picker    ${global_yesterday}    ${global_yesterday}    #"3. Yesterday is selected "
+    #step 4    4. Click Today button
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Today
+    check date picker    ${global_today}    ${global_today}    # 4. Today is selected
+    #step 6    6. Click on product list control    6. Default value: All check boxes are checked
+    Select Frame    main
+    Click Element    //*[@class='btn-group']//span
+    Checkbox Should Be Selected    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='Select all']/input    #All products checkbox
+    #step 5    "5. Click on From date and To date picker    "5. Max date range should be 3+ months ago (3 months ago + current month)
+    ${tm_mindate}    Get Element Attribute    //*[@id='daterange-picker']@data-mindate
+    Should Be Equal    ${tm_mindate}    ${global_3months_ago}
+    #Step 7    7. Check Expand/Collapse icon
+    Element Should Be Visible    ${in_m_report_icon_showfilter}    #Defaut filter is showed
+    Click Element    ${in_m_report_icon_showfilter}
+    Element Should Not Be Visible    report-form    #filter is hidden
+    Click Element    ${in_m_report_icon_hidefilter}
+    Element Should Be Visible    report-form    # filter is showed
+    # Step 8    Check table view mode (normal and stack)
+    Click Element    ${in_m_report_icon_normalview}
+    sleep    1
+    Element Should Be Visible    //table[contains(@class,'stack-mode')]    #stack mode table
+    Click Element    ${in_m_report_icon_stackcolumnview}
+    sleep    1
+    Element Should Be Visible    //table[not(contains(@class,'stack-mode'))]    #Normal mode table
+    Unselect Frame
+
+TC_02_Super_Master WL Detail_Verify drilldown member bet list of current report
+    [Documentation]    *Summary: Verify member Bet list is showed by drilling down to member in current report*
+    ...
+    ...
+    ...    Steps:
+    ...
+    ...    1. Select date range from last week of current report
+    ...
+    ...    2. Drilldown to member betlist
+    ...
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Check member bet list is showed
+    [Tags]    WinLossDetail
+    ## Set Variable
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Last Week
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Drill Down By Index    3
+    #Verify point    2. Check member bet list is showed
+    select frame    main
+    Verify Report General    MEMBER BET LIST    no
+    Unselect Frame
+
+TC_03_Super_Master WL Detail_Verify filter history report
+    [Documentation]    *Verify filter of history Win Loss Detail report*
+    ...
+    ...    "1. Click on 'View History Report' link
+    ...
+    ...    "
+    ...    2. Observe the default selected date picker
+    ...    3. Check note and "Back To Current Report" link are showed
+    ...    4. Click Yesterday button
+    ...    5. Click Today button
+    ...    6. Click on From date and To date picker
+    ...    7. Click on product list control
+    ...    8. Click export icon
+    ...    "
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    "1. History report mode appears
+    ...    "
+    ...    2. Default date value of From date and To date picker is today
+    ...    3. Verify "You can view the report data from <3+ years >. Back To Current Report" exist
+    ...    4. Yesterday is selected
+    ...    5. Today is selected
+    ...    6. Max date range should be 3+ years \ ago (3+ years ago+ current month)
+    ...    7. Default value: All check boxes are checked
+    ...    8. Export popup show
+    [Tags]    WinLossDetail
+    ## Set Variable
+    ${tm_note}    Set Variable    You can view the report data from ${global_3years_ago}. Back To Current Report
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    Switch report view
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    "1. Observe the default selected date picker
+    check date picker history    ${EMPTY}    ${global_day_today}    # Point check 1    1. Default date value of From date and To date picker is today
+    #step 2
+    Page Should Contain    ${tm_note}    #"2. Check note and \ "Back To Current Report " link are showed
+    #step 3    Select yesterday range
+    Select Report Filter History    ${EMPTY}    ${global_day_yesterday}    ${global_day_yesterday}
+    Run Keyword And Continue On Failure    check date picker history    ${global_day_yesterday}    ${global_day_yesterday}    #"3. Yesterday is selected "
+    #step 4    4. Click Today button
+    Select Report Filter History    ${EMPTY}    ${global_day_today}    ${global_day_today}
+    Run Keyword And Continue On Failure    check date picker history    ${global_day_today}    ${global_day_today}    # 4. Today is selected
+    #step 6    6. Click on product list control    6. Default value: All check boxes are checked
+    Select Frame    main
+    Click Element    //*[@id='report-form']//button
+    Run Keyword And Continue On Failure    Checkbox Should Be Selected    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='Select all']/input    #All products checkbox
+    #step 5    "5. Click on From date and To date picker    5. Max date range should be 3+ years \ ago (3+ years ago+ current month)
+    ${tm_mindate}    Get Element Attribute    //*[@id='dropdown-month']@data-mindate
+    Run Keyword And Continue On Failure    Should Be Equal    ${tm_mindate}    ${global_3years_ago}
+    Unselect Frame
+
+TC_04_Super_Master WL Detail_Verify drilldown member bet list of history report
+    [Documentation]    *Summary: Verify member Bet list is showed by drilling down to member in history report*
+    ...
+    ...
+    ...    Steps:
+    ...
+    ...    1. Select date range from last week of current report
+    ...
+    ...    2. Drilldown to member betlist
+    ...
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Check member bet list is showed
+    [Tags]    WinLossDetail
+    ## Set Variable
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    Switch report view
+    COMMENT    ==============================>    MAIN STEPS
+    Select Report Filter History    submit    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Drill Down By Index    3
+    #Verify point    2. Check member bet list is showed
+    select frame    main
+    Verify Report General    MEMBER BET LIST    no
+    Unselect Frame
+
+TC_05_Super_Master WL Detail_Verify sum data of SportsBook in current report
+    [Documentation]    *Verify sum data of sportsbook is correct in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLossDetail
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Sportsbook
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    sleep    2s
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around to close popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    COMMENT    ==============================>    MAIN STEPS
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    Filtering data
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Super-WinLoss    Super-Comm    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_super wl}    ${in_m_report_wldetail_total_super comm}    ${in_m_report_wldetail_total_super total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_06_Super_Master WL Detail_Verify sum data of Racing in current report
+    [Documentation]    *Verify sum data of Racing is correct in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLossDetail
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Racing
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    Filtering data
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Super-WinLoss    Super-Comm    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_super wl}    ${in_m_report_wldetail_total_super comm}    ${in_m_report_wldetail_total_super total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_07_Super_Master WL Detail_Verify sum data of Number Game in current report
+    [Documentation]    *Verify sum data of Number Game is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLossDetail
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Number Game
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    Filtering data
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Super-WinLoss    Super-Comm    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_super wl}    ${in_m_report_wldetail_total_super comm}    ${in_m_report_wldetail_total_super total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_08_Super_Master WL Detail_Verify sum data of Live Casino in current report
+    [Documentation]    *Verify sum data of Live Casino is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLossDetail
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Live Casino
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    Filtering data
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Super-WinLoss    Super-Comm    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_super wl}    ${in_m_report_wldetail_total_super comm}    ${in_m_report_wldetail_total_super total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_09_Super_Master WL Detail_Verify sum data of Virtual Sports in current report
+    [Documentation]    *Verify sum data of VS is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLossDetail
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Virtual Sports
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    Filtering data
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Super-WinLoss    Super-Comm    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_super wl}    ${in_m_report_wldetail_total_super comm}    ${in_m_report_wldetail_total_super total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_10_Super_Master WL Detail_Verify sum data of Casino in current report
+    [Documentation]    *Verify sum data of Casino is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLossDetail
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Casino
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    Filtering data
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Super-WinLoss    Super-Comm    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_super wl}    ${in_m_report_wldetail_total_super comm}    ${in_m_report_wldetail_total_super total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_11_Super_Master WL Detail_Verify sum data of Keno in current report
+    [Documentation]    *Verify sum data of Keno is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLossDetail
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Keno
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    Filtering data
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Super-WinLoss    Super-Comm    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_super wl}    ${in_m_report_wldetail_total_super comm}    ${in_m_report_wldetail_total_super total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_12_Super_Master WL Detail_Verify sum data of Gold Deluxe in current report
+    [Documentation]    *Verify sum data of Gold Deluxe is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLossDetail
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    ${tm_sport}    Set Variable    Gold Deluxe
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Yesterday \
+    Select Frame    main
+    Click Element    //*[@value='Submit']    # Click submit button
+    Unselect Frame
+    Reload Page
+    sleep    2s
+    Comment    ===================    Filtering data
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${tm_sport}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Super-WinLoss    Super-Comm    Super-Total    Company
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_super wl}    ${in_m_report_wldetail_total_super comm}    ${in_m_report_wldetail_total_super total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Master-WinLoss
+    ...    Master-Comm    Master-Total    Company
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Bet Count    Turnover    Net Turnover    Gross Comm    Member-WinLoss
+    ...    Member-Comm    Member-Total    Agent-WinLoss    Agent-Comm    Agent-Total    Company
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_net turnover}    ${in_m_report_wldetail_total_gross comm}
+    ...    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}
+    ...    ${in_m_report_wldetail_total_company}
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_01_Super_Master Outstanding_Verify sum data
+    [Documentation]    *Verify sum data Outstanding report is correct*
+    ...
+    ...
+    ...    *Steps*
+    ...    "1. Observer total oustanding and Casino
+    ...
+    ...    "
+    ...
+    ...    "2. Drill down to agent
+    ...    "
+    ...
+    ...    3. Observer total oustanding and Casino
+    ...
+    ...    4. Drill down to member
+    ...
+    ...    5. Observer total oustanding and Casino
+    ...
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    "1. Total = sum of all master
+    ...
+    ...    "
+    ...
+    ...    "3. Total = sum of all agent
+    ...    "
+    ...
+    ...    5. Total = sum of all member
+    [Tags]    Outstanding
+    ## Set Variable
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Outstanding
+    COMMENT    ==============================>    MAIN STEPS
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Outstanding-Member    Outstanding-Super
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot/tr/td[2]    //*[@id='tbl-report']/tfoot/tr/td[3]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Outstanding-Member    Outstanding-Master    Outstanding-Super
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot/tr/td[2]    //*[@id='tbl-report']/tfoot/tr/td[3]    //*[@id='tbl-report']/tfoot/tr/td[4]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Outstanding-Member    Outstanding-Agent    Outstanding-Master    Outstanding-Super
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot/tr/td[2]    //*[@id='tbl-report']/tfoot/tr/td[3]    //*[@id='tbl-report']/tfoot/tr/td[4]    //*[@id='tbl-report']/tfoot/tr/td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+
+TC_02_Super_Master Outstanding_Verify drilldown member bet list
+    [Documentation]    *Summary: Verify member Bet list is showed by drilling down to member in current report*
+    ...
+    ...
+    ...    Steps:
+    ...
+    ...    1. Select date range from last week of current report
+    ...
+    ...    2. Drilldown to member betlist
+    ...
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Check member bet list is showed
+    [Tags]    Outstanding
+    ## Set Variable
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Outstanding
+    COMMENT    ==============================>    MAIN STEPS
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Drill Down By Index    3
+    #Verify point    2. Check member bet list is showed
+    select frame    main
+    Verify Report General    BET LIST (RUNNING)    no
+    Unselect Frame
+
+TC_01_Super_Master_Statement_Verify filter
+    [Documentation]    *Summary: Verify filter of Statement report*
+    ...
+    ...
+    ...    Steps:
+    ...
+    ...    "1. Observe the default selected date picker
+    ...
+    ...    2. Observe note
+    ...
+    ...    3. Select Yesterday range
+    ...
+    ...    4. Select Today range
+    ...
+    ...    5.Observe export and guide icons
+    ...
+    ...    6. Click guide icon
+    ...
+    ...    7. click \ transfer amount if it is a link
+    ...
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    1. Default date value of From date =yesterday and To date picker is today
+    ...
+    ...
+    ...    2 Verify ""You can view the report data from <3+ years ago>.
+    ...
+    ...    3. Yesterday is selected
+    ...
+    ...    4. Today is selected
+    ...
+    ...    5. export and guide icons
+    ...
+    ...    6. Check guide content
+    ...
+    ...    7.Transfer detail show
+    [Tags]    Statement    NORUN
+    ## Set Variable
+    ${tm_note}    Set Variable    You can view the report data from ${global_3years_ago}.
+    ${tc_yesterday}    Set Variable    ${global_day_yesterday}
+    @{tm_guideline}    Create List    Opening Balance:    your balance calculated till “From” date. If Opening Balance does not equal to Accumulated Total of previous date, then the Opening Balance will be highlighted in pink.    Turnover:    total stakes of all tickets (exclude Void/Rejected/Outstanding/Refund tickets).    Win/Loss:
+    ...    total win loss amount after Position Taking of bet tickets (exclude Void/Rejected/Outstanding tickets).    Commission:    total net commission based on member tickets.    Transfer Amt:    total transfer amount. Click to view Transfer Details.    Accumulated Total:
+    ...    your closing balance of each day within selected date range.    Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt
+    ${tc_year}    ${tc_month}    ${tc_day}    Get Time    year, month,day    NOW + 13h -1d
+    @{tc_month_edit}    Split String To Characters    ${tc_month}
+    ${tc_month_extract}    Set Variable If    @{tc_month_edit}[0]==0    @{tc_month_edit}[1]    ${tc_month}
+    ${tm_yesterday}    Set Variable    ${tc_month_extract}/${global_day_yesterday}/${tc_year}
+    ${tm_today}    Set Variable    ${tc_month_extract}/${tc_day}/${tc_year}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Statement
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    "1. Observe the default selected date picker
+    Run Keyword And Continue On Failure    check date picker    ${tm_yesterday}    ${tm_today}    # Point check 1    1. Default date value of From date =yesterday and To date picker is today
+    #step 2    check note
+    Page Should Contain    ${tm_note}    #"2. Check note
+    #step 3    "3. Click Yesterday button
+    Select Report Filter    submit    ${tc_yesterday}    ${tc_yesterday}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Run Keyword And Continue On Failure    check date picker    ${tm_yesterday}    ${tm_yesterday}    #"3. Yesterday is selected "
+    #step 4    4. Click Today button
+    Reload Page
+    sleep    2
+    Select Report Filter    submit    ${tc_day}    ${tc_day}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Run Keyword And Continue On Failure    check date picker    ${tm_today}    ${tm_today}    # 4. Today is selected
+    #step 5    Observe export and guide icons
+    Comment    ${tm_mindate}    Get Element Attribute    //*[@id='daterange-picker']@data-mindate
+    Comment    Should Be Equal    ${tm_mindate}    ${global_3months_ago}
+    Select Frame    main
+    Element Should Be Visible    ${in_Reports_btnExportToExcel}
+    Element Should Be Visible    ${in_m_report_icon_infomation}
+    Click Element    ${in_m_report_icon_infomation}
+    #step 6    check content of guide line
+    Unselect Frame
+    Select Frame    //*/iframe[@id='popup-iframe'][contains(@src,'Guideline')]
+    ${tm_guidecontent}    Get Text    id=body
+    Unselect Frame
+    : FOR    ${tm_i}    IN    @{tm_guideline}
+    \    Run Keyword And Continue On Failure    Should Contain    ${tm_guidecontent}    ${tm_i}
+    Click Element    //div[contains(@style,'width')]//button[@class='icon icon-close close']
+    Select Frame    main
+    #step7    Click transfer amount if it is a link
+    ${tm_hastransferamt}    Run Keyword And Return Status    Element Should Be Visible    //*[@class='column-transfer-amount' and @data-rowindex='1']
+    Run Keyword If    '${tm_hastransferamt}'=='True'    Click Control    //*[@class='column-transfer-amount' and @data-rowindex='1']
+    Unselect Frame
+    Run Keyword If    '${tm_hastransferamt}'=='True'    Element Should Be Visible    id=popup-title
+
+TC_02_Super_Master_Statement_Verify Today data
+    [Documentation]    *Summary: Verify Today data*
+    ...
+    ...
+    ...    Steps:
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filtrering the same condition to get comparison data (*)
+    ...
+    ...    1. Select Today in date picker then submit
+    ...
+    ...    2. Check data
+    ...
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2.
+    ...    Turnover = Turnover (*)
+    ...
+    ...    Win Loss= Super WL(*)
+    ...    Comm= Super Comm (*)
+    ...    Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt
+    [Tags]    Statement
+    ## Set Variable
+    ${tc_filterday}    Set Variable    ${global_day_today}
+    @{statement_data}    Create List
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Statement
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Today in date picker then submit
+    Select Report Filter    submit    ${tc_filterday}    ${tc_filterday}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='True'    NO DATA
+    Select Frame    main
+    : FOR    ${i}    IN RANGE    2    8
+    \    ${tempdata}    Get Text    //*[@id='tblContent_GridContainer']//td[${i}]
+    \    ${tempdata}    Replace String    ${tempdata}    ,    ${EMPTY}
+    \    ${tempdata}    Replace String    ${tempdata}    --    0
+    \    Append To List    ${statement_data}    ${tempdata}
+    ${tm_open_balance}    Set Variable    @{statement_data}[0]
+    ${tm_turnover}    Set Variable    @{statement_data}[1]
+    ${tm_wl}    Set Variable    @{statement_data}[2]
+    ${tm_comm}    Set Variable    @{statement_data}[3]
+    ${tm_transfer_amt}    Set Variable    @{statement_data}[4]
+    ${tm_accumulated_total}    Set Variable    @{statement_data}[5]
+    Unselect Frame
+    #step 2    Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt
+    ${tm_acc total}    Evaluate    ${tm_open_balance}+${tm_wl}+${tm_comm}+${tm_transfer_amt}
+    ${tm_checkvalue}    Evaluate    ${tm_acc total}-${tm_accumulated_total}
+    Run Keyword And Continue On Failure    Should Be True    ${tm_checkvalue}<=0.02    Wrong accumulate total ${tm_acc total} # WEB: ${tm_accumulated_total}
+    Select Left Menu    Reports    Master Win Loss Detail
+    Select Frame    main
+    ${tm_popup}    Run Keyword And Return Status    Page Should Contain Element    close-netturnover-tooltip
+    Run Keyword If    '${tm_popup}'=='True'    Click Element    close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    submit    ${tc_filterday}    ${tc_filterday}
+    Verify total value by column name    Turnover    ${tm_turnover}
+    Verify total value by column name    Super-Winloss    ${tm_wl}
+    Verify total value by column name    Super-Comm    ${tm_comm}
+
+TC_03_Super_Master_Statement_Verify Yesterday data
+    [Documentation]    *Summary: Verify Yesterday data*
+    ...
+    ...
+    ...    Steps:
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filtrering the same condition to get comparison data (*)
+    ...
+    ...    1. Select Today in date picker then submit
+    ...
+    ...    2. Check data
+    ...
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2.
+    ...    Turnover = Turnover (*)
+    ...
+    ...    Win Loss= Super WL(*)
+    ...    Comm= Super Comm (*)
+    ...    Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt
+    [Tags]    Statement
+    ## Set Variable
+    ${tc_filterday}    Set Variable    ${global_day_today}
+    @{statement_data}    Create List
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Statement
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Today in date picker then submit
+    Select Report Filter    submit    ${tc_filterday}    ${tc_filterday}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='True'    NO DATA
+    Select Frame    main
+    : FOR    ${i}    IN RANGE    2    8
+    \    ${tempdata}    Get Text    //*[@id='tblContent_GridContainer']//td[${i}]
+    \    ${tempdata}    Replace String    ${tempdata}    ,    ${EMPTY}
+    \    ${tempdata}    Replace String    ${tempdata}    --    0
+    \    Append To List    ${statement_data}    ${tempdata}
+    ${tm_open_balance}    Set Variable    @{statement_data}[0]
+    ${tm_turnover}    Set Variable    @{statement_data}[1]
+    ${tm_wl}    Set Variable    @{statement_data}[2]
+    ${tm_comm}    Set Variable    @{statement_data}[3]
+    ${tm_transfer_amt}    Set Variable    @{statement_data}[4]
+    ${tm_accumulated_total}    Set Variable    @{statement_data}[5]
+    Unselect Frame
+    #step 2    Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt
+    ${tm_acc total}    Evaluate    ${tm_open_balance}+${tm_wl}+${tm_comm}+${tm_transfer_amt}
+    ${tm_checkvalue}    Evaluate    ${tm_acc total}-${tm_accumulated_total}
+    Run Keyword And Continue On Failure    Should Be True    ${tm_checkvalue}<=0.02    Wrong accumulate total ${tm_acc total} # WEB: ${tm_accumulated_total}
+    Select Left Menu    Reports    Master Win Loss Detail
+    Select Frame    main
+    ${tm_popup}    Run Keyword And Return Status    Page Should Contain Element    close-netturnover-tooltip
+    Run Keyword If    '${tm_popup}'=='True'    Click Element    close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    submit    ${tc_filterday}    ${tc_filterday}
+    Verify total value by column name    Turnover    ${tm_turnover}
+    Verify total value by column name    Super-Winloss    ${tm_wl}
+    Verify total value by column name    Super-Comm    ${tm_comm}
+
+TC_04_Super_Master_Statement_Verify data in date range
+    [Documentation]    *Summary: Verify Yesterday data*
+    ...
+    ...
+    ...    Steps:
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filtrering the same condition to get comparison data (*)
+    ...
+    ...    1. Select Today in date picker then submit
+    ...
+    ...    2. Check data
+    ...
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2.
+    ...    Turnover = Turnover (*)
+    ...
+    ...    Win Loss= Super WL(*)
+    ...    Comm= Super Comm (*)
+    ...    Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt
+    [Tags]    Statement
+    ## Set Variable
+    ${tc_fromdate}    Set Variable    ${global_lastweek_day}
+    ${tc_todate}    Set Variable    ${global_day_yesterday}
+    @{statement_data}    Create List
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Statement
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    1. Select Today in date picker then submit
+    Select Report Filter    submit    ${tc_fromdate}    ${tc_todate}
+    Capture Page Screenshot
+    Select Frame    main
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='True'    NO DATA
+    Select Frame    main
+    : FOR    ${i}    IN RANGE    2    8
+    \    ${tempdata}    Get Text    //*[@id='tblContent_GridContainer']//td[${i}]
+    \    ${tempdata}    Replace String    ${tempdata}    ,    ${EMPTY}
+    \    ${tempdata}    Replace String    ${tempdata}    --    0
+    \    Append To List    ${statement_data}    ${tempdata}
+    ${tm_open_balance}    Set Variable    @{statement_data}[0]
+    ${tm_turnover}    Set Variable    @{statement_data}[1]
+    ${tm_wl}    Set Variable    @{statement_data}[2]
+    ${tm_comm}    Set Variable    @{statement_data}[3]
+    ${tm_transfer_amt}    Set Variable    @{statement_data}[4]
+    ${tm_accumulated_total}    Set Variable    @{statement_data}[5]
+    Unselect Frame
+    #step 2    Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt
+    ${tm_acc total}    Evaluate    ${tm_open_balance}+${tm_wl}+${tm_comm}+${tm_transfer_amt}
+    ${tm_checkvalue}    Evaluate    ${tm_acc total}-${tm_accumulated_total}
+    Run Keyword And Continue On Failure    Should Be True    ${tm_checkvalue}<=0.02    Wrong accumulate total ${tm_acc total} # WEB: ${tm_accumulated_total}
+    Select Left Menu    Reports    Master Win Loss Detail
+    Select Frame    main
+    ${tm_popup}    Run Keyword And Return Status    Page Should Contain Element    close-netturnover-tooltip
+    Run Keyword If    '${tm_popup}'=='True'    Click Element    close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    submit    ${tc_fromdate}    ${tc_todate}
+    Verify total value by column name    Turnover    ${tm_turnover}
+    Verify total value by column name    Super-Winloss    ${tm_wl}
+    Verify total value by column name    Super-Comm    ${tm_comm}
+
+TC_01_Super_Match WL Detail_Verify filter
+    [Documentation]    *Summary: Verify filter of current Match WL detail report*
+    ...
+    ...
+    ...    Steps:
+    ...
+    ...    "1. Observe the default selected date picker
+    ...
+    ...    2. Observe note
+    ...
+    ...    3. Select Yesterday range
+    ...
+    ...    4. Select Today range
+    ...
+    ...    5.Observe export and guide icons
+    ...
+    ...    6. Click guide icon
+    ...
+    ...    7. click \ transfer amount if it is a link
+    ...
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    1. Default date value of From date =yesterday and To date picker is today
+    ...
+    ...
+    ...    2 Verify ""You can view the report data from <3+ years ago>.
+    ...
+    ...    3. Yesterday is selected
+    ...
+    ...    4. Today is selected
+    ...
+    ...    5. export and guide icons
+    ...
+    ...    6. Check guide content
+    ...
+    ...    7.Transfer detail show
+    [Tags]    MatchWinLossDetail
+    ## Set Variable
+    ${tm_note}    Set Variable    You can view the report data from
+    ${tc_yesterday}    Set Variable    ${global_day_yesterday}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Match Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    "1. Observe the default selected date picker
+    Run Keyword And Continue On Failure    check date picker    ${global_today}    ${global_today}    # Point check 1    1. Default date value of From date \ and To date picker is today
+    #step 2    check note
+    Page Should Contain    ${tm_note}    #"2. Check note
+    #step 3    "3. Select yesterday
+    Select Report Filter    submit    ${tc_yesterday}    ${tc_yesterday}
+    Run Keyword And Continue On Failure    check date picker    ${global_yesterday}    ${global_yesterday}    #"3. Yesterday is selected "
+    #step 4    select Today
+    Reload Page
+    sleep    2
+    Select Report Filter    submit    ${global_day_today}    ${global_day_today}
+    Run Keyword And Continue On Failure    check date picker    ${global_today}    ${global_today}    # 4. Today is selected
+    #step 5    Observe export icon
+    Select Frame    main
+    Element Should Be Visible    ${in_Reports_btnExportToExcel}
+    #step 6    check content of guide line
+    Click Element    //*[@id='productsFilter']//span
+    Checkbox Should Be Selected    id=productsFilterHeaderCheckBox    #All products checkbox
+    Unselect Frame
+
+TC_02_Super_Match WL Detail_Verify today data
+    [Documentation]    *Verify total data for today*
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filter data with \ the same condition to get comparison data (*)
+    ...
+    ...    1. Click today button
+    ...
+    ...    2. Get today data : (ALL Total field)
+    ...
+    ...    3. Compare with total data of Master win loss details
+    ...
+    ...    Expected
+    ...
+    ...    Total data for today should be the same
+    [Tags]    MatchWinLossDetail
+    ## Set Variable
+    ${tm_daterange}    Set Variable    ${global_day_today}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    sleep    2s
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    @{tm_wldetail_data}    Get total values of Win Loss Detail Report
+    Unselect Frame
+    Select Left Menu    Reports    Match Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
+    # Verify    2. \ Turnover= Turnover(*) Gross Comm= Gross Comm (*) \ Member WL= Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*) \ Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) \ Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*) \ Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = Super total (*) \ Company Total = Company (*)
+    @{tm_mwldetail_data}    Create List
+    Select Frame    main
+    : FOR    ${tm_j}    IN RANGE    2    18
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
+    Unselect Frame
+    Remove From List    ${tm_mwldetail_data}    14
+    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_mwldetail_data}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_03_Super_Match WL Detail_Verify yesterday data
+    [Documentation]    *Verify total data for today*
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filter data with \ the same condition to get comparison data (*)
+    ...
+    ...    1. Click yesterday button
+    ...
+    ...    2. Get today data : (ALL Total field)
+    ...
+    ...    3. Compare with total data of Master win loss details
+    ...
+    ...    Expected
+    ...
+    ...    Total data for today should be the same
+    [Tags]    MatchWinLossDetail
+    ## Set Variable
+    ${tm_daterange}    Set Variable    ${global_day_yesterday}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    sleep    2s
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    @{tm_wldetail_data}    Get total values of Win Loss Detail Report
+    Unselect Frame
+    Select Left Menu    Reports    Match Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
+    # Verify    2. \ Turnover= Turnover(*) Gross Comm= Gross Comm (*) \ Member WL= Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*) \ Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) \ Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*) \ Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = Super total (*) \ Company Total = Company (*)
+    @{tm_mwldetail_data}    Create List
+    Select Frame    main
+    : FOR    ${tm_j}    IN RANGE    2    18
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
+    Unselect Frame
+    Remove From List    ${tm_mwldetail_data}    14
+    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_mwldetail_data}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_04_Super_Match WL Detail_Verify data in date range
+    [Documentation]    *Verify total data for today*
+    ...
+    ...    Precondition:
+    ...    Goto Master WL detail report and filter data with \ the same condition to get comparison data (*)
+    ...
+    ...    1. Click yesterday button
+    ...
+    ...    2. Get today data : (ALL Total field)
+    ...
+    ...    3. Compare with total data of Master win loss details
+    ...
+    ...    Expected
+    ...
+    ...    Total data for today should be the same
+    [Tags]    MatchWinLossDetail
+    ## Set Variable
+    ${tc_fromdate}    Set Variable    ${global_lastweek_day}
+    ${tc_todate}    Set Variable    ${global_day_yesterday}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    sleep    2s
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    submit    ${tc_fromdate}    ${tc_todate}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    @{tm_wldetail_data}    Get total values of Win Loss Detail Report
+    Unselect Frame
+    Select Left Menu    Reports    Match Win Loss Detail
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Report Filter    submit    ${tc_fromdate}    ${tc_todate}
+    # Verify    2. \ Turnover= Turnover(*) Gross Comm= Gross Comm (*) \ Member WL= Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*) \ Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) \ Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*) \ Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = Super total (*) \ Company Total = Company (*)
+    @{tm_mwldetail_data}    Create List
+    Select Frame    main
+    : FOR    ${tm_j}    IN RANGE    2    18
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
+    Unselect Frame
+    Remove From List    ${tm_mwldetail_data}    14
+    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_mwldetail_data}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_01_Super_WL Analysis_Verify filter
+    [Documentation]    *This test case is used to check filter functions of Analysis report*
+    ...
+    ...    Check points:
+    ...
+    ...    - Default value of date picker (Today is selected)
+    ...
+    ...    - Check data picker work (change date)
+    ...
+    ...    - Defaul value of Product list check box (ALL)
+    ...
+    ...    - Check Note msg
+    ...
+    ...    - Max date range of date picker (18 month ago)
+    ...
+    ...    - Check show/hidde filter by icon
+    ...
+    ...    - Check normal/Stack mode table
+    [Tags]    WinLossAnalysis    NORUN
+    ## Set Variable
+    ${tm_note}    Set Variable    You can view the report data from ${global_18months_ago}.
+    ${tc_yesterday}    Set Variable    ${global_day_yesterday}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    Click Element    //*[@id='sub-menu-WINLOSSANALYSIS'][2]
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    "1. Observe the default selected date picker
+    check date picker    ${global_today}    ${global_today}    # Point check 1    1. Default date value of From date and To date picker is today
+    #step 2
+    Page Should Contain    ${tm_note}    #"2. Check note
+    #step 3    "3. Click Yesterday button
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Yesterday
+    check date picker    ${global_yesterday}    ${global_yesterday}    #"3. Yesterday is selected "
+    #step 4    4. Click Today button
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Today
+    check date picker    ${global_today}    ${global_today}    # 4. Today is selected
+    #step 6    6. Click on product list control    6. Default value: All check boxes are checked
+    Select Frame    main
+    Click Element    //*[@class='btn-group']//span
+    Checkbox Should Be Selected    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='Select all']/input    #All products checkbox
+    #step 5    "5. Click on From date and To date picker    "5. Max date range should be 3+ months ago (3 months ago + current month)
+    ${tm_mindate}    Get Element Attribute    //*[@id='daterange-picker']@data-mindate
+    Should Be Equal    ${tm_mindate}    ${global_18months_ago}
+    #Step 7    7. Check Expand/Collapse icon
+    Element Should Be Visible    ${in_m_report_icon_showfilter}    #Defaut filter is showed
+    Click Element    ${in_m_report_icon_showfilter}
+    Element Should Not Be Visible    report-form    #filter is hidden
+    Click Element    ${in_m_report_icon_hidefilter}
+    Element Should Be Visible    report-form    # filter is showed
+    # Step 8    Check table view mode (normal and stack)
+    Click Element    ${in_m_report_icon_normalview}
+    sleep    1
+    Element Should Be Visible    //table[contains(@class,'stack-mode')]    #stack mode table
+    Click Element    ${in_m_report_icon_stackcolumnview}
+    sleep    1
+    Element Should Be Visible    //table[not(contains(@class,'stack-mode'))]    #Normal mode table
+    @{reportby_options}    Create List    Daily    Monthly    Sport
+    : FOR    ${tm_i}    IN    @{reportby_options}
+    \    Click Element    ${tm_i}
+    \    sleep    1
+    \    Element Should Contain    //*[@id='tbl-report']//tr[1]/th[1]    ${tm_i}
+    Unselect Frame
+
+TC_02_Super_WL Analysis_Verify today data
+    [Documentation]    *This test case is used to compare Today data Analysis and WL detail reports for all products*
+    [Tags]    WinLossAnalysis    NORUN
+    ## Set Variable
+    ${tm_daterange}    Set Variable    ${global_day_today}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    @{tm_wldetail_data}    Get total values of Win Loss Detail Report
+    Unselect Frame
+    Click Element    //*[@id='sub-menu-WINLOSSANALYSIS'][2]
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
+    # Verify    2. \ Turnover= Turnover(*) Gross Comm= Gross Comm (*) \ Member WL= Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*) \ Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) \ Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*) \ Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = Super total (*) \ Company Total = Company (*)
+    Select Frame    main
+    @{tm_daily_data}    Get total values of Win Loss Analysis Report
+    Click Element    Monthly
+    @{tm_monthly_data}    Get total values of Win Loss Analysis Report
+    Click Element    Sport
+    @{tm_sport_data}    Get total values of Win Loss Analysis Report
+    Unselect Frame
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_daily_data}
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_monthly_data}
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_sport_data}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_03_Super_WL Analysis_Verify yesterday data
+    [Documentation]    *This test case is used to compare Yesterday data Analysis and WL detail reports for all products*
+    [Tags]    WinLossAnalysis    NORUN
+    ## Set Variable
+    ${tm_daterange}    Set Variable    ${global_day_yesterday}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    @{tm_wldetail_data}    Get total values of Win Loss Detail Report
+    Unselect Frame
+    Click Element    //*[@id='sub-menu-WINLOSSANALYSIS'][2]
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
+    # Verify    2. \ Turnover= Turnover(*) Gross Comm= Gross Comm (*) \ Member WL= Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*) \ Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) \ Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*) \ Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = Super total (*) \ Company Total = Company (*)
+    Select Frame    main
+    @{tm_daily_data}    Get total values of Win Loss Analysis Report
+    Click Element    Monthly
+    @{tm_monthly_data}    Get total values of Win Loss Analysis Report
+    Click Element    Sport
+    @{tm_sport_data}    Get total values of Win Loss Analysis Report
+    Unselect Frame
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_daily_data}
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_monthly_data}
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_sport_data}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_04_Super_WL Analysis_Verify data in date range
+    [Documentation]    *This test case is used to compare data in range of Analysis and WL detail reports for all products*
+    [Tags]    WinLossAnalysis    NORUN
+    ## Set Variable
+    ${tc_fromdate}    Set Variable    ${global_lastweek_day}
+    ${tc_todate}    Set Variable    ${global_day_yesterday}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    submit    ${tc_fromdate}    ${tc_todate}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    select frame    main
+    @{tm_wldetail_data}    Get total values of Win Loss Detail Report
+    Unselect Frame
+    Click Element    //*[@id='sub-menu-WINLOSSANALYSIS'][2]
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Report Filter    submit    ${tc_fromdate}    ${tc_todate}
+    # Verify    2. \ Turnover= Turnover(*) Gross Comm= Gross Comm (*) \ Member WL= Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*) \ Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) \ Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*) \ Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = Super total (*) \ Company Total = Company (*)
+    Select Frame    main
+    @{tm_daily_data}    Get total values of Win Loss Analysis Report
+    Click Element    Monthly
+    @{tm_monthly_data}    Get total values of Win Loss Analysis Report
+    Click Element    Sport
+    @{tm_sport_data}    Get total values of Win Loss Analysis Report
+    Unselect Frame
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_daily_data}
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_monthly_data}
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${tm_wldetail_data}    ${tm_sport_data}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_05_Super_WL Analysis_Verify data by Product
+    [Documentation]    *This test case will compare total data of all fields for each product between Analysis and WL Details Reports *
+    [Tags]    WinLossAnalysis    NORUN
+    ## Set Variable
+    ${tc_fromdate}    Set Variable    1    #    ${global_lastweek_day}
+    ${tc_todate}    Set Variable    22    #    ${global_day_yesterday}
+    @{tm_sports_list}    Create List    Sportsbook    Racing    Number Game    Live Casino    Virtual Sports
+    ...    Casino    Keno    Gold Deluxe    Colossus Bets    Allbet    Macau Games
+    ...    Fishing World
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss Detail
+    Select Frame    main
+    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Unselect Frame
+    Select Report Filter    submit    ${tc_fromdate}    ${tc_todate}
+    : FOR    ${tm_sportname}    IN    @{tm_sports_list}
+    \    Select Report Filter    submit    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    \    ...    ${tm_sportname}
+    \    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    \    select frame    main
+    \    @{templist}=    Run Keyword If    '${tm_hasdata}'=='True'    Get total values of Win Loss Detail Report
+    \    Run Keyword If    '${tm_hasdata}'=='True'    Set Global Variable    @{tm_wldetail_data_${tm_sportname}}    @{templist}
+    \    Unselect Frame
+    Click Element    //*[@id='sub-menu-WINLOSSANALYSIS'][2]
+    COMMENT    ==============================>    MAIN STEPS
+    # step1
+    Select Report Filter    submit    ${tc_fromdate}    ${tc_todate}
+    # Verify    2. \ Turnover= Turnover(*) Gross Comm= Gross Comm (*) \ Member WL= Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*) \ Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) \ Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*) \ Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = Super total (*) \ Company Total = Company (*)
+    : FOR    ${tm_sportname2}    IN    @{tm_sports_list}
+    \    Select Report Filter    submit    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    \    ...    ${tm_sportname2}
+    \    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    \    select frame    main
+    \    @{templist}    Run Keyword If    '${tm_hasdata}'=='True'    Get total values of Win Loss Analysis Report
+    \    Run Keyword If    '${tm_hasdata}'=='True'    Set Global Variable    @{tm_wlanalysis_data_${tm_sportname2}}    @{templist}
+    \    Unselect Frame
+    ##CHECK LIST
+    : FOR    ${tm_sportname3}    IN    @{tm_sports_list}
+    \    ${tm_has_list}    Run Keyword And Return Status    Variable Should Exist    @{tm_wldetail_data_${tm_sportname3}}
+    \    Run Keyword And Continue On Failure    Run Keyword If    '${tm_has_list}'=='True'    Lists Should Be Equal    ${tm_wldetail_data_${tm_sportname3}}    ${tm_wlanalysis_data_${tm_sportname3}}
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_01_Super_Commission By Bet Type_Verify filter
+    [Documentation]    *This test case is used to check filter functions of Commission By Bet Type*
+    ...
+    ...    Check points:
+    ...
+    ...    - Default value of date picker (Today is selected)
+    ...
+    ...    - Check data picker work (change date)
+    ...
+    ...    - Check Note msg
+    ...
+    ...    - Check show/hidde filter by icon
+    ...
+    ...    - Check dilldown and navigation bar on top menu
+    [Tags]    CommByBetType    NORUN
+    ## Set Variable
+    ${tm_note}    Set Variable    You can view the report data from
+    ${tc_yesterday}    Set Variable    ${global_day_yesterday}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss
+    Click Element    //*[@id='sub-menu-COMMISSIONBYBETTYPE'][2]
+    Select Frame    main
+    ${tm_note}    Get Text    //*[@class='note']
+    ${tm_balanceupday}    Fetch From Right    ${tm_note}    ${SPACE}
+    ${tm_balanceupday}    Remove String    ${tm_balanceupday}    .
+    Unselect Frame
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    "1. Observe the default selected date picker
+    check date picker    ${global_today}    ${global_today}    # Point check 1    1. Default date value of From date and To date picker is today
+    #step 2
+    Page Should Contain    ${tm_note}    #"2. Check note
+    #step 3    "3. Click Yesterday button
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Yesterday
+    check date picker    ${global_yesterday}    ${global_yesterday}    #"3. Yesterday is selected "
+    #step 4    4. Click Today button
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Today
+    check date picker    ${global_today}    ${global_today}    # 4. Today is selected
+    #step 5    "5. Click on From date and To date picker    "5. Max date range should be 3+ months ago (3 months ago + current month)
+    Select Frame    main
+    ${tm_mindate}    Get Element Attribute    //*[@id='daterange-picker']@data-mindate
+    Should Be Equal    ${tm_mindate}    ${tm_balanceupday}
+    #Step 7    7. Check Expand/Collapse icon
+    Element Should Be Visible    ${in_m_report_icon_showfilter}    #Defaut filter is showed
+    Click Element    ${in_m_report_icon_showfilter}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    report-form    #filter is hidden
+    Run Keyword And Continue On Failure    Click Element    ${in_m_report_icon_hidefilter}
+    Run Keyword And Continue On Failure    Element Should Be Visible    report-form    # filter is showed
+    Unselect Frame
+    #Check dilldown and navigation bar on top menu
+    Drill Down By Index    2
+    Select Frame    main
+    Element Should Be Visible    //ul[@class='breadcrumb']    # Navigation bar
+    Click Element    //ul[@class='breadcrumb']/li[1]/a    #click on first option in navigation bar
+    Element Should Not Be Visible    //ul[@class='breadcrumb']/li[1]/a    #Naviagation bar return plain text \ not a link
+    COMMENT    ==============================>    POST CONDITION
+    Unselect Frame
+
+*** Keywords ***
+Get total values of Win Loss Detail Report
+    @{ac_wldetail_data}    Create List
+    : FOR    ${ac_i}    IN    ${in_m_report_wldetail_total_no of tickets}    ${in_m_report_wldetail_total_turnover}    ${in_m_report_wldetail_total_member wl}    ${in_m_report_wldetail_total_member comm}
+    ...    ${in_m_report_wldetail_total_member total}    ${in_m_report_wldetail_total_agent wl}    ${in_m_report_wldetail_total_agent comm}    ${in_m_report_wldetail_total_agent total}    ${in_m_report_wldetail_total_master wl}    ${in_m_report_wldetail_total_master comm}
+    ...    ${in_m_report_wldetail_total_master total}    ${in_m_report_wldetail_total_super wl}    ${in_m_report_wldetail_total_super comm}    ${in_m_report_wldetail_total_super total}    ${in_m_report_wldetail_total_company}
+    \    ${tc_tempdata}    Get Text    ${ac_i}
+    \    Append To List    ${ac_wldetail_data}    ${tc_tempdata}
+    [Return]    @{ac_wldetail_data}
+
+Get total values of Win Loss Analysis Report
+    [Arguments]    ${from_index}=2    ${to_index}=17
+    @{ac_wlanalysis_data}    Create List
+    : FOR    ${ac_i}    IN RANGE    ${from_index}    ${to_index}
+    \    ${tc_tempj}    Get Text    //table[@id='tbl-report']/tfoot//td[not(contains(@class,'visible-stack-mode'))][${ac_i}]
+    \    Append To List    ${ac_wlanalysis_data}    ${tc_tempj}
+    [Return]    @{ac_wlanalysis_data}

@@ -1,0 +1,20 @@
+To run Betlist Test Module: 
+ + Super view Member from Account Info >Search Member >Bet List : TM01_BetList_AccountInfo_Super\TC01_BL_ACC_SuperPlayer
+ + Super view Member Belist from Reports >Winlost Details >View downline to member TM01_BetList_rptWinLossDetail_Super\TC01_BL_rptWinlostDetails_SuperPlayer
+
+***Steps:
+
+1. Create Precondition Data (see template Dataset\Betlist_Template.xls)
+
+2. For Local: 
+    Create Data test by run sp: 
+    exec QC_CreateTicketByFunction @prefix='AlphaSmoke', @Date='Expected Date (format:'yyyy-mm-dd 00:00:00')'
+
+3. Make sure config file "DsBetlistFile" is data file path from "Data_set\\filename.xls
+   example:
+   + Local "config.py": DsBetlistFile="Data_set\\BetList_AccountInfo_Local.xls"
+   + PRO: "config_prod": DsBetlistFile="Data_set\\BetList_rptWinLostDetail_Pro.xls"
+
+4. Run bat file:
+   + Alpha_BetList_Pro.bat
+   + Alpha_BetList_local

@@ -1,0 +1,72 @@
+*** Variables ***
+#Customer Info
+${in_lm_if_lblMasterUpline}    //*[@id='left_submenu']/div//*[text()='Master']
+${in_lm_if_lblMasterUplineValue}    //*[@id='left_submenu']/div//*[text()='Master']/following::a[1]
+${in_lm_if_lblMaster}    //div[@id='left_submenu']/div//td[contains(text(),'Master')]
+${in_lm_if_lblMasterValue}    //div[@id='left_submenu']/div//td[contains(text(),'Master')]/following::a[1]
+${in_lm_if_lblAgentUpline}    //*[@id='left_submenu']/div//*[text()='Agent']
+${in_lm_if_lblAgentUplineValue}    //*[@id='left_submenu']/div//*[text()='Agent']/following::a[1]
+${in_lm_if_lblAgent}    //div[@id='left_submenu']/div//td[contains(text(),'Agent')]
+${in_lm_if_lblAgentValue}    //div[@id='left_submenu']/div//td[contains(text(),'Agent')]/following::a[1]
+${in_lm_if_lblCustomer}    //div[@id='left_submenu']/div//td[contains(text(),'Customer')]
+${in_lm_if_lblCustomerValue}    //div[@id='left_submenu']/div//td[contains(text(),'Customer')]/following::a[1]
+${in_lm_if_lblNickname}    //div[@id='left_submenu']/div//td[contains(text(),'Nickname')]
+${in_lm_if_lblName}    //div[@id='left_submenu']/div//td[contains(text(),'Name')]
+${in_lm_if_lblPhone}    //div[@id='left_submenu']/div//td[contains(text(),'Phone')]
+${in_lm_if_lblMobilePhone}    //div[@id='left_submenu']/div//td[contains(text(),'Mobile Phone')]
+${in_lm_if_lblFax}    //div[@id='left_submenu']/div//td[contains(text(),'Fax')]
+#
+${in_lm_txtusername}    //input[@id='txtUsername']    # account info>>
+${in_lm_btnsearch}    //a[@id='lnkSearch']    # account info>>
+${in_lm_btndownlines}    //li[@id='userdownline']/a/span    # account info>> down line button
+${in_lm_btnstatement}    //div[@id='button_nLeft02']/a    # account info>> statement button
+${in_lm_tabbalanceinfo}    //li[@id='balinfo']/a/span    # account info>>Balance Info tab
+${in_lm_tabdownlinelist}    //div[@id='tabdownline']    # account info>> Downline List tab
+${in_lm_tabsetting}    //li[@id='custsettings']/a/span    # account info>> Setting tab
+${in_lm_tablogin}    //li[@id='logininfo']/a/span    # account info>> Login tab
+${in_lm_tabonlinelist}    //li[@id='onlinelist']/a/span    # account info>>Online List tab
+${im_lm_editvirtualsetting}    //a[@id='menuitem22']    # account info >> Setting tab >> Edit Virtual Sports
+${in_lm_lblLoginUserName}    //span[@class='userName']
+${in_lm_AccountInfoTab}    //li[@id='account-info-header']/a
+${in_lm_tabMainMenu}    //li[@id='main-menu-header']/a
+${in_lm_btnBetList}    //div[@id='button_nLeft01']/a
+${in_lm_Bingo_sysBingo}    //*[@id='menuitem18']
+${in_lm_btnCustomerList}    //div[@id='button_nLeft01']/a[text()='Member List']
+${in_lm_btnAgentList}    //div[@id='button_nLeft01']/a[text()='Agent List']
+${in_lm_chkDoublComm}    //input[@id='chkDoubleComm']
+${in_lm_chksuspended}    //input[@id='chkSuspend']
+# Link Setting
+${in_lm_lnkResetSec}    //*[@id='menuitem30']
+#Balance Info Element
+${in_lm_bl_lblTotalCash}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Total Cash')]
+${in_lm_bl_lblYesterdayCash}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Yesterday Cash')]
+${in_lm_bl_lblTotalBalance}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Total Balance')]
+${in_lm_bl_lblYesterdayBalance}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Yesterday Balance')]
+${in_lm_bl_lblMasterOutstanding}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Master Outstanding')]
+${in_lm_bl_lblAgentOutstanding}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Agent Outstanding')]
+${in_lm_bl_lblOutstanding}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Outstanding')]
+${in_lm_bl_lblCasinoOutstanding}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Casino Outstanding')]
+${in_lm_bl_lblCasinoTransfer}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Casino Transfer')]
+${in_lm_bl_lblUsedCredit}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Used Credit')]
+${in_lm_bl_lblGivenCredit}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Given Credit')]
+${in_lm_bl_lblNetPosition}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Net Position')]
+${in_lm_bl_lblBetCredit}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Bet Credit')]
+${in_lm_bl_lblMemberMaxCredit}    //div[@id='tabbalance']//div[@class='divleft']/span[contains(text(),'Member Max')]
+${in_lm_bl_lblAgentActiveClosed}    //div[@id='tabbalance']//div[@class='divleft' and contains(text(),'Ag.active/closed..')]
+${in_lm_bl_lblMemberActiveClosed}    //div[@id='tabbalance']//div[@class='divleft']/span[contains(text(),'Mem.active/clos...')]
+${in_lm_bl_lnkBalanceTransfer}    //div[@class='divright']/a[contains(@href,'Transfer')]
+${in_lm_bl_lnkOutstanding}    //div[@class='divright']/a[contains(@href,'Outstanding')]
+${in_lm_bl_lnkCredit}    //span[@id='spantxtGivenCredit']
+${in_lm_bl_txtCredit}    //input[@id='txtGivenCredit']
+#Login
+${in_lm_lg_lblCreatedDate}    //*[@id='tbl_logininfo']//span[text()='Created Date:']
+${in_lm_lg_lblLastLogin}    //*[@id='tbl_logininfo']//span[text()='Last Login:']
+${in_lm_lg_lblLastTxn}    //*[@id='tbl_logininfo']//span[text()='Last Txn:']
+${in_lm_lg_lblLoginIP}    //*[@id='tbl_logininfo']//span[text()='Login IP:']
+#Online List
+${in_lm_ol_lblMsg_Member}    //*[@id='tbl_onlinelist']/center[text()='This user is not online']
+#Main menu
+${in_lm_Reports}    //li[@id='menu-REPORTS']
+#
+${in_lm_frameAccountInfo}    //iframe[@id='accountinfo-content']
+${in_lm_sidebarMenu}    //aside[@id='side-bar']

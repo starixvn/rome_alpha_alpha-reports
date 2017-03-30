@@ -1,0 +1,710 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Collections
+Resource          ../../Interfaces/Main/in_m_edit_sportsbook.txt
+Resource          ../common_actions.txt
+
+*** Keywords ***
+Check Sportsbook PT
+    [Arguments]    ${username}    ${type}    ${Sporttype}    ${Bettype}    ${isLive}    ${lstValues}
+    [Documentation]    This action is used to edit Sportsbook PT of account
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${type}: the account type (Master/Agent/Member)
+    ...
+    ...    ${Sporttype}: the sporttype
+    ...
+    ...    ${Bettype}: the bettype
+    ...
+    ...    ${isLive}: the liveindicator
+    ...
+    ...    ${lstValues}: the list contain PT value (MaxPT, UplinePresetPT,isUplineAutoPT,UplineAutoPT). The ${Empty} item mean this item does not need to be edited
+    Navigate to Edit page    Edit Sportsbook    ${username}
+    @{tmplst}    Get Sportsbook PT Controls    ${type}    ${Sporttype}    ${Bettype}    ${isLive}
+    ${NoAddValue}    Evaluate    4 - len(${lstValues})
+    Repeat Keyword    ${NoAddValue}    Append To List    ${lstValues}    ${EMPTY}
+    @{tmpValues}    Set Variable    ${lstValues}
+    ${i}    Set Variable    -1
+    : FOR    ${ivalue}    IN    @{tmpValues}
+    \    ${i}    Evaluate    ${i} + 1
+    \    Continue For Loop If    '${ivalue}'=='${EMPTY}'
+    \    ${tmpKw}    Set Variable If    ${i}==2 and '${ivalue}'=='0'    Checkbox Should Not Be Selected    Checkbox Should Be Selected
+    \    Run Keyword And Continue On Failure    Run Keyword If    ${i}==2    ${tmpKw}    @{tmplst}[${i}]
+    \    Continue For Loop If    ${i}==2
+    \    Run Keyword And Continue On Failure    List Selection Should Be    @{tmplst}[${i}]    ${ivalue}
+
+Get Sportsbook PT Controls
+    [Arguments]    ${type}    ${sport}    ${bettype}    ${isLive}
+    [Documentation]    This action is used to get Sportsbook PT value and controls
+    ...
+    ...    ${type}: the account type
+    ...
+    ...    ${sport}: the sporttype
+    ...
+    ...    ${bettype}: the bettype
+    ...
+    ...    ${isLive}: the liveindicator
+    ...
+    ...    ${acc_output}: base ${type}
+    ...    - ${type}= SuperMaster: S3, Is3, Us3, M3
+    ...    - ${type}= SuperPlayer: S1, Is1, Us1
+    ...    - ${type}= MasterAgent: M2, Im2, Um2, A2
+    ...    - ${type}= MasterPlayer: M1, Im1, Um1
+    ...    - ${type}= AgentPlayer: A1
+    ${acc_suffix}    Set Variable    $${sport}$${bettype}$${isLive}
+    ${acc_lstSuperMaster}    Create List    s3${acc_suffix}    m3${acc_suffix}    is3${acc_suffix}    us3${acc_suffix}    n3${acc_suffix}
+    ${acc_lstSuperPlayer}    Create List    s1${acc_suffix}    is1${acc_suffix}    us1${acc_suffix}
+    ${acc_lstMasterAgent}    Create List    m2${acc_suffix}    a2${acc_suffix}    im2${acc_suffix}    um2${acc_suffix}    n2${acc_suffix}
+    ${acc_lstMasterPlayer}    Create List    m1${acc_suffix}    im1${acc_suffix}    um1${acc_suffix}
+    ${acc_lstAgentPlayer}    Create List    a1${acc_suffix}
+    ${acc_output}    Get Variable Value    ${acc_lst${type}}
+    [Return]    ${acc_output}
+
+Edit Sportsbook PT
+    [Arguments]    ${username}    ${type}    ${Sporttype}    ${Bettype}    ${isLive}    ${lstValues}
+    ...    ${isUpdated}=1
+    [Documentation]    This action is used to edit Sportsbook PT of account    ####
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${type}: the account type (Master/Agent/Member)
+    ...
+    ...    ${Sporttype}: the sporttype
+    ...
+    ...    ${Bettype}: the bettype
+    ...
+    ...    ${isLive}: the liveindicator
+    ...
+    ...    ${isUpdated}: click update button or not (0/1)
+    ...
+    ...    ${lstValues}: the list contain PT value (MaxPT, UplinePresetPT,isUplineAutoPT,UplineAutoPT). The ${Empty} item mean this item does not need to be edited
+    ...
+    ...    ${acc_output}: the output msg
+    ...
+    ...
+    ...
+    ...    20150529: Set ${acc_output} = ${Empty}
+    ## Goto Edit page
+    Navigate to Edit page    Edit Sportsbook    ${username}
+    ## Get SB PT Controls
+    @{tmplst}    Get Sportsbook PT Controls    ${type}    ${Sporttype}    ${Bettype}    ${isLive}
+    ${NoAddValue}    Evaluate    5 - len(${lstValues})
+    Repeat Keyword    ${NoAddValue}    Append To List    ${lstValues}    ${EMPTY}
+    ## Get SB PT Values
+    @{tmpValues}    Set Variable    ${lstValues}
+    ## Set Auto or not
+    ${kw}    Set Variable if    '@{tmpValues}[2]' == '1'    Select Checkbox    Unselect Checkbox
+    Run Keyword Unless    '@{tmpValues}[2]' == '${EMPTY}'    ${kw}    @{tmplst}[2]
+    ${kw}    Set Variable    Select From List By Value
+    ##
+    Run Keyword If    '${type}' !='Member' and '@{tmpValues}[2]' == '1'    Edit Control value    @{tmplst}[3]    ${kw}    @{tmpValues}[3]
+    Run Keyword If    '${type}' !='Member' and '@{tmpValues}[2]' == '0'    Edit Control value    @{tmplst}[1]    ${kw}    @{tmpValues}[1]
+    ##
+    Edit Control value    @{tmplst}[0]    ${kw}    @{tmpValues}[0]
+    ## Click Update
+    Run Keyword If    '${isUpdated}'=='1'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_editsb_msg}    ${cf_timeout_long}
+    ## Get msg
+    Comment    ${acc_output}    Run Keyword And Continue On Failure    Get Text    ${in_m_editsb_msg}
+    ${acc_output}    Set Variable    ${EMPTY}
+    [Return]    ${acc_output}
+
+Get Sportsbook PT Values
+    [Arguments]    ${username}    ${type}    ${sport}    ${bettype}    ${isLive}
+    [Documentation]    This action is used to get Sportsbook PT value
+    ...
+    ...    ${type}: the account type
+    ...
+    ...    ${sport}: the sporttype
+    ...
+    ...    ${bettype}: the bettype
+    ...
+    ...    ${isLive}: the liveindicator
+    ...
+    ...    ${acc_output}: the list contain PT controls (MaxPT, UplinePresetPT, isAutoPT, AutoPresetPT)
+    Navigate to Edit page    Edit Sportsbook    ${username}
+    @{acc_tmplst}    Get Sportsbook PT Controls    ${type}    ${sport}    ${bettype}    ${isLive}
+    ${acc_output}    Create List
+    ${acc_posChk}    Set Variable    2
+    ${acc_i}    Set Variable    -1
+    : FOR    ${acc_iControl}    IN    @{acc_tmplst}
+    \    ${acc_i}    Evaluate    ${acc_i}+1
+    \    Continue For Loop If    ${acc_i}==${acc_posChk}
+    \    Comment    ${acc_iValue}    Get Selected List Value    ${acc_iControl}
+    \    ${acc_iValue}    Execute Javascript    return document.getElementById("${acc_iControl}").value
+    \    Append To List    ${acc_output}    ${acc_iValue}
+    ${acc_iControl}    Set Variable If    '${type}'=='Member'    ${EMPTY}    @{acc_tmplst}[2]
+    ${acc_iValue}    Run Keyword Unless    '${type}'=='Member'    Get Element Attribute    ${acc_iControl}@checked
+    ${acc_iValue}    Set Variable If    '${acc_iValue}'=='true'    1    0
+    Run Keyword Unless    '${type}'=='Member'    Insert Into List    ${acc_output}    ${acc_posChk}    ${acc_iValue}
+    [Return]    ${acc_output}
+
+Check Sportsbook PT new
+    [Arguments]    ${username}    ${type}    ${Sporttype}    ${Bettype}    ${isLive}    ${lstValues}
+    [Documentation]    This action is used to edit Sportsbook PT of account
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${type}: the account type (Master/Agent/Member)
+    ...
+    ...    ${Sporttype}: the sporttype
+    ...
+    ...    ${Bettype}: the bettype
+    ...
+    ...    ${isLive}: the liveindicator
+    ...
+    ...    ${lstValues}: the list contain PT value (MaxPT, UplinePresetPT,isUplineAutoPT,UplineAutoPT). The ${Empty} item mean this item does not need to be edited
+    ${acc_currentValues}    Get Sportsbook PT Values    ${username}    ${type}    ${Sporttype}    ${Bettype}    ${isLive}
+    ${acc_lstItemName}    create list    Max PT    Upline Preset PT    isAuto    Auto Preset PT
+    ${acc_len}    Get Length    ${lstValues}
+    ${acc_len}    Evaluate    min(len(${acc_currentValues}),${acc_len})
+    : FOR    ${i}    IN RANGE    0    ${acc_len}
+    \    ${ichecked}    Get From List    ${lstValues}    ${i}
+    \    Continue For Loop If    '${ichecked}'=='' or '${ichecked}'=='${EMPTY}'
+    \    ${PT}    Get From List    ${acc_currentValues}    ${i}
+    \    ${Item}    Get From List    ${acc_lstItemName}    ${i}
+    \    Run Keyword And Continue On Failure    Should Be Equal As Numbers    ${PT}    ${ichecked}    ${Item} value is not correct. Current value is ${PT} but checked value is ${ichecked}
+
+Edit Sportsbook PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}
+    ...    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}    ${N3}=${EMPTY}
+    [Documentation]    *This Action is used to Update Sportsbook Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    @{ac_controlLst}    Get Sportsbook PT Controls    SuperMaster    ${sporttype}    ${bettype}    ${isLive}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[1]    ${M3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[2]    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[3]    ${Us3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    unselect frame
+
+Edit Sportsbook PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}
+    ...    ${Us1}=${EMPTY}
+    @{ac_controlLst}    Get Sportsbook PT Controls    SuperPlayer    ${sporttype}    ${bettype}    ${isLive}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    unselect frame
+
+Edit Sportsbook PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}
+    ...    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}    ${N2}=${EMPTY}
+    [Documentation]    *This Action is used to Update Sportsbook Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    @{ac_controlLst}    Get Sportsbook PT Controls    MasterAgent    ${sporttype}    ${bettype}    ${isLive}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[1]    ${A2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[2]    ${Im2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[3]    ${Um2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    unselect frame
+
+Edit Sportsbook PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}
+    ...    ${Um1}=${EMPTY}
+    @{ac_controlLst}    Get Sportsbook PT Controls    MasterPlayer    ${sporttype}    ${bettype}    ${isLive}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    unselect frame
+
+Edit Sportsbook PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${A1}=${EMPTY}
+    @{ac_controlLst}    Get Sportsbook PT Controls    AgentPlayer    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Unselect Frame
+
+Verify Sportsbook PT_SuperMaster
+    [Arguments]    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}
+    ...    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Master Edit Agent*
+    ...    - S3,M3, Is3, Us3
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    @{ac_controlLst}    Get Sportsbook PT Controls    SuperMaster    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    Select Frame    main
+    # Check S3
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check M3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[1]
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+    # Check Is3
+    ${actualValue}    Get Value    @{ac_controlLst}[2]
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    Unselect Frame
+
+Verify Sportsbook PT_SuperPlayer
+    [Arguments]    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    @{ac_controlLst}    Get Sportsbook PT Controls    SuperPlayer    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    Select Frame    main
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Im1
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Um1
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify Sportsbook PT_MasterAgent
+    [Arguments]    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}
+    ...    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Master Edit Agent*
+    ...    - M2,A2, Im2, Um2
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    @{ac_controlLst}    Get Sportsbook PT Controls    MasterAgent    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    Select Frame    main
+    # Check M2
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check A2
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[1]
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+    # Check Im2
+    ${actualValue}    Get Value    @{ac_controlLst}[2]
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    Unselect Frame
+
+Verify Sportsbook PT_MasterPlayer
+    [Arguments]    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}
+    @{ac_controlLst}    Get Sportsbook PT Controls    MasterPlayer    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    Select Frame    main
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+
+Verify Sportsbook PT_AgentPlayer
+    [Arguments]    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${expectedA1}=${EMPTY}
+    @{ac_controlLst}    Get Sportsbook PT Controls    AgentPlayer    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    Select Frame    main
+    # Check A1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${ac_A1}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame
+
+Verify Edit Member SB PT Popup UI
+    [Arguments]    ${ac_loginLevel}    ${ac_membername}
+    ## Open PT Popup
+    ${ac_memberLower}    Evaluate    "${ac_membername}".lower()
+    ${ac_lnkUsername}    Set Variable    //a[translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ='${ac_memberLower}']
+    Click Element    ${ac_lnkUsername}
+    ## Set variable
+    @{ac_lstGroupComm}    Create list    Asian HDP, OU, OE    1 X 2    Other Bettypes    Number Game Comm    HR Fixed Odds
+    @{ac_lstSport}    Create list    Soccer    Basketball    Football    Tennis    Baseball
+    ...    Golf    Motor Sports    Other Sports    Mix Sports Parlay    HR Fixed Odds    Number Game
+    ## Go to top frame
+    Unselect Frame
+    ## Check Popup Title
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_main_framePopupHeader}    Edit Member - ${ac_membername}    ${cfWaitControl}
+    ## Select Popup Frame
+    Select Frame    ${in_main_framePopup}
+    ## CHeck content info
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_editsb_btnUpdateFooter}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_btnUpdate}
+    ## CHeck customer info section
+    Verify Edit Member SB PT Popup UI General Info    ${ac_loginLevel}
+    ## Check Comm section
+    Verify Edit Member SB PT Popup UI Comm    ${ac_loginLevel}
+    ## Check Bet setting section
+    Verify Edit Member SB PT Popup UI Bet Limit    ${ac_loginLevel}
+    ## Check PT section
+    Verify Edit Member SB PT Popup UI PT    ${ac_loginLevel}
+    ## Close popup
+    Comment    Unselect Frame
+    Comment    Click Element    ${in_main_btnClosePopup}
+    Close Popup By JS
+
+Verify Edit Member SB PT Popup UI General Info
+    [Arguments]    ${ac_loginLevel}
+    ## set variable
+    ${ac_lstControlofMember}    Create list    ${in_m_editsb_txtFirstName}    ${in_m_editsb_txtLastName}    ${in_m_editsb_txtPhone}    ${in_m_editsb_txtMobilePhone}    ${in_m_editsb_txtCredit}
+    ...    ${in_m_editsb_txtFax}    ${in_m_editsb_spanGroup}    ${in_m_editsb_chkSuspended}    ${in_m_editsb_chkClosed}
+    ${ac_lstControlofNonMember}    Create list    ${in_m_editsb_spanFirstName}    ${in_m_editsb_spanLastName}    ${in_m_editsb_spanPhone}    ${in_m_editsb_spanMobilePhone}    ${in_m_editsb_spanCredit}
+    ...    ${in_m_editsb_spanFax}    ${in_m_editsb_spanGroup}    ${in_m_editsb_chkSuspended}    ${in_m_editsb_chkClosed}
+    @{ac_lstControl}    Set Variable If    '${ac_loginLevel}'=='Agent'    ${ac_lstControlofMember}    ${ac_lstControlofNonMember}
+    ## CHeck customer info section
+    : FOR    ${ac_iControl}    IN    @{ac_lstControl}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iControl}
+
+Verify Edit Member SB PT Popup UI Comm
+    [Arguments]    ${ac_loginLevel}
+    ## Set variable
+    @{ac_lstGroupComm}    Create list    Asian HDP, OU, OE    1 X 2    Other Bettypes    Number Game Comm    HR Fixed Odds
+    ## Check Comm header
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_divComm}
+    ${ac_lstCommHeader}    Set Variable If    '${ac_loginLevel}'=='Super'    Comm for Master,Comm for Agent,Comm for Member    Comm for Agent,Comm for Member
+    @{ac_lstCommHeader}    Split String    ${ac_lstCommHeader}    ,
+    ${ac_i}    Set Variable    1
+    : FOR    ${ac_iName}    IN    @{ac_lstCommHeader}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editsb_commHeader}[${ac_i}]    ${ac_iName}
+    \    ${ac_i}    Evaluate    ${ac_i} + 1
+    ## Check Comm name
+    ${ac_i}    Set Variable    2
+    : FOR    ${ac_iName}    IN    @{ac_lstGroupComm}
+    \    ${ac_controlCommGroup}    Set Variable    //div[@class='commission']/div[@class='clearBlock'][${ac_i}]${in_m_editsb_commBettype}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${ac_controlCommGroup}    ${ac_iName}
+    \    ${ac_i}    Evaluate    ${ac_i} + 1
+    ## Set variable
+    ${ac_i}    Set Variable    1
+    : FOR    ${ac_i}    IN RANGE    1    2
+    \    Exit For Loop If    '${ac_loginLevel}' <> 'Agent'
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_ddlCommHdp}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_ddlComm1x2}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_ddlCommOthers}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_ddlCommNG}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_ddlCommHRFixOdds}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_txtlCommHdp}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_txtComm1x2}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_txtCommOthers}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_txtCommNG}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_txtCommHRFixOdds}
+
+Verify Edit Member SB PT Popup UI Bet Limit
+    [Arguments]    ${ac_loginLevel}
+    ## Set variable
+    @{ac_lstSport}    Create list    Soccer    Soccer Parlay    Basketball    Football    Tennis
+    ...    Baseball    Golf    Motor Sports    Other Sports    Mix Sports Parlay    HR Fixed Odds
+    ...    Number Game
+    ## Check Bet setting section
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_divBetSetting}
+    ## Check bet setting header
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='BettingLimitHeaderTop'][1]    Min Bet
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='BettingLimitHeaderTop'][2]    Max Bet
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='BettingLimitHeaderTop'][3]    Max Per Match
+    ## Check Sport bet limit excluding NG
+    ${ac_i}    Set Variable    1
+    ${ac_txtBetlimit}    Set Variable If    '${ac_loginLevel}'=='Agent'    ${in_m_editsb_txtBetLimit}    ${EMPTY}
+    : FOR    ${ac_iName}    IN    @{ac_lstSport}
+    \    Continue For Loop If    '${ac_iName}'=='Number Game'
+    \    ${ac_iBetLimitSportname}    Set Variable    ${in_m_editsb_divBetlimitSporttypeName}[${ac_i}]/div[contains(@class,'BettingLimitHeader')]
+    \    ${ac_iBetlimit}    Set Variable    ${in_m_editsb_divBetlimitSporttypeName}[${ac_i}]${in_m_editsb_divBetLimitLabel}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${ac_iBetLimitSportname}    ${ac_iName}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iBetlimit}[1]${ac_txtBetlimit}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iBetlimit}[2]${ac_txtBetlimit}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iBetlimit}[3]${ac_txtBetlimit}
+    \    ${ac_i}    Evaluate    ${ac_i} + 1
+    ## Check NG Betlimit
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editsb_divBetlimitNGName}    Number Game
+    ${ac_i}    Set Variable    1
+    @{ac_lstNG}    Create List    Min Bet    Max Bet    Max Per Match    Max Per Ball
+    ${ac_controlBetlimit}    Set Variable If    '${ac_loginLevel}'=='Agent'    ${in_m_editsb_txtBetLimitNG}    ${EMPTY}
+    : FOR    ${ac_iName}    IN    @{ac_lstNG}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editsb_divBetlimitHeaderNG}[${ac_i}]    ${ac_iName}
+    \    ${ac_iBetlimit}    Set Variable    ${in_m_editsb_divBetLimitLabelNG}[${ac_i}]
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iBetlimit}
+    \    ${ac_i}    Evaluate    ${ac_i} + 1
+
+Verify Edit Member SB PT Popup UI PT
+    [Arguments]    ${ac_loginLevel}
+    ## Set variable
+    @{ac_lstSport}    Create list    Soccer    Basketball    Football    Tennis    Baseball
+    ...    Golf    Motor Sports    Other Sports    Mix Sports Parlay    HR Fixed Odds    Number Game
+    ## Check PT section
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_editsb_divPositionTaking}
+    ## Check PT Reference Icon
+    ${ac_NoPTIcon}=    Get Matching Xpath Count    ${in_m_editsb_icoPTInfo}
+    Run Keyword And Continue On Failure    Should Be Equal As Integers    ${ac_NoPTIcon}    1
+    ##
+    ${ac_i}    Set Variable    1
+    : FOR    ${ac_iName}    IN    @{ac_lstSport}
+    \    ${ac_iPTSportName}    Set Variable    ${in_m_editsb_divSport}[${ac_i}]${in_m_editsb_divSportLabel}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${ac_iPTSportName}    ${ac_iName}
+    \    ${ac_i}    Evaluate    ${ac_i} + 1
+    \    Run Keyword Unless    '${ac_iName}' == 'Soccer'    Run Keyword And Continue On Failure    Click Element    ${ac_iPTSportName}
+    ## Check all PT ddl
+    ${ac_LevelPrefix}    Evaluate    "${ac_loginLevel}"[0].lower() + "1"
+    @{ac_lstPTControls}    Create SB PT Controls    0    ${ac_LevelPrefix}
+    : FOR    ${ac_ID}    IN    @{ac_lstPTControls}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    //select[@id='${ac_ID}']
+
+Create SB PT Controls
+    [Arguments]    ${ac_sportID}    ${ac_prefix}
+    ##
+    ${ac_lst1}    Create List    $1$1$0    $1$3$0    $1$7$0    $1$8$0    $1$2$0
+    Append To List    ${ac_lst1}    $1$9999$0    $1$5$0    $1$4$0    $1$6$0    $1$9$0
+    Append To List    ${ac_lst1}    $1$10$0    $1$1$1    $1$3$1    $1$7$1    $1$8$1
+    ##
+    ${ac_lst2}    Create List    $2$1$0    $2$3$0    $2$2$0    $2$20$0    $2$10$0
+    ##
+    ${ac_lst3}    Create List    $3$1$0    $3$3$0    $3$2$0    $3$20$0    $3$10$0
+    ##
+    ${ac_lst5}    Create List    $5$1$0    $5$3$0    $5$2$0    $5$20$0    $5$9999$0
+    ...    $5$10$0
+    ##
+    ${ac_lst8}    Create List    $8$1$0    $8$3$0    $8$20$0    $8$10$0
+    ##
+    ${ac_lst10}    Create List    $10$1$0    $10$3$0    $10$2$0    $10$20$0    $10$10$0
+    ##
+    ${ac_lst11}    Create List    $11$1$0    $11$20$0    $11$10$0
+    ##
+    ${ac_lst99}    Create List    $99$1$0    $99$3$0    $99$2$0    $99$20$0    $99$9$0
+    ...    $99$10$0
+    ##
+    ${ac_lst154}    Create List    $154$20$0
+    ##
+    ${ac_lst161}    Create List    $161$81$0    $161$83$0    $161$88$0    $161$86$0
+    Append To List    ${ac_lst161}    $161$85$1    $161$86$1    $161$87$1    $161$89$1    $161$90$1
+    ##
+    ${ac_lst0}    Combine Lists    ${ac_lst1}    ${ac_lst2}    ${ac_lst3}    ${ac_lst5}    ${ac_lst8}
+    ...    ${ac_lst10}    ${ac_lst11}    ${ac_lst99}    ${ac_lst154}    ${ac_lst161}
+    ## return lst
+    ${ac_lstOutputSBPTControls}    Get Variable Value    ${ac_lst${ac_sportID}}
+    ${ac_len}    Get Length    ${ac_lstOutputSBPTControls}
+    : FOR    ${ac_i}    IN RANGE    ${ac_len}
+    \    ${ac_item}    Get From List    ${ac_lstOutputSBPTControls}    ${ac_i}
+    \    Set List Value    ${ac_lstOutputSBPTControls}    ${ac_i}    ${ac_prefix}${ac_item}
+    [Return]    ${ac_lstOutputSBPTControls}
+
+Edit Multiple Sportsbook PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}
+    ...    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}    ${N3}=${EMPTY}
+    [Documentation]    *This Action is used to Update Multiple Sportsbook Position Taking - Super Edit Master*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit Sportbook PT_SuperMaster
+    @{ac_controlLst}    Get Sportsbook PT Controls    SuperMaster    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editsb_mul_chkPTGroupSoccer}    ${cfWaitControl}
+    Set Checkbox    ${in_m_editsb_mul_chkPTGroupSoccer}    check    #Select Sport checkbox to enable PT dropdown control
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[1]    ${M3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[2]    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[3]    ${Us3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Sportsbook PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}
+    ...    ${Us1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Multiple Sportsbook Position Taking - Super Edit Player*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit Sportbook PT_SuperPlayer
+    @{ac_controlLst}    Get Sportsbook PT Controls    SuperPlayer    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editsb_mul_chkPTGroupSoccer}    ${cfWaitControl}
+    Set Checkbox    ${in_m_editsb_mul_chkPTGroupSoccer}    check    #Select Sport checkbox to enable PT dropdown control
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Sportsbook PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}
+    ...    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}    ${N2}=${EMPTY}
+    [Documentation]    *This Action is used to Update Multiple Sportsbook Position Taking - Master Edit Agentr*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit Sportbook PT_MasterAgent
+    @{ac_controlLst}    Get Sportsbook PT Controls    MasterAgent    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editsb_mul_chkPTGroupSoccer}    ${cfWaitControl}
+    Set Checkbox    ${in_m_editsb_mul_chkPTGroupSoccer}    check    #Select Sport checkbox to enable PT dropdown control
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[1]    ${A2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[2]    ${Im2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[3]    ${Um2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Sportsbook PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}
+    ...    ${Um1}=${EMPTY}
+    @{ac_controlLst}    Get Sportsbook PT Controls    MasterPlayer    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editsb_mul_chkPTGroupSoccer}    ${cfWaitControl}
+    Set Checkbox    ${in_m_editsb_mul_chkPTGroupSoccer}    check    #Select Sport checkbox to enable PT dropdown control
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Sportsbook PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${A1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Multiple Sportsbook Position Taking - Agent edit Player*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit Sportbook PT_AgentPlayer
+    @{ac_controlLst}    Get Sportsbook PT Controls    AgentPlayer    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editsb_mul_chkPTGroupSoccer}    ${cfWaitControl}
+    Set Checkbox    ${in_m_editsb_mul_chkPTGroupSoccer}    check    #Select Sport checkbox to enable PT dropdown control
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Verify Multiple Sportsbook PT_SuperMaster
+    [Arguments]    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}
+    ...    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Sportsbook Position Taking - Super Edit Master*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify Sportbook PT_SuperMaster
+    @{ac_controlLst}    Get Sportsbook PT Controls    SuperMaster    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S3
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check M3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[1]
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+    # Check Is3
+    ${actualValue}    Get Value    @{ac_controlLst}[2]
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    Unselect Frame
+
+Verify Multiple Sportsbook PT_SuperPlayer
+    [Arguments]    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Sportsbook Position Taking - Super Edit Player*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify Sportbook PT_SuperPlayer
+    @{ac_controlLst}    Get Sportsbook PT Controls    SuperPlayer    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Im1
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Um1
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify Multiple Sportsbook PT_MasterAgent
+    [Arguments]    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}
+    ...    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Sportsbook Position Taking - Master edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify Sportbook PT_MasterAgent
+    @{ac_controlLst}    Get Sportsbook PT Controls    MasterAgent    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M2
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check A2
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[1]
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+    # Check Im2
+    ${actualValue}    Get Value    @{ac_controlLst}[2]
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    Unselect Frame
+
+Verify Multiple Sportsbook PT_MasterPlayer
+    [Arguments]    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}
+    @{ac_controlLst}    Get Sportsbook PT Controls    MasterPlayer    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+
+Verify Multiple Sportsbook PT_AgentPlayer
+    [Arguments]    ${sporttype}=${EMPTY}    ${bettype}=${EMPTY}    ${isLive}=${EMPTY}    ${expectedA1}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Sportsbook Position Taking - Agent edit Player*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify Sportbook PT_AgentPlayer
+    @{ac_controlLst}    Get Sportsbook PT Controls    AgentPlayer    ${sporttype}    ${bettype}    ${isLive}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editsb_mul_chkPTGroupSoccer}    ${cfWaitControl}
+    ${ac_A1}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame

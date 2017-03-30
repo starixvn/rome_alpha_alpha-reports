@@ -1,0 +1,481 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Collections
+Resource          ../common_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Interfaces/Main/in_m_edit_setting_dcs.txt
+
+*** Keywords ***
+Edit DCS PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}
+    ...    ${IS3}=${EMPTY}    ${US3}=${EMPTY}    ${N3}=${EMPTY}
+    ${ac_cboS3}    Get DCS Locator    combobox    s3    ${product}    ${sportType}    ${betType}
+    ${ac_cboM3}    Get DCS Locator    combobox    m3    ${product}    ${sportType}    ${betType}
+    ${ac_chkIS3}    Get DCS Locator    checkbox    iS3    ${product}    ${sportType}    ${betType}
+    ${ac_cboUS3}    Get DCS Locator    combobox    uS3    ${product}    ${sportType}    ${betType}
+    ${ac_cboN3}    Get DCS Locator    combobox    n3    ${product}    ${sportType}    ${betType}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${ac_cboS3}    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select Value From List    ${ac_cboS3}    ${S3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select Value From List    ${ac_cboM3}    ${M3}
+    Run Keyword If    '${IS3}'!='${EMPTY}'    Set Checkbox    ${ac_chkIS3}    ${IS3}
+    Run Keyword If    '${US3}'!='${EMPTY}'    Select Value From List    ${ac_cboUS3}    ${US3}
+    Run Keyword If    '${N3}'!='${EMPTY}'    Select Value From List    ${ac_cboN3}    ${N3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_DCS_pt_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit DCS PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}
+    ...    ${Us1}=${EMPTY}
+    ${ac_cboS1}    Get DCS Locator    combobox    s1    ${product}    ${sportType}    ${betType}
+    ${ac_chkIs1}    Get DCS Locator    checkbox    iS1    ${product}    ${sportType}    ${betType}
+    ${ac_cboUs1}    Get DCS Locator    combobox    uS1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${ac_cboS1}    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Label    ${ac_cboS1}    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    ${ac_chkIs1}    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Label    ${ac_cboUs1}    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_DCS_pt_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+
+Edit DCS PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}
+    ...    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}    ${N2}=${EMPTY}
+    ${ac_cboM2}    Get DCS Locator    combobox    m2    ${product}    ${sportType}    ${betType}
+    ${ac_cboA2}    Get DCS Locator    combobox    a2    ${product}    ${sportType}    ${betType}
+    ${ac_chkIm2}    Get DCS Locator    checkbox    im2    ${product}    ${sportType}    ${betType}
+    ${ac_cboUm2}    Get DCS Locator    combobox    uM2    ${product}    ${sportType}    ${betType}
+    ${ac_cboN2}    Get DCS Locator    combobox    n2    ${product}    ${sportType}    ${betType}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${ac_cboM2}    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select Value From List    ${ac_cboM2}    ${M2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select Value From List    ${ac_cboA2}    ${A2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    ${ac_chkIm2}    ${Im2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select Value From List    ${ac_cboUm2}    ${Um2}
+    Run Keyword If    '${N2}'!='${EMPTY}'    Select Value From List    ${ac_cboN2}    ${N2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_DCS_pt_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit DCS PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}
+    ...    ${Um1}=${EMPTY}
+    ${ac_cboM1}    Get DCS Locator    combobox    m1    ${product}    ${sportType}    ${betType}
+    ${ac_chkIm1}    Get DCS Locator    checkbox    iM1    ${product}    ${sportType}    ${betType}
+    ${ac_cboUm1}    Get DCS Locator    combobox    uM1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${ac_cboM1}    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Label    ${ac_cboM1}    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    ${ac_chkIm1}    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select From List By Label    ${ac_cboUm1}    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_DCS_pt_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+
+Edit DCS PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${A1}=${EMPTY}
+    [Documentation]    This action is used to update PT: Agent Edit PT Player
+    ${ac_cboA1}    Get DCS Locator    combobox    a1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${ac_cboA1}    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select From List By Label    ${ac_cboA1}    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_DCS_pt_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+
+Verify DCS PT_SuperMaster
+    [Arguments]    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIS3}=${EMPTY}
+    ...    ${expectedUS3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    ${ac_cboS3}    Get DCS Locator    combobox    s3    ${product}    ${sportType}    ${betType}
+    ${ac_cboM3}    Get DCS Locator    combobox    m3    ${product}    ${sportType}    ${betType}
+    ${ac_chkIS3}    Get DCS Locator    checkbox    iS3    ${product}    ${sportType}    ${betType}
+    ${ac_cboUS3}    Get DCS Locator    combobox    uS3    ${product}    ${sportType}    ${betType}
+    ${ac_cboN3}    Get DCS Locator    combobox    n3    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    Select Frame    main
+    # Check S3
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_cboS3}    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedS3}'!='${EMPTY}'    Get Selected List Label    ${ac_cboS3}
+    Run keyword if    '${expectedS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check M3
+    ${actualValue}    Run keyword if    '${expectedM3}'!='${EMPTY}'    Get Selected List Label    ${ac_cboM3}
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+    # Check IS3
+    ${actualValue}    Run keyword if    '${expectedIS3}'!='${EMPTY}'    Get Value    ${ac_chkIS3}
+    Run keyword if    '${expectedIS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIS3}
+    # Check US3
+    ${actualValue}    Run keyword if    '${expectedUS3}'!='${EMPTY}'    Get Selected List Label    ${ac_cboUS3}
+    Run keyword if    '${expectedUS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUS3}
+    # Check N3
+    ${actualValue}    Run keyword if    '${expectedN3}'!='${EMPTY}'    Get Selected List Label    ${ac_cboN3}
+    Run keyword if    '${expectedN3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedN3}
+    Unselect Frame
+
+Verify DCS PT_SuperPlayer
+    [Arguments]    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    ...    ${expectedM1}=${EMPTY}    ${expectedA1}=${EMPTY}
+    ${ac_cboS1}    Get DCS Locator    combobox    s1    ${product}    ${sportType}    ${betType}
+    ${ac_cboIs1}    Get DCS Locator    checkbox    is1    ${product}    ${sportType}    ${betType}
+    ${ac_cboUs1}    Get DCS Locator    combobox    uS1    ${product}    ${sportType}    ${betType}
+    ${ac_lblM1}    Get DCS Locator    lblM1    m1    ${product}    ${sportType}    ${betType}
+    ${ac_lblA1}    Get DCS Locator    lblA1    a1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    Select Frame    main
+    # Check S1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_cboS1}    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedS1}'!='${EMPTY}'    Get Selected List Label    ${ac_cboS1}
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Is1
+    ${actualValue}    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Get Value    ${ac_cboIs1}
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Us1
+    ${actualValue}    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Get Selected List Label    ${ac_cboUs1}
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+    # Check M1
+    ${actualValue}    Run keyword if    '${expectedM1}'!='${EMPTY}'    get text    ${ac_lblM1}
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check A1
+    ${actualValue}    Run keyword if    '${expectedA1}'!='${EMPTY}'    get text    ${ac_lblA1}
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA1}
+    Unselect Frame
+
+Verify DCS PT_MasterAgent
+    [Arguments]    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}
+    ...    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    ${ac_cboM2}    Get DCS Locator    combobox    m2    ${product}    ${sportType}    ${betType}
+    ${ac_cboA2}    Get DCS Locator    combobox    a2    ${product}    ${sportType}    ${betType}
+    ${ac_chkIm2}    Get DCS Locator    checkbox    im2    ${product}    ${sportType}    ${betType}
+    ${ac_cboUm2}    Get DCS Locator    combobox    uM2    ${product}    ${sportType}    ${betType}
+    ${ac_cboN2}    Get DCS Locator    combobox    n2    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    Select Frame    main
+    # Check M2
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_cboM2}    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedM2}'!='${EMPTY}'    Get Selected List Label    ${ac_cboM2}
+    Run keyword if    '${expectedM2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check A2
+    ${actualValue}    Run keyword if    '${expectedA2}'!='${EMPTY}'    Get Selected List Label    ${ac_cboA2}
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+    # Check Im2
+    ${actualValue}    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Get Value    ${ac_chkIm2}
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Get Selected List Label    ${ac_cboUm2}
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    # Check N2
+    ${actualValue}    Run keyword if    '${expectedN2}'!='${EMPTY}'    Get Selected List Label    ${ac_cboN2}
+    Run keyword if    '${expectedN2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedN2}
+    Unselect Frame
+
+Verify DCS PT_MasterPlayer
+    [Arguments]    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}
+    ...    ${expectedA1}=${EMPTY}
+    ${ac_cboM1}    Get DCS Locator    combobox    m1    ${product}    ${sportType}    ${betType}
+    ${ac_cboIm1}    Get DCS Locator    checkbox    im1    ${product}    ${sportType}    ${betType}
+    ${ac_cboUm1}    Get DCS Locator    combobox    uM1    ${product}    ${sportType}    ${betType}
+    ${ac_lblA1}    Get DCS Locator    lblA1    a1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    Select Frame    main
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_cboM1}    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedM1}'!='${EMPTY}'    Get Selected List Label    ${ac_cboM1}
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Get Value    ${ac_cboIm1}
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Get Selected List Label    ${ac_cboUm1}
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+    # Check A1
+    ${actualValue}    Run keyword if    '${expectedA1}'!='${EMPTY}'    get text    ${ac_lblA1}
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA1}
+    Unselect Frame
+
+Verify DCS PT_AgentPlayer
+    [Arguments]    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${expectedA1}=${EMPTY}
+    ${ac_cboA1}    Get DCS Locator    combobox    a1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    Select Frame    main
+    # Check A1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_cboA1}    ${cfWaitControl}
+    ${ac_actual}    Run keyword if    '${expectedA1}'!='${EMPTY}'    Get Selected List Label    ${ac_cboA1}
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_actual}    ${expectedA1}
+    Unselect Frame
+
+Get DCS Locator
+    [Arguments]    ${fieldType}=${EMPTY}    ${fieldName}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}
+    [Documentation]    This action is used to return Locator of PT Setting Controls:
+    ...
+    ...    - ${fieldType}: combobox, checkbox, lblA1, lblM1
+    ...
+    ...    - ${fieldName}: \ filed name need to mention for combobox (pt selected list)
+    ...    \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a1, m2, uM2, a2, n2, m1, uM1, s3, uS3, m3, n3, s1, uS1
+    ...
+    ...    - ${product}: product Id
+    ...
+    ...    - ${sportType}: sport type Id
+    ...
+    ...    - ${bettype}: bet type Id
+    ${a}    Set Variable    ${product}
+    ${ac_locator}    set variable    ${in_m_DCS_pt_${fieldType}}
+    ${ac_locator}    replace string    ${ac_locator}    uiProduct    ${product}
+    ${ac_locator}    replace string    ${ac_locator}    uiSportType    ${sportType}
+    ${ac_locator}    replace string    ${ac_locator}    uiBetType    ${betType}
+    ${ac_locator_cbo}    run keyword if    '${fieldType}'=='combobox'    replace string    ${ac_locator}    uiFieldName    ${fieldName}
+    ${rt_locator}    Set Variable if    '${fieldType}'=='combobox'    ${ac_locator_cbo}    ${ac_locator}
+    [Return]    ${rt_locator}
+
+Edit Multiple DCS PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}
+    ...    ${IS3}=${EMPTY}    ${US3}=${EMPTY}    ${N3}=${EMPTY}
+    [Documentation]    *This Action is used to Edit Multiple DCS Position Taking - Super Edit Master*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit DCS PT_SuperMaster
+    ${ac_cboS3}    Get DCS Locator    combobox    s3    ${product}    ${sportType}    ${betType}
+    ${ac_cboM3}    Get DCS Locator    combobox    m3    ${product}    ${sportType}    ${betType}
+    ${ac_chkIS3}    Get DCS Locator    checkbox    iS3    ${product}    ${sportType}    ${betType}
+    ${ac_cboUS3}    Get DCS Locator    combobox    uS3    ${product}    ${sportType}    ${betType}
+    ${ac_cboN3}    Get DCS Locator    combobox    n3    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${ac_cboS3}    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select From List By Label    ${ac_cboS3}    ${S3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select From List By Label    ${ac_cboM3}    ${M3}
+    Run Keyword If    '${IS3}'!='${EMPTY}'    Set Checkbox    ${ac_chkIS3}    ${IS3}
+    Run Keyword If    '${US3}'!='${EMPTY}'    Select From List By Label    ${ac_cboUS3}    ${US3}
+    Run Keyword If    '${N3}'!='${EMPTY}'    Select From List By Label    ${ac_cboN3}    ${N3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_DCS_pt_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Scroll To Element    ${in_main_btnClosePopup}
+    Click button    ${in_main_btnClosePopup}
+
+Edit Multiple DCS PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}
+    ...    ${Us1}=${EMPTY}
+    ${ac_cboS1}    Get DCS Locator    combobox    s1    ${product}    ${sportType}    ${betType}
+    ${ac_chkIs1}    Get DCS Locator    checkbox    iS1    ${product}    ${sportType}    ${betType}
+    ${ac_cboUs1}    Get DCS Locator    combobox    uS1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${ac_cboS1}    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Label    ${ac_cboS1}    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    ${ac_chkIs1}    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Label    ${ac_cboUs1}    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_DCS_pt_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+    Scroll To Element    ${in_main_btnClosePopup}
+    Click button    ${in_main_btnClosePopup}
+
+Edit Multiple DCS PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}
+    ...    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}    ${N2}=${EMPTY}
+    [Documentation]    *This Action is used to Edit Multiple DCS Position Taking - Master edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit DCS PT_MasterAgent
+    ${ac_cboM2}    Get DCS Locator    combobox    m2    ${product}    ${sportType}    ${betType}
+    ${ac_cboA2}    Get DCS Locator    combobox    a2    ${product}    ${sportType}    ${betType}
+    ${ac_chkIm2}    Get DCS Locator    checkbox    im2    ${product}    ${sportType}    ${betType}
+    ${ac_cboUm2}    Get DCS Locator    combobox    uM2    ${product}    ${sportType}    ${betType}
+    ${ac_cboN2}    Get DCS Locator    combobox    n2    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${ac_cboM2}    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select From List By Label    ${ac_cboM2}    ${M2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select From List By Label    ${ac_cboA2}    ${A2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    ${ac_chkIm2}    ${Im2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select From List By Label    ${ac_cboUm2}    ${Um2}
+    Run Keyword If    '${N2}'!='${EMPTY}'    Select From List By Label    ${ac_cboN2}    ${N2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_DCS_pt_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Scroll To Element    ${in_main_btnClosePopup}
+    Click button    ${in_main_btnClosePopup}
+
+Edit Multiple DCS PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}
+    ...    ${Um1}=${EMPTY}
+    ${ac_cboM1}    Get DCS Locator    combobox    m1    ${product}    ${sportType}    ${betType}
+    ${ac_chkIm1}    Get DCS Locator    checkbox    iM1    ${product}    ${sportType}    ${betType}
+    ${ac_cboUm1}    Get DCS Locator    combobox    uM1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${ac_cboM1}    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Label    ${ac_cboM1}    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    ${ac_chkIm1}    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select From List By Label    ${ac_cboUm1}    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_DCS_pt_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+    Scroll To Element    ${in_main_btnClosePopup}
+    Click button    ${in_main_btnClosePopup}
+
+Edit Multiple DCS PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${A1}=${EMPTY}
+    [Documentation]    *This Action is used to Edit Multiple DCS Position Taking -Agent edit Player*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit DCS PT_AgentPlayer
+    ${ac_cboA1}    Get DCS Locator    combobox    a1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${ac_cboA1}    ${cfWaitControl}
+    Run Keyword If    '${product}'=='22'    Set Checkbox    id=414    check    #set bet limit checkbox for macau game
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select From List By Label    ${ac_cboA1}    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_DCS_pt_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+    Scroll To Element    ${in_main_btnClosePopup}
+    Click button    ${in_main_btnClosePopup}
+
+Verify Multiple DCS PT_SuperPlayer
+    [Arguments]    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    ...    ${expectedM1}=${EMPTY}    ${expectedA1}=${EMPTY}
+    ${ac_cboS1}    Get DCS Locator    combobox    s1    ${product}    ${sportType}    ${betType}
+    ${ac_cboIs1}    Get DCS Locator    checkbox    is1    ${product}    ${sportType}    ${betType}
+    ${ac_cboUs1}    Get DCS Locator    combobox    uS1    ${product}    ${sportType}    ${betType}
+    ${ac_lblM1}    Get DCS Locator    lblM1    m1    ${product}    ${sportType}    ${betType}
+    ${ac_lblA1}    Get DCS Locator    lblA1    a1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_cboS1}    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedS1}'!='${EMPTY}'    Get Selected List Label    ${ac_cboS1}
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Is1
+    ${actualValue}    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Get Value    ${ac_cboIs1}
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Us1
+    ${actualValue}    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Get Selected List Label    ${ac_cboUs1}
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+    # Check M1
+    ${actualValue}    Run keyword if    '${expectedM1}'!='${EMPTY}'    get text    ${ac_lblM1}
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check A1
+    ${actualValue}    Run keyword if    '${expectedA1}'!='${EMPTY}'    get text    ${ac_lblA1}
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA1}
+    Unselect Frame
+
+Verify Multiple DCS PT_SuperMaster
+    [Arguments]    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIS3}=${EMPTY}
+    ...    ${expectedUS3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple DCS Position Taking - Super Edit Master*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify DCS PT_SuperMaster
+    ${ac_cboS3}    Get DCS Locator    combobox    s3    ${product}    ${sportType}    ${betType}
+    ${ac_cboM3}    Get DCS Locator    combobox    m3    ${product}    ${sportType}    ${betType}
+    ${ac_chkIS3}    Get DCS Locator    checkbox    iS3    ${product}    ${sportType}    ${betType}
+    ${ac_cboUS3}    Get DCS Locator    combobox    uS3    ${product}    ${sportType}    ${betType}
+    ${ac_cboN3}    Get DCS Locator    combobox    n3    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S3
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_cboS3}    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedS3}'!='${EMPTY}'    Get Selected List Label    ${ac_cboS3}
+    Run keyword if    '${expectedS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check M3
+    ${actualValue}    Run keyword if    '${expectedM3}'!='${EMPTY}'    Get Selected List Label    ${ac_cboM3}
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+    # Check IS3
+    ${actualValue}    Run keyword if    '${expectedIS3}'!='${EMPTY}'    Get Value    ${ac_chkIS3}
+    Run keyword if    '${expectedIS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIS3}
+    # Check US3
+    ${actualValue}    Run keyword if    '${expectedUS3}'!='${EMPTY}'    Get Selected List Label    ${ac_cboUS3}
+    Run keyword if    '${expectedUS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUS3}
+    # Check N3
+    ${actualValue}    Run keyword if    '${expectedN3}'!='${EMPTY}'    Get Selected List Label    ${ac_cboN3}
+    Run keyword if    '${expectedN3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedN3}
+    Unselect Frame
+
+Verify Multiple DCS PT_MasterAgent
+    [Arguments]    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}
+    ...    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple DCS Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify DCS PT_MasterAgent
+    ${ac_cboM2}    Get DCS Locator    combobox    m2    ${product}    ${sportType}    ${betType}
+    ${ac_cboA2}    Get DCS Locator    combobox    a2    ${product}    ${sportType}    ${betType}
+    ${ac_chkIm2}    Get DCS Locator    checkbox    im2    ${product}    ${sportType}    ${betType}
+    ${ac_cboUm2}    Get DCS Locator    combobox    uM2    ${product}    ${sportType}    ${betType}
+    ${ac_cboN2}    Get DCS Locator    combobox    n2    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M2
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_cboM2}    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedM2}'!='${EMPTY}'    Get Selected List Label    ${ac_cboM2}
+    Run keyword if    '${expectedM2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check A2
+    ${actualValue}    Run keyword if    '${expectedA2}'!='${EMPTY}'    Get Selected List Label    ${ac_cboA2}
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+    # Check Im2
+    ${actualValue}    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Get Value    ${ac_chkIm2}
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Get Selected List Label    ${ac_cboUm2}
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    # Check N2
+    ${actualValue}    Run keyword if    '${expectedN2}'!='${EMPTY}'    Get Selected List Label    ${ac_cboN2}
+    Run keyword if    '${expectedN2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedN2}
+    Unselect Frame
+
+Verify Multiple DCS PT_MasterPlayer
+    [Arguments]    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}
+    ...    ${expectedA1}=${EMPTY}
+    ${ac_cboM1}    Get DCS Locator    combobox    m1    ${product}    ${sportType}    ${betType}
+    ${ac_cboIm1}    Get DCS Locator    checkbox    im1    ${product}    ${sportType}    ${betType}
+    ${ac_cboUm1}    Get DCS Locator    combobox    uM1    ${product}    ${sportType}    ${betType}
+    ${ac_lblA1}    Get DCS Locator    lblA1    a1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_cboM1}    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedM1}'!='${EMPTY}'    Get Selected List Label    ${ac_cboM1}
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Get Value    ${ac_cboIm1}
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Get Selected List Label    ${ac_cboUm1}
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+    # Check A1
+    ${actualValue}    Run keyword if    '${expectedA1}'!='${EMPTY}'    get text    ${ac_lblA1}
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA1}
+    Unselect Frame
+
+Verify Multiple DCS PT_AgentPlayer
+    [Arguments]    ${product}=${EMPTY}    ${sportType}=${EMPTY}    ${betType}=${EMPTY}    ${expectedA1}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple DCS Position Taking - Agent Edit Player *
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify DCS PT_AgentPlayer
+    ${ac_cboA1}    Get DCS Locator    combobox    a1    ${product}    ${sportType}    ${betType}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check A1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_cboA1}    ${cfWaitControl}
+    ${ac_actual}    Run keyword if    '${expectedA1}'!='${EMPTY}'    Get Selected List Label    ${ac_cboA1}
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_actual}    ${expectedA1}
+    Unselect Frame

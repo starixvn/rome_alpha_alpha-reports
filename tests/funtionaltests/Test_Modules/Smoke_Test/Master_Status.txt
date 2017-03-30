@@ -1,0 +1,588 @@
+*** Settings ***
+Documentation     Test Module is used to verify Setting Status of:
+...               - Product Status
+...               - Double Comm
+...               - OutRight
+Suite Setup       Init    ${ds_Line02_M01}
+Suite Teardown    Teardown Test Suit
+Test Setup
+Test Teardown
+Force Tags        Level_Master    Funct_Setting
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/menu/accountInfo_setting.txt
+Resource          ../../Data_set/accounts.txt
+
+*** Test Cases ***
+TC_MA_DC01_Disable DoubleComm
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    doubleComm
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP01    Agent is Not Allow doubleComm
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_MA_DC02_Enable DoubleComm
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    doubleComm
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP01    Agent is Not Allow doubleComm
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_OR01_Disable Outright
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    outright
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP01    Agent is Not Allow doubleComm
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_MA_OR02_Enable Outright
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    outright
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP01    Agent is Not Allow doubleComm
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MP_OR01_Disable Outright
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_member}    set variable    ${ds_Line02_P0101001}
+    ${tc_status}    set variable    outright
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Not Allow doubleComm
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_MP_OR02_Enable Outright
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_member}    set variable    ${ds_Line02_P0101001}
+    ${tc_status}    set variable    outright
+    COMMENT    -----------------------    MAIN STEPS
+    #    Master Login
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Not Allow doubleComm
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_MA_CS01_Disable Casino
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    casino
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP01    Agent is Not Allow casino
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_MA_CS02_Enable Casino with Disable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    casino
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline
+    #    VP01    Agent is Not Allow casino
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_CS03_Enable Casino with Enable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    casino
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    Search Account    ${tc_agent}
+    Update Setting Status    save    ${tc_status}    check    downline    check
+    #    VP01    Agent is Not Allow casino
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+
+TC_MA_HR01_Disable HRFixedOdds
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    HRFixedOdds
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP01    Agent is Not Allow HRFixedOdds
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_MA_HR02_Enable HRFixedOdds with Disable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    HRFixedOdds
+    COMMENT    -----------------------    MAIN STEPS
+    Update Setting Status    save    ${tc_status}    check    downline
+    #    VP01    Agent is Not Allow HRFixedOdds
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_HR03_Enable HRFixedOdds with Enable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    HRFixedOdds
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    Search Account    ${tc_agent}
+    Update Setting Status    save    ${tc_status}    check    downline    check
+    #    VP01    Agent is Not Allow HRFixedOdds
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_VS01_Disable VirtualSport
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    virtualSports
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP01    Agent is Not Allow virtualSports
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_MA_VS02_Enable VirtualSport with Disable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    virtualSports
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline
+    #    VP01    Agent is Not Allow virtualSports
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_VS03_Enable VirtualSport with Enable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    virtualSports
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    Search Account    ${tc_agent}
+    Update Setting Status    save    ${tc_status}    check    downline    check
+    #    VP01    Agent is Not Allow virtualSports
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_GD01_Disable GoldDeluxe
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    goldDeluxe
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    downline
+    #    VP01    Agent is Not Allow goldDeluxe
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_MA_GD02_Enable GoldDeluxe with Disable Downline
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    goldDeluxe
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline
+    #    VP01    Agent is Not Allow goldDeluxe
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_GD03_Enable GoldDeluxe with Enable Downline
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    goldDeluxe
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    downline
+    Search Account    ${tc_agent}
+    Update Setting Status    save    ${tc_status}    check    downline    check
+    #    VP01    Agent is Not Allow goldDeluxe
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_RC01_Disable Racing
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Racing    save    ${tc_status}    uncheck    ${EMPTY}    ok
+    #    VP02    Agent is enabled Racing
+    Search Account    ${tc_agent}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_RC02_Enable Racing with Disable Downline
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Racing    save    ${tc_status}    check
+    #    VP01    Agent is enabled Racing
+    Search Account    ${tc_agent}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_RC03_Enable Racing with Enable Downline
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Racing    save    ${tc_status}    uncheck    ${EMPTY}    ok
+    Search Account    ${tc_agent}
+    Update Setting Status Racing    save    ${tc_status}    check    check
+    #    VP01    Agent is enabled Racing
+    Search Account    ${tc_agent}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_KN01_Disable Keno
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Keno    save    ${tc_status}    uncheck
+    #    VP01    Agent is Not Allow Keno
+    Search Account    ${tc_agent}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_KN02_Enable Keno with Disable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Keno    save    ${tc_status}    check    uncheck
+    #    VP01    Agent is Not Allow Keno
+    Search Account    ${tc_agent}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_KN03_Enable Keno with Enable Downline
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    #    Master Login
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Keno    save    ${tc_status}    uncheck
+    Search Account    ${tc_agent}
+    Update Setting Status Keno    save    ${tc_status}    check    check
+    #    VP01    Agent is Not Allow Keno
+    Search Account    ${tc_agent}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_CB01_Disable ColossusBets
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_product}    set variable    Colossus Bets
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Single New    ${tc_product}    save    uncheck    ${EMPTY}
+    #    VP00    Member is Disabled Status
+    Search Account    ${tc_agent}
+    Verify Setting Status Single new    ${tc_product}    visible    enable    uncheck    visible    disable
+    ...    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_CB02_Enable ColossusBets with Disable Downline
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_product}    set variable    Colossus Bets
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Single New    ${tc_product}    save    check    uncheck
+    #    VP00    Member is Disabled Status
+    Search Account    ${tc_agent}
+    Verify Setting Status Single New    ${tc_product}    visible    enable    check    visible    disable
+    ...    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    Update Setting Status Single New    ${tc_product}    save    uncheck    ${EMPTY}
+
+TC_MA_CB02_Enable ColossusBets with Enable Downline
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_product}    set variable    Colossus Bets
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Single New    ${tc_product}    save    check    check
+    #    VP00    Member is Disabled Status
+    Search Account    ${tc_agent}
+    Verify Setting Status Single New    ${tc_product}    visible    enable    check    visible    disable
+    ...    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_SP01_Suspend
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_master}    set variable    ${ds_Line02_M01}
+    ${tc_agent}    set variable    ${ds_Line02_A0102}
+    ${tc_member}    set variable    ${ds_Line02_P0102001}
+    ${tc_status}    set variable    suspended
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP01    Agent is Suspended
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP02    Member is Suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    ## Un-suspend Agent
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP03    Agent is Un Suspended
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP04    Member is Un Suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+
+TC_MP_SP01_Suspend
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_master}    set variable    ${ds_Line02_M01}
+    ${tc_member}    set variable    ${ds_Line02_P0101002}
+    ${tc_status}    set variable    suspended
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    ## Un-suspend Member
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+
+TC_MA_CL01_Close
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_master}    set variable    ${ds_Line02_M01}
+    ${tc_agent}    set variable    ${ds_Line02_A0102}
+    ${tc_member}    set variable    ${ds_Line02_P0102001}
+    ${tc_status}    set variable    closed
+    COMMENT    -----------------------    MAIN STEPS
+    #    Master Login
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP01    Agent is Closed
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    check
+    ## Open Agent
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP01    Agent is Open
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    uncheck
+    ## Open Member
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP01    Member is Open
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    uncheck
+
+TC_MP_CL01_Open
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_master}    set variable    ${ds_Line02_M01}
+    ${tc_member}    set variable    ${ds_Line02_P0102001}
+    ${tc_status}    set variable    closed
+    COMMENT    -----------------------    MAIN STEPS
+    #    Master Login
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Opened
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    check
+    ## Open Member
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Opened
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    uncheck
+
+TC_MA_MC01_Disable MacauGames
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_product}    set variable    Macau Games
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Single New    ${tc_product}    save    uncheck    ${EMPTY}
+    #    VP00    Member is Disabled Status
+    Search Account    ${tc_agent}
+    Verify Setting Status Single New    ${tc_product}    visible    enable    uncheck    visible    disable
+    ...    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_MC02_Enable MacauGames with Disable Downline
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_product}    set variable    Macau Games
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Single New    ${tc_product}    save    check    uncheck
+    #    VP00    Member is Disabled Status
+    Search Account    ${tc_agent}
+    Verify Setting Status Single New    ${tc_product}    visible    enable    check    visible    disable
+    ...    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    Update Setting Status Single New    ${tc_product}    save    uncheck    ${EMPTY}
+
+TC_MA_MC03_Enable MacauGames with Enable Downline
+    [Tags]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_product}    set variable    Macau Games
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Single New    ${tc_product}    save    check    check
+    #    VP00    Member is Disabled Status
+    Search Account    ${tc_agent}
+    Verify Setting Status Single New    ${tc_product}    visible    enable    check    visible    disable
+    ...    check
+
+TC_MA_AB01_Disable Allbet
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Allbet    save    ${tc_status}    uncheck
+    #    VP00    Member is disable Allbet
+    Search Account    ${tc_agent}
+    Verify Setting Status Allbet    ${tc_status}    ${EMPTY}    enable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_AB02_Enable Allbet with Disable Downline
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Allbet    save    ${tc_status}    check    uncheck
+    #    VP00    Member is disable Allbet
+    Search Account    ${tc_agent}
+    Verify Setting Status Allbet    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_MA_AB02_Enable Allbet with Enable Downline
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line02_A0101}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status Allbet    save    ${tc_status}    uncheck
+    Update Setting Status Allbet    save    ${tc_status}    check    uncheck
+    #    VP00    Member is disable Allbet
+    Search Account    ${tc_agent}
+    Verify Setting Status Allbet    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A

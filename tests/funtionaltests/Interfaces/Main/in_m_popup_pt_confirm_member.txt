@@ -1,0 +1,5 @@
+*** Variables ***
+${in_mp_pt_cfmPlayer_btnYes}    //*[@ng-click='setValueAllMember(true);']
+${in_mp_pt_cfmPlayer_btnNo}    //*[@ng-click='setValueAllMember(false);']
+${in_mp_pt_cfmPlayer_cboMemberPT}    //*[@ng-model='positionTaking.newMemberPT']
+${in_mp_pt_cfmPlayer_lblBetTypeName}    //*[@ng-if='positionTaking.isConfirmIsAuto']/div[@ng-bind='positionTaking.betTypeName']

@@ -1,0 +1,27 @@
+*** Variables ***
+${in_m_editbingo_slbSuperPrePT}    //*[@id='2_0_SPresetPT']
+${in_m_editbingo_slbMasterMaxPT}    //*[@id='2_0_MPresetPT']
+${in_m_editbingo_slbMasterMinPT}    //*[@id='2_0_MMinPT']
+${in_m_editbingo_slbMasterPrePT}    //*[@id='2_0_MPresetPT']
+${in_m_editbingo_slbAgentMaxPT}    //*[@id='2_0_APresetPT']
+${in_m_editbingo_slbAgentMinPT}    //*[@id='2_0_AMinPT']
+${in_m_editbingo_slbAgentPrePT}    //*[@id='2_0_APresetPT']
+${in_m_editbingo_btnSubmit}    //input[@type='button' and @value='Submit']
+# PT Controls
+${in_m_BG_pt_cboS3}    //*[@id='2_0_SPresetPT']    # S3 .//*[@id='ddlS3']
+${in_m_BG_pt_chkIs3}    //*[@id='2_0_ChkSAutoPT']    # is3: xpath.//*[@id='cbIs3']
+${in_m_BG_pt_cboUs3}    //*[@id='2_0_SAutoPT']    # us3
+${in_m_BG_pt_cboM3}    //*[@id='2_0_MPresetPT']
+${in_m_BG_pt_cboN3}    //*[@id='2_0_MMinPT']    # N3
+${in_m_BG_pt_cboM2}    //*[@id='2_0_MPresetPT']
+${in_m_BG_pt_cboA2}    //*[@id='2_0_APresetPT']
+${in_m_BG_pt_cboN2}    //*[@id='2_0_AMinPT']
+${in_m_BG_pt_cboS1}    //*[@id='2_0_SPresetPT']    # S1
+${in_m_BG_pt_chkIs1}    //*[@id='2_0_ChkSAutoPT']    # is1
+${in_m_BG_pt_cboUs1}    //*[@id='2_0_SAutoPT']    #us1
+${in_m_BG_pt_cboM1}    //*[@id='2_0_MPresetPT']    # M1
+${in_m_BG_pt_cboA1}    //*[@id='2_0_APresetPT']    # A1
+${in_m_BG_pt_lblS1}    //*[@id='frmUpdatePT']/div/table[2]/tbody/tr[7]/td[3]
+${in_m_BG_pt_lblM1}    //*[@id='2_0_MPT']    # M1 value if Super View Member
+${in_m_BG_pt_lblA1}    //*[@id='2_0_APT']    # A1 value if Super/Master View Member
+${in_m_BG_btnSubmit}    //*[@value='Submit']    # submit button

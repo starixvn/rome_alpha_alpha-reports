@@ -1,0 +1,1 @@
+call sqlcmd -S 10.18.200.206 -U testteam -P @quality# -d BODB02 -Q "exec QC_CreateTicketByFunction @prefix='%1', @Date='%2'"

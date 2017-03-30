@@ -1,0 +1,156 @@
+*** Settings ***
+Documentation     *Summary: Edit Virtual Sports Agent PT*
+...
+...               *Steps:*
+...
+...               1. Log in as a Master (SUPERTESTAUTOALPHA0101)
+...               2. Navigate Account Info tab then search a master
+...               3. Click Edit Virtual Sports in setting tab
+...               4. Edit values (Master PT,Agent Max PT,Agent Min PT) for all sports
+...               5. Click Submit button
+...               6. VP. Message , setting window closed after update
+...               7. Click Edit Virtual Sports in setting tab
+...               8. Check values
+...               9. \ Set default values (Master PT,Agent Max PT,Agent Min PT) for all sports
+...               10. Close browers
+Suite Setup       Init    username=${cf_mastertestauto}
+Suite Teardown    Close All Browsers
+Force Tags        MEA
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../../Actions/common_actions.txt
+Resource          ../../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../../Actions/Setting/status_actions.txt
+Resource          ../../../Interfaces/in_top_menu.txt
+Resource          ../../../Interfaces/Main/in_main.txt
+Resource          ../../../Interfaces/in_left_menu.txt
+Resource          ../../../Actions/PT/pt_sportsbook.html
+Resource          ../../../Data_set/accounts.txt
+Resource          ../../../Actions/PT/pt_virtualsports.txt
+
+*** Variables ***
+${cf_mastertestauto}    supertestAutoAlpha0101
+${cf_agenttestauto}    supertestAutoAlpha010101
+${cf_acc_auto_pass}    1234aaAA
+
+*** Test Cases ***
+TM_00_soccer
+    [Tags]
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Master}    Set Variable    ${cf_mastertestauto}
+    ${tm_Agent}    Set Variable    ${cf_agenttestauto}
+    ${tm_masterpt}    Set Variable    0.2
+    ${tm_agentmaxpt}    Set Variable    0.49
+    ${tm_agentminpt}    Set Variable    0.1
+    ${tm_list}    Create List    0.2    0.49    0.1
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    Open Page
+    Comment    Login    ${cf_mastertestauto}    ${cf_acc_auto_pass}    ${cf_se_code}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Agent}
+    Edit Virtual PT    Master    Soccer    Yes    ${tm_masterpt}    ${tm_agentmaxpt}    ${tm_agentminpt}
+    Reload Page
+    Search Account    ${tm_Agent}
+    ${tm_listVirtualSoccerafter}    Get Virtual PT    Master    Soccer
+    Lists Should Be Equal    ${tm_listVirtualSoccerafter}    ${tm_list}
+    Edit Virtual PT    Master    Soccer    Yes    0    0.69    0
+    Comment    Logout
+    [Teardown]
+
+TM_01_tennis
+    [Tags]
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Master}    Set Variable    ${cf_mastertestauto}
+    ${tm_Agent}    Set Variable    ${cf_agenttestauto}
+    ${tm_masterpt}    Set Variable    0.2
+    ${tm_agentmaxpt}    Set Variable    0.49
+    ${tm_agentminpt}    Set Variable    0.1
+    ${tm_list}    Create List    0.2    0.49    0.1
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    Open Page
+    Comment    Login    ${cf_mastertestauto}    ${cf_acc_auto_pass}    ${cf_se_code}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Agent}
+    Edit Virtual PT    Master    Tennis    Yes    ${tm_masterpt}    ${tm_agentmaxpt}    ${tm_agentminpt}
+    Reload Page
+    Search Account    ${tm_Agent}
+    ${tm_listVirtualSoccerafter}    Get Virtual PT    Master    Tennis
+    Lists Should Be Equal    ${tm_listVirtualSoccerafter}    ${tm_list}
+    Edit Virtual PT    Master    Tennis    Yes    0    0.69    0
+    Comment    Logout
+    [Teardown]
+
+TM_02_horse racing
+    [Tags]
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Master}    Set Variable    ${cf_mastertestauto}
+    ${tm_Agent}    Set Variable    ${cf_agenttestauto}
+    ${tm_masterpt}    Set Variable    0.2
+    ${tm_agentmaxpt}    Set Variable    0.49
+    ${tm_agentminpt}    Set Variable    0.1
+    ${tm_list}    Create List    0.2    0.49    0.1
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    Open Page
+    Comment    Login    ${cf_mastertestauto}    ${cf_acc_auto_pass}    ${cf_se_code}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Agent}
+    Edit Virtual PT    Master    Horseracing    Yes    ${tm_masterpt}    ${tm_agentmaxpt}    ${tm_agentminpt}
+    Reload Page
+    Search Account    ${tm_Agent}
+    ${tm_listVirtualSoccerafter}    Get Virtual PT    Master    Horseracing
+    Lists Should Be Equal    ${tm_listVirtualSoccerafter}    ${tm_list}
+    Edit Virtual PT    Master    Horseracing    Yes    0    0.69    0
+    Comment    Logout
+    [Teardown]
+
+TM_03_greyhounds
+    [Tags]
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Master}    Set Variable    ${cf_mastertestauto}
+    ${tm_Agent}    Set Variable    ${cf_agenttestauto}
+    ${tm_masterpt}    Set Variable    0.2
+    ${tm_agentmaxpt}    Set Variable    0.49
+    ${tm_agentminpt}    Set Variable    0.1
+    ${tm_list}    Create List    0.2    0.49    0.1
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    Open Page
+    Comment    Login    ${cf_mastertestauto}    ${cf_acc_auto_pass}    ${cf_se_code}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Agent}
+    Edit Virtual PT    Master    Greyhounds    Yes    ${tm_masterpt}    ${tm_agentmaxpt}    ${tm_agentminpt}
+    Reload Page
+    Search Account    ${tm_Agent}
+    ${tm_listVirtualSoccerafter}    Get Virtual PT    Master    Greyhounds
+    Lists Should Be Equal    ${tm_listVirtualSoccerafter}    ${tm_list}
+    Edit Virtual PT    Master    Greyhounds    Yes    0    0.69    0
+    Comment    Logout
+    [Teardown]
+
+TM_04_motorsports
+    [Tags]
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Master}    Set Variable    ${cf_mastertestauto}
+    ${tm_Agent}    Set Variable    ${cf_agenttestauto}
+    ${tm_masterpt}    Set Variable    0.2
+    ${tm_agentmaxpt}    Set Variable    0.49
+    ${tm_agentminpt}    Set Variable    0.1
+    ${tm_list}    Create List    0.2    0.49    0.1
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    Open Page
+    Comment    Login    ${cf_mastertestauto}    ${cf_acc_auto_pass}    ${cf_se_code}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Agent}
+    Edit Virtual PT    Master    Motorsports    Yes    ${tm_masterpt}    ${tm_agentmaxpt}    ${tm_agentminpt}
+    Reload Page
+    Search Account    ${tm_Agent}
+    ${tm_listVirtualSoccerafter}    Get Virtual PT    Master    Motorsports
+    Lists Should Be Equal    ${tm_listVirtualSoccerafter}    ${tm_list}
+    Edit Virtual PT    Master    Motorsports    Yes    0    0.69    0
+    Comment    Logout
+    [Teardown]

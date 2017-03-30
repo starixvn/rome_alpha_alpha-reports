@@ -1,0 +1,276 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Interfaces/in_login.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Actions/common_actions.txt
+
+*** Keywords ***
+Drill Down By Index
+    [Arguments]    ${level}    #level-->number for loop view down
+    [Documentation]    This action is used to drill down from first index
+    ...
+    ...    View down from report by click Usename's hyberlink
+    ...
+    ...
+    ...    ${level}: number to loop maximum =3
+    ${ac_annoucement}    Run Keyword And Return Status    Page Should Contain Element    //div[@id='popup-container-text']//button[@class='icon icon-close close']
+    Run Keyword If    '${ac_annoucement}'=='True'    Click Element    //div[@id='popup-container-text']//button[@class='icon icon-close close']
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Select Frame    main
+    : FOR    ${index}    IN RANGE    ${level}
+    \    ${ac_hascontrol}    Run Keyword And Return Status    Page Should Contain Element    //*[@id='tbl-report']/tbody//a[1]
+    \    Run Keyword If    '${ac_hascontrol}'=='True'    Click Element    //*[@id='tbl-report']/tbody//a[1]
+    \    ...    ELSE    Click Element    //*[@class='downline-link' or @class='downline_link']
+    \    sleep    1
+    Unselect Frame
+
+Select Product
+    [Arguments]    ${product}
+    Select Frame    main
+    Unselect Checkbox    id=chk_all
+    Run Keyword if    '${product}'=='All'    Select Checkbox    id=chk_all
+    : FOR    ${index}    IN    SB    Casino    Racing    Number Game
+    ...    Bingo    Poker    Live Casino    Virtual Sports    Keno
+    \    ${ac_temp}=    Run Keyword And Return Status    Should Contain    ${product}    ${index}
+    \    Run Keyword If    '${index}'=='SB' and '${ac_temp}'=='True'    Select Checkbox    id=chk_showsb
+    \    ...    ELSE IF    '${index}'=='Casino' and '${ac_temp}'=='True'    Select Checkbox    id=chk_showcasino
+    \    ...    ELSE IF    '${index}'=='Racing' and '${ac_temp}'=='True'    Select Checkbox    id=chk_showrb
+    \    ...    ELSE IF    '${index}'=='Number Game' and '${ac_temp}'=='True'    Select Checkbox    id=chk_showng
+    \    ...    ELSE IF    '${index}'=='Bingo' and '${ac_temp}'=='True'    Select Checkbox    id=chk_showbi
+    \    ...    ELSE IF    '${index}'=='Poker' and '${ac_temp}'=='True'    Select Checkbox    id=chk_showp2p
+    \    ...    ELSE IF    '${index}'=='Live Casino' and '${ac_temp}'=='True'    Select Checkbox    id=chk_showlivecasino
+    \    ...    ELSE IF    '${index}'=='Virtual Sports' and '${ac_temp}'=='True'    Select Checkbox    id=chk_showvs
+    \    ...    ELSE IF    '${index}'=='Keno' and '${ac_temp}'=='True'    Select Checkbox    id=chk_showkeno
+    Unselect Frame
+
+Filter Winloss
+    [Arguments]    ${product}    ${from_date}    ${to_date}
+    Pickup Calendar    ${from_date}    ${to_date}
+    Select Frame    main
+    Click Element    id=dSubmit
+    Unselect Frame
+    Select Product    ${product}
+    Select Frame    main
+    Click Element    id=dSubmit
+    sleep    3s
+    Unselect Frame
+    [Teardown]
+
+Exit Loop
+    ${no_info}    Run Keyword And Return Status    Page Should Contain    No information is available
+    Exit For Loop If    '${no_info}'=='True'
+
+Select Left Menu
+    [Arguments]    ${menu}    ${sub_menu}
+    [Documentation]    This action is used to select left menu item and after that focus on main frame
+    ...
+    ...    ${menu}: the main menu in left menu (TOTAL BETS, REPORTS,..)
+    ...
+    ...    ${sub_menu}: the sub menu item in ${menu} (Money Line,Parlay,Sub Account,...)
+    Expand Collapse Left Menu Side bar
+    Click Element    ${in_lm_tabMainMenu}
+    ${menu}    Evaluate    "${menu}".upper()
+    ##1
+    ${ac_controlItem}    Set Variable    //ul[@id='main-menu-items']//span[@class='txt-item pull-left' and translate(text(), 'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='${menu}']/parent::a/parent::li
+    ${ac_controlItemID}    Get Element Attribute    ${ac_controlItem}@id
+    ${acc_DisplayStatus}    Get Element Attribute    ${ac_controlItem}@class
+    ${ac_controlSubItem}    Set Variable    ${ac_controlItem}//li/a[contains(.,'${sub_menu}')]
+    ${ac_controlSubItem}    Set Variable    ${ac_controlSubItem}//parent::li
+    ${ac_controlSubItemID}    Run Keyword If    '${sub_menu}'<>'${EMPTY}'    Get Element Attribute    ${ac_controlSubItem}@id
+    ##
+    Run Keyword Unless    '${acc_DisplayStatus}'=='menu-item active'    Execute Javascript    var x =document.getElementById("${ac_controlItemID}").children[0]; x.click();
+    Run Keyword If    '${sub_menu}'<>'${EMPTY}'    Execute Javascript    var x =document.getElementById("${ac_controlSubItemID}").children[0]; x.click();
+    Unselect Frame
+    sleep    1
+
+Search Account
+    [Arguments]    ${username}
+    Comment    Expand Collapse Left Menu Side bar
+    ${usernameUpper}    Evaluate    "${username}".upper()
+    Unselect Frame
+    Click Element_01    ${in_lm_AccountInfoTab}
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Ignore Error    Wait Until Element Is Visible    ${in_lm_txtusername}
+    Sleep    0.5s
+    Comment    Focus    ${in_lm_txtusername}
+    Run Keyword And Ignore Error    Input Text    ${in_lm_txtusername}    ABCD
+    Click Element    ${in_lm_btnsearch}
+    Run Keyword And Ignore Error    Wait Until Element Is Visible    //*[@id='left_submenu']//*[text()='No information available!']    ${cfWaitControl}
+    Input Text    ${in_lm_txtusername}    ${username}
+    Sleep    0.5s
+    Click Element    ${in_lm_btnsearch}
+    Wait Until Element Is Visible    //div[@id='left_submenu']//a[translate(text(), 'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='${usernameUpper}']    ${cfWaitControl}
+    Sleep    1s
+    Unselect Frame
+
+Open Downlines List
+    Select Frame    menu
+    Click Element    ${in_lm_btndownlines}
+    Unselect Frame
+
+Get Total Table Rows
+    [Arguments]    ${table_id}    ${unexpected_rows}    # ${unexpected_rows}= total header and footer rows
+    Select Frame    main
+    ${tbrows}=    Execute Javascript    return document.getElementById('${table_id}').rows.length
+    ${totalrows}=    Convert To Integer    ${tbrows}
+    ${unexpected_rows}=    Convert To Integer    ${unexpected_rows}
+    ${output_totalrows}=    Set Variable    ${totalrows-${unexpected_rows}}
+    Unselect Frame
+    [Return]    ${output_totalrows}
+
+Add New Customer Search And Copy
+    [Arguments]    ${type}    ${loginname}    ${copyname}
+    [Documentation]    This action is used to create new Master/ Agent / Member by Search and Copy method
+    ...
+    ...    ${type}:Master/ Agent /Member
+    ...
+    ...    ${copyname}: An existing member. All setting from this member will be copied to new user
+    ...
+    ...    Note: Default password is 1234aaBB
+    ...    Max credit=0
+    Select Left Menu    MEMBER INFORMATION    New ${type}
+    Select Frame    main
+    Select Frame    frmHeader
+    Click Element    xpath=//*[@id='IdCurr0']//span
+    Unselect Frame
+    Comment    Select Window
+    Select Frame    main
+    Select Frame    frmAddNewMember
+    Input Text    id=txtUserName    ${copyname}
+    Click Element    id=sbuttonNext
+    ##input
+    ${tempoutput1}    Get Selected List Label    id=Number1
+    ${tempoutput2}    Get Selected List Label    id=Number2
+    ${tempoutput3}    Run Keyword If    '${type}'=='Member'    Get Selected List Label    id=Number3
+    ${outputname}    Set Variable If    '${type}'=='Member'    ${loginname}${tempoutput1}${tempoutput2}${tempoutput3}    ${loginname}${tempoutput1}${tempoutput2}
+    Input Password    id=txtPwd    1234aaBB
+    Input Text    id=txtCredit    0
+    Run Keyword If    '${type}'=='Agent'    Input Text    id=txtMaxCredit    0
+    Click Element    id=sbuttonNext
+    sleep    8s
+    Unselect Frame
+    [Return]    ${outputname}
+
+Add New Customer Full Mode
+    [Arguments]    ${type}    ${loginname}
+    [Documentation]    This action is used to create new Master/ Agent / Member in Full mode
+    ...
+    ...    ${type}:Master/ Agent /Member
+    ...
+    ...    ${copyname}: An existing member. All setting from this member will be copied to new user
+    ...
+    ...    Note: Default password is ${cf_acc_pass}
+    ...    Max credit=0
+    Select Left Menu    MEMBER INFORMATION    New ${type}
+    Select Frame    main
+    Select Frame    frmHeader
+    Click Element    xpath=//*[@id='IdCurr1']//span
+    Unselect Frame
+    Comment    Select Window
+    Select Frame    main
+    Select Frame    frmAddNewMember
+    ##input
+    ${tempoutput1}    Get Selected List Label    id=selectedOne
+    ${tempoutput2}    Get Selected List Label    id=selectedTwo
+    ${tempoutput3}    Run Keyword If    '${type}'=='Member'    Get Selected List Label    id=selectedThree
+    ${outputname}    Set Variable If    '${type}'=='Member'    ${loginname}${tempoutput1}${tempoutput2}${tempoutput3}    ${loginname}${tempoutput1}${tempoutput2}
+    Input Password    id=password    ${cf_acc_pass}
+    Input Text    id=credit    0
+    Run Keyword If    '${type}'=='Agent'    Input Text    id=memberMaxCredit    0
+    Click Element    id=btnSubmit
+    sleep    5s
+    Unselect Frame
+    [Return]    ${outputname}
+
+Navigate to Edit page
+    [Arguments]    ${link}    ${username}
+    Search Account    ${username}
+    Comment    # Click Home Page
+    Comment    select link in setting tab    ${link}
+    ## Set variable
+    ${ac_lnkEdit}    Set Variable    //table[@id='tbl_custsettings']//div[contains(@class,'divLinkSetting')]//*[text()='${Link}']
+    Unselect Frame
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Ignore Error    Wait Until Element Is Visible    ${ac_lnkEdit}    ${cfWaitControl}
+    Sleep    0.2s
+    Run Keyword And Ignore Error    Scroll To Element    ${ac_lnkEdit}
+    Focus    ${ac_lnkEdit}
+    Click Element    ${ac_lnkEdit}
+    Unselect Frame
+
+Check Username Login
+    [Arguments]    ${Username}
+    select window
+    select frame    frHeader
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_lm_lblLoginUserName}    ${Super}
+
+Open Bet List
+    [Arguments]    ${username}
+    Comment    ${ac_username}    ExcelLibrary.Read Cell Data By Coordinates    ${}    2    1
+    Comment    Search Account    ${username}
+    Comment    Select Frame    menu
+    Comment    Click Element    ${in_lm_btnBetList}
+    Comment    Unselect Frame
+    Comment    Select Frame    main
+    Comment    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${divBLHeader}
+    Comment    ${fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    Comment    ${toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Comment    ${ac_localExpectedDate}    Convert Date Time with Format    ${fromDate}    m/d/yyyy
+    Comment    run keyword if    '${fromDate}'!='${EMPTY}'    Select Date in Calendar    ${bl_btnFromDate}    ${fromDate}
+    Comment    run keyword if    '${toDate}'!='${EMPTY}'    Select Date in Calendar    ${bl_btnToDate}    ${toDate}
+    Comment    Set Checkbox    ${bl_chkAll}    uncheck
+    Comment    Run keyword if    '${sheetName}'=='SportBook'    Set Checkbox    ${bl_chkshowSB}    check
+    Comment    click element    ${bl_btnSubmit}
+
+Expand Collapse Left Menu Side bar
+    [Arguments]    ${isExpand}=1
+    [Documentation]    This action is used to expand or collapse \ left menu side bar
+    ...    ${isExpand}: 1/0 (default value =1)
+    Unselect Frame
+    ${ac_sidebarStyle}    Get Element Attribute    ${in_lm_sidebarMenu}@class
+    ${ac_sidebarIsExpand}    Evaluate    "${ac_sidebarStyle}".find("docked")
+    ${ac_sidebarIsExpand}    Set Variable If    ${ac_sidebarIsExpand} > 0 or '${ac_sidebarStyle}'=='sidebar'    1    0
+    Run Keyword Unless    '${ac_sidebarIsExpand}'=='${isExpand}'    Click Element    ${in_tm_iconHamburger}
+
+Select Left Menu BK
+    [Arguments]    ${menu}    ${sub_menu}
+    [Documentation]    This action is used to select left menu item and after that focus on main frame
+    ...
+    ...    ${menu}: the main menu in left menu (TOTAL BETS, REPORTS,..)
+    ...
+    ...    ${sub_menu}: the sub menu item in ${menu} (Money Line,Parlay,Sub Account,...)
+    Expand Collapse Left Menu Side bar
+    Click Element    ${in_lm_tabMainMenu}
+    ${menu}    Evaluate    "${menu}".upper()
+    ${ac_controlItem}    Set Variable    //ul[@id='main-menu-items']//span[@class='txt-item pull-left' and translate(text(), 'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='${menu}']
+    ${ac_controlItemStatus}    Set Variable    ${ac_controlItem}/parent::a/parent::li
+    ${ac_controlSubItem}    Set Variable    ${ac_controlItemStatus}//li/a[contains(.,'${sub_menu}')]
+    ${acc_DisplayStatus}    Get Element Attribute    ${ac_controlItemStatus}@class
+    ##
+    Run Keyword Unless    '${acc_DisplayStatus}'=='menu-item active'    Click Element    ${ac_controlItem}
+    Run Keyword If    '${sub_menu}'<>'${EMPTY}'    Click Element    ${ac_controlSubItem}
+    Unselect Frame
+
+Navigate to Edit page 1
+    [Arguments]    ${link}    ${username}
+    Search Account    ${username}
+    Comment    # Click Home Page
+    Comment    select link in setting tab    ${link}
+    ## Set variable
+    ${ac_lnkEdit}    Set Variable    //table[@id='tbl_custsettings']//div[contains(@class,'divLinkSetting')]//*[contains(text(),'${link}')]
+    Unselect Frame
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Ignore Error    Wait Until Element Is Visible    ${ac_lnkEdit}    ${cfWaitControl}
+    Run Keyword And Ignore Error    Scroll To Element    ${ac_lnkEdit}
+    Focus    ${ac_lnkEdit}
+    Click Element    ${ac_lnkEdit}
+    Unselect Frame

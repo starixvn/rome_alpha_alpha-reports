@@ -1,0 +1,1582 @@
+*** Setting ***
+Library           Selenium2Library
+Resource          Left_menu/left_menu_actions.txt
+Resource          ../Interfaces/Main/in_m_report.txt
+Resource          ../Interfaces/Main/in_m_report_old.txt
+Resource          ../Data_Set/resultheader.txt
+Resource          common_actions.txt
+Resource          ../Interfaces/Main/in_m_report_smartphone.txt
+Resource          ../Interfaces/Main/in_m_report_winloss.txt
+Resource          ../Interfaces/Main/in_m_report_winloss_detail.txt
+
+*** Keywords ***
+Verify Report Header Data
+    [Arguments]    ${ac_group}    ${ac_reportlevel}    ${ac_rptName}    ${ac_header}    ${ac_tabledata}    ${isClickSubmit}=0
+    [Documentation]    This action is used to check header of report and table data controls displayed on web
+    ...
+    ...    ${ac_group} : the group that contain report (TOTAL BETS, FORECAST,...)
+    ...
+    ...    ${ac_reportlevel}: the level of report (Master/Agent/Member)
+    ...
+    ...    ${ac_rptName}: the report link name
+    ...
+    ...    ${ac_header}: the report header
+    ...
+    ...    ${ac_tabledata}: the control of table data
+    ...
+    ...    ${isClickSubmit}: need to click Submit button or not (1/0)
+    Select Left Menu    ${ac_group}    ${ac_rptName}
+    ## Set variable
+    Unselect Frame
+    select frame    main
+    ${ac_headerByLevel}=    Replace String    ${ac_header}    Master    ${ac_reportlevel}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_headerByLevel}    ${cfWaitControl}
+    Run Keyword If    '${isClickSubmit}'=='1'    Click Element    ${in_Reports_btnSubmit}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_tabledata}    ${cfWaitControl}
+    Unselect Frame
+
+Verify TotalBets Header Data
+    [Arguments]    ${ac_group}    ${ac_rptName}    ${ac_header}    ${ac_tabledata}
+    [Documentation]    This action is used to check header of report and table data controls displayed on web
+    ...
+    ...    ${ac_group} : the group that contain report (TOTAL BETS, FORECAST,...)
+    ...
+    ...    ${ac_rptName}: the report link name
+    ...
+    ...    ${ac_header}: the report header
+    ...
+    ...    ${ac_tabledata}: the control of table data
+    Select Left Menu    ${ac_group}    ${ac_rptName}
+    Unselect Frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_header}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_tabledata}    ${cfWaitControl}
+    Unselect Frame
+
+Verify MemberInfo Header Data
+    [Arguments]    ${ac_group}    ${ac_rptName}    ${ac_header}    ${ac_tabledata}
+    [Documentation]    This action is used to check header of report and table data controls displayed on web
+    ...
+    ...    ${ac_group} : the group that contain report (TOTAL BETS, FORECAST,...)
+    ...
+    ...    ${ac_rptName}: the report link name
+    ...
+    ...    ${ac_header}: the report header
+    ...
+    ...    ${ac_tabledata}: the control of table data
+    Select Left Menu    ${ac_group}    ${ac_rptName}
+    Unselect Frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_header}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_tabledata}    ${cfWaitControl}
+    Unselect Frame
+
+Verify Results Page
+    [Arguments]    ${yesterday}=${EMPTY}
+    #
+    Unselect Frame
+    Select Frame    main
+    ## Check list Product supported in result page
+    Run Keyword And Continue On Failure    Element Should Be Visible    //a[@id='tabNormal']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //a[@id='tabOutright']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //a[@id='tabKeno']
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    //a[@id='tabCockfighting']
+    ##
+    Run Keyword If    '${yesterday}'!='${EMPTY}'    Click Element    ${in_m_btnYesterday}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_cboSport}    ${cfWaitControl}
+    ${ac_lstSport}    Run Keyword And Continue On Failure    Get List Items    ${in_m_cboSport}
+    ${ac_sportLen}    Get Matching Xpath Count    ${in_m_cboSport}//option
+    ## Just check some sport in result pages
+    ${ac_sportLen}    Evaluate    min(${ac_sportLen},3)
+    : FOR    ${ac_i}    IN RANGE    0    ${ac_sportLen}
+    \    ${ac_sport}    Set Variable    ${ac_lstSport[${ac_i}]}
+    \    Comment    # Verify with select the latest League
+    \    ${ac_lstLeague}    Run Keyword And Continue On Failure    Get List Items    ${in_m_cboLeagues}
+    \    ${ac_leagueLen}    Get Matching Xpath Count    ${in_m_cboLeagues}//option
+    \    ${ac_index}    Run Keyword And Continue On Failure    Evaluate    ${ac_leagueLen}-1
+    \    Run Keyword And Continue On Failure    Select From List By Label    ${in_m_cboLeagues}    ${ac_lstLeague[${ac_index}]}
+    \    Verify Results Header    ${ac_sport}
+    \    Run Keyword And Continue On Failure    Should Not Be Empty    ${in_m_tblContent}/tbody/tr[2]/td[1]
+
+Verify Results Header
+    [Arguments]    ${sport}
+    ${ac_varSport}    Set Variable    ${sport}
+    ${ac_varSport}    Replace String    ${ac_varSport}    /    ${EMPTY}
+    ${ac_varSport}    Replace String    ${ac_varSport}    -    ${EMPTY}
+    ${ac_varSport}    Replace String    ${ac_varSport}    ${SPACE}    ${EMPTY}
+    Run Keyword And Continue On Failure    Select From List By Label    ${in_m_cboSport}    ${sport}
+    sleep    3s
+    ${ac_actualHeader}    Run Keyword And Continue On Failure    get table header    ${in_m_tblHeaderCols}
+    ${ac_expectedIsDefined}    Run Keyword And Return Status    Variable Should Exist    @{ds_result${ac_varSport}}    DataSet has not been defined: @{ds_result${ac_varSport}}
+    ${ac_expectedHeader}    Set Variable If    '${ac_expectedIsDefined}'=='True'    @{ds_result${ac_varSport}}
+    Run Keyword If    '${ac_expectedIsDefined}'=='True'    Run Keyword And Continue On Failure    Lists Should Be Equal    ${ac_actualHeader}    ${ac_expectedHeader}
+
+Select Report Filter
+    [Arguments]    ${action}    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${toDay}=${EMPTY}    ${yesterday}=${EMPTY}    ${productList}=${EMPTY}
+    ...    ${daterange}=${EMPTY}
+    [Documentation]    This is action is used to select Filter Report
+    ...
+    ...
+    ...    ${daterange}= Today/Yesterday/This Week/This Month/....
+    ${ac_annoucement}    Run Keyword And Return Status    Element Should Be Visible    //div[@id='popup-container-text']//button[@class='icon icon-close close']
+    Run Keyword If    '${ac_annoucement}'=='True'    Click Element    //div[@id='popup-container-text']//button[@class='icon icon-close close']
+    sleep    1
+    select frame    main
+    Run Keyword If    '${fromDate}'!='${EMPTY}'    Select From Date    ${fromDate}
+    Run Keyword If    '${fromDate}'!='${EMPTY}'    Sleep    2
+    Run Keyword If    '${toDate}'!='${EMPTY}'    Select To Date    ${toDate}
+    Run Keyword If    '${today}'!='${EMPTY}'    Click Element    ${in_m_btnToday}
+    Run Keyword If    '${yesterday}'!='${EMPTY}'    Click Element    ${in_m_btnYesterday}    #comment    Click to show product list    ${EMPTY}
+    ...    # Select All check box    ${EMPTY}    #    Unselect All check box    select product check box
+    Run Keyword If    '${productList}'=='All'    Run Keywords    Click Element    //*[@class='btn-group']//span
+    ...    AND    Select Checkbox    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='Select all']/input
+    ...    ELSE IF    '${productList}'!='All' and '${productList}'!='${EMPTY}'    Run Keywords    Click Element    //*[@class='btn-group']//span
+    ...    AND    sleep    1
+    ...    AND    Select Checkbox    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='Select all']/input
+    ...    AND    Unselect Checkbox    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='Select all']/input
+    ...    AND    Select Checkbox    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='${productList}']/input
+    Run Keyword If    '${daterange}'!='${EMPTY}'    Run Keywords    Click Element    //*[@id='dropdown-daterange']/button/span[2]
+    ...    AND    Click Element    //*/li/a[text()='${daterange}']
+    Run Keyword If    '${action}'=='submit'    click element    ${in_m_btnSubmit}
+    Unselect Frame
+    sleep    2
+
+Select Report Filter History
+    [Arguments]    ${action}    ${fromdate}=01    ${todate}=01    ${productList}=${EMPTY}
+    [Documentation]    This is action is used to select Filter Report in History View mode
+    ...
+    ...    ${fromDate} = Specific number EX: 5
+    ...
+    ...    ${ToDate} = Specific number \ EX: 5
+    ...
+    ...
+    ...    ${productList}= All or product name Ex: All / Racing
+    ${x}    ${y}    Run Keyword If    '${fromDate}'!='${EMPTY}'    Split String To Characters    ${fromdate}
+    ${ac_tempfromdate}    Run Keyword If    '${fromDate}'!='${EMPTY}' and '${x}'=='0'    Evaluate    ${y}>10    ## can not Evaluate value =08 or 09    https://mail.python.org/pipermail/python-bugs-list/2007-May/038350.html
+    ${ac_fromdate}    Set Variable If    '${ac_tempfromdate}'=='False'    ${y}    ${fromdate}
+    ${h}    ${z}    Run Keyword If    '${toDate}'!='${EMPTY}'    Split String To Characters    ${todate}
+    ${ac_temptodate}    Run Keyword If    '${toDate}'!='${EMPTY}' and '${h}'=='0'    Evaluate    ${z}>10
+    ${ac_todate}    Set Variable If    '${ac_temptodate}'=='False'    ${z}    ${todate}
+    select frame    main
+    Run Keyword If    '${fromDate}'!='${EMPTY}'    Run Keywords    Click Element    ${in_m_ddldatefrom}
+    ...    AND    Click Element    //*[contains(@id,'fromDay')]/following::li[${ac_fromdate}]
+    Run Keyword If    '${toDate}'!='${EMPTY}'    Run Keywords    Click Element    ${in_m_ddldateTo}
+    ...    AND    Click Element    //*[contains(@id,'toDay')]/following::li[${ac_fromdate}]
+    #Today/ Yesterday button are removed from history report
+    Comment    Run Keyword If    '${today}'!='${EMPTY}'    Click Element    ${in_m_btnToday}
+    Comment    Run Keyword If    '${yesterday}'!='${EMPTY}'    Click Element    ${in_m_btnYesterday}
+    Run Keyword If    '${productList}'=='All'    Run Keywords    Click Element    ${in_m_cboProductList}
+    ...    AND    Select Checkbox    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='Select all']/input
+    ...    ELSE IF    '${productList}'!='All' and '${productList}'!='${EMPTY}'    Select Checkbox    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='${productList}']/input
+    Run Keyword If    '${action}'=='submit'    click element    ${in_m_btnSubmit}
+    Unselect Frame
+
+Verify Sum Value of View Down Report
+    [Arguments]    ${viewdownValue}=${EMPTY}    ${colIndex}=1
+    Unselect Frame
+    select frame    main
+    Run Keyword If    '${viewDownValue}'!='${EMPTY}'    Click Element    //*[@id='tbl-rpt']/tbody/tr[*]/td[${colIndex}]/span[contains(text(),'${viewDownValue}')]
+    ${ac_sum}    Run Keyword And Continue On Failure    Execute Javascript    D:\\07_AutoTest\\Work\\agent\\Actions\\JavaScript\\Report.js
+    Run Keyword And Continue On Failure    Should Be Equal As Strings    ${ac_sum}    1    SUM VALUE IS WRONG
+    Unselect Frame
+
+View Down Report
+    [Arguments]    ${value}=${EMPTY}    ${colIndex}=1    ${expectedTitle}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    Click Element    //*[@id='tbl-rpt']/tbody/tr[*]/td[${colIndex}]/span[contains(text(),'${value}')]
+    Run Keyword And Continue On Failure    Element Should Contain    //body/div[@class='bl_title' or @id=]    MEMBER BET LIST*${value}
+    Run Keyword And Continue On Failure    Element Should Contain    //body/div[@class='bl_title']    MEMBER BET LIST
+    Run Keyword And Continue On Failure    Element Should Contain    //body/div[@class='bl_title']    ${value}
+    Unselect Frame
+
+Verify Report General
+    [Arguments]    ${expectedTile}=${EMPTY}    ${verifySumTotal}=yes
+    ## Set variable
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_report_divReportTitle}    ${cfWaitControl}
+    Wait Until Keyword Succeeds    1 min    2s    Element Should Contain    ${in_m_report_divReportTitle}    ${expectedTile}
+    ${ac_sum}    Run Keyword If    '${verifySumTotal}'=='yes'    Run Keyword And Continue On Failure    Execute Javascript    ${init_gbWorksSpace}\\Actions\\JavaScript\\Report.js
+    Run Keyword If    '${verifySumTotal}'=='yes'    Run Keyword And Continue On Failure    Should Be Equal As Strings    ${ac_sum}    1    SUM VALUE IS WRONG
+
+Verify Report_Win Loss
+    [Arguments]    ${downLineLevel}=${EMPTY}    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Verify Report General    ${downLineLevel} WIN LOSS    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    ${downLineLevel} WIN LOSS
+    # View Down Master
+    Run Keyword If    '${master}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${master}')]
+    Run Keyword If    '${master}'!='${EMPTY}'    Verify Report General    AGENT WIN LOSS
+    # View Down Agent
+    Run Keyword If    '${agent}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${agent}')]
+    Run Keyword If    '${agent}'!='${EMPTY}'    Verify Report General    MEMBER WIN LOSS
+    # View Down Member
+    Run Keyword If    '${member}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${member}')]
+    Run Keyword If    '${member}'!='${EMPTY}'    Verify Report General    MEMBER BET LIST    no
+    Unselect Frame
+
+Verify Report_Win Loss Detail
+    [Arguments]    ${downLineLevel}=${EMPTY}    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    sleep    10s
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    sleep    1s
+    Run Keyword And Continue On Failure    Wait Until Element Is Not Visible    //*[@id='menuPopupAd']/div[2]    ${cfWaitControl}
+    Verify Report General    ${downLineLevel} WIN LOSS DETAIL    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    ${downLineLevel} WIN LOSS DETAIL    no
+    # View Down Master
+    Run Keyword If    '${master}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${master}')]
+    Run Keyword If    '${master}'!='${EMPTY}'    Verify Report General    AGENT WIN LOSS DETAIL
+    # View Down Agent
+    Run Keyword If    '${agent}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${agent}')]
+    Run Keyword If    '${agent}'!='${EMPTY}'    Verify Report General    MEMBER WIN LOSS DETAIL
+    # View Down Member
+    Run Keyword If    '${member}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${member}')]
+    Run Keyword If    '${member}'!='${EMPTY}'    Verify Report General    MEMBER BET LIST    no
+    Unselect Frame
+
+Verify Report_OutStanding
+    [Arguments]    ${downLineLevel}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    Verify Report General    ${downLineLevel} OUTSTANDING    yes
+    # View Down Master
+    Run Keyword If    '${master}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${master}')]
+    Run Keyword If    '${master}'!='${EMPTY}'    Verify Report General    AGENT OUTSTANDING
+    # View Down Agent
+    Run Keyword If    '${agent}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${agent}')]
+    Run Keyword If    '${agent}'!='${EMPTY}'    Verify Report General    MEMBER OUTSTANDING
+    # View Down Member
+    Run Keyword If    '${member}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[*]/span[contains(@onclick,"${member}")]
+    Run Keyword If    '${member}'!='${EMPTY}'    Verify Report General    BET LIST    no
+    Unselect Frame
+
+Verify Report_Real Time Casino Win Loss
+    [Arguments]    ${downLineLevel}=${EMPTY}    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Verify Report General    ${downLineLevel} REAL TIME CASINO WINLOSS    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    ${downLineLevel} REAL TIME CASINO WINLOSS    yes
+    ${ac_in_firstRowData}    Set variable    //*[@id='tbl-rpt']/tbody/tr[4]/td[1]/span
+    # View Down
+    ${isfistRow}    Run Keyword And Return Status    Element Should Be Visible    ${ac_in_firstRowData}
+    Run Keyword If    '${master}'!='${EMPTY}' and '${isfistRow}'=='True'    Click Control    ${ac_in_firstRowData}
+    Run Keyword If    '${master}'!='${EMPTY}' and '${isfistRow}'=='True'    Verify Report General    AGENT REAL TIME CASINO WINLOSS
+    # View Down Agent
+    Run Keyword If    '${agent}'!='${EMPTY}' and '${isfistRow}'=='True'    Click Control    ${ac_in_firstRowData}
+    Run Keyword If    '${agent}'!='${EMPTY}' and '${isfistRow}'=='True'    Verify Report General    MEMBER REAL TIME CASINO WINLOSS
+    # View Down Member
+    Run Keyword If    '${member}'!='${EMPTY}' and '${isfistRow}'=='True'    Click Control    ${ac_in_firstRowData}
+    Run Keyword If    '${member}'!='${EMPTY}' and '${isfistRow}'=='True'    Verify Report General    CASINO HAND HISTORY    no
+
+Verify Report_Real Time Bingo Win Loss
+    [Arguments]    ${downLineLevel}=${EMPTY}    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Verify Report General    ${downLineLevel} REAL TIME BINGO WINLOSS    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_fromDate}
+    Verify Report General    ${downLineLevel} REAL TIME BINGO WINLOSS    no
+    # View Down Master
+    Run Keyword If    '${master}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${master}')]
+    Run Keyword If    '${master}'!='${EMPTY}'    Verify Report General    AGENT REAL TIME BINGO WINLOSS
+    # View Down Agent
+    Run Keyword If    '${agent}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${agent}')]
+    Run Keyword If    '${agent}'!='${EMPTY}'    Verify Report General    MEMBER REAL TIME BINGO WINLOSS
+    # View Down Member
+    Run Keyword If    '${member}'!='${EMPTY}'    Click Control    //*[@id='tbl-rpt']/tbody/tr[*]/td[1]/span[contains(text(),'${member}')]
+    Run Keyword If    '${member}'!='${EMPTY}'    Verify Report General    BINGO HAND HISTORY    no
+
+Verify Report_Match Win Loss
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Verify Report General    MATCH WIN LOSS    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    MATCH WIN LOSS    no
+    ${existData}    Run Keyword And Return Status    Element Should Be Visible    //*[@id='tbl-rpt']/tbody/tr[2]/td[1]/span
+    Run Keyword If    '${existData}'=='True'    Click Control    //*[@id='tbl-rpt']/tbody/tr[2]/td[1]/span
+    Run Keyword If    '${existData}'=='True'    Verify Report General    MEMBER BET LIST    no
+
+Verify Report_Match Win Loss Detail
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Verify Report General    MATCH WIN LOSS DETAIL    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    MATCH WIN LOSS DETAIL    no
+    ${existData}    Run Keyword And Return Status    Element Should Be Visible    //*[@id='tbl-rpt']/tbody/tr[2]/td[1]/span
+    Run Keyword If    '${existData}'=='True'    Click Control    //*[@id='tbl-rpt']/tbody/tr[2]/td[1]/span
+    Run Keyword If    '${existData}'=='True'    Verify Report General    MEMBER BET LIST    no
+
+Verify Report_Win Loss Analysis
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Verify Report General    DAILY WIN LOSS ANALYSIS    no
+    Click Element    ${in_m_rptOld_rdbMonthly}
+    Verify Report General    MONTHLY WIN LOSS ANALYSIS    no
+    Click Element    ${in_m_rptOld_rdbSport}
+    Verify Report General    SPORT WIN LOSS ANALYSIS    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    SPORT WIN LOSS ANALYSIS    yes
+    # View Down Master
+    Click Element    ${in_m_rptOld_rdbDaily}
+    Verify Report General    DAILY WIN LOSS ANALYSIS    yes
+    Click Element    ${in_m_rptOld_rdbMonthly}
+    Verify Report General    MONTHLY WIN LOSS ANALYSIS    yes
+    Unselect Frame
+
+Verify Report_Commission By Bettype
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Verify Report General    COMMISSION BY BET TYPE    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Wait Until Element Is Visible    ${in_main_IconLoadingReport}    ${cfWaitTime}
+    Wait Until Element Is Not Visible    ${in_main_IconLoadingReport}    ${cfWaitControlLong}
+    Verify Report General    COMMISSION BY BET TYPE    no
+    # View Down Master
+    Run Keyword If    '${master}'!='${EMPTY}'    Click Element    //*[@id='tblContent_GridContainer']/tbody/tr/td[1]/div/span[contains(text(),'${master}')]
+    Run Keyword If    '${master}'!='${EMPTY}'    Verify Report General    COMMISSION BY BET TYPE    no
+    # View Down Agent
+    Run Keyword If    '${agent}'!='${EMPTY}'    Click Element    //*[@id='tblContent_GridContainer']/tbody/tr/td[1]/div/span[contains(text(),'${agent}')]
+    Run Keyword If    '${agent}'!='${EMPTY}'    Verify Report General    COMMISSION BY BET TYPE    no
+    Unselect Frame
+
+Verify Report_Racing Commission
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Verify Report General    RACING COMMISSION    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    RACING COMMISSION    no
+    # View Down Master
+    ${ac_master}    Run Keyword If    '${master}'!='${EMPTY}'    Run Keyword And Return Status    Element Should Be Visible    //*[@id='tbl-rpt']/tbody/tr[4]/td[1]/span[contains(text(),'${master}')]
+    Run Keyword If    '${master}'!='${EMPTY}' and '${ac_master}'=='True'    Click Control    //*[@id='tbl-rpt']/tbody/tr[4]/td[1]/span[contains(text(),'${master}')]
+    Run Keyword If    '${master}'!='${EMPTY}' \ and '${ac_master}'=='True'    Verify Report General    RACING COMMISSION    no
+    # View Down Agent
+    ${ac_agent}    Run Keyword If    '${agent}'!='${EMPTY}'    Run Keyword And Return Status    Element Should Be Visible    //*[@id='tbl-rpt']/tbody/tr[4]/td[1]/span[contains(text(),'${agent}')]
+    Run Keyword If    '${agent}'!='${EMPTY}' \ and '${ac_agent}'=='True'    Click Control    //*[@id='tbl-rpt']/tbody/tr[4]/td[1]/span[contains(text(),'${agent}')]
+    Run Keyword If    '${agent}'!='${EMPTY}' \ and '${ac_agent}'=='True'    Verify Report General    RACING COMMISSION    no
+    Unselect Frame
+
+Verify Report_Last Bets Monitoring
+    Unselect Frame
+    select frame    main
+    Verify Report General    LAST BETS MONITORING    no
+    Unselect Frame
+
+Verify Report_Cancelled Bets
+    Unselect Frame
+    select frame    main
+    Verify Report General    VOID/REJECTED BET LIST (LAST 3 DAYS)    no
+    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    VOID/REJECTED BET LIST (LAST 3 DAYS)    CancelBetList
+    Unselect Frame
+
+Verify Report_Statement
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Verify Report General    STATEMENT    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    STATEMENT    no
+    Unselect Frame
+
+Verify Report_Results
+    [Arguments]    ${selectedDate}=${EMPTY}
+    [Documentation]    ${selectedDate}: 'today', 'yesterday', <specialDate>
+    Unselect Frame
+    select frame    main
+    # Verify Result: NORMAL
+    Verify Report General    RESULTS    no
+    Run Keyword If    '${selectedDate}'=='yesterday'    click control    ${in_m_rptOld_btnYesterday}
+    Run Keyword If    '${selectedDate}'=='today'    click control    ${in_m_rptOld_btnToday}
+    Verify Report General    RESULTS    no
+    ${ac_lstSport}    Run Keyword And Continue On Failure    Get List Items    ${in_m_rptOld_cboSport}
+    ${ac_sportLen}    Get Matching Xpath Count    ${in_m_rptOld_cboSport}//option
+    ${index}    Evaluate    ${ac_sportLen}-1
+    Run Keyword And Continue On Failure    Select From List By Label    ${in_m_rptOld_cboSport}    ${ac_lstSport[${index}]}
+    Verify Report General    RESULTS    no
+    ${ac_lstLeague}    Run Keyword And Continue On Failure    Get List Items    ${in_m_rptOld_cboLeague}
+    ${ac_leagueLen}    Get Matching Xpath Count    ${in_m_rptOld_cboLeague}//option
+    ${index}    Evaluate    ${ac_leagueLen}-1
+    Run Keyword And Continue On Failure    Select From List By Label    ${in_m_rptOld_cboLeague}    ${ac_lstLeague[${index}]}
+    Verify Report General    RESULTS    no
+    Comment    # Verify Result: Outright
+    Click Control    ${in_m_btnOutright}
+    Verify Report General    RESULTS    no
+    Run Keyword If    '${selectedDate}'=='yesterday'    click control    ${in_m_rptOld_btnYesterday}
+    Run Keyword If    '${selectedDate}'=='today'    click control    ${in_m_rptOld_btnToday}
+    Verify Report General    RESULTS    no
+    ${ac_lstSport}    Run Keyword And Continue On Failure    Get List Items    ${in_m_rptOld_cboSport}
+    ${ac_sportLen}    Get Matching Xpath Count    ${in_m_rptOld_cboSport}//option
+    ${index}    Evaluate    ${ac_sportLen}-1
+    Run Keyword And Continue On Failure    Select From List By Label    ${in_m_rptOld_cboSport}    ${ac_lstSport[${index}]}
+    Verify Report General    RESULTS    no
+    ${ac_lstLeague}    Run Keyword And Continue On Failure    Get List Items    ${in_m_rptOld_cboLeague}
+    ${ac_leagueLen}    Get Matching Xpath Count    ${in_m_rptOld_cboLeague}//option
+    ${index}    Evaluate    ${ac_leagueLen}-1
+    Run Keyword And Continue On Failure    Select From List By Label    ${in_m_rptOld_cboLeague}    ${ac_lstLeague[${index}]}
+    Verify Report General    RESULTS    no
+    Comment    # Verify Result: KENO
+    Click Control    ${in_m_btnKeno}
+    Verify Report General    RESULTS    no
+    Comment    # Verify Result: CockFighting
+    Click Control    ${in_m_rptOld_btnCockFighting}
+    Verify Report General    RESULTS    no
+    Unselect Frame
+
+Verify ForeCast Header Data
+    [Arguments]    ${ac_group}    ${ac_rptName}
+    [Documentation]    This action is used to check header of report and table data controls displayed on web
+    ...
+    ...    ${ac_group} : the group that contain report (TOTAL BETS, FORECAST,...)
+    ...
+    ...    ${ac_rptName}: the report link name
+    ...
+    ...    ${ac_header}: the report header
+    ...
+    ...    ${ac_tabledata}: the control of table data
+    ## Set variable
+    ${ac_UpperRptName}    Evaluate    str("${ac_rptName}").upper()
+    ## Navigate to Forecast page
+    Select Left Menu    ${ac_group}    ${ac_rptName}
+    Unselect Frame
+    select frame    main
+    ## Check Forecast Report name
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_ForeCast_ReportName}    ${ac_UpperRptName}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_ForeCast_tblData}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_ForeCast_divCountDownRefresh}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_ForeCast_btnCountDown}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_ForeCast_tblHdpOU}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_ForeCast_trHdpOUHeader}
+    ## Set Refresh time
+    Click Element    ${in_ForeCast_btnCountDown}
+    Click Element    //div[@id='option4']
+    ## Get row header
+    ${ac_outputColName}    Get Text    ${in_ForeCast_trHdpOUHeader}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_ForeCast_ddlLeague}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_ForeCast_tblHdpOU}/tbody/tr[2]${in_ForeCast_tdMatch}
+    ## Get League, match name
+    ${ac_outputLeagueName}    Get Selected List Label    ${in_ForeCast_ddlLeague}
+    ${ac_outputMatchname}    Get Text    ${in_ForeCast_tblHdpOU}/tbody/tr[2]${in_ForeCast_tdMatch}
+    [Return]    ${ac_outputColName}    ${ac_outputLeagueName}    ${ac_outputMatchname}
+
+Open ForeCast Popup by JS
+    [Arguments]    ${ac_btnInfol}
+    ## Set Variable
+    ${ac_btnInfohref}=    Get Element Attribute    ${ac_btnInfol}@href
+    ${ac_btnInfohref}=    Replace String    ${ac_btnInfohref}    javascript:    ${EMPTY}
+    Execute Javascript    ${ac_btnInfohref}
+
+Verify TotalBets Header Data New
+    [Arguments]    ${ac_group}    ${ac_rptName}    ${ac_strheader}    ${ac_tabledata}
+    [Documentation]    This action is used to check header of report and table data controls displayed on web
+    ...
+    ...    ${ac_group} : the group that contain report (TOTAL BETS, FORECAST,...)
+    ...
+    ...    ${ac_rptName}: the report link name
+    ...
+    ...    ${ac_header}: the report header
+    ...
+    ...    ${ac_tabledata}: the control of table data
+    ## Set variable
+    ${ac_strHeaderUpper}    Evaluate    "${ac_strheader}".upper()
+    Select Left Menu    ${ac_group}    ${ac_rptName}
+    Unselect Frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Contains    //div[contains(@class,'bl_title' ) or @id ='header_main']    ${ac_strHeaderUpper}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_tabledata}    ${cfWaitControl}
+    Unselect Frame
+
+Verify Results Page_bk
+    [Arguments]    ${yesterday}=${EMPTY}
+    #
+    Unselect Frame
+    Select Frame    main
+    Run Keyword If    '${yesterday}'!='${EMPTY}'    Click Element    ${in_m_btnYesterday}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_cboSport}    ${cfWaitControl}
+    ${ac_lstSport}    Run Keyword And Continue On Failure    Get List Items    ${in_m_cboSport}
+    ${ac_sportLen}    Get Matching Xpath Count    ${in_m_cboSport}//option
+    : FOR    ${ac_i}    IN RANGE    0    ${ac_sportLen}
+    \    ${ac_sport}    Set Variable    ${ac_lstSport[${ac_i}]}
+    \    Verify Results Header    ${ac_sport}
+    \    Comment    # Verify the first date cell is not empty
+    \    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_tblContent}
+    \    Run Keyword And Continue On Failure    Should Not Be Empty    ${in_m_tblContent}/tbody/tr[2]/td[1]
+    \    Comment    # Verify with select the latest League
+    \    ${ac_lstLeague}    Run Keyword And Continue On Failure    Get List Items    ${in_m_cboLeagues}
+    \    ${ac_leagueLen}    Get Matching Xpath Count    ${in_m_cboLeagues}//option
+    \    ${ac_index}    Run Keyword And Continue On Failure    Evaluate    ${ac_leagueLen}-1
+    \    Run Keyword And Continue On Failure    Select From List By Label    ${in_m_cboLeagues}    ${ac_lstLeague[${ac_index}]}
+    \    Verify Results Header    ${ac_sport}
+    \    Run Keyword And Continue On Failure    Should Not Be Empty    ${in_m_tblContent}/tbody/tr[2]/td[1]
+
+View Down User List
+    [Arguments]    ${ListUsername}
+    [Documentation]    This action is used to drilldown from Master/Agent/Member List
+    ...
+    ...    ${username}:Start drill down from first index of list username
+    ...
+    ...    EX:
+    ...    @{ListUsername}= MasterA | Agent A
+    ...    -->We going to view down the \ Member List
+    Select Frame    main
+    : FOR    ${ac_i}    IN    @{ListUsername}
+    \    Run Keyword And Continue On Failure    Click Control    xpath=//*/div[text()='${ac_i}']/following::a[@class='view']/span
+    \    sleep    0.5s    # wait for customer list load
+    Unselect Frame
+
+Verify Report_Win Loss Detail_ExportExcel
+    [Arguments]    ${downLineLevel}=${EMPTY}    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    ...    ${ac_verifymode}=0
+    [Documentation]    This action is used to verify report Winloss details and export excel file
+    ...    Step:
+    ...
+    ...    1. Select Filter and submit
+    ...
+    ...    2. Verify Report Name
+    ...
+    ...    3. Verify Function Export Excel for each level
+    ...
+    ...    4. Verify Total Winloss Detail for each level. User can use some action below:
+    ...
+    ...    a. VerifyTotalWinlossDetailsByUsername : This action is used to verify below by input DownlineName
+    ...
+    ...    b. VerifyTotalWinlossDetailsByRow_AllRow: This action is used to verify below by input RowID or "All" if you want to check all row
+    ...
+    ...    Param:
+    ...    ${downLineLevel}: downline level of account log in
+    ...
+    ...    ${fromDate}: range data
+    ...
+    ...    ${toDate}: range data
+    ...
+    ...    ${master}: account level master
+    ...
+    ...    ${agent}: account level agent
+    ...
+    ...    ${member}: account level member
+    ...
+    ...    ${ac_verifymode}: the way to verify report.
+    ...    - username: verify by username
+    ...    - 0: verify all row
+    ...    - 1+: verify specified row. Eg: 2 means verify the second row
+    Unselect Frame
+    select frame    main
+    sleep    10s
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    sleep    1s
+    Run Keyword And Continue On Failure    Wait Until Element Is Not Visible    //*[@id='menuPopupAd']/div[2]    ${cfWaitControl}
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    ${downLineLevel} WIN LOSS DETAIL    no
+    #Export Excel Super
+    Run Keyword If    '${master}'!='${EMPTY}'    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    ${downLineLevel} WIN LOSS DETAIL    WinlossDetailSuper
+    #Calculate total detail level login is Super
+    Run Keyword If    '${master}'!='${EMPTY}' and '${ac_verifymode}'=='username'    VerifyTotalWinlossDetailsByUsername    ${master}    MASTER WIN LOSS DETAIL    1
+    Run Keyword If    '${master}'!='${EMPTY}' and '${ac_verifymode}'!='username'    VerifyTotalWinlossDetailsByRow_AllRow    ${ac_verifymode}    ${in_m_report_tablebody}    MASTER WIN LOSS DETAIL    1
+    #Export Excel Master
+    Run Keyword If    '${agent}'!='${EMPTY}'    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    AGENT WIN LOSS DETAIL    WinlossDetailMaster
+    #Calculate total detail level login is Master
+    Run Keyword If    '${agent}'!='${EMPTY}' and '${ac_verifymode}'=='username'    VerifyTotalWinlossDetailsByUsername    ${agent}    AGENT WIN LOSS DETAIL    1
+    Run Keyword If    '${agent}'!='${EMPTY}' and '${ac_verifymode}'!='username'    VerifyTotalWinlossDetailsByRow_AllRow    ${ac_verifymode}    ${in_m_report_tablebody}    AGENT WIN LOSS DETAIL    1
+    #Export Excel Agent
+    Run Keyword If    '${member}'!='${EMPTY}'    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    MEMBER WIN LOSS DETAIL    WinlossDetailAgent
+    #Calculate total detail level login is Agent
+    Run Keyword If    '${member}'!='${EMPTY}' and '${ac_verifymode}'=='username'    VerifyTotalWinlossDetailsByUsername    ${member}    MEMBER WIN LOSS DETAIL    1
+    Run Keyword If    '${member}'!='${EMPTY}' and '${ac_verifymode}'!='username'    VerifyTotalWinlossDetailsByRow_AllRow    ${ac_verifymode}    ${in_m_report_tablebody}    MEMBER WIN LOSS DETAIL    1
+    Comment    ## Test Row
+    Comment    #Calculate total detail level login is Super
+    Comment    Run Keyword If    '${master}'!='${EMPTY}'    VerifyTotalWinlossDetailsByRow_AllRow    0    ${in_m_report_tablebody}    MASTER WIN LOSS DETAIL
+    ...    1
+    Comment    #Calculate total detail level login is Master
+    Comment    Run Keyword If    '${agent}'!='${EMPTY}'    VerifyTotalWinlossDetailsByRow_AllRow    0    ${in_m_report_tablebody}    AGENT WIN LOSS DETAIL
+    ...    1
+    Comment    #Calculate total detail level login is Agent
+    Comment    Run Keyword If    '${member}'!='${EMPTY}'    VerifyTotalWinlossDetailsByRow_AllRow    0    ${in_m_report_tablebody}    MEMBER WIN LOSS DETAIL
+    ...    1
+    Comment    ## Test Row
+    Unselect Frame
+
+Verify Report_Win Loss_ExportExcel
+    [Arguments]    ${downLineLevel}=${EMPTY}    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    ...    ${ac_verifymode}=0
+    [Documentation]    This action is used to verify report Winloss and export excel file
+    ...
+    ...    ${downLineLevel}: downline level of account log in
+    ...
+    ...    ${fromDate}: range data
+    ...
+    ...    ${toDate}: range data
+    ...
+    ...    ${master}: master username
+    ...
+    ...    ${agent}: agent username
+    ...
+    ...    ${member}: member username
+    ...
+    ...    ${ac_verifymode}: the way to verify report.
+    ...    - username: verify by username
+    ...    - 0: verify all row
+    ...    - 1+: verify specified row. Eg: 2 means verify the second row
+    ${ac_filename} =    Set Variable if    '${downLineLevel}'=='MASTER'    WinlossSuper    '${downLineLevel}'=='AGENT'    WinlossMaster    '${downLineLevel}'=='MEMBER'
+    ...    WinlossAgent
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    ${downLineLevel} WIN LOSS
+    #Set SMA total column
+    ${ac_Super_total_col_index}    Set Variable    7
+    ${ac_Master_total_col_index}    Set Variable    7
+    ${ac_Agent_total_col_index}    Set Variable    9
+    #Export Excel
+    Run Keyword If    '${downLineLevel}'!='${EMPTY}'    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    ${downLineLevel} WIN LOSS    ${ac_filename}
+    #Verify TotalWinloss when level login is Super
+    Run Keyword If    '${master}'!='${EMPTY}' and '${ac_verifymode}' =='username'    VerifyTotalWinlossByUsername    ${master}    ${ac_Super_total_col_index}    MASTER WIN LOSS    1
+    Run Keyword If    '${master}'!='${EMPTY}' and '${ac_verifymode}' !='username'    VerifyTotalWinlossByRow_AllRow    ${ac_verifymode}    ${in_m_report_tablebody}    ${ac_Super_total_col_index}    MASTER WIN LOSS
+    ...    1
+    #Verify TotalWinloss when level login is Master
+    Run Keyword If    '${agent}'!='${EMPTY}' and '${ac_verifymode}' =='username'    VerifyTotalWinlossByUsername    ${agent}    ${ac_Master_total_col_index}    AGENT WIN LOSS    1
+    Run Keyword If    '${agent}'!='${EMPTY}' and '${ac_verifymode}' !='username'    VerifyTotalWinlossByRow_AllRow    ${ac_verifymode}    ${in_m_report_tablebody}    ${ac_Master_total_col_index}    AGENT WIN LOSS
+    ...    1
+    #Verify TotalWinloss when level login is Agent
+    Run Keyword If    '${member}'!='${EMPTY}' and '${ac_verifymode}' =='username'    VerifyTotalWinlossByUsername    ${member}    ${ac_Agent_total_col_index}    MEMBER WIN LOSS    1
+    Run Keyword If    '${member}'!='${EMPTY}' and '${ac_verifymode}' !='username'    VerifyTotalWinlossByRow_AllRow    ${ac_verifymode}    ${in_m_report_tablebody}    ${ac_Agent_total_col_index}    MEMBER WIN LOSS
+    ...    1
+    Comment    #VerifyTotalWinloss All row by input table body of report
+    Comment    VerifyTotalWinlossByRow_AllRow    0    //table[@id='tbl-rpt']/tbody    ${ac_Master_total_col_index}    MASTER WIN LOSS    1
+    Unselect Frame
+
+Report_VerifyFunctionExportExcel
+    [Arguments]    ${ac_Excel_Element}    ${ac_ReportName}=${EMPTY}    ${ac_filename}=${EMPTY}
+    [Documentation]    This action is used to verify function export excel file
+    ...
+    ...    ${ac_ReportName}: Name of report need to export
+    ...
+    ...    ${ac_filename}: The file name of report need to export
+    Remove Files    ${cfReportDownloadFolder}\\*${ac_filename}*.*
+    Click Control    ${ac_Excel_Element}
+    ## Check web is still ok
+    Run Keyword If    '${ac_ReportName}'!='${EMPTY}'    Verify Report General    ${ac_ReportName}    no
+    ## Check excel file is generated
+    Wait Until Keyword Succeeds    2min    2s    File Should Exist    ${cfReportDownloadFolder}\\${ac_filename}.xls
+
+VerifyTotalWinlossByUsername
+    [Arguments]    ${ac_DownlineName}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_isDrilldown}=1
+    [Documentation]    This action is used to verify below by input DownlineName:
+    ...    1. Total Winloss of the current user (VerifyTotalWinlossSMAM)
+    ...    (eg, Winloss + Comm = Total Winloss)
+    ...    2.Total Winloss of Company (VerifyTotalWinlossCompany)
+    ...    Downline Total + Current Total Winloss = Company
+    ...
+    ...    ${ac_DownlineName}: the username that need to check
+    ...
+    ...    ${ac_col_TotalWinloss}: the column index of Super/Master/Agent/Member Total Winloss
+    ...
+    ...    ${ac_Level_Report}: Master/Agent/Member Win loss
+    ...
+    ...    ${ac_isDrilldown}: drill down to downline member or not?
+    ## Set variable
+    ${ac_lnkDownline}    Set Variable    //table[@id='tbl-rpt']/tbody//span[text()='${ac_DownlineName}']
+    ${ac_tr}    Set Variable    ${ac_lnkDownline}/parent::td/parent::tr
+    ${ac_boundary_number}    Set Variable    0.02
+    ## Get report name after drilldown
+    ${ac_ReportNameAfterDrillDown}=    Set Variable if    '${ac_Level_Report}'=='MASTER WIN LOSS'    AGENT WIN LOSS    '${ac_Level_Report}'=='AGENT WIN LOSS'    MEMBER WIN LOSS    '${ac_Level_Report}'=='MEMBER WIN LOSS'
+    ...    MEMBER BET LIST
+    ## Check Winloss of SMAM
+    VerifyTotalWinlossSMAM    ${ac_tr}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}
+    ## If report is MEMBER WIN LOSS, check Winloss of Member
+    ${ac_col_Member_TotalWinloss}    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS'    Evaluate    ${ac_col_TotalWinloss} - 3
+    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS'    VerifyTotalWinlossSMAM    ${ac_tr}    ${ac_col_Member_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}
+    ## Check Winloss of Company
+    VerifyTotalWinlossCompany    ${ac_tr}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}
+    ## Check Winloss of SMAM on Total Row
+    VerifyTotalWinlossSMAM    ${in_m_report_TotalRow}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}
+    ## Check Winloss of Company on Total Row
+    VerifyTotalWinlossCompany    ${in_m_report_TotalRow}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}
+    ## Drill down
+    Run Keyword If    '${ac_isDrilldown}'=='1'    Click Control    ${ac_lnkDownline}
+    Run Keyword If    '${ac_isDrilldown}'=='1'    Verify Report General    ${ac_ReportNameAfterDrillDown}    no
+
+VerifyTotalWinlossByRow_AllRow
+    [Arguments]    ${ac_RowID}    ${ac_ReportTableBody}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_isDrilldown}=1
+    [Documentation]    This action is used to verify below by input RowID:
+    ...
+    ...    1.Total Winloss of the current user (VerifyTotalWinlossSMAM)
+    ...    Winloss + Comm = Total Winloss
+    ...
+    ...    2.Total Winloss of Company (VerifyTotalWinlossCompany)
+    ...    Downline Total + Current Total Winloss = Company
+    ...
+    ...    ${ac_RowID}: the row number that need to check. Start from 1. Input 0 means check all rows.
+    ...
+    ...    ${ac_ReportTableBody}: the table body that contains row data need to check
+    ...
+    ...    ${ac_col_TotalWinloss}: the column index of Super/Master/Agent/Member Total Winloss
+    ...
+    ...    ${ac_Level_Report}: Master/Agent/Member
+    ...
+    ...    ${ac_isDrilldown}: drill down to downline member or not?
+    ## Set variable
+    ${ac_boundary_number}    Set Variable    0.02
+    ${ac_StartRow}=    Set Variable If    '${ac_RowID}'=='0'    1    ${ac_RowID}
+    ${ac_EndRow}    Run Keyword If    '${ac_RowID}'=='0'    Get Matching Xpath Count    ${ac_ReportTableBody}/tr
+    ...    ELSE    Evaluate    ${ac_RowID}+1
+    : FOR    ${ac_Row}    IN RANGE    ${ac_StartRow}    ${ac_EndRow}
+    \    ## Set variable
+    \    ${ac_tr}    Set Variable    ${ac_ReportTableBody}/tr[${ac_Row}]
+    \    ${ac_lnkDownLine}    Set Variable    ${ac_tr}/td[1]/span
+    \    ## Check Winloss of SMAM
+    \    VerifyTotalWinlossSMAM    ${ac_tr}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}
+    \    ## If report is MEMBER WIN LOSS, check Winloss of Member
+    \    ${ac_col_Member_TotalWinloss}    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS'    Evaluate    ${ac_col_TotalWinloss} - 3
+    \    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS'    VerifyTotalWinlossSMAM    ${ac_tr}    ${ac_col_Member_TotalWinloss}    ${ac_Level_Report}
+    \    ...    ${ac_boundary_number}
+    \    ## Check Winloss of SMAM & Company
+    \    VerifyTotalWinlossCompany    ${ac_tr}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}
+    ## Check Winloss of SMAM on Total Row
+    VerifyTotalWinlossSMAM    ${in_m_report_TotalRow}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}
+    ## Check Winloss of Company on Total Row
+    VerifyTotalWinlossCompany    ${in_m_report_TotalRow}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}
+    ## Get report name after drilldown
+    ${ac_ReportNameAfterDrillDown}=    Set Variable if    '${ac_Level_Report}'=='MASTER WIN LOSS'    AGENT WIN LOSS    '${ac_Level_Report}'=='AGENT WIN LOSS'    MEMBER WIN LOSS    '${ac_Level_Report}'=='MEMBER WIN LOSS'
+    ...    MEMBER BET LIST
+    ## Drill down
+    Run Keyword If    '${ac_isDrilldown}'=='1'    Click Control    ${ac_lnkDownLine}
+    Run Keyword If    '${ac_isDrilldown}'=='1'    Verify Report General    ${ac_ReportNameAfterDrillDown}    no
+
+VerifyTotalWinlossSMAM
+    [Arguments]    ${ac_Row}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}=0
+    [Documentation]    Thisc action is used to verify Total Winloss of Super/Master/Agent/Member
+    ...
+    ...    ${ac_row}: the row that contains data need to check
+    ...
+    ...    ${ac_col_TotalWinloss}: the column index of Super/Master/Agent/Member Total Winloss
+    ...
+    ...    ${ac_Level_Report}: Master/Agent/Member
+    ...
+    ...    ${ac_boundary_number}: the bound of error
+    ## Set variable
+    ${ac_col_WL}    Evaluate    ${ac_col_TotalWinloss} - 2
+    ${ac_col_Comm}    Evaluate    ${ac_col_TotalWinloss} - 1
+    ## get data on web
+    ${ac_WL_web}    Get Text    ${ac_Row}/td[${ac_col_WL}]
+    ${ac_Comm_web}    Get Text    ${ac_Row}/td[${ac_col_Comm}]
+    ${ac_TotalWL_web}    Get Text    ${ac_Row}/td[${ac_col_TotalWinloss}]
+    ## replace ',' if any
+    ${ac_WL_web}    Replace String    ${ac_WL_web}    ,    ${EMPTY}
+    ${ac_Comm_web}    Replace String    ${ac_Comm_web}    ,    ${EMPTY}
+    ${ac_TotalWL_web}    Replace String    ${ac_TotalWL_web}    ,    ${EMPTY}
+    ## Calculate Total WL based on WL and Com displayed on web
+    ${ac_TotalWL_Cal}    Evaluate    ${ac_WL_web} + ${ac_Comm_web}
+    ## Get abs of (TotalWL_Web - TotalWL_Cal)
+    ${ac_TotalWL_Cal_Web_abs}    Evaluate    abs(${ac_TotalWL_web} - ${ac_TotalWL_Cal})
+    ## Verify data
+    Should Be True    ${ac_TotalWL_Cal_Web_abs}<=${ac_boundary_number}    ${ac_Level_Report} : Winloss + Comm <> Total Winloss
+
+VerifyTotalWinlossCompany
+    [Arguments]    ${ac_Row}    ${ac_col_TotalWinloss}    ${ac_Level_Report}    ${ac_boundary_number}=0
+    [Documentation]    Thisc action is used to verify Total Winloss of Company
+    ...    Downline Total + Current Total Winloss = Company*(-1)
+    ...
+    ...    ${ac_row}: the row that contains data need to check
+    ...
+    ...    ${ac_col_TotalWinloss}: the column index of Super/Master/Agent/Member Total Winloss
+    ...
+    ...    ${ac_Level_Report}: Master/Agent/Member Winloss
+    ...
+    ...    ${ac_boundary_number}: the bound of error
+    ## Set variable
+    ${ac_col_DownlineTotal}    Evaluate    ${ac_col_TotalWinloss} - 3
+    ${ac_col_Company}    Evaluate    ${ac_col_TotalWinloss} + 1
+    ## get data on web
+    ${ac_DownlineTotal_web}    Get Text    ${ac_Row}/td[${ac_col_DownlineTotal}]
+    ${ac_Company_web}    Get Text    ${ac_Row}/td[${ac_col_Company}]
+    ${ac_TotalWL_web}    Get Text    ${ac_Row}/td[${ac_col_TotalWinloss}]
+    ## replace ',' if any
+    ${ac_DownlineTotal_web}    Replace String    ${ac_DownlineTotal_web}    ,    ${EMPTY}
+    ${ac_Company_web}    Replace String    ${ac_Company_web}    ,    ${EMPTY}
+    ${ac_TotalWL_web}    Replace String    ${ac_TotalWL_web}    ,    ${EMPTY}
+    ## Calculate Total WL based on WL and Com displayed on web
+    ${ac_Company_Cal}    Evaluate    float(${ac_DownlineTotal_web})+ float(${ac_TotalWL_web})
+    ## Get abs of sum(${ac_Company_web} + ${ac_Company_Cal})
+    ${ac_Company_Cal_Web_abs}    Evaluate    abs(${ac_Company_web} + ${ac_Company_Cal})
+    ## Verify data
+    Should Be True    ${ac_Company_Cal_Web_abs}<=${ac_boundary_number}    ${ac_Level_Report} :Downline Total + Current Total Winloss <> Company
+
+VerifyTotalWinlossDetailsByUsername
+    [Arguments]    ${ac_DownlineName}    ${ac_Level_Report}    ${ac_isDrilldown}=1
+    [Documentation]    This action is used to verify below by input DownlineName:
+    ...    1. Total Winloss of the all user (VerifyTotalWinlossSMAM)
+    ...    (eg, Winloss + Comm = Total Winloss)
+    ...    2.Total Winloss of Company (VerifyTotalWinlossCompany)
+    ...    All downline Total + Current Total Winloss = Company
+    ...
+    ...    ${ac_DownlineName}: the username that need to check
+    ...
+    ...    ${ac_Level_Report}: Master/Agent/Member Win loss
+    ...
+    ...    ${ac_isDrilldown}: drill down to downline member or not?
+    ## Set variable
+    ${ac_lnkDownline}    Set Variable    //table[@id='tbl-rpt']/tbody//span[text()='${ac_DownlineName}']
+    ${ac_tr}    Set Variable    ${ac_lnkDownline}/parent::td/parent::tr
+    ${ac_boundary_number}    Set Variable    0.02
+    ## Set Col Total for each level of report Winloss detail
+    ${ac_CompanyCol} =    Set Variable if    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    18    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    15    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'
+    ...    12
+    ${ac_MemberCol}    Set Variable    8
+    ${ac_AgentCol}    Set Variable    11
+    ${ac_MasterCol}    Set Variable    14
+    ${ac_SuperCol}    Set Variable    17
+    ## Verify report Master Winloss Detail
+    Run Keyword If    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${ac_SuperCol}    ${ac_boundary_number}
+    ## Verify report Master Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${ac_SuperCol}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail
+    Run Keyword If    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${EMPTY}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${EMPTY}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail
+    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${EMPTY}    ${EMPTY}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${EMPTY}    ${EMPTY}    ${ac_boundary_number}
+    ## Get report name after drilldown
+    ${ac_ReportNameAfterDrillDown}=    Set Variable if    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    AGENT WIN LOSS DETAIL    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    MEMBER WIN LOSS DETAIL    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'
+    ...    MEMBER BET LIST
+    ## Drill down
+    Run Keyword If    '${ac_isDrilldown}'=='1'    Click Control    ${ac_lnkDownline}
+    Run Keyword If    '${ac_isDrilldown}'=='1'    Verify Report General    ${ac_ReportNameAfterDrillDown}    no
+
+VerifyTotalWinlossDetailsCompany
+    [Arguments]    ${ac_Row}    ${ac_Level_Report}    ${ac_col_Company}    ${ac_col_MemTotal}    ${ac_col_AgentTotal}    ${ac_col_MasterTotal}=${EMPTY}
+    ...    ${ac_col_SuperTotal}=${EMPTY}    ${ac_boundary_number}=0
+    [Documentation]    Thisc action is used to verify Total Winloss of Company in report winloss details
+    ...    All downline Total + Current Total Winloss = Company
+    ...    Eg:
+    ...    - Master Winloss Detail report: Member total + Agent Total + Master Total + Super Total = Company*(-1)
+    ...    - Agent Winloss Detail report: Member total + Agent Total + Master Total = Company*(-1)
+    ...    - Member Winloss Detail report: Member total + Agent Total = Company*(-1)
+    ...
+    ...    ${ac_row}: the row that contains data need to check
+    ...
+    ...    ${ac_Level_Report}: Master/Agent/Member Win loss
+    ...
+    ...    ${ac_col_Company}: the column index of Company
+    ...
+    ...    ${ac_col_MemTotal}: the column index of Member Total Winloss
+    ...
+    ...    ${ac_col_AgentTotal}: the column index of Agent Total Winloss
+    ...
+    ...    ${ac_col_MasterTotal}: the column index of Master Total Winloss. It could be empty.
+    ...
+    ...    ${ac_col_SuperTotal}: the column index of Super Total Winloss. It could be empty.
+    ...
+    ...    ${ac_boundary_number}: the bound of error
+    ## Set variable
+    ${ac_boundary_number}    Set Variable    0.02
+    ## get data on web
+    ${ac_MemberTotal_Web}    Get Text    ${ac_Row}/td[${ac_col_MemTotal}]
+    ${ac_AgentTotal_Web}    Get Text    ${ac_Row}/td[${ac_col_AgentTotal}]
+    ${ac_MasterTotal_Web}    Run Keyword If    '${ac_col_MasterTotal}'!='${EMPTY}'    Get Text    ${ac_Row}/td[${ac_col_MasterTotal}]
+    ...    ELSE    Set Variable    0
+    ${ac_SuperTotal_Web}    Run Keyword If    '${ac_col_SuperTotal}'!='${EMPTY}'    Get Text    ${ac_Row}/td[${ac_col_SuperTotal}]
+    ...    ELSE    Set Variable    0
+    ${ac_Company_web}    Get Text    ${ac_Row}/td[${ac_col_Company}]
+    ## replace ',' if any
+    ${ac_MemberTotal_Web}    Replace String    ${ac_MemberTotal_Web}    ,    ${EMPTY}
+    ${ac_AgentTotal_Web}    Replace String    ${ac_AgentTotal_Web}    ,    ${EMPTY}
+    ${ac_MasterTotal_Web}    Replace String    ${ac_MasterTotal_Web}    ,    ${EMPTY}
+    ${ac_SuperTotal_Web}    Replace String    ${ac_SuperTotal_Web}    ,    ${EMPTY}
+    ${ac_Company_web}    Replace String    ${ac_Company_web}    ,    ${EMPTY}
+    ## Calculate Total WL based on WL and Com displayed on web
+    ${ac_Company_Cal}    Evaluate    ${ac_MemberTotal_Web} + ${ac_AgentTotal_Web} + ${ac_MasterTotal_Web} + ${ac_SuperTotal_Web}
+    ## Get abs of sum(${ac_Company_web} + ${ac_Company_Cal})
+    ${ac_Company_Cal_Web_abs}    Evaluate    abs(${ac_Company_web} + ${ac_Company_Cal})
+    ## Verify data
+    Should Be True    ${ac_Company_Cal_Web_abs}<=${ac_boundary_number}    ${ac_Level_Report} : All downline Total + Current Total Winloss <> Company
+    ## Check Winloss of SMAM
+    #Member
+    VerifyTotalWinlossSMAM    ${ac_Row}    ${ac_col_MemTotal}    ${ac_Level_Report}    ${ac_boundary_number}
+    #Agent
+    VerifyTotalWinlossSMAM    ${ac_Row}    ${ac_col_AgentTotal}    ${ac_Level_Report}    ${ac_boundary_number}
+    #Master
+    Run Keyword If    '${ac_col_MasterTotal}'!='${EMPTY}'    VerifyTotalWinlossSMAM    ${ac_Row}    ${ac_col_MasterTotal}    ${ac_Level_Report}    ${ac_boundary_number}
+    #Super
+    Run Keyword If    '${ac_col_SuperTotal}'!='${EMPTY}'    VerifyTotalWinlossSMAM    ${ac_Row}    ${ac_col_SuperTotal}    ${ac_Level_Report}    ${ac_boundary_number}
+
+VerifyTotalWinlossDetailsByRow_AllRow
+    [Arguments]    ${ac_RowID}    ${ac_ReportTableBody}    ${ac_Level_Report}    ${ac_isDrilldown}=1
+    [Documentation]    This action is used to verify below by input report body:
+    ...
+    ...    1.Total Winloss of the current user (VerifyTotalWinlossSMAM)
+    ...    Winloss + Comm = Total Winloss
+    ...
+    ...    2.Total Winloss of Company (VerifyTotalWinlossCompany)
+    ...    Downline Total + Current Total Winloss = Company
+    ...
+    ...    ${ac_RowID}: the row number that need to check. Start from 1. Input 0 means check all rows.
+    ...
+    ...    ${ac_ReportTableBody}: the table body that contains row data need to check
+    ...
+    ...    ${ac_Level_Report}: Master/Agent/Member
+    ...
+    ...    ${ac_isDrilldown}: drill down to downline member or not?
+    ## Set variable
+    ${ac_boundary_number}    Set Variable    0.02
+    ${ac_StartRow}=    Set Variable If    '${ac_RowID}'=='0'    1    ${ac_RowID}
+    ${ac_EndRow}    Run Keyword If    '${ac_RowID}'=='0'    Get Matching Xpath Count    ${ac_ReportTableBody}/tr
+    ...    ELSE    Evaluate    ${ac_RowID}+1
+    ## Set Col Total for each level of report Winloss detail
+    ${ac_MemberCol}    Set Variable    8
+    ${ac_AgentCol}    Set Variable    11
+    ${ac_MasterCol}    Set Variable    14
+    ${ac_SuperCol}    Set Variable    17
+    ${ac_CompanyCol} =    Set Variable if    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    18    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    15    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'
+    ...    12
+    : FOR    ${ac_Row}    IN RANGE    ${ac_StartRow}    ${ac_EndRow}
+    \    ## Get row and link downline
+    \    ${ac_tr}    Set Variable    ${ac_ReportTableBody}/tr[${ac_Row}]
+    \    ${ac_lnkDownline}    Set Variable    ${ac_tr}/td[1]/span
+    \    ## Verify report Master Winloss Detail
+    \    Run Keyword If    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}
+    \    ...    ${ac_MemberCol}    ${ac_AgentCol}    ${ac_MasterCol}    ${ac_SuperCol}    ${ac_boundary_number}
+    \    ## Verify report Agent Winloss Detail
+    \    Run Keyword If    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}
+    \    ...    ${ac_MemberCol}    ${ac_AgentCol}    ${ac_MasterCol}    ${EMPTY}    ${ac_boundary_number}
+    \    ## Verify report Agent Winloss Detail
+    \    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}
+    \    ...    ${ac_MemberCol}    ${ac_AgentCol}    ${EMPTY}    ${EMPTY}    ${ac_boundary_number}
+    ## Verify report Master Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${ac_SuperCol}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${EMPTY}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${EMPTY}    ${EMPTY}    ${ac_boundary_number}
+    ## Get report name after drilldown
+    ${ac_ReportNameAfterDrillDown}=    Set Variable if    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    AGENT WIN LOSS DETAIL    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    MEMBER WIN LOSS DETAIL    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'
+    ...    MEMBER BET LIST
+    ## Drill down
+    Run Keyword If    '${ac_isDrilldown}'=='1'    Click Control    ${ac_lnkDownline}
+    Run Keyword If    '${ac_isDrilldown}'=='1'    Verify Report General    ${ac_ReportNameAfterDrillDown}    no
+
+Verify Report_Match Win Loss and Export Excel
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    MATCH WIN LOSS    no
+    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    MATCH WIN LOSS    MatchWinloss
+    ${existData}    Run Keyword And Return Status    Element Should Be Visible    ${in_m_report_tablebody}/tr[1]/td[1]/span
+    Run Keyword If    '${existData}'=='True'    Click Control    ${in_m_report_tablebody}/tr[1]/td[1]/span
+    Run Keyword If    '${existData}'=='True'    Verify Report General    MEMBER BET LIST    no
+    Run Keyword If    '${existData}'=='True'    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    MEMBER BET LIST    BetList
+
+Verify Report_Match Win Loss Detail and Export Excel
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    MATCH WIN LOSS DETAIL    no
+    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    MATCH WIN LOSS DETAIL    MatchWinlossDetail
+    ${existData}    Run Keyword And Return Status    Element Should Be Visible    //*[@id='tbl-rpt']/tbody/tr[2]/td[1]/span
+    Run Keyword If    '${existData}'=='True'    Click Control    //*[@id='tbl-rpt']/tbody/tr[2]/td[1]/span
+    Run Keyword If    '${existData}'=='True'    Verify Report General    MEMBER BET LIST    no
+    Run Keyword If    '${existData}'=='True'    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    MEMBER BET LIST    BetList
+
+Verify Report_Win Loss Analysis and Export Excel
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Verify Report General    DAILY WIN LOSS ANALYSIS    no
+    Wait Until Element Is Enabled    ${in_m_rptOld_rdbMonthly}    5s
+    Click Element    ${in_m_rptOld_rdbMonthly}
+    Verify Report General    MONTHLY WIN LOSS ANALYSIS    no
+    Wait Until Element Is Enabled    ${in_m_rptOld_rdbSport}    5s
+    Click Element    ${in_m_rptOld_rdbSport}
+    Verify Report General    SPORT WIN LOSS ANALYSIS    no
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    SPORT WIN LOSS ANALYSIS    yes
+    #Verify Export Excel
+    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    SPORT WIN LOSS ANALYSIS    WinlossAnalysis
+    Unselect Frame
+
+Verify Report_Commission By Bettype and Export Excel
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    ${ac_fromDate_filename}    Convert Date Time with Format    ${fromDate}    mm_dd_yyyy
+    ${ac_toDate_filename}    Convert Date Time with Format    ${toDate}    mm_dd_yyyy
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    COMMISSION BY BET TYPE    no
+    #Verify Export Excel
+    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    COMMISSION BY BET TYPE    CommissionByBettype_${ac_fromDate_filename}_To_${ac_toDate_filename}}
+    # View Down Master
+    Run Keyword If    '${master}'!='${EMPTY}'    Click Control    //table[@id='tblContent_GridContainer']/tbody/tr/td[1]/div/span[contains(text(),'${master}')]
+    Run Keyword If    '${master}'!='${EMPTY}'    Verify Report General    COMMISSION BY BET TYPE    no
+    # View Down Agent
+    Run Keyword If    '${agent}'!='${EMPTY}'    Click Control    //table[@id='tblContent_GridContainer']/tbody/tr/td[1]/div/span[contains(text(),'${agent}')]
+    Run Keyword If    '${agent}'!='${EMPTY}'    Verify Report General    COMMISSION BY BET TYPE    no
+    Unselect Frame
+
+Verify Report_Racing Commission and Export Excel
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    RACING COMMISSION    no
+    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    RACING COMMISSION    RacingCommission
+    # View Down Master
+    ${ac_master}    Run Keyword If    '${master}'!='${EMPTY}'    Run Keyword And Return Status    Element Should Be Visible    //*[@id='tbl-rpt']/tbody/tr[4]/td[1]/span[contains(text(),'${master}')]
+    Run Keyword If    '${master}'!='${EMPTY}' and '${ac_master}'=='True'    Click Control    //*[@id='tbl-rpt']/tbody/tr[4]/td[1]/span[contains(text(),'${master}')]
+    Run Keyword If    '${master}'!='${EMPTY}' \ and '${ac_master}'=='True'    Verify Report General    RACING COMMISSION    no
+    # View Down Agent
+    ${ac_agent}    Run Keyword If    '${agent}'!='${EMPTY}'    Run Keyword And Return Status    Element Should Be Visible    //*[@id='tbl-rpt']/tbody/tr[4]/td[1]/span[contains(text(),'${agent}')]
+    Run Keyword If    '${agent}'!='${EMPTY}' \ and '${ac_agent}'=='True'    Click Control    //*[@id='tbl-rpt']/tbody/tr[4]/td[1]/span[contains(text(),'${agent}')]
+    Run Keyword If    '${agent}'!='${EMPTY}' \ and '${ac_agent}'=='True'    Verify Report General    RACING COMMISSION    no
+    Unselect Frame
+
+Verify Report_Statement and Export Excel
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    ${ac_fromDate_filename}    Convert Date Time with Format    ${fromDate}    mm_dd_yyyy
+    ${ac_toDate_filename}    Convert Date Time with Format    ${toDate}    mm_dd_yyyy
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    STATEMENT    no
+    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    STATEMENT    Statement_${ac_fromDate_filename}_To_${ac_toDate_filename}
+    Unselect Frame
+
+Verify Results Page and Export Excel
+    [Arguments]    ${yesterday}=${EMPTY}
+    #
+    Unselect Frame
+    Select Frame    main
+    ## Check list Product supported in result page
+    Run Keyword And Continue On Failure    Element Should Be Visible    //a[@id='tabNormal']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //a[@id='tabOutright']
+    #Export Excel
+    ${ac_IstabOutright}    Run Keyword And Return Status    Element Should Be Visible    //a[@id='tabOutright']
+    Run Keyword If    ${ac_IstabOutright}    Click Element    //a[@id='tabOutright']
+    Click Control    ${in_m_Report_Result_btnYesterdayOutRight}
+    Run Keyword If    ${ac_IstabOutright}    Report_VerifyFunctionExportExcel    ${in_m_report_btnExportExcel_Result_OutRight}    ${EMPTY}    OutrightResults
+    ${ac_IstabNormal}    Run Keyword And Return Status    Element Should Be Visible    //a[@id='tabNormal']
+    Run Keyword If    ${ac_IstabNormal}    Click Element    //a[@id='tabNormal']
+    Click Control    ${in_m_btnYesterday}
+    Run Keyword If    ${ac_IstabNormal}    Report_VerifyFunctionExportExcel    ${in_m_report_btnExportExcel_Result_Normal}    ${EMPTY}    Results
+    Run Keyword And Continue On Failure    Element Should Be Visible    //a[@id='tabKeno']
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    //a[@id='tabCockfighting']
+    ##
+    Run Keyword If    '${yesterday}'!='${EMPTY}'    Click Element    ${in_m_btnYesterday}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_cboSport}    ${cfWaitControl}
+    ${ac_lstSport}    Run Keyword And Continue On Failure    Get List Items    ${in_m_cboSport}
+    ${ac_sportLen}    Get Matching Xpath Count    ${in_m_cboSport}//option
+    ## Just check some sport in result pages
+    ${ac_sportLen}    Evaluate    min(${ac_sportLen},3)
+    : FOR    ${ac_i}    IN RANGE    0    ${ac_sportLen}
+    \    ${ac_sport}    Set Variable    ${ac_lstSport[${ac_i}]}
+    \    Comment    # Verify with select the latest League
+    \    ${ac_lstLeague}    Run Keyword And Continue On Failure    Get List Items    ${in_m_cboLeagues}
+    \    ${ac_leagueLen}    Get Matching Xpath Count    ${in_m_cboLeagues}//option
+    \    ${ac_index}    Run Keyword And Continue On Failure    Evaluate    ${ac_leagueLen}-1
+    \    Run Keyword And Continue On Failure    Select From List By Label    ${in_m_cboLeagues}    ${ac_lstLeague[${ac_index}]}
+    \    Verify Results Header    ${ac_sport}
+    \    Run Keyword And Continue On Failure    Should Not Be Empty    ${in_m_tblContent}/tbody/tr[2]/td[1]
+
+Verify Report_Winloss by bet type and Export Excel
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    yyyymmdd
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    yyyymmdd
+    Select Report Filter    submit    ${ac_fromDate}    ${ac_toDate}
+    Verify Report General    WIN LOSS BY BET TYPE    no
+    Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel}    WIN LOSS BY BET TYPE    WinlossByBetType
+    Unselect Frame
+
+SmartphoneFriendly Verify Report_Win Loss Detail_ExportExcel
+    [Arguments]    ${downLineLevel}=${EMPTY}    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${master}=${EMPTY}    ${agent}=${EMPTY}    ${member}=${EMPTY}
+    ...    ${ac_verifymode}=0
+    [Documentation]    This action is used to verify report Winloss details and export excel file
+    ...    Step:
+    ...
+    ...    1. Select Filter and submit
+    ...
+    ...    2. Verify Report Name
+    ...
+    ...    3. Verify Function Export Excel for each level
+    ...
+    ...    4. Verify Total Winloss Detail for each level. User can use some action below:
+    ...
+    ...    a. VerifyTotalWinlossDetailsByUsername : This action is used to verify below by input DownlineName
+    ...
+    ...    b. VerifyTotalWinlossDetailsByRow_AllRow: This action is used to verify below by input RowID or "All" if you want to check all row
+    ...
+    ...    Param:
+    ...    ${downLineLevel}: downline level of account log in
+    ...
+    ...    ${fromDate}: range data
+    ...
+    ...    ${toDate}: range data
+    ...
+    ...    ${master}: account level master
+    ...
+    ...    ${agent}: account level agent
+    ...
+    ...    ${member}: account level member
+    ...
+    ...    ${ac_verifymode}: the way to verify report.
+    ...    - username: verify by username
+    ...    - 0: verify all row
+    ...    - 1+: verify specified row. Eg: 2 means verify the second row
+    Unselect Frame
+    select frame    main
+    Wait Until Page Not Contains Element    ${in_m_report_blockUI}    10s    #Wait until BlockUI end
+    ${ac_fromDate}    Convert Date Time with Format    ${fromDate}    mm/dd/yyyy
+    ${ac_toDate}    Convert Date Time with Format    ${toDate}    mm/dd/yyyy
+    sleep    1s
+    Run Keyword And Continue On Failure    Wait Until Element Is Not Visible    //*[@id='menuPopupAd']/div[2]    ${cfWaitControl}
+    Smartphone Friendly Select Report Filter    ${EMPTY}    ${EMPTY}    Last Week    ${EMPTY}
+    Click Element    ${in_m_btnSubmit}
+    #Close Announcement Popup
+    Close Announcement Popup
+    select frame    main
+    ${ac_fromDate_filename}    Get Value    ${in_m_Report_fromdate_calendar}
+    ${ac_toDate_filename}    Get Value    ${in_m_Report_todate_calendar}
+    ${ac_fromDate_filename}    Replace String    ${ac_fromDate_filename}    /    _
+    ${ac_toDate_filename}    Replace String    ${ac_toDate_filename}    /    _
+    Smartphone Friendly Verify Report General    ${downLineLevel} WIN LOSS DETAIL    no
+    #Export Excel Super
+    Run Keyword If    '${master}'!='${EMPTY}'    Smartphone Friendly Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel_smartphone}    ${downLineLevel} WIN LOSS DETAIL    Master_Win_Loss_Detail-${ac_fromDate_filename}-${ac_toDate_filename}
+    #Calculate total detail level login is Super
+    Run Keyword If    '${master}'!='${EMPTY}' and '${ac_verifymode}'=='username'    Smartphone Friendly VerifyTotalWinlossDetailsByUsername    ${master}    MASTER WIN LOSS DETAIL    1
+    Run Keyword If    '${master}'!='${EMPTY}' and '${ac_verifymode}'!='username'    Smartphone Friendly VerifyTotalWinlossDetailsByRow_AllRow    ${ac_verifymode}    ${in_m_report_tablebody_Smartphone}    MASTER WIN LOSS DETAIL    1
+    #Export Excel Master
+    Run Keyword If    '${agent}'!='${EMPTY}'    Smartphone Friendly Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel_smartphone}    AGENT WIN LOSS DETAIL    Agent_Win_Loss_Detail-${ac_fromDate_filename}-${ac_toDate_filename}
+    #Calculate total detail level login is Master
+    Run Keyword If    '${agent}'!='${EMPTY}' and '${ac_verifymode}'=='username'    Smartphone Friendly VerifyTotalWinlossDetailsByUsername    ${agent}    AGENT WIN LOSS DETAIL    1
+    Run Keyword If    '${agent}'!='${EMPTY}' and '${ac_verifymode}'!='username'    Smartphone Friendly VerifyTotalWinlossDetailsByRow_AllRow    ${ac_verifymode}    ${in_m_report_tablebody_Smartphone}    AGENT WIN LOSS DETAIL    1
+    #Export Excel Agent
+    Run Keyword If    '${member}'!='${EMPTY}'    Smartphone Friendly Report_VerifyFunctionExportExcel    ${in_Reports_btnExportToExcel_smartphone}    MEMBER WIN LOSS DETAIL    Member_Win_Loss_Detail-${ac_fromDate_filename}-${ac_toDate_filename}
+    #Calculate total detail level login is Agent
+    Run Keyword If    '${member}'!='${EMPTY}' and '${ac_verifymode}'=='username'    Smartphone Friendly VerifyTotalWinlossDetailsByUsername    ${member}    MEMBER WIN LOSS DETAIL    1
+    Run Keyword If    '${member}'!='${EMPTY}' and '${ac_verifymode}'!='username'    Smartphone Friendly VerifyTotalWinlossDetailsByRow_AllRow    ${ac_verifymode}    ${in_m_report_tablebody_Smartphone}    MEMBER WIN LOSS DETAIL    1
+    Comment    ## Test Row
+    Comment    #Calculate total detail level login is Super
+    Comment    Run Keyword If    '${master}'!='${EMPTY}'    Smartphone Friendly VerifyTotalWinlossDetailsByRow_AllRow    1    ${in_m_report_tablebody_Smartphone}    MASTER WIN LOSS DETAIL
+    ...    1
+    Comment    #Calculate total detail level login is Master
+    Comment    Run Keyword If    '${agent}'!='${EMPTY}'    Smartphone Friendly VerifyTotalWinlossDetailsByRow_AllRow    1    ${in_m_report_tablebody_Smartphone}    AGENT WIN LOSS DETAIL
+    ...    1
+    Comment    #Calculate total detail level login is Agent
+    Comment    Run Keyword If    '${member}'!='${EMPTY}'    Smartphone Friendly VerifyTotalWinlossDetailsByRow_AllRow    1    ${in_m_report_tablebody_Smartphone}    MEMBER WIN LOSS DETAIL
+    ...    1
+    Comment    ## Test Row
+    Unselect Frame
+
+Smartphone Friendly Select Report Filter
+    [Arguments]    ${fromDate}=${EMPTY}    ${toDate}=${EMPTY}    ${DateRange}=${EMPTY}    ${productList}=${EMPTY}
+    [Documentation]    This is action is used to select Filter Report by input Date Range and Product List
+    ...
+    ...    *Note*: *Don't* submit
+    ...
+    ...    Param:
+    ...
+    ...    ${fromDate}
+    ...
+    ...    ${toDate}
+    ...
+    ...    ${DataRange}: Today/Yesterday/This Week/Last Week/This Month/Last Month/Since Last Month/Specific Dates or ${Empty} in case selected FromDate and ToDate.
+    ...
+    ...    ${productList}
+    ...
+    ...    ********History***********
+    ...
+    ...    2016-12-16: Kingsley
+    Run Keyword If    '${fromDate}'!='${EMPTY}'    Select From Date Smartphone Friendly    ${fromDate}
+    Comment    Run Keyword If    '${toDate}'!='${EMPTY}'    select To Date Smartphone Friendly    ${toDate}
+    Comment    Select From List By Label    //div[@id='daterange-picker']//ul[@class='multiselect-container dropdown-menu']    This Week
+    Run Keyword If    '${DateRange}'!='${EMPTY}'    Click Element    //div[@id='daterange-picker']//button[@class='multiselect dropdown-toggle btn btn-default']
+    Run Keyword If    '${DateRange}'!='${EMPTY}'    Wait Until Element Is Visible    //div[@id='daterange-picker']//ul[@class='multiselect-container dropdown-menu']//label[contains(text(),'${DateRange}')]    5s
+    Run Keyword If    '${DateRange}'!='${EMPTY}'    Click Element    //div[@id='daterange-picker']//ul[@class='multiselect-container dropdown-menu']//label[contains(text(),'${DateRange}')]
+    Comment    Run Keyword If    '${productList}'=='All'    Set Checkbox    ${in_m_rptOld_chkAll}    check
+
+Verify Report Filter Product List
+    [Arguments]    ${ListProduct}
+    [Documentation]    This action to Verify Product List in Product dropdown list on Web by input list of product separated by ','
+    ...
+    ...    Ex:
+    ...    *Report Winloss, Winloss Detail, Daily Winloss Analysis, Win Loss Analysis Chart*: All Products (@numberofproduct@),Select all,Sportsbook,Racing,Number Game,Live Casino,Virtual Sports,Casino,Keno,Gold Deluxe,Colossus Bets,Allbet,Macau Games
+    ...
+    ...    *Match Winloss/Winloss details*: @numberofproduct@ selected, All Products, Sportbook, Racing, Number Game, Live Casino, Virtual Sports
+    ...
+    ...    Param:
+    ...
+    ...    ${ListProduct}
+    ...
+    ...    *********History***********
+    ...
+    ...    2016-12-16: Kingsley
+    Unselect Frame
+    select frame    main
+    ${ac_product_expected}    Set Variable    ${ListProduct}
+    Wait Until Page Not Contains Element    ${in_m_report_blockUI}    10s    #Wait until BlockUI end
+    Wait Until Element Is Enabled    ${in_m_report_Product_dropdown_list_button}    10s
+    Click Element    ${in_m_report_Product_dropdown_list_button}
+    #Get number of product show on product dropdown list
+    ${ac_option_number}    Get Matching Xpath Count    ${in_m_report_Product_dropdown}//input
+    ${ac_option_number}    Evaluate    ${ac_option_number}-1
+    ${ac_option_number}    Convert To String    ${ac_option_number}
+    ${ac_product_expected}    Replace String    ${ac_product_expected}    @NumberOfProduct@    ${ac_option_number}
+    #Get text of all products show on product dropdown list
+    ${ac_text}    Get Text    ${in_m_report_Report_filter_form}//div[@class='form-group']//div[@class='btn-group open']
+    ${ac_text}    Replace String    ${ac_text}    \n    ,    -1
+    Should Be Equal    ${ac_product_expected}    ${ac_text}
+    Click Element    ${in_m_report_Product_dropdown_list_button}    # Click dropdown list again to close it
+
+Verify Report Filter Date Range
+    [Arguments]    ${ListDateRange}
+    [Documentation]    This action to Verify Date Range List in Date Range dropdown list on Web by input list of Date Range separated by ','
+    ...
+    ...    Ex:
+    ...    *Report Winloss Detail*: Today,Yesterday,This Week,Last Week,This Month,Last Month,Since Last Month,Specific Dates
+    ...
+    ...    Param:
+    ...
+    ...    ${ListDateRange}
+    ...
+    ...    *********History***********
+    ...
+    ...    2016-12-16: Kingsley
+    Unselect Frame
+    select frame    main
+    ${ac_daterange_expected}    Set Variable    ${ListDateRange}
+    Wait Until Page Not Contains Element    ${in_m_report_blockUI}    10s    #Wait until BlockUI end
+    Wait Until Element Is Enabled    ${in_m_report_DateRange_dropdown_list_button}    10s
+    Click Element    ${in_m_report_DateRange_dropdown_list_button}
+    ${ac_text}    Get Text    //div[@id='daterange-picker']//div[@class='btn-group open']
+    ${ac_text}    Replace String    ${ac_text}    \n    ,    -1
+    Should Be Equal    ${ac_daterange_expected}    ${ac_text}
+    Click Element    ${in_m_report_DateRange_dropdown_list_button}    # Click dropdown list again to close it
+
+Smartphone Friendly Verify Report General
+    [Arguments]    ${expectedTile}=${EMPTY}    ${verifySumTotal}=yes
+    ## Set variable
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_report_divReportTitle_smartphone_friendly}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_report_divReportTitle_smartphone_friendly}    ${expectedTile}
+    ${ac_sum}    Run Keyword If    '${verifySumTotal}'=='yes'    Run Keyword And Continue On Failure    Execute Javascript    ${init_gbWorksSpace}\\Actions\\JavaScript\\Report.js
+    Run Keyword If    '${verifySumTotal}'=='yes'    Run Keyword And Continue On Failure    Should Be Equal As Strings    ${ac_sum}    1    SUM VALUE IS WRONG
+
+Smartphone Friendly Report_VerifyFunctionExportExcel
+    [Arguments]    ${ac_Excel_Element}    ${ac_ReportName}=${EMPTY}    ${ac_filename}=${EMPTY}
+    [Documentation]    This action is used to verify function export excel file
+    ...
+    ...    ${ac_ReportName}: Name of report need to export
+    ...
+    ...    ${ac_filename}: The file name of report need to export
+    Remove Files    ${cfReportDownloadFolder}\\*${ac_filename}*.*
+    Wait Until Page Not Contains Element    ${in_m_report_blockUI}    10s    #Wait until BlockUI end
+    Click Control    ${ac_Excel_Element}    10s
+    #Wait time to download file completed
+    Comment    Sleep    ${cfWaitTime}
+    ## Check web is still ok
+    Run Keyword If    '${ac_ReportName}'!='${EMPTY}'    Smartphone Friendly Verify Report General    ${ac_ReportName}    no
+    ## Check excel file is generated
+    Comment    File Should Exist    ${cfReportDownloadFolder}\\${ac_filename}.xls
+    Wait Until Keyword Succeeds    1min    2s    File Should Exist    ${cfReportDownloadFolder}\\${ac_filename}.xls
+
+Smartphone Friendly VerifyTotalWinlossDetailsByUsername
+    [Arguments]    ${ac_DownlineName}    ${ac_Level_Report}    ${ac_isDrilldown}=1
+    [Documentation]    This action is used to verify below by input DownlineName:
+    ...    1. Total Winloss of the all user (VerifyTotalWinlossSMAM)
+    ...    (eg, Winloss + Comm = Total Winloss)
+    ...    2.Total Winloss of Company (VerifyTotalWinlossCompany)
+    ...    All downline Total + Current Total Winloss = Company
+    ...
+    ...    ${ac_DownlineName}: the username that need to check
+    ...
+    ...    ${ac_Level_Report}: Master/Agent/Member Win loss
+    ...
+    ...    ${ac_isDrilldown}: drill down to downline member or not?
+    ## Set variable
+    ${ac_lnkDownline}    Set Variable    //table[@id='tbl-report']/tbody//a[text()='${ac_DownlineName}']
+    ${ac_tr}    Set Variable    ${ac_lnkDownline}/parent::td/parent::tr
+    ${ac_boundary_number}    Set Variable    0.02
+    ## Set Col Total for each level of report Winloss detail
+    ${ac_CompanyCol} =    Set Variable if    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    18    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    15    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'
+    ...    12
+    ${ac_MemberCol}    Set Variable    8
+    ${ac_AgentCol}    Set Variable    11
+    ${ac_MasterCol}    Set Variable    14
+    ${ac_SuperCol}    Set Variable    17
+    ## Verify report Master Winloss Detail
+    Run Keyword If    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${ac_SuperCol}    ${ac_boundary_number}
+    ## Verify report Master Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow_Smartphone}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${ac_SuperCol}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail
+    Run Keyword If    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${EMPTY}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow_Smartphone}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${EMPTY}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail
+    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${EMPTY}    ${EMPTY}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow_Smartphone}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${EMPTY}    ${EMPTY}    ${ac_boundary_number}
+    ## Get report name after drilldown
+    ${ac_ReportNameAfterDrillDown}=    Set Variable if    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    AGENT WIN LOSS DETAIL    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    MEMBER WIN LOSS DETAIL    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'
+    ...    MEMBER BET LIST
+    ## Drill down
+    Run Keyword If    '${ac_isDrilldown}'=='1'    Click Control    ${ac_lnkDownline}
+    Run Keyword If    '${ac_isDrilldown}'=='1' and '${ac_ReportNameAfterDrillDown}'=='MEMBER BET LIST'    Verify Report General    ${ac_ReportNameAfterDrillDown}    no
+    Run Keyword If    '${ac_isDrilldown}'=='1' and '${ac_ReportNameAfterDrillDown}'!='MEMBER BET LIST'    Smartphone Friendly Verify Report General    ${ac_ReportNameAfterDrillDown}    no
+
+Smartphone Friendly VerifyTotalWinlossDetailsByRow_AllRow
+    [Arguments]    ${ac_RowID}    ${ac_ReportTableBody}    ${ac_Level_Report}    ${ac_isDrilldown}=1
+    [Documentation]    This action is used to verify below by input report body:
+    ...
+    ...    1.Total Winloss of the current user (VerifyTotalWinlossSMAM)
+    ...    Winloss + Comm = Total Winloss
+    ...
+    ...    2.Total Winloss of Company (VerifyTotalWinlossCompany)
+    ...    Downline Total + Current Total Winloss = Company
+    ...
+    ...    ${ac_RowID}: the row number that need to check. Start from 1. Input 0 means check all rows.
+    ...
+    ...    ${ac_ReportTableBody}: the table body that contains row data need to check
+    ...
+    ...    ${ac_Level_Report}: Master/Agent/Member
+    ...
+    ...    ${ac_isDrilldown}: drill down to downline member or not?
+    ## Set variable
+    ${ac_boundary_number}    Set Variable    0.02
+    ${ac_StartRow}=    Set Variable If    '${ac_RowID}'=='0'    1    ${ac_RowID}
+    ${ac_row_num}    Get Matching Xpath Count    ${ac_ReportTableBody}/tr
+    ${ac_EndRow}    Run Keyword If    '${ac_RowID}'=='0'    Evaluate    ${ac_row_num}+1
+    ...    ELSE    Evaluate    ${ac_RowID}+1
+    ## Set Col Total for each level of report Winloss detail
+    ${ac_MemberCol}    Set Variable    8
+    ${ac_AgentCol}    Set Variable    11
+    ${ac_MasterCol}    Set Variable    14
+    ${ac_SuperCol}    Set Variable    17
+    ${ac_CompanyCol} =    Set Variable if    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    18    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    15    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'
+    ...    12
+    : FOR    ${ac_Row}    IN RANGE    ${ac_StartRow}    ${ac_EndRow}
+    \    ## Get row and link downline
+    \    ${ac_tr}    Set Variable    ${ac_ReportTableBody}/tr[${ac_Row}]
+    \    ${ac_lnkDownline}    Set Variable    ${ac_tr}/td[1]/a
+    \    ## Verify report Master Winloss Detail
+    \    Run Keyword If    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}
+    \    ...    ${ac_MemberCol}    ${ac_AgentCol}    ${ac_MasterCol}    ${ac_SuperCol}    ${ac_boundary_number}
+    \    ## Verify report Agent Winloss Detail
+    \    Run Keyword If    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}
+    \    ...    ${ac_MemberCol}    ${ac_AgentCol}    ${ac_MasterCol}    ${EMPTY}    ${ac_boundary_number}
+    \    ## Verify report Agent Winloss Detail
+    \    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${ac_tr}    ${ac_Level_Report}    ${ac_CompanyCol}
+    \    ...    ${ac_MemberCol}    ${ac_AgentCol}    ${EMPTY}    ${EMPTY}    ${ac_boundary_number}
+    ## Verify report Master Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow_Smartphone}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${ac_SuperCol}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow_Smartphone}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${ac_MasterCol}    ${EMPTY}    ${ac_boundary_number}
+    ## Verify report Agent Winloss Detail on Total Row
+    Run Keyword If    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'    VerifyTotalWinlossDetailsCompany    ${in_m_report_TotalRow_Smartphone}    ${ac_Level_Report}    ${ac_CompanyCol}    ${ac_MemberCol}
+    ...    ${ac_AgentCol}    ${EMPTY}    ${EMPTY}    ${ac_boundary_number}
+    ## Get report name after drilldown
+    ${ac_ReportNameAfterDrillDown}=    Set Variable if    '${ac_Level_Report}'=='MASTER WIN LOSS DETAIL'    AGENT WIN LOSS DETAIL    '${ac_Level_Report}'=='AGENT WIN LOSS DETAIL'    MEMBER WIN LOSS DETAIL    '${ac_Level_Report}'=='MEMBER WIN LOSS DETAIL'
+    ...    MEMBER BET LIST
+    ## Drill down
+    Run Keyword If    '${ac_isDrilldown}'=='1'    Click Control    ${ac_lnkDownline}
+    Run Keyword If    '${ac_isDrilldown}'=='1' and '${ac_ReportNameAfterDrillDown}'=='MEMBER BET LIST'    Verify Report General    ${ac_ReportNameAfterDrillDown}    no
+    Run Keyword If    '${ac_isDrilldown}'=='1' and '${ac_ReportNameAfterDrillDown}'!='MEMBER BET LIST'    Smartphone Friendly Verify Report General    ${ac_ReportNameAfterDrillDown}    no
+
+Smartphone Friendly Verify function Show/Hide Report filter
+    [Documentation]    This action to verify the Show/Hide report filter function
+    ...
+    ...
+    ...    *****History******
+    ...
+    ...    2016-12-21: Kingsley
+    Unselect Frame
+    select frame    main
+    Wait Until Page Not Contains Element    ${in_m_report_blockUI}    10s    #Wait until BlockUI end
+    #check icon Hide filter is present and clickable
+    Wait Until Element Is Enabled    ${in_m_report_icon_arrow_up}    10s
+    Click Element    ${in_m_report_icon_arrow_up}
+    #check Report filter form is hided
+    Element Should Not Be Visible    ${in_m_report_Report_filter_form}    Report filter still shows
+    #check icon arrow down is present and clickable
+    Wait Until Element Is Enabled    ${in_m_report_icon_arrow_down}    10s
+    Click Element    ${in_m_report_icon_arrow_down}
+    #check Report filter form is showed
+    Element Should Be Visible    ${in_m_report_Report_filter_form}
+    #check icon arrow up should be visible
+    Element Should Be Visible    ${in_m_report_icon_arrow_up}
+
+Smartphone Friendly Verify function Switch between stack and normal mode
+    [Documentation]    This action to verify the Switch between stack and normal mode
+    ...
+    ...
+    ...
+    ...    *****History******
+    ...
+    ...    2016-12-21: Kingsley
+    Unselect Frame
+    select frame    main
+    Wait Until Page Not Contains Element    ${in_m_report_blockUI}    10s    #Wait until BlockUI end
+    #check icon Hide filter is present and clickable
+    Wait Until Element Is Enabled    ${in_m_report_icon_stack_mode}    10s
+    Click Element    ${in_m_report_icon_stack_mode}
+    Wait Until Page Not Contains Element    ${in_m_report_blockUI}    10s    #Wait until BlockUI end
+    #check Table stack mode is visible
+    Element Should Be Visible    ${in_m_report_Table_stack_mode}    Stack mode is not showed
+    Element Should Be Visible    ${in_m_report_Table_stack_mode}//th[contains(@class,'visible-stack-mode')]    Stack mode is not showed
+    #check icon normal is present and clickable
+    Wait Until Element Is Enabled    ${in_m_report_icon_normal_mode}    10s
+    Click Element    ${in_m_report_icon_normal_mode}
+    Wait Until Page Not Contains Element    ${in_m_report_blockUI}    10s    #Wait until BlockUI end
+    #check Table stack mode is disable and normal mode is visible
+    Element Should Not Be Visible    ${in_m_report_Table_stack_mode}    Stack mode still shows
+    Element Should Not Be Visible    ${in_m_report_Table_stack_mode}//th[contains(@class,'visible-stack-mode')]    Stack mode still shows
+    #check icon stack mode should be visible
+    Element Should Be Visible    ${in_m_report_icon_stack_mode}
+
+Verify Total Win Loss Report
+    [Arguments]    ${Report level}    ${Turnover}    ${Gross comm}    ${company}    ${Super WL}=${EMPTY}    ${Super Comm}=${EMPTY}
+    ...    ${Super total}=${EMPTY}    ${Master WL}=${EMPTY}    ${Master Comm}=${EMPTY}    ${Master total}=${EMPTY}    ${Agent WL}=${EMPTY}    ${Agent Comm}=${EMPTY}
+    ...    ${Agent total}=${EMPTY}    ${Member WL}=${EMPTY}    ${Member Comm}=${EMPTY}    ${Member total}=${EMPTY}
+    [Documentation]    This action is used to check total value of \ (master/agent/member) Win Loss Report
+    ...
+    ...
+    ...    Master Win Loss report (Check 7 items ): Turnover, Gross comm, Master total, Super WL, Super Comm, Super total, Company
+    ...
+    ...    Agent Win Loss report (Check 7 items ): Turnover, Gross comm, Agent total, Master WL, Master Comm, Master total, Company
+    ...
+    ...
+    ...    Member Win Loss report (Check 9 items ): Turnover, Gross comm, Member WL, Member Comm, Member total, Agent WL, Agent Comm, Agent total, Company
+    select frame    main
+    #Check Total Master Win Loss Report    ===================    Check 7 items
+    Run Keyword If    '${Report level}'=='Master'    Run Keyword And Continue On Failure    Run Keywords    Element Should Contain    ${in_m_report_wl_total_turnover}    ${Turnover}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_gross comm}    ${Gross comm}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_company}    ${company}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_master total}    ${Master total}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_super wl}    ${Super WL}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_super comm}    ${Super Comm}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_super total}    ${Super total}
+    #Check Total Agent Win Loss Report    ===================    Check 7 items
+    Run Keyword If    '${Report level}'=='Agent'    Run Keyword And Continue On Failure    Run Keywords    Element Should Contain    ${in_m_report_wl_total_turnover}    ${Turnover}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_gross comm}    ${Gross comm}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_company}    ${company}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_agent total}    ${Agent total}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_master wl}    ${Master WL}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_master comm}    ${Master Comm}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_master total_drilldown}    ${Master total}
+    #Check Total Member Win Loss Report    ===================    Check 9 items
+    Run Keyword If    '${Report level}'=='Member'    Run Keyword And Continue On Failure    Run Keywords    Element Should Contain    ${in_m_report_wl_total_turnover}    ${Turnover}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_gross comm}    ${Gross comm}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_company}    ${company}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_member wl}    ${Member WL}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_member comm}    ${Master Comm}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_member total}    ${Member total}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_agent wl}    ${Agent WL}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_agent comm}    ${Agent Comm}
+    ...    AND    Element Should Contain    ${in_m_report_wl_total_agent total_drilldown}    ${Agent total}
+    Unselect Frame
+
+Switch report view
+    [Documentation]    This action is used to change view mode from current report to history and vice versa
+    Select Frame    main
+    Click Element    ${in_m_lnk_SwitchViewReport}
+    Unselect Frame
+    sleep    1
+
+Verify total value by column name
+    [Arguments]    ${column_headername}    ${totalvalue}=100    ${boundary_number}=0.02
+    [Documentation]    This action is used to check total value of column by input column name
+    ...
+    ...    ${column_headername} EX: Turnover / Gross Comm / Member-Winloss / Agent-Comm / Master Total/ Company/....
+    ...
+    ...
+    ...    ${totalvalue}
+    ...
+    ...    Ex: Verify total value by column name \ Turnover 100.00
+    ...    It will sum all turnover fields and compare it with ${totalvalue}
+    @{list_headername}    Split String    ${column_headername}    -
+    ${ac_listlenght}    Get Length    ${list_headername}
+    ${main_headername}    Set Variable    @{list_headername}[0]
+    ${sub_headername}    Set Variable If    '${ac_listlenght}'=='2'    @{list_headername}[1]    ${EMPTY}
+    Select Frame    main
+    ## \ Column index
+    ${ac_newcolumn_index}    Get Matching Xpath Count    //*[@id='tbl-report']/thead[1]//th[text()='${main_headername}']/preceding-sibling::th[not(contains(@class,'visible'))]    #FOR New Report table Layout (EX: WL detail)
+    ${ac_oldcolumn_index}    Get Matching Xpath Count    .//*[@id='tbl-rpt']/thead/tr[@class='RptHeader']/td[text()='${main_headername}']/preceding-sibling::td    #For OLD report table Layout (EX: Outstanding)
+    ${ac_column_index}    Set Variable If    '${ac_newcolumn_index}'!='0'    ${ac_newcolumn_index}    ${ac_oldcolumn_index}
+    ${ac_column_index}    Evaluate    ${ac_column_index} + 1
+    ## Define Sub column variable
+    ${ac_sub_header_index}    Get Matching Xpath Count    //*[@id='tbl-rpt']//tr[2]/td[text()='${sub_headername}']/preceding-sibling::td    #For OLD report table Layout (EX: Outstanding)
+    ${ac_sub_header_index}    Evaluate    ${ac_sub_header_index} + 2    #For OLD report table Layout (EX: Outstanding)
+    ${ac_t1}    Evaluate    '${main_headername}'.lower()
+    ${ac_sub_columnxpath}    Set Variable If    '${sub_headername}'=='WinLoss'    [contains(@class,'${ac_t1}-winloss')]    '${sub_headername}'=='Comm'    [contains(@class,'${ac_t1}-winloss')]/following::td[1]    '${sub_headername}'=='Total'
+    ...    [contains(@class,'${ac_t1}-winloss')]/following::td[2]    [${ac_sub_header_index}]
+    # Get total rows
+    ${ac_total_rows}    Get Matching Xpath Count    //*[@id='tbl-report' or @id='tbl-rpt']/tbody/tr
+    ${ac_temp_sumweb}    Set Variable    0
+    : FOR    ${ac_i}    IN RANGE    1    ${ac_total_rows}+1
+    \    ${temp_i}    Run Keyword If    '${main_headername}'!='Company' \ and '${sub_headername}'=='${EMPTY}'    Get Text    //*/tbody//tr[${ac_i}]/td[${ac_column_index}]
+    \    ...    ELSE IF    '${main_headername}'=='Company' \ and '${sub_headername}'=='${EMPTY}'    Get Text    //*/tbody//tr[${ac_i}]/td[last()]
+    \    ...    ELSE    Get Text    //*/tbody//tr[${ac_i}]/td${ac_sub_columnxpath}
+    \    ${temp_i}    Replace String    ${temp_i}    ,    ${EMPTY}
+    \    ${ac_temp_sumweb}    Evaluate    ${temp_i} + ${ac_temp_sumweb}
+    ${ac_temp_totalsum}    Evaluate    ${totalvalue}-${ac_temp_sumweb}
+    Unselect Frame
+    Run Keyword And Continue On Failure    Should Be True    ${ac_temp_totalsum}<=${boundary_number}    Out of boundary number ${ac_temp_sumweb} # ${totalvalue}

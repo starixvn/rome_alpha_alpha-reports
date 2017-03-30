@@ -1,0 +1,8 @@
+*** Keywords ***
+select right menu tab
+    [Arguments]    ${menu}    # menu = id
+    Sleep    3s
+    close announcement popup
+    Select Frame    frHeader
+    Click Element    id=${menu}
+    Unselect Frame

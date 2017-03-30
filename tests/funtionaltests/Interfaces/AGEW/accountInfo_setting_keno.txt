@@ -1,0 +1,27 @@
+*** Settings ***
+
+*** Variables ***
+${ast_chkKenoAustralia}    xpath=//*[@id='false_1501']    # xpath=//*[@id='ng-app']/table/tbody/tr[2]/td[1]/input
+${ast_chkKenoSlovakia}    xpath=//*[@id='false_1503']    # //*[@id='ng-app']/table/tbody/tr[3]/td[1]/input
+${ast_chkKenoCanada}    xpath=//*[@id='false_1504']    # //*[@id='ng-app']/table/tbody/tr[4]/td[1]/input
+${ast_chkKenoWestCanada}    xpath=//*[@id='false_1505']    # //*[@id='ng-app']/table/tbody/tr[5]/td[1]/input
+${ast_chkKenoMassachusetts}    xpath=//*[@id='false_1507']    # //*[@id='ng-app']/table/tbody/tr[6]/td[1]/input
+${ast_chkKenoOhio}    xpath=//*[@id='false_1508']    # //*[@id='ng-app']/table/tbody/tr[7]/td[1]/input
+${ast_chkKenoMalta}    xpath=//*[@id='false_1509']    # //*[@id='ng-app']/table/tbody/tr[8]/td[1]/input
+${ast_chkKenoKentucky}    xpath=//*[@id='false_1511']    # //*[@id='ng-app']/table/tbody/tr[9]/td[1]/input
+${ast_chkKenoMichigan}    xpath=//*[@id='false_1513']    # //*[@id='ng-app']/table/tbody/tr[10]/td[1]/input
+${ast_chkKenoKorea}    xpath=//*[@id='false_1514']    # //*[@id='ng-app']/table/tbody/tr[11]/td[1]/input
+${ast_chkKenoAustraliaDL}    xpath=//*[@id='1501']
+${ast_chkKenoSlovakiaDL}    xpath=//*[@id='1503']
+${ast_chkKenoCanadaDL}    xpath=//*[@id='1504']
+${ast_chkKenoWestCanadaDL}    xpath=//*[@id='1505']
+${ast_chkKenoMassachusettsDL}    xpath=//*[@id='1507']
+${ast_chkKenoOhioDL}    xpath=//*[@id='1508']
+${ast_chkKenoMaltaDL}    xpath=//*[@id='1509']
+${ast_chkKenoKentuckyDL}    xpath=//*[@id='1511']
+${ast_chkKenoMichiganDL}    xpath=//*[@id='1513']
+${ast_chkKenoKoreaDL}    xpath=//*[@id='1514']
+${ast_chkKenoMaxKeno}    xpath=//*[@id='false_1515']
+${ast_chkKenoMaxKenoDL}    xpath=//*[@id='1515']
+${ast_btnKenoSubmit}    xpath=//*[@id='ng-app']/div[4]/input
+${ast_btnKenoCloseX}    xpath=//*[@class='AGEWndCloseButton']    # Iframe:N/A

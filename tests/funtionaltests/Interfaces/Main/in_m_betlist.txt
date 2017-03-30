@@ -1,0 +1,36 @@
+*** Variables ***
+${divBLHeader}    //div[@id='header_main']
+${rdByRef}        rdByRef
+${txtRefNo}       txtRefNo
+${btnSubmit}      dSubmit
+${lblRefNo}       xpath=//td[contains(.,'Ref No:')]
+${lblBetTeam}     xpath=//td[@class='r bl_evt']//span[@class='favorite' or @class='underdog']
+${lblBetType}     xpath=//div[@class='bettype']
+${lblSport}       xpath=//span[@class='leagueName']
+${lblHomeTeam}    xpath=//div[@class='match']/span[1]
+${lblAwayTeam}    xpath=//div[@class='match']/span[3]
+${lblOdds}        xpath=//td[@class='bl_underdog nonbreak']/span[@class='underdog']
+${lblOddsType}    xpath =//span[@class='oddstype']
+${lblStake}       xpath=//span[@class='stake']
+${lblWinloss}     xpath=//td[@class='r nonbreak']//span[@class='bl_underdog']
+${lblComm}        xpath=//td[@class='r nonbreak']//font[@class='bl_underdog']
+${lblStatus}      xpath=//div[@class='status']
+${lblSuperPT}     xpath=//*[@id='comm']/div[1]/span
+${lblSuperWL}     xpath=//*[@id='comm']/div[2]
+${lblSuperDiscount}    xpath=//*[@id='comm']/div[3]/span
+${lblSuperComm}    xpath=//*[@id='comm']/div[4]
+${lblMasterPT}    xpath=//*[@id='tblContent']/tbody/tr/td[9]/div/div[1]/span
+${lblMasterWL}    xpath=//*[@id='tblContent']/tbody/tr/td[9]/div/div[2]
+${lblMasterDiscount}    xpath=//*[@id='tblContent']/tbody/tr/td[9]/div/div[3]/span
+${lblMasterComm}    xpath=//*[@id='tblContent']/tbody/tr/td[9]/div/div[4]
+${lblAgentPT}     xpath=//*[@id='tblContent']/tbody/tr/td[10]/div/div[1]/span
+${lblAgentWL}     xpath=//*[@id='tblContent']/tbody/tr/td[10]/div/div[2]
+${lblAgentDiscount}    xpath=//*[@id='tblContent']/tbody/tr/td[10]/div/div[3]/span
+${lblAgentComm}    xpath=//*[@id='tblContent']/tbody/tr/td[10]/div/div[4]
+${lnkIP}          xpath=//div[@class='iplink']
+${lnkResult}      xpath=//div[@class='result']
+${lblBetTeam2}    xpath=//span[@class='underdog']
+${lblUserName}    xpath=//*[@id='tblContent']/tbody/tr/td[1]/div/div
+${in_m_betlist_title}    //div[@class='bl_title']
+${in_m_betlist_icoExcel}    //input[@id='exporttoexcel']
+${in_m_betlist_tblData}    //table[@id='hor-minimalist-a']

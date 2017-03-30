@@ -1,0 +1,2068 @@
+*** Settings ***
+Suite Setup       pt golddeluxe test suite init
+Suite Teardown    pt golddeluxe test suite teardown
+Test Setup        pt goldeluxe super test case init
+Test Teardown
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Library           ExcelLibrary
+Library           DatabaseLibrary
+Resource          ../../../Actions/PT/pt_goldDeluxe.txt
+Resource          ../../../Actions/PT/pt_general.txt
+Resource          ../../../Actions/Announcement.txt
+Resource          ../../../Interfaces/Main/in_m_editsetting.txt
+Resource          ../../../Interfaces/in_login.txt
+Resource          ../../../Interfaces/in_top_logininfo.txt
+
+*** Variables ***
+${tm_environment}    local    # {local,UAT,production}
+${tm_dbcnModule}    pymssql    # dbcn = Database Connect
+${tm_dbcnDBName}    custDB
+${tm_dbcnUserName}    testteam
+${tm_dbcnPassword}    @quality#
+${tm_dbcnServer}    DB233
+${tm_dbcnPort}    1433
+${tm_excelFile}    Data_set\\PT_GoldDelux_Super.xls
+${tm_excelSheet}    autoSuperMaster
+${tm_super}       SupertestAuto03    # SupertestAuto03
+${tm_master}      SupertestAuto0301    # SupertestAuto0301
+${tm_agent}       SupertestAuto030101    # SupertestAuto030101
+${tm_member}      SupertestAuto030101001    # SupertestAuto030101001
+${tm_sporttype}    255
+${tm_bettype}     1701
+${tm_lineID}      14771858,16433710,16433711,16433715    # line SuperTestAuto0114771858,16433710,16433711,16433715
+${tm_url}         http://10.18.200.202:8050/Alpha-AF/
+${tm_securityCode}    ${EMPTY}
+${tm_password}    1234aaAA
+${tm_ptInterval}    0.01
+
+*** Test Cases ***
+GD_PT_SM_01
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    # Open Edit Setting from account info Setting
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    0.1    0.7    ${EMPTY}    ${EMPTY}    0.4
+    ...    ${EMPTY}
+    Select Frame    main
+    Comment    **** VP01: Verify range and select values of s3 ****
+    verify dropdown list    ${in_m_editSetting_cboS3}    0    0.9    ${tm_ptInterval}    0.1
+    Comment    **** VP02: Verify range and select values of m3
+    verify dropdown list    ${in_m_editSetting_cboM3}    0.4    0.8    ${tm_ptInterval}    0.7
+    Comment    **** VP03: Verify range and select values of m3
+    verify dropdown list    ${in_m_editSetting_cboN3}    0    0.7    ${tm_ptInterval}    0.4
+    Unselect Frame
+
+GD_PT_SM_02
+    [Documentation]    ***Description:
+    ...    Range value US3, M3 and N3 of master (US3 checked)
+    ...    US3=[0;S4]
+    ...    M3=[N3;S4]
+    ...    N3=[0;M3]
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9;
+    ...    2. S3=0; M3=0.8
+    ...
+    ...    ***Steps:
+    ...    3. Edit M3=0.7; N3=0.4
+    ...    4. IS3 checked
+    ...    ***Expected Result:
+    ...    Range US3=[0;0.9]
+    ...    M3=[0.4;0.9]
+    ...    N3=[0;0.7]
+    comment    ===================    PRECONDITION    Run pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    # Open Edit Setting from account info Setting
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.7    1    ${EMPTY}    0.4
+    ...    ${EMPTY}
+    Select Frame    main
+    Comment    **** VP02: Verify range and select values of M3
+    verify dropdown list    ${in_m_editSetting_cboM3}    0.4    0.9    ${tm_ptInterval}    0.7
+    Comment    **** VP01: Verify range and select values of US3 ****
+    verify dropdown list    ${in_m_editSetting_cboUs3}    0    0.9    ${tm_ptInterval}    0
+    Comment    **** VP03: Verify range and select values of N3
+    verify dropdown list    ${in_m_editSetting_cboN3}    0    0.7    ${tm_ptInterval}    0.4
+    Unselect Frame
+
+GD_PT_SM_03
+    [Documentation]    ***Description:
+    ...    S3 =0 when US3 is enabled
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9;
+    ...    2. S3=0.1; M3=0.8
+    ...
+    ...    ***Steps:
+    ...    3. Update US3= 0.7
+    ...    ***Expected Result:
+    ...    US3 enabled and S3 disabled.
+    ...    US3=0.7
+    ...    S3=0
+    comment    ===================    PRECONDITION    Run pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    # Open Edit Setting from account info Setting
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    ${EMPTY}    1    0.7    ${EMPTY}
+    ...    ${EMPTY}
+    Comment    **** VP01: Before Saving - Check US3 is enable when is3 checked ****
+    select frame    main
+    Element Should Be Enabled    ${in_m_editSetting_cboUs3}
+    Element Should Be Disabled    ${in_m_editSetting_cboS3}
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.7
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0.1
+    Unselect Frame
+
+GD_PT_SM_04
+    [Documentation]    ***Description:
+    ...    US3=0 when S3 is enabled
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9;
+    ...    2. S3=0.1; M3=0.8
+    ...
+    ...    ***Step: N/A
+    ...    ***Expected Result:
+    ...    US3 disabled and S3 enabled
+    ...    US3=0, US3 unchecked
+    ...    S3=0.1
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    Comment    **** VP01: Before Saving - US3 = 0 and disable when is3 enable \ ****
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    Run Keyword And Continue On Failure    Element Should Be Enabled    ${in_m_editSetting_cboS3}
+    Run Keyword And Continue On Failure    Element Should Be Disabled    ${in_m_editSetting_cboUs3}
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0
+    Comment    **** VP02: Before Saving - S3 is disable and value not change when checked is3 \ ****
+    Select From List By Label    ${in_m_editSetting_cboM3}    0.7
+    Unselect Frame
+    update PT Super Edit Master    0    ${EMPTY}    ${EMPTY}    1    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    select frame    main
+    Run Keyword And Continue On Failure    Element Should Be Enabled    ${in_m_editSetting_cboUs3}
+    Run Keyword And Continue On Failure    Element Should Be Disabled    ${in_m_editSetting_cboS3}
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0.1
+    Comment    **** VP03: Before Saving - S3 is enabled and value is not changed when unchecked is3 \ ****
+    Unselect Frame
+    update PT Super Edit Master    0    ${EMPTY}    ${EMPTY}    0    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Be Enabled    ${in_m_editSetting_cboS3}
+    Run Keyword And Continue On Failure    Element Should Be Disabled    ${in_m_editSetting_cboUs3}
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0.1
+    Unselect Frame
+
+GD_PT_SM_05
+    [Documentation]    ***Description:
+    ...    Change S3 (M3<=S4-S3) to verify the changed range value of M3=[0;S4-S3]
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0.1; M3=0.7 ; range M3=[0;0.8]
+    ...
+    ...    ***Steps:
+    ...    3. Edit S3 = 0.15
+    ...    ***Expected Result:
+    ...    range \ M3=[0;0.75] value 0.15
+    comment    ===================    PRECONDITION    Run pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    # Open Edit Setting from account info Setting
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    0.15    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify range and select values of M3
+    Select Frame    main
+    verify dropdown list    ${in_m_editSetting_cboM3}    0    0.75    ${tm_ptInterval}    0.7
+    Unselect Frame
+
+GD_PT_SM_06
+    [Documentation]    ***Description:
+    ...    Change S3 (M3>S4-S3) to verify the changed range value of M3=[0;S4-S3]
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0.1; M3=0.7 ; range M3=[0;0.8]
+    ...
+    ...    ***Steps:
+    ...    3. Edit S3 = 0.25
+    ...    ***Expected Result:
+    ...    M3= 0.65 ; range M3=[0;0.65]
+    comment    ===================    PRECONDITION    Run pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    # Open Edit Setting from account info Setting
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    0.25    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify range and select values of M3
+    Select Frame    main
+    verify dropdown list    ${in_m_editSetting_cboM3}    0    0.65    ${tm_ptInterval}    0.65
+    Unselect Frame
+
+GD_PT_SM_07
+    [Documentation]    ***Description:
+    ...    Change M3 to verify the changed range value of N3=[0;M3]
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0; M3=0.8; range N3=[0;0.8]
+    ...
+    ...    ***Steps:
+    ...    3. Edit M3=0.6
+    ...    ***Expected Result:
+    ...    range N3=[0;0.6]
+    comment    ===================    PRECONDITION    Run pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    # Open Edit Setting from account info Setting
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.6    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify range and select values of N3
+    Select Frame    main
+    verify dropdown list    ${in_m_editSetting_cboN3}    0    0.6    ${tm_ptInterval}    0
+    unselect frame
+
+GD_PT_SM_08
+    [Documentation]    ***Description:
+    ...    Change N3 to verify the changed range value of M3=[N3;S4-S3]
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0; M3=0.8; range M3=[0;0.9]
+    ...
+    ...    ***Steps:
+    ...    3. Edit N3=0.2
+    ...    ***Expected Result:
+    ...    range M3=[0.2;0.9]
+    comment    ===================    PRECONDITION    Run pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    # Open Edit Setting from account info Setting
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0.2
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify range and select values of M3
+    Select Frame    main
+    verify dropdown list    ${in_m_editSetting_cboM3}    0.2    0.9    ${tm_ptInterval}    0.8
+    Unselect Frame
+
+GD_PT_SM_09
+    [Documentation]    ***Description:
+    ...    Display a confirm message with the PT range =[0;S4-M3] when changing super auto PT from yes to no
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. US3=0.2, M3=0.8
+    ...
+    ...    ***Step:
+    ...    3. Uncheck US3
+    ...    4. Click update
+    ...
+    ...    ***Expected Result:
+    ...    Display a confirm message with the PT range =[0;0.1]
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    ${EMPTY}    0    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Select Frame    main
+    Click Element    ${in_m_editSetting_btnUpdate}
+    Comment    **** VP01: Verify range and select values of PT confirm update S1 for all member
+    verify dropdown list    ${in_mp_cboPT}    0    0.1    0.01    0.1
+    Unselect Frame
+
+GD_PT_SM_10
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. US3=0.2, M3=0.8,S3=0
+    ...    3. M2=0.2, A2=0.3
+    ...    4. S1=0.2, M1=0.2, A1=0.2
+    ...
+    ...    ***Step:
+    ...    5. Uncheck US3
+    ...    6. Click update
+    ...    Click Yes on the confirm message
+    ...
+    ...    ***Expected Result:
+    ...    S3= 0, US3=0
+    ...    S1=0, M1=0.2, A1=0.2
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    ${EMPTY}    0    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Select Frame    main
+    Click Element    ${in_m_editSetting_btnUpdate}
+    # Select Yes button on cofirm popup
+    Wait Until Page Contains Element    ${in_mp_btnYes}
+    Click Button    ${in_mp_btnYes}
+    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Wait Until Element Is Visible    ${in_m_editSetting_cboS3}
+    Comment    **** VP01: Verify range and select values of PT of S3 and US3
+    Unselect Frame
+    open setting from account info    ${tm_master}    Gold Deluxe
+    Select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Comment    **** VP02: Verify S1, M1, A1
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.2
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.2
+    Unselect Frame
+
+GD_PT_SM_11
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. US3=0.2, M3=0.8
+    ...    3. M2=0.2, A2=0.3
+    ...    4. S1=0.2, M1=0.2, A1=0.2
+    ...    5. Uncheck US3
+    ...    6. Click update
+    ...    Click No on the confirm message
+    ...
+    ...    ***Step: N/A
+    ...
+    ...    ***Expected Result:
+    ...    S3= 0, US3=0
+    ...    S1=0.2, M1=0.2, A1=0.2
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    ${EMPTY}    0    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Select Frame    main
+    Click Element    ${in_m_editSetting_btnUpdate}
+    # Select No button on cofirm popup
+    Wait Until Page Contains Element    ${in_mp_btnNo}
+    Click Button    ${in_mp_btnNo}
+    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Wait Until Element Is Visible    ${in_m_editSetting_cboS3}
+    Comment    **** VP01: Verify range and select values of PT of S3 and US3
+    Unselect Frame
+    open setting from account info    ${tm_master}    Gold Deluxe
+    Select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Comment    **** VP02: Verify S1, M1, A1
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0.2
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.2
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.2
+    Unselect Frame
+
+GD_PT_SM_12
+    [Documentation]    ***Description:
+    ...    M2+A2>M3
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.77
+    ...    3. M2=0.1, A2=0.59
+    ...
+    ...    ***Steps:
+    ...    4. Edit M2=0.1, A2=0.61
+    ...    5. Open new tab and update M3=0.7
+    ...    6. Go back to the edit Gold Deluxe of agent and click Update
+    ...    ***Expected Result:
+    ...
+    ...    Error message:
+    ...    Wrong position taking.
+    ...    Max: 0.70
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    0.6    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+
+GD_PT_SM_13
+    [Documentation]    ***Description:
+    ...    M3< M2 +A2
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.8
+    ...    3. M2=0.2, A2=0.3
+    ...    4. S1=0, M1=0.2, A1=0.2
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.6
+    ...
+    ...    ***Expected Result:
+    ...    An error message:
+    ...    Existing agents exceeded new master position taking (<agent name>)
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.45    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    Select Frame    main
+    click element    ${in_m_editSetting_btnUpdate}
+    #    sleep    5s
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Existing agents exceeded new master position taking
+    Unselect Frame
+
+GD_PT_SM_14
+    [Documentation]    ***Description:
+    ...    M3>=M1+A1
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.8
+    ...    3. M2=0, A2=0.3
+    ...    4. S1=0, M1=0.2, A1=0.25
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.55
+    ...
+    ...    ***Expected Result:
+    ...    S3=0, M3=0.55
+    ...    M2=0, A2=0.3
+    ...    S1=0, M1=0.2, A1=0.25
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    0.55    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.55
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.2
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.3
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_15
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.25
+    ...    2. S3=0, M3=0.8
+    ...    3. M2=0, A2=0.3
+    ...    4. S1=0, M1=0.2, A1=0.25
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.89
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.25
+    ...    S3=0, M3=0.89
+    ...    M2=0, A2=0.3
+    ...    S1=0, M1=0.2, A1=0.25
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    0.89    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.89
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.2
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.3
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_16
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.89, N3=0.5
+    ...    3. M2=0, A2=0.3
+    ...    4. S1=0.01, M1=0.25, A1=0.27
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.59
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9
+    ...    S3=0, M3=0.59
+    ...    M2=0, A2=0.3
+    ...    S1=0.01, M1=0.25, A1=0.27
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    0.59    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.59
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0.01
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.27
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.3
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_17
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.59
+    ...    3. M2=0, A2=0.3, N2=0.28
+    ...    4. S1=0.01, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.75
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9
+    ...    S3=0, M3=0.75
+    ...    M2=0, A2=0.3
+    ...    S1=0.01, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    0.57    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.57
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0.01
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.3
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_18
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.75, N3=0.5
+    ...    3. M2=0, A2=0.3, N2=0.28
+    ...    4. S1=0.01, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.61
+    ...
+    ...    ***Expected Result:
+    ...    S3=0, M3=0.61, N3=0.5
+    ...    M2=0, A2=0.3, N2=0.28
+    ...    S1=0.01, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    0.61    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.61
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.5
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0.01
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.3
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_19
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.45
+    ...    2. S3=0, M3=0.61, N3=0.5
+    ...    3. M2=0, A2=0.3, N2=0.28
+    ...    4. S1=0.01, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.81
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.45
+    ...    S3=0, M3=0.81, N3=0.5
+    ...    M2=0, A2=0.3, N2=0.28
+    ...    S1=0.01, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    0.81    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.81
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.5
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0.01
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboN2}    0.28
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_20
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.45
+    ...    2. S3=0, M3=0.61, N3=0.5
+    ...    3. M2=0, A2=0.3
+    ...    4. S1=0.01, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.81
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.45
+    ...    S3=0, M3=0.81, N3=0.5
+    ...    M2=0, A2=0.3
+    ...    S1=0.01, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    0.81    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.81
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.5
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0.01
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.3
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_21
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.45
+    ...    2. S3=0, M3=0.61
+    ...    3. M2=0, A2=0.3, N2=0.28
+    ...    4. S1=0.01, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.81
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.45
+    ...    S3=0, M3=0.81
+    ...    M2=0, A2=0.3, N2=0.28
+    ...    S1=0.01, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    0.81    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.81
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0.01
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboN2}    0.28
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_22
+    [Documentation]    ***Description:
+    ...    M3 < M1+A1
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.8
+    ...    3. M2=0, A2=0.3
+    ...    4. S1=0, M1=0.2, A1=0.25
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.41
+    ...
+    ...    ***Expected Result:
+    ...    An error message: \ Existing members exceeded new master position taking (<member name>
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.41    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    Select Frame    main
+    click element    ${in_m_editSetting_btnUpdate}
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Existing members exceeded new master position taking (${tm_member}
+    Unselect Frame
+
+GD_PT_SM_23
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.45
+    ...    2. S3=0, M3=0.81
+    ...    3. M2=0, A2=0.39
+    ...    4. S1=0.09, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.5
+    ...    ***Expected Result:
+    ...    An error message: Existing members exceeded new master position taking (<member name>)
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.5    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    Select Frame    main
+    click element    ${in_m_editSetting_btnUpdate}
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Existing members exceeded new master position taking (${tm_member}
+    Unselect Frame
+
+GD_PT_SM_24
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.81, N3=0.46
+    ...    3. M2=0, A2=0.39
+    ...    4. S1=0.09, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.5
+    ...
+    ...    ***Expected Result:
+    ...    An error message: Existing members exceeded new master position taking (<member name>)
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.5    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    Select Frame    main
+    click element    ${in_m_editSetting_btnUpdate}
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Existing members exceeded new master position taking (${tm_member}
+    Unselect Frame
+
+GD_PT_SM_25
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.81
+    ...    3. M2=0, A2=0.39, N2=0.28
+    ...    4. S1=0.09, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.5
+    ...
+    ...    ***Expected Result:
+    ...    An error message: Existing members exceeded new master position taking (<member name>)
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.5    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    Select Frame    main
+    click element    ${in_m_editSetting_btnUpdate}
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Existing members exceeded new master position taking (${tm_member}
+    Unselect Frame
+
+GD_PT_SM_26
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.45
+    ...    2. S3=0, M3=0.81, N3=0.46
+    ...    3. M2=0, A2=0.39
+    ...    4. S1=0.09, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.5
+    ...
+    ...    ***Expected Result:
+    ...    An error message: Existing members exceeded new master position taking (<member name>)
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.5    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    Select Frame    main
+    click element    ${in_m_editSetting_btnUpdate}
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Existing members exceeded new master position taking (${tm_member}
+    Unselect Frame
+
+GD_PT_SM_27
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.81, N3=0.46
+    ...    3. M2=0, A2=0.39, N2=0.28
+    ...    4. S1=0.09, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.5
+    ...
+    ...    ***Expected Result:
+    ...    An error message: Existing members exceeded new master position taking (<member name>)
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.5    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    Select Frame    main
+    click element    ${in_m_editSetting_btnUpdate}
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Existing members exceeded new master position taking (${tm_member}
+    Unselect Frame
+
+GD_PT_SM_28
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.45
+    ...    2. S3=0, M3=0.81
+    ...    3. M2=0, A2=0.39, N2=0.28
+    ...    4. S1=0.09, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.5
+    ...
+    ...    ***Expected Result:
+    ...    An error message: Existing members exceeded new master position taking (<member name>)
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.5    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    Select Frame    main
+    click element    ${in_m_editSetting_btnUpdate}
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Existing members exceeded new master position taking (${tm_member}
+    Unselect Frame
+
+GD_PT_SM_29
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.45
+    ...    2. S3=0, M3=0.81, N3=0.5
+    ...    3. M2=0, A2=0.39, N2=0.22
+    ...    4. S1=0.09, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    5. Update M3=0.52
+    ...
+    ...    ***Expected Result:
+    ...    An error message: Existing members exceeded new master position taking (<member name>)
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    0    ${EMPTY}    0.52    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    Select Frame    main
+    click element    ${in_m_editSetting_btnUpdate}
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Existing members exceeded new master position taking (${tm_member}
+    Unselect Frame
+
+GD_PT_SM_31
+    [Documentation]    ***Description:
+    ...    S3+M3<=S4
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0.1, M3=0.6
+    ...
+    ...    ***Steps:
+    ...    3. Update S3=0.1, M3=0.75
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9
+    ...    S3=0.1, M3=0.75
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    0.1    0.75    ${EMPTY}    ${EMPTY}
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0.1
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.75
+    Unselect Frame
+
+GD_PT_SM_34
+    [Documentation]    ***Description:
+    ...    Update US3 > S4-M1-A1
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0.1, M3=0.6
+    ...    3. M2=0, A2=0.39
+    ...    4. S1=0.27, M1=0.25, A1=0
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.8
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9
+    ...    S3=0, M3=0.6, US3=0.8
+    ...    M2=0, A2=0.39
+    ...    S1=0.37, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.8
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.8
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.37
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_35
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6
+    ...    3. M2=0, A2=0.39
+    ...    4. S1=0, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.4
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.0, M3=0.6, US3=0.4
+    ...    M2=0, A2=0.39
+    ...    S1=0.37, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.4
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.4
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.37
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_36
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6, N3=0.3
+    ...    3. M2=0, A2=0.39
+    ...    4. S1=0.27, M1=0.25, A1=0.
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.4
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.0, M3=0.6, US3=0.8
+    ...    M2=0, A2=0.39
+    ...    S1=0.37, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.4
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.4
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.37
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_37
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6, N3=0.3
+    ...    3. M2=0, A2=0.39, N2=0.35
+    ...    4. S1=0.23, M1=0.25, A1=0.35, US1=0.23
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.4
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.0, M3=0.6, N3=0.3, US3=0.4
+    ...    M2=0, A2=0.39, N2=0.35
+    ...    S1=0.23, M1=0.25, A1=0.35, US1=0.23
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.4
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.4
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.3
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.35
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    verify dropdown list selected value    ${in_m_editSetting_cboN2}    0.35
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_38
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6, N3=0.3
+    ...    3. M2=0, A2=0.39, N2=0.35
+    ...    4. S1=0.23, M1=0.25, A1=0.35, US1=0.23
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.4
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.0, M3=0.6, N3=0.3, US3=0.4
+    ...    M2=0, A2=0.39, N2=0.35
+    ...    S1=0.23, M1=0.25, A1=0.35, US1=0.23
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.4
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.4
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.35
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_cboUs1}    0.23
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    verify dropdown list selected value    ${in_m_editSetting_cboN2}    0.35
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_39
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6, N3=0.3
+    ...    3. M2=0, A2=0.39, N2=0.35
+    ...    4. S1=0.3, M1=0.25, A1=0.35, US1=0.34
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.4
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.0, M3=0.6, N3=0.3, US3=0.4
+    ...    M2=0, A2=0.39, N2=0.35
+    ...    S1=0.3, M1=0.25, A1=0.35, US1=0.34
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.4
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.4
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.3
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.35
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_cboUs1}    0.34
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    verify dropdown list selected value    ${in_m_editSetting_cboN2}    0.35
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_40
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6, N3=0.3
+    ...    3. M2=0, A2=0.39, N2=0.35
+    ...    4. S1=0.23, M1=0.25, A1=0.35, US1=0.23, UM1=0.25
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.4
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.0, M3=0.6, N3=0.3, US3=0.4
+    ...    M2=0, A2=0.39, N2=0.35
+    ...    S1=0.23, M1=0.25, A1=0.35, US1=0.23, UM1=0.25
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.4
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.4
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.35
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_cboUs1}    0.23
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    verify dropdown list selected value    ${in_m_editSetting_cboN2}    0.35
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboUm1}    0.25
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_41
+    [Documentation]    ***Description:
+    ...    Update US3 <= S4-M1-A1
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0.1, M3=0.6
+    ...    3. M2=0, A2=0.39
+    ...    4. S1=0.27, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.2
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9
+    ...    S3=0, M3=0.6, US3=0.2
+    ...    M2=0, A2=0.39
+    ...    S1=0.2, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.2
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.2
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.2
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_42
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6
+    ...    3. M2=0, A2=0.39
+    ...    4. S1=0, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.2
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.1, M3=0.6, US3=0.2
+    ...    M2=0, A2=0.39
+    ...    S1=0.2, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.2
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.2
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.2
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_43
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.8
+    ...    2. S3=0.1, M3=0.6
+    ...    3. M2=0, A2=0.39
+    ...    4. S1=0.27, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.2
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.8
+    ...    S3=0.1, M3=0.6, US3=0.2
+    ...    M2=0, A2=0.39
+    ...    S1=0.27, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.2
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.2
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.27
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_44
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6, N3=0.3
+    ...    3. M2=0, A2=0.39
+    ...    4. S1=0, M1=0.25, A1=0.28
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.2
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.1, M3=0.6, N3=0.3, US3=0.2
+    ...    M2=0, A2=0.39
+    ...    S1=0.2, M1=0.25, A1=0.28
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.2
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.2
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.2
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.28
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_45
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6, N3=0.3
+    ...    3. M2=0, A2=0.39, N2=0.35
+    ...    4. S1=0, M1=0.25, A1=0.35
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.15
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.1, M3=0.6, N3=0.3, US3=0.15
+    ...    M2=0, A2=0.39, N2=0.35
+    ...    S1=0.15, M1=0.25, A1=0.35
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.15
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.15
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.15
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.35
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    verify dropdown list selected value    ${in_m_editSetting_cboN2}    0.35
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_46
+    [Documentation]    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6, N3=0.3
+    ...    3. M2=0, A2=0.39, N2=0.35
+    ...    4. S1=0.23, M1=0.25, A1=0.35, US1=0.23
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.1
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.1, M3=0.6, N3=0.3, US3=0.1
+    ...    M2=0, A2=0.39, N2=0.35
+    ...    S1=0.23, M1=0.25, A1=0.35
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.15
+    Comment    **** VP01: Verify Error message is displayed
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.15
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.35
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    verify dropdown list selected value    ${in_m_editSetting_cboN2}    0.35
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_47
+    [Documentation]    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6, N3=0.3
+    ...    3. M2=0, A2=0.39, N2=0.35
+    ...    4. S1=0.3, M1=0.25, A1=0.35, US1=0.34
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.1
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0, M3=0.6, N3=0.3, US3=0.1
+    ...    M2=0, A2=0.39, N2=0.35
+    ...    S1=0.3, M1=0.25, A1=0.35, US1=0.34
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.1
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.1
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.3
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.25
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.35
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_cboUs1}    0.34
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    verify dropdown list selected value    ${in_m_editSetting_cboN2}    0.35
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_48
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9, N4=0.1
+    ...    2. S3=0.1, M3=0.6, N3=0.3
+    ...    3. M2=0, A2=0.39, N2=0.35
+    ...    4. S1=0.23, M1=0.25, A1=0.35, US1=0.23, UM1=0.16
+    ...
+    ...    ***Steps:
+    ...    Update US3=0.15
+    ...
+    ...    ***Expected Result:
+    ...    S4=0.9, N4=0.1
+    ...    S3=0.1, M3=0.6, N3=0.3, US3=0.15
+    ...    M2=0, A2=0.39, N2=0.35
+    ...    S1=0.23, M1=0.25, A1=0.35, US1=0.23, UM1=0.16
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    1    0.15
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_master}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS3}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboM3}    0.6
+    verify dropdown list selected value    ${in_m_editSetting_cboN3}    0.3
+    verify dropdown list selected value    ${in_m_editSetting_cboUs3}    0.15
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.16
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.35
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_cboUs1}    0.23
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    select frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboM2}    0
+    verify dropdown list selected value    ${in_m_editSetting_cboA2}    0.39
+    verify dropdown list selected value    ${in_m_editSetting_cboN2}    0.35
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    Unselect Frame
+    open setting from account info    ${tm_member}    Gold Deluxe
+    select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboUm1}    0.16
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_49
+    [Documentation]    ***Description:
+    ...    N3>M1+A1
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.8, N3=0
+    ...    3. M2=0.15, A2=0.5
+    ...    4. S1=0.1, M1=0.2, A1=0.25
+    ...
+    ...    ***Steps:
+    ...    5. Update N3=0.7
+    ...    6. Update N3=0
+    ...
+    ...    ***Expected Result:
+    ...    Step 5: S1=0.1, M1=0.45, A1=0.25
+    ...    Step 6: S1=0.1, M1=0.45, A1=0.25
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0.7
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.45
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    Unselect Frame
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.45
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_50
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.8, N3=0
+    ...    3. M2=0.15, A2=0.5
+    ...    4. S1=0.1, M1=0.23, A1=0.25; UM1= 0.23
+    ...
+    ...    ***Steps:
+    ...    5. Update N3=0.7
+    ...    6. Update N3=0
+    ...
+    ...    ***Expected Result:
+    ...    Step 5: S1=0.1, M1=0.45, A1=0.25; UM1=0.23
+    ...    Step 6: S1=0.1, M1=0.23, A1=0.25; UM1=0.23
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0.7
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.45
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_member}    Gold Deluxe
+    select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboUm1}    0.23
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_super}    ${tm_password}
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_member}    Gold Deluxe
+    select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboUm1}    0.23
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_51
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.8, N3=0
+    ...    3. M2=0.15, A2=0.5, UM2=0.13
+    ...    4. S1=0.1, M1=0.13, A1=0.25
+    ...
+    ...    ***Steps:
+    ...    5. Update N3=0.7
+    ...    6. Update N3=0
+    ...
+    ...    ***Expected Result:
+    ...    Step 5: S1=0.1, M1=0.45, A1=0.25
+    ...    Step 6: S1=0.1, M1=0.13, A1=0.25
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0.7
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.45
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    unselect frame
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.13
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+
+GD_PT_SM_52
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.8, N3=0
+    ...    3. M2=0.15, A2=0.5, UM2=0.12
+    ...    4. S1=0.1, M1=0.23, A1=0.25, UM1=0.23
+    ...
+    ...    ***Steps:
+    ...    5. Update N3=0.7
+    ...    6. Update N3=0
+    ...
+    ...    ***Expected Result:
+    ...    Step 5: S1=0.1, M1=0.45, A1=0.25
+    ...    Step 6: S1=0.1, M1=0.23, A1=0.25
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0.7
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.45
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    unselect frame
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+
+GD_PT_SM_53
+    [Documentation]    ***Description:
+    ...    N3<M1+A1
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0.11, M3=0.77, N3=0
+    ...    3. M2=0.12, A2=0.39
+    ...    4. S1=0.23, M1=0.2, A1=0.35
+    ...
+    ...    ***Steps:
+    ...    5. Update N3=0.4
+    ...
+    ...    ***Expected Result:
+    ...    S1=0.23, M1=0.2, A1=0.35
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0.4
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.2
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.35
+    unselect frame
+    comment    ===================    POST-CONDITION
+
+GD_PT_SM_54
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.8, N3=0
+    ...    3. M2=0.15, A2=0.5
+    ...    4. S1=0.1, M1=0.23, A1=0.25; UM1= 0.23
+    ...
+    ...    ***Steps:
+    ...    5. Update N3=0.4
+    ...    6. Update N3=0
+    ...
+    ...    ***Expected Result:
+    ...    Step 5: S1=0.1, M1=0.23, A1=0.25; UM1=0.23
+    ...    Step 6: S1=0.1, M1=0.23, A1=0.25; UM1=0.23
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0.4
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_member}    Gold Deluxe
+    select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboUm1}    0.23
+    Unselect Frame
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_super}    ${tm_password}
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_master}    ${tm_password}
+    open setting from account info    ${tm_member}    Gold Deluxe
+    select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboUm1}    0.23
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}
+
+GD_PT_SM_55
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.8, N3=0
+    ...    3. M2=0.15, A2=0.5, UM2=0.13
+    ...    4. S1=0.1, M1=0.13, A1=0.25
+    ...
+    ...    ***Steps:
+    ...    5. Update N3=0.4
+    ...    6. Update N3=0
+    ...
+    ...    ***Expected Result:
+    ...    Step 5: S1=0.1, M1=0.13, A1=0.25
+    ...    Step 6: S1=0.1, M1=0.13, A1=0.25
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0.3
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.13
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    unselect frame
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.13
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    Unselect Frame
+    comment    ===================    POST-CONDITION
+
+GD_PT_SM_56
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    1. S4=0.9
+    ...    2. S3=0, M3=0.8, N3=0
+    ...    3. M2=0.15, A2=0.5, UM2=0.12
+    ...    4. S1=0.1, M1=0.23, A1=0.25, UM1=0.23
+    ...
+    ...    ***Steps:
+    ...    5. Update N3=0.4
+    ...    6. Update N3=0
+    ...
+    ...    ***Expected Result:
+    ...    Step 5: S1=0.1, M1=0.23, A1=0.25
+    ...    Step 6: S1=0.1, M1=0.23, A1=0.25
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0.4
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    unselect frame
+    open setting from account info    ${tm_master}    Gold Deluxe
+    update PT Super Edit Master    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0
+    ...    ${EMPTY}
+    Comment    **** VP01: Verify S3, M3,N3
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblS1}    0.1
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblM1}    0.23
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_editSetting_lblA1}    0.25
+    Unselect Frame
+    comment    ===================    POST-CONDITION

@@ -1,0 +1,26 @@
+*** Variables ***
+${in_m_DCS_pt_cboA1}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div[1]/div/div/div/div/div/select[@data-ng-model='settingItem.a1']    # ***********************************Agent Edit Member
+${in_m_DCS_pt_cboM2}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='m2']/div/select    # ************************************Master Edit Agent
+${in_m_DCS_pt_cboIm2}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/label/input
+${in_m_DCS_pt_cboUm2}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='uM2']/div/select
+${in_m_DCS_pt_cboA2}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='a2']/div/select
+${in_m_DCS_pt_cboN2}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='n2']/div/select
+${in_m_DCS_pt_cboM1}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='m1']/div/select    #*************************Master Edit Member
+${in_m_DCS_pt_cboIm1}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/label/input
+${in_m_DCS_pt_cboUm1}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='uM1']/div/select
+${in_m_DCS_pt_cboA1_view}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div[@class='block__cell block__cell--no-border w42-percent ng-binding']
+${in_m_DCS_pt_cboS3}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='s3']/div/select    # ************************************Master Edit Agent
+${in_m_DCS_pt_cboIs3}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/label/input
+${in_m_DCS_pt_cboUs3}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='uS3']/div/select
+${in_m_DCS_pt_cboM3}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='m2']/div/select
+${in_m_DCS_pt_cbon3}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='n3']/div/select
+${in_m_DCS_pt_cbos1}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='s1']/div/select    #*************************Master Edit Member
+${in_m_DCS_pt_cboIs1}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/label/input
+${in_m_DCS_pt_cboUs1}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/div[@data-field-name='uS1']/div/select
+${in_m_DCS_pt_cboM1_view}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div[@class='block__cell w28-percent ng-binding']
+${in_m_DCS_pt_cboA1_view}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div[@class='block__cell block__cell--no-border w28-percent ng-binding']
+${in_m_DCS_pt_combobox}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div[1]/div/div/div/div/div/select[@data-ng-model='settingItem.uiFieldName']    # general define by FieldName
+${in_m_DCS_pt_checkbox}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div/label/input
+${in_m_DCS_pt_lblA1}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div[@class='block__cell block__cell--no-border w28-percent ng-binding']    # a1 value as view only
+${in_m_DCS_pt_lblM1}    //*/div[@data-bet-type='uiBetType' and@data-sport-type='uiSportType' and @data-product='uiProduct']/following-sibling::div/div/div/div[@class='block__cell w28-percent ng-binding']    #m1 value as view only
+${in_m_DCS_pt_btnUpdate}    //*[@data-ng-click='ctrl.update()']

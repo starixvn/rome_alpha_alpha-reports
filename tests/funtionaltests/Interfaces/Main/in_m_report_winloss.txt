@@ -1,0 +1,18 @@
+*** Variables ***
+${in_m_report_wl_total_turnover}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-turnover')]
+${in_m_report_wl_total_gross comm}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-gross-com')]
+${in_m_report_wl_total_super wl}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-super-winloss altercol')]
+${in_m_report_wl_total_super comm}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-super-winloss altercol')]/following::td[1]
+${in_m_report_wl_total_super total}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-super-winloss altercol')]/following::td[2]
+${in_m_report_wl_total_company}    //*[@id='tbl-report']/tfoot/tr/td[last()]
+${in_m_report_wl_total_master wl}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-master-winloss')]
+${in_m_report_wl_total_master comm}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-master-winloss')]/following::td[1]
+${in_m_report_wl_total_master total_drilldown}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-master-winloss')]/following::td[2]    # This Master total field in group Master (wl, comm, total)
+${in_m_report_wl_total_member wl}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-member-winloss')]
+${in_m_report_wl_total_member comm}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-member-winloss')]/following::td[1]
+${in_m_report_wl_total_member total}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-member-winloss')]/following::td[2]
+${in_m_report_wl_total_agent wl}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-agent-winloss')]
+${in_m_report_wl_total_agent comm}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-agent-winloss')]/following::td[1]
+${in_m_report_wl_total_agent total_drilldown}    //*/tfoot//td[contains(@class,'hidden-stack-mode col-agent-winloss')]/following::td[2]    # This Agent total field in group Agent (wl, comm, total)
+${in_m_report_wl_total_agent total}    //*/tfoot//td[@class='hidden-stack-mode col-gross-com']/following::td[1]
+${in_m_report_wl_total_master total}    //*/tfoot//td[@class='hidden-stack-mode col-gross-com']/following::td[1]
