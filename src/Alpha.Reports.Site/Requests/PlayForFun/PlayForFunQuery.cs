@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.PlayForFun
 {
     using System;
-    using Constants;
     using Reports.Constants;
     using Reports.Models;
     using Utils;
@@ -10,9 +9,8 @@
     {
         public PlayForFunQuery(IUser viewer) : base(viewer)
         {
-            var yesterday = SystemTime.Today.AddDays(-1);
-            ToDate = yesterday;
-            FromDate = yesterday;
+            ToDate = SystemTime.Today;
+            FromDate = SystemTime.Today;
         }
 
         public int UserSelectedProductId { get; set; }
@@ -23,7 +21,7 @@
 
         public DateTime ToDate { get; set; }
 
-        public DateTime MaxDate => SystemTime.Today.AddDays(-1);
+        public DateTime MaxDate => SystemTime.Today;
 
         public DateTime MinDate => MaxDate.AddMonths(-1);
 

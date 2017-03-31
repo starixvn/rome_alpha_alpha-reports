@@ -105,7 +105,7 @@
             handler.Handle(message);
 
             // Assert
-            workbook.Received().Title(Arg.Is("Master Play For Fun Detail 12/01/2016 --> 12/01/2016 of Product Names (All Status)"));
+            workbook.Received().Title(Arg.Is("Master Play For Fun Detail 12/02/2016 --> 12/02/2016 of Product Names (All Status)"));
         }
 
         [Fact]
@@ -202,7 +202,7 @@
             handler.Handle(message);
 
             // Assert
-            workbook.Received().Title(Arg.Is("Agent Play For Fun Detail 12/01/2016 --> 12/01/2016 of Product Names (All Status)"));
+            workbook.Received().Title(Arg.Is("Agent Play For Fun Detail 12/02/2016 --> 12/02/2016 of Product Names (All Status)"));
         }
 
         [Fact]
@@ -299,7 +299,7 @@
             handler.Handle(message);
 
             // Assert
-            workbook.Received().Title(Arg.Is("Member Play For Fun Detail 12/01/2016 --> 12/01/2016 of Product Names (All Status)"));
+            workbook.Received().Title(Arg.Is("Member Play For Fun Detail 12/02/2016 --> 12/02/2016 of Product Names (All Status)"));
         }
 
         [Fact]

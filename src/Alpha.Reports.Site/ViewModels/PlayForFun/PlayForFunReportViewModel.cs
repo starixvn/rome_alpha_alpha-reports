@@ -47,7 +47,7 @@
 
         public DateTime MinDate => query.MinDate;
 
-        public DateTime MaxDate => SystemTime.Today.AddDays(-1);
+        public DateTime MaxDate => query.MaxDate;
 
         public string SortPropertyName { get; protected set; }
 

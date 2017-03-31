@@ -96,5 +96,7 @@ class BaseReport {
             top: iconHelpPosition.top + 60,
             width: "auto"
         });
+
+        this.$reportLegend.tinyDraggable(null);
     };
 }
