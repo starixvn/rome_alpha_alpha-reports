@@ -2913,10 +2913,10 @@ TC_01_Super_Match WL Detail_Verify filter
     Run Keyword And Continue On Failure    check date picker    ${global_today}    ${global_today}    # 4. Today is selected
     #step 5    Observe export icon
     Select Frame    main
-    Element Should Be Visible    ${in_Reports_btnExportToExcel}
+    Element Should Be Visible    ${in_m_btnExportExcel}
     #step 6    check content of guide line
-    Click Element    //*[@id='productsFilter']//span
-    Checkbox Should Be Selected    id=productsFilterHeaderCheckBox    #All products checkbox
+    Click Element    //*[@class='btn-group']//span
+    Checkbox Should Be Selected    //*[@class='multiselect-container dropdown-menu']//label[normalize-space()='Select all']/input    #All products checkbox
     Unselect Frame
 
 TC_02_Super_Match WL Detail_Verify today data
