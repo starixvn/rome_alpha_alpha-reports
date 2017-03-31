@@ -27,9 +27,9 @@ Drill Down By Index
     Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
     Select Frame    main
     : FOR    ${index}    IN RANGE    ${level}
-    \    ${ac_hascontrol}    Run Keyword And Return Status    Page Should Contain Element    //*[@id='tbl-report']/tbody//a[1]
-    \    Run Keyword If    '${ac_hascontrol}'=='True'    Click Element    //*[@id='tbl-report']/tbody//a[1]
-    \    ...    ELSE    Click Element    //*[@class='downline-link' or @class='downline_link']
+    \    ${ac_hascontrol}    Run Keyword And Return Status    Page Should Contain Element    //*[@id='tbl-report']/tbody//tr[1]//a[1]
+    \    Run Keyword If    '${ac_hascontrol}'=='True'    Click Element    //*[@id='tbl-report']/tbody//tr[1]//a[1]
+    \    ...    ELSE    Click Element    //*/tr[1]//a[@class='downline-link' or @class='downline_link']
     \    sleep    1
     Unselect Frame
 

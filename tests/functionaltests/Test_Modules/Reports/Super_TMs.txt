@@ -2902,12 +2902,14 @@ TC_01_Super_Match WL Detail_Verify filter
     #step 2    check note
     Page Should Contain    ${tm_note}    #"2. Check note
     #step 3    "3. Select yesterday
-    Select Report Filter    submit    ${tc_yesterday}    ${tc_yesterday}
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Yesterday
     Run Keyword And Continue On Failure    check date picker    ${global_yesterday}    ${global_yesterday}    #"3. Yesterday is selected "
     #step 4    select Today
     Reload Page
     sleep    2
-    Select Report Filter    submit    ${global_day_today}    ${global_day_today}
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Today
     Run Keyword And Continue On Failure    check date picker    ${global_today}    ${global_today}    # 4. Today is selected
     #step 5    Observe export icon
     Select Frame    main
