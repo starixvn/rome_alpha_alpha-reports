@@ -35,7 +35,7 @@ Config System
     ${ac_CurDir}    Set variable    ${CURDIR}
     ${ac_worksSpace}    Replace String    ${ac_CurDir}    \Actions    ${EMPTY}
     Set Global Variable    ${init_gbWorksSpace}    ${ac_worksSpace}    #################    Get config variable from Config.py file    https://mbc.gatonic.com    https://mbc.gatonic.com/
-    ...    # http://10.18.200.202:8021/AlphaTest/Index.aspx    http://10.18.200.202:68/site-Main/Index.aspx    http://10.18.200.202:9006/ex-main/_Authorization/SignIn.aspx?ReturnUrl=%2fsite-main%2f    # http://ha.nexdev.net:7403/ex-main/(S(hmuztsd15oj4cl0s05vkpwr1))/_Authorization/SignIn.aspx
+    ...    # http://10.18.200.202:8021/AlphaTest/Index.aspx    http://10.18.200.202:68/site-Main/Index.aspx    http://10.18.200.202:9006/ex-main/_Authorization/SignIn.aspx?ReturnUrl=%2fsite-main%2f    http://ha.nexdev.net:7403/ex-main/(S(hmuztsd15oj4cl0s05vkpwr1))/_Authorization/SignIn.aspx
     Set Global Variable    ${cfUrl}    ${Url}    #    ${Url}    http://10.18.200.202:8021/AlphaTest/Index.aspx    https://mbc.gatonic.com
     Set Global Variable    ${cfBrowser}    ${Browser}    #    ${Browser}    ff    ff
     Set Global Variable    ${cfSeCode}    123457    #    ${SeCode}    123457    123457

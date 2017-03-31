@@ -584,49 +584,49 @@ TC_08_Super_Master WL_Verify Yesterday data of History report
     ...    Member WL=Member WL(*)
     ...    Member Comm= Member Comm (*)
     ...    Member total = Member total (*)
-    [Tags]    WinLoss
+    [Tags]    WinLoss    NoRun
     ## Set Variable
-    ${tm_daterange}    Set Variable    ${global_day_yesterday}
+    ${tm_daterange}    Set Variable    25    #    ${global_day_yesterday}
     COMMENT    ==============================>    PRE-CONDITION
-    Select Left Menu    Reports    Master Win Loss Detail
-    sleep    2s
-    Select Frame    main
-    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
-    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
-    Unselect Frame
-    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
-    ...    Yesterday
-    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
-    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
-    select frame    main
-    ${tc_wldetail_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
-    ${tc_wldetail_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
-    ${tc_wldetail_super_wl}    Get Text    ${in_m_report_wldetail_total_super wl}
-    ${tc_wldetail_super_comm}    Get Text    ${in_m_report_wldetail_total_super comm}
-    ${tc_wldetail_super_total}    Get Text    ${in_m_report_wldetail_total_super total}
-    ${tc_wldetail_company}    Get Text    ${in_m_report_wldetail_total_company}
-    ${tc_wldetail_master_wl}    Get Text    ${in_m_report_wldetail_total_master wl}
-    ${tc_wldetail_master_comm}    Get Text    ${in_m_report_wldetail_total_master comm}
-    ${tc_wldetail_master_total}    Get Text    ${in_m_report_wldetail_total_master total}
-    ${tc_wldetail_agent_wl}    Get Text    ${in_m_report_wldetail_total_agent wl}
-    ${tc_wldetail_agent_comm}    Get Text    ${in_m_report_wldetail_total_agent comm}
-    ${tc_wldetail_agent_total}    Get Text    ${in_m_report_wldetail_total_agent total}
-    ${tc_wldetail_member_wl}    Get Text    ${in_m_report_wldetail_total_member wl}
-    ${tc_wldetail_member_comm}    Get Text    ${in_m_report_wldetail_total_member comm}
-    ${tc_wldetail_member_total}    Get Text    ${in_m_report_wldetail_total_member total}
-    Unselect Frame
-    Drill Down By Index    1
-    select frame    main
-    ${tc_wldetail_agent_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
-    ${tc_wldetail_agent_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
-    ${tc_wldetail_agent_total_company}    Get Text    ${in_m_report_wldetail_total_company}
-    Unselect Frame
-    Drill Down By Index    1
-    select frame    main
-    ${tc_wldetail_member_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
-    ${tc_wldetail_member_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
-    ${tc_wldetail_member_total_company}    Get Text    ${in_m_report_wldetail_total_company}
-    Unselect Frame
+    Comment    Select Left Menu    Reports    Master Win Loss Detail
+    Comment    sleep    2s
+    Comment    Select Frame    main
+    Comment    ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
+    Comment    Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
+    Comment    Unselect Frame
+    Comment    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}    Yesterday
+    Comment    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Comment    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    select frame    main
+    Comment    ${tc_wldetail_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    Comment    ${tc_wldetail_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    Comment    ${tc_wldetail_super_wl}    Get Text    ${in_m_report_wldetail_total_super wl}
+    Comment    ${tc_wldetail_super_comm}    Get Text    ${in_m_report_wldetail_total_super comm}
+    Comment    ${tc_wldetail_super_total}    Get Text    ${in_m_report_wldetail_total_super total}
+    Comment    ${tc_wldetail_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Comment    ${tc_wldetail_master_wl}    Get Text    ${in_m_report_wldetail_total_master wl}
+    Comment    ${tc_wldetail_master_comm}    Get Text    ${in_m_report_wldetail_total_master comm}
+    Comment    ${tc_wldetail_master_total}    Get Text    ${in_m_report_wldetail_total_master total}
+    Comment    ${tc_wldetail_agent_wl}    Get Text    ${in_m_report_wldetail_total_agent wl}
+    Comment    ${tc_wldetail_agent_comm}    Get Text    ${in_m_report_wldetail_total_agent comm}
+    Comment    ${tc_wldetail_agent_total}    Get Text    ${in_m_report_wldetail_total_agent total}
+    Comment    ${tc_wldetail_member_wl}    Get Text    ${in_m_report_wldetail_total_member wl}
+    Comment    ${tc_wldetail_member_comm}    Get Text    ${in_m_report_wldetail_total_member comm}
+    Comment    ${tc_wldetail_member_total}    Get Text    ${in_m_report_wldetail_total_member total}
+    Comment    Unselect Frame
+    Comment    Drill Down By Index    1
+    Comment    select frame    main
+    Comment    ${tc_wldetail_agent_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    Comment    ${tc_wldetail_agent_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    Comment    ${tc_wldetail_agent_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Comment    Unselect Frame
+    Comment    Drill Down By Index    1
+    Comment    select frame    main
+    Comment    ${tc_wldetail_member_total_turnover}    Get Text    ${in_m_report_wldetail_total_turnover}
+    Comment    ${tc_wldetail_member_total_grosscomm}    Get Text    ${in_m_report_wldetail_total_gross comm}
+    Comment    ${tc_wldetail_member_total_company}    Get Text    ${in_m_report_wldetail_total_company}
+    Comment    Unselect Frame
     Select Left Menu    Reports    Master Win Loss
     Switch report view
     COMMENT    ==============================>    MAIN STEPS
@@ -634,20 +634,20 @@ TC_08_Super_Master WL_Verify Yesterday data of History report
     Select Frame    main
     Click Element    //*[@id='dropdown-month']//span[text()='Prev']    # Click previous month button
     Unselect Frame
-    Select Report Filter History    submit    ${tm_daterange}    ${tm_daterange}
-    # Verify    1.1 Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = super total (*) Turnover = Turover (*) Gross comm= Gross comm (*) Master total = Agent company (*)
-    Verify Total Win Loss Report    Master    ${tc_wldetail_turnover}    ${tc_wldetail_grosscomm}    ${tc_wldetail_company}    ${tc_wldetail_super_wl}    ${tc_wldetail_super_comm}
-    ...    ${tc_wldetail_super_total}
-    #step3    3. Drill down to agent
-    Drill Down By Index    1
-    #4. Check data (total field)    4. Member Turnover = Member Turover (*) Gross comm = Agent Gross comm (*) Agent total = Member company (*) Company= Agent company (*) Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*)
-    Verify Total Win Loss Report    Agent    ${tc_wldetail_agent_total_turnover}    ${tc_wldetail_agent_total_grosscomm}    ${tc_wldetail_agent_total_company}
-    #step4    3. Drill down to member
-    Drill Down By Index    1
-    #6. Check data (total field)    6. Total tunrover=turnover (*) Gross comm = Member Gross comm (*) Company = Member Company (*) Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) Member WL=Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*)
-    Verify Total Win Loss Report    Member    ${tc_wldetail_member_total_turnover}    ${tc_wldetail_member_total_grosscomm}    ${tc_wldetail_member_total_company}
-    COMMENT    ==============================>    POST CONDITION
-    #N/A
+    Select Report Filter History    submit    29    20
+    Comment    # Verify    1.1 Super WL= Super WL(*) Super Comm= Super Comm (*) Super total = super total (*) Turnover = Turover (*) Gross comm= Gross comm (*) Master total = Agent company (*)
+    Comment    Verify Total Win Loss Report    Master    ${tc_wldetail_turnover}    ${tc_wldetail_grosscomm}    ${tc_wldetail_company}    ${tc_wldetail_super_wl}
+    ...    ${tc_wldetail_super_comm}    ${tc_wldetail_super_total}
+    Comment    #step3    3. Drill down to agent
+    Comment    Drill Down By Index    1
+    Comment    #4. Check data (total field)    4. Member Turnover = Member Turover (*) Gross comm = Agent Gross comm (*) Agent total = Member company (*) Company= Agent company (*) Master WL= Master WL(*) Master Comm= Master Comm (*) Master total = Master total (*)
+    Comment    Verify Total Win Loss Report    Agent    ${tc_wldetail_agent_total_turnover}    ${tc_wldetail_agent_total_grosscomm}    ${tc_wldetail_agent_total_company}
+    Comment    #step4    3. Drill down to member
+    Comment    Drill Down By Index    1
+    Comment    #6. Check data (total field)    6. Total tunrover=turnover (*) Gross comm = Member Gross comm (*) Company = Member Company (*) Agent WL= Agent WL(*) Agent Comm= Agent Comm (*) Agent total = Agent total (*) Member WL=Member WL(*) Member Comm= Member Comm (*) Member total = Member total (*)
+    Comment    Verify Total Win Loss Report    Member    ${tc_wldetail_member_total_turnover}    ${tc_wldetail_member_total_grosscomm}    ${tc_wldetail_member_total_company}
+    Comment    COMMENT    ==============================>    POST CONDITION
+    Comment    #N/A
 
 TC_09_Super_Master WL_Verify data in date range of History report
     [Documentation]    *Check drilldown data for date range (last month) in History report*
@@ -2618,7 +2618,7 @@ TC_01_Super_Master_Statement_Verify filter
     ...    6. Check guide content
     ...
     ...    7.Transfer detail show
-    [Tags]    Statement    NORUN
+    [Tags]    Statement    NoRun
     ## Set Variable
     ${tm_note}    Set Variable    You can view the report data from ${global_3years_ago}.
     ${tc_yesterday}    Set Variable    ${global_day_yesterday}
@@ -3080,7 +3080,7 @@ TC_01_Super_WL Analysis_Verify filter
     ...    - Check show/hidde filter by icon
     ...
     ...    - Check normal/Stack mode table
-    [Tags]    WinLossAnalysis    NORUN
+    [Tags]    WinLossAnalysis    NoRun
     ## Set Variable
     ${tm_note}    Set Variable    You can view the report data from ${global_18months_ago}.
     ${tc_yesterday}    Set Variable    ${global_day_yesterday}
@@ -3129,7 +3129,7 @@ TC_01_Super_WL Analysis_Verify filter
 
 TC_02_Super_WL Analysis_Verify today data
     [Documentation]    *This test case is used to compare Today data Analysis and WL detail reports for all products*
-    [Tags]    WinLossAnalysis    NORUN
+    [Tags]    WinLossAnalysis    NoRun
     ## Set Variable
     ${tm_daterange}    Set Variable    ${global_day_today}
     COMMENT    ==============================>    PRE-CONDITION
@@ -3164,7 +3164,7 @@ TC_02_Super_WL Analysis_Verify today data
 
 TC_03_Super_WL Analysis_Verify yesterday data
     [Documentation]    *This test case is used to compare Yesterday data Analysis and WL detail reports for all products*
-    [Tags]    WinLossAnalysis    NORUN
+    [Tags]    WinLossAnalysis    NoRun
     ## Set Variable
     ${tm_daterange}    Set Variable    ${global_day_yesterday}
     COMMENT    ==============================>    PRE-CONDITION
@@ -3199,7 +3199,7 @@ TC_03_Super_WL Analysis_Verify yesterday data
 
 TC_04_Super_WL Analysis_Verify data in date range
     [Documentation]    *This test case is used to compare data in range of Analysis and WL detail reports for all products*
-    [Tags]    WinLossAnalysis    NORUN
+    [Tags]    WinLossAnalysis    NoRun
     ## Set Variable
     ${tc_fromdate}    Set Variable    ${global_lastweek_day}
     ${tc_todate}    Set Variable    ${global_day_yesterday}
@@ -3235,7 +3235,7 @@ TC_04_Super_WL Analysis_Verify data in date range
 
 TC_05_Super_WL Analysis_Verify data by Product
     [Documentation]    *This test case will compare total data of all fields for each product between Analysis and WL Details Reports *
-    [Tags]    WinLossAnalysis    NORUN
+    [Tags]    WinLossAnalysis    NoRun
     ## Set Variable
     ${tc_fromdate}    Set Variable    1    #    ${global_lastweek_day}
     ${tc_todate}    Set Variable    22    #    ${global_day_yesterday}
@@ -3291,7 +3291,7 @@ TC_01_Super_Commission By Bet Type_Verify filter
     ...    - Check show/hidde filter by icon
     ...
     ...    - Check dilldown and navigation bar on top menu
-    [Tags]    CommByBetType    NORUN
+    [Tags]    CommByBetType    NoRun
     ## Set Variable
     ${tm_note}    Set Variable    You can view the report data from
     ${tc_yesterday}    Set Variable    ${global_day_yesterday}

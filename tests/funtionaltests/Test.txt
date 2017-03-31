@@ -5,7 +5,7 @@ Resource          Actions/common_actions.txt
 Resource          Data_set/accounts.txt
 
 *** Test Cases ***    dt_data
-data driven           [Tags]                      NO
+data driven           [Tags]                      NO                            NoRun
                       ${t1}                       Set Variable                  You can view the report data from 03/10/2017.
                       ${t2}                       Fetch From Right              ${t1}                                                    ${SPACE}
                       ${t2}                       Remove String                 ${t2}                                                    .
@@ -14,11 +14,14 @@ data driven           [Tags]                      NO
                       ${tm_balanceupday}          Fetch From Right              ${tm_note}                                               ${SPACE}
                       ${tm_balanceupday}          Remove String                 ${tm_balanceupday}                                       .
 
-data driven2          [Tags]                      NO2
+data driven2          [Tags]                      NoRun
                       @{tm_sports_list}           Create List                   Sportsbook                                               Racing                 Number Game            Live Casino                    Virtual Sports    Casino
                       : FOR                       ${tm_i}                       IN                                                       @{tm_sports_list}
                       \                           @{aa}                         Create List                                              123                    342
                       \                           Set Global Variable           @{Jmtest_${tm_i}}                                        @{aa}
+                      Scroll To Element
+                      Mouse Down
+                      Mouse Down
 
 data driven3          [Tags]                      NO3
                       ${tm_year_of18month_ago}    ${tm_month_of18month_ago}     Get Time                                                 year month             NOW - 540 day
