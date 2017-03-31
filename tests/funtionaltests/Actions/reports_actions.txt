@@ -158,11 +158,9 @@ Select Report Filter History
     ${ac_temptodate}    Run Keyword If    '${toDate}'!='${EMPTY}' and '${h}'=='0'    Evaluate    ${z}>10
     ${ac_todate}    Set Variable If    '${ac_temptodate}'=='False'    ${z}    ${todate}
     select frame    main
-    Run Keyword If    '${fromDate}'!='${EMPTY}'    Run Keywords    Click Element    ${in_m_ddldatefrom}
-    ...    AND    test11
+    Run Keyword If    '${fromDate}'!='${EMPTY}'    Run Keywords    Click Element    //*[contains(@id,'fromDay')]
     ...    AND    Click Element    //*[contains(@id,'fromDay')]/following::li[${ac_fromdate}]
-    Run Keyword If    '${toDate}'!='${EMPTY}'    Run Keywords    Click Element    ${in_m_ddldateTo}
-    ...    AND    test11
+    Run Keyword If    '${toDate}'!='${EMPTY}'    Run Keywords    Click Element    //*[contains(@id,'toDay')]
     ...    AND    Click Element    //*[contains(@id,'toDay')]/following::li[${ac_toDate}]
     #Today/ Yesterday button are removed from history report
     Comment    Run Keyword If    '${today}'!='${EMPTY}'    Click Element    ${in_m_btnToday}
@@ -1582,12 +1580,3 @@ Verify total value by column name
     ${ac_temp_totalsum}    Evaluate    ${totalvalue}-${ac_temp_sumweb}
     Unselect Frame
     Run Keyword And Continue On Failure    Should Be True    ${ac_temp_totalsum}<=${boundary_number}    Out of boundary number ${ac_temp_sumweb} # ${totalvalue}
-
-test11
-    ${ac_x}    Get Horizontal Position    //*[contains(@id,'fromDay')]/following::li[13]
-    ${ac_y}    Get Vertical Position    //*[contains(@id,'fromDay')]/following::li[13]
-    ${ac_x}    Evaluate    ${ac_x}+7
-    ${ac_y}    Evaluate    ${ac_y}+7
-    :FOR    ${i}    IN range    1    15
-    \    Click Element At Coordinates    //*[contains(@id,'fromDay')]/following::li[13]    ${ac_x}    ${ac_y}
-    Capture Page Screenshot
