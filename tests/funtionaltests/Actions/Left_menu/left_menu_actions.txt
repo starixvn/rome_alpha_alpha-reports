@@ -90,7 +90,7 @@ Select Left Menu
     Run Keyword Unless    '${acc_DisplayStatus}'=='menu-item active'    Execute Javascript    var x =document.getElementById("${ac_controlItemID}").children[0]; x.click();
     Run Keyword If    '${sub_menu}'<>'${EMPTY}'    Execute Javascript    var x =document.getElementById("${ac_controlSubItemID}").children[0]; x.click();
     Unselect Frame
-    sleep    1
+    sleep    2
 
 Search Account
     [Arguments]    ${username}
