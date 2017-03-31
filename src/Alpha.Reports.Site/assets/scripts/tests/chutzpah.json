@@ -44,6 +44,7 @@
     { "Path": "libs/jquery/stickytableheaders.js" },
     { "Path": "libs/tablesorter.js" },
     { "Path": "libs/store.js" },
+    { "Path": "libs/tiny-draggable.js" },
 
     { "Path": "apps/components/sort-tests-template.ts" },
     { "Path": "apps/winlossdetail/winlossdetail-template.ts" },
