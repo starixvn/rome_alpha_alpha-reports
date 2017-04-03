@@ -2934,7 +2934,7 @@ TC_02_Super_Match WL Detail_Verify today data
     ...    Expected
     ...
     ...    Total data for today should be the same
-    [Tags]    MatchWinLossDetail
+    [Tags]    MatchWinLossDetail    NoRun
     ## Set Variable
     ${tm_daterange}    Set Variable    ${global_day_today}
     COMMENT    ==============================>    PRE-CONDITION
@@ -2945,8 +2945,8 @@ TC_02_Super_Match WL Detail_Verify today data
     Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
     Unselect Frame
     Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
-    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
-    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='True'    NO DATA
     select frame    main
     @{tm_wldetail_data}    Get total values of Win Loss Detail Report
     Unselect Frame
@@ -2958,7 +2958,7 @@ TC_02_Super_Match WL Detail_Verify today data
     @{tm_mwldetail_data}    Create List
     Select Frame    main
     : FOR    ${tm_j}    IN RANGE    2    18
-    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
     \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
     Unselect Frame
     Remove From List    ${tm_mwldetail_data}    14
@@ -2981,7 +2981,7 @@ TC_03_Super_Match WL Detail_Verify yesterday data
     ...    Expected
     ...
     ...    Total data for today should be the same
-    [Tags]    MatchWinLossDetail
+    [Tags]    MatchWinLossDetail    NoRun
     ## Set Variable
     ${tm_daterange}    Set Variable    ${global_day_yesterday}
     COMMENT    ==============================>    PRE-CONDITION
@@ -3005,7 +3005,7 @@ TC_03_Super_Match WL Detail_Verify yesterday data
     @{tm_mwldetail_data}    Create List
     Select Frame    main
     : FOR    ${tm_j}    IN RANGE    2    18
-    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
     \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
     Unselect Frame
     Remove From List    ${tm_mwldetail_data}    14
@@ -3028,7 +3028,7 @@ TC_04_Super_Match WL Detail_Verify data in date range
     ...    Expected
     ...
     ...    Total data for today should be the same
-    [Tags]    MatchWinLossDetail
+    [Tags]    MatchWinLossDetail    NoRun
     ## Set Variable
     ${tc_fromdate}    Set Variable    ${global_lastweek_day}
     ${tc_todate}    Set Variable    ${global_day_yesterday}
@@ -3053,7 +3053,7 @@ TC_04_Super_Match WL Detail_Verify data in date range
     @{tm_mwldetail_data}    Create List
     Select Frame    main
     : FOR    ${tm_j}    IN RANGE    2    18
-    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
     \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
     Unselect Frame
     Remove From List    ${tm_mwldetail_data}    14
