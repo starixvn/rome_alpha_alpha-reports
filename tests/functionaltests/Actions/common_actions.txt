@@ -1088,20 +1088,14 @@ Check Date Picker
     Unselect Frame
 
 Check Date Picker History
-    [Arguments]    ${fromdate}=01    ${todate}=01
+    [Arguments]    ${fromdate}=1    ${todate}=1
     [Documentation]    This action is used to check the selected from/to date picker for History reports
     ...
     ...    Format date is number dd
-    ${x}    ${y}    Run Keyword If    '${fromDate}'!='${EMPTY}'    Split String To Characters    ${fromdate}
-    ${ac_tempfromdate}    Run Keyword If    '${fromDate}'!='${EMPTY}' and '${x}'=='0'    Evaluate    ${y}>10    ## can not Evaluate value =08 or 09    https://mail.python.org/pipermail/python-bugs-list/2007-May/038350.html
-    ${ac_fromdate}    Set Variable If    '${ac_tempfromdate}'=='False'    ${y}    ${fromdate}
-    ${h}    ${z}    Run Keyword If    '${toDate}'!='${EMPTY}'    Split String To Characters    ${todate}
-    ${ac_temptodate}    Run Keyword If    '${toDate}'!='${EMPTY}' and '${h}'=='0'    Evaluate    ${z}>10
-    ${ac_todate}    Set Variable If    '${ac_temptodate}'=='False'    ${z}    ${todate}
     Select Frame    main
     ${ac_selectedfrom}    Get Element Attribute    //*[contains(@id,'fromDay')]/input@value
     ${ac_selectedto}    Get Element Attribute    //*[contains(@id,'toDay')]/input@value
     Unselect Frame
-    Run Keyword If    '${fromdate}'!='${EMPTY}'    Should Be Equal    ${ac_selectedfrom}    ${ac_fromdate}
-    Run Keyword If    '${todate}'!='${EMPTY}'    Should Be Equal    ${ac_selectedto}    ${ac_todate}
+    Run Keyword If    '${fromdate}'!='${EMPTY}'    Should Be Equal    ${ac_selectedfrom}    ${fromdate}
+    Run Keyword If    '${todate}'!='${EMPTY}'    Should Be Equal    ${ac_selectedto}    ${todate}
     Unselect Frame

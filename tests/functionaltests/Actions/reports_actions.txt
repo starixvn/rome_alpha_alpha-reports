@@ -151,17 +151,11 @@ Select Report Filter History
     ...
     ...
     ...    ${productList}= All or product name Ex: All / Racing
-    ${x}    ${y}    Run Keyword If    '${fromDate}'!='${EMPTY}'    Split String To Characters    ${fromdate}
-    ${ac_tempfromdate}    Run Keyword If    '${fromDate}'!='${EMPTY}' and '${x}'=='0'    Evaluate    ${y}>10    ## can not Evaluate value =08 or 09    https://mail.python.org/pipermail/python-bugs-list/2007-May/038350.html
-    ${ac_fromdate}    Set Variable If    '${ac_tempfromdate}'=='False'    ${y}    ${fromdate}
-    ${h}    ${z}    Run Keyword If    '${toDate}'!='${EMPTY}'    Split String To Characters    ${todate}
-    ${ac_temptodate}    Run Keyword If    '${toDate}'!='${EMPTY}' and '${h}'=='0'    Evaluate    ${z}>10
-    ${ac_todate}    Set Variable If    '${ac_temptodate}'=='False'    ${z}    ${todate}
     select frame    main
     Run Keyword If    '${fromDate}'!='${EMPTY}'    Run Keywords    Click Element    //*[contains(@id,'fromDay')]
-    ...    AND    Click Element    //*[contains(@id,'fromDay')]/following::li[${ac_fromdate}]
+    ...    AND    Click Element    //*[contains(@id,'fromDay')]/following::li[${fromdate}]
     Run Keyword If    '${toDate}'!='${EMPTY}'    Run Keywords    Click Element    //*[contains(@id,'toDay')]
-    ...    AND    Click Element    //*[contains(@id,'toDay')]/following::li[${ac_toDate}]
+    ...    AND    Click Element    //*[contains(@id,'toDay')]/following::li[${todate}]
     #Today/ Yesterday button are removed from history report
     Comment    Run Keyword If    '${today}'!='${EMPTY}'    Click Element    ${in_m_btnToday}
     Comment    Run Keyword If    '${yesterday}'!='${EMPTY}'    Click Element    ${in_m_btnYesterday}
