@@ -26,7 +26,7 @@
                 || string.Equals(query.SortPropertyName, MemberPlayForFunViewModel.SortByStatusName);
 
             SortPropertyName = isResetSort ? SortByNumberOfPlayers : query.SortPropertyName;
-            IsDescendingSort = !isResetSort && query.IsDescendingSort;
+            IsDescendingSort = isResetSort || query.IsDescendingSort;
         }
     }
 }

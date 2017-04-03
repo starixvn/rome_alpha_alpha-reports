@@ -24,7 +24,7 @@
                 || string.Equals(query.SortPropertyName, AgentPlayForFunReportViewModel.SortByNumberOfPlayers);
 
             SortPropertyName = isResetSort ? SortByTurnover : query.SortPropertyName;
-            IsDescendingSort = !isResetSort && query.IsDescendingSort;
+            IsDescendingSort = isResetSort || query.IsDescendingSort;
         }
     }
 }
