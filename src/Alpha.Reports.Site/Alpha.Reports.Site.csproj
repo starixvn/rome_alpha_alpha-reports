@@ -483,6 +483,7 @@
     <Content Include="assets\scripts\tests\libs\pagination\jquery.resizable.js" />
     <Content Include="assets\scripts\tests\libs\store.js" />
     <Content Include="assets\scripts\tests\libs\tablesorter.js" />
+    <Content Include="assets\scripts\tests\libs\tiny-draggable.js" />
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.css">
       <DependentUpon>matchwinlossdetail.scss</DependentUpon>
     </Content>
