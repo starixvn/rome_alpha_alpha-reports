@@ -240,18 +240,18 @@ a {
         }
     }
 
-    .report-by{
+    .report-by {
         padding-top: 15px;
 
-        span{
+        span {
             padding-left: 10px;
         }
 
-        input{
+        input {
             margin-right: 0px;
         }
 
-        label{
+        label {
             font-weight: normal;
         }
     }
@@ -344,6 +344,10 @@ a {
 // Modals
 .modal-open {
     overflow: auto;
+}
+
+#report-legend .modal-content .modal-header .modal-title {
+    cursor: default;
 }
 
 // month picker
