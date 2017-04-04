@@ -157,11 +157,8 @@
         it("_Always_Position Legend Popup by icon help", () => {
             // assert
             expect($.fn.css).toHaveBeenCalledWith({
-                left: 20,
-                right: "auto",
                 bottom: "auto",
-                top: 100,
-                width: "auto"
+                top: 100
             });
         });
     });

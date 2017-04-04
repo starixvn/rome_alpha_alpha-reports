@@ -97,10 +97,12 @@
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
+    <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLoss\DailyEnteredSportCriteria.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteria.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetailDataAccess.cs" />
+    <Compile Include="DataAccesses\WinLossAnalysisDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccess.cs" />
     <Compile Include="DataAccesses\ObjectDbFactory.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
     <Compile Include="Models\CustInfo.cs" />
+    <Compile Include="Models\NetWinLoss.cs" />
     <Compile Include="Models\PagedReportData.cs" />
     <Compile Include="Models\MatchWinLoss\MatchWinLossModel.cs" />
     <Compile Include="Models\Outstanding\OutstandingModel.cs" />
@@ -123,7 +126,8 @@
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\UserLevel.cs" />
-    <Compile Include="Models\NetWinLoss.cs" />
+    <Compile Include="Models\WinLossAnalysis\WinLossAnalysisConstants.cs" />
+    <Compile Include="Models\WinLossAnalysis\WinLossAnalysisModel.cs" />
     <Compile Include="Models\WinLossDetail\WinLossDetailModel.cs" />
     <Compile Include="Models\Winloss\DailyEnteredSport.cs" />
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
@@ -134,6 +138,7 @@
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\MatchWinLossDetailParam.cs" />
+    <Compile Include="Params\WinLossAnalysisParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
     <Compile Include="Params\DailyEnteredSportParam.cs" />
     <Compile Include="Params\WinLossParam.cs" />
@@ -142,6 +147,7 @@
     <Compile Include="Services\MatchWinLossDetailService.cs" />
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\MatchWinLossService.cs" />
+    <Compile Include="Services\WinLossAnalysisService.cs" />
     <Compile Include="Services\WinLossService.cs" />
     <Compile Include="Services\OutstandingService.cs" />
     <Compile Include="Services\ProductService.cs" />

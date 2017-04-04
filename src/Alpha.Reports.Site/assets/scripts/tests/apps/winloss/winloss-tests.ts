@@ -13,7 +13,6 @@
         blockUI: jasmine.Spy,
         unblockUI: jasmine.Spy,
         renderProductMultiSelectionComponent: jasmine.Spy,
-        renderPagerComponent: jasmine.Spy,
         renderSortComponent: jasmine.Spy,
         renderLinkBuilderComponent: jasmine.Spy;
 
