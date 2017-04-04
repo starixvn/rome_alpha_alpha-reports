@@ -1,11 +1,11 @@
 ﻿@using Alpha.Reports.Models.PlayForFun
-@model MasterPlayForFunReportViewModel
+@model MasterOrAgentPlayForFunReportViewModel
 @{
     ViewBag.Title = "Play For Fun Report";
     var total = (MasterAgentPlayForFunModel)Model.ReportData.TotalData;
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Resources.MasterPlayForFunDetail, false, true, false, Model.FilterViewModel.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query, true)
+@ReportTitle.Render(new PageHeaderViewModel(Resources.MasterPlayForFunDetail, false, true, false, Model.FilterViewModel.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query, PlayForFunReportViewModel.BreadcrumbActions)
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
     {
@@ -21,7 +21,7 @@
     <thead>
         <tr>
             <th class="sorting" data-sortedname="@PlayForFunReportViewModel.SortByCustName" data-colindex="0">@Resources.Master</th>
-            <th class="sorting" data-sortedname="@MasterPlayForFunReportViewModel.SortByNumberOfPlayers" data-colindex="1">@Resources.NoPlayers</th>
+            <th class="sorting" data-sortedname="@MasterOrAgentPlayForFunReportViewModel.SortByNumberOfPlayers" data-colindex="1">@Resources.NoPlayers</th>
             <th class="sorting" data-sortedname="@PlayForFunReportViewModel.SortByTurnover" data-colindex="2">@Resources.Turnover</th>
             <th class="sorting" data-sortedname="@PlayForFunReportViewModel.SortByMemberWinLoss" data-colindex="3">@Resources.MemberWinLoss</th>
             <th class="sorting" data-sortedname="@PlayForFunReportViewModel.SortByPlayCount" data-colindex="4">@Resources.PlayCount</th>
@@ -35,7 +35,7 @@
                 {
                 <tr class="@(isEvenRow? "even-row":string.Empty)">
                     <td data-islink="true" class="text-left">
-                        <a href="@Model.BuildDrillDownLink(data, Url.Action("Agent", "PlayForFun") + Request.Url.Query)"
+                        <a href="@Model.BuildDrillDownLink(data, Url.Action(Model.DrilldownAction, "PlayForFun") + Request.Url.Query)"
                            class="downline-link"
                            data-custname="@data.CustName">
                             @data.CustName
@@ -67,7 +67,7 @@
 @Html.Partial("ExportExcel", Model,
     new ViewDataDictionary
     {
-        ["FormAction"] = Url.Action("MasterExcel", "PlayForFun")
+        ["FormAction"] = Url.Action("MasterOrAgentExcel", "PlayForFun")
     })
 
 @section Scripts {

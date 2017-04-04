@@ -21,7 +21,7 @@
             var isResetSort = reportData.DataSource == null
                 || reportData.DataSource.Count() <= 1
                 || string.IsNullOrWhiteSpace(query.SortPropertyName)
-                || string.Equals(query.SortPropertyName, AgentPlayForFunReportViewModel.SortByNumberOfPlayers);
+                || string.Equals(query.SortPropertyName, MasterOrAgentPlayForFunReportViewModel.SortByNumberOfPlayers);
 
             SortPropertyName = isResetSort ? SortByTurnover : query.SortPropertyName;
             IsDescendingSort = isResetSort || query.IsDescendingSort;

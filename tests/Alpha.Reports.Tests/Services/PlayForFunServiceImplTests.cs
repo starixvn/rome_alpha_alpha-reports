@@ -85,34 +85,17 @@
         }
 
         [Fact]
-        public void MasterPlayForFun_Always_ReturnsCorrectDataFromRepository()
+        public void MasterOrAgentPlayForFun_Always_ReturnsCorrectDataFromRepository()
         {
             // Arrange
             var param = anyValueCreatorFixture.Create<PlayForFunParam>();
             var data = new List<MasterAgentPlayForFunModel> { anyValueCreatorFixture.Create<MasterAgentPlayForFunModel>() };
-            repository.Fetch<MasterAgentPlayForFunModel>(Arg.Any<MasterPlayForFunCriteria>())
+            repository.Fetch<MasterAgentPlayForFunModel>(Arg.Any<MasterOrAgentPlayForFunCriteria>())
                 .Returns(data);
             var expectedData = data;
 
             // Act
-            var actualData = service.MasterPlayForFun(param);
-
-            // Assert
-            AssertExtension.Equal(expectedData, actualData);
-        }
-
-        [Fact]
-        public void AgentPlayForFun_Always_ReturnsCorrectDataFromRepository()
-        {
-            // Arrange
-            var param = anyValueCreatorFixture.Create<PlayForFunParam>();
-            var data = new List<MasterAgentPlayForFunModel> { anyValueCreatorFixture.Create<MasterAgentPlayForFunModel>() };
-            repository.Fetch<MasterAgentPlayForFunModel>(Arg.Any<AgentPlayForFunCriteria>())
-                .Returns(data);
-            var expectedData = data;
-
-            // Act
-            var actualData = service.AgentPlayForFun(param);
+            var actualData = service.MasterOrAgentPlayForFun(param);
 
             // Assert
             AssertExtension.Equal(expectedData, actualData);

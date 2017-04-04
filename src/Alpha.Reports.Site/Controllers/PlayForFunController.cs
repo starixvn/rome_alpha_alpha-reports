@@ -10,21 +10,14 @@
         {
         }
 
-        public ActionResult Master(MasterPlayForFunQuery message)
-            => View(message);
-
-        public ActionResult Agent(AgentPlayForFunQuery message)
+        public ActionResult MasterOrAgent(MasterOrAgentPlayForFunQuery message)
             => View(message);
 
         public ActionResult Member(MemberPlayForFunQuery message)
             => View(message);
 
         [HttpGet]
-        public ActionResult MasterExcel(MasterPlayForFunExcelQuery message)
-            => ExcelView(message);
-
-        [HttpGet]
-        public ActionResult AgentExcel(AgentPlayForFunExcelQuery message)
+        public ActionResult MasterOrAgentExcel(MasterOrAgentPlayForFunExcelQuery message)
             => ExcelView(message);
 
         [HttpGet]

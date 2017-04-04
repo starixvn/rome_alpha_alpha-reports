@@ -90,13 +90,8 @@ class BaseReport {
 
         var iconHelpPosition = this.$iconInformation.position();
         this.$reportLegend.css({
-            left: iconHelpPosition.left - 20,
-            right: "auto",
             bottom: "auto",
-            top: iconHelpPosition.top + 60,
-            width: "auto"
+            top: iconHelpPosition.top + 60
         });
-
-        this.$reportLegend.tinyDraggable(null);
     };
 }

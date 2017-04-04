@@ -67,8 +67,7 @@
                 new MasterAgentPlayForFunModel(0, string.Empty, 1, 2, 3, 4)
             };
 
-            reportService.MasterPlayForFun(Arg.Any<PlayForFunParam>()).Returns(masterAgentPlayForFunModels);
-            reportService.AgentPlayForFun(Arg.Any<PlayForFunParam>()).Returns(masterAgentPlayForFunModels);
+            reportService.MasterOrAgentPlayForFun(Arg.Any<PlayForFunParam>()).Returns(masterAgentPlayForFunModels);
 
             memberPlayForFunModels = new List<MemberPlayForFunModel>
             {
@@ -80,10 +79,10 @@
         }
 
         [Fact]
-        public void HandleExportMasterExcelQuery_Always_UsesCorrectTemplateInfo()
+        public void HandleExportMasterOrAgentExcelQuery_Always_UsesCorrectTemplateInfo()
         {
             // Arrange
-            var message = new MasterPlayForFunExcelQuery(user);
+            var message = new MasterOrAgentPlayForFunExcelQuery(user);
 
             // Act
             handler.Handle(message);
@@ -96,10 +95,10 @@
         }
 
         [Fact]
-        public void HandleExportMasterExcelQuery_Always_ExportsCorrectTitle()
+        public void HandleExportMasterOrAgentExcelQuery_Always_ExportsCorrectTitle()
         {
             // Arrange
-            var message = new MasterPlayForFunExcelQuery(user);
+            var message = new MasterOrAgentPlayForFunExcelQuery(user);
 
             // Act
             handler.Handle(message);
@@ -109,10 +108,10 @@
         }
 
         [Fact]
-        public void HandleExportMasterExcelQuery_Always_ExportsCorrectHeader()
+        public void HandleExportMasterOrAgentExcelQuery_Always_ExportsCorrectHeader()
         {
             // Arrange
-            var message = new MasterPlayForFunExcelQuery(user);
+            var message = new MasterOrAgentPlayForFunExcelQuery(user);
 
             // Act
             handler.Handle(message);
@@ -122,10 +121,10 @@
         }
 
         [Fact]
-        public void HandleExportMasterExcelQuery_Always_ExportsCorrectBody()
+        public void HandleExportMasterOrAgentExcelQuery_Always_ExportsCorrectBody()
         {
             // Arrange
-            var message = new MasterPlayForFunExcelQuery(user);
+            var message = new MasterOrAgentPlayForFunExcelQuery(user);
 
             // Act
             handler.Handle(message);
@@ -135,10 +134,10 @@
         }
 
         [Fact]
-        public void HandleExportMasterExcelQuery_Always_ExportsCorrectFooter()
+        public void HandleExportMasterOrAgentExcelQuery_Always_ExportsCorrectFooter()
         {
             // Arrange
-            var message = new MasterPlayForFunExcelQuery(user);
+            var message = new MasterOrAgentPlayForFunExcelQuery(user);
             var expectedTotal = new MasterAgentPlayForFunModel(0, string.Empty, 1, 2, 3, 4);
 
             // Act
@@ -151,10 +150,10 @@
         }
 
         [Fact]
-        public void HandleExportMasterExcelQuery_Always_ExportsCorrectSheetName()
+        public void HandleExportMasterOrAgentExcelQuery_Always_ExportsCorrectSheetName()
         {
             // Arrange
-            var message = new MasterPlayForFunExcelQuery(user);
+            var message = new MasterOrAgentPlayForFunExcelQuery(user);
 
             // Act
             handler.Handle(message);
@@ -164,107 +163,10 @@
         }
 
         [Fact]
-        public void HandleExportMasterExcelQuery_Always_ExportsExcelToBytes()
+        public void HandleExportMasterOrAgentExcelQuery_Always_ExportsExcelToBytes()
         {
             // Arrange
-            var message = new MasterPlayForFunExcelQuery(user);
-
-            // Act
-            handler.Handle(message);
-
-            // Assert
-            workbook.Received().ExportToBytes();
-        }
-
-        [Fact]
-        public void HandleExportAgentExcelQuery_Always_UsesCorrectTemplateInfo()
-        {
-            // Arrange
-            var message = new AgentPlayForFunExcelQuery(user);
-
-            // Act
-            handler.Handle(message);
-
-            // Assert
-            workbook.Received().UseTemplate(Arg.Is<TemplateInfo>(
-                tp => tp.NoInfomationText == "No information is available" &&
-                tp.FreezeColumnName == "A" &&
-                tp.FreezeRowIndex == 2));
-        }
-
-        [Fact]
-        public void HandleExportAgentExcelQuery_Always_ExportsCorrectTitle()
-        {
-            // Arrange
-            var message = new AgentPlayForFunExcelQuery(user) { CustLevelId = 3 };
-
-            // Act
-            handler.Handle(message);
-
-            // Assert
-            workbook.Received().Title(Arg.Is("Agent Play For Fun Detail 12/02/2016 --> 12/02/2016 of Product Names (All Status)"));
-        }
-
-        [Fact]
-        public void HandleExportAgentExcelQuery_Always_ExportsCorrectHeader()
-        {
-            // Arrange
-            var message = new AgentPlayForFunExcelQuery(user);
-
-            // Act
-            handler.Handle(message);
-
-            // Assert
-            workbook.Received().Header(Arg.Any<Func<string, string>>());
-        }
-
-        [Fact]
-        public void HandleExportAgentExcelQuery_Always_ExportsCorrectBody()
-        {
-            // Arrange
-            var message = new AgentPlayForFunExcelQuery(user);
-
-            // Act
-            handler.Handle(message);
-
-            // Assert
-            workbook.Received().Body(Arg.Is(masterAgentPlayForFunModels), Arg.Any<Mapper<PlayForFunModel>>());
-        }
-
-        [Fact]
-        public void HandleExportAgentExcelQuery_Always_ExportsCorrectFooter()
-        {
-            // Arrange
-            var message = new AgentPlayForFunExcelQuery(user);
-            var expectedTotal = new MasterAgentPlayForFunModel(0, string.Empty, 1, 2, 3, 4);
-
-            // Act
-            handler.Handle(message);
-
-            // Assert
-            workbook.Received().Footer(
-                Arg.Is<PlayForFunModel>(total => compareLogic.Compare(expectedTotal, total).AreEqual),
-                Arg.Any<Mapper<PlayForFunModel>>());
-        }
-
-        [Fact]
-        public void HandleExportAgentExcelQuery_Always_ExportsCorrectSheetName()
-        {
-            // Arrange
-            var message = new AgentPlayForFunExcelQuery(user);
-
-            // Act
-            handler.Handle(message);
-
-            // Assert
-            workbook.Received().Sheet(Arg.Is("Sheet 1"));
-        }
-
-        [Fact]
-        public void HandleExportAgentExcelQuery_Always_ExportsExcelToBytes()
-        {
-            // Arrange
-            var message = new AgentPlayForFunExcelQuery(user);
+            var message = new MasterOrAgentPlayForFunExcelQuery(user);
 
             // Act
             handler.Handle(message);

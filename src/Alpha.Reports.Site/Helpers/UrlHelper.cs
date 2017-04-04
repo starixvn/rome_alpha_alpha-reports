@@ -31,7 +31,7 @@
             }
         }
 
-        public static Func<int, string, string> GetSiteUrl { get; internal set; } = GetUrl;
+        public static Func<string, string, string> GetSiteUrl { get; internal set; } = GetUrl;
 
         internal static string AddQueryStringParams(string url, IDictionary<string, object> routeValues)
         {
@@ -81,9 +81,9 @@
             return url + $"&{paramName}={paramValue}";
         }
 
-        internal static string GetUrl(int custLevel, string currentQuery)
+        internal static string GetUrl(string action, string currentQuery)
         {
-            var relativePath = Enumeration.FromValue<UserLevel>((byte)custLevel).GetDirectDownLineLevel().DisplayName + currentQuery;
+            var relativePath = action + currentQuery;
             var url = AppPathHelper.GetAppPath(SiteSettings.ReportsAppPath, relativePath);
 
             return url;

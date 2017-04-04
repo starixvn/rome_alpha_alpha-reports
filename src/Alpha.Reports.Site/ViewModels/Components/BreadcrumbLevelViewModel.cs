@@ -34,9 +34,9 @@
                 });
         }
 
-        public string BuildBreadcrumbLinkByLevel(CustInfo model, string currentQuery)
+        public string BuildBreadcrumbLinkByLevel(CustInfo model, string currentQuery, Dictionary<int, string> breadcrumbActions)
         {
-            var url = UrlHelper.GetSiteUrl(model.CustLevelId, currentQuery);
+            var url = UrlHelper.GetSiteUrl(breadcrumbActions[model.CustLevelId], currentQuery);
 
             return BuildBreadcrumbLink(model, url);
         }

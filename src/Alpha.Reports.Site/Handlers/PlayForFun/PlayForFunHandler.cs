@@ -13,8 +13,7 @@
 
     public class PlayForFunHandler :
         PlayForFunBaseHandler,
-        IRequestHandler<MasterPlayForFunQuery, MasterPlayForFunReportViewModel>,
-        IRequestHandler<AgentPlayForFunQuery, AgentPlayForFunReportViewModel>,
+        IRequestHandler<MasterOrAgentPlayForFunQuery, MasterOrAgentPlayForFunReportViewModel>,
         IRequestHandler<MemberPlayForFunQuery, MemberPlayForFunReportViewModel>
     {
         public PlayForFunHandler(ProductService productService, PlayForFunService reportService)
@@ -22,28 +21,13 @@
         {
         }
 
-        public MasterPlayForFunReportViewModel Handle(MasterPlayForFunQuery message)
+        public MasterOrAgentPlayForFunReportViewModel Handle(MasterOrAgentPlayForFunQuery message)
         {
             var products = reportService.SupportedProduct(message.CustId).ToList();
             var param = CreatePlayForFunParam(message, products);
-            var reportData = reportService.MasterPlayForFun(param);
+            var reportData = reportService.MasterOrAgentPlayForFun(param);
 
-            return new MasterPlayForFunReportViewModel(
-                message,
-                param,
-                BuildBreadcrumbLevel(message),
-                BuildProductSelectListItems(new List<int> { param.ProductId }, products),
-                BuildStatusSelectListItems(message.UserSelectedStatusId),
-                new ReportData<PlayForFunModel>(reportData, BuildMasterPlayForFunTotal(reportData)));
-        }
-
-        public AgentPlayForFunReportViewModel Handle(AgentPlayForFunQuery message)
-        {
-            var products = reportService.SupportedProduct(message.CustId).ToList();
-            var param = CreatePlayForFunParam(message, products);
-            var reportData = reportService.AgentPlayForFun(param);
-
-            return new AgentPlayForFunReportViewModel(
+            return new MasterOrAgentPlayForFunReportViewModel(
                 message,
                 param,
                 BuildBreadcrumbLevel(message),

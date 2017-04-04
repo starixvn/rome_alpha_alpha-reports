@@ -42,8 +42,7 @@
                 new MasterAgentPlayForFunModel(0, string.Empty, 1, 2, 3, 4)
             };
 
-            reportService.MasterPlayForFun(Arg.Any<PlayForFunParam>()).Returns(masterAgentPlayForFunModels);
-            reportService.AgentPlayForFun(Arg.Any<PlayForFunParam>()).Returns(masterAgentPlayForFunModels);
+            reportService.MasterOrAgentPlayForFun(Arg.Any<PlayForFunParam>()).Returns(masterAgentPlayForFunModels);
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -57,11 +56,11 @@
         }
 
         [Fact]
-        public void HandleMasterPlayForFunQuery_NotSupportAnyProduct_ReturnsCorrectViewModel()
+        public void HandleMasterOrAgentPlayForFunQuery_NotSupportAnyProduct_ReturnsCorrectViewModel()
         {
             // Arrange
             reportService.SupportedProduct(Arg.Any<int>()).Returns(Enumerable.Empty<Product>());
-            var message = new MasterPlayForFunQuery(user)
+            var message = new MasterOrAgentPlayForFunQuery(user)
             {
                 CustId = 0,
                 CustName = string.Empty,
@@ -70,7 +69,7 @@
 
             var data = new ReportData<PlayForFunModel>(masterAgentPlayForFunModels, new MasterAgentPlayForFunModel(0, string.Empty, 1, 2, 3, 4));
 
-            var expectedViewModel = new MasterPlayForFunReportViewModel(
+            var expectedViewModel = new MasterOrAgentPlayForFunReportViewModel(
                  message,
                  CreatePlayForFunParam(message, 0),
                  new List<CustInfo> { new CustInfo(0, string.Empty, 4) },
@@ -91,12 +90,12 @@
         }
 
         [Fact]
-        public void HandleMasterPlayForFunQuery_HasSupportProducts_ReturnsCorrectViewModel()
+        public void HandleMasterOrAgentPlayForFunQuery_HasSupportProducts_ReturnsCorrectViewModel()
         {
             // Arrange
             reportService.SupportedProduct(Arg.Any<int>()).Returns(supportedProduct);
 
-            var message = new MasterPlayForFunQuery(user)
+            var message = new MasterOrAgentPlayForFunQuery(user)
             {
                 CustId = 0,
                 CustName = string.Empty,
@@ -106,85 +105,10 @@
 
             var data = new ReportData<PlayForFunModel>(masterAgentPlayForFunModels, new MasterAgentPlayForFunModel(0, string.Empty, 1, 2, 3, 4));
 
-            var expectedViewModel = new MasterPlayForFunReportViewModel(
+            var expectedViewModel = new MasterOrAgentPlayForFunReportViewModel(
                  message,
                  CreatePlayForFunParam(message, 22),
                  new List<CustInfo> { new CustInfo(0, string.Empty, 4) },
-                 new List<SelectListItem>
-                 {
-                     new SelectListItem { Text = null, Value = "6", Selected = false },
-                     new SelectListItem { Text = null, Value = "22", Selected = true },
-                     new SelectListItem { Text = null, Value = "24", Selected = false }
-                 },
-                 new List<SelectListItem>
-                 {
-                     new SelectListItem { Text = "All", Value = "2", Selected = true },
-                     new SelectListItem { Text = "Enabled", Value = "0", Selected = false },
-                     new SelectListItem { Text = "Disabled", Value = "1", Selected = false }
-                 },
-                 data);
-
-            // Act
-            var actualViewModel = handler.Handle(message);
-
-            // Assert
-            AssertExtension.Equal(expectedViewModel, actualViewModel);
-        }
-
-        [Fact]
-        public void HandleAgentPlayForFunQuery_NotSupportAnyProduct_ReturnsCorrectViewModel()
-        {
-            // Arrange
-            reportService.SupportedProduct(Arg.Any<int>()).Returns(Enumerable.Empty<Product>());
-            var message = new AgentPlayForFunQuery(user)
-            {
-                CustId = 0,
-                CustName = string.Empty,
-                CustLevelId = 3
-            };
-
-            var data = new ReportData<PlayForFunModel>(masterAgentPlayForFunModels, new MasterAgentPlayForFunModel(0, string.Empty, 1, 2, 3, 4));
-
-            var expectedViewModel = new AgentPlayForFunReportViewModel(
-                 message,
-                 CreatePlayForFunParam(message, 0),
-                 new List<CustInfo> { new CustInfo(0, string.Empty, 3) },
-                 Enumerable.Empty<SelectListItem>(),
-                 new List<SelectListItem>
-                 {
-                     new SelectListItem { Text = "All", Value = "2", Selected = true },
-                     new SelectListItem { Text = "Enabled", Value = "0", Selected = false },
-                     new SelectListItem { Text = "Disabled", Value = "1", Selected = false }
-                 },
-                 data);
-
-            // Act
-            var actualViewModel = handler.Handle(message);
-
-            // Assert
-            AssertExtension.Equal(expectedViewModel, actualViewModel);
-        }
-
-        [Fact]
-        public void HandleAgentPlayForFunQuery_HasSupportProducts_ReturnsCorrectViewModel()
-        {
-            // Arrange
-            reportService.SupportedProduct(Arg.Any<int>()).Returns(supportedProduct);
-
-            var message = new AgentPlayForFunQuery(user)
-            {
-                CustId = 0,
-                CustName = string.Empty,
-                CustLevelId = 3,
-                UserSelectedProductId = 22
-            };
-
-            var data = new ReportData<PlayForFunModel>(masterAgentPlayForFunModels, new MasterAgentPlayForFunModel(0, string.Empty, 1, 2, 3, 4));
-
-            var expectedViewModel = new AgentPlayForFunReportViewModel(
-                 message,
-                 CreatePlayForFunParam(message, 22),
-                 new List<CustInfo> { new CustInfo(0, string.Empty, 3) },
                  new List<SelectListItem>
                  {
                      new SelectListItem { Text = null, Value = "6", Selected = false },
@@ -302,6 +226,7 @@
                 message.FromDate,
                 message.ToDate,
                 userSelectedProductId,
-                message.UserSelectedStatusId);
+                message.UserSelectedStatusId,
+                message.CustLevel);
     }
 }

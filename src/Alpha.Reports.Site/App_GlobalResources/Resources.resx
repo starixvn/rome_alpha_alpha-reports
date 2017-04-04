@@ -385,17 +385,17 @@
     <value>FT</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
-		<value>Outstanding</value>
-	</data>
+    <value>Outstanding</value>
+  </data>
   <data name="MemberOutstanding" xml:space="preserve">
-		<value>Member Outstanding</value>
-	</data>
+    <value>Member Outstanding</value>
+  </data>
   <data name="AgentOutstanding" xml:space="preserve">
-		<value>Agent Outstanding</value>
-	</data>
+    <value>Agent Outstanding</value>
+  </data>
   <data name="MasterOutstanding" xml:space="preserve">
-		<value>Master Outstanding</value>
-	</data>
+    <value>Master Outstanding</value>
+  </data>
   <data name="MasterPlayForFunDetail" xml:space="preserve">
     <value>Master Play For Fun Detail</value>
   </data>
@@ -438,6 +438,19 @@
   <data name="Match" xml:space="preserve">
     <value>Match</value>
   </data>
+   <data name="Daily" xml:space="preserve">
+    <value>Daily</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>Sport</value>
+  </data>
+  <data name="WinLossAnalysis" xml:space="preserve">
+    <value>Win Loss Analysis</value>
+  </data>
+
   <data name="PositionTaking" xml:space="preserve">
     <value>Position Taking</value>
   </data>
@@ -474,5 +487,17 @@
   </data>
   <data name="GrandTotal" xml:space="preserve">
     <value>Grand Total</value>
+  </data>
+  <data name="ReportBy" xml:space="preserve">
+    <value>Report by</value>
+  </data>
+  <data name="DailyWinLossAnalysis" xml:space="preserve">
+    <value>Daily Win Loss Analysis</value>
+  </data>
+  <data name="MonthlyWinLossAnalysis" xml:space="preserve">
+    <value>Monthly Win Loss Analysis</value>
+  </data>
+  <data name="SportWinLossAnalysis" xml:space="preserve">
+    <value>Sport Win Loss Analysis</value>
   </data>
 </root>

@@ -250,6 +250,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Daily.
+        /// </summary>
+        public static string Daily {
+            get {
+                return ResourceManager.GetString("Daily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily Win Loss Analysis.
+        /// </summary>
+        public static string DailyWinLossAnalysis {
+            get {
+                return ResourceManager.GetString("DailyWinLossAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string Date {
@@ -619,6 +637,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly.
+        /// </summary>
+        public static string Monthly {
+            get {
+                return ResourceManager.GetString("Monthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Win Loss Analysis.
+        /// </summary>
+        public static string MonthlyWinLossAnalysis {
+            get {
+                return ResourceManager.GetString("MonthlyWinLossAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Net Turnover.
         /// </summary>
         public static string NetTurnover {
@@ -816,6 +852,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
+         /// <summary>
+        ///   Looks up a localized string similar to Report by.
+        /// </summary>
+        public static string ReportBy {
+            get {
+                return ResourceManager.GetString("ReportBy", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Results.
         /// </summary>
@@ -894,6 +939,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sport.
+        /// </summary>
+        public static string Sport {
+            get {
+                return ResourceManager.GetString("Sport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sport Win Loss Analysis.
+        /// </summary>
+        public static string SportWinLossAnalysis {
+            get {
+                return ResourceManager.GetString("SportWinLossAnalysis", resourceCulture);
             }
         }
         
@@ -1101,6 +1164,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string WinLossAbbr {
             get {
                 return ResourceManager.GetString("WinLossAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Win Loss Analysis.
+        /// </summary>
+        public static string WinLossAnalysis {
+            get {
+                return ResourceManager.GetString("WinLossAnalysis", resourceCulture);
             }
         }
         

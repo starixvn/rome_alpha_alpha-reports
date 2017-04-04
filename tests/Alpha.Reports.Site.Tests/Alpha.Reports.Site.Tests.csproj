@@ -207,6 +207,7 @@
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
     <Compile Include="Controllers\ReportLegendControllerTests.cs" />
+    <Compile Include="Controllers\WinLossAnalysisControllerTests.cs" />
     <Compile Include="Controllers\PlayForFunControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossControllerTests.cs" />
     <Compile Include="Controllers\LeagueControllerTests.cs" />
@@ -222,6 +223,8 @@
     <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
+    <Compile Include="Handlers\WinLossAnalysis\WinLossExcelHandlerTest.cs" />
+    <Compile Include="Handlers\WinLossAnalysis\WinLossHandlerTests.cs" />
     <Compile Include="Handlers\PlayForFun\PlayForFunExcelHandlerTests.cs" />
     <Compile Include="Handlers\PlayForFun\PlayForFunHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
@@ -247,6 +250,7 @@
     <Compile Include="Requests\ReportDefaultDateRangeQueryTests.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\MatchWinLossDetailTestCases.cs" />
+    <Compile Include="TestCases\WinLossAnalysisViewModelTestCases.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />
@@ -254,6 +258,7 @@
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModelTests.cs" />
     <Compile Include="ViewModels\Outstanding\OutstandingViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossAnalysis\WinLossFilterViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModelTests.cs" />
     <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelForTesting.cs" />
     <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelTests.cs" />
@@ -262,6 +267,7 @@
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossFilterViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModelTests.cs" />
   </ItemGroup>

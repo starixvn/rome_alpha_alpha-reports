@@ -8,7 +8,6 @@
     using Reports.Models;
     using Reports.Models.PlayForFun;
     using Requests.PlayForFun;
-    using Utils;
 
     public class PlayForFunReportViewModel : DrillDownableReportViewModel<PlayForFunModel>
     {
@@ -16,6 +15,13 @@
         public const string SortByTurnover = nameof(PlayForFunModel.Turnover);
         public const string SortByMemberWinLoss = nameof(PlayForFunModel.WinLoss);
         public const string SortByPlayCount = nameof(PlayForFunModel.BetCount);
+
+        public static readonly Dictionary<int, string> BreadcrumbActions = new Dictionary<int, string>
+        {
+            [4] = "masteroragent",
+            [3] = "masteroragent",
+            [2] = "member"
+        };
 
         private readonly PlayForFunQuery query;
         private readonly PlayForFunParam param;

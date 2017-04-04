@@ -60,7 +60,8 @@
                 message.FromDate,
                 message.ToDate,
                 message.UserSelectedProductId == 0 ? firstProductId : message.UserSelectedProductId,
-                message.UserSelectedStatusId);
+                message.UserSelectedStatusId,
+                message.CustLevel);
         }
 
         protected string GetStatusName(int statusId)

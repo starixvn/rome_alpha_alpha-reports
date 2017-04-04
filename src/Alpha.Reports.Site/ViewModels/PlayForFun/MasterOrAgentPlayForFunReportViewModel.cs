@@ -9,15 +9,15 @@
     using Reports.Models.PlayForFun;
     using Requests.PlayForFun;
 
-    public class AgentPlayForFunReportViewModel : PlayForFunReportViewModel
+    public class MasterOrAgentPlayForFunReportViewModel : PlayForFunReportViewModel
     {
         public const string SortByNumberOfPlayers = nameof(MasterAgentPlayForFunModel.NumberOfPlayers);
 
         [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2100:CodeLineMustNotBeLongerThan",
-            Justification = "Separate Code Makes Duplicate Lines With Other Classes.")]
-        public AgentPlayForFunReportViewModel(PlayForFunQuery query, PlayForFunParam param, IEnumerable<CustInfo> breadcrumbLevel, IEnumerable<SelectListItem> products, IEnumerable<SelectListItem> statuses, ReportData<PlayForFunModel> reportData)
+              "StyleCop.CSharp.StylecopPlus.Rules",
+              "SP2100:CodeLineMustNotBeLongerThan",
+              Justification = "Separate Code Makes Duplicate Lines With Other Classes.")]
+        public MasterOrAgentPlayForFunReportViewModel(PlayForFunQuery query, PlayForFunParam param, IEnumerable<CustInfo> breadcrumbLevel, IEnumerable<SelectListItem> products, IEnumerable<SelectListItem> statuses, ReportData<PlayForFunModel> reportData)
             : base(query, param, breadcrumbLevel, products, statuses, reportData)
         {
             var isResetSort = reportData.DataSource == null
@@ -27,6 +27,9 @@
 
             SortPropertyName = isResetSort ? SortByNumberOfPlayers : query.SortPropertyName;
             IsDescendingSort = isResetSort || query.IsDescendingSort;
+            DrilldownAction = query.CustLevel.IsSuperLevel() ? "MasterOrAgent" : "Member";
         }
+
+        public string DrilldownAction { get; }
     }
 }

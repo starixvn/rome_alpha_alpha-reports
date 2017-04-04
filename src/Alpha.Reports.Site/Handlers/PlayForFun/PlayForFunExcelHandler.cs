@@ -14,8 +14,7 @@
 
     public class PlayForFunExcelHandler :
         PlayForFunBaseHandler,
-        IRequestHandler<MasterPlayForFunExcelQuery, ExcelFileViewModel>,
-        IRequestHandler<AgentPlayForFunExcelQuery, ExcelFileViewModel>,
+        IRequestHandler<MasterOrAgentPlayForFunExcelQuery, ExcelFileViewModel>,
         IRequestHandler<MemberPlayForFunExcelQuery, ExcelFileViewModel>
     {
         private readonly Workbook<PlayForFunModel> workbook;
@@ -29,29 +28,11 @@
             this.workbook = workbook;
         }
 
-        public ExcelFileViewModel Handle(MasterPlayForFunExcelQuery message)
+        public ExcelFileViewModel Handle(MasterOrAgentPlayForFunExcelQuery message)
         {
             var products = reportService.SupportedProduct(message.CustId).ToList();
             var param = CreatePlayForFunParam(message, products);
-            var reportData = reportService.MasterPlayForFun(param);
-
-            var fileContent = workbook
-                .UseTemplate(GetTemplateInfo(message))
-                .Title(GetReporTitle(message))
-                .Header(Resources.ResourceManager.GetString)
-                .Body(reportData, GetMasterAgentBodyRowMapper())
-                .Footer(BuildMasterPlayForFunTotal(reportData), GetMasterAgentTotalRowMapper())
-                .Sheet(Resources.DefaultSheetName)
-                .ExportToBytes();
-
-            return new ExcelFileViewModel(GetExcelFileName(message, param), fileContent);
-        }
-
-        public ExcelFileViewModel Handle(AgentPlayForFunExcelQuery message)
-        {
-            var products = reportService.SupportedProduct(message.CustId).ToList();
-            var param = CreatePlayForFunParam(message, products);
-            var reportData = reportService.AgentPlayForFun(param);
+            var reportData = reportService.MasterOrAgentPlayForFun(param);
 
             var fileContent = workbook
                 .UseTemplate(GetTemplateInfo(message))

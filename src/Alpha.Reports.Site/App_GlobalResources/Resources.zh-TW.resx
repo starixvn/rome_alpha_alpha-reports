@@ -346,17 +346,17 @@
     <value>球賽輸贏</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
-		<value>未完成交易</value>
-	</data>
+    <value>未完成交易</value>
+  </data>
   <data name="MemberOutstanding" xml:space="preserve">
-		<value>會員未結束交易</value>
-	</data>
+    <value>會員未結束交易</value>
+  </data>
   <data name="AgentOutstanding" xml:space="preserve">
-		<value>代理未結束交易</value>
-	</data>
+    <value>代理未結束交易</value>
+  </data>
   <data name="MasterOutstanding" xml:space="preserve">
-		<value>總代理未結束交易</value>
-	</data>
+    <value>總代理未結束交易</value>
+  </data>
   <data name="Status" xml:space="preserve">
     <value>狀態</value>
   </data>
@@ -391,6 +391,28 @@
   <data name="SubTotal" xml:space="preserve">
     <value>小計</value>
   </data>
+   <data name="Daily" xml:space="preserve">
+    <value>每天</value>
+  </data>
+  <data name="DailyWinLossAnalysis" xml:space="preserve">
+    <value>每日輸贏分析</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="MonthlyWinLossAnalysis" xml:space="preserve">
+    <value>每月輸贏分析</value>
+  </data>
+  <data name="ReportBy" xml:space="preserve">
+    <value>由報告</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>運動</value>
+  </data>
+  <data name="SportWinLossAnalysis" xml:space="preserve">
+    <value>體育輸贏分析</value>
+  </data>
+
   <data name="MatchWinLossDetail" xml:space="preserve">
     <value>輸贏報告資料</value>
   </data>

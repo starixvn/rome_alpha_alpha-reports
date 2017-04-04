@@ -334,17 +334,17 @@
     <value>Loại cược</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
-		<value>Tiền chưa xử lý</value>
-	</data>
+    <value>Tiền chưa xử lý</value>
+  </data>
   <data name="MemberOutstanding" xml:space="preserve">
-		<value>Tiền chưa xử lý của Member</value>
-	</data>
+    <value>Tiền chưa xử lý của Member</value>
+  </data>
   <data name="AgentOutstanding" xml:space="preserve">
-		<value>Tiền chưa xử lý của Agent</value>
-	</data>
+    <value>Tiền chưa xử lý của Agent</value>
+  </data>
   <data name="MasterOutstanding" xml:space="preserve">
-		<value>Tiền chưa xử lý của Master</value>
-	</data>
+    <value>Tiền chưa xử lý của Master</value>
+  </data>
   <data name="Status" xml:space="preserve">
     <value>Trạng thái</value>
   </data>
@@ -376,4 +376,26 @@
   <data name="DelayIssueLegend" xml:space="preserve">
     <value>- Số liệu của {0} sẽ bị trì hoãn 5 phút kể từ khi hoàn thành các vé cược. </value>
   </data>
+   <data name="Daily" xml:space="preserve">
+    <value>Hằng ngày</value>
+  </data>
+  <data name="DailyWinLossAnalysis" xml:space="preserve">
+    <value>Đánh giá kết quả thắng thua trong ngày</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Hằng tháng</value>
+  </data>
+  <data name="MonthlyWinLossAnalysis" xml:space="preserve">
+    <value>Phân tích hệ số thắng thua trong tháng</value>
+  </data>
+  <data name="ReportBy" xml:space="preserve">
+    <value>Báo cáo</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>Sport</value>
+  </data>
+  <data name="SportWinLossAnalysis" xml:space="preserve">
+    <value>Phân tích kết quả thắng thua của từng môn thể thao</value>
+  </data>
+
 </root>

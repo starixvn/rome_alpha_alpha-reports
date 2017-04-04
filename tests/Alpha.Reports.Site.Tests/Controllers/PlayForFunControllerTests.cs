@@ -24,26 +24,13 @@
         }
 
         [Fact]
-        public void Master_Always_CallsMediatorSendMasterPlayForFunQuery()
+        public void MasterOrAgent_Always_CallsMediatorSendMasterOrAgentPlayForFunQuery()
         {
             // Arrange
-            var message = new MasterPlayForFunQuery(userFixture.User);
+            var message = new MasterOrAgentPlayForFunQuery(userFixture.User);
 
             // Act
-            controller.Master(message);
-
-            // Assert
-            mediator.Received().Send(message);
-        }
-
-        [Fact]
-        public void Agent_Always_CallsMediatorSendAgentPlayForFunQuery()
-        {
-            // Arrange
-            var message = new AgentPlayForFunQuery(userFixture.User);
-
-            // Act
-            controller.Agent(message);
+            controller.MasterOrAgent(message);
 
             // Assert
             mediator.Received().Send(message);
@@ -63,28 +50,14 @@
         }
 
         [Fact]
-        public void MasterExcel_Always_CallsMediatorSendMasterPlayForFunExcelQuery()
+        public void MasterOrAgentExcel_Always_CallsMediatorSendMasterOrAgentPlayForFunExcelQuery()
         {
             // Arrange
-            var message = new MasterPlayForFunExcelQuery(userFixture.User);
-            mediator.Send<ExcelFileViewModel>(Arg.Any<MasterPlayForFunExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
+            var message = new MasterOrAgentPlayForFunExcelQuery(userFixture.User);
+            mediator.Send<ExcelFileViewModel>(Arg.Any<MasterOrAgentPlayForFunExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
 
             // Act
-            controller.MasterExcel(message);
-
-            // Assert
-            mediator.Received().Send(message);
-        }
-
-        [Fact]
-        public void AgentExcel_Always_CallsMediatorSendAgentPlayForFunExcelQuery()
-        {
-            // Arrange
-            var message = new AgentPlayForFunExcelQuery(userFixture.User);
-            mediator.Send<ExcelFileViewModel>(Arg.Any<AgentPlayForFunExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
-
-            // Act
-            controller.AgentExcel(message);
+            controller.MasterOrAgentExcel(message);
 
             // Assert
             mediator.Received().Send(message);
