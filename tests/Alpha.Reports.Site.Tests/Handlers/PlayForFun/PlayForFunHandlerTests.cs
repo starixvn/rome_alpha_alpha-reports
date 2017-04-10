@@ -99,7 +99,7 @@
             {
                 CustId = 0,
                 CustName = string.Empty,
-                CustLevelId = 4,
+                CustLevelId = 3,
                 UserSelectedProductId = 22
             };
 
@@ -108,7 +108,7 @@
             var expectedViewModel = new MasterOrAgentPlayForFunReportViewModel(
                  message,
                  CreatePlayForFunParam(message, 22),
-                 new List<CustInfo> { new CustInfo(0, string.Empty, 4) },
+                 new List<CustInfo> { new CustInfo(0, string.Empty, 3) },
                  new List<SelectListItem>
                  {
                      new SelectListItem { Text = null, Value = "6", Selected = false },
