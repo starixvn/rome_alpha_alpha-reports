@@ -22,7 +22,7 @@
             UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
             // Act
-            viewModel.BuildBreadcrumbLink(custInfo, "currentUrl");
+            viewModel.BuildBreadcrumbLink(custInfo, "currentUrl", null);
 
             // Assert
             UrlHelper.ReplaceOrAddQueryStringParamsFunc

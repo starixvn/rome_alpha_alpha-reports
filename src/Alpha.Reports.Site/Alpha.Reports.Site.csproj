@@ -645,7 +645,6 @@
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Agent.xls" />
     <Content Include="App_Code\Components\StatusSelection.cshtml" />
     <Content Include="App_Code\Components\ProductSingleSelection.cshtml" />
-    <Content Include="App_Code\Components\BreadcrumbByLevel.cshtml" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Member.xls" />

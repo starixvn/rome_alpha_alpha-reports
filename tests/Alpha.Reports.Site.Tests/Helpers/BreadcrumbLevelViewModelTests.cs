@@ -22,10 +22,10 @@
             var breadcrumbLevelViewModel = new BreadcrumbLevelViewModel(new List<CustInfo> { custInfo }, string.Empty);
             var query = "Query";
             var expectedLink = "Member?Query";
-            var breadcrumbActions = new Dictionary<int, string> { [1] = "Member" };
+            var breadcrumbParamByLevel = new Dictionary<int, string> { [1] = "Member" };
 
             // Act
-            var actualLink = breadcrumbLevelViewModel.BuildBreadcrumbLinkByLevel(custInfo, query, breadcrumbActions);
+            var actualLink = breadcrumbLevelViewModel.BuildBreadcrumbLink(custInfo, query, breadcrumbParamByLevel);
 
             // Assert
             Assert.Equal(expectedLink, actualLink);
