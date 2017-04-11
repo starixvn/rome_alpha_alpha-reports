@@ -1,0 +1,7 @@
+*** Settings ***
+Documentation     This interface defines the controls at header page
+
+*** Variables ***
+${hd_lblLoginName}    xpath=//*[@id='text_logo']/span
+${hd_lblLogo}     xpath=//*[@id='logoProfileImg']
+${hd_ogo}         xpath=//*[@id='logoProfileImg']

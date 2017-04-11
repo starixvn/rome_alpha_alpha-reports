@@ -1,0 +1,284 @@
+*** Settings ***
+Documentation     Test Module is used to verify Setting Status of:
+...               - Product Status
+...               - Double Comm
+...               - OutRight
+Suite Setup       Init Test Suite    ${ds_superStatusAccount_A}    ${ds_superStatusAccount_M}    ${ds_superStatusAccount_S}
+Suite Teardown    Teardown Test Suit
+Test Setup
+Test Teardown
+Force Tags        SmokeTestAgentSetting    SmokeTestAlpha    Status
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/menu/accountInfo_setting.txt
+Resource          ../../Data_set/accounts.txt
+
+*** Test Cases ***
+TC_SM_SP01_Suspend
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    suspended
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Agent is Suspended
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP02    Agent is Suspended
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_SP02_Unsuspend
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    suspended
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP01    Agent is Suspended
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP02    Master is Suspended
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SA_SP01_Suspend
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    suspended
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Agent is Suspended
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SA_SP02_Unsuspend
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    suspended
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP01    Agent is Suspended
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SP_SP01_Suspend
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    suspended
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SP_SP02_Unsuspend
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    suspended
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_CL01_Close
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    closed
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Closed
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Agent is Closed
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP03    Master is Closed
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_CL02_Open
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    closed
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Closed
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Agent is Closed
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP03    Master is Opened
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+
+TC_SA_CL01_Open
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    closed
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_agent}
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Closed
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP01    Agent is Opened
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP02    Agent Login: Member is Closed
+    Switch Browser    1
+    Login to Main Page    ${cfUrl}    ${tc_agent}    ${cfPwd}    ${cfSeCode}    Yes
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_SA_CL02_Close
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    closed
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_agent}
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Closed
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Agent is Open
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    Update Setting Status    save    ${tc_status}    uncheck    message
+
+TC_SP_CL01_Open
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    closed
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_member}
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Opened
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SP_CL02_Close
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_superStatusAccount_S}
+    ${tc_master}    set variable    ${ds_superStatusAccount_M}
+    ${tc_agent}    set variable    ${ds_superStatusAccount_A}
+    ${tc_member}    set variable    ${ds_superStatusAccount_P}
+    ${tc_status}    set variable    closed
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Closed
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    Update Setting Status    save    ${tc_status}    uncheck    message

@@ -1,0 +1,136 @@
+*** Settings ***
+Documentation     *Summary: Edit Virtual Member Sports PT*
+...
+...               *Steps:*
+...
+...               1. Log in as a Agent (SUPERTESTAUTOALPHA010101)
+...               2. Navigate Account Info tab then search a master
+...               3. Click Edit Virtual Sports in setting tab
+...               4. Edit values (Agent PT) for all sports
+...               5. Click Submit button
+...               6. VP. Message , setting window closed after update
+...               7. Click Edit Virtual Sports in setting tab
+...               8. Check values
+...               9. \ Set default values (Agent PT) for all sports
+...               10. Close browers
+Suite Setup       Init    username=${cf_agenttestauto}
+Suite Teardown    Close All Browsers
+Force Tags        AEM
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../../Actions/common_actions.txt
+Resource          ../../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../../Actions/Setting/status_actions.txt
+Resource          ../../../Interfaces/in_top_menu.txt
+Resource          ../../../Interfaces/Main/in_main.txt
+Resource          ../../../Interfaces/in_left_menu.txt
+Resource          ../../../Actions/PT/pt_sportsbook.html
+Resource          ../../../Data_set/accounts.txt
+Resource          ../../../Actions/PT/pt_virtualsports.txt
+
+*** Variables ***
+${cf_agenttestauto}    SUPERTESTAUTOALPHA010101
+${cf_membertestauto}    SUPERTESTAUTOALPHA010101001
+${cf_acc_auto_pass}    1234aaAA
+
+*** Test Cases ***
+TM_00_soccer
+    [Tags]
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Agent}    Set Variable    ${cf_agenttestauto}
+    ${tm_Member}    Set Variable    ${cf_membertestauto}
+    ${tm_agentpt}    Set Variable    0.5
+    ${tm_list}    Create List    0.5
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    Open Page
+    Comment    Login    ${cf_agenttestauto}    ${cf_acc_auto_pass}    ${cf_se_code}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Member}
+    Edit Virtual PT_agent    Soccer    ${tm_agentpt}
+    Reload Page
+    Search Account    ${tm_Member}
+    ${lstVirtualSoccerAfter}    Get Virtual PT    Agent    Soccer
+    Lists Should Be Equal    ${lstVirtualSoccerAfter}    ${tm_list}
+    Edit Virtual PT_agent    Soccer    0.69
+
+TM_01_tennis
+    [Tags]
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Agent}    Set Variable    ${cf_agenttestauto}
+    ${tm_Member}    Set Variable    ${cf_membertestauto}
+    ${tm_agentpt}    Set Variable    0.5
+    ${tm_list}    Create List    0.5
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    Open Page
+    Comment    Login    ${cf_agenttestauto}    ${cf_acc_auto_pass}    ${cf_se_code}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Member}
+    Edit Virtual PT_agent    Tennis    ${tm_agentpt}
+    Reload Page
+    Search Account    ${tm_Member}
+    ${lstVirtualSoccerAfter}    Get Virtual PT    Agent    Tennis
+    Lists Should Be Equal    ${lstVirtualSoccerAfter}    ${tm_list}
+    Edit Virtual PT_agent    Tennis    0.69
+
+TM_02_horse racing
+    [Tags]
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Agent}    Set Variable    ${cf_agenttestauto}
+    ${tm_Member}    Set Variable    ${cf_membertestauto}
+    ${tm_agentpt}    Set Variable    0.5
+    ${tm_list}    Create List    0.5
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    Open Page
+    Comment    Login    ${cf_agenttestauto}    ${cf_acc_auto_pass}    ${cf_se_code}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Member}
+    Edit Virtual PT_agent    Horseracing    ${tm_agentpt}
+    Reload Page
+    Search Account    ${tm_Member}
+    ${lstVirtualSoccerAfter}    Get Virtual PT    Agent    Horseracing
+    Lists Should Be Equal    ${lstVirtualSoccerAfter}    ${tm_list}
+    Edit Virtual PT_agent    Horseracing    0.69
+
+TM_03_greyhounds
+    [Tags]
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Agent}    Set Variable    ${cf_agenttestauto}
+    ${tm_Member}    Set Variable    ${cf_membertestauto}
+    ${tm_agentpt}    Set Variable    0.5
+    ${tm_list}    Create List    0.5
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    Open Page
+    Comment    Login    ${cf_agenttestauto}    ${cf_acc_auto_pass}    ${cf_se_code}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Member}
+    Edit Virtual PT_agent    Greyhounds    ${tm_agentpt}
+    Reload Page
+    Search Account    ${tm_Member}
+    ${lstVirtualSoccerAfter}    Get Virtual PT    Agent    Greyhounds
+    Lists Should Be Equal    ${lstVirtualSoccerAfter}    ${tm_list}
+    Edit Virtual PT_agent    Greyhounds    0.69
+
+TM_04_motorsports
+    [Tags]
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Agent}    Set Variable    ${cf_agenttestauto}
+    ${tm_Member}    Set Variable    ${cf_membertestauto}
+    ${tm_agentpt}    Set Variable    0.5
+    ${tm_list}    Create List    0.5
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    Open Page
+    Comment    Login    ${cf_agenttestauto}    ${cf_acc_auto_pass}    ${cf_se_code}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Member}
+    Edit Virtual PT_agent    Motorsports    ${tm_agentpt}
+    Reload Page
+    Search Account    ${tm_Member}
+    ${lstVirtualSoccerAfter}    Get Virtual PT    Agent    Motorsports
+    Lists Should Be Equal    ${lstVirtualSoccerAfter}    ${tm_list}
+    Edit Virtual PT_agent    Motorsports    0.69

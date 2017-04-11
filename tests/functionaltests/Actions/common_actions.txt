@@ -1,0 +1,1101 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Library           ExcelLibrary
+Resource          ../Interfaces/in_login.txt
+Resource          ../Interfaces/in_top_menu.txt
+Resource          ../Interfaces/Main/in_main.txt
+Resource          ../Interfaces/in_left_menu.txt
+Resource          ../Interfaces/Main/in_m_edit_sportsbook.txt
+Resource          ../Interfaces/Main/in_m_edit_racing.txt
+Resource          ../Interfaces/Main/in_m_securitycode_password.txt
+Resource          ../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../Actions/login.txt
+Resource          ../Interfaces/in_top_logininfo.txt
+Resource          ../Interfaces/Header/header.txt
+Resource          announcement.txt
+Resource          change_password.txt
+
+*** Keywords ***
+Config System
+    [Documentation]    This action is used to define init values
+    ################    Set Setting valuee
+    Set Global Variable    ${cfWaitTime}    5
+    Set Selenium Implicit Wait    ${cfWaitTime}
+    Set Global Variable    ${cfSpeed}    0.03
+    Set Selenium Speed    ${cfSpeed}
+    Set Global Variable    ${cfWaitControlLong}    90
+    Set Global Variable    ${cfWaitControl}    30
+    # Get Workplace path
+    ${ac_CurDir}    Set variable    ${CURDIR}
+    ${ac_worksSpace}    Replace String    ${ac_CurDir}    \Actions    ${EMPTY}
+    Set Global Variable    ${init_gbWorksSpace}    ${ac_worksSpace}    #################    Get config variable from Config.py file    https://mbc.gatonic.com    https://mbc.gatonic.com/
+    ...    # http://10.18.200.202:8021/AlphaTest/Index.aspx    http://10.18.200.202:68/site-Main/Index.aspx    http://10.18.200.202:9006/ex-main/_Authorization/SignIn.aspx?ReturnUrl=%2fsite-main%2f    http://ha.nexdev.net:7403/ex-main/(S(hmuztsd15oj4cl0s05vkpwr1))/_Authorization/SignIn.aspx
+    Set Global Variable    ${cfUrl}    ${Url}    #    ${Url}    http://10.18.200.202:8021/AlphaTest/Index.aspx    https://mbc.gatonic.com
+    Set Global Variable    ${cfBrowser}    ${Browser}    #    ${Browser}    ff    ff
+    Set Global Variable    ${cfSeCode}    123457    #    ${SeCode}    123457    123457
+    Set Global Variable    ${cfPwd}    1234aaAA    #    ${Pwd}    1234aaAA    1234aaAA
+    Set Global Variable    ${cfReportDate}    Now -2 day    #    Now -2 day    Now -2 day    Now -2 day
+    Set Global Variable    ${cfDBTime}    UTC - 4 hour    #    UTC - 4 hour    UTC - 4 hour    UTC - 4 hour
+    Set Global Variable    ${cfisLocal}    0    #    ${isLocal}    1    0
+    Set Global Variable    ${cfDsBetlistFile}    Data_set\\BetList_rptWinLostDetail_Pro.xls    #    ${DsBetlistFile}    Data_set\\BetList_rptWinLostDetail_Pro.xls    Data_set\\BetList_rptWinLostDetail_Pro.xls
+    Set Global Variable    ${cfDsResultsPage}    Data_set\\ResultsPage_Local.xls    #    ${DsResultsPage}    Data_set\\ResultsPage_Local.xls    Data_set\\ResultsPage_Pro.xls
+    Set Global Variable    ${cfReportDownloadFolder}    C:\\reportfolder    #    C:\\reportfolder    C:\\reportfolder    C:\\reportfolder
+    Set Global Variable    ${cfProductFilterList}    All Products (@NumberOfProduct@),Select all,Sportsbook,Racing,Number Game,Live Casino,Virtual Sports,Casino,Keno,Gold Deluxe,Colossus Bets,Allbet,Macau Games    #    All products of System Alpha
+    Create Sporttype Bettype Tote Dictionary
+
+Init
+    [Arguments]    ${username}=${EMPTY}
+    Config System
+    #################    Open Browser and navigate to login page
+    Open Browser    about:blank    ${cfBrowser}    #ff_profile_dir=${init_gbWorksSpace}\\firefox_profile
+    Delete All Cookies
+    Go To    ${cf_url}
+    Maximize Browser Window
+    #################    Login
+    Run Keyword Unless    '${username}'=='${EMPTY}'    Login    ${username}    ${cfPwd}
+    Comment    Run Keyword Unless    '${username}'=='${EMPTY}'    Input Security Code After Login    ${cfSeCode}
+    ## Stop Exec If Login Failed
+    Stop Execute If Element Not Appear    ${EMPTY}    //*[@id='profile-content']    ${cfWaitControlLong}    LOGIN FAIL
+    Comment    ## Close Quick Tour if existed
+    Comment    ${ac_isQuickTour}    Get Matching Xpath Count    ${in_main_btnNotNowTour}
+    Comment    Run Keyword If    ${ac_isQuickTour} > 0    Click Element    ${in_main_btnNotNowTour}
+    Comment    Run Keyword If    ${ac_isQuickTour} > 0    Click Element    ${in_main_btnCloseHint}
+    Comment    ${ac_IsAnounment}    Run Keyword And Return Status    Wait Until Element Is Visible    xpath=//div[@id='popup-container-text']    10s
+    Comment    Run Keyword If    ${ac_IsAnounment}    Click Element    xpath=//div[@id='popup-container-text']//button[@class='icon icon-close close']
+    Expand Collapse Left Menu Side bar
+    ################
+    Select Personal Menu    Password
+    Sleep    1s
+    ${cf_popup_annoucement}    Run Keyword And Return Status    Page Should Contain Element    xpath=//*[@id='announcement-id']/div[@id='popup-container-text']//button[@class='icon icon-close close']/span
+    Run Keyword If    '${cf_popup_annoucement}'=='True'    Click Button    xpath=//*[@id='announcement-id']/div[@id='popup-container-text']//button[@class='icon icon-close close']
+    Run Keyword And Ignore Error    Confirm Security Code
+
+Confirm Security Code
+    Select Frame    main
+    Input Text    ${in_m_SE_txtSE}    ${cfSeCode}
+    click element    ${in_m_SE_btnSubmit}
+    Unselect Frame
+
+Accounting Change Password
+    [Arguments]    ${newpwd}
+    Select Frame    content
+    Select Frame    leftPanel
+    #click login tab
+    Click Element    xpath=//*[@id='left_tab2_3']/a/span
+    #click change password link
+    Click Element    xpath=//*[contains(@href,'/ChangePassword.aspx')]
+    sleep    2s
+    #update password
+    Unselect Frame
+    Select Frame    content
+    Select Frame    centerFr
+    Input Password    xpath=//*[@name='txtPass']    ${newpwd}
+    Input Password    xpath=//*[@name='txtConfirmPass']    ${newpwd}
+    Click Element    xpath=//*[@value='Submit']
+    sleep    3s
+    Unselect Frame
+
+Accounting Search Username
+    [Arguments]    ${username}
+    Select Frame    content
+    Input Text    txtuserName    ${username}
+    Click Element    id=btnSendMsg
+    sleep    3s    wait for searching user
+    Unselect Frame
+
+Check Data
+    [Arguments]    ${locator}    ${expect}
+    Comment    ${ac_temp}=    Get Value    ${locator}
+    ${ac_temp}=    Run Keyword If    '${expect}'!='${EMPTY}'    Get Value    ${locator}
+    Run Keyword And Continue On Failure    Should Be Equal    ${ac_temp}    ${expect}
+
+Check DropDown List Values In Range
+    [Arguments]    ${lstlocator}    ${start}    ${end}    ${step}    ${expand_value}=${EMPTY}
+    [Documentation]    This action is used to check all items in list in specific range. This action just support value in range 0 -1
+    ...
+    ...    ${lstlocator}: the list locator
+    ...
+    ...    ${start}: the starting number of the sequence
+    ...
+    ...    ${end}: the ending number of the sequence
+    ...
+    ...    ${step}: the different between each number in the sequence
+    ...
+    ...    ${expand_value}: previous value
+    Select Frame    main
+    ${ac_selected}    Get Selected List Label    ${lstlocator}
+    ${ac_expandvalue}    Set Variable If    '${ac_selected}' > '${end}'    ${ac_selected}    ${EMPTY}
+    ## Get all items in list
+    ${lstcurrent}    Get List Text    ${lstlocator}    \n
+    ## Create range
+    ${lstchecked}    Create List in Range 0-1    ${start}    ${end}    ${step}
+    ## Check list items
+    Run Keyword If    '${expand_value}'!='${EMPTY}'    Append To List    ${lstchecked}    ${ac_expandvalue}
+    Compare Lists    ${lstchecked}    ${lstcurrent}    The ${lstlocator} list items are not in range [${start},${end}]
+    Unselect Frame
+
+Check Icon Exist
+    [Arguments]    ${icon}
+    Unselect Frame
+    Select Frame    main
+    Page Should Contain Element    ${icon}
+    Unselect Frame
+
+Close Announcement Popup
+    [Documentation]    This action is used to close announcement popup. This popup is showed when user login
+    ...
+    ...    *****History********
+    ...
+    ...    2016-12-19: Kingsley
+    Unselect Frame
+    ${ac_IsAnounment}    Run Keyword And Return Status    Wait Until Element Is Visible    xpath=//div[@id='popup-container-text']    5s
+    Run Keyword If    ${ac_IsAnounment}    Click Element    xpath=//div[@id='popup-container-text']//button[@class='icon icon-close close']
+
+Compare Lists
+    [Arguments]    ${lst1}    ${lst2}    ${errmsg}=NONE
+    [Documentation]    This action is used to check 2 list are equal
+    ...
+    ...    ${lst1}
+    ...
+    ...    ${lst2}
+    Sort List    ${lst1}
+    Sort List    ${lst2}
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${lst1}    ${lst2}    ${errmsg}
+
+convert format time
+    [Arguments]    ${input_time}
+    [Documentation]    This action is used to convert input time (format 24hrs) into 12hrs
+    ...
+    ...    EX:
+    ...    {inputtime}= 2014-09-24 00:50:11
+    ...    ${output_time} = 2014-09-24 12:50:11
+    ${day}    ${ac_time}    Split String    ${input_time}    ${SPACE}
+    ${ac_hour}    ${ac_min}    ${ac_sec}=    Split String    ${ac_time}    :
+    ${ac_hour}    Convert To Integer    ${ac_hour}
+    ${ac_hour}    Set Variable If    '${ac_hour}'=='0'    12    '${ac_hour}'>'12'    ${ac_hour-12}    ${ac_hour}
+    ${output_time}    Set Variable    ${day}${SPACE}${ac_hour}:${ac_min}:${ac_sec}
+    [Return]    ${output_time}
+
+Convert Date Time with Format
+    [Arguments]    ${inputDateTime}    ${returnFormat}=yyyymmdd
+    [Documentation]    This is the function return ${inputDateTime} with ${returnFormat}
+    ...
+    ...    ${inputDateTime}:
+    ...
+    ...    By default this keyword returns the current local time, but that can be altered using `time` argument as explained below. Note that all checks involving strings are case-insensitive.
+    ...
+    ...    - 1) If `time` is a number, or a string that can be converted to a number, it is interpreted as seconds since the UNIX epoch. This documentation was originally written about 1177654467 seconds after the epoch.
+    ...    -
+    ...    2) If `time` is a timestamp, that time will be used. Valid timestamp formats are 'YYYY-MM-DD hh:mm:ss' and 'YYYYMMDD hhmmss'.
+    ...    -
+    ...    3) If `time` is equal to 'NOW' (default), the current local time is used. This time is got using Python's 'time.time()' function.
+    ...    -
+    ...    4) If `time` is equal to 'UTC', the current time in UTC is used. This time is got using 'time.time() + time.altzone' in Python.
+    ...
+    ...    - 5) If `time` is in the format like 'NOW - 1 day' or 'UTC + 1 hour 30 min', the current local/UTC time plus/minus the time specified with the time string is used. The time string format is described in an appendix of Robot Framework User Guide.
+    ...
+    ...    Return Format:
+    ...    - yyyymmdd
+    ...
+    ...
+    ...
+    ...    -----HISTORY--------------------
+    ...    - [20150824]: Casey-Created
+    ${yyyy}    ${mm}    ${dd}    Get time    year,month,day    ${inputDateTime}
+    ${m}    run keyword if    '${mm}' < '10'    Fetch From Right    ${mm}    0
+    ...    ELSE    set variable    ${mm}
+    ${d}    run keyword if    '${dd}' < '10'    Fetch From Right    ${dd}    0
+    ...    ELSE    set variable    ${dd}
+    ${returnDay}    Run Keyword If    '${returnFormat}'=='yyyymmdd'    set variable    ${yyyy}${mm}${dd}
+    ${returnDay}    Run Keyword If    '${returnFormat}'=='mm/dd/yyyy'    set variable    ${mm}/${dd}/${yyyy}
+    ...    ELSE    Set variable    ${returnDay}
+    ${returnDay}    Run Keyword If    '${returnFormat}'=='m/d/yyyy'    set variable    ${m}/${d}/${yyyy}
+    ...    ELSE    Set variable    ${returnDay}
+    ${returnDay}    Run Keyword If    '${returnFormat}'=='mm_dd_yyyy'    set variable    ${mm}_${dd}_${yyyy}
+    ...    ELSE    Set variable    ${returnDay}
+    [Return]    ${returnDay}
+
+Create List in Range 0-1
+    [Arguments]    ${start}    ${end}    ${step}
+    [Documentation]    This action is used to create a list of number (in string) in range 0 -1
+    ...
+    ...    ${start}: the starting number of the sequence
+    ...
+    ...    ${end}: the ending number of the sequence
+    ...
+    ...    ${step}: the different between each number in the sequence
+    ...
+    ...    ${outputlist}: the output list that containg list of string number
+    ${tmpN}    Evaluate    int(1/${step})
+    ${tmpStart}    Evaluate    int(${start} * ${tmpN})
+    ${tmpEnd}    Evaluate    int(${end} * ${tmpN} +1)
+    ${outputlist}    Evaluate    [str(x*${step}) for x in range(${tmpStart}, ${tmpEnd})]
+    Run Keyword If    '${outputlist[0]}' == '0.0'    Set List Value    ${outputlist}    0    0
+    Run Keyword If    int(${outputlist[-1]}) == 1    Set List Value    ${outputlist}    -1    1
+    [Return]    ${outputlist}
+
+Create Sporttype Bettype Tote Dictionary
+    [Documentation]    This action is used to create global Dictionary variable to store sporttype, bettype and Tote
+    # set value for Sporttype Dict
+    ${tmpSporttypeDict}=    Create Dictionary    Soccer=1
+    Set To Dictionary    ${tmpSporttypeDict}    Basketball    2
+    Set To Dictionary    ${tmpSporttypeDict}    Football    3
+    Set To Dictionary    ${tmpSporttypeDict}    Tennis    5
+    Set To Dictionary    ${tmpSporttypeDict}    Baseball    8
+    Set To Dictionary    ${tmpSporttypeDict}    Golf    10
+    Set To Dictionary    ${tmpSporttypeDict}    Motorsports    11
+    Set To Dictionary    ${tmpSporttypeDict}    Other Sports    99
+    Set To Dictionary    ${tmpSporttypeDict}    Mix Sports Parlay    99
+    Set To Dictionary    ${tmpSporttypeDict}    Racing    151
+    Set To Dictionary    ${tmpSporttypeDict}    Greyhounds    152
+    Set To Dictionary    ${tmpSporttypeDict}    Harness    153
+    Set To Dictionary    ${tmpSporttypeDict}    Number Game    161
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Soccer    180
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Horse Racing    181
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Tennis    186
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Greyhounds    182
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Motor Racing    184
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Speedway    183
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Motorsports    184
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Cycling    185
+    # set global
+    Set Global Variable    ${SporttypeDict}    ${tmpSporttypeDict}
+    # set value for bettype Dict
+    ${tmpBettypeDict}=    Create Dictionary    Handicap=1
+    Set To Dictionary    ${tmpBettypeDict}    Odd/Even    2
+    Set To Dictionary    ${tmpBettypeDict}    Over/Under    3
+    Set To Dictionary    ${tmpBettypeDict}    1x2    5
+    Set To Dictionary    ${tmpBettypeDict}    1st Handicap    7
+    Set To Dictionary    ${tmpBettypeDict}    1st Odd/Even    12
+    Set To Dictionary    ${tmpBettypeDict}    1st Over/Under    8
+    Set To Dictionary    ${tmpBettypeDict}    1st 1x2    15
+    Set To Dictionary    ${tmpBettypeDict}    Correct Score    4
+    Set To Dictionary    ${tmpBettypeDict}    Total Goal    6
+    Set To Dictionary    ${tmpBettypeDict}    Mix Parlay    9
+    Set To Dictionary    ${tmpBettypeDict}    Outright    10
+    Set To Dictionary    ${tmpBettypeDict}    Number Game 1st Last Over/Under    81
+    Set To Dictionary    ${tmpBettypeDict}    Number Game 1st Last Odd/Event    83
+    Set To Dictionary    ${tmpBettypeDict}    Number Game Warrior    88
+    Set To Dictionary    ${tmpBettypeDict}    Australia Acttab    1501
+    Set To Dictionary    ${tmpBettypeDict}    Bejing Keno 8    1502
+    Set To Dictionary    ${tmpBettypeDict}    Slovakia Eklub    1503
+    Set To Dictionary    ${tmpBettypeDict}    Canada Keno    1504
+    Set To Dictionary    ${tmpBettypeDict}    West Canada Keno    1505
+    Set To Dictionary    ${tmpBettypeDict}    Taiwan Bingo Bingo    1506
+    Set To Dictionary    ${tmpBettypeDict}    Massac    1507
+    Set To Dictionary    ${tmpBettypeDict}    Ohio    1508
+    Set To Dictionary    ${tmpBettypeDict}    Malta    1509
+    Set To Dictionary    ${tmpBettypeDict}    Kentucky    1511
+    Set To Dictionary    ${tmpBettypeDict}    Michigan    1513
+    Set To Dictionary    ${tmpBettypeDict}    Virtual Soccer    1201
+    Set To Dictionary    ${tmpBettypeDict}    Virtual Horse Racing    1231
+    Set To Dictionary    ${tmpBettypeDict}    Virtual Greyhounds    1231
+    Set To Dictionary    ${tmpBettypeDict}    Virtual Speedway    1231
+    Set To Dictionary    ${tmpBettypeDict}    Virtual Motorsports    1231
+    Set To Dictionary    ${tmpBettypeDict}    Virtual Cycling    1231
+    Set To Dictionary    ${tmpBettypeDict}    Virtual Tennis    1220
+    # set global
+    Set Global Variable    ${BettypeDict}    ${tmpBettypeDict}
+    # set value for Tote Dict Win
+    ${tmpToteDictWin}=    Create Dictionary    SA=31
+    Set To Dictionary    ${tmpToteDictWin}    UK/Irish    41
+    Set To Dictionary    ${tmpToteDictWin}    Aust    51
+    # set global
+    Set Global Variable    ${ToteDictWin}    ${tmpToteDictWin}
+    # set value for Tote Dict Place
+    ${tmpToteDictPlace}=    Create Dictionary    SA=32
+    Set To Dictionary    ${tmpToteDictPlace}    UK/Irish    42
+    Set To Dictionary    ${tmpToteDictPlace}    Aust    52
+    # set global
+    Set Global Variable    ${ToteDictPlace}    ${tmpToteDictPlace}
+
+Edit Control value
+    [Arguments]    ${control}    ${action}    ${value}
+    [Documentation]    This action is used to edit control value. ${EMPTY} value means not edit control
+    ...
+    ...    ${control}: the locator of control
+    ...
+    ...    ${action}: the action to edit control (Select checkbox,Select list value,..)
+    ...
+    ...    ${value}: the new value of control
+    ${tmpvalue}    Evaluate    str("${value}")
+    ${len1}    Evaluate    len(str('${action}'))
+    ${len2}    Evaluate    len(str('${value}'))
+    Run Keyword Unless    ${len1} == 0 or ${len2} == 0    ${action}    ${control}    ${tmpvalue}
+
+execute SQL update PT
+    [Arguments]    ${lineID}    ${groupID}
+    ${ac_sqlString}    Set Variable    Exec QC_Update_AccountInfo @lineID = ${lineID}
+    Execute Sql String    Exec QC_Update_AccountInfo @lineIDs = ${lineID}
+
+Fetch List From Left
+    [Arguments]    ${list}    ${maker}
+    : FOR    ${i}    IN    @{list}
+    \    ${i1}=    Fetch From Left    ${i}    ${maker}
+    \    Remove Values From List    ${list}    ${i}
+    \    Append To List    ${list}    ${i1}${maker}
+    [Return]    ${list}
+
+Get Background Color
+    [Arguments]    ${locator_id}
+    ${ac_temp}=    Set Variable    document.getElementById('${locator_id}')
+    ${ac_returnvalue}=    Execute Javascript    alert(window.getComputedStyle(${ac_temp},null).getPropertyValue("background-color"))
+    [Return]    ${ac_returnvalue}
+
+Get Keys From Dictionary By Key name
+    [Arguments]    ${dct}    ${value}
+    [Documentation]    This action is used to get all Keys have searched key name from Dictionary
+    ...
+    ...    ${dct}: the dictionary that need to get values
+    ...
+    ...    ${Keyname}: the string value
+    ...
+    ...    ${output}: the output list contain keys
+    ${lstKeys}    Get Dictionary Keys    ${dct}
+    ${len}    Get Length    ${lstKeys}
+    ${output}    Create List
+    : FOR    ${i}    IN RANGE    0    ${len}
+    \    ${iKey}    Get From List    ${lstKeys}    ${i}
+    \    @{data}    String.Split String    ${iKey}    ^
+    \    Run Keyword If    '@{data}[0]'=='${Value}'    Append To List    ${output}    @{data}[1]
+    [Return]    ${output}
+
+Get Keys From Dictionary By Value
+    [Arguments]    ${dct}    ${value}
+    [Documentation]    This action is used to get all Keys have searched value from Dictionary
+    ...
+    ...    ${dct}: the dictionary that need to get values
+    ...
+    ...    ${value}: the string value
+    ...
+    ...    ${output}: the output list contain keys
+    ${lstKeys}    Get Dictionary Keys    ${dct}
+    ${len}    Get Length    ${lstKeys}
+    ${output}    Create List
+    : FOR    ${i}    IN RANGE    0    ${len}
+    \    ${iKey}    Get From List    ${lstKeys}    ${i}
+    \    ${iValue}    Get From Dictionary    ${dct}    ${iKey}
+    \    Run Keyword If    '${value}'=='${iValue}'    Append To List    ${output}    ${iKey}
+    [Return]    ${output}
+
+Get List Text
+    [Arguments]    ${lstLocator}    ${separator}
+    [Documentation]    This action is used to get all text belong to list control
+    ...
+    ...    ${lstLocator}: the locator of list control
+    ...
+    ...    ${separator} : the string separate each item in list
+    ...
+    ...    ${outputlst}: the list contain all item text
+    ${outputlst}    Get text    ${lstLocator}
+    ${outputlst}    Split String    ${outputlst}    ${separator}
+    [Return]    ${outputlst}
+
+Get Range Excel In Row
+    [Arguments]    ${excelSheet}    ${row}    ${fromCol}    ${toCol}
+    ${value}    Create List
+    : FOR    ${ac_i}    IN RANGE    ${fromCol}    ${toCol}
+    \    ${ac_value}    Read Cell Data By Coordinates    ${excelSheet}    ${ac_i}    ${row}
+    \    Append To List    ${value}    ${ac_value}
+    [Return]    ${value}
+
+get system time
+    [Documentation]    This action is used to get ibc system time (NOW -14h + 1d)
+    ${output_time}    Get Time    \    NOW + 14h -1d
+    [Return]    ${output_time}
+
+IBC select left menu
+    [Arguments]    ${from}    ${main}    ${sub}    # ${from}= early/today
+    sleep    3s
+    Select Frame    leftFrame
+    Run Keyword If    '${from}'=='Early'    Click Element    id=market_E_text
+    ...    ELSE    Click Element    id=market_T_head
+    Run Keyword If    '${main}'=='Racing'    Click Element    id=lnkHorse
+    ...    ELSE    Click Element    //*/div[contains(text(),'${main}')]
+    Run Keyword If    '${sub}'!='${EMPTY}'    Click Element    xpath=//*/span[contains(text(),'${sub}')]
+    Unselect Frame
+    sleep    5s
+    #    Comment    Double Click Element    id=menu_all    #ALL Sports
+
+IBC submit stake
+    [Arguments]    ${sporttype}    ${ammount}
+    Select Frame    leftFrame
+    ${ac_bp}    Run Keyword And Return Status    Element Should Be Visible    id=BPstake
+    ${ac_bingobp}    Run Keyword And Return Status    Element Should Be Visible    id=Bingo_BPstake
+    ${ac_horsebp}    Run Keyword And Return Status    Element Should Be Visible    id=HorseBPstake
+    #soccer
+    Run Keyword If    '${sporttype}'=='Soccer' and '${ac_bp}'=='True'    run keywords    Input Text    id=BPstake    ${ammount}
+    ...    AND    Click Element    xpath=//*[@id='btnBPSubmit']/span
+    #NG
+    Run Keyword If    '${sporttype}'=='NG' and '${ac_bingobp}'=='True'    run keywords    Input Text    id=Bingo_BPstake    ${ammount}
+    ...    AND    Click Element    xpath=//*[@id='Bingo_btnBPSubmit']/span
+    #RC
+    Run Keyword If    '${sporttype}'=='RC' and '${ac_horsebp}'=='True'    run keywords    Input Text    id=HorseBPstake    ${ammount}
+    ...    AND    Click Element    xpath=//*[@id='Race_btnBPSubmit']/span
+    : FOR    ${index}    IN    ${ac_bp}    ${ac_bingobp}    ${ac_horsebp}
+    \    Run Keyword If    '${index}'=='True'    Run Keywords    sleep    2s
+    \    ...    AND    Confirm Action
+    \    ...    AND    sleep    2s
+    \    ...    AND    Confirm Action
+    \    ...    AND    sleep    1s
+    Unselect Frame
+
+Init for login function
+    [Arguments]    ${username}=${EMPTY}
+    Set Selenium Implicit Wait    1
+    Set Selenium Speed    0.5
+    #################    Get config variable from Config.py file
+    #################    Set Global variable
+    Set Global Variable    ${cfUrl}    ${Url}
+    Set Global Variable    ${cfBrowser}    ${Browser}
+    Set Global Variable    ${cfSeCode}    ${SeCode}
+    Set Global Variable    ${cfPwd}    ${Pwd}
+    Set Global Variable    ${cfReportDate}    Now -2 day
+    Set Global Variable    ${cfDBTime}    UTC - 4 hour
+    #################    Open Browser and navigate to login page
+    Open Browser    ${cfUrl}    ${cfBrowser}
+    Maximize Browser Window
+
+Init Test Case
+    [Arguments]    ${browserNo}    ${username}
+    [Documentation]    This action is used to int test case:
+    ...    > Swtich to Browser > Login by username if user has not login
+    ...
+    ...    *****History*******
+    ...
+    ...    Date-Updated by: 07/27/2015-Casey Huynh: call login function
+    ...
+    ...    Date-Created by: Casey Huynh
+    # Login
+    switch browser    ${browserNo}
+    Login to Main Page    ${cfUrl}    ${username}    ${cfPwd}    ${cfSeCode}
+
+Init Test Suite
+    [Arguments]    ${agent}=${EMPTY}    ${master}=${EMPTY}    ${super}=${EMPTY}
+    [Documentation]    - ${LocalSuper}: Super Name to set data local for a line
+    ...    - ${agentLogin}: agent's username if login by Agent
+    ...    - ${masterLogin}: master's username if login by master
+    ...    - ${superLogin}: super's username if login by super
+    Config System
+    # Local Login Account Reset Data
+    Run Keyword if    '${cfisLocal}'=='1'    Set Local Data_Account    ${super}${master}${agent}
+    #################    Login by super
+    Run Keyword If    '${super}'!='${EMPTY}'    Open Browser    ${cfUrl}    ${cfBrowser}    ${super}    ff_profile_dir=C:\\firefox_profile
+    Run Keyword If    '${super}'!='${EMPTY}'    Maximize Browser Window
+    Run Keyword If    '${super}'!='${EMPTY}'    Login to Main    ${super}    ${cfPwd}    ${cfSeCode}
+    #################    Login by master
+    Run Keyword If    '${master}'!='${EMPTY}'    Open Browser    ${cfUrl}    ${cfBrowser}    ${master}    ff_profile_dir=C:\\firefox_profile
+    Run Keyword If    '${master}'!='${EMPTY}'    Maximize Browser Window
+    Run Keyword If    '${master}'!='${EMPTY}'    Login to Main    ${master}    ${cfPwd}    ${cfSeCode}
+    #################    Login by agent
+    Run Keyword If    '${agent}'!='${EMPTY}'    Open Browser    ${cfUrl}    ${cfBrowser}    ${agent}    ff_profile_dir=C:\\firefox_profile
+    Run Keyword If    '${agent}'!='${EMPTY}'    Maximize Browser Window
+    Run Keyword If    '${agent}'!='${EMPTY}'    Login to Main    ${agent}    ${cfPwd}    ${cfSeCode}
+
+Input Security Code After Login
+    [Arguments]    ${SecurityCode}
+    #input security code
+    Stop Execute If Element Not Appear    main    ${in_login_secode}    ${cfWaitControl}    LOGIN FAIL
+    Unselect Frame
+    Select Frame    main
+    Input Text    ${in_login_secode}    ${SecurityCode}
+    Click Element    ${in_login_se_btnsubmit}
+    Run Keyword And Continue On Failure    Wait Until Page Not Contains Element    ${in_login_secode}    ${cfWaitControl}
+
+Is Login
+    [Arguments]    ${userName}
+    [Documentation]    This action is used to check ${username} whether login:
+    ...
+    ...    Returns: 0-Not yet logined; 1-Logined;
+    ${isLogin}    Set Variable    0
+    Select frame    frheader
+    ${ac_userName}=    Run Keyword And Return Status    Get Value    ${hd_lblLoginName}
+    ${isLogin}    Set Variable If    '${ac_userName}=='${username}'    1
+    Unselect Frame
+    [Return]    ${isLogin}
+
+Login
+    [Arguments]    ${username}    ${password}
+    [Documentation]    *This Action is used to Login*
+    ...
+    ...    *===Arguments========*
+    ...    - ${username}=${EMTPTY} | ${password} = ${EMPTY}| ${isStopExeIfFail}=${EMPTY}
+    ...    - Note: ${isStopExeIfFail} = Yes: Execution will stop if Login not successfull (Security Page is not loaded)
+    ...
+    ...
+    ...    *===History========*
+    ...    - 10/16/2015: updated. Remove Security Code Arguments Add checking for stop execution if Login Fail
+    Wait Until Element Is Enabled    ${in_login_user}    ${cfWaitControl}
+    Wait Until Element Is Enabled    ${in_login_pass}    ${cfWaitControl}
+    Wait Until Element Is Enabled    ${in_login_btnLogin}    ${cfWaitControl}
+    Focus    ${in_login_user}
+    Input Text    ${in_login_user}    ${username}
+    sleep    1s
+    Focus    ${in_login_pass}
+    Input Password    ${in_login_pass}    ${password}
+    sleep    1s
+    Focus    ${in_login_btnLogin}
+    Click Element    ${in_login_btnLogin}
+
+Login to Main Page
+    [Arguments]    ${url}    ${username}    ${password}    ${secCode}=${EMPTY}    ${isClosedAnnoun}=Yes
+    [Documentation]    This action: Login if user are not in system
+    Switch Browser By Alias    ${username}
+    #check is Main Page
+    ${ac_isMainPage}    Run Keyword And Return Status    Page Should Contain    ${username}
+    Run Keyword If    '${ac_isMainPage}'=='True'    unselect frame
+    Run Keyword If    '${ac_isMainPage}'=='True'    Select frame    frHeader
+    # check username if is main page
+    ${ac_isUser}=    Run Keyword If    '${ac_isMainPage}'=='True'    Get Text    ${hd_lblLoginName}
+    ...    ELSE    Set Variable    ${EMPTY}
+    Run Keyword If    '${ac_isMainPage}'=='True'    Unselect Frame
+    # if not main page then Login
+    Run Keyword If    '${ac_isUser}'!='${username}'    go to    ${url}
+    Run Keyword If    '${ac_isUser}'!='${username}'    Login    ${username}    ${password}
+    Run Keyword If    '${ac_isUser}'!='${username}' and '${secCode}'!='${EMPTY}'    Input Security Code After Login    ${secCode}
+    Close Announcement Popup
+
+Login Security Announcement
+    [Arguments]    ${username}    ${password}    ${secCode}=${EMPTY}    ${isClosedAnnoun}=Yes
+    # Login: Enter Username and Password
+    Wait Until Element Is Visible    id=txtPassWord
+    Focus    ${in_login_user}
+    Input Text    ${in_login_user}    ${username}
+    Focus    id=txtPassWord
+    Input Password    id=txtPassWord    ${password}
+    Click Element    ${in_login_btnLogin}
+    Close Announcement Popup
+    # Enter Security Code
+    Run Keyword If    '${secCode}'!='${EMPTY}'    Input Security Code After Login    ${secCode}
+    # Close Announcement
+    Run Keyword If    '${isClosedAnnoun}'=='Yes'    Run Keywords    closed announcement
+
+Logout
+    Sleep    2s
+    Unselect Frame
+    Select Frame    frHeader
+    Click Element    id=logout
+    Unselect Frame
+    Wait Until Page Contains Element    ${in_login_user}    20s
+
+Open Page
+    [Arguments]    ${url}=${cf_url}
+    Set Global Variable    ${cf_url}    ${url}
+    Open Browser    ${url}    ${cf_browser}    ff_profile_dir=c:\\firefox_profile
+    Maximize Browser Window
+
+open setting from account info
+    [Arguments]    ${accountName}    ${settingLink}
+    [Documentation]    Desciption: this action allow user open setting page by search account ${accountName} then click on a link {settingLink} on setting tab
+    Search Account    ${accountName}
+    select link in setting tab    ${settingLink}
+
+PT Select From List By Label
+    [Arguments]    ${locator}    ${expected}
+    [Documentation]    This action is used to select PT dropdown list by lable (handle case expected ={EMPTY})
+    Run Keyword If    '${expected}'!='${EMPTY}'    Select From List By Label    ${locator}    ${expected}
+
+PT Should Be Equal
+    [Arguments]    ${first}    ${second}
+    [Documentation]    This action is used to compare two values ( skip compare when 1 value is EMPTY)
+    Run Keyword If    '${first}'!='${EMPTY}' and '${second}'!='${EMPTY}'    Should Be Equal    ${first}    ${second}
+
+Scroll To Element
+    [Arguments]    ${locator}
+    [Documentation]    This action use to scroll to a locator
+    ...
+    ...    -----------------History----------------
+    ...    - [08/27/2015]: create by Casey
+    ${vert_pos}    Get Vertical Position    ${locator}
+    ${horz_pos}    Get Horizontal Position    ${locator}
+    Run Keyword And Ignore Error    Execute Javascript    window.scrollTo(${horz_pos},${vert_pos})
+
+Select multiple checkboxes by JS
+    [Arguments]    ${lstControl}    ${isCheck}
+    [Documentation]    This action is used to selec/unselect checkbox control by executing JS
+    ...
+    ...    {lstControl}: the list of checkboxes ID that need to check or unchecked
+    ...
+    ...    ${isCheck}: 0/1 (0: uncheck, 1: check)
+    ${strControls}    Evaluate    ",".join(${lstControl})
+    ${isCheck}    Set Variable If    '${isCheck}'=='1'    true    false
+    Execute Javascript    var arrChk, strChk,ischecked; \ ischecked = new Boolean (${ischeck}); \ strChk = "${strControls}"; \ strChk = strChk.replace(/id=/g,""); \ arrChk = strChk.split(","); \ for (i = 0; i< arrChk.length;i++) \ \ { \ \ ichk = document.getElementById(arrChk[i]); \ \ \ if (ichk.checked != ischecked) \ \ \ ichk.click(); \ \ \ \ }
+
+Set Checkbox
+    [Arguments]    ${locator}    ${value}
+    Run Keyword Unless    '${value}'=='${EMPTY}'    Wait Until Element Is Visible    ${locator}    ${cfWaitControl}
+    Run Keyword If    '${value}'=='1' or '${value}'=='check'    Select Checkbox    ${locator}
+    Run Keyword If    '${value}'=='0' or '${value}'=='uncheck'    Unselect Checkbox    ${locator}
+
+Set Dictionary Key Value By List Keys
+    [Arguments]    ${dct}    ${lst}    ${value1}    ${value2}
+    ${output}    Copy Dictionary    ${dct}
+    ${lstK}    Get Dictionary Keys    ${output}
+    ${len}    Get Length    ${lstK}
+    : FOR    ${i}    IN RANGE    0    ${len}
+    \    ${iKey}    Get From List    ${lstK}    ${i}
+    \    ${isInLst}    Get Index From List    ${lst}    ${iKey}
+    \    ${iValue}    Set Variable If    ${isInLst} < 0    ${value2}    ${value1}
+    \    Set To Dictionary    ${output}    ${iKey}    ${iValue}
+    [Return]    ${output}
+
+Trim String
+    [Arguments]    ${stringValue}
+    ${ac_value}    Run Keyword If    '${stringValue}'!='${EMPTY}'    Replace String Using Regexp    ${stringValue}    (^[ ]+|[ ]+$)    ${EMPTY}
+    ${stringValue}    Set Variable If    '${stringValue}'!='${EMPTY}'    ${ac_value}    ${EMPTY}
+    [Return]    ${stringValue}
+
+Verify Dropdown List
+    [Arguments]    ${locator}    ${expectedMin}    ${expectedMax}    ${expectedStep}    ${expectedValue}
+    run keyword if    '${expectedValue}'!='${EMPTY}'    verify dropdown list selected value    ${locator}    ${expectedValue}
+    run keyword if    '${expectedMin}'!='${EMPTY}' and '${expectedMax}'!='${EMPTY}'    Run Keyword    Verify Dropdown List Range    ${locator}    ${expectedMin}    ${expectedMax}
+    ...    ${expectedStep}    ${expectedValue}
+
+Verify Dropdown List Range
+    [Arguments]    ${locator}    ${expectedMin}    ${expectedMax}    ${expectedStep}    ${selectedValue}
+    # get list item from locator list
+    ${ac_locatorList}    Get List Text    ${locator}    \n
+    # Created expected list
+    ${ac_expectedList}    Create List in Range 0-1    ${expectedMin}    ${expectedMax}    ${expectedStep}
+    ${ac_isValueInList}    Run Keyword And Return Status    List Should Contain Value    ${ac_expectedList}    ${selectedValue}
+    Run Keyword If    '${ac_isValueInList}'!='True'    Append To List    ${ac_expectedList}    ${selectedValue}
+    # Verify all items
+    Compare Lists    ${ac_locatorList}    ${ac_expectedList}
+
+verify dropdown list selected value
+    [Arguments]    ${locator}    ${expectedValue}
+    # Verify selected value
+    ${ac_locatorSelected}    Get Selected List Label    ${locator}
+    Run Keyword And Continue On Failure    Should Be Equal    ${ac_locatorSelected}    ${expectedValue}
+    closed announcement
+
+Wait Until Page Not Contains Element
+    [Arguments]    ${locator}    ${timeout}=10 sec
+    [Documentation]    Waits until element specified with 'locator' disappear on current page.
+    ...
+    ...    Fails if timeout expires before the element disappears.
+    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    0.1    0.1    Page Should Contain Element    ${locator}
+    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${timeout}    0.2    Page Should not Contain Element    ${locator}
+
+Weekly Update Pass
+    [Documentation]    This action is used to return default password for acc-weekly change password process
+    Select Frame    main
+    ${errormsg}    Run Keyword And Return Status    Page Should Contain Element    id=spmsgerr
+    Unselect Frame
+    Run Keyword If    '${errormsg}'=='True'    Run Keywords    Select Frame    main
+    ...    AND    Input Password    id=txtOldPwd    ${cf_acc_pass}
+    ...    AND    Input Password    id=txtNewPwd    1234aaBB
+    ...    AND    Input Password    id=txtConfirmPwd    1234aaBB
+    ...    AND    Click Element    xpath=//*[@onclick='ChangePassword();']
+    ...    AND    sleep    3s
+    ...    AND    Unselect Frame
+    ...    AND    Change Password    1234aaBB    ${cf_acc_pass}
+
+Verify CheckBox Value
+    [Arguments]    ${locator}    ${expected}
+    [Documentation]    This action is used to verify checkbox value check/uncheck
+    ...    - ${expected}: check,uncheck
+    ...
+    ...    -------------HISTORY---------------------
+    ...    - 07/31/2015-Casey: Created
+    Run Keyword if    '${expected}'=='check' or '${expected}'=='1'    Run Keyword And Continue On Failure    Checkbox Should Be Selected    ${locator}
+    Run Keyword if    '${expected}'=='uncheck' or '${expected}'=='0'    Run Keyword And Continue On Failure    Checkbox Should Not Be Selected    ${locator}
+
+Verify Element Status
+    [Arguments]    ${locator}    ${expected}
+    [Documentation]    This action is used to verify element is enabled/disabled
+    ...    - ${expected}: enabled,disabled
+    ...
+    ...    -------------HISTORY---------------------
+    ...    - 07/31/2015-Casey: Created
+    Run Keyword if    '${expected}'=='enable'    Run Keyword And Continue On Failure    Element Should Be Enabled    ${locator}
+    Run Keyword if    '${expected}'=='disable'    Run Keyword And Continue On Failure    Element Should Be disabled    ${locator}
+
+Verify Element Appear
+    [Arguments]    ${locator}    ${expected}
+    [Documentation]    This action is used to verify element is visible/hide
+    ...    - ${expected}: visible,hide
+    ...
+    ...    -------------HISTORY---------------------
+    ...    - 07/31/2015-Casey: Created
+    Run Keyword if    '${expected}'=='visible'    Run Keyword And Continue On Failure    Element Should Be Visible    ${locator}
+    Run Keyword if    '${expected}'=='hide'    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${locator}
+
+Verify Element Value
+    [Arguments]    ${locator}    ${type}    ${expected}
+    [Documentation]    This action is used to verify element is value
+    ...    - ${type}: checkbox, normal
+    ...
+    ...    -------------HISTORY---------------------
+    ...    - 07/31/2015-Casey: Created
+    # checkbox
+    Run Keyword If    '${type}'=='checkbox'    Verify CheckBox Value    ${locator}    ${expected}
+    # text
+    Run Keyword If    '${type}'=='text'    Run Keyword And Continue On Failure    Element Text Should Be    ${locator}    ${expected}
+    # value
+    ${ac_actualValue}    Run Keyword If    '${type}'=='value'    get value    ${locator}
+    Run Keyword And Continue On Failure    Run Keyword If    '${type}'=='value'    Should Be Equal    ${ac_actualValue}    ${expected}
+
+Verify Control
+    [Arguments]    ${locator}    ${type}    ${expectedAppear}=${EMPTY}    ${expectedStatus}=${EMPTY}    ${expectedValue}=${EMPTY}
+    [Documentation]    This action is used to verify: element is (visible,hide);(enabled/disabled);value
+    ...    - ${type}: checkbox, normal
+    ...    - ${expectedAppear}: visible,hide
+    ...    - ${expectedStatus}: enable/disable
+    ...    - ${expectedValue}: text or (check/uncheck) with checkbox
+    Run Keyword If    '${expectedAppear}'!='${EMPTY}'    Verify Element Appear    ${locator}    ${expectedAppear}
+    Run Keyword If    '${expectedStatus}'!='${EMPTY}'    Verify Element Status    ${locator}    ${expectedStatus}
+    Run Keyword If    '${expectedValue}'!='${EMPTY}'    Verify Element Value    ${locator}    ${type}    ${expectedValue}
+
+Teardown Test Suit
+    [Documentation]    This action is used to tear down a test suit
+    Comment    -------------------------------    TEAR DOWN TEST SUIT
+    Close All Browsers
+
+Switch Browser By Alias
+    [Arguments]    ${alias}
+    [Documentation]    This action is used to switch to browser by alias if bowser is not open then Open within naming Alias
+    ${ac_isWindowOpen}    Run Keyword And Return Status    Switch Browser    ${alias}
+    Run Keyword If    '${ac_isWindowOpen}'!='True'    Open Browser    about:blank    ff    ${alias}
+    Run Keyword If    '${ac_isWindowOpen}'!='True'    Maximize Browser Window
+    Comment    ${ac_role}    Set Variable if    '${role}'=='agent'    1
+    Comment    ${ac_role}    Set Variable if    '${role}'=='master'    2    ${ac_role}
+    Comment    ${ac_role}    Set Variable if    '${role}'=='super'    3    ${ac_role}
+    Comment    Convert To Integer    ${ac_role}
+    Comment    ${ac_isWindowOpen}    Run Kyword And Return Status    Switch Browser    ${ac_role}
+    Comment    Run Keyword If    '${ac_isWindowOpen}'!='True'    Open Browser    about:blank    ff
+    Comment    Run Keyword If    '${ac_isWindowOpen}'!='True'    Maximize Browser Window
+
+Select Date in Calendar
+    [Arguments]    ${ac_CalendarIcon}    ${ac_date}    # format date=20140627 (YYYYMMDD)
+    [Documentation]    This action is used to select a specific date in Calendar control in main frame
+    ...
+    ...    ${ac_CalendarIcon}: the Calendar icon to open Calendar popup
+    ...
+    ...    ${ac_date}: the date need to selected
+    ${ac_CalendarControl}    Set Variable    //table[@class='DynarchCalendar-topCont' and not(contains(@style,'display: none'))]
+    ${ac_dateControl}    Set Variable    ${ac_CalendarControl}//div[@dyc-date='${ac_date}']
+    Click Element    ${ac_CalendarIcon}
+    Wait Until Element Is Visible    ${ac_CalendarControl}
+    ${isExisted}    Get Matching Xpath Count    ${ac_dateControl}
+    Run Keyword If    ${isExisted} ==0    Select Year Month in Calendar    ${ac_CalendarControl}    ${ac_date}
+    Wait Until Element Is Visible    ${ac_dateControl}
+    Click Element    ${ac_dateControl}
+
+Select Year Month in Calendar
+    [Arguments]    ${ac_CalendarIcon}    ${ac_datevalue}    # format date=20140627 (YYYYMMDD)
+    [Documentation]    This action is used to select a specific year and month in Calendar control in main frame
+    ...
+    ...    ${ac_CalendarControl}: the Calendar control
+    ...
+    ...    ${ac_datevalue}: the date value need to be selected
+    ${ac_YearControl}    Set Variable    ${ac_CalendarControl}//input[@class='DynarchCalendar-menu-year']
+    ${ac_Yearvalue}    String.Get Substring    ${ac_datevalue}    \    -4
+    ${ac_Monthvalue}    String.Get Substring    ${ac_datevalue}    4    6
+    ${ac_Monthvalue}    Evaluate    int('${ac_Monthvalue}')-1
+    ${ac_MonthControl}    Set Variable    ${ac_CalendarControl}//div[@class='DynarchCalendar-menu-month' and @dyc-btn='m${ac_Monthvalue}']
+    Click Element    ${ac_CalendarControl}//div[@class='DynarchCalendar-title']
+    Input Text    ${ac_YearControl}    ${ac_Yearvalue}
+    Click Element    ${ac_MonthControl}
+
+Remove End Text
+    [Arguments]    ${strSource}    ${strText}
+    ${mask}    set variable    MaskText
+    ${strSource}    set variable    ${strSource}${mask}
+    ${strSource}    Replace String    ${strSource}    ${strText}${mask}    ${EMPTY}
+    ${strSource}    Replace String    ${strSource}    ${mask}    ${EMPTY}
+    [Return]    ${strSource}
+
+Login to Main
+    [Arguments]    ${username}=${EMPTY}    ${password}=${EMPTY}    ${securityCode}=${EMPTY}
+    [Documentation]    This action is used to Login to Alpha: Enter Login page > Enter Security Code > Close Announcement
+    ...
+    ...    ------------HISTORY--------------
+    ...    - 09-01-2015: Created - Casey
+    Login    ${username}    ${password}
+    Input Security Code After Login    ${securityCode}
+    Close Announcement Popup
+
+Set Local Data_Account
+    [Arguments]    ${userName}
+    ## Get line ID from username
+    ${ac_prefix}    Set Variable    SUPERTESTAUTO
+    ${ac_lineID}    Fetch From Right    ${userName.upper()}    ${ac_prefix}
+    ${ac_lineID}    Get Substring    ${ac_lineID}    ${EMPTY}    2
+    ${ac_lineID}    Convert To Integer    ${ac_lineID}
+    ${ac_lineID}    convert to string    ${ac_lineID}
+    Run Process    SQL_UpdateAcc.bat    ${ac_lineID}
+
+Select Value From List
+    [Arguments]    ${locator}    ${value}
+    [Documentation]    This is used to select a value from a list
+    Click Element    ${locator}
+    Click Element    ${locator}/option[.='${value}']
+    Run keyword if    '${value}'!='${EMPTY}'    Press Key    ${locator}    \\13
+
+Wait Message Appear then Disappear
+    [Arguments]    ${message}    ${timerout}=60s    ${intervalTime}=1s
+    [Documentation]    This action is use to wait the system save successfully:
+    ...    - 1: Wait message ${Msg} is shown
+    ...    - 2: Then Wait message ${Msg} is disappeared
+    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${timerout}    ${intervalTime}    Page Should Contain    ${message}
+    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${timerout}    ${intervalTime}    Page Should Not Contain    ${message}
+
+Stop Execute If Element Not Appear
+    [Arguments]    ${iframeName}=${EMPTY}    ${element}=${EMPTY}    ${timeout}=60s    ${message}=${EMPTY}
+    [Documentation]    This action is used to stop Execution if check an element doesn't appear
+    ${ac_isSuccess}    Run Keyword And Return Status    Run Keyword If    '${iframeName}'!='${EMPTY}'    Wait Until Keyword Succeeds    ${timeout}    1s
+    ...    Select Frame    id=${iframeName}
+    Run Keyword If    '${ac_isSuccess}'=='False'    Fatal Error    ${message}
+    ${ac_isSuccess}    Run Keyword And Return Status    Wait Until Element Is Visible    ${element}    ${timeout}
+    Run Keyword If    '${ac_isSuccess}'=='False'    Fatal Error    ${message}
+    Run Keyword If    '${iframeName}'!='${EMPTY}'    Unselect Frame
+
+Create Sport Betype
+    # set value for Sporttype Dict
+    ${tmpSporttypeDict}=    Create Dictionary    Soccer=1
+    Set To Dictionary    ${tmpSporttypeDict}    Basketball    2
+    Set To Dictionary    ${tmpSporttypeDict}    Football    3
+    Set To Dictionary    ${tmpSporttypeDict}    Tennis    5
+    Set To Dictionary    ${tmpSporttypeDict}    Baseball    8
+    Set To Dictionary    ${tmpSporttypeDict}    Golf    10
+    Set To Dictionary    ${tmpSporttypeDict}    Motorsports    11
+    Set To Dictionary    ${tmpSporttypeDict}    Other Sports    99
+    Set To Dictionary    ${tmpSporttypeDict}    Mix Sports Parlay    99
+    Set To Dictionary    ${tmpSporttypeDict}    Racing    151
+    Set To Dictionary    ${tmpSporttypeDict}    Greyhounds    152
+    Set To Dictionary    ${tmpSporttypeDict}    Harness    153
+    Set To Dictionary    ${tmpSporttypeDict}    Number Game    161
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Soccer    180
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Horse Racing    181
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Tennis    186
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Greyhounds    182
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Motor Racing    184
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Speedway    183
+    Set To Dictionary    ${tmpSporttypeDict}    Virtual Cycling    185
+    # set global
+    Set Global Variable    ${SporttypeDict}    ${tmpSporttypeDict}
+    # set value for bettype Dict
+    ${tmpBettypeDict}=    Create Dictionary    Handicap=1
+    Set To Dictionary    ${tmpBettypeDict}    Odd/Even    2
+    Set To Dictionary    ${tmpBettypeDict}    Over/Under    3
+    Set To Dictionary    ${tmpBettypeDict}    1x2    5
+    Set To Dictionary    ${tmpBettypeDict}    1st Handicap    7
+    Set To Dictionary    ${tmpBettypeDict}    1st Odd/Even    12
+    Set To Dictionary    ${tmpBettypeDict}    1st Over/Under    8
+    Set To Dictionary    ${tmpBettypeDict}    1st 1x2    15
+    Set To Dictionary    ${tmpBettypeDict}    Correct Score    4
+    Set To Dictionary    ${tmpBettypeDict}    Total Goal    6
+    Set To Dictionary    ${tmpBettypeDict}    Mix Parlay    9
+    Set To Dictionary    ${tmpBettypeDict}    Outright    10
+    Set To Dictionary    ${tmpBettypeDict}    Number Game 1st Last Over/Under    81
+    Set To Dictionary    ${tmpBettypeDict}    Number Game 1st Last Odd/Event    83
+    Set To Dictionary    ${tmpBettypeDict}    Number Game Warrior    88
+    Set To Dictionary    ${tmpBettypeDict}    Australia Acttab    1501
+    Set To Dictionary    ${tmpBettypeDict}    Bejing Keno 8    1502
+    Set To Dictionary    ${tmpBettypeDict}    Slovakia Eklub    1503
+    Set To Dictionary    ${tmpBettypeDict}    Canada Keno    1504
+    Set To Dictionary    ${tmpBettypeDict}    West Canada Keno    1505
+    Set To Dictionary    ${tmpBettypeDict}    Taiwan Bingo Bingo    1506
+    Set To Dictionary    ${tmpBettypeDict}    Massac    1507
+    Set To Dictionary    ${tmpBettypeDict}    Ohio    1508
+    Set To Dictionary    ${tmpBettypeDict}    Malta    1509
+    Set To Dictionary    ${tmpBettypeDict}    Kentucky    1511
+    Set To Dictionary    ${tmpBettypeDict}    Michigan    1513
+    # set global
+    Set Global Variable    ${BettypeDict}    ${tmpBettypeDict}
+    # set value for Tote Dict Win
+    ${tmpToteDictWin}=    Create Dictionary    SA=31
+    Set To Dictionary    ${tmpToteDictWin}    UK/Irish    41
+    Set To Dictionary    ${tmpToteDictWin}    Aust    51
+    # set global
+    Set Global Variable    ${ToteDictWin}    ${tmpToteDictWin}
+    # set value for Tote Dict Place
+    ${tmpToteDictPlace}=    Create Dictionary    SA=42    32
+    Set To Dictionary    ${tmpToteDictPlace}    UK/Irish    42
+    Set To Dictionary    ${tmpToteDictPlace}    Aust    52
+    # set global
+    Set Global Variable    ${ToteDictPlace}    ${tmpToteDictPlace}
+
+Get Table Row by RowID
+    [Arguments]    ${rowId}    ${startCol}    ${endCol}    ${returnList}
+    : FOR    ${ac_i}    IN RANGE    ${startCol}    ${endCol}
+    \    ${ac_value}    Get Text    //*[contains(@id,'${rowId}')]/td[${ac_i}]
+    \    ${ac_value}    replace string    ${ac_value}    \n\n    \n
+    \    ${ac_value}    replace string    ${ac_value}    \n\n    \n
+    \    ${ac_value}    replace string    ${ac_value}    ${SPACE}${SPACE}${SPACE}    ${SPACE}    -1
+    \    ${ac_value}    replace string    ${ac_value}    ${SPACE}${SPACE}    ${SPACE}    -1
+    \    ${ac_value}    replace string    ${ac_value}    ${SPACE}${SPACE}    ${SPACE}    -1
+    \    Append To List    ${returnList}    ${ac_value}
+    [Return]    ${returnList}
+
+Get Table Rows
+    [Arguments]    ${tableLocator}
+    [Documentation]    This Action is used to get total row of a table
+    ${totalRows}    Get Matching Xpath Count    ${tableLocator}/tbody/tr
+    [Return]    ${totalRows}
+
+Get Table Cols
+    [Arguments]    ${tableLocator}
+    [Documentation]    This Action is used to get total row of a table
+    ${totalCols}    Get Matching Xpath Count    ${tableLocator}/tbody/tr[1]/td
+    [Return]    ${totalCols}
+
+Define Product List
+
+Get Table Header
+    [Arguments]    ${headerMask}
+    ${n}    Get Matching Xpath Count    ${headerMask}
+    ${n}    Evaluate    ${n}+1
+    ${returnList}    Create List
+    : FOR    ${i}    IN RANGE    1    ${n}
+    \    ${colName}    Get Text    ${headerMask}[${i}]
+    \    Append To List    ${returnList}    ${colName}
+    [Return]    ${returnList}
+
+Select From Date
+    [Arguments]    ${date}
+    #From date
+    Click Element    ${in_main_frcalendar}
+    ${tableLocator}    Set Variable    //table[1][@class='DynarchCalendar-topCont' or @class='table-condensed']
+    Run Keyword And Ignore Error    Wait Until Page Contains Element    ${tableLocator}    ${cfWaitControl}
+    ${ac_controlexist1}=    Run Keyword And Return Status    Element Should Be Visible    ${tableLocator}//td[text()='${date}'] | //td/div[text()='${date}'][not(contains(@class,'othermonth'))]
+    Run Keyword If    '${ac_controlexist1}'=='False'    Run Keywords    Click Element    ${tableLocator}//*[@dyc-btn='-M']
+    ...    AND    Click Element    ${tableLocator}//td[text()='${date}'] | //td/div[text()='${date}'][not(contains(@class,'othermonth'))]
+    ...    ELSE    Click Element    ${tableLocator}//td[text()='${date}'] | //td/div[text()='${date}'][not(contains(@class,'othermonth'))]
+
+Select To Date
+    [Arguments]    ${date}
+    #To date
+    Click Element    ${in_main_tocalendar}
+    sleep    1
+    Run Keyword And Ignore Error    Wait Until Page Contains Element    //table[2][@class='DynarchCalendar-topCont'] | //table[1][@class='table-condensed']    ${cfWaitControl}
+    ${ac_controlexist1}=    Run Keyword And Return Status    Element Should Be Visible    //table[2][@class='DynarchCalendar-topCont']//td[text()='${date}'] | //table[2][@class='DynarchCalendar-topCont']//td/div[text()='${date}'][not(contains(@class,'othermonth'))] | //table[1][@class='table-condensed']//*[text()='${date}']
+    Run Keyword If    '${ac_controlexist1}'=='False'    Run Keywords    Click Element    //table[2][@class='DynarchCalendar-topCont']//*[@dyc-btn='-M'] | //table[1][@class='table-condensed']//*[@dyc-btn='-M']
+    ...    AND    Click Element    //table[2][@class='DynarchCalendar-topCont']//td[text()='${date}'] | //table[2][@class='DynarchCalendar-topCont']//td/div[text()='${date}'][not(contains(@class,'othermonth'))] | //table[1][@class='table-condensed']//*[text()='${date}']
+    ...    ELSE    Click Element    //table[2][@class='DynarchCalendar-topCont']//td[text()='${date}'] | //table[2][@class='DynarchCalendar-topCont']//td/div[text()='${date}'][not(contains(@class,'othermonth'))] | //table[1][@class='table-condensed']//*[text()='${date}']    #    //table[2][@class='DynarchCalendar-topCont']//*[text()='${date}'] //table[1][@class='table-condensed']//*[text()='${date}']    OLD VALUES
+
+Select Calendar Date
+    [Arguments]    ${tableLocator}    ${date}
+    Run Keyword And Ignore Error    Wait Until Page Contains Element    ${tableLocator}    ${cfWaitControl}
+    ${ac_controlexist1}=    Run Keyword And Return Status    Element Should Be Visible    ${tableLocator}//*[text()='${date}']
+    Run Keyword If    '${ac_controlexist1}'=='False'    Run Keywords    Click Element    ${tableLocator}//*[@dyc-btn='-M']
+    ...    AND    Click Element    ${tableLocator}//*[text()='${date}']
+    ...    ELSE    Click Element    ${tableLocator}//*[text()='${date}']
+
+Click Control
+    [Arguments]    ${controlLocator}    ${waitControl}=${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${controlLocator}    ${waitControl}
+    Run Keyword And Continue On Failure    Click Element    ${controlLocator}
+
+Close Popup By JS
+    [Documentation]    This action is used to close popup (the popup displayed in window not in frame) by javascript
+    Unselect Frame
+    Execute Javascript    var x; \ \ \ x = document.querySelector('div[id^="page-popup-"]').getElementsByClassName("icon icon-close close")[0]; \ \ x.click();
+
+Kingsley_Get Table Row value by RowID
+    [Arguments]    ${rowId}    ${startCol}    ${endCol}    ${returnList}
+    ${ac_tr}    Set Variable    //tr[contains(@id,'${rowId}')]
+    ${ac_transtime}    Get Text    ${ac_tr}/td[2]/div[@class='time']
+    ##${ac_Choice_IsScoreMap}    Get Text
+    ${ac_Choice_td}    \    ${ac_tr}/td[3]
+    ${ac_Choice_betteam}    Get Text    ${ac_Choice_td}/div/div/span
+    ${ac_Choice_betteam}    replace string    ${ac_Choice_betteam}    ${SPACE}    ${EMPTY}    -1
+    ${ac_Choice_HDPvalue}    Get Text    ${ac_Choice_td}/div/div//span[@class='handicap']
+    ${ac_Choice_HDPvalue}    replace string    ${ac_Choice_HDPvalue}    ${SPACE}    ${EMPTY}    -1
+    ${ac_Choice_bettype}    Get Text    ${ac_Choice_td}//div[@class='bettype']
+    ${ac_Choice_bettype}    replace string    ${ac_Choice_bettype}    ${SPACE}    ${EMPTY}    -1
+    ${ac_Choice_hometeam}    Get Text    ${ac_Choice_td}//div[@class='match']/span[1]
+    ${ac_Choice_awayteam}    Get Text    ${ac_Choice_td}//div[@class='match']/span[3]
+    ${ac_Choice_sport}    Get Text    ${ac_Choice_td}//div[@class='league']/span[@class='sport']
+    ${ac_Choice_LeagueName}    Get Text    ${ac_Choice_td}//div[@class='league']/span[@class='leagueName']
+    ${ac_Choice_LeagueName}    Replace String    ${ac_Choice_LeagueName}    ${SPACE}    ${EMPTY}    1
+    ${ac_odds_type}    Get Text    ${ac_tr}/td[4]/span[2]
+    ${ac_odds_value}    Run Keyword If    '${ac_odds_type}'=='MY'    Get Text    ${ac_tr}/td[4]/span[1]/font[1]
+    ...    ELSE    Get Text    ${ac_tr}/td[4]/span[1]
+    ${ac_stake}    Get Text    ${ac_tr}/td[5]/span[@class='stake']
+    ${ac_Winloss_IsNegative}    Page Should Contain Element    ${ac_tr}/td[6]/div[1]/span[1]/font[@color='#B50000']
+    ${ac_Winloss}    Get Text    ${ac_tr}/td[6]/div[1]/span[1] or ${ac_tr}/td[6]/div[1]/span[1]/font[1]
+    Append To List    ${returnList}    ${ac_value}
+    Comment    ${ac_value}    replace string    ${ac_value}    \n\n    \n
+    Comment    ${ac_value}    replace string    ${ac_value}    \n\n    \n
+    Comment    ${ac_value}    replace string    ${ac_value}    ${SPACE}${SPACE}${SPACE}    ${SPACE}    -1
+    Comment    ${ac_value}    replace string    ${ac_value}    ${SPACE}${SPACE}    ${SPACE}    -1
+    Comment    ${ac_value0.0.2}    replace string    ${ac_value}    ${SPACE}${SPACE}    ${SPACE}    -1
+    [Return]    ${returnList}
+
+Select From Date Smartphone Friendly
+    [Arguments]    ${date}
+    #From date
+    Click Element    ${in_m_Report_fromdate_calendar}
+    sleep    3s
+    Select Calendar Date Smartphone Friendly    //div[@id='from-date-container']//div[@class='datepicker-days']//table[@class='table-condensed']    ${date}
+
+select To Date Smartphone Friendly
+    [Arguments]    ${date}
+    #To date
+    Click Element    ${in_m_Report_todate_calendar}
+    Comment    Select Calendar Date    //table[2][@class='DynarchCalendar-topCont']    ${date}
+    Select Calendar Date Smartphone Friendly    //div[@id='to-date-container']//div[@class='datepicker-days']//table[@class='table-condensed']    ${date}
+
+Select Calendar Date Smartphone Friendly
+    [Arguments]    ${tableLocator}    ${date}
+    Comment    ${ac_IsAnounment}    Run Keyword And Return Status    Wait Until Element Is Visible    xpath=//div[@id='popup-container-text']    10s
+    Comment    Run Keyword If    ${ac_IsAnounment}    Click Element    xpath=//div[@id='popup-container-text']//button[@class='icon icon-close close']
+    Comment    Focus    ${tableLocator}//td[@data-day='${date}']
+    Comment    Press Key    ${tableLocator}//td[@data-day='${date}']    \\13
+    Comment    Execute Javascript    var x; \ \ \ x = document.querySelector('div[id^="from-date-container"]').getElementsByClassName("day"); \ \ x[0].click();
+    Comment    Click Element    ${tableLocator}//td[@data-day='${date}']
+    Comment    Run Keyword And Ignore Error    Wait Until Page Contains Element    ${tableLocator}    ${cfWaitControl}
+    Comment    ${ac_controlexist1}=    Run Keyword And Return Status    Page Should Contain Element    ${tableLocator}//td[@data-day='${date}']
+    Comment    Run Keyword If    '${ac_controlexist1}'=='False'    Run Keywords    Click Control    ${tableLocator}//span[@title='Previous Month']
+    ...    AND    Wait Until Element Is Visible    ${tableLocator}//td[@data-day='${date}']    ${cfWaitControl}
+    ...    AND    Click Control    ${tableLocator}//td[@data-day='${date}']
+    ...    ELSE    Click Control    ${tableLocator}//td[@data-day='${date}']
+
+Close Net TurnOver Tool tip
+    [Documentation]    This action to close NetTurnOver Tool tip in Winloss Detail report
+    ...
+    ...    ******History*********
+    ...
+    ...    2016-12-19: Kingsley
+    Unselect Frame
+    Select Frame    main
+    #check and close tooltip
+    ${ac_IsNetTurnOver_Tooltips}    Run Keyword And Return Status    Wait Until Element Is Visible    xpath=//div[@id='netturnovertooltip']    20s
+    Run Keyword If    ${ac_IsNetTurnOver_Tooltips}    Click Element    xpath=//div[@id='netturnovertooltip']//input[@id='close-netturnover-tooltip']
+
+Click Element_01
+    [Arguments]    ${locator}
+    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${cfWaitControl}    0.5    Click Element    ${locator}
+
+Check Date Picker
+    [Arguments]    ${fromdate}    ${todate}
+    [Documentation]    This action is used to check the selected from/to date picker for current reports
+    ...
+    ...    Format date is mm/dd/yyyy
+    Select Frame    main
+    ${ac_textfield_fromdate}    Run Keyword If    '${fromdate}'!='${EMPTY}'    Get Element Attribute    ${in_main_txt_frcalendar}@value
+    ${ac_textfield_todate}    Run Keyword If    '${todate}'!='${EMPTY}'    Get Element Attribute    ${in_main_txt_tocalendar}@value
+    Run Keyword If    '${fromdate}'!='${EMPTY}'    Should Be Equal    ${ac_textfield_fromdate}    ${fromdate}
+    Run Keyword If    '${todate}'!='${EMPTY}'    Should Be Equal    ${ac_textfield_todate}    ${todate}
+    Unselect Frame
+
+Check Date Picker History
+    [Arguments]    ${fromdate}=1    ${todate}=1
+    [Documentation]    This action is used to check the selected from/to date picker for History reports
+    ...
+    ...    Format date is number dd
+    Select Frame    main
+    ${ac_selectedfrom}    Get Element Attribute    //*[contains(@id,'fromDay')]/input@value
+    ${ac_selectedto}    Get Element Attribute    //*[contains(@id,'toDay')]/input@value
+    Unselect Frame
+    Run Keyword If    '${fromdate}'!='${EMPTY}'    Should Be Equal    ${ac_selectedfrom}    ${fromdate}
+    Run Keyword If    '${todate}'!='${EMPTY}'    Should Be Equal    ${ac_selectedto}    ${todate}
+    Unselect Frame

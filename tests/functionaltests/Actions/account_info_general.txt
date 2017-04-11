@@ -1,0 +1,277 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../Interfaces/in_login.txt
+Resource          ../Interfaces/in_top_menu.txt
+Resource          ../Interfaces/Main/in_main.txt
+Resource          ../Interfaces/in_left_menu.txt
+Resource          ../Actions/common_actions.txt
+Resource          ../Interfaces/Main/in_m_edit_sportsbook.txt
+Resource          ../Interfaces/Main/in_m_edit_racing.txt
+Resource          ../Interfaces/Main/in_m_edit_virtualsports.txt
+Resource          ../Interfaces/Main/in_m_edit_livecasino.txt
+
+*** Keywords ***
+Verify AccountInfo Bet List
+    [Arguments]    ${username}
+    ## Set variable
+    ${ac_usernameUpper}    Evaluate    "${username}".upper()
+    ##
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Ignore Error    Wait Until Element Is Visible    ${in_lm_btnBetList}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_btnBetList}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //*[@id='header_main']    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Contain    //*[@id='header_main']    BET LIST - ${ac_usernameUpper}
+    Unselect Frame
+
+Verify AccountInfo Customer List
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_btnCustomerList}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_btnCustomerList}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //*[@id='title_header' and contains(text(),'Member List')]    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //*[@id='tblCustomerList']    ${cfWaitControl}
+    Unselect Frame
+
+Verify AccountInfo Statement_Member
+    [Arguments]    ${username}
+    ## Set variable
+    ${ac_usernameUpper}    Evaluate    "${username}".upper()
+    ##
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_btnstatement}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_btnstatement}
+    Unselect Frame
+    Select Frame    main
+    Comment    Run Keyword And Continue On Failure    Element Should Be Visible    //*[@id='header_main' and contains(text(),'DAILY STATEMENT - ${username}')]    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Contain    //*[@id='header_main']    DAILY STATEMENT - ${ac_usernameUpper}
+    Unselect Frame
+
+Verify AccountInfo Statement_MasterAgent
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_btnstatement}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_btnstatement}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Be Visible    //*[@id='header_main']    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Contain    //*[@id='header_main']    STATEMENT
+    Unselect Frame
+
+Verify AccountInfo Downline
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_btndownlines}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_btndownlines}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_tabdownlinelist}    ${cfWaitControl}
+    Unselect Frame
+
+Verify AccountInfo Downline Not Visible
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Not Visible    ${in_lm_btndownlines}    ${cfWaitControl}
+    Unselect Frame
+
+Verify AccountInfo BalanceInfo_Agent
+    [Arguments]    ${ac_isDirect}=1
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_tabbalanceinfo}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_tabbalanceinfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_bl_lblTotalCash}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblYesterdayCash}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblTotalBalance}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblYesterdayBalance}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblAgentOutstanding}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblCasinoOutstanding}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblCasinoTransfer}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblUsedCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblGivenCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblMemberMaxCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblMemberActiveClosed}
+    ## Check Transfer Credit Outstanding
+    Verify Account Info Balance Credit Outstanding Transfer    Agent    ${ac_isDirect}
+
+Verify AccountInfo BalanceInfo_Member
+    [Arguments]    ${ac_isDirect}=1
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_tabbalanceinfo}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_tabbalanceinfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_bl_lblTotalBalance}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblYesterdayBalance}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblOutstanding}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblCasinoOutstanding}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblCasinoTransfer}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblGivenCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblNetPosition}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblBetCredit}
+    ## Check Transfer Credit Outstanding
+    Verify Account Info Balance Credit Outstanding Transfer    Member    ${ac_isDirect}
+
+Verify AccountInfo Login
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_tablogin}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_tablogin}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_lg_lblCreatedDate}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_lg_lblLastLogin}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_lg_lblLastTxn}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_lg_lblLoginIP}
+    Unselect Frame
+
+Verify AccountInfo Online List
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_tabonlinelist}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_tabonlinelist}
+    ## Check Online list data
+    ${ac_IsNotOnline}    Run Keyword And Return Status    Wait Until Element Is Visible    //center[text()='This user is not online']    5
+    ${ac_controlOnlineList}    Set Variable If    ${ac_IsNotOnline}    //center[text()='This user is not online']    //span[@id='tbl_onlinelist']//table[@id='tbl_logininfo']
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_controlOnlineList}
+    Unselect Frame
+
+Verify AccountInfo_MemberInfo_Indirect
+    [Arguments]    ${searchLevel}
+    # Verify Info is displayed
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword If    '${searchLevel}'=='agent'    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_if_lblMasterUpline}    ${cfWaitControl}
+    Run Keyword If    '${searchLevel}'=='agent'    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_if_lblAgent}    ${cfWaitControl}
+    Run Keyword If    '${searchLevel}'=='member'    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_if_lblAgentUpline}    ${cfWaitControl}
+    Run Keyword If    '${searchLevel}'=='member'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_if_lblCustomer}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_if_lblName}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_if_lblFax}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_lm_if_lblNickname}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_if_lblPhone}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_if_lblMobilePhone}
+    Unselect Frame
+
+Verify AccountInfo_MemberInfo_Direct
+    [Arguments]    ${searchLevel}
+    # Verify Info is displayed
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword If    '${searchLevel}'=='master'    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_if_lblMaster}    ${cfWaitControl}
+    Run Keyword If    '${searchLevel}'=='agent'    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_if_lblAgent}    ${cfWaitControl}
+    Run Keyword If    '${searchLevel}'=='member'    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_if_lblCustomer}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_if_lblName}
+    Run Keyword If    '${searchLevel}'!='member'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_if_lblNickname}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_if_lblPhone}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_if_lblMobilePhone}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_if_lblFax}
+    Unselect Frame
+
+Verify AccountInfo Agent List
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_btnAgentList}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_btnAgentList}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword And Continue On Failure    Element Should Be Visible    //*[@id='title_header' and contains(text(),'Agent List')]    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    //*[@id='tblCustomerList']    ${cfWaitControl}
+    Unselect Frame
+
+Verify Account Info Balance Info
+    [Arguments]    ${searchLevel}
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_tabbalanceinfo}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_tabbalanceinfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_bl_lblTotalBalance}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblYesterdayBalance}
+    Run Keyword If    '${searchLevel}'=='member'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblTotalCash}
+    Run Keyword If    '${searchLevel}'=='member'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblYesterdayCash}
+    Run Keyword If    '${searchLevel}'=='member'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblOutstanding}
+    Run Keyword If    '${searchLevel}'=='agent'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblAgentOutstanding}
+    Run Keyword If    '${searchLevel}'=='master'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblMasterOutstanding}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblCasinoOutstanding}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblCasinoTransfer}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblGivenCredit}
+    Run Keyword If    '${searchLevel}'=='member'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblNetPosition}
+    Run Keyword If    '${searchLevel}'!='member'    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_lm_bl_lblNetPosition}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblBetCredit}
+    Unselect Frame
+    ##################
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_bl_lblTotalCash}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblYesterdayCash}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblTotalBalance}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblYesterdayBalance}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblAgentOutstanding}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblCasinoOutstanding}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblCasinoTransfer}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblUsedCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblGivenCredit}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_lm_bl_lblBetCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblMemberMaxCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblMemberActiveClosed}
+    # NOT displayed
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_lm_bl_lblBetCredit}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_lm_bl_lblOutstanding}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_lm_bl_lblNetPosition}
+
+Verify Account Info Balance Info_Master
+    [Arguments]    ${ac_isDirect}=1
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_tabbalanceinfo}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_lm_tabbalanceinfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_lm_bl_lblTotalCash}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblYesterdayCash}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblTotalBalance}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblYesterdayBalance}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblMasterOutstanding}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblCasinoOutstanding}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblCasinoTransfer}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblUsedCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblGivenCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblAgentActiveClosed}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_lblMemberActiveClosed}
+    ## Check Transfer Credit Outstanding
+    Verify Account Info Balance Credit Outstanding Transfer    Master    ${ac_isDirect}
+
+Verify Account Info Balance Credit Outstanding Transfer
+    [Arguments]    ${ac_searchLevel}    ${ac_isDirect}
+    ## Set variable
+    ${ac_strTitle}=    Set Variable If    '${ac_searchLevel}'=='Master'    AGENT OUTSTANDING    MEMBER OUTSTANDING
+    ${ac_strTitle}=    Set Variable If    '${ac_searchLevel}'=='Member'    BET LIST (RUNNING)    ${ac_strTitle}
+    ${ac_controlTitle}    Set Variable If    '${ac_searchLevel}'=='Member'    //div[@id='header_main']    //div[@class='titleOutstanding']/span
+    Unselect Frame
+    Select Frame    menu
+    ## CHeck Credit
+    Click Element    ${in_lm_bl_lnkCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_lm_bl_txtCredit}
+    ## Check Outstanding report
+    Click Element    ${in_lm_bl_lnkOutstanding}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${ac_controlTitle}    ${ac_strTitle}
+    Run Keyword And Continue On Failure    Element Should Be Visible    //table[@id='tbl-rpt' or @id='hor-minimalist-a']
+    ## Check Balance Transfer
+    Run Keyword If    '${ac_isDirect}'=='1'    Verify Account Info Balance Transfer    ${ac_searchLevel}
+
+Verify Account Info Balance Transfer
+    [Arguments]    ${ac_searchLV}
+    ## Set Variable
+    ${ac_controlTitle}    Set Variable if    '${ac_searchLV}'=='Member'    //td[@class='b transfer-title']    //div[@id='header_main']
+    ${ac_strTitle}    Set Variable if    '${ac_searchLV}'=='Member'    Current Status All Transactions    TRANSFER
+    Unselect Frame
+    Select Frame    menu
+    Click Element    ${in_lm_bl_lnkBalanceTransfer}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${ac_controlTitle}    ${ac_strTitle}
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='txtamount']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@class='btn btnSubmit']

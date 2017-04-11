@@ -1,0 +1,17 @@
+*** Variables ***
+${in_m_Report_fromdate_calendar}    //input[@id='from-date']
+${in_m_Report_todate_calendar}    //input[@id='to-date']
+${in_Reports_btnExportToExcel_smartphone}    //span[@id='icon-excel']
+${in_m_report_divReportTitle_smartphone_friendly}    //span[@class='pull-left']
+${in_m_report_TotalRow_Smartphone}    //table[@id='tbl-report']//tr[@class='tbl-footer ']
+${in_m_report_tablebody_Smartphone}    //table[@id='tbl-report']/tbody
+${in_m_report_blockUI}    //div[contains(@class,'blockUI')]
+${in_m_report_icon_arrow_up}    //div[@class='list-icon']//span[@class='icon-arrow-up-drop-circle icon-filter']
+${in_m_report_icon_arrow_down}    //div[@class='list-icon']//span[@class='icon-arrow-down-drop-circle icon-filter']
+${in_m_report_icon_stack_mode}    //div[@class='list-icon']//span[@class='icon-stack-column icon-switchmode']
+${in_m_report_icon_normal_mode}    //div[@class='list-icon']//span[@class='icon-normal-column icon-switchmode']
+${in_m_report_Product_dropdown_list_button}    //div[@class='form-group']//div[contains(@class,'btn-group')]//button[@class='multiselect dropdown-toggle btn btn-default']
+${in_m_report_DateRange_dropdown_list_button}    //div[@id='daterange-picker']//div[contains(@class,'btn-group')]//button[@class='multiselect dropdown-toggle btn btn-default']
+${in_m_report_Report_filter_form}    //form[@id='report-form']
+${in_m_report_Table_stack_mode}    //table[contains(@class,'stack-mode')]
+${in_m_report_Product_dropdown}    //form[@id='report-form']//div[@class='form-group']//div[contains(@class,'btn-group')]

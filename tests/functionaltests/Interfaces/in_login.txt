@@ -1,0 +1,11 @@
+*** Variables ***
+${in_login_user}    id=txtUserName
+${in_login_pass}    id=txtPassWord
+${in_login_capcha}    id=txtCaptcha
+${in_login_btnLogin}    id=btnLogin
+${in_login_secode}    //*[@id='txtSecCode']
+${in_login_se_btnsubmit}    //*[@id='btnSubmit']
+${in_login_se_btnreset}    xpath=//*[@value='Reset']
+${in_login_err}    id=errmsg
+${in_login_image}    id=CaptchaImage
+${in_login_agentsite}    id=agentSite

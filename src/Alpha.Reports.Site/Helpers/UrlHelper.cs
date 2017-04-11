@@ -11,9 +11,37 @@
         [ThreadStatic]
         private static Func<string, string> mapExMainPath;
 
-        public static Func<string, IDictionary<string, object>, string> AddQueryStringParamsFunc { get; internal set; } = AddQueryStringParams;
+        [ThreadStatic]
+        private static Func<string, IDictionary<string, object>, string> addQueryStringParamsFunc;
 
-        public static Func<string, IDictionary<string, object>, string> ReplaceOrAddQueryStringParamsFunc { get; internal set; } = ReplaceOrAddQueryStringParams;
+        [ThreadStatic]
+        private static Func<string, IDictionary<string, object>, string> replaceOrAddQueryStringParamsFunc;
+
+        public static Func<string, IDictionary<string, object>, string> AddQueryStringParamsFunc
+        {
+            get
+            {
+                return addQueryStringParamsFunc ?? AddQueryStringParams;
+            }
+
+            internal set
+            {
+                addQueryStringParamsFunc = value;
+            }
+        }
+
+        public static Func<string, IDictionary<string, object>, string> ReplaceOrAddQueryStringParamsFunc
+        {
+            get
+            {
+                return replaceOrAddQueryStringParamsFunc ?? ReplaceOrAddQueryStringParams;
+            }
+
+            internal set
+            {
+                replaceOrAddQueryStringParamsFunc = value;
+            }
+        }
 
         public static Func<string, string> MapExMainPath
         {

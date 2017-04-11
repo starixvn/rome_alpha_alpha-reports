@@ -1,0 +1,38 @@
+*** Variables ***
+${in_m_CS_pt_cboA1}    //*[@ng-model='setting.$m1.selected']    # ****************************Agent Edit Member - //*[@id='settingContainer']/table/tbody/tr[2]/td[2]/table/tbody/tr[1]/td[2]/span/select
+${in_m_CS_cm_cboMember}    //*[@ng-model='setting.$co.selected']
+${in_m_CS_pt_cboM2}    //*[@ng-model='setting.$m2.selected']    #****************************Master Edit Agent
+${in_m_CS_pt_chkIm2}    //*[@data-ng-model='gameGroup.im2']
+${in_m_CS_pt_cboUm2}    //*[@ng-model='setting.$um2.selected']
+${in_m_CS_pt_cboA2}    //*[@ng-model='setting.$a2.selected']
+${in_m_CS_pt_cboN2}    //*[@ng-model='setting.$n2.selected']
+${in_m_CS_cm_cboAgent}    //*[@ng-model='setting.$aco.selected']
+${in_m_CS_pt_cboM1}    //*[@ng-model='setting.$m3.selected']    # ****************************Master Edit Member
+${in_m_CS_pt_cboUm1}    //*[@ng-model='setting.$um1.selected']
+${in_m_CS_pt_chkIm1}    //*[@data-ng-model='gameGroup.im1']
+${in_m_CS_pt_cboS3}    //*[@ng-model='setting.$s3.selected']    # ****************************Super Edit Master
+${in_m_CS_pt_chkIs3}    //*[@data-ng-model='gameGroup.is3']
+${in_m_CS_pt_cboUs3}    //*[@ng-model='setting.$us3.selected']
+${in_m_CS_pt_cboM3}    //*[@ng-model='setting.$m3.selected']
+${in_m_CS_pt_cboN3}    //*[@ng-model='setting.$n3.selected']
+${in_m_CS_cm_cboMaster}    //*[@ng-model='setting.$mco.selected']
+${in_m_CS_pt_cboS1}    //*[@ng-model='setting.$s3.selected']    # ****************************Super Edit Member
+${in_m_CS_pt_chkIs1}    //*[@data-ng-model='gameGroup.is1']
+${in_m_CS_pt_cboUs1}    //*[@ng-model='setting.$us3.selected']
+${in_m_CS_btnSubmit}    //input[@class='btnUpdate b']
+${in_m_CS_divCustomerInfo}    //div[@class='headerPositionTaking noneBorderLR custInfoHeader']
+${in_m_CS_divWinLimit}    //div[@class='headerPositionTaking noneBorderLR noneBorderBottom' and not(@style='display: none;')]
+${in_m_CS_divPositionTaking}    //div[@class='headerPositionTaking']
+${in_m_CS_tdGameKindRnG}    //div[@id='settingContainer']//tr[2]//td[@class='gameGroupWidth gameTitle noneBorderTop ng-binding']
+${in_m_CS_tdGameKindMini}    //div[@id='settingContainer']//tr[3]//td[@class='gameGroupWidth gameTitle noneBorderTop ng-binding']
+${in_m_CS_tdGameKindMobile}    //div[@id='settingContainer']//tr[4]//td[@class='gameGroupWidth gameTitle noneBorderTop ng-binding']
+${in_m_CS_ddlMaxWinLimit}    //select[@id='maxWinLimit']
+${in_m_CS_lnkCurrentWinLimit}    //div[@id='currentWinLimit']
+${in_m_CS_txtMaxLoss}    //input[@id='maxTransfer1']
+${in_m_CS_spanRangeLossMin}    //span[@id='minCredit1']
+${in_m_CS_spanRangeLossMax}    //span[@id='maxCredit1']
+${in_m_CS_chkDailyAutoReset}    //input[@data-ng-model='CustomerModel.memberWinLimit.isDailyAutoReset']
+${in_m_CS_btnCancel}    //input[@class='btnCancel b']
+${in_m_CS_chkEnable}    //input[@id='chkEnable']
+${in_m_CS_chkStakeLevel}    //input[@type='checkbox' and @class='ng-pristine ng-valid']
+${in_m_CS_tdPTtitle}    //td[contains(@class,'ptTitle noneBorderTop') and not (contains(@class,'C ptTitle noneBorderTop'))]

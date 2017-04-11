@@ -1,0 +1,423 @@
+*** Settings ***
+Documentation     Master's sub acc log in site:
+...               - Search Agent
+...               - Edit Agent Live Casino PT
+...               - Log Out
+...               Master log in site:
+...               - View Log Agent PT which has been edited by Master's sub acc
+...
+...               Expected result:
+...               - PT Value(s) has been edited must be written in View Log
+Suite Teardown    Close All Browsers
+Test Setup
+Test Teardown     Close All Browsers
+Force Tags        View Log PT    2MasterSub_Agent_TMs
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/PT/pt_livecasino.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/Main/in_m_edit_livecasino.txt
+Resource          config_viewlog.txt
+
+*** Test Cases ***
+TC_MasterSubEditAgent_ViewLog_LCS_1
+    [Documentation]    MasterSub Edits Agent \ Max PT
+    ...    - Set Agent max old PT = 0.9
+    ...    - Set Agent max new PT = 0.8
+    ...
+    ...    Expected result:
+    ...    - Update Live Casino Position taking for agent
+    ...    - Agent Max PT_0.80_0.90
+    ...    - Sub Acc name_${tm_mastersub}
+    #Preconditon    Company set values of super    S4=0.9    M3=0.9
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO300
+    ${tm_s3}    Set Variable    0
+    ${tm_m3}    Set Variable    0.9
+    ${tm_passm3}    Set Variable    0.8
+    Open Page
+    # Login By Mastersub
+    Login    ${tm_mastersub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Wait Until Page Contains Element    xpath=html/body/div[1]
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    Agent
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Edit Agent's Max PT
+    ${tm_time}    Edit Live Casino PT    Agent    ${EMPTY}    Yes    ${EMPTY}    ${tm_passm3}
+    ...    ${EMPTY}
+    Log    ${tm_time}
+    Sleep    5s
+    Logout
+    # Log in by Master
+    Login    ${tm_master}    ${tm_acc_pass}    ${EMPTY}
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    # Check log Agent who is edited by Mastersub    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_agent}    ${tm_time}    Update Live Casino Position taking for agent    Agent Max PT_0.80_0.90    Sub Acc name_${tm_mastersub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+TC_MasterSubEditAgent_ViewLog_LCS_2
+    [Documentation]    MasterSub Edits Master Preset PT on Agent
+    ...    - Set Agent Max old PT = 0
+    ...    - Set Agent Max new PT = 0.2
+    ...
+    ...    Expected result:
+    ...    - Update Live Casino Position taking for agent
+    ...    - Master Preset PT_0.20_0.00
+    ...    - Sub Acc name_${tm_mastersub}
+    #Preconditon    Company set values of super    S4=0.9    M3=0.9
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO300
+    ${tm_s3}    Set Variable    0.00
+    ${tm_passS3}    Set Variable    0.2
+    Open Page
+    # Login By Mastersub
+    Login    ${tm_mastersub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    ${tm_master}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Edit Master Preset PT
+    ${tm_time}    Edit Live Casino PT    Agent    ${EMPTY}    Yes    ${tm_passS3}    ${EMPTY}
+    ...    ${EMPTY}
+    Log    ${tm_time}
+    Comment    Page Should Contain    Position taking: Updated successfully.
+    Sleep    5s
+    Logout
+    # Log in by Master
+    Login    ${tm_master}    ${tm_acc_pass}    ${EMPTY}
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    # Check log Agent who is edited by Mastersub    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_agent}    ${tm_time}    Update Live Casino Position taking for agent    Master Preset PT_0.20_0.00    Sub Acc name_${tm_mastersub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+TC_MasterSubEditAgent_ViewLog_LCS_3
+    [Documentation]    MasterSub Edits Agent Min PT
+    ...    - Set Agent Min old PT = 0
+    ...    - Set Agent Min new PT = 0.2
+    ...
+    ...    Expected result:
+    ...    - Update Live casino Min Position Taking
+    ...    - Min Position Taking_0.20_0.00
+    ...    - Sub Acc name_${tm_mastersub}
+    #Preconditon    Company set values of super    S4=0.9    M3=0.9
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO300
+    ${tm_N3}    Set Variable    0.00
+    ${tm_passN3}    Set Variable    0.2
+    Open Page
+    # Login By Mastersub
+    Login    ${tm_mastersub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    ${tm_master}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Edit Agent Min PT
+    ${tm_time}    Edit Live Casino PT    Agent    ${EMPTY}    Yes    ${EMPTY}    ${EMPTY}
+    ...    ${tm_passN3}
+    Log    ${tm_time}
+    Comment    Page Should Contain    Min Position: Updated successfully.
+    Sleep    5s
+    logout
+    # Log in by Master
+    Login    ${tm_master}    ${tm_acc_pass}    ${EMPTY}
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    # Check log Agent who is edited by Mastersub    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_agent}    ${tm_time}    Update Live casino Min Position Taking    Min Position Taking_0.20_0.00    Sub Acc name_${tm_mastersub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+TC_MasterSubEditAgent_ViewLog_LCS_4
+    [Documentation]    MasterSub Check Auto Master Preset
+    ...    - Check Master Auto Preset
+    ...    - Select Auto Master Preset = 0.1
+    ...    - Navigate View Log
+    ...    - Verify Master Auto PT: New Value = 0.10, Old value = 0.00
+    ...    - Verify Is Master Auto PT: New Value = 1, Old value = 0
+    ...
+    ...    Expected Result:
+    ...    - Update Live Casino Position taking for agent
+    ...    - Master Preset PT_0.00_0.20
+    ...    - Master Auto PT_0.10_0.00
+    ...    - Is Master Auto PT_1_0
+    ...    - Sub Acc name_${tm_mastersub}
+    #Preconditon    Company set values of super    S4=0.9    M3=0.9
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_N3}    Set Variable    0
+    ${tm_passN3}    Set Variable    0.1
+    Open Page
+    # Login By Mastersub
+    Login    ${tm_mastersub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    ${tm_master}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Edit Auto Master Preset
+    ${tm_time}    Edit Live Casino PT    A-Agent    ${tm_passN3}    Yes    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Log    ${tm_time}
+    Sleep    5s
+    logout
+    # Log in by Master
+    Login    ${tm_master}    ${tm_acc_pass}    ${EMPTY}
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    # Check log Master who is edit by Supersub    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_agent}    ${tm_time}    Update Live Casino Position taking for agent    Master Preset PT_0.00_0.20    Master Auto PT_0.10_0.00    Is Master Auto PT_1_0
+    ...    Sub Acc name_${tm_mastersub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+TC_MasterSubEditAgent_ViewLog_LCS_5
+    [Documentation]    MasterSub Checks Auto Master Preset and Select new value (new value1,new value) for Agent
+    ...    - Master select Auto Master Preset Value = 0.2
+    ...
+    ...    Expected result:
+    ...    - Update Live Casino Position taking for agent
+    ...    - Master Auto PT_0.20_0.10
+    #Preconditon    Company set values of super    S4=0.9    M3=0.9
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO300
+    ${tm_passN3}    Set Variable    0.2
+    Open Page
+    # Login By Mastersub
+    Login    ${tm_mastersub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    ${tm_master}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Edit \ Auto Master Preset
+    ${tm_time}    Edit Live Casino PT    A-Agent    ${tm_passN3}    Yes    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Log    ${tm_time}
+    Comment    Page Should Contain    Min Position: Updated successfully.
+    Sleep    5s
+    logout
+    Login    ${tm_master}    ${tm_acc_pass}    ${EMPTY}
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    # Check log Master who is edit by Supersub    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_agent}    ${tm_time}    Update Live Casino Position taking for agent    Master Auto PT_0.20_0.10    Sub Acc name_${tm_mastersub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+TC_MasterSubEditAgent_ViewLog_LCS_6
+    [Documentation]    MasterSub unselect \ Auto Master PT on Master
+    ...    - Unselect \ Auto Master PT => Auto Master PT: New = 0.00, Old = 0.20
+    ...    - UnSelect Master Preset PT
+    ...    - No update All Members
+    ...    Expected Result:
+    ...    - Update Live Casino Position taking for agent
+    ...    - Master Auto PT_0.00_0.20
+    ...    - Is Master Auto PT_0_1
+    ...    - Sub Acc name_${tm_mastersub}
+    #Preconditon    Company set values of super    S4=0.9    M3=0.9
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO300
+    ${tm_passN3}    Set Variable    0
+    Open Page
+    # Login By Mastersub
+    Login    ${tm_mastersub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    ${tm_master}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Uncheck Master auto
+    Select Frame    main
+    Unselect Checkbox    xpath=//*[@id='cbIm2']
+    Unselect Frame
+    # Edit Master's Auto
+    ${tm_time}    Edit Live Casino PT    Agent    ${EMPTY}    Yes    ${tm_passN3}    ${EMPTY}
+    ...    ${EMPTY}
+    Select Frame    main
+    Run Keyword And Ignore Error    Click Element    xpath=//*/div/input[@value='No']
+    Unselect Frame
+    Comment    Page Should Contain    Min Position: Updated successfully.
+    Sleep    5s
+    Logout
+    # Log in by Super
+    Login    ${tm_master}    ${tm_acc_pass}    ${EMPTY}
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    # Check log Master who is edit by Supersub    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_agent}    ${tm_time}    Update Live Casino Position taking for agent    Master Auto PT_0.00_0.20    Is Master Auto PT_0_1    Sub Acc name_${tm_mastersub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+TC_MasterSubEditAgent_ViewLog_LCS_7
+    [Documentation]    Uncheck Auto Master Preset and Select Master Preset PT on Agent
+    ...    - Uncheck Auto Master Preset
+    ...    - Select Master Preset PT = 0.2
+    ...    - Agent Min PT is still kept = 0.2
+    ...    - Click on Update button
+    ...    - Click on No button for updating Member's PT
+    ...
+    ...    Expected Result:
+    ...    - Update Live Casino Position taking for agent
+    ...    - Master Preset PT_0.10_0.00
+    ...    - Master Auto PT_0.00_0.10
+    ...    - Is Master Auto PT_0_1
+    ...    - UpdAllMembers_1
+    ...    - New Master PT_0.20
+    ...    - Sub Acc name_${tm_mastersub}
+    #Preconditon    Company set values of super    S4=0.9    M3=0.9
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO300
+    ${tm_passN3}    Set Variable    0.1
+    Open Page
+    # Login By Mastersub
+    Login    ${tm_mastersub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    ${tm_master}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # check Master auto
+    Select Frame    main
+    select Checkbox    xpath=//*[@id='cbIm2']
+    Unselect Frame
+    # Edit Master's Auto
+    Edit Live Casino PT    A-Agent    0.1    Yes    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    sleep    5s
+    Select Frame    main
+    Unselect Checkbox    xpath=//*[@id='cbIm2']
+    Unselect Frame
+    # Edit Master Preset PT
+    ${tm_time}    Edit Live Casino PT    Agent    ${EMPTY}    Yes    0.1    ${EMPTY}
+    ...    ${EMPTY}
+    Select Frame    main
+    Select From List    xpath=//*[@id='presetOnMemberModal']/div/div/div[2]/select    0.2
+    Run Keyword And Ignore Error    Click Element    xpath=//*/div/input[@value='Yes']
+    Unselect Frame
+    Sleep    5s
+    logout
+    # Log in by Master
+    Login    ${tm_master}    ${tm_acc_pass}    ${EMPTY}
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    # Check log Agent who is edited by Mastersub    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_agent}    ${tm_time}    Update Live Casino Position taking for agent    Master Preset PT_0.10_0.00    Master Auto PT_0.00_0.10    Is Master Auto PT_0_1
+    ...    UpdAllMembers_1    New Master PT_0.20    Sub Acc name_${tm_mastersub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+TC_MasterSubEditAgent_ViewLog_LCS_8
+    [Documentation]    MasterSub Edit All Agent PT
+    ...    - Master Preset PT = 0
+    ...    - Agent Max PT = 0.9
+    ...    - Master Min PT = 0
+    ...
+    ...    Expected Result:
+    ...    - Update Live Casino Position taking for agent
+    ...    - Master Preset PT_0.00_0.10
+    ...    - Master Auto PT_0.00
+    ...    - Is Master Auto PT_0
+    ...    - UpdAllMembers_0
+    ...    - New Master PT_0.00
+    ...    - Agent Max PT_0.90_0.70
+    ...    - Sub Acc name_${tm_mastersub}
+    #Preconditon    Company set values of super    S4=0.9    M3=0.9
+    COMMENT    ==============================>    PRE-CONDITION
+    Comment    ${tm_N3}    Set Variable    0
+    ${tm_passN3}    Set Variable    0.1
+    Open Page
+    # Login By Mastersub
+    Login    ${tm_mastersub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    ${tm_master}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Edit Agent PT
+    ${tm_time}    Edit Live Casino PT    Agent    ${EMPTY}    Yes    0    0.9
+    ...    0
+    Sleep    3s
+    logout
+    # Log in by Master
+    Login    ${tm_master}    ${tm_acc_pass}    ${EMPTY}
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    # Check log Agent who is edited by Mastersub    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_agent}    ${tm_time}    Update Live Casino Position taking for agent    Master Preset PT_0.00_0.10    Master Auto PT_0.00    Is Master Auto PT_0
+    ...    UpdAllMembers_0    New Master PT_0.00    Agent Max PT_0.90_0.70    Sub Acc name_${tm_mastersub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser

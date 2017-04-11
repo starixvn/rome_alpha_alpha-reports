@@ -1,0 +1,620 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Collections
+Resource          ../common_actions.txt
+Resource          ../Left_menu/left_menu_actions.txt
+Resource          ../../Interfaces/Main/in_m_popup_pt_confirm_member.txt
+
+*** Keywords ***
+Edit Keno Bet Setting
+    [Arguments]    ${type}    ${minbet}    ${maxbet}    ${maxpermatch}
+    ${tmpSuperbetsetting}=    Create Dictionary    Australia=1
+    Set To Dictionary    ${tmpSuperbetsetting}    Slovakia    2
+    Set To Dictionary    ${tmpSuperbetsetting}    Canada    3
+    Set To Dictionary    ${tmpSuperbetsetting}    West Canada    4
+    Set To Dictionary    ${tmpSuperbetsetting}    Massachusetts    5
+    Set To Dictionary    ${tmpSuperbetsetting}    Ohio    6
+    Set To Dictionary    ${tmpSuperbetsetting}    Malta    7
+    Set To Dictionary    ${tmpSuperbetsetting}    Kentucky    8
+    Set To Dictionary    ${tmpSuperbetsetting}    Michigan    9
+    Set To Dictionary    ${tmpSuperbetsetting}    Korea    10
+    # get Country/Market
+    ${tm_minbet}    Get From Dictionary    ${tmpSuperbetsetting}    ${type}
+    ${tm_maxbet}    Get From Dictionary    ${tmpSuperbetsetting}    ${type}
+    ${tm_maxpermatch}    Get From Dictionary    ${tmpSuperbetsetting}    ${type}
+    Select Frame    main
+    ${tm_MinBet}    Set Variable    //*[@id='customerInfo']/table[2]/tbody/tr[${tm_minbet}]/td[2]/input
+    ${tm_MaxBet}    Set Variable    //*[@id='customerInfo']/table[2]/tbody/tr[${tm_maxbet}]/td[3]/input
+    ${tm_MaxPerMatch}    Set Variable    //*[@id='customerInfo']/table[2]/tbody/tr[${tm_maxpermatch}]/td[4]/input
+    # Set value
+    Input Text    ${tm_MinBet}    ${minbet}
+    Input Text    ${tm_MaxBet}    ${maxbet}
+    Input Text    ${tm_MaxPerMatch}    ${maxpermatch}
+    Sleep    2s
+    Unselect Frame
+
+Check Keno Bet Setting
+    [Arguments]    @{expect}
+    Search Account    ${tm_downline}
+    select link in setting tab    Edit Keno
+    ${tmpSuperbetsetting}=    Create Dictionary    Australia    1
+    Set To Dictionary    ${tmpSuperbetsetting}    Slovakia    2
+    Set To Dictionary    ${tmpSuperbetsetting}    Canada    3
+    Set To Dictionary    ${tmpSuperbetsetting}    West Canada    4
+    Set To Dictionary    ${tmpSuperbetsetting}    Massachusetts    5
+    Set To Dictionary    ${tmpSuperbetsetting}    Ohio    6
+    Set To Dictionary    ${tmpSuperbetsetting}    Malta    7
+    Set To Dictionary    ${tmpSuperbetsetting}    Kentucky    8
+    Set To Dictionary    ${tmpSuperbetsetting}    Michigan    9
+    Set To Dictionary    ${tmpSuperbetsetting}    Korea    10
+    # Get value
+    ${tm_AustraliaBetSetting}    Get Keno Bet Setting values    Australia
+    ${tm_SlovakiaBetSetting}    Get Keno Bet Setting values    Slovakia
+    ${tm_CanadaBetSetting}    Get Keno Bet Setting values    Canada
+    ${tm_WestCanadaBetSetting}    Get Keno Bet Setting values    West Canada
+    ${tm_MassachusettsBetSetting}    Get Keno Bet Setting values    Massachusetts
+    ${tm_OhioBetSetting}    Get Keno Bet Setting values    Ohio
+    ${tm_MaltaBetSetting}    Get Keno Bet Setting values    Malta
+    ${tm_KentuckyBetSetting}    Get Keno Bet Setting values    Kentucky
+    ${tm_MichiganBetSetting}    Get Keno Bet Setting values    Michigan
+    ${tm_KoreaBetSetting}    Get Keno Bet Setting values    Korea
+    : FOR    ${Index}    IN    ${tm_AustraliaBetSetting}    ${tm_SlovakiaBetSetting}    ${tm_CanadaBetSetting}    ${tm_WestCanadaBetSetting}
+    ...    ${tm_MassachusettsBetSetting}    ${tm_OhioBetSetting}    ${tm_MaltaBetSetting}    ${tm_KentuckyBetSetting}    ${tm_MichiganBetSetting}    ${tm_KoreaBetSetting}
+    \    Lists Should Be Equal    ${Index}    @{expect}
+
+Get Keno Bet Setting values
+    [Arguments]    ${type}
+    # create dictionary to Country/Market
+    ${tmpSuperbetsetting}=    Create Dictionary    Australia    1
+    Set To Dictionary    ${tmpSuperbetsetting}    Slovakia    2
+    Set To Dictionary    ${tmpSuperbetsetting}    Canada    3
+    Set To Dictionary    ${tmpSuperbetsetting}    West Canada    4
+    Set To Dictionary    ${tmpSuperbetsetting}    Massachusetts    5
+    Set To Dictionary    ${tmpSuperbetsetting}    Ohio    6
+    Set To Dictionary    ${tmpSuperbetsetting}    Malta    7
+    Set To Dictionary    ${tmpSuperbetsetting}    Kentucky    8
+    Set To Dictionary    ${tmpSuperbetsetting}    Michigan    9
+    Set To Dictionary    ${tmpSuperbetsetting}    Korea    10
+    # get Country/Market
+    ${tm_minbet}    Get From Dictionary    ${tmpSuperbetsetting}    ${type}
+    ${tm_maxbet}    Get From Dictionary    ${tmpSuperbetsetting}    ${type}
+    ${tm_maxpermatch}    Get From Dictionary    ${tmpSuperbetsetting}    ${type}
+    Select Frame    main
+    ${tm_MinBet}    Set Variable    //*[@id='customerInfo']/table[2]/tbody/tr[${tm_minbet}]/td[2]/input
+    ${tm_MaxBet}    Set Variable    //*[@id='customerInfo']/table[2]/tbody/tr[${tm_maxbet}]/td[3]/input
+    ${tm_MaxPerMatch}    Set Variable    //*[@id='customerInfo']/table[2]/tbody/tr[${tm_maxpermatch}]/td[4]/input
+    # Get value
+    ${Minbetfter}    Get Value    ${tm_MinBet}
+    ${Maxbetafter}    Get Value    ${tm_MaxBet}
+    ${Maxpermatchafter}    Get Value    ${tm_MaxPerMatch}
+    ${outputMsg}    Create List    ${Minbetfter}    ${Maxbetafter}    ${Maxpermatchafter}
+    Unselect Frame
+    [Return]    ${outputMsg}
+
+Check Keno PT
+    [Arguments]    ${username}    ${type}    ${market}    ${lstValues}
+    [Documentation]    This action is used to edit Sportsbook PT of account
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${type}: the account type (Master/Agent/Member)
+    ...
+    ...    ${Sporttype}: the sporttype
+    ...
+    ...    ${Bettype}: the bettype
+    ...
+    ...    ${isLive}: the liveindicator
+    ...
+    ...    ${lstValues}: the list contain PT value (MaxPT, UplinePresetPT,isUplineAutoPT,UplineAutoPT). The ${Empty} item mean this item does not need to be edited
+    ${acc_currentValues}    Get Keno PT values    ${username}    ${type}    ${market}
+    ${acc_lstItemName}    create list    Max PT    isAuto    Upline PT    Min PT
+    ${acc_len}    Get Length    ${lstValues}
+    ${acc_len}    Evaluate    min(len(${acc_currentValues}),${acc_len})
+    : FOR    ${i}    IN RANGE    0    ${acc_len}
+    \    ${ichecked}    Get From List    ${lstValues}    ${i}
+    \    Continue For Loop If    '${ichecked}'=='' or '${ichecked}'=='${EMPTY}'
+    \    ${PT}    Get From List    ${acc_currentValues}    ${i}
+    \    ${Item}    Get From List    ${acc_lstItemName}    ${i}
+    \    Run Keyword And Continue On Failure    Should Be Equal As Numbers    ${PT}    ${ichecked}    ${Item} value is not correct. Current value is ${PT} but checked value is ${ichecked}
+
+Get Keno PT Controls
+    [Arguments]    ${type}    ${market}
+    [Documentation]    This action is used to get Keno PT value and controls
+    ...
+    ...    ${type}: the account type
+    ...
+    ...    ${market}: the market name
+    ...
+    ...    ${acc_output}: base ${type}
+    ...    - ${type}= SuperMaster: S3, Is3, Us3, M3
+    ...    - ${type}= SuperPlayer: S1, Is1, Us1
+    ...    - ${type}= MasterAgent: M2, Im2, Um2, A2
+    ...    - ${type}= MasterPlayer: M1, Im1, Um1
+    ...    - ${type}= AgentPlayer: A1
+    ${accRow}    Set Variable    //div[@id='customerInfo']//span[text()='${market}']/parent::td/parent::tr
+    ${accChk}    Set Variable    ${accRow}//input[@ng-model='positionTaking.
+    ${accDdl}    Set Variable    ${accRow}//select[@ng-model='positionTaking.
+    ${acc_lstSuperMaster}    Create List    ${accDdl}s3']    ${accChk}iS3']    ${accRow}//select[not(@style)][1]    ${accDdl}m3']    ${accDdl}n3']
+    ${acc_lstMasterAgent}    Create List    ${accDdl}a2']    ${accChk}iM2']    ${accRow}//select[not(@style)][1]    ${accDdl}n2']
+    ${acc_lstAgentPlayer}    Create List    ${accDdl}a1']    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ${acc_lstSuperPlayer}    Create List    ${accDdl}s1']    ${accDdl}is1']    ${accDdl}us1']
+    ${acc_lstMasterPlayer}    Create List    ${accDdl}m1']    ${accDdl}im1']    ${accDdl}um1']
+    ${acc_output}    Get Variable Value    ${acc_lst${type}}
+    [Return]    ${acc_output}
+
+Edit Keno PT
+    [Arguments]    ${username}    ${type}    ${market}    ${lstValues}    ${isUpdate}=1    ${isConfirmMemberPT}=0
+    ...    ${MemberPT}=${Empty}
+    [Documentation]    This action is used to edit Keno PT
+    ...    ${type}: the type of account (Master/Agent/Member)
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${market}: the market of Keno need to update new PT
+    ...
+    ...    ${lstValues}: the list contains new PT values (MaxPT,isAutoPT,UplinePT,MinPT). The ${Empty} value means no need to update this kind of PT. eg ${lstValues} = [0.7,${empty},${empty},0.2]
+    ...
+    ...    ${isUpdate}: click Update or not (0/1)
+    Navigate to Edit page    Edit Keno    ${username}
+    ## Set variable
+    ${ac_lstValues}    Set Variable    ${lstValues}
+    ${NoAddValue}    Evaluate    4 - len(${lstValues})
+    Repeat Keyword    ${NoAddValue}    Append To List    ${ac_lstValues}    ${EMPTY}
+    @{ac_lstValues}    Set Variable    ${ac_lstValues}
+    ## Get PT Controls
+    @{ac_lstControls}    Get Keno PT Controls    ${type}    ${market}
+    ## Edit Is Auto PT
+    ${ac_kw}    Set Variable If    '@{ac_lstValues}[1]'=='1'    Select Checkbox    Unselect Checkbox
+    Edit Control value    @{ac_lstControls}[1]    ${ac_kw}    @{ac_lstValues}[1]
+    ## Edit UplinePT
+    Edit Control value    @{ac_lstControls}[2]    Select From List By Label    @{ac_lstValues}[2]
+    ## Edit Max PT
+    Edit Control value    @{ac_lstControls}[0]    Select From List By Label    @{ac_lstValues}[0]
+    ## Edit Min PT
+    Edit Control value    @{ac_lstControls}[3]    Select From List By Label    @{ac_lstValues}[3]
+    ## Click Update
+    ${ac_isPopup}    Set Variable If    '@{ac_lstValues}[2]'<>'${Empty}' and ('@{ac_lstValues}[1]'=='0' or '@{ac_lstValues}[1]'=='${Empty}')    1    0
+    ${acc_output}    Run Keyword If    '${isUpdate}'=='1'    Run Keyword And Continue On Failure    Click Update Keno    ${market}    ${ac_isPopup}
+    ...    ${isConfirmMemberPT}    ${MemberPT}
+    [Return]    ${acc_output}
+
+Get Keno PT values
+    [Arguments]    ${username}    ${type}    ${market}
+    [Documentation]    This action is used to get Keno PT value
+    ...
+    ...    ${username}: the account username
+    ...
+    ...    ${type}: the account type
+    ...
+    ...    ${market}: the market value
+    ...
+    ...    ${outputValues}: the output list contain MaxPT, isAutoPT,UplinePT, MinPT
+    @{ac_lstControls}    Get Keno PT Controls    ${type}    ${market}
+    Navigate to Edit page    Edit Keno    ${username}
+    # Get value
+    ${ac_maxPT}    Get Selected List Label    @{ac_lstControls}[0]
+    ${outputValues}    Create List    ${ac_maxPT}
+    ##
+    ${ac_ChkAuto}    Set Variable If    '${type}'=='Master' or '${type}'=='Agent'    @{ac_lstControls}[2]
+    ${ac_isAutoPT}    Run Keyword If    '${type}'=='Master' or '${type}'=='Agent'    Get Element Attribute    ${ac_ChkAuto}@checked
+    ${ac_uplinePT}    Run Keyword If    '${type}'=='Master' or '${type}'=='Agent'    Get Selected List Label    @{ac_lstControls}[2]
+    ${ac_minPT}    Run Keyword If    '${type}'=='Master' or '${type}'=='Agent'    Get Selected List Label    @{ac_lstControls}[3]
+    Run Keyword If    '${type}'=='Master' or '${type}'=='Agent'    Append To List    ${outputValues}    ${ac_isAutoPT}    ${ac_uplinePT}    ${ac_minPT}
+    [Return]    ${outputValues}
+
+Confirm Update Member Bingo PT
+    [Arguments]    ${market}    ${PTvalue}    ${isConfirm}=0
+    [Documentation]    This action is used to confirm update member Bingo PT
+    ...
+    ...    ${market} : the market need to update
+    ...
+    ...    ${PTvalue}: the PT value need to update
+    ...
+    ...    ${isConfrim}: confirm update member PT or not (0/1/-1). -1 means close Confirm Member Bingo PT popup
+    ## Set variable
+    ${ac_btnConfirm}    Set Variable If    '${isConfirm}'=='1'    //button[text()[contains(.,'Yes')]]    //button[text()[contains(.,'No')]]
+    ${ac_btnConfirm}    Set Variable If    '${isConfirm}'=='-1'    //div[@class='ngdialog-close']    ${ac_btnConfirm}
+    ${ac_ddlMarket}    Set Variable    //div[@ng-bind='positionTaking.betTypeName' and text()='${market}']/following::select[1]
+    ## Check Confirm poup
+    ${ac_isPopup}    Run Keyword And Return Status    Element Should Be Visible    ${ac_ddlMarket}
+    Run Keyword If    ${ac_isPopup}    Edit Control value    ${ac_ddlMarket}    Select From List By Label    ${PTvalue}
+    Run Keyword If    ${ac_isPopup}    Click Element    ${ac_btnConfirm}
+
+Click Update Keno
+    [Arguments]    ${market}    ${isPopup}    ${isConfirmMemberPT}=0    ${MemberPT}=${Empty}
+    [Documentation]    This action is used to click Update Keno button
+    ...
+    ...    ${market}: the market
+    ...
+    ...    ${isConfirmMemberPT}
+    ...
+    ...    ${MemberPT}:
+    ...
+    ...    ${acc_outputMsg}: the updated msg
+    ## Set variable
+    ${ac_controlMsg}    Set Variable    //div[@id='divShowInfo']/div
+    ## Click Update
+    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword if    '${isPopup}'=='1'    Confirm Update Member Bingo PT    ${market}    ${MemberPT}    ${isConfirmMemberPT}
+    ## Get msg
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_controlMsg}    ${cf_timeout_long}
+    Comment    ${ac_outputMsg}    Run Keyword And Continue On Failure    Get Text    ${ac_controlMsg}
+    ${ac_outputMsg}    Set Variable    ${EMPTY}
+    [Return]    ${ac_outputMsg}
+
+Edit Keno PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${market}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}
+    ...    ${N3}=${EMPTY}    ${confirmMemberPT}=${EMPTY}    ${isConfirmAction}=${EMPTY}
+    [Documentation]    *This Action is used to Update Keno Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    @{ac_controlLst}    Get Keno PT Controls    SuperMaster    ${market}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${Us3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[3]    ${M3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${confirmMemberPT}'!='${EMPTY}'    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_mp_pt_cfmPlayer_cboMemberPT}    ${cfWaitControl}
+    Run Keyword If    '${confirmMemberPT}'!='${EMPTY}'    Select From List By Label    ${in_mp_pt_cfmPlayer_cboMemberPT}    ${confirmMemberPT}
+    Run Keyword If    '${isConfirmAction}'=='Yes'    Click Element    ${in_mp_pt_cfmPlayer_btnYes}
+    Run Keyword If    '${isConfirmAction}'=='No'    Click Element    ${in_mp_pt_cfmPlayer_btnNo}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Keno PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${market}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}    ${Us1}=${EMPTY}
+    [Documentation]    This action is used to update Keno PT: Super Update Player
+    @{ac_controlLst}    Get Keno PT controls    SuperPlayer    ${market}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Keno PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${market}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}
+    ...    ${N2}=${EMPTY}
+    [Documentation]    *This Action is used to Update Keno Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    @{ac_controlLst}    Get Keno PT Controls    MasterAgent    ${market}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[1]    ${A2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[2]    ${Im2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[3]    ${Um2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Keno PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${market}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}    ${Um1}=${EMPTY}
+    @{ac_controlLst}    Get Keno PT controls    MasterPlayer    ${market}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Keno PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${market}=${EMPTY}    ${A1}=${EMPTY}
+    @{ac_controlLst}    Get Keno PT Controls    AgentPlayer    ${market}
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+
+Verify Keno PT_SuperMaster
+    [Arguments]    ${market}=${EMPTY}    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Master Edit Agent*
+    ...    - S3,M3, Is3, Us3
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    @{ac_controlLst}    Get Keno PT Controls    SuperMaster    ${market}
+    Unselect Frame
+    Select Frame    main
+    # Check S3
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedS3}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check Is3
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    # Check M3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+
+Verify Keno PT_SuperPlayer
+    [Arguments]    ${market}=${EMPTY}    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    @{ac_controlLst}    Get Keno PT controls    SuperPlayer    ${market}
+    Unselect Frame
+    Select Frame    main
+    # Check S1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedS1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Is1
+    ${actualValue}    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Us1
+    ${actualValue}    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify Keno PT_MasterAgent
+    [Arguments]    ${market}=${EMPTY}    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Master Edit Agent*
+    ...    - M2,A2, Im2, Um2
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    @{ac_controlLst}    Get Keno PT Controls    MasterAgent    ${market}
+    Unselect Frame
+    Select Frame    main
+    # Check M2
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check Im2
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    # Check A2
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+
+Verify Keno PT_MasterPlayer
+    [Arguments]    ${market}=${EMPTY}    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}
+    @{ac_controlLst}    Get Keno PT controls    MasterPlayer    ${market}
+    Unselect Frame
+    Select Frame    main
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedM1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+
+Verify Keno PT_AgentPlayer
+    [Arguments]    ${market}=${EMPTY}    ${expectedA1}=${EMPTY}
+    @{ac_controlLst}    Get Keno PT Controls    AgentPlayer    ${market}
+    Unselect Frame
+    Select Frame    main
+    # Check A1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${ac_A1}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame
+
+Edit Multiple Keno PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${market}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}
+    ...    ${N3}=${EMPTY}    ${confirmMemberPT}=${EMPTY}    ${isConfirmAction}=${EMPTY}
+    [Documentation]    *This Action is used to Edit Multiple Keno Position Taking - Super Edit Master*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit Keno PT_SuperMaster
+    @{ac_controlLst}    Get Keno PT Controls    SuperMaster    ${market}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${Us3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[3]    ${M3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${confirmMemberPT}'!='${EMPTY}'    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_mp_pt_cfmPlayer_cboMemberPT}    ${cfWaitControl}
+    Run Keyword If    '${confirmMemberPT}'!='${EMPTY}'    Select From List By Label    ${in_mp_pt_cfmPlayer_cboMemberPT}    ${confirmMemberPT}
+    Run Keyword If    '${isConfirmAction}'=='Yes'    Click Element    ${in_mp_pt_cfmPlayer_btnYes}
+    Run Keyword If    '${isConfirmAction}'=='No'    Click Element    ${in_mp_pt_cfmPlayer_btnNo}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Keno PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${market}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}    ${Us1}=${EMPTY}
+    [Documentation]    This action is used to update Keno PT: Super Update Player
+    @{ac_controlLst}    Get Keno PT controls    SuperPlayer    ${market}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+    Comment    Scroll To Element    ${in_main_btnClosePopup}
+    Comment    Click button    ${in_main_btnClosePopup}
+    Comment    Run Keyword And Continue On Failure    Wait Until Page Does Not Contain Element    ${in_main_btnClosePopup}    ${cfWaitControl}
+
+Edit Multiple Keno PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${market}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}
+    ...    ${N2}=${EMPTY}
+    [Documentation]    *This Action is used to Edit Multiple Keno Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit Keno PT_MasterAgent
+    @{ac_controlLst}    Get Keno PT Controls    MasterAgent    ${market}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[1]    ${A2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[2]    ${Im2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[3]    ${Um2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Element Is Visible    //*[@id='divShowInfo']/div    ${cfWaitControl}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+    Comment    Scroll To Element    ${in_main_btnClosePopup}
+    Comment    Click button    ${in_main_btnClosePopup}
+    Comment    Run Keyword And Continue On Failure    Wait Until Page Does Not Contain Element    ${in_main_btnClosePopup}    ${cfWaitControl}
+
+Edit Multiple Keno PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${market}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}    ${Um1}=${EMPTY}
+    @{ac_controlLst}    Get Keno PT controls    MasterPlayer    ${market}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+    Comment    Scroll To Element    ${in_main_btnClosePopup}
+    Comment    Click button    ${in_main_btnClosePopup}
+    Comment    Run Keyword And Continue On Failure    Wait Until Page Does Not Contain Element    ${in_main_btnClosePopup}    ${cfWaitControl}
+
+Edit Multiple Keno PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${market}=${EMPTY}    ${A1}=${EMPTY}
+    [Documentation]    *This Action is used to Edit Multiple Keno Position Taking - Agent Edit Player *
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit Keno PT_AgentPlayer
+    @{ac_controlLst}    Get Keno PT Controls    AgentPlayer    ${market}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+    Comment    Scroll To Element    ${in_main_btnClosePopup}
+    Comment    Click button    ${in_main_btnClosePopup}
+    Comment    Run Keyword And Continue On Failure    Wait Until Page Does Not Contain Element    ${in_main_btnClosePopup}    ${cfWaitControl}
+
+Verify Multiple Keno PT_SuperMaster
+    [Arguments]    ${market}=${EMPTY}    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Keno Position Taking - Super Edit Master*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify Keno PT_SuperMaster
+    @{ac_controlLst}    Get Keno PT Controls    SuperMaster    ${market}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S3
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedS3}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check Is3
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    # Check M3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+    Unselect Frame
+
+Verify Multiple Keno PT_SuperPlayer
+    [Arguments]    ${market}=${EMPTY}    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    @{ac_controlLst}    Get Keno PT controls    SuperPlayer    ${market}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedS1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Is1
+    ${actualValue}    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Us1
+    ${actualValue}    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify Multiple Keno PT_MasterAgent
+    [Arguments]    ${market}=${EMPTY}    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Keno Position Taking - Master Edit Agent *
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify Keno PT_MasterAgent
+    @{ac_controlLst}    Get Keno PT Controls    MasterAgent    ${market}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M2
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check Im2
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    # Check A2
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+    Unselect Frame
+
+Verify Multiple Keno PT_MasterPlayer
+    [Arguments]    ${market}=${EMPTY}    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}
+    @{ac_controlLst}    Get Keno PT controls    MasterPlayer    ${market}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedM1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+
+Verify Multiple Keno PT_AgentPlayer
+    [Arguments]    ${market}=${EMPTY}    ${expectedA1}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Keno Position Taking - Agent Edit Player *
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify Keno PT_AgentPlayer
+    @{ac_controlLst}    Get Keno PT Controls    AgentPlayer    ${market}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check A1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${ac_A1}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame

@@ -1,0 +1,6 @@
+*** Variables ***
+${in_m_transfer_tblTransfer}  //table[@id='tblTransferList']
+${in_m_transfer_txtUsername}  //input[@id='txtUserName']
+${in_m_transfer_ddlStatus}  //select[@id='statusFilter']
+${in_m_transfer_chkYesterdayBal}  //input[@id='chkYesterdayBalance']
+${in_m_transfer_btnSubmit}  //input[@id='dSubmit']

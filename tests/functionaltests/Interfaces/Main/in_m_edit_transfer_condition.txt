@@ -1,0 +1,11 @@
+*** Variables ***
+${in_m_etf_rdoDaily}    //*[@id='rdDaily']
+${in_m_etf_rdoWeekly}    //*[@id='rdWeekly']
+${in_m_etf_chkMon}    //*[@id='chkMon']
+${in_m_etf_chkTue}    //*[@id='chkTue']
+${in_m_etf_chkWed}    //*[@id='chkWed']
+${in_m_etf_chkThurs}    //*[@id='chkThurs']
+${in_m_etf_chkFri}    //*[@id='chkFri']
+${in_m_etf_chkSat}    //*[@id='chkSat']
+${in_m_etf_chkSun}    //*[@id='chkSun']
+${in_m_etf_btnSubmit}    //*[@id='btnSubmit']

@@ -1,0 +1,89 @@
+*** Settings ***
+Documentation     Test Module is used to verify Setting Status of Account:
+...               - Suspend Status
+...               - Close Status
+...
+...               --------Using Line: Ds_S01 (SUPERTESTAUTO04)---------------
+Suite Setup       Init Test Suite    ${ds_agentStatusAccount_A}    ${EMPTY}    ${EMPTY}
+Suite Teardown    Teardown Test Suit
+Test Setup
+Test Teardown
+Force Tags        SmokeTestAgentSetting    SmokeTestAlpha    Status
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/menu/accountInfo_setting.txt
+Resource          ../../Data_set/accounts.txt
+
+*** Test Cases ***
+TC_AP_SP01_Suspend
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_agentStatusAccount_A}
+    ${tc_member}    set variable    ${ds_agentStatusAccount_P}
+    ${tc_status}    set variable    suspended
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_SP02_Unsuspend
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_agentStatusAccount_A}
+    ${tc_member}    set variable    ${ds_agentStatusAccount_P}
+    ${tc_status}    set variable    suspended
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is un-suspended
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_CL01_Close
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_agentStatusAccount_A}
+    ${tc_member}    set variable    ${ds_agentStatusAccount_P}
+    ${tc_status}    set variable    closed
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Closed
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_CL02_Open
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_agentStatusAccount_A}
+    ${tc_member}    set variable    ${ds_agentStatusAccount_P}
+    ${tc_status}    set variable    closed
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Opened
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A

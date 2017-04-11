@@ -1,0 +1,96 @@
+*** Settings ***
+Suite Teardown
+Test Setup
+Test Teardown
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Actions/Setting/bet_setting.txt
+Resource          ../../Data_set/bet_setting.txt
+Resource          ../../Interfaces/Main/in_m_edit_sportsbook.txt
+Resource          ../../Actions/PT/pt_livecasino.txt
+
+*** Variables ***
+
+*** Test Cases ***
+test2
+    Open Page
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Live Casino
+    Uncheck AutoPT
+    Edit Live Casino PT    A-Member    0.35    Yes    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    #check M1'
+    Select Frame    main
+    ${tm_m1}    Get Text    xpath=//*[@id='tblPtComSetting']/table/tbody/tr/td[1]
+    Should Be Equal    ${tm_m1}    0.1
+
+test
+    [Setup]    Set Test Documentation    testw213123213213123
+    #Login IBC BET
+    Open Browser    http://www.ibcbet.com/Default.aspx    ff
+    Maximize Browser Window
+    Input Text    id=txtID    supertest1201001
+    Input Password    id=txtPW    1234aaAA
+    Click Element    xpath=//*[@class='button']
+    #select ALL Sports-->Early
+    sleep    15s
+    #HDP & OU
+    IBC SB Playbet    2    OU    1H    1    15
+
+test3
+    Open Page
+    Login    SUPERTESTAUTO1    ${cf_acc_pass}    ${EMPTY}
+    Search Account    SUPERTESTAUTO100
+    select link in setting tab    Edit Live Casino
+    Comment    Select Frame    main
+    Comment    Click Element    xpath=//*[@class='update-setting-agency-submit']
+    Comment    Wait Until Keyword Succeeds    10 sec    1 sec    Page Should not Contain Element    xpath=//*[@class='update-setting-agency-submit']
+    Comment    Wait Until Page Contains Element    xpath=//*[@class='update-setting-agency-submit']    10s
+    Comment    Select From List By Label    id=ddlN3    0.15
+    Comment    Click Element    xpath=//*[@class='update-setting-agency-submit']
+    Comment    sleep    1s
+    Comment    Wait Until Page Contains Element    xpath=//*[@class='update-setting-agency-submit']    10s
+    Comment    Select From List By Label    id=ddlN3    0.16
+    Comment    Click Element    xpath=//*[@class='update-setting-agency-submit']
+    Comment    sleep    1s
+    Comment    Wait Until Page Contains Element    xpath=//*[@class='update-setting-agency-submit']    10s
+    Comment    Select From List By Label    id=ddlN3    0.17
+    Comment    Click Element    xpath=//*[@class='update-setting-agency-submit']
+    Edit Live Casino PT    Master    ${EMPTY}    Yes    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    Edit Live Casino PT    Master    ${EMPTY}    Yes    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    Edit Live Casino PT    Master    ${EMPTY}    Yes    ${EMPTY}    ${EMPTY}    ${EMPTY}
+
+test4
+    #Login IBC BET
+    Open Browser    http://10.18.200.209:7980/V1/%28S%28mgwxouquv1g4tihk1guzqibh%29%29/Authentication/Admin    ie
+    Maximize Browser Window
+    Input Text    id=Username    tester04
+    Input Password    id=Password    1234aa
+    Click Element    id=btnSubmit
+    Comment    #select ALL Sports-->Early
+    Comment    sleep    8s
+    Comment    #HDP & OU
+    Comment    IBC select left menu    Early    Soccer    HDP & OU
+    Comment    : FOR    ${i}    IN RANGE    1    300
+    Comment    \    Select Frame    mainFrame
+    Comment    \    Click Element    xpath=//*[@id='oTableContainer_D']//tr[2]/td[4]/div[2]/a[1]
+    Comment    \    Unselect Frame
+    Comment    \    IBC submit stake    Soccer    14
+    Comment    \    sleep    1s
+    Evaluate
+    Should Be Equal
+
+*** Keywords ***
