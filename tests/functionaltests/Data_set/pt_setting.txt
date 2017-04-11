@@ -1,0 +1,26 @@
+*** Variables ***
+##SMOKE TEST PT01 for SB - NG – LCS – Bingo – Casino – VS - GD
+@{ds_PT01_Super_Default}    0.9    0.9    0.9    ${EMPTY}    #S4|M4|A4|N4
+@{ds_PT01_SupMas_Default}    0.2    0.6    ${EMPTY}    ${EMPTY}    ${EMPTY}    #S3|M3|Is3|Us3|N3 | - SM: Super Edit Master
+@{ds_PT01_SupMas_Edit}    0.21    0.61    ${EMPTY}    ${EMPTY}    ${EMPTY}    #S3|M3|Is3|Us3|N3
+@{ds_PT01_SupPla_Default}    0.1    ${EMPTY}    ${EMPTY}    # S1| Is1| Us1
+@{ds_PT01_SupPla_Edit}    0.12    ${EMPTY}    ${EMPTY}    # S1| Is1| Us1
+@{ds_PT01_MasAge_Default}    0.2    0.3    ${EMPTY}    ${EMPTY}    #M2|A2|Im2|Um2|N2
+@{ds_PT01_MasAge_Edit}    0.24    0.35    ${EMPTY}    ${EMPTY}    ${EMPTY}    #M2|A2|Im2|Um2|N2
+@{ds_PT01_MasPla_Default}    0.2    ${EMPTY}    ${EMPTY}    ${EMPTY}    # M1| Im1| Um1
+@{ds_PT01_MasPla_Edit}    0.22    ${EMPTY}    ${EMPTY}    # M1| Im1| Um1
+@{ds_PT01_AgePla_Default}    0.1    ${EMPTY}
+@{ds_PT01_AgePla_Edit}    0.15    ${EMPTY}
+##
+##SMOKE TEST PT02 for Racing
+@{ds_PT02_Super_Default}    0.5    0.5    0.5    ${EMPTY}    #S4|M4|A4|N4
+@{ds_PT02_SupMas_Default}    0.1    0.3    ${EMPTY}    ${EMPTY}    ${EMPTY}    #S3|M3|Is3|Us3|N3 | - SM: Super Edit Master
+@{ds_PT02_SupMas_Edit}    0.2    0.2    ${EMPTY}    ${EMPTY}    ${EMPTY}    #S3|M3|Is3|Us3|N3
+@{ds_PT02_SupPla_Default}    0    ${EMPTY}    ${EMPTY}    # S1| Is1| Us1
+@{ds_PT02_SupPla_Edit}    0.1    ${EMPTY}    ${EMPTY}    # S1| Is1| Us1
+@{ds_PT02_MasAge_Default}    0    0.2    ${EMPTY}    ${EMPTY}    #M2|A2|Im2|Um2|N2
+@{ds_PT02_MasAge_Edit}    0.1    0.1    ${EMPTY}    ${EMPTY}    ${EMPTY}    #M2|A2|Im2|Um2|N2
+@{ds_PT02_MasPla_Default}    0    ${EMPTY}    ${EMPTY}    ${EMPTY}    # M1| Im1| Um1
+@{ds_PT02_MasPla_Edit}    0.1    ${EMPTY}    ${EMPTY}    # M1| Im1| Um1
+@{ds_PT02_AgePla_Default}    0.1    ${EMPTY}
+@{ds_PT02_AgePla_Edit}    0.2    ${EMPTY}

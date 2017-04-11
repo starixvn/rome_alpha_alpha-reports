@@ -1,0 +1,229 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Interfaces/in_login.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Actions/common_actions.txt
+
+*** Keywords ***
+Filter Transfer
+    [Arguments]    ${status}    ${username}=${EMPTY}    ${isYesterdayBalance}=1
+    [Documentation]    This action is used to submit transfer filter
+    ...
+    ...    ${status}: the status of account
+    ...
+    ...    ${username}: the username of account need to get info (${EMPTY} means all downlines)
+    ...
+    ...    ${isYesterdayBalance}: "All Yesterday Balance" checkbox is check or not (1/0: check or uncheck) (default value is 0)
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${in_m_transfer_txtUsername}    ${cfWaitControl}
+    Run Keyword If    '${username}'!='${EMPTY}'    Input Text    ${in_m_transfer_txtUsername}    ${username}
+    Run Keyword If    '${status}'!='${EMPTY}'    Select From List By Label    ${in_m_transfer_ddlStatus}    ${status}
+    Run Keyword If    ${isYesterdayBalance}==1    Select Checkbox    ${in_m_transfer_chkYesterdayBal}
+    Click Element    ${in_m_transfer_btnSubmit}
+
+Change Password
+    [Arguments]    ${old_pass}    ${new_pass}
+    Select Frame    frHeader
+    Click Element    id=changepass
+    Unselect Frame
+    sleep    1s
+    Select Frame    main
+    Input Password    id=txtOldPwd    ${old_pass}
+    Input Password    id=txtNewPwd    ${new_pass}
+    Input Password    id=txtConfirmPwd    ${new_pass}
+    Click Element    xpath=//*[@value='Submit']
+    Unselect Frame
+    Run Keyword If    '${oldPassword}'!='${EMPTY}'    Input Text    ${in_m_cpw_txtOldPassword}    ${oldPassword}
+    Run Keyword If    '${oldPassword}'!='${EMPTY}'    Input Text    ${in_m_cpw_txtNewPassword}    ${newPassword}
+    Run Keyword If    '${oldPassword}'!='${EMPTY}'    Input Text    ${in_m_cpw_txtConfirmPassword}    ${newPassword}
+    Run Keyword If    '${action}'!='save'    Click Element    ${in_m_cpw_btnSubmit}
+    Run Keyword If    '${action}'!='reset'    Click Element    ${in_m_cpw_btnReset}
+
+Change Security Code
+    [Arguments]    ${old_code}    ${new_code}
+    Select Frame    frHeader
+    Click Element    id=changepass
+    Unselect Frame
+    Select Frame    main
+    Click Element    xpath=//*/a[contains(text(),'Security Code')]
+    sleep    3s
+    Input Password    id=txtOldSecCode    ${old_code}
+    Input Password    id=txtSecCode    ${new_code}
+    Input Password    id=txtConfirmSecCode    ${new_code}
+    Click Element    xpath=//*[@value='Submit']
+    Unselect Frame
+
+Filter View Log
+    [Arguments]    ${tabname}    ${username}    ${viewby}    ${from}=${EMPTY}    ${to}=${EMPTY}    ${showold}=${EMPTY}
+    [Documentation]    This action is used to filter view log
+    ...
+    ...    ${tabname}: Customer Setting / Status / Creadit / Login
+    ...
+    ...    ${username}: Username or First/Last Name
+    ...
+    ...    ${viewby} : ALL, PT, Comm, Bet Setting or General Info
+    ...
+    ...
+    ...    ${year} \ ${month}
+    ...    ${from} : from date
+    ...    ${to} : to date
+    ...    ${showold}: check/uncheck show old values check box
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    //*[@id='nav-tabs']//*[contains(text(),'${tabname}')]    ${cfWaitControl}
+    Click Element    //*[@id='nav-tabs']//*[contains(text(),'${tabname}')]
+    Run Keyword If    '${username}'!='${EMPTY}'    Input Text    ${in_m_viewlog_txtUsername}    ${username}
+    Run Keyword If    '${viewby}'!='${EMPTY}'    Select From List By Label    ${in_m_viewlog_ddlViewBy}    ${viewby}
+    Run Keyword If    '${showold}'=='1'    Select Checkbox    ${in_m_viewlog_chkShowOldValues}    \    Unselect Checkbox    ${in_m_viewlog_chkShowOldValues}
+    Run Keyword If    '${showold}'=='0'    Unselect Checkbox    ${in_m_viewlog_chkShowOldValues}
+    Run Keyword If    '${from}'!='${EMPTY}' and '${to}'!='${EMPTY}'    Select Date in ViewLog    ${from}    ${to}]
+    Click Element    ${in_m_viewlog_btnSubmit}
+
+Select Right Menu Tab
+    [Arguments]    ${tab}
+    Unselect Frame
+    Select Frame    frHeader
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    id=${tab}    ${cfWaitControl}
+    sleep    0.1s
+    Click Element    id=${tab}
+    Unselect Frame
+
+Check VS Log
+    [Arguments]    ${logid}    ${logdate}    ${editby}    ${action}    ${header}    ${minnew}
+    ...    ${minold}    ${maxnew}    ${maxold}    ${mpmnew}    ${mpmold}
+    Select Frame    main
+    #data time
+    Run Keyword And Continue On Failure    Element Should Contain    xpath=//*[@id='DataLog']//td[text()='${logid}']/following::td[1]    ${logdate}
+    #Submit by
+    Run Keyword And Continue On Failure    Element Text Should Be    xpath=//*[@id='DataLog']//td[text()='${logid}']/following::td[2]    ${editby}
+    #Action
+    Run Keyword And Continue On Failure    Element Text Should Be    xpath=//*[@id='DataLog']//td[text()='${logid}']/following::td[3]    ${action}
+    #header sportype details
+    Run Keyword And Continue On Failure    Element Text Should Be    xpath=//*[@id='DataLog']//td[text()='${logid}']/following::td[4]/div    ${header}
+    #min new
+    Run Keyword And Continue On Failure    Element Text Should Be    xpath=//*[@id='DataLog']//td[text()='${logid}']/following::td[6]/span[1]    ${minnew}
+    #min old
+    Run Keyword And Continue On Failure    Element Text Should Be    xpath=//*[@id='DataLog']//td[text()='${logid}']/following::td[6]/span[2]    ${minold}
+    #max new
+    Run Keyword And Continue On Failure    Element Text Should Be    xpath=//*[@id='DataLog']//td[text()='${logid}']/following::td[8]/span[1]    ${maxnew}
+    #max old
+    Run Keyword And Continue On Failure    Element Text Should Be    xpath=//*[@id='DataLog']//td[text()='${logid}']/following::td[8]/span[2]    ${maxold}
+    #mpm new
+    Run Keyword And Continue On Failure    Element Text Should Be    xpath=//*[@id='DataLog']//td[text()='${logid}']/following::td[10]/span[1]    ${mpmnew}
+    #mpm old
+    Run Keyword And Continue On Failure    Element Text Should Be    xpath=//*[@id='DataLog']//td[text()='${logid}']/following::td[10]/span[2]    ${mpmold}
+    Unselect Frame
+
+Get Log ID
+    [Arguments]    ${date}    ${action}    ${variance}
+    @{logID}=    Execute Javascript    var logID,idate,iaction,date,action, variance; \ date = ${date}; \ action = "${action}"; \ variance = ${variance}; logID = new Array(); \ tbl = document.getElementById("DataLog"); \ if (tbl == null || tbl == undefined) return logID; \ noR= tbl.rows.length; \ for(i=0;i<noR;i++) \ \ { \ \ \ cells = tbl.rows[i].cells; \ \ \ idate = getText(cells[1]).trim(); \ \ \ idate = new Date(idate); \ \ \ idate = (idate.getTime())/1000; \ \ \ gap = Math.abs(date - idate); \ \ \ iaction = getText(cells[3]).trim(); \ \ \ if(gap <= variance && (iaction.localeCompare(action)==0)) \ \ \ { \ \ \ \ logID.push(getText(cells[0])); \ \ \ } \ \ } \ return logID; function getText(e){ \ return (e.innerText != undefined) ? e.innerText : e.textContent; \ }
+    [Return]    @{logID}
+
+Check Live Casino PT Log
+    [Arguments]    ${username}    ${datelog}    ${actionlog}    @{lstcheck}
+    [Documentation]    This action is used to check Live Casino Log
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${datelog}: the date log (ex:2014-09-23 12:00:00 ) +14h -1d
+    ...
+    ...    ${actionlog}: the action that is logged
+    ...
+    ...    ${lstcheck}: Name_newvalue_oldvalue
+    ...    ex: Super Preset PT_0.47_0.30
+    ${ac_time}    Get Time    epoch    ${datelog}
+    ${ac_year}    ${ac_month}    ${ac_day}=    Get Time    year, month,day    ${datelog}
+    ${ac_month}    Convert To Integer    ${ac_month}
+    #navigate view log tab
+    Select Right Menu Tab    viewlog    #    tab name    user name    view by    year
+    ...    #month    from    #to    check/uncheck show old
+    Filter View Log    Customer Setting    ${username}    All    ${ac_year}    ${ac_month}    ${ac_day}
+    ...    ${ac_day}    yes
+    Select Frame    main
+    @{lstLogID}    Get Log ID    ${ac_time}    ${actionlog}    50
+    : FOR    ${i}    IN    @{lstcheck}
+    \    ${ac_listck}    Split String    ${i}    _
+    \    ${ac_lengthlt}    Get Length    ${ac_listck}
+    \    Run Keyword If    '${ac_lengthlt}'=='3'    Run Keywords    Check Data    xpath=//*[@class='LogId'][text()='@{lstLogID}[0]']/following::table[1]//td[text()='@{ac_listck}[0]']/following::td[1]/span[1]    @{ac_listck}[1]
+    \    ...    AND    Check Data    xpath=//*[@class='LogId'][text()='@{lstLogID}[0]']/following::table[1]//td[text()='@{ac_listck}[0]']/following::td[1]/span[2]    @{ac_listck}[2]
+    \    Run Keyword If    '${ac_lengthlt}'=='2'    Check Data    xpath=//*[@class='LogId'][text()='@{lstLogID}[0]']/following::table[1]//td[text()='@{ac_listck}[0]']/following::td[1]    @{ac_listck}[1]
+    Unselect Frame
+
+Select Date in ViewLog
+    [Arguments]    ${FromDate}    ${ToDate}
+    [Documentation]    This action is used to select date in Viewlog function
+    ...
+    ...    ${FromDate}: the from date data
+    ...
+    ...    ${ToDate}: the to date data
+    ## Set Variable
+    ${ac_year}    ${ac_month}    ${ac_fromday}=    Get Time    year month day    ${FromDate}
+    ${ac_today}=    Get Time    day    ${ToDate}
+    ${ac_month}    Evaluate    '${ac_month}'.lstrip('0')
+    ${ac_fromday}    Evaluate    '${ac_fromday}'.lstrip('0')
+    ${ac_today}    Evaluate    '${ac_today}'.lstrip('0')
+    ${ac_lnkYear}    Set Variable    ${in_m_viewlog_divMonthPicker}//a[@id='ID_${ac_year}']
+    Click Element    ${in_m_viewlog_spanMonth}
+    Wait Until Element Is Visible    ${in_m_viewlog_divMonthPicker}
+    ${isSelectedYear}    Get Element Attribute    ${ac_lnkYear}@class
+    Run Keyword Unless    '${isSelectedYear}'=='selected'    Click Element    ${ac_lnkYear}
+    Double Click Element    ${in_m_viewlog_divMonthPicker} /ul/li[@id='LI_${ac_year}_${ac_month}']/a
+    Select From List By Label    ${in_m_viewlog_ddlFrom}    ${ac_fromday}
+    Select From List By Label    ${in_m_viewlog_ddlTo}    ${ac_today}
+
+Change Language
+    [Arguments]    ${ac_language}
+    [Documentation]    This action is used to change language and then focus on main frame
+    ...
+    ...    ${ac_language} : the language need to be changed
+    Unselect Frame
+    Wait Until Element Is Visible    ${in_tm_lnkLanguage}    ${cfWaitControl}
+    Click Element    ${in_tm_lnkLanguage}
+    Click Element    //ul[@id='language']//a[text()='${ac_language}']
+
+Verify Language
+    [Arguments]    ${ac_language}    ${ac_text}    ${ac_control}
+    [Documentation]    This action is used to check data after changing language
+    ...
+    ...    ${ac_language} : the language need to be changed
+    ...
+    ...    ${ac_text} : the text displayed
+    ...
+    ...    ${ac_control}: the control that contain the text need to be checked
+    Change Language    ${ac_language}
+    Close Announcement Popup
+    Unselect Frame
+    Select Frame    main
+    Wait Until Element Contains    ${ac_control}    ${ac_text}    ${cfWaitControl}
+
+Select Top Menu
+    [Arguments]    ${tabName}
+    Unselect Frame
+    Select Frame    frHeader
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    //*[@class='HeaderMenu']//*[text()='${tabName}']    ${cfWaitControl}
+    sleep    0.1s
+    Click Element    //*[@class='HeaderMenu']//*[text()='${tabName}']
+    Unselect Frame
+
+Select Header Menu
+    [Arguments]    ${ac_item}
+    [Documentation]    This action is used to select menu item in Header menu on top right new main page
+    ...
+    ...    ${ac_item}: the item need to be selected
+    Unselect Frame
+    Click Element    ${in_tm_iconHeaderMenu}
+    Comment    Click Element    ${ac_item}
+    Click Element    ${in_tm_dropdownHeadMenu}//a[text()='${ac_item}']
+
+Select Personal Menu
+    [Arguments]    ${itemName}
+    Unselect Frame
+    Wait Until Element Is Enabled    ${in_tm_iconHeaderMenu}    ${cfWaitControl}
+    click element    ${in_tm_iconHeaderMenu}
+    sleep    0.5s
+    click element    ${in_tm_dropdownHeadMenu}//*[text()='${itemName}']

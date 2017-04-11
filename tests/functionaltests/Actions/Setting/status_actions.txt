@@ -1,0 +1,668 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Interfaces/in_login.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Interfaces/Menu/accountInfo_setting.txt
+
+*** Keywords ***
+edit checkbox setting
+    [Arguments]    ${options}    ${mode}    # options ==Suspend,Closed,Outright,VirtualSports,DoubleComm,HRFixedOdds,Casino,LiveCasino
+    Set Selenium Speed    0.1
+    Select Frame    menu
+    : FOR    ${index}    IN    Suspend    Closed    Outright    VirtualSports
+    ...    DoubleComm    HRFixedOdds    MAutoPT    Casino    LiveCasino
+    \    Run Keyword If    '${options}'=='${index}' and '${mode}'=='check'    Run Keywords    Select Checkbox    id=chk${index}
+    \    ...    AND    Run Keyword And Ignore Error    Confirm Action
+    \    Run Keyword If    '${options}'=='${index}' and '${mode}'=='uncheck'    Run Keywords    Unselect Checkbox    id=chk${index}
+    \    ...    AND    Run Keyword And Ignore Error    Confirm Action
+    #Check-1 only current level, check-2 current and downline
+    : FOR    ${index}    IN    VirtualSports    HRFixedOdds
+    \    Run Keyword If    '${options}'=='${index}' and '${mode}'=='check-1'    Run Keywords    Click Element    id=chk${index}
+    \    ...    AND    Select Checkbox    id=chkEnabled
+    \    ...    AND    sleep    2s
+    \    ...    AND    Click Element    id=btnUpdStatus
+    \    Run Keyword If    '${options}'=='${index}' and '${mode}'=='check-2'    Run Keywords    Click Element    id=chk${index}
+    \    ...    AND    Select Checkbox    id=chkEnabled
+    \    ...    AND    sleep    2s
+    \    ...    AND    Select Checkbox    chkEnabledDL
+    \    ...    AND    Click Element    id=btnUpdStatus
+    Unselect Frame
+    Set Selenium Speed    ${cfSpeed}
+
+check checkbox setting
+    [Arguments]    ${options}    ${mode}    # options ==Suspend,Closed,Outright,VirtualSports,DoubleComm,HRFixedOdds
+    Set Selenium Speed    0.1
+    Select Frame    menu
+    : FOR    ${index}    IN    Suspend    Closed    Outright    VirtualSports
+    ...    DoubleComm    HRFixedOdds    MAutoPT
+    \    Run Keyword If    '${options}'=='${index}' and '${mode}'=='check'    Run Keywords    Checkbox Should Be Selected    id=chk${index}
+    \    ...    AND    Run Keyword And Ignore Error    Confirm Action
+    \    Run Keyword If    '${options}'=='${index}' and '${mode}'=='uncheck'    Run Keywords    Checkbox Should Not Be Selected    id=chk${index}
+    \    ...    AND    Run Keyword And Ignore Error    Confirm Action
+    Unselect Frame
+    Set Selenium Speed    ${cfSpeed}
+
+filter user list
+    [Arguments]    ${username}    ${status}    ${dbcomm}
+    # Filter user in master/agent/member list ; navigate:Main menu>>Member Information>>Master Agent List>>Filter
+    Select Frame    main
+    Input Text    ${in_main_txtusernamefilter}    ${username}
+    Select From List By Label    ${in_main_dropstatusfilter}    ${status}
+    Select From List By Label    ${in_main_dropdcommfilter}    ${dbcomm}
+    Click Element    ${in_main_btnsubmitfilter}
+    Unselect Frame
+
+select link in setting tab
+    [Arguments]    ${link}
+    ## Set variable
+    ${ac_lnkEdit}    Set Variable    //table[@id='tbl_custsettings']//a[contains(.,'${link}')]
+    Unselect Frame
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Ignore Error    Wait Until Element Is Visible    ${ac_lnkEdit}    ${cfWaitControl}
+    Run Keyword And Ignore Error    Scroll To Element    ${ac_lnkEdit}
+    Focus    ${ac_lnkEdit}
+    Click Element    ${ac_lnkEdit}
+    Unselect Frame
+
+check customer table cell
+    [Arguments]    ${table_locator}    ${row}    ${column}    ${value}
+    Select Frame    main
+    Table Cell Should Contain    ${table_locator}    ${row}    ${column}    ${value}
+    Unselect Frame
+
+check all customer table cell
+    [Arguments]    ${table_id}    ${column}    ${value}
+    Select Frame    main
+    ${tbrows}=    Execute Javascript    return document.getElementById('${table_id}').rows.length
+    : FOR    ${index}    IN RANGE    3    ${tbrows}
+    \    Table Cell Should Contain    xpath=//*/table[@id='${table_id}']    ${index}    ${column}    ${value}
+    Unselect Frame
+
+edit popup setting
+    [Arguments]    ${row}    ${option}    ${status}
+    Set Selenium Speed    0.1
+    Select Frame    main
+    ${expand_icon}=    Run Keyword And Return Status    Page Should Contain Element    xpath=//*/tr[${row}]/td[3]/div[@id='IdStatus']/span
+    Run Keyword If    '${expand_icon}'=='True'    Click Element    xpath=//*/tr[${row}]/td[3]/div[@id='IdStatus']/span
+    ...    ELSE    Click Element    xpath=//*/tr[${row}]/td[4]/div[@id='IdStatus']/span[2]
+    Sleep    1s
+    : FOR    ${index}    IN    closed    suspended    allowAutoPT    outright
+    \    Run Keyword If    '${option}'=='${index}' and '${status}'=='check'    Run Keywords    Select Checkbox    id=chk_${index}
+    \    ...    AND    sleep    2s    Run Keyword And Ignore Error    Confirm Action
+    \    Run Keyword If    '${option}'=='${index}' and '${status}'=='uncheck'    Run Keywords    Unselect Checkbox    id=chk_${index}
+    \    ...    AND    sleep    2s    Run Keyword And Ignore Error    Confirm Action
+    Unselect Frame
+    Set Selenium Speed    ${cfSpeed}
+
+check popup setting
+    [Arguments]    ${row}    ${option}    ${status}
+    Set Selenium Speed    0.1
+    Select Frame    main
+    ${expand_icon}=    Run Keyword And Return Status    Page Should Contain Element    xpath=//*/tr[${row}]/td[3]/div[@id='IdStatus']/span
+    Run Keyword If    '${expand_icon}'=='True'    Click Element    xpath=//*/tr[${row}]/td[3]/div[@id='IdStatus']/span
+    ...    ELSE    Click Element    xpath=//*/tr[${row}]/td[4]/div[@id='IdStatus']/span[2]
+    Sleep    1s
+    : FOR    ${index}    IN    closed    suspended    allowAutoPT    outright
+    \    Run Keyword If    '${option}'=='${index}' and '${status}'=='check'    Run Keywords    Checkbox Should Be Selected    id=chk_${index}
+    \    ...    AND    sleep    3s
+    \    Run Keyword If    '${option}'=='${index}' and '${status}'=='uncheck'    Run Keywords    Checkbox Should Not Be Selected    id=chk_${index}
+    \    ...    AND    sleep    3s
+    Unselect Frame
+    Set Selenium Speed    ${cfSpeed}
+
+edit racing setting
+    [Arguments]    ${sport}    ${sporttype}    ${status}    ${downlines}
+    Set Selenium Speed    0.1
+    Select Frame    menu
+    Click Element    id=chkRacing
+    sleep    2s
+    #Racing
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    Run Keyword If    '${sport}'=='Racing' and '${sporttype}'=='${index}' and '${status}'=='uncheck'    Run Keywords    unSelect Checkbox    ${in_lm_racing_chk${index}}
+    \    ...    AND    Click Element    ${in_lm_racing_btnupdate}
+    \    ...    AND    sleep    1s
+    \    ...    AND    Run Keyword And Ignore Error    Confirm Action
+    \    Run Keyword If    '${sport}'=='Racing' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='check'    Run Keywords    Select Checkbox    ${in_lm_racing_chk${index}}
+    \    ...    AND    Select Checkbox    ${in_lm_racing_chk${index}DL}
+    \    ...    AND    Click Element    ${in_lm_racing_btnupdate}
+    \    ...    AND    sleep    1s
+    \    Run Keyword If    '${sport}'=='Racing' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='uncheck'    Run Keywords    Select Checkbox    ${in_lm_racing_chk${index}}
+    \    ...    AND    Click Element    ${in_lm_racing_btnupdate}
+    \    ...    AND    sleep    1s
+    #Greyhound
+    : FOR    ${index}    IN    UKIrish    Aust
+    \    Run Keyword If    '${sport}'=='Greyhound' and '${sporttype}'=='${index}' and '${status}'=='uncheck'    Run Keywords    unSelect Checkbox    ${in_lm_racing_chkGr${index}}
+    \    ...    AND    Click Element    ${in_lm_racing_btnupdate}
+    \    ...    AND    sleep    1s
+    \    ...    AND    Run Keyword And Ignore Error    Confirm Action
+    \    Run Keyword If    '${sport}'=='Greyhound' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='check'    Run Keywords    Select Checkbox    ${in_lm_racing_chkGr${index}}
+    \    ...    AND    Select Checkbox    ${in_lm_racing_chkGr${index}DL}
+    \    ...    AND    Click Element    ${in_lm_racing_btnupdate}
+    \    ...    AND    sleep    1s
+    \    Run Keyword If    '${sport}'=='Greyhound' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='uncheck'    Run Keywords    Select Checkbox    ${in_lm_racing_chkGr${index}}
+    \    ...    AND    Click Element    ${in_lm_racing_btnupdate}
+    \    ...    AND    sleep    1s
+    #Harness
+    : FOR    ${index}    IN    Aust
+    \    Run Keyword If    '${sport}'=='Harness' and '${sporttype}'=='${index}' and '${status}'=='uncheck'    Run Keywords    unSelect Checkbox    ${in_lm_racing_chkHr${index}}
+    \    ...    AND    Click Element    ${in_lm_racing_btnupdate}
+    \    ...    AND    sleep    1s
+    \    ...    AND    Run Keyword And Ignore Error    Confirm Action
+    \    Run Keyword If    '${sport}'=='Harness' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='check'    Run Keywords    Select Checkbox    ${in_lm_racing_chkHr${index}}
+    \    ...    AND    Select Checkbox    ${in_lm_racing_chkHr${index}DL}
+    \    ...    AND    Click Element    ${in_lm_racing_btnupdate}
+    \    ...    AND    sleep    1s
+    \    Run Keyword If    '${sport}'=='Harness' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='uncheck'    Run Keywords    Select Checkbox    ${in_lm_racing_chkHr${index}}
+    \    ...    AND    Click Element    ${in_lm_racing_btnupdate}
+    \    ...    AND    sleep    1s
+    Unselect Frame
+    Set Selenium Speed    ${cfSpeed}
+
+check racing setting
+    [Arguments]    ${sport}    ${sporttype}    ${status}    ${downlines}
+    Set Selenium Speed    0.1
+    Select Frame    menu
+    Click Element    id=chkRacing
+    sleep    2s
+    #Racing
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    Run Keyword If    '${sport}'=='Racing' and '${sporttype}'=='${index}' and '${status}'=='uncheck'    Run Keywords    Checkbox Should Not Be Selected    ${in_lm_racing_chk${index}}
+    \    ...    AND    Click Element    ${in_lm_racing_btncancel}
+    \    ...    AND    sleep    1s
+    \    Run Keyword If    '${sport}'=='Racing' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='check'    Run Keywords    Checkbox Should Be Selected    ${in_lm_racing_chk${index}}
+    \    ...    AND    Checkbox Should Be Selected    ${in_lm_racing_chk${index}DL}
+    \    ...    AND    Click Element    ${in_lm_racing_btncancel}
+    \    Run Keyword If    '${sport}'=='Racing' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='uncheck'    Run Keywords    Checkbox Should Be Selected    ${in_lm_racing_chk${index}}
+    \    ...    AND    Checkbox Should Not Be Selected    ${in_lm_racing_chk${index}DL}
+    \    ...    AND    Click Element    ${in_lm_racing_btncancel}
+    #Greyhound
+    : FOR    ${index}    IN    UKIrish    Aust
+    \    Run Keyword If    '${sport}'=='Greyhound' and '${sporttype}'=='${index}' and '${status}'=='uncheck'    Run Keywords    Checkbox Should Not Be Selected    ${in_lm_racing_chkGr${index}}
+    \    ...    AND    Click Element    ${in_lm_racing_btncancel}
+    \    ...    AND    sleep    1s
+    \    Run Keyword If    '${sport}'=='Greyhound' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='check'    Run Keywords    Checkbox Should Be Selected    ${in_lm_racing_chkGr${index}}
+    \    ...    AND    Checkbox Should Be Selected    ${in_lm_racing_chkGr${index}DL}
+    \    ...    AND    Click Element    ${in_lm_racing_btncancel}
+    \    Run Keyword If    '${sport}'=='Greyhound' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='uncheck'    Run Keywords    Checkbox Should Be Selected    ${in_lm_racing_chkGr${index}}
+    \    ...    AND    Checkbox Should Not Be Selected    ${in_lm_racing_chkGr${index}DL}
+    \    ...    AND    Click Element    ${in_lm_racing_btncancel}
+    #Harness
+    : FOR    ${index}    IN    Aust
+    \    Run Keyword If    '${sport}'=='Harness' and '${sporttype}'=='${index}' and '${status}'=='uncheck'    Run Keywords    Checkbox Should Not Be Selected    ${in_lm_racing_chkHr${index}}
+    \    ...    AND    Click Element    ${in_lm_racing_btncancel}
+    \    ...    AND    sleep    1s
+    \    Run Keyword If    '${sport}'=='Harness' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='check'    Run Keywords    Checkbox Should Be Selected    ${in_lm_racing_chkHr${index}}
+    \    ...    AND    Checkbox Should Be Selected    ${in_lm_racing_chkHr${index}DL}
+    \    ...    AND    Click Element    ${in_lm_racing_btncancel}
+    \    Run Keyword If    '${sport}'=='Harness' and '${sporttype}'=='${index}' and '${status}'=='check' and '${downlines}'=='uncheck'    Run Keywords    Checkbox Should Be Selected    ${in_lm_racing_chkHr${index}}
+    \    ...    AND    Checkbox Should Not Be Selected    ${in_lm_racing_chkHr${index}DL}
+    \    ...    AND    Click Element    ${in_lm_racing_btncancel}
+    Unselect Frame
+    Set Selenium Speed    ${cfSpeed}
+
+Verify Setting Status
+    [Arguments]    ${status}    ${expectedAppear}=${EMPTY}    ${expectedStatus}=${EMPTY}    ${expectedValue}=${EMPTY}
+    [Documentation]    This action is used to verify status
+    # Set Control by Status Name
+    Capture Page Screenshot
+    ${ac_statusLocator}    set variable    ${in_lm_chk${status}}
+    Select Frame    menu
+    verify control    ${ac_statusLocator}    checkbox    ${expectedAppear}    ${expectedStatus}    ${expectedValue}
+    Unselect Frame
+
+update status
+    [Arguments]    ${action}    ${locator}    ${value}
+    [Documentation]    This action use to update setting status of member(check/uncheck) and SMA(uncheck) from Left Menu:
+    ...
+    ...    + Action: ok, cancel
+    ...
+    ...    + Value: check, uncheck
+    Set Selenium Speed    0.1
+    Select Frame    menu
+    Set Checkbox    ${locator}    ${value}
+    run keyword if    '${action}'=='cancel'    Choose Cancel On Next Confirmation
+    run keyword if    '${action}'=='cancel' or '${action}'=='save'    Run Keywords    Confirm Action    Unselect Frame
+    Set Selenium Speed    ${cfSpeed}
+
+Update Setting Status
+    [Arguments]    ${action}    ${status}    ${value}    ${confirmType}='message'    ${valueDL}=${EMPTY}
+    [Documentation]    This action is used to update status of SMAP from left menu
+    ...
+    ...    - ${action}: Save, Cancel
+    ...    - ${status}: Status Name (ex: closed, suspended, casino, livecasino...)
+    ...    - ${value}: check/uncheck
+    ...    - ${confirmType}: 'message'-show message popup, 'Downline' - Confirm Downline
+    # Set Control by Status Name
+    ${ac_statusLocator}    set variable    ${in_lm_chk${status}}
+    Capture Page Screenshot
+    Run Keyword if    '${value}'!='${EMPTY}'    select frame    ${in_lm_frameAccountInfo}
+    Run Keyword if    '${value}'!='${EMPTY}'    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${ac_statusLocator}    ${cfWaitControl}
+    run keyword if    '${confirmType}'=='message'    Update Status with Confirm Message    ${action}    ${ac_statusLocator}    ${value}
+    run keyword if    '${confirmType}'=='downline'    Update Status with Confirm Downline    ${action}    ${ac_statusLocator}    ${value}    ${valueDL}
+    Sleep    1s
+
+Update Setting Status Racing
+    [Arguments]    ${action}    ${status}    ${value}    ${valueDL}=${EMPTY}    ${confirmAction}=${EMPTY}
+    Unselect Frame
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_chkRacing}    ${cfWaitControl}
+    Click Element    ${in_lm_chkRacing}
+    # Set value for Racing    UK/IrishTote
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_racing_chkRacingUkIrishTote}    ${cfWaitControl}
+    Sleep    1s
+    Run Keyword if    '${status}'=='all' or '${status}'=='RacingUkIrishTote'    Set Checkbox    ${in_lm_racing_chkRacingUkIrishTote}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='RacingUkIrishTote') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_racing_chkRacingUkIrishToteDL}    ${valueDL}
+    # Set value for Racing    SATote
+    Run Keyword if    '${status}'=='all' or '${status}'=='RacingSATote'    Set Checkbox    ${in_lm_racing_chkRacingSATote}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='RacingSATote') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_racing_chkRacingSAToteDL}    ${valueDL}
+    # Set value for Racing    AustTote
+    Run Keyword if    '${status}'=='all' or '${status}'=='RacingAustTote'    Set Checkbox    ${in_lm_racing_chkRacingAustTote}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='RacingAustTote') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_racing_chkRacingAustToteDL}    ${valueDL}
+    # Set value for Racing    GreyhoundUkIrishTote
+    Run Keyword if    '${status}'=='all' or '${status}'=='GreyhoundUkIrishTote'    Set Checkbox    ${in_lm_racing_chkGreyhoundUkIrishTote}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='GreyhoundUkIrishTote') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_racing_chkGreyhoundUkIrishToteDL}    ${valueDL}
+    # Set value for Racing    GreyhoundAustTote
+    Run Keyword if    '${status}'=='all' or '${status}'=='GreyhoundAustTote'    Set Checkbox    ${in_lm_racing_chkGreyhoundAustTote}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='GreyhoundAustTote') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_racing_chkGreyhoundAustToteDL}    ${valueDL}
+    # Set value for Racing    HarnessAustTote
+    Run Keyword if    '${status}'=='all' or '${status}'=='HarnessAustTote'    Set Checkbox    ${in_lm_racing_chkHarnessAustTote}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='HarnessAustTote') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_racing_chkHarnessAustToteDL}    ${valueDL}
+    # Actions
+    Run Keyword if    '${action}'=='cancel'    Click Button    ${in_lm_racing_btnCancel}
+    Run Keyword if    '${action}'=='save'    Click Button    ${in_lm_racing_btnUpdate}
+    Unselect Frame
+    Run Keyword if    '${action}'=='save' and '${confirmAction}'=='cancel'    Click Element    ${in_main_btnConfirmPopupCancel}
+    Run Keyword if    '${action}'=='save' and '${confirmAction}'=='ok'    Click Element    ${in_main_btnConfirmPopupOk}
+
+Verify Setting Status Racing
+    [Arguments]    ${status}    ${expectedAppear}=${EMPTY}    ${expectedStatus}=${EMPTY}    ${expectedValue}=${EMPTY}    ${expectedAppearDL}=${EMPTY}    ${expectedStatusDL}=${EMPTY}
+    ...    ${expectedValueDL}=${EMPTY}
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_chkRacing}    ${cfWaitControl}
+    Click Element    ${in_lm_chkRacing}
+    # Verify value for Racing    UK/IrishTote
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_racing_chkRacingUkIrishTote}    ${cfWaitControl}
+    sleep    1s
+    Run Keyword if    '${status}'=='all' or '${status}'=='RacingUkIrishTote'    Verify Control    ${in_lm_racing_chkRacingUkIrishTote}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='RacingUkIrishTote')    Verify Control    ${in_lm_racing_chkRacingUkIrishToteDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Racing    SATote
+    Run Keyword if    '${status}'=='all' or '${status}'=='RacingSATote'    Verify Control    ${in_lm_racing_chkRacingSATote}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    '${status}'=='all' or '${status}'=='RacingSATote'    Verify Control    ${in_lm_racing_chkRacingSAToteDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Racing    AustTote
+    Run Keyword if    '${status}'=='all' or '${status}'=='RacingAustTote'    Verify Control    ${in_lm_racing_chkRacingAustTote}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    '${status}'=='all' or '${status}'=='RacingAustTote'    Verify Control    ${in_lm_racing_chkRacingAustToteDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Greyhound    UkIrishTote
+    Run Keyword if    '${status}'=='all' or '${status}'=='GreyhoundUkIrishTote'    Verify Control    ${in_lm_racing_chkGreyhoundUkIrishTote}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    '${status}'=='all' or '${status}'=='GreyhoundUkIrishTote'    Verify Control    ${in_lm_racing_chkGreyhoundUkIrishToteDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Greyhound    AustTote
+    Run Keyword if    '${status}'=='all' or '${status}'=='GreyhoundAustTote'    Verify Control    ${in_lm_racing_chkGreyhoundAustTote}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    '${status}'=='all' or '${status}'=='GreyhoundAustTote'    Verify Control    ${in_lm_racing_chkGreyhoundAustToteDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Harness    AustTote
+    Run Keyword if    '${status}'=='all' or '${status}'=='HarnessAustTote'    Verify Control    ${in_lm_racing_chkHarnessAustTote}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    '${status}'=='all' or '${status}'=='HarnessAustTote'    Verify Control    ${in_lm_racing_chkHarnessAustToteDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    Click Element    ${in_lm_racing_btnCancel}
+    unselect frame
+
+Update Setting Status Keno
+    [Arguments]    ${action}    ${status}    ${value}    ${valueDL}=${EMPTY}
+    [Documentation]    This function is used to update Keno status.
+    ...    - ${action}: save, cancel. 'cancel' returns to main page without saving
+    ...    - ${value}: check/uncheck
+    ...    - ${status}: all (update all status), one status with special name {}
+    ...    - ${valueDL}: check/uncheck of downline, ${EMPTY} is default as do nothing
+    ...
+    ...
+    ...    ----------HISTORY---------
+    ...    07/30/2012: created by Casey
+    Unselect Frame
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_chkKeno}    ${cfWaitControl}
+    Click Element    ${in_lm_chkKeno}
+    ## Select Frame popup
+    Unselect Frame
+    ${ac_isPopupExist}    Get Matching Xpath Count    ${in_main_framePopupStatus}
+    Run Keyword If    ${ac_isPopupExist} <1    Sleep    10s
+    Select Frame    ${in_main_framePopupStatus}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_keno_chkAustralia}    ${cfWaitControl}
+    # Set value for Keno    Australia
+    sleep    1s
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoAustralia'    Set Checkbox    ${in_lm_keno_chkAustralia}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoAustralia') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_keno_chkAustraliaDL}    ${valueDL}
+    # Set value for Keno    Slovakia
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoSlovakia'    Set Checkbox    ${in_lm_keno_chkSlovakia}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoSlovakia') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_keno_chkSlovakiaDL}    ${valueDL}
+    # Set value for Keno    Canada
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoCanada'    Set Checkbox    ${in_lm_keno_chkCanada}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoCanada') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_keno_chkCanadaDL}    ${valueDL}
+    # Set value for Keno    WestCanada
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoWestCanada'    Set Checkbox    ${in_lm_keno_chkWestCanada}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoWestCanada') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_keno_chkWestCanadaDL}    ${valueDL}
+    # Set value for Keno    Ohio
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoOhio'    Set Checkbox    ${in_lm_keno_chkOhio}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoOhio') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_keno_chkOhioDL}    ${valueDL}
+    # Set value for Keno    Kentucky
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoKentucky'    Set Checkbox    ${in_lm_keno_chkKentucky}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoKentucky') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_keno_chkKentuckyDL}    ${valueDL}
+    # Set value for Keno    Michigan
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoMichigan'    Set Checkbox    ${in_lm_keno_chkMichigan}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoMichigan') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_keno_chkMichiganDL}    ${valueDL}
+    # Set value for Keno    Korea
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoKorea'    Set Checkbox    ${in_lm_keno_chkKorea}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoKorea') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_keno_chkKoreaDL}    ${valueDL}
+    # Set value for Keno    Max Keno
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoMaxKeno'    Set Checkbox    ${in_lm_keno_chkMaxKeno}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoMaxKeno') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_keno_chkMaxKenoDL}    ${valueDL}
+    # Set value for Keno    Max Keno 2
+    Run Keyword if    '${status}'=='all' or '${status}'=='MaxKeno2'    Set Checkbox    ${in_lm_keno_chkMaxKeno2}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='MaxKeno2') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_keno_chkMaxKeno2DL}    ${valueDL}
+    # Actions    ${in_lm_keno_chkMaxKenoDL}
+    Run Keyword if    '${action}'=='save'    Click Button    ${in_lm_keno_btnSubmit}
+    Run Keyword if    '${action}'=='save'    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //div[@id='errMsg']    ${cfWaitControlLong}
+    Unselect Frame
+    Click Button    ${in_main_btnClosePopupStatus}
+
+Verify Setting Status Keno
+    [Arguments]    ${status}    ${expectedAppear}=${EMPTY}    ${expectedStatus}=${EMPTY}    ${expectedValue}=${EMPTY}    ${expectedAppearDL}=${EMPTY}    ${expectedStatusDL}=${EMPTY}
+    ...    ${expectedValueDL}=${EMPTY}
+    Capture Page Screenshot
+    Unselect Frame
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_chkKeno}    ${cfWaitControl}
+    Click Element    ${in_lm_chkKeno}
+    Unselect Frame
+    Select Frame    ${in_main_framePopupStatus}
+    # Verify value for Keno    Australia
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_keno_chkAustralia}    ${cfWaitControl}
+    sleep    1s
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoAustralia'    Verify Control    ${in_lm_keno_chkAustralia}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoAustralia') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_keno_chkAustraliaDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Keno    Slovakia
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoSlovakia'    Verify Control    ${in_lm_keno_chkSlovakia}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoSlovakia') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_keno_chkSlovakiaDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Keno    Canada
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoCanada'    Verify Control    ${in_lm_keno_chkCanada}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoCanada') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_keno_chkCanadaDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Keno    WestCanada
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoWestCanada'    Verify Control    ${in_lm_keno_chkWestCanada}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoWestCanada') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_keno_chkWestCanadaDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Keno    Ohio
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoOhio'    Verify Control    ${in_lm_keno_chkOhio}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoOhio') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_keno_chkOhioDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Keno    Kentucky
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoKentucky'    Verify Control    ${in_lm_keno_chkKentucky}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoKentucky') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_keno_chkKentuckyDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Keno    Michigan
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoMichigan'    Verify Control    ${in_lm_keno_chkMichigan}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoMichigan') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_keno_chkMichiganDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Keno    Korea
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoKorea'    Verify Control    ${in_lm_keno_chkKorea}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoKorea') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_keno_chkKoreaDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Keno    Max Keno
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoMaxKeno'    Verify Control    ${in_lm_keno_chkMaxKeno}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoMaxKeno') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_keno_chkMaxKenoDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Keno    Max Keno 2
+    Run Keyword if    '${status}'=='all' or '${status}'=='KenoMaxKeno2'    Verify Control    ${in_lm_keno_chkMaxKeno2}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='KenoMaxKeno2') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_keno_chkMaxKeno2DL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    unselect frame
+    Click Element    ${in_main_btnClosePopupStatus}
+
+Update Status with Confirm Message
+    [Arguments]    ${action}    ${locator}    ${value}=${EMPTY}
+    [Documentation]    This action is used to update status that behaviour show confirm message
+    ...
+    ...    ---------HISTORY------------------------------------
+    ...    - 2015/07/29-Casey: Created
+    Set Checkbox    ${locator}    ${value}
+    Unselect Frame
+    Run Keyword if    '${action}'=='cancel'    Click Element    ${in_main_btnConfirmPopupCancel}
+    Run Keyword if    '${action}'=='save'    Click Element    ${in_main_btnConfirmPopupOk}
+
+Update Status with Confirm Downline
+    [Arguments]    ${action}    ${locator}    ${value}=${EMPTY}    ${valueDL}=${EMPTY}
+    Run Keyword if    '${value}'!='${EMPTY}'    unselect frame
+    Run Keyword if    '${value}'!='${EMPTY}'    select frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    ${locator}    ${cfWaitControl}
+    sleep    0.1s
+    Run Keyword if    '${value}'!='${EMPTY}'    Click Element    ${locator}
+    Run Keyword if    '${value}'!='${EMPTY}'    Set Checkbox    ${in_lm_chkConfirmUpd}    ${value}
+    Run Keyword if    '${value}'!='${EMPTY}' and '${valueDL}'!='${EMPTY}'    Set Checkbox    ${in_lm_chkConfirmDownline}    ${valueDL}
+    Run Keyword if    '${action}'=='save'    Click Element    ${in_lm_btnUpdate}
+    Run Keyword if    '${action}'=='cancel'    Click Element    ${in_lm_btnCancel}
+
+Open Setting Page
+    [Arguments]    ${caption}
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_lnk${caption}}    ${cfWaitControl}
+    Click Element    ${in_lm_lnk${caption}}
+    Unselect Frame
+
+Update Setting Status Single
+    [Arguments]    ${action}    ${value}=${EMPTY}    ${valueDL}=${EMPTY}
+    [Documentation]    This function is used to update Keno status.
+    ...    - ${action}: save, cancel. 'cancel' returns to main page without saving
+    ...    - ${value}: check/uncheck
+    ...    - ${status}: all (update all status), one status with special name {}
+    ...    - ${valueDL}: check/uncheck of downline, ${EMPTY} is default as do nothing
+    ...
+    ...
+    ...    ----------HISTORY---------
+    ...    07/30/2012: created by Casey
+    Capture Page Screenshot
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_chkColossusBets}    ${cfWaitControl}
+    Click Element    ${in_lm_chkColossusBets}
+    ## Go to top frame then select popup
+    Unselect Frame
+    ${ac_isExistPopup}    Get Matching Xpath Count    ${in_main_framePopupStatus}
+    Run Keyword If    ${ac_isExistPopup} < 1    Sleep    10s
+    Select Frame    ${in_main_framePopupStatus}
+    Wait Until Element Is Enabled    ${in_lm_btnSubmit}    ${cfWaitControl}
+    # Set value for Status
+    Sleep    0.5s
+    Set Checkbox    ${in_lm_chkStatus}    ${value}
+    Set Checkbox    ${in_lm_chkStatusDL}    ${valueDL}
+    # Actions
+    Run Keyword if    '${action}'=='save'    Click Button    ${in_lm_btnSubmit}
+    Unselect Frame
+    Run Keyword if    '${action}'=='cancel'    Click Button    ${in_main_btnClosePopupStatus}
+    Comment    Wait Until Element Is Not Visible    ${in_main_btnClosePopupStatus}    ${cfWaitControl}
+    Wait Until Page Not Contains Element    //*[@class='modal fade in']    ${cfWaitControlLong}
+    sleep    3s
+
+Verify Setting Status Single
+    [Arguments]    ${expectedAppear}=${EMPTY}    ${expectedStatus}=${EMPTY}    ${expectedValue}=${EMPTY}    ${expectedAppearDL}=${EMPTY}    ${expectedStatusDL}=${EMPTY}    ${expectedValueDL}=${EMPTY}
+    ## Open popup
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_chkKeno}    ${cfWaitControl}
+    Click Element    ${in_lm_chkColossusBets}
+    ## Go to Popup
+    Unselect Frame
+    ${ac_isExistPopup}    Get Matching Xpath Count    ${in_main_framePopupStatus}
+    Run Keyword If    ${ac_isExistPopup} < 1    Sleep    10s
+    Select Frame    ${in_main_framePopupStatus}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_btnSubmit}    ${cfWaitControl}
+    # Verify value for Keno
+    sleep    1s
+    Verify Control    ${in_lm_chkStatus}    checkbox    ${expectedAppear}    ${expectedStatus}    ${expectedValue}
+    Verify Control    ${in_lm_chkStatusDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}    ${expectedValueDL}
+    unselect frame
+    Click Element    ${in_main_btnClosePopupStatus}
+
+select link in setting tab_bk
+    [Arguments]    ${link}
+    Unselect Frame
+    Select Frame    menu
+    Run Keyword And Ignore Error    Wait Until Element Is Visible    //*/div/a[contains(text(),'${link}')]    ${cfWaitControl}
+    Run Keyword And Ignore Error    Scroll To Element    //*/div/a[contains(text(),'${link}')]
+    Focus    //*/div/a[contains(text(),'${link}')]
+    Click Element    //*/div/a[contains(text(),'${link}')]
+    Unselect Frame
+
+Update Setting Status Single New
+    [Arguments]    ${productname}    ${action}    ${value}=${EMPTY}    ${valueDL}=${EMPTY}
+    [Documentation]    This function is used to update Keno status.
+    ...    - ${productname}: the label name of checkbox Product status
+    ...    - ${action}: save, cancel. 'cancel' returns to main page without saving
+    ...    - ${value}: check/uncheck
+    ...    - ${status}: all (update all status), one status with special name {}
+    ...    - ${valueDL}: check/uncheck of downline, ${EMPTY} is default as do nothing
+    ...
+    ...
+    ...    ----------HISTORY---------
+    ...    07/30/2012: created by Casey
+    ...    09/12/2016: updated by Jerry to support more products
+    ## Set variable
+    ${ac_chkProduct}    Set Variable    //label[@class='text_smal' and text()='${productname}']/parent::div/input
+    Capture Page Screenshot
+    Select Frame    ${in_lm_frameAccountInfo}
+    Wait Until Element Is Enabled    ${ac_chkProduct}    ${cfWaitControl}
+    Click Element    ${ac_chkProduct}
+    ## Go to top frame then select popup
+    Unselect Frame
+    ${ac_isExistPopup}    Get Matching Xpath Count    ${in_main_framePopupStatus}
+    Run Keyword If    ${ac_isExistPopup} < 1    Sleep    10s
+    Select Frame    ${in_main_framePopupStatus}
+    Wait Until Element Is Visible    ${in_lm_btnSubmit}    ${cfWaitControl}
+    # Set value for Status
+    Sleep    0.5s
+    Set Checkbox    ${in_lm_chkStatus}    ${value}
+    Set Checkbox    ${in_lm_chkStatusDL}    ${valueDL}
+    # Actions
+    Run Keyword if    '${action}'=='save'    Click Button    ${in_lm_btnSubmit}
+    Unselect Frame
+    Run Keyword if    '${action}'=='cancel'    Click Button    ${in_main_btnClosePopupStatus}
+    Comment    Wait Until Element Is Not Visible    ${in_main_btnClosePopupStatus}    ${cfWaitControl}
+    Wait Until Page Not Contains Element    //*[@class='modal fade in']    ${cfWaitControlLong}
+    sleep    3s
+
+Verify Setting Status Single New
+    [Arguments]    ${productname}    ${expectedAppear}=${EMPTY}    ${expectedStatus}=${EMPTY}    ${expectedValue}=${EMPTY}    ${expectedAppearDL}=${EMPTY}    ${expectedStatusDL}=${EMPTY}
+    ...    ${expectedValueDL}=${EMPTY}
+    ## Set variable
+    ${ac_chkProduct}    Set Variable    //label[@class='text_smal' and text()='${productname}']/parent::div/input
+    ## Open popup
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${ac_chkProduct}    ${cfWaitControl}
+    # Verify value
+    Verify Control    ${ac_chkProduct}    checkbox    ${expectedAppear}    ${expectedStatus}    ${expectedValue}
+    Click Element    ${ac_chkProduct}
+    ## Go to Popup
+    Unselect Frame
+    ${ac_isExistPopup}    Get Matching Xpath Count    ${in_main_framePopupStatus}
+    Run Keyword If    ${ac_isExistPopup} < 1    Sleep    10s
+    Select Frame    ${in_main_framePopupStatus}
+    Wait Until Element Is Visible    ${in_lm_btnSubmit}    ${cfWaitControl}
+    # Verify value
+    Verify Control    ${in_lm_chkStatus}    checkbox    ${expectedAppear}    ${expectedStatus}    ${expectedValue}
+    Verify Control    ${in_lm_chkStatusDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}    ${expectedValueDL}
+    unselect frame
+    Click Element    ${in_main_btnClosePopupStatus}
+
+Update Setting Status Allbet
+    [Arguments]    ${action}    ${status}    ${value}    ${valueDL}=${EMPTY}
+    [Documentation]    This function is used to update Allbet status.
+    ...    - ${action}: save, cancel. 'cancel' returns to main page without saving
+    ...    - ${value}: check/uncheck
+    ...    - ${status}: all (update all status), one status with special name {}
+    ...    - ${valueDL}: check/uncheck of downline, ${EMPTY} is default as do nothing
+    ...
+    ...
+    ...    ----------HISTORY---------
+    ...    07/30/2012: created by Casey
+    Unselect Frame
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_chkAllbet}    ${cfWaitControl}
+    Click Element    ${in_lm_chkAllbet}
+    ## Select Frame popup
+    Unselect Frame
+    ${ac_isPopupExist}    Get Matching Xpath Count    ${in_main_framePopupStatus}
+    Run Keyword If    ${ac_isPopupExist} <1    Sleep    10s
+    Select Frame    ${in_main_framePopupStatus}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_allbet_chkStatus}    ${cfWaitControl}
+    # Set value for Allbet    Status
+    sleep    1s
+    Run Keyword if    '${status}'=='all' or '${status}'=='status'    Set Checkbox    ${in_lm_allbet_chkStatus}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='status') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_allbet_chkStatusDL}    ${valueDL}
+    # Set value for Allbet    Vipbaccarat
+    Run Keyword if    '${status}'=='all' or '${status}'=='VipBaccarat'    Set Checkbox    ${in_lm_allbet_chkVipBaccarat}    ${value}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='VipBaccarat') and ('${valueDL}'!='${EMPTY}')    Set Checkbox    ${in_lm_allbet_chkVipBaccaratDL}    ${valueDL}
+    # Actions    ${in_lm_Allbet_chkMaxAllbetDL}
+    Run Keyword if    '${action}'=='save'    Click Button    ${in_lm_btnSubmit}
+    Run Keyword if    '${action}'=='save'    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //div[@id='errMsg']    ${cfWaitControlLong}
+    Unselect Frame
+    Click Button    ${in_main_btnClosePopupStatus}
+
+Verify Setting Status Allbet
+    [Arguments]    ${status}    ${expectedAppear}=${EMPTY}    ${expectedStatus}=${EMPTY}    ${expectedValue}=${EMPTY}    ${expectedAppearDL}=${EMPTY}    ${expectedStatusDL}=${EMPTY}
+    ...    ${expectedValueDL}=${EMPTY}
+    [Documentation]    This function is used to update Allbet status.
+    ...    - ${action}: save, cancel. 'cancel' returns to main page without saving
+    ...    - ${value}: check/uncheck
+    ...    - ${status}: all (update all status), one status with special name {}
+    ...    - ${valueDL}: check/uncheck of downline, ${EMPTY} is default as do nothing
+    ...
+    ...
+    ...    ----------HISTORY---------
+    ...    07/30/2012: created by Casey
+    Capture Page Screenshot
+    Unselect Frame
+    Select Frame    ${in_lm_frameAccountInfo}
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_chkAllbet}    ${cfWaitControl}
+    Click Element    ${in_lm_chkAllbet}
+    Unselect Frame
+    Select Frame    ${in_main_framePopupStatus}
+    # Verify value for Allbet    Status
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${in_lm_allbet_chkStatus}    ${cfWaitControl}
+    sleep    1s
+    Run Keyword if    '${status}'=='all' or '${status}'=='status'    Verify Control    ${in_lm_allbet_chkStatus}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='status') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_allbet_chkStatusDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    # Verify value for Allbet    Vip Baccarat
+    Run Keyword if    '${status}'=='all' or '${status}'=='VipBaccarat'    Verify Control    ${in_lm_allbet_chkVipBaccarat}    checkbox    ${expectedAppear}    ${expectedStatus}
+    ...    ${expectedValue}
+    Run Keyword if    ('${status}'=='all' or '${status}'=='VipBaccarat') and ('${expectedValueDL}'!='${EMPTY}')    Verify Control    ${in_lm_allbet_chkVipBaccaratDL}    checkbox    ${expectedAppearDL}    ${expectedStatusDL}
+    ...    ${expectedValueDL}
+    unselect frame
+    Click Element    ${in_main_btnClosePopupStatus}

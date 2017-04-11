@@ -1,0 +1,55 @@
+*** Variables ***
+@{ds_resultSoccer}    Kick Off. Time    Match    HT Score    Final Score    Status
+@{ds_resultBasketball}    Kick Off. Time    Match    1Q    2Q    3Q    4Q    OT
+...               HT Score    Final Score    Status
+@{ds_resultFootball}    Kick Off. Time    Match    1Q    2Q    3Q    4Q    OT
+...               HT Score    Final Score    Status
+@{ds_resultBasketball}    Kick Off. Time    Match    1Q    2Q    3Q    4Q    OT
+...               HT Score    Final Score    Status
+@{ds_resultFootball}    Kick Off. Time    Match    1Q    2Q    3Q    4Q    OT
+...               HT Score    Final Score    Status
+@{ds_resultIceHockey}    Kick Off. Time    Match    1P    2P    3P    OT    Final Score
+...               Status
+@{ds_resultTennis}    Kick Off. Time    Match    1S    2S    3S    4S    5S
+...               Total Games    Total Set    Status
+@{ds_resultVolleyball}    Kick Off. Time    Match    1S    2S    3S    4S    5S
+...               Total Points    Total Set    Status
+@{ds_resultBoxingMMA}    Kick Off. Time    Match    HT Score    Final Score    Status
+@{ds_resultSnookerPool}    Kick Off. Time    Match    Final Score    Status
+@{ds_resultBadminton}    Kick Off. Time    Match    1S    2S    3S    4S    5S
+...               Total Points    Total Set    Status
+@{ds_resultGolf}    Kick Off. Time    Match    Final Score    Status
+@{ds_resultWaterPolo}    Kick Off. Time    Match    HT Score    Final Score    Status
+@{ds_resultGold}    Kick Off. Time    Match    Final Score    Status
+@{ds_resultHandball}    Kick Off. Time    Match    HT Score    Final Score    Status
+@{ds_resultDarts}    Kick Off. Time    Match    HT Score    Final Score    Status
+@{ds_resultRugby}    Kick Off. Time    Match    1Q    2Q    3Q    4Q    OT
+...               HT Score    Final Score    Status
+@{ds_resultCricket}    Kick Off. Time    Match    HT Score    Final Score    Status
+@{ds_resultTableTennis}    Kick Off. Time    Match    HT Score    Final Score    Status
+@{ds_resultEntertainment}    Kick Off. Time    Match    HT Score    Final Score    Status
+@{ds_resultESports}    Kick Off. Time    Match    Final Score    Status
+@{ds_resultMuayThai}    Kick Off. Time    Match    Final Score    Status
+@{ds_resultHorseRacing}    Race    Result    Win    Place    Status
+@{ds_resultGreyhounds}    Race    Result    Win    Place    Status
+@{ds_resultHarness}    Race    Result    Win    Place    Status
+@{ds_resultNumberGame}    Kick Off. Time    Match    Result    Warrior    O/E FT    1st Ball    Last Ball
+...               Status
+@{ds_resultVirtualSoccer}    Kick Off. Time    Match    HT Score    Final Score    Status
+@{ds_resultVirtualHorseRacing}    Race    Result    Win    Place    Status
+@{ds_resultVirtualGreyhounds}    Race    Result    Win    Place    Status
+@{ds_resultVirtualSpeedway}    Race    Result    Win    Status
+@{ds_resultVirtualMotorsports}    Race    Result    Win    Place    Status
+@{ds_resultVirtualCycling}    Race    Result    Win    Place    Status
+@{ds_resultVirtualTennis}    Kick Off. Time    Match    Total Points    Status
+@{ds_resultHorseRacingFixed Odds}    Kick Off. Time    Match    Final Score    Status
+@{ds_resultSquash}    Kick Off. Time    Match    1S    2S    3S    4S    5S
+...               Total Points    Total Set    Status
+@{ds_resultBaseball}    Kick Off. Time    Match    1    2    3    4    5
+...               6    7    8    9    E.I    HT Score    Final Score
+...               Status
+@{ds_resultFieldHockey}    Kick Off. Time    Match    1P    2P    3P    OT    Final Score
+...               Status
+@{ds_resultMotorsports}    Kick Off. Time    Match    Final Score    Status
+@{ds_resultNetball}    Kick Off. Time    Match    1Q    2Q    3Q    4Q    OT
+...               HT Score    Final Score    Status

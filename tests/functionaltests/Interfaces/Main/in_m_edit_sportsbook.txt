@@ -1,0 +1,132 @@
+*** Variables ***
+${in_m_editsb_btncopysoccer}    xpath=//*[@class='BettingLimitHeaderCopied'][contains(text(),'Soccer')]    # Copy all below bet settings from Soccer (excluding Number Game)
+${in_m_editsb_btncopybkball}    //*[@class='BettingLimitHeaderCopied'][contains(text(),'Basketball')]    # Copy all below bet settings from Basketball (excluding Number Game)
+${in_m_editsb_txtminsoccer}    xpath=//*[@id='bettingLimitContainer']/div/div[6]/div[2]/input    # Min bet Soccer
+${in_m_editsb_txtmaxsoccer}    xpath=//*[@id='bettingLimitContainer']/div/div[6]/div[4]/input    # Max bet Soccer
+${in_m_editsb_txtmaxpersoccer}    xpath=//*[@id='bettingLimitContainer']/div/div[6]/div[6]/input    # Max per match Soccer
+${in_m_editsb_txtminbkball}    xpath=//*[@id='bettingLimitContainer']/div/div[8]/div[2]/input    # Min bet Basket Ball
+${in_m_editsb_txtmaxbkball}    xpath=//*[@id='bettingLimitContainer']/div/div[8]/div[4]/input    # Max bet Basket Ball
+${in_m_editsb_txtmaxperbkball}    xpath=//*[@id='bettingLimitContainer']/div/div[8]/div[6]/input    # Max per match Basket Ball
+${in_m_editsb_txtminfball}    xpath=//*[@id='bettingLimitContainer']/div/div[10]/div[2]/input    # Min bet FootBall
+${in_m_editsb_txtmaxfball}    xpath=//*[@id='bettingLimitContainer']/div/div[10]/div[4]/input    # Max bet FootBall
+${in_m_editsb_txtmaxperfball}    xpath=//*[@id='bettingLimitContainer']/div/div[10]/div[6]/input    # Max per match FootBall
+${in_m_editsb_txtmintennis}    xpath=//*[@id='bettingLimitContainer']/div/div[12]/div[2]/input    # Min bet Tennis
+${in_m_editsb_txtmaxtennis}    xpath=//*[@id='bettingLimitContainer']/div/div[12]/div[4]/input    # Max bet Tennis
+${in_m_editsb_txtmaxpertennis}    xpath=//*[@id='bettingLimitContainer']/div/div[12]/div[6]/input    # Max per match Tennis
+${in_m_editsb_txtminbsball}    xpath=//*[@id='bettingLimitContainer']/div/div[14]/div[2]/input    # Min bet BaseBall
+${in_m_editsb_txtmaxbsball}    xpath=//*[@id='bettingLimitContainer']/div/div[14]/div[4]/input    # Max bet BaseBall
+${in_m_editsb_txtmaxperbsball}    xpath=//*[@id='bettingLimitContainer']/div/div[14]/div[6]/input    # Max per match BaseBall
+${in_m_editsb_txtmingolf}    xpath=//*[@id='bettingLimitContainer']/div/div[16]/div[2]/input    # Min bet Golf
+${in_m_editsb_txtmaxgolf}    xpath=//*[@id='bettingLimitContainer']/div/div[16]/div[4]/input    # Max bet Golf
+${in_m_editsb_txtmaxpergolf}    xpath=//*[@id='bettingLimitContainer']/div/div[16]/div[6]/input    # Max per match Golf
+${in_m_editsb_txtminmotor}    xpath=//*[@id='bettingLimitContainer']/div/div[18]/div[2]/input    # Min bet Motor
+${in_m_editsb_txtmaxmotor}    xpath=//*[@id='bettingLimitContainer']/div/div[18]/div[4]/input    # Max bet Motor
+${in_m_editsb_txtmaxpermotor}    xpath=//*[@id='bettingLimitContainer']/div/div[18]/div[6]/input    # Max per match Motor
+${in_m_editsb_txtminother}    xpath=//*[@id='bettingLimitContainer']/div/div[20]/div[2]/input    # Min bet Other
+${in_m_editsb_txtmaxother}    xpath=//*[@id='bettingLimitContainer']/div/div[20]/div[4]/input    # Max bet Other
+${in_m_editsb_txtmaxperother}    xpath=//*[@id='bettingLimitContainer']/div/div[20]/div[6]/input    # Max per match    Other
+${in_m_editsb_txtminmix}    xpath=//*[@id='bettingLimitContainer']/div/div[22]/div[2]/input    # Min bet Mix Sport Parlay
+${in_m_editsb_txtmaxmix}    xpath=//*[@id='bettingLimitContainer']/div/div[22]/div[4]/input    # Max bet Mix Sport Parlay
+${in_m_editsb_txtmaxpermix}    xpath=//*[@id='bettingLimitContainer']/div/div[22]/div[6]/input    # Max per match Mix Sport Parlay
+${in_m_editsb_txtminhr}    xpath=//*[@id='bettingLimitContainer']/div/div[24]/div[2]/input    # Min bet HR Fixed odds
+${in_m_editsb_txtmaxhr}    xpath=//*[@id='bettingLimitContainer']/div/div[24]/div[4]/input    # Max bet HR Fixed odds
+${in_m_editsb_txtmaxperhr}    xpath=//*[@id='bettingLimitContainer']/div/div[24]/div[6]/input    # Max per match HR Fixed odds
+${in_m_editsb_txtminng}    xpath=//*[@id='bettingLimitContainer']/div/div[26]/div[6]/input    # Min bet Number Game
+${in_m_editsb_txtmaxng}    xpath=//*[@id='bettingLimitContainer']/div/div[26]/div[8]/input    # Max bet Number Game
+${in_m_editsb_txtmaxperng}    xpath=//*[@id='bettingLimitContainer']/div/div[26]/div[10]/input    # Max per match Number Game
+${in_m_editsb_txtmaxperballng}    xpath=//*[@id='bettingLimitContainer']/div/div[26]/div[12]/input    # Max per ball Number Game
+${in_m_editsb_txtlimitminsoccer}    xpath=//*[@id='bettingLimitContainer']/div/div[6]/div[3]    # Limit min soccer
+${in_m_editsb_txtlimitmaxsoccer}    xpath=//*[@id='bettingLimitContainer']/div/div[6]/div[5]    # Limit max soccer
+${in_m_editsb_txtlimitmaxpersoccer}    xpath=//*[@id='bettingLimitContainer']/div/div[6]/div[7]    # Limit Max per match Soccer
+${in_m_editsb_txtlimitminbkball}    xpath=//*[@id='bettingLimitContainer']/div/div[8]/div[3]    # Limit Min bet Basket Ball
+${in_m_editsb_txtlimitmaxbkball}    xpath=//*[@id='bettingLimitContainer']/div/div[8]/div[5]    # Limit Max bet Basket Ball
+${in_m_editsb_txtlimitmaxperbkball}    xpath=//*[@id='bettingLimitContainer']/div/div[8]/div[7]    # Limit Max per match Basket Ball
+${in_m_editsb_txtlimitminfball}    xpath=//*[@id='bettingLimitContainer']/div/div[10]/div[3]    # Limit Min bet FootBall
+${in_m_editsb_txtlimitmaxfball}    xpath=//*[@id='bettingLimitContainer']/div/div[10]/div[5]    # Limit Max bet FootBall
+${in_m_editsb_txtlimitmaxperfball}    xpath=//*[@id='bettingLimitContainer']/div/div[10]/div[7]    # Limit Max per match FootBall
+${in_m_editsb_txtlimitmintennis}    xpath=//*[@id='bettingLimitContainer']/div/div[12]/div[3]    # Limit Min bet Tennis
+${in_m_editsb_txtlimitmaxtennis}    xpath=//*[@id='bettingLimitContainer']/div/div[12]/div[5]    # Limit Max bet Tennis
+${in_m_editsb_txtlimitmaxpertennis}    xpath=//*[@id='bettingLimitContainer']/div/div[12]/div[7]    # Limit Max per match Tennis
+${in_m_editsb_txtlimitminbsball}    xpath=//*[@id='bettingLimitContainer']/div/div[14]/div[3]    # Limit Min bet BaseBall
+${in_m_editsb_txtlimitmaxbsball}    xpath=//*[@id='bettingLimitContainer']/div/div[14]/div[5]    # Limit Max bet BaseBall
+${in_m_editsb_txtlimitmaxperbsball}    xpath=//*[@id='bettingLimitContainer']/div/div[14]/div[7]    # Limit Max per match BaseBall
+${in_m_editsb_txtlimitmingolf}    xpath=//*[@id='bettingLimitContainer']/div/div[16]/div[3]    # Limit Min bet Golf
+${in_m_editsb_txtlimitmaxgolf}    xpath=//*[@id='bettingLimitContainer']/div/div[16]/div[5]    # Limit Max bet Golf
+${in_m_editsb_txtlimitmaxpergolf}    xpath=//*[@id='bettingLimitContainer']/div/div[16]/div[7]    # Limit Max per match Golf
+${in_m_editsb_txtlimitminmotor}    xpath=//*[@id='bettingLimitContainer']/div/div[18]/div[3]    # Limit Min bet Motor
+${in_m_editsb_txtlimitmaxmotor}    xpath=//*[@id='bettingLimitContainer']/div/div[18]/div[5]    # Limit Max bet Motor
+${in_m_editsb_txtlimitmaxpermotor}    xpath=//*[@id='bettingLimitContainer']/div/div[18]/div[7]    # Limit Max per match Motor
+${in_m_editsb_txtlimitminother}    xpath=//*[@id='bettingLimitContainer']/div/div[20]/div[3]    # Limit Min bet Other
+${in_m_editsb_txtlimitmaxother}    xpath=//*[@id='bettingLimitContainer']/div/div[20]/div[5]    # Limit Max bet Other
+${in_m_editsb_txtlimitmaxperother}    xpath=//*[@id='bettingLimitContainer']/div/div[20]/div[7]    # Limit Max per match    Other
+${in_m_editsb_txtlimitminmix}    xpath=//*[@id='bettingLimitContainer']/div/div[22]/div[3]    # Limit Min bet Mix Sport Parlay
+${in_m_editsb_txtlimitmaxmix}    xpath=//*[@id='bettingLimitContainer']/div/div[22]/div[5]    # Limit Max bet Mix Sport Parlay
+${in_m_editsb_txtlimitmaxpermix}    xpath=//*[@id='bettingLimitContainer']/div/div[22]/div[7]    # Limit Max per match Mix Sport Parlay
+${in_m_editsb_txtlimitminhr}    xpath=//*[@id='bettingLimitContainer']/div/div[24]/div[3]    # Limit Min bet HR Fixed odds
+${in_m_editsb_txtlimitmaxhr}    xpath=//*[@id='bettingLimitContainer']/div/div[24]/div[5]    # Limit Max bet HR Fixed odds
+${in_m_editsb_txtlimitmaxperhr}    xpath=//*[@id='bettingLimitContainer']/div/div[24]/div[7]    # Limit Max per match HR Fixed odds
+${in_m_editsb_txtlimitminng}    xpath=//*[@id='bettingLimitContainer']/div/div[26]/div[7]    # Limit Min bet Number Game
+${in_m_editsb_txtlimitmaxng}    xpath=//*[@id='bettingLimitContainer']/div/div[26]/div[9]    # Limit Max bet Number Game
+${in_m_editsb_txtlimitmaxperng}    xpath=//*[@id='bettingLimitContainer']/div/div[26]/div[11]    # Limit Max per match Number Game
+${in_m_editsb_txtlimitmaxperballng}    xpath=//*[@id='bettingLimitContainer']/div/div[26]/div[13]    # Limit Max per ball Number Game
+${in_m_editsb_btnUpdate}    xpath=//*[(contains(@value,'Update') and @type='button') or @id='btnSubmit']
+${in_m_editsb_msg}    xpath=//*[@id='spmsgerr']
+${in_m_editsb_divTransfer}    //div[@class='transferCondition']/div[@class='headerTab']
+##
+${in_m_editsb_btnUpdateFooter}    //button[@id='btnSubmitFooter']
+${in_m_editsb_txtPwd}    //input[@id='password']
+##
+${in_m_editsb_divGeneralInfo}    //div[@class='customerInfo']/div[@class='headerTab']
+${in_m_editsb_txtFirstName}    //input[@id='firstName']
+${in_m_editsb_txtLastName}    //input[@id='lastName']
+${in_m_editsb_txtPhone}    //input[@id='phone']
+${in_m_editsb_txtMobilePhone}    //input[@id='mobilePhone']
+${in_m_editsb_txtCredit}    //input[@id='credit']
+${in_m_editsb_txtFax}    //input[@id='fax']
+${in_m_editsb_txtMaxCredit}    //input[@id='memberMaxCredit']
+##
+${in_m_editsb_spanFirstName}    //span[@data-bind='text: customer.firstName']
+${in_m_editsb_spanLastName}    //span[@data-bind='text: customer.lastName']
+${in_m_editsb_spanPhone}    //span[@data-bind='text: customer.phone']
+${in_m_editsb_spanMobilePhone}    //span[@data-bind='text: customer.mobilePhone']
+${in_m_editsb_spanCredit}    //span[@data-bind='text: customer.credit']
+${in_m_editsb_spanFax}    //span[@data-bind='text: customer.fax']
+${in_m_editsb_spanGroup}    //span[@data-bind='text: customer.group']
+##
+${in_m_editsb_chkSuspended}    //input[@id='suspended']
+${in_m_editsb_chkAllowautopt}    //input[@id='allowautopt']
+${in_m_editsb_chkGroup}    //select[@id='group']
+${in_m_editsb_chkClosed}    //input[@id='closed']
+##
+${in_m_editsb_divComm}    //div[@id='commissionHeader' or @class='commission']/div[@class='headerTab']
+${in_m_editsb_commHeader}    //div[@class='commissionViewBlock2 commissionHeader' or @class='commissionBlock2 commissionHeader']
+${in_m_editsb_commBettype}    //div[@class='commissionViewBlock1' or @class='commissionBlock1']
+${in_m_editsb_ddlCommHdp}    //select[@id='discountAsian']
+${in_m_editsb_ddlComm1x2}    //select[@id='discount1x2']
+${in_m_editsb_ddlCommOthers}    //select[@id='discountCS']
+${in_m_editsb_ddlCommNG}    //select[@id='discountNumber']
+${in_m_editsb_ddlCommHRFixOdds}    //select[@id='discountHRFixOdds']
+${in_m_editsb_txtlCommHdp}    //input[@id='textBoxDiscountAsian']
+${in_m_editsb_txtComm1x2}    //input[@id='textBoxDiscount1x2']
+${in_m_editsb_txtCommOthers}    //input[@id='textBoxDiscountCS']
+${in_m_editsb_txtCommNG}    //input[@id='textBoxDiscountNumber']
+${in_m_editsb_txtCommHRFixOdds}    //input[@id='textBoxDiscountHRFixedOdds']
+##
+${in_m_editsb_divBetSetting}    //div[@class='headerBetSetting']
+${in_m_editsb_divBetlimitHeader}    //div[@class='BettingLimitHeaderTop']
+${in_m_editsb_divBetlimitHeaderNG}    //div[@class='BettingLimitHeaderTop9']
+${in_m_editsb_divBetlimitSporttypeName}    //div[@class='BettingLimit']/div[not(contains(@class,'BettingLimitHeader') )and not(@style='clear: both;')]
+${in_m_editsb_divBetlimitNGName}    //div[@class='BettingLimitHeader2']
+${in_m_editsb_txtBetLimit}    //input[@class='BettingLimitTextBox']
+${in_m_editsb_txtBetLimitNG}    //input[@class='BettingLimitTextBox9']
+${in_m_editsb_divBetLimitLabel}    //div[@class='BettingLimitLabel' or @class='BettingLimitItem']
+${in_m_editsb_divBetLimitLabelNG}    //div[@class='BettingLimitLabel1' or @class='BettingLimitItem9']
+##
+${in_m_editsb_divPositionTaking}    //div[@class='headerPositionTaking']
+${in_m_editsb_icoPTInfo}    //a[@class='infoIco']
+${in_m_editsb_divSport}    //div[@class='PTGrid']/div[@class='PTSport']
+${in_m_editsb_divSportLabel}    //div[contains(@class,'PTSportLabel')]
+${in_m_editsb_chkSoccerCopyAll}    //input[@id='cp$1']
+${in_m_editsb_chkBasketballCopyAll}    //input[@id='cp$2']
+##
+${in_m_editsb_mul_chkPTGroupSoccer}    //*[@id='positionTaking0']

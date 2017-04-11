@@ -1,0 +1,40 @@
+*** Settings ***
+Documentation     This Module is used to verify Betlist with Super Login
+Suite Setup       Init BetList    SuperPlayer
+Suite Teardown    Teardown Test Suit
+Test Setup
+Test Teardown
+Force Tags
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Library           ExcelLibrary
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/menu/accountInfo_setting.txt
+Resource          ../../Data_set/accounts.txt
+Resource          ../../Interfaces/Main/in_m_betlist.txt
+Resource          ../../Actions/betlist.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+
+*** Test Cases ***
+TC01_BL_rptWinlostDetails_SuperPlayer
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_master}    set variable    ${ds_Line04_M}
+    ${tc_agent}    set variable    ${ds_Line04_A}
+    ${tc_member}    set variable    ${ds_Line04_P}
+    COMMENT    ==============================>    MAIN STEPS
+    Open Betlist From Winlost Details Report    ${init_gbMaster}    ${init_gbAgent}    ${init_gbMember}
+    Verify Betlist    SuperPlayer
+    Comment    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A

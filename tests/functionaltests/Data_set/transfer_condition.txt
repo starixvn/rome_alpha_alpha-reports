@@ -1,0 +1,8 @@
+*** Variables ***
+#
+# type (Daily,Weekly)|Mon(1,0)|Tue|Wed|Thu|Fri|Sat|Sun
+#
+@{ds_TF01_Default}    Daily    0    0    0    0    0    0
+...               0
+@{ds_TF01_Edit}    Weekly    1    0    0    0    1    1
+...               1

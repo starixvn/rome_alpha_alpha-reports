@@ -1,0 +1,83 @@
+*** Settings ***
+Suite Setup       Init    ${ds_View01_S}
+Suite Teardown    Teardown Test Suit
+Test Setup
+Test Teardown
+Force Tags        Level_Super    Funct_Report    NoRun
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Interfaces/in_top_menu.txt    #**************************************************INTERFACES*****************************************
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Actions/common_actions.txt    #**************************************************ACTIONS*****************************************
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/reports_actions.txt
+Resource          ../../Data_set/accounts.txt    #**************************************************DATASETS*****************************************
+
+*** Test Cases ***
+TC_Super_Result_NoRun_Old
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Results
+    ${tc_selectedDate}    Set Variable    yesterday    # 'yesterday, today or specailday with format 'yyyy-mm-dd'    NOW-1 day
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Results    ${tc_selectedDate}
+
+TC_Super_Real Time Casino Win Loss_NoRun
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Real Time Casino Win Loss
+    ${tc_master}    Set variable    ${ds_View01_M}    #    master1
+    ${tc_agent}    Set Variable    ${ds_View01_A}    #    agent01
+    ${tc_member}    Set Variable    ${ds_View01_P}    #    member08
+    ${tc_fromDate}    Set Variable    NOW-7 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Real Time Casino Win Loss    MASTER    ${tc_fromDate}    ${tc_toDate}    ${tc_master}    ${tc_agent}    ${tc_member}
+
+TC_Super_Real Time Bingo Win Loss_NoRun
+    [Tags]    NoRun
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_group}    Set Variable    REPORTS
+    ${tc_rptName}    Set Variable    Real Time Bingo Win Loss
+    ${tc_fromDate}    Set Variable    NOW-7 day
+    ${tc_toDate}    Set Variable    NOW
+    COMMENT    -----------------------    MAIN STEPS
+    Select Left Menu    ${tc_group}    ${tc_rptName}
+    Verify Report_Real Time Bingo Win Loss    MASTER    ${tc_fromDate}    ${tc_toDate}
+
+TC_02_Super_ForeCast
+    [Tags]    NoRun
+    ${tm_group}    Set Variable    FORECAST
+    Verify TotalBets Header Data    ${tm_group}    Handicap/Over Under/Live    ${in_ForeCast_Hadicap_ReportName}    ${in_ForeCast_tblData}
+    Verify TotalBets Header Data    ${tm_group}    1 X 2    ${in_ForeCast_1x2_ReportName}    ${in_ForeCast_tblData}
+    Verify TotalBets Header Data    ${tm_group}    Score Map    ${in_ForeCast_ScoreMap_ReportName}    ${in_ForeCast_ScoreMap_ReportName}
+
+TC_03_Super_Report_NoRun
+    [Tags]    NoRun
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_group}    Set Variable    REPORTS
+    ${tm_reportlevel}    Set Variable    Master
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Master Win Loss    ${in_Reports_Winloss_ReportName}    ${in_Reports_tblData}    1
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Master Win Loss Detail    ${in_Reports_WinlossDetail_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Master Outstanding    ${in_Reports_Outstanding_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Real Time Casino Win Loss    ${in_Reports_RealTimeCasinoWinloss_ReportName}    ${in_Reports_tblData}
+    Comment    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Real Time Bingo Win Loss    ${in_Reports_RealTimeBingoWinloss_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Match Win Loss Detail    ${in_Reports_MatchWinLossDetail_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Win Loss By Bet Type    ${in_Reports_WinLossByBetType_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Win Loss Analysis    ${in_Reports_WinlossAnalysis_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Commission By Bet Type    ${in_Reports_CommissionByBetType_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Racing Commission    ${in_Reports_RacingCommission_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Cancelled Bets    ${in_Reports_CancelledBets_ReportName}    ${in_Reports_tblData}
+    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Statement    ${in_Reports_Statement_ReportName}    ${in_Reports_tblData}
+    Comment    Verify Report Header Data    ${tm_group}    ${tm_reportlevel}    Results    ${in_Reports_Results_ReportName}    ${in_Reports_tblResultData}

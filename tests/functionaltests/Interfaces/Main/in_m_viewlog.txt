@@ -1,0 +1,13 @@
+*** Variables ***
+${in_m_viewlog_txtUsername}    //input[@id='txt-UserName']
+${in_m_viewlog_ddlViewBy}    //*[@id='ddl-logactiontype']
+${in_m_viewlog_btnSubmit}    //*[@id='btn-submit']
+${in_m_viewlog_chkShowOldValues}    //*[@id='chk-oldvalues']
+${in_m_viewlog_ddlDateFrom}    //*[contains(@id,'fromDay')]/input
+${in_m_viewlog_ddlDateTo}    //*[contains(@id,'toDay')]/input
+${in_m_viewlog_spanMonth}    //*[@id='ddlMonth']/input
+${in_m_viewlog_divMonthPicker}    //*[@id='monthPickerID']//*[@class='month-wrap ui-corner-all selected']
+${in_m_viewlog_loading}    //*[@id='icon-loading']
+${in_m_viewlog_tblLog}    //table[@id='DataLog']
+${in_m_viewlog_ddlFrom}    //select[@id='ddlDateFrom']
+${in_m_viewlog_ddlTo}    //select[@id='ddlDateTo']

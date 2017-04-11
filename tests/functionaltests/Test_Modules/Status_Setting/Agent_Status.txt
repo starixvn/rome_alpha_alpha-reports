@@ -1,0 +1,312 @@
+*** Settings ***
+Documentation     Test Module is used to verify Setting Status of:
+...               - Product Status
+...               - Double Comm
+...               - OutRight
+Suite Setup       Init Test Suite    ${ds_Line01_A}    ${EMPTY}    ${EMPTY}
+Suite Teardown    Teardown Test Suit
+Test Setup
+Test Teardown
+Force Tags        SmokeTestAgentSetting    SmokeTestAlpha    Status
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/menu/accountInfo_setting.txt
+Resource          ../../Data_set/accounts.txt
+
+*** Test Cases ***
+TC_AP_DC01_Disable DoubleComm
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    DoubleComm
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Closed
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_DC02_Enable DoubleComm
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    DoubleComm
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Closed
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_OR01_Disable Outright
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    Outright
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is not allowed doubleComm
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_OR02_Enalbe Outright
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    Outright
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is allowed doubleComm
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_CS01_Disable Casino
+    [Tags]    Casino
+    [Setup]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    Casino
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is disable casino
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_CS02_Enable Casino
+    [Tags]    Casino
+    [Setup]
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    Casino
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is is enable casino
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_LC01_Disable LiveCasino
+    [Tags]    LiveCasino
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    LiveCasino
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is disable liveCasino
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_LC02_Enable LiveCasino
+    [Tags]    LiveCasino
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    LiveCasino
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is is enable liveCasino
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_HF01_Disable HRFixedOdds
+    [Tags]    HRFixedOdds
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    HRFixedOdds
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is disable HRfixedOdds
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_HF02_Enable HRFixedOdds
+    [Tags]    HRFixedOdds
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    HRFixedOdds
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is is enable HRfixedOdds
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_VS01_Disable VirtualSport
+    [Tags]    VirtualSports
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    VirtualSports
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is disable virtualSports
+    Verify Setting Status    ${tc_status}    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_VS02_Enable VirtualSport
+    [Tags]    VirtualSports
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    VirtualSports
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is is enable virtualSports
+    Verify Setting Status    ${tc_status}    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_GD01_Disable GoldDeluxe
+    [Tags]    GoldDeluxe
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    GoldDeluxe
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is disable goldDeluxe
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_GD02_Enable GoldDeluxe
+    [Tags]    GoldDeluxe
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    GoldDeluxe
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is is enable goldDeluxe
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_RC01_Disable Racing
+    [Tags]    Racing
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status Racing    save    ${tc_status}    uncheck    ${EMPTY}    ok
+    #    VP00    Member is disable Racing
+    Search Account    ${tc_member}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    uncheck    hide
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_RC02_Enable Racing
+    [Tags]    Racing
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status Racing    save    ${tc_status}    check    ${EMPTY}    no
+    #    VP00    Member is disable Racing
+    Search Account    ${tc_member}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    check    hide
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_KN01_Disable Keno
+    [Tags]    Keno
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status Keno    save    ${tc_status}    uncheck
+    #    VP00    Member is disable Keno
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_AP_KN02_Enable Keno
+    [Tags]    Keno
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_agent}    set variable    ${ds_Line01_A}
+    ${tc_member}    set variable    ${ds_Line01_P}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status Keno    save    ${tc_status}    check
+    #    VP00    Member is disable Keno
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A

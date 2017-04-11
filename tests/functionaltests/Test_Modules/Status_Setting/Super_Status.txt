@@ -1,0 +1,931 @@
+*** Settings ***
+Documentation     Test Module is used to verify Setting Status of:
+...               - Product Status
+...               - Double Comm
+...               - OutRight
+Suite Setup       Init Test Suite    ${ds_Line03_A}    ${ds_Line03_M}    ${ds_Line03_S}
+Suite Teardown    Teardown Test Suit
+Test Setup
+Test Teardown
+Force Tags        SmokeTestAgentSetting    SmokeTestAlpha    Status
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/menu/accountInfo_setting.txt
+Resource          ../../Data_set/accounts.txt
+
+*** Test Cases ***
+TC_SM_DC01_Disable DoubleComm
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    doubleComm
+    COMMENT    -----------------------    MAIN STEPS
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Not Allow doubleComm
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is Not Allow doubleComm
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP03    Master is Not Allow doubleComm
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP04    Master Edit Agent,Member Not Allow doubleComm
+    # Logout then Login again to get New status for User Login
+    Switch Browser    ${tc_master}
+    Go to    ${cfUrl}
+    Login to Main    ${tc_master}    ${cfPwd}    ${cfSeCode}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP04    Agent Edit Member Not Allow doubleComm
+    # Logout then Login again to get New status for User Login
+    Switch Browser    ${tc_agent}
+    Go to    ${cfUrl}
+    Login to Main    ${tc_agent}    ${cfPwd}    ${cfSeCode}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_SM_DC02_Enable DoubleComm
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    doubleComm
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Not Allow doubleComm
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is Not Allow doubleComm
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP03    Master is Not Allow doubleComm
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP04    Master Edit Agent,Member Not Allow doubleComm
+    # Logout then Login again to get New status for User Login
+    Switch Browser    ${tc_master}
+    Go to    ${cfUrl}
+    Login to Main    ${tc_master}    ${cfPwd}    ${cfSeCode}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP04    Agent Edit Member Not Allow doubleComm
+    # Logout then Login again to get New status for User Login
+    Switch Browser    ${tc_agent}
+    Go to    ${cfUrl}
+    Login to Main    ${tc_master}    ${cfPwd}    ${cfSeCode}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #Post-Condition: Enable Double Comm for Agent
+    Switch Browser    ${tc_master}
+    Update Setting Status    save    ${tc_status}    check    message
+    #Post-Condition: Enable Double Comm for Member
+    Switch Browser    ${tc_agent}
+    Close browser
+    Login to Main    ${tc_master}    ${cfPwd}    ${cfSeCode}
+    Search Account    ${tc_member}
+    Update Setting Status    save    ${tc_status}    check    message
+
+TC_SM_OR01_Disable Outright
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    outright
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Not Allow outright
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is Not Allow outright
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Master is Not Allow outright
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP02    Master Edit Agent, Member Not Allow outright
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP02    Agent Edit Member Not Allow outright
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_SM_OR02_Enable Outright
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    outright
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP    Member is Not Allow outright
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP    Agent is Not Allow outright
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP    Master is Not Allow outright
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP    Master Edit Member Not Allow outright
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP    Agent Edit Member Not Allow outright
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SA_OR01_Disable Outright
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    outright
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Not Allow outright
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is Not Allow outright
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP02    Agent Edit Member Not Allow outright
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_SA_OR02_Enable Outright
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    outright
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_agent}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP    Member is Not Allow outright
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP    Agent is Not Allow outright
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP    Agent Edit Member Not Allow outright
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SP_OR01_Disable Outright
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    outright
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Not Allow outright
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP02    Agent Edit Member Not Allow outright
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_SP_OR02_Enable Outright
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    outright
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    message
+    #    VP00    Member is Not Allow outright
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP02    Agent Edit Member Not Allow outright
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_SM_CS01_Disable Casino
+    [Tags]    Casino
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    casino
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Not Allow Casino
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is Not Allow Casino
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Master is Not Allow Casino
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP02    Master Edit Agent,Member Not Allow Casino
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP02    Agent Edit Member Not Allow Casino
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_SM_CS02_Enable Casino with Disable Downline
+    [Tags]    Casino
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    casino
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline
+    #    VP00    Member is Not Allow Casino
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is Not Allow Casino
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Master is enable Casino
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP02    Master Edit Member Not Allow Casino
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP02    Agent Edit Member Not Allow Casino
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_CS03_Enable Casino with Enable Downline
+    [Tags]    Casino
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    casino
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline    check
+    #    VP00    Member is Not Allow Casino
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Agent is Not Allow Casino
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Master is enable Casino
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP02    Master Edit Member Not Allow Casino
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP02    Agent Edit Member Not Allow Casino
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_HR01_Disable HRFixedOdds
+    [Tags]    HRFixedOdds
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    HRFixedOdds
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Not Allow HRFixedOdds
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is Not Allow HRFixedOdds
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Master is Not Allow HRFixedOdds
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP02    Master Edit Agent,Member Not Allow HRFixedOdds
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP02    Agent Edit Member Not Allow HRFixedOdds
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_SM_HR02_Enable HRFixedOdds with Disable Downline
+    [Tags]    HRFixedOdds
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    HRFixedOdds
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline
+    #    VP00    Member is Not Allow HRFixedOdds
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is Not Allow HRFixedOdds
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Master is enable HRFixedOdds
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP02    Master Edit Member Not Allow HRFixedOdds
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP02    Agent Edit Member Not Allow HRFixedOdds
+    Comment    Go To    ${cfUrl}
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_HR03_Enable HRFixedOdds with Enable Downline
+    [Tags]    HRFixedOdds
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    HRFixedOdds
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline    check
+    #    VP00    Member is Not Allow HRFixedOdds
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Agent is Not Allow HRFixedOdds
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Master is enable HRFixedOdds
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP02    Master Edit Member Not Allow HRFixedOdds
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP02    Agent Edit Member Not Allow HRFixedOdds
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_VS01_Disable VirtualSport
+    [Tags]    VirtualSports
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    virtualSports
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    #    VP00    Member is Not Allow VirtualSports
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is Not Allow VirtualSports
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Master is Not Allow VirtualSports
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP02    Master Edit Agent,Member Not Allow VirtualSports
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP02    Agent Edit Member Not Allow VirtualSports
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_SM_VS02_Enable VirtualSport with Disable Downline
+    [Tags]    VirtualSports
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    virtualSports
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline
+    #    VP00    Member is Not Allow VirtualSports
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is Not Allow VirtualSports
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Master is enable VirtualSports
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP02    Master Edit Member Not Allow VirtualSports
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP02    Agent Edit Member Not Allow VirtualSports
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_VS03_Enable VirtualSport with Enable Downline
+    [Tags]    VirtualSports
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    virtualSports
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    message
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline    check
+    #    VP00    Member is Not Allow VirtualSports
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Agent is Not Allow VirtualSports
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Master is enable VirtualSports
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP02    Master Edit Member Not Allow VirtualSports
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    check
+    #    VP02    Agent Edit Member Not Allow VirtualSports
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_GD01_Disable GoldDeluxe
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    goldDeluxe
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    downline
+    #    VP00    Member is invisible status
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    invisible
+    #    VP01    Agent is invisible status
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    invisible
+    #    VP01    Master is Not Allow goldDeluxe
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP02    Master Edit Member Not Allow goldDeluxe
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    invisible
+    #    VP02    Agent Edit Member Not Allow goldDeluxe
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    # N/A
+
+TC_SM_GD02_Enable GoldDeluxe with Disable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    goldDeluxe
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline
+    #    VP00    Member is invisibled
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    invisible
+    #    VP02    Agent is invisibled
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    invisible
+    #    VP03    Agent is Not Allow goldDeluxe
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP04    Master Edit Agent uncheck
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    uncheck
+    #    VP02    Agent is invisibled
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    invisible
+    #    VP02    Agent Edit Member Not Allow goldDeluxe
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    disable    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    uncheck    downline
+
+TC_SM_GD03_Enable GoldDeluxe with Enable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    goldDeluxe
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status    save    ${tc_status}    check    downline    check
+    #    VP00    Member is invisibled
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    invisible
+    #    VP02    Agent is invisibled
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    invisible
+    #    VP03    Agent is Not Allow goldDeluxe
+    Search Account    ${tc_master}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP04    Master Edit Agent uncheck
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    #    VP02    Member is invisibled
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    invisible
+    #    VP02    Agent Edit Member Not Allow goldDeluxe
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status    ${tc_status}    ${EMPTY}    enable    check
+    COMMENT    -----------------------    POST-CONDITIONS
+
+TC_SM_RC01_Disable Racing
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status Racing    save    ${tc_status}    uncheck    ${EMPTY}    ok
+    #    VP    Member is disable Racing
+    Search Account    ${tc_member}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP    Agent is disable Racing
+    Search Account    ${tc_agent}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    #    VP    Master is disable Racing
+    Search Account    ${tc_master}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    #    VP    Master Edit Member Not Allow HRFixedOdds
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    uncheck    hide
+    Search Account    ${tc_agent}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    #    VP    Agent Login : Member Not Allow HRFixedOdds
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    uncheck    hide
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_RC02_Enable Racing with Disable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status Racing    save    ${tc_status}    check
+    #    VP00    Member is disable Racing
+    Search Account    ${tc_member}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    uncheck
+    #    VP01    Agent is disable Racing
+    Search Account    ${tc_agent}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    #    VP01    master is enabled Racing
+    Search Account    ${tc_master}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    uncheck
+    #    VP03    Master Edit Member Not Allow HRFixedOdds
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    uncheck    hide
+    Search Account    ${tc_agent}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    #    VP03    Agent Edit Agent Not Allow HRFixedOdds
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_RC03_Enable Racing with Enable Downline
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status Racing    save    ${tc_status}    uncheck    ${EMPTY}    ok
+    Update Setting Status Racing    save    ${tc_status}    check    check
+    #    VP00    Member is disable Racing
+    Search Account    ${tc_member}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    check
+    #    VP01    Agent is disable Racing
+    Search Account    ${tc_agent}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    check    ${EMPTY}    disable
+    ...    check
+    #    VP01    master is enabled Racing
+    Search Account    ${tc_master}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    check
+    #    VP03    Master Edit Member Not Allow HRFixedOdds
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    disable    check    hide
+    Search Account    ${tc_agent}
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    check
+    #    VP03    Agent Edit Agent Not Allow HRFixedOdds
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}    #    Go to Edit Status
+    Verify Setting Status Racing    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    check
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_KN01_Disable Keno
+    [Tags]    Keno
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status Keno    save    ${tc_status}    uncheck
+    #    VP00    Member is disabled Keno
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    uncheck    hide
+    #    VP01    Agent disabled Keno
+    Search Account    ${tc_agent}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    #    VP02    Master: enable and uncheck Keno
+    Search Account    ${tc_master}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    #    VP03    Master Edit Agent, Member are disabled Keno
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    uncheck    hide
+    #    VP04    Agent Edit Member is disabled Keno
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    uncheck    hide
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_KN02_Enable Keno with Disable Downline
+    [Tags]    Keno
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status Keno    save    ${tc_status}    check
+    #    VP00    Member is disabled Keno
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    uncheck    hide
+    #    VP01    Agent disabled Keno
+    Search Account    ${tc_agent}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    #    VP02    Master: enable and uncheck Keno
+    Search Account    ${tc_master}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    uncheck
+    #    VP02    Master Edit Agent, Member are disabled Keno
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    uncheck    ${EMPTY}    disable
+    ...    uncheck
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    uncheck    hide
+    #    VP02    Agent Edit Member is disabled Keno
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    uncheck    hide
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A
+
+TC_SM_KN03_Enable Keno with Enable Downline
+    [Tags]    Keno
+    COMMENT    -----------------------    SET VARIABLES
+    ${tc_super}    set variable    ${ds_Line03_S}
+    ${tc_master}    set variable    ${ds_Line03_M}
+    ${tc_agent}    set variable    ${ds_Line03_A}
+    ${tc_member}    set variable    ${ds_Line03_P}
+    ${tc_status}    set variable    all
+    COMMENT    -----------------------    MAIN STEPS
+    #    Super Login
+    Switch Browser    ${tc_super}
+    Search Account    ${tc_master}    #    Go to Edit Status
+    Update Setting Status Keno    save    ${tc_status}    uncheck
+    Update Setting Status Keno    save    ${tc_status}    check    check
+    #    VP00    Member is disabled Keno
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    check    hide
+    #    VP01    Agent disabled Keno
+    Search Account    ${tc_agent}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    check    ${EMPTY}    disable
+    ...    check
+    #    VP02    Master: enable and uncheck Keno
+    Search Account    ${tc_master}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    check
+    #    VP02    Master Edit Agent, Member are disabled Keno
+    Switch Browser    ${tc_master}
+    Search Account    ${tc_agent}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    check    ${EMPTY}    disable
+    ...    check
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    disable    check    hide
+    #    VP02    Agent Edit Member is disabled Keno
+    Switch Browser    ${tc_agent}
+    Search Account    ${tc_member}
+    Verify Setting Status Keno    ${tc_status}    ${EMPTY}    enable    check    hide
+    COMMENT    -----------------------    POST-CONDITIONS
+    #N/A

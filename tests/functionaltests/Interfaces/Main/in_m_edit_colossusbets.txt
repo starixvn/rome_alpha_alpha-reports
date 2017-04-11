@@ -1,0 +1,10 @@
+*** Settings ***
+Documentation     This is interface of ColosusBets Edit Setting
+...               Navigate: Search Customer > Left Setting Tab > click "Colossuse Bets"
+
+*** Variables ***
+${in_m_CB_chkStaus}    //*[@id='customerInfo']/table[2]/tbody/tr[2]/td/div/input[1]    # Colossus Bet Status
+${in_m_CB_chkStausDL}    //*[@id='customerInfo']/table[2]/tbody/tr[2]/td/div/input[2]
+${in_m_CB_txtMasterComm}    //*[@id='commissionInputId']
+${in_m_CB_txtCashInShare}    //*[@id='cashInShareInputId']
+${in_m_CB_btnUpdate}    //*[@id='page_main']/div[4]/input

@@ -1,0 +1,39 @@
+*** Variables ***
+${ds_View01Login_S}    SupertestAuto00    ## | ============================== For Super Login ONLY: VIEW FUNCTION (Ticket Data): Reports...1
+${ds_View01_S}    SupertestAuto00    ## | ==============================VIEW FUNCTION (Ticket Data): Reports...
+${ds_View01_M}    SupertestAuto0001
+${ds_View01_A}    SupertestAuto000101
+${ds_View01_P}    Auto000101Member001
+${ds_View01_P02}    Auto000101Member002
+${ds_Line01_S}    SupertestAuto01    #    ==============================AGENT LOGIN: EDIT FUNCTION
+${ds_Line01_M01}    SupertestAuto0101
+${ds_Line01_A0101}    SupertestAuto010101    # Login User: Agent
+${ds_Line01_P0101001}    SupertestAuto010101001    # Agent Edit Members: Single
+${ds_Line01_P0101002}    SUPERTESTAUTO010101002    # Specail for Close/Suspend Status
+${ds_Line01_P0101003}    SUPERTESTAUTO010101003    # Agent Edit Members: Multiple
+${ds_Line01_P0101004}    SUPERTESTAUTO010101004    # Agent Edit Members: Multiple
+${ds_Line02_S}    SupertestAuto02    # ==============================MASTER LOGIN: EDIT FUNCTION
+${ds_Line02_M01}    SupertestAuto0201    # Login User: Master
+${ds_Line02_A0101}    SupertestAuto020101    # Master Edit Agent: Single
+${ds_Line02_P0101001}    SupertestAuto020101001    # Master Edit Member: Single
+${ds_Line02_P0101002}    SUPERTESTAUTO020101002    # Specail for Close/Suspend Status
+${ds_Line02_P0101003}    SUPERTESTAUTO020101003    # Master Edit Members: Multiple
+${ds_Line02_P0101004}    SUPERTESTAUTO020101004    # Master Edit Members: Multiple
+${ds_Line02_A0102}    SupertestAuto020102    # Specail for Close/Suspend Status
+${ds_Line02_A0103}    SUPERTESTAUTO020103    # Master Edit Agent: Multiple
+${ds_Line02_A0104}    SUPERTESTAUTO020104    # Master Edit Agent: Multiple
+${ds_Line02_P0102001}    SupertestAuto020102001
+${ds_Line03_S}    SupertestAuto03    # ==============================SUPER LOGIN: EDIT FUNCTION
+${ds_Line03_M01}    SupertestAuto0301    # Super Edit Master: Single
+${ds_Line03_A0101}    SupertestAuto030101    # Super Edit Agent: Single
+${ds_Line03_P0101001}    SupertestAuto030101001    #Super Edit Member: Single
+${ds_Line03_P0101002}    SUPERTESTAUTO030101002    # Specail for Close/Suspend Status: Super Update Member
+${ds_Line03_P0101003}    SUPERTESTAUTO030101003    # Super Edit Members: Multiple
+${ds_Line03_P0101004}    SUPERTESTAUTO030101004    # Super Edit Members: Multiple
+${ds_Line03_A0102}    SupertestAuto030102    # Specail for Close/Suspend Status: Super Update Agent
+${ds_Line03_P0102001}    SupertestAuto030102001    # Specail for Close/Suspend Status: Super Update Agent:Verify Member
+${ds_Line03_M02}    SupertestAuto0302    # Specail for Close/Suspend Status: Super Update Master
+${ds_Line03_A0201}    SupertestAuto030201    # Specail for Close/Suspend Status: Super Update Master: Verify Agent
+${ds_Line03_P0201001}    SupertestAuto030201001    # Specail for Close/Suspend Status: Super Update Master: Verify member
+${ds_Line03_M03}    SUPERTESTAUTO0303    # Super Edit Masters: Multiple
+${ds_Line03_M04}    SUPERTESTAUTO0304    # Super Edit Masters: Multiple

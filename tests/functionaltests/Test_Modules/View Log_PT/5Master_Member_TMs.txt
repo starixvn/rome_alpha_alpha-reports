@@ -1,0 +1,249 @@
+*** Settings ***
+Documentation     Precondition:
+...               - Super set Master Max PT = 0.9
+Suite Teardown    Close Browser
+Force Tags        View Log PT    5Master_Member_TMs
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/PT/pt_livecasino.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/Main/in_m_edit_livecasino.txt
+Resource          config_viewlog.txt
+
+*** Test Cases ***
+Preset Master
+    #Preconditon
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_passm3}    Set Variable    0
+    Open Page
+    #Agent Log in Site
+    Login    ${tm_agent}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    ${tm_master}
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Reset Agent Preset PT = 0
+    Edit Live Casino PT    Member    ${EMPTY}    Yes    ${EMPTY}    ${tm_passm3}    ${EMPTY}
+    Comment    Page Should Contain    Position taking: Updated successfully.
+    Sleep    5s
+    Logout
+    #Master Log in
+    Login    ${tm_master}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    agent
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    #Master Edit All Agent PT
+    ${tm_time}    Edit Live Casino PT    Agent    ${EMPTY}    Yes    0    0
+    ...    0
+    Sleep    3s
+    Logout
+    #Super Login
+    Login    ${tm_super}    ${cf_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    ${tm_master}
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Super Edit All Master PT
+    ${tm_time}    Edit Live Casino PT    Master    ${EMPTY}    Yes    0    0.9
+    ...    0
+    Sleep    3s
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+Master Edit Member_ViewLog_LCS_1
+    [Documentation]    Master Edit Master Position Taking on Member = 0.5
+    ...
+    ...    - View Log
+    ...    Expected Result:
+    ...    - Action: Update Master's Live Casino Position Taking at member
+    ...    - Master Preset PT_0.50_0.00
+    ...    - Master Auto PT_0.00
+    ...    - Is Master Auto PT_0
+    # Precondion
+    Open Page
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    Member
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Master Edit Super PT on Member
+    ${tm_time}    Edit Live Casino PT    Member    ${EMPTY}    Yes    0.5    ${EMPTY}
+    ...    ${EMPTY}
+    Sleep    3s
+    # check log    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_member}    ${tm_time}    Update Master's Live Casino Position Taking at member    Master Preset PT_0.50_0.00    Master Auto PT_0.00    Is Master Auto PT_0
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+MasterSub Edit Member_ViewLog_LCS_2
+    [Documentation]    MasterSub Edit Master Position Taking on Member = 0.4
+    ...
+    ...    - View Log
+    ...    Expected Result:
+    ...    - Action: Update Master's Live Casino Position Taking at member
+    ...    - Master Preset PT_0.40_0.50
+    ...    - Master Auto PT_0.00
+    ...    - Is Master Auto PT_0
+    ...    - Sub Acc name_MasterSub's Name
+    # Precondion    Mastersub Log in
+    Open Page
+    Login    ${tm_mastersub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    Member
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # MasterSub Edit Master PT on Member
+    ${tm_time}    Edit Live Casino PT    Member    ${EMPTY}    Yes    0.4    ${EMPTY}
+    ...    ${EMPTY}
+    Sleep    3s
+    # check log    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_member}    ${tm_time}    Update Master's Live Casino Position Taking at member    Master Preset PT_0.40_0.50    Master Auto PT_0.00    Is Master Auto PT_0
+    ...    Sub Acc name_${tm_mastersub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+Master Edit Member_ViewLog_LCS_3
+    [Documentation]    Master Check Master Auto PT on Member with value = 0.1
+    ...    - View Log
+    ...    Expected:
+    ...    - Action: Update Master's Live Casino Position Taking at member
+    ...    - Master Preset PT_0.40
+    ...    - Master Auto PT_0.10_0.00
+    ...    - Is Master Auto PT_1_0
+    #Preconditon
+    COMMENT    ==============================>    PRE-CONDITION
+    Open Page
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    member
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Edit Super Auto PT
+    ${tm_time}    Edit Live Casino PT    A-Member    0.1    Yes    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Log    ${tm_time}
+    Comment    Page Should Contain    Min Position: Updated successfully.
+    Sleep    5s
+    # check log    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_member}    ${tm_time}    Update Master's Live Casino Position Taking at member    Master Preset PT_0.10_0.40    Master Auto PT_0.10_0.00    Is Master Auto PT_1_0
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+MasterSub Edit Member_ViewLog_LCS_4
+    [Documentation]    MasterSub Check Super Auto PT on Member with New value = 0.2
+    ...    - View Log
+    ...    Expected:
+    ...    - Action: Update Master's Live Casino Position Taking at member
+    ...    - Master Preset PT_0.10
+    ...    - Master Auto PT_0.20_0.10
+    ...    - Is Master Auto PT_1
+    ...    - Sub Acc name_MasterSub's Name
+    # Precondion    Mastersub Log in
+    Open Page
+    Login    ${tm_mastersub}    ${tm_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    Member
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # MasterSub Edit Master PT on Member
+    ${tm_time}    Edit Live Casino PT    A-Member    0.2    Yes    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Sleep    3s
+    # check log    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_member}    ${tm_time}    Update Master's Live Casino Position Taking at member    Master Preset PT_0.20_0.10    Master Auto PT_0.20_0.10    Is Master Auto PT_1
+    ...    Sub Acc name_${tm_mastersub}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser
+
+Master Edit Member_ViewLog_LCS_5
+    [Documentation]    Master UnCheck Master Auto PT on Member and Select Master Position Taking =0
+    ...    - View Log
+    ...    Expected:
+    ...    - Action: Update Master's Live Casino Position Taking at member
+    ...    - Master Preset PT_0.00_0.20
+    ...    - Master Auto PT_0.00_0.20
+    ...    - Is Master Auto PT_0_1
+    #Preconditon
+    COMMENT    ==============================>    PRE-CONDITION
+    Open Page
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    # Turn off tooltips
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    Sleep    1s
+    Click Element At Coordinates    xpath=html/body/div[1]    1215    560
+    COMMENT    ==============================>    MAIN STEPS
+    Comment    Search Account    Member
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Live Casino
+    sleep    3s
+    # Super Uncheck Super Auto PT and Select Super PT
+    Select Frame    main
+    Unselect Checkbox    xpath=//*[@id='cbIm1']
+    Unselect Frame
+    ${tm_time}    Edit Live Casino PT    Member    ${EMPTY}    Yes    0    ${EMPTY}
+    ...    ${EMPTY}
+    Sleep    5s
+    # check log    user name    date log    action log    list check
+    Check Live Casino PT Log    ${tm_member}    ${tm_time}    Update Master's Live Casino Position Taking at member    Master Preset PT_0.00_0.20    Master Auto PT_0.00_0.20    Is Master Auto PT_0_1
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+    [Teardown]    Close Browser

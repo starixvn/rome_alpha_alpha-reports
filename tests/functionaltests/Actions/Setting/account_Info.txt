@@ -1,0 +1,33 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Interfaces/Main/in_m_edit_info.txt
+
+*** Keywords ***
+Edit Account Info
+    [Arguments]    ${action}=${EMPTY}    ${firstName}=${EMPTY}    ${lastName}=${EMPTY}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword If    '${firstName}'!='${EMPTY}'    Input Text    ${in_m_eif_txtFirstName}    ${firstName}
+    Run Keyword If    '${action}'!='${EMPTY}'    Click Element    ${in_m_eif_btnUpdate}
+    unselect frame
+
+Verify Account Info
+    [Arguments]    ${expectedFirstName}
+    Unselect Frame
+    Select Frame    main
+    ${ac_actualValue}    Run Keyword If    '${expectedFirstName}'!='${EMPTY}'    Get Value    ${in_m_eif_txtFirstName}
+    Run Keyword And Continue On Failure    Should Be Equal    ${ac_actualValue}    ${expectedFirstName}
+    Unselect Frame
+
+Remove OTP
+    [Arguments]    ${action}
+    Unselect Frame
+    Select Frame    main
+    Click Element    ${in_m_OTP_btnRemove}
+    Run Keyword If    '${action}'=='OK'    click element    ${in_m_OTP_btnPopupOK}
