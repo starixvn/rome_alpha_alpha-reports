@@ -5,7 +5,14 @@
     var total = (MasterAgentPlayForFunModel)Model.ReportData.TotalData;
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Resources.MasterPlayForFunDetail, false, true, false, Model.FilterViewModel.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query, PlayForFunReportViewModel.BreadcrumbActions)
+@ReportTitle.Render(new PageHeaderViewModel(
+    Model.CustLevel.IsSuperLevel() ? Resources.MasterPlayForFunDetail : Resources.AgentPlayForFunDetail,
+    false,
+    true,
+    false,
+    Model.FilterViewModel.Visible,
+    Model.BreadcrumbLevel,
+    Model.BreadcrumbLevelJson), Request.Url.Query, PlayForFunReportViewModel.BreadcrumbActions)
 @Html.Partial("Filter", Model.FilterViewModel,
     new ViewDataDictionary
     {
@@ -20,7 +27,9 @@
        data-descendingsort="@Model.IsDescendingSort">
     <thead>
         <tr>
-            <th class="sorting" data-sortedname="@PlayForFunReportViewModel.SortByCustName" data-colindex="0">@Resources.Master</th>
+            <th class="sorting" data-sortedname="@PlayForFunReportViewModel.SortByCustName" data-colindex="0">
+                @(Model.CustLevel.IsSuperLevel() ? Resources.Master : Resources.Agent)
+            </th>
             <th class="sorting" data-sortedname="@MasterOrAgentPlayForFunReportViewModel.SortByNumberOfPlayers" data-colindex="1">@Resources.NoPlayers</th>
             <th class="sorting" data-sortedname="@PlayForFunReportViewModel.SortByTurnover" data-colindex="2">@Resources.Turnover</th>
             <th class="sorting" data-sortedname="@PlayForFunReportViewModel.SortByMemberWinLoss" data-colindex="3">@Resources.MemberWinLoss</th>
@@ -33,19 +42,19 @@
         <tbody>
             @foreach (MasterAgentPlayForFunModel data in Model.ReportData.DataSource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
                 {
-                <tr class="@(isEvenRow? "even-row":string.Empty)">
-                    <td data-islink="true" class="text-left">
-                        <a href="@Model.BuildDrillDownLink(data, Url.Action(Model.DrilldownAction, "PlayForFun") + Request.Url.Query)"
-                           class="downline-link"
-                           data-custname="@data.CustName">
-                            @data.CustName
-                        </a>
-                    </td>
-                    <td>@HtmlHelpers.FormatNumber(data.NumberOfPlayers)</td>
-                    <td>@HtmlHelpers.FormatNumber(data.Turnover)</td>
-                    <td>@HtmlHelpers.FormatNumber(data.WinLoss)</td>
-                    <td>@HtmlHelpers.FormatNumber(data.BetCount)</td>
-                </tr>
+            <tr class="@(isEvenRow? "even-row":string.Empty)">
+                <td data-islink="true" class="text-left">
+                    <a href="@Model.BuildDrillDownLink(data, Url.Action(Model.DrilldownAction, "PlayForFun") + Request.Url.Query)"
+                       class="downline-link"
+                       data-custname="@data.CustName">
+                        @data.CustName
+                    </a>
+                </td>
+                <td>@HtmlHelpers.FormatNumber(data.NumberOfPlayers)</td>
+                <td>@HtmlHelpers.FormatNumber(data.Turnover)</td>
+                <td>@HtmlHelpers.FormatNumber(data.WinLoss)</td>
+                <td>@HtmlHelpers.FormatNumber(data.BetCount)</td>
+            </tr>
                 isEvenRow = !isEvenRow;
             }
         </tbody>
