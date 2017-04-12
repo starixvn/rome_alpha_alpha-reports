@@ -130,8 +130,8 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             get {
                 return ResourceManager.GetString("AllLeagues", resourceCulture);
             }
-        }        
-
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to All Products.
         /// </summary>
@@ -295,20 +295,20 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disabled.
-        /// </summary>
-        public static string Disabled {
-            get {
-                return ResourceManager.GetString("Disabled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to - Data of {0} will be delayed up to 5 minutes after settling tickets..
         /// </summary>
         public static string DelayIssueLegend {
             get {
                 return ResourceManager.GetString("DelayIssueLegend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        public static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
             }
         }
         
@@ -815,15 +815,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("PlayCount", resourceCulture);
             }
         }
-                
-        /// <summary>
-        ///   Looks up a localized string similar to Position Taking.
-        /// </summary>
-        public static string PositionTaking {
-            get {
-                return ResourceManager.GetString("PositionTaking", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Play For Fun.
@@ -831,6 +822,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string PlayForFun {
             get {
                 return ResourceManager.GetString("PlayForFun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Position Taking.
+        /// </summary>
+        public static string PositionTaking {
+            get {
+                return ResourceManager.GetString("PositionTaking", resourceCulture);
             }
         }
         
@@ -852,7 +852,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
-         /// <summary>
+        /// <summary>
         ///   Looks up a localized string similar to Report by.
         /// </summary>
         public static string ReportBy {
@@ -860,7 +860,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("ReportBy", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Results.
         /// </summary>
@@ -934,15 +934,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status.
-        /// </summary>
-        public static string Status {
-            get {
-                return ResourceManager.GetString("Status", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sport.
         /// </summary>
         public static string Sport {
@@ -957,6 +948,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SportWinLossAnalysis {
             get {
                 return ResourceManager.GetString("SportWinLossAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         

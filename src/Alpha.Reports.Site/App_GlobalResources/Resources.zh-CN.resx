@@ -366,7 +366,7 @@
   <data name="Disabled" xml:space="preserve">
     <value>禁用</value>
   </data>
-    <data name="Match" xml:space="preserve">
+  <data name="Match" xml:space="preserve">
     <value>赛事</value>
   </data>
   <data name="PositionTaking" xml:space="preserve">
@@ -375,7 +375,6 @@
   <data name="BetType" xml:space="preserve">
     <value>投注类别</value>
   </data>
-
   <data name="Outright" xml:space="preserve">
     <value>优胜冠军</value>
   </data>
@@ -409,7 +408,6 @@
   <data name="SportWinLossAnalysis" xml:space="preserve">
     <value>体育输赢分析</value>
   </data>
-
   <data name="SubTotal" xml:space="preserve">
     <value>小计</value>
   </data>
@@ -427,5 +425,38 @@
   </data>
   <data name="DelayIssueLegend" xml:space="preserve">
     <value>- 在 {0} 结算后，数据库将会在大约5分钟内更新。</value>
+  </data>
+  <data name="MasterPlayForFunDetail" xml:space="preserve">
+    <value>总代理免费试玩资料</value>
+  </data>
+  <data name="AgentPlayForFunDetail" xml:space="preserve">
+    <value>代理免费试玩资料</value>
+  </data>
+  <data name="MemberPlayForFunDetail" xml:space="preserve">
+    <value>会员免费试玩资料</value>
+  </data>
+  <data name="NoPlayers" xml:space="preserve">
+    <value>玩家人数</value>
+  </data>
+  <data name="PlayCount" xml:space="preserve">
+    <value>投注统计</value>
+  </data>
+  <data name="PlayForFun" xml:space="preserve">
+    <value>免费试玩</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>选定</value>
+  </data>
+  <data name="SelectProducts" xml:space="preserve">
+    <value>选择产品</value>
+  </data>
+  <data name="ThereIsNoProduct" xml:space="preserve">
+    <value>没有产品</value>
+  </data>
+  <data name="AllProducts" xml:space="preserve">
+    <value>所有产品</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>已开启</value>
   </data>
 </root>
