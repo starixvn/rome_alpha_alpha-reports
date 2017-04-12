@@ -421,7 +421,7 @@
     <value>No.Players</value>
   </data>
   <data name="PlayCount" xml:space="preserve">
-    <value>Bet Count</value>
+    <value>Play Count</value>
   </data>
   <data name="PlayForFun" xml:space="preserve">
     <value>Play For Fun</value>

@@ -808,7 +808,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bet Count.
+        ///   Looks up a localized string similar to Play Count.
         /// </summary>
         public static string PlayCount {
             get {
