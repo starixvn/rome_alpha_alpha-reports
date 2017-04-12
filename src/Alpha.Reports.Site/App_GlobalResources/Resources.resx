@@ -280,7 +280,7 @@
     <value>Do not show again</value>
   </data>
   <data name="ThereIsNoProduct" xml:space="preserve">
-    <value>There is no Product.</value>
+    <value>There is no product.</value>
   </data>
   <data name="NoInformationIsAvailable" xml:space="preserve">
     <value>No information is available</value>
@@ -421,12 +421,12 @@
     <value>No.Players</value>
   </data>
   <data name="PlayCount" xml:space="preserve">
-    <value>Play Count</value>
+    <value>Bet Count</value>
   </data>
   <data name="PlayForFun" xml:space="preserve">
     <value>Play For Fun</value>
   </data>
-    <data name="DelayIssueLegend" xml:space="preserve">
+  <data name="DelayIssueLegend" xml:space="preserve">
     <value>- Data of {0} will be delayed up to 5 minutes after settling tickets.</value>
   </data>
   <data name="vs" xml:space="preserve">
@@ -438,7 +438,7 @@
   <data name="Match" xml:space="preserve">
     <value>Match</value>
   </data>
-   <data name="Daily" xml:space="preserve">
+  <data name="Daily" xml:space="preserve">
     <value>Daily</value>
   </data>
   <data name="Monthly" xml:space="preserve">
@@ -450,7 +450,6 @@
   <data name="WinLossAnalysis" xml:space="preserve">
     <value>Win Loss Analysis</value>
   </data>
-
   <data name="PositionTaking" xml:space="preserve">
     <value>Position Taking</value>
   </data>
@@ -469,7 +468,6 @@
   <data name="NumberGame" xml:space="preserve">
     <value>Number Game</value>
   </data>
-
   <data name="SubTotal" xml:space="preserve">
     <value>Sub Total</value>
   </data>
