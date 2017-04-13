@@ -268,7 +268,7 @@
     <value>마스터 승리 패배</value>
   </data>
   <data name="MemberWinLoss" xml:space="preserve">
-    <value>สมาชิก (ชนะ แพ้)</value>
+    <value>회원 승리 패배</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>날짜</value>
@@ -324,6 +324,15 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>마스터 대기 포인트</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>상황</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>모든</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>비활성화</value>
+  </data>
   <data name="Match" xml:space="preserve">
     <value>매치</value>
   </data>
@@ -366,7 +375,6 @@
   <data name="SportWinLossAnalysis" xml:space="preserve">
     <value>스포츠 적중/손실 (승패)분석</value>
   </data>
-
   <data name="SubTotal" xml:space="preserve">
     <value>총 하위</value>
   </data>

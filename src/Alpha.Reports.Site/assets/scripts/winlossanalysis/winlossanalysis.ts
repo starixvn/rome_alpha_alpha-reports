@@ -45,7 +45,7 @@ class WinLossAnalysisView extends BaseReport{
         sortComponent: SortComponent,
         reportTooltip: ReportTooltip,
         linkBuilderComponent: LinkBuilderComponent) {
-        super();
+        super($, linkBuilderComponent);
 
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
@@ -132,7 +132,7 @@ class WinLossAnalysisView extends BaseReport{
         }
     };
 
-    registerEvents = () => {
+    public registerEvents() {
         this.$reportForm.submit(this.onSubmitReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
         this.$excelIcon.on("click", this.onExportExcelEvent);
@@ -165,7 +165,7 @@ class WinLossAnalysisView extends BaseReport{
         this.$reportTypeId.val(params.ReportTypeId);
     };
 
-    getSortPropertyName = (sortPropertyName: string) => this.$reportTypeId.val() == 3 && sortPropertyName == "ReportTypeName" ? "" : sortPropertyName;
+    getSortPropertyName = (sortPropertyName: string) => this.$reportTypeId.val() === 3 && sortPropertyName === "ReportTypeName" ? "" : sortPropertyName;
 
     onFilterEvent = () => this.$reportForm.hasClass("hide") ? this.showFilter() : this.hideFilter();
 

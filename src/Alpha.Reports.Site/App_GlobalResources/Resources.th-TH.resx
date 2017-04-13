@@ -358,6 +358,15 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>การเดิมพันที่ยังไม่สิ้นสุดของ Master</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>สถานะ</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>ทั้งหมด</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>ปิดการใช้งาน</value>
+  </data>
   <data name="Match" xml:space="preserve">
     <value>การแข่งขัน</value>
   </data>
@@ -379,7 +388,7 @@
   <data name="NumberGame" xml:space="preserve">
     <value>เกมหมายเลข</value>
   </data>
-   <data name="Daily" xml:space="preserve">
+  <data name="Daily" xml:space="preserve">
     <value>รายวัน</value>
   </data>
   <data name="DailyWinLossAnalysis" xml:space="preserve">
@@ -400,7 +409,6 @@
   <data name="SportWinLossAnalysis" xml:space="preserve">
     <value>การวิเคราะห์ ผลได้เสีย รายการกีฬา</value>
   </data>
-
   <data name="SubTotal" xml:space="preserve">
     <value>ยอดรวม</value>
   </data>
@@ -418,5 +426,38 @@
   </data>
   <data name="DelayIssueLegend" xml:space="preserve">
     <value>- ข้อมูล {0} จะล่าช้าไม่เกิน 5 นาทีหลังจากเคลียร์ตั๋ว</value>
+  </data>
+  <data name="MasterPlayForFunDetail" xml:space="preserve">
+    <value>มาสเตอร์รายละเอียดทดลองเล่นฟรี</value>
+  </data>
+  <data name="AgentPlayForFunDetail" xml:space="preserve">
+    <value>เอเจ่นต์รายละเอียดทดลองเล่นฟรี</value>
+  </data>
+  <data name="MemberPlayForFunDetail" xml:space="preserve">
+    <value>สมาชิกรายละเอียดทดลองเล่นฟรี</value>
+  </data>
+  <data name="NoPlayers" xml:space="preserve">
+    <value>จำนวนผู้เล่น</value>
+  </data>
+  <data name="PlayCount" xml:space="preserve">
+    <value>จำนวนการเล่น</value>
+  </data>
+  <data name="PlayForFun" xml:space="preserve">
+    <value>ทดลองเล่นฟรี</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>เลือก</value>
+  </data>
+  <data name="SelectProducts" xml:space="preserve">
+    <value>เลือกผลิตภัณฑ์</value>
+  </data>
+  <data name="ThereIsNoProduct" xml:space="preserve">
+    <value>ไม่มีสินค้า</value>
+  </data>
+  <data name="AllProducts" xml:space="preserve">
+    <value>สินค้าทั้งหมด</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>เปิดการใช้งาน</value>
   </data>
 </root>

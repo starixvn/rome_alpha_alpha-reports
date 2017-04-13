@@ -37,7 +37,7 @@ class OutstandingView {
             this.$tableReport,
             parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
             true,
-            this.afterSort,
+            this.sortComponent.afterSort,
             { 0: { sorter: "text" } },
             this.$reportForm));
 
@@ -140,7 +140,7 @@ class OutstandingView {
 }
 
 $(function () {
-    let linkBuilderComponent = new LinkBuilderComponent($);
+    const linkBuilderComponent = new LinkBuilderComponent($);
     const outstandingView = new OutstandingView(
         $,
         new SortComponent($, linkBuilderComponent),

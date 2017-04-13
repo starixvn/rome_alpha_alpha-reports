@@ -4,6 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Configurations;
+    using Enumerations;
+    using Reports.Models;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -56,6 +59,8 @@
             }
         }
 
+        public static Func<string, string, string> GetSiteUrl { get; internal set; } = GetUrl;
+
         internal static string AddQueryStringParams(string url, IDictionary<string, object> routeValues)
         {
             if (!routeValues.Any())
@@ -102,6 +107,14 @@
             }
 
             return url + $"&{paramName}={paramValue}";
+        }
+
+        internal static string GetUrl(string action, string currentQuery)
+        {
+            var relativePath = action + currentQuery;
+            var url = AppPathHelper.GetAppPath(SiteSettings.ReportsAppPath, relativePath);
+
+            return url;
         }
     }
 }

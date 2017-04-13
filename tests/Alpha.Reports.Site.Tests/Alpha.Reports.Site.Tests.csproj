@@ -208,6 +208,7 @@
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
     <Compile Include="Controllers\ReportLegendControllerTests.cs" />
     <Compile Include="Controllers\WinLossAnalysisControllerTests.cs" />
+    <Compile Include="Controllers\PlayForFunControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossControllerTests.cs" />
     <Compile Include="Controllers\LeagueControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossDetailControllerTests.cs" />
@@ -224,6 +225,8 @@
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossExcelHandlerTest.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossHandlerTests.cs" />
+    <Compile Include="Handlers\PlayForFun\PlayForFunExcelHandlerTests.cs" />
+    <Compile Include="Handlers\PlayForFun\PlayForFunHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbookImplTests.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
@@ -236,6 +239,7 @@
     <Compile Include="Handlers\WinLoss\EnteredSportResultHandlerTests.cs" />
     <Compile Include="Handlers\WinLoss\WinLossExcelHandlerTest.cs" />
     <Compile Include="Handlers\WinLoss\WinLossHandlerTests.cs" />
+    <Compile Include="Helpers\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="Helpers\QueryEntityModelBinderTests.cs" />
     <Compile Include="Helpers\UrlHelperTests.cs" />
     <Compile Include="Models\UserTests.cs" />
@@ -256,6 +260,8 @@
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossFilterViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModelTests.cs" />
+    <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelForTesting.cs" />
+    <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModelTests.cs" />

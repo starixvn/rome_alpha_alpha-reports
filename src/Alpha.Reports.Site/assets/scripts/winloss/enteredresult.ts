@@ -112,11 +112,11 @@ class EnterResultView {
     };
 }
 
-const enterResultView = new EnterResultView(
-    $,
-    new DateRangePickerComponent($),
-    new SortComponent($, new LinkBuilderComponent($)));
-
 $(function () {
+    const enterResultView = new EnterResultView(
+        $,
+        new DateRangePickerComponent($),
+        new SortComponent($, new LinkBuilderComponent($)));
+
     enterResultView.init();
 });

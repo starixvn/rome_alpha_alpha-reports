@@ -216,6 +216,9 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>マスター未払い残高</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>状態</value>
+  </data>
   <data name="SelectLeague" xml:space="preserve">
     <value>リーグ選択</value>
   </data>
@@ -225,5 +228,7 @@
   <data name="Sport" xml:space="preserve">
     <value>スポーツ</value>
   </data>
-
+  <data name="MemberWinLoss" xml:space="preserve">
+    <value>メンバー勝ち負け</value>
+  </data>
 </root>

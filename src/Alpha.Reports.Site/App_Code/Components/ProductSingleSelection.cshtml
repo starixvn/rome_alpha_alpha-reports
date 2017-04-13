@@ -1,0 +1,14 @@
+﻿@using Alpha.Reports.Site.ViewModels.Components;
+
+@helper Render(ProductMultiSelectionViewModel model)
+{
+    <div class="form-group">
+        <select id="dropdown-product">
+            @foreach (var product in model.Products)
+            {
+                <option value="@product.Value" @(product.Selected ? " selected=\"selected\"" : string.Empty)>@product.Text</option>
+            }
+        </select>
+        <input type="hidden" name="UserSelectedProductId" id="UserSelectedProductId" value="@model.UserSelectedProductIds" />
+    </div>
+}

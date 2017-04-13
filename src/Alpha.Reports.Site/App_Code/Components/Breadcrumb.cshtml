@@ -1,6 +1,6 @@
 ﻿@using Alpha.Reports.Site.ViewModels.Components
 
-@helper Render(BreadcrumbLevelViewModel viewModel, string currentRequestUrl)
+@helper Render(BreadcrumbLevelViewModel viewModel, string currentRequestUrl, Dictionary<int, string> breadcrumbParamByLevel)
 {
 var linkLength = viewModel.BreadcrumbLevel != null ? viewModel.BreadcrumbLevel.Count() : 0;
 var linkIndex = 0;
@@ -23,7 +23,7 @@ if (linkLength > 0)
                     {
                         <li>
                             <a class="breadcrumb-link"
-                               href="@(viewModel.BuildBreadcrumbLink(custinfo, currentRequestUrl))">
+                               href="@(viewModel.BuildBreadcrumbLink(custinfo, currentRequestUrl, breadcrumbParamByLevel))">
                                 @(custinfo.CustName)
                             </a>
                         </li>
