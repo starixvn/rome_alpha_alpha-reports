@@ -268,7 +268,7 @@
     <value>마스터 승리 패배</value>
   </data>
   <data name="MemberWinLoss" xml:space="preserve">
-    <value>สมาชิก (ชนะ แพ้)</value>
+    <value>회원 승리 패배</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>날짜</value>
@@ -333,7 +333,6 @@
   <data name="Disabled" xml:space="preserve">
     <value>비활성화</value>
   </data>
-  
   <data name="Match" xml:space="preserve">
     <value>매치</value>
   </data>
@@ -343,7 +342,6 @@
   <data name="BetType" xml:space="preserve">
     <value>배팅 유형</value>
   </data>
-
   <data name="Outright" xml:space="preserve">
     <value>순위,승자 등</value>
   </data>
@@ -377,7 +375,6 @@
   <data name="SportWinLossAnalysis" xml:space="preserve">
     <value>스포츠 적중/손실 (승패)분석</value>
   </data>
-
   <data name="SubTotal" xml:space="preserve">
     <value>총 하위</value>
   </data>
