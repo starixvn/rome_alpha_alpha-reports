@@ -79,6 +79,8 @@
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
             container.RegisterSingleton<MatchWinLossService, MatchWinLossServiceImpl>();
             container.RegisterSingleton<OutstandingService, OutstandingServiceImpl>();
+            container.RegisterSingleton<WinLossAnalysisService, WinLossAnalysisServiceImpl>();
+            container.RegisterSingleton<PlayForFunService, PlayForFunServiceImpl>();
             container.RegisterSingleton<RacingCommissionService, RacingCommissionServiceImpl>();
             container.RegisterSingleton<CommissionByBettypeService, CommissionByBettypeServiceImpl>();
 
@@ -104,7 +106,7 @@
             container.RegisterSingleton<IDynamicRepository, DynamicRepository>();
             container.RegisterSingleton<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
             container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
-
+            container.RegisterSingleton<WinLossAnalysisDataAccess, WinLossAnalysisDataAccessImpl>();
             container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
         }
 

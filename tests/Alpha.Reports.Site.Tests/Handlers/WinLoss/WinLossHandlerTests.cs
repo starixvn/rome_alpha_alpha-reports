@@ -12,7 +12,6 @@
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Params;
-    using Ploeh.AutoFixture;
     using Reports.Models;
     using Reports.Models.Winloss;
     using Services;

@@ -1,0 +1,2 @@
+*** Variables ***
+${in_a_btnClosed}    //*[contains(@src,'Images/iconClose')]    # Close icon on announcement

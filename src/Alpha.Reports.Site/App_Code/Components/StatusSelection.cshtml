@@ -1,0 +1,16 @@
+﻿@using Alpha.Reports.Site.App_GlobalResources;
+@using Alpha.Reports.Site.ViewModels.Components;
+
+@helper Render(StatusSelectionViewModel model)
+{
+    <div class="form-group">
+        <label for="dropdown-statuses">@Resources.Status</label>
+        <select id="dropdown-statuses">
+            @foreach (var status in model.Statuses)
+            {
+                <option value="@status.Value" @(status.Selected ? "selected=\"selected\"" : string.Empty)>@status.Text</option>
+            }
+        </select>
+        <input id="UserSelectedStatusId" type="hidden" name="UserSelectedStatusId" value="@model.UserSelectedStatusId" />
+    </div>
+}

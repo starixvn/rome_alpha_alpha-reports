@@ -29,5 +29,22 @@
                 && user.Language == "en-US"
                 && user.LanguageKey == "en");
         }
+
+        [Fact]
+        public void GetHideProduct_Always_ReturnsCorrectStatus()
+        {
+            // Arrange
+            var userSession = Substitute.For<IUserSession>();
+            userSession.GetHideProduct(Arg.Any<int>()).Returns(true);
+            var user = new User(userSession);
+            var productId = 1;
+            var expectedHide = true;
+
+            // Act
+            var actualHide = user.GetHideProduct(productId);
+
+            // Assert
+            Assert.Equal(expectedHide, actualHide);
+        }
     }
 }

@@ -77,6 +77,7 @@
     <input type="hidden" name="FromDate" value="@Model.Query.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.Query.ToDate" />
 </form>
+@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
 
 @helper RenderCellValue(CommissionByBettypeModel commission)
 {

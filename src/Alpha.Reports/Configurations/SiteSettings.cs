@@ -14,6 +14,8 @@
 
         public static string StoreProcedurePath => GetConfigValue("StoreProcedurePath");
 
+        public static string ReportsAppPath => GetConfigValue("ReportsAppPath");
+
         internal static NameValueCollection AppSettings
         {
             get { return appSettings ?? ConfigurationManager.AppSettings; }
@@ -26,6 +28,7 @@
         public static void Verify()
         {
             Require(StoreProcedurePath, nameof(StoreProcedurePath));
+            Require(ReportsAppPath, nameof(ReportsAppPath));
         }
 
         private static void Require(string key, string keyName)

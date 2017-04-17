@@ -1,0 +1,704 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Library           ExcelLibrary
+Resource          ../Actions/common_actions.txt    #*************ACTION************
+Resource          ../Interfaces/Main/in_main_memberinfo.txt    #*************INTERFACE************
+
+*** Keywords ***
+Verify PositionTaking By Level
+    [Arguments]    ${ac_LoginLevel}    ${ac_DownlineLevel}    ${ac_DownlineNamel}    ${ac_Product}    ${ac_columnName}    ${ac_isDrillDown}=1
+    [Documentation]    This action is used to check the Position taking page UI by each level
+    ...
+    ...    ${ac_LoginLevel} : the level of current login account (ex, Super/Master/Agent)
+    ...
+    ...    ${ac_DownlineLevel}: \ the level of downline account
+    ...
+    ...    ${ac_DownlineNamel}: \ the name of downline \ account
+    ...
+    ...    ${ac_Product} : the product name (eg, Sportbook, Number Game, ...)
+    ...
+    ...    ${ac_columnName}: the column name
+    ...
+    ...    ${ac_isDrillDown} : dirll down to downline (eg, 0/1)
+    ${ac_isNewStyle}    Set Variable If    '${ac_Product}'=='Sportsbook 2' or '${ac_Product}'=='Macau Games'    1    0
+    ${ac_tblPT}    Set Variable If    ${ac_isNewStyle}==1    //table[@class='grid-fixed-table col_header_content']    //table[@id='tblMain']
+    ${ac_Col}    Set Variable If    ${ac_isNewStyle}==1    ${ac_tblPT}//div[contains(.,'${ac_columnName}')]    ${ac_tblPT}//td[contains(.,'${ac_columnName}')]
+    ${ac_DownlineNamel}    Evaluate    str("${ac_DownlineNamel}").lower()
+    ${ac_lnkUsername}    Set Variable    //a[translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ='${ac_DownlineNamel}']
+    sleep    1s
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    ${ac_lnkUsername}    ${cfWaitControl}
+    #########
+    ${ac_PTSuper}    Set Variable If    ${ac_isNewStyle}==1    //td[contains(@class,'levelname')]/div[contains(@class,'table-cell') and text()='S']    //td[@class='firstCol' and (text()='S' or text()='s')]
+    ${ac_PTMaster}    Set Variable If    ${ac_isNewStyle}==1    //td[contains(@class,'levelname')]/div[contains(@class,'table-cell') and text()='M']    //td[@class='firstCol' and (text()='M' or text()='m')]
+    ${ac_PTAgent}    Set Variable If    ${ac_isNewStyle}==1    //td[contains(@class,'levelname')]/div[contains(@class,'table-cell') and text()='A']    //td[@class='firstCol' and (text()='A' or text()='a')]
+    ${ac_kwcheckDisplayS}    Set Variable If    '${ac_LoginLevel}'=='Super' and '${ac_DownlineLevel}'=='Member'    Element Should Be Visible    Element Should Not Be Visible
+    ${ac_kwcheckDisplayMA}    Set Variable If    ('${ac_LoginLevel}'=='Super' or '${ac_LoginLevel}'=='Master') and ('${ac_DownlineLevel}'=='Agent' or '${ac_DownlineLevel}'=='Member' )    Element Should Be Visible    Element Should Not Be Visible
+    Run Keyword And Continue On Failure    Run Keyword    ${ac_kwcheckDisplayS}    ${ac_PTSuper}
+    Run Keyword And Continue On Failure    Run Keyword    ${ac_kwcheckDisplayMA}    ${ac_PTMaster}
+    Run Keyword And Continue On Failure    Run Keyword    ${ac_kwcheckDisplayMA}    ${ac_PTAgent}
+    ## Verify header
+    ${is_SMADisplayed}    Set Variable If    '${ac_kwcheckDisplayMA}'=='Element Should Be Visible'    1    0
+    Verify Sport Betype Header in Member Info Position Taking    ${ac_Product}    ${is_SMADisplayed}
+    ## Drill down
+    Comment    Run Keyword If    ('${ac_DownlineLevel}'=='Agent' or '${ac_DownlineLevel}'=='Master' ) and '${ac_isDrillDown}'=='1'    Click Element    ${ac_lnkUsername}
+    Comment    Run Keyword If    '${ac_DownlineLevel}'=='Member' and '${ac_Product}'=='Casino'    Click Element    ${ac_lnkUsername}
+    Run Keyword If    '${ac_isDrillDown}'=='1'    Click Element    ${ac_lnkUsername}
+
+Verify PositionTaking By Sport
+    [Arguments]    ${ac_LoginLevel}    ${ac_Product}    ${ac_columnName}    ${ac_mastername}    ${ac_agentname}    ${ac_membername}
+    [Documentation]    This action is used to check the Position taking page UI by sport from logined level to downline
+    ...
+    ...    ${ac_LoginLevel} : the level of current login account (ex, Super/Master/Agent)
+    ...    ${ac_Product} : the product name (eg, Sportbook, Number Game, ...)
+    ...    ${ac_columnName}: the column name
+    ...    ${ac_lstUsername}: the list username of downline order by level separated by ',' (eg, <mastername>,<agentname>,<membername>)
+    Unselect Frame
+    select frame    main
+    Run Keyword And Ignore Error    Wait Until Element Is Enabled    //*[@id='dropdown-product']    ${cfWaitControl}
+    sleep    1s
+    Select From List By Label    //*[@id='dropdown-product']    ${ac_Product}
+    Run Keyword Unless    '${ac_mastername}'=='${EMPTY}'    Verify PositionTaking By Level    ${ac_LoginLevel}    Master    ${ac_mastername}    ${ac_Product}
+    ...    ${ac_columnName}
+    Run Keyword Unless    '${ac_agentname}'=='${EMPTY}'    Verify PositionTaking By Level    ${ac_LoginLevel}    Agent    ${ac_agentname}    ${ac_Product}
+    ...    ${ac_columnName}
+    Run Keyword Unless    '${ac_membername}'=='${EMPTY}'    Verify PositionTaking By Level    ${ac_LoginLevel}    Member    ${ac_membername}    ${ac_Product}
+    ...    ${ac_columnName}
+
+Verify Account list Title Filter Section UI
+    [Arguments]    ${ac_downlineLevel}
+    [Documentation]    This action is used to check UI of Title and Filter Section on Account list page
+    ...
+    ...    ${ac_titlename}: the name of title
+    ## Set variable
+    ${ac_titlename}    Set Variable If    '${ac_downlineLevel}'=='Master'    MASTER AGENT LIST    '${ac_downlineLevel}'=='Agent'    AGENT LIST    MEMBER LIST
+    ## Check Title and Print icon
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_MemberInfo_AccountList_Headername}    ${ac_titlename}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_aPrint}
+    ## Check Filter section
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_tdUsername}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_txtUsername}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_tdStatus}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_ddlStatus}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_spanDoubleComm}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_ddlDoubleComm}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_btnSubmit}
+
+Verify Account list Paging Section UI
+    [Documentation]    This action is used to check UI of Paging Section on Account list page
+    ## Check page size ddl
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_ddlPageSizeTop}    ${cfWaitControl}
+    ## Check paging control
+    Comment    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_btnFirstPagingTop}    ${cfWaitControl}
+    Comment    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_btnPrevPagingTop}    ${cfWaitControl}
+    Comment    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_txtPagingTop}    ${cfWaitControl}
+    Comment    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_btnNextPagingTop}    ${cfWaitControl}
+    Comment    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AccountList_btnLastPagingTop}    ${cfWaitControl}
+
+Verify Account list Column Header UI
+    [Arguments]    ${ac_thHeader}    ${ac_loginLevel}    ${ac_downlineLevel}
+    [Documentation]    This action is used to check Account list column header
+    ...
+    ...    ${ac_thHeader}: the locator of column header
+    ...
+    ...    ${ac_lstHeadername}: the list contain header name in order (except column header for Multiple Edit)
+    ## Set variable
+    ${ac_lstColName}    Create list    Username    Status    Edit    Member    Double Comm
+    ...    Nickname    First Name    Last Name    Group    Commission    Created Date
+    ...    Login IP    Username
+    Run Keyword If    '${ac_downlineLevel}'=='Member'    Remove Values From List    ${ac_lstColName}    Member
+    Run Keyword Unless    '${ac_downlineLevel}'=='Member'    Remove Values From List    ${ac_lstColName}    Nickname    Group
+    @{ac_lstColName}    Set Variable    ${ac_lstColName}
+    ## Check number of column header
+    ${ac_nCol}    Get Matching Xpath Count    ${ac_thHeader}
+    # Check No Column
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AccountList_thHeader}[1]    No.
+    # Check Edit Multiple Column
+    ${ac_kwisMultilple}    Set Variable If    '${ac_loginLevel}${ac_downlineLevel}'=='SuperAgent'    Element Should Not Be Visible    Element Should Be Visible
+    ${ac_index}    Set Variable If    '${ac_loginLevel}${ac_downlineLevel}'=='SuperAgent'    2    3
+    Run Keyword    ${ac_kwisMultilple}    ${in_MemberInfo_AccountList_divEditMultiple}
+    : FOR    ${ac_iColName}    IN    @{ac_lstColName}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AccountList_thHeader}[${ac_index}]    ${ac_iColName}
+    \    ${ac_index}    Evaluate    ${ac_index} +1
+
+Verify NewTBF Quick Introduction UI
+    ## Check Quick Introduction UI
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_spanQuickIntroTitle}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_btnQuickIntroNotNow}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_btnQuickIntroLetGo}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_newTBFC_pQuickIntroContent}    It's the fastest and most centralized Total Bets and Forecast ever    ${cfWaitControl}
+    ## Check Quick Introduction data
+    Click Element    ${in_newTBFC_btnQuickIntroNotNow}
+    Comment    Click Element    ${in_newTBFC_btnQuickIntroLetGo}
+    Comment    Click Element    //*[@id='quickIntroductionModal']/div/div/div[1]/button
+    sleep    1s
+
+Verify NewTBF Title Filter UI
+    ## Check Header UI
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_title}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_titleSoccer}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_icoHelp}    ${cfWaitControl}
+    ## Filter Section
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_ddlLiveDeadball}    ${cfWaitControl}
+    ## change to Deadball
+    Select From List By Label    ${in_newTBFC_ddlLiveDeadball}    Non-Live
+    ## Filter Section
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_lblLeague}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_btnLeague}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_lblEvent}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_btnEvent}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_btnSubmit}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_btnRefresh}    ${cfWaitControl}
+
+Verify NewTBF Column Header UI
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_tdHeaderTime}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_newTBFC_tdHeaderEvent}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_newTBFC_tdHeaderBettype}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_newTBFC_tdHeaderBetCount}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_newTBFC_tdHeaderTurnover}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_newTBFC_tdHeaderWinloss}
+
+Verify NewTBF Guilde Line UI
+    Run Keyword And Continue On Failure    Click Element    ${in_newTBFC_icoHelp}
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_newTBFC_hHelpTitle}    Bets & Forecast Guidelines    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_newTBFC_btnHelpClose}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click Element    ${in_newTBFC_btnHelpClose}
+
+Verify NewTBF UI
+    ## Navigate to NewTotalBet Forecast
+    Select Left Menu    BETS & FORECAST${SPACE}    Soccer
+    Unselect Frame
+    select frame    main
+    ## Check Quick Introduction
+    ${ac_isExists}    Run Keyword And Return Status    Wait Until Element Is Visible    ${in_newTBFC_spanQuickIntroTitle}    ${cfWaitControl}
+    Run Keyword If    '${ac_isExists}'=='True'    Verify NewTBF Quick Introduction UI
+    ## Check Title Filter UI
+    Verify NewTBF Title Filter UI
+    ## Request Data
+    Select From List By Label    ${in_newTBFC_ddlLiveDeadball}    Non-Live
+    ${a}    Run Keyword And Return Status    Wait Until Element Is Visible    ${in_newTBFC_loadingIcon}    ${cfWaitControl}
+    ${b}    Run Keyword And Return Status    Wait Until Element Is Not Visible    ${in_newTBFC_loadingIcon}    ${cfWaitControl}
+    sleep    1s
+    Run Keyword And Continue On Failure    Wait Until Element Is Enabled    //*[@id='btnSubmit']    ${cfWaitControl}
+    Click Element    //*[@id='btnSubmit']
+    ## Check column header data    ${in_newTBFC_btnSubmit}
+    Verify NewTBF Column Header UI
+    ## Check Guidelline
+    Verify NewTBF Guilde Line UI
+
+Verify Account list UI
+    [Arguments]    ${ac_downlinename}    ${ac_titlename}    ${ac_strColumnName}    ${isMemberList}=no    ${isViewDown}=yes
+    [Documentation]    This action is used to check UI of Title and Filter Section on Account list page
+    ...
+    ...    ${ac_downlinename}: the name of downline
+    ...
+    ...    ${ac_titlename}: the name of title
+    ...
+    ...    ${ac_strColumnName}: the string contains column header name separated by ',' (eg: No,,Username,...)
+    Unselect Frame
+    select frame    main
+    ## Check Title and Filter section
+    Verify Account list Title Filter Section UI    ${ac_titlename}
+    ## Check Paging section UI
+    Verify Account list Paging Section UI
+    ## Check Account list table UI
+    ${tc_strColHeader}    Set Variable    ${ac_strColumnName}
+    Verify Account list Column Header UI    ${in_MemberInfo_AccountList_thHeader}    ${tc_strColHeader}
+    ## Check data
+    @{ac_lstName}    Split String    , ${ac_strColumnName}    ,
+    ${ac_trDownline}    Set Variable    //div[translate(text(), 'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')='${ac_downlinename}']/parent::td/parent::tr
+    ${ac_DownlineID}    Get Element Attribute    ${ac_trDownline}@id
+    ${ac_trDownline}    Set Variable    ${in_MemberInfo_AccountList_tblData}//tr[@id='${ac_DownlineID}']
+    ${ac_chkEdit}    Set Variable    ${ac_trDownline}//input[@id='chkid_${ac_DownlineID}']
+    Run Keyword If    '@{ac_lstName}[2]'=='showMulEdit'    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_chkEdit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_trDownline}${in_MemberInfo_AccountList_spanStatusArrow}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_trDownline}${in_MemberInfo_AccountList_divSingleEdit}
+    Run keyword if    '${isMemberList}'=='no'    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_trDownline}${in_MemberInfo_AccountList_aViewDownline}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_trDownline}${in_MemberInfo_AccountList_divDoubleComm}
+    ### Verify Navigation    Single Edit
+    #    Single Edit    Racing
+    Click Element    ${ac_trDownline}${in_MemberInfo_AccountList_divSingleEdit}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //*[@id='divUpdOthers']//*[text()='Racing']    ${cfWaitControl}
+    Click Element    //*[@id='divUpdOthers']//*[text()='Racing']
+    ## Go to top frame
+    Unselect Frame
+    #
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //*[@class='AGEWndTitleDiv' and text()='Racing']    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click element    //*[@class='AGEWndCloseButton']
+    #    Single Edit    Casino
+    Select Frame    main
+    Click Element    ${ac_trDownline}${in_MemberInfo_AccountList_divSingleEdit}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //*[@id='divUpdOthers']//*[text()='Casino']    ${cfWaitControl}
+    Click Element    //*[@id='divUpdOthers']//*[text()='Casino']
+    ## Go to top frame
+    Unselect Frame
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //*[@class='AGEWndTitleDiv' and text()='Edit Casino']    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Click element    //*[@class='AGEWndCloseButton']
+    ##
+    Select Frame    main
+    Run keyword if    '${isViewDown}'=='yes'    Click Element    ${ac_trDownline}${in_MemberInfo_AccountList_aViewDownline}
+
+Verify Table Header
+    [Arguments]    ${headerLocator}    ${strColumnName}
+
+Verify Account List Navigation_Edit
+    [Arguments]    ${typeList}
+
+Verify Add New Account Search Copy Mode
+    [Arguments]    ${ac_uplineName}    ${ac_ExistingName}    ${ac_level}
+    ## Set variable
+    ${ac_existingNameUpper}    Set Variable    ${ac_ExistingName}'s setting
+    ${ac_strHeadername}    Evaluate    str("ADD NEW ${ac_level}").upper()
+    ${ac_tabSearchName}    Set Variable    Search And Copy
+    ${ac_tabFullModeName}    Set Variable    Full Mode
+    ${ac_1stStepName}    Set Variable    Search Existing ${ac_level}
+    ${ac_2ndStepName}    Set Variable    Preview Settings
+    ${ac_3rdStepName}    Set Variable    Enter Information
+    ${ac_3rdStepHeadName}    Set Variable    ${ac_level} information
+    ${ac_3rdStepHeadNameUpper}    Evaluate    "${ac_level} information".upper()
+    ${ac_3rdStepHeadName}    Set Variable If    '${ac_level}'=='Master'    ${ac_3rdStepHeadName}    ${ac_3rdStepHeadNameUpper}
+    ${ac_uplineNameUpper}    Evaluate    "${ac_uplineName}".upper()
+    ## Check Header
+    Verify Add New Account Header    ${ac_strHeadername}
+    ## Check 1st step - Search existing account
+    Unselect Frame
+    select frame    main
+    select frame    ${in_MemberInfo_AddNew_frameAddNew}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_icon1st}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_icon2nd}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_icon3rd}
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameAddNew_txt1st}    ${ac_1stStepName}
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameAddNew_txt2nd}    ${ac_2ndStepName}
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameAddNew_txt3rd}    ${ac_3rdStepName}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_txtUsername}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_btnPreview}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_btnSkip}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_ulCommNote}
+    ## Input username then go to step2
+    Input Text    ${in_MemberInfo_AddNew_frameAddNew_txtUsername}    ${ac_ExistingName}
+    Click Element    ${in_MemberInfo_AddNew_frameAddNew_btnPreview}
+    ## Check 2nd step - Preview Setting
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_MemberInfo_AddNew_frameAddNew_divCustomerSettingInfo}    ${ac_existingNameUpper}
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameAddNew_btnSB}    Sportsbook
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameAddNew_btnRacing}    Racing
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameAddNew_btnCasino}    Casino
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameAddNew_btnVirtualSports}    Virtual Sports
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_btnBack}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_btnNext}
+    ## Check 3rd step - Enter information
+    Click Element    ${in_MemberInfo_AddNew_frameAddNew_btnNext}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_MemberInfo_AddNew_frameAddNew_tblAccountInformation}
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameAddNew_divCustomerSettingInfo}    ${ac_3rdStepHeadName}
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameAddNew_tdUplineName}    ${ac_uplineNameUpper}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_ddlUsernameNum1}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_ddlUsernameNum2}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_txtPwd}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_txtFirstName}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_txtLastName}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_txtPhone}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_txtMobilePhone}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_txtCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_txtFax}
+    ## Check Max Credit in case of createing new Agent
+    Run Keyword If    ' ${ac_level}'=='Agent'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_txtMaxCredit}
+    ## Check dropdownlist number \ in case of createing new Member
+    Run Keyword If    ' ${ac_level}'=='Member'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_ddlUsernameNum3}
+
+Verify Add New Account Full Mode
+    [Arguments]    ${ac_uplineName}    ${ac_level}
+    ## Set variable
+    ${ac_uplineNameUpper}    Evaluate    "${ac_uplineName}".upper()
+    ${ac_strHeadername}    Evaluate    str("ADD NEW ${ac_level}").upper()
+    ${ac_strSportName}    Set Variable    Soccer,Basketball,Football,Tennis,Baseball,Golf,Motor Sports,Other Sports,Mix Sports Parlay,HR Fixed Odds,Number Game
+    @{ac_lstSportName}    Split String    ${ac_strSportName}    ,
+    ${acc_index}    Set Variable    1
+    ## Check Header
+    Verify Add New Account Header    ${ac_strHeadername}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_MemberInfo_AddNew_frameAddNew_icon1st}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_MemberInfo_AddNew_frameAddNew_icon2nd}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    ${in_MemberInfo_AddNew_frameAddNew_icon3rd}
+    ## Select frame contain info
+    Unselect Frame
+    select frame    main
+    select frame    ${in_MemberInfo_AddNew_frameAddNew}
+    ## CHeck content info
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_MemberInfo_AddNew_frameAddNew_Full_spanUplineName}    ${ac_uplineNameUpper}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_btnAddFooter}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_btnAdd}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_spanUplineName}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_ddlUsernameNum1}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_ddlUsernameNum2}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_txtPwd}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_txtFirstName}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_txtLastName}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_txtPhone}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_txtMobilePhone}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_txtCredit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_txtFax}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_chkSuspended}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_divGeneralInfo}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_divComm}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_divBetSetting}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_divPositionTaking}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_divSport}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_divSportLabel}
+    ## Check PT Reference Icon
+    ${ac_NoPTIcon}=    Get Matching Xpath Count    ${in_MemberInfo_AddNew_frameAddNew_Full_icoPTInfo}
+    Run Keyword And Continue On Failure    Should Be Equal As Integers    ${ac_NoPTIcon}    1
+    ## Check in case of creating new Master
+    Run Keyword If    '${ac_level}'=='Master'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_chkAllowautopt}
+    Run Keyword If    '${ac_level}'=='Master'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_divTransfer}
+    ## Check in case of creating new Agent
+    Run Keyword If    '${ac_level}'=='Agent'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_txtMaxCredit}
+    Run Keyword If    '${ac_level}'=='Agent'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_divTransfer}
+    ## Check in case of creating new Member
+    Run Keyword If    '${ac_level}'=='Member'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_chkGroup}
+    Run Keyword If    '${ac_level}'=='Member'    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_MemberInfo_AddNew_frameAddNew_Full_chkClosed}
+    ## Check Sport lable in PT section
+    : FOR    ${acc_iSport}    IN    @{ac_lstSportName}
+    \    ${acc_controlSportLabel}    Set Variable    ${in_MemberInfo_AddNew_frameAddNew_Full_divSport}[${acc_index}]${in_MemberInfo_AddNew_frameAddNew_Full_divSportLabel}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${acc_controlSportLabel}    ${acc_iSport}
+    \    ${acc_index}    Evaluate    ${acc_index} + 1
+
+Verify Add New Account Header
+    [Arguments]    ${acc_HeaderName}
+    ## Set variable
+    ${ac_tabSearchName}    Set Variable    Search And Copy
+    ${ac_tabFullModeName}    Set Variable    Full Mode
+    ## Check Header
+    Unselect Frame
+    select frame    main
+    Select Frame    ${in_MemberInfo_AddNew_frameHeader}
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameHeader_divHeadername}    ${acc_HeaderName}
+    Comment    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameHeader_tabSearchCopy}    ${ac_tabSearchName}
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_AddNew_frameHeader_tabFullMode}    ${ac_tabFullModeName}
+
+Create Member Commission header text
+    [Arguments]    ${ac_level}
+    ## Set variable
+    ${dct_output1}    Create Dictionary    Sportsbook=Double Comm Comm 1(%) Comm 2(%) Comm 3(%) Number Game Comm(%) HR Fixed Odds(%)
+    Set To Dictionary    ${dct_output1}    Racing    SA Racing Tote(%) UK/Irish Racing Tote(%) Aust Racing Tote(%) UK/Irish Greyhounds(%) Aust Greyhound(%) Aust Harness(%)
+    Set To Dictionary    ${dct_output1}    Live Casino    Comm 1(%)
+    Set To Dictionary    ${dct_output1}    Casino    RnG Game Mini Game Mobile
+    Set To Dictionary    ${dct_output1}    Gold Deluxe    Comm 1(%)
+    Set To Dictionary    ${dct_output1}    Macau Games    Macau Games (%)
+    ##
+    ${dct_output2}    Create Dictionary    Sportsbook=\# Username First Name Last Name Group M A P M A P M A P M A P M A P Credit Username
+    Set To Dictionary    ${dct_output2}    Racing    \# Username First Name Last Name M A P M A P M A P M A P M A P M A P Credit Username
+    Set To Dictionary    ${dct_output2}    Live Casino    \# Username First Name Last Name M A P Credit Username
+    Set To Dictionary    ${dct_output2}    Casino    \# Username \ \ Baccarat Battle War Blackjack Poker Tri Casino Hold'em Pai Gow Poker Mini Roulette Roulette Pro Sic Bo Jacks or Better Jungle Wild Roulette Pro (Fast) Blackjack Perfect Pair Baccarat Super 6 Fish Prawn Crab Dragon Tiger God of Prosperity Engagement Money Slot Money Wheel Fox Force 5 Journey to the West Three Knights Fan Tan Winter Slot Mahjong HiLo Monkey HiLo Keno Camera Keno Chinese Fruit Scratch Fancy Scratch Knock2 Eggs Face Up 21 Texas Hold'em Love Story Ho Ho Ho Gong Xi Fa Chai Poke Mole 10's or Better Red Dog Turf King Tattoo Art Flames of Olympics Champions 4-Line Jacks or Better Card Wheel Western Zodiac Chinese Zodiac Three Cards Rummy Dragon Slot 25-Line Jacks or Better 50-Line Jacks or Better Penalty Hat-Trick Mamak Corner Water Margin Maya Push Crazy Hospital Football Fans Mahjong Legend Cowboy Fever SpaKz Baseball Battle Tales of Brothel Ninja Hero Oriental Beauty GOP(both way) Happy Vampire Multi Wheel Roulette Halloween Sushi Bar Dino Camp Fortune Gods Iron Fist Magician Jungle Wild(Both Way) Sea Orchestra Cash Out (Mini) Baccarat (Mini) Casino Hold'em (Mini) BlackJack (Mini) Jacks or Better (Mini) Sic Bo (Mini) Money Slot (Mobile)Baccarat (Mobile)Jungle Wild (Mobile)God of Prosperity (Mobile)Casino Hold' em (Mobile)Blackjack (Mobile)Sic Bo (Mobile)Oriental Beauty (Mobile)Magician (Mobile)Mini Roulette (Mobile)Tales of Brothel \ \ Username
+    Set To Dictionary    ${dct_output2}    Gold Deluxe    \# Username First Name Last Name M A P Credit Username
+    Set To Dictionary    ${dct_output2}    Macau Games    \# Username First Name Last Name M A P Credit Username
+    ## Update data in case of Agent
+    Run Keyword If    '${ac_level}'=='Agent'    Set To Dictionary    ${dct_output2}    Sportsbook    \# Username First Name Last Name Group A P A P A P A P A P Credit Username
+    Run Keyword If    '${ac_level}'=='Agent'    Set To Dictionary    ${dct_output2}    Racing    \# Username First Name Last Name A P A P A P A P A P A P Credit Username
+    Run Keyword If    '${ac_level}'=='Agent'    Set To Dictionary    ${dct_output2}    Live Casino    \# Username First Name Last Name A P Credit Username
+    Run Keyword If    '${ac_level}'=='Agent'    Set To Dictionary    ${dct_output2}    Gold Deluxe    \# Username First Name Last Name A P Credit Username
+    Run Keyword If    '${ac_level}'=='Agent'    Set To Dictionary    ${dct_output2}    Macau Games    \# Username First Name Last Name A P Credit Username
+    [Return]    ${dct_output1}    ${dct_output2}
+
+Verify Member Commission UI
+    [Arguments]    ${ac_level}    ${ac_lstProduct}    ${ac_membername}    ${ac_agentname}=${EMPTY}    ${ac_mastername}=${EMPTY}
+    ${ac_trMember}    Set Variable    ${in_MemberInfo_MemberCommission_tblData}/tbody//*[contains(text(),'${ac_membername}')]
+    @{ac_lstProduct}    Set Variable    ${ac_lstProduct}
+    ## Navigate to Member Commission
+    Select Left Menu    MEMBER INFORMATION    Member Commission
+    ## Go to main frame
+    Unselect Frame
+    select frame    main
+    ## Check header
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_MemberInfo_MemberCommission_Headername}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_MemberInfo_MemberCommission_tblData}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_MemberInfo_MemberCommission_ddlProduct}
+    Run Keyword If    '${ac_level}'=='Super'    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_MemberInfo_MemberCommission_ddlMasterList}    ${cfWaitControl}
+    Run Keyword If    '${ac_level}'=='Super' or '${ac_level}'=='Master'    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_MemberInfo_MemberCommission_ddlAgentList}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_MemberInfo_MemberCommission_icoCommInfo}    ${cfWaitControl}
+    ## Check SB
+    ${tm_dctHeader1}    ${tm_dctHeader2}    Create Member Commission header text    ${ac_level}
+    : FOR    ${tm_iProduct}    IN    @{ac_lstProduct}
+    \    Select From List By Label    ${in_MemberInfo_MemberCommission_ddlProduct}    ${tm_iProduct}
+    \    Run Keyword If    '${ac_level}'=='Super'    Select From List By Label    ${in_MemberInfo_MemberCommission_ddlMasterList}    ${ac_mastername}
+    \    Run Keyword If    '${ac_level}'=='Super' or '${ac_level}'=='Master'    Select From List By Label    ${in_MemberInfo_MemberCommission_ddlAgentList}    ${ac_agentname}
+    \    Sleep    0.5s
+    \    Wait Until Element Is Visible    ${ac_trMember}    ${cfWaitControl}
+    \    ${ac_iHeader1}    Get From Dictionary    ${tm_dctHeader1}    ${tm_iProduct}
+    \    ${ac_iHeader2}    Get From Dictionary    ${tm_dctHeader2}    ${tm_iProduct}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_MemberCommission_trHeader1}    ${ac_iHeader1}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${in_MemberInfo_MemberCommission_trHeader2}    ${ac_iHeader2}
+
+Create PositionTaking Controls
+    [Arguments]    ${ac_IsNew}    ${ac_DownlineNamel}    ${ac_columnName}
+    ## Set variable
+    @{ac_lstNewView}    Create List    //table[@class='grid-fixed-table col_header_content']    //div[contains(.,'${ac_columnName}')]    //td[contains(@class,'levelname')]/div[contains(@class,'table-cell') and text()='S']    //td[contains(@class,'levelname')]/div[contains(@class,'table-cell') and text()='M']    //td[contains(@class,'levelname')]/div[contains(@class,'table-cell') and text()='A']
+    @{ac_lstOldView}    Create List    //table[@id='tblMain']    //td[contains(.,'${ac_columnName}')]    //td[@class='firstCol' and (text()='S' or text()='s')]    //td[@class='firstCol' and (text()='M' or text()='m')]    //td[@class='firstCol' and (text()='A' or text()='a')]
+    ${ac_DownlineNamel}    Evaluate    str("${ac_DownlineNamel}").lower()
+    ${ac_lnkUsername}    Set Variable    //a[translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ='${ac_DownlineNamel}']
+    @{ac_lst}    Set Variable If    '{ac_IsNew}'=='1'    @{ac_lstNewView}    @{ac_lstOldView}
+    [Return]    @{ac_lst}
+
+Verify Edit Member Casino PT Popup UI
+    [Arguments]    ${ac_loginLevel}    ${ac_membername}
+    ## Go to top frame
+    Unselect Frame
+    ## Select Popup Frame
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_main_framePopupHeader}    Edit Casino    ${cfWaitControl}
+    Select Frame    ${in_main_framePopup}
+    ## Check common Casino UI
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_btnSubmit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_btnCancel}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_divCustomerInfo}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_divWinLimit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_divPositionTaking}
+    Run Keyword And Continue On Failure    Element Should Be Visible    //span[@class='ng-binding' and text()='${ac_membername}']
+    ## Check WinLimit section
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_ddlMaxWinLimit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_lnkCurrentWinLimit}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_txtMaxLoss}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_spanRangeLossMin}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_spanRangeLossMax}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_chkDailyAutoReset}
+    ## Check PT GameKind secton
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_CS_tdGameKindRnG}    RnG Game
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_CS_tdGameKindMini}    Mini Game
+    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_CS_tdGameKindMobile}    Mobile
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${in_m_CS_chkStakeLevel}
+    ## Set variable contain PT control & title by level
+    @{ac_SuperPTControl}    Create List    ${in_m_CS_pt_cboS1}    ${in_m_CS_pt_cboUs1}    ${in_m_CS_pt_chkIs1}
+    @{ac_SuperPTTitle}    Create List    Super Position Taking    Super Auto PT    Master Position Taking    Agent Position Taking
+    @{ac_MasterPTControl}    Create List    ${in_m_CS_pt_cboM1}    ${in_m_CS_pt_cboUm1}    ${in_m_CS_pt_chkIm1}
+    @{ac_MasterPTTitle}    Create List    Master Position Taking    Master Auto PT    Agent Position Taking
+    @{ac_AgentPTControl}    Create List    ${in_m_CS_pt_cboA1}    ${in_m_CS_cm_cboMember}
+    @{ac_AgentPTTitle}    Create List    Agent Preset PT    Member Commission
+    ${ac_i}    Set Variable    1
+    ##
+    @{ac_PTControl}    Get Variable Value    @{ac_${ac_loginLevel}PTControl}
+    @{ac_PTTitle}    Get Variable Value    @{ac_${ac_loginLevel}PTTitle}
+    ## Check PT Control
+    : FOR    ${ac_item}    IN    @{ac_PTControl}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_item}
+    ## Check PT Title
+    : FOR    ${ac_item}    IN    @{ac_PTTitle}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${in_m_CS_tdPTtitle}[${ac_i}]    ${ac_item}
+    \    ${ac_i}    Evaluate    ${ac_i} + 1
+    ## Close popup
+    Comment    Unselect Frame
+    Comment    Click Element    ${in_main_btnClosePopup}
+    Close Popup By JS
+
+Verify CreditBalance By Level
+    [Arguments]    ${ac_DownlineLevel}    ${ac_DownlineName}    ${ac_isDrillDown}=1
+    ## Set variable
+    ${ac_lnkCredit}    Set Variable    //td[@class='CD r']/a[contains(@onclick,'${ac_DownlineName}')]
+    ${ac_lnkDownlinename}    Set Variable    //td[@class='l']/a[contains(text(),'${ac_DownlineName}')]
+    ${ac_lstHeaderName}    Set Variable If    '${ac_DownlineLevel}'=='Member'    \# Status Username First Name Last Name Credit Balance Yesterday Balance Bet Credit Outstanding Member Turnover Last Login Login IP Username    \# Status Username First Name Last Name Credit Balance Yesterday Balance Available Credit Outstanding Member Turnover Last Login Login IP Username
+    ##
+    Unselect Frame
+    select frame    main
+    ${isExitsTooltip}    Run Keyword And Return Status    Element Should Be Visible    ${ac_lnkCredit}
+    Run Keyword If    '${isExitsTooltip}'=='True'    Click Element    ${ac_lnkCredit}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_MemberInfo_CreditBalance_tblData}    ${cfWaitControl}
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='header_main']    CREDIT/BALANCE
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='txtUserName']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //select[@id='statusFilter']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='dSubmit']
+    Run Keyword And Continue On Failure    Element Should Contain    //tr[@id='headerTop']    ${ac_lstHeaderName}
+    ## Check Edit Credit Popup
+    Click Element    ${ac_lnkCredit}
+    Unselect Frame
+    Select Frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='txtamout']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@class='btn btn-cancel']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@class='btn btnSubmit']
+    Click Element    //input[@class='btn btn-cancel']
+    ## Drill down
+    Unselect Frame
+    select frame    main
+    Run Keyword If    '${ac_DownlineLevel}'<>'Member' and \ '${ac_isDrillDown}'=='1'    Click Element    ${ac_lnkDownlinename}
+
+Verify Bettype Header in Member Info PT
+    [Arguments]    ${ac_strProduct}    ${ac_controlRow}    ${ac_rowID}    ${ac_numCol}    ${ac_isSMACol}
+    ${ac_step}    Set Variable    1
+    ${ac_isTH}    Get Matching Xpath Count    ${ac_controlRow}/th
+    ${ac_iExcelCol}    Set Variable    1
+    ${ac_isMoreSMA}    Evaluate    ${ac_numCol} - 1
+    : FOR    ${ac_iCol}    IN RANGE    1    ${ac_numCol}
+    \    Continue For Loop If    ${ac_isSMACol}==1 and ${ac_iCol}==3 and ${ac_isTH} == 0
+    \    Continue For Loop If    ${ac_isSMACol}==1 and ${ac_iCol}==${ac_isMoreSMA} and '${ac_strProduct}'=='Casino'
+    \    ${ac_text}    ExcelLibrary.Read Cell Data By Coordinates    ${ac_strProduct}    ${ac_iExcelCol}    ${ac_rowID}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${ac_controlRow}/td[${ac_iCol}]    ${ac_text}
+    \    ${ac_iExcelCol}    Evaluate    ${ac_iExcelCol} +1
+
+Verify Sport Betype Header in Member Info Position Taking
+    [Arguments]    ${ac_Product}    ${ac_isSMACol}
+    Open Excel    ${init_gbWorksSpace}\\Data_set\\SportBettype Header MemberInfo PT.xls
+    ${ac_nRow}    ExcelLibrary.Get Row Count    ${ac_Product}
+    : FOR    ${ac_iExcelRow}    IN RANGE    0    ${ac_nRow}
+    \    ${ac_iRow}    Evaluate    ${ac_iExcelRow} + 1
+    \    ${ac_tr}    Set Variable    //table[@id='tblMain' or @class='grid-fixed-table col_header_content']/thead/tr[${ac_iRow}]
+    \    ${ac_nCol}    Get Matching Xpath Count    ${ac_tr}/td
+    \    ${ac_isRowHasSMA}    Set Variable If    ${ac_iExcelRow}==${ac_nRow}-1 and \ ${ac_isSMACol}==1 and '${ac_Product}' <> 'Virtual Sports'    1    0
+    \    Verify Bettype Header in Member Info PT    ${ac_Product}    ${ac_tr}    ${ac_iExcelRow}    ${ac_nCol}    ${ac_isRowHasSMA}
+
+Verify Sport Betype Header in Member Info Position Taking_bk
+    [Arguments]    ${ac_Product}    ${ac_isSMACol}
+    Open Excel    ${EXECDIR}\\Data_set\\SportBettype Header MemberInfo PT.xls
+    ${ac_nRow}    ExcelLibrary.Get Row Count    ${ac_Product}
+    : FOR    ${ac_iExcelRow}    IN RANGE    0    ${ac_nRow}
+    \    ${ac_iRow}    Evaluate    ${ac_iExcelRow} + 1
+    \    ${ac_tr}    Set Variable    //table[@id='tblMain' or @class='grid-fixed-table col_header_content']/thead/tr[${ac_iRow}]
+    \    ${ac_nCol}    Get Matching Xpath Count    ${ac_tr}/td
+    \    ${ac_isRowHasSMA}    Set Variable If    ${ac_iExcelRow}==${ac_nRow}-1 and \ ${ac_isSMACol}==1 and '${ac_Product}' <> \ 'Virtual Sports'    1    0
+    \    ${ac_nCol}    Evaluate    ${ac_nCol} - ${ac_isRowHasSMA}
+    \    Verify Bettype Header in Member Info PT    ${ac_Product}    ${ac_tr}    ${ac_iExcelRow}    ${ac_nCol}    ${ac_isRowHasSMA}
+
+Create list Single Edit Direct
+    [Arguments]    ${ac_loginLevel}    ${ac_downlineLevel}
+    ## Set variable
+    ${ac_isDirect}    Set Variable If    '${ac_loginLevel}${ac_downlineLevel}'=='SuperMaster' or '${ac_loginLevel}${ac_downlineLevel}'=='MasterAgent' or '${ac_loginLevel}${ac_downlineLevel}'=='AgentMember'    1    0
+    ${ac_outputlistEditSingle}    Create List    ${in_MemberInfo_AccountList_lnkRacing}    ${in_MemberInfo_AccountList_lnkCasino}    ${in_MemberInfo_AccountList_lnkLiveCasino}    ${in_MemberInfo_AccountList_lnkVirtualSports}    ${in_MemberInfo_AccountList_lnkKeno}
+    ...    ${in_MemberInfo_AccountList_lnkGoldDeluxe}    ${in_MemberInfo_AccountList_lnkSportbook2}    ${in_MemberInfo_AccountList_lnkAllbet}    ${in_MemberInfo_AccountList_lnkMacauGames}    ${in_MemberInfo_AccountList_lnkPassword}
+    ##
+    Run Keyword If    '${ac_isDirect}'=='1'    Append To List    ${ac_outputlistEditSingle}    ${in_MemberInfo_AccountList_lnkInfo}    ${in_MemberInfo_AccountList_lnkBetSetting}    ${in_MemberInfo_AccountList_lnkCommission}
+    ...    ${in_MemberInfo_AccountList_lnkColossusBets}
+    ##
+    Run Keyword If    '${ac_loginLevel}' <> 'Agent' and '${ac_isDirect}'=='1'    Append To List    ${ac_outputlistEditSingle}    ${in_MemberInfo_AccountList_lnkSportbookMinPT}    ${in_MemberInfo_AccountList_lnkRacingMinPT}    ${in_MemberInfo_AccountList_lnkTransferCondition}
+    ...    ${in_MemberInfo_AccountList_lnkSecurityCode}
+    ##
+    ${ac_lstEditSingleSuperAgent}    Create List    ${in_MemberInfo_AccountList_lnkRacingView}    ${in_MemberInfo_AccountList_lnkCasinoView}    ${in_MemberInfo_AccountList_lnkPassword}
+    ${ac_outputlistEditSingle}    Set Variable If    '${ac_loginLevel}'=='Super' and '${ac_downlineLevel}'=='Agent'    ${ac_lstEditSingleSuperAgent}    ${ac_outputlistEditSingle}
+    [Return]    ${ac_outputlistEditSingle}
+
+Create list Single Edit Direct_Controls
+    [Arguments]    ${ac_loginLevel}    ${ac_downlineLevel}    ${ac_downlinename}
+    ## Set variable    Set Variable If
+    ${ac_temp}    Set Variable    ${ac_loginLevel} ${ac_downlineLevel}
+    ${ac_isDirect}    Set Variable If    '${ac_loginLevel}${ac_downlineLevel}'=='SuperMaster' or '${ac_loginLevel}${ac_downlineLevel}'=='MasterAgent' or '${ac_loginLevel}${ac_downlineLevel}'=='AgentMember'    1    0
+    ${in_MemInfo_pop_lblUserName}    Set Variable    //div/div//*[contains(text(),'${ac_downlinename}')]    # use to replace username on control    ${in_MemInfo_pop_lblUserName}
+    ${in_MemInfo_pop_tdUserName}    Set Variable    //td[contains(text(),'${ac_downlinename}')]    #use for Racing Min PT    ##    RC    CS
+    ...    #LC    VS    KN    #GD    SB    AB
+    ...    #MG    PW
+    ${ac_outputlistEditSingleControl}    Create List    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_lblUserName}
+    ...    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_txtPassword}    ##
+    ...    #Info    Bet Setting    Commission    #ColosusBet
+    Run Keyword If    '${ac_isDirect}'=='1'    Append To List    ${ac_outputlistEditSingleControl}    ${in_MemInfo_pop_txtFirstName}    ${in_MemInfo_pop_lblBetSetting}    ${in_MemInfo_pop_lblCommission}
+    ...    ${in_MemInfo_pop_lblUserName}    ##    ${ac_outputlistEditSingle}    SB Min PT    Racing Min PT    ${in_MemberInfo_AccountList_lnkTransferCondition}
+    ...    #${in_MemberInfo_AccountList_lnkSecurityCode}
+    Run Keyword If    '${ac_loginLevel}' <> 'Agent' and '${ac_isDirect}'=='1'    Append To List    ${ac_outputlistEditSingleControl}    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_tdUserName}    ${in_MemInfo_pop_radTransConditionDaily}
+    ...    ${in_MemInfo_pop_txtSecCode}
+    ##    RC    CS    Password
+    ${ac_lstEditSingleSuperAgent}    Create List    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_lblUserName}    ${in_MemInfo_pop_txtPassword}
+    ${ac_outputlistEditSingleControl}    Set Variable If    '${ac_loginLevel}'=='Super' and '${ac_downlineLevel}'=='Agent'    ${ac_lstEditSingleSuperAgent}    ${ac_outputlistEditSingleControl}
+    [Return]    ${ac_outputlistEditSingleControl}
+
+Create list Multipe Edit
+    [Arguments]    ${ac_loginLevel}    ${ac_downlineLevel}
+    ## Set variable
+    ${ac_isDirect}    Set Variable If    '${ac_loginLevel} ${ac_downlineLevel}'=='SuperMaster' or '${ac_loginLevel} ${ac_downlineLevel}'=='SuperMaster'=='MasterAgent' or '${ac_loginLevel} ${ac_downlineLevel}'=='SuperMaster'=='AgentMember'    1    0
+    ${ac_outputlistEditMultipe}    Create List    //a[@id='sportBook' and text()='Edit Multiple Sportsbook']    //a[@id='racing' and text()='Edit Multiple Racing']    //a[@id='casino' and text()='Edit Multiple Casino']    //a[@id='keno' and text()='Edit Multiple Keno']    //a[@id='livecasino' and text()='Edit Multiple Live Casino']
+    ...    //a[@id='virtualsports' and text()='Edit Multiple Virtual Sports']    //a[@id='golddeluxe' and text()='Edit Multiple Gold Deluxe']    //a[@id='sportsbook2' and text()='Edit Multiple Sportsbook 2']    //a[@id='voidbridge' and text()='Edit Multiple Macau Games']
+    Comment    ${ac_outputlistEditMultipe}    Create List    //a[@id='racing' and text()='Edit Multiple Racing']    //a[@id='casino' and text()='Edit Multiple Casino']    //a[@id='keno' and text()='Edit Multiple Keno']    //a[@id='livecasino' and text()='Edit Multiple Live Casino']
+    ...    //a[@id='virtualsports' and text()='Edit Multiple Virtual Sports']    //a[@id='golddeluxe' and text()='Edit Multiple Gold Deluxe']    //a[@id='sportsbook2' and text()='Edit Multiple Sportsbook 2']    //a[@id='voidbridge' and text()='Edit Multiple Macau Games']
+    ##
+    Run Keyword If    '${ac_isDirect}'=='1'    Append To List    ${ac_outputlistEditMultipe}    //a[@id='doublecomm' and text()='Edit Multiple Double Comm']    //a[@id='colossusBets' and text()='Edit Multiple Colossus Bets']
+    ##
+    ${ac_lstEmpty}    Create list
+    ${ac_outputlistEditMultipe}    Set Variable If    '${ac_loginLevel}'=='Super' and '${ac_downlineLevel}'=='Agent'    ${ac_lstEmpty}    ${ac_outputlistEditMultipe}
+    [Return]    ${ac_outputlistEditMultipe}
+
+Verify Account List Single Edit By Level
+    [Arguments]    ${ac_loginLevel}    ${ac_downlineLevel}    ${ac_downlinename}
+    ## Set variable
+    ${ac_trDownline}    Set Variable    //table[@id='tblCustomerList']/tbody//div[text()='${ac_downlinename}']/parent::td/parent::tr
+    ${ac_divEdit}    Set Variable    ${ac_trDownline}${in_MemberInfo_AccountList_divSingleEdit}
+    @{ac_lstSettings}    Create list Single Edit Direct    ${ac_loginLevel}    ${ac_downlineLevel}
+    @{ac_lstExpectedControl}    Create list Single Edit Direct_Controls    ${ac_loginLevel}    ${ac_downlineLevel}    ${ac_downlinename}
+    ${n}    Get Length    ${ac_lstSettings}
+    Unselect Frame
+    Select Frame    main
+    Wait Until Element Is Visible    ${ac_trDownline}    ${cfWaitControlLong}
+    : FOR    ${i}    IN RANGE    0    ${n}
+    \    Click Element    ${ac_divEdit}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    @{ac_lstSettings}[${i}]
+    \    Run Keyword And Continue On Failure    Click Element    @{ac_lstSettings}[${i}]
+    \    Unselect Frame
+    \    Select Frame    ${in_main_framePopup}
+    \    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_lstExpectedControl}[${i}]    ${cfWaitControl}
+    \    Unselect Frame
+    \    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_main_framePopupHeader}    ${cfWaitControl}
+    \    Run Keyword And Continue On Failure    Wait Until Page Contains Element    ${in_main_framePopup}    ${cfWaitControl}
+    \    Run Keyword And Continue On Failure    Close Popup By JS
+    \    Select Frame    main
+
+Verify Account List Multiple Edit By Level
+    [Arguments]    ${ac_loginLevel}    ${ac_downlineLevel}    ${ac_downlinename}
+    ## Set variable
+    ${ac_trDownline}    Set Variable    //table[@id='tblCustomerList']/tbody//div[text()='${ac_downlinename}']/parent::td/parent::tr
+    ${ac_divEdit}    Set Variable    //div[@id='EdiMulti']
+    @{ac_lstSettings}    Create list Multipe Edit    ${ac_loginLevel}    ${ac_downlineLevel}
+    ##
+    Unselect Frame
+    Select Frame    main
+    Run Keyword Unless    '${ac_loginLevel}${ac_downlineLevel}'=='SuperAgent'    Click Element    //a[@id='chkAll']
+    : FOR    ${ac_iItem}    IN    @{ac_lstSettings}
+    \    Click Element    ${ac_divEdit}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iItem}
+    \    Run Keyword And Continue On Failure    Click Element    ${ac_iItem}
+    \    Unselect Frame
+    \    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_main_framePopupHeader}    ${cfWaitControl}
+    \    Run Keyword And Continue On Failure    Wait Until Page Contains Element    ${in_main_framePopup}    ${cfWaitControl}
+    \    Comment    Run Keyword And Continue On Failure    Click Element    ${in_main_btnClosePopup}
+    \    Run Keyword And Continue On Failure    Close Popup By JS
+    \    Select Frame    main
+
+Verify Account List All
+    [Arguments]    ${ac_loginLevel}    ${ac_lstDownlineNames}
+    ##
+    Unselect Frame
+    Select Frame    main
+    @{ac_lstNames}    Set Variable    ${ac_lstDownlineNames}
+    : FOR    ${ac_iName}    IN    @{ac_lstNames}
+    \    @{ac_lstLevelName}    Split String    ${ac_iName}    _
+    \    ${ac_trDownline}    Set Variable    //table[@id='tblCustomerList']/tbody//div[text()='@{ac_lstLevelName}[1]']/parent::td/parent::tr
+    \    Verify Account list Title Filter Section UI    @{ac_lstLevelName}[0]
+    \    Verify Account list Column Header UI    ${in_MemberInfo_AccountList_thHeader}    ${ac_loginLevel}    @{ac_lstLevelName}[0]
+    \    Verify Account list Paging Section UI
+    \    Verify Account List Single Edit By Level    ${ac_loginLevel}    @{ac_lstLevelName}[0]    @{ac_lstLevelName}[1]
+    \    Unselect Frame
+    \    Select Frame    main
+    \    Click Element    //*[@id='headerNo']    # make sure Edit Menu is closed if it is opening
+    \    Run Keyword Unless    '@{ac_lstLevelName}[0]'=='Member'    Click Element    ${ac_trDownline}//span[@class='icon-arrow-down-bold-circle-outline icon-viewdown']
+
+Select Unselect List User Checkbox
+    [Arguments]    ${List Username}    ${status}
+    [Documentation]    This action is used to check/uncheck User checkbox in Master/Agent/Member List
+    ...
+    ...    Pre-condion for this action:
+    ...
+    ...    1. Select Left menu: Main Menu --> Master Agent List
+    ...    2. Multiple check user checkbox in list
+    Select Frame    main
+    : FOR    ${ac_i}    IN    @{List Username}
+    \    Set Checkbox    //*[@value='${ac_i}']    ${status}
+    Unselect Frame
+
+Select Multiple Setting
+    [Arguments]    ${option}
+    [Documentation]    This action is used to select multiple Setting option in Master/Agent/Member List
+    ...
+    ...    Pre-condion for this action:
+    ...
+    ...    1. Select Left menu: Main Menu --> Master Agent List
+    ...    2. After select multiple user the multiple icon is enable
+    ...    3. Click and select multiple option
+    Select Frame    main
+    Run Keyword And Continue On Failure    Click Control    ${in_MemberInfo_AccountList_divEditMultiple}
+    sleep    1s    #wait for List options load--> this case handle for running in Jenkins (Low performance of CI sever)
+    ${ac_multiplelist}    Run Keyword And Return Status    Element Should Be Visible    xpath=//*/a[text()='${option}']
+    Run Keyword and Return If    '${ac_multiplelist}'=='False'    Click Element    ${in_MemberInfo_AccountList_divEditMultiple}
+    Run Keyword And Continue On Failure    Click Element    xpath=//*/a[text()='${option}']
+    Unselect Frame

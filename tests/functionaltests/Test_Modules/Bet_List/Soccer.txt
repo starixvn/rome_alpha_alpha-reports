@@ -1,0 +1,1197 @@
+*** Settings ***
+Suite Setup     Init Betlist  ${supername}  ${username}
+Suite Teardown  Close All Browsers
+Force Tags      BetListSoccer
+Library         Selenium2Library
+Resource        ../../Actions/common_actions.txt
+Resource        ../../Interfaces/Main/in_m_betlist.txt
+Resource        ../../Actions/betlist.txt
+Resource        ../../Actions/Left_menu/left_menu_actions.txt
+
+*** Variables ***
+${Username}     member05
+${HomeTeam}     Real Madrid (N)
+${AwayTeam}     Barcelona
+${Leaguage}     *SPAIN PRIMERA LALIGA
+${supername}    supertest1
+
+*** Test Cases ***
+HDP
+  [Tags]  JerryBL
+  ${tmpBettype}  Set Variable  Handicap
+  ${tmpRefno}  Set Variable  9399000000
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) -0.75  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Odd/Even
+  [Tags]  JerryBL
+  ${tmpBettype}  Set Variable  Odd/Even
+  ${tmpRefno}  Set Variable  9399000001
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Odd  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Over/Under
+  [Tags]
+  ${tmpBettype}  Set Variable  Over/Under
+  ${tmpRefno}  Set Variable  9399000002
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Under 3.5  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Correct Score
+  [Tags]  JerryBL
+  ${tmpBettype}  Set Variable  Correct Score
+  ${tmpRefno}  Set Variable  9399000003
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  ${SPACE}2:1  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+FT.1X2
+  [Tags]  JerryBL
+  ${tmpBettype}  Set Variable  FT.1X2
+  ${tmpRefno}  Set Variable  9399000004
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  FT.1  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Total Goal
+  [Tags]
+  ${tmpBettype}  Set Variable  Total Goal
+  ${tmpRefno}  Set Variable  9399000005
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  ${SPACE}2-3  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Handicap
+  [Tags]
+  ${tmpBettype}  Set Variable  1H Handicap
+  ${tmpRefno}  Set Variable  9399000006
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) -0.75  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Over/Under
+  [Tags]
+  ${tmpBettype}  Set Variable  1H Over/Under
+  ${tmpRefno}  Set Variable  9399000007
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Under 3.5  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Odd/Even Odd
+  [Tags]  Shane
+  ${tmpBettype}  Set Variable  1H Odd/Even
+  ${tmpRefno}  Set Variable  9399000009
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Odd  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Odd/Even Even
+  ${tmpBettype}  Set Variable  1H Odd/Even
+  ${tmpRefno}  Set Variable  9399000010
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Even  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Clean Sheet Away Yes
+  ${tmpBettype}  Set Variable  Clean Sheet
+  ${tmpRefno}  Set Variable  9399000011
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Barcelona YES  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Clean Sheet Home No
+  ${tmpBettype}  Set Variable  Clean Sheet
+  ${tmpRefno}  Set Variable  9399000012
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) NO  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Clean Sheet Away No
+  ${tmpBettype}  Set Variable  Clean Sheet
+  ${tmpRefno}  Set Variable  9399000013
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Barcelona NO  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Clean Sheet Home Yes
+  ${tmpBettype}  Set Variable  Clean Sheet
+  ${tmpRefno}  Set Variable  9399000014
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) YES  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+First Goal/Last Goal Away LG
+  ${tmpBettype}  Set Variable  First Goal/Last Goal
+  ${tmpRefno}  Set Variable  9399000015
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Away LG  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+First Goal/Last Goal Home LG
+  ${tmpBettype}  Set Variable  First Goal/Last Goal
+  ${tmpRefno}  Set Variable  9399000016
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Home LG  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+First Goal/Last Goal No Goal
+  ${tmpBettype}  Set Variable  First Goal/Last Goal
+  ${tmpRefno}  Set Variable  9399000017
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  No Goal  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+First Goal/Last Goal Away FG
+  ${tmpBettype}  Set Variable  First Goal/Last Goal
+  ${tmpRefno}  Set Variable  9399000018
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Away FG  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+First Goal/Last Goal Home FG
+  ${tmpBettype}  Set Variable  First Goal/Last Goal
+  ${tmpRefno}  Set Variable  9399000019
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Home FG  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H 1X2 HT.1
+  ${tmpBettype}  Set Variable  1H 1X2
+  ${tmpRefno}  Set Variable  9399000020
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  HT.1  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H 1X2 HT.2
+  ${tmpBettype}  Set Variable  1H 1X2
+  ${tmpRefno}  Set Variable  9399000021
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  HT.2  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H 1X2 HT.X
+  ${tmpBettype}  Set Variable  1H 1X2
+  ${tmpRefno}  Set Variable  9399000022
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  HT.X  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+HT/FT AD
+  ${tmpBettype}  Set Variable  HT/FT
+  ${tmpRefno}  Set Variable  9399000023
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  AD  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+HT/FT DA
+  ${tmpBettype}  Set Variable  HT/FT
+  ${tmpRefno}  Set Variable  9399000024
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  DA  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+HT/FT HD
+  ${tmpBettype}  Set Variable  HT/FT
+  ${tmpRefno}  Set Variable  9399000025
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  HD  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+HT/FT DH
+  ${tmpBettype}  Set Variable  HT/FT
+  ${tmpRefno}  Set Variable  9399000026
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  DH  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+HT/FT HH
+  ${tmpBettype}  Set Variable  HT/FT
+  ${tmpRefno}  Set Variable  9399000027
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  HH  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+HT/FT AH
+  ${tmpBettype}  Set Variable  HT/FT
+  ${tmpRefno}  Set Variable  9399000028
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  AH  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+HT/FT AA
+  ${tmpBettype}  Set Variable  HT/FT
+  ${tmpRefno}  Set Variable  9399000029
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  AA  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+HT/FT HA
+  ${tmpBettype}  Set Variable  HT/FT
+  ${tmpRefno}  Set Variable  9399000030
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  HA  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+HT/FT DD
+  ${tmpBettype}  Set Variable  HT/FT
+  ${tmpRefno}  Set Variable  9399000031
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  DD  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Moneyline
+  ${tmpBettype}  Set Variable  Moneyline
+  ${tmpRefno}  Set Variable  9399000144
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1st Moneyline
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1st Moneyline
+  ${tmpRefno}  Set Variable  9399000145
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Barcelona  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Double Chance Home Or Draw
+  ${tmpBettype}  Set Variable  Double Chance
+  ${tmpRefno}  Set Variable  9399000032
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) \ or \ Draw  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Double Chance Away Or Draw
+  ${tmpBettype}  Set Variable  Double Chance
+  ${tmpRefno}  Set Variable  9399000033
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Barcelona or \ Draw  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Double Chance Home Or Away
+  ${tmpBettype}  Set Variable  Double Chance
+  ${tmpRefno}  Set Variable  9399000034
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) \ or \ Barcelona  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Draw No Bet Home
+  ${tmpBettype}  Set Variable  Draw No Bet
+  ${tmpRefno}  Set Variable  9399000035
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Draw No Bet Away
+  ${tmpBettype}  Set Variable  Draw No Bet
+  ${tmpRefno}  Set Variable  9399000036
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Barcelona  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Both/One/Neither Team To Score - No Goal
+  ${tmpBettype}  Set Variable  Both/One/Neither Team To Score
+  ${tmpRefno}  Set Variable  9399000037
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  No Goal  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Both/One/Neither Team To Score - Both
+  ${tmpBettype}  Set Variable  Both/One/Neither Team To Score
+  ${tmpRefno}  Set Variable  9399000038
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Both  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Both/One/Neither Team To Score - One
+  ${tmpBettype}  Set Variable  Both/One/Neither Team To Score
+  ${tmpRefno}  Set Variable  9399000039
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  One  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Result Popup
+  [Tags]
+
+Exact Total Goals
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Exact Total Goals
+  ${tmpRefno}  Set Variable  9399000325
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0 Goals  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Exact Home Team Goals
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Exact Home Team Goals
+  ${tmpRefno}  Set Variable  9399000326
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0 Goals  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Exact Away Team Goals
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Exact Away Team Goals
+  ${tmpRefno}  Set Variable  9399000327
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0 Goals  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Result/Total Goals (3rd)
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Result/Total Goals
+  ${tmpRefno}  Set Variable  9399000328
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) /Under 0.75  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Teams To Score
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Teams To Score
+  ${tmpRefno}  Set Variable  9399000317
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Winning Margin
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Winning Margin
+  ${tmpRefno}  Set Variable  9399000319
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) to Win by 1 Goal  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Result and First Team To Score
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Result and First Team To Score
+  ${tmpRefno}  Set Variable  9399000320
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) /Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Extra Time Yes/No
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Extra Time Yes/No
+  ${tmpRefno}  Set Variable  9399000321
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Extra Time and Goal
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Extra Time and Goal
+  ${tmpRefno}  Set Variable  9399000322
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Match Decided Method HR
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Match Decided Method
+  ${tmpRefno}  Set Variable  9399000323
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) /Regular Time  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Match Decided Method HE
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Match Decided Method
+  ${tmpRefno}  Set Variable  9399000368
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) /Extra Time  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Match Decided Method HP
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Match Decided Method
+  ${tmpRefno}  Set Variable  9399000369
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) /Penalty  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Match Decided Method AR
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Match Decided Method
+  ${tmpRefno}  Set Variable  9399000373
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Barcelona/Regular Time  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Match Decided Method AE
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Match Decided Method
+  ${tmpRefno}  Set Variable  9399000374
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Barcelona/Extra Time  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Match Decided Method AP
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Match Decided Method
+  ${tmpRefno}  Set Variable  9399000370
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Barcelona/Penalty  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+First Ten Minutes 1X2
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  First Ten Minutes 1X2
+  ${tmpRefno}  Set Variable  9399000324
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+2nd Half 1x2 2H.1
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  2H 1x2
+  ${tmpRefno}  Set Variable  9399000329
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  2H.1  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+2nd Half 1x2 2H.2
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  2H 1x2
+  ${tmpRefno}  Set Variable  9399000371
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  2H.2  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+2nd Half 1x2 2H.X
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  2H 1x2
+  ${tmpRefno}  Set Variable  9399000372
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  2H.X  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+2nd Over/Under (3rd)
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  2H Over/Under
+  ${tmpRefno}  Set Variable  9399000330
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Over 0.75  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+2nd HDP (3rd)
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  2H Handicap
+  ${tmpRefno}  Set Variable  9399000331
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) -0.75  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+2nd Half Odd/Even
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  2H Odd/Even
+  ${tmpRefno}  Set Variable  9399000332
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Odd  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+2nd Half Draw No Bet
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  2H Draw No Bet
+  ${tmpRefno}  Set Variable  9399000333
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+2nd Half Double Chance
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  2H Double Chance
+  ${tmpRefno}  Set Variable  9399000334
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N) /Draw  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Exact 2nd Half Goals
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Exact 2H Goals
+  ${tmpRefno}  Set Variable  9399000335
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0 Goals  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Both Teams To Score
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Both Teams To Score
+  ${tmpRefno}  Set Variable  9399000336
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Both Halves Over 1.5 Yes/No
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Both Halves Over 1.5 Yes/No
+  ${tmpRefno}  Set Variable  9399000337
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Both Halves Under 1.5 Yes/No
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Both Halves Under 1.5 Yes/No
+  ${tmpRefno}  Set Variable  9399000338
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Draw No Bet
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Draw No Bet
+  ${tmpRefno}  Set Variable  9399000339
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+First Goal Time(10 min)
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  First Goal Time(10 min)
+  ${tmpRefno}  Set Variable  9399000340
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  1-10 Min  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+First Goal Time(15 min)
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  First Goal Time(15 min)
+  ${tmpRefno}  Set Variable  9399000341
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  1-15 Min  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Home Team Exact Corners
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Home Team Exact Corners
+  ${tmpRefno}  Set Variable  9399000342
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0-2 Corners  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Away Team Exact Corners
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Away Team Exact Corners
+  ${tmpRefno}  Set Variable  9399000343
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0-2 Corners  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Total Corners (3rd)
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Total Corners
+  ${tmpRefno}  Set Variable  9399000344
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0-8 Corners  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Home Team Exact Corners
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Home Team Exact Corners
+  ${tmpRefno}  Set Variable  9399000345
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0-1 Corners  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Away Team Exact Corners
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Away Team Exact Corners
+  ${tmpRefno}  Set Variable  9399000346
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0-1 Corners  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Total Corners
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Total Corners
+  ${tmpRefno}  Set Variable  9399000347
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0-4 Corners  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+First Corner
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  First Corner
+  ${tmpRefno}  Set Variable  9399000348
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H First Corner
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H First Corner
+  ${tmpRefno}  Set Variable  9399000349
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Last Corner
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Last Corner
+  ${tmpRefno}  Set Variable  9399000350
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Last Corner
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Last Corner
+  ${tmpRefno}  Set Variable  9399000351
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Player Sent Off
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Player Sent Off
+  ${tmpRefno}  Set Variable  9399000352
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Player Sent Off
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Player Sent off
+  ${tmpRefno}  Set Variable  9399000353
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Home Team Player Sent Off
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Home Team Player Sent Off
+  ${tmpRefno}  Set Variable  9399000354
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Home Team Player Sent Off
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Home Team Player Sent Off
+  ${tmpRefno}  Set Variable  9399000355
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Away Team Player Sent Off
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Away Team Player Sent Off
+  ${tmpRefno}  Set Variable  9399000356
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Away Team Player Sent Off
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Away Team Player Sent Off
+  ${tmpRefno}  Set Variable  9399000357
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Yes  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Odd/Even (3rd)
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Odd/Even
+  ${tmpRefno}  Set Variable  9399000316
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Odd  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Next Goal (3rd)
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Next Goal
+  ${tmpRefno}  Set Variable  9399000445
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  None  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Extra Time Next Goal
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Extra Time Next Goal
+  ${tmpRefno}  Set Variable  9399000446
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  None  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Extra Time 1H Correct Score
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Extra Time 1H Correct Score
+  ${tmpRefno}  Set Variable  9399000377
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0:0  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Extra Time Correct Score
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Extra Time Correct Score
+  ${tmpRefno}  Set Variable  9399000378
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0:0  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Extra Time 1H 1X2
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Extra Time 1H 1X2
+  ${tmpRefno}  Set Variable  9399000379
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Extra Time HT.1  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Who advances to next round
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Who advances to next round
+  ${tmpRefno}  Set Variable  9399000380
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Next Goal Time
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Next Goal Time
+  ${tmpRefno}  Set Variable  9399000381
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  1-15 Min  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Exact 1H Goals
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Exact 1H Goals
+  ${tmpRefno}  Set Variable  9399000385
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0 Goals  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Next Goal
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Next Goal
+  ${tmpRefno}  Set Variable  9399000384
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Real Madrid (N)  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Exact Home Team Goals
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Exact Home Team Goals
+  ${tmpRefno}  Set Variable  9399000383
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0 Goals  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Exact Away Team Goals
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Exact Away Team Goals
+  ${tmpRefno}  Set Variable  9399000382
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  0 Goals  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Corners Odd/Even
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Corners Odd/Even
+  ${tmpRefno}  Set Variable  9399000386
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Odd  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Home Team Total Corners Over/Under
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Home Team Total Corners Over/Under
+  ${tmpRefno}  Set Variable  9399000387
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Over 0.75  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Away Team Total Corners Over/Under
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Away Team Total Corners Over/Under
+  ${tmpRefno}  Set Variable  9399000388
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Over 0.75  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Corners Odd/Even
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Corners Odd/Even
+  ${tmpRefno}  Set Variable  9399000389
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Odd  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Home Corner Over/Under
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Home Corner Over/Under
+  ${tmpRefno}  Set Variable  9399000390
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Over 0.75  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+1H Away Corner Over/Under
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  1H Away Corner Over/Under
+  ${tmpRefno}  Set Variable  9399000391
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Over 0.75  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  3.5;Dec  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Goal Scorer - Anytime
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Goal Scorer - Anytime
+  ${tmpRefno}  Set Variable  9399000392
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Muller  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Goal Scorer - First
+  [Tags]  NoRun
+  ${tmpBettype}  Set Variable  Goal Scorer - First
+  ${tmpRefno}  Set Variable  9399000393
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Muller  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05
+
+Jerry test
+  [Tags]  FGLG
+  ${tmpBettype}  Set Variable  Goal Scorer - First
+  ${tmpRefno}  Set Variable  9399000393
+  ${tmpLblRefno}  Set Variable  Ref No: ${tmpRefno}
+  Comment  ##
+  Comment  ${acRow}  Set Variable  //tr[@id='r${tmpRefno}']//
+  Comment  ${aclblSport}  Replace String  ${lblSport}  xpath=//  ${acRow}
+  Comment  ${aclblHomeTeam}  Replace String  ${lblHomeTeam}  xpath=//  ${acRow}
+  Comment  ${aclblAwayTeam}  Replace String  ${lblAwayTeam}  xpath=//  ${acRow}
+  Comment  ${tmplblBetTeam}  Replace String  ${lblBetTeam}  xpath=//  ${acRow}
+  Comment  ${tmplblBetType}  Replace String  ${lblBetType}  xpath=//  ${acRow}
+  Comment  ##
+  Comment  BetList_CheckFGLG  ${aclblHomeTeam}  ${aclblAwayTeam}  F;L;1F  1L
+  ## check Choice value
+  BetList_CheckChoiceValue  ${tmpRefno}  Muller  ${tmpBettype}  ${Leaguage}  ${HomeTeam}  ${AwayTeam}
+  ## check Others common values
+  BetList_Check Common Values  ${tmpRefno}  2.5  100  -100.00;0.50  Lose;Results;127.0.0.1  40%;40.00;0.5%;-0.30
+  ...  30%;30.00;0.5%;-0.05  10%;10.00;0.5%;-0.05

@@ -1,0 +1,240 @@
+*** Settings ***
+Suite Setup       pt golddeluxe test suite init
+Suite Teardown    pt golddeluxe test suite teardown    # pt golddeluxe test suite teardown
+Test Setup        pt goldeluxe agent test case init
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Library           ExcelLibrary
+Library           DatabaseLibrary
+Resource          ../../../Actions/PT/pt_goldDeluxe.txt
+Resource          ../../../Actions/PT/pt_general.txt
+Resource          ../../../Actions/Announcement.txt
+Resource          ../../../Interfaces/Main/in_m_editsetting.txt
+Resource          ../../../Interfaces/in_login.txt
+Resource          ../../../Interfaces/in_top_logininfo.txt
+
+*** Variables ***
+${tm_url}         http://10.18.200.202:8050/Alpha-AF/
+${tm_environment}    local    # {local,UAT,production}
+${tm_dbcnModule}    pymssql    # dbcn = Database Connect
+${tm_dbcnDBName}    custDB
+${tm_dbcnUserName}    testteam
+${tm_dbcnPassword}    @quality#
+${tm_dbcnServer}    DB233
+${tm_dbcnPort}    1433
+${tm_excelFile}    Data_set\\PT_GoldDelux_Super.xls
+${tm_excelSheet}    autoAgentMember
+${tm_super}       SupertestAuto03    # SupertestAuto03
+${tm_master}      SupertestAuto0301    # SupertestAuto0301
+${tm_agent}       SupertestAuto030101    # SupertestAuto030101
+${tm_member}      SupertestAuto030101001    # SupertestAuto030101001
+${tm_sporttype}    255
+${tm_bettype}     1701
+${tm_lineID}      14771858,16433710,16433711,16433715    # line SuperTestAuto0114771858,16433710,16433711,16433715
+${tm_securityCode}    ${EMPTY}
+${tm_password}    1234aaAA
+${tm_ptInterval}    0.01
+
+*** Test Cases ***
+GD_PT_AP_01
+    [Documentation]    ***Description:
+    ...    Range value A1
+    ...
+    ...    ***Precondition:
+    ...    S4=0.9
+    ...    S3=0, M3=0.7
+    ...    M2=0.1, A2=0.54, N2=0.11
+    ...    S1=0.03, M1=0.27, A1=0.25
+    ...
+    ...    ***Step: N/A
+    ...
+    ...    ***Expected Result:
+    ...    A1=[Max(0, N2);Min(M3-M1;A2)]=[0.11;0.43]
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    # Open Edit Setting from account info Setting
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list    ${in_m_editSetting_cboA1}    0.11    0.43    ${tm_ptInterval}    0.25
+
+GD_PT_AP_02
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    S4=0.9
+    ...    S3=0, M3=0.7
+    ...    M2=0.1, A2=0.54, N2=0.11
+    ...    S1=0.03, M1=0.05, A1=0.25
+    ...
+    ...    ***Step: N/A
+    ...
+    ...    ***Expected Result:
+    ...    A1=[Max(0, N2);Min(M3-M1;A2)]=[0.11;0.54]
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    # Open Edit Setting from account info Setting
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list    ${in_m_editSetting_cboA1}    0.11    0.54    ${tm_ptInterval}    0.25
+
+GD_PT_AP_03
+    [Documentation]    ***Description:
+    ...    Update A1
+    ...
+    ...    ***Precondition:
+    ...    S4=0.9
+    ...    S3=0, M3=0.7
+    ...    M2=0.1, A2=0.54, N2=0.11
+    ...    S1=0.03, M1=0.05, A1=0.25
+    ...
+    ...    ***Steps:
+    ...    1. Click Edit Gold Deluxe on a member.
+    ...    2. Select A1 = 0.54
+    ...    3. Open a new browser tab and log in to the master account of the current agent.
+    ...    4. Edit Gold Deluxe of that agent.
+    ...    5. Change A2 = 0.39.
+    ...    6. Click Submit.
+    ...    7. Go back to the agent edit member browser tab.
+    ...    8. Click Submit.
+    ...
+    ...    ***Expected Result:
+    ...    Error message:
+    ...    Wrong position taking (min/max set by company).
+    ...    Max: 0.39
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_member}    Gold Deluxe
+    # Open New browser
+    Open Browser    ${tm_url}    ${cf_browser}
+    Login Security Announcement    ${tm_master}    ${tm_password}    ${EMPTY}    Yes
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    update PT Master Edit Agent    1    ${EMPTY}    0.39    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}
+    Close Browser
+    Switch Browser    1
+    update PT Agent Edit Member    -1    0.54    ${EMPTY}
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Wrong position taking (min/max set by company).
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Max: 0.39
+    Unselect Frame
+
+GD_PT_AP_04
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    S4=0.9
+    ...    S3=0, M3=0.7
+    ...    M2=0.1, A2=0.39, N2=0.11
+    ...    S1=0.2, M1=0.05, A1=0.25
+    ...
+    ...    ***Steps:
+    ...    1. Click Edit Gold Deluxe on a member.
+    ...    2. Select A1 = 0.23
+    ...    3. Open a new browser tab and log in to the master account of the current agent.
+    ...    4. Edit Gold Deluxe of that agent.
+    ...    5. Change N2 = 0.24
+    ...    6. Click Submit.
+    ...    7. Go back to the agent edit member browser tab.
+    ...    8. Click Submit.
+    ...
+    ...    ***Expected Result:
+    ...    Error message:
+    ...    Wrong position taking (min/max set by company).
+    ...    Min: 0.24
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_member}    Gold Deluxe
+    # Open New browser
+    Open Browser    ${tm_url}    ${cf_browser}
+    Login Security Announcement    ${tm_master}    ${tm_password}    ${EMPTY}    Yes
+    open setting from account info    ${tm_agent}    Gold Deluxe
+    update PT Master Edit Agent    1    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    0.24
+    ...    ${EMPTY}
+    Close Browser
+    Switch Browser    1
+    update PT Agent Edit Member    -1    0.23    ${EMPTY}
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Wrong position taking (min/max set by company).
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Min: 0.24
+    Unselect Frame
+
+GD_PT_AP_05
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    S4=0.9
+    ...    S3=0, M3=0.7
+    ...    M2=0.1, A2=0.39, N2=0.11
+    ...    S1=0.2, M1=0.05, A1=0.25
+    ...
+    ...    ***Steps:
+    ...    1. Click Edit Gold Deluxe on a member.
+    ...    2. Select A1 = 0.38
+    ...    3. Open a new browser tab and log in to the master account of the current agent.
+    ...    4. Edit Gold Deluxe of that agent.
+    ...    5. Change M1 = 0.41
+    ...    6. Click Submit.
+    ...    7. Go back to the agent edit member browser tab.
+    ...    8. Click Submit.
+    ...
+    ...    ***Expected Result:
+    ...    Error message:
+    ...    Wrong position taking .
+    ...    Max: 0.29
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    open setting from account info    ${tm_member}    Gold Deluxe
+    # Open New browser
+    Open Browser    ${tm_url}    ${cf_browser}
+    Login Security Announcement    ${tm_master}    ${tm_password}    ${EMPTY}    Yes
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Comment    update PT Master Edit Agent    1    ${EMPTY}    0.41    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    update PT Master Edit Member    1    0.41    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    Close Browser
+    Switch Browser    1
+    update PT Agent Edit Member    -1    0.38    ${EMPTY}
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Wrong position taking (min/max set by company).
+    Run Keyword And Continue On Failure    Wait Until Page Contains    Max: 0.29
+    Unselect Frame
+
+GD_PT_AP_06
+    [Documentation]    ***Description:
+    ...
+    ...
+    ...    ***Precondition:
+    ...    S4=0.9
+    ...    S3=0, M3=0.7
+    ...    M2=0.1, A2=0.54, N2=0.11
+    ...    S1=0.03, M1=0.05, A1=0.25
+    ...
+    ...    ***Steps:
+    ...    1. Click Edit Gold Deluxe on a member.
+    ...    2. Update A1 = 0.35
+    ...
+    ...    ***Expected Result:
+    ...    S1=0.03, M1=0.05, A1=0.35
+    comment    ===================    PRECONDITION    TEST SET UP: pt goldeluxe super test case init    Set Pre-Condition Data and make sure login user is Super
+    comment    ===================    MAIN STEPS
+    # Open Edit Setting from account info Setting
+    open setting from account info    ${tm_member}    Gold Deluxe
+    update PT Agent Edit Member    1    0.35    ${EMPTY}
+    go to    ${tm_url}
+    Login Security Announcement    ${tm_super}    ${tm_password}    ${EMPTY}    ${EMPTY}
+    open setting from account info    ${tm_member}    Gold Deluxe
+    Select Frame    main
+    verify dropdown list selected value    ${in_m_editSetting_cboS1}    0.03
+    Run Keyword And Return Status    Element Should Contain    ${in_m_editSetting_lblS1}    0.05
+    Run Keyword And Return Status    Element Should Contain    ${in_m_editSetting_lblS1}    0.35
+    comment    ===================    POST-CONDITION
+    # logout
+    go to    ${tm_url}

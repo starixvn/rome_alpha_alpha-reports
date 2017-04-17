@@ -4,6 +4,7 @@
 /// <reference path="../components/tooltip.ts" />
 /// <reference path="../components/productmultiselection.ts" />
 /// <reference path="../components/sort.ts" />
+/// <reference path="../components/link-builder.ts" />
 
 "use strict";
 
@@ -53,7 +54,7 @@ class WinLossView extends BaseReport {
         reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
         linkBuilderComponent: LinkBuilderComponent) {
-        super();
+        super($, linkBuilderComponent);
 
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
@@ -147,13 +148,13 @@ class WinLossView extends BaseReport {
             { 0: { sorter: "text" } }));
     };
 
-    registerEvents = () => {
+    public registerEvents() {
         this.$reportForm.submit(this.onSubmitReportEvent);
         this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
         this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$switchModeIcon.on("click", this.onSwitchModeEvent);
-    };
+    }
 
     onFilterEvent = () => {
         let currentHideState = this.$reportForm.hasClass("hide");

@@ -1,0 +1,960 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Collections
+Resource          ../common_actions.txt
+
+*** Keywords ***
+Get Racing PT controls
+    [Arguments]    ${type}    ${Race}    ${Tote}    ${bettype}
+    [Documentation]    This action is used to get Racing PT Controls
+    ...
+    ...    ${acc_output}: base ${type}
+    ...    - ${type}= SuperMaster: S3, Is3, Us3, M3
+    ...    - ${type}= SuperPlayer: S1, Is1, Us1
+    ...    - ${type}= MasterAgent: M2, Im2, Um2, A2
+    ...    - ${type}= MasterPlayer: M1, Im1, Um1
+    ...    - ${type}= AgentPlayer: A1
+    ${ac_sportID}=    Get From Dictionary    ${SporttypeDict}    ${Race}
+    ${ac_DictBettype}    Set Variable If    '${bettype}'=='Win'    ${ToteDictWin}    ${ToteDictPlace}
+    ${ac_BettypeID}    Get From Dictionary    ${ac_DictBettype}    ${Tote}
+    ${acc_suffix}    Set Variable    $${ac_sportID}$${ac_bettypeID}
+    ${acc_lstSuperMaster}    Create List    s3${acc_suffix}    is3${acc_suffix}    us3${acc_suffix}    m3${acc_suffix}
+    ${acc_lstSuperPlayer}    Create List    s1${acc_suffix}    is1${acc_suffix}    us1${acc_suffix}
+    ${acc_lstMasterAgent}    Create List    m2${acc_suffix}    im2${acc_suffix}    um2${acc_suffix}    a2${acc_suffix}
+    ${acc_lstMasterPlayer}    Create List    m1${acc_suffix}    im1${acc_suffix}    um1${acc_suffix}
+    ${acc_lstAgentPlayer}    Create List    a1${acc_suffix}
+    ${acc_output}    Get Variable Value    ${acc_lst${type}}
+    [Return]    ${acc_output}
+
+Check Racing ALL Setting
+    [Arguments]    ${superPT}    ${masterPT}    @{expect}
+    # Racing
+    ${tm_racing_UK_after}    Get Racing PT Values    Super    Master    Racing    UK/Irish
+    ${tm_racing_SA_after}    Get Racing PT Values    Super    Master    Racing    SA
+    ${tm_racing_AUST_after}    Get Racing PT Values    Super    Master    Racing    Aust
+    # Greyhound
+    Select Frame    main
+    Click Element    //*[@id='ptsportheader_152']
+    Unselect Frame
+    Sleep    1s
+    ${tm_Greyhounds_UK_after}    Get Racing PT Values    Super    Master    Greyhounds    UK/Irish
+    ${tm_Greyhounds_AUST_after}    Get Racing PT Values    Super    Master    Greyhounds    Aust
+    # Harness
+    Select Frame    main
+    Click Element    //*[@id='ptsportheader_153']
+    Unselect Frame
+    Sleep    1s
+    ${tm_Harness_AUST_after}    Get Racing PT Values    Super    Master    Harness    Aust
+    : FOR    ${Index}    IN    ${tm_racing_UK_after}    ${tm_racing_SA_after}    ${tm_racing_AUST_after}    ${tm_Greyhounds_UK_after}
+    ...    ${tm_Greyhounds_AUST_after}    ${tm_Harness_AUST_after}
+    \    Lists Should Be Equal    ${Index}    @{expect}
+
+Edit Racing PT
+    [Arguments]    ${username}    ${type}    ${Race}    ${Tote}    ${bettype}    ${lstValues}
+    ...    ${isUpdated}=1
+    [Documentation]    This action is used to edit Sportsbook PT of account
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${type}: the account type (Master/Agent/Member)
+    ...
+    ...    ${Race}: the race name
+    ...
+    ...    ${Tote}: the Tote name
+    ...
+    ...    ${Bettype}: the bettype
+    ...
+    ...    ${lstValues}: the list contain PT value (MaxPT, UplinePresetPT,isUplineAutoPT,UplineAutoPT). The ${Empty} item mean this item does not need to be edited
+    ...
+    ...    ${isUpdated}: click update button or not (0/1)
+    ...
+    ...    ${acc_output}: the output msg
+    ## Goto Edit page
+    Navigate to Edit page    Edit Racing    ${username}
+    ## Get SB PT Controls
+    @{tmplst}    Get Racing PT controls    ${type}    ${Race}    ${Tote}    ${bettype}
+    ${NoAddValue}    Evaluate    4 - len(${lstValues})
+    Repeat Keyword    ${NoAddValue}    Append To List    ${lstValues}    ${EMPTY}
+    ## Get SB PT Values
+    @{tmpValues}    Set Variable    ${lstValues}
+    ## Set Auto or not
+    ${kw}    Set Variable if    '@{tmpValues}[2]' == '1'    Select Checkbox    Unselect Checkbox
+    Run Keyword Unless    '@{tmpValues}[2]' == '${EMPTY}'    ${kw}    @{tmplst}[2]
+    ## Select PT
+    Edit Control value    @{tmplst}[3]    Select From List By Value    @{tmpValues}[3]
+    Edit Control value    @{tmplst}[1]    Select From List By Value    @{tmpValues}[1]
+    Edit Control value    @{tmplst}[0]    Select From List By Value    @{tmpValues}[0]
+    ## Click Update
+    Run Keyword If    '${isUpdated}'=='1'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_editsb_msg}    ${cf_timeout_long}
+    ## Get msg
+    ${acc_output}    Run Keyword And Continue On Failure    Get Text    ${in_m_editsb_msg}
+    [Return]    ${acc_output}
+
+Get Racing PT Values
+    [Arguments]    ${type}    ${username}    ${Race}    ${Tote}    ${bettype}
+    # get sporttype, tote type and PT type
+    @{ac_lstControls}    Get Racing PT controls    ${type}    ${Race}    ${Tote}    ${bettype}
+    ##
+    Navigate to Edit page    Edit Racing    ${username}
+    ${acc_output}    Create List
+    ${acc_posChk}    Set Variable    2
+    ${acc_i}    Set Variable    -1
+    : FOR    ${acc_iControl}    IN    @{ac_lstControls}
+    \    ${acc_i}    Evaluate    ${acc_i}+1
+    \    Continue For Loop If    ${acc_i}==${acc_posChk}
+    \    ${acc_iValue}    Execute Javascript    return document.getElementById("${acc_iControl}").value
+    \    Append To List    ${acc_output}    ${acc_iValue}
+    ${acc_iControl}    Set Variable If    '${type}'=='Member'    ${EMPTY}    @{ac_lstControls}[2]
+    ${acc_iValue}    Run Keyword Unless    '${type}'=='Member'    Get Element Attribute    ${acc_iControl}@checked
+    ${acc_iValue}    Set Variable If    '${acc_iValue}'=='true'    1    0
+    Run Keyword Unless    '${type}'=='Member'    Insert Into List    ${acc_output}    ${acc_posChk}    ${acc_iValue}
+    [Return]    ${acc_output}
+
+Check Racing PT
+    [Arguments]    ${username}    ${type}    ${Race}    ${Tote}    ${bettype}    ${lstValues}
+    [Documentation]    This action is used to check Sportsbook PT of account
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${type}: the account type (Master/Agent/Member)
+    ...
+    ...    ${Race}: the race name
+    ...
+    ...    ${Tote}: the Tote name
+    ...
+    ...    ${Bettype}: the bettype
+    ...
+    ...    ${lstValues}: the list contain PT value (MaxPT, UplinePresetPT,isUplineAutoPT,UplineAutoPT). The ${Empty} item mean this item does not need to be edited
+    Navigate to Edit page    Edit Racing    ${username}
+    @{tmplst}    Get Racing PT controls    ${type}    ${Race}    ${Tote}    ${bettype}
+    ${NoAddValue}    Evaluate    4 - len(${lstValues})
+    Repeat Keyword    ${NoAddValue}    Append To List    ${lstValues}    ${EMPTY}
+    @{tmpValues}    Set Variable    ${lstValues}
+    ${i}    Set Variable    -1
+    : FOR    ${ivalue}    IN    @{tmpValues}
+    \    ${i}    Evaluate    ${i} + 1
+    \    Continue For Loop If    '${ivalue}'=='${EMPTY}'
+    \    ${tmpKw}    Set Variable If    ${i}==2 and '${ivalue}'=='0'    Checkbox Should Not Be Selected    Checkbox Should Be Selected
+    \    Run Keyword And Continue On Failure    Run Keyword If    ${i}==2    ${tmpKw}    @{tmplst}[${i}]
+    \    Continue For Loop If    ${i}==2
+    \    Run Keyword And Continue On Failure    List Selection Should Be    @{tmplst}[${i}]    ${ivalue}
+
+Edit Racing PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}
+    ...    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    SuperMaster    ${Race}    ${Tote}    ${Bettype}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[0]    ${S3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[2]    ${Us3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[3]    ${M3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+
+Edit Racing PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}
+    ...    ${Us1}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    SuperPlayer    ${Race}    ${Tote}    ${Bettype}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[0]    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[2]    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Racing PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}
+    ...    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}    ${N2}=${EMPTY}
+    [Documentation]    *This Action is used to Update Racing Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    @{ac_controlLst}    Get Racing PT Controls    MasterAgent    ${Race}    ${Tote}    ${Bettype}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[0]    ${M2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[2]    ${Um2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[3]    ${A2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Racing PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}
+    ...    ${Um1}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    MasterPlayer    ${Race}    ${Tote}    ${Bettype}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[0]    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[2]    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+
+Edit Racing PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${A1}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT Controls    AgentPlayer    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[0]    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+
+Verify Racing PT_SuperMaster
+    [Arguments]    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}
+    ...    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    SuperMaster    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    Select Frame    main
+    # Check S3
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check Is3
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    # Check M3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+
+Verify Racing PT_SuperPlayer
+    [Arguments]    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    SuperPlayer    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    Select Frame    main
+    # Check S1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Is1
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Us1
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify Racing PT_MasterAgent
+    [Arguments]    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}
+    ...    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    MasterAgent    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    Select Frame    main
+    # Check M2
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedM2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check Im2
+    ${actualValue}    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    # Check A2
+    ${actualValue}    Run keyword if    '${expectedA2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+
+Verify Racing PT_MasterPlayer
+    [Arguments]    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    MasterPlayer    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    Select Frame    main
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+
+Verify Racing PT_AgentPlayer
+    [Arguments]    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${expectedA1}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    AgentPlayer    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    Select Frame    main
+    # Check A1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${ac_A1}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame
+
+Edit Multiple Racing PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}
+    ...    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}
+    [Documentation]    *This Action is used to Update Multiple Racing Position Taking - Super Edit Master*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit Racing PT_SuperMaster
+    @{ac_controlLst}    Get Racing PT controls    SuperMaster    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editrc_mul_chkPTGroup}    ${cfWaitControl}
+    Set Checkbox    ${in_m_editrc_mul_chkPTGroup}    check    # Select Position Taking checkbox
+    Set Checkbox    ${in_m_editrc_mul_chkRCSAGroup}    check    # Select Racing_UK checkbox
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[0]    ${S3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[2]    ${Us3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[3]    ${M3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Racing PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}
+    ...    ${Us1}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    SuperPlayer    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editrc_mul_chkPTGroup}    ${cfWaitControl}
+    Set Checkbox    ${in_m_editrc_mul_chkPTGroup}    check    # Select Position Taking checkbox
+    Set Checkbox    ${in_m_editrc_mul_chkRCSAGroup}    check    # Select Racing_UK checkbox
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[0]    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[2]    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Racing PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}
+    ...    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}    ${N2}=${EMPTY}
+    [Documentation]    *This Action is used to Update Multiple Racing Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit Racing PT_MasterAgent
+    @{ac_controlLst}    Get Racing PT Controls    MasterAgent    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editrc_mul_chkPTGroup}    ${cfWaitControl}
+    Set Checkbox    ${in_m_editrc_mul_chkPTGroup}    check    # Select Position Taking checkbox
+    Set Checkbox    ${in_m_editrc_mul_chkRCSAGroup}    check    # Select Racing_UK checkbox
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[0]    ${M2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[2]    ${Um2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[3]    ${A2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Racing PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}
+    ...    ${Um1}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    MasterPlayer    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editrc_mul_chkPTGroup}    ${cfWaitControl}
+    Set Checkbox    ${in_m_editrc_mul_chkPTGroup}    check    # Select Position Taking checkbox
+    Set Checkbox    ${in_m_editrc_mul_chkRCSAGroup}    check    # Select Racing_UK checkbox
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[0]    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[2]    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple Racing PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${A1}=${EMPTY}
+    [Documentation]    *This Action is used to Edit Multiple Racing Position Taking - Agent Edit Player*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Edit Racing PT_AgentPlayer
+    @{ac_controlLst}    Get Racing PT Controls    AgentPlayer    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Ignore Error    Wait Until Element Is enabled    ${in_m_editrc_mul_chkPTGroup}    ${cfWaitControl}
+    Set Checkbox    ${in_m_editrc_mul_chkPTGroup}    check    # Select Position Taking checkbox
+    Set Checkbox    ${in_m_editrc_mul_chkRCSAGroup}    check    # Select Racing_UK checkbox
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select From List By Value    @{ac_controlLst}[0]    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Verify Multiple Racing PT_SuperMaster
+    [Arguments]    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}
+    ...    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}    ${closePopup}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Racing Position Taking - Super Edit Master*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify Racing PT_SuperMaster
+    @{ac_controlLst}    Get Racing PT controls    SuperMaster    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S3
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check Is3
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    # Check M3
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+    Unselect Frame
+
+Verify Multiple Racing PT_SuperPlayer
+    [Arguments]    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    SuperPlayer    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Is1
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Us1
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify Multiple Racing PT_MasterAgent
+    [Arguments]    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}
+    ...    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Racing Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify Racing PT_MasterAgent
+    @{ac_controlLst}    Get Racing PT controls    MasterAgent    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M2
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Run keyword if    '${expectedM2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check Im2
+    ${actualValue}    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    # Check A2
+    ${actualValue}    Run keyword if    '${expectedA2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[3]
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+    Unselect Frame
+
+Verify Multiple Racing PT_MasterPlayer
+    [Arguments]    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}
+    @{ac_controlLst}    Get Racing PT controls    MasterPlayer    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+
+Verify Multiple Racing PT_AgentPlayer
+    [Arguments]    ${Race}=${EMPTY}    ${Tote}=${EMPTY}    ${Bettype}=${EMPTY}    ${expectedA1}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Racing Position Taking - Agent Edit Player*
+    ...
+    ...    ********HISTORY************
+    ...    - James: Copy from Verify Racing PT_AgentPlayer
+    @{ac_controlLst}    Get Racing PT controls    AgentPlayer    ${Race}    ${Tote}    ${Bettype}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check A1
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    @{ac_controlLst}[0]    ${cfWaitControl}
+    ${ac_A1}    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame
+
+Verify Edit Member Racing PT Popup UI
+    [Arguments]    ${ac_loginLevel}    ${ac_membername}
+    Comment    ## Open PT Popup
+    Comment    ${ac_memberLower}    Evaluate    "${ac_membername}".lower()
+    Comment    ${ac_lnkUsername}    Set Variable    //a[translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ='${ac_memberLower}']
+    Comment    Click Element    ${ac_lnkUsername}
+    ## Set variable
+    @{ac_lstGroupComm}    Create list    Asian HDP, OU, OE    1 X 2    Other Bettypes    Number Game Comm    HR Fixed Odds
+    @{ac_lstSport}    Create list    Soccer    Basketball    Football    Tennis    Baseball
+    ...    Golf    Motor Sports    Other Sports    Mix Sports Parlay    HR Fixed Odds    Number Game
+    ## Go to top frame
+    Unselect Frame
+    ## Check Popup Title
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_main_framePopupHeader}    Racing    ${cfWaitControl}
+    ## Select Popup Frame
+    Select Frame    ${in_main_framePopup}
+    ## CHeck content info
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //button[@id='btnMain']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //button[@id='btnSubmit']
+    ## CHeck customer info section
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@class='customerInfo-table']/tbody/tr[1]/td[1]    First Name
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@class='customerInfo-table']/tbody/tr[1]/td[3]    Phone
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@class='customerInfo-table']/tbody/tr[2]/td[1]    Last Name
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@class='customerInfo-table']/tbody/tr[2]/td[3]    Mobile Phone
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@class='customerInfo-table']/tbody/tr[3]/td[1]    Fax
+    ## Check Betlimit Comm Status
+    Verify Edit Member Racing PT Popup UI Bet Limit    ${ac_loginLevel}
+    ##Check PT section
+    Verify Edit Member Racing PT Popup UI PT    ${ac_loginLevel}
+    ## Close popup
+    Comment    Unselect Frame
+    Comment    Click Element    ${in_main_btnClosePopup}
+    Close Popup By JS
+
+Verify Edit Member Racing PT Popup UI Bet Limit
+    [Arguments]    ${ac_loginLevel}
+    ## Check Bet setting section
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='betsettingheader']    Bet Setting
+    Run Keyword And Continue On Failure    Element Should Contain    //div[contains(@class,'bettingBox-header-minbet')]    Min Bet
+    Run Keyword And Continue On Failure    Element Should Contain    //div[contains(@class,'bettingBox-header-maxbet')]    Max Bet
+    Run Keyword And Continue On Failure    Element Should Contain    //div[contains(@class,'bettingBox-header-maxpermatch')]    Max Per Match
+    ## Racing
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='bettingBox-sportbox'][1]/div[@class='bettingBox-sport']    Racing
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='divBettingComm_BettypeGroup_151_41']    UK/Irish Tote
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='divBettingComm_BettypeGroup_151_31']    SA Tote
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='divBettingComm_BettypeGroup_151_51']    Aust Tote
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='enable_151_41']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='enable_151_31']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='enable_151_51']
+    ## Greyhound
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='bettingBox-sportbox'][2]/div[@class='bettingBox-sport']    Greyhound
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='divBettingComm_BettypeGroup_152_41']    UK/Irish Tote
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='divBettingComm_BettypeGroup_152_51']    Aust Tote
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='enable_152_41']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='enable_152_51']
+    ## Harness
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='bettingBox-sportbox'][3]/div[@class='bettingBox-sport']    Harness
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='divBettingComm_BettypeGroup_153_51']    Aust Tote
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='enable_153_51']
+    ## Check textbox for bet setting in case of Agent edit Member
+    @{ac_lsttxtBetlimit}    Create List    151_41    151_31    151_51    152_41    152_51
+    ...    153_51
+    : FOR    ${ac_sportbettype}    IN    @{ac_lsttxtBetlimit}
+    \    Exit For Loop If    '${ac_loginLevel}'<>'Agent'
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='minbet_${ac_sportbettype}']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='maxbet_${ac_sportbettype}']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@id='maxpermatch_${ac_sportbettype}']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    //select[@id='comm_${ac_sportbettype}']
+    ## Check Comm section
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='commheader']    Comm
+    ${ac_lstLevel}    Create list    Agent    Member
+    Run Keyword If    '${ac_loginLevel}'=='Super'    Insert Into List    ${ac_lstLevel}    0    Master
+    @{ac_lstLevel}    Set Variable    ${ac_lstLevel}
+    ${ac_index}    Set Variable    1
+    : FOR    ${ac_iLevel}    IN    @{ac_lstLevel}
+    \    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='commheader']/following-sibling::div/div[@class='bettingBox-header-roletitle'][${ac_index}]    ${ac_iLevel}
+    \    ${ac_index}    Evaluate    ${ac_index} +1
+    ## Check Status section
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='statusheader']    Status
+
+Verify Edit Member Racing PT Popup UI PT
+    [Arguments]    ${ac_loginLevel}
+    ## Check PT section
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='headerPositionTaking']    Position Taking
+    ##
+    ${ac_lstControlSuper}    Create List    //select[@id='s1    //input[@name='is1    //select[@id='us1
+    ${ac_lstControlMaster}    Create List    //select[@id='m1    //input[@name='im1    //select[@id='um1
+    ${ac_lstControlAgent}    Create List    //select[@id='a1
+    @{ac_lstSports}    Create List    151_Racing    152_Greyhound    153_Harness
+    @{ac_lstControl}    Get Variable Value    ${ac_lstControl${ac_loginLevel}}
+    ## Check header
+    : FOR    ${ac_iItem}    IN    @{ac_lstSports}
+    \    @{ac_ilstSport}    Split String    ${ac_iItem}    _
+    \    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='ptsportheader_@{ac_ilstSport}[0]']    @{ac_ilstSport}[1]
+    \    ${ac_divPTGroups}    Set Variable    //div[@id='ptsportheader_@{ac_ilstSport}[0]']/following-sibling::div[@class='PTGroups']
+    \    ${ac_styple}    Get Element Attribute    ${ac_divPTGroups}@style
+    \    ${ac_isCollapse}    Set Variable If    '${ac_styple}'==''    0    1
+    \    Run Keyword If    ${ac_isCollapse} ==1    Click Element    //div[@id='ptsportheader_@{ac_ilstSport}[0]']
+    : FOR    ${ac_iItem}    IN    @{ac_lstControl}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iItem}$151$41']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iItem}$151$31']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iItem}$151$51']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iItem}$152$41']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iItem}$152$51']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_iItem}$153$51']
+
+Verify Edit Member LiveCasino PT Popup UI
+    [Arguments]    ${ac_loginLevel}    ${ac_membername}    ${ac_Product}
+    Comment    ## Open PT Popup
+    Comment    ${ac_memberLower}    Evaluate    "${ac_membername}".lower()
+    Comment    ${ac_lnkUsername}    Set Variable    //a[translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ='${ac_memberLower}']
+    Comment    Click Element    ${ac_lnkUsername}
+    ## Go to top frame
+    Unselect Frame
+    ## Check Popup Title
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_main_framePopupHeader}    Edit ${ac_Product}    ${cfWaitControl}
+    ## Select Popup Frame
+    Select Frame    ${in_main_framePopup}
+    ## CHeck content info
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //input[@class='update-setting-agency-submit' and @type='button']
+    ## CHeck customer info section
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@data-ng-controller='CustomerInfoController']//tr[@class='title']/td    Customer Information
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@data-ng-controller='CustomerInfoController']//tr[2]/td[@class='right bold info-lable'][1]    Username
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@data-ng-controller='CustomerInfoController']//tr[2]/td[@class='right bold info-lable'][2]    Nickname
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@data-ng-controller='CustomerInfoController']//tr[3]/td[@class='right bold info-lable'][1]    First Name
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@data-ng-controller='CustomerInfoController']//tr[3]/td[@class='right bold info-lable'][2]    Last Name
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@data-ng-controller='CustomerInfoController']//tr[4]/td[@class='right bold info-lable'][1]    Phone
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@data-ng-controller='CustomerInfoController']//tr[4]/td[@class='right bold info-lable'][2]    Mobile Phone
+    Run Keyword And Continue On Failure    Element Should Contain    //table[@data-ng-controller='CustomerInfoController']//tr[5]/td[@class='right bold info-lable'][1]    Fax
+    ##
+    Run Keyword And Continue On Failure    Run Keyword If    '${ac_loginLevel}'=='Agent'    Element Should Be Visible    //input[(@data-ng-model='enableGoldDeluxe' or @data-ng-model='enableLiveCasino') and @type='checkbox']
+    ## PT
+    Verify Edit Member LiveCasino PT Popup UI PT    ${ac_loginLevel}
+    ## Check Win limit
+    Verify Edit Member LiveCasino PT Popup UI Win Limit    ${ac_loginLevel}
+    ## Check Stake level
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='tblGameSetting']//span[@class='pt-title-text']    Game Setting
+    ${ac_lstGamesLCS}    Create list    Party Baccarat    Party Roulette    Live Baccarat    Live Roulette
+    ${ac_lstGamesGD}    Create list    Baccarat    Roulette
+    @{ac_lstGames}    Set Variable If    '${ac_Product}' == 'Live Casino'    ${ac_lstGamesLCS}    ${ac_lstGamesGD}
+    Run Keyword And Continue On Failure    Element Should Be Visible    //table[@class='game-setting col-xs-12']/tbody/tr[1]/td[@class='right game-setting-name ng-binding']
+    ${ac_index}    Set Variable    1
+    : FOR    ${ac_iItem}    IN    @{ac_lstGames}
+    \    ${ac_rowControl}    Set Variable    //table[@class='game-setting col-xs-12']/tbody/tr[${ac_index}]
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_rowControl}/td[@class='right game-setting-name ng-binding']
+    \    Verify Edit Member LiveCasino PT Popup UI Stake Level    ${ac_loginLevel}    ${ac_iItem}    ${ac_rowControl}/td[@class='betting-limit-container']
+    \    ${ac_index}    Evaluate    ${ac_index} +1
+    ## Close popup
+    Comment    Unselect Frame
+    Comment    Click Element    ${in_main_btnClosePopup}
+    Close Popup By JS
+
+Verify Edit Member LiveCasino PT Popup UI PT
+    [Arguments]    ${ac_loginLevel}
+    ## Check PT section
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='tblPtComSetting']//span[@class='pt-title-text']    Position Taking/Commission
+    ##
+    ${ac_lstControlSuper}    Create List    //select[@id='ddlS1']    //input[@id='cbIs1']    //select[@id='ddlUs1']
+    ${ac_lstControlMaster}    Create List    //select[@id='ddlM1']    //input[@id='cbIm1']    //select[@id='ddlUm1']
+    ${ac_lstControlAgent}    Create List    //select[@id='ddlA1']    //select[@id='ddlCom']
+    @{ac_lstControl}    Get Variable Value    ${ac_lstControl${ac_loginLevel}}
+    ## Check Save Partial Icon
+    Run Keyword And Continue On Failure    Element Should Be Visible    //div[@id='tblPtComSetting']//span[@class='btn-save-partial ng-scope']
+    ## Check PT control
+    : FOR    ${ac_Item}    IN    @{ac_lstControl}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_Item}
+
+Verify Edit Member LiveCasino PT Popup UI Stake Level
+    [Arguments]    ${ac_loginLevel}    ${ac_strGame}    ${ac_control}
+    ## Set Variable
+    ${ac_nchkStakelevel}    Get Matching Xpath Count    ${ac_control}//input[@name='${ac_strGame}']
+    ${ac_nchkStakelevel}    Evaluate    ${ac_nchkStakelevel} +1
+    ${ac_keyword}    Set Variable If    '${ac_loginLevel}'=='Agent'    Element Should Be Enabled    Element Should Be Disabled
+    : FOR    ${ac_i}    IN RANGE    1    ${ac_nchkStakelevel}
+    \    Run Keyword And Continue On Failure    ${ac_keyword}    ${ac_control}/span[${ac_i}]//input[@name='${ac_strGame}']
+    ## Check Save partial Icon
+    ${ac_keyword}    Set Variable If    '${ac_loginLevel}'=='Agent'    Element Should Be Visible    Element Should Not Be Visible
+    Run Keyword And Continue On Failure    ${ac_keyword}    //div[@id='tblGameSetting']//span[@class='btn-save-partial ng-scope']
+
+Verify Edit Member LiveCasino PT Popup UI Win Limit
+    [Arguments]    ${ac_loginLevel}
+    ## Check Win limit
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='tblMaxWinLimit']//span[@class='pt-title-text']    Member Win Limit
+    ##
+    ${ac_keyword}    Set Variable If    '${ac_loginLevel}'=='Agent'    Element Should Be Enabled    Element Should Be Disabled
+    Run Keyword And Continue On Failure    ${ac_keyword}    //select[@id='maxWinLimit']
+    Run Keyword And Continue On Failure    ${ac_keyword}    //input[@id='dailyAutoReset']
+    Run Keyword And Continue On Failure    Element Should Be Visible    //div[@id='showWinLimit']
+    ##
+    ${ac_keyword}    Set Variable If    '${ac_loginLevel}'=='Agent'    Element Should Be Visible    Element Should Not Be Visible
+    Run Keyword And Continue On Failure    ${ac_keyword}    //div[@id='tblMaxWinLimit']//span[@class='btn-save-partial ng-scope']
+
+Verify Edit Member Virtual Sports PT Popup UI
+    [Arguments]    ${ac_loginLevel}    ${ac_membername}
+    Comment    ## Open PT Popup
+    Comment    ${ac_memberLower}    Evaluate    "${ac_membername}".lower()
+    Comment    ${ac_lnkUsername}    Set Variable    //a[translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ='${ac_memberLower}']
+    Comment    Click Element    ${ac_lnkUsername}
+    ## Go to top frame
+    Unselect Frame
+    ## Check Popup Title
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_main_framePopupHeader}    Virtual Sports    ${cfWaitControl}
+    ## Select Popup Frame
+    Select Frame    ${in_main_framePopup}
+    ## CHeck content info
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //button[@id='btnSubmit']    ${cfWaitControl}
+    ## CHeck customer info section
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='customerInfo']/div[@class='headerTab']/div[2]    General Information
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='customerInfo']/div[@class='clearBlock'][1]/div[@class='customerInfoBlock1 b']    Username
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='customerInfo']/div[@class='clearBlock'][1]/div[@class='customerInfoBlock3 b']    Nickname
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='customerInfo']/div[@class='clearBlock'][2]/div[@class='customerInfoBlock1 b']    First Name
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='customerInfo']/div[@class='clearBlock'][2]/div[@class='customerInfoBlock3 b']    Phone
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='customerInfo']/div[@class='clearBlock'][3]/div[@class='customerInfoBlock1 b']    Last Name
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='customerInfo']/div[@class='clearBlock'][3]/div[@class='customerInfoBlock3 b']    Mobile Phone
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='customerInfo']/div[@class='clearBlock'][4]/div[@class='customerInfoBlock1 b']    Fax
+    Run Keyword And Continue On Failure    Run Keyword If    '${ac_loginLevel}'=='Agent'    Element Should Contain    //div[@class='customerInfo']/div[@class='clearBlock'][4]/div[@class='customerInfoBlock3 b']    Enable
+    Run Keyword And Continue On Failure    Run Keyword If    '${ac_loginLevel}'=='Agent'    Element Should Be Visible    //input[@id='btnSaveStatus']
+    ## Bet setting
+    Verify Edit Member Virtual Sports PT Popup UI Bet Limit    ${ac_loginLevel}
+    ## PT
+    Verify Edit Member Virtual Sports PT Popup UI PT    ${ac_loginLevel}
+    ## Close popup
+    Comment    Unselect Frame
+    Comment    Click Element    ${in_main_btnClosePopup}
+    Close Popup By JS
+
+Verify Edit Member Virtual Sports PT Popup UI Bet Limit
+    [Arguments]    ${ac_loginLevel}
+    ## Bet setting
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='headerBetSetting']/div[2]    Bet Setting
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='BettingLimitHeaderTop'][1]    Min Bet
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='BettingLimitHeaderTop'][2]    Max Bet
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='BettingLimitHeaderTop'][3]    Max Per Match
+    Run Keyword And Continue On Failure    Run Keyword If    '${ac_loginLevel}'=='Agent'    Element Should Be Visible    //input[@id='btnSaveBetSetting']
+    ##
+    @{ac_lstSports}    Create List    Virtual Soccer    Virtual Tennis    Virtual Horse Racing    Virtual Greyhounds    Virtual Speedway
+    ...    Virtual Motorsports    Virtual Cycling
+    ${ac_divMinMax}    Set Variable    following-sibling::div[@class='BettingLimitItem' or @class='BettingLimitLabel']
+    ${ac_txtMinMax}    Set Variable If    '${ac_loginLevel}'=='Agent'    /input[@class='BettingLimitTextBox']    ${EMPTY}
+    : FOR    ${ac_iItem}    IN    @{ac_lstSports}
+    \    ${ac_divSport}    Set Variable    //div[@class='BettingLimitHeader' and text()='${ac_iItem}']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_divSport}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_divSport}/${ac_divMinMax}[1]${ac_txtMinMax}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_divSport}/${ac_divMinMax}[2]${ac_txtMinMax}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_divSport}/${ac_divMinMax}[3]${ac_txtMinMax}
+
+Verify Edit Member Virtual Sports PT Popup UI PT
+    [Arguments]    ${ac_loginLevel}
+    ## Bet setting
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='headerPositionTaking']/div[2]    Position Taking
+    Run Keyword And Continue On Failure    Run Keyword If    '${ac_loginLevel}'=='Agent'    Element Should Be Visible    //input[@id='btnSavePositionTaking']
+    ##
+    @{ac_lstSports}    Create List    Virtual Soccer    Virtual Tennis    Virtual Horse Racing    Virtual Greyhounds    Virtual Speedway
+    ...    Virtual Motorsports    Virtual Cycling
+    ${ac_lstPTSuper}    Create List    //select[@id='s1    //input[@name='is1
+    ${ac_lstPTMaster}    Create List    //select[@id='m1    //input[@name='im1
+    ${ac_lstPTAgent}    Create List    //select[@id='a1
+    @{ac_lstPT}    Get Variable Value    ${ac_lstPT${ac_loginLevel}}
+    : FOR    ${ac_iItem}    IN    @{ac_lstSports}
+    \    ${ac_sportID}    Get From Dictionary    ${SporttypeDict}    ${ac_iItem}
+    \    ${ac_bettypeID}    Get From Dictionary    ${BettypeDict}    ${ac_iItem}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    @{ac_lstPT}[0]$${ac_sportID}$${ac_bettypeID}']
+    \    Run Keyword Unless    '${ac_loginLevel}'=='Agent'    Run Keyword And Continue On Failure    Element Should Be Visible    @{ac_lstPT}[1]$${ac_sportID}$${ac_bettypeID}']
+
+Verify Edit Member Keno PT Popup UI
+    [Arguments]    ${ac_loginLevel}    ${ac_membername}
+    ## Go to top frame
+    Unselect Frame
+    ## Check Popup Title
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_main_framePopupHeader}    Update Keno Setting    ${cfWaitControl}
+    ## Select Popup Frame
+    Select Frame    ${in_main_framePopup}
+    ## CHeck content info
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //input[@ng-class-name='btnUpdate']    ${cfWaitControl}
+    ## CHeck customer info section
+    Run Keyword And Continue On Failure    Element Should Contain    //span[@ng-bind='customerInformation.username']    ${ac_membername}
+    Run Keyword And Continue On Failure    Element Should Contain    //td[@class='col15percent formatCol r b betSetting'][1]    First Name
+    Run Keyword And Continue On Failure    Element Should Contain    //td[@class='col15percent formatCol r b betSetting'][2]    Last Name
+    Run Keyword And Continue On Failure    Element Should Contain    //td[@class='formatCol r b betSetting'][1]    Phone
+    Run Keyword And Continue On Failure    Element Should Contain    //td[@class='formatCol r b betSetting'][2]    Mobile Phone
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@id='customerInfo']//tbody/tr[4]/td[@class='formatCol r b betSetting'][1]    Fax
+    ## Bet setting
+    Verify Edit Member Keno PT Popup UI Bet Limit    ${ac_loginLevel}
+    ## PT
+    Verify Edit Member Keno PT Popup UI PT    ${ac_loginLevel}
+    ## Close popup
+    Close Popup By JS
+
+Verify Edit Member Keno PT Popup UI Bet Limit
+    [Arguments]    ${ac_loginLevel}
+    ##
+    ${ac_tblBetLimit}    Set Variable    //table[@ng-controller='betSettingController']
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_tblBetLimit}/thead//td[@class='header c b' and @colspan=3][1]    Bet Setting
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_tblBetLimit}/thead//td[@class='header c b'][2]    Enable Status
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_tblBetLimit}/thead//td[contains(@class,'formatCol c b betSetting')][1]    Min Bet
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_tblBetLimit}/thead//td[contains(@class,'formatCol c b betSetting')][2]    Max Bet
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_tblBetLimit}/thead//td[contains(@class,'formatCol c b betSetting')][3]    Max Per Match
+    ##
+    ${ac_strBettype}    Set Variable    Australia_Slovakia_Canada_West Canada_Ohio_Kentucky_Michigan_Korea_Max Keno
+    @{ac_lstBettype}    Split String    ${ac_strBettype}    _
+    ${ac_rowBettype}    Set Variable    ${ac_tblBetLimit}/tbody/tr
+    ${ac_lstMinMax}    Create List    //span[contains(@ng-bind,'betSetting.minBet')]    //span[contains(@ng-bind,'betSetting.maxBet')]    //span[contains(@ng-bind,'betSetting.maxPerMatch')]
+    ${ac_lstMinMaxAgent}    Create List    //input[contains(@ng-model,'betSetting.minBet')]    //input[contains(@ng-model,'betSetting.maxBet')]    //input[contains(@ng-model,'betSetting.maxPerMatch')]
+    @{ac_lstMinMax}    Set Variable If    '${ac_loginLevel}'=='Agent'    ${ac_lstMinMaxAgent}    ${ac_lstMinMax}
+    ${ac_index}    Set Variable    1
+    : FOR    ${ac_iItem}    IN    @{ac_lstBettype}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${ac_rowBettype}[${ac_index}]//span[@ng-bind='betSetting.betTypeName']    ${ac_iItem}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_rowBettype}[${ac_index}]@{ac_lstMinMax}[0]
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_rowBettype}[${ac_index}]@{ac_lstMinMax}[1]
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_rowBettype}[${ac_index}]@{ac_lstMinMax}[2]
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_rowBettype}[${ac_index}]//input[@ng-model='betSetting.isEnabled']
+    \    ${ac_index}    Evaluate    ${ac_index} +1
+
+Verify Edit Member Keno PT Popup UI PT
+    [Arguments]    ${ac_loginLevel}
+    ##
+    ${ac_tblBetLimit}    Set Variable    //table[@ng-controller='positionTakingController']
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_tblBetLimit}//td[@class='header c b']    Position Taking
+    Run Keyword And Continue On Failure    Element Should Contain    //div[@class='errMsg']    Australia position taking settings are being used for Max Keno and Max Keno 2.
+    Run Keyword And Continue On Failure    Element Should Be Visible    //input[@ ng-class-name='btnSave']
+    ##
+    ${ac_strBettype}    Set Variable    Australia_Slovakia_Canada_West Canada_Ohio_Kentucky_Michigan_Korea
+    @{ac_lstBettype}    Split String    ${ac_strBettype}    _
+    ${ac_rowBettype}    Set Variable    ${ac_tblBetLimit}/tbody/tr
+    ${ac_index}    Set Variable    3
+    : FOR    ${ac_iItem}    IN    @{ac_lstBettype}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${ac_rowBettype}[${ac_index}]//span[@ng-bind='positionTaking.betTypeName']    ${ac_iItem}
+    \    Verify Edit Member Keno PT Popup PT Controls    ${ac_loginLevel}    ${ac_rowBettype}[${ac_index}]
+    \    ${ac_index}    Evaluate    ${ac_index} +1
+
+Verify Edit Member Keno PT Popup PT Controls
+    [Arguments]    ${ac_loginLevel}    ${ac_rowControl}
+    ##
+    ${ac_lstPTSuper}    Create List    //select[@ng-model='positionTaking.s1']    //input[@ng-model='positionTaking.iS1']    //span[@ng-bind='positionTaking.m1']    //span[@ng-bind='positionTaking.a1']
+    ${ac_lstPTMaster}    Create List    //select[@ng-model='positionTaking.m1']    //input[@ng-model='positionTaking.iM1']    //span[@ng-bind='positionTaking.a1']
+    ${ac_lstPTAgent}    Create List    //select[@ng-model='positionTaking.a1']
+    @{ac_lstPT}    Get Variable Value    ${ac_lstPT${ac_loginLevel}}
+    : FOR    ${ac_iControl}    IN    @{ac_lstPT}
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_rowControl}${ac_iControl}
+
+Verify Edit Member Sportbook2 PT Popup UI
+    [Arguments]    ${ac_loginLevel}    ${ac_membername}    ${ac_ProductID}    ${ac_SportID}    ${ac_strDisplay}
+    Comment    ## Open PT Popup
+    Comment    ${ac_memberLower}    Evaluate    "${ac_membername}".lower()
+    Comment    ${ac_lnkUsername}    Set Variable    //a[translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz') ='${ac_memberLower}']
+    Comment    Click Element    ${ac_lnkUsername}
+    ## Go to top frame
+    Unselect Frame
+    ## Check Popup Title
+    Run Keyword And Continue On Failure    Wait Until Element Contains    ${in_main_framePopupHeader}    Edit Member - ${ac_membername}    ${cfWaitControl}
+    ## Select Popup Frame
+    Select Frame    ${in_main_framePopup}
+    ## CHeck content info
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    //button[@class='btn btn--update btn--margin-top ng-binding ng-scope']    ${cfWaitControl}
+    ## CHeck customer info section
+    ${ac_divCustInfo}    Set Variable    //div[@data-ng-show='info']
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divCustInfo}/div[@class='block__header ng-binding']    General Information
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divCustInfo}/div[contains(@class,'block__item')][1]/div[@class='block__lbl block__lbl--white ng-binding']    Username
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divCustInfo}/div[contains(@class,'block__item')][2]/div[@class='block__lbl block__lbl--white ng-binding']    Nickname
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divCustInfo}/div[contains(@class,'block__item')][3]/div[@class='block__lbl block__lbl--white ng-binding']    First Name
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divCustInfo}/div[contains(@class,'block__item')][4]/div[@class='block__lbl block__lbl--white ng-binding']    Phone
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divCustInfo}/div[contains(@class,'block__item')][5]/div[@class='block__lbl block__lbl--white ng-binding']    Last Name
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divCustInfo}/div[contains(@class,'block__item')][6]/div[@class='block__lbl block__lbl--white ng-binding']    Mobile Phone
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divCustInfo}/div[contains(@class,'block__item')][7]/div[@class='block__lbl block__lbl--white ng-binding']    Fax
+    ## Bet Setting
+    ${ac_kwbetsetting}    Set Variable If    ${ac_ProductID}==16    Verify Edit Member Sportbook2 PT Popup UI Bet Limit    Verify Edit Member Sportbook2 PT Popup UI Stake Level
+    Run Keyword    ${ac_kwbetsetting}    ${ac_loginLevel}    ${ac_ProductID}    ${ac_SportID}    ${ac_strDisplay}
+    ## PT
+    Verify Edit Member Sportbook2 PT Popup UI PT    ${ac_loginLevel}    ${ac_ProductID}    ${ac_SportID}
+    ## Close popup
+    Comment    Unselect Frame
+    Comment    Click Element    ${in_main_btnClosePopup}
+    Close Popup By JS
+
+Verify Edit Member Sportbook2 PT Popup UI PT
+    [Arguments]    ${ac_loginLevel}    ${ac_ProductID}    ${ac_SportID}
+    ## Check PT section
+    ${ac_divPT}    Set Variable    //div[@data-setting-type='1']/parent::div/parent::div
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divPT}//div[@class='block__header ng-binding']    Position Taking
+    ##
+    ${ac_lstControlSuper}    Create List    //select[@data-ng-model='settingItem.s1']    //input[@data-ng-model='item.iS1']
+    ${ac_lstControlMaster}    Create List    //select[@data-ng-model='settingItem.m1']    //input[@data-ng-model='item.iM1']
+    ${ac_lstControlAgent}    Create List    //select[@data-ng-model='settingItem.a1']
+    @{ac_lstControl}    Get Variable Value    ${ac_lstControl${ac_loginLevel}}
+    ## Check Save Partial Icon
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_divPT}//div[@class='right-btn-area right-btn-area--seperate ng-scope']
+    ## Check PT control
+    ${ac_strBettypes}    Set Variable If    ${ac_ProductID}==16    1,3    4001
+    @{ac_lstBettype}    Split String    ${ac_strBettypes}    ,
+    : FOR    ${ac_Item}    IN    @{ac_lstBettype}
+    \    ${ac_rowBettype}    Set Variable    ${ac_divPT}//div[@data-sport-type='${ac_SportID}' and @data-product='${ac_ProductID}' and @data-bet-type='${acItem}']
+    \    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_rowBettype}/following-sibling::div@{ac_lstControl}[0]
+    \    Run Keyword If    '${ac_loginLevel}'=='Agent'    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_rowBettype}/following-sibling::div@{ac_lstControl}[0]
+
+Verify Edit Member Sportbook2 PT Popup UI Bet Limit
+    [Arguments]    ${ac_loginLevel}    ${ac_ProductID}    ${ac_SportID}    ${ac_strDisplay}
+    ## Check PT section
+    ${ac_divBetSetting}    Set Variable    //div[@data-setting-type='2']/parent::div/parent::div
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divBetSetting}//div[@class='block__header ng-binding']    Bet Setting
+    ##
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divBetSetting}//div[@data-ng-include='headerTemplateUrl']/div[2]/div[1]    Min Bet
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divBetSetting}//div[@data-ng-include='headerTemplateUrl']/div[2]/div[2]    Max Bet
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divBetSetting}//div[@data-ng-include='headerTemplateUrl']/div[2]/div[3]    Max Per Match
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divBetSetting}//div[@data-sport-type='${ac_SportID}' and @data-product='${ac_ProductID}' and @data-bet-type='3']    ${ac_strDisplay}
+    ##
+    ${ac_controlMinMax}    Set Variable If    '${ac_loginLevel}'=='Agent'    //div[@data-ng-if='settingType | editableSettingType']/div    //div[@data-ng-if='!(settingType | editableSettingType)']/div
+    ${ac_txtMinMax}    Set Variable If    '${ac_loginLevel}'=='Agent'    //input    ${EMPTY}
+    ## Check Save Partial Icon
+    Run Keyword If    '${ac_loginLevel}'=='Agent'    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_divBetSetting}//div[@class='right-btn-area right-btn-area--seperate ng-scope']
+    ## Check PT control
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_divBetSetting}${ac_controlMinMax}[1]${ac_txtMinMax}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_divBetSetting}${ac_controlMinMax}[2]${ac_txtMinMax}
+    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_divBetSetting}${ac_controlMinMax}[3]${ac_txtMinMax}
+
+Verify Edit Member Sportbook2 PT Popup UI Stake Level
+    [Arguments]    ${ac_loginLevel}    ${ac_ProductID}    ${ac_SportID}    ${ac_strDisplay}
+    ## Check BetLimit Header
+    ${ac_divBetLimitHeader}    Set Variable    //div[@data-setting-type='8']
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divBetLimitHeader}    Bet Limit
+    ## Check Save Partial Icon
+    Run Keyword If    '${ac_loginLevel}'=='Agent'    Run Keyword And Continue On Failure    Element Should Be Visible    ${ac_divBetLimitHeader}//div[@class='right-btn-area right-btn-area--seperate ng-scope']
+    ##
+    ${ac_divBetLimit}    Set Variable    ${ac_divBetLimitHeader}/parent::div//div[@data-ng-if='settingType | validSettingType']
+    ${ac_kw}    Set Variable If    '${ac_loginLevel}'=='Agent'    Element Should Be Enabled    Element Should Be Disabled
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divBetLimit}//label[contains(@data-ng-if,'avaiSettingLevels.sportType')]    ${ac_strDisplay}
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divBetLimit}//label[@for='414']    Level 1
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divBetLimit}//label[@for='415']    Level 2
+    Run Keyword And Continue On Failure    ${ac_kw}    //input[@id='414']
+    Run Keyword And Continue On Failure    ${ac_kw}    //input[@id='415']
+    ##
+    ## Check Games type
+    ${ac_divGametype}    Set Variable    ${ac_divBetLimit}/div[1]/div[@data-ng-repeat='detail in item.details']
+    ${ac_lnkMore}    Set Variable    ${ac_divBetLimit}//a[@data-ng-click='getLevelGroupDetails(item)']
+    ${ac_strGametypes}    Set Variable    Amazon_Big Haul_Bushido Code_Casino Stud Poker_Catch the Waves_Chinese Treasure_Chinese Zodiac_Dancing Lions_Dragon King_Dragons and Pearls_Fish 'O' Mania_Fortune Panda_God of Wealth_Gold of Ra_Guardian Lion_Ice World_Infinite Turbo_King of Time_Lady Luck_Mystic Riches_Phoenix Princess_Roulette_Temple Treasures_Thai Dragon_Treasure Reef_Venetia_Weber Cup_Wild Dolphin_Wolf Quest_World Snooker Masters
+    ${ac_lstGames}    Split String    ${ac_strGametypes}    _
+    ${ac_lstGamesTop10}    Get Slice From List    ${ac_lstGames}    0    10
+    Verify Gametype in Bet Limit    ${ac_divGametype}    ${ac_lstGamesTop10}
+    Click Element    ${ac_lnkMore}
+    Verify View More Bet Limit Popup UI    ${ac_strDisplay}    ${ac_lstGames}
+
+Verify View More Bet Limit Popup UI
+    [Arguments]    ${ac_Product}    ${ac_lstGametype}
+    ## Check BetLimit Header
+    ${ac_divPopup}    Set Variable    //div[@data-ng-if='item.allDetails']
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${ac_divPopup}    ${cfWaitControl}
+    ##
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divPopup}//div[@class='modal__title ng-binding']    Bet Limit
+    Run Keyword And Continue On Failure    Element Should Contain    ${ac_divPopup}//label[contains(@data-ng-if,'avaiSettingLevels.sportType')]    ${ac_Product}
+    Verify Gametype in Bet Limit    ${ac_divPopup}//div[@data-ng-if='settingType | validSettingType']/div[1]/div[@data-ng-repeat='detail in item.details']    ${ac_lstGametype}
+    Click Element    ${ac_divPopup}//div[@class='modal__footer']/button
+
+Verify Gametype in Bet Limit
+    [Arguments]    ${ac_control}    ${ac_lstGametype}
+    Insert Into List    ${ac_lstGametype}    0    ${EMPTY}
+    ${ac_noGametype}    Get Length    ${ac_lstGametype}
+    : FOR    ${ac_index}    IN RANGE    1    ${ac_noGametype}
+    \    ${ac_iGametype}    Get From List    ${ac_lstGametype}    ${ac_index}
+    \    Run Keyword And Continue On Failure    Element Should Contain    ${ac_control}[${ac_index}]    ${ac_iGametype}

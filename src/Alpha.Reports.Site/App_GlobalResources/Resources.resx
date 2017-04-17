@@ -280,7 +280,7 @@
     <value>Do not show again</value>
   </data>
   <data name="ThereIsNoProduct" xml:space="preserve">
-    <value>There is no Product.</value>
+    <value>There is no product.</value>
   </data>
   <data name="NoInformationIsAvailable" xml:space="preserve">
     <value>No information is available</value>
@@ -388,17 +388,48 @@
     <value>FT</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
-		<value>Outstanding</value>
-	</data>
+    <value>Outstanding</value>
+  </data>
   <data name="MemberOutstanding" xml:space="preserve">
-		<value>Member Outstanding</value>
-	</data>
+    <value>Member Outstanding</value>
+  </data>
   <data name="AgentOutstanding" xml:space="preserve">
-		<value>Agent Outstanding</value>
-	</data>
+    <value>Agent Outstanding</value>
+  </data>
   <data name="MasterOutstanding" xml:space="preserve">
-		<value>Master Outstanding</value>
-	</data>
+    <value>Master Outstanding</value>
+  </data>
+  <data name="MasterPlayForFunDetail" xml:space="preserve">
+    <value>Master Play For Fun Detail</value>
+  </data>
+  <data name="MemberPlayForFunDetail" xml:space="preserve">
+    <value>Member Play For Fun Detail</value>
+  </data>
+  <data name="AgentPlayForFunDetail" xml:space="preserve">
+    <value>Agent Play For Fun Detail</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="NoPlayers" xml:space="preserve">
+    <value>No.Players</value>
+  </data>
+  <data name="PlayCount" xml:space="preserve">
+    <value>Play Count</value>
+  </data>
+  <data name="PlayForFun" xml:space="preserve">
+    <value>Play For Fun</value>
+  </data>
+
   <data name="WinPlace" xml:space="preserve">
 		<value>Win Place</value>
 	</data>
@@ -444,6 +475,18 @@
   <data name="Match" xml:space="preserve">
     <value>Match</value>
   </data>
+  <data name="Daily" xml:space="preserve">
+    <value>Daily</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>Sport</value>
+  </data>
+  <data name="WinLossAnalysis" xml:space="preserve">
+    <value>Win Loss Analysis</value>
+  </data>
   <data name="PositionTaking" xml:space="preserve">
     <value>Position Taking</value>
   </data>
@@ -485,5 +528,17 @@
   </data>
   <data name="GrandTotal" xml:space="preserve">
     <value>Grand Total</value>
+  </data>
+  <data name="ReportBy" xml:space="preserve">
+    <value>Report by</value>
+  </data>
+  <data name="DailyWinLossAnalysis" xml:space="preserve">
+    <value>Daily Win Loss Analysis</value>
+  </data>
+  <data name="MonthlyWinLossAnalysis" xml:space="preserve">
+    <value>Monthly Win Loss Analysis</value>
+  </data>
+  <data name="SportWinLossAnalysis" xml:space="preserve">
+    <value>Sport Win Loss Analysis</value>
   </data>
 </root>

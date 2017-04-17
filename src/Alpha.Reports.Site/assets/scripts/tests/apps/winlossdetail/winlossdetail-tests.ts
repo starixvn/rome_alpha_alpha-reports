@@ -3,11 +3,11 @@
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     const pagerComponent = new PagerComponent($);
     const linkBuilderComponent = new LinkBuilderComponent($);
+
     const sortComponent = new SortComponent($, linkBuilderComponent);
     const monthPickerComponent = new MonthPickerComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const reportTooltip = new ReportTooltip($);
-
     let winLossDetailView: WinLossDetailView;
 
     let cacheElements: jasmine.Spy,

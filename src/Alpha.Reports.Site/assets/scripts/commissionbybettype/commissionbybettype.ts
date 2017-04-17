@@ -4,11 +4,9 @@
 
 "use strict";
 
-class CommissionByBettype {
-    $: JQueryStatic;
+class CommissionByBettype extends BaseReport {
     dateRangePicker: DateRangePickerComponent;
     sorter: SortComponent;
-    linkBuilderComponent: LinkBuilderComponent;
 
     $exportExcelForm: JQuery;
     $excelIcon: JQuery;
@@ -24,10 +22,10 @@ class CommissionByBettype {
         dateRangePicker: DateRangePickerComponent,
         sorter: SortComponent,
         linkBuilderComponent: LinkBuilderComponent) {
-        this.$ = $;
+        super($, linkBuilderComponent);
+
         this.dateRangePicker = dateRangePicker;
         this.sorter = sorter;
-        this.linkBuilderComponent = linkBuilderComponent;
     }
 
     init = () => {
@@ -42,25 +40,23 @@ class CommissionByBettype {
             true,
             this.sorter.afterSort,
             { 0: { sorter: "text" } }));
+        this.initHelp();
     };
 
     cacheDOMElements = () => {
-        this.$exportExcelForm = this.$("#export-excel-form");
-        this.$excelIcon = this.$("#icon-excel");
-        this.$tableReport = this.$("#tbl-report");
-        this.$reportForm = this.$("#report-form");
+        super.cacheElements();
 
-        this.$isFilterVisible = this.$("#IsFilterVisible");
+        this.$excelIcon = this.$("#icon-excel");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
-        this.$pageTitle = this.$(".page-title");
     };
 
-    registerEvents = () => {
+    public registerEvents() {
+        super.registerEvents();
+
         this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$reportForm.submit(this.onSubmitReport);
-        this.$(".icon-filter").on("click", this.onClickIconFilter);
-    };
+    }
 
     onExportExcelEvent = () => {
         this.$exportExcelForm.submit();
@@ -83,23 +79,6 @@ class CommissionByBettype {
             IsDescendingSort: sortInfo.isDescendingSort,
             IsFilterVisible: !this.$reportForm.is(":hidden")
         };
-    };
-    onClickIconFilter = () => {
-        let filter = this.$reportForm;
-        let currentHideState = filter.hasClass("hide");
-
-        if (currentHideState) {
-            this.$pageTitle.removeClass("hide-filter");
-            this.$reportForm.removeClass("hide");
-        } else {
-            this.$pageTitle.addClass("hide-filter");
-            this.$reportForm.addClass("hide");
-        }
-
-        this.replaceHrefParam("IsFilterVisible", currentHideState);
-    };
-    replaceHrefParam = (paramName: string, paramValue: any) => {
-        this.linkBuilderComponent.updateParam(paramName, paramValue);
     };
 }
 

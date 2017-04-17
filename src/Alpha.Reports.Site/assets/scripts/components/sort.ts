@@ -126,7 +126,8 @@ class SortComponent {
 
         this.$sortContainer.off("sortEnd").on("sortEnd", () => {
             var $sortedcolumn = this.$sortContainer
-                .find("thead.tableFloatingHeaderOriginal th.sorting.sorting-asc:visible,thead.tableFloatingHeaderOriginal th.sorting.sorting-desc:visible");
+                .find("thead.tableFloatingHeaderOriginal th.sorting.sorting-asc:visible" +
+                ",thead.tableFloatingHeaderOriginal th.sorting.sorting-desc:visible");
 
             var modeFilterClass = this.$sortContainer.hasClass("stack-mode")
                 ? ".hidden-stack-mode"
@@ -171,5 +172,19 @@ class SortComponent {
         } else {
             this.$reportForm.trigger("submit");
         }
+    };
+    mapSortedColumnToStackMode = (sortedColumn: string, stackColumnGroups: string[][]) => {
+        for (let i = 0; i < stackColumnGroups.length; i++) {
+            var stackColumnGroup = stackColumnGroups[i];
+            var firstColum = stackColumnGroup[0];
+
+            for (let j = 0; j < stackColumnGroup.length; j++) {
+                if (sortedColumn.toLowerCase() === stackColumnGroup[j].toLowerCase()) {
+                    return firstColum;
+                }
+            }
+        }
+
+        return sortedColumn;
     };
 }

@@ -1,0 +1,276 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Collections
+Resource          ../common_actions.txt
+Resource          ../../Interfaces/Main/in_m_edit_bingo.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+
+*** Keywords ***
+Get Bingo PT Values
+    [Arguments]    ${username}    ${type}
+    Navigate to Edit page    Edit Bingo    ${username}
+    @{acc_tmplst}    Get Bingo PT Controls    ${type}
+    ${acc_output}    Create List
+    ${acc_posChk}    Set Variable    2
+    ${acc_i}    Set Variable    -1
+    : FOR    ${acc_iControl}    IN    @{acc_tmplst}
+    \    ${acc_i}    Evaluate    ${acc_i}+1
+    \    Continue For Loop If    ${acc_i}==${acc_posChk}
+    \    ${acc_iValue}    Run Keyword Unless    '${acc_iControl}'=='${Empty}'    Execute Javascript    return document.getElementById("${acc_iControl}").value
+    \    Append To List    ${acc_output}    ${acc_iValue}
+    ${acc_iControl}    Set Variable If    '${type}'=='Master'    @{acc_tmplst}[2]    ${EMPTY}
+    ${acc_iValue}    Run Keyword If    '${type}'=='Master'    Get Element Attribute    ${acc_iControl}@checked
+    ${acc_iValue}    Set Variable If    '${acc_iValue}'=='true'    1    0
+    Run Keyword If    '${type}'=='Master'    Insert Into List    ${acc_output}    ${acc_posChk}    ${acc_iValue}
+    [Return]    ${acc_output}
+
+Edit Bingo PT
+    [Arguments]    ${type}    @{ls_value}
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword If    '${type}' == 'Master'    Run Keywords    PT Select From List By Label    ${in_m_editbingo_slbSuperPrePT}    @{ls_value}[0]    AND
+    ...    PT Select From List By Label    ${in_m_editbingo_slbMasterMaxPT}    @{ls_value}[1]    AND    PT Select From List By Label    ${in_m_editbingo_slbMasterMinPT}
+    ...    @{ls_value}[2]
+    Run Keyword If    '${type}' == 'Agent'    Run Keywords    PT Select From List By Label    ${in_m_editbingo_slbMasterPrePT}    @{ls_value}[0]    AND
+    ...    PT Select From List By Label    ${in_m_editbingo_slbAgentMaxPT}    @{ls_value}[1]    AND    PT Select From List By Label    ${in_m_editbingo_slbAgentMinPT}
+    ...    @{ls_value}[2]
+    Run Keyword If    '${type}' == 'Member'    Run Keywords    PT Select From List By Label    ${in_m_editbingo_slbAgentPrePT}    @{ls_value}[0]
+    Sleep    2s
+    Click Element    //*[@id='btnAdd']/table/tbody/tr/td/div/input
+    Sleep    10s
+    Unselect Frame
+
+Get Bingo PT Controls
+    [Arguments]    ${type}
+    [Documentation]    This action is used to get Bingo PT value and controls
+    ...
+    ...    ${type}: the account type
+    ...
+    ...    ${acc_output}: the list contain PT controls (MaxPT, UplinePresetPT, isAutoPT, AutoPresetPT,MinPT)
+    ${acc_lstMaster}    Create List    2_0_MPresetPT    2_0_SPresetPT    2_0_ChkSAutoPT    2_0_SAutoPT    2_0_MMinPT
+    ${acc_lstAgent}    Create List    2_0_APresetPT    2_0_MPresetPT    ${EMPTY}    ${EMPTY}    2_0_AMinPT
+    ${acc_lstMember}    Create List    2_0_APresetPT    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ${acc_output}    Get Variable Value    ${acc_lst${type}}
+    [Return]    ${acc_output}
+
+Check Bingo PT
+    [Arguments]    ${username}    ${type}    ${lstValues}
+    [Documentation]    This action is used to edit Bingo PT of account
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${type}: the account type (Master/Agent/Member)
+    ...
+    ...    ${lstValues}: the list contain PT value (MaxPT, UplinePresetPT,isUplineAutoPT,UplineAutoPT,MinPT). The ${Empty} item mean this item does not need to be edited
+    ${acc_currentValues}    Get Bingo PT Values    ${username}    ${type}
+    ${acc_lstItemName}    create list    Max PT    Upline Preset PT    isAuto    Upline Auto Preset PT    Min PT
+    ${acc_len}    Get Length    ${lstValues}
+    ${acc_len}    Evaluate    min(len(${acc_currentValues}),${acc_len})
+    : FOR    ${i}    IN RANGE    0    ${acc_len}
+    \    ${ichecked}    Get From List    ${lstValues}    ${i}
+    \    Continue For Loop If    '${ichecked}'=='' or '${ichecked}'=='${EMPTY}'
+    \    ${PT}    Get From List    ${acc_currentValues}    ${i}
+    \    ${Item}    Get From List    ${acc_lstItemName}    ${i}
+    \    Run Keyword And Continue On Failure    Should Be Equal As Numbers    ${PT}    ${ichecked}    ${Item} value is not correct. Current value is ${PT} but checked value is ${ichecked}
+
+Edit Bingo PT new
+    [Arguments]    ${username}    ${type}    ${lstValues}    ${isUpdated}=1
+    [Documentation]    This action is used to edit Sportsbook PT of account    ####
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${type}: the account type (Master/Agent/Member)
+    ...
+    ...    ${Sporttype}: the sporttype
+    ...
+    ...    ${Bettype}: the bettype
+    ...
+    ...    ${isLive}: the liveindicator
+    ...
+    ...    ${isUpdated}: click update button or not (0/1)
+    ...
+    ...    ${lstValues}: the list contain PT value (MaxPT, UplinePresetPT,isUplineAutoPT,UplineAutoPT). The ${Empty} item mean this item does not need to be edited
+    ...
+    ...    ${acc_output}: the output msg
+    ...
+    ...
+    ...
+    ...    20150529: Set ${acc_output}= Empty
+    ## Goto Edit page
+    Navigate to Edit page    Edit Bingo    ${username}
+    ## Get SB PT Controls
+    @{tmplst}    Get Bingo PT Controls    ${type}
+    ${NoAddValue}    Evaluate    5 - len(${lstValues})
+    Repeat Keyword    ${NoAddValue}    Append To List    ${lstValues}    ${EMPTY}
+    ## Get SB PT Values
+    @{tmpValues}    Set Variable    ${lstValues}
+    ## Set Auto or not
+    ${kw}    Set Variable if    '@{tmpValues}[2]' == '1'    Select Checkbox    Unselect Checkbox
+    Run Keyword Unless    '@{tmpValues}[2]' == '${EMPTY}'    ${kw}    @{tmplst}[2]
+    ${kw}    Set Variable    Select From List By Value
+    ##
+    Edit Control value    @{tmplst}[3]    ${kw}    @{tmpValues}[3]
+    Edit Control value    @{tmplst}[1]    ${kw}    @{tmpValues}[1]
+    Edit Control value    @{tmplst}[0]    ${kw}    @{tmpValues}[0]
+    Edit Control value    @{tmplst}[0]    ${kw}    @{tmpValues}[4]
+    ## Click Update
+    Run Keyword If    '${isUpdated}'=='1'    Click Element    ${in_m_editbingo_btnSubmit}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_editsb_msg}    ${cf_timeout_long}
+    ## Get msg
+    Comment    ${acc_output}    Run Keyword And Continue On Failure    Get Text    ${in_m_editsb_msg}
+    ${acc_output}    Set Variable    ${EMPTY}
+    [Return]    ${acc_output}
+
+Edit Bingo PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}    ${N3}=${EMPTY}
+    [Documentation]    *This Action is used to Update Bingo Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    main
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboS3}    ${S3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboM3}    ${M3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    ${in_m_BG_pt_chkIs3}    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboUs3}    ${Us3}
+    Run Keyword If    '${N3}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboN3}    ${N3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_BG_btnSubmit}
+    unselect frame
+
+Edit Bingo PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}    ${Us1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Bingo Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    main
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboS1}    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    ${in_m_BG_pt_chkIs1}    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboUs1}    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_BG_btnSubmit}
+    unselect frame
+
+Edit Bingo PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}    ${N2}=${EMPTY}
+    [Documentation]    *This Action is used to Update Bingo Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    main
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboM2}    ${M2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboA2}    ${A2}
+    Run Keyword If    '${N2}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboN2}    ${N2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_BG_btnSubmit}
+    unselect frame
+
+Edit Bingo PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${M1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Bingo Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    unselect frame
+    select frame    main
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboM1}    ${M1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_BG_btnSubmit}
+    unselect frame
+
+Edit Bingo PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${A1}=${EMPTY}
+    [Documentation]    *This Action is used to Update Bingo Position Taking - Agent Edit Member*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select From List By Label    ${in_m_BG_pt_cboA1}    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_BG_btnSubmit}
+    Unselect Frame
+
+Verify Bingo PT_SuperMaster
+    [Arguments]    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    Unselect Frame
+    Select Frame    main
+    # Check S3    ${in_m_BG_pt_cboS3}
+    ${actualValue}    Run keyword if    '${expectedS3}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboS3}
+    Run keyword if    '${expectedS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check M3
+    ${actualValue}    Run keyword if    '${expectedM3}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboM3}
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+    # Check Is3
+    ${actualValue}    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Get Value    ${in_m_BG_pt_chkIs3}
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboUs3}
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    # Check N3
+    ${actualValue}    Run keyword if    '${expectedN3}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboN3}
+    Run keyword if    '${expectedN3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedN3}
+    Unselect Frame
+
+Verify Bingo PT_SuperPlayer
+    [Arguments]    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    Unselect Frame
+    Select Frame    main
+    # Check M1
+    ${actualValue}    Run keyword if    '${expectedS1}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboS1}
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Im1
+    ${actualValue}    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Get Value    ${in_m_BG_pt_chkIs1}
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Um1
+    ${actualValue}    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboUs1}
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify Bingo PT_MasterAgent
+    [Arguments]    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Master Edit Agent*
+    ...    - M2,A2, Im2, Um2
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    Unselect Frame
+    Select Frame    main
+    # Check M2
+    ${actualValue}    Run keyword if    '${expectedM2}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboM2}
+    Run keyword if    '${expectedM2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check A2
+    ${actualValue}    Run Keyword If    '${expectedA2}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboA2}
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+    # Check N2
+    ${actualValue}    Run keyword if    '${expectedN2}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboN2}
+    Run keyword if    '${expectedN2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedN2}
+    Unselect Frame
+
+Verify Bingo PT_MasterPlayer
+    [Arguments]    ${expectedM1}=${EMPTY}    ${expectedA1}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Maser Edit Member*
+    ...    - M1,Is1, Um1,A1
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    Unselect Frame
+    Select Frame    main
+    # Check M1
+    ${actualValue}    Run Keyword If    '${expectedM1}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboM1}
+    Run Keyword If    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check A1
+    ${actualValue}    Run Keyword If    '${expectedA1}'!='${EMPTY}'    Get Selected List Label    ${in_m_BG_pt_cboA1}
+    Run Keyword If    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA1}
+    Unselect Frame
+
+Verify Bingo PT_AgentPlayer
+    [Arguments]    ${expectedA1}
+    [Documentation]    *This action is used to Veriry PT Setting: Agent Edit Member*
+    ...    - A1
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    Unselect Frame
+    Select Frame    main
+    # Check A1
+    ${ac_A1}    Get Selected List Label    ${in_m_BG_pt_cboA1}
+    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame

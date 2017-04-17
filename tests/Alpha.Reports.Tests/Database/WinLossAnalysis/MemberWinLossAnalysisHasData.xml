@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WinLossAnalysis>
+  <TableWinLoss>
+    <RollupKey>02/2017</RollupKey>
+    <BetCount>10</BetCount>
+    <Turnover>0</Turnover>
+    <MemberWinLoss>3</MemberWinLoss>
+    <MemberComm>4</MemberComm>
+    <AgWinLoss>5</AgWinLoss>
+    <AgComm>6</AgComm>
+    <NumberOfTickets>11</NumberOfTickets>
+    <RowNum>12</RowNum>
+  </TableWinLoss>
+  <TableWinLoss>
+    <RollupKey>03/2017</RollupKey>
+    <BetCount>10</BetCount>
+    <Turnover>20</Turnover>
+    <MemberWinLoss>13</MemberWinLoss>
+    <MemberComm>14</MemberComm>
+    <AgWinLoss>15</AgWinLoss>
+    <AgComm>16</AgComm>
+    <NumberOfTickets>111</NumberOfTickets>
+    <RowNum>112</RowNum>
+  </TableWinLoss>
+</WinLossAnalysis>

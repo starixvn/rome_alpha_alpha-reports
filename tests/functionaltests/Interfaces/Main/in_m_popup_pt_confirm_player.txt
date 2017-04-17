@@ -1,0 +1,8 @@
+*** Settings ***
+Documentation     This is used for Product:
+...               - Virtual Sport
+
+*** Variables ***
+${in_mp_ptvs_cfmPlayer_btnYes}    //*[@id='idConfirm_yesButton']
+${in_mp_ptvs_cfmPlayer_btnNo}    //*[@id='idConfirm_noButton']
+${in_mp_ptvs_cfmPlayer_cboPayerPT}    //*[@id='selectedMemberPositionTaking']/tbody/tr/td[2]/div/select

@@ -1,0 +1,128 @@
+*** Settings ***
+Documentation     *Summary: Edit Virtual Sports Master PT*
+...
+...               *Steps:*
+...
+...               1. Log in as a Super (SUPERTESTAUTOALPHA01)
+...               2. Navigate Account Info tab then search a master
+...               3. Click Edit Virtual Sports in setting tab
+...               4. Edit values (Super PT,Master Max PT,Master Min PT) for all sports
+...               5. Click Submit button
+...               6. VP. Message , setting window closed after update
+...               7. Click Edit Virtual Sports in setting tab
+...               8. Check values
+...               9. \ Set default values (Super PT,Master Max PT,Master Min PT) for all sports
+...               10. Close browers
+Suite Setup       Init    username=${cf_supertestauto}
+Suite Teardown    Close All Browsers
+Force Tags        SEM
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../../Actions/common_actions.txt
+Resource          ../../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../../Actions/Setting/status_actions.txt
+Resource          ../../../Interfaces/in_top_menu.txt
+Resource          ../../../Interfaces/Main/in_main.txt
+Resource          ../../../Interfaces/in_left_menu.txt
+Resource          ../../../Actions/PT/pt_sportsbook.html
+Resource          ../../../Data_set/accounts.txt
+Resource          ../../../Actions/PT/pt_virtualsports.txt
+
+*** Variables ***
+${cf_supertestauto}    supertestAutoAlpha01
+${cf_mastertestauto}    supertestAutoAlpha0101
+${cf_acc_auto_pass}    1234aaAA
+
+*** Test Cases ***
+TM_00_soccer
+    [Tags]    123
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Super}    Set Variable    ${cf_supertestauto}
+    ${tm_Master}    Set Variable    ${cf_mastertestauto}
+    ${tm_superpt}    Set Variable    0.19
+    ${tm_mastermaxpt}    Set Variable    0.7
+    ${tm_masterminpt}    Set Variable    0.1
+    ${tm_list}    Create List    0.19    0.7    0.1
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Master}
+    Edit Virtual PT    Super    Soccer    Yes    ${tm_superpt}    ${tm_mastermaxpt}    ${tm_masterminpt}
+    Reload Page
+    Search Account    ${tm_Master}
+    ${tm_listVirtualSoccerafter}    Get Virtual PT    Super    Soccer
+    Lists Should Be Equal    ${tm_listVirtualSoccerafter}    ${tm_list}
+    Edit Virtual PT    Super    Soccer    Yes    0    0.69    0
+    [Teardown]
+
+TM_01_tennis
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Super}    Set Variable    ${cf_supertestauto}
+    ${tm_Master}    Set Variable    ${cf_mastertestauto}
+    ${tm_superpt}    Set Variable    0.19
+    ${tm_mastermaxpt}    Set Variable    0.7
+    ${tm_masterminpt}    Set Variable    0.1
+    ${tm_list}    Create List    0.19    0.7    0.1
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Master}
+    Edit Virtual PT    Super    Tennis    Yes    ${tm_superpt}    ${tm_mastermaxpt}    ${tm_masterminpt}
+    Reload Page
+    Search Account    ${tm_Master}
+    ${tm_listVirtualSoccerafter}    Get Virtual PT    Super    Tennis
+    Lists Should Be Equal    ${tm_listVirtualSoccerafter}    ${tm_list}
+    Edit Virtual PT    Super    Tennis    Yes    0    0.69    0
+
+TM_02_horse racing
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Super}    Set Variable    ${cf_supertestauto}
+    ${tm_Master}    Set Variable    ${cf_mastertestauto}
+    ${tm_superpt}    Set Variable    0.19
+    ${tm_mastermaxpt}    Set Variable    0.7
+    ${tm_masterminpt}    Set Variable    0.1
+    ${tm_list}    Create List    0.19    0.7    0.1
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Master}
+    Edit Virtual PT    Super    Horseracing    Yes    ${tm_superpt}    ${tm_mastermaxpt}    ${tm_masterminpt}
+    Reload Page
+    Search Account    ${tm_Master}
+    ${tm_listVirtualSoccerafter}    Get Virtual PT    Super    Horseracing
+    Lists Should Be Equal    ${tm_listVirtualSoccerafter}    ${tm_list}
+    Edit Virtual PT    Super    Horseracing    Yes    0    0.69    0
+
+TM_03_greyhounds
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Super}    Set Variable    ${cf_supertestauto}
+    ${tm_Master}    Set Variable    ${cf_mastertestauto}
+    ${tm_superpt}    Set Variable    0.19
+    ${tm_mastermaxpt}    Set Variable    0.7
+    ${tm_masterminpt}    Set Variable    0.1
+    ${tm_list}    Create List    0.19    0.7    0.1
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Master}
+    Edit Virtual PT    Super    Greyhounds    Yes    ${tm_superpt}    ${tm_mastermaxpt}    ${tm_masterminpt}
+    Reload Page
+    Search Account    ${tm_Master}
+    ${tm_listVirtualSoccerafter}    Get Virtual PT    Super    Greyhounds
+    Lists Should Be Equal    ${tm_listVirtualSoccerafter}    ${tm_list}
+    Edit Virtual PT    Super    Greyhounds    Yes    0    0.69    0
+
+TM_04_motorsports
+    COMMENT    ==============================>    SET VARIABLE
+    ${tm_Super}    Set Variable    ${cf_supertestauto}
+    ${tm_Master}    Set Variable    ${cf_mastertestauto}
+    ${tm_superpt}    Set Variable    0.19
+    ${tm_mastermaxpt}    Set Variable    0.7
+    ${tm_masterminpt}    Set Variable    0.1
+    ${tm_list}    Create List    0.19    0.7    0.1
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_Master}
+    Edit Virtual PT    Super    Motorsports    Yes    ${tm_superpt}    ${tm_mastermaxpt}    ${tm_masterminpt}
+    Reload Page
+    Search Account    ${tm_Master}
+    ${tm_listVirtualSoccerafter}    Get Virtual PT    Super    Motorsports
+    Lists Should Be Equal    ${tm_listVirtualSoccerafter}    ${tm_list}
+    Edit Virtual PT    Super    Motorsports    Yes    0    0.69    0

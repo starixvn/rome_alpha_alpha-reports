@@ -4,6 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Configurations;
+    using Enumerations;
+    using Reports.Models;
     using Web.Helpers;
 
     public static class UrlHelper
@@ -19,16 +22,28 @@
 
         public static Func<string, IDictionary<string, object>, string> AddQueryStringParamsFunc
         {
-            get { return addQueryStringParamsFunc ?? AddQueryStringParams; }
+            get
+            {
+                return addQueryStringParamsFunc ?? AddQueryStringParams;
+            }
 
-            internal set { addQueryStringParamsFunc = value; }
+            internal set
+            {
+                addQueryStringParamsFunc = value;
+            }
         }
 
         public static Func<string, IDictionary<string, object>, string> ReplaceOrAddQueryStringParamsFunc
         {
-            get { return replaceOrAddQueryStringParamsFunc ?? ReplaceOrAddQueryStringParams; }
+            get
+            {
+                return replaceOrAddQueryStringParamsFunc ?? ReplaceOrAddQueryStringParams;
+            }
 
-            internal set { replaceOrAddQueryStringParamsFunc = value; }
+            internal set
+            {
+                replaceOrAddQueryStringParamsFunc = value;
+            }
         }
 
         public static Func<string, string> MapExMainPath
@@ -37,6 +52,8 @@
 
             internal set { mapExMainPath = value; }
         }
+
+        public static Func<string, string, string> GetSiteUrl { get; internal set; } = GetUrl;
 
         internal static string AddQueryStringParams(string url, IDictionary<string, object> routeValues)
         {
@@ -84,6 +101,14 @@
             }
 
             return url + $"&{paramName}={paramValue}";
+        }
+
+        internal static string GetUrl(string action, string currentQuery)
+        {
+            var relativePath = action + currentQuery;
+            var url = AppPathHelper.GetAppPath(SiteSettings.ReportsAppPath, relativePath);
+
+            return url;
         }
     }
 }

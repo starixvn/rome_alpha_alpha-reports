@@ -209,20 +209,23 @@
     <value>試合勝ち負け詳細</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
-		<value>未払い</value>
-	</data>
+    <value>未払い</value>
+  </data>
   <data name="MemberOutstanding" xml:space="preserve">
-		<value>メンバー未払い</value>
-	</data>
+    <value>メンバー未払い</value>
+  </data>
   <data name="AgentOutstanding" xml:space="preserve">
-		<value>エージェント未払い</value>
-	</data>
+    <value>エージェント未払い</value>
+  </data>
   <data name="MasterOutstanding" xml:space="preserve">
-		<value>マスター未払い残高</value>
-	</data>
+    <value>マスター未払い残高</value>
+  </data>
   <data name="RacingCommission" xml:space="preserve">
 		<value>Racing Commission</value>
 	</data>
+  <data name="Status" xml:space="preserve">
+    <value>状態</value>
+  </data>
   <data name="Tote" xml:space="preserve">
 		<value>Tote</value>
 	</data>
@@ -232,6 +235,12 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>すべてのリーグ</value>
   </data>
+ <data name="Sport" xml:space="preserve">
+    <value>スポーツ</value>
+  </data>
+  <data name="MemberWinLoss" xml:space="preserve">
+    <value>メンバー勝ち負け</value>
+</data>
 
   <data name="Win" xml:space="preserve">
 		<value>Win</value>

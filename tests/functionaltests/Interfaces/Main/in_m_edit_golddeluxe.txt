@@ -1,0 +1,31 @@
+*** Settings ***
+Documentation     This is interface of Edit Setting Customer for Product {GoldDeluxe}
+...
+...               - Navigation: Account Info > Search Customer> Setting tab > Gold Deluxe
+...               - Note: under iframe 'main'
+
+*** Variables ***
+# PT Controls
+${in_m_GD_pt_cboS3}    //*[@id='ddlS3']    # S3 .//*[@id='ddlS3']
+${in_m_GD_pt_chkIs3}    //*[@id='cbIs3']    # is3: xpath.//*[@id='cbIs3']
+${in_m_GD_pt_cboUs3}    //*[@id='ddlUs3']    # us3
+${in_m_GD_pt_cboN3}    //*[@id='ddlN3']    # N3
+${in_m_GD_pt_cboM3}    //*[@id='ddlM3']    # M3
+${in_m_GD_pt_cboM2}    //*[@id='ddlM2']
+${in_m_GD_pt_cboA2}    //*[@id='ddlA2']
+${in_m_GD_pt_chkIm2}    //*[@id='cbIm2']
+${in_m_GD_pt_cboUm2}    //*[@id='ddlUm2']
+${in_m_GD_pt_cboN2}    //*[@id='ddlN2']
+${in_m_GD_pt_cboS1}    //*[@id='ddlS1']    # S1
+${in_m_GD_pt_cboM1}    //*[@id='ddlM1']    # M1
+${in_m_GD_pt_cboA1}    //*[@id='ddlA1']    # A1
+${in_m_GD_pt_chkIs1}    //*[@id='cbIs1']    # is1
+${in_m_GD_pt_cboUs1}    //*[@id='ddlUs1']    #us1
+${in_m_GD_pt_chkIm1}    //*[@id='cbIm1']    # im1
+${in_m_GD_pt_cboUm1}    //*[@id='ddlUm1']    #um1
+${in_m_GD_pt_lblS1}    xpath=//*[@id='tblPtComSetting']/table/tbody/tr/td[1]
+${in_m_GD_pt_lblM1}    xpath=//*[@id='tblPtComSetting']/table/tbody/tr/td[3]    # M1 value if Super View Member, A1 value if Master view Member
+${in_m_GD_pt_lblA1}    xpath=//*[@id='tblPtComSetting']/table/tbody/tr/td[4]    # A1 value if SuperView Member
+${in_m_GD_pt_btnPTCommSave}    xpath = //*[@id='tblPtComSetting']/div[1]/span[2]    # save button icon at Position Taking/Commision Group
+${in_m_GD_btnSubmit}    //*[@id='tblSetting']/div[8]/input    # submit button
+${in_m_GD_pt_message}    //*/div[@class="sub-message ng-scope"]

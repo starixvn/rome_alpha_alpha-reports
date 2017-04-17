@@ -1,0 +1,4 @@
+*** Variables ***
+${in_mp_cboPT}    xpath=//*[@data-ng-model='uplinePTOnMember.newUplinePositionTaking']
+${in_mp_btnYes}    xpath=//*[@data-ng-click='updatePTOnMember(true)']    # //*[@id='presetOnMemberModal']/div/div/div[3]/input[1]
+${in_mp_btnNo}    xpath=//*[@data-ng-click='updatePTOnMember(false)']

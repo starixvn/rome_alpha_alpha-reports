@@ -338,17 +338,27 @@
     <value>Loại cược</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
-		<value>Tiền chưa xử lý</value>
-	</data>
+    <value>Tiền chưa xử lý</value>
+  </data>
   <data name="MemberOutstanding" xml:space="preserve">
-		<value>Tiền chưa xử lý của Member</value>
-	</data>
+    <value>Tiền chưa xử lý của Member</value>
+  </data>
   <data name="AgentOutstanding" xml:space="preserve">
-		<value>Tiền chưa xử lý của Agent</value>
-	</data>
+    <value>Tiền chưa xử lý của Agent</value>
+  </data>
   <data name="MasterOutstanding" xml:space="preserve">
-		<value>Tiền chưa xử lý của Master</value>
-	</data>
+    <value>Tiền chưa xử lý của Master</value>
+  </data>
+   <data name="Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Vô hiệu hóa</value>
+  </data>
+
   <data name="RacingCommission" xml:space="preserve">
 		<value>Hoa hồng cho Racing</value>
 	</data>
@@ -409,5 +419,57 @@
   </data>
   <data name="Commission3" xml:space="preserve">
     <value>Hoa hồng 3</value>
+  </data>
+   <data name="Daily" xml:space="preserve">
+    <value>Hằng ngày</value>
+  </data>
+  <data name="DailyWinLossAnalysis" xml:space="preserve">
+    <value>Đánh giá kết quả thắng thua trong ngày</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Hằng tháng</value>
+  </data>
+  <data name="MonthlyWinLossAnalysis" xml:space="preserve">
+    <value>Phân tích hệ số thắng thua trong tháng</value>
+  </data>
+  <data name="ReportBy" xml:space="preserve">
+    <value>Báo cáo</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>Sport</value>
+  </data>
+
+  <data name="SportWinLossAnalysis" xml:space="preserve">
+    <value>Phân tích kết quả thắng thua của từng môn thể thao</value>
+  </data>
+  <data name="AgentPlayForFunDetail" xml:space="preserve">
+    <value>Chi tiết 'Chơi Thử' dành cho Agent</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Đã kích hoạt</value>
+  </data>
+  <data name="SelectProducts" xml:space="preserve">
+    <value>Lựa chọn sản phẩm</value>
+  </data>
+  <data name="AllProducts" xml:space="preserve">
+    <value>Tất cả sản phẩm</value>
+  </data>
+  <data name="MemberPlayForFunDetail" xml:space="preserve">
+    <value>Chi tiết 'Chơi Thử' của Member</value>
+  </data>
+  <data name="MasterPlayForFunDetail" xml:space="preserve">
+    <value>Chi tiết 'Chơi Thử' dành cho Master</value>
+  </data>
+  <data name="NoPlayers" xml:space="preserve">
+    <value>Số người chơi</value>
+  </data>
+  <data name="ThereIsNoProduct" xml:space="preserve">
+    <value>Không có sản phẩm nào</value>
+  </data>
+  <data name="PlayCount" xml:space="preserve">
+    <value>Số vé cược</value>
+  </data>
+  <data name="PlayForFun" xml:space="preserve">
+    <value>Chơi Thử</value>
   </data>
 </root>

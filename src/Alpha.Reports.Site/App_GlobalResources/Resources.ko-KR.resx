@@ -268,7 +268,7 @@
     <value>마스터 승리 패배</value>
   </data>
   <data name="MemberWinLoss" xml:space="preserve">
-    <value>สมาชิก (ชนะ แพ้)</value>
+    <value>회원 승리 패배</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>날짜</value>
@@ -317,17 +317,27 @@
     <value>매치 승리 패배</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
-		<value>대기 포인트</value>
-	</data>
+    <value>대기 포인트</value>
+  </data>
   <data name="MemberOutstanding" xml:space="preserve">
-		<value>회원 아웃스텐딩</value>
-	</data>
+    <value>회원 아웃스텐딩</value>
+  </data>
   <data name="AgentOutstanding" xml:space="preserve">
-		<value>에이전트 아웃스텐딩</value>
-	</data>
+    <value>에이전트 아웃스텐딩</value>
+  </data>
   <data name="MasterOutstanding" xml:space="preserve">
-		<value>마스터 대기 포인트</value>
-	</data>
+    <value>마스터 대기 포인트</value>
+  </data>
+    <data name="Status" xml:space="preserve">
+    <value>상황</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>모든</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>비활성화</value>
+  </data>
+
   <data name="RacingCommission" xml:space="preserve">
 		<value>경마 수수료</value>
 	</data>
@@ -381,6 +391,27 @@
   </data>
   <data name="NumberGame" xml:space="preserve">
     <value>넘버게임 커미션</value>
+  </data>
+  <data name="Daily" xml:space="preserve">
+    <value>매일</value>
+  </data>
+  <data name="DailyWinLossAnalysis" xml:space="preserve">
+    <value>일일승패금액분석</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>매월</value>
+  </data>
+  <data name="MonthlyWinLossAnalysis" xml:space="preserve">
+    <value>매월 승리/패배 분석</value>
+  </data>
+  <data name="ReportBy" xml:space="preserve">
+    <value>~에 의한 자료</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>스포츠</value>
+  </data>
+  <data name="SportWinLossAnalysis" xml:space="preserve">
+    <value>스포츠 적중/손실 (승패)분석</value>
   </data>
   <data name="SubTotal" xml:space="preserve">
     <value>총 하위</value>

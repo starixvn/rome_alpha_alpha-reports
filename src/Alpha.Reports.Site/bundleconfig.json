@@ -99,7 +99,47 @@
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
+      "assets/scripts/base-report.js",
       "assets/scripts/commissionbybettype/commissionbybettype.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/winlossanalysis/winlossanalysis.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/winlossanalysis/winlossanalysis.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/playforfun/playforfun-member.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/single-selection-dropdown.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/playforfun/playforfun.js",
+      "assets/scripts/playforfun/playforfun-member.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/playforfun/playforfun-master-agent.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/single-selection-dropdown.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/playforfun/playforfun.js",
+      "assets/scripts/playforfun/playforfun-master-agent.js"
     ]
   }
 ]
