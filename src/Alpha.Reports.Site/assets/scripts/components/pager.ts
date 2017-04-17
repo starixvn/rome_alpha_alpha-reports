@@ -26,8 +26,6 @@ class PagerComponent {
 
     pageList: number[] = [1000, 2000, 3000, 5000];
 
-    options = new PagerOption(this.onChange);
-
     constructor($: JQueryStatic) {
         this.$ = $;
     }
@@ -91,4 +89,6 @@ class PagerComponent {
         var result = this.totalRecords <= this.pageSize;
         return result;
     };
+
+    options = new PagerOption(this.onChange);
 }

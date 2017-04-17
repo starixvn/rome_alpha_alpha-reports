@@ -1,0 +1,52 @@
+*** Settings ***
+Suite Teardown    Close Browser
+Library           Selenium2Library
+Resource          Actions/common_actions.txt
+Resource          Data_set/accounts.txt
+
+*** Test Cases ***    dt_data
+data driven           [Tags]                      NO                            NoRun
+                      ${t1}                       Set Variable                  You can view the report data from 03/10/2017.
+                      ${t2}                       Fetch From Right              ${t1}                                                    ${SPACE}
+                      ${t2}                       Remove String                 ${t2}                                                    .
+                      log                         ${t2}
+                      ${tm_note}                  Get Text                      //*[@class='note']
+                      ${tm_balanceupday}          Fetch From Right              ${tm_note}                                               ${SPACE}
+                      ${tm_balanceupday}          Remove String                 ${tm_balanceupday}                                       .
+
+data driven2          [Tags]                      NoRun
+                      @{tm_sports_list}           Create List                   Sportsbook                                               Racing                 Number Game            Live Casino                    Virtual Sports    Casino
+                      : FOR                       ${tm_i}                       IN                                                       @{tm_sports_list}
+                      \                           @{aa}                         Create List                                              123                    342
+                      \                           Set Global Variable           @{Jmtest_${tm_i}}                                        @{aa}
+                      Scroll To Element
+                      Mouse Down
+                      Mouse Down
+
+data driven3          [Tags]                      NO3
+                      ${tm_year_of18month_ago}    ${tm_month_of18month_ago}     Get Time                                                 year month             NOW - 540 day
+                      ${tm_year_of3month_ago}     ${tm_month_of3month_ago}      Get Time                                                 year month             NOW - 90 day
+                      ${tm_tempYesterday}         Get Time                      day                                                      NOW + 13h -2d
+                      ${tm_templastweek}          Get Time                      day                                                      NOW + 13h -7d
+                      ${tm_year_of3years_ago}     ${tm_month_of3years_ago}      Get Time                                                 year month             NOW - 1080 day         #return year of 3 years ago
+                      ${tc_year}                  ${tc_month}                   ${tc_day}                                                Get Time               year, month,day        NOW + 13h -1d
+                      Set Global Variable         ${global_today}               ${tc_month}/${tc_day}/${tc_year}
+                      Set Global Variable         ${global_yesterday}           ${tc_month}/${tm_tempYesterday}/${tc_year}
+                      Set Global Variable         ${global_18months_ago}        ${tm_month_of18month_ago}/01/${tm_year_of18month_ago}
+                      Set Global Variable         ${global_3months_ago}         ${tm_month_of3month_ago}/01/${tm_year_of3month_ago}
+                      Set Global Variable         ${global_3years_ago}          01/01/${tm_year_of3years_ago}
+                      @{day_lastweek}             Split String To Characters    ${tm_templastweek}
+                      @{day_yesterday}            Split String To Characters    ${tm_tempYesterday}
+                      @{day_today}                Split String To Characters    ${tc_day}
+                      ${daylw}                    Set Variable If               @{day_lastweek}[0]==0                                    @{day_lastweek}[1]     ${tm_templastweek}
+                      ${dayyt}                    Set Variable If               @{day_yesterday}[0]==0                                   @{day_yesterday}[1]    ${tm_tempYesterday}
+                      ${daytd}                    Set Variable If               @{day_today}[0]==0                                       @{day_today}[1]        ${tc_day}
+                      Set Global Variable         ${global_lastweek_day}        ${daylw}
+                      Set Global Variable         ${global_day_yesterday}       ${dayyt}
+                      Set Global Variable         ${global_day_today}           ${daytd}
+                      Set Global Variable         ${global_lastmonth}           ${tc_month}-1/${tc_day}/${tc_year}
+
+*** Keywords ***
+log data
+    [Arguments]    ${dt_data}
+    log    ${dt_data}

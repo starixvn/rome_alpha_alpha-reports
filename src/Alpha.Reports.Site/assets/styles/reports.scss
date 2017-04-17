@@ -242,6 +242,27 @@ a {
             }
         }
     }
+
+    label[for="dropdown-statuses"] {
+        float: left;
+        padding: 3px 10px 0 0;
+    }
+
+    .report-by {
+        padding-top: 15px;
+
+        span {
+            padding-left: 10px;
+        }
+
+        input {
+            margin-right: 0px;
+        }
+
+        label {
+            font-weight: normal;
+        }
+    }
 }
 
 // Ripple effect
@@ -260,6 +281,14 @@ a {
 .icon-filter {
     @include ripple-effect-icon($margin-left: 2px, $height: 36px, $width: 36px, $top: -2px);
 }
+
+@media only screen and (max-device-width: 767px) and (orientation: portrait) {    
+    #icon-information {
+        position: relative;
+        top: 10px;
+    }
+}
+
 
 // netturnover tooltip
 #netturnovertooltip {
@@ -298,9 +327,17 @@ a {
     @include box-shadow-multiple(none);
 
     .modal-dialog {
-        width: 850px;
-        margin: 0 auto;
-        padding: 16px;
+        width: 800px;
+        margin: 0;
+        padding: 10px 0;
+
+        @media only screen and (max-device-width : 767px) {
+            width: 90%;
+        }
+
+        @media only screen and (max-device-width : 767px) and (orientation: landscape) {
+            width: 70%;
+        }        
 
         .modal-body {
             padding-bottom: 0;
@@ -331,6 +368,10 @@ a {
 // Modals
 .modal-open {
     overflow: auto;
+}
+
+#report-legend .modal-content .modal-header .modal-title {
+    cursor: default;
 }
 
 // month picker

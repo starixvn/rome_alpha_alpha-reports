@@ -44,6 +44,13 @@
     { "Path": "libs/jquery/stickytableheaders.js" },
     { "Path": "libs/tablesorter.js" },
     { "Path": "libs/store.js" },
+    { "Path": "libs/tiny-draggable.js" },
+
+    { "Path": "apps/components/sort-tests-template.ts" },
+    { "Path": "apps/winlossdetail/winlossdetail-template.ts" },
+    { "Path": "apps/core/core-tests-template.ts" },
+    { "Path": "apps/winloss/enteredresult-template.ts" },
+    { "Path": "apps/winloss/winloss-template.ts" },
 
     { "Path": "../core.ts" },
     { "Path": "../base-report.ts" },
@@ -56,24 +63,29 @@
     { "Path": "../components/tooltip.ts" },
     { "Path": "../components/link-builder.ts" },
     { "Path": "../components/league-multiselection.ts" },
+    { "Path": "../components/single-selection-dropdown.ts" },
 
     { "Path": "../winlossdetail/winlossdetail.ts" },
     { "Path": "apps/components/sort-tests-template.ts" },
 
-    { "Path": "apps/winlossdetail/winlossdetail-template.ts" },
 
-    { "Path": "apps/core/core-tests-template.ts" },
 
-    { "Path": "apps/winloss/enteredresult-template.ts" },
     { "Path": "../winloss/enteredresult.ts" },
 
-    { "Path": "apps/winloss/winloss-template.ts" },
     { "Path": "../winloss/winloss.ts" },
     { "Path": "../matchwinloss/matchwinloss.ts" },
     { "Path": "apps/matchwinlossdetail/matchwinlossdetail-template.ts" },
     { "Path": "../matchwinlossdetail/matchwinlossdetail.ts" },
     { "Path": "apps/winlossbyproduct/winlossbyproduct-template.ts" },
-    { "Path": "../winlossbyproduct/winlossbyproduct.ts" }
+    { "Path": "../winlossbyproduct/winlossbyproduct.ts" },
+
+    { "Path": "apps/winloss-analysis/winloss-analysis-template.ts" },
+    { "Path": "../winlossanalysis/winlossanalysis.ts" },
+
+    { "Path": "../base-report.ts" },
+    { "Path": "../playforfun/playforfun.ts" },
+    { "Path": "../playforfun/playforfun-master-agent.ts" },
+    { "Path": "../playforfun/playforfun-member.ts" }
   ],
   "Tests": [
     {
@@ -97,6 +109,10 @@
     },
     {
       "Path": "apps/matchwinlossdetail",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/playforfun",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     }
   ]

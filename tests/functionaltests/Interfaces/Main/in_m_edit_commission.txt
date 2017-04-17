@@ -1,0 +1,7 @@
+*** Variables ***
+# Super, Master Level
+${in_m_eco_cboGroupA}    //*[@id='groupA']
+# Agent Level
+${in_m_eco_cboAsian}    //*[@id='discountAsian']
+#Update Button
+${in_m_eco_btnUpdate}    //*[@id='btnSubmit']

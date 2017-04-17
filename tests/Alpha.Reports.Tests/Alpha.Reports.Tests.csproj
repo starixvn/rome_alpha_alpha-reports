@@ -159,7 +159,9 @@
     <Compile Include="Collections\FanexCacheCollection.cs" />
     <Compile Include="Collections\ObjectDbCollection.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
+    <Compile Include="Collections\UserCollection.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
+    <Compile Include="Constants\ProductId.cs" />
     <Compile Include="Constants\RoleId.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsByRefTableTests.cs" />
@@ -169,19 +171,26 @@
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\PagingReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsCriteriaTests.cs" />
+    <Compile Include="Criteria\PlayForFun\MasterOrAgentPlayForFunCriteriaTests.cs" />
+    <Compile Include="Criteria\PlayForFun\MemberPlayForFunCriteriaTests.cs" />
+    <Compile Include="Criteria\PlayForFun\PlayForFunCriteriaTests.cs" />
+    <Compile Include="Criteria\PlayForFun\PlayForFunProductCriteriaTests.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseForTesting.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseTests.cs" />
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossByProduct\WinLossByProductCriteriaTests.cs" />
+    <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteriaTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTestCases.cs" />
     <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />
+    <Compile Include="DataAccesses\WinLossAnalysisDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Database\MatchWinLossDetail\MatchWinLossDetailDatabase.cs" />
     <Compile Include="Database\WinLossByProduct\WinLossByProductDatabase.cs" />
+    <Compile Include="Database\WinLossAnalysis\WinLossAnalysisDatabase.cs" />
     <Compile Include="Database\WinLoss\WinLossDatabase.cs" />
     <Compile Include="Database\WinLossDetail\WinLossDetailDatabase.cs" />
     <Compile Include="DataAccesses\WinLossDataAccessImplTests.cs" />
@@ -194,6 +203,7 @@
     <Compile Include="Fixtures\AnyValueCreatorFixture.cs" />
     <Compile Include="Fixtures\FanexCacheFixture.cs" />
     <Compile Include="Fixtures\ObjectDbFixture.cs" />
+    <Compile Include="Fixtures\UserFixture.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\BetTypeHelperTests.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
@@ -204,6 +214,8 @@
     <Compile Include="Models\WinLossByProductModelTest.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModelTests.cs" />
     <Compile Include="Models\WinLossByBetTypeModelTest.cs" />
+    <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModelTests.cs" />
+    <Compile Include="Models\PlayForFun\PlayForFunModelTests.cs" />
     <Compile Include="Models\MatchWinLoss\MatchWinLossModelTest.cs" />
     <Compile Include="Models\PagedReportDataTests.cs" />
     <Compile Include="Models\WinLossTest.cs" />
@@ -216,16 +228,19 @@
     <Compile Include="Params\MatchWinLossDetailParamTests.cs" />
     <Compile Include="Params\ProductByCustomerParamTests.cs" />
     <Compile Include="Params\WinLossByProductParamTests.cs" />
+    <Compile Include="Params\WinLossAnalysisParamTests.cs" />
     <Compile Include="Params\WinLossParamTests.cs" />
     <Compile Include="Params\WinLossDetailParamTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MatchWinLossServiceImplTest.cs" />
     <Compile Include="Services\OutstandingServiceImplTests.cs" />
     <Compile Include="Services\LeagueServiceImplTests.cs" />
+    <Compile Include="Services\PlayForFunServiceImplTests.cs" />
     <Compile Include="Services\MatchWinLossDetailServiceImplTests.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
     <Compile Include="Services\WinLossByProductServiceImplTests.cs" />
+    <Compile Include="Services\WinLossAnalysisServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />
     <Compile Include="Services\WinLossServiceImplTests.cs" />
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
@@ -275,6 +290,18 @@
     <Content Include="Database\WinLossByProduct\MemberWinLossByProductHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Database\WinLossDetail\AgentWinLossDetailHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\WinLossDetail\MasterWinLossDetailHasData WinNoTotalTable.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\WinLossDetail\MasterWinLossDetailHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\WinLossDetail\MemberWinLossDetailHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Database\WinLoss\AgentWinLossHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -286,16 +313,13 @@
     <Content Include="Database\WinLoss\MemberWinLossHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Database\WinLossDetail\MemberWinLossDetailHasData.xml">
+    <Content Include="Database\WinLossAnalysis\MemberWinLossAnalysisHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Database\WinLossDetail\AgentWinLossDetailHasData.xml">
+    <Content Include="Database\WinLossAnalysis\AgentWinLossAnalysisHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Database\WinLossDetail\MasterWinLossDetailHasData WinNoTotalTable.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Database\WinLossDetail\MasterWinLossDetailHasData.xml">
+    <Content Include="Database\WinLossAnalysis\MasterWinLossAnalysisHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

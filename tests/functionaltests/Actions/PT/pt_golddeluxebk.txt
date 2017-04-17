@@ -1,0 +1,221 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Library           ExcelLibrary
+Library           DatabaseLibrary
+Resource          ../../Interfaces/in_login.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/Main/in_m_edit_golddeluxe.txt
+Resource          ../../Interfaces/Main/in_m_editSetting.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/Main/in_m_popup_pt_confirmuncheckauto.txt
+
+*** Keywords ***
+Create SQL File by Excel Source
+    [Arguments]    ${excelSheet}    ${col}    ${row}    ${sqlFile}
+    # Get sql Script from Excel and write to a file
+    ${ac_sqlString}    Read Cell Data By Coordinates    ${excelSheet}    ${col}    ${row}
+    # Write data to sql file
+    Create file    ${sqlFile}
+    Append To File    ${sqlFile}    ${ac_sqlString}
+
+update PT Super Edit Master
+    [Arguments]    ${isUpdate}    ${s3}=${EMPTY}    ${m3}=${EMPTY}    ${is3}=${EMPTY}    ${us3}=${EMPTY}    ${n3}=${EMPTY}
+    ...    ${message}=${EMPTY}
+    [Documentation]    This allow update master PT: s3,m3,is3,us3,n3
+    ...
+    ...    ${isUpdate}:
+    ...
+    ...    '0': NOT Save
+    ...
+    ...    '1': save all successfully by click Update button
+    ...
+    ...    '2': save PT/comm group by click icon save
+    ...
+    ...    '-1': save all UN-successfully
+    ...
+    ...    '-2': save group UN-succesfully
+    ...
+    ...    ${Messge}: the message when save success or error. If message is not ${EMPTY} this function will verify message
+    Select Frame    main
+    Wait Until Element Is Visible    ${in_m_editSetting_cboS3}
+    Run Keyword If    '${s3}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboS3}    ${s3}
+    Run Keyword If    '${m3}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboM3}    ${m3}
+    # make sure annoucement is closed before set checkbox
+    Unselect Frame
+    ${ac_isAnnounAppear}    Run Keyword And Return Status    Page Should Contain Element    ${in_a_btnClosed}
+    Run Keyword If    '${ac_isAnnounAppear}'=='True'    Click Element    ${in_a_btnClosed}
+    Select Frame    main
+    Run Keyword If    '${is3}'!='${EMPTY}'    Set Checkbox    ${in_m_editSetting_chkIs3}    ${is3}
+    Run Keyword If    '${us3}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboUs3}    ${us3}
+    Run Keyword If    '${n3}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboN3}    ${n3}
+    Run Keyword If    '${isUpdate}'== '1'    run keywords    Click Element    ${in_m_editSetting_btnUpdate}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    ...    AND    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '2'    run keywords    Click Element    ${in_m_editSetting_btnPTCommSave}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    ...    AND    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '-1'    run keywords    Click Element    ${in_m_editSetting_btnUpdate}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '-2'    run keywords    Click Element    ${in_m_editSetting_btnPTCommSave}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Unselect Frame
+
+pt goldeluxe super test case init
+    comment    ===================    PRECONDITION
+    # If Local Env then update Precondition in DB
+    Run Keyword If    '${tm_environment}'=='local'    update Line PT from excel by SQL    ${tm_excelSheet}    ${TEST_NAME}    ${tm_sporttype}    ${tm_bettype}
+    ...    ${tm_lineID}
+    Run Keyword If    '${tm_environment}'=='UAT'    update Line PT from excel by web
+    # Login if user is not in system
+    Login to Main Page_bk    ${tm_url}    ${tm_super}    ${tm_password}    ${tm_securityCode}    Yes
+
+pt golddeluxe test suite init
+    # Open connect to DB server to update precondition if ${tm_evn} = 'local'
+    Run Keyword If    '${tm_environment}'=='local'    Connect To Database    ${tm_dbcnModule}    ${tm_dbcnDBName}    ${tm_dbcnUserName}    ${tm_dbcnPassword}
+    ...    ${tm_dbcnServer}    ${tm_dbcnPort}
+    # Open excel dataset file
+    Open Excel Current Directory    ${tm_excelFile}
+    Open Browser    about:blank
+
+pt golddeluxe test suite teardown
+    Comment    Log Variables
+    Close All Browsers
+
+pt goldeluxe master test case init
+    comment    ===================    PRECONDITION
+    # If Local Env then update Precondition in DB
+    Run Keyword If    '${tm_environment}'=='local'    update Line PT from excel by SQL    ${tm_excelSheet}    ${TEST_NAME}    ${tm_sporttype}    ${tm_bettype}
+    ...    ${tm_lineID}
+    Run Keyword If    '${tm_environment}'=='UAT'    update Line PT from excel by web
+    # Login if user is not in system
+    Login to Main Page_bk    ${tm_url}    ${tm_master}    ${tm_password}    ${tm_securityCode}    Yes
+
+update PT Master Edit Agent
+    [Arguments]    ${isUpdate}    ${m2}=${EMPTY}    ${a2}=${EMPTY}    ${im2}=${EMPTY}    ${um2}=${EMPTY}    ${n2}=${EMPTY}
+    ...    ${message}=${EMPTY}
+    Select Frame    main
+    Wait Until Element Is Visible    ${in_m_editSetting_cboM2}
+    Run Keyword If    '${m2}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboM2}    ${m2}
+    Run Keyword If    '${a2}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboA2}    ${a2}
+    # make sure annoucement is closed before set checkbox
+    Unselect Frame
+    ${ac_isAnnounAppear}    Run Keyword And Return Status    Page Should Contain Element    ${in_a_btnClosed}
+    Run Keyword If    '${ac_isAnnounAppear}'=='True'    Click Element    ${in_a_btnClosed}
+    Select Frame    main
+    Run Keyword If    '${im2}'!='${EMPTY}'    Set Checkbox    ${in_m_editSetting_chkIm2}    ${im2}
+    Run Keyword If    '${um2}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboUm2}    ${um2}
+    Run Keyword If    '${n2}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboN2}    ${n2}
+    Run Keyword If    '${isUpdate}'== '1'    run keywords    Click Element    ${in_m_editSetting_btnUpdate}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    ...    AND    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '2'    run keywords    Click Element    ${in_m_editSetting_btnPTCommSave}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    ...    AND    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '-1'    run keywords    Click Element    ${in_m_editSetting_btnUpdate}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '-2'    run keywords    Click Element    ${in_m_editSetting_btnPTCommSave}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Unselect Frame
+
+pt goldeluxe agent test case init
+    comment    ===================    PRECONDITION
+    # If Local Env then update Precondition in DB
+    Run Keyword If    '${tm_environment}'=='local'    update Line PT from excel by SQL    ${tm_excelSheet}    ${TEST_NAME}    ${tm_sporttype}    ${tm_bettype}
+    ...    ${tm_lineID}
+    Run Keyword If    '${tm_environment}'=='UAT'    update Line PT from excel by web
+    # Login if user is not in system
+    Login to Main Page_bk    ${tm_url}    ${tm_agent}    ${tm_password}    ${tm_securityCode}    Yes
+
+update PT Agent Edit Member
+    [Arguments]    ${isUpdate}    ${a1}=${EMPTY}    ${message}=${EMPTY}
+    Select Frame    main
+    Wait Until Element Is Visible    ${in_m_editSetting_cboA1}
+    Run Keyword If    '${a1}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboA1}    ${a1}
+    Run Keyword If    '${isUpdate}'== '1'    run keywords    Click Element    ${in_m_editSetting_btnUpdate}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    ...    AND    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '2'    run keywords    Click Element    ${in_m_editSetting_btnPTCommSave}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    ...    AND    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '-1'    run keywords    Click Element    ${in_m_editSetting_btnUpdate}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '-2'    run keywords    Click Element    ${in_m_editSetting_btnPTCommSave}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Unselect Frame
+
+update PT Super Edit Member
+    [Arguments]    ${isUpdate}    ${s1}=${EMPTY}    ${is1}=${EMPTY}    ${us1}=${EMPTY}    ${message}=${EMPTY}
+    Select Frame    main
+    Wait Until Element Is Visible    ${in_m_editSetting_cboS1}
+    Run Keyword If    '${s1}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboS1}    ${s1}
+    # make sure annoucement is closed before set checkbox
+    Unselect Frame
+    ${ac_isAnnounAppear}    Run Keyword And Return Status    Page Should Contain Element    ${in_a_btnClosed}
+    Run Keyword If    '${ac_isAnnounAppear}'=='True'    Click Element    ${in_a_btnClosed}
+    Select Frame    main
+    Run Keyword If    '${is1}'!='${EMPTY}'    Set Checkbox    ${in_m_editSetting_chkIm2}    ${is1}
+    Run Keyword If    '${us1}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboUm2}    ${us1}
+    Run Keyword If    '${isUpdate}'== '1'    run keywords    Click Element    ${in_m_editSetting_btnUpdate}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    ...    AND    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '2'    run keywords    Click Element    ${in_m_editSetting_btnPTCommSave}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    ...    AND    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '-1'    run keywords    Click Element    ${in_m_editSetting_btnUpdate}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '-2'    run keywords    Click Element    ${in_m_editSetting_btnPTCommSave}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Unselect Frame
+
+update PT Master Edit Member
+    [Arguments]    ${isUpdate}    ${m1}=${EMPTY}    ${im1}=${EMPTY}    ${um1}=${EMPTY}    ${message}=${EMPTY}
+    Select Frame    main
+    Wait Until Element Is Visible    ${in_m_editSetting_cboM1}
+    Run Keyword If    '${m1}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboM1}    ${m1}
+    # make sure annoucement is closed before set checkbox
+    Unselect Frame
+    ${ac_isAnnounAppear}    Run Keyword And Return Status    Page Should Contain Element    ${in_a_btnClosed}
+    Run Keyword If    '${ac_isAnnounAppear}'=='True'    Click Element    ${in_a_btnClosed}
+    Select Frame    main
+    Run Keyword If    '${im1}'!='${EMPTY}'    Set Checkbox    ${in_m_editSetting_chkIm1}    ${im1}
+    Run Keyword If    '${um1}'!='${EMPTY}'    Select From List By Label    ${in_m_editSetting_cboUm1}    ${um1}
+    Run Keyword If    '${isUpdate}'== '1'    run keywords    Click Element    ${in_m_editSetting_btnUpdate}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    ...    AND    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '2'    run keywords    Click Element    ${in_m_editSetting_btnPTCommSave}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    ...    AND    Wait Until Page Not Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '-1'    run keywords    Click Element    ${in_m_editSetting_btnUpdate}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Run Keyword If    '${isUpdate}'== '-2'    run keywords    Click Element    ${in_m_editSetting_btnPTCommSave}
+    ...    AND    Wait Until Page Contains Element    ${in_m_editSetting_message}
+    Unselect Frame
+
+Edit Gold Deluxe PT
+    [Arguments]    ${action}=${EMPTY}    ${ptName}=${EMPTY}    ${value}=${EMPTY}
+    [Documentation]    This action is used to update Casino PT
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    ${tc_locator}    Set Variable    ${in_m_GD_PT_cbo${ptName}}
+    Run keyword if    '${value}'!='${EMPTY}'    Select From List By Label    ${tc_locator}    ${value}
+    Run keyword if    '${action}'=='save'    Click Element    ${in_m_GD_btnSubmit}
+    Unselect Frame
+
+Verify Gold Deluxe PT
+    [Arguments]    ${ptName}    ${expectedValue}
+    Unselect Frame
+    Select Frame    main
+    ${actualValue}    Get Selected List Label    ${in_m_GD_pt_cbo${ptName}}
+    Should Be Equal    ${actualValue}    ${expectedValue}
+    Unselect Frame

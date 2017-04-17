@@ -1,0 +1,679 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Interfaces/in_login.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Interfaces/Main/in_m_edit_sportsbook.txt
+Resource          ../../Interfaces/Main/in_m_edit_racing.txt
+Resource          ../../Interfaces/Main/in_m_edit_virtualsports.txt
+Resource          ../../Interfaces/Main/in_m_edit_livecasino.txt
+
+*** Keywords ***
+Edit SB Bet Setting
+    [Arguments]    ${sport}    ${minb}    ${maxb}    ${mpm}    ${mpb}    ${copySoccer}
+    ...    ${copybkball}    ${clicksubmit}
+    [Documentation]    \# ${mpm}=match per match | \ ${mpb}= match per ball (NG)
+    Unselect Frame
+    Select Frame    main
+    #Soccer
+    Run Keyword If    '${sport}'=='Soccer'    Run Keywords    Input Text    ${in_m_editsb_txtminsoccer}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxsoccer}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxpersoccer}    ${mpm}
+    #Basket Ball
+    Run Keyword If    '${sport}'=='Basketball'    Run Keywords    Input Text    ${in_m_editsb_txtminbkball}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxbkball}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxperbkball}    ${mpm}
+    #Football
+    Run Keyword If    '${sport}'=='Football'    Run Keywords    Input Text    ${in_m_editsb_txtminfball}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxfball}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxperfball}    ${mpm}
+    #Tennis
+    Run Keyword If    '${sport}'=='Tennis'    Run Keywords    Input Text    ${in_m_editsb_txtmintennis}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxtennis}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxpertennis}    ${mpm}
+    #Baseball
+    Run Keyword If    '${sport}'=='Baseball'    Run Keywords    Input Text    ${in_m_editsb_txtminbsball}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxbsball}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxperbsball}    ${mpm}
+    #Golf
+    Run Keyword If    '${sport}'=='Golf'    Run Keywords    Input Text    ${in_m_editsb_txtmingolf}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxgolf}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxpergolf}    ${mpm}
+    #Motor
+    Run Keyword If    '${sport}'=='Motor Sports'    Run Keywords    Input Text    ${in_m_editsb_txtminmotor}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxmotor}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxpermotor}    ${mpm}
+    #Other
+    Run Keyword If    '${sport}'=='Other Sports'    Run Keywords    Input Text    ${in_m_editsb_txtminother}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxother}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxperother}    ${mpm}
+    #Mix Sports Parlay
+    Run Keyword If    '${sport}'=='Mix Sports Parlay'    Run Keywords    Input Text    ${in_m_editsb_txtminmix}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxmix}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxpermix}    ${mpm}
+    #HR fixed odds
+    Run Keyword If    '${sport}'=='HR Fixed Odds'    Run Keywords    Input Text    ${in_m_editsb_txtminhr}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxhr}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxperhr}    ${mpm}
+    #Number Game
+    Run Keyword If    '${sport}'=='Number Game'    Run Keywords    Input Text    ${in_m_editsb_txtminng}    ${minb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxng}    ${maxb}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxperng}    ${mpm}
+    ...    AND    Input Text    ${in_m_editsb_txtmaxperballng}    ${mpb}
+    #Copy from soccer
+    Run Keyword If    '${copySoccer}'=='yes'    Click Element    ${in_m_editsb_btncopysoccer}
+    #Copy from Basket ball
+    Run Keyword If    '${copybkball}'=='yes'    Click Element    ${in_m_editsb_btncopybkball}
+    Sleep    2s
+    #Click submit button
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Check SB Bet Setting
+    [Arguments]    ${sport}    ${minb}    ${maxb}    ${mpm}    ${mpb}    ${clicksubmit}
+    [Documentation]    \# ${mpm}=match per match | \ ${mpb}= match per ball (NG)
+    Unselect Frame
+    Select Frame    main
+    #Soccer
+    Run Keyword If    '${sport}'=='Soccer'    Run Keywords    Check Data    ${in_m_editsb_txtminsoccer}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxsoccer}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxpersoccer}    ${mpm}
+    #Basket Ball
+    Run Keyword If    '${sport}'=='Basketball'    Run Keywords    Check Data    ${in_m_editsb_txtminbkball}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxbkball}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxperbkball}    ${mpm}
+    #Football
+    Run Keyword If    '${sport}'=='Football'    Run Keywords    Check Data    ${in_m_editsb_txtminfball}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxfball}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxperfball}    ${mpm}
+    #Tennis
+    Run Keyword If    '${sport}'=='Tennis'    Run Keywords    Check Data    ${in_m_editsb_txtmintennis}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxtennis}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxpertennis}    ${mpm}
+    #Baseball
+    Run Keyword If    '${sport}'=='Baseball'    Run Keywords    Check Data    ${in_m_editsb_txtminbsball}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxbsball}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxperbsball}    ${mpm}
+    #Golf
+    Run Keyword If    '${sport}'=='Golf'    Run Keywords    Check Data    ${in_m_editsb_txtmingolf}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxgolf}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxpergolf}    ${mpm}
+    #Motor
+    Run Keyword If    '${sport}'=='Motor Sports'    Run Keywords    Check Data    ${in_m_editsb_txtminmotor}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxmotor}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxpermotor}    ${mpm}
+    #Other
+    Run Keyword If    '${sport}'=='Other Sports'    Run Keywords    Check Data    ${in_m_editsb_txtminother}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxother}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxperother}    ${mpm}
+    #Mix Sports Parlay
+    Run Keyword If    '${sport}'=='Mix Sports Parlay'    Run Keywords    Check Data    ${in_m_editsb_txtminmix}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxmix}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxpermix}    ${mpm}
+    #HR fixed odds
+    Run Keyword If    '${sport}'=='HR Fixed Odds'    Run Keywords    Check Data    ${in_m_editsb_txtminhr}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxhr}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxperhr}    ${mpm}
+    #Number Game
+    Run Keyword If    '${sport}'=='Number Game'    Run Keywords    Check Data    ${in_m_editsb_txtminng}    ${minb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxng}    ${maxb}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxperng}    ${mpm}
+    ...    AND    Check Data    ${in_m_editsb_txtmaxperballng}    ${mpb}
+    Sleep    2s
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Check SB Bet Limit
+    [Arguments]    ${sport}    ${minb}    ${maxb}    ${mpm}    ${mpb}    ${clicksubmit}
+    Select Frame    main
+    #Soccer
+    Run Keyword If    '${sport}'=='Soccer'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminsoccer}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxsoccer}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxpersoccer}    <=${mpm}
+    #Basket Ball
+    Run Keyword If    '${sport}'=='Basketball'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminbkball}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxbkball}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperbkball}    <=${mpm}
+    #Football
+    Run Keyword If    '${sport}'=='Football'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminfball}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxfball}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperfball}    <=${mpm}
+    #Tennis
+    Run Keyword If    '${sport}'=='Tennis'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitmintennis}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxtennis}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxpertennis}    <=${mpm}
+    #Baseball
+    Run Keyword If    '${sport}'=='Baseball'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminbsball}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxbsball}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperbsball}    <=${mpm}
+    #Golf
+    Run Keyword If    '${sport}'=='Golf'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitmingolf}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxgolf}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxpergolf}    <=${mpm}
+    #Motor
+    Run Keyword If    '${sport}'=='Motor Sports'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminmotor}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxmotor}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxpermotor}    <=${mpm}
+    #Other
+    Run Keyword If    '${sport}'=='Other Sports'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminother}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxother}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperother}    <=${mpm}
+    #Mix Sports Parlay
+    Run Keyword If    '${sport}'=='Mix Sports Parlay'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminmix}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxmix}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxpermix}    <=${mpm}
+    #HR fixed odds
+    Run Keyword If    '${sport}'=='HR Fixed Odds'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminhr}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxhr}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperhr}    <=${mpm}
+    #Number Game
+    Run Keyword If    '${sport}'=='Number Game'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminng}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxng}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperng}    <=${mpm}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperballng}    <=${mpb}
+    Sleep    2s
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Check SB Bet Unlimit
+    [Arguments]    ${sport}    ${minb}    ${maxb}    ${mpm}    ${mpb}    ${clicksubmit}
+    Select Frame    main
+    #Soccer
+    Run Keyword If    '${sport}'=='Soccer'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminsoccer}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxsoccer}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxpersoccer}    ${mpm}
+    #Basket Ball
+    Run Keyword If    '${sport}'=='Basketball'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminbkball}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxbkball}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperbkball}    ${mpm}
+    #Football
+    Run Keyword If    '${sport}'=='Football'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminfball}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxfball}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperfball}    ${mpm}
+    #Tennis
+    Run Keyword If    '${sport}'=='Tennis'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitmintennis}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxtennis}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxpertennis}    ${mpm}
+    #Baseball
+    Run Keyword If    '${sport}'=='Baseball'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminbsball}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxbsball}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperbsball}    ${mpm}
+    #Golf
+    Run Keyword If    '${sport}'=='Golf'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitmingolf}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxgolf}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxpergolf}    ${mpm}
+    #Motor
+    Run Keyword If    '${sport}'=='Motor Sports'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminmotor}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxmotor}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxpermotor}    ${mpm}
+    #Other
+    Run Keyword If    '${sport}'=='Other Sports'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminother}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxother}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperother}    ${mpm}
+    #Mix Sports Parlay
+    Run Keyword If    '${sport}'=='Mix Sports Parlay'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminmix}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxmix}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxpermix}    ${mpm}
+    #HR fixed odds
+    Run Keyword If    '${sport}'=='HR Fixed Odds'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminhr}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxhr}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperhr}    ${mpm}
+    #Number Game
+    Run Keyword If    '${sport}'=='Number Game'    Run Keywords    Element Text Should Be    ${in_m_editsb_txtlimitminng}    ${minb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxng}    ${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperng}    ${mpm}
+    ...    AND    Element Text Should Be    ${in_m_editsb_txtlimitmaxperballng}    ${mpb}
+    Sleep    2s
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Edit Racing Bet Setting
+    [Arguments]    ${sport}    ${type}    ${minb}    ${maxb}    ${mpm}    ${comm}
+    ...    ${status}    ${clicksubmit}
+    Select Frame    main
+    #sport-Racing
+    Run Keyword If    '${sport}'=='Racing' and '${type}'=='UK/Irish'    Run Keywords    Input Text    ${in_m_editrc_rc_uk_txtmin}    ${minb}
+    ...    AND    Input Text    ${in_m_editrc_rc_uk_txtmax}    ${maxb}
+    ...    AND    Input Text    ${in_m_editrc_rc_uk_txtmpm}    ${mpm}
+    ...    AND    Select From List By Value    ${in_m_editrc_rc_uk_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Select Checkbox    ${in_m_editrc_rc_uk_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Select Checkbox    ${in_m_editrc_rc_uk_ckstatus2}
+    Run Keyword If    '${sport}'=='Racing' and '${type}'=='SA'    Run Keywords    Input Text    ${in_m_editrc_rc_sa_txtmin}    ${minb}
+    ...    AND    Input Text    ${in_m_editrc_rc_sa_txtmax}    ${maxb}
+    ...    AND    Input Text    ${in_m_editrc_rc_sa_txtmpm}    ${mpm}
+    ...    AND    Select From List By Value    ${in_m_editrc_rc_sa_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Select Checkbox    ${in_m_editrc_rc_sa_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Select Checkbox    ${in_m_editrc_rc_sa_ckstatus2}
+    Run Keyword If    '${sport}'=='Racing' and '${type}'=='Aust'    Run Keywords    Input Text    ${in_m_editrc_rc_aust_txtmin}    ${minb}
+    ...    AND    Input Text    ${in_m_editrc_rc_aust_txtmax}    ${maxb}
+    ...    AND    Input Text    ${in_m_editrc_rc_aust_txtmpm}    ${mpm}
+    ...    AND    Select From List By Value    ${in_m_editrc_rc_aust_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Select Checkbox    ${in_m_editrc_rc_aust_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Select Checkbox    ${in_m_editrc_rc_aust_ckstatus2}
+    #sport-Greyhound
+    Run Keyword If    '${sport}'=='Greyhound' and '${type}'=='UK/Irish'    Run Keywords    Input Text    ${in_m_editrc_greyh_uk_txtmin}    ${minb}
+    ...    AND    Input Text    ${in_m_editrc_greyh_uk_txtmax}    ${maxb}
+    ...    AND    Input Text    ${in_m_editrc_greyh_uk_txtmpm}    ${mpm}
+    ...    AND    Select From List By Value    ${in_m_editrc_greyh_uk_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Select Checkbox    ${in_m_editrc_greyh_uk_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Select Checkbox    ${in_m_editrc_greyh_uk_ckstatus2}
+    Run Keyword If    '${sport}'=='Greyhound' and '${type}'=='Aust'    Run Keywords    Input Text    ${in_m_editrc_greyh_aust_txtmin}    ${minb}
+    ...    AND    Input Text    ${in_m_editrc_greyh_aust_txtmax}    ${maxb}
+    ...    AND    Input Text    ${in_m_editrc_greyh_aust_txtmpm}    ${mpm}
+    ...    AND    Select From List By Value    ${in_m_editrc_greyh_aust_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Select Checkbox    ${in_m_editrc_greyh_aust_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Select Checkbox    ${in_m_editrc_greyh_aust_ckstatus2}
+    # HARNESS
+    Run Keyword If    '${sport}'=='Harness' and '${type}'=='Aust'    Run Keywords    Input Text    ${in_m_editrc_harness_aust_txtmin}    ${minb}
+    ...    AND    Input Text    ${in_m_editrc_harness_aust_txtmax}    ${maxb}
+    ...    AND    Input Text    ${in_m_editrc_harness_aust_txtmpm}    ${mpm}
+    ...    AND    Select From List By Value    ${in_m_editrc_harness_aust_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Select Checkbox    ${in_m_editrc_harness_aust_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Select Checkbox    ${in_m_editrc_harness_aust_ckstatus2}
+    #Click submit button
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Check Racing Bet Setting
+    [Arguments]    ${sport}    ${type}    ${minb}    ${maxb}    ${mpm}    ${comm}
+    ...    ${status}    ${clicksubmit}
+    Select Frame    main
+    #sport-Racing
+    Run Keyword If    '${sport}'=='Racing' and '${type}'=='UK/Irish'    Run Keywords    Check Data    ${in_m_editrc_rc_uk_txtmin}    ${minb}
+    ...    AND    Check Data    ${in_m_editrc_rc_uk_txtmax}    ${maxb}
+    ...    AND    Check Data    ${in_m_editrc_rc_uk_txtmpm}    ${mpm}
+    ...    AND    Check Data    ${in_m_editrc_rc_uk_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Checkbox Should Be Selected    ${in_m_editrc_rc_uk_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Checkbox Should Be Selected    ${in_m_editrc_rc_uk_ckstatus2}
+    Run Keyword If    '${sport}'=='Racing' and '${type}'=='SA'    Run Keywords    Check Data    ${in_m_editrc_rc_sa_txtmin}    ${minb}
+    ...    AND    Check Data    ${in_m_editrc_rc_sa_txtmax}    ${maxb}
+    ...    AND    Check Data    ${in_m_editrc_rc_sa_txtmpm}    ${mpm}
+    ...    AND    Check Data    ${in_m_editrc_rc_sa_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Checkbox Should Be Selected    ${in_m_editrc_rc_sa_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Checkbox Should Be Selected    ${in_m_editrc_rc_sa_ckstatus2}
+    Run Keyword If    '${sport}'=='Racing' and '${type}'=='Aust'    Run Keywords    Check Data    ${in_m_editrc_rc_aust_txtmin}    ${minb}
+    ...    AND    Check Data    ${in_m_editrc_rc_aust_txtmax}    ${maxb}
+    ...    AND    Check Data    ${in_m_editrc_rc_aust_txtmpm}    ${mpm}
+    ...    AND    Check Data    ${in_m_editrc_rc_aust_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Checkbox Should Be Selected    ${in_m_editrc_rc_aust_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Checkbox Should Be Selected    ${in_m_editrc_rc_aust_ckstatus2}
+    #sport-Greyhound
+    Run Keyword If    '${sport}'=='Greyhound' and '${type}'=='UK/Irish'    Run Keywords    Check Data    ${in_m_editrc_greyh_uk_txtmin}    ${minb}
+    ...    AND    Check Data    ${in_m_editrc_greyh_uk_txtmax}    ${maxb}
+    ...    AND    Check Data    ${in_m_editrc_greyh_uk_txtmpm}    ${mpm}
+    ...    AND    Check Data    ${in_m_editrc_greyh_uk_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Checkbox Should Be Selected    ${in_m_editrc_greyh_uk_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Checkbox Should Be Selected    ${in_m_editrc_greyh_uk_ckstatus2}
+    Run Keyword If    '${sport}'=='Greyhound' and '${type}'=='Aust'    Run Keywords    Check Data    ${in_m_editrc_greyh_aust_txtmin}    ${minb}
+    ...    AND    Check Data    ${in_m_editrc_greyh_aust_txtmax}    ${maxb}
+    ...    AND    Check Data    ${in_m_editrc_greyh_aust_txtmpm}    ${mpm}
+    ...    AND    Check Data    ${in_m_editrc_greyh_aust_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Checkbox Should Be Selected    ${in_m_editrc_greyh_aust_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Checkbox Should Be Selected    ${in_m_editrc_greyh_aust_ckstatus2}
+    # HARNESS
+    Run Keyword If    '${sport}'=='Harness' and '${type}'=='Aust'    Run Keywords    Check Data    ${in_m_editrc_harness_aust_txtmin}    ${minb}
+    ...    AND    Check Data    ${in_m_editrc_harness_aust_txtmax}    ${maxb}
+    ...    AND    Check Data    ${in_m_editrc_harness_aust_txtmpm}    ${mpm}
+    ...    AND    Check Data    ${in_m_editrc_harness_aust_drpcomm}    ${comm}
+    ...    AND    Run Keyword If    '${status}'=='1'    Checkbox Should Be Selected    ${in_m_editrc_harness_aust_ckstatus1}
+    ...    AND    Run Keyword If    '${status}'=='2'    Checkbox Should Be Selected    ${in_m_editrc_harness_aust_ckstatus2}
+    Sleep    2s
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Check Racing Bet Limit
+    [Arguments]    ${sport}    ${type}    ${minb}    ${maxb}    ${mpm}    ${clicksubmit}
+    Select Frame    main
+    #sport-Racing
+    Run Keyword If    '${sport}'=='Racing' and '${type}'=='UK/Irish'    Run Keywords    Element Text Should Be    ${in_m_editrc_rc_uk_txtlimitmin}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_rc_uk_txtlimitmax}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_rc_uk_txtlimitmpm}    <=${mpm}
+    Run Keyword If    '${sport}'=='Racing' and '${type}'=='SA'    Run Keywords    Element Text Should Be    ${in_m_editrc_rc_sa_txtlimitmin}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_rc_sa_txtlimitmax}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_rc_sa_txtlimitmpm}    <=${mpm}
+    Run Keyword If    '${sport}'=='Racing' and '${type}'=='Aust'    Run Keywords    Element Text Should Be    ${in_m_editrc_rc_aust_txtlimitmin}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_rc_aust_txtlimitmax}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_rc_aust_txtlimitmpm}    <=${mpm}
+    #sport-Greyhound
+    Run Keyword If    '${sport}'=='Greyhound' and '${type}'=='UK/Irish'    Run Keywords    Element Text Should Be    ${in_m_editrc_greyh_uk_txtlimitmin}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_greyh_uk_txtlimitmax}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_greyh_uk_txtlimitmpm}    <=${mpm}
+    Run Keyword If    '${sport}'=='Greyhound' and '${type}'=='Aust'    Run Keywords    Element Text Should Be    ${in_m_editrc_greyh_aust_txtlimitmin}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_greyh_aust_txtlimitmax}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_greyh_aust_txtlimitmpm}    <=${mpm}
+    # HARNESS
+    Run Keyword If    '${sport}'=='Harness' and '${type}'=='Aust'    Run Keywords    Element Text Should Be    ${in_m_editrc_harness_aust_txtlimitmin}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_harness_aust_txtlimitmax}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editrc_harness_aust_txtlimitmpm}    <=${mpm}
+    #Click submit button
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Edit VS Bet Setting
+    [Arguments]    ${sport}    ${minb}    ${maxb}    ${mpm}    ${clicksubmit}
+    Select Frame    main
+    #VSSoccer
+    Run Keyword If    '${sport}'=='Virtual Soccer'    Run Keywords    Input Text    ${in_m_editvs_txtminsoccer}    ${minb}
+    ...    AND    Input Text    ${in_m_editvs_txtmaxsoccer}    ${maxb}
+    ...    AND    Input Text    ${in_m_editvs_txtmpmsoccer}    ${mpm}
+    #Tennis
+    Run Keyword If    '${sport}'=='Virtual Tennis'    Run Keywords    Input Text    ${in_m_editvs_txtmintennis}    ${minb}
+    ...    AND    Input Text    ${in_m_editvs_txtmaxtennis}    ${maxb}
+    ...    AND    Input Text    ${in_m_editvs_txtmpmtennis}    ${mpm}
+    #HorseRacing
+    Run Keyword If    '${sport}'=='Virtual Horse Racing'    Run Keywords    Input Text    ${in_m_editvs_txtminhr}    ${minb}
+    ...    AND    Input Text    ${in_m_editvs_txtmaxhr}    ${maxb}
+    ...    AND    Input Text    ${in_m_editvs_txtmpmhr}    ${mpm}
+    #greyhound
+    Run Keyword If    '${sport}'=='Virtual Greyhounds'    Run Keywords    Input Text    ${in_m_editvs_txtmingreyh}    ${minb}
+    ...    AND    Input Text    ${in_m_editvs_txtmaxgreyh}    ${maxb}
+    ...    AND    Input Text    ${in_m_editvs_txtmpmgreyh}    ${mpm}
+    #speedway
+    Run Keyword If    '${sport}'=='Virtual Speedway'    Run Keywords    Input Text    ${in_m_editvs_txtminspeedw}    ${minb}
+    ...    AND    Input Text    ${in_m_editvs_txtmaxspeedw}    ${maxb}
+    ...    AND    Input Text    ${in_m_editvs_txtmpmspeedw}    ${mpm}
+    #Motor
+    Run Keyword If    '${sport}'=='Virtual Motorsports'    Run Keywords    Input Text    ${in_m_editvs_txtminmotor}    ${minb}
+    ...    AND    Input Text    ${in_m_editvs_txtmaxmotor}    ${maxb}
+    ...    AND    Input Text    ${in_m_editvs_txtmpmmotor}    ${mpm}
+    #Virtual Cycling
+    Run Keyword If    '${sport}'=='Virtual Cycling'    Run Keywords    Input Text    ${in_m_editvs_txtmincycling}    ${minb}
+    ...    AND    Input Text    ${in_m_editvs_txtmaxcycling}    ${maxb}
+    ...    AND    Input Text    ${in_m_editvs_txtmpmcycling}    ${mpm}
+    Sleep    2s
+    #Click submit button
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Check VS Bet Setting
+    [Arguments]    ${sport}    ${minb}    ${maxb}    ${mpm}    ${clicksubmit}
+    Select Frame    main
+    #VSSoccer
+    Run Keyword If    '${sport}'=='Virtual Soccer'    Run Keywords    Check Data    ${in_m_editvs_txtminsoccer}    ${minb}
+    ...    AND    Check Data    ${in_m_editvs_txtmaxsoccer}    ${maxb}
+    ...    AND    Check Data    ${in_m_editvs_txtmpmsoccer}    ${mpm}
+    #Tennis
+    Run Keyword If    '${sport}'=='Virtual Tennis'    Run Keywords    Check Data    ${in_m_editvs_txtmintennis}    ${minb}
+    ...    AND    Check Data    ${in_m_editvs_txtmaxtennis}    ${maxb}
+    ...    AND    Check Data    ${in_m_editvs_txtmpmtennis}    ${mpm}
+    #HorseRacing
+    Run Keyword If    '${sport}'=='Virtual Horse Racing'    Run Keywords    Check Data    ${in_m_editvs_txtminhr}    ${minb}
+    ...    AND    Check Data    ${in_m_editvs_txtmaxhr}    ${maxb}
+    ...    AND    Check Data    ${in_m_editvs_txtmpmhr}    ${mpm}
+    #greyhound
+    Run Keyword If    '${sport}'=='Virtual Greyhounds'    Run Keywords    Check Data    ${in_m_editvs_txtmingreyh}    ${minb}
+    ...    AND    Check Data    ${in_m_editvs_txtmaxgreyh}    ${maxb}
+    ...    AND    Check Data    ${in_m_editvs_txtmpmgreyh}    ${mpm}
+    #speedway
+    Run Keyword If    '${sport}'=='Virtual Speedway'    Run Keywords    Check Data    ${in_m_editvs_txtminspeedw}    ${minb}
+    ...    AND    Check Data    ${in_m_editvs_txtmaxspeedw}    ${maxb}
+    ...    AND    Check Data    ${in_m_editvs_txtmpmspeedw}    ${mpm}
+    #Motor
+    Run Keyword If    '${sport}'=='Virtual Motorsports'    Run Keywords    Check Data    ${in_m_editvs_txtminmotor}    ${minb}
+    ...    AND    Check Data    ${in_m_editvs_txtmaxmotor}    ${maxb}
+    ...    AND    Check Data    ${in_m_editvs_txtmpmmotor}    ${mpm}
+    #Virtual Cycling
+    Run Keyword If    '${sport}'=='Virtual Cycling'    Run Keywords    Check Data    ${in_m_editvs_txtmincycling}    ${minb}
+    ...    AND    Check Data    ${in_m_editvs_txtmaxcycling}    ${maxb}
+    ...    AND    Check Data    ${in_m_editvs_txtmpmcycling}    ${mpm}
+    Sleep    2s
+    #Click submit button
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Check VS Bet Limit
+    [Arguments]    ${sport}    ${minb}    ${maxb}    ${mpm}    ${clicksubmit}
+    Select Frame    main
+    #VSSoccer
+    Run Keyword If    '${sport}'=='Virtual Soccer'    Run Keywords    Element Text Should Be    ${in_m_editvs_txtlimitminsoccer}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmaxsoccer}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmpmsoccer}    <=${mpm}
+    #Tennis
+    Run Keyword If    '${sport}'=='Virtual Tennis'    Run Keywords    Element Text Should Be    ${in_m_editvs_txtlimitmintennis}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmaxtennis}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmpmtennis}    <=${mpm}
+    #HorseRacing
+    Run Keyword If    '${sport}'=='Virtual Horse Racing'    Run Keywords    Element Text Should Be    ${in_m_editvs_txtlimitminhr}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmaxhr}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmpmhr}    <=${mpm}
+    #greyhound
+    Run Keyword If    '${sport}'=='Virtual Greyhounds'    Run Keywords    Element Text Should Be    ${in_m_editvs_txtlimitmingreyh}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmaxgreyh}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmpmgreyh}    <=${mpm}
+    #speedway
+    Run Keyword If    '${sport}'=='Virtual Speedway'    Run Keywords    Element Text Should Be    ${in_m_editvs_txtlimitminspeedw}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmaxspeedw}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmpmspeedw}    <=${mpm}
+    #Motor
+    Run Keyword If    '${sport}'=='Virtual Motorsports'    Run Keywords    Element Text Should Be    ${in_m_editvs_txtlimitminmotor}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmaxmotor}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmpmmotor}    <=${mpm}
+    #Virtual Cycling
+    Run Keyword If    '${sport}'=='Virtual Cycling'    Run Keywords    Element Text Should Be    ${in_m_editvs_txtlimitmincycling}    >=${minb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmaxcycling}    <=${maxb}
+    ...    AND    Element Text Should Be    ${in_m_editvs_txtlimitmpmcycling}    <=${mpm}
+    Sleep    2s
+    #Click submit button
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Edit Live Casino Bet Setting
+    [Arguments]    ${type}    ${bettype}    ${status}    ${clicksubmit}
+    Select Frame    main
+    #Party Baccarat
+    : FOR    ${index}    IN    0.5-100    0.5-50    5-500    25-1500
+    ...    50-3000    100-300    100-5000    200-10k    500-15k    2500-300k
+    ...    3k-10k
+    \    Run Keyword If    '${type}'=='Party Baccarat' and '${bettype}'=='${index}' and '${status}'=='check'    Select Checkbox    ${in_m_partyba_chk${index}}
+    \    Run Keyword If    '${type}'=='Party Baccarat' and '${bettype}'=='${index}' and '${status}'=='uncheck'    UnSelect Checkbox    ${in_m_partyba_chk${index}}
+    #Party Roulette
+    : FOR    ${index}    IN    0.25-250    1-1500    10-10k
+    \    Run Keyword If    '${type}'=='Party Roulette' and '${bettype}'=='${index}' and '${status}'=='check'    Select Checkbox    ${in_m_partyro_chk${index}}
+    \    Run Keyword If    '${type}'=='Party Roulette' and '${bettype}'=='${index}' and '${status}'=='uncheck'    UnSelect Checkbox    ${in_m_partyro_chk${index}}
+    #Live Baccarat
+    : FOR    ${index}    IN    1-100    25-2500    50-500    1k-5k
+    ...    25k-1m
+    \    Run Keyword If    '${type}'=='Live Baccarat' and '${bettype}'=='${index}' and '${status}'=='check'    Select Checkbox    ${in_m_liveba_chk${index}}
+    \    Run Keyword If    '${type}'=='Live Baccarat' and '${bettype}'=='${index}' and '${status}'=='uncheck'    UnSelect Checkbox    ${in_m_liveba_chk${index}}
+    #Party Roulette
+    Run Keyword If    '${type}'=='Live Roulette' and '${bettype}'=='1-100' and '${status}'=='check'    Select Checkbox    ${in_m_livero_chk1-100}
+    ...    ELSE IF    '${type}'=='Live Roulette' and '${bettype}'=='1-100' and '${status}'=='uncheck'    UnSelect Checkbox    ${in_m_livero_chk1-100}
+    #Click submit button
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Check Live Casino Bet Setting
+    [Arguments]    ${type}    ${bettype}    ${status}    ${clicksubmit}
+    Select Frame    main
+    #Party Baccarat
+    : FOR    ${index}    IN    0.5-100    0.5-50    5-500    25-1500
+    ...    50-3000    100-300    100-5000    200-10k    500-15k    2500-300k
+    ...    3k-10k
+    \    Run Keyword If    '${type}'=='Party Baccarat' and '${bettype}'=='${index}' and '${status}'=='check'    Checkbox Should Be Selected    ${in_m_partyba_chk${index}}
+    \    Run Keyword If    '${type}'=='Party Baccarat' and '${bettype}'=='${index}' and '${status}'=='uncheck'    Checkbox Should not Be Selected    ${in_m_partyba_chk${index}}
+    #Party Roulette
+    : FOR    ${index}    IN    0.25-250    1-1500    10-10k
+    \    Run Keyword If    '${type}'=='Party Roulette' and '${bettype}'=='${index}' and '${status}'=='check'    Checkbox Should Be Selected    ${in_m_partyro_chk${index}}
+    \    Run Keyword If    '${type}'=='Party Roulette' and '${bettype}'=='${index}' and '${status}'=='uncheck'    Checkbox Should not Be Selected    ${in_m_partyro_chk${index}}
+    #Live Baccarat
+    : FOR    ${index}    IN    1-100    25-2500    50-500    1k-5k
+    ...    25k-1m
+    \    Run Keyword If    '${type}'=='Live Baccarat' and '${bettype}'=='${index}' and '${status}'=='check'    Checkbox Should Be Selected    ${in_m_liveba_chk${index}}
+    \    Run Keyword If    '${type}'=='Live Baccarat' and '${bettype}'=='${index}' and '${status}'=='uncheck'    Checkbox Should not Be Selected    ${in_m_liveba_chk${index}}
+    #Party Roulette
+    Run Keyword If    '${type}'=='Live Roulette' and '${bettype}'=='1-100' and '${status}'=='check'    Checkbox Should Be Selected    ${in_m_livero_chk1-100}
+    ...    ELSE IF    '${type}'=='Live Roulette' and '${bettype}'=='1-100' and '${status}'=='uncheck'    Checkbox Should not Be Selected    ${in_m_livero_chk1-100}
+    #Click submit button
+    Run Keyword If    '${clicksubmit}'=='yes'    Click Element    id=btnSubmit
+    Unselect Frame
+
+Click Submit Bet Setting
+    [Documentation]    This action is used to click update button in bet setting form
+    Select Frame    main
+    Click Element    xpath=//*[@value='Submit']
+    Unselect Frame
+    sleep    2s
+
+Get Casino Bet Limit
+    Select Frame    main
+    ${rbet}=    Get Matching Xpath Count    xpath=//*[@id='tr_{gametypeid}']
+    ${list_gtype}    Create List
+    ${list_range}    Create List
+    Comment    : FOR    ${i}    IN RANGE    1    ${rbet}+1
+    Comment    \    ${li}=    Get Text    xpath=//*[@id='tr_{gametypeid}'][${i}]/following::tr[1]/td[1]
+    Comment    \    ${li2}=    Get Text    xpath=//*[@id='tr_{gametypeid}'][${i}]/following::tr[1]/td[2]
+    Comment    \    Append To List    ${list_gtype}    ${li}
+    Comment    \    Append To List    ${list_range}    ${li2}
+    ${list_gtype}    Execute Javascript    gametype = new Array(); \ xpath1="//*[@id='td_{gametypeid}']"; \ \ xpath="//tr[8]//td[1]/following::tr[not(@id)]"; \ irow = document.evaluate("count("+xpath1+")", document, null,1, null).numberValue; \ \ \ for(ir=1;ir<=irow;ir++) { txtGameType = ""; \ tr = xpath + "["+ir+"]"; td1 = tr+ "/td[1][@id='td_{gametypeid}']"; \ node = document.evaluate(td1, document, null,9, null); \ \ if (node.singleNodeValue) txtGameType = node.singleNodeValue.textContent; \ txtGameType = txtGameType.trim(); if (txtGameType.length > 0) gametype.push(txtGameType); \ } \ return gametype;
+    ${list_range}    Execute Javascript    gametype = new Array(); \ xpath1="//*[@id='td_{gametypeid}']"; \ \ xpath="//tr[8]//td[1]/following::tr[not(@id)]"; \ irow = document.evaluate("count("+xpath1+")", document, null,1, null).numberValue; \ \ \ for(ir=1;ir<=irow;ir++) { txtGameType = ""; \ tr = xpath + "["+ir+"]"; td1 = tr+ "/td[1][@id='td_{gametypeid}']/following::td[1]"; \ node = document.evaluate(td1, document, null,9, null); \ \ if (node.singleNodeValue) txtGameType = node.singleNodeValue.textContent; \ txtGameType = txtGameType.trim(); if (txtGameType.length > 0) gametype.push(txtGameType); \ } \ return gametype;
+    Unselect Frame
+    [Return]    ${list_gtype}    ${list_range}
+
+Check Casino Bet Limit
+    [Arguments]    ${list_gtype}    ${list_range}    ${removed_index}
+    Select Frame    main
+    ${rbet}=    Get Matching Xpath Count    xpath=//*[@id='tr_{gametypeid}']
+    ${ac_list_gtype}    Create List
+    ${ac_list_range}    Create List
+    ${ac_list_gtype}    Execute Javascript    gametype = new Array(); \ xpath1="//*[@id='td_{gametypeid}']"; \ \ xpath="//tr[8]//td[1]/following::tr[not(@id)]"; \ irow = document.evaluate("count("+xpath1+")", document, null,1, null).numberValue; \ \ \ for(ir=1;ir<=irow;ir++) { txtGameType = ""; \ tr = xpath + "["+ir+"]"; td1 = tr+ "/td[1][@id='td_{gametypeid}']"; \ node = document.evaluate(td1, document, null,9, null); \ \ if (node.singleNodeValue) txtGameType = node.singleNodeValue.textContent; \ txtGameType = txtGameType.trim(); if (txtGameType.length > 0) gametype.push(txtGameType); \ } \ return gametype;
+    ${ac_list_range}    Execute Javascript    gametype = new Array(); \ xpath1="//*[@id='td_{gametypeid}']"; \ \ xpath="//tr[8]//td[1]/following::tr[not(@id)]"; \ irow = document.evaluate("count("+xpath1+")", document, null,1, null).numberValue; \ \ \ for(ir=1;ir<=irow;ir++) { txtGameType = ""; \ tr = xpath + "["+ir+"]"; td1 = tr+ "/td[1][@id='td_{gametypeid}']/following::td[1]"; \ node = document.evaluate(td1, document, null,9, null); \ \ if (node.singleNodeValue) txtGameType = node.singleNodeValue.textContent; \ txtGameType = txtGameType.trim(); if (txtGameType.length > 0) gametype.push(txtGameType); \ } \ return gametype;
+    Comment    : FOR    ${i}    IN RANGE    1    ${rbet}+1
+    Comment    \    ${li}=    Get Text    xpath=//*[@id='tr_{gametypeid}'][${i}]/following::tr[1]/td[1]
+    Comment    \    ${li2}=    Get Text    xpath=//*[@id='tr_{gametypeid}'][${i}]/following::tr[1]/td[2]
+    Comment    \    Append To List    ${ac_list_gtype}    ${li}
+    Comment    \    Append To List    ${ac_list_range}    ${li2}
+    Unselect Frame
+    Run Keyword If    '${removed_index}'!='${EMPTY}'    Run Keywords    Remove From List    ${ac_list_gtype}    ${removed_index}
+    ...    AND    Remove From List    ${ac_list_range}    ${removed_index}
+    #compare list
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${ac_list_gtype}    ${list_gtype}
+    Run Keyword And Continue On Failure    Lists Should Be Equal    ${ac_list_range}    ${list_range}
+
+Check Casino Bet Setting
+    [Arguments]    ${bettype}    ${status}    @{range}
+    ${ac_all}=    Run Keyword And Return Status    List Should Contain Value    ${range}    All
+    Select Frame    main
+    #case range = specific options    Checkbox define by index
+    : FOR    ${i}    IN    @{range}
+    \    Run Keyword If    '${status}'=='Check' and '${ac_all}'!='True'    Checkbox Should Be Selected    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input[${i}]
+    \    Run Keyword If    '${status}'=='Uncheck' and '${ac_all}'!='True'    Checkbox Should not Be Selected    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input[${i}]
+    #Case range =ALL
+    ${ttcheckbox}    Get Matching Xpath Count    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input
+    : FOR    ${i2}    IN RANGE    1    ${ttcheckbox}+1
+    \    Run Keyword If    '${status}'=='Check' and '${ac_all}'=='True'    Checkbox Should Be Selected    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input[${i2}]
+    \    Run Keyword If    '${status}'=='Uncheck' and '${ac_all}'=='True'    Checkbox Should not Be Selected    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input[${i2}]
+    #Empty
+    Run Keyword If    '${status}'=='Empty'    Should Be Equal    ${ttcheckbox}    0
+    #check box exist but not checked    check for downlines
+    : FOR    ${i3}    IN    @{range}
+    \    Run Keyword If    '${status}'=='Enable' and '${ac_all}'!='True'    Element Should Be Visible    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input[${i}]
+    : FOR    ${i4}    IN RANGE    1    ${ttcheckbox}+1
+    \    Run Keyword If    '${status}'=='Enable' and '${ac_all}'=='True'    Element Should Be Visible    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input[${i2}]
+    Unselect Frame
+
+Edit Casino Bet Setting
+    [Arguments]    ${bettype}    ${status}    @{range}
+    ${ac_all}=    Run Keyword And Return Status    List Should Contain Value    ${range}    All
+    Select Frame    main
+    #case range = specific options    Checkbox define by index
+    : FOR    ${i}    IN    @{range}
+    \    Run Keyword If    '${status}'=='Check' and '${ac_all}'!='True'    Select Checkbox    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input[${i}]
+    \    Run Keyword If    '${status}'=='Uncheck' and '${ac_all}'!='True'    UnSelect Checkbox    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input[${i}]
+    #Case range =ALL
+    ${ttcheckbox}    Get Matching Xpath Count    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input
+    : FOR    ${i2}    IN RANGE    1    ${ttcheckbox}+1
+    \    Run Keyword If    '${status}'=='Check' and '${ac_all}'=='True'    Select Checkbox    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input[${i2}]
+    \    Run Keyword If    '${status}'=='Uncheck' and '${ac_all}'=='True'    UnSelect Checkbox    xpath=//*[@id='td_{gametypeid}'][text()="${bettype}"]/following-sibling::td/input[${i2}]
+    Unselect Frame
+
+Get Live Casino Bet Limit
+    [Documentation]    This action is used to get Live Casino Bet limit controls and values
+    ...
+    ...    ${username}: the username of account
+    ...
+    ...    ${outputFirstCheckedGameStake}: the list contain the first checked Game Type Stake level
+    ...
+    ...    ${outputStakeVale}: the dictionary contain bet limit value
+    ...
+    ...    ${outputStakeControl}: the dictionary contain bet limit control
+    Select Frame    main
+    ## Get Live Casino bet limit
+    @{tmpLCSGame}    Execute Javascript    var div,tbl,BLArray,FirstCheckedGameTypeArray; \ \ BLArray = new Array(); \ \ FirstCheckedGameTypeArray = new Array(); \ \ tbl = document.getElementById("tblGameSetting").getElementsByTagName("table"); \ \ \ if (tbl == null || tbl == undefined) return BLArray; \ \ \ tbl = tbl[0]; \ \ \ for(i=0;i < tbl.rows.length;i++) \ \ { \ \ \ \ \ \ \ cells = tbl.rows[i].cells; \ \ \ \ gameType = getText(cells[0]).trim(); \ \ \ \ if (gameType.length < 0 || gameType.search(/Game Type/i) >= 0) continue; \ \ \ \ cell = cells[1]; \ \ \ \ lb = cell.getElementsByTagName("label"); \ \ \ \ \ \ \ \ if (lb == null || lb == undefined ) continue; \ \ \ \ isFirstChecked = true; \ for(j=0;j<lb.length;j++) \ \ \ \ { \ \ \ \ \ \ subArray = new Array(); \ \ \ \ \ \ ilb = lb[j]; \ \ \ \ \ \ stakelevel = gameType + "^" + getText(ilb).trim(); \ \ \ \ \ \ chk = ilb.getElementsByTagName("input")[0].id; \ \ \ \ \ \ \ chkValue = \ ilb.getElementsByTagName("input")[0].checked; \ \ if(chkValue && isFirstChecked) \ \ \ { \ \ \ isFirstChecked = false; \ \ \ FirstCheckedGameTypeArray.push(stakelevel); \ \ } \ \ chkValue= chkValue.toString().toLowerCase(); \ \ \ \ \ \ subArray.push(stakelevel); \ \ \ \ \ \ subArray.push(chk); \ \ \ \ \ \ subArray.push(chkValue); \ \ \ \ \ \ \ \ \ \ BLArray.push(subArray); \ \ \ \ } \ \ } \ BLArray.unshift(FirstCheckedGameTypeArray); \ return BLArray; \ function getText(e){ \ return (e.innerText != undefined) ? e.innerText : e.textContent; \ }
+    ${outputFirstCheckedGameStake}    Set Variable    @{tmpLCSGame}[0]
+    ${outputStakeValue}    Create Dictionary    KeyTemp=0
+    ${outputStakeControl}    Create Dictionary    KeyTemp=0
+    ${index}    Set Variable    -1
+    : FOR    ${item}    IN    @{tmpLCSGame}
+    \    ${index}    Evaluate    ${index} +1
+    \    Continue For Loop If    ${index}==0
+    \    ${iKey}    Get From List    ${item}    0
+    \    ${icontrol}    Get From List    ${item}    1
+    \    ${ivalue}    Get From List    ${item}    2
+    \    Set To Dictionary    ${outputStakeControl}    ${iKey}    ${icontrol}
+    \    Set To Dictionary    ${outputStakeValue}    ${iKey}    ${ivalue}
+    Unselect Frame
+    [Return]    ${outputFirstCheckedGameStake}    ${outputStakeValue}    ${outputStakeControl}
+
+Edit Live Casino Bet Limit
+    [Arguments]    ${GameTypeStake}    ${isCheck}=1
+    [Documentation]    This action is used to edit Live Casino Bet limit and return the list contain checked stake level before editing
+    ...
+    ...    ${GameTypeStake}: the list contain Stake level bet limit need to change.. If list is ${EMPTY}, it means edit all casino games
+    ...
+    ...    ${isCheck}: 0/1 \ (0: means uncheck)
+    ...
+    ...    ${outputlstCheckedStake}: the output list contain the checked Stake level
+    ${tmplstGT}    ${tmpdctV}    ${tmpdctC}    Get Live Casino BetLimit
+    Select Frame    main
+    ${tmplstStakeLV}    Get Dictionary Keys    ${tmpdctV}
+    ${tmplstChk}    Get Dictionary Values    ${tmpdctC}
+    ${isAll}    Get Length    ${GameTypeStake}
+    ${tmplstChkSeleted}    Get Values From Dictionary By List Keys    ${tmpdctC}    ${GameTypeStake}
+    ${tmplstChk}    Set Variable If    ${isAll} > 0    ${tmplstChkSeleted}    ${tmplstChk}
+    Comment    Select multiple checkboxes    ${tmplstChk}    ${isCheck}
+    Select multiple checkboxes by JS    ${tmplstChk}    ${isCheck}
+    Click Element    xpath=//*[@value='Update']
+    Sleep    3s
+    ${outputlstCheckedStake}    Get Keys From Dictionary By Value    ${tmpdctV}    true
+    Unselect Frame
+    [Return]    ${outputlstCheckedStake}
+
+Check Live Casino Bet Limit
+    [Arguments]    ${lstGameStake}    ${isCheck}    ${dctUplineV}
+    [Documentation]    This action is used to check Live Casino BetLimit of all game type is checked,unchecked or no bet limit and return current checked stake level
+    ...
+    ...    ${username} : the account username
+    ...
+    ...    ${lstGameStake}: the list contain Game Type Stake Bet limit need to check. If list is ${EMPTY}, it means edit all live casino games
+    ...
+    ...    ${isCheck} : 0/1/-1 (0:unchecked, 1: checked, -1: no bet limit)
+    ...
+    ...    ${dctUplineV}: dictionary contain Upline live Casino Game Type betlimit checkbox values
+    ${outputlstFirstCheckedStake}    ${outputdctStakeValues}    ${tmpdctC}    Get Live Casino BetLimit
+    Select Frame    main
+    ## Set variable
+    ${tmpIsCheck}    Set Variable If    '${isCheck}'=='1'    true    false
+    ${tmpNotIsCheck}    Set Variable If    '${isCheck}'=='1'    false    true
+    ${isCheckWithUpline}    Get Length    ${dctUplineV}
+    ${isNotAll}    Get Length    ${lstGameStake}
+    ## Get Live Casino Game type
+    ${tmplstAccountStakeLV}    Get Dictionary Keys    ${outputdctStakeValues}
+    ${lstGameStake}    Set Variable If    ${isNotAll} > 0    ${lstGameStake}    ${tmplstAccountStakeLV}
+    ## Set temp variable contain checked value
+    ${dctStakeLV}    Copy Dictionary    ${outputdctStakeValues}
+    ${dctStakeLV}    Set Dictionary Key Value By List Keys    ${dctStakeLV}    ${lstGameStake}    ${tmpIsCheck}    ${tmpNotIsCheck}
+    Run Keyword And Continue On Failure    Run Keyword Unless    '${isCheck}'=='-1'    Dictionaries Should Be Equal    ${outputdctStakeValues}    ${dctStakeLV}    Casino Game Type bet limit checkbox values are not correct
+    ## Check Live Casino Game Type with upline
+    ${tmplstStakeLVUplineTrue}    Get Keys From Dictionary By Value    ${dctUplineV}    true
+    ${checkedlstStakeLV}    Get Dictionary Keys    ${dctStakeLV}
+    Run Keyword If    ${isCheckWithUpline} > 0    Compare Lists    ${tmplstAccountStakeLV}    ${checkedlstStakeLV}    Casino Game Stake Level are different from that of upline
+    Unselect Frame
+    [Return]    ${outputdctStakeValues}    ${outputlstFirstCheckedStake}

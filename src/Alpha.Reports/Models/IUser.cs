@@ -11,5 +11,7 @@
         string Language { get; }
 
         string LanguageKey { get; }
+        
+        bool GetHideProduct(int productId);
     }
 }

@@ -1,0 +1,2121 @@
+*** Settings ***
+Suite Teardown    Close All Browsers
+Test Setup
+Test Teardown     Close All Browsers
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Actions/Setting/bet_setting.txt
+Resource          ../../Data_set/bet_setting.txt
+Resource          ../../Interfaces/Main/in_m_edit_sportsbook.txt
+
+*** Test Cases ***
+TC_Super_Master_Bet_Setting_SB_32
+    [Documentation]    *Summary: Min <= Max < = MaxPerMatch*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Sport Book in setting tab
+    ...    4. Input values (Min <= Max < = MaxPerMatch) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message , setting window closed after update
+    ...    7. Click Edit Sport Book in setting tab
+    ...    8. VP
+    ...    9. Logout Super
+    ...    10. Login as Master
+    ...    11. Navigate Agent SB bet setting
+    ...    12. Check Limited bet setting
+    ...
+    ...
+    ...    *Expected:*
+    ...
+    ...    6. VP: message: Updated successfully
+    ...    8. VP: inputted values at step 4 were saved.
+    ...    - Min, Max, MaxPerMatch are not validated with MaxPerBall (for Number Game only)
+    ...    12. VP Check Limited bet setting
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    @{tm_sportlist}    Create List    soccer    basketball    football    tennis    baseball
+    ...    golf    motor    other    mixpl    hr    ng
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Sportsbook
+    sleep    3s
+    #Edit bet setting
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit SB Bet Setting    @{tc_32_${index}}[0]    @{tc_32_${index}}[1]    @{tc_32_${index}}[2]    @{tc_32_${index}}[3]    @{tc_32_${index}}[4]
+    \    ...    @{tc_32_${index}}[5]    @{tc_32_${index}}[6]    @{tc_32_${index}}[7]
+    #wait for updating completed
+    sleep    10s
+    select link in setting tab    Edit Sportsbook
+    #check bet setting
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Check SB Bet Setting    @{tc_32_${index}}[0]    @{tc_32_${index}}[1]    @{tc_32_${index}}[2]    @{tc_32_${index}}[3]    @{tc_32_${index}}[4]
+    \    ...    @{tc_32_${index}}[7]
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Sportsbook
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Check SB Bet Limit    @{tc_32_${index}}[0]    @{tc_32_${index}}[1]    @{tc_32_${index}}[2]    @{tc_32_${index}}[3]    @{tc_32_${index}}[4]
+    \    ...    @{tc_32_${index}}[7]
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_SB_33
+    [Documentation]    *Summary: Min = Max = Max per match = 0: Un-limit bet setting*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Sport Book in setting tab
+    ...    4. Input values (Min = Max = Max per match = 0) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message , setting window closed after update
+    ...    7. Click Edit Sport Book in setting tab
+    ...    8. VP
+    ...    9. Logout Super
+    ...    10. Login as Master
+    ...    11. Navigate Agent SB bet setting
+    ...    12. VP \ Check Limited bet setting
+    ...
+    ...    *Expected:*
+    ...
+    ...    6. VP: message: Updated successfully
+    ...    8. VP: inputted values at step 4 were saved.
+    ...    - Min, Max, MaxPerMatch are not validated with MaxPerBall (for Number Game only)
+    ...    12. VP Check Limited bet setting
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Sportsbook
+    sleep    3s
+    #Edit bet setting
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    0    0    0    0
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    #wait for updating completed
+    Select Frame    main
+    Click Element    id=btnSubmit
+    Unselect Frame
+    sleep    10s
+    select link in setting tab    Edit Sportsbook
+    #check bet setting
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Check SB Bet Setting    ${index}    0    0    0    0
+    \    ...    ${EMPTY}
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Sportsbook
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Check SB Bet Unlimit    ${index}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    \    ...    ${EMPTY}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_SB_34
+    [Documentation]    *Summary:*
+    ...    - Max Bet < Min Bet
+    ...    Mes: “The Min Bet should be less than or equal to Max Bet”
+    ...    - MaxPerMatch < Min Bet
+    ...    Mes: “The Min Bet should be less than or equal to Max Per Match”
+    ...    - Max bet > MaxPerMatch
+    ...    Mes: The Max Bet should be less than or equal to Max Per Match”
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Sport Book in setting tab
+    ...    4. Input values (Max Bet < Min Bet) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message
+    ...    7. Input values (MaxPerMatch < Min Bet) for all sports
+    ...    8. Click Update button
+    ...    9. VP. Message
+    ...    10. Input values (MAX Bet < MaxPerMatch ) for all sports
+    ...    11. Click Update button
+    ...    12. VP. Message
+    ...
+    ...    *Expected:*
+    ...
+    ...    6. VP: Mes: “The Min Bet should be less than or equal to Max Bet”
+    ...    8. VP: Mes: “The Min Bet should be less than or equal to Max Per Match”
+    ...    12. VP: Mes: "The Max Bet should be less than or equal to Max Per Match”
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Sportsbook
+    sleep    3s
+    comment    #- Max Bet < Min Bet    Mes: “The Min Bet should be less than or equal to Max Bet”
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    30    10    0    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    xpath=//*[@id='fHint']/span[1]    ${index} - The Min Bet should be less than or equal to Max Bet
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    10    20    30    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    comment    #- MaxPerMatch < Min Bet    Mes: “The Min Bet should be less than or equal to Max Per Match”
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    30    40    10    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    xpath=//*[@id='fHint']/span[1]    ${index} - The Min Bet should be less than or equal to Max Per Match
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    10    20    30    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    comment    #- -Max bet > MaxPerMatch    Mes: The Max Bet should be less than or equal to Max Per Match”
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    0    40    10    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    xpath=//*[@id='fHint']/span[1]    ${index} - The Max Bet should be less than or equal to Max Per Match
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    10    20    30    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_SB_35
+    [Documentation]    *Summary:*
+    ...    - Min Bet < min limit
+    ...    Mes: “Min Bet must be greater than or equal to xx”
+    ...    - Max bet > Max limit
+    ...    Mes: \ ”Max Bet must be less than or equal to xx”
+    ...    - Max per Match > Maxpermatch limit
+    ...    Mes: Max Per Match must be less than or equal to xx
+    ...    - Max per Ball > MpBall limit
+    ...    Mes: Max Per Ball must be less than or equal to xx
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Sport Book in setting tab
+    ...    4. Input values ( Min Bet < min limit) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message
+    ...    7. Input values (Max bet > Max limit) for all sports
+    ...    8. Click Update button
+    ...    9. VP. Message
+    ...    10. Input values (Max per Match > MaxPerMatch limit ) for all sports
+    ...    11. Click Update button
+    ...    12. VP. Message
+    ...    13. Input values (Max per Match > MaxPerMatch limit ) for all sports
+    ...    14. Click Update button
+    ...    15. VP. Message
+    ...
+    ...    *Expected:*
+    ...    6. VP: \ Mes: “Min Bet must be greater than or equal to xx”
+    ...    8. VP: Mes: \ ”Max Bet must be less than or equal to xx”
+    ...    12. VP: Mes: Max Per Match must be less than or equal to xx
+    ...    15. VP: Mes: Max Per Ball must be less than or equal to xx
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_minbet}    Set Variable    10
+    ${tm_maxbet}    Set Variable    20
+    ${tm_mpmbet}    Set Variable    30
+    ${tm_mpbbet}    Set Variable    18
+    ${tm_msg_minlimit}    Set Variable    Min Bet must be greater than or equal to ${tm_minbet}
+    ${tm_msg_maxlimit}    Set Variable    Max Bet must be less than or equal to ${tm_maxbet}
+    ${tm_msg_mpmlimit}    Set Variable    Max Per Match must be less than or equal to ${tm_mpmbet}.
+    ${tm_msg_mpblimit}    Set Variable    Max Per Ball must be less than or equal to ${tm_mpbbet}.
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    #precondition- update correct bet setting for master    --> create limited bet setting for master's downlines
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Sportsbook
+    comment    Min=10    Max=20    MaxperM=30    MpBall=20 (Number Game only)
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    Select Frame    main
+    Click Element    id=btnSubmit
+    Unselect Frame
+    sleep    5s
+    Logout
+    COMMENT    ==============================>    MAIN STEPS
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Sportsbook
+    sleep    3s
+    comment    #- \ Min Bet < min limit    VP: \ Mes: “Min Bet must be greater than or equal to xx”
+    comment    Min=9    Max=20    MaxperM=30    MpBall=20 (Number Game only)
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    9    ${tm_maxbet}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    xpath=//*[@id='fHint']/span[1]    ${tm_msg_minlimit}
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    comment    #- \ Max bet > Max limit    Mes: \ ”Max Bet must be less than or equal to xx”
+    comment    Min=10    Max=21    MaxperM=30    MpBall=20 (Number Game only)
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    21    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    xpath=//*[@id='fHint']/span[1]    ${tm_msg_maxlimit}
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    comment    - Max per Match > Maxpermatch limit    Mes: Max Per Match must be less than or equal to xx
+    comment    Min=10    Max=20    MaxperM=31    MpBall=20 (Number Game only)
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    31    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    xpath=//*[@id='fHint']/span[1]    ${tm_msg_mpmlimit}
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    comment    Max per Ball > MpBall limit    Mes: Max Per Ball must be less than or equal to xx
+    comment    Min=10    Max=20    MaxperM=30    MpBall=20 (Number Game only)
+    Edit SB Bet Setting    Number Game    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    20    ${EMPTY}
+    ...    ${EMPTY}    yes
+    Select Frame    main
+    Element Text Should Be    xpath=//*[@id='fHint']/span[1]    ${tm_msg_mpblimit}
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_SB_36
+    [Documentation]    *Summary:*
+    ...    - Tooltip: Copy all Bet Setting from Soccer (Excluding Number Game)
+    ...    - Disable All Sport – except number game
+    ...    - Bet setting of all sports should be copied from soccer – except number game
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Sport Book in setting tab
+    ...    4. Input valid values (Min <= Max < = MaxPerMatch) for Soccer
+    ...    5. Click on copy all from Soccer bet setting
+    ...    6. VP
+    ...    7. Click Update button
+    ...    8. VP
+    ...    9. Reopen SB bet setting (step #3)
+    ...    10. VP
+    ...
+    ...    *Expected:*
+    ...    6. All sport's fields under soccer are disabled
+    ...    8. VP: Mes: Updated successfully
+    ...    + SB bet setting closed
+    ...    10. VP: Bet setting of all sports should be copied from soccer – except number game
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_minbet}    Set Variable    25
+    ${tm_maxbet}    Set Variable    450
+    ${tm_mpmbet}    Set Variable    950
+    ${tm_soccertt}    Set Variable    Copy all below bet settings from Soccer (excluding Number Game)
+    ${tm_minNG}    Set Variable    11
+    ${tm_maxNG}    Set Variable    211
+    ${tm_mpmNG}    Set Variable    789
+    ${tm_mpbNG}    Set Variable    150
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Sportsbook
+    #- Tooltip: Copy all Bet Setting from Soccer (Excluding Number Game)
+    Edit SB Bet Setting    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    Edit SB Bet Setting    Soccer    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    Select Frame    main
+    ${tm_soccertooltip}=    Get Element Attribute    ${in_m_editsb_btncopysoccer}@title
+    Should Be Equal    ${tm_soccertt}    ${tm_soccertooltip}
+    Click Element    ${in_m_editsb_btncopysoccer}
+    : FOR    ${index}    IN    @{tc_36_controls_disabled}
+    \    Element Should Be Disabled    ${index}
+    Click Element    id=btnSubmit
+    Unselect Frame
+    sleep    5s
+    #Reopen and check betting value
+    select link in setting tab    Edit Sportsbook
+    : FOR    ${index}    IN    @{tc_36_copyproducts}
+    \    Check SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}
+    \    ...    ${EMPTY}
+    #check number game does not change
+    Check SB Bet Setting    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    yes
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Sportsbook
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tc_36_copyproducts}
+    \    Check SB Bet Limit    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}
+    \    ...    ${EMPTY}
+    #check Limited number game
+    Check SB Bet Limit    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    yes
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+
+TC_Super_Master_Bet_Setting_SB_37
+    [Documentation]    *Summary:*
+    ...    - Tooltip: Copy all Bet Setting from Basketball (Excluding Number Game)
+    ...    - Disable All Sport – except number game and soccer
+    ...    - Bet setting of all sports should be copied from Basketball – except number game and soccer
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Sport Book in setting tab
+    ...    4. Input valid values (Min <= Max < = MaxPerMatch) for Basketball
+    ...    5. Click on copy all from Basketball bet setting
+    ...    6. VP
+    ...    7. Click Update button
+    ...    8. VP
+    ...    9. Reopen SB bet setting (step #3)
+    ...    10. VP
+    ...
+    ...    *Expected:*
+    ...    6. All sport's fields under basketball are disabled except soccer
+    ...    8. VP: Mes: Updated successfully
+    ...    + SB bet setting closed
+    ...    10. VP: \ Bet setting of all sports should be copied from Basketball – except number game and soccer
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    #set basketball variables
+    ${tm_minbet}    Set Variable    25
+    ${tm_maxbet}    Set Variable    450
+    ${tm_mpmbet}    Set Variable    950
+    ${tm_bktt}    Set Variable    Copy all below bet settings from Basketball (excluding Number Game)
+    # set soccer variables
+    ${tm_minSC}    Set Variable    15
+    ${tm_maxSC}    Set Variable    55
+    ${tm_mpmSC}    Set Variable    555
+    # set Number Game variables
+    ${tm_minNG}    Set Variable    8
+    ${tm_maxNG}    Set Variable    80
+    ${tm_mpmNG}    Set Variable    800
+    ${tm_mpbNG}    Set Variable    180
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Sportsbook
+    #- Tooltip: Copy all Bet Setting from Basketball (Excluding Number Game)
+    Edit SB Bet Setting    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    Edit SB Bet Setting    Soccer    ${tm_minSC}    ${tm_maxSC}    ${tm_mpmSC}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    Edit SB Bet Setting    Basketball    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    Select Frame    main
+    ${tm_bktooltip}=    Get Element Attribute    ${in_m_editsb_btncopybkball}@title
+    Should Be Equal    ${tm_bktt}    ${tm_bktooltip}
+    Click Element    ${in_m_editsb_btncopybkball}
+    : FOR    ${index}    IN    @{tc_37_controls_disabled}
+    \    Element Should Be Disabled    ${index}
+    Click Element    id=btnSubmit
+    Unselect Frame
+    sleep    5s
+    #Reopen and check betting value
+    select link in setting tab    Edit Sportsbook
+    : FOR    ${index}    IN    @{tc_37_copyproducts}
+    \    Check SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}
+    \    ...    ${EMPTY}
+    #check number game and Soccer are not change
+    Check SB Bet Setting    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    ${EMPTY}
+    Check SB Bet Setting    Soccer    ${tm_minSC}    ${tm_maxSC}    ${tm_mpmSC}    ${EMPTY}    yes
+    #check limited from agent
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Sportsbook
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tc_37_copyproducts}
+    \    Check SB Bet Limit    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}
+    \    ...    ${EMPTY}
+    #check Limited number game and Soccer
+    Check SB Bet Limit    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    ${EMPTY}
+    Check SB Bet Limit    Soccer    ${tm_minSC}    ${tm_maxSC}    ${tm_mpmSC}    ${EMPTY}    yes
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+
+TC_Super_Master_Bet_Setting_SB_38
+    [Documentation]    *Summary: Min <= Max < = MaxPerMatch*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Bet Setting in setting tab
+    ...    4. Input values (Min <= Max < = MaxPerMatch) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message , setting window closed after update
+    ...    7. Click Edit Sport Book in setting tab
+    ...    8. VP
+    ...    9. Logout Super
+    ...    10. Login as Master
+    ...    11. Navigate Agent Bet Setting
+    ...    12. Check Limited bet setting
+    ...
+    ...
+    ...    *Expected:*
+    ...
+    ...    6. VP: message: Updated successfully
+    ...    8. VP: inputted values at step 4 were saved.
+    ...    - Min, Max, MaxPerMatch are not validated with MaxPerBall (for Number Game only)
+    ...    12. VP Check Limited bet setting
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    @{tm_sportlist}    Create List    soccer    basketball    football    tennis    baseball
+    ...    golf    motor    other    mixpl    hr    ng
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Bet Setting
+    sleep    3s
+    #Edit bet setting
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit SB Bet Setting    @{tc_32_${index}}[0]    @{tc_32_${index}}[1]    @{tc_32_${index}}[2]    @{tc_32_${index}}[3]    @{tc_32_${index}}[4]
+    \    ...    @{tc_32_${index}}[5]    @{tc_32_${index}}[6]    @{tc_32_${index}}[7]
+    #wait for updating completed
+    sleep    10s
+    select link in setting tab    Bet Setting
+    #check bet setting
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Check SB Bet Setting    @{tc_32_${index}}[0]    @{tc_32_${index}}[1]    @{tc_32_${index}}[2]    @{tc_32_${index}}[3]    @{tc_32_${index}}[4]
+    \    ...    @{tc_32_${index}}[7]
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Bet Setting
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Check SB Bet Limit    @{tc_32_${index}}[0]    @{tc_32_${index}}[1]    @{tc_32_${index}}[2]    @{tc_32_${index}}[3]    @{tc_32_${index}}[4]
+    \    ...    @{tc_32_${index}}[7]
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_SB_39
+    [Documentation]    *Summary: Min = Max = Max per match = 0: Un-limit bet setting*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Bet Setting in setting tab
+    ...    4. Input values (Min = Max = Max per match = 0) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message , setting window closed after update
+    ...    7. Click Edit Sport Book in setting tab
+    ...    8. VP
+    ...    9. Logout Super
+    ...    10. Login as Master
+    ...    11. Navigate Agent SB bet setting
+    ...    12. VP \ Check Limited bet setting
+    ...
+    ...    *Expected:*
+    ...
+    ...    6. VP: message: Updated successfully
+    ...    8. VP: inputted values at step 4 were saved.
+    ...    - Min, Max, MaxPerMatch are not validated with MaxPerBall (for Number Game only)
+    ...    12. VP Check Limited bet setting
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Bet Setting
+    sleep    3s
+    #Edit bet setting
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    0    0    0    0
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    #wait for updating completed
+    Select Frame    main
+    Click Element    id=btnSubmit
+    Unselect Frame
+    sleep    10s
+    select link in setting tab    Bet Setting
+    #check bet setting
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Check SB Bet Setting    ${index}    0    0    0    0
+    \    ...    ${EMPTY}
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Bet Setting
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Check SB Bet Unlimit    ${index}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    \    ...    ${EMPTY}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_SB_40
+    [Documentation]    *Summary:*
+    ...    - Max Bet < Min Bet
+    ...    Mes: “The Min Bet should be less than or equal to Max Bet”
+    ...    - MaxPerMatch < Min Bet
+    ...    Mes: “The Min Bet should be less than or equal to Max Per Match”
+    ...    - Max bet > MaxPerMatch
+    ...    Mes: The Max Bet should be less than or equal to Max Per Match”
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. ClickBet Setting in setting tab
+    ...    4. Input values (Max Bet < Min Bet) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message
+    ...    7. Input values (MaxPerMatch < Min Bet) for all sports
+    ...    8. Click Update button
+    ...    9. VP. Message
+    ...    10. Input values (MAX Bet < MaxPerMatch ) for all sports
+    ...    11. Click Update button
+    ...    12. VP. Message
+    ...
+    ...    *Expected:*
+    ...
+    ...    6. VP: Mes: “The Min Bet should be less than or equal to Max Bet”
+    ...    8. VP: Mes: “The Min Bet should be less than or equal to Max Per Match”
+    ...    12. VP: Mes: "The Max Bet should be less than or equal to Max Per Match”
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    ${tm_correctmin}    Set Variable    150
+    ${tm_correctmax}    Set Variable    378
+    ${tm_correctmpm}    Set Variable    2,376
+    ${tm_failmin}    Set Variable    400
+    ${tm_failmax}    Set Variable    2,378
+    ${tm_failmpm}    Set Variable    149
+    ${tm_in_tooltip}    Set Variable    xpath=//*[@id='fHint']/span[1]
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Bet Setting
+    sleep    3s
+    comment    #- Max Bet < Min Bet    Mes: “The Min Bet should be less than or equal to Max Bet”
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    ${tm_failmin}    ${tm_correctmax}    ${tm_correctmpm}    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${index} - The Min Bet should be less than or equal to Max Bet
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    ${tm_correctmin}    ${tm_correctmax}    ${tm_correctmpm}    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    comment    #- MaxPerMatch < Min Bet    Mes: “The Min Bet should be less than or equal to Max Per Match”
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    ${tm_correctmin}    ${tm_correctmax}    ${tm_failmpm}    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${index} - The Min Bet should be less than or equal to Max Per Match
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    ${tm_correctmin}    ${tm_correctmax}    ${tm_correctmpm}    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    comment    #- -Max bet > MaxPerMatch    Mes: The Max Bet should be less than or equal to Max Per Match”
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    ${tm_correctmin}    ${tm_failmax}    ${tm_correctmpm}    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${index} - The Max Bet should be less than or equal to Max Per Match
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    ${tm_correctmin}    ${tm_correctmax}    ${tm_correctmpm}    ${EMPTY}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_SB_41
+    [Documentation]    *Summary:*
+    ...    - Min Bet < min limit
+    ...    Mes: “Min Bet must be greater than or equal to xx”
+    ...    - Max bet > Max limit
+    ...    Mes: \ ”Max Bet must be less than or equal to xx”
+    ...    - Max per Match > Maxpermatch limit
+    ...    Mes: Max Per Match must be less than or equal to xx
+    ...    - Max per Ball > MpBall limit
+    ...    Mes: Max Per Ball must be less than or equal to xx
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Bet Setting in setting tab
+    ...    4. Input values ( Min Bet < min limit) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message
+    ...    7. Input values (Max bet > Max limit) for all sports
+    ...    8. Click Update button
+    ...    9. VP. Message
+    ...    10. Input values (Max per Match > MaxPerMatch limit ) for all sports
+    ...    11. Click Update button
+    ...    12. VP. Message
+    ...    13. Input values (Max per Match > MaxPerMatch limit ) for all sports
+    ...    14. Click Update button
+    ...    15. VP. Message
+    ...
+    ...    *Expected:*
+    ...    6. VP: \ Mes: “Min Bet must be greater than or equal to xx”
+    ...    8. VP: Mes: \ ”Max Bet must be less than or equal to xx”
+    ...    12. VP: Mes: Max Per Match must be less than or equal to xx
+    ...    15. VP: Mes: Max Per Ball must be less than or equal to xx
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    ${tm_minbet}    Set Variable    222
+    ${tm_maxbet}    Set Variable    444
+    ${tm_mpmbet}    Set Variable    6,666
+    ${tm_mpbbet}    Set Variable    555
+    ${tm_failmin}    Set Variable    221
+    ${tm_failmax}    Set Variable    445
+    ${tm_failmpm}    Set Variable    8,888
+    ${tm_failmpb}    Set Variable    600
+    ${tm_msg_minlimit}    Set Variable    Min Bet must be greater than or equal to ${tm_minbet}
+    ${tm_msg_maxlimit}    Set Variable    Max Bet must be less than or equal to ${tm_maxbet}
+    ${tm_msg_mpmlimit}    Set Variable    Max Per Match must be less than or equal to ${tm_mpmbet}.
+    ${tm_msg_mpblimit}    Set Variable    Max Per Ball must be less than or equal to ${tm_mpbbet}.
+    ${tm_in_tooltip}    Set Variable    xpath=//*[@id='fHint']/span[1]
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    #precondition- update correct bet setting for master    --> create limited bet setting for master's downlines
+    Search Account    ${tm_master}
+    select link in setting tab    Bet Setting
+    comment    Min=10    Max=20    MaxperM=30    MpBall=20 (Number Game only)
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    Select Frame    main
+    Click Element    id=btnSubmit
+    Unselect Frame
+    sleep    5s
+    Logout
+    COMMENT    ==============================>    MAIN STEPS
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Bet Setting
+    sleep    3s
+    comment    #- \ Min Bet < min limit    VP: \ Mes: “Min Bet must be greater than or equal to xx”
+    comment    Min=9    Max=20    MaxperM=30    MpBall=20 (Number Game only)
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    ${tm_failmin}    ${tm_maxbet}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${tm_msg_minlimit}
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    comment    #- \ Max bet > Max limit    Mes: \ ”Max Bet must be less than or equal to xx”
+    comment    Min=10    Max=21    MaxperM=30    MpBall=20 (Number Game only)
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_failmax}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${tm_msg_maxlimit}
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    comment    - Max per Match > Maxpermatch limit    Mes: Max Per Match must be less than or equal to xx
+    comment    Min=10    Max=20    MaxperM=31    MpBall=20 (Number Game only)
+    : FOR    ${index}    IN    @{tc_33_unlimited}
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_failmpm}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${tm_msg_mpmlimit}
+    \    Unselect Frame
+    \    Edit SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${tm_mpbbet}
+    \    ...    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    comment    Max per Ball > MpBall limit    Mes: Max Per Ball must be less than or equal to xx
+    comment    Min=10    Max=20    MaxperM=30    MpBall=20 (Number Game only)
+    Edit SB Bet Setting    Number Game    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${tm_failmpb}    ${EMPTY}
+    ...    ${EMPTY}    yes
+    Select Frame    main
+    Element Text Should Be    xpath=//*[@id='fHint']/span[1]    ${tm_msg_mpblimit}
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_SB_42
+    [Documentation]    *Summary:*
+    ...    - Tooltip: Copy all Bet Setting from Soccer (Excluding Number Game)
+    ...    - Disable All Sport – except number game
+    ...    - Bet setting of all sports should be copied from soccer – except number game
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Bet Setting in setting tab
+    ...    4. Input valid values (Min <= Max < = MaxPerMatch) for Soccer
+    ...    5. Click on copy all from Soccer bet setting
+    ...    6. VP
+    ...    7. Click Update button
+    ...    8. VP
+    ...    9. Reopen SB bet setting (step #3)
+    ...    10. VP
+    ...
+    ...    *Expected:*
+    ...    6. All sport's fields under soccer are disabled
+    ...    8. VP: Mes: Updated successfully
+    ...    + SB bet setting closed
+    ...    10. VP: Bet setting of all sports should be copied from soccer – except number game
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    ${tm_minbet}    Set Variable    11
+    ${tm_maxbet}    Set Variable    999
+    ${tm_mpmbet}    Set Variable    9,999
+    ${tm_soccertt}    Set Variable    Copy all below bet settings from Soccer (excluding Number Game)
+    ${tm_minNG}    Set Variable    25
+    ${tm_maxNG}    Set Variable    950
+    ${tm_mpmNG}    Set Variable    7,111
+    ${tm_mpbNG}    Set Variable    520
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Bet Setting
+    #- Tooltip: Copy all Bet Setting from Soccer (Excluding Number Game)
+    Edit SB Bet Setting    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    Edit SB Bet Setting    Soccer    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    Select Frame    main
+    ${tm_soccertooltip}=    Get Element Attribute    ${in_m_editsb_btncopysoccer}@title
+    Should Be Equal    ${tm_soccertt}    ${tm_soccertooltip}
+    Click Element    ${in_m_editsb_btncopysoccer}
+    : FOR    ${index}    IN    @{tc_36_controls_disabled}
+    \    Element Should Be Disabled    ${index}
+    Click Element    id=btnSubmit
+    Unselect Frame
+    sleep    5s
+    #Reopen and check betting value
+    select link in setting tab    Bet Setting
+    : FOR    ${index}    IN    @{tc_36_copyproducts}
+    \    Check SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}
+    \    ...    ${EMPTY}
+    #check number game does not change
+    Check SB Bet Setting    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    yes
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Bet Setting
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tc_36_copyproducts}
+    \    Check SB Bet Limit    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}
+    \    ...    ${EMPTY}
+    #check Limited number game
+    Check SB Bet Limit    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    yes
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+
+TC_Super_Master_Bet_Setting_SB_43
+    [Documentation]    *Summary:*
+    ...    - Tooltip: Copy all Bet Setting from Basketball (Excluding Number Game)
+    ...    - Disable All Sport – except number game and soccer
+    ...    - Bet setting of all sports should be copied from Basketball – except number game and soccer
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Bet Setting in setting tab
+    ...    4. Input valid values (Min <= Max < = MaxPerMatch) for Basketball
+    ...    5. Click on copy all from Basketball bet setting
+    ...    6. VP
+    ...    7. Click Update button
+    ...    8. VP
+    ...    9. Reopen SB bet setting (step #3)
+    ...    10. VP
+    ...
+    ...    *Expected:*
+    ...    6. All sport's fields under basketball are disabled except soccer
+    ...    8. VP: Mes: Updated successfully
+    ...    + SB bet setting closed
+    ...    10. VP: \ Bet setting of all sports should be copied from Basketball – except number game and soccer
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    #set basketball variables
+    ${tm_minbet}    Set Variable    100
+    ${tm_maxbet}    Set Variable    500
+    ${tm_mpmbet}    Set Variable    8,888
+    ${tm_bktt}    Set Variable    Copy all below bet settings from Basketball (excluding Number Game)
+    # set soccer variables
+    ${tm_minSC}    Set Variable    1
+    ${tm_maxSC}    Set Variable    51
+    ${tm_mpmSC}    Set Variable    1,111
+    # set Number Game variables
+    ${tm_minNG}    Set Variable    7
+    ${tm_maxNG}    Set Variable    77
+    ${tm_mpmNG}    Set Variable    777
+    ${tm_mpbNG}    Set Variable    57
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Bet Setting
+    #- Tooltip: Copy all Bet Setting from Basketball (Excluding Number Game)
+    Edit SB Bet Setting    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    Edit SB Bet Setting    Soccer    ${tm_minSC}    ${tm_maxSC}    ${tm_mpmSC}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    Edit SB Bet Setting    Basketball    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}    ${EMPTY}
+    ...    ${EMPTY}    ${EMPTY}
+    Select Frame    main
+    ${tm_bktooltip}=    Get Element Attribute    ${in_m_editsb_btncopybkball}@title
+    Should Be Equal    ${tm_bktt}    ${tm_bktooltip}
+    Click Element    ${in_m_editsb_btncopybkball}
+    : FOR    ${index}    IN    @{tc_37_controls_disabled}
+    \    Element Should Be Disabled    ${index}
+    Click Element    id=btnSubmit
+    Unselect Frame
+    sleep    5s
+    #Reopen and check betting value
+    select link in setting tab    Bet Setting
+    : FOR    ${index}    IN    @{tc_37_copyproducts}
+    \    Check SB Bet Setting    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}
+    \    ...    ${EMPTY}
+    #check number game and Soccer are not change
+    Check SB Bet Setting    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    ${EMPTY}
+    Check SB Bet Setting    Soccer    ${tm_minSC}    ${tm_maxSC}    ${tm_mpmSC}    ${EMPTY}    yes
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Bet Setting
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tc_37_copyproducts}
+    \    Check SB Bet Limit    ${index}    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    ${EMPTY}
+    \    ...    ${EMPTY}
+    #check Limited number game and Soccer
+    Check SB Bet Limit    Number Game    ${tm_minNG}    ${tm_maxNG}    ${tm_mpmNG}    ${tm_mpbNG}    ${EMPTY}
+    Check SB Bet Limit    Soccer    ${tm_minSC}    ${tm_maxSC}    ${tm_mpmSC}    ${EMPTY}    yes
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+
+TC_Super_Master_Bet_Setting_RC_44
+    [Documentation]    *Summary: Min <= Max < = MaxPerMatch*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Racing in setting tab
+    ...    4. Input values (Min <= Max < = MaxPerMatch) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message
+    ...    7. Logout Super
+    ...    8. Login as Master
+    ...    9. Navigate Agent Racing bet setting
+    ...    10. VP :Check Limited bet setting
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    6. VP: message: Updated successfully
+    ...    8. VP: inputted values at step 4 were saved.
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    @{tm_dataset}    Create List    racing1    racing2    racing3    greyhound1    greyhound2
+    ...    harness
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Racing
+    sleep    3s
+    #Edit Racing
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    @{tc_44_${index}}[2]    @{tc_44_${index}}[3]    @{tc_44_${index}}[4]
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    @{tc_44_${index}}[7]
+    #wait for updating completed
+    sleep    10s
+    select link in setting tab    Edit Racing
+    #Check Racing
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Check Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    @{tc_44_${index}}[2]    @{tc_44_${index}}[3]    @{tc_44_${index}}[4]
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    @{tc_44_${index}}[7]
+    #Login agent and check limited bet for racing
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Racing
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Check Racing Bet Limit    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    @{tc_44_${index}}[2]    @{tc_44_${index}}[3]    @{tc_44_${index}}[4]
+    \    ...    @{tc_44_${index}}[7]
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_RC_45
+    [Documentation]    *Summary: Min = Max = Max per match = 0: Un-limit bet setting*
+    ...
+    ...    *Steps:*
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Racing in setting tab
+    ...    4. Input values (Min = Max = Max per match) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message
+    ...    7. Logout Super
+    ...    8. Login as Master
+    ...    9. Navigate Agent Racing bet setting
+    ...    10. VP :Check Limited bet setting
+    ...
+    ...    *Expected:*
+    ...    6. VP: message: Updated successfully
+    ...    10. VP Check Limited bet setting
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    @{tm_dataset}    Create List    racing1    racing2    racing3    greyhound1    greyhound2
+    ...    harness
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Racing
+    sleep    3s
+    #Edit Racing
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    0    0    0
+    \    ...    0    1    ${EMPTY}
+    Select Frame    main
+    Click Element    id=btnSubmit
+    Unselect Frame
+    #wait for updating completed
+    sleep    10s
+    select link in setting tab    Edit Racing
+    #Check Racing
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Check Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    0    0    0
+    \    ...    0    1    ${EMPTY}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+
+TC_Super_Master_Bet_Setting_RC_46
+    [Documentation]    *Summary:*
+    ...    - Max Bet < Min Bet
+    ...    Mes: “The Min Bet should be less than or equal to Max Bet”
+    ...    - MaxPerMatch < Min Bet
+    ...    Mes: “The Min Bet should be less than or equal to Max Per Match”
+    ...    - Max bet > MaxPerMatch
+    ...    Mes: The Max Bet should be less than or equal to Max Per Match”
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Racing in setting tab
+    ...    4. Input values (Max Bet < Min Bet) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message
+    ...    7. Input values (MaxPerMatch < Min Bet) for all sports
+    ...    8. Click Update button
+    ...    9. VP. Message
+    ...    10. Input values (MAX Bet < MaxPerMatch ) for all sports
+    ...    11. Click Update button
+    ...    12. VP. Message
+    ...
+    ...    *Expected:*
+    ...
+    ...    6. VP: Mes: “The Min Bet should be less than or equal to Max Bet”
+    ...    8. VP: Mes: “The Min Bet should be less than or equal to Max Per Match”
+    ...    12. VP: Mes: "The Max Bet should be less than or equal to Max Per Match”
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    ${tm_correctmin}    Set Variable    150
+    ${tm_correctmax}    Set Variable    378
+    ${tm_correctmpm}    Set Variable    2,376
+    ${tm_failmin}    Set Variable    400
+    ${tm_failmax}    Set Variable    2,378
+    ${tm_failmpm}    Set Variable    149
+    ${tm_in_tooltip}    Set Variable    xpath=//*[@id='fHint']/span[1]
+    @{tm_dataset}    Create List    racing1    racing2    racing3    greyhound1    greyhound2
+    ...    harness
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Racing
+    sleep    3s
+    comment    #- Max Bet < Min Bet    Mes: “The Min Bet should be less than or equal to Max Bet”
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_failmin}    ${tm_correctmax}    ${tm_correctmpm}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    yes
+    \    Select Frame    main
+    \    Element Should Contain    ${tm_in_tooltip}    The Min Bet should be less than or equal to Max Bet
+    \    Unselect Frame
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_correctmin}    ${tm_correctmax}    ${tm_correctmpm}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    @{tc_44_${index}}[7]
+    comment    #- MaxPerMatch < Min Bet    Mes: “The Min Bet should be less than or equal to Max Per Match”
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_correctmin}    ${tm_correctmax}    ${tm_failmpm}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    yes
+    \    Select Frame    main
+    \    Element Should Contain    ${tm_in_tooltip}    The Min Bet should be less than or equal to Max Per Match
+    \    Unselect Frame
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_correctmin}    ${tm_correctmax}    ${tm_correctmpm}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    @{tc_44_${index}}[7]
+    comment    #- -Max bet > MaxPerMatch    Mes: The Max Bet should be less than or equal to Max Per Match”
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_correctmin}    ${tm_failmax}    ${tm_correctmpm}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    yes
+    \    Select Frame    main
+    \    Element Should Contain    ${tm_in_tooltip}    The Max Bet should be less than or equal to Max Per Match
+    \    Unselect Frame
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_correctmin}    ${tm_correctmax}    ${tm_correctmpm}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    @{tc_44_${index}}[7]
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_RC_47
+    [Documentation]    *Summary:*
+    ...    - Min Bet < min limit
+    ...    Mes: “Min Bet must be greater than or equal to xx”
+    ...    - Max bet > Max limit
+    ...    Mes: \ ”Max Bet must be less than or equal to xx”
+    ...    - Max per Match > Maxpermatch limit
+    ...    Mes: Max Per Match must be less than or equal to xx
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Racing in setting tab
+    ...    4. Input values ( Min Bet < min limit) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message
+    ...    7. Input values (Max bet > Max limit) for all sports
+    ...    8. Click Update button
+    ...    9. VP. Message
+    ...    10. Input values (Max per Match > MaxPerMatch limit ) for all sports
+    ...    11. Click Update button
+    ...    12. VP. Message
+    ...    13. Input values (Max per Match > MaxPerMatch limit ) for all sports
+    ...    14. Click Update button
+    ...    15. VP. Message
+    ...
+    ...    *Expected:*
+    ...    6. VP: \ Mes: “Min Bet must be greater than or equal to xx”
+    ...    8. VP: Mes: \ ”Max Bet must be less than or equal to xx”
+    ...    12. VP: Mes: Max Per Match must be less than or equal to xx
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    ${tm_minbet}    Set Variable    222
+    ${tm_maxbet}    Set Variable    444
+    ${tm_mpmbet}    Set Variable    6,666
+    ${tm_failmin}    Set Variable    221
+    ${tm_failmax}    Set Variable    445
+    ${tm_failmpm}    Set Variable    8,888
+    ${tm_msg_minlimit}    Set Variable    Min Bet must be greater than or equal to ${tm_minbet}
+    ${tm_msg_maxlimit}    Set Variable    Max Bet must be less than or equal to ${tm_maxbet}
+    ${tm_msg_mpmlimit}    Set Variable    Max Per Match must be less than or equal to ${tm_mpmbet}.
+    ${tm_in_tooltip}    Set Variable    xpath=//*[@id='fHint']/span[1]
+    @{tm_dataset}    Create List    racing1    racing2    racing3    greyhound1    greyhound2
+    ...    harness
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    #precondition- update correct bet setting for master    --> create limited bet setting for master's downlines
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Racing
+    comment
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    yes
+    Logout
+    COMMENT    ==============================>    MAIN STEPS
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Racing
+    sleep    3s
+    comment    #- \ Min Bet < min limit    VP: \ Mes: “Min Bet must be greater than or equal to xx”
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_failmin}    ${tm_maxbet}    ${tm_mpmbet}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${tm_msg_minlimit}
+    \    Unselect Frame
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    no
+    comment    #- \ Max bet > Max limit    Mes: \ ”Max Bet must be less than or equal to xx”
+    comment
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_minbet}    ${tm_failmax}    ${tm_mpmbet}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${tm_msg_maxlimit}
+    \    Unselect Frame
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    no
+    comment    - Max per Match > Maxpermatch limit    Mes: Max Per Match must be less than or equal to xx
+    comment    Min=10    Max=20    MaxperM=31    MpBall=20 (Number Game only)
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_minbet}    ${tm_maxbet}    ${tm_failmpm}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${tm_msg_mpmlimit}
+    \    Unselect Frame
+    \    Edit Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    no
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_RC_48
+    [Documentation]    *Summary:*
+    ...    Tooltip: Copy all Bet Setting from UK/Irish Tote
+    ...
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Racing in setting tab
+    ...    4. Input valid values (Min <= Max < = MaxPerMatch) for UK/Irish Tote
+    ...    5. Click on copy all from UK/Irish Tote bet setting
+    ...    6. VP
+    ...    7. Click Update button
+    ...    8. VP
+    ...    9. Reopen Racing bet setting (step #3)
+    ...    10. VP
+    ...
+    ...    *Expected:*
+    ...    6. All sport's fields under UK/Irish are disabled
+    ...    8. VP: Mes: Updated successfully
+    ...    10. VP: Bet setting of all sports should be copied from UK/Irish Tote
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    ${tm_minbet}    Set Variable    39
+    ${tm_maxbet}    Set Variable    999
+    ${tm_mpmbet}    Set Variable    9,999
+    ${tm_copytt}    Set Variable    Copy all below bet, commission & status settings from Horse Racing UK/Irish Tote
+    @{tm_dataset}    Create List    racing1    racing2    racing3    greyhound1    greyhound2
+    ...    harness
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Racing
+    #- Tooltip: Copy all below bet, commission & status settings from Horse Racing UK/Irish Tote
+    Edit Racing Bet Setting    @{tc_44_racing1}[0]    @{tc_44_racing1}[1]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    @{tc_44_racing1}[5]
+    ...    @{tc_44_racing1}[6]    yes
+    Select Frame    main
+    ${tm_tooltip}=    Get Element Attribute    xpath=//*[@id='btnCopyBettingComm']@title
+    Should Be Equal    ${tm_copytt}    ${tm_tooltip}
+    Click Element    id=btnCopyBettingComm
+    Click Element    id=btnSubmit
+    Unselect Frame
+    sleep    10s
+    #Reopen and check betting value
+    select link in setting tab    Edit Racing
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Check Racing Bet Setting    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}
+    \    ...    @{tc_44_${index}}[5]    @{tc_44_${index}}[6]    no
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Racing
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tm_dataset}
+    \    Check Racing Bet Limit    @{tc_44_${index}}[0]    @{tc_44_${index}}[1]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}
+    \    ...    no
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+
+TC_Super_Master_Bet_Setting_VS_49
+    [Documentation]    *Summary: Min <= Max < = MaxPerMatch*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Virtual Sports in setting tab
+    ...    4. Input values (Min <= Max < = MaxPerMatch) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message , setting window closed after update
+    ...    7. Click Edit Sport Book in setting tab
+    ...    8. VP
+    ...    9. Logout Super
+    ...    10. Login as Master
+    ...    11. Navigate Agent Bet Setting
+    ...    12. Check Limited bet setting
+    ...
+    ...
+    ...    *Expected:*
+    ...
+    ...    6. VP: message: Updated successfully
+    ...    8. VP: inputted values at step 4 were saved.
+    ...    12. VP Check Limited bet setting
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    @{tm_sportlist}    Create List    soccer    tennis    hr    greyhounds    speedway
+    ...    motor    cycling
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Virtual Sports
+    sleep    3s
+    #Edit bet setting
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    @{tc_49_${index}}[1]    @{tc_49_${index}}[2]    @{tc_49_${index}}[3]    @{tc_49_${index}}[4]
+    #wait for updating completed
+    sleep    10s
+    select link in setting tab    Edit Virtual Sports
+    #check bet setting
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    @{tc_49_${index}}[1]    @{tc_49_${index}}[2]    @{tc_49_${index}}[3]    @{tc_49_${index}}[4]
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Virtual Sports
+    sleep    3s
+    #check limit bet setting
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Check VS Bet Limit    @{tc_49_${index}}[0]    @{tc_49_${index}}[1]    @{tc_49_${index}}[2]    @{tc_49_${index}}[3]    @{tc_49_${index}}[4]
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_VS_50
+    [Documentation]    *Summary: Min = Max = Max per match = 0: Un-limit bet setting*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Virtual Sports in setting tab
+    ...    4. Input values (Min = Max = Max per match = 0) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message , setting window closed after update
+    ...    7. Click Edit Sport Book in setting tab
+    ...    8. VP
+    ...    9. Logout Super
+    ...    10. Login as Master
+    ...    11. Navigate Agent SB bet setting
+    ...    12. VP \ Check Limited bet setting
+    ...
+    ...    *Expected:*
+    ...
+    ...    6. VP: message: Updated successfully
+    ...    8. VP: inputted values at step 4 were saved.
+    ...    12. VP Check Limited bet setting
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    @{tm_sportlist}    Create List    soccer    tennis    hr    greyhounds    speedway
+    ...    motor    cycling
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Virtual Sports
+    sleep    3s
+    #Edit Racing
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    0    0    0    @{tc_49_${index}}[4]
+    Select Frame    main
+    Click Element    id=btnSubmit
+    Unselect Frame
+    #wait for updating completed
+    sleep    10s
+    select link in setting tab    Edit Virtual Sports
+    #Check Racing
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Check VS Bet Setting    @{tc_49_${index}}[0]    0    0    0    @{tc_49_${index}}[4]
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+
+TC_Super_Master_Bet_Setting_VS_51
+    [Documentation]    *Summary:*
+    ...    - Max Bet < Min Bet
+    ...    Mes: “The Min Bet should be less than or equal to Max Bet”
+    ...    - MaxPerMatch < Min Bet
+    ...    Mes: “The Min Bet should be less than or equal to Max Per Match”
+    ...    - Max bet > MaxPerMatch
+    ...    Mes: The Max Bet should be less than or equal to Max Per Match”
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit VS in setting tab
+    ...    4. Input values (Max Bet < Min Bet) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message
+    ...    7. Input values (MaxPerMatch < Min Bet) for all sports
+    ...    8. Click Update button
+    ...    9. VP. Message
+    ...    10. Input values (MAX Bet < MaxPerMatch ) for all sports
+    ...    11. Click Update button
+    ...    12. VP. Message
+    ...
+    ...    *Expected:*
+    ...
+    ...    6. VP: Mes: “The Min Bet should be less than or equal to Max Bet”
+    ...    8. VP: Mes: “The Min Bet should be less than or equal to Max Per Match”
+    ...    12. VP: Mes: "The Max Bet should be less than or equal to Max Per Match”
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_correctmin}    Set Variable    150
+    ${tm_correctmax}    Set Variable    378
+    ${tm_correctmpm}    Set Variable    2,376
+    ${tm_failmin}    Set Variable    400
+    ${tm_failmax}    Set Variable    2,378
+    ${tm_failmpm}    Set Variable    149
+    ${tm_in_tooltip}    Set Variable    xpath=//*[@id='fHint']/span[1]
+    @{tm_sportlist}    Create List    soccer    tennis    hr    greyhounds    speedway
+    ...    motor    cycling
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Virtual Sports
+    sleep    3s
+    comment    #- Max Bet < Min Bet    Mes: “The Min Bet should be less than or equal to Max Bet”
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_failmin}    ${tm_correctmax}    ${tm_correctmpm}    yes
+    \    Select Frame    main
+    \    Element Should Contain    ${tm_in_tooltip}    The Min Bet should be less than or equal to Max Bet
+    \    Unselect Frame
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_correctmin}    ${tm_correctmax}    ${tm_correctmpm}    no
+    comment    #- MaxPerMatch < Min Bet    Mes: “The Min Bet should be less than or equal to Max Per Match”
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_correctmin}    ${tm_correctmax}    ${tm_failmpm}    yes
+    \    Select Frame    main
+    \    Element Should Contain    ${tm_in_tooltip}    The Min Bet should be less than or equal to Max Per Match
+    \    Unselect Frame
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_correctmin}    ${tm_correctmax}    ${tm_correctmpm}    no
+    comment    #- -Max bet > MaxPerMatch    Mes: The Max Bet should be less than or equal to Max Per Match”
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_correctmin}    ${tm_failmax}    ${tm_correctmpm}    yes
+    \    Select Frame    main
+    \    Element Should Contain    ${tm_in_tooltip}    The Max Bet should be less than or equal to Max Per Match
+    \    Unselect Frame
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_correctmin}    ${tm_correctmax}    ${tm_correctmpm}    no
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_VS_52
+    [Documentation]    *Summary:*
+    ...    - Min Bet < min limit
+    ...    Mes: “Min Bet must be greater than or equal to xx”
+    ...    - Max bet > Max limit
+    ...    Mes: \ ”Max Bet must be less than or equal to xx”
+    ...    - Max per Match > Maxpermatch limit
+    ...    Mes: Max Per Match must be less than or equal to xx
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit VS in setting tab
+    ...    4. Input values ( Min Bet < min limit) for all sports
+    ...    5. Click Update button
+    ...    6. VP. Message
+    ...    7. Input values (Max bet > Max limit) for all sports
+    ...    8. Click Update button
+    ...    9. VP. Message
+    ...    10. Input values (Max per Match > MaxPerMatch limit ) for all sports
+    ...    11. Click Update button
+    ...    12. VP. Message
+    ...    13. Input values (Max per Match > MaxPerMatch limit ) for all sports
+    ...    14. Click Update button
+    ...    15. VP. Message
+    ...
+    ...    *Expected:*
+    ...    6. VP: \ Mes: “Min Bet must be greater than or equal to xx”
+    ...    8. VP: Mes: \ ”Max Bet must be less than or equal to xx”
+    ...    12. VP: Mes: Max Per Match must be less than or equal to xx
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    ${tm_minbet}    Set Variable    222
+    ${tm_maxbet}    Set Variable    444
+    ${tm_mpmbet}    Set Variable    6,666
+    ${tm_failmin}    Set Variable    221
+    ${tm_failmax}    Set Variable    445
+    ${tm_failmpm}    Set Variable    8,888
+    ${tm_msg_minlimit}    Set Variable    Min Bet must be greater than or equal to ${tm_minbet}
+    ${tm_msg_maxlimit}    Set Variable    Max Bet must be less than or equal to ${tm_maxbet}
+    ${tm_msg_mpmlimit}    Set Variable    Max Per Match must be less than or equal to ${tm_mpmbet}.
+    ${tm_in_tooltip}    Set Variable    xpath=//*[@id='fHint']/span[1]
+    @{tm_sportlist}    Create List    soccer    tennis    hr    greyhounds    speedway
+    ...    motor    cycling
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    #precondition- update correct bet setting for master    --> create limited bet setting for master's downlines
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Virtual Sports
+    comment
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    @{tc_49_${index}}[4]
+    Logout
+    COMMENT    ==============================>    MAIN STEPS
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Virtual Sports
+    sleep    3s
+    comment    #- \ Min Bet < min limit    VP: \ Mes: “Min Bet must be greater than or equal to xx”
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_failmin}    ${tm_maxbet}    ${tm_mpmbet}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${tm_msg_minlimit}
+    \    Unselect Frame
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    no
+    comment    #- \ Max bet > Max limit    Mes: \ ”Max Bet must be less than or equal to xx”
+    comment
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_minbet}    ${tm_failmax}    ${tm_mpmbet}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${tm_msg_maxlimit}
+    \    Unselect Frame
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    no
+    comment    - Max per Match > Maxpermatch limit    Mes: Max Per Match must be less than or equal to xx
+    comment    Min=10    Max=20    MaxperM=31    MpBall=20 (Number Game only)
+    : FOR    ${index}    IN    @{tm_sportlist}
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_minbet}    ${tm_maxbet}    ${tm_failmpm}    yes
+    \    Select Frame    main
+    \    Element Text Should Be    ${tm_in_tooltip}    ${tm_msg_mpmlimit}
+    \    Unselect Frame
+    \    Edit VS Bet Setting    @{tc_49_${index}}[0]    ${tm_minbet}    ${tm_maxbet}    ${tm_mpmbet}    no
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_LC_53
+    [Documentation]    *Summary:*
+    ...    Verify Super update successfully LC bet limit for Master (all game types)
+    ...
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Live Casino in setting tab
+    ...    4. Select betting limit for Party Baccarat/Roulette and Live Baccarat/Roulette
+    ...    5. Log-out
+    ...    6. login as master account
+    ...    7. Search a agent and click on Edit Live Casino link
+    ...    8. VP: Live Casino bet limit
+    ...
+    ...
+    ...    *Expected:*
+    ...    8. VP: All Agent bet types are showed (checkbox)
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    COMMENT    ==============================>    MAIN STEPS
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Live Casino
+    comment
+    #Check all    Party Baccarat
+    : FOR    ${index}    IN    @{tc_53_all_party_baccarat}
+    \    Edit Live Casino Bet Setting    Party Baccarat    ${index}    check    no
+    #Check all    Party Roulette
+    : FOR    ${index}    IN    @{tc_53_all_party_roulette}
+    \    Edit Live Casino Bet Setting    Party Roulette    ${index}    check    no
+    #Check all    Live Baccarat
+    : FOR    ${index}    IN    @{tc_53_all_live_baccarat}
+    \    Edit Live Casino Bet Setting    Live Baccarat    ${index}    check    no
+    #Check all    Live Roulette
+    : FOR    ${index}    IN    @{tc_53_all_live_roulette}
+    \    Edit Live Casino Bet Setting    Live Roulette    ${index}    check    yes
+    #wait 10s
+    sleep    10s
+    #Check data were saved
+    select link in setting tab    Edit Live Casino
+    comment
+    #Check all    Party Baccarat
+    : FOR    ${index}    IN    @{tc_53_all_party_baccarat}
+    \    Check Live Casino Bet Setting    Party Baccarat    ${index}    check    no
+    #Check all    Party Roulette
+    : FOR    ${index}    IN    @{tc_53_all_party_roulette}
+    \    Check Live Casino Bet Setting    Party Roulette    ${index}    check    no
+    #Check all    Live Baccarat
+    : FOR    ${index}    IN    @{tc_53_all_live_baccarat}
+    \    Check Live Casino Bet Setting    Live Baccarat    ${index}    check    no
+    #Check all    Live Roulette
+    : FOR    ${index}    IN    @{tc_53_all_live_roulette}
+    \    Check Live Casino Bet Setting    Live Roulette    ${index}    check    yes
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    #Check all    Party Baccarat
+    Select Frame    main
+    : FOR    ${index}    IN    @{tc_53_all_party_baccarat}
+    \    Page Should Contain Element    ${in_m_partyba_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_party_roulette}
+    \    Page Should Contain Element    ${in_m_partyro_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_live_baccarat}
+    \    Page Should Contain Element    ${in_m_liveba_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_live_roulette}
+    \    Page Should Contain Element    ${in_m_livero_chk${index}}
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_LC_54
+    [Documentation]    *Summary:*
+    ...    Verify Super update successfully LC bet limit for Master
+    ...    -Remove the minimum options in 1 game type
+    ...
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Live Casino in setting tab
+    ...    4. Select betting limit for Party Baccarat/Roulette and Live Baccarat/Roulette (remove 1 option for each game type)
+    ...    5. Log-out
+    ...    6. login as master account
+    ...    7. Search a agent and click on Edit Live Casino link
+    ...    8. VP: Live Casino bet limit
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    8. VP: The minimum bet limit is removed
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    COMMENT    ==============================>    MAIN STEPS
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Live Casino
+    comment
+    #Remove the minimum option    Party Baccarat
+    Edit Live Casino Bet Setting    Party Baccarat    @{tc_53_all_party_baccarat}[0]    uncheck    no
+    Edit Live Casino Bet Setting    Party Roulette    @{tc_53_all_party_roulette}[0]    uncheck    no
+    Edit Live Casino Bet Setting    Live Baccarat    @{tc_53_all_live_baccarat}[0]    uncheck    yes
+    #wait 10s
+    sleep    10s
+    #Check data were saved
+    select link in setting tab    Edit Live Casino
+    comment
+    Check Live Casino Bet Setting    Party Baccarat    @{tc_53_all_party_baccarat}[0]    uncheck    no
+    Check Live Casino Bet Setting    Party Roulette    @{tc_53_all_party_roulette}[0]    uncheck    no
+    Check Live Casino Bet Setting    Live Baccarat    @{tc_53_all_live_baccarat}[0]    uncheck    yes
+    Logout
+    #remove minimum value in data set
+    Remove Values From List    ${tc_53_all_party_baccarat}    @{tc_53_all_party_baccarat}[0]
+    Remove Values From List    ${tc_53_all_party_roulette}    @{tc_53_all_party_roulette}[0]
+    Remove Values From List    ${tc_53_all_live_baccarat}    @{tc_53_all_live_baccarat}[0]
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    #Check LC limit
+    Select Frame    main
+    : FOR    ${index}    IN    @{tc_53_all_party_baccarat}
+    \    Page Should Contain Element    ${in_m_partyba_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_party_roulette}
+    \    Page Should Contain Element    ${in_m_partyro_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_live_baccarat}
+    \    Page Should Contain Element    ${in_m_liveba_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_live_roulette}
+    \    Page Should Contain Element    ${in_m_livero_chk${index}}
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_LC_55
+    [Documentation]    *Summary:*
+    ...    Verify Super update successfully LC bet limit for Master
+    ...    -Add the minimum options in 1 game type
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Live Casino in setting tab
+    ...    4. Select betting limit for Party Baccarat/Roulette and Live Baccarat/Roulette (add 1 option for each game type)
+    ...    5. Log-out
+    ...    6. login as master account
+    ...    7. Search a agent and click on Edit Live Casino link
+    ...    8. VP: Live Casino bet limit
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    8. VP: The minimum bet limit is added
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    COMMENT    ==============================>    MAIN STEPS
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Live Casino
+    comment
+    #Remove the minimum option    Party Baccarat
+    Edit Live Casino Bet Setting    Party Baccarat    @{tc_53_all_party_baccarat}[0]    check    no
+    Edit Live Casino Bet Setting    Party Roulette    @{tc_53_all_party_roulette}[0]    check    no
+    Edit Live Casino Bet Setting    Live Baccarat    @{tc_53_all_live_baccarat}[0]    check    yes
+    #wait 10s
+    sleep    10s
+    #Check data were saved
+    select link in setting tab    Edit Live Casino
+    comment
+    Check Live Casino Bet Setting    Party Baccarat    @{tc_53_all_party_baccarat}[0]    check    no
+    Check Live Casino Bet Setting    Party Roulette    @{tc_53_all_party_roulette}[0]    check    no
+    Check Live Casino Bet Setting    Live Baccarat    @{tc_53_all_live_baccarat}[0]    check    yes
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    #Check LC limit
+    Select Frame    main
+    : FOR    ${index}    IN    @{tc_53_all_party_baccarat}
+    \    Page Should Contain Element    ${in_m_partyba_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_party_roulette}
+    \    Page Should Contain Element    ${in_m_partyro_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_live_baccarat}
+    \    Page Should Contain Element    ${in_m_liveba_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_live_roulette}
+    \    Page Should Contain Element    ${in_m_livero_chk${index}}
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_LC_56
+    [Documentation]    *Summary:*
+    ...    Verify Super update successfully LC bet limit for Master
+    ...    (Uncheck all game types)
+    ...
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Live Casino in setting tab
+    ...    4. UnSelect all betting limit of Party Baccarat/Roulette and Live Baccarat/Roulette
+    ...    5. Log-out
+    ...    6. login as master account
+    ...    7. Search a agent and click on Edit Live Casino link
+    ...    8. VP: Live Casino bet limit
+    ...
+    ...
+    ...    *Expected:*
+    ...    8. VP: no bet limit
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    COMMENT    ==============================>    MAIN STEPS
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Live Casino
+    comment
+    #UnCheck all    Party Baccarat
+    : FOR    ${index}    IN    @{tc_53_all_party_baccarat}
+    \    Edit Live Casino Bet Setting    Party Baccarat    ${index}    uncheck    no
+    #UnCheck all    Party Roulette
+    : FOR    ${index}    IN    @{tc_53_all_party_roulette}
+    \    Edit Live Casino Bet Setting    Party Roulette    ${index}    uncheck    no
+    #UnCheck all    Live Baccarat
+    : FOR    ${index}    IN    @{tc_53_all_live_baccarat}
+    \    Edit Live Casino Bet Setting    Live Baccarat    ${index}    uncheck    no
+    #UnCheck all    Live Roulette
+    : FOR    ${index}    IN    @{tc_53_all_live_roulette}
+    \    Edit Live Casino Bet Setting    Live Roulette    ${index}    uncheck    yes
+    #wait 10s
+    sleep    10s
+    #Check data were saved
+    select link in setting tab    Edit Live Casino
+    comment
+    #Check all    Party Baccarat
+    : FOR    ${index}    IN    @{tc_53_all_party_baccarat}
+    \    Check Live Casino Bet Setting    Party Baccarat    ${index}    uncheck    no
+    #Check all    Party Roulette
+    : FOR    ${index}    IN    @{tc_53_all_party_roulette}
+    \    Check Live Casino Bet Setting    Party Roulette    ${index}    uncheck    no
+    #Check all    Live Baccarat
+    : FOR    ${index}    IN    @{tc_53_all_live_baccarat}
+    \    Check Live Casino Bet Setting    Live Baccarat    ${index}    uncheck    no
+    #Check all    Live Roulette
+    : FOR    ${index}    IN    @{tc_53_all_live_roulette}
+    \    Check Live Casino Bet Setting    Live Roulette    ${index}    uncheck    yes
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    #Check all    Party Baccarat
+    Select Frame    main
+    : FOR    ${index}    IN    @{tc_53_all_party_baccarat}
+    \    Page Should Not Contain Element    ${in_m_partyba_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_party_roulette}
+    \    Page Should Not Contain Element    ${in_m_partyro_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_live_baccarat}
+    \    Page Should Not Contain Element    ${in_m_liveba_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_live_roulette}
+    \    Page Should Not Contain Element    ${in_m_livero_chk${index}}
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_LC_57
+    [Documentation]    *Summary:*
+    ...    Verify Super update successfully LC bet limit for Master
+    ...    (1 option for each game type)
+    ...
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Live Casino in setting tab
+    ...    4. UnSelect all betting limit of Party Baccarat/Roulette and Live Baccarat/Roulette
+    ...    5. Log-out
+    ...    6. login as master account
+    ...    7. Search a agent and click on Edit Live Casino link
+    ...    8. VP: Live Casino bet limit
+    ...
+    ...
+    ...    *Expected:*
+    ...    8. VP: Agent bet limit
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    # Pre-condition: RUN TC_Super_Master_Bet_Setting_LC_56    Uncheck all game types
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Live Casino
+    : FOR    ${index}    IN    @{tc_53_all_party_baccarat}
+    \    Edit Live Casino Bet Setting    Party Baccarat    ${index}    uncheck    no
+    #UnCheck all    Party Roulette
+    : FOR    ${index}    IN    @{tc_53_all_party_roulette}
+    \    Edit Live Casino Bet Setting    Party Roulette    ${index}    uncheck    no
+    #UnCheck all    Live Baccarat
+    : FOR    ${index}    IN    @{tc_53_all_live_baccarat}
+    \    Edit Live Casino Bet Setting    Live Baccarat    ${index}    uncheck    no
+    #UnCheck all    Live Roulette
+    : FOR    ${index}    IN    @{tc_53_all_live_roulette}
+    \    Edit Live Casino Bet Setting    Live Roulette    ${index}    uncheck    yes
+    sleep    3s
+    COMMENT    ==============================>    MAIN STEPS
+    comment
+    #Check all    Party Baccarat
+    Edit Live Casino Bet Setting    Party Baccarat    @{tc_53_all_party_baccarat}[2]    check    no
+    #Check all    Party Roulette
+    Edit Live Casino Bet Setting    Party Roulette    @{tc_53_all_party_roulette}[2]    check    no
+    #Check all    Live Baccarat
+    Edit Live Casino Bet Setting    Live Baccarat    @{tc_53_all_live_baccarat}[2]    check    no
+    #Check all    Live Roulette
+    Edit Live Casino Bet Setting    Live Roulette    @{tc_53_all_live_roulette}[0]    check    yes
+    #wait 10s
+    sleep    10s
+    #Check data were saved
+    select link in setting tab    Edit Live Casino
+    comment
+    #Check all    Party Baccarat
+    Check Live Casino Bet Setting    Party Baccarat    @{tc_53_all_party_baccarat}[2]    check    no
+    #Check all    Party Roulette
+    Check Live Casino Bet Setting    Party Roulette    @{tc_53_all_party_roulette}[2]    check    no
+    #Check all    Live Baccarat
+    Check Live Casino Bet Setting    Live Baccarat    @{tc_53_all_live_baccarat}[2]    check    no
+    #Check all    Live Roulette
+    Check Live Casino Bet Setting    Live Roulette    @{tc_53_all_live_roulette}[0]    check    yes
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Live Casino
+    #CHECK SELECTED BET LIMIT EXIST    @{tc_53_all_party_baccarat}[2]    @{tc_53_all_party_roulette}[2]    @{tc_53_all_live_baccarat}[2]    @{tc_53_all_live_roulette}[0]
+    Select Frame    main
+    : FOR    ${index}    IN    ${in_m_partyba_chk@{tc_53_all_party_baccarat}[2]}    ${in_m_partyro_chk@{tc_53_all_party_roulette}[2]}    ${in_m_liveba_chk@{tc_53_all_live_baccarat}[2]}    ${in_m_livero_chk@{tc_53_all_live_roulette}[0]}
+    \    Page Should Contain Element    ${index}
+    Unselect Frame
+    #CHECK OTHER BET LIMIT ARE NOT EXIST
+    #remove minimum value in data set
+    Remove Values From List    ${tc_53_all_party_baccarat}    @{tc_53_all_party_baccarat}[2]
+    Remove Values From List    ${tc_53_all_party_roulette}    @{tc_53_all_party_roulette}[2]
+    Remove Values From List    ${tc_53_all_live_baccarat}    @{tc_53_all_live_baccarat}[2]
+    Select Frame    main
+    : FOR    ${index}    IN    @{tc_53_all_party_baccarat}
+    \    Page Should Not Contain Element    ${in_m_partyba_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_party_roulette}
+    \    Page Should Not Contain Element    ${in_m_partyro_chk${index}}
+    : FOR    ${index}    IN    @{tc_53_all_live_baccarat}
+    \    Page Should Not Contain Element    ${in_m_liveba_chk${index}}
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_Casino_58
+    [Documentation]    *Summary:*
+    ...    Verify Super update successfully Casino bet limit for Master
+    ...    (uncheck all)
+    ...
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Live Casino in setting tab
+    ...    4. UnSelect all betting limit of Party Baccarat/Roulette and Live Baccarat/Roulette
+    ...    5. Log-out
+    ...    6. login as master account
+    ...    7. Search a agent and click on Edit Live Casino link
+    ...    8. VP: Live Casino bet limit
+    ...
+    ...
+    ...    *Expected:*
+    ...    8. VP: Agent bet limit
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    COMMENT    ==============================>    MAIN STEPS
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Casino
+    #wait for bet limit load
+    sleep    20s
+    #Check all
+    ${tm_list_gtype}    ${tm_list_range}    Get Casino Bet Limit
+    : FOR    ${i}    IN    @{tm_list_gtype}
+    \    Edit Casino Bet Setting    ${i}    Uncheck    All
+    Select Frame    main
+    Click Element    xpath=//*[@value='Submit']
+    Unselect Frame
+    sleep    15s
+    select link in setting tab    Edit Casino
+    #wait for bet limit load
+    sleep    20s
+    : FOR    ${i}    IN    @{tm_list_gtype}
+    \    Check Casino Bet Setting    ${i}    Uncheck    All
+    Logout
+    ${tm_empty_listrange}=    Fetch List From Left    ${tm_list_range}    :
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Casino
+    #wait for bet limit load
+    sleep    20s
+    Check Casino Bet Limit    ${tm_list_gtype}    ${tm_empty_listrange}    ${EMPTY}
+    : FOR    ${i}    IN    @{tm_list_gtype}
+    \    Check Casino Bet Setting    ${i}    Empty    All
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_Casino_59
+    [Documentation]    *Summary:*
+    ...    Verify Super update successfully Casino bet limit for Master
+    ...    (check all)
+    ...
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Live Casino in setting tab
+    ...    4. UnSelect all betting limit of Party Baccarat/Roulette and Live Baccarat/Roulette
+    ...    5. Log-out
+    ...    6. login as master account
+    ...    7. Search a agent and click on Edit Live Casino link
+    ...    8. VP: Live Casino bet limit
+    ...
+    ...
+    ...    *Expected:*
+    ...    8. VP: Agent bet limit
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    COMMENT    ==============================>    MAIN STEPS
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Casino
+    #wait for bet limit load
+    sleep    20s
+    #Check all
+    ${tm_list_gtype}    ${tm_list_range}    Get Casino Bet Limit
+    : FOR    ${i}    IN    @{tm_list_gtype}
+    \    Edit Casino Bet Setting    ${i}    Check    All
+    Select Frame    main
+    Click Element    xpath=//*[@value='Submit']
+    Unselect Frame
+    sleep    15s
+    select link in setting tab    Edit Casino
+    #wait for bet limit load
+    sleep    20s
+    : FOR    ${i}    IN    @{tm_list_gtype}
+    \    Check Casino Bet Setting    ${i}    Check    All
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Casino
+    #wait for bet limit load
+    sleep    20s
+    Check Casino Bet Limit    ${tm_list_gtype}    ${tm_list_range}    ${EMPTY}
+    : FOR    ${i}    IN    @{tm_list_gtype}
+    \    Check Casino Bet Setting    ${i}    Enable    All
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Bet_Setting_Casino_60
+    [Documentation]    *Summary:*
+    ...    Verify Super update successfully Casino bet limit for Master
+    ...    (only check 1 gametype)
+    ...
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Click Edit Live Casino in setting tab
+    ...    4. UnSelect all betting limit of Party Baccarat/Roulette and Live Baccarat/Roulette
+    ...    5. Log-out
+    ...    6. login as master account
+    ...    7. Search a agent and click on Edit Live Casino link
+    ...    8. VP: Live Casino bet limit
+    ...
+    ...
+    ...    *Expected:*
+    ...    8. VP: Agent bet limit
+    [Tags]    super_betsetting
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO100
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10000
+    ${tm_removed_index}    Set Variable    5
+    COMMENT    ==============================>    MAIN STEPS
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_master}
+    select link in setting tab    Edit Casino
+    #wait for bet limit load
+    sleep    20s
+    #Check all
+    ${tm_list_gtype}    ${tm_list_range}    Get Casino Bet Limit
+    ${tm_checkgt}    Get From List    ${tm_list_gtype}    ${tm_removed_index}
+    ${tm_checkrange}    Get From List    ${tm_list_range}    ${tm_removed_index}
+    Remove From List    ${tm_list_gtype}    ${tm_removed_index}
+    Remove From List    ${tm_list_range}    ${tm_removed_index}
+    Edit Casino Bet Setting    ${tm_checkgt}    Check    All
+    : FOR    ${i}    IN    @{tm_list_gtype}
+    \    Edit Casino Bet Setting    ${i}    Uncheck    All
+    Select Frame    main
+    Click Element    xpath=//*[@value='Submit']
+    Unselect Frame
+    sleep    15s
+    select link in setting tab    Edit Casino
+    #wait for bet limit load
+    sleep    20s
+    : FOR    ${i}    IN    @{tm_list_gtype}
+    \    Check Casino Bet Setting    ${i}    Uncheck    All
+    Check Casino Bet Setting    ${tm_checkgt}    Check    All
+    Logout
+    ${tm_empty_listrange}=    Fetch List From Left    ${tm_list_range}    :
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Casino
+    #wait for bet limit load
+    sleep    20s
+    Check Casino Bet Limit    ${tm_list_gtype}    ${tm_empty_listrange}    ${tm_removed_index}
+    : FOR    ${i}    IN    @{tm_list_gtype}
+    \    Check Casino Bet Setting    ${i}    Empty    All
+    Check Casino Bet Setting    ${tm_checkgt}    Enable    All
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser

@@ -74,4 +74,20 @@
             expect($(".breadcrumb-link").attr("href")).toEqual("/site-reports/winlossdetail/master?IsFilterVisible=false&param=paramvalue");
         });
     });
+
+    describe("_render", () => {
+        it("_Always -> Assign new options", () => {
+            // arrange
+            let option = new LinkBuilderOption([".action-link"]);
+            let expectOption = {
+                linkClasses: [".action-link"]
+            };
+
+            // act
+            linkBuilderComponent.render(option);
+
+            // assert
+            expect(linkBuilderComponent.options).toEqual(expectOption);
+        });
+    });
 });

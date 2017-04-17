@@ -346,17 +346,26 @@
     <value>球赛输赢</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
-		<value>未完成交易</value>
-	</data>
+    <value>未完成交易</value>
+  </data>
   <data name="MemberOutstanding" xml:space="preserve">
-		<value>会员未结束交易</value>
-	</data>
+    <value>会员未结束交易</value>
+  </data>
   <data name="AgentOutstanding" xml:space="preserve">
-		<value>代理未结束交易</value>
-	</data>
+    <value>代理未结束交易</value>
+  </data>
   <data name="MasterOutstanding" xml:space="preserve">
-		<value>总代理未结束交易</value>
-	</data>
+    <value>总代理未结束交易</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>禁用</value>
+  </data>
   <data name="Match" xml:space="preserve">
     <value>赛事</value>
   </data>
@@ -391,6 +400,27 @@
   <data name="NumberGame" xml:space="preserve">
     <value>数字游戏</value>
   </data>
+  <data name="Daily" xml:space="preserve">
+    <value>每天</value>
+  </data>
+  <data name="DailyWinLossAnalysis" xml:space="preserve">
+    <value>每日输赢分析</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="MonthlyWinLossAnalysis" xml:space="preserve">
+    <value>每月输赢分析</value>
+  </data>
+  <data name="ReportBy" xml:space="preserve">
+    <value>由报告</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>运动</value>
+  </data>
+  <data name="SportWinLossAnalysis" xml:space="preserve">
+    <value>体育输赢分析</value>
+  </data>
   <data name="SubTotal" xml:space="preserve">
     <value>小计</value>
   </data>
@@ -408,5 +438,38 @@
   </data>
   <data name="DelayIssueLegend" xml:space="preserve">
     <value>- 在 {0} 结算后，数据库将会在大约5分钟内更新。</value>
+  </data>
+  <data name="MasterPlayForFunDetail" xml:space="preserve">
+    <value>总代理免费试玩资料</value>
+  </data>
+  <data name="AgentPlayForFunDetail" xml:space="preserve">
+    <value>代理免费试玩资料</value>
+  </data>
+  <data name="MemberPlayForFunDetail" xml:space="preserve">
+    <value>会员免费试玩资料</value>
+  </data>
+  <data name="NoPlayers" xml:space="preserve">
+    <value>玩家人数</value>
+  </data>
+  <data name="PlayCount" xml:space="preserve">
+    <value>投注统计</value>
+  </data>
+  <data name="PlayForFun" xml:space="preserve">
+    <value>免费试玩</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>选定</value>
+  </data>
+  <data name="SelectProducts" xml:space="preserve">
+    <value>选择产品</value>
+  </data>
+  <data name="ThereIsNoProduct" xml:space="preserve">
+    <value>没有产品</value>
+  </data>
+  <data name="AllProducts" xml:space="preserve">
+    <value>所有产品</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>已开启</value>
   </data>
 </root>

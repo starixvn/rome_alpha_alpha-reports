@@ -1,0 +1,40 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          common_actions.txt
+Resource          Left_menu/left_menu_actions.txt
+Resource          Setting/status_actions.txt
+Resource          ../Data_set/accounts.txt
+
+*** Keywords ***
+Login fail n times
+    [Arguments]    ${username}    ${time}
+    ${count}    Set Variable    0
+    ${tm_randomname}    Generate Random String    12    [LOWER]
+    : FOR    ${count}    IN RANGE    0    ${time} + 4
+    \    Run Keyword If    '${count}' == '3' or '${count}' == '7'    Reset captcha
+    \    Run Keyword If    '${count}' != '3' and '${count}' != '7'    Login    ${username}    1234aa
+    \    Run Keyword If    '${count}' != '3' and '${count}' != '7' and '${count}' != '8'     Run Keyword And Continue On Failure    Element Text Should Be    ${in_login_err}    Wrong username/nickname or password.
+
+Reset captcha
+    ${username}    Generate Random String    12    [LOWER]
+    Login    ${username}    1234aa
+
+Open account
+    [Arguments]    ${upline}    ${downline}
+    Open Browser    ${cfUrl}    ff
+    Login    ${upline}    1234aaAA
+    Select Frame    main
+    Input Text    //*[@id='txtSecCode']    123457
+    Click Element    //*[@id='frmVerifySecurityCode']/table[2]/tbody/tr[3]/td/input[1]
+    Sleep    2s
+    Search Account    ${downline}
+    edit checkbox setting    Closed    uncheck
+    sleep    5s
+    [Teardown]    Close Browser
+
+current login user should be
+    [Arguments]    ${username}
+    Select Frame    frHeader
+    ${result}    Run Keyword And Return Status    Element Text Should Be    ${in_tl_username}    ${username}
+    Unselect Frame
+    [Return]    ${result}

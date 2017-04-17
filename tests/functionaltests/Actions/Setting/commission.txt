@@ -1,0 +1,57 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Interfaces/Main/in_m_edit_commission.txt
+Resource          ../../Interfaces/Main/in_m_edit_colossusbets.txt
+
+*** Keywords ***
+Edit Commission
+    [Arguments]    ${action}=${EMPTY}    ${GroupA}=${EMPTY}
+    [Documentation]    This action is used to Edit Commission Info for Level Login: Super, Master
+    ...    - ${GroupA}: updated value
+    ...    - ${action}: 'save'
+    unselect frame
+    select frame    main
+    Run Keyword If    '${GroupA}'!='${EMPTY}'    Select From List By Label    ${in_m_eco_cboGroupA}    ${GroupA}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_eco_btnUpdate}
+    unselect frame
+
+Verify Commission
+    [Arguments]    ${expGroupA}=${EMPTY}
+    [Documentation]    This action is used to verify Commission
+    # Check GroupA value
+    unselect frame
+    select frame    main
+    ${ac_actGroupA}    Run Keyword If    '${expGroupA}'!='${EMPTY}'    Get Selected List Label    ${in_m_eco_cboGroupA}
+    Run Keyword If    '${expGroupA}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_actGroupA}    ${expGroupA}
+    unselect frame
+
+Edit Commission_AgentMember
+    [Arguments]    ${action}    ${asian}
+    [Documentation]    This action is used to Edit Commission Info for Level Login: Super, Master
+    ...    - ${action}: 'save'
+    ...    - ${asian}: updated value
+    ...    - ${action}: 'save'
+    unselect frame
+    select frame    main
+    Run Keyword If    '${asian}'!='${EMPTY}'    Select From List By Label    ${in_m_eco_cboAsian}    ${asian}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_eco_btnUpdate}
+    unselect frame
+
+Verify Commission_AgentMember
+    [Arguments]    ${expAsian}
+    [Documentation]    This action is used to Edit Commission Info for Level Login: Super, Master
+    ...    - ${action}: 'save'
+    ...    - ${asian}: updated value
+    ...    - ${action}: 'save'
+    # Verify 'Comm for Member' Asian
+    unselect frame
+    select frame    main
+    ${ac_actAsian}    Run Keyword If    '${expAsian}'!='${EMPTY}'    Get Selected List Label    ${in_m_eco_cboAsian}
+    Run Keyword If    '${expAsian}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_actAsian}    ${expAsian}
+    unselect frame

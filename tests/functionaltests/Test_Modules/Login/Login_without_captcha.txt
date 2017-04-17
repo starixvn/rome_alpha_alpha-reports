@@ -1,0 +1,46 @@
+*** Settings ***
+Suite Setup       Init
+Suite Teardown    Close All Browsers
+Force Tags        1
+Library           Selenium2Library
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/login.txt
+Resource          ../../Data_set/accounts.txt
+
+*** Test Cases ***
+Login with no input username
+    [Tags]
+    ${password}    Generate Random String    12    [LOWER]
+    Login    ${EMPTY}    ${password}
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_login_err}    Please input username and password
+
+Login with no input password
+    [Tags]
+    ${username}    Generate Random String    12    [LOWER]
+    Login    ${username}    ${EMPTY}
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_login_err}    Please input username and password
+
+Login fail
+    [Tags]
+    ${tm_agentname}    Set Variable    ${tc_agentlogin}
+    Login    ${tm_agentname}    1234aa
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_login_err}    Wrong username/nickname or password.
+
+Login sucessfully
+    [Tags]
+    ${tm_agentname}    Set Variable    ${tc_agentlogin}
+    Login    ${tm_agentname}    1234aaAA
+    Wait Until Page Contains Element    ${in_login_agentsite}
+    Logout
+
+Login fail 15 times
+    [Tags]
+    ${tm_agentname}    Set Variable    ${tc_agentlogin}
+    : FOR    ${count}    IN RANGE    0    17
+    \    Reset captcha
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_login_err}    Your IP exceeded the maximum number (15 times) of attempts to authenticate with your credentials. For security reasons, this feature has been locked for 15 minutes
+    Sleep    900s
+    Run Keyword And Continue On Failure    Page Should Not Contain Element    ${in_login_image}
+    Login    ${tm_agentname}    1234aa
+    Run Keyword And Continue On Failure    Wait Until Page Contains Element    ${in_login_agentsite}
+    Logout

@@ -1,0 +1,79 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Interfaces/in_login.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/Main/in_m_edit_transfer_condition.txt
+Resource          ../../Actions/common_actions.txt
+
+*** Keywords ***
+Edit Transfer Condition
+    [Arguments]    ${action}=${EMPTY}    ${cfrDownline}=${EMPTY}    ${type}=${EMPTY}    ${mon}=${EMPTY}    ${tue}=${EMPTY}    ${wed}=${EMPTY}
+    ...    ${thurs}=${EMPTY}    ${fri}=${EMPTY}    ${sat}=${EMPTY}    ${sun}=${EMPTY}
+    [Documentation]    This action is used to update transfer condition
+    ...    - ${type}: Daily/Weekly
+    Unselect Frame
+    select frame    main
+    Run Keyword If    '${type}'=='Daily'    Click element    ${in_m_etf_rdoDaily}
+    Run Keyword If    '${type}'=='Weekly'    Set Weekly Transfer    ${mon}    ${tue}    ${wed}    ${thurs}
+    ...    ${fri}    ${sat}    ${sun}
+    Run Keyword If    '${action}'=='save'    click element    ${in_m_etf_btnSubmit}
+    Run Keyword If    '${cfrDownline}'=='ok'    Confirm Action
+    Run Keyword If    '${cfrDownline}'=='cancel'    Choose Cancel On Next Confirmation
+    Unselect Frame
+
+Set Weekly Transfer
+    [Arguments]    ${mon}=${EMPTY}    ${tue}=${EMPTY}    ${wed}=${EMPTY}    ${thurs}=${EMPTY}    ${fri}=${EMPTY}    ${sat}=${EMPTY}
+    ...    ${sun}=${EMPTY}
+    Click Element    ${in_m_etf_rdoWeekly}
+    Run Keyword If    '${mon}'!='${EMPTY}'    Set Checkbox    ${in_m_etf_chkMon}    ${mon}
+    Run Keyword If    '${tue}'!='${EMPTY}'    Set Checkbox    ${in_m_etf_chkTue}    ${tue}
+    Run Keyword If    '${wed}'!='${EMPTY}'    Set Checkbox    ${in_m_etf_chkWed}    ${wed}
+    Run Keyword If    '${thurs}'!='${EMPTY}'    Set Checkbox    ${in_m_etf_chkThurs}    ${thurs}
+    Run Keyword If    '${fri}'!='${EMPTY}'    Set Checkbox    ${in_m_etf_chkFri}    ${fri}
+    Run Keyword If    '${sat}'!='${EMPTY}'    Set Checkbox    ${in_m_etf_chkSat}    ${sat}
+    Run Keyword If    '${sun}'!='${EMPTY}'    Set Checkbox    ${in_m_etf_chkSun}    ${sun}
+
+Verify Transfer Condition
+    [Arguments]    ${type}=${EMPTY}    ${mon}=${EMPTY}    ${tue}=${EMPTY}    ${wed}=${EMPTY}    ${thurs}=${EMPTY}    ${fri}=${EMPTY}
+    ...    ${sat}=${EMPTY}    ${sun}=${EMPTY}
+    ${ac_daily}    Get value    ${in_m_etf_rdoDaily}
+    ${ac_weekly}    Get value    ${in_m_etf_rdoWeekly}
+    Run Keyword If    '${type}'=='Daily'    Run Keyword And Return Status    Should Be Equal    ${ac_daily}    True
+    Run Keyword If    '${type}'=='Daily'    Run Keyword And Return Status    Should Be Equal    ${ac_weekly}    False
+    Run Keyword If    '${type}'=='Weekly'    Run Keyword And Return Status    Should Be Equal    ${ac_daily}    False
+    Run Keyword If    '${type}'=='Weekly'    Run Keyword And Return Status    Should Be Equal    ${ac_weekly}    True
+
+Verify Transfer Condition_Daily Selected
+    [Arguments]    ${type}=${EMPTY}    ${mon}=${EMPTY}    ${tue}=${EMPTY}    ${wed}=${EMPTY}    ${thurs}=${EMPTY}    ${fri}=${EMPTY}
+    ...    ${sat}=${EMPTY}    ${sun}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    Verify Control    ${in_m_etf_chkMon}    checkbox    ${EMPTY}    disable    ${mon}
+    Verify Control    ${in_m_etf_chkTue}    checkbox    ${EMPTY}    disable    ${tue}
+    Verify Control    ${in_m_etf_chkWed}    checkbox    ${EMPTY}    disable    ${wed}
+    Verify Control    ${in_m_etf_chkThurs}    checkbox    ${EMPTY}    disable    ${thurs}
+    Verify Control    ${in_m_etf_chkFri}    checkbox    ${EMPTY}    disable    ${fri}
+    Verify Control    ${in_m_etf_chkSat}    checkbox    ${EMPTY}    disable    ${sat}
+    Verify Control    ${in_m_etf_chkSun}    checkbox    ${EMPTY}    disable    ${sun}
+    Unselect Frame
+
+Verify Transfer Condition_Weekly Selected
+    [Arguments]    ${type}=${EMPTY}    ${mon}=${EMPTY}    ${tue}=${EMPTY}    ${wed}=${EMPTY}    ${thurs}=${EMPTY}    ${fri}=${EMPTY}
+    ...    ${sat}=${EMPTY}    ${sun}=${EMPTY}
+    Unselect Frame
+    select frame    main
+    Verify Control    ${in_m_etf_chkMon}    checkbox    ${EMPTY}    enable    ${mon}
+    Verify Control    ${in_m_etf_chkTue}    checkbox    ${EMPTY}    enable    ${tue}
+    Verify Control    ${in_m_etf_chkWed}    checkbox    ${EMPTY}    enable    ${wed}
+    Verify Control    ${in_m_etf_chkThurs}    checkbox    ${EMPTY}    enable    ${thurs}
+    Verify Control    ${in_m_etf_chkFri}    checkbox    ${EMPTY}    enable    ${fri}
+    Verify Control    ${in_m_etf_chkSat}    checkbox    ${EMPTY}    enable    ${sat}
+    Verify Control    ${in_m_etf_chkSun}    checkbox    ${EMPTY}    enable    ${sun}
+    Unselect Frame

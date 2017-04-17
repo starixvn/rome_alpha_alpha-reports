@@ -1,0 +1,73 @@
+*** Settings ***
+Suite Setup       Init
+Suite Teardown    Close All Browsers
+Force Tags
+Library           Selenium2Library
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/login.txt
+Resource          ../../Data_set/accounts.txt
+Resource          ../../Interfaces/in_login.txt
+
+*** Test Cases ***
+Show captcha page
+    [Documentation]    Checking webpage show captcha when user login fail 3 times / account.
+    [Tags]
+    ${tm_agentname}    Set Variable    ${tc_agentlogin}
+    Login fail n times    ${tm_agentname}    3
+    Run Keyword And Continue On Failure    Page Should Contain Element    ${in_login_image}
+    Reset captcha
+    Run Keyword And Continue On Failure    Page Should Not Contain Element    ${in_login_image}
+    Login    ${tm_agentname}    1234aaAA
+    Run Keyword And Continue On Failure    Wait Until Page Contains Element    ${in_login_agentsite}
+    Logout
+
+Close account
+    [Documentation]    Checking when user input incorrect password 5 times / account
+    [Tags]    2
+    ${tm_agentname}    Set Variable    ${tc_agentlogin}
+    ${tm_mastername}    Set Variable    ${tc_masterlogin}
+    Login fail n times    ${tm_agentname}    5
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_login_err}    Account closed. Please contact your administrator!
+    Open account    ${tm_mastername}    ${tm_agentname}
+
+Login without captcha
+    [Documentation]    At login page with captcha, Checking when user login without input captcha
+    [Tags]
+    ${tm_agentname}    Set Variable    ${tc_agentlogin}
+    Login fail n times    ${tm_agentname}    3
+    Run Keyword And Continue On Failure    Page Should Contain Element    ${in_login_image}
+    Login    ${tm_agentname}    1234aa
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_login_err}    You input an invalid code.
+    Login    ${tm_agentname}    1234aaAA
+    Run Keyword And Continue On Failure    Element Text Should Be    ${in_login_err}    You input an invalid code.
+    Reset captcha
+    Run Keyword And Continue On Failure    Page Should Not Contain Element    ${in_login_image}
+    Login    ${tm_agentname}    1234aaAA
+    Logout
+
+Login with correct password after 5 minutes
+    [Documentation]    Checking Login page with captcha redirect Login Page without captcha after 5 minutes
+    [Tags]
+    ${tm_agentname}    Set Variable    ${tc_agentlogin}
+    Login fail n times    ${tm_agentname}    3
+    Run Keyword And Continue On Failure    Page Should Contain Element    ${in_login_image}
+    Sleep    300s
+    Run Keyword And Continue On Failure    Page Should Not Contain Element    ${in_login_image}
+    Login    ${tm_agentname}    1234aaAA
+    Run Keyword And Continue On Failure    Wait Until Page Contains Element    ${in_login_agentsite}
+    Sleep    2s
+    Logout
+
+Login with incorrect password after 5 minutes
+    [Documentation]    Checking Login page with captcha redirect Login Page without captcha after 5 minutes
+    [Tags]
+    ${tm_agentname}    Set Variable    ${tc_agentlogin}
+    Login fail n times    ${tm_agentname}    3
+    Run Keyword And Continue On Failure    Page Should Contain Element    ${in_login_image}
+    Sleep    300s
+    Run Keyword And Continue On Failure    Page Should Not Contain Element    ${in_login_image}
+    Login    ${tm_agentname}    1234aa
+    Run Keyword And Continue On Failure    Page Should Not Contain Element    ${in_login_image}
+    Sleep    2s
+    Login    ${tm_agentname}    1234aaAA
+    Logout

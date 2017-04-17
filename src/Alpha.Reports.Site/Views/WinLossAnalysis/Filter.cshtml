@@ -1,0 +1,47 @@
+﻿@model WinLossAnalysislFilterViewModel
+
+<form class="form-inline filter @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form">
+    @RenderHiddenFields()
+
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+
+    @DateRangePicker.Render(Model.DateRangePickerViewModel)
+
+    <div id="icon-information-container" class="form-group hide">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>@Model.ViewDataInstructionMessage
+    </div>
+
+    <div class="report-by" >
+        <span>@Resources.ReportBy</span> 
+        @foreach (var data in Model.ReportTypeData)
+        {
+            <span>
+                @Html.RadioButton("reportType", data.ReportTypeId, data.IsChecked, new { id = data.ReportTypeName })
+                @Html.Label(data.ReportTypeName, data.ReportTypeName)
+            </span>
+        }
+    </div>
+
+    @helper RenderHiddenFields()
+    {
+        @Html.Hidden("IsFilterVisible", Model.Visible)
+        @Html.Hidden("CustId", Model.CustId)
+        @Html.Hidden("CustName", Model.CustName)
+        @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+
+        @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+        @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
+        @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
+        @Html.Hidden("ReportTypeId", ViewData["ReportTypeId"])
+        @Html.Hidden("ReportTypeName", ViewData["ReportTypeName"])
+   
+    }
+</form>

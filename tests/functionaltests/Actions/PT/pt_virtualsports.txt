@@ -1,0 +1,637 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          ../../Interfaces/Main/in_m_edit_virtualsports.txt
+Resource          ../../Interfaces/Main/in_m_popup_pt_confirm_player.txt
+Resource          ../common_actions.txt
+
+*** Keywords ***
+Get Virtual Soccer PT
+    [Arguments]    ${type}
+    Comment    Select Frame    menu
+    Comment    Click Element    //*[@id='menuitem22']
+    Comment    Unselect Frame
+    Comment    Select Frame    main
+    ${lstoutput}    Create List
+    # Get Super PT
+    Comment    Get Soccer PT
+    ${ac_soccer_s3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtSuperPTsoccer}
+    ${ac_soccer_m3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtMasterMaxPTsoccer}
+    ${ac_soccer_n3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtMasterMinPTsoccer}
+    Comment    Run Keyword If    '${type}'=='Super'    Append To List    ${lstoutput}    Super Preset PT_${ac_soccer_s3}    Master Max PT_${ac_soccer_m3}
+    ...    Min Position Taking_${ac_soccer_n3}
+    Run Keyword If    '${type}'=='Super'    Append To List    ${lstoutput}    ${ac_soccer_s3}    ${ac_soccer_m3}    ${ac_soccer_n3}
+    # Get Master PT
+    ${ac_soccer_s3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtMasterPTsoccer}
+    ${ac_soccer_m3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtAgentMaxPTsoccer}
+    ${ac_soccer_n3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtAgentMinPTsoccer}
+    Run Keyword If    '${type}'=='Master'    Append To List    ${lstoutput}    ${ac_soccer_s3}    ${ac_soccer_m3}    ${ac_soccer_n3}
+    # Get Agent PT
+    ${ac_soccer_s3}=    Run Keyword If    '${type}'=='Agent'    Get Selected List Label    ${in_m_editvs_txtAgentPTsoccer}
+    Run Keyword If    '${type}'=='Agent'    Append To List    ${lstoutput}    ${ac_soccer_s3}
+    #Get AutoPT values
+    ${ac_us3}    Run Keyword If    '${type}'=='A-Super'    Get Selected List Label    ${in_m_editvs_txtSupersoccerauto}
+    ${ac_um2}    Run Keyword If    '${type}'=='A-Master'    Get Selected List Label    ${in_m_editvs_txtMastersoccerauto}
+    Run Keyword If    '${type}'=='A-Super'    Append To List    ${lstoutput}    Super Auto PT_${ac_us3}
+    Run Keyword If    '${type}'=='A-Master'    Append To List    ${lstoutput}    Master Auto PT${ac_um2}
+    Unselect Frame
+    [Return]    ${lstoutput}
+
+Get Virtual Tennis PT
+    [Arguments]    ${type}
+    Comment    Select Frame    menu
+    Comment    Click Element    //*[@id='menuitem22']
+    Comment    Unselect Frame
+    Comment    Select Frame    main
+    ${lstoutput}    Create List
+    # Get Super PT
+    Comment    Get tennis PT
+    ${ac_tennis_s3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtSuperPTtennis}
+    ${ac_tennis_m3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtMasterMaxPTtennis}
+    ${ac_tennis_n3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtMasterMinPTtennis}
+    Run Keyword If    '${type}'=='Super'    Append To List    ${lstoutput}    ${ac_tennis_s3}    ${ac_tennis_m3}    ${ac_tennis_n3}
+    # Get Master PT
+    ${ac_tennis_s3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtMasterPTtennis}
+    ${ac_tennis_m3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtAgentMaxPTtennis}
+    ${ac_tennis_n3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtAgentMinPTtennis}
+    Run Keyword If    '${type}'=='Master'    Append To List    ${lstoutput}    ${ac_tennis_s3}    ${ac_tennis_m3}    ${ac_tennis_n3}
+    # Get Agent PT
+    ${ac_tennis_s3}=    Run Keyword If    '${type}'=='Agent'    Get Selected List Label    ${in_m_editvs_txtAgentPTtennis}
+    Run Keyword If    '${type}'=='Agent'    Append To List    ${lstoutput}    ${ac_tennis_s3}
+    Unselect Frame
+    [Return]    ${lstoutput}
+
+Get Virtual Horse racing PT
+    [Arguments]    ${type}
+    Comment    Select Frame    menu
+    Comment    Click Element    //*[@id='menuitem22']
+    Comment    Unselect Frame
+    Comment    Select Frame    main
+    ${lstoutput}    Create List
+    # Get Super PT
+    Comment    Get horseracing PT
+    ${ac_horseracing_s3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtSuperPThorseracing }
+    ${ac_horseracing_m3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtMasterMaxPThorseracing }
+    ${ac_horseracing_n3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtMasterMinPThorseracing }
+    Run Keyword If    '${type}'=='Super'    Append To List    ${lstoutput}    ${ac_horseracing_s3}    ${ac_horseracing_m3}    ${ac_horseracing_n3}
+    # Get Master PT
+    ${ac_horseracing_s3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtMasterPThorseracing}
+    ${ac_horseracing_m3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtAgentMaxPThorseracing}
+    ${ac_horseracing_n3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtAgentMinPThorseracing}
+    Run Keyword If    '${type}'=='Master'    Append To List    ${lstoutput}    ${ac_horseracing_s3}    ${ac_horseracing_m3}    ${ac_horseracing_n3}
+    # Get Agent PT
+    ${ac_horseracing_s3}=    Run Keyword If    '${type}'=='Agent'    Get Selected List Label    ${in_m_editvs_txtAgentPThorseracing}
+    Run Keyword If    '${type}'=='Agent'    Append To List    ${lstoutput}    ${ac_horseracing_s3}
+    Unselect Frame
+    [Return]    ${lstoutput}
+
+Get Virtual Greyhounds PT
+    [Arguments]    ${type}
+    Comment    Select Frame    menu
+    Comment    Click Element    //*[@id='menuitem22']
+    Comment    Unselect Frame
+    Comment    Select Frame    main
+    ${lstoutput}    Create List
+    # Get Super PT
+    Comment    Get Greyhounds PT
+    ${ac_greyhounds_s3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtSuperPTgreyhounds}
+    ${ac_greyhounds_m3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtMasterMaxPTgreyhounds}
+    ${ac_greyhounds_n3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtMasterMinPTgreyhounds}
+    Run Keyword If    '${type}'=='Super'    Append To List    ${lstoutput}    ${ac_greyhounds_s3}    ${ac_greyhounds_m3}    ${ac_greyhounds_n3}
+    # Get Master PT
+    ${ac_greyhounds_s3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtMasterPTgreyhounds}
+    ${ac_greyhounds_m3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtAgentMaxPTgreyhounds}
+    ${ac_greyhounds_n3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtAgentMinPTgreyhounds}
+    Run Keyword If    '${type}'=='Master'    Append To List    ${lstoutput}    ${ac_greyhounds_s3}    ${ac_greyhounds_m3}    ${ac_greyhounds_n3}
+    # Get Agent PT
+    ${ac_greyhounds_s3}=    Run Keyword If    '${type}'=='Agent'    Get Selected List Label    ${in_m_editvs_txtAgentPTgreyhounds}
+    Run Keyword If    '${type}'=='Agent'    Append To List    ${lstoutput}    ${ac_greyhounds_s3}
+    Unselect Frame
+    [Return]    ${lstoutput}
+
+Get Virtual Motorsports PT
+    [Arguments]    ${type}
+    Comment    Select Frame    menu
+    Comment    Click Element    //*[@id='menuitem22']
+    Comment    Unselect Frame
+    Comment    Select Frame    main
+    ${lstoutput}    Create List
+    # Get Super PT
+    Comment    Get Motorsports PT
+    ${ac_motorsports_s3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtSuperPTmotorsports}
+    ${ac_motorsports_m3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtMasterMaxPTmotorsports}
+    ${ac_motorsports_n3}=    Run Keyword If    '${type}'=='Super'    Get Selected List Label    ${in_m_editvs_txtMasterMinPTmotorsports}
+    Run Keyword If    '${type}'=='Super'    Append To List    ${lstoutput}    ${ac_motorsports_s3}    ${ac_motorsports_m3}    ${ac_motorsports_n3}
+    # Get Master PT
+    ${ac_motorsports_s3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtMasterPTmotorsports}
+    ${ac_motorsports_m3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtAgentMaxPTmotorsports}
+    ${ac_motorsports_n3}=    Run Keyword If    '${type}'=='Master'    Get Selected List Label    ${in_m_editvs_txtAgentMinPTmotorsports}
+    Run Keyword If    '${type}'=='Master'    Append To List    ${lstoutput}    ${ac_motorsports_s3}    ${ac_motorsports_m3}    ${ac_motorsports_n3}
+    # Get Agent PT
+    ${ac_motorsports_s3}=    Run Keyword If    '${type}'=='Agent'    Get Selected List Label    ${in_m_editvs_txtAgentPTmotorsports}
+    Run Keyword If    '${type}'=='Agent'    Append To List    ${lstoutput}    ${ac_motorsports_s3}
+    Unselect Frame
+    [Return]    ${lstoutput}
+
+Get Virtual PT
+    [Arguments]    ${type}    ${sporttype}
+    Select Frame    menu
+    Click Element    //*[@id='menuitem22']
+    Unselect Frame
+    Select Frame    main
+    Comment    ${lstoutput}    Create List
+    ${superSoccer}    Run Keyword If    '${type}'=='Super' and '${sporttype}'=='Soccer'    Get Virtual Soccer PT    Super
+    ${superTennis}    Run Keyword If    '${type}'=='Super' and '${sporttype}'=='Tennis'    Get Virtual Tennis PT    Super
+    ${superHorseRacing}    Run Keyword If    '${type}'=='Super' and '${sporttype}'=='Horseracing'    Get Virtual Horse racing PT    Super
+    ${superGreyhounds}    Run Keyword If    '${type}'=='Super' and '${sporttype}'=='Greyhounds'    Get Virtual Greyhounds PT    Super
+    ${superMotorsports}    Run Keyword If    '${type}'=='Super' and '${sporttype}'=='Motorsports'    Get Virtual Motorsports PT    Super
+    ${masterSoccer}    Run Keyword If    '${type}'=='Master' and '${sporttype}'=='Soccer'    Get Virtual Soccer PT    Master
+    ${masterTennis}    Run Keyword If    '${type}'=='Master' and '${sporttype}'=='Tennis'    Get Virtual Tennis PT    Master
+    ${masterHorseRacing}    Run Keyword If    '${type}'=='Master' and '${sporttype}'=='Horseracing'    Get Virtual Horse racing PT    Master
+    ${masterGreyhounds}    Run Keyword If    '${type}'=='Master' and '${sporttype}'=='Greyhounds'    Get Virtual Greyhounds PT    Master
+    ${masterMotorsports}    Run Keyword If    '${type}'=='Master' and '${sporttype}'=='Motorsports'    Get Virtual Motorsports PT    Master
+    ${agentSoccer}    Run Keyword If    '${type}'=='Agent' and '${sporttype}'=='Soccer'    Get Virtual Soccer PT    Agent
+    ${agentTennis}    Run Keyword If    '${type}'=='Agent' and '${sporttype}'=='Tennis'    Get Virtual Tennis PT    Agent
+    ${agentHorseRacing}    Run Keyword If    '${type}'=='Agent' and '${sporttype}'=='Horseracing'    Get Virtual Horse racing PT    Agent
+    ${agentGreyhounds}    Run Keyword If    '${type}'=='Agent' and '${sporttype}'=='Greyhounds'    Get Virtual Greyhounds PT    Agent
+    ${agentMotorsports}    Run Keyword If    '${type}'=='Agent' and '${sporttype}'=='Motorsports'    Get Virtual Motorsports PT    Agent
+    : FOR    ${lstoutput}    IN    ${superSoccer}    ${superTennis}    ${superHorseRacing}    ${superGreyhounds}
+    ...    ${superMotorsports}    ${masterSoccer}    ${masterTennis}    ${masterHorseRacing}    ${masterGreyhounds}    ${masterMotorsports}
+    ...    ${agentSoccer}    ${agentTennis}    ${agentHorseRacing}    ${agentGreyhounds}    ${agentMotorsports}
+    \    Return From Keyword If    '${type}'=='Super' and '${sporttype}'=='Soccer'    ${superSoccer}
+    \    Return From Keyword If    '${type}'=='Super' and '${sporttype}'=='Tennis'    ${superTennis}
+    \    Return From Keyword If    '${type}'=='Super' and '${sporttype}'=='Horseracing'    ${superHorseRacing}
+    \    Return From Keyword If    '${type}'=='Super' and '${sporttype}'=='Greyhounds'    ${superGreyhounds}
+    \    Return From Keyword If    '${type}'=='Super' and '${sporttype}'=='Motorsports'    ${superMotorsports}
+    \    Return From Keyword If    '${type}'=='Master' and '${sporttype}'=='Soccer'    ${masterSoccer}
+    \    Return From Keyword If    '${type}'=='Master' and '${sporttype}'=='Tennis'    ${masterTennis}
+    \    Return From Keyword If    '${type}'=='Master' and '${sporttype}'=='Horseracing'    ${masterHorseRacing}
+    \    Return From Keyword If    '${type}'=='Master' and '${sporttype}'=='Greyhounds'    ${masterGreyhounds}
+    \    Return From Keyword If    '${type}'=='Master' and '${sporttype}'=='Motorsports'    ${masterMotorsports}
+    \    Return From Keyword If    '${type}'=='Agent' and '${sporttype}'=='Soccer'    ${agentSoccer}
+    \    Return From Keyword If    '${type}'=='Agent' and '${sporttype}'=='Tennis'    ${agentTennis}
+    \    Return From Keyword If    '${type}'=='Agent' and '${sporttype}'=='Horseracing'    ${agentHorseRacing}
+    \    Return From Keyword If    '${type}'=='Agent' and '${sporttype}'=='Greyhounds'    ${agentGreyhounds}
+    \    Return From Keyword If    '${type}'=='Agent' and '${sporttype}'=='Motorsports'    ${agentMotorsports}
+    Unselect Frame
+    [Return]    ${lstoutput}
+
+Edit Virtual PT
+    [Arguments]    ${type}    ${sporttype}    ${ydownline}    @{lstValues}
+    [Documentation]    This action is used to edit Virtual Soccer PT of account
+    ...
+    ...    ${type}: the edit account type (Master/Agent/Member)
+    ...    *** for auto PT type= (A-Master/A-Agent/A-Member)
+    ...
+    ...    ${autopt}: value of auto PT (US3/UM2/UM1)
+    ...
+    ...    ${lstValues}: the list contain PT values:
+    ...
+    ...    +Master: S3,M3,N3
+    ...
+    ...    +Agent: M2,A2, N2
+    ...
+    ...    +Member: M1,A1,S1
+    ...
+    ...    ${submit}: Yes/no (submit or not)
+    Select Frame    menu
+    Click Element    //*[@id='menuitem22']
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword If    '${type}'=='Super' and '${sporttype}'=='Soccer'    Run Keywords    PT Select From List By Label    ${in_m_editvs_txtSuperPTsoccer}    @{lstValues}[0]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtMasterMaxPTsoccer}    @{lstValues}[1]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtMasterMinPTsoccer}    @{lstValues}[2]
+    Run Keyword If    '${type}'=='Super' and '${sporttype}'=='Tennis'    Run Keywords    PT Select From List By Label    ${in_m_editvs_txtSuperPTtennis}    @{lstValues}[0]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtMasterMaxPTtennis}    @{lstValues}[1]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtMasterMinPTtennis}    @{lstValues}[2]
+    Run Keyword If    '${type}'=='Super' and '${sporttype}'=='Horseracing'    Run Keywords    PT Select From List By Label    ${in_m_editvs_txtSuperPThorseracing }    @{lstValues}[0]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtMasterMaxPThorseracing }    @{lstValues}[1]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtMasterMinPThorseracing }    @{lstValues}[2]
+    Run Keyword If    '${type}'=='Super' and '${sporttype}'=='Greyhounds'    Run Keywords    PT Select From List By Label    ${in_m_editvs_txtSuperPTgreyhounds}    @{lstValues}[0]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtMasterMaxPTgreyhounds}    @{lstValues}[1]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtMasterMinPTgreyhounds}    @{lstValues}[2]
+    Run Keyword If    '${type}'=='Super' and '${sporttype}'=='Motorsports'    Run Keywords    PT Select From List By Label    ${in_m_editvs_txtSuperPTmotorsports}    @{lstValues}[0]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtMasterMaxPTmotorsports}    @{lstValues}[1]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtMasterMinPTmotorsports}    @{lstValues}[2]
+    Run Keyword If    '${type}'=='Master' and '${sporttype}'=='Soccer'    Run Keywords    PT Select From List By Label    ${in_m_editvs_txtMasterPTsoccer}    @{lstValues}[0]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtAgentMaxPTsoccer}    @{lstValues}[1]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtAgentMinPTsoccer}    @{lstValues}[2]
+    Run Keyword If    '${type}'=='Master' and '${sporttype}'=='Tennis'    Run Keywords    PT Select From List By Label    ${in_m_editvs_txtMasterPTtennis}    @{lstValues}[0]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtAgentMaxPTtennis}    @{lstValues}[1]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtAgentMinPTtennis}    @{lstValues}[2]
+    Run Keyword If    '${type}'=='Master' and '${sporttype}'=='Horseracing'    Run Keywords    PT Select From List By Label    ${in_m_editvs_txtMasterPThorseracing}    @{lstValues}[0]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtAgentMaxPThorseracing}    @{lstValues}[1]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtAgentMinPThorseracing}    @{lstValues}[2]
+    Run Keyword If    '${type}'=='Master' and '${sporttype}'=='Greyhounds'    Run Keywords    PT Select From List By Label    ${in_m_editvs_txtMasterPTgreyhounds}    @{lstValues}[0]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtAgentMaxPTgreyhounds}    @{lstValues}[1]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtAgentMinPTgreyhounds}    @{lstValues}[2]
+    Run Keyword If    '${type}'=='Master' and '${sporttype}'=='Motorsports'    Run Keywords    PT Select From List By Label    ${in_m_editvs_txtMasterPTmotorsports}    @{lstValues}[0]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtAgentMaxPTmotorsports}    @{lstValues}[1]
+    ...    AND    PT Select From List By Label    ${in_m_editvs_txtAgentMinPTmotorsports}    @{lstValues}[2]
+    Run Keyword If    '${ydownline}'=='Yes'    Run Keywords    Click Button    //*[@id='btnSubmit']
+    ...    AND    sleep    2s
+    ...    AND    Wait Until Page Contains Element    //*[@id='idConfirm_popup']    20s
+    ...    AND    Click Element    //*[@id='idConfirm_popup']
+    ...    AND    Click Button    //input[@id='idConfirm_yesButton']
+    Sleep    2s
+    Unselect Frame
+    ${ac_time}    get system time
+    [Return]    ${ac_time}
+
+Edit Virtual PT_agent
+    [Arguments]    ${sporttype}    ${lstValues}
+    [Documentation]    This action is used to edit Virtual Soccer PT of account
+    ...
+    ...    ${type}: the edit account type (Master/Agent/Member)
+    ...    *** for auto PT type= (A-Master/A-Agent/A-Member)
+    ...
+    ...    ${autopt}: value of auto PT (US3/UM2/UM1)
+    ...
+    ...    ${lstValues}: the list contain PT values:
+    ...
+    ...    +Master: S3,M3,N3
+    ...
+    ...    +Agent: M2,A2, N2
+    ...
+    ...    +Member: M1,A1,S1
+    ...
+    ...    ${submit}: Yes/no (submit or not)
+    Select Frame    menu
+    Click Element    //*[@id='menuitem22']
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword If    '${sporttype}'=='Soccer'    Select From List By Label    ${in_m_editvs_txtAgentPTsoccer}    ${lstValues}
+    Run Keyword If    '${sporttype}'=='Tennis'    Select From List By Label    ${in_m_editvs_txtAgentPTtennis}    ${lstValues}
+    Run Keyword If    '${sporttype}'=='Horseracing'    Select From List By Label    ${in_m_editvs_txtAgentPThorseracing}    ${lstValues}
+    Run Keyword If    '${sporttype}'=='Greyhounds'    Select From List By Label    ${in_m_editvs_txtAgentPTgreyhounds}    ${lstValues}
+    Run Keyword If    '${sporttype}'=='Motorsports'    Select From List By Label    ${in_m_editvs_txtAgentPTmotorsports}    ${lstValues}
+    Click Button    //*[@id='btnSubmit']
+    Sleep    2s
+    Unselect Frame
+    ${ac_time}    get system time
+    [Return]    ${ac_time}
+
+Edit VirtualSport PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${sport}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}
+    ...    ${N3}=${EMPTY}    ${confirmMemberPT}=${EMPTY}    ${isConfirmAction}=${EMPTY}
+    [Documentation]    *This Action is used to Update VirtualSport Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    @{ac_controlLst}    Get VirtualSport PT Controls    SuperMaster    ${sport}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${Us3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${M3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${confirmMemberPT}'!='${EMPTY}'    Select From List By Label    ${in_mp_ptvs_cfmPlayer_cboPayerPT}    ${confirmMemberPT}
+    Run Keyword If    '${isConfirmAction}'=='yes'    Click Element    ${in_mp_ptvs_cfmPlayer_btnYes}
+    Run Keyword If    '${isConfirmAction}'=='no'    Click Element    ${in_mp_ptvs_cfmPlayer_btnNo}
+    unselect frame
+
+Edit VirtualSport PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sport}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}    ${Us1}=${EMPTY}
+    [Documentation]    This action is used to update VirtualSport PT: Super Update Player
+    @{ac_controlLst}    Get VirtualSport PT controls    SuperPlayer    ${sport}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    unselect frame
+
+Edit VirtualSport PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${sport}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}
+    ...    ${N2}=${EMPTY}    ${confirmMemberPT}=${EMPTY}    ${isConfirmAction}=${EMPTY}
+    [Documentation]    *This Action is used to Update VirtualSport Position Taking - Master Edit Agent*
+    ...
+    ...    ********HISTORY************
+    ...    - Created by: Casey
+    @{ac_controlLst}    Get VirtualSport PT Controls    MasterAgent    ${sport}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${A2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${Um2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${confirmMemberPT}'!='${EMPTY}'    Run Keyword And Continue On Failure    Select From List By Label    ${in_mp_ptvs_cfmPlayer_cboPayerPT}    ${confirmMemberPT}
+    Run Keyword If    '${isConfirmAction}'=='yes'    Run Keyword And Continue On Failure    Click Element    ${in_mp_ptvs_cfmPlayer_btnYes}
+    Run Keyword If    '${isConfirmAction}'=='no'    Run Keyword And Continue On Failure    Click Element    ${in_mp_ptvs_cfmPlayer_btnNo}
+    unselect frame
+
+Edit VirtualSport PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sport}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}    ${Um1}=${EMPTY}
+    @{ac_controlLst}    Get VirtualSport PT controls    MasterPlayer    ${sport}
+    unselect frame
+    select frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    unselect frame
+
+Edit VirtualSport PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sport}=${EMPTY}    ${A1}=${EMPTY}
+    @{ac_controlLst}    Get VirtualSport PT Controls    AgentPlayer    ${sport}
+    Unselect Frame
+    Select Frame    main
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${A1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Unselect Frame
+
+Verify VirtualSport PT_SuperMaster
+    [Arguments]    ${sport}=${EMPTY}    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Master Edit Agent*
+    ...    - S3,M3, Is3, Us3
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    sleep    10s
+    @{ac_controlLst}    Get VirtualSport PT Controls    SuperMaster    ${sport}
+    Unselect Frame
+    Select Frame    main
+    # Check S3
+    ${actualValue}    Run keyword if    '${expectedS3}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check Is3
+    ${actualValue}    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    # Check M3
+    ${actualValue}    Run keyword if    '${expectedM3}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+
+Verify VirtualSport PT_SuperPlayer
+    [Arguments]    ${sport}=${EMPTY}    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    sleep    10s
+    @{ac_controlLst}    Get VirtualSport PT controls    SuperPlayer    ${sport}
+    Unselect Frame
+    Select Frame    main
+    # Check S1
+    ${actualValue}    Run keyword if    '${expectedS1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Is1
+    ${actualValue}    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Us1
+    ${actualValue}    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify VirtualSport PT_MasterAgent
+    [Arguments]    ${sport}=${EMPTY}    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This action is used to Veriry PT Setting: Master Edit Agent*
+    ...    - M2,A2, Im2, Um2
+    ...    *-------------HISTORY--------------*
+    ...    - Created by Casey Huynh
+    sleep    10s
+    @{ac_controlLst}    Get VirtualSport PT Controls    MasterAgent    ${sport}
+    Unselect Frame
+    Select Frame    main
+    # Check M2
+    ${actualValue}    Run keyword if    '${expectedM2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check Im2
+    ${actualValue}    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    # Check A2
+    ${actualValue}    Run keyword if    '${expectedA2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+
+Verify VirtualSport PT_MasterPlayer
+    [Arguments]    ${sport}=${EMPTY}    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}
+    sleep    10s
+    @{ac_controlLst}    Get VirtualSport PT controls    MasterPlayer    ${sport}
+    Unselect Frame
+    Select Frame    main
+    # Check M1
+    ${actualValue}    Run keyword if    '${expectedM1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame
+
+Verify VirtualSport PT_AgentPlayer
+    [Arguments]    ${sport}=${EMPTY}    ${expectedA1}=${EMPTY}
+    sleep    10s
+    @{ac_controlLst}    Get VirtualSport PT Controls    AgentPlayer    ${sport}
+    Unselect Frame
+    Select Frame    main
+    # Check A1
+    ${ac_A1}    Run keyword if    '${expectedA1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame
+
+Get VirtualSport PT Controls
+    [Arguments]    ${type}    ${sport}
+    [Documentation]    This action is used to get Racing PT Controls
+    ...
+    ...    ${acc_output}: base ${type}
+    ...    - ${type}= SuperMaster: S3, Is3, Us3, M3
+    ...    - ${type}= SuperPlayer: S1, Is1, Us1
+    ...    - ${type}= MasterAgent: M2, Im2, Um2, A2
+    ...    - ${type}= MasterPlayer: M1, Im1, Um1
+    ...    - ${type}= AgentPlayer: A1
+    ${ac_sportID}=    Get From Dictionary    ${SporttypeDict}    ${sport}
+    ${ac_BettypeID}    Get From Dictionary    ${BettypeDict}    ${sport}
+    ${acc_suffix}    Set Variable    $${ac_sportID}$${ac_bettypeID}
+    ${acc_lstSuperMaster}    Create List    s3${acc_suffix}    is3${acc_suffix}    m3${acc_suffix}
+    ${acc_lstSuperPlayer}    Create List    s1${acc_suffix}    is1${acc_suffix}    us1${acc_suffix}
+    ${acc_lstMasterAgent}    Create List    m2${acc_suffix}    im2${acc_suffix}    a2${acc_suffix}
+    ${acc_lstMasterPlayer}    Create List    m1${acc_suffix}    im1${acc_suffix}
+    ${acc_lstAgentPlayer}    Create List    a1${acc_suffix}
+    ${acc_output}    Get Variable Value    ${acc_lst${type}}
+    [Return]    ${acc_output}
+
+Edit Multiple VirtualSport PT_SuperMaster
+    [Arguments]    ${action}=${EMPTY}    ${sport}=${EMPTY}    ${S3}=${EMPTY}    ${M3}=${EMPTY}    ${Is3}=${EMPTY}    ${Us3}=${EMPTY}
+    ...    ${N3}=${EMPTY}    ${confirmMemberPT}=${EMPTY}    ${isConfirmAction}=${EMPTY}
+    [Documentation]    *This Action is used to Edit Multiple Virtual Sport Position Taking - Super Edit Master*
+    @{ac_controlLst}    Get VirtualSport PT Controls    SuperMaster    ${sport}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S3}
+    Run Keyword If    '${Is3}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is3}
+    Run Keyword If    '${Us3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${Us3}
+    Run Keyword If    '${M3}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${M3}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${confirmMemberPT}'!='${EMPTY}'    Select From List By Label    ${in_mp_ptvs_cfmPlayer_cboPayerPT}    ${confirmMemberPT}
+    Run Keyword If    '${isConfirmAction}'=='yes'    Click Element    ${in_mp_ptvs_cfmPlayer_btnYes}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${isConfirmAction}'=='no'    Click Element    ${in_mp_ptvs_cfmPlayer_btnNo}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple VirtualSport PT_SuperPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sport}=${EMPTY}    ${S1}=${EMPTY}    ${Is1}=${EMPTY}    ${Us1}=${EMPTY}
+    [Documentation]    This action is used to update VirtualSport PT: Super Update Player
+    @{ac_controlLst}    Get VirtualSport PT controls    SuperPlayer    ${sport}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${S1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${S1}
+    Run Keyword If    '${Is1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Is1}
+    Run Keyword If    '${Us1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${Us1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple VirtualSport PT_MasterAgent
+    [Arguments]    ${action}=${EMPTY}    ${sport}=${EMPTY}    ${M2}=${EMPTY}    ${A2}=${EMPTY}    ${Im2}=${EMPTY}    ${Um2}=${EMPTY}
+    ...    ${N2}=${EMPTY}    ${confirmMemberPT}=${EMPTY}    ${isConfirmAction}=${EMPTY}
+    [Documentation]    *This Action is used to Edit Multiple Virtual Sport Position Taking - Master Edit Agent*
+    @{ac_controlLst}    Get VirtualSport PT Controls    MasterAgent    ${sport}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M2}
+    Run Keyword If    '${Im2}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im2}
+    Run Keyword If    '${A2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[2]    ${A2}
+    Run Keyword If    '${Um2}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${Um2}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${confirmMemberPT}'!='${EMPTY}'    Run Keyword And Continue On Failure    Select From List By Label    ${in_mp_ptvs_cfmPlayer_cboPayerPT}    ${confirmMemberPT}
+    Run Keyword If    '${isConfirmAction}'=='yes'    Run Keyword And Continue On Failure    Click Element    ${in_mp_ptvs_cfmPlayer_btnYes}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${isConfirmAction}'=='no'    Run Keyword And Continue On Failure    Click Element    ${in_mp_ptvs_cfmPlayer_btnNo}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple VirtualSport PT_MasterPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sport}=${EMPTY}    ${M1}=${EMPTY}    ${Im1}=${EMPTY}    ${Um1}=${EMPTY}
+    @{ac_controlLst}    Get VirtualSport PT controls    MasterPlayer    ${sport}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${M1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${M1}
+    Run Keyword If    '${Im1}'!='${EMPTY}'    Set Checkbox    @{ac_controlLst}[1]    ${Im1}
+    Run Keyword If    '${Um1}'!='${EMPTY}'    Select From List By Label    @{ac_controlLst}[0]    ${Um1}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    unselect frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Edit Multiple VirtualSport PT_AgentPlayer
+    [Arguments]    ${action}=${EMPTY}    ${sport}=${EMPTY}    ${A1}=${EMPTY}
+    [Documentation]    *This Action is used to Edit Multiple Virtual Sport Position Taking - Agent Edit Player*
+    @{ac_controlLst}    Get VirtualSport PT Controls    AgentPlayer    ${sport}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    #SET NORMAL VALUE
+    Run Keyword And Continue On Failure    Wait Until Element Is enabled    @{ac_controlLst}[0]    ${cfWaitControl}
+    Run Keyword If    '${A1}'!='${EMPTY}'    Select Value From List    xpath=//*[@id='@{ac_controlLst}[0]']    ${A1}    #work arround because "select from list by label" can not select correct value when running auto test on Jenkins
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_editsb_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Verify Multiple VirtualSport PT_SuperMaster
+    [Arguments]    ${sport}=${EMPTY}    ${expectedS3}=${EMPTY}    ${expectedM3}=${EMPTY}    ${expectedIs3}=${EMPTY}    ${expectedUs3}=${EMPTY}    ${expectedN3}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Virtual Sport Position Taking - Super Edit Master*
+    sleep    10s
+    @{ac_controlLst}    Get VirtualSport PT Controls    SuperMaster    ${sport}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S3
+    ${actualValue}    Run keyword if    '${expectedS3}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS3}
+    # Check Is3
+    ${actualValue}    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs3}
+    # Check Us3
+    ${actualValue}    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedUs3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs3}
+    # Check M3
+    ${actualValue}    Run keyword if    '${expectedM3}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedM3}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM3}
+    Unselect Frame
+
+Verify Multiple VirtualSport PT_MasterAgent
+    [Arguments]    ${sport}=${EMPTY}    ${expectedM2}=${EMPTY}    ${expectedA2}=${EMPTY}    ${expectedIm2}=${EMPTY}    ${expectedUm2}=${EMPTY}    ${expectedN2}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Virtual Sport Position Taking - Master Edit Agent*
+    sleep    10s
+    @{ac_controlLst}    Get VirtualSport PT Controls    MasterAgent    ${sport}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M2
+    ${actualValue}    Run keyword if    '${expectedM2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM2}
+    # Check Im2
+    ${actualValue}    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm2}
+    # Check Um2
+    ${actualValue}    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedUm2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm2}
+    # Check A2
+    ${actualValue}    Run keyword if    '${expectedA2}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedA2}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedA2}
+    Unselect Frame
+
+Verify Multiple VirtualSport PT_AgentPlayer
+    [Arguments]    ${sport}=${EMPTY}    ${expectedA1}=${EMPTY}
+    [Documentation]    *This Action is used to Verify Multiple Virtual Sport Position Taking - Agent Edit Player*
+    sleep    10s
+    @{ac_controlLst}    Get VirtualSport PT Controls    AgentPlayer    ${sport}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check A1
+    ${ac_A1}    Run keyword if    '${expectedA1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedA1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${ac_A1}    ${expectedA1}
+    Unselect Frame
+
+Verify Multiple VirtualSport PT_SuperPlayer
+    [Arguments]    ${sport}=${EMPTY}    ${expectedS1}=${EMPTY}    ${expectedIs1}=${EMPTY}    ${expectedUs1}=${EMPTY}
+    @{ac_controlLst}    Get VirtualSport PT controls    SuperPlayer    ${sport}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check S1
+    ${actualValue}    Run keyword if    '${expectedS1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedS1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedS1}
+    # Check Is1
+    ${actualValue}    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIs1}
+    # Check Us1
+    ${actualValue}    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedUs1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUs1}
+    Unselect Frame
+
+Verify Multiple VirtualSport PT_MasterPlayer
+    [Arguments]    ${sport}=${EMPTY}    ${expectedM1}=${EMPTY}    ${expectedIm1}=${EMPTY}    ${expectedUm1}=${EMPTY}
+    @{ac_controlLst}    Get VirtualSport PT controls    MasterPlayer    ${sport}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    # Check M1
+    ${actualValue}    Run keyword if    '${expectedM1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[0]
+    Run keyword if    '${expectedM1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedM1}
+    # Check Im1
+    ${actualValue}    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Get Value    @{ac_controlLst}[1]
+    Run keyword if    '${expectedIm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedIm1}
+    # Check Um1
+    ${actualValue}    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Get Selected List Label    @{ac_controlLst}[2]
+    Run keyword if    '${expectedUm1}'!='${EMPTY}'    Run Keyword And Continue On Failure    Should Be Equal    ${actualValue}    ${expectedUm1}
+    Unselect Frame

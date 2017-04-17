@@ -1,0 +1,83 @@
+*** Settings ***
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../Interfaces/Main/in_m_edit_allbet.txt
+Resource          ../Actions/common_actions.txt
+
+*** Keywords ***
+Edit Setting ColossusBets
+    [Arguments]    ${action}    ${status}=${EMPTY}    ${statusDL}=${EMPTY}    ${comm}=${EMPTY}    ${cashShare}=${EMPTY}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CB_btnUpdate}    ${cfWaitControl}
+    Run keyword if    '${status}'!='${EMPTY}'    set checkbox    ${in_m_CB_chkStaus}    ${status}
+    Run keyword if    '${statusDL}'!='${EMPTY}'    set checkbox    ${in_m_CB_chkStausDL}    ${statusDL}
+    Run keyword if    '${comm}'!='${EMPTY}'    Input Text    ${in_m_CB_txtMasterComm}    ${comm}
+    Run keyword if    '${cashShare}'!='${EMPTY}'    Input Text    ${in_m_CB_txtCashInShare}    ${cashShare}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CB_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+
+Verify Setting ColossusBets
+    [Arguments]    ${status}=${EMPTY}    ${statusDL}=${EMPTY}    ${comm}=${EMPTY}    ${cashShare}=${EMPTY}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CB_btnUpdate}    ${cfWaitControl}
+    Run keyword if    '${status}'!='${EMPTY}'    Verify Element Value    ${in_m_CB_chkStaus}    checkbox    ${status}
+    Run keyword if    '${statusDL}'!='${EMPTY}'    Verify Element Value    ${in_m_CB_chkStausDL}    checkbox    ${statusDL}
+    Run keyword if    '${comm}'!='${EMPTY}'    Verify Element Value    ${in_m_CB_txtMasterComm}    value    ${comm}
+    Run keyword if    '${cashShare}'!='${EMPTY}'    Verify Element Value    ${in_m_CB_txtCashInShare}    value    ${cashShare}
+    Unselect Frame
+
+Edit Setting Multiple ColossusBets
+    [Arguments]    ${action}    ${status}=${EMPTY}    ${statusDL}=${EMPTY}    ${comm}=${EMPTY}    ${cashShare}=${EMPTY}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CB_btnUpdate}    ${cfWaitControl}
+    Run keyword if    '${status}'!='${EMPTY}'    set checkbox    ${in_m_CB_chkStaus}    ${status}
+    Run keyword if    '${statusDL}'!='${EMPTY}'    set checkbox    ${in_m_CB_chkStausDL}    ${statusDL}
+    Run keyword if    '${comm}'!='${EMPTY}'    Input Text    ${in_m_CB_txtMasterComm}    ${comm}
+    Run keyword if    '${cashShare}'!='${EMPTY}'    Input Text    ${in_m_CB_txtCashInShare}    ${cashShare}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_CB_btnUpdate}
+    Run Keyword If    '${action}'=='save'    Confirm Action
+    Run Keyword If    '${action}'=='save'    Wait Until Page Not Contains Element    ${in_main_iconLoading}
+    Unselect Frame
+    Run Keyword And Continue On Failure    Close Popup By JS
+
+Verify Setting Multiple ColossusBets
+    [Arguments]    ${status}=${EMPTY}    ${statusDL}=${EMPTY}    ${comm}=${EMPTY}    ${cashShare}=${EMPTY}
+    Unselect Frame
+    select frame    ${in_main_framePopup}
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_CB_btnUpdate}    ${cfWaitControl}
+    Run keyword if    '${status}'!='${EMPTY}'    Verify Element Value    ${in_m_CB_chkStaus}    checkbox    ${status}
+    Run keyword if    '${statusDL}'!='${EMPTY}'    Verify Element Value    ${in_m_CB_chkStausDL}    checkbox    ${statusDL}
+    Run keyword if    '${comm}'!='${EMPTY}'    Verify Element Value    ${in_m_CB_txtMasterComm}    value    ${comm}
+    Run keyword if    '${cashShare}'!='${EMPTY}'    Verify Element Value    ${in_m_CB_txtCashInShare}    value    ${cashShare}
+    Unselect Frame
+
+Edit Setting Allbet
+    [Arguments]    ${action}    ${status}=${EMPTY}    ${statusDL}=${EMPTY}    ${statusVipBaccarat}=${EMPTY}    ${statusVipBaccaratDL}=${EMPTY}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_AB_btnUpdate}    ${cfWaitControl}
+    Run keyword if    '${status}'!='${EMPTY}'    set checkbox    ${in_m_AB_chkStaus}    ${status}
+    Run keyword if    '${statusDL}'!='${EMPTY}'    set checkbox    ${in_m_AB_chkStausDL}    ${statusDL}
+    Run keyword if    '${statusVipBaccarat}'!='${EMPTY}'    set checkbox    ${in_m_AB_chkStatusVipBaccarat}    ${statusVipBaccarat}
+    Run keyword if    '${statusVipBaccaratDL}'!='${EMPTY}'    set checkbox    ${in_m_AB_chkStatusVipBaccaratDL}    ${statusVipBaccaratDL}
+    Run Keyword If    '${action}'=='save'    Click Element    ${in_m_AB_btnUpdate}
+
+Verify Setting Allbet
+    [Arguments]    ${status}=${EMPTY}    ${statusDL}=${EMPTY}    ${statusVipBaccarat}=${EMPTY}    ${statusVipBaccaratDL}=${EMPTY}
+    Unselect Frame
+    Select Frame    main
+    Run Keyword And Continue On Failure    Wait Until Element Is Visible    ${in_m_AB_chkStaus}    ${cfWaitControl}
+    Run keyword if    '${status}'!='${EMPTY}'    Verify Element Value    ${in_m_AB_chkStaus}    checkbox    ${status}
+    Run keyword if    '${statusDL}'!='${EMPTY}'    Verify Element Value    ${in_m_AB_chkStausDL}    checkbox    ${statusDL}
+    Run keyword if    '${status}'!='${EMPTY}'    Verify Element Value    ${in_m_AB_chkStatusVipBaccarat}    checkbox    ${statusVipBaccarat}
+    Run keyword if    '${statusDL}'!='${EMPTY}'    Verify Element Value    ${in_m_AB_chkStatusVipBaccarat}    checkbox    ${statusVipBaccaratDL}
+    Unselect Frame

@@ -5,7 +5,7 @@
 
 "use strict";
 
-class WinLossByProductView extends BaseReport{
+class WinLossByProductView extends BaseReport {
     $: JQueryStatic;
     $pageTitle: JQuery;
     $tableReport: JQuery;
@@ -40,7 +40,7 @@ class WinLossByProductView extends BaseReport{
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         reportTooltip: ReportTooltip,
         linkBuilderComponent: LinkBuilderComponent) {
-        super();
+        super($, linkBuilderComponent);
 
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
@@ -120,7 +120,7 @@ class WinLossByProductView extends BaseReport{
         }
     };
 
-    registerEvents = () => {
+    public registerEvents() {
         this.$reportForm.submit(this.onSubmitReportEvent);
         this.$filterIcon.on("click", this.onFilterEvent);
         this.$excelIcon.on("click", this.onExportExcelEvent);

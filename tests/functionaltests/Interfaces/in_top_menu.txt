@@ -1,0 +1,17 @@
+*** Variables ***
+${in_tm_iconlogout}    //a[@class='icon icon-logout withripple']
+${in_tm_iconHelp}    //span[@class='icon icon-help']
+${in_tm_iconLoginOption}    //span[@class='icon icon-account-key']
+${in_tm_iconProfilePicture}    //span[@class='icon icon-account-circle']
+${in_tm_iconPassword}    //span[@class='icon icon-lock']
+${in_tm_iconSecurityCode}    //span[@class='icon icon-sercuritycode']
+${in_tm_iconContactUs}    //span[@class='icon icon-contactus']
+${in_tm_iconOTP}    //span[@class=icon icon-otp']
+${in_tm_lnkLanguage}    //li[@class='hidden-mobile dropdown language']/a    #//li[@class='dropdown language']/a
+${in_tm_iconHome}    //span[@id='home-icon']
+${in_tm_iconHeaderMenu}    //a[@id='btn-header-menu']
+${in_tm_imgProfile}    //img[@id='logoProfileImg']
+${in_tm_spanUsername}    //span[@class='userName']
+${in_tm_lnkNickname}    //a[@id='linkNickNameID']
+${in_tm_iconHamburger}    //span[@id='hamburger-icon']
+${in_tm_dropdownHeadMenu}    //ul[@id='header-dropdown-menu']

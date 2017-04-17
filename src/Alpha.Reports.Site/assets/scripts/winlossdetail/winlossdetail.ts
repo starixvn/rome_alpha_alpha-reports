@@ -56,7 +56,7 @@ class WinLossDetailView extends BaseReport {
         reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
         linkBuilderComponent: LinkBuilderComponent) {
-        super();
+        super($, linkBuilderComponent);
 
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
@@ -123,16 +123,13 @@ class WinLossDetailView extends BaseReport {
     checkReady = () => {
         return this.$("#IsHistoricReport").length > 0;
     };
-    cacheElements = () => {
-        this.$pageTitle = this.$(".page-title");
-        this.$tableReport = this.$("#tbl-report");
+    public cacheElements() {
+        super.cacheElements();
+
         this.$drilldownLinks = this.$(".downline-link");
-        this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
-        this.$reportForm = this.$("#report-form");
-        this.$exportExcelForm = this.$("#export-excel-form");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$reportSwitch = this.$("#report-switch");
 
@@ -141,15 +138,16 @@ class WinLossDetailView extends BaseReport {
         this.$iconNormalColumn = this.$("#icon-normal-column");
         this.$isSetDefaultStackMode = this.$("#IsSetDefaultStackMode");
         this.$breadcrumbLinks = this.$(".breadcrumb-link");
-    };
+    }
 
-    registerEvents = () => {
+    public registerEvents() {
+        super.registerEvents();
+
         this.$reportSwitch.on("click", this.onSwitchReport);
-        this.$(".icon-filter").on("click", this.onClickIconFilter);
         this.$(".icon-switchmode").on("click", this.onSwitchMode);
         this.$reportForm.submit(this.onSubmitReport);
         this.$("#icon-excel").on("click", this.onExportExcel);
-    };
+    }
     onSwitchReport = () => {
         this.isSwitchView = true;
         this.isHistoricReport = !this.$reportSwitch.data("is-historic-report");

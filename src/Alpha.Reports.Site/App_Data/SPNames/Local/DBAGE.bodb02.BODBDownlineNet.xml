@@ -29,10 +29,12 @@
   </Function>
 
   <Function Name="Win Loss">
-    <Setting Key="Age_Rpt_MatchSelResultEntered" SpName="Age_Rpt_MatchSelResultEntered_xtest" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
+    <Setting Key="Age_Rpt_MatchSelResultEntered" SpName="Age_Rpt_MatchSelResultEntered" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
     <Setting Key="Age_Rpt_WinLoss_Master" SpName="Age_Rpt_WinLoss_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
     <Setting Key="Age_Rpt_WinLoss_Agent" SpName="Age_Rpt_WinLoss_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
     <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
+    <Setting Key="Age_Rpt_WinlossAnalysis_Agent" SpName="Age_Rpt_WinlossAnalysis_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinlossAnalysis_Member" SpName="Age_Rpt_WinlossAnalysis_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 
   <Function Name="Match Win Loss Detail">
@@ -49,7 +51,6 @@
     <Setting Key="Age_Rpt_Outstanding_Agent" SpName="Age_Rpt_Outstanding_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
-
   <Function Name="Win Loss by Product">
     <Setting Key="Age_Rpt_WinLossByProduct_Member" SpName="Age_Rpt_WinLossByProduct_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_WinLossByProduct_Agent" SpName="Age_Rpt_WinLossByProduct_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />

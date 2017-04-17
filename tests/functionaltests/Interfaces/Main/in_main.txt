@@ -1,0 +1,30 @@
+*** Variables ***
+${in_main_frcalendar}    //*[@id='fdate_trigger']
+${in_main_tocalendar}    //*[@id='tdate_trigger']
+${in_main_txt_frcalendar}    //*[@id='from-date' or @id='fdate']
+${in_main_txt_tocalendar}    //*[@id='to-date' or @id='tdate']
+${in_main_txtusernamefilter}    id=txtUserName
+${in_main_dropstatusfilter}    id=statusFilter
+${in_main_dropdcommfilter}    id=dcommFilter    # dropdown double comm
+${in_main_btnsubmitfilter}    id=dSubmit    # submit button in filter
+${in_icon_success}    xpath=//*[@class='main-message-icon main-icon-success']
+${in_icon_error}    xpath=//*[@class='main-message-icon main-icon-error']
+${in_main_framePopup}    //div[contains(@id,'page-popup-')]//iframe[@id='popup-iframe']
+${in_main_framePopupHeaderOld}    //div[@id='header_main']
+${in_main_framePopupHeader}    //div[contains(@id,'page-popup-')]//span[@class='popup-title']
+${in_main_btnClosePopup}    //div[contains(@id,'page-popup-')]//button[@class='icon icon-close close']
+${in_main_framePopupStatus}    //div[contains(@id,'page-popup-')]//iframe[@id='popup-iframe']
+${in_main_btnClosePopupStatus}    //div[contains(@id,'page-popup-')]//button[@class='icon icon-close close']
+${in_main_btnQuickTour}    //button[@id='start-introduction-btn']
+${in_main_btnNotNowTour}    //button[@id='not-now-introduction-btn']
+${in_main_btnCloseHint}    //div[@class='enjoyhint_close_btn']
+${in_main_divConfirmPopup}    //div[@class='bootbox modal fade bootbox-confirm in']
+${in_main_btnConfirmPopupCancel}    //div[@class='bootbox modal fade bootbox-confirm in']//button[@data-bb-handler='cancel']
+${in_main_btnConfirmPopupOk}    //div[@class='bootbox modal fade bootbox-confirm in']//button[@data-bb-handler='confirm']
+${in_main_btnOk}    //button[@data-bb-handler='ok' and text()='OK']
+${in_main_btnClose}    //@aria-label='Close']
+${in_main_iconLoading}    //*[@class='MaskLoadingDiv']
+${in_main_lblHomePageBlalanceTile}    //*[@id='balance']//div[@class='panel-title']
+${in_main_IconLoadingReport}    //*[@id='loading' and @class='loading']
+${in_main_btnToday}    id=dToday
+${in_main_btnYesterday}    id=dYesterday

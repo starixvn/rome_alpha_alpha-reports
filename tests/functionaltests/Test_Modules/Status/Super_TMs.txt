@@ -1,0 +1,1539 @@
+*** Settings ***
+Suite Teardown    Close All Browsers
+Test Setup
+Test Teardown
+Test Timeout
+Library           Selenium2Library
+Library           Process
+Library           OperatingSystem
+Library           Screenshot
+Library           Collections
+Library           String
+Library           Dialogs
+Resource          ../../Actions/common_actions.txt
+Resource          ../../Actions/Top_right_menu/top_right_actions.txt
+Resource          ../../Actions/Left_menu/left_menu_actions.txt
+Resource          ../../Actions/Setting/status_actions.txt
+Resource          ../../Interfaces/in_top_menu.txt
+Resource          ../../Interfaces/Main/in_main.txt
+Resource          ../../Interfaces/in_left_menu.txt
+Resource          ../../Interfaces/Main/in_m_edit_sportsbook.txt
+
+*** Test Cases ***
+TC_Super_Master_Status_01
+    [Documentation]    *Summary: Verify super closed master*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. Closed a Master in list by click on expand icon at status field
+    ...    4. VP. Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP: Master is not closed
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: Master is closed
+    ...    9. Drill down to agent list by click on view link
+    ...    10. VP: All Agents of that Master are closed
+    ...    11. Drill down to member list by click on view link
+    ...    12. VP: All members of that agent are closed
+    ...    13. Login with master account
+    ...    14. VP: Can not login
+    ...
+    ...    *Expected:*
+    ...
+    ...    4.VP: Pop-up appears 'Are you sure you want to change Close status for this customer? Warning, all downlines will be closed as well!
+    ...    6.VP: Master is not closed (Status is open and closed check box still unchecked)
+    ...    8.VP: Master is closed (Status is closed and closed check box is checked)
+    ...    10.VP: All Agents of that Master are closed
+    ...    12.VP: All members of that agent are closed
+    ...    14.VP: warning 'Account closed. Please contact your administrator!'
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO101
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    edit checkbox setting    Closed    check
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    check all customer table cell    tblCustomerList    3    Close
+    #drill down member
+    Select Frame    main
+    Click Element    xpath=//*/tr[1]/td[5]/a[contains(text(),'View')]
+    Unselect Frame
+    sleep    2s
+    check all customer table cell    tblCustomerList    4    Close
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Element Should Contain    id=errmsg    ${cf_msg_closed_acc}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Close Browser
+
+TC_Super_Master_Status_02
+    [Documentation]    *Summary: Verify super Open master*
+    ...
+    ...    *Steps*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. UnClosed a Master in list by click on expand icon at status field
+    ...    4. VP. Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP: Master still closed
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: Master is open
+    ...    9. Drill down to agent list by click on view link
+    ...    10. VP: All Agents of that Master are closed
+    ...    11. Drill down to member list by click on view link
+    ...    12. VP: All members of that agent are closed
+    ...    13. Login with master accout
+    ...    14. VP Login successfully
+    ...
+    ...    *Expected:*
+    ...
+    ...    4.VP: Pop-up appears 'Are you sure you want to change Close status for this customer?'
+    ...    6.VP: Master still closed (Status is closed and closed check box is checked)
+    ...    8.VP: Master is open (Status is open and closed check box is unchecked)
+    ...    10.VP: All Agents of that Master are closed
+    ...    12.VP: All members of that agent are closed
+    ...    14.VP: Login successfully.
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO101
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    edit checkbox setting    Closed    uncheck
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    check all customer table cell    tblCustomerList    3    Close
+    #drill down member
+    Select Frame    main
+    Click Element    xpath=//*/tr[1]/td[5]/a[contains(text(),'View')]
+    Unselect Frame
+    sleep    2s
+    check all customer table cell    tblCustomerList    4    Close
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Page Should not Contain Element    id=errmsg
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_03
+    [Documentation]    *Summary: Verify Super suspended Master*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. Suspended a Master in list by click on expand icon at status field
+    ...    4. VP. Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP Master UN-suspended
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: Master is suspended
+    ...    9. Drill down to agent list by click on view link
+    ...    10. VP: All Agents of that Master are suspended
+    ...    11. Drill down to member list by click on view link
+    ...    12. VP: All members of that agent are suspended
+    ...    13. Login with master account
+    ...    14. VP:Login successfully.
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    4.VP: Pop-up: Are you sure you want to change Suspend status for this customer? Warning, all members under this agent can't place bet!
+    ...    6.VP: Master is open (Status is open and suspended check box is checked)
+    ...    8.VP: Master is suspended (Status is suspended and suspended check box is checked)
+    ...    10.VP: All Agents of that Master are suspended
+    ...    12.VP: All members of that agent are suspended
+    ...    14.VP: Login successfully.
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    edit checkbox setting    Suspend    check
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    check all customer table cell    tblCustomerList    3    Suspend
+    #drill down member
+    Select Frame    main
+    Click Element    xpath=//*/tr[1]/td[5]/a[contains(text(),'View')]
+    Unselect Frame
+    sleep    2s
+    check all customer table cell    tblCustomerList    4    Suspend
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Page Should not Contain Element    id=errmsg
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_04
+    [Documentation]    *Summary:Verify Super Un-suspended Master*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. UN-Suspended a Master in list by click on expand icon at status field
+    ...    4. VP Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP: Master suspended
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: Master is UN-suspended
+    ...    9. Drill down to agent list by click on view link
+    ...    10. VP: All Agents of that Master are open
+    ...    11. Drill down to member list by click on view link
+    ...    12. VP: All members of that agent are open
+    ...    13. Login with master account
+    ...    14. VP:Login successfully.
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    4. VP Popup appears: Are you sure you want to change Suspend status for this customer? All down-lines will be UN-suspended as well for this customer?
+    ...    6. VP: Master is suspended (Status is suspended and suspended check box is checked)
+    ...    8. VP:: Master is open (Status is open and suspended check box is unchecked)
+    ...    10.VP: All Agents of that Master are open
+    ...    12. VP: All members of that agent are open
+    ...    14. VP: Login successfully.
+    ...    12.VP: All members of that agent are suspended
+    ...    14.VP: Login successfully.
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    edit checkbox setting    Suspend    uncheck
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    check all customer table cell    tblCustomerList    3    Open
+    #drill down member
+    Select Frame    main
+    Click Element    xpath=//*/tr[1]/td[5]/a[contains(text(),'View')]
+    Unselect Frame
+    sleep    2s
+    check all customer table cell    tblCustomerList    4    Open
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    Page Should not Contain Element    id=errmsg
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_05
+    [Documentation]    *Summary:Verify Super disable autoPT Master*
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. Disable auto PT a Master in list by click on expand icon at status field
+    ...    4. Reopen setting popup
+    ...    5. VP Auto PT check box is unchecked
+    ...    6. Search this master in account infro tab
+    ...    7. VP: Auto PT check box is unchecked
+    ...    8. Log-out super and Log-in as Master account
+    ...    9. Search an Agent then click on Edit Sportbook
+    ...    10. VP:
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    5. VP Auto PT check box is unchecked (popup setting)
+    ...    7. VP Auto PT check box is unchecked (customer setting area)
+    ...    10. VP: Auto PT options are not showed in Position taking
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    edit checkbox setting    MAutoPT    uncheck
+    # wait for updating process
+    sleep    5s
+    #Logout super and relogin as master account
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    #Search a downline and check autoPT
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Sportsbook
+    Select Frame    main
+    Page Should Not Contain Element    xpath=//*/div[2]/div[4]/input[@type='checkbox']
+    Unselect Frame
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Sportsbook
+    Select Frame    main
+    Page Should Not Contain Element    xpath=//*/div[2]/div[4]/input[@type='checkbox']
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_06
+    [Documentation]    *Summary:Verify Super enable autoPT Master*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. enable auto PT a Master in list by click on expand icon at status field
+    ...    4. Reopen setting popup
+    ...    5. VP Auto PT check box is checked
+    ...    6. Search this master in account infro tab
+    ...    7. VP: Auto PT check box is checked
+    ...    8. Log-out super and Log-in as Master account
+    ...    9. Search an Agent then click on Edit Sportbook
+    ...    10. VP:
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    5. VP Auto PT check box is checked (popup setting)
+    ...    7. VP Auto PT check box is checked (customer setting area)
+    ...    10. VP: Auto PT options are showed in Position taking
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    edit checkbox setting    MAutoPT    check
+    # wait for updating process
+    sleep    5s
+    #Logout super and relogin as master account
+    Logout
+    Login    ${tm_master}    ${cf_acc_pass}    ${EMPTY}
+    #Search a downline and check autoPT
+    Search Account    ${tm_agent}
+    select link in setting tab    Edit Sportsbook
+    Select Frame    main
+    Element Should Contain    xpath=//*[@class='PTGrid']    Auto
+    Unselect Frame
+    Search Account    ${tm_member}
+    select link in setting tab    Edit Sportsbook
+    Select Frame    main
+    Element Should Contain    xpath=//*[@class='PTGrid']    Auto
+    Unselect Frame
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_07
+    [Documentation]    *Summary:Verify Super disable Outright Master*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. Disable Outright a Master in list by click on expand icon at status field
+    ...    4. Reopen setting popup
+    ...    5. VP Outright check box is unchecked
+    ...    6. Search this master in account infro tab
+    ...    7. VP: Outright check box is unchecked
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    5. VP Outright check box is unchecked (popup setting)
+    ...    7. VP Outright check box is unchecked (customer setting area)
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO102
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    edit checkbox setting    Outright    uncheck
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    sleep    3s
+    ${output_totalrows}=    Get Total Table Rows    tblCustomerList    3
+    #Check outright status of all rows in agent list
+    : FOR    ${index}    IN RANGE    1    ${output_totalrows+1}
+    \    check popup setting    ${index}    outright    uncheck
+    #drill down member
+    Select Frame    main
+    Click Element    xpath=//*/tr[1]/td[5]/a[contains(text(),'View')]
+    Unselect Frame
+    sleep    2s
+    ${output_totalrows}=    Get Total Table Rows    tblCustomerList    3
+    : FOR    ${index}    IN RANGE    1    ${output_totalrows+1}
+    \    check popup setting    ${index}    outright    uncheck
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_08
+    [Documentation]    *Summary:Verify Super enable Outright Master*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. enable Outright a Master in list by click on expand icon at status field
+    ...    4. Reopen setting popup
+    ...    5. VP Outright check box is checked
+    ...    6. Search this master in account infro tab
+    ...    7. VP: Outright check box is checked
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    5. VP Outright check box is checked (popup setting)
+    ...    7. VP Outright check box is checked (customer setting area)
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO102
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    edit checkbox setting    Outright    check
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    sleep    3s
+    ${output_totalrows}=    Get Total Table Rows    tblCustomerList    3
+    #Check outright status of all rows in agent list
+    : FOR    ${index}    IN RANGE    1    ${output_totalrows+1}
+    \    check popup setting    ${index}    outright    check
+    #drill down member
+    Select Frame    main
+    Click Element    xpath=//*/tr[1]/td[5]/a[contains(text(),'View')]
+    Unselect Frame
+    sleep    2s
+    ${output_totalrows}=    Get Total Table Rows    tblCustomerList    3
+    : FOR    ${index}    IN RANGE    1    ${output_totalrows+1}
+    \    check popup setting    ${index}    outright    check
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_09
+    [Documentation]    *Summary:Verify Super Disable Double Com Master*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Uncheck double comm in setting tab
+    ...    4. VP
+    ...    5. Confirm Cancel
+    ...    6. VP
+    ...    7. Re-disable and Confirm OK
+    ...    8. VP
+    ...    9. Drill down to agent list by click on view link
+    ...    10. VP: All Agents of that Master are disabled double comm
+    ...    11. Drill down to member list by click on view link
+    ...    12. VP: All members of that agent disabled double comm
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    4. VP Are you sure you want to disallow Double Commission feature for Sportsbook's Losing tickets on this customer?
+    ...
+    ...    Warning, all members under this agent will be disallowed as well!
+    ...    6. VP Double comm check box is checked (customer setting area)
+    ...    8. VP: double comm checkbox in unchecked
+    ...    10. VP: Agents double comm is disallowed
+    ...    12. VP: Member double comm is OFF
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO102
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    edit checkbox setting    DoubleComm    uncheck
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    sleep    3s
+    check all customer table cell    tblCustomerList    6    DISALLOWED
+    #drill down member
+    Select Frame    main
+    Click Element    xpath=//*/tr[1]/td[5]/a[contains(text(),'View')]
+    Unselect Frame
+    sleep    2s
+    check all customer table cell    tblCustomerList    6    OFF
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_10
+    [Documentation]    *Summary:Verify Super Enable Double Com Master*
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. check double comm in setting tab
+    ...    4. VP5. Confirm Cancel
+    ...    6. VP
+    ...    7. Re-enable and Confirm OK
+    ...    8. VP
+    ...    9. Drill down to agent list by click on view link
+    ...    10. VP: All Agents of that Master are disabled double comm
+    ...    11. Drill down to member list by click on view link
+    ...    12. VP: All members of that agent disabled double comm
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    4. VP Are you sure you want to allow Double Commission feature for Sportsbook's Losing tickets on this customer?
+    ...    6. VP Double comm check box is unchecked (customer setting area)
+    ...    8. VP: double comm checkbox in checked (submit master list- double comm field is allowed)
+    ...    10. VP: Agents double comm is disallowed
+    ...    12. VP: Member double comm is OFF
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO102
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_master}
+    edit checkbox setting    DoubleComm    check
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    sleep    3s
+    check all customer table cell    tblCustomerList    6    DISALLOWED
+    #drill down member
+    Select Frame    main
+    Click Element    xpath=//*/tr[1]/td[5]/a[contains(text(),'View')]
+    Unselect Frame
+    sleep    2s
+    check all customer table cell    tblCustomerList    6    OFF
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_11
+    [Documentation]    *Summary:Verify Super Disable HR fixed odds Master*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Uncheck HR fixed odds in setting tab
+    ...    4. VP
+    ...    5. Confirm Cancel
+    ...    6. VP
+    ...    7. Re-enable and Confirm OK
+    ...    8. VP
+    ...    9. Drill down to agent by searching function
+    ...    10. VP
+    ...    11. Drill down to member by searching function
+    ...    12. VP
+    ...
+    ...
+    ...    *Expected:*
+    ...    4. VP WARNING!!! Are you sure you want to disable HR Fixed Odds on this customer and all downlines?
+    ...    6. VP HR fixed odds check box is checked (customer setting area)
+    ...    8. VP: double comm checkbox in unchecked
+    ...    10. VP: Agents-HR fixed odds is unchecked
+    ...    12. VP: Member-HR fixed odds is unchecked
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    #update master
+    Search Account    ${tm_master}
+    edit checkbox setting    HRFixedOdds    uncheck
+    # wait for updating process
+    sleep    5s
+    #Check Agent
+    Search Account    ${tm_agent}
+    check checkbox setting    HRFixedOdds    uncheck
+    #Check member
+    Search Account    ${tm_member}
+    check checkbox setting    HRFixedOdds    uncheck
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_12
+    [Documentation]    *Summary:Verify Super Enabled HR fixed odds -Only Master*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. check HR fixed odds in setting tab (only select Master checkbox)
+    ...    4. VP
+    ...    5. Drill down to agent by searching function
+    ...    6. VP
+    ...    7. Drill down to member by searching function
+    ...    8. VP
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    4. Master-HR fixed odd is checked
+    ...    6. VP: Agents-HR fixed odds is unchecked
+    ...    8. VP: Member-HR fixed odds is unchecked
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10301
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    #update master
+    Search Account    ${tm_master}
+    edit checkbox setting    HRFixedOdds    check-1
+    # wait for updating process
+    sleep    5s
+    #Check Agent
+    Search Account    ${tm_agent}
+    check checkbox setting    HRFixedOdds    uncheck
+    #Check member
+    Search Account    ${tm_member}
+    check checkbox setting    HRFixedOdds    uncheck
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_13
+    [Documentation]    *Summary Verify Super Enable HR fixed odds -Master and Downlines*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. check HR fixed odds in setting tab (select Master and downline checkboxes)
+    ...    4. VP
+    ...    5. Drill down to agent by searching function
+    ...    6. VP
+    ...    7. Drill down to member by searching function
+    ...    8. VP
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    4. Master-HR fixed odd is checked
+    ...    6. VP: Agents-HR fixed odds is checked
+    ...    8. VP: Member-HR fixed odds is checked
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    #Precondtion Closed a master and all downline
+    Search Account    ${tm_master}
+    edit checkbox setting    HRFixedOdds    uncheck
+    # wait for updating process
+    sleep    5s
+    COMMENT    ==============================>    MAIN STEPS
+    #update master
+    Search Account    ${tm_master}
+    edit checkbox setting    HRFixedOdds    check-2
+    # wait for updating process
+    sleep    5s
+    #Check Agent
+    Search Account    ${tm_agent}
+    check checkbox setting    HRFixedOdds    check
+    #Check member
+    Search Account    ${tm_member}
+    check checkbox setting    HRFixedOdds    check
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_14
+    [Documentation]    *Summary Verify Super Disable Virtual Sports Master*
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Unchecked Virtual Sports in setting tab
+    ...    4. VP: popup
+    ...    5. Confirm Cancel
+    ...    6. VP: VS still enable
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: VS is disabled
+    ...    9. Click Agent List button
+    ...    10. VP: Agent's VS is disabled
+    ...    11. Drill down to member
+    ...    12. VP: Member's VS is disabled
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    4. VP: popup: WARNING!!! Are you sure you want to disable Virtual Sports on this customer and all downlines?
+    ...    6. VP: VS still enable
+    ...    8. VP: VS is disabled
+    ...    10. VP: Agent's VS is disabled
+    ...    12. VP: Member's VS is disabled
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    #update master
+    Search Account    ${tm_master}
+    edit checkbox setting    VirtualSports    uncheck
+    # wait for updating process
+    sleep    5s
+    #Check Agent
+    Search Account    ${tm_agent}
+    check checkbox setting    VirtualSports    uncheck
+    #Check member
+    Search Account    ${tm_member}
+    check checkbox setting    VirtualSports    uncheck
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_15
+    [Documentation]    *Summary Verify Super enable Virtual Sports-Only Master*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Check Virtual Sports in setting tab then select Master in VS pop-up
+    ...    4. Confirm Cancel
+    ...    5. VP: VS still disabled
+    ...    6. Re-Step#3 and Confirm 'Update'
+    ...    7. VP: VS is enable
+    ...    8. Click Agent List button
+    ...    9. VP: Agent's VS is disabled
+    ...    10. Drill down to member
+    ...    11. VP: Member's VS is disabled
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    5. VP: VS still disabled
+    ...    6. VP: VS is enabled
+    ...    9. VP: Agent's VS is disabled
+    ...    11. VP: Member's VS is disabled
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10301
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    #update master
+    Search Account    ${tm_master}
+    edit checkbox setting    VirtualSports    check-1
+    # wait for updating process
+    sleep    5s
+    #Check Agent
+    Search Account    ${tm_agent}
+    check checkbox setting    VirtualSports    uncheck
+    #Check member
+    Search Account    ${tm_member}
+    check checkbox setting    VirtualSports    uncheck
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_16
+    [Documentation]    *Summary: Verify Super enable Virtual Sports-Master and down-lines*
+    ...
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Account Info tab then search a master
+    ...    3. Check Virtual Sports in setting tab then select Master and downlines in VS pop-up
+    ...    4. Confirm Cancel
+    ...    5. VP: VS still disabled
+    ...    6. Re-Step#3 and Confirm \ 'Update'
+    ...    7. VP: VS is enabled
+    ...    8. Click Agent List button
+    ...    9. VP: Agent's VS \ is enabled
+    ...    10. Drill down to member
+    ...    11. VP: Member's VS \ is enabled
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    5. VP: VS still disabled
+    ...    6. VP: VS is enabled
+    ...    9. VP: Agent's VS is enabled
+    ...    11. VP: Member's VS is enabled
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    #Precondtion Closed a master and all downline
+    Search Account    ${tm_master}
+    edit checkbox setting    VirtualSports    uncheck
+    # wait for updating process
+    sleep    5s
+    COMMENT    ==============================>    MAIN STEPS
+    #update master
+    Search Account    ${tm_master}
+    edit checkbox setting    VirtualSports    check-2
+    # wait for updating process
+    sleep    5s
+    #Check Agent
+    Search Account    ${tm_agent}
+    check checkbox setting    VirtualSports    check
+    #Check member
+    Search Account    ${tm_member}
+    check checkbox setting    VirtualSports    check
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Master_Status_17
+    [Documentation]    *Summary: Verify Super Disable Racing Master*
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. Select Edit Racing
+    ...    4. UN-check all Master check boxes
+    ...    5. Click Submit button
+    ...    6. VP: Message
+    ...    7. Drilldown to agent list then click on Enable Racing
+    ...    8. VP: \ All racing product check boxes are disabled
+    ...    9. Drilldown to member list then click on Enable Racing
+    ...    10. VP: \ All racing product check boxes are disabled
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    6. VP message: Enable/Disable SA Racing status updated successfully
+    ...    Enable/Disable UK/Irish Racing status updated successfully
+    ...    Enable/Disable Aust Racing status updated successfully
+    ...    Enable/Disable UK/Irish Greyhounds status updated successfully
+    ...    Enable/Disable Aust Greyhound status updated successfully
+    ...    Enable/Disable Aust Harness status updated successfully
+    ...    8. VP: \ All racing product check boxes are disabled
+    ...    10. VP: \ All racing product check boxes are disabled
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    #update master-Disabled all Racing
+    Search Account    ${tm_master}
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    edit racing setting    Racing    ${index}    uncheck    ${EMPTY}
+    \    sleep    1s
+    \    edit racing setting    Greyhound    ${index}    uncheck    ${EMPTY}
+    \    sleep    1s
+    \    edit racing setting    Harness    ${index}    uncheck    ${EMPTY}
+    sleep    5s
+    #Check Agent
+    Search Account    ${tm_agent}
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    check racing setting    Racing    ${index}    uncheck    uncheck
+    \    check racing setting    Greyhound    ${index}    uncheck    uncheck
+    \    check racing setting    Harness    Aust    uncheck    uncheck
+    #Check member
+    Search Account    ${tm_member}
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    check racing setting    Racing    ${index}    uncheck    uncheck
+    \    check racing setting    Greyhound    ${index}    uncheck    uncheck
+    \    check racing setting    Harness    Aust    uncheck    uncheck
+
+TC_Super_Master_Status_18
+    [Documentation]    *Summary: Verify Super Enable Racing -Only Master*
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. Select Edit Racing
+    ...    4. Check all Master and Downlines check boxes
+    ...    5. Click Submit button
+    ...    6. VP: Message
+    ...    7. Drilldown to agent list then click on Enable Racing
+    ...    8. VP: \ All racing product check boxes are enabled
+    ...    9. Drilldown to member list then click on Enable Racing
+    ...    10. VP: \ All racing product check boxes are enabled
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    6. VP Message:
+    ...    Enable/Disable SA Racing status updated successfully
+    ...    Enable/Disable UK/Irish Racing status updated successfully
+    ...    Enable/Disable Aust Racing status updated successfully
+    ...    Enable/Disable UK/Irish Greyhounds status updated successfully
+    ...    Enable/Disable Aust Greyhound status updated successfully
+    ...    Enable/Disable Aust Harness status updated successfully
+    ...    8. VP: \ All racing product check boxes are disabled
+    ...    10. VP: \ All racing product check boxes are disabled
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    #update master-Enable all Racing-only master
+    Search Account    ${tm_master}
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    edit racing setting    Racing    ${index}    check    ${EMPTY}
+    \    sleep    1s
+    \    edit racing setting    Greyhound    ${index}    check    ${EMPTY}
+    \    sleep    1s
+    \    edit racing setting    Harness    ${index}    check    ${EMPTY}
+    sleep    5s
+    #Check Agent
+    Search Account    ${tm_agent}
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    check racing setting    Racing    ${index}    uncheck    uncheck
+    \    check racing setting    Greyhound    ${index}    uncheck    uncheck
+    \    check racing setting    Harness    Aust    uncheck    uncheck
+    #Check member
+    Search Account    ${tm_member}
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    check racing setting    Racing    ${index}    uncheck    ${EMPTY}
+    \    check racing setting    Greyhound    ${index}    uncheck    ${EMPTY}
+    \    check racing setting    Harness    Aust    uncheck    ${EMPTY}
+
+TC_Super_Master_Status_19
+    [Documentation]    *Summary Verify Super Enable Racing -Master-Downlines*
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list
+    ...    3. Select Edit Racing
+    ...    4. Check all Master check box
+    ...    5. Click Submit button
+    ...    6. VP: Message
+    ...    7. Drilldown to agent list then click on Enable Racing
+    ...    8. VP: \ All racing product check boxes are checked
+    ...    9. Drilldown to member list then click on Enable Racing
+    ...    10. VP: \ All racing product check boxes are checked
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    6. VP Message:
+    ...    Enable/Disable SA Racing status updated successfully
+    ...    Enable/Disable UK/Irish Racing status updated successfully
+    ...    Enable/Disable Aust Racing status updated successfully
+    ...    Enable/Disable UK/Irish Greyhounds status updated successfully
+    ...    Enable/Disable Aust Greyhound status updated successfully
+    ...    Enable/Disable Aust Harness status updated successfully
+    ...    8. VP: \ All racing product check boxes are checked
+    ...    10. VP: \ All racing product check boxes are checked
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_master}    Set Variable    SUPERTESTAUTO103
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    #update master-Disabled all Racing
+    Search Account    ${tm_master}
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    edit racing setting    Racing    ${index}    uncheck    ${EMPTY}
+    \    sleep    1s
+    \    edit racing setting    Greyhound    ${index}    uncheck    ${EMPTY}
+    \    sleep    1s
+    \    edit racing setting    Harness    ${index}    uncheck    ${EMPTY}
+    sleep    5s
+    COMMENT    ==============================>    MAIN STEPS
+    #update master-Enable all Racing-Master and downlines
+    Search Account    ${tm_master}
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    edit racing setting    Racing    ${index}    check    check
+    \    sleep    1s
+    \    edit racing setting    Greyhound    ${index}    check    check
+    \    sleep    1s
+    \    edit racing setting    Harness    ${index}    check    check
+    sleep    5s
+    #Check Agent
+    Search Account    ${tm_agent}
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    check racing setting    Racing    ${index}    check    check
+    \    check racing setting    Greyhound    ${index}    check    check
+    \    check racing setting    Harness    Aust    check    check
+    #Check member
+    Search Account    ${tm_member}
+    : FOR    ${index}    IN    UKIrish    SA    Aust
+    \    check racing setting    Racing    ${index}    check    ${EMPTY}
+    \    check racing setting    Greyhound    ${index}    check    ${EMPTY}
+    \    check racing setting    Harness    Aust    check    ${EMPTY}
+
+TC_Super_Agent_Status_20
+    [Documentation]    *Summary: Verify super Open Agent*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>drilldown to agent list
+    ...    3. Open a Agent in list by click on expand icon at status field
+    ...    4. VP. Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP: Agent still closed
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: Agent is open
+    ...    9. Drill down to member list by click on view link
+    ...    10. VP: All members of that agent are closed
+    ...    11. Login with master account
+    ...    12. VP Login successfully
+    ...
+    ...    *Expected:*
+    ...
+    ...    4.VP: Pop-up appears 'Are you sure you want to change Close status for this customer?'
+    ...    6.VP: Agent still closed (Status is closed and closed check box is checked)
+    ...    8.VP: Agent is open (Status is open and closed check box is unchecked)
+    ...    10.VP: All members of that agent are closed
+    ...    12.VP: Login successfully.
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10100
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_agent}
+    edit checkbox setting    Closed    uncheck
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    check all customer table cell    tblCustomerList    4    Close
+    Logout
+    Login    ${tm_agent}    ${cf_acc_pass}    ${EMPTY}
+    Page Should not Contain Element    id=errmsg
+    COMMENT    ==============================>    POST-CONDITIONS
+    Close Browser
+
+TC_Super_Agent_Status_21
+    [Documentation]    *Summary: Verify super closed agent*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>drilldown to agent list
+    ...    3. Closed a Agent in list by click on expand icon at status field
+    ...    4. VP. Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP: Agent is not closed
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: Agent is closed
+    ...    9. Drill down to member list by click on view link
+    ...    10. VP: All members of that agent are closed
+    ...    11. Login with agent account
+    ...    12. VP: Can not login
+    ...
+    ...    *Expected:*
+    ...
+    ...    4.VP: Pop-up appears 'Are you sure you want to change Close status for this customer? Warning, all down lines will be closed as well!'
+    ...    6.VP: Agent is not closed (Status is open and closed check box still unchecked)
+    ...    8.VP: Agent is closed (Status is closed and closed check box is checked)
+    ...    10.VP: All members of that agent are closed
+    ...    12.VP: warning 'Account closed. Please contact your administrator!'
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10100
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_agent}
+    edit checkbox setting    Closed    check
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    check all customer table cell    tblCustomerList    4    Close
+    Logout
+    Login    ${tm_agent}    ${cf_acc_pass}    ${EMPTY}
+    Element Should Contain    id=errmsg    ${cf_msg_closed_acc}
+    COMMENT    ==============================>    POST-CONDITIONS
+    Close Browser
+
+TC_Super_Agent_Status_22
+    [Documentation]    *Summary: Verify Super suspended Agent*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>Drilldown to agent list
+    ...    3. Suspended a Agent in list by click on expand icon at status field
+    ...    4. VP. Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP Agent unsuspended
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: Agent is suspended
+    ...    9. Drill down to member list by click on view link
+    ...    10. VP: All members of that agent are suspended
+    ...    11. Login with master account
+    ...    12. VP:Login successfully.
+    ...
+    ...    *Expected:*
+    ...
+    ...    4.VP: Pop-up: Are you sure you want to change Suspend status for this customer? Warning, all members under this agent can't place bet!
+    ...    6.VP: Agent is open (Status is open and suspended check box is checked)
+    ...    8.VP: Agent is suspended (Status is suspended and suspended check box is checked)
+    ...    10.VP: All members of that agent are suspended
+    ...    12.VP: Login successfully.
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_agent}
+    edit checkbox setting    Suspend    check
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    check all customer table cell    tblCustomerList    4    Suspend
+    Logout
+    Login    ${tm_agent}    ${cf_acc_pass}    ${EMPTY}
+    Page Should not Contain Element    id=errmsg
+    COMMENT    ==============================>    POST-CONDITIONS
+    Close Browser
+
+TC_Super_Agent_Status_23
+    [Documentation]    *Summary: Verify Super Un-suspended Agent*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>Drill down to agent list
+    ...    3. Open a Agent in list by click on expand icon at status field
+    ...    4. VP Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP: Agent suspended
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: Agent is open
+    ...    9. Drill down to member list by click on view link
+    ...    10. VP: All members of that agent are open
+    ...    11. Login with master account
+    ...    12. VP:Login successfully.
+    ...
+    ...    *Expected:*
+    ...
+    ...    4. VP Popup appears: Are you sure you want to change Suspend status for this customer? All downlines will be un-suspended as well for this customer?
+    ...    6. VP: Agent is suspended (Status is suspended and suspended check box is checked)
+    ...    8. VP:: Agent is open (Status is eopen and suspended check box is unchecked)
+    ...    10. VP: All members of that agent are open
+    ...    12. VP: Login successfully.
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_agent}
+    edit checkbox setting    Suspend    uncheck
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    check all customer table cell    tblCustomerList    4    Open
+    Logout
+    Login    ${tm_agent}    ${cf_acc_pass}    ${EMPTY}
+    Page Should not Contain Element    id=errmsg
+    COMMENT    ==============================>    POST-CONDITIONS
+    Close Browser
+
+TC_Super_Agent_Status_24
+    [Documentation]    *Summary: Verify Super disable Outright Agent*
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>Drill down to agent list
+    ...    3. Disable Outright a Agent in list by click on expand icon at status field
+    ...    4. Reopen setting popup
+    ...    5. VP Outright check box is unchecked
+    ...    6. Search this Agent in account infro tab
+    ...    7. VP: Outright check box is unchecked
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    5. VP Outright check box is unchecked (popup setting)
+    ...    7. VP Outright check box is unchecked (customer setting area)
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_agent}
+    edit checkbox setting    Outright    uncheck
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    sleep    3s
+    Get Total Table Rows    tblCustomerList    3
+    : FOR    ${index}    IN RANGE    1    ${output_totalrows+1}
+    \    check popup setting    ${index}    outright    uncheck
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Agent_Status_25
+    [Documentation]    *Summary: Verify Super enable Outright Agent*
+    ...
+    ...
+    ...
+    ...    *Steps: *
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>Drill down to agent list
+    ...    3. enable Outright a Agent in list by click on expand icon at status field
+    ...    4. Reopen setting popup
+    ...    5. VP Outright check box is checked
+    ...    6. Search this Agent in account infro tab
+    ...    7. VP: Outright check box is checked
+    ...
+    ...
+    ...
+    ...    *Expected:*
+    ...    5. VP Outright check box is checked (popup setting)
+    ...    7. VP Outright check box is checked (customer setting area)
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_agent}
+    edit checkbox setting    Outright    check
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    Open Downlines List
+    sleep    3s
+    Get Total Table Rows    tblCustomerList    3
+    : FOR    ${index}    IN RANGE    1    ${output_totalrows+1}
+    \    check popup setting    ${index}    outright    check
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Member_Status_26
+    [Documentation]    *Summary: Verify super closed member*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>drill down to member list
+    ...    3. Closed a member in list by click on expand icon at status field
+    ...    4. VP. Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP: Member is not closed
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: Member is closed
+    ...
+    ...    *Expected:*
+    ...
+    ...    4.VP: Pop-up appears 'Are you sure you want to change Close status for this customer?
+    ...    6.VP: Member is not closed (Status is open and closed check box still unchecked)
+    ...    8.VP: Member is closed (Status is closed and closed check box is checked)
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_member}
+    edit checkbox setting    Closed    check
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    check checkbox setting    Closed    check
+    Search Account    ${tm_agent}
+    Open Downlines List
+    check customer table cell    tblCustomerList    4    4    Close
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Member_Status_27
+    [Documentation]    *Summary: Verify super Open member*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>drill down to member list
+    ...    3. Open a member in list by click on expand icon at status field
+    ...    4. VP. Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP: member still closed
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: member is open
+    ...
+    ...    *Expected:*
+    ...
+    ...    4.VP: Pop-up appears 'Are you sure you want to change Close status for this customer?'
+    ...    6.VP: member still closed (Status is closed and closed check box is checked)
+    ...    8.VP: member is open (Status is open and closed check box is unchecked)
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300000
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_member}
+    edit checkbox setting    Closed    uncheck
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    check checkbox setting    Closed    uncheck
+    Search Account    ${tm_agent}
+    Open Downlines List
+    check customer table cell    tblCustomerList    3    4    Open
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Member_Status_28
+    [Documentation]    *Summary: Verify Super suspended member*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>Drill down to member list
+    ...    3. Suspended a member in list by click on expand icon at status field
+    ...    4. VP. Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP member unsuspended
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: member is suspended
+    ...
+    ...
+    ...    *Expected:*
+    ...
+    ...    4.VP: Pop-up: Are you sure you want to change Suspend status for this customer?
+    ...    6.VP: member is open (Status is open and suspended check box is checked)
+    ...    8.VP: member is suspended (Status is suspended and suspended check box is checked)
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300001
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_member}
+    edit checkbox setting    Suspend    check
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    check checkbox setting    Suspend    check
+    Search Account    ${tm_agent}
+    Open Downlines List
+    check customer table cell    tblCustomerList    4    4    Suspend
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Member_Status_29
+    [Documentation]    *Summary: Verify Super Un-suspended member*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>Drill down to member list
+    ...    3. Open a Member in list by click on expand icon at status field
+    ...    4. VP Popup appears
+    ...    5. Confirm Cancel
+    ...    6. VP: member suspended
+    ...    7. Re-Closed and Confirm OK
+    ...    8. VP: member is open
+    ...
+    ...
+    ...    *Expected:*
+    ...    4. VP Popup appears: Are you sure you want to change Suspend status for this customer?
+    ...    6. VP: member is suspended (Status is suspended and suspended check box is checked)
+    ...    8. VP:: member is open (Status is eopen and suspended check box is unchecked)
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300001
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_member}
+    edit checkbox setting    Suspend    uncheck
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    check checkbox setting    Suspend    uncheck
+    Search Account    ${tm_agent}
+    Open Downlines List
+    check customer table cell    tblCustomerList    4    4    Open
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Member_Status_30
+    [Documentation]    *Summary: Verify Super disable Outright member*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>Drill down to member list
+    ...    3. Disable Outright a member in list by click on expand icon at status field
+    ...    4. Reopen setting popup
+    ...    5. VP Outright check box is unchecked
+    ...    6. Search this member in account info tab
+    ...    7. VP: Outright check box is unchecked
+    ...
+    ...
+    ...    *Expected:*
+    ...
+    ...    5. VP Outright check box is unchecked (popup setting)
+    ...    7. VP Outright check box is unchecked (customer setting area)
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300001
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_member}
+    edit checkbox setting    Outright    uncheck
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    check checkbox setting    Outright    uncheck
+    Search Account    ${tm_agent}
+    Open Downlines List
+    sleep    3s
+    check popup setting    2    outright    uncheck
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
+
+TC_Super_Member_Status_31
+    [Documentation]    *Summary: Verify Super enable Outright member*
+    ...
+    ...    *Steps:*
+    ...
+    ...    1. Log in as a Super (SUPERTESTAUTO1)
+    ...    2. Navigate Member Information>>Master Agent list>>Drill down to member list
+    ...    3. enable Outright a member in list by click on expand icon at status field
+    ...    4. Reopen setting popup
+    ...    5. VP Outright check box is checked
+    ...    6. Search this member in account info tab
+    ...    7. VP: Outright check box is checked
+    ...
+    ...
+    ...    *Expected:*
+    ...
+    ...    5. VP Outright check box is checked (popup setting)
+    ...    7. VP Outright check box is checked (customer setting area)
+    [Tags]    super_status
+    COMMENT    ==============================>    PRE-CONDITION
+    ${tm_agent}    Set Variable    SUPERTESTAUTO10300
+    ${tm_member}    Set Variable    SUPERTESTAUTO10300001
+    Open Page
+    Login    ${cf_super_auto}    ${cf_acc_pass}    ${EMPTY}
+    COMMENT    ==============================>    MAIN STEPS
+    Search Account    ${tm_member}
+    edit checkbox setting    Outright    check
+    # wait for updating process
+    sleep    5s
+    #drill down Agent
+    check checkbox setting    Outright    check
+    Search Account    ${tm_agent}
+    Open Downlines List
+    sleep    3s
+    check popup setting    2    outright    check
+    COMMENT    ==============================>    POST-CONDITIONS
+    Logout
+    Close Browser
