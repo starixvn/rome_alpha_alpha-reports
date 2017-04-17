@@ -125,7 +125,7 @@ class WinLossByProductView extends BaseReport {
         this.$filterIcon.on("click", this.onFilterEvent);
         this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$switchModeIcon.on("click", this.onSwitchModeEvent);
-    };
+    }
 
     onFilterEvent = () => {
         let currentHideState = this.$reportForm.hasClass("hide");
