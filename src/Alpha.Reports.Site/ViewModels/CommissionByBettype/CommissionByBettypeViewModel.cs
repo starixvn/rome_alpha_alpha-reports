@@ -52,7 +52,9 @@
             ShowMyanmarOddsColumn = showMyanmarOddsColumn;
 
             var canSort = commissionByBettypes != null && commissionByBettypes.Count() > 1;
-            SortPropertyName = canSort ? query.SortPropertyName : DefaultVariables.SortPropertyName;
+            SortPropertyName = canSort && !string.IsNullOrWhiteSpace(query.SortPropertyName)
+                ? query.SortPropertyName
+                : DefaultVariables.SortPropertyName;
             IsDescendingSort = canSort && query.IsDescendingSort;
         }
 

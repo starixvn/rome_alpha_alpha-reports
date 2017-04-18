@@ -3,14 +3,15 @@
     using System;
     using MediatR;
     using Reports.Models;
+    using Utils;
     using ViewModels.CommissionByBettype;
 
     public class CommissionByBettypeQuery : ReportDefaultDateRangeQuery, IRequest<CommissionByBettypeViewModel>
     {
         public CommissionByBettypeQuery(IUser viewer) : base(viewer)
         {
-            FromDate = DateTime.Now.Date;
-            ToDate = DateTime.Now.Date;
+            FromDate = SystemTime.Today;
+            ToDate = SystemTime.Today;
         }
 
         public int UserSelectedDateRangeOption { get; set; }
