@@ -34,11 +34,17 @@
     <Setting Key="Age_Rpt_WinLoss_Agent" SpName="Age_Rpt_WinLoss_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
-  
+
   <Function Name="Win Loss Analysis">
     <Setting Key="Age_Rpt_WinlossAnalysis_Master" SpName="Age_Rpt_WinlossAnalysis_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_WinlossAnalysis_Agent" SpName="Age_Rpt_WinlossAnalysis_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_WinlossAnalysis_Member" SpName="Age_Rpt_WinlossAnalysis_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+  </Function>
+
+  <Function Name="Win Loss Analysis">
+    <Setting Key="Age_Rpt_WinlossAnalysis_Master" SpName="Age_Rpt_WinlossAnalysisChart_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinlossAnalysis_Agent" SpName="Age_Rpt_WinlossAnalysisChart_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinlossAnalysis_Member" SpName="Age_Rpt_WinlossAnalysisChart_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 
   <Function Name="Match Win Loss Detail">

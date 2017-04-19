@@ -295,6 +295,7 @@
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
+    <Compile Include="Handlers\WinLossAnalysisChart\WinLossAnalysisChartHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisBaseHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisExcelHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisHandler.cs" />
@@ -345,6 +346,7 @@
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
+    <Compile Include="Requests\WinLossAnalysisChart\WinLossAnalysisChartQuery.cs" />
     <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisExcelQuery.cs" />
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisQuery.cs" />
@@ -373,6 +375,7 @@
     <Compile Include="ViewModels\RacingCommission\RacingCommissionFilterViewModel.cs" />
     <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
+    <Compile Include="ViewModels\WinLossAnalysisChart\WinLossAnalysisChartViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysislFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisReportTypeViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisViewModel.cs" />

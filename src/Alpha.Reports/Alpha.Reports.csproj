@@ -109,6 +109,7 @@
     <Compile Include="Criteria\PlayForFun\PlayForFunProductCriteria.cs" />
     <Compile Include="Criteria\ReportCriteriaBase.cs" />
     <Compile Include="Criteria\ReportProductCriteria.cs" />
+    <Compile Include="Criteria\WinLossAnalysisChart\WinLossAnalysisChartCriteria.cs" />
     <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteria.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteria.cs" />
     <Compile Include="Criteria\WinLoss\DailyEnteredSportCriteria.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\StatusModel.cs" />
     <Compile Include="Models\UserLevel.cs" />
+    <Compile Include="Models\WinLossAnalysisChart\WinLossAnalysisChartModel.cs" />
     <Compile Include="Models\WinLossAnalysis\WinLossAnalysisConstants.cs" />
     <Compile Include="Models\WinLossAnalysis\WinLossAnalysisModel.cs" />
     <Compile Include="Models\WinLossDetail\WinLossDetailModel.cs" />
@@ -160,6 +162,7 @@
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\MatchWinLossDetailParam.cs" />
+    <Compile Include="Params\WinLossAnalysisChartParam.cs" />
     <Compile Include="Params\WinLossAnalysisParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
     <Compile Include="Params\DailyEnteredSportParam.cs" />
@@ -172,6 +175,7 @@
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\MatchWinLossService.cs" />
     <Compile Include="Services\RacingCommissionService.cs" />
+    <Compile Include="Services\WinLossAnalysisChartService.cs" />
     <Compile Include="Services\WinLossAnalysisService.cs" />
     <Compile Include="Services\UserPermissionService.cs" />
     <Compile Include="Services\WinLossService.cs" />
