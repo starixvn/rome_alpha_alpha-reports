@@ -39,7 +39,7 @@ TC_Super_Precondition_00
     Set Global Variable    ${global_18months_ago}    ${tm_month_of18month_ago}/01/${tm_year_of18month_ago}
     Set Global Variable    ${global_3months_ago}    ${tm_month_of3month_ago}/01/${tm_year_of3month_ago}
     Set Global Variable    ${global_3years_ago}    01/01/${tm_year_of3years_ago}
-    Run Keyword And Continue On Failure    Execute Javascript    for (i =1; i <= 30000000; i++) { \ \ \ clearTimeout(i); }
+    Run Keyword And Continue On Failure    Execute Javascript    for (i =1; i <= 300000; i++) { \ \ \ clearTimeout(i); }
     @{day_lastweek}    Split String To Characters    ${tm_templastweek}
     @{day_yesterday}    Split String To Characters    ${tm_tempYesterday}
     @{day_today}    Split String To Characters    ${tc_day}
@@ -2615,7 +2615,7 @@ TC_01_Super_Master_Statement_Verify filter
     ...    6. Check guide content
     ...
     ...    7.Transfer detail show
-    [Tags]    Statement    NoRun
+    [Tags]    Statement
     ## Set Variable
     ${tm_note}    Set Variable    You can view the report data from ${global_3years_ago}.
     ${tc_yesterday}    Set Variable    ${global_day_yesterday}
@@ -2627,7 +2627,7 @@ TC_01_Super_Master_Statement_Verify filter
     ${tc_month_extract}    Set Variable If    @{tc_month_edit}[0]==0    @{tc_month_edit}[1]    ${tc_month}
     ${tm_yesterday}    Set Variable    ${tc_month_extract}/${global_day_yesterday}/${tc_year}
     ${tm_today}    Set Variable    ${tc_month_extract}/${tc_day}/${tc_year}
-    COMMENT    ==============================>    PRE-CONDITION
+    COMMENT    ==============================>    PRE-CONDITION    NORUN    BUG CALENDAR PICKER    CHANGE FORMAT VALUE AFTER SECOND SELECTING    EX: #1 STEP: M/DD/YYYY #2 STEP: MM/DD/YYYY
     Select Left Menu    Reports    Statement
     COMMENT    ==============================>    MAIN STEPS
     # step1    "1. Observe the default selected date picker
@@ -2637,13 +2637,13 @@ TC_01_Super_Master_Statement_Verify filter
     #step 3    "3. Click Yesterday button
     Select Report Filter    submit    ${tc_yesterday}    ${tc_yesterday}    ${EMPTY}    ${EMPTY}    ${EMPTY}
     ...    ${EMPTY}
-    Run Keyword And Continue On Failure    check date picker    ${tm_yesterday}    ${tm_yesterday}    #"3. Yesterday is selected "
+    Run Keyword And Continue On Failure    check date picker     ${global_yesterday}     ${global_yesterday}    #"3. Yesterday is selected "
     #step 4    4. Click Today button
     Reload Page
     sleep    2
     Select Report Filter    submit    ${tc_day}    ${tc_day}    ${EMPTY}    ${EMPTY}    ${EMPTY}
     ...    ${EMPTY}
-    Run Keyword And Continue On Failure    check date picker    ${tm_today}    ${tm_today}    # 4. Today is selected
+    Run Keyword And Continue On Failure    check date picker     ${global_today}     ${global_today}    # 4. Today is selected
     #step 5    Observe export and guide icons
     Comment    ${tm_mindate}    Get Element Attribute    //*[@id='daterange-picker']@data-mindate
     Comment    Should Be Equal    ${tm_mindate}    ${global_3months_ago}
@@ -2958,7 +2958,7 @@ TC_02_Super_Match WL Detail_Verify today data
     @{tm_mwldetail_data}    Create List
     Select Frame    main
     : FOR    ${tm_j}    IN RANGE    2    18
-    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # DONT get data of company comm (index =16)
     \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
     Unselect Frame
     Remove From List    ${tm_mwldetail_data}    14
@@ -3005,7 +3005,7 @@ TC_03_Super_Match WL Detail_Verify yesterday data
     @{tm_mwldetail_data}    Create List
     Select Frame    main
     : FOR    ${tm_j}    IN RANGE    2    18
-    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # DONT get data of company comm (index =16)
     \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
     Unselect Frame
     Remove From List    ${tm_mwldetail_data}    14
@@ -3053,7 +3053,7 @@ TC_04_Super_Match WL Detail_Verify data in date range
     @{tm_mwldetail_data}    Create List
     Select Frame    main
     : FOR    ${tm_j}    IN RANGE    2    18
-    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]
     \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
     Unselect Frame
     Remove From List    ${tm_mwldetail_data}    14
@@ -3079,13 +3079,12 @@ TC_01_Super_WL Analysis_Verify filter
     ...    - Check show/hidde filter by icon
     ...
     ...    - Check normal/Stack mode table
-    [Tags]    WinLossAnalysis    NoRun
+    [Tags]    WinLossAnalysis
     ## Set Variable
     ${tm_note}    Set Variable    You can view the report data from ${global_18months_ago}.
     ${tc_yesterday}    Set Variable    ${global_day_yesterday}
     COMMENT    ==============================>    PRE-CONDITION
-    Select Left Menu    Reports    Master Win Loss Detail
-    Click Element    //*[@id='sub-menu-WINLOSSANALYSIS'][2]
+    Select Left Menu    Reports    Win Loss Analysis
     COMMENT    ==============================>    MAIN STEPS
     # step1    "1. Observe the default selected date picker
     check date picker    ${global_today}    ${global_today}    # Point check 1    1. Default date value of From date and To date picker is today
@@ -3128,7 +3127,7 @@ TC_01_Super_WL Analysis_Verify filter
 
 TC_02_Super_WL Analysis_Verify today data
     [Documentation]    *This test case is used to compare Today data Analysis and WL detail reports for all products*
-    [Tags]    WinLossAnalysis    NoRun
+    [Tags]    WinLossAnalysis
     ## Set Variable
     ${tm_daterange}    Set Variable    ${global_day_today}
     COMMENT    ==============================>    PRE-CONDITION
@@ -3143,7 +3142,7 @@ TC_02_Super_WL Analysis_Verify today data
     select frame    main
     @{tm_wldetail_data}    Get total values of Win Loss Detail Report
     Unselect Frame
-    Click Element    //*[@id='sub-menu-WINLOSSANALYSIS'][2]
+    Select Left Menu    Reports    Win Loss Analysis
     COMMENT    ==============================>    MAIN STEPS
     # step1
     Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
@@ -3163,7 +3162,7 @@ TC_02_Super_WL Analysis_Verify today data
 
 TC_03_Super_WL Analysis_Verify yesterday data
     [Documentation]    *This test case is used to compare Yesterday data Analysis and WL detail reports for all products*
-    [Tags]    WinLossAnalysis    NoRun
+    [Tags]    WinLossAnalysis
     ## Set Variable
     ${tm_daterange}    Set Variable    ${global_day_yesterday}
     COMMENT    ==============================>    PRE-CONDITION
@@ -3178,7 +3177,7 @@ TC_03_Super_WL Analysis_Verify yesterday data
     select frame    main
     @{tm_wldetail_data}    Get total values of Win Loss Detail Report
     Unselect Frame
-    Click Element    //*[@id='sub-menu-WINLOSSANALYSIS'][2]
+    Select Left Menu    Reports    Win Loss Analysis
     COMMENT    ==============================>    MAIN STEPS
     # step1
     Select Report Filter    submit    ${tm_daterange}    ${tm_daterange}
@@ -3198,7 +3197,7 @@ TC_03_Super_WL Analysis_Verify yesterday data
 
 TC_04_Super_WL Analysis_Verify data in date range
     [Documentation]    *This test case is used to compare data in range of Analysis and WL detail reports for all products*
-    [Tags]    WinLossAnalysis    NoRun
+    [Tags]    WinLossAnalysis
     ## Set Variable
     ${tc_fromdate}    Set Variable    ${global_lastweek_day}
     ${tc_todate}    Set Variable    ${global_day_yesterday}
@@ -3214,7 +3213,7 @@ TC_04_Super_WL Analysis_Verify data in date range
     select frame    main
     @{tm_wldetail_data}    Get total values of Win Loss Detail Report
     Unselect Frame
-    Click Element    //*[@id='sub-menu-WINLOSSANALYSIS'][2]
+    Select Left Menu    Reports    Win Loss Analysis
     COMMENT    ==============================>    MAIN STEPS
     # step1
     Select Report Filter    submit    ${tc_fromdate}    ${tc_todate}
@@ -3234,16 +3233,19 @@ TC_04_Super_WL Analysis_Verify data in date range
 
 TC_05_Super_WL Analysis_Verify data by Product
     [Documentation]    *This test case will compare total data of all fields for each product between Analysis and WL Details Reports *
-    [Tags]    WinLossAnalysis    NoRun
+    [Tags]    WinLossAnalysis
     ## Set Variable
-    ${tc_fromdate}    Set Variable    1    #    ${global_lastweek_day}
-    ${tc_todate}    Set Variable    22    #    ${global_day_yesterday}
-    @{tm_sports_list}    Create List    Sportsbook    Racing    Number Game    Live Casino    Virtual Sports
-    ...    Casino    Keno    Gold Deluxe    Colossus Bets    Allbet    Macau Games
-    ...    Fishing World
+    ${tc_fromdate}    Set Variable    ${global_lastweek_day}    #    ${global_lastweek_day}
+    ${tc_todate}    Set Variable    ${global_day_yesterday}    #    ${global_day_yesterday}
+    Comment    @{tm_sports_list}    Create List    Sportsbook    Racing    Number Game    Live Casino
+    ...    Virtual Sports    Casino    Keno    Gold Deluxe    Colossus Bets    Allbet
+    ...    Macau Games    Fishing World
     COMMENT    ==============================>    PRE-CONDITION
     Select Left Menu    Reports    Master Win Loss Detail
     Select Frame    main
+    sleep    1
+    Click Element    //*[@class='btn-group']/button/span
+    @{tm_sports_list}    get list items    //*[@id='report-form']/div[1]/div/ul/li    0
     ${tm_has_notification_popup}    Run Keyword And Return Status    Page Should Not Contain Element    id=close-netturnover-tooltip    #work around popup
     Run Keyword If    '${tm_has_notification_popup}'=='False'    Select Checkbox    id=close-netturnover-tooltip
     Unselect Frame
@@ -3256,7 +3258,7 @@ TC_05_Super_WL Analysis_Verify data by Product
     \    @{templist}=    Run Keyword If    '${tm_hasdata}'=='True'    Get total values of Win Loss Detail Report
     \    Run Keyword If    '${tm_hasdata}'=='True'    Set Global Variable    @{tm_wldetail_data_${tm_sportname}}    @{templist}
     \    Unselect Frame
-    Click Element    //*[@id='sub-menu-WINLOSSANALYSIS'][2]
+    Select Left Menu    Reports    Win Loss Analysis
     COMMENT    ==============================>    MAIN STEPS
     # step1
     Select Report Filter    submit    ${tc_fromdate}    ${tc_todate}
@@ -3295,7 +3297,7 @@ TC_01_Super_Commission By Bet Type_Verify filter
     ${tm_note}    Set Variable    You can view the report data from
     ${tc_yesterday}    Set Variable    ${global_day_yesterday}
     COMMENT    ==============================>    PRE-CONDITION
-    Select Left Menu    Reports    Master Win Loss
+    Select Left Menu    Reports    Master Win Loss    #    only run in http://ha.nexdev.net:7412/site-main/(S(y4i4ziqggltd00gqcyzcvuni))/
     Click Element    //*[@id='sub-menu-COMMISSIONBYBETTYPE'][2]
     Select Frame    main
     ${tm_note}    Get Text    //*[@class='note']
@@ -3335,6 +3337,645 @@ TC_01_Super_Commission By Bet Type_Verify filter
     COMMENT    ==============================>    POST CONDITION
     Unselect Frame
 
+TC_02_Super_Commission By Bet Type_Verify Today data
+    [Documentation]    *This test case is used to verify sum Today data of Commission by bet type report*
+    [Tags]    WinLoss    NoRun
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Today
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss    #    only run in http://ha.nexdev.net:7412/site-main/(S(y4i4ziqggltd00gqcyzcvuni))/
+    Click Element    //*[@id='sub-menu-COMMISSIONBYBETTYPE'][2]
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    Today range
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Commission 1    Commission 2    Commission 3    Gaming
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Commission 1    Commission 2    Commission 3    Gaming
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Commission 1    Commission 2    Commission 3    Gaming
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_03_Super_Commission By Bet Type_Verify Yesterday data
+    [Documentation]    *This test case is used to verify sum Yesterday data of Commission by bet type report*
+    [Tags]    WinLoss    NoRun
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Yesterday
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss    #    only run in http://ha.nexdev.net:7412/site-main/(S(y4i4ziqggltd00gqcyzcvuni))/
+    Click Element    //*[@id='sub-menu-COMMISSIONBYBETTYPE'][2]
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    Today range
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Commission 1    Commission 2    Commission 3    Gaming
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Commission 1    Commission 2    Commission 3    Gaming
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Commission 1    Commission 2    Commission 3    Gaming
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_04_Super_Commission By Bet Type_Verify data in date range
+    [Documentation]    *Verify sum data of sportsbook is correct
+    ...    in current report*
+    ...
+    ...
+    ...    *Steps*
+    ...
+    ...    "1. Submit filtering data with (1 product, date range = Last Week)
+    ...    "
+    ...
+    ...    2. Master level : Calculate all rows and sum data should be equal with total field
+    ...
+    ...    3. Drill down to agent level
+    ...
+    ...    4. Calculate all rows and sum data should be equal with total field
+    ...
+    ...    5. Drill down to Member level
+    ...
+    ...    6. Calculate all rows and sum data should be equal with total field
+    ...
+    ...
+    ...    Expected
+    ...
+    ...    2. Fields check: Turnover, Gross comm, Master total, Super (wl, comm, total) , company
+    ...
+    ...    4.Fields check: Turnover, Gross comm, Agent total, Master (wl, comm, total) , company
+    ...
+    ...    6.Fields check: Turnover, Gross comm, \ Member(wl, comm, total) , \ Agent(wl, comm, total) , company
+    [Tags]    WinLoss    NoRun
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss    #    only run in http://ha.nexdev.net:7412/site-main/(S(y4i4ziqggltd00gqcyzcvuni))/
+    Click Element    //*[@id='sub-menu-COMMISSIONBYBETTYPE'][2]
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    Today range
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Commission 1    Commission 2    Commission 3    Gaming
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Commission 1    Commission 2    Commission 3    Gaming
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Commission 1    Commission 2    Commission 3    Gaming
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_01_Super_Racing Commission_Verify filter
+    [Documentation]    *This test case is used to check filter functions of Racing Commission*
+    ...
+    ...    Check points:
+    ...
+    ...    - Default value of date picker (Today is selected)
+    ...
+    ...    - Check data picker work (change date)
+    ...
+    ...    - Check Note msg
+    ...
+    ...    - Check show/hidde filter by icon
+    ...
+    ...    - Check dilldown and navigation bar on top menu
+    [Tags]    CommByBetType    NoRun
+    ## Set Variable
+    ${tm_note}    Set Variable    You can view the report data from
+    ${tc_yesterday}    Set Variable    ${global_day_yesterday}
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss    #    only run in http://ha.nexdev.net:7412/site-main/(S(y4i4ziqggltd00gqcyzcvuni))/
+    Click Element    //*[@id='sub-menu-RACINGCOMMISSION']
+    Select Frame    main
+    ${tm_note1}    Get Text    //*[@class='note']
+    ${tm_balanceupday}    Fetch From Right    ${tm_note1}    ${SPACE}
+    ${tm_balanceupday}    Remove String    ${tm_balanceupday}    .
+    Unselect Frame
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    "1. Observe the default selected date picker
+    check date picker    ${global_today}    ${global_today}    # Point check 1    1. Default date value of From date and To date picker is today
+    #step 2
+    Page Should Contain    ${tm_note}    #"2. Check note
+    #step 3    "3. Click Yesterday button
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Yesterday
+    check date picker    ${global_yesterday}    ${global_yesterday}    #"3. Yesterday is selected "
+    #step 4    4. Click Today button
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    Today
+    check date picker    ${global_today}    ${global_today}    # 4. Today is selected
+    #step 5    "5. Click on From date and To date picker    "5. Max date range should be 3+ months ago (3 months ago + current month)
+    Select Frame    main
+    ${tm_mindate}    Get Element Attribute    //*[@id='daterange-picker']@data-mindate
+    Should Be Equal    ${tm_mindate}    ${tm_balanceupday}
+    #Step 7    7. Check Expand/Collapse icon
+    Element Should Be Visible    ${in_m_report_icon_showfilter}    #Defaut filter is showed
+    Click Element    ${in_m_report_icon_showfilter}
+    Run Keyword And Continue On Failure    Element Should Not Be Visible    report-form    #filter is hidden
+    Run Keyword And Continue On Failure    Click Element    ${in_m_report_icon_hidefilter}
+    Run Keyword And Continue On Failure    Element Should Be Visible    report-form    # filter is showed
+    Unselect Frame
+    #Check dilldown and navigation bar on top menu
+    Drill Down By Index    2
+    Select Frame    main
+    Element Should Be Visible    //ul[@class='breadcrumb']    # Navigation bar
+    Click Element    //ul[@class='breadcrumb']/li[1]/a    #click on first option in navigation bar
+    Element Should Not Be Visible    //ul[@class='breadcrumb']/li[1]/a    #Naviagation bar return plain text \ not a link
+    COMMENT    ==============================>    POST CONDITION
+    Unselect Frame
+
+TC_02_Super_Racing Commission_Verify Today data
+    [Documentation]    *This test case is used to verify sum Today data of Racing Commission report*
+    [Tags]    WinLoss    NoRun
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Today
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss    #    only run in http://ha.nexdev.net:7412/site-main/(S(y4i4ziqggltd00gqcyzcvuni))/
+    Click Element    //*[@id='sub-menu-RACINGCOMMISSION']
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    Today range
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Tote-Win    Tote-Place    Tote-Win Place    Tote-Total
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Tote-Win    Tote-Place    Tote-Win Place    Tote-Total
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Tote-Win    Tote-Place    Tote-Win Place    Tote-Total
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_03_Super_Racing Commission_Verify Yesterday data
+    [Documentation]    *This test case is used to verify sum Yesterday data of Racing Commission report*
+    [Tags]    WinLoss    NoRun
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Yesterday
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss    #    only run in http://ha.nexdev.net:7412/site-main/(S(y4i4ziqggltd00gqcyzcvuni))/
+    Click Element    //*[@id='sub-menu-RACINGCOMMISSION']
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    Today range
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Tote-Win    Tote-Place    Tote-Win Place    Tote-Total
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Tote-Win    Tote-Place    Tote-Win Place    Tote-Total
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Tote-Win    Tote-Place    Tote-Win Place    Tote-Total
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_04_Super_Racing Commission_Verify data in date range
+    [Documentation]    *This test case is used to verify sum data in date range of Racing Commission report*
+    [Tags]    WinLoss    NoRun
+    ## Set Variable
+    ${tm_daterange}    Set Variable    Last Week
+    COMMENT    ==============================>    PRE-CONDITION
+    Select Left Menu    Reports    Master Win Loss    #    only run in http://ha.nexdev.net:7412/site-main/(S(y4i4ziqggltd00gqcyzcvuni))/
+    Click Element    //*[@id='sub-menu-RACINGCOMMISSION']
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    Today range
+    Select Report Filter    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}
+    ...    ${tm_daterange}
+    ${tm_hasdata}    Run Keyword And Return Status    Page Should not Contain    No information is available
+    Pass Execution If    '${tm_hasdata}'=='False'    NO DATA
+    Comment    ===================    CHECK SUM OF MASTER LEVEL
+    @{tm_list_master_column_name}    Create List    Tote-Win    Tote-Place    Tote-Win Place    Tote-Total
+    ${tm_length_master_list}    Get Length    ${tm_list_master_column_name}
+    @{tm_list_master_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_master_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_master_list}
+    \    Verify total value by column name    @{tm_list_master_column_name}[${tm_jj}]    @{tm_list_master_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF AGENT LEVEL
+    Drill Down By Index    1
+    @{tm_list_agent_column_name}    Create List    Tote-Win    Tote-Place    Tote-Win Place    Tote-Total
+    ${tm_length_agent_list}    Get Length    ${tm_list_agent_column_name}
+    @{tm_list_agent_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_agent_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_agent_list}
+    \    Verify total value by column name    @{tm_list_agent_column_name}[${tm_jj}]    @{tm_list_agent_total_value}[${tm_jj}]
+    Comment    ===================    CHECK SUM OF MEMBER LEVEL
+    Drill Down By Index    1
+    @{tm_list_member_column_name}    Create List    Tote-Win    Tote-Place    Tote-Win Place    Tote-Total
+    ${tm_length_member_list}    Get Length    ${tm_list_member_column_name}
+    @{tm_list_member_total_value}    Create List
+    Select Frame    main
+    : FOR    ${tm_i}    IN    //*[@id='tbl-report']/tfoot//td[2]    //*[@id='tbl-report']/tfoot//td[3]    //*[@id='tbl-report']/tfoot//td[4]    //*[@id='tbl-report']/tfoot//td[5]
+    \    ${temp_total}    Get Text    ${tm_i}
+    \    ${temp_total}    Replace String    ${temp_total}    ,    ${EMPTY}
+    \    Append To List    ${tm_list_member_total_value}    ${temp_total}
+    Unselect Frame
+    : FOR    ${tm_jj}    IN RANGE    0    ${tm_length_member_list}
+    \    Verify total value by column name    @{tm_list_member_column_name}[${tm_jj}]    @{tm_list_member_total_value}[${tm_jj}]
+    COMMENT    ==============================>    POST CONDITION
+    #N/A
+
+TC_01_Super_Result_Verify filter
+    [Documentation]    *This test case is used to check filter functions of Racing Commission*
+    ...
+    ...    Check points:
+    ...
+    ...    - Default value of date picker (Today is selected)
+    ...
+    ...    - Check data picker work (change date)
+    ...
+    ...    - Check Note msg
+    ...
+    ...    - Check show/hidde filter by icon
+    ...
+    ...    - Check dilldown and navigation bar on top menu
+    [Tags]    CommByBetType    NoRun
+    COMMENT    ==============================>    PRE-CONDITION
+    ## Set Variable
+    ${tm_note}    Set Variable    You can view the report data from
+    ${tm_league}    Set Variable    1
+    COMMENT    ==============================>    MAIN STEPS
+    ##################    NORMAL RESULTS
+    Select Left Menu    Reports    Results
+    Select Frame    main
+    Click Element    tabNormal
+    ${tm_note1}    Get Text    //*[@id='result-filter']/div[2]
+    ${tm_balanceupday}    Fetch From Right    ${tm_note1}    ${SPACE}
+    ${tm_balanceupday}    Remove String    ${tm_balanceupday}    .
+    Unselect Frame
+    COMMENT    ==============================>    MAIN STEPS
+    # step1    "1. Observe the default selected date picker
+    Run Keyword And Continue On Failure    Check filter of results    ${EMPTY}    ${global_today}
+    #step 2
+    Page Should Contain    ${tm_note}    #"2. Check note
+    #step 3    "3. select Yesterday
+    Select filter of results    submit    ${global_lastweek_day}
+    Run Keyword And Continue On Failure    Check filter of results    ${EMPTY}    ${EMPTY}    ${EMPTY}    All Leagues
+    ##################    Outright
+    Select Frame    main
+    Click Element    tabOutright
+    Unselect Frame
+    Page Should Contain    ${tm_note}${SPACE}${tm_balanceupday}
+    Select Frame    main    #VERIFY DEFAULT DATE= TODAY
+    Element Attribute Should Contains    //*[@id='FromDate']    value    ${global_today}
+    Element Attribute Should Contains    //*[@id='ToDate']    value    ${global_today}
+    #VERIFY YESTERDAY/TODAY BUTTON
+    Click Element    btn-yesterday
+    Element Attribute Should Contains    //*[@id='FromDate']    value    ${global_yesterday}
+    Element Attribute Should Contains    //*[@id='ToDate']    value    ${global_yesterday}
+    Click Element    btn-today
+    Element Attribute Should Contains    //*[@id='FromDate']    value    ${global_today}
+    Element Attribute Should Contains    //*[@id='ToDate']    value    ${global_today}
+    ##################    Keno
+    Click Element    tabKeno
+    Element Should Be Visible    result-link
+    Click Element    result-link
+    sleep    2s
+    Unselect Frame
+    Select Window    title= Keno Result
+    Close Window    #Close keno results window
+    sleep    2s
+    COMMENT    ==============================>    POST CONDITION
+
+TC_02_Super_Result_Verify Today data
+    [Documentation]    *This test case is used to check today data of results*
+    ...
+    ...    For each sport filter it will check all leagues in table result exist in league dropdown filter
+    [Tags]    CommByBetType    NoRun
+    COMMENT    ==============================>    PRE-CONDITION
+    ## Set Variable
+    ${tm_date_button}    Set Variable    Today
+    COMMENT    ==============================>    MAIN STEPS
+    ##################    NORMAL RESULTS
+    Select Left Menu    Reports    Results
+    COMMENT    ==============================>    MAIN STEPS
+    Select filter of results    submit    ${EMPTY}    ${EMPTY}    ${tm_date_button}
+    Select Frame    main
+    Click Element    //*[@id='select2-SportId-container']
+    sleep    1s
+    ${tm_total_sports}    Get Matching Xpath Count    //*[@id='select2-SportId-results']/li
+    Click Element    //*[@id='select2-SportId-container']
+    Unselect Frame
+    : FOR    ${i}    IN RANGE    1    ${tm_total_sports}+1
+    \    Select filter of results    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${i}
+    \    Select Frame    main
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    ${list_leagues}    get list items    //*[@id='select2-LeagueId-results']/li
+    \    ${tm_total_real_leagues}    get list items    //*/table/tbody/tr[@class='data']
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    Run Keyword And Continue On Failure    List Should Contain Sub List    ${list_leagues}    ${tm_total_real_leagues}
+    \    Unselect Frame
+    ##################    ##################    Outright
+    Select Frame    main
+    Click Element    tabOutright
+    Unselect Frame
+    Select filter of results    submit    ${EMPTY}    ${EMPTY}    ${tm_date_button}
+    Select Frame    main
+    Click Element    //*[@id='select2-SportType-container']
+    sleep    1s
+    ${tm_total_sports}    Get Matching Xpath Count    //*[@id='select2-SportType-results']/li
+    Click Element    //*[@id='select2-SportType-container']
+    Unselect Frame
+    : FOR    ${i}    IN RANGE    1    ${tm_total_sports}+1
+    \    Select filter of results    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${i}
+    \    Select Frame    main
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    ${list_leagues}    get list items    //*[@id='select2-LeagueId-results']/li
+    \    ${tm_total_real_leagues}    get list items    //*/table/tbody/tr[@class='data']
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    Run Keyword And Continue On Failure    List Should Contain Sub List    ${list_leagues}    ${tm_total_real_leagues}
+    \    Unselect Frame
+    COMMENT    ==============================>    POST CONDITION
+
+TC_03_Super_Result_Verify Yesterday data
+    [Documentation]    *This test case is used to check Yesterday data of results*
+    ...
+    ...    For each sport filter it will check all leagues in table result exist in league dropdown filter
+    [Tags]    CommByBetType    NoRun
+    COMMENT    ==============================>    PRE-CONDITION
+    ## Set Variable
+    ${tm_date_button}    Set Variable    Yesterday
+    COMMENT    ==============================>    MAIN STEPS
+    ##################    NORMAL RESULTS
+    Select Left Menu    Reports    Results
+    COMMENT    ==============================>    MAIN STEPS
+    Select filter of results    submit    ${EMPTY}    ${EMPTY}    ${tm_date_button}
+    Select Frame    main
+    Click Element    //*[@id='select2-SportId-container']
+    sleep    1s
+    ${tm_total_sports}    Get Matching Xpath Count    //*[@id='select2-SportId-results']/li
+    Click Element    //*[@id='select2-SportId-container']
+    Unselect Frame
+    : FOR    ${i}    IN RANGE    1    ${tm_total_sports}+1
+    \    Select filter of results    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${i}
+    \    Select Frame    main
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    ${list_leagues}    get list items    //*[@id='select2-LeagueId-results']/li
+    \    ${tm_total_real_leagues}    get list items    //*/table/tbody/tr[@class='data']
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    Run Keyword And Continue On Failure    List Should Contain Sub List    ${list_leagues}    ${tm_total_real_leagues}
+    \    Unselect Frame
+    ##################    ##################    Outright
+    Select Frame    main
+    Click Element    tabOutright
+    Unselect Frame
+    Select filter of results    submit    ${EMPTY}    ${EMPTY}    ${tm_date_button}
+    Select Frame    main
+    Click Element    //*[@id='select2-SportType-container']
+    sleep    1s
+    ${tm_total_sports}    Get Matching Xpath Count    //*[@id='select2-SportType-results']/li
+    Click Element    //*[@id='select2-SportType-container']
+    Unselect Frame
+    : FOR    ${i}    IN RANGE    1    ${tm_total_sports}+1
+    \    Select filter of results    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${i}
+    \    Select Frame    main
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    ${list_leagues}    get list items    //*[@id='select2-LeagueId-results']/li
+    \    ${tm_total_real_leagues}    get list items    //*/table/tbody/tr[@class='data']
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    Run Keyword And Continue On Failure    List Should Contain Sub List    ${list_leagues}    ${tm_total_real_leagues}
+    \    Unselect Frame
+    COMMENT    ==============================>    POST CONDITION
+
+TC_04_Super_Result_Verify Last week data
+    [Documentation]    *This test case is used to check Last Week data of results*
+    ...
+    ...    For each sport filter it will check all leagues in table result exist in league dropdown filter
+    [Tags]    CommByBetType    NoRun
+    COMMENT    ==============================>    PRE-CONDITION
+    ## Set Variable
+    ${tm_date}    Set Variable    ${global_lastweek_day}
+    COMMENT    ==============================>    MAIN STEPS
+    ##################    NORMAL RESULTS
+    Select Left Menu    Reports    Results
+    COMMENT    ==============================>    MAIN STEPS
+    Select filter of results    submit    ${tm_date}
+    Select Frame    main
+    Click Element    //*[@id='select2-SportId-container']
+    sleep    1s
+    ${tm_total_sports}    Get Matching Xpath Count    //*[@id='select2-SportId-results']/li
+    Click Element    //*[@id='select2-SportId-container']
+    Unselect Frame
+    : FOR    ${i}    IN RANGE    1    ${tm_total_sports}+1
+    \    Select filter of results    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${i}
+    \    Select Frame    main
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    ${list_leagues}    get list items    //*[@id='select2-LeagueId-results']/li
+    \    ${tm_total_real_leagues}    get list items    //*/table/tbody/tr[@class='data']
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    Run Keyword And Continue On Failure    List Should Contain Sub List    ${list_leagues}    ${tm_total_real_leagues}
+    \    Unselect Frame
+    ##################    ##################    Outright
+    Select Frame    main
+    Click Element    tabOutright
+    Unselect Frame
+    Select filter of results    submit    ${tm_date}    ${tm_date}
+    Select Frame    main
+    Click Element    //*[@id='select2-SportType-container']
+    sleep    1s
+    ${tm_total_sports}    Get Matching Xpath Count    //*[@id='select2-SportType-results']/li
+    Click Element    //*[@id='select2-SportType-container']
+    Unselect Frame
+    : FOR    ${i}    IN RANGE    1    ${tm_total_sports}+1
+    \    Select filter of results    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${EMPTY}    ${i}
+    \    Select Frame    main
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    ${list_leagues}    get list items    //*[@id='select2-LeagueId-results']/li
+    \    ${tm_total_real_leagues}    get list items    //*/table/tbody/tr[@class='data']
+    \    Click Element    //*[@id='select2-LeagueId-container']
+    \    sleep    1s
+    \    Run Keyword And Continue On Failure    List Should Contain Sub List    ${list_leagues}    ${tm_total_real_leagues}
+    \    Unselect Frame
+    COMMENT    ==============================>    POST CONDITION
+
 *** Keywords ***
 Get total values of Win Loss Detail Report
     @{ac_wldetail_data}    Create List
@@ -3352,3 +3993,73 @@ Get total values of Win Loss Analysis Report
     \    ${tc_tempj}    Get Text    //table[@id='tbl-report']/tfoot//td[not(contains(@class,'visible-stack-mode'))][${ac_i}]
     \    Append To List    ${ac_wlanalysis_data}    ${tc_tempj}
     [Return]    @{ac_wlanalysis_data}
+
+Select filter of results
+    [Arguments]    ${submit}    ${fdate}=${EMPTY}    ${tdate}=${EMPTY}    ${date button}=${EMPTY}    ${sport}=${EMPTY}    ${league}=${EMPTY}
+    [Documentation]    This action is used to select filter of Results report
+    ...
+    ...    Submit= Submit/Empty
+    ...
+    ...    date= number
+    ...
+    ...    date button = Today/Yesterday
+    ...
+    ...    Sport= index
+    ...
+    ...    League= index (1=All)
+    sleep    1
+    select frame    main
+    Run Keyword If    '${fdate}'!='${EMPTY}'    Click Element    //*[@class='control date'][1]//span[@class='icon-calendar']
+    ${ac_has_select_day}    Run Keyword And Return Status    Element Should Be Visible    //*[@class='table-condensed']//td[not(@class='day disabled')][text()='${fdate}']
+    Run Keyword If    '${fdate}'!='${EMPTY}' and '${ac_has_select_day}'=='True'    Click Element    //*[@class='table-condensed']//td[not(@class='day disabled')][text()='${fdate}']
+    ...    ELSE IF    '${fdate}'!='${EMPTY}' and '${ac_has_select_day}'=='Flase'    Run Keywords    Click Element    //*[@class='table-condensed']//th[@class='prev']/span
+    ...    AND    Click Element    //*[@class='table-condensed']//td[not(@class='day disabled')][text()='${fdate}']
+    ####    TO DATE    Outright tab
+    Run Keyword If    '${tdate}'!='${EMPTY}'    Click Element    //*[@class='control date'][2]//span[@class='icon-calendar']
+    ${ac_has_select_tday}    Run Keyword And Return Status    Element Should Be Visible    //*[@class='table-condensed']//td[not(@class='day disabled')][text()='${tdate}']
+    Run Keyword If    '${tdate}'!='${EMPTY}' and '${ac_has_select_tday}'=='True'    Click Element    //*[@class='table-condensed']//td[not(@class='day disabled')][text()='${tdate}']
+    ...    ELSE IF    '${tdate}'!='${EMPTY}' and '${ac_has_select_tday}'=='Flase'    Run Keywords    Click Element    //*[@class='table-condensed']//th[@class='prev']/span
+    ...    AND    Click Element    //*[@class='table-condensed']//td[not(@class='day disabled')][text()='${tdate}']
+    ####    Click today/yesterday button
+    Run Keyword If    '${date button}'=='Yesterday'    Click Element    //*[contains(@id,'yesterday')]
+    ...    ELSE IF    '${date button}'=='Today'    Click Element    //*[contains(@id,'today')]
+    Run Keyword If    '${sport}'!='${EMPTY}'    Run Keywords    Click Element    //*[@id='select2-SportType-container' or @id='select2-SportId-container']
+    ...    AND    Click Element    //*[@id='select2-SportId-results' or @id='select2-SportType-results']//li[${sport}]
+    Run Keyword If    '${league}'!='${EMPTY}'    Run Keywords    Click Element    select2-LeagueId-container
+    ...    AND    Click Element    //*[@id='select2-LeagueId-results']//li[${league}]
+    Run Keyword If    '${submit}'!='${EMPTY}'    click element    //*[@id='selected-day-results' or @id='btn-submit']
+    Unselect Frame
+    sleep    1
+
+Check filter of results
+    [Arguments]    ${submit}    ${date}=${EMPTY}    ${sport}=${EMPTY}    ${league}=${EMPTY}
+    [Documentation]    This action is used to select filter of Results report
+    ...
+    ...    Submit= Submit/Empty
+    ...
+    ...    date= number
+    ...
+    ...    Sport= Sport name
+    ...
+    ...    League= league name/All Leagues
+    select frame    main
+    ${ac_date}    Run Keyword If    '${date}'!='${EMPTY}'    Get Element Attribute    //*[@id='ResultDate']@value
+    ${ac_sport}    Run Keyword If    '${sport}'!='${EMPTY}'    get text    select2-SportId-container
+    ${ac_league}    Run Keyword If    '${league}'!='${EMPTY}'    get text    select2-LeagueId-container
+    Run Keyword If    '${submit}'=='submit'    click element    selected-day-results
+    Unselect Frame
+    Run Keyword If    '${date}'!='${EMPTY}'    Should Be Equal    ${date}    ${ac_date}
+    Run Keyword If    '${sport}'!='${EMPTY}'    Should Be Equal    ${ac_sport}    ${sport}
+    Run Keyword If    '${league}'!='${EMPTY}'    Should Be Equal    ${ac_league}    ${league}
+
+get list items
+    [Arguments]    ${locator}    ${Isupercase}=1
+    [Documentation]    This action is used to get all items of dropdown list in Results Report
+    ${ac_total_column}    Get Matching Xpath Count    ${locator}    #    //*/table/tbody/tr[@class='data']
+    ${ac_list_items}    Create List
+    : FOR    ${ac_i}    IN RANGE    1    ${ac_total_column}+1
+    \    ${temp}    Get Text    ${locator}[${ac_i}]
+    \    ${temp}    Run Keyword If    '${Isupercase}'=='1'    Convert To Uppercase    ${temp}
+    \    ...    ELSE    Set Variable    ${temp}
+    \    Append To List    ${ac_list_items}    ${temp}
+    [Return]    ${ac_list_items}
