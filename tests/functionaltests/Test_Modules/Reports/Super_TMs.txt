@@ -2615,7 +2615,7 @@ TC_01_Super_Master_Statement_Verify filter
     ...    6. Check guide content
     ...
     ...    7.Transfer detail show
-    [Tags]    Statement    NoRun
+    [Tags]    Statement
     ## Set Variable
     ${tm_note}    Set Variable    You can view the report data from ${global_3years_ago}.
     ${tc_yesterday}    Set Variable    ${global_day_yesterday}
@@ -2627,7 +2627,7 @@ TC_01_Super_Master_Statement_Verify filter
     ${tc_month_extract}    Set Variable If    @{tc_month_edit}[0]==0    @{tc_month_edit}[1]    ${tc_month}
     ${tm_yesterday}    Set Variable    ${tc_month_extract}/${global_day_yesterday}/${tc_year}
     ${tm_today}    Set Variable    ${tc_month_extract}/${tc_day}/${tc_year}
-    COMMENT    ==============================>    PRE-CONDITION
+    COMMENT    ==============================>    PRE-CONDITION    NORUN    BUG CALENDAR PICKER    CHANGE FORMAT VALUE AFTER SECOND SELECTING    EX: #1 STEP: M/DD/YYYY #2 STEP: MM/DD/YYYY
     Select Left Menu    Reports    Statement
     COMMENT    ==============================>    MAIN STEPS
     # step1    "1. Observe the default selected date picker
@@ -2637,13 +2637,13 @@ TC_01_Super_Master_Statement_Verify filter
     #step 3    "3. Click Yesterday button
     Select Report Filter    submit    ${tc_yesterday}    ${tc_yesterday}    ${EMPTY}    ${EMPTY}    ${EMPTY}
     ...    ${EMPTY}
-    Run Keyword And Continue On Failure    check date picker    ${tm_yesterday}    ${tm_yesterday}    #"3. Yesterday is selected "
+    Run Keyword And Continue On Failure    check date picker     ${global_yesterday}     ${global_yesterday}    #"3. Yesterday is selected "
     #step 4    4. Click Today button
     Reload Page
     sleep    2
     Select Report Filter    submit    ${tc_day}    ${tc_day}    ${EMPTY}    ${EMPTY}    ${EMPTY}
     ...    ${EMPTY}
-    Run Keyword And Continue On Failure    check date picker    ${tm_today}    ${tm_today}    # 4. Today is selected
+    Run Keyword And Continue On Failure    check date picker     ${global_today}     ${global_today}    # 4. Today is selected
     #step 5    Observe export and guide icons
     Comment    ${tm_mindate}    Get Element Attribute    //*[@id='daterange-picker']@data-mindate
     Comment    Should Be Equal    ${tm_mindate}    ${global_3months_ago}
@@ -2958,7 +2958,7 @@ TC_02_Super_Match WL Detail_Verify today data
     @{tm_mwldetail_data}    Create List
     Select Frame    main
     : FOR    ${tm_j}    IN RANGE    2    18
-    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # DONT get data of company comm (index =16)
     \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
     Unselect Frame
     Remove From List    ${tm_mwldetail_data}    14
@@ -3005,7 +3005,7 @@ TC_03_Super_Match WL Detail_Verify yesterday data
     @{tm_mwldetail_data}    Create List
     Select Frame    main
     : FOR    ${tm_j}    IN RANGE    2    18
-    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # DONT get data of company comm (index =16)
     \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
     Unselect Frame
     Remove From List    ${tm_mwldetail_data}    14
@@ -3053,7 +3053,7 @@ TC_04_Super_Match WL Detail_Verify data in date range
     @{tm_mwldetail_data}    Create List
     Select Frame    main
     : FOR    ${tm_j}    IN RANGE    2    18
-    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]    # Not get data of company comm (index =16)
+    \    ${tc_tempj}    Run Keyword If    '${tm_j}'!='16'    Get Text    //table[@id='tbl-report' or @id='tbl-rpt']/tfoot//td[${tm_j}]
     \    Append To List    ${tm_mwldetail_data}    ${tc_tempj}
     Unselect Frame
     Remove From List    ${tm_mwldetail_data}    14
