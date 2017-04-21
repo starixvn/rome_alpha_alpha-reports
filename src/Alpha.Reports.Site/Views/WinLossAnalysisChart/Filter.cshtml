@@ -1,0 +1,27 @@
+﻿@using Alpha.Reports.Site.ViewModels.WinLossAnalysisChart
+@model WinLossAnalysisChartFilterViewModel
+
+<form class="form-inline filter @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form">
+    @RenderHiddenFields()
+
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+
+    @MonthPicker.Render(Model.FromMonthPickerViewModel)
+    @MonthPicker.Render(Model.ToMonthPickerViewModel)
+
+    <div id="icon-information-container" class="form-group hide">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>@Model.ViewDataInstructionMessage
+    </div>
+
+    @helper RenderHiddenFields()
+    {
+    @Html.Hidden("IsFilterVisible", Model.Visible)
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+}
+</form>

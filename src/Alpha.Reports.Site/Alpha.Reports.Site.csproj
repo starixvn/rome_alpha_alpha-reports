@@ -376,6 +376,7 @@
     <Compile Include="ViewModels\RacingCommission\RacingCommissionFilterViewModel.cs" />
     <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
+    <Compile Include="ViewModels\WinLossAnalysisChart\WinLossAnalysisChartFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysisChart\WinLossAnalysisChartViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysislFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisReportTypeViewModel.cs" />
@@ -718,6 +719,7 @@
     <Content Include="Views\PlayForFun\MasterOrAgent.cshtml" />
     <Content Include="Views\PlayForFun\Filter.cshtml" />
     <Content Include="Views\PlayForFun\ExportExcel.cshtml" />
+    <Content Include="Views\WinLossAnalysisChart\Filter.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -844,7 +846,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-   <ItemGroup>
+  <ItemGroup>
     <Folder Include="Views\WinLossAnalysisChart\" />
   </ItemGroup>
   <ItemGroup>
