@@ -283,6 +283,7 @@
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
     <Compile Include="Controllers\ReportLegendController.cs" />
+    <Compile Include="Controllers\WinLossAnalysisChartController.cs" />
     <Compile Include="Controllers\WinLossAnalysisController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
@@ -842,6 +843,9 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+   <ItemGroup>
+    <Folder Include="Views\WinLossAnalysisChart\" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.5.9.0.1001\analyzers\Google.Protobuf.dll" />

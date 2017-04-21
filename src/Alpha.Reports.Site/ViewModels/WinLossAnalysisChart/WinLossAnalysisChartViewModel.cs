@@ -43,11 +43,9 @@
 
         public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
+        public bool IsFilterVisible => message.IsFilterVisible;
+
         public IEnumerable<WinLossAnalysisChartModel> ReportData { get; }
-
-        public bool IsSetDefaultStackMode => message.IsSetDefaultStackMode;
-
-        public bool IsStackMode => message.IsStackMode;
 
         public IEnumerable<SelectListItem> Products { get; }
     }

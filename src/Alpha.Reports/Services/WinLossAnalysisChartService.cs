@@ -12,13 +12,13 @@
         IEnumerable<WinLossAnalysisChartModel> GetWinLossAnalysisChart(WinLossAnalysisChartParam param);
     }
 
-    public class WinLossAnalysisChartServiceImp : WinLossAnalysisChartService
+    public class WinLossAnalysisChartServiceImpl : WinLossAnalysisChartService
     {
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly IDynamicRepository dynamicRepository;
 
-        public WinLossAnalysisChartServiceImp(
+        public WinLossAnalysisChartServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
             IDynamicRepository dynamicRepository)

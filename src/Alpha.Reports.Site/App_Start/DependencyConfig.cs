@@ -80,6 +80,7 @@
             container.RegisterSingleton<MatchWinLossService, MatchWinLossServiceImpl>();
             container.RegisterSingleton<OutstandingService, OutstandingServiceImpl>();
             container.RegisterSingleton<WinLossAnalysisService, WinLossAnalysisServiceImpl>();
+            container.RegisterSingleton<WinLossAnalysisChartService, WinLossAnalysisChartServiceImpl>();
             container.RegisterSingleton<PlayForFunService, PlayForFunServiceImpl>();
             container.RegisterSingleton<RacingCommissionService, RacingCommissionServiceImpl>();
             container.RegisterSingleton<CommissionByBettypeService, CommissionByBettypeServiceImpl>();
