@@ -14,6 +14,7 @@
         [Route("winlossanalysischart/master")]
         [Route("winlossanalysischart/agent")]
         [Route("winlossanalysischart/member")]
-        public ActionResult Index(WinLossAnalysisChartQuery message) => View(message);
+        public ActionResult Index(WinLossAnalysisChartQuery message)
+            => View(message);
     }
 }

@@ -4,7 +4,9 @@
     using Reports.Models;
     using ViewModels.WinLossAnalysisChart;
 
-    public class WinLossAnalysisChartQuery : FromLast18MonthDateRangeQuery, IRequest<WinLossAnalysisChartViewModel>
+    public class WinLossAnalysisChartQuery :
+        FromLast18MonthDateRangeQuery,
+        IRequest<WinLossAnalysisChartViewModel>
     {
         public WinLossAnalysisChartQuery(IUser viewer) : base(viewer)
         {
