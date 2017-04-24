@@ -238,6 +238,10 @@ a {
                 margin-bottom: 15px;
             }
         }
+
+        .control.month-range-picker-element {
+            width: 150px;
+        }
     }
 
     label[for="dropdown-statuses"] {
@@ -285,7 +289,6 @@ a {
         top: 10px;
     }
 }
-
 
 // netturnover tooltip
 #netturnovertooltip {
@@ -360,7 +363,6 @@ a {
         }
     }
 }
-
 
 // Modals
 .modal-open {

@@ -435,5 +435,7 @@
     <data name="GrandTotal" xml:space="preserve">
     <value>총 그랜드</value>
   </data>
-
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>매월 승리/패배 차트</value>
+  </data>
 </root>

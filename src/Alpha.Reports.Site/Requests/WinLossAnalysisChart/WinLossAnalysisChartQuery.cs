@@ -1,7 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossAnalysisChart
 {
+    using Extensions;
     using MediatR;
     using Reports.Models;
+    using Utils;
     using ViewModels.WinLossAnalysisChart;
 
     public class WinLossAnalysisChartQuery :
@@ -10,6 +12,8 @@
     {
         public WinLossAnalysisChartQuery(IUser viewer) : base(viewer)
         {
+            FromDate = SystemTime.Today.AddMonths(-2).FirstDayOfMonth();
+            ToDate = SystemTime.Today;
         }
 
         public string UserSelectedProductIds { get; set; }

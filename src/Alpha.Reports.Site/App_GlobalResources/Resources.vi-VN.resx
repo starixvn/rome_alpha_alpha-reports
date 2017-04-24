@@ -472,4 +472,7 @@
   <data name="PlayForFun" xml:space="preserve">
     <value>Chơi Thử</value>
   </data>
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>Biểu đồ thắng thua trong tháng</value>
+  </data>
 </root>

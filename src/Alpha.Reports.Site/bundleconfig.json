@@ -117,6 +117,18 @@
     ]
   },
   {
+    "outputFileName": "assets/bundles/winlossanalysischart/winlossanalysischart.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/month-range-picker.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/winlossanalysischart/winlossanalysischart.js"
+    ]
+  },
+  {
     "outputFileName": "assets/bundles/playforfun/playforfun-member.js",
     "inputFiles": [
       "assets/scripts/core.js",

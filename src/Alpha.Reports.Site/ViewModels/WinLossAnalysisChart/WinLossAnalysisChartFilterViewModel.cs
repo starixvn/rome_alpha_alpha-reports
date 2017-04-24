@@ -13,8 +13,7 @@
             string custName,
             UserLevel custLevel,
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
-            MonthPickerViewModel fromMonthPickerViewModel,
-            MonthPickerViewModel toMonthPickerViewModel,
+            MonthPickerViewModel monthPickerViewModel,
             bool visible,
             DateTime minDate)
         {
@@ -22,8 +21,7 @@
             CustName = custName;
             CustLevel = custLevel;
             ProductMultiSelectionViewModel = productMultiSelectionViewModel;
-            FromMonthPickerViewModel = fromMonthPickerViewModel;
-            ToMonthPickerViewModel = toMonthPickerViewModel;
+            MonthPickerViewModel = monthPickerViewModel;
             Visible = visible;
             ViewDataInstructionMessage = string.Format(
                 Resources.CanOnlyViewDataAfterTimeHistoryReport,
@@ -38,9 +36,7 @@
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
 
-        public MonthPickerViewModel FromMonthPickerViewModel { get; }
-
-        public MonthPickerViewModel ToMonthPickerViewModel { get; }
+        public MonthPickerViewModel MonthPickerViewModel { get; }
 
         public bool Visible { get; }
 

@@ -1,5 +1,7 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLossAnalysisChart
 {
+    using App_GlobalResources;
+    using Components;
     using Extensions;
     using Params;
     using Reports.Models;
@@ -33,6 +35,10 @@
 
         public UserLevel CustLevel => message.CustLevel;
 
+        public DateTime MinDate => message.MinDate;
+
+        public DateTime MaxDate => DateTime.MaxValue;
+
         public DateTime FromDate => param.FromDate;
 
         public DateTime ToDate => param.ToDate;
@@ -45,8 +51,26 @@
 
         public bool IsFilterVisible => message.IsFilterVisible;
 
+        public string Title => Resources.MonthlyWinLossChart;
+
         public IEnumerable<WinLossAnalysisChartModel> ReportData { get; }
 
         public IEnumerable<SelectListItem> Products { get; }
+
+        private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
+            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
+
+        public MonthPickerViewModel MonthPickerViewModel =>
+            new MonthPickerViewModel(MinDate, FromDate, ToDate);
+
+        public WinLossAnalysisChartFilterViewModel FilterViewModel =>
+            new WinLossAnalysisChartFilterViewModel(
+                CustId,
+                CustName,
+                CustLevel,
+                ProductMultiSelectionViewModel,
+                MonthPickerViewModel,
+                IsFilterVisible,
+                MinDate);
     }
 }

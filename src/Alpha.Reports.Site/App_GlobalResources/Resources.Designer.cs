@@ -718,6 +718,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly Win Loss Chart.
+        /// </summary>
+        public static string MonthlyWinLossChart {
+            get {
+                return ResourceManager.GetString("MonthlyWinLossChart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Net Turnover.
         /// </summary>
         public static string NetTurnover {

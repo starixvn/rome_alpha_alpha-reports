@@ -250,6 +250,7 @@
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
     <TypeScriptCompile Include="assets\scripts\components\league-multiselection.ts" />
     <TypeScriptCompile Include="assets\scripts\base-report.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\month-range-picker.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
@@ -444,6 +445,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\winlossanalysischart\winlossanalysischart.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossanalysis\winlossanalysis.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
@@ -461,6 +463,10 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.js" />
+    <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.min.js">
+      <DependentUpon>winlossanalysischart.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossanalysis\winlossanalysis.js" />
     <Content Include="assets\bundles\winlossanalysis\winlossanalysis.min.js">
@@ -687,7 +693,7 @@
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Master.xls" />
-    <Content Include="Alpha.Reports.Site.Debug.ruleset" />
+    <Content Include="App_Code\Components\MonthRangePicker.cshtml" />
     <Content Include="Alpha.Reports.Site.ruleset" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
@@ -720,6 +726,7 @@
     <Content Include="Views\PlayForFun\Filter.cshtml" />
     <Content Include="Views\PlayForFun\ExportExcel.cshtml" />
     <Content Include="Views\WinLossAnalysisChart\Filter.cshtml" />
+    <Content Include="Views\WinLossAnalysisChart\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

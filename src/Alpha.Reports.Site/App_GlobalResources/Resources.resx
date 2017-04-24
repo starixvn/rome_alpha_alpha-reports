@@ -541,4 +541,7 @@
   <data name="SportWinLossAnalysis" xml:space="preserve">
     <value>Sport Win Loss Analysis</value>
   </data>
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>Monthly Win Loss Chart</value>
+  </data>
 </root>

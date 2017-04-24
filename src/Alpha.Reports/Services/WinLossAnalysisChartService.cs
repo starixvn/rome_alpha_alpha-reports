@@ -48,7 +48,6 @@
                                     param.CustLevel);
 
             var winlossAnalysisChartData = dynamicRepository.Fetch<WinLossAnalysisChartModel>(criteria);
-
             return winlossAnalysisChartData;
         }
     }

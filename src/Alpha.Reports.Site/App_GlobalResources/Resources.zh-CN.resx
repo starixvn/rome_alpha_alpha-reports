@@ -504,5 +504,7 @@
   <data name="Enabled" xml:space="preserve">
     <value>已开启</value>
   </data>
-
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>每月图表</value>
+  </data>
 </root>

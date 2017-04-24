@@ -1,0 +1,16 @@
+﻿@model WinLossAnalysisChartViewModel
+
+@{
+    ViewBag.Title = "Win Loss Analysis Chart Report";
+}
+
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
+
+@Html.Partial("Filter", Model.FilterViewModel)
+
+<canvas id="chart-winloss-analysis" data-custid="@Model.CustId"></canvas>
+
+@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/winlossanalysischart/winlossanalysischart")
+}

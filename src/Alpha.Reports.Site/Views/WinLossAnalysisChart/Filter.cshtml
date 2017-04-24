@@ -1,13 +1,15 @@
-﻿@using Alpha.Reports.Site.ViewModels.WinLossAnalysisChart
-@model WinLossAnalysisChartFilterViewModel
+﻿@model WinLossAnalysisChartFilterViewModel
 
 <form class="form-inline filter @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @RenderHiddenFields()
 
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
-    @MonthPicker.Render(Model.FromMonthPickerViewModel)
-    @MonthPicker.Render(Model.ToMonthPickerViewModel)
+    @MonthRangePicker.Render(Model.MonthPickerViewModel)
+
+    <div class="form-group">
+        <input type="submit" value="@Resources.Submit" class="btn-submit" />
+    </div>
 
     <div id="icon-information-container" class="form-group hide">
         <span id="icon-information" class="icon-information-outline"></span>

@@ -506,5 +506,7 @@
   <data name="Enabled" xml:space="preserve">
     <value>เปิดการใช้งาน</value>
   </data>
-
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>กราฟแผนภูมิได้/เสียประจำเดือน</value>
+  </data>
 </root>
