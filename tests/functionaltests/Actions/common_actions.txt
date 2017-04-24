@@ -1099,3 +1099,15 @@ Check Date Picker History
     Run Keyword If    '${fromdate}'!='${EMPTY}'    Should Be Equal    ${ac_selectedfrom}    ${fromdate}
     Run Keyword If    '${todate}'!='${EMPTY}'    Should Be Equal    ${ac_selectedto}    ${todate}
     Unselect Frame
+
+Element Attribute Should Contains
+    [Arguments]    ${locator}    ${attribute}    ${value}
+    [Documentation]    This action is used to check element attribute value
+    ...
+    ...    Arguments:
+    ...
+    ...    Locator: xpath of element
+    ...
+    ...    Attribute: value, class, type...
+    ${ac_attribute}    Get Element Attribute    ${locator}@${attribute}
+    Should Contain    ${ac_attribute}    ${value}
