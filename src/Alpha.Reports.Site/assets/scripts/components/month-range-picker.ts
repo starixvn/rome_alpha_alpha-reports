@@ -48,11 +48,6 @@ class MonthRangePickerComponent {
             minDate: dropdownMonth.data("mindate"),
             month: new Date(dropdownMonth.data("dateinmonth")),
 
-            //fromDay: dropdownMonth.data("dateinmonth"),
-            //toDay: dropdownMonth.data("dateinmonth"),
-            fromDay: dropdownMonth.data("fromdate"),
-            toDay: dropdownMonth.data("todate"),
-
             showDateRange: false,
             monthFormat: alphaReports.format.monthFormat,
             fromDayId: "ddl-fromday",
@@ -63,8 +58,7 @@ class MonthRangePickerComponent {
             log: function (msg: string) {
                 console.warn(msg);
             },
-            afterChangeMonth: this.onChange,
-            afterChangeDay: this.onChange
+            afterChangeMonth: this.onChange
         });
 
         return dropdownMonth;

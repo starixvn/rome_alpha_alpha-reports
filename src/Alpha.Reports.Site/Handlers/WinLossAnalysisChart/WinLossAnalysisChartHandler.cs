@@ -37,8 +37,8 @@
             var param = new WinLossAnalysisChartParam(
                 message.CustId,
                 message.CustLevel,
-                message.FromDate,
-                message.ToDate,
+                message.FromDate.FirstDayOfMonth(),
+                message.ToDate.LastDayOfMonth(),
                 validUserSelectedProductIds);
 
             var reportData = winLossAnalysisChartService.GetWinLossAnalysisChart(param);

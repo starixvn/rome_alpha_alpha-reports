@@ -17,6 +17,9 @@
         public static DateTime FirstDayOfMonth(this DateTime dateTime)
             => new DateTime(dateTime.Year, dateTime.Month, 1);
 
+        public static DateTime LastDayOfMonth(this DateTime dateTime)
+            => new DateTime(dateTime.Year, dateTime.Month, dateTime.DaysInMonth());
+
         public static DateTime FirstDayOfYear(this DateTime dateTime)
             => new DateTime(dateTime.Year, 1, 1);
 
@@ -25,5 +28,8 @@
 
         public static string ToShortMonthAndYear(this DateTime dateTime)
             => dateTime.ToString(ShortMonthAndYear);
+
+        private static int DaysInMonth(this DateTime dateTime)
+            => DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
     }
 }

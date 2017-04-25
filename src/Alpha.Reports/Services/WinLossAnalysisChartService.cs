@@ -30,11 +30,6 @@
 
         public IEnumerable<WinLossAnalysisChartModel> GetWinLossAnalysisChart(WinLossAnalysisChartParam param)
         {
-            if (param == null)
-            {
-                throw new ArgumentNullException(nameof(param));
-            }
-
             var validUserSelectedProductIds =
                 productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds);
 
@@ -48,6 +43,7 @@
                                     param.CustLevel);
 
             var winlossAnalysisChartData = dynamicRepository.Fetch<WinLossAnalysisChartModel>(criteria);
+
             return winlossAnalysisChartData;
         }
     }
