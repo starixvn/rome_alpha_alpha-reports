@@ -59,7 +59,7 @@
                  betTypeId: bettypeId,
                  betTypeName: cacheRefService.GetBetTypeName(bettypeId),
                  productId: reader.ToInt("ProductID"),
-                 liveIndicator: reader.ToBool("liveindicator"),
+                 liveIndicator: reader.ToString("liveindicator") == "1",
                  betCount: reader.ToInt("NumberOfTickets"),
                  turnover: reader.ToDecimal("TurnOver"),
                  grossComm: reader.ToDecimal("GrossComm"),
