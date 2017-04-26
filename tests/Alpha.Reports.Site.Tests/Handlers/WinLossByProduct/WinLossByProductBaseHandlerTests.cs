@@ -34,7 +34,7 @@
             cacheRefService.GetProductName(23).Returns("NG2");
         }
 
-        [Theory]     
+        [Theory]
         [InlineData(6, 71, "Casino", false, "Casino")]
         [InlineData(4, 1101, "Baccarat", false, "Baccarat")]
         [InlineData(4, 1102, "Roulette", false, "Roulette")]
@@ -64,13 +64,13 @@
         [InlineData(3, 86, "Odd Even", false, "FT. Odd Even")]
         [InlineData(3, 90, "Number Wheel", true, "Number Wheel (Live Game)")]
         [InlineData(3, 90, "Number Wheel", false, "Number Wheel (Pre Game)")]
-        [InlineData(22, 4001, "", false, "Macau Games")]
-        [InlineData(23, 2502, "", false, "NG2")]
+        [InlineData(22, 4001, "Macau Games", false, "Macau Games")]
+        [InlineData(23, 2502, "NG2", false, "NG2")]
         [InlineData(21, 2402, "Odd Even", false, "Odd Even")]
         public void BuildDisplayedBetTypeName_AnyBetTypeId_ReturnsCorrectBetTypeName(
             int productId,
-            int betTypeId, 
-            string betTypeName, 
+            int betTypeId,
+            string betTypeName,
             bool liveIndicator,
             string expectedDisplayedBetTypeName)
         {

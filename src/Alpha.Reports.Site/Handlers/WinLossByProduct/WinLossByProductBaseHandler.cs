@@ -63,7 +63,7 @@
         {
             if (BetTypeConfig.DisplayWinLossByBetTypeRules.ContainsKey(productId))
             {
-                return BetTypeConfig.DisplayWinLossByBetTypeRules[productId](betTypeId, betTypeName, liveIndicator, cacheRefService);
+                return BetTypeConfig.DisplayWinLossByBetTypeRules[productId](betTypeId, betTypeName, liveIndicator);
             }
 
             return betTypeName;
