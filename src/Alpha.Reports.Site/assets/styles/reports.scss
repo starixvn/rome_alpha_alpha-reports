@@ -120,9 +120,10 @@ a {
         width: 17%;
     }
 
-    .padding-left-30px{
+    .padding-left-30px {
         padding-left: 30px;
     }
+
     .downline-link {
         color: $link-color;
         cursor: pointer;
@@ -161,6 +162,10 @@ a {
 
     .combinedcell li:last-child {
         font-weight: bold;
+    }
+
+    .product-row {
+        background-color: #f3f5e0;
     }
 }
 
@@ -282,7 +287,7 @@ a {
     @include ripple-effect-icon($margin-left: 2px, $height: 36px, $width: 36px, $top: -2px);
 }
 
-@media only screen and (max-device-width: 767px) and (orientation: portrait) {    
+@media only screen and (max-device-width: 767px) and (orientation: portrait) {
     #icon-information {
         position: relative;
         top: 10px;
@@ -337,7 +342,7 @@ a {
 
         @media only screen and (max-device-width : 767px) and (orientation: landscape) {
             width: 70%;
-        }        
+        }
 
         .modal-body {
             padding-bottom: 0;
