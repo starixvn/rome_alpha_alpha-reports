@@ -252,6 +252,7 @@
     <TypeScriptCompile Include="assets\scripts\base-report.ts" />
     <TypeScriptCompile Include="assets\scripts\components\month-range-picker.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\racingcommission\racingcommission.ts" />
@@ -273,6 +274,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\monthpicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\pager-tests.ts" />
+    <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Constants\RowTypeConstant.cs" />
     <Compile Include="Controllers\PlayForFunController.cs" />
     <Compile Include="Controllers\OutstandingController.cs" />
@@ -368,6 +370,7 @@
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\StatusSelectionViewModel.cs" />
+    <Compile Include="ViewModels\Components\DualAxisChartViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\DrillDownableReportViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossFilterViewModel.cs" />
@@ -404,9 +407,7 @@
     <Content Include="App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Local\DBACC.bodb02.BODBDownlineNet.xml" />
-    <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBACC.bodb02.BODBDownlineNet.xml" />
@@ -694,6 +695,7 @@
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Master.xls" />
     <Content Include="App_Code\Components\MonthRangePicker.cshtml" />
+    <Content Include="App_Code\Components\DualAxisChart.cshtml" />
     <Content Include="Alpha.Reports.Site.ruleset" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />

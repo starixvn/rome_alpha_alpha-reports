@@ -538,6 +538,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select at least 3 month period to chart.
+        /// </summary>
+        public static string Least3MonthToChart {
+            get {
+                return ResourceManager.GetString("Least3MonthToChart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to March.
         /// </summary>
         public static string March {

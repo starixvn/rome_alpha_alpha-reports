@@ -1,7 +1,10 @@
 ﻿@model WinLossAnalysisChartFilterViewModel
 
 <form class="form-inline filter @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form">
-    @RenderHiddenFields()
+
+    <div id="msg-error" class="msg msg-error hide">
+        @Resources.Least3MonthToChart
+    </div>
 
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
@@ -19,11 +22,12 @@
         <span class="star">*</span>@Model.ViewDataInstructionMessage
     </div>
 
-    @helper RenderHiddenFields()
-    {
+    @RenderHiddenFields()
+</form>
+@helper RenderHiddenFields()
+{
     @Html.Hidden("IsFilterVisible", Model.Visible)
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
 }
-</form>

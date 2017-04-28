@@ -1,0 +1,14 @@
+﻿@using Alpha.Reports.Site.ViewModels.Components;
+@using Alpha.Reports.Extensions;
+
+@helper Render(DualAxisChartViewModel model)
+{
+    <canvas id="winloss-chart"
+            data-title="@model.Title"
+            data-labels="@model.Labels.JoinWithComma()"
+            data-y-axis-1="@model.FirstData"
+            data-y-axis-2="@model.SecondData"
+            data-y-axis-1-label="@model.FirstDataLabel"
+            data-y-axis-2-label="@model.SecondDataLabel"
+            data-currency-name="@model.CurrencyName"></canvas>
+}

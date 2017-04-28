@@ -438,4 +438,7 @@
   <data name="MonthlyWinLossChart" xml:space="preserve">
     <value>매월 승리/패배 차트</value>
   </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>차트를 보려면 최소 3개월이상을 선택해주십시오.</value>
+  </data>
 </root>

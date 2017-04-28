@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Models.WinLossAnalysisChart
 {
-    using Extensions;
     using System;
 
     public class WinLossAnalysisChartModel
@@ -24,7 +23,5 @@
         public decimal Turnover { get; }
 
         public decimal WinLoss { get; }
-
-        public string WinLossDateString => WinLossDate.ToShortMonthAndYear();
     }
 }

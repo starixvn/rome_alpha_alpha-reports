@@ -8,7 +8,9 @@
 
 @Html.Partial("Filter", Model.FilterViewModel)
 
-<canvas id="chart-winloss-analysis" data-custid="@Model.CustId"></canvas>
+<div class="chart-container">
+    @DualAxisChart.Render(Model.DualAxisChartViewModel)
+</div>
 
 @Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
 @section Scripts {

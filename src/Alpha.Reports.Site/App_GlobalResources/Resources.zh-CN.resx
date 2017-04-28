@@ -507,4 +507,7 @@
   <data name="MonthlyWinLossChart" xml:space="preserve">
     <value>每月图表</value>
   </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>请选择至少3个月的数据以查看图表</value>
+  </data>
 </root>

@@ -544,4 +544,7 @@
   <data name="MonthlyWinLossChart" xml:space="preserve">
     <value>Monthly Win Loss Chart</value>
   </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>Please select at least 3 month period to chart</value>
+  </data>
 </root>

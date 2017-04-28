@@ -9,6 +9,7 @@
     using Requests.WinLossAnalysisChart;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
 
     public class WinLossAnalysisChartViewModel
@@ -72,5 +73,15 @@
                 MonthPickerViewModel,
                 IsFilterVisible,
                 MinDate);
+
+        public DualAxisChartViewModel DualAxisChartViewModel =>
+            new DualAxisChartViewModel(
+                $"{Resources.MonthlyWinLossChart} {Resources.From} {FromDate.ToShortDateWithSlash()} {Resources.To} {ToDate.ToShortDateWithSlash()}",
+                ReportData.Select(x => x.WinLossDate.ToShortMonthAndYear()).ToList(),
+                $"{CustLevel.DisplayName} {Resources.WinLossTitle}",
+                Resources.Turnover,
+                ReportData.Select(x => x.WinLoss).JoinWithComma(),
+                ReportData.Select(x => x.Turnover).JoinWithComma(),
+                message.CurrencyName);
     }
 }

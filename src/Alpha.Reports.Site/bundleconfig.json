@@ -125,6 +125,7 @@
       "assets/scripts/base-report.js",
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/link-builder.js",
+      "assets/scripts/components/dual-axis-chart.js",
       "assets/scripts/winlossanalysischart/winlossanalysischart.js"
     ]
   },

@@ -152,6 +152,8 @@ class AlphaReports {
     convertAttributeToBool = (attrValue: string) => {
         return !!attrValue && attrValue.toString().toLowerCase() === "true";
     };
+
+    formatNumber = (value: number) => value.toLocaleString();
 }
 
 const alphaReports = new AlphaReports($, store);

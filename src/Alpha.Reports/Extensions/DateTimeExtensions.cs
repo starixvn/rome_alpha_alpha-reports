@@ -6,7 +6,7 @@
     {
         private const string ShortDateWithSlash = "MM/dd/yyyy";
         private const string LongDateWithSlash = "MM/dd/yyyy hh:mm:ss tt";
-        private const string ShortMonthAndYear = "MMM - yyyy";
+        private const string ShortMonthAndYear = "MMM-yy";
 
         public static string ToShortDateWithSlash(this DateTime dateTime)
             => dateTime.ToString(ShortDateWithSlash);

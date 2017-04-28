@@ -475,4 +475,7 @@
   <data name="MonthlyWinLossChart" xml:space="preserve">
     <value>Biểu đồ thắng thua trong tháng</value>
   </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>Vui lòng chọn mốc thời gian ít nhất là 3 tháng để lập biểu đồ</value>
+  </data>
 </root>

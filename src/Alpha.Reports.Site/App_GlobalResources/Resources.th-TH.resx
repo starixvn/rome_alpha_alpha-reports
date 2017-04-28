@@ -509,4 +509,7 @@
   <data name="MonthlyWinLossChart" xml:space="preserve">
     <value>กราฟแผนภูมิได้/เสียประจำเดือน</value>
   </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>กรุณาเลือกอย่างน้อย 3 เดือนในกราฟแผนภูมิ</value>
+  </data>
 </root>

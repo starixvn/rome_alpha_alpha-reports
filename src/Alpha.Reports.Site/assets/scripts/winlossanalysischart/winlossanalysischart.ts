@@ -18,24 +18,28 @@ class WinLossAnalysisChartView extends BaseReport {
     $submitButton: JQuery;
     $fromDate: JQuery;
     $toDate: JQuery;
+    $msgError: JQuery;
 
     monthRangePickerComponent: MonthRangePickerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     reportTooltip: ReportTooltip;
     linkBuilderComponent: LinkBuilderComponent;
+    dualAxisChartComponent: DualAxisChartComponent;
 
     constructor(
         $: JQueryStatic,
         monthRangePickerComponent: MonthRangePickerComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         reportTooltip: ReportTooltip,
-        linkBuilderComponent: LinkBuilderComponent) {
+        linkBuilderComponent: LinkBuilderComponent,
+        dualAxesChartComponent: DualAxisChartComponent) {
         super($, linkBuilderComponent);
 
         this.$ = $;
         this.monthRangePickerComponent = monthRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.reportTooltip = reportTooltip;
+        this.dualAxisChartComponent = dualAxesChartComponent;
     }
 
     init = () => {
@@ -43,6 +47,7 @@ class WinLossAnalysisChartView extends BaseReport {
 
         this.cacheDOMElements();
         this.bindFilter();
+        this.dualAxisChartComponent.render();
 
         this.registerEvents();
 
@@ -59,6 +64,7 @@ class WinLossAnalysisChartView extends BaseReport {
         this.$filterIcon = this.$(".icon-filter");
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
+        this.$msgError = this.$("#msg-error")
     };
 
     bindFilter = () => {
@@ -80,7 +86,7 @@ class WinLossAnalysisChartView extends BaseReport {
     onSubmitReportEvent = (e: any) => {
         this.$.blockUI();
 
-        var params = this.getParams();
+        let params = this.getParams();
         if (!params.IsAnyProductSelected) {
             this.showValidaProductError();
             this.$.unblockUI();
@@ -89,12 +95,26 @@ class WinLossAnalysisChartView extends BaseReport {
             return;
         }
 
+        if (!params.IsLeast3MonthToChart) {
+            this.showValidationMonthRangeError();
+            this.$.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+        else {
+            this.hideValidationMonthRangeError();
+        }
+
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
     };
 
     onFilterEvent = () => this.$reportForm.hasClass("hide") ? this.showFilter() : this.hideFilter();
 
     showValidaProductError = () => this.$multiSelectButton.addClass("error");
+
+    showValidationMonthRangeError = () => this.$msgError.removeClass("hide");
+    hideValidationMonthRangeError = () => this.$msgError.addClass("hide");
 
     showFilter = () => {
         this.$pageTitle.removeClass("hide-filter");
@@ -107,12 +127,20 @@ class WinLossAnalysisChartView extends BaseReport {
     };
 
     getParams = () => {
-        var selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
-        var canvasChart = this.$canvasChart;
+        let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
+        let canvasChart = this.$canvasChart;
+
+        let fromDate = new Date(this.$fromDate.val());
+        let toDate = new Date(this.$toDate.val());
+        let month = toDate.getMonth() - fromDate.getMonth();
+        if (toDate.getFullYear() > fromDate.getFullYear()) {
+            month += 12;
+        }
 
         return {
             CustId: canvasChart.data("custid"),
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsLeast3MonthToChart: month >= 2,
             HideFilter: this.$reportForm.is(":hidden")
         };
     };
@@ -123,7 +151,8 @@ const winLossAnalysisChartView = new WinLossAnalysisChartView(
     new MonthRangePickerComponent($),
     new ProductMultiSelectionComponent($),
     new ReportTooltip($),
-    new LinkBuilderComponent($));
+    new LinkBuilderComponent($),
+    new DualAxisChartComponent($));
 
 $(function () {
     winLossAnalysisChartView.init();
