@@ -17,9 +17,8 @@
             <th rowspan="2" class="hidden-stack-mode">@Resources.Turnover</th>
             <th rowspan="2" class="hidden-stack-mode">@Resources.GrossComm</th>
             <th rowspan="2" class="visible-stack-mode col-combine">
-                <span>@($"{Resources.TurnoverAbbr}/")</span>
-                @(Model.CustLevel.IsAgentLevel() ? Resources.GrossComm :
-                  (Model.CustLevel.IsSuperLevel() ? Resources.GrossComAndMasterTotal : Resources.GrossComAndAgentTotal))
+                @(Model.CustLevel.IsAgentLevel() ? Resources.TurnoverAbbr + "/" + Resources.GrossComm :
+                  (Model.CustLevel.IsSuperLevel() ? Resources.TurnoverAbbr + Resources.GrossComAndMasterTotal : Resources.TurnoverAbbr + Resources.GrossComAndAgentTotal))
             </th>
 
             @if (Model.CustLevel.IsSuperLevel())
@@ -144,7 +143,7 @@ if (data.WinLossByBetTypeData.Any())
 var total = data.Total;
     <tr class="product-row">
         <td class="text-left col-username @(isWinLossBySportsbook ? "active" : string.Empty)">
-            <span class="pull-left icon-arrow-right"></span>
+            <span class="icon-arrow-right"></span>
             @data.ProductName
         </td>
 

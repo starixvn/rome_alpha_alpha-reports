@@ -223,8 +223,10 @@ class WinLossByProductView extends BaseReport {
 
     getParams = () => {
         var tableReport = this.$tableReport;
+        let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
 
         return {
+            IsAnyProductSelected: selectedProducts.length > 0,
             CustId: tableReport.data("custid"),
             IsStackMode: tableReport.hasClass("stack-mode"),
             HideFilter: this.$reportForm.is(":hidden"),
@@ -236,8 +238,19 @@ class WinLossByProductView extends BaseReport {
 
         var params = this.getParams();
 
+        if (!params.IsAnyProductSelected) {
+            this.showValidateProductError();
+            this.$.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
         this.$isStackMode.val(String(params.IsStackMode));
+    };
+    showValidateProductError = () => {
+        this.$multiSelectButton.addClass("error");
     };
 }
 
