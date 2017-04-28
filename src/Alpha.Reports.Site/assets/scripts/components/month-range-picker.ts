@@ -44,7 +44,7 @@ class MonthRangePickerComponent {
 
         dropdownMonth.monPickr({
             longMonthsInYear: dropdownMonth.data("longmonths-inyear").split(","),
-            maxDate: maxDate === "" ? dropdownMonth.data("currentdate") : maxDate,
+            maxDate: maxDate,
             minDate: dropdownMonth.data("mindate"),
             month: new Date(dropdownMonth.data("dateinmonth")),
 
@@ -55,17 +55,30 @@ class MonthRangePickerComponent {
             fromDayLabel: "",
             toDayLabel: "-",
             sortDesc: true,
-            log: function (msg: string) {
-                console.warn(msg);
-            },
+            log: this.logMessage,
             afterChangeMonth: this.onChange
         });
 
         return dropdownMonth;
     };
 
+    logMessage = (msg: string) => {
+        console.warn(msg);
+    };
+
     onChange = () => {
         this.$fromDate.val(this.$dropdownFromMonth.monPickr("getFromDate", alphaReports.format.shortDateWithSlash_MonthPicker));
         this.$toDate.val(this.$dropdownToMonth.monPickr("getToDate", alphaReports.format.shortDateWithSlash_MonthPicker));
     };
+
+    isLeast3Month = () => {
+        let fromDate = new Date(this.$fromDate.val());
+        let toDate = new Date(this.$toDate.val());
+
+        return this.getMonthDiff(fromDate, toDate) >= 2;
+    };
+
+    getMonthDiff = (fromDate: Date, toDate: Date) => {
+        return toDate.getMonth() - fromDate.getMonth() + 12 * (toDate.getFullYear() - fromDate.getFullYear());
+    }
 }

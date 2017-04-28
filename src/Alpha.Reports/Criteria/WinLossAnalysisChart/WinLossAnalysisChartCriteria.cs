@@ -24,18 +24,10 @@
         public UserLevel ReportLevel { get; }
 
         public override string GetSettingKey()
-        {
-            if (ReportLevel.IsAgentLevel())
-            {
-                return "Age_Rpt_WinlossAnalysisChart_Member";
-            }
-
-            if (ReportLevel.IsMasterLevel())
-            {
-                return "Age_Rpt_WinlossAnalysisChart_Agent";
-            }
-
-            return "Age_Rpt_WinlossAnalysisChart_Master";
-        }
+            => ReportLevel.IsAgentLevel()
+            ? "Age_Rpt_WinlossAnalysisChart_Member"
+            : ReportLevel.IsMasterLevel()
+            ? "Age_Rpt_WinlossAnalysisChart_Agent"
+            : "Age_Rpt_WinlossAnalysisChart_Master";
     }
 }

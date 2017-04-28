@@ -1,7 +1,6 @@
 ﻿/// <reference path="../core.ts" />
 
 "use strict";
-declare let Chart: any;
 
 interface JQuery {
     Chart(option: any): void;
@@ -14,6 +13,7 @@ class DualAxisChartOption {
 
 class DualAxisChartComponent {
     $: JQueryStatic;
+    chart: any;
 
     options = new DualAxisChartOption();
     currencyName: string;
@@ -27,18 +27,19 @@ class DualAxisChartComponent {
         defaultFontStyle: "bold"
     };
 
-    constructor($: JQueryStatic) {
+    constructor($: JQueryStatic, chart: any) {
         this.$ = $;
+        this.chart = chart;
     }
 
     render = (options: DualAxisChartOption = new DualAxisChartOption) => {
         let chartOptions = <DualAxisChartOption>this.$.extend({}, this.options, options);
         let chartStyles = this.chartStyles;
 
-        Chart.defaults.global.defaultFontFamily = chartStyles.fontFamily;
-        Chart.defaults.global.defaultFontColor = chartStyles.textColor;
-        Chart.defaults.global.defaultFontSize = chartStyles.defaultFontSize;
-        Chart.defaults.global.defaultFontStyle = chartStyles.defaultFontStyle;
+        this.chart.defaults.global.defaultFontFamily = chartStyles.fontFamily;
+        this.chart.defaults.global.defaultFontColor = chartStyles.textColor;
+        this.chart.defaults.global.defaultFontSize = chartStyles.defaultFontSize;
+        this.chart.defaults.global.defaultFontStyle = chartStyles.defaultFontStyle;
 
         let chartContainer: any = this.$("#" + chartOptions.selectorId);
         let chartContext = chartContainer[0].getContext("2d");
@@ -68,7 +69,7 @@ class DualAxisChartComponent {
             }]
         };
 
-        Chart.Bar(chartContext, {
+        this.chart.Bar(chartContext, {
             data: chartData,
             options: {
                 responsive: true,

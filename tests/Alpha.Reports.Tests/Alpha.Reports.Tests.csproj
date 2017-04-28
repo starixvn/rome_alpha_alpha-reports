@@ -180,6 +180,7 @@
     <Compile Include="Criteria\ReportCriteriaBaseForTesting.cs" />
     <Compile Include="Criteria\ReportCriteriaBaseTests.cs" />
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />
+    <Compile Include="Criteria\WinLossAnalysisChart\WinLossAnalysisChartCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Params\MatchWinLossParamTests.cs" />
     <Compile Include="Params\MatchWinLossDetailParamTests.cs" />
     <Compile Include="Params\ProductByCustomerParamTests.cs" />
+    <Compile Include="Params\WinLossAnalysisChartParamTests.cs" />
     <Compile Include="Params\WinLossAnalysisParamTests.cs" />
     <Compile Include="Params\WinLossParamTests.cs" />
     <Compile Include="Params\WinLossDetailParamTests.cs" />
@@ -238,6 +240,7 @@
     <Compile Include="Services\ProductServiceImplTests.cs" />
     <Compile Include="Services\RacingCommissionServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
+    <Compile Include="Services\WinLossAnalysisChartServiceImplTests.cs" />
     <Compile Include="Services\WinLossAnalysisServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />
     <Compile Include="Services\WinLossServiceImplTests.cs" />

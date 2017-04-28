@@ -261,8 +261,10 @@
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-member.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\daterangepicker-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\dual-axis-chart-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\league-multiselection-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\link-builder-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\month-range-picker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\netturnover-tooltip-test.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\productmultiselection-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests-template.ts" />
@@ -430,6 +432,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis-chart\winloss-analysis-chart-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis\winloss-analysis-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis\winloss-analysis-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-tests.ts" />
@@ -446,6 +449,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\winlossanalysischart\winlossanalysischart-ready.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossanalysischart\winlossanalysischart.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossanalysis\winlossanalysis.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
@@ -697,6 +701,7 @@
     <Content Include="App_Code\Components\MonthRangePicker.cshtml" />
     <Content Include="App_Code\Components\DualAxisChart.cshtml" />
     <Content Include="Alpha.Reports.Site.ruleset" />
+    <Content Include="Alpha.Reports.Site.Debug.ruleset" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -855,9 +860,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\WinLossAnalysisChart\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.5.9.0.1001\analyzers\Google.Protobuf.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.5.9.0.1001\analyzers\SonarAnalyzer.CSharp.dll" />
@@ -908,18 +911,19 @@
     <Error Condition="!Exists('..\..\packages\Fanex.Chutzpah.4.3.3\build\Fanex.Chutzpah.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fanex.Chutzpah.4.3.3\build\Fanex.Chutzpah.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>cd $(ProjectDir)
-cd ..
-cd ..
-cd build
-BuildTask.Release
+    <PostBuildEvent>
+      cd $(ProjectDir)
+      cd ..
+      cd ..
+      cd build
+      BuildTask.Release
       if not exist "$(WebProjectOutputDir)\bin\Roslyn" md "$(WebProjectOutputDir)\bin\Roslyn"
       start /MIN xcopy /s /y /R "$(OutDir)roslyn\*.*" "$(WebProjectOutputDir)\bin\Roslyn"
-</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets" Condition="Exists('..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets')" />
   <Import Project="..\..\packages\Fanex.Chutzpah.4.3.3\build\Fanex.Chutzpah.targets" Condition="Exists('..\..\packages\Fanex.Chutzpah.4.3.3\build\Fanex.Chutzpah.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

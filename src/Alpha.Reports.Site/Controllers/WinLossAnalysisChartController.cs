@@ -3,7 +3,6 @@
     using MediatR;
     using Requests.WinLossAnalysisChart;
     using System.Web.Mvc;
-    using ViewModels.WinLossAnalysisChart;
 
     public class WinLossAnalysisChartController : ReportBaseController
     {

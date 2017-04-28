@@ -87,8 +87,9 @@ class WinLossAnalysisChartView extends BaseReport {
         this.$.blockUI();
 
         let params = this.getParams();
+        debugger
         if (!params.IsAnyProductSelected) {
-            this.showValidaProductError();
+            this.showValidationProductError();
             this.$.unblockUI();
             e.preventDefault();
 
@@ -111,7 +112,7 @@ class WinLossAnalysisChartView extends BaseReport {
 
     onFilterEvent = () => this.$reportForm.hasClass("hide") ? this.showFilter() : this.hideFilter();
 
-    showValidaProductError = () => this.$multiSelectButton.addClass("error");
+    showValidationProductError = () => this.$multiSelectButton.addClass("error");
 
     showValidationMonthRangeError = () => this.$msgError.removeClass("hide");
     hideValidationMonthRangeError = () => this.$msgError.addClass("hide");
@@ -130,30 +131,11 @@ class WinLossAnalysisChartView extends BaseReport {
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
         let canvasChart = this.$canvasChart;
 
-        let fromDate = new Date(this.$fromDate.val());
-        let toDate = new Date(this.$toDate.val());
-        let month = toDate.getMonth() - fromDate.getMonth();
-        if (toDate.getFullYear() > fromDate.getFullYear()) {
-            month += 12;
-        }
-
         return {
             CustId: canvasChart.data("custid"),
             IsAnyProductSelected: selectedProducts.length > 0,
-            IsLeast3MonthToChart: month >= 2,
+            IsLeast3MonthToChart: this.monthRangePickerComponent.isLeast3Month(),
             HideFilter: this.$reportForm.is(":hidden")
         };
     };
 }
-
-const winLossAnalysisChartView = new WinLossAnalysisChartView(
-    $,
-    new MonthRangePickerComponent($),
-    new ProductMultiSelectionComponent($),
-    new ReportTooltip($),
-    new LinkBuilderComponent($),
-    new DualAxisChartComponent($));
-
-$(function () {
-    winLossAnalysisChartView.init();
-});

@@ -28,7 +28,14 @@
 
             Products = products;
             ReportData = reportData;
+
+            Title = Resources.MonthlyWinLossChart;
+            MaxDate = DateTime.MaxValue;
         }
+
+        public string Title { get; }
+
+        public DateTime MaxDate { get; }
 
         public int CustId => message.CustId;
 
@@ -37,8 +44,6 @@
         public UserLevel CustLevel => message.CustLevel;
 
         public DateTime MinDate => message.MinDate;
-
-        public DateTime MaxDate => DateTime.MaxValue;
 
         public DateTime FromDate => param.FromDate;
 
@@ -51,8 +56,6 @@
         public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
         public bool IsFilterVisible => message.IsFilterVisible;
-
-        public string Title => Resources.MonthlyWinLossChart;
 
         public IEnumerable<WinLossAnalysisChartModel> ReportData { get; }
 

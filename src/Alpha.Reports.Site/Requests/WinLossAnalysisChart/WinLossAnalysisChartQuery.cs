@@ -12,13 +12,16 @@
         FromLast18MonthDateRangeQuery,
         IRequest<WinLossAnalysisChartViewModel>
     {
+        private const string WonInEnglish = "Won";
+        private const string WonInKorean = "원";
+
         public WinLossAnalysisChartQuery(IUser viewer) : base(viewer)
         {
             FromDate = SystemTime.Today.AddMonths(-2).FirstDayOfMonth();
             ToDate = SystemTime.Today;
             CurrencyName = string.Equals(viewer.Language, LanguageCode.Korean, StringComparison.OrdinalIgnoreCase)
-                && string.Equals(viewer.CurrencyName, "Won", StringComparison.OrdinalIgnoreCase)
-                ? "원"
+                && string.Equals(viewer.CurrencyName, WonInEnglish, StringComparison.OrdinalIgnoreCase)
+                ? WonInKorean
                 : viewer.CurrencyName;
         }
 

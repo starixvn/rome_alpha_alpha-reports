@@ -4,10 +4,6 @@
 
     public class WinLossAnalysisChartModel
     {
-        public WinLossAnalysisChartModel()
-        {
-        }
-
         public WinLossAnalysisChartModel(
             DateTime winLossDate,
             decimal turnover,

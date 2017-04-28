@@ -55,7 +55,9 @@
     { "Path": "../core.ts" },
     { "Path": "../base-report.ts" },
     { "Path": "../components/daterangepicker.ts" },
+    { "Path": "../components/dual-axis-chart.ts" },
     { "Path": "../components/monthpicker.ts" },
+    { "Path": "../components/month-range-picker.ts" },
     { "Path": "../components/netturnover-tooltip.ts" },
     { "Path": "../components/pager.ts" },
     { "Path": "../components/productmultiselection.ts" },
@@ -77,6 +79,8 @@
 
     { "Path": "apps/winloss-analysis/winloss-analysis-template.ts" },
     { "Path": "../winlossanalysis/winlossanalysis.ts" },
+
+    { "Path": "../winlossanalysischart/winlossanalysischart.ts" },
 
     { "Path": "../base-report.ts" },
     { "Path": "../playforfun/playforfun.ts" },

@@ -4,7 +4,6 @@
     using Fanex.Data.Repository;
     using Models.WinLossAnalysisChart;
     using Params;
-    using System;
     using System.Collections.Generic;
 
     public interface WinLossAnalysisChartService
