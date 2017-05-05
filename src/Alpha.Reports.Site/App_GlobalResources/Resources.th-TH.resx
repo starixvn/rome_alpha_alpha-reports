@@ -379,7 +379,7 @@
   <data name="Outright" xml:space="preserve">
     <value>ทายผลผู้ชนะ</value>
   </data>
-   <data name="BetType" xml:space="preserve">
+  <data name="BetType_Duplicate[1]" xml:space="preserve">
     <value>ประเภทการเดิมพัน</value>
   </data>
   <data name="CasinoWinLoss" xml:space="preserve">
@@ -391,7 +391,6 @@
   <data name="WinLossByBetType" xml:space="preserve">
     <value>ชนะ แพ้ โดยชนิดของการวางเดิมพัน</value>
   </data>
-  
   <data name="Race" xml:space="preserve">
     <value>แข่งขัน</value>
   </data>
@@ -472,5 +471,8 @@
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>เปิดการใช้งาน</value>
+  </data>
+  <data name="WinLossByProduct" xml:space="preserve">
+    <value>ยอดได้เสียตามโปรดักส์</value>
   </data>
 </root>

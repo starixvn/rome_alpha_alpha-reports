@@ -378,7 +378,7 @@
   <data name="Outright" xml:space="preserve">
     <value>优胜冠军</value>
   </data>
-   <data name="BetType" xml:space="preserve">
+  <data name="BetType_Duplicate[1]" xml:space="preserve">
     <value>投注类别</value>
   </data>
   <data name="CasinoWinLoss" xml:space="preserve">
@@ -390,7 +390,6 @@
   <data name="WinLossByBetType" xml:space="preserve">
     <value>投注类别输赢</value>
   </data>
-
   <data name="Race" xml:space="preserve">
     <value>赛事</value>
   </data>
@@ -471,5 +470,8 @@
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>已开启</value>
+  </data>
+  <data name="WinLossByProduct" xml:space="preserve">
+    <value>投注产品输赢</value>
   </data>
 </root>

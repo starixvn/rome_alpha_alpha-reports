@@ -108,6 +108,11 @@ class WinLossByProductView extends BaseReport {
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"
             && alphaReports.screenSmallThan768()) {
             this.setCssBySwitchMode(false);
+
+            let isAgentLevel = this.$isAgentLevel.val().toLocaleLowerCase() === "true";
+            this.combineColumns(isAgentLevel);
+            this.isFirstSwitchMode = false;
+
             this.reportTooltip.show(
                 new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0))
             );
