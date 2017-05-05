@@ -18,7 +18,8 @@
             CustId = custId;
             CustLevel = custLevel;
             FromDate = fromDate == DateTime.MinValue ? SystemTime.Today.AddMonths(-2).FirstDayOfMonth() : fromDate.FirstDayOfMonth();
-            ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate.LastDayOfMonth();
+            ToDate = (toDate == DateTime.MinValue || (toDate.Month == SystemTime.Today.Month && toDate.Year == SystemTime.Today.Year))
+                ? SystemTime.Today : toDate.LastDayOfMonth();
             UserSelectedProductIds = userSelectedProductIds;
         }
 

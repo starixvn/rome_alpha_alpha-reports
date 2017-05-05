@@ -87,7 +87,6 @@ class WinLossAnalysisChartView extends BaseReport {
         this.$.blockUI();
 
         let params = this.getParams();
-        debugger
         if (!params.IsAnyProductSelected) {
             this.showValidationProductError();
             this.$.unblockUI();

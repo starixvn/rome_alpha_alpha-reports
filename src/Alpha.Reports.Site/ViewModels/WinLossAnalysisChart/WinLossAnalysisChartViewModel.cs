@@ -30,12 +30,9 @@
             ReportData = reportData;
 
             Title = Resources.MonthlyWinLossChart;
-            MaxDate = DateTime.MaxValue;
         }
 
         public string Title { get; }
-
-        public DateTime MaxDate { get; }
 
         public int CustId => message.CustId;
 
@@ -52,8 +49,6 @@
         public string Language => message.Language;
 
         public string UserSelectedProductIds => param.UserSelectedProductIds.JoinWithComma();
-
-        public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
         public bool IsFilterVisible => message.IsFilterVisible;
 
