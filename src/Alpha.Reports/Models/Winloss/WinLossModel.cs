@@ -56,7 +56,7 @@
             {
             }
         }
-          
+
         public WinLossModel Add(WinLossModel winloss)
         {
             if (winloss == null)

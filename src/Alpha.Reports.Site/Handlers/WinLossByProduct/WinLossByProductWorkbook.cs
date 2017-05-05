@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using ONEbook.SpreadSheets;
     using ONEbook.SpreadSheets.NPOI;
@@ -80,7 +81,7 @@
             var row = sheet.GetRow(rowIndex);
             row.CopyCellsFrom(WinLossByProductRowTemplate);
             FillCells(row, data.Total, TotalMapper.Mappings);
-            row.SetCellValue(row.FirstCellIndex, data.ProductName.ToUpper());
+            row.SetCellValue(row.FirstCellIndex, data.ProductName.ToUpperInvariant());
         }
 
         internal void FillWinLossByBetType(
@@ -132,7 +133,7 @@
             }
 
             RemoveTemplateRows(sheet);
-            
+
             if (WinLossByProductData.Any())
             {
                 FillBodyRows(sheet);

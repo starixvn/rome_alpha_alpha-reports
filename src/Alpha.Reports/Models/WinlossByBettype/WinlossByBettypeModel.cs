@@ -40,7 +40,7 @@
         public int ProductId { get; }
 
         public bool LiveIndicator { get; }
-        
+
         public int BetCount { get; private set; }
 
         public decimal Turnover { get; private set; }

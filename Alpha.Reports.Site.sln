@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Tests", "test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reports.Site.Tests", "tests\Alpha.Reports.Site.Tests\Alpha.Reports.Site.Tests.csproj", "{635DD698-CB5A-47C4-B767-223AA7B65943}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{21B2F6CD-4BD9-4F67-874F-47EFEE147C27}"
+	ProjectSection(SolutionItems) = preProject
+		SonarQube\Alpha-ReportCSharp.ruleset = SonarQube\Alpha-ReportCSharp.ruleset
+		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
