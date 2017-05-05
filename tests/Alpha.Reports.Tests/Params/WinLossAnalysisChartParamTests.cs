@@ -76,12 +76,12 @@
         }
 
         [Fact]
-        public void ToDate_SupportToDate_ReturnsLastDayOfThisMonth()
+        public void ToDate_SupportToDate_ReturnsSuportedDate()
         {
             // Arrange
             var toDate = DefaultVariables.CurrentDate;
             var param = new WinLossAnalysisChartParam(0, DateTime.Now, toDate, Enumerable.Empty<int>(), UserLevel.Super);
-            var expectedDate = toDate.LastDayOfMonth();
+            var expectedDate = toDate;
 
             // Act
             var actualDate = param.ToDate;
