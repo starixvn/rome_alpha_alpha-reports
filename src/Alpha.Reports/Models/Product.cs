@@ -4,13 +4,14 @@
 
     public class Product
     {
-        public Product(int id, string name)
+        public Product(int id, string name, DateTime? endOfSupportDate)
         {
             Id = id;
             Name = name;
+            EndOfSupportDate = endOfSupportDate;
         }
 
-        internal Product(int id, string name, Func<int, string> getProductDisplayName) : this(id, name)
+        internal Product(int id, string name, DateTime? endOfSupportDate, Func<int, string> getProductDisplayName) : this(id, name, endOfSupportDate)
         {
             DisplayName = getProductDisplayName == null ? name : getProductDisplayName(id);
         }
@@ -18,6 +19,8 @@
         public int Id { get; }
 
         public string Name { get; }
+
+        public DateTime? EndOfSupportDate { get; }
 
         public string DisplayName { get; }
     }

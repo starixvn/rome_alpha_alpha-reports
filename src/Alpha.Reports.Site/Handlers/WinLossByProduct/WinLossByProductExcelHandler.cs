@@ -65,38 +65,38 @@
         private Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByProductExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossByBetTypeModel>()
-                .Map(Column.A, data => isTotal ? Resources.Total : BuildDisplayedBetTypeName(data.ProductId, (BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator))
-                .Map(Column.B, data => data.BetCount)
-                .Map(Column.C, data => data.Turnover)
-                .Map(Column.D, data => data.GrossComm);
+                .Map(A, data => isTotal ? Resources.Total : BuildDisplayedBetTypeName(data.ProductId, (BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator))
+                .Map(B, data => data.BetCount)
+                .Map(C, data => data.Turnover)
+                .Map(D, data => data.GrossComm);
 
             if (message.CustLevel.IsAgentLevel())
             {
-                mapper.Map(Column.E, data => data.MemberNetWinLoss.WinLoss)
-                 .Map(Column.F, data => data.MemberNetWinLoss.Comm)
-                 .Map(Column.G, data => data.MemberNetWinLoss.Total)
-                 .Map(Column.H, data => data.AgentNetWinLoss.WinLoss)
-                 .Map(Column.I, data => data.AgentNetWinLoss.Comm)
-                 .Map(Column.J, data => data.AgentNetWinLoss.Total)
-                 .Map(Column.K, data => data.Company);
+                mapper.Map(E, data => data.MemberNetWinLoss.WinLoss)
+                 .Map(F, data => data.MemberNetWinLoss.Comm)
+                 .Map(G, data => data.MemberNetWinLoss.Total)
+                 .Map(H, data => data.AgentNetWinLoss.WinLoss)
+                 .Map(I, data => data.AgentNetWinLoss.Comm)
+                 .Map(J, data => data.AgentNetWinLoss.Total)
+                 .Map(K, data => data.Company);
             }
 
             if (message.CustLevel.IsMasterLevel())
             {
-                mapper.Map(Column.E, data => data.AgentNetWinLoss.Total)
-                   .Map(Column.F, data => data.MasterNetWinLoss.WinLoss)
-                   .Map(Column.G, data => data.MasterNetWinLoss.Comm)
-                   .Map(Column.H, data => data.MasterNetWinLoss.Total)
-                   .Map(Column.I, data => data.Company);
+                mapper.Map(E, data => data.AgentNetWinLoss.Total)
+                   .Map(F, data => data.MasterNetWinLoss.WinLoss)
+                   .Map(G, data => data.MasterNetWinLoss.Comm)
+                   .Map(H, data => data.MasterNetWinLoss.Total)
+                   .Map(I, data => data.Company);
             }
 
             if (message.CustLevel.IsSuperLevel())
             {
-                mapper.Map(Column.E, data => data.MasterNetWinLoss.Total)
-                    .Map(Column.F, data => data.SuperNetWinLoss.WinLoss)
-                    .Map(Column.G, data => data.SuperNetWinLoss.Comm)
-                    .Map(Column.H, data => data.SuperNetWinLoss.Total)
-                    .Map(Column.I, data => data.Company);
+                mapper.Map(E, data => data.MasterNetWinLoss.Total)
+                    .Map(F, data => data.SuperNetWinLoss.WinLoss)
+                    .Map(G, data => data.SuperNetWinLoss.Comm)
+                    .Map(H, data => data.SuperNetWinLoss.Total)
+                    .Map(I, data => data.Company);
             }
 
             return mapper;

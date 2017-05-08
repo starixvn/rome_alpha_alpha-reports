@@ -26,9 +26,9 @@
 
         private readonly IEnumerable<Product> allCustomerProductIds = new List<Product>()
         {
-            new Product(1, "Product 1"),
-            new Product(2, "Product 2"),
-            new Product(3, "Product 3")
+            new Product(1, "Product 1", null),
+            new Product(2, "Product 2", null),
+            new Product(3, "Product 3", null)
         };
 
         private ProductServiceImpl productServiceImpl;
@@ -207,7 +207,7 @@
             // Arrange
             var custId = 2;
             var customerProductIds = "1,2,3,5";
-            IEnumerable<Product> customerProducts = customerProductIds.ToListInt().Select(id => new Product(id, string.Empty));
+            IEnumerable<Product> customerProducts = customerProductIds.ToListInt().Select(id => new Product(id, string.Empty, null));
             IEnumerable<Product> cachedProducts;
             fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(x =>
             {
@@ -221,7 +221,7 @@
             // Assert
             AssertExtension.Equal(expectProductIds.ToListInt(), actualProducts.Select(product => product.Id).ToList());
         }
-        
+
         [Fact]
         public void GetProductsNeedDelayTimeToSumarizeDataByCustomer_Always_ReturnsCorrectProducts()
         {
@@ -234,6 +234,6 @@
 
             // Assert
             Assert.Equal(expectProducts, actualProducts);
-        }            
+        }
     }
 }
