@@ -20,8 +20,10 @@
                                             </select>
                                             <button class="multiselect btn"></button>
                                         </div>
-                                        <div id="from-monthpicker" data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
-                                        <div id="to-monthpicker" data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
+                                        <div id="from-monthpicker"
+                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
+                                        <div id="to-monthpicker"
+                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
                                         <div id="from-date"></div>
                                         <div id="to-date"></div>
                                         <div class="icon-filter"></div>
@@ -41,8 +43,10 @@
                                             </select>
                                             <button class="multiselect btn"></button>
                                         </div>
-                                        <div id="from-monthpicker" data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
-                                        <div id="to-monthpicker" data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
+                                        <div id="from-monthpicker"
+                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
+                                        <div id="to-monthpicker"
+                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
                                         <div id="from-date"></div>
                                         <div id="to-date"></div>
                                         <div class="icon-filter"></div>
@@ -207,7 +211,7 @@
 
     describe("_onSubmitReportEvent", () => {
         it("_Not select anyProduct -> Blocks UI; Shows Validate Product Error; Unblock UI;", () => {
-            //  Arrange
+            //  arrange
             renderProductMultiSelectionComponent.and.callThrough();
             winLossAnalysisChartView.init();
             spyOn(productMultiSelectionComponent, "getSelectedItems").and.callFake(() => []);
@@ -224,7 +228,7 @@
             expect(winLossAnalysisChartView.$multiSelectButton.hasClass("error")).toBeTruthy();
         });
         it("_Is Not Least 3 Months -> Blocks UI; Show Validation Month Range Error ;Unblock UI;", () => {
-            //  Arrange
+            //  arrange
             renderProductMultiSelectionComponent.and.callThrough();
             winLossAnalysisChartView.init();
             spyOn(monthRangePickerComponent, "isLeast3Month");

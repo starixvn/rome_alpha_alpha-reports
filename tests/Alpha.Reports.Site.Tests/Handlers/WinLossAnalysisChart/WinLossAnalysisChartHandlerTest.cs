@@ -63,17 +63,18 @@
         [InlineData("")]
         [InlineData(" ")]
         [InlineData("  ")]
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public void HandleWinLossAnalysisChartQuery_AnyUserSelectedProductIds_ReturnsCorrectViewModel(string userSelectedProductIds)
         {
             // Arrange
-            var message = new WinLossAnalysisChartQuery(userFixture.User);
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string> { "Product Name" });
 
-            message.CustId = 1;
-            message.CustName = "CustName";
-            message.CustLevelId = 3;
-            message.UserSelectedProductIds = userSelectedProductIds;
+            var message = new WinLossAnalysisChartQuery(userFixture.User)
+            {
+                CustId = 1,
+                CustName = "CustName",
+                CustLevelId = 3,
+                UserSelectedProductIds = userSelectedProductIds
+            };
 
             var reportData = Enumerable.Empty<WinLossAnalysisChartModel>();
             var param = new WinLossAnalysisChartParam(

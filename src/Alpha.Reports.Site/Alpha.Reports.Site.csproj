@@ -276,7 +276,6 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\monthpicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\pager-tests.ts" />
-    <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Constants\RowTypeConstant.cs" />
     <Compile Include="Controllers\PlayForFunController.cs" />
     <Compile Include="Controllers\OutstandingController.cs" />
@@ -732,7 +731,6 @@
     <Content Include="Views\PlayForFun\MasterOrAgent.cshtml" />
     <Content Include="Views\PlayForFun\Filter.cshtml" />
     <Content Include="Views\PlayForFun\ExportExcel.cshtml" />
-    <Content Include="Views\WinLossAnalysisChart\Filter.cshtml" />
     <Content Include="Views\WinLossAnalysisChart\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

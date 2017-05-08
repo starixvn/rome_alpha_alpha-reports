@@ -520,6 +520,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Won.
+        /// </summary>
+        public static string KoreanWon {
+            get {
+                return ResourceManager.GetString("KoreanWon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Month.
         /// </summary>
         public static string LastMonth {

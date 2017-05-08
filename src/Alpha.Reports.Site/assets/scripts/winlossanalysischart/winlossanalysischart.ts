@@ -57,13 +57,13 @@ class WinLossAnalysisChartView extends BaseReport {
 
     cacheDOMElements = () => {
         super.cacheElements();
-        this.$canvasChart = this.$("#chart-winloss-analysis")
+        this.$canvasChart = this.$("#chart-winloss-analysis");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$reportForm = this.$("#report-form");
         this.$filterIcon = this.$(".icon-filter");
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
-        this.$msgError = this.$("#msg-error")
+        this.$msgError = this.$("#msg-error");
     };
 
     bindFilter = () => {
@@ -81,7 +81,7 @@ class WinLossAnalysisChartView extends BaseReport {
     public registerEvents() {
         super.registerEvents();
         this.$reportForm.submit(this.onSubmitReportEvent);
-    };
+    }
 
     onSubmitReportEvent = (e: any) => {
         this.$.blockUI();

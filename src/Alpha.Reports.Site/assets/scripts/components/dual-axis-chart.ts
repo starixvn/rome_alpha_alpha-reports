@@ -116,8 +116,8 @@ class DualAxisChartComponent {
 
                         gridLines: {
                             drawOnChartArea: false
-                        },
-                    }],
+                        }
+                    }]
                 },
                 legend: {
                     display: true,

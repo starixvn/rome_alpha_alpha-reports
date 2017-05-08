@@ -547,4 +547,7 @@
   <data name="Least3MonthToChart" xml:space="preserve">
     <value>Please select at least 3 month period to chart</value>
   </data>
+  <data name="KoreanWon" xml:space="preserve">
+    <value>Won</value>
+  </data>
 </root>

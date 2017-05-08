@@ -33,7 +33,7 @@
         }
 
         [Fact]
-        public void FromDate_NotSupportFromDate__ReturnsFirstDateOfLastTwoMonths()
+        public void FromDate_NotSupportFromDate_ReturnsFirstDateOfLastTwoMonths()
         {
             // Arrange
             var param = new WinLossAnalysisChartParam(0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), UserLevel.Super);
@@ -47,7 +47,7 @@
         }
 
         [Fact]
-        public void FromDate_SupportFromDate_ReturnsFirstDayOfThisMonth()
+        public void FromDate_SupportFromDate_ReturnsFirstDayOfFromDateMonth()
         {
             // Arrange
             var fromDate = DefaultVariables.CurrentDate;
@@ -82,6 +82,21 @@
             var toDate = DefaultVariables.CurrentDate;
             var param = new WinLossAnalysisChartParam(0, DateTime.Now, toDate, Enumerable.Empty<int>(), UserLevel.Super);
             var expectedDate = toDate;
+
+            // Act
+            var actualDate = param.ToDate;
+
+            // Assert
+            Assert.Equal(expectedDate, actualDate);
+        }
+
+        [Fact]
+        public void Todate_SupportToDate_ReturnsLastDayOfToDateMonth()
+        {
+            // Arrange
+            var toDate = DefaultVariables.CurrentDate.AddMonths(-1);
+            var param = new WinLossAnalysisChartParam(0, DateTime.Now, toDate, Enumerable.Empty<int>(), UserLevel.Super);
+            var expectedDate = toDate.LastDayOfMonth();
 
             // Act
             var actualDate = param.ToDate;

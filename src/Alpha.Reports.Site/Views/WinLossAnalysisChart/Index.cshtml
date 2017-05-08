@@ -6,7 +6,30 @@
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Enumerable.Empty<CustInfo>(), string.Empty), Request.Url.Query)
 
-@Html.Partial("Filter", Model.FilterViewModel)
+<form class="form-inline filter @(Model.FilterViewModel.Visible ? string.Empty : "hide")" role="form" id="report-form">
+
+    <div id="msg-error" class="msg msg-error hide">
+        @Resources.Least3MonthToChart
+    </div>
+
+    @ProductMultiSelection.Render(Model.FilterViewModel.ProductMultiSelectionViewModel)
+
+    @MonthRangePicker.Render(Model.MonthPickerViewModel)
+
+    <div class="form-group">
+        <input type="submit" value="@Resources.Submit" class="btn-submit" />
+    </div>
+
+    <div id="icon-information-container" class="form-group hide">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>@Model.FilterViewModel.ViewDataInstructionMessage
+    </div>
+
+    @RenderHiddenFields()
+</form>
 
 <div class="chart-container">
     @DualAxisChart.Render(Model.DualAxisChartViewModel)
@@ -15,4 +38,11 @@
 @Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/winlossanalysischart/winlossanalysischart")
+}
+@helper RenderHiddenFields()
+{
+    @Html.Hidden("IsFilterVisible", Model.FilterViewModel.Visible)
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
 }

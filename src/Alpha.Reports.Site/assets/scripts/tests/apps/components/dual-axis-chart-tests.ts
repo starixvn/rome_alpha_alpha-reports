@@ -121,12 +121,12 @@
 
                             gridLines: {
                                 drawOnChartArea: false
-                            },
-                        }],
+                            }
+                        }]
                     },
                     legend: {
                         display: true,
-                        position: 'bottom'
+                        position: "bottom"
                     },
                     tooltips: {
                         callbacks: {
@@ -157,7 +157,7 @@
             };
             let dataset = {
                 label: "Jan-17"
-            }
+            };
             let data = {
                 datasets: [dataset]
             };

@@ -29,7 +29,7 @@
             => dateTime.Day == DaysInMonth(dateTime);
 
         public static int GetMonthDiff(this DateTime dateTime, DateTime otherDateTime)
-            => (dateTime.Month - otherDateTime.Month + 12 * (dateTime.Year - otherDateTime.Year));
+            => (dateTime.Month - otherDateTime.Month + (12 * (dateTime.Year - otherDateTime.Year)));
 
         private static int DaysInMonth(this DateTime dateTime)
             => DateTime.DaysInMonth(dateTime.Year, dateTime.Month);

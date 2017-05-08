@@ -27,14 +27,14 @@
 
         public static bool IsNullOrBlank(this string input) => string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input);
 
-        public static string ToShortMonthNameAndShortYear(this string dateTimeString)
+        public static string ToShortMonthNameAndShortYear(this string value)
         {
-            if (string.IsNullOrWhiteSpace(dateTimeString))
+            if (string.IsNullOrWhiteSpace(value))
             {
                 return string.Empty;
             }
 
-            var splitedInts = dateTimeString
+            var splitedInts = value
                 .Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(str => Convert.ToInt32(str)).ToList();
 

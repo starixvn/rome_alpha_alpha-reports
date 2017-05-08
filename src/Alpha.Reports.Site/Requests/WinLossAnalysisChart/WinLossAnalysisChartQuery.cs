@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossAnalysisChart
 {
-    using Constants;
+    using App_GlobalResources;
     using Extensions;
     using MediatR;
     using Reports.Models;
@@ -13,7 +13,6 @@
         IRequest<WinLossAnalysisChartViewModel>
     {
         private const string WonInEnglish = "Won";
-        private const string WonInKorean = "원";
 
         public WinLossAnalysisChartQuery(IUser viewer) : base(viewer)
         {
@@ -28,9 +27,8 @@
                 ToDate = SystemTime.Today.AddMonths(-1).LastDayOfMonth();
             }
 
-            CurrencyName = string.Equals(viewer.Language, LanguageCode.Korean, StringComparison.OrdinalIgnoreCase)
-                && string.Equals(viewer.CurrencyName, WonInEnglish, StringComparison.OrdinalIgnoreCase)
-                ? WonInKorean
+            CurrencyName = string.Equals(viewer.CurrencyName, WonInEnglish, StringComparison.OrdinalIgnoreCase)
+                ? Resources.KoreanWon
                 : viewer.CurrencyName;
         }
 
