@@ -10,9 +10,9 @@
     public class WinLossAnalysisChartCriteriaTests
     {
         [Theory]
-        [InlineData(2, "Age_Rpt_WinlossAnalysisChart_Member")]
-        [InlineData(3, "Age_Rpt_WinlossAnalysisChart_Agent")]
-        [InlineData(4, "Age_Rpt_WinlossAnalysisChart_Master")]
+        [InlineData(2, "Age_Chart_WinlossAnalysis_Member")]
+        [InlineData(3, "Age_Chart_WinlossAnalysis_Agent")]
+        [InlineData(4, "Age_Chart_WinlossAnalysis_Master")]
         public void WinLossAnalysisChartCriteria_WithCorrectUserLevel_ReturnsValidSettingKey(byte custLevelId, string expectedSettingKey)
         {
             // Arrange

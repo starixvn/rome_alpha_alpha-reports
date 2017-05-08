@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria.WinLossAnalysisChart
 {
+    using Extensions;
     using Fanex.Data;
     using Models;
     using System;
@@ -25,9 +26,11 @@
 
         public override string GetSettingKey()
             => ReportLevel.IsAgentLevel()
-            ? "Age_Rpt_WinlossAnalysisChart_Member"
+            ? "Age_Chart_WinlossAnalysis_Member"
             : ReportLevel.IsMasterLevel()
-            ? "Age_Rpt_WinlossAnalysisChart_Agent"
-            : "Age_Rpt_WinlossAnalysisChart_Master";
+            ? "Age_Chart_WinlossAnalysis_Agent"
+            : "Age_Chart_WinlossAnalysis_Master";
+
+        public override bool IsValid() => base.IsValid() && ToDate.GetMonthDiff(FromDate) >= 2;
     }
 }

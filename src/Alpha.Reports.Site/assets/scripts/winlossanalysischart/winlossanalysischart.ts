@@ -56,9 +56,8 @@ class WinLossAnalysisChartView extends BaseReport {
     };
 
     cacheDOMElements = () => {
-        this.$pageTitle = this.$(".page-title ");
+        super.cacheElements();
         this.$canvasChart = this.$("#chart-winloss-analysis")
-        this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
         this.$reportForm = this.$("#report-form");
         this.$filterIcon = this.$(".icon-filter");
@@ -73,58 +72,47 @@ class WinLossAnalysisChartView extends BaseReport {
 
         this.monthRangePickerComponent.render();
 
-        if (this.$isFilterVisible.val().toString().toLowerCase() === "false") {
-            this.hideFilter();
+        if (!alphaReports.convertAttributeToBool(this.$isFilterVisible.val())) {
+            this.$pageTitle.addClass("hide-filter");
+            this.$reportForm.addClass("hide");
         }
     };
 
     public registerEvents() {
+        super.registerEvents();
         this.$reportForm.submit(this.onSubmitReportEvent);
-        this.$filterIcon.on("click", this.onFilterEvent);
     };
 
     onSubmitReportEvent = (e: any) => {
         this.$.blockUI();
 
         let params = this.getParams();
+        let isValid = true;
         if (!params.IsAnyProductSelected) {
             this.showValidationProductError();
-            this.$.unblockUI();
-            e.preventDefault();
-
-            return;
+            isValid = false;
         }
 
         if (!params.IsLeast3MonthToChart) {
             this.showValidationMonthRangeError();
+            isValid = false;
+        }
+
+        if (!isValid) {
             this.$.unblockUI();
             e.preventDefault();
 
             return;
         }
-        else {
-            this.hideValidationMonthRangeError();
-        }
 
+        this.hideValidationMonthRangeError();
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
     };
-
-    onFilterEvent = () => this.$reportForm.hasClass("hide") ? this.showFilter() : this.hideFilter();
 
     showValidationProductError = () => this.$multiSelectButton.addClass("error");
 
     showValidationMonthRangeError = () => this.$msgError.removeClass("hide");
     hideValidationMonthRangeError = () => this.$msgError.addClass("hide");
-
-    showFilter = () => {
-        this.$pageTitle.removeClass("hide-filter");
-        this.$reportForm.removeClass("hide");
-    };
-
-    hideFilter = () => {
-        this.$pageTitle.addClass("hide-filter");
-        this.$reportForm.addClass("hide");
-    };
 
     getParams = () => {
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();

@@ -121,7 +121,7 @@ class DualAxisChartComponent {
                 },
                 legend: {
                     display: true,
-                    position: 'bottom'
+                    position: "bottom"
                 },
                 tooltips: {
                     callbacks: {
@@ -134,6 +134,6 @@ class DualAxisChartComponent {
 
     formatTooltipLabel = (tooltipItem: any, data: any) => {
         let datesetLabel = data.datasets[tooltipItem.datasetIndex].label;
-        return datesetLabel + ' = ' + alphaReports.formatNumber(Number(tooltipItem.yLabel)) + " " + this.currencyName;
+        return datesetLabel + " = " + alphaReports.formatNumber(Number(tooltipItem.yLabel)) + " " + this.currencyName;
     };
 }

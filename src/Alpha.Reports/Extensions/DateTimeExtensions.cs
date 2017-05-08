@@ -6,7 +6,6 @@
     {
         private const string ShortDateWithSlash = "MM/dd/yyyy";
         private const string LongDateWithSlash = "MM/dd/yyyy hh:mm:ss tt";
-        private const string ShortMonthAndYear = "MMM-yy";
 
         public static string ToShortDateWithSlash(this DateTime dateTime)
             => dateTime.ToString(ShortDateWithSlash);
@@ -26,8 +25,11 @@
         public static bool IsSameMonthWith(this DateTime dateTime, DateTime otherDateTime)
             => dateTime.Month == otherDateTime.Month && dateTime.Year == otherDateTime.Year;
 
-        public static string ToShortMonthAndYear(this DateTime dateTime)
-            => dateTime.ToString(ShortMonthAndYear);
+        public static bool IsEndOfMonth(this DateTime dateTime)
+            => dateTime.Day == DaysInMonth(dateTime);
+
+        public static int GetMonthDiff(this DateTime dateTime, DateTime otherDateTime)
+            => (dateTime.Month - otherDateTime.Month + 12 * (dateTime.Year - otherDateTime.Year));
 
         private static int DaysInMonth(this DateTime dateTime)
             => DateTime.DaysInMonth(dateTime.Year, dateTime.Month);

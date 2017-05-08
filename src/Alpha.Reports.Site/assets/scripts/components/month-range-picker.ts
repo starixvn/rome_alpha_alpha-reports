@@ -80,5 +80,5 @@ class MonthRangePickerComponent {
 
     getMonthDiff = (fromDate: Date, toDate: Date) => {
         return toDate.getMonth() - fromDate.getMonth() + 12 * (toDate.getFullYear() - fromDate.getFullYear());
-    }
+    };
 }

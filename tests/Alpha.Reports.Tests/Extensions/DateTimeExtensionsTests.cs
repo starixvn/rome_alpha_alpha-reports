@@ -89,24 +89,5 @@
             // Assert
             Assert.Equal(expectedDate, actualDate);
         }
-
-        [Theory]
-        [InlineData(0, 0, 0)]
-        [InlineData(1, 0, 0)]
-        [InlineData(12, 0, 0)]
-        [InlineData(13, 0, 0)]
-        [InlineData(23, 59, 59)]
-        public void ToShortMonthAndYear_Always_ReturnsShortMonthAndYear(int hour, int minute, int second)
-        {
-            // Arrange
-            var dateTime = new DateTime(2016, 11, 24, hour, minute, second);
-            var expectedDay = "Nov-16";
-
-            // Act
-            var actualDay = dateTime.ToShortMonthAndYear();
-
-            // Assert
-            Assert.Equal(expectedDay, actualDay);
-        }
     }
 }

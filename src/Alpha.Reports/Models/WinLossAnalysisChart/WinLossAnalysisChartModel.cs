@@ -1,11 +1,13 @@
 ﻿namespace Alpha.Reports.Models.WinLossAnalysisChart
 {
-    using System;
-
     public class WinLossAnalysisChartModel
     {
+        public WinLossAnalysisChartModel()
+        {
+        }
+
         public WinLossAnalysisChartModel(
-            DateTime winLossDate,
+            string winLossDate,
             decimal turnover,
             decimal winloss)
         {
@@ -14,7 +16,7 @@
             WinLoss = winloss;
         }
 
-        public DateTime WinLossDate { get; }
+        public string WinLossDate { get; }
 
         public decimal Turnover { get; }
 

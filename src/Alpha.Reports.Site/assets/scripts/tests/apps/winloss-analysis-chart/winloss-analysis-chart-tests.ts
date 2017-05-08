@@ -131,64 +131,13 @@
             // arrange
             setFixtures(template.hiddenFilter);
             winLossAnalysisChartView.cacheDOMElements();
-            spyOn(winLossAnalysisChartView, "hideFilter")
 
             // act
             winLossAnalysisChartView.bindFilter();
 
-            // arrange
-            expect(winLossAnalysisChartView.hideFilter).toHaveBeenCalled();
-        });
-    });
-
-    describe("_onFilterEvent", () => {
-        beforeEach(() => {
-            // arrange
-            winLossAnalysisChartView.cacheDOMElements();
-
-            spyOn(winLossAnalysisChartView, "hideFilter");
-            spyOn(winLossAnalysisChartView, "showFilter");
-
-            // act
-            winLossAnalysisChartView.onFilterEvent();
-        });
-
-        it("_Filter is currently shown_Hides Filter", () => {
-            // assert
-            expect(winLossAnalysisChartView.hideFilter).toHaveBeenCalled();
-        });
-        it("_Filter is currently hidden_Hides Filter", () => {
-            // assert
-            expect(winLossAnalysisChartView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
-            expect(winLossAnalysisChartView.$reportForm.hasClass("hide")).toBeFalsy();
-        });
-    });
-
-    describe("_hideFilter", () => {
-        it("_Always -> Add hide class and hide filter", () => {
-            // arrange
-            winLossAnalysisChartView.cacheDOMElements();
-
-            // act
-            winLossAnalysisChartView.hideFilter();
-
             // assert
             expect(winLossAnalysisChartView.$pageTitle.hasClass("hide-filter")).toBeTruthy();
             expect(winLossAnalysisChartView.$reportForm.hasClass("hide")).toBeTruthy();
-        });
-    });
-
-    describe("_showFilter", () => {
-        it("_Always -> Remove hide class and show filter", () => {
-            // arrange
-            winLossAnalysisChartView.cacheDOMElements();
-
-            // act
-            winLossAnalysisChartView.showFilter();
-
-            // assert
-            expect(winLossAnalysisChartView.$pageTitle.hasClass("hide-filter")).toBeFalsy();
-            expect(winLossAnalysisChartView.$reportForm.hasClass("hide")).toBeFalsy();
         });
     });
 

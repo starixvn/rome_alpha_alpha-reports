@@ -78,8 +78,8 @@
             var reportData = Enumerable.Empty<WinLossAnalysisChartModel>();
             var param = new WinLossAnalysisChartParam(
                 0,
-                SystemTime.Today.AddMonths(-2).FirstDayOfMonth(),
-                SystemTime.Today.LastDayOfMonth(),
+                SystemTime.Today.AddMonths(-3).FirstDayOfMonth(),
+                SystemTime.Today.AddMonths(-1).LastDayOfMonth(),
                 Enumerable.Empty<int>(),
                 message.CustLevel);
 

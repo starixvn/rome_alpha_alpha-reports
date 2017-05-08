@@ -17,8 +17,17 @@
 
         public WinLossAnalysisChartQuery(IUser viewer) : base(viewer)
         {
-            FromDate = SystemTime.Today.AddMonths(-2).FirstDayOfMonth();
-            ToDate = SystemTime.Today;
+            if (SystemTime.Today.IsEndOfMonth())
+            {
+                FromDate = SystemTime.Today.AddMonths(-2).FirstDayOfMonth();
+                ToDate = SystemTime.Today;
+            }
+            else
+            {
+                FromDate = SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
+                ToDate = SystemTime.Today.AddMonths(-1).LastDayOfMonth();
+            }
+
             CurrencyName = string.Equals(viewer.Language, LanguageCode.Korean, StringComparison.OrdinalIgnoreCase)
                 && string.Equals(viewer.CurrencyName, WonInEnglish, StringComparison.OrdinalIgnoreCase)
                 ? WonInKorean
