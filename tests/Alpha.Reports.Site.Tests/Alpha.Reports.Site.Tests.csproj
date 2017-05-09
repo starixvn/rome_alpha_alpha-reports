@@ -252,6 +252,7 @@
     <Compile Include="Requests\LeaguesByCustomerQueryTests.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailQueryTests.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQueryTests.cs" />
+    <Compile Include="Requests\WinLossAnalysisChart\WinLossAnalysisChartQueryTests.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\MatchWinLossDetailTestCases.cs" />
     <Compile Include="TestCases\WinLossAnalysisViewModelTestCases.cs" />

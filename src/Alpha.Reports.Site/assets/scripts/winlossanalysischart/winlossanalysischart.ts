@@ -6,15 +6,10 @@
 "use strict";
 
 class WinLossAnalysisChartView extends BaseReport {
-    $: JQueryStatic;
-    $pageTitle: JQuery;
     $canvasChart: JQuery;
 
     $multiSelectButton: JQuery;
-    $isFilterVisible: JQuery;
-    $reportForm: JQuery;
     $userSelectedDateRangeOption: JQuery;
-    $filterIcon: JQuery;
     $submitButton: JQuery;
     $fromDate: JQuery;
     $toDate: JQuery;
@@ -23,7 +18,6 @@ class WinLossAnalysisChartView extends BaseReport {
     monthRangePickerComponent: MonthRangePickerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     reportTooltip: ReportTooltip;
-    linkBuilderComponent: LinkBuilderComponent;
     dualAxisChartComponent: DualAxisChartComponent;
 
     constructor(
@@ -59,8 +53,6 @@ class WinLossAnalysisChartView extends BaseReport {
         super.cacheElements();
         this.$canvasChart = this.$("#chart-winloss-analysis");
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
-        this.$reportForm = this.$("#report-form");
-        this.$filterIcon = this.$(".icon-filter");
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
         this.$msgError = this.$("#msg-error");
@@ -71,11 +63,6 @@ class WinLossAnalysisChartView extends BaseReport {
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
         this.monthRangePickerComponent.render();
-
-        if (!alphaReports.convertAttributeToBool(this.$isFilterVisible.val())) {
-            this.$pageTitle.addClass("hide-filter");
-            this.$reportForm.addClass("hide");
-        }
     };
 
     public registerEvents() {

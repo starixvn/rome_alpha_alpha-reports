@@ -1,12 +1,10 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Components
 {
-    using System.Collections.Generic;
-
     public class DualAxisChartViewModel
     {
         public DualAxisChartViewModel(
             string title,
-            IEnumerable<string> labels,
+            string labels,
             string firstDataLabel,
             string secondDataLabel,
             string firstData,
@@ -24,7 +22,7 @@
 
         public string Title { get; }
 
-        public IEnumerable<string> Labels { get; }
+        public string Labels { get; }
 
         public string FirstDataLabel { get; }
 

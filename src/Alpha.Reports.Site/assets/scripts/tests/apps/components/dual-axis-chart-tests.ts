@@ -36,14 +36,6 @@
             // arrange
             setFixtures(template.dualAxisChart);
             spyOn(chart, "Bar");
-            let chartStyles = {
-                barColor: "#418cf0",
-                lineColor: "#fcb441",
-                textColor: "#000",
-                fontFamily: "Trebuchet MS",
-                defaultFontSize: 12,
-                defaultFontStyle: "bold"
-            };
 
             let chartContainer: any = this.$("#winloss-chart");
             let chartContext = chartContainer[0].getContext("2d");
@@ -53,8 +45,8 @@
                 datasets: [{
                     label: "Agent Win Loss",
                     type: "line",
-                    borderColor: chartStyles.lineColor,
-                    backgroundColor: chartStyles.lineColor,
+                    borderColor: "#fcb441",
+                    backgroundColor: "#fcb441",
                     fill: false,
                     lineTension: 0,
                     data: ["1214.29", "-2257.96", "1944.90", "-1065.65"],
@@ -62,8 +54,8 @@
                 }, {
                     label: "Turnover",
                     type: "bar",
-                    borderColor: chartStyles.barColor,
-                    backgroundColor: chartStyles.barColor,
+                    borderColor: "#418cf0",
+                    backgroundColor: "#418cf0",
                     fill: false,
                     data: ["58630", "63840", "236403.50", "260958.70"],
                     yAxisID: "y-axis-2"

@@ -34,11 +34,11 @@
                 return string.Empty;
             }
 
-            var splitedInts = value
+            var splitInts = value
                 .Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(str => Convert.ToInt32(str)).ToList();
 
-            var dateTime = new DateTime(splitedInts[0], splitedInts[1], 1);
+            var dateTime = new DateTime(splitInts[0], splitInts[1], 1);
 
             return dateTime.ToString(ShortMonthNameAndShortYear);
         }

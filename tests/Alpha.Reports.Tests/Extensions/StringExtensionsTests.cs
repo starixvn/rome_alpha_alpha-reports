@@ -72,7 +72,7 @@
         }
 
         [Fact]
-        public void IsNullOrBlank_WhiteSpacenput_ReturnTrue()
+        public void IsNullOrBlank_WhiteSpaceInput_ReturnTrue()
         {
             // Arrange
             string input = "   ";
@@ -82,6 +82,45 @@
 
             // Assert
             Assert.Equal(expected, true);
+        }
+
+        [Fact]
+        public void ToShortMonthNameAndShortYear_ValueIsNull_ReturnEmpty()
+        {
+            // Arrange
+            string value = null;
+
+            // Act
+            var expected = value.ToShortMonthNameAndShortYear();
+
+            // Assert
+            Assert.Empty(expected);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("  ")]
+        public void ToShortMonthNameAndShortYear_ValueIsEmptyOrWhiteSpace_ReturnEmpty(string value)
+        {
+            // Act
+            var expected = value.ToShortMonthNameAndShortYear();
+
+            // Assert
+            Assert.Empty(expected);
+        }
+
+        [Fact]
+        public void ToShortMonthNameAndShortYear_ValueIsNotEmptyOrWhiteSpace_ReturnShortMonthNameAndShortYear()
+        {
+            // Arrange
+            var value = "2017-03";
+            var expectedValue = "Mar-17";
+
+            // Act
+            var actualValue = value.ToShortMonthNameAndShortYear();
+
+            // Assert
+            Assert.Equal(expectedValue, actualValue);
         }
     }
 }

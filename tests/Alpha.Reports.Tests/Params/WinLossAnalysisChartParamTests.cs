@@ -76,7 +76,7 @@
         }
 
         [Fact]
-        public void ToDate_SupportToDate_ReturnsSuportedDate()
+        public void ToDate_SupportCurrentDate_ReturnsSuportedDate()
         {
             // Arrange
             var toDate = DefaultVariables.CurrentDate;
@@ -91,7 +91,7 @@
         }
 
         [Fact]
-        public void Todate_SupportToDate_ReturnsLastDayOfToDateMonth()
+        public void Todate_SupportNotCurrentDate_ReturnsLastDayOfToDateMonth()
         {
             // Arrange
             var toDate = DefaultVariables.CurrentDate.AddMonths(-1);

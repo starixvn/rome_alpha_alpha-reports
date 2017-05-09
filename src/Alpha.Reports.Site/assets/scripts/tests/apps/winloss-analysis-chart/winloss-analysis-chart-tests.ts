@@ -21,9 +21,9 @@
                                             <button class="multiselect btn"></button>
                                         </div>
                                         <div id="from-monthpicker"
-                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
+                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr']"></div>
                                         <div id="to-monthpicker"
-                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
+                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr']"></div>
                                         <div id="from-date"></div>
                                         <div id="to-date"></div>
                                         <div class="icon-filter"></div>
@@ -44,9 +44,9 @@
                                             <button class="multiselect btn"></button>
                                         </div>
                                         <div id="from-monthpicker"
-                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
+                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr']"></div>
                                         <div id="to-monthpicker"
-                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']"></div>
+                                            data-longmonths-inyear="['Jan','Feb','Mar','Apr']"></div>
                                         <div id="from-date"></div>
                                         <div id="to-date"></div>
                                         <div class="icon-filter"></div>
@@ -123,25 +123,9 @@
             expect(winLossAnalysisChartView.$canvasChart).toBeDefined();
             expect(winLossAnalysisChartView.$isFilterVisible).toBeDefined();
             expect(winLossAnalysisChartView.$reportForm).toBeDefined();
-            expect(winLossAnalysisChartView.$filterIcon).toBeDefined();
             expect(winLossAnalysisChartView.$fromDate).toBeDefined();
             expect(winLossAnalysisChartView.$toDate).toBeDefined();
             expect(winLossAnalysisChartView.$msgError).toBeDefined();
-        });
-    });
-
-    describe("_bindFilter", () => {
-        it("_should hide filter -> Hide filter", () => {
-            // arrange
-            setFixtures(template.hiddenFilter);
-            winLossAnalysisChartView.cacheDOMElements();
-
-            // act
-            winLossAnalysisChartView.bindFilter();
-
-            // assert
-            expect(winLossAnalysisChartView.$pageTitle.hasClass("hide-filter")).toBeTruthy();
-            expect(winLossAnalysisChartView.$reportForm.hasClass("hide")).toBeTruthy();
         });
     });
 
