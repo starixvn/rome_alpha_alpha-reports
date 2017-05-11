@@ -4,7 +4,7 @@
 
     public class Product
     {
-        public Product(int id, string name, DateTime? endOfSupportDate)
+        public Product(int id, string name, DateTime? endOfSupportDate = null)
         {
             Id = id;
             Name = name;
