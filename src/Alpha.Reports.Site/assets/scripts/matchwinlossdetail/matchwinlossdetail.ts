@@ -71,7 +71,7 @@ class MatchWinLossDetailView {
         this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
         this.$userSelectedLeagueIds = this.$("#league-ids");
-        if (!this.$buttonLoadLeague.hasClass("hide") &&
+        if (this.$buttonLoadLeague.hasClass("hide") &&
             (this.$userSelectedLeagueIds.val() !== "" ||
                 alphaReports.convertAttributeToBool(this.$isUserSelectsAllLeagues.val()))) {
             this.leagueMultiSelectionComponent.render();
