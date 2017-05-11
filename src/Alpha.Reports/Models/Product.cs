@@ -4,7 +4,11 @@
 
     public class Product
     {
-        public Product(int id, string name, DateTime? endOfSupportDate = null)
+        public Product(int id, string name) : this(id, name, null)
+        {
+        }
+
+        public Product(int id, string name, DateTime? endOfSupportDate)
         {
             Id = id;
             Name = name;
