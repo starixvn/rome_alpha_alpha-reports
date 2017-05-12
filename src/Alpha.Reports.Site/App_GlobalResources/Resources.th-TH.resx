@@ -251,7 +251,7 @@
     <value>ไม่มีข้อมูล</value>
   </data>
   <data name="TurnoverAbbr" xml:space="preserve">
-    <value>เงินหมุนเวียน/เงินหมุนเวียน</value>
+    <value>เงินหมุนเวียน</value>
   </data>
   <data name="NetTurnoverAndGrossComm" xml:space="preserve">
     <value>/เงินหมุนเวียน (ไม่รวมยอดเสมอ)/ยอดรวมของคอมมิชชั่น</value>
