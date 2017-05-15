@@ -385,7 +385,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FT.
+        ///   Looks up a localized string similar to FT..
         /// </summary>
         public static string FT {
             get {
