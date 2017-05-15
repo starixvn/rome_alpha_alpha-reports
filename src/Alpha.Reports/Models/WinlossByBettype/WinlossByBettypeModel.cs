@@ -11,7 +11,7 @@
             string betTypeName,
             int productId,
             bool liveIndicator,
-            int betCount,
+            int? betCount,
             decimal grossComm,
             decimal turnover,
             NetWinLoss memberNetWinLoss,
@@ -41,7 +41,7 @@
 
         public bool LiveIndicator { get; }
 
-        public int BetCount { get; private set; }
+        public int? BetCount { get; private set; }
 
         public decimal Turnover { get; private set; }
 
@@ -77,7 +77,8 @@
                 return this;
             }
 
-            BetCount += winlossByBetType.BetCount;
+            BetCount = (BetCount.HasValue ? BetCount.Value : 0) +
+                (winlossByBetType.BetCount.HasValue ? winlossByBetType.BetCount.Value : 0);
             GrossComm += winlossByBetType.GrossComm;
             Turnover += winlossByBetType.Turnover;
             Company += winlossByBetType.Company;

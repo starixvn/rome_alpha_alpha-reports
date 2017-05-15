@@ -379,9 +379,6 @@
   <data name="Outright" xml:space="preserve">
     <value>ทายผลผู้ชนะ</value>
   </data>
-  <data name="BetType_Duplicate[1]" xml:space="preserve">
-    <value>ประเภทการเดิมพัน</value>
-  </data>
   <data name="CasinoWinLoss" xml:space="preserve">
     <value>ยอดได้เสียของคาสิโน</value>
   </data>

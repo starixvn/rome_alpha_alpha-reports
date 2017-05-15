@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Constants;
     using Criteria.WinLossByProductCriteria;
     using Fanex.Common.Extensions;
     using Models;
@@ -60,7 +61,7 @@
                  betTypeName: cacheRefService.GetBetTypeName(bettypeId),
                  productId: reader.ToInt("ProductID"),
                  liveIndicator: reader.ToString("liveindicator") == "1",
-                 betCount: reader.ToInt("NumberOfTickets"),
+                 betCount: bettypeId == BetTypeIdConstants.ChargeCommission ? (int?)null : reader.ToInt("NumberOfTickets"),
                  turnover: reader.ToDecimal("TurnOver"),
                  grossComm: reader.ToDecimal("GrossComm"),
                  memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,

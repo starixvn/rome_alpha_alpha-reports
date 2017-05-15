@@ -385,7 +385,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FT..
+        ///   Looks up a localized string similar to FT.
         /// </summary>
         public static string FT {
             get {
@@ -1047,6 +1047,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SuperTotal {
             get {
                 return ResourceManager.GetString("SuperTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to --.
+        /// </summary>
+        public static string Symbol_NoDataNumber {
+            get {
+                return ResourceManager.GetString("Symbol_NoDataNumber", resourceCulture);
             }
         }
         

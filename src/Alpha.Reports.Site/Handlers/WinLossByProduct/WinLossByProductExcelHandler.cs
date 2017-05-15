@@ -66,7 +66,7 @@
         {
             var mapper = new Mapper<WinLossByBetTypeModel>()
                 .Map(A, data => isTotal ? Resources.Total : BuildDisplayedBetTypeName(data.ProductId, (BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator))
-                .Map(B, data => data.BetCount)
+                .Map(B, data => data.BetCount.HasValue ? (object)data.BetCount.Value : Resources.Symbol_NoDataNumber)
                 .Map(C, data => data.Turnover)
                 .Map(D, data => data.GrossComm);
 

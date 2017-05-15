@@ -378,9 +378,6 @@
   <data name="Outright" xml:space="preserve">
     <value>優勝冠軍</value>
   </data>
-  <data name="BetType_Duplicate[1]" xml:space="preserve">
-    <value>投注類別</value>
-  </data>
   <data name="CasinoWinLoss" xml:space="preserve">
     <value>賭場輸贏</value>
   </data>
