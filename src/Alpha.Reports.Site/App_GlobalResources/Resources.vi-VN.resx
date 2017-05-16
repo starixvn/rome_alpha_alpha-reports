@@ -478,4 +478,7 @@
   <data name="Least3MonthToChart" xml:space="preserve">
     <value>Vui lòng chọn mốc thời gian ít nhất là 3 tháng để lập biểu đồ</value>
   </data>
+  <data name="Month" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
 </root>

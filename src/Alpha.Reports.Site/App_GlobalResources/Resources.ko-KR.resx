@@ -444,4 +444,7 @@
   <data name="KoreanWon" xml:space="preserve">
     <value>원</value>
   </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
 </root>

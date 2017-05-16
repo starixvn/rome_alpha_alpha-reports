@@ -7,6 +7,7 @@
     public static class StringExtensions
     {
         private const string ShortMonthNameAndShortYear = "MMM-yy";
+        private const string ShortMonthNameAndYear = "MMM-yyyy";
 
         public static List<int> ToListInt(this string delimitedString)
         {
@@ -34,13 +35,31 @@
                 return string.Empty;
             }
 
+            var dateTime = value.ToDateTime();
+
+            return dateTime.ToString(ShortMonthNameAndShortYear);
+        }
+
+        public static string ToShortMonthNameAndYear(this string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return string.Empty;
+            }
+
+            var dateTime = value.ToDateTime();
+
+            return dateTime.ToString(ShortMonthNameAndYear);
+        }
+
+        private static DateTime ToDateTime(this string value)
+        {
             var splitInts = value
                 .Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(str => Convert.ToInt32(str)).ToList();
 
             var dateTime = new DateTime(splitInts[0], splitInts[1], 1);
-
-            return dateTime.ToString(ShortMonthNameAndShortYear);
+            return dateTime;
         }
     }
 }

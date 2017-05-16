@@ -510,4 +510,7 @@
   <data name="Least3MonthToChart" xml:space="preserve">
     <value>请选择至少3个月的数据以查看图表</value>
   </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
 </root>

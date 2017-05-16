@@ -1,4 +1,6 @@
-﻿@model WinLossAnalysisChartViewModel
+﻿@using Alpha.Reports.Extensions;
+
+@model WinLossAnalysisChartViewModel
 
 @{
     ViewBag.Title = "Win Loss Analysis Chart Report";
@@ -30,13 +32,47 @@
 
     @RenderHiddenFields()
 </form>
-
-<div class="chart-container">
-    @DualAxisChart.Render(Model.DualAxisChartViewModel)
+<div class="container-fluid">
+    <div class="row report-content">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9 pull-right">
+            <div class="chart-container">
+                @DualAxisChart.Render(Model.DualAxisChartViewModel)
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 pull-left table-container">
+            <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover" id="tbl-report">
+                <thead>
+                    <tr>
+                        <th>@Resources.Month</th>
+                        <th>@Model.DualAxisChartViewModel.FirstDataLabel</th>
+                        <th>@Model.DualAxisChartViewModel.SecondDataLabel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ReportData.Any())
+                    {
+                        foreach (var data in Model.ReportData)
+                        {
+                            <tr>
+                                <td>@data.WinLossDate.ToShortMonthNameAndYear()</td>
+                                <td>@data.WinLoss.ToString($"#,##0.00")</td>
+                                <td>@data.Turnover.ToString($"#,##0.00")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        @NoInformation.Render(3)
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
 @section Scripts {
+    @StaticResources.AssetScripts.Render("/bundles/site-reports/winloss-analysis-chart")
     @StaticResources.RenderScripts("~/assets/bundles/winlossanalysischart/winlossanalysischart")
 }
 @helper RenderHiddenFields()

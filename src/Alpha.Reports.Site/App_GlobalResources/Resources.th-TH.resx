@@ -512,4 +512,7 @@
   <data name="Least3MonthToChart" xml:space="preserve">
     <value>กรุณาเลือกอย่างน้อย 3 เดือนในกราฟแผนภูมิ</value>
   </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
 </root>

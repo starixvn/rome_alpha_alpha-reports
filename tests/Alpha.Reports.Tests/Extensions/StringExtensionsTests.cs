@@ -122,5 +122,44 @@
             // Assert
             Assert.Equal(expectedValue, actualValue);
         }
+
+        [Fact]
+        public void ToShortMonthNameAndYear_ValueIsNull_ReturnEmpty()
+        {
+            // Arrange
+            string value = null;
+
+            // Act
+            var expected = value.ToShortMonthNameAndYear();
+
+            // Assert
+            Assert.Empty(expected);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("  ")]
+        public void ToShortMonthNameAndYear_ValueIsEmptyOrWhiteSpace_ReturnEmpty(string value)
+        {
+            // Act
+            var expected = value.ToShortMonthNameAndYear();
+
+            // Assert
+            Assert.Empty(expected);
+        }
+
+        [Fact]
+        public void ToShortMonthNameAndYear_ValueIsNotEmptyOrWhiteSpace_ReturnShortMonthNameAndShortYear()
+        {
+            // Arrange
+            var value = "2017-03";
+            var expectedValue = "Mar-2017";
+
+            // Act
+            var actualValue = value.ToShortMonthNameAndYear();
+
+            // Assert
+            Assert.Equal(expectedValue, actualValue);
+        }
     }
 }

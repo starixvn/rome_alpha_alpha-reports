@@ -400,6 +400,10 @@ a {
     box-shadow: 5px 5px $chart-shadow-color;
 }
 
+.report-content {
+    padding-top: 12px;
+}
+
 // For mobile
 @media only screen and (max-device-width : $screen-device-greater1024) {
     .page-title .list-icon {
@@ -475,6 +479,10 @@ a {
         &.bottom {
             padding-bottom: 0;
         }
+    }
+
+    .table-container {
+        padding-top: 20px;
     }
 }
 
