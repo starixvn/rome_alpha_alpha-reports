@@ -192,9 +192,13 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>勝ち負け</value>
   </data>
+  <data name="CommissionByBettype" xml:space="preserve">
+		<value>Commission By Bet Type</value>
+	</data>
   <data name="Next" xml:space="preserve">
     <value>次へ</value>
   </data>
+
   <data name="Match" xml:space="preserve">
     <value>試合</value>
   </data>
@@ -216,19 +220,59 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>マスター未払い残高</value>
   </data>
+  <data name="RacingCommission" xml:space="preserve">
+		<value>Racing Commission</value>
+	</data>
   <data name="Status" xml:space="preserve">
     <value>状態</value>
   </data>
-  <data name="SelectLeague" xml:space="preserve">
+  <data name="Tote" xml:space="preserve">
+		<value>Tote</value>
+	</data>
+	  <data name="SelectLeague" xml:space="preserve">
     <value>リーグ選択</value>
   </data>
   <data name="AllLeagues" xml:space="preserve">
     <value>すべてのリーグ</value>
   </data>
-  <data name="Sport" xml:space="preserve">
+ <data name="Sport" xml:space="preserve">
     <value>スポーツ</value>
   </data>
   <data name="MemberWinLoss" xml:space="preserve">
     <value>メンバー勝ち負け</value>
+</data>
+
+  <data name="Win" xml:space="preserve">
+		<value>Win</value>
+	</data>
+  <data name="Place" xml:space="preserve">
+		<value>Place</value>
+	</data>
+  <data name="WinPlace" xml:space="preserve">
+		<value>Win Place</value>
+	</data>
+  <data name="Commission" xml:space="preserve">
+		<value>手数料</value>
+	</data>
+  <data name="Gaming" xml:space="preserve">
+		<value>Gaming</value>
+	</data>
+  <data name="ChargeComm" xml:space="preserve">
+		<value>ChargeComm</value>
+	</data>
+  <data name="SymbolMyanmarOdds" xml:space="preserve">
+		<value>% Odds</value>
+	</data>
+  <data name="Others" xml:space="preserve">
+		<value>Others</value>
+	</data>
+  <data name="Commission1" xml:space="preserve">
+    <value>手数料 1</value>
+  </data>
+  <data name="Commission2" xml:space="preserve">
+    <value>手数料 2</value>
+  </data>
+  <data name="Commission3" xml:space="preserve">
+    <value>手数料 3</value>
   </data>
 </root>

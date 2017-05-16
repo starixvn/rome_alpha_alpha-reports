@@ -334,9 +334,13 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>ชนะ แพ้</value>
   </data>
-  <data name="NumberGameNo" xml:space="preserve">
+  <data name="CommissionByBettype" xml:space="preserve">
+		<value>คอมมิชั่นจากประเภทพนัน</value>
+	</data>
+	 <data name="NumberGameNo" xml:space="preserve">
     <value>เกมหมายเลข เลขที่</value>
   </data>
+
   <data name="Next" xml:space="preserve">
     <value>ต่อไป</value>
   </data>
@@ -358,7 +362,7 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>การเดิมพันที่ยังไม่สิ้นสุดของ Master</value>
   </data>
-  <data name="Status" xml:space="preserve">
+   <data name="Status" xml:space="preserve">
     <value>สถานะ</value>
   </data>
   <data name="All" xml:space="preserve">
@@ -367,7 +371,41 @@
   <data name="Disabled" xml:space="preserve">
     <value>ปิดการใช้งาน</value>
   </data>
-  <data name="Match" xml:space="preserve">
+
+  <data name="RacingCommission" xml:space="preserve">
+		<value>คอมมิสชั่นการแข่งขันม้า</value>
+	</data>
+  <data name="Tote" xml:space="preserve">
+		<value>ยอดรวม</value>
+	</data>
+  <data name="Win" xml:space="preserve">
+		<value>ชนะ</value>
+	</data>
+  <data name="Place" xml:space="preserve">
+		<value>วาง</value>
+	</data>
+  <data name="WinPlace" xml:space="preserve">
+		<value>ชนะ / ตำแหน่ง</value>
+	</data>
+  <data name="Commission" xml:space="preserve">
+		<value>คอมมิชชั่น</value>
+	</data>
+  <data name="Gaming" xml:space="preserve">
+		<value>Gaming</value>
+	</data>
+  <data name="ChargeComm" xml:space="preserve">
+		<value>ค่าธรรมเนียม คอมมิชชั่น</value>
+	</data>
+  <data name="SymbolMyanmarOdds" xml:space="preserve">
+		<value>% Odds</value>
+	</data>
+  <data name="Others" xml:space="preserve">
+		<value>อื่นๆ</value>
+	</data>
+  <data name="Commission1" xml:space="preserve">
+    <value>คอมมิชชั่น 1</value>
+  </data>
+   <data name="Match" xml:space="preserve">
     <value>การแข่งขัน</value>
   </data>
   <data name="PositionTaking" xml:space="preserve">
@@ -421,10 +459,18 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>ลีคทั้งหมด</value>
   </data>
-  <data name="GrandTotal" xml:space="preserve">
+
+  <data name="Commission2" xml:space="preserve">
+    <value>คอมมิชชั่น 2</value>
+  </data>
+   <data name="GrandTotal" xml:space="preserve">
     <value>รวมทั้งสิ้น</value>
   </data>
-  <data name="DelayIssueLegend" xml:space="preserve">
+
+  <data name="Commission3" xml:space="preserve">
+    <value>คอมมิชชั่น 3</value>
+  </data>
+   <data name="DelayIssueLegend" xml:space="preserve">
     <value>- ข้อมูล {0} จะล่าช้าไม่เกิน 5 นาทีหลังจากเคลียร์ตั๋ว</value>
   </data>
   <data name="MasterPlayForFunDetail" xml:space="preserve">
@@ -460,4 +506,5 @@
   <data name="Enabled" xml:space="preserve">
     <value>เปิดการใช้งาน</value>
   </data>
+
 </root>

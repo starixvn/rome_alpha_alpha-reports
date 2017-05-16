@@ -279,7 +279,7 @@ a {
     @include ripple-effect-icon($margin-left: 2px, $height: 36px, $width: 36px, $top: -2px);
 }
 
-@media only screen and (max-device-width: 767px) and (orientation: portrait) {    
+@media only screen and (max-device-width: 767px) and (orientation: portrait) {
     #icon-information {
         position: relative;
         top: 10px;
@@ -334,7 +334,7 @@ a {
 
         @media only screen and (max-device-width : 767px) and (orientation: landscape) {
             width: 70%;
-        }        
+        }
 
         .modal-body {
             padding-bottom: 0;
@@ -493,13 +493,13 @@ a {
     }
 }
 
-#tbl-enteredresult-report, .tbl-outstanding {
+#tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
     @extend #tbl-report;
     width: 60%;
 }
 
 @media only screen and (max-device-width : $screen-device-lower768) {
-    #tbl-enteredresult-report {
+    #tbl-enteredresult-report, .tbl-small-width {
         width: 100%;
     }
 

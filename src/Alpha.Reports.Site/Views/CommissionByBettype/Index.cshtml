@@ -1,0 +1,101 @@
+﻿@using Alpha.Reports.Models.CommissionByBettype
+@using Alpha.Reports.Site.ViewModels.CommissionByBettype
+@model CommissionByBettypeViewModel
+@{
+    ViewBag.Title = "Commission By Bet Type Report";
+    var sortIndex = 4;
+}
+
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.CommissionByBettypeFilter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
+
+@Html.Partial("_CommissionByBettypeFilter", Model.CommissionByBettypeFilter,
+    new ViewDataDictionary
+    {
+        { "IsDescendingSort", Model.IsDescendingSort },
+        { "SortPropertyName", Model.SortPropertyName }
+    })
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover width-100per tablesorter tbl-small-width" id="tbl-report"
+       data-totalrecords="@Model.CommissionByBettypes.Count()"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
+    <thead class="tableFloatingHeaderOriginal">
+        <tr>
+            <th class="sorting" data-colindex="0" data-sortedname="@CommissionByBettypeViewModel.SortByCustName">@Resources.Username</th>
+            <th class="sorting" data-colindex="1" data-sortedname="@CommissionByBettypeViewModel.SortByComm1">@Resources.Commission1</th>
+            <th class="sorting" data-colindex="2" data-sortedname="@CommissionByBettypeViewModel.SortByComm2">@Resources.Commission2</th>
+            <th class="sorting" data-colindex="3" data-sortedname="@CommissionByBettypeViewModel.SortByComm3">@Resources.Commission3</th>
+            @if (Model.ShowChargeCommColumn)
+            {
+                <th class="sorting" data-colindex="@sortIndex++" data-sortedname="@CommissionByBettypeViewModel.SortByChargeComm">@Resources.ChargeComm</th>
+            }
+            @if (Model.ShowMyanmarOddsColumn)
+            {
+                <th class="sorting" data-colindex="@sortIndex++" data-sortedname="@CommissionByBettypeViewModel.SortByMyanmarOddsComm">@Resources.SymbolMyanmarOdds</th>
+            }
+            <th class="sorting" data-colindex="@sortIndex" data-sortedname="@CommissionByBettypeViewModel.SortByCasinoComm">@Resources.Gaming</th>
+        </tr>
+    </thead>
+    @if (Model.CommissionByBettypes.Any())
+    {
+        <tbody>
+            @foreach (var commission in Model.CommissionByBettypes.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+                {
+                <tr>
+                    @if (Model.CustLevel.IsAgentLevel())
+                    {
+                        <td class="text-left">
+                            @commission.CustName
+                        </td>
+                    }
+                    else
+                    {
+                        <td data-islink="true" class="text-left">
+                            <a class="downline-link" href="@Model.BuildDrillDownLink(commission, Request.Url.Query)">@commission.CustName</a>
+                        </td>
+                    }
+                    @RenderCellValue(commission)
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="tbl-footer">
+                <td class="text-left">@Resources.Total</td>
+                @RenderCellValue(Model.Total)
+            </tr>
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(Model.GetNumCols())
+    }
+</table>
+
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", "CommissionByBettype")">
+    <input type="hidden" name="CustId" value="@Model.Query.CustId" />
+    <input type="hidden" name="CustName" value="@Model.Query.CustName" />
+    <input type="hidden" name="CustLevelId" value="@Model.Query.CustLevel.Value" />
+    <input type="hidden" name="FromDate" value="@Model.Query.FromDate" />
+    <input type="hidden" name="ToDate" value="@Model.Query.ToDate" />
+</form>
+@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+
+@helper RenderCellValue(CommissionByBettypeModel commission)
+{
+    <td>@HtmlHelpers.FormatNumber(commission.Comm1)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.Comm2)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.Comm3)</td>
+if (Model.ShowChargeCommColumn)
+{
+        <td>@HtmlHelpers.FormatNumber(commission.ChargeComm)</td>
+}
+if (Model.ShowMyanmarOddsColumn)
+{
+        <td>@HtmlHelpers.FormatNumber(commission.MyanmarOddsComm)</td>
+}
+    <td>@HtmlHelpers.FormatNumber(commission.CasinoComm)</td>
+}
+
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/commissionbybettype/commissionbybettype")
+}

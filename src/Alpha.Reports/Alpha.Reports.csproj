@@ -72,6 +72,10 @@
       <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.2.4\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -88,6 +92,7 @@
     <Compile Include="Constants\BetTypeIdConstants.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\ProductIdConstants.cs" />
+    <Compile Include="Criteria\CommissionByBettype\CommissionByBettypeCriteria.cs" />
     <Compile Include="Constants\StatusIdConstants.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
     <Compile Include="Criteria\GetLeaguesByCustomerCriteria.cs" />
@@ -97,6 +102,7 @@
     <Compile Include="Criteria\Outstanding\OutstandingCriteria.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
+    <Compile Include="Criteria\RacingCommission\RacingCommissionCriteria.cs" />
     <Compile Include="Criteria\PlayForFun\PlayForFunCriteria.cs" />
     <Compile Include="Criteria\PlayForFun\MemberPlayForFunCriteria.cs" />
     <Compile Include="Criteria\PlayForFun\MasterOrAgentPlayForFunCriteria.cs" />
@@ -120,6 +126,7 @@
     <Compile Include="Helpers\BetTypeHelper.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
+    <Compile Include="Models\CommissionByBettype\CommissionByBettypeModel.cs" />
     <Compile Include="Models\CustInfo.cs" />
     <Compile Include="Models\NetWinLoss.cs" />
     <Compile Include="Models\PagedReportData.cs" />
@@ -133,6 +140,7 @@
     <Compile Include="Models\PlayForFun\PlayForFunProduct.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductsByRefTable.cs" />
+    <Compile Include="Models\RacingCommission\RacingCommissionModel.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />
     <Compile Include="Models\StatusModel.cs" />
@@ -146,7 +154,9 @@
     <Compile Include="Params\MatchWinLossParam.cs" />
     <Compile Include="Params\OutstandingParam.cs" />
     <Compile Include="Params\GetLeaguesByCustomerParam.cs" />
+    <Compile Include="Params\CommissionByBettypeParam.cs" />
     <Compile Include="Params\PlayForFunParam.cs" />
+    <Compile Include="Params\RacingCommissionParam.cs" />
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
     <Compile Include="Params\ProductByCustomerParam.cs" />
     <Compile Include="Params\MatchWinLossDetailParam.cs" />
@@ -156,11 +166,14 @@
     <Compile Include="Params\WinLossParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\LeagueService.cs" />
+    <Compile Include="Services\CommissionByBettypeService.cs" />
     <Compile Include="Services\PlayForFunService.cs" />
     <Compile Include="Services\MatchWinLossDetailService.cs" />
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\MatchWinLossService.cs" />
+    <Compile Include="Services\RacingCommissionService.cs" />
     <Compile Include="Services\WinLossAnalysisService.cs" />
+    <Compile Include="Services\UserPermissionService.cs" />
     <Compile Include="Services\WinLossService.cs" />
     <Compile Include="Services\OutstandingService.cs" />
     <Compile Include="Services\ProductService.cs" />

@@ -81,7 +81,28 @@
     "inputFiles": [
       "assets/styles/matchwinlossdetail/matchwinlossdetail.css"
     ]
- },
+  },
+  {
+    "outputFileName": "assets/bundles/racingcommission/racingcommission.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/racingcommission/racingcommission.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/commissionbybettype/commissionbybettype.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/commissionbybettype/commissionbybettype.js"
+    ]
+  },
   {
     "outputFileName": "assets/bundles/winlossanalysis/winlossanalysis.js",
     "inputFiles": [

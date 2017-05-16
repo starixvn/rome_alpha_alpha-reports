@@ -321,9 +321,13 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>Thắng thua</value>
   </data>
+  <data name="CommissionByBettype" xml:space="preserve">
+		<value>Hoa hồng theo loại cược</value>
+	</data>
   <data name="Next" xml:space="preserve">
     <value>Kế tiếp</value>
   </data>
+
   <data name="MatchWinLoss" xml:space="preserve">
     <value>Thắng thua theo trận</value>
   </data>
@@ -345,7 +349,7 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>Tiền chưa xử lý của Master</value>
   </data>
-  <data name="Status" xml:space="preserve">
+   <data name="Status" xml:space="preserve">
     <value>Trạng thái</value>
   </data>
   <data name="All" xml:space="preserve">
@@ -354,7 +358,29 @@
   <data name="Disabled" xml:space="preserve">
     <value>Vô hiệu hóa</value>
   </data>
-  <data name="Outright" xml:space="preserve">
+
+  <data name="RacingCommission" xml:space="preserve">
+		<value>Hoa hồng cho Racing</value>
+	</data>
+  <data name="Tote" xml:space="preserve">
+		<value>Tote</value>
+	</data>
+  <data name="Win" xml:space="preserve">
+		<value>Win</value>
+	</data>
+  <data name="Place" xml:space="preserve">
+		<value>Place</value>
+	</data>
+  <data name="WinPlace" xml:space="preserve">
+		<value>Win Place</value>
+	</data>
+  <data name="Commission" xml:space="preserve">
+		<value>Hoa hồng</value>
+	</data>
+  <data name="Gaming" xml:space="preserve">
+		<value>Gaming</value>
+	</data>
+	 <data name="Outright" xml:space="preserve">
     <value>Cược Thắng</value>
   </data>
   <data name="Race" xml:space="preserve">
@@ -375,7 +401,26 @@
   <data name="DelayIssueLegend" xml:space="preserve">
     <value>- Số liệu của {0} sẽ bị trì hoãn 5 phút kể từ khi hoàn thành các vé cược. </value>
   </data>
-  <data name="Daily" xml:space="preserve">
+
+  <data name="ChargeComm" xml:space="preserve">
+		<value>Charge Comm</value>
+	</data>
+  <data name="SymbolMyanmarOdds" xml:space="preserve">
+		<value>% Odds</value>
+	</data>
+  <data name="Others" xml:space="preserve">
+		<value>Others</value>
+	</data>
+  <data name="Commission1" xml:space="preserve">
+    <value>Hoa hồng 1</value>
+  </data>
+  <data name="Commission2" xml:space="preserve">
+    <value>Hoa hồng 2</value>
+  </data>
+  <data name="Commission3" xml:space="preserve">
+    <value>Hoa hồng 3</value>
+  </data>
+   <data name="Daily" xml:space="preserve">
     <value>Hằng ngày</value>
   </data>
   <data name="DailyWinLossAnalysis" xml:space="preserve">
@@ -393,6 +438,7 @@
   <data name="Sport" xml:space="preserve">
     <value>Sport</value>
   </data>
+
   <data name="SportWinLossAnalysis" xml:space="preserve">
     <value>Phân tích kết quả thắng thua của từng môn thể thao</value>
   </data>

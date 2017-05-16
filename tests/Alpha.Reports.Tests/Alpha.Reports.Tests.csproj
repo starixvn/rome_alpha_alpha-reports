@@ -163,6 +163,7 @@
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\ProductId.cs" />
     <Compile Include="Constants\RoleId.cs" />
+    <Compile Include="Criteria\CommissionByBettype\CommissionByBettypeCriteriaTests.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsByRefTableTests.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteriaTest.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\PagingReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsCriteriaTests.cs" />
+    <Compile Include="Criteria\RacingCommission\RacingCommissionCriteriaTests.cs" />
     <Compile Include="Criteria\PlayForFun\MasterOrAgentPlayForFunCriteriaTests.cs" />
     <Compile Include="Criteria\PlayForFun\MemberPlayForFunCriteriaTests.cs" />
     <Compile Include="Criteria\PlayForFun\PlayForFunCriteriaTests.cs" />
@@ -208,6 +210,7 @@
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
     <Compile Include="Models\CustInfoTests.cs" />
     <Compile Include="Models\LeagueTests.cs" />
+    <Compile Include="Models\RacingCommissionModelTests.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModelTests.cs" />
     <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModelTests.cs" />
     <Compile Include="Models\PlayForFun\PlayForFunModelTests.cs" />
@@ -229,9 +232,11 @@
     <Compile Include="Services\MatchWinLossServiceImplTest.cs" />
     <Compile Include="Services\OutstandingServiceImplTests.cs" />
     <Compile Include="Services\LeagueServiceImplTests.cs" />
+    <Compile Include="Services\CommissionByBettypeServiceTests.cs" />
     <Compile Include="Services\PlayForFunServiceImplTests.cs" />
     <Compile Include="Services\MatchWinLossDetailServiceImplTests.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />
+    <Compile Include="Services\RacingCommissionServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
     <Compile Include="Services\WinLossAnalysisServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />

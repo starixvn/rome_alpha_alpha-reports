@@ -117,6 +117,5 @@ $(function () {
         $,
         new DateRangePickerComponent($),
         new SortComponent($, new LinkBuilderComponent($)));
-
     enterResultView.init();
 });

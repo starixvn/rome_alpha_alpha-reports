@@ -246,12 +246,14 @@
     </Compile>
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <TypeScriptCompile Include="assets\scripts\commissionbybettype\commissionbybettype.ts" />
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
     <TypeScriptCompile Include="assets\scripts\components\league-multiselection.ts" />
     <TypeScriptCompile Include="assets\scripts\base-report.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
+    <TypeScriptCompile Include="assets\scripts\racingcommission\racingcommission.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinloss\matchwinloss.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-master-agent.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-member.ts" />
@@ -275,6 +277,8 @@
     <Compile Include="Controllers\OutstandingController.cs" />
     <Compile Include="Controllers\MatchWinLossController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
+    <Compile Include="Controllers\CommissionByBettypeController.cs" />
+    <Compile Include="Controllers\RacingCommissionController.cs" />
     <Compile Include="Controllers\MatchWinLossDetailController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
@@ -300,6 +304,11 @@
     <Compile Include="Handlers\PlayForFun\PlayForFunHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
+    <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandler.cs" />
+    <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandler.cs" />
+    <Compile Include="Handlers\RacingCommission\RacingCommissionExcelHandler.cs" />
+    <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeWorkbook.cs" />
+    <Compile Include="Handlers\RacingCommission\RacingCommissionHandler.cs" />
     <Compile Include="Handlers\LeagueHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandler.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandler.cs" />
@@ -316,6 +325,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
+    <Compile Include="Requests\RacingCommission\RacingCommissionExcelQuery.cs" />
+    <Compile Include="Requests\CommissionByBettype\CommissionByBettypeExcelQuery.cs" />
+    <Compile Include="Requests\CommissionByBettype\CommissionByBettypeQuery.cs" />
+    <Compile Include="Requests\RacingCommission\RacingCommissionQuery.cs" />
     <Compile Include="Requests\Outstanding\OutstandingQuery.cs" />
     <Compile Include="Requests\MatchWinLoss\MatchWinLossExcelQuery.cs" />
     <Compile Include="Requests\FromLast18MonthDateRangeQuery.cs" />
@@ -341,6 +354,8 @@
     <Compile Include="Requests\WinLoss\EnteredSportResultExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossQuery.cs" />
+    <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeFilterViewModel.cs" />
+    <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeViewModel.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
     <Compile Include="ViewModels\Components\LeagueMultiSelectionViewModel.cs" />
@@ -355,6 +370,8 @@
     <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
+    <Compile Include="ViewModels\RacingCommission\RacingCommissionFilterViewModel.cs" />
+    <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysislFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisReportTypeViewModel.cs" />
@@ -381,7 +398,9 @@
     <Content Include="App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Local\DBACC.bodb02.BODBDownlineNet.xml" />
-    <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\SPNames\Local\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBACC.bodb02.BODBDownlineNet.xml" />
@@ -425,6 +444,10 @@
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
+    <Content Include="assets\bundles\commissionbybettype\commissionbybettype.js" />
+    <Content Include="assets\bundles\commissionbybettype\commissionbybettype.min.js">
+      <DependentUpon>commissionbybettype.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\default.css" />
     <Content Include="assets\bundles\default.min.css">
       <DependentUpon>default.css</DependentUpon>
@@ -437,6 +460,10 @@
     <Content Include="assets\bundles\winlossanalysis\winlossanalysis.js" />
     <Content Include="assets\bundles\winlossanalysis\winlossanalysis.min.js">
       <DependentUpon>winlossanalysis.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\racingcommission\racingcommission.js" />
+    <Content Include="assets\bundles\racingcommission\racingcommission.min.js">
+      <DependentUpon>racingcommission.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.js">
       <DependentUpon>matchwinlossdetail.js</DependentUpon>
@@ -648,6 +675,12 @@
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Member.xls" />
+    <Content Include="App_Data\ExcelTemplates\RacingCommission\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\RacingCommission\Member.xls" />
+    <Content Include="App_Data\ExcelTemplates\RacingCommission\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Master.xls" />
     <Content Include="Alpha.Reports.Site.Debug.ruleset" />
     <Content Include="Alpha.Reports.Site.ruleset" />
@@ -672,6 +705,10 @@
     <Content Include="Views\WinLossAnalysis\Index.cshtml" />
     <Content Include="Views\MatchWinLoss\Index.cshtml" />
     <Content Include="Views\League\LeaguesByCustomer.cshtml" />
+    <Content Include="Views\CommissionByBettype\Index.cshtml" />
+    <Content Include="Views\RacingCommission\Index.cshtml" />
+    <Content Include="Views\CommissionByBettype\_CommissionByBettypeFilter.cshtml" />
+    <Content Include="Views\RacingCommission\_RacingCommissionFilter.cshtml" />
     <Content Include="Views\MatchWinLossDetail\Index.cshtml" />
     <Content Include="Views\PlayForFun\Member.cshtml" />
     <Content Include="Views\PlayForFun\MasterOrAgent.cshtml" />

@@ -343,15 +343,16 @@ class WinLossView extends BaseReport {
     };
 }
 
-const winLossView = new WinLossView(
-    $,
-    new DateRangePickerComponent($),
-    new ProductMultiSelectionComponent($),
-    new SortComponent($, new LinkBuilderComponent($)),
-    new ReportTooltip($),
-    new MonthPickerComponent($),
-    new LinkBuilderComponent($));
-
 $(function () {
+    let linkBuilderComponent = new LinkBuilderComponent($);
+
+    const winLossView = new WinLossView(
+        $,
+        new DateRangePickerComponent($),
+        new ProductMultiSelectionComponent($),
+        new SortComponent($, linkBuilderComponent),
+        new ReportTooltip($),
+        new MonthPickerComponent($),
+        linkBuilderComponent);
     winLossView.init();
 });
