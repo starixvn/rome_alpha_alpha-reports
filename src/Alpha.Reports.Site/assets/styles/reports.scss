@@ -164,9 +164,19 @@ a {
         font-weight: bold;
     }
 
-    .product-row {
+    .product-row, .sport-row {
         background-color: #f3f5e0;
         cursor: pointer;
+    }
+
+    &.tbl-win-loss-by-product {
+        .sport-row .icon-arrow-right {
+            margin-left: 13px;
+        }
+
+        .bet-type-row .col-username {
+            padding-left: 39px;
+        }
     }
 }
 

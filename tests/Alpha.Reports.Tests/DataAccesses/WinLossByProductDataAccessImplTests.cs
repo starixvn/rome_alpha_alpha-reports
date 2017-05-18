@@ -58,8 +58,8 @@
 
             var expectedData = new List<WinLossByBetTypeModel>()
             {
-                new WinLossByBetTypeModel(71, "Casino Games", 22, false, 4, 0, 1, null, null, new NetWinLoss(2), new NetWinLoss(3, 4)),
-                new WinLossByBetTypeModel(1101, "Premium Baccarat", 22, false, 4, 5, 6, null, null, new NetWinLoss(7), new NetWinLoss(8, 9))
+                new WinLossByBetTypeModel(71, "Casino Games", 22, 1, string.Empty, false, 4, 0, 1, null, null, new NetWinLoss(2), new NetWinLoss(3, 4)),
+                new WinLossByBetTypeModel(1101, "Premium Baccarat", 22, 0, string.Empty, false, 4, 5, 6, null, null, new NetWinLoss(7), new NetWinLoss(8, 9))
             };
 
             // Act
@@ -81,8 +81,8 @@
 
             var expectedData = new List<WinLossByBetTypeModel>()
             {
-                new WinLossByBetTypeModel(71, "Casino Games", 22, false, 4, 0, 1, null, new NetWinLoss(2), new NetWinLoss(3, 4), null),
-                new WinLossByBetTypeModel(1101, "Premium Baccarat", 22, false, 4, 5, 6, null, new NetWinLoss(7), new NetWinLoss(8, 9), null)
+                new WinLossByBetTypeModel(71, "Casino Games", 22, 0, string.Empty, false, 4, 0, 1, null, new NetWinLoss(2), new NetWinLoss(3, 4), null),
+                new WinLossByBetTypeModel(1101, "Premium Baccarat", 22, 0, string.Empty, false, 4, 5, 6, null, new NetWinLoss(7), new NetWinLoss(8, 9), null)
             };
 
             // Act
@@ -104,8 +104,8 @@
 
             var expectedData = new List<WinLossByBetTypeModel>()
             {
-                new WinLossByBetTypeModel(71, "Casino Games", 22, false, 4, 0, 1, new NetWinLoss(2, 3), new NetWinLoss(4, 5), null, null),
-                new WinLossByBetTypeModel(1101, "Premium Baccarat", 22, false, 4, 6, 7, new NetWinLoss(8, 9), new NetWinLoss(10, 11), null, null)
+                new WinLossByBetTypeModel(71, "Casino Games", 22, 0, string.Empty, false, 4, 0, 1, new NetWinLoss(2, 3), new NetWinLoss(4, 5), null, null),
+                new WinLossByBetTypeModel(1101, "Premium Baccarat", 22, 0, string.Empty, false, 4, 6, 7, new NetWinLoss(8, 9), new NetWinLoss(10, 11), null, null)
             };
 
             // Act

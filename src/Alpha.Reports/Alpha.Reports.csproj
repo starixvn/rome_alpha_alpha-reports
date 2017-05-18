@@ -151,6 +151,7 @@
     <Compile Include="Models\WinLossAnalysis\WinLossAnalysisModel.cs" />
     <Compile Include="Models\WinLossByProduct\WinLossByProductModel.cs" />
     <Compile Include="Models\WinlossByBetType\WinLossByBetTypeModel.cs" />
+    <Compile Include="Models\WinLossByProduct\WinLossBySportModel.cs" />
     <Compile Include="Models\WinLossDetail\WinLossDetailModel.cs" />
     <Compile Include="Models\Winloss\DailyEnteredSport.cs" />
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />

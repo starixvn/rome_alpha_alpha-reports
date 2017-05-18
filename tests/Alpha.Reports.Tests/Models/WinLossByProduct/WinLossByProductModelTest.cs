@@ -1,10 +1,10 @@
-﻿namespace Alpha.Reports.Tests.Models
+﻿namespace Alpha.Reports.Tests.Models.WinLossByProduct
 {
     using System.Collections.Generic;
     using KellermanSoftware.CompareNetObjects;
     using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
-    using Site.Tests.TestCases;
+    using Site.Tests.TestCases.WinLossByProduct;
     using Xunit;
 
     [Trait("Category", "WinLossByProduct")]
@@ -20,16 +20,14 @@
         [Theory]
         [MemberData("WinLossByProductModelSources", MemberType = typeof(WinLossByProductModelTestCases))]
         public void AccumulateTotal_ValidWinLossByBetTypeData_ReturnCorrectTotal(
-            IEnumerable<WinLossByBetTypeModel> winLossByBetTypeData,
+            IEnumerable<WinLossBySportModel> winLossBySportModels,
             WinLossByBetTypeModel expectedTotal)
         {
-            // Arrange
-
             // Act
             var winLossByProductModel = new WinLossByProductModel(
                     productId: 71,
                     productName: "Live Casino",
-                    winLossByBetTypeData: winLossByBetTypeData);
+                    winLossBySportModels: winLossBySportModels);
 
             // Assert
             var result = compareLogic.Compare(winLossByProductModel.Total, expectedTotal);

@@ -1,4 +1,7 @@
-﻿namespace Alpha.Reports.Models
+﻿using System.Data;
+using Fanex.Common.Extensions;
+
+namespace Alpha.Reports.Models
 {
     public class NetWinLoss
     {
@@ -39,5 +42,24 @@
                comm: winlossA?.Comm + winlossB?.Comm,
                total: winlossA.Total + winlossB.Total);
         }
+
+        public static NetWinLoss ReadAgentNetWinLoss(IDataReader reader, UserLevel reportLevel)
+            => reportLevel.IsNotSuperLevel() ?
+            (reportLevel.IsMasterLevel() ?
+            new NetWinLoss(reader.ToDecimal("AgTotal")) :
+            new NetWinLoss(reader.ToDecimal("AgWinLoss"), reader.ToDecimal("AgComm"))) :
+            null;
+
+        public static NetWinLoss ReadMasterNetWinLoss(IDataReader reader, UserLevel reportLevel)
+            => reportLevel.IsMasterOrSuperLevel() ?
+            (reportLevel.IsMasterLevel() ?
+            new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) :
+            new NetWinLoss(reader.ToDecimal("MAgTotal"))) :
+            null;
+
+        public static NetWinLoss ReadSuperNetWinLoss(IDataReader reader, UserLevel reportLevel)
+            => reportLevel.IsSuperLevel() ?
+            new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) :
+            null;
     }
 }

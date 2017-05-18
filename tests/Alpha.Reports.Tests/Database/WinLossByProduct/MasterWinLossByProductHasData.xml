@@ -3,6 +3,7 @@
   <TableWinLoss>
     <Bettype>71</Bettype>
     <ProductID>22</ProductID>
+    <SportType>1</SportType>
     <Liveindicator>0</Liveindicator>
     <GrossComm>0</GrossComm>
     <Turnover>1</Turnover>

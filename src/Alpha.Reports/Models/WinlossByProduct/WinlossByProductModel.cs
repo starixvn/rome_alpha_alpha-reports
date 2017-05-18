@@ -12,12 +12,12 @@
         public WinLossByProductModel(
             int productId,
             string productName,
-            IEnumerable<WinLossByBetTypeModel> winLossByBetTypeData)
+            IEnumerable<WinLossBySportModel> winLossBySportModels)
         {
             ProductId = productId;
             ProductName = productName;
 
-            WinLossByBetTypeData = winLossByBetTypeData;
+            WinLossBySportModels = winLossBySportModels;
             AccumulateTotal();
         }
 
@@ -25,7 +25,7 @@
 
         public string ProductName { get; }
 
-        public IEnumerable<WinLossByBetTypeModel> WinLossByBetTypeData { get; }
+        public IEnumerable<WinLossBySportModel> WinLossBySportModels { get; }
 
         public WinLossByBetTypeModel Total { get; private set; }
 
@@ -33,9 +33,9 @@
         {
             Total = new WinLossByBetTypeModel();
 
-            foreach (var winLossByBetTypeModel in WinLossByBetTypeData)
+            foreach (var winLossBySportModel in WinLossBySportModels)
             {
-                Total.Add(winLossByBetTypeModel);
+                Total.Add(winLossBySportModel.Total);
             }
 
             return this;

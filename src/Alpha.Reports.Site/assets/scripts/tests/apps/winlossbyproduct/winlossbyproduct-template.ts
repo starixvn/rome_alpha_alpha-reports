@@ -1,7 +1,9 @@
 ﻿const winlossbyproductTemplate = {
-            reportWithNormalMode: `<body>
+    reportWithNormalMode: `<body>
                                     <div class="page-title"></div>
                                     <div id="tbl-report" data-totalrecords="0" data-sortedcolumn="WinLossByBettype" data-descendingsort="false">
+                                        <div class="product-row" data-product-id="1"></div>
+                                        <div class="sport-row" data-sport-id="1"></div>
                                     </div>
                                     <input id="IsFilterVisible" value="True" type="hidden" />
                                     <input id="IsStackMode" value="True" type="hidden" />
@@ -29,7 +31,7 @@
                                     <div class="icon-switchmode"></div>
                                     <div id="icon-excel"></div>
                                 </body>`,
-            reportWithStackMode: `<body>
+    reportWithStackMode: `<body>
                                     <div class="page-title"></div>
                                     <div id="tbl-report" data-totalrecords="0"> </div>
                                     <input id="IsFilterVisible" value="True" type="hidden" />
@@ -56,4 +58,40 @@
                                     <div class="icon-switchmode"></div>
                                     <div id="icon-excel"></div>
                                 </body>`,
+
+    clickProduct: `<body>
+                        <table>
+                            <tbody>                                
+                                <tr class="product-row" data-product-id="1" data-is-hide="false">
+                                    <td class="col-username active"></td>
+                                </tr>
+                                <tr class="sport-row sport-of-1" data-product-id="1" data-sport-id="1"></tr>
+                                <tr class="sport-row sport-of-1" data-product-id="1" data-sport-id="2"></tr>
+                                <tr class="bet-type-row bet-type-of-product-1 bet-type-of-sport-1"></tr>
+
+                                <tr class="product-row" data-product-id="2" data-is-hide="false">
+                                    <td class="col-username active"></td>
+                                </tr>
+                                <tr class="sport-row sport-of-2" data-sport-id="1"></tr>
+                                <tr class="sport-row sport-of-2" data-sport-id="2"></tr>
+                                <tr class="bet-type-row bet-type-of-product-2"></tr>
+
+                                <tr class="product-row" data-product-id="3" data-is-hide="true">
+                                    <td class="col-username"></td>
+                                </tr>
+                                <tr class="sport-row sport-of-3" data-product-id="3" data-sport-id="1" data-is-hide="true">
+                                    <td class="col-username"></td>
+                                </tr>
+                                <tr class="sport-row sport-of-3" data-product-id="3" data-sport-id="2" data-is-hide="true"></tr>
+                                <tr class="bet-type-row bet-type-of-product-3 bet-type-of-sport-1"></tr>
+
+                                <tr class="product-row" data-product-id="4" data-is-hide="true">
+                                    <td class="col-username active"></td>
+                                </tr>
+                                <tr class="sport-row sport-of-4" data-sport-id="1" data-is-hide="false"></tr>
+                                <tr class="sport-row sport-of-4" data-sport-id="2" data-is-hide="false"></tr>
+                                <tr class="bet-type-row bet-type-of-product-4"></tr>
+                            </tbody>
+                        </table>
+                   </body>`
 };

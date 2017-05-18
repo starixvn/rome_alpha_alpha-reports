@@ -50,6 +50,8 @@
 
         internal Row WinLossByProductRowTemplate { get; set; }
 
+        internal Row WinLossBySportRowTemplate { get; set; }
+
         internal Row OddRowTemplate { get; set; }
 
         internal Row EvenRowTemplate { get; set; }
@@ -97,6 +99,30 @@
             FillCells(row, winLossByBetTypeModel, WinLossByBetTypeMapper.Mappings);
         }
 
+        internal void FillSport(Sheet sheet, WinLossBySportModel winLossBySportModel)
+        {
+            if (!winLossBySportModel.IsShowBetTypeDirectly())
+            {
+                FillSportTitle(sheet, currentRowIndex++, winLossBySportModel);
+            }
+
+            var isEvenRow = false;
+
+            foreach (var winLossByBetType in winLossBySportModel.WinLossByBetTypeData)
+            {
+                FillWinLossByBetType(sheet, currentRowIndex++, isEvenRow, winLossByBetType);
+                isEvenRow = !isEvenRow;
+            }
+        }
+
+        internal void FillSportTitle(Sheet sheet, int rowIndex, WinLossBySportModel data)
+        {
+            var row = sheet.GetRow(rowIndex);
+            row.CopyCellsFrom(WinLossBySportRowTemplate);
+            FillCells(row, data.Total, TotalMapper.Mappings);
+            row.SetCellValue(row.FirstCellIndex, data.SportName.ToUpperInvariant());
+        }
+
         protected override Sheet LoadTemplateSheet()
         {
             var sheet = GetSheetAt(TemplateInfo.SheetIndex);
@@ -104,6 +130,7 @@
             currentRowIndex = TemplateInfo.BodyStartIndex;
 
             WinLossByProductRowTemplate = sheet.GetRow(currentRowIndex++);
+            WinLossBySportRowTemplate = sheet.GetRow(currentRowIndex++);
             OddRowTemplate = sheet.GetRow(currentRowIndex++);
             EvenRowTemplate = sheet.GetRow(currentRowIndex++);
             TotalRowTemplate = sheet.GetRow(currentRowIndex++);
@@ -158,11 +185,9 @@
             {
                 FillProductTitle(sheet, currentRowIndex++, data);
 
-                var isEvenRow = false;
-                foreach (var betTypeWinLoss in data.WinLossByBetTypeData)
+                foreach (var winLossBySportModel in data.WinLossBySportModels)
                 {
-                    FillWinLossByBetType(sheet, currentRowIndex++, isEvenRow, betTypeWinLoss);
-                    isEvenRow = !isEvenRow;
+                    FillSport(sheet, winLossBySportModel);
                 }
             }
         }

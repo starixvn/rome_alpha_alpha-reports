@@ -74,6 +74,35 @@
         });
     });
 
+    describe("registerEvents", () => {
+        beforeEach(() => {
+            // arrange
+            setFixtures(winlossbyproductTemplate.reportWithNormalMode);
+            spyOn(winLossByProductView, "onClickProduct");
+            spyOn(winLossByProductView, "onClickSport");
+            winLossByProductView.cacheDOMElements();
+
+            // act
+            winLossByProductView.registerEvents();
+        });
+
+        it("_Always -> Binds Click event to product rows", () => {
+            // act
+            $(".product-row[data-product-id='1']").click();
+
+            // assert
+            expect(winLossByProductView.onClickProduct).toHaveBeenCalled();
+        });
+
+        it("_Always -> Binds Click event to sport rows", () => {
+            // act
+            $(".sport-row[data-sport-id='1']").click();
+
+            // assert
+            expect(winLossByProductView.onClickSport).toHaveBeenCalled();
+        });
+    });
+
     describe("cacheDOMElements", () => {
         it("Always -> All neccessary elements have been cached", () => {
             // arrange
@@ -417,5 +446,85 @@
                 // assert
                 expect(winLossByProductView.setCssBySwitchMode).toHaveBeenCalled();
             });
+    });
+
+    describe("onClickProduct", () => {
+        it("_Product group is shown -> Hides Sport Rows/Bet Type Rows", () => {
+            // arrange
+            setFixtures(winlossbyproductTemplate.clickProduct);
+            let productRow = $(".product-row[data-product-id='1']");
+
+            // act
+            winLossByProductView.onClickProduct(productRow);
+
+            // assert
+            expect($(".sport-of-1").hasClass("hide")).toBeTruthy();
+            expect($(".sport-of-1").data("is-hide")).toEqual("true");
+
+            expect($(".bet-type-of-product-1").hasClass("hide")).toBeTruthy();
+            expect(productRow.find(".col-username").hasClass("active")).toBeFalsy();
+            expect(productRow.data("is-hide")).toEqual(true);
+        });
+        it("_Product group is hidden/Sport is Hidden -> Shows Sport Rows/Bet Type Rows", () => {
+            // arrange
+            setFixtures(winlossbyproductTemplate.clickProduct);
+            let productRow = $(".product-row[data-product-id='3']");
+
+            // act
+            winLossByProductView.onClickProduct(productRow);
+
+            // assert
+            expect($(".sport-of-3").hasClass("hide")).toBeFalsy();
+            expect($(".sport-of-3").data("is-hide")).toEqual("false");
+
+            expect($(".bet-type-of-product-3").hasClass("hide")).toBeFalsy();
+            expect(productRow.find(".col-username").hasClass("active")).toBeTruthy();
+            expect(productRow.data("is-hide")).toEqual(false);
+        });
+
+        it("_Product group is hidden/Sport is Shown -> Shows Sport Rows/Bet Type Rows", () => {
+            // arrange
+            setFixtures(winlossbyproductTemplate.clickProduct);
+            let productRow = $(".product-row[data-product-id='4']");
+
+            // act
+            winLossByProductView.onClickProduct(productRow);
+
+            // assert
+            expect($(".sport-of-4").hasClass("hide")).toBeFalsy();
+            expect($(".sport-of-4").data("is-hide")).toEqual("false");
+
+            expect($(".bet-type-of-product-4").hasClass("hide")).toBeFalsy();
+            expect(productRow.find(".col-username").hasClass("active")).toBeTruthy();
+            expect(productRow.data("is-hide")).toEqual(false);
+        });
+    });
+    describe("onClickSport", () => {
+        it("_Sport group is shown -> Hides Bet Type Rows", () => {
+            // arrange
+            setFixtures(winlossbyproductTemplate.clickProduct);
+            let sportRow = $(".sport-row[data-sport-id='1'][data-product-id='1']");
+
+            // act
+            winLossByProductView.onClickSport(sportRow);
+
+            // assert
+            expect($(".bet-type-of-product-1.bet-type-of-sport-1").hasClass("hide")).toBeTruthy();
+            expect(sportRow.find(".col-username").hasClass("active")).toBeFalsy();
+            expect(sportRow.data("is-hide")).toEqual(true);
+        });
+        it("_Sport group is hidden -> Shows Bet Type Rows", () => {
+            // arrange
+            setFixtures(winlossbyproductTemplate.clickProduct);
+            let sportRow = $(".sport-row[data-sport-id='1'][data-product-id='3']");
+
+            // act
+            winLossByProductView.onClickSport(sportRow);
+
+            // assert
+            expect($(".bet-type-of-product-3.bet-type-of-sport-1").hasClass("hide")).toBeFalsy();
+            expect(sportRow.find(".col-username").hasClass("active")).toBeTruthy();
+            expect(sportRow.data("is-hide")).toEqual(false);
+        });
     });
 });

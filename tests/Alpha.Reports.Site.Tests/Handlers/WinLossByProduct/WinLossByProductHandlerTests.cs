@@ -87,11 +87,9 @@
         [Theory]
         [MemberData("WinLossByProductViewModelSources", MemberType = typeof(WinLossByProductViewModelTestCases))]
         public void AccumulateGrandTotal_ValidReportData_ReturnsCorrectGrandTotal(
-        IEnumerable<WinLossByProductModel> data,
-        WinLossByBetTypeModel expectedGrandTotal)
+            IEnumerable<WinLossByProductModel> data,
+            WinLossByBetTypeModel expectedGrandTotal)
         {
-            // Arrange
-
             // Act
             var actualGrandTotal = winLossByProductHandler.AccumulateGrandTotal(data);
 

@@ -59,7 +59,6 @@ class WinLossByProductView extends BaseReport {
 
         this.bindFilter();
         this.$tableReport.stickyTableHeaders();
-        this.productToggle();
         this.registerEvents();
 
         this.initHelp();
@@ -85,20 +84,6 @@ class WinLossByProductView extends BaseReport {
 
     checkReady = () => {
         return this.$("#IsSetDefaultStackMode").length > 0;
-    };
-
-    productToggle = () => {
-        let this$ = this.$;
-
-        this.$('tbody').each(function () {
-            this$(this).find('tr:first').click(
-                function () {
-                    let productRow = this$(this);
-                    let productRowFirstColumn = productRow.find('td:first');
-                    productRowFirstColumn.hasClass("active") ? productRowFirstColumn.removeClass("active") : productRowFirstColumn.addClass("active");
-                    productRow.parent().find("tr").slice(1).toggle();
-                });
-        });
     };
 
     bindFilter = () => {
@@ -130,6 +115,15 @@ class WinLossByProductView extends BaseReport {
         this.$filterIcon.on("click", this.onFilterEvent);
         this.$excelIcon.on("click", this.onExportExcelEvent);
         this.$switchModeIcon.on("click", this.onSwitchModeEvent);
+
+        var self = this;
+        this.$(".product-row").on("click", function () {
+            self.onClickProduct(self.$(this));
+        });
+
+        this.$(".sport-row").on("click", function () {
+            self.onClickSport(self.$(this));
+        });
     }
 
     onFilterEvent = () => {
@@ -151,6 +145,53 @@ class WinLossByProductView extends BaseReport {
             this.renderAtFirstSwitchMode(isStackMode);
             this.isFirstSwitchMode = false;
         }
+    };
+
+    onClickProduct = (productRow: JQuery) => {
+        var productId = productRow.data("product-id");
+        var isHide = alphaReports.convertAttributeToBool(productRow.data("is-hide"));
+
+        var columnUsername = productRow.find(".col-username");
+        var sportRows = this.$(".sport-of-" + productId);
+        var betTypeRows = this.$(".bet-type-of-product-" + productId);
+
+        if (isHide) {
+            columnUsername.addClass("active");
+            sportRows.find(".col-username").addClass("active");
+
+            sportRows.data("is-hide", "false");
+            sportRows.removeClass("hide");
+            betTypeRows.removeClass("hide");
+        } else {
+            columnUsername.removeClass("active");
+            sportRows.find(".col-username").removeClass("active");
+
+            sportRows.data("is-hide", "true");
+            sportRows.addClass("hide");
+            betTypeRows.addClass("hide");
+        }
+
+        productRow.data("is-hide", !isHide);
+    };
+
+    onClickSport = (sportRow: JQuery) => {
+        var productId = sportRow.data("product-id");
+        var sportId = sportRow.data("sport-id");
+
+        var isHide = alphaReports.convertAttributeToBool(sportRow.data("is-hide"));
+
+        var columnUsername = sportRow.find(".col-username");
+        var betTypeRows = this.$(".bet-type-of-product-" + productId + ".bet-type-of-sport-" + sportId);
+
+        if (isHide) {
+            columnUsername.addClass("active");
+            betTypeRows.removeClass("hide");
+        } else {
+            columnUsername.removeClass("active");
+            betTypeRows.addClass("hide");
+        }
+
+        sportRow.data("is-hide", !isHide);
     };
 
     renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => {

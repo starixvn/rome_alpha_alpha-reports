@@ -24,18 +24,10 @@
         public UserLevel CustLevel { get; }
 
         public override string GetSettingKey()
-        {
-            if (CustLevel.IsAgentLevel())
-            {
-                return "Age_Rpt_WinLossByProduct_Member";
-            }
-
-            if (CustLevel.IsMasterLevel())
-            {
-                return "Age_Rpt_WinLossByProduct_Agent";
-            }
-
-            return "Age_Rpt_WinLossByProduct_Master";
-        }
+            => CustLevel.IsAgentLevel()
+            ? "Age_Rpt_WinLossByProduct_Member"
+            : CustLevel.IsMasterLevel()
+            ? "Age_Rpt_WinLossByProduct_Agent"
+            : "Age_Rpt_WinLossByProduct_Master";
     }
 }

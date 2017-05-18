@@ -103,22 +103,22 @@
         }
 
         private TemplateInfo GetTemplateInfo(WinLossByProductExcelQuery message)
-         => new TemplateInfo(
-             GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
-             noInfomationText: Resources.NoInformationIsAvailable,
-             titleStartIndex: 1,
-             headerStartIndex: 2,
-             bodyStartIndex: 4,
-             bodyEndIndex: 11,
-             freezeRowIndex: 0,
-             freezeColumnName: A,
-             columnStartName: A,
-             sheetIndex: 1,
-             footerEndIndex: 12);
+            => new TemplateInfo(
+                GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
+                noInfomationText: Resources.NoInformationIsAvailable,
+                titleStartIndex: 1,
+                headerStartIndex: 2,
+                bodyStartIndex: 4,
+                bodyEndIndex: 11,
+                freezeRowIndex: 0,
+                freezeColumnName: A,
+                columnStartName: A,
+                sheetIndex: 1,
+                footerEndIndex: 12);
 
         private string GetReporTitle(WinLossByProductExcelQuery message)
-           => $"{Resources.WinLossByProduct} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-           $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
+            => $"{Resources.WinLossByProduct} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+            $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
 
         private string GetExcelFileName(WinLossByProductExcelQuery message, WinLossByProductParam winLossByBetTypeParam)
            => string.Join(

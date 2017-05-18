@@ -20,6 +20,8 @@
                 betTypeId: 0,
                 betTypeName: null,
                 productId: 0,
+                sportTypeId: 0,
+                sportTypeName: null,
                 liveIndicator: false,
                 betCount: 6 * 2,
                 turnover: (decimal)375732807.36 * 2,
@@ -34,6 +36,8 @@
                 betTypeId: 0,
                 betTypeName: null,
                 productId: 0,
+                sportTypeId: 0,
+                sportTypeName: null,
                 liveIndicator: false,
                 betCount: 6 * 2,
                 turnover: (decimal)375732807.36 * 2,
@@ -48,6 +52,8 @@
                 betTypeId: 0,
                 betTypeName: null,
                 productId: 0,
+                sportTypeId: 0,
+                sportTypeName: null,
                 liveIndicator: false,
                 betCount: 6 * 2,
                 turnover: (decimal)6225.00 * 2,
@@ -60,14 +66,14 @@
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private static List<WinLossByProductModel> BuildSuperDataTest()
         {
-            var winLossByProductData = new List<WinLossByProductModel>();
-
             var winLossByBetTypeLiveCasinoData = new List<WinLossByBetTypeModel>()
                 {
                      new WinLossByBetTypeModel(
                      betTypeId: 1,
                      betTypeName: "Baccarat",
                      productId: 0,
+                     sportTypeId: 0,
+                     sportTypeName: null,
                      liveIndicator: false,
                      betCount: 4,
                      turnover: (decimal)375732407.36,
@@ -81,6 +87,8 @@
                      betTypeId: 2,
                      betTypeName: "Blackjack",
                      productId: 0,
+                     sportTypeId: 0,
+                     sportTypeName: null,
                      liveIndicator: false,
                      betCount: 2,
                      turnover: (decimal)400.00,
@@ -97,6 +105,8 @@
                      betTypeId: 1231,
                      betTypeName: "Win",
                      productId: 0,
+                     sportTypeId: 0,
+                     sportTypeName: null,
                      liveIndicator: false,
                      betCount: 4,
                      turnover: (decimal)375732407.36,
@@ -110,6 +120,8 @@
                      betTypeId: 1233,
                      betTypeName: "Win Place",
                      productId: 0,
+                     sportTypeId: 0,
+                     sportTypeName: null,
                      liveIndicator: false,
                      betCount: 2,
                      turnover: (decimal)400.00,
@@ -120,24 +132,17 @@
                      superNetWinLoss: new NetWinLoss((decimal)0.00, (decimal)0.15))
                 };
 
-            var winLossByLiveCasino = new WinLossByProductModel(
-                productId: 71,
-                productName: "Live Casino",
-                winLossByBetTypeData: winLossByBetTypeLiveCasinoData);
-
-            winLossByProductData.Add(winLossByLiveCasino);
-
             return new List<WinLossByProductModel>()
                         {
                             new WinLossByProductModel(
                             productId: 71,
                             productName: "Live Casino",
-                            winLossByBetTypeData: winLossByBetTypeLiveCasinoData),
+                            winLossBySportModels: new List<WinLossBySportModel> { new WinLossBySportModel(0, string.Empty, winLossByBetTypeLiveCasinoData) }),
 
                             new WinLossByProductModel(
                             productId: 5,
                             productName: "Virtual Sport",
-                            winLossByBetTypeData: winLossByBetTypeVirtualSportData)
+                            winLossBySportModels: new List<WinLossBySportModel> { new WinLossBySportModel(0, string.Empty, winLossByBetTypeVirtualSportData) })
                         };
         }
 
@@ -150,6 +155,8 @@
                  betTypeId: 1,
                  betTypeName: "Baccarat",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: null,
                  liveIndicator: false,
                  betCount: 4,
                  turnover: (decimal)375732407.36,
@@ -163,6 +170,8 @@
                  betTypeId: 2,
                  betTypeName: "Blackjack",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: null,
                  liveIndicator: false,
                  betCount: 2,
                  turnover: (decimal)400.00,
@@ -179,6 +188,8 @@
                  betTypeId: 1231,
                  betTypeName: "Win",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: null,
                  liveIndicator: false,
                  betCount: 4,
                  turnover: (decimal)375732407.36,
@@ -192,6 +203,8 @@
                  betTypeId: 1233,
                  betTypeName: "Win Place",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: null,
                  liveIndicator: false,
                  betCount: 2,
                  turnover: (decimal)400.00,
@@ -207,12 +220,12 @@
                             new WinLossByProductModel(
                             productId: 71,
                             productName: "Live Casino",
-                            winLossByBetTypeData: winLossByBetTypeLiveCasinoData),
+                            winLossBySportModels: new List<WinLossBySportModel> { new WinLossBySportModel(0, string.Empty, winLossByBetTypeLiveCasinoData) }),
 
                             new WinLossByProductModel(
                             productId: 5,
                             productName: "Virtual Sport",
-                            winLossByBetTypeData: winLossByBetTypeVirtualSportData)
+                            winLossBySportModels: new List<WinLossBySportModel> { new WinLossBySportModel(0, string.Empty, winLossByBetTypeVirtualSportData) })
                         };
         }
 
@@ -225,6 +238,8 @@
                  betTypeId: 1231,
                  betTypeName: "Win",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: null,
                  liveIndicator: false,
                  betCount: 4,
                  turnover: (decimal)4000.00,
@@ -238,6 +253,8 @@
                  betTypeId: 1233,
                  betTypeName: "Win Place",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: null,
                  liveIndicator: false,
                  betCount: 2,
                  turnover: (decimal)2225.00,
@@ -254,6 +271,8 @@
                  betTypeId: 1,
                  betTypeName: "Baccarat",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: null,
                  liveIndicator: false,
                  betCount: 4,
                  turnover: (decimal)4000.00,
@@ -267,6 +286,8 @@
                  betTypeId: 2,
                  betTypeName: "Blackjack",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: null,
                  liveIndicator: false,
                  betCount: 2,
                  turnover: (decimal)2225.00,
@@ -282,12 +303,12 @@
                             new WinLossByProductModel(
                             productId: 71,
                             productName: "Live Casino",
-                            winLossByBetTypeData: winLossByBetTypeLiveCasinoData),
+                            winLossBySportModels: new List<WinLossBySportModel> { new WinLossBySportModel(0, string.Empty, winLossByBetTypeLiveCasinoData) }),
 
                             new WinLossByProductModel(
                             productId: 5,
                             productName: "Virtual Sport",
-                            winLossByBetTypeData: winLossByBetTypeVirtualSportData)
+                            winLossBySportModels: new List<WinLossBySportModel> { new WinLossBySportModel(0, string.Empty, winLossByBetTypeVirtualSportData) })
                         };
         }
 

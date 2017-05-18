@@ -54,24 +54,24 @@
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
         private WinLossByBetTypeModel BuildWinLossByBetType(IDataReader reader, UserLevel reportLevel)
         {
+            var productId = Convert.IsDBNull(reader["ProductID"]) ? 0 : reader.ToInt("ProductID");
+            var sportTypeId = Convert.IsDBNull(reader["SportType"]) ? 0 : reader.ToInt("SportType");
             var bettypeId = reader.ToInt("bettype");
 
             var winLossByBettype = new WinLossByBetTypeModel(
                  betTypeId: bettypeId,
                  betTypeName: cacheRefService.GetBetTypeName(bettypeId),
-                 productId: reader.ToInt("ProductID"),
+                 productId: productId,
+                 sportTypeId: sportTypeId,
+                 sportTypeName: sportTypeId == 0 ? string.Empty : cacheRefService.GetSportName(sportTypeId),
                  liveIndicator: reader.ToString("liveindicator") == "1",
                  betCount: bettypeId == BetTypeIdConstants.ChargeCommission ? (int?)null : reader.ToInt("NumberOfTickets"),
                  turnover: reader.ToDecimal("TurnOver"),
                  grossComm: reader.ToDecimal("GrossComm"),
                  memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,
-                 agentNetWinLoss: reportLevel.IsNotSuperLevel() ?
-                                   (reportLevel.IsMasterLevel() ?
-                                   new NetWinLoss(reader.ToDecimal("AgTotal")) : new NetWinLoss(reader.ToDecimal("AgWinLoss"), reader.ToDecimal("AgComm"))) : null,
-                 masterNetWinLoss: reportLevel.IsMasterOrSuperLevel() ?
-                                   (reportLevel.IsMasterLevel() ?
-                                   new NetWinLoss(reader.ToDecimal("MAgWinLoss"), reader.ToDecimal("MAgComm")) : new NetWinLoss(reader.ToDecimal("MAgTotal"))) : null,
-                 superNetWinLoss: reportLevel.IsSuperLevel() ? new NetWinLoss(reader.ToDecimal("SAgWinLoss"), reader.ToDecimal("SAgComm")) : null);
+                 agentNetWinLoss: NetWinLoss.ReadAgentNetWinLoss(reader, reportLevel),
+                 masterNetWinLoss: NetWinLoss.ReadMasterNetWinLoss(reader, reportLevel),
+                 superNetWinLoss: NetWinLoss.ReadSuperNetWinLoss(reader, reportLevel));
 
             return winLossByBettype;
         }

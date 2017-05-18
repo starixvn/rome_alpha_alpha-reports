@@ -1,18 +1,19 @@
-﻿namespace Alpha.Reports.Site.Tests.TestCases
+﻿namespace Alpha.Reports.Site.Tests.TestCases.WinLossByProduct
 {
     using System.Collections.Generic;
     using System.Linq;
     using Models;
     using Models.WinlossByBetType;
+    using Models.WinLossByProduct;
 
     public static class WinLossByProductModelTestCases
     {
         private static IEnumerable<object[]> winLossByProductModel = new List<object[]>()
         {
-            new object[] { BuildSuperDataTest(), ExpectedSuperGrantTotal },
-            new object[] { BuildMasterDataTest(), ExpectedMasterGrantTotal },
-            new object[] { BuildAgentDataTest(), ExpectedAgentGrantTotal },
-            new object[] { Enumerable.Empty<WinLossByBetTypeModel>(), new WinLossByBetTypeModel() }
+            new object[] { new List<WinLossBySportModel> { new WinLossBySportModel(1, string.Empty, BuildSuperDataTest()) }, ExpectedSuperGrantTotal },
+            new object[] { new List<WinLossBySportModel> { new WinLossBySportModel(1, string.Empty, BuildMasterDataTest()) }, ExpectedMasterGrantTotal },
+            new object[] { new List<WinLossBySportModel> { new WinLossBySportModel(1, string.Empty, BuildAgentDataTest()) }, ExpectedAgentGrantTotal },
+            new object[] { Enumerable.Empty<WinLossBySportModel>(), new WinLossByBetTypeModel() }
         };
 
         private static WinLossByBetTypeModel ExpectedSuperGrantTotal =>
@@ -20,6 +21,8 @@
                 betTypeId: 0,
                 betTypeName: null,
                 productId: 0,
+                sportTypeId: 0,
+                sportTypeName: null,
                 liveIndicator: false,
                 betCount: 6,
                 turnover: (decimal)375732807.36,
@@ -34,6 +37,8 @@
                 betTypeId: 0,
                 betTypeName: null,
                 productId: 0,
+                sportTypeId: 0,
+                sportTypeName: null,
                 liveIndicator: false,
                 betCount: 6,
                 turnover: (decimal)375732807.36,
@@ -48,6 +53,8 @@
                 betTypeId: 0,
                 betTypeName: null,
                 productId: 0,
+                sportTypeId: 0,
+                sportTypeName: null,
                 liveIndicator: false,
                 betCount: 6,
                 turnover: (decimal)6225.00,
@@ -57,7 +64,7 @@
                 masterNetWinLoss: null,
                 superNetWinLoss: null);
 
-        private static IEnumerable<WinLossByBetTypeModel> BuildSuperDataTest()
+        public static IEnumerable<WinLossByBetTypeModel> BuildSuperDataTest()
         {
             var winLossByBetTypeLiveCasinoData = new List<WinLossByBetTypeModel>()
                 {
@@ -65,6 +72,8 @@
                      betTypeId: 1,
                      betTypeName: "Baccarat",
                      productId: 0,
+                     sportTypeId: 0,
+                     sportTypeName: string.Empty,
                      liveIndicator: false,
                      betCount: 4,
                      turnover: (decimal)375732407.36,
@@ -78,6 +87,8 @@
                      betTypeId: 2,
                      betTypeName: "Blackjack",
                      productId: 0,
+                     sportTypeId: 0,
+                     sportTypeName: string.Empty,
                      liveIndicator: false,
                      betCount: 2,
                      turnover: (decimal)400.00,
@@ -91,7 +102,7 @@
             return winLossByBetTypeLiveCasinoData;
         }
 
-        private static IEnumerable<WinLossByBetTypeModel> BuildMasterDataTest()
+        public static IEnumerable<WinLossByBetTypeModel> BuildMasterDataTest()
         {
             var winLossByBetTypeLiveCasinoData = new List<WinLossByBetTypeModel>()
             {
@@ -99,6 +110,8 @@
                  betTypeId: 1,
                  betTypeName: "Baccarat",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: string.Empty,
                  liveIndicator: false,
                  betCount: 4,
                  turnover: (decimal)375732407.36,
@@ -112,6 +125,8 @@
                  betTypeId: 2,
                  betTypeName: "Blackjack",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: string.Empty,
                  liveIndicator: false,
                  betCount: 2,
                  turnover: (decimal)400.00,
@@ -125,7 +140,7 @@
             return winLossByBetTypeLiveCasinoData;
         }
 
-        private static IEnumerable<WinLossByBetTypeModel> BuildAgentDataTest()
+        public static IEnumerable<WinLossByBetTypeModel> BuildAgentDataTest()
         {
             var winLossByBetTypeLiveCasinoData = new List<WinLossByBetTypeModel>()
             {
@@ -133,6 +148,8 @@
                  betTypeId: 1,
                  betTypeName: "Baccarat",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: string.Empty,
                  liveIndicator: false,
                  betCount: 4,
                  turnover: (decimal)4000.00,
@@ -146,6 +163,8 @@
                  betTypeId: 2,
                  betTypeName: "Blackjack",
                  productId: 0,
+                 sportTypeId: 0,
+                 sportTypeName: string.Empty,
                  liveIndicator: false,
                  betCount: 2,
                  turnover: (decimal)2225.00,

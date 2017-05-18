@@ -10,6 +10,8 @@
             int betTypeId,
             string betTypeName,
             int productId,
+            int sportTypeId,
+            string sportTypeName,
             bool liveIndicator,
             int? betCount,
             decimal grossComm,
@@ -21,7 +23,11 @@
         {
             BetTypeId = betTypeId;
             BetTypeName = betTypeName;
+
             ProductId = productId;
+            SportTypeId = sportTypeId;
+            SportTypeName = sportTypeName;
+
             LiveIndicator = liveIndicator;
 
             GrossComm = grossComm;
@@ -38,6 +44,10 @@
         public string BetTypeName { get; }
 
         public int ProductId { get; }
+
+        public int SportTypeId { get; }
+
+        public string SportTypeName { get; }
 
         public bool LiveIndicator { get; }
 

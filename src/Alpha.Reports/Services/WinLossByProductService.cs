@@ -5,6 +5,7 @@
     using System.Linq;
     using Criteria.WinLossByProductCriteria;
     using DataAccesses;
+    using Models.WinlossByBetType;
     using Models.WinLossByProduct;
     using Params;
     using RemotingRef;
@@ -47,17 +48,44 @@
                 param.CustLevel);
 
             var winLossByBetTypeData = dataAccess.GetWinLossByBetType(criteria);
+            var result = new List<WinLossByProductModel>();
 
             if (winLossByBetTypeData.Any())
             {
-                return winLossByBetTypeData.GroupBy(winLossByBetType => winLossByBetType.ProductId)
-                    .Select(winLossByProduct => new WinLossByProductModel(
-                    winLossByProduct.Key,
-                    cacheRefService.GetProductName(winLossByProduct.Key),
-                    winLossByProduct)).OrderBy(winLossByProduct => winLossByProduct.ProductId);
+                var winLossByProducts = winLossByBetTypeData.GroupBy(winLossByBetType => winLossByBetType.ProductId);
+
+                foreach (var winLossByProduct in winLossByProducts)
+                {
+                    result.Add(new WinLossByProductModel(
+                        winLossByProduct.Key,
+                        cacheRefService.GetProductName(winLossByProduct.Key),
+                        CreateWinLossBySportModel(winLossByProduct)));
+                }
             }
 
-            return Enumerable.Empty<WinLossByProductModel>();
+            return result;
+        }
+
+        private static IEnumerable<WinLossBySportModel> CreateWinLossBySportModel(
+            IGrouping<int, WinLossByBetTypeModel> winLossByProduct)
+        {
+            var winLossBySports = winLossByProduct.GroupBy(winLossByBetType => new
+            {
+                winLossByBetType.SportTypeId,
+                winLossByBetType.SportTypeName
+            });
+
+            var result = new List<WinLossBySportModel>();
+
+            foreach (var winLossBySport in winLossBySports)
+            {
+                result.Add(new WinLossBySportModel(
+                    winLossBySport.Key.SportTypeId,
+                    winLossBySport.Key.SportTypeName,
+                    winLossBySport.ToList()));
+            }
+
+            return result;
         }
     }
 }

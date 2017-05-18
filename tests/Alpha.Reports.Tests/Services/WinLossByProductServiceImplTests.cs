@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Services.WinLossByProduct
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -12,6 +13,7 @@
     using Reports.Models.WinLossByProduct;
     using Reports.Params;
     using Reports.Services;
+    using Site.Tests.TestCases.WinLossByProduct;
     using Xunit;
 
     [Trait("Category", "WinLossByProduct")]
@@ -44,7 +46,7 @@
         }
 
         [Fact]
-        public void GetWinLossByBetType_ValidParam_ReturnsDefaultReportData()
+        public void GetWinLossByBetType_EmptyData_ReturnsDefaultReportData()
         {
             // Arrange
             var param = new WinLossByProductParam(
@@ -55,7 +57,40 @@
                 UserLevel.Super);
 
             var winLossByBetTypeData = Enumerable.Empty<WinLossByBetTypeModel>();
-            var expectedData = Enumerable.Empty<WinLossByProductModel>();
+
+            var expectedData = new List<WinLossByProductModel>();
+
+            // Act
+            dataAccess.GetWinLossByBetType(Arg.Any<WinLossByProductCriteria>()).Returns(winLossByBetTypeData);
+            var actualData = winLossByBetTypeServiceImpl.GetWinLossByProduct(param);
+
+            // Assert
+            var result = compareLogic.Compare(expectedData, actualData);
+            Assert.True(result.AreEqual);
+        }
+
+        [Fact]
+        public void GetWinLossByBetType_HasData_ReturnsCorrectModel()
+        {
+            // Arrange
+            var param = new WinLossByProductParam(
+                0,
+                currentDate,
+                currentDate,
+                Enumerable.Empty<int>(),
+                UserLevel.Super);
+
+            var winLossByBetTypeData = WinLossByProductModelTestCases.BuildSuperDataTest();
+
+            var winLossBySports = new List<WinLossBySportModel>
+            {
+                new WinLossBySportModel(0, string.Empty, winLossByBetTypeData)
+            };
+
+            var expectedData = new List<WinLossByProductModel>
+            {
+                new WinLossByProductModel(0, string.Empty, winLossBySports)
+            };
 
             // Act
             dataAccess.GetWinLossByBetType(Arg.Any<WinLossByProductCriteria>()).Returns(winLossByBetTypeData);

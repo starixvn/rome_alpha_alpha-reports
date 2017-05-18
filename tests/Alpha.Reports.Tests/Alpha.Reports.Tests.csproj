@@ -186,9 +186,9 @@
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteriaTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTestCases.cs" />
-    <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossAnalysisDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
+    <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Database\MatchWinLossDetail\MatchWinLossDetailDatabase.cs" />
     <Compile Include="Database\WinLossByProduct\WinLossByProductDatabase.cs" />
@@ -213,14 +213,14 @@
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
     <Compile Include="Models\CustInfoTests.cs" />
     <Compile Include="Models\LeagueTests.cs" />
-    <Compile Include="Models\WinLossByProductModelTest.cs" />
     <Compile Include="Models\RacingCommissionModelTests.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModelTests.cs" />
-    <Compile Include="Models\WinLossByBetTypeModelTest.cs" />
     <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModelTests.cs" />
     <Compile Include="Models\PlayForFun\PlayForFunModelTests.cs" />
     <Compile Include="Models\MatchWinLoss\MatchWinLossModelTest.cs" />
     <Compile Include="Models\PagedReportDataTests.cs" />
+    <Compile Include="Models\WinLossByProduct\WinLossByProductModelTest.cs" />
+    <Compile Include="Models\WinLossByProduct\WinLossBySportModelTests.cs" />
     <Compile Include="Models\WinLossTest.cs" />
     <Compile Include="Models\NetWinLossTest.cs" />
     <Compile Include="Models\ProductTests.cs" />
@@ -251,7 +251,7 @@
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
     <Compile Include="TestCases\StringExtensionsTestCases.cs" />
     <Compile Include="TestCases\UserLevelTestCases.cs" />
-    <Compile Include="TestCases\WinLossByProductModelTestCases.cs" />
+    <Compile Include="TestCases\WinLossByProduct\WinLossByProductModelTestCases.cs" />
     <Compile Include="TestCases\WinLossDetailPropertyTestCases.cs" />
     <Compile Include="Utils\SystemTimeTests.cs" />
   </ItemGroup>
@@ -276,7 +276,7 @@
       <SubType>Designer</SubType>
     </CodeAnalysisDictionary>
     <Content Include="Database\WinLossByProduct\AgentWinLossByProductHasData.xml">
-		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\MatchWinLossDetail\AgentMatchWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
