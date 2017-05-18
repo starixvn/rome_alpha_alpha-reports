@@ -18,8 +18,8 @@ class SortOption {
 class SortComponent {
     $: JQueryStatic;
     $sortContainer: JQuery;
-    $reportForm: JQuery;
     linkBuilderComponent: LinkBuilderComponent;
+    $reportForm: JQuery;
 
     options = new SortOption();
 

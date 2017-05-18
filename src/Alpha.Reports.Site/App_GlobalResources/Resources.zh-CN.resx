@@ -333,9 +333,13 @@
   <data name="WinLossTitle" xml:space="preserve">
     <value>输赢</value>
   </data>
-  <data name="NumberGameNo" xml:space="preserve">
+  <data name="CommissionByBettype" xml:space="preserve">
+		<value>投注产品分类佣金</value>
+	</data>
+	  <data name="NumberGameNo" xml:space="preserve">
     <value>数字游戏编号</value>
   </data>
+
   <data name="Next" xml:space="preserve">
     <value>下一页</value>
   </data>
@@ -357,7 +361,7 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>总代理未结束交易</value>
   </data>
-  <data name="Status" xml:space="preserve">
+    <data name="Status" xml:space="preserve">
     <value>状态</value>
   </data>
   <data name="All" xml:space="preserve">
@@ -366,7 +370,41 @@
   <data name="Disabled" xml:space="preserve">
     <value>禁用</value>
   </data>
-  <data name="Match" xml:space="preserve">
+
+  <data name="RacingCommission" xml:space="preserve">
+		<value>赛马佣金</value>
+	</data>
+  <data name="Tote" xml:space="preserve">
+		<value>体彩</value>
+	</data>
+  <data name="Win" xml:space="preserve">
+		<value>独赢</value>
+	</data>
+  <data name="Place" xml:space="preserve">
+		<value>位置</value>
+	</data>
+  <data name="WinPlace" xml:space="preserve">
+		<value>独赢及位置</value>
+	</data>
+  <data name="Commission" xml:space="preserve">
+		<value>佣金</value>
+	</data>
+  <data name="Gaming" xml:space="preserve">
+		<value>Gaming</value>
+	</data>
+  <data name="ChargeComm" xml:space="preserve">
+		<value>抽取佣金</value>
+	</data>
+  <data name="SymbolMyanmarOdds" xml:space="preserve">
+		<value>% Odds</value>
+	</data>
+  <data name="Others" xml:space="preserve">
+		<value>其他</value>
+	</data>
+  <data name="Commission1" xml:space="preserve">
+    <value>佣金 1</value>
+  </data>
+   <data name="Match" xml:space="preserve">
     <value>赛事</value>
   </data>
   <data name="PositionTaking" xml:space="preserve">
@@ -429,7 +467,14 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>所有联赛</value>
   </data>
-  <data name="GrandTotal" xml:space="preserve">
+
+  <data name="Commission2" xml:space="preserve">
+    <value>佣金 2</value>
+  </data>
+  <data name="Commission3" xml:space="preserve">
+    <value>佣金 3</value>
+  </data>
+    <data name="GrandTotal" xml:space="preserve">
     <value>总和</value>
   </data>
   <data name="DelayIssueLegend" xml:space="preserve">
@@ -471,4 +516,5 @@
   <data name="WinLossByProduct" xml:space="preserve">
     <value>投注产品输赢</value>
   </data>
+
 </root>

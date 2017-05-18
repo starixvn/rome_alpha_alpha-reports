@@ -6,6 +6,7 @@
     using Controllers;
     using DataAccesses;
     using Fanex.Data.Repository;
+    using Handlers.CommissionByBettype;
     using Handlers.MatchWinLossDetail;
     using Handlers.WinLossByProduct;
     using MediatR;
@@ -82,8 +83,11 @@
             container.RegisterSingleton<WinLossByProductService, WinLossByProductServiceImpl>();
             container.RegisterSingleton<WinLossAnalysisService, WinLossAnalysisServiceImpl>();
             container.RegisterSingleton<PlayForFunService, PlayForFunServiceImpl>();
+            container.RegisterSingleton<RacingCommissionService, RacingCommissionServiceImpl>();
+            container.RegisterSingleton<CommissionByBettypeService, CommissionByBettypeServiceImpl>();
 
             container.RegisterSingleton<MatchWinLossDetailService, MatchWinLossDetailServiceImpl>();
+            container.RegisterSingleton<UserPermissionService, UserPermissionServiceImpl>();
 
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
@@ -94,6 +98,7 @@
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
 
+            container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbookImpl>();
             container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
             container.RegisterSingleton<WinLossByProductWorkbook, WinLossByProductWorkbookImpl>();
             container.RegisterSingleton<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();

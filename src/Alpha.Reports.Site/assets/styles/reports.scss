@@ -502,13 +502,13 @@ a {
     }
 }
 
-#tbl-enteredresult-report, .tbl-outstanding {
+#tbl-enteredresult-report, .tbl-outstanding, .tbl-small-width {
     @extend #tbl-report;
     width: 60%;
 }
 
 @media only screen and (max-device-width : $screen-device-lower768) {
-    #tbl-enteredresult-report {
+    #tbl-enteredresult-report, .tbl-small-width {
         width: 100%;
     }
 
