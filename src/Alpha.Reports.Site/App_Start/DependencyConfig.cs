@@ -102,8 +102,8 @@
             container.RegisterSingleton<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();
 
             container.RegisterSingleton<StatementService, StatementServiceImpl>();
-            container.RegisterSingleton<SMAStatementWorkbook, SMAStatementWorkbookImpl>();
             container.RegisterSingleton<MemberStatementWorkbook, MemberStatementWorkbookImpl>();
+            container.RegisterSingleton<StatementWorkbook, StatementWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)
@@ -113,6 +113,7 @@
             container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
             container.RegisterSingleton<WinLossAnalysisDataAccess, WinLossAnalysisDataAccessImpl>();
             container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
+            container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
         }
 
         private static void RegisterStaticInstances(Container container)

@@ -21,7 +21,7 @@ namespace Alpha.Reports.Site.Tests.Handlers.Statement
     [Collection("UserCollection")]
     public class SMAStatementExcelHandlerTests
     {
-        private readonly SMAStatementWorkbook workbook;
+        private readonly StatementWorkbook workbook;
         private readonly Workbook<StatementModel> onebookWorkbook;
 
         private readonly SMAStatementExcelHandler handler;
@@ -42,7 +42,7 @@ namespace Alpha.Reports.Site.Tests.Handlers.Statement
 
             reportService.GetStatements(Arg.Any<GetStatementParam>()).Returns(data);
 
-            workbook = Substitute.For<SMAStatementWorkbook>();
+            workbook = Substitute.For<StatementWorkbook>();
             onebookWorkbook = Substitute.For<Workbook<StatementModel>>();
             workbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(onebookWorkbook);
             onebookWorkbook.Title(Arg.Any<string>()).Returns(onebookWorkbook);

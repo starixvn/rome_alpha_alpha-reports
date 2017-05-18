@@ -40,15 +40,19 @@
     <thead>
         <tr>
             <th>@Resources.Date</th>
-            <th>@Resources.OpeningBalance</th>
+            <th class="full-title">@Resources.OpeningBalance</th>
+            <th class="short-title">@Resources.OpeningBal</th>
             <th>@Resources.Turnover</th>
             <th>@Resources.Void/@Resources.Rejected</th>
             <th>@Resources.Outstanding</th>
             <th>@Resources.WinLoss</th>
-            <th>@Resources.Commission</th>
+            <th class="full-title">@Resources.Commission</th>
+            <th class="short-title">@Resources.Comm</th>
             <th>@Resources.GrandPrize</th>
-            <th>@Resources.TransferAmt</th>
-            <th>@Resources.AccumulatedTotal</th>
+            <th class="full-title">@Resources.TransferAmt</th>
+            <th class="short-title">@Resources.Transfer</th>
+            <th class="full-title">@Resources.AccumulatedTotal</th>
+            <th class="short-title">@Resources.AccumTotal</th>
         </tr>
     </thead>
     @if (Model.Statements.Any())
@@ -75,14 +79,14 @@
                     <td>
                         <span class="@(Model.IsNegative(data.Outstanding) ? "format-negative" : string.Empty)
                               @(data.Outstanding.HasValue ? " col-outstanding" : string.Empty)"
-              data-transfer-date="@data.WinLossDateString">
+                              data-transfer-date="@data.WinLossDateString">
                             @RenderNullableNumber(data.Outstanding)
                         </span>
                     </td>
                     <td>
                         <span class="@(Model.IsNegative(data.WinLoss) ? "format-negative" : string.Empty)
                               @(data.WinLoss.HasValue ? " col-win-loss" : string.Empty)"
-              data-transfer-date="@data.WinLossDateString">
+                              data-transfer-date="@data.WinLossDateString">
                             @RenderNullableNumber(data.WinLoss)
                         </span>
                     </td>
@@ -90,7 +94,7 @@
                     <td>
                         <span class="@(Model.IsNegative(data.GrandPrize) ? "format-negative" : string.Empty)
                               @(data.GrandPrize.HasValue ? " col-grand-prize" : string.Empty)"
-              data-transfer-date="@data.WinLossDateString">
+                              data-transfer-date="@data.WinLossDateString">
                             @RenderNullableNumber(data.GrandPrize)
                         </span>
                     </td>

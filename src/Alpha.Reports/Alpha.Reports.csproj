@@ -116,6 +116,7 @@
     <Compile Include="Criteria\WinLoss\DailyEnteredSportCriteria.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteria.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetailDataAccess.cs" />
+    <Compile Include="DataAccesses\StatementDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossAnalysisDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDataAccess.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccess.cs" />

@@ -1,82 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Alpha.Reports.Constants;
+using System.Diagnostics.CodeAnalysis;
 using Alpha.Reports.Extensions;
-using Alpha.Reports.Models;
 using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Site.App_GlobalResources;
 using Alpha.Reports.Site.Helpers;
 using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.ViewModels.Components;
 using Alpha.Reports.Utils;
 
 namespace Alpha.Reports.Site.ViewModels.Statement
 {
-    public class MemberStatementViewModel
+    public class MemberStatementViewModel : StatementViewModel
     {
         private const string StatementProductIds = "1,6,2";
 
-        private readonly MemberStatementQuery message;
-
+        [SuppressMessage(
+           "StyleCop.CSharp.StylecopPlus.Rules",
+           "SP2100:CodeLineMustNotBeLongerThan",
+           Justification = "Separate Code Makes Duplicate Lines With Other Classes.")]
         public MemberStatementViewModel(
             MemberStatementQuery message,
             IEnumerable<StatementModel> statements)
+             : base(message, statements, message.MinDate, message.FromDate, message.ToDate, message.UserSelectedDateRangeOption, message.IsFilterVisible, message.PageSize, message.PageIndex)
         {
-            this.message = message;
-            Statements = statements;
-
-            PageSize = message.PageSize == 0 ? 50 : message.PageSize;
-            PageIndex = message.PageIndex == 0 ? DefaultVariables.PageIndex : message.PageIndex;
-
-            ViewDataInstructionMessage = string.Format(
-                Resources.CanOnlyViewDataAfterTimeHistoryReport,
-                message.MinDate.ToShortDateWithSlash());
         }
-
-        public int CustId => message.CustId;
-
-        public string CustName => message.CustName;
-
-        public DateTime MinDate => message.MinDate;
-
-        public DateTime MaxDate => DateTime.MaxValue;
-
-        public DateTime FromDate => message.FromDate;
-
-        public DateTime ToDate => message.ToDate;
-
-        public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
-
-        public bool IsFilterVisible => message.IsFilterVisible;
-
-        public int PageSize { get; }
-
-        public int PageIndex { get; }
-
-        public string ViewDataInstructionMessage { get; }
 
         public string BetListLink => UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
 
-        public UserLevel CustLevel => message.CustLevel;
+        public string BuildBetListLink() => BuildBetListLink(option: 4, fromDate: SystemTime.Today.AddDays(-1));
 
-        public IEnumerable<StatementModel> Statements { get; }
+        public string BuildBetListRunningLink() => BuildBetListLink(option: 5, fromDate: SystemTime.Today.AddDays(-7));
 
-        public DateRangePickerViewModel DateRangePickerViewModel =>
-            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
-
-        public PagerViewModel PagerViewModel =>
-            new PagerViewModel(PageIndex, PageSize, Statements.Count());
-
-        public string BuildBetListLink()
+        public string BuildBetListLink(int option, DateTime fromDate)
         {
             var url = UrlHelper.MapExMainPath("~/_Reports/BetList/OutstandingDetail.aspx");
+
             var routeValues = new Dictionary<string, object>
             {
                 ["username"] = CustName,
-                ["option"] = 4,
+                ["option"] = option,
                 ["custid"] = CustId,
-                ["fdate"] = SystemTime.Today.AddDays(-1).ToShortDateWithSlash(),
+                ["fdate"] = fromDate.ToShortDateWithSlash(),
                 ["tdate"] = SystemTime.Today.ToShortDateWithSlash(),
                 ["page"] = 1,
                 ["chkgetall"] = "on",
@@ -87,28 +50,6 @@ namespace Alpha.Reports.Site.ViewModels.Statement
             return UrlHelper.AddQueryStringParamsFunc(url, routeValues);
         }
 
-        public string BuildBetListRunningLink()
-        {
-            var url = UrlHelper.MapExMainPath("~/_Reports/BetList/OutstandingDetail.aspx");
-            var routeValues = new Dictionary<string, object>
-            {
-                ["username"] = CustName,
-                ["option"] = 5,
-                ["custid"] = CustId,
-                ["fdate"] = SystemTime.Today.AddDays(-7).ToShortDateWithSlash(),
-                ["tdate"] = SystemTime.Today.ToShortDateWithSlash(),
-                ["page"] = 1,
-                ["chkgetall"] = "on",
-                ["productIds"] = StatementProductIds,
-                ["FilterPostback"] = "1"
-            };
-
-            return UrlHelper.AddQueryStringParamsFunc(url, routeValues);
-        }
-
-        public bool IsNegative(decimal? cellValue)
-        {
-            return cellValue.HasValue && cellValue.Value < 0;
-        }
+        public bool IsNegative(decimal? cellValue) => cellValue.HasValue && cellValue.Value < 0;
     }
 }

@@ -429,7 +429,6 @@
   <data name="PlayForFun" xml:space="preserve">
     <value>Play For Fun</value>
   </data>
-
   <data name="WinPlace" xml:space="preserve">
 		<value>Win Place</value>
 	</data>
@@ -553,7 +552,7 @@
   <data name="AccumulatedTotal" xml:space="preserve">
     <value>Accumulated Total</value>
   </data>
-  <data name="Commission" xml:space="preserve">
+  <data name="Commission_Duplicate[1]" xml:space="preserve">
     <value>Commission</value>
   </data>
   <data name="Symbol_NoDataNumber" xml:space="preserve">
@@ -633,5 +632,14 @@
   </data>
   <data name="BetList_Running" xml:space="preserve">
     <value>Bet List (Running)</value>
+  </data>
+  <data name="OpeningBal" xml:space="preserve">
+    <value>Opening Bal</value>
+  </data>
+  <data name="AccumTotal" xml:space="preserve">
+    <value>Accum Total</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transfer</value>
   </data>
 </root>

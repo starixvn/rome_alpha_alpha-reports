@@ -4,6 +4,7 @@
     let template = {
         normal: `<body>
                     <div id="icon-excel"></div>
+                    <div id="tbl-report"></div>
                  </body>`
     };
 
@@ -14,9 +15,11 @@
     describe("_init", () => {
         beforeEach(() => {
             // arrange
+            setFixtures(template.normal);
+
             spyOn(jQueryFake, "blockUI");
             spyOn(jQueryFake, "unblockUI");
-            spyOn(statementDetailView, "cacheElements");
+            spyOn(statementDetailView, "cacheElements").and.callThrough();
             spyOn(statementDetailView, "registerEvents");
 
             // act

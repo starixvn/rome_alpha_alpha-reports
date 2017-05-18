@@ -8,7 +8,7 @@ using ONEbook.SpreadSheets.NPOI;
 
 namespace Alpha.Reports.Site.Handlers.Statement
 {
-    public interface SMAStatementWorkbook
+    public interface StatementWorkbook
     {
         Workbook<StatementModel> UseTemplate(TemplateInfo templateInfo);
 
@@ -21,7 +21,7 @@ namespace Alpha.Reports.Site.Handlers.Statement
         byte[] ExportToBytes();
     }
 
-    public class SMAStatementWorkbookImpl : NpoiWorkbook<StatementModel>, SMAStatementWorkbook
+    public class StatementWorkbookImpl : NpoiWorkbook<StatementModel>, StatementWorkbook
     {
         protected override void FillNoInfoRow(Sheet sheet)
         {
@@ -56,7 +56,7 @@ namespace Alpha.Reports.Site.Handlers.Statement
                 row.CopyCellsFrom(templateRow);
 
                 var currentColIndex = row.FirstCellIndex;
-                notedBalanceCellIndex = currentColIndex + 7;
+                notedBalanceCellIndex = notedBalanceCellIndex == 0 ? GetNotedBalanceCellIndex(row) : notedBalanceCellIndex;
 
                 if (previousStatement != null
                     && data.OpeningBalance != previousStatement.ClosingBalance)
@@ -67,11 +67,7 @@ namespace Alpha.Reports.Site.Handlers.Statement
                 row.SetCellValue(currentColIndex++, data.WinLossDateString);
                 row.SetCellValue(currentColIndex++, data.OpeningBalance);
 
-                row.SetCellValue(currentColIndex++, GetCellValue(data.Turnover));
-                row.SetCellValue(currentColIndex++, GetCellValue(data.WinLoss));
-                row.SetCellValue(currentColIndex++, GetCellValue(data.Commission));
-                row.SetCellValue(currentColIndex++, GetCellValue(data.TransferAmount));
-                row.SetCellValue(currentColIndex, GetCellValue(data.ClosingBalance));
+                ExportWinLoss(row, data, currentColIndex);
 
                 previousStatement = data;
                 currentRowIndex++;
@@ -81,6 +77,19 @@ namespace Alpha.Reports.Site.Handlers.Statement
             WorkbookHelper.RemoveColumnContent(Workbook.GetSheetAt(0), notedBalanceCellIndex);
         }
 
-        internal object GetCellValue(decimal? value) => (object)value ?? Resources.Symbol_NoDataNumber;
+        protected virtual void ExportWinLoss(Row row, StatementModel data, int currentColIndex)
+        {
+            var colIndex = currentColIndex;
+            row.SetCellValue(colIndex++, GetCellValue(data.Turnover));
+            row.SetCellValue(colIndex++, GetCellValue(data.WinLoss));
+            row.SetCellValue(colIndex++, GetCellValue(data.Commission));
+            row.SetCellValue(colIndex++, GetCellValue(data.TransferAmount));
+            row.SetCellValue(colIndex, GetCellValue(data.ClosingBalance));
+        }
+
+        protected virtual int GetNotedBalanceCellIndex(Row row)
+            => row.FirstCellIndex + 7;
+
+        internal static object GetCellValue(decimal? value) => (object)value ?? Resources.Symbol_NoDataNumber;
     }
 }

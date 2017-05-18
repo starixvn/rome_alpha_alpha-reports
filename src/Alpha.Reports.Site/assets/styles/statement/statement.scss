@@ -5,7 +5,7 @@
     line-height: 24px;
 }
 
-.bold-weight {
+.statement-term {
     font-weight: bold;
     color: #B50000;
 }
@@ -27,10 +27,6 @@
     }
 }
 
-.statement-details-excel {
-    float: right;
-}
-
 #tbl-report {
     .tbl-footer .format-negative {
         color: #ffffff;
@@ -42,5 +38,42 @@
         &:hover {
             color: #996600;
         }
+    }
+}
+
+
+.filter .form-group .statement-details-excel {
+    float: right;
+}
+
+#tbl-report.tbl-report-statement-detail {
+    margin-top: 0;
+}
+
+
+#tbl-report .short-title {
+    display: none;
+}
+
+.filter.statement-details-filter {
+    padding-top: 0;
+
+    .form-group.statement-detail-title {
+        font-weight: bold;
+        color: #B50000;
+        line-height: 40px;
+        font-size: 13px;
+        border-bottom: 1px solid #cecece;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-device-width : 767px) {
+    .full-title {
+        display: none !important;
+    }
+
+    .short-title {
+        display: table-cell !important;
     }
 }

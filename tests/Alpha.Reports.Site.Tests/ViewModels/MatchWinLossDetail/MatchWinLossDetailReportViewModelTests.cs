@@ -59,7 +59,9 @@
                 products: null,
                 leagues: null);
 
-            Site.Helpers.UrlHelper.MapExMainPath = (url) => url;
+            Site.Helpers.UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
+            Site.Helpers.UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
+
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = (url, routeValues) => url + "?" + JsonConvert.SerializeObject(routeValues);
         }
 
@@ -353,7 +355,7 @@
         public void GetBetListLink_Always_ReturnsCorrectBetListLink()
         {
             // Arrange
-            var expectedBetListLink = "~/_BetList/BetList.aspx?{\"BetType\":1}";
+            var expectedBetListLink = "BetListPath?{\"BetType\":1}";
 
             // Act
             var actualBetListLink = viewModel.GetBetListLink(new Dictionary<string, object>

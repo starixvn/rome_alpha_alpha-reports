@@ -2,6 +2,7 @@
     $: JQueryStatic;
 
     $exportExcelForm: JQuery;
+    $tableReport: JQuery;
 
     constructor($: JQueryStatic) {
         this.$ = $;
@@ -13,10 +14,13 @@
         this.cacheElements();
         this.registerEvents();
 
+        this.$tableReport.stickyTableHeaders();
+
         this.$.unblockUI();
     };
     cacheElements = () => {
         this.$exportExcelForm = this.$("#export-excel-form");
+        this.$tableReport = this.$("#tbl-report");
     };
     registerEvents = () => {
         this.$("#icon-excel").on("click", this.onExportExcel);

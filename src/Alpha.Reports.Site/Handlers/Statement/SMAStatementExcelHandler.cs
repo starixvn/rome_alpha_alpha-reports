@@ -14,9 +14,9 @@ namespace Alpha.Reports.Site.Handlers.Statement
         IRequestHandler<SMAStatementExcelQuery, ExcelFileViewModel>
     {
         private readonly StatementService reportService;
-        private readonly SMAStatementWorkbook workbook;
+        private readonly StatementWorkbook workbook;
 
-        public SMAStatementExcelHandler(StatementService reportService, SMAStatementWorkbook workbook)
+        public SMAStatementExcelHandler(StatementService reportService, StatementWorkbook workbook)
         {
             this.reportService = reportService;
             this.workbook = workbook;

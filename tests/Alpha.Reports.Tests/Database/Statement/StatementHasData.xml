@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Statement>
+  <TableStatement>
+    <WinLostDate>2017-5-19</WinLostDate>
+    <CustId>1</CustId>
+    <OpeningBalance>0</OpeningBalance>
+    <VoidAmt>1</VoidAmt>
+    <Outstanding>2</Outstanding>
+    <Turnover>3</Turnover>
+    <TransferAmt>4</TransferAmt>
+    <Winlost>5</Winlost>
+    <Comm>6</Comm>
+    <ClosingBalance>7</ClosingBalance>
+    <GrandPrize>8</GrandPrize>
+  </TableStatement>
+  <TableStatement>
+    <WinLostDate>2017-5-19</WinLostDate>
+    <CustId>11</CustId>
+  </TableStatement>
+</Statement>

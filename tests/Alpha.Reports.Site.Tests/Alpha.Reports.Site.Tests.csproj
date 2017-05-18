@@ -227,9 +227,9 @@
     <Compile Include="Handlers\Statement\SMAStatementExcelHandlerTests.cs" />
     <Compile Include="Handlers\Statement\MemberStatementExcelHandlerTests.cs" />
     <Compile Include="Handlers\Statement\MemberStatementWorkbookImplForTesting.cs" />
-    <Compile Include="Handlers\Statement\SMAStatementWorkbookImplForTesting.cs" />
+    <Compile Include="Handlers\Statement\StatementWorkbookImplForTesting.cs" />
     <Compile Include="Handlers\Statement\MemberStatementWorkbookImplTests.cs" />
-    <Compile Include="Handlers\Statement\SMAStatementWorkbookImplTests.cs" />
+    <Compile Include="Handlers\Statement\StatementWorkbookImplTests.cs" />
     <Compile Include="Handlers\Statement\StatementDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\Statement\StatementHandlerTests.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossExcelHandlerTest.cs" />
@@ -253,6 +253,7 @@
     <Compile Include="Helpers\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="Helpers\QueryEntityModelBinderTests.cs" />
     <Compile Include="Helpers\UrlHelperTests.cs" />
+    <Compile Include="Helpers\UrlHelperTestSetUp.cs" />
     <Compile Include="Models\UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\FromBalanceUpDateDateRangeQueryTests.cs" />

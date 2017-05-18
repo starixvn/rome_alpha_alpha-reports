@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Alpha.Reports.Criteria.Statement;
+using Alpha.Reports.DataAccesses;
 using Alpha.Reports.Models;
 using Alpha.Reports.Models.Statement;
 using Alpha.Reports.Params.Statement;
@@ -22,6 +23,7 @@ namespace Alpha.Reports.Tests.Services
         private readonly ReportDateService reportDateService;
         private readonly IDynamicRepository repository;
         private readonly StatementServiceImpl serviceImpl;
+        private readonly StatementDataAccess statementRepository;
 
         public StatementServiceImplTests(AnyValueCreatorFixture anyValueCreator)
         {
@@ -31,14 +33,16 @@ namespace Alpha.Reports.Tests.Services
             reportDateService.GetBalanceUpDay().Returns(DefaultVariables.BalanceUpDay);
 
             repository = Substitute.For<IDynamicRepository>();
-            repository.Fetch<StatementModel>(
+
+            statementRepository = Substitute.For<StatementDataAccess>();
+            statementRepository.GetStatements(
                 Arg.Is<GetStatementCriteria>(criteria => criteria.GetSettingKey() == "Statement_Report_GetList"))
                 .Returns(new List<StatementModel>
                 {
                     new StatementModel(new DateTime(2017, 4, 12), 0, 20, null, null, null, null, null, null, null, null)
                 });
 
-            repository.Fetch<StatementModel>(
+            statementRepository.GetStatements(
                 Arg.Is<GetStatementCriteria>(criteria => criteria.GetSettingKey() == "Statement_Report_GetList_14"))
                 .Returns(new List<StatementModel>
                 {
@@ -46,7 +50,7 @@ namespace Alpha.Reports.Tests.Services
                     new StatementModel(new DateTime(2017, 4, 6), 0, 20, null, null, null, null, null, null, null, null)
                 });
 
-            repository.Fetch<StatementModel>(
+            statementRepository.GetStatements(
                 Arg.Is<GetStatementCriteria>(criteria => criteria.GetSettingKey() == "Statement_Report_GetList_WH"))
                 .Returns(new List<StatementModel>
                 {
@@ -54,7 +58,7 @@ namespace Alpha.Reports.Tests.Services
                     new StatementModel(new DateTime(2017, 3, 31), 0, 20, null, null, null, null, null, null, null, null)
                 });
 
-            serviceImpl = new StatementServiceImpl(reportDateService, repository);
+            serviceImpl = new StatementServiceImpl(reportDateService, repository, statementRepository);
         }
 
         [Fact]

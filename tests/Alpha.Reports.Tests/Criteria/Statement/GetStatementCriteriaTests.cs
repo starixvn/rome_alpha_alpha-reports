@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using Alpha.Reports.Criteria.Statement;
+using Alpha.Reports.Tests.Constants;
 using Alpha.Reports.Tests.Fixtures;
 using Alpha.Reports.Utils;
 using Xunit;
@@ -15,13 +17,14 @@ namespace Alpha.Reports.Tests.Criteria.Statement
         public GetStatementCriteriaTests(AnyValueCreatorFixture anyValueCreator)
         {
             this.anyValueCreator = anyValueCreator;
+            SystemTime.Today = DefaultVariables.CurrentDate;
         }
 
         [Fact]
         public void GetSettingKey_BetTrans_ReturnsCorrectKey()
         {
             // Arrange
-            var criteria = new GetStatementCriteria(0, DateTime.Now, DateTime.Now, string.Empty);
+            var criteria = new GetStatementCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, string.Empty);
             var expectedSettingKey = "Statement_Report_GetList";
 
             // Act
@@ -35,7 +38,7 @@ namespace Alpha.Reports.Tests.Criteria.Statement
         public void GetSettingKey_BetTrans14_ReturnsCorrectKey()
         {
             // Arrange
-            var criteria = new GetStatementCriteria(0, DateTime.Now, DateTime.Now, "_14");
+            var criteria = new GetStatementCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, "_14");
             var expectedSettingKey = "Statement_Report_GetList_14";
 
             // Act
@@ -49,7 +52,7 @@ namespace Alpha.Reports.Tests.Criteria.Statement
         public void GetSettingKey_Warehouse_ReturnsCorrectKey()
         {
             // Arrange
-            var criteria = new GetStatementCriteria(0, DateTime.Now, DateTime.Now, "_WH");
+            var criteria = new GetStatementCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, "_WH");
             var expectedSettingKey = "Statement_Report_GetList_WH";
 
             // Act
@@ -68,6 +71,7 @@ namespace Alpha.Reports.Tests.Criteria.Statement
             // Arrange
             var criteria = new GetStatementCriteria(
                 custId,
+                anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<string>());
@@ -89,6 +93,7 @@ namespace Alpha.Reports.Tests.Criteria.Statement
                 1,
                 fromDate,
                 fromDate.AddDays(-1),
+                anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<string>());
 
             // Act
@@ -106,6 +111,7 @@ namespace Alpha.Reports.Tests.Criteria.Statement
                 1,
                 SystemTime.Today,
                 SystemTime.Today,
+                anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<string>());
 
             // Act
@@ -113,6 +119,47 @@ namespace Alpha.Reports.Tests.Criteria.Statement
 
             // Assert
             Assert.True(actualIsValid);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData("_WH")]
+        public void GetSpParams_NotBetTrans14_ReturnsCorrectParams(string storeMappingSuffix)
+        {
+            // Arrange
+            var criteria = new GetStatementCriteria(0, SystemTime.Today, SystemTime.Today, DateTime.Now, storeMappingSuffix);
+            var expectedParams = new Hashtable
+            {
+                ["custid"] = 0,
+                ["fromdate"] = SystemTime.Today,
+                ["todate"] = SystemTime.Today
+            };
+
+            // Act
+            var actualParams = criteria.GetSpParams();
+
+            // Assert
+            Assert.Equal(expectedParams, actualParams);
+        }
+
+        [Fact]
+        public void GetSpParams_BetTrans14_ReturnsCorrectParams()
+        {
+            // Arrange
+            var criteria = new GetStatementCriteria(0, SystemTime.Today, SystemTime.Today, SystemTime.Today, "_14");
+            var expectedParams = new Hashtable
+            {
+                ["custid"] = 0,
+                ["fromdate"] = SystemTime.Today,
+                ["todate"] = SystemTime.Today,
+                ["balanceupday"] = SystemTime.Today
+            };
+
+            // Act
+            var actualParams = criteria.GetSpParams();
+
+            // Assert
+            Assert.Equal(expectedParams, actualParams);
         }
     }
 }

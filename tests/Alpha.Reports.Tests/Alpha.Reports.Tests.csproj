@@ -187,10 +187,12 @@
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteriaTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTestCases.cs" />
+    <Compile Include="DataAccesses\StatementDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossAnalysisDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Database\MatchWinLossDetail\MatchWinLossDetailDatabase.cs" />
+    <Compile Include="Database\Statement\StatementDatabase.cs" />
     <Compile Include="Database\WinLossAnalysis\WinLossAnalysisDatabase.cs" />
     <Compile Include="Database\WinLoss\WinLossDatabase.cs" />
     <Compile Include="Database\WinLossDetail\WinLossDetailDatabase.cs" />
@@ -281,6 +283,10 @@
     </Content>
     <Content Include="Database\MatchWinLossDetail\SuperMatchWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\Statement\StatementHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Database\WinLossDetail\AgentWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

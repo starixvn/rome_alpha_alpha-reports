@@ -3,7 +3,7 @@ using ONEbook.SpreadSheets;
 
 namespace Alpha.Reports.Site.Tests.Handlers.Statement
 {
-    public class SMAStatementWorkbookImplForTesting : SMAStatementWorkbookImpl
+    public class StatementWorkbookImplForTesting : StatementWorkbookImpl
     {
         public void CallFillNoInfoRow(Sheet sheet)
         {

@@ -61,6 +61,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accum Total.
+        /// </summary>
+        public static string AccumTotal {
+            get {
+                return ResourceManager.GetString("AccumTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accumulated Total.
         /// </summary>
         public static string AccumulatedTotal {
@@ -295,6 +304,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Commission.
+        /// </summary>
+        public static string Commission_Duplicate_1_ {
+            get {
+                return ResourceManager.GetString("Commission_Duplicate[1]", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Commission 1.
         /// </summary>
         public static string Commission1 {
@@ -492,7 +510,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
             }
         }
         
-         /// <summary>
+        /// <summary>
         ///   Looks up a localized string similar to Grand Prize.
         /// </summary>
         public static string GrandPrize {
@@ -1024,7 +1042,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Others.
+        ///   Looks up a localized string similar to Opening Bal.
+        /// </summary>
+        public static string OpeningBal {
+            get {
+                return ResourceManager.GetString("OpeningBal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// </summary>
         public static string Others {
             get {
@@ -1149,7 +1175,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("Rejected", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Remark.
         /// </summary>
@@ -1259,15 +1285,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status.
-        /// </summary>
-        public static string Status {
-            get {
-                return ResourceManager.GetString("Status", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Statement.
         /// </summary>
         public static string Statement {
@@ -1282,6 +1299,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string StatementGuidelines {
             get {
                 return ResourceManager.GetString("StatementGuidelines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
             }
         }
         
@@ -1338,7 +1364,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("Symbol_NoDataNumber", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to There is no League..
         /// </summary>
@@ -1453,6 +1479,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Tote {
             get {
                 return ResourceManager.GetString("Tote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer.
+        /// </summary>
+        public static string Transfer {
+            get {
+                return ResourceManager.GetString("Transfer", resourceCulture);
             }
         }
         

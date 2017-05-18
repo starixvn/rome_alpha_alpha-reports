@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Threading;
+using Alpha.Reports.Site.Handlers.Statement;
 using Alpha.Reports.Site.Tests.Constants;
 using NSubstitute;
 using ONEbook.SpreadSheets;
@@ -8,14 +9,14 @@ using Xunit;
 namespace Alpha.Reports.Site.Tests.Handlers.Statement
 {
     [Trait("Category", "Statement")]
-    public class SMAStatementWorkbookImplTests
+    public class StatementWorkbookImplTests
     {
-        private readonly SMAStatementWorkbookImplForTesting workbook;
+        private readonly StatementWorkbookImplForTesting workbook;
         private readonly Sheet sheet;
 
-        public SMAStatementWorkbookImplTests()
+        public StatementWorkbookImplTests()
         {
-            workbook = new SMAStatementWorkbookImplForTesting();
+            workbook = new StatementWorkbookImplForTesting();
             sheet = Substitute.For<Sheet>();
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
@@ -54,7 +55,7 @@ namespace Alpha.Reports.Site.Tests.Handlers.Statement
             var expectedValue = "--";
 
             // Act
-            var actualValue = workbook.GetCellValue(value);
+            var actualValue = StatementWorkbookImpl.GetCellValue(value);
 
             // Assert
             Assert.Equal(expectedValue, actualValue);
@@ -68,7 +69,7 @@ namespace Alpha.Reports.Site.Tests.Handlers.Statement
             decimal expectedValue = 10;
 
             // Act
-            var actualValue = workbook.GetCellValue(value);
+            var actualValue = StatementWorkbookImpl.GetCellValue(value);
 
             // Assert
             Assert.Equal(expectedValue, actualValue);

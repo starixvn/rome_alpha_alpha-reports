@@ -31,8 +31,8 @@
             this.fanexCacheFixture = fanexCacheFixture;
 
             BalanceUpDayAndMoveBetsDay balanceUpDayAndMoveBetsDay;
-            balanceUpDay = new DateTime(2000, 1, 1);
-            moveBetsDay = new DateTime(2010, 1, 1);
+            balanceUpDay = new DateTime(2010, 1, 1);
+            moveBetsDay = new DateTime(2010, 1, 5);
             dataInCache = new BalanceUpDayAndMoveBetsDay(balanceUpDay, moveBetsDay);
             fanexCacheFixture.CacheForTesting.TryGet(BalanceUpDayAndMoveBetsDayCacheKey, out balanceUpDayAndMoveBetsDay).Returns(x =>
             {
@@ -221,6 +221,51 @@
 
             // Assert
             AssertExtension.Equal(expectedTimeRange, actualTimeRanges);
+        }
+
+        [Fact]
+        public void GetStoreMappingSuffix_GreaterThanMoveBetsDay_ReturnsEmpty()
+        {
+            // Arrange
+            var expectedSuffix = string.Empty;
+            var fromDate = new DateTime(2010, 1, 6);
+
+            // Act
+            var actualSuffix = service.GetStoreMappingSuffix(fromDate);
+
+            // Assert
+            Assert.Equal(expectedSuffix, actualSuffix);
+        }
+
+        [Theory]
+        [InlineData(5)]
+        [InlineData(2)]
+        [InlineData(1)]
+        public void GetStoreMappingSuffix_LessThanMoveBetsDayAndNotLessThanBalanceUpDay_Returns_14(int date)
+        {
+            // Arrange
+            var expectedSuffix = "_14";
+            var fromDate = new DateTime(2010, 1, date);
+
+            // Act
+            var actualSuffix = service.GetStoreMappingSuffix(fromDate);
+
+            // Assert
+            Assert.Equal(expectedSuffix, actualSuffix);
+        }
+
+        [Fact]
+        public void GetStoreMappingSuffix_LessThanBalanceUpDay_Returns_WH()
+        {
+            // Arrange
+            var expectedSuffix = "_WH";
+            var fromDate = new DateTime(2009, 12, 1);
+
+            // Act
+            var actualSuffix = service.GetStoreMappingSuffix(fromDate);
+
+            // Assert
+            Assert.Equal(expectedSuffix, actualSuffix);
         }
     }
 }

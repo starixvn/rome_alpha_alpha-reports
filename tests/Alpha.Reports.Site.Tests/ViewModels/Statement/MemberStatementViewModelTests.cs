@@ -1,11 +1,17 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Threading;
 using Alpha.Reports.Models;
+using Alpha.Reports.Models.Statement;
+using Alpha.Reports.Site.Helpers;
 using Alpha.Reports.Site.Requests.Statement;
 using Alpha.Reports.Site.Tests.Constants;
 using Alpha.Reports.Site.Tests.Fixtures;
+using Alpha.Reports.Site.Tests.Helpers;
 using Alpha.Reports.Site.ViewModels.Statement;
 using Alpha.Reports.Utils;
+using NSubstitute;
 using Xunit;
 
 namespace Alpha.Reports.Site.Tests.ViewModels.Statement
@@ -18,7 +24,7 @@ namespace Alpha.Reports.Site.Tests.ViewModels.Statement
 
         public MemberStatementViewModelTests(UserFixture userFixture)
         {
-            this.user = userFixture.User;
+            user = userFixture.User;
 
             SystemTime.Today = DefaultVariables.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
@@ -151,6 +157,70 @@ namespace Alpha.Reports.Site.Tests.ViewModels.Statement
 
             // Assert
             Assert.Equal(expectedViewDataInstructionMessage, actualViewDataInstructionMessage);
+        }
+
+        [Fact]
+        public void BuildBetListLink_Always_ReturnsCorrectLink()
+        {
+            // Arrange
+            var message = new MemberStatementQuery(user)
+            {
+                CustName = "CustName",
+                CustId = 1
+            };
+
+            var viewModel = new MemberStatementViewModel(message, Enumerable.Empty<StatementModel>());
+            UrlHelperTestSetUp.SetUp();
+
+            // Act
+            viewModel.BuildBetListLink();
+
+            // Assert
+            UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
+                "BetListPath",
+                Arg.Is<Dictionary<string, object>>(
+                    routeValue =>
+                    (string)routeValue["username"] == "CustName"
+                    && (int)routeValue["option"] == 4
+                    && (int)routeValue["custid"] == 1
+                    && (string)routeValue["fdate"] == "12/01/2016"
+                    && (string)routeValue["tdate"] == "12/02/2016"
+                    && (int)routeValue["page"] == 1
+                    && (string)routeValue["chkgetall"] == "on"
+                    && (string)routeValue["productIds"] == "1,6,2"
+                    && (string)routeValue["FilterPostback"] == "1"));
+        }
+
+        [Fact]
+        public void BuildBetListRunningLink_Always_ReturnsCorrectLink()
+        {
+            // Arrange
+            var message = new MemberStatementQuery(user)
+            {
+                CustName = "CustName",
+                CustId = 1
+            };
+
+            var viewModel = new MemberStatementViewModel(message, Enumerable.Empty<StatementModel>());
+            UrlHelperTestSetUp.SetUp();
+
+            // Act
+            viewModel.BuildBetListRunningLink();
+
+            // Assert
+            UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
+                "BetListPath",
+                Arg.Is<Dictionary<string, object>>(
+                    routeValue =>
+                    (string)routeValue["username"] == "CustName"
+                    && (int)routeValue["option"] == 5
+                    && (int)routeValue["custid"] == 1
+                    && (string)routeValue["fdate"] == "11/25/2016"
+                    && (string)routeValue["tdate"] == "12/02/2016"
+                    && (int)routeValue["page"] == 1
+                    && (string)routeValue["chkgetall"] == "on"
+                    && (string)routeValue["productIds"] == "1,6,2"
+                    && (string)routeValue["FilterPostback"] == "1"));
         }
     }
 }

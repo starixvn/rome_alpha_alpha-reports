@@ -303,10 +303,9 @@
   <data name="CommissionByBettype" xml:space="preserve">
 		<value>배팅 종류에 따른 수수료</value>
 	</data>
-	  <data name="NumberGameNo" xml:space="preserve">
+  <data name="NumberGameNo" xml:space="preserve">
     <value>라이브빙고 번호</value>
   </data>
-
   <data name="Next" xml:space="preserve">
     <value>다음</value>
   </data>
@@ -328,7 +327,7 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>마스터 대기 포인트</value>
   </data>
-    <data name="Status" xml:space="preserve">
+  <data name="Status" xml:space="preserve">
     <value>상황</value>
   </data>
   <data name="All" xml:space="preserve">
@@ -337,7 +336,6 @@
   <data name="Disabled" xml:space="preserve">
     <value>비활성화</value>
   </data>
-
   <data name="RacingCommission" xml:space="preserve">
 		<value>경마 수수료</value>
 	</data>
@@ -425,20 +423,19 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>모든 리그</value>
   </data>
-
   <data name="Commission2" xml:space="preserve">
     <value>수수료 2</value>
   </data>
   <data name="Commission3" xml:space="preserve">
     <value>수수료 3</value>
   </data>
-    <data name="GrandTotal" xml:space="preserve">
+  <data name="GrandTotal" xml:space="preserve">
     <value>총 그랜드</value>
   </data>
   <data name="Statement" xml:space="preserve">
     <value>기록</value>
   </data>
-  <data name="Commission" xml:space="preserve">
+  <data name="Commission_Duplicate[1]" xml:space="preserve">
     <value>수수료</value>
   </data>
   <data name="Remark" xml:space="preserve">
@@ -449,5 +446,8 @@
   </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>일일 정책</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>전송</value>
   </data>
 </root>

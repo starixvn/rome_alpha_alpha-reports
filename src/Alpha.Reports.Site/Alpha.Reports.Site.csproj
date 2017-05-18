@@ -306,11 +306,11 @@
     <Compile Include="Handlers\ReportLegendHandler.cs" />
     <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs" />
     <Compile Include="Handlers\Statement\MemberStatementExcelHandler.cs" />
-    <Compile Include="Handlers\Statement\SMAStatementWorkbook.cs" />
     <Compile Include="Handlers\Statement\StatementDetailExcelHandler.cs" />
     <Compile Include="Handlers\Statement\SMAStatementExcelHandler.cs" />
     <Compile Include="Handlers\Statement\StatementHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
+    <Compile Include="Handlers\Statement\StatementWorkbook.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisBaseHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisExcelHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisHandler.cs" />
@@ -400,6 +400,7 @@
     <Compile Include="ViewModels\RacingCommission\RacingCommissionFilterViewModel.cs" />
     <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
+    <Compile Include="ViewModels\Statement\StatementViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysislFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisReportTypeViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisViewModel.cs" />

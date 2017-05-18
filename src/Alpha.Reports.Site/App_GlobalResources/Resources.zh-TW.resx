@@ -336,10 +336,9 @@
   <data name="CommissionByBettype" xml:space="preserve">
 		<value>投注產品分類佣金</value>
 	</data>
-	 <data name="NumberGameNo" xml:space="preserve">
+  <data name="NumberGameNo" xml:space="preserve">
     <value>數字遊戲編號</value>
   </data>
-
   <data name="Next" xml:space="preserve">
     <value>下一頁</value>
   </data>
@@ -361,7 +360,7 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>總代理未結束交易</value>
   </data>
-   <data name="Status" xml:space="preserve">
+  <data name="Status" xml:space="preserve">
     <value>狀態</value>
   </data>
   <data name="All" xml:space="preserve">
@@ -370,7 +369,6 @@
   <data name="Disabled" xml:space="preserve">
     <value>禁用</value>
   </data>
-
   <data name="RacingCommission" xml:space="preserve">
 		<value>賽馬佣金</value>
 	</data>
@@ -404,7 +402,7 @@
   <data name="Commission1" xml:space="preserve">
     <value>佣金 1</value>
   </data>
-    <data name="Match" xml:space="preserve">
+  <data name="Match" xml:space="preserve">
     <value>賽事</value>
   </data>
   <data name="PositionTaking" xml:space="preserve">
@@ -458,14 +456,13 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>所有聯賽</value>
   </data>
-
   <data name="Commission2" xml:space="preserve">
     <value>佣金 2</value>
   </data>
   <data name="Commission3" xml:space="preserve">
     <value>佣金 3</value>
   </data>
-   <data name="GrandTotal" xml:space="preserve">
+  <data name="GrandTotal" xml:space="preserve">
     <value>總和</value>
   </data>
   <data name="DelayIssueLegend" xml:space="preserve">
@@ -504,7 +501,7 @@
   <data name="Enabled" xml:space="preserve">
     <value>已開啟</value>
   </data>
-    <data name="Statement" xml:space="preserve">
+  <data name="Statement" xml:space="preserve">
     <value>帳目</value>
   </data>
   <data name="OpeningBalance" xml:space="preserve">
@@ -516,7 +513,7 @@
   <data name="AccumulatedTotal" xml:space="preserve">
     <value>總累計余額</value>
   </data>
-  <data name="Commission" xml:space="preserve">
+  <data name="Commission_Duplicate[1]" xml:space="preserve">
     <value>佣金</value>
   </data>
   <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
@@ -537,7 +534,6 @@
   <data name="Guidelines_AccumulatedTotal_SMA" xml:space="preserve">
     <value>選定日期之間，每一天的期末余額</value>
   </data>
-
   <data name="Formular_Accumulated_Total" xml:space="preserve">
     <value>總累計余額 = 期初余額 + 輸贏 + 傭金 + 轉帳金額</value>
   </data>
@@ -576,5 +572,14 @@
   </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>每日帳目</value>
+  </data>
+  <data name="OpeningBal" xml:space="preserve">
+    <value>期初余額</value>
+  </data>
+  <data name="AccumTotal" xml:space="preserve">
+    <value>總累計余額</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>轉帳</value>
   </data>
 </root>

@@ -337,10 +337,9 @@
   <data name="CommissionByBettype" xml:space="preserve">
 		<value>คอมมิชั่นจากประเภทพนัน</value>
 	</data>
-	 <data name="NumberGameNo" xml:space="preserve">
+  <data name="NumberGameNo" xml:space="preserve">
     <value>เกมหมายเลข เลขที่</value>
   </data>
-
   <data name="Next" xml:space="preserve">
     <value>ต่อไป</value>
   </data>
@@ -362,7 +361,7 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>การเดิมพันที่ยังไม่สิ้นสุดของ Master</value>
   </data>
-   <data name="Status" xml:space="preserve">
+  <data name="Status" xml:space="preserve">
     <value>สถานะ</value>
   </data>
   <data name="All" xml:space="preserve">
@@ -371,7 +370,6 @@
   <data name="Disabled" xml:space="preserve">
     <value>ปิดการใช้งาน</value>
   </data>
-
   <data name="RacingCommission" xml:space="preserve">
 		<value>คอมมิสชั่นการแข่งขันม้า</value>
 	</data>
@@ -405,7 +403,7 @@
   <data name="Commission1" xml:space="preserve">
     <value>คอมมิชชั่น 1</value>
   </data>
-   <data name="Match" xml:space="preserve">
+  <data name="Match" xml:space="preserve">
     <value>การแข่งขัน</value>
   </data>
   <data name="PositionTaking" xml:space="preserve">
@@ -459,18 +457,16 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>ลีคทั้งหมด</value>
   </data>
-
   <data name="Commission2" xml:space="preserve">
     <value>คอมมิชชั่น 2</value>
   </data>
-   <data name="GrandTotal" xml:space="preserve">
+  <data name="GrandTotal" xml:space="preserve">
     <value>รวมทั้งสิ้น</value>
   </data>
-
   <data name="Commission3" xml:space="preserve">
     <value>คอมมิชชั่น 3</value>
   </data>
-   <data name="DelayIssueLegend" xml:space="preserve">
+  <data name="DelayIssueLegend" xml:space="preserve">
     <value>- ข้อมูล {0} จะล่าช้าไม่เกิน 5 นาทีหลังจากเคลียร์ตั๋ว</value>
   </data>
   <data name="MasterPlayForFunDetail" xml:space="preserve">
@@ -506,7 +502,7 @@
   <data name="Enabled" xml:space="preserve">
     <value>เปิดการใช้งาน</value>
   </data>
-    <data name="Statement" xml:space="preserve">
+  <data name="Statement" xml:space="preserve">
     <value>บัญชี</value>
   </data>
   <data name="OpeningBalance" xml:space="preserve">
@@ -518,7 +514,7 @@
   <data name="AccumulatedTotal" xml:space="preserve">
     <value>ยอดสะสมรวม</value>
   </data>
-  <data name="Commission" xml:space="preserve">
+  <data name="Commission_Duplicate[1]" xml:space="preserve">
     <value>คอมมิชชั่น</value>
   </data>
   <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
@@ -539,7 +535,6 @@
   <data name="Guidelines_AccumulatedTotal_SMA" xml:space="preserve">
     <value>ยอดเงินรวมล่าสุดในแต่ละวันในช่วงวันที่ที่เลือก</value>
   </data>
-
   <data name="Formular_Accumulated_Total" xml:space="preserve">
     <value>ยอดสะสมรวม = งบดุลเริ่มต้น + ยอดได้/เสีย + คอมมิชชั่น + ยอดโอนเงิน</value>
   </data>
@@ -578,5 +573,14 @@
   </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>บัญชีรายวัน</value>
+  </data>
+  <data name="OpeningBal" xml:space="preserve">
+    <value>ยอดยกมา</value>
+  </data>
+  <data name="AccumTotal" xml:space="preserve">
+    <value>ยอดสะสมรวม</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>ตั้งค่าใหม่</value>
   </data>
 </root>
