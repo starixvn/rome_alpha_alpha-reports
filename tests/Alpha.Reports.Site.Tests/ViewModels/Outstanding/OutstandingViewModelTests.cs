@@ -43,19 +43,17 @@
             var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
 
             // Act
-            viewmodel.BuildDrillDownLink(new OutstandingModel { CustId = custId, CustName = custName }, null);
+            viewmodel.BuildDrillDownLink(new OutstandingModel { CustId = custId, CustName = custName }, "currentUrl");
 
             // Assert
             UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
-                "BetListPath",
+                "NewBetListPath",
                 Arg.Is<Dictionary<string, object>>(
                     routeValue =>
                     (int)routeValue["CustId"] == custId
-                    && (string)routeValue["Username"] == custName
-                    && (string)routeValue["Type"] == "RunByDate_Mem"
-                    && (string)routeValue["Chkgetall"] == "on"
-                    && (string)routeValue["ProductIds"] == string.Empty
-                    && (int)routeValue["FilterPostback"] == 1));
+                    && (string)routeValue["CustName"] == custName
+                    && (bool)routeValue["GetAll"] == true
+                    && (string)routeValue["ProductIds"] == string.Empty));
         }
 
         [Theory]
@@ -201,7 +199,9 @@
             JsonHelper.ToJsonFunc = Substitute.For<Func<object, string>>();
             JsonHelper.ToJsonFunc.Invoke(Arg.Any<object>()).Returns("parsedJson");
             UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
+            UrlHelper.MapBetListPath = Substitute.For<Func<string, string>>();
             UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
+            UrlHelper.MapBetListPath(Arg.Any<string>()).Returns("NewBetListPath");
         }
     }
 }

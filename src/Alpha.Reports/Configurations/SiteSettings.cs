@@ -38,5 +38,7 @@
                 throw new ConfigurationErrorsException($"{keyName} is null or whitespace");
             }
         }
+
+        public static string BetListAppPath => GetConfigValue("BetListsAppPath") ?? "site-betlists";
     }
 }

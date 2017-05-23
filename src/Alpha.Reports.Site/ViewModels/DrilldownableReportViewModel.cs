@@ -26,7 +26,7 @@
 
         public string BreadcrumbLevelJson { get; }
 
-        protected string BetListPath { get; }
+        protected string BetListPath { get; set; }
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed!")]
         public virtual string BuildDrillDownLink(T model, string currentUrl)

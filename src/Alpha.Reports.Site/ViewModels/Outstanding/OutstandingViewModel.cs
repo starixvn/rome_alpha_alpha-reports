@@ -25,7 +25,7 @@
             IEnumerable<int> selectedProductIds,
             IEnumerable<SelectListItem> products,
             IEnumerable<CustInfo> breadcrumbLevel)
-               : base(query.CustLevel, breadcrumbLevel, "~/_Reports/BetList/OutstandingDetail.aspx")
+               : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
             OutstandingDatasource = outstandingDataSource;
@@ -39,6 +39,7 @@
             var canSort = outstandingDataSource != null && outstandingDataSource.Count() > 1;
             SortPropertyName = canSort ? GetSortedProperty(query.SortPropertyName) : DefaultVariables.SortPropertyName;
             IsDescendingSort = canSort && query.IsDescendingSort;
+            BetListPath = Helpers.UrlHelper.MapBetListPath("~/RunningBetList/Index");
         }
 
         public string Title
@@ -91,12 +92,10 @@
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>
         {
-            { "CustId", model.CustId },
-            { "Username", model.CustName },
-            { "Chkgetall", "on" },
-            { "Type", "RunByDate_Mem" },
-            { "ProductIds", ProductMultiSelectionViewModel.UserSelectedProductIds },
-            { "FilterPostback", 1 }
+            ["CustId"] = model.CustId,
+            ["CustName"] = model.CustName,
+            ["GetAll"] = true,
+            ["ProductIds"] = ProductMultiSelectionViewModel.UserSelectedProductIds
         };
 
         private string GetSortedProperty(string sortedProperty)
