@@ -26,25 +26,33 @@ namespace Alpha.Reports.Site.ViewModels.Statement
 
         public string BetListLink => UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
 
-        public string BuildBetListLink() => BuildBetListLink(option: 4, fromDate: SystemTime.Today.AddDays(-1));
-
-        public string BuildBetListRunningLink() => BuildBetListLink(option: 5, fromDate: SystemTime.Today.AddDays(-7));
-
-        public string BuildBetListLink(int option, DateTime fromDate)
+        public string BuildBetListLink()
         {
-            var url = UrlHelper.MapExMainPath("~/_Reports/BetList/OutstandingDetail.aspx");
-
+            var url = UrlHelper.MapBetListPath("~/MemberBetList/Index");
             var routeValues = new Dictionary<string, object>
             {
-                ["username"] = CustName,
-                ["option"] = option,
-                ["custid"] = CustId,
-                ["fdate"] = fromDate.ToShortDateWithSlash(),
-                ["tdate"] = SystemTime.Today.ToShortDateWithSlash(),
-                ["page"] = 1,
-                ["chkgetall"] = "on",
-                ["productIds"] = StatementProductIds,
-                ["FilterPostback"] = "1"
+                ["CustId"] = CustId,
+                ["CustName"] = CustName,
+                ["FromDate"] = SystemTime.Today.AddDays(-1).ToShortDateWithSlash(),
+                ["ToDate"] = SystemTime.Today.ToShortDateWithSlash(),
+                ["GetAll"] = true,
+                ["ProductIds"] = StatementProductIds
+            };
+
+            return UrlHelper.AddQueryStringParamsFunc(url, routeValues);
+        }
+
+        public string BuildBetListRunningLink()
+        {
+            var url = UrlHelper.MapBetListPath("~/RunningBetList/Index");
+            var routeValues = new Dictionary<string, object>
+            {
+                ["CustId"] = CustId,
+                ["CustName"] = CustName,
+                ["FromDate"] = SystemTime.Today.AddDays(-7).ToShortDateWithSlash(),
+                ["ToDate"] = SystemTime.Today.ToShortDateWithSlash(),
+                ["GetAll"] = true,
+                ["ProductIds"] = StatementProductIds
             };
 
             return UrlHelper.AddQueryStringParamsFunc(url, routeValues);

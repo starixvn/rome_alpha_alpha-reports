@@ -177,18 +177,15 @@ namespace Alpha.Reports.Site.Tests.ViewModels.Statement
 
             // Assert
             UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
-                "BetListPath",
+                "NewBetListPath",
                 Arg.Is<Dictionary<string, object>>(
                     routeValue =>
-                    (string)routeValue["username"] == "CustName"
-                    && (int)routeValue["option"] == 4
-                    && (int)routeValue["custid"] == 1
-                    && (string)routeValue["fdate"] == "12/01/2016"
-                    && (string)routeValue["tdate"] == "12/02/2016"
-                    && (int)routeValue["page"] == 1
-                    && (string)routeValue["chkgetall"] == "on"
-                    && (string)routeValue["productIds"] == "1,6,2"
-                    && (string)routeValue["FilterPostback"] == "1"));
+                    (int)routeValue["CustId"] == 1
+                    && (string)routeValue["CustName"] == "CustName"
+                    && (string)routeValue["FromDate"] == "12/01/2016"
+                    && (string)routeValue["ToDate"] == "12/02/2016"
+                    && (bool)routeValue["GetAll"] == true
+                    && (string)routeValue["ProductIds"] == "1,6,2"));
         }
 
         [Fact]
@@ -209,18 +206,15 @@ namespace Alpha.Reports.Site.Tests.ViewModels.Statement
 
             // Assert
             UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
-                "BetListPath",
+                "NewBetListPath",
                 Arg.Is<Dictionary<string, object>>(
                     routeValue =>
-                    (string)routeValue["username"] == "CustName"
-                    && (int)routeValue["option"] == 5
-                    && (int)routeValue["custid"] == 1
-                    && (string)routeValue["fdate"] == "11/25/2016"
-                    && (string)routeValue["tdate"] == "12/02/2016"
-                    && (int)routeValue["page"] == 1
-                    && (string)routeValue["chkgetall"] == "on"
-                    && (string)routeValue["productIds"] == "1,6,2"
-                    && (string)routeValue["FilterPostback"] == "1"));
+                    (int)routeValue["CustId"] == 1
+                    && (string)routeValue["CustName"] == "CustName"
+                    && (string)routeValue["FromDate"] == "11/25/2016"
+                    && (string)routeValue["ToDate"] == "12/02/2016"
+                    && (bool)routeValue["GetAll"] == true
+                    && (string)routeValue["ProductIds"] == "1,6,2"));
         }
     }
 }

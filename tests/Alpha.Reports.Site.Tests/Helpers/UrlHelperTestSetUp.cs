@@ -12,6 +12,9 @@ namespace Alpha.Reports.Site.Tests.Helpers
             UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
             UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
 
+            UrlHelper.MapBetListPath = Substitute.For<Func<string, string>>();
+            UrlHelper.MapBetListPath(Arg.Any<string>()).Returns("NewBetListPath");
+
             UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
         }
     }
