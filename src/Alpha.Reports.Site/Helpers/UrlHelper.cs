@@ -125,15 +125,12 @@
 
         internal static string GetUrl(string action, string currentQuery)
         {
-            var relativePath = action + currentQuery;
-            var url = AppPathHelper.GetAppPath(SiteSettings.ReportsAppPath, relativePath);
-
-            return url;
+            return MicroSites.ReportsUrl(action + currentQuery);
         }
 
         internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
         {
-            return AppPathHelper.GetAppPath(SiteSettings.BetListAppPath, virtualPath);
+            return MicroSites.BetListsUrl(virtualPath);
         }
     }
 }
