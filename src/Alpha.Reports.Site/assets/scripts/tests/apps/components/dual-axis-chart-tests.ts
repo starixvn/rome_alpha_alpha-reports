@@ -154,7 +154,7 @@
                 datasets: [dataset]
             };
 
-            formatTooltipLabelTest(tooltipItem, data, "Jan-17 = 100000 UUS");
+            formatTooltipLabelTest(tooltipItem, data, "Jan-17 = 100,000.00 UUS");
         });
     });
 });

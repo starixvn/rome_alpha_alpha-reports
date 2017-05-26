@@ -134,6 +134,6 @@ class DualAxisChartComponent {
 
     formatTooltipLabel = (tooltipItem: any, data: any) => {
         let datesetLabel = data.datasets[tooltipItem.datasetIndex].label;
-        return datesetLabel + " = " + alphaReports.formatNumber(Number(tooltipItem.yLabel)) + " " + this.currencyName;
+        return datesetLabel + " = " + alphaReports.formatCurrency(Number(tooltipItem.yLabel)) + " " + this.currencyName;
     };
 }
