@@ -60,7 +60,7 @@
                         <span class=" @(data.TransferAmount.HasValue ? "column-transfer-amount" : string.Empty)
                               @(data.TransferAmount.HasValue && data.TransferAmount.Value < 0 ? "format-negative" : string.Empty) "
                               data-transfer-date="@data.WinLossDateString">
-                            @(data.TransferAmount.HasValue ? data.TransferAmount.Value.ToString($"#,##0.00") : Resources.Symbol_NoDataNumber)
+                            @(data.TransferAmount.HasValue ? data.TransferAmount.Value.FormatNumber() : Resources.Symbol_NoDataNumber)
                         </span>
                     </td>
                     <td>@RenderNegativeNumberCell(data.ClosingBalance)</td>
@@ -93,13 +93,13 @@
 @helper RenderNegativeNumberCell(decimal? cellValue)
 {
     <span class="@(cellValue.HasValue && cellValue.Value < 0 ? "format-negative" : string.Empty)">
-        @(cellValue.HasValue ? cellValue.Value.ToString($"#,##0.00") : Resources.Symbol_NoDataNumber)
+        @(cellValue.HasValue ? cellValue.Value.FormatNumber() : Resources.Symbol_NoDataNumber)
     </span>
 }
 
 @helper RenderNumberCell(decimal? cellValue)
 {
     <span>
-        @(cellValue.HasValue ? cellValue.Value.ToString($"#,##0.00") : Resources.Symbol_NoDataNumber)
+        @(cellValue.HasValue ? cellValue.Value.FormatNumber() : Resources.Symbol_NoDataNumber)
     </span>
 }

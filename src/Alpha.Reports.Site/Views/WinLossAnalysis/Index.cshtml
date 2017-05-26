@@ -53,7 +53,7 @@
 
             @if (Model.CustLevel.IsSuperLevel())
             {
-                <th colspan="3" class="col-level hidden-stack-mode" >@Resources.Super</th>
+                <th colspan="3" class="col-level hidden-stack-mode">@Resources.Super</th>
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperNetWinLoss.WinLoss" rowspan="2" data-colindex="6">
                     @Resources.Super
                     <br />
@@ -103,8 +103,8 @@
     @if (Model.ReportData.Any())
     {
         <tbody>
-          @foreach (var data in Model.ReportData)
-          {
+            @foreach (var data in Model.ReportData)
+            {
                 @RenderRow(data, false)
             }
         </tbody>
@@ -145,10 +145,10 @@
 {
     <tr class="@(isTotalRow ? "tbl-footer" : string.Empty)">
         <td class="text-left col-username" data-isdatetime="true">
-            @(isTotalRow ? Resources.Total: data.RollupKey)
+            @(isTotalRow ? Resources.Total : data.RollupKey)
         </td>
         <td>@data.BetCount.ToString($"#,##0")</td>
-        <td>@data.Turnover.ToString($"#,##0.00")</td>
+        <td>@data.Turnover.FormatNumber()</td>
 
         @if (Model.IsStackMode)
         {
@@ -171,14 +171,14 @@
 
 @helper RenderStackNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
-    if (netWinLoss == null)
-    {
-        return;
-    }
+if (netWinLoss == null)
+{
+    return;
+}
 
-    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
-        @HtmlHelpers.RenderStackCell(
+    @HtmlHelpers.RenderStackCell(
             $"col-{level.DisplayName.ToLower()}-winloss-combined {highlightCellClass}",
             1,
             netWinLoss.WinLoss.Value,
@@ -188,12 +188,12 @@
 
 @helper RenderNetWinLoss(UserLevel level, NetWinLoss netWinLoss, bool isHighlight = false)
 {
-    if (netWinLoss == null)
-    {
-        return;
-    }
+if (netWinLoss == null)
+{
+    return;
+}
 
-    var highlightCellClass = isHighlight ? "altercol" : string.Empty;
+var highlightCellClass = isHighlight ? "altercol" : string.Empty;
 
     @HtmlHelpers.RenderNumberCell(netWinLoss.WinLoss.Value, $"col-{level.DisplayName.ToLower()}-winloss {highlightCellClass}")
     @HtmlHelpers.RenderNumberCell(netWinLoss.Comm.Value, highlightCellClass)

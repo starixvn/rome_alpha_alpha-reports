@@ -66,6 +66,7 @@
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("StatementDetailExcel", "Statement")">
     @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("TransferDate", Model.TransferDate)
 </form>
 @section Scripts {
@@ -75,6 +76,6 @@
 @helper RenderNegativeNumberCell(decimal? cellValue)
 {
     <span class="@(cellValue.HasValue && cellValue.Value < 0 ? "format-negative" : string.Empty)">
-        @(cellValue.HasValue ? cellValue.Value.ToString($"#,##0.00") : Resources.Symbol_NoDataNumber)
+        @(cellValue.HasValue ? cellValue.Value.FormatNumber() : Resources.Symbol_NoDataNumber)
     </span>
 }

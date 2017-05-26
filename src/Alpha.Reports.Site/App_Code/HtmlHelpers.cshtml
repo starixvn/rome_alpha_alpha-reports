@@ -3,12 +3,12 @@
 
 @helper FormatNumber(decimal value)
 {
-    @value.ToString($"#,##0.00")
+    @value.ToString("#,##0.00")
 }
 
 @helper FormatNumber(int value)
 {
-    @value.ToString($"#,##0")
+    @value.ToString("#,##0")
 }
 
 @helper RenderStackCell(string css, int colspan, params decimal[] cellValues)

@@ -10,6 +10,15 @@ namespace Alpha.Reports.Models.Statement
             string transType,
             string transDesc,
             decimal? amount,
+            string creator) : this(transDate, transType, transDesc, amount, string.Empty, creator)
+        {
+        }
+
+        public StatementDetailModel(
+            DateTime transDate,
+            string transType,
+            string transDesc,
+            decimal? amount,
             string exchangeRate,
             string creator)
         {

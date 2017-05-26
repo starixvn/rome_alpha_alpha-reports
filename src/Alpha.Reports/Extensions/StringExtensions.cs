@@ -24,5 +24,14 @@
         }
 
         public static bool IsNullOrBlank(this string input) => string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input);
+
+        public static string FormatNumber(this decimal numberValue)
+        {
+            var result = numberValue.ToString("#,##0.00");
+
+            return numberValue < 0 && !result.StartsWith("-", StringComparison.OrdinalIgnoreCase)
+                ? $"-{result}"
+                : result;
+        }
     }
 }

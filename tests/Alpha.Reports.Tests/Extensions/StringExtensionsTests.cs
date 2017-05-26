@@ -83,5 +83,22 @@
             // Assert
             Assert.Equal(expected, true);
         }
+
+        [Theory]
+        [InlineData(0, "0.00")]
+        [InlineData(0.32, "0.32")]
+        [InlineData(-0.32, "-0.32")]
+        [InlineData(0.0032, "0.00")]
+        [InlineData(-0.0032, "-0.00")]
+        [InlineData(1, "1.00")]
+        [InlineData(-1, "-1.00")]
+        public void FormatNumber_Always_ReturnsCorrectString(decimal numberValue, string expectedValue)
+        {
+            // Act
+            var actualValue = numberValue.FormatNumber();
+
+            // Assert
+            Assert.Equal(expectedValue, actualValue);
+        }
     }
 }

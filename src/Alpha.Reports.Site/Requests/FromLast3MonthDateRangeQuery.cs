@@ -17,7 +17,7 @@
 
         public DateTime ToDate { get; set; }
 
-        public DateTime MinDate => SystemTime.Today.AddMonths(-3).FirstDayOfYear();
+        public DateTime MinDate => SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
 
         public override bool IsValid()
             => base.IsValid() && FromDate <= ToDate && FromDate >= MinDate;

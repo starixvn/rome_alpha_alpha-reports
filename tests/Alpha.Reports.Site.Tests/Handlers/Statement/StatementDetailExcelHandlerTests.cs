@@ -35,8 +35,8 @@ namespace Alpha.Reports.Site.Tests.Handlers.Statement
 
             data = new List<StatementDetailModel>
             {
-                new StatementDetailModel(DateTime.Now, string.Empty, string.Empty, null, string.Empty, string.Empty),
-                new StatementDetailModel(DateTime.Now, string.Empty, string.Empty, 20, string.Empty, string.Empty)
+                new StatementDetailModel(DateTime.Now, string.Empty, string.Empty, null, string.Empty),
+                new StatementDetailModel(DateTime.Now, string.Empty, string.Empty, 20, string.Empty)
             };
 
             reportService.StatementDetails(Arg.Any<StatementDetailsParam>()).Returns(data);

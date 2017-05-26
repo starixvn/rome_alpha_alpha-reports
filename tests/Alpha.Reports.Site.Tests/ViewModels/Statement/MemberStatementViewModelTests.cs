@@ -150,7 +150,7 @@ namespace Alpha.Reports.Site.Tests.ViewModels.Statement
             // Arrange
             var query = new MemberStatementQuery(user);
             var viewModel = new MemberStatementViewModel(query, null);
-            var expectedViewDataInstructionMessage = "You can view the report data from 01/01/2016.";
+            var expectedViewDataInstructionMessage = "You can view the report data from 09/01/2016.";
 
             // Act
             var actualViewDataInstructionMessage = viewModel.ViewDataInstructionMessage;
