@@ -19,7 +19,7 @@
         }
 
         [Fact]
-        public void Contructor_ToDayIsEndOfMonth_SetFromDateIsFirstDayOfLast2Months()
+        public void Constructor_ToDayIsEndOfMonth_SetFromDateIsFirstDayOfLast2Months()
         {
             // Arrange
             SystemTime.Today = DefaultVariables.CurrentDate.LastDayOfMonth();
@@ -34,7 +34,7 @@
         }
 
         [Fact]
-        public void Contructor_ToDayIsEndOfMonth_SetToDateIsToDay()
+        public void Constructor_ToDayIsEndOfMonth_SetToDateIsToDay()
         {
             // Arrange
             SystemTime.Today = DefaultVariables.CurrentDate.LastDayOfMonth();
@@ -49,7 +49,7 @@
         }
 
         [Fact]
-        public void Contructor_ToDayIsNotEndOfMonth_SetFromDateIsFirstDayOfLast3Months()
+        public void Constructor_ToDayIsNotEndOfMonth_SetFromDateIsFirstDayOfLast3Months()
         {
             // Arrange
             SystemTime.Today = DefaultVariables.CurrentDate;
@@ -64,7 +64,7 @@
         }
 
         [Fact]
-        public void Contructor_ToDayIsNotEndOfMonth_SetToDateIsEndDayOfPreviousMonth()
+        public void Constructor_ToDayIsNotEndOfMonth_SetToDateIsEndDayOfPreviousMonth()
         {
             SystemTime.Today = DefaultVariables.CurrentDate;
             var expectedToDate = SystemTime.Today.AddMonths(-1).LastDayOfMonth();
