@@ -17,6 +17,7 @@
             userSession.RoleId.Returns((byte)2);
             userSession.Language.Returns("en-US");
             userSession.LangKey.Returns("en");
+            userSession.Currency.Returns("CurrencyName");
 
             // Act
             var user = new User(userSession);
@@ -27,7 +28,8 @@
                 && user.Name == "username"
                 && user.LevelId == 2
                 && user.Language == "en-US"
-                && user.LanguageKey == "en");
+                && user.LanguageKey == "en"
+                && user.CurrencyName == "CurrencyName");
         }
 
         [Fact]

@@ -220,6 +220,20 @@
             AssertExtension.Equal(expectedViewModel, actualViewModel);
         }
 
+        [Theory]
+        [InlineData(0, "Enabled")]
+        [InlineData(1, "Disabled")]
+        [InlineData(2, "All")]
+        [InlineData(3, "")]
+        public void GetStatusName_Always_ReturnsCorrectName(int statusId, string expectedStatusName)
+        {
+            // Act
+            var actualStatusName = handler.GetStatusName(statusId);
+
+            // Assert
+            Assert.Equal(expectedStatusName, actualStatusName);
+        }
+
         private PlayForFunParam CreatePlayForFunParam(PlayForFunQuery message, int userSelectedProductId)
             => new PlayForFunParam(
                 message.CustId,

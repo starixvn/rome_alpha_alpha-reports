@@ -123,7 +123,27 @@
         {
             // Arrange
             var productIds = Enumerable.Empty<int>();
-            var expectedProductIds = allCustomerProductIds.Select(product => product.Id);
+            var expectedProductIds = new List<int> { 1, 2, 3 };
+
+            IEnumerable<Product> cachedProducts;
+            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
+
+            dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
+
+            // Act
+            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, productIds);
+
+            // Assert
+            Assert.Equal(expectedProductIds, actualProductIds);
+        }
+
+        [Fact]
+        public void FilterProductIdsByCustomer_HasDataProductIdsAndValidCustId_ReturnsCorrectValue()
+        {
+            // Arrange
+            var productIds = new List<int> { 1, 3, 5 };
+            var expectedProductIds = new List<int> { 1, 3 };
+            var custId = 3;
 
             IEnumerable<Product> cachedProducts;
             fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
@@ -221,7 +241,7 @@
             // Assert
             AssertExtension.Equal(expectProductIds.ToListInt(), actualProducts.Select(product => product.Id).ToList());
         }
-        
+
         [Fact]
         public void GetProductsNeedDelayTimeToSumarizeDataByCustomer_Always_ReturnsCorrectProducts()
         {
@@ -234,6 +254,6 @@
 
             // Assert
             Assert.Equal(expectProducts, actualProducts);
-        }            
+        }
     }
 }

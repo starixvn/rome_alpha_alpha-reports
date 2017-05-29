@@ -205,7 +205,10 @@
     <Compile Include="Constants\BetTypeIdConstants.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
+    <Compile Include="Controllers\CommissionByBettypeControllerTests.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
+    <Compile Include="Controllers\OutstandingControllerTests.cs" />
+    <Compile Include="Controllers\RacingCommissionControllerTests.cs" />
     <Compile Include="Controllers\ReportLegendControllerTests.cs" />
     <Compile Include="Controllers\WinLossAnalysisChartControllerTests.cs" />
     <Compile Include="Controllers\WinLossAnalysisControllerTests.cs" />
@@ -244,6 +247,7 @@
     <Compile Include="Handlers\WinLoss\WinLossExcelHandlerTest.cs" />
     <Compile Include="Handlers\WinLoss\WinLossHandlerTests.cs" />
     <Compile Include="Helpers\BreadcrumbLevelViewModelTests.cs" />
+    <Compile Include="Helpers\JsonHelperTests.cs" />
     <Compile Include="Helpers\QueryEntityModelBinderTests.cs" />
     <Compile Include="Helpers\UrlHelperTests.cs" />
     <Compile Include="Models\UserTests.cs" />
