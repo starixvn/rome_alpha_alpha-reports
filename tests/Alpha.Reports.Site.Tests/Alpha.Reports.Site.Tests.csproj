@@ -269,6 +269,7 @@
     <Compile Include="ViewModels\Outstanding\OutstandingViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
     <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossAnalysisChart\WinLossAnalysisChartViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossFilterViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModelTests.cs" />
     <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelForTesting.cs" />

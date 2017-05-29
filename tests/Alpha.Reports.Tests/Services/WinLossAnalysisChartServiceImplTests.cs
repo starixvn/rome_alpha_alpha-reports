@@ -9,6 +9,7 @@
     using Reports.Params;
     using Reports.Services;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Xunit;
 
@@ -36,7 +37,9 @@
         public void GetWinLossAnalysisChart_ValidParam_ReturnDefaultReportData()
         {
             // Arrange
-            var expectedData = Enumerable.Empty<WinLossAnalysisChartModel>();
+            var expectedData = new List<WinLossAnalysisChartModel> {
+                new WinLossAnalysisChartModel("2017-01", 12051.12m, 56300.16m)
+            };
             dynamicRepository.Fetch<WinLossAnalysisChartModel>(Arg.Any<WinLossAnalysisChartCriteria>()).Returns(expectedData);
 
             // Act
@@ -44,6 +47,7 @@
 
             // Assert
             var result = compareLogic.Compare(expectedData, actualData);
+
             Assert.True(result.AreEqual);
         }
 
