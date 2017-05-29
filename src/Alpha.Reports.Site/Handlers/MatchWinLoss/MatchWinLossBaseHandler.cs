@@ -82,12 +82,7 @@
                     return $"{Resources.Next} ";
 
                 case BetTypeIdConstants.NumberGameOddEven:
-                    if (matchWinLossModel.LiveIndicator)
-                    {
-                        return $"{Resources.Next} ";
-                    }
-
-                    return $"{Resources.FT} ";
+                    return matchWinLossModel.LiveIndicator ? $"{Resources.Next} " : $"{Resources.FT} ";
 
                 default:
                     return string.Empty;

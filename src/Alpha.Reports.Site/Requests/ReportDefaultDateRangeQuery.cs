@@ -20,8 +20,8 @@
         public bool IsHistoricReport { get; set; }
 
         public DateTime MinDate => IsHistoricReport
-                ? SystemTime.Today.AddYears(-3).FirstDayOfYear()
-                : SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
+            ? SystemTime.Today.AddYears(-3).FirstDayOfYear()
+            : SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
 
         public override bool IsValid()
         {

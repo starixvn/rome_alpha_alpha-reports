@@ -20,10 +20,8 @@
         public DateTime MinDate => ReportDateServiceImpl.Instance.GetBalanceUpDay();
 
         public override bool IsValid()
-        {
-            return base.IsValid()
-                && MinDate <= FromDate
-                && FromDate <= ToDate;
-        }
+            => base.IsValid()
+            && MinDate <= FromDate
+            && FromDate <= ToDate;
     }
 }
