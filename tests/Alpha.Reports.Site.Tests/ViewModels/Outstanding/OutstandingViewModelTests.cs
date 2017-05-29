@@ -2,7 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
+    using System.Threading;
+    using Constants;
     using Enumerations;
     using Fixtures;
     using NSubstitute;
@@ -23,6 +26,9 @@
         public OutstandingViewModelTests(UserFixture userFixture)
         {
             this.userFixture = userFixture;
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
 
         [Fact]
@@ -194,6 +200,87 @@
 
             // Assert
             Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(4, "Master Outstanding")]
+        [InlineData(3, "Agent Outstanding")]
+        [InlineData(2, "Member Outstanding")]
+        public void Title_Always_ReturnsCorrectTitle(byte userLevelId, string expectedTitle)
+        {
+            // Arrange
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            var userLevel = Enumeration.FromValue<UserLevel>(userLevelId);
+            query.ViewerLevel.Returns(userLevel);
+            query.CustLevel.Returns(userLevel);
+
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+
+            // Act
+            var actualTitle = viewModel.Title;
+
+            // Assert
+            Assert.Equal(expectedTitle, actualTitle);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData("  ")]
+        public void GetSortedProperty_NullOrWhiteSpaceProperty_ReturnsDefaultValue(string sortPropertyName)
+        {
+            // Arrange
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            var userLevel = Enumeration.FromValue<UserLevel>(2);
+            query.ViewerLevel.Returns(userLevel);
+            query.CustLevel.Returns(userLevel);
+            query.SortPropertyName = sortPropertyName;
+
+            var outstandingDataSource = new List<OutstandingModel>
+            {
+                new OutstandingModel(),
+                new OutstandingModel()
+            };
+
+            var expectedSortPropertyName = "CustName";
+            var viewModel = new OutstandingViewModel(query, outstandingDataSource, Enumerable.Empty<int>(), null, null);
+
+            // Act
+            var actualSortPropertyName = viewModel.SortPropertyName;
+
+            // Assert
+            Assert.Equal(expectedSortPropertyName, actualSortPropertyName);
+        }
+
+        [Theory]
+        [InlineData("SuperOutstanding", 2, "CustName")]
+        [InlineData("MemberOutstanding", 2, "MemberOutstanding")]
+        public void GetSortedProperty_NotNullOrWhiteSpaceProperty_ReturnsCorrectValue(
+            string sortPropertyName,
+            byte custLevelId,
+            string expectedSortPropertyName)
+        {
+            // Arrange
+            var query = Substitute.For<OutstandingQuery>(userFixture.User);
+            var userLevel = Enumeration.FromValue<UserLevel>(custLevelId);
+            query.ViewerLevel.Returns(userLevel);
+            query.CustLevel.Returns(userLevel);
+            query.SortPropertyName = sortPropertyName;
+
+            var outstandingDataSource = new List<OutstandingModel>
+            {
+                new OutstandingModel(),
+                new OutstandingModel()
+            };
+
+            var viewModel = new OutstandingViewModel(query, outstandingDataSource, Enumerable.Empty<int>(), null, null);
+
+            // Act
+            var actualSortPropertyName = viewModel.SortPropertyName;
+
+            // Assert
+            Assert.Equal(expectedSortPropertyName, actualSortPropertyName);
         }
 
         private static void SetUpForHelpers()

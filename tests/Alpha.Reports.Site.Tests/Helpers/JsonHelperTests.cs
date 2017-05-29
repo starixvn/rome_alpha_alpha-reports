@@ -11,6 +11,7 @@ namespace Alpha.Reports.Site.Tests.Helpers
             // Arrange
             var data = new { Username = "Username", CustId = 1 };
             var expectedJson = "{'Username':'Username','CustId':1}";
+            JsonHelper.ToJsonFunc = null;
 
             // Act
             var actualJson = JsonHelper.ToJsonFunc(data);

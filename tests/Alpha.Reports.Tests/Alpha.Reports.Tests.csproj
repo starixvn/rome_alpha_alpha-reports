@@ -224,6 +224,7 @@
     <Compile Include="Models\ProductTests.cs" />
     <Compile Include="Models\ReportDataTests.cs" />
     <Compile Include="Models\UserLevelTests.cs" />
+    <Compile Include="Params\DailyEnteredSportParamTests.cs" />
     <Compile Include="Params\GetLeaguesByCustomerParamTests.cs" />
     <Compile Include="Params\MatchWinLossParamTests.cs" />
     <Compile Include="Params\MatchWinLossDetailParamTests.cs" />
