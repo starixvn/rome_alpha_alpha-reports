@@ -61,8 +61,11 @@ class WinLossAnalysisChartView extends BaseReport {
     bindFilter = () => {
         this.productMultiSelectionComponent.render();
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
-
+        this.$reportForm.removeClass("hide");
         this.monthRangePickerComponent.render();
+        if (!alphaReports.convertAttributeToBool(this.$isFilterVisible.val())) {
+            this.$reportForm.addClass("hide");
+        }
     };
 
     public registerEvents() {
