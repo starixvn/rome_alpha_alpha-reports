@@ -96,6 +96,7 @@
                                 labelString: "Agent Win Loss"
                             },
                             ticks: {
+                                beginAtZero: true,
                                 callback: alphaReports.formatNumber
                             }
                         }, {
@@ -108,6 +109,7 @@
                                 labelString: "Turnover"
                             },
                             ticks: {
+                                beginAtZero: true,
                                 callback: alphaReports.formatNumber
                             },
 

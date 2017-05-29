@@ -99,6 +99,7 @@ class DualAxisChartComponent {
                             labelString: chartContainer.data("y-axis-1-label")
                         },
                         ticks: {
+                            beginAtZero: true,
                             callback: alphaReports.formatNumber
                         }
                     }, {
@@ -111,6 +112,7 @@ class DualAxisChartComponent {
                             labelString: chartContainer.data("y-axis-2-label")
                         },
                         ticks: {
+                            beginAtZero: true,
                             callback: alphaReports.formatNumber
                         },
 
