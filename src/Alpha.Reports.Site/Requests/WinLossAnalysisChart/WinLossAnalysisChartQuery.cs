@@ -36,8 +36,6 @@
 
         public bool IsFilterVisible { get; set; } = true;
 
-        public int UserSelectedDateRangeOption { get; set; }
-
         public string CurrencyName { get; set; }
     }
 }
