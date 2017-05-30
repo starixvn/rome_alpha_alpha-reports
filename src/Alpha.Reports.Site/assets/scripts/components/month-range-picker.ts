@@ -47,6 +47,7 @@ class MonthRangePickerComponent {
             maxDate: maxDate,
             minDate: dropdownMonth.data("mindate"),
             month: new Date(dropdownMonth.data("dateinmonth")),
+            today: new Date(dropdownMonth.data("currentdate")),
 
             showDateRange: false,
             monthFormat: alphaReports.format.monthFormat,

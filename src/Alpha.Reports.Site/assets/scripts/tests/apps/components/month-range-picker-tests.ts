@@ -107,6 +107,7 @@
                 maxDate: "3/1/2017",
                 minDate: "01/01/2013",
                 month: new Date("1/1/2017"),
+                today: new Date("3/1/2017"),
                 showDateRange: false,
                 monthFormat: alphaReports.format.monthFormat,
                 fromDayId: "ddl-fromday",
