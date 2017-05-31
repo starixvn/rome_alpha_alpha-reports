@@ -78,6 +78,8 @@ class StatementView extends BaseReport {
         this.$exportExcelForm.submit();
     };
     onSubmitReport = () => {
+
+        this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : !this.$reportForm.is(":hidden")));
         this.$.blockUI();
     };
 
