@@ -99,9 +99,9 @@
             FillCells(row, winLossByBetTypeModel, WinLossByBetTypeMapper.Mappings);
         }
 
-        internal void FillSport(Sheet sheet, WinLossBySportModel winLossBySportModel)
+        internal void FillSport(Sheet sheet, WinLossBySportModel winLossBySportModel, int productId)
         {
-            if (!winLossBySportModel.IsShowBetTypeDirectly())
+            if (!WinLossBySportModel.IsShowBetTypeDirectly(productId))
             {
                 FillSportTitle(sheet, currentRowIndex++, winLossBySportModel);
             }
@@ -187,7 +187,7 @@
 
                 foreach (var winLossBySportModel in data.WinLossBySportModels)
                 {
-                    FillSport(sheet, winLossBySportModel);
+                    FillSport(sheet, winLossBySportModel, data.ProductId);
                 }
             }
         }

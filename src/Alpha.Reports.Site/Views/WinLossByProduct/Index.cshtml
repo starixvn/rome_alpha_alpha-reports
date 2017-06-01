@@ -135,8 +135,8 @@ if (data.WinLossBySportModels.Any())
 @helper RenderWinLossByProduct(WinLossByProductModel data, bool isExpand)
 {
     <tr class="product-row" data-product-id="@data.ProductId" data-is-hide="@(isExpand? "false": "true")">
-        <td class="text-left col-username @(isExpand ? "active" : string.Empty)">
-            <span class="icon-arrow-right"></span>
+        <td class="text-left col-username bold @(isExpand ? "active" : string.Empty)">
+            <span class="@(isExpand ?"icon-arrow-down":"icon-arrow-right")"></span>
             @data.ProductName
         </td>
         @RenderWinLossInfo(data.Total)
@@ -145,7 +145,7 @@ if (data.WinLossBySportModels.Any())
 
 @helper RenderSport(int productId, WinLossBySportModel data, bool isExpand)
 {
-if (!data.IsShowBetTypeDirectly())
+if (!WinLossBySportModel.IsShowBetTypeDirectly(productId))
 {
         @RenderWinLossBySport(productId, data, isExpand)
 }
@@ -165,8 +165,8 @@ if (data.WinLossByBetTypeData.Any())
         data-product-id="@productId"
         data-sport-id="@data.SportId"
         data-is-hide="@(isExpand? "false": "true")">
-        <td class="text-left col-username @(isExpand ? "active" : string.Empty)">
-            <span class="icon-arrow-right"></span>
+        <td class="text-left col-username bold @(isExpand ? "active" : string.Empty)">
+            <span class="@(isExpand ?"icon-arrow-down":"icon-arrow-right")"></span>
             @data.SportName
         </td>
         @RenderWinLossInfo(data.Total)

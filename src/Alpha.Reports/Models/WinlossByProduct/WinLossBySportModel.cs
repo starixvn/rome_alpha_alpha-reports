@@ -26,6 +26,8 @@ namespace Alpha.Reports.Models.WinLossByProduct
 
         public WinLossByBetTypeModel Total { get; private set; }
 
+        public static bool IsShowBetTypeDirectly(int productId) => productId != ProductIdConstants.NG2;
+
         public WinLossBySportModel AccumulateTotal()
         {
             Total = new WinLossByBetTypeModel();
@@ -37,7 +39,5 @@ namespace Alpha.Reports.Models.WinLossByProduct
 
             return this;
         }
-
-        public bool IsShowBetTypeDirectly() => SportId != ProductIdConstants.NG2;
     }
 }

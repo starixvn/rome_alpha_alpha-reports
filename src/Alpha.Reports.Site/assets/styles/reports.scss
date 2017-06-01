@@ -170,8 +170,14 @@ a {
     }
 
     &.tbl-win-loss-by-product {
-        .sport-row .icon-arrow-right {
+        .sport-row .icon-arrow-right,
+        .sport-row .icon-arrow-down {
             margin-left: 13px;
+        }
+
+        .product-row .col-username,
+        .sport-row .col-username {
+            text-transform: uppercase;
         }
 
         .bet-type-row .col-username {
