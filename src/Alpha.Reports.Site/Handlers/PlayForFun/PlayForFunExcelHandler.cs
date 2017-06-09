@@ -36,7 +36,7 @@
 
             var fileContent = workbook
                 .UseTemplate(GetTemplateInfo(message))
-                .Title(GetReporTitle(message))
+                .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(reportData, GetMasterAgentBodyRowMapper())
                 .Footer(BuildMasterPlayForFunTotal(reportData), GetMasterAgentTotalRowMapper())
@@ -54,7 +54,7 @@
 
             var fileContent = workbook
                 .UseTemplate(GetTemplateInfo(message))
-                .Title(GetReporTitle(message))
+                .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(reportData, GetMemberBodyRowMapper())
                 .Footer(BuildMemberPlayForFunTotal(reportData), GetMemberTotalRowMapper())
@@ -74,7 +74,7 @@
                   bodyEndIndex: 4)
               .FreezePanel(3, A);
 
-        private string GetReporTitle(PlayForFunQuery message)
+        private string GetReportTitle(PlayForFunQuery message)
             => string.Join(
                 " ",
                 $"{GetReportType(message)} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}",

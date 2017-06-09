@@ -37,7 +37,7 @@
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
             var fileContent = workbook
                 .UseTemplate(GetTemplateInfo(message))
-                .Title(GetReporTitle(message))
+                .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(reportData.DataSource, GetBodyRowMapper(message))
                 .Footer(reportData.TotalData, GetTotalRowMapper(message))
@@ -47,7 +47,7 @@
             return new ExcelFileViewModel(GetExcelFileName(message, winLossDetailParam), fileContent);
         }
 
-        private string GetReporTitle(WinLossDetailExcelQuery message)
+        private string GetReportTitle(WinLossDetailExcelQuery message)
             => $"{Resources.WinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
             $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
 

@@ -28,7 +28,7 @@ namespace Alpha.Reports.Site.Handlers.Statement
 
             var fileContent = workbook
                 .UseTemplate(GetTemplateInfo())
-                .Title(GetReporTitle(message))
+                .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(models, null)
                 .Sheet(Resources.DefaultSheetName)
@@ -37,7 +37,7 @@ namespace Alpha.Reports.Site.Handlers.Statement
             return new ExcelFileViewModel(GetExcelFileName(message), fileContent);
         }
 
-        private string GetReporTitle(MemberStatementExcelQuery message)
+        private string GetReportTitle(MemberStatementExcelQuery message)
              => string.Join(
                 " ",
                 Resources.Statement,

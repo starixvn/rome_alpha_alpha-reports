@@ -71,7 +71,8 @@
                     // No need to cut range any more
                     break;
                 }
-                else if (fromDate <= eventDate)
+
+                if (fromDate <= eventDate)
                 {
                     // Data between 2+ places
                     // Cut range: [From, Event Date][Event Date + 1, ToDate]

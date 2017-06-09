@@ -59,7 +59,7 @@
                     GetGrandTotalRowMapper(message.CustLevel))
                 .UseTemplate(GetTemplateInfo(message))
                 .Sheet(Resources.DefaultSheetName)
-                .Title(GetReporTitle(message))
+                .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Footer(grandTotal, GetTotalRowMapper(message.CustLevel))
                 .ExportToBytes();
@@ -81,7 +81,7 @@
               sheetIndex: 1,
               footerEndIndex: 12);
 
-        private string GetReporTitle(MatchWinLossDetailExcelQuery query)
+        private string GetReportTitle(MatchWinLossDetailExcelQuery query)
             => $"{Resources.MatchWinLossDetail} {query.FromDate.ToShortDateWithSlash()} --> {query.ToDate.ToShortDateWithSlash()}" +
             $" {Resources.of2} {productService.ConcatProductNames(query.UserSelectedProductIds)}";
 
@@ -110,12 +110,15 @@
                 case RowTypeConstant.Data:
                     mapper.Map(A, betTypeWinLoss => betTypeWinLoss.Name);
                     break;
+
                 case RowTypeConstant.SubTotal:
                     mapper.Map(A, betTypeWinLoss => Resources.SubTotal);
                     break;
+
                 case RowTypeConstant.Total:
                     mapper.Map(A, betTypeWinLoss => Resources.Total);
                     break;
+
                 case RowTypeConstant.GrandTotal:
                     mapper.Map(A, betTypeWinLoss => Resources.GrandTotal);
                     break;

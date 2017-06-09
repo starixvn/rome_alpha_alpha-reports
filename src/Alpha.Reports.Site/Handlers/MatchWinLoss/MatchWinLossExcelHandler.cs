@@ -39,7 +39,7 @@
             var reportData = BuildViewModel(rawData);
             var fileContent = workbook
                 .UseTemplate(GetTemplateInfo(message))
-                .Title(GetReporTitle(message))
+                .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(reportData, GetBodyRowMapper())
                 .Footer(AccumulateGrandTotal(reportData), GetTotalRowMapper())
@@ -63,7 +63,7 @@
                 sheetIndex: 1,
                 footerEndIndex: 5);
 
-        private string GetReporTitle(MatchWinLossExcelQuery message)
+        private string GetReportTitle(MatchWinLossExcelQuery message)
             => $"{Resources.MatchWinLoss} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 
         private string GetExcelFileName(MatchWinLossParam matchWinLossParam)
