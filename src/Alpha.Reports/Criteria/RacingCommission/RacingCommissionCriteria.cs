@@ -31,7 +31,6 @@
             ? "Age_Rpt_CommByBettype_HR_Agent"
             : "Age_Rpt_CommByBettype_HR_Master";
 
-        public override bool IsValid()
-            => !CustLevel.IsMemberLevel();
+        public override bool IsValid() => !CustLevel.IsMemberLevel();
     }
 }

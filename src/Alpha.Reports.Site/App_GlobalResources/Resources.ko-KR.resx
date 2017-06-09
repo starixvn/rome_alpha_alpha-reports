@@ -444,6 +444,18 @@
   <data name="Amount" xml:space="preserve">
     <value>총액</value>
   </data>
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>매월 승리/패배 차트</value>
+  </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>차트를 보려면 최소 3개월이상을 선택해주십시오.</value>
+  </data>
+  <data name="KoreanWon" xml:space="preserve">
+    <value>원</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>일일 정책</value>
   </data>

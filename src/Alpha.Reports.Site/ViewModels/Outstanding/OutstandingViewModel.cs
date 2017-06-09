@@ -43,22 +43,11 @@
         }
 
         public string Title
-        {
-            get
-            {
-                if (ReportLevel.IsMasterLevel())
-                {
-                    return Resources.MasterOutstanding;
-                }
-
-                if (ReportLevel.IsAgentLevel())
-                {
-                    return Resources.AgentOutstanding;
-                }
-
-                return Resources.MemberOutstanding;
-            }
-        }
+            => ReportLevel.IsMasterLevel()
+            ? Resources.MasterOutstanding
+            : ReportLevel.IsAgentLevel()
+            ? Resources.AgentOutstanding
+            : Resources.MemberOutstanding;
 
         public string SortPropertyName { get; }
 

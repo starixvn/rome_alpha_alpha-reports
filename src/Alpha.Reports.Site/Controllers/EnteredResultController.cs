@@ -14,11 +14,9 @@
         [Route("enteredresult/master")]
         [Route("enteredresult/agent")]
         [Route("enteredresult/member")]
-        public ActionResult Index(EnteredSportResultQuery message)
-            => View(message);
+        public ActionResult Index(EnteredSportResultQuery message) => View(message);
 
         [HttpGet]
-        public ActionResult Excel(EnteredSportResultExcelQuery message)
-            => ExcelView(message);
+        public ActionResult Excel(EnteredSportResultExcelQuery message) => ExcelView(message);
     }
 }

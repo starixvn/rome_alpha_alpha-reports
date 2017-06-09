@@ -727,6 +727,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Won.
+        /// </summary>
+        public static string KoreanWon {
+            get {
+                return ResourceManager.GetString("KoreanWon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Month.
         /// </summary>
         public static string LastMonth {
@@ -741,6 +750,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string LastWeek {
             get {
                 return ResourceManager.GetString("LastWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select at least 3 month period to chart.
+        /// </summary>
+        public static string Least3MonthToChart {
+            get {
+                return ResourceManager.GetString("Least3MonthToChart", resourceCulture);
             }
         }
         
@@ -907,6 +925,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Month.
+        /// </summary>
+        public static string Month {
+            get {
+                return ResourceManager.GetString("Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly.
         /// </summary>
         public static string Monthly {
@@ -921,6 +948,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string MonthlyWinLossAnalysis {
             get {
                 return ResourceManager.GetString("MonthlyWinLossAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Win Loss Chart.
+        /// </summary>
+        public static string MonthlyWinLossChart {
+            get {
+                return ResourceManager.GetString("MonthlyWinLossChart", resourceCulture);
             }
         }
         

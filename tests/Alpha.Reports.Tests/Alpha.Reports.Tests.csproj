@@ -158,6 +158,7 @@
     <Compile Include="Collections\AnyValueCreatorCollection.cs" />
     <Compile Include="Collections\FanexCacheCollection.cs" />
     <Compile Include="Collections\ObjectDbCollection.cs" />
+    <Compile Include="Configurations\SiteSettingsTests.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
     <Compile Include="Collections\UserCollection.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Criteria\ReportCriteriaBaseTests.cs" />
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\Statement\GetStatementCriteriaTests.cs" />
+    <Compile Include="Criteria\WinLossAnalysisChart\WinLossAnalysisChartCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
@@ -214,6 +216,7 @@
     <Compile Include="Models\BalanceUpDayAndMoveBetsDayTests.cs" />
     <Compile Include="Models\CustInfoTests.cs" />
     <Compile Include="Models\LeagueTests.cs" />
+    <Compile Include="Models\Outstanding\OutstandingModelTests.cs" />
     <Compile Include="Models\RacingCommissionModelTests.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModelTests.cs" />
     <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModelTests.cs" />
@@ -227,10 +230,12 @@
     <Compile Include="Models\ProductTests.cs" />
     <Compile Include="Models\ReportDataTests.cs" />
     <Compile Include="Models\UserLevelTests.cs" />
+    <Compile Include="Params\DailyEnteredSportParamTests.cs" />
     <Compile Include="Params\GetLeaguesByCustomerParamTests.cs" />
     <Compile Include="Params\MatchWinLossParamTests.cs" />
     <Compile Include="Params\MatchWinLossDetailParamTests.cs" />
     <Compile Include="Params\ProductByCustomerParamTests.cs" />
+    <Compile Include="Params\WinLossAnalysisChartParamTests.cs" />
     <Compile Include="Params\WinLossAnalysisParamTests.cs" />
     <Compile Include="Params\WinLossParamTests.cs" />
     <Compile Include="Params\WinLossDetailParamTests.cs" />
@@ -245,6 +250,7 @@
     <Compile Include="Services\RacingCommissionServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
     <Compile Include="Services\StatementServiceImplTests.cs" />
+    <Compile Include="Services\WinLossAnalysisChartServiceImplTests.cs" />
     <Compile Include="Services\WinLossAnalysisServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />
     <Compile Include="Services\WinLossServiceImplTests.cs" />

@@ -246,6 +246,10 @@ a {
                 margin-bottom: 15px;
             }
         }
+
+        .control.month-range-picker-element {
+            width: 150px;
+        }
     }
 
     label[for="dropdown-statuses"] {
@@ -296,8 +300,12 @@ a {
         position: relative;
         top: 10px;
     }
-}
 
+    .control.month-range-picker-element {
+        height: 34px;
+        margin-top: 2px;
+    }
+}
 // netturnover tooltip
 #netturnovertooltip {
     overflow: hidden;
@@ -388,6 +396,25 @@ a {
     }
 }
 
+// chart
+.chart-container {
+    max-height: 780px;
+    max-width: 1024px;
+    padding: 10px;
+    border-radius: 5px;
+    border: $chart-bg-color solid 1px;
+    background: $chart-bg-color;
+    background: -webkit-linear-gradient($chart-bg-color, $chart-footer-color);
+    background: -o-linear-gradient($chart-bg-color, $chart-footer-color);
+    background: -moz-linear-gradient($chart-bg-color, $chart-footer-color);
+    background: linear-gradient($chart-bg-color, $chart-footer-color);
+    box-shadow: 5px 5px $chart-shadow-color;
+}
+
+.report-content {
+    padding-top: 12px;
+}
+
 // For mobile
 @media only screen and (max-device-width : $screen-device-greater1024) {
     .page-title .list-icon {
@@ -463,6 +490,10 @@ a {
         &.bottom {
             padding-bottom: 0;
         }
+    }
+
+    .table-container {
+        padding-top: 20px;
     }
 }
 

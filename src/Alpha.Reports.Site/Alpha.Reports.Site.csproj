@@ -251,7 +251,9 @@
     <TypeScriptCompile Include="assets\scripts\components\league-multiselection.ts" />
     <TypeScriptCompile Include="assets\scripts\base-report.ts" />
     <TypeScriptCompile Include="assets\scripts\components\client-pager.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\month-range-picker.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\racingcommission\racingcommission.ts" />
@@ -267,8 +269,10 @@
     <TypeScriptCompile Include="assets\scripts\statement\sma-statement.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\client-pager-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\daterangepicker-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\dual-axis-chart-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\league-multiselection-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\link-builder-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\month-range-picker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\netturnover-tooltip-test.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\single-selection-dropdown-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\productmultiselection-tests.ts" />
@@ -293,6 +297,7 @@
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
     <Compile Include="Controllers\ReportLegendController.cs" />
+    <Compile Include="Controllers\WinLossAnalysisChartController.cs" />
     <Compile Include="Controllers\WinLossAnalysisController.cs" />
     <Compile Include="Controllers\StatementController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
@@ -312,6 +317,7 @@
     <Compile Include="Handlers\Statement\StatementHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\Statement\StatementWorkbook.cs" />
+    <Compile Include="Handlers\WinLossAnalysisChart\WinLossAnalysisChartHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisBaseHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisExcelHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisHandler.cs" />
@@ -366,6 +372,7 @@
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
     <Compile Include="Requests\Statement\MemberStatementExcelQuery.cs" />
+    <Compile Include="Requests\WinLossAnalysisChart\WinLossAnalysisChartQuery.cs" />
     <Compile Include="Requests\Statement\MemberStatementQuery.cs" />
     <Compile Include="Requests\Statement\SMAStatementExcelQuery.cs" />
     <Compile Include="Requests\Statement\SMAStatementQuery.cs" />
@@ -390,6 +397,7 @@
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\StatusSelectionViewModel.cs" />
+    <Compile Include="ViewModels\Components\DualAxisChartViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\DrillDownableReportViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossFilterViewModel.cs" />
@@ -402,6 +410,8 @@
     <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
     <Compile Include="ViewModels\Statement\StatementViewModel.cs" />
+    <Compile Include="ViewModels\WinLossAnalysisChart\WinLossAnalysisChartFilterViewModel.cs" />
+    <Compile Include="ViewModels\WinLossAnalysisChart\WinLossAnalysisChartViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysislFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisReportTypeViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisViewModel.cs" />
@@ -424,16 +434,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\SPNames\Internal\DBACC.bodb02.BODBDownlineNetView.xml" />
-    <Content Include="App_Data\SPNames\Internal\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Internal\DBARC.bodb_Archive.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBLOG.bodb_CustomerLog.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBRPT.bodb_report.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Local\DBACC.bodb02.BODBDownlineNet.xml" />
-    <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBARC.bodb_Archive.BODBDownlineNet.xml" />
@@ -463,6 +470,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\statement\member-statement-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis-chart\winloss-analysis-chart-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\statement\sma-statement-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\statement\statement-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\statement\statement-details-tests.ts" />
@@ -482,6 +490,8 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\winloss-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\winlossanalysischart\winlossanalysischart-ready.ts" />
+    <TypeScriptCompile Include="assets\scripts\winlossanalysischart\winlossanalysischart.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossanalysis\winlossanalysis.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
@@ -501,6 +511,10 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.js" />
+    <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.min.js">
+      <DependentUpon>winlossanalysischart.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\racingcommission\racingcommission.js" />
     <Content Include="assets\bundles\racingcommission\racingcommission.min.js">
@@ -751,9 +765,11 @@
     <Content Include="App_Data\ExcelTemplates\MatchWinLossDetail\Master.xls" />
     <Content Include="assets\styles\statement\statement.scss" />
     <Content Include="App_Data\ExcelTemplates\Statement\SMA.xls" />
-    <Content Include="Alpha.Reports.Site.Debug.ruleset" />
+    <Content Include="App_Code\Components\MonthRangePicker.cshtml" />
+    <Content Include="App_Code\Components\DualAxisChart.cshtml" />
     <Content Include="Alpha.Reports.Site.ruleset" />
     <Content Include="App_Data\ExcelTemplates\Statement\Member.xls" />
+    <Content Include="Alpha.Reports.Site.Debug.ruleset" />
     <Content Include="App_Data\ExcelTemplates\Statement\StatementDetails.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
@@ -787,6 +803,7 @@
     <Content Include="Views\PlayForFun\Filter.cshtml" />
     <Content Include="Views\PlayForFun\ExportExcel.cshtml" />
     <Content Include="Views\Statement\SMAReportLegend.cshtml" />
+    <Content Include="Views\WinLossAnalysisChart\Index.cshtml" />
     <Content Include="Views\Statement\StatementDetails.cshtml" />
     <Content Include="Views\Statement\MemberStatement.cshtml" />
     <Content Include="Views\Statement\MemberReportLegend.cshtml" />
@@ -916,6 +933,7 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.5.9.0.1001\analyzers\Google.Protobuf.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.5.9.0.1001\analyzers\SonarAnalyzer.CSharp.dll" />
@@ -966,18 +984,19 @@
     <Error Condition="!Exists('..\..\packages\Fanex.Chutzpah.4.3.3\build\Fanex.Chutzpah.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fanex.Chutzpah.4.3.3\build\Fanex.Chutzpah.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>cd $(ProjectDir)
-cd ..
-cd ..
-cd build
-BuildTask.Release
+    <PostBuildEvent>
+      cd $(ProjectDir)
+      cd ..
+      cd ..
+      cd build
+      BuildTask.Release
       if not exist "$(WebProjectOutputDir)\bin\Roslyn" md "$(WebProjectOutputDir)\bin\Roslyn"
       start /MIN xcopy /s /y /R "$(OutDir)roslyn\*.*" "$(WebProjectOutputDir)\bin\Roslyn"
-</PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets" Condition="Exists('..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets')" />
   <Import Project="..\..\packages\Fanex.Chutzpah.4.3.3\build\Fanex.Chutzpah.targets" Condition="Exists('..\..\packages\Fanex.Chutzpah.4.3.3\build\Fanex.Chutzpah.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

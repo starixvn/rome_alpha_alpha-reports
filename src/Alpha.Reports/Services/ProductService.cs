@@ -56,11 +56,7 @@
         }
 
         public IEnumerable<Product> FilterProductsByCustomer(int custId, IEnumerable<int> productIds)
-        {
-            var products = GetProductsForCustomer(custId).Where(product => productIds.Contains(product.Id));
-
-            return products;
-        }
+            => GetProductsForCustomer(custId).Where(product => productIds.Contains(product.Id));
 
         public IEnumerable<Product> GetProductsForCustomer(int custId)
         {

@@ -64,7 +64,7 @@
                 message.CustLevel);
         }
 
-        protected string GetStatusName(int statusId)
+        protected internal string GetStatusName(int statusId)
         {
             switch (statusId)
             {

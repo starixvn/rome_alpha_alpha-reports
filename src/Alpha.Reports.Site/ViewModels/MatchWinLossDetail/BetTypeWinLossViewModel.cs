@@ -104,12 +104,7 @@
                     return $"{Resources.Next} ";
 
                 case BetTypeIdConstants.NumberGameOddEven:
-                    if (IsLive)
-                    {
-                        return $"{Resources.Next} ";
-                    }
-
-                    return $"{Resources.FT} ";
+                    return IsLive ? $"{Resources.Next} " : $"{Resources.FT} ";
 
                 default:
                     return string.Empty;

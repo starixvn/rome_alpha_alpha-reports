@@ -510,6 +510,15 @@
   <data name="TransferAmt" xml:space="preserve">
     <value>轉帳金額</value>
   </data>
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>每月圖表</value>
+  </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>請選擇至少3個月的數據以查看圖表</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
   <data name="AccumulatedTotal" xml:space="preserve">
     <value>總累計余額</value>
   </data>

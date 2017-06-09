@@ -20,15 +20,7 @@
 
             ReportTypeId = reportType;
 
-            if (fromDate == DateTime.MinValue)
-            {
-                FromDate = SystemTime.Today;
-            }
-            else
-            {
-                FromDate = fromDate;
-            }
-
+            FromDate = fromDate == DateTime.MinValue ? SystemTime.Today : fromDate;
             ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
 
             UserSelectedProductIds = userSelectedProductIds;

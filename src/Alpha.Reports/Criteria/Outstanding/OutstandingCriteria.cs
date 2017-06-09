@@ -21,23 +21,12 @@
         public string ProductIds { get; }
 
         public override string GetSettingKey()
-        {
-            if (CustLevel.IsSuperLevel())
-            {
-                return "Age_Rpt_Outstanding_Master";
-            }
+            => CustLevel.IsAgentLevel()
+            ? "Age_Rpt_Outstanding_Member"
+            : CustLevel.IsMasterLevel()
+            ? "Age_Rpt_Outstanding_Agent"
+            : "Age_Rpt_Outstanding_Master";
 
-            if (CustLevel.IsMasterLevel())
-            {
-                return "Age_Rpt_Outstanding_Agent";
-            }
-
-            return "Age_Rpt_Outstanding_Member";
-        }
-
-        public override bool IsValid()
-        {
-            return !CustLevel.IsMemberLevel();
-        }
+        public override bool IsValid() => !CustLevel.IsMemberLevel();
     }
 }

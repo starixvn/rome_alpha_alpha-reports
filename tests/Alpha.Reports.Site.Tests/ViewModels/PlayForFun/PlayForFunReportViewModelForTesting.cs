@@ -21,13 +21,9 @@
         }
 
         public IDictionary<string, object> CallGetDownlineLinkRouteValues(PlayForFunModel model)
-        {
-            return GetDownlineLinkRouteValues(model);
-        }
+            => GetDownlineLinkRouteValues(model);
 
         public IDictionary<string, object> CallGetBetListLinkRouteValues(PlayForFunModel model)
-        {
-            return GetBetListLinkRouteValues(model);
-        }
+            => GetBetListLinkRouteValues(model);
     }
 }

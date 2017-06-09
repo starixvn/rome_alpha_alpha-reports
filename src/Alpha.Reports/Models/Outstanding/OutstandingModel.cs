@@ -32,23 +32,12 @@
         }
 
         public decimal GetValueByLevel(UserLevel level)
-        {
-            if (level.IsMemberLevel())
-            {
-                return MemberOutstanding;
-            }
-
-            if (level.IsAgentLevel())
-            {
-                return AgentOutstanding;
-            }
-
-            if (level.IsMasterLevel())
-            {
-                return MasterOutstanding;
-            }
-
-            return SuperOutstanding;
-        }
+            => level.IsMemberLevel()
+            ? MemberOutstanding
+            : level.IsAgentLevel()
+            ? AgentOutstanding
+            : level.IsMasterLevel()
+            ? MasterOutstanding
+            : SuperOutstanding;
     }
 }

@@ -291,4 +291,7 @@
   <data name="Transfer" xml:space="preserve">
     <value>送金</value>
   </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
 </root>

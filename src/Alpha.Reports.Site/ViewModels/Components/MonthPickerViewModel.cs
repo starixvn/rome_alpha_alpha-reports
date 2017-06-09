@@ -18,7 +18,7 @@
 
         public DateTime ToDate { get; }
 
-        public string[] MonthNames => new string[]
+        public string[] MonthNames => new[]
         {
             January, February, March, April, May, June, July, August, September, October, November, December
         };

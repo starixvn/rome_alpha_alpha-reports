@@ -181,5 +181,19 @@
       "assets/scripts/playforfun/playforfun.js",
       "assets/scripts/playforfun/playforfun-master-agent.js"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles/winlossanalysischart/winlossanalysischart.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/month-range-picker.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/components/dual-axis-chart.js",
+      "assets/scripts/winlossanalysischart/winlossanalysischart.js",
+      "assets/scripts/winlossanalysischart/winlossanalysischart-ready.js"
+    ]
   }
 ]
