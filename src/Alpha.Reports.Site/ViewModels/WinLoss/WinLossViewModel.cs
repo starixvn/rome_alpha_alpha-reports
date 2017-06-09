@@ -16,6 +16,9 @@
         private readonly string sortPropertyNameDefault = "CustName";
         private readonly WinLossQuery message;
         private readonly WinLossParam winLossParam;
+        public static readonly string NetWinLossWinLoss = $"{nameof(WinLossModel.AgentNetWinLoss)}.{nameof(NetWinLoss.WinLoss)}";
+        public static readonly string NetWinLossComm = $"{nameof(WinLossModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Comm)}";
+        public static readonly string NetWinLossTotal = $"{nameof(WinLossModel.AgentNetWinLoss)}.{nameof(NetWinLoss.Total)}";
 
         public WinLossViewModel(
             IEnumerable<WinLossModel> reportData,
@@ -77,8 +80,6 @@
 
         public string DownLineLevelName { get; private set; }
 
-        public string CustLevelNetWinLossName { get; private set; }
-
         private MonthPickerViewModel MonthPickerViewModel =>
             new MonthPickerViewModel(MinDate, FromDate, ToDate);
 
@@ -104,6 +105,13 @@
         public BreadcrumbLevelViewModel BreadcrumbLevelViewModel =>
            new BreadcrumbLevelViewModel(BreadcrumbLevel, BreadcrumbLevelJson);
 
+        /// <summary>
+        /// Get Drilldown Sorted Property.
+        /// Return default Sorted Property if child level doesn't contain Sorted Property.
+        /// </summary>
+        /// <param name="custLevel"></param>
+        /// <param name="sortedProperty"></param>
+        /// <returns></returns>
         private string GetSortedProperty(UserLevel custLevel, string sortedProperty)
         {
             if (string.IsNullOrEmpty(sortedProperty))
@@ -128,21 +136,18 @@
                 Title = Resources.MasterWinLoss;
                 CustLevelName = Resources.Super;
                 DownLineLevelName = Resources.Master;
-                CustLevelNetWinLossName = "SuperNetWinLoss";
             }
             else if (CustLevel.IsMasterLevel())
             {
                 Title = Resources.AgentWinLoss;
                 CustLevelName = Resources.Master;
                 DownLineLevelName = Resources.Agent;
-                CustLevelNetWinLossName = "MasterNetWinLoss";
             }
             else
             {
                 Title = Resources.MemberWinLoss;
                 CustLevelName = Resources.Agent;
                 DownLineLevelName = Resources.Member;
-                CustLevelNetWinLossName = "AgentNetWinLoss";
             }
         }
 

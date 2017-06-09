@@ -120,6 +120,10 @@ a {
         width: 17%;
     }
 
+    .padding-left-30px {
+        padding-left: 30px;
+    }
+
     .downline-link {
         color: $link-color;
         cursor: pointer;
@@ -158,6 +162,27 @@ a {
 
     .combinedcell li:last-child {
         font-weight: bold;
+    }
+
+    .product-row, .sport-row {
+        background-color: #f3f5e0;
+        cursor: pointer;
+    }
+
+    &.tbl-win-loss-by-product {
+        .sport-row .icon-arrow-right,
+        .sport-row .icon-arrow-down {
+            margin-left: 13px;
+        }
+
+        .product-row .col-username,
+        .sport-row .col-username {
+            text-transform: uppercase;
+        }
+
+        .bet-type-row .col-username {
+            padding-left: 39px;
+        }
     }
 
     .note-opening-balance {

@@ -71,12 +71,16 @@
     { "Path": "../winlossdetail/winlossdetail.ts" },
     { "Path": "apps/components/sort-tests-template.ts" },
 
+
+
     { "Path": "../winloss/enteredresult.ts" },
 
     { "Path": "../winloss/winloss.ts" },
     { "Path": "../matchwinloss/matchwinloss.ts" },
     { "Path": "apps/matchwinlossdetail/matchwinlossdetail-template.ts" },
     { "Path": "../matchwinlossdetail/matchwinlossdetail.ts" },
+    { "Path": "apps/winlossbyproduct/winlossbyproduct-template.ts" },
+    { "Path": "../winlossbyproduct/winlossbyproduct.ts" },
 
     { "Path": "apps/winloss-analysis/winloss-analysis-template.ts" },
     { "Path": "../winlossanalysis/winlossanalysis.ts" },

@@ -9,6 +9,7 @@
     using Handlers.CommissionByBettype;
     using Handlers.MatchWinLossDetail;
     using Handlers.Statement;
+    using Handlers.WinLossByProduct;
     using MediatR;
     using Models;
     using ONEbook.SpreadSheets;
@@ -80,6 +81,7 @@
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
             container.RegisterSingleton<MatchWinLossService, MatchWinLossServiceImpl>();
             container.RegisterSingleton<OutstandingService, OutstandingServiceImpl>();
+            container.RegisterSingleton<WinLossByProductService, WinLossByProductServiceImpl>();
             container.RegisterSingleton<WinLossAnalysisService, WinLossAnalysisServiceImpl>();
             container.RegisterSingleton<WinLossAnalysisChartService, WinLossAnalysisChartServiceImpl>();
             container.RegisterSingleton<PlayForFunService, PlayForFunServiceImpl>();
@@ -100,6 +102,7 @@
 
             container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbookImpl>();
             container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
+            container.RegisterSingleton<WinLossByProductWorkbook, WinLossByProductWorkbookImpl>();
             container.RegisterSingleton<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();
 
             container.RegisterSingleton<StatementService, StatementServiceImpl>();
@@ -115,6 +118,7 @@
             container.RegisterSingleton<WinLossAnalysisDataAccess, WinLossAnalysisDataAccessImpl>();
             container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
             container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
+            container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
         }
 
         private static void RegisterStaticInstances(Container container)

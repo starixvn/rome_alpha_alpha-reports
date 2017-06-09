@@ -141,8 +141,8 @@
 
             reportService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
-                new Product(1, "Product 1"),
-                new Product(2, "Product 2")
+                new Product(1, "Product 1", null),
+                new Product(2, "Product 2", null)
             });
             query.UserSelectedProductIds = "1";
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
@@ -223,8 +223,8 @@
 
             reportService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
-                new Product(1, "Product 1"),
-                new Product(2, "Product 2")
+                new Product(1, "Product 1", null),
+                new Product(2, "Product 2", null)
             });
             query.UserSelectedProductIds = "1";
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>())

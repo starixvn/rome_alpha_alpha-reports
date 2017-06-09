@@ -390,6 +390,15 @@
   <data name="MatchWinLossDetail" xml:space="preserve">
     <value>Chi tiết thắng thua theo trận</value>
   </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>Casino Win Loss</value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>Thể loại cá cược</value>
+  </data>
+  <data name="WinLossByBetType" xml:space="preserve">
+    <value>Thắng thua theo loại cược</value>
+  </data>
   <data name="SelectLeague" xml:space="preserve">
     <value>Lựa chọn giải đấu</value>
   </data>

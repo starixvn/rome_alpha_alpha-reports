@@ -49,9 +49,9 @@
 
             supportedProduct = new List<Product>
             {
-                new Product(6, "Casino"),
-                new Product(22, "Macau Games"),
-                new Product(24, "Fishing World")
+                new Product(6, "Casino", null),
+                new Product(22, "Macau Games", null),
+                new Product(24, "Fishing World", null)
             };
         }
 

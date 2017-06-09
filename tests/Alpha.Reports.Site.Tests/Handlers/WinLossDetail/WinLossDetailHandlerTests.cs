@@ -128,7 +128,7 @@
             var message = new ReportLegendQuery();
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
-                new Product(21, string.Empty)
+                new Product(21, string.Empty, null)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -154,7 +154,7 @@
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(new List<byte> { 1 });
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
-                new Product(21, string.Empty)
+                new Product(21, string.Empty, null)
             });
 
             var expectedViewModel = new List<string>

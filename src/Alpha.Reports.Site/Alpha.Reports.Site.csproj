@@ -146,7 +146,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0.1\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
+      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0.1-beta02\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ONEbook.UM, Version=2.0.2.7, Culture=neutral, processorArchitecture=MSIL">
@@ -181,8 +181,8 @@
       <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.2.4\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.1.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.1.5\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.1.8-WinLossByBetType\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Utilities, Version=3.0.0.4, Culture=neutral, processorArchitecture=MSIL">
@@ -245,6 +245,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\DependencyConfig.cs" />
+    <Compile Include="App_Start\BetTypeConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <TypeScriptCompile Include="assets\scripts\commissionbybettype\commissionbybettype.ts" />
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
@@ -294,12 +295,13 @@
     <Compile Include="Controllers\CommissionByBettypeController.cs" />
     <Compile Include="Controllers\RacingCommissionController.cs" />
     <Compile Include="Controllers\MatchWinLossDetailController.cs" />
-    <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
     <Compile Include="Controllers\ReportLegendController.cs" />
     <Compile Include="Controllers\WinLossAnalysisChartController.cs" />
     <Compile Include="Controllers\WinLossAnalysisController.cs" />
     <Compile Include="Controllers\StatementController.cs" />
+    <Compile Include="Controllers\ReportBaseController.cs" />
+    <Compile Include="Controllers\WinLossByProductController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -311,6 +313,7 @@
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
     <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbook.cs" />
     <Compile Include="Handlers\Statement\MemberStatementExcelHandler.cs" />
     <Compile Include="Handlers\Statement\StatementDetailExcelHandler.cs" />
     <Compile Include="Handlers\Statement\SMAStatementExcelHandler.cs" />
@@ -321,6 +324,9 @@
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisBaseHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisExcelHandler.cs" />
     <Compile Include="Handlers\WinLossAnalysis\WinLossAnalysisHandler.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductBaseHandler.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandler.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductExcelHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\PlayForFun\PlayForFunBaseHandler.cs" />
     <Compile Include="Handlers\PlayForFun\PlayForFunExcelHandler.cs" />
@@ -371,6 +377,8 @@
     <Compile Include="Requests\FromLast3YearDateRangeQuery.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
+    <Compile Include="Requests\WinLossByProduct\WinLossByProductQuery.cs" />
+    <Compile Include="Requests\WinLossByProduct\WinLossByProductExcelQuery.cs" />
     <Compile Include="Requests\Statement\MemberStatementExcelQuery.cs" />
     <Compile Include="Requests\WinLossAnalysisChart\WinLossAnalysisChartQuery.cs" />
     <Compile Include="Requests\Statement\MemberStatementQuery.cs" />
@@ -405,6 +413,8 @@
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
     <Compile Include="ViewModels\Statement\MemberStatementViewModel.cs" />
     <Compile Include="ViewModels\Statement\SMAStatementViewModel.cs" />
+    <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModel.cs" />
+    <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
     <Compile Include="ViewModels\RacingCommission\RacingCommissionFilterViewModel.cs" />
     <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModel.cs" />
@@ -476,6 +486,8 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\statement\statement-details-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis\winloss-analysis-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis\winloss-analysis-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbyproduct\winlossbyproduct-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\winlossbyproduct\winlossbyproduct-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-master-agent-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-registerevents-tests.ts" />
@@ -493,6 +505,7 @@
     <TypeScriptCompile Include="assets\scripts\winlossanalysischart\winlossanalysischart-ready.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossanalysischart\winlossanalysischart.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossanalysis\winlossanalysis.ts" />
+    <TypeScriptCompile Include="assets\scripts\winlossbyproduct\winlossbyproduct.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBARC.bodb_Archive.BODBDownlineNet.xml" />
@@ -503,10 +516,6 @@
     <Content Include="assets\bundles\commissionbybettype\commissionbybettype.min.js">
       <DependentUpon>commissionbybettype.js</DependentUpon>
     </Content>
-    <Content Include="assets\bundles\default.css" />
-    <Content Include="assets\bundles\default.min.css">
-      <DependentUpon>default.css</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.css" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
@@ -516,10 +525,18 @@
     <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.min.js">
       <DependentUpon>winlossanalysischart.js</DependentUpon>
     </Content>
+
+    <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
+
+    <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.min.js">
+      <DependentUpon>winlossbyproduct.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\racingcommission\racingcommission.js" />
     <Content Include="assets\bundles\racingcommission\racingcommission.min.js">
       <DependentUpon>racingcommission.js</DependentUpon>
     </Content>
+
+
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.js">
       <DependentUpon>matchwinlossdetail.js</DependentUpon>
     </Content>
@@ -552,6 +569,19 @@
       <DependentUpon>statement-details.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\statement\statement.css" />
+
+    <Content Include="assets\bundles\default.css" />
+    <Content Include="assets\bundles\default.min.css">
+      <DependentUpon>default.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\outstanding\outstanding.js" />
+    <Content Include="assets\bundles\outstanding\outstanding.min.js">
+      <DependentUpon>outstanding.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
+    <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.min.js">
+      <DependentUpon>winlossbyproduct.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\statement\statement.min.css">
       <DependentUpon>statement.css</DependentUpon>
     </Content>
@@ -754,6 +784,9 @@
     <Content Include="App_Code\Components\StatusSelection.cshtml" />
     <Content Include="App_Code\Components\ProductSingleSelection.cshtml" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossByProduct\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossByProduct\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\WinLossByProduct\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\RacingCommission\Agent.xls" />
@@ -793,6 +826,8 @@
     <Content Include="Views\WinLossAnalysis\Index.cshtml" />
     <Content Include="Views\MatchWinLoss\Index.cshtml" />
     <Content Include="Views\League\LeaguesByCustomer.cshtml" />
+    <Content Include="Views\WinLossByProduct\Filter.cshtml" />
+    <Content Include="Views\WinLossByProduct\Index.cshtml" />
     <Content Include="Views\CommissionByBettype\Index.cshtml" />
     <Content Include="Views\RacingCommission\Index.cshtml" />
     <Content Include="Views\CommissionByBettype\_CommissionByBettypeFilter.cshtml" />

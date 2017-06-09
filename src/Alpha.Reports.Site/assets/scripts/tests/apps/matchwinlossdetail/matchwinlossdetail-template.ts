@@ -20,7 +20,7 @@
                                             <option value="1" selected="selected"></option>
                                         </select>
                                         <button class="multiselect btn"></button>
-                                        <div id="btn-loadleague" value=""></div>
+                                        <div id="btn-loadleague" value="" class="hide"></div>
                                         <div id="league-ids" value=""></div>
                                         <input id="IsUserSelectsAllLeagues" value="true" />
                                         <div class="btn-group"></div>

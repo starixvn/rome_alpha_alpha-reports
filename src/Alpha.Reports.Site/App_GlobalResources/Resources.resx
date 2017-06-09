@@ -385,7 +385,7 @@
     <value>Next</value>
   </data>
   <data name="FT" xml:space="preserve">
-    <value>FT</value>
+    <value>FT.</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
     <value>Outstanding</value>
@@ -398,6 +398,9 @@
   </data>
   <data name="MasterOutstanding" xml:space="preserve">
     <value>Master Outstanding</value>
+  </data>
+  <data name="WinLossByBetType" xml:space="preserve">
+    <value>Win Loss By Bet Type</value>
   </data>
   <data name="MasterPlayForFunDetail" xml:space="preserve">
     <value>Master Play For Fun Detail</value>
@@ -528,6 +531,15 @@
   <data name="GrandTotal" xml:space="preserve">
     <value>Grand Total</value>
   </data>
+  <data name="Allbet" xml:space="preserve">
+    <value>Allbet</value>
+  </data>
+  <data name="GoldDeluxe" xml:space="preserve">
+    <value>Gold Deluxe</value>
+  </data>
+  <data name="LiveGame" xml:space="preserve">
+    <value>Live Game</value>
+  </data>
   <data name="ReportBy" xml:space="preserve">
     <value>Report by</value>
   </data>
@@ -560,6 +572,27 @@
   </data>
   <data name="StatementGuidelines" xml:space="preserve">
     <value>Statement Guidelines</value>
+  </data>
+  <data name="PreGame" xml:space="preserve">
+    <value>Pre Game</value>
+  </data>
+  <data name="VirtualSports" xml:space="preserve">
+    <value>Virtual Sports</value>
+  </data>
+  <data name="Voidbridge" xml:space="preserve">
+    <value>Macau Games</value>
+  </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>Casino Win Loss</value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>Game Type Name</value>
+  </data>
+  <data name="WinLossByProduct" xml:space="preserve">
+    <value>Win Loss By Product</value>
+  </data>
+  <data name="Symbol_NoDataNumber" xml:space="preserve">
+    <value>--</value>
   </data>
   <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
     <value>your balance calculated till “From” date. If Opening Balance does not equal to Accumulated Total of previous date, then the Opening Balance will be highlighted in pink.</value>

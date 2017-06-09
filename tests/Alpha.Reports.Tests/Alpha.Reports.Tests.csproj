@@ -183,6 +183,7 @@
     <Compile Include="Criteria\ReportCriteriaBaseTests.cs" />
     <Compile Include="Criteria\ReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\Statement\GetStatementCriteriaTests.cs" />
+    <Compile Include="Criteria\WinLossByProduct\WinLossByProductCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossAnalysisChart\WinLossAnalysisChartCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
@@ -192,9 +193,11 @@
     <Compile Include="DataAccesses\StatementDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossAnalysisDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
+    <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Database\MatchWinLossDetail\MatchWinLossDetailDatabase.cs" />
     <Compile Include="Database\Statement\StatementDatabase.cs" />
+    <Compile Include="Database\WinLossByProduct\WinLossByProductDatabase.cs" />
     <Compile Include="Database\WinLossAnalysis\WinLossAnalysisDatabase.cs" />
     <Compile Include="Database\WinLoss\WinLossDatabase.cs" />
     <Compile Include="Database\WinLossDetail\WinLossDetailDatabase.cs" />
@@ -225,6 +228,8 @@
     <Compile Include="Models\PagedReportDataTests.cs" />
     <Compile Include="Models\Statement\StatementDetailModelTests.cs" />
     <Compile Include="Models\Statement\StatementModelTests.cs" />
+    <Compile Include="Models\WinLossByProduct\WinLossByProductModelTest.cs" />
+    <Compile Include="Models\WinLossByProduct\WinLossBySportModelTests.cs" />
     <Compile Include="Models\WinLossTest.cs" />
     <Compile Include="Models\NetWinLossTest.cs" />
     <Compile Include="Models\ProductTests.cs" />
@@ -236,6 +241,7 @@
     <Compile Include="Params\MatchWinLossDetailParamTests.cs" />
     <Compile Include="Params\ProductByCustomerParamTests.cs" />
     <Compile Include="Params\WinLossAnalysisChartParamTests.cs" />
+    <Compile Include="Params\WinLossByProductParamTests.cs" />
     <Compile Include="Params\WinLossAnalysisParamTests.cs" />
     <Compile Include="Params\WinLossParamTests.cs" />
     <Compile Include="Params\WinLossDetailParamTests.cs" />
@@ -250,6 +256,7 @@
     <Compile Include="Services\RacingCommissionServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
     <Compile Include="Services\StatementServiceImplTests.cs" />
+    <Compile Include="Services\WinLossByProductServiceImplTests.cs" />
     <Compile Include="Services\WinLossAnalysisChartServiceImplTests.cs" />
     <Compile Include="Services\WinLossAnalysisServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />
@@ -257,6 +264,7 @@
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
     <Compile Include="TestCases\StringExtensionsTestCases.cs" />
     <Compile Include="TestCases\UserLevelTestCases.cs" />
+    <Compile Include="TestCases\WinLossByProduct\WinLossByProductModelTestCases.cs" />
     <Compile Include="TestCases\WinLossDetailPropertyTestCases.cs" />
     <Compile Include="Utils\SystemTimeTests.cs" />
   </ItemGroup>
@@ -280,6 +288,9 @@
     <CodeAnalysisDictionary Include="CodeAnalysis\CustomDictionary.xml">
       <SubType>Designer</SubType>
     </CodeAnalysisDictionary>
+    <Content Include="Database\WinLossByProduct\AgentWinLossByProductHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Database\MatchWinLossDetail\AgentMatchWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -288,6 +299,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Database\MatchWinLossDetail\SuperMatchWinLossDetailHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\WinLossByProduct\MasterWinLossByProductHasData.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\WinLossByProduct\MemberWinLossByProductHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\Statement\StatementHasData.xml">

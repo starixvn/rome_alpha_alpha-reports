@@ -57,9 +57,9 @@
 
             IEnumerable<Product> products = new List<Product>
             {
-                new Product(1, "Product 1", getProductDisplayName),
-                new Product(2, "Product 2", getProductDisplayName),
-                new Product(3, "Product 3", getProductDisplayName)
+                new Product(1, "Product 1", null, getProductDisplayName),
+                new Product(2, "Product 2", null, getProductDisplayName),
+                new Product(3, "Product 3", null, getProductDisplayName)
             };
 
             var userSelectedProductIds = new List<int> { 1, 3 };

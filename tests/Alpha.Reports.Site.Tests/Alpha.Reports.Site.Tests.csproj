@@ -120,8 +120,8 @@
       <HintPath>..\..\packages\AutoFixture.3.50.2\lib\net40\Ploeh.AutoFixture.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture.Xunit2, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AutoFixture.Xunit2.3.50.2\lib\net45\Ploeh.AutoFixture.Xunit2.dll</HintPath>
+    <Reference Include="Ploeh.AutoFixture.Xunit, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoFixture.Xunit.3.50.2\lib\net40\Ploeh.AutoFixture.Xunit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -136,8 +136,8 @@
       <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.2.4\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.1.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.1.5\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.1.8-WinLossByBetType\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Utilities, Version=3.0.0.4, Culture=neutral, processorArchitecture=MSIL">
@@ -211,6 +211,7 @@
     <Compile Include="Controllers\RacingCommissionControllerTests.cs" />
     <Compile Include="Controllers\ReportLegendControllerTests.cs" />
     <Compile Include="Controllers\StatementControllerTests.cs" />
+    <Compile Include="Controllers\WinLossByProductControllerTests.cs" />
     <Compile Include="Controllers\WinLossAnalysisChartControllerTests.cs" />
     <Compile Include="Controllers\WinLossAnalysisControllerTests.cs" />
     <Compile Include="Controllers\PlayForFunControllerTests.cs" />
@@ -225,7 +226,8 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandlerTests.cs" />
-    <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductExcelHandlerTest.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductBaseHandlerTests.cs" />
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\Statement\SMAStatementExcelHandlerTests.cs" />
@@ -249,6 +251,7 @@
     <Compile Include="Handlers\RacingCommission\RacingCommissionHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandlerTests.cs" />
     <Compile Include="Handlers\LeagueHandlerTests.cs" />
+    <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\WinLoss\EnteredSportResultExcelHandlerTests.cs" />
@@ -275,13 +278,15 @@
     <Compile Include="Requests\WinLossDetail\WinLossDetailQueryTests.cs" />
     <Compile Include="TestCases\MatchWinLossDetailTestCases.cs" />
     <Compile Include="TestCases\WinLossAnalysisViewModelTestCases.cs" />
+    <Compile Include="TestCases\WinLossByProductViewModelTestCases.cs" />
     <Compile Include="TestCases\WinLossViewModelTestCases.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeViewModelTests.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModelTests.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModelTests.cs" />
-    <Compile Include="ViewModels\Outstanding\OutstandingViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModelTestsFilterViewModelTests.cs" />
+    <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
     <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModelTests.cs" />
     <Compile Include="ViewModels\Statement\MemberStatementViewModelTests.cs" />
