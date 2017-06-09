@@ -11,8 +11,6 @@ namespace Alpha.Reports.Site.ViewModels.Statement
 {
     public class MemberStatementViewModel : StatementViewModel
     {
-        private const string StatementProductIds = "1,6,2";
-
         [SuppressMessage(
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2100:CodeLineMustNotBeLongerThan",
@@ -22,7 +20,10 @@ namespace Alpha.Reports.Site.ViewModels.Statement
             IEnumerable<StatementModel> statements)
              : base(message, statements, message.MinDate, message.FromDate, message.ToDate, message.UserSelectedDateRangeOption, message.IsFilterVisible, message.PageSize, message.PageIndex)
         {
+            ProductIds = message.ProductIds ?? "1,6,2";
         }
+
+        public string ProductIds { get; set; }
 
         public string BetListLink => UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
 
@@ -36,7 +37,7 @@ namespace Alpha.Reports.Site.ViewModels.Statement
                 ["FromDate"] = SystemTime.Today.AddDays(-1).ToShortDateWithSlash(),
                 ["ToDate"] = SystemTime.Today.ToShortDateWithSlash(),
                 ["GetAll"] = true,
-                ["ProductIds"] = StatementProductIds
+                ["ProductIds"] = ProductIds
             };
 
             return UrlHelper.AddQueryStringParamsFunc(url, routeValues);
@@ -52,7 +53,7 @@ namespace Alpha.Reports.Site.ViewModels.Statement
                 ["FromDate"] = SystemTime.Today.AddDays(-7).ToShortDateWithSlash(),
                 ["ToDate"] = SystemTime.Today.ToShortDateWithSlash(),
                 ["GetAll"] = true,
-                ["ProductIds"] = StatementProductIds
+                ["ProductIds"] = ProductIds
             };
 
             return UrlHelper.AddQueryStringParamsFunc(url, routeValues);

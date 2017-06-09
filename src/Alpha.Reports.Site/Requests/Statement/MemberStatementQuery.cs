@@ -15,6 +15,8 @@ namespace Alpha.Reports.Site.Requests.Statement
             FromDate = SystemTime.Today.AddDays(-1);
         }
 
+        public string ProductIds { get; set; }
+
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }

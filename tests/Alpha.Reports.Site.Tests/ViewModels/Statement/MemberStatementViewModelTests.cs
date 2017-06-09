@@ -160,7 +160,7 @@ namespace Alpha.Reports.Site.Tests.ViewModels.Statement
         }
 
         [Fact]
-        public void BuildBetListLink_Always_ReturnsCorrectLink()
+        public void BuildBetListLink_NotSupportProductIds_ReturnsCorrectLink()
         {
             // Arrange
             var message = new MemberStatementQuery(user)
@@ -186,6 +186,36 @@ namespace Alpha.Reports.Site.Tests.ViewModels.Statement
                     && (string)routeValue["ToDate"] == "12/02/2016"
                     && (bool)routeValue["GetAll"] == true
                     && (string)routeValue["ProductIds"] == "1,6,2"));
+        }
+
+        [Fact]
+        public void BuildBetListLink_SupportProductIds_ReturnsCorrectLink()
+        {
+            // Arrange
+            var message = new MemberStatementQuery(user)
+            {
+                CustName = "CustName",
+                CustId = 1,
+                ProductIds = "1,2,3,4,5"
+            };
+
+            var viewModel = new MemberStatementViewModel(message, Enumerable.Empty<StatementModel>());
+            UrlHelperTestSetUp.SetUp();
+
+            // Act
+            viewModel.BuildBetListLink();
+
+            // Assert
+            UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
+                "NewBetListPath",
+                Arg.Is<Dictionary<string, object>>(
+                    routeValue =>
+                    (int)routeValue["CustId"] == 1
+                    && (string)routeValue["CustName"] == "CustName"
+                    && (string)routeValue["FromDate"] == "12/01/2016"
+                    && (string)routeValue["ToDate"] == "12/02/2016"
+                    && (bool)routeValue["GetAll"] == true
+                    && (string)routeValue["ProductIds"] == "1,2,3,4,5"));
         }
 
         [Fact]
