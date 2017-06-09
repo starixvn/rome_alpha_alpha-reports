@@ -105,8 +105,6 @@
             // assert
             expect(winLossAnalysisChartView.cacheDOMElements).toHaveBeenCalled();
             expect(winLossAnalysisChartView.registerEvents).toHaveBeenCalled();
-            expect(jQueryFake.blockUI).toHaveBeenCalled();
-            expect(jQueryFake.unblockUI).toHaveBeenCalled();
             expect(monthRangePickerComponent.render).toHaveBeenCalled();
             expect(productMultiSelectionComponent.render).toHaveBeenCalled();
             expect(dualAxisChartComponent.render).toHaveBeenCalled();
@@ -227,7 +225,7 @@
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
             expect(winLossAnalysisChartView.$msgError.hasClass("hide")).toBeFalsy();
         });
-        it("_Slect products and is least 3 months -> Block UI, Unblock UI; Sets params to hidden fields", () => {
+        it("_Slect products and is least 3 months -> Block UI; Sets params to hidden fields", () => {
             // arrange
             renderProductMultiSelectionComponent.and.callThrough();
             spyOn(monthRangePickerComponent, "isLeast3Month").and.returnValue(true);
@@ -240,7 +238,6 @@
 
             // assert
             expect(jQueryFake.blockUI).toHaveBeenCalled();
-            expect(jQueryFake.unblockUI).toHaveBeenCalled();
             expect(winLossAnalysisChartView.$multiSelectButton.hasClass("error")).toBeFalsy();
             expect(winLossAnalysisChartView.$msgError.hasClass("hide")).toBeTruthy();
             expect(winLossAnalysisChartView.$isFilterVisible.val()).toBeTruthy();

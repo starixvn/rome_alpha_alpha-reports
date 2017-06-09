@@ -37,8 +37,6 @@ class WinLossAnalysisChartView extends BaseReport {
     }
 
     init = () => {
-        this.$.blockUI();
-
         this.cacheDOMElements();
         this.bindFilter();
         this.dualAxisChartComponent.render();
@@ -46,7 +44,6 @@ class WinLossAnalysisChartView extends BaseReport {
         this.registerEvents();
 
         this.initHelp();
-        this.$.unblockUI();
     };
 
     cacheDOMElements = () => {
