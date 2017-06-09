@@ -489,9 +489,6 @@
   <data name="AccumulatedTotal" xml:space="preserve">
     <value>Tổng tiền tích luỹ</value>
   </data>
-  <data name="Commission_Duplicate[1]" xml:space="preserve">
-    <value>Hoa hồng</value>
-  </data>
   <data name="Remark" xml:space="preserve">
     <value>Ghi chú</value>
   </data>

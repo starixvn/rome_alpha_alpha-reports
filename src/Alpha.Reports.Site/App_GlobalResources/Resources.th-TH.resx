@@ -535,9 +535,6 @@
   <data name="AccumulatedTotal" xml:space="preserve">
     <value>ยอดสะสมรวม</value>
   </data>
-  <data name="Commission_Duplicate[1]" xml:space="preserve">
-    <value>คอมมิชชั่น</value>
-  </data>
   <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
     <value>ยอดเงินของลูกค้าที่คำนวนจนถึง "ตั้งแต่" วันที่ หากยอดยกมา กับ ยอดรวมของวันก่อนหน้าไม่เท่ากัน ยอดยกมาของลูกค้าจะถูกไฮไลน์ให้เป็นสีชมพู</value>
   </data>

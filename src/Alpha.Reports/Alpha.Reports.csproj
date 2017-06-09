@@ -164,6 +164,7 @@
     <Compile Include="Models\Winloss\DailyEnteredSport.cs" />
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
     <Compile Include="Models\Winloss\WinLossModel.cs" />
+    <Compile Include="Params\DailyEnteredSportParam.cs" />
     <Compile Include="Params\MatchWinLossParam.cs" />
     <Compile Include="Params\OutstandingParam.cs" />
     <Compile Include="Params\GetLeaguesByCustomerParam.cs" />

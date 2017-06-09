@@ -444,9 +444,6 @@
   <data name="Statement" xml:space="preserve">
     <value>기록</value>
   </data>
-  <data name="Commission_Duplicate[1]" xml:space="preserve">
-    <value>수수료</value>
-  </data>
   <data name="Remark" xml:space="preserve">
     <value>비고</value>
   </data>

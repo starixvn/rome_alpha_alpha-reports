@@ -276,9 +276,6 @@
   <data name="Statement" xml:space="preserve">
     <value>明細書</value>
   </data>
-  <data name="Commission_Duplicate[1]" xml:space="preserve">
-    <value>手数料</value>
-  </data>
   <data name="Remark" xml:space="preserve">
     <value>備考</value>
   </data>

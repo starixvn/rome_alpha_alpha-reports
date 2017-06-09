@@ -534,9 +534,6 @@
   <data name="AccumulatedTotal" xml:space="preserve">
     <value>总累计余额</value>
   </data>
-  <data name="Commission_Duplicate[1]" xml:space="preserve">
-    <value>佣金</value>
-  </data>
   <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
     <value>客户余额将计算至"从" 的日期。 若期初余额与前一天的累积余额不符，那期初余额将会显示粉红色。</value>
   </data>

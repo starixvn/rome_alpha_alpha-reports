@@ -564,9 +564,6 @@
   <data name="AccumulatedTotal" xml:space="preserve">
     <value>Accumulated Total</value>
   </data>
-  <data name="Commission_Duplicate[1]" xml:space="preserve">
-    <value>Commission</value>
-  </data>
   <data name="Symbol_NoDataNumber" xml:space="preserve">
     <value>--</value>
   </data>
@@ -590,9 +587,6 @@
   </data>
   <data name="WinLossByProduct" xml:space="preserve">
     <value>Win Loss By Product</value>
-  </data>
-  <data name="Symbol_NoDataNumber" xml:space="preserve">
-    <value>--</value>
   </data>
   <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
     <value>your balance calculated till “From” date. If Opening Balance does not equal to Accumulated Total of previous date, then the Opening Balance will be highlighted in pink.</value>

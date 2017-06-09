@@ -115,7 +115,7 @@
       "assets/scripts/winlossbyproduct/winlossbyproduct.js"
     ]
   },
-   {
+  {
     "outputFileName": "assets/bundles/winlossanalysis/winlossanalysis.js",
     "inputFiles": [
       "assets/scripts/core.js",
@@ -208,5 +208,4 @@
       "assets/scripts/winlossanalysischart/winlossanalysischart-ready.js"
     ]
   }
-
 ]
