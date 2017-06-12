@@ -6,6 +6,7 @@ using Alpha.Reports.Models.Statement;
 using Alpha.Reports.Site.Helpers;
 using Alpha.Reports.Site.Requests.Statement;
 using Alpha.Reports.Utils;
+using Alpha.Reports.Site.Constants;
 
 namespace Alpha.Reports.Site.ViewModels.Statement
 {
@@ -37,7 +38,8 @@ namespace Alpha.Reports.Site.ViewModels.Statement
                 ["FromDate"] = SystemTime.Today.AddDays(-1).ToShortDateWithSlash(),
                 ["ToDate"] = SystemTime.Today.ToShortDateWithSlash(),
                 ["GetAll"] = true,
-                ["ProductIds"] = ProductIds
+                ["ProductIds"] = ProductIds,
+                ["UserSelectedDateRangeOption"] = UserSelectedDateRangeOptionConstant.SpecificDates
             };
 
             return UrlHelper.AddQueryStringParamsFunc(url, routeValues);

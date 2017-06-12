@@ -185,7 +185,8 @@ namespace Alpha.Reports.Site.Tests.ViewModels.Statement
                     && (string)routeValue["FromDate"] == "12/01/2016"
                     && (string)routeValue["ToDate"] == "12/02/2016"
                     && (bool)routeValue["GetAll"] == true
-                    && (string)routeValue["ProductIds"] == "1,6,2"));
+                    && (string)routeValue["ProductIds"] == "1,6,2"
+                    && (int)routeValue["UserSelectedDateRangeOption"] == 7));
         }
 
         [Fact]
@@ -215,7 +216,8 @@ namespace Alpha.Reports.Site.Tests.ViewModels.Statement
                     && (string)routeValue["FromDate"] == "12/01/2016"
                     && (string)routeValue["ToDate"] == "12/02/2016"
                     && (bool)routeValue["GetAll"] == true
-                    && (string)routeValue["ProductIds"] == "1,2,3,4,5"));
+                    && (string)routeValue["ProductIds"] == "1,2,3,4,5"
+                    && (int)routeValue["UserSelectedDateRangeOption"] == 7));
         }
 
         [Fact]
