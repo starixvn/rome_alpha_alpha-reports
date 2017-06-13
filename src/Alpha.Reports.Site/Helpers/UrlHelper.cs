@@ -60,7 +60,7 @@
             }
         }
 
-        public static Func<string, string, string> GetSiteUrl { get; internal set; } = GetUrl;
+        public static Func<string, string, string> GetSiteUrl { get; internal set; } = GetLink;
 
         public static Func<string, string> MapBetListPath
         {
@@ -75,55 +75,55 @@
             }
         }
 
-        internal static string AddQueryStringParams(string url, IDictionary<string, object> routeValues)
+        internal static string AddQueryStringParams(string link, IDictionary<string, object> routeValues)
         {
             if (!routeValues.Any())
             {
-                return url;
+                return link;
             }
 
             var queryString = string.Join("&", routeValues.Select(kvp => $"{kvp.Key}={kvp.Value}"));
 
-            return $"{url}?{queryString}";
+            return $"{link}?{queryString}";
         }
 
-        internal static string ReplaceOrAddQueryStringParams(string url, IDictionary<string, object> routeValues)
+        internal static string ReplaceOrAddQueryStringParams(string link, IDictionary<string, object> routeValues)
         {
             if (!routeValues.Any())
             {
-                return url;
+                return link;
             }
 
-            if (!url.Contains("?"))
+            if (!link.Contains("?"))
             {
-                return AddQueryStringParams(url, routeValues);
+                return AddQueryStringParams(link, routeValues);
             }
 
             foreach (var routeValue in routeValues)
             {
-                url = ReplaceOrAddQueryStringParam(url, routeValue.Key, routeValue.Value);
+                link = ReplaceOrAddQueryStringParam(link, routeValue.Key, routeValue.Value);
             }
 
-            return url;
+            return link;
         }
 
-        internal static string ReplaceOrAddQueryStringParam(string url, string paramName, object paramValue)
+        internal static string ReplaceOrAddQueryStringParam(string link, string paramName, object paramValue)
         {
             if (string.IsNullOrWhiteSpace(paramName) || paramValue == null)
             {
-                return url;
+                return link;
             }
 
             var regexParamName = @"([?&]" + paramName + ")=[^?&]+";
-            if (Regex.IsMatch(url, regexParamName, RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(link, regexParamName, RegexOptions.IgnoreCase))
             {
-                return Regex.Replace(url, regexParamName, "$1=" + paramValue, RegexOptions.IgnoreCase);
+                return Regex.Replace(link, regexParamName, "$1=" + paramValue, RegexOptions.IgnoreCase);
             }
 
-            return url + $"&{paramName}={paramValue}";
+            return link + $"&{paramName}={paramValue}";
         }
 
-        internal static string GetUrl(string action, string currentQuery)
+        internal static string GetLink(string action, string currentQuery)
         {
             return MicroSites.ReportsUrl(action + currentQuery);
         }

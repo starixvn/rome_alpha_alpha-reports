@@ -20,11 +20,11 @@
         public string BreadcrumbLevelJson { get; }
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed")]
-        public string BuildBreadcrumbLink(CustInfo model, string currentUrl, Dictionary<int, string> breadcrumbParamByLevel)
+        public string BuildBreadcrumbLink(CustInfo model, string currentLink, Dictionary<int, string> breadcrumbParamByLevel)
         {
             var url = breadcrumbParamByLevel == null
-                ? currentUrl
-                : UrlHelper.GetSiteUrl(breadcrumbParamByLevel[model.CustLevelId], currentUrl);
+                ? currentLink
+                : UrlHelper.GetSiteUrl(breadcrumbParamByLevel[model.CustLevelId], currentLink);
 
             return UrlHelper.ReplaceOrAddQueryStringParamsFunc(
                 url,
