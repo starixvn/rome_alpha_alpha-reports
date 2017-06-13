@@ -1,7 +1,5 @@
 ﻿namespace Alpha.Reports.Models.Winloss
 {
-    using WinLossDetail;
-
     public class WinLossModel
     {
         public WinLossModel()
@@ -32,40 +30,49 @@
 
         public string CustName { get; }
 
-        public decimal Turnover { get; }
+        public decimal Turnover { get; private set; }
 
-        public decimal GrossComm { get; }
+        public decimal GrossComm { get; private set; }
 
-        public NetWinLoss MemberNetWinLoss { get; }
+        public NetWinLoss MemberNetWinLoss { get; private set; }
 
-        public NetWinLoss AgentNetWinLoss { get; }
+        public NetWinLoss AgentNetWinLoss { get; private set; }
 
-        public NetWinLoss MasterNetWinLoss { get; }
+        public NetWinLoss MasterNetWinLoss { get; private set; }
 
-        public NetWinLoss SuperNetWinLoss { get; }
+        public NetWinLoss SuperNetWinLoss { get; private set; }
 
-        public decimal Company =>
-            -((MemberNetWinLoss?.Total ?? 0)
-            + (AgentNetWinLoss?.Total ?? 0)
-            + (MasterNetWinLoss?.Total ?? 0)
-            + (SuperNetWinLoss?.Total ?? 0));
-
-        public static WinLossModel Add(WinLossModel winlossA, WinLossModel winlossB)
+        public decimal Company
         {
-            if (winlossA == null || winlossB == null)
+            get
             {
-                return winlossA ?? winlossB;
+                return -((MemberNetWinLoss?.Total ?? 0)
+                        + (AgentNetWinLoss?.Total ?? 0)
+                        + (MasterNetWinLoss?.Total ?? 0)
+                        + (SuperNetWinLoss?.Total ?? 0));
             }
 
-            return new WinLossModel(
-                custId: 0,
-                custName: "Total",
-                grossComm: winlossA.GrossComm + winlossB.GrossComm,
-                turnover: winlossA.Turnover + winlossB.Turnover,
-                memberNetWinLoss: NetWinLoss.Add(winlossA.MemberNetWinLoss, winlossB.MemberNetWinLoss),
-                agentNetWinLoss: NetWinLoss.Add(winlossA.AgentNetWinLoss, winlossB.AgentNetWinLoss),
-                masterNetWinLoss: NetWinLoss.Add(winlossA.MasterNetWinLoss, winlossB.MasterNetWinLoss),
-                superNetWinLoss: NetWinLoss.Add(winlossA.SuperNetWinLoss, winlossB.SuperNetWinLoss));
+            private set
+            {
+            }
+        }
+
+        public WinLossModel Add(WinLossModel winloss)
+        {
+            if (winloss == null)
+            {
+                return this;
+            }
+
+            GrossComm += winloss.GrossComm;
+            Turnover += winloss.Turnover;
+            Company += winloss.Company;
+            MemberNetWinLoss = NetWinLoss.Add(MemberNetWinLoss, winloss.MemberNetWinLoss);
+            AgentNetWinLoss = NetWinLoss.Add(AgentNetWinLoss, winloss.AgentNetWinLoss);
+            MasterNetWinLoss = NetWinLoss.Add(MasterNetWinLoss, winloss.MasterNetWinLoss);
+            SuperNetWinLoss = NetWinLoss.Add(SuperNetWinLoss, winloss.SuperNetWinLoss);
+
+            return this;
         }
     }
 }

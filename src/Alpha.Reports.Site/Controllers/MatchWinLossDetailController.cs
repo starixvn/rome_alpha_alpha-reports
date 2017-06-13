@@ -10,11 +10,9 @@
         {
         }
 
-        public ActionResult Index(MatchWinLossDetailQuery message)
-            => View(message);
+        public ActionResult Index(MatchWinLossDetailQuery message) => View(message);
 
         [HttpGet]
-        public ActionResult Excel(MatchWinLossDetailExcelQuery message)
-            => ExcelView(message);
+        public ActionResult Excel(MatchWinLossDetailExcelQuery message) => ExcelView(message);
     }
 }

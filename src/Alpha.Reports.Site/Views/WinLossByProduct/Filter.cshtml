@@ -1,0 +1,32 @@
+﻿@model WinLossByProductFilterViewModel
+
+<form class="form-inline filter @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form">
+    @RenderHiddenFields()
+
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+
+    @DateRangePicker.Render(Model.DateRangePickerViewModel)
+
+    <div id="icon-information-container" class="form-group hide">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>@Model.ViewDataInstructionMessage
+    </div>
+
+    @helper RenderHiddenFields()
+    {
+        @Html.Hidden("IsFilterVisible", Model.Visible)
+
+        @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+        @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
+
+        @Html.Hidden("CustId", Model.CustId)
+        @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    }
+</form>

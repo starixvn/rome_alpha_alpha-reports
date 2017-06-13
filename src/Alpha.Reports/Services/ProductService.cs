@@ -11,11 +11,11 @@
 
     public interface ProductService
     {
-        IEnumerable<Product> GetProductsForCustomer(int custId);
+        IEnumerable<Product> GetProductsForCustomer(int custId, DateTime? minReportDate = null);
 
-        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds);
+        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null);
 
-        IEnumerable<Product> FilterProductsByCustomer(int custId, IEnumerable<int> productIds);
+        IEnumerable<Product> FilterProductsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null);
 
         IEnumerable<string> GetProductNames(IEnumerable<int> productIds);
 
@@ -44,9 +44,9 @@
             this.getProductName = getProductName;
         }
 
-        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds)
+        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null)
         {
-            var customerProductIds = GetProductsForCustomer(custId).Select(product => product.Id);
+            var customerProductIds = GetProductsForCustomer(custId, minReportDate).Select(product => product.Id);
 
             var productIdList = productIds == null || !productIds.Any()
                 ? customerProductIds
@@ -55,14 +55,10 @@
             return productIdList;
         }
 
-        public IEnumerable<Product> FilterProductsByCustomer(int custId, IEnumerable<int> productIds)
-        {
-            var products = GetProductsForCustomer(custId).Where(product => productIds.Contains(product.Id));
+        public IEnumerable<Product> FilterProductsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null)
+            => GetProductsForCustomer(custId, minReportDate).Where(product => productIds.Contains(product.Id));
 
-            return products;
-        }
-
-        public IEnumerable<Product> GetProductsForCustomer(int custId)
+        public IEnumerable<Product> GetProductsForCustomer(int custId, DateTime? minReportDate = null)
         {
             if (custId <= 0)
             {
@@ -73,8 +69,8 @@
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
                 () => GetProductsForReport()
-                        .Where(product => canViewProduct(product.Id))
-                        .Select(product => new Product(product.Id, product.Name, getProductName)),
+                    .Where(product => CanShowProduct(product, minReportDate))
+                    .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
             return custProducts;
@@ -128,5 +124,9 @@
 
             return products;
         }
+
+        private bool CanShowProduct(Product product, DateTime? minReportDate)
+            => canViewProduct(product.Id)
+            && !(minReportDate.HasValue && product.EndOfSupportDate.HasValue && product.EndOfSupportDate.Value < minReportDate.Value);
     }
 }

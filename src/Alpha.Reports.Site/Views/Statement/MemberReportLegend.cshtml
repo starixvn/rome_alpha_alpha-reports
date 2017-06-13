@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="modal fade message-modal" id="report-legend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="icon icon-close close" data-dismiss="modal" aria-label="@Resources.Close"><span aria-hidden="true"></span></button>
+                <h4 class="modal-title">@Resources.StatementGuidelines</h4>
+            </div>
+            <div class="modal-body">
+                <div id="msg-content">
+                    <div class="guideline-row">
+                        <span class="statement-term">
+                            @Resources.OpeningBalance:
+                        </span> <span>@Resources.Guidelines_OpeningBalance_Member</span>
+                    </div>
+                    <div class="guideline-row">
+                        <span class="statement-term">
+                            @Resources.Turnover:
+                        </span> <span>@Resources.Guidelines_Turnover</span>
+                    </div>
+                    <div class="guideline-row">
+                        <span class="statement-term">
+                            @Resources.Void/@Resources.Rejected:
+                        </span> <span>@Resources.Guidelines_VoidRejected</span>
+                    </div>
+                    <div class="guideline-row">
+                        <span class="statement-term">
+                            @Resources.Outstanding:
+                        </span> <span>@Resources.Guidelines_Outstanding</span>
+                    </div>
+                    <div class="guideline-row">
+                        <span class="statement-term">
+                            @Resources.WinLoss:
+                        </span> <span>@Resources.Guidelines_WinLoss_Member</span>
+                    </div>
+                    <div class="guideline-row">
+                        <span class="statement-term">
+                            @Resources.Commission:
+                        </span> <span>@Resources.Guidelines_Commission_Member</span>
+                    </div>
+                    <div class="guideline-row">
+                        <span class="statement-term">@Resources.GrandPrize:</span> <span>@Resources.GrandPrize_Guidelines</span>
+                    </div>
+                    <div class="guideline-row">
+                        <span class="statement-term">
+                            @Resources.TransferAmt:
+                        </span> <span>@Resources.Guidelines_TransferAmt_Member</span>
+                    </div>
+                    <div class="guideline-row">
+                        <span class="statement-term">
+                            @Resources.AccumulatedTotal:
+                        </span> <span>@Resources.Guidelines_AccumulatedTotal_Member</span>
+                    </div>
+                    <div class="guideline-row">
+                        <div class="formular-accumulated-total">@Resources.Formular_Accumulated_Total</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

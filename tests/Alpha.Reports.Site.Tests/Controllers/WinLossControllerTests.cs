@@ -49,7 +49,7 @@
             winLossController.Excel(message);
 
             // Assert
-            mediator.Received().Send<ExcelFileViewModel>(Arg.Is<WinLossExcelQuery>(message));
+            mediator.Received().Send<ExcelFileViewModel>(Arg.Is(message));
         }
 
         [Fact]

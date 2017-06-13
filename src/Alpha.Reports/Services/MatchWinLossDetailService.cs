@@ -67,8 +67,6 @@
         }
 
         public IEnumerable<Product> GetProductsForCustomer(int custId)
-        {
-            return productService.FilterProductsByCustomer(custId, SupportedProducts);
-        }
+            => productService.FilterProductsByCustomer(custId, SupportedProducts);
     }
 }

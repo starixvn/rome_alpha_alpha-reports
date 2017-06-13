@@ -40,7 +40,7 @@
 
             var result = workbook
                 .UseTemplate(GetTemplateInfo(message))
-                .Title(GetReporTitle(message))
+                .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(commissions, GetBodyRowMapper())
                 .Footer(CommissionByBettypeModel.GetAccumulatedCommission(commissions), GetTotalRowMapper())
@@ -74,7 +74,7 @@
                bodyStartIndex: 3,
                bodyEndIndex: 4);
 
-        private string GetReporTitle(CommissionByBettypeExcelQuery message)
+        private string GetReportTitle(CommissionByBettypeExcelQuery message)
             => $"{Resources.CommissionByBettype} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 
         private string GetExcelFileName(CommissionByBettypeExcelQuery message, CommissionByBettypeParam commissionParam)

@@ -2,7 +2,7 @@
 {
     public class PlayForFunProduct : Product
     {
-        public PlayForFunProduct(byte id, string name, bool isDisable) : base(id, name)
+        public PlayForFunProduct(byte id, string name, bool isDisable) : base(id, name, null)
         {
             IsDisable = isDisable;
         }

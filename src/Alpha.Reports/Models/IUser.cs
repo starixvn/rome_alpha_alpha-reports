@@ -11,7 +11,9 @@
         string Language { get; }
 
         string LanguageKey { get; }
-        
+
+        string CurrencyName { get; }
+
         bool GetHideProduct(int productId);
     }
 }

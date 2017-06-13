@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.PlayForFun
 {
-    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Constants;
@@ -25,7 +24,7 @@
         }
 
         [Fact]
-        public void GetBetListLinkRouteValues_Always_ThrowsNotImplementedException()
+        public void GetBetListLinkRouteValues_Always_ReturnsEmptyRouteValues()
         {
             // Arrange
             var query = new PlayForFunQuery(user);
@@ -39,8 +38,11 @@
 
             var model = anyValueCreatorFixture.Create<PlayForFunModel>();
 
-            // Act & Assert
-            Assert.Throws<NotImplementedException>(() => viewModel.CallGetBetListLinkRouteValues(model));
+            // Act
+            var actualRouteValues = viewModel.CallGetBetListLinkRouteValues(model);
+
+            // Assert
+            Assert.Empty(actualRouteValues);
         }
 
         [Fact]

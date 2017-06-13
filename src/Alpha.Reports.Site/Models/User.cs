@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Models
 {
+    using System;
     using Reports.Models;
     using Sunplus.Agent.Model.Entities;
 
@@ -21,7 +22,9 @@
         public byte LevelId => userSession.RoleId;
 
         public string LanguageKey => userSession.LangKey;
-        
+
+        public string CurrencyName => userSession.Currency;
+
         public bool GetHideProduct(int productId) => userSession.GetHideProduct(productId);
     }
 }

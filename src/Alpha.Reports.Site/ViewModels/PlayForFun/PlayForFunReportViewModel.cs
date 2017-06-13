@@ -107,8 +107,6 @@
             };
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(PlayForFunModel model)
-        {
-            throw new NotImplementedException();
-        }
+            => new Dictionary<string, object>();
     }
 }

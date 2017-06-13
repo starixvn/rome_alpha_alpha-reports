@@ -336,10 +336,9 @@
   <data name="CommissionByBettype" xml:space="preserve">
 		<value>投注产品分类佣金</value>
 	</data>
-	  <data name="NumberGameNo" xml:space="preserve">
+  <data name="NumberGameNo" xml:space="preserve">
     <value>数字游戏编号</value>
   </data>
-
   <data name="Next" xml:space="preserve">
     <value>下一页</value>
   </data>
@@ -361,7 +360,7 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>总代理未结束交易</value>
   </data>
-    <data name="Status" xml:space="preserve">
+  <data name="Status" xml:space="preserve">
     <value>状态</value>
   </data>
   <data name="All" xml:space="preserve">
@@ -370,7 +369,6 @@
   <data name="Disabled" xml:space="preserve">
     <value>禁用</value>
   </data>
-
   <data name="RacingCommission" xml:space="preserve">
 		<value>赛马佣金</value>
 	</data>
@@ -404,7 +402,7 @@
   <data name="Commission1" xml:space="preserve">
     <value>佣金 1</value>
   </data>
-   <data name="Match" xml:space="preserve">
+  <data name="Match" xml:space="preserve">
     <value>赛事</value>
   </data>
   <data name="PositionTaking" xml:space="preserve">
@@ -415,6 +413,15 @@
   </data>
   <data name="Outright" xml:space="preserve">
     <value>优胜冠军</value>
+  </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>赌场输赢</value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>游戏名称</value>
+  </data>
+  <data name="WinLossByBetType" xml:space="preserve">
+    <value>投注类别输赢</value>
   </data>
   <data name="Race" xml:space="preserve">
     <value>赛事</value>
@@ -458,14 +465,13 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>所有联赛</value>
   </data>
-
   <data name="Commission2" xml:space="preserve">
     <value>佣金 2</value>
   </data>
   <data name="Commission3" xml:space="preserve">
     <value>佣金 3</value>
   </data>
-    <data name="GrandTotal" xml:space="preserve">
+  <data name="GrandTotal" xml:space="preserve">
     <value>总和</value>
   </data>
   <data name="DelayIssueLegend" xml:space="preserve">
@@ -504,5 +510,100 @@
   <data name="Enabled" xml:space="preserve">
     <value>已开启</value>
   </data>
-
+  <data name="WinLossByProduct" xml:space="preserve">
+    <value>投注产品输赢</value>
+  </data>
+  <data name="Statement" xml:space="preserve">
+    <value>账目</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>期初余额</value>
+  </data>
+  <data name="TransferAmt" xml:space="preserve">
+    <value>转帐余额</value>
+  </data>
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>每月图表</value>
+  </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>请选择至少3个月的数据以查看图表</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="AccumulatedTotal" xml:space="preserve">
+    <value>总累计余额</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
+    <value>客户余额将计算至"从" 的日期。 若期初余额与前一天的累积余额不符，那期初余额将会显示粉红色。</value>
+  </data>
+  <data name="Guidelines_Turnover" xml:space="preserve">
+    <value>所有注单总投注额  (不包括作废/取消/未结束投注/退款的注单)</value>
+  </data>
+  <data name="Guidelines_WinLoss_SMA" xml:space="preserve">
+    <value>占成后的总输赢额度 (不包括作废/取消/未结束投注的注单)</value>
+  </data>
+  <data name="Guidelines_Commission_SMA" xml:space="preserve">
+    <value>会员注单的净总佣金</value>
+  </data>
+  <data name="Guidelines_TransferAmt_SMA" xml:space="preserve">
+    <value>转账金额 代理和会员的总转账额度。点击查看转账细节。</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_SMA" xml:space="preserve">
+    <value>选定日期之间，每一天的期末余额</value>
+  </data>
+  <data name="Formular_Accumulated_Total" xml:space="preserve">
+    <value>总累计余额 = 期初余额 + 输赢 + 佣金 + 转帐余额</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金额</value>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>作废</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Guidelines_VoidRejected" xml:space="preserve">
+    <value>作废/取消注单总投注额.。 点击查看作废/取消注单明细。</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_Member" xml:space="preserve">
+    <value>客户余额将计算至"从" 的日期。若期初余额与前一天的累积余额不符，那期初余额将会显示粉红色。</value>
+  </data>
+  <data name="Guidelines_WinLoss_Member" xml:space="preserve">
+    <value>注单 (不包括作废/取消/未结束投注的注单) 总输赢额度 (不包括会员佣金)。 点击查看注单明细。</value>
+  </data>
+  <data name="Guidelines_Commission_Member" xml:space="preserve">
+    <value>会员总佣金</value>
+  </data>
+  <data name="Guidelines_TransferAmt_Member" xml:space="preserve">
+    <value>代理和会员的总转账额度。点击查看转账细节。</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_Member" xml:space="preserve">
+    <value>选定日期之间，每一天的期末余额</value>
+  </data>
+  <data name="Guidelines_Outstanding" xml:space="preserve">
+    <value>未结束注单总投注额.。 点击查看未结束注单明细。</value>
+  </data>
+  <data name="DailyStatement" xml:space="preserve">
+    <value>每日账目</value>
+  </data>
+  <data name="OpeningBal" xml:space="preserve">
+    <value>期初余额</value>
+  </data>
+  <data name="AccumTotal" xml:space="preserve">
+    <value>总累计余额</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>转账</value>
+  </data>
+  <data name="BetList" xml:space="preserve">
+    <value>投注历史</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>投注历史(进行中)</value>
+  </data>
 </root>

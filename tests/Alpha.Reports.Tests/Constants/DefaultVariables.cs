@@ -8,5 +8,7 @@
         public const int PageIndex = 1;
 
         public static DateTime CurrentDate => new DateTime(2016, 12, 2);
+
+        public static DateTime BalanceUpDay => new DateTime(2016, 11, 26);
     }
 }

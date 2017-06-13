@@ -9,10 +9,8 @@
     using NSubstitute;
     using Reports.Criteria.WinLoss;
     using Reports.DataAccesses;
-    using Reports.Enumerations;
     using Reports.Models;
     using Reports.Models.Winloss;
-    using Reports.Models.WinLossDetail;
     using Xunit;
 
     [Trait("Category", "WinLoss")]

@@ -38,7 +38,7 @@
 
             var result = workbook
                 .UseTemplate(GetTemplateInfo(message))
-                .Title(GetReporTitle(message))
+                .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(reportData, GetBodyRowMapper(message))
                 .Footer(grandTotal, GetTotalRowMapper(message))
@@ -98,7 +98,7 @@
                 GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
                 noInfomationText: Resources.NoInformationIsAvailable);
 
-        private string GetReporTitle(WinLossExcelQuery message)
+        private string GetReportTitle(WinLossExcelQuery message)
             => $"{Resources.WinLossTitle} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
             $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
 

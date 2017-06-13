@@ -198,7 +198,6 @@
   <data name="Next" xml:space="preserve">
     <value>次へ</value>
   </data>
-
   <data name="Match" xml:space="preserve">
     <value>試合</value>
   </data>
@@ -229,19 +228,18 @@
   <data name="Tote" xml:space="preserve">
 		<value>Tote</value>
 	</data>
-	  <data name="SelectLeague" xml:space="preserve">
+  <data name="SelectLeague" xml:space="preserve">
     <value>リーグ選択</value>
   </data>
   <data name="AllLeagues" xml:space="preserve">
     <value>すべてのリーグ</value>
   </data>
- <data name="Sport" xml:space="preserve">
+  <data name="Sport" xml:space="preserve">
     <value>スポーツ</value>
   </data>
   <data name="MemberWinLoss" xml:space="preserve">
     <value>メンバー勝ち負け</value>
 </data>
-
   <data name="Win" xml:space="preserve">
 		<value>Win</value>
 	</data>
@@ -274,5 +272,29 @@
   </data>
   <data name="Commission3" xml:space="preserve">
     <value>手数料 3</value>
+  </data>
+  <data name="Statement" xml:space="preserve">
+    <value>明細書</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>備考</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>金額</value>
+  </data>
+  <data name="DailyStatement" xml:space="preserve">
+    <value>日別明細書</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>送金</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="BetList" xml:space="preserve">
+    <value>ベットリスト</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>ベットリスト (実行中)</value>
   </data>
 </root>

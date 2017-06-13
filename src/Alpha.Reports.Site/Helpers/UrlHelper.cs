@@ -5,12 +5,13 @@
     using System.Linq;
     using System.Text.RegularExpressions;
     using Configurations;
-    using Enumerations;
-    using Reports.Models;
     using Web.Helpers;
 
     public static class UrlHelper
     {
+        [ThreadStatic]
+        private static Func<string, string> mapExMainPath;
+
         [ThreadStatic]
         private static Func<string, IDictionary<string, object>, string> addQueryStringParamsFunc;
 
@@ -18,7 +19,7 @@
         private static Func<string, IDictionary<string, object>, string> replaceOrAddQueryStringParamsFunc;
 
         [ThreadStatic]
-        private static Func<string, string> mapExMainPath;
+        private static Func<string, string> mapBetListPath;
 
         public static Func<string, IDictionary<string, object>, string> AddQueryStringParamsFunc
         {
@@ -48,12 +49,31 @@
 
         public static Func<string, string> MapExMainPath
         {
-            get { return mapExMainPath ?? MicroSites.OldMainUrl; }
+            get
+            {
+                return mapExMainPath ?? MicroSites.OldMainUrl;
+            }
 
-            internal set { mapExMainPath = value; }
+            internal set
+            {
+                mapExMainPath = value;
+            }
         }
 
         public static Func<string, string, string> GetSiteUrl { get; internal set; } = GetUrl;
+
+        public static Func<string, string> MapBetListPath
+        {
+            get
+            {
+                return mapBetListPath ?? GetBetListPath;
+            }
+
+            internal set
+            {
+                mapBetListPath = value;
+            }
+        }
 
         internal static string AddQueryStringParams(string url, IDictionary<string, object> routeValues)
         {
@@ -105,10 +125,12 @@
 
         internal static string GetUrl(string action, string currentQuery)
         {
-            var relativePath = action + currentQuery;
-            var url = AppPathHelper.GetAppPath(SiteSettings.ReportsAppPath, relativePath);
+            return MicroSites.ReportsUrl(action + currentQuery);
+        }
 
-            return url;
+        internal static string GetBetListPath(string virtualPath = "~/WinLoss/Index")
+        {
+            return MicroSites.BetListsUrl(virtualPath);
         }
     }
 }

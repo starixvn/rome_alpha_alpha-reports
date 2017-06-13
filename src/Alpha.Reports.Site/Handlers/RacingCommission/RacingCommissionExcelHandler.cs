@@ -28,7 +28,7 @@
 
             var result = workbook
                 .UseTemplate(GetTemplateInfo(message))
-                .Title(GetReporTitle(message))
+                .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(commissions, GetBodyRowMapper())
                 .Footer(RacingCommissionModel.GetAccumulatedCommission(commissions), GetTotalRowMapper())
@@ -58,7 +58,7 @@
                GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
                Resources.NoInformationIsAvailable);
 
-        private string GetReporTitle(RacingCommissionExcelQuery message)
+        private string GetReportTitle(RacingCommissionExcelQuery message)
             => $"{Resources.RacingCommission} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 
         private string GetExcelFileName(RacingCommissionExcelQuery message, RacingCommissionParam winLossParam)

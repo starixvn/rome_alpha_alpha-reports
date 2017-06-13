@@ -45,19 +45,11 @@
         public DateTime MoveBetsDay { get; }
 
         public override string GetSettingKey()
-        {
-            if (ReportLevel.IsAgentLevel())
-            {
-                return "Age_Rpt_MatchWinLossDetail_Member";
-            }
-
-            if (ReportLevel.IsMasterLevel())
-            {
-                return "Age_Rpt_MatchWinLossDetail_Agent";
-            }
-
-            return "Age_Rpt_MatchWinlossDetail_Master";
-        }
+            => ReportLevel.IsAgentLevel()
+            ? "Age_Rpt_MatchWinLossDetail_Member"
+            : ReportLevel.IsMasterLevel()
+            ? "Age_Rpt_MatchWinLossDetail_Agent"
+            : "Age_Rpt_MatchWinlossDetail_Master";
 
         public override bool IsValid() =>
             CustId > 0

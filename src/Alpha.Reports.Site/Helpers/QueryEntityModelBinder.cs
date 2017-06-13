@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Web.Mvc;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
@@ -81,9 +80,7 @@
             => base.BindModel(controllerContext, bindingContext);
 
         protected virtual string GetBreadcrumbLevelJson(ControllerContext controllerContext)
-        {
-            return controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"];
-        }
+            => controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"];
 
         protected virtual void LogWarning(JsonException ex)
         {

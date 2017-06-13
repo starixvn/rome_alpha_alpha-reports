@@ -251,7 +251,7 @@
     <value>ไม่มีข้อมูล</value>
   </data>
   <data name="TurnoverAbbr" xml:space="preserve">
-    <value>เงินหมุนเวียน/เงินหมุนเวียน</value>
+    <value>เงินหมุนเวียน</value>
   </data>
   <data name="NetTurnoverAndGrossComm" xml:space="preserve">
     <value>/เงินหมุนเวียน (ไม่รวมยอดเสมอ)/ยอดรวมของคอมมิชชั่น</value>
@@ -337,10 +337,9 @@
   <data name="CommissionByBettype" xml:space="preserve">
 		<value>คอมมิชั่นจากประเภทพนัน</value>
 	</data>
-	 <data name="NumberGameNo" xml:space="preserve">
+  <data name="NumberGameNo" xml:space="preserve">
     <value>เกมหมายเลข เลขที่</value>
   </data>
-
   <data name="Next" xml:space="preserve">
     <value>ต่อไป</value>
   </data>
@@ -362,7 +361,7 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>การเดิมพันที่ยังไม่สิ้นสุดของ Master</value>
   </data>
-   <data name="Status" xml:space="preserve">
+  <data name="Status" xml:space="preserve">
     <value>สถานะ</value>
   </data>
   <data name="All" xml:space="preserve">
@@ -371,7 +370,6 @@
   <data name="Disabled" xml:space="preserve">
     <value>ปิดการใช้งาน</value>
   </data>
-
   <data name="RacingCommission" xml:space="preserve">
 		<value>คอมมิสชั่นการแข่งขันม้า</value>
 	</data>
@@ -405,7 +403,7 @@
   <data name="Commission1" xml:space="preserve">
     <value>คอมมิชชั่น 1</value>
   </data>
-   <data name="Match" xml:space="preserve">
+  <data name="Match" xml:space="preserve">
     <value>การแข่งขัน</value>
   </data>
   <data name="PositionTaking" xml:space="preserve">
@@ -416,6 +414,15 @@
   </data>
   <data name="Outright" xml:space="preserve">
     <value>ทายผลผู้ชนะ</value>
+  </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>ยอดได้เสียของคาสิโน</value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>ประเภทชื่อเกม</value>
+  </data>
+  <data name="WinLossByBetType" xml:space="preserve">
+    <value>ชนะ แพ้ โดยชนิดของการวางเดิมพัน</value>
   </data>
   <data name="Race" xml:space="preserve">
     <value>แข่งขัน</value>
@@ -459,18 +466,16 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>ลีคทั้งหมด</value>
   </data>
-
   <data name="Commission2" xml:space="preserve">
     <value>คอมมิชชั่น 2</value>
   </data>
-   <data name="GrandTotal" xml:space="preserve">
+  <data name="GrandTotal" xml:space="preserve">
     <value>รวมทั้งสิ้น</value>
   </data>
-
   <data name="Commission3" xml:space="preserve">
     <value>คอมมิชชั่น 3</value>
   </data>
-   <data name="DelayIssueLegend" xml:space="preserve">
+  <data name="DelayIssueLegend" xml:space="preserve">
     <value>- ข้อมูล {0} จะล่าช้าไม่เกิน 5 นาทีหลังจากเคลียร์ตั๋ว</value>
   </data>
   <data name="MasterPlayForFunDetail" xml:space="preserve">
@@ -506,5 +511,100 @@
   <data name="Enabled" xml:space="preserve">
     <value>เปิดการใช้งาน</value>
   </data>
-
+  <data name="WinLossByProduct" xml:space="preserve">
+    <value>ยอดได้เสียตามโปรดักส์</value>
+  </data>
+  <data name="Statement" xml:space="preserve">
+    <value>บัญชี</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>ยอดยกมา</value>
+  </data>
+  <data name="TransferAmt" xml:space="preserve">
+    <value>ยอดโอน</value>
+  </data>
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>กราฟแผนภูมิได้/เสียประจำเดือน</value>
+  </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>กรุณาเลือกอย่างน้อย 3 เดือนในกราฟแผนภูมิ</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="AccumulatedTotal" xml:space="preserve">
+    <value>ยอดสะสมรวม</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
+    <value>ยอดเงินของลูกค้าที่คำนวนจนถึง "ตั้งแต่" วันที่ หากยอดยกมา กับ ยอดรวมของวันก่อนหน้าไม่เท่ากัน ยอดยกมาของลูกค้าจะถูกไฮไลน์ให้เป็นสีชมพู</value>
+  </data>
+  <data name="Guidelines_Turnover" xml:space="preserve">
+    <value>ผลรวมการวางเดิมพันของตั๋วทั้งหมด (ไม่รวมตั๋วที่เป็นโมฆะ/ ตั๋วปฏิเสธ/ ตั๋วตั๋วที่ยังไม่สิ้นสุด/ตั๋วคืนเงิน)</value>
+  </data>
+  <data name="Guidelines_WinLoss_SMA" xml:space="preserve">
+    <value>ยอดรวมได้เสีย(ไม่รวมคอมมิชชั่นของเมมเบอร์) ของตั๋วต่างๆ ที่ทายผลเข้ามา (ไม่รวมตั๋วที่เป็นโมฆะ/ ตั๋วปฏิเสธ/ ตั๋วตั๋วที่ยังไม่สิ้นสุด)</value>
+  </data>
+  <data name="Guidelines_Commission_SMA" xml:space="preserve">
+    <value>ยอดรวมสุทธิค่าคอมมิชชั่นของเมมเบอร์ โดยขึ้นอยู่กับตั๋วของเมมเบอร์</value>
+  </data>
+  <data name="Guidelines_TransferAmt_SMA" xml:space="preserve">
+    <value>ยอดรวมในการโอนเงิน คลิ๊กเพื่อดูรายละเอียดการโอนเงิน</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_SMA" xml:space="preserve">
+    <value>ยอดเงินรวมล่าสุดในแต่ละวันในช่วงวันที่ที่เลือก</value>
+  </data>
+  <data name="Formular_Accumulated_Total" xml:space="preserve">
+    <value>ยอดสะสมรวม = งบดุลเริ่มต้น + ยอดได้/เสีย + คอมมิชชั่น + ยอดโอนเงิน</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>หมายเหตุ</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>จำนวนเงิน</value>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>โมฆะ</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>ปฏิเสธ</value>
+  </data>
+  <data name="Guidelines_VoidRejected" xml:space="preserve">
+    <value>ยอดรวมของตั๋วที่เป็นโมฆะ และ ถูกปฎิเสธ คลิ๊กเพื่อดุรายการตั๋วที่เป็นโมฆะ/ถูกปฎิเสธ</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_Member" xml:space="preserve">
+    <value>ยอดเงินของลูกค้าที่คำนวนจนถึง "ตั้งแต่" วันที่ หากยอดยกมา กับ ยอดรวมของวันก่อนหน้าไม่เท่ากัน ยอดยกมาของลูกค้าจะถูกไฮไลน์ให้เป็นสีชมพู</value>
+  </data>
+  <data name="Guidelines_WinLoss_Member" xml:space="preserve">
+    <value>ยอดรวมได้เสีย(ไม่รวมคอมมิชชั่นของเมมเบอร์) ของตั๋วต่างๆ ที่ทายผลเข้ามา (ไม่รวมตั๋วที่เป็นโมฆะ/ ตั๋วปฏิเสธ/ ตั๋วตั๋วที่ยังไม่สิ้นสุด) คลิ๊กเพื่อดูรายละเอียดต่างๆ ของแต่ละรายการ</value>
+  </data>
+  <data name="Guidelines_Commission_Member" xml:space="preserve">
+    <value>ยอดรวมค่าคอมมิชชั่นของเมมเบอร์</value>
+  </data>
+  <data name="Guidelines_TransferAmt_Member" xml:space="preserve">
+    <value>ยอดรวมในการโอนเงินระหว่าง เอเจนต์และเมมเบอร์ คลิ๊กเพื่อดูรายละเอียดการโอนเงิน</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_Member" xml:space="preserve">
+    <value>งบดุลที่ในแต่ละวัน ภายใต้วันที่ทำการเลือก</value>
+  </data>
+  <data name="Guidelines_Outstanding" xml:space="preserve">
+    <value>ยอดรวมการเดิมพันของตั๋วทุกใบที่ยังอยู่ในการดำเนินการ คลิ๊กเพื่อดุรายการตั๋วที่ยังคงดำเนินการอยู่</value>
+  </data>
+  <data name="DailyStatement" xml:space="preserve">
+    <value>บัญชีรายวัน</value>
+  </data>
+  <data name="OpeningBal" xml:space="preserve">
+    <value>ยอดยกมา</value>
+  </data>
+  <data name="AccumTotal" xml:space="preserve">
+    <value>ยอดสะสมรวม</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>ตั้งค่าใหม่</value>
+  </data>
+  <data name="BetList" xml:space="preserve">
+    <value>รายการวางเดิมพันที่เล่นไปแล้ว</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>รายการการเดิมพัน ( ที่กำลังแข่ง )</value>
+  </data>
 </root>

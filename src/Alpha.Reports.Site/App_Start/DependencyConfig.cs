@@ -8,6 +8,8 @@
     using Fanex.Data.Repository;
     using Handlers.CommissionByBettype;
     using Handlers.MatchWinLossDetail;
+    using Handlers.Statement;
+    using Handlers.WinLossByProduct;
     using MediatR;
     using Models;
     using ONEbook.SpreadSheets;
@@ -79,7 +81,9 @@
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
             container.RegisterSingleton<MatchWinLossService, MatchWinLossServiceImpl>();
             container.RegisterSingleton<OutstandingService, OutstandingServiceImpl>();
+            container.RegisterSingleton<WinLossByProductService, WinLossByProductServiceImpl>();
             container.RegisterSingleton<WinLossAnalysisService, WinLossAnalysisServiceImpl>();
+            container.RegisterSingleton<WinLossAnalysisChartService, WinLossAnalysisChartServiceImpl>();
             container.RegisterSingleton<PlayForFunService, PlayForFunServiceImpl>();
             container.RegisterSingleton<RacingCommissionService, RacingCommissionServiceImpl>();
             container.RegisterSingleton<CommissionByBettypeService, CommissionByBettypeServiceImpl>();
@@ -98,7 +102,12 @@
 
             container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbookImpl>();
             container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
+            container.RegisterSingleton<WinLossByProductWorkbook, WinLossByProductWorkbookImpl>();
             container.RegisterSingleton<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();
+
+            container.RegisterSingleton<StatementService, StatementServiceImpl>();
+            container.RegisterSingleton<MemberStatementWorkbook, MemberStatementWorkbookImpl>();
+            container.RegisterSingleton<StatementWorkbook, StatementWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)
@@ -108,6 +117,8 @@
             container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
             container.RegisterSingleton<WinLossAnalysisDataAccess, WinLossAnalysisDataAccessImpl>();
             container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
+            container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
+            container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
         }
 
         private static void RegisterStaticInstances(Container container)

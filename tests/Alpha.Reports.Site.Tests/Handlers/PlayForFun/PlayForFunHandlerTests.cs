@@ -49,9 +49,9 @@
 
             supportedProduct = new List<Product>
             {
-                new Product(6, "Casino"),
-                new Product(22, "Macau Games"),
-                new Product(24, "Fishing World")
+                new Product(6, "Casino", null),
+                new Product(22, "Macau Games", null),
+                new Product(24, "Fishing World", null)
             };
         }
 
@@ -218,6 +218,20 @@
 
             // Assert
             AssertExtension.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Theory]
+        [InlineData(0, "Enabled")]
+        [InlineData(1, "Disabled")]
+        [InlineData(2, "All")]
+        [InlineData(3, "")]
+        public void GetStatusName_Always_ReturnsCorrectName(int statusId, string expectedStatusName)
+        {
+            // Act
+            var actualStatusName = handler.GetStatusName(statusId);
+
+            // Assert
+            Assert.Equal(expectedStatusName, actualStatusName);
         }
 
         private PlayForFunParam CreatePlayForFunParam(PlayForFunQuery message, int userSelectedProductId)

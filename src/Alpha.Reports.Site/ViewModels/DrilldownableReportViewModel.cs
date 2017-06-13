@@ -26,18 +26,13 @@
 
         public string BreadcrumbLevelJson { get; }
 
-        protected string BetListPath { get; }
+        protected string BetListPath { get; set; }
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed!")]
         public virtual string BuildDrillDownLink(T model, string currentUrl)
-        {
-            if (CustLevel.IsAgentLevel())
-            {
-                return BuildBetListLink(model);
-            }
-
-            return BuildDownlineLink(model, currentUrl);
-        }
+            => CustLevel.IsAgentLevel()
+            ? BuildBetListLink(model)
+            : BuildDownlineLink(model, currentUrl);
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed!")]
         protected virtual string BuildDownlineLink(T model, string currentUrl)

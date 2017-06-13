@@ -10,7 +10,6 @@
         {
         }
 
-        public ActionResult LeaguesByCustomer(LeaguesByCustomerQuery message)
-            => View(message);
+        public ActionResult LeaguesByCustomer(LeaguesByCustomerQuery message) => View(message);
     }
 }

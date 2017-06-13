@@ -303,10 +303,9 @@
   <data name="CommissionByBettype" xml:space="preserve">
 		<value>배팅 종류에 따른 수수료</value>
 	</data>
-	  <data name="NumberGameNo" xml:space="preserve">
+  <data name="NumberGameNo" xml:space="preserve">
     <value>라이브빙고 번호</value>
   </data>
-
   <data name="Next" xml:space="preserve">
     <value>다음</value>
   </data>
@@ -328,7 +327,7 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>마스터 대기 포인트</value>
   </data>
-    <data name="Status" xml:space="preserve">
+  <data name="Status" xml:space="preserve">
     <value>상황</value>
   </data>
   <data name="All" xml:space="preserve">
@@ -337,7 +336,6 @@
   <data name="Disabled" xml:space="preserve">
     <value>비활성화</value>
   </data>
-
   <data name="RacingCommission" xml:space="preserve">
 		<value>경마 수수료</value>
 	</data>
@@ -383,6 +381,15 @@
   <data name="Outright" xml:space="preserve">
     <value>순위,승자 등</value>
   </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>카지노 승리/패배</value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>게임 형식이름</value>
+  </data>
+  <data name="WinLossByBetType" xml:space="preserve">
+    <value>배팅 종류별 승리 패배</value>
+  </data>
   <data name="Race" xml:space="preserve">
     <value>경주</value>
   </data>
@@ -425,15 +432,46 @@
   <data name="AllLeagues" xml:space="preserve">
     <value>모든 리그</value>
   </data>
-
   <data name="Commission2" xml:space="preserve">
     <value>수수료 2</value>
   </data>
   <data name="Commission3" xml:space="preserve">
     <value>수수료 3</value>
   </data>
-    <data name="GrandTotal" xml:space="preserve">
+  <data name="GrandTotal" xml:space="preserve">
     <value>총 그랜드</value>
   </data>
-
+  <data name="Statement" xml:space="preserve">
+    <value>기록</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>비고</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>총액</value>
+  </data>
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>매월 승리/패배 차트</value>
+  </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>차트를 보려면 최소 3개월이상을 선택해주십시오.</value>
+  </data>
+  <data name="KoreanWon" xml:space="preserve">
+    <value>원</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="DailyStatement" xml:space="preserve">
+    <value>일일 정책</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>전송</value>
+  </data>
+  <data name="BetList" xml:space="preserve">
+    <value>배팅 리스트</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>배팅 목록(진행중)</value>
+  </data>
 </root>

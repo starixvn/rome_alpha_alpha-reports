@@ -6,5 +6,9 @@
   {
     "outputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail.css",
     "inputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail.scss"
+  },
+  {
+    "outputFile": "assets/styles/statement/statement.css",
+    "inputFile": "assets/styles/statement/statement.scss"
   }
 ]

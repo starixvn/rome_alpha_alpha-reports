@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Fanex.Data;
     using Models;
-    using Models.WinLossAnalysis;
 
     public class WinLossAnalysisCriteria : ReportProductCriteria
     {
@@ -29,18 +28,10 @@
         public int ReportType { get; }
 
         public override string GetSettingKey()
-        {
-            if (ReportLevel.IsAgentLevel())
-            {
-                return "Age_Rpt_WinlossAnalysis_Member";
-            }
-
-            if (ReportLevel.IsMasterLevel())
-            {
-                return "Age_Rpt_WinlossAnalysis_Agent";
-            }
-
-            return "Age_Rpt_WinlossAnalysis_Master";
-        }
+            => ReportLevel.IsAgentLevel()
+            ? "Age_Rpt_WinlossAnalysis_Member"
+            : ReportLevel.IsMasterLevel()
+            ? "Age_Rpt_WinlossAnalysis_Agent"
+            : "Age_Rpt_WinlossAnalysis_Master";
     }
 }

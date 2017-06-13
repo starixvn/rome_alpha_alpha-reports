@@ -54,10 +54,21 @@
     <Setting Key="Age_Rpt_WinlossAnalysis_Agent" SpName="Age_Rpt_WinlossAnalysis_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_WinlossAnalysis_Member" SpName="Age_Rpt_WinlossAnalysis_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
+  <Function Name="Win Loss by Product">
+    <Setting Key="Age_Rpt_WinLossByProduct_Member" SpName="Age_Rpt_WinLossByProduct_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByProduct_Agent" SpName="Age_Rpt_WinLossByProduct_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByProduct_Master" SpName="Age_Rpt_WinLossByProduct_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+  </Function>
+
+  <Function Name="Win Loss Analysis Chart">
+    <Setting Key="Age_Chart_WinlossAnalysis_Master" SpName="Age_Chart_WinlossAnalysis_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Chart_WinlossAnalysis_Agent" SpName="Age_Chart_WinlossAnalysis_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Chart_WinlossAnalysis_Member" SpName="Age_Chart_WinlossAnalysis_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+  </Function>
   <Function Name="Racing Commission">
-    <Setting Key="Age_Rpt_CommByBettype_HR_Master" SpName="Age_Rpt_CommByBettype_HR_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
-    <Setting Key="Age_Rpt_CommByBettype_HR_Agent" SpName="Age_Rpt_CommByBettype_HR_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
-    <Setting Key="Age_Rpt_CommByBettype_HR_Member" SpName="Age_Rpt_CommByBettype_HR_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"/>
+    <Setting Key="Age_Rpt_CommByBettype_HR_Master" SpName="Age_Rpt_CommByBettype_HR_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_CommByBettype_HR_Agent" SpName="Age_Rpt_CommByBettype_HR_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_CommByBettype_HR_Member" SpName="Age_Rpt_CommByBettype_HR_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Commission By Bet Type">
     <Setting Key="Age_Rpt_CommByBettype_Master" SpName="Age_Rpt_CommByBettype_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">

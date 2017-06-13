@@ -385,7 +385,7 @@
     <value>Next</value>
   </data>
   <data name="FT" xml:space="preserve">
-    <value>FT</value>
+    <value>FT.</value>
   </data>
   <data name="Outstanding" xml:space="preserve">
     <value>Outstanding</value>
@@ -398,6 +398,9 @@
   </data>
   <data name="MasterOutstanding" xml:space="preserve">
     <value>Master Outstanding</value>
+  </data>
+  <data name="WinLossByBetType" xml:space="preserve">
+    <value>Win Loss By Bet Type</value>
   </data>
   <data name="MasterPlayForFunDetail" xml:space="preserve">
     <value>Master Play For Fun Detail</value>
@@ -429,7 +432,6 @@
   <data name="PlayForFun" xml:space="preserve">
     <value>Play For Fun</value>
   </data>
-
   <data name="WinPlace" xml:space="preserve">
 		<value>Win Place</value>
 	</data>
@@ -529,6 +531,15 @@
   <data name="GrandTotal" xml:space="preserve">
     <value>Grand Total</value>
   </data>
+  <data name="Allbet" xml:space="preserve">
+    <value>Allbet</value>
+  </data>
+  <data name="GoldDeluxe" xml:space="preserve">
+    <value>Gold Deluxe</value>
+  </data>
+  <data name="LiveGame" xml:space="preserve">
+    <value>Live Game</value>
+  </data>
   <data name="ReportBy" xml:space="preserve">
     <value>Report by</value>
   </data>
@@ -540,5 +551,134 @@
   </data>
   <data name="SportWinLossAnalysis" xml:space="preserve">
     <value>Sport Win Loss Analysis</value>
+  </data>
+  <data name="Statement" xml:space="preserve">
+    <value>Statement</value>
+  </data>
+  <data name="OpeningBalance" xml:space="preserve">
+    <value>Opening Balance</value>
+  </data>
+  <data name="TransferAmt" xml:space="preserve">
+    <value>Transfer Amt</value>
+  </data>
+  <data name="AccumulatedTotal" xml:space="preserve">
+    <value>Accumulated Total</value>
+  </data>
+  <data name="Symbol_NoDataNumber" xml:space="preserve">
+    <value>--</value>
+  </data>
+  <data name="StatementGuidelines" xml:space="preserve">
+    <value>Statement Guidelines</value>
+  </data>
+  <data name="PreGame" xml:space="preserve">
+    <value>Pre Game</value>
+  </data>
+  <data name="VirtualSports" xml:space="preserve">
+    <value>Virtual Sports</value>
+  </data>
+  <data name="Voidbridge" xml:space="preserve">
+    <value>Macau Games</value>
+  </data>
+  <data name="CasinoWinLoss" xml:space="preserve">
+    <value>Casino Win Loss</value>
+  </data>
+  <data name="GameTypeName" xml:space="preserve">
+    <value>Game Type Name</value>
+  </data>
+  <data name="WinLossByProduct" xml:space="preserve">
+    <value>Win Loss By Product</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
+    <value>your balance calculated till “From” date. If Opening Balance does not equal to Accumulated Total of previous date, then the Opening Balance will be highlighted in pink.</value>
+  </data>
+  <data name="Guidelines_Turnover" xml:space="preserve">
+    <value>total stakes of all tickets (exclude Void/Rejected/Outstanding/Refund tickets).</value>
+  </data>
+  <data name="Guidelines_WinLoss_SMA" xml:space="preserve">
+    <value>total win loss amount after Position Taking of bet tickets (exclude Void/Rejected/Outstanding tickets).</value>
+  </data>
+  <data name="Guidelines_Commission_SMA" xml:space="preserve">
+    <value>total net commission based on member tickets.</value>
+  </data>
+  <data name="Guidelines_TransferAmt_SMA" xml:space="preserve">
+    <value>total transfer amount. Click to view Transfer Details.</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_SMA" xml:space="preserve">
+    <value>your closing balance of each day within selected date range.</value>
+  </data>
+  <data name="Formular_Accumulated_Total" xml:space="preserve">
+    <value>Accumulated Total = Opening Balance + Win/Loss + Commission + Transfer Amt</value>
+  </data>
+  <data name="TransferDetails" xml:space="preserve">
+    <value>Transfer Details</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>Void</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="GrandPrize" xml:space="preserve">
+    <value>Grand Prize</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_Member" xml:space="preserve">
+    <value>member balance calculated till “From” date. If Opening Balance does not equal to Accumulated Total of previous date, then the Opening Balance will be highlighted in pink.</value>
+  </data>
+  <data name="Guidelines_VoidRejected" xml:space="preserve">
+    <value>total stakes of Void/Rejected tickets. Click to view Bet List of Void/Rejected tickets.</value>
+  </data>
+  <data name="Guidelines_Outstanding" xml:space="preserve">
+    <value>total stakes of Running tickets. Click to view Bet List of Running tickets.</value>
+  </data>
+  <data name="Guidelines_WinLoss_Member" xml:space="preserve">
+    <value>Total win loss amount (exclude member commission) of bet tickets (exclude Void/Rejected/Outstanding tickets). Click to view Bet list in details.</value>
+  </data>
+  <data name="Guidelines_Commission_Member" xml:space="preserve">
+    <value>total member commission.</value>
+  </data>
+  <data name="GrandPrize_Guidelines" xml:space="preserve">
+    <value>the grand winning amount of an event which is excluded from member balance.</value>
+  </data>
+  <data name="Guidelines_TransferAmt_Member" xml:space="preserve">
+    <value>total transfer amount between Agent and Member. Click to view Transfer Details.</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_Member" xml:space="preserve">
+    <value>member closing balance of each day within selected date range.</value>
+  </data>
+  <data name="DailyStatement" xml:space="preserve">
+    <value>Daily Statement</value>
+  </data>
+  <data name="BetList" xml:space="preserve">
+    <value>Bet List</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>Bet List (Running)</value>
+  </data>
+  <data name="OpeningBal" xml:space="preserve">
+    <value>Opening Bal</value>
+  </data>
+  <data name="AccumTotal" xml:space="preserve">
+    <value>Accum Total</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
+  <data name="MonthlyWinLossChart" xml:space="preserve">
+    <value>Monthly Win Loss Chart</value>
+  </data>
+  <data name="Least3MonthToChart" xml:space="preserve">
+    <value>Please select at least 3 month period to chart</value>
+  </data>
+  <data name="KoreanWon" xml:space="preserve">
+    <value>Won</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
   </data>
 </root>

@@ -16,31 +16,15 @@
         }
 
         [Fact]
-        public void Add_NullWinLossA_ReturnWinLossB()
+        public void Add_NullWinLoss_ReturnCurrentWinLoss()
         {
             // Arrange
-            WinLossModel winLossA = null;
-            var winLossB = new WinLossModel();
-            var expectedWinLoss = winLossB;
+            WinLossModel winLoss = null;
+            var currentWinLoss = new WinLossModel();
+            var expectedWinLoss = currentWinLoss;
 
             // Act
-            var actuaWinLoss = WinLossModel.Add(winLossA, winLossB);
-
-            // Assert
-            var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
-            Assert.True(result.AreEqual);
-        }
-
-        [Fact]
-        public void Add_NullWinLossB_ReturnWinLossA()
-        {
-            // Arrange
-            WinLossModel winLossB = null;
-            var winLossA = new WinLossModel();
-            var expectedWinLoss = winLossA;
-
-            // Act
-            var actuaWinLoss = WinLossModel.Add(winLossA, winLossB);
+            var actuaWinLoss = currentWinLoss.Add(winLoss);
 
             // Assert
             var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);
@@ -51,7 +35,7 @@
         public void Add_ValidWinLoss_ReturnCorrectData()
         {
             // Arrange
-            var winLossA = new WinLossModel(
+            var currentWinLoss = new WinLossModel(
                 custId: 1265,
                 custName: "UserNameA",
                 grossComm: 0,
@@ -61,7 +45,7 @@
                 masterNetWinLoss: new NetWinLoss(5, (decimal)0.2),
                 superNetWinLoss: new NetWinLoss((decimal)5.2));
 
-            var winLossB = new WinLossModel(
+            var winLoss = new WinLossModel(
                 custId: 1266,
                 custName: "UserNameB",
                 grossComm: 0,
@@ -72,8 +56,8 @@
                 superNetWinLoss: new NetWinLoss((decimal)5.2));
 
             var expectedWinLoss = new WinLossModel(
-                custId: 0,
-                custName: "Total",
+                custId: 1265,
+                custName: "UserNameA",
                 grossComm: 0,
                 turnover: 0,
                 memberNetWinLoss: null,
@@ -82,7 +66,7 @@
                 superNetWinLoss: new NetWinLoss((decimal)10.4));
 
             // Act
-            var actuaWinLoss = WinLossModel.Add(winLossA, winLossB);
+            var actuaWinLoss = currentWinLoss.Add(winLoss);
 
             // Assert
             var result = compareLogic.Compare(expectedWinLoss, actuaWinLoss);

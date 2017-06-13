@@ -120,6 +120,10 @@ a {
         width: 17%;
     }
 
+    .padding-left-30px {
+        padding-left: 30px;
+    }
+
     .downline-link {
         color: $link-color;
         cursor: pointer;
@@ -158,6 +162,35 @@ a {
 
     .combinedcell li:last-child {
         font-weight: bold;
+    }
+
+    .product-row, .sport-row {
+        background-color: #f3f5e0;
+        cursor: pointer;
+    }
+
+    &.tbl-win-loss-by-product {
+        .sport-row .icon-arrow-right,
+        .sport-row .icon-arrow-down {
+            margin-left: 13px;
+        }
+
+        .product-row .col-username,
+        .sport-row .col-username {
+            text-transform: uppercase;
+        }
+
+        .bet-type-row .col-username {
+            padding-left: 39px;
+        }
+    }
+
+    .note-opening-balance {
+        background-color: #f6a4a4;
+    }
+
+    .format-negative {
+        color: #b50000;
     }
 }
 
@@ -238,6 +271,10 @@ a {
                 margin-bottom: 15px;
             }
         }
+
+        .control.month-range-picker-element {
+            width: 150px;
+        }
     }
 
     label[for="dropdown-statuses"] {
@@ -259,6 +296,10 @@ a {
         label {
             font-weight: normal;
         }
+    }
+
+    .radio input[type="radio"] {
+        position: relative;
     }
 }
 
@@ -284,9 +325,12 @@ a {
         position: relative;
         top: 10px;
     }
+
+    .control.month-range-picker-element {
+        height: 34px;
+        margin-top: 2px;
+    }
 }
-
-
 // netturnover tooltip
 #netturnovertooltip {
     overflow: hidden;
@@ -361,7 +405,6 @@ a {
     }
 }
 
-
 // Modals
 .modal-open {
     overflow: auto;
@@ -376,6 +419,25 @@ a {
     &.separator {
         margin-right: 12px;
     }
+}
+
+// chart
+.chart-container {
+    max-height: 780px;
+    max-width: 1024px;
+    padding: 10px;
+    border-radius: 5px;
+    border: $chart-bg-color solid 1px;
+    background: $chart-bg-color;
+    background: -webkit-linear-gradient($chart-bg-color, $chart-footer-color);
+    background: -o-linear-gradient($chart-bg-color, $chart-footer-color);
+    background: -moz-linear-gradient($chart-bg-color, $chart-footer-color);
+    background: linear-gradient($chart-bg-color, $chart-footer-color);
+    box-shadow: 5px 5px $chart-shadow-color;
+}
+
+.report-content {
+    padding-top: 12px;
 }
 
 // For mobile
@@ -453,6 +515,10 @@ a {
         &.bottom {
             padding-bottom: 0;
         }
+    }
+
+    .table-container {
+        padding-top: 20px;
     }
 }
 

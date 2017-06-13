@@ -158,14 +158,12 @@
         }
 
         public IDictionary<string, object> GetParlayBetListLinkRouteValues(int betType, DateTime fromDate, DateTime toDate)
-        {
-            return new Dictionary<string, object>
+            => new Dictionary<string, object>
             {
                 ["fdate"] = fromDate,
                 ["tdate"] = toDate,
                 ["bettype"] = betType,
                 ["type"] = "MixParlayByMatch"
             };
-        }
     }
 }

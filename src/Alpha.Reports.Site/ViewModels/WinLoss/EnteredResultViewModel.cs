@@ -8,7 +8,6 @@
     using Reports.Models;
     using Reports.Models.Winloss;
     using Requests.WinLoss;
-    using Services;
     using Utils;
 
     public class EnteredResultViewModel
@@ -47,21 +46,10 @@
         public UserLevel CustLevel { get; }
 
         public string Title
-        {
-            get
-            {
-                if (CustLevel.IsSuperLevel())
-                {
-                    return Resources.MasterWinLoss;
-                }
-
-                if (CustLevel.IsMasterLevel())
-                {
-                    return Resources.AgentWinLoss;
-                }
-
-                return Resources.MemberWinLoss;
-            }
-        }
+            => CustLevel.IsSuperLevel()
+            ? Resources.MasterWinLoss
+            : CustLevel.IsMasterLevel()
+            ? Resources.AgentWinLoss
+            : Resources.MemberWinLoss;
     }
 }
