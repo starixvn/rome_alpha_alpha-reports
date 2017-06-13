@@ -33,7 +33,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Alpha.Web, Version=1.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Web.1.0.0.7-Async-02\lib\net40\Alpha.Web.dll</HintPath>
+      <HintPath>..\..\packages\Alpha.Web.1.0.0.7\lib\net40\Alpha.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
