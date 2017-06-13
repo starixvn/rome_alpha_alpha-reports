@@ -601,4 +601,10 @@
   <data name="Transfer" xml:space="preserve">
     <value>ตั้งค่าใหม่</value>
   </data>
+  <data name="BetList" xml:space="preserve">
+    <value>รายการวางเดิมพันที่เล่นไปแล้ว</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>รายการการเดิมพัน ( ที่กำลังแข่ง )</value>
+  </data>
 </root>

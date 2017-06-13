@@ -600,4 +600,10 @@
   <data name="Transfer" xml:space="preserve">
     <value>轉帳</value>
   </data>
+  <data name="BetList" xml:space="preserve">
+    <value>投注历史</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>投注歷史(進行中)</value>
+  </data>
 </root>

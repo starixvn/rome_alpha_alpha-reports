@@ -291,4 +291,10 @@
   <data name="Month" xml:space="preserve">
     <value>Month</value>
   </data>
+  <data name="BetList" xml:space="preserve">
+    <value>ベットリスト</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>ベットリスト (実行中)</value>
+  </data>
 </root>

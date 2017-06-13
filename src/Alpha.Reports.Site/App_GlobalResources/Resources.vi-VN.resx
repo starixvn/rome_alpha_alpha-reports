@@ -516,4 +516,10 @@
   <data name="Month" xml:space="preserve">
     <value>Tháng</value>
   </data>
+  <data name="BetList" xml:space="preserve">
+    <value>Danh sách cược</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>Danh sách cược ( đang diễn ra )</value>
+  </data>
 </root>

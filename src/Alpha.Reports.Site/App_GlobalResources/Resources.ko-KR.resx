@@ -468,4 +468,10 @@
   <data name="Transfer" xml:space="preserve">
     <value>전송</value>
   </data>
+  <data name="BetList" xml:space="preserve">
+    <value>배팅 리스트</value>
+  </data>
+  <data name="BetList_Running" xml:space="preserve">
+    <value>배팅 목록(진행중)</value>
+  </data>
 </root>
