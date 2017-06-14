@@ -69,9 +69,14 @@
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
                 () => GetProductsForReport()
-                    .Where(product => CanShowProduct(product, minReportDate))
+                    .Where(product => canViewProduct(product.Id))
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
+
+            if (custProducts != null)
+            {
+                custProducts = custProducts.Where(product => IsRemainSupportProduct(product, minReportDate));
+            }
 
             return custProducts;
         }
@@ -114,6 +119,11 @@
             return data.Where(product => canViewProduct(product.ProductId)).Select(product => product.ProductId);
         }
 
+        private static bool IsRemainSupportProduct(Product product, DateTime? minReportDate)
+            => !minReportDate.HasValue
+            || !product.EndOfSupportDate.HasValue
+            || minReportDate.Value <= product.EndOfSupportDate.Value;
+
         private IEnumerable<Product> GetProductsForReport()
         {
             var products = ConfiguredCacheService
@@ -124,9 +134,5 @@
 
             return products;
         }
-
-        private bool CanShowProduct(Product product, DateTime? minReportDate)
-            => canViewProduct(product.Id)
-            && !(minReportDate.HasValue && product.EndOfSupportDate.HasValue && product.EndOfSupportDate.Value < minReportDate.Value);
     }
 }

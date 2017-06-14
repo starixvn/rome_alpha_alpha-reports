@@ -31,7 +31,8 @@
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
-                message.UserSelectedProductIds.ToListInt());
+                message.UserSelectedProductIds.ToListInt(),
+                message.MinDate);
 
             return new WinLossParam(
                  message.CustId,
@@ -45,7 +46,7 @@
         internal WinLossModel AccumulateGrandTotal(IEnumerable<WinLossModel> reportData)
         {
             var grandTotal = new WinLossModel();
-           
+
             if (reportData != null && reportData.Any())
             {
                 foreach (var data in reportData)

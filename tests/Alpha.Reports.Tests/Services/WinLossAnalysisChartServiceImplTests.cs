@@ -37,9 +37,11 @@
         public void GetWinLossAnalysisChart_ValidParam_ReturnDefaultReportData()
         {
             // Arrange
-            var expectedData = new List<WinLossAnalysisChartModel> {
+            var expectedData = new List<WinLossAnalysisChartModel>
+            {
                 new WinLossAnalysisChartModel("2017-01", 12051.12m, 56300.16m)
             };
+
             dynamicRepository.Fetch<WinLossAnalysisChartModel>(Arg.Any<WinLossAnalysisChartCriteria>()).Returns(expectedData);
 
             // Act

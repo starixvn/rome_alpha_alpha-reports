@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Alpha.Reports.Extensions;
 using Alpha.Reports.Models.Statement;
+using Alpha.Reports.Site.Constants;
 using Alpha.Reports.Site.Helpers;
 using Alpha.Reports.Site.Requests.Statement;
 using Alpha.Reports.Utils;
-using Alpha.Reports.Site.Constants;
 
 namespace Alpha.Reports.Site.ViewModels.Statement
 {
