@@ -30,18 +30,27 @@
         public void DualAxisChartViewModel_Always_ReturnCorrectViewModel()
         {
             // Arrange
-            var reportData = new List<WinLossAnalysisChartModel> {
+            var reportData = new List<WinLossAnalysisChartModel>
+            {
                 new WinLossAnalysisChartModel("2016-08", 12051.12m, 56300.16m)
             };
+
             var message = new WinLossAnalysisChartQuery(userFixture.User);
-            var param = new WinLossAnalysisChartParam(message.CustId,
+            var param = new WinLossAnalysisChartParam(
+                message.CustId,
                 message.FromDate,
                 message.ToDate,
                 Enumerable.Empty<int>(),
                 message.ViewerLevel);
             var viewModel = new WinLossAnalysisChartViewModel(reportData, message, param, Enumerable.Empty<SelectListItem>());
-            var expectedDualAxisChartViewModel = new DualAxisChartViewModel("Monthly Win Loss Chart From 09/01/2016 To 11/30/2016", "Aug-16", "Super Win Loss", "Turnover", "56300.16", "12051.12", "USS"
-                );
+            var expectedDualAxisChartViewModel = new DualAxisChartViewModel(
+                "Monthly Win Loss Chart From 09/01/2016 To 11/30/2016",
+                "Aug-16",
+                "Super Win Loss",
+                "Turnover",
+                "56300.16",
+                "12051.12",
+                "USS");
 
             // Act
             var actualDualAxisChartViewModel = viewModel.DualAxisChartViewModel;

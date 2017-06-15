@@ -34,13 +34,15 @@
                 return Enumerable.Empty<SelectListItem>();
             }
 
+            var selectedProduct = products.FirstOrDefault(product => userSelectedProductIds.Contains(product.Id));
+
             return products.Select(product =>
             {
                 var productSelectListItem = new SelectListItem
                 {
                     Text = product.DisplayName,
                     Value = product.Id.ToString(),
-                    Selected = userSelectedProductIds.Contains(product.Id)
+                    Selected = selectedProduct == null || userSelectedProductIds.Contains(product.Id)
                 };
 
                 return productSelectListItem;

@@ -33,7 +33,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId);
+            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
 
             var winLossDetailParam = CreateParameter(message, message.CustLevel);
 
