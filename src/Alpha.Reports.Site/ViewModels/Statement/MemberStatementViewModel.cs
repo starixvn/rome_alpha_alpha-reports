@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Alpha.Reports.Extensions;
+﻿using Alpha.Reports.Extensions;
 using Alpha.Reports.Models.Statement;
 using Alpha.Reports.Site.Constants;
 using Alpha.Reports.Site.Helpers;
 using Alpha.Reports.Site.Requests.Statement;
 using Alpha.Reports.Utils;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Alpha.Reports.Site.ViewModels.Statement
 {
@@ -25,7 +25,7 @@ namespace Alpha.Reports.Site.ViewModels.Statement
 
         public string ProductIds { get; set; }
 
-        public string BetListLink => UrlHelper.MapExMainPath("~/_BetList/BetList.aspx");
+        public string BetListLink => UrlHelper.MapBetListPath("~/DailyStatement/Index");
 
         public string BuildBetListLink()
         {
