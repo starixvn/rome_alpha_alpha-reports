@@ -1,0 +1,10 @@
+﻿<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action(ViewData["action"].ToString(), "Consolidation")">
+    @Html.Hidden("CustId", ViewData["CustId"])
+    @Html.Hidden("CustName", ViewData["CustName"])
+    @Html.Hidden("FromDate", ViewData["FromDate"])
+    @Html.Hidden("ToDate", ViewData["ToDate"])
+    @Html.Hidden("UserSelectedProductIds", ViewData["UserSelectedProductIds"])
+    @Html.Hidden("UserSelectedCurrencyId", ViewData["UserSelectedCurrencyId"])
+    @Html.Hidden("CustLevelId", ViewData["CustLevel"])
+</form>

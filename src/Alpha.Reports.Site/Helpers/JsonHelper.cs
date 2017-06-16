@@ -21,6 +21,6 @@
             }
         }
 
-        private static string ToJson(object data) => JsonConvert.SerializeObject(data).Replace("\"", "'");
+        internal static string ToJson(object data) => JsonConvert.SerializeObject(data).Replace("\"", "'");
     }
 }

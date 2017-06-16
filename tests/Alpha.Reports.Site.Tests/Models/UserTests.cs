@@ -18,6 +18,7 @@
             userSession.Language.Returns("en-US");
             userSession.LangKey.Returns("en");
             userSession.Currency.Returns("CurrencyName");
+            userSession.IsShowConsolidatedReport.Returns(true);
 
             // Act
             var user = new User(userSession);
@@ -29,6 +30,7 @@
                 && user.LevelId == 2
                 && user.Language == "en-US"
                 && user.LanguageKey == "en"
+                && user.IsShowConsolidatedReport.ToString() == "True"
                 && user.CurrencyName == "CurrencyName");
         }
 

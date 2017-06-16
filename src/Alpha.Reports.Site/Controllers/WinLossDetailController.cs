@@ -3,6 +3,7 @@
     using System.Web.Mvc;
     using MediatR;
     using Requests.WinLossDetail;
+    using ViewModels.WinLossDetail;
 
     public class WinLossDetailController : ReportBaseController
     {
@@ -14,7 +15,7 @@
         [Route("winlossdetail/agent")]
         [Route("winlossdetail/member")]
         public ActionResult Index(WinLossDetailQuery message)
-            => View(message);
+            => View<WinLossDetailViewModel>(message);
 
         [HttpGet]
         public ActionResult Excel(WinLossDetailExcelQuery message)

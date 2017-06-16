@@ -36,7 +36,7 @@
     <Setting Key="Age_Rpt_WinLoss_Agent" SpName="Age_Rpt_WinLoss_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
-  
+
   <Function Name="Match Win Loss Detail">
     <Setting Key="Age_Rpt_MatchWinlossDetail_Master" SpName="Age_Rpt_MatchWinlossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_MatchWinLossDetail_Agent" SpName="Age_Rpt_MatchWinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
@@ -82,6 +82,34 @@
     </Setting>
     <Setting Key="Age_Rpt_CommByBettype_Member" SpName="Age_Rpt_CommByBettype_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
+    </Setting>
+  </Function>
+  <Function Name="Consolidation">
+    <Setting Key="Age_Rpt_ConsolidatedGroupSelCurrency" SpName="Age_Rpt_ConsolidatedGroupSelCurrency" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+      <Mapping DataField="Currency" ObjectProperty="Id" />
+      <Mapping DataField="CurrencyName" ObjectProperty="Name" />
+    </Setting>
+    <Setting Key="Age_Rpt_ConsolidatedGroupProductSel" SpName="Age_Rpt_ConsolidatedGroupProductSel" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+      <Mapping DataField="IsShow" ObjectProperty="IsEnable" />
+      <Mapping DataField="ProductName" ObjectProperty="Name" />
+      <Mapping DataField="ProductId" ObjectProperty="Id" />
+    </Setting>
+    <Setting Key="Age_Rpt_ConsolidatedGroup" SpName="Age_Rpt_ConsolidatedGroup" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+      <Mapping DataField="breakdown" ObjectProperty="breakdown" />
+      <Mapping DataField="roleid" ObjectProperty="custLevel" />
+      <Mapping DataField="custID" ObjectProperty="CustId" />
+      <Mapping DataField="username" ObjectProperty="Username" />
+      <Mapping DataField="currency" ObjectProperty="CurrencyId" />
+      <Mapping DataField="turnover" ObjectProperty="Turnover" />
+      <Mapping DataField="member_winlost" ObjectProperty="MemberWinLoss" />
+      <Mapping DataField="member_comm" ObjectProperty="MemberComm" />
+      <Mapping DataField="member_total" ObjectProperty="MemberTotal" />
+      <Mapping DataField="owner_turnover" ObjectProperty="OwnerTurnover" />
+      <Mapping DataField="owner_winlost" ObjectProperty="OwnerWinLoss" />
+      <Mapping DataField="owner_comm" ObjectProperty="OwnerComm" />
+      <Mapping DataField="owner_total" ObjectProperty="OwnerTotal" />
+      <Mapping DataField="company" ObjectProperty="Company" />
+      <Mapping DataField="betcount" ObjectProperty="BetCount" />
     </Setting>
   </Function>
 </Functions>

@@ -8,6 +8,7 @@
     using Site.Controllers;
     using Site.Requests.WinLossDetail;
     using Site.ViewModels;
+    using Site.ViewModels.WinLossDetail;
     using Xunit;
 
     [Trait("Category", "WinLossDetail")]
@@ -35,7 +36,7 @@
             winLossDetailController.Index(message);
 
             // Assert
-            mediator.Received().Send(message);
+            mediator.Received().Send<WinLossDetailViewModel>(message);
         }
 
         [Fact]
@@ -43,7 +44,7 @@
         {
             // Arrange
             var message = new WinLossDetailExcelQuery(userFixture.User);
-            mediator.Send<ExcelFileViewModel>(Arg.Any<WinLossDetailExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));
+            ControllerBaseFuctions.ArrangeExportExcel<WinLossDetailExcelQuery>(mediator);
 
             // Act
             winLossDetailController.Excel(message);

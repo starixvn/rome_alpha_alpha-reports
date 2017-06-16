@@ -1,23 +1,23 @@
-﻿using Alpha.Reports.Site.Helpers;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.Helpers
+﻿namespace Alpha.Reports.Site.Tests.Helpers
 {
+    using Reports.Models;
+    using Site.Helpers;
+    using Xunit;
+
     public class JsonHelperTests
     {
         [Fact]
-        public void ToJson_Always_UseSingleQuotationsMarks()
+        public void ToJson_Always_ReturnsCorrectString()
         {
             // Arrange
-            var data = new { Username = "Username", CustId = 1 };
-            var expectedJson = "{'Username':'Username','CustId':1}";
-            JsonHelper.ToJsonFunc = null;
+            var data = new CustInfo(1, "CustName", 1);
+            var expectedValue = "{'CustId':1,'CustName':'CustName','CustLevelId':1}";
 
             // Act
-            var actualJson = JsonHelper.ToJsonFunc(data);
+            var actualValue = JsonHelper.ToJson(data);
 
             // Assert
-            Assert.Equal(expectedJson, actualJson);
+            Assert.Equal(expectedValue, actualValue);
         }
     }
 }

@@ -609,4 +609,28 @@
   <data name="VirtualSports" xml:space="preserve">
     <value>虚拟运动</value>
   </data>
+  <data name="Currency" xml:space="preserve">
+    <value>貨幣</value>
+  </data>
+  <data name="AllCurrencies" xml:space="preserve">
+    <value>所有貨幣</value>
+  </data>
+  <data name="Consolidation" xml:space="preserve">
+    <value>綜合</value>
+  </data>
+  <data name="ConsolidationReportByUsername" xml:space="preserve">
+    <value>基於用戶名的合併報表</value>
+  </data>
+  <data name="ConsolidationReportByDate" xml:space="preserve">
+    <value>每日綜合報告</value>
+  </data>
+  <data name="ConsolidationReportByProduct" xml:space="preserve">
+    <value>體育綜合報告</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>階層</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>持有人</value>
+  </data>
 </root>

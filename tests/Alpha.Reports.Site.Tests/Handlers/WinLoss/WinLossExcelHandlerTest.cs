@@ -26,8 +26,6 @@
     [Collection("UserCollection")]
     public class WinLossExcelHandlerTest
     {
-        private readonly ProductService productService;
-        private readonly WinLossService reportService;
         private readonly Workbook<WinLossModel> winlossWorkbook;
         private readonly WinLossExcelHandler winLossExcelHandler;
         private readonly UserFixture userFixture;
@@ -37,9 +35,9 @@
         {
             this.userFixture = userFixture;
 
-            productService = Substitute.For<ProductService>();
+            var productService = Substitute.For<ProductService>();
             productService.ConcatProductNames(Arg.Any<string>()).Returns("Product Name");
-            reportService = Substitute.For<WinLossService>();
+            var reportService = Substitute.For<WinLossService>();
 
             winlossWorkbook = Substitute.For<Workbook<WinLossModel>>();
             winlossWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(winlossWorkbook);

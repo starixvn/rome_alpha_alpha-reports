@@ -207,5 +207,34 @@
       "assets/scripts/winlossanalysischart/winlossanalysischart.js",
       "assets/scripts/winlossanalysischart/winlossanalysischart-ready.js"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles/consolidation/consolidation.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/currency-selection.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/consolidation/consolidation.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/consolidation/consolidation-detail.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/currency-selection.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/netturnover-tooltip.js",
+      "assets/scripts/components/pager.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/consolidation/consolidation-detail.js"
+    ]
   }
 ]

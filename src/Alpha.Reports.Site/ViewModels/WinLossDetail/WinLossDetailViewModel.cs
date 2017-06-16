@@ -1,105 +1,48 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLossDetail
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
-    using Extensions;
     using Params;
     using Reports.Constants;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
     using Requests.WinLossDetail;
 
-    public class WinLossDetailViewModel : DrillDownableReportViewModel<WinLossDetailModel>
+    public class WinLossDetailViewModel : WinLossReportBaseViewModel<WinLossDetailModel>
     {
-        private readonly WinLossDetailQuery message;
-        private readonly WinLossDetailParam winLossDetailParam;
-
         public WinLossDetailViewModel(
             WinLossDetailQuery message,
-            WinLossDetailParam winLossDetailParam,
+            WinLossDetailParam param,
             PagedReportData<WinLossDetailModel> reportData,
             IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevel)
+            IEnumerable<SelectListItem> products)
+            : base(message, param, breadcrumbLevel, products)
         {
-            this.message = message;
-            this.winLossDetailParam = winLossDetailParam;
-
             Title = GetReportNameByLevel(message.CustLevel);
-            UserSelectedProductIds = winLossDetailParam.UserSelectedProductIds.JoinWithComma();
-
+            PageIndex = message.PageIndex;
+            PageSize = message.PageSize;
             ReportData = reportData;
+
             var canSort = reportData.DataSource != null && reportData.DataSource.Count() > 1;
-            SortPropertyName = canSort ? winLossDetailParam.SortByPropertyName : DefaultVariables.SortPropertyName;
-            IsDescendingSort = canSort && winLossDetailParam.IsDescendingSort;
-
-            Products = products;
+            SortPropertyName = canSort ? GetSortedProperty(message.CustLevel, message.SortPropertyName) : DefaultVariables.SortPropertyName;
+            IsDescendingSort = canSort && param.IsDescendingSort;
         }
-
-        public int CustId => winLossDetailParam.CustId;
-
-        public string CustName => message.CustName;
-
-        public DateTime MinDate => message.MinDate;
-
-        public DateTime MaxDate => DateTime.MaxValue;
-
-        public DateTime FromDate => winLossDetailParam.FromDate;
-
-        public DateTime ToDate => winLossDetailParam.ToDate;
-
-        public string Language => message.Language;
-
-        public string UserSelectedProductIds { get; }
-
-        public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
-
-        public string SortPropertyName { get; }
-
-        public bool IsDescendingSort { get; }
-
-        public bool IsStackMode => message.IsStackMode;
-
-        public bool IsHistoricReport => message.IsHistoricReport;
-
-        public bool IsFilterVisible => message.IsFilterVisible;
-
-        public IEnumerable<SelectListItem> Products { get; }
 
         public PagerViewModel PagerViewModel =>
             new PagerViewModel(ReportData.CurrentPageIndex, ReportData.PageSize, ReportData.TotalRecords);
 
-        private MonthPickerViewModel MonthPickerViewModel =>
-            new MonthPickerViewModel(MinDate, FromDate, ToDate);
-
-        private DateRangePickerViewModel DateRangePickerViewModel =>
-            new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
-
-        private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
-            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
-
-        public WinLossDetailFilterViewModel FilterViewModel =>
-            new WinLossDetailFilterViewModel(
-                CustId,
-                CustName,
-                CustLevel,
-                IsHistoricReport,
-                DateRangePickerViewModel,
-                MonthPickerViewModel,
-                ProductMultiSelectionViewModel,
-                IsFilterVisible,
-                MinDate,
-                BreadcrumbLevelJson);
-
-        public BreadcrumbLevelViewModel BreadcrumbLevelViewModel =>
-            new BreadcrumbLevelViewModel(BreadcrumbLevel, BreadcrumbLevelJson);
-
         public string Title { get; }
 
-        public bool IsSetDefaultStackMode => message.IsSetDefaultStackMode;
+        public int PageIndex { get; }
+
+        public int PageSize { get; }
+
+        public string SortPropertyName { get; }
+
+        public bool IsDescendingSort { get; }
 
         public PagedReportData<WinLossDetailModel> ReportData { get; }
 
@@ -111,33 +54,21 @@
                 : Resources.MemberWinLossDetail;
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(WinLossDetailModel model)
-            => new Dictionary<string, object>
+            => new Dictionary<string, object>(base.GetDownlineLinkRouteValues(model))
             {
-                { "IsFilterVisible", IsFilterVisible },
-                { "IsHistoricReport", IsHistoricReport },
-                { "IsStackMode", IsStackMode },
-                { "IsDescendingSort", IsDescendingSort },
-                { "SortPropertyName", SortPropertyName },
-                { "CustId", model.CustId },
-                { "CustName", model.CustName },
-                { "UserSelectedDateRangeOption", UserSelectedDateRangeOption },
-                { "UserSelectedProductIds", UserSelectedProductIds },
-                { "FromDate", FromDate },
-                { "ToDate", ToDate },
-                { "PageIndex", message.PageIndex },
-                { "PageSize", message.PageSize }
+                ["IsDescendingSort"] = IsDescendingSort,
+                ["SortPropertyName"] = SortPropertyName,
+                ["CustId"] = model.CustId,
+                ["CustName"] = model.CustName,
+                ["PageIndex"] = PageIndex,
+                ["PageSize"] = PageSize
             };
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(WinLossDetailModel model)
-            => new Dictionary<string, object>
-            {
-                { "Custid", model.CustId },
-                { "Username", model.CustName },
-                { "FDate",  FromDate },
-                { "TDate", ToDate },
-                { "ProductIds", UserSelectedProductIds },
-                { "FilterPostback", 1 },
-                { "Type", "WLByDate" }
-            };
+             => new Dictionary<string, object>(base.GetBetListLinkRouteValues(model))
+             {
+                 ["CustId"] = model.CustId,
+                 ["Username"] = model.CustName
+             };
     }
 }

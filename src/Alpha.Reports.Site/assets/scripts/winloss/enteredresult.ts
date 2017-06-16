@@ -1,6 +1,7 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../components/daterangepicker.ts" />
-/// <reference path="../components/sort.ts" />
+/// <reference path="../components/sort.ts" /> 
+/// <reference path="../components/link-builder.ts" />
 
 "use strict";
 

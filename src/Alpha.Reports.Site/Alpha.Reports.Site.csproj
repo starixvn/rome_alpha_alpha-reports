@@ -72,6 +72,10 @@
       <HintPath>..\..\packages\Fanex.Data.2.0.4-beta1\lib\net461\Fanex.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.Data.OldConnectionStringProvider, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.OldConnectionStringProvider.1.0.1\lib\net461\Fanex.Data.OldConnectionStringProvider.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.Data.Repository, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Data.Repository.1.0.2-beta1\lib\net461\Fanex.Data.Repository.dll</HintPath>
       <Private>True</Private>
@@ -252,6 +256,7 @@
     <Compile Include="App_Start\BetTypeConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <TypeScriptCompile Include="assets\scripts\commissionbybettype\commissionbybettype.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\currency-selection.ts" />
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
     <TypeScriptCompile Include="assets\scripts\components\league-multiselection.ts" />
     <TypeScriptCompile Include="assets\scripts\base-report.ts" />
@@ -259,6 +264,8 @@
     <TypeScriptCompile Include="assets\scripts\components\month-range-picker.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
+    <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
+    <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\racingcommission\racingcommission.ts" />
@@ -273,6 +280,7 @@
     <TypeScriptCompile Include="assets\scripts\statement\statement-details.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\sma-statement.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\client-pager-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\components\currency-selection-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\daterangepicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\dual-axis-chart-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\league-multiselection-tests.ts" />
@@ -281,17 +289,23 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\netturnover-tooltip-test.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\single-selection-dropdown-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\productmultiselection-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\single-selection-dropdown-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\tooltip-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\consolidation\consolidation-detail-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\consolidation\consolidation-detail-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\consolidation\consolidation-detail-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\consolidation\consolidation-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\consolidation\consolidation-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\consolidation\consolidation-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\base-report-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\monthpicker-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\pager-tests.ts" />
     <Compile Include="Constants\RowTypeConstant.cs" />
     <Compile Include="Constants\UserSelectedDateRangeOptionConstant.cs" />
+    <Compile Include="Controllers\ConsolidationController.cs" />
     <Compile Include="Controllers\PlayForFunController.cs" />
     <Compile Include="Controllers\OutstandingController.cs" />
     <Compile Include="Controllers\MatchWinLossController.cs" />
@@ -313,6 +327,12 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
+    <Compile Include="Handlers\Consolidation\ConsolidationBaseHandler.cs" />
+    <Compile Include="Handlers\Consolidation\ConsolidationByDateWorkbook.cs" />
+    <Compile Include="Handlers\Consolidation\ConsolidationByProductWorkbook.cs" />
+    <Compile Include="Handlers\Consolidation\ConsolidationExcelHandler.cs" />
+    <Compile Include="Handlers\Consolidation\ConsolidationHandler.cs" />
+    <Compile Include="Handlers\Consolidation\ConsolidationWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
@@ -357,6 +377,15 @@
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Helpers\WorkbookHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationByDateExcelQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationByDateQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationByProductExcelQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationByProductQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationByUsernameExcelQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationByUsernameQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationDetailExcelQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationDetailQuery.cs" />
+    <Compile Include="Requests\Consolidation\GetConsolidationQuery.cs" />
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
     <Compile Include="Requests\FromLast3MonthDateRangeQuery.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
@@ -390,6 +419,7 @@
     <Compile Include="Requests\Statement\SMAStatementQuery.cs" />
     <Compile Include="Requests\Statement\StatementDetailExcelQuery.cs" />
     <Compile Include="Requests\Statement\StatementDetailsQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidateWinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisExcelQuery.cs" />
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisQuery.cs" />
@@ -402,6 +432,7 @@
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeFilterViewModel.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeViewModel.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
+    <Compile Include="ViewModels\Components\CurrencySelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
     <Compile Include="ViewModels\Components\LeagueMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
@@ -410,6 +441,15 @@
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\StatusSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DualAxisChartViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationByDateViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationByProductViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationByUsernameViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationDetailViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationFilterViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationReportByDateViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationReportByProductViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationReportByUsernameViewModel.cs" />
+    <Compile Include="ViewModels\Consolidation\ConsolidationReportViewModel.cs" />
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\DrillDownableReportViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossFilterViewModel.cs" />
@@ -439,8 +479,8 @@
     <Compile Include="ViewModels\PlayForFun\PlayForFunFilterViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\Statement\StatementDetailViewModel.cs" />
-    <Compile Include="ViewModels\WinLossDetail\WinLossDetailFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
+    <Compile Include="ViewModels\WinLossReportBaseViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossFilterViewModel.cs" />
@@ -521,6 +561,14 @@
     <Content Include="assets\bundles\commissionbybettype\commissionbybettype.js" />
     <Content Include="assets\bundles\commissionbybettype\commissionbybettype.min.js">
       <DependentUpon>commissionbybettype.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\consolidation\consolidation-detail.js" />
+    <Content Include="assets\bundles\consolidation\consolidation-detail.min.js">
+      <DependentUpon>consolidation-detail.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\consolidation\consolidation.js" />
+    <Content Include="assets\bundles\consolidation\consolidation.min.js">
+      <DependentUpon>consolidation.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.css" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
@@ -721,24 +769,6 @@
     <Content Include="Web.backupMNLNap2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-    <Content Include="Web.ConnectionStrings.backupMNL.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.backupMNL2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.backupMNLExNap.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.backupMNLExNap2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.backupMNLNap.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.backupMNLNap2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
     <Content Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
@@ -805,6 +835,10 @@
     <Content Include="App_Data\ExcelTemplates\Statement\Member.xls" />
     <Content Include="Alpha.Reports.Site.Debug.ruleset" />
     <Content Include="App_Data\ExcelTemplates\Statement\StatementDetails.xls" />
+    <Content Include="App_Code\Components\CurrencySelection.cshtml" />
+    <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByDate.xls" />
+    <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByProduct.xls" />
+    <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByUsername.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -843,6 +877,13 @@
     <Content Include="Views\Statement\StatementDetails.cshtml" />
     <Content Include="Views\Statement\MemberStatement.cshtml" />
     <Content Include="Views\Statement\MemberReportLegend.cshtml" />
+    <Content Include="Views\Consolidation\ConsolidationByDate.cshtml" />
+    <Content Include="Views\Consolidation\ConsolidationByProduct.cshtml" />
+    <Content Include="Views\Consolidation\ConsolidationByUsername.cshtml" />
+    <Content Include="Views\Consolidation\ConsolidationDetail.cshtml" />
+    <Content Include="Views\Consolidation\ExportExcel.cshtml" />
+    <Content Include="Views\Consolidation\Filter.cshtml" />
+    <Content Include="Views\WinLossDetail\ReportData.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -916,40 +957,6 @@
       <DependentUpon>Web.AppSettings.config</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.ConnectionStrings.config" />
-    <Content Include="Web.ConnectionStrings.local.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.napexternal.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.napexternal2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.napinternal.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.napinternal2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.pro.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.pro2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.sit.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.sit2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.uat.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
-    <Content Include="Web.ConnectionStrings.uat2.config">
-      <DependentUpon>Web.ConnectionStrings.config</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.local.config" />
@@ -960,6 +967,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\tests\Alpha.Reports.StaticData\Alpha.Reports.StaticData.csproj">
+      <Project>{B2293610-3C5B-42DF-9B6A-3AE914512223}</Project>
+      <Name>Alpha.Reports.StaticData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Alpha.Reports\Alpha.Reports.csproj">
       <Project>{b868e639-f3f9-4d54-b02e-57f3bee0965e}</Project>
       <Name>Alpha.Reports</Name>

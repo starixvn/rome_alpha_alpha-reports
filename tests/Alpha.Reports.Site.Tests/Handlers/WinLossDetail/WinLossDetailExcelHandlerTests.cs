@@ -14,6 +14,7 @@
     using Reports.Models.WinLossDetail;
     using Services;
     using Site.Handlers.WinLossDetail;
+    using Site.Requests.Consolidation;
     using Site.Requests.WinLossDetail;
     using Utils;
     using Xunit;
@@ -199,6 +200,22 @@
 
             // Assert
             winLossDetailExcelHandler.Received().GetExcelTemplatePath(fileName);
+        }
+
+        [Fact]
+        public void HandleConsolidateWinLossDetailExcelQuery_Handle_ExportsExcelToBytes()
+        {
+            // Arrange
+            var query = new ConsolidateWinLossDetailExcelQuery(userFixture.User);
+            query.CustLevelId = 2;
+            query.FromDate = DefaultVariables.CurrentDate;
+            query.ToDate = DefaultVariables.CurrentDate;
+
+            // Act
+            winLossDetailExcelHandler.Handle(query);
+
+            // Assert
+            workbook.Received().ExportToBytes();
         }
 
         private WinLossDetailExcelQuery CreateExportExcelQuery(byte custLevelId)

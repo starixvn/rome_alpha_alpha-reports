@@ -20,7 +20,7 @@
 
         public bool IsDescendingSort { get; set; }
 
-        public bool IsFilterVisible { get; set; }
+        public bool IsFilterVisible { get; set; } = true;
 
         public int UserSelectedDateRangeOption { get; set; }
 

@@ -1,0 +1,64 @@
+﻿@model ConsolidationDetailViewModel
+@{
+    ViewBag.Title = "Consolidation Report";
+    var filter = Model.FilterViewModel;
+}
+
+@ReportTitle.Render(
+    new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, filter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson),
+    Request.Url.Query)
+
+<form class="form-inline filter  @(filter.Visible ? string.Empty : "hide")" role="form" id="report-form"
+      action="@Url.Action("ConsolidationBy" +  Model.DrilldownFromType, "Consolidation")">
+    @ProductMultiSelection.Render(filter.ProductMultiSelectionViewModel)
+    @CurrencySelection.Render(filter.CurrencySelectionViewModel)
+    @DateRangePicker.Render(filter.DateRangePickerViewModel)
+
+    <div class="form-group">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        @Resources.ReportBy
+        @RenderReportTypeOption("username", Resources.Username)
+        @RenderReportTypeOption("date", Resources.Date)
+        @RenderReportTypeOption("product", Resources.Product)
+    </div>
+    <div class="note">
+        <span class="star">*</span>@filter.ViewDataInstructionMessage
+    </div>
+
+    @Html.Hidden("IsFilterVisible", filter.Visible ? "true" : "false")
+    @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+    <input id="CustId" type="hidden" value="@filter.CustId" />
+    <input id="CustName" type="hidden" value="@filter.CustName" />
+    <input id="CustLevelId" type="hidden" value="@filter.CustLevel.Value" />
+    @Html.Hidden("SortPropertyName", Model.SortPropertyName)
+    @Html.Hidden("IsDescendingSort", Model.IsDescendingSort)
+</form>
+
+@Html.Partial(
+    "~/Views/WinLossDetail/ReportData.cshtml",
+    Model.WinLossDetailViewModel,
+    new ViewDataDictionary
+    {
+        ["ExportExcelController"] = "Consolidation",
+        ["ExportExcelAction"] = "ConsolidationDetailExcel"
+    })
+
+@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/consolidation/consolidation-detail")
+}
+
+@helper RenderReportTypeOption(string reportType, string label)
+{
+    <input id="report-by-@reportType" name="report-type" type="radio"
+           @(string.Equals(reportType, Model.DrilldownFromType, StringComparison.OrdinalIgnoreCase) ? "checked=\"checked\"" : string.Empty)
+           value="@Url.Action("ConsolidationBy" + reportType, "Consolidation")">
+    <label for="report-by-@reportType"> @label</label>
+}

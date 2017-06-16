@@ -51,5 +51,57 @@ namespace Alpha.Reports.Tests.Configurations
             // Assert
             Assert.True(passVerify);
         }
+
+        [Fact]
+        public void BetListAppPath_HasConfig_ReturnsCorrectSetting()
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["BetListsAppPath"] = "Path"
+            };
+
+            var expectedSetting = "Path";
+
+            // Act
+            var actualSetting = SiteSettings.BetListAppPath;
+
+            // Assert
+            Assert.Equal(expectedSetting, actualSetting);
+        }
+
+        [Fact]
+        public void BetListAppPath_NotHasConfig_ReturnsCorrectSetting()
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["ReportsAppPath"] = "Path"
+            };
+            var expectedSetting = "site-betlists";
+
+            // Act
+            var actualSetting = SiteSettings.BetListAppPath;
+
+            // Assert
+            Assert.Equal(expectedSetting, actualSetting);
+        }
+
+        [Fact]
+        public void EnabledStaticData_NotHasConfig_ReturnsCorrectSetting()
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["EnabledStaticData"] = "1"
+            };
+            var expectedSetting = true;
+
+            // Act
+            var actualSetting = SiteSettings.EnabledStaticData;
+
+            // Assert
+            Assert.Equal(expectedSetting, actualSetting);
+        }
     }
 }

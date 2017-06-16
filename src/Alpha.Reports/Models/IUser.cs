@@ -14,6 +14,8 @@
 
         string CurrencyName { get; }
 
+        bool IsShowConsolidatedReport { get; }
+
         bool GetHideProduct(int productId);
     }
 }

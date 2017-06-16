@@ -522,4 +522,22 @@
   <data name="BetList_Running" xml:space="preserve">
     <value>Danh sách cược ( đang diễn ra )</value>
   </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Tiền tệ</value>
+  </data>
+  <data name="AllCurrencies" xml:space="preserve">
+    <value>Tất cả tiền tệ</value>
+  </data>
+  <data name="Consolidation" xml:space="preserve">
+    <value>Thắng thua của nhóm</value>
+  </data>
+  <data name="ConsolidationReportByDate" xml:space="preserve">
+    <value>Báo cáo chi tiết mỗi ngày</value>
+  </data>
+  <data name="ConsolidationReportByProduct" xml:space="preserve">
+    <value>Tổng kết báo cáo của Sport</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Cấp</value>
+  </data>
 </root>

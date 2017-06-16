@@ -98,10 +98,14 @@
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
+    <Compile Include="Constants\ConsolidationReportTypeConstants.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
     <Compile Include="Constants\ProductIdConstants.cs" />
     <Compile Include="Criteria\CommissionByBettype\CommissionByBettypeCriteria.cs" />
     <Compile Include="Constants\StatusIdConstants.cs" />
+    <Compile Include="Criteria\Consolidation\GetConsolidationCriteria.cs" />
+    <Compile Include="Criteria\Consolidation\GetConsolidationReportProductsCriteria.cs" />
+    <Compile Include="Criteria\Consolidation\GetCurrencyCriteria.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteria.cs" />
     <Compile Include="Criteria\GetLeaguesByCustomerCriteria.cs" />
     <Compile Include="Criteria\GetProductsCriteria.cs" />
@@ -141,6 +145,11 @@
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
     <Compile Include="Models\CommissionByBettype\CommissionByBettypeModel.cs" />
+    <Compile Include="Models\Consolidation\ConsolidationByDate.cs" />
+    <Compile Include="Models\Consolidation\ConsolidationByProduct.cs" />
+    <Compile Include="Models\Consolidation\ConsolidationByUsername.cs" />
+    <Compile Include="Models\Consolidation\ConsolidationProduct.cs" />
+    <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\CustInfo.cs" />
     <Compile Include="Models\NetWinLoss.cs" />
     <Compile Include="Models\PagedReportData.cs" />
@@ -172,6 +181,9 @@
     <Compile Include="Models\Winloss\DailyEnteredSport.cs" />
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
     <Compile Include="Models\Winloss\WinLossModel.cs" />
+    <Compile Include="Params\Consolidation\GetConslidationReportProductsParam.cs" />
+    <Compile Include="Params\Consolidation\GetConsolidationParam.cs" />
+    <Compile Include="Params\Consolidation\GetCurrencyParam.cs" />
     <Compile Include="Params\DailyEnteredSportParam.cs" />
     <Compile Include="Params\MatchWinLossParam.cs" />
     <Compile Include="Params\OutstandingParam.cs" />
@@ -190,6 +202,7 @@
     <Compile Include="Params\WinLossByProductParam.cs" />
     <Compile Include="Params\WinLossParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ConsolidationService.cs" />
     <Compile Include="Services\LeagueService.cs" />
     <Compile Include="Services\CommissionByBettypeService.cs" />
     <Compile Include="Services\PlayForFunService.cs" />

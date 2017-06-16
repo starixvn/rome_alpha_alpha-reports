@@ -1,0 +1,123 @@
+﻿@model ConsolidationReportByProductViewModel
+@{
+    ViewBag.Title = "Consolidation Report";
+}
+
+@ReportTitle.Render(new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
+
+@Html.Partial("Filter", Model.FilterViewModel,
+    new ViewDataDictionary
+    {
+        ["IsStackMode"] = Model.IsStackMode,
+        ["ReportType"] = "Product"
+    })
+
+<table class="tblRpt tblRpt-bordered alternative-row-table width-100per tblRpt-hover
+       @(Model.IsStackMode ? "stack-mode" : string.Empty)" id="tbl-report">
+    <thead>
+        <tr>
+            <th rowspan="2" class="hidden-stack-mode">@Resources.Product</th>
+            <th class="visible-stack-mode">@Resources.Product</th>
+            <th rowspan="2" class="hidden-stack-mode">@Resources.Level</th>
+            <th class="visible-stack-mode">@Resources.Level</th>
+            <th rowspan="2" class="hidden-stack-mode">@Resources.Username</th>
+            <th class="visible-stack-mode">@Resources.Username</th>
+            <th rowspan="2" class="hidden-stack-mode">@Resources.Currency</th>
+            <th class="visible-stack-mode">@Resources.Currency</th>
+            <th rowspan="2" class="hidden-stack-mode">@Resources.Turnover</th>
+            <th class="visible-stack-mode">@Resources.Turnover</th>
+            <th colspan="3" class="hidden-stack-mode">@Resources.Member</th>
+            <th class="visible-stack-mode">
+                @Resources.Member
+                <br />
+                (@Resources.WinLossAbbr/@Resources.Comm/@Resources.Total)
+            </th>
+            <th colspan="4" class="hidden-stack-mode">@Resources.Owner</th>
+            <th class="visible-stack-mode">
+                @Resources.Owner
+                <br />
+                (@Resources.TurnoverAbbr/@Resources.WinLossAbbr/@Resources.Comm/@Resources.Total)
+            </th>
+            <th rowspan="2">@Resources.Company</th>
+            <th rowspan="2">@Resources.BetCount</th>
+        </tr>
+        <tr>
+            <th class="hidden-stack-mode">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode">@Resources.Comm</th>
+            <th class="hidden-stack-mode">@Resources.Total</th>
+            <th class="hidden-stack-mode">@Resources.Turnover</th>
+            <th class="hidden-stack-mode">@Resources.WinLoss</th>
+            <th class="hidden-stack-mode">@Resources.Comm</th>
+            <th class="hidden-stack-mode">@Resources.Total</th>
+        </tr>
+    </thead>
+    @if (Model.ReportData.Any())
+    {
+        <tbody>
+            @foreach (var product in Model.ReportData)
+            {
+                var isFirstRow = true;
+                foreach (var data in product.WinLossByUsername)
+                {
+                    <tr>
+                        @if (isFirstRow)
+                        {
+                            <td class="text-left" rowspan="@product.WinLossByUsername.Count()">@product.ProductName</td>
+                            isFirstRow = false;
+                        }
+
+                        <td class="text-left">@data.CustLevelName</td>
+                        <td class="text-left">
+                            <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail","Consolidation"), "product", product.ProductId.ToString(), null, data)" class="downline-link">
+                                @data.Username
+                            </a>
+                        </td>
+                        <td class="text-left">@data.CurrencyName</td>
+                        <td>@HtmlHelpers.FormatNumber(data.Turnover)</td>
+                        @if (Model.IsStackMode)
+                        {
+                            @HtmlHelpers.RenderStackCell("col-member-winloss", 1, data.MemberWinLoss, data.MemberComm, data.MemberTotal)
+                            @HtmlHelpers.RenderStackCell("col-owner-turnover", 1, data.OwnerTurnover, data.OwnerWinLoss, data.OwnerComm, data.OwnerTotal)
+                        }
+                        else
+                        {
+                            @HtmlHelpers.RenderNumberCell(data.MemberWinLoss, "col-member-winloss")
+                            @HtmlHelpers.RenderNumberCell(data.MemberComm)
+                            @HtmlHelpers.RenderNumberCell(data.MemberTotal, "bold")
+                            @HtmlHelpers.RenderNumberCell(data.OwnerTurnover, "col-owner-turnover")
+                            @HtmlHelpers.RenderNumberCell(data.OwnerWinLoss)
+                            @HtmlHelpers.RenderNumberCell(data.OwnerComm)
+                            @HtmlHelpers.RenderNumberCell(data.OwnerTotal, "bold")
+                        }
+                        <td>@HtmlHelpers.FormatNumber(data.Company)</td>
+                        <td>@HtmlHelpers.FormatNumber(data.BetCount)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    }
+    else
+    {
+        @NoInformation.Render(colspan: Model.IsStackMode ? 8 : 14)
+    }
+</table>
+@Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
+@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/consolidation/consolidation")
+}
+
+@Html.Partial(
+    "ExportExcel",
+    Model,
+    new ViewDataDictionary
+    {
+        ["action"] = "ConsolidationByProductExcel",
+        ["CustId"] = Model.CustId,
+        ["CustName"] = Model.CustName,
+        ["FromDate"] = Model.FromDate,
+        ["ToDate"] = Model.ToDate,
+        ["UserSelectedProductIds"] = Model.UserSelectedProductIds,
+        ["UserSelectedCurrencyId"] = Model.UserSelectedCurrencyId,
+        ["CustLevel"] = Model.CustLevel.Value
+    })

@@ -7,11 +7,14 @@
     using System.Threading;
     using System.Web.Mvc;
     using Constants;
+    using Enumerations;
     using Fixtures;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Params;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
+    using Site.Requests.WinLoss;
     using Site.Requests.WinLossDetail;
     using Site.ViewModels.WinLossDetail;
     using Xunit;
@@ -22,6 +25,8 @@
     {
         private const int AllBetProductId = 21;
         private readonly UserFixture userFixture;
+        private readonly CompareLogic compareLogic;
+        private readonly AnyValueCreatorFixture anyValueCreatorFixture;
 
         public WinLossDetailViewModelTests(UserFixture userFixture)
         {
@@ -29,6 +34,9 @@
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+
+            compareLogic = new CompareLogic();
+            anyValueCreatorFixture = new AnyValueCreatorFixture();
         }
 
         [Fact]
@@ -45,21 +53,24 @@
             var winlossDetailModel = new WinLossDetailModel(1, "CustName", 0, 0, 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
+            var expectedRouteValues = new Dictionary<string, object>
+            {
+                ["FDate"] = fromDate,
+                ["TDate"] = toDate,
+                ["ProductIds"] = "1",
+                ["FilterPostback"] = 1,
+                ["Type"] = "WLByDate",
+                ["CustId"] = 1,
+                ["Username"] = "CustName"
+            };
+
             // Act
             winLossDetailViewModel.BuildDrillDownLink(winlossDetailModel, "currentUrl");
 
             // Assert
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
                 "BetListPath",
-                Arg.Is<Dictionary<string, object>>(
-                    routeValue =>
-                        (int)routeValue["Custid"] == 1
-                        && (string)routeValue["Username"] == "CustName"
-                        && (DateTime)routeValue["FDate"] == fromDate
-                        && (DateTime)routeValue["TDate"] == toDate
-                        && (string)routeValue["ProductIds"] == "1"
-                        && (int)routeValue["FilterPostback"] == 1
-                        && (string)routeValue["Type"] == "WLByDate"));
+                Arg.Is<Dictionary<string, object>>(routeValue => compareLogic.Compare(expectedRouteValues, routeValue).AreEqual));
         }
 
         [Theory]
@@ -84,20 +95,173 @@
             // Assert
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(
                 "currentUrl",
-                Arg.Is<Dictionary<string, object>>(
-                    routeValue =>
-                        (int)routeValue["CustId"] == 1
-                        && (string)routeValue["CustName"] == "CustName"
-                        && (byte)routeValue["CustLevelId"] == (custLevelId - 1)
-                        && (string)routeValue["BreadcrumbLevelJson"] == "parsedJson"));
+                 Arg.Is<Dictionary<string, object>>(
+                     routeValues =>
+                     (int)routeValues["CustId"] == 1
+                     && (string)routeValues["CustName"] == "CustName"
+                     && (byte)routeValues["CustLevelId"] == custLevelId - 1
+                     && (string)routeValues["BreadcrumbLevelJson"] == "parsedJson"));
+        }
+
+        [Theory]
+        [InlineData(4)]
+        [InlineData(3)]
+        [InlineData(2)]
+        public void SortByPropertyName_CannotSort_ReturnsCustName(byte custLevelId)
+        {
+            // Arrange
+            var expectedSortByPropertyName = "CustName";
+
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns(custLevelId);
+            var viewModel = new WinLossDetailViewModel(
+                new WinLossDetailQuery(user),
+                anyValueCreatorFixture.Create<WinLossDetailParam>(),
+                new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, null),
+                null,
+                null);
+
+            // Act
+            var actualSortByPropertyName = viewModel.SortPropertyName;
+
+            // Assert
+            Assert.Equal(expectedSortByPropertyName, actualSortByPropertyName);
+        }
+
+        [Theory]
+        [InlineData(4)]
+        [InlineData(3)]
+        [InlineData(2)]
+        public void SortByPropertyName_NotSupportSortByPropertyName_ReturnsCustName(byte custLevelId)
+        {
+            // Arrange
+            var expectedSortByPropertyName = "CustName";
+
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns(custLevelId);
+            var viewModel = new WinLossDetailViewModel(
+                new WinLossDetailQuery(user),
+                anyValueCreatorFixture.Create<WinLossDetailParam>(),
+                CreatePagedReportData(),
+                null,
+                null);
+
+            // Act
+            var actualSortByPropertyName = viewModel.SortPropertyName;
+
+            // Assert
+            Assert.Equal(expectedSortByPropertyName, actualSortByPropertyName);
+        }
+
+        [Theory]
+        [InlineData(3, "SuperNetWinLoss.WinLoss")]
+        [InlineData(3, "SuperNetWinLoss.Comm")]
+        [InlineData(3, "SuperNetWinLoss.Total")]
+        [InlineData(2, "SuperNetWinLoss.WinLoss")]
+        [InlineData(2, "SuperNetWinLoss.Comm")]
+        [InlineData(2, "SuperNetWinLoss.Total")]
+        [InlineData(2, "MasterNetWinLoss.WinLoss")]
+        [InlineData(2, "MasterNetWinLoss.Comm")]
+        [InlineData(2, "MasterNetWinLoss.Total")]
+        public void SortByPropertyName_SupportedSortByPropertyNameNotInRange_ReturnsCustName(
+            byte custLevelId,
+            string notInRangeSortByPropertyName)
+        {
+            // Arrange
+            var expectedSortByPropertyName = "CustName";
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns(custLevelId);
+            var viewModel = new WinLossDetailViewModel(
+                new WinLossDetailQuery(user)
+                {
+                    SortPropertyName = notInRangeSortByPropertyName
+                },
+                anyValueCreatorFixture.Create<WinLossDetailParam>(),
+                CreatePagedReportData(),
+                null,
+                null);
+
+            // Act
+            var actualSortByPropertyName = viewModel.SortPropertyName;
+
+            // Assert
+            Assert.Equal(expectedSortByPropertyName, actualSortByPropertyName);
+        }
+
+        [Theory]
+        [InlineData(4, "SuperNetWinLoss.WinLoss")]
+        [InlineData(4, "SuperNetWinLoss.Comm")]
+        [InlineData(4, "SuperNetWinLoss.Total")]
+        [InlineData(4, "MasterNetWinLoss.WinLoss")]
+        [InlineData(4, "MasterNetWinLoss.Comm")]
+        [InlineData(4, "MasterNetWinLoss.Total")]
+        [InlineData(4, "AgentNetWinLoss.WinLoss")]
+        [InlineData(4, "AgentNetWinLoss.Comm")]
+        [InlineData(4, "AgentNetWinLoss.Total")]
+        [InlineData(4, "CustId")]
+        [InlineData(4, "CustName")]
+        [InlineData(4, "Turnover")]
+        [InlineData(4, "NetTurnover")]
+        [InlineData(4, "GrossComm")]
+        [InlineData(4, "BetCount")]
+        [InlineData(4, "Company")]
+        [InlineData(3, "MasterNetWinLoss.WinLoss")]
+        [InlineData(3, "MasterNetWinLoss.Comm")]
+        [InlineData(3, "MasterNetWinLoss.Total")]
+        [InlineData(3, "AgentNetWinLoss.WinLoss")]
+        [InlineData(3, "AgentNetWinLoss.Comm")]
+        [InlineData(3, "AgentNetWinLoss.Total")]
+        [InlineData(3, "CustId")]
+        [InlineData(3, "CustName")]
+        [InlineData(3, "Turnover")]
+        [InlineData(3, "NetTurnover")]
+        [InlineData(3, "GrossComm")]
+        [InlineData(3, "BetCount")]
+        [InlineData(3, "Company")]
+        [InlineData(2, "AgentNetWinLoss.WinLoss")]
+        [InlineData(2, "AgentNetWinLoss.Comm")]
+        [InlineData(2, "AgentNetWinLoss.Total")]
+        [InlineData(2, "CustId")]
+        [InlineData(2, "CustName")]
+        [InlineData(2, "Turnover")]
+        [InlineData(2, "NetTurnover")]
+        [InlineData(2, "GrossComm")]
+        [InlineData(2, "BetCount")]
+        [InlineData(2, "Company")]
+        public void SortByPropertyName_SupportedSortByPropertyNameInRange_ReturnsSupportedSortByPropertyName(
+            byte custLevelId,
+            string inRangeSortByPropertyName)
+        {
+            // Arrange
+            var expectedSortByPropertyName = inRangeSortByPropertyName;
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns(custLevelId);
+            var viewModel = new WinLossDetailViewModel(
+                new WinLossDetailQuery(user)
+                {
+                    SortPropertyName = inRangeSortByPropertyName
+                },
+                anyValueCreatorFixture.Create<WinLossDetailParam>(),
+                CreatePagedReportData(),
+                null,
+                null);
+
+            // Act
+            var actualSortByPropertyName = viewModel.SortPropertyName;
+
+            // Assert
+            Assert.Equal(expectedSortByPropertyName, actualSortByPropertyName);
         }
 
         [Fact]
         public void SortPropertyName_CanSort_ReturnsSortByPropertyNameFromParam()
         {
             // Arrange
-            var message = new WinLossDetailQuery(userFixture.User);
             var sortPropertyName = "Turnover";
+            var message = new WinLossDetailQuery(userFixture.User)
+            {
+                SortPropertyName = sortPropertyName
+            };
 
             var reportData = new List<WinLossDetailModel>
             {
@@ -169,5 +333,17 @@
                      new SelectListItem { Value = AllBetProductId.ToString() }
                  });
         }
+
+        private PagedReportData<WinLossDetailModel> CreatePagedReportData()
+            => new PagedReportData<WinLossDetailModel>(
+                new List<WinLossDetailModel>
+                {
+                    anyValueCreatorFixture.Create<WinLossDetailModel>(),
+                    anyValueCreatorFixture.Create<WinLossDetailModel>()
+                },
+                0,
+                0,
+                0,
+                null);
     }
 }

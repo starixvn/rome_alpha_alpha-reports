@@ -151,6 +151,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Currencies.
+        /// </summary>
+        public static string AllCurrencies {
+            get {
+                return ResourceManager.GetString("AllCurrencies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Leagues.
         /// </summary>
         public static string AllLeagues {
@@ -363,6 +372,51 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Company {
             get {
                 return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Consolidation.
+        /// </summary>
+        public static string Consolidation {
+            get {
+                return ResourceManager.GetString("Consolidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily Consolidated Report.
+        /// </summary>
+        public static string ConsolidationReportByDate {
+            get {
+                return ResourceManager.GetString("ConsolidationReportByDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sport Consolidation Report.
+        /// </summary>
+        public static string ConsolidationReportByProduct {
+            get {
+                return ResourceManager.GetString("ConsolidationReportByProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Consolidation Report By Username.
+        /// </summary>
+        public static string ConsolidationReportByUsername {
+            get {
+                return ResourceManager.GetString("ConsolidationReportByUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency.
+        /// </summary>
+        public static string Currency {
+            get {
+                return ResourceManager.GetString("Currency", resourceCulture);
             }
         }
         
@@ -790,6 +844,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string Level {
+            get {
+                return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Live Game.
         /// </summary>
         public static string LiveGame {
@@ -1155,6 +1218,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Outstanding {
             get {
                 return ResourceManager.GetString("Outstanding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner.
+        /// </summary>
+        public static string Owner {
+            get {
+                return ResourceManager.GetString("Owner", resourceCulture);
             }
         }
         

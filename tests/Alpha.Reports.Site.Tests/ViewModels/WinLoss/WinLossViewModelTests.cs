@@ -63,20 +63,13 @@
             // Arrange
             var expectedGrandTotal = new WinLossModel();
             var message = CreateWinlossQuery(4);
-            var winlossViewModel = new WinLossViewModel(
-                Enumerable.Empty<WinLossModel>(),
-                fixture.Create<WinLossModel>(),
-                message,
-                fixture.Create<WinLossParam>(),
-                Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+            var winlossViewModel = CreateWinLossViewModel(message);
 
             // Act
             var actualGrandTotal = winlossViewModel.GrandTotal;
 
             // Assert
-            var result = compareLogic.Compare(actualGrandTotal, expectedGrandTotal);
-            Assert.True(result.AreEqual);
+            Assert.True(compareLogic.Compare(actualGrandTotal, expectedGrandTotal).AreEqual);
         }
 
         [Fact]
@@ -107,20 +100,13 @@
             // Arrange
             var expectedGrandTotal = new WinLossModel();
             var message = CreateWinlossQuery(4);
-            var winlossViewModel = new WinLossViewModel(
-                Enumerable.Empty<WinLossModel>(),
-                fixture.Create<WinLossModel>(),
-                message,
-                fixture.Create<WinLossParam>(),
-                Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+            var winlossViewModel = CreateWinLossViewModel(message);
 
             // Act
             var actualGrandTotal = winlossViewModel.GrandTotal;
 
             // Assert
-            var result = compareLogic.Compare(actualGrandTotal, expectedGrandTotal);
-            Assert.True(result.AreEqual);
+            Assert.True(compareLogic.Compare(actualGrandTotal, expectedGrandTotal).AreEqual);
         }
 
         [Fact]
@@ -133,15 +119,20 @@
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
             var winlossParam = new WinLossParam(1, fromDate, toDate, new List<int> { 1 }, UserLevel.Agent, false);
-            var winlossViewModel = new WinLossViewModel(
-                Enumerable.Empty<WinLossModel>(),
-                fixture.Create<WinLossModel>(),
-                message,
-                winlossParam,
-                Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+            var winlossViewModel = CreateWinLossViewModel(message, winlossParam);
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
+
+            var expectedRouteValues = new Dictionary<string, object>
+            {
+                ["FDate"] = fromDate,
+                ["TDate"] = toDate,
+                ["ProductIds"] = "1",
+                ["FilterPostback"] = 1,
+                ["Type"] = "WLByDate",
+                ["CustId"] = 1,
+                ["CustName"] = "CustName"
+            };
 
             // Act
             winlossViewModel.BuildDrillDownLink(winlossModel, "currentUrl");
@@ -149,15 +140,7 @@
             // Assert
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
                 "BetListPath",
-                Arg.Is<Dictionary<string, object>>(
-                    routeValue =>
-                        (int)routeValue["Custid"] == 1
-                        && (string)routeValue["Username"] == "CustName"
-                        && (DateTime)routeValue["FDate"] == fromDate
-                        && (DateTime)routeValue["TDate"] == toDate
-                        && (string)routeValue["ProductIds"] == "1"
-                        && (int)routeValue["FilterPostback"] == 1
-                        && (string)routeValue["Type"] == "WLByDate"));
+                Arg.Is<Dictionary<string, object>>(routeValue => compareLogic.Compare(expectedRouteValues, routeValue).AreEqual));
         }
 
         [Theory]
@@ -190,10 +173,32 @@
                 "currentUrl",
                 Arg.Is<Dictionary<string, object>>(
                     routeValue =>
-                        (int)routeValue["CustId"] == 1
-                        && (string)routeValue["CustName"] == "CustName"
-                        && (byte)routeValue["CustLevelId"] == (custLevelId - 1)
-                        && (string)routeValue["BreadcrumbLevelJson"] == "parsedJson"));
+                       (int)routeValue["CustId"] == 1
+                       && (string)routeValue["CustName"] == "CustName"
+                       && (byte)routeValue["CustLevelId"] == (custLevelId - 1)
+                       && (string)routeValue["BreadcrumbLevelJson"] == "parsedJson"));
+        }
+
+        [Fact]
+        public void SortByPropertyName_CanSort_ReturnsCorrectSortByPropertyName()
+        {
+            // Arrange
+            var message = new WinLossQuery(userFixture.User) { SortPropertyName = "DownLineLevelName" };
+            var viewModel = new WinLossViewModel(
+                new List<WinLossModel> { fixture.Create<WinLossModel>(), fixture.Create<WinLossModel>() },
+                fixture.Create<WinLossModel>(),
+                message,
+                fixture.Create<WinLossParam>(),
+                Enumerable.Empty<CustInfo>(),
+                Enumerable.Empty<SelectListItem>());
+
+            var expectedSortByPropertyName = "DownLineLevelName";
+
+            // Act
+            var actualSortByPropertyName = viewModel.SortPropertyName;
+
+            // Assert
+            Assert.Equal(expectedSortByPropertyName, actualSortByPropertyName);
         }
 
         private static void SetUpForHelpers()
@@ -213,5 +218,14 @@
 
             return winLossQuery;
         }
+
+        private WinLossViewModel CreateWinLossViewModel(WinLossQuery message, WinLossParam winLossParam = null)
+            => new WinLossViewModel(
+                Enumerable.Empty<WinLossModel>(),
+                fixture.Create<WinLossModel>(),
+                message,
+                winLossParam ?? fixture.Create<WinLossParam>(),
+                Enumerable.Empty<CustInfo>(),
+                Enumerable.Empty<SelectListItem>());
     }
 }
