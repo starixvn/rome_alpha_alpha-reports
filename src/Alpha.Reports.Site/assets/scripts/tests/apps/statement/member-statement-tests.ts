@@ -114,7 +114,7 @@
 
             // assert
             expect(topWindow.popupManager.open).toHaveBeenCalledWith(
-                "BetListUrl?custid=1&fromdate=4%2F11%2F2017&transtype=1&custname=member01", "BetListTitle", 900);
+                "BetListUrl?custid=1&winlossdate=4%2F11%2F2017&transtype=1&custname=member01", "BetListTitle", 900);
         });
     });
     describe("_changeReportType", () => {
