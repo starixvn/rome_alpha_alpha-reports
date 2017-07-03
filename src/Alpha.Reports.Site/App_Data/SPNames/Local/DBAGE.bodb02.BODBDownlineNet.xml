@@ -43,7 +43,7 @@
     <Setting Key="Age_Chart_WinlossAnalysis_Member" SpName="Age_Chart_WinlossAnalysis_Member_xpre" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Match Win Loss Detail">
-    <Setting Key="Age_Rpt_MatchWinlossDetail_Master" SpName="Age_Rpt_MatchWinlossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_MatchWinlossDetail_Master" SpName="Age_Rpt_MatchWinlossDetail_Master_xpre" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_MatchWinLossDetail_Agent" SpName="Age_Rpt_MatchWinLossDetail_Agent_xpre" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_MatchWinLossDetail_Member" SpName="Age_Rpt_MatchWinLossDetail_Member_xpre" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
