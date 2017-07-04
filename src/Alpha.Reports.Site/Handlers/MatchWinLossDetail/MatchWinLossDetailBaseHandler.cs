@@ -4,9 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using App_GlobalResources;
     using Extensions;
-    using Fanex.Common;
     using Params;
     using RemotingRef;
     using Reports.Constants;
@@ -59,7 +57,9 @@
 
         protected BetTypeWinLossViewModel GetMixParlay(IEnumerable<MatchWinLossDetailModel> reportData)
         {
-            var mixParlayData = reportData.FirstOrDefault(data => data.IsParlay && data.BetType == BetTypeIdConstants.MixParlay);
+            var mixParlayData = reportData.FirstOrDefault(data => data.IsParlay &&
+                (data.BetType == BetTypeIdConstants.MixParlay || data.BetType == BetTypeIdConstants.MixParlayBetRadarVirtualSports));
+
             return mixParlayData == null
                 ? null
                 : new BetTypeWinLossViewModel(mixParlayData, cacheRefService.GetBetType(mixParlayData.BetType));

@@ -334,8 +334,8 @@
     <value>輸贏</value>
   </data>
   <data name="CommissionByBettype" xml:space="preserve">
-		<value>投注產品分類佣金</value>
-	</data>
+    <value>投注產品分類佣金</value>
+  </data>
   <data name="NumberGameNo" xml:space="preserve">
     <value>數字遊戲編號</value>
   </data>
@@ -370,35 +370,35 @@
     <value>禁用</value>
   </data>
   <data name="RacingCommission" xml:space="preserve">
-		<value>賽馬佣金</value>
-	</data>
+    <value>賽馬佣金</value>
+  </data>
   <data name="Tote" xml:space="preserve">
-		<value>體彩</value>
-	</data>
+    <value>體彩</value>
+  </data>
   <data name="Win" xml:space="preserve">
-		<value>獨贏</value>
-	</data>
+    <value>獨贏</value>
+  </data>
   <data name="Place" xml:space="preserve">
-		<value>位置</value>
-	</data>
+    <value>位置</value>
+  </data>
   <data name="WinPlace" xml:space="preserve">
-		<value>獨贏及位置</value>
-	</data>
+    <value>獨贏及位置</value>
+  </data>
   <data name="Commission" xml:space="preserve">
-		<value>佣金</value>
-	</data>
+    <value>佣金</value>
+  </data>
   <data name="Gaming" xml:space="preserve">
-		<value>Gaming</value>
-	</data>
+    <value>Gaming</value>
+  </data>
   <data name="ChargeComm" xml:space="preserve">
-		<value>抽取傭金</value>
-	</data>
+    <value>抽取傭金</value>
+  </data>
   <data name="SymbolMyanmarOdds" xml:space="preserve">
-		<value>% Odds</value>
-	</data>
+    <value>% Odds</value>
+  </data>
   <data name="Others" xml:space="preserve">
-		<value>其他</value>
-	</data>
+    <value>其他</value>
+  </data>
   <data name="Commission1" xml:space="preserve">
     <value>佣金 1</value>
   </data>
@@ -605,5 +605,8 @@
   </data>
   <data name="BetList_Running" xml:space="preserve">
     <value>投注歷史(進行中)</value>
+  </data>
+  <data name="VirtualSports" xml:space="preserve">
+    <value>虚拟运动</value>
   </data>
 </root>

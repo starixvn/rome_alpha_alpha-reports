@@ -36,7 +36,7 @@
             SuperNetWinLoss = superNetWinLoss;
             CompanyNetWinLoss = companyNetWinLoss;
 
-            Name = GetBetTypePrefix() + (name ?? string.Empty);
+            Name = GetBetTypePrefix() + (name ?? string.Empty) + GetBetTypeSuffix();
         }
 
         public BetTypeWinLossViewModel(MatchWinLossDetailModel winLoss, string betTypeName) :
@@ -109,6 +109,16 @@
                 default:
                     return string.Empty;
             }
+        }
+
+        private string GetBetTypeSuffix()
+        {
+            if (Id == BetTypeIdConstants.MixParlayBetRadarVirtualSports)
+            {
+                return $" ({Resources.VirtualSports})";
+            }
+
+            return string.Empty;
         }
     }
 }
