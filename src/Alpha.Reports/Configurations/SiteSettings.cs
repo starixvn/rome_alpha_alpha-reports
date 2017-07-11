@@ -10,7 +10,7 @@
         [ThreadStatic]
         private static NameValueCollection appSettings;
 
-        public static bool LocalTest => Converter.ToBool(GetConfigValue("LocalTest"));
+        public static bool LocalTest => GetConfigValue("LocalTest") == "1";
 
         public static string StoreProcedurePath => GetConfigValue("StoredProcedurePath");
 
