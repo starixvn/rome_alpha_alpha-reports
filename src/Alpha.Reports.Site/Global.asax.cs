@@ -35,7 +35,7 @@
                 .StartNewSession()
                 .UseDefaultConnectionStringProvider()
                 .UseDefaultDbSettingProvider(
-                    resourcePath: SiteSettings.StoreProcedurePath,
+                    resourcePath: SiteSettings.StoredProcedurePath,
                     enableWatching: true)
                 .Run();
 
