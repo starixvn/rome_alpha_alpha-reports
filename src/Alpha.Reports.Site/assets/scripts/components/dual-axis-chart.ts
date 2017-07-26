@@ -35,7 +35,6 @@ class DualAxisChartComponent {
     render = (options: DualAxisChartOption = new DualAxisChartOption) => {
         let chartOptions = <DualAxisChartOption>this.$.extend({}, this.options, options);
         let chartStyles = this.chartStyles;
-
         this.chart.defaults.global.defaultFontFamily = chartStyles.fontFamily;
         this.chart.defaults.global.defaultFontColor = chartStyles.textColor;
         this.chart.defaults.global.defaultFontSize = chartStyles.defaultFontSize;
@@ -56,7 +55,7 @@ class DualAxisChartComponent {
                 backgroundColor: chartStyles.lineColor,
                 fill: false,
                 lineTension: 0,
-                data: chartContainer.data("y-axis-1").split(","),
+                data: chartContainer.attr("data-y-axis-1").split(","),
                 yAxisID: "y-axis-1"
             }, {
                 label: chartContainer.data("y-axis-2-label"),
@@ -64,7 +63,7 @@ class DualAxisChartComponent {
                 borderColor: chartStyles.barColor,
                 backgroundColor: chartStyles.barColor,
                 fill: false,
-                data: chartContainer.data("y-axis-2").split(","),
+                data: chartContainer.attr("data-y-axis-2").split(","),
                 yAxisID: "y-axis-2"
             }]
         };
