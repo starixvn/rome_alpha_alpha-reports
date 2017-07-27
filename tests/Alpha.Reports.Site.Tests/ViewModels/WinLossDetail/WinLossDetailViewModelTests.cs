@@ -72,7 +72,6 @@
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
                 "NewBetListPath",
                 Arg.Is<Dictionary<string, object>>(routeValue => compareLogic.Compare(expectedRouteValues, routeValue).AreEqual));
-
         }
 
         [Theory]

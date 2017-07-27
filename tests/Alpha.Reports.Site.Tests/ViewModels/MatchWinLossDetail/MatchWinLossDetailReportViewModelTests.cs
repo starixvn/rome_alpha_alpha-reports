@@ -49,7 +49,6 @@
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
-            Site.Helpers.UrlHelper.MapExMainPath = (url) => url;
             Site.Helpers.UrlHelper.MapBetListPath = (url) => url;
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = (url, routeValues) => url + "?" + JsonConvert.SerializeObject(routeValues);
             SystemTime.Today = DefaultVariables.CurrentDate;
@@ -64,8 +63,9 @@
                 param: param,
                 products: null,
                 leagues: null);
-            Site.Helpers.UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
 
+            Site.Helpers.UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
+            Site.Helpers.UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
         }
 
         [Fact]
@@ -358,7 +358,7 @@
         public void GetBetListLink_Always_ReturnsCorrectBetListLink()
         {
             // Arrange
-            var expectedBetListLink = "~/WinLossByMatch/Index?{\"BetType\":1}";
+            var expectedBetListLink = "BetListPath?{\"BetType\":1}";
 
             // Act
             var actualBetListLink = viewModel.GetBetListLink(new Dictionary<string, object>

@@ -119,8 +119,8 @@
         protected override IDictionary<string, object> GetBetListLinkRouteValues(TReportData model)
             => new Dictionary<string, object>
             {
-                { "FDate",  FromDate },
-                { "TDate", ToDate },
+                { "FromDate",  FromDate },
+                { "ToDate", ToDate },
                 { "ProductIds", UserSelectedProductIds },
                 { "FilterPostback", 1 },
                 { "Type", "WLByDate" }
