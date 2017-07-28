@@ -6,6 +6,12 @@ namespace Alpha.Reports.Models.WinLossByProduct
 {
     public class WinLossBySportModel
     {
+        private static IDictionary<int, bool> ProductsHaveBetTypesGroupedBySport = new Dictionary<int, bool>
+        {
+            [ProductIdConstants.NG2] =  true,
+            [ProductIdConstants.VirtualSports] = true
+        };
+
         public WinLossBySportModel(
             int sportId,
             string sportName,
@@ -26,7 +32,7 @@ namespace Alpha.Reports.Models.WinLossByProduct
 
         public WinLossByBetTypeModel Total { get; private set; }
 
-        public static bool IsShowBetTypeDirectly(int productId) => productId != ProductIdConstants.NG2;
+        public static bool IsShowBetTypeDirectly(int productId) => !ProductsHaveBetTypesGroupedBySport.ContainsKey(productId);
 
         public WinLossBySportModel AccumulateTotal()
         {
