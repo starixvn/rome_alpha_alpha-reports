@@ -2,10 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using Configurations;
     using Helpers;
     using Reports.Models;
-    using Web.Helpers;
 
     public abstract class DrillDownableReportViewModel<T> where T : class
     {
