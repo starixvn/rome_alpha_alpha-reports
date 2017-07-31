@@ -26,7 +26,7 @@ namespace Alpha.Reports.Tests.Configurations
             // Arrange
             SiteSettings.AppSettings = new NameValueCollection
             {
-                ["StoreProcedurePath"] = "Local"
+                ["StoredProcedurePath"] = "Local"
             };
 
             // Act & Assert
@@ -39,7 +39,7 @@ namespace Alpha.Reports.Tests.Configurations
             // Arrange
             SiteSettings.AppSettings = new NameValueCollection
             {
-                ["StoreProcedurePath"] = "Local",
+                ["StoredProcedurePath"] = "Local",
                 ["ReportsAppPath"] = "site-reports"
             };
             var passVerify = false;

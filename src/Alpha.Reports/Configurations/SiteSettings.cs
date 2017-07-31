@@ -12,7 +12,7 @@
 
         public static bool LocalTest => Converter.ToBool(GetConfigValue("LocalTest"));
 
-        public static string StoreProcedurePath => GetConfigValue("StoreProcedurePath");
+        public static string StoreProcedurePath => GetConfigValue("StoredProcedurePath");
 
         public static string ReportsAppPath => GetConfigValue("ReportsAppPath");
 
