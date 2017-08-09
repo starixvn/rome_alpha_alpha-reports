@@ -1,6 +1,6 @@
-﻿using Alpha.IntegrationTest.Mapper;
-using Alpha.IntegrationTest.Repository;
-using Alpha.Reports.StaticData.Configurations;
+﻿using Alpha.Reports.StaticData.Configurations;
+using Alpha.StaticData.Mappers;
+using Alpha.StaticData.Repositories;
 using Fanex.Data.Repository;
 using SimpleInjector;
 
@@ -10,7 +10,7 @@ namespace Alpha.Reports.StaticData.AppStart
     {
         public static void Register(Container container)
         {
-            container.Register<IMapperForStaticData, MapperForStaticData>(Lifestyle.Singleton);
+            container.Register<IRepositoryMapper, RepositoryMapper>(Lifestyle.Singleton);
             container.Register<IDynamicRepository, StaticRepository>(Lifestyle.Singleton);
         }
     }

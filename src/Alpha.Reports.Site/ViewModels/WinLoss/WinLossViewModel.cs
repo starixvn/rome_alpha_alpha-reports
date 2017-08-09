@@ -85,7 +85,6 @@
             {
                 ["CustId"] = model.CustId,
                 ["CustName"] = model.CustName
-
             };
     }
 }

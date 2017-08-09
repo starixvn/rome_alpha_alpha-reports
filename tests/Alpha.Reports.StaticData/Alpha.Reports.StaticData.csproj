@@ -32,8 +32,8 @@
     <CodeAnalysisRuleSet>Alpha.Reports.StaticData.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Alpha.IntegrationTest, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.IntegrationTest.1.0.0-beta06\lib\net40\Alpha.IntegrationTest.dll</HintPath>
+    <Reference Include="Alpha.StaticData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.StaticData.1.0.0-IntegrationTest-02\lib\net40\Alpha.StaticData.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -90,9 +90,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppStart\DependencyRegister.cs" />
-    <Compile Include="Configurations\MapperForStaticData.cs" />
-    <Compile Include="DataAccesses\Consolidation\ConsolidationExcelRepository.cs" />
-    <Compile Include="DataAccesses\ReportExcelRepository.cs" />
+    <Compile Include="Configurations\DataModelMapper.cs" />
+    <Compile Include="Configurations\RepositoryMapper.cs" />
+    <Compile Include="Configurations\StaticDataMapper.cs" />
+    <Compile Include="Repositories\Consolidation\ConsolidationExcelRepository.cs" />
+    <Compile Include="Repositories\ReportExcelRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

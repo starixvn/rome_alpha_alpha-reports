@@ -5,7 +5,6 @@
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
-    using Configurations;
     using Params;
     using Reports.Constants;
     using Reports.Models;
@@ -71,7 +70,6 @@
              {
                  ["CustId"] = model.CustId,
                  ["CustName"] = model.CustName
-
              };
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System.IO;
-using Alpha.IntegrationTest.Npoi;
-using Alpha.IntegrationTest.Repository;
 using Alpha.Reports.StaticData.Configurations;
+using Alpha.StaticData.NPOIExtensions;
+using Alpha.StaticData.Repositories;
 using NPOI.SS.UserModel;
 
-namespace Alpha.Reports.StaticData.DataAccesses
+namespace Alpha.Reports.StaticData.Repositories
 {
     public class ReportExcelRepository : ExcelRepository
     {
@@ -13,10 +13,10 @@ namespace Alpha.Reports.StaticData.DataAccesses
 
         public override void InitMapper()
         {
-            Mapper = new MapperForStaticData();
+            Mapper = new DataModelMapper();
         }
 
         public override IWorkbook LoadWorkbook(string excelFileName)
-            => NpoiWorkbook.Load($"{baseDirectory}\\ExcelData\\{excelFileName}");
+            => WorkbookExtension.Load($"{baseDirectory}\\ExcelData\\{excelFileName}");
     }
 }
