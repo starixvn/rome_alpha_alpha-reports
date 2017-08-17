@@ -335,8 +335,8 @@
     <value>ชนะ แพ้</value>
   </data>
   <data name="CommissionByBettype" xml:space="preserve">
-		<value>คอมมิชั่นจากประเภทพนัน</value>
-	</data>
+    <value>คอมมิชั่นจากประเภทพนัน</value>
+  </data>
   <data name="NumberGameNo" xml:space="preserve">
     <value>เกมหมายเลข เลขที่</value>
   </data>
@@ -371,35 +371,35 @@
     <value>ปิดการใช้งาน</value>
   </data>
   <data name="RacingCommission" xml:space="preserve">
-		<value>คอมมิสชั่นการแข่งขันม้า</value>
-	</data>
+    <value>คอมมิสชั่นการแข่งขันม้า</value>
+  </data>
   <data name="Tote" xml:space="preserve">
-		<value>ยอดรวม</value>
-	</data>
+    <value>ยอดรวม</value>
+  </data>
   <data name="Win" xml:space="preserve">
-		<value>ชนะ</value>
-	</data>
+    <value>ชนะ</value>
+  </data>
   <data name="Place" xml:space="preserve">
-		<value>วาง</value>
-	</data>
+    <value>วาง</value>
+  </data>
   <data name="WinPlace" xml:space="preserve">
-		<value>ชนะ / ตำแหน่ง</value>
-	</data>
+    <value>ชนะ / ตำแหน่ง</value>
+  </data>
   <data name="Commission" xml:space="preserve">
-		<value>คอมมิชชั่น</value>
-	</data>
+    <value>คอมมิชชั่น</value>
+  </data>
   <data name="Gaming" xml:space="preserve">
-		<value>Gaming</value>
-	</data>
+    <value>Gaming</value>
+  </data>
   <data name="ChargeComm" xml:space="preserve">
-		<value>ค่าธรรมเนียม คอมมิชชั่น</value>
-	</data>
+    <value>ค่าธรรมเนียม คอมมิชชั่น</value>
+  </data>
   <data name="SymbolMyanmarOdds" xml:space="preserve">
-		<value>% Odds</value>
-	</data>
+    <value>% Odds</value>
+  </data>
   <data name="Others" xml:space="preserve">
-		<value>อื่นๆ</value>
-	</data>
+    <value>อื่นๆ</value>
+  </data>
   <data name="Commission1" xml:space="preserve">
     <value>คอมมิชชั่น 1</value>
   </data>
@@ -606,5 +606,8 @@
   </data>
   <data name="BetList_Running" xml:space="preserve">
     <value>รายการการเดิมพัน ( ที่กำลังแข่ง )</value>
+  </data>
+  <data name="VirtualSports" xml:space="preserve">
+    <value>กีฬาอนิเมชั่น</value>
   </data>
 </root>

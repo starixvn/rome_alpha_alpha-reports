@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Alpha.Reports.Models.WinlossByBetType;
-using Alpha.Reports.Models.WinLossByProduct;
+﻿using Alpha.Reports.Models.WinLossByProduct;
 using Xunit;
 
 namespace Alpha.Reports.Tests.Models.WinLossByProduct
@@ -11,6 +9,7 @@ namespace Alpha.Reports.Tests.Models.WinLossByProduct
         [Theory]
         [InlineData(1, true)]
         [InlineData(23, false)]
+        [InlineData(5, false)]
         public void IsShowBetTypeDirectly_Always_ReturnsCorrectValue(int productId, bool expectedValue)
         {
             // Act

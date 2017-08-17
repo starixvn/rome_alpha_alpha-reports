@@ -12,6 +12,7 @@ namespace Alpha.Reports.Constants
 
         public const int MixParlay = 9;
         public const int SystemParlay = 29;
+        public const int MixParlayBetRadarVirtualSports = 2799;
 
         public const int StartRacing = 31;
         public const int EndRacing = 33;

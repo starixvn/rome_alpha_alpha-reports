@@ -10,9 +10,9 @@
         [ThreadStatic]
         private static NameValueCollection appSettings;
 
-        public static bool LocalTest => Converter.ToBool(GetConfigValue("LocalTest"));
+        public static bool LocalTest => GetConfigValue("LocalTest") == "1";
 
-        public static string StoreProcedurePath => GetConfigValue("StoredProcedurePath");
+        public static string StoredProcedurePath => GetConfigValue("StoredProcedurePath");
 
         public static string ReportsAppPath => GetConfigValue("ReportsAppPath");
 
@@ -27,7 +27,7 @@
 
         public static void Verify()
         {
-            Require(StoreProcedurePath, nameof(StoreProcedurePath));
+            Require(StoredProcedurePath, nameof(StoredProcedurePath));
             Require(ReportsAppPath, nameof(ReportsAppPath));
         }
 

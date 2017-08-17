@@ -301,8 +301,8 @@
     <value>승리 패배</value>
   </data>
   <data name="CommissionByBettype" xml:space="preserve">
-		<value>배팅 종류에 따른 수수료</value>
-	</data>
+    <value>배팅 종류에 따른 수수료</value>
+  </data>
   <data name="NumberGameNo" xml:space="preserve">
     <value>라이브빙고 번호</value>
   </data>
@@ -337,35 +337,35 @@
     <value>비활성화</value>
   </data>
   <data name="RacingCommission" xml:space="preserve">
-		<value>경마 수수료</value>
-	</data>
+    <value>경마 수수료</value>
+  </data>
   <data name="Tote" xml:space="preserve">
-		<value>Tote</value>
-	</data>
+    <value>Tote</value>
+  </data>
   <data name="Win" xml:space="preserve">
-		<value>승</value>
-	</data>
+    <value>승</value>
+  </data>
   <data name="Place" xml:space="preserve">
-		<value>순위</value>
-	</data>
+    <value>순위</value>
+  </data>
   <data name="WinPlace" xml:space="preserve">
-		<value>승리 순위</value>
-	</data>
+    <value>승리 순위</value>
+  </data>
   <data name="Commission" xml:space="preserve">
-		<value>수수료</value>
-	</data>
+    <value>수수료</value>
+  </data>
   <data name="Gaming" xml:space="preserve">
-		<value>Gaming</value>
-	</data>
+    <value>Gaming</value>
+  </data>
   <data name="ChargeComm" xml:space="preserve">
-		<value>ChargeComm</value>
-	</data>
+    <value>ChargeComm</value>
+  </data>
   <data name="SymbolMyanmarOdds" xml:space="preserve">
-		<value>% Odds</value>
-	</data>
+    <value>% Odds</value>
+  </data>
   <data name="Others" xml:space="preserve">
-		<value>Others</value>
-	</data>
+    <value>Others</value>
+  </data>
   <data name="Commission1" xml:space="preserve">
     <value>수수료 1</value>
   </data>
@@ -473,5 +473,8 @@
   </data>
   <data name="BetList_Running" xml:space="preserve">
     <value>배팅 목록(진행중)</value>
+  </data>
+  <data name="VirtualSports" xml:space="preserve">
+    <value>가상 스포츠</value>
   </data>
 </root>

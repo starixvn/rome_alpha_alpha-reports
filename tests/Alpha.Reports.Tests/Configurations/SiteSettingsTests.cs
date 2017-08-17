@@ -8,7 +8,7 @@ namespace Alpha.Reports.Tests.Configurations
     public class SiteSettingsTests
     {
         [Fact]
-        public void Verify_MissingStoreProcedurePath_ThrowsConfigurationErrorsException()
+        public void Verify_MissingStoredProcedurePath_ThrowsConfigurationErrorsException()
         {
             // Arrange
             SiteSettings.AppSettings = new NameValueCollection
