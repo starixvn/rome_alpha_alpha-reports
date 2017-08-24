@@ -3,10 +3,12 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
+    using Configurations;
     using Controllers;
     using DataAccesses;
     using Fanex.Data.Repository;
     using Handlers.CommissionByBettype;
+    using Handlers.Consolidation;
     using Handlers.MatchWinLossDetail;
     using Handlers.Statement;
     using Handlers.WinLossByProduct;
@@ -90,6 +92,7 @@
 
             container.RegisterSingleton<MatchWinLossDetailService, MatchWinLossDetailServiceImpl>();
             container.RegisterSingleton<UserPermissionService, UserPermissionServiceImpl>();
+            container.RegisterSingleton<ConsolidationService, ConsolidationServiceImpl>();
 
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
@@ -108,17 +111,28 @@
             container.RegisterSingleton<StatementService, StatementServiceImpl>();
             container.RegisterSingleton<MemberStatementWorkbook, MemberStatementWorkbookImpl>();
             container.RegisterSingleton<StatementWorkbook, StatementWorkbookImpl>();
+
+            container.RegisterSingleton<ConsolidationByDateWorkbook, WinLossByDateWorkbookImpl>();
+            container.RegisterSingleton<ConsolidationByProductWorkbook, ConsolidationByProductWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)
         {
-            container.RegisterSingleton<IDynamicRepository, DynamicRepository>();
             container.RegisterSingleton<WinLossDetailDataAccess, WinLossDetailDataAccessImpl>();
             container.RegisterSingleton<WinLossDataAccess, WinLossDataAccessImpl>();
             container.RegisterSingleton<WinLossAnalysisDataAccess, WinLossAnalysisDataAccessImpl>();
             container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
             container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
             container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
+
+            if (SiteSettings.EnabledStaticData)
+            {
+                StaticData.AppStart.DependencyRegister.Register(container);
+            }
+            else
+            {
+                container.Register<IDynamicRepository, DynamicRepository>(Lifestyle.Singleton);
+            }
         }
 
         private static void RegisterStaticInstances(Container container)

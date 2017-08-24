@@ -1,0 +1,15 @@
+﻿@using Alpha.Reports.Site.ViewModels.Components;
+@using Alpha.Reports.Site.App_GlobalResources;
+
+@helper Render(CurrencySelectionViewModel currencySelectionViewModel)
+{
+    <div class="form-group">
+        <select id="dropdown-currencies">
+            @foreach (var currency in currencySelectionViewModel.Currencies)
+            {
+                <option value="@currency.Value" @(currency.Selected ? "selected=\"selected\"" : string.Empty)>@currency.Text</option>
+            }
+        </select>
+        <input id="UserSelectedCurrencyId" type="hidden" name="UserSelectedCurrencyId" value="@currencySelectionViewModel.UserSelectedCurrencyId" />
+    </div>
+}

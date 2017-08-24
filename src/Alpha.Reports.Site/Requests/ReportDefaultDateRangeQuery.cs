@@ -26,17 +26,24 @@
         public override bool IsValid()
         {
             //// TODO: Side effect here
+            AssignFromDateValue();
+
+            return base.IsValid() && CheckDateRangeConstraint();
+        }
+
+        public void AssignFromDateValue()
+        {
             if (FromDate == DateTime.MinValue)
             {
                 FromDate = IsHistoricReport
                     ? SystemTime.Today.FirstDayOfMonth()
                     : SystemTime.Today;
             }
-
-            return base.IsValid()
-                && FromDate <= ToDate
-                && FromDate >= MinDate
-                && (!IsHistoricReport || FromDate.IsSameMonthWith(ToDate));
         }
+
+        public bool CheckDateRangeConstraint()
+            => FromDate <= ToDate
+            && FromDate >= MinDate
+            && (!IsHistoricReport || FromDate.IsSameMonthWith(ToDate));
     }
 }

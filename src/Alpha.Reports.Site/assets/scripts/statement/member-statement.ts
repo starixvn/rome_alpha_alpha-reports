@@ -77,10 +77,9 @@ class MemberStatementView extends StatementView {
     viewBetList = (element: JQuery, transactionType: number) => {
         let param = {
             custid: this.custId,
-            fdate: element.data("transfer-date"),
+            winlossdate: element.data("transfer-date"),
             transtype: transactionType,
-            type: "BLDailyST",
-            username: this.custName
+            custname: this.custName
         };
 
         var url = this.betListUrl + "?" + jQuery.param(param);

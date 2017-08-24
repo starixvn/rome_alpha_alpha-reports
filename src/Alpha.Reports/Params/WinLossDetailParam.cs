@@ -5,7 +5,7 @@
     using Constants;
     using Models;
 
-    public class WinLossDetailParam : SupportedHistoryReportParam
+    public class WinLossDetailParam : WinLossParam
     {
         public WinLossDetailParam(
             int custId,
@@ -17,51 +17,21 @@
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
-            bool isHistoricReport) : base(fromDate, toDate, isHistoricReport)
+            bool isHistoricReport) : base(custId, fromDate, toDate, userSelectedProductIds, reportLevel, isHistoricReport)
         {
-            CustId = custId;
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;
+            SortByPropertyName = sortByPropertyName;
 
-            ReportLevel = reportLevel;
-
-            SortByPropertyName = string.IsNullOrWhiteSpace(sortByPropertyName)
-                ? DefaultVariables.SortPropertyName
-                : GetSortedProperty(sortByPropertyName);
-
-            UserSelectedProductIds = userSelectedProductIds;
             IsDescendingSort = isDescendingSort;
         }
-
-        public int CustId { get; }
 
         public int PageIndex { get; }
 
         public int PageSize { get; }
 
-        public IEnumerable<int> UserSelectedProductIds { get; }
-
-        public UserLevel ReportLevel { get; }
-
         public string SortByPropertyName { get; }
 
         public bool IsDescendingSort { get; }
-
-        private string GetSortedProperty(string sortedProperty)
-        {
-            var isInRange =
-                ReportLevel.IsSuperLevel()
-                || (ReportLevel.IsMasterLevel() && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase))
-                || (ReportLevel.IsAgentLevel()
-                        && !sortedProperty.StartsWith("Super", StringComparison.OrdinalIgnoreCase)
-                        && !sortedProperty.StartsWith("Master", StringComparison.OrdinalIgnoreCase));
-
-            if (!isInRange)
-            {
-                return DefaultVariables.SortPropertyName;
-            }
-
-            return sortedProperty;
-        }
     }
 }

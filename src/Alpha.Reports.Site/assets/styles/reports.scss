@@ -301,6 +301,14 @@ a {
     .radio input[type="radio"] {
         position: relative;
     }
+
+    #report-by-username {
+        margin-left: 10px;
+    }
+
+    label[for] {
+        cursor: pointer;
+    }
 }
 
 // Ripple effect

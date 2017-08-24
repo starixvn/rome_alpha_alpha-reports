@@ -16,6 +16,7 @@
     using Services;
     using Site.Requests.MatchWinLossDetail;
     using Site.ViewModels.MatchWinLossDetail;
+    using Utils;
     using Xunit;
 
     [Trait("Category", "MatchWinLossDetail")]
@@ -48,6 +49,10 @@
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
+            Site.Helpers.UrlHelper.MapBetListPath = (url) => url;
+            Site.Helpers.UrlHelper.AddQueryStringParamsFunc = (url, routeValues) => url + "?" + JsonConvert.SerializeObject(routeValues);
+            SystemTime.Today = DefaultVariables.CurrentDate;
+
             viewModel = new MatchWinLossDetailReportViewModel(
                 noParlayMatchWinLossDetail: null,
                 noParlayWinLossTotal: null,
@@ -61,8 +66,6 @@
 
             Site.Helpers.UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
             Site.Helpers.UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
-
-            Site.Helpers.UrlHelper.AddQueryStringParamsFunc = (url, routeValues) => url + "?" + JsonConvert.SerializeObject(routeValues);
         }
 
         [Fact]
@@ -402,13 +405,15 @@
 
             var expectRouteValues = new Dictionary<string, object>
             {
+                ["CustId"] = viewModel.CustId,
+                ["CustName"] = viewModel.CustName,
+                ["CustLevelId"] = viewModel.CustLevelId,
                 ["BetType"] = betType.Id,
-                ["Type"] = "WLByBettypeMatch",
-                ["IsLive"] = liveIndicator ? 1 : 0,
-                ["leagueid"] = match.LeagueId,
-                ["fdate"] = fromDate,
-                ["tdate"] = toDate,
-                ["race"] = 2
+                ["LiveIndicator"] = liveIndicator ? 1 : 0,
+                ["LeagueId"] = match.LeagueId,
+                ["FromDate"] = fromDate,
+                ["ToDate"] = toDate,
+                ["Race"] = 2
             };
 
             // Act
@@ -433,13 +438,15 @@
 
             var expectRouteValues = new Dictionary<string, object>
             {
+                ["CustId"] = viewModel.CustId,
+                ["CustName"] = viewModel.CustName,
+                ["CustLevelId"] = viewModel.CustLevelId,
                 ["BetType"] = betType.Id,
-                ["Type"] = "WLByBettypeMatch",
-                ["IsLive"] = liveIndicator ? 1 : 0,
-                ["matchid"] = match.MatchId,
-                ["leagueid"] = match.LeagueId,
-                ["fdate"] = fromDate,
-                ["tdate"] = toDate
+                ["LiveIndicator"] = liveIndicator ? 1 : 0,
+                ["MatchId"] = match.MatchId,
+                ["LeagueId"] = match.LeagueId,
+                ["FromDate"] = fromDate,
+                ["ToDate"] = toDate
             };
 
             // Act
@@ -464,10 +471,12 @@
 
             var expectRouteValues = new Dictionary<string, object>
             {
+                ["CustId"] = viewModel.CustId,
+                ["CustName"] = viewModel.CustName,
+                ["CustLevelId"] = viewModel.CustLevelId,
                 ["BetType"] = betType.Id,
-                ["Type"] = "WLByBettypeMatch",
-                ["IsLive"] = betType.IsLive ? 1 : 0,
-                ["matchid"] = match.MatchId
+                ["LiveIndicator"] = betType.IsLive ? 1 : 0,
+                ["MatchId"] = match.MatchId
             };
 
             // Act
@@ -478,26 +487,23 @@
         }
 
         [Fact]
-        public void GetParlayBetListLinkRouteValues_Always_ReturnsCorrectRouteValues()
+        public void GetParlayBetListLink_Always_ReturnsCorrectLink()
         {
             // Arrange
-            var fromDate = anyValueCreatorFixture.Create<DateTime>();
-            var toDate = anyValueCreatorFixture.Create<DateTime>();
-            var betType = anyValueCreatorFixture.Create<int>();
+            var fromDate = SystemTime.Today;
+            var toDate = SystemTime.Today;
+            var betType = 1;
 
-            var expectRouteValues = new Dictionary<string, object>
-            {
-                ["fdate"] = fromDate,
-                ["tdate"] = toDate,
-                ["bettype"] = betType,
-                ["type"] = "MixParlayByMatch"
-            };
+            var expectLink = "~/ParlayWinLossByMatch/Index?{\"CustId\":" +
+                param.CustId +
+                ",\"CustName\":\"Name\",\"CustLevelId\":" +
+                query.CustLevel.Value + ",\"FromDate\":\"2016-12-02T00:00:00\",\"ToDate\":\"2016-12-02T00:00:00\",\"BetType\":1}";
 
             // Act
-            var actualRouteValues = viewModel.GetParlayBetListLinkRouteValues(betType, fromDate, toDate);
+            var actualLink = viewModel.GetParlayBetListLink(betType, fromDate, toDate);
 
             // Assert
-            AssertExtension.Equal(expectRouteValues, actualRouteValues);
+            AssertExtension.Equal(expectLink, actualLink);
         }
     }
 }

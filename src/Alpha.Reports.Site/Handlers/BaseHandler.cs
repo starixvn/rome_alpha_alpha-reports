@@ -6,7 +6,9 @@
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using App_GlobalResources;
     using Fanex.Common;
+    using Reports.Constants;
     using Reports.Models;
     using Requests;
 
@@ -128,6 +130,32 @@
             var templateFolderName = reportNamespace.Substring(lastIndexOfDot);
 
             return templateFolderName;
+        }
+
+        protected internal IEnumerable<SelectListItem> BuildCurrencySelectListItems(
+            IEnumerable<CurrencyModel> currencies,
+            int userSelectedCurrency)
+        {
+            var result = new List<SelectListItem>();
+
+            result.Add(new SelectListItem
+            {
+                Text = Resources.All,
+                Value = DefaultVariables.AllCurrencies.ToString(),
+                Selected = userSelectedCurrency == DefaultVariables.AllCurrencies
+            });
+
+            foreach (var currency in currencies)
+            {
+                result.Add(new SelectListItem
+                {
+                    Text = currency.Name,
+                    Value = currency.Id.ToString(),
+                    Selected = userSelectedCurrency == currency.Id
+                });
+            }
+
+            return result;
         }
     }
 }

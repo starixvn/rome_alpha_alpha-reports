@@ -29,17 +29,17 @@
         protected string BetListPath { get; set; }
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed!")]
-        public virtual string BuildDrillDownLink(T model, string currentUrl)
+        public virtual string BuildDrillDownLink(T model, string currentLink)
             => CustLevel.IsAgentLevel()
             ? BuildBetListLink(model)
-            : BuildDownlineLink(model, currentUrl);
+            : BuildDownlineLink(model, currentLink);
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed!")]
-        protected virtual string BuildDownlineLink(T model, string currentUrl)
+        protected virtual string BuildDownlineLink(T model, string currentLink)
         {
             var routeValues = GetDownlineLinkRouteValues(model);
             return UrlHelper.ReplaceOrAddQueryStringParamsFunc(
-                currentUrl,
+                currentLink,
                 new Dictionary<string, object>(routeValues)
                 {
                     { "CustLevelId", CustLevel.GetDirectDownLineLevel().Value },

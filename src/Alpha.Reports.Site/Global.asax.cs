@@ -11,6 +11,7 @@
     using Auth.Filters;
     using Configurations;
     using Fanex.Data;
+    using Fanex.Data.OldConnectionStringProvider;
     using Helpers;
     using ONEbook.UM.Filters;
     using Sunplus.Agent.Model.Entities;
@@ -33,7 +34,7 @@
 
             DbSettingProviderManager
                 .StartNewSession()
-                .UseDefaultConnectionStringProvider()
+                .Use(new OldConnectionStringProvider())
                 .UseDefaultDbSettingProvider(
                     resourcePath: SiteSettings.StoredProcedurePath,
                     enableWatching: true)

@@ -610,4 +610,28 @@
   <data name="VirtualSports" xml:space="preserve">
     <value>กีฬาอนิเมชั่น</value>
   </data>
+  <data name="Consolidation" xml:space="preserve">
+    <value>รวม</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>สกุลเงิน</value>
+  </data>
+  <data name="AllCurrencies" xml:space="preserve">
+    <value>สกุลเงินทั้งหมด</value>
+  </data>
+  <data name="ConsolidationReportByUsername" xml:space="preserve">
+    <value>รายงานรายชื่อผู้ใช้</value>
+  </data>
+  <data name="ConsolidationReportByDate" xml:space="preserve">
+    <value>รายงานงบการเงินประจำวัน</value>
+  </data>
+  <data name="ConsolidationReportByProduct" xml:space="preserve">
+    <value>รายงานงบการเงินรวมกีฬา</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>ระดับ</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>เจ้าของ</value>
+  </data>
 </root>

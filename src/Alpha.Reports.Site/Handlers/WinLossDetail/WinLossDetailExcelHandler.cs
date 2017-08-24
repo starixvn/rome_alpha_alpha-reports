@@ -7,6 +7,7 @@
     using ONEbook.SpreadSheets;
     using Params;
     using Reports.Models.WinLossDetail;
+    using Requests.Consolidation;
     using Requests.WinLossDetail;
     using Services;
     using ViewModels;
@@ -14,7 +15,8 @@
 
     public class WinLossDetailExcelHandler :
         WinLossDetailBaseHandler,
-        IRequestHandler<WinLossDetailExcelQuery, ExcelFileViewModel>
+        IRequestHandler<WinLossDetailExcelQuery, ExcelFileViewModel>,
+        IRequestHandler<ConsolidateWinLossDetailExcelQuery, ExcelFileViewModel>
     {
         private readonly Workbook<WinLossDetailModel> workbook;
 
@@ -34,18 +36,23 @@
             }
 
             var winLossDetailParam = CreateParameter(message, message.CustLevel);
-            var reportData = reportService.GetWinLossDetail(winLossDetailParam);
+
+            var reportData = message.ReportData ?? reportService.GetWinLossDetail(winLossDetailParam);
+
             var fileContent = workbook
-                .UseTemplate(GetTemplateInfo(message))
-                .Title(GetReportTitle(message))
-                .Header(Resources.ResourceManager.GetString)
-                .Body(reportData.DataSource, GetBodyRowMapper(message))
-                .Footer(reportData.TotalData, GetTotalRowMapper(message))
-                .Sheet(Resources.DefaultSheetName)
-                .ExportToBytes();
+               .UseTemplate(GetTemplateInfo(message))
+               .Title(GetReportTitle(message))
+               .Header(Resources.ResourceManager.GetString)
+               .Body(reportData.DataSource, GetBodyRowMapper(message))
+               .Footer(reportData.TotalData, GetTotalRowMapper(message))
+               .Sheet(Resources.DefaultSheetName)
+               .ExportToBytes();
 
             return new ExcelFileViewModel(GetExcelFileName(message, winLossDetailParam), fileContent);
         }
+
+        public ExcelFileViewModel Handle(ConsolidateWinLossDetailExcelQuery message)
+            => Handle((WinLossDetailExcelQuery)message);
 
         private string GetReportTitle(WinLossDetailExcelQuery message)
             => $"{Resources.WinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +

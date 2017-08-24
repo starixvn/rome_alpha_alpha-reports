@@ -1,0 +1,41 @@
+﻿@model ConsolidationFilterViewModel
+@{
+    var reportType = ViewData["ReportType"].ToString();
+}
+<form class="form-inline filter  @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form"
+      action="@Url.Action("ConsolidationBy" + reportType, "Consolidation")">
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+    @CurrencySelection.Render(Model.CurrencySelectionViewModel)
+    @DateRangePicker.Render(Model.DateRangePickerViewModel)
+
+    <div class="form-group">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        @Resources.ReportBy
+        @RenderReportTypeOption("username", Resources.Username)
+        @RenderReportTypeOption("date", Resources.Date)
+        @RenderReportTypeOption("product", Resources.Product)
+    </div>
+    <div class="note">
+        <span class="star">*</span>@Model.ViewDataInstructionMessage
+    </div>
+
+    @Html.Hidden("IsFilterVisible", Model.Visible ? "true" : "false")
+    @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+</form>
+
+@helper RenderReportTypeOption(string reportType, string label)
+{
+    <input id="report-by-@reportType" name="report-type" type="radio"
+           @(string.Equals(reportType, ViewData["ReportType"].ToString(), StringComparison.OrdinalIgnoreCase) ? "checked=\"checked\"" : string.Empty)
+           value="@Url.Action("ConsolidationBy" + reportType, "Consolidation")">
+    <label for="report-by-@reportType"> @label</label>
+}

@@ -681,4 +681,28 @@
   <data name="Month" xml:space="preserve">
     <value>Month</value>
   </data>
+  <data name="AllCurrencies" xml:space="preserve">
+    <value>All Currencies</value>
+  </data>
+  <data name="Consolidation" xml:space="preserve">
+    <value>Consolidation</value>
+  </data>
+  <data name="ConsolidationReportByDate" xml:space="preserve">
+    <value>Daily Consolidated Report</value>
+  </data>
+  <data name="ConsolidationReportByProduct" xml:space="preserve">
+    <value>Sport Consolidation Report</value>
+  </data>
+  <data name="ConsolidationReportByUsername" xml:space="preserve">
+    <value>Consolidation Report By Username</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
 </root>

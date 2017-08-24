@@ -2,9 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Threading;
     using System.Web.Mvc;
+    using Constants;
     using Extensions;
     using Reports.Models;
     using Site.Handlers;
@@ -18,6 +21,9 @@
         public BaseHandlerTests()
         {
             baseHandler = new BaseHandler();
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
 
         [Fact]
@@ -210,6 +216,52 @@
                     new CustInfo(1, "SUPER1", 4)
                 },
                 actualDrillDownInfo);
+        }
+
+        [Fact]
+        public void BuildCurrencySelectListItems_SelectAll_ReturnsCorrectItemList()
+        {
+            // Arrange
+            var userSelectedCurrency = DefaultVariables.AllCurrencies;
+            var currencies = new List<CurrencyModel>
+            {
+                new CurrencyModel(1, "Currency 1")
+            };
+
+            var expectedItemList = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "All", Value = DefaultVariables.AllCurrencies.ToString(), Selected = true },
+                new SelectListItem { Text = "Currency 1", Value = "1", Selected = false }
+             };
+
+            // Act
+            var actualItemList = baseHandler.BuildCurrencySelectListItems(currencies, userSelectedCurrency);
+
+            // Assert
+            AssertExtension.Equal(expectedItemList, actualItemList);
+        }
+
+        [Fact]
+        public void BuildCurrencySelectListItems_NotSelectAll_ReturnsCorrectItemList()
+        {
+            // Arrange
+            var userSelectedCurrency = 1;
+            var currencies = new List<CurrencyModel>
+            {
+                new CurrencyModel(1, "Currency 1")
+            };
+
+            var expectedItemList = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "All", Value = DefaultVariables.AllCurrencies.ToString(), Selected = false },
+                new SelectListItem { Text = "Currency 1", Value = "1", Selected = true }
+             };
+
+            // Act
+            var actualItemList = baseHandler.BuildCurrencySelectListItems(currencies, userSelectedCurrency);
+
+            // Assert
+            AssertExtension.Equal(expectedItemList, actualItemList);
         }
 
         [Fact]

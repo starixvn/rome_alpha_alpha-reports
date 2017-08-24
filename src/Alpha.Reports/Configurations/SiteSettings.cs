@@ -40,5 +40,7 @@
         }
 
         public static string BetListAppPath => GetConfigValue("BetListsAppPath") ?? "site-betlists";
+
+        public static bool EnabledStaticData => GetConfigValue("EnabledStaticData") == "1";
     }
 }

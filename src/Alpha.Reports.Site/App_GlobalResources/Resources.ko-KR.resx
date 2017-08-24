@@ -477,4 +477,25 @@
   <data name="VirtualSports" xml:space="preserve">
     <value>가상 스포츠</value>
   </data>
+  <data name="Currency" xml:space="preserve">
+    <value>화페</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>레벨단계</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>관리자</value>
+  </data>
+  <data name="ConsolidationReportByUsername" xml:space="preserve">
+    <value>아이디 통합 보고서</value>
+  </data>
+  <data name="AllCurrencies" xml:space="preserve">
+    <value>모든 화페</value>
+  </data>
+  <data name="ConsolidationReportByDate" xml:space="preserve">
+    <value>일과 연결 리포트</value>
+  </data>
+  <data name="ConsolidationReportByProduct" xml:space="preserve">
+    <value>스포츠 통합 리포트</value>
+  </data>
 </root>

@@ -6,7 +6,6 @@
     using App_GlobalResources;
     using Components;
     using Params;
-    using Reports.Models.MatchWinLoss;
     using Requests.MatchWinLoss;
 
     public class MatchWinLossReportViewModel : DrillDownableReportViewModel<MatchWinLossViewModel>
@@ -42,6 +41,7 @@
                 ? matchWinLossQuery.SortPropertyName
                 : DefaultSortProperty;
             IsDescendingSort = CanSort && matchWinLossQuery.IsDescendingSort;
+            BetListPath = Helpers.UrlHelper.MapBetListPath("~/WinLossByMatch/Index");
         }
 
         public string Title => Resources.MatchWinLoss;
@@ -87,8 +87,7 @@
             {
                 { "MatchId", model.MatchId },
                 { "BetType", model.BetTypeId },
-                { "type",  "WLByBettypeMatch" },
-                { "islive", model.LiveIndicator ? "1" : "0" }
+                { "LiveIndicator", model.LiveIndicator ? "1" : "0" }
             };
     }
 }
