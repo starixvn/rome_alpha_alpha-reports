@@ -8,6 +8,7 @@
     using Reports.Models;
     using Reports.Models.PlayForFun;
     using Requests.PlayForFun;
+    using System.Linq;
 
     public class PlayForFunReportViewModel : DrillDownableReportViewModel<PlayForFunModel>
     {
@@ -16,7 +17,7 @@
         public const string SortByMemberWinLoss = nameof(PlayForFunModel.WinLoss);
         public const string SortByPlayCount = nameof(PlayForFunModel.BetCount);
 
-        public static readonly Dictionary<int, string> BreadcrumbActions = new Dictionary<int, string>
+        public static readonly Dictionary<int, string> BreadcrumbActionsDictionary = new Dictionary<int, string>
         {
             [4] = "masteroragent",
             [3] = "masteroragent",
@@ -41,6 +42,8 @@
             Products = products;
             Statuses = statuses;
             ReportData = reportData;
+
+            BreadcrumbActions = breadcrumbLevel.Select(b => BreadcrumbActionsDictionary[b.CustLevelId]);
         }
 
         public int CustId => query.CustId;
@@ -68,6 +71,8 @@
         public IEnumerable<SelectListItem> Statuses { get; }
 
         public ReportData<PlayForFunModel> ReportData { get; }
+
+        public IEnumerable<string> BreadcrumbActions { get; }
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, query.UserSelectedProductId.ToString(), query.Language);

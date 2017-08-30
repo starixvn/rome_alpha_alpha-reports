@@ -3,7 +3,7 @@
     public class ConsolidationByUsername
     {
         public ConsolidationByUsername(
-            string breakDown,
+            int breakDown,
             int custId,
             string username,
             byte currencyId,

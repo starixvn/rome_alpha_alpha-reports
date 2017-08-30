@@ -598,7 +598,11 @@
     <Content Include="assets\bundles\consolidation\consolidation-detail.min.js">
       <DependentUpon>consolidation-detail.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\consolidation\consolidation.css" />
     <Content Include="assets\bundles\consolidation\consolidation.js" />
+    <Content Include="assets\bundles\consolidation\consolidation.min.css">
+      <DependentUpon>consolidation.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\consolidation\consolidation.min.js">
       <DependentUpon>consolidation.js</DependentUpon>
     </Content>
@@ -711,6 +715,12 @@
     <Content Include="assets\scripts\tests\libs\store.js" />
     <Content Include="assets\scripts\tests\libs\tablesorter.js" />
     <Content Include="assets\scripts\tests\libs\tiny-draggable.js" />
+    <Content Include="assets\styles\consolidation\consolidation.css">
+      <DependentUpon>consolidation.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\consolidation\consolidation.min.css">
+      <DependentUpon>consolidation.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.css">
       <DependentUpon>matchwinlossdetail.scss</DependentUpon>
     </Content>
@@ -871,6 +881,7 @@
     <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByDate.xls" />
     <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByProduct.xls" />
     <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByUsername.xls" />
+    <Content Include="assets\styles\consolidation\consolidation.scss" />
     <Content Include="App_Data\activitytracking.json" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />

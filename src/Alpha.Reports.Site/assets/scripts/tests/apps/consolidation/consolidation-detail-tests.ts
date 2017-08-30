@@ -1,7 +1,6 @@
 ﻿describe("Consolidation Detail", () => {
     const jQueryFake = $;
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
-    const currencySelectionComponent = new CurrencySelectionComponent($);
     const dateRangePickerComponent = new DateRangePickerComponent($);
     const reportTooltip = new ReportTooltip($);
     const linkBuilderComponent = new LinkBuilderComponent($);
@@ -11,7 +10,6 @@
     let consolidationDetailView: ConsolidationDetailView;
 
     let renderProductMultiSelectionComponent: jasmine.Spy,
-        renderCurrencySelectionComponent: jasmine.Spy,
         renderSortComponent: jasmine.Spy,
         renderPagerComponent: jasmine.Spy;
 
@@ -19,7 +17,6 @@
         consolidationDetailView = new ConsolidationDetailView(
             jQueryFake,
             productMultiSelectionComponent,
-            currencySelectionComponent,
             dateRangePickerComponent,
             reportTooltip,
             linkBuilderComponent,
@@ -33,11 +30,12 @@
         registerEvents.and.callThrough();
 
         spyOn(consolidationDetailView, "initHelp");
+        spyOn(consolidationDetailView, "saveConsolidationParam").and.callThrough();
+
         spyOn(jQueryFake, "blockUI");
         spyOn(jQueryFake, "unblockUI");
 
         renderProductMultiSelectionComponent = spyOn(productMultiSelectionComponent, "render");
-        renderCurrencySelectionComponent = spyOn(currencySelectionComponent, "render");
         renderPagerComponent = spyOn(pagerComponent, "render");
         renderSortComponent = spyOn(sortComponent, "render");
         spyOn(dateRangePickerComponent, "render");
@@ -77,13 +75,13 @@
                 // assert
                 expect(sortComponent.render).not.toHaveBeenCalled();
             });
-            it("_Does not call currencySelectionComponent.render", () => {
-                // assert
-                expect(currencySelectionComponent.render).not.toHaveBeenCalled();
-            });
             it("_Does not call netTurnoverTooltipComponent.render", () => {
                 // assert
                 expect(netTurnoverTooltipComponent.render).not.toHaveBeenCalled();
+            });
+            it("_Does not call saveConsolidationParam", () => {
+                // assert
+                expect(consolidationDetailView.saveConsolidationParam).not.toHaveBeenCalled();
             });
         });
 
@@ -116,10 +114,6 @@
                 // assert
                 expect(productMultiSelectionComponent.render).toHaveBeenCalled();
             });
-            it("_Calls currencySelectionComponent.render", () => {
-                // assert
-                expect(currencySelectionComponent.render).toHaveBeenCalled();
-            });
             it("_Calls pagerComponent.render", () => {
                 // assert
                 expect(pagerComponent.render).toHaveBeenCalled();
@@ -146,6 +140,10 @@
                     consolidationDetailView.$reportForm
                 ));
             });
+            it("_Does call saveConsolidationParam", () => {
+                // assert
+                expect(consolidationDetailView.saveConsolidationParam).toHaveBeenCalled();
+            });
         });
     });
     describe("_checkReady", () => {
@@ -170,7 +168,6 @@
             expect(actualIsReady).toBeTruthy();
         });
     });
-
 
     describe("_cacheElements", () => {
         it("_Always -> All neccessary elements have been cached", () => {
@@ -375,18 +372,6 @@
                 // assert
                 expect(alphaReports.splitCell).not.toHaveBeenCalled();
             });
-        });
-    });
-    describe("_onClickSubmitButton", () => {
-        it("_Always_Calls currencySelectionComponent.updateSelectedValue", () => {
-            // arrange
-            spyOn(currencySelectionComponent, "updateSelectedValue");
-
-            // act
-            consolidationDetailView.onClickSubmitButton();
-
-            // assert
-            expect(currencySelectionComponent.updateSelectedValue).toHaveBeenCalled();
         });
     });
     describe("_onSubmitReport", () => {
@@ -621,7 +606,11 @@
                 IsFilterVisible: true,
 
                 SortPropertyName: "WinLoss",
-                IsDescendingSort: true
+                IsDescendingSort: true,
+                FromDate: undefined,
+                ToDate: undefined,
+                UserSelectedDateRangeOption: undefined,
+                UserSelectedProductIds: undefined
             });
         };
 
@@ -632,18 +621,18 @@
             getParamsTest([1], true);
         });
     });
-    describe("_onChangeReportType", () => {
-        it("_Always -> Submit Report", () => {
+    describe("_saveConsolidationParam", () => {
+        it("_Always_Save Consolidation Param to 1st breadcrumb", () => {
+            console.log("123");
             // arrange
             setFixtures(consolidationDetailTemplate.normalModeReport);
-            consolidationDetailView.init();
-            spyOn(consolidationDetailView.$reportForm, "submit");
+            consolidationDetailView.cacheElements();
 
             // act
-            consolidationDetailView.onChangeReportType(consolidationDetailView.$("[name=\"report-type\"]"));
+            var actualParam = consolidationDetailView.saveConsolidationParam();
 
             // assert
-            expect(consolidationDetailView.$reportForm.submit).toHaveBeenCalled();
+            expect($(".breadcrumb-link").attr("href")).toEqual("Consolidation/ConsolidationByUsername?CustId=123&ConsolidationFromDate=6/1/2017&ConsolidationToDate=9/1/2017&ConsolidationUserSelectedDateRangeOption=undefined&ConsolidationProductIds=1,2");
         });
     });
 });

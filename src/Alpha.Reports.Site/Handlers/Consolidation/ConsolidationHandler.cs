@@ -1,9 +1,14 @@
 ﻿namespace Alpha.Reports.Site.Handlers.Consolidation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using App_GlobalResources;
     using MediatR;
     using Params.Consolidation;
     using RemotingRef;
     using Reports.Models;
+    using Requests;
     using Requests.Consolidation;
     using Requests.WinLossDetail;
     using Services;
@@ -100,7 +105,7 @@
 
             return new ConsolidationDetailViewModel(
                 message,
-                BuildBreadcrumbLevel(message),
+                GetConsolidationDetailBreadcrumbLevel(message),
                 GetConsolidationFilterViewModel(consolidationQuery),
                 GetWinLossDetailViewModel(winLossDetailQuery));
         }
@@ -128,7 +133,33 @@
 
             var reportData = winLossDetailService.GetWinLossDetail(param);
 
-            return new WinLossDetailViewModel(query, param, reportData, BuildBreadcrumbLevel(query), null);
+            return new WinLossDetailViewModel(query, param, reportData, GetConsolidationDetailBreadcrumbLevel(query), null, isGroupHeadline: true);
+        }
+
+        private IEnumerable<CustInfo> GetConsolidationDetailBreadcrumbLevel(ReportBaseQuery query)
+        {
+            var breadcrumbLevel = new List<CustInfo>();
+            breadcrumbLevel.Add(new CustInfo(query.ViewerId, Resources.Consolidation, query.ViewerLevelId));
+
+            if (query.BreadcrumbLevel != null
+                && query.BreadcrumbLevel.Any())
+            {
+                var requestBreadcrumb = query.BreadcrumbLevel.Skip(1);
+
+                foreach (var custInfo in requestBreadcrumb)
+                {
+                    if (custInfo.CustLevelId == query.CustLevelId)
+                    {
+                        break;
+                    }
+
+                    breadcrumbLevel.Add(custInfo);
+                }
+            }
+
+            breadcrumbLevel.Add(new CustInfo(query.CustId, query.CustName, query.CustLevelId));
+
+            return breadcrumbLevel;
         }
     }
 }

@@ -140,7 +140,7 @@
 
             result.Add(new SelectListItem
             {
-                Text = Resources.All,
+                Text = Resources.AllCurrencies,
                 Value = DefaultVariables.AllCurrencies.ToString(),
                 Selected = userSelectedCurrency == DefaultVariables.AllCurrencies
             });

@@ -6,7 +6,6 @@
     using Fixtures;
     using NSubstitute;
     using Params;
-    using Params.Consolidation;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
     using Site.Requests.Consolidation;

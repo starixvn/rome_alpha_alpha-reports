@@ -48,8 +48,6 @@
 
             var query = new ConsolidateWinLossDetailExcelQuery(viewer)
             {
-                PageIndex = message.PageIndex,
-                PageSize = message.PageSize,
                 UserSelectedProductIds = message.UserSelectedProductIds,
                 SortPropertyName = message.SortPropertyName,
                 IsDescendingSort = message.IsDescendingSort,

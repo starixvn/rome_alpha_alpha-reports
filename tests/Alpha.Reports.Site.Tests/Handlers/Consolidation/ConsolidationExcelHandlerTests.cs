@@ -60,13 +60,13 @@
             consolidationExcelHandler.IsFileExist = (path) => true;
 
             reportService.GetConsolidationByUsername(Arg.Any<GetConsolidationParam>()).Returns(
-                new List<ConsolidationByUsername> { new ConsolidationByUsername("1", 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
+                new List<ConsolidationByUsername> { new ConsolidationByUsername(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
 
             reportService.GetConsolidationByDate(Arg.Any<GetConsolidationParam>()).Returns(
                 new List<ConsolidationByDate> { new ConsolidationByDate("2016/12/2", 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
 
             reportService.GetConsolidationByProduct(Arg.Any<GetConsolidationParam>()).Returns(
-                new List<ConsolidationByProduct> { new ConsolidationByProduct("1", 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
+                new List<ConsolidationByProduct> { new ConsolidationByProduct(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
 
             productService.ConcatProductNames(Arg.Any<string>()).Returns(callInfo => callInfo.Args()[0]);
 

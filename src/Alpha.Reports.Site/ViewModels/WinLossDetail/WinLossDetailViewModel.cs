@@ -18,7 +18,8 @@
             WinLossDetailParam param,
             PagedReportData<WinLossDetailModel> reportData,
             IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<SelectListItem> products)
+            IEnumerable<SelectListItem> products,
+            bool isGroupHeadline = false)
             : base(message, param, breadcrumbLevel, products)
         {
             Title = GetReportNameByLevel(message.CustLevel);
@@ -30,6 +31,8 @@
             SortPropertyName = canSort ? GetSortedProperty(message.CustLevel, message.SortPropertyName) : DefaultVariables.SortPropertyName;
             BetListPath = Helpers.UrlHelper.MapBetListPath("~/WinLoss/Index");
             IsDescendingSort = canSort && param.IsDescendingSort;
+
+            IsGroupHeadline = isGroupHeadline;
         }
 
         public PagerViewModel PagerViewModel =>
@@ -44,6 +47,8 @@
         public string SortPropertyName { get; }
 
         public bool IsDescendingSort { get; }
+
+        public bool IsGroupHeadline { get; }
 
         public PagedReportData<WinLossDetailModel> ReportData { get; }
 
@@ -69,7 +74,8 @@
              => new Dictionary<string, object>(base.GetBetListLinkRouteValues(model))
              {
                  ["CustId"] = model.CustId,
-                 ["CustName"] = model.CustName
+                 ["CustName"] = model.CustName,
+                 ["IsGroupHeadline"] = IsGroupHeadline
              };
     }
 }

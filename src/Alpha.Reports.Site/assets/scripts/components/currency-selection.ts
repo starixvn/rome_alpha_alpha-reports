@@ -44,6 +44,8 @@ class CurrencySelectionComponent {
                 self.selectedValue = self.getSelectedItems();
             }
         });
+
+        this.selectedValue = this.getSelectedItems();
     };
     getSelectedItems = () => {
         let selected = [];

@@ -1,7 +1,7 @@
 ﻿@using Alpha.Reports.Site.ViewModels.Components;
 @using Alpha.Reports.Site.App_GlobalResources;
 
-@helper Render(PageHeaderViewModel model, string currentRequestQuery = null, Dictionary<int, string> breadcrumbParamByLevel = null)
+@helper Render(PageHeaderViewModel model, string currentRequestQuery = null, IEnumerable<string> breadcrumbParamByLevel = null)
 {
     <div class="page-title
          @(model.IsStackMode ? "stack-mode" : string.Empty)

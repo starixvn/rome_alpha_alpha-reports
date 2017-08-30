@@ -11,7 +11,7 @@ namespace Alpha.Reports.StaticData.Repositories
             var columnIndex = 0;
 
             return new ConsolidationByUsername(
-               breakDown: row.Get<string>(columnIndex++),
+               breakDown: row.Get<int>(columnIndex++),
                custId: row.Get<int>(columnIndex++),
                username: row.Get<string>(columnIndex++),
                currencyId: row.Get<byte>(columnIndex++),
@@ -55,7 +55,7 @@ namespace Alpha.Reports.StaticData.Repositories
             var columnIndex = 0;
 
             return new ConsolidationByProduct(
-               breakDown: row.Get<string>(columnIndex++),
+               breakDown: (byte)row.Get<int>(columnIndex++),
                custId: row.Get<int>(columnIndex++),
                username: row.Get<string>(columnIndex++),
                currencyId: row.Get<byte>(columnIndex++),

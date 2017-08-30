@@ -145,8 +145,8 @@ class ConsolidationView extends BaseReport {
 
         if (this.isFirstSwitchMode) {
             if (currentStackModeState) {
-                alphaReports.splitCell("td.col-member-winloss");
-                alphaReports.splitCell("td.col-owner-turnover");
+                alphaReports.splitCell("col-member-winloss");
+                alphaReports.splitCell("col-owner-turnover");
             } else {
                 alphaReports.combineConsecutiveCells(this.$("td.col-member-winloss"), 3, "col-member-winloss-combined");
                 alphaReports.combineConsecutiveCells(this.$("td.col-owner-turnover"), 4, "col-member-owner-turnover-combined");

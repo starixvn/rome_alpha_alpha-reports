@@ -120,16 +120,14 @@
         protected WinLossDetailQuery CreateWinLossDetailQuery(ConsolidationDetailQuery message)
             => new WinLossDetailQuery(viewer)
             {
-                PageIndex = message.PageIndex,
-                PageSize = message.PageSize,
-                UserSelectedProductIds = message.DrilldownFromProductIds,
+                UserSelectedProductIds = message.UserSelectedProductIds,
                 SortPropertyName = message.SortPropertyName,
                 IsDescendingSort = message.IsDescendingSort,
                 IsStackMode = message.IsStackMode,
                 IsFilterVisible = message.IsFilterVisible,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                FromDate = message.DrilldownDate == DateTime.MinValue ? message.FromDate : message.DrilldownDate,
-                ToDate = message.DrilldownDate == DateTime.MinValue ? message.ToDate : message.DrilldownDate,
+                FromDate = message.FromDate,
+                ToDate = message.ToDate,
 
                 CustId = message.CustId,
                 CustName = message.CustName,
