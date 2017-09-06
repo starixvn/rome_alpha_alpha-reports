@@ -129,8 +129,6 @@
                 ["FromDate"] = fromDate,
                 ["ToDate"] = toDate,
                 ["ProductIds"] = "1",
-                ["FilterPostback"] = 1,
-                ["Type"] = "WLByDate",
                 ["CustId"] = 1,
                 ["CustName"] = "CustName"
             };

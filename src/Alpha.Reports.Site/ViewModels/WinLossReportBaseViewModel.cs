@@ -121,9 +121,7 @@
             {
                 { "FromDate",  FromDate },
                 { "ToDate", ToDate },
-                { "ProductIds", UserSelectedProductIds },
-                { "FilterPostback", 1 },
-                { "Type", "WLByDate" }
+                { "ProductIds", UserSelectedProductIds }
             };
     }
 }

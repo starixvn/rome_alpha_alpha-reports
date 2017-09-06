@@ -49,6 +49,7 @@
                 ? query.SortPropertyName
                 : DefaultVariables.SortPropertyName;
             IsDescendingSort = canSort && query.IsDescendingSort;
+            BetListPath = Helpers.UrlHelper.MapBetListPath("~/WinLoss/Index");
         }
 
         public RacingCommissionQuery Query { get; }
@@ -77,12 +78,9 @@
             {
                 ["CustId"] = model.CustId,
                 ["CustName"] = model.CustName,
-                ["Type"] = "WLByDate",
-                ["FDate"] = Query.FromDate,
-                ["TDate"] = Query.ToDate,
-                ["ProductIds"] = "2",
-                ["FilterPostback"] = 1,
-                ["IsHistoryReport"] = 0
+                ["FromDate"] = Query.FromDate,
+                ["ToDate"] = Query.ToDate,
+                ["ProductIds"] = ProductIdConstants.Racing.ToString()
             };
     }
 }

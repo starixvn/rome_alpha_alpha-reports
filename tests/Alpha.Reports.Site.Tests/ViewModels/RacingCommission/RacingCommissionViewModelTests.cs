@@ -42,12 +42,9 @@
                     routeValue =>
                     (int)routeValue["CustId"] == custId
                     && (string)routeValue["CustName"] == custName
-                    && (string)routeValue["Type"] == "WLByDate"
-                    && (DateTime)routeValue["FDate"] == query.FromDate
-                    && (DateTime)routeValue["TDate"] == query.ToDate
-                    && (string)routeValue["ProductIds"] == "2"
-                    && (int)routeValue["FilterPostback"] == 1
-                    && (int)routeValue["IsHistoryReport"] == 0));
+                    && (DateTime)routeValue["FromDate"] == query.FromDate
+                    && (DateTime)routeValue["ToDate"] == query.ToDate
+                    && (string)routeValue["ProductIds"] == "2"));
         }
 
         [Theory]
