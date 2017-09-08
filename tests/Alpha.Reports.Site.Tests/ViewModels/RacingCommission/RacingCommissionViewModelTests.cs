@@ -86,6 +86,8 @@
             JsonHelper.ToJsonFunc.Invoke(Arg.Any<object>()).Returns("parsedJson");
             UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
             UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
+            UrlHelper.MapBetListPath = Substitute.For<Func<string, string>>();
+            UrlHelper.MapBetListPath(Arg.Any<string>()).Returns("BetListPath");
         }
     }
 }
