@@ -3,6 +3,9 @@
                             <table id="tbl-report"></table>
                             <form id="report-form">
                                 <div id="dropdown-product"></div>
+                                <select id="dropdown-currencies">
+                                    <option value="1" selected></select>
+                                </select>
                                 <div class="icon-filter"></div>
                                 <div class="icon-switchmode"></div>
                                 <div id="icon-excel"></div>

@@ -1,7 +1,6 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../base-report.ts" />
 /// <reference path="../components/productmultiselection.ts" />
-/// <reference path="../components/currency-selection.ts" />
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/tooltip.ts" />
 /// <reference path="../components/pager.ts" />
@@ -11,7 +10,6 @@
 "use strict";
 class ConsolidationDetailView extends BaseReport {
     productMultiSelectionComponent: ProductMultiSelectionComponent;
-    currencySelectionComponent: CurrencySelectionComponent;
     dateRangePickerComponent: DateRangePickerComponent;
     reportTooltip: ReportTooltip;
 
@@ -19,10 +17,8 @@ class ConsolidationDetailView extends BaseReport {
     sortComponent: SortComponent;
 
     $productButton: JQuery;
-    $currencyButton: JQuery;
     $tableReport: JQuery;
 
-    $reportSwitch: JQuery;
     $reportForm: JQuery;
     $pageTitle: JQuery;
     $exportExcelForm: JQuery;
@@ -31,8 +27,12 @@ class ConsolidationDetailView extends BaseReport {
 
     $isDescendingSort: JQuery;
     $sortPropertyName: JQuery;
-    $netTurnoverTooltip: JQuery;
     $iconNormalColumn: JQuery;
+
+    $consolidationFromDate: JQuery;
+    $consolidationToDate: JQuery;
+    $consolidationUserSelectedDateRangeOption: JQuery;
+    $consolidationProductIds: JQuery;
 
     isFirstSwitchMode = true;
     hasAllDataOnClient = false;
@@ -41,7 +41,6 @@ class ConsolidationDetailView extends BaseReport {
     constructor(
         $: JQueryStatic,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
-        currencySelectionComponent: CurrencySelectionComponent,
         dateRangePickerComponent: DateRangePickerComponent,
         reportTooltip: ReportTooltip,
         linkBuilderComponent: LinkBuilderComponent,
@@ -50,7 +49,6 @@ class ConsolidationDetailView extends BaseReport {
         super($, linkBuilderComponent);
 
         this.productMultiSelectionComponent = productMultiSelectionComponent;
-        this.currencySelectionComponent = currencySelectionComponent;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.reportTooltip = reportTooltip;
 
@@ -70,9 +68,6 @@ class ConsolidationDetailView extends BaseReport {
         this.productMultiSelectionComponent.render();
         this.$productButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
-        this.currencySelectionComponent.render();
-        this.$currencyButton = this.$("#dropdown-currencies");
-
         this.dateRangePickerComponent.render();
 
         this.pagerComponent.render();
@@ -90,6 +85,8 @@ class ConsolidationDetailView extends BaseReport {
 
         this.registerEvents();
         this.initHelp();
+
+        this.saveConsolidationParam();
         this.$.unblockUI();
     };
     checkReady = () => {
@@ -109,27 +106,23 @@ class ConsolidationDetailView extends BaseReport {
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$sortPropertyName = this.$("#SortPropertyName");
         this.$iconNormalColumn = this.$("#icon-normal-column");
+
+        this.$consolidationFromDate = this.$("#ConsolidationFromDate");
+        this.$consolidationToDate = this.$("#ConsolidationToDate");
+        this.$consolidationUserSelectedDateRangeOption = this.$("#ConsolidationUserSelectedDateRangeOption");
+        this.$consolidationProductIds = this.$("#ConsolidationProductIds");
     }
     public registerEvents() {
         this.$(".icon-filter").on("click", this.onClickIconFilter);
         this.$(".icon-switchmode").on("click", this.onSwitchMode);
 
-        this.$(".btn-submit").on("click", this.onClickSubmitButton);
         this.$reportForm.submit(this.onSubmitReport);
 
         this.$("#icon-excel").on("click", this.onExportExcel);
-
-        let self = this;
-        let this$ = this.$;
-
-        this.$("[name=\"report-type\"]").click(function () {
-            self.onChangeReportType(this$(this));
-        });
     }
     onClickIconFilter = () => {
         let filter = this.$reportForm;
         let currentHideState = filter.hasClass("hide");
-        let $netTurnoverTooltip = this.$netTurnoverTooltip;
 
         if (currentHideState) {
             this.$pageTitle.removeClass("hide-filter");
@@ -182,9 +175,6 @@ class ConsolidationDetailView extends BaseReport {
         this.sortComponent.bindTableSorter(this.getSortedColumnName());
         this.$.unblockUI();
     };
-    onClickSubmitButton = () => {
-        this.currencySelectionComponent.updateSelectedValue();
-    };
     onSubmitReport = (e: any) => {
         let this$ = this.$;
 
@@ -207,6 +197,11 @@ class ConsolidationDetailView extends BaseReport {
 
         this.$isDescendingSort.val(String(params.IsDescendingSort));
         this.$sortPropertyName.val(params.SortPropertyName);
+
+        this.$consolidationFromDate.val(params.FromDate);
+        this.$consolidationToDate.val(params.ToDate);
+        this.$consolidationUserSelectedDateRangeOption.val(params.UserSelectedDateRangeOption);
+        this.$consolidationProductIds.val(params.UserSelectedProductIds);
     };
     onExportExcel = () => {
         this.$exportExcelForm.submit();
@@ -219,8 +214,6 @@ class ConsolidationDetailView extends BaseReport {
         this.$productButton.addClass("error");
     };
     hideFilter = () => {
-        let $netTurnoverTooltip = this.$netTurnoverTooltip;
-
         this.$pageTitle.addClass("hide-filter");
         this.$reportForm.addClass("hide");
     };
@@ -250,14 +243,27 @@ class ConsolidationDetailView extends BaseReport {
             IsFilterVisible: !this.$reportForm.is(":hidden"),
 
             SortPropertyName: sortInfo.sortPropertyName,
-            IsDescendingSort: sortInfo.isDescendingSort
+            IsDescendingSort: sortInfo.isDescendingSort,
+            FromDate: this.$("#from-date").val(),
+            ToDate: this.$("#to-date").val(),
+            UserSelectedDateRangeOption: this.$("#hidden-range-option").val(),
+            UserSelectedProductIds: this.$("#product-ids").val()
         };
     };
-    onChangeReportType = (actionElement: JQuery) => {
-        let $reportForm = this.$reportForm;
-        let action = actionElement.val();
-        $reportForm.attr("action", action);
-        $reportForm.submit();
+
+    saveConsolidationParam = () => {
+        this.linkBuilderComponent.updateParam("ConsolidationFromDate", this.$consolidationFromDate.val());
+        this.linkBuilderComponent.updateParam("ConsolidationToDate", this.$consolidationToDate.val());
+        this.linkBuilderComponent.updateParam("ConsolidationUserSelectedDateRangeOption", this.$consolidationUserSelectedDateRangeOption.val());
+        this.linkBuilderComponent.updateParam("ConsolidationProductIds", this.$consolidationProductIds.val());
+
+        let firstBreadcrumb = this.$(".breadcrumb > li:first-child").find("a");
+        let currentUrl = firstBreadcrumb.attr("href");
+        currentUrl = alphaReports.replaceQueryStringValue(currentUrl, "FromDate", this.$consolidationFromDate.val());
+        currentUrl = alphaReports.replaceQueryStringValue(currentUrl, "ToDate", this.$consolidationToDate.val());
+        currentUrl = alphaReports.replaceQueryStringValue(currentUrl, "UserSelectedDateRangeOption", this.$consolidationUserSelectedDateRangeOption.val());
+        currentUrl = alphaReports.replaceQueryStringValue(currentUrl, "UserSelectedProductIds", this.$consolidationProductIds.val());
+        firstBreadcrumb.attr("href", currentUrl);
     };
 }
 
@@ -266,7 +272,6 @@ $(() => {
     const consolidationDetailView = new ConsolidationDetailView(
         $,
         new ProductMultiSelectionComponent($),
-        new CurrencySelectionComponent($),
         new DateRangePickerComponent($),
         new ReportTooltip($),
         linkBuilderComponent,

@@ -6,12 +6,11 @@
 
 @ReportTitle.Render(
     new PageHeaderViewModel(Resources.Consolidation, true, true, Model.IsStackMode, filter.Visible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson),
-    Request.Url.Query)
+    Request.Url.Query,
+    Model.BreadcrumbActions)
 
-<form class="form-inline filter  @(filter.Visible ? string.Empty : "hide")" role="form" id="report-form"
-      action="@Url.Action("ConsolidationBy" +  Model.DrilldownFromType, "Consolidation")">
+<form class="form-inline filter  @(filter.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @ProductMultiSelection.Render(filter.ProductMultiSelectionViewModel)
-    @CurrencySelection.Render(filter.CurrencySelectionViewModel)
     @DateRangePicker.Render(filter.DateRangePickerViewModel)
 
     <div class="form-group">
@@ -20,24 +19,25 @@
     <div class="form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
-    <br />
-    <div class="form-group">
-        @Resources.ReportBy
-        @RenderReportTypeOption("username", Resources.Username)
-        @RenderReportTypeOption("date", Resources.Date)
-        @RenderReportTypeOption("product", Resources.Product)
-    </div>
     <div class="note">
         <span class="star">*</span>@filter.ViewDataInstructionMessage
     </div>
 
     @Html.Hidden("IsFilterVisible", filter.Visible ? "true" : "false")
     @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
-    <input id="CustId" type="hidden" value="@filter.CustId" />
-    <input id="CustName" type="hidden" value="@filter.CustName" />
-    <input id="CustLevelId" type="hidden" value="@filter.CustLevel.Value" />
-    @Html.Hidden("SortPropertyName", Model.SortPropertyName)
+    @Html.Hidden("CustId", Model.WinLossDetailViewModel.CustId)
+    @Html.Hidden("CustName", Model.WinLossDetailViewModel.CustName)
+    @Html.Hidden("CustLevelId", Model.WinLossDetailViewModel.CustLevel.Value)
+    @Html.Hidden("SortPropertyNa.me", Model.SortPropertyName)
     @Html.Hidden("IsDescendingSort", Model.IsDescendingSort)
+
+    @Html.Hidden("DrilldownFromType", Model.DrilldownFromType)
+    @Html.Hidden("UserSelectedCurrencyId", Model.UserSelectedCurrencyId)
+    @Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
+    @Html.Hidden("ConsolidationFromDate", Model.ConsolidationFromDate)
+    @Html.Hidden("ConsolidationToDate", Model.ConsolidationToDate)
+    @Html.Hidden("ConsolidationUserSelectedDateRangeOption", Model.ConsolidationUserSelectedDateRangeOption)
+    @Html.Hidden("ConsolidationProductIds", Model.ConsolidationProductIds)
 </form>
 
 @Html.Partial(
@@ -49,16 +49,8 @@
         ["ExportExcelAction"] = "ConsolidationDetailExcel"
     })
 
-@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "WinLossDetail"))
 
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/consolidation/consolidation-detail")
-}
-
-@helper RenderReportTypeOption(string reportType, string label)
-{
-    <input id="report-by-@reportType" name="report-type" type="radio"
-           @(string.Equals(reportType, Model.DrilldownFromType, StringComparison.OrdinalIgnoreCase) ? "checked=\"checked\"" : string.Empty)
-           value="@Url.Action("ConsolidationBy" + reportType, "Consolidation")">
-    <label for="report-by-@reportType"> @label</label>
 }

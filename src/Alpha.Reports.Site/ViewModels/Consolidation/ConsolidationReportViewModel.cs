@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Components;
+    using Constants;
     using Extensions;
     using Params.Consolidation;
     using Reports.Models;
@@ -91,6 +92,15 @@
             DateTime? drilldownDate,
             ConsolidationByUsernameViewModel data)
         {
+            if (data.CustLevel == UserLevel.Member.Value)
+            {
+                return BuildBetListLink(data, drilldownFromProductIds, drilldownDate);
+            }
+
+            var userSelectedDateRangeOption = string.Equals(drilldownFromType, "date", StringComparison.OrdinalIgnoreCase)
+                ? UserSelectedDateRangeOptionConstant.SpecificDates
+                : UserSelectedDateRangeOption;
+
             return ReportHelpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(
                  drilldownLink,
                  new Dictionary<string, object>
@@ -101,17 +111,38 @@
                      ["CustLevelId"] = data.CustLevel,
 
                      ["UserSelectedCurrencyId"] = UserSelectedCurrencyId,
-                     ["UserSelectedProductIds"] = UserSelectedProductIds,
+                     ["UserSelectedProductIds"] = drilldownFromProductIds ?? UserSelectedProductIds,
                      ["IsStackMode"] = IsStackMode,
                      ["IsFilterVisible"] = IsFilterVisible,
-                     ["UserSelectedDateRangeOption"] = UserSelectedDateRangeOption,
-                     ["FromDate"] = FromDate,
-                     ["ToDate"] = ToDate,
+                     ["UserSelectedDateRangeOption"] = userSelectedDateRangeOption,
+                     ["FromDate"] = drilldownDate ?? FromDate,
+                     ["ToDate"] = drilldownDate ?? ToDate,
 
                      ["DrilldownFromType"] = drilldownFromType,
-                     ["DrilldownFromProductIds"] = drilldownFromProductIds ?? UserSelectedProductIds,
-                     ["DrilldownDate"] = drilldownDate
+                     ["ConsolidationFromDate"] = FromDate,
+                     ["ConsolidationToDate"] = ToDate,
+                     ["ConsolidationUserSelectedDateRangeOption"] = UserSelectedDateRangeOption,
+                     ["ConsolidationProductIds"] = UserSelectedProductIds
                  });
+        }
+
+        private string BuildBetListLink(
+            ConsolidationByUsernameViewModel data,
+            string drilldownFromProductIds,
+            DateTime? drilldownDate)
+        {
+            var routeValues = new Dictionary<string, object>
+            {
+                ["FromDate"] = drilldownDate ?? FromDate,
+                ["ToDate"] = drilldownDate ?? ToDate,
+                ["ProductIds"] = drilldownFromProductIds ?? UserSelectedProductIds,
+                ["FilterPostback"] = 1,
+                ["CustId"] = data.CustId,
+                ["CustName"] = data.Username,
+                ["IsGroupHeadline"] = true
+            };
+
+            return ReportHelpers.UrlHelper.AddQueryStringParamsFunc(ReportHelpers.UrlHelper.MapBetListPath("~/WinLoss/Index"), routeValues);
         }
     }
 }

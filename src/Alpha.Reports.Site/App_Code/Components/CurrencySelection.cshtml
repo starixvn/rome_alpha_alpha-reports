@@ -1,9 +1,8 @@
 ﻿@using Alpha.Reports.Site.ViewModels.Components;
-@using Alpha.Reports.Site.App_GlobalResources;
 
 @helper Render(CurrencySelectionViewModel currencySelectionViewModel)
 {
-    <div class="form-group">
+    <div class="form-group dropdown-currencies-container">
         <select id="dropdown-currencies">
             @foreach (var currency in currencySelectionViewModel.Currencies)
             {

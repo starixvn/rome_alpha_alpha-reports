@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Web.Mvc;
     using Constants;
     using Extensions;
@@ -41,7 +42,7 @@
 
             expectedCurrencyList = new List<SelectListItem>
             {
-                new SelectListItem { Text = "All", Value = "0", Selected = false },
+                new SelectListItem { Text = "All Currencies", Value = "0", Selected = false },
                 new SelectListItem { Text = "Currency 1", Value = "1", Selected = false },
                 new SelectListItem { Text = "Currency 2", Value = "2", Selected = true }
             };
@@ -53,7 +54,7 @@
             // Arrange
             var data = new List<ConsolidationByUsername>
             {
-                new ConsolidationByUsername("1", 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                new ConsolidationByUsername(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
             };
 
             reportService.GetConsolidationByUsername(Arg.Any<GetConsolidationParam>()).Returns(data);
@@ -137,7 +138,7 @@
             // Arrange
             var data = new List<ConsolidationByProduct>
             {
-                new ConsolidationByProduct("1", 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                new ConsolidationByProduct(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
             };
 
             reportService.GetConsolidationByProduct(Arg.Any<GetConsolidationParam>()).Returns(data);
@@ -176,8 +177,49 @@
         }
 
         [Fact]
+        public void HandleConsolidationDetailQuery_NullBreadcrumb_ReturnsCorrectViewModel()
+        {
+            var expectedBreadcrumbLevel = new List<CustInfo> {
+                new CustInfo(0, "Consolidation", 2),
+                new CustInfo(1, "Name", 4)
+            };
+
+            HandleConsolidationDetailQuery_NullBreadcrumb_ReturnsCorrectViewModel(null, expectedBreadcrumbLevel);
+        }
+
+        [Fact]
+        public void HandleConsolidationDetailQuery_EmptyBreadcrumb_ReturnsCorrectViewModel()
+        {
+            var expectedBreadcrumbLevel = new List<CustInfo> {
+                new CustInfo(0, "Consolidation", 2),
+                new CustInfo(1, "Name", 4)
+            };
+
+            HandleConsolidationDetailQuery_NullBreadcrumb_ReturnsCorrectViewModel(Enumerable.Empty<CustInfo>(), expectedBreadcrumbLevel);
+        }
+
+        [Fact]
+        public void HandleConsolidationDetailQuery_HasDataBreadcrumb_ReturnsCorrectViewModel()
+        {
+            var breadcrumbLevel = new List<CustInfo> {
+                new CustInfo(1, "Name", 2),
+                new CustInfo(3, "Name", 3),
+                new CustInfo(4, "Name", 4)
+            };
+
+            var expectedBreadcrumbLevel = new List<CustInfo> {
+                new CustInfo(0, "Consolidation", 2),
+                new CustInfo(3, "Name", 3),
+                new CustInfo(1, "Name", 4)
+            };
+
+            HandleConsolidationDetailQuery_NullBreadcrumb_ReturnsCorrectViewModel(breadcrumbLevel, expectedBreadcrumbLevel);
+        }
+
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public void HandleConsolidationDetailQuery_Always_ReturnsCorrectViewModel()
+        private void HandleConsolidationDetailQuery_NullBreadcrumb_ReturnsCorrectViewModel(
+            IEnumerable<CustInfo> breadcrumbLevel,
+            IEnumerable<CustInfo> expectedBreadcrumbLevel)
         {
             // Arrange
             var message = new ConsolidationDetailQuery(viewer)
@@ -186,6 +228,7 @@
                 CustName = "Name",
                 CustLevelId = 4,
                 FromDate = DefaultVariables.CurrentDate,
+                BreadcrumbLevel = breadcrumbLevel
             };
 
             var dateRangePickerViewModel = new DateRangePickerViewModel(
@@ -216,7 +259,7 @@
             {
                 new SelectListItem
                 {
-                    Text = "All",
+                    Text = "All Currencies",
                     Value = "0",
                     Selected = true
                 },
@@ -246,9 +289,7 @@
 
             var winLossDetailQuery = new WinLossDetailQuery(viewer)
             {
-                PageIndex = message.PageIndex,
-                PageSize = message.PageSize,
-                UserSelectedProductIds = message.DrilldownFromProductIds,
+                UserSelectedProductIds = message.UserSelectedProductIds,
                 SortPropertyName = message.SortPropertyName,
                 IsDescendingSort = message.IsDescendingSort,
                 IsStackMode = message.IsStackMode,
@@ -279,12 +320,13 @@
                 winLossDetailQuery,
                 winLossDetailParam,
                 winLossDetailData,
-                new List<CustInfo> { new CustInfo(1, "Name", 4) },
-                null);
+                expectedBreadcrumbLevel,
+                null,
+                isGroupHeadline: true);
 
             var expectedViewModel = new ConsolidationDetailViewModel(
                 message,
-                new List<CustInfo> { new CustInfo(1, "Name", 4) },
+                expectedBreadcrumbLevel,
                 consolidationFilterViewModel,
                 winLossDetailViewModel);
 

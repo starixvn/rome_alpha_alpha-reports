@@ -60,7 +60,8 @@
                 ["ToDate"] = toDate,
                 ["ProductIds"] = "1",
                 ["CustId"] = 1,
-                ["CustName"] = "CustName"
+                ["CustName"] = "CustName",
+                ["IsGroupHeadline"] = false
             };
 
             // Act
@@ -332,7 +333,8 @@
                  new List<SelectListItem>
                  {
                      new SelectListItem { Value = AllBetProductId.ToString() }
-                 });
+                 },
+                 false);
         }
 
         private PagedReportData<WinLossDetailModel> CreatePagedReportData()

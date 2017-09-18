@@ -316,8 +316,8 @@
             it("_Splits Cells", () => {
                 // assert
                 expect(splitCellSpy.calls.allArgs()).toEqual([
-                    ["td.col-member-winloss"],
-                    ["td.col-owner-turnover"]]);
+                    ["col-member-winloss"],
+                    ["col-owner-turnover"]]);
             });
         });
         describe("_2nd+ Switch on Normal Mode", () => {

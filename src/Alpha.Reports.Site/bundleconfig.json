@@ -236,5 +236,12 @@
       "assets/scripts/components/link-builder.js",
       "assets/scripts/consolidation/consolidation-detail.js"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles/consolidation/consolidation.css",
+
+    "inputFiles": [
+      "assets/styles/consolidation/consolidation.css"
+    ]
   }
 ]

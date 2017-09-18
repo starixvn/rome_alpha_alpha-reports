@@ -230,7 +230,7 @@
 
             var expectedItemList = new List<SelectListItem>
             {
-                new SelectListItem { Text = "All", Value = DefaultVariables.AllCurrencies.ToString(), Selected = true },
+                new SelectListItem { Text = "All Currencies", Value = DefaultVariables.AllCurrencies.ToString(), Selected = true },
                 new SelectListItem { Text = "Currency 1", Value = "1", Selected = false }
              };
 
@@ -253,7 +253,7 @@
 
             var expectedItemList = new List<SelectListItem>
             {
-                new SelectListItem { Text = "All", Value = DefaultVariables.AllCurrencies.ToString(), Selected = false },
+                new SelectListItem { Text = "All Currencies", Value = DefaultVariables.AllCurrencies.ToString(), Selected = false },
                 new SelectListItem { Text = "Currency 1", Value = "1", Selected = true }
              };
 

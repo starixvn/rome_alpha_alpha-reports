@@ -15,6 +15,16 @@
                             <input id="IsSetDefaultStackMode" value="" />
                             <input id="IsFilterVisible" value="" />
                             <input id="IsStackMode" value="" />
+                            <input id="ConsolidationFromDate" value="6/1/2017" />
+                            <input id="ConsolidationToDate" value="9/1/2017" />
+                            <input id="ConsolidationProductIds" value="1,2" />
+                            <div class="breadcrumb">
+                                <ul>
+                                    <li>
+                                        <a class="breadcrumb-link" href="Consolidation/ConsolidationByUsername?CustId=123"></a>
+                                    </li>
+                                </ul>
+                            </div>
                         </body>`,
     shownFilterReport: `<body>
                             <table id="tbl-report"></table>

@@ -11,19 +11,19 @@
         {
         }
 
-        public string DrilldownFromProductIds { get; set; }
-
-        public DateTime DrilldownDate { get; set; }
-
         public string DrilldownFromType { get; set; }
-
-        public int PageIndex { get; set; }
-
-        public int PageSize { get; set; }
 
         public string SortPropertyName { get; set; }
 
         public bool IsDescendingSort { get; set; }
+
+        public DateTime ConsolidationFromDate { get; set; }
+
+        public DateTime ConsolidationToDate { get; set; }
+
+        public int ConsolidationUserSelectedDateRangeOption { get; set; }
+
+        public string ConsolidationProductIds { get; set; }
 
         public static bool CanViewReport(ReportDefaultDateRangeQuery query)
         {

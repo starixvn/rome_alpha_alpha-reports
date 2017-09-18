@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Helpers;
     using Reports.Models;
 
@@ -20,11 +21,11 @@
         public string BreadcrumbLevelJson { get; }
 
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "1#", Justification = "Reviewed")]
-        public string BuildBreadcrumbLink(CustInfo model, string currentLink, Dictionary<int, string> breadcrumbParamByLevel)
+        public string BuildBreadcrumbLink(CustInfo model, string currentLink, IEnumerable<string> breadcrumbParamByLevel, int breadcrumbIndex)
         {
             var url = breadcrumbParamByLevel == null
                 ? currentLink
-                : UrlHelper.GetSiteUrl(breadcrumbParamByLevel[model.CustLevelId], currentLink);
+                : UrlHelper.GetSiteUrl(breadcrumbParamByLevel.ElementAt(breadcrumbIndex), currentLink);
 
             return UrlHelper.ReplaceOrAddQueryStringParamsFunc(
                 url,

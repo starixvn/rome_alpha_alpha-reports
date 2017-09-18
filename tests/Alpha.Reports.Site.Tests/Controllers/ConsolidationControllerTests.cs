@@ -144,8 +144,6 @@
 
             var expectedQuery = new ConsolidateWinLossDetailExcelQuery(user)
             {
-                PageIndex = message.PageIndex,
-                PageSize = message.PageSize,
                 UserSelectedProductIds = message.UserSelectedProductIds,
                 SortPropertyName = message.SortPropertyName,
                 IsDescendingSort = message.IsDescendingSort,
@@ -171,13 +169,10 @@
                 Arg.Is<ConsolidateWinLossDetailExcelQuery>(query => compareLogic.Compare(expectedQuery, query).AreEqual));
         }
 
-        private ConsolidationDetailQuery CreateConsolidationDetailQuery(DateTime drilldownDate)
+        private ConsolidationDetailQuery CreateConsolidationDetailQuery()
             => new ConsolidationDetailQuery(user)
             {
-                PageIndex = anyValueCreatorFixture.Create<int>(),
-                PageSize = anyValueCreatorFixture.Create<int>(),
                 UserSelectedProductIds = anyValueCreatorFixture.Create<string>(),
-                DrilldownFromProductIds = anyValueCreatorFixture.Create<string>(),
 
                 SortPropertyName = anyValueCreatorFixture.Create<string>(),
                 IsDescendingSort = anyValueCreatorFixture.Create<bool>(),
@@ -189,24 +184,17 @@
                 CustId = anyValueCreatorFixture.Create<int>(),
                 CustName = anyValueCreatorFixture.Create<string>(),
                 CustLevelId = anyValueCreatorFixture.Create<byte>(),
-                BreadcrumbLevel = anyValueCreatorFixture.Create<IEnumerable<CustInfo>>(),
-
-                DrilldownDate = drilldownDate
+                BreadcrumbLevel = anyValueCreatorFixture.Create<IEnumerable<CustInfo>>()
             };
 
         private bool CompareQueries(ConsolidationDetailQuery consolidationDetailQuery, WinLossDetailQuery winLossDetailQuery)
-            => winLossDetailQuery.PageIndex == consolidationDetailQuery.PageIndex
-            && winLossDetailQuery.PageSize == consolidationDetailQuery.PageSize
-            && winLossDetailQuery.UserSelectedProductIds == consolidationDetailQuery.DrilldownFromProductIds
-            && winLossDetailQuery.SortPropertyName == consolidationDetailQuery.SortPropertyName
+            => winLossDetailQuery.SortPropertyName == consolidationDetailQuery.SortPropertyName
             && winLossDetailQuery.IsDescendingSort == consolidationDetailQuery.IsDescendingSort
             && winLossDetailQuery.IsStackMode == consolidationDetailQuery.IsStackMode
             && winLossDetailQuery.IsFilterVisible == consolidationDetailQuery.IsFilterVisible
             && winLossDetailQuery.UserSelectedDateRangeOption == consolidationDetailQuery.UserSelectedDateRangeOption
-            && winLossDetailQuery.FromDate ==
-                (consolidationDetailQuery.DrilldownDate == DateTime.MinValue ? consolidationDetailQuery.FromDate : consolidationDetailQuery.DrilldownDate)
-            && winLossDetailQuery.ToDate ==
-                (consolidationDetailQuery.DrilldownDate == DateTime.MinValue ? consolidationDetailQuery.ToDate : consolidationDetailQuery.DrilldownDate)
+            && winLossDetailQuery.FromDate == consolidationDetailQuery.FromDate
+            && winLossDetailQuery.ToDate == consolidationDetailQuery.ToDate
             && winLossDetailQuery.CustId == consolidationDetailQuery.CustId
             && winLossDetailQuery.CustName == consolidationDetailQuery.CustName
             && winLossDetailQuery.CustLevelId == consolidationDetailQuery.CustLevelId
