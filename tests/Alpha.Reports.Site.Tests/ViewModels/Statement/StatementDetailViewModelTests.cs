@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Alpha.Reports.Models;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.Tests.Constants;
-using Alpha.Reports.Site.Tests.Extensions;
-using Alpha.Reports.Site.Tests.Fixtures;
-using Alpha.Reports.Site.ViewModels.Statement;
-using Alpha.Reports.Utils;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.ViewModels.Statement
+﻿namespace Alpha.Reports.Site.Tests.ViewModels.Statement
 {
+    using System;
+    using System.Collections.Generic;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.Reports.Site.Tests.Constants;
+    using Alpha.Reports.Site.Tests.Extensions;
+    using Alpha.Reports.Site.Tests.Fixtures;
+    using Alpha.Reports.Site.ViewModels.Statement;
+    using Alpha.Reports.Utils;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("UserCollection")]
     public class StatementDetailViewModelTests

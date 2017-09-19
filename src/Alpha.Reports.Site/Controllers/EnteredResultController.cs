@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
     using System.Web.Mvc;
-    using System.Web.UI;
     using MediatR;
     using Requests.WinLoss;
 

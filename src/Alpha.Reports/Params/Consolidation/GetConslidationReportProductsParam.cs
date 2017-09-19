@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Alpha.Reports.Params.Consolidation
+﻿namespace Alpha.Reports.Params.Consolidation
 {
+    using System;
+
     public class GetConslidationReportProductsParam
     {
         public GetConslidationReportProductsParam(int custId, DateTime minDate)

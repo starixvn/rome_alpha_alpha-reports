@@ -1,11 +1,11 @@
-﻿using Alpha.Reports.Models;
-using Alpha.Reports.Site.Constants;
-using Alpha.Reports.Site.ViewModels.Statement;
-using Alpha.Reports.Utils;
-using MediatR;
-
-namespace Alpha.Reports.Site.Requests.Statement
+﻿namespace Alpha.Reports.Site.Requests.Statement
 {
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.Constants;
+    using Alpha.Reports.Site.ViewModels.Statement;
+    using Alpha.Reports.Utils;
+    using MediatR;
+
     public class MemberStatementQuery :
         FromLast3MonthDateRangeQuery,
         IRequest<MemberStatementViewModel>

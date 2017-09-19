@@ -1,11 +1,11 @@
-﻿using Alpha.Reports.StaticData.Configurations;
-using Alpha.StaticData.Mappers;
-using Alpha.StaticData.Repositories;
-using Fanex.Data.Repository;
-using SimpleInjector;
-
-namespace Alpha.Reports.StaticData.AppStart
+﻿namespace Alpha.Reports.StaticData.AppStart
 {
+    using Alpha.Reports.StaticData.Configurations;
+    using Alpha.StaticData.Mappers;
+    using Alpha.StaticData.Repositories;
+    using Fanex.Data.Repository;
+    using SimpleInjector;
+
     public static class DependencyRegister
     {
         public static void Register(Container container)

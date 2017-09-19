@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Alpha.Reports.Params.Statement
+﻿namespace Alpha.Reports.Params.Statement
 {
+    using System;
+
     public class GetStatementParam
     {
         public GetStatementParam(

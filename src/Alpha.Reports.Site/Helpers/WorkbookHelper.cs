@@ -1,8 +1,8 @@
-﻿using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
-
-namespace Alpha.Reports.Site.Helpers
+﻿namespace Alpha.Reports.Site.Helpers
 {
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
+
     public static class WorkbookHelper
     {
         public static void RemoveColumnContent(ISheet sheet, int colIndex)

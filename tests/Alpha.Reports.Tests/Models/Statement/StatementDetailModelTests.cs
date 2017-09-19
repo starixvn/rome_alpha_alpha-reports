@@ -1,10 +1,10 @@
-﻿using System;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Tests.Fixtures;
-using Xunit;
-
-namespace Alpha.Reports.Tests.Models.Statement
+﻿namespace Alpha.Reports.Tests.Models.Statement
 {
+    using System;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Tests.Fixtures;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("AnyValueCreatorCollection")]
     public class StatementDetailModelTests

@@ -1,5 +1,11 @@
 ﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossAnalysisChart
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading;
+    using System.Web.Mvc;
     using Constants;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
@@ -11,12 +17,6 @@
     using Site.Handlers.WinLossAnalysisChart;
     using Site.Requests.WinLossAnalysisChart;
     using Site.ViewModels.WinLossAnalysisChart;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Threading;
-    using System.Web.Mvc;
     using Utils;
     using Xunit;
 

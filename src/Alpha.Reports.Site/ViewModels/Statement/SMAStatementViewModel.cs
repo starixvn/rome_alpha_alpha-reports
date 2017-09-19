@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Site.Requests.Statement;
-
-namespace Alpha.Reports.Site.ViewModels.Statement
+﻿namespace Alpha.Reports.Site.ViewModels.Statement
 {
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Site.Requests.Statement;
+
     public class SMAStatementViewModel : StatementViewModel
     {
         [SuppressMessage(

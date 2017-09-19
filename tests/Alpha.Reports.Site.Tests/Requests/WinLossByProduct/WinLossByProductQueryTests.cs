@@ -1,10 +1,10 @@
-﻿using Alpha.Reports.Models;
-using Alpha.Reports.Site.Requests.WinLossByProduct;
-using Alpha.Reports.Site.Tests.Fixtures;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.Requests.WinLossByProduct
+﻿namespace Alpha.Reports.Site.Tests.Requests.WinLossByProduct
 {
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.Requests.WinLossByProduct;
+    using Alpha.Reports.Site.Tests.Fixtures;
+    using Xunit;
+
     [Trait("Category", "WinLossByProduct")]
     [Collection("UserCollection")]
     public class WinLossByProductQueryTests

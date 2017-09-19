@@ -2,7 +2,6 @@
 {
     using System;
     using Constants;
-    using NSubstitute;
     using Reports.Models;
     using Xunit;
 

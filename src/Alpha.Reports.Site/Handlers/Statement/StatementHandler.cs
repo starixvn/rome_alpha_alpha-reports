@@ -1,11 +1,11 @@
-﻿using Alpha.Reports.Params.Statement;
-using Alpha.Reports.Services;
-using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.ViewModels.Statement;
-using MediatR;
-
-namespace Alpha.Reports.Site.Handlers.Statement
+﻿namespace Alpha.Reports.Site.Handlers.Statement
 {
+    using Alpha.Reports.Params.Statement;
+    using Alpha.Reports.Services;
+    using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.Reports.Site.ViewModels.Statement;
+    using MediatR;
+
     public class StatementHandler :
         IRequestHandler<SMAStatementQuery, SMAStatementViewModel>,
         IRequestHandler<StatementDetailsQuery, StatementDetailViewModel>,

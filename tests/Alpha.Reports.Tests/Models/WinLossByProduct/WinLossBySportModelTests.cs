@@ -1,8 +1,8 @@
-﻿using Alpha.Reports.Models.WinLossByProduct;
-using Xunit;
-
-namespace Alpha.Reports.Tests.Models.WinLossByProduct
+﻿namespace Alpha.Reports.Tests.Models.WinLossByProduct
 {
+    using Alpha.Reports.Models.WinLossByProduct;
+    using Xunit;
+
     [Trait("Category", "WinLossByProduct")]
     public class WinLossBySportModelTests
     {

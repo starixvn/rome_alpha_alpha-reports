@@ -1,10 +1,10 @@
-﻿using Alpha.Reports.Constants;
-using Alpha.Reports.Models;
-using Alpha.Reports.Site.ViewModels;
-using MediatR;
-
-namespace Alpha.Reports.Site.Requests.Statement
+﻿namespace Alpha.Reports.Site.Requests.Statement
 {
+    using Alpha.Reports.Constants;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.ViewModels;
+    using MediatR;
+
     public class MemberStatementExcelQuery :
         MemberStatementQuery,
         IRequest<ExcelFileViewModel>

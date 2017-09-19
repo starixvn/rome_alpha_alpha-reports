@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Alpha.Reports.Models.Consolidation;
-
-namespace Alpha.Reports.StaticData.Configurations
+﻿namespace Alpha.Reports.StaticData.Configurations
 {
+    using System;
+    using System.Collections.Generic;
+    using Alpha.Reports.Models.Consolidation;
+
     public static class StaticDataMapper
     {
         [ThreadStatic]

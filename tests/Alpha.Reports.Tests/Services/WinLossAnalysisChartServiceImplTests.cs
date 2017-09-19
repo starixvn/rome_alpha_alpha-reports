@@ -1,5 +1,8 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -8,9 +11,6 @@
     using Reports.Models.WinLossAnalysisChart;
     using Reports.Params;
     using Reports.Services;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Xunit;
 
     [Trait("Category", "WinLossAnalysisChart")]

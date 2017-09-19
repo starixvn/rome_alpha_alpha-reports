@@ -1,17 +1,17 @@
-﻿using Alpha.Reports.Extensions;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Params.Statement;
-using Alpha.Reports.Services;
-using Alpha.Reports.Site.App_GlobalResources;
-using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.ViewModels;
-using Alpha.Reports.Site.ViewModels.Statement;
-using MediatR;
-using ONEbook.SpreadSheets;
-using static ONEbook.SpreadSheets.Column;
-
-namespace Alpha.Reports.Site.Handlers.Statement
+﻿namespace Alpha.Reports.Site.Handlers.Statement
 {
+    using Alpha.Reports.Extensions;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Params.Statement;
+    using Alpha.Reports.Services;
+    using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.Reports.Site.ViewModels;
+    using Alpha.Reports.Site.ViewModels.Statement;
+    using MediatR;
+    using ONEbook.SpreadSheets;
+    using static ONEbook.SpreadSheets.Column;
+
     public class StatementDetailExcelHandler
         : BaseHandler,
         IRequestHandler<StatementDetailExcelQuery, ExcelFileViewModel>

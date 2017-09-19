@@ -1,8 +1,8 @@
-﻿using System.Data;
-using Fanex.Common.Extensions;
-
-namespace Alpha.Reports.Models
+﻿namespace Alpha.Reports.Models
 {
+    using System.Data;
+    using Fanex.Common.Extensions;
+
     public class NetWinLoss
     {
         public NetWinLoss(decimal total)

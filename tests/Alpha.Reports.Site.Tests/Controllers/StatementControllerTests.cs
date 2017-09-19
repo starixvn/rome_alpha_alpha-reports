@@ -1,16 +1,16 @@
-﻿using Alpha.Reports.Models;
-using Alpha.Reports.Site.Controllers;
-using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.Tests.Constants;
-using Alpha.Reports.Site.Tests.Fixtures;
-using Alpha.Reports.Site.ViewModels;
-using Alpha.Reports.Utils;
-using MediatR;
-using NSubstitute;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.Controllers
+﻿namespace Alpha.Reports.Site.Tests.Controllers
 {
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.Controllers;
+    using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.Reports.Site.Tests.Constants;
+    using Alpha.Reports.Site.Tests.Fixtures;
+    using Alpha.Reports.Site.ViewModels;
+    using Alpha.Reports.Utils;
+    using MediatR;
+    using NSubstitute;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("UserCollection")]
     public class StatementControllerTests

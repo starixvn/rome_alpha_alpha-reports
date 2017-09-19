@@ -1,10 +1,10 @@
-﻿using System;
-using Alpha.Reports.Criteria.Statement;
-using Alpha.Reports.Tests.Fixtures;
-using Xunit;
-
-namespace Alpha.Reports.Tests.Criteria.Statement
+﻿namespace Alpha.Reports.Tests.Criteria.Statement
 {
+    using System;
+    using Alpha.Reports.Criteria.Statement;
+    using Alpha.Reports.Tests.Fixtures;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("AnyValueCreatorCollection")]
     public class TransferDetailsCriteriaTests

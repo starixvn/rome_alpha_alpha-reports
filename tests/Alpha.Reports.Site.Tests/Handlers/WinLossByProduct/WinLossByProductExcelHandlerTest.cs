@@ -6,7 +6,6 @@
     using System.Threading;
     using Constants;
     using Fixtures;
-    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using RemotingRef;

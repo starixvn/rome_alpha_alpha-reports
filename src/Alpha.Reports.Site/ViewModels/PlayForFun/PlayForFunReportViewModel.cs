@@ -2,13 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Components;
     using Params;
     using Reports.Models;
     using Reports.Models.PlayForFun;
     using Requests.PlayForFun;
-    using System.Linq;
 
     public class PlayForFunReportViewModel : DrillDownableReportViewModel<PlayForFunModel>
     {

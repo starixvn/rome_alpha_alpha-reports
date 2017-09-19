@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Alpha.Reports.Criteria.Statement;
-using Alpha.Reports.Models.Statement;
-using Fanex.Common;
-
-namespace Alpha.Reports.DataAccesses
+﻿namespace Alpha.Reports.DataAccesses
 {
+    using System;
+    using System.Collections.Generic;
+    using Alpha.Reports.Criteria.Statement;
+    using Alpha.Reports.Models.Statement;
+    using Fanex.Common;
+
     public interface StatementDataAccess
     {
         IEnumerable<StatementModel> GetStatements(GetStatementCriteria criteria);

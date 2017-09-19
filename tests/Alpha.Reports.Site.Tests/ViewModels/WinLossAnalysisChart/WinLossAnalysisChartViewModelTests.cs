@@ -1,5 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossAnalysisChart
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
     using Constants;
     using Extensions;
     using Fixtures;
@@ -8,9 +11,6 @@
     using Site.Requests.WinLossAnalysisChart;
     using Site.ViewModels.Components;
     using Site.ViewModels.WinLossAnalysisChart;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
     using Utils;
     using Xunit;
 

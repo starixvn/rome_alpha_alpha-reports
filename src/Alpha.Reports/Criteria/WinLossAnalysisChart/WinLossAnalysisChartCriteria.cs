@@ -1,10 +1,10 @@
 ﻿namespace Alpha.Reports.Criteria.WinLossAnalysisChart
 {
+    using System;
+    using System.Collections.Generic;
     using Extensions;
     using Fanex.Data;
     using Models;
-    using System;
-    using System.Collections.Generic;
 
     public class WinLossAnalysisChartCriteria : ReportProductCriteria
     {

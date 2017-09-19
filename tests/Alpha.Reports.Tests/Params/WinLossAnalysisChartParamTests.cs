@@ -1,13 +1,13 @@
 ﻿namespace Alpha.Reports.Tests.Params
 {
+    using System;
+    using System.Linq;
     using Constants;
     using Fanex.Common;
     using Reports.Extensions;
     using Reports.Models;
     using Reports.Params;
     using Reports.Utils;
-    using System;
-    using System.Linq;
     using Xunit;
 
     [Trait("Category", "WinLossAnalysisChart")]

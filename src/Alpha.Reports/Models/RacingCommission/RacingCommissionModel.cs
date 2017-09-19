@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace Alpha.Reports.Models.RacingCommission
+﻿namespace Alpha.Reports.Models.RacingCommission
 {
+    using System.Collections.Generic;
+
     public class RacingCommissionModel
     {
         public RacingCommissionModel(

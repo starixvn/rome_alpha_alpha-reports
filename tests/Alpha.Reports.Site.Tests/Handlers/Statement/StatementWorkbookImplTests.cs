@@ -1,13 +1,13 @@
-﻿using System.Globalization;
-using System.Threading;
-using Alpha.Reports.Site.Handlers.Statement;
-using Alpha.Reports.Site.Tests.Constants;
-using NSubstitute;
-using ONEbook.SpreadSheets;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.Handlers.Statement
+﻿namespace Alpha.Reports.Site.Tests.Handlers.Statement
 {
+    using System.Globalization;
+    using System.Threading;
+    using Alpha.Reports.Site.Handlers.Statement;
+    using Alpha.Reports.Site.Tests.Constants;
+    using NSubstitute;
+    using ONEbook.SpreadSheets;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     public class StatementWorkbookImplTests
     {

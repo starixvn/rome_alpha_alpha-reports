@@ -1,8 +1,8 @@
-﻿using System;
-using Alpha.Reports.Extensions;
-
-namespace Alpha.Reports.Models.Statement
+﻿namespace Alpha.Reports.Models.Statement
 {
+    using System;
+    using Alpha.Reports.Extensions;
+
     public class StatementModel
     {
         public StatementModel(

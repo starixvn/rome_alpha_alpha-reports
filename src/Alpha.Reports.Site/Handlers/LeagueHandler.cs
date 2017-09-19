@@ -1,12 +1,12 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
     using System;
+    using System.Linq;
     using MediatR;
     using Params;
     using Requests;
     using Services;
     using ViewModels;
-    using System.Linq;
 
     public class LeagueHandler :
         BaseHandler,

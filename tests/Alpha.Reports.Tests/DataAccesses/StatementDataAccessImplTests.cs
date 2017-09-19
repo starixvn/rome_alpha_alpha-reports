@@ -1,20 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using Alpha.Reports.Criteria.Statement;
-using Alpha.Reports.DataAccesses;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Tests.Constants;
-using Alpha.Reports.Tests.Database.Statement;
-using Alpha.Reports.Tests.Extensions;
-using Alpha.Reports.Tests.Fixtures;
-using Alpha.Reports.Utils;
-using KellermanSoftware.CompareNetObjects;
-using NSubstitute;
-using Xunit;
-
-namespace Alpha.Reports.Tests.DataAccesses
+﻿namespace Alpha.Reports.Tests.DataAccesses
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data;
+    using Alpha.Reports.Criteria.Statement;
+    using Alpha.Reports.DataAccesses;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Tests.Constants;
+    using Alpha.Reports.Tests.Database.Statement;
+    using Alpha.Reports.Tests.Extensions;
+    using Alpha.Reports.Tests.Fixtures;
+    using Alpha.Reports.Utils;
+    using KellermanSoftware.CompareNetObjects;
+    using NSubstitute;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("ObjectDbCollection")]
     public class StatementDataAccessImplTests

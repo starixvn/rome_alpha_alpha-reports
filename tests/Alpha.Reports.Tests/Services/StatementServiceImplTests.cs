@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using Alpha.Reports.Criteria.Statement;
-using Alpha.Reports.DataAccesses;
-using Alpha.Reports.Models;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Params.Statement;
-using Alpha.Reports.Services;
-using Alpha.Reports.Tests.Constants;
-using Alpha.Reports.Tests.Extensions;
-using Alpha.Reports.Tests.Fixtures;
-using Fanex.Data.Repository;
-using NSubstitute;
-using Xunit;
-
-namespace Alpha.Reports.Tests.Services
+﻿namespace Alpha.Reports.Tests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using Alpha.Reports.Criteria.Statement;
+    using Alpha.Reports.DataAccesses;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Params.Statement;
+    using Alpha.Reports.Services;
+    using Alpha.Reports.Tests.Constants;
+    using Alpha.Reports.Tests.Extensions;
+    using Alpha.Reports.Tests.Fixtures;
+    using Fanex.Data.Repository;
+    using NSubstitute;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("AnyValueCreatorCollection")]
     public class StatementServiceImplTests

@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Alpha.Reports.Criteria.Statement;
-using Alpha.Reports.DataAccesses;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Params.Statement;
-using Fanex.Data.Repository;
-
-namespace Alpha.Reports.Services
+﻿namespace Alpha.Reports.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Alpha.Reports.Criteria.Statement;
+    using Alpha.Reports.DataAccesses;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Params.Statement;
+    using Fanex.Data.Repository;
+
     public interface StatementService
     {
         IEnumerable<StatementModel> GetStatements(GetStatementParam param);

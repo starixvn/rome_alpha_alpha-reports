@@ -1,13 +1,13 @@
-﻿using System;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Site.App_GlobalResources;
-using Alpha.Reports.Site.Helpers;
-using NPOI.HSSF.UserModel;
-using ONEbook.SpreadSheets;
-using ONEbook.SpreadSheets.NPOI;
-
-namespace Alpha.Reports.Site.Handlers.Statement
+﻿namespace Alpha.Reports.Site.Handlers.Statement
 {
+    using System;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Site.Helpers;
+    using NPOI.HSSF.UserModel;
+    using ONEbook.SpreadSheets;
+    using ONEbook.SpreadSheets.NPOI;
+
     public interface StatementWorkbook
     {
         Workbook<StatementModel> UseTemplate(TemplateInfo templateInfo);
