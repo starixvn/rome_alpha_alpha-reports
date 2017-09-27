@@ -4,7 +4,7 @@
 
     public class Product
     {
-        public Product(int id, string name) : this(id, name, null)
+        public Product()
         {
         }
 

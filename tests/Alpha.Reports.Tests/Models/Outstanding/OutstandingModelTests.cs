@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using Alpha.Reports.Models;
-using Alpha.Reports.Models.Outstanding;
-using KellermanSoftware.CompareNetObjects;
-using Xunit;
-
-namespace Alpha.Reports.Tests.Models.Outstanding
+﻿namespace Alpha.Reports.Tests.Models.Outstanding
 {
+    using System.Collections.Generic;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Models.Outstanding;
+    using KellermanSoftware.CompareNetObjects;
+    using Xunit;
+
     [Trait("Category", "Outstanding")]
     public class OutstandingModelTests
     {

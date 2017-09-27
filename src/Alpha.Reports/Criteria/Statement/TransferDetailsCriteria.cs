@@ -1,9 +1,9 @@
-﻿using System;
-using Fanex.Data;
-using Fanex.Data.Repository;
-
-namespace Alpha.Reports.Criteria.Statement
+﻿namespace Alpha.Reports.Criteria.Statement
 {
+    using System;
+    using Fanex.Data;
+    using Fanex.Data.Repository;
+
     public class TransferDetailsCriteria : CriteriaBase
     {
         public TransferDetailsCriteria(

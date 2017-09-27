@@ -1,10 +1,10 @@
-﻿using System.Collections.Specialized;
-using System.Configuration;
-using Alpha.Reports.Configurations;
-using Xunit;
-
-namespace Alpha.Reports.Tests.Configurations
+﻿namespace Alpha.Reports.Tests.Configurations
 {
+    using System.Collections.Specialized;
+    using System.Configuration;
+    using Alpha.Reports.Configurations;
+    using Xunit;
+
     public class SiteSettingsTests
     {
         [Fact]

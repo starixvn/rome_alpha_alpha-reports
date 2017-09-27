@@ -2,11 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Criteria.WinLossAnalysis;
     using DataAccesses;
     using Models.WinLossAnalysis;
     using Params;
-    using System.Linq;
 
     public interface WinLossAnalysisService
     {

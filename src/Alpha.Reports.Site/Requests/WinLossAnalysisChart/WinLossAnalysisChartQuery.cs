@@ -1,10 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossAnalysisChart
 {
+    using System;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
     using Reports.Models;
-    using System;
     using Utils;
     using ViewModels.WinLossAnalysisChart;
 

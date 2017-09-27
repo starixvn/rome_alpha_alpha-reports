@@ -1,15 +1,15 @@
-﻿using System.Globalization;
-using System.Threading;
-using Alpha.Reports.Models;
-using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.Tests.Constants;
-using Alpha.Reports.Site.Tests.Fixtures;
-using Alpha.Reports.Site.ViewModels.Statement;
-using Alpha.Reports.Utils;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.ViewModels.Statement
+﻿namespace Alpha.Reports.Site.Tests.ViewModels.Statement
 {
+    using System.Globalization;
+    using System.Threading;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.Reports.Site.Tests.Constants;
+    using Alpha.Reports.Site.Tests.Fixtures;
+    using Alpha.Reports.Site.ViewModels.Statement;
+    using Alpha.Reports.Utils;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("UserCollection")]
     public class SMAStatementViewModelTests

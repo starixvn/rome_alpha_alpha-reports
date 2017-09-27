@@ -1,11 +1,11 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossAnalysisChart
 {
+    using System;
     using Extensions;
     using MediatR;
     using Params;
     using Requests.WinLossAnalysisChart;
     using Services;
-    using System;
     using ViewModels.WinLossAnalysisChart;
 
     public class WinLossAnalysisChartHandler :

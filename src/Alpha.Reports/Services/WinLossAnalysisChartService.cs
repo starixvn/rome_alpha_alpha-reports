@@ -1,10 +1,10 @@
 ﻿namespace Alpha.Reports.Services
 {
+    using System.Collections.Generic;
     using Criteria.WinLossAnalysisChart;
     using Fanex.Data.Repository;
     using Models.WinLossAnalysisChart;
     using Params;
-    using System.Collections.Generic;
 
     public interface WinLossAnalysisChartService
     {

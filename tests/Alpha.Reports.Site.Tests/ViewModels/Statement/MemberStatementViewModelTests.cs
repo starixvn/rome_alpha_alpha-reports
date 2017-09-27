@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
-using Alpha.Reports.Models;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Site.Helpers;
-using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.Tests.Constants;
-using Alpha.Reports.Site.Tests.Fixtures;
-using Alpha.Reports.Site.Tests.Helpers;
-using Alpha.Reports.Site.ViewModels.Statement;
-using Alpha.Reports.Utils;
-using NSubstitute;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.ViewModels.Statement
+﻿namespace Alpha.Reports.Site.Tests.ViewModels.Statement
 {
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Site.Helpers;
+    using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.Reports.Site.Tests.Constants;
+    using Alpha.Reports.Site.Tests.Fixtures;
+    using Alpha.Reports.Site.Tests.Helpers;
+    using Alpha.Reports.Site.ViewModels.Statement;
+    using Alpha.Reports.Utils;
+    using NSubstitute;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("UserCollection")]
     public class MemberStatementViewModelTests

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Alpha.Reports.Site.Helpers;
-using NSubstitute;
-
-namespace Alpha.Reports.Site.Tests.Helpers
+﻿namespace Alpha.Reports.Site.Tests.Helpers
 {
+    using System;
+    using System.Collections.Generic;
+    using Alpha.Reports.Site.Helpers;
+    using NSubstitute;
+
     public static class UrlHelperTestSetUp
     {
         public static void SetUp()

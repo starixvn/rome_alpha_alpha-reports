@@ -1,11 +1,11 @@
 ﻿namespace Alpha.Reports.Tests.Criteria.WinLossAnalysisChart
 {
+    using System;
+    using System.Collections.Generic;
     using Constants;
     using Reports.Criteria.WinLossAnalysisChart;
     using Reports.Enumerations;
     using Reports.Models;
-    using System;
-    using System.Collections.Generic;
     using Xunit;
 
     [Trait("Category", "WinLossAnalysisChart")]

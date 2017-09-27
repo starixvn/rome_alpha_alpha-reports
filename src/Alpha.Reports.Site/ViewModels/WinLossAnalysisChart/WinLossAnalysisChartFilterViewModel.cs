@@ -1,10 +1,10 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLossAnalysisChart
 {
+    using System;
     using App_GlobalResources;
     using Components;
     using Extensions;
     using Reports.Models;
-    using System;
 
     public class WinLossAnalysisChartFilterViewModel
     {

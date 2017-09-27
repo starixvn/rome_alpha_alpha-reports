@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Alpha.Reports.Constants;
-using Alpha.Reports.Models.WinlossByBetType;
-
-namespace Alpha.Reports.Models.WinLossByProduct
+﻿namespace Alpha.Reports.Models.WinLossByProduct
 {
+    using System.Collections.Generic;
+    using Alpha.Reports.Constants;
+    using Alpha.Reports.Models.WinlossByBetType;
+
     public class WinLossBySportModel
     {
         private static IDictionary<int, bool> productsHaveBetTypesGroupedBySport = new Dictionary<int, bool>

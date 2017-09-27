@@ -1,8 +1,8 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Consolidation
 {
-    using Extensions;
     using System;
     using System.Collections.Generic;
+    using Extensions;
 
     public class ConsolidationByDateViewModel
     {

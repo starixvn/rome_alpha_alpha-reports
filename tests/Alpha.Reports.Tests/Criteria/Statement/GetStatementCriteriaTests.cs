@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections;
-using Alpha.Reports.Criteria.Statement;
-using Alpha.Reports.Tests.Constants;
-using Alpha.Reports.Tests.Fixtures;
-using Alpha.Reports.Utils;
-using Xunit;
-
-namespace Alpha.Reports.Tests.Criteria.Statement
+﻿namespace Alpha.Reports.Tests.Criteria.Statement
 {
+    using System;
+    using System.Collections;
+    using Alpha.Reports.Criteria.Statement;
+    using Alpha.Reports.Tests.Constants;
+    using Alpha.Reports.Tests.Fixtures;
+    using Alpha.Reports.Utils;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("AnyValueCreatorCollection")]
     public class GetStatementCriteriaTests

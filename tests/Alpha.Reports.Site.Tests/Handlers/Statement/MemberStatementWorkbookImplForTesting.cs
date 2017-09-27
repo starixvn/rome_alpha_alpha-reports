@@ -1,8 +1,8 @@
-﻿using Alpha.Reports.Site.Handlers.Statement;
-using ONEbook.SpreadSheets;
-
-namespace Alpha.Reports.Site.Tests.Handlers.Statement
+﻿namespace Alpha.Reports.Site.Tests.Handlers.Statement
 {
+    using Alpha.Reports.Site.Handlers.Statement;
+    using ONEbook.SpreadSheets;
+
     public class MemberStatementWorkbookImplForTesting : MemberStatementWorkbookImpl
     {
         public void CallFillHeader(Sheet sheet)

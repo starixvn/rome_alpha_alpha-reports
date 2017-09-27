@@ -1,11 +1,11 @@
-﻿using Alpha.Reports.Models;
-using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.Tests.Constants;
-using Alpha.Reports.Site.Tests.Fixtures;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.Requests.Statement
+﻿namespace Alpha.Reports.Site.Tests.Requests.Statement
 {
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.Reports.Site.Tests.Constants;
+    using Alpha.Reports.Site.Tests.Fixtures;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("UserCollection")]
     public class MemberStatementExcelQueryTests

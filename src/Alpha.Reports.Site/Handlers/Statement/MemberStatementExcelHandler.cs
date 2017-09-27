@@ -1,14 +1,14 @@
-﻿using Alpha.Reports.Extensions;
-using Alpha.Reports.Params.Statement;
-using Alpha.Reports.Services;
-using Alpha.Reports.Site.App_GlobalResources;
-using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.ViewModels;
-using MediatR;
-using ONEbook.SpreadSheets;
-
-namespace Alpha.Reports.Site.Handlers.Statement
+﻿namespace Alpha.Reports.Site.Handlers.Statement
 {
+    using Alpha.Reports.Extensions;
+    using Alpha.Reports.Params.Statement;
+    using Alpha.Reports.Services;
+    using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.Reports.Site.ViewModels;
+    using MediatR;
+    using ONEbook.SpreadSheets;
+
     public class MemberStatementExcelHandler
         : BaseHandler,
         IRequestHandler<MemberStatementExcelQuery, ExcelFileViewModel>

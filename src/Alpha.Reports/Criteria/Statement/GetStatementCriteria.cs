@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections;
-using Alpha.Reports.Services;
-using Fanex.Data;
-using Fanex.Data.Repository;
-
-namespace Alpha.Reports.Criteria.Statement
+﻿namespace Alpha.Reports.Criteria.Statement
 {
+    using System;
+    using System.Collections;
+    using Alpha.Reports.Services;
+    using Fanex.Data;
+    using Fanex.Data.Repository;
+
     public class GetStatementCriteria : CriteriaBase
     {
         public GetStatementCriteria(

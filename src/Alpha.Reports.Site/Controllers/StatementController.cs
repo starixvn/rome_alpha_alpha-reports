@@ -1,9 +1,9 @@
-﻿using System.Web.Mvc;
-using Alpha.Reports.Site.Requests.Statement;
-using MediatR;
-
-namespace Alpha.Reports.Site.Controllers
+﻿namespace Alpha.Reports.Site.Controllers
 {
+    using System.Web.Mvc;
+    using Alpha.Reports.Site.Requests.Statement;
+    using MediatR;
+
     public class StatementController : ReportBaseController
     {
         public StatementController(IMediator mediator) : base(mediator)

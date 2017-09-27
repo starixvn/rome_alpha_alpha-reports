@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Site.Requests.Statement;
-
-namespace Alpha.Reports.Site.ViewModels.Statement
+﻿namespace Alpha.Reports.Site.ViewModels.Statement
 {
+    using System;
+    using System.Collections.Generic;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Site.Requests.Statement;
+
     public class StatementDetailViewModel
     {
         private readonly StatementDetailsQuery message;

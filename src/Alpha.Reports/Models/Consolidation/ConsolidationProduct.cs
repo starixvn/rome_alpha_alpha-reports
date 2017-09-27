@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Alpha.Reports.Models.Consolidation
+﻿namespace Alpha.Reports.Models.Consolidation
 {
+    using System;
+
     public class ConsolidationProduct
     {
         public ConsolidationProduct(byte id, string name, DateTime? endOfSupportDate, bool isEnable)

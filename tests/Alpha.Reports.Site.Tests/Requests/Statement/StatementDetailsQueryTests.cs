@@ -1,14 +1,14 @@
-﻿using System;
-using Alpha.Reports.Models;
-using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.Tests.Constants;
-using Alpha.Reports.Site.Tests.Fixtures;
-using Alpha.Reports.Utils;
-using NSubstitute;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.Requests.Statement
+﻿namespace Alpha.Reports.Site.Tests.Requests.Statement
 {
+    using System;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.Reports.Site.Tests.Constants;
+    using Alpha.Reports.Site.Tests.Fixtures;
+    using Alpha.Reports.Utils;
+    using NSubstitute;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("UserCollection")]
     public class StatementDetailsQueryTests

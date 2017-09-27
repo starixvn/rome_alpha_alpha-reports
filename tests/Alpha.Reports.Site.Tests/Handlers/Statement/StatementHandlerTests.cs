@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using Alpha.Reports.Models;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Params.Statement;
-using Alpha.Reports.Services;
-using Alpha.Reports.Site.Handlers.Statement;
-using Alpha.Reports.Site.Requests.Statement;
-using Alpha.Reports.Site.Tests.Extensions;
-using Alpha.Reports.Site.Tests.Fixtures;
-using Alpha.Reports.Site.ViewModels.Statement;
-using NSubstitute;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.Handlers.Statement
+﻿namespace Alpha.Reports.Site.Tests.Handlers.Statement
 {
+    using System.Collections.Generic;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Params.Statement;
+    using Alpha.Reports.Services;
+    using Alpha.Reports.Site.Handlers.Statement;
+    using Alpha.Reports.Site.Requests.Statement;
+    using Alpha.Reports.Site.Tests.Extensions;
+    using Alpha.Reports.Site.Tests.Fixtures;
+    using Alpha.Reports.Site.ViewModels.Statement;
+    using NSubstitute;
+    using Xunit;
+
     [Trait("Category", "Statement")]
     [Collection("UserCollection")]
     public class StatementHandlerTests

@@ -1,14 +1,14 @@
-﻿using Alpha.Reports.Models;
-using Alpha.Reports.Site.Controllers;
-using Alpha.Reports.Site.Requests.CommissionByBettype;
-using Alpha.Reports.Site.Tests.Fixtures;
-using Alpha.Reports.Site.ViewModels;
-using MediatR;
-using NSubstitute;
-using Xunit;
-
-namespace Alpha.Reports.Site.Tests.Controllers
+﻿namespace Alpha.Reports.Site.Tests.Controllers
 {
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.Controllers;
+    using Alpha.Reports.Site.Requests.CommissionByBettype;
+    using Alpha.Reports.Site.Tests.Fixtures;
+    using Alpha.Reports.Site.ViewModels;
+    using MediatR;
+    using NSubstitute;
+    using Xunit;
+
     [Trait("Category", "CommissionByBettype")]
     [Collection("UserCollection")]
     public class CommissionByBettypeControllerTests

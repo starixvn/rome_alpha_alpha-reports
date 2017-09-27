@@ -1,9 +1,9 @@
-﻿using Alpha.Reports.Models.Consolidation;
-using Alpha.StaticData.Npoi;
-using NPOI.SS.UserModel;
-
-namespace Alpha.Reports.StaticData.Repositories
+﻿namespace Alpha.Reports.StaticData.Repositories
 {
+    using Alpha.Reports.Models.Consolidation;
+    using Alpha.StaticData.Npoi;
+    using NPOI.SS.UserModel;
+
     public class ConsolidationExcelRepository : ReportExcelRepository
     {
         public static object CreateConsolidationByUsername(IRow row)

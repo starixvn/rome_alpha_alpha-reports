@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Alpha.Reports.Constants;
-using Alpha.Reports.Extensions;
-using Alpha.Reports.Models;
-using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Site.App_GlobalResources;
-using Alpha.Reports.Site.Requests;
-using Alpha.Reports.Site.ViewModels.Components;
-
-namespace Alpha.Reports.Site.ViewModels.Statement
+﻿namespace Alpha.Reports.Site.ViewModels.Statement
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Alpha.Reports.Constants;
+    using Alpha.Reports.Extensions;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Site.Requests;
+    using Alpha.Reports.Site.ViewModels.Components;
+
     public class StatementViewModel
     {
         protected readonly ReportBaseQuery Message;

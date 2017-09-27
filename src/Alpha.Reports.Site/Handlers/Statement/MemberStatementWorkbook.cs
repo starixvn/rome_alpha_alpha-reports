@@ -1,9 +1,9 @@
-﻿using Alpha.Reports.Models.Statement;
-using Alpha.Reports.Site.App_GlobalResources;
-using ONEbook.SpreadSheets;
-
-namespace Alpha.Reports.Site.Handlers.Statement
+﻿namespace Alpha.Reports.Site.Handlers.Statement
 {
+    using Alpha.Reports.Models.Statement;
+    using Alpha.Reports.Site.App_GlobalResources;
+    using ONEbook.SpreadSheets;
+
     public interface MemberStatementWorkbook : StatementWorkbook
     {
     }

@@ -1,9 +1,9 @@
 ﻿namespace Alpha.Reports.Params
 {
-    using Extensions;
-    using Models;
     using System;
     using System.Collections.Generic;
+    using Extensions;
+    using Models;
     using Utils;
 
     public class WinLossAnalysisChartParam

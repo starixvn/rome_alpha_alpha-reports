@@ -1,8 +1,8 @@
-﻿using Alpha.Reports.Models;
-using Alpha.Reports.Site.Requests.WinLossDetail;
-
-namespace Alpha.Reports.Site.Requests.Consolidation
+﻿namespace Alpha.Reports.Site.Requests.Consolidation
 {
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.Requests.WinLossDetail;
+
     public class ConsolidateWinLossDetailExcelQuery : WinLossDetailExcelQuery
     {
         public ConsolidateWinLossDetailExcelQuery(IUser viewer) : base(viewer)
