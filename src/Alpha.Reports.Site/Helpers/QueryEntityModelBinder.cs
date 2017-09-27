@@ -87,7 +87,7 @@
             Logs.WriteWarn(ex, UserSession.Current.CustId);
         }
 
-        public void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
+        private static void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
         {
             if (errorArgs.ErrorContext.Error.Message.Contains(".CustLevelId'"))
             {
