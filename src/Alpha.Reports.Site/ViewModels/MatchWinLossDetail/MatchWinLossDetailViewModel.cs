@@ -68,6 +68,11 @@
                 return $"{Resources.NumberGameNo} {data.MatchCode}";
             }
 
+            if (BetTypeHelper.IsLucky3(data.BetType))
+            {
+                return $"{Resources.Lucky3GameNo} {data.MatchCode}";
+            }
+
             if (BetTypeHelper.IsVirtualHorseRacing(data.BetType))
             {
                 DateTime eventTime;

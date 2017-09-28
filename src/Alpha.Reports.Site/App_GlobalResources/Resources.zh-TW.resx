@@ -633,4 +633,7 @@
   <data name="Owner" xml:space="preserve">
     <value>持有人</value>
   </data>
+  <data name="Lucky3GameNo" xml:space="preserve">
+    <value>幸运3比賽場次</value>
+  </data>
 </root>

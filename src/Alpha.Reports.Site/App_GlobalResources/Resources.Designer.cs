@@ -862,6 +862,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lucky 3 Game No.
+        /// </summary>
+        public static string Lucky3GameNo {
+            get {
+                return ResourceManager.GetString("Lucky3GameNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to March.
         /// </summary>
         public static string March {
