@@ -108,6 +108,11 @@
                     : $"{Resources.NumberGame} - {leagueName}";
             }
 
+            if(BetTypeHelper.IsLucky3(data.BetType))
+            {
+                return $"{Resources.Lucky3} - {leagueName}";
+            }
+
             return leagueName;
         }
     }
