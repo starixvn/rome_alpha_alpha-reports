@@ -516,6 +516,9 @@
     <Content Include="App_Data\activitytracking.napinternal2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
+	<Content Include="App_Data\activitytracking.napinternal3.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
     <Content Include="App_Data\activitytracking.uat.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
