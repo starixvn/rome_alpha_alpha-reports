@@ -279,5 +279,18 @@
             // Assert
             Assert.Equal(expectedPageSize, actualPageSize);
         }
+
+        [Fact]
+        public void SortByPropertyName_Always_ReturnsSortByPropertyNameSetFromCtor()
+        {
+            // Arrange
+            var winLossDetailParam = new WinLossDetailParam(1, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), UserLevel.Super, "SortByPropertyName", false, false);
+
+            // Act
+            var actual = winLossDetailParam.SortByPropertyName;
+
+            // Assert
+            Assert.Equal("SortByPropertyName", actual);
+        }
     }
 }

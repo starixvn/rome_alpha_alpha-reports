@@ -9,6 +9,7 @@
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using RemotingRef;
+    using Reports.Models;
     using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
     using Services;
@@ -146,7 +147,8 @@
             winLossByProductExcelHandler.Handle(message);
 
             // Assert
-            onebookWorkbook.Received().Header(Arg.Any<Func<string, string>>());
+            onebookWorkbook.Received().Header(Arg.Is<Func<string, string>>(
+                func => func("BetTypeName") == "Product/Bet Type" && func("WinLoss") == "Win/Loss"));
         }
 
         [Fact]
@@ -176,6 +178,150 @@
 
             // Assert
             winLossByProductExcelHandler.Received().GetExcelTemplatePath(fileName);
+        }
+
+        [Fact]
+        public void GetRowMapper_DataRow_MapColumnAWithCorrectBetTypeName()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossByBetTypeModel(1, "BetTypeName", 2, 3, "SportTypeName", false, 4, 5, 6, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var message = new WinLossByProductExcelQuery(userFixture.User);
+
+            // Act
+            var actualMapper = winLossByProductExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.Equal("BetTypeName", (string)actualMapper.Mappings[Column.A](viewModel));
+        }
+
+        [Fact]
+        public void GetRowMapper_TotalRow_MapColumnAWithTotalLabel()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossByBetTypeModel(1, "BetTypeName", 2, 3, "SportTypeName", false, 4, 5, 6, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var message = new WinLossByProductExcelQuery(userFixture.User);
+
+            // Act
+            var actualMapper = winLossByProductExcelHandler.GetRowMapper(message, true);
+
+            // Assert
+            Assert.Equal("Total", (string)actualMapper.Mappings[Column.A](viewModel));
+        }
+
+        [Theory]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(4)]
+        public void GetRowMapper_HasBetCount_ReturnCorrectMapper(byte roleId)
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossByBetTypeModel(1, "BetTypeName", 2, 3, "SportTypeName", false, 4, 5, 6, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns(roleId);
+            var message = new WinLossByProductExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossByProductExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (int)actualMapper.Mappings[Column.B](viewModel) == 4 &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 6 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 5);
+        }
+
+        [Theory]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(4)]
+        public void GetRowMapper_NotHaveBetCount_ReturnCorrectMapper(byte roleId)
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossByBetTypeModel(1, "BetTypeName", 2, 3, "SportTypeName", false, null, 5, 6, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns(roleId);
+            var message = new WinLossByProductExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossByProductExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.B](viewModel) == "--" &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 6 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 5);
+        }
+
+        [Fact]
+        public void GetRowMapper_AgentLevel_ReturnCorrectMapper()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossByBetTypeModel(1, "BetTypeName", 2, 3, "SportTypeName", false, null, 5, 6, netWinLoss, netWinLoss, null, null);
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)2);
+            var message = new WinLossByProductExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossByProductExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.I](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.J](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.K](viewModel) == -6);
+        }
+
+        [Fact]
+        public void GetRowMapper_MasterLevel_ReturnCorrectMapper()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossByBetTypeModel(1, "BetTypeName", 2, 3, "SportTypeName", false, null, 5, 6, netWinLoss, netWinLoss, netWinLoss, null);
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)3);
+            var message = new WinLossByProductExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossByProductExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.I](viewModel) == -9);
+        }
+
+        [Fact]
+        public void GetRowMapper_SuperLevel_ReturnCorrectMapper()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossByBetTypeModel(1, "BetTypeName", 2, 3, "SportTypeName", false, null, 5, 6, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)4);
+            var message = new WinLossByProductExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossByProductExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.I](viewModel) == -12);
         }
 
         private WinLossByProductExcelQuery CreateExportWinlossByProductExcelQuery(byte custLevelId)

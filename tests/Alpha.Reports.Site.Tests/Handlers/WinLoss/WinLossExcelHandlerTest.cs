@@ -222,6 +222,126 @@
             winLossExcelHandler.Received().GetExcelTemplatePath(fileName);
         }
 
+        [Fact]
+        public void GetRowMapper_DataRow_MapColumnAWithCustName()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossModel(1, "CustName", 2, 3, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var message = new WinLossExcelQuery(userFixture.User);
+
+            // Act
+            var actualMapper = winLossExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True((string)actualMapper.Mappings[Column.A](viewModel) == "CustName");
+        }
+
+        [Fact]
+        public void GetRowMapper_TotalRow_MapColumnAWithCustName()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossModel(1, "CustName", 2, 3, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var message = new WinLossExcelQuery(userFixture.User);
+
+            // Act
+            var actualMapper = winLossExcelHandler.GetRowMapper(message, true);
+
+            // Assert
+            Assert.True((string)actualMapper.Mappings[Column.A](viewModel) == "Total");
+        }
+
+        [Fact]
+        public void GetRowMapper_AgentLevel_ReturnCorrectMapper()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossModel(1, "CustName", 2, 3, netWinLoss, netWinLoss, null, null);
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)2);
+            var message = new WinLossExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.B](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.I](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.J](viewModel) == -6);
+        }
+
+        [Fact]
+        public void GetRowMapper_MasterLevel_ReturnCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new WinLossModel(
+                1,
+                "CustName",
+                2,
+                3,
+                new NetWinLoss(4, 5),
+                new NetWinLoss(6, 7),
+                new NetWinLoss(8, 9),
+                null);
+
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)3);
+            var message = new WinLossExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.B](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 13 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 8 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 9 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 17 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == -39);
+        }
+
+        [Fact]
+        public void GetRowMapper_SuperLevel_ReturnCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new WinLossModel(
+                1,
+                "CustName",
+                2,
+                3,
+                new NetWinLoss(4, 5),
+                new NetWinLoss(6, 7),
+                new NetWinLoss(8, 9),
+                new NetWinLoss(10, 11));
+
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)4);
+            var message = new WinLossExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.B](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 17 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 10 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 11 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 21 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == -60);
+        }
+
         private WinLossExcelQuery CreateExportWinlossExcelQuery(byte custLevelId)
         {
             var exportWinLossQuery = new WinLossExcelQuery(userFixture.User);

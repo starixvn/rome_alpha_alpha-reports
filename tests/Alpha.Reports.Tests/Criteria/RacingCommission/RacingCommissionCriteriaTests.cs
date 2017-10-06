@@ -42,5 +42,18 @@
             // Assert
             Assert.Equal(expectedValue, isValid);
         }
+
+        [Fact]
+        public void Create_Always_SetsCorrectInitialValues()
+        {
+            // Act
+            var criteria = new RacingCommissionCriteria(UserLevel.Agent, 1, DateTime.MinValue, DateTime.MinValue);
+
+            // Assert
+            Assert.True(
+                criteria.CustId == 1
+                && criteria.FromDate == DateTime.MinValue
+                && criteria.ToDate == DateTime.MinValue);
+        }
     }
 }

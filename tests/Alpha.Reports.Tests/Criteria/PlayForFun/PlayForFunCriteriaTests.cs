@@ -85,5 +85,31 @@
             // Assert
             Assert.True(actualIsValid);
         }
+
+        [Fact]
+        public void ProductId_Always_ReturnsProductIdSetFromCtor()
+        {
+            // Arrange
+            var criteria = new PlayForFunCriteria(1, DefaultVariables.CurrentDate, DefaultVariables.CurrentDate, 2, 3);
+
+            // Act
+            var actual = criteria.ProductId;
+
+            // Assert
+            Assert.Equal(2, actual);
+        }
+
+        [Fact]
+        public void StatusId_Always_ReturnsStatusIdSetFromCtor()
+        {
+            // Arrange
+            var criteria = new PlayForFunCriteria(1, DefaultVariables.CurrentDate, DefaultVariables.CurrentDate, 2, 3);
+
+            // Act
+            var actual = criteria.StatusId;
+
+            // Assert
+            Assert.Equal(3, actual);
+        }
     }
 }

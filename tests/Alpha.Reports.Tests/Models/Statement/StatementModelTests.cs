@@ -2,7 +2,6 @@
 {
     using Alpha.Reports.Models.Statement;
     using Alpha.Reports.Tests.Constants;
-    using Alpha.Reports.Tests.Fixtures;
     using Xunit;
 
     [Trait("Category", "Statement")]

@@ -42,7 +42,7 @@
 
         private Mapper<RacingCommissionModel> GetTotalRowMapper() => GetRowMapper(true);
 
-        private Mapper<RacingCommissionModel> GetRowMapper(bool isTotal)
+        internal Mapper<RacingCommissionModel> GetRowMapper(bool isTotal)
         {
             var mapper = new Mapper<RacingCommissionModel>()
                 .Map(Column.A, commission => isTotal ? Resources.Total : commission.CustName)

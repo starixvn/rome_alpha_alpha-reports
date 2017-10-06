@@ -3,6 +3,7 @@
     using System;
     using Alpha.Reports.Criteria.Statement;
     using Alpha.Reports.Tests.Fixtures;
+    using Constants;
     using Xunit;
 
     [Trait("Category", "Statement")]
@@ -91,6 +92,22 @@
 
             // Assert
             Assert.True(actualIsValid);
+        }
+
+        [Fact]
+        public void TransferDate_Always_ReturnsTransferDateSetFromCtor()
+        {
+            // Arrange
+            var criteria = new TransferDetailsCriteria(
+               1,
+               DefaultVariables.CurrentDate,
+               anyValueCreator.Create<string>());
+
+            // Act
+            var actual = criteria.TransferDate;
+
+            // Assert
+            Assert.Equal(DefaultVariables.CurrentDate, actual);
         }
     }
 }

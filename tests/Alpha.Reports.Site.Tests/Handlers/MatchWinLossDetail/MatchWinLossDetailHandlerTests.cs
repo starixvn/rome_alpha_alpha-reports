@@ -201,9 +201,18 @@
             AssertExtension.Equal(expectedViewModel, actualViewModel);
         }
 
-        [Fact]
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public void HandleWinLossDetailQuery_NotNullMessage_ReturnsCorrectViewModel()
+        [Theory]
+        [InlineData(null, true, true, true)]
+        [InlineData("", true, true, true)]
+        [InlineData(" ", true, true, true)]
+        [InlineData("  ", true, true, true)]
+        [InlineData("2", false, false, true)]
+        public void HandleWinLossDetailQuery_NotNullMessage_ReturnsCorrectViewModel(
+            string userSelectedLeagueIds,
+            bool isUserSelectsAllLeagues,
+            bool isSelectedFirstLeage,
+            bool isSelectedLeage)
         {
             // Arrange
             var query = new MatchWinLossDetailQuery(userFixture.User);
@@ -236,8 +245,9 @@
                 new League(2, 2, "League 2")
             });
 
-            var leagueIds = new List<int> { 2 };
-            query.UserSelectedLeagueIds = leagueIds.JoinWithComma();
+            query.UserSelectedLeagueIds = userSelectedLeagueIds;
+            query.IsUserSelectsAllLeagues = isUserSelectsAllLeagues;
+            var leagueIds = (userSelectedLeagueIds ?? string.Empty).ToListInt();
 
             var expectedViewModel = new MatchWinLossDetailReportViewModel(
                 new List<MatchWinLossDetailViewModel>
@@ -289,13 +299,13 @@
                     {
                         Text = "League 1",
                         Value = "1",
-                        Selected = false
+                        Selected = isSelectedFirstLeage
                     },
                     new SelectListItem
                     {
                         Text = "League 2",
                         Value = "2",
-                        Selected = true
+                        Selected = isSelectedLeage
                     }
                 });
 

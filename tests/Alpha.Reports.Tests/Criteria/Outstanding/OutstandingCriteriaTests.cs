@@ -41,5 +41,15 @@
             // Assert
             Assert.Equal(expectedValue, isValid);
         }
+
+        [Fact]
+        public void Create_Always_SetsCorrectInitialValues()
+        {
+            // Act
+            var criteria = new OutstandingCriteria(UserLevel.Agent, 1, "1,2");
+
+            // Assert
+            Assert.True(criteria.CustId == 1 && criteria.ProductIds == "1,2");
+        }
     }
 }

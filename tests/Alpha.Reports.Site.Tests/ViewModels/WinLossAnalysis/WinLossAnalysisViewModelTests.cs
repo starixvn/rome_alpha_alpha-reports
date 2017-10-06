@@ -101,7 +101,7 @@
         [InlineData(2, 3, "Sport", "Sport Win Loss Analysis")]
         public void Title_WinLossAnalysisLevel_ReturnCorrectTitle(
             byte custLevelId,
-            byte reportTypeId, 
+            byte reportTypeId,
             string reportTypeName,
             string expectedTitle)
         {
@@ -115,6 +115,24 @@
 
             // Act & Assert
             Assert.Equal(winLossAnalysisViewModel.Title, expectedTitle);
+        }
+
+        [Fact]
+        public void SortPropertyName_NotNullSortPropertyName_ReturnCorrectSortPropertyName()
+        {
+            // Arrange
+            var message = new WinLossAnalysisQuery(userFixture.User)
+            {
+                SortPropertyName = "SortPropertyName"
+            };
+
+            var viewModel = new WinLossAnalysisViewModel(null, null, message, null, null);
+
+            // Act
+            var actualSortPropertyName = viewModel.SortPropertyName;
+
+            // Assert
+            Assert.Equal("SortPropertyName", actualSortPropertyName);
         }
 
         private WinLossAnalysisQuery CreateWinLossAnalysisQuery(byte custLevelId, byte reportTypeId, string reportTypeName)

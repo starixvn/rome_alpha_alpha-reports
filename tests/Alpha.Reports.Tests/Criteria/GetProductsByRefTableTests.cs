@@ -33,5 +33,18 @@
             // Assert
             Assert.Equal(expectedIsValid, actualIsValid);
         }
+
+        [Fact]
+        public void RefTable_Always_ReturnsRefTableSetFromCtor()
+        {
+            // Arrange
+            var winLossDetailParam = new GetProductsByRefTableCriteria("2");
+
+            // Act
+            var actual = winLossDetailParam.RefTable;
+
+            // Assert
+            Assert.Equal("2", actual);
+        }
     }
 }

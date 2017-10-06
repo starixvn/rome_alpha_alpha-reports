@@ -101,7 +101,7 @@
         private Mapper<BetTypeWinLossViewModel> GetGrandTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.GrandTotal, custLevel);
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        private Mapper<BetTypeWinLossViewModel> GetRowMapper(int rowType, UserLevel custLevel)
+        internal Mapper<BetTypeWinLossViewModel> GetRowMapper(int rowType, UserLevel custLevel)
         {
             var mapper = new Mapper<BetTypeWinLossViewModel>();
 

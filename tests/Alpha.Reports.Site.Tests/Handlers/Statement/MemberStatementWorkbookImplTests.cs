@@ -5,6 +5,7 @@
     using Alpha.Reports.Site.Tests.Constants;
     using NSubstitute;
     using ONEbook.SpreadSheets;
+    using Reports.Models.Statement;
     using Xunit;
 
     [Trait("Category", "Statement")]
@@ -44,6 +45,34 @@
             row.Received().SetCellValue(7, "Grand Prize");
             row.Received().SetCellValue(8, "Transfer Amt");
             row.Received().SetCellValue(9, "Accumulated Total");
+        }
+
+        [Fact]
+        public void GetNotedBalanceCellIndex_Always_ReturnsCorrectValue()
+        {
+            // Arrange
+            var row = Substitute.For<Row>();
+            row.FirstCellIndex.Returns((short)1);
+
+            // Act
+            var actualNotedBalanceCellIndex = workbook.CallGetNotedBalanceCellIndex(row);
+
+            // Assert
+            Assert.Equal(11, actualNotedBalanceCellIndex);
+        }
+
+        [Fact]
+        public void ExportWinLoss_Always_SetsValuesToCells()
+        {
+            // Arrange
+            var row = Substitute.For<Row>();
+            var data = new StatementModel(DefaultVariables.CurrentDate, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+            // Act
+            workbook.CallExportWinLoss(row, data, 0);
+
+            // Assert
+            row.Received().SetCellValue(0, (decimal)5);
         }
     }
 }

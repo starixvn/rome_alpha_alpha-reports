@@ -102,7 +102,7 @@
 
         private Mapper<PlayForFunModel> GetMasterAgentTotalRowMapper() => GetMasterAgentRowMapper(isTotal: true);
 
-        private Mapper<PlayForFunModel> GetMasterAgentRowMapper(bool isTotal)
+        internal Mapper<PlayForFunModel> GetMasterAgentRowMapper(bool isTotal)
         {
             var mapper = new Mapper<PlayForFunModel>()
                 .Map(A, model => isTotal ? Resources.Total : model.CustName)
@@ -118,7 +118,7 @@
 
         private Mapper<PlayForFunModel> GetMemberTotalRowMapper() => GetMemberRowMapper(isTotal: true);
 
-        private Mapper<PlayForFunModel> GetMemberRowMapper(bool isTotal)
+        internal Mapper<PlayForFunModel> GetMemberRowMapper(bool isTotal)
         {
             var mapper = new Mapper<PlayForFunModel>()
                 .Map(A, model => isTotal ? Resources.Total : model.CustName)

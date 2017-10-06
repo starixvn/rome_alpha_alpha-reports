@@ -229,5 +229,18 @@
             // Assert
             row.Received().CopyCellsFrom(systemParlayRowTemplate);
         }
+
+        [Fact]
+        public void GrandTotalRowTemplate_Always_ReturnsCorrectValue()
+        {
+            // Arrange
+            var row = Substitute.For<Row>();
+
+            // Act
+            matchWinLossDetailWorkbookImpl.GrandTotalRowTemplate = row;
+
+            // Assert
+            Assert.Equal(row, matchWinLossDetailWorkbookImpl.GrandTotalRowTemplate);
+        }
     }
 }

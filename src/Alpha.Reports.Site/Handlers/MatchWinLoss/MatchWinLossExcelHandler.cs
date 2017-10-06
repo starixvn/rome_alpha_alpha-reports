@@ -77,7 +77,7 @@
 
         private Mapper<MatchWinLossViewModel> GetTotalRowMapper() => GetRowMapper(isTotal: true);
 
-        private Mapper<MatchWinLossViewModel> GetRowMapper(bool isTotal)
+        internal Mapper<MatchWinLossViewModel> GetRowMapper(bool isTotal)
         {
             var mapper = new Mapper<MatchWinLossViewModel>()
                 .Map(A, matchWinLoss => isTotal ? Resources.Total : matchWinLoss.EventInfo)

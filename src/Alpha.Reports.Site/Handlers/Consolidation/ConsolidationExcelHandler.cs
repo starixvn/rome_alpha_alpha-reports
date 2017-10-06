@@ -129,7 +129,7 @@
                 currencyName);
         }
 
-        private Mapper<ConsolidationByUsernameViewModel> GetRowMapper()
+        internal Mapper<ConsolidationByUsernameViewModel> GetRowMapper()
         {
             var mapper = new Mapper<ConsolidationByUsernameViewModel>()
                 .Map(A, winLoss => winLoss.CustLevelName)

@@ -123,5 +123,21 @@
             // Assert
             Assert.True(actualIsValid);
         }
+
+        [Fact]
+        public void Create_Always_SetsCorrectInitialValues()
+        {
+            // Act
+            var criteria =
+                new GetConsolidationCriteria(1, 3, DateTime.MinValue, DateTime.MinValue, 2, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>());
+
+            // Assert
+            Assert.True(
+                criteria.CustId == 1
+                && criteria.Currency == 3
+                && criteria.ReportType == 2
+                && criteria.BalanceUpDate == DateTime.MinValue
+                && criteria.MoveBetsDate == DateTime.MinValue);
+        }
     }
 }
