@@ -32,5 +32,8 @@
         public const int VirtualHorseRacing_Tricast = 1238;
 
         public const int ChargeCommission = 500;
+
+        public const int StartLucky3 = 1600;
+        public const int EndLucky3 = 1602;
     }
 }

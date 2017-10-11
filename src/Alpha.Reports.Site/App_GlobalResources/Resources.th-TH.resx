@@ -634,4 +634,7 @@
   <data name="Owner" xml:space="preserve">
     <value>เจ้าของ</value>
   </data>
+  <data name="Lucky3GameNo" xml:space="preserve">
+    <value>ลัคกี้3 หมายเลขเกมส์</value>
+  </data>
 </root>

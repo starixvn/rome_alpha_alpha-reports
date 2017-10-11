@@ -373,8 +373,8 @@
     <value>Bet Count</value>
   </data>
   <data name="CommissionByBettype" xml:space="preserve">
-		<value>Commission By Bet Type</value>
-	</data>
+    <value>Commission By Bet Type</value>
+  </data>
   <data name="NumberGameNo" xml:space="preserve">
     <value>Number Game No</value>
   </data>
@@ -433,35 +433,35 @@
     <value>Play For Fun</value>
   </data>
   <data name="WinPlace" xml:space="preserve">
-		<value>Win Place</value>
-	</data>
+    <value>Win Place</value>
+  </data>
   <data name="RacingCommission" xml:space="preserve">
-		<value>Racing Commission</value>
-	</data>
+    <value>Racing Commission</value>
+  </data>
   <data name="Tote" xml:space="preserve">
-		<value>Tote</value>
-	</data>
+    <value>Tote</value>
+  </data>
   <data name="Win" xml:space="preserve">
-		<value>Win</value>
-	</data>
+    <value>Win</value>
+  </data>
   <data name="Place" xml:space="preserve">
-		<value>Place</value>
-	</data>
+    <value>Place</value>
+  </data>
   <data name="Commission" xml:space="preserve">
-		<value>Commission</value>
-	</data>
+    <value>Commission</value>
+  </data>
   <data name="Gaming" xml:space="preserve">
-		<value>Gaming</value>
-	</data>
+    <value>Gaming</value>
+  </data>
   <data name="ChargeComm" xml:space="preserve">
-		<value>ChargeComm</value>
-	</data>
+    <value>ChargeComm</value>
+  </data>
   <data name="SymbolMyanmarOdds" xml:space="preserve">
-		<value>% Odds</value>
-	</data>
+    <value>% Odds</value>
+  </data>
   <data name="Others" xml:space="preserve">
-		<value>Others</value>
-	</data>
+    <value>Others</value>
+  </data>
   <data name="Commission1" xml:space="preserve">
     <value>Commission 1</value>
   </data>
@@ -704,5 +704,11 @@
   </data>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
+  </data>
+  <data name="Lucky3GameNo" xml:space="preserve">
+    <value>Lucky 3 Game No</value>
+  </data>
+  <data name="Lucky3" xml:space="preserve">
+    <value>Lucky3</value>
   </data>
 </root>
