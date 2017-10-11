@@ -500,5 +500,31 @@
             // Assert
             AssertExtension.Equal(winLossDetailData, actualData);
         }
+
+        [Fact]
+        public void GetRowMapper_Always_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new ConsolidationByUsernameViewModel(1, 2, "Username", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, "UUS");
+
+            // Act
+            var actualMapper = consolidationExcelHandler.GetRowMapper();
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "Agent" &&
+                (string)actualMapper.Mappings[Column.B](viewModel) == "Username" &&
+                (string)actualMapper.Mappings[Column.C](viewModel) == "UUS" &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 4 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 5 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 6 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 7 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 8 &&
+                (decimal)actualMapper.Mappings[Column.I](viewModel) == 9 &&
+                (decimal)actualMapper.Mappings[Column.J](viewModel) == 10 &&
+                (decimal)actualMapper.Mappings[Column.K](viewModel) == 11 &&
+                (decimal)actualMapper.Mappings[Column.L](viewModel) == 12 &&
+                (int)actualMapper.Mappings[Column.M](viewModel) == 13);
+        }
     }
 }

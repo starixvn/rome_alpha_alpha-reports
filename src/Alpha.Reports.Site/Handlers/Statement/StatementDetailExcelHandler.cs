@@ -53,7 +53,7 @@
             return new ExcelFileViewModel(excelFileName, fileContent);
         }
 
-        private Mapper<StatementDetailModel> GetBodyRowMapper()
+        internal Mapper<StatementDetailModel> GetBodyRowMapper()
         {
             var mapper = new Mapper<StatementDetailModel>()
                 .Map(A, statement => string.Join("\r\n", statement.FullTransDateName, statement.TransDateString, statement.TransTimeString))
@@ -63,7 +63,7 @@
             return mapper;
         }
 
-        private Mapper<StatementDetailModel> GetFooterRowMapper()
+        internal Mapper<StatementDetailModel> GetFooterRowMapper()
         {
             var mapper = new Mapper<StatementDetailModel>()
                 .Map(A, statement => Resources.Total)

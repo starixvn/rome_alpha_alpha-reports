@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Constants;
     using Fixtures;
     using Newtonsoft.Json;
     using NSubstitute;
@@ -12,6 +13,7 @@
     using Services;
     using Site.Handlers.WinLoss;
     using Site.Requests.WinLoss;
+    using Utils;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
@@ -26,6 +28,7 @@
 
         public EnteredSportResultExcelHandlerTests(UserFixture userFixture)
         {
+            SystemTime.Today = DefaultVariables.CurrentDate;
             reportService = Substitute.For<WinLossService>();
             enteredSportResultWorkbook = Substitute.For<Workbook<EnteredSportResult>>();
             enteredSportResultWorkbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(enteredSportResultWorkbook);
@@ -93,6 +96,22 @@
         }
 
         [Fact]
+        public void HandleExportEnteredResultQuery_ExportsCorrectHeader()
+        {
+            // Arrange
+            var message = CreateExportEnteredResultsExcelQuery(custLevelId: 4);
+
+            // Act
+            enteredSportResultExcelHandler.Handle(message);
+
+            // Assert
+            enteredSportResultWorkbook.Received().Header(Arg.Is<Func<string, string>>(func =>
+            func("Yesterday") == "12/01/2016"
+            && func("Today") == "12/02/2016"
+            && func("WinLoss") == "Win/Loss"));
+        }
+
+        [Fact]
         public void HandleExportEnteredResultQuery_ExportsExcelToBytes()
         {
             // Arrange
@@ -116,6 +135,46 @@
 
             // Assert
             enteredSportResultExcelHandler.Received().GetExcelTemplatePath("MatchResultEntered");
+        }
+
+        [Fact]
+        public void GetRowMapper_HasEnteredSportResult_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new EnteredSportResult(
+                1,
+                "SportName",
+                new DailyEnteredSport(true, new DateTime(2017, 10, 9), 2, 3, 4),
+                new DailyEnteredSport(false, new DateTime(2017, 10, 8), 5, 6, 7));
+
+            // Act
+            var actualMapper = enteredSportResultExcelHandler.GetEnteredSportResultRowMapper();
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "SportName" &&
+                (int)actualMapper.Mappings[Column.B](viewModel) == 6 &&
+                (int)actualMapper.Mappings[Column.C](viewModel) == 7 &&
+                (int)actualMapper.Mappings[Column.D](viewModel) == 3 &&
+                (int)actualMapper.Mappings[Column.E](viewModel) == 4);
+        }
+
+        [Fact]
+        public void GetRowMapper_NotHasEnteredSportResult_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new EnteredSportResult(1, "SportName", null, null);
+
+            // Act
+            var actualMapper = enteredSportResultExcelHandler.GetEnteredSportResultRowMapper();
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "SportName" &&
+                (int)actualMapper.Mappings[Column.B](viewModel) == 0 &&
+                (int)actualMapper.Mappings[Column.C](viewModel) == 0 &&
+                (int)actualMapper.Mappings[Column.D](viewModel) == 0 &&
+                (int)actualMapper.Mappings[Column.E](viewModel) == 0);
         }
 
         private EnteredSportResultExcelQuery CreateExportEnteredResultsExcelQuery(byte custLevelId)

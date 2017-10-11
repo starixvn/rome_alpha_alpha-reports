@@ -126,5 +126,18 @@
             // Assert
             Assert.Equal("url?paramName123=paramValue", actualUrl);
         }
+
+        [Fact]
+        public void GetLink_Always_ReturnsCorrectValue()
+        {
+            // Arrange
+            var expectedValue = string.Empty;
+
+            // Act
+            var actualValue = UrlHelper.GetLink("Action", "?QueryString");
+
+            // Assert
+            Assert.Equal(expectedValue, actualValue);
+        }
     }
 }

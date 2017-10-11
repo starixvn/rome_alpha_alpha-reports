@@ -78,7 +78,7 @@
         private Mapper<WinLossDetailModel> GetTotalRowMapper(WinLossDetailExcelQuery message)
             => GetRowMapper(message, isTotal: true);
 
-        private Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
+        internal Mapper<WinLossDetailModel> GetRowMapper(WinLossDetailExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossDetailModel>()
                 .Map(A, winLossDetail => isTotal ? Resources.Total : winLossDetail.CustName)

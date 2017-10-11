@@ -32,5 +32,18 @@
             // Assert
             Assert.True(actualIsValid);
         }
+
+        [Fact]
+        public void IncludeTestData_Always_ReturnsIncludeTestDataSetFromConstructor()
+        {
+            // Arrange
+            var enteredSportDailyCriteria = new DailyEnteredSportCriteria(false);
+
+            // Act
+            var actualIncludeTestData = enteredSportDailyCriteria.IncludeTestData;
+
+            // Assert
+            Assert.Equal(false, actualIncludeTestData);
+        }
     }
 }

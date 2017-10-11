@@ -54,16 +54,16 @@
 
         private Mapper<CommissionByBettypeModel> GetTotalRowMapper() => GetRowMapper(true);
 
-        private Mapper<CommissionByBettypeModel> GetRowMapper(bool isTotal)
+        internal Mapper<CommissionByBettypeModel> GetRowMapper(bool isTotal)
         {
             var mapper = new Mapper<CommissionByBettypeModel>()
-            .Map(Column.A, commission => isTotal ? Resources.Total : commission.CustName)
-            .Map(Column.B, commission => commission.Comm1)
-            .Map(Column.C, commission => commission.Comm2)
-            .Map(Column.D, commission => commission.Comm3)
-            .Map(Column.E, commission => commission.ChargeComm)
-            .Map(Column.F, commission => commission.MyanmarOddsComm)
-            .Map(Column.G, commission => commission.CasinoComm);
+                .Map(Column.A, commission => isTotal ? Resources.Total : commission.CustName)
+                .Map(Column.B, commission => commission.Comm1)
+                .Map(Column.C, commission => commission.Comm2)
+                .Map(Column.D, commission => commission.Comm3)
+                .Map(Column.E, commission => commission.ChargeComm)
+                .Map(Column.F, commission => commission.MyanmarOddsComm)
+                .Map(Column.G, commission => commission.CasinoComm);
 
             return mapper;
         }

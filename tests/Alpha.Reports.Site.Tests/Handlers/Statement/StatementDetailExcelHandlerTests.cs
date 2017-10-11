@@ -143,5 +143,67 @@
             // Assert
             workbook.Received().ExportToBytes();
         }
+
+        [Fact]
+        public void GetRowMapper_NoDataAmount_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new StatementDetailModel(new DateTime(2017, 10, 6), "TransType", "TransDesc", null, "Creator");
+
+            // Act
+            var actualMapper = handler.GetBodyRowMapper();
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "Friday\r\n10/06/2017\r\n12:00:00 AM" &&
+                (string)actualMapper.Mappings[Column.B](viewModel) == "TransType\r\nTransDesc" &&
+                (string)actualMapper.Mappings[Column.C](viewModel) == "--");
+        }
+
+        [Fact]
+        public void GetRowMapper_Always_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new StatementDetailModel(new DateTime(2017, 10, 6), "TransType", "TransDesc", 1, "Creator");
+
+            // Act
+            var actualMapper = handler.GetBodyRowMapper();
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "Friday\r\n10/06/2017\r\n12:00:00 AM" &&
+                (string)actualMapper.Mappings[Column.B](viewModel) == "TransType\r\nTransDesc" &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 1);
+        }
+
+        [Fact]
+        public void GetFooterRowMapper_NoDataAmount_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new StatementDetailModel(new DateTime(2017, 10, 6), "TransType", "TransDesc", null, "Creator");
+
+            // Act
+            var actualMapper = handler.GetFooterRowMapper();
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "Total" &&
+                (string)actualMapper.Mappings[Column.C](viewModel) == "--");
+        }
+
+        [Fact]
+        public void GetFooterRowMapper_Always_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new StatementDetailModel(new DateTime(2017, 10, 6), "TransType", "TransDesc", 1, "Creator");
+
+            // Act
+            var actualMapper = handler.GetFooterRowMapper();
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "Total" &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 1);
+        }
     }
 }

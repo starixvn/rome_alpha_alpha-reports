@@ -13,6 +13,7 @@
     using ONEbook.SpreadSheets;
     using Params;
     using Ploeh.AutoFixture;
+    using Reports.Models;
     using Reports.Models.WinLossAnalysis;
     using Services;
     using Site.Handlers.WinLossAnalysis;
@@ -131,7 +132,8 @@
             winLossAnalysisExcelHandler.Handle(message);
 
             // Assert
-            winLossAnalysisWorkbook.Received().Header(Arg.Any<Func<string, string>>());
+            winLossAnalysisWorkbook.Received().Header(Arg.Is<Func<string, string>>(
+                func => func("ReportTypeName") == "Monthly" && func("WinLoss") == "Win/Loss"));
         }
 
         [Fact]
@@ -232,6 +234,126 @@
 
             // Assert
             winLossAnalysisExcelHandler.Received().GetExcelTemplatePath(fileName);
+        }
+
+        [Fact]
+        public void GetRowMapper_DataRow_MapColumnAWithRollupKey()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossAnalysisModel("RollupKey", 1, 2, 3, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var message = new WinLossAnalysisExcelQuery(userFixture.User);
+
+            // Act
+            var actualMapper = winLossAnalysisExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True((string)actualMapper.Mappings[Column.A](viewModel) == "RollupKey");
+        }
+
+        [Fact]
+        public void GetRowMapper_TotalRow_MapColumnAWithTotalLabel()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossAnalysisModel("RollupKey", 1, 2, 3, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var message = new WinLossAnalysisExcelQuery(userFixture.User);
+
+            // Act
+            var actualMapper = winLossAnalysisExcelHandler.GetRowMapper(message, true);
+
+            // Assert
+            Assert.True((string)actualMapper.Mappings[Column.A](viewModel) == "Total");
+        }
+
+        [Theory]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(4)]
+        public void GetRowMapper_AllLevel_ReturnCorrectMapper(byte roleId)
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossAnalysisModel("RollupKey", 1, 2, 3, netWinLoss, netWinLoss, null, null);
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns(roleId);
+            var message = new WinLossAnalysisExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossAnalysisExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (int)actualMapper.Mappings[Column.B](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.I](viewModel) == 3);
+        }
+
+        [Fact]
+        public void GetRowMapper_AgentLevel_ReturnCorrectMapper()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossAnalysisModel("RollupKey", 1, 2, 3, netWinLoss, netWinLoss, null, null);
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)2);
+            var message = new WinLossAnalysisExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossAnalysisExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True((decimal)actualMapper.Mappings[Column.J](viewModel) == -6);
+        }
+
+        [Fact]
+        public void GetRowMapper_MasterLevel_ReturnCorrectMapper()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossAnalysisModel("RollupKey", 1, 2, 3, netWinLoss, netWinLoss, netWinLoss, null);
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)3);
+            var message = new WinLossAnalysisExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossAnalysisExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.J](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.K](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.L](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.M](viewModel) == -9);
+        }
+
+        [Fact]
+        public void GetRowMapper_SuperLevel_ReturnCorrectMapper()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2);
+            var viewModel = new WinLossAnalysisModel("RollupKey", 1, 2, 3, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)4);
+            var message = new WinLossAnalysisExcelQuery(user);
+
+            // Act
+            var actualMapper = winLossAnalysisExcelHandler.GetRowMapper(message, false);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.J](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.K](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.L](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.M](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.N](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.O](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.P](viewModel) == -12);
         }
 
         private WinLossAnalysisExcelQuery CreateExportWinLossAnalysisExcelQuery(byte custLevelId, byte reportTypeId, string reportTypeName, string reportTitle)

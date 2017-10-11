@@ -176,5 +176,43 @@
             // Assert
             matchWinLossExcelHandler.Received().GetExcelTemplatePath("Member");
         }
+
+        [Fact]
+        public void GetRowMapper_BodyRow_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new MatchWinLossViewModel("EventInfo", "BetTypeName", 1, 2, false, 3, 4, 5);
+
+            // Act
+            var actualMapper = matchWinLossExcelHandler.GetRowMapper(false);
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[A](viewModel) == "EventInfo" &&
+                (string)actualMapper.Mappings[B](viewModel) == "BetTypeName" &&
+                (decimal)actualMapper.Mappings[C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[D](viewModel) == 4 &&
+                (decimal)actualMapper.Mappings[E](viewModel) == 5 &&
+                (decimal)actualMapper.Mappings[F](viewModel) == 9);
+        }
+
+        [Fact]
+        public void GetRowMapper_TotalRow_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new MatchWinLossViewModel("EventInfo", "BetTypeName", 1, 2, false, 3, 4, 5);
+
+            // Act
+            var actualMapper = matchWinLossExcelHandler.GetRowMapper(true);
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[A](viewModel) == "Total" &&
+                (string)actualMapper.Mappings[B](viewModel) == "BetTypeName" &&
+                (decimal)actualMapper.Mappings[C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[D](viewModel) == 4 &&
+                (decimal)actualMapper.Mappings[E](viewModel) == 5 &&
+                (decimal)actualMapper.Mappings[F](viewModel) == 9);
+        }
     }
 }

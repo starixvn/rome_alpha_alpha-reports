@@ -51,5 +51,21 @@
             // Assert
             Assert.False(actualIsSetDefaultStackMode);
         }
+
+        [Fact]
+        public void Create_Always_SetsCorrectInitialValues()
+        {
+            // Act
+            var criteria = new WinLossByProductQuery(user)
+            {
+                UserSelectedDateRangeOption = 2,
+                IsStackMode = true
+            };
+
+            // Assert
+            Assert.True(
+                criteria.UserSelectedDateRangeOption == 2
+                && criteria.IsStackMode == true);
+        }
     }
 }

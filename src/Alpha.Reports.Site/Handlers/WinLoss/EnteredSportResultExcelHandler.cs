@@ -51,7 +51,7 @@
             return new ExcelFileViewModel(GetExcelFileName(), result);
         }
 
-        private Mapper<EnteredSportResult> GetEnteredSportResultRowMapper()
+        internal Mapper<EnteredSportResult> GetEnteredSportResultRowMapper()
         {
             var mapper = new Mapper<EnteredSportResult>()
                 .Map(Column.A, enteredSportResult => enteredSportResult.SportName)

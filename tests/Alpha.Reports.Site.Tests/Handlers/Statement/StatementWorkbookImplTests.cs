@@ -6,6 +6,7 @@
     using Alpha.Reports.Site.Tests.Constants;
     using NSubstitute;
     using ONEbook.SpreadSheets;
+    using Reports.Models.Statement;
     using Xunit;
 
     [Trait("Category", "Statement")]
@@ -73,6 +74,34 @@
 
             // Assert
             Assert.Equal(expectedValue, actualValue);
+        }
+
+        [Fact]
+        public void GetNotedBalanceCellIndex_Always_ReturnsCorrectValue()
+        {
+            // Arrange
+            var row = Substitute.For<Row>();
+            row.FirstCellIndex.Returns((short)1);
+
+            // Act
+            var actualNotedBalanceCellIndex = workbook.CallGetNotedBalanceCellIndex(row);
+
+            // Assert
+            Assert.Equal(8, actualNotedBalanceCellIndex);
+        }
+
+        [Fact]
+        public void ExportWinLoss_Always_SetsValuesToCells()
+        {
+            // Arrange
+            var row = Substitute.For<Row>();
+            var data = new StatementModel(DefaultVariables.CurrentDate, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+            // Act
+            workbook.CallExportWinLoss(row, data, 0);
+
+            // Assert
+            row.Received().SetCellValue(0, (decimal)5);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -44,7 +45,7 @@
         }
 
         [Fact]
-        public void GetWinLossAnalysis_ValidParam_ReturnsDefaultReportData()
+        public void GetWinLossAnalysis_ValidParam_ReturnsCorrectReportData()
         {
             // Arrange
             var expectedData = Enumerable.Empty<WinLossAnalysisModel>();
@@ -55,6 +56,35 @@
 
             // Assert
             var result = compareLogic.Compare(expectedData, actualData);
+            Assert.True(result.AreEqual);
+        }
+
+        [Fact]
+        public void GetWinLossAnalysis_SportTypeReport_ReturnsCorrectReportData()
+        {
+            // Arrange
+            var data = new List<WinLossAnalysisModel>
+            {
+                new WinLossAnalysisModel("3", 3, 2, 3, null, null, null, null),
+                new WinLossAnalysisModel("1", 1, 2, 3, null, null, null, null),
+                new WinLossAnalysisModel("2", 2, 2, 3, null, null, null, null)
+            };
+
+            var expectedData = new List<WinLossAnalysisModel>
+            {
+                new WinLossAnalysisModel("1", 1, 2, 3, null, null, null, null),
+                new WinLossAnalysisModel("2", 2, 2, 3, null, null, null, null),
+                new WinLossAnalysisModel("3", 3, 2, 3, null, null, null, null)
+            };
+
+            var param = new WinLossAnalysisParam(0, 3, currentDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
+
+            // Act
+            dataAccess.GetWinLossAnalysis(Arg.Any<WinLossAnalysisCriteria>()).Returns(data);
+            var actualData = winLossAnalysisServiceImpl.GetWinLossAnalysis(param);
+
+            // Assert
+            var result = compareLogic.Compare(expectedData, actualData.ToList());
             Assert.True(result.AreEqual);
         }
 

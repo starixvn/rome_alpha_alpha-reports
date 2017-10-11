@@ -233,6 +233,8 @@
     <Compile Include="Models\CustInfoTests.cs" />
     <Compile Include="Models\LeagueTests.cs" />
     <Compile Include="Models\Outstanding\OutstandingModelTests.cs" />
+    <Compile Include="Models\PlayForFunProductTests.cs" />
+    <Compile Include="Models\ProductsByRefTableTests.cs" />
     <Compile Include="Models\RacingCommissionModelTests.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModelTests.cs" />
     <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModelTests.cs" />
@@ -241,6 +243,8 @@
     <Compile Include="Models\PagedReportDataTests.cs" />
     <Compile Include="Models\Statement\StatementDetailModelTests.cs" />
     <Compile Include="Models\Statement\StatementModelTests.cs" />
+    <Compile Include="Models\WinLossAnalysis\WinLossAnalysisModelTests.cs" />
+    <Compile Include="Models\WinLossByBetType\WinLossByBetTypeTests.cs" />
     <Compile Include="Models\WinLossByProduct\WinLossByProductModelTest.cs" />
     <Compile Include="Models\WinLossByProduct\WinLossBySportModelTests.cs" />
     <Compile Include="Models\WinLossTest.cs" />
@@ -253,6 +257,7 @@
     <Compile Include="Params\MatchWinLossParamTests.cs" />
     <Compile Include="Params\MatchWinLossDetailParamTests.cs" />
     <Compile Include="Params\ProductByCustomerParamTests.cs" />
+    <Compile Include="Params\SupportedHistoryReportParamTests.cs" />
     <Compile Include="Params\WinLossAnalysisChartParamTests.cs" />
     <Compile Include="Params\WinLossByProductParamTests.cs" />
     <Compile Include="Params\WinLossAnalysisParamTests.cs" />

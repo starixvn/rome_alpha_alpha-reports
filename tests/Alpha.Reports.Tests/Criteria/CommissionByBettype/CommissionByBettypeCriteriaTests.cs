@@ -42,5 +42,19 @@
             // Assert
             Assert.Equal(expectedSettingKey, actualSettingKey);
         }
+
+        [Fact]
+        public void Create_Always_SetsCorrectInitialValues()
+        {
+            // Act
+            var criteria = new CommissionByBettypeCriteria(UserLevel.Agent, 1, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue);
+
+            // Assert
+            Assert.True(
+                criteria.CustId == 1
+                && criteria.FromDate == DateTime.MinValue
+                && criteria.ToDate == DateTime.MinValue
+                && criteria.MoveBetsDay == DateTime.MinValue);
+        }
     }
 }

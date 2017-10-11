@@ -144,6 +144,46 @@
             workbook.Received().ExportToBytes();
         }
 
+        [Fact]
+        public void GetRowMapper_BodyMapper_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, 6, 7);
+
+            // Act
+            var actualMapper = excelHandler.GetRowMapper(false);
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "Username" &&
+                (decimal)actualMapper.Mappings[Column.B](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 4 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 7 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 6 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 5);
+        }
+
+        [Fact]
+        public void GetRowMapper_TotalMapper_ReturnsCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, 6, 7);
+
+            // Act
+            var actualMapper = excelHandler.GetRowMapper(true);
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "Total" &&
+                (decimal)actualMapper.Mappings[Column.B](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 4 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 7 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 6 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 5);
+        }
+
         private CommissionByBettypeExcelQuery CreateExportExcelQuery(byte custLevelId = 4)
         {
             var excelQuery = new CommissionByBettypeExcelQuery(userFixture.User);

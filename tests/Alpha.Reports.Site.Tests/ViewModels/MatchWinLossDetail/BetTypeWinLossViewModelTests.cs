@@ -74,6 +74,23 @@
             Assert.Equal(expectedName, actualName);
         }
 
+        [Theory]
+        [InlineData(2799, false, " (Virtual Sports)")]
+        public void Name_Always_ReturnsCorrectNameWithSuffix(
+            int betType,
+            bool liveIndicator,
+            string expectedName)
+        {
+            // Arrange
+            var viewModel = new BetTypeWinLossViewModel(betType, string.Empty, 0, 0, liveIndicator, 0, null, null, null, null, null);
+
+            // Act
+            var actualName = viewModel.Name;
+
+            // Assert
+            Assert.Equal(expectedName, actualName);
+        }
+
         [Fact]
         public void Add_NullWinLoss_ReturnsCurrentWinLoss()
         {

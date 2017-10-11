@@ -249,5 +249,88 @@
             // Assert
             onebookWorkbook.Received().ExportToBytes();
         }
+
+        [Theory]
+        [InlineData(1, "BetTypeName")]
+        [InlineData(2, "Sub Total")]
+        [InlineData(3, "Total")]
+        [InlineData(4, "Grand Total")]
+        public void GetRowMapper_DataRow_MapColumnAWithBetTypeName(int rowType, string expectedValue)
+        {
+            // Arrange
+            var viewModel = new BetTypeWinLossViewModel(1, "BetTypeName", 2, 3, false, 4, null, null, null, null, null);
+
+            // Act
+            var actualMapper = matchWinLossDetailExcelHandler.GetRowMapper(rowType, UserLevel.Agent);
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == expectedValue);
+        }
+
+        [Fact]
+        public void GetRowMapper_AgentLevel_MapCorrectly()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2, 3);
+            var viewModel = new BetTypeWinLossViewModel(1, "BetTypeName", 2, 3, false, 4, netWinLoss, netWinLoss, null, null, netWinLoss);
+
+            // Act
+            var actualMapper = matchWinLossDetailExcelHandler.GetRowMapper(1, UserLevel.Agent);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.B](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.I](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.J](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.K](viewModel) == 3);
+        }
+
+        [Fact]
+        public void GetRowMapper_MasterLevel_MapCorrectly()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2, 3);
+            var viewModel = new BetTypeWinLossViewModel(1, "BetTypeName", 2, 3, false, 4, netWinLoss, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+
+            // Act
+            var actualMapper = matchWinLossDetailExcelHandler.GetRowMapper(1, UserLevel.Master);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.J](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.K](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.L](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.M](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.N](viewModel) == 3);
+        }
+
+        [Fact]
+        public void GetRowMapper_SuperLevel_MapCorrectly()
+        {
+            // Arrange
+            var netWinLoss = new NetWinLoss(1, 2, 3);
+            var viewModel = new BetTypeWinLossViewModel(1, "BetTypeName", 2, 3, false, 4, netWinLoss, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
+
+            // Act
+            var actualMapper = matchWinLossDetailExcelHandler.GetRowMapper(1, UserLevel.Super);
+
+            // Assert
+            Assert.True(
+                (decimal)actualMapper.Mappings[Column.J](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.K](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.L](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.M](viewModel) == 1 &&
+                (decimal)actualMapper.Mappings[Column.N](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.O](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.P](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.Q](viewModel) == 3);
+        }
     }
 }

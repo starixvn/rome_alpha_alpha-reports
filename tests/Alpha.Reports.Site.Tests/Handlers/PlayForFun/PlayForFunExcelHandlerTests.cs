@@ -271,5 +271,77 @@
             // Assert
             workbook.Received().ExportToBytes();
         }
+
+        [Fact]
+        public void GetMasterAgentRowMapper_BodyRow_ReturnCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new MasterAgentPlayForFunModel(1, "CustName", 2, 3, 4, 5);
+
+            // Act
+            var actualMapper = handler.GetMasterAgentRowMapper(false);
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "CustName" &&
+                (int)actualMapper.Mappings[Column.B](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 4 &&
+                (int)actualMapper.Mappings[Column.E](viewModel) == 5);
+        }
+
+        [Fact]
+        public void GetMasterAgentRowMapper_TotalRow_ReturnCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new MasterAgentPlayForFunModel(1, "CustName", 2, 3, 4, 5);
+
+            // Act
+            var actualMapper = handler.GetMasterAgentRowMapper(true);
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "Total" &&
+                (int)actualMapper.Mappings[Column.B](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 4 &&
+                (int)actualMapper.Mappings[Column.E](viewModel) == 5);
+        }
+
+        [Fact]
+        public void GetMemberRowMapper_BodyRow_ReturnCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new MemberPlayForFunModel(1, "CustName", true, 2, 3, 4);
+
+            // Act
+            var actualMapper = handler.GetMemberRowMapper(false);
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "CustName" &&
+                (string)actualMapper.Mappings[Column.B](viewModel) == "Disabled" &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 3 &&
+                (int)actualMapper.Mappings[Column.E](viewModel) == 4);
+        }
+
+        [Fact]
+        public void GetMemberRowMapper_TotalRow_ReturnCorrectMapper()
+        {
+            // Arrange
+            var viewModel = new MemberPlayForFunModel(1, "CustName", false, 2, 3, 4);
+
+            // Act
+            var actualMapper = handler.GetMemberRowMapper(true);
+
+            // Assert
+            Assert.True(
+                (string)actualMapper.Mappings[Column.A](viewModel) == "Total" &&
+                (string)actualMapper.Mappings[Column.B](viewModel) == "Enabled" &&
+                (decimal)actualMapper.Mappings[Column.C](viewModel) == 2 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == 3 &&
+                (int)actualMapper.Mappings[Column.E](viewModel) == 4);
+        }
     }
 }

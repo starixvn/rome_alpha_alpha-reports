@@ -62,7 +62,7 @@
         private Mapper<WinLossByBetTypeModel> GetTotalRowMapper(WinLossByProductExcelQuery message)
             => GetRowMapper(message, isTotal: true);
 
-        private Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByProductExcelQuery message, bool isTotal)
+        internal Mapper<WinLossByBetTypeModel> GetRowMapper(WinLossByProductExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<WinLossByBetTypeModel>()
                 .Map(A, data => isTotal ? Resources.Total : BuildDisplayedBetTypeName(data.ProductId, (BetType)data.BetTypeId, data.BetTypeName, data.LiveIndicator))
