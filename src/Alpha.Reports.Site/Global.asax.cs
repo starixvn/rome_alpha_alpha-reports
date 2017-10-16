@@ -6,16 +6,16 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using App_GlobalResources;
     using App_Start;
     using Auth.Filters;
     using Configurations;
     using Fanex.Data;
+    using Fanex.Data.CrossCutting.WrappingException;
     using Fanex.Data.OldConnectionStringProvider;
+    using Fanex.Logging.Extensions.Database;
+    using Fanex.Logging.Extensions.Web;
     using Helpers;
     using ONEbook.UM.Filters;
-    using Sunplus.Agent.Model.Entities;
-    using Sunplus.Agent.Utilities;
     using Web;
     using Web.Helpers;
 
@@ -35,9 +35,8 @@
             DbSettingProviderManager
                 .StartNewSession()
                 .Use(new OldConnectionStringProvider())
-                .UseDefaultDbSettingProvider(
-                    resourcePath: SiteSettings.StoredProcedurePath,
-                    enableWatching: true)
+                .UseDefaultDbSettingProvider(resourcePath: SiteSettings.StoredProcedurePath, enableWatching: true)
+                .Use((settingKey, commandTimeout) => new WrappingExceptionObjectDb(settingKey, commandTimeout))
                 .Run();
 
             ShareSession.Init();
@@ -51,56 +50,20 @@
 
             StaticResources.Init(GetBuildVersion());
 
-            Logs.WriteInfo(Resources.AppStart_Message);
+            var loggingConfiguration = new LoggingConfiguration().UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
+
+            ExceptionHandler.UseConfig(loggingConfiguration);
         }
 
         protected void Application_Error()
         {
-            Exception ex = Server.GetLastError().GetBaseException();
-            var isIgnoreError = Request.IsLocal ||
-                ex is HttpException ||
-                ex.Message.Contains("Extend Token Error UserID");
-
-            if (!isIgnoreError)
-            {
-                Logs.FilterInfoWarnOrError(ex, UserSession.Current.CustId);
-            }
-        }
-
-        protected void Application_End()
-        {
-            HttpRuntime runtime = (HttpRuntime)typeof(HttpRuntime).InvokeMember(
-                "_theRuntime",
-                BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.GetField,
-                null,
-                null,
-                null);
-
-            if (runtime == null)
+            if (Request.IsLocal)
             {
                 return;
             }
 
-            string shutDownMessage = (string)runtime.GetType().InvokeMember(
-                "_shutDownMessage",
-                BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField,
-                null,
-                runtime,
-                null);
-
-            string shutDownStack = (string)runtime.GetType().InvokeMember(
-                "_shutDownStack",
-                BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField,
-                null,
-                runtime,
-                null);
-
-            var logMessage = string.Format(
-                "\r\n\r\n_shutDownMessage={0}\r\n\r\n_shutDownStack={1}",
-                shutDownMessage,
-                shutDownStack);
-
-            Logs.WriteInfo(logMessage);
+            Exception ex = Server.GetLastError();
+            ExceptionHandler.Handle(ex);
         }
 
         private static string GetBuildVersion()
