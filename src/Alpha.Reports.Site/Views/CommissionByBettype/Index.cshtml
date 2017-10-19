@@ -78,7 +78,7 @@
     <input type="hidden" name="FromDate" value="@Model.Query.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.Query.ToDate" />
 </form>
-@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("Guidelines", "CommissionByBettype"))
 
 @helper RenderCellValue(CommissionByBettypeModel commission)
 {
@@ -94,6 +94,7 @@ if (Model.ShowMyanmarOddsColumn)
         <td>@HtmlHelpers.FormatNumber(commission.MyanmarOddsComm)</td>
 }
     <td>@HtmlHelpers.FormatNumber(commission.CasinoComm)</td>
+    <td>@HtmlHelpers.FormatNumber(commission.Others)</td>
 }
 
 @section Scripts {

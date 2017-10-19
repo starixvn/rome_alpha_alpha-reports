@@ -148,7 +148,7 @@
         public void GetRowMapper_BodyMapper_ReturnsCorrectMapper()
         {
             // Arrange
-            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, 6, 7);
+            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, 6, 7, 8);
 
             // Act
             var actualMapper = excelHandler.GetRowMapper(false);
@@ -168,7 +168,7 @@
         public void GetRowMapper_TotalMapper_ReturnsCorrectMapper()
         {
             // Arrange
-            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, 6, 7);
+            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, 6, 7, 8);
 
             // Act
             var actualMapper = excelHandler.GetRowMapper(true);

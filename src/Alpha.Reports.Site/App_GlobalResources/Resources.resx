@@ -711,4 +711,7 @@
   <data name="Lucky3" xml:space="preserve">
     <value>Lucky3</value>
   </data>
+  <data name="Tooltip_CommissionByBetType" xml:space="preserve">
+    <value>- Others: applies to bettype(s) of Bullfighting.</value>
+  </data>
 </root>

@@ -1618,6 +1618,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - Others: applies to bettype(s) of Bullfighting..
+        /// </summary>
+        public static string Tooltip_CommissionByBetType {
+            get {
+                return ResourceManager.GetString("Tooltip_CommissionByBetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to - For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets..
         /// </summary>
         public static string Tooltip_NetTurnover {

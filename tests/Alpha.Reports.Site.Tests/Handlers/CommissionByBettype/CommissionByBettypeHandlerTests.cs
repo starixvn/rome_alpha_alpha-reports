@@ -43,7 +43,8 @@
             var service = Substitute.For<CommissionByBettypeService>();
             var reportService = Substitute.For<ReportDateService>();
             reportService.GetMoveBetsDay().Returns(moveBetsDay);
-            var handler = new CommissionByBettypeHandler(service, reportService, Substitute.For<UserPermissionService>());
+            var productService = Substitute.For<ProductService>();
+            var handler = new CommissionByBettypeHandler(service, reportService, Substitute.For<UserPermissionService>(), productService);
 
             var expectedparam = new CommissionByBettypeParam(viewerLevel, custLevel, custId, fromDate, toDate, moveBetsDay);
 
