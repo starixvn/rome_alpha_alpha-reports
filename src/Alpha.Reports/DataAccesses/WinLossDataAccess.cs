@@ -25,7 +25,7 @@
 
             var winlossData = new List<WinLossModel>();
 
-            using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria))
                 {

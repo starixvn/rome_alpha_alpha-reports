@@ -84,20 +84,40 @@
       <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Data, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Data.2.1.0\lib\net461\Fanex.Data.dll</HintPath>
+    <Reference Include="Fanex.Data, Version=2.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.2.1.0.1\lib\net461\Fanex.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Data.CrossCutting.WrappingException, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.CrossCutting.WrappingException.1.0.0.3\lib\net461\Fanex.Data.CrossCutting.WrappingException.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Data.DNAide, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.DNAide.1.0.1\lib\net461\Fanex.Data.DNAide.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Data.OldConnectionStringProvider, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Data.OldConnectionStringProvider.1.0.1\lib\net461\Fanex.Data.OldConnectionStringProvider.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Data.Repository, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Data.Repository.1.0.2\lib\net461\Fanex.Data.Repository.dll</HintPath>
+    <Reference Include="Fanex.Data.Repository, Version=1.0.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.Repository.1.0.2.1\lib\net461\Fanex.Data.Repository.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Logging, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Logging.1.0.1-beta2\lib\net461\Fanex.Logging.dll</HintPath>
+    <Reference Include="Fanex.Logging, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Logging.1.0.4\lib\net40\Fanex.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Logging.Extensions, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Logging.Extensions.1.0.5\lib\net40\Fanex.Logging.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Logging.Extensions.Database, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Logging.Extensions.Database.1.0.3\lib\net40\Fanex.Logging.Extensions.Database.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Logging.Extensions.Web, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Logging.Extensions.Web.1.0.4\lib\net40\Fanex.Logging.Extensions.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Products, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -121,12 +141,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EnterpriseLibrary.Logging.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -516,7 +536,7 @@
     <Content Include="App_Data\activitytracking.napinternal2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
-	<Content Include="App_Data\activitytracking.napinternal3.json">
+    <Content Include="App_Data\activitytracking.napinternal3.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
     <Content Include="App_Data\activitytracking.uat.json">
@@ -784,7 +804,7 @@
     <Content Include="Web.AppSettings.backupMNL2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
-	<Content Include="Web.AppSettings.backupMNL3.config">
+    <Content Include="Web.AppSettings.backupMNL3.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.backupMNLExNap.config">
@@ -793,7 +813,7 @@
     <Content Include="Web.AppSettings.backupMNLExNap2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
-	<Content Include="Web.AppSettings.backupMNLExNap3.config">
+    <Content Include="Web.AppSettings.backupMNLExNap3.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.backupMNLNap.config">
@@ -802,7 +822,7 @@
     <Content Include="Web.AppSettings.backupMNLNap2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
-	<Content Include="Web.AppSettings.backupMNLNap3.config">
+    <Content Include="Web.AppSettings.backupMNLNap3.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.backupMNL.config">
@@ -811,7 +831,7 @@
     <Content Include="Web.backupMNL2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-	<Content Include="Web.backupMNL3.config">
+    <Content Include="Web.backupMNL3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.backupMNLExNap.config">
@@ -820,7 +840,7 @@
     <Content Include="Web.backupMNLExNap2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-	<Content Include="Web.backupMNLExNap3.config">
+    <Content Include="Web.backupMNLExNap3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.backupMNLNap.config">
@@ -829,13 +849,13 @@
     <Content Include="Web.backupMNLNap2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-	<Content Include="Web.backupMNLNap3.config">
+    <Content Include="Web.backupMNLNap3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.uat2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-	<Content Include="Web.uat3.config">
+    <Content Include="Web.uat3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.uat.config">
@@ -844,7 +864,7 @@
     <Content Include="Web.sit2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-	<Content Include="Web.sit3.config">
+    <Content Include="Web.sit3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.sit.config">
@@ -853,7 +873,7 @@
     <Content Include="Web.pro2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-	<Content Include="Web.pro3.config">
+    <Content Include="Web.pro3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.pro.config">
@@ -862,7 +882,7 @@
     <Content Include="Web.napinternal2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-	<Content Include="Web.napinternal3.config">
+    <Content Include="Web.napinternal3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.napinternal.config">
@@ -871,7 +891,7 @@
     <Content Include="Web.napexternal2.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-	<Content Include="Web.napexternal3.config">
+    <Content Include="Web.napexternal3.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
     <Content Include="Web.napexternal.config">
@@ -1012,7 +1032,7 @@
     <Content Include="Web.AppSettings.napexternal2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
-	<Content Include="Web.AppSettings.napexternal3.config">
+    <Content Include="Web.AppSettings.napexternal3.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.napinternal.config">
@@ -1021,7 +1041,7 @@
     <Content Include="Web.AppSettings.napinternal2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
-	<Content Include="Web.AppSettings.napinternal3.config">
+    <Content Include="Web.AppSettings.napinternal3.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.pro.config">
@@ -1030,7 +1050,7 @@
     <Content Include="Web.AppSettings.pro2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
-	<Content Include="Web.AppSettings.pro3.config">
+    <Content Include="Web.AppSettings.pro3.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.sit.config">
@@ -1039,7 +1059,7 @@
     <Content Include="Web.AppSettings.sit2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
-	<Content Include="Web.AppSettings.sit3.config">
+    <Content Include="Web.AppSettings.sit3.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
     <Content Include="Web.AppSettings.uat.config">
@@ -1048,7 +1068,7 @@
     <Content Include="Web.AppSettings.uat2.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
-	<Content Include="Web.AppSettings.uat3.config">
+    <Content Include="Web.AppSettings.uat3.config">
       <DependentUpon>Web.AppSettings.config</DependentUpon>
     </Content>
   </ItemGroup>

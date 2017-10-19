@@ -3,14 +3,14 @@
     using System;
     using Fanex.Data;
 
-    public static class ObjectDbFactory
+    public static class ReportObjectDbFactory
     {
         [ThreadStatic]
         private static Func<string, IObjectDb> createInstance;
 
         public static Func<string, IObjectDb> CreateInstance
         {
-            get { return createInstance ?? ((settingKey) => new ObjectDb(settingKey)); }
+            get { return createInstance ?? ((settingKey) => ObjectDbFactory.CreateInstance(settingKey)); }
             internal set { createInstance = value; }
         }
     }

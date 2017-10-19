@@ -2,14 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
+    using Fanex.Logging.Extensions.Web;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
     using Reports.Models;
     using Requests;
-    using Sunplus.Agent.Model.Entities;
-    using Sunplus.Agent.Utilities;
 
     public class QueryEntityModelBinder : DefaultModelBinder
     {
@@ -84,7 +84,7 @@
 
         protected virtual void LogWarning(JsonException ex)
         {
-            Logs.WriteWarn(ex, UserSession.Current.CustId);
+            ExceptionHandler.Handle(ex, TraceEventType.Information);
         }
 
         private static void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)

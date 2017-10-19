@@ -8,7 +8,7 @@
         public ObjectDbFixture()
         {
             ObjectDb = Substitute.For<IObjectDb>();
-            Reports.DataAccesses.ObjectDbFactory.CreateInstance = (settingKey) => ObjectDb;
+            Reports.DataAccesses.ReportObjectDbFactory.CreateInstance = (settingKey) => ObjectDb;
         }
 
         public IObjectDb ObjectDb { get; private set; }
