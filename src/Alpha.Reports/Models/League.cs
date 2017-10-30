@@ -2,7 +2,11 @@
 {
     public class League
     {
-        public League(int id, byte sportTypeId, string name)
+        public League()
+        {
+        }
+
+        public League(int id, int sportTypeId, string name)
         {
             Id = id;
             Name = name;
@@ -10,7 +14,7 @@
             DisplayName = name;
         }
 
-        internal League(int id, string name, byte sportTypeId, string displayName) : this(id, sportTypeId, name)
+        internal League(int id, string name, int sportTypeId, string displayName) : this(id, sportTypeId, name)
         {
             DisplayName = displayName;
         }
@@ -19,7 +23,7 @@
 
         public string Name { get; }
 
-        public byte SportTypeId { get; }
+        public int SportTypeId { get; }
 
         public string DisplayName { get; }
     }

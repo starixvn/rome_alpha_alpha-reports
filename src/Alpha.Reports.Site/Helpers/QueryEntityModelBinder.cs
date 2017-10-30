@@ -84,7 +84,7 @@
 
         protected virtual void LogWarning(JsonException ex)
         {
-            ExceptionHandler.Handle(ex, TraceEventType.Information);
+            ExceptionHandler.Handle(ex, TraceEventType.Warning);
         }
 
         private static void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
