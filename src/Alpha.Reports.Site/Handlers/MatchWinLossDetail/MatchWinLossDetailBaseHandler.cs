@@ -50,7 +50,7 @@
                  query.CustId,
                  query.FromDate,
                  query.ToDate,
-                  query.UserSelectedLeagueIds.ToListInt(),
+                  query.UserSelectedLeagueIds.ToListString(),
                  validUserSelectedProductIds,
                  query.CustLevel);
         }

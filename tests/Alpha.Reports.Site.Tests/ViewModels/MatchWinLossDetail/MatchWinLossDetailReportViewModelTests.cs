@@ -45,7 +45,7 @@
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<DateTime>(),
                 anyValueCreatorFixture.Create<DateTime>(),
-                anyValueCreatorFixture.Create<IEnumerable<int>>(),
+                anyValueCreatorFixture.Create<IEnumerable<string>>(),
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<UserLevel>());
 

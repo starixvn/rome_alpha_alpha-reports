@@ -272,7 +272,7 @@
             var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
 
             // Act
-            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<int>(), leagues);
+            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<string>(), leagues);
 
             // Assert
             Assert.Equal(expectedSelectListItems, actualSelectListItems);
@@ -286,7 +286,7 @@
             var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
 
             // Act
-            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<int>(), leagues);
+            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<string>(), leagues);
 
             // Assert
             Assert.Equal(expectedSelectListItems, actualSelectListItems);
@@ -296,14 +296,14 @@
         public void BuildLeagueSelectListItems_EmptyUserSelectedLeagueIds_ReturnsSelectListItem()
         {
             // Arrange
-            IEnumerable<League> leagues = new List<League> { new League(1, 1, string.Empty) };
+            IEnumerable<League> leagues = new List<League> { new League(1, 1, string.Empty, 0) };
             var expectedSelectListItems = new List<SelectListItem>
             {
-                new SelectListItem { Text = string.Empty, Value = "1", Selected = false }
+                new SelectListItem { Text = string.Empty, Value = "1_0", Selected = false }
             };
 
             // Act
-            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<int>(), leagues);
+            var actualSelectListItems = baseHandler.BuildLeagueSelectListItems(Enumerable.Empty<string>(), leagues);
 
             // Assert
             AssertExtension.Equal(expectedSelectListItems, actualSelectListItems.ToList());

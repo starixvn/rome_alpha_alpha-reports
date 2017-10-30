@@ -174,7 +174,7 @@
                      query.CustId,
                      query.FromDate,
                      query.ToDate,
-                     Enumerable.Empty<int>(),
+                     Enumerable.Empty<string>(),
                      new List<int> { 1 },
                      query.CustLevel),
                 new List<SelectListItem>
@@ -207,7 +207,7 @@
         [InlineData("", true, true, true)]
         [InlineData(" ", true, true, true)]
         [InlineData("  ", true, true, true)]
-        [InlineData("2", false, false, true)]
+        [InlineData("2_0", false, false, true)]
         public void HandleWinLossDetailQuery_NotNullMessage_ReturnsCorrectViewModel(
             string userSelectedLeagueIds,
             bool isUserSelectsAllLeagues,
@@ -241,13 +241,13 @@
 
             leagueService.GetLeaguesByCustomer(Arg.Any<GetLeaguesByCustomerParam>()).Returns(new List<League>
             {
-                new League(1, 1, "League 1"),
-                new League(2, 2, "League 2")
+                new League(1, 1, "League 1", 0),
+                new League(2, 2, "League 2", 0)
             });
 
             query.UserSelectedLeagueIds = userSelectedLeagueIds;
             query.IsUserSelectsAllLeagues = isUserSelectsAllLeagues;
-            var leagueIds = (userSelectedLeagueIds ?? string.Empty).ToListInt();
+            var leagueIds = (userSelectedLeagueIds ?? string.Empty).ToListString();
 
             var expectedViewModel = new MatchWinLossDetailReportViewModel(
                 new List<MatchWinLossDetailViewModel>
@@ -298,13 +298,13 @@
                     new SelectListItem
                     {
                         Text = "League 1",
-                        Value = "1",
+                        Value = "1_0",
                         Selected = isSelectedFirstLeage
                     },
                     new SelectListItem
                     {
                         Text = "League 2",
-                        Value = "2",
+                        Value = "2_0",
                         Selected = isSelectedLeage
                     }
                 });

@@ -26,6 +26,7 @@
     <Setting Key="Age_Rpt_WinLossDetail_Master" SpName="Age_Rpt_WinLossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_WinLossDetail_Agent" SpName="Age_Rpt_WinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_WinLossDetail_Member" SpName="Age_Rpt_WinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_MatchWinLossDetail_GetProductList" SpName="Age_Rpt_MatchWinLossDetail_GetProductList" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 
   <Function Name="Win Loss">

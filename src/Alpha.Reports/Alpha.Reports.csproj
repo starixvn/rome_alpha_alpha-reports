@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
+    <Compile Include="Enumerations\LeagueType.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
     <Compile Include="Constants\ConsolidationReportTypeConstants.cs" />
     <Compile Include="Constants\DefaultVariables.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Criteria\GetLeaguesByCustomerCriteria.cs" />
     <Compile Include="Criteria\GetProductsCriteria.cs" />
     <Compile Include="Criteria\GetProductsByRefTableCriteria.cs" />
+    <Compile Include="Criteria\MatchWinLossDetail\ProductsForMatchWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteria.cs" />
     <Compile Include="Criteria\Outstanding\OutstandingCriteria.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteria.cs" />

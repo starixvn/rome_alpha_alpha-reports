@@ -52,7 +52,7 @@
                 DateTime.Now,
                 null,
                 level,
-                Enumerable.Empty<int>());
+                Enumerable.Empty<string>());
 
             var reportData = dataSet.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<MatchWinLossDetailCriteria>()).Returns(reportData);
@@ -115,7 +115,7 @@
                 DateTime.Now,
                 null,
                 UserLevel.Super,
-                Enumerable.Empty<int>());
+                Enumerable.Empty<string>());
 
             IDataReader dataReader = null;
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<MatchWinLossDetailCriteria>()).Returns(dataReader);

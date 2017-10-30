@@ -86,8 +86,8 @@
 
             var expectedLeagues = new List<League>
             {
-                new League(1, 1, "League 1"),
-                new League(2, 2, "League 2")
+                new League(1, 1, "League 1", 0),
+                new League(2, 2, "League 2", 0)
             };
 
             dynamicRepository.Fetch<League>(Arg.Any<GetLeaguesByCustomerCriteria>()).Returns(expectedLeagues);

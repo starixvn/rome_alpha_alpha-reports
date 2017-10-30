@@ -52,7 +52,7 @@
         }
 
         protected internal IEnumerable<SelectListItem> BuildLeagueSelectListItems(
-            IEnumerable<int> userSelectedLeagueIds,
+            IEnumerable<string> userSelectedLeagueIds,
             IEnumerable<League> leagues)
         {
             if (leagues == null
@@ -66,7 +66,7 @@
                 var leagueSelectListItem = new SelectListItem
                 {
                     Text = league.DisplayName,
-                    Value = league.Id.ToString(),
+                    Value = league.Id,
                     Selected = userSelectedLeagueIds.Contains(league.Id)
                 };
 

@@ -2,9 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Constants;
     using Extensions;
+    using Fanex.Data.Repository;
     using Fixtures;
     using NSubstitute;
     using Reports.Criteria.MatchWinLossDetail;
@@ -24,6 +24,7 @@
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly MatchWinLossDetailDataAccess dataAccess;
+        private readonly IDynamicRepository dynamicRepository;
         private readonly MatchWinLossDetailServiceImpl matchWinLossDetailServiceImpl;
 
         public MatchWinLossDetailServiceImplTests(AnyValueCreatorFixture anyValueCreatorFixture)
@@ -33,7 +34,8 @@
             reportDateService = Substitute.For<ReportDateService>();
             productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<MatchWinLossDetailDataAccess>();
-            matchWinLossDetailServiceImpl = new MatchWinLossDetailServiceImpl(reportDateService, productService, dataAccess);
+            dynamicRepository = Substitute.For<DynamicRepository>();
+            matchWinLossDetailServiceImpl = new MatchWinLossDetailServiceImpl(reportDateService, productService, dataAccess, dynamicRepository);
         }
 
         [Fact]
@@ -62,7 +64,7 @@
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariables.CurrentDate,
                 DefaultVariables.CurrentDate,
-                anyValueCreatorFixture.Create<IEnumerable<int>>(),
+                new List<string> { "123_0", "22_0" },
                 productIds.ToListInt(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
@@ -71,7 +73,7 @@
 
             var moveBetsDate = anyValueCreatorFixture.Create<DateTime>();
             reportDateService.GetMoveBetsDay().Returns(moveBetsDate);
-
+            dynamicRepository.Fetch<int>(Arg.Any<ProductsForMatchWinLossDetailCriteria>()).Returns("1,2,3,5,26".ToListInt());
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(productIds.ToListInt());
 
             // Act
@@ -82,10 +84,7 @@
                 criteria => criteria.CustId == param.CustId
                 && criteria.FromDate == param.FromDate
                 && criteria.ToDate == param.ToDate
-                && criteria.ProductIds == expectCalledProductIds
-                && criteria.ReportLevel == param.ReportLevel
-                && criteria.Leagues == param.UserSelectedLeagueIds.JoinWithComma()
-                && criteria.MoveBetsDay == moveBetsDate));
+                && criteria.ProductIds == expectCalledProductIds));
         }
 
         [Fact]
@@ -95,7 +94,7 @@
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariables.CurrentDate,
                 DefaultVariables.CurrentDate,
-                anyValueCreatorFixture.Create<IEnumerable<int>>(),
+                anyValueCreatorFixture.Create<IEnumerable<string>>(),
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
