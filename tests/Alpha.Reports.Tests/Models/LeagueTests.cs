@@ -49,7 +49,7 @@
         public void SportTypeId_Always_ReturnsSportTypeIdSetFromConstructor()
         {
             // Arrange
-            var sportTypeId = anyValueCreatorFixture.Create<byte>();
+            var sportTypeId = anyValueCreatorFixture.Create<int>();
             var league = new League(anyValueCreatorFixture.Create<int>(), sportTypeId, anyValueCreatorFixture.Create<string>());
             var expectedSportTypeId = sportTypeId;
 
