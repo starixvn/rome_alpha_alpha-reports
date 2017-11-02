@@ -1,22 +1,16 @@
 ﻿namespace Alpha.Reports.StaticData.Repositories
 {
     using System.IO;
-    using Alpha.Reports.StaticData.Configurations;
-    using Alpha.StaticData.NPOIExtensions;
-    using Alpha.StaticData.Repositories;
-    using NPOI.SS.UserModel;
+    using Alpha.StaticData;
 
-    public class ReportExcelRepository : ExcelRepository
+    public class ReportExcelRepository : ExcelDynamicRepository
     {
-        private static string baseDirectory =
-            Path.GetDirectoryName(typeof(ReportExcelRepository).Assembly.GetName().CodeBase).Substring(6);
-
-        public override void InitMapper()
+        public override string GetExcelDirectory()
         {
-            Mapper = new DataModelMapper();
-        }
+            var rootPath = (Path.GetDirectoryName(typeof(ReportExcelRepository).Assembly.GetName().CodeBase).Substring(6));
+            var excelPath = "excelData";
 
-        public override IWorkbook LoadWorkbook(string excelFileName)
-            => WorkbookExtension.Load($"{baseDirectory}\\ExcelData\\{excelFileName}");
+            return $"{rootPath}\\{excelPath}";
+        }
     }
 }
