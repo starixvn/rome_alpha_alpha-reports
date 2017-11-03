@@ -105,7 +105,9 @@
 
             foreach (var teamId in distinctTeamIds)
             {
-                teamNames.Add(teamId, cacheRefService.GetTeamName(teamId));
+                var name = cacheRefService.GetTeamName(teamId);
+                name = string.IsNullOrEmpty(name) ? cacheRefService.GetTeamName3rd(teamId) : name;
+                teamNames.Add(teamId, name);
             }
 
             return teamNames;

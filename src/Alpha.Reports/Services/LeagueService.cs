@@ -52,7 +52,9 @@
 
             foreach (var leagueId in distinctLeagueIds)
             {
-                leagueNames.Add(leagueId, cacheRefService.GetLeagueName(leagueId));
+                var name = cacheRefService.GetLeagueName(leagueId);
+                name = string.IsNullOrEmpty(name) ? cacheRefService.GetLeagueName3rd(leagueId) : name;
+                leagueNames.Add(leagueId, name);
             }
 
             return leagueNames;

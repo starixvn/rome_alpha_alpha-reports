@@ -1753,7 +1753,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -vs-.
+        ///   Looks up a localized string similar to  - vs- .
         /// </summary>
         public static string vs {
             get {
