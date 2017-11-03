@@ -2,6 +2,11 @@
 {
     public class MatchWinLossModel
     {
+        public MatchWinLossModel()
+        {
+
+        }
+
         public MatchWinLossModel(
             int matchId,
             int homeId,

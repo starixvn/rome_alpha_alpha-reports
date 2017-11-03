@@ -4,6 +4,11 @@
 
     public class CommissionByBettypeModel
     {
+        public CommissionByBettypeModel()
+        {
+
+        }
+
         public CommissionByBettypeModel(
             int custId,
             string custName,

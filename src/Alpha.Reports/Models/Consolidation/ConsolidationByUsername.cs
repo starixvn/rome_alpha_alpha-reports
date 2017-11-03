@@ -2,6 +2,11 @@
 {
     public class ConsolidationByUsername
     {
+        public ConsolidationByUsername()
+        {
+
+        }
+
         public ConsolidationByUsername(
             int breakDown,
             int custId,

@@ -5,6 +5,11 @@
 
     public class NetWinLoss
     {
+        public NetWinLoss()
+        {
+
+        }
+
         public NetWinLoss(decimal total)
         {
             Total = total;

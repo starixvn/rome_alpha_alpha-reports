@@ -4,12 +4,7 @@
     {
         public League()
         {
-        }
-
-        public League(int id, int sportTypeId, string name)
-        {
-
-        }
+        }       
 
         internal League(int leagueid, int sporttype, string leaguename, byte leagueType)
         {

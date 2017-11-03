@@ -4,6 +4,11 @@
 
     public class MatchWinLossDetailModel
     {
+        public MatchWinLossDetailModel()
+        {
+
+        }
+
         public MatchWinLossDetailModel(
             bool isParlay,
             int matchId,

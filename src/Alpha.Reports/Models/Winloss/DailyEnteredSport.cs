@@ -4,6 +4,11 @@
 
     public class DailyEnteredSport
     {
+        public DailyEnteredSport()
+        {
+
+        }
+
         public DailyEnteredSport(
             bool isToday,
             DateTime eventDate,

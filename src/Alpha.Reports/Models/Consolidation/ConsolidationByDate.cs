@@ -6,6 +6,11 @@
 
     public class ConsolidationByDate : ConsolidationByUsername
     {
+        public ConsolidationByDate()
+        {
+
+        }
+
         [SuppressMessage(
             "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2100:CodeLineMustNotBeLongerThan",

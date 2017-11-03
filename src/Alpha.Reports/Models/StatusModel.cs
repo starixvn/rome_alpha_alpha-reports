@@ -2,6 +2,11 @@
 {
     public class StatusModel
     {
+        public StatusModel()
+        {
+
+        }
+
         public StatusModel(int id, string name)
         {
             Id = id;

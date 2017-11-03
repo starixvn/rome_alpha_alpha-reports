@@ -5,6 +5,11 @@
 
     public class ConsolidationByProduct : ConsolidationByUsername
     {
+        public ConsolidationByProduct()
+        {
+
+        }
+
         [SuppressMessage(
             "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2100:CodeLineMustNotBeLongerThan",

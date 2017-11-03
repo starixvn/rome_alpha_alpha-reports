@@ -36,7 +36,7 @@
             var data = dynamicRepository.Fetch<League>(
                 new GetLeaguesByCustomerCriteria(getLeaguesByCustomerParam, reportDateService.GetMoveBetsDay()));
 
-            return data.Select(league => new League(league.Id, league.SportTypeId, league.Name));
+            return data.Select(league => new League(league.LeagueId, league.SportTypeId, league.Name, league.LeagueType));
         }
 
         public Dictionary<int, string> GetLeagueNames(IEnumerable<int> leagueIds)

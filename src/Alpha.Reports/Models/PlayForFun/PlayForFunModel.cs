@@ -2,6 +2,11 @@
 {
     public class PlayForFunModel
     {
+        public PlayForFunModel()
+        {
+
+        }
+
         public PlayForFunModel(int custId, string custName, decimal turnover, decimal winLoss, int betCount)
         {
             CustId = custId;

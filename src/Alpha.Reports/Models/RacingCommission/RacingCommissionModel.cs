@@ -4,6 +4,11 @@
 
     public class RacingCommissionModel
     {
+        public RacingCommissionModel()
+        {
+
+        }
+
         public RacingCommissionModel(
             int custId,
             string custName,
