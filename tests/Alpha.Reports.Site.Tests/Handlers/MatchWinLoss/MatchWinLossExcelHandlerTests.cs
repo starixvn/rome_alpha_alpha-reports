@@ -119,8 +119,8 @@
             // Arrange
             var expectedExportData = new List<MatchWinLossViewModel>
             {
-                new MatchWinLossViewModel("Team 2 -vs- Team 3", "Bet Type 4", 1, 4, false, 0, 0, 0),
-                new MatchWinLossViewModel("Team 6 -vs- Team 7", "Bet Type 8", 5, 8, false, 0, 0, 0)
+                new MatchWinLossViewModel("Team 2 - vs - Team 3", "Bet Type 4", 1, 4, false, 0, 0, 0),
+                new MatchWinLossViewModel("Team 6 - vs - Team 7", "Bet Type 8", 5, 8, false, 0, 0, 0)
             };
 
             // Act

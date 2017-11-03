@@ -55,7 +55,15 @@
 
         public IEnumerable<string> Handle(CommissionByBetTypeGuideQuery message)
         {
-            var result = new List<string> { Resources.Tooltip_CommissionByBetType };
+            var result = new List<string>();
+
+            var productsInOthers = commissionService.GetProductsInOthers(message.CustId);
+            if (productsInOthers.Any())
+            {
+                result.Add(string.Format(
+                    Resources.Tooltip_CommissionByBetType,
+                    string.Join(", ", productsInOthers.Select(i => i.DisplayName))));
+            }
 
             var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Select(product => (int)product);
 

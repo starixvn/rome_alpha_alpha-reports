@@ -27,10 +27,11 @@
 
             var dateService = Substitute.For<ReportDateService>();
             dateService.GetMoveBetsDay().Returns(new DateTime());
+            var productService = Substitute.For<ProductService>();
             var repository = Substitute.For<IDynamicRepository>();
             repository.Fetch<CommissionByBettypeModel>(Arg.Any<CommissionByBettypeCriteria>()).Returns(new List<CommissionByBettypeModel> { null });
 
-            var service = new CommissionByBettypeServiceImpl(repository);
+            var service = new CommissionByBettypeServiceImpl(repository, productService);
 
             // Act
             var commissions = service.GetAllCommissionByBettypes(param);

@@ -68,7 +68,7 @@
             }
 
             return string.Join(
-                " ",
+                string.Empty,
                 cacheRefService.GetTeamName(matchWinLossModel.HomeId) + (matchWinLossModel.IsNeutral ? Resources.Neutral : string.Empty),
                 Resources.vs,
                 cacheRefService.GetTeamName(matchWinLossModel.AwayId));

@@ -95,7 +95,7 @@
             matchWinLossDetailWorkbookImpl.FillMatchTitle(sheet, rowIndex, data);
 
             // Assert
-            sheet.Received().SetCellRangeValue(rowIndex, 0, rowIndex, -1, "LEAGUE NAME >> TEAM 1-VS-TEAM 1");
+            sheet.Received().SetCellRangeValue(rowIndex, 0, rowIndex, -1, "LEAGUE NAME >> TEAM 1 - VS - TEAM 1");
         }
 
         [Fact]

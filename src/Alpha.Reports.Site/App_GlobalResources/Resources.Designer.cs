@@ -1618,7 +1618,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Others: applies to bettype(s) of Bullfighting..
+        ///   Looks up a localized string similar to - Others: applies to bettype(s) of {0}..
         /// </summary>
         public static string Tooltip_CommissionByBetType {
             get {
@@ -1753,7 +1753,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  - vs- .
+        ///   Looks up a localized string similar to  - vs - .
         /// </summary>
         public static string vs {
             get {

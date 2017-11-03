@@ -117,7 +117,7 @@
         {
             // Arrange
             var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(betType: 1239, showTime: "Show Time 1", liveIndicator: false, isNeutral: true);
-            var expectedTitle = "Team 1 (N)-vs-Team 1";
+            var expectedTitle = "Team 1 (N) - vs - Team 1";
 
             // Act
             var actualTitle = matchWinLossDetailViewModel.MatchName;
@@ -131,7 +131,7 @@
         {
             // Arrange
             var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(betType: 1239, showTime: "Show Time 1");
-            var expectedTitle = "Team 1-vs-Team 1";
+            var expectedTitle = "Team 1 - vs - Team 1";
 
             // Act
             var actualTitle = matchWinLossDetailViewModel.MatchName;
