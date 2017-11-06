@@ -22,7 +22,7 @@
         public void Constructor_ToDayIsEndOfMonth_SetFromDateIsFirstDayOfLast2Months()
         {
             // Arrange
-            SystemTime.Today = DefaultVariables.CurrentDate.LastDayOfMonth();
+            SystemTime.Today = DefaultVariablesTest.CurrentDate.LastDayOfMonth();
             var expectedFromDate = SystemTime.Today.AddMonths(-2).FirstDayOfMonth();
             var query = new WinLossAnalysisChartQuery(userFixture.User);
 
@@ -37,7 +37,7 @@
         public void Constructor_ToDayIsEndOfMonth_SetToDateIsToDay()
         {
             // Arrange
-            SystemTime.Today = DefaultVariables.CurrentDate.LastDayOfMonth();
+            SystemTime.Today = DefaultVariablesTest.CurrentDate.LastDayOfMonth();
             var expectedToDate = SystemTime.Today;
             var query = new WinLossAnalysisChartQuery(userFixture.User);
 
@@ -52,7 +52,7 @@
         public void Constructor_ToDayIsNotEndOfMonth_SetFromDateIsFirstDayOfLast3Months()
         {
             // Arrange
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             var expectedFromDate = SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
             var query = new WinLossAnalysisChartQuery(userFixture.User);
 
@@ -66,7 +66,7 @@
         [Fact]
         public void Constructor_ToDayIsNotEndOfMonth_SetToDateIsEndDayOfPreviousMonth()
         {
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             var expectedToDate = SystemTime.Today.AddMonths(-1).LastDayOfMonth();
             var query = new WinLossAnalysisChartQuery(userFixture.User);
 

@@ -20,7 +20,7 @@
         {
             this.user = userFixture.User;
 
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
@@ -65,7 +65,7 @@
             // Arrange
             var query = new SMAStatementQuery(user);
             var viewModel = new SMAStatementViewModel(query, null);
-            var expectedPageIndex = DefaultVariables.PageIndex;
+            var expectedPageIndex = DefaultVariablesTest.PageIndex;
 
             // Act
             var actualPageIndex = viewModel.PageIndex;

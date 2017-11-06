@@ -15,7 +15,7 @@
 
         public GetLeaguesByCustomerParamTests(AnyValueCreatorFixture anyValueCreator)
         {
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             this.anyValueCreator = anyValueCreator;
         }
 
@@ -29,7 +29,7 @@
                 DateTime.MinValue,
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<string>());
-            var expectedDate = DefaultVariables.CurrentDate;
+            var expectedDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var actualDate = param.FromDate;
@@ -68,7 +68,7 @@
                 anyValueCreator.Create<DateTime>(),
                 DateTime.MinValue,
                 anyValueCreator.Create<string>());
-            var expectedDate = DefaultVariables.CurrentDate;
+            var expectedDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var actualDate = param.ToDate;

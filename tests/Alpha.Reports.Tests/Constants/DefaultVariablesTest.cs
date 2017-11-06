@@ -2,7 +2,7 @@
 {
     using System;
 
-    public static class DefaultVariables
+    public static class DefaultVariablesTest
     {
         public const int PageSize = 1000;
         public const int PageIndex = 1;

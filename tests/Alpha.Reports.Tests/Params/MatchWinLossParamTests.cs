@@ -16,7 +16,7 @@
         public MatchWinLossParamTests(AnyValueCreatorFixture anyValueCreatorFixture)
         {
             this.anyValueCreatorFixture = anyValueCreatorFixture;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]
@@ -45,7 +45,7 @@
                 anyValueCreatorFixture.Create<int>(),
                 DateTime.MinValue,
                 anyValueCreatorFixture.Create<DateTime>());
-            var expectedFromDate = DefaultVariables.CurrentDate;
+            var expectedFromDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var actualFromDate = matchWinLossParam.FromDate;
@@ -58,7 +58,7 @@
         public void FromDate_CurrentDate_ReturnsCurrentDate()
         {
             // Arrange
-            var fromDate = DefaultVariables.CurrentDate;
+            var fromDate = DefaultVariablesTest.CurrentDate;
             var matchWinLossParam = new MatchWinLossParam(
                 anyValueCreatorFixture.Create<int>(),
                 DateTime.MinValue,
@@ -98,7 +98,7 @@
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<DateTime>(),
                 DateTime.MinValue);
-            var expectedToDate = DefaultVariables.CurrentDate;
+            var expectedToDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var actualToDate = matchWinLossParam.ToDate;
@@ -111,7 +111,7 @@
         public void ToDate_CurrentDate_ReturnsCurrentDate()
         {
             // Arrange
-            var toDate = DefaultVariables.CurrentDate;
+            var toDate = DefaultVariablesTest.CurrentDate;
             var matchWinLossParam = new MatchWinLossParam(
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<DateTime>(),

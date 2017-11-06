@@ -35,7 +35,7 @@
             anyValueCreatorFixture = new AnyValueCreatorFixture();
 
             compareLogic = new CompareLogic();
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]
@@ -150,8 +150,8 @@
                 IsStackMode = message.IsStackMode,
                 IsFilterVisible = message.IsFilterVisible,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                FromDate = DefaultVariables.CurrentDate,
-                ToDate = DefaultVariables.CurrentDate,
+                FromDate = DefaultVariablesTest.CurrentDate,
+                ToDate = DefaultVariablesTest.CurrentDate,
 
                 CustId = message.CustId,
                 CustName = message.CustName,

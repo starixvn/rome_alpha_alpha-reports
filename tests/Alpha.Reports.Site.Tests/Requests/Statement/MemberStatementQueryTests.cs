@@ -17,7 +17,7 @@
         public MemberStatementQueryTests(UserFixture userFixture)
         {
             this.user = userFixture.User;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]

@@ -40,7 +40,7 @@
             winLossAnalysisHandler = new WinLossAnalysisHandler(productService, reportService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
             compareLogic = new CompareLogic();
         }

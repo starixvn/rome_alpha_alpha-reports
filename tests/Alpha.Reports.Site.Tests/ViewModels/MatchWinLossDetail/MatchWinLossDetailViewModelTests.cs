@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Fixtures;
+    using Reports.Constants;
     using Reports.Models.MatchWinLossDetail;
     using Site.ViewModels.MatchWinLossDetail;
     using Xunit;
@@ -29,7 +30,8 @@
                 anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
-                anyValueCreatorFixture.Create<Dictionary<int, string>>());
+                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<string>());
 
             // Act
             var actualRenderSubTotal = model.RenderSubTotal;
@@ -51,7 +53,8 @@
                 anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
-                anyValueCreatorFixture.Create<Dictionary<int, string>>());
+                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<string>());
 
             // Act
             var actualRenderSubTotal = model.RenderSubTotal;
@@ -75,7 +78,8 @@
                 anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
-                anyValueCreatorFixture.Create<Dictionary<int, string>>());
+                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<string>());
 
             // Act
             var actualRenderSubTotal = model.RenderSubTotal;
@@ -253,10 +257,8 @@
                1,
                null,
                null,
-               new MatchWinLossDetailModel(false, 1, 1, 1, betType, liveIndicator, 1, 1, "1", isNeutral, showTime, 1, 1, null, null, null, null),
-               new Dictionary<int, string>
-               {
-                   [1] = "Team 1"
-               });
+               new MatchWinLossDetailModel(false, 1, 1, 1, betType, liveIndicator, 1, (byte)LeagueType.Self, 1, "1", isNeutral, showTime, 1, 1, null, null, null, null),
+               "Team 1",
+               "Team 1");
     }
 }

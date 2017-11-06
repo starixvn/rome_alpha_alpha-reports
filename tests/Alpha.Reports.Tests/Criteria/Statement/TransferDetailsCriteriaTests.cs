@@ -100,14 +100,14 @@
             // Arrange
             var criteria = new TransferDetailsCriteria(
                1,
-               DefaultVariables.CurrentDate,
+               DefaultVariablesTest.CurrentDate,
                anyValueCreator.Create<string>());
 
             // Act
             var actual = criteria.TransferDate;
 
             // Assert
-            Assert.Equal(DefaultVariables.CurrentDate, actual);
+            Assert.Equal(DefaultVariablesTest.CurrentDate, actual);
         }
     }
 }

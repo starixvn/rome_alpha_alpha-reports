@@ -27,7 +27,7 @@
 
             var reportDateService = Substitute.For<ReportDateService>();
             ReportDateServiceImpl.Instance = reportDateService;
-            reportDateService.GetBalanceUpDay().Returns(DefaultVariables.BalanceUpDate);
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
 
             this.userFixture = userFixture;
         }

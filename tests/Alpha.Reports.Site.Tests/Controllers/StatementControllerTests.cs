@@ -25,7 +25,7 @@
             controller = new StatementController(mediator);
 
             this.user = userFixture.User;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]
@@ -47,7 +47,7 @@
             // Arrange
             var message = new StatementDetailsQuery(user)
             {
-                TransferDate = DefaultVariables.CurrentDate
+                TransferDate = DefaultVariablesTest.CurrentDate
             };
 
             // Act
@@ -90,7 +90,7 @@
             // Arrange
             var message = new StatementDetailExcelQuery(user)
             {
-                TransferDate = DefaultVariables.CurrentDate
+                TransferDate = DefaultVariablesTest.CurrentDate
             };
 
             mediator.Send<ExcelFileViewModel>(Arg.Any<StatementDetailExcelQuery>()).Returns(new ExcelFileViewModel("Excel File", new byte[0]));

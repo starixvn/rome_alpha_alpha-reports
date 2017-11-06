@@ -10,7 +10,7 @@
         public void Now_Always_ReturnsValueSetToNowProperty()
         {
             // Arrange
-            var expectedDate = DefaultVariables.CurrentDate;
+            var expectedDate = DefaultVariablesTest.CurrentDate;
             SystemTime.Today = expectedDate;
 
             // Act

@@ -141,8 +141,8 @@
             query.CustLevelId = custLevelId;
             query.ReportTypeId = reportTypeId;
             query.ReportTypeName = reportTypeName;
-            query.FromDate = DefaultVariables.CurrentDate;
-            query.ToDate = DefaultVariables.CurrentDate;
+            query.FromDate = DefaultVariablesTest.CurrentDate;
+            query.ToDate = DefaultVariablesTest.CurrentDate;
 
             return query;
         }

@@ -7,6 +7,7 @@
     using Fanex.Data.Repository;
     using Fixtures;
     using NSubstitute;
+    using Reports.Constants;
     using Reports.Criteria.MatchWinLossDetail;
     using Reports.DataAccesses;
     using Reports.Extensions;
@@ -62,8 +63,8 @@
             // Arrange
             var param = new MatchWinLossDetailParam(
                 anyValueCreatorFixture.Create<int>(),
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
                 new List<string> { "123_0", "22_0" },
                 productIds.ToListInt(),
                 anyValueCreatorFixture.Create<UserLevel>());
@@ -92,13 +93,13 @@
         {
             var param = new MatchWinLossDetailParam(
                 anyValueCreatorFixture.Create<int>(),
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
                 anyValueCreatorFixture.Create<IEnumerable<string>>(),
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null);
+            var matchWinLossDetailModel = new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, (byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null);
             var expectedMatchWinLossModels = new List<MatchWinLossDetailModel>
             {
                 matchWinLossDetailModel

@@ -30,7 +30,7 @@
             this.anyValueCreator = anyValueCreator;
 
             reportDateService = Substitute.For<ReportDateService>();
-            reportDateService.GetBalanceUpDay().Returns(DefaultVariables.BalanceUpDay);
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDay);
 
             repository = Substitute.For<IDynamicRepository>();
 

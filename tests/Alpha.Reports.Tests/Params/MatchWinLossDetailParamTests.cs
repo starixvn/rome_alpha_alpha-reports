@@ -17,7 +17,7 @@
 
         public MatchWinLossDetailParamTests(AnyValueCreatorFixture anyValueCreator)
         {
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             this.anyValueCreator = anyValueCreator;
         }
 
@@ -32,7 +32,7 @@
                 anyValueCreator.Create<IEnumerable<string>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
-            var expectedDate = DefaultVariables.CurrentDate;
+            var expectedDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var actualDate = param.FromDate;
@@ -73,7 +73,7 @@
                 anyValueCreator.Create<IEnumerable<string>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
-            var expectedDate = DefaultVariables.CurrentDate;
+            var expectedDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var actualDate = param.ToDate;

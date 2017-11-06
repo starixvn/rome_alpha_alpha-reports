@@ -13,6 +13,7 @@
     using NSubstitute;
     using Params;
     using RemotingRef;
+    using Reports.Constants;
     using Reports.Extensions;
     using Reports.Models;
     using Reports.Models.MatchWinLossDetail;
@@ -46,7 +47,7 @@
 
             var reportDateService = Substitute.For<ReportDateService>();
             ReportDateServiceImpl.Instance = reportDateService;
-            reportDateService.GetBalanceUpDay().Returns(DefaultVariables.BalanceUpDate);
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
 
             matchWinLossDetailHandler = new MatchWinLossDetailHandler(productService, leagueService, reportService, cacheRefService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
@@ -134,10 +135,7 @@
                 CreateMatchWinLossDetailModel(betType: 29, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true)
             });
 
-            leagueService.GetLeagueNames(Arg.Any<IEnumerable<int>>()).Returns(new Dictionary<int, string>
-            {
-                [1] = "League 1"
-            });
+            leagueService.GetLeagueName(Arg.Any<int>(),Arg.Any<byte>()).Returns("League 1");
 
             reportService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
@@ -162,8 +160,9 @@
                             CreateBetTypeWinLossViewModel(2, "Bet Type 2", 1, 1, 1)
                         },
                         CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
-                        new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
-                        new Dictionary<int, string> { [1] = "Team 1" })
+                        new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1,(byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
+                        "Team 1",
+                        "Team 1")
                 },
                 CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                 CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
@@ -225,10 +224,7 @@
                 CreateMatchWinLossDetailModel(betType: 29, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true)
             });
 
-            leagueService.GetLeagueNames(Arg.Any<IEnumerable<int>>()).Returns(new Dictionary<int, string>
-            {
-                [1] = "League 1"
-            });
+            leagueService.GetLeagueName(Arg.Any<int>(), Arg.Any<byte>()).Returns("League 1");
 
             reportService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
@@ -263,8 +259,9 @@
                             CreateBetTypeWinLossViewModel(2, "Bet Type 2", 1, 1, 1)
                         },
                         CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
-                        new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
-                        new Dictionary<int, string> { [1] = "Team 1" })
+                        new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1,(byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
+                        "Team 1",
+                        "Team 1")
                 },
                 CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                 CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
@@ -314,36 +311,20 @@
 
             // Assert
             AssertExtension.Equal(expectedViewModel, actualViewModel);
-        }
+        }       
 
         [Fact]
-        public void GetTeamNames_NullTeamIds_ReturnsEmpty()
+        public void GetTeamName_ValidTeamId_ReturnsCorrectTeamNames()
         {
             // Arrange
-            IEnumerable<int> teamIds = null;
+            var teamId = 1;
+            var expectedTeamNames = "Team 1";
 
             // Act
-            var actualTeamNames = matchWinLossDetailHandler.GetTeamNames(teamIds);
+            var actualTeamName = matchWinLossDetailHandler.GetTeamName(teamId, (byte)LeagueType.Self);
 
             // Assert
-            Assert.Empty(actualTeamNames);
-        }
-
-        [Fact]
-        public void GetTeamNames_NotNullTeamIds_ReturnsCorrectTeamNames()
-        {
-            // Arrange
-            var teamIds = new List<int> { 1 };
-            var expectedTeamNames = new Dictionary<int, string>
-            {
-                [1] = "Team 1"
-            };
-
-            // Act
-            var actualTeamNames = matchWinLossDetailHandler.GetTeamNames(teamIds);
-
-            // Assert
-            Assert.Equal(expectedTeamNames, actualTeamNames);
+            Assert.Equal(expectedTeamNames, actualTeamName);
         }
 
         [Fact]
@@ -451,6 +432,7 @@
                 betType: betType,
                 liveIndicator: liveIndicator,
                 leagueId: 1,
+                leagueType: (byte)LeagueType.Self,
                 race: 1,
                 matchCode: "1",
                 isNeutral: isNeutral,

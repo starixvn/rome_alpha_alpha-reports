@@ -44,8 +44,8 @@
 
             matchWinLossExcelQuery = new MatchWinLossExcelQuery(userFixture.User);
             matchWinLossExcelQuery.CustLevelId = 2;
-            matchWinLossExcelQuery.FromDate = DefaultVariables.CurrentDate;
-            matchWinLossExcelQuery.ToDate = DefaultVariables.CurrentDate;
+            matchWinLossExcelQuery.FromDate = DefaultVariablesTest.CurrentDate;
+            matchWinLossExcelQuery.ToDate = DefaultVariablesTest.CurrentDate;
 
             reportService = Substitute.For<MatchWinLossService>();
             cacheRefService = Substitute.For<CacheRefService>();
@@ -55,7 +55,7 @@
             matchWinLossExcelHandler = Substitute.ForPartsOf<MatchWinLossExcelHandler>(reportService, cacheRefService, workbook);
             matchWinLossExcelHandler.MapPath = (path) => path;
             matchWinLossExcelHandler.IsFileExist = (path) => true;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 

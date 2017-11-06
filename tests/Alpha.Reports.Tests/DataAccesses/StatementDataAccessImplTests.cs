@@ -28,7 +28,7 @@
             this.objectDbFixture = objectDbFixture;
             statementDataAccessImpl = new StatementDataAccessImpl();
             compareLogic = new CompareLogic();
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]

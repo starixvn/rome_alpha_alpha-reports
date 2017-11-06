@@ -28,7 +28,7 @@
                 null,
                 null,
                 false,
-                DefaultVariables.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
                 Enumerable.Empty<WinLossAnalysisReportTypeViewModel>());
 
             var expectedViewDataInstructionMessage = "You can view the report data from 12/02/2016.";

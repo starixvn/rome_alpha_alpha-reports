@@ -40,7 +40,7 @@
             var productService = Substitute.For<ProductService>();
 
             var leagueService = Substitute.For<LeagueService>();
-            leagueService.GetLeagueNames(Arg.Any<IEnumerable<int>>()).Returns(new Dictionary<int, string> { [1837] = "League 1837" });
+            leagueService.GetLeagueName(Arg.Any<int>(), Arg.Any<byte>()).Returns("League 1837");
 
             var cacheRefService = Substitute.For<CacheRefService>();
             cacheRefService.GetTeamName(Arg.Any<int>()).Returns(callInfo => "Team " + callInfo.Args()[0]);
@@ -51,7 +51,7 @@
 
             var reportDateService = Substitute.For<ReportDateService>();
             ReportDateServiceImpl.Instance = reportDateService;
-            reportDateService.GetBalanceUpDay().Returns(DefaultVariables.BalanceUpDate);
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
 
             matchWinLossDetailWorkbook = Substitute.For<MatchWinLossDetailWorkbook>();
             onebookWorkbook = Substitute.For<Workbook<BetTypeWinLossViewModel>>();
@@ -85,14 +85,14 @@
             matchWinLossDetailExcelHandler.MapPath = (path) => path;
             matchWinLossDetailExcelHandler.IsFileExist = (path) => true;
 
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
             matchWinLossDetailExcelQuery = new MatchWinLossDetailExcelQuery(userFixture.User);
             matchWinLossDetailExcelQuery.CustLevelId = 2;
-            matchWinLossDetailExcelQuery.FromDate = DefaultVariables.CurrentDate;
-            matchWinLossDetailExcelQuery.ToDate = DefaultVariables.CurrentDate;
+            matchWinLossDetailExcelQuery.FromDate = DefaultVariablesTest.CurrentDate;
+            matchWinLossDetailExcelQuery.ToDate = DefaultVariablesTest.CurrentDate;
 
             compareLogic = new CompareLogic();
         }

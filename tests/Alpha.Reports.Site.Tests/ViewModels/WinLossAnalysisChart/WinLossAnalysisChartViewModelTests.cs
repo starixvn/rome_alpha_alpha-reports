@@ -23,7 +23,7 @@
         public WinLossAnalysisChartViewModelTests(UserFixture userFixture)
         {
             this.userFixture = userFixture;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]

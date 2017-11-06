@@ -64,7 +64,7 @@
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
             winLossDetailData = new PagedReportData<WinLossDetailModel>(
                Enumerable.Empty<WinLossDetailModel>(),

@@ -40,7 +40,7 @@
 
             this.userFixture = userFixture;
             winLossDetailHandler = new WinLossDetailHandler(productService, reportService, userFixture.User);
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
@@ -80,8 +80,8 @@
                 10,
                 0,
                 0,
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
                 Enumerable.Empty<int>(),
                 message.CustLevel,
                 "CustName",

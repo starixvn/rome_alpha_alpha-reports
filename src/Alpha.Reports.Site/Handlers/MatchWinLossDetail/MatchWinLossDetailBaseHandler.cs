@@ -76,42 +76,21 @@
         protected IEnumerable<MatchWinLossDetailViewModel> GetNoParlayMatchWinLossDetail(IEnumerable<MatchWinLossDetailModel> reportData)
         {
             var noParlayData = reportData.Where(data => !data.IsParlay);
-            var leagueNames = leagueService.GetLeagueNames(noParlayData.Select(data => data.LeagueId));
-            var teamIds = noParlayData.Select(data => data.HomeId).Concat(noParlayData.Select(data => data.AwayId));
-            var teamNames = GetTeamNames(teamIds);
             var betTypeNames = GetBetTypeNames(noParlayData.Select(data => data.BetType));
-            var matchGroups = noParlayData.GroupBy(data => GetGroupId(data, leagueNames[data.LeagueId]));
+            var matchGroups = noParlayData.GroupBy(data => GetGroupId(data, leagueService.GetLeagueName(data.LeagueId, data.LeagueType)));
 
             var noParlayMatchWinLossDetail = new List<MatchWinLossDetailViewModel>();
 
             foreach (var matchGroup in matchGroups)
             {
-                noParlayMatchWinLossDetail.Add(BuildMatchWinLossDetailViewModel(matchGroup, leagueNames, teamNames, betTypeNames));
+                noParlayMatchWinLossDetail.Add(BuildMatchWinLossDetailViewModel(matchGroup, betTypeNames));
             }
 
             return noParlayMatchWinLossDetail;
         }
 
-        internal Dictionary<int, string> GetTeamNames(IEnumerable<int> teamIds)
-        {
-            var teamNames = new Dictionary<int, string>();
-
-            if (teamIds == null)
-            {
-                return teamNames;
-            }
-
-            var distinctTeamIds = teamIds.Distinct();
-
-            foreach (var teamId in distinctTeamIds)
-            {
-                var name = cacheRefService.GetTeamName(teamId);
-                name = string.IsNullOrEmpty(name) ? cacheRefService.GetTeamName3rd(teamId) : name;
-                teamNames.Add(teamId, name);
-            }
-
-            return teamNames;
-        }
+        internal string GetTeamName(int teamId, byte leagueType)
+            => leagueType == (byte)LeagueType.ThirdParty ? cacheRefService.GetTeamName3rd(teamId) : cacheRefService.GetTeamName(teamId);
 
         internal Dictionary<int, string> GetBetTypeNames(IEnumerable<int> betTypeIds)
         {
@@ -162,13 +141,11 @@
 
         internal MatchWinLossDetailViewModel BuildMatchWinLossDetailViewModel(
             IGrouping<string, MatchWinLossDetailModel> matchGroup,
-            Dictionary<int, string> leagueNames,
-            Dictionary<int, string> teamNames,
             Dictionary<int, string> betTypeNames)
         {
             var betTypeList = matchGroup.ToList();
             var firstWinLoss = betTypeList[0];
-            var leagueName = leagueNames[firstWinLoss.LeagueId];
+            var leagueName = leagueService.GetLeagueName(firstWinLoss.LeagueId, firstWinLoss.LeagueType);
             var betTypeWinLoss = new List<BetTypeWinLossViewModel>();
 
             var total = new BetTypeWinLossViewModel();
@@ -200,7 +177,8 @@
                 betTypeWinLoss,
                 total,
                 firstWinLoss,
-                teamNames);
+                GetTeamName(firstWinLoss.HomeId, firstWinLoss.LeagueType),
+                GetTeamName(firstWinLoss.AwayId, firstWinLoss.LeagueType));
         }
 
         internal BetTypeWinLossViewModel BuildWinLossTotal(IEnumerable<MatchWinLossDetailViewModel> matchWinLossDetail)

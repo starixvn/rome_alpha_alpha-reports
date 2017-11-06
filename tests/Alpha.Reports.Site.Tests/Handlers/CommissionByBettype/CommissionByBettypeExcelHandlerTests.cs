@@ -188,8 +188,8 @@
         {
             var excelQuery = new CommissionByBettypeExcelQuery(userFixture.User);
             excelQuery.CustLevelId = custLevelId;
-            excelQuery.FromDate = DefaultVariables.CurrentDate;
-            excelQuery.ToDate = DefaultVariables.CurrentDate;
+            excelQuery.FromDate = DefaultVariablesTest.CurrentDate;
+            excelQuery.ToDate = DefaultVariablesTest.CurrentDate;
 
             return excelQuery;
         }

@@ -41,13 +41,13 @@
             this.userFixture = userFixture;
             anyValueGenerator = new Fixture();
 
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
             var reportDateService = Substitute.For<ReportDateService>();
             ReportDateServiceImpl.Instance = reportDateService;
-            reportDateService.GetBalanceUpDay().Returns(DefaultVariables.BalanceUpDate);
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
         }
 
         [Fact]
@@ -77,7 +77,7 @@
             // Assert
             reportService.Received().GetMatchWinLoss(Arg.Is<MatchWinLossParam>(param
                 => param != null
-                && param.FromDate == DefaultVariables.CurrentDate));
+                && param.FromDate == DefaultVariablesTest.CurrentDate));
         }
 
         [Fact]
@@ -92,7 +92,7 @@
             // Assert
             reportService.Received().GetMatchWinLoss(Arg.Is<MatchWinLossParam>(param
                 => param != null
-                && param.ToDate == DefaultVariables.CurrentDate));
+                && param.ToDate == DefaultVariablesTest.CurrentDate));
         }
 
         [Fact]

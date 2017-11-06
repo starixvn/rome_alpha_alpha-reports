@@ -49,7 +49,7 @@
             winLossDetailExcelHandler = Substitute.ForPartsOf<WinLossDetailExcelHandler>(productService, reportService, workbook);
             winLossDetailExcelHandler.MapPath = (path) => path;
             winLossDetailExcelHandler.IsFileExist = (path) => true;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
@@ -208,8 +208,8 @@
             // Arrange
             var query = new ConsolidateWinLossDetailExcelQuery(userFixture.User);
             query.CustLevelId = 2;
-            query.FromDate = DefaultVariables.CurrentDate;
-            query.ToDate = DefaultVariables.CurrentDate;
+            query.FromDate = DefaultVariablesTest.CurrentDate;
+            query.ToDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             winLossDetailExcelHandler.Handle(query);
@@ -344,8 +344,8 @@
         {
             var result = new WinLossDetailExcelQuery(userFixture.User);
             result.CustLevelId = custLevelId;
-            result.FromDate = DefaultVariables.CurrentDate;
-            result.ToDate = DefaultVariables.CurrentDate;
+            result.FromDate = DefaultVariablesTest.CurrentDate;
+            result.ToDate = DefaultVariablesTest.CurrentDate;
 
             return result;
         }

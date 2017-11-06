@@ -29,9 +29,9 @@
 
             var data = new List<ConsolidationByDateViewModel>
             {
-                new ConsolidationByDateViewModel(DefaultVariables.CurrentDate, Enumerable.Empty<ConsolidationByUsernameViewModel>()),
+                new ConsolidationByDateViewModel(DefaultVariablesTest.CurrentDate, Enumerable.Empty<ConsolidationByUsernameViewModel>()),
                 new ConsolidationByDateViewModel(
-                    DefaultVariables.CurrentDate,
+                    DefaultVariablesTest.CurrentDate,
                     new List<ConsolidationByUsernameViewModel> { anyValueCreatorFixture.Create<ConsolidationByUsernameViewModel>() })
             };
 

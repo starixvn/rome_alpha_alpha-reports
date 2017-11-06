@@ -222,7 +222,7 @@
         public void BuildCurrencySelectListItems_SelectAll_ReturnsCorrectItemList()
         {
             // Arrange
-            var userSelectedCurrency = DefaultVariables.AllCurrencies;
+            var userSelectedCurrency = DefaultVariablesTest.AllCurrencies;
             var currencies = new List<CurrencyModel>
             {
                 new CurrencyModel(1, "Currency 1")
@@ -230,7 +230,7 @@
 
             var expectedItemList = new List<SelectListItem>
             {
-                new SelectListItem { Text = "All Currencies", Value = DefaultVariables.AllCurrencies.ToString(), Selected = true },
+                new SelectListItem { Text = "All Currencies", Value = DefaultVariablesTest.AllCurrencies.ToString(), Selected = true },
                 new SelectListItem { Text = "Currency 1", Value = "1", Selected = false }
              };
 
@@ -253,7 +253,7 @@
 
             var expectedItemList = new List<SelectListItem>
             {
-                new SelectListItem { Text = "All Currencies", Value = DefaultVariables.AllCurrencies.ToString(), Selected = false },
+                new SelectListItem { Text = "All Currencies", Value = DefaultVariablesTest.AllCurrencies.ToString(), Selected = false },
                 new SelectListItem { Text = "Currency 1", Value = "1", Selected = true }
              };
 

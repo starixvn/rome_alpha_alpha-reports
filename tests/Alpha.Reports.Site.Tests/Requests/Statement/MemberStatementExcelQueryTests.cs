@@ -22,7 +22,7 @@
         {
             // Arrange
             var query = new MemberStatementExcelQuery(user);
-            var expectedPageIndex = DefaultVariables.PageIndex;
+            var expectedPageIndex = DefaultVariablesTest.PageIndex;
 
             // Act
             var actualPageIndex = query.PageIndex;
@@ -36,7 +36,7 @@
         {
             // Arrange
             var query = new MemberStatementExcelQuery(user);
-            var expectedPageSize = DefaultVariables.PageSize;
+            var expectedPageSize = DefaultVariablesTest.PageSize;
 
             // Act
             var actualPageSize = query.PageSize;

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Constants;
     using Criteria;
     using Fanex.Data.Repository;
     using Models;
@@ -11,8 +12,8 @@
     public interface LeagueService
     {
         IEnumerable<League> GetLeaguesByCustomer(GetLeaguesByCustomerParam getLeaguesByCustomerParam);
-
-        Dictionary<int, string> GetLeagueNames(IEnumerable<int> leagueIds);
+        
+        string GetLeagueName(int leagueId, byte leagueType);
     }
 
     public class LeagueServiceImpl : LeagueService
@@ -37,27 +38,9 @@
                 new GetLeaguesByCustomerCriteria(getLeaguesByCustomerParam, reportDateService.GetMoveBetsDay()));
 
             return data.Select(league => new League(league.LeagueId, league.SportTypeId, league.Name, league.LeagueType));
-        }
+        }        
 
-        public Dictionary<int, string> GetLeagueNames(IEnumerable<int> leagueIds)
-        {
-            var leagueNames = new Dictionary<int, string>();
-
-            if (leagueIds == null)
-            {
-                return leagueNames;
-            }
-
-            var distinctLeagueIds = leagueIds.Distinct();
-
-            foreach (var leagueId in distinctLeagueIds)
-            {
-                var name = cacheRefService.GetLeagueName(leagueId);
-                name = string.IsNullOrEmpty(name) ? cacheRefService.GetLeagueName3rd(leagueId) : name;
-                leagueNames.Add(leagueId, name);
-            }
-
-            return leagueNames;
-        }
+        public string GetLeagueName(int leagueId, byte leagueType)
+            => leagueType == (byte)LeagueType.ThirdParty ? cacheRefService.GetLeagueName3rd(leagueId) : cacheRefService.GetLeagueName(leagueId);
     }
 }

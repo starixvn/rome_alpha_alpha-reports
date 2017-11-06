@@ -7,6 +7,7 @@
     using Fixtures;
     using NSubstitute;
     using RemotingRef;
+    using Reports.Constants;
     using Reports.Criteria;
     using Reports.Models;
     using Reports.Params;
@@ -100,37 +101,32 @@
         }
 
         [Fact]
-        public void GetLeagueNames_NullLeagueIds_ReturnsEmptyNameList()
+        public void GetLeagueNames_InvalidLeagueId_ReturnsEmptyName()
         {
             // Arrange
-            IEnumerable<int> leagueIds = null;
+            var leagueId = 0;
 
             // Act
-            var actualLeagueNames = leagueServiceImpl.GetLeagueNames(leagueIds);
+            var actualLeagueName = leagueServiceImpl.GetLeagueName(leagueId, (byte)LeagueType.Self);
 
             // Assert
-            Assert.Empty(actualLeagueNames);
+            Assert.Empty(actualLeagueName);
         }
 
         [Fact]
-        public void GetLeagueNames_NotNullLeagueIds_ReturnsCorrectNameList()
+        public void GetLeagueNames_ValidLeagueId_ReturnsCorrectName()
         {
             // Arrange
-            IEnumerable<int> productIds = new List<int> { 1, 2, 3 };
-            var expectedLeagueNames = new Dictionary<int, string>
-            {
-                [1] = "League 1",
-                [2] = "League 2",
-                [3] = "League 3"
-            };
+            var productId = 1;
+            var expectedLeagueName = "League 1";
 
             cacheRefService.GetLeagueName(Arg.Any<int>()).Returns(callInfo => "League " + callInfo.Args()[0]);
 
             // Act
-            var actualLeagueNames = leagueServiceImpl.GetLeagueNames(productIds);
+            var actualLeagueName = leagueServiceImpl.GetLeagueName(productId, (byte)LeagueType.Self);
 
             // Assert
-            Assert.Equal(expectedLeagueNames, actualLeagueNames);
+            Assert.Equal(expectedLeagueName, actualLeagueName);
         }
     }
 }

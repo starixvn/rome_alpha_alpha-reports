@@ -17,7 +17,7 @@
         public GetStatementCriteriaTests(AnyValueCreatorFixture anyValueCreator)
         {
             this.anyValueCreator = anyValueCreator;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]

@@ -36,8 +36,8 @@
       <HintPath>..\..\packages\Alpha.Web.1.0.1.2\lib\net40\Alpha.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Common, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Common.1.1.0.1\lib\net40\Fanex.Common.dll</HintPath>
+    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Logging, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -117,7 +117,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="ONEbook.SpreadSheets.NPOI, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0.1\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
+      <HintPath>..\..\packages\ONEbook.SpreadSheets.NPOI.1.0.0.1-beta02\lib\net461\ONEbook.SpreadSheets.NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ploeh.AutoFixture, Version=3.50.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
@@ -208,7 +208,7 @@
     <Compile Include="Collections\AnyValueCreatorCollection.cs" />
     <Compile Include="Collections\UserCollection.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
-    <Compile Include="Constants\DefaultVariables.cs" />
+    <Compile Include="Constants\DefaultVariablesTest.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
     <Compile Include="Controllers\CommissionByBettypeControllerTests.cs" />
     <Compile Include="Controllers\ConsolidationControllerTests.cs" />

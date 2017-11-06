@@ -42,7 +42,7 @@
             winLossHandler = new WinLossHandler(productService, reportService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
             compareLogic = new CompareLogic();
         }
@@ -104,8 +104,8 @@
             var grandTotal = new WinLossModel();
             var winLossParam = new WinLossParam(
                 0,
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
                 Enumerable.Empty<int>(),
                 message.CustLevel,
                 false);

@@ -29,7 +29,7 @@
             winLossByBetTypeBaseHandler = new WinLossByProductBaseHandler(reportService, productService, cacheRefService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
             cacheRefService.GetProductName(23).Returns("NG2");
         }

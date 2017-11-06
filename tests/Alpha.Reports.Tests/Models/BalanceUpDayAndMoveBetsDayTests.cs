@@ -12,7 +12,7 @@
         {
             // Arrange
             var balanceUpDay = new DateTime(2000, 1, 1);
-            var date = new BalanceUpDayAndMoveBetsDay(balanceUpDay, DefaultVariables.CurrentDate);
+            var date = new BalanceUpDayAndMoveBetsDay(balanceUpDay, DefaultVariablesTest.CurrentDate);
 
             // Act
             var actual = date.BalanceUpDay;
@@ -26,7 +26,7 @@
         {
             // Arrange
             var moveBetsDay = new DateTime(2000, 1, 1);
-            var date = new BalanceUpDayAndMoveBetsDay(DefaultVariables.CurrentDate, moveBetsDay);
+            var date = new BalanceUpDayAndMoveBetsDay(DefaultVariablesTest.CurrentDate, moveBetsDay);
 
             // Act
             var actual = date.MoveBetsDay;

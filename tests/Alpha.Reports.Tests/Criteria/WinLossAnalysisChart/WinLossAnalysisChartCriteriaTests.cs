@@ -33,8 +33,8 @@
         {
             // Arrange
             var userSelectedProductIdList = new List<int> { 1, 2 };
-            var fromDate = DefaultVariables.CurrentDate.AddMonths(-1);
-            var toDate = DefaultVariables.CurrentDate;
+            var fromDate = DefaultVariablesTest.CurrentDate.AddMonths(-1);
+            var toDate = DefaultVariablesTest.CurrentDate;
             var criteria = new WinLossAnalysisChartCriteria(1, fromDate, toDate, DateTime.Now, DateTime.Now, userSelectedProductIdList, UserLevel.Super);
 
             // Act
@@ -49,8 +49,8 @@
         {
             // Arrange
             var userSelectedProductIdList = new List<int> { 1, 2 };
-            var fromDate = DefaultVariables.CurrentDate.AddMonths(-2);
-            var toDate = DefaultVariables.CurrentDate;
+            var fromDate = DefaultVariablesTest.CurrentDate.AddMonths(-2);
+            var toDate = DefaultVariablesTest.CurrentDate;
             var criteria = new WinLossAnalysisChartCriteria(1, fromDate, toDate, DateTime.Now, DateTime.Now, userSelectedProductIdList, UserLevel.Super);
 
             // Act
@@ -65,8 +65,8 @@
         {
             // Arrange
             var userSelectedProductIdList = new List<int> { 1, 2 };
-            var fromDate = DefaultVariables.CurrentDate.AddMonths(-3);
-            var toDate = DefaultVariables.CurrentDate;
+            var fromDate = DefaultVariablesTest.CurrentDate.AddMonths(-3);
+            var toDate = DefaultVariablesTest.CurrentDate;
             var criteria = new WinLossAnalysisChartCriteria(1, fromDate, toDate, DateTime.Now, DateTime.Now, userSelectedProductIdList, UserLevel.Super);
 
             // Act

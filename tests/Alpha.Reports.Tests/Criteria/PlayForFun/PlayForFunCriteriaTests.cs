@@ -52,7 +52,7 @@
         public void IsValid_ToDateLessThanFromDate_ReturnFalse()
         {
             // Arrange
-            var toDate = DefaultVariables.CurrentDate;
+            var toDate = DefaultVariablesTest.CurrentDate;
             var fromDate = toDate.AddDays(1);
             var criteria = new PlayForFunCriteria(
                 1,
@@ -74,8 +74,8 @@
             // Arrange
             var criteria = new PlayForFunCriteria(
                 1,
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<int>());
 
@@ -90,7 +90,7 @@
         public void ProductId_Always_ReturnsProductIdSetFromCtor()
         {
             // Arrange
-            var criteria = new PlayForFunCriteria(1, DefaultVariables.CurrentDate, DefaultVariables.CurrentDate, 2, 3);
+            var criteria = new PlayForFunCriteria(1, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, 2, 3);
 
             // Act
             var actual = criteria.ProductId;
@@ -103,7 +103,7 @@
         public void StatusId_Always_ReturnsStatusIdSetFromCtor()
         {
             // Arrange
-            var criteria = new PlayForFunCriteria(1, DefaultVariables.CurrentDate, DefaultVariables.CurrentDate, 2, 3);
+            var criteria = new PlayForFunCriteria(1, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, 2, 3);
 
             // Act
             var actual = criteria.StatusId;

@@ -16,7 +16,7 @@
     {
         public WinLossDetailParamTests()
         {
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]
@@ -39,7 +39,7 @@
             // Arrange
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
-            var expectedDate = DefaultVariables.CurrentDate;
+            var expectedDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var actualDate = winLossDetailParam.FromDate;
@@ -54,7 +54,7 @@
             // Arrange
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.Now, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, true);
-            var expectedDate = DefaultVariables.CurrentDate.FirstDayOfMonth();
+            var expectedDate = DefaultVariablesTest.CurrentDate.FirstDayOfMonth();
 
             // Act
             var actualDate = winLossDetailParam.FromDate;
@@ -69,7 +69,7 @@
         public void FromDate_SupportFromDate_ReturnsSupportedFromDate(bool isHistoricReport)
         {
             // Arrange
-            DateTime fromDate = DefaultVariables.CurrentDate;
+            DateTime fromDate = DefaultVariablesTest.CurrentDate;
 
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, fromDate, DateTime.Now, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, isHistoricReport);
@@ -100,7 +100,7 @@
                     false,
                     isHistoricReport);
 
-            var expectedDate = DefaultVariables.CurrentDate;
+            var expectedDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var actualDate = winLossDetailParam.ToDate;
@@ -115,7 +115,7 @@
         public void ToDate_SupportToDate_ReturnsSupportedToDate(bool isHistoricReport)
         {
             // Arrange
-            DateTime toDate = DefaultVariables.CurrentDate;
+            DateTime toDate = DefaultVariablesTest.CurrentDate;
 
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, DateTime.MinValue, toDate, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, isHistoricReport);
@@ -196,7 +196,7 @@
             // Arrange
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
-            var expectedPageIndex = DefaultVariables.PageIndex;
+            var expectedPageIndex = DefaultVariablesTest.PageIndex;
 
             // Act
             var actualPageIndex = winLossDetailParam.PageIndex;
@@ -241,7 +241,7 @@
             // Arrange
             var winLossDetailParam =
                 new WinLossDetailParam(0, 0, 0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
-            var expectedPageSize = DefaultVariables.PageSize;
+            var expectedPageSize = DefaultVariablesTest.PageSize;
 
             // Act
             var actualPageSize = winLossDetailParam.PageSize;
