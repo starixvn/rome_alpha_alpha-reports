@@ -149,7 +149,7 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
 
             // Assert
             Assert.False(actualIsValid);
-        }       
+        }
 
         [Fact]
         public void IsValid_ValidCriteria_ReturnsTrue()
@@ -171,6 +171,50 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
 
             // Assert
             Assert.True(actualIsValid);
+        }
+
+        [Fact]
+        public void MoveBetsDay_Always_CorrectWithValueInConstructor()
+        {
+            // Arrange
+            var expectedMoveBetDays = anyValueCreator.Create<DateTime>();
+            var matchWinLossDetailCriteria = new MatchWinLossDetailCriteria(
+                1,
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                expectedMoveBetDays,
+                new List<int> { 1, 2, 3 },
+                anyValueCreator.Create<UserLevel>(),
+                new List<string> { "4_0", "5_0", "6_1" });
+
+            // Act
+            var act = matchWinLossDetailCriteria.MoveBetsDay;
+
+            // Assert
+            Assert.Equal(expectedMoveBetDays, act);
+        }
+
+        [Theory]
+        [InlineData("", "", true)]
+        [InlineData("1_1", "", false)]
+        [InlineData("", "1_0", false)]
+        public void IsGetAll(string leagueIds, string leagueIds3rd, bool expectedValue)
+        {
+            // Arrange            
+            var matchWinLossDetailCriteria = new MatchWinLossDetailCriteria(
+                1,
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                new List<int> { 1, 2, 3 },
+                anyValueCreator.Create<UserLevel>(),
+                new List<string> { leagueIds, leagueIds3rd });
+
+            // Act
+            var act = matchWinLossDetailCriteria.IsGetAll;
+
+            // Assert
+            Assert.Equal(expectedValue, act);
         }
     }
 }

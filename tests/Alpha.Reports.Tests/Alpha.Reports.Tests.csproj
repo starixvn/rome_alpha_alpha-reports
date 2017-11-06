@@ -178,6 +178,7 @@
     <Compile Include="Criteria\Consolidation\GetProductsCriteriaTests.cs" />
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsByRefTableTests.cs" />
+    <Compile Include="Criteria\MatchWinLossDetail\ProductsForMatchWinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\Statement\TransferDetailsCriteriaTests.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteriaTest.cs" />
     <Compile Include="Criteria\Outstanding\OutstandingCriteriaTests.cs" />

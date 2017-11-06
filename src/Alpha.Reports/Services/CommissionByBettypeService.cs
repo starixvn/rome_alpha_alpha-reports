@@ -2,23 +2,23 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Constants;
     using Criteria.CommissionByBettype;
     using Fanex.Data.Repository;
     using Models;
     using Models.CommissionByBettype;
     using Params;
-    using Sunplus.Agent.Model.Definitions;
 
     public interface CommissionByBettypeService
     {
         IEnumerable<CommissionByBettypeModel> GetAllCommissionByBettypes(CommissionByBettypeParam param);
 
-        IEnumerable<Product> GetProductsInOthers(int custId);        
+        IEnumerable<Product> GetProductsInOthers(int custId);
     }
 
     public class CommissionByBettypeServiceImpl : CommissionByBettypeService
     {
-        private static readonly IEnumerable<int> ProductsInOthers = new List<int> { ProductIdConstants.BullFighting };
+        private static readonly IEnumerable<int> ProductsInOthers = new List<int> { ProductIdConstants.Bullfighting };
         private readonly IDynamicRepository repository;
         private readonly ProductService productService;
 

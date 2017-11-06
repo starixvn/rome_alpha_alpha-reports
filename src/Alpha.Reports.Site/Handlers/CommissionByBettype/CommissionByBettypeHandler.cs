@@ -62,7 +62,7 @@
             {
                 result.Add(string.Format(
                     Resources.Tooltip_CommissionByBetType,
-                    string.Join(", ", productsInOthers.Select(i => i.DisplayName))));
+                    string.Join(", ", productService.GetProductNames(productsInOthers.Select(i => i.Id)))));
             }
 
             var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Select(product => (int)product);

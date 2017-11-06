@@ -50,5 +50,18 @@
             // Assert
             mediator.Received().Send<ExcelFileViewModel>(Arg.Is(message));
         }
+
+        [Fact]
+        public void Guidelines_Always_CallMediatorSendCommissionByBetTypeGuideQuery()
+        {
+            //// Arrange
+            var message = new CommissionByBetTypeGuideQuery(user);
+
+            //// Act
+            controller.Guidelines(message);
+
+            //// Assert
+            mediator.Received().Send(message);
+        }
     }
 }
