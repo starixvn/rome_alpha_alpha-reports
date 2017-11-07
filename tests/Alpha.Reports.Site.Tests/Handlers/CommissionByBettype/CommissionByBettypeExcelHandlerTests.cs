@@ -181,7 +181,8 @@
                 (decimal)actualMapper.Mappings[Column.D](viewModel) == 4 &&
                 (decimal)actualMapper.Mappings[Column.E](viewModel) == 7 &&
                 (decimal)actualMapper.Mappings[Column.F](viewModel) == 6 &&
-                (decimal)actualMapper.Mappings[Column.G](viewModel) == 5);
+                (decimal)actualMapper.Mappings[Column.G](viewModel) == 5 &&
+                (decimal)actualMapper.Mappings[Column.H](viewModel) == 8);
         }
 
         private CommissionByBettypeExcelQuery CreateExportExcelQuery(byte custLevelId = 4)
