@@ -2,11 +2,6 @@
 {
     public class CustInfo
     {
-        public CustInfo()
-        {
-
-        }
-
         public CustInfo(int custId, string custName, byte custLevelId)
         {
             CustId = custId;

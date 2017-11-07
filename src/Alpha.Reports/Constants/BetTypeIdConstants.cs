@@ -35,5 +35,6 @@
 
         public const int StartLucky3 = 1600;
         public const int EndLucky3 = 1602;
+        public const int Bullfighting = 1004;
     }
 }
