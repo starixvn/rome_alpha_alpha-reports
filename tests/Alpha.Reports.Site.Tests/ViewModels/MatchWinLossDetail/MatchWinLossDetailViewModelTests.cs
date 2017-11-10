@@ -124,7 +124,7 @@
         {
             // Arrange
             var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(betType: bettype, showTime: "Show Time 1");
-            var expectedTitle = "Lucky 3 Game No - 1";
+            var expectedTitle = "Lucky 3 Game No 1";
 
             // Act
             var actualTitle = matchWinLossDetailViewModel.MatchName;
@@ -279,7 +279,7 @@
         }
 
         [Fact]        
-        public void GetLeagueTitle_BullfightingBetTypes_ReturnsCorrectLeagueTitle(int betType)
+        public void GetLeagueTitle_BullfightingBetTypes_ReturnsCorrectLeagueTitle()
         {
             // Arrange
             var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(1004, "Show Time 1", false, false, "League Name");
