@@ -4,11 +4,6 @@
 
     public class MemberPlayForFunModel : PlayForFunModel
     {
-        public MemberPlayForFunModel()
-        {
-
-        }
-
         public MemberPlayForFunModel(int custId, string custName, bool statusId, decimal turnover, decimal winLoss, int betCount)
             : base(custId, custName, turnover, winLoss, betCount)
         {
