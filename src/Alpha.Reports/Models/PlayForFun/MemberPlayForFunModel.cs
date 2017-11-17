@@ -4,12 +4,19 @@
 
     public class MemberPlayForFunModel : PlayForFunModel
     {
-        public MemberPlayForFunModel(int custId, string custName, bool statusId, decimal turnover, decimal winLoss, int betCount)
-            : base(custId, custName, turnover, winLoss, betCount)
+        public MemberPlayForFunModel()
         {
-            StatusId = statusId ? StatusIdConstants.Disabled : StatusIdConstants.Enabled;
+
         }
 
-        public int StatusId { get; }
+        public MemberPlayForFunModel(int custId, string custName, bool isDisabled, decimal turnover, decimal winLoss, int betCount)
+            : base(custId, custName, turnover, winLoss, betCount)
+        {
+            IsDisabled = isDisabled;
+        }
+
+        public int StatusId => IsDisabled ? StatusIdConstants.Disabled : StatusIdConstants.Enabled;
+
+        public bool IsDisabled { get; }
     }
 }

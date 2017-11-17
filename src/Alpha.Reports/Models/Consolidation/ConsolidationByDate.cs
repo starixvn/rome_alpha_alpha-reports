@@ -6,12 +6,18 @@
 
     public class ConsolidationByDate : ConsolidationByUsername
     {
+        public ConsolidationByDate()
+        {
+        }
+        
         public ConsolidationByDate(string breakDown, int custId, string username, byte currencyId, int custLevel, decimal turnover, decimal memberWinLoss, decimal memberComm, decimal memberTotal, decimal ownerTurnover, decimal ownerWinLoss, decimal ownerComm, decimal ownerTotal, decimal company, int betCount) :
             base(custId, custId, username, currencyId, custLevel, turnover, memberWinLoss, memberComm, memberTotal, ownerTurnover, ownerWinLoss, ownerComm, ownerTotal, company, betCount)
         {
-            Date = Converter.ToDateTime(breakDown);
+            BreakDown = breakDown;
         }
 
-        public DateTime Date { get; }
+        public DateTime Date => Converter.ToDateTime(BreakDown);
+
+        public string BreakDown { get; }
     }
 }

@@ -15,6 +15,7 @@
     </Setting>
     <Setting Key="Age_Rpt_PlayForFun_Member" SpName="Age_Rpt_PlayForFun_Member" DbName="DBACC.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="Username" ObjectProperty="CustName" />
+      <Mapping DataField="StatusId" ObjectProperty="IsDisabled" />
     </Setting>
   </Function>
   <Function Name="Statement Report">

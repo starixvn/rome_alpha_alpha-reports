@@ -23,9 +23,9 @@
             ToteWinPlace = toteWinPlace;
         }
 
-        public int CustId { get; set; }
+        public int CustId { get;}
 
-        public string CustName { get; set; }
+        public string CustName { get;}
 
         public decimal ToteWin { get; private set; }
 

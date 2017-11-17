@@ -56,7 +56,7 @@
             {
                 new ConsolidationByUsername(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
             };
-
+            
             reportService.GetConsolidationByUsername(Arg.Any<GetConsolidationParam>()).Returns(data);
 
             var message = new ConsolidationByUsernameQuery(user)

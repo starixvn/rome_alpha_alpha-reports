@@ -16,15 +16,15 @@
             BetCount = betCount;
         }
 
-        public int CustId { get; }
+        public int CustId { get; protected set; }
 
-        public string CustName { get; }
+        public string CustName { get; protected set; }
 
-        public decimal Turnover { get; private set; }
+        public decimal Turnover { get; protected set; }
 
-        public decimal WinLoss { get; private set; }
+        public decimal WinLoss { get; protected set; }
 
-        public int BetCount { get; private set; }
+        public int BetCount { get; protected set; }
 
         public virtual void Add(PlayForFunModel playForFunModel)
         {

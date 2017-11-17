@@ -15,10 +15,7 @@
             // Arrange
             var level = UserLevel.Member;
             var expectedValue = 10;
-            var model = new OutstandingModel
-            {
-                MemberOutstanding = 10
-            };
+            var model = new OutstandingModel(0, string.Empty, 10, 0, 0, 0);            
 
             // Act
             var actualValue = model.GetValueByLevel(level);
@@ -33,10 +30,7 @@
             // Arrange
             var level = UserLevel.Agent;
             var expectedValue = 10;
-            var model = new OutstandingModel
-            {
-                AgentOutstanding = 10
-            };
+            var model = new OutstandingModel(0, string.Empty, 0, 10, 0, 0);
 
             // Act
             var actualValue = model.GetValueByLevel(level);
@@ -51,10 +45,7 @@
             // Arrange
             var level = UserLevel.Master;
             var expectedValue = 10;
-            var model = new OutstandingModel
-            {
-                MasterOutstanding = 10
-            };
+            var model = new OutstandingModel(0, string.Empty, 0, 0, 10, 0);
 
             // Act
             var actualValue = model.GetValueByLevel(level);
@@ -69,10 +60,7 @@
             // Arrange
             var level = UserLevel.Super;
             var expectedValue = 10;
-            var model = new OutstandingModel
-            {
-                SuperOutstanding = 10
-            };
+            var model = new OutstandingModel(0, string.Empty, 0, 0, 0, 10);
 
             // Act
             var actualValue = model.GetValueByLevel(level);
@@ -103,12 +91,6 @@
         }
 
         private OutstandingModel CreateOutstandingModel(decimal memberValue, decimal agentValue, decimal masterValue, decimal superValue)
-            => new OutstandingModel()
-            {
-                MemberOutstanding = memberValue,
-                AgentOutstanding = agentValue,
-                MasterOutstanding = masterValue,
-                SuperOutstanding = superValue
-            };
+            => new OutstandingModel(0, null, memberValue, agentValue, masterValue, superValue);
     }
 }
