@@ -70,6 +70,7 @@
             CasinoComm += commission.CasinoComm;
             MyanmarOddsComm += commission.MyanmarOddsComm;
             ChargeComm += commission.ChargeComm;
+            Others += commission.Others;
         }
     }
 }

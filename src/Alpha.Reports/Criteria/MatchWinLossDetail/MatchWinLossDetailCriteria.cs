@@ -31,8 +31,7 @@
 
         [SpParam(Ignored = true)]
         public IEnumerable<string> Leagues { get; }
-
-        [SpParam(SqlParamName = "leagueIds")]
+        
         public string LeagueIds
         {
             get
@@ -56,7 +55,6 @@
             }
         }
 
-        [SpParam(SqlParamName = "league3rdIds")]
         public string League3rdIds
         {
             get

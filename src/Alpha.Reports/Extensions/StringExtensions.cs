@@ -26,16 +26,16 @@
             return ids;
         }
 
-        public static List<string> ToListString(this string delimitedString)
+        public static IEnumerable<string> ToListString(this string delimitedString)
         {
             if (string.IsNullOrWhiteSpace(delimitedString))
             {
-                return Enumerable.Empty<string>().ToList();
+                return Enumerable.Empty<string>();
             }           
 
             var ids = delimitedString
                 .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(str => str).ToList();
+                .Select(str => str);
 
             return ids;
         }
