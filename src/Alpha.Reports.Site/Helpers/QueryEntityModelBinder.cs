@@ -52,20 +52,12 @@
                 if (!string.IsNullOrWhiteSpace(breadcrumbLevelJson)
                    && breadcrumbLevelJson.LastIndexOf(",[", StringComparison.OrdinalIgnoreCase) < 0)
                 {
-                    try
-                    {
-                        reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(
-                            breadcrumbLevelJson,
-                            new JsonSerializerSettings
-                            {
-                                Error = HandleDeserializationError
-                            });
-                    }
-                    catch (JsonException ex)
-                    {
-                        //// TODO: temporary
-                        LogWarning(ex);
-                    }
+                    reportBaseQuery.BreadcrumbLevel = JsonConvert.DeserializeObject<IEnumerable<CustInfo>>(
+                        breadcrumbLevelJson,
+                        new JsonSerializerSettings
+                        {
+                            Error = (sender, errorArgs) => { errorArgs.ErrorContext.Handled = true; }
+                        });
                 }
 
                 return reportBaseQuery;
@@ -81,18 +73,5 @@
 
         protected virtual string GetBreadcrumbLevelJson(ControllerContext controllerContext)
             => controllerContext.RequestContext.HttpContext.Request["BreadcrumbLevelJson"];
-
-        protected virtual void LogWarning(JsonException ex)
-        {
-            ExceptionHandler.Handle(ex, TraceEventType.Warning);
-        }
-
-        private static void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
-        {
-            if (errorArgs.ErrorContext.Error.Message.Contains(".CustLevelId'"))
-            {
-                errorArgs.ErrorContext.Handled = true;
-            }
-        }
     }
 }
