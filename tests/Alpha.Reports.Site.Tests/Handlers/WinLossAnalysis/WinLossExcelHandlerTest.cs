@@ -54,7 +54,7 @@
             winLossAnalysisExcelHandler = Substitute.ForPartsOf<WinLossAnalysisExcelHandler>(productService, reportService, winLossAnalysisWorkbook);
             winLossAnalysisExcelHandler.MapPath = (path) => path;
             winLossAnalysisExcelHandler.IsFileExist = (path) => true;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
             message = CreateExportWinLossAnalysisExcelQuery(
                             custLevelId: 4,
@@ -363,8 +363,8 @@
             query.ReportTypeId = reportTypeId;
             query.ReportTypeName = reportTypeName;
             query.ReportTypeTitle = reportTitle;
-            query.FromDate = DefaultVariables.CurrentDate;
-            query.ToDate = DefaultVariables.CurrentDate;
+            query.FromDate = DefaultVariablesTest.CurrentDate;
+            query.ToDate = DefaultVariablesTest.CurrentDate;
 
             return query;
         }

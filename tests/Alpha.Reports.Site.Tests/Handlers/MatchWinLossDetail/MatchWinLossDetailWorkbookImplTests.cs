@@ -7,7 +7,8 @@
     using Fixtures;
     using NSubstitute;
     using ONEbook.SpreadSheets;
-    using Reports.Models.MatchWinLossDetail;
+    using Reports.Constants;
+    using Reports.Models.MatchWinLossDetail;    
     using Site.Handlers.MatchWinLossDetail;
     using Site.ViewModels.MatchWinLossDetail;
     using Utils;
@@ -31,7 +32,7 @@
             sheet = Substitute.For<Sheet>();
             row = Substitute.For<Row>();
 
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
         }
@@ -88,14 +89,15 @@
                 anyValueCreatorFixture.Create<int>(),
                 anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
-                new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
-                new Dictionary<int, string> { [1] = "Team 1" });
+                new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1,(byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null),
+                "Team 1",
+                "Team 1");
 
             // Act
             matchWinLossDetailWorkbookImpl.FillMatchTitle(sheet, rowIndex, data);
 
             // Assert
-            sheet.Received().SetCellRangeValue(rowIndex, 0, rowIndex, -1, "LEAGUE NAME >> TEAM 1-VS-TEAM 1");
+            sheet.Received().SetCellRangeValue(rowIndex, 0, rowIndex, -1, "LEAGUE NAME >> TEAM 1 - VS - TEAM 1");
         }
 
         [Fact]

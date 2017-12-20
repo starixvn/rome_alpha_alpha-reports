@@ -17,7 +17,7 @@
 
         public MatchWinLossDetailParamTests(AnyValueCreatorFixture anyValueCreator)
         {
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             this.anyValueCreator = anyValueCreator;
         }
 
@@ -29,10 +29,10 @@
                 anyValueCreator.Create<int>(),
                 DateTime.MinValue,
                 anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<IEnumerable<int>>(),
+                anyValueCreator.Create<IEnumerable<string>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
-            var expectedDate = DefaultVariables.CurrentDate;
+            var expectedDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var actualDate = param.FromDate;
@@ -50,7 +50,7 @@
                 anyValueCreator.Create<int>(),
                 fromDate,
                 anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<IEnumerable<int>>(),
+                anyValueCreator.Create<IEnumerable<string>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
             var expectedDate = fromDate;
@@ -70,10 +70,10 @@
                 anyValueCreator.Create<int>(),
                 anyValueCreator.Create<DateTime>(),
                 DateTime.MinValue,
-                anyValueCreator.Create<IEnumerable<int>>(),
+                anyValueCreator.Create<IEnumerable<string>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
-            var expectedDate = DefaultVariables.CurrentDate;
+            var expectedDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var actualDate = param.ToDate;
@@ -91,7 +91,7 @@
                 anyValueCreator.Create<int>(),
                 anyValueCreator.Create<DateTime>(),
                 toDate,
-                anyValueCreator.Create<IEnumerable<int>>(),
+                anyValueCreator.Create<IEnumerable<string>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
             var expectedDate = toDate;

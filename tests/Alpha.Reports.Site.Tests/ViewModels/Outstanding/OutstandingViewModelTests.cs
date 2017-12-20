@@ -49,7 +49,7 @@
             var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
 
             // Act
-            viewmodel.BuildDrillDownLink(new OutstandingModel { CustId = custId, CustName = custName }, "currentUrl");
+            viewmodel.BuildDrillDownLink(new OutstandingModel(custId, custName, 0, 0, 0, 0), "currentUrl");
 
             // Assert
             UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
@@ -82,7 +82,7 @@
             var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
 
             // Act
-            viewmodel.BuildDrillDownLink(new OutstandingModel { CustId = custId, CustName = custName }, currentUrl);
+            viewmodel.BuildDrillDownLink(new OutstandingModel(custId, custName, 0, 0, 0, 0), currentUrl);
 
             // Assert
             UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(

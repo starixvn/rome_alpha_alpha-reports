@@ -2,11 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Constants;
     using Extensions;
+    using Fanex.Data.Repository;
     using Fixtures;
     using NSubstitute;
+    using Reports.Constants;
     using Reports.Criteria.MatchWinLossDetail;
     using Reports.DataAccesses;
     using Reports.Extensions;
@@ -24,6 +25,7 @@
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly MatchWinLossDetailDataAccess dataAccess;
+        private readonly IDynamicRepository dynamicRepository;
         private readonly MatchWinLossDetailServiceImpl matchWinLossDetailServiceImpl;
 
         public MatchWinLossDetailServiceImplTests(AnyValueCreatorFixture anyValueCreatorFixture)
@@ -33,7 +35,8 @@
             reportDateService = Substitute.For<ReportDateService>();
             productService = Substitute.For<ProductService>();
             dataAccess = Substitute.For<MatchWinLossDetailDataAccess>();
-            matchWinLossDetailServiceImpl = new MatchWinLossDetailServiceImpl(reportDateService, productService, dataAccess);
+            dynamicRepository = Substitute.For<DynamicRepository>();
+            matchWinLossDetailServiceImpl = new MatchWinLossDetailServiceImpl(reportDateService, productService, dataAccess, dynamicRepository);
         }
 
         [Fact]
@@ -60,9 +63,9 @@
             // Arrange
             var param = new MatchWinLossDetailParam(
                 anyValueCreatorFixture.Create<int>(),
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
-                anyValueCreatorFixture.Create<IEnumerable<int>>(),
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
+                new List<string> { "123_0", "22_0" },
                 productIds.ToListInt(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
@@ -71,7 +74,7 @@
 
             var moveBetsDate = anyValueCreatorFixture.Create<DateTime>();
             reportDateService.GetMoveBetsDay().Returns(moveBetsDate);
-
+            dynamicRepository.Fetch<int>(Arg.Any<ProductsForMatchWinLossDetailCriteria>()).Returns("1,2,3,5,26".ToListInt());
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(productIds.ToListInt());
 
             // Act
@@ -82,10 +85,7 @@
                 criteria => criteria.CustId == param.CustId
                 && criteria.FromDate == param.FromDate
                 && criteria.ToDate == param.ToDate
-                && criteria.ProductIds == expectCalledProductIds
-                && criteria.ReportLevel == param.ReportLevel
-                && criteria.Leagues == param.UserSelectedLeagueIds.JoinWithComma()
-                && criteria.MoveBetsDay == moveBetsDate));
+                && criteria.ProductIds == expectCalledProductIds));
         }
 
         [Fact]
@@ -93,13 +93,13 @@
         {
             var param = new MatchWinLossDetailParam(
                 anyValueCreatorFixture.Create<int>(),
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
-                anyValueCreatorFixture.Create<IEnumerable<int>>(),
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
+                anyValueCreatorFixture.Create<IEnumerable<string>>(),
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<UserLevel>());
 
-            var matchWinLossDetailModel = new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null);
+            var matchWinLossDetailModel = new MatchWinLossDetailModel(false, 1, 1, 1, 1, false, 1, (byte)LeagueType.Self, 1, string.Empty, false, string.Empty, 0, 0, null, null, null, null);
             var expectedMatchWinLossModels = new List<MatchWinLossDetailModel>
             {
                 matchWinLossDetailModel

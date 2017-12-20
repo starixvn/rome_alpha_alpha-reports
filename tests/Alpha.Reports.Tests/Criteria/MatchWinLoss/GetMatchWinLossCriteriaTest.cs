@@ -77,8 +77,8 @@
             // Arrange
             var getMatchWinLossCriteria = new GetMatchWinLossCriteria(
                 1,
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate);
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate);
 
             // Act
             var actualIsValid = getMatchWinLossCriteria.IsValid();

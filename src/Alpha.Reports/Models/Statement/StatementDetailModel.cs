@@ -5,6 +5,11 @@
 
     public class StatementDetailModel
     {
+        public StatementDetailModel()
+        {
+
+        }
+
         public StatementDetailModel(
             DateTime transDate,
             string transType,

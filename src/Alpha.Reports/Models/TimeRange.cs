@@ -4,6 +4,11 @@
 
     public class TimeRange
     {
+        public TimeRange()
+        {
+
+        }
+
         public TimeRange(DateTime fromDate, DateTime toDate)
         {
             FromDate = fromDate;

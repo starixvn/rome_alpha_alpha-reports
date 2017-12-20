@@ -23,6 +23,7 @@
     using SimpleInjector;
     using SimpleInjector.Integration.Web;
     using SimpleInjector.Integration.Web.Mvc;
+    using StaticData.Repositories;
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Model.Entities.Permission;
@@ -127,7 +128,7 @@
 
             if (SiteSettings.EnabledStaticData)
             {
-                StaticData.AppStart.DependencyRegister.Register(container);
+                container.Register<IDynamicRepository, ReportExcelRepository>(Lifestyle.Singleton);
             }
             else
             {

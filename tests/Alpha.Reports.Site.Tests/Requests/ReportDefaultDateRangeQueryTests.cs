@@ -17,7 +17,7 @@
         public ReportDefaultDateRangeQueryTests()
         {
             user = (new UserFixture()).User;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]
@@ -26,7 +26,7 @@
             // Arrange
             var query = new ReportDefaultDateRangeQuery(user);
             query.IsHistoricReport = true;
-            query.FromDate = DefaultVariables.CurrentDate.AddYears(-4);
+            query.FromDate = DefaultVariablesTest.CurrentDate.AddYears(-4);
 
             // Act
             var isValid = query.IsValid();
@@ -41,8 +41,8 @@
             // Arrange
             var query = new ReportDefaultDateRangeQuery(user);
             query.IsHistoricReport = true;
-            query.FromDate = DefaultVariables.CurrentDate;
-            query.ToDate = DefaultVariables.CurrentDate.AddDays(-1);
+            query.FromDate = DefaultVariablesTest.CurrentDate;
+            query.ToDate = DefaultVariablesTest.CurrentDate.AddDays(-1);
 
             // Act
             var isValid = query.IsValid();
@@ -59,8 +59,8 @@
             // Arrange
             var query = new ReportDefaultDateRangeQuery(user);
             query.IsHistoricReport = true;
-            query.FromDate = DefaultVariables.CurrentDate;
-            query.ToDate = DefaultVariables.CurrentDate.AddMonths(monthDiff);
+            query.FromDate = DefaultVariablesTest.CurrentDate;
+            query.ToDate = DefaultVariablesTest.CurrentDate.AddMonths(monthDiff);
 
             // Act
             var isValid = query.IsValid();
@@ -75,8 +75,8 @@
             // Arrange
             var query = new ReportDefaultDateRangeQuery(user);
             query.IsHistoricReport = true;
-            query.FromDate = DefaultVariables.CurrentDate;
-            query.ToDate = DefaultVariables.CurrentDate;
+            query.FromDate = DefaultVariablesTest.CurrentDate;
+            query.ToDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var isValid = query.IsValid();
@@ -91,8 +91,8 @@
             // Arrange
             var query = new ReportDefaultDateRangeQuery(user);
             query.IsHistoricReport = false;
-            query.FromDate = DefaultVariables.CurrentDate.AddMonths(-4);
-            query.ToDate = DefaultVariables.CurrentDate;
+            query.FromDate = DefaultVariablesTest.CurrentDate.AddMonths(-4);
+            query.ToDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var isValid = query.IsValid();
@@ -107,8 +107,8 @@
             // Arrange
             var query = new ReportDefaultDateRangeQuery(user);
             query.IsHistoricReport = false;
-            query.FromDate = DefaultVariables.CurrentDate;
-            query.ToDate = DefaultVariables.CurrentDate.AddDays(-1);
+            query.FromDate = DefaultVariablesTest.CurrentDate;
+            query.ToDate = DefaultVariablesTest.CurrentDate.AddDays(-1);
 
             // Act
             var isValid = query.IsValid();
@@ -123,8 +123,8 @@
             // Arrange
             var query = new ReportDefaultDateRangeQuery(user);
             query.IsHistoricReport = false;
-            query.FromDate = DefaultVariables.CurrentDate;
-            query.ToDate = DefaultVariables.CurrentDate;
+            query.FromDate = DefaultVariablesTest.CurrentDate;
+            query.ToDate = DefaultVariablesTest.CurrentDate;
 
             // Act
             var isValid = query.IsValid();
@@ -144,7 +144,7 @@
             var actualMinDate = query.MinDate;
 
             // Assert
-            Assert.Equal(DefaultVariables.CurrentDate.AddYears(-3).FirstDayOfYear(), actualMinDate);
+            Assert.Equal(DefaultVariablesTest.CurrentDate.AddYears(-3).FirstDayOfYear(), actualMinDate);
         }
 
         [Fact]
@@ -158,7 +158,7 @@
             var actualMinDate = query.MinDate;
 
             // Assert
-            Assert.Equal(DefaultVariables.CurrentDate.AddMonths(-3).FirstDayOfMonth(), actualMinDate);
+            Assert.Equal(DefaultVariablesTest.CurrentDate.AddMonths(-3).FirstDayOfMonth(), actualMinDate);
         }
 
         [Fact]
@@ -173,7 +173,7 @@
             var actualFromDate = query.FromDate;
 
             // Assert
-            Assert.Equal(DefaultVariables.CurrentDate.FirstDayOfMonth(), actualFromDate);
+            Assert.Equal(DefaultVariablesTest.CurrentDate.FirstDayOfMonth(), actualFromDate);
         }
 
         [Fact]
@@ -188,7 +188,7 @@
             var actualFromDate = query.FromDate;
 
             // Assert
-            Assert.Equal(DefaultVariables.CurrentDate, actualFromDate);
+            Assert.Equal(DefaultVariablesTest.CurrentDate, actualFromDate);
         }
 
         [Fact]
@@ -198,7 +198,7 @@
             var query = new ReportDefaultDateRangeQuery(user);
 
             // Assert
-            Assert.True(query.FromDate == DateTime.MinValue && query.ToDate == DefaultVariables.CurrentDate);
+            Assert.True(query.FromDate == DateTime.MinValue && query.ToDate == DefaultVariablesTest.CurrentDate);
         }
     }
 }

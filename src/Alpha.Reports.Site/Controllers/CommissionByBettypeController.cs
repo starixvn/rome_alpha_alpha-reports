@@ -17,5 +17,7 @@
 
         [HttpGet]
         public ActionResult Excel(CommissionByBettypeExcelQuery message) => ExcelView(message);
+
+        public ActionResult Guidelines(CommissionByBetTypeGuideQuery message) => View(message);
     }
 }

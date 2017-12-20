@@ -50,7 +50,7 @@
             winLossExcelHandler = Substitute.ForPartsOf<WinLossExcelHandler>(productService, reportService, winlossWorkbook);
             winLossExcelHandler.MapPath = (path) => path;
             winLossExcelHandler.IsFileExist = (path) => true;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -346,8 +346,8 @@
         {
             var exportWinLossQuery = new WinLossExcelQuery(userFixture.User);
             exportWinLossQuery.CustLevelId = custLevelId;
-            exportWinLossQuery.FromDate = DefaultVariables.CurrentDate;
-            exportWinLossQuery.ToDate = DefaultVariables.CurrentDate;
+            exportWinLossQuery.FromDate = DefaultVariablesTest.CurrentDate;
+            exportWinLossQuery.ToDate = DefaultVariablesTest.CurrentDate;
 
             return exportWinLossQuery;
         }

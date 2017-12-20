@@ -45,8 +45,8 @@
             // Arrange
             var param = new MatchWinLossParam(
                 anyValueCreatorFixture.Create<int>(),
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate);
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate);
 
             // Act
             matchWinLossServiceImpl.GetMatchWinLoss(param);
@@ -63,8 +63,8 @@
         {
             var param = new MatchWinLossParam(
                 anyValueCreatorFixture.Create<int>(),
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate);
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate);
 
             var expectedMatchWinLossModels = new List<MatchWinLossModel>
             {

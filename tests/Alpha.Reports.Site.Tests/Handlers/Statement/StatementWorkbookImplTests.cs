@@ -95,7 +95,7 @@
         {
             // Arrange
             var row = Substitute.For<Row>();
-            var data = new StatementModel(DefaultVariables.CurrentDate, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+            var data = new StatementModel(DefaultVariablesTest.CurrentDate, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
             // Act
             workbook.CallExportWinLoss(row, data, 0);

@@ -14,9 +14,9 @@
     public class CommissionByBettypeViewModelTests
     {
         [Theory]
-        [InlineData(true, false, 6)]
-        [InlineData(false, true, 6)]
-        [InlineData(false, false, 5)]
+        [InlineData(true, false, 7)]
+        [InlineData(false, true, 7)]
+        [InlineData(false, false, 6)]
         public void Should_ReturnCorrectNumberOfColumns(bool showChargeCommColumn, bool showMyanmarOddsColumn, int exptectedValue)
         {
             // Arrange
@@ -52,7 +52,7 @@
             var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), false, false);
 
             // Act
-            viewmodel.BuildDrillDownLink(new CommissionByBettypeModel(custId, custName, 0, 0, 0, 0, 0, 0), currentUrl);
+            viewmodel.BuildDrillDownLink(new CommissionByBettypeModel(custId, custName, 0, 0, 0, 0, 0, 0, 8), currentUrl);
 
             // Assert
             UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(

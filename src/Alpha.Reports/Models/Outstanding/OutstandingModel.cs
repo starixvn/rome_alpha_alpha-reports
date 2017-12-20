@@ -4,17 +4,31 @@
 
     public class OutstandingModel
     {
-        public int CustId { get; set; }
+        public OutstandingModel()
+        {
+        }
 
-        public string CustName { get; set; }
+        internal OutstandingModel(int custId, string custName, decimal memberOutstanding, decimal agentOutstanding, decimal masterOutstanding, decimal superOutstanding)
+        {
+            CustId = custId;
+            CustName = custName;
+            MemberOutstanding = memberOutstanding;
+            AgentOutstanding = agentOutstanding;
+            MasterOutstanding = masterOutstanding;
+            SuperOutstanding = superOutstanding;
+        }
 
-        public decimal MemberOutstanding { get; set; }
+        public int CustId { get; }
 
-        public decimal AgentOutstanding { get; set; }
+        public string CustName { get; }
 
-        public decimal MasterOutstanding { get; set; }
+        public decimal MemberOutstanding { get; private set; }
 
-        public decimal SuperOutstanding { get; set; }
+        public decimal AgentOutstanding { get; private set; }
+
+        public decimal MasterOutstanding { get; private set; }
+
+        public decimal SuperOutstanding { get; private set; }
 
         public static OutstandingModel GetAccumulatedData(IEnumerable<OutstandingModel> outstandings)
         {

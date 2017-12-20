@@ -41,13 +41,13 @@
             this.userFixture = userFixture;
             anyValueGenerator = new Fixture();
 
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
             var reportDateService = Substitute.For<ReportDateService>();
             ReportDateServiceImpl.Instance = reportDateService;
-            reportDateService.GetBalanceUpDay().Returns(DefaultVariables.BalanceUpDate);
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
         }
 
         [Fact]
@@ -77,7 +77,7 @@
             // Assert
             reportService.Received().GetMatchWinLoss(Arg.Is<MatchWinLossParam>(param
                 => param != null
-                && param.FromDate == DefaultVariables.CurrentDate));
+                && param.FromDate == DefaultVariablesTest.CurrentDate));
         }
 
         [Fact]
@@ -92,7 +92,7 @@
             // Assert
             reportService.Received().GetMatchWinLoss(Arg.Is<MatchWinLossParam>(param
                 => param != null
-                && param.ToDate == DefaultVariables.CurrentDate));
+                && param.ToDate == DefaultVariablesTest.CurrentDate));
         }
 
         [Fact]
@@ -123,8 +123,8 @@
                     new MatchWinLossViewModel("Number Game No Match Code", "Next Bet Type 85", rawData[1]),
                     new MatchWinLossViewModel("Number Game No Match Code", "FT. Bet Type 86", rawData[2]),
                     new MatchWinLossViewModel("Number Game No Match Code", "Next Bet Type 86", rawData[3]),
-                    new MatchWinLossViewModel("Team 2 -vs- Team 3", "Bet Type 1105", rawData[4]),
-                    new MatchWinLossViewModel("Team 2 (N) -vs- Team 3", "Bet Type 1105", rawData[5])
+                    new MatchWinLossViewModel("Team 2 - vs - Team 3", "Bet Type 1105", rawData[4]),
+                    new MatchWinLossViewModel("Team 2 (N) - vs - Team 3", "Bet Type 1105", rawData[5])
                 },
                 anyValueGenerator.Create<MatchWinLossViewModel>());
 

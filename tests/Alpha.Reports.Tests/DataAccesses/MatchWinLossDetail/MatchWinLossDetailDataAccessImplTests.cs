@@ -8,6 +8,7 @@
     using Extensions;
     using Fixtures;
     using NSubstitute;
+    using Reports.Constants;
     using Reports.Criteria.MatchWinLossDetail;
     using Reports.DataAccesses;
     using Reports.Models;
@@ -52,7 +53,7 @@
                 DateTime.Now,
                 null,
                 level,
-                Enumerable.Empty<int>());
+                Enumerable.Empty<string>());
 
             var reportData = dataSet.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<MatchWinLossDetailCriteria>()).Returns(reportData);
@@ -67,6 +68,7 @@
                     betType: 13,
                     liveIndicator: false,
                     leagueId: 5,
+                    leagueType: (byte)LeagueType.Self,
                     race: 6,
                     matchCode: "Match Code 1",
                     isNeutral: false,
@@ -85,6 +87,7 @@
                     betType: 113,
                     liveIndicator: true,
                     leagueId: 15,
+                    leagueType:(byte)LeagueType.Self,
                     race: 16,
                     matchCode: "Match Code 11",
                     isNeutral: true,
@@ -115,7 +118,7 @@
                 DateTime.Now,
                 null,
                 UserLevel.Super,
-                Enumerable.Empty<int>());
+                Enumerable.Empty<string>());
 
             IDataReader dataReader = null;
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<MatchWinLossDetailCriteria>()).Returns(dataReader);

@@ -54,7 +54,7 @@
 
             var userSelectedLeagueIds = string.IsNullOrWhiteSpace(message.UserSelectedLeagueIds)
                 ? leagues.Select(league => league.Id)
-                : message.UserSelectedLeagueIds.Split(',').Select(id => Converter.ToInt(id));
+                : message.UserSelectedLeagueIds.Split(',').Select(id => id);
 
             return new MatchWinLossDetailReportViewModel(
                 noParlayMatchWinLossDetail,

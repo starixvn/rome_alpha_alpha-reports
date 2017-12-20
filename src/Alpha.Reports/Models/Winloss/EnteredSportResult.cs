@@ -2,6 +2,11 @@
 {
     public class EnteredSportResult
     {
+        public EnteredSportResult()
+        {
+
+        }
+
         public EnteredSportResult(
             int sportTypeId,
             string sportName,

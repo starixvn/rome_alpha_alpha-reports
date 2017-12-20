@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Constants;
     using Extensions;
     using Fanex.Data;
     using Fanex.Data.Repository;
@@ -16,10 +17,10 @@
             DateTime moveBetsDay,
             IEnumerable<int> productIds,
             UserLevel reportLevel,
-            IEnumerable<int> leagues)
+            IEnumerable<string> leagues)
         {
             ReportLevel = reportLevel;
-            Leagues = leagues.JoinWithComma();
+            Leagues = leagues;
 
             ProductIds = productIds == null ? string.Empty : productIds.JoinWithComma();
             CustId = custId;
@@ -28,8 +29,54 @@
             MoveBetsDay = moveBetsDay;
         }
 
-        [SpParam(SqlParamName = "League")]
-        public string Leagues { get; }
+        [SpParam(Ignored = true)]
+        public IEnumerable<string> Leagues { get; }
+        
+        public string LeagueIds
+        {
+            get
+            {
+                var ids = new List<int>();
+                foreach (var league in Leagues)
+                {
+                    var items = league.Split('_');
+                    if (items.Length == 2)
+                    {
+                        var leagueId = Convert.ToInt32(items[0]);
+                        var leagueType = Convert.ToInt32(items[1]);
+                        if (leagueType == (int)LeagueType.Self)
+                        {
+                            ids.Add(leagueId);
+                        }
+                    }
+                }
+
+                return ids.JoinWithComma();
+            }
+        }
+
+        public string League3rdIds
+        {
+            get
+            {
+                var ids = new List<int>();
+                foreach (var league in Leagues)
+                {
+                    var items = league.Split('_');
+                    if (items.Length == 2)
+                    {
+                        var leagueId = Convert.ToInt32(items[0]);
+                        var leagueType = Convert.ToInt32(items[1]);
+                        if (leagueType == (int)LeagueType.ThirdParty)
+                        {
+                            ids.Add(leagueId);
+                        }
+                    }
+                }
+
+                return ids.JoinWithComma();
+            }
+        }
 
         [SpParam(Ignored = true)]
         public UserLevel ReportLevel { get; }
@@ -44,6 +91,8 @@
 
         public DateTime MoveBetsDay { get; }
 
+        public bool IsGetAll => string.IsNullOrEmpty(LeagueIds) && string.IsNullOrEmpty(League3rdIds);
+
         public override string GetSettingKey()
             => ReportLevel.IsAgentLevel()
             ? "Age_Rpt_MatchWinLossDetail_Member"
@@ -54,7 +103,6 @@
         public override bool IsValid() =>
             CustId > 0
             && FromDate <= ToDate
-            && !string.IsNullOrWhiteSpace(ProductIds)
-            && !string.IsNullOrWhiteSpace(Leagues);
+            && !string.IsNullOrWhiteSpace(ProductIds);
     }
 }

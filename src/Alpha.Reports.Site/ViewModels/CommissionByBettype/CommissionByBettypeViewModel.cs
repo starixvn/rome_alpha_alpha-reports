@@ -19,6 +19,7 @@
         public const string SortByChargeComm = nameof(CommissionByBettypeModel.ChargeComm);
         public const string SortByMyanmarOddsComm = nameof(CommissionByBettypeModel.MyanmarOddsComm);
         public const string SortByCasinoComm = nameof(CommissionByBettypeModel.CasinoComm);
+        public const string SortByOthers = nameof(CommissionByBettypeModel.Others);
 
         public CommissionByBettypeViewModel(
             CommissionByBettypeQuery query,
@@ -78,7 +79,7 @@
 
         public int GetNumCols()
         {
-            int numCols = 5;
+            int numCols = 6;
             if (ShowChargeCommColumn)
             {
                 numCols++;

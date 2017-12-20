@@ -2,6 +2,11 @@
 {
     public class ProductsByRefTable
     {
+        public ProductsByRefTable()
+        {
+
+        }
+
         public ProductsByRefTable(byte productId, byte refTable)
         {
             ProductId = productId;

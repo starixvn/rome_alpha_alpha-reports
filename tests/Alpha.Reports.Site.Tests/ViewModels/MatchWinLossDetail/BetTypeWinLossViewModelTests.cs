@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.MatchWinLossDetail
 {
     using Extensions;
+    using Reports.Constants;
     using Reports.Models;
     using Reports.Models.MatchWinLossDetail;
     using Site.ViewModels.MatchWinLossDetail;
@@ -21,6 +22,7 @@
                 betType: 1,
                 liveIndicator: false,
                 leagueId: 1,
+                leagueType:(byte)LeagueType.Self,
                 race: 1,
                 matchCode: "Match Code 1",
                 isNeutral: false,

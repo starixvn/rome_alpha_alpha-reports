@@ -6,7 +6,7 @@
     using Extensions;
     using Reports.Constants;
     using Reports.Helpers;
-    using Reports.Models.MatchWinLossDetail;
+    using Reports.Models.MatchWinLossDetail;    
 
     public class MatchWinLossDetailViewModel
     {
@@ -18,21 +18,27 @@
             IEnumerable<BetTypeWinLossViewModel> betTypeWinLoss,
             BetTypeWinLossViewModel total,
             MatchWinLossDetailModel firstWinLoss,
-            Dictionary<int, string> teamNames)
+            string homeName,
+            string awayName)
         {
             MatchId = matchId;
             LeagueId = leagueId;
             Race = race;
             BetTypeWinLoss = betTypeWinLoss;
             Total = total;
-
-            MatchName = GetMatchTitle(firstWinLoss, teamNames);
+            HomeName = homeName;
+            AwayName = awayName;
+            MatchName = GetMatchTitle(firstWinLoss);
             LeagueName = GetLeagueTitle(firstWinLoss, leagueName);
         }
 
         public int LeagueId { get; }
 
         public string LeagueName { get; }
+
+        public string HomeName { get; }
+
+        public string AwayName { get; }
 
         public int MatchId { get; }
 
@@ -46,7 +52,7 @@
 
         public bool RenderSubTotal => MatchId != 0 || Race != 0;
 
-        private string GetMatchTitle(MatchWinLossDetailModel data, Dictionary<int, string> teamNames)
+        private string GetMatchTitle(MatchWinLossDetailModel data)
         {
             if (data == null)
             {
@@ -83,10 +89,10 @@
 
             return string.Join(
                 string.Empty,
-                teamNames.ContainsKey(data.HomeId) ? teamNames[data.HomeId] : string.Empty,
+                HomeName,
                 data.IsNeutral ? Resources.Neutral : string.Empty,
                 Resources.vs,
-                teamNames.ContainsKey(data.AwayId) ? teamNames[data.AwayId] : string.Empty);
+                AwayName);
         }
 
         private string GetLeagueTitle(MatchWinLossDetailModel data, string leagueName)
@@ -108,9 +114,14 @@
                     : $"{Resources.NumberGame} - {leagueName}";
             }
 
-            if(BetTypeHelper.IsLucky3(data.BetType))
+            if (BetTypeHelper.IsLucky3(data.BetType))
             {
                 return $"{Resources.Lucky3} - {leagueName}";
+            }
+
+            if(data.BetType == BetTypeIdConstants.Bullfighting)
+            {
+                return $"{data.MatchCode} - {leagueName}";
             }
 
             return leagueName;

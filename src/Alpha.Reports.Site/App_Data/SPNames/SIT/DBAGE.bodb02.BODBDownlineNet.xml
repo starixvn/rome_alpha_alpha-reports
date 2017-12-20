@@ -4,7 +4,6 @@
     <Setting Key="Age_SelBalanceUpDay" SpName="Age_SelBalanceUpDay" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_GetProductListByRefTable" SpName="Age_Rpt_GetProductListByRefTable" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_MatchWinloss_GetLeagueByProduct" SpName="Age_Rpt_MatchWinloss_GetLeagueByProduct" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-      <Mapping DataField="LeagueId" ObjectProperty="Id" />
       <Mapping DataField="LeagueName" ObjectProperty="Name" />
       <Mapping DataField="SportType" ObjectProperty="SportTypeId" />
     </Setting>
@@ -27,6 +26,7 @@
       <Setting Key="Age_Rpt_WinLossDetail_Master" SpName="Age_Rpt_WinLossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
       <Setting Key="Age_Rpt_WinLossDetail_Agent" SpName="Age_Rpt_WinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
       <Setting Key="Age_Rpt_WinLossDetail_Member" SpName="Age_Rpt_WinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+      <Setting Key="Age_Rpt_MatchWinLossDetail_GetProductList" SpName="Age_Rpt_MatchWinLossDetail_GetProductList" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     </Function>
   </Function>
 
@@ -76,12 +76,15 @@
   <Function Name="Commission By Bet Type">
     <Setting Key="Age_Rpt_CommByBettype_Master" SpName="Age_Rpt_CommByBettype_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
+      <Mapping DataField="OthersComm" ObjectProperty="Others" />
     </Setting>
     <Setting Key="Age_Rpt_CommByBettype_Agent" SpName="Age_Rpt_CommByBettype_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
+      <Mapping DataField="OthersComm" ObjectProperty="Others" />
     </Setting>
     <Setting Key="Age_Rpt_CommByBettype_Member" SpName="Age_Rpt_CommByBettype_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
+      <Mapping DataField="OthersComm" ObjectProperty="Others" />
     </Setting>
   </Function>
   <Function Name="Consolidation">

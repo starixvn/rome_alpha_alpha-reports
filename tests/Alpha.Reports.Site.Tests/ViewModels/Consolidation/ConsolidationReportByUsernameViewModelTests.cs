@@ -47,11 +47,11 @@
 
             var query = new GetConsolidationQuery(member)
             {
-                FromDate = DefaultVariables.CurrentDate,
-                ToDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate,
+                ToDate = DefaultVariablesTest.CurrentDate
             };
 
-            var param = new GetConsolidationParam(0, 0, DefaultVariables.CurrentDate, DefaultVariables.CurrentDate, new List<int> { 1 });
+            var param = new GetConsolidationParam(0, 0, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1 });
             var row = new ConsolidationByUsernameViewModel(1, 1, "Member", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
@@ -89,9 +89,9 @@
         public void BuildDrillDownLink_DrilldownFromProduct_BuildsWithCorrectRouteValues()
         {
             // Arrange
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
-            var param = new GetConsolidationParam(1, 1, DefaultVariables.CurrentDate, DefaultVariables.CurrentDate, new List<int> { 1, 2 });
+            var param = new GetConsolidationParam(1, 1, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1, 2 });
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 new GetConsolidationQuery(user),
@@ -117,9 +117,9 @@
                     routeValues =>
                     (string)routeValues["UserSelectedProductIds"] == "drilldownFromProductIds"
                     && (DateTime)routeValues["FromDate"] == DateTime.MinValue
-                    && (DateTime)routeValues["ToDate"] == DefaultVariables.CurrentDate
+                    && (DateTime)routeValues["ToDate"] == DefaultVariablesTest.CurrentDate
                     && (DateTime)routeValues["ConsolidationFromDate"] == DateTime.MinValue
-                    && (DateTime)routeValues["ConsolidationToDate"] == DefaultVariables.CurrentDate
+                    && (DateTime)routeValues["ConsolidationToDate"] == DefaultVariablesTest.CurrentDate
                     && (string)routeValues["ConsolidationProductIds"] == "1,2"));
         }
 

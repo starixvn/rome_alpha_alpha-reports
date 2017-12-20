@@ -26,6 +26,20 @@
             return ids;
         }
 
+        public static IEnumerable<string> ToListString(this string delimitedString)
+        {
+            if (string.IsNullOrWhiteSpace(delimitedString))
+            {
+                return Enumerable.Empty<string>();
+            }           
+
+            var ids = delimitedString
+                .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(str => str);
+
+            return ids;
+        }
+
         public static bool IsNullOrBlank(this string input) => string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input);
         
         public static string FormatNumber(this decimal numberValue)

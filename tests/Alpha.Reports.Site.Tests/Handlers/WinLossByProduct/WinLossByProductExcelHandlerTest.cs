@@ -64,7 +64,7 @@
             winLossByProductExcelHandler = Substitute.ForPartsOf<WinLossByProductExcelHandler>(reportService, productService, cacheRefService, winLossByProductWorkbook);
             winLossByProductExcelHandler.MapPath = (path) => path;
             winLossByProductExcelHandler.IsFileExist = (path) => true;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             ReportDateServiceImpl.Instance = reportDateService;
             reportDateService.GetBalanceUpDay().Returns(SystemTime.Today);
 
@@ -329,8 +329,8 @@
             var exportWinLossByProductQuery = new WinLossByProductExcelQuery(userFixture.User);
             exportWinLossByProductQuery.CustLevelId = custLevelId;
             exportWinLossByProductQuery.UserSelectedProductIds = "1,2";
-            exportWinLossByProductQuery.FromDate = DefaultVariables.CurrentDate;
-            exportWinLossByProductQuery.ToDate = DefaultVariables.CurrentDate;
+            exportWinLossByProductQuery.FromDate = DefaultVariablesTest.CurrentDate;
+            exportWinLossByProductQuery.ToDate = DefaultVariablesTest.CurrentDate;
 
             return exportWinLossByProductQuery;
         }

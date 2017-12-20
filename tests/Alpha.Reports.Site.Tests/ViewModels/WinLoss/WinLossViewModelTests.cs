@@ -214,8 +214,8 @@
         {
             var winLossQuery = new WinLossQuery(userFixture.User);
             winLossQuery.CustLevelId = custLevelId;
-            winLossQuery.FromDate = DefaultVariables.CurrentDate;
-            winLossQuery.ToDate = DefaultVariables.CurrentDate;
+            winLossQuery.FromDate = DefaultVariablesTest.CurrentDate;
+            winLossQuery.ToDate = DefaultVariablesTest.CurrentDate;
 
             return winLossQuery;
         }

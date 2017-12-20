@@ -9,6 +9,7 @@
     <betType>13</betType>
     <liveIndicator>0</liveIndicator>
     <leagueId>5</leagueId>
+    <leagueType>0</leagueType>
     <race>6</race>
     <matchCode>Match Code 1</matchCode>
     <isNeutral>false</isNeutral>
@@ -36,6 +37,7 @@
     <betType>113</betType>
     <liveIndicator>1</liveIndicator>
     <leagueId>15</leagueId>
+    <leagueType>0</leagueType>
     <race>16</race>
     <matchCode>Match Code 11</matchCode>
     <isNeutral>true</isNeutral>

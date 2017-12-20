@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using Reports.Constants;
     using Reports.Models;
     using Reports.Models.MatchWinLossDetail;
 
@@ -34,6 +35,7 @@
                 betType,
                 false,
                 1837,
+                (byte)LeagueType.Self,
                 0,
                 "1001",
                 false,

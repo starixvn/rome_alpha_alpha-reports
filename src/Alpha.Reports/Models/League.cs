@@ -4,27 +4,26 @@
     {
         public League()
         {
-        }
+        }       
 
-        public League(int id, int sportTypeId, string name)
+        internal League(int leagueid, int sporttype, string leaguename, byte leagueType)
         {
-            Id = id;
-            Name = name;
-            SportTypeId = sportTypeId;
-            DisplayName = name;
+            LeagueId = leagueid;
+            Name = leaguename;
+            SportTypeId = sporttype;
+            LeagueType = leagueType;
         }
 
-        internal League(int id, string name, int sportTypeId, string displayName) : this(id, sportTypeId, name)
-        {
-            DisplayName = displayName;
-        }
+        public string Id => $"{LeagueId}_{LeagueType}";
 
-        public int Id { get; }
+        public int LeagueId { get; }
 
         public string Name { get; }
 
         public int SportTypeId { get; }
 
-        public string DisplayName { get; }
+        public string DisplayName => Name;
+
+        public byte LeagueType { get; }
     }
 }

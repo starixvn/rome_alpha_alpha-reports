@@ -2,6 +2,11 @@
 {
     public class CurrencyModel
     {
+        public CurrencyModel()
+        {
+
+        }
+
         public CurrencyModel(byte id, string name)
         {
             Id = id;

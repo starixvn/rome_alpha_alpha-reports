@@ -65,16 +65,16 @@
 
             var leagues = new List<League>
             {
-                new League(1, 1, "League 1"),
-                new League(2, 2, "League 2")
+                new League(1, 1, "League 1", 0),
+                new League(2, 2, "League 2", 0)
             };
 
             var expectedLeaguesByCustomerViewModel = new LeaguesByCustomerViewModel(
                 string.Empty,
                 new List<SelectListItem>
                 {
-                    new SelectListItem { Value = "1", Selected = true, Text = "League 1" },
-                    new SelectListItem { Value = "2", Selected = true, Text = "League 2" }
+                    new SelectListItem { Value = "1_0", Selected = true, Text = "League 1" },
+                    new SelectListItem { Value = "2_0", Selected = true, Text = "League 2" }
                 });
 
             leagueService.GetLeaguesByCustomer(Arg.Any<GetLeaguesByCustomerParam>()).Returns(leagues);

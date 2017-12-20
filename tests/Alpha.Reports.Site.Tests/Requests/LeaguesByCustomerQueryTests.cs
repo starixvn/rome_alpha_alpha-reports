@@ -17,7 +17,7 @@
 
         public LeaguesByCustomerQueryTests(AnyValueCreatorFixture anyValueCreatorFixture)
         {
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             this.anyValueCreatorFixture = anyValueCreatorFixture;
         }
 
@@ -38,8 +38,8 @@
             var actualQuery = new LeaguesByCustomerQuery(user);
 
             // Assert
-            Assert.True(actualQuery.FromDate == DefaultVariables.CurrentDate
-               && actualQuery.ToDate == DefaultVariables.CurrentDate
+            Assert.True(actualQuery.FromDate == DefaultVariablesTest.CurrentDate
+               && actualQuery.ToDate == DefaultVariablesTest.CurrentDate
                && actualQuery.CustId == custId
                && actualQuery.LanguageKey == language);
         }

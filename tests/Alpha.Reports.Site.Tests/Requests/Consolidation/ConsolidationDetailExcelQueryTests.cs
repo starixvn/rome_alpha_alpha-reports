@@ -71,8 +71,8 @@
             {
                 CustId = 1,
                 CustName = "CustName",
-                FromDate = DefaultVariables.CurrentDate.AddDays(1),
-                ToDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate.AddDays(1),
+                ToDate = DefaultVariablesTest.CurrentDate
             };
 
             // Act
@@ -93,8 +93,8 @@
             {
                 CustId = 1,
                 CustName = "CustName",
-                FromDate = DefaultVariables.CurrentDate,
-                ToDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate,
+                ToDate = DefaultVariablesTest.CurrentDate
             };
 
             // Act

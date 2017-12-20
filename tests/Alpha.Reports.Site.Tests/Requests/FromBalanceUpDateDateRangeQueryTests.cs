@@ -19,11 +19,11 @@
         public FromBalanceUpDateDateRangeQueryTests(UserFixture userFixture)
         {
             user = userFixture.User;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
             var reportDateService = Substitute.For<ReportDateService>();
             ReportDateServiceImpl.Instance = reportDateService;
-            reportDateService.GetBalanceUpDay().Returns(DefaultVariables.BalanceUpDate);
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
         }
 
         [Fact]

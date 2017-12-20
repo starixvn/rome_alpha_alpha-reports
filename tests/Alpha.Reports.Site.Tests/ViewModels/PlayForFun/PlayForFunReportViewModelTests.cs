@@ -57,8 +57,8 @@
                 UserSelectedProductId = 6,
                 UserSelectedStatusId = 2,
                 UserSelectedDateRangeOption = 7,
-                FromDate = DefaultVariables.CurrentDate,
-                ToDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate,
+                ToDate = DefaultVariablesTest.CurrentDate
             };
 
             var viewModel = new PlayForFunReportViewModelForTesting(
@@ -81,8 +81,8 @@
                 ["UserSelectedProductId"] = 6,
                 ["UserSelectedStatusId"] = 2,
                 ["UserSelectedDateRangeOption"] = 7,
-                ["FromDate"] = DefaultVariables.CurrentDate,
-                ["ToDate"] = DefaultVariables.CurrentDate
+                ["FromDate"] = DefaultVariablesTest.CurrentDate,
+                ["ToDate"] = DefaultVariablesTest.CurrentDate
             };
 
             // Act

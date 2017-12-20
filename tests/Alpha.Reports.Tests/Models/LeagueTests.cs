@@ -16,15 +16,19 @@
         }
 
         [Fact]
-        public void Id_Always_ReturnsIdSetFromConstructor()
+        public void LeagueId_Always_ReturnsIdSetFromConstructor()
         {
             // Arrange
             var leagueId = anyValueCreatorFixture.Create<int>();
-            var league = new League(leagueId, anyValueCreatorFixture.Create<byte>(), anyValueCreatorFixture.Create<string>());
+            var league = new League(
+                leagueId, 
+                anyValueCreatorFixture.Create<int>(), 
+                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<byte>());
             var expectedId = leagueId;
 
             // Act
-            var actualId = league.Id;
+            var actualId = league.LeagueId;
 
             // Assert
             Assert.Equal(expectedId, actualId);
@@ -35,7 +39,11 @@
         {
             // Arrange
             var leagueName = anyValueCreatorFixture.Create<string>();
-            var league = new League(anyValueCreatorFixture.Create<int>(), anyValueCreatorFixture.Create<byte>(), leagueName);
+            var league = new League(
+                anyValueCreatorFixture.Create<int>(), 
+                anyValueCreatorFixture.Create<int>(), 
+                leagueName,
+                anyValueCreatorFixture.Create<byte>());
             var expectedName = leagueName;
 
             // Act
@@ -50,7 +58,11 @@
         {
             // Arrange
             var sportTypeId = anyValueCreatorFixture.Create<int>();
-            var league = new League(anyValueCreatorFixture.Create<int>(), sportTypeId, anyValueCreatorFixture.Create<string>());
+            var league = new League(
+                anyValueCreatorFixture.Create<int>(), 
+                sportTypeId, 
+                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<byte>());
             var expectedSportTypeId = sportTypeId;
 
             // Act
@@ -67,9 +79,9 @@
             var displayName = anyValueCreatorFixture.Create<string>();
             var league = new League(
                 anyValueCreatorFixture.Create<int>(),
-                anyValueCreatorFixture.Create<string>(),
-                anyValueCreatorFixture.Create<byte>(),
-                displayName);
+                anyValueCreatorFixture.Create<int>(),
+                displayName,
+                anyValueCreatorFixture.Create<byte>());
             var expectedDisplayName = displayName;
 
             // Act

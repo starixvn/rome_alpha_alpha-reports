@@ -20,11 +20,11 @@
             DisplayName = getProductDisplayName == null ? name : getProductDisplayName(id);
         }
 
-        public int Id { get; }
+        public int Id { get; protected set; }
 
-        public string Name { get; }
+        public string Name { get; protected set; }
 
-        public DateTime? EndOfSupportDate { get; }
+        public DateTime? EndOfSupportDate { get; protected set; }
 
         public string DisplayName { get; }
     }

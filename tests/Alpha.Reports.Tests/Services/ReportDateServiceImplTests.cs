@@ -40,7 +40,7 @@
 
                 return dataInCache != null;
             });
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
             ConfiguredCacheService.Remove(BalanceUpDayAndMoveBetsDayCacheKey);
 

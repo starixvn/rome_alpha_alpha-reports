@@ -21,7 +21,7 @@
         public StatementDetailViewModelTests(UserFixture userFixture)
         {
             this.user = userFixture.User;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]
@@ -31,8 +31,8 @@
             var query = new StatementDetailsQuery(user);
             var statements = new List<StatementDetailModel>
             {
-               new StatementDetailModel(DefaultVariables.CurrentDate, string.Empty, string.Empty, 10, string.Empty, string.Empty),
-               new StatementDetailModel(DefaultVariables.CurrentDate, string.Empty, string.Empty, 20, string.Empty, string.Empty)
+               new StatementDetailModel(DefaultVariablesTest.CurrentDate, string.Empty, string.Empty, 10, string.Empty, string.Empty),
+               new StatementDetailModel(DefaultVariablesTest.CurrentDate, string.Empty, string.Empty, 20, string.Empty, string.Empty)
             };
 
             var viewModel = new StatementDetailViewModel(query, statements);

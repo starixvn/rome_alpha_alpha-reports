@@ -4,6 +4,11 @@
 
     public class ConsolidationProduct
     {
+        public ConsolidationProduct()
+        {
+
+        }
+
         public ConsolidationProduct(byte id, string name, DateTime? endOfSupportDate, bool isEnable)
         {
             Id = id;

@@ -17,7 +17,7 @@
                 null,
                 null,
                 false,
-                DefaultVariables.BalanceUpDate);
+                DefaultVariablesTest.BalanceUpDate);
 
             // Assert
             Assert.True(

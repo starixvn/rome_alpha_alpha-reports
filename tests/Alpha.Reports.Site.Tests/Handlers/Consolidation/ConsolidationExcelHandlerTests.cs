@@ -40,7 +40,7 @@
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
             workbook = Substitute.For<Workbook<ConsolidationByUsernameViewModel>>();
             consolidationByDateWorkbook = Substitute.For<ConsolidationByDateWorkbook>();
@@ -117,7 +117,7 @@
             {
                 UserSelectedProductIds = "1",
                 UserSelectedCurrencyId = 0,
-                FromDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate
             };
 
             // Act
@@ -135,7 +135,7 @@
             {
                 UserSelectedProductIds = "1",
                 UserSelectedCurrencyId = 1,
-                FromDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate
             };
 
             // Act
@@ -209,7 +209,7 @@
             // Arrange
             var message = new ConsolidationByUsernameExcelQuery(user)
             {
-                FromDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate
             };
 
             workbook.ExportToBytes().Returns(new byte[0]);
@@ -247,7 +247,7 @@
             {
                 UserSelectedProductIds = "1",
                 UserSelectedCurrencyId = 0,
-                FromDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate
             };
 
             // Act
@@ -265,7 +265,7 @@
             {
                 UserSelectedProductIds = "1",
                 UserSelectedCurrencyId = 1,
-                FromDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate
             };
 
             // Act
@@ -296,7 +296,7 @@
             var expectedExportData = new List<ConsolidationByDateViewModel>
             {
                 new ConsolidationByDateViewModel(
-                    DefaultVariables.CurrentDate,
+                    DefaultVariablesTest.CurrentDate,
                     new List<ConsolidationByUsernameViewModel> { new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
             };
 
@@ -341,7 +341,7 @@
             // Arrange
             var message = new ConsolidationByDateExcelQuery(user)
             {
-                FromDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate
             };
 
             workbookByDate.ExportToBytes().Returns(new byte[0]);
@@ -379,7 +379,7 @@
             {
                 UserSelectedProductIds = "1",
                 UserSelectedCurrencyId = 0,
-                FromDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate
             };
 
             // Act
@@ -397,7 +397,7 @@
             {
                 UserSelectedProductIds = "1",
                 UserSelectedCurrencyId = 1,
-                FromDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate
             };
 
             // Act
@@ -474,7 +474,7 @@
             // Arrange
             var message = new ConsolidationByProductExcelQuery(user)
             {
-                FromDate = DefaultVariables.CurrentDate
+                FromDate = DefaultVariablesTest.CurrentDate
             };
 
             workbookByProduct.ExportToBytes().Returns(new byte[0]);

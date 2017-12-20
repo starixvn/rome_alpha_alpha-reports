@@ -28,7 +28,7 @@
 
         public EnteredSportResultExcelHandlerTests(UserFixture userFixture)
         {
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
             reportService = Substitute.For<WinLossService>();
             enteredSportResultWorkbook = Substitute.For<Workbook<EnteredSportResult>>();
             enteredSportResultWorkbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(enteredSportResultWorkbook);

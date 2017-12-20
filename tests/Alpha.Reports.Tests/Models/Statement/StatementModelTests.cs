@@ -11,7 +11,7 @@
         public void WinLossDateString_Always_ReturnsWinLossDateString()
         {
             // Arrange
-            var model = new StatementModel(DefaultVariables.CurrentDate, 0, null, null, null, null, null, null, null, null, null);
+            var model = new StatementModel(DefaultVariablesTest.CurrentDate, 0, null, null, null, null, null, null, null, null, null);
             var expectedWinLossDateString = "12/02/2016";
 
             // Act
@@ -26,7 +26,7 @@
         {
             // Arrange
             StatementModel previousStatement = null;
-            var model = new StatementModel(DefaultVariables.CurrentDate, 0, null, null, null, null, null, null, null, null, null);
+            var model = new StatementModel(DefaultVariablesTest.CurrentDate, 0, null, null, null, null, null, null, null, null, null);
 
             // Act
             var actualIsNotedBalance = model.IsNotedBalance(previousStatement);
@@ -39,8 +39,8 @@
         public void IsNotedBalance_PreviousClosingBalanceIsTheSameWithOpeningBalance_ReturnsFalse()
         {
             // Arrange
-            StatementModel previousStatement = new StatementModel(DefaultVariables.CurrentDate, 0, 10, null, null, null, null, null, null, 10, null);
-            var model = new StatementModel(DefaultVariables.CurrentDate, 0, 10, null, null, null, null, null, null, null, null);
+            StatementModel previousStatement = new StatementModel(DefaultVariablesTest.CurrentDate, 0, 10, null, null, null, null, null, null, 10, null);
+            var model = new StatementModel(DefaultVariablesTest.CurrentDate, 0, 10, null, null, null, null, null, null, null, null);
 
             // Act
             var actualIsNotedBalance = model.IsNotedBalance(previousStatement);
@@ -53,8 +53,8 @@
         public void IsNotedBalance_PreviousClosingBalanceIsNotTheSameWithOpeningBalance_ReturnsTrue()
         {
             // Arrange
-            StatementModel previousStatement = new StatementModel(DefaultVariables.CurrentDate, 0, 10, null, null, null, null, 10, null, null, null);
-            var model = new StatementModel(DefaultVariables.CurrentDate, 0, 20, null, null, null, null, null, null, null, null);
+            StatementModel previousStatement = new StatementModel(DefaultVariablesTest.CurrentDate, 0, 10, null, null, null, null, 10, null, null, null);
+            var model = new StatementModel(DefaultVariablesTest.CurrentDate, 0, 20, null, null, null, null, null, null, null, null);
 
             // Act
             var actualIsNotedBalance = model.IsNotedBalance(previousStatement);

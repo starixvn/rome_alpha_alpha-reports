@@ -2,6 +2,11 @@
 {
     public class ConsolidationByUsername
     {
+        public ConsolidationByUsername()
+        {
+
+        }
+
         public ConsolidationByUsername(
             int breakDown,
             int custId,
@@ -37,32 +42,32 @@
             BetCount = betCount;
         }
 
-        public int CustId { get; }
+        public int CustId { get; protected set; }
 
-        public int CustLevel { get; }
+        public int CustLevel { get; protected set; }
 
-        public string Username { get; }
+        public string Username { get; protected set; }
 
-        public byte CurrencyId { get; }
+        public byte CurrencyId { get; protected set; }
 
-        public decimal Turnover { get; }
+        public decimal Turnover { get; protected set; }
 
-        public decimal MemberWinLoss { get; }
+        public decimal MemberWinLoss { get; protected set; }
 
-        public decimal MemberComm { get; }
+        public decimal MemberComm { get; protected set; }
 
-        public decimal MemberTotal { get; }
+        public decimal MemberTotal { get; protected set; }
 
-        public decimal OwnerTurnover { get; }
+        public decimal OwnerTurnover { get; protected set; }
 
-        public decimal OwnerWinLoss { get; }
+        public decimal OwnerWinLoss { get; protected set; }
 
-        public decimal OwnerComm { get; }
+        public decimal OwnerComm { get; protected set; }
 
-        public decimal OwnerTotal { get; }
+        public decimal OwnerTotal { get; protected set; }
 
-        public decimal Company { get; }
+        public decimal Company { get; protected set; }
 
-        public int BetCount { get; }
+        public int BetCount { get; protected set; }
     }
 }

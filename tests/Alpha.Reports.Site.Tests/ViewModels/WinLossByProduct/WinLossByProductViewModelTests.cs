@@ -36,7 +36,7 @@
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             this.userFixture = userFixture;
-            SystemTime.Today = DefaultVariables.CurrentDate;
+            SystemTime.Today = DefaultVariablesTest.CurrentDate;
         }
 
         [Fact]
@@ -105,8 +105,8 @@
         {
             var query = new WinLossByProductQuery(userFixture.User);
             query.CustLevelId = custLevelId;
-            query.FromDate = DefaultVariables.CurrentDate;
-            query.ToDate = DefaultVariables.CurrentDate;
+            query.FromDate = DefaultVariablesTest.CurrentDate;
+            query.ToDate = DefaultVariablesTest.CurrentDate;
 
             return query;
         }

@@ -53,6 +53,7 @@
                 betType: reader.ToInt("betType"),
                 liveIndicator: reader.ToInt("liveIndicator") == 1,
                 leagueId: reader.ToInt("leagueId"),
+                leagueType: reader.ToByte("leagueType"),
                 race: reader.ToInt("race"),
                 matchCode: reader.ToString("matchCode"),
                 isNeutral: reader.ToBool("isNeutral"),

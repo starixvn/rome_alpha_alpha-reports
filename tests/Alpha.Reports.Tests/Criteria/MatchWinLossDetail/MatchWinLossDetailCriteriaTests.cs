@@ -1,4 +1,5 @@
-﻿namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
+﻿using Xunit;
+namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
 {
     using System;
     using System.Collections.Generic;
@@ -36,7 +37,7 @@
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 Enumeration.FromValue<UserLevel>(userLevelId),
-                anyValueCreator.Create<IEnumerable<int>>());
+                anyValueCreator.Create<IEnumerable<string>>());
 
             // Act
             var actualSettingKey = matchWinLossDetailCriteria.GetSettingKey();
@@ -59,13 +60,53 @@
                 anyValueCreator.Create<DateTime>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>(),
-                anyValueCreator.Create<IEnumerable<int>>());
+                anyValueCreator.Create<IEnumerable<string>>());
 
             // Act
             var actualIsValid = matchWinLossDetailCriteria.IsValid();
 
             // Assert
             Assert.False(actualIsValid);
+        }
+
+        [Fact]
+        public void LeagueIds_Always_GetCorrectIds()
+        {
+            //// Arrange
+            var criteria = new MatchWinLossDetailCriteria(
+                anyValueCreator.Create<int>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<IEnumerable<int>>(),
+                anyValueCreator.Create<UserLevel>(),
+                new List<string> { "12_0", "1_0", "3_0" });
+
+            //// Act
+            var act = criteria.LeagueIds;
+
+            //// Assert
+            Assert.Equal("12,1,3", act);
+        }
+
+        [Fact]
+        public void League3rdIds_Always_GetCorrectIds()
+        {
+            //// Arrange
+            var criteria = new MatchWinLossDetailCriteria(
+                anyValueCreator.Create<int>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<IEnumerable<int>>(),
+                anyValueCreator.Create<UserLevel>(),
+                new List<string> { "12_1", "1_0", "3_0", "5_1" });
+
+            //// Act
+            var act = criteria.League3rdIds;
+
+            //// Assert
+            Assert.Equal("12,5", act);
         }
 
         [Fact]
@@ -79,7 +120,7 @@
                anyValueCreator.Create<DateTime>(),
                Enumerable.Empty<int>(),
                anyValueCreator.Create<UserLevel>(),
-               anyValueCreator.Create<IEnumerable<int>>());
+               anyValueCreator.Create<IEnumerable<string>>());
 
             // Act
             var actualIsValid = matchWinLossDetailCriteria.IsValid();
@@ -101,27 +142,7 @@
                anyValueCreator.Create<DateTime>(),
                anyValueCreator.Create<IEnumerable<int>>(),
                anyValueCreator.Create<UserLevel>(),
-               anyValueCreator.Create<IEnumerable<int>>());
-
-            // Act
-            var actualIsValid = matchWinLossDetailCriteria.IsValid();
-
-            // Assert
-            Assert.False(actualIsValid);
-        }
-
-        [Fact]
-        public void IsValid_EmptyLeague_ReturnsFalse()
-        {
-            // Arrange
-            var matchWinLossDetailCriteria = new MatchWinLossDetailCriteria(
-                anyValueCreator.Create<int>(),
-                anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<IEnumerable<int>>(),
-                anyValueCreator.Create<UserLevel>(),
-                Enumerable.Empty<int>());
+               anyValueCreator.Create<IEnumerable<string>>());
 
             // Act
             var actualIsValid = matchWinLossDetailCriteria.IsValid();
@@ -143,13 +164,57 @@
                 anyValueCreator.Create<DateTime>(),
                 new List<int> { 1, 2, 3 },
                 anyValueCreator.Create<UserLevel>(),
-                new List<int> { 4, 5, 6 });
+                new List<string> { "4_0", "5_0", "6_1" });
 
             // Act
             var actualIsValid = matchWinLossDetailCriteria.IsValid();
 
             // Assert
             Assert.True(actualIsValid);
+        }
+
+        [Fact]
+        public void MoveBetsDay_Always_CorrectWithValueInConstructor()
+        {
+            // Arrange
+            var expectedMoveBetDays = anyValueCreator.Create<DateTime>();
+            var matchWinLossDetailCriteria = new MatchWinLossDetailCriteria(
+                1,
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                expectedMoveBetDays,
+                new List<int> { 1, 2, 3 },
+                anyValueCreator.Create<UserLevel>(),
+                new List<string> { "4_0", "5_0", "6_1" });
+
+            // Act
+            var act = matchWinLossDetailCriteria.MoveBetsDay;
+
+            // Assert
+            Assert.Equal(expectedMoveBetDays, act);
+        }
+
+        [Theory]
+        [InlineData("", "", true)]
+        [InlineData("1_1", "", false)]
+        [InlineData("", "1_0", false)]
+        public void IsGetAll(string leagueIds, string leagueIds3rd, bool expectedValue)
+        {
+            // Arrange            
+            var matchWinLossDetailCriteria = new MatchWinLossDetailCriteria(
+                1,
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                anyValueCreator.Create<DateTime>(),
+                new List<int> { 1, 2, 3 },
+                anyValueCreator.Create<UserLevel>(),
+                new List<string> { leagueIds, leagueIds3rd });
+
+            // Act
+            var act = matchWinLossDetailCriteria.IsGetAll;
+
+            // Assert
+            Assert.Equal(expectedValue, act);
         }
     }
 }

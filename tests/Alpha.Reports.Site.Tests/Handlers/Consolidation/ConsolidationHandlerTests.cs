@@ -56,7 +56,7 @@
             {
                 new ConsolidationByUsername(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
             };
-
+            
             reportService.GetConsolidationByUsername(Arg.Any<GetConsolidationParam>()).Returns(data);
 
             var message = new ConsolidationByUsernameQuery(user)
@@ -121,7 +121,7 @@
                 new List<ConsolidationByDateViewModel>
                 {
                     new ConsolidationByDateViewModel(
-                        DefaultVariables.CurrentDate,
+                        DefaultVariablesTest.CurrentDate,
                         new List<ConsolidationByUsernameViewModel> { new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
                 });
 
@@ -227,15 +227,15 @@
                 CustId = 1,
                 CustName = "Name",
                 CustLevelId = 4,
-                FromDate = DefaultVariables.CurrentDate,
+                FromDate = DefaultVariablesTest.CurrentDate,
                 BreadcrumbLevel = breadcrumbLevel
             };
 
             var dateRangePickerViewModel = new DateRangePickerViewModel(
                 new DateTime(2016, 9, 1),
                 DateTime.MaxValue,
-                DefaultVariables.CurrentDate,
-                DefaultVariables.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate,
                 0);
 
             var products = new List<SelectListItem>

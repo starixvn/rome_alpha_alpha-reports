@@ -4,6 +4,11 @@
 
     public class MatchWinLossDetailModel
     {
+        public MatchWinLossDetailModel()
+        {
+
+        }
+
         public MatchWinLossDetailModel(
             bool isParlay,
             int matchId,
@@ -12,6 +17,7 @@
             int betType,
             bool liveIndicator,
             int leagueId,
+            byte leagueType,
             int race,
             string matchCode,
             bool isNeutral,
@@ -30,6 +36,7 @@
             BetType = betType;
             LiveIndicator = liveIndicator;
             LeagueId = leagueId;
+            LeagueType = leagueType;
             Race = race;
             MatchCode = matchCode;
             IsNeutral = isNeutral;
@@ -70,6 +77,8 @@
         public bool LiveIndicator { get; }
 
         public int LeagueId { get; }
+
+        public byte LeagueType { get; }
 
         public int Race { get; }
 

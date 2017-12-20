@@ -27,6 +27,7 @@
       <Setting Key="Age_Rpt_WinLossDetail_Master" SpName="Age_Rpt_WinLossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
       <Setting Key="Age_Rpt_WinLossDetail_Agent" SpName="Age_Rpt_WinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
       <Setting Key="Age_Rpt_WinLossDetail_Member" SpName="Age_Rpt_WinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
+      <Setting Key="Age_Rpt_MatchWinLossDetail_GetProductList" SpName="Age_Rpt_MatchWinLossDetail_GetProductList" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
     </Function>
   </Function>
 
@@ -73,12 +74,15 @@
 
     <Setting Key="Age_Rpt_CommByBettype_Master" SpName="Age_Rpt_CommByBettype_Master" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0">
       <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
+      <Mapping DataField="OthersComm" ObjectProperty="Others" />
     </Setting>
     <Setting Key="Age_Rpt_CommByBettype_Agent" SpName="Age_Rpt_CommByBettype_Agent" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0">
       <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
+      <Mapping DataField="OthersComm" ObjectProperty="Others" />
     </Setting>
     <Setting Key="Age_Rpt_CommByBettype_Member" SpName="Age_Rpt_CommByBettype_Member" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0">
       <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
+      <Mapping DataField="OthersComm" ObjectProperty="Others" />
     </Setting>
   </Function>
   <Function Name="Win Loss by Product">

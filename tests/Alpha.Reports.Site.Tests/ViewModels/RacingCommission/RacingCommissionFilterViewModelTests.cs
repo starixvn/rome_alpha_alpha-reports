@@ -16,7 +16,7 @@
                 "CustName",
                 UserLevel.Agent,
                 false,
-                DefaultVariables.BalanceUpDate,
+                DefaultVariablesTest.BalanceUpDate,
                 "BreadcrumbLevelJson",
                 null);
 

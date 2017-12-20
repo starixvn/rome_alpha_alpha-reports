@@ -32,16 +32,12 @@
     <CodeAnalysisRuleSet>Alpha.Reports.StaticData.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Alpha.StaticData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.StaticData.1.0.0\lib\net40\Alpha.StaticData.dll</HintPath>
+    <Reference Include="Alpha.StaticData, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.StaticData.1.0.1.0\lib\net40\Alpha.StaticData.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Common, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Common.1.1.0.1\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Data, Version=2.1.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -89,27 +85,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppStart\DependencyRegister.cs" />
-    <Compile Include="Configurations\DataModelMapper.cs" />
-    <Compile Include="Configurations\RepositoryMapper.cs" />
-    <Compile Include="Configurations\StaticDataMapper.cs" />
-    <Compile Include="Repositories\Consolidation\ConsolidationExcelRepository.cs" />
     <Compile Include="Repositories\ReportExcelRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExcelData\Consolidation\Empty.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelData\Consolidation\ByUsername.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelData\Consolidation\ByProduct.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExcelData\Consolidation\ByDate.xls">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="ExcelData\Age_Rpt_ConsolidatedGroup.xls" />
     <None Include="Alpha.Reports.StaticData.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

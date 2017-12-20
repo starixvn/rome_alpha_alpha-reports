@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Fixtures;
+    using Reports.Constants;
     using Reports.Models.MatchWinLossDetail;
     using Site.ViewModels.MatchWinLossDetail;
     using Xunit;
@@ -29,7 +30,8 @@
                 anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
-                anyValueCreatorFixture.Create<Dictionary<int, string>>());
+                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<string>());
 
             // Act
             var actualRenderSubTotal = model.RenderSubTotal;
@@ -51,7 +53,8 @@
                 anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
-                anyValueCreatorFixture.Create<Dictionary<int, string>>());
+                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<string>());
 
             // Act
             var actualRenderSubTotal = model.RenderSubTotal;
@@ -75,7 +78,8 @@
                 anyValueCreatorFixture.Create<IEnumerable<BetTypeWinLossViewModel>>(),
                 anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 anyValueCreatorFixture.Create<MatchWinLossDetailModel>(),
-                anyValueCreatorFixture.Create<Dictionary<int, string>>());
+                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<string>());
 
             // Act
             var actualRenderSubTotal = model.RenderSubTotal;
@@ -112,12 +116,29 @@
             Assert.Equal(expectedTitle, actualTitle);
         }
 
+        [Theory]
+        [InlineData(1600)]
+        [InlineData(1601)]
+        [InlineData(1602)]
+        public void GetGroupId_Lucky3BetType_ReturnsCorrectTitle(int bettype)
+        {
+            // Arrange
+            var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(betType: bettype, showTime: "Show Time 1");
+            var expectedTitle = "Lucky 3 Game No 1";
+
+            // Act
+            var actualTitle = matchWinLossDetailViewModel.MatchName;
+
+            // Assert
+            Assert.Equal(expectedTitle, actualTitle);
+        }
+
         [Fact]
         public void GetGroupId_OtherBetTypeAndNeutral_ReturnsCorrectTitle()
         {
             // Arrange
             var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(betType: 1239, showTime: "Show Time 1", liveIndicator: false, isNeutral: true);
-            var expectedTitle = "Team 1 (N)-vs-Team 1";
+            var expectedTitle = "Team 1 (N) - vs - Team 1";
 
             // Act
             var actualTitle = matchWinLossDetailViewModel.MatchName;
@@ -131,7 +152,7 @@
         {
             // Arrange
             var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(betType: 1239, showTime: "Show Time 1");
-            var expectedTitle = "Team 1-vs-Team 1";
+            var expectedTitle = "Team 1 - vs - Team 1";
 
             // Act
             var actualTitle = matchWinLossDetailViewModel.MatchName;
@@ -240,6 +261,37 @@
             Assert.Equal(expectedTitle, actualTitle);
         }
 
+        [Theory]
+        [InlineData(1600)]
+        [InlineData(1601)]
+        [InlineData(1602)]
+        public void GetLeagueTitle_Lucky3BetTypes_ReturnsCorrectLeagueTitle(int betType)
+        {
+            // Arrange
+            var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(betType, "Show Time 1", false, false, "League Name");
+            var expectedTitle = "Lucky3 - League Name";
+
+            // Act
+            var actualTitle = matchWinLossDetailViewModel.LeagueName;
+
+            // Assert
+            Assert.Equal(expectedTitle, actualTitle);
+        }
+
+        [Fact]        
+        public void GetLeagueTitle_BullfightingBetTypes_ReturnsCorrectLeagueTitle()
+        {
+            // Arrange
+            var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(1004, "Show Time 1", false, false, "League Name");
+            var expectedTitle = "1 - League Name";
+
+            // Act
+            var actualTitle = matchWinLossDetailViewModel.LeagueName;
+
+            // Assert
+            Assert.Equal(expectedTitle, actualTitle);
+        }
+
         private MatchWinLossDetailViewModel CreateMatchWinLossDetailViewModel(
             int betType,
             string showTime,
@@ -253,10 +305,8 @@
                1,
                null,
                null,
-               new MatchWinLossDetailModel(false, 1, 1, 1, betType, liveIndicator, 1, 1, "1", isNeutral, showTime, 1, 1, null, null, null, null),
-               new Dictionary<int, string>
-               {
-                   [1] = "Team 1"
-               });
+               new MatchWinLossDetailModel(false, 1, 1, 1, betType, liveIndicator, 1, (byte)LeagueType.Self, 1, "1", isNeutral, showTime, 1, 1, null, null, null, null),
+               "Team 1",
+               "Team 1");
     }
 }

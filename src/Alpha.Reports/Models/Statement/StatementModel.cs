@@ -5,6 +5,11 @@
 
     public class StatementModel
     {
+        public StatementModel()
+        {
+
+        }
+
         public StatementModel(
             DateTime winLossDate,
             int custId,

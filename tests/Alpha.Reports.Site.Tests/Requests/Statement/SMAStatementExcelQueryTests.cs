@@ -22,7 +22,7 @@
         {
             // Arrange
             var query = new SMAStatementExcelQuery(user);
-            var expectedPageIndex = DefaultVariables.PageIndex;
+            var expectedPageIndex = DefaultVariablesTest.PageIndex;
 
             // Act
             var actualPageIndex = query.PageIndex;
@@ -36,7 +36,7 @@
         {
             // Arrange
             var query = new SMAStatementExcelQuery(user);
-            var expectedPageSize = DefaultVariables.PageSize;
+            var expectedPageSize = DefaultVariablesTest.PageSize;
 
             // Act
             var actualPageSize = query.PageSize;
