@@ -645,4 +645,7 @@
   <data name="ContributionAmountRoundNote" xml:space="preserve">
     <value>- 貢獻金額將會以四個小數點淨值。 </value>
   </data>
+  <data name="Tooltip_CommissionByBetType" xml:space="preserve">
+    <value>- 其他：適用於{0}的投註類型。</value>
+  </data>
 </root>

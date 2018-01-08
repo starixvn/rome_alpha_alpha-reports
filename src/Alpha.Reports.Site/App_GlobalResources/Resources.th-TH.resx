@@ -646,4 +646,7 @@
   <data name="ContributionAmountRoundNote" xml:space="preserve">
     <value>- ยอดกองทุนสมทบจะถูกปัดเศษทศนิยมเป็น 4 ตำแหน่ง</value>
   </data>
+  <data name="Tooltip_CommissionByBetType" xml:space="preserve">
+    <value>- อื่น ๆ : ใช้กับประเภทการเดิมพันของ "{0}"</value>
+  </data>
 </root>

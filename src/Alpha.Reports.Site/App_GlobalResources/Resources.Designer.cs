@@ -1645,7 +1645,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Others: applies to bettype(s) of {0}..
+        ///   Looks up a localized string similar to - Others: applies to bet type(s) of {0}..
         /// </summary>
         public static string Tooltip_CommissionByBetType {
             get {
