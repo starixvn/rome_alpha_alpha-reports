@@ -16,6 +16,8 @@
 
         bool IsShowConsolidatedReport { get; }
 
+        bool IsEnableJackpot { get; }
+
         bool GetHideProduct(int productId);
     }
 }

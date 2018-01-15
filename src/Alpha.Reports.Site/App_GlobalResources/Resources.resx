@@ -711,4 +711,13 @@
   <data name="Tooltip_CommissionByBetType" xml:space="preserve">
     <value>- Others: applies to bettype(s) of {0}.</value>
   </data>
+  <data name="ProgressiveGamesContribution" xml:space="preserve">
+    <value>Progressive Games Contribution</value>
+  </data>
+  <data name="ContributionAmount" xml:space="preserve">
+    <value>Contribution Amount</value>
+  </data>
+  <data name="ContributionShare" xml:space="preserve">
+    <value>Contribution Share</value>
+  </data>
 </root>

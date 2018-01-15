@@ -1,0 +1,67 @@
+﻿@model ProgressiveContributionViewModel
+@{
+    ViewBag.Title = "Progressive Games Contribution";
+}
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
+<form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
+    @Html.Hidden("IsFilterVisible", Model.IsFilterVisible ? "true" : "false")
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    @Html.Hidden("IsStackMode", Model.IsStackMode)
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+    @DateRangePicker.Render(Model.DateRangePickerViewModel)
+    <div id="icon-information-container" class="form-group hide">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+    <div class="note">
+        <span class="star">*</span>@Model.ViewDataInstructionMessage
+    </div>
+</form>
+<table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover
+       @(Model.IsStackMode ? "stack-mode" : string.Empty)">
+    <thead>
+        <tr>
+            <th class="hidden-stack-mode" rowspan="2">@Resources.Product/@Resources.BetType</th>
+            <th class="hidden-stack-mode" rowspan="2">@Resources.BetCount</th>
+            <th class="hidden-stack-mode" rowspan="2">@Resources.Turnover</th>
+            <th class="hidden-stack-mode" rowspan="2">@Resources.ContributionAmount</th>
+            <th class="hidden-stack-mode" colspan="@Model.ContributionShareColumnsCount">@Resources.ContributionShare</th>
+        </tr>
+        <tr class="thead-row2">
+            <th class="hidden-stack-mode">@Resources.Agent</th>
+            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            {
+                <th class="hidden-stack-mode">@Resources.Master</th>
+            }
+            @if (Model.CustLevel.IsSuperLevel())
+            {
+                <th class="hidden-stack-mode">@Resources.Super</th>
+            }
+            <th class="hidden-stack-mode">@Resources.Company</th>
+        </tr>
+    </thead>
+    @if (Model.HasData)
+    {
+
+    }
+    else
+    {
+        @NoInformation.Render(colspan: Model.ReportColumnsCount)
+    }
+</table>
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "ProgressiveContribution")">
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+</form>
+@Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "WinLossDetail"))
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/progressivecontribution/progressivecontribution")
+}
