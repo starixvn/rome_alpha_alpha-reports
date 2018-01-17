@@ -11,8 +11,10 @@
         ProgressiveContributionBaseHandler,
         IRequestHandler<ProgressiveContributionQuery, ProgressiveContributionViewModel>
     {
-        public ProgressiveContributionHandler(ProductService productService)
-            : base(productService)
+        public ProgressiveContributionHandler(
+            ProductService productService,
+            ProgressiveContributionService progressiveContributionService)
+            : base(productService, progressiveContributionService)
         {
         }
 
@@ -21,10 +23,13 @@
             var products = productService.FilterProductsByCustomer(message.CustId, SiteSettings.SupportedJackPotProductIds);
             var param = CreateProgressiveContributionParam(message, products.Select(p => p.Id));
 
+            var progressiveContributions = progressiveContributionService.GetProgressiveContributions(param);
+
             return new ProgressiveContributionViewModel(
                 message,
                 param,
-                BuildProductSelectListItems(param.UserSelectedProductIds, products));
+                BuildProductSelectListItems(param.UserSelectedProductIds, products),
+                progressiveContributions);
         }
     }
 }

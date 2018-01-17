@@ -43,9 +43,28 @@
             <th class="hidden-stack-mode">@Resources.Company</th>
         </tr>
     </thead>
-    @if (Model.HasData)
+    @if (Model.ProgressiveContributions.Any())
     {
-
+        var progressiveContributions = Model.ProgressiveContributions.ToList();
+        <tbody>
+            @foreach (var data in progressiveContributions)
+            {
+                <tr class="product-row" data-product-id="@data.ProductId">
+                    <td class="text-left col-username">@data.ProductName</td>
+                    @RenderProgressiveContribution(data.Total)
+                </tr>
+                if (data.ProgressiveContributions.Any())
+                {
+                    foreach (var item in data.ProgressiveContributions)
+                    {
+                        <tr>
+                            <td>@item.BetTypeName</td>
+                            @RenderProgressiveContribution(item)
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
     }
     else
     {
@@ -64,4 +83,20 @@
 @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "WinLossDetail"))
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/progressivecontribution/progressivecontribution")
+}
+@helper RenderProgressiveContribution(ProgressiveContributionByBetTypeModel data)
+{
+    <td>@(data.BetCount.ToString($"#,##0"))</td>
+    @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
+    @HtmlHelpers.RenderNumberCell(data.ContributionAmount, "col-turnover")
+    @HtmlHelpers.RenderNumberCell(data.AgentContribution, "col-turnover")
+if (Model.CustLevel.IsMasterOrSuperLevel())
+{
+        @HtmlHelpers.RenderNumberCell(data.MasterContribution, "col-turnover")
+}
+if (Model.CustLevel.IsSuperLevel())
+{
+        @HtmlHelpers.RenderNumberCell(data.SuperContribution, "col-turnover")
+}
+    @HtmlHelpers.RenderNumberCell(data.CompanyContribution, "col-turnover")
 }

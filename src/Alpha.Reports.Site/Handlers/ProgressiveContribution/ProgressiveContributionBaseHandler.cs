@@ -8,10 +8,14 @@
     public class ProgressiveContributionBaseHandler : BaseHandler
     {
         protected readonly ProductService productService;
+        protected readonly ProgressiveContributionService progressiveContributionService;
 
-        protected ProgressiveContributionBaseHandler(ProductService productService)
+        protected ProgressiveContributionBaseHandler(
+            ProductService productService,
+            ProgressiveContributionService progressiveContributionService)
         {
             this.productService = productService;
+            this.progressiveContributionService = progressiveContributionService;
         }
 
         protected static ProgressiveContributionParam CreateProgressiveContributionParam(ProgressiveContributionQuery message, IEnumerable<int> productIds)

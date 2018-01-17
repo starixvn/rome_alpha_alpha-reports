@@ -8,6 +8,7 @@
     using Extensions;
     using Params;
     using Reports.Models;
+    using Reports.Models.ProgressiveContribution;
     using Requests.ProgressiveContribution;
 
     public class ProgressiveContributionViewModel
@@ -18,11 +19,13 @@
         public ProgressiveContributionViewModel(
             ProgressiveContributionQuery query,
             ProgressiveContributionParam param,
-            IEnumerable<SelectListItem> products)
+            IEnumerable<SelectListItem> products,
+            IEnumerable<ProgressiveContributionByProductModel> progressiveContributions)
         {
             this.query = query;
             this.param = param;
             Products = products;
+            ProgressiveContributions = progressiveContributions;
         }
 
         public string Title => Resources.ProgressiveGamesContribution;
@@ -53,8 +56,6 @@
 
         public bool IsSetDefaultStackMode => query.IsSetDefaultStackMode;
 
-        public bool HasData => false;
-
         public UserLevel CustLevel => query.CustLevel;
 
         public int ContributionShareColumnsCount => CustLevel.IsSuperLevel() ? 4 : CustLevel.IsMasterLevel() ? 3 : 2;
@@ -62,6 +63,8 @@
         public int ReportColumnsCount => CustLevel.IsSuperLevel() ? 8 : CustLevel.IsMasterLevel() ? 7 : 6;
 
         public IEnumerable<SelectListItem> Products { get; }
+
+        public IEnumerable<ProgressiveContributionByProductModel> ProgressiveContributions { get; }
 
         public DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);

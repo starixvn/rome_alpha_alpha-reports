@@ -22,5 +22,7 @@
 
         [SpParam(Ignored = true)]
         public UserLevel ReportLevel { get; }
+
+        public override string GetSettingKey() => "Age_Rpt_ProgressiveContribution";
     }
 }

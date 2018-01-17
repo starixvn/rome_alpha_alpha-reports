@@ -89,8 +89,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExcelData\Age_Rpt_ConsolidatedGroup.xls" />
+    <Content Include="ExcelData\Age_Rpt_ConsolidatedGroup.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Alpha.Reports.StaticData.ruleset" />
+    <Content Include="ExcelData\Age_Rpt_ProgressiveContribution.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

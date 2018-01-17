@@ -114,6 +114,8 @@
 
             container.RegisterSingleton<ConsolidationByDateWorkbook, WinLossByDateWorkbookImpl>();
             container.RegisterSingleton<ConsolidationByProductWorkbook, ConsolidationByProductWorkbookImpl>();
+
+            container.RegisterSingleton<ProgressiveContributionService, ProgressiveContributionServiceImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

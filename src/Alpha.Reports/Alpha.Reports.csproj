@@ -218,6 +218,7 @@
     <Compile Include="Services\CommissionByBettypeService.cs" />
     <Compile Include="Services\PlayForFunService.cs" />
     <Compile Include="Services\MatchWinLossDetailService.cs" />
+    <Compile Include="Services\ProgressiveContributionService.cs" />
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\MatchWinLossService.cs" />
     <Compile Include="Services\WinLossByProductService.cs" />

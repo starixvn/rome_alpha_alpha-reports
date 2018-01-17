@@ -10,7 +10,10 @@
         ProgressiveContributionBaseHandler,
         IRequestHandler<ProgressiveContributionExcelQuery, ExcelFileViewModel>
     {
-        public ProgressiveContributionExcelHandler(ProductService productService) : base(productService)
+        public ProgressiveContributionExcelHandler(
+            ProductService productService,
+            ProgressiveContributionService progressiveContributionService)
+            : base(productService, progressiveContributionService)
         {
         }
 
