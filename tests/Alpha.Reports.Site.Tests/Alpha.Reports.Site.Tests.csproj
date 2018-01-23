@@ -141,11 +141,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.3.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.3.4-HideInactiveProduct-01\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.3.4-HideInactiveProduct-07\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.2.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.2.1-HideInactiveProduct-01\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.2.1-HideInactiveProduct-03\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Utilities, Version=3.0.0.4, Culture=neutral, processorArchitecture=MSIL">
@@ -219,7 +219,6 @@
     <Compile Include="Controllers\ControllerBaseFuctions.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
     <Compile Include="Controllers\OutstandingControllerTests.cs" />
-    <Compile Include="Controllers\RacingCommissionControllerTests.cs" />
     <Compile Include="Controllers\ReportLegendControllerTests.cs" />
     <Compile Include="Controllers\StatementControllerTests.cs" />
     <Compile Include="Controllers\WinLossByProductControllerTests.cs" />
@@ -267,9 +266,7 @@
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailWorkbookImplTests.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandlerTests.cs" />
-    <Compile Include="Handlers\RacingCommission\RacingCommissionExcelHandlerTests.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandlerTests.cs" />
-    <Compile Include="Handlers\RacingCommission\RacingCommissionHandlerTests.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandlerTests.cs" />
     <Compile Include="Handlers\LeagueHandlerTests.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandlerTests.cs" />
@@ -295,7 +292,6 @@
     <Compile Include="Requests\FromBalanceUpDateDateRangeQueryTests.cs" />
     <Compile Include="Requests\LeaguesByCustomerQueryTests.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailQueryTests.cs" />
-    <Compile Include="Requests\RacingCommission\RacingCommissionQueryTests.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQueryTests.cs" />
     <Compile Include="Requests\Statement\SMAStatementQueryTests.cs" />
     <Compile Include="Requests\WinLossAnalysisChart\WinLossAnalysisChartQueryTests.cs" />
@@ -318,12 +314,10 @@
     <Compile Include="ViewModels\Consolidation\ConsolidationReportByUsernameViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModelTests.cs" />
     <Compile Include="ViewModels\Outstanding\OutstandingViewModelTests.cs" />
-    <Compile Include="ViewModels\RacingCommission\RacingCommissionFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModelTestsFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailReportViewModelTests.cs" />
-    <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModelTests.cs" />
     <Compile Include="ViewModels\Statement\MemberStatementViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossAnalysisChart\WinLossAnalysisChartViewModelTests.cs" />
     <Compile Include="ViewModels\Statement\SMAStatementViewModelTests.cs" />

@@ -336,9 +336,6 @@
   <data name="Disabled" xml:space="preserve">
     <value>비활성화</value>
   </data>
-  <data name="RacingCommission" xml:space="preserve">
-    <value>경마 수수료</value>
-  </data>
   <data name="Tote" xml:space="preserve">
     <value>Tote</value>
   </data>

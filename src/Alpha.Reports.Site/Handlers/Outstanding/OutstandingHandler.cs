@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.Outstanding
 {
+    using System;
     using Extensions;
     using MediatR;
     using Params;
@@ -31,7 +32,7 @@
 
             var outstandings = outstandingService.GetMemberOutstanding(param);
 
-            var products = productService.GetProductsForCustomer(message.CustId);
+            var products = productService.GetProductsForCustomer(message.CustId, DateTime.Now);
 
             var viewModel = new OutstandingViewModel(
                 message,

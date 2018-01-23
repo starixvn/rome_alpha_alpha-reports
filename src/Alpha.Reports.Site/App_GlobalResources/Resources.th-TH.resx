@@ -370,9 +370,6 @@
   <data name="Disabled" xml:space="preserve">
     <value>ปิดการใช้งาน</value>
   </data>
-  <data name="RacingCommission" xml:space="preserve">
-    <value>คอมมิสชั่นการแข่งขันม้า</value>
-  </data>
   <data name="Tote" xml:space="preserve">
     <value>ยอดรวม</value>
   </data>

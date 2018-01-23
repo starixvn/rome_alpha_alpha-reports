@@ -219,9 +219,6 @@
   <data name="MasterOutstanding" xml:space="preserve">
     <value>マスター未払い残高</value>
   </data>
-  <data name="RacingCommission" xml:space="preserve">
-		<value>Racing Commission</value>
-	</data>
   <data name="Status" xml:space="preserve">
     <value>状態</value>
   </data>
