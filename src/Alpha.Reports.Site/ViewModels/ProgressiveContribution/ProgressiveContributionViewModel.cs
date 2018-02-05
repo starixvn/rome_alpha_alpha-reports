@@ -20,11 +20,13 @@
             ProgressiveContributionQuery query,
             ProgressiveContributionParam param,
             IEnumerable<SelectListItem> products,
+            ProgressiveContributionByBetTypeModel grandTotal,
             IEnumerable<ProgressiveContributionByProductModel> progressiveContributions)
         {
             this.query = query;
             this.param = param;
             Products = products;
+            GrandTotal = grandTotal;
             ProgressiveContributions = progressiveContributions;
         }
 
@@ -58,13 +60,15 @@
 
         public UserLevel CustLevel => query.CustLevel;
 
-        public int ContributionShareColumnsCount => CustLevel.IsSuperLevel() ? 4 : CustLevel.IsMasterLevel() ? 3 : 2;
+        public int ContributionShareColumnsCount => CustLevel.IsSuperLevel() ? 3 : CustLevel.IsMasterLevel() ? 2 : 1;
 
         public int ReportColumnsCount => CustLevel.IsSuperLevel() ? 8 : CustLevel.IsMasterLevel() ? 7 : 6;
 
         public IEnumerable<SelectListItem> Products { get; }
 
         public IEnumerable<ProgressiveContributionByProductModel> ProgressiveContributions { get; }
+
+        public ProgressiveContributionByBetTypeModel GrandTotal { get; }
 
         public DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);

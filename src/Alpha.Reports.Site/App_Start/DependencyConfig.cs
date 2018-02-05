@@ -126,6 +126,7 @@
             container.RegisterSingleton<MatchWinLossDetailDataAccess, MatchWinLossDetailDataAccessImpl>();
             container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
             container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
+            container.RegisterSingleton<ProgressiveContributionDataAccess, ProgressiveContributionDataAccessImpl>();
 
             if (SiteSettings.EnabledStaticData)
             {

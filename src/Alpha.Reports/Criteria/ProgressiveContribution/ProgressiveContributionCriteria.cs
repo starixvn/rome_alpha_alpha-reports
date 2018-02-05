@@ -23,6 +23,11 @@
         [SpParam(Ignored = true)]
         public UserLevel ReportLevel { get; }
 
-        public override string GetSettingKey() => "Age_Rpt_ProgressiveContribution";
+        public override string GetSettingKey()
+            => ReportLevel.IsAgentLevel()
+            ? "Age_Rpt_ProgressiveGamesContribution_Member"
+            : ReportLevel.IsMasterLevel()
+            ? "Age_Rpt_ProgressiveGamesContribution_Agent"
+            : "Age_Rpt_ProgressiveGamesContribution_Master";
     }
 }

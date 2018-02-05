@@ -1,10 +1,8 @@
 ﻿namespace Alpha.Reports.Configurations
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Configuration;
-    using System.Linq;
 
     public static class SiteSettings
     {
@@ -43,7 +41,5 @@
         public static string BetListAppPath => GetConfigValue("BetListsAppPath") ?? "site-betlists";
 
         public static bool EnabledStaticData => GetConfigValue("EnabledStaticData") == "1";
-
-        public static IEnumerable<int> SupportedJackPotProductIds => GetConfigValue("SupportedJackPotProductIds").Split(',').Select(int.Parse);
     }
 }

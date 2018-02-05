@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Criteria.ProgressiveContribution;
-    using Fanex.Data.Repository;
+    using DataAccesses;
     using Models.ProgressiveContribution;
     using Params;
     using RemotingRef;
@@ -18,14 +18,14 @@
     {
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService cacheRefService;
-        private readonly IDynamicRepository dynamicRepository;
+        private readonly ProgressiveContributionDataAccess progressiveContributionDataAccess;
 
         public ProgressiveContributionServiceImpl(
-            IDynamicRepository dynamicRepository,
+            ProgressiveContributionDataAccess progressiveContributionDataAccess,
             ReportDateService reportDateService,
             CacheRefService cacheRefService)
         {
-            this.dynamicRepository = dynamicRepository;
+            this.progressiveContributionDataAccess = progressiveContributionDataAccess;
             this.reportDateService = reportDateService;
             this.cacheRefService = cacheRefService;
         }
@@ -46,7 +46,7 @@
                 param.UserSelectedProductIds,
                 param.ReportLevel);
 
-            var contributionByBetTypes = dynamicRepository.Fetch<ProgressiveContributionByBetTypeModel>(criteria);
+            var contributionByBetTypes = progressiveContributionDataAccess.GetProgressiveContributions(criteria);
             var result = new List<ProgressiveContributionByProductModel>();
 
             if (contributionByBetTypes.Any())

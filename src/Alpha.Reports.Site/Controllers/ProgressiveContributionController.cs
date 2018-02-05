@@ -25,7 +25,7 @@
         {
             base.OnAuthorization(filterContext);
 
-            if (!viewer.IsEnableJackpot)
+            if (!viewer.IsEnabledJackpot)
             {
                 UnAuthentication(filterContext);
             }

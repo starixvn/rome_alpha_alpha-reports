@@ -1,11 +1,16 @@
 ﻿namespace Alpha.Reports.Site.Models
 {
-    using Constants;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
     using Reports.Models;
     using Sunplus.Agent.Model.Entities;
 
     public class User : IUser
     {
+        private const string Jackpot = "Jackpot";
+        private const string GamesLaunchByProductSessionKey = "_GamesLaunchByProduct";
+
         private readonly IUserSession userSession;
 
         public User(IUserSession userSession)
@@ -27,8 +32,13 @@
 
         public bool IsShowConsolidatedReport => userSession.IsShowConsolidatedReport;
 
-        public bool IsEnableJackpot => !userSession.Currency.Equals(CurrencyConstant.HKK);
-
         public bool GetHideProduct(int productId) => userSession.GetHideProduct(productId);
+
+        public IList<int> EnableJackpotProductIds => GetGamesLaunchByProduct()[Jackpot];
+
+        public bool IsEnabledJackpot => EnableJackpotProductIds.Any();
+
+        public IDictionary<string, IList<int>> GetGamesLaunchByProduct()
+            => (IDictionary<string, IList<int>>)HttpContext.Current.Session[HttpContext.Current.Session.SessionID + GamesLaunchByProductSessionKey];
     }
 }

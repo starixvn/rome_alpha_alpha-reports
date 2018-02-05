@@ -20,15 +20,15 @@
         <span class="star">*</span>@Model.ViewDataInstructionMessage
     </div>
 </form>
-<table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover
+<table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-win-loss-by-product
        @(Model.IsStackMode ? "stack-mode" : string.Empty)">
     <thead>
         <tr>
-            <th class="hidden-stack-mode" rowspan="2">@Resources.Product/@Resources.BetType</th>
-            <th class="hidden-stack-mode" rowspan="2">@Resources.BetCount</th>
-            <th class="hidden-stack-mode" rowspan="2">@Resources.Turnover</th>
-            <th class="hidden-stack-mode" rowspan="2">@Resources.ContributionAmount</th>
-            <th class="hidden-stack-mode" colspan="@Model.ContributionShareColumnsCount">@Resources.ContributionShare</th>
+            <th rowspan="2">@Resources.Product/@Resources.BetType</th>
+            <th rowspan="2">@Resources.Turnover</th>
+            <th rowspan="2">@Resources.ContributionAmount</th>
+            <th colspan="@Model.ContributionShareColumnsCount">@Resources.ContributionShare</th>
+            <th rowspan="2">@Resources.Company</th>
         </tr>
         <tr class="thead-row2">
             <th class="hidden-stack-mode">@Resources.Agent</th>
@@ -40,7 +40,6 @@
             {
                 <th class="hidden-stack-mode">@Resources.Super</th>
             }
-            <th class="hidden-stack-mode">@Resources.Company</th>
         </tr>
     </thead>
     @if (Model.ProgressiveContributions.Any())
@@ -49,7 +48,7 @@
         <tbody>
             @foreach (var data in progressiveContributions)
             {
-                <tr class="product-row" data-product-id="@data.ProductId">
+                <tr class="product-row bold" data-product-id="@data.ProductId">
                     <td class="text-left col-username">@data.ProductName</td>
                     @RenderProgressiveContribution(data.Total)
                 </tr>
@@ -57,14 +56,20 @@
                 {
                     foreach (var item in data.ProgressiveContributions)
                     {
-                        <tr>
-                            <td>@item.BetTypeName</td>
+                        <tr class="bet-type-row">
+                            <td class="text-left col-username">@item.BetTypeName</td>
                             @RenderProgressiveContribution(item)
                         </tr>
                     }
                 }
             }
         </tbody>
+        <tfoot>
+            <tr class="tbl-footer">
+                <td class="text-left col-username">@Resources.Total</td>
+                @RenderProgressiveContribution(Model.GrandTotal)
+            </tr>
+        </tfoot>
     }
     else
     {
@@ -86,17 +91,22 @@
 }
 @helper RenderProgressiveContribution(ProgressiveContributionByBetTypeModel data)
 {
-    <td>@(data.BetCount.ToString($"#,##0"))</td>
     @HtmlHelpers.RenderNumberCell(data.Turnover, "col-turnover")
-    @HtmlHelpers.RenderNumberCell(data.ContributionAmount, "col-turnover")
-    @HtmlHelpers.RenderNumberCell(data.AgentContribution, "col-turnover")
+    @RenderContributionNumberCell(data.ContributionAmount, "col-turnover")
+    @RenderContributionNumberCell(data.AgentContribution, "col-turnover")
 if (Model.CustLevel.IsMasterOrSuperLevel())
 {
-        @HtmlHelpers.RenderNumberCell(data.MasterContribution, "col-turnover")
+        @RenderContributionNumberCell(data.MasterContribution, "col-turnover")
 }
 if (Model.CustLevel.IsSuperLevel())
 {
-        @HtmlHelpers.RenderNumberCell(data.SuperContribution, "col-turnover")
+        @RenderContributionNumberCell(data.SuperContribution, "col-turnover")
 }
-    @HtmlHelpers.RenderNumberCell(data.CompanyContribution, "col-turnover")
+    @RenderContributionNumberCell(data.CompanyContribution, "col-turnover")
+}
+@helper RenderContributionNumberCell(decimal value, string cellClass = "")
+{
+    <td class="hidden-stack-mode @cellClass">
+        @value.ToString("#,##0.0000")
+    </td>
 }

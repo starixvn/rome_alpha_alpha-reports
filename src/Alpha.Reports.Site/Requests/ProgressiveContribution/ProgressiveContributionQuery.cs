@@ -1,16 +1,17 @@
 ﻿namespace Alpha.Reports.Site.Requests.ProgressiveContribution
 {
+    using System.Collections.Generic;
     using MediatR;
     using Reports.Models;
     using ViewModels.ProgressiveContribution;
 
     public class ProgressiveContributionQuery :
-        FromBalanceUpDateDateRangeQuery,
+        FromLast3YearDateRangeQuery,
         IRequest<ProgressiveContributionViewModel>
     {
         public ProgressiveContributionQuery(IUser viewer) : base(viewer)
         {
-            LanguageKey = viewer.LanguageKey;
+            EnableJackpotProductIds = viewer.EnableJackpotProductIds;
         }
 
         public string UserSelectedProductIds { get; set; }
@@ -23,6 +24,6 @@
 
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
 
-        public string LanguageKey { get; }
+        public IList<int> EnableJackpotProductIds { get; }
     }
 }

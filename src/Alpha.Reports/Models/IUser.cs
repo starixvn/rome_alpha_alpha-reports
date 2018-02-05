@@ -1,5 +1,7 @@
 ﻿namespace Alpha.Reports.Models
 {
+    using System.Collections.Generic;
+
     public interface IUser
     {
         int Id { get; }
@@ -16,7 +18,11 @@
 
         bool IsShowConsolidatedReport { get; }
 
-        bool IsEnableJackpot { get; }
+        bool IsEnabledJackpot { get; }
+
+        IList<int> EnableJackpotProductIds { get; }
+
+        IDictionary<string, IList<int>> GetGamesLaunchByProduct();
 
         bool GetHideProduct(int productId);
     }

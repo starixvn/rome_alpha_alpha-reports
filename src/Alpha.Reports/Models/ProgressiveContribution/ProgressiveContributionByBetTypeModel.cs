@@ -10,7 +10,6 @@
             int productId,
             int bettypeId,
             string bettypeName,
-            int betCount,
             decimal turnover,
             decimal contributionAmount,
             decimal agentContribution,
@@ -20,7 +19,6 @@
             ProductId = productId;
             BetTypeId = bettypeId;
             BetTypeName = bettypeName;
-            BetCount = betCount;
             Turnover = turnover;
             ContributionAmount = contributionAmount;
             AgentContribution = agentContribution;
@@ -33,8 +31,6 @@
         public int BetTypeId { get; }
 
         public string BetTypeName { get; }
-
-        public int BetCount { get; private set; }
 
         public decimal Turnover { get; private set; }
 
@@ -50,7 +46,7 @@
         {
             get
             {
-                return ContributionAmount + SuperContribution + MasterContribution + AgentContribution;
+                return -(SuperContribution + MasterContribution + AgentContribution);
             }
 
             private set
@@ -65,7 +61,6 @@
                 return this;
             }
 
-            BetCount += contributionByBetType.BetCount;
             Turnover += contributionByBetType.Turnover;
             ContributionAmount += contributionByBetType.ContributionAmount;
             AgentContribution += contributionByBetType.AgentContribution;
