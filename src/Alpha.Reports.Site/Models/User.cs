@@ -9,7 +9,7 @@
     public class User : IUser
     {
         private const string Jackpot = "Jackpot";
-        private const string GamesLaunchByProductSessionKey = "_GamesLaunchByProduct";
+        private const string GameEnableSessionKey = "_GameEnable_";
 
         private readonly IUserSession userSession;
 
@@ -34,11 +34,11 @@
 
         public bool GetHideProduct(int productId) => userSession.GetHideProduct(productId);
 
-        public IList<int> EnableJackpotProductIds => GetGamesLaunchByProduct()[Jackpot];
+        public IList<int> EnableJackpotProductIds => GetEnableProductsForGame(Jackpot);
 
         public bool IsEnabledJackpot => EnableJackpotProductIds.Any();
 
-        public IDictionary<string, IList<int>> GetGamesLaunchByProduct()
-            => (IDictionary<string, IList<int>>)HttpContext.Current.Session[HttpContext.Current.Session.SessionID + GamesLaunchByProductSessionKey];
+        public IList<int> GetEnableProductsForGame(string gameName)
+            => (IList<int>)HttpContext.Current.Session[HttpContext.Current.Session.SessionID + GameEnableSessionKey + gameName];
     }
 }

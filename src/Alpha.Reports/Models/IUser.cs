@@ -22,7 +22,7 @@
 
         IList<int> EnableJackpotProductIds { get; }
 
-        IDictionary<string, IList<int>> GetGamesLaunchByProduct();
+        IList<int> GetEnableProductsForGame(string gameName);
 
         bool GetHideProduct(int productId);
     }

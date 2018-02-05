@@ -183,6 +183,7 @@
     <Compile Include="Criteria\GetBalanceUpDayAndMoveBetsDayCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsByRefTableTests.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\ProductsForMatchWinLossDetailCriteriaTests.cs" />
+    <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteriaTests.cs" />
     <Compile Include="Criteria\Statement\TransferDetailsCriteriaTests.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteriaTest.cs" />
     <Compile Include="Criteria\Outstanding\OutstandingCriteriaTests.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteriaTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTestCases.cs" />
+    <Compile Include="DataAccesses\ProgressiveContributionDataAccessTests.cs" />
     <Compile Include="DataAccesses\StatementDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossAnalysisDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
@@ -275,6 +277,7 @@
     <Compile Include="Services\PlayForFunServiceImplTests.cs" />
     <Compile Include="Services\MatchWinLossDetailServiceImplTests.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />
+    <Compile Include="Services\ProgressiveContributionServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
     <Compile Include="Services\StatementServiceImplTests.cs" />
     <Compile Include="Services\WinLossByProductServiceImplTests.cs" />

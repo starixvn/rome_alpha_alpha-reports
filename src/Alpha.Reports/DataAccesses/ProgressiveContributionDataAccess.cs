@@ -57,10 +57,11 @@ namespace Alpha.Reports.DataAccesses
             var progressiveContribution = new ProgressiveContributionByBetTypeModel(
                 productId,
                 bettypeId,
-                cacheRefService.GetBetTypeName(bettypeId), reader.ToDecimal("TurnOver"),
+                cacheRefService.GetBetTypeName(bettypeId),
+                reader.ToDecimal("TurnOver"),
                 reader.ToDecimal("Contribution"),
-                reportLevel.IsAgentLevel() ? reader.ToDecimal("ContributionAgent") : 0,
-                reportLevel.IsMasterLevel() ? reader.ToDecimal("ContributionMaster") : 0,
+                reader.ToDecimal("ContributionAgent"),
+                reportLevel.IsMasterOrSuperLevel() ? reader.ToDecimal("ContributionMaster") : 0,
                 reportLevel.IsSuperLevel() ? reader.ToDecimal("ContributionSuper") : 0);
 
             return progressiveContribution;
