@@ -56,11 +56,6 @@
 
         public ProgressiveContributionByBetTypeModel Add(ProgressiveContributionByBetTypeModel contributionByBetType)
         {
-            if (contributionByBetType == null)
-            {
-                return this;
-            }
-
             Turnover += contributionByBetType.Turnover;
             ContributionAmount += contributionByBetType.ContributionAmount;
             AgentContribution += contributionByBetType.AgentContribution;

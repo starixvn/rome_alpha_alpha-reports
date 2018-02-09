@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using Alpha.RemotingRef;
-using Alpha.Reports.Criteria.ProgressiveContribution;
-using Alpha.Reports.Models;
-using Alpha.Reports.Models.ProgressiveContribution;
-using Fanex.Common.Extensions;
-
-namespace Alpha.Reports.DataAccesses
+﻿namespace Alpha.Reports.DataAccesses
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using Criteria.ProgressiveContribution;
+    using Fanex.Common.Extensions;
+    using Models;
+    using Models.ProgressiveContribution;
+    using RemotingRef;
+
     public interface ProgressiveContributionDataAccess
     {
         IEnumerable<ProgressiveContributionByBetTypeModel> GetProgressiveContributions(ProgressiveContributionCriteria criteria);

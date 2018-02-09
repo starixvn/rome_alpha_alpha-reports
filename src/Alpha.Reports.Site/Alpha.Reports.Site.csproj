@@ -387,6 +387,7 @@
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionBaseHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionExcelHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionHandler.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbook.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
     <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbook.cs" />
@@ -644,7 +645,11 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.css" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />
+    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.css">
+      <DependentUpon>progressivecontribution.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.js">
       <DependentUpon>progressivecontribution.js</DependentUpon>
     </Content>
@@ -759,6 +764,12 @@
     </Content>
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\progressivecontribution\progressivecontribution.css">
+      <DependentUpon>progressivecontribution.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\progressivecontribution\progressivecontribution.min.css">
+      <DependentUpon>progressivecontribution.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
@@ -946,6 +957,10 @@
     <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByUsername.xls" />
     <Content Include="assets\styles\consolidation\consolidation.scss" />
     <Content Include="App_Data\activitytracking.json" />
+    <Content Include="assets\styles\progressivecontribution\progressivecontribution.scss" />
+    <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Member.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1106,6 +1121,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

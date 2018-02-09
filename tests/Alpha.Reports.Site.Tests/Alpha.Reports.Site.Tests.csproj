@@ -116,6 +116,7 @@
       <HintPath>..\..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.2.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL" />
     <Reference Include="ONEbook.SpreadSheets, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ONEbook.SpreadSheets.1.0.0.1\lib\net461\ONEbook.SpreadSheets.dll</HintPath>
       <Private>True</Private>
@@ -219,6 +220,7 @@
     <Compile Include="Controllers\ControllerBaseFuctions.cs" />
     <Compile Include="Controllers\EnteredResultControllerTests.cs" />
     <Compile Include="Controllers\OutstandingControllerTests.cs" />
+    <Compile Include="Controllers\ProgressiveContributionControllerTests.cs" />
     <Compile Include="Controllers\ReportLegendControllerTests.cs" />
     <Compile Include="Controllers\StatementControllerTests.cs" />
     <Compile Include="Controllers\WinLossByProductControllerTests.cs" />
@@ -246,6 +248,10 @@
     <Compile Include="Handlers\Consolidation\WinLossByProductWorkbookImplTests.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandlerTests.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandlerTests.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionExcelHandlerTests.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionHandlerTests.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbookImplForTesting.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbookImplTest.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductExcelHandlerTest.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductBaseHandlerTests.cs" />
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />

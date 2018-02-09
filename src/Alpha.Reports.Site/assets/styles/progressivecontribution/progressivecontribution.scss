@@ -1,0 +1,19 @@
+﻿#tbl-report {
+    &.tbl-progressive-contribution {
+        .product-row {
+            cursor: default;
+
+            .combinedcell li:last-child {
+                font-weight: bold;
+            }
+        }
+
+        .combinedcell li:last-child {
+            font-weight: normal;
+        }
+
+        .bet-type-row .col-username {
+            padding-left: 30px;
+        }
+    }
+}

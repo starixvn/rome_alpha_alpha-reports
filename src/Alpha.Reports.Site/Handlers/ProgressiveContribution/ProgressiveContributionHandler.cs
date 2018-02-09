@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.ProgressiveContribution
 {
-    using System.Linq;
+    using System;
     using MediatR;
     using Requests.ProgressiveContribution;
     using Services;
@@ -19,9 +19,13 @@
 
         public ProgressiveContributionViewModel Handle(ProgressiveContributionQuery message)
         {
-            var products = productService.FilterProductsByCustomer(message.CustId, message.EnableJackpotProductIds);
-            var param = CreateProgressiveContributionParam(message, products.Select(p => p.Id));
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
 
+            var products = FilterProductsForJackpot(message.CustId, message.EnableJackpotProductIds);
+            var param = CreateProgressiveContributionParam(message);
             var progressiveContributions = progressiveContributionService.GetProgressiveContributions(param);
             var grandTotal = AccumulateGrandTotal(progressiveContributions);
 

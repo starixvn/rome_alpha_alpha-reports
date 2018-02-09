@@ -720,4 +720,7 @@
   <data name="ContributionShare" xml:space="preserve">
     <value>Contribution Share</value>
   </data>
+  <data name="ContributionAmountRoundNote" xml:space="preserve">
+    <value>- Contribution amount is rounded up to 4 decimal points.</value>
+  </data>
 </root>

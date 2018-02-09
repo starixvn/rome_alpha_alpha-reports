@@ -10,6 +10,7 @@
     using Handlers.CommissionByBettype;
     using Handlers.Consolidation;
     using Handlers.MatchWinLossDetail;
+    using Handlers.ProgressiveContribution;
     using Handlers.Statement;
     using Handlers.WinLossByProduct;
     using MediatR;
@@ -116,6 +117,7 @@
             container.RegisterSingleton<ConsolidationByProductWorkbook, ConsolidationByProductWorkbookImpl>();
 
             container.RegisterSingleton<ProgressiveContributionService, ProgressiveContributionServiceImpl>();
+            container.RegisterSingleton<ProgressiveContributionWorkbook, ProgressiveContributionWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

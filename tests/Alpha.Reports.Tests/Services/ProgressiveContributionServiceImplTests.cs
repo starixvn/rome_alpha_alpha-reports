@@ -69,5 +69,35 @@
             // Assert
             Assert.True(compareLogic.Compare(expectedData, actualData).AreEqual);
         }
+
+        [Fact]
+        public void GetProgressiveContributions_HasData_ReturnsCorrectModel()
+        {
+            // Arrange
+            var param = new ProgressiveContributionParam(
+                0,
+                DateTime.Now,
+                DateTime.Now,
+                Enumerable.Empty<int>(),
+                UserLevel.Super);
+
+            var progressiveContributions =
+                new List<ProgressiveContributionByBetTypeModel> {
+                    new ProgressiveContributionByBetTypeModel(6, 2179, string.Empty, 2000, 100, -40, -30, -20),
+                    new ProgressiveContributionByBetTypeModel(6, 2320, string.Empty, 3000, 150, -60, -45, -30),
+                    new ProgressiveContributionByBetTypeModel(6, 2320, string.Empty, 5000, 550, -100, -75, -50) };
+
+            progressiveContributionDataAccess.GetProgressiveContributions(Arg.Any<ProgressiveContributionCriteria>()).Returns(progressiveContributions);
+            var expectedData = new List<ProgressiveContributionByProductModel>
+            {
+                new ProgressiveContributionByProductModel(6,string.Empty,progressiveContributions)
+            };
+
+            // Act
+            var actualData = progressiveContributionService.GetProgressiveContributions(param);
+
+            // Assert
+            Assert.True(compareLogic.Compare(expectedData, actualData).AreEqual);
+        }
     }
 }

@@ -246,5 +246,12 @@
       "assets/scripts/components/link-builder.js",
       "assets/scripts/progressivecontribution/progressivecontribution.js"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles/progressivecontribution/progressivecontribution.css",
+
+    "inputFiles": [
+      "assets/styles/progressivecontribution/progressivecontribution.css"
+    ]
   }
 ]

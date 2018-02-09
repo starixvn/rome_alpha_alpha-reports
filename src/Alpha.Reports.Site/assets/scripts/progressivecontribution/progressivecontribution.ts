@@ -18,8 +18,9 @@ class ProgressiveContributionView extends BaseReport {
     $fromDate: JQuery;
     $toDate: JQuery;
     $custId: JQuery;
+    $custLevelId: JQuery;
+
     isFirstSwitchMode = true;
-    levels = ["member", "agent", "master", "super"];
     isLoading = true;
 
     constructor(
@@ -40,14 +41,13 @@ class ProgressiveContributionView extends BaseReport {
         if (!this.checkReady()) {
             return;
         }
-
         this.cacheDOMElements();
 
         this.bindFilter();
 
         this.$tableReport.stickyTableHeaders();
         this.registerEvents();
-        this.initHelp();
+
         this.isLoading = false;
     };
 
@@ -63,7 +63,7 @@ class ProgressiveContributionView extends BaseReport {
             && alphaReports.screenSmallThan768()) {
             this.setStackMode();
             this.reportTooltip.show(
-                new ReportTooltipOption("icon-normal-column", parseInt(this.$("#CustId").val(), 0))
+                new ReportTooltipOption("icon-normal-column", parseInt(this.$custId.val(), 0))
             );
         }
 
@@ -85,13 +85,19 @@ class ProgressiveContributionView extends BaseReport {
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$isStackMode = this.$("#IsStackMode");
         this.$custId = this.$("#CustId");
+        this.$custLevelId = this.$("#CustLevelId");
+        this.$loadLegendURL = this.$("#LoadLegendURL");
+        this.$iconInformation = this.$("#icon-information");
+        this.$reportLegend = this.$("#report-legend");
     };
 
     public registerEvents() {
         super.registerEvents();
+
         this.$("#icon-excel").on("click", this.onExportExcel);
         this.$reportForm.submit(this.onSubmitReport);
         this.$(".icon-switchmode").on("click", this.onSwitchMode);
+        this.$iconInformation.on("click", this.showLegend);
     };
 
     onExportExcel = () => {
@@ -130,34 +136,30 @@ class ProgressiveContributionView extends BaseReport {
             tableReport.addClass("stack-mode");
         }
 
-        let levels = this.levels;
         let this$ = this.$;
 
         if (this.isFirstSwitchMode) {
             if (currentStackModeState) {
-                alphaReports.splitCell("col-turnover", "");
-                this$.each(levels, function (index: number) {
-                    let level = levels[index];
-                    alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
-                });
-                alphaReports.splitCell("col-company-winloss", "");
+                alphaReports.splitCell("col-contribution-share");
             } else {
-                alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 2, "col-turnover-combined");
-                this$.each(levels, function (index: number) {
-                    let level = levels[index];
-                    let cellCss = "col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
-                    alphaReports.combineConsecutiveCells(this$("td.col-" + level + "-winloss"), 3, cellCss);
-                });
-                alphaReports.combineConsecutiveCells(this$("td.col-company-winloss"), 2, "col-company-winloss-combined");
+                var custLevelId = parseInt(this.$custLevelId.val());
+                alphaReports.combineConsecutiveCells(
+                    this$("td.col-agent-contribution-share"),
+                    custLevelId - 1,
+                    "text-right col-agent-contribution-share-combined");
             }
-
-            this.isFirstSwitchMode = false;
         }
+
+        this.isFirstSwitchMode = false;
 
         this.$.unblockUI();
     };
 
     setStackMode = () => {
+        if (parseInt(this.$custLevelId.val()) == 2) {
+            return;
+        }
+
         this.$.blockUI();
 
         let tableReport = this.$tableReport;
@@ -166,16 +168,11 @@ class ProgressiveContributionView extends BaseReport {
 
         let this$ = this.$;
 
-        let levels = this.levels;
-        alphaReports.combineConsecutiveCells(this$("td.col-turnover"), 2, "col-turnover-combined");
-
-        this$.each(levels, function (index: number) {
-            let level = levels[index];
-            let cellCss = "col-" + level + "-winloss-combined" + (index % 2 ? " altercol" : "");
-            alphaReports.combineConsecutiveCells(this$("td.col-" + level + "-winloss"), 3, cellCss);
-        });
-
-        alphaReports.combineConsecutiveCells(this$("td.col-company-winloss"), 2, "col-company-winloss-combined");
+        var custLevelId = parseInt(this.$custLevelId.val());
+        alphaReports.combineConsecutiveCells(
+            this$("td.col-agent-contribution-share"),
+            custLevelId - 1,
+            "text-right col-agent-contribution-share-combined");
 
         this.isFirstSwitchMode = false;
         this.$.unblockUI();
