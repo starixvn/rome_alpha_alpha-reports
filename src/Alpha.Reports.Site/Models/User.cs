@@ -38,7 +38,7 @@
 
         public bool IsEnabledJackpot => EnableJackpotProductIds.Any();
 
-        public IList<int> GetEnableProductsForGame(string gameName)
+        internal virtual IList<int> GetEnableProductsForGame(string gameName)
             => (IList<int>)HttpContext.Current.Session[HttpContext.Current.Session.SessionID + GameEnableSessionKey + gameName];
     }
 }

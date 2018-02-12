@@ -291,6 +291,7 @@
     <Compile Include="Helpers\QueryEntityModelBinderTests.cs" />
     <Compile Include="Helpers\UrlHelperTests.cs" />
     <Compile Include="Helpers\UrlHelperTestSetUp.cs" />
+    <Compile Include="Models\UserForTest.cs" />
     <Compile Include="Models\UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeQueryTests.cs" />

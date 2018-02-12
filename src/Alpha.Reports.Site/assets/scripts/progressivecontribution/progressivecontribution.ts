@@ -15,13 +15,10 @@ class ProgressiveContributionView extends BaseReport {
     $isFilterVisible: JQuery;
     $isStackMode: JQuery;
 
-    $fromDate: JQuery;
-    $toDate: JQuery;
     $custId: JQuery;
     $custLevelId: JQuery;
 
     isFirstSwitchMode = true;
-    isLoading = true;
 
     constructor(
         $: JQueryStatic,
@@ -41,14 +38,11 @@ class ProgressiveContributionView extends BaseReport {
         if (!this.checkReady()) {
             return;
         }
+
         this.cacheDOMElements();
-
         this.bindFilter();
-
         this.$tableReport.stickyTableHeaders();
         this.registerEvents();
-
-        this.isLoading = false;
     };
 
     checkReady = () => {
@@ -105,8 +99,6 @@ class ProgressiveContributionView extends BaseReport {
     };
 
     onSubmitReport = (e: any) => {
-        this.isLoading = true;
-
         this.$.blockUI();
 
         let params = this.getParams();

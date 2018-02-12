@@ -22,8 +22,6 @@
 
         IList<int> EnableJackpotProductIds { get; }
 
-        IList<int> GetEnableProductsForGame(string gameName);
-
         bool GetHideProduct(int productId);
     }
 }

@@ -99,7 +99,9 @@
     { "Path": "apps/consolidation/consolidation-template.ts" },
     { "Path": "apps/consolidation/consolidation-detail-template.ts" },
     { "Path": "../consolidation/consolidation.ts" },
-    { "Path": "../consolidation/consolidation-detail.ts" }
+    { "Path": "../consolidation/consolidation-detail.ts" },
+    { "Path": "apps/progressivecontribution/progressivecontribution-template.ts" },
+    { "Path": "../progressivecontribution/progressivecontribution.ts" }
   ],
   "Tests": [
     {
@@ -139,6 +141,10 @@
     },
     {
       "Path": "apps/consolidation",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/progressivecontribution",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     }
   ]

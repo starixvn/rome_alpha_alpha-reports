@@ -591,6 +591,8 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\progressivecontribution\progressivecontribution-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\progressivecontribution\progressivecontribution-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\statement\member-statement-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis-chart\winloss-analysis-chart-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\statement\sma-statement-tests.ts" />
