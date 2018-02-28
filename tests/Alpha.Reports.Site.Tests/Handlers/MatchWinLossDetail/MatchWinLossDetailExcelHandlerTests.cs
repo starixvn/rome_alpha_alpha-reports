@@ -261,7 +261,7 @@
             var viewModel = new BetTypeWinLossViewModel(1, "BetTypeName", 2, 3, false, 4, null, null, null, null, null);
 
             // Act
-            var actualMapper = matchWinLossDetailExcelHandler.GetRowMapper(rowType, UserLevel.Agent);
+            var actualMapper = MatchWinLossDetailExcelHandler.GetRowMapper(rowType, UserLevel.Agent);
 
             // Assert
             Assert.True(
@@ -276,7 +276,7 @@
             var viewModel = new BetTypeWinLossViewModel(1, "BetTypeName", 2, 3, false, 4, netWinLoss, netWinLoss, null, null, netWinLoss);
 
             // Act
-            var actualMapper = matchWinLossDetailExcelHandler.GetRowMapper(1, UserLevel.Agent);
+            var actualMapper = MatchWinLossDetailExcelHandler.GetRowMapper(1, UserLevel.Agent);
 
             // Assert
             Assert.True(
@@ -300,7 +300,7 @@
             var viewModel = new BetTypeWinLossViewModel(1, "BetTypeName", 2, 3, false, 4, netWinLoss, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
 
             // Act
-            var actualMapper = matchWinLossDetailExcelHandler.GetRowMapper(1, UserLevel.Master);
+            var actualMapper = MatchWinLossDetailExcelHandler.GetRowMapper(1, UserLevel.Master);
 
             // Assert
             Assert.True(
@@ -319,7 +319,7 @@
             var viewModel = new BetTypeWinLossViewModel(1, "BetTypeName", 2, 3, false, 4, netWinLoss, netWinLoss, netWinLoss, netWinLoss, netWinLoss);
 
             // Act
-            var actualMapper = matchWinLossDetailExcelHandler.GetRowMapper(1, UserLevel.Super);
+            var actualMapper = MatchWinLossDetailExcelHandler.GetRowMapper(1, UserLevel.Super);
 
             // Assert
             Assert.True(
