@@ -92,13 +92,13 @@
                 query.FromDate.ToShortDateWithSlash(),
                 query.ToDate.ToShortDateWithSlash());
 
-        private Mapper<BetTypeWinLossViewModel> GetBodyRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.Data, custLevel);
+        private static Mapper<BetTypeWinLossViewModel> GetBodyRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.Data, custLevel);
 
-        private Mapper<BetTypeWinLossViewModel> GetSubTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.SubTotal, custLevel);
+        private static Mapper<BetTypeWinLossViewModel> GetSubTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.SubTotal, custLevel);
 
-        private Mapper<BetTypeWinLossViewModel> GetTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.Total, custLevel);
+        private static Mapper<BetTypeWinLossViewModel> GetTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.Total, custLevel);
 
-        private Mapper<BetTypeWinLossViewModel> GetGrandTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.GrandTotal, custLevel);
+        private static Mapper<BetTypeWinLossViewModel> GetGrandTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.GrandTotal, custLevel);
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         internal static Mapper<BetTypeWinLossViewModel> GetRowMapper(int rowType, UserLevel custLevel)
