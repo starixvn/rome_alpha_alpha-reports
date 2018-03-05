@@ -24,7 +24,8 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = FilterProductsForJackpot(message.CustId, message.EnableJackpotProductIds);
+            var products = productService.FilterProductsByCustomer(message.CustId, message.EnableJackpotProductIds, message.MinDate);
+
             var param = CreateProgressiveContributionParam(message);
             var progressiveContributions = progressiveContributionService.GetProgressiveContributions(param);
             var grandTotal = AccumulateGrandTotal(progressiveContributions);

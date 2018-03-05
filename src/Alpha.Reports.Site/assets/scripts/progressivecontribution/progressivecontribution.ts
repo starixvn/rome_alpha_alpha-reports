@@ -19,6 +19,7 @@ class ProgressiveContributionView extends BaseReport {
     $custLevelId: JQuery;
 
     isFirstSwitchMode = true;
+    levels = ["member", "agent", "master", "super"];
 
     constructor(
         $: JQueryStatic,
@@ -135,10 +136,11 @@ class ProgressiveContributionView extends BaseReport {
                 alphaReports.splitCell("col-contribution-share");
             } else {
                 var custLevelId = parseInt(this.$custLevelId.val());
+                var level = this.levels[custLevelId - 1];
                 alphaReports.combineConsecutiveCells(
-                    this$("td.col-agent-contribution-share"),
+                    this$("td.col-" + level + "-contribution-share"),
                     custLevelId - 1,
-                    "text-right col-agent-contribution-share-combined");
+                    "text-right col-" + level + "-contribution-share-combined");
             }
         }
 
@@ -161,10 +163,11 @@ class ProgressiveContributionView extends BaseReport {
         let this$ = this.$;
 
         var custLevelId = parseInt(this.$custLevelId.val());
+        var level = this.levels[custLevelId - 1];
         alphaReports.combineConsecutiveCells(
-            this$("td.col-agent-contribution-share"),
+            this$("td.col-" + level + "-contribution-share"),
             custLevelId - 1,
-            "text-right col-agent-contribution-share-combined");
+            "text-right col-" + level + "-contribution-share-combined");
 
         this.isFirstSwitchMode = false;
         this.$.unblockUI();

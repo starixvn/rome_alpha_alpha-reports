@@ -38,27 +38,27 @@
                     <br />
                     @if (Model.CustLevel.IsMasterLevel())
                     {
-                        <span>(@Resources.Agent/@Resources.Master)</span>
+                        <span>(@Resources.Master/@Resources.Agent)</span>
 
                     }
                     else
                     {
-                        <span>(@Resources.Agent/@Resources.Master/@Resources.Super)</span>
+                        <span>(@Resources.Super/@Resources.Master/@Resources.Agent)</span>
                     }
                 </th>
             }
             <th rowspan="2">@Resources.Company</th>
         </tr>
         <tr class="thead-row2">
-            <th class="hidden-stack-mode">@Resources.Agent</th>
-            @if (Model.CustLevel.IsMasterOrSuperLevel())
-            {
-                <th class="hidden-stack-mode">@Resources.Master</th>
-            }
             @if (Model.CustLevel.IsSuperLevel())
             {
                 <th class="hidden-stack-mode">@Resources.Super</th>
             }
+            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            {
+                <th class="hidden-stack-mode">@Resources.Master</th>
+            }
+            <th class="hidden-stack-mode">@Resources.Agent</th>
         </tr>
     </thead>
     @if (Model.ProgressiveContributions.Any())
@@ -114,9 +114,9 @@
     <td class="col-contribution">@FormatNumber40(data.ContributionAmount)</td>
 if (Model.IsStackMode)
 {
-    if (Model.CustLevel.IsAgentLevel())
+    if (Model.CustLevel.IsSuperLevel())
     {
-            @RenderContributionNumberCell(UserLevel.Agent, data.AgentContribution)
+            @RenderStackContributionNumberCell(UserLevel.Super, data.SuperContribution, data.MasterContribution, data.AgentContribution)
     }
     else if (Model.CustLevel.IsMasterLevel())
     {
@@ -124,20 +124,21 @@ if (Model.IsStackMode)
     }
     else
     {
-            @RenderStackContributionNumberCell(UserLevel.Super, data.SuperContribution, data.MasterContribution, data.AgentContribution)
+            @RenderContributionNumberCell(UserLevel.Agent, data.AgentContribution)
     }
 }
 else
 {
-        @RenderContributionNumberCell(UserLevel.Agent, data.AgentContribution)
-    if (Model.CustLevel.IsMasterOrSuperLevel())
-    {
-            @RenderContributionNumberCell(UserLevel.Master, data.MasterContribution)
-    }
     if (Model.CustLevel.IsSuperLevel())
     {
             @RenderContributionNumberCell(UserLevel.Super, data.SuperContribution)
     }
+
+    if (Model.CustLevel.IsMasterOrSuperLevel())
+    {
+            @RenderContributionNumberCell(UserLevel.Master, data.MasterContribution)
+    }
+        @RenderContributionNumberCell(UserLevel.Agent, data.AgentContribution)
 }
 
     <td class="col-company">@FormatNumber40(data.CompanyContribution)</td>

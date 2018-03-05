@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Extensions;
     using Params;
-    using Reports.Models;
     using Reports.Models.ProgressiveContribution;
     using Requests.ProgressiveContribution;
     using Services;
@@ -23,7 +23,10 @@
 
         protected ProgressiveContributionParam CreateProgressiveContributionParam(ProgressiveContributionQuery message)
         {
-            var productIds = FilterProductsForJackpot(message.CustId, message.EnableJackpotProductIds).Select(p => p.Id);
+            var productIds = productService.FilterProductIdsByCustomer(
+                message.CustId,
+                message.UserSelectedProductIds.ToListInt(),
+                message.MinDate);
 
             return new ProgressiveContributionParam(
                 message.CustId,
@@ -32,9 +35,6 @@
                 productIds,
                 message.ViewerLevel);
         }
-
-        protected IEnumerable<Product> FilterProductsForJackpot(int custId, IEnumerable<int> productIds)
-            => productService.FilterProductsByCustomer(custId, productIds);
 
         internal static ProgressiveContributionByBetTypeModel AccumulateGrandTotal(IEnumerable<ProgressiveContributionByProductModel> reportData)
         {
