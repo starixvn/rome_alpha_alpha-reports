@@ -73,14 +73,12 @@
             {
                 mapper.Map(E, data => data.CompanyContribution);
             }
-
-            if (message.CustLevel.IsMasterLevel())
+            else if (message.CustLevel.IsMasterLevel())
             {
                 mapper.Map(E, data => data.MasterContribution)
                     .Map(F, data => data.CompanyContribution);
             }
-
-            if (message.CustLevel.IsSuperLevel())
+            else
             {
                 mapper.Map(E, data => data.MasterContribution)
                     .Map(F, data => data.SuperContribution)
