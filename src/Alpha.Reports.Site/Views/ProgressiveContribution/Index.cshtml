@@ -11,8 +11,17 @@
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
     @Html.Hidden("IsStackMode", Model.IsStackMode)
+    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
-    @DateRangePicker.Render(Model.DateRangePickerViewModel)
+    @(Model.IsHistoricReport
+        ? MonthPicker.Render(Model.MonthPickerViewModel)
+        : DateRangePicker.Render(Model.DateRangePickerViewModel))
+    @if (Model.IsHistoricReport)
+    {
+        <div class="form-group">
+            <input type="submit" value="@Resources.Submit" class="btn-submit" />
+        </div>
+    }
     <div id="icon-information-container" class="form-group">
         <span id="icon-information" class="icon-information-outline"></span>
     </div>
@@ -20,7 +29,7 @@
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
     <div class="note">
-        <span class="star">*</span>@Model.ViewDataInstructionMessage
+        <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" data-is-historic-report="@Model.IsHistoricReport.ToString().ToLower()" href="#">@Model.ViewActionMessage</a>
     </div>
 </form>
 <table id="tbl-report" class="tblRpt tblRpt-bordered alternative-row-table width-100per tablesorter tblRpt-hover tbl-progressive-contribution
@@ -102,9 +111,10 @@
     @Html.Hidden("ToDate", Model.ToDate)
     @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 </form>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "WinLossDetail"))
+@Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/progressivecontribution/progressivecontribution")
 }

@@ -6,7 +6,7 @@
     using ViewModels.ProgressiveContribution;
 
     public class ProgressiveContributionQuery :
-        FromLast3YearDateRangeQuery,
+        ReportDefaultDateRangeQuery,
         IRequest<ProgressiveContributionViewModel>
     {
         public ProgressiveContributionQuery(IUser viewer) : base(viewer)

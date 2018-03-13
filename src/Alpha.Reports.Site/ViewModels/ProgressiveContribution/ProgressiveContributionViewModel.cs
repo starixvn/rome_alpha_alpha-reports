@@ -32,7 +32,11 @@
 
         public string Title => Resources.ProgressiveGamesContribution;
 
-        public string ViewDataInstructionMessage => string.Format(Resources.CanOnlyViewDataAfterTimeHistoryReport, query.MinDate.ToShortDateWithSlash());
+        public string ViewDataInstructionMessage => string.Format(
+            IsHistoricReport ? Resources.CanOnlyViewDataAfterTimeHistoryReport : Resources.CanOnlyViewDataAfterTimeCurrentReport,
+            query.MinDate.ToShortDateWithSlash());
+
+        public string ViewActionMessage => IsHistoricReport ? Resources.BackToCurrentReport : Resources.ViewHistoryReport;
 
         public int CustId => param.CustId;
 
@@ -51,6 +55,8 @@
         public string UserSelectedProductIds => param.UserSelectedProductIds.JoinWithComma();
 
         public int UserSelectedDateRangeOption => query.UserSelectedDateRangeOption;
+
+        public bool IsHistoricReport => query.IsHistoricReport;
 
         public bool IsStackMode => query.IsStackMode;
 
@@ -72,6 +78,9 @@
 
         public DateRangePickerViewModel DateRangePickerViewModel =>
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
+
+        public MonthPickerViewModel MonthPickerViewModel =>
+            new MonthPickerViewModel(MinDate, FromDate, ToDate);
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);

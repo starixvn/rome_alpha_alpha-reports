@@ -1,6 +1,7 @@
 ﻿describe("ProgresiveContribution_", () => {
     const jQueryFake = $;
     const dateRangePickerComponent = new DateRangePickerComponent($);
+    const monthPickerComponent = new MonthPickerComponent($);
     const reportTooltip = new ReportTooltip($);
     const productMultiSelectionComponent = new ProductMultiSelectionComponent($);
     const linkBuilderComponent = new LinkBuilderComponent($);
@@ -19,6 +20,7 @@
         progressiveContributionView = new ProgressiveContributionView(
             jQueryFake,
             dateRangePickerComponent,
+            monthPickerComponent,
             productMultiSelectionComponent,
             reportTooltip,
             linkBuilderComponent);
@@ -40,6 +42,7 @@
         renderProductMultiSelectionComponent.and.callThrough();
 
         spyOn(dateRangePickerComponent, "render");
+        spyOn(monthPickerComponent, "render");
     });
 
     describe("init", () => {
@@ -75,6 +78,31 @@
 
             // assert
             expect(dateRangePickerComponent.render).toHaveBeenCalled();
+            expect(monthPickerComponent.render).not.toHaveBeenCalled();
+        });
+
+        it("Historic Report With Hidden Filter -> Renders Month Picker And Not Render Date Range Picker", () => {
+            // arrange
+            setFixtures(progressiveContributionTemplate.historicReportWithHiddenFilter);
+
+            // act
+            progressiveContributionView.init();
+
+            // assert
+            expect(monthPickerComponent.render).toHaveBeenCalled();
+            expect(dateRangePickerComponent.render).not.toHaveBeenCalled();
+        });
+
+        it("Historic Report With Hidden Filter -> Hides Filter Is Hidden After Init", () => {
+            // arrange
+            setFixtures(progressiveContributionTemplate.historicReportWithHiddenFilter);
+
+            // act
+            progressiveContributionView.init();
+            var actualIsHidden = $("#report-form").hasClass("hide");
+
+            // assert
+            expect(actualIsHidden).toBeTruthy();
         });
     });
 
@@ -93,6 +121,12 @@
             expect(progressiveContributionView.$isFilterVisible).toBeDefined();
             expect(progressiveContributionView.$isStackMode).toBeDefined();
             expect(progressiveContributionView.$reportForm).toBeDefined();
+            expect(progressiveContributionView.$historicReport).toBeDefined();
+            expect(progressiveContributionView.$excelIcon).toBeDefined();
+            expect(progressiveContributionView.$switchModeIcon).toBeDefined();
+            expect(progressiveContributionView.$fromDate).toBeDefined();
+            expect(progressiveContributionView.$toDate).toBeDefined();
+            expect(progressiveContributionView.$isHistoricReport).toBeDefined();
         });
     });
 
@@ -156,6 +190,36 @@
         });
     });
 
+    describe("_onSubmitHistoricReport", () => {
+        it("Current Report -> Switch to Historic Report and Submit", () => {
+            // arrange
+            setFixtures(progressiveContributionTemplate.reportWithNormalMode);
+            progressiveContributionView.cacheDOMElements();
+            spyOn(progressiveContributionView.$reportForm, "trigger");
+
+            // act
+            progressiveContributionView.onSubmitHistoricReport();
+
+            // assert
+            expect(progressiveContributionView.isHistoricReport).toBeTruthy();
+            expect(progressiveContributionView.$reportForm.trigger).toHaveBeenCalledWith("submit");
+        });
+
+        it("Historic Report -> Switch to Current Report and Submit", () => {
+            // arrange
+            setFixtures(progressiveContributionTemplate.historicReportWithShownFilter);
+            progressiveContributionView.cacheDOMElements();
+            spyOn(progressiveContributionView.$reportForm, "trigger");
+
+            // act
+            progressiveContributionView.onSubmitHistoricReport();
+
+            // assert
+            expect(progressiveContributionView.isHistoricReport).toBeTruthy();
+            expect(progressiveContributionView.$reportForm.trigger).toHaveBeenCalledWith("submit");
+        });
+    });
+
     describe("_onSubmitReport", () => {
         it("_Not select any product -> Blocks UI; Shows Validate Product Error; Unblock UI;", () => {
             // arrange
@@ -210,6 +274,7 @@
             expect(actualParam).toEqual({
                 IsAnyProductSelected: false,
                 IsStackMode: false,
+                IsHistoricReport: false,
                 IsFilterVisible: true
             });
         });
@@ -226,8 +291,45 @@
             expect(actualParam).toEqual({
                 IsAnyProductSelected: true,
                 IsStackMode: false,
+                IsHistoricReport: false,
                 IsFilterVisible: true
             });
         });
+    });
+
+    describe("onSwitchMode   ", () => {
+        it(`First Switch Mode->
+            Call setCssBySwitchMode Method,
+            Call renderAtFirstSwitchMode Method`, () => {
+                // arrange
+                setFixtures(progressiveContributionTemplate.reportWithNormalMode);
+                progressiveContributionView.cacheDOMElements();
+                spyOn(progressiveContributionView, "setCssBySwitchMode");
+                spyOn(progressiveContributionView, "renderAtFirstSwitchMode");
+
+                // act
+                progressiveContributionView.onSwitchMode();
+
+                // assert
+                expect(progressiveContributionView.setCssBySwitchMode).toHaveBeenCalledWith(false);
+                expect(progressiveContributionView.renderAtFirstSwitchMode).toHaveBeenCalledWith(false);
+            });
+
+        it(`From Second Switch Mode->
+            Call setCssBySwitchMode Method,
+            Call renderAtFirstSwitchMode Method`, () => {
+                // arrange
+                setFixtures(progressiveContributionTemplate.reportWithNormalMode);
+                progressiveContributionView.cacheDOMElements();
+                spyOn(progressiveContributionView, "setCssBySwitchMode");
+                spyOn(progressiveContributionView, "renderAtFirstSwitchMode");
+
+                // act
+                progressiveContributionView.onSwitchMode();
+
+                // assert
+                expect(progressiveContributionView.setCssBySwitchMode).toHaveBeenCalled();
+                expect(progressiveContributionView.renderAtFirstSwitchMode).toHaveBeenCalled();
+            });
     });
 });
