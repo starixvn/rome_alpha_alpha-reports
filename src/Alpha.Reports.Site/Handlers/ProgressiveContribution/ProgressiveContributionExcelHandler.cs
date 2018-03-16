@@ -102,8 +102,9 @@
                 sheetIndex: 1,
                 footerEndIndex: 12);
 
-        private static string GetReporTitle(ProgressiveContributionExcelQuery message)
-           => $"{Resources.ProgressiveGamesContribution} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
+        private string GetReporTitle(ProgressiveContributionExcelQuery message)
+           => $"{Resources.ProgressiveGamesContribution} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
+            $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
 
         private static string GetExcelFileName(ProgressiveContributionExcelQuery message, ProgressiveContributionParam param)
            => string.Join(
