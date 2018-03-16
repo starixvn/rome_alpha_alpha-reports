@@ -66,22 +66,24 @@
             var mapper = new Mapper<ProgressiveContributionByBetTypeModel>()
                 .Map(A, data => isTotal ? Resources.Total : data.BetTypeName)
                 .Map(B, data => data.Turnover)
-                .Map(C, data => data.ContributionAmount)
-                .Map(D, data => data.AgentContribution);
+                .Map(C, data => data.ContributionAmount);
 
             if (message.CustLevel.IsAgentLevel())
             {
+                mapper.Map(D, data => data.AgentContribution);
                 mapper.Map(E, data => data.CompanyContribution);
             }
             else if (message.CustLevel.IsMasterLevel())
             {
-                mapper.Map(E, data => data.MasterContribution)
+                mapper.Map(D, data => data.MasterContribution)
+                    .Map(E, data => data.AgentContribution)
                     .Map(F, data => data.CompanyContribution);
             }
             else
             {
-                mapper.Map(E, data => data.MasterContribution)
-                    .Map(F, data => data.SuperContribution)
+                mapper.Map(D, data => data.SuperContribution)
+                    .Map(E, data => data.MasterContribution)
+                    .Map(F, data => data.AgentContribution)
                     .Map(G, data => data.CompanyContribution);
             }
 
