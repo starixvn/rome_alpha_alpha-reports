@@ -23,9 +23,13 @@
 
         protected ProgressiveContributionParam CreateProgressiveContributionParam(ProgressiveContributionQuery message)
         {
+            var userSelectedProductIds = string.IsNullOrWhiteSpace(message.UserSelectedProductIds)
+               ? message.EnableJackpotProductIds
+               : message.UserSelectedProductIds.ToListInt();
+
             var productIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
-                message.UserSelectedProductIds.ToListInt(),
+                userSelectedProductIds,
                 message.MinDate);
 
             return new ProgressiveContributionParam(
