@@ -32,6 +32,8 @@
             compareLogic = new CompareLogic();
 
             productService = Substitute.For<ProductService>();
+            productService.ConcatProductNames(Arg.Any<string>()).Returns("Product Name");
+
             progressiveContributionService = Substitute.For<ProgressiveContributionService>();
             progressiveContributionWorkbook = Substitute.For<ProgressiveContributionWorkbook>();
             onebookWorkbook = Substitute.For<Workbook<ProgressiveContributionByBetTypeModel>>();
@@ -130,7 +132,7 @@
 
             // Assert
             onebookWorkbook.Received().Title(
-                Arg.Is("Progressive Games Contribution 12/02/2016 --> 12/02/2016"));
+                Arg.Is("Progressive Games Contribution 12/02/2016 --> 12/02/2016 of Product Name"));
         }
 
         [Fact]
@@ -237,8 +239,8 @@
 
             // Assert
             Assert.True(
-                (decimal)actualMapper.Mappings[Column.D](viewModel) == -10 &&
-                (decimal)actualMapper.Mappings[Column.E](viewModel) == -20 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == -20 &&
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == -10 &&
                 (decimal)actualMapper.Mappings[Column.F](viewModel) == 30);
         }
 
@@ -256,9 +258,9 @@
 
             // Assert
             Assert.True(
-                (decimal)actualMapper.Mappings[Column.D](viewModel) == -10 &&
+                (decimal)actualMapper.Mappings[Column.D](viewModel) == -30 &&
                 (decimal)actualMapper.Mappings[Column.E](viewModel) == -20 &&
-                (decimal)actualMapper.Mappings[Column.F](viewModel) == -30 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == -10 &&
                 (decimal)actualMapper.Mappings[Column.G](viewModel) == 60);
         }
     }
