@@ -215,7 +215,7 @@ class ProgressiveContributionView extends BaseReport {
         let level = this.levels[custLevelId - 1];
 
         if (isSwitchToNormalMode) {
-            alphaReports.splitCell("col-" + level + "-contribution-share");
+            alphaReports.splitCell("col-" + level + "-contribution-share", "", "");
         } else {
             alphaReports.combineConsecutiveCells(
                 this.$("td.col-" + level + "-contribution-share"),

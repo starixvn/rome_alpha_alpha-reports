@@ -32,7 +32,7 @@ class AlphaReports {
         return currentWindowWidth < 768;
     };
 
-    splitCell = (firstCell: string, cellClass: string = "") => {
+    splitCell = (firstCell: string, cellClass: string = "", lastCellStyle: string = "bold") => {
         var this$ = this.$;
 
         var combinedCells = this.$("." + firstCell + "-combined");
@@ -44,7 +44,7 @@ class AlphaReports {
 
             for (var i = 0, lastCellIndex = cellsLength - 1; i < cellsLength; i++) {
                 oldCells += "<td class=\"hidden-stack-mode " + cellClass +
-                    (i === lastCellIndex ? " bold" : "") + "\">" +
+                    (i === lastCellIndex ? " " + lastCellStyle : "") + "\">" +
                     this$(oldValues[i]).html() +
                     "</td>";
             }
