@@ -421,7 +421,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Contribution amount is rounded up to 4 decimal points..
+        ///   Looks up a localized string similar to - The contribution amount will be rounded to 4 decimal places..
         /// </summary>
         public static string ContributionAmountRoundNote {
             get {
