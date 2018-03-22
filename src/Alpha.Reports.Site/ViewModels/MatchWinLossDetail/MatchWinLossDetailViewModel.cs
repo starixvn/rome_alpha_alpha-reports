@@ -62,12 +62,7 @@
             if (data.BetType == BetTypeIdConstants.Outright)
             {
                 return string.Empty;
-            }
-
-            if (BetTypeHelper.IsRacing(data.BetType))
-            {
-                return $"{Resources.Race} {data.Race}";
-            }
+            }           
 
             if (BetTypeHelper.IsNumberGame(data.BetType))
             {
@@ -100,12 +95,7 @@
             if (data == null)
             {
                 return string.Empty;
-            }
-
-            if (BetTypeHelper.IsRacing(data.BetType))
-            {
-                return $"{Resources.HorseRacing} - {leagueName}";
-            }
+            }           
 
             if (BetTypeHelper.IsNumberGame(data.BetType))
             {

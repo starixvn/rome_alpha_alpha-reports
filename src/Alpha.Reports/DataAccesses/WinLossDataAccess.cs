@@ -41,8 +41,7 @@
 
             return winlossData;
         }
-
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
+        
         private static WinLossModel BuildWinLoss(IDataReader reader, UserLevel reportLevel)
         {
             var winLoss = new WinLossModel(

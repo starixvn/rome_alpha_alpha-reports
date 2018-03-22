@@ -8,7 +8,7 @@
     using NSubstitute;
     using Xunit;
 
-    [Trait("Category", "RacingCommission")]
+    [Trait("Category", "Outstanding")]
     [Collection("UserCollection")]
     public class OutstandingControllerTests
     {

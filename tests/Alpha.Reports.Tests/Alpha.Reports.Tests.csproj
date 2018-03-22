@@ -127,12 +127,12 @@
       <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.3.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.3.3\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.3.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.3.4\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.2.0\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.2.2\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Utilities, Version=3.0.0.4, Culture=neutral, processorArchitecture=MSIL">
@@ -190,7 +190,6 @@
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\PagingReportProductCriteriaTests.cs" />
     <Compile Include="Criteria\GetProductsCriteriaTests.cs" />
-    <Compile Include="Criteria\RacingCommission\RacingCommissionCriteriaTests.cs" />
     <Compile Include="Criteria\PlayForFun\MasterOrAgentPlayForFunCriteriaTests.cs" />
     <Compile Include="Criteria\PlayForFun\MemberPlayForFunCriteriaTests.cs" />
     <Compile Include="Criteria\PlayForFun\PlayForFunCriteriaTests.cs" />
@@ -240,7 +239,6 @@
     <Compile Include="Models\Outstanding\OutstandingModelTests.cs" />
     <Compile Include="Models\PlayForFunProductTests.cs" />
     <Compile Include="Models\ProductsByRefTableTests.cs" />
-    <Compile Include="Models\RacingCommissionModelTests.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModelTests.cs" />
     <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModelTests.cs" />
     <Compile Include="Models\PlayForFun\PlayForFunModelTests.cs" />
@@ -277,7 +275,6 @@
     <Compile Include="Services\PlayForFunServiceImplTests.cs" />
     <Compile Include="Services\MatchWinLossDetailServiceImplTests.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />
-    <Compile Include="Services\RacingCommissionServiceImplTests.cs" />
     <Compile Include="Services\ReportDateServiceImplTests.cs" />
     <Compile Include="Services\StatementServiceImplTests.cs" />
     <Compile Include="Services\WinLossByProductServiceImplTests.cs" />

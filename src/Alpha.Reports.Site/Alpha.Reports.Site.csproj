@@ -233,12 +233,12 @@
       <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.3.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.3.3\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.3.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.3.4\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.2.0\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.2.2\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Utilities, Version=3.0.0.4, Culture=neutral, processorArchitecture=MSIL">
@@ -316,7 +316,6 @@
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
-    <TypeScriptCompile Include="assets\scripts\racingcommission\racingcommission.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinloss\matchwinloss.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-master-agent.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-member.ts" />
@@ -359,7 +358,6 @@
     <Compile Include="Controllers\MatchWinLossController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\CommissionByBettypeController.cs" />
-    <Compile Include="Controllers\RacingCommissionController.cs" />
     <Compile Include="Controllers\MatchWinLossDetailController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
     <Compile Include="Controllers\ReportLegendController.cs" />
@@ -407,9 +405,7 @@
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeHandler.cs" />
-    <Compile Include="Handlers\RacingCommission\RacingCommissionExcelHandler.cs" />
     <Compile Include="Handlers\CommissionByBettype\CommissionByBettypeWorkbook.cs" />
-    <Compile Include="Handlers\RacingCommission\RacingCommissionHandler.cs" />
     <Compile Include="Handlers\LeagueHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandler.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandler.cs" />
@@ -438,10 +434,8 @@
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
     <Compile Include="Requests\FromLast3MonthDateRangeQuery.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
-    <Compile Include="Requests\RacingCommission\RacingCommissionExcelQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeExcelQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeQuery.cs" />
-    <Compile Include="Requests\RacingCommission\RacingCommissionQuery.cs" />
     <Compile Include="Requests\Outstanding\OutstandingQuery.cs" />
     <Compile Include="Requests\MatchWinLoss\MatchWinLossExcelQuery.cs" />
     <Compile Include="Requests\FromLast18MonthDateRangeQuery.cs" />
@@ -509,8 +503,6 @@
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModel.cs" />
-    <Compile Include="ViewModels\RacingCommission\RacingCommissionFilterViewModel.cs" />
-    <Compile Include="ViewModels\RacingCommission\RacingCommissionViewModel.cs" />
     <Compile Include="ViewModels\LeaguesByCustomerViewModel.cs" />
     <Compile Include="ViewModels\Statement\StatementViewModel.cs" />
     <Compile Include="ViewModels\WinLossAnalysisChart\WinLossAnalysisChartFilterViewModel.cs" />
@@ -650,10 +642,6 @@
     <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
     <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.min.js">
       <DependentUpon>winlossbyproduct.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\racingcommission\racingcommission.js" />
-    <Content Include="assets\bundles\racingcommission\racingcommission.min.js">
-      <DependentUpon>racingcommission.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.js">
       <DependentUpon>matchwinlossdetail.js</DependentUpon>
@@ -927,9 +915,6 @@
     <Content Include="App_Data\ExcelTemplates\WinLossByProduct\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\PlayForFun\Member.xls" />
-    <Content Include="App_Data\ExcelTemplates\RacingCommission\Agent.xls" />
-    <Content Include="App_Data\ExcelTemplates\RacingCommission\Member.xls" />
-    <Content Include="App_Data\ExcelTemplates\RacingCommission\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\CommissionByBettype\Member.xls" />
@@ -973,9 +958,7 @@
     <Content Include="Views\WinLossByProduct\Filter.cshtml" />
     <Content Include="Views\WinLossByProduct\Index.cshtml" />
     <Content Include="Views\CommissionByBettype\Index.cshtml" />
-    <Content Include="Views\RacingCommission\Index.cshtml" />
     <Content Include="Views\CommissionByBettype\_CommissionByBettypeFilter.cshtml" />
-    <Content Include="Views\RacingCommission\_RacingCommissionFilter.cshtml" />
     <Content Include="Views\MatchWinLossDetail\Index.cshtml" />
     <Content Include="Views\PlayForFun\Member.cshtml" />
     <Content Include="Views\PlayForFun\MasterOrAgent.cshtml" />

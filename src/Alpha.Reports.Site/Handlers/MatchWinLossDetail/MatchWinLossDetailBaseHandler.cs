@@ -116,12 +116,7 @@
             if (data.BetType == BetTypeIdConstants.Outright)
             {
                 return $"{leagueName}_Match{data.MatchId}";
-            }
-
-            if (BetTypeHelper.IsRacing(data.BetType))
-            {
-                return $"{leagueName}_Race{data.Race}";
-            }
+            }          
 
             if (BetTypeHelper.IsNumberGame(data.BetType))
             {

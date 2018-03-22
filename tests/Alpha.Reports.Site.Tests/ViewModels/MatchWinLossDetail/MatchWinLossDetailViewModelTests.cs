@@ -173,21 +173,7 @@
 
             // Assert
             Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]
-        public void GetGroupId_RacingBetType_ReturnsCorrectTitle()
-        {
-            // Arrange
-            var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(betType: 31, showTime: "Show Time 1");
-            var expectedTitle = "Race 1";
-
-            // Act
-            var actualTitle = matchWinLossDetailViewModel.MatchName;
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
+        }        
 
         [Fact]
         public void GetGroupId_NumberGameBetType_ReturnsCorrectTitle()
@@ -201,21 +187,7 @@
 
             // Assert
             Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]
-        public void GetLeagueTitle_RacingBetType_ReturnsCorrectLeagueTitle()
-        {
-            // Arrange
-            var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(31, "Show Time 1", false, false, "League Name");
-            var expectedTitle = "Racing - League Name";
-
-            // Act
-            var actualTitle = matchWinLossDetailViewModel.LeagueName;
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
+        }       
 
         [Theory]
         [InlineData("", "Number Game")]

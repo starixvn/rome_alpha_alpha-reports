@@ -72,7 +72,6 @@
                     .Where(product => canViewProduct(product.Id))
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
-
             if (custProducts != null)
             {
                 custProducts = custProducts.Where(product => IsRemainSupportProduct(product, minReportDate));

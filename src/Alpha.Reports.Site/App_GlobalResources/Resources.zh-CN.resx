@@ -369,9 +369,6 @@
   <data name="Disabled" xml:space="preserve">
     <value>禁用</value>
   </data>
-  <data name="RacingCommission" xml:space="preserve">
-    <value>赛马佣金</value>
-  </data>
   <data name="Tote" xml:space="preserve">
     <value>体彩</value>
   </data>

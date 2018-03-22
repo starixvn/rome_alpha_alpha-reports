@@ -358,8 +358,7 @@
         }
 
         [Theory]
-        [InlineData(10, "League Name_Match1")]
-        [InlineData(31, "League Name_Race1")]
+        [InlineData(10, "League Name_Match1")]        
         [InlineData(81, "League Name_MatchCode1")]
         [InlineData(1239, "League Name_MatchId1")]
         public void GetGroupId_NotVirtualHorseRacingBetType_ReturnsCorrectId(int betType, string expectedId)
