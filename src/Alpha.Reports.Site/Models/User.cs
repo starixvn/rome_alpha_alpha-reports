@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+    using Reports.Constants;
     using Reports.Models;
     using Sunplus.Agent.Model.Entities;
 
@@ -36,7 +37,10 @@
 
         public IList<int> EnableJackpotProductIds => GetEnableProductsForGame(Jackpot);
 
-        public bool IsEnabledJackpot => EnableJackpotProductIds.Any();
+        public bool IsEnabledJackpot
+            => EnableJackpotProductIds.Count == 1 && EnableJackpotProductIds.Contains(ProductIdConstants.RNGCasino)
+                ? userSession.IsCasinoSync
+                : EnableJackpotProductIds.Any();
 
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
             => (IList<int>)HttpContext.Current.Session[HttpContext.Current.Session.SessionID + GameEnableSessionKey + gameName];
