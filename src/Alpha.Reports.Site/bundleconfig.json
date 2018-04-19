@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "outputFileName": "assets/bundles/default.css",
     "inputFiles": [
@@ -233,6 +233,26 @@
 
     "inputFiles": [
       "assets/styles/consolidation/consolidation.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/progressivecontribution/progressivecontribution.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/monthpicker.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/progressivecontribution/progressivecontribution.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/progressivecontribution/progressivecontribution.css",
+
+    "inputFiles": [
+      "assets/styles/progressivecontribution/progressivecontribution.css"
     ]
   }
 ]

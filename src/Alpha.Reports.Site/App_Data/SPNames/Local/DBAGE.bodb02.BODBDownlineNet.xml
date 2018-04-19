@@ -3,9 +3,9 @@
   <Function Name="Base Functions">
     <Setting Key="Age_SelBalanceUpDay" SpName="Age_SelBalanceUpDay" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_GetProductListByRefTable" SpName="Age_Rpt_GetProductListByRefTable" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_MatchWinloss_GetLeagueByProduct" SpName="Age_Rpt_MatchWinloss_GetLeagueByProduct" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">      
+    <Setting Key="Age_Rpt_MatchWinloss_GetLeagueByProduct" SpName="Age_Rpt_MatchWinloss_GetLeagueByProduct" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="LeagueName" ObjectProperty="Name" />
-      <Mapping DataField="SportType" ObjectProperty="SportTypeId" />      
+      <Mapping DataField="SportType" ObjectProperty="SportTypeId" />
     </Setting>
   </Function>
   <Function Name="Products">
@@ -110,5 +110,10 @@
       <Mapping DataField="company" ObjectProperty="Company" />
       <Mapping DataField="betcount" ObjectProperty="BetCount" />
     </Setting>
+  </Function>
+  <Function Name="Progressvice Games Contribution">
+    <Setting Key="Age_Rpt_ProgressiveGamesContribution_Master" SpName="Age_Rpt_ProgressiveGamesContribution_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_ProgressiveGamesContribution_Agent" SpName="Age_Rpt_ProgressiveGamesContribution_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_ProgressiveGamesContribution_Member" SpName="Age_Rpt_ProgressiveGamesContribution_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 </Functions>

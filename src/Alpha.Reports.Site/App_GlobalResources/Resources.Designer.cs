@@ -412,6 +412,33 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contribution Amount.
+        /// </summary>
+        public static string ContributionAmount {
+            get {
+                return ResourceManager.GetString("ContributionAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - The contribution amount will be rounded to 4 decimal places..
+        /// </summary>
+        public static string ContributionAmountRoundNote {
+            get {
+                return ResourceManager.GetString("ContributionAmountRoundNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contribution Share.
+        /// </summary>
+        public static string ContributionShare {
+            get {
+                return ResourceManager.GetString("ContributionShare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currency.
         /// </summary>
         public static string Currency {
@@ -1317,6 +1344,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Progressive Games Contribution.
+        /// </summary>
+        public static string ProgressiveGamesContribution {
+            get {
+                return ResourceManager.GetString("ProgressiveGamesContribution", resourceCulture);
             }
         }
         

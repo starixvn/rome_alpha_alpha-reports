@@ -14,5 +14,9 @@
   {
     "outputFile": "assets/styles/consolidation/consolidation.css",
     "inputFile": "assets/styles/consolidation/consolidation.scss"
+  },
+  {
+    "outputFile": "assets/styles/progressivecontribution/progressivecontribution.css",
+    "inputFile": "assets/styles/progressivecontribution/progressivecontribution.scss"
   }
 ]

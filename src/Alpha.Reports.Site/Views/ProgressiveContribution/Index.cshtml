@@ -1,0 +1,176 @@
+﻿@model ProgressiveContributionViewModel
+@{
+    ViewBag.Title = "Progressive Games Contribution";
+}
+@section Styles {
+    @StaticResources.RenderStyles("~/assets/bundles/progressivecontribution/progressivecontribution")
+}
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, Model.CustLevel.IsMasterOrSuperLevel(), true, Model.IsStackMode, Model.IsFilterVisible, null, null), Request.Url.Query)
+<form class="form-inline filter  @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
+    @Html.Hidden("IsFilterVisible", Model.IsFilterVisible ? "true" : "false")
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    @Html.Hidden("IsStackMode", Model.IsStackMode)
+    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+    @(Model.IsHistoricReport
+        ? MonthPicker.Render(Model.MonthPickerViewModel)
+        : DateRangePicker.Render(Model.DateRangePickerViewModel))
+    @if (Model.IsHistoricReport)
+    {
+        <div class="form-group">
+            <input type="submit" value="@Resources.Submit" class="btn-submit" />
+        </div>
+    }
+    <div id="icon-information-container" class="form-group">
+        <span id="icon-information" class="icon-information-outline"></span>
+    </div>
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+    <div class="note">
+        <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" data-is-historic-report="@Model.IsHistoricReport.ToString().ToLower()" href="#">@Model.ViewActionMessage</a>
+    </div>
+</form>
+<table id="tbl-report" class="tblRpt tblRpt-bordered tblRpt-striped alternative-row-table width-100per tablesorter tblRpt-hover tbl-progressive-contribution
+       @(Model.IsStackMode ? "stack-mode" : string.Empty)">
+    <thead>
+        <tr>
+            <th rowspan="2">@Resources.Product/@Resources.BetType</th>
+            <th rowspan="2">@Resources.Turnover</th>
+            <th rowspan="2">@Resources.ContributionAmount</th>
+            <th colspan="@Model.ContributionShareColumnsCount" class="@(Model.CustLevel.IsMasterOrSuperLevel()? "hidden-stack-mode": string.Empty)">@Resources.ContributionShare</th>
+            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            {
+                <th rowspan="2" class="visible-stack-mode col-combine">
+                    @Resources.ContributionShare
+                    <br />
+                    @if (Model.CustLevel.IsMasterLevel())
+                    {
+                        <span>(@Resources.Master/@Resources.Agent)</span>
+
+                    }
+                    else
+                    {
+                        <span>(@Resources.Super/@Resources.Master/@Resources.Agent)</span>
+                    }
+                </th>
+            }
+            <th rowspan="2">@Resources.Company</th>
+        </tr>
+        <tr class="thead-row2">
+            @if (Model.CustLevel.IsSuperLevel())
+            {
+                <th class="hidden-stack-mode">@Resources.Super</th>
+            }
+            @if (Model.CustLevel.IsMasterOrSuperLevel())
+            {
+                <th class="hidden-stack-mode">@Resources.Master</th>
+            }
+            <th class="hidden-stack-mode">@Resources.Agent</th>
+        </tr>
+    </thead>
+    @if (Model.ProgressiveContributions.Any())
+    {
+        var progressiveContributions = Model.ProgressiveContributions.ToList();
+        <tbody>
+            @foreach (var data in progressiveContributions)
+            {
+                <tr class="product-row bold" data-product-id="@data.ProductId">
+                    <td class="text-left col-username">@data.ProductName</td>
+                    @RenderProgressiveContribution(data.Total)
+                </tr>
+                if (data.ProgressiveContributions.Any())
+                {
+                    foreach (var item in data.ProgressiveContributions)
+                    {
+                        <tr class="bet-type-row">
+                            <td class="text-left col-username">@item.BetTypeName</td>
+                            @RenderProgressiveContribution(item)
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr class="tbl-footer">
+                <td class="text-left col-username">@Resources.Total</td>
+                @RenderProgressiveContribution(Model.GrandTotal)
+            </tr>
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(colspan: Model.ReportColumnsCount)
+    }
+</table>
+@ReportLegend.Render(new List<string> { Resources.ContributionAmountRoundNote })
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel", "ProgressiveContribution")">
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
+</form>
+@Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
+@Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/progressivecontribution/progressivecontribution")
+}
+@helper RenderProgressiveContribution(ProgressiveContributionByBetTypeModel data)
+{
+    <td class="col-turnover">@HtmlHelpers.FormatNumber(data.Turnover)</td>
+    <td class="col-contribution">@FormatNumber40(data.ContributionAmount)</td>
+if (Model.IsStackMode)
+{
+    if (Model.CustLevel.IsSuperLevel())
+    {
+            @RenderStackContributionNumberCell(UserLevel.Super, data.SuperContribution, data.MasterContribution, data.AgentContribution)
+    }
+    else if (Model.CustLevel.IsMasterLevel())
+    {
+            @RenderStackContributionNumberCell(UserLevel.Master, data.MasterContribution, data.AgentContribution)
+    }
+    else
+    {
+            @RenderContributionNumberCell(UserLevel.Agent, data.AgentContribution)
+    }
+}
+else
+{
+    if (Model.CustLevel.IsSuperLevel())
+    {
+            @RenderContributionNumberCell(UserLevel.Super, data.SuperContribution)
+    }
+
+    if (Model.CustLevel.IsMasterOrSuperLevel())
+    {
+            @RenderContributionNumberCell(UserLevel.Master, data.MasterContribution)
+    }
+        @RenderContributionNumberCell(UserLevel.Agent, data.AgentContribution)
+}
+
+    <td class="col-company">@FormatNumber40(data.CompanyContribution)</td>
+}
+@helper RenderContributionNumberCell(UserLevel level, decimal value)
+{
+    <td class="hidden-stack-mode col-@level.DisplayName.ToLower()-contribution-share">
+        @FormatNumber40(value)
+    </td>
+}
+@helper RenderStackContributionNumberCell(UserLevel level, params decimal[] cellValues)
+{
+    <td class="visible-stack-mode combinedcell col-@level.DisplayName.ToLower()-contribution-share-combined">
+        <ul>
+            @foreach (var cellValue in cellValues)
+            {
+                <li>@FormatNumber40(cellValue)</li>
+            }
+        </ul>
+    </td>
+}
+@helper FormatNumber40(decimal value)
+{
+    @value.ToString("#,##0.0000")
+}

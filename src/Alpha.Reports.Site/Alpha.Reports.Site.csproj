@@ -316,6 +316,7 @@
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
+    <TypeScriptCompile Include="assets\scripts\progressivecontribution\progressivecontribution.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinloss\matchwinloss.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-master-agent.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-member.ts" />
@@ -358,6 +359,7 @@
     <Compile Include="Controllers\MatchWinLossController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\CommissionByBettypeController.cs" />
+    <Compile Include="Controllers\ProgressiveContributionController.cs" />
     <Compile Include="Controllers\MatchWinLossDetailController.cs" />
     <Compile Include="Controllers\EnteredResultController.cs" />
     <Compile Include="Controllers\ReportLegendController.cs" />
@@ -381,6 +383,10 @@
     <Compile Include="Handlers\Consolidation\ConsolidationWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
     <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionBaseHandler.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionExcelHandler.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionHandler.cs" />
+    <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbook.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
     <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbook.cs" />
@@ -434,6 +440,8 @@
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
     <Compile Include="Requests\FromLast3MonthDateRangeQuery.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
+    <Compile Include="Requests\ProgressiveContribution\ProgressiveContributionExcelQuery.cs" />
+    <Compile Include="Requests\ProgressiveContribution\ProgressiveContributionQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeExcelQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeQuery.cs" />
     <Compile Include="Requests\Outstanding\OutstandingQuery.cs" />
@@ -498,6 +506,7 @@
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossFilterViewModel.cs" />
     <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
+    <Compile Include="ViewModels\ProgressiveContribution\ProgressiveContributionViewModel.cs" />
     <Compile Include="ViewModels\Statement\MemberStatementViewModel.cs" />
     <Compile Include="ViewModels\Statement\SMAStatementViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModel.cs" />
@@ -581,6 +590,8 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\core\core-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\progressivecontribution\progressivecontribution-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\progressivecontribution\progressivecontribution-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\statement\member-statement-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis-chart\winloss-analysis-chart-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\statement\sma-statement-tests.ts" />
@@ -634,6 +645,14 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.css" />
+    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />
+    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.css">
+      <DependentUpon>progressivecontribution.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.js">
+      <DependentUpon>progressivecontribution.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.js" />
     <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.min.js">
@@ -746,6 +765,12 @@
     </Content>
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\progressivecontribution\progressivecontribution.css">
+      <DependentUpon>progressivecontribution.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\progressivecontribution\progressivecontribution.min.css">
+      <DependentUpon>progressivecontribution.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
@@ -933,6 +958,10 @@
     <Content Include="App_Data\ExcelTemplates\Consolidation\ConsolidationByUsername.xls" />
     <Content Include="assets\styles\consolidation\consolidation.scss" />
     <Content Include="App_Data\activitytracking.json" />
+    <Content Include="assets\styles\progressivecontribution\progressivecontribution.scss" />
+    <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Member.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -977,6 +1006,7 @@
     <Content Include="Views\Consolidation\Filter.cshtml" />
     <Content Include="Views\WinLossDetail\ReportData.cshtml" />
     <Content Include="Views\CommissionByBettype\Guidelines.cshtml" />
+    <Content Include="Views\ProgressiveContribution\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1088,10 +1118,11 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

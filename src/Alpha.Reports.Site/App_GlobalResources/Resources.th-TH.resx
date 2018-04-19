@@ -634,4 +634,16 @@
   <data name="Lucky3GameNo" xml:space="preserve">
     <value>ลัคกี้3 หมายเลขเกมส์</value>
   </data>
+  <data name="ProgressiveGamesContribution" xml:space="preserve">
+    <value>กองทุนรวมสำหรับเกมส์แจ๊คพ็อต</value>
+  </data>
+  <data name="ContributionAmount" xml:space="preserve">
+    <value>ยอดกองทุนรวม</value>
+  </data>
+  <data name="ContributionShare" xml:space="preserve">
+    <value>ส่วนแบ่งกองทุนรวม</value>
+  </data>
+  <data name="ContributionAmountRoundNote" xml:space="preserve">
+    <value>- ยอดกองทุนสมทบจะถูกปัดเศษทศนิยมเป็น 4 ตำแหน่ง</value>
+  </data>
 </root>

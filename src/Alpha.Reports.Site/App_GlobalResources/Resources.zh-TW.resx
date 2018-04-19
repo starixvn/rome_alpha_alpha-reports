@@ -633,4 +633,16 @@
   <data name="Lucky3GameNo" xml:space="preserve">
     <value>幸运3比賽場次</value>
   </data>
+  <data name="ProgressiveGamesContribution" xml:space="preserve">
+    <value>積寶遊戲貢獻</value>
+  </data>
+  <data name="ContributionAmount" xml:space="preserve">
+    <value>貢獻總額</value>
+  </data>
+  <data name="ContributionShare" xml:space="preserve">
+    <value>貢獻份額</value>
+  </data>
+  <data name="ContributionAmountRoundNote" xml:space="preserve">
+    <value>- 貢獻金額將會以四個小數點淨值。 </value>
+  </data>
 </root>
