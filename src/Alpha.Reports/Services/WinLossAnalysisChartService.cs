@@ -59,7 +59,7 @@
             IEnumerable<WinLossAnalysisChartModel> winloss, WinLossAnalysisChartParam param)
         {
             var winlossToList = winloss.ToList();
-            for (var date = param.FromDate; date < param.ToDate; date = date.AddMonths(1))
+            for (var date = param.ToDate; date >= param.FromDate; date = date.AddMonths(-1))
             {
                 var winlossDate = date.ToString("yyyy-MM");
                 var isNotExisted = !winlossToList.Any(i => i.WinLossDate.Equals(winlossDate));
