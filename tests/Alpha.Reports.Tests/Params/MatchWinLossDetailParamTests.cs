@@ -29,6 +29,7 @@
                 anyValueCreator.Create<int>(),
                 DateTime.MinValue,
                 anyValueCreator.Create<DateTime>(),
+                DateTime.MinValue,
                 anyValueCreator.Create<IEnumerable<string>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
@@ -50,6 +51,7 @@
                 anyValueCreator.Create<int>(),
                 fromDate,
                 anyValueCreator.Create<DateTime>(),
+                DateTime.MinValue,
                 anyValueCreator.Create<IEnumerable<string>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());
@@ -69,6 +71,7 @@
             var param = new MatchWinLossDetailParam(
                 anyValueCreator.Create<int>(),
                 anyValueCreator.Create<DateTime>(),
+                DateTime.MinValue,
                 DateTime.MinValue,
                 anyValueCreator.Create<IEnumerable<string>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
@@ -91,6 +94,7 @@
                 anyValueCreator.Create<int>(),
                 anyValueCreator.Create<DateTime>(),
                 toDate,
+                DateTime.MinValue,
                 anyValueCreator.Create<IEnumerable<string>>(),
                 anyValueCreator.Create<IEnumerable<int>>(),
                 anyValueCreator.Create<UserLevel>());

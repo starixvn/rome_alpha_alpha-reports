@@ -9,25 +9,22 @@
         protected SupportedHistoryReportParam(
             DateTime fromDate,
             DateTime toDate,
+            DateTime limitedDate,
             bool isHistoryReport)
         {
             IsHistoryReport = isHistoryReport;
 
-            if (fromDate == DateTime.MinValue)
-            {
-                FromDate = isHistoryReport ? SystemTime.Today.FirstDayOfMonth() : SystemTime.Today;
-            }
-            else
-            {
-                FromDate = fromDate;
-            }
+            FromDate = fromDate == DateTime.MinValue ? isHistoryReport ? SystemTime.Today.FirstDayOfMonth() : SystemTime.Today : fromDate;
 
             ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
+            LimitedDateToShowInfo = limitedDate;
         }
 
         public DateTime FromDate { get; }
 
         public DateTime ToDate { get; }
+
+        public DateTime LimitedDateToShowInfo { get; }
 
         public bool IsHistoryReport { get; }
     }

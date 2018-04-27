@@ -55,6 +55,7 @@
                 0,
                 DateTime.Now,
                 DateTime.Now,
+                DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 UserLevel.Super);
 
@@ -78,6 +79,7 @@
                 0,
                 DateTime.Now,
                 DateTime.Now,
+                DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 UserLevel.Super);
 
@@ -98,6 +100,28 @@
 
             // Assert
             Assert.True(compareLogic.Compare(expectedData, actualData).AreEqual);
+        }
+
+        [Fact]
+        public void GetProgressiveContributions_UserIsInLimitedDateRange_UseLimitedDate()
+        {
+            // Arrange
+            var limitedDate = DateTime.Today.AddDays(1);
+            var param = new ProgressiveContributionParam(
+                0,
+                DateTime.Now,
+                DateTime.Now.AddDays(1),
+                limitedDate,
+                Enumerable.Empty<int>(),
+                UserLevel.Super);  
+
+            // Act
+            progressiveContributionService.GetProgressiveContributions(param);
+
+            // Assert
+            progressiveContributionDataAccess
+                .Received()
+                .GetProgressiveContributions(Arg.Is<ProgressiveContributionCriteria>(i => i.FromDate == limitedDate));
         }
     }
 }

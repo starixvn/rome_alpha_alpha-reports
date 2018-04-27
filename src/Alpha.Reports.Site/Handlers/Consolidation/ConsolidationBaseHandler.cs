@@ -57,7 +57,7 @@
             return new GetConsolidationParam(
                  message.CustId,
                  message.UserSelectedCurrencyId,
-                 message.FromDate,
+                 message.FromDate.GetLaterDate(message.LimitedDateToShowInfo),
                  message.ToDate,
                  validUserSelectedProductIds);
         }
@@ -146,6 +146,7 @@
                 query.PageSize,
                 query.FromDate,
                 query.ToDate,
+                query.LimitedDateToShowInfo,
                 validUserSelectedProductIds,
                 query.CustLevel,
                 query.SortPropertyName,

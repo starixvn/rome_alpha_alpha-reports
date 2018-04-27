@@ -6,6 +6,7 @@
     using Configurations;
     using Criteria.WinLoss;
     using DataAccesses;
+    using Extensions;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models.Winloss;
@@ -67,7 +68,7 @@
 
             var criteria = new WinLossCriteria(
                 param.CustId,
-                param.FromDate,
+                param.FromDate.GetLaterDate(param.LimitedDateToShowInfo),
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),

@@ -23,18 +23,21 @@
             }
 
             var matchWinLoss = new List<MatchWinLossDetailModel>();
-            var isAgent = criteria.ReportLevel.IsAgentLevel();
-            var isSuper = criteria.ReportLevel.IsSuperLevel();
-
-            using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            if (criteria.IsValid())
             {
-                using (var reader = db.ExecuteReader(criteria))
+                var isAgent = criteria.ReportLevel.IsAgentLevel();
+                var isSuper = criteria.ReportLevel.IsSuperLevel();
+
+                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
                 {
-                    if (reader != null)
+                    using (var reader = db.ExecuteReader(criteria))
                     {
-                        while (reader.Read())
+                        if (reader != null)
                         {
-                            matchWinLoss.Add(BuildMatchWinLossDetailModel(reader, isAgent, isSuper));
+                            while (reader.Read())
+                            {
+                                matchWinLoss.Add(BuildMatchWinLossDetailModel(reader, isAgent, isSuper));
+                            }
                         }
                     }
                 }

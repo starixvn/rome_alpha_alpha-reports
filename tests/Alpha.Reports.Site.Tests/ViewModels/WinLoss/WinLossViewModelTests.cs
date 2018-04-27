@@ -119,7 +119,7 @@
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
             message.IsHistoricReport = false;
-            var winlossParam = new WinLossParam(1, fromDate, toDate, new List<int> { 1 }, UserLevel.Agent, false);
+            var winlossParam = new WinLossParam(1, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, UserLevel.Agent, false);
             var winlossViewModel = CreateWinLossViewModel(message, winlossParam);
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
@@ -153,7 +153,7 @@
             var message = CreateWinlossQuery(custLevelId);
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
-            var winlossParam = new WinLossParam(1, fromDate, toDate, new List<int> { 1 }, UserLevel.Agent, false);
+            var winlossParam = new WinLossParam(1, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, UserLevel.Agent, false);
             var winlossViewModel = new WinLossViewModel(
                             Enumerable.Empty<WinLossModel>(),
                             fixture.Create<WinLossModel>(),

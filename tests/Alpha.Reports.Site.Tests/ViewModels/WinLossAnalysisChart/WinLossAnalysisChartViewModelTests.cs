@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Tests.ViewModels.WinLossAnalysisChart
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
@@ -40,6 +41,7 @@
                 message.CustId,
                 message.FromDate,
                 message.ToDate,
+                DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 message.ViewerLevel);
             var viewModel = new WinLossAnalysisChartViewModel(reportData, message, param, Enumerable.Empty<SelectListItem>());

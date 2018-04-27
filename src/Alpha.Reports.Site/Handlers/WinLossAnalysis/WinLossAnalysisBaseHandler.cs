@@ -38,6 +38,7 @@
                  message.ReportTypeId,
                  message.FromDate,
                  message.ToDate,
+                 message.LimitedDateToShowInfo,
                  validUserSelectedProductIds,
                  message.CustLevel);
         }

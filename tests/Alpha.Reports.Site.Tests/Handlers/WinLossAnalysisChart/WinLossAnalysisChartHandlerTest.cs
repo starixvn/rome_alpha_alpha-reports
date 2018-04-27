@@ -80,6 +80,7 @@
                 0,
                 SystemTime.Today.AddMonths(-3).FirstDayOfMonth(),
                 SystemTime.Today.AddMonths(-1).LastDayOfMonth(),
+                DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 message.CustLevel);
 

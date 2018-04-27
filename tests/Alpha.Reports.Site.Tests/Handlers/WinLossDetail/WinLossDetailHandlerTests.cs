@@ -82,6 +82,7 @@
                 0,
                 DefaultVariablesTest.CurrentDate,
                 DefaultVariablesTest.CurrentDate,
+                DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 message.CustLevel,
                 "CustName",

@@ -50,6 +50,7 @@
                 0,
                 DateTime.Now,
                 DateTime.Now,
+                DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 UserLevel.Super,
                 string.Empty,
@@ -66,6 +67,31 @@
 
             // Assert
             Assert.True(compareLogic.Compare(expectedReportData, actualReportData).AreEqual);
+        }
+
+        [Fact]
+        public void GetWinLossDetail_UserIsInLimitedDateRange_UseLimitedDate()
+        {
+            // Arrange
+            var limitedDate = DateTime.Today.AddDays(1);
+            WinLossDetailParam param = new WinLossDetailParam(
+                0,
+                0,
+                0,
+                DateTime.Now,
+                 DateTime.Today.AddDays(1),
+                limitedDate,
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                string.Empty,
+                false,
+                false);            
+
+            // Act
+            winLossDetailServiceImpl.GetWinLossDetail(param);
+
+            // Assert
+            dataAccess.Received().GetData(Arg.Is<WinLossDetailCriteria>(i => i.FromDate == limitedDate));
         }
     }
 }

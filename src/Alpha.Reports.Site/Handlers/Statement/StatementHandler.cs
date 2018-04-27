@@ -20,7 +20,7 @@
 
         public SMAStatementViewModel Handle(SMAStatementQuery message)
         {
-            var models = reportService.GetStatements(new GetStatementParam(message.CustId, message.FromDate, message.ToDate));
+            var models = reportService.GetStatements(new GetStatementParam(message.CustId, message.FromDate, message.ToDate, message.LimitedDateToShowInfo));
 
             return new SMAStatementViewModel(message, models);
         }
@@ -34,7 +34,7 @@
 
         public MemberStatementViewModel Handle(MemberStatementQuery message)
         {
-            var models = reportService.GetStatements(new GetStatementParam(message.CustId, message.FromDate, message.ToDate));
+            var models = reportService.GetStatements(new GetStatementParam(message.CustId, message.FromDate, message.ToDate, message.LimitedDateToShowInfo));
 
             return new MemberStatementViewModel(message, models);
         }

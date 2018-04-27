@@ -18,6 +18,7 @@
                 1,
                 DateTime.MinValue,
                 DateTime.MinValue,
+                DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 UserLevel.Agent,
                 isHistoryReport);

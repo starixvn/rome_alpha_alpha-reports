@@ -28,6 +28,7 @@
                 reportType: 2, 
                 fromDate: currentDate, 
                 toDate: currentDate, 
+                limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(), 
                 custLevel: UserLevel.Super);
 
@@ -47,6 +48,7 @@
                 reportType: 2,
                 fromDate: DateTime.MinValue,
                 toDate: currentDate,
+                limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(),
                 custLevel: UserLevel.Super);
 
@@ -68,6 +70,7 @@
                 reportType: 2,
                 fromDate: DateTime.MinValue,
                 toDate: DateTime.MinValue,
+                limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(),
                 custLevel: UserLevel.Super);
 
@@ -91,6 +94,7 @@
                 reportType: 2,
                 fromDate: DateTime.MinValue,
                 toDate: toDate,
+                limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(),
                 custLevel: UserLevel.Super);
 
@@ -112,6 +116,7 @@
                 reportType: 2,
                 fromDate: DateTime.MinValue,
                 toDate: DateTime.MinValue,
+                limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(),
                 custLevel: UserLevel.Super);
 
@@ -138,6 +143,7 @@
                 reportType: 2,
                 fromDate: DateTime.MinValue,
                 toDate: DateTime.MinValue,
+                limitedDate: DateTime.MinValue,
                 userSelectedProductIds: userSelectedProductIdList,
                 custLevel: UserLevel.Super);
 

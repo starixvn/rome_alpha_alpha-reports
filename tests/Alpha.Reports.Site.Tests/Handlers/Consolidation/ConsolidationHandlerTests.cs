@@ -56,7 +56,7 @@
             {
                 new ConsolidationByUsername(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
             };
-            
+
             reportService.GetConsolidationByUsername(Arg.Any<GetConsolidationParam>()).Returns(data);
 
             var message = new ConsolidationByUsernameQuery(user)
@@ -87,6 +87,27 @@
 
             // Assert
             AssertExtension.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Fact]
+        public void HandleConsolidationByUsernameQuery_UserIsInLimitedDateRange_UseLimitedDate()
+        {
+            // Arrange
+            var limitedDate = DateTime.Today.AddDays(1);
+            var message = new ConsolidationByUsernameQuery(user)
+            {
+                UserSelectedProductIds = "1",
+                UserSelectedCurrencyId = 2,
+                FromDate = DateTime.Today,
+                ToDate = DateTime.Today.AddDays(1),
+                LimitedDateToShowInfo = limitedDate
+            };                           
+            
+            // Act
+            consolidationHandler.Handle(message);
+
+            // Assert
+            reportService.Received().GetConsolidationByUsername(Arg.Is<GetConsolidationParam>(i => i.FromDate == limitedDate));
         }
 
         [Fact]
@@ -297,7 +318,7 @@
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
                 FromDate = message.FromDate,
                 ToDate = message.ToDate,
-
+                LimitedDateToShowInfo = DateTime.MinValue,
                 CustId = message.CustId,
                 CustName = message.CustName,
                 CustLevelId = message.CustLevelId,
@@ -310,6 +331,7 @@
                 winLossDetailQuery.PageSize,
                 winLossDetailQuery.FromDate,
                 winLossDetailQuery.ToDate,
+                winLossDetailQuery.LimitedDateToShowInfo,
                 new List<int> { 1 },
                 winLossDetailQuery.CustLevel,
                 winLossDetailQuery.SortPropertyName,

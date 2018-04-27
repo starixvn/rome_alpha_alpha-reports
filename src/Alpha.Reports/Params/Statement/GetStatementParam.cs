@@ -7,11 +7,13 @@
         public GetStatementParam(
             int custId,
             DateTime fromDate,
-            DateTime toDate)
+            DateTime toDate,
+            DateTime limitedDate)
         {
             CustId = custId;
             FromDate = fromDate;
             ToDate = toDate;
+            LimitedDateToShowInfo = limitedDate;
         }
 
         public int CustId { get; }
@@ -19,5 +21,7 @@
         public DateTime FromDate { get; }
 
         public DateTime ToDate { get; }
+
+        public DateTime LimitedDateToShowInfo { get; }
     }
 }

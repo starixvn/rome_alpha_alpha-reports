@@ -44,14 +44,14 @@
         {
             // Arrange
             var winLossDetailCriteria = new WinLossDetailCriteria(
+                1,
+                1,
                 0,
-                0,
-                0,
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                null,
+                new List<int> { 1, 2 },
                 UserLevel.Super);
 
             var dataSet = WinLossDetailDatabase.MasterWinLoss.CreateDataReader();
@@ -65,7 +65,7 @@
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
-                0,
+                1,
                 0,
                 0,
                 new WinLossDetailModel(0, "Total", 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), new NetWinLoss(29, 210)));
@@ -82,14 +82,14 @@
         {
             // Arrange
             var winLossDetailCriteria = new WinLossDetailCriteria(
+                1,
+                1,
                 0,
-                0,
-                0,
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                null,
+                new List<int> { 1, 2 },
                 UserLevel.Master);
 
             var dataSet = WinLossDetailDatabase.AgentWinLoss.CreateDataReader();
@@ -103,7 +103,7 @@
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
-                0,
+                1,
                 0,
                 0,
                 new WinLossDetailModel(0, "Total", 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), new NetWinLoss(27, 28), null));
@@ -120,14 +120,14 @@
         {
             // Arrange
             var winLossDetailCriteria = new WinLossDetailCriteria(
+                1,
+                1,
                 0,
-                0,
-                0,
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                null,
+                new List<int> { 1, 2 },
                 UserLevel.Agent);
 
             var dataSet = WinLossDetailDatabase.MemberWinLoss.CreateDataReader();
@@ -141,7 +141,7 @@
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
-                0,
+                1,
                 0,
                 0,
                 new WinLossDetailModel(0, "Total", 22, 21, 20, 211, new NetWinLoss(23, 24), new NetWinLoss(25, 26), null, null));
@@ -190,14 +190,14 @@
         {
             // Arrange
             var winLossDetailCriteria = new WinLossDetailCriteria(
+                1,
+                1,
                 0,
-                0,
-                0,
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                null,
+                new List<int> { 1, 2 },
                 UserLevel.Super);
 
             var dataSet = WinLossDetailDatabase.MasterWinLossWinNoTotalTable.CreateDataReader();
@@ -211,7 +211,7 @@
 
             var expectedData = new PagedReportData<WinLossDetailModel>(
                 winLossDetails,
-                0,
+                1,
                 0,
                 0,
                 new WinLossDetailModel());

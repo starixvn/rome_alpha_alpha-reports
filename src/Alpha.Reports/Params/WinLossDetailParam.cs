@@ -13,11 +13,12 @@
             int pageSize,
             DateTime fromDate,
             DateTime toDate,
+            DateTime limitedDate,
             IEnumerable<int> userSelectedProductIds,
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
-            bool isHistoricReport) : base(custId, fromDate, toDate, userSelectedProductIds, reportLevel, isHistoricReport)
+            bool isHistoricReport) : base(custId, fromDate, toDate, limitedDate, userSelectedProductIds, reportLevel, isHistoricReport)
         {
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;

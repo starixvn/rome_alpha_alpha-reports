@@ -141,7 +141,7 @@
             viewModel.BuildDrillDownLink(
                 "drilldownUrl",
                 "drilldownFromType",
-                null,
+                "1",
                 drilldownFromDate,
                 anyValueCreatorFixture.Create<ConsolidationByUsernameViewModel>());
 

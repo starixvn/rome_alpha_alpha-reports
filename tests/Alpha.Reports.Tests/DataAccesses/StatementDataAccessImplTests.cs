@@ -53,7 +53,7 @@
         public void GetData_HasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var criteria = new GetStatementCriteria(0, SystemTime.Today, SystemTime.Today, SystemTime.Today, string.Empty);
+            var criteria = new GetStatementCriteria(1, SystemTime.Today, SystemTime.Today, SystemTime.Today, string.Empty);
 
             var dataSet = StatementDatabase.StatementData.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<Hashtable>()).Returns(dataSet);

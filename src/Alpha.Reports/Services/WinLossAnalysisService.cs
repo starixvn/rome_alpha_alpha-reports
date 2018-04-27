@@ -5,6 +5,7 @@
     using System.Linq;
     using Criteria.WinLossAnalysis;
     using DataAccesses;
+    using Extensions;
     using Models.WinLossAnalysis;
     using Params;
 
@@ -42,7 +43,7 @@
             var criteria = new WinLossAnalysisCriteria(
                                     param.CustId,
                                     param.ReportTypeId,
-                                    param.FromDate,
+                                    param.FromDate.GetLaterDate(param.LimitedDateToShowInfo),
                                     param.ToDate,
                                     reportDateService.GetBalanceUpDay(),
                                     reportDateService.GetMoveBetsDay(),

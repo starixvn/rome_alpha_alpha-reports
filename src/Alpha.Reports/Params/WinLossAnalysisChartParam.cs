@@ -12,6 +12,7 @@
             int custId,
             DateTime fromDate,
             DateTime toDate,
+            DateTime limitedDate,
             IEnumerable<int> userSelectedProductIds,
             UserLevel custLevel)
         {
@@ -20,6 +21,7 @@
             FromDate = fromDate == DateTime.MinValue ? SystemTime.Today.AddMonths(-2).FirstDayOfMonth() : fromDate.FirstDayOfMonth();
             ToDate = (toDate == DateTime.MinValue || toDate.IsSameMonthWith(SystemTime.Today))
                 ? SystemTime.Today : toDate.LastDayOfMonth();
+            LimitedDateToShowInfo = limitedDate;
             UserSelectedProductIds = userSelectedProductIds;
         }
 
@@ -32,5 +34,7 @@
         public IEnumerable<int> UserSelectedProductIds { get; }
 
         public UserLevel CustLevel { get; }
+
+        public DateTime LimitedDateToShowInfo { get; internal set; }
     }
 }

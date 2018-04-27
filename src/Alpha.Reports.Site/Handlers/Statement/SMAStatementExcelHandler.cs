@@ -24,7 +24,7 @@
 
         public ExcelFileViewModel Handle(SMAStatementExcelQuery message)
         {
-            var models = reportService.GetStatements(new GetStatementParam(message.CustId, message.FromDate, message.ToDate));
+            var models = reportService.GetStatements(new GetStatementParam(message.CustId, message.FromDate, message.ToDate, message.LimitedDateToShowInfo));
 
             var fileContent = workbook
                 .UseTemplate(GetTemplateInfo())

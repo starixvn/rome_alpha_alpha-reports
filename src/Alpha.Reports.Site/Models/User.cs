@@ -1,8 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
+    using Constants;
     using Reports.Constants;
     using Reports.Models;
     using Sunplus.Agent.Model.Entities;
@@ -10,7 +11,6 @@
     public class User : IUser
     {
         private const string Jackpot = "Jackpot";
-        private const string GameEnableSessionKey = "_GameEnable_";
 
         private readonly IUserSession userSession;
 
@@ -42,7 +42,9 @@
                 ? userSession.IsCasinoSync
                 : EnableJackpotProductIds.Any();
 
+        public DateTime LimitedDateToShowInfo => userSession.GetProperty<DateTime>(SessionKey.CustomerDatelimit);
+
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
-            => (IList<int>)HttpContext.Current.Session[HttpContext.Current.Session.SessionID + GameEnableSessionKey + gameName];
+            => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName);
     }
 }

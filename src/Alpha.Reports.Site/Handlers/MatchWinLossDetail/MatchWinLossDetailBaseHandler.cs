@@ -50,6 +50,7 @@
                  query.CustId,
                  query.FromDate,
                  query.ToDate,
+                 query.LimitedDateToShowInfo,
                   query.UserSelectedLeagueIds.ToListString(),
                  validUserSelectedProductIds,
                  query.CustLevel);
@@ -116,7 +117,7 @@
             if (data.BetType == BetTypeIdConstants.Outright)
             {
                 return $"{leagueName}_Match{data.MatchId}";
-            }          
+            }
 
             if (BetTypeHelper.IsNumberGame(data.BetType))
             {
