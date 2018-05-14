@@ -42,7 +42,7 @@
             {
                 var rawData = statementRepository.GetStatements(new GetStatementCriteria(
                     param.CustId,
-                    timeRange.FromDate.GetLaterDate(param.LimitedDateToShowInfo),
+                    timeRange.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
                     timeRange.ToDate,
                     balanceUpDay,
                     reportDateService.GetStoreMappingSuffix(timeRange.FromDate)));

@@ -52,7 +52,7 @@
 
             var criteria = new MatchWinLossDetailCriteria(
                 param.CustId,
-                param.FromDate.GetLaterDate(param.LimitedDate),
+                param.FromDate.GetGreaterDate(param.LimitedDate),
                 param.ToDate,
                 reportDateService.GetMoveBetsDay(),
                 validUserSelectedProductIds,

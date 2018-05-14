@@ -43,7 +43,7 @@
                 param.CustId,
                 param.PageIndex,
                 param.PageSize,
-                param.FromDate.GetLaterDate(param.LimitedDateToShowInfo),
+                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),

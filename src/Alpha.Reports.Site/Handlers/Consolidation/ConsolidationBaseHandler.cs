@@ -57,7 +57,7 @@
             return new GetConsolidationParam(
                  message.CustId,
                  message.UserSelectedCurrencyId,
-                 message.FromDate.GetLaterDate(message.LimitedDateToShowInfo),
+                 message.FromDate.GetGreaterDate(message.LimitedDateToShowInfo),
                  message.ToDate,
                  validUserSelectedProductIds);
         }

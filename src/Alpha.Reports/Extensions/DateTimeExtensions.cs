@@ -43,7 +43,7 @@
         private static int DaysInMonth(this DateTime dateTime)
             => DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
 
-        public static DateTime GetLaterDate(this DateTime fromDate, DateTime limitedDate)
+        public static DateTime GetGreaterDate(this DateTime fromDate, DateTime limitedDate)
             => fromDate < limitedDate ? limitedDate : fromDate;
     }
 }

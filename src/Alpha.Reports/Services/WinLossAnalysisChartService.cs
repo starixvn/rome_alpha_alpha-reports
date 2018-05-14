@@ -41,7 +41,7 @@
             {
                 var criteria = new WinLossAnalysisChartCriteria(
                                         param.CustId,
-                                        param.FromDate.GetLaterDate(param.LimitedDateToShowInfo),
+                                        param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
                                         param.ToDate,
                                         reportDateService.GetBalanceUpDay(),
                                         reportDateService.GetMoveBetsDay(),
