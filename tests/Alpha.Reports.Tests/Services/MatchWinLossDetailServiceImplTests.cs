@@ -65,6 +65,7 @@
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariablesTest.CurrentDate,
                 DefaultVariablesTest.CurrentDate,
+                DateTime.MinValue,
                 new List<string> { "123_0", "22_0" },
                 productIds.ToListInt(),
                 anyValueCreatorFixture.Create<UserLevel>());
@@ -95,6 +96,7 @@
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariablesTest.CurrentDate,
                 DefaultVariablesTest.CurrentDate,
+                DateTime.MinValue,
                 anyValueCreatorFixture.Create<IEnumerable<string>>(),
                 anyValueCreatorFixture.Create<IEnumerable<int>>(),
                 anyValueCreatorFixture.Create<UserLevel>());
@@ -112,6 +114,27 @@
 
             // Assert
             AssertExtension.Equal(expectedMatchWinLossModels, actualMatchWinLossModels);
+        }
+
+        [Fact]
+        public void GetMatchWinLossDetail_UserIsInLimitedDateRange_UseLimitedDate()
+        {
+            // Arrage
+            var limitedDate = DefaultVariablesTest.CurrentDate.AddDays(1);
+            var param = new MatchWinLossDetailParam(
+                anyValueCreatorFixture.Create<int>(),
+                DefaultVariablesTest.CurrentDate,
+                DefaultVariablesTest.CurrentDate.AddDays(1),
+                limitedDate,
+                anyValueCreatorFixture.Create<IEnumerable<string>>(),
+                anyValueCreatorFixture.Create<IEnumerable<int>>(),
+                anyValueCreatorFixture.Create<UserLevel>());            
+
+            // Act
+            matchWinLossDetailServiceImpl.GetMatchWinLossDetail(param);
+
+            // Assert
+            dataAccess.Received().GetData(Arg.Is<MatchWinLossDetailCriteria>(i => i.FromDate == limitedDate));
         }
 
         [Fact]

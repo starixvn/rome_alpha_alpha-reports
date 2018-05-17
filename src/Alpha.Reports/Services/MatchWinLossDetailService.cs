@@ -5,6 +5,7 @@
     using System.Linq;
     using Criteria.MatchWinLossDetail;
     using DataAccesses;
+    using Extensions;
     using Fanex.Data.Repository;
     using Models;
     using Models.MatchWinLossDetail;
@@ -51,7 +52,7 @@
 
             var criteria = new MatchWinLossDetailCriteria(
                 param.CustId,
-                param.FromDate,
+                param.FromDate.GetGreaterDate(param.LimitedDate),
                 param.ToDate,
                 reportDateService.GetMoveBetsDay(),
                 validUserSelectedProductIds,

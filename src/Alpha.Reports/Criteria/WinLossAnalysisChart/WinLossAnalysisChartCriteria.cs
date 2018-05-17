@@ -11,14 +11,14 @@
         public WinLossAnalysisChartCriteria(
             int custId,
             DateTime fromDate,
-            DateTime toDate,
+            DateTime toDate,            
             DateTime balanceUpDay,
             DateTime moveBetsDay,
             IEnumerable<int> productIds,
             UserLevel reportLevel)
             : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
         {
-            ReportLevel = reportLevel;
+            ReportLevel = reportLevel;            
         }
 
         [SpParam(Ignored = true)]
@@ -29,8 +29,6 @@
             ? "Age_Chart_WinlossAnalysis_Member"
             : ReportLevel.IsMasterLevel()
             ? "Age_Chart_WinlossAnalysis_Agent"
-            : "Age_Chart_WinlossAnalysis_Master";
-
-        public override bool IsValid() => base.IsValid() && ToDate.GetMonthDiff(FromDate) >= 2;
+            : "Age_Chart_WinlossAnalysis_Master";        
     }
 }

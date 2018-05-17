@@ -41,6 +41,7 @@
                 message.CustId,
                 message.FromDate,
                 message.ToDate,
+                message.LimitedDateToShowInfo,
                 validUserSelectedProductIds,
                 message.CustLevel);
 

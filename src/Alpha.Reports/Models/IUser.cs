@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Models
 {
+    using System;
     using System.Collections.Generic;
 
     public interface IUser
@@ -23,5 +24,7 @@
         IList<int> EnableJackpotProductIds { get; }
 
         bool GetHideProduct(int productId);
+
+        DateTime LimitedDateToShowInfo { get; }
     }
 }

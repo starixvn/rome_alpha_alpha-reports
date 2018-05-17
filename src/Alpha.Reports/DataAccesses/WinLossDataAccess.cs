@@ -24,16 +24,18 @@
             }
 
             var winlossData = new List<WinLossModel>();
-
-            using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            if (criteria.IsValid())
             {
-                using (var reader = db.ExecuteReader(criteria))
+                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
                 {
-                    if (reader != null)
+                    using (var reader = db.ExecuteReader(criteria))
                     {
-                        while (reader.Read())
+                        if (reader != null)
                         {
-                            winlossData.Add(BuildWinLoss(reader, criteria.ReportLevel));
+                            while (reader.Read())
+                            {
+                                winlossData.Add(BuildWinLoss(reader, criteria.ReportLevel));
+                            }
                         }
                     }
                 }

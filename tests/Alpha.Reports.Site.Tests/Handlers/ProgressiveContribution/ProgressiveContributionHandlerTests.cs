@@ -56,6 +56,7 @@
                 message.CustId,
                 message.FromDate,
                 message.ToDate,
+                message.LimitedDateToShowInfo,
                 Enumerable.Empty<int>(),
                 message.CustLevel);
 

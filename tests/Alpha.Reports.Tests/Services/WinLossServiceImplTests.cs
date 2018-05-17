@@ -63,6 +63,7 @@
                 0,
                 currentDate,
                 currentDate,
+                DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 UserLevel.Super,
                 false);
@@ -86,6 +87,7 @@
                 0,
                 currentDate,
                 currentDate,
+                DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 UserLevel.Super,
                 false);
@@ -95,6 +97,27 @@
 
             // Assert
             dataAccess.Received().GetWinLoss(Arg.Any<WinLossCriteria>());
+        }
+
+        [Fact]
+        public void GetWinLoss_UserIsInLimitedDateRange_UseLimitedDate()
+        {
+            // Arrange
+            var limitedDate = currentDate.AddDays(1);
+            var param = new WinLossParam(
+                0,
+                currentDate,
+                currentDate.AddDays(1),
+                limitedDate,
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                false);
+
+            // Act
+            winLossServiceImpl.GetWinLoss(param);
+
+            // Assert
+            dataAccess.Received().GetWinLoss(Arg.Is<WinLossCriteria>(i => i.FromDate == limitedDate));
         }
 
         [Fact]

@@ -26,23 +26,7 @@
 
             // Assert
             Assert.Equal(expectedSettingKey, actualSettingKey);
-        }
-
-        [Fact]
-        public void IsValid_MonthRangeIsLessThan3Months_ReturnFalse()
-        {
-            // Arrange
-            var userSelectedProductIdList = new List<int> { 1, 2 };
-            var fromDate = DefaultVariablesTest.CurrentDate.AddMonths(-1);
-            var toDate = DefaultVariablesTest.CurrentDate;
-            var criteria = new WinLossAnalysisChartCriteria(1, fromDate, toDate, DateTime.Now, DateTime.Now, userSelectedProductIdList, UserLevel.Super);
-
-            // Act
-            var isValid = criteria.IsValid();
-
-            // Assert
-            Assert.False(isValid);
-        }
+        }       
 
         [Fact]
         public void IsValid_MonthRangeIsEqual3Months_ReturnTrue()

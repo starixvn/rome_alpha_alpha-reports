@@ -39,6 +39,7 @@
                  message.PageSize,
                  message.FromDate,
                  message.ToDate,
+                 message.LimitedDateToShowInfo,
                  validUserSelectedProductIds,
                  userLevel,
                  message.SortPropertyName,

@@ -65,7 +65,7 @@
         public void GetStatements_Always_ReturnsCorrectData()
         {
             // Arrange
-            var param = new GetStatementParam(0, new DateTime(2017, 3, 29), new DateTime(2017, 4, 13));
+            var param = new GetStatementParam(0, new DateTime(2017, 3, 29), new DateTime(2017, 4, 13), DateTime.MinValue);
             reportDateService.GetTimeRangesToGetReportDataBetweenTables(
                 Arg.Is<DateTime>(date => date == new DateTime(2017, 3, 29)),
                 Arg.Is<DateTime>(date => date == new DateTime(2017, 4, 13)))
@@ -97,6 +97,37 @@
 
             // Assert
             AssertExtension.Equal(expectedModels, actualModels);
+        }
+
+        [Fact]
+        public void GetStatements_UserIsInLimitedDateRange_UseLimitedDate()
+        {
+            // Arrange
+            var today = new DateTime(2017, 3, 29);
+            var limitedDate = today.AddDays(1);
+            var param = new GetStatementParam(0, today, today.AddDays(1), limitedDate);
+            reportDateService.GetTimeRangesToGetReportDataBetweenTables(
+                Arg.Is<DateTime>(date => date == today),
+                Arg.Is<DateTime>(date => date == today.AddDays(1)))
+                .Returns(new List<TimeRange>
+                {
+                    new TimeRange(today, today.AddDays(1)),
+                    new TimeRange(new DateTime(2017, 4, 5), new DateTime(2017, 4, 11)),
+                    new TimeRange(new DateTime(2017, 4, 12), new DateTime(2017, 4, 13))
+                });
+
+            reportDateService.GetStoreMappingSuffix(Arg.Is<DateTime>(date => date == new DateTime(2017, 4, 12)))
+                .Returns(string.Empty);
+            reportDateService.GetStoreMappingSuffix(Arg.Is<DateTime>(date => date == new DateTime(2017, 4, 5)))
+                .Returns("_14");
+            reportDateService.GetStoreMappingSuffix(Arg.Is<DateTime>(date => date == new DateTime(2017, 3, 29)))
+                .Returns("_WH");
+            
+            // Act
+            serviceImpl.GetStatements(param);
+
+            // Assert
+            statementRepository.Received().GetStatements(Arg.Is<GetStatementCriteria>(i => i.FromDate == limitedDate));
         }
 
         [Fact]

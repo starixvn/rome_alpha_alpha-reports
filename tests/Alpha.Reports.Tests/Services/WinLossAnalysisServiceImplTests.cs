@@ -31,7 +31,7 @@
             winLossAnalysisServiceImpl = new WinLossAnalysisServiceImpl(reportDateService, productService, dataAccess);
             compareLogic = new CompareLogic();
 
-            param = new WinLossAnalysisParam(0, 2, currentDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
+            param = new WinLossAnalysisParam(0, 2, currentDate, currentDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
         }
 
         [Fact]
@@ -60,6 +60,20 @@
         }
 
         [Fact]
+        public void GetWinLossAnalysis_UserIsInLimitedDateRange_UseLimitedDate()
+        {
+            // Arrange
+            var limitedDate = DateTime.Today.AddDays(1);
+            var param = new WinLossAnalysisParam(0, 2, DateTime.Today, DateTime.Today.AddDays(2), limitedDate, Enumerable.Empty<int>(), UserLevel.Super);
+
+            // Act            
+            winLossAnalysisServiceImpl.GetWinLossAnalysis(param);
+
+            // Assert
+            dataAccess.Received().GetWinLossAnalysis(Arg.Is<WinLossAnalysisCriteria>(i => i.FromDate == limitedDate));
+        }
+
+        [Fact]
         public void GetWinLossAnalysis_SportTypeReport_ReturnsCorrectReportData()
         {
             // Arrange
@@ -77,7 +91,7 @@
                 new WinLossAnalysisModel("3", 3, 2, 3, null, null, null, null)
             };
 
-            var param = new WinLossAnalysisParam(0, 3, currentDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
+            var param = new WinLossAnalysisParam(0, 3, currentDate, currentDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
 
             // Act
             dataAccess.GetWinLossAnalysis(Arg.Any<WinLossAnalysisCriteria>()).Returns(data);

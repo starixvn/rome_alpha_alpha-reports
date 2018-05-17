@@ -47,11 +47,11 @@
         {
             // Arrange
             var criteria = new MatchWinLossDetailCriteria(
-                0,
+                1,
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                null,
+                new List<int> { 1, 2 },
                 level,
                 Enumerable.Empty<string>());
 
@@ -116,7 +116,7 @@
                 DateTime.Now,
                 DateTime.Now,
                 DateTime.Now,
-                null,
+                new List<int> { 1, 2 },
                 UserLevel.Super,
                 Enumerable.Empty<string>());
 

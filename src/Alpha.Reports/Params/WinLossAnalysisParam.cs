@@ -12,6 +12,7 @@
           int reportType,
           DateTime fromDate,
           DateTime toDate,
+          DateTime limitedDate,
           IEnumerable<int> userSelectedProductIds,
           UserLevel custLevel)
         {
@@ -22,7 +23,7 @@
 
             FromDate = fromDate == DateTime.MinValue ? SystemTime.Today : fromDate;
             ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
-
+            LimitedDateToShowInfo = limitedDate;
             UserSelectedProductIds = userSelectedProductIds;
         }
 
@@ -37,5 +38,7 @@
         public IEnumerable<int> UserSelectedProductIds { get; }
 
         public UserLevel CustLevel { get; }
+
+        public DateTime LimitedDateToShowInfo { get; }
     }
 }

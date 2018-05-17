@@ -10,9 +10,10 @@
             int custId,
             DateTime fromDate,
             DateTime toDate,
+            DateTime limitedDate,
             IEnumerable<int> userSelectedProductIds,
             UserLevel reportLevel,
-            bool isHistoricReport) : base(fromDate, toDate, isHistoricReport)
+            bool isHistoricReport) : base(fromDate, toDate, limitedDate, isHistoricReport)
         {
             CustId = custId;
 

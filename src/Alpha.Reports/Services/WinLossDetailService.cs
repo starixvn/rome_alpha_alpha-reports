@@ -3,6 +3,7 @@
     using System;
     using Criteria.WinLossDetail;
     using DataAccesses;
+    using Extensions;
     using Models;
     using Models.WinLossDetail;
     using Params;
@@ -42,7 +43,7 @@
                 param.CustId,
                 param.PageIndex,
                 param.PageSize,
-                param.FromDate,
+                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),

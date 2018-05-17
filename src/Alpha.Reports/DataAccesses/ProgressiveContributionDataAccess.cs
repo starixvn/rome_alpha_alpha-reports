@@ -31,16 +31,18 @@
             }
 
             var progressiveContributions = new List<ProgressiveContributionByBetTypeModel>();
-
-            using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            if (criteria.IsValid())
             {
-                using (var reader = db.ExecuteReader(criteria))
+                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
                 {
-                    if (reader != null)
+                    using (var reader = db.ExecuteReader(criteria))
                     {
-                        while (reader.Read())
+                        if (reader != null)
                         {
-                            progressiveContributions.Add(BuildProgressiveContribution(reader, criteria.ReportLevel));
+                            while (reader.Read())
+                            {
+                                progressiveContributions.Add(BuildProgressiveContribution(reader, criteria.ReportLevel));
+                            }
                         }
                     }
                 }

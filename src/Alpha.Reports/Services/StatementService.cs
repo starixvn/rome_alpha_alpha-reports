@@ -6,6 +6,7 @@
     using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Models.Statement;
     using Alpha.Reports.Params.Statement;
+    using Extensions;
     using Fanex.Data.Repository;
 
     public interface StatementService
@@ -41,7 +42,7 @@
             {
                 var rawData = statementRepository.GetStatements(new GetStatementCriteria(
                     param.CustId,
-                    timeRange.FromDate,
+                    timeRange.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
                     timeRange.ToDate,
                     balanceUpDay,
                     reportDateService.GetStoreMappingSuffix(timeRange.FromDate)));

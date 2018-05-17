@@ -46,13 +46,13 @@
         {
             // Arrange
             var criteria = new WinLossAnalysisCriteria(
-                custId: 0,
+                custId: 1,
                 reportType: 2,
                 fromDate: DateTime.Now,
                 toDate: DateTime.Now,
                 balanceUpDay: DateTime.Now,
                 moveBetsDay: DateTime.Now,
-                productIds: null,
+                productIds: new List<int> { 1, 2 },
                 reportLevel: UserLevel.Super);
 
             var dataSet = WinLossAnalysisDatabase.MasterWinLoss.CreateDataReader();
@@ -94,13 +94,13 @@
         {
             // Arrange
             var criteria = new WinLossAnalysisCriteria(
-                custId: 0,
+                custId: 1,
                 reportType: 2,
                 fromDate: DateTime.Now,
                 toDate: DateTime.Now,
                 balanceUpDay: DateTime.Now,
                 moveBetsDay: DateTime.Now,
-                productIds: null,
+                productIds: new List<int> { 1, 2 },
                 reportLevel: UserLevel.Master);
 
             var dataSet = WinLossAnalysisDatabase.AgentWinLoss.CreateDataReader();
@@ -142,13 +142,13 @@
         {
             // Arrange
             var criteria = new WinLossAnalysisCriteria(
-                custId: 0,
+                custId: 1,
                 reportType: 2,
                 fromDate: DateTime.Now,
                 toDate: DateTime.Now,
                 balanceUpDay: DateTime.Now,
                 moveBetsDay: DateTime.Now,
-                productIds: null,
+                productIds: new List<int> { 1, 2 },
                 reportLevel: UserLevel.Agent);
 
             var dataSet = WinLossAnalysisDatabase.MemberWinLoss.CreateDataReader();
@@ -196,7 +196,7 @@
                 toDate: DateTime.Now,
                 balanceUpDay: DateTime.Now,
                 moveBetsDay: DateTime.Now,
-                productIds: null,
+                productIds: new List<int> { 1, 2 },
                 reportLevel: UserLevel.Super);
 
             IDataReader dataReader = null;

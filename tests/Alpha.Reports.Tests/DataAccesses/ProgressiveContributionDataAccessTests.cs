@@ -49,7 +49,7 @@
         public void GetProgressiveContributions_AgentLevel_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var criteria = new ProgressiveContributionCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int> { 6 }, UserLevel.Agent);
+            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int> { 6 }, UserLevel.Agent);
 
             var dataset = CreateSampleData().CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<ProgressiveContributionCriteria>()).Returns(dataset);
@@ -72,7 +72,7 @@
         public void GetProgressiveContributions_MasterLevel_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var criteria = new ProgressiveContributionCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int> { 6 }, UserLevel.Master);
+            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int> { 6 }, UserLevel.Master);
 
             var dataset = CreateSampleData().CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<ProgressiveContributionCriteria>()).Returns(dataset);
@@ -95,7 +95,7 @@
         public void GetProgressiveContributions_SuperLevel_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var criteria = new ProgressiveContributionCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int> { 6 }, UserLevel.Super);
+            var criteria = new ProgressiveContributionCriteria(1, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, new List<int> { 6 }, UserLevel.Super);
 
             var dataset = CreateSampleData().CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<ProgressiveContributionCriteria>()).Returns(dataset);

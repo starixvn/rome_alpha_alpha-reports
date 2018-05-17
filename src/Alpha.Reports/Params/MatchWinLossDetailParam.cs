@@ -11,6 +11,7 @@
             int custId,
             DateTime fromDate,
             DateTime toDate,
+            DateTime limitedDate,
             IEnumerable<string> userSelectedLeagueIds,
             IEnumerable<int> userSelectedProductIds,
             UserLevel reportLevel)
@@ -21,6 +22,7 @@
             UserSelectedLeagueIds = userSelectedLeagueIds;
             UserSelectedProductIds = userSelectedProductIds;
             ReportLevel = reportLevel;
+            LimitedDate = limitedDate;
         }
 
         public int CustId { get; }
@@ -34,5 +36,7 @@
         public IEnumerable<int> UserSelectedProductIds { get; }
 
         public UserLevel ReportLevel { get; }
+
+        public DateTime LimitedDate { get; }
     }
 }

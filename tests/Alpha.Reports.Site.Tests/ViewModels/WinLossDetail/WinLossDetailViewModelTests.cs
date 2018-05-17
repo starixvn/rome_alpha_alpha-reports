@@ -271,7 +271,7 @@
 
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 message,
-                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, sortPropertyName, false, false),
+                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), message.CustLevel, sortPropertyName, false, false),
                 new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<SelectListItem>());
@@ -300,7 +300,7 @@
 
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 message,
-                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, Enumerable.Empty<int>(), message.CustLevel, "CustName", isDescendingSort, false),
+                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), message.CustLevel, "CustName", isDescendingSort, false),
                 new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                 Enumerable.Empty<SelectListItem>());
@@ -327,7 +327,7 @@
         {
             return Substitute.ForPartsOf<WinLossDetailViewModel>(
                 message,
-                new WinLossDetailParam(0, 0, 0, fromDate, toDate, new List<int> { 1 }, message.CustLevel, "CustName", false, false),
+                new WinLossDetailParam(0, 0, 0, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, message.CustLevel, "CustName", false, false),
                 new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                  new List<SelectListItem>

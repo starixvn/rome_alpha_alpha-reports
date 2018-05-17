@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Enumerations;
@@ -23,6 +24,8 @@
             ViewerId = viewer.Id;
             ViewerLevelId = viewer.LevelId;
             ViewerLevel = Enumeration.FromValue<UserLevel>(ViewerLevelId);
+
+            LimitedDateToShowInfo = viewer.LimitedDateToShowInfo;
         }
 
         public string Language { get; }
@@ -49,5 +52,7 @@
             && ViewerId > 0
             && ViewerLevel.IsEqualOrUplineOf(CustLevel)
             && !string.IsNullOrWhiteSpace(Language);
+
+        public DateTime LimitedDateToShowInfo { get; set; }
     }
 }

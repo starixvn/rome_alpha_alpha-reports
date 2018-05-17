@@ -32,16 +32,18 @@
             }
 
             var data = new List<WinLossAnalysisModel>();
-
-            using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            if (criteria.IsValid())
             {
-                using (var reader = db.ExecuteReader(criteria))
+                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
                 {
-                    if (reader != null)
+                    using (var reader = db.ExecuteReader(criteria))
                     {
-                        while (reader.Read())
+                        if (reader != null)
                         {
-                            data.Add(BuildWinLossAnalysisModel(reader, criteria));
+                            while (reader.Read())
+                            {
+                                data.Add(BuildWinLossAnalysisModel(reader, criteria));
+                            }
                         }
                     }
                 }
@@ -58,7 +60,7 @@
             int? rollupKeyId = null;
 
             var winLossAnalysis = new WinLossAnalysisModel(
-                rollupKey: reportType.Equals(WinLossAnalysisConstants.Sport) 
+                rollupKey: reportType.Equals(WinLossAnalysisConstants.Sport)
                            ? cacheRefService.GetProductName(reader.ToInt("RollupKey")) : reader.ToString("RollupKey"),
                 rollupKeyId: reportType.Equals(WinLossAnalysisConstants.Sport) ? reader.ToInt("RollupKey") : rollupKeyId,
                 turnover: reader.ToDecimal("TurnOver"),

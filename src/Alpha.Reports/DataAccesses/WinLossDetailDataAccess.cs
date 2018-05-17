@@ -24,25 +24,27 @@
 
             var winLossDetails = new List<WinLossDetailModel>();
             var totalWinLoss = new WinLossDetailModel();
-
-            using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            if(criteria.IsValid())
             {
-                using (var reader = db.ExecuteReader(criteria))
+                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
                 {
-                    if (reader != null)
+                    using (var reader = db.ExecuteReader(criteria))
                     {
-                        while (reader.Read())
+                        if (reader != null)
                         {
-                            winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel));
-                        }
+                            while (reader.Read())
+                            {
+                                winLossDetails.Add(BuildWinLossDetail(reader, criteria.ReportLevel));
+                            }
 
-                        if (reader.NextResult() && reader.Read())
-                        {
-                            totalWinLoss = BuildWinLossDetail(reader, criteria.ReportLevel);
+                            if (reader.NextResult() && reader.Read())
+                            {
+                                totalWinLoss = BuildWinLossDetail(reader, criteria.ReportLevel);
+                            }
                         }
                     }
                 }
-            }
+            }            
 
             return new PagedReportData<WinLossDetailModel>(
                 winLossDetails,

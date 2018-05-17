@@ -33,16 +33,18 @@
             }
 
             var winlossByBettypeData = new List<WinLossByBetTypeModel>();
-
-            using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
+            if (criteria.IsValid())
             {
-                using (var reader = db.ExecuteReader(criteria))
+                using (var db = ReportObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
                 {
-                    if (reader != null)
+                    using (var reader = db.ExecuteReader(criteria))
                     {
-                        while (reader.Read())
+                        if (reader != null)
                         {
-                            winlossByBettypeData.Add(BuildWinLossByBetType(reader, criteria.CustLevel));
+                            while (reader.Read())
+                            {
+                                winlossByBettypeData.Add(BuildWinLossByBetType(reader, criteria.CustLevel));
+                            }
                         }
                     }
                 }

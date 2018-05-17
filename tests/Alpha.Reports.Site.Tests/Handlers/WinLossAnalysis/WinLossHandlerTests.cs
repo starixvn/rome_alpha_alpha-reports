@@ -99,6 +99,7 @@
                 reportType: 2,
                 fromDate: SystemTime.Today,
                 toDate: SystemTime.Today,
+                limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(),
                 custLevel: message.CustLevel);
 

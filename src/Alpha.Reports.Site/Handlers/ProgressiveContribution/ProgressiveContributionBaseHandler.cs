@@ -36,6 +36,7 @@
                 message.CustId,
                 message.FromDate,
                 message.ToDate,
+                message.LimitedDateToShowInfo,
                 productIds,
                 message.ViewerLevel);
         }

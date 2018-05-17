@@ -44,7 +44,7 @@
         public void GetWinLoss_MasterWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, UserLevel.Super);
+            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, new List<int> { 1, 2 }, UserLevel.Super);
 
             var dataSet = WinLossDatabase.MasterWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -67,7 +67,7 @@
         public void GetWinLoss_AgentWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, UserLevel.Master);
+            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, new List<int> { 1, 2 }, UserLevel.Master);
 
             var dataSet = WinLossDatabase.AgentWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);
@@ -90,7 +90,7 @@
         public void GetWinLoss_MemberWinLossReportHasData_ReturnsDataFromObjectDb()
         {
             // Arrange
-            var winLossCriteria = new WinLossCriteria(0, currentDate, currentDate, currentDate, currentDate, null, UserLevel.Agent);
+            var winLossCriteria = new WinLossCriteria(1, currentDate, currentDate, currentDate, currentDate, new List<int> { 1, 2 }, UserLevel.Agent);
 
             var dataSet = WinLossDatabase.MemberWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossCriteria>()).Returns(dataSet);

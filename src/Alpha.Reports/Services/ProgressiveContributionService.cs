@@ -5,6 +5,7 @@
     using System.Linq;
     using Criteria.ProgressiveContribution;
     using DataAccesses;
+    using Extensions;
     using Models.ProgressiveContribution;
     using Params;
     using RemotingRef;
@@ -39,7 +40,7 @@
 
             var criteria = new ProgressiveContributionCriteria(
                 param.CustId,
-                param.FromDate,
+                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
