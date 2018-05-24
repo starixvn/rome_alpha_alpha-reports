@@ -83,7 +83,7 @@
         {
             //// Arrange
             var noteCount = 2;
-            var expectedNote1 = "- Others: applies to bettype(s) of Product Name.";
+            var expectedNote1 = "- Others: applies to bet type(s) of Product Name.";
             var expectedNote2 = "- Data of Product Name will be delayed up to 5 minutes after settling tickets.";
             service.GetProductsInOthers(Arg.Any<int>()).Returns(new List<Product> { new Product(1, "product 1", null) });
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(new List<byte> { 1 });
