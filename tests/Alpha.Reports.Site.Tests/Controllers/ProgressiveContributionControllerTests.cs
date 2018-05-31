@@ -50,5 +50,19 @@
             // Assert
             mediator.Received().Send<ExcelFileViewModel>(Arg.Is(message));
         }
+
+
+        [Fact]
+        public void ReportLegend_Always_CallsMediatorSendReportLegendQuery()
+        {
+            // Arrange
+            var message = new ReportLegendQuery(userFixture.User);
+
+            // Act
+            controller.ReportLegend(message);
+
+            // Assert
+            mediator.Received().Send(Arg.Is(message));
+        }
     }
 }
