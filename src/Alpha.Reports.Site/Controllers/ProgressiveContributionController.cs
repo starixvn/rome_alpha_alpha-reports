@@ -21,6 +21,9 @@
         public ActionResult Excel(ProgressiveContributionExcelQuery message)
             => ExcelView(message);
 
+        public ActionResult ReportLegend(ReportLegendQuery message)
+            => View(message);
+
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
             base.OnAuthorization(filterContext);

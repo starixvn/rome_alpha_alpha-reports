@@ -57,6 +57,7 @@ class ProgressiveContributionView extends BaseReport {
         this.bindFilter();
         this.$tableReport.stickyTableHeaders();
         this.registerEvents();
+        this.initHelp();
     };
 
     checkReady = () => {
@@ -107,9 +108,6 @@ class ProgressiveContributionView extends BaseReport {
 
         this.$custId = this.$("#CustId");
         this.$custLevelId = this.$("#CustLevelId");
-        this.$loadLegendURL = this.$("#LoadLegendURL");
-        this.$iconInformation = this.$("#icon-information");
-        this.$reportLegend = this.$("#report-legend");
         this.$historicReport = this.$("#historic-report");
         this.$fromDate = this.$("#from-date");
         this.$toDate = this.$("#to-date");
@@ -125,7 +123,6 @@ class ProgressiveContributionView extends BaseReport {
         this.$reportForm.submit(this.onSubmitReport);
         this.$historicReport.on("click", this.onSubmitHistoricReport);
         this.$switchModeIcon.on("click", this.onSwitchMode);
-        this.$iconInformation.on("click", this.showLegend);
     };
 
     onExportExcel = () => {

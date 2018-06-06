@@ -8,6 +8,7 @@
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Params;
+    using Reports.Models;
     using Reports.Models.ProgressiveContribution;
     using Services;
     using Site.Handlers.ProgressiveContribution;
@@ -28,9 +29,11 @@
         public ProgressiveContributionHandlerTests(UserFixture userFixture)
         {
             this.userFixture = userFixture;
+            userFixture.User.EnableJackpotProductIds.Returns(new List<int> { 6 });
             compareLogic = new CompareLogic();
 
             productService = Substitute.For<ProductService>();
+            productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string> { "Product Name" });
             progressiveContributionService = Substitute.For<ProgressiveContributionService>();
 
             handler = new ProgressiveContributionHandler(productService, progressiveContributionService);
@@ -86,6 +89,49 @@
 
             // Assert
             Assert.True(compareLogic.Compare(expectedViewModel, actualViewModel).AreEqual);
+        }
+
+        [Fact]
+        public void HandleReportLegendQuery_NotHaveProductsNeedDelayTimeToSumarizeData_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery(userFixture.User);
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
+
+            var expectedViewModel = new List<string>
+            {
+                "- The contribution amount will be rounded to 4 decimal places."
+            };
+
+            // Act
+            var actualViewModel = handler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Fact]
+        public void HandleReportLegendQuery_HaveProductsNeedDelayTimeToSumarizeData_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery(userFixture.User);
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(new List<byte> { 6 });
+            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
+            {
+                new Product(6, string.Empty, null)
+            });
+
+            var expectedViewModel = new List<string>
+            {
+                "- The contribution amount will be rounded to 4 decimal places.",
+                "- Data of Product Name will be delayed up to 5 minutes after settling tickets."
+            };
+
+            // Act
+            var actualViewModel = handler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
         }
     }
 }
