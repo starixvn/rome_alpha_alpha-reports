@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Functions SiteId="105" SiteName="Reports">
+<Functions>
   <Function Name="Base Functions">
     <Setting Key="Age_SelBalanceUpDay" SpName="Age_SelBalanceUpDay" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_GetProductListByRefTable" SpName="Age_Rpt_GetProductListByRefTable" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
@@ -23,9 +23,7 @@
 
   <Function Name="Win Loss Detail">
     <Function Name="Win Loss Detail">
-      <Setting Key="Age_Rpt_WinLossDetail_Master" SpName="Age_Rpt_WinLossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-      <Setting Key="Age_Rpt_WinLossDetail_Agent" SpName="Age_Rpt_WinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-      <Setting Key="Age_Rpt_WinLossDetail_Member" SpName="Age_Rpt_WinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+      <Setting Key="Age_Rpt_MatchWinLossDetail_GetProductList" SpName="Age_Rpt_MatchWinLossDetail_GetProductList" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     </Function>
   </Function>
 
@@ -40,16 +38,9 @@
     <Setting Key="Age_Rpt_MatchWinlossDetail_Master" SpName="Age_Rpt_MatchWinlossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_MatchWinLossDetail_Agent" SpName="Age_Rpt_MatchWinLossDetail_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_MatchWinLossDetail_Member" SpName="Age_Rpt_MatchWinLossDetail_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_MatchWinLossDetail_GetProductList" SpName="Age_Rpt_MatchWinLossDetail_GetProductList" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Match Win Loss">
     <Setting Key="Age_Rpt_MatchWinLoss_Member" SpName="Age_Rpt_MatchWinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-  </Function>
-
-  <Function Name="Outstanding">
-    <Setting Key="Age_Rpt_Outstanding_Master" SpName="Age_Rpt_Outstanding_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_Outstanding_Agent" SpName="Age_Rpt_Outstanding_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 
   <Function Name="Win Loss by Product">

@@ -563,9 +563,11 @@
     <Content Include="App_Data\SPNames\Internal\DBRPT.bodb_report.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
+    <Content Include="App_Data\SPNames\Local\DB053_DB054.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml">
-      <SubType>Designer</SubType>
+      <SubType>
+      </SubType>
     </Content>
     <Content Include="App_Data\SPNames\Local\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBONUSER.ON_USER.BODBDownlineNet.xml" />
