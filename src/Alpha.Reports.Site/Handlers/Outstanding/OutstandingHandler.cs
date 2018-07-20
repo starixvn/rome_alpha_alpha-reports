@@ -22,7 +22,7 @@
 
         public OutstandingViewModel Handle(OutstandingQuery message)
         {
-            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(message.CustId, message.UserSelectedProductIds.ToListInt());
+            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(message.CustId, message.UserSelectedProductIds.ToListInt(), DateTime.Now);
 
             var param = new OutstandingParam(
                 message.ViewerLevel,
