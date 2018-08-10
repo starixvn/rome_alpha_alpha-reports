@@ -78,7 +78,7 @@
 
             var productService = Substitute.For<ProductService>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IOrderedEnumerable<int>>()).Returns(Enumerable.Empty<int>());
-            productService.GetProductsForCustomer(Arg.Any<int>());
+            productService.GetProductsForCustomer(1);
 
             var handler = new OutstandingHandler(outstandingService, productService);
 

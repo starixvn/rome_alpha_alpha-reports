@@ -54,7 +54,7 @@
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product> { new Product(1, "abc", null), new Product(30, "xyz", null) });
 
             //// Act
-            var act = service.GetProductsInOthers(Arg.Any<int>());
+            var act = service.GetProductsInOthers(1);
 
             //// Assert
             Assert.Equal(1, act.Count());
