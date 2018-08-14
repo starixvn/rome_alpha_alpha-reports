@@ -11,7 +11,6 @@
     using NSubstitute;
     using Params;
     using Ploeh.AutoFixture;
-    using RemotingRef;
     using Reports.Models.MatchWinLoss;
     using Services;
     using Site.Handlers.MatchWinLoss;

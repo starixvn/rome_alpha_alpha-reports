@@ -6,7 +6,6 @@
     using Fanex.Data.Repository;
     using Fixtures;
     using NSubstitute;
-    using RemotingRef;
     using Reports.Constants;
     using Reports.Criteria;
     using Reports.Models;

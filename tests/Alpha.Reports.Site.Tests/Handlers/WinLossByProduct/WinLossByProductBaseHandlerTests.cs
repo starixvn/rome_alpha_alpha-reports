@@ -4,7 +4,6 @@
     using System.Threading;
     using Constants;
     using NSubstitute;
-    using RemotingRef;
     using Services;
     using Site.Handlers.WinLossByProduct;
     using Sunplus.Agent.Model.BL.Definitions;

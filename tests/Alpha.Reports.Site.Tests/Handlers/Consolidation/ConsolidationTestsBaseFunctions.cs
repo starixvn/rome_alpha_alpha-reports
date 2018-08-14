@@ -11,7 +11,6 @@
     using NSubstitute;
     using Params;
     using Params.Consolidation;
-    using RemotingRef;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
     using Services;

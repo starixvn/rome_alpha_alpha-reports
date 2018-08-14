@@ -7,11 +7,11 @@
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
-    using RemotingRef;
     using Reports.Criteria.WinLossByProductCriteria;
     using Reports.DataAccesses;
     using Reports.Models;
     using Reports.Models.WinlossByBetType;
+    using Reports.Services;
     using Xunit;
 
     [Trait("Category", "WinLossByProduct")]

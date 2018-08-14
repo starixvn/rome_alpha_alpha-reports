@@ -6,11 +6,11 @@
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
-    using RemotingRef;
     using Reports.Criteria.ProgressiveContribution;
     using Reports.DataAccesses;
     using Reports.Models;
     using Reports.Models.ProgressiveContribution;
+    using Reports.Services;
     using Xunit;
 
     [Trait("Category", "ProgressiveGamesContribution")]

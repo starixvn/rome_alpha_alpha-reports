@@ -32,7 +32,6 @@
         public ConsolidationHandlerTests(UserFixture userFixture) : base(userFixture)
         {
             consolidationHandler = new ConsolidationHandler(reportService, cacheRefService, winLossDetailService, viewer);
-            consolidationHandler.GetCurrencyName = getCurrencyName;
 
             expectedProductList = new List<SelectListItem>
             {

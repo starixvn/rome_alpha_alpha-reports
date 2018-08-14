@@ -1,13 +1,11 @@
 ﻿namespace Alpha.Reports.Site.Handlers.MatchWinLossDetail
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using App_GlobalResources;
     using Constants;
     using Extensions;
     using MediatR;
     using ONEbook.SpreadSheets;
-    using RemotingRef;
     using Reports.Models;
     using Requests.MatchWinLossDetail;
     using Services;

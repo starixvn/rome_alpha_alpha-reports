@@ -7,6 +7,7 @@
     using Controllers;
     using DataAccesses;
     using Fanex.Data.Repository;
+    using Fanex.RemotingRef;
     using Handlers.CommissionByBettype;
     using Handlers.Consolidation;
     using Handlers.MatchWinLossDetail;
@@ -17,7 +18,6 @@
     using Models;
     using ONEbook.SpreadSheets;
     using ONEbook.SpreadSheets.NPOI;
-    using RemotingRef;
     using Reports.Models;
     using Services;
     using Services.Outstanding;
@@ -76,6 +76,7 @@
 
         private static void RegisterServices(Container container)
         {
+            container.RegisterSingleton<IRemotingRefService, RemotingRefService>();
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
             container.RegisterSingleton<IUserSession, UserSessionExt>();
             container.RegisterSingleton<IUser, User>();
@@ -99,7 +100,7 @@
                 () => new ProductServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
                     UserPermission.HasPermissionOnProduct,
-                    new CacheRefServiceImpl().GetProductName),
+                    new CacheRefServiceImpl(new RemotingRefService()).GetProductName),
                 Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);

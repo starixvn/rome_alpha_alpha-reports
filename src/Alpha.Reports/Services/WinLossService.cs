@@ -11,7 +11,6 @@
     using Fanex.Data.Repository;
     using Models.Winloss;
     using Params;
-    using RemotingRef;
 
     public interface WinLossService
     {

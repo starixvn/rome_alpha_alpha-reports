@@ -1,13 +1,10 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
     using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using Configurations;
     using Extensions;
     using Fanex.Data.Repository;
     using Fixtures;
     using NSubstitute;
-    using RemotingRef;
     using Reports.Constants;
     using Reports.Criteria.PlayForFun;
     using Reports.Models;

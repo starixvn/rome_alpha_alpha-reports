@@ -1,11 +1,12 @@
 ﻿namespace Alpha.Reports.Site.Handlers.Consolidation
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
     using ONEbook.SpreadSheets;
     using Params.Consolidation;
-    using RemotingRef;
     using Reports.Constants;
     using Reports.Models;
     using Reports.Models.WinLossDetail;
@@ -48,11 +49,14 @@
         {
             var param = CreateParameter(message);
             var reportData = reportService.GetConsolidationByUsername(param);
-            var viewModels = BuildWinLossByUsernameViewModel(reportData);
+            var currencies = reportService
+                .GetCurrencies(new GetCurrencyParam(message.ViewerId))
+                .ToDictionary(c => c.Id, c => c.Name);
+            var viewModels = BuildWinLossByUsernameViewModel(reportData, currencies);
 
             var fileContent = workbook
                 .UseTemplate(GetTemplateInfo("ConsolidationByUsername"))
-                .Title(GetReporTitle(message, Resources.ConsolidationReportByUsername))
+                .Title(GetReporTitle(message, Resources.ConsolidationReportByUsername, currencies))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(viewModels, GetRowMapper())
                 .Sheet(Resources.DefaultSheetName)
@@ -65,11 +69,14 @@
         {
             var param = CreateParameter(message);
             var reportData = reportService.GetConsolidationByDate(param);
-            var viewModels = BuildWinLossByDateViewModel(reportData);
+            var currencies = reportService
+                .GetCurrencies(new GetCurrencyParam(message.ViewerId))
+                .ToDictionary(c => c.Id, c => c.Name);
+            var viewModels = BuildWinLossByDateViewModel(reportData, currencies);
 
             var fileContent = consolidationByDateWorkbook
                      .UseTemplate(GetTemplateInfo("ConsolidationByDate"))
-                     .Title(GetReporTitle(message, Resources.ConsolidationReportByDate))
+                     .Title(GetReporTitle(message, Resources.ConsolidationReportByDate, currencies))
                      .Header(Resources.ResourceManager.GetString)
                      .Body(viewModels, null)
                      .Sheet(Resources.DefaultSheetName)
@@ -82,11 +89,14 @@
         {
             var param = CreateParameter(message);
             var reportData = reportService.GetConsolidationByProduct(param);
-            var viewModels = BuildWinLossByProductViewModel(reportData);
+            var currencies = reportService
+                .GetCurrencies(new GetCurrencyParam(message.ViewerId))
+                .ToDictionary(c => c.Id, c => c.Name);
+            var viewModels = BuildWinLossByProductViewModel(reportData, currencies);
 
             var fileContent = consolidationByProductWorkbook
                      .UseTemplate(GetTemplateInfo("ConsolidationByProduct"))
-                     .Title(GetReporTitle(message, Resources.ConsolidationReportByProduct))
+                     .Title(GetReporTitle(message, Resources.ConsolidationReportByProduct, currencies))
                      .Header(Resources.ResourceManager.GetString)
                      .Body(viewModels, null)
                      .Sheet(Resources.DefaultSheetName)
@@ -111,11 +121,11 @@
                 noInfomationText: Resources.NoInformationIsAvailable)
             .FreezePanel(4, C);
 
-        private string GetReporTitle(GetConsolidationQuery message, string reportType)
+        private string GetReporTitle(GetConsolidationQuery message, string reportType, IDictionary<byte, string> currencies)
         {
             var currencyName = message.UserSelectedCurrencyId == DefaultVariables.AllCurrencies
                 ? Resources.AllCurrencies
-                : Resources.Currency + ": " + GetCurrencyName(message.UserSelectedCurrencyId).Currency;
+                : Resources.Currency + ": " + currencies[(byte)message.UserSelectedCurrencyId];
 
             return string.Join(
                 " ",

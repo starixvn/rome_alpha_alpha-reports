@@ -7,7 +7,6 @@
     using Fanex.Data.Repository;
     using Models;
     using Params;
-    using RemotingRef;
 
     public interface LeagueService
     {

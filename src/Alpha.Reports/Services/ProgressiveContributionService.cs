@@ -8,7 +8,6 @@
     using Extensions;
     using Models.ProgressiveContribution;
     using Params;
-    using RemotingRef;
 
     public interface ProgressiveContributionService
     {

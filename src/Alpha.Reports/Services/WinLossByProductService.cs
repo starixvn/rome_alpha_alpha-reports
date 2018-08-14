@@ -8,7 +8,6 @@
     using Models.WinlossByBetType;
     using Models.WinLossByProduct;
     using Params;
-    using RemotingRef;
 
     public interface WinLossByProductService
     {

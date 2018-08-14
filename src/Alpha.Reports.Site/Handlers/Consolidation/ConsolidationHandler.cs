@@ -1,12 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Handlers.Consolidation
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using App_GlobalResources;
     using MediatR;
     using Params.Consolidation;
-    using RemotingRef;
     using Reports.Models;
     using Requests;
     using Requests.Consolidation;
@@ -43,7 +41,7 @@
                 param,
                 BuildProductSelectListItems(param.ProductIds, products),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
-                BuildWinLossByUsernameViewModel(data));
+                BuildWinLossByUsernameViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
 
             return viewModel;
         }
@@ -61,7 +59,7 @@
                 param,
                 BuildProductSelectListItems(param.ProductIds, products),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
-                BuildWinLossByDateViewModel(data));
+                BuildWinLossByDateViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
 
             return viewModel;
         }
@@ -79,7 +77,7 @@
                 param,
                 BuildProductSelectListItems(param.ProductIds, products),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
-                BuildWinLossByProductViewModel(data));
+                BuildWinLossByProductViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
 
             return viewModel;
         }

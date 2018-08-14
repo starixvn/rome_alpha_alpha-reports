@@ -2,7 +2,6 @@
 {
     using System;
     using MediatR;
-    using RemotingRef;
     using Requests.WinLossByProduct;
     using Services;
     using ViewModels.WinLossByProduct;
