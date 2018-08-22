@@ -6,7 +6,6 @@
     using App_Start;
     using Extensions;
     using Params;
-    using RemotingRef;
     using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
     using Requests.WinLossByProduct;

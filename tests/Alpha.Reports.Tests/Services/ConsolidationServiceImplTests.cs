@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Constants;
@@ -8,7 +7,6 @@
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
-    using RemotingRef;
     using Reports.Criteria.Consolidation;
     using Reports.Models;
     using Reports.Models.Consolidation;

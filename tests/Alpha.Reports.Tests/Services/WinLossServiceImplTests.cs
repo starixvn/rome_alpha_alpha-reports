@@ -7,7 +7,6 @@
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
-    using RemotingRef;
     using Reports.Criteria.WinLoss;
     using Reports.DataAccesses;
     using Reports.Models;

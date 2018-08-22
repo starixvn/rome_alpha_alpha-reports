@@ -7,7 +7,7 @@
     using Fanex.Common.Extensions;
     using Models;
     using Models.ProgressiveContribution;
-    using RemotingRef;
+    using Services;
 
     public interface ProgressiveContributionDataAccess
     {

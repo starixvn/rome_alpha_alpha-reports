@@ -3,10 +3,8 @@
     using System;
     using System.Linq;
     using Extensions;
-    using Fanex.Common;
     using MediatR;
     using Params;
-    using RemotingRef;
     using Reports.Models;
     using Requests.MatchWinLossDetail;
     using Services;

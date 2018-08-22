@@ -5,7 +5,6 @@
     using System.Linq;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
-    using RemotingRef;
     using Reports.Criteria.ProgressiveContribution;
     using Reports.DataAccesses;
     using Reports.Models;

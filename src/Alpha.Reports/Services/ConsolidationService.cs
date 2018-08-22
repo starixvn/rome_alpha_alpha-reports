@@ -9,7 +9,6 @@
     using Models;
     using Models.Consolidation;
     using Params.Consolidation;
-    using RemotingRef;
 
     public interface ConsolidationService
     {

@@ -55,7 +55,6 @@
                 consolidationByDateWorkbook,
                 consolidationByProductWorkbook);
 
-            consolidationExcelHandler.GetCurrencyName = getCurrencyName;
             consolidationExcelHandler.MapPath = (path) => path;
             consolidationExcelHandler.IsFileExist = (path) => true;
 

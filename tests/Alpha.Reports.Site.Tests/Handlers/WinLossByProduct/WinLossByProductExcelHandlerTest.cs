@@ -8,7 +8,6 @@
     using Fixtures;
     using NSubstitute;
     using ONEbook.SpreadSheets;
-    using RemotingRef;
     using Reports.Models;
     using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;

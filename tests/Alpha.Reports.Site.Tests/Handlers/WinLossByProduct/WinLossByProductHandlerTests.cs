@@ -10,7 +10,6 @@
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Params;
-    using RemotingRef;
     using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
     using Services;

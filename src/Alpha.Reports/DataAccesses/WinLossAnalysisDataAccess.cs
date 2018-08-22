@@ -8,7 +8,7 @@
     using Fanex.Common.Extensions;
     using Models;
     using Models.WinLossAnalysis;
-    using RemotingRef;
+    using Services;
 
     public interface WinLossAnalysisDataAccess
     {

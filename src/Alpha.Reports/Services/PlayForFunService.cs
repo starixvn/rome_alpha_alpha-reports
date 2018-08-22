@@ -10,7 +10,6 @@
     using Models;
     using Models.PlayForFun;
     using Params;
-    using RemotingRef;
 
     public interface PlayForFunService
     {

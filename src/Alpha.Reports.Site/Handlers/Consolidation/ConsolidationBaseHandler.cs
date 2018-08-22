@@ -1,20 +1,17 @@
 ﻿namespace Alpha.Reports.Site.Handlers.Consolidation
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Extensions;
     using Params;
     using Params.Consolidation;
-    using RemotingRef;
     using Reports.Models;
     using Reports.Models.Consolidation;
     using Requests.Consolidation;
     using Requests.WinLossDetail;
     using Services;
     using ViewModels.Consolidation;
-    using static global::RemotingRef.RefData;
 
     [SuppressMessage(
         "StyleCop.CSharp.NamingRules",
@@ -27,8 +24,6 @@
         protected readonly WinLossDetailService winLossDetailService;
         protected readonly IUser viewer;
 
-        private Func<int, ExchangeData> getCurrencyName;
-
         public ConsolidationBaseHandler(
             ConsolidationService reportService,
             CacheRefService cacheRefService,
@@ -39,12 +34,6 @@
             this.cacheRefService = cacheRefService;
             this.winLossDetailService = winLossDetailService;
             this.viewer = viewer;
-        }
-
-        public Func<int, ExchangeData> GetCurrencyName
-        {
-            get { return getCurrencyName ?? GetExchangeData; }
-            set { getCurrencyName = value; }
         }
 
         protected GetConsolidationParam CreateParameter(GetConsolidationQuery message)
@@ -62,13 +51,11 @@
                  validUserSelectedProductIds);
         }
 
-        protected IEnumerable<ConsolidationByUsernameViewModel> BuildWinLossByUsernameViewModel(IEnumerable<ConsolidationByUsername> models)
-        {
-            var viewModels = new List<ConsolidationByUsernameViewModel>();
-
-            foreach (var model in models)
-            {
-                viewModels.Add(new ConsolidationByUsernameViewModel(
+        protected IEnumerable<ConsolidationByUsernameViewModel> BuildWinLossByUsernameViewModel(
+            IEnumerable<ConsolidationByUsername> models,
+            IDictionary<byte, string> currencies)
+            => models.Select(model =>
+                new ConsolidationByUsernameViewModel(
                     model.CustId,
                     model.CustLevel,
                     model.Username,
@@ -83,34 +70,35 @@
                     model.OwnerTotal,
                     model.Company,
                     model.BetCount,
-                    GetCurrencyName(model.CurrencyId).Currency));
-            }
+                    currencies[model.CurrencyId]))
+                .ToList();
 
-            return viewModels;
-        }
-
-        protected IEnumerable<ConsolidationByDateViewModel> BuildWinLossByDateViewModel(IEnumerable<ConsolidationByDate> models)
+        protected IEnumerable<ConsolidationByDateViewModel> BuildWinLossByDateViewModel(
+            IEnumerable<ConsolidationByDate> models,
+            IDictionary<byte, string> currencies)
         {
             var viewModels = new List<ConsolidationByDateViewModel>();
 
             var dateGroups = models.GroupBy(model => model.Date);
             foreach (var dateGroup in dateGroups)
             {
-                var winLossByUsername = BuildWinLossByUsernameViewModel(dateGroup);
+                var winLossByUsername = BuildWinLossByUsernameViewModel(dateGroup, currencies);
                 viewModels.Add(new ConsolidationByDateViewModel(dateGroup.Key, winLossByUsername));
             }
 
             return viewModels;
         }
 
-        protected IEnumerable<ConsolidationByProductViewModel> BuildWinLossByProductViewModel(IEnumerable<ConsolidationByProduct> models)
+        protected IEnumerable<ConsolidationByProductViewModel> BuildWinLossByProductViewModel(
+            IEnumerable<ConsolidationByProduct> models,
+            IDictionary<byte, string> currencies)
         {
             var viewModels = new List<ConsolidationByProductViewModel>();
 
             var productGroups = models.GroupBy(model => model.Product);
             foreach (var productGroup in productGroups)
             {
-                var winLossByUsername = BuildWinLossByUsernameViewModel(productGroup);
+                var winLossByUsername = BuildWinLossByUsernameViewModel(productGroup, currencies);
                 viewModels.Add(new ConsolidationByProductViewModel(productGroup.Key, cacheRefService.GetProductName(productGroup.Key), winLossByUsername));
             }
 

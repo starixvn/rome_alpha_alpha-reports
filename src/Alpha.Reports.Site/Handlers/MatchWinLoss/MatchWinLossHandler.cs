@@ -3,7 +3,6 @@
     using System;
     using MediatR;
     using Params;
-    using RemotingRef;
     using Requests.MatchWinLoss;
     using Services;
     using ViewModels.MatchWinLoss;

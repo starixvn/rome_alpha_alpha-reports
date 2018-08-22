@@ -9,7 +9,7 @@
     using Fanex.Common.Extensions;
     using Models;
     using Models.WinlossByBetType;
-    using RemotingRef;
+    using Services;
 
     public interface WinLossByProductDataAccess
     {

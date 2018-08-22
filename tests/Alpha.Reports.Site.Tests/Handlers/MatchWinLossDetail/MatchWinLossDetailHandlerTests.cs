@@ -12,7 +12,6 @@
     using Fixtures;
     using NSubstitute;
     using Params;
-    using RemotingRef;
     using Reports.Constants;
     using Reports.Extensions;
     using Reports.Models;
