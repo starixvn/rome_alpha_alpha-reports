@@ -15,7 +15,6 @@
     using Reports.Models.WinLossDetail;
     using Services;
     using Utils;
-    using static global::RemotingRef.RefData;
 
     [SuppressMessage(
         "StyleCop.CSharp.NamingRules",
@@ -28,7 +27,6 @@
         protected readonly CacheRefService cacheRefService;
         protected readonly IUser user;
         protected readonly AnyValueCreatorFixture anyValueCreatorFixture;
-        protected readonly Func<int, ExchangeData> getCurrencyName;
 
         protected readonly PagedReportData<WinLossDetailModel> winLossDetailData;
         protected readonly IUser viewer;
@@ -43,7 +41,6 @@
             cacheRefService = Substitute.For<CacheRefService>();
             cacheRefService.GetProductName(Arg.Any<int>()).Returns(callInfo => "Product " + callInfo.Args()[0]);
 
-            getCurrencyName = (id) => new ExchangeData { Currency = "Currency " + id };
             Func<int, string> getProductDisplayName = (id) => "Product " + id;
 
             reportService.GetProducts(Arg.Any<GetConslidationReportProductsParam>()).Returns(new List<Product>
