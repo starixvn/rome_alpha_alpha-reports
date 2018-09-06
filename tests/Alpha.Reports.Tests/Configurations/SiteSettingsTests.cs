@@ -88,7 +88,7 @@
         }
 
         [Fact]
-        public void EnabledStaticData_NotHasConfig_ReturnsCorrectSetting()
+        public void EnabledStaticData_HasConfig_ReturnsCorrectSetting()
         {
             // Arrange
             SiteSettings.AppSettings = new NameValueCollection
@@ -99,6 +99,23 @@
 
             // Act
             var actualSetting = SiteSettings.EnabledStaticData;
+
+            // Assert
+            Assert.Equal(expectedSetting, actualSetting);
+        }
+
+        [Fact]
+        public void RemoteRefURL_Always_ReturnsCorrectSetting()
+        {
+            // Arrange
+            SiteSettings.AppSettings = new NameValueCollection
+            {
+                ["RemoteRefURL"] = "RemoteRefURL"
+            };
+            var expectedSetting = "RemoteRefURL";
+
+            // Act
+            var actualSetting = SiteSettings.RemoteRefURL;
 
             // Assert
             Assert.Equal(expectedSetting, actualSetting);

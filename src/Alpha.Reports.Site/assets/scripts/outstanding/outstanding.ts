@@ -3,7 +3,7 @@
 
 "use strict";
 
-class OutstandingView {
+class OutstandingView extends BaseReport {
     $: JQueryStatic;
 
     sortComponent: SortComponent;
@@ -24,6 +24,8 @@ class OutstandingView {
         sortComponent: SortComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         linkBuilderComponent: LinkBuilderComponent) {
+        super($, linkBuilderComponent);
+
         this.$ = $;
         this.sortComponent = sortComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
@@ -49,8 +51,12 @@ class OutstandingView {
         this.linkBuilderComponent.render();
 
         this.registerEvents();
+        this.initHelp();
     };
-    cacheElements = () => {
+
+    public cacheElements() {
+        super.cacheElements();
+
         this.$tableReport = this.$("#tbl-report");
         this.$reportForm = this.$("#report-form");
 
@@ -59,8 +65,9 @@ class OutstandingView {
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$pageTitle = this.$(".page-title");
     };
-    registerEvents = () => {
-        this.$(".icon-filter").on("click", this.onClickIconFilter);
+
+    public registerEvents() {
+        super.registerEvents();
         this.$reportForm.submit(this.onSubmitReport);
     };
     onSubmitReport = (e: any) => {
@@ -119,23 +126,6 @@ class OutstandingView {
 
             isEvenRow = !isEvenRow;
         });
-    };
-    replaceHrefParam = (paramName: string, paramValue: any) => {
-        this.linkBuilderComponent.updateParam(paramName, paramValue);
-    };
-    onClickIconFilter = () => {
-        let filter = this.$reportForm;
-        let currentHideState = filter.hasClass("hide");
-
-        if (currentHideState) {
-            this.$pageTitle.removeClass("hide-filter");
-            this.$reportForm.removeClass("hide");
-        } else {
-            this.$pageTitle.addClass("hide-filter");
-            this.$reportForm.addClass("hide");
-        }
-
-        this.replaceHrefParam("IsFilterVisible", currentHideState);
     };
 }
 

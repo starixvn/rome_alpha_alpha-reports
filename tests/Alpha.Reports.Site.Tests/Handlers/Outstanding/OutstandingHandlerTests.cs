@@ -21,10 +21,16 @@
     public class OutstandingHandlerTests
     {
         private readonly UserFixture userFixture;
+        private readonly ProductService productService;
+        private readonly OutstandingService service;
+        private readonly OutstandingHandler handler;
 
         public OutstandingHandlerTests(UserFixture userFixture)
         {
             this.userFixture = userFixture;
+            service = Substitute.For<OutstandingService>();
+            productService = Substitute.For<ProductService>();
+            handler = new OutstandingHandler(service, productService, userFixture.User);
         }
 
         [Fact]
@@ -41,9 +47,6 @@
             query.CustLevel.Returns(custLevel);
             query.CustId = custId;
             query.UserSelectedProductIds = userSelectedProductIds;
-
-            var service = Substitute.For<OutstandingService>();
-            var handler = new OutstandingHandler(service, Substitute.For<ProductService>());
 
             var expectedparam = new OutstandingParam(viewerLevel, custLevel, custId, userSelectedProductIds);
 
@@ -80,7 +83,7 @@
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IOrderedEnumerable<int>>()).Returns(Enumerable.Empty<int>());
             productService.GetProductsForCustomer(1);
 
-            var handler = new OutstandingHandler(outstandingService, productService);
+            var handler = new OutstandingHandler(outstandingService, productService, userFixture.User);
 
             var expectedVm = new OutstandingViewModel(
                 query,
@@ -94,6 +97,41 @@
 
             // Assert
             Assert.True(new CompareLogic().Compare(expectedVm, result).AreEqual);
+        }
+
+        [Fact]
+        public void HandleReportLegendQuery_HavePokerGames_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+            productService.IsShowProduct(10, 33).Returns(true);
+
+            var expectedViewModel = new List<string>
+            {
+                "- Member outstanding of Poker Games is the buy-in/top up amount on table."
+            };
+
+            // Act
+            var actualViewModel = handler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Fact]
+        public void HandleReportLegendQuery_NotHavePokerGames_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+            productService.IsShowProduct(10, 33).Returns(false);
+
+            var expectedViewModel = new List<string>();
+
+            // Act
+            var actualViewModel = handler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
         }
     }
 }

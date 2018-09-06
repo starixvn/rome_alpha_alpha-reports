@@ -16,5 +16,7 @@
         [Route("outstanding/agent")]
         [Route("outstanding/member")]
         public ActionResult Index(OutstandingQuery message) => View(message);
+
+        public ActionResult ReportLegend(ReportLegendQuery message) => View(message);
     }
 }

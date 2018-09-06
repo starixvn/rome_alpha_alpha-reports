@@ -723,4 +723,13 @@
   <data name="ContributionAmountRoundNote" xml:space="preserve">
     <value>- The contribution amount will be rounded to 4 decimal places.</value>
   </data>
+  <data name="PokerGames_TurnoverNote" xml:space="preserve">
+    <value>- Turnover of Poker Games is the buy-in/top up amount on table.</value>
+  </data>
+  <data name="PokerGames_OutstandingNote" xml:space="preserve">
+    <value>- Member outstanding of Poker Games is the buy-in/top up amount on table.</value>
+  </data>
+  <data name="PokerGames_Turnover_NetTurnoverNote" xml:space="preserve">
+    <value>- Turnover and Net Turnover of Poker Games are the buy-in/top up amount on table.</value>
+  </data>
 </root>

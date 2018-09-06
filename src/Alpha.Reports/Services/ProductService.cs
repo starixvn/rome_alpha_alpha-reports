@@ -24,6 +24,8 @@
         IEnumerable<ProductsByRefTable> GetProductsNeedDelayTimeToSumarizeData();
 
         IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer();
+
+        bool IsShowProduct(int custId, int productId);
     }
 
     public class ProductServiceImpl : ProductService
@@ -117,6 +119,9 @@
 
             return data.Where(product => canViewProduct(product.ProductId)).Select(product => product.ProductId);
         }
+
+        public bool IsShowProduct(int custId, int productId)
+            => GetProductsForCustomer(custId).Any(p => p.Id == productId);
 
         private static bool IsRemainSupportProduct(Product product, DateTime? minReportDate)
             => !minReportDate.HasValue
