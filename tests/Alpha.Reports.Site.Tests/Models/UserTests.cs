@@ -1,5 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Tests.Models
 {
+    using System;
+    using System.Collections.Generic;
     using NSubstitute;
     using Site.Models;
     using Sunplus.Agent.Model.Entities;
@@ -64,6 +66,38 @@
 
             // Assert
             Assert.True(value);
+        }
+
+        [Fact]
+        public void LimitedDateToShowInfo_Always_ReturnCorrectValue()
+        {
+            // Arrange
+            var userSession = Substitute.For<IUserSession>();
+            var limitDate = new DateTime(2018, 9, 7);
+            userSession.GetProperty<DateTime>("CustomerDateLimit").Returns(limitDate);
+
+            var user = new UserForTest(userSession);
+
+            // Act
+            var actualValue = user.LimitedDateToShowInfo;
+
+            // Assert
+            Assert.Equal(limitDate, actualValue);
+        }
+
+        [Fact]
+        public void GetEnableProductsForGame_Always_ReturnCorrectValue()
+        {
+            // Arrange
+            var userSession = Substitute.For<IUserSession>();
+            var products = new List<int> { 6 };
+            var user = new UserForTest(userSession);
+
+            // Act
+            var actualValue = user.GetEnableProductsForGame("Jackpot");
+
+            // Assert
+            Assert.Equal(products, actualValue);
         }
     }
 }

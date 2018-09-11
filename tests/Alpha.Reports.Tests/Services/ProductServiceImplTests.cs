@@ -255,5 +255,41 @@
             // Assert
             Assert.Equal(expectProducts, actualProducts);
         }
+
+        [Fact]
+        public void IsShowProduct_NotHaveProduct_ReturnsFalse()
+        {
+            // Arrange
+            var cachedProducts = new List<Product>
+            {
+                new Product(1, string.Empty, null)
+            };
+
+            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-1", out cachedProducts).Returns(true);
+
+            // Act
+            var actualValue = productServiceImpl.IsShowProduct(1, 33);
+
+            // Assert
+            Assert.False(actualValue);
+        }
+
+        [Fact]
+        public void IsShowProduct_HaveProduct_ReturnsFalse()
+        {
+            // Arrange
+            var cachedProducts = new List<Product>
+            {
+                new Product(33, string.Empty, null)
+            };
+
+            fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-2", out cachedProducts).Returns(true);
+
+            // Act
+            var actualValue = productServiceImpl.IsShowProduct(2, 33);
+
+            // Assert
+            Assert.False(actualValue);
+        }
     }
 }

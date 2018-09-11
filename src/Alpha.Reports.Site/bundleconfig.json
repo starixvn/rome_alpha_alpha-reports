@@ -48,6 +48,7 @@
     "outputFileName": "assets/bundles/outstanding/outstanding.js",
     "inputFiles": [
       "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
@@ -82,7 +83,7 @@
       "assets/styles/matchwinlossdetail/matchwinlossdetail.css"
     ]
   },
-  
+
   {
     "outputFileName": "assets/bundles/commissionbybettype/commissionbybettype.js",
     "inputFiles": [

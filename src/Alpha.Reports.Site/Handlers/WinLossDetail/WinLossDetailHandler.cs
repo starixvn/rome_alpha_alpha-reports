@@ -5,6 +5,7 @@
     using System.Linq;
     using App_GlobalResources;
     using MediatR;
+    using Reports.Constants;
     using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
@@ -69,6 +70,11 @@
                 result.Add(string.Format(
                     Resources.DelayIssueLegend,
                     string.Join(", ", productService.GetProductNames(productsNeedDelayTimeToSumarizeData))));
+            }
+
+            if (productService.IsShowProduct(viewer.Id, ProductIdConstants.PokerGames))
+            {
+                result.Add(Resources.PokerGames_Turnover_NetTurnoverNote);
             }
 
             return result;

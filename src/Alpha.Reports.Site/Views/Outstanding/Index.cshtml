@@ -10,6 +10,13 @@
 <form class="form-inline filter @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
+    @if (Model.IsShowPokerGames)
+    {
+        <div id="icon-information-container" class="form-group hide">
+            <span id="icon-information" class="icon-information-outline"></span>
+        </div>
+    }
+
     @Html.Hidden("CustId", Model.Query.CustId)
     @Html.Hidden("CustName", Model.Query.CustName)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
@@ -77,6 +84,8 @@
     }
 
 </table>
+
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Outstanding"))
 
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/outstanding/outstanding")

@@ -540,4 +540,13 @@
   <data name="Lucky3GameNo" xml:space="preserve">
     <value>Trò chơi Lucky 3 số</value>
   </data>
+  <data name="PokerGames_OutstandingNote" xml:space="preserve">
+    <value>- Tiền Chưa Xử Lý của Poker Games là tiền mua vào/nạp thêm trong bàn.</value>
+  </data>
+  <data name="PokerGames_TurnoverNote" xml:space="preserve">
+    <value>- Tiền Cược của Poker Games là tiền mua vào/nạp thêm trong bàn.</value>
+  </data>
+  <data name="PokerGames_Turnover_NetTurnoverNote" xml:space="preserve">
+    <value>- Tiền Cược và Tiền Cược Thực của Poker Games là tiền mua vào/nạp thêm trong bàn.</value>
+  </data>
 </root>

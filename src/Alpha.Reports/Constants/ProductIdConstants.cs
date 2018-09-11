@@ -12,5 +12,6 @@
         public const int NG2 = 23;
         public const int Lucky3 = 26;
         public const int Bullfighting = 30;
+        public const int PokerGames = 33;
     }
 }

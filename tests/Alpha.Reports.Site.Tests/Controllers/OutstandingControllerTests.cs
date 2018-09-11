@@ -35,5 +35,18 @@
             // Assert
             mediator.Received().Send(message);
         }
+
+        [Fact]
+        public void ReportLegend_Always_CallsMediatorSendReportLegendQuery()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+
+            // Act
+            controller.ReportLegend(message);
+
+            // Assert
+            mediator.Received().Send(message);
+        }
     }
 }

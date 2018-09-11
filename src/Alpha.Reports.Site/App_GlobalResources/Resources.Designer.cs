@@ -1321,6 +1321,33 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - Member outstanding of Poker Games is the buy-in/top up amount on table..
+        /// </summary>
+        public static string PokerGames_OutstandingNote {
+            get {
+                return ResourceManager.GetString("PokerGames_OutstandingNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Turnover and Net Turnover of Poker Games are the buy-in/top up amount on table..
+        /// </summary>
+        public static string PokerGames_Turnover_NetTurnoverNote {
+            get {
+                return ResourceManager.GetString("PokerGames_Turnover_NetTurnoverNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Turnover of Poker Games is the buy-in/top up amount on table..
+        /// </summary>
+        public static string PokerGames_TurnoverNote {
+            get {
+                return ResourceManager.GetString("PokerGames_TurnoverNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position Taking.
         /// </summary>
         public static string PositionTaking {

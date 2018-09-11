@@ -472,6 +472,7 @@
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
     <Compile Include="Requests\FromLast3MonthDateRangeQuery.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
+    <Compile Include="Requests\Outstanding\ReportLegendQuery.cs" />
     <Compile Include="Requests\ProgressiveContribution\ProgressiveContributionExcelQuery.cs" />
     <Compile Include="Requests\ProgressiveContribution\ProgressiveContributionQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeExcelQuery.cs" />
@@ -1046,6 +1047,7 @@
     <Content Include="Views\CommissionByBettype\Guidelines.cshtml" />
     <Content Include="Views\ProgressiveContribution\Index.cshtml" />
     <Content Include="Views\ProgressiveContribution\ReportLegend.cshtml" />
+    <Content Include="Views\Outstanding\ReportLegend.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

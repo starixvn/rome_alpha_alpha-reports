@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
+    using System.Web.Mvc;
     using Constants;
     using Enumerations;
     using Fixtures;
@@ -36,7 +37,7 @@
         {
             // Arrange
             SetUpForHelpers();
-            UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
+            Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
             var custId = 1;
             var custName = "CustName";
             var userSelectedProductIds = "1,2,3";
@@ -46,13 +47,13 @@
             query.CustLevel.Returns(Agent);
             query.UserSelectedProductIds = userSelectedProductIds;
 
-            var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+            var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             viewmodel.BuildDrillDownLink(new OutstandingModel(custId, custName, 0, 0, 0, 0), "currentUrl");
 
             // Assert
-            UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
+            Site.Helpers.UrlHelper.AddQueryStringParamsFunc.Received().Invoke(
                 "NewBetListPath",
                 Arg.Is<Dictionary<string, object>>(
                     routeValue =>
@@ -69,7 +70,7 @@
         {
             // Arrange
             SetUpForHelpers();
-            UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
+            Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
             var custId = 1;
             var custName = "CustName";
             var currentUrl = "CurrentUrl";
@@ -79,13 +80,13 @@
             query.ViewerLevel.Returns(custLevel);
             query.CustLevel.Returns(custLevel);
 
-            var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+            var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             viewmodel.BuildDrillDownLink(new OutstandingModel(custId, custName, 0, 0, 0, 0), currentUrl);
 
             // Assert
-            UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(
+            Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(
                 currentUrl,
                 Arg.Is<Dictionary<string, object>>(
                     routeValue =>
@@ -105,7 +106,7 @@
             query.CustLevel.Returns(Super);
 
             var expected = new List<UserLevel> { Member, Super };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -123,7 +124,7 @@
             query.CustLevel.Returns(Master);
 
             var expected = new List<UserLevel> { Member, Master, Super };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -140,7 +141,7 @@
             query.ViewerLevel.Returns(Super);
             query.CustLevel.Returns(Agent);
             var expected = new List<UserLevel> { Member, Agent, Master, Super };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -157,7 +158,7 @@
             query.ViewerLevel.Returns(Master);
             query.CustLevel.Returns(Master);
             var expected = new List<UserLevel> { Member, Master };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -174,7 +175,7 @@
             query.ViewerLevel.Returns(Master);
             query.CustLevel.Returns(Agent);
             var expected = new List<UserLevel> { Member, Agent, Master };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -191,7 +192,7 @@
             query.ViewerLevel.Returns(Agent);
             query.CustLevel.Returns(Agent);
             var expected = new List<UserLevel> { Member, Agent };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -212,7 +213,7 @@
             query.ViewerLevel.Returns(userLevel);
             query.CustLevel.Returns(userLevel);
 
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), null, null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             var actualTitle = viewModel.Title;
@@ -242,7 +243,7 @@
             };
 
             var expectedSortPropertyName = "CustName";
-            var viewModel = new OutstandingViewModel(query, outstandingDataSource, Enumerable.Empty<int>(), null, null);
+            var viewModel = new OutstandingViewModel(query, outstandingDataSource, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             var actualSortPropertyName = viewModel.SortPropertyName;
@@ -272,7 +273,7 @@
                 new OutstandingModel()
             };
 
-            var viewModel = new OutstandingViewModel(query, outstandingDataSource, Enumerable.Empty<int>(), null, null);
+            var viewModel = new OutstandingViewModel(query, outstandingDataSource, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null);
 
             // Act
             var actualSortPropertyName = viewModel.SortPropertyName;
@@ -285,10 +286,10 @@
         {
             JsonHelper.ToJsonFunc = Substitute.For<Func<object, string>>();
             JsonHelper.ToJsonFunc.Invoke(Arg.Any<object>()).Returns("parsedJson");
-            UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
-            UrlHelper.MapBetListPath = Substitute.For<Func<string, string>>();
-            UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
-            UrlHelper.MapBetListPath(Arg.Any<string>()).Returns("NewBetListPath");
+            Site.Helpers.UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
+            Site.Helpers.UrlHelper.MapBetListPath = Substitute.For<Func<string, string>>();
+            Site.Helpers.UrlHelper.MapExMainPath(Arg.Any<string>()).Returns("BetListPath");
+            Site.Helpers.UrlHelper.MapBetListPath(Arg.Any<string>()).Returns("NewBetListPath");
         }
     }
 }
