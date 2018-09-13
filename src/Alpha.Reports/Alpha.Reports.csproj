@@ -138,7 +138,9 @@
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
+    <Compile Include="Criteria\PokerGamesWinLossDetail\PokerGamesWinLossDetailCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
+    <Compile Include="DataAccesses\PokerGamesWinLossDetailDataAccess.cs" />
     <Compile Include="Enumerations\LeagueType.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
     <Compile Include="Constants\ConsolidationReportTypeConstants.cs" />
@@ -204,6 +206,7 @@
     <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModel.cs" />
     <Compile Include="Models\PlayForFun\PlayForFunModel.cs" />
     <Compile Include="Models\PlayForFun\PlayForFunProduct.cs" />
+    <Compile Include="Models\PokerGamesWinLossDetail\PokerGamesWinLoss.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductsByRefTable.cs" />
     <Compile Include="Models\ProgressiveContribution\ProgressiveContributionByProductModel.cs" />
@@ -221,6 +224,7 @@
     <Compile Include="Models\WinLossByProduct\WinLossByProductModel.cs" />
     <Compile Include="Models\WinlossByBetType\WinLossByBetTypeModel.cs" />
     <Compile Include="Models\WinLossByProduct\WinLossBySportModel.cs" />
+    <Compile Include="Models\PokerGamesWinLossDetail\PokerGamesWinLossDetailModel.cs" />
     <Compile Include="Models\WinLossDetail\WinLossDetailModel.cs" />
     <Compile Include="Models\Winloss\DailyEnteredSport.cs" />
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
@@ -242,6 +246,7 @@
     <Compile Include="Params\MatchWinLossDetailParam.cs" />
     <Compile Include="Params\WinLossAnalysisChartParam.cs" />
     <Compile Include="Params\WinLossAnalysisParam.cs" />
+    <Compile Include="Params\PokerGamesWinLossDetailParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
     <Compile Include="Params\WinLossByProductParam.cs" />
     <Compile Include="Params\WinLossParam.cs" />
@@ -260,6 +265,7 @@
     <Compile Include="Services\WinLossAnalysisService.cs" />
     <Compile Include="Services\UserPermissionService.cs" />
     <Compile Include="Services\StatementService.cs" />
+    <Compile Include="Services\PokerGamesWinLossDetailService.cs" />
     <Compile Include="Services\WinLossService.cs" />
     <Compile Include="Services\OutstandingService.cs" />
     <Compile Include="Services\ProductService.cs" />

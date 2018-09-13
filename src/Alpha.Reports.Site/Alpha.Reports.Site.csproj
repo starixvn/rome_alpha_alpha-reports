@@ -401,6 +401,7 @@
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
+    <Compile Include="Controllers\PokerGamesWinLossDetailController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -447,6 +448,9 @@
     <Compile Include="Handlers\LeagueHandler.cs" />
     <Compile Include="Handlers\MatchWinLossDetail\MatchWinLossDetailHandler.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossHandler.cs" />
+    <Compile Include="Handlers\PokerGamesWinLossDetail\PokerGamesWinLossDetailBaseHandler.cs" />
+    <Compile Include="Handlers\PokerGamesWinLossDetail\PokerGamesWinLossDetailExcelHandler.cs" />
+    <Compile Include="Handlers\PokerGamesWinLossDetail\PokerGamesWinLossDetailHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandler.cs" />
@@ -505,6 +509,9 @@
     <Compile Include="Requests\Statement\StatementDetailExcelQuery.cs" />
     <Compile Include="Requests\Statement\StatementDetailsQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidateWinLossDetailExcelQuery.cs" />
+    <Compile Include="Requests\PokerGamesWinLossDetail\PokerGamesReportLegendQuery.cs" />
+    <Compile Include="Requests\PokerGamesWinLossDetail\PokerGamesWinLossDetailExcelQuery.cs" />
+    <Compile Include="Requests\PokerGamesWinLossDetail\PokerGamesWinLossDetailQuery.cs" />
     <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisExcelQuery.cs" />
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisQuery.cs" />
@@ -563,6 +570,7 @@
     <Compile Include="ViewModels\PlayForFun\PlayForFunFilterViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\MatchWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\Statement\StatementDetailViewModel.cs" />
+    <Compile Include="ViewModels\PokerGamesWinLossDetail\PokerGamesWinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLossReportBaseViewModel.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultFilterViewModel.cs" />
@@ -633,6 +641,7 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinlossdetail\matchwinlossdetail-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\progressivecontribution\progressivecontribution-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\progressivecontribution\progressivecontribution-init-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\progressivecontribution\progressivecontribution-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\statement\member-statement-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss-analysis-chart\winloss-analysis-chart-tests.ts" />
@@ -650,6 +659,9 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\pokergames-winlossdetail\pokergames-winlossdetail-registerEvents-tests.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\pokergames-winlossdetail\pokergames-winlossdetail-template.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\pokergames-winlossdetail\pokergames-winlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\enteredresult-tests.ts" />
@@ -661,6 +673,7 @@
     <TypeScriptCompile Include="assets\scripts\winlossanalysischart\winlossanalysischart.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossanalysis\winlossanalysis.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossbyproduct\winlossbyproduct.ts" />
+    <TypeScriptCompile Include="assets\scripts\pokergames-winlossdetail\pokergames-winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBARC.bodb_Archive.BODBDownlineNet.xml" />
@@ -688,6 +701,8 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\pokergames-winlossdetail\pokergames-winlossdetail.js" />
+    <Content Include="assets\bundles\pokergames-winlossdetail\pokergames-winlossdetail.min.js" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.css" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.css">
@@ -1001,6 +1016,9 @@
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Member.xls" />
+    <Content Include="App_Data\ExcelTemplates\PokerGamesWinLossDetail\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\PokerGamesWinLossDetail\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\PokerGamesWinLossDetail\Member.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1048,6 +1066,10 @@
     <Content Include="Views\ProgressiveContribution\Index.cshtml" />
     <Content Include="Views\ProgressiveContribution\ReportLegend.cshtml" />
     <Content Include="Views\Outstanding\ReportLegend.cshtml" />
+    <Content Include="Views\PokerGamesWinLossDetail\Filter.cshtml" />
+    <Content Include="Views\PokerGamesWinLossDetail\Index.cshtml" />
+    <Content Include="Views\PokerGamesWinLossDetail\ReportData.cshtml" />
+    <Content Include="Views\PokerGamesWinLossDetail\ReportLegend.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

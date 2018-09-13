@@ -106,6 +106,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agent Poker Games Win Loss.
+        /// </summary>
+        public static string AgentPokerGamesWinLossDetail {
+            get {
+                return ResourceManager.GetString("AgentPokerGamesWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agent Total.
         /// </summary>
         public static string AgentTotal {
@@ -808,6 +817,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insurance/Gems Win Loss.
+        /// </summary>
+        public static string Insurance_GemsWinLoss {
+            get {
+                return ResourceManager.GetString("Insurance_GemsWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Insurance&amp;Gems WL.
+        /// </summary>
+        public static string Insurance_GemsWinLossAbbr {
+            get {
+                return ResourceManager.GetString("Insurance_GemsWinLossAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to January.
         /// </summary>
         public static string January {
@@ -943,6 +970,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Master Poker Games Win Loss.
+        /// </summary>
+        public static string MasterPokerGamesWinLossDetail {
+            get {
+                return ResourceManager.GetString("MasterPokerGamesWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Master Total.
         /// </summary>
         public static string MasterTotal {
@@ -1042,6 +1078,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member Poker Games Win Loss.
+        /// </summary>
+        public static string MemberPokerGamesWinLossDetail {
+            get {
+                return ResourceManager.GetString("MemberPokerGamesWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member Turnover.
         /// </summary>
         public static string MemberTurnOver {
@@ -1119,6 +1164,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string NetTurnoverAndGrossComm {
             get {
                 return ResourceManager.GetString("NetTurnoverAndGrossComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Net TO/Gross Tax Comm.
+        /// </summary>
+        public static string NetTurnoverAndTaxComm {
+            get {
+                return ResourceManager.GetString("NetTurnoverAndTaxComm", resourceCulture);
             }
         }
         
@@ -1348,6 +1402,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Poker Games Win Loss.
+        /// </summary>
+        public static string PokerGamesWinLossDetail {
+            get {
+                return ResourceManager.GetString("PokerGamesWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position Taking.
         /// </summary>
         public static string PositionTaking {
@@ -1425,6 +1488,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Results {
             get {
                 return ResourceManager.GetString("Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Round Count.
+        /// </summary>
+        public static string RoundCount {
+            get {
+                return ResourceManager.GetString("RoundCount", resourceCulture);
             }
         }
         
@@ -1587,6 +1659,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SymbolMyanmarOdds {
             get {
                 return ResourceManager.GetString("SymbolMyanmarOdds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gross Tax Comm.
+        /// </summary>
+        public static string TaxComm {
+            get {
+                return ResourceManager.GetString("TaxComm", resourceCulture);
             }
         }
         

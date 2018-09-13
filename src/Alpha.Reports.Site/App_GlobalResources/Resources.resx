@@ -732,4 +732,31 @@
   <data name="PokerGames_Turnover_NetTurnoverNote" xml:space="preserve">
     <value>- Turnover and Net Turnover of Poker Games are the buy-in/top up amount on table.</value>
   </data>
+  <data name="MasterPokerGamesWinLossDetail" xml:space="preserve">
+    <value>Master Poker Games Win Loss</value>
+  </data>
+  <data name="AgentPokerGamesWinLossDetail" xml:space="preserve">
+    <value>Agent Poker Games Win Loss</value>
+  </data>
+  <data name="MemberPokerGamesWinLossDetail" xml:space="preserve">
+    <value>Member Poker Games Win Loss</value>
+  </data>
+  <data name="PokerGamesWinLossDetail" xml:space="preserve">
+    <value>Poker Games Win Loss</value>
+  </data>
+  <data name="TaxComm" xml:space="preserve">
+    <value>Gross Tax Comm</value>
+  </data>
+  <data name="RoundCount" xml:space="preserve">
+    <value>Round Count</value>
+  </data>
+  <data name="Insurance_GemsWinLoss" xml:space="preserve">
+    <value>Insurance/Gems Win Loss</value>
+  </data>
+  <data name="NetTurnoverAndTaxComm" xml:space="preserve">
+    <value>/Net TO/Gross Tax Comm</value>
+  </data>
+  <data name="Insurance_GemsWinLossAbbr" xml:space="preserve">
+    <value>/Insurance&amp;Gems WL</value>
+  </data>
 </root>
