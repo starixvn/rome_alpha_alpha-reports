@@ -589,7 +589,9 @@
     <Content Include="App_Data\activitytracking.uat.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
-    <Content Include="App_Data\SPNames\Internal\DB053_DB054.bodb02.BODBDownlineNetView.xml" />
+    <Content Include="App_Data\SPNames\Internal\DB053_DB054.bodb02.BODBDownlineNetView.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\SPNames\Internal\DBACC.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBARC.bodb_Archive.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBLOG.bodb_CustomerLog.BODBDownlineNetView.xml" />
