@@ -21,14 +21,14 @@
             <th class="visible-stack-mode col-combine sorting" data-sortedname="MemberWinLoss.WinLoss" rowspan="2" data-colindex="3">
                 @Resources.Member
                 <br />
-                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.Insurance_GemsWinLossAbbr@Resources.CommAndTotal)
+                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>/@Resources.Insurance_GemsWinLossAbbr@Resources.CommAndTotal)
             </th>
 
             <th colspan="3" class="col-level hidden-stack-mode" data-disabledsort="true">@Resources.Agent</th>
             <th class="visible-stack-mode col-combine sorting" data-sortedname="AgentWinLoss.InsuranceGemsWinLoss" rowspan="2" data-colindex="4">
                 @Resources.Agent
                 <br />
-                (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.Insurance_GemsWinLossAbbr@Resources.CommAndTotal)
+                (<span class="prior-sortedcolumn">@Resources.Insurance_GemsWinLossAbbr</span>@Resources.CommAndTotal)
             </th>
 
             @if (Model.CustLevel.IsMasterOrSuperLevel())
@@ -37,7 +37,7 @@
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="MasterWinLoss.InsuranceGemsWinLoss" rowspan="2" data-colindex="5">
                     @Resources.Master
                     <br />
-                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.Insurance_GemsWinLossAbbr@Resources.CommAndTotal)
+                    (<span class="prior-sortedcolumn">@Resources.Insurance_GemsWinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
             }
 
@@ -47,7 +47,7 @@
                 <th class="visible-stack-mode col-combine sorting" data-sortedname="SuperWinLoss.InsuranceGemsWinLoss" rowspan="2" data-colindex="6">
                     @Resources.Super
                     <br />
-                    (<span class="prior-sortedcolumn">@Resources.WinLossAbbr</span>@Resources.Insurance_GemsWinLossAbbr@Resources.CommAndTotal)
+                    (<span class="prior-sortedcolumn">@Resources.Insurance_GemsWinLossAbbr</span>@Resources.CommAndTotal)
                 </th>
             }
 

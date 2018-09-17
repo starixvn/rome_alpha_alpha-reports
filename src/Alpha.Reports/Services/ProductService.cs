@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Constants;
     using Criteria;
     using Extensions;
     using Fanex.Caching;
@@ -26,6 +27,8 @@
         IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer();
 
         bool IsShowProduct(int custId, int productId);
+
+        Product GetPokerGames();
     }
 
     public class ProductServiceImpl : ProductService
@@ -138,5 +141,8 @@
 
             return products;
         }
+
+        public Product GetPokerGames()
+            => new Product(ProductIdConstants.PokerGames, "PokerGames", null, getProductName);
     }
 }

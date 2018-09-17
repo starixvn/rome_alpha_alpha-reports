@@ -13,6 +13,7 @@
     using Reports.Models;
     using Reports.Models.PokerGamesWinLossDetail;
     using Services;
+    using Site.App_GlobalResources;
     using Site.Handlers.PokerGamesWinLossDetail;
     using Site.Requests.PokerGamesWinLossDetail;
     using Site.ViewModels.PokerGamesWinLossDetail;
@@ -87,10 +88,9 @@
         {
             // Arrange
             var message = new PokerGamesReportLegendQuery();
-            var expectedViewModel = new List<string>
-            {
-                "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets."
-            };
+            var expectedViewModel = new List<string>();
+
+            expectedViewModel.AddRange(Resources.Tooltip_NetTurnover_PokerGames.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries));
 
             // Act
             var actualViewModel = winLossDetailHandler.Handle(message);

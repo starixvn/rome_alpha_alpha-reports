@@ -45,7 +45,7 @@
         {
             message.CustId = viewer.Id;
             var result = new List<string>();
-            result.Add(Resources.Tooltip_NetTurnover);
+            result.AddRange(Resources.Tooltip_NetTurnover_PokerGames.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries));
 
             return result;
         }

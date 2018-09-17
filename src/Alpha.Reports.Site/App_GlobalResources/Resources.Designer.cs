@@ -817,7 +817,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insurance/Gems Win Loss.
+        ///   Looks up a localized string similar to Insurance &amp; Gems Win Loss.
         /// </summary>
         public static string Insurance_GemsWinLoss {
             get {
@@ -826,7 +826,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Insurance&amp;Gems WL.
+        ///   Looks up a localized string similar to Insurance&amp;Gems WL.
         /// </summary>
         public static string Insurance_GemsWinLossAbbr {
             get {
@@ -1776,6 +1776,20 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Tooltip_NetTurnover_21 {
             get {
                 return ResourceManager.GetString("Tooltip_NetTurnover_21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Round Count is number of game rounds member played on the table.
+        ///- Turnover of Poker Games are the buy-in/top up amount on table.
+        ///- Net Turnover of Poker Games are actual amount member played on game table and Gems bought.
+        ///- Gross Tax Comm is commission for whole line.
+        ///- Member Win Loss excludes Insurance and Gems bought
+        ///- Member Insurance and Gems Win Loss is the win loss on Insurance and Gems bought only..
+        /// </summary>
+        public static string Tooltip_NetTurnover_PokerGames {
+            get {
+                return ResourceManager.GetString("Tooltip_NetTurnover_PokerGames", resourceCulture);
             }
         }
         

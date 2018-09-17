@@ -702,7 +702,9 @@
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
     <Content Include="assets\bundles\pokergames-winlossdetail\pokergames-winlossdetail.js" />
-    <Content Include="assets\bundles\pokergames-winlossdetail\pokergames-winlossdetail.min.js" />
+    <Content Include="assets\bundles\pokergames-winlossdetail\pokergames-winlossdetail.min.js">
+      <DependentUpon>pokergames-winlossdetail.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.css" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.css">
