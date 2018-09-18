@@ -16,5 +16,7 @@
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
+
+        public bool IsSubmit { get; set; }
     }
 }

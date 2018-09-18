@@ -31,6 +31,7 @@
             IsDescendingSort = canSort && param.IsDescendingSort;
 
             IsGroupHeadline = isGroupHeadline;
+            IsSubmit = message.IsSubmit;
         }
 
         public PagerViewModel PagerViewModel =>
@@ -47,6 +48,8 @@
         public bool IsDescendingSort { get; }
 
         public bool IsGroupHeadline { get; }
+
+        public bool IsSubmit { get; }
 
         public PagedReportData<PokerGamesWinLossDetailModel> ReportData { get; }
 
@@ -65,7 +68,8 @@
                 ["CustId"] = model.CustId,
                 ["CustName"] = model.CustName,
                 ["PageIndex"] = PageIndex,
-                ["PageSize"] = PageSize
+                ["PageSize"] = PageSize,
+                ["IsSubmit"] = true
             };
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(PokerGamesWinLossDetailModel model)

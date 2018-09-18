@@ -32,7 +32,7 @@
     @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 </form>
 
-@Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
+@Html.Hidden("IsSetDefaultStackMode", !Model.IsSubmit)
 @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "PokerGamesWinLossDetail"))
 
 @Pager.Render(Model.PagerViewModel)

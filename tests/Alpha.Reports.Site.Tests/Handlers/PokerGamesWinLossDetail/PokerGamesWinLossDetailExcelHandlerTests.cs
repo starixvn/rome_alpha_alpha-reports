@@ -87,7 +87,7 @@
             pokerGamesWinLossDetailExcelHandler.Handle(message);
 
             // Assert
-            workbook.Received().Title(Arg.Is("Poker Games Win Loss 12/02/2016 --> 12/02/2016"));
+            workbook.Received().Title(Arg.Is("Poker Games-Win Loss 12/02/2016 --> 12/02/2016"));
         }
 
         [Fact]

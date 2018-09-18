@@ -209,7 +209,6 @@ class PokerGamesWinLossDetailView extends BaseReport {
         if (this.isFirstSwitchMode) {
             if (currentStackModeState) {
                 alphaReports.splitCell("col-turnover");
-
                 this$.each(levels, function (index: number) {
                     let level = levels[index];
                     alphaReports.splitCell("col-" + level + "-winloss", index % 2 ? " altercol" : "");
