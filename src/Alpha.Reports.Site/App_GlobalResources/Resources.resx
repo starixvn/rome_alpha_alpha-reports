@@ -754,7 +754,7 @@
     <value>Round Count</value>
   </data>
   <data name="Insurance_GemsWinLoss" xml:space="preserve">
-    <value>Insurance &amp; Gems Win Loss</value>
+    <value>Insurance &amp; Gems Win/Loss</value>
   </data>
   <data name="NetTurnoverAndTaxComm" xml:space="preserve">
     <value>/Net TO/Gross Tax Comm</value>
@@ -769,5 +769,8 @@
 - Gross Tax Comm is commission for whole line.
 - Member Win Loss excludes Insurance and Gems bought
 - Member Insurance and Gems Win Loss is the win loss on Insurance and Gems bought only.</value>
+  </data>
+  <data name="PokerGames_WinLoss" xml:space="preserve">
+    <value>Poker Games-Win Loss</value>
   </data>
 </root>

@@ -826,7 +826,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Insurance &amp; Gems Win Loss.
+        ///   Looks up a localized string similar to Insurance &amp; Gems Win/Loss.
         /// </summary>
         public static string Insurance_GemsWinLoss {
             get {
@@ -1407,6 +1407,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string PokerGames_TurnoverNote {
             get {
                 return ResourceManager.GetString("PokerGames_TurnoverNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Poker Games-Win Loss.
+        /// </summary>
+        public static string PokerGames_WinLoss {
+            get {
+                return ResourceManager.GetString("PokerGames_WinLoss", resourceCulture);
             }
         }
         

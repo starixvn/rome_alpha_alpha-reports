@@ -49,12 +49,12 @@
         }
 
         private string GetReportTitle(PokerGamesWinLossDetailExcelQuery message)
-            => $"{Resources.PokerGamesWinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
+            => $"{Resources.PokerGames_WinLoss} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}";
 
         private string GetExcelFileName(PokerGamesWinLossDetailExcelQuery message, PokerGamesWinLossDetailParam winLossDetailParam)
             => string.Join(
                 "-",
-                Resources.PokerGamesWinLossDetail,
+                Resources.PokerGames_WinLoss,
                 message.CustName,
                 winLossDetailParam.FromDate.ToShortDateWithSlash(),
                 winLossDetailParam.ToDate.ToShortDateWithSlash());
