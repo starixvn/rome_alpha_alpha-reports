@@ -268,6 +268,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - For Bullfighting, Net Turnover is Turnover which excludes the draw tickets..
+        /// </summary>
+        public static string Bullfighting_NetTurnoverNote {
+            get {
+                return ResourceManager.GetString("Bullfighting_NetTurnoverNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can view the report data from {0}. For more historic data, please click to.
         /// </summary>
         public static string CanOnlyViewDataAfterTimeCurrentReport {

@@ -732,6 +732,9 @@
   <data name="PokerGames_Turnover_NetTurnoverNote" xml:space="preserve">
     <value>- Turnover and Net Turnover of Poker Games are the buy-in/top up amount on table.</value>
   </data>
+  <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
+    <value>- For Bullfighting, Net Turnover is Turnover which excludes the draw tickets.</value>
+  </data>
   <data name="MasterPokerGamesWinLossDetail" xml:space="preserve">
     <value>Master Poker Games Win Loss</value>
   </data>
