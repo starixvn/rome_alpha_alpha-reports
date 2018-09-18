@@ -1,0 +1,42 @@
+﻿@model PokerGamesWinLossDetailViewModel
+@{
+    ViewBag.Title = "Poker Games Win Loss Report";
+}
+
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, true, true, Model.IsStackMode, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
+
+@Html.Partial("Filter", Model.FilterViewModel,
+    new ViewDataDictionary
+    {
+        { "IsStackMode", Model.IsStackMode },
+        { "IsDescendingSort", Model.IsDescendingSort },
+        { "SortPropertyName", Model.SortPropertyName }
+    })
+
+@Html.Partial(
+    "ReportData",
+    Model,
+    new ViewDataDictionary
+    {
+        ["ExportExcelController"] = "PokerGamesWinLossDetail",
+        ["ExportExcelAction"] = "Excel"
+    })
+
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "PokerGamesWinLossDetail")">
+    @Html.Hidden("CustId", Model.CustId)
+    @Html.Hidden("CustName", Model.CustName)
+    @Html.Hidden("FromDate", Model.FromDate)
+    @Html.Hidden("ToDate", Model.ToDate)
+    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
+</form>
+
+@Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "PokerGamesWinLossDetail"))
+
+@Pager.Render(Model.PagerViewModel)
+
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/pokergames-winlossdetail/pokergames-winlossdetail")
+}

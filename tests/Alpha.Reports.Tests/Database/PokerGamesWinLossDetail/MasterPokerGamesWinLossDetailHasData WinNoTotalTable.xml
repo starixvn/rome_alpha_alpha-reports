@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WinLossDetail>
+  <TableWinLoss>
+    <CustId>1</CustId>
+    <CustName>Master1</CustName>
+    <Turnover>0</Turnover>
+    <NetTurnover>1</NetTurnover>
+    <TaxComm>2</TaxComm>
+    <MemberWinLoss>3</MemberWinLoss>
+    <InsGemMemberWinLoss>20</InsGemMemberWinLoss>
+    <MemberComm>4</MemberComm>
+    <InsGemAgWinLoss>5</InsGemAgWinLoss>
+    <AgComm>6</AgComm>
+    <InsGemMAgWinLoss>7</InsGemMAgWinLoss>
+    <MAgComm>8</MAgComm>
+    <InsGemSAgWinLoss>9</InsGemSAgWinLoss>
+    <SAgComm>10</SAgComm>
+    <RoundCount>11</RoundCount>
+    <RowNum>12</RowNum>
+  </TableWinLoss>
+  <TableWinLoss>
+    <CustId>11</CustId>
+    <CustName>Master2</CustName>
+    <Turnover>10</Turnover>
+    <NetTurnover>11</NetTurnover>
+    <TaxComm>12</TaxComm>
+    <MemberWinLoss>13</MemberWinLoss>
+    <InsGemMemberWinLoss>20</InsGemMemberWinLoss>
+    <MemberComm>14</MemberComm>
+    <InsGemAgWinLoss>15</InsGemAgWinLoss>
+    <AgComm>16</AgComm>
+    <InsGemMAgWinLoss>17</InsGemMAgWinLoss>
+    <MAgComm>18</MAgComm>
+    <InsGemSAgWinLoss>19</InsGemSAgWinLoss>
+    <SAgComm>110</SAgComm>
+    <RoundCount>111</RoundCount>
+    <RowNum>112</RowNum>
+  </TableWinLoss>
+</WinLossDetail>

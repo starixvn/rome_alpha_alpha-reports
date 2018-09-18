@@ -45,67 +45,6 @@
         spyOn(monthPickerComponent, "render");
     });
 
-    describe("init", () => {
-        it("Document is not ready -> Does not call any Method", () => {
-            // act
-            progressiveContributionView.init();
-
-            // assert
-            expect(progressiveContributionView.cacheDOMElements).not.toHaveBeenCalled();
-            expect(progressiveContributionView.registerEvents).not.toHaveBeenCalled();
-        });
-
-        it("Document is ready -> Calls Specific Methods", () => {
-            // arrange
-            setFixtures(progressiveContributionTemplate.reportWithNormalMode);
-
-            // act
-            progressiveContributionView.init();
-
-            // assert
-            expect(progressiveContributionView.cacheDOMElements).toHaveBeenCalled();
-            expect(progressiveContributionView.registerEvents).toHaveBeenCalled();
-            expect(progressiveContributionView.bindFilter).toHaveBeenCalled();
-            expect($.fn.stickyTableHeaders).toHaveBeenCalled();
-        });
-
-        it("Current Report -> Renders Date Range Picker And Not Render Month Picker", () => {
-            // arrange
-            setFixtures(progressiveContributionTemplate.reportWithNormalMode);
-
-            // act
-            progressiveContributionView.init();
-
-            // assert
-            expect(dateRangePickerComponent.render).toHaveBeenCalled();
-            expect(monthPickerComponent.render).not.toHaveBeenCalled();
-        });
-
-        it("Historic Report With Hidden Filter -> Renders Month Picker And Not Render Date Range Picker", () => {
-            // arrange
-            setFixtures(progressiveContributionTemplate.historicReportWithHiddenFilter);
-
-            // act
-            progressiveContributionView.init();
-
-            // assert
-            expect(monthPickerComponent.render).toHaveBeenCalled();
-            expect(dateRangePickerComponent.render).not.toHaveBeenCalled();
-        });
-
-        it("Historic Report With Hidden Filter -> Hides Filter Is Hidden After Init", () => {
-            // arrange
-            setFixtures(progressiveContributionTemplate.historicReportWithHiddenFilter);
-
-            // act
-            progressiveContributionView.init();
-            var actualIsHidden = $("#report-form").hasClass("hide");
-
-            // assert
-            expect(actualIsHidden).toBeTruthy();
-        });
-    });
-
     describe("cacheDOMElements", () => {
         it("Always -> All neccessary elements have been cached", () => {
             // arrange

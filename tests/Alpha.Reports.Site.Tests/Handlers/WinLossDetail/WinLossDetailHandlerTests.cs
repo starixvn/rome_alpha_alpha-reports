@@ -198,5 +198,32 @@
             // Assert
             Assert.Equal(expectedViewModel, actualViewModel);
         }
+
+        [Fact]
+        public void HandleReportLegendQuery_HaveBullfighting_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(new List<byte> { 1 });
+            productService.IsShowProduct(10, 30).Returns(true);
+            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
+            {
+                new Product(21, string.Empty, null)
+            });
+
+            var expectedViewModel = new List<string>
+            {
+                "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
+                "- For AllBet, Net Turnover is total valid bets that we use to compute commission.",
+                "- Data of Product Name will be delayed up to 5 minutes after settling tickets.",
+                "- For Bullfighting, Net Turnover is Turnover which excludes the draw tickets."
+            };
+
+            // Act
+            var actualViewModel = winLossDetailHandler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
+        }
     }
 }

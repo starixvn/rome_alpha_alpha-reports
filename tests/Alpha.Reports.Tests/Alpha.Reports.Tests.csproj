@@ -226,6 +226,7 @@
     <Compile Include="Criteria\WinLossByProduct\WinLossByProductCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossAnalysisChart\WinLossAnalysisChartCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteriaTests.cs" />
+    <Compile Include="Criteria\PokerGamesWinLossDetail\PokerGamesWinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteriaTests.cs" />
@@ -235,11 +236,13 @@
     <Compile Include="DataAccesses\WinLossAnalysisDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />
+    <Compile Include="DataAccesses\PokerGamesWinLossDetailDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Database\MatchWinLossDetail\MatchWinLossDetailDatabase.cs" />
     <Compile Include="Database\Statement\StatementDatabase.cs" />
     <Compile Include="Database\WinLossByProduct\WinLossByProductDatabase.cs" />
     <Compile Include="Database\WinLossAnalysis\WinLossAnalysisDatabase.cs" />
+    <Compile Include="Database\PokerGamesWinLossDetail\PokerGamesWinLossDetailDatabase.cs" />
     <Compile Include="Database\WinLoss\WinLossDatabase.cs" />
     <Compile Include="Database\WinLossDetail\WinLossDetailDatabase.cs" />
     <Compile Include="DataAccesses\WinLossDataAccessImplTests.cs" />
@@ -264,6 +267,7 @@
     <Compile Include="Models\LeagueTests.cs" />
     <Compile Include="Models\Outstanding\OutstandingModelTests.cs" />
     <Compile Include="Models\PlayForFunProductTests.cs" />
+    <Compile Include="Models\PokerGamesWinLossDetail\PokerGamesWinLossTest.cs" />
     <Compile Include="Models\ProductsByRefTableTests.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModelTests.cs" />
     <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModelTests.cs" />
@@ -290,6 +294,7 @@
     <Compile Include="Params\WinLossAnalysisChartParamTests.cs" />
     <Compile Include="Params\WinLossByProductParamTests.cs" />
     <Compile Include="Params\WinLossAnalysisParamTests.cs" />
+    <Compile Include="Params\PokerGamesWinLossDetailParamTests.cs" />
     <Compile Include="Params\WinLossParamTests.cs" />
     <Compile Include="Params\WinLossDetailParamTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -308,6 +313,7 @@
     <Compile Include="Services\WinLossByProductServiceImplTests.cs" />
     <Compile Include="Services\WinLossAnalysisChartServiceImplTests.cs" />
     <Compile Include="Services\WinLossAnalysisServiceImplTests.cs" />
+    <Compile Include="Services\PokerGamesWinLossDetailServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />
     <Compile Include="Services\WinLossServiceImplTests.cs" />
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
@@ -360,6 +366,18 @@
     <Content Include="Database\Statement\StatementHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Database\PokerGamesWinLossDetail\AgentPokerGamesWinLossDetailHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\PokerGamesWinLossDetail\MasterPokerGamesWinLossDetailHasData WinNoTotalTable.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\PokerGamesWinLossDetail\MasterPokerGamesWinLossDetailHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\PokerGamesWinLossDetail\MemberPokerGamesWinLossDetailHasData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\WinLossDetail\AgentWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

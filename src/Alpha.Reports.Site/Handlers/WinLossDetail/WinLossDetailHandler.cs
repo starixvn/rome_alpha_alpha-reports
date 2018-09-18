@@ -77,6 +77,11 @@
                 result.Add(Resources.PokerGames_Turnover_NetTurnoverNote);
             }
 
+            if (productService.IsShowProduct(viewer.Id, ProductIdConstants.Bullfighting))
+            {
+                result.Add(Resources.Bullfighting_NetTurnoverNote);
+            }
+
             return result;
         }
     }

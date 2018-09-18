@@ -549,4 +549,21 @@
   <data name="PokerGames_Turnover_NetTurnoverNote" xml:space="preserve">
     <value>- Tiền Cược và Tiền Cược Thực của Poker Games là tiền mua vào/nạp thêm trong bàn.</value>
   </data>
+  <data name="TaxComm" xml:space="preserve">
+    <value>Tổng hoa hồng</value>
+  </data>
+  <data name="Insurance_GemsWinLoss" xml:space="preserve">
+    <value>Thắng thua trên bảo hiểm và ngọc</value>
+  </data>
+  <data name="Insurance_GemsWinLossAbbr" xml:space="preserve">
+    <value>Thắng thua trên bảo hiểm và ngọc</value>
+  </data>
+  <data name="Tooltip_NetTurnover_PokerGames" xml:space="preserve">
+    <value>- Số Ván là tổng số ván bài Member đã chơi trên bàn.
+- Tiền Cược của Poker Games là tiền mua vào/nạp thêm trong bàn.
+- Tiền Cược Thực của Poker Games là tổng tiền Member đã đặt cược trên bàn và tiền mua ngọc.
+- Tổng hoa hồng là số tiền hoa hồng của tất cả các cấp.
+- Thắng thua của Member không bao gồm tiền mua bảo hiểm và ngọc.
+- Thắng thua trên bảo hiểm và ngọc của Member là số tiền thắng thua trên bảo hiểm và ngọc được mua.</value>
+  </data>
 </root>

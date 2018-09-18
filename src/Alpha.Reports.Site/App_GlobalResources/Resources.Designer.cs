@@ -106,6 +106,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Agent Poker Games Win Loss.
+        /// </summary>
+        public static string AgentPokerGamesWinLossDetail {
+            get {
+                return ResourceManager.GetString("AgentPokerGamesWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agent Total.
         /// </summary>
         public static string AgentTotal {
@@ -255,6 +264,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string BetType {
             get {
                 return ResourceManager.GetString("BetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - For Bullfighting, Net Turnover is Turnover which excludes the draw tickets..
+        /// </summary>
+        public static string Bullfighting_NetTurnoverNote {
+            get {
+                return ResourceManager.GetString("Bullfighting_NetTurnoverNote", resourceCulture);
             }
         }
         
@@ -808,6 +826,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insurance &amp; Gems Win Loss.
+        /// </summary>
+        public static string Insurance_GemsWinLoss {
+            get {
+                return ResourceManager.GetString("Insurance_GemsWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insurance&amp;Gems WL.
+        /// </summary>
+        public static string Insurance_GemsWinLossAbbr {
+            get {
+                return ResourceManager.GetString("Insurance_GemsWinLossAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to January.
         /// </summary>
         public static string January {
@@ -943,6 +979,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Master Poker Games Win Loss.
+        /// </summary>
+        public static string MasterPokerGamesWinLossDetail {
+            get {
+                return ResourceManager.GetString("MasterPokerGamesWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Master Total.
         /// </summary>
         public static string MasterTotal {
@@ -1042,6 +1087,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member Poker Games Win Loss.
+        /// </summary>
+        public static string MemberPokerGamesWinLossDetail {
+            get {
+                return ResourceManager.GetString("MemberPokerGamesWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member Turnover.
         /// </summary>
         public static string MemberTurnOver {
@@ -1119,6 +1173,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string NetTurnoverAndGrossComm {
             get {
                 return ResourceManager.GetString("NetTurnoverAndGrossComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Net TO/Gross Tax Comm.
+        /// </summary>
+        public static string NetTurnoverAndTaxComm {
+            get {
+                return ResourceManager.GetString("NetTurnoverAndTaxComm", resourceCulture);
             }
         }
         
@@ -1348,6 +1411,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Poker Games Win Loss.
+        /// </summary>
+        public static string PokerGamesWinLossDetail {
+            get {
+                return ResourceManager.GetString("PokerGamesWinLossDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position Taking.
         /// </summary>
         public static string PositionTaking {
@@ -1425,6 +1497,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Results {
             get {
                 return ResourceManager.GetString("Results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Round Count.
+        /// </summary>
+        public static string RoundCount {
+            get {
+                return ResourceManager.GetString("RoundCount", resourceCulture);
             }
         }
         
@@ -1591,6 +1672,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gross Tax Comm.
+        /// </summary>
+        public static string TaxComm {
+            get {
+                return ResourceManager.GetString("TaxComm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no League..
         /// </summary>
         public static string ThereIsNoLeague {
@@ -1695,6 +1785,20 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Tooltip_NetTurnover_21 {
             get {
                 return ResourceManager.GetString("Tooltip_NetTurnover_21", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Round Count is number of game rounds member played on the table.
+        ///- Turnover of Poker Games are the buy-in/top up amount on table.
+        ///- Net Turnover of Poker Games are actual amount member played on game table and Gems bought.
+        ///- Gross Tax Comm is commission for whole line.
+        ///- Member Win Loss excludes Insurance and Gems bought
+        ///- Member Insurance and Gems Win Loss is the win loss on Insurance and Gems bought only..
+        /// </summary>
+        public static string Tooltip_NetTurnover_PokerGames {
+            get {
+                return ResourceManager.GetString("Tooltip_NetTurnover_PokerGames", resourceCulture);
             }
         }
         
