@@ -648,4 +648,7 @@
   <data name="Tooltip_CommissionByBetType" xml:space="preserve">
     <value>- 其他：適用於{0}的投註類型。</value>
   </data>
+  <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
+    <value>- 鬥牛產品的【凈投註額】是扣除 “和局” 註單後的【總投資額】。</value>
+  </data>
 </root>

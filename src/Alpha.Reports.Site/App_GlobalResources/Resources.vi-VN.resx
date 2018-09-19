@@ -566,4 +566,7 @@
 - Thắng thua của Member không bao gồm tiền mua bảo hiểm và ngọc.
 - Thắng thua trên bảo hiểm và ngọc của Member là số tiền thắng thua trên bảo hiểm và ngọc được mua.</value>
   </data>
+  <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
+    <value>- Trong Đấu Bò, Tiền Cược Thực là tiền cược không bao gồm các cược hòa.</value>
+  </data>
 </root>
