@@ -550,7 +550,7 @@
     <value>- Tiền Cược và Tiền Cược Thực của Poker Games là tiền mua vào/nạp thêm trong bàn.</value>
   </data>
   <data name="TaxComm" xml:space="preserve">
-    <value>Tổng hoa hồng</value>
+    <value>Tổng hoa hồng (Poker)</value>
   </data>
   <data name="Insurance_GemsWinLoss" xml:space="preserve">
     <value>Thắng thua trên bảo hiểm và ngọc</value>
@@ -586,5 +586,8 @@
   </data>
   <data name="PokerGames_WinLoss" xml:space="preserve">
     <value>Thắng thua của Poker</value>
+  </data>
+  <data name="NetTurnoverAndTaxComm" xml:space="preserve">
+    <value>/Tiền cược thực/Tổng hoa hồng (Poker)</value>
   </data>
 </root>
