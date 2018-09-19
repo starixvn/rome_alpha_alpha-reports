@@ -569,4 +569,22 @@
   <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
     <value>- Trong Đấu Bò, Tiền Cược Thực là tiền cược không bao gồm các cược hòa.</value>
   </data>
+  <data name="RoundCount" xml:space="preserve">
+    <value>Số ván</value>
+  </data>
+  <data name="MasterPokerGamesWinLossDetail" xml:space="preserve">
+    <value>Thắng thua của Master trong Poker</value>
+  </data>
+  <data name="AgentPokerGamesWinLossDetail" xml:space="preserve">
+    <value>Thắng thua của Agent trong Poker</value>
+  </data>
+  <data name="MemberPokerGamesWinLossDetail" xml:space="preserve">
+    <value>Thắng thua của Member trong Poker</value>
+  </data>
+  <data name="PokerGamesWinLossDetail" xml:space="preserve">
+    <value>Thắng thua của Poker</value>
+  </data>
+  <data name="PokerGames_WinLoss" xml:space="preserve">
+    <value>Thắng thua của Poker</value>
+  </data>
 </root>
