@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -34,20 +33,8 @@
 
         public OutstandingViewModel Handle(OutstandingQuery message)
         {
-            var products = productService.GetProductsForCustomer(message.CustId, DateTime.Now).ToList();
-
-            if (!viewer.GetHideProduct(ProductIdConstants.PokerGames)
-                && !products.Any(product => product.Id == ProductIdConstants.PokerGames))
-            {
-                products.Add(productService.GetPokerGames());
-            }
-
-            var validUserSelectedProductIds =
-                (string.IsNullOrWhiteSpace(message.UserSelectedProductIds)
-                    ? products
-                    : products.Where(product => message.UserSelectedProductIds.ToListInt().Contains(product.Id)))
-                .Select(product => product.Id);
-
+            var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(message.CustId, message.UserSelectedProductIds.ToListInt(), DateTime.Now);
+            
             var param = new OutstandingParam(
                 message.ViewerLevel,
                 message.CustLevel,
@@ -55,6 +42,8 @@
                 validUserSelectedProductIds.JoinWithComma());
 
             var outstandings = outstandingService.GetMemberOutstanding(param);
+
+            var products = productService.GetProductsForCustomer(message.CustId, DateTime.Now);
 
             var viewModel = new OutstandingViewModel(
                 message,
@@ -70,8 +59,7 @@
         {
             var result = new List<string>();
 
-            if (productService.IsShowProduct(viewer.Id, ProductIdConstants.PokerGames)
-                || !viewer.GetHideProduct(ProductIdConstants.PokerGames))
+            if (productService.IsShowProduct(viewer.Id, ProductIdConstants.PokerGames))
             {
                 result.Add(Resources.PokerGames_OutstandingNote);
             }

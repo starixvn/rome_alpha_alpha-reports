@@ -7,7 +7,6 @@
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Params;
-    using Reports.Constants;
     using Reports.Models;
     using Reports.Models.Outstanding;
     using Services;
@@ -42,7 +41,6 @@
             var custLevel = UserLevel.Agent;
             var custId = 0;
             var userSelectedProductIds = string.Empty;
-            productService.GetPokerGames().Returns(new Product(ProductIdConstants.PokerGames, "Poker Games", null));
 
             var query = Substitute.For<OutstandingQuery>(userFixture.User);
             query.ViewerLevel.Returns(viewerLevel);
