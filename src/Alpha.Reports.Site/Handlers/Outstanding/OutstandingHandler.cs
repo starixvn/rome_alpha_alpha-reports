@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -35,7 +34,7 @@
         public OutstandingViewModel Handle(OutstandingQuery message)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(message.CustId, message.UserSelectedProductIds.ToListInt(), DateTime.Now);
-
+            
             var param = new OutstandingParam(
                 message.ViewerLevel,
                 message.CustLevel,

@@ -64,8 +64,8 @@
       <HintPath>..\..\packages\Fanex.Data.Repository.1.0.2.1\lib\net461\Fanex.Data.Repository.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Products, Version=0.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Products.1.0.0.2\lib\net40\Fanex.Products.dll</HintPath>
+    <Reference Include="Fanex.Products, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Products.1.0.0.5\lib\net461\Fanex.Products.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.RemotingRef, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -80,16 +80,12 @@
       <HintPath>..\..\packages\MessagePack.1.7.3.4\lib\net45\MessagePack.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RemotingRef, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\RemotingRef.2.0.0.13\lib\net40\RemotingRef.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.3.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.3.8\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.4.1\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.2.3, Culture=neutral, processorArchitecture=MSIL">
@@ -138,7 +134,9 @@
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
+    <Compile Include="Criteria\PokerGamesWinLossDetail\PokerGamesWinLossDetailCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
+    <Compile Include="DataAccesses\PokerGamesWinLossDetailDataAccess.cs" />
     <Compile Include="Enumerations\LeagueType.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
     <Compile Include="Constants\ConsolidationReportTypeConstants.cs" />
@@ -204,6 +202,7 @@
     <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModel.cs" />
     <Compile Include="Models\PlayForFun\PlayForFunModel.cs" />
     <Compile Include="Models\PlayForFun\PlayForFunProduct.cs" />
+    <Compile Include="Models\PokerGamesWinLossDetail\PokerGamesWinLoss.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductsByRefTable.cs" />
     <Compile Include="Models\ProgressiveContribution\ProgressiveContributionByProductModel.cs" />
@@ -221,6 +220,7 @@
     <Compile Include="Models\WinLossByProduct\WinLossByProductModel.cs" />
     <Compile Include="Models\WinlossByBetType\WinLossByBetTypeModel.cs" />
     <Compile Include="Models\WinLossByProduct\WinLossBySportModel.cs" />
+    <Compile Include="Models\PokerGamesWinLossDetail\PokerGamesWinLossDetailModel.cs" />
     <Compile Include="Models\WinLossDetail\WinLossDetailModel.cs" />
     <Compile Include="Models\Winloss\DailyEnteredSport.cs" />
     <Compile Include="Models\Winloss\EnteredSportResult.cs" />
@@ -242,6 +242,7 @@
     <Compile Include="Params\MatchWinLossDetailParam.cs" />
     <Compile Include="Params\WinLossAnalysisChartParam.cs" />
     <Compile Include="Params\WinLossAnalysisParam.cs" />
+    <Compile Include="Params\PokerGamesWinLossDetailParam.cs" />
     <Compile Include="Params\WinLossDetailParam.cs" />
     <Compile Include="Params\WinLossByProductParam.cs" />
     <Compile Include="Params\WinLossParam.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="Services\WinLossAnalysisService.cs" />
     <Compile Include="Services\UserPermissionService.cs" />
     <Compile Include="Services\StatementService.cs" />
+    <Compile Include="Services\PokerGamesWinLossDetailService.cs" />
     <Compile Include="Services\WinLossService.cs" />
     <Compile Include="Services\OutstandingService.cs" />
     <Compile Include="Services\ProductService.cs" />

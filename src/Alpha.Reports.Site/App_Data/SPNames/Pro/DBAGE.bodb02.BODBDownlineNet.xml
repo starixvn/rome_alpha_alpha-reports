@@ -59,7 +59,7 @@
     <Setting Key="Age_Chart_WinlossAnalysis_Agent" SpName="Age_Chart_WinlossAnalysis_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Chart_WinlossAnalysis_Member" SpName="Age_Chart_WinlossAnalysis_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
- 
+
   <Function Name="Commission By Bet Type">
     <Setting Key="Age_Rpt_CommByBettype_Master" SpName="Age_Rpt_CommByBettype_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
@@ -106,5 +106,10 @@
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Master" SpName="Age_Rpt_ProgressiveGamesContribution_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Agent" SpName="Age_Rpt_ProgressiveGamesContribution_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Member" SpName="Age_Rpt_ProgressiveGamesContribution_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+  </Function>
+  <Function Name="Poker Games Win Loss Detail">
+    <Setting Key="Age_Rpt_WinLossDetailPokerGames_Master" SpName="Age_Rpt_WinLossDetailPokerGames_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossDetailPokerGames_Agent" SpName="Age_Rpt_WinLossDetailPokerGames_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossDetailPokerGames_Member" SpName="Age_Rpt_WinLossDetailPokerGames_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 </Functions>

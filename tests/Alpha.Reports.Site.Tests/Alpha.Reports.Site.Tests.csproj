@@ -32,8 +32,8 @@
       <HintPath>..\..\packages\Alpha.SubAccount.1.0.0\lib\net40\Alpha.SubAccount.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Alpha.Web, Version=1.0.0.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Web.1.0.1.2\lib\net40\Alpha.Web.dll</HintPath>
+    <Reference Include="Alpha.Web, Version=1.0.1.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.Web.1.0.1.8\lib\net461\Alpha.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
@@ -44,8 +44,8 @@
       <HintPath>..\..\packages\Fanex.Logging.1.0.4\lib\net40\Fanex.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Products, Version=0.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Products.1.0.0.2\lib\net40\Fanex.Products.dll</HintPath>
+    <Reference Include="Fanex.Products, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Products.1.0.0.5\lib\net461\Fanex.Products.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.RemotingRef, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -137,16 +137,12 @@
       <HintPath>..\..\packages\AutoFixture.Xunit.3.50.2\lib\net40\Ploeh.AutoFixture.Xunit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RemotingRef, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\RemotingRef.2.0.0.13\lib\net40\RemotingRef.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.3.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.3.8\lib\net40\Sunplus.Agent.Model.Base.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.4.1\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.2.3, Culture=neutral, processorArchitecture=MSIL">
@@ -263,6 +259,7 @@
     <Compile Include="Controllers\LeagueControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossDetailControllerTests.cs" />
     <Compile Include="Controllers\WinLossControllerTests.cs" />
+    <Compile Include="Controllers\PokerGamesWinLossDetailControllerTests.cs" />
     <Compile Include="Controllers\WinLossDetailControllerTests.cs" />
     <Compile Include="Extensions\AssertExtension.cs" />
     <Compile Include="Fixtures\AnyValueCreatorFixture.cs" />
@@ -310,6 +307,8 @@
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandlerTests.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbookImplForTesting.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbookImplTests.cs" />
+    <Compile Include="Handlers\PokerGamesWinLossDetail\PokerGamesWinLossDetailExcelHandlerTests.cs" />
+    <Compile Include="Handlers\PokerGamesWinLossDetail\PokerGamesWinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\WinLoss\EnteredSportResultExcelHandlerTests.cs" />
@@ -367,6 +366,7 @@
     <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModelTests.cs" />
+    <Compile Include="ViewModels\PokerGamesWinLossDetail\PokerGamesWinLossDetailViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisViewModelTests.cs" />

@@ -255,5 +255,19 @@
     "inputFiles": [
       "assets/styles/progressivecontribution/progressivecontribution.css"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles/pokergames-winlossdetail/pokergames-winlossdetail.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/monthpicker.js",
+      "assets/scripts/components/pager.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/pokergames-winlossdetail/pokergames-winlossdetail.js"
+    ]
   }
 ]

@@ -119,6 +119,8 @@
 
             container.RegisterSingleton<ProgressiveContributionService, ProgressiveContributionServiceImpl>();
             container.RegisterSingleton<ProgressiveContributionWorkbook, ProgressiveContributionWorkbookImpl>();
+
+            container.RegisterSingleton<PokerGamesWinLossDetailService, PokerGamesWinLossDetailServiceImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)
@@ -130,6 +132,7 @@
             container.RegisterSingleton<StatementDataAccess, StatementDataAccessImpl>();
             container.RegisterSingleton<WinLossByProductDataAccess, WinLossByProductDataAccessImpl>();
             container.RegisterSingleton<ProgressiveContributionDataAccess, ProgressiveContributionDataAccessImpl>();
+            container.RegisterSingleton<PokerGamesWinLossDetailDataAccess, PokerGamesWinLossDetailDataAccessImpl>();
 
             if (SiteSettings.EnabledStaticData)
             {
