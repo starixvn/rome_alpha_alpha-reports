@@ -412,7 +412,7 @@
     <value>% Odds</value>
   </data>
   <data name="Others" xml:space="preserve">
-    <value>Others</value>
+    <value>Khác</value>
   </data>
   <data name="Commission1" xml:space="preserve">
     <value>Hoa hồng 1</value>
@@ -589,6 +589,21 @@
   </data>
   <data name="NetTurnoverAndTaxComm" xml:space="preserve">
     <value>/Tiền cược thực/Tổng hoa hồng (Poker)</value>
+  </data>
+  <data name="Tooltip_CommissionByBetType" xml:space="preserve">
+    <value>- Khác: áp dụng cho các loại cược của {0}.</value>
+  </data>
+  <data name="ContributionAmount" xml:space="preserve">
+    <value>Tổng tích lũy</value>
+  </data>
+  <data name="ContributionShare" xml:space="preserve">
+    <value>Tiền tích lũy</value>
+  </data>
+  <data name="ProgressiveGamesContribution" xml:space="preserve">
+    <value>Tích Lũy Trò Chơi Lũy Tiến</value>
+  </data>
+  <data name="ContributionAmountRoundNote" xml:space="preserve">
+    <value>- Tiền tích lũy sẽ được làm tròn đến 4 số lẻ.</value>
   </data>
   <data name="Include" xml:space="preserve">
     <value>Bao gồm</value>
