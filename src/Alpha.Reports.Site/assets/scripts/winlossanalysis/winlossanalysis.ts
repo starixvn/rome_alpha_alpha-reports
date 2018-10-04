@@ -171,7 +171,10 @@ class WinLossAnalysisView extends BaseReport{
 
     renderAtFirstSwitchMode = (isSwitchToNormalMode: boolean) => isSwitchToNormalMode ? this.splitColumns() : this.combineColumns();
 
-    showValidaProductError = () => this.$multiSelectButton.addClass("error");
+    showValidaProductError = () => {
+        this.$multiSelectButton.addClass("error");
+        this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
+    };
 
     clearError = () => this.$multiSelectButton.removeClass("error");
 

@@ -109,7 +109,8 @@
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 message.CustLevel,
-                false);
+                false,
+                Enumerable.Empty<int>());
 
             reportService.GetWinLoss(Arg.Any<WinLossParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();
@@ -121,6 +122,7 @@
                 message,
                 winLossParam,
                 custInfoData,
+                Enumerable.Empty<SelectListItem>(),
                 Enumerable.Empty<SelectListItem>());
 
             // Act

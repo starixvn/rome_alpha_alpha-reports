@@ -6,6 +6,7 @@
     using App_Start;
     using Extensions;
     using Params;
+    using Reports.Models;
     using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
     using Requests.WinLossByProduct;
@@ -29,19 +30,21 @@
             this.cacheRefService = cacheRefService;
         }
 
-        protected WinLossByProductParam CreateWinLossByBettypeParamater(WinLossByProductQuery message)
+        protected WinLossByProductParam CreateWinLossByBettypeParamater(WinLossByProductQuery message, IEnumerable<Product> excludeProducts = null)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate);
+                message.MinDate,
+                excludeProducts);
 
             return new WinLossByProductParam(
                 message.CustId,
                 message.FromDate,
                 message.ToDate,
                 validUserSelectedProductIds,
-                message.CustLevel);
+                message.CustLevel,
+                BuildValidUserSelectedExcludeProductIds(message.UserSelectedExcludeProductIds, excludeProducts));
         }
 
         internal WinLossByBetTypeModel AccumulateGrandTotal(IEnumerable<WinLossByProductModel> reportData)

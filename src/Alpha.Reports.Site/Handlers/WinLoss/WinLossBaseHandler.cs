@@ -5,6 +5,7 @@
     using System.Linq;
     using Extensions;
     using Params;
+    using Reports.Models;
     using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
@@ -27,12 +28,13 @@
             this.reportService = reportService;
         }
 
-        protected WinLossParam CreateWinLossParamater(WinLossQuery message)
+        protected WinLossParam CreateWinLossParamater(WinLossQuery message, IEnumerable<Product> excludeProducts = null)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate);
+                message.MinDate,
+                excludeProducts);
 
             return new WinLossParam(
                  message.CustId,
@@ -41,7 +43,8 @@
                  message.LimitedDateToShowInfo,
                  validUserSelectedProductIds,
                  message.CustLevel,
-                 message.IsHistoricReport);
+                 message.IsHistoricReport,
+                 BuildValidUserSelectedExcludeProductIds(message.UserSelectedExcludeProductIds, excludeProducts));
         }
 
         internal WinLossModel AccumulateGrandTotal(IEnumerable<WinLossModel> reportData)

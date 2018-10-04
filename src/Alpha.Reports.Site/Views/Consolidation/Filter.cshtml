@@ -4,7 +4,7 @@
 }
 <form class="form-inline filter  @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form"
       action="@Url.Action("ConsolidationBy" + reportType, "Consolidation")">
-    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel, Model.ExcludeProductViewModel)
     @CurrencySelection.Render(Model.CurrencySelectionViewModel)
     @DateRangePicker.Render(Model.DateRangePickerViewModel)
 

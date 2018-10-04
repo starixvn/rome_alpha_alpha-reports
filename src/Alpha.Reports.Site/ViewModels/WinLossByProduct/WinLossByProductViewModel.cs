@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
@@ -25,11 +26,13 @@
             WinLossByProductQuery message,
             WinLossByProductParam winLossByBettypeParam,
             Func<int, BetType, string, bool, string> buildDisplayedBettypeName,
-            IEnumerable<SelectListItem> products)
+            IEnumerable<SelectListItem> products,
+            IEnumerable<SelectListItem> excludeProducts)
         {
             this.message = message;
             this.winLossByBettypeParam = winLossByBettypeParam;
             Products = products;
+            ExcludeProducts = excludeProducts;
             MinDate = message.MinDate;
             ReportData = reportData;
             GrandTotal = grandTotal;
@@ -56,9 +59,12 @@
 
         public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
-        public string UserSelectedProductIds => winLossByBettypeParam.UserSelectedProductIds.JoinWithComma();
+        public string UserSelectedProductIds
+            => winLossByBettypeParam.UserSelectedProductIds.Concat(winLossByBettypeParam.UserSelectedExcludeProductIds).JoinWithComma();
 
         public IEnumerable<SelectListItem> Products { get; }
+
+        public IEnumerable<SelectListItem> ExcludeProducts { get; }
 
         public IEnumerable<WinLossByProductModel> ReportData { get; }
 
@@ -80,12 +86,18 @@
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
 
+        private ExcludeProductViewModel ExcludeProductViewModel =>
+            new ExcludeProductViewModel(ExcludeProducts, UserSelectedExcludeProductIds);
+
+        public string UserSelectedExcludeProductIds => winLossByBettypeParam.UserSelectedExcludeProductIds.JoinWithComma();
+
         public WinLossByProductFilterViewModel FilterViewModel =>
             new WinLossByProductFilterViewModel(
                 CustId,
                 CustLevel,
                 DateRangePickerViewModel,
                 ProductMultiSelectionViewModel,
+                ExcludeProductViewModel,
                 IsFilterVisible,
                 MinDate);
 

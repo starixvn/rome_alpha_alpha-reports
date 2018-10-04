@@ -58,6 +58,7 @@ class WinLossAnalysisChartView extends BaseReport {
     bindFilter = () => {
         this.productMultiSelectionComponent.render();
         this.$multiSelectButton = this.$("#dropdown-product").parent().find(".multiselect.btn");
+
         this.$reportForm.removeClass("hide");
         this.monthRangePickerComponent.render();
         if (!alphaReports.convertAttributeToBool(this.$isFilterVisible.val())) {
@@ -96,7 +97,10 @@ class WinLossAnalysisChartView extends BaseReport {
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
     };
 
-    showValidationProductError = () => this.$multiSelectButton.addClass("error");
+    showValidationProductError = () => {
+        this.$multiSelectButton.addClass("error");
+        this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
+    };
 
     showValidationMonthRangeError = () => this.$msgError.removeClass("hide");
     hideValidationMonthRangeError = () => this.$msgError.addClass("hide");

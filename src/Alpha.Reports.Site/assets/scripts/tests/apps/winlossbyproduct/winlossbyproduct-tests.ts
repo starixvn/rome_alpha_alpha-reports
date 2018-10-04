@@ -397,7 +397,7 @@
         });
     });
 
-    describe("splitColumns ", () => {
+    describe("splitColumns", () => {
         it("Switch Normal Mode to Normal Mode -> Call splitCell Method", () => {
             // arrange
             var splitCellSpy = spyOn(alphaReports, "splitCell");
@@ -415,7 +415,7 @@
         });
     });
 
-    describe("onSwitchModeEvent   ", () => {
+    describe("onSwitchModeEvent", () => {
         it(`First Switch Mode->
             Call setCssBySwitchMode Method,
             Call renderAtFirstSwitchMode Method`, () => {
@@ -499,6 +499,7 @@
             expect(productRow.data("is-hide")).toEqual(false);
         });
     });
+
     describe("onClickSport", () => {
         it("_Sport group is shown -> Hides Bet Type Rows", () => {
             // arrange
@@ -525,6 +526,31 @@
             expect($(".bet-type-of-product-3.bet-type-of-sport-1").hasClass("hide")).toBeFalsy();
             expect(sportRow.find(".col-username").hasClass("active")).toBeTruthy();
             expect(sportRow.data("is-hide")).toEqual(false);
+        });
+    });
+
+    describe("showValidateProductError", () => {
+        it("$multiSelectButton -> has class error", () => {
+            // arrange
+            setFixtures(winlossbyproductTemplate.reportWithNormalMode);
+            winLossByProductView.$multiSelectButton = $(".multiselect.btn");
+
+            // act
+            winLossByProductView.showValidateProductError();
+
+            // assert
+            expect(winLossByProductView.$multiSelectButton.hasClass("error")).toBeTruthy();
+        });
+        it("_addClassToExcludeProductLabels have been called with error parameter", () => {
+            // arrange
+            winLossByProductView.$multiSelectButton = $(".multiselect.btn");
+            spyOn(winLossByProductView.productMultiSelectionComponent, "addClassToExcludeProductLabels");
+
+            // act
+            winLossByProductView.showValidateProductError();
+
+            // assert
+            expect(winLossByProductView.productMultiSelectionComponent.addClassToExcludeProductLabels).toHaveBeenCalledWith("error");
         });
     });
 });

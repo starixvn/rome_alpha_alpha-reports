@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Extensions;
     using Fanex.Data;
     using Fanex.Data.Repository;
@@ -22,7 +23,7 @@
                   reportType,
                   balanceUpDate,
                   moveBetsDate,
-                  param.ProductIds)
+                  param.ProductIds.Concat(param.ExcludeProductIds))
         {
         }
 

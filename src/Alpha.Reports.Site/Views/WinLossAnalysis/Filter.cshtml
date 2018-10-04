@@ -3,7 +3,7 @@
 <form class="form-inline filter @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form">
     @RenderHiddenFields()
 
-    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel, Model.ExcludeProductViewModel)
 
     @DateRangePicker.Render(Model.DateRangePickerViewModel)
 

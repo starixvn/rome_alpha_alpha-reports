@@ -114,8 +114,9 @@
             // Arrange
             var message = new ConsolidationByUsernameExcelQuery(user)
             {
-                UserSelectedProductIds = "1",
+                UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 0,
+                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -123,7 +124,7 @@
             consolidationExcelHandler.Handle(message);
 
             // Assert
-            workbook.Received().Title(Arg.Is<string>(title => title == "Consolidation Report By Username 12/02/2016 --> 12/02/2016 of 1 - All Currencies"));
+            workbook.Received().Title(Arg.Is<string>(title => title == "Consolidation Report By Username 12/02/2016 --> 12/02/2016 of 1,33 - All Currencies"));
         }
 
         [Fact]
@@ -132,8 +133,9 @@
             // Arrange
             var message = new ConsolidationByUsernameExcelQuery(user)
             {
-                UserSelectedProductIds = "1",
+                UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 1,
+                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -141,7 +143,7 @@
             consolidationExcelHandler.Handle(message);
 
             // Assert
-            workbook.Received().Title(Arg.Is<string>(title => title == "Consolidation Report By Username 12/02/2016 --> 12/02/2016 of 1 - Currency: Currency 1"));
+            workbook.Received().Title(Arg.Is<string>(title => title == "Consolidation Report By Username 12/02/2016 --> 12/02/2016 of 1,33 - Currency: Currency 1"));
         }
 
         [Fact]
@@ -244,8 +246,9 @@
             // Arrange
             var message = new ConsolidationByDateExcelQuery(user)
             {
-                UserSelectedProductIds = "1",
+                UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 0,
+                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -253,7 +256,7 @@
             consolidationExcelHandler.Handle(message);
 
             // Assert
-            workbookByDate.Received().Title(Arg.Is<string>(title => title == "Daily Consolidated Report 12/02/2016 --> 12/02/2016 of 1 - All Currencies"));
+            workbookByDate.Received().Title(Arg.Is<string>(title => title == "Daily Consolidated Report 12/02/2016 --> 12/02/2016 of 1,33 - All Currencies"));
         }
 
         [Fact]
@@ -262,8 +265,9 @@
             // Arrange
             var message = new ConsolidationByDateExcelQuery(user)
             {
-                UserSelectedProductIds = "1",
+                UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 1,
+                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -271,7 +275,7 @@
             consolidationExcelHandler.Handle(message);
 
             // Assert
-            workbookByDate.Received().Title(Arg.Is<string>(title => title == "Daily Consolidated Report 12/02/2016 --> 12/02/2016 of 1 - Currency: Currency 1"));
+            workbookByDate.Received().Title(Arg.Is<string>(title => title == "Daily Consolidated Report 12/02/2016 --> 12/02/2016 of 1,33 - Currency: Currency 1"));
         }
 
         [Fact]
@@ -376,8 +380,9 @@
             // Arrange
             var message = new ConsolidationByProductExcelQuery(user)
             {
-                UserSelectedProductIds = "1",
+                UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 0,
+                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -385,7 +390,7 @@
             consolidationExcelHandler.Handle(message);
 
             // Assert
-            workbookByProduct.Received().Title(Arg.Is<string>(title => title == "Sport Consolidation Report 12/02/2016 --> 12/02/2016 of 1 - All Currencies"));
+            workbookByProduct.Received().Title(Arg.Is<string>(title => title == "Sport Consolidation Report 12/02/2016 --> 12/02/2016 of 1,33 - All Currencies"));
         }
 
         [Fact]
@@ -394,8 +399,9 @@
             // Arrange
             var message = new ConsolidationByProductExcelQuery(user)
             {
-                UserSelectedProductIds = "1",
+                UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 1,
+                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -403,7 +409,7 @@
             consolidationExcelHandler.Handle(message);
 
             // Assert
-            workbookByProduct.Received().Title(Arg.Is<string>(title => title == "Sport Consolidation Report 12/02/2016 --> 12/02/2016 of 1 - Currency: Currency 1"));
+            workbookByProduct.Received().Title(Arg.Is<string>(title => title == "Sport Consolidation Report 12/02/2016 --> 12/02/2016 of 1,33 - Currency: Currency 1"));
         }
 
         [Fact]

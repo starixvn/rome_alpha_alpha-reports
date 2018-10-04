@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System;
+    using System.Linq;
     using Criteria.WinLossDetail;
     using DataAccesses;
     using Extensions;
@@ -37,7 +38,7 @@
             }
 
             var validUserSelectedProductIds =
-                productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds);
+                productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds.Concat(param.UserSelectedExcludeProductIds));
 
             var criteria = new WinLossDetailCriteria(
                 param.CustId,

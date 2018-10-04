@@ -343,6 +343,11 @@ a {
         height: 34px;
         margin-top: 2px;
     }
+
+    .form-inline .checkbox .exclude-product {
+        position: relative;
+        margin-left: 0;
+    }
 }
 // netturnover tooltip
 #netturnovertooltip {

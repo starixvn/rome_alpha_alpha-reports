@@ -18,7 +18,9 @@
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
-            bool isHistoricReport) : base(custId, fromDate, toDate, limitedDate, userSelectedProductIds, reportLevel, isHistoricReport)
+            bool isHistoricReport,
+            IEnumerable<int> userSelectedExcludeProductIds)
+            : base(custId, fromDate, toDate, limitedDate, userSelectedProductIds, reportLevel, isHistoricReport, userSelectedExcludeProductIds)
         {
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;

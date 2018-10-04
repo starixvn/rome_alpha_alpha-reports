@@ -197,6 +197,7 @@ class ConsolidationView extends BaseReport {
     };
     showValidateProductError = () => {
         this.$productButton.addClass("error");
+        this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
     };
     onChangeReportType = (actionElement: JQuery) => {
         let $reportForm = this.$reportForm;

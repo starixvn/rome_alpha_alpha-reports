@@ -12,6 +12,7 @@
     using Params;
     using Params.Consolidation;
     using Reports.Models;
+    using Reports.Models.Consolidation;
     using Reports.Models.WinLossDetail;
     using Services;
     using Utils;
@@ -42,12 +43,13 @@
             cacheRefService.GetProductName(Arg.Any<int>()).Returns(callInfo => "Product " + callInfo.Args()[0]);
 
             Func<int, string> getProductDisplayName = (id) => "Product " + id;
-
-            reportService.GetProducts(Arg.Any<GetConslidationReportProductsParam>()).Returns(new List<Product>
+            var products = new List<Product>
             {
                 new Product(1, "Product 1", null, getProductDisplayName),
                 new Product(2, "Product 2", null, getProductDisplayName)
-            });
+            };
+
+            reportService.GetProducts(Arg.Any<GetConslidationReportProductsParam>(), Arg.Any<IEnumerable<Product>>()).Returns(products);
 
             reportService.GetCurrencies(Arg.Any<GetCurrencyParam>()).Returns(new List<CurrencyModel>
             {
@@ -55,7 +57,10 @@
                 new CurrencyModel(2, "Currency 2")
             });
 
-            reportService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<DateTime>()).Returns(new List<int> { 1 });
+            reportService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<DateTime>(), Arg.Any<IEnumerable<Product>>()).Returns(new List<int> { 1 });
+
+            reportService.GetConsolidationExcludeProduct(Arg.Any<int>(), Arg.Any<DateTime>()).Returns(new ConsolidationExcludeProduct(products, Enumerable.Empty<Product>()));
+
             anyValueCreatorFixture = new AnyValueCreatorFixture();
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);

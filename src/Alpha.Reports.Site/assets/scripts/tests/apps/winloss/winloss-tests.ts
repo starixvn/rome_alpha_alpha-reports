@@ -369,6 +369,7 @@
         it("Always -> Adds class error to multiple select button of dropdown product", () => {
             // arrange
             setFixtures(winLossTemplate.currentReportWithNormalMode);
+            productMultiSelectionComponent.$excludeProducts = [];
             winLossView.init();
 
             // act

@@ -258,6 +258,7 @@ class WinLossDetailView extends BaseReport {
     };
     showValidateProductError = () => {
         this.$multiSelectButton.addClass("error");
+        this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
     };
     clearError = () => {
         this.$multiSelectButton.removeClass("error");

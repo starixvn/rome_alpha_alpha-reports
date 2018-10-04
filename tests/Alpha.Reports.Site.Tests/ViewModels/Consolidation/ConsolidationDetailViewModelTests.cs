@@ -74,6 +74,7 @@
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 anyValueCreatorFixture.Create<PagedReportData<WinLossDetailModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<CustInfo>>(),
+                anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>());
 
             var consolidationDetailViewModel = new ConsolidationDetailViewModel(

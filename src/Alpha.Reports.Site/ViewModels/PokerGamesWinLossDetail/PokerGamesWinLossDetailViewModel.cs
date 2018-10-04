@@ -18,7 +18,7 @@
             PagedReportData<PokerGamesWinLossDetailModel> reportData,
             IEnumerable<CustInfo> breadcrumbLevel,
             bool isGroupHeadline = false)
-            : base(message, param, breadcrumbLevel, null)
+            : base(message, param, breadcrumbLevel, null, null)
         {
             Title = GetReportNameByLevel(message.CustLevel);
             PageIndex = message.PageIndex;

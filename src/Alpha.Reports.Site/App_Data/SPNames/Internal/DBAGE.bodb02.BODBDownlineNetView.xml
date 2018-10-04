@@ -115,4 +115,7 @@
     <Setting Key="Age_Rpt_WinLossDetailPokerGames_Agent" SpName="Age_Rpt_WinLossDetailPokerGames_Agent" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
     <Setting Key="Age_Rpt_WinLossDetailPokerGames_Member" SpName="Age_Rpt_WinLossDetailPokerGames_Member" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
   </Function>
+  <Function Name="Exclude Products by Site/Currency">
+    <Setting Key="Age_ExcludeProduct_SiteCurrency_Sel" SpName="Age_ExcludeProduct_SiteCurrency_Sel" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
+  </Function>
 </Functions>
