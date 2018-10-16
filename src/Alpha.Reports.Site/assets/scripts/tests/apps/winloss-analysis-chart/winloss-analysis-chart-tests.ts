@@ -155,6 +155,7 @@
     describe("_showValidationProductError", () => {
         it("_Always -> Adds class error to multiple select button of dropdown product", () => {
             // arrange
+            productMultiSelectionComponent.$excludeProducts = [];
             winLossAnalysisChartView.init();
 
             // act

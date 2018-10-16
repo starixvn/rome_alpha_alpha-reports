@@ -21,5 +21,7 @@
         public bool IsFilterVisible { get; set; } = true;
 
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
+
+        public string UserSelectedExcludeProductIds { get; set; }
     }
 }

@@ -7,7 +7,7 @@
     using System.Web;
     using System.Web.Mvc;
     using App_GlobalResources;
-    using Fanex.Common;
+    using Extensions;
     using Reports.Constants;
     using Reports.Models;
     using Requests;
@@ -26,29 +26,32 @@
 
         internal Func<string, bool> IsFileExist { get; set; } = File.Exists;
 
-        protected internal IEnumerable<SelectListItem> BuildProductSelectListItems(
+        protected internal static IEnumerable<SelectListItem> BuildProductSelectListItems(
             IEnumerable<int> userSelectedProductIds,
             IEnumerable<Product> products)
-        {
-            if (products == null
-                || !products.Any())
-            {
-                return Enumerable.Empty<SelectListItem>();
-            }
-
-            var selectedProduct = products.FirstOrDefault(product => userSelectedProductIds.Contains(product.Id));
-
-            return products.Select(product =>
-            {
-                var productSelectListItem = new SelectListItem
+            => products?.Any() == true
+                ? products.Select(product => new SelectListItem
                 {
                     Text = product.DisplayName,
                     Value = product.Id.ToString(),
-                    Selected = selectedProduct == null || userSelectedProductIds.Contains(product.Id)
-                };
+                    Selected = userSelectedProductIds.Contains(product.Id)
+                })
+                : Enumerable.Empty<SelectListItem>();
 
-                return productSelectListItem;
-            });
+        protected internal static IEnumerable<int> BuildValidUserSelectedExcludeProductIds(
+            string userSelectedExcludeProductIds,
+            IEnumerable<Product> excludeProducts = null)
+        {
+            if (string.IsNullOrWhiteSpace(userSelectedExcludeProductIds)
+                || excludeProducts == null
+                || !excludeProducts.Any())
+            {
+                return Enumerable.Empty<int>();
+            }
+
+            return userSelectedExcludeProductIds == "0"
+                ? excludeProducts.Select(product => product.Id)
+                : userSelectedExcludeProductIds.ToListInt().Intersect(excludeProducts.Select(product => product.Id));
         }
 
         protected internal IEnumerable<SelectListItem> BuildLeagueSelectListItems(

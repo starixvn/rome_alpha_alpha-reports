@@ -27,6 +27,7 @@
     {
         private readonly ConsolidationHandler consolidationHandler;
         private readonly List<SelectListItem> expectedProductList;
+        private readonly IEnumerable<SelectListItem> expectedExcludeProductList;
         private readonly List<SelectListItem> expectedCurrencyList;
 
         public ConsolidationHandlerTests(UserFixture userFixture) : base(userFixture)
@@ -38,6 +39,8 @@
                 new SelectListItem { Text = "Product 1", Value = "1", Selected = true },
                 new SelectListItem { Text = "Product 2", Value = "2", Selected = false }
             };
+
+            expectedExcludeProductList = Enumerable.Empty<SelectListItem>();
 
             expectedCurrencyList = new List<SelectListItem>
             {
@@ -69,12 +72,14 @@
                 message.UserSelectedCurrencyId,
                 message.FromDate,
                 message.ToDate,
-                new List<int> { 1 });
+                new List<int> { 1 },
+                Enumerable.Empty<int>());
 
             var expectedViewModel = new ConsolidationReportByUsernameViewModel(
                 message,
                 param,
                 expectedProductList,
+                expectedExcludeProductList,
                 expectedCurrencyList,
                 new List<ConsolidationByUsernameViewModel>
                 {
@@ -131,12 +136,14 @@
                 message.UserSelectedCurrencyId,
                 message.FromDate,
                 message.ToDate,
-                new List<int> { 1 });
+                new List<int> { 1 },
+                Enumerable.Empty<int>());
 
             var expectedViewModel = new ConsolidationReportByDateViewModel(
                 message,
                 param,
                 expectedProductList,
+                expectedExcludeProductList,
                 expectedCurrencyList,
                 new List<ConsolidationByDateViewModel>
                 {
@@ -174,12 +181,14 @@
                 message.UserSelectedCurrencyId,
                 message.FromDate,
                 message.ToDate,
-                new List<int> { 1 });
+                new List<int> { 1 },
+                Enumerable.Empty<int>());
 
             var expectedViewModel = new ConsolidationReportByProductViewModel(
                 message,
                 param,
                 expectedProductList,
+                expectedExcludeProductList,
                 expectedCurrencyList,
                 new List<ConsolidationByProductViewModel>
                 {
@@ -275,6 +284,8 @@
 
             var productMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, "1", string.Empty);
 
+            var excludeProductViewModel = new ExcludeProductViewModel(Enumerable.Empty<SelectListItem>(), string.Empty);
+
             var currencies = new List<SelectListItem>
             {
                 new SelectListItem
@@ -305,7 +316,8 @@
                 UserLevel.Agent,
                 dateRangePickerViewModel,
                 productMultiSelectionViewModel,
-                currencySelectionViewModel);
+                currencySelectionViewModel,
+                excludeProductViewModel);
 
             var winLossDetailQuery = new WinLossDetailQuery(viewer)
             {
@@ -335,7 +347,8 @@
                 winLossDetailQuery.CustLevel,
                 winLossDetailQuery.SortPropertyName,
                 winLossDetailQuery.IsDescendingSort,
-                winLossDetailQuery.IsHistoricReport);
+                winLossDetailQuery.IsHistoricReport,
+                Enumerable.Empty<int>());
 
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 winLossDetailQuery,
@@ -343,6 +356,7 @@
                 winLossDetailData,
                 expectedBreadcrumbLevel,
                 null,
+                Enumerable.Empty<SelectListItem>(),
                 isGroupHeadline: true);
 
             var expectedViewModel = new ConsolidationDetailViewModel(

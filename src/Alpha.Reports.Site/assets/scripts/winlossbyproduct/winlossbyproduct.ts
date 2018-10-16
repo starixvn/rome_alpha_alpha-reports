@@ -45,6 +45,7 @@ class WinLossByProductView extends BaseReport {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
+
         this.reportTooltip = reportTooltip;
     }
 
@@ -307,6 +308,7 @@ class WinLossByProductView extends BaseReport {
     };
     showValidateProductError = () => {
         this.$multiSelectButton.addClass("error");
+        this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
     };
 }
 

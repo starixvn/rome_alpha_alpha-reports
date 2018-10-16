@@ -55,7 +55,8 @@
                 UserLevel.Super,
                 string.Empty,
                 false,
-                false);
+                false,
+                Enumerable.Empty<int>());
 
             var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
             dataAccess.GetData(Arg.Any<WinLossDetailCriteria>()).Returns(reportData);
@@ -85,7 +86,8 @@
                 UserLevel.Super,
                 string.Empty,
                 false,
-                false);            
+                false,
+                Enumerable.Empty<int>());            
 
             // Act
             winLossDetailServiceImpl.GetWinLossDetail(param);

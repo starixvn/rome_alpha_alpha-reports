@@ -284,6 +284,7 @@ class WinLossView extends BaseReport {
 
     showValidaProductError = () => {
         this.$multiSelectButton.addClass("error");
+        this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
     };
 
     clearError = () => {

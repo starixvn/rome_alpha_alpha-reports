@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using Extensions;
     using MediatR;
     using Requests.WinLoss;
     using Services;
@@ -25,9 +26,10 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
+            var excludeProducts = productService.GetExcludeProductsForCustomer(message.CustId, message.MinDate);
+            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate, excludeProducts);
 
-            var winLossParam = CreateWinLossParamater(message);
+            var winLossParam = CreateWinLossParamater(message, excludeProducts);
             var reportData = reportService.GetWinLoss(winLossParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
@@ -37,7 +39,8 @@
                 message,
                 winLossParam,
                 BuildBreadcrumbLevel(message),
-                BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products));
+                BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products),
+                BuildProductSelectListItems(winLossParam.UserSelectedExcludeProductIds, excludeProducts));
 
             return viewModel;
         }

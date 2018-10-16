@@ -67,7 +67,8 @@
                 grandTotal: fixture.Create<WinLossAnalysisModel>(),
                 message: message,
                 param: fixture.Create<WinLossAnalysisParam>(),
-                products: Enumerable.Empty<SelectListItem>());
+                products: Enumerable.Empty<SelectListItem>(),
+                excludeProducts: Enumerable.Empty<SelectListItem>());
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

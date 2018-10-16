@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Components;
     using Constants;
@@ -20,6 +21,7 @@
             GetConsolidationQuery message,
             GetConsolidationParam param,
             IEnumerable<SelectListItem> products,
+            IEnumerable<SelectListItem> excludeProducts,
             IEnumerable<SelectListItem> currencies,
             IEnumerable<T> reportData)
         {
@@ -27,6 +29,7 @@
             this.param = param;
 
             Products = products;
+            ExcludeProducts = excludeProducts;
             Currencies = currencies;
             ReportData = reportData;
         }
@@ -45,7 +48,8 @@
 
         public string Language => message.Language;
 
-        public string UserSelectedProductIds => param.ProductIds.JoinWithComma();
+        public string UserSelectedProductIds
+            => param.ProductIds.Concat(param.ExcludeProductIds).JoinWithComma();
 
         public int UserSelectedCurrencyId => message.UserSelectedCurrencyId;
 
@@ -60,6 +64,13 @@
         public UserLevel CustLevel => message.CustLevel;
 
         public IEnumerable<SelectListItem> Products { get; }
+
+        public IEnumerable<SelectListItem> ExcludeProducts { get; }
+
+        private ExcludeProductViewModel ExcludeProductViewModel =>
+            new ExcludeProductViewModel(ExcludeProducts, UserSelectedExcludeProductIds);
+
+        public string UserSelectedExcludeProductIds => param.ExcludeProductIds.JoinWithComma();
 
         public IEnumerable<SelectListItem> Currencies { get; }
 
@@ -83,7 +94,8 @@
               CustLevel,
               DateRangePickerViewModel,
               ProductMultiSelectionViewModel,
-              CurrencySelectionViewModel);
+              CurrencySelectionViewModel,
+              ExcludeProductViewModel);
 
         public string BuildDrillDownLink(
             string drilldownLink,
@@ -101,29 +113,36 @@
                 ? UserSelectedDateRangeOptionConstant.SpecificDates
                 : UserSelectedDateRangeOption;
 
-            return ReportHelpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(
-                 drilldownLink,
-                 new Dictionary<string, object>
-                 {
-                     ["Language"] = Language,
-                     ["CustId"] = data.CustId,
-                     ["CustName"] = data.Username,
-                     ["CustLevelId"] = data.CustLevel,
+            IDictionary<string, object> routeValues = new Dictionary<string, object>
+            {
+                ["Language"] = Language,
+                ["CustId"] = data.CustId,
+                ["CustName"] = data.Username,
+                ["CustLevelId"] = data.CustLevel,
 
-                     ["UserSelectedCurrencyId"] = UserSelectedCurrencyId,
-                     ["UserSelectedProductIds"] = drilldownFromProductIds ?? UserSelectedProductIds,
-                     ["IsStackMode"] = IsStackMode,
-                     ["IsFilterVisible"] = IsFilterVisible,
-                     ["UserSelectedDateRangeOption"] = userSelectedDateRangeOption,
-                     ["FromDate"] = drilldownDate ?? FromDate,
-                     ["ToDate"] = drilldownDate ?? ToDate,
+                ["UserSelectedCurrencyId"] = UserSelectedCurrencyId,
+                ["UserSelectedProductIds"] = drilldownFromProductIds ?? UserSelectedProductIds,
 
-                     ["DrilldownFromType"] = drilldownFromType,
-                     ["ConsolidationFromDate"] = FromDate,
-                     ["ConsolidationToDate"] = ToDate,
-                     ["ConsolidationUserSelectedDateRangeOption"] = UserSelectedDateRangeOption,
-                     ["ConsolidationProductIds"] = UserSelectedProductIds
-                 });
+                ["IsStackMode"] = IsStackMode,
+                ["IsFilterVisible"] = IsFilterVisible,
+                ["UserSelectedDateRangeOption"] = userSelectedDateRangeOption,
+                ["FromDate"] = drilldownDate ?? FromDate,
+                ["ToDate"] = drilldownDate ?? ToDate,
+
+                ["DrilldownFromType"] = drilldownFromType,
+                ["ConsolidationFromDate"] = FromDate,
+                ["ConsolidationToDate"] = ToDate,
+                ["ConsolidationUserSelectedDateRangeOption"] = UserSelectedDateRangeOption,
+                ["ConsolidationProductIds"] = UserSelectedProductIds
+            };
+
+            if (drilldownFromProductIds == null
+                || drilldownFromProductIds.Equals(UserSelectedExcludeProductIds))
+            {
+                routeValues.Add(nameof(UserSelectedExcludeProductIds), UserSelectedExcludeProductIds);
+            }
+
+            return ReportHelpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(drilldownLink, routeValues);
         }
 
         private string BuildBetListLink(

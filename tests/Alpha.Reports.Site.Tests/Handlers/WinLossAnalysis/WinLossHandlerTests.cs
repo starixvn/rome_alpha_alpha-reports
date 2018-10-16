@@ -101,7 +101,8 @@
                 toDate: SystemTime.Today,
                 limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(),
-                custLevel: message.CustLevel);
+                custLevel: message.CustLevel,
+                userSelectedExcludeProductIds: Enumerable.Empty<int>());
 
             reportService.GetWinLossAnalysis(Arg.Any<WinLossAnalysisParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();
@@ -112,7 +113,8 @@
                 grandTotal,
                 message,
                 param,
-                products: Enumerable.Empty<SelectListItem>());
+                products: Enumerable.Empty<SelectListItem>(),
+                excludeProducts: Enumerable.Empty<SelectListItem>());
 
             // Act
             var actualWinLossAnalysisViewModel = winLossAnalysisHandler.Handle(message);

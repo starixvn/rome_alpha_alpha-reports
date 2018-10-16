@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Constants;
     using Fixtures;
@@ -51,12 +52,13 @@
                 ToDate = DefaultVariablesTest.CurrentDate
             };
 
-            var param = new GetConsolidationParam(0, 0, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1 });
+            var param = new GetConsolidationParam(0, 0, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1 }, Enumerable.Empty<int>());
             var row = new ConsolidationByUsernameViewModel(1, 1, "Member", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 query,
                 param,
+                anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
@@ -91,11 +93,12 @@
             // Arrange
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
-            var param = new GetConsolidationParam(1, 1, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1, 2 });
+            var param = new GetConsolidationParam(1, 1, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1, 2 }, Enumerable.Empty<int>());
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 new GetConsolidationQuery(user),
                 param,
+                anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
@@ -128,10 +131,11 @@
         {
             // Arrange
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
-            var param = new GetConsolidationParam(1, 1, DateTime.MinValue, DateTime.MinValue, new List<int> { 1 });
+            var param = new GetConsolidationParam(1, 1, DateTime.MinValue, DateTime.MinValue, new List<int> { 1 }, Enumerable.Empty<int>());
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 new GetConsolidationQuery(user),
                 param,
+                anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());

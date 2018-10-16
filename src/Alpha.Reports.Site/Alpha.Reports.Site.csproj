@@ -526,6 +526,7 @@
     <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
+    <Compile Include="ViewModels\Components\ExcludeProductViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\StatusSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DualAxisChartViewModel.cs" />
@@ -605,8 +606,7 @@
     <Content Include="App_Data\SPNames\Local\DB053_DB054.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml">
-      <SubType>
-      </SubType>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\SPNames\Local\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBONUSER.ON_USER.BODBDownlineNet.xml" />

@@ -13,12 +13,14 @@
             UserLevel custLevel,
             DateRangePickerViewModel dateRangePickerViewModel,
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
+            ExcludeProductViewModel excludeProductViewModel,
             bool visible,
             DateTime minDate)
         {
             CustId = custId;
             CustLevel = custLevel;
             ProductMultiSelectionViewModel = productMultiSelectionViewModel;
+            ExcludeProductViewModel = excludeProductViewModel;
 
             DateRangePickerViewModel = dateRangePickerViewModel;
             ViewDataInstructionMessage = string.Format(
@@ -34,6 +36,8 @@
         public DateRangePickerViewModel DateRangePickerViewModel { get; }
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
+
+        public ExcludeProductViewModel ExcludeProductViewModel { get; }
 
         public bool Visible { get; }
 

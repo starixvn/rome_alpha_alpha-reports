@@ -34,18 +34,18 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
+            var excludeProducts = productService.GetExcludeProductsForCustomer(message.CustId, message.MinDate);
+            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate, excludeProducts);
 
-            var winLossDetailParam = CreateParameter(message, message.CustLevel);
-
+            var winLossDetailParam = CreateParameter(message, message.CustLevel, excludeProducts);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
-
             var viewModel = new WinLossDetailViewModel(
                 message,
                 winLossDetailParam,
                 reportData,
                 BuildBreadcrumbLevel(message),
-                BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products));
+                BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products),
+                BuildProductSelectListItems(winLossDetailParam.UserSelectedExcludeProductIds, excludeProducts));
 
             return viewModel;
         }

@@ -23,7 +23,7 @@
         {
             // Arrange
             var custId = 1;
-            var winLossAnalysisChartParam = new WinLossAnalysisChartParam(custId, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
+            var winLossAnalysisChartParam = new WinLossAnalysisChartParam(custId, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
 
             // Act
             var actual = winLossAnalysisChartParam.CustId;
@@ -36,7 +36,7 @@
         public void FromDate_NotSupportFromDate_ReturnsFirstDateOfLastTwoMonths()
         {
             // Arrange
-            var param = new WinLossAnalysisChartParam(0, DateTime.MinValue, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
+            var param = new WinLossAnalysisChartParam(0, DateTime.MinValue, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
             var expectedDate = SystemTime.Today.AddMonths(-2).FirstDayOfMonth();
 
             // Act
@@ -51,7 +51,7 @@
         {
             // Arrange
             var fromDate = DefaultVariablesTest.CurrentDate;
-            var param = new WinLossAnalysisChartParam(0, fromDate, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
+            var param = new WinLossAnalysisChartParam(0, fromDate, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
             var expectedDate = fromDate.FirstDayOfMonth();
 
             // Act
@@ -65,7 +65,7 @@
         public void ToDate_NotSupportToDate_ReturnsCurrentDate()
         {
             // Arrange
-            var param = new WinLossAnalysisChartParam(0, DateTime.Now, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
+            var param = new WinLossAnalysisChartParam(0, DateTime.Now, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
             var expectedDate = SystemTime.Today;
 
             // Act
@@ -80,7 +80,7 @@
         {
             // Arrange
             var toDate = DefaultVariablesTest.CurrentDate;
-            var param = new WinLossAnalysisChartParam(0, DateTime.Now, toDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
+            var param = new WinLossAnalysisChartParam(0, DateTime.Now, toDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
             var expectedDate = toDate;
 
             // Act
@@ -95,7 +95,7 @@
         {
             // Arrange
             var toDate = DefaultVariablesTest.CurrentDate.AddMonths(-1);
-            var param = new WinLossAnalysisChartParam(0, DateTime.Now, toDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
+            var param = new WinLossAnalysisChartParam(0, DateTime.Now, toDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
             var expectedDate = toDate.LastDayOfMonth();
 
             // Act
@@ -109,7 +109,7 @@
         public void ReportLevel_Always_ReturnsReportLevelFromConstructor()
         {
             // Arrange
-            var param = new WinLossAnalysisChartParam(0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
+            var param = new WinLossAnalysisChartParam(0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
             var expectedCustLevel = UserLevel.Super;
 
             // Act
@@ -127,7 +127,7 @@
         {
             // Arrange
             var userSelectedProductIdList = userSelectedProductIds.Split(',').Select(id => Converter.ToInt(id)).ToList();
-            var param = new WinLossAnalysisChartParam(0, DateTime.Now, DateTime.Now, DateTime.MinValue, userSelectedProductIdList, UserLevel.Super);
+            var param = new WinLossAnalysisChartParam(0, DateTime.Now, DateTime.Now, DateTime.MinValue, userSelectedProductIdList, UserLevel.Super, Enumerable.Empty<int>());
             var expectedUserSelectedProductIds = userSelectedProductIdList;
 
             // Act

@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
+    using Models;
 
     public static class EnumerableExtensions
     {
@@ -58,5 +59,10 @@
         }
 
         public static string JoinWithComma<T>(this IEnumerable<T> source) => string.Join(",", source);
+
+        public static IEnumerable<Product> Exclude(this IEnumerable<Product> source, IEnumerable<Product> excludeProducts = null)
+            => excludeProducts?.Any() == true
+                ? source.Where(product => !excludeProducts.Any(excludeProduct => product.Id == excludeProduct.Id))
+                : source;
     }
 }

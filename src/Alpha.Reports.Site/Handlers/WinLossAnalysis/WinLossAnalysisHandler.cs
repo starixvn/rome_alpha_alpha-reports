@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossAnalysis
 {
     using System;
+    using Extensions;
     using MediatR;
     using Requests.WinLossAnalysis;
     using Services;
@@ -23,9 +24,10 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
+            var excludeProducts = productService.GetExcludeProductsForCustomer(message.CustId, message.MinDate);
+            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate, excludeProducts);
 
-            var winLossAnalysisParam = CreateWinLossAnalysisParamater(message);
+            var winLossAnalysisParam = CreateWinLossAnalysisParamater(message, excludeProducts);
             var reportData = reportService.GetWinLossAnalysis(winLossAnalysisParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
@@ -34,7 +36,8 @@
                 grandTotal,
                 message,
                 winLossAnalysisParam,
-                BuildProductSelectListItems(winLossAnalysisParam.UserSelectedProductIds, products));
+                BuildProductSelectListItems(winLossAnalysisParam.UserSelectedProductIds, products),
+                BuildProductSelectListItems(winLossAnalysisParam.UserSelectedExcludeProductIds, excludeProducts));
 
             return viewModel;
         }

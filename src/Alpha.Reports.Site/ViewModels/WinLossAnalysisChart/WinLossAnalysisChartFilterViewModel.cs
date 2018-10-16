@@ -13,6 +13,7 @@
             string custName,
             UserLevel custLevel,
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
+            ExcludeProductViewModel excludeProductViewModel,
             MonthPickerViewModel monthPickerViewModel,
             bool visible,
             DateTime minDate)
@@ -26,6 +27,7 @@
             ViewDataInstructionMessage = string.Format(
                 Resources.CanOnlyViewDataAfterTimeHistoryReport,
                 minDate.ToShortDateWithSlash());
+            ExcludeProductViewModel = excludeProductViewModel;
         }
 
         public int CustId { get; }
@@ -41,5 +43,7 @@
         public bool Visible { get; }
 
         public string ViewDataInstructionMessage { get; }
+
+        public ExcludeProductViewModel ExcludeProductViewModel { get; }
     }
 }

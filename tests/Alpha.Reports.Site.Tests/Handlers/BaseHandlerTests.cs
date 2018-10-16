@@ -34,7 +34,7 @@
             var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
 
             // Act
-            var actualSelectListItems = baseHandler.BuildProductSelectListItems(Enumerable.Empty<int>(), products);
+            var actualSelectListItems = BaseHandler.BuildProductSelectListItems(Enumerable.Empty<int>(), products);
 
             // Assert
             Assert.Equal(expectedSelectListItems, actualSelectListItems);
@@ -49,7 +49,7 @@
             var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
 
             // Act
-            var actualSelectListItems = baseHandler.BuildProductSelectListItems(userSelectedProductIds, products);
+            var actualSelectListItems = BaseHandler.BuildProductSelectListItems(userSelectedProductIds, products);
 
             // Assert
             Assert.Equal(expectedSelectListItems, actualSelectListItems);
@@ -92,7 +92,7 @@
             };
 
             // Act
-            var actualSelectListItems = baseHandler.BuildProductSelectListItems(userSelectedProductIds, products).ToList();
+            var actualSelectListItems = BaseHandler.BuildProductSelectListItems(userSelectedProductIds, products).ToList();
 
             // Assert
             AssertExtension.Equal(expectedSelectListItems, actualSelectListItems);

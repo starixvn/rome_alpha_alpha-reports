@@ -18,6 +18,8 @@ class ProductMultiSelectionComponent {
     $hiddenInput: JQuery;
     $dropdownProduct: JQuery;
     $multiSelectButton: JQuery;
+    $excludeProducts: any;
+    $excludeHiddenInput: JQuery;
 
     options = new ProductMultiSelectionOption();
 
@@ -31,6 +33,15 @@ class ProductMultiSelectionComponent {
         this.$dropdownProduct = this.$("#" + this.options.dropdownId);
         let hasAnyProduct = alphaReports.convertAttributeToBool(this.$dropdownProduct.data("has-any-product"));
         this.$hiddenInput = this.$("#" + this.options.productsInputId);
+
+        this.$excludeProducts = this.$(".exclude-product");
+        if (this.$excludeProducts.length) {
+            this.$excludeHiddenInput = this.$("#exclude-product-ids");
+
+            this.$excludeProducts
+                .off("change")
+                .on("change", this.excludeProductOnChange);
+        }
 
         this.$dropdownProduct.multiselect({
             maxHeight: 300,
@@ -66,6 +77,7 @@ class ProductMultiSelectionComponent {
             && this.$dropdownProduct.find("option:selected").length
             && this.$multiSelectButton.hasClass("error")) {
             this.$multiSelectButton.removeClass("error");
+            this.removeErrorClassFromExcludeProductLabels();
         }
     };
 
@@ -78,6 +90,57 @@ class ProductMultiSelectionComponent {
             selected.push([this$(this).val()]);
         });
 
+        return selected.concat(this.getExcludeSelectedItems());
+    };
+
+    excludeProductOnChange = () => {
+        this.validateExcludeProductOnChange();
+        this.$hiddenInput.val(this.getSelectedItems().join(","));
+        this.$excludeHiddenInput.val(this.getExcludeSelectedItems().join(","));
+    };
+
+    getExcludeSelectedItems = (): any => {
+        const selected: any = [];
+
+        if (this.$excludeProducts.length) {
+            const self: any = this;
+
+            this.$excludeProducts.each(function () {
+                if (this.checked) {
+                    selected.push(self.$(this).val());
+                }
+            });
+        }
+
         return selected;
+    };
+
+    addClassToExcludeProductLabels = (className: string): void => {
+        if (this.$excludeProducts.length) {
+            const self: any = this;
+
+            this.$excludeProducts.each(function () {
+                self.$(this).closest("label").addClass(className);
+            });
+        }
+    };
+
+    removeErrorClassFromExcludeProductLabels = (): void => {
+        if (this.$excludeProducts.length) {
+            const self: any = this;
+
+            this.$excludeProducts.each(function () {
+                self.$(this).closest("label").removeClass("error");
+            });
+        }
+    };
+
+    validateExcludeProductOnChange = () => {
+        if (this.options.validateBeforeSubmit
+            && this.$multiSelectButton
+            && this.$multiSelectButton.hasClass("error")) {
+            this.$multiSelectButton.removeClass("error");
+            this.removeErrorClassFromExcludeProductLabels();
+        }
     };
 }

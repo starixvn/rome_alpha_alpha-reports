@@ -30,7 +30,8 @@
                 toDate: currentDate, 
                 limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(), 
-                custLevel: UserLevel.Super);
+                custLevel: UserLevel.Super,
+                userSelectedExcludeProductIds: Enumerable.Empty<int>());
 
             // Act
             var actual = param.CustId;
@@ -50,7 +51,8 @@
                 toDate: currentDate,
                 limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(),
-                custLevel: UserLevel.Super);
+                custLevel: UserLevel.Super,
+                userSelectedExcludeProductIds: Enumerable.Empty<int>());
 
             var expectedDate = currentDate;
 
@@ -72,7 +74,8 @@
                 toDate: DateTime.MinValue,
                 limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(),
-                custLevel: UserLevel.Super);
+                custLevel: UserLevel.Super,
+                userSelectedExcludeProductIds: Enumerable.Empty<int>());
 
             var expectedDate = currentDate;
 
@@ -96,7 +99,8 @@
                 toDate: toDate,
                 limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(),
-                custLevel: UserLevel.Super);
+                custLevel: UserLevel.Super,
+                userSelectedExcludeProductIds: Enumerable.Empty<int>());
 
             var expectedDate = toDate;
 
@@ -118,7 +122,8 @@
                 toDate: DateTime.MinValue,
                 limitedDate: DateTime.MinValue,
                 userSelectedProductIds: Enumerable.Empty<int>(),
-                custLevel: UserLevel.Super);
+                custLevel: UserLevel.Super,
+                userSelectedExcludeProductIds: Enumerable.Empty<int>());
 
             var expectedCustLevel = UserLevel.Super;
 
@@ -145,7 +150,8 @@
                 toDate: DateTime.MinValue,
                 limitedDate: DateTime.MinValue,
                 userSelectedProductIds: userSelectedProductIdList,
-                custLevel: UserLevel.Super);
+                custLevel: UserLevel.Super,
+                userSelectedExcludeProductIds: Enumerable.Empty<int>());
 
             var expectedUserSelectedProductIds = userSelectedProductIdList;
 

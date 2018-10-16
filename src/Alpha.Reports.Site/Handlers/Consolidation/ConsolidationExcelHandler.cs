@@ -26,7 +26,7 @@
         private readonly Workbook<ConsolidationByUsernameViewModel> workbook;
         private readonly ConsolidationByDateWorkbook consolidationByDateWorkbook;
         private readonly ConsolidationByProductWorkbook consolidationByProductWorkbook;
-        private readonly ProductService productService;
+        protected readonly ProductService productService;
 
         public ConsolidationExcelHandler(
             ProductService productService,

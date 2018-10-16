@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
+    <Compile Include="Criteria\GetExcludeProductsCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="Criteria\PokerGamesWinLossDetail\PokerGamesWinLossDetailCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
@@ -189,6 +190,7 @@
     <Compile Include="Models\Consolidation\ConsolidationByDate.cs" />
     <Compile Include="Models\Consolidation\ConsolidationByProduct.cs" />
     <Compile Include="Models\Consolidation\ConsolidationByUsername.cs" />
+    <Compile Include="Models\Consolidation\ConsolidationExcludeProduct.cs" />
     <Compile Include="Models\Consolidation\ConsolidationProduct.cs" />
     <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\CustInfo.cs" />

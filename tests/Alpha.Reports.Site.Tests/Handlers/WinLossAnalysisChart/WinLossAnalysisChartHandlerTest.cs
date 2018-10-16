@@ -82,13 +82,14 @@
                 SystemTime.Today.AddMonths(-1).LastDayOfMonth(),
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
-                message.CustLevel);
+                message.CustLevel,
+                Enumerable.Empty<int>());
 
             reportService.GetWinLossAnalysisChart(Arg.Any<WinLossAnalysisChartParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var expectedWinLossAnalysisChartViewModel = new WinLossAnalysisChartViewModel(reportData, message, param, Enumerable.Empty<SelectListItem>());
+            var expectedWinLossAnalysisChartViewModel = new WinLossAnalysisChartViewModel(reportData, message, param, Enumerable.Empty<SelectListItem>(), Enumerable.Empty<SelectListItem>());
 
             // Act
             var actualWinLossAnalysisViewModel = winLossAnalysisChartHandler.Handle(message);

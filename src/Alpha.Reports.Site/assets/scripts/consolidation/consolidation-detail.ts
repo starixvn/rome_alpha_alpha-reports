@@ -212,6 +212,7 @@ class ConsolidationDetailView extends BaseReport {
     };
     showValidateProductError = () => {
         this.$productButton.addClass("error");
+        this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
     };
     hideFilter = () => {
         this.$pageTitle.addClass("hide-filter");

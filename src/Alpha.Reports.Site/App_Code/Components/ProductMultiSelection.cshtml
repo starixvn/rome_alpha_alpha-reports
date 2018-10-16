@@ -1,7 +1,7 @@
 ﻿@using Alpha.Reports.Site.App_GlobalResources;
 @using Alpha.Reports.Site.ViewModels.Components;
 
-@helper Render(ProductMultiSelectionViewModel model)
+@helper Render(ProductMultiSelectionViewModel model, ExcludeProductViewModel excludeProductViewModel = null)
 {
     <div class="form-group">
         <select id="dropdown-product"
@@ -19,4 +19,19 @@
         </select>
         <input type="hidden" name="UserSelectedProductIds" id="product-ids" value="@model.UserSelectedProductIds" />
     </div>
+    if (excludeProductViewModel?.ExcludeProducts?.Any() == true)
+    {
+        foreach (var product in excludeProductViewModel.ExcludeProducts)
+        {
+            <div class="form-group">
+                <label class="checkbox">
+                    <input type="checkbox"
+                           class="exclude-product"
+                           value="@product.Value"
+                           @(product.Selected ? "checked=checked" : string.Empty) />@Resources.Include @product.Text
+                    </label>
+                </div>
+        }
+        <input type="hidden" name="UserSelectedExcludeProductIds" id="exclude-product-ids" value="@excludeProductViewModel.UserSelectedExcludeProductIds" />
+    }
 }

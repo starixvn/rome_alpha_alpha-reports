@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using Extensions;
     using Params;
@@ -26,12 +27,14 @@
 
         protected WinLossDetailParam CreateParameter(
             WinLossDetailQuery message,
-            UserLevel userLevel)
+            UserLevel userLevel,
+            IEnumerable<Product> excludeProducts = null)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate);
+                message.MinDate,
+                excludeProducts);
 
             return new WinLossDetailParam(
                  message.CustId,
@@ -44,7 +47,8 @@
                  userLevel,
                  message.SortPropertyName,
                  message.IsDescendingSort,
-                 message.IsHistoricReport);
+                 message.IsHistoricReport,
+                 BuildValidUserSelectedExcludeProductIds(message.UserSelectedExcludeProductIds, excludeProducts));
         }
     }
 }
