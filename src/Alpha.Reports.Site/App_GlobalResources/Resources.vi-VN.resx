@@ -590,4 +590,7 @@
   <data name="NetTurnoverAndTaxComm" xml:space="preserve">
     <value>/Tiền cược thực/Tổng hoa hồng (Poker)</value>
   </data>
+  <data name="Include" xml:space="preserve">
+    <value>Bao gồm</value>
+  </data>
 </root>
