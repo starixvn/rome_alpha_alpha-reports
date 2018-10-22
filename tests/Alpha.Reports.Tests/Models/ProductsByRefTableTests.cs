@@ -17,5 +17,15 @@
             // Assert
             Assert.Equal(2, actual);
         }
+
+        [Fact]
+        public void RefTable_Dafault_ReturnsCorrectValue()
+        {
+            // Act
+            var actual = new ProductsByRefTable();
+
+            // Assert
+            Assert.True(actual != null);
+        }
     }
 }
