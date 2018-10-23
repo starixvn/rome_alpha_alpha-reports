@@ -608,4 +608,7 @@
   <data name="Include" xml:space="preserve">
     <value>Bao gồm</value>
   </data>
+  <data name="WinLossByProduct" xml:space="preserve">
+    <value>Thắng Thua Trên Sản Phẩm</value>
+  </data>
 </root>
