@@ -99,5 +99,22 @@
             // Assert
             Assert.Equal(products, actualValue);
         }
+
+        [Fact]
+        public void GetEnableProductsForGame_Always_NotNull()
+        {
+            // Arrange
+            var userSession = Substitute.For<IUserSession>();
+            IList<int> productIds = null;
+            userSession.GetProperty<IList<int>>(Arg.Any<string>()).Returns(productIds);
+            var products = new List<int>();
+            var user = new User(userSession);
+
+            // Act
+            var actualValue = user.GetEnableProductsForGame("Hello World");
+
+            // Assert
+            Assert.Equal(products, actualValue);
+        }
     }
 }

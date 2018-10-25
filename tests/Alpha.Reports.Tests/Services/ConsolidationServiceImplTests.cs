@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Constants;
@@ -208,6 +209,65 @@
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
+        }
+
+        [Fact]
+        public void GetConsolidationExcludeProduct_EmptyExcludeProducts_ReturnsCorrectValue()
+        {
+            // Arrange
+            var minDate = DefaultVariablesTest.CurrentDate;
+            IEnumerable<Product> products = new List<Product>
+            {
+                new Product(id: 1, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 2, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 5, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 11, name: null, endOfSupportDate: null, getProductDisplayName: cacheRefService.GetProductName)
+            };
+            productService.GetExcludeProductsForCustomer(Arg.Any<int>(), Arg.Any<DateTime>(), true).Returns(new List<Product>());
+
+            var expectedValue = new ConsolidationExcludeProduct(products, new List<Product>());
+
+            // Act
+            var actualValue = consolidationServiceImpl.GetConsolidationExcludeProduct(0, DefaultVariablesTest.CurrentDate);
+
+            // Assert
+            Assert.True(compareLogic.Compare(expectedValue, actualValue).AreEqual);
+        }
+
+        [Fact]
+        public void GetConsolidationExcludeProduct_HasExcludeProducts_ReturnsCorrectValue()
+        {
+            // Arrange
+            var minDate = DefaultVariablesTest.CurrentDate;
+            var products = new List<Product>
+            {
+                new Product(id: 1, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 2, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 5, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 11, name: null, endOfSupportDate: null, getProductDisplayName: cacheRefService.GetProductName)
+            };
+
+            var excludeProducts = new List<Product>
+            {
+                new Product(id: 2, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 5, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
+            };
+
+            productService.GetExcludeProductsForCustomer(Arg.Any<int>(), Arg.Any<DateTime>(), true).Returns(excludeProducts);
+
+            var expectedValue = new ConsolidationExcludeProduct(
+                new List<Product>
+                {
+                    new Product(id: 1, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
+                    new Product(id: 11, name: null, endOfSupportDate: null, getProductDisplayName: cacheRefService.GetProductName)
+                },
+                excludeProducts);
+
+            // Act
+            var actualValue = consolidationServiceImpl.GetConsolidationExcludeProduct(0, DefaultVariablesTest.CurrentDate);
+
+            // Assert
+            Assert.True(compareLogic.Compare(expectedValue, actualValue).AreEqual);
         }
     }
 }

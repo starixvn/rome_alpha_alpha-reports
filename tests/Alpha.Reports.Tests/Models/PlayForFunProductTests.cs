@@ -14,5 +14,15 @@
             // Assert
             Assert.True(criteria.IsDisable == true);
         }
+
+        [Fact]
+        public void Create_Default_SetsCorrectInitialValues()
+        {
+            // Act
+            var criteria = new PlayForFunProduct();
+
+            // Assert
+            Assert.True(criteria.IsDisable == false);
+        }
     }
 }

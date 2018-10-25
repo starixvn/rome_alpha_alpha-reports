@@ -45,6 +45,6 @@
         public DateTime LimitedDateToShowInfo => userSession.GetProperty<DateTime>(SessionKey.CustomerDatelimit);
 
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
-            => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName);
+            => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName) ?? new List<int>();
     }
 }

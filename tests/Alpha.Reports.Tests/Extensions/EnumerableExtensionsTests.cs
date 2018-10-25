@@ -144,5 +144,48 @@
             // Act & Assert
             Assert.Throws<NullReferenceException>(() => winLossDetails.OrderBy(propertyName, descending: false).ToList());
         }
+
+        [Fact]
+        public void Exclude_EmptyExcludeProducts_ReturnsFullSource()
+        {
+            // Arrange
+            var excludeProducts = Enumerable.Empty<Product>();
+            var source = new List<Product> { new Product() };
+
+            // Act
+            var actualList = EnumerableExtensions.Exclude(source, excludeProducts);
+
+            // Assert
+            AssertExtension.Equal(source, actualList);
+        }
+
+        [Fact]
+        public void Exclude_NullExcludeProducts_ReturnsFullSource()
+        {
+            // Arrange
+            IEnumerable<Product> excludeProducts = null;
+            var source = new List<Product> { new Product() };
+
+            // Act
+            var actualList = EnumerableExtensions.Exclude(source, excludeProducts);
+
+            // Assert
+            AssertExtension.Equal(source, actualList);
+        }
+
+        [Fact]
+        public void Exclude_NullExcludeProducts_ReturnsCorrectData()
+        {
+            // Arrange
+            var excludeProducts = new List<Product> { new Product(2, "Product 2", null), new Product(5, "Product 5", null) };
+            var source = new List<Product> { new Product(1, "Product 1", null), new Product(2, "Product 2", null), new Product(4, "Product 4", null), new Product(5, "Product 5", null) };
+            var expectedList = new List<Product> { new Product(1, "Product 1", null), new Product(4, "Product 4", null) };
+
+            // Act
+            var actualList = EnumerableExtensions.Exclude(source, excludeProducts).ToList();
+
+            // Assert
+            AssertExtension.Equal(expectedList, actualList);
+        }
     }
 }

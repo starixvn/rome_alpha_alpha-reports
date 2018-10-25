@@ -34,5 +34,15 @@
             // Assert
             Assert.Equal(moveBetsDay, actual);
         }
+
+        [Fact]
+        public void MoveBetsDay_Default_ReturnsCorrectValue()
+        {
+            // Act
+            var actual = new BalanceUpDayAndMoveBetsDay();
+
+            // Assert
+            Assert.Equal(actual.MoveBetsDay, DateTime.MinValue);
+        }
     }
 }

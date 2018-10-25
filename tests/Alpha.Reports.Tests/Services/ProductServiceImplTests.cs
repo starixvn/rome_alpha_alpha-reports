@@ -3,10 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Constants;
     using Extensions;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Fixtures;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria;
     using Reports.Extensions;
@@ -23,6 +25,7 @@
 
         private readonly IDynamicRepository dynamicRepository;
         private readonly FanexCacheFixture fanexCacheFixture;
+        private readonly CompareLogic compareLogic;
 
         private readonly IEnumerable<Product> allCustomerProductIds = new List<Product>()
         {
@@ -48,6 +51,8 @@
                 new ProductsByRefTable(2, 2)
             });
 
+            dynamicRepository.Fetch<int>(Arg.Any<GetExcludeProductsCriteria>()).Returns(new List<int> { 33 });
+
             IEnumerable<ProductsByRefTable> productsNeedDelayTimeToSumarizeData;
 
             fanexCacheFixture.CacheForTesting.TryGet(ProductsNeedDelayTimeToSumarizeDataCacheKey, out productsNeedDelayTimeToSumarizeData).Returns(x =>
@@ -58,6 +63,8 @@
             });
 
             ConfiguredCacheService.Set(ProductsNeedDelayTimeToSumarizeDataCacheKey, productsNeedDelayTimeToSumarizeDataInCache);
+
+            compareLogic = new CompareLogic();
         }
 
         [Theory]
@@ -290,6 +297,25 @@
 
             // Assert
             Assert.False(actualValue);
+        }
+
+        [Fact]
+        public void GetExcludeProductsForCustomer_Always_ReturnsCorrectProducts()
+        {
+            // Arrange
+            IEnumerable<Product> cachedProducts = null;
+            var expectedProducts = new List<Product>
+            {
+                new Product(33, string.Empty,  null, (productId) => $"Product {productId}")
+            };
+
+            fanexCacheFixture.CacheForTesting.TryGet("Alpha.Reports.Services.Impl.ExcludeProductsForCustomer-2-False", out cachedProducts).Returns(false);
+
+            // Act
+            var actualValue = productServiceImpl.GetExcludeProductsForCustomer(2, DefaultVariablesTest.CurrentDate, false).ToList();
+
+            // Assert
+            Assert.True(compareLogic.Compare(expectedProducts, actualValue).AreEqual);
         }
     }
 }
