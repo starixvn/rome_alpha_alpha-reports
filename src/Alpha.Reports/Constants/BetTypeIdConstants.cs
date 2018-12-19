@@ -22,6 +22,9 @@
         public const int StartNumberGame = 81;
         public const int EndNumberGame = 120;
 
+        public const int StartHappy5 = 8101;
+        public const int EndHappy5 = 8120;
+
         public const int NumberGameOverUnder = 85;
         public const int NumberGameOddEven = 86;
 

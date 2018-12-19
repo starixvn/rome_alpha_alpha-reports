@@ -652,4 +652,7 @@
   <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
     <value>- สำหรับ การสู้กระทิง [ยอดเดิมพันสุทธิ] คือ [จำนวนของการเดิมพันทั้งหมด] แต่ไม่รวมตั๋วที่ผล "เสมอ"</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value> ลำดับที่</value>
+  </data>
 </root>

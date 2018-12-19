@@ -66,6 +66,11 @@
                 return $"{Resources.NumberGameNo} {matchWinLossModel.MatchCode}";
             }
 
+            if (BetTypeHelper.IsHappy5(matchWinLossModel.BetType))
+            {
+                return $"{Resources.No} {matchWinLossModel.MatchCode}";
+            }
+
             return string.Join(
                 string.Empty,
                 cacheRefService.GetTeamName(matchWinLossModel.HomeId) + (matchWinLossModel.IsNeutral ? Resources.Neutral : string.Empty),

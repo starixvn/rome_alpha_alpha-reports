@@ -651,4 +651,10 @@
   <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
     <value>- 鬥牛產品的【凈投註額】是扣除 “和局” 註單後的【總投資額】。</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>編號</value>
+  </data>
+  <data name="Happy5" xml:space="preserve">
+    <value>快樂5</value>
+  </data>
 </root>

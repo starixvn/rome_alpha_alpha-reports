@@ -118,7 +118,8 @@
                 return $"{leagueName}_Match{data.MatchId}";
             }
 
-            if (BetTypeHelper.IsNumberGame(data.BetType))
+            if (BetTypeHelper.IsNumberGame(data.BetType) ||
+                BetTypeHelper.IsHappy5(data.BetType))
             {
                 return $"{leagueName}_MatchCode{data.MatchCode}";
             }
