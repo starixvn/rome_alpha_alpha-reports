@@ -6,7 +6,8 @@
     using Extensions;
     using Reports.Constants;
     using Reports.Helpers;
-    using Reports.Models.MatchWinLossDetail;    
+    using Reports.Models.MatchWinLossDetail;
+    using Services;
 
     public class MatchWinLossDetailViewModel
     {
@@ -62,11 +63,16 @@
             if (data.BetType == BetTypeIdConstants.Outright)
             {
                 return string.Empty;
-            }           
+            }
 
             if (BetTypeHelper.IsNumberGame(data.BetType))
             {
                 return $"{Resources.NumberGameNo} {data.MatchCode}";
+            }
+
+            if (BetTypeHelper.IsHappy5(data.BetType))
+            {
+                return $"{Resources.No} {data.MatchCode}";
             }
 
             if (BetTypeHelper.IsLucky3(data.BetType))
@@ -95,7 +101,7 @@
             if (data == null)
             {
                 return string.Empty;
-            }           
+            }
 
             if (BetTypeHelper.IsNumberGame(data.BetType))
             {
@@ -104,12 +110,19 @@
                     : $"{Resources.NumberGame} - {leagueName}";
             }
 
+            if (BetTypeHelper.IsHappy5(data.BetType))
+            {
+                return string.IsNullOrWhiteSpace(leagueName)
+                    ? Resources.Happy5
+                    : $"{Resources.Happy5} - {leagueName}";
+            }
+
             if (BetTypeHelper.IsLucky3(data.BetType))
             {
                 return $"{Resources.Lucky3} - {leagueName}";
             }
 
-            if(data.BetType == BetTypeIdConstants.Bullfighting)
+            if (data.BetType == BetTypeIdConstants.Bullfighting)
             {
                 return $"{data.MatchCode} - {leagueName}";
             }

@@ -12,6 +12,9 @@
         public static bool IsNumberGame(int betType)
             => betType.IsBetween(BetTypeIdConstants.StartNumberGame, BetTypeIdConstants.EndNumberGame);
 
+        public static bool IsHappy5(int betType)
+            => betType.IsBetween(BetTypeIdConstants.StartHappy5, BetTypeIdConstants.EndHappy5);
+
         public static bool IsLucky3(int betType)
             => betType.IsBetween(BetTypeIdConstants.StartLucky3, BetTypeIdConstants.EndLucky3);
 

@@ -808,6 +808,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Happy 5.
+        /// </summary>
+        public static string Happy5 {
+            get {
+                return ResourceManager.GetString("Happy5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide filters.
         /// </summary>
         public static string HideFilter {
@@ -1209,6 +1218,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Next {
             get {
                 return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No..
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         

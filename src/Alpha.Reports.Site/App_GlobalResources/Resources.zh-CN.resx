@@ -651,4 +651,10 @@
   <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
     <value>- 斗牛产品的【净投注额】是扣除 “和局” 注单后的【总投资额】。</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>编号</value>
+  </data>
+  <data name="Happy5" xml:space="preserve">
+    <value>快乐5</value>
+  </data>
 </root>
