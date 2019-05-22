@@ -50,6 +50,7 @@
             GlobalFilters.Filters.Add(new CheckUMFilter());
             GlobalFilters.Filters.Add(new CheckBelongingFilter());
             GlobalFilters.Filters.Add(new NoCacheFilter());
+            GlobalFilters.Filters.Add(new AfterLoginFlowFilter());
 
             SiteSettings.Verify();
 
