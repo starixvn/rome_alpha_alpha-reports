@@ -614,4 +614,10 @@
   <data name="No" xml:space="preserve">
     <value>Số</value>
   </data>
+  <data name="Void" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>Từ chối</value>
+  </data>
 </root>
