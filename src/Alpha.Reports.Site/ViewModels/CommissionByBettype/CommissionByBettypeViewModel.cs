@@ -19,7 +19,6 @@
         public const string SortByChargeComm = nameof(CommissionByBettypeModel.ChargeComm);
         public const string SortByMyanmarOddsComm = nameof(CommissionByBettypeModel.MyanmarOddsComm);
         public const string SortByCasinoComm = nameof(CommissionByBettypeModel.CasinoComm);
-        public const string SortByOthers = nameof(CommissionByBettypeModel.Others);
 
         public CommissionByBettypeViewModel(
             CommissionByBettypeQuery query,
