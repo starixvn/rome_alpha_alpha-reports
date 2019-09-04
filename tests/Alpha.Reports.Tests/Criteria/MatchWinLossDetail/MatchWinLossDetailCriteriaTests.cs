@@ -90,26 +90,6 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
         }
 
         [Fact]
-        public void League3rdIds_Always_GetCorrectIds()
-        {
-            //// Arrange
-            var criteria = new MatchWinLossDetailCriteria(
-                anyValueCreator.Create<int>(),
-                anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<DateTime>(),
-                anyValueCreator.Create<IEnumerable<int>>(),
-                anyValueCreator.Create<UserLevel>(),
-                new List<string> { "12_1", "1_0", "3_0", "5_1" });
-
-            //// Act
-            var act = criteria.League3rdIds;
-
-            //// Assert
-            Assert.Equal("12,5", act);
-        }
-
-        [Fact]
         public void IsValid_EmptyProducts_ReturnsFalse()
         {
             // Arrange
@@ -196,7 +176,7 @@ namespace Alpha.Reports.Tests.Criteria.MatchWinLossDetail
 
         [Theory]
         [InlineData("", "", true)]
-        [InlineData("1_1", "", false)]
+        [InlineData("1_1", "", true)]
         [InlineData("", "1_0", false)]
         public void IsGetAll(string leagueIds, string leagueIds3rd, bool expectedValue)
         {
