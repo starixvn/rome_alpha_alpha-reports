@@ -535,10 +535,10 @@
     <value>客户余额将计算至"从" 的日期。 若期初余额与前一天的累积余额不符，那期初余额将会显示粉红色。</value>
   </data>
   <data name="Guidelines_Turnover" xml:space="preserve">
-    <value>所有注单总投注额  (不包括作废/取消/未结束投注/退款的注单)</value>
+    <value>所有注单总投注额 (不包括作废/已取消/未结束投注/退款的注单)</value>
   </data>
   <data name="Guidelines_WinLoss_SMA" xml:space="preserve">
-    <value>占成后的总输赢额度 (不包括作废/取消/未结束投注的注单)</value>
+    <value>占成后的总输赢额度 (不包括作废/已取消/未结束投注的注单)</value>
   </data>
   <data name="Guidelines_Commission_SMA" xml:space="preserve">
     <value>会员注单的净总佣金</value>
@@ -562,16 +562,16 @@
     <value>作废</value>
   </data>
   <data name="Rejected" xml:space="preserve">
-    <value>取消</value>
+    <value>已取消</value>
   </data>
   <data name="Guidelines_VoidRejected" xml:space="preserve">
-    <value>作废/取消注单总投注额.。 点击查看作废/取消注单明细。</value>
+    <value> 作废/已取消注单总投注额.。 点击查看作废/已取消注单明细。</value>
   </data>
   <data name="Guidelines_OpeningBalance_Member" xml:space="preserve">
     <value>客户余额将计算至"从" 的日期。若期初余额与前一天的累积余额不符，那期初余额将会显示粉红色。</value>
   </data>
   <data name="Guidelines_WinLoss_Member" xml:space="preserve">
-    <value>注单 (不包括作废/取消/未结束投注的注单) 总输赢额度 (不包括会员佣金)。 点击查看注单明细。</value>
+    <value>注单 (不包括作废/已取消/未结束投注的注单) 总输赢额度 (不包括会员佣金)。 点击查看注单明细。</value>
   </data>
   <data name="Guidelines_Commission_Member" xml:space="preserve">
     <value>会员总佣金</value>
