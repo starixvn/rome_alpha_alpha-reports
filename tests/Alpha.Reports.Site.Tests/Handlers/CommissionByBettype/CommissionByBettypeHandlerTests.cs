@@ -31,7 +31,7 @@
             service = Substitute.For<CommissionByBettypeService>();
             reportService = Substitute.For<ReportDateService>();
             productService = Substitute.For<ProductService>();
-            handler = new CommissionByBettypeHandler(service, reportService, Substitute.For<UserPermissionService>(), productService);
+            handler = new CommissionByBettypeHandler(service, reportService, productService);
         }
 
         [Fact]

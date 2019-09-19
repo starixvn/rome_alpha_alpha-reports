@@ -14,16 +14,14 @@
     public class CommissionByBettypeViewModelTests
     {
         [Theory]
-        [InlineData(true, false, 7)]
-        [InlineData(false, true, 7)]
-        [InlineData(false, false, 6)]
-        public void Should_ReturnCorrectNumberOfColumns(bool showChargeCommColumn, bool showMyanmarOddsColumn, int exptectedValue)
+        [InlineData(6)]
+        public void Should_ReturnCorrectNumberOfColumns(int exptectedValue)
         {
             // Arrange
             var user = Substitute.For<IUser>();
             user.LevelId.Returns((byte)1);
             var query = new CommissionByBettypeQuery(user);
-            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), showChargeCommColumn, showMyanmarOddsColumn);
+            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime));
 
             // Act
             var result = viewmodel.GetNumCols();
@@ -49,10 +47,10 @@
             var query = new CommissionByBettypeQuery(user);
             query.CustLevelId = custLevelId;
 
-            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), false, false);
+            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime));
 
             // Act
-            viewmodel.BuildDrillDownLink(new CommissionByBettypeModel(custId, custName, 0, 0, 0, 0, 0, 0), currentUrl);
+            viewmodel.BuildDrillDownLink(new CommissionByBettypeModel(custId, custName, 0, 0, 0, 0), currentUrl);
 
             // Assert
             UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(

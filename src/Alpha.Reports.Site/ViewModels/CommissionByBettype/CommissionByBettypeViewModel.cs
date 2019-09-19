@@ -16,17 +16,13 @@
         public const string SortByComm1 = nameof(CommissionByBettypeModel.Comm1);
         public const string SortByComm2 = nameof(CommissionByBettypeModel.Comm2);
         public const string SortByComm3 = nameof(CommissionByBettypeModel.Comm3);
-        public const string SortByChargeComm = nameof(CommissionByBettypeModel.ChargeComm);
-        public const string SortByMyanmarOddsComm = nameof(CommissionByBettypeModel.MyanmarOddsComm);
         public const string SortByCasinoComm = nameof(CommissionByBettypeModel.CasinoComm);
 
         public CommissionByBettypeViewModel(
             CommissionByBettypeQuery query,
             IEnumerable<CommissionByBettypeModel> commissionByBettypes,
             IEnumerable<CustInfo> breadcrumbLevel,
-            DateTime balanceUpDate,
-            bool showChargeCommColumn,
-            bool showMyanmarOddsColumn)
+            DateTime balanceUpDate)
             : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
@@ -48,9 +44,6 @@
                 BreadcrumbLevelJson,
                 dateRangePickerViewModel);
 
-            ShowChargeCommColumn = showChargeCommColumn;
-            ShowMyanmarOddsColumn = showMyanmarOddsColumn;
-
             var canSort = commissionByBettypes != null && commissionByBettypes.Count() > 1;
             SortPropertyName = canSort && !string.IsNullOrWhiteSpace(query.SortPropertyName)
                 ? query.SortPropertyName
@@ -67,30 +60,14 @@
         public IEnumerable<CommissionByBettypeModel> CommissionByBettypes { get; }
 
         public CommissionByBettypeModel Total => CommissionByBettypeModel.GetAccumulatedCommission(CommissionByBettypes);
-
-        public bool ShowChargeCommColumn { get; }
-
-        public bool ShowMyanmarOddsColumn { get; }
-
+        
         public string SortPropertyName { get; }
 
         public bool IsDescendingSort { get; }
 
-        public int GetNumCols()
-        {
-            int numCols = 6;
-            if (ShowChargeCommColumn)
-            {
-                numCols++;
-            }
-
-            if (ShowMyanmarOddsColumn)
-            {
-                numCols++;
-            }
-
-            return numCols;
-        }
+#pragma warning disable S2325 // Methods and properties that don't access instance data should be static
+        public int GetNumCols() => 6;
+#pragma warning restore S2325 // Methods and properties that don't access instance data should be static
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(CommissionByBettypeModel model)
         {
