@@ -55,29 +55,6 @@
             }
         }
 
-        public string League3rdIds
-        {
-            get
-            {
-                var ids = new List<int>();
-                foreach (var league in Leagues)
-                {
-                    var items = league.Split('_');
-                    if (items.Length == 2)
-                    {
-                        var leagueId = Convert.ToInt32(items[0]);
-                        var leagueType = Convert.ToInt32(items[1]);
-                        if (leagueType == (int)LeagueType.ThirdParty)
-                        {
-                            ids.Add(leagueId);
-                        }
-                    }
-                }
-
-                return ids.JoinWithComma();
-            }
-        }
-
         [SpParam(Ignored = true)]
         public UserLevel ReportLevel { get; }
 
@@ -91,7 +68,7 @@
 
         public DateTime MoveBetsDay { get; }
 
-        public bool IsGetAll => string.IsNullOrEmpty(LeagueIds) && string.IsNullOrEmpty(League3rdIds);
+        public bool IsGetAll => string.IsNullOrEmpty(LeagueIds);
 
         public override string GetSettingKey()
             => ReportLevel.IsAgentLevel()

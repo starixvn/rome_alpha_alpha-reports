@@ -15,19 +15,16 @@
     {
         private readonly CommissionByBettypeService commissionService;
         private readonly ReportDateService reportDateService;
-        private readonly UserPermissionService userPermissionService;
         private readonly ProductService productService;
 
         public CommissionByBettypeHandler(
             CommissionByBettypeService commissionByBettypeServiceImpl,
             ReportDateService reportDateServiceImpl,
-            UserPermissionService userPermissionServiceImpl,
             ProductService productServiceImpl)
         {
             productService = productServiceImpl;
             commissionService = commissionByBettypeServiceImpl;
             reportDateService = reportDateServiceImpl;
-            userPermissionService = userPermissionServiceImpl;
         }
 
         public CommissionByBettypeViewModel Handle(CommissionByBettypeQuery message)
@@ -48,9 +45,7 @@
                 message,
                 commissions,
                 breadcrumbLevel,
-                reportDateService.GetBalanceUpDay(),
-                userPermissionService.IsIMbcCustomer(),
-                userPermissionService.IsShowMyanmarOdds());
+                reportDateService.GetBalanceUpDay());
         }
 
         public IEnumerable<string> Handle(CommissionByBetTypeGuideQuery message)

@@ -15,10 +15,7 @@
             decimal comm1,
             decimal comm2,
             decimal comm3,
-            decimal casinoComm,
-            decimal myanmarOddsComm,
-            decimal chargeComm,
-            decimal others)
+            decimal casinoComm)
         {
             CustId = custId;
             CustName = custName;
@@ -26,9 +23,6 @@
             Comm2 = comm2;
             Comm3 = comm3;
             CasinoComm = casinoComm;
-            MyanmarOddsComm = myanmarOddsComm;
-            ChargeComm = chargeComm;
-            Others = others;
         }
 
         public int CustId { get; }
@@ -42,16 +36,10 @@
         public decimal Comm3 { get; private set; }
 
         public decimal CasinoComm { get; private set; }
-
-        public decimal MyanmarOddsComm { get; private set; }
-
-        public decimal ChargeComm { get; private set; }
-
-        public decimal Others { get; private set; }
-
+        
         public static CommissionByBettypeModel GetAccumulatedCommission(IEnumerable<CommissionByBettypeModel> commissions)
         {
-            var accumulatedCommission = new CommissionByBettypeModel(0, string.Empty, 0, 0, 0, 0, 0, 0, 0);
+            var accumulatedCommission = new CommissionByBettypeModel(0, string.Empty, 0, 0, 0, 0);
 
             foreach (var commission in commissions)
             {
@@ -68,9 +56,6 @@
             Comm3 += commission.Comm3;
 
             CasinoComm += commission.CasinoComm;
-            MyanmarOddsComm += commission.MyanmarOddsComm;
-            ChargeComm += commission.ChargeComm;
-            Others += commission.Others;
         }
     }
 }

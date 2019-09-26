@@ -48,9 +48,7 @@
             var rowIndex = TemplateInfo.BodyStartIndex;
             var colIndex = Column.GetColIndex(TemplateInfo.ColumnStartName);
 
-            var lastColumnIndex = sheet.OddRowTemplate.LastCellIndex - 1
-                - (!userPermissionService.IsIMbcCustomer() ? 1 : 0)
-                - (!userPermissionService.IsShowMyanmarOdds() ? 1 : 0);
+            var lastColumnIndex = sheet.OddRowTemplate.LastCellIndex - 1;
 
             sheet.SetCellRangeValue(
                 rowIndex,
@@ -69,41 +67,7 @@
 
             npoiSheet.RemoveMergedRegion(0);
 
-            if (!userPermissionService.IsIMbcCustomer())
-            {
-                RemoveColumnIndex(npoiSheet, 4);
-                headerAddress.LastColumn--;
-            }
-
-            if (!userPermissionService.IsShowMyanmarOdds())
-            {
-                RemoveColumnIndex(npoiSheet, 4);
-                headerAddress.LastColumn--;
-            }
-
             npoiSheet.AddMergedRegion(headerAddress);
-        }
-
-        private void RemoveColumnIndex(ISheet sheet, int colIndex)
-        {
-            var rowIter = sheet.GetEnumerator();
-
-            while (rowIter.MoveNext())
-            {
-                var row = (HSSFRow)rowIter.Current;
-                var cell = row.GetCell(colIndex);
-
-                if (cell != null)
-                {
-                    row.RemoveCell(cell);
-
-                    for (int i = cell.ColumnIndex + 1; i <= row.Cells.Count; i++)
-                    {
-                        row.CopyCell(i, i - 1);
-                        row.RemoveCell(row.GetCell(i));
-                    }
-                }
-            }
         }
     }
 }
