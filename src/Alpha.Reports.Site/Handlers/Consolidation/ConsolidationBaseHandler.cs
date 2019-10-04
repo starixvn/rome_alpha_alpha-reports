@@ -36,13 +36,12 @@
             this.viewer = viewer;
         }
 
-        protected GetConsolidationParam CreateParameter(GetConsolidationQuery message, IEnumerable<Product> excludeProducts = null)
+        protected GetConsolidationParam CreateParameter(GetConsolidationQuery message)
         {
             var validUserSelectedProductIds = reportService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate,
-                excludeProducts);
+                message.MinDate);
 
             return new GetConsolidationParam(
                  message.CustId,
@@ -124,10 +123,10 @@
                 BreadcrumbLevel = message.BreadcrumbLevel
             };
 
-        protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> excludeProducts = null)
+        protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query)
         {
             var validUserSelectedProductIds =
-               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate, excludeProducts);
+               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
 
             return new WinLossDetailParam(
                 query.CustId,

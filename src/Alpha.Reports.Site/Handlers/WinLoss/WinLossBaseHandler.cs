@@ -28,13 +28,12 @@
             this.reportService = reportService;
         }
 
-        protected WinLossParam CreateWinLossParamater(WinLossQuery message, IEnumerable<Product> excludeProducts = null)
+        protected WinLossParam CreateWinLossParamater(WinLossQuery message)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate,
-                excludeProducts);
+                message.MinDate);
 
             return new WinLossParam(
                  message.CustId,

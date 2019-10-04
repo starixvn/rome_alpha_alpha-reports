@@ -61,16 +61,10 @@
  
   <Function Name="Commission By Bet Type">
     <Setting Key="Age_Rpt_CommByBettype_Master" SpName="Age_Rpt_CommByBettype_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-      <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
-      <Mapping DataField="OthersComm" ObjectProperty="Others" />
     </Setting>
     <Setting Key="Age_Rpt_CommByBettype_Agent" SpName="Age_Rpt_CommByBettype_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-      <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
-      <Mapping DataField="OthersComm" ObjectProperty="Others" />
     </Setting>
     <Setting Key="Age_Rpt_CommByBettype_Member" SpName="Age_Rpt_CommByBettype_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-      <Mapping DataField="MOComm" ObjectProperty="MyanmarOddsComm" />
-      <Mapping DataField="OthersComm" ObjectProperty="Others" />
     </Setting>
   </Function>
   <Function Name="Consolidation">
@@ -105,8 +99,5 @@
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Master" SpName="Age_Rpt_ProgressiveGamesContribution_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Agent" SpName="Age_Rpt_ProgressiveGamesContribution_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Member" SpName="Age_Rpt_ProgressiveGamesContribution_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-  </Function>
-  <Function Name="Exclude Products by Site/Currency">
-    <Setting Key="Age_ExcludeProduct_SiteCurrency_Sel" SpName="Age_ExcludeProduct_SiteCurrency_Sel" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 </Functions>

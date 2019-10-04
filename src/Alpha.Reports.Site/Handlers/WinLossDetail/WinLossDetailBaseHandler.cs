@@ -27,14 +27,12 @@
 
         protected WinLossDetailParam CreateParameter(
             WinLossDetailQuery message,
-            UserLevel userLevel,
-            IEnumerable<Product> excludeProducts = null)
+            UserLevel userLevel)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate,
-                excludeProducts);
+                message.MinDate);
 
             return new WinLossDetailParam(
                  message.CustId,

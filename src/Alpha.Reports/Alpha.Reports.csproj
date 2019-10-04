@@ -133,7 +133,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
-    <Compile Include="Criteria\GetExcludeProductsCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
     <Compile Include="Enumerations\LeagueType.cs" />

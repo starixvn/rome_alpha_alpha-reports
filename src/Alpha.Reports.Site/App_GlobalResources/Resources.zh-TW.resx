@@ -387,12 +387,6 @@
   <data name="Gaming" xml:space="preserve">
     <value>Gaming</value>
   </data>
-  <data name="ChargeComm" xml:space="preserve">
-    <value>抽取傭金</value>
-  </data>
-  <data name="SymbolMyanmarOdds" xml:space="preserve">
-    <value>% Odds</value>
-  </data>
   <data name="Others" xml:space="preserve">
     <value>其他</value>
   </data>
@@ -629,9 +623,6 @@
   </data>
   <data name="Owner" xml:space="preserve">
     <value>持有人</value>
-  </data>
-  <data name="Lucky3GameNo" xml:space="preserve">
-    <value>幸运3比賽場次</value>
   </data>
   <data name="ProgressiveGamesContribution" xml:space="preserve">
     <value>積寶遊戲貢獻</value>

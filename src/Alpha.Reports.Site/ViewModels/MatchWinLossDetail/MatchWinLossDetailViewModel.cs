@@ -75,11 +75,6 @@
                 return $"{Resources.No} {data.MatchCode}";
             }
 
-            if (BetTypeHelper.IsLucky3(data.BetType))
-            {
-                return $"{Resources.Lucky3GameNo} {data.MatchCode}";
-            }
-
             if (BetTypeHelper.IsVirtualHorseRacing(data.BetType))
             {
                 DateTime eventTime;
@@ -115,11 +110,6 @@
                 return string.IsNullOrWhiteSpace(leagueName)
                     ? Resources.Happy5
                     : $"{Resources.Happy5} - {leagueName}";
-            }
-
-            if (BetTypeHelper.IsLucky3(data.BetType))
-            {
-                return $"{Resources.Lucky3} - {leagueName}";
             }
 
             return leagueName;

@@ -67,7 +67,7 @@
                  sportTypeId: sportTypeId,
                  sportTypeName: sportTypeId == 0 ? string.Empty : cacheRefService.GetSportName(sportTypeId),
                  liveIndicator: reader.ToString("liveindicator") == "1",
-                 betCount: bettypeId == BetTypeIdConstants.ChargeCommission ? (int?)null : reader.ToInt("NumberOfTickets"),
+                 betCount: reader.ToInt("NumberOfTickets"),
                  turnover: reader.ToDecimal("TurnOver"),
                  grossComm: reader.ToDecimal("GrossComm"),
                  memberNetWinLoss: reportLevel.IsAgentLevel() ? new NetWinLoss(reader.ToDecimal("MemberWinLoss"), reader.ToDecimal("MemberComm")) : null,

@@ -15,9 +15,6 @@
         public static bool IsHappy5(int betType)
             => betType.IsBetween(BetTypeIdConstants.StartHappy5, BetTypeIdConstants.EndHappy5);
 
-        public static bool IsLucky3(int betType)
-            => betType.IsBetween(BetTypeIdConstants.StartLucky3, BetTypeIdConstants.EndLucky3);
-
         public static bool IsVirtualHorseRacing(int betType)
             => betType == BetTypeIdConstants.VirtualHorseRacing_Win
             || betType == BetTypeIdConstants.VirtualHorseRacing_Place

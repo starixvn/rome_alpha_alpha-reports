@@ -286,15 +286,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ChargeComm.
-        /// </summary>
-        public static string ChargeComm {
-            get {
-                return ResourceManager.GetString("ChargeComm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Close {
@@ -921,24 +912,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string LiveGame {
             get {
                 return ResourceManager.GetString("LiveGame", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lucky3.
-        /// </summary>
-        public static string Lucky3 {
-            get {
-                return ResourceManager.GetString("Lucky3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lucky 3 Game No.
-        /// </summary>
-        public static string Lucky3GameNo {
-            get {
-                return ResourceManager.GetString("Lucky3GameNo", resourceCulture);
             }
         }
         
@@ -1614,15 +1587,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Symbol_NoDataNumber {
             get {
                 return ResourceManager.GetString("Symbol_NoDataNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to % Odds.
-        /// </summary>
-        public static string SymbolMyanmarOdds {
-            get {
-                return ResourceManager.GetString("SymbolMyanmarOdds", resourceCulture);
             }
         }
         

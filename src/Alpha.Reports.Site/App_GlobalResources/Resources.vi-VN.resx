@@ -405,12 +405,6 @@
   <data name="DelayIssueLegend" xml:space="preserve">
     <value>- Số liệu của {0} sẽ bị trì hoãn 5 phút kể từ khi hoàn thành các vé cược. </value>
   </data>
-  <data name="ChargeComm" xml:space="preserve">
-    <value>Charge Comm</value>
-  </data>
-  <data name="SymbolMyanmarOdds" xml:space="preserve">
-    <value>% Odds</value>
-  </data>
   <data name="Others" xml:space="preserve">
     <value>Khác</value>
   </data>

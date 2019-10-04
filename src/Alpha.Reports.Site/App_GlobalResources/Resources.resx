@@ -450,12 +450,6 @@
   <data name="Gaming" xml:space="preserve">
     <value>Gaming</value>
   </data>
-  <data name="ChargeComm" xml:space="preserve">
-    <value>ChargeComm</value>
-  </data>
-  <data name="SymbolMyanmarOdds" xml:space="preserve">
-    <value>% Odds</value>
-  </data>
   <data name="Others" xml:space="preserve">
     <value>Others</value>
   </data>
@@ -701,12 +695,6 @@
   </data>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
-  </data>
-  <data name="Lucky3GameNo" xml:space="preserve">
-    <value>Lucky 3 Game No</value>
-  </data>
-  <data name="Lucky3" xml:space="preserve">
-    <value>Lucky3</value>
   </data>
   <data name="Tooltip_CommissionByBetType" xml:space="preserve">
     <value>- Others: applies to bet type(s) of {0}.</value>

@@ -12,12 +12,10 @@
     public class ReportLegendHandler : IRequestHandler<ReportLegendQuery, IEnumerable<string>>
     {
         private readonly ProductService productService;
-        private readonly IUser viewer;
 
         public ReportLegendHandler(ProductService productServiceImpl, IUser viewer)
         {
             productService = productServiceImpl;
-            this.viewer = viewer;
         }
 
         public IEnumerable<string> Handle(ReportLegendQuery message)

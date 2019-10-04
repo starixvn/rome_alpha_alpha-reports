@@ -11,9 +11,9 @@
 
     public interface ProductService
     {
-        IEnumerable<Product> GetProductsForCustomer(int custId, DateTime? minReportDate = null, IEnumerable<Product> excludeProducts = null);
+        IEnumerable<Product> GetProductsForCustomer(int custId, DateTime? minReportDate = null);
 
-        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null, IEnumerable<Product> excludeProducts = null);
+        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null);
 
         IEnumerable<Product> FilterProductsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null);
 
@@ -26,8 +26,6 @@
         IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer();
 
         bool IsShowProduct(int custId, int productId);
-
-        IEnumerable<Product> GetExcludeProductsForCustomer(int custId, DateTime? minReportDate = null, bool isGroupHeadline = false);
     }
 
     public class ProductServiceImpl : ProductService
@@ -48,9 +46,9 @@
             this.getProductName = getProductName;
         }
 
-        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null, IEnumerable<Product> excludeProducts = null)
+        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null)
         {
-            var customerProductIds = GetProductsForCustomer(custId, minReportDate, excludeProducts).Select(product => product.Id);
+            var customerProductIds = GetProductsForCustomer(custId, minReportDate).Select(product => product.Id);
 
             var productIdList = productIds == null || !productIds.Any()
                 ? customerProductIds
@@ -62,7 +60,7 @@
         public IEnumerable<Product> FilterProductsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null)
             => GetProductsForCustomer(custId, minReportDate).Where(product => productIds.Contains(product.Id));
 
-        public IEnumerable<Product> GetProductsForCustomer(int custId, DateTime? minReportDate = null, IEnumerable<Product> excludeProducts = null)
+        public IEnumerable<Product> GetProductsForCustomer(int custId, DateTime? minReportDate = null)
         {
             if (custId <= 0)
             {
@@ -79,8 +77,7 @@
             if (custProducts != null)
             {
                 custProducts = custProducts
-                    .Where(product => IsRemainSupportProduct(product, minReportDate))
-                    .Exclude(excludeProducts);
+                    .Where(product => IsRemainSupportProduct(product, minReportDate));
             }
 
             return custProducts;
@@ -126,20 +123,6 @@
 
         public bool IsShowProduct(int custId, int productId)
             => GetProductsForCustomer(custId).Any(p => p.Id == productId);
-
-        public IEnumerable<Product> GetExcludeProductsForCustomer(int custId, DateTime? minReportDate = null, bool isGroupHeadline = false)
-            => ConfiguredCacheService
-                .GetOrSet(
-                $"Alpha.Reports.Services.Impl.ExcludeProductsForCustomer-{custId}-{isGroupHeadline}",
-                () =>
-                {
-                    return dynamicRepository
-                        .Fetch<int>(new GetExcludeProductsCriteria(custId, isGroupHeadline))
-                        .Where(id => isGroupHeadline || canViewProduct(id))
-                        .Select(id => new Product(id, string.Empty, null, getProductName))
-                        .ToList();
-                },
-                new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
         private static bool IsRemainSupportProduct(Product product, DateTime? minReportDate)
             => !minReportDate.HasValue

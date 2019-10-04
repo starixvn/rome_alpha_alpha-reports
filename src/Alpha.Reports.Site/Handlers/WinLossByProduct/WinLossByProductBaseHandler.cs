@@ -30,13 +30,12 @@
             this.cacheRefService = cacheRefService;
         }
 
-        protected WinLossByProductParam CreateWinLossByBettypeParamater(WinLossByProductQuery message, IEnumerable<Product> excludeProducts = null)
+        protected WinLossByProductParam CreateWinLossByBettypeParamater(WinLossByProductQuery message)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate,
-                excludeProducts);
+                message.MinDate);
 
             return new WinLossByProductParam(
                 message.CustId,

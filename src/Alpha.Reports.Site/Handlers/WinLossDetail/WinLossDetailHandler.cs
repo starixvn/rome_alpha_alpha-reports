@@ -34,10 +34,9 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var excludeProducts = productService.GetExcludeProductsForCustomer(message.CustId, message.MinDate);
-            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate, excludeProducts);
+            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
 
-            var winLossDetailParam = CreateParameter(message, message.CustLevel, excludeProducts);
+            var winLossDetailParam = CreateParameter(message, message.CustLevel);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
             var viewModel = new WinLossDetailViewModel(
                 message,

@@ -35,7 +35,7 @@
             var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
-            var param = CreateParameter(message, consolidationExcludeProduct.ExcludeProducts);
+            var param = CreateParameter(message);
             var data = reportService.GetConsolidationByUsername(param);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
@@ -53,7 +53,7 @@
             var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
-            var param = CreateParameter(message, consolidationExcludeProduct.ExcludeProducts);
+            var param = CreateParameter(message);
             var data = reportService.GetConsolidationByDate(param);
 
             var viewModel = new ConsolidationReportByDateViewModel(
@@ -71,7 +71,7 @@
             var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
-            var param = CreateParameter(message, consolidationExcludeProduct.ExcludeProducts);
+            var param = CreateParameter(message);
             var data = reportService.GetConsolidationByProduct(param);
 
             var viewModel = new ConsolidationReportByProductViewModel(
@@ -101,24 +101,22 @@
                 CustLevelId = viewer.LevelId
             };
 
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(consolidationQuery.CustId, consolidationQuery.MinDate);
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
             return new ConsolidationDetailViewModel(
                 message,
                 GetConsolidationDetailBreadcrumbLevel(message),
-                GetConsolidationFilterViewModel(consolidationQuery, consolidationExcludeProduct.ExcludeProducts),
-                GetWinLossDetailViewModel(winLossDetailQuery, consolidationExcludeProduct.ExcludeProducts));
+                GetConsolidationFilterViewModel(consolidationQuery),
+                GetWinLossDetailViewModel(winLossDetailQuery));
         }
 
         private ConsolidationFilterViewModel GetConsolidationFilterViewModel(
-            ConsolidationByUsernameQuery query,
-            IEnumerable<Product> excludeProducts)
+            ConsolidationByUsernameQuery query)
         {
-            var products = reportService.GetProducts(new GetConslidationReportProductsParam(query.ViewerId, query.MinDate), excludeProducts);
+            var products = reportService.GetProducts(new GetConslidationReportProductsParam(query.ViewerId, query.MinDate));
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(query.ViewerId));
 
-            var param = CreateParameter(query, excludeProducts);
+            var param = CreateParameter(query);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 query,
@@ -130,9 +128,9 @@
             return viewModel.FilterViewModel;
         }
 
-        private WinLossDetailViewModel GetWinLossDetailViewModel(WinLossDetailQuery query, IEnumerable<Product> excludeProducts)
+        private WinLossDetailViewModel GetWinLossDetailViewModel(WinLossDetailQuery query)
         {
-            var param = CreateWinLossDetailParam(query, excludeProducts);
+            var param = CreateWinLossDetailParam(query);
 
             var reportData = winLossDetailService.GetWinLossDetail(param);
 

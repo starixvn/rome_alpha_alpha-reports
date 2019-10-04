@@ -332,10 +332,6 @@
                 {
                     new SelectListItem { Value = AllBetProductId.ToString() }
                 },
-                new List<SelectListItem>
-                {
-                    new SelectListItem { Value = "33" }
-                },
                 false);
         }
 

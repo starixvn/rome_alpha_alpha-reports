@@ -50,7 +50,7 @@
     { "Path": "apps/winlossdetail/winlossdetail-template.ts" },
     { "Path": "apps/core/core-tests-template.ts" },
     { "Path": "apps/winloss/enteredresult-template.ts" },
-    { "Path": "apps/winloss/winloss-template.ts" }
+    { "Path": "apps/winloss/winloss-template.ts" },
 
     { "Path": "../core.ts" },
     { "Path": "../base-report.ts" },
