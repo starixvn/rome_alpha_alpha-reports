@@ -43,7 +43,7 @@
                 param.ToDate,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                param.UserSelectedProductIds.Concat(param.UserSelectedExcludeProductIds),
+                param.UserSelectedProductIds,
                 param.CustLevel);
 
             var winLossByBetTypeData = dataAccess.GetWinLossByBetType(criteria);

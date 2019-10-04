@@ -129,7 +129,6 @@
     @Html.HiddenFor(model => model.FromDate)
     @Html.HiddenFor(model => model.UserSelectedProductIds)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
-    @Html.Hidden("UserSelectedExcludeProductIds", Model.UserSelectedExcludeProductIds)
     <input name="ReportTypeId" value="@Model.ReportTypeId" type="hidden">
     <input name="ReportTypeTitle" value="@Model.Title" type="hidden">
     <input name="ReportTypeName" value="@Model.ReportTypeName" type="hidden">

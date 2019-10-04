@@ -116,7 +116,6 @@
             {
                 UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 0,
-                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -135,7 +134,6 @@
             {
                 UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 1,
-                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -248,7 +246,6 @@
             {
                 UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 0,
-                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -267,7 +264,6 @@
             {
                 UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 1,
-                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -382,7 +378,6 @@
             {
                 UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 0,
-                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 
@@ -401,7 +396,6 @@
             {
                 UserSelectedProductIds = "1,33",
                 UserSelectedCurrencyId = 1,
-                UserSelectedExcludeProductIds = "33",
                 FromDate = DefaultVariablesTest.CurrentDate
             };
 

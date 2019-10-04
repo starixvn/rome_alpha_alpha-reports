@@ -19,7 +19,5 @@
         public int UserSelectedDateRangeOption { get; set; }
 
         public bool IsSetDefaultStackMode => string.IsNullOrWhiteSpace(UserSelectedProductIds);
-
-        public string UserSelectedExcludeProductIds { get; set; } = "0";
     }
 }

@@ -118,7 +118,6 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
                 Enumerable.Empty<SelectListItem>());
 
             // Act
@@ -141,7 +140,6 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
                 Enumerable.Empty<SelectListItem>());
 
             // Act

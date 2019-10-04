@@ -39,8 +39,7 @@
                     message,
                     winLossByBettypeParam,
                     BuildDisplayedBetTypeName,
-                    BuildProductSelectListItems(winLossByBettypeParam.UserSelectedProductIds, products),
-                    BuildProductSelectListItems(winLossByBettypeParam.UserSelectedExcludeProductIds, excludeProducts));
+                    BuildProductSelectListItems(winLossByBettypeParam.UserSelectedProductIds, products));
         }
     }
 }

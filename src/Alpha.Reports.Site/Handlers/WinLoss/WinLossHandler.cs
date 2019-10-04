@@ -39,8 +39,7 @@
                 message,
                 winLossParam,
                 BuildBreadcrumbLevel(message),
-                BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products),
-                BuildProductSelectListItems(winLossParam.UserSelectedExcludeProductIds, excludeProducts));
+                BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products));
 
             return viewModel;
         }

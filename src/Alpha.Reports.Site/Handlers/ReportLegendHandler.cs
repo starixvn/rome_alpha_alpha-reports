@@ -30,11 +30,6 @@
                 result.Add(string.Format(Resources.DelayIssueLegend, string.Join(", ", productService.GetProductNames(products))));
             }
 
-            if (productService.IsShowProduct(viewer.Id, ProductIdConstants.PokerGames))
-            {
-                result.Add(Resources.PokerGames_TurnoverNote);
-            }
-
             return result;
         }
     }

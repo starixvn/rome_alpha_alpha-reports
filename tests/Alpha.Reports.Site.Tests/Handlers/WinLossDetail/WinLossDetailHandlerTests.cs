@@ -87,15 +87,13 @@
                 message.CustLevel,
                 "CustName",
                 false,
-                false,
-                Enumerable.Empty<int>());
+                false);
 
             var expectedWinLossDetailViewModel = new WinLossDetailViewModel(
                 message,
                 winLossDetailParam,
                 reportData,
                 new List<CustInfo> { new CustInfo(10, "Name", 4) },
-                Enumerable.Empty<SelectListItem>(),
                 Enumerable.Empty<SelectListItem>());
 
             // Act

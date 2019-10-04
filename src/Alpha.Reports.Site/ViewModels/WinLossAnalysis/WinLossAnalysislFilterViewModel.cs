@@ -15,7 +15,6 @@
             UserLevel custLevel,
             DateRangePickerViewModel dateRangePickerViewModel,
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
-            ExcludeProductViewModel excludeProductViewModel,
             bool visible,
             DateTime minDate,
             IEnumerable<WinLossAnalysisReportTypeViewModel> reportTypeData)
@@ -24,7 +23,6 @@
             CustName = custName;
             DateRangePickerViewModel = dateRangePickerViewModel;
             ProductMultiSelectionViewModel = productMultiSelectionViewModel;
-            ExcludeProductViewModel = excludeProductViewModel;
             ViewDataInstructionMessage = string.Format(
                 Resources.CanOnlyViewDataAfterTimeHistoryReport,
                 minDate.ToShortDateWithSlash());
@@ -44,8 +42,6 @@
         public DateRangePickerViewModel DateRangePickerViewModel { get; }
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
-
-        public ExcludeProductViewModel ExcludeProductViewModel { get; }
 
         public bool Visible { get; }
 

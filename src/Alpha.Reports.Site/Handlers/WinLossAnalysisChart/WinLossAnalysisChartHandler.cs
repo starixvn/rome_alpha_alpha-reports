@@ -38,7 +38,6 @@
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate,
                 excludeProducts);
-            var validUserSelectedExcludeProductIds = BuildValidUserSelectedExcludeProductIds(message.UserSelectedExcludeProductIds, excludeProducts);
 
             var param = new WinLossAnalysisChartParam(
                 message.CustId,
@@ -46,15 +45,13 @@
                 message.ToDate,
                 message.LimitedDateToShowInfo,
                 validUserSelectedProductIds,
-                message.CustLevel,
-                validUserSelectedExcludeProductIds);
+                message.CustLevel);
             var reportData = winLossAnalysisChartService.GetWinLossAnalysisChart(param);
             var viewModel = new WinLossAnalysisChartViewModel(
                 reportData,
                 message,
                 param,
-                BuildProductSelectListItems(param.UserSelectedProductIds, products),
-                BuildProductSelectListItems(validUserSelectedExcludeProductIds, excludeProducts));
+                BuildProductSelectListItems(param.UserSelectedProductIds, products));
 
             return viewModel;
         }

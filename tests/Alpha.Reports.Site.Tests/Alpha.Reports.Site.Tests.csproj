@@ -259,7 +259,6 @@
     <Compile Include="Controllers\LeagueControllerTests.cs" />
     <Compile Include="Controllers\MatchWinLossDetailControllerTests.cs" />
     <Compile Include="Controllers\WinLossControllerTests.cs" />
-    <Compile Include="Controllers\PokerGamesWinLossDetailControllerTests.cs" />
     <Compile Include="Controllers\WinLossDetailControllerTests.cs" />
     <Compile Include="Extensions\AssertExtension.cs" />
     <Compile Include="Fixtures\AnyValueCreatorFixture.cs" />
@@ -307,8 +306,6 @@
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductHandlerTests.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbookImplForTesting.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbookImplTests.cs" />
-    <Compile Include="Handlers\PokerGamesWinLossDetail\PokerGamesWinLossDetailExcelHandlerTests.cs" />
-    <Compile Include="Handlers\PokerGamesWinLossDetail\PokerGamesWinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandlerTests.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandlerTests.cs" />
     <Compile Include="Handlers\WinLoss\EnteredSportResultExcelHandlerTests.cs" />
@@ -366,7 +363,6 @@
     <Compile Include="ViewModels\PlayForFun\PlayForFunReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossViewModelTests.cs" />
-    <Compile Include="ViewModels\PokerGamesWinLossDetail\PokerGamesWinLossDetailViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\EnteredResultViewModelTests.cs" />
     <Compile Include="ViewModels\WinLoss\WinLossFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossAnalysis\WinLossAnalysisViewModelTests.cs" />

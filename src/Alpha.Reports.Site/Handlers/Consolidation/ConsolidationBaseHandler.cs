@@ -49,8 +49,7 @@
                  message.UserSelectedCurrencyId,
                  message.FromDate.GetGreaterDate(message.LimitedDateToShowInfo),
                  message.ToDate,
-                 validUserSelectedProductIds,
-                 BuildValidUserSelectedExcludeProductIds(message.UserSelectedExcludeProductIds, excludeProducts));
+                 validUserSelectedProductIds);
         }
 
         protected IEnumerable<ConsolidationByUsernameViewModel> BuildWinLossByUsernameViewModel(
@@ -111,7 +110,6 @@
             => new WinLossDetailQuery(viewer)
             {
                 UserSelectedProductIds = message.UserSelectedProductIds,
-                UserSelectedExcludeProductIds = message.UserSelectedExcludeProductIds,
                 SortPropertyName = message.SortPropertyName,
                 IsDescendingSort = message.IsDescendingSort,
                 IsStackMode = message.IsStackMode,
@@ -130,10 +128,6 @@
         {
             var validUserSelectedProductIds =
                reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate, excludeProducts);
-            var validUserSelectedExcludeProductIds = excludeProducts == null
-                ? query.UserSelectedExcludeProductIds.ToListInt()
-                : query.UserSelectedExcludeProductIds.ToListInt()
-                    .Where(productId => excludeProducts.Any(excludeProduct => excludeProduct.Id == productId));
 
             return new WinLossDetailParam(
                 query.CustId,
@@ -146,8 +140,7 @@
                 query.CustLevel,
                 query.SortPropertyName,
                 query.IsDescendingSort,
-                query.IsHistoricReport,
-                validUserSelectedExcludeProductIds);
+                query.IsHistoricReport);
         }
     }
 }

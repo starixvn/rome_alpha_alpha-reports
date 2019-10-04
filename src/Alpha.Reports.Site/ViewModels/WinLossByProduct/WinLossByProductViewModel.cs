@@ -26,13 +26,11 @@
             WinLossByProductQuery message,
             WinLossByProductParam winLossByBettypeParam,
             Func<int, BetType, string, bool, string> buildDisplayedBettypeName,
-            IEnumerable<SelectListItem> products,
-            IEnumerable<SelectListItem> excludeProducts)
+            IEnumerable<SelectListItem> products)
         {
             this.message = message;
             this.winLossByBettypeParam = winLossByBettypeParam;
             Products = products;
-            ExcludeProducts = excludeProducts;
             MinDate = message.MinDate;
             ReportData = reportData;
             GrandTotal = grandTotal;
@@ -60,7 +58,7 @@
         public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
         public string UserSelectedProductIds
-            => winLossByBettypeParam.UserSelectedProductIds.Concat(winLossByBettypeParam.UserSelectedExcludeProductIds).JoinWithComma();
+            => winLossByBettypeParam.UserSelectedProductIds.JoinWithComma();
 
         public IEnumerable<SelectListItem> Products { get; }
 
@@ -86,18 +84,12 @@
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
 
-        private ExcludeProductViewModel ExcludeProductViewModel =>
-            new ExcludeProductViewModel(ExcludeProducts, UserSelectedExcludeProductIds);
-
-        public string UserSelectedExcludeProductIds => winLossByBettypeParam.UserSelectedExcludeProductIds.JoinWithComma();
-
         public WinLossByProductFilterViewModel FilterViewModel =>
             new WinLossByProductFilterViewModel(
                 CustId,
                 CustLevel,
                 DateRangePickerViewModel,
                 ProductMultiSelectionViewModel,
-                ExcludeProductViewModel,
                 IsFilterVisible,
                 MinDate);
 

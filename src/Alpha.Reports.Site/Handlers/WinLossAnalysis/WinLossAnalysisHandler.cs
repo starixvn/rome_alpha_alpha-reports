@@ -36,8 +36,7 @@
                 grandTotal,
                 message,
                 winLossAnalysisParam,
-                BuildProductSelectListItems(winLossAnalysisParam.UserSelectedProductIds, products),
-                BuildProductSelectListItems(winLossAnalysisParam.UserSelectedExcludeProductIds, excludeProducts));
+                BuildProductSelectListItems(winLossAnalysisParam.UserSelectedProductIds, products));
 
             return viewModel;
         }

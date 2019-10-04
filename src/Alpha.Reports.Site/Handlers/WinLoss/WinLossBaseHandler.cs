@@ -43,8 +43,7 @@
                  message.LimitedDateToShowInfo,
                  validUserSelectedProductIds,
                  message.CustLevel,
-                 message.IsHistoricReport,
-                 BuildValidUserSelectedExcludeProductIds(message.UserSelectedExcludeProductIds, excludeProducts));
+                 message.IsHistoricReport);
         }
 
         internal WinLossModel AccumulateGrandTotal(IEnumerable<WinLossModel> reportData)

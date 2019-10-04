@@ -12,6 +12,7 @@
     using Services;
     using Services.Outstanding;
     using ViewModels.Outstanding;
+    using System.Linq;
 
     public class OutstandingHandler : BaseHandler,
         IRequestHandler<OutstandingQuery, OutstandingViewModel>,
@@ -19,7 +20,6 @@
     {
         private readonly OutstandingService outstandingService;
         private readonly ProductService productService;
-        private readonly IUser viewer;
 
         public OutstandingHandler(
             OutstandingService outstandingServiceImpl,
@@ -28,7 +28,6 @@
         {
             outstandingService = outstandingServiceImpl;
             productService = productServiceImpl;
-            this.viewer = viewer;
         }
 
         public OutstandingViewModel Handle(OutstandingQuery message)
@@ -57,14 +56,7 @@
 
         public IEnumerable<string> Handle(ReportLegendQuery message)
         {
-            var result = new List<string>();
-
-            if (productService.IsShowProduct(viewer.Id, ProductIdConstants.PokerGames))
-            {
-                result.Add(Resources.PokerGames_OutstandingNote);
-            }
-
-            return result;
+            return Enumerable.Empty<string>();
         }
     }
 }

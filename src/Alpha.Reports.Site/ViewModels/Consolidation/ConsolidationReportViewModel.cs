@@ -21,7 +21,6 @@
             GetConsolidationQuery message,
             GetConsolidationParam param,
             IEnumerable<SelectListItem> products,
-            IEnumerable<SelectListItem> excludeProducts,
             IEnumerable<SelectListItem> currencies,
             IEnumerable<T> reportData)
         {
@@ -29,7 +28,6 @@
             this.param = param;
 
             Products = products;
-            ExcludeProducts = excludeProducts;
             Currencies = currencies;
             ReportData = reportData;
         }
@@ -49,7 +47,7 @@
         public string Language => message.Language;
 
         public string UserSelectedProductIds
-            => param.ProductIds.Concat(param.ExcludeProductIds).JoinWithComma();
+            => param.ProductIds.JoinWithComma();
 
         public int UserSelectedCurrencyId => message.UserSelectedCurrencyId;
 
@@ -64,13 +62,6 @@
         public UserLevel CustLevel => message.CustLevel;
 
         public IEnumerable<SelectListItem> Products { get; }
-
-        public IEnumerable<SelectListItem> ExcludeProducts { get; }
-
-        private ExcludeProductViewModel ExcludeProductViewModel =>
-            new ExcludeProductViewModel(ExcludeProducts, UserSelectedExcludeProductIds);
-
-        public string UserSelectedExcludeProductIds => param.ExcludeProductIds.JoinWithComma();
 
         public IEnumerable<SelectListItem> Currencies { get; }
 
@@ -94,8 +85,7 @@
               CustLevel,
               DateRangePickerViewModel,
               ProductMultiSelectionViewModel,
-              CurrencySelectionViewModel,
-              ExcludeProductViewModel);
+              CurrencySelectionViewModel);
 
         public string BuildDrillDownLink(
             string drilldownLink,
@@ -135,12 +125,6 @@
                 ["ConsolidationUserSelectedDateRangeOption"] = UserSelectedDateRangeOption,
                 ["ConsolidationProductIds"] = UserSelectedProductIds
             };
-
-            if (drilldownFromProductIds == null
-                || drilldownFromProductIds.Equals(UserSelectedExcludeProductIds))
-            {
-                routeValues.Add(nameof(UserSelectedExcludeProductIds), UserSelectedExcludeProductIds);
-            }
 
             return ReportHelpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(drilldownLink, routeValues);
         }

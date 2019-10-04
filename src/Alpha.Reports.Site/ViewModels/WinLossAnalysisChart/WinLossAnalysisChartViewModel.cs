@@ -21,14 +21,12 @@
             IEnumerable<WinLossAnalysisChartModel> reportData,
             WinLossAnalysisChartQuery message,
             WinLossAnalysisChartParam param,
-            IEnumerable<SelectListItem> products,
-            IEnumerable<SelectListItem> excludeProducts)
+            IEnumerable<SelectListItem> products)
         {
             this.message = message;
             this.param = param;
 
             Products = products;
-            ExcludeProducts = excludeProducts;
             ReportData = reportData;
 
             Title = Resources.MonthlyWinLossChart;
@@ -51,20 +49,13 @@
         public string Language => message.Language;
 
         public string UserSelectedProductIds
-            => param.UserSelectedProductIds.Concat(param.UserSelectedExcludeProductIds).JoinWithComma();
+            => param.UserSelectedProductIds.JoinWithComma();
 
         public bool IsFilterVisible => message.IsFilterVisible;
 
         public IEnumerable<WinLossAnalysisChartModel> ReportData { get; }
 
         public IEnumerable<SelectListItem> Products { get; }
-
-        public IEnumerable<SelectListItem> ExcludeProducts { get; }
-
-        private ExcludeProductViewModel ExcludeProductViewModel =>
-            new ExcludeProductViewModel(ExcludeProducts, UserSelectedExcludeProductIds);
-
-        public string UserSelectedExcludeProductIds => param.UserSelectedExcludeProductIds.JoinWithComma();
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
@@ -78,7 +69,6 @@
                 CustName,
                 CustLevel,
                 ProductMultiSelectionViewModel,
-                ExcludeProductViewModel,
                 MonthPickerViewModel,
                 IsFilterVisible,
                 MinDate);

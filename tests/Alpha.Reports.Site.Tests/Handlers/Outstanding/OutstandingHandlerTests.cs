@@ -98,40 +98,5 @@
             // Assert
             Assert.True(new CompareLogic().Compare(expectedVm, result).AreEqual);
         }
-
-        [Fact]
-        public void HandleReportLegendQuery_HavePokerGames_ReturnsCorrectViewModel()
-        {
-            // Arrange
-            var message = new ReportLegendQuery();
-            productService.IsShowProduct(10, 33).Returns(true);
-
-            var expectedViewModel = new List<string>
-            {
-                "- Member outstanding of Poker Games is the buy-in/top up amount on table."
-            };
-
-            // Act
-            var actualViewModel = handler.Handle(message);
-
-            // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
-        }
-
-        [Fact]
-        public void HandleReportLegendQuery_NotHavePokerGames_ReturnsCorrectViewModel()
-        {
-            // Arrange
-            var message = new ReportLegendQuery();
-            productService.IsShowProduct(10, 33).Returns(false);
-
-            var expectedViewModel = new List<string>();
-
-            // Act
-            var actualViewModel = handler.Handle(message);
-
-            // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
-        }
     }
 }

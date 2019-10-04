@@ -43,8 +43,7 @@
                 message.FromDate,
                 message.ToDate,
                 validUserSelectedProductIds,
-                message.CustLevel,
-                BuildValidUserSelectedExcludeProductIds(message.UserSelectedExcludeProductIds, excludeProducts));
+                message.CustLevel);
         }
 
         internal WinLossByBetTypeModel AccumulateGrandTotal(IEnumerable<WinLossByProductModel> reportData)

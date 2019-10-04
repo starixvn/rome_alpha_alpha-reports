@@ -47,8 +47,7 @@
                  userLevel,
                  message.SortPropertyName,
                  message.IsDescendingSort,
-                 message.IsHistoricReport,
-                 BuildValidUserSelectedExcludeProductIds(message.UserSelectedExcludeProductIds, excludeProducts));
+                 message.IsHistoricReport);
         }
     }
 }

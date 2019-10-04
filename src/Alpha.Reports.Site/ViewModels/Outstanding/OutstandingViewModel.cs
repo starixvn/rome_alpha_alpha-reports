@@ -30,7 +30,6 @@
             Query = query;
             OutstandingDatasource = outstandingDataSource;
             ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), string.Empty);
-            IsShowPokerGames = products.Any(p => p.Value == ProductIdConstants.PokerGames.ToString());
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= Query.ViewerLevel.Value; level++)
             {

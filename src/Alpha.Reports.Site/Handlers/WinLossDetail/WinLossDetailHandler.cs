@@ -44,8 +44,7 @@
                 winLossDetailParam,
                 reportData,
                 BuildBreadcrumbLevel(message),
-                BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products),
-                BuildProductSelectListItems(winLossDetailParam.UserSelectedExcludeProductIds, excludeProducts));
+                BuildProductSelectListItems(winLossDetailParam.UserSelectedProductIds, products));
 
             return viewModel;
         }
@@ -70,16 +69,6 @@
                 result.Add(string.Format(
                     Resources.DelayIssueLegend,
                     string.Join(", ", productService.GetProductNames(productsNeedDelayTimeToSumarizeData))));
-            }
-
-            if (productService.IsShowProduct(viewer.Id, ProductIdConstants.PokerGames))
-            {
-                result.Add(Resources.PokerGames_Turnover_NetTurnoverNote);
-            }
-
-            if (productService.IsShowProduct(viewer.Id, ProductIdConstants.Bullfighting))
-            {
-                result.Add(Resources.Bullfighting_NetTurnoverNote);
             }
 
             return result;

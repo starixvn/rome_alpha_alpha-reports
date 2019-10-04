@@ -117,8 +117,7 @@
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, null),
                 null,
-                null,
-                Enumerable.Empty<SelectListItem>());
+                null);
 
             // Act
             var actualSortByPropertyName = viewModel.SortPropertyName;
@@ -143,8 +142,7 @@
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 CreatePagedReportData(),
                 null,
-                null,
-                Enumerable.Empty<SelectListItem>());
+                null);
 
             // Act
             var actualSortByPropertyName = viewModel.SortPropertyName;
@@ -179,8 +177,7 @@
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 CreatePagedReportData(),
                 null,
-                null,
-                Enumerable.Empty<SelectListItem>());
+                null);
 
             // Act
             var actualSortByPropertyName = viewModel.SortPropertyName;
@@ -245,8 +242,7 @@
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 CreatePagedReportData(),
                 null,
-                null,
-                Enumerable.Empty<SelectListItem>());
+                null);
 
             // Act
             var actualSortByPropertyName = viewModel.SortPropertyName;
@@ -273,10 +269,9 @@
 
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 message,
-                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), message.CustLevel, sortPropertyName, false, false, Enumerable.Empty<int>()),
+                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), message.CustLevel, sortPropertyName, false, false),
                 new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
                 Enumerable.Empty<SelectListItem>());
             var expectedSortPropertyName = sortPropertyName;
 
@@ -303,10 +298,9 @@
 
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 message,
-                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), message.CustLevel, "CustName", isDescendingSort, false, Enumerable.Empty<int>()),
+                new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), message.CustLevel, "CustName", isDescendingSort, false),
                 new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>(),
                 Enumerable.Empty<SelectListItem>());
             var expectedIsDescendingSort = isDescendingSort;
 
@@ -331,7 +325,7 @@
         {
             return Substitute.ForPartsOf<WinLossDetailViewModel>(
                 message,
-                new WinLossDetailParam(0, 0, 0, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, message.CustLevel, "CustName", false, false, Enumerable.Empty<int>()),
+                new WinLossDetailParam(0, 0, 0, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, message.CustLevel, "CustName", false, false),
                 new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                 new List<SelectListItem>

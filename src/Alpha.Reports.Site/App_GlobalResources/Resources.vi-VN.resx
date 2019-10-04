@@ -540,15 +540,6 @@
   <data name="Lucky3GameNo" xml:space="preserve">
     <value>Trò chơi Lucky 3 số</value>
   </data>
-  <data name="PokerGames_OutstandingNote" xml:space="preserve">
-    <value>- Tiền Chưa Xử Lý của Poker Games là tiền mua vào/nạp thêm trong bàn.</value>
-  </data>
-  <data name="PokerGames_TurnoverNote" xml:space="preserve">
-    <value>- Tiền Cược của Poker Games là tiền mua vào/nạp thêm trong bàn.</value>
-  </data>
-  <data name="PokerGames_Turnover_NetTurnoverNote" xml:space="preserve">
-    <value>- Tiền Cược và Tiền Cược Thực của Poker Games là tiền mua vào/nạp thêm trong bàn.</value>
-  </data>
   <data name="TaxComm" xml:space="preserve">
     <value>Tổng hoa hồng (Poker)</value>
   </data>
@@ -558,34 +549,11 @@
   <data name="Insurance_GemsWinLossAbbr" xml:space="preserve">
     <value>Thắng thua trên bảo hiểm và ngọc</value>
   </data>
-  <data name="Tooltip_NetTurnover_PokerGames" xml:space="preserve">
-    <value>- Số Ván là tổng số ván bài Member đã chơi trên bàn.
-- Tiền Cược của Poker Games là tiền mua vào/nạp thêm trong bàn.
-- Tiền Cược Thực của Poker Games là tổng tiền Member đã đặt cược trên bàn và tiền mua ngọc.
-- Tổng hoa hồng là số tiền hoa hồng của tất cả các cấp.
-- Thắng thua của Member không bao gồm tiền mua bảo hiểm và ngọc.
-- Thắng thua trên bảo hiểm và ngọc của Member là số tiền thắng thua trên bảo hiểm và ngọc được mua.</value>
-  </data>
   <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
     <value>- Trong Đấu Bò, Tiền Cược Thực là tiền cược không bao gồm các cược hòa.</value>
   </data>
   <data name="RoundCount" xml:space="preserve">
     <value>Số ván</value>
-  </data>
-  <data name="MasterPokerGamesWinLossDetail" xml:space="preserve">
-    <value>Thắng thua của Master trong Poker</value>
-  </data>
-  <data name="AgentPokerGamesWinLossDetail" xml:space="preserve">
-    <value>Thắng thua của Agent trong Poker</value>
-  </data>
-  <data name="MemberPokerGamesWinLossDetail" xml:space="preserve">
-    <value>Thắng thua của Member trong Poker</value>
-  </data>
-  <data name="PokerGamesWinLossDetail" xml:space="preserve">
-    <value>Thắng thua của Poker</value>
-  </data>
-  <data name="PokerGames_WinLoss" xml:space="preserve">
-    <value>Thắng thua của Poker</value>
   </data>
   <data name="NetTurnoverAndTaxComm" xml:space="preserve">
     <value>/Tiền cược thực/Tổng hoa hồng (Poker)</value>
