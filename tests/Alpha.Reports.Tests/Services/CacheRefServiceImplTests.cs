@@ -136,22 +136,5 @@
             // Assert
             Assert.Equal(expectedResult, actualResult);
         }
-
-        [Fact]
-        public void GetProductName_ValidProductId_ReturnsCorrectProductName()
-        {
-            // Arrange
-            var expectedResult = "Bullfighting";
-
-            remotingRefService
-                .GetResourceDataByRefIdAndResourceId("Product", "30", DefaultLanguage, string.Empty)
-                .Returns(expectedResult);
-
-            // Act
-            var actualResult = cacheRefService.GetProductName(30);
-
-            // Assert
-            Assert.Equal(expectedResult, actualResult);
-        }
     }
 }

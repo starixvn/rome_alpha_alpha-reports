@@ -723,9 +723,6 @@
   <data name="ContributionAmountRoundNote" xml:space="preserve">
     <value>- The contribution amount will be rounded to 4 decimal places.</value>
   </data>
-  <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
-    <value>- For Bullfighting, Net Turnover is Turnover which excludes the draw tickets.</value>
-  </data>
   <data name="TaxComm" xml:space="preserve">
     <value>Gross Tax Comm</value>
   </data>

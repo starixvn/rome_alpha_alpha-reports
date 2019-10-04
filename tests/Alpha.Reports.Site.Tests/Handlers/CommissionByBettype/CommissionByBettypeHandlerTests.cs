@@ -77,26 +77,5 @@
             //// Assert
             Assert.Equal(noteCount, act.Count());
         }
-
-        [Fact]
-        public void CommissionByBetTypeGuideQuery_BullfightingInOthers_ReturnTwoNotes()
-        {
-            //// Arrange
-            var noteCount = 2;
-            var expectedNote1 = "- Others: applies to bet type(s) of Product Name.";
-            var expectedNote2 = "- Data of Product Name will be delayed up to 5 minutes after settling tickets.";
-            service.GetProductsInOthers(Arg.Any<int>()).Returns(new List<Product> { new Product(1, "product 1", null) });
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(new List<byte> { 1 });
-            productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
-            var query = new CommissionByBetTypeGuideQuery(userFixture.User);
-
-            //// Act
-            var act = handler.Handle(query).ToList();
-
-            //// Assert
-            Assert.Equal(noteCount, act.Count);
-            Assert.Equal(expectedNote1, act[0]);
-            Assert.Equal(expectedNote2, act[1]);
-        }
     }
 }

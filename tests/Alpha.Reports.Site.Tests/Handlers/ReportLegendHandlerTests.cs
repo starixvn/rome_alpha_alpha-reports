@@ -61,42 +61,5 @@
             // Assert
             Assert.Equal(expectedViewModel, actualViewModel);
         }
-
-        [Fact]
-        public void HandleReportLegendQuery_HavePokerGames_ReturnsCorrectViewModel()
-        {
-            // Arrange
-            var message = new ReportLegendQuery();
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
-            productService.IsShowProduct(10, 33).Returns(true);
-
-            var expectedViewModel = new List<string>
-            {
-                "- Turnover of Poker Games is the buy-in/top up amount on table."
-            };
-
-            // Act
-            var actualViewModel = reportLegendHandler.Handle(message);
-
-            // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
-        }
-
-        [Fact]
-        public void HandleReportLegendQuery_NotHavePokerGames_ReturnsCorrectViewModel()
-        {
-            // Arrange
-            var message = new ReportLegendQuery();
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
-            productService.IsShowProduct(10, 33).Returns(false);
-
-            var expectedViewModel = new List<string>();
-
-            // Act
-            var actualViewModel = reportLegendHandler.Handle(message);
-
-            // Assert
-            Assert.Equal(expectedViewModel, actualViewModel);
-        }
     }
 }

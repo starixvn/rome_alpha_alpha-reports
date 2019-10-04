@@ -642,9 +642,6 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\playforfun\playforfun-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\matchwinloss\matchwinloss-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\pokergames-winlossdetail\pokergames-winlossdetail-registerEvents-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\pokergames-winlossdetail\pokergames-winlossdetail-template.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\pokergames-winlossdetail\pokergames-winlossdetail-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winlossdetail\winlossdetail-registerEvents-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\winloss\enteredresult-tests.ts" />
@@ -683,10 +680,6 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.js" />
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\pokergames-winlossdetail\pokergames-winlossdetail.js" />
-    <Content Include="assets\bundles\pokergames-winlossdetail\pokergames-winlossdetail.min.js">
-      <DependentUpon>pokergames-winlossdetail.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.css" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />

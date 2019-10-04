@@ -67,8 +67,6 @@
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
 
-        public bool IsShowPokerGames { get; }
-
         public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>

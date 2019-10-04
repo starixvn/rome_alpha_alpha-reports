@@ -648,9 +648,6 @@
   <data name="Tooltip_CommissionByBetType" xml:space="preserve">
     <value>- 其他：适用于{0}的投注类型。</value>
   </data>
-  <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
-    <value>- 斗牛产品的【净投注额】是扣除 “和局” 注单后的【总投资额】。</value>
-  </data>
   <data name="No" xml:space="preserve">
     <value>编号</value>
   </data>

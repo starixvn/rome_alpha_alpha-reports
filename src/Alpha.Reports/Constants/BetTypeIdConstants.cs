@@ -33,11 +33,5 @@
         public const int VirtualHorseRacing_WinPlace = 1233;
         public const int VirtualHorseRacing_Forecast = 1237;
         public const int VirtualHorseRacing_Tricast = 1238;
-
-        public const int ChargeCommission = 500;
-
-        public const int StartLucky3 = 1600;
-        public const int EndLucky3 = 1602;
-        public const int Bullfighting = 1004;
     }
 }

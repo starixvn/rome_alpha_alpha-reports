@@ -122,11 +122,6 @@
                 return $"{Resources.Lucky3} - {leagueName}";
             }
 
-            if (data.BetType == BetTypeIdConstants.Bullfighting)
-            {
-                return $"{data.MatchCode} - {leagueName}";
-            }
-
             return leagueName;
         }
     }

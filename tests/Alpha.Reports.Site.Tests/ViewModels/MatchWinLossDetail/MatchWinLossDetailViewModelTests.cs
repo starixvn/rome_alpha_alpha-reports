@@ -250,20 +250,6 @@
             Assert.Equal(expectedTitle, actualTitle);
         }
 
-        [Fact]        
-        public void GetLeagueTitle_BullfightingBetTypes_ReturnsCorrectLeagueTitle()
-        {
-            // Arrange
-            var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(1004, "Show Time 1", false, false, "League Name");
-            var expectedTitle = "1 - League Name";
-
-            // Act
-            var actualTitle = matchWinLossDetailViewModel.LeagueName;
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
         private MatchWinLossDetailViewModel CreateMatchWinLossDetailViewModel(
             int betType,
             string showTime,
