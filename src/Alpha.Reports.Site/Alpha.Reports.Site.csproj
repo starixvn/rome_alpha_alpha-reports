@@ -946,9 +946,6 @@
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Member.xls" />
-    <Content Include="App_Data\ExcelTemplates\PokerGamesWinLossDetail\Agent.xls" />
-    <Content Include="App_Data\ExcelTemplates\PokerGamesWinLossDetail\Master.xls" />
-    <Content Include="App_Data\ExcelTemplates\PokerGamesWinLossDetail\Member.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
