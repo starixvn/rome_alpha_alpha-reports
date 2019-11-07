@@ -52,14 +52,6 @@
         {
             var result = new List<string>();
 
-            var productsInOthers = commissionService.GetProductsInOthers(message.CustId);
-            if (productsInOthers.Any())
-            {
-                result.Add(string.Format(
-                    Resources.Tooltip_CommissionByBetType,
-                    string.Join(", ", productService.GetProductNames(productsInOthers.Select(i => i.Id)))));
-            }
-
             var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Select(product => (int)product);
 
             if (productsNeedDelayTimeToSumarizeData.Any())
