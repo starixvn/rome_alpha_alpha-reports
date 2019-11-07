@@ -49,8 +49,9 @@
       <HintPath>..\..\packages\Alpha.Auth.3.0.2.2\lib\net461\Alpha.Auth.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Alpha.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Logging.1.0.0-LogIntegrate-09\lib\net461\Alpha.Logging.dll</HintPath>
+    <Reference Include="Alpha.Logging, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.Logging.1.0.1.1\lib\net461\Alpha.Logging.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Alpha.StaticData, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.StaticData.1.0.1.0\lib\net40\Alpha.StaticData.dll</HintPath>
@@ -75,12 +76,13 @@
     <Reference Include="EasyNetQ, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EasyNetQ.2.3.3\lib\net451\EasyNetQ.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.ActivityTracking, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.ActivityTracking.1.0.0.2\lib\net40\Fanex.ActivityTracking.dll</HintPath>
+    <Reference Include="Fanex.ActivityTracking, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.ActivityTracking.1.0.0.3\lib\net40\Fanex.ActivityTracking.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.ActivityTracking.Web, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.ActivityTracking.Web.1.0.0.2\lib\net40\Fanex.ActivityTracking.Web.dll</HintPath>
+    <Reference Include="Fanex.ActivityTracking.Web, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.ActivityTracking.Web.1.0.0.3\lib\net40\Fanex.ActivityTracking.Web.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Caching, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Caching.2.1.0\lib\net461\Fanex.Caching.dll</HintPath>
