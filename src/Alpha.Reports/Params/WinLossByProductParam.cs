@@ -12,13 +12,11 @@
             DateTime fromDate,
             DateTime toDate,
             IEnumerable<int> userSelectedProductIds,
-            UserLevel custLevel,
-            IEnumerable<int> userSelectedExcludeProductIds)
+            UserLevel custLevel)
         {
             CustId = custId;
             CustLevel = custLevel;
             UserSelectedProductIds = userSelectedProductIds;
-            UserSelectedExcludeProductIds = userSelectedExcludeProductIds;
 
             FromDate = fromDate == DateTime.MinValue ? SystemTime.Today : fromDate;
 
@@ -32,8 +30,6 @@
         public DateTime ToDate { get; }
 
         public IEnumerable<int> UserSelectedProductIds { get; }
-
-        public IEnumerable<int> UserSelectedExcludeProductIds { get; }
 
         public UserLevel CustLevel { get; }
     }

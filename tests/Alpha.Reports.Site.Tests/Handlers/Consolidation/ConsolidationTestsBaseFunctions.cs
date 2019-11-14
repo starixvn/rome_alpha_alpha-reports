@@ -49,7 +49,7 @@
                 new Product(2, "Product 2", null, getProductDisplayName)
             };
 
-            reportService.GetProducts(Arg.Any<GetConslidationReportProductsParam>(), Arg.Any<IEnumerable<Product>>()).Returns(products);
+            reportService.GetProducts(Arg.Any<GetConslidationReportProductsParam>()).Returns(products);
 
             reportService.GetCurrencies(Arg.Any<GetCurrencyParam>()).Returns(new List<CurrencyModel>
             {
@@ -57,9 +57,9 @@
                 new CurrencyModel(2, "Currency 2")
             });
 
-            reportService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<DateTime>(), Arg.Any<IEnumerable<Product>>()).Returns(new List<int> { 1 });
+            reportService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<DateTime>()).Returns(new List<int> { 1 });
 
-            reportService.GetConsolidationExcludeProduct(Arg.Any<int>(), Arg.Any<DateTime>()).Returns(new ConsolidationExcludeProduct(products, Enumerable.Empty<Product>()));
+            reportService.GetConsolidationExcludeProduct(Arg.Any<int>(), Arg.Any<DateTime>()).Returns(new ConsolidationExcludeProduct(products));
 
             anyValueCreatorFixture = new AnyValueCreatorFixture();
 

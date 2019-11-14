@@ -28,7 +28,6 @@
                 null,
                 null,
                 null,
-                null,
                 false,
                 DefaultVariablesTest.CurrentDate,
                 string.Empty);

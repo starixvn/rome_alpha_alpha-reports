@@ -38,22 +38,6 @@
                 })
                 : Enumerable.Empty<SelectListItem>();
 
-        protected internal static IEnumerable<int> BuildValidUserSelectedExcludeProductIds(
-            string userSelectedExcludeProductIds,
-            IEnumerable<Product> excludeProducts = null)
-        {
-            if (string.IsNullOrWhiteSpace(userSelectedExcludeProductIds)
-                || excludeProducts == null
-                || !excludeProducts.Any())
-            {
-                return Enumerable.Empty<int>();
-            }
-
-            return userSelectedExcludeProductIds == "0"
-                ? excludeProducts.Select(product => product.Id)
-                : userSelectedExcludeProductIds.ToListInt().Intersect(excludeProducts.Select(product => product.Id));
-        }
-
         protected internal IEnumerable<SelectListItem> BuildLeagueSelectListItems(
             IEnumerable<string> userSelectedLeagueIds,
             IEnumerable<League> leagues)

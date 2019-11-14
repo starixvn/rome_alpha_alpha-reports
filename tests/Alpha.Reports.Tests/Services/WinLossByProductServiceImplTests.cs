@@ -53,8 +53,7 @@
                 currentDate,
                 currentDate,
                 Enumerable.Empty<int>(),
-                UserLevel.Super,
-                Enumerable.Empty<int>());
+                UserLevel.Super);
 
             var winLossByBetTypeData = Enumerable.Empty<WinLossByBetTypeModel>();
 
@@ -78,8 +77,7 @@
                 currentDate,
                 currentDate,
                 Enumerable.Empty<int>(),
-                UserLevel.Super,
-                Enumerable.Empty<int>());
+                UserLevel.Super);
 
             var winLossByBetTypeData = WinLossByProductModelTestCases.BuildSuperDataTest();
 
@@ -111,8 +109,7 @@
                 currentDate,
                 currentDate,
                 Enumerable.Empty<int>(),
-                UserLevel.Super,
-                Enumerable.Empty<int>());
+                UserLevel.Super);
 
             // Act
             winLossByBetTypeServiceImpl.GetWinLossByProduct(param);

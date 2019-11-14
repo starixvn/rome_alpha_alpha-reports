@@ -56,8 +56,8 @@
       <HintPath>..\..\packages\Fanex.Data.Repository.1.0.2.1\lib\net461\Fanex.Data.Repository.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Logging, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Logging.1.0.4\lib\net40\Fanex.Logging.dll</HintPath>
+    <Reference Include="Fanex.Logging, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Logging.2.0.1\lib\net461\Fanex.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Products, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
@@ -100,8 +100,9 @@
       <HintPath>..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NSubstitute, Version=1.10.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
@@ -123,12 +124,12 @@
       <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.4.1\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Base, Version=3.0.4.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Base.3.0.4.4\lib\net461\Sunplus.Agent.Model.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.2.3, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.2.3\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
+    <Reference Include="Sunplus.Agent.Model.Definitions, Version=3.0.2.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Agent.Model.Definitions.3.0.2.8\lib\net40\Sunplus.Agent.Model.Definitions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sunplus.Agent.Utilities, Version=3.0.0.4, Culture=neutral, processorArchitecture=MSIL">
@@ -226,7 +227,6 @@
     <Compile Include="Criteria\WinLossByProduct\WinLossByProductCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossAnalysisChart\WinLossAnalysisChartCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossAnalysis\WinLossAnalysisCriteriaTests.cs" />
-    <Compile Include="Criteria\PokerGamesWinLossDetail\PokerGamesWinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\WinLossDetail\WinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\EnteredSportDailyCriteriaTests.cs" />
     <Compile Include="Criteria\WinLoss\WinLossCriteriaTests.cs" />
@@ -236,13 +236,11 @@
     <Compile Include="DataAccesses\WinLossAnalysisDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />
-    <Compile Include="DataAccesses\PokerGamesWinLossDetailDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
     <Compile Include="Database\MatchWinLossDetail\MatchWinLossDetailDatabase.cs" />
     <Compile Include="Database\Statement\StatementDatabase.cs" />
     <Compile Include="Database\WinLossByProduct\WinLossByProductDatabase.cs" />
     <Compile Include="Database\WinLossAnalysis\WinLossAnalysisDatabase.cs" />
-    <Compile Include="Database\PokerGamesWinLossDetail\PokerGamesWinLossDetailDatabase.cs" />
     <Compile Include="Database\WinLoss\WinLossDatabase.cs" />
     <Compile Include="Database\WinLossDetail\WinLossDetailDatabase.cs" />
     <Compile Include="DataAccesses\WinLossDataAccessImplTests.cs" />
@@ -267,7 +265,6 @@
     <Compile Include="Models\LeagueTests.cs" />
     <Compile Include="Models\Outstanding\OutstandingModelTests.cs" />
     <Compile Include="Models\PlayForFunProductTests.cs" />
-    <Compile Include="Models\PokerGamesWinLossDetail\PokerGamesWinLossTest.cs" />
     <Compile Include="Models\ProductsByRefTableTests.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModelTests.cs" />
     <Compile Include="Models\PlayForFun\MasterAgentPlayForFunModelTests.cs" />
@@ -294,7 +291,6 @@
     <Compile Include="Params\WinLossAnalysisChartParamTests.cs" />
     <Compile Include="Params\WinLossByProductParamTests.cs" />
     <Compile Include="Params\WinLossAnalysisParamTests.cs" />
-    <Compile Include="Params\PokerGamesWinLossDetailParamTests.cs" />
     <Compile Include="Params\WinLossParamTests.cs" />
     <Compile Include="Params\WinLossDetailParamTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -313,7 +309,6 @@
     <Compile Include="Services\WinLossByProductServiceImplTests.cs" />
     <Compile Include="Services\WinLossAnalysisChartServiceImplTests.cs" />
     <Compile Include="Services\WinLossAnalysisServiceImplTests.cs" />
-    <Compile Include="Services\PokerGamesWinLossDetailServiceImplTests.cs" />
     <Compile Include="TestCases\EnteredResultsTestCases.cs" />
     <Compile Include="Services\WinLossServiceImplTests.cs" />
     <Compile Include="Services\WinLossDetailServiceImplTests.cs" />
@@ -366,18 +361,6 @@
     <Content Include="Database\Statement\StatementHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Database\PokerGamesWinLossDetail\AgentPokerGamesWinLossDetailHasData.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Database\PokerGamesWinLossDetail\MasterPokerGamesWinLossDetailHasData WinNoTotalTable.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Database\PokerGamesWinLossDetail\MasterPokerGamesWinLossDetailHasData.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Database\PokerGamesWinLossDetail\MemberPokerGamesWinLossDetailHasData.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\WinLossDetail\AgentWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

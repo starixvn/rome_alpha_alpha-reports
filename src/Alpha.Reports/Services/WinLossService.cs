@@ -63,7 +63,7 @@
             }
 
             var validUserSelectedProductIds =
-                productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds.Concat(param.UserSelectedExcludeProductIds));
+                productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds);
 
             var criteria = new WinLossCriteria(
                 param.CustId,

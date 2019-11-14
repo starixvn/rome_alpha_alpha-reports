@@ -65,8 +65,7 @@
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 UserLevel.Super,
-                false,
-                Enumerable.Empty<int>());
+                false);
 
             var expectedData = Enumerable.Empty<WinLossModel>();
 
@@ -90,8 +89,7 @@
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 UserLevel.Super,
-                false,
-                Enumerable.Empty<int>());
+                false);
 
             // Act
             winLossServiceImpl.GetWinLoss(param);
@@ -112,8 +110,7 @@
                 limitedDate,
                 Enumerable.Empty<int>(),
                 UserLevel.Super,
-                false,
-                Enumerable.Empty<int>());
+                false);
 
             // Act
             winLossServiceImpl.GetWinLoss(param);

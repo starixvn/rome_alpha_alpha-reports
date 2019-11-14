@@ -51,7 +51,6 @@
     { "Path": "apps/core/core-tests-template.ts" },
     { "Path": "apps/winloss/enteredresult-template.ts" },
     { "Path": "apps/winloss/winloss-template.ts" },
-    { "Path": "apps/pokergames-winlossdetail/pokergames-winlossdetail-template.ts" },
 
     { "Path": "../core.ts" },
     { "Path": "../base-report.ts" },
@@ -102,9 +101,7 @@
     { "Path": "../consolidation/consolidation.ts" },
     { "Path": "../consolidation/consolidation-detail.ts" },
     { "Path": "apps/progressivecontribution/progressivecontribution-template.ts" },
-    { "Path": "../progressivecontribution/progressivecontribution.ts" },
-
-    { "Path": "../pokergames-winlossdetail/pokergames-winlossdetail.ts" }
+    { "Path": "../progressivecontribution/progressivecontribution.ts" }
   ],
   "Tests": [
     {
@@ -148,10 +145,6 @@
     },
     {
       "Path": "apps/progressivecontribution",
-      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
-    },
-    {
-      "Path": "apps/pokergames-winlossdetail",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     }
   ]

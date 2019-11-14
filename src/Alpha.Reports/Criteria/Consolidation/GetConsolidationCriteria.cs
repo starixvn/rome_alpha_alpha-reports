@@ -23,7 +23,7 @@
                   reportType,
                   balanceUpDate,
                   moveBetsDate,
-                  param.ProductIds.Concat(param.ExcludeProductIds))
+                  param.ProductIds)
         {
         }
 

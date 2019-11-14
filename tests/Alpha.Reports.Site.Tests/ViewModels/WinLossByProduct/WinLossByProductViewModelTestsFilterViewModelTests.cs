@@ -25,7 +25,6 @@
                 UserLevel.Super,
                 null,
                 null,
-                null,
                 false,
                 DefaultVariablesTest.CurrentDate);
 

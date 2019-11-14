@@ -116,23 +116,6 @@
             Assert.Equal(expectedTitle, actualTitle);
         }
 
-        [Theory]
-        [InlineData(1600)]
-        [InlineData(1601)]
-        [InlineData(1602)]
-        public void GetGroupId_Lucky3BetType_ReturnsCorrectTitle(int bettype)
-        {
-            // Arrange
-            var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(betType: bettype, showTime: "Show Time 1");
-            var expectedTitle = "Lucky 3 Game No 1";
-
-            // Act
-            var actualTitle = matchWinLossDetailViewModel.MatchName;
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
         [Fact]
         public void GetGroupId_OtherBetTypeAndNeutral_ReturnsCorrectTitle()
         {
@@ -225,37 +208,6 @@
             // Arrange
             var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(1239, "Show Time 1", false, false, "League Name");
             var expectedTitle = "League Name";
-
-            // Act
-            var actualTitle = matchWinLossDetailViewModel.LeagueName;
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Theory]
-        [InlineData(1600)]
-        [InlineData(1601)]
-        [InlineData(1602)]
-        public void GetLeagueTitle_Lucky3BetTypes_ReturnsCorrectLeagueTitle(int betType)
-        {
-            // Arrange
-            var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(betType, "Show Time 1", false, false, "League Name");
-            var expectedTitle = "Lucky3 - League Name";
-
-            // Act
-            var actualTitle = matchWinLossDetailViewModel.LeagueName;
-
-            // Assert
-            Assert.Equal(expectedTitle, actualTitle);
-        }
-
-        [Fact]        
-        public void GetLeagueTitle_BullfightingBetTypes_ReturnsCorrectLeagueTitle()
-        {
-            // Arrange
-            var matchWinLossDetailViewModel = CreateMatchWinLossDetailViewModel(1004, "Show Time 1", false, false, "League Name");
-            var expectedTitle = "1 - League Name";
 
             // Act
             var actualTitle = matchWinLossDetailViewModel.LeagueName;

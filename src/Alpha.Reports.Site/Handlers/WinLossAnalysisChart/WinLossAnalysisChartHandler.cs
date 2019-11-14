@@ -30,15 +30,12 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var excludeProducts = productService.GetExcludeProductsForCustomer(message.CustId, message.MinDate);
-            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate, excludeProducts);
+            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
 
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate,
-                excludeProducts);
-            var validUserSelectedExcludeProductIds = BuildValidUserSelectedExcludeProductIds(message.UserSelectedExcludeProductIds, excludeProducts);
+                message.MinDate);
 
             var param = new WinLossAnalysisChartParam(
                 message.CustId,
@@ -46,15 +43,13 @@
                 message.ToDate,
                 message.LimitedDateToShowInfo,
                 validUserSelectedProductIds,
-                message.CustLevel,
-                validUserSelectedExcludeProductIds);
+                message.CustLevel);
             var reportData = winLossAnalysisChartService.GetWinLossAnalysisChart(param);
             var viewModel = new WinLossAnalysisChartViewModel(
                 reportData,
                 message,
                 param,
-                BuildProductSelectListItems(param.UserSelectedProductIds, products),
-                BuildProductSelectListItems(validUserSelectedExcludeProductIds, excludeProducts));
+                BuildProductSelectListItems(param.UserSelectedProductIds, products));
 
             return viewModel;
         }

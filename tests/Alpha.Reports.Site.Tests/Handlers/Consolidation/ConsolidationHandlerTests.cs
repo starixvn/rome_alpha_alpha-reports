@@ -72,14 +72,12 @@
                 message.UserSelectedCurrencyId,
                 message.FromDate,
                 message.ToDate,
-                new List<int> { 1 },
-                Enumerable.Empty<int>());
+                new List<int> { 1 });
 
             var expectedViewModel = new ConsolidationReportByUsernameViewModel(
                 message,
                 param,
                 expectedProductList,
-                expectedExcludeProductList,
                 expectedCurrencyList,
                 new List<ConsolidationByUsernameViewModel>
                 {
@@ -136,14 +134,12 @@
                 message.UserSelectedCurrencyId,
                 message.FromDate,
                 message.ToDate,
-                new List<int> { 1 },
-                Enumerable.Empty<int>());
+                new List<int> { 1 });
 
             var expectedViewModel = new ConsolidationReportByDateViewModel(
                 message,
                 param,
                 expectedProductList,
-                expectedExcludeProductList,
                 expectedCurrencyList,
                 new List<ConsolidationByDateViewModel>
                 {
@@ -181,14 +177,12 @@
                 message.UserSelectedCurrencyId,
                 message.FromDate,
                 message.ToDate,
-                new List<int> { 1 },
-                Enumerable.Empty<int>());
+                new List<int> { 1 });
 
             var expectedViewModel = new ConsolidationReportByProductViewModel(
                 message,
                 param,
                 expectedProductList,
-                expectedExcludeProductList,
                 expectedCurrencyList,
                 new List<ConsolidationByProductViewModel>
                 {
@@ -284,8 +278,6 @@
 
             var productMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, "1", string.Empty);
 
-            var excludeProductViewModel = new ExcludeProductViewModel(Enumerable.Empty<SelectListItem>(), string.Empty);
-
             var currencies = new List<SelectListItem>
             {
                 new SelectListItem
@@ -316,8 +308,7 @@
                 UserLevel.Agent,
                 dateRangePickerViewModel,
                 productMultiSelectionViewModel,
-                currencySelectionViewModel,
-                excludeProductViewModel);
+                currencySelectionViewModel);
 
             var winLossDetailQuery = new WinLossDetailQuery(viewer)
             {
@@ -347,8 +338,7 @@
                 winLossDetailQuery.CustLevel,
                 winLossDetailQuery.SortPropertyName,
                 winLossDetailQuery.IsDescendingSort,
-                winLossDetailQuery.IsHistoricReport,
-                Enumerable.Empty<int>());
+                winLossDetailQuery.IsHistoricReport);
 
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 winLossDetailQuery,
@@ -356,7 +346,6 @@
                 winLossDetailData,
                 expectedBreadcrumbLevel,
                 null,
-                Enumerable.Empty<SelectListItem>(),
                 isGroupHeadline: true);
 
             var expectedViewModel = new ConsolidationDetailViewModel(

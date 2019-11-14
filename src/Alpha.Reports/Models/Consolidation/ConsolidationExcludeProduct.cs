@@ -4,14 +4,11 @@
 
     public class ConsolidationExcludeProduct
     {
-        public ConsolidationExcludeProduct(IEnumerable<Product> products, IEnumerable<Product> excludeProducts)
+        public ConsolidationExcludeProduct(IEnumerable<Product> products)
         {
             Products = products;
-            ExcludeProducts = excludeProducts;
         }
 
         public IEnumerable<Product> Products { get; }
-
-        public IEnumerable<Product> ExcludeProducts { get; }
     }
 }

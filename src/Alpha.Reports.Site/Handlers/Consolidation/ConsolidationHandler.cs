@@ -35,14 +35,13 @@
             var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
-            var param = CreateParameter(message, consolidationExcludeProduct.ExcludeProducts);
+            var param = CreateParameter(message);
             var data = reportService.GetConsolidationByUsername(param);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 message,
                 param,
                 BuildProductSelectListItems(param.ProductIds, consolidationExcludeProduct.Products),
-                BuildProductSelectListItems(param.ExcludeProductIds, consolidationExcludeProduct.ExcludeProducts),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
                 BuildWinLossByUsernameViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
 
@@ -54,14 +53,13 @@
             var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
-            var param = CreateParameter(message, consolidationExcludeProduct.ExcludeProducts);
+            var param = CreateParameter(message);
             var data = reportService.GetConsolidationByDate(param);
 
             var viewModel = new ConsolidationReportByDateViewModel(
                 message,
                 param,
                 BuildProductSelectListItems(param.ProductIds, consolidationExcludeProduct.Products),
-                BuildProductSelectListItems(param.ExcludeProductIds, consolidationExcludeProduct.ExcludeProducts),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
                 BuildWinLossByDateViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
 
@@ -73,15 +71,13 @@
             var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
-            message = UpdateUserSelectedExcludeProductIds(message, consolidationExcludeProduct.ExcludeProducts);
-            var param = CreateParameter(message, consolidationExcludeProduct.ExcludeProducts);
+            var param = CreateParameter(message);
             var data = reportService.GetConsolidationByProduct(param);
 
             var viewModel = new ConsolidationReportByProductViewModel(
                 message,
                 param,
                 BuildProductSelectListItems(param.ProductIds, consolidationExcludeProduct.Products),
-                BuildProductSelectListItems(param.ExcludeProductIds, consolidationExcludeProduct.ExcludeProducts),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
                 BuildWinLossByProductViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
 
@@ -94,7 +90,6 @@
             {
                 UserSelectedCurrencyId = message.UserSelectedCurrencyId,
                 UserSelectedProductIds = message.UserSelectedProductIds,
-                UserSelectedExcludeProductIds = message.UserSelectedExcludeProductIds,
                 IsStackMode = message.IsStackMode,
                 IsFilterVisible = message.IsFilterVisible,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
@@ -106,39 +101,36 @@
                 CustLevelId = viewer.LevelId
             };
 
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(consolidationQuery.CustId, consolidationQuery.MinDate);
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
             return new ConsolidationDetailViewModel(
                 message,
                 GetConsolidationDetailBreadcrumbLevel(message),
-                GetConsolidationFilterViewModel(consolidationQuery, consolidationExcludeProduct.ExcludeProducts),
-                GetWinLossDetailViewModel(winLossDetailQuery, consolidationExcludeProduct.ExcludeProducts));
+                GetConsolidationFilterViewModel(consolidationQuery),
+                GetWinLossDetailViewModel(winLossDetailQuery));
         }
 
         private ConsolidationFilterViewModel GetConsolidationFilterViewModel(
-            ConsolidationByUsernameQuery query,
-            IEnumerable<Product> excludeProducts)
+            ConsolidationByUsernameQuery query)
         {
-            var products = reportService.GetProducts(new GetConslidationReportProductsParam(query.ViewerId, query.MinDate), excludeProducts);
+            var products = reportService.GetProducts(new GetConslidationReportProductsParam(query.ViewerId, query.MinDate));
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(query.ViewerId));
 
-            var param = CreateParameter(query, excludeProducts);
+            var param = CreateParameter(query);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 query,
                 param,
                 BuildProductSelectListItems(param.ProductIds, products),
-                BuildProductSelectListItems(param.ExcludeProductIds, excludeProducts),
                 BuildCurrencySelectListItems(currencies, query.UserSelectedCurrencyId),
                 null);
 
             return viewModel.FilterViewModel;
         }
 
-        private WinLossDetailViewModel GetWinLossDetailViewModel(WinLossDetailQuery query, IEnumerable<Product> excludeProducts)
+        private WinLossDetailViewModel GetWinLossDetailViewModel(WinLossDetailQuery query)
         {
-            var param = CreateWinLossDetailParam(query, excludeProducts);
+            var param = CreateWinLossDetailParam(query);
 
             var reportData = winLossDetailService.GetWinLossDetail(param);
 
@@ -148,7 +140,6 @@
                 reportData,
                 GetConsolidationDetailBreadcrumbLevel(query),
                 null,
-                BuildProductSelectListItems(param.UserSelectedExcludeProductIds, excludeProducts),
                 isGroupHeadline: true);
         }
 
@@ -176,23 +167,6 @@
             breadcrumbLevel.Add(new CustInfo(query.CustId, query.CustName, query.CustLevelId));
 
             return breadcrumbLevel;
-        }
-
-        private static ConsolidationByProductQuery UpdateUserSelectedExcludeProductIds(
-            ConsolidationByProductQuery message,
-            IEnumerable<Product> excludeProducts)
-        {
-            if (string.IsNullOrWhiteSpace(message.UserSelectedExcludeProductIds))
-            {
-                var userSelectedExcludeProducts = message.UserSelectedProductIds.ToListInt().Where(id => excludeProducts.Any(product => product.Id == id));
-
-                if (userSelectedExcludeProducts.Any())
-                {
-                    message.UserSelectedExcludeProductIds = string.Join(",", userSelectedExcludeProducts);
-                }
-            }
-
-            return message;
         }
     }
 }

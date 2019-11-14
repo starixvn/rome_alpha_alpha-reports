@@ -18,7 +18,6 @@
 
     public class CommissionByBettypeServiceImpl : CommissionByBettypeService
     {
-        private static readonly IEnumerable<int> ProductsInOthers = new List<int> { ProductIdConstants.Bullfighting };
         private readonly IDynamicRepository repository;
         private readonly ProductService productService;
 
@@ -36,6 +35,6 @@
         }
 
         public IEnumerable<Product> GetProductsInOthers(int custId)
-            => productService.GetProductsForCustomer(custId).Where(product => ProductsInOthers.Contains(product.Id));
+            => productService.GetProductsForCustomer(custId);
     }
 }

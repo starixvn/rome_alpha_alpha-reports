@@ -30,21 +30,19 @@
             this.cacheRefService = cacheRefService;
         }
 
-        protected WinLossByProductParam CreateWinLossByBettypeParamater(WinLossByProductQuery message, IEnumerable<Product> excludeProducts = null)
+        protected WinLossByProductParam CreateWinLossByBettypeParamater(WinLossByProductQuery message)
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
                 message.UserSelectedProductIds.ToListInt(),
-                message.MinDate,
-                excludeProducts);
+                message.MinDate);
 
             return new WinLossByProductParam(
                 message.CustId,
                 message.FromDate,
                 message.ToDate,
                 validUserSelectedProductIds,
-                message.CustLevel,
-                BuildValidUserSelectedExcludeProductIds(message.UserSelectedExcludeProductIds, excludeProducts));
+                message.CustLevel);
         }
 
         internal WinLossByBetTypeModel AccumulateGrandTotal(IEnumerable<WinLossByProductModel> reportData)

@@ -15,9 +15,9 @@
     {
         IEnumerable<CurrencyModel> GetCurrencies(GetCurrencyParam param);
 
-        IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param, IEnumerable<Product> excludeProducts);
+        IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param);
 
-        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate, IEnumerable<Product> excludeProducts);
+        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate);
 
         IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param);
 
@@ -33,18 +33,15 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService cacheRefService;
-        private readonly ProductService productService;
 
         public ConsolidationServiceImpl(
             IDynamicRepository dynamicRepository,
             ReportDateService reportDateService,
-            CacheRefService cacheRefService,
-            ProductService productService)
+            CacheRefService cacheRefService)
         {
             this.dynamicRepository = dynamicRepository;
             this.reportDateService = reportDateService;
             this.cacheRefService = cacheRefService;
-            this.productService = productService;
         }
 
         public IEnumerable<CurrencyModel> GetCurrencies(GetCurrencyParam param)
@@ -54,11 +51,10 @@
             return data;
         }
 
-        public IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param, IEnumerable<Product> excludeProducts)
+        public IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param)
             => dynamicRepository.Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
                 .Where(product => IsRemainSupportProduct(product, param.MinDate))
-                .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, cacheRefService.GetProductName))
-                .Exclude(excludeProducts);
+                .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, cacheRefService.GetProductName));
 
         public IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param)
         {
@@ -99,8 +95,8 @@
             return data;
         }
 
-        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate, IEnumerable<Product> excludeProducts)
-            => GetProducts(new GetConslidationReportProductsParam(custId, minReportDate), excludeProducts)
+        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate)
+            => GetProducts(new GetConslidationReportProductsParam(custId, minReportDate))
                 .Select(product => product.Id)
                 .Where(id => productIds == null || !productIds.Any() || productIds.Contains(id));
 
@@ -110,18 +106,9 @@
 
         public ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate)
         {
-            var products = GetProducts(new GetConslidationReportProductsParam(custId, minReportDate), null).ToList();
-            var excludeProducts = productService.GetExcludeProductsForCustomer(custId, minReportDate, true);
+            var products = GetProducts(new GetConslidationReportProductsParam(custId, minReportDate)).ToList();
 
-            if (excludeProducts.Any())
-            {
-                excludeProducts = products
-                    .Where(product => excludeProducts.Any(excludeProduct => product.Id == excludeProduct.Id))
-                    .ToList();
-                products = products.Exclude(excludeProducts).ToList();
-            }
-
-            return new ConsolidationExcludeProduct(products, excludeProducts);
+            return new ConsolidationExcludeProduct(products);
         }
     }
 }

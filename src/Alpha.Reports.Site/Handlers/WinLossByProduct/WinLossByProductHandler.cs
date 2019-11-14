@@ -26,10 +26,9 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var excludeProducts = productService.GetExcludeProductsForCustomer(message.CustId, message.MinDate);
-            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate, excludeProducts);
+            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
 
-            var winLossByBettypeParam = CreateWinLossByBettypeParamater(message, excludeProducts);
+            var winLossByBettypeParam = CreateWinLossByBettypeParamater(message);
             var reportData = reportService.GetWinLossByProduct(winLossByBettypeParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
@@ -39,8 +38,7 @@
                     message,
                     winLossByBettypeParam,
                     BuildDisplayedBetTypeName,
-                    BuildProductSelectListItems(winLossByBettypeParam.UserSelectedProductIds, products),
-                    BuildProductSelectListItems(winLossByBettypeParam.UserSelectedExcludeProductIds, excludeProducts));
+                    BuildProductSelectListItems(winLossByBettypeParam.UserSelectedProductIds, products));
         }
     }
 }

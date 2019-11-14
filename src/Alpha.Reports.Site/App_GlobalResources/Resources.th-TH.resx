@@ -388,12 +388,6 @@
   <data name="Gaming" xml:space="preserve">
     <value>Gaming</value>
   </data>
-  <data name="ChargeComm" xml:space="preserve">
-    <value>ค่าธรรมเนียม คอมมิชชั่น</value>
-  </data>
-  <data name="SymbolMyanmarOdds" xml:space="preserve">
-    <value>% Odds</value>
-  </data>
   <data name="Others" xml:space="preserve">
     <value>อื่นๆ</value>
   </data>
@@ -631,9 +625,6 @@
   <data name="Owner" xml:space="preserve">
     <value>เจ้าของ</value>
   </data>
-  <data name="Lucky3GameNo" xml:space="preserve">
-    <value>ลัคกี้3 หมายเลขเกมส์</value>
-  </data>
   <data name="ProgressiveGamesContribution" xml:space="preserve">
     <value>กองทุนรวมสำหรับเกมส์แจ๊คพ็อต</value>
   </data>
@@ -648,9 +639,6 @@
   </data>
   <data name="Tooltip_CommissionByBetType" xml:space="preserve">
     <value>- อื่น ๆ : ใช้กับประเภทการเดิมพันของ "{0}"</value>
-  </data>
-  <data name="Bullfighting_NetTurnoverNote" xml:space="preserve">
-    <value>- สำหรับ การสู้กระทิง [ยอดเดิมพันสุทธิ] คือ [จำนวนของการเดิมพันทั้งหมด] แต่ไม่รวมตั๋วที่ผล "เสมอ"</value>
   </data>
   <data name="No" xml:space="preserve">
     <value> ลำดับที่</value>

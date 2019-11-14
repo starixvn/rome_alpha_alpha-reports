@@ -19,7 +19,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -102,15 +102,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string AgentPlayForFunDetail {
             get {
                 return ResourceManager.GetString("AgentPlayForFunDetail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Agent Poker Games Win Loss.
-        /// </summary>
-        public static string AgentPokerGamesWinLossDetail {
-            get {
-                return ResourceManager.GetString("AgentPokerGamesWinLossDetail", resourceCulture);
             }
         }
         
@@ -268,15 +259,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - For Bullfighting, Net Turnover is Turnover which excludes the draw tickets..
-        /// </summary>
-        public static string Bullfighting_NetTurnoverNote {
-            get {
-                return ResourceManager.GetString("Bullfighting_NetTurnoverNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You can view the report data from {0}. For more historic data, please click to.
         /// </summary>
         public static string CanOnlyViewDataAfterTimeCurrentReport {
@@ -300,15 +282,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string CasinoWinLoss {
             get {
                 return ResourceManager.GetString("CasinoWinLoss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ChargeComm.
-        /// </summary>
-        public static string ChargeComm {
-            get {
-                return ResourceManager.GetString("ChargeComm", resourceCulture);
             }
         }
         
@@ -943,24 +916,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lucky3.
-        /// </summary>
-        public static string Lucky3 {
-            get {
-                return ResourceManager.GetString("Lucky3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lucky 3 Game No.
-        /// </summary>
-        public static string Lucky3GameNo {
-            get {
-                return ResourceManager.GetString("Lucky3GameNo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to March.
         /// </summary>
         public static string March {
@@ -993,15 +948,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string MasterPlayForFunDetail {
             get {
                 return ResourceManager.GetString("MasterPlayForFunDetail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Master Poker Games Win Loss.
-        /// </summary>
-        public static string MasterPokerGamesWinLossDetail {
-            get {
-                return ResourceManager.GetString("MasterPokerGamesWinLossDetail", resourceCulture);
             }
         }
         
@@ -1101,15 +1047,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string MemberPlayForFunDetail {
             get {
                 return ResourceManager.GetString("MemberPlayForFunDetail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Member Poker Games Win Loss.
-        /// </summary>
-        public static string MemberPokerGamesWinLossDetail {
-            get {
-                return ResourceManager.GetString("MemberPokerGamesWinLossDetail", resourceCulture);
             }
         }
         
@@ -1411,51 +1348,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Member outstanding of Poker Games is the buy-in/top up amount on table..
-        /// </summary>
-        public static string PokerGames_OutstandingNote {
-            get {
-                return ResourceManager.GetString("PokerGames_OutstandingNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to - Turnover and Net Turnover of Poker Games are the buy-in/top up amount on table..
-        /// </summary>
-        public static string PokerGames_Turnover_NetTurnoverNote {
-            get {
-                return ResourceManager.GetString("PokerGames_Turnover_NetTurnoverNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to - Turnover of Poker Games is the buy-in/top up amount on table..
-        /// </summary>
-        public static string PokerGames_TurnoverNote {
-            get {
-                return ResourceManager.GetString("PokerGames_TurnoverNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Poker Games-Win Loss.
-        /// </summary>
-        public static string PokerGames_WinLoss {
-            get {
-                return ResourceManager.GetString("PokerGames_WinLoss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Poker Games Win Loss.
-        /// </summary>
-        public static string PokerGamesWinLossDetail {
-            get {
-                return ResourceManager.GetString("PokerGamesWinLossDetail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Position Taking.
         /// </summary>
         public static string PositionTaking {
@@ -1699,15 +1591,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to % Odds.
-        /// </summary>
-        public static string SymbolMyanmarOdds {
-            get {
-                return ResourceManager.GetString("SymbolMyanmarOdds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gross Tax Comm.
         /// </summary>
         public static string TaxComm {
@@ -1821,20 +1704,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Tooltip_NetTurnover_21 {
             get {
                 return ResourceManager.GetString("Tooltip_NetTurnover_21", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to - Round Count is number of game rounds member played on the table.
-        ///- Turnover of Poker Games are the buy-in/top up amount on table.
-        ///- Net Turnover of Poker Games are actual amount member played on game table and Gems bought.
-        ///- Gross Tax Comm is commission for whole line.
-        ///- Member Win Loss excludes Insurance and Gems bought
-        ///- Member Insurance and Gems Win Loss is the win loss on Insurance and Gems bought only..
-        /// </summary>
-        public static string Tooltip_NetTurnover_PokerGames {
-            get {
-                return ResourceManager.GetString("Tooltip_NetTurnover_PokerGames", resourceCulture);
             }
         }
         

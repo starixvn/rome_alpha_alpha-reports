@@ -34,7 +34,7 @@
         public IEnumerable<WinLossAnalysisChartModel> GetWinLossAnalysisChart(WinLossAnalysisChartParam param)
         {
             var validUserSelectedProductIds =
-                productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds.Concat(param.UserSelectedExcludeProductIds));
+                productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds);
 
             var winlossAnalysisChartData = Enumerable.Empty<WinLossAnalysisChartModel>();
             if (param.ToDate.GetMonthDiff(param.FromDate) >= 2)

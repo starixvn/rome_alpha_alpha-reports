@@ -22,8 +22,7 @@
             WinLossQuery message,
             WinLossParam param,
             IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<SelectListItem> products,
-            IEnumerable<SelectListItem> excludeProducts) : base(message, param, breadcrumbLevel, products, excludeProducts)
+            IEnumerable<SelectListItem> products) : base(message, param, breadcrumbLevel, products)
         {
             ReportData = reportData;
             GrandTotal = grandTotal;

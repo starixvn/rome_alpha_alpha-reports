@@ -37,7 +37,5 @@
         public bool IsFilterVisible { get; set; } = true;
 
         public string CurrencyName { get; set; }
-
-        public string UserSelectedExcludeProductIds { get; set; }
     }
 }

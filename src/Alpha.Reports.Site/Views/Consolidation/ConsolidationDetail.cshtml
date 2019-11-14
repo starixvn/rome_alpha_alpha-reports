@@ -10,7 +10,7 @@
     Model.BreadcrumbActions)
 
 <form class="form-inline filter  @(filter.Visible ? string.Empty : "hide")" role="form" id="report-form">
-    @ProductMultiSelection.Render(filter.ProductMultiSelectionViewModel, filter.ExcludeProductViewModel)
+    @ProductMultiSelection.Render(filter.ProductMultiSelectionViewModel)
     @DateRangePicker.Render(filter.DateRangePickerViewModel)
 
     <div class="form-group">

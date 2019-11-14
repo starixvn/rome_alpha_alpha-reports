@@ -29,7 +29,9 @@
 
     public class CommissionByBettypeWorkbookImpl : NpoiWorkbook<CommissionByBettypeModel>, CommissionByBettypeWorkbook
     {
+#pragma warning disable S1450 // Private fields only used as local variables in methods should become local variables
         private readonly UserPermissionService userPermissionService;
+#pragma warning restore S1450 // Private fields only used as local variables in methods should become local variables
 
         public CommissionByBettypeWorkbookImpl(UserPermissionService userPermissionServiceImpl)
         {

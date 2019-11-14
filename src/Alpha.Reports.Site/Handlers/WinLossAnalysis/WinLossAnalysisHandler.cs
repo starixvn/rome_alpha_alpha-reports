@@ -24,10 +24,9 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var excludeProducts = productService.GetExcludeProductsForCustomer(message.CustId, message.MinDate);
-            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate, excludeProducts);
+            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
 
-            var winLossAnalysisParam = CreateWinLossAnalysisParamater(message, excludeProducts);
+            var winLossAnalysisParam = CreateWinLossAnalysisParamater(message);
             var reportData = reportService.GetWinLossAnalysis(winLossAnalysisParam);
             var grandTotal = AccumulateGrandTotal(reportData);
 
@@ -36,8 +35,7 @@
                 grandTotal,
                 message,
                 winLossAnalysisParam,
-                BuildProductSelectListItems(winLossAnalysisParam.UserSelectedProductIds, products),
-                BuildProductSelectListItems(winLossAnalysisParam.UserSelectedExcludeProductIds, excludeProducts));
+                BuildProductSelectListItems(winLossAnalysisParam.UserSelectedProductIds, products));
 
             return viewModel;
         }

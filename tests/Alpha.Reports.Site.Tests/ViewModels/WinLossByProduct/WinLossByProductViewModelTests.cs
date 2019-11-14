@@ -50,7 +50,6 @@
                message,
                fixture.Create<WinLossByProductParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<SelectListItem>(),
                Enumerable.Empty<SelectListItem>());
             var expectedTitle = "Win Loss By Product";
             
@@ -74,7 +73,6 @@
                message,
                fixture.Create<WinLossByProductParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<SelectListItem>(),
                Enumerable.Empty<SelectListItem>());
 
             // Act & Assert
@@ -97,7 +95,6 @@
                message,
                fixture.Create<WinLossByProductParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<SelectListItem>(),
                Enumerable.Empty<SelectListItem>());
 
             // Act & Assert

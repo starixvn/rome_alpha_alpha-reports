@@ -16,7 +16,6 @@
                 UserLevel.Agent,
                 null,
                 null,
-                null,
                 false,
                 DefaultVariablesTest.BalanceUpDate);
 

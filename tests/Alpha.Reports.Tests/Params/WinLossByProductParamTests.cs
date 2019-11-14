@@ -22,7 +22,7 @@
         {
             // Arrange
             var custId = 1;
-            var winLossByProductParam = new WinLossByProductParam(custId, currentDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
+            var winLossByProductParam = new WinLossByProductParam(custId, currentDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
 
             // Act
             var actual = winLossByProductParam.CustId;
@@ -35,7 +35,7 @@
         public void FromDate_CurrentReportAndNotSupportFromDate_ReturnsCurrentDate()
         {
             // Arrange
-            var winLossByProductParam = new WinLossByProductParam(0, DateTime.MinValue, currentDate, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
+            var winLossByProductParam = new WinLossByProductParam(0, DateTime.MinValue, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
             var expectedDate = currentDate;
 
             // Act
@@ -50,7 +50,7 @@
         {
             // Arrange
             DateTime fromDate = currentDate;
-            var winLossByProductParam = new WinLossByProductParam(0, fromDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
+            var winLossByProductParam = new WinLossByProductParam(0, fromDate, currentDate, Enumerable.Empty<int>(), UserLevel.Super);
 
             var expectedDate = fromDate;
 
@@ -65,7 +65,7 @@
         public void ToDate_NotSupportToDate_ReturnsCurrentDate()
         {
             // Arrange
-            var winLossByProductParam = new WinLossByProductParam(0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, Enumerable.Empty<int>());
+            var winLossByProductParam = new WinLossByProductParam(0, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super);
             var expectedDate = currentDate;
 
             // Act
@@ -86,8 +86,7 @@
                 DateTime.MinValue, 
                 toDate,
                 Enumerable.Empty<int>(),
-                UserLevel.Super,
-                Enumerable.Empty<int>());
+                UserLevel.Super);
             var expectedDate = toDate;
 
             // Act

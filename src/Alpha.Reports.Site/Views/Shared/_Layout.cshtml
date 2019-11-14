@@ -19,5 +19,6 @@
     @RenderSection("Scripts", required: false)
 
     @Alpha.Web.Helpers.GoogleAnalyticHepler.Render()
+    @Html.Raw(Fanex.Logging.LogManager.RenderJavascriptLogger())
 </body>
 </html>

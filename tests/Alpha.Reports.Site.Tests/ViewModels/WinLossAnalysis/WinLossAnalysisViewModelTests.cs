@@ -40,8 +40,7 @@
                 grandTotal: fixture.Create<WinLossAnalysisModel>(),
                 message: message,
                 param: fixture.Create<WinLossAnalysisParam>(),
-                products: Enumerable.Empty<SelectListItem>(),
-                excludeProducts: Enumerable.Empty<SelectListItem>());
+                products: Enumerable.Empty<SelectListItem>());
 
             compareLogic = new CompareLogic();
         }
@@ -112,8 +111,7 @@
                  grandTotal: fixture.Create<WinLossAnalysisModel>(),
                  message: CreateWinLossAnalysisQuery(custLevelId, reportTypeId, reportTypeName),
                  param: fixture.Create<WinLossAnalysisParam>(),
-                 products: Enumerable.Empty<SelectListItem>(),
-                 excludeProducts: Enumerable.Empty<SelectListItem>());
+                 products: Enumerable.Empty<SelectListItem>());
 
             // Act & Assert
             Assert.Equal(winLossAnalysisViewModel.Title, expectedTitle);
@@ -128,7 +126,7 @@
                 SortPropertyName = "SortPropertyName"
             };
 
-            var viewModel = new WinLossAnalysisViewModel(null, null, message, null, null, Enumerable.Empty<SelectListItem>());
+            var viewModel = new WinLossAnalysisViewModel(null, null, message, null, null);
 
             // Act
             var actualSortPropertyName = viewModel.SortPropertyName;
