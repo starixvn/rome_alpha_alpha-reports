@@ -9,6 +9,7 @@
 
         private const string LongTime = "hh:mm:ss tt";
         private const string FullDateName = "dddd";
+        private const int MonthsInYear = 12;
 
         public static string ToShortDateWithSlash(this DateTime dateTime)
             => dateTime.ToString(ShortDateWithSlash);
@@ -38,7 +39,7 @@
             => dateTime.Day == DaysInMonth(dateTime);
 
         public static int GetMonthDiff(this DateTime dateTime, DateTime otherDateTime)
-            => (dateTime.Month - otherDateTime.Month + (12 * (dateTime.Year - otherDateTime.Year)));
+            => (dateTime.Month - otherDateTime.Month + (MonthsInYear * (dateTime.Year - otherDateTime.Year)));
 
         private static int DaysInMonth(this DateTime dateTime)
             => DateTime.DaysInMonth(dateTime.Year, dateTime.Month);

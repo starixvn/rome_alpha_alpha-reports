@@ -8,6 +8,8 @@
 
     public class WinLossAnalysisChartParam
     {
+        private const int DefaultPreviousMonths = -2;
+
         public WinLossAnalysisChartParam(
             int custId,
             DateTime fromDate,
@@ -18,7 +20,7 @@
         {
             CustId = custId;
             CustLevel = custLevel;
-            FromDate = fromDate == DateTime.MinValue ? SystemTime.Today.AddMonths(-2).FirstDayOfMonth() : fromDate.FirstDayOfMonth();
+            FromDate = fromDate == DateTime.MinValue ? SystemTime.Today.AddMonths(DefaultPreviousMonths).FirstDayOfMonth() : fromDate.FirstDayOfMonth();
             ToDate = (toDate == DateTime.MinValue || toDate.IsSameMonthWith(SystemTime.Today))
                 ? SystemTime.Today : toDate.LastDayOfMonth();
             LimitedDateToShowInfo = limitedDate;

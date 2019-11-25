@@ -20,6 +20,7 @@
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
         private readonly IDynamicRepository dynamicRepository;
+        private const int DefaultLoadingMonths = 2;
 
         public WinLossAnalysisChartServiceImpl(
             ReportDateService reportDateService,
@@ -37,7 +38,7 @@
                 productService.FilterProductIdsByCustomer(param.CustId, param.UserSelectedProductIds);
 
             var winlossAnalysisChartData = Enumerable.Empty<WinLossAnalysisChartModel>();
-            if (param.ToDate.GetMonthDiff(param.FromDate) >= 2)
+            if (param.ToDate.GetMonthDiff(param.FromDate) >= DefaultLoadingMonths)
             {
                 var criteria = new WinLossAnalysisChartCriteria(
                                         param.CustId,

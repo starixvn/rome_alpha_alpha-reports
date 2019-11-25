@@ -8,7 +8,7 @@
         public override string GetExcelDirectory()
         {
             var rootPath = (Path.GetDirectoryName(typeof(ReportExcelRepository).Assembly.GetName().CodeBase).Substring(6));
-            var excelPath = "excelData";
+            const string excelPath = "excelData";
 
             return $"{rootPath}\\{excelPath}";
         }
