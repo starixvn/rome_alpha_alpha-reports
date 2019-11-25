@@ -10,6 +10,8 @@
 
     public class MatchWinLossDetailCriteria : CriteriaBase
     {
+        private const int LeagueIdItemsSplitted = 2;
+
         public MatchWinLossDetailCriteria(
             int custId,
             DateTime fromDate,
@@ -40,7 +42,7 @@
                 foreach (var league in Leagues)
                 {
                     var items = league.Split('_');
-                    if (items.Length == 2)
+                    if (items.Length == LeagueIdItemsSplitted)
                     {
                         var leagueId = Convert.ToInt32(items[0]);
                         var leagueType = Convert.ToInt32(items[1]);

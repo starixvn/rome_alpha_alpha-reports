@@ -24,7 +24,7 @@
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Alpha.Reports.Tests.ruleset</CodeAnalysisRuleSet>
     <NoWarn>618</NoWarn>
   </PropertyGroup>
   <ItemGroup>
@@ -319,6 +319,7 @@
     <Compile Include="Utils\SystemTimeTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Alpha.Reports.Tests.ruleset" />
     <None Include="app.config" />
     <None Include="AppReadme\Compare-NET-Objects-Help.chm" />
     <None Include="packages.config">
@@ -395,7 +396,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
