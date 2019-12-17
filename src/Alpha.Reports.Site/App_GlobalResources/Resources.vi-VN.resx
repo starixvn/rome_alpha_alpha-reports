@@ -570,4 +570,79 @@
   <data name="Rejected" xml:space="preserve">
     <value>Từ chối</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Công ty</value>
+  </data>
+  <data name="Formular_Accumulated_Total" xml:space="preserve">
+    <value>Tổng tiền tích luỹ = Số dư đầu ngày + Thắng thua + Hoa hồng + Chuyển khoản</value>
+  </data>
+  <data name="FT" xml:space="preserve">
+    <value>Cả trận</value>
+  </data>
+  <data name="Guidelines_OpeningBalance_SMA" xml:space="preserve">
+    <value>số dư được tính đến thời điểm bắt đầu của ngày được chọn. Nếu số dư này không trùng khớp với Tổng tiền tích luỹ của ngày hôm trước thì sẽ được tô màu Hồng.</value>
+  </data>
+  <data name="Guidelines_Turnover" xml:space="preserve">
+    <value>tổng tiền cược (không bao gồm vé cược bị Vô hiệu/Huỷ/Chưa xử lý/Hoàn lại).</value>
+  </data>
+  <data name="Guidelines_Commission_SMA" xml:space="preserve">
+    <value>tổng tiền hoa hồng dựa trên vé cược của member.</value>
+  </data>
+  <data name="Guidelines_WinLoss_SMA" xml:space="preserve">
+    <value>tổng tiền thắng thua được tính theo Position Taking (không bao gồm vé cược bị Huỷ/Từ Chối/Chưa xử lý).</value>
+  </data>
+  <data name="Guidelines_TransferAmt_SMA" xml:space="preserve">
+    <value>tổng tiền chuyển khoản. Nhấn để xem Chi Tiết Chuyển Khoản.</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_SMA" xml:space="preserve">
+    <value>số dư tính đến cuối ngày.</value>
+  </data>
+  <data name="KoreanWon" xml:space="preserve">
+    <value>Won</value>
+  </data>
+  <data name="LiveGame" xml:space="preserve">
+    <value>Trực Tiếp</value>
+  </data>
+  <data name="PreGame" xml:space="preserve">
+    <value>Chưa bắt đầu</value>
+  </data>
+  <data name="StatementGuidelines" xml:space="preserve">
+    <value>Hướng dẫn sao kê</value>
+  </data>
+  <data name="TransferDetails" xml:space="preserve">
+    <value>Chi tiết Chuyển Khoản</value>
+  </data>
+  <data name="WinLossAnalysis" xml:space="preserve">
+    <value>Phân tích thắng thua</value>
+  </data>
+  <data name="WinLossDetail" xml:space="preserve">
+    <value>Chi tiết thắng thua</value>
+  </data>
+  <data name="NetTurnoverAndTaxComm" xml:space="preserve">
+    <value>/Tiền cược thực/Tống phí hoa hồng</value>
+  </data>
+  <data name="MatchResultEntered" xml:space="preserve">
+    <value>Kết quả trận đấu đã nhập</value>
+  </data>
+  <data name="Guidelines_Commission_Member" xml:space="preserve">
+    <value>tổng hoa hồng của Member</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="Pager_DisplayItems" xml:space="preserve">
+    <value>Hiển thị {from} đến {to} của {total}</value>
+  </data>
+  <data name="ThereIsNoLeague" xml:space="preserve">
+    <value>Không có giải nào</value>
+  </data>
+  <data name="TaxComm" xml:space="preserve">
+    <value>Tổng phí hoa hồng</value>
+  </data>
+  <data name="ThereIsNoSelectedProduct" xml:space="preserve">
+    <value>Không có chọn sản phản nào</value>
+  </data>
 </root>
