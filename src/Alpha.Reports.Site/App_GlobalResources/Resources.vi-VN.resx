@@ -645,4 +645,28 @@
   <data name="ThereIsNoSelectedProduct" xml:space="preserve">
     <value>Không có chọn sản phản nào</value>
   </data>
+  <data name="Guidelines_OpeningBalance_Member" xml:space="preserve">
+    <value>số dư được tính đến thời điểm bắt đầu của ngày được chọn. Nếu số dư này không trùng khớp với Tổng tiền tích luỹ của ngày hôm trước thì sẽ được tô màu Hồng.</value>
+  </data>
+  <data name="Guidelines_Outstanding" xml:space="preserve">
+    <value>tổng tiền cược của các vé cược đang diễn ra. Nhấn vào để xem danh sách vé cược đang diễn ra.</value>
+  </data>
+  <data name="Guidelines_TransferAmt_Member" xml:space="preserve">
+    <value>tổng lượng tiền chuyển khoản giữa Agent và Member. Nhấn vào để xem chi tiết chuyển khoản.</value>
+  </data>
+  <data name="Guidelines_VoidRejected" xml:space="preserve">
+    <value>tổng tiền cược của các vé cược bị Huỷ/Từ chối. Nhấn vào để xem danh sách vé cược bị Huỷ/Từ chối.</value>
+  </data>
+  <data name="Guidelines_WinLoss_Member" xml:space="preserve">
+    <value>tổng tiền thắng thua (không bao gồm tiền hoa hồng) của các vé cược (không bao gồm vé cược bị Huỷ/Từ chối/Chưa xử lý). Nhấn vào để xem chi tiết danh sách vé cược.</value>
+  </data>
+  <data name="Guidelines_AccumulatedTotal_Member" xml:space="preserve">
+    <value>số dư tính đến cuối ngày.</value>
+  </data>
+  <data name="GrandPrize" xml:space="preserve">
+    <value>Giải đặc biệt</value>
+  </data>
+  <data name="GrandPrize_Guidelines" xml:space="preserve">
+    <value>tiền thắng cược một sự kiện đặc biệt, và không tính vào số dư của member.</value>
+  </data>
 </root>
