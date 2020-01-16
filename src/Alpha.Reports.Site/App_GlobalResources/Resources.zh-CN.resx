@@ -645,4 +645,10 @@
   <data name="Happy5" xml:space="preserve">
     <value>快乐5</value>
   </data>
+  <data name="MemberCount" xml:space="preserve">
+    <value>Member Count</value>
+  </data>
+  <data name="SuperWinLoss" xml:space="preserve">
+    <value>Super Win Loss</value>
+  </data>
 </root>

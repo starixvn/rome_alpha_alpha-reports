@@ -489,4 +489,10 @@
   <data name="ConsolidationReportByProduct" xml:space="preserve">
     <value>스포츠 통합 리포트</value>
   </data>
+  <data name="MemberCount" xml:space="preserve">
+    <value>Member Count</value>
+  </data>
+  <data name="SuperWinLoss" xml:space="preserve">
+    <value>Super Win Loss</value>
+  </data>
 </root>

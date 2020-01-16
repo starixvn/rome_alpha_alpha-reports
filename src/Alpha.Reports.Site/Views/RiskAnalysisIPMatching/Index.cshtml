@@ -1,0 +1,94 @@
+﻿@model RiskAnalysisIPMatchingViewModel
+@{
+    ViewBag.Title = "IP MATCHING";
+}
+
+<div class="form-group  from-date-box">
+    <label>@Resources.Date</label>
+
+    <div class="control date">
+        <div id="from-date-container"
+             class="input-group date fromdate">
+            <input type="text"
+                   id="winloss-date"
+                   name="winloss-date"
+                   readonly="readonly"
+                   autocomplete="off"
+                   class="ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate form-control"
+                   value="@Model.WinlostDate" />
+            <span class="input-group-addon">
+                <span class="icon-calendar" id="fdate_trigger"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover"
+       id="tbl-report"
+       data-totalrecords="@Model.RiskAnalysisIPMatchingItems.Count()">
+    <thead>
+        <tr>
+            <th>IP</th>
+            <th>@Resources.MemberCount</th>
+            <th>@Resources.BetCount</th>
+            <th>@Resources.MemberTurnOver</th>
+            <th>@Resources.MemberWinLoss</th>
+            <th>@Resources.SuperWinLoss</th>
+            <th>@Resources.Company</th>
+    </thead>
+    @if (Model.RiskAnalysisIPMatchingItems.Any())
+    {
+        <tbody>
+            @foreach (var data in Model.RiskAnalysisIPMatchingItems)
+            {
+                @RenderRow(data, false, ViewBag.BetListPath)
+            }
+        </tbody>
+        <tfoot>
+            @RenderRow(Model.TotalRow, true, ViewBag.BetListPath)
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(colspan: 7)
+    }
+</table>
+
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "WinLoss")">
+    @*@Html.Hidden("CustId", Model.CustId)
+        @Html.Hidden("CustName", Model.CustName)
+        @Html.Hidden("FromDate", Model.FromDate)
+        @Html.Hidden("ToDate", Model.ToDate)
+        @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds)
+        @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+        @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)*@
+</form>
+
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/winloss/winloss")
+}
+
+@helper RenderRow(RiskAnalysisIPMatchingModel data, bool isTotalRow, string betListPath)
+{
+    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
+        <td data-islink="true" class="text-left col-username">
+            @if (isTotalRow)
+            {
+                @Resources.Total
+            }
+            else
+            {
+                <a href="">
+                    @data.IP
+                </a>
+            }
+        </td>
+        <td class="text-right col-member-count">@HtmlHelpers.FormatNumber(data.MemberCount)</td>
+        <td class="text-right col-bet-count">@HtmlHelpers.FormatNumber(data.BetCount)</td>
+        @HtmlHelpers.RenderNumberCell(data.MemberTurnover, "col-member-turnover")
+        @HtmlHelpers.RenderNumberCell(data.MemberWinLoss, "col-member-winloss")
+        @HtmlHelpers.RenderNumberCell(data.SuperWinLoss, "col-super-winloss")
+        <td class="text-right col-company">@HtmlHelpers.FormatNumber(data.Company)</td>
+    </tr>
+}

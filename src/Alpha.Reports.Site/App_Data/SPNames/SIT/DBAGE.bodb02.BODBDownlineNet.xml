@@ -107,4 +107,7 @@
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Agent" SpName="Age_Rpt_ProgressiveGamesContribution_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Member" SpName="Age_Rpt_ProgressiveGamesContribution_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
+  <Function Name="Risk Analysis IP Matching">
+    <Setting Key="	Age_BetStatistics_IPMatching_Master" SpName="	Age_BetStatistics_IPMatching_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+  </Function>
 </Functions>

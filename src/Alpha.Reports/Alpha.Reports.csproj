@@ -133,6 +133,7 @@
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
+    <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
     <Compile Include="Enumerations\LeagueType.cs" />
     <Compile Include="Constants\BetTypeIdConstants.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Models\ProgressiveContribution\ProgressiveContributionByBetTypeModel.cs" />
     <Compile Include="Models\ReportData.cs" />
     <Compile Include="Models\IUser.cs" />
+    <Compile Include="Models\RiskAnalysisIPMatchingModel.cs" />
     <Compile Include="Models\StatusModel.cs" />
     <Compile Include="Models\Statement\StatementModel.cs" />
     <Compile Include="Models\Statement\StatementDetailModel.cs" />
@@ -231,6 +233,7 @@
     <Compile Include="Params\CommissionByBettypeParam.cs" />
     <Compile Include="Params\PlayForFunParam.cs" />
     <Compile Include="Params\ProgressiveContributionParam.cs" />
+    <Compile Include="Params\RiskAnalysisIPMatchingParam.cs" />
     <Compile Include="Params\Statement\GetStatementParam.cs" />
     <Compile Include="Params\Statement\StatementDetailsParam.cs" />
     <Compile Include="Params\SupportedHistoryReportParam.cs" />
@@ -251,6 +254,7 @@
     <Compile Include="Services\ProgressiveContributionService.cs" />
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\MatchWinLossService.cs" />
+    <Compile Include="Services\RiskAnalysisIPMatchingService.cs" />
     <Compile Include="Services\WinLossByProductService.cs" />
     <Compile Include="Services\WinLossAnalysisChartService.cs" />
     <Compile Include="Services\WinLossAnalysisService.cs" />

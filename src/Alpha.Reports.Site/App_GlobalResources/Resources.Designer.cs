@@ -1033,6 +1033,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member Count.
+        /// </summary>
+        public static string MemberCount {
+            get {
+                return ResourceManager.GetString("MemberCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Member Outstanding.
         /// </summary>
         public static string MemberOutstanding {
@@ -1578,6 +1587,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SuperTotal {
             get {
                 return ResourceManager.GetString("SuperTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Super Win Loss.
+        /// </summary>
+        public static string SuperWinLoss {
+            get {
+                return ResourceManager.GetString("SuperWinLoss", resourceCulture);
             }
         }
         

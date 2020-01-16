@@ -411,6 +411,7 @@
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
+    <Compile Include="Controllers\RiskAnalysisIPMatchingController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -430,6 +431,7 @@
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbook.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
+    <Compile Include="Handlers\RiskAnalysisIPMatchingHandler.cs" />
     <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbook.cs" />
     <Compile Include="Handlers\Statement\MemberStatementExcelHandler.cs" />
@@ -505,6 +507,7 @@
     <Compile Include="Requests\FromLast3YearDateRangeQuery.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
+    <Compile Include="Requests\RiskAnalysisIPMatchingQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductExcelQuery.cs" />
     <Compile Include="Requests\Statement\MemberStatementExcelQuery.cs" />
@@ -551,6 +554,7 @@
     <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
     <Compile Include="ViewModels\ProgressiveContribution\ProgressiveContributionViewModel.cs" />
+    <Compile Include="ViewModels\RiskAnalysisIPMatchingViewModel.cs" />
     <Compile Include="ViewModels\Statement\MemberStatementViewModel.cs" />
     <Compile Include="ViewModels\Statement\SMAStatementViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModel.cs" />
@@ -1007,6 +1011,7 @@
     <Content Include="Views\ProgressiveContribution\Index.cshtml" />
     <Content Include="Views\ProgressiveContribution\ReportLegend.cshtml" />
     <Content Include="Views\Outstanding\ReportLegend.cshtml" />
+    <Content Include="Views\RiskAnalysisIPMatching\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
