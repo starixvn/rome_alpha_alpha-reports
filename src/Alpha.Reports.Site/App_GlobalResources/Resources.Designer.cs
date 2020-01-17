@@ -835,6 +835,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IP MATCHING.
+        /// </summary>
+        public static string IPMatching {
+            get {
+                return ResourceManager.GetString("IPMatching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to January.
         /// </summary>
         public static string January {

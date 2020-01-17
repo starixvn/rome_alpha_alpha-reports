@@ -3,6 +3,8 @@
     ViewBag.Title = "IP MATCHING";
 }
 
+@ReportTitle.Render(new PageHeaderViewModel(Resources.IPMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
+
 <div class="form-group  from-date-box">
     <label>@Resources.Date</label>
 
@@ -35,6 +37,7 @@
             <th>@Resources.MemberWinLoss</th>
             <th>@Resources.SuperWinLoss</th>
             <th>@Resources.Company</th>
+        </tr>
     </thead>
     @if (Model.RiskAnalysisIPMatchingItems.Any())
     {

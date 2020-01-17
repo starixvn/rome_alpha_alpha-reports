@@ -675,4 +675,7 @@
   <data name="SuperWinLoss" xml:space="preserve">
     <value>Super Win Loss</value>
   </data>
+  <data name="IPMatching" xml:space="preserve">
+    <value>IP MATCHING</value>
+  </data>
 </root>
