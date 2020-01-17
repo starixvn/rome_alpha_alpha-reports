@@ -11,7 +11,7 @@
         IEnumerable<RiskAnalysisIPMatchingModel> GetRiskAnalysisIPMatchingModel(RiskAnalysisIPMatchingParam param);
     }
 
-    public class RiskAnalysisIPMatchingServiceImpl
+    public class RiskAnalysisIPMatchingServiceImpl : RiskAnalysisIPMatchingService
     {
         private readonly IDynamicRepository dynamicRepository;
 
