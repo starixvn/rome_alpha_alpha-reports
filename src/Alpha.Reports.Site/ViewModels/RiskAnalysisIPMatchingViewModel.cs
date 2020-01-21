@@ -15,10 +15,12 @@
 
         public RiskAnalysisIPMatchingViewModel(
             DateTime winlostDate,
+            DateTime mindate,
             int userSelectedStatusId,
             IEnumerable<RiskAnalysisIPMatchingModel> riskAnalysisIPMatchingItems)
         {
             WinlostDate = winlostDate;
+            Mindate = mindate;
             RiskAnalysisIPMatchingItems = riskAnalysisIPMatchingItems;
             StatusSelection = MemberCountItems.Select(item => new SelectListItem
             {
@@ -32,7 +34,7 @@
 
         public DateTime Today => SystemTime.Today;
 
-        public DateTime Mindate => SystemTime.Today.AddDays(-14);
+        public DateTime Mindate { get; }
 
         public IEnumerable<RiskAnalysisIPMatchingModel> RiskAnalysisIPMatchingItems { get; }
 

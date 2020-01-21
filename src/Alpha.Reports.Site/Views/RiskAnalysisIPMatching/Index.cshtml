@@ -35,7 +35,7 @@
     </div>
 
     @Html.Hidden("MemberCount", 2)
-    @Html.Hidden("WinlostDate", Model.WinlostDate.ToShortDateWithSlash())
+    @Html.Hidden("SelectedWinlostDate", Model.WinlostDate.ToShortDateWithSlash())
     @Html.Hidden("Today", Model.Today.ToShortDateWithSlash())
     @Html.Hidden("MinDate", Model.Mindate.ToShortDateWithSlash())
 </form>

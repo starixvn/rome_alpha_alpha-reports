@@ -19,10 +19,11 @@
 
         public RiskAnalysisIPMatchingViewModel Handle(RiskAnalysisIPMatchingQuery message)
             => new RiskAnalysisIPMatchingViewModel(
-                message.WinlostDate,
+                message.SelectedWinlostDate,
+                message.MinDate,
                 message.MemberCount,
                 riskAnalysisIPMatchingService.GetRiskAnalysisIPMatchingModel(
                     new RiskAnalysisIPMatchingParam(
-                        message.CustId, message.WinlostDate, message.MoveBetsDate, message.MemberCount)));
+                        message.CustId, message.SelectedWinlostDate, message.MoveBetsDate, message.MemberCount)));
     }
 }

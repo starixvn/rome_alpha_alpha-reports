@@ -11,17 +11,17 @@
     {
         public RiskAnalysisIPMatchingQuery(IUser viewer) : base(viewer)
         {
-            WinlostDate = SystemTime.Today;
+            SelectedWinlostDate = SystemTime.Today;
         }
 
         public int MemberCount { get; set; }
 
-        public DateTime WinlostDate { get; set; }
+        public DateTime SelectedWinlostDate { get; set; }
 
         public DateTime MinDate => ReportDateServiceImpl.Instance.GetBalanceUpDay();
 
         public DateTime MoveBetsDate => ReportDateServiceImpl.Instance.GetMoveBetsDay();
 
-        public override bool IsValid() => base.IsValid() && MinDate <= WinlostDate;
+        public override bool IsValid() => base.IsValid() && MinDate <= SelectedWinlostDate;
     }
 }

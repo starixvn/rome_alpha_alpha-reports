@@ -19,8 +19,6 @@ class RiskAnalysisIPMatching {
     dateRangePickerComponent: DateRangePickerComponent;
     sortComponent: SortComponent;
 
-  
-
     constructor(
         $: JQueryStatic,
         dateRangePickerComponent: DateRangePickerComponent,
@@ -29,6 +27,10 @@ class RiskAnalysisIPMatching {
         this.$ = $;
         this.dateRangePickerComponent = dateRangePickerComponent;
         this.sortComponent = sortComponent;
+    }
+
+    bindingWinlostDateValue = () => {
+        console.log("aaaa");
     }
 
     init = () => {
@@ -40,7 +42,9 @@ class RiskAnalysisIPMatching {
 
         this.$('#dpkContainer').datepicker(options).data("DateTimePicker").maxDate(this.$('#Today').val());
 
-
+        this.$('#dpkContainer').on("dp.change", (e) => {
+            this.$('#SelectedWinlostDate').val(this.$('#WinlostDate').val());
+        });
         //.on("changeDate", function (event) {
         //    this.$('#WinlostDate').val((<HTMLInputElement>event.target).value);
         //})
