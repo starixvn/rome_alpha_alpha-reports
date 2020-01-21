@@ -20,12 +20,23 @@
             this.dynamicRepository = dynamicRepository;
         }
 
+        //public IEnumerable<RiskAnalysisIPMatchingModel> GetRiskAnalysisIPMatchingModel(RiskAnalysisIPMatchingParam param)
+        //    => dynamicRepository.Fetch<RiskAnalysisIPMatchingModel>(
+        //        new RiskAnalysisIPMatchingCriteria(
+        //            param.CustId,
+        //            param.WinlostDate,
+        //            param.MoveBetsDay,
+        //            param.MemberCount));
+
         public IEnumerable<RiskAnalysisIPMatchingModel> GetRiskAnalysisIPMatchingModel(RiskAnalysisIPMatchingParam param)
-            => dynamicRepository.Fetch<RiskAnalysisIPMatchingModel>(
-                new RiskAnalysisIPMatchingCriteria(
-                    param.CustId,
-                    param.WinlostDate,
-                    param.MoveBetsDay,
-                    param.MemberCount));
+        {
+            return new List<RiskAnalysisIPMatchingModel>()
+            {
+                new RiskAnalysisIPMatchingModel("192.168.1.1", 5, 15, 32, 55, 66, 66),
+                new RiskAnalysisIPMatchingModel("192.168.1.2", 6, 17, 32, 55, 66, 66),
+                new RiskAnalysisIPMatchingModel("192.168.1.3", 9, 18, 32, 55, 66, 66),
+                new RiskAnalysisIPMatchingModel("192.168.1.4", 55, 29, 32, 55, 66, 66),
+            };
+        }
     }
 }

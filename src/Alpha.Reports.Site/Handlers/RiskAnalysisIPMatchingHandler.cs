@@ -20,6 +20,7 @@
         public RiskAnalysisIPMatchingViewModel Handle(RiskAnalysisIPMatchingQuery message)
             => new RiskAnalysisIPMatchingViewModel(
                 message.WinlostDate,
+                message.MemberCount,
                 riskAnalysisIPMatchingService.GetRiskAnalysisIPMatchingModel(
                     new RiskAnalysisIPMatchingParam(
                         message.CustId, message.WinlostDate, message.MoveBetsDate, message.MemberCount)));

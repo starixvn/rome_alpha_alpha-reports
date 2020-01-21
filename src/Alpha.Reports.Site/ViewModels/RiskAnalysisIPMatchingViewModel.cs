@@ -4,20 +4,34 @@
     using Alpha.Reports.Site.App_GlobalResources;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
 
     public class RiskAnalysisIPMatchingViewModel
     {
+        private IEnumerable<int> MemberCountItems
+               => new List<int> { 2, 3, 4, 8, 10, 15, 20, 30, 50, 100 };
+
         public RiskAnalysisIPMatchingViewModel(
             DateTime winlostDate,
+            int userSelectedStatusId,
             IEnumerable<RiskAnalysisIPMatchingModel> riskAnalysisIPMatchingItems)
         {
             WinlostDate = winlostDate;
             RiskAnalysisIPMatchingItems = riskAnalysisIPMatchingItems;
+            StatusSelection = MemberCountItems.Select(item => new SelectListItem
+            {
+                Text = item.ToString(),
+                Value = item.ToString(),
+                Selected = item.Equals(userSelectedStatusId)
+            });
         }
 
         public DateTime WinlostDate { get; }
 
         public IEnumerable<RiskAnalysisIPMatchingModel> RiskAnalysisIPMatchingItems { get; }
+
+        public IEnumerable<SelectListItem> StatusSelection { get; }
 
         public RiskAnalysisIPMatchingModel TotalRow {
             get {
