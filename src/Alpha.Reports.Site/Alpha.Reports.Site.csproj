@@ -376,6 +376,7 @@
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-master-agent.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-member.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun.ts" />
+    <TypeScriptCompile Include="assets\scripts\risk-analysis-ip-matching\index.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\member-statement-init.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\member-statement.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\sma-statement-init.ts" />
@@ -720,6 +721,10 @@
     </Content>
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.js">
       <DependentUpon>progressivecontribution.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\RiskAnalysisIPMatching\index.js" />
+    <Content Include="assets\bundles\RiskAnalysisIPMatching\index.min.js">
+      <DependentUpon>index.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.js" />
     <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.min.js">

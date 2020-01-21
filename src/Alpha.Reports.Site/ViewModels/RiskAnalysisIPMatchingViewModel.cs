@@ -2,6 +2,7 @@
 {
     using Alpha.Reports.Models;
     using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Utils;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -28,6 +29,10 @@
         }
 
         public DateTime WinlostDate { get; }
+
+        public DateTime Today => SystemTime.Today;
+
+        public DateTime Mindate => SystemTime.Today.AddDays(-14);
 
         public IEnumerable<RiskAnalysisIPMatchingModel> RiskAnalysisIPMatchingItems { get; }
 
