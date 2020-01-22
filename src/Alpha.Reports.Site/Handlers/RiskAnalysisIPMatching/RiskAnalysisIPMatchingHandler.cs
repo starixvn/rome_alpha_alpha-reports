@@ -2,7 +2,7 @@
 {
     using Alpha.Reports.Params;
     using Alpha.Reports.Services;
-    using Alpha.Reports.Site.Requests;
+    using Alpha.Reports.Site.Requests.RiskAnalysisIPMatching;
     using Alpha.Reports.Site.ViewModels;
     using MediatR;
 

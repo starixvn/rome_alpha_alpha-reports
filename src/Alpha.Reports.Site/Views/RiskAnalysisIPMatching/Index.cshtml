@@ -45,7 +45,7 @@
        data-totalrecords="@Model.RiskAnalysisIPMatchingItems.Count()">
     <thead>
         <tr>
-            <th>IP</th>
+            <th>@Resources.IP</th>
             <th>@Resources.MemberCount</th>
             <th>@Resources.BetCount</th>
             <th>@Resources.MemberTurnOver</th>
@@ -73,14 +73,9 @@
 </table>
 
 <form class="form-inline hide" role="form" id="export-excel-form"
-      action="@Url.Action("Excel", "WinLoss")">
-    @*@Html.Hidden("CustId", Model.CustId)
-        @Html.Hidden("CustName", Model.CustName)
-        @Html.Hidden("FromDate", Model.FromDate)
-        @Html.Hidden("ToDate", Model.ToDate)
-        @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds)
-        @Html.Hidden("CustLevelId", Model.CustLevel.Value)
-        @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)*@
+      action="@Url.Action("Excel", "RiskAnalysisIPMatching")">
+    @Html.Hidden("MemberCount", 2)
+    @Html.Hidden("SelectedWinlostDate", Model.WinlostDate.ToShortDateWithSlash())
 </form>
 
 @section Scripts {

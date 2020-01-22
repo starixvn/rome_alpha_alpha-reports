@@ -446,7 +446,8 @@
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbook.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
-    <Compile Include="Handlers\RiskAnalysisIPMatchingHandler.cs" />
+    <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingHandler.cs" />
+    <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelHandler.cs" />
     <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbook.cs" />
     <Compile Include="Handlers\Statement\MemberStatementExcelHandler.cs" />
@@ -522,7 +523,8 @@
     <Compile Include="Requests\FromLast3YearDateRangeQuery.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
-    <Compile Include="Requests\RiskAnalysisIPMatchingQuery.cs" />
+    <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingQuery.cs" />
+    <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductExcelQuery.cs" />
     <Compile Include="Requests\Statement\MemberStatementExcelQuery.cs" />
@@ -983,6 +985,7 @@
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Member.xls" />
+    <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

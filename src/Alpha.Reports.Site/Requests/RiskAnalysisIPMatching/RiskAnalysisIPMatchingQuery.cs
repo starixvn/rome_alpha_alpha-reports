@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Requests
+﻿namespace Alpha.Reports.Site.Requests.RiskAnalysisIPMatching
 {
     using Alpha.Reports.Models;
     using Alpha.Reports.Services;

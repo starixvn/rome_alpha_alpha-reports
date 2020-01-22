@@ -45,9 +45,10 @@ class RiskAnalysisIPMatching {
         this.$('#dpkContainer').on("dp.change", (e) => {
             this.$('#SelectedWinlostDate').val(this.$('#WinlostDate').val());
         });
-        //.on("changeDate", function (event) {
-        //    this.$('#WinlostDate').val((<HTMLInputElement>event.target).value);
-        //})
+
+        this.$("#icon-excel").on("click", () => {
+            this.$("#export-excel-form").submit();
+        });
     };
 }
 
