@@ -489,7 +489,7 @@
   <data name="ConsolidationReportByProduct" xml:space="preserve">
     <value>스포츠 통합 리포트</value>
   </data>
-  <data name="MemberCount" xml:space="preserve">
+ <data name="MemberCount" xml:space="preserve">
     <value>Member Count</value>
   </data>
   <data name="SuperWinLoss" xml:space="preserve">
@@ -510,4 +510,25 @@
   <data name="Stake" xml:space="preserve">
     <value>배팅 금액</value>
   </data>
+<data name="BetChoiceMatching" xml:space="preserve">
+    <value>Bet Choice Matching</value>
+  </data>
+  <data name="MatchingBets" xml:space="preserve">
+    <value>Matching Bets</value>
+  </data>
+  <data name="odds" xml:space="preserve">
+    <value>배당</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>아이피</value>
+  </data>
+  <data name="refno" xml:space="preserve">
+    <value>배팅 번호</value>
+  </data>
+  <data name="transtime" xml:space="preserve">
+    <value>전송 시간</value>
+  </data>
+
+
+
 </root>

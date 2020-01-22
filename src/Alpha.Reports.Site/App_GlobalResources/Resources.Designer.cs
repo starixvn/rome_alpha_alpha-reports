@@ -223,6 +223,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet Choice Matching.
+        /// </summary>
+        public static string BetChoiceMatching {
+            get {
+                return ResourceManager.GetString("BetChoiceMatching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Count.
         /// </summary>
         public static string BetCount {
@@ -1015,6 +1024,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Matching Bets.
+        /// </summary>
+        public static string MatchingBets {
+            get {
+                return ResourceManager.GetString("MatchingBets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Match Result Entered.
         /// </summary>
         public static string MatchResultEntered {
@@ -1267,6 +1285,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Odds.
+        /// </summary>
+        public static string odds {
+            get {
+                return ResourceManager.GetString("odds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to of.
         /// </summary>
         public static string of {
@@ -1425,6 +1452,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Race {
             get {
                 return ResourceManager.GetString("Race", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ref No.
+        /// </summary>
+        public static string refno {
+            get {
+                return ResourceManager.GetString("refno", resourceCulture);
             }
         }
         
@@ -1636,6 +1672,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Super Win Loss.
+        /// </summary>
+        public static string superwinloss {
+            get {
+                return ResourceManager.GetString("superwinloss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to --.
         /// </summary>
         public static string Symbol_NoDataNumber {
@@ -1803,6 +1848,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string TransferDetails {
             get {
                 return ResourceManager.GetString("TransferDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trans.Time.
+        /// </summary>
+        public static string transtime {
+            get {
+                return ResourceManager.GetString("transtime", resourceCulture);
             }
         }
         

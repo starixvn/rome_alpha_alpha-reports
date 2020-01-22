@@ -645,7 +645,7 @@
   <data name="Happy5" xml:space="preserve">
     <value>快樂5</value>
   </data>
-  <data name="MemberCount" xml:space="preserve">
+<data name="MemberCount" xml:space="preserve">
     <value>會員數</value>
   </data>
   <data name="SuperWinLoss" xml:space="preserve">
@@ -666,4 +666,24 @@
   <data name="Stake" xml:space="preserve">
     <value>投注額</value>
   </data>
+ <data name="BetChoiceMatching" xml:space="preserve">
+    <value>Bet Choice Matching</value>
+  </data>
+  <data name="MatchingBets" xml:space="preserve">
+    <value>Matching Bets</value>
+  </data>
+  <data name="odds" xml:space="preserve">
+    <value>賠率</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="refno" xml:space="preserve">
+    <value>參照號碼</value>
+  </data>
+  <data name="transtime" xml:space="preserve">
+    <value>交易時間</value>
+  </data>
+
+
 </root>

@@ -251,9 +251,16 @@
   },
   {
     "outputFileName": "assets/bundles/progressivecontribution/progressivecontribution.css",
-
     "inputFiles": [
       "assets/styles/progressivecontribution/progressivecontribution.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/betchoicematching/betchoicematching.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/betchoicematching/betchoicematching.js"
     ]
   },
   {

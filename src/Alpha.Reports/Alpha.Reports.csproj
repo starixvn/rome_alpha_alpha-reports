@@ -138,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
+    <Compile Include="Criteria\BetChoiceMatchingCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
@@ -189,6 +190,8 @@
     <Compile Include="Helpers\BetTypeHelper.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
+    <Compile Include="Models\BetChoiceMatchingModel.cs" />
+    <Compile Include="Params\BetChoiceMatchingParam.cs" />
     <Compile Include="Models\CommissionByBettype\CommissionByBettypeModel.cs" />
     <Compile Include="Models\Consolidation\ConsolidationByDate.cs" />
     <Compile Include="Models\Consolidation\ConsolidationByProduct.cs" />
@@ -251,6 +254,7 @@
     <Compile Include="Params\WinLossByProductParam.cs" />
     <Compile Include="Params\WinLossParam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BetChoiceMatchingService.cs" />
     <Compile Include="Services\CacheRefService.cs" />
     <Compile Include="Services\ConsolidationService.cs" />
     <Compile Include="Services\IPServiceImpl.cs" />

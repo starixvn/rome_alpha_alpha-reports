@@ -666,4 +666,24 @@
   <data name="Stake" xml:space="preserve">
     <value>投注额</value>
   </data>
+<data name="BetChoiceMatching" xml:space="preserve">
+    <value>Bet Choice Matching</value>
+  </data>
+  <data name="MatchingBets" xml:space="preserve">
+    <value>Matching Bets</value>
+  </data>
+  <data name="odds" xml:space="preserve">
+    <value>赔率</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="refno" xml:space="preserve">
+    <value>参照号码</value>
+  </data>
+  <data name="transtime" xml:space="preserve">
+    <value>交易时间</value>
+  </data>
+
+
 </root>

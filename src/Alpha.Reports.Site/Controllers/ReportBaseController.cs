@@ -3,6 +3,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Alpha.Reports.Site.App_GlobalResources;
     using MediatR;
     using Requests;
     using ViewModels;
@@ -45,6 +46,17 @@
             }
 
             return GetExcelContent(mediator.Send(message));
+        }
+
+        protected ActionResult Json<TResponse>(IRequest<TResponse> message)
+        {
+            var baseQuery = message as ReportBaseQuery;
+            if (baseQuery != null && !baseQuery.IsValid())
+            {
+                return Json(Resources.NoInformationIsAvailable);
+            }
+
+            return Json(mediator.Send(message));
         }
     }
 }
