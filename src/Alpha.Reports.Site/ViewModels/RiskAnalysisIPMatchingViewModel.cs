@@ -2,6 +2,7 @@
 {
     using Alpha.Reports.Models;
     using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Alpha.Reports.Utils;
     using System;
     using System.Collections.Generic;
@@ -39,6 +40,9 @@
         public IEnumerable<RiskAnalysisIPMatchingModel> RiskAnalysisIPMatchingItems { get; }
 
         public IEnumerable<SelectListItem> StatusSelection { get; }
+
+        public PagerViewModel PagerViewModel =>
+          new PagerViewModel(1, 10, 100);
 
         public RiskAnalysisIPMatchingModel TotalRow {
             get {

@@ -1,7 +1,5 @@
 ﻿/// <reference path="../core.ts" />
-/// <reference path="../components/daterangepicker.ts" />
-/// <reference path="../components/sort.ts" /> 
-/// <reference path="../components/link-builder.ts" />
+/// <reference path="../components/pager.ts" />
 
 "use strict";
 
@@ -16,24 +14,17 @@ class DatePickerOption {
 
 class RiskAnalysisIPMatching {
     $: JQueryStatic;
-    dateRangePickerComponent: DateRangePickerComponent;
-    sortComponent: SortComponent;
+    pagerComponent: PagerComponent;
+    hasAllDataOnClient = false;
 
-    constructor(
-        $: JQueryStatic,
-        dateRangePickerComponent: DateRangePickerComponent,
-        sortComponent: SortComponent) {
-
+    constructor($: JQueryStatic, pageComponent: PagerComponent) {
         this.$ = $;
-        this.dateRangePickerComponent = dateRangePickerComponent;
-        this.sortComponent = sortComponent;
-    }
-
-    bindingWinlostDateValue = () => {
-        console.log("aaaa");
+        this.pagerComponent = pageComponent;
     }
 
     init = () => {
+        this.$.blockUI();
+
         this.$("SELECT").on("change", (event) => {
             this.$('#MemberCount').val((<HTMLInputElement>event.target).value);
         });
@@ -49,13 +40,16 @@ class RiskAnalysisIPMatching {
         this.$("#icon-excel").on("click", () => {
             this.$("#export-excel-form").submit();
         });
+
+        this.pagerComponent.render();
+
+        //this.hasAllDataOnClient = this.pagerComponent.hasAllDataOnClient();
+
+        this.$.unblockUI();
     };
 }
 
 $(function () {
-    const riskAnalysisIPMatching = new RiskAnalysisIPMatching(
-        $,
-        new DateRangePickerComponent($),
-        new SortComponent($, new LinkBuilderComponent($)));
+    const riskAnalysisIPMatching = new RiskAnalysisIPMatching($, new PagerComponent($));
     riskAnalysisIPMatching.init();
 });

@@ -72,6 +72,8 @@
     }
 </table>
 
+@Pager.Render(Model.PagerViewModel)
+
 <form class="form-inline hide" role="form" id="export-excel-form"
       action="@Url.Action("Excel", "RiskAnalysisIPMatching")">
     @Html.Hidden("MemberCount", 2)

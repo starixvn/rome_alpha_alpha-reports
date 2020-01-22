@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Services
 {
-    using Alpha.Reports.Criteria.PlayForFun;
     using Alpha.Reports.Models;
     using Alpha.Reports.Params;
     using Fanex.Data.Repository;
@@ -36,6 +35,13 @@
                 new RiskAnalysisIPMatchingModel("192.168.1.2", 6, 17, 32, 55, 66, 66),
                 new RiskAnalysisIPMatchingModel("192.168.1.3", 9, 18, 32, 55, 66, 66),
                 new RiskAnalysisIPMatchingModel("192.168.1.4", 55, 29, 32, 55, 66, 66),
+                new RiskAnalysisIPMatchingModel("192.168.1.1", 5, 15, 32, 55, 66, 66),
+                new RiskAnalysisIPMatchingModel("192.168.1.2", 6, 17, 32, 55, 66, 66),
+                new RiskAnalysisIPMatchingModel("192.168.1.1", 5, 15, 32, 55, 66, 66),
+                new RiskAnalysisIPMatchingModel("192.168.1.2", 6, 17, 32, 55, 66, 66),
+                new RiskAnalysisIPMatchingModel("192.168.1.3", 9, 18, 32, 55, 66, 66),
+                new RiskAnalysisIPMatchingModel("192.168.1.4", 55, 29, 32, 55, 66, 66),
+                new RiskAnalysisIPMatchingModel("192.168.1.1", 5, 15, 32, 55, 66, 66)
             };
         }
     }
