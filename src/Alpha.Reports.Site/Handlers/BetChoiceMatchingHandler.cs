@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
+    using Alpha.Reports.Models;
     using Alpha.Reports.Params;
     using Alpha.Reports.Services;
     using Alpha.Reports.Site.Requests;
@@ -9,7 +10,7 @@
 
     public class BetChoiceMatchingHandler :
         BaseHandler,
-        IRequestHandler<BetChoiceMatchingQuery, BetChoiceMatchingQueryModel>
+        IRequestHandler<BetChoiceMatchingQuery, BetChoiceMatchingQueryResult>
     {
         private readonly BetChoiceMatchingService betChoiceMatchingService;
         private readonly CacheRefService cacheRefService;
@@ -20,16 +21,14 @@
             this.cacheRefService = cacheRefService;
         }
 
-        public BetChoiceMatchingQueryModel Handle(BetChoiceMatchingQuery message)
+        public BetChoiceMatchingQueryResult Handle(BetChoiceMatchingQuery message)
         {
             var queryParam = new BetChoiceMatchingParam(message.CustId, message.WinlostDate, message.MoveBetsDate, message.BetCount);
             var items = betChoiceMatchingService.Query(queryParam);
-            var leagues = items.Select(x => x.LeagueId).Distinct().Select(leagueId => new
-            {
-                Id = leagueId,
-                Name = cacheRefService.GetLeagueName(leagueId)
-            });
-            return new BetChoiceMatchingQueryModel(items);
+            var leagues = items.Select(x => x.LeagueId).Distinct().Select(leagueId => new KeyValueModel(leagueId, cacheRefService.GetLeagueName(leagueId)));
+            var sportTypes = items.Select(x => x.SportType).Distinct().Select(sportType => new KeyValueModel(sportType, cacheRefService.GetSportName(sportType)));
+            var betTypes = items.Select(x => x.BetType).Distinct().Select(betType => new KeyValueModel(betType, cacheRefService.GetBetTypeName(betType)));
+            return new BetChoiceMatchingQueryResult(new BetChoiceMatchingViewResource(), items, leagues, sportTypes, betTypes);
         }
     }
 }

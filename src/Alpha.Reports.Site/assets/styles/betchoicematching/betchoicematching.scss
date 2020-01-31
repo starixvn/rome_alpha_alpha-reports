@@ -1,0 +1,32 @@
+﻿#tbl-report {
+    .row-bet-choice {
+        .col-bet-choice {
+            border-right: none;
+
+            .text-bet-type {
+                color: #003399;
+            }
+        }
+
+        .col-league-sport {
+            border-left: none;
+            border-right: none;
+
+            .text-league {
+                color: #666666;
+            }
+
+            .text-sport-type {
+                color: #0066CC;
+            }
+        }
+
+        .col-global-time {
+            border-left: none;
+        }
+    }
+
+    .text-username {
+        font-weight: normal;
+    }
+}

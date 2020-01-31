@@ -18,5 +18,9 @@
   {
     "outputFile": "assets/styles/progressivecontribution/progressivecontribution.css",
     "inputFile": "assets/styles/progressivecontribution/progressivecontribution.scss"
+  },
+  {
+    "outputFile": "assets/styles/betchoicematching/betchoicematching.css",
+    "inputFile": "assets/styles/betchoicematching/betchoicematching.scss"
   }
 ]

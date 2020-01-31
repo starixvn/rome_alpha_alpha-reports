@@ -4,6 +4,10 @@
     ViewBag.Title = "BET CHOICE MATCHING";
 }
 
+@section Styles {
+    @StaticResources.RenderStyles("~/assets/bundles/betchoicematching/betchoicematching")
+}
+
 @ReportTitle.Render(new PageHeaderViewModel(Resources.BetChoiceMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
 
 <form class="form-inline filter" role="form" id="report-form" action="@Url.Action("Query")">
@@ -36,18 +40,18 @@
     @Html.Hidden("Today", Model.WinlostDate)
     @Html.Hidden("MinDate", Model.WinlostDate.AddDays(-14))
 </form>
-<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover hide" id="tbl-report">
+<table class="tblRpt tblRpt-bordered tblRpt-hover width-100per hide" id="tbl-report">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
-            <th>@Resources.Username</th>
-            <th>@Resources.transtime</th>
-            <th>@Resources.refno</th>
-            <th>@Resources.odds</th>
-            <th>@Resources.IP</th>
-            <th>@Resources.stake</th>
-            <th>@Resources.MemberWinLoss</th>
-            <th>@Resources.superwinloss</th>
-            <th>@Resources.Company</th>
+            <th class="col-username">@Resources.Username</th>
+            <th class="col-transtime">@Resources.transtime</th>
+            <th class="col-refno">@Resources.refno</th>
+            <th class="col-odds">@Resources.odds</th>
+            <th class="col-ip">@Resources.IP</th>
+            <th class="col-stake">@Resources.stake</th>
+            <th class="col-memberwinloss">@Resources.MemberWinLoss</th>
+            <th class="col-superwinloss">@Resources.superwinloss</th>
+            <th class="col-company">@Resources.Company</th>
         </tr>
     </thead>
     <tbody>
@@ -56,13 +60,6 @@
         </tr>
     </tbody>
     <tfoot>
-        <tr class="tbl-footer">
-            <td colspan="5">@Resources.Total</td>
-            <td class="col-stake"></td>
-            <td class="col-memberwinloss"></td>
-            <td class="col-superwinloss"></td>
-            <td class="col-company"></td>
-        </tr>
     </tfoot>
 </table>
 @section Scripts {

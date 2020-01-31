@@ -7,7 +7,7 @@
     using MediatR;
     using System;
 
-    public class BetChoiceMatchingQuery : ReportBaseQuery, IRequest<BetChoiceMatchingQueryModel>
+    public class BetChoiceMatchingQuery : ReportBaseQuery, IRequest<BetChoiceMatchingQueryResult>
     {
         public BetChoiceMatchingQuery(IUser viewer) : base(viewer)
         {

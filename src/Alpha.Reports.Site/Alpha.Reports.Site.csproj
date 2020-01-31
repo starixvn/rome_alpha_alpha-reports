@@ -555,8 +555,9 @@
     <Compile Include="Requests\WinLoss\EnteredSportResultExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossQuery.cs" />
-    <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingQueryModel.cs" />
+    <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingQueryResult.cs" />
     <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingViewModel.cs" />
+    <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingViewResource.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeFilterViewModel.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeViewModel.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
@@ -713,7 +714,11 @@
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBRPT.bodb_report.BODBDownlineNet.xml" />
+    <Content Include="assets\bundles\betchoicematching\betchoicematching.css" />
     <Content Include="assets\bundles\betchoicematching\betchoicematching.js" />
+    <Content Include="assets\bundles\betchoicematching\betchoicematching.min.css">
+      <DependentUpon>betchoicematching.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\betchoicematching\betchoicematching.min.js">
       <DependentUpon>betchoicematching.js</DependentUpon>
     </Content>
@@ -850,6 +855,12 @@
     <Content Include="assets\scripts\tests\libs\store.js" />
     <Content Include="assets\scripts\tests\libs\tablesorter.js" />
     <Content Include="assets\scripts\tests\libs\tiny-draggable.js" />
+    <Content Include="assets\styles\betchoicematching\betchoicematching.css">
+      <DependentUpon>betchoicematching.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\betchoicematching\betchoicematching.min.css">
+      <DependentUpon>betchoicematching.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\consolidation\consolidation.css">
       <DependentUpon>consolidation.scss</DependentUpon>
     </Content>
@@ -1008,6 +1019,7 @@
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
+    <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1057,6 +1069,7 @@
     <Content Include="Views\Outstanding\ReportLegend.cshtml" />
     <Content Include="Views\RiskAnalysisIPMatching\Index.cshtml" />
     <Content Include="Views\BetChoiceMatching\Index.cshtml" />
+    <Content Include="typings\globals\numeral\typings.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1073,6 +1086,7 @@
     <TypeScriptCompile Include="typings\globals\jqueryui\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jquery\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\moment\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\numeral\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\storejs\index.d.ts" />
     <TypeScriptCompile Include="typings\index.d.ts" />
   </ItemGroup>

@@ -264,6 +264,12 @@
     ]
   },
   {
+    "outputFileName": "assets/bundles/betchoicematching/betchoicematching.css",
+    "inputFiles": [
+      "assets/styles/betchoicematching/betchoicematching.css"
+    ]
+  },
+  {
     "outputFileName": "assets/bundles/RiskAnalysisIPMatching/index.js",
     "inputFiles": [
       "assets/scripts/core.js",
