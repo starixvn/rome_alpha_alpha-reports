@@ -1,5 +1,4 @@
 ﻿/// <reference path="../core.ts" />
-/// <reference path="../components/pager.ts" />
 
 "use strict";
 
@@ -14,12 +13,10 @@ class DatePickerOption {
 
 class RiskAnalysisIPMatching {
     $: JQueryStatic;
-    pagerComponent: PagerComponent;
     hasAllDataOnClient = false;
 
-    constructor($: JQueryStatic, pageComponent: PagerComponent) {
+    constructor($: JQueryStatic) {
         this.$ = $;
-        this.pagerComponent = pageComponent;
     }
 
     init = () => {
@@ -41,15 +38,11 @@ class RiskAnalysisIPMatching {
             this.$("#export-excel-form").submit();
         });
 
-        this.pagerComponent.render();
-
-        //this.hasAllDataOnClient = this.pagerComponent.hasAllDataOnClient();
-
         this.$.unblockUI();
     };
 }
 
 $(function () {
-    const riskAnalysisIPMatching = new RiskAnalysisIPMatching($, new PagerComponent($));
+    const riskAnalysisIPMatching = new RiskAnalysisIPMatching($);
     riskAnalysisIPMatching.init();
 });

@@ -41,9 +41,6 @@
 
         public IEnumerable<SelectListItem> StatusSelection { get; }
 
-        public PagerViewModel PagerViewModel =>
-          new PagerViewModel(1, 10, 100);
-
         public RiskAnalysisIPMatchingModel TotalRow {
             get {
                 int memberCount = 0;
