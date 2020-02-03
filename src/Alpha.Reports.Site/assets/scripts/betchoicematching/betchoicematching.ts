@@ -6,6 +6,38 @@ interface JQuery {
     datepicker(option: any): void;
 }
 
+function getValueByKey(data: KeyValueModel[], key: any): any {
+    for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        if (item.Key === key)
+            return item.Value;
+    }
+
+    return null;
+}
+
+enum BetTypes {
+    HandicapFT = 1,
+    OverUnderFT = 3,
+    OneXTwoFT = 5,
+    Handicap1H = 7,
+    OverUnder1H = 8,
+    OneXTwo1H = 15
+}
+
+enum BetTeams {
+    H = 'h', // for HDP (FT + 1H) & OU (FT + 1H)
+    A = 'a', // for HDP (FT + 1H) & OU (FT + 1H)
+    One = '1', // for 1X2
+    Two = '2', // for 1X2
+    X = 'x' // for 1X2
+}
+
+const BetTeamClassNames = {
+    Underdog: "underdog",
+    Favorite: "favorite"
+};
+
 class QueryModelUserGroup {
     Username: string;
     MemberTurnover: number;
@@ -32,12 +64,90 @@ class QueryModelUserGroup {
     }
 }
 
-class QueryModelEventGroup {
+interface ChoiceTicket {
+    LeagueId: number;
+    SportType: number;
+    BetType: number;
+    Hdp1: number;
+    Hdp2: number;
+    HomeId: number;
+    AwayId: number;
+    BetTeam: string;
+    GlobalShowTime: string;
+    LiveHomeScore: number;
+    LiveAwayScore: number;
+}
+
+abstract class ChoiceBuilder {
+    constructor(protected ticket: ChoiceTicket) { }
+
+    get IsBetHomeTeam(): boolean {
+        return this.ticket.BetTeam && this.ticket.BetTeam.toLowerCase().indexOf(BetTeams.H) >= 0;
+    }
+
+    build(data: QueryModel): string {
+        return `<span class="text-bet-team">${this.generateBetTeam(data)}</span>
+                <span class="text-bet-team">${this.generateHandicap()}</span>
+                <span class="text-live-score">[${this.ticket.LiveHomeScore}-${this.ticket.LiveAwayScore}]</span>
+                <br />
+                <span class="text-bet-type">${getValueByKey(data.BetTypes, this.ticket.BetType)}</span>`;
+    }
+
+    abstract generateBetTeam(data: QueryModel): string;
+
+    abstract generateHandicap(): string;
+}
+
+class HandicapChoiceBuilder extends ChoiceBuilder {
+    generateBetTeam(data: QueryModel): string {
+        const betTeamId = this.IsBetHomeTeam ? this.ticket.HomeId : this.ticket.AwayId;
+        return getValueByKey(data.Teams, betTeamId);
+    }
+
+    generateHandicap(): string {
+        let betTeamClassName = '';
+        if (this.IsBetHomeTeam) {
+            betTeamClassName = this.ticket.Hdp2 >= this.ticket.Hdp1 ? BetTeamClassNames.Underdog : BetTeamClassNames.Favorite;
+        } else {
+            betTeamClassName = this.ticket.Hdp2 <= this.ticket.Hdp1 ? BetTeamClassNames.Underdog : BetTeamClassNames.Favorite;
+        }
+
+        let handicap = Math.max(this.ticket.Hdp1, this.ticket.Hdp2);
+        handicap = betTeamClassName === BetTeamClassNames.Favorite ? -handicap : handicap;
+        return numeral(handicap).format('0.[00]');
+    }
+}
+
+class OverUnderChoiceBuilder extends HandicapChoiceBuilder {
+    generateBetTeam(data: QueryModel): string {
+        return this.IsBetHomeTeam ? data.Resource.Over : data.Resource.Under;
+    }
+}
+
+class OneXTwoChoiceBuilder extends ChoiceBuilder {
+    generateBetTeam(): string {
+        const prefix = this.ticket.BetType === BetTypes.OneXTwoFT ? 'FT' : 'HT';
+        return `${prefix}.${this.ticket.BetTeam ? this.ticket.BetTeam.toUpperCase() : ''}`;
+    }
+
+    generateHandicap(): string {
+        return '';
+    }
+}
+
+class QueryModelEventGroup implements ChoiceTicket {
     Key: string;
     LeagueId: number;
     SportType: number;
     BetType: number;
+    Hdp1: number;
+    Hdp2: number;
+    HomeId: number;
+    AwayId: number;
+    BetTeam: string;
     GlobalShowTime: string;
+    LiveHomeScore: number;
+    LiveAwayScore: number;
     UserGroups: QueryModelUserGroup[];
 
     constructor(item: QueryModelItem) {
@@ -45,7 +155,14 @@ class QueryModelEventGroup {
         this.SportType = item.SportType;
         this.BetType = item.BetType;
         this.GlobalShowTime = item.GlobalShowTime;
-        this.Key = `${item.LeagueId}_${item.SportType}_${item.BetType}_${item.GlobalShowTime}`;
+        this.Hdp1 = item.Hdp1;
+        this.Hdp2 = item.Hdp2;
+        this.BetTeam = item.BetTeam;
+        this.LiveHomeScore = item.LiveHomeScore;
+        this.LiveAwayScore = item.LiveAwayScore;
+        this.HomeId = item.HomeId;
+        this.AwayId = item.AwayId;
+        this.Key = `${item.MatchId}_${item.BetType}_${item.Hdp1}_${item.Hdp2}_${item.BetTeam}`;
         this.UserGroups = [new QueryModelUserGroup(item)];
     }
 
@@ -56,6 +173,39 @@ class QueryModelEventGroup {
         } else {
             filterUserGroups[0].addItem(item);
         }
+    }
+
+    generateHtml(data: QueryModel): string {
+        const choiceBuilder = this.getChoiceBuilder();
+        return `<tr class="row-bet-choice">
+                    <td class="text-left col-bet-choice">${choiceBuilder.build(data)}</td>
+                    <td colspan="6" class="text-left col-league-sport">${this.generateEvent(data)}</td>
+                    <td colspan="2" class="text-center col-global-time">${moment(this.GlobalShowTime).format("MM/DD/YYYY HH:mm A")}</td>
+                </tr>`;
+    }
+
+    private getChoiceBuilder(): ChoiceBuilder {
+        switch (this.BetType) {
+            case BetTypes.HandicapFT:
+            case BetTypes.Handicap1H:
+                return new HandicapChoiceBuilder(this);
+            case BetTypes.OverUnderFT:
+            case BetTypes.OverUnder1H:
+                return new OverUnderChoiceBuilder(this);
+            case BetTypes.OneXTwoFT:
+            case BetTypes.OneXTwo1H:
+                return new OneXTwoChoiceBuilder(this);
+        }
+
+        throw new Error(`ChoiceBuilder is not implemented for bettype ${this.BetType}`);
+    }
+
+    private generateEvent(data: QueryModel): string {
+        return `<span class="text-event">${getValueByKey(data.Teams, this.HomeId)}${data.Resource.Versus}${getValueByKey(data.Teams, this.AwayId)}</span>
+                <br />
+                <span class="text-sport-type">${getValueByKey(data.SportTypes, this.SportType)}</span>
+                ${' '}
+                <span class="text-league">${getValueByKey(data.Leagues, this.LeagueId)}</span>`;
     }
 }
 
@@ -73,6 +223,14 @@ interface QueryModelItem {
     MemberWinLoss: number;
     SuperWinLoss: number;
     Company: number;
+    MatchId: number;
+    HomeId: number;
+    AwayId: number;
+    LiveHomeScore: number;
+    LiveAwayScore: number;
+    Hdp1: number;
+    Hdp2: number;
+    BetTeam: string;
 }
 
 interface KeyValueModel {
@@ -82,10 +240,14 @@ interface KeyValueModel {
 
 interface QueryResource {
     Total: string;
+    Versus: string;
+    Over: string;
+    Under: string;
 }
 
 interface QueryModel {
     Items: QueryModelItem[];
+    Teams: KeyValueModel[];
     Leagues: KeyValueModel[];
     SportTypes: KeyValueModel[];
     BetTypes: KeyValueModel[];
@@ -218,16 +380,6 @@ class BetChoiceMatching {
         return items;
     }
 
-    getValueByKey(data: KeyValueModel[], key: any): any {
-        for (let i = 0; i < data.length; i++) {
-            const item = data[i];
-            if (item.Key === key)
-                return item.Value;
-        }
-
-        return null;
-    }
-
     formatNumber = (value: number) => {
         if (!value) {
             return '-';
@@ -249,40 +401,30 @@ class BetChoiceMatching {
             totalCompany = null;
         const html = [];
         eventGroups.forEach(eventGroup => {
-            html.push(`<tr class="row-bet-choice"> \
-                    <td class="text-left col-bet-choice">
-                        <span class="text-bet-type">${this.getValueByKey(this.data.BetTypes, eventGroup.BetType)}</span>
-                    </td>
-                    <td colspan="6" class="text-left col-league-sport">
-                        <span class="text-league">${this.getValueByKey(this.data.Leagues, eventGroup.LeagueId)}</span>
-                        <br />
-                        <span class="text-sport-type">${this.getValueByKey(this.data.SportTypes, eventGroup.SportType)}</span>
-                    </td>
-                    <td colspan="2" class="text-center col-global-time">${moment(eventGroup.GlobalShowTime).format("MM/DD/YYYY HH:mm A")}</td>
-                </tr>`);
+            html.push(eventGroup.generateHtml(this.data));
             eventGroup.UserGroups.forEach((userGroup, index) => {
                 totalMemberTurnover += userGroup.MemberTurnover;
                 totalMemberWinLoss += userGroup.MemberWinLoss;
                 totalSuperWinLoss += userGroup.SuperWinLoss;
                 totalCompany += userGroup.Company;
 
-                html.push(`<tr class="${index % 2 === 0 ? "even-row bold" : "bold"}"> \
+                html.push(`<tr class="${index % 2 === 1 ? "row-even row-total" : "row-total"}">
                     <td class="text-left text-username" rowspan="${userGroup.Items.length + 1}">${userGroup.Username}</td>
                     <td class="text-right" colspan="4">${this.data.Resource.Total}</td>
                     <td>${this.formatNumber(userGroup.MemberTurnover)}</td>
                     <td>${this.formatNumber(userGroup.MemberWinLoss)}</td>
-                    <td>${this.formatNumber(userGroup.SuperWinLoss)}</td>
+                    <td class="col-superwinloss">${this.formatNumber(userGroup.SuperWinLoss)}</td>
                     <td>${this.formatNumber(userGroup.Company)}</td>
                 </tr>`);
                 userGroup.Items.forEach(item => {
-                    html.push(`<tr> \
+                    html.push(`<tr class="${index % 2 === 1 ? "row-even" : ""}">
                         <td class="text-center">${moment(item.TransDate).format("MM/DD HH:mm:ss")}</td>
                         <td class="text-center">${item.TransId}</td>
                         <td class="text-center">${item.Odds}</td>
                         <td class="text-center">${item.IP}</td>
                         <td>${this.formatNumber(item.MemberTurnover)}</td>
                         <td>${this.formatNumber(item.MemberWinLoss)}</td>
-                        <td>${this.formatNumber(item.SuperWinLoss)}</td>
+                        <td class="col-superwinloss">${this.formatNumber(item.SuperWinLoss)}</td>
                         <td>${this.formatNumber(item.Company)}</td>
                     </tr>`);
                 });
@@ -295,7 +437,7 @@ class BetChoiceMatching {
                 <td colspan="5">${this.data.Resource.Total}</td>
                 <td>${this.formatNumber(totalMemberTurnover)}</td>
                 <td>${this.formatNumber(totalMemberWinLoss)}</td>
-                <td>${this.formatNumber(totalSuperWinLoss)}</td>
+                <td class="col-superwinloss">${this.formatNumber(totalSuperWinLoss)}</td>
                 <td>${this.formatNumber(totalCompany)}</td>
             </tr>
         `);

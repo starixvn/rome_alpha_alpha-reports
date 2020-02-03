@@ -1357,6 +1357,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Over.
+        /// </summary>
+        public static string over {
+            get {
+                return ResourceManager.GetString("over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owner.
         /// </summary>
         public static string Owner {
@@ -1875,6 +1884,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string TurnoverAbbr {
             get {
                 return ResourceManager.GetString("TurnoverAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Under.
+        /// </summary>
+        public static string under {
+            get {
+                return ResourceManager.GetString("under", resourceCulture);
             }
         }
         

@@ -771,5 +771,10 @@
   <data name="transtime" xml:space="preserve">
     <value>Trans.Time</value>
   </data>
-
+  <data name="over" xml:space="preserve">
+    <value>Over</value>
+  </data>
+  <data name="under" xml:space="preserve">
+    <value>Under</value>
+  </data>
 </root>

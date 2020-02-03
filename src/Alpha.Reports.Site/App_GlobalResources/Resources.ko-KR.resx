@@ -528,7 +528,10 @@
   <data name="transtime" xml:space="preserve">
     <value>전송 시간</value>
   </data>
-
-
-
+  <data name="over" xml:space="preserve">
+    <value>오버</value>
+  </data>
+  <data name="under" xml:space="preserve">
+    <value>언더</value>
+  </data>
 </root>

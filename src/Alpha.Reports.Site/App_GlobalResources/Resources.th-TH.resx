@@ -684,6 +684,10 @@
   <data name="transtime" xml:space="preserve">
     <value>เวลาการดำเนินการ</value>
   </data>
-
-
+  <data name="over" xml:space="preserve">
+    <value>มากกว่า</value>
+  </data>
+  <data name="under" xml:space="preserve">
+    <value>น้อยกว่า</value>
+  </data>
 </root>

@@ -333,4 +333,11 @@
 </value>
 
   </data>
+  <data name="over" xml:space="preserve">
+    <value>オーバー</value>
+  </data>
+  <data name="under" xml:space="preserve">
+    <value>アンダー
+</value>
+  </data>
 </root>

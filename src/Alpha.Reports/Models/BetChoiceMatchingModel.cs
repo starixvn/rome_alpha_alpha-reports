@@ -26,7 +26,11 @@
             decimal memberTurnover,
             decimal memberWinLoss,
             decimal superWinLoss,
-            decimal company)
+            decimal company,
+            int homeId,
+            int awayId,
+            int liveHomeScore,
+            int liveAwayScore)
         {
             LeagueId = leagueId;
             GlobalShowTime = globalShowTime;
@@ -46,6 +50,10 @@
             MemberWinLoss = memberWinLoss;
             SuperWinLoss = superWinLoss;
             Company = company;
+            HomeId = homeId;
+            AwayId = awayId;
+            LiveHomeScore = liveHomeScore;
+            LiveAwayScore = liveAwayScore;
         }
 
         public int LeagueId { get; private set; }
@@ -83,5 +91,13 @@
         public decimal SuperWinLoss { get; private set; }
 
         public decimal Company { get; private set; }
+
+        public int HomeId { get; private set; }
+
+        public int AwayId { get; private set; }
+
+        public int LiveHomeScore { get; private set; }
+
+        public int LiveAwayScore { get; private set; }
     }
 }

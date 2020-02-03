@@ -684,6 +684,10 @@
   <data name="transtime" xml:space="preserve">
     <value>交易時間</value>
   </data>
-
-
+  <data name="over" xml:space="preserve">
+    <value>大</value>
+  </data>
+  <data name="under" xml:space="preserve">
+    <value>小</value>
+  </data>
 </root>
