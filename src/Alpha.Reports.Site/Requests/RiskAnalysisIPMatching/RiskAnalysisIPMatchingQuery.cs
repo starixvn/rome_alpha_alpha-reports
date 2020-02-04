@@ -22,6 +22,6 @@
 
         public DateTime MoveBetsDate => ReportDateServiceImpl.Instance.GetMoveBetsDay();
 
-        public override bool IsValid() => base.IsValid() && MinDate <= SelectedWinlostDate;
+        public override bool IsValid() => base.IsValid() && MinDate <= SelectedWinlostDate && ViewerLevel.IsSuperLevel();
     }
 }

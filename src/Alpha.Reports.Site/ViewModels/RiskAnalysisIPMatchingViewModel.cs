@@ -8,6 +8,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using ReportHelpers = Helpers;
 
     public class RiskAnalysisIPMatchingViewModel
     {
@@ -29,6 +30,8 @@
                 Value = item.ToString(),
                 Selected = item.Equals(userSelectedStatusId)
             });
+
+            BetListPath = Helpers.UrlHelper.MapBetListPath("~/RiskAnalysisIPMatching/Index");
         }
 
         public DateTime WinlostDate { get; }
@@ -36,6 +39,8 @@
         public DateTime Today => SystemTime.Today;
 
         public DateTime Mindate { get; }
+
+        public string BetListPath { get; }
 
         public IEnumerable<RiskAnalysisIPMatchingModel> RiskAnalysisIPMatchingItems { get; }
 
@@ -70,5 +75,15 @@
                     company);
             }
         }
+
+        public string GetBetListLink(IDictionary<string, object> routeValues)
+            => ReportHelpers.UrlHelper.AddQueryStringParamsFunc(ReportHelpers.UrlHelper.MapExMainPath(BetListPath), routeValues);
+
+        public IDictionary<string, object> GetBetListLinkRouteValues(string ip, DateTime date)
+            => new Dictionary<string, object>
+            {
+                ["Date"] = date,
+                ["IP"] = ip
+            };
     }
 }
