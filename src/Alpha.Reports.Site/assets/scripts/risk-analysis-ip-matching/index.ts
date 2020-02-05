@@ -38,6 +38,21 @@ class RiskAnalysisIPMatching {
             this.$("#export-excel-form").submit();
         });
 
+        this.$(".icon-filter").on("click", () => {
+            const $reportForm = this.$("#report-form");
+            const $pageTitle = this.$(".page-title");
+
+            let currentHideState = $reportForm.hasClass("hide");
+
+            if (currentHideState) {
+                $pageTitle.removeClass("hide-filter");
+                $reportForm.removeClass("hide");
+            } else {
+                $pageTitle.addClass("hide-filter");
+                $reportForm.addClass("hide");
+            }
+        });
+
         this.$.unblockUI();
     };
 }
