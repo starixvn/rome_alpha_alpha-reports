@@ -853,6 +853,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This report&apos;s data is used for statistics only, due to the resettlement process, the figure might not be totally exact..
+        /// </summary>
+        public static string IPMatchingNote {
+            get {
+                return ResourceManager.GetString("IPMatchingNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to January.
         /// </summary>
         public static string January {

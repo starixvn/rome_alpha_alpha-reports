@@ -34,6 +34,10 @@
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 
+    <div class="note">
+        <span class="star">*</span>@Resources.IPMatchingNote
+    </div>
+
     @Html.Hidden("MemberCount", 2)
     @Html.Hidden("SelectedWinlostDate", Model.WinlostDate.ToShortDateWithSlash())
     @Html.Hidden("Today", Model.Today.ToShortDateWithSlash())

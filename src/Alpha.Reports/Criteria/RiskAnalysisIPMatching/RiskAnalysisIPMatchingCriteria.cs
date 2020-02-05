@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Criteria.PlayForFun
+﻿namespace Alpha.Reports.Criteria.RiskAnalysisIPMatching
 {
     using System;
     using Fanex.Data.Repository;
