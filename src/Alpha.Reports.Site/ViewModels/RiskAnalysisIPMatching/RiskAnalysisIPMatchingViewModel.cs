@@ -2,7 +2,6 @@
 {
     using Alpha.Reports.Models;
     using Alpha.Reports.Site.App_GlobalResources;
-    using Alpha.Reports.Site.ViewModels.Components;
     using Alpha.Reports.Utils;
     using System;
     using System.Collections.Generic;
@@ -13,7 +12,9 @@
     public class RiskAnalysisIPMatchingViewModel
     {
         private IEnumerable<int> MemberCountItems
+#pragma warning disable S109 // Magic numbers should not be used
                => new List<int> { 2, 3, 4, 8, 10, 15, 20, 30, 50, 100 };
+#pragma warning restore S109 // Magic numbers should not be used
 
         public RiskAnalysisIPMatchingViewModel(
             DateTime winlostDate,

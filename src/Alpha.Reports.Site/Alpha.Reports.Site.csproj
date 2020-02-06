@@ -571,7 +571,7 @@
     <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
     <Compile Include="ViewModels\ProgressiveContribution\ProgressiveContributionViewModel.cs" />
-    <Compile Include="ViewModels\RiskAnalysisIPMatchingViewModel.cs" />
+    <Compile Include="ViewModels\RiskAnalysisIPMatching\RiskAnalysisIPMatchingViewModel.cs" />
     <Compile Include="ViewModels\Statement\MemberStatementViewModel.cs" />
     <Compile Include="ViewModels\Statement\SMAStatementViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModel.cs" />

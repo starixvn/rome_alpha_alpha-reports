@@ -15,6 +15,7 @@
             => View(message);
 
         [HttpGet]
-        public ActionResult Excel(RiskAnalysisIPMatchingExcelQuery message) => ExcelView(message);
+        public ActionResult Excel(RiskAnalysisIPMatchingExcelQuery message) 
+            => ExcelView(message);
     }
 }

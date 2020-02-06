@@ -207,6 +207,7 @@
     <Compile Include="Criteria\GetProductsByRefTableTests.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\ProductsForMatchWinLossDetailCriteriaTests.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteriaTests.cs" />
+    <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteriaTests.cs" />
     <Compile Include="Criteria\Statement\TransferDetailsCriteriaTests.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteriaTest.cs" />
     <Compile Include="Criteria\Outstanding\OutstandingCriteriaTests.cs" />
@@ -298,6 +299,7 @@
     <Compile Include="Services\OutstandingServiceImplTests.cs" />
     <Compile Include="Services\LeagueServiceImplTests.cs" />
     <Compile Include="Services\CommissionByBettypeServiceTests.cs" />
+    <Compile Include="Services\RiskAnalysisIPMatchingServiceImplTests.cs" />
     <Compile Include="Services\PlayForFunServiceImplTests.cs" />
     <Compile Include="Services\MatchWinLossDetailServiceImplTests.cs" />
     <Compile Include="Services\ProductServiceImplTests.cs" />

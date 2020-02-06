@@ -17,7 +17,7 @@
             this.riskAnalysisIPMatchingService = riskAnalysisIPMatchingService;
         }
 
-        public RiskAnalysisIPMatchingViewModel Handle(RiskAnalysisIPMatchingQuery message)
+        public RiskAnalysisIPMatchingViewModel Handle(RiskAnalysisIPMatchingQuery message) 
             => new RiskAnalysisIPMatchingViewModel(
                 message.SelectedWinlostDate,
                 message.MinDate,

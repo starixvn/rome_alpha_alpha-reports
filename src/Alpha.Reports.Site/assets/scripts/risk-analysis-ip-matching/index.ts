@@ -26,7 +26,7 @@ class RiskAnalysisIPMatching {
             this.$('#MemberCount').val((<HTMLInputElement>event.target).value);
         });
 
-        let options = new DatePickerOption(this.$('#MinDate').val(), true);
+        const options = new DatePickerOption(this.$('#MinDate').val(), true);
 
         this.$('#dpkContainer').datepicker(options).data("DateTimePicker").maxDate(this.$('#Today').val());
 
