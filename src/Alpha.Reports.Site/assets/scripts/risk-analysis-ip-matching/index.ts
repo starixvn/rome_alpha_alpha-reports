@@ -30,7 +30,7 @@ class RiskAnalysisIPMatching {
 
         this.$('#dpkContainer').datepicker(options).data("DateTimePicker").maxDate(this.$('#Today').val());
 
-        this.$('#dpkContainer').on("dp.change", (e) => {
+        this.$('#dpkContainer').on("dp.change", () => {
             this.$('#SelectedWinlostDate').val(this.$('#WinlostDate').val());
         });
 
@@ -51,6 +51,10 @@ class RiskAnalysisIPMatching {
                 $pageTitle.addClass("hide-filter");
                 $reportForm.addClass("hide");
             }
+        });
+
+        this.$(".view-bet-list").on("click", () => {
+            this.$.blockUI();
         });
 
         this.$.unblockUI();
