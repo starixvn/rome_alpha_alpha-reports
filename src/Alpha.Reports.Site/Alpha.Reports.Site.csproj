@@ -868,6 +868,7 @@
     <Content Include="assets\styles\consolidation\consolidation.min.css">
       <DependentUpon>consolidation.css</DependentUpon>
     </Content>
+    <Content Include="assets\styles\images\ajax-loader-small.gif" />
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.css">
       <DependentUpon>matchwinlossdetail.scss</DependentUpon>
     </Content>

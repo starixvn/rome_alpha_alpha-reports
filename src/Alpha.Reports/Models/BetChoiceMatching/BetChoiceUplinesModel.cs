@@ -2,12 +2,28 @@
 {
     public class BetChoiceUplinesModel
     {
-        public int AgentId { get; set; }
+        public BetChoiceUplinesModel()
+        {
+        }
 
-        public string AgentName { get; set; }
+        public BetChoiceUplinesModel(
+            int agentId,
+            string agentName,
+            int masterId,
+            string masterName)
+        {
+            AgentId = agentId;
+            AgentName = agentName;
+            MasterId = masterId;
+            MasterName = masterName;
+        }
 
-        public int MasterId { get; set; }
+        public int AgentId { get; private set; }
 
-        public string MasterName { get; set; }
+        public string AgentName { get; private set; }
+
+        public int MasterId { get; private set; }
+
+        public string MasterName { get; private set; }
     }
 }

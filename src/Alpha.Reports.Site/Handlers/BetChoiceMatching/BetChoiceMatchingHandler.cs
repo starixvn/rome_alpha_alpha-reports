@@ -24,12 +24,14 @@
         public BetChoiceMatchingQueryResult Handle(BetChoiceMatchingQuery message)
         {
             var queryParam = new BetChoiceMatchingParam(message.CustId, message.WinlostDate, message.MoveBetsDate, message.BetCount);
-            var items = betChoiceMatchingService.Query(queryParam);
-            var teams = items.Select(x => x.HomeId).Union(items.Select(x => x.AwayId)).Select(teamId => new KeyValueModel(teamId, cacheRefService.GetTeamName(teamId)));
-            var leagues = items.Select(x => x.LeagueId).Distinct().Select(leagueId => new KeyValueModel(leagueId, cacheRefService.GetLeagueName(leagueId)));
-            var sportTypes = items.Select(x => x.SportType).Distinct().Select(sportType => new KeyValueModel(sportType, cacheRefService.GetSportName(sportType)));
-            var betTypes = items.Select(x => x.BetType).Distinct().Select(betType => new KeyValueModel(betType, cacheRefService.GetBetTypeName(betType)));
-            return new BetChoiceMatchingQueryResult(items, teams, leagues, sportTypes, betTypes);
+            var data = betChoiceMatchingService.Query(queryParam);
+            var matchingModels = data.Item1;
+            var ipModels = data.Item2;
+            var teams = matchingModels.Select(x => x.HomeId).Union(matchingModels.Select(x => x.AwayId)).Select(teamId => new KeyValueModel(teamId, cacheRefService.GetTeamName(teamId)));
+            var leagues = matchingModels.Select(x => x.LeagueId).Distinct().Select(leagueId => new KeyValueModel(leagueId, cacheRefService.GetLeagueName(leagueId)));
+            var sportTypes = matchingModels.Select(x => x.SportType).Distinct().Select(sportType => new KeyValueModel(sportType, cacheRefService.GetSportName(sportType)));
+            var betTypes = matchingModels.Select(x => x.BetType).Distinct().Select(betType => new KeyValueModel(betType, cacheRefService.GetBetTypeName(betType)));
+            return new BetChoiceMatchingQueryResult(matchingModels, teams, leagues, sportTypes, betTypes, ipModels);
         }
     }
 }

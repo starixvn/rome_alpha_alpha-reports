@@ -4,11 +4,12 @@
     using Alpha.Reports.Models.BetChoiceMatching;
     using Alpha.Reports.Params.BetChoiceMatching;
     using Fanex.Data.Repository;
+    using System;
     using System.Collections.Generic;
 
     public interface BetChoiceMatchingService
     {
-        IEnumerable<BetChoiceMatchingModel> Query(BetChoiceMatchingParam param);
+        Tuple<IEnumerable<BetChoiceMatchingModel>, IEnumerable<BetChoiceSharedIPModel>> Query(BetChoiceMatchingParam param);
 
         BetChoiceUplinesModel QueryUplines(BetChoiceUplinesParam param);
     }
@@ -20,8 +21,8 @@
         public BetChoiceMatchingServiceImpl(IDynamicRepository dynamicRepository)
             => (this.dynamicRepository) = (dynamicRepository);
 
-        public IEnumerable<BetChoiceMatchingModel> Query(BetChoiceMatchingParam param)
-            => dynamicRepository.Fetch<BetChoiceMatchingModel>(
+        public Tuple<IEnumerable<BetChoiceMatchingModel>, IEnumerable<BetChoiceSharedIPModel>> Query(BetChoiceMatchingParam param)
+            => dynamicRepository.FetchMultiple<BetChoiceMatchingModel, BetChoiceSharedIPModel>(
                 new BetChoiceMatchingCriteria(
                     param.CustId,
                     param.WinlostDate,

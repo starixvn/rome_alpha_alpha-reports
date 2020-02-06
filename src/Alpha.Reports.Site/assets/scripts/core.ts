@@ -156,6 +156,17 @@ class AlphaReports {
     formatNumber = (value: number) => value.toLocaleString("en-US");
 
     formatCurrency = (value: number) => value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+
+    getFormData($form: JQuery) {
+        const unindexed_array = $form.serializeArray();
+        const indexed_array = {};
+
+        $.map(unindexed_array, function (n, i) {
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return indexed_array;
+    }
 }
 
 const alphaReports = new AlphaReports($, store);

@@ -10,6 +10,8 @@
 
 @ReportTitle.Render(new PageHeaderViewModel(Resources.BetChoiceMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
 
+@Html.Hidden("Today", Model.WinlostDate)
+@Html.Hidden("MinDate", Model.WinlostDate.AddDays(-14))
 <form class="form-inline filter" role="form" id="report-form" action="@Url.Action("Query")">
     <div class="form-group">
         <label class="txt">@Resources.eventdate</label>
@@ -23,8 +25,8 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="betCount">@Resources.MatchingBets</label>
-        <select id="betCount">
+        <label for="BetCount">@Resources.MatchingBets</label>
+        <select id="BetCount" name="BetCount">
             @foreach (var betCount in Model.BetCounts)
             {
                 <option value="@betCount" @(betCount == Model.BetCount ? "selected=\"selected\"" : string.Empty)> >= @betCount</option>
@@ -37,10 +39,10 @@
     <div class="form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
-    @Html.Hidden("Today", Model.WinlostDate)
-    @Html.Hidden("MinDate", Model.WinlostDate.AddDays(-14))
 </form>
-@Html.Hidden("UplinesUrl", @Url.Action("Uplines"))
+<form role="form" id="uplines-form" action="@Url.Action("Uplines")">
+    @Html.Hidden("SearchAccountId")
+</form>
 <table class="tblRpt tblRpt-bordered tblRpt-hover width-100per hide" id="tbl-report">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
@@ -83,6 +85,5 @@
             FilterByUsername_Placeholder: '@Resources.FilterByUsername_Placeholder'
         }
     </script>
-    @StaticResources.AssetScripts.Render("/js/libs/numeral/numeral")
     @StaticResources.RenderScripts("~/assets/bundles/betchoicematching/betchoicematching")
 }
