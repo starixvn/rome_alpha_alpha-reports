@@ -340,4 +340,40 @@
     <value>アンダー
 </value>
   </data>
+  <data name="Upline" xml:space="preserve">
+    <value>Upline</value>
+  </data>
+  <data name="IP_used_by" xml:space="preserve">
+    <value>IP used by</value>
+  </data>
+  <data name="eventdate" xml:space="preserve">
+    <value>イベント日付</value>
+  </data>
+  <data name="BetMatching_IP_Title" xml:space="preserve">
+    <value>Click to view shared IP accounts</value>
+  </data>
+  <data name="BetMatching_Username_Title" xml:space="preserve">
+    <value>Click to view uplines</value>
+  </data>
+  <data name="FilterByMemberWinLoss" xml:space="preserve">
+    <value>Filter By Member Win Loss</value>
+  </data>
+  <data name="FilterByStake" xml:space="preserve">
+    <value>Filter By Stake</value>
+  </data>
+  <data name="FilterByUsername" xml:space="preserve">
+    <value>Filter By Username</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="FilterByUsername_Placeholder" xml:space="preserve">
+    <value>Separate mulitple usernames by comma (,)</value>
+  </data>
+  <data name="TotalMemberWL" xml:space="preserve">
+    <value>Total Member WL</value>
+  </data>
+  <data name="TotalStake" xml:space="preserve">
+    <value>Total Stake</value>
+  </data>
 </root>

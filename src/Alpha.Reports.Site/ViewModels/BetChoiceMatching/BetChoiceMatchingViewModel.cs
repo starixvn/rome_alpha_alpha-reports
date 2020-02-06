@@ -7,7 +7,7 @@
     public class BetChoiceMatchingViewModel
     {
         const int DefaultBetCount = 2;
-        private static readonly IList<int> DefaultBetCounts = new List<int> { 2, 3, 4, 5, 8, 10, 15, 20, 30, 50, 100 };
+        public static readonly IList<int> DefaultBetCounts = new List<int> { 2, 3, 4, 5, 8, 10, 15, 20, 30, 50, 100 };
 
         public DateTime WinlostDate { get; } = SystemTime.Today;
 

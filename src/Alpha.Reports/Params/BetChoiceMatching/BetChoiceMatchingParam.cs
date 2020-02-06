@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Params
+﻿namespace Alpha.Reports.Params.BetChoiceMatching
 {
     using System;
 

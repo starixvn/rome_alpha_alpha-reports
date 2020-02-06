@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Criteria
+﻿namespace Alpha.Reports.Criteria.BetChoiceMatching
 {
     using Fanex.Data.Repository;
     using System;

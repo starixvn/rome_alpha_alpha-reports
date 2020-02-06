@@ -12,7 +12,7 @@
 
 <form class="form-inline filter" role="form" id="report-form" action="@Url.Action("Query")">
     <div class="form-group">
-        <label class="txt">@Resources.Date</label>
+        <label class="txt">@Resources.eventdate</label>
         <div class="control date">
             <div class="input-group date" id="dpkContainer">
                 @Html.EditorFor(model => model.WinlostDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
@@ -40,16 +40,17 @@
     @Html.Hidden("Today", Model.WinlostDate)
     @Html.Hidden("MinDate", Model.WinlostDate.AddDays(-14))
 </form>
+@Html.Hidden("UplinesUrl", @Url.Action("Uplines"))
 <table class="tblRpt tblRpt-bordered tblRpt-hover width-100per hide" id="tbl-report">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
-            <th class="col-username">@Resources.Username</th>
+            <th class="col-username">@Resources.Username <span class="icon-column-filter"></span></th>
             <th class="col-transtime">@Resources.transtime</th>
             <th class="col-refno">@Resources.refno</th>
             <th class="col-odds">@Resources.odds</th>
             <th class="col-ip">@Resources.IP</th>
-            <th class="col-stake">@Resources.stake</th>
-            <th class="col-memberwinloss">@Resources.MemberWinLoss</th>
+            <th class="col-stake">@Resources.stake <span class="icon-column-filter"></span></th>
+            <th class="col-memberwinloss">@Resources.MemberWinLoss <span class="icon-column-filter"></span></th>
             <th class="col-superwinloss">@Resources.superwinloss</th>
             <th class="col-company">@Resources.Company</th>
         </tr>
@@ -63,6 +64,25 @@
     </tfoot>
 </table>
 @section Scripts {
+    <script type="text/javascript">
+        var betMatchingResources = {
+            Total: '@Resources.Total',
+            Versus: '@Resources.vs',
+            Over: '@Resources.over',
+            Under: '@Resources.under',
+            Upline: '@Resources.Upline',
+            IP_used_by: '@Resources.IP_used_by',
+            BetMatching_Username_Title: '@Resources.BetMatching_Username_Title',
+            BetMatching_IP_Title: '@Resources.BetMatching_IP_Title',
+            FilterByUsername: '@Resources.FilterByUsername',
+            FilterByStake: '@Resources.FilterByStake',
+            FilterByMemberWinLoss: '@Resources.FilterByMemberWinLoss',
+            Filter: '@Resources.Filter',
+            TotalStake: '@Resources.TotalStake',
+            TotalMemberWL: '@Resources.TotalMemberWL',
+            FilterByUsername_Placeholder: '@Resources.FilterByUsername_Placeholder'
+        }
+    </script>
     @StaticResources.AssetScripts.Render("/js/libs/numeral/numeral")
     @StaticResources.RenderScripts("~/assets/bundles/betchoicematching/betchoicematching")
 }

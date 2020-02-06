@@ -259,6 +259,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to view shared IP accounts.
+        /// </summary>
+        public static string BetMatching_IP_Title {
+            get {
+                return ResourceManager.GetString("BetMatching_IP_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to view uplines.
+        /// </summary>
+        public static string BetMatching_Username_Title {
+            get {
+                return ResourceManager.GetString("BetMatching_Username_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Type.
         /// </summary>
         public static string BetType {
@@ -547,6 +565,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event Date.
+        /// </summary>
+        public static string eventdate {
+            get {
+                return ResourceManager.GetString("eventdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export to Excel.
         /// </summary>
         public static string ExportToExcel {
@@ -561,6 +588,51 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string February {
             get {
                 return ResourceManager.GetString("February", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter By Member Win Loss.
+        /// </summary>
+        public static string FilterByMemberWinLoss {
+            get {
+                return ResourceManager.GetString("FilterByMemberWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter By Stake.
+        /// </summary>
+        public static string FilterByStake {
+            get {
+                return ResourceManager.GetString("FilterByStake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter By Username.
+        /// </summary>
+        public static string FilterByUsername {
+            get {
+                return ResourceManager.GetString("FilterByUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Separate mulitple usernames by comma (,).
+        /// </summary>
+        public static string FilterByUsername_Placeholder {
+            get {
+                return ResourceManager.GetString("FilterByUsername_Placeholder", resourceCulture);
             }
         }
         
@@ -860,6 +932,18 @@ namespace Alpha.Reports.Site.App_GlobalResources {
                 return ResourceManager.GetString("IPMatching", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP used by.
+        /// </summary>
+        public static string IP_used_by {
+            get {
+                return ResourceManager.GetString("IP_used_by", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+
         
         /// <summary>
         ///   Looks up a localized string similar to This report&apos;s data is used for statistics only, due to the resettlement process, the figure might not be totally exact..
@@ -1825,6 +1909,24 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Member WL.
+        /// </summary>
+        public static string TotalMemberWL {
+            get {
+                return ResourceManager.GetString("TotalMemberWL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Stake.
+        /// </summary>
+        public static string TotalStake {
+            get {
+                return ResourceManager.GetString("TotalStake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tote.
         /// </summary>
         public static string Tote {
@@ -1893,6 +1995,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string under {
             get {
                 return ResourceManager.GetString("under", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upline.
+        /// </summary>
+        public static string Upline {
+            get {
+                return ResourceManager.GetString("Upline", resourceCulture);
             }
         }
         

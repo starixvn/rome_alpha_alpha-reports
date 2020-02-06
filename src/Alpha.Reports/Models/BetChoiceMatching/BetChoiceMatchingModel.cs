@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Models
+﻿namespace Alpha.Reports.Models.BetChoiceMatching
 {
     using System;
 
@@ -30,7 +30,8 @@
             int homeId,
             int awayId,
             int liveHomeScore,
-            int liveAwayScore)
+            int liveAwayScore,
+            bool isRunning)
         {
             LeagueId = leagueId;
             GlobalShowTime = globalShowTime;
@@ -54,6 +55,7 @@
             AwayId = awayId;
             LiveHomeScore = liveHomeScore;
             LiveAwayScore = liveAwayScore;
+            IsRunning = isRunning;
         }
 
         public int LeagueId { get; private set; }
@@ -99,5 +101,7 @@
         public int LiveHomeScore { get; private set; }
 
         public int LiveAwayScore { get; private set; }
+
+        public bool IsRunning { get; private set; }
     }
 }

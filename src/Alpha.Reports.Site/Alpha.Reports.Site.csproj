@@ -441,7 +441,8 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
-    <Compile Include="Handlers\BetChoiceMatchingHandler.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceUplinesHandler.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationBaseHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationByDateWorkbook.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationByProductWorkbook.cs" />
@@ -497,7 +498,8 @@
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Helpers\WorkbookHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Requests\BetChoiceMatchingQuery.cs" />
+    <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingQuery.cs" />
+    <Compile Include="Requests\BetChoiceMatching\BetChoiceUplinesQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBetTypeGuideQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationByDateExcelQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationByDateQuery.cs" />
@@ -557,7 +559,6 @@
     <Compile Include="Requests\WinLoss\WinLossQuery.cs" />
     <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingQueryResult.cs" />
     <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingViewModel.cs" />
-    <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingViewResource.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeFilterViewModel.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeViewModel.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />

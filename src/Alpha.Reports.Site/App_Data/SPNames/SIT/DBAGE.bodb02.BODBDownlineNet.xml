@@ -110,5 +110,6 @@
   <Function Name="Risk Analysis">
     <Setting Key="Age_BetStatistics_IPMatching_Master" SpName="Age_BetStatistics_IPMatching_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
     <Setting Key="Age_BetStatistics_BetMatching_Master" SpName="Age_BetStatistics_BetMatching_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Customer_Upline_Sel" SpName="Age_Customer_Upline_Sel" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
 </Functions>

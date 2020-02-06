@@ -1,9 +1,9 @@
-﻿namespace Alpha.Reports.Site.Handlers
+﻿namespace Alpha.Reports.Site.Handlers.BetChoiceMatching
 {
     using Alpha.Reports.Models;
-    using Alpha.Reports.Params;
+    using Alpha.Reports.Params.BetChoiceMatching;
     using Alpha.Reports.Services;
-    using Alpha.Reports.Site.Requests;
+    using Alpha.Reports.Site.Requests.BetChoiceMatching;
     using Alpha.Reports.Site.ViewModels.BetChoiceMatching;
     using MediatR;
     using System.Linq;
@@ -29,7 +29,7 @@
             var leagues = items.Select(x => x.LeagueId).Distinct().Select(leagueId => new KeyValueModel(leagueId, cacheRefService.GetLeagueName(leagueId)));
             var sportTypes = items.Select(x => x.SportType).Distinct().Select(sportType => new KeyValueModel(sportType, cacheRefService.GetSportName(sportType)));
             var betTypes = items.Select(x => x.BetType).Distinct().Select(betType => new KeyValueModel(betType, cacheRefService.GetBetTypeName(betType)));
-            return new BetChoiceMatchingQueryResult(new BetChoiceMatchingViewResource(), items, teams, leagues, sportTypes, betTypes);
+            return new BetChoiceMatchingQueryResult(items, teams, leagues, sportTypes, betTypes);
         }
     }
 }

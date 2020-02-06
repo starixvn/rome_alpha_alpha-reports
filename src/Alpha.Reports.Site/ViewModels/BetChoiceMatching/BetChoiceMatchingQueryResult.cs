@@ -1,12 +1,12 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.BetChoiceMatching
 {
     using Alpha.Reports.Models;
+    using Alpha.Reports.Models.BetChoiceMatching;
     using System.Collections.Generic;
 
     public class BetChoiceMatchingQueryResult
     {
         public BetChoiceMatchingQueryResult(
-            BetChoiceMatchingViewResource resource,
             IEnumerable<BetChoiceMatchingModel> items,
             IEnumerable<KeyValueModel> teams,
             IEnumerable<KeyValueModel> leagues,
@@ -14,15 +14,12 @@
             IEnumerable<KeyValueModel> betTypes
             )
         {
-            Resource = resource;
             Items = items;
             Teams = teams;
             Leagues = leagues;
             SportTypes = sportTypes;
             BetTypes = betTypes;
         }
-
-        public BetChoiceMatchingViewResource Resource { get; }
 
         public IEnumerable<BetChoiceMatchingModel> Items { get; }
 

@@ -1,8 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
-    using Alpha.Reports.Site.Requests;
+    using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Site.Requests.BetChoiceMatching;
     using Alpha.Reports.Site.ViewModels.BetChoiceMatching;
     using MediatR;
+    using Newtonsoft.Json;
     using System.Web.Mvc;
 
     public class BetChoiceMatchingController : ReportBaseController
@@ -17,6 +19,10 @@
 
         [HttpPost]
         public ActionResult Query(BetChoiceMatchingQuery message)
+            => Json(message);
+
+        [HttpPost]
+        public ActionResult Uplines(BetChoiceUplinesQuery message)
             => Json(message);
     }
 }

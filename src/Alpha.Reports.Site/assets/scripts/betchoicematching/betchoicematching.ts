@@ -2,6 +2,8 @@
 
 "use strict";
 
+declare const betMatchingResources: Resources;
+
 interface JQuery {
     datepicker(option: any): void;
 }
@@ -39,19 +41,23 @@ const BetTeamClassNames = {
 };
 
 class QueryModelUserGroup {
+    CustId: number;
     Username: string;
     MemberTurnover: number;
     MemberWinLoss: number;
     SuperWinLoss: number;
     Company: number;
+    IsRunning: boolean;
     Items: QueryModelItem[];
 
     constructor(item: QueryModelItem) {
+        this.CustId = item.CustId;
         this.Username = item.Username;
         this.MemberTurnover = item.MemberTurnover;
         this.MemberWinLoss = item.MemberWinLoss;
         this.SuperWinLoss = item.SuperWinLoss;
         this.Company = item.Company;
+        this.IsRunning = item.IsRunning;
         this.Items = [item];
     }
 
@@ -86,12 +92,16 @@ abstract class ChoiceBuilder {
     }
 
     build(data: QueryModel): string {
-        return `<span class="text-bet-team">${this.generateBetTeam(data)}</span>
-                <span class="text-bet-team">${this.generateHandicap()}</span>
-                <span class="text-live-score">[${this.ticket.LiveHomeScore}-${this.ticket.LiveAwayScore}]</span>
-                <br />
-                <span class="text-bet-type">${getValueByKey(data.BetTypes, this.ticket.BetType)}</span>`;
+        return `<span class="${this.BetTeamClassName}">
+                    ${this.generateBetTeam(data)}
+                    <span class="text-handicap">${this.generateHandicap()}</span>
+                    <span class="text-live-score">[${this.ticket.LiveHomeScore}-${this.ticket.LiveAwayScore}]</span>
+                    <br />
+                    <span class="text-bet-type">${getValueByKey(data.BetTypes, this.ticket.BetType)}</span>
+                </span>`;
     }
+
+    abstract get BetTeamClassName(): string;
 
     abstract generateBetTeam(data: QueryModel): string;
 
@@ -99,32 +109,37 @@ abstract class ChoiceBuilder {
 }
 
 class HandicapChoiceBuilder extends ChoiceBuilder {
+    get BetTeamClassName(): string {
+        if (this.IsBetHomeTeam) {
+            return this.ticket.Hdp2 >= this.ticket.Hdp1 ? BetTeamClassNames.Underdog : BetTeamClassNames.Favorite;
+        } else {
+            return this.ticket.Hdp2 <= this.ticket.Hdp1 ? BetTeamClassNames.Underdog : BetTeamClassNames.Favorite;
+        }
+    }
+
     generateBetTeam(data: QueryModel): string {
         const betTeamId = this.IsBetHomeTeam ? this.ticket.HomeId : this.ticket.AwayId;
         return getValueByKey(data.Teams, betTeamId);
     }
 
     generateHandicap(): string {
-        let betTeamClassName = '';
-        if (this.IsBetHomeTeam) {
-            betTeamClassName = this.ticket.Hdp2 >= this.ticket.Hdp1 ? BetTeamClassNames.Underdog : BetTeamClassNames.Favorite;
-        } else {
-            betTeamClassName = this.ticket.Hdp2 <= this.ticket.Hdp1 ? BetTeamClassNames.Underdog : BetTeamClassNames.Favorite;
-        }
-
         let handicap = Math.max(this.ticket.Hdp1, this.ticket.Hdp2);
-        handicap = betTeamClassName === BetTeamClassNames.Favorite ? -handicap : handicap;
+        handicap = this.BetTeamClassName === BetTeamClassNames.Favorite ? -handicap : handicap;
         return numeral(handicap).format('0.[00]');
     }
 }
 
 class OverUnderChoiceBuilder extends HandicapChoiceBuilder {
     generateBetTeam(data: QueryModel): string {
-        return this.IsBetHomeTeam ? data.Resource.Over : data.Resource.Under;
+        return this.IsBetHomeTeam ? betMatchingResources.Over : betMatchingResources.Under;
     }
 }
 
 class OneXTwoChoiceBuilder extends ChoiceBuilder {
+    get BetTeamClassName(): string {
+        return BetTeamClassNames.Favorite;
+    }
+
     generateBetTeam(): string {
         const prefix = this.ticket.BetType === BetTypes.OneXTwoFT ? 'FT' : 'HT';
         return `${prefix}.${this.ticket.BetTeam ? this.ticket.BetTeam.toUpperCase() : ''}`;
@@ -148,6 +163,7 @@ class QueryModelEventGroup implements ChoiceTicket {
     GlobalShowTime: string;
     LiveHomeScore: number;
     LiveAwayScore: number;
+    IsRunning: boolean;
     UserGroups: QueryModelUserGroup[];
 
     constructor(item: QueryModelItem) {
@@ -162,6 +178,7 @@ class QueryModelEventGroup implements ChoiceTicket {
         this.LiveAwayScore = item.LiveAwayScore;
         this.HomeId = item.HomeId;
         this.AwayId = item.AwayId;
+        this.IsRunning = item.IsRunning;
         this.Key = `${item.MatchId}_${item.BetType}_${item.Hdp1}_${item.Hdp2}_${item.BetTeam}`;
         this.UserGroups = [new QueryModelUserGroup(item)];
     }
@@ -179,7 +196,7 @@ class QueryModelEventGroup implements ChoiceTicket {
         const choiceBuilder = this.getChoiceBuilder();
         return `<tr class="row-bet-choice">
                     <td class="text-left col-bet-choice">${choiceBuilder.build(data)}</td>
-                    <td colspan="6" class="text-left col-league-sport">${this.generateEvent(data)}</td>
+                    <td colspan="6" class="text-left col-event">${this.generateEvent(data)}</td>
                     <td colspan="2" class="text-center col-global-time">${moment(this.GlobalShowTime).format("MM/DD/YYYY HH:mm A")}</td>
                 </tr>`;
     }
@@ -201,7 +218,7 @@ class QueryModelEventGroup implements ChoiceTicket {
     }
 
     private generateEvent(data: QueryModel): string {
-        return `<span class="text-event">${getValueByKey(data.Teams, this.HomeId)}${data.Resource.Versus}${getValueByKey(data.Teams, this.AwayId)}</span>
+        return `<span class="text-event">${getValueByKey(data.Teams, this.HomeId)}${betMatchingResources.Versus}${getValueByKey(data.Teams, this.AwayId)}</span>
                 <br />
                 <span class="text-sport-type">${getValueByKey(data.SportTypes, this.SportType)}</span>
                 ${' '}
@@ -213,6 +230,7 @@ interface QueryModelItem {
     LeagueId: number;
     SportType: number;
     BetType: number;
+    CustId: number;
     Username: string;
     TransDate: string;
     GlobalShowTime: string;
@@ -231,6 +249,7 @@ interface QueryModelItem {
     Hdp1: number;
     Hdp2: number;
     BetTeam: string;
+    IsRunning: boolean;
 }
 
 interface KeyValueModel {
@@ -238,11 +257,22 @@ interface KeyValueModel {
     Value: any;
 }
 
-interface QueryResource {
+interface Resources {
     Total: string;
     Versus: string;
     Over: string;
     Under: string;
+    Upline: string;
+    IP_used_by: string;
+    BetMatching_Username_Title: string;
+    BetMatching_IP_Title: string;
+    FilterByUsername: string;
+    FilterByStake: string;
+    FilterByMemberWinLoss: string;
+    FilterByUsername_Placeholder: string;
+    TotalStake: string;
+    Filter: string;
+    TotalMemberWL: string;
 }
 
 interface QueryModel {
@@ -251,7 +281,47 @@ interface QueryModel {
     Leagues: KeyValueModel[];
     SportTypes: KeyValueModel[];
     BetTypes: KeyValueModel[];
-    Resource: QueryResource;
+}
+
+interface UplinesModel {
+    AgentId: number;
+    AgentName: string;
+    MasterId: number;
+    MasterName: string;
+}
+
+interface UplinesCache {
+    [custId: number]: UplinesModel;
+}
+
+class BetChoiceUplines {
+    $: JQueryStatic;
+    queryUrl: string;
+    uplinesCache: UplinesCache = {};
+
+    constructor(
+        $: JQueryStatic
+    ) {
+        this.$ = $;
+        this.queryUrl = this.$("#UplinesUrl").val();
+    }
+
+    query = (custId: number, callback: (data: UplinesModel) => void) => {
+        if (this.uplinesCache[custId]) {
+            callback(this.uplinesCache[custId]);
+            return;
+        }
+
+        const params = { searchAccountId: custId };
+        this.$.post(this.queryUrl, params)
+            .done((data: UplinesModel) => {
+                this.uplinesCache[custId] = data;
+                callback(data);
+            })
+            .fail(() => {
+                callback(null);
+            });
+    };
 }
 
 class BetChoiceMatching {
@@ -267,11 +337,19 @@ class BetChoiceMatching {
     $table: JQuery;
     $tableTbody: JQuery;
     $tableTfoot: JQuery;
+    $usernameFilterIcon: JQuery;
+    $stakeFilterIcon: JQuery;
+    $memberWinLossFilterIcon: JQuery;
     noinfoRowHtml: string;
     data: QueryModel;
+    betChoiceUplines: BetChoiceUplines;
+    usernameFilterTooltip: SimpleTooltip;
+    stakeFilterTooltip: SimpleTooltip;
+    memberWinLossFilterTooltip: SimpleTooltip;
 
     constructor(
-        $: JQueryStatic) {
+        $: JQueryStatic
+    ) {
         this.$ = $;
     }
 
@@ -282,6 +360,7 @@ class BetChoiceMatching {
         this.$table.hide();
         this.$table.removeClass('hide');
         this.$.unblockUI();
+        this.$reportForm.submit();
     };
 
     cacheElements = () => {
@@ -294,10 +373,27 @@ class BetChoiceMatching {
         this.$datePickerInput = this.$("#WinlostDate");
         this.$betCountDropdown = this.$("#betCount");
         this.$table = this.$("#tbl-report");
+        const $tableThead = this.$table.find("thead");
+        this.$usernameFilterIcon = $tableThead.find(".col-username .icon-column-filter");
+        this.usernameFilterTooltip = new SimpleTooltip(this.$, this.$usernameFilterIcon, {
+            title: betMatchingResources.FilterByUsername,
+            tooltipClass: 'username-filter'
+        });
+        this.$stakeFilterIcon = $tableThead.find(".col-stake .icon-column-filter");
+        this.stakeFilterTooltip = new SimpleTooltip(this.$, this.$stakeFilterIcon, {
+            title: betMatchingResources.FilterByStake,
+            tooltipClass: 'stake-filter'
+        });
+        this.$memberWinLossFilterIcon = $tableThead.find(".col-memberwinloss .icon-column-filter");
+        this.memberWinLossFilterTooltip = new SimpleTooltip(this.$, this.$memberWinLossFilterIcon, {
+            title: betMatchingResources.FilterByMemberWinLoss,
+            tooltipClass: 'memberwinloss-filter'
+        });
         this.$tableTbody = this.$table.find("tbody");
         this.$tableTfoot = this.$table.find("tfoot");
         const $noinfoRow = this.$table.find("#noinfo-row");
         this.noinfoRowHtml = $noinfoRow.html();
+        this.betChoiceUplines = new BetChoiceUplines(this.$);
     };
 
     registerEvents = () => {
@@ -310,6 +406,41 @@ class BetChoiceMatching {
             maxDate: new Date(this.$('#Today').val()),
             format: alphaReports.format.shortDateWithSlash_DatePicker
         });
+
+        this.usernameFilterTooltip.render(`
+            <textarea class="form-control" autocomplete="off" rows="4" cols="50" placeholder="${betMatchingResources.FilterByUsername_Placeholder}"></textarea>
+            <div class="filter-row">
+                <button class="btn-submit">${betMatchingResources.Filter}</button>
+            </div>
+        `);
+        this.$usernameFilterIcon.on("click", () => this.usernameFilterTooltip.show());
+
+        this.stakeFilterTooltip.render(`
+            <div class="form-inline">
+                <span class="form-label">${betMatchingResources.TotalStake} &gt;=</span>
+                <input id="inputTotalStake" class="form-control input-sm" />
+            </div>
+            <div class="filter-row">
+                <button class="btn-submit">${betMatchingResources.Filter}</button>
+            </div>
+        `);
+        this.$stakeFilterIcon.on("click", () => this.stakeFilterTooltip.show());
+
+        this.memberWinLossFilterTooltip.render(`
+            <div class="form-inline">
+                <span class="form-label">${betMatchingResources.TotalMemberWL}</span>
+                <select id="selectMemberWL" class="form-control input-sm">
+                    <option value="0">&gt;=</option>
+                    <option value="1">=</option>
+                    <option value="2">&lt;=</option>
+                </select>
+                <input id="inputMemberWL" class="form-control" />
+            </div>
+            <div class="filter-row">
+                <button class="btn-submit">${betMatchingResources.Filter}</button>
+            </div>
+        `);
+        this.$memberWinLossFilterIcon.on("click", () => this.memberWinLossFilterTooltip.show());
     };
 
     onFilterEvent = () => {
@@ -329,12 +460,11 @@ class BetChoiceMatching {
 
     onSubmitReport = (e: any) => {
         e.preventDefault();
-        let this$ = this.$;
-        this$.blockUI();
+        this.$.blockUI();
         this.$table.hide();
-        const action = this.$reportForm.prop('action');
         const params = this.getParams();
-        this$.post(action, params)
+        const queryUrl = this.$reportForm.attr('action');
+        this.$.post(queryUrl, params)
             .done((data: QueryModel) => {
                 this.data = data;
                 const filterItems = this.filterItems(data.Items);
@@ -346,7 +476,7 @@ class BetChoiceMatching {
             })
             .always(() => {
                 this.$table.show();
-                this$.unblockUI();
+                this.$.unblockUI();
             });
     };
 
@@ -374,58 +504,63 @@ class BetChoiceMatching {
         });
 
         return itemGroups;
-    }
+    };
 
     filterItems = (items: QueryModelItem[]) => {
         return items;
-    }
+    };
 
-    formatNumber = (value: number) => {
-        if (!value) {
+    formatNumber = (value: number, isRunning: boolean) => {
+        if (isRunning) {
             return '-';
         }
 
         return numeral(value).format('0,0.00');
-    }
+    };
 
     renderTable = (eventGroups: QueryModelEventGroup[]) => {
         if (eventGroups.length === 0) {
             this.$tableTbody.html(this.noinfoRowHtml);
             this.$tableTfoot.hide();
+            this.hideFilters();
             return;
         }
 
         let totalMemberTurnover = null,
             totalMemberWinLoss = null,
             totalSuperWinLoss = null,
-            totalCompany = null;
+            totalCompany = null,
+            isRunning = true;
         const html = [];
         eventGroups.forEach(eventGroup => {
             html.push(eventGroup.generateHtml(this.data));
             eventGroup.UserGroups.forEach((userGroup, index) => {
                 totalMemberTurnover += userGroup.MemberTurnover;
-                totalMemberWinLoss += userGroup.MemberWinLoss;
-                totalSuperWinLoss += userGroup.SuperWinLoss;
-                totalCompany += userGroup.Company;
+                if (!userGroup.IsRunning) {
+                    totalMemberWinLoss += userGroup.MemberWinLoss;
+                    totalSuperWinLoss += userGroup.SuperWinLoss;
+                    totalCompany += userGroup.Company;
+                    isRunning = false;
+                }
 
                 html.push(`<tr class="${index % 2 === 1 ? "row-even row-total" : "row-total"}">
-                    <td class="text-left text-username" rowspan="${userGroup.Items.length + 1}">${userGroup.Username}</td>
-                    <td class="text-right" colspan="4">${this.data.Resource.Total}</td>
-                    <td>${this.formatNumber(userGroup.MemberTurnover)}</td>
-                    <td>${this.formatNumber(userGroup.MemberWinLoss)}</td>
-                    <td class="col-superwinloss">${this.formatNumber(userGroup.SuperWinLoss)}</td>
-                    <td>${this.formatNumber(userGroup.Company)}</td>
+                    <td class="text-left" rowspan="${userGroup.Items.length + 1}"><span data-custid="${userGroup.CustId}" class="text-username" title="${betMatchingResources.BetMatching_Username_Title}">${userGroup.Username}</span></td>
+                    <td class="text-right" colspan="4">${betMatchingResources.Total}</td>
+                    <td>${this.formatNumber(userGroup.MemberTurnover, false)}</td>
+                    <td>${this.formatNumber(userGroup.MemberWinLoss, userGroup.IsRunning)}</td>
+                    <td class="col-superwinloss">${this.formatNumber(userGroup.SuperWinLoss, userGroup.IsRunning)}</td>
+                    <td>${this.formatNumber(userGroup.Company, userGroup.IsRunning)}</td>
                 </tr>`);
                 userGroup.Items.forEach(item => {
                     html.push(`<tr class="${index % 2 === 1 ? "row-even" : ""}">
                         <td class="text-center">${moment(item.TransDate).format("MM/DD HH:mm:ss")}</td>
                         <td class="text-center">${item.TransId}</td>
                         <td class="text-center">${item.Odds}</td>
-                        <td class="text-center">${item.IP}</td>
-                        <td>${this.formatNumber(item.MemberTurnover)}</td>
-                        <td>${this.formatNumber(item.MemberWinLoss)}</td>
-                        <td class="col-superwinloss">${this.formatNumber(item.SuperWinLoss)}</td>
-                        <td>${this.formatNumber(item.Company)}</td>
+                        <td class="text-center">${item.IP ? item.IP : ''} <span class="icon-ip" data-ip="${item.IP}" title="${betMatchingResources.BetMatching_IP_Title}"></span></td>
+                        <td>${this.formatNumber(item.MemberTurnover, false)}</td>
+                        <td>${this.formatNumber(item.MemberWinLoss, item.IsRunning)}</td>
+                        <td class="col-superwinloss">${this.formatNumber(item.SuperWinLoss, item.IsRunning)}</td>
+                        <td>${this.formatNumber(item.Company, item.IsRunning)}</td>
                     </tr>`);
                 });
             });
@@ -434,14 +569,51 @@ class BetChoiceMatching {
 
         this.$tableTfoot.html(`
             <tr class="tbl-footer">
-                <td colspan="5">${this.data.Resource.Total}</td>
-                <td>${this.formatNumber(totalMemberTurnover)}</td>
-                <td>${this.formatNumber(totalMemberWinLoss)}</td>
-                <td class="col-superwinloss">${this.formatNumber(totalSuperWinLoss)}</td>
-                <td>${this.formatNumber(totalCompany)}</td>
+                <td colspan="5">${betMatchingResources.Total}</td>
+                <td>${this.formatNumber(totalMemberTurnover, false)}</td>
+                <td>${this.formatNumber(totalMemberWinLoss, isRunning)}</td>
+                <td class="col-superwinloss">${this.formatNumber(totalSuperWinLoss, isRunning)}</td>
+                <td>${this.formatNumber(totalCompany, isRunning)}</td>
             </tr>
         `);
         this.$tableTfoot.show();
+        this.showFilters();
+
+        this.$tableTbody.find('.text-username').click(this.onUsernameClick);
+        this.$tableTbody.find('.icon-ip').click(this.onIPClick);
+    };
+
+    onUsernameClick = (e: MouseEvent) => {
+        const $target = this.$(e.target);
+        const uplinesTooltip = new SimpleTooltip(this.$, $target, {
+            title: betMatchingResources.Upline
+        });
+        uplinesTooltip.render(`Loading`);
+
+        const custId = $target.data('custid');
+        this.betChoiceUplines.query(custId, (data: UplinesModel) => {
+            uplinesTooltip.render(`
+                <div>${data.MasterName}</div>
+                <div>${data.AgentName}</div>
+            `);
+        });
+    };
+
+    onIPClick = (e: MouseEvent) => {
+        const ip = this.$(e.target).data('ip');
+        alert(ip);
+    };
+
+    showFilters = () => {
+        this.$usernameFilterIcon.show();
+        this.$stakeFilterIcon.show();
+        this.$memberWinLossFilterIcon.show();
+    };
+
+    hideFilters = () => {
+        this.$usernameFilterIcon.hide();
+        this.$stakeFilterIcon.hide();
+        this.$memberWinLossFilterIcon.hide();
     };
 }
 
@@ -451,3 +623,59 @@ $(() => {
 
     betChoiceMatching.init();
 });
+
+interface SimpleTooltipOption {
+    tooltipClass?: string;
+    direction?: string;
+    title?: string;
+}
+
+const defaultOption: SimpleTooltipOption = {
+    tooltipClass: '',
+    direction: 'bottom',
+    title: ''
+};
+
+class SimpleTooltip {
+    private option: SimpleTooltipOption;
+    private $tooltip: JQuery;
+    private $tooltipTitle: JQuery;
+    private $tooltipBody: JQuery;
+
+    constructor(private $: JQueryStatic, private $target: JQuery, option = defaultOption) {
+        this.option = this.$.extend(defaultOption, option);
+    }
+
+    render = (html: string) => {
+        if (!this.$tooltip) {
+            this.$tooltip = this.$(
+                `<div class="simple-tooltip ${this.option.tooltipClass}">
+                    <div class="tooltip-header">
+                        <button type="button" class="icon icon-close close"></button>
+                        <div class="tooltip-title">${this.option.title}</div>
+                    </div>
+                    <div class="tooltip-body">${html}</div>
+                </div>`
+            );
+            this.$target.after(this.$tooltip);
+            this.$tooltipTitle = this.$tooltip.find('.tooltip-title');
+            this.$tooltipBody = this.$tooltip.find('.tooltip-body');
+            const closeButton = this.$tooltip.find('.icon-close');
+            closeButton.click(this.hide);
+        } else {
+            this.$tooltipBody.html(html);
+        }
+    };
+
+    changeTitle = (html: string) => {
+        this.$tooltipTitle.html(html);
+    };
+
+    hide = () => {
+        this.$tooltip.hide();
+    };
+
+    show = () => {
+        this.$tooltip.show();
+    };
+}

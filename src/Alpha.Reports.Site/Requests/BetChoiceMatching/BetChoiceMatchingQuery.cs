@@ -1,4 +1,4 @@
-﻿namespace Alpha.Reports.Site.Requests
+﻿namespace Alpha.Reports.Site.Requests.BetChoiceMatching
 {
     using Alpha.Reports.Models;
     using Alpha.Reports.Services;
@@ -22,6 +22,6 @@
 
         public DateTime MoveBetsDate { get; } = ReportDateServiceImpl.Instance.GetMoveBetsDay();
 
-        public override bool IsValid() => base.IsValid() && MinDate <= WinlostDate;
+        public override bool IsValid() => base.IsValid() && BetChoiceMatchingViewModel.DefaultBetCounts.Contains(BetCount) && MinDate <= WinlostDate;
     }
 }

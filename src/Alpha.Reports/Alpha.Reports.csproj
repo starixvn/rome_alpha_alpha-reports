@@ -138,7 +138,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\SiteSettings.cs" />
-    <Compile Include="Criteria\BetChoiceMatchingCriteria.cs" />
+    <Compile Include="Criteria\BetChoiceMatching\BetChoiceMatchingCriteria.cs" />
+    <Compile Include="Criteria\BetChoiceMatching\BetChoiceUplinesCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
@@ -190,9 +191,11 @@
     <Compile Include="Helpers\BetTypeHelper.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
-    <Compile Include="Models\BetChoiceMatchingModel.cs" />
+    <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingModel.cs" />
+    <Compile Include="Models\BetChoiceMatching\BetChoiceUplinesModel.cs" />
     <Compile Include="Models\KeyValueModel.cs" />
-    <Compile Include="Params\BetChoiceMatchingParam.cs" />
+    <Compile Include="Params\BetChoiceMatching\BetChoiceUplinesParam.cs" />
+    <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingParam.cs" />
     <Compile Include="Models\CommissionByBettype\CommissionByBettypeModel.cs" />
     <Compile Include="Models\Consolidation\ConsolidationByDate.cs" />
     <Compile Include="Models\Consolidation\ConsolidationByProduct.cs" />
