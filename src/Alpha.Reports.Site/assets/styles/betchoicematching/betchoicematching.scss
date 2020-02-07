@@ -91,6 +91,10 @@
         height: $height-normal;
         float: right;
 
+        &.has-filter {
+            color: red;
+        }
+
         &:before {
             position: relative;
             top: 5px;
@@ -116,13 +120,9 @@
             margin-left: 10px;
         }
 
-        .filter-row {
-            text-align: right;
-
-            .btn-submit {
-                margin: 0;
-                margin-top: 5px;
-            }
+        .btn-filter {
+            margin: 0;
+            margin-top: 5px;
         }
 
         #inputTotalStake {

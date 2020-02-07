@@ -1,10 +1,8 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
-    using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Requests.BetChoiceMatching;
     using Alpha.Reports.Site.ViewModels.BetChoiceMatching;
     using MediatR;
-    using Newtonsoft.Json;
     using System.Web.Mvc;
 
     public class BetChoiceMatchingController : ReportBaseController

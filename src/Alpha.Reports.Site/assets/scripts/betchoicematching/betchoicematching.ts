@@ -2,10 +2,28 @@
 
 "use strict";
 
+(function ($) {
+    $.fn.inputFilter = function (inputFilter) {
+        return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
+            if (inputFilter(this.value)) {
+                this.oldValue = this.value;
+                this.oldSelectionStart = this.selectionStart;
+                this.oldSelectionEnd = this.selectionEnd;
+            } else if (this.hasOwnProperty("oldValue")) {
+                this.value = this.oldValue;
+                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+            } else {
+                this.value = "";
+            }
+        });
+    };
+}(jQuery));
+
 declare const betMatchingResources: Resources;
 
 interface JQuery {
     datepicker(option: any): void;
+    inputFilter(option: any): void;
 }
 
 function getValueByKey(data: KeyValueModel[], key: any): any {
@@ -351,15 +369,12 @@ class BetChoiceMatching {
     $table: JQuery;
     $tableTbody: JQuery;
     $tableTfoot: JQuery;
-    $usernameFilterIcon: JQuery;
-    $stakeFilterIcon: JQuery;
-    $memberWinLossFilterIcon: JQuery;
     noinfoRowHtml: string;
     data: QueryModel;
     betChoiceUplines: BetChoiceUplines;
-    usernameFilterTooltip: SimpleTooltip;
-    stakeFilterTooltip: SimpleTooltip;
-    memberWinLossFilterTooltip: SimpleTooltip;
+    usernameFilterForm: UsernameFilterForm;
+    stakeFilterForm: StakeFilterForm;
+    memberWinLossFilterForm: MemberWinLossFilterForm;
     activeUplinesTooltip: SimpleTooltip;
     activeIPTooltip: SimpleTooltip;
     queryIPGroup: QueryIPGroup = {};
@@ -389,27 +404,14 @@ class BetChoiceMatching {
         this.$datePicker = this.$("#dpkContainer");
         this.$datePickerInput = this.$("#WinlostDate");
         this.$table = this.$("#tbl-report");
-        const $tableThead = this.$table.find("thead");
-        this.$usernameFilterIcon = $tableThead.find(".col-username .icon-column-filter");
-        this.usernameFilterTooltip = new SimpleTooltip(this.$, this.$usernameFilterIcon, {
-            title: betMatchingResources.FilterByUsername,
-            tooltipClass: 'username-filter'
-        });
-        this.$stakeFilterIcon = $tableThead.find(".col-stake .icon-column-filter");
-        this.stakeFilterTooltip = new SimpleTooltip(this.$, this.$stakeFilterIcon, {
-            title: betMatchingResources.FilterByStake,
-            tooltipClass: 'stake-filter'
-        });
-        this.$memberWinLossFilterIcon = $tableThead.find(".col-memberwinloss .icon-column-filter");
-        this.memberWinLossFilterTooltip = new SimpleTooltip(this.$, this.$memberWinLossFilterIcon, {
-            title: betMatchingResources.FilterByMemberWinLoss,
-            tooltipClass: 'memberwinloss-filter'
-        });
         this.$tableTbody = this.$table.find("tbody");
         this.$tableTfoot = this.$table.find("tfoot");
         const $noinfoRow = this.$table.find("#noinfo-row");
         this.noinfoRowHtml = $noinfoRow.html();
         this.betChoiceUplines = new BetChoiceUplines(this.$);
+        this.usernameFilterForm = new UsernameFilterForm(this.$);
+        this.stakeFilterForm = new StakeFilterForm(this.$);
+        this.memberWinLossFilterForm = new MemberWinLossFilterForm(this.$);
     };
 
     registerEvents = () => {
@@ -418,57 +420,14 @@ class BetChoiceMatching {
         this.$reportForm.submit(this.onSubmitReport);
         this.$datePicker.datepicker({
             allowInputToggle: true,
+            // TODO
             //minDate: new Date(this.$('#MinDate').val()),
             maxDate: new Date(this.$('#Today').val()),
             format: alphaReports.format.shortDateWithSlash_DatePicker
         });
-
-        this.usernameFilterTooltip.render(`
-            <textarea class="form-control" autocomplete="off" rows="4" cols="50" placeholder="${betMatchingResources.FilterByUsername_Placeholder}"></textarea>
-            <div class="filter-row">
-                <button class="btn-submit">${betMatchingResources.Filter}</button>
-            </div>
-        `);
-        this.usernameFilterTooltip.hide();
-        this.$usernameFilterIcon.on("click", () => {
-            this.hideColumnFilterTooltips();
-            this.usernameFilterTooltip.show();
-        });
-
-        this.stakeFilterTooltip.render(`
-            <div class="form-inline">
-                <span class="form-label">${betMatchingResources.TotalStake} &gt;=</span>
-                <input id="inputTotalStake" class="form-control input-sm" />
-            </div>
-            <div class="filter-row">
-                <button class="btn-submit">${betMatchingResources.Filter}</button>
-            </div>
-        `);
-        this.stakeFilterTooltip.hide();
-        this.$stakeFilterIcon.on("click", () => {
-            this.hideColumnFilterTooltips();
-            this.stakeFilterTooltip.show();
-        });
-
-        this.memberWinLossFilterTooltip.render(`
-            <div class="form-inline">
-                <span class="form-label">${betMatchingResources.TotalMemberWL}</span>
-                <select id="selectMemberWL" class="form-control input-sm">
-                    <option value="0">&gt;=</option>
-                    <option value="1">=</option>
-                    <option value="2">&lt;=</option>
-                </select>
-                <input id="inputMemberWL" class="form-control input-sm" />
-            </div>
-            <div class="filter-row">
-                <button class="btn-submit">${betMatchingResources.Filter}</button>
-            </div>
-        `);
-        this.memberWinLossFilterTooltip.hide();
-        this.$memberWinLossFilterIcon.on("click", () => {
-            this.hideColumnFilterTooltips();
-            this.memberWinLossFilterTooltip.show();
-        });
+        this.usernameFilterForm.subscribeSubmit(this.filterAndRender);
+        this.stakeFilterForm.subscribeSubmit(this.filterAndRender);
+        this.memberWinLossFilterForm.subscribeSubmit(this.filterAndRender);
     };
 
     onFilterEvent = () => {
@@ -486,7 +445,7 @@ class BetChoiceMatching {
         this.$reportForm.addClass("hide");
     };
 
-    onSubmitReport = (e: any) => {
+    onSubmitReport = (e: JQueryEventObject) => {
         e.preventDefault();
         this.$.blockUI();
         this.$table.hide();
@@ -496,9 +455,7 @@ class BetChoiceMatching {
             .done((data: QueryModel) => {
                 this.data = data;
                 this.groupIPs(data.IPs);
-                const filterItems = this.filterItems(data.Items);
-                const eventGroups = this.groupItems(filterItems);
-                this.renderTable(eventGroups);
+                this.filterAndRender();
             })
             .fail(() => {
                 alert('error');
@@ -508,6 +465,21 @@ class BetChoiceMatching {
                 this.$.unblockUI();
             });
     };
+
+    filterAndRender = () => {
+        const eventGroups = this.groupItems(this.data.Items);
+        const filterEventGroups: QueryModelEventGroup[] = [];
+        eventGroups.forEach(eventGroup => {
+            this.usernameFilterForm.filter(eventGroup);
+            this.stakeFilterForm.filter(eventGroup);
+            this.memberWinLossFilterForm.filter(eventGroup);
+            if (eventGroup.UserGroups.length > 0) {
+                filterEventGroups.push(eventGroup);
+            }
+        })
+
+        this.renderTable(filterEventGroups);
+    }
 
     onExportExcel = () => {
         this.$exportExcelForm.submit();
@@ -524,23 +496,19 @@ class BetChoiceMatching {
         });
     }
 
-    groupItems = (items: QueryModelItem[]) => {
-        const itemGroups: QueryModelEventGroup[] = [];
+    groupItems = (items: QueryModelItem[]): QueryModelEventGroup[] => {
+        const eventGroups: QueryModelEventGroup[] = [];
         items.forEach(item => {
-            let itemGroup = new QueryModelEventGroup(item);
-            const filterItemGroups = itemGroups.filter(g => g.Key === itemGroup.Key);
-            if (filterItemGroups.length === 0) {
-                itemGroups.push(itemGroup);
+            let eventGroup = new QueryModelEventGroup(item);
+            const filterEventGroups = eventGroups.filter(g => g.Key === eventGroup.Key);
+            if (filterEventGroups.length === 0) {
+                eventGroups.push(eventGroup);
             } else {
-                filterItemGroups[0].addItem(item);
+                filterEventGroups[0].addItem(item);
             }
         });
 
-        return itemGroups;
-    };
-
-    filterItems = (items: QueryModelItem[]) => {
-        return items;
+        return eventGroups;
     };
 
     formatNumber = (value: number, isRunning: boolean) => {
@@ -555,8 +523,11 @@ class BetChoiceMatching {
         if (eventGroups.length === 0) {
             this.$tableTbody.html(this.noinfoRowHtml);
             this.$tableTfoot.hide();
-            this.hideColumnFilterIcons();
-            this.hideColumnFilterTooltips();
+            if (this.data.Items.length === 0) {
+                this.hideColumnFilterIcons();
+                this.hideColumnFilterTooltips();
+            }
+
             return;
         }
 
@@ -578,7 +549,9 @@ class BetChoiceMatching {
                 }
 
                 html.push(`<tr class="${index % 2 === 1 ? "row-even row-total" : "row-total"}">
-                    <td class="text-left" rowspan="${userGroup.Items.length + 1}"><span data-custid="${userGroup.CustId}" class="text-username" title="${betMatchingResources.BetMatching_Username_Title}">${userGroup.Username}</span></td>
+                    <td class="text-left" rowspan="${userGroup.Items.length + 1}">
+                        <span data-custid="${userGroup.CustId}" class="text-username" title="${betMatchingResources.BetMatching_Username_Title}">${userGroup.Username}</span>
+                    </td>
                     <td class="text-right" colspan="4">${betMatchingResources.Total}</td>
                     <td>${this.formatNumber(userGroup.MemberTurnover, false)}</td>
                     <td>${this.formatNumber(userGroup.MemberWinLoss, userGroup.IsRunning)}</td>
@@ -588,7 +561,7 @@ class BetChoiceMatching {
                 userGroup.Items.forEach(item => {
                     let ipHtml = '';
                     if (this.queryIPGroup[item.IP]) {
-                        ipHtml = ` <span class="icon-ip" data-ip="${item.IP}" title="${betMatchingResources.BetMatching_IP_Title}"></span>`;
+                        ipHtml = ` <span class="icon-ip" data-custid="${item.CustId}" data-ip="${item.IP}" title="${betMatchingResources.BetMatching_IP_Title}"></span>`;
                     }
 
                     html.push(`<tr class="${index % 2 === 1 ? "row-even" : ""}">
@@ -663,10 +636,18 @@ class BetChoiceMatching {
                 direction: 'right'
             });
             $target.data(tooltipDataKey, ipTooltip);
-            const ip = this.$(e.target).data('ip');
+            const ip = $target.data('ip');
+            const custId = $target.data('custid');
             const data = this.queryIPGroup[ip];
-            const html = data.map((item: QueryIP, index: number) => `<div>${index + 1}: ${item.Username}</div>`).join('');
-            ipTooltip.render(html);
+            const html = [];
+            let index = 0;
+            data.forEach(item => {
+                if (item.CustId !== custId) {
+                    index++;
+                    html.push(`<div>${index}: ${item.Username}</div>`);
+                }
+            });
+            ipTooltip.render(html.join(''));
         }
 
         this.activeIPTooltip = ipTooltip;
@@ -674,22 +655,22 @@ class BetChoiceMatching {
     };
 
     showColumnFilterIcons = () => {
-        this.$usernameFilterIcon.show();
-        this.$stakeFilterIcon.show();
-        this.$memberWinLossFilterIcon.show();
-    };
-
-    hideColumnFilterTooltips = () => {
-        this.usernameFilterTooltip.hide();
-        this.stakeFilterTooltip.hide();
-        this.memberWinLossFilterTooltip.hide();
+        this.usernameFilterForm.showIcon();
+        this.stakeFilterForm.showIcon();
+        this.memberWinLossFilterForm.showIcon();
     };
 
     hideColumnFilterIcons = () => {
-        this.$usernameFilterIcon.hide();
-        this.$stakeFilterIcon.hide();
-        this.$memberWinLossFilterIcon.hide();
-    }
+        this.usernameFilterForm.hideIcon();
+        this.stakeFilterForm.hideIcon();
+        this.memberWinLossFilterForm.hideIcon();
+    };
+
+    hideColumnFilterTooltips = () => {
+        this.usernameFilterForm.hideTooltip();
+        this.stakeFilterForm.hideTooltip();
+        this.memberWinLossFilterForm.hideTooltip();
+    };
 }
 
 $(() => {
@@ -713,9 +694,10 @@ const defaultOption: SimpleTooltipOption = {
 
 class SimpleTooltip {
     private option: SimpleTooltipOption;
-    private $tooltip: JQuery;
+    $tooltip: JQuery;
     private $tooltipTitle: JQuery;
     private $tooltipBody: JQuery;
+    private hideCallback: () => void;
 
     constructor(private $: JQueryStatic, private $target: JQuery, option = defaultOption) {
         this.option = this.$.extend({}, defaultOption, option);
@@ -753,17 +735,296 @@ class SimpleTooltip {
 
     hide = () => {
         this.$tooltip.hide();
+        if (this.hideCallback) {
+            this.hideCallback();
+        }
     };
 
     show = () => {
         this.$tooltip.show();
     };
+
+    onHide = (callback: () => void) => {
+        this.hideCallback = callback;
+    }
 }
 
-class FilterTooltip extends SimpleTooltip {
-    $filterButton: JQuery;
+abstract class BaseFilterForm {
+    protected simpleTooltip: SimpleTooltip;
+    protected $filterIcon: JQuery;
+    protected $form: JQuery;
+    protected filterCriteria: JQuerySerializeArrayElement[];
+    private listener: () => void;
+    static tooltips: SimpleTooltip[] = [];
 
-    constructor($: JQueryStatic, $target: JQuery, option = defaultOption) {
-        super($, $target, option);
+    constructor($: JQueryStatic, iconFilterClassname: string, tooltipOption: SimpleTooltipOption, tooltipContent: string) {
+        this.$filterIcon = $(iconFilterClassname);
+        this.simpleTooltip = new SimpleTooltip($, this.$filterIcon, tooltipOption);
+        this.simpleTooltip.render(tooltipContent);
+        this.simpleTooltip.hide();
+        BaseFilterForm.tooltips.push(this.simpleTooltip);
+        this.$filterIcon.on("click", () => {
+            BaseFilterForm.tooltips.forEach(tooltip => tooltip.hide());
+            this.simpleTooltip.show();
+        });
+        this.$form = this.simpleTooltip.$tooltip.find('form');
+        this.$form.submit(this.onSubmit);
+        this.filterCriteria = this.$form.serializeArray();
+        this.simpleTooltip.onHide(this.onHideTooltip);
+    }
+
+    onHideTooltip = () => {
+        const filterCriteria = this.$form.serializeArray();
+        if (JSON.stringify(filterCriteria) !== JSON.stringify(this.filterCriteria)) {
+            this.restoreCriteria();
+        }
+    }
+
+    hideIcon = () => {
+        this.$filterIcon.hide();
+    }
+
+    showIcon = () => {
+        this.$filterIcon.show();
+    }
+
+    hideTooltip = () => {
+        this.simpleTooltip.hide();
+    }
+
+    showTooltip = () => {
+        this.simpleTooltip.show();
+    }
+
+    onSubmit = (e: JQueryEventObject) => {
+        e.preventDefault();
+        this.filterCriteria = this.$form.serializeArray();
+        this.$filterIcon.removeClass('has-filter');
+        if (this.hasFilter()) {
+            this.$filterIcon.addClass('has-filter');
+        }
+
+        this.listener && this.listener();
+    }
+
+    subscribeSubmit(listener: () => void) {
+        this.listener = listener;
+    }
+
+    abstract hasFilter(): boolean;
+
+    abstract restoreCriteria();
+
+    abstract filter(eventGroup: QueryModelEventGroup);
+}
+
+class UsernameFilterForm extends BaseFilterForm {
+    static iconFilterClassname = "thead .col-username .icon-column-filter";
+    static tooltipOption = {
+        title: betMatchingResources.FilterByUsername,
+        tooltipClass: 'username-filter'
+    }
+    static tooltipContent = `
+        <form>
+            <textarea class="form-control" name="Username" autocomplete="off" rows="4" cols="50" placeholder="${betMatchingResources.FilterByUsername_Placeholder}"></textarea>
+            <div class="text-right">
+                <button class="btn-submit btn-filter" type="submit">${betMatchingResources.Filter}</button>
+            </div>
+        </form>
+    `;
+
+    $textareaUsername: JQuery;
+
+    constructor(private $: JQueryStatic) {
+        super($, UsernameFilterForm.iconFilterClassname, UsernameFilterForm.tooltipOption, UsernameFilterForm.tooltipContent);
+        this.$textareaUsername = this.$form.find('textarea');
+        this.$textareaUsername.focusout(this.textareaLostFocus);
+    }
+
+    textareaLostFocus = () => {
+        let username = this.$.trim(this.$textareaUsername.val()).replace(/(?:\r\n|\r|\n)/g, ',');
+        const usernames = username.split(',');
+        const newUsernames = [];
+        usernames.forEach(x => {
+            const trimmed = this.$.trim(x);
+            if (trimmed) {
+                newUsernames.push(trimmed);
+            }
+        })
+        username = newUsernames.join(',');
+        this.$textareaUsername.val(username);
+    }
+
+    getCriteria() {
+        return {
+            Username: this.$.trim(this.filterCriteria[0].value)
+        };
+    }
+
+    hasFilter(): boolean {
+        const criteria = this.getCriteria();
+        return !!criteria.Username;
+    }
+
+    restoreCriteria = () => {
+        this.$textareaUsername.val(this.getCriteria().Username);
+    }
+
+    filter(eventGroup: QueryModelEventGroup) {
+        if (!this.hasFilter()) {
+            return;
+        }
+
+        const username = this.getCriteria().Username;
+        const usernames = username.split(',').map(x => $.trim(x));
+        const filterUserGroups = [];
+        eventGroup.UserGroups.forEach(userGroup => {
+            if (usernames.indexOf(userGroup.Username) >= 0) {
+                filterUserGroups.push(userGroup);
+            }
+        });
+        eventGroup.UserGroups = filterUserGroups;
+    }
+}
+
+class StakeFilterForm extends BaseFilterForm {
+    static iconFilterClassname = "thead .col-stake .icon-column-filter";
+    static tooltipOption = {
+        title: betMatchingResources.FilterByStake,
+        tooltipClass: 'stake-filter'
+    }
+    static tooltipContent = `
+        <form class="form-inline">
+            <div>
+                <span class="form-label">${betMatchingResources.TotalStake} &gt;=</span>
+                <input name="TotalStake" class="form-control input-sm" />
+            </div>
+            <div class="text-right">
+                <button class="btn-submit btn-filter">${betMatchingResources.Filter}</button>
+            </div>
+        </form>
+    `;
+
+    $inputTotalStake: JQuery;
+
+    constructor(private $: JQueryStatic) {
+        super($, StakeFilterForm.iconFilterClassname, StakeFilterForm.tooltipOption, StakeFilterForm.tooltipContent);
+        this.$inputTotalStake = this.$form.find('input');
+        this.$inputTotalStake.inputFilter(value => /^-?\d*[.,]?\d{0,2}$/.test(value));
+    }
+
+    getCriteria() {
+        return {
+            TotalStake: this.$.trim(this.filterCriteria[0].value)
+        };
+    }
+
+    hasFilter(): boolean {
+        const criteria = this.getCriteria();
+        return !!criteria.TotalStake;
+    }
+
+    restoreCriteria = () => {
+        this.$inputTotalStake.val(this.getCriteria().TotalStake);
+    }
+
+    filter(eventGroup: QueryModelEventGroup) {
+        if (!this.hasFilter()) {
+            return;
+        }
+
+        const totalStake = parseFloat(this.getCriteria().TotalStake);
+        const filterUserGroups = [];
+        eventGroup.UserGroups.forEach(userGroup => {
+            if (userGroup.MemberTurnover >= totalStake) {
+                filterUserGroups.push(userGroup);
+            }
+        });
+
+        eventGroup.UserGroups = filterUserGroups;
+    }
+}
+
+class MemberWinLossFilterForm extends BaseFilterForm {
+    static iconFilterClassname = "thead .col-memberwinloss .icon-column-filter";
+    static tooltipOption = {
+        title: betMatchingResources.FilterByMemberWinLoss,
+        tooltipClass: 'memberwinloss-filter'
+    }
+    static tooltipContent = `
+        <form class="form-inline">
+            <div>
+                <span class="form-label">${betMatchingResources.TotalMemberWL}</span>
+                <select name="Operator" class="form-control input-sm">
+                    <option value="0">&gt;=</option>
+                    <option value="1">=</option>
+                    <option value="2">&lt;=</option>
+                </select>
+                <input name="MemberWinLoss" class="form-control input-sm" />
+            </div>
+            <div class="text-right">
+                <button class="btn-submit btn-filter">${betMatchingResources.Filter}</button>
+            </div>
+        </form>
+    `;
+
+    $selectOperator: JQuery;
+    $inputMemberWinLoss: JQuery;
+
+    constructor(private $: JQueryStatic) {
+        super($, MemberWinLossFilterForm.iconFilterClassname, MemberWinLossFilterForm.tooltipOption, MemberWinLossFilterForm.tooltipContent);
+        this.$selectOperator = this.$form.find('select');
+        this.$inputMemberWinLoss = this.$form.find('input');
+        this.$inputMemberWinLoss.inputFilter(value => /^-?\d*[.,]?\d{0,2}$/.test(value));
+    }
+
+    getCriteria() {
+        return {
+            Operator: this.$.trim(this.filterCriteria[0].value),
+            MemberWinLoss: this.$.trim(this.filterCriteria[1].value)
+        };
+    }
+
+    hasFilter(): boolean {
+        const criteria = this.getCriteria();
+        return !!criteria.MemberWinLoss;
+    }
+
+    restoreCriteria = () => {
+        const criteria = this.getCriteria();
+        this.$selectOperator.val(criteria.Operator);
+        this.$inputMemberWinLoss.val(criteria.MemberWinLoss);
+    }
+
+    filter(eventGroup: QueryModelEventGroup) {
+        if (!this.hasFilter()) {
+            return;
+        }
+
+        const criteria = this.getCriteria();
+        const memberWinLoss = parseFloat(criteria.MemberWinLoss);
+        const operator = parseInt(criteria.Operator);
+        const filterUserGroups = [];
+        eventGroup.UserGroups.forEach(userGroup => {
+            switch (operator) {
+                case 0:
+                    if (userGroup.MemberWinLoss >= memberWinLoss) {
+                        filterUserGroups.push(userGroup);
+                    }
+                    break;
+                case 1:
+                    if (userGroup.MemberWinLoss === memberWinLoss) {
+                        filterUserGroups.push(userGroup);
+                    }
+                    break;
+                case 2:
+                    if (userGroup.MemberWinLoss <= memberWinLoss) {
+                        filterUserGroups.push(userGroup);
+                    }
+                    break;
+            }
+        });
+
+        eventGroup.UserGroups = filterUserGroups;
     }
 }
