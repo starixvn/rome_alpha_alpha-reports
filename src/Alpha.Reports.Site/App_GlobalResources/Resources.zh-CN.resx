@@ -649,7 +649,7 @@
     <value>Member Count</value>
   </data>
   <data name="SuperWinLoss" xml:space="preserve">
-    <value>Super Win Loss</value>
+    <value>超级总代输赢</value>
   </data>
   <data name="IPMatching" xml:space="preserve">
     <value>IP MATCHING</value>
@@ -659,5 +659,8 @@
   </data>
   <data name="IPMatchingNote" xml:space="preserve">
     <value>This report's data is used for statistics only, due to the resettlement process, the figure might not be totally exact.</value>
+  </data>
+  <data name="MemberTurnOver" xml:space="preserve">
+    <value>会员总投注交易</value>
   </data>
 </root>

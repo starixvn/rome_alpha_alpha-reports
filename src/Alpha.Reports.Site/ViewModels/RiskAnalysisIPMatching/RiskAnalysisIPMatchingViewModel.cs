@@ -32,7 +32,7 @@
                 Selected = item.Equals(userSelectedStatusId)
             });
 
-            BetListPath = Helpers.UrlHelper.MapBetListPath("~/RiskAnalysisIPMatching/Index");
+            BetListPath = ReportHelpers.UrlHelper.MapBetListPath("~/RiskAnalysisIPMatching/Index");
         }
 
         public DateTime WinlostDate { get; }
