@@ -115,6 +115,13 @@
         background: url(../../styles/images/ajax-loader-small.gif) no-repeat center;
     }
 
+    .ip-tootip {
+        .tooltip-body {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    }
+
     .simple-tooltip {
         .form-label {
             margin-left: 10px;

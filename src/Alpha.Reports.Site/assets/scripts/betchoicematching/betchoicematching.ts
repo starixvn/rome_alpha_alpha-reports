@@ -58,7 +58,16 @@ const BetTeamClassNames = {
     Favorite: "favorite"
 };
 
-class QueryModelUserGroup {
+interface QueryModel {
+    Events: QueryEventModel[];
+    Teams: KeyValueModel[];
+    Leagues: KeyValueModel[];
+    SportTypes: KeyValueModel[];
+    BetTypes: KeyValueModel[];
+    IPs: QueryIP[];
+}
+
+interface QueryUserModel {
     CustId: number;
     Username: string;
     MemberTurnover: number;
@@ -66,26 +75,72 @@ class QueryModelUserGroup {
     SuperWinLoss: number;
     Company: number;
     IsRunning: boolean;
-    Items: QueryModelItem[];
+    Items: QueryItemModel[];
+}
 
-    constructor(item: QueryModelItem) {
-        this.CustId = item.CustId;
-        this.Username = item.Username;
-        this.MemberTurnover = item.MemberTurnover;
-        this.MemberWinLoss = item.MemberWinLoss;
-        this.SuperWinLoss = item.SuperWinLoss;
-        this.Company = item.Company;
-        this.IsRunning = item.IsRunning;
-        this.Items = [item];
-    }
+interface QueryEventModel {
+    LeagueId: number;
+    SportType: number;
+    BetType: number;
+    Hdp1: number;
+    Hdp2: number;
+    HomeId: number;
+    AwayId: number;
+    BetTeam: string;
+    GlobalShowTime: string;
+    LiveHomeScore: number;
+    LiveAwayScore: number;
+    IsRunning: boolean;
+    Users: QueryUserModel[];
+}
 
-    addItem(item: QueryModelItem) {
-        this.Items.push(item);
-        this.MemberTurnover = this.MemberTurnover + item.MemberTurnover;
-        this.MemberWinLoss = this.MemberWinLoss + item.MemberWinLoss;
-        this.SuperWinLoss = this.SuperWinLoss + item.SuperWinLoss;
-        this.Company = this.Company + item.Company;
-    }
+interface QueryItemModel {
+    LeagueId: number;
+    SportType: number;
+    BetType: number;
+    CustId: number;
+    Username: string;
+    TransDate: string;
+    GlobalShowTime: string;
+    TransId: number;
+    Odds: number;
+    IP: string;
+    MemberTurnover: number;
+    MemberWinLoss: number;
+    SuperWinLoss: number;
+    Company: number;
+    MatchId: number;
+    HomeId: number;
+    AwayId: number;
+    LiveHomeScore: number;
+    LiveAwayScore: number;
+    Hdp1: number;
+    Hdp2: number;
+    BetTeam: string;
+    IsRunning: boolean;
+}
+
+interface KeyValueModel {
+    Key: any;
+    Value: any;
+}
+
+interface Resources {
+    Total: string;
+    Versus: string;
+    Over: string;
+    Under: string;
+    Upline: string;
+    IP_used_by: string;
+    BetMatching_Username_Title: string;
+    BetMatching_IP_Title: string;
+    FilterByUsername: string;
+    FilterByStake: string;
+    FilterByMemberWinLoss: string;
+    FilterByUsername_Placeholder: string;
+    TotalStake: string;
+    Filter: string;
+    TotalMemberWL: string;
 }
 
 interface ChoiceTicket {
@@ -148,7 +203,7 @@ class HandicapChoiceBuilder extends ChoiceBuilder {
 }
 
 class OverUnderChoiceBuilder extends HandicapChoiceBuilder {
-    generateBetTeam(data: QueryModel): string {
+    generateBetTeam(): string {
         return this.IsBetHomeTeam ? betMatchingResources.Over : betMatchingResources.Under;
     }
 }
@@ -168,140 +223,6 @@ class OneXTwoChoiceBuilder extends ChoiceBuilder {
     }
 }
 
-class QueryModelEventGroup implements ChoiceTicket {
-    Key: string;
-    LeagueId: number;
-    SportType: number;
-    BetType: number;
-    Hdp1: number;
-    Hdp2: number;
-    HomeId: number;
-    AwayId: number;
-    BetTeam: string;
-    GlobalShowTime: string;
-    LiveHomeScore: number;
-    LiveAwayScore: number;
-    IsRunning: boolean;
-    UserGroups: QueryModelUserGroup[];
-
-    constructor(item: QueryModelItem) {
-        this.LeagueId = item.LeagueId;
-        this.SportType = item.SportType;
-        this.BetType = item.BetType;
-        this.GlobalShowTime = item.GlobalShowTime;
-        this.Hdp1 = item.Hdp1;
-        this.Hdp2 = item.Hdp2;
-        this.BetTeam = item.BetTeam;
-        this.LiveHomeScore = item.LiveHomeScore;
-        this.LiveAwayScore = item.LiveAwayScore;
-        this.HomeId = item.HomeId;
-        this.AwayId = item.AwayId;
-        this.IsRunning = item.IsRunning;
-        this.Key = `${item.MatchId}_${item.BetType}_${item.Hdp1}_${item.Hdp2}_${item.BetTeam}`;
-        this.UserGroups = [new QueryModelUserGroup(item)];
-    }
-
-    addItem(item: QueryModelItem) {
-        const filterUserGroups = this.UserGroups.filter(g => g.Username === item.Username);
-        if (filterUserGroups.length === 0) {
-            this.UserGroups.push(new QueryModelUserGroup(item));
-        } else {
-            filterUserGroups[0].addItem(item);
-        }
-    }
-
-    generateHtml(data: QueryModel): string {
-        const choiceBuilder = this.getChoiceBuilder();
-        return `<tr class="row-bet-choice">
-                    <td class="text-left col-bet-choice">${choiceBuilder.build(data)}</td>
-                    <td colspan="6" class="text-left col-event">${this.generateEvent(data)}</td>
-                    <td colspan="2" class="text-center col-global-time">${moment(this.GlobalShowTime).format("MM/DD/YYYY HH:mm A")}</td>
-                </tr>`;
-    }
-
-    private getChoiceBuilder(): ChoiceBuilder {
-        switch (this.BetType) {
-            case BetTypes.HandicapFT:
-            case BetTypes.Handicap1H:
-                return new HandicapChoiceBuilder(this);
-            case BetTypes.OverUnderFT:
-            case BetTypes.OverUnder1H:
-                return new OverUnderChoiceBuilder(this);
-            case BetTypes.OneXTwoFT:
-            case BetTypes.OneXTwo1H:
-                return new OneXTwoChoiceBuilder(this);
-        }
-
-        throw new Error(`ChoiceBuilder is not implemented for bettype ${this.BetType}`);
-    }
-
-    private generateEvent(data: QueryModel): string {
-        return `<span class="text-event">${getValueByKey(data.Teams, this.HomeId)}${betMatchingResources.Versus}${getValueByKey(data.Teams, this.AwayId)}</span>
-                <br />
-                <span class="text-sport-type">${getValueByKey(data.SportTypes, this.SportType)}</span>
-                ${' '}
-                <span class="text-league">${getValueByKey(data.Leagues, this.LeagueId)}</span>`;
-    }
-}
-
-interface QueryModelItem {
-    LeagueId: number;
-    SportType: number;
-    BetType: number;
-    CustId: number;
-    Username: string;
-    TransDate: string;
-    GlobalShowTime: string;
-    TransId: number;
-    Odds: number;
-    IP: string;
-    MemberTurnover: number;
-    MemberWinLoss: number;
-    SuperWinLoss: number;
-    Company: number;
-    MatchId: number;
-    HomeId: number;
-    AwayId: number;
-    LiveHomeScore: number;
-    LiveAwayScore: number;
-    Hdp1: number;
-    Hdp2: number;
-    BetTeam: string;
-    IsRunning: boolean;
-}
-
-interface KeyValueModel {
-    Key: any;
-    Value: any;
-}
-
-interface Resources {
-    Total: string;
-    Versus: string;
-    Over: string;
-    Under: string;
-    Upline: string;
-    IP_used_by: string;
-    BetMatching_Username_Title: string;
-    BetMatching_IP_Title: string;
-    FilterByUsername: string;
-    FilterByStake: string;
-    FilterByMemberWinLoss: string;
-    FilterByUsername_Placeholder: string;
-    TotalStake: string;
-    Filter: string;
-    TotalMemberWL: string;
-}
-
-interface QueryModel {
-    Items: QueryModelItem[];
-    Teams: KeyValueModel[];
-    Leagues: KeyValueModel[];
-    SportTypes: KeyValueModel[];
-    BetTypes: KeyValueModel[];
-    IPs: QueryIP[];
-}
-
 interface QueryIP {
     IP: string;
     CustId: number;
@@ -319,15 +240,11 @@ interface UplinesModel {
     MasterName: string;
 }
 
-interface UplinesCache {
-    [custId: number]: UplinesModel;
-}
-
 class BetChoiceUplines {
     $: JQueryStatic;
     $uplinesForm: JQuery;
     $searchAccountId: JQuery;
-    uplinesCache: UplinesCache = {};
+    uplinesCache: { [custId: number]: UplinesModel } = {};
 
     constructor(
         $: JQueryStatic
@@ -420,8 +337,7 @@ class BetChoiceMatching {
         this.$reportForm.submit(this.onSubmitReport);
         this.$datePicker.datepicker({
             allowInputToggle: true,
-            // TODO
-            //minDate: new Date(this.$('#MinDate').val()),
+            minDate: new Date(this.$('#MinDate').val()),
             maxDate: new Date(this.$('#Today').val()),
             format: alphaReports.format.shortDateWithSlash_DatePicker
         });
@@ -467,18 +383,19 @@ class BetChoiceMatching {
     };
 
     filterAndRender = () => {
-        const eventGroups = this.groupItems(this.data.Items);
-        const filterEventGroups: QueryModelEventGroup[] = [];
-        eventGroups.forEach(eventGroup => {
-            this.usernameFilterForm.filter(eventGroup);
-            this.stakeFilterForm.filter(eventGroup);
-            this.memberWinLossFilterForm.filter(eventGroup);
-            if (eventGroup.UserGroups.length > 0) {
-                filterEventGroups.push(eventGroup);
+        const filterEvents: QueryEventModel[] = [];
+        this.data.Events.forEach(event => {
+            let filterUsers = event.Users;
+            filterUsers = this.usernameFilterForm.filter(filterUsers);
+            filterUsers = this.stakeFilterForm.filter(filterUsers);
+            filterUsers = this.memberWinLossFilterForm.filter(filterUsers);
+            if (filterUsers.length > 0) {
+                event.Users = filterUsers;
+                filterEvents.push(event);
             }
         })
 
-        this.renderTable(filterEventGroups);
+        this.renderTable(filterEvents);
     }
 
     onExportExcel = () => {
@@ -496,21 +413,6 @@ class BetChoiceMatching {
         });
     }
 
-    groupItems = (items: QueryModelItem[]): QueryModelEventGroup[] => {
-        const eventGroups: QueryModelEventGroup[] = [];
-        items.forEach(item => {
-            let eventGroup = new QueryModelEventGroup(item);
-            const filterEventGroups = eventGroups.filter(g => g.Key === eventGroup.Key);
-            if (filterEventGroups.length === 0) {
-                eventGroups.push(eventGroup);
-            } else {
-                filterEventGroups[0].addItem(item);
-            }
-        });
-
-        return eventGroups;
-    };
-
     formatNumber = (value: number, isRunning: boolean) => {
         if (isRunning) {
             return '-';
@@ -519,11 +421,11 @@ class BetChoiceMatching {
         return alphaReports.formatCurrency(value);
     };
 
-    renderTable = (eventGroups: QueryModelEventGroup[]) => {
-        if (eventGroups.length === 0) {
+    renderTable = (events: QueryEventModel[]) => {
+        if (events.length === 0) {
             this.$tableTbody.html(this.noinfoRowHtml);
             this.$tableTfoot.hide();
-            if (this.data.Items.length === 0) {
+            if (this.data.Events.length === 0) {
                 this.hideColumnFilterIcons();
                 this.hideColumnFilterTooltips();
             }
@@ -537,28 +439,28 @@ class BetChoiceMatching {
             totalCompany = null,
             isRunning = true;
         const html = [];
-        eventGroups.forEach(eventGroup => {
-            html.push(eventGroup.generateHtml(this.data));
-            eventGroup.UserGroups.forEach((userGroup, index) => {
-                totalMemberTurnover += userGroup.MemberTurnover;
-                if (!userGroup.IsRunning) {
-                    totalMemberWinLoss += userGroup.MemberWinLoss;
-                    totalSuperWinLoss += userGroup.SuperWinLoss;
-                    totalCompany += userGroup.Company;
+        events.forEach(event => {
+            html.push(this.generateBetChoice(event));
+            event.Users.forEach((user, index) => {
+                totalMemberTurnover += user.MemberTurnover;
+                if (!user.IsRunning) {
+                    totalMemberWinLoss += user.MemberWinLoss;
+                    totalSuperWinLoss += user.SuperWinLoss;
+                    totalCompany += user.Company;
                     isRunning = false;
                 }
 
                 html.push(`<tr class="${index % 2 === 1 ? "row-even row-total" : "row-total"}">
-                    <td class="text-left" rowspan="${userGroup.Items.length + 1}">
-                        <span data-custid="${userGroup.CustId}" class="text-username" title="${betMatchingResources.BetMatching_Username_Title}">${userGroup.Username}</span>
+                    <td class="text-left" rowspan="${user.Items.length + 1}">
+                        <span data-custid="${user.CustId}" class="text-username" title="${betMatchingResources.BetMatching_Username_Title}">${user.Username}</span>
                     </td>
                     <td class="text-right" colspan="4">${betMatchingResources.Total}</td>
-                    <td>${this.formatNumber(userGroup.MemberTurnover, false)}</td>
-                    <td>${this.formatNumber(userGroup.MemberWinLoss, userGroup.IsRunning)}</td>
-                    <td class="col-superwinloss">${this.formatNumber(userGroup.SuperWinLoss, userGroup.IsRunning)}</td>
-                    <td>${this.formatNumber(userGroup.Company, userGroup.IsRunning)}</td>
+                    <td>${this.formatNumber(user.MemberTurnover, false)}</td>
+                    <td>${this.formatNumber(user.MemberWinLoss, user.IsRunning)}</td>
+                    <td class="col-superwinloss">${this.formatNumber(user.SuperWinLoss, user.IsRunning)}</td>
+                    <td>${this.formatNumber(user.Company, user.IsRunning)}</td>
                 </tr>`);
-                userGroup.Items.forEach(item => {
+                user.Items.forEach(item => {
                     let ipHtml = '';
                     if (this.queryIPGroup[item.IP]) {
                         ipHtml = ` <span class="icon-ip" data-custid="${item.CustId}" data-ip="${item.IP}" title="${betMatchingResources.BetMatching_IP_Title}"></span>`;
@@ -594,6 +496,37 @@ class BetChoiceMatching {
         this.$tableTbody.find('.text-username').click(this.onUsernameClick);
         this.$tableTbody.find('.icon-ip').click(this.onIPClick);
     };
+
+    generateBetChoice(event: QueryEventModel) {
+        const getChoiceBuilder = (): ChoiceBuilder => {
+            switch (event.BetType) {
+                case BetTypes.HandicapFT:
+                case BetTypes.Handicap1H:
+                    return new HandicapChoiceBuilder(event);
+                case BetTypes.OverUnderFT:
+                case BetTypes.OverUnder1H:
+                    return new OverUnderChoiceBuilder(event);
+                case BetTypes.OneXTwoFT:
+                case BetTypes.OneXTwo1H:
+                    return new OneXTwoChoiceBuilder(event);
+            }
+
+            throw new Error(`ChoiceBuilder is not implemented for bettype ${event.BetType}`);
+        }
+
+        const choiceBuilder = getChoiceBuilder();
+        return `<tr class="row-bet-choice">
+                    <td class="text-left col-bet-choice">${choiceBuilder.build(this.data)}</td>
+                    <td colspan="6" class="text-left col-event">
+                        <span class="text-event">${getValueByKey(this.data.Teams, event.HomeId)}${betMatchingResources.Versus}${getValueByKey(this.data.Teams, event.AwayId)}</span>
+                        <br />
+                        <span class="text-sport-type">${getValueByKey(this.data.SportTypes, event.SportType)}</span>
+                        ${' '}
+                        <span class="text-league">${getValueByKey(this.data.Leagues, event.LeagueId)}</span>
+                    </td>
+                    <td colspan="2" class="text-center col-global-time">${moment(event.GlobalShowTime).format("MM/DD/YYYY HH:mm A")}</td>
+                </tr>`;
+    }
 
     onUsernameClick = (e: MouseEvent) => {
         if (this.activeUplinesTooltip) {
@@ -633,7 +566,8 @@ class BetChoiceMatching {
         if (!ipTooltip) {
             ipTooltip = new SimpleTooltip(this.$, $target, {
                 title: betMatchingResources.IP_used_by,
-                direction: 'right'
+                direction: 'right',
+                tooltipClass: 'ip-tootip'
             });
             $target.data(tooltipDataKey, ipTooltip);
             const ip = $target.data('ip');
@@ -815,7 +749,7 @@ abstract class BaseFilterForm {
 
     abstract restoreCriteria();
 
-    abstract filter(eventGroup: QueryModelEventGroup);
+    abstract filter(users: QueryUserModel[]): QueryUserModel[];
 }
 
 class UsernameFilterForm extends BaseFilterForm {
@@ -870,20 +804,20 @@ class UsernameFilterForm extends BaseFilterForm {
         this.$textareaUsername.val(this.getCriteria().Username);
     }
 
-    filter(eventGroup: QueryModelEventGroup) {
+    filter(users: QueryUserModel[]) {
         if (!this.hasFilter()) {
-            return;
+            return users;
         }
 
         const username = this.getCriteria().Username;
         const usernames = username.split(',').map(x => $.trim(x));
-        const filterUserGroups = [];
-        eventGroup.UserGroups.forEach(userGroup => {
-            if (usernames.indexOf(userGroup.Username) >= 0) {
-                filterUserGroups.push(userGroup);
+        const filterUsers = [];
+        users.forEach(user => {
+            if (usernames.indexOf(user.Username) >= 0) {
+                filterUsers.push(user);
             }
         });
-        eventGroup.UserGroups = filterUserGroups;
+        return filterUsers;
     }
 }
 
@@ -928,20 +862,20 @@ class StakeFilterForm extends BaseFilterForm {
         this.$inputTotalStake.val(this.getCriteria().TotalStake);
     }
 
-    filter(eventGroup: QueryModelEventGroup) {
+    filter(users: QueryUserModel[]) {
         if (!this.hasFilter()) {
-            return;
+            return users;
         }
 
         const totalStake = parseFloat(this.getCriteria().TotalStake);
-        const filterUserGroups = [];
-        eventGroup.UserGroups.forEach(userGroup => {
-            if (userGroup.MemberTurnover >= totalStake) {
-                filterUserGroups.push(userGroup);
+        const filterUsers = [];
+        users.forEach(user => {
+            if (user.MemberTurnover >= totalStake) {
+                filterUsers.push(user);
             }
         });
 
-        eventGroup.UserGroups = filterUserGroups;
+        return filterUsers;
     }
 }
 
@@ -996,35 +930,35 @@ class MemberWinLossFilterForm extends BaseFilterForm {
         this.$inputMemberWinLoss.val(criteria.MemberWinLoss);
     }
 
-    filter(eventGroup: QueryModelEventGroup) {
+    filter(users: QueryUserModel[]) {
         if (!this.hasFilter()) {
-            return;
+            return users;
         }
 
         const criteria = this.getCriteria();
         const memberWinLoss = parseFloat(criteria.MemberWinLoss);
         const operator = parseInt(criteria.Operator);
-        const filterUserGroups = [];
-        eventGroup.UserGroups.forEach(userGroup => {
+        const filterUsers = [];
+        users.forEach(user => {
             switch (operator) {
                 case 0:
-                    if (userGroup.MemberWinLoss >= memberWinLoss) {
-                        filterUserGroups.push(userGroup);
+                    if (user.MemberWinLoss >= memberWinLoss) {
+                        filterUsers.push(user);
                     }
                     break;
                 case 1:
-                    if (userGroup.MemberWinLoss === memberWinLoss) {
-                        filterUserGroups.push(userGroup);
+                    if (user.MemberWinLoss === memberWinLoss) {
+                        filterUsers.push(user);
                     }
                     break;
                 case 2:
-                    if (userGroup.MemberWinLoss <= memberWinLoss) {
-                        filterUserGroups.push(userGroup);
+                    if (user.MemberWinLoss <= memberWinLoss) {
+                        filterUsers.push(user);
                     }
                     break;
             }
         });
 
-        eventGroup.UserGroups = filterUserGroups;
+        return filterUsers;
     }
 }

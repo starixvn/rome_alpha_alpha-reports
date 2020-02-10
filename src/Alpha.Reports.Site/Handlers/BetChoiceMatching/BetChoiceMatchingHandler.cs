@@ -25,13 +25,13 @@
         {
             var queryParam = new BetChoiceMatchingParam(message.CustId, message.WinlostDate, message.MoveBetsDate, message.BetCount);
             var data = betChoiceMatchingService.Query(queryParam);
-            var matchingModels = data.Item1;
+            var eventModels = data.Item1;
             var ipModels = data.Item2;
-            var teams = matchingModels.Select(x => x.HomeId).Union(matchingModels.Select(x => x.AwayId)).Select(teamId => new KeyValueModel(teamId, cacheRefService.GetTeamName(teamId)));
-            var leagues = matchingModels.Select(x => x.LeagueId).Distinct().Select(leagueId => new KeyValueModel(leagueId, cacheRefService.GetLeagueName(leagueId)));
-            var sportTypes = matchingModels.Select(x => x.SportType).Distinct().Select(sportType => new KeyValueModel(sportType, cacheRefService.GetSportName(sportType)));
-            var betTypes = matchingModels.Select(x => x.BetType).Distinct().Select(betType => new KeyValueModel(betType, cacheRefService.GetBetTypeName(betType)));
-            return new BetChoiceMatchingQueryResult(matchingModels, teams, leagues, sportTypes, betTypes, ipModels);
+            var teams = eventModels.Select(x => x.HomeId).Union(eventModels.Select(x => x.AwayId)).Select(teamId => new KeyValueModel(teamId, cacheRefService.GetTeamName(teamId)));
+            var leagues = eventModels.Select(x => x.LeagueId).Distinct().Select(leagueId => new KeyValueModel(leagueId, cacheRefService.GetLeagueName(leagueId)));
+            var sportTypes = eventModels.Select(x => x.SportType).Distinct().Select(sportType => new KeyValueModel(sportType, cacheRefService.GetSportName(sportType)));
+            var betTypes = eventModels.Select(x => x.BetType).Distinct().Select(betType => new KeyValueModel(betType, cacheRefService.GetBetTypeName(betType)));
+            return new BetChoiceMatchingQueryResult(eventModels, teams, leagues, sportTypes, betTypes, ipModels);
         }
     }
 }

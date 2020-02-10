@@ -7,7 +7,7 @@
     public class BetChoiceMatchingQueryResult
     {
         public BetChoiceMatchingQueryResult(
-            IEnumerable<BetChoiceMatchingModel> items,
+            IEnumerable<BetChoiceMatchingEventModel> events,
             IEnumerable<KeyValueModel> teams,
             IEnumerable<KeyValueModel> leagues,
             IEnumerable<KeyValueModel> sportTypes,
@@ -15,7 +15,7 @@
             IEnumerable<BetChoiceSharedIPModel> ips
             )
         {
-            Items = items;
+            Events = events;
             Teams = teams;
             Leagues = leagues;
             SportTypes = sportTypes;
@@ -23,7 +23,7 @@
             IPs = ips;
         }
 
-        public IEnumerable<BetChoiceMatchingModel> Items { get; }
+        public IEnumerable<BetChoiceMatchingEventModel> Events { get; }
 
         public IEnumerable<KeyValueModel> Teams { get; }
 
