@@ -8,7 +8,7 @@
         {
             CustId = item.CustId;
             Username = item.Username;
-            MemberTurnover = item.MemberTurnover;
+            Stake = item.Stake;
             MemberWinLoss = item.MemberWinLoss;
             SuperWinLoss = item.SuperWinLoss;
             Company = item.Company;
@@ -20,7 +20,7 @@
 
         public string Username { get; }
 
-        public decimal MemberTurnover { get; private set; }
+        public decimal Stake { get; private set; }
 
         public decimal MemberWinLoss { get; private set; }
 
@@ -35,7 +35,7 @@
         public void Add(BetChoiceMatchingModel item)
         {
             Items.Add(item);
-            MemberTurnover += item.MemberTurnover;
+            Stake += item.Stake;
             MemberWinLoss += item.MemberWinLoss;
             SuperWinLoss += item.SuperWinLoss;
             Company += item.Company;

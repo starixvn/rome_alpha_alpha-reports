@@ -9,6 +9,20 @@
         }
 
         public BetChoiceMatchingModel(
+            decimal stake,
+            decimal memberWinLoss,
+            decimal superWinLoss,
+            decimal company,
+            bool isRunning)
+        {
+            Stake = stake;
+            MemberWinLoss = memberWinLoss;
+            SuperWinLoss = superWinLoss;
+            Company = company;
+            IsRunning = isRunning;
+        }
+
+        public BetChoiceMatchingModel(
             int leagueId,
             DateTime globalShowTime,
             int sportType,
@@ -23,7 +37,7 @@
             decimal odds,
             DateTime transDate,
             long transId,
-            decimal memberTurnover,
+            decimal stake,
             decimal memberWinLoss,
             decimal superWinLoss,
             decimal company,
@@ -47,7 +61,7 @@
             Odds = odds;
             TransDate = transDate;
             TransId = transId;
-            MemberTurnover = memberTurnover;
+            Stake = stake;
             MemberWinLoss = memberWinLoss;
             SuperWinLoss = superWinLoss;
             Company = company;
@@ -86,7 +100,7 @@
 
         public long TransId { get; private set; }
 
-        public decimal MemberTurnover { get; private set; }
+        public decimal Stake { get; private set; }
 
         public decimal MemberWinLoss { get; private set; }
 

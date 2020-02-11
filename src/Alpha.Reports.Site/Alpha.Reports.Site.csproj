@@ -441,6 +441,8 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingExcelHandler.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingWorkbook.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceUplinesHandler.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationBaseHandler.cs" />
@@ -498,6 +500,7 @@
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Helpers\WorkbookHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingExcelQuery.cs" />
     <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingQuery.cs" />
     <Compile Include="Requests\BetChoiceMatching\BetChoiceUplinesQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBetTypeGuideQuery.cs" />
@@ -1022,6 +1025,7 @@
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
     <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
+    <Content Include="App_Data\ExcelTemplates\BetChoiceMatching\Master.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

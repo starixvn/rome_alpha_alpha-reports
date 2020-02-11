@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
     using Alpha.Utilities.IP;
+    using Alpha.Reports.Site.Handlers.BetChoiceMatching;
     using Configurations;
     using Controllers;
     using DataAccesses;
@@ -123,6 +124,7 @@
             container.RegisterSingleton<RiskAnalysisIPMatchingService, RiskAnalysisIPMatchingServiceImpl>();
             container.RegisterSingleton<IPService, Services.IPServiceImpl>();
             container.RegisterSingleton<BetChoiceMatchingService, BetChoiceMatchingServiceImpl>();
+            container.RegisterSingleton<BetChoiceMatchingWorkbook, BetChoiceMatchingWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

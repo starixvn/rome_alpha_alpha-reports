@@ -6,8 +6,9 @@
 
     public class BetChoiceMatchingEventModel
     {
-        public BetChoiceMatchingEventModel(BetChoiceMatchingModel model)
+        public BetChoiceMatchingEventModel(BetChoiceMatchingModel model, List<BetChoiceMatchingUserModel> users)
         {
+            Key = $"{model.MatchId}_{BetType}_{Hdp1}_{Hdp2}_{BetTeam}";
             LeagueId = model.LeagueId;
             SportType = model.SportType;
             BetType = model.BetType;
@@ -20,8 +21,12 @@
             HomeId = model.HomeId;
             AwayId = model.AwayId;
             IsRunning = model.IsRunning;
-            Key = $"{model.MatchId}_{BetType}_{Hdp1}_{Hdp2}_{BetTeam}";
-            Users = new List<BetChoiceMatchingUserModel> { new BetChoiceMatchingUserModel(model) };
+            Users = users;
+        }
+
+        public BetChoiceMatchingEventModel(BetChoiceMatchingModel model)
+            : this(model, new List<BetChoiceMatchingUserModel> { new BetChoiceMatchingUserModel(model) })
+        {
         }
 
         public string Key { get; }

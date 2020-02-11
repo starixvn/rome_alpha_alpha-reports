@@ -1,0 +1,91 @@
+﻿namespace Alpha.Reports.Site.Handlers.BetChoiceMatching
+{
+    using Alpha.Reports.Extensions;
+    using Alpha.Reports.Params.BetChoiceMatching;
+    using Alpha.Reports.Services;
+    using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Site.Requests.BetChoiceMatching;
+    using Alpha.Reports.Site.ViewModels;
+    using MediatR;
+    using ONEbook.SpreadSheets;
+    using System.Collections.Generic;
+    using static ONEbook.SpreadSheets.Column;
+
+    public class BetChoiceMatchingExcelHandler :
+        BaseHandler,
+        IRequestHandler<BetChoiceMatchingExcelQuery, ExcelFileViewModel>
+    {
+        private readonly BetChoiceMatchingService betChoiceMatchingService;
+        private readonly BetChoiceMatchingWorkbook workbook;
+
+        public BetChoiceMatchingExcelHandler(BetChoiceMatchingService betChoiceMatchingService,
+            BetChoiceMatchingWorkbook workbook)
+        {
+            this.betChoiceMatchingService = betChoiceMatchingService;
+            this.workbook = workbook;
+        }
+
+        public ExcelFileViewModel Handle(BetChoiceMatchingExcelQuery message)
+        {
+            var param = new BetChoiceMatchingExcelParam(
+                message.CustId,
+                message.WinlostDate,
+                message.MoveBetsDate,
+                message.BetCount,
+                message.Username,
+                message.Stake,
+                message.MemberWinLossOperator,
+                message.MemberWinLossValue);
+            var data = betChoiceMatchingService.Query(param);
+            var eventModels = data.Item1;
+            var fileContent = workbook
+                .Body(eventModels)
+                .UseTemplate(GetTemplateInfo(message))
+                .Sheet(Resources.DefaultSheetName)
+                .Title(GetReportTitle(message))
+                .Header(Resources.ResourceManager.GetString)
+                .ExportToBytes();
+            return new ExcelFileViewModel(GetExcelFileName(message), fileContent);
+        }
+
+        private TemplateInfo GetTemplateInfo(BetChoiceMatchingExcelQuery message)
+            => new TemplateInfo(
+                GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
+                noInfomationText: Resources.NoInformationIsAvailable,
+                bodyStartIndex: 3,
+                columnStartName: A,
+                sheetIndex: 1);
+
+        private static string GetReportTitle(BetChoiceMatchingExcelQuery message)
+        {
+            var filters = new List<string>
+            {
+                $"{Resources.MatchingBets}: >= {message.BetCount}"
+            };
+
+            if (message.Stake.HasValue)
+            {
+                filters.Add($"{Resources.TotalStake}: {message.Stake.Value}");
+            }
+
+            if (message.MemberWinLossValue.HasValue)
+            {
+                filters.Add($"{Resources.TotalMemberWL}: {message.MemberWinLossValue.Value}");
+            }
+
+            if (!string.IsNullOrEmpty(message.Username))
+            {
+                filters.Add($"{Resources.Username}: {message.Username}");
+            }
+
+            return $"{Resources.BetChoiceMatching} {message.WinlostDate.ToShortDateWithSlash()} - {string.Join("; ", filters)}";
+        }
+
+        private static string GetExcelFileName(BetChoiceMatchingExcelQuery message)
+            => string.Join(
+                "-",
+                Resources.BetChoiceMatching,
+                message.CustName,
+                message.WinlostDate.ToShortDateWithSlash());
+    }
+}

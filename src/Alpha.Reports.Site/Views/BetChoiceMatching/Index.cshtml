@@ -40,6 +40,14 @@
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 </form>
+<form class="form-inline hide" role="form" id="export-excel-form" action="@Url.Action("Excel")">
+    <input type="hidden" name="WinlostDate" id="ExcelWinlostDate" />
+    <input type="hidden" name="BetCount" id="ExcelBetCount" />
+    <input type="hidden" name="Username" id="ExcelUsername" />
+    <input type="hidden" name="Stake" id="ExcelStake" />
+    <input type="hidden" name="MemberWinLossOperator" id="ExcelMemberWinLossOperator" />
+    <input type="hidden" name="MemberWinLossValue" id="ExcelMemberWinLossValue" />
+</form>
 <form role="form" id="uplines-form" action="@Url.Action("Uplines")">
     @Html.Hidden("SearchAccountId")
 </form>

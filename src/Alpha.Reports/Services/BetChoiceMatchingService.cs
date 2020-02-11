@@ -8,9 +8,18 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    enum MemberWinLossOperators
+    {
+        GreatorOrEqual = 0,
+        Equal = 1,
+        LessOrEqual = 2
+    }
+
     public interface BetChoiceMatchingService
     {
         Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>> Query(BetChoiceMatchingParam param);
+
+        IEnumerable<BetChoiceMatchingEventModel> ExcelQuery(BetChoiceMatchingExcelParam param);
 
         BetChoiceUplinesModel QueryUplines(BetChoiceUplinesParam param);
     }
@@ -28,22 +37,23 @@
                     param.CustId,
                     param.WinlostDate,
                     param.MoveBetsDay,
-                    param.BetCount);
+                    param.BetCount,
+                    param.IsExportExcel);
             var tuple = dynamicRepository.FetchMultiple<BetChoiceMatchingModel, BetChoiceSharedIPModel>(criteria);
-            var eventGroups = Group(tuple.Item1);
-            return new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>>(eventGroups, tuple.Item2);
+            var events = Group(tuple.Item1);
+            return new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>>(events, tuple.Item2);
         }
 
         private static List<BetChoiceMatchingEventModel> Group(IEnumerable<BetChoiceMatchingModel> items)
         {
-            var eventGroups = new List<BetChoiceMatchingEventModel>();
+            var events = new List<BetChoiceMatchingEventModel>();
             foreach (var item in items)
             {
-                var eventGroup = new BetChoiceMatchingEventModel(item);
-                var selectedEventGroup = eventGroups.FirstOrDefault(g => g.Key == eventGroup.Key);
+                var eventModel = new BetChoiceMatchingEventModel(item);
+                var selectedEventGroup = events.FirstOrDefault(g => g.Key == eventModel.Key);
                 if (selectedEventGroup == null)
                 {
-                    eventGroups.Add(eventGroup);
+                    events.Add(eventModel);
                 }
                 else
                 {
@@ -51,10 +61,55 @@
                 }
             }
 
-            return eventGroups;
+            return events;
         }
 
         public BetChoiceUplinesModel QueryUplines(BetChoiceUplinesParam param)
             => dynamicRepository.Get<BetChoiceUplinesModel>(new BetChoiceUplinesCriteria(param.SearchAccountId));
+
+        public IEnumerable<BetChoiceMatchingEventModel> ExcelQuery(BetChoiceMatchingExcelParam param)
+        {
+            var tuple = Query(param);
+            var events = tuple.Item1;
+            var filterEvents = new List<BetChoiceMatchingEventModel>();
+            foreach (var eventModel in events)
+            {
+                var filterUsers = eventModel.Users;
+                if (!string.IsNullOrEmpty(param.Username))
+                {
+                    var usernames = param.Username.Split(',');
+                    filterUsers = filterUsers.Where(user => usernames.Contains(user.Username)).ToList();
+                }
+
+                if (param.Stake.HasValue)
+                {
+                    filterUsers = filterUsers.Where(user => user.Stake >= param.Stake.Value).ToList();
+                }
+
+                if (param.MemberWinLossValue.HasValue)
+                {
+                    switch (param.MemberWinLossOperator)
+                    {
+                        case (int)MemberWinLossOperators.GreatorOrEqual:
+                            filterUsers = filterUsers.Where(user => user.Stake >= param.Stake.Value).ToList();
+                            break;
+                        case (int)MemberWinLossOperators.Equal:
+                            filterUsers = filterUsers.Where(user => user.Stake == param.Stake.Value).ToList();
+                            break;
+                        case (int)MemberWinLossOperators.LessOrEqual:
+                            filterUsers = filterUsers.Where(user => user.Stake <= param.Stake.Value).ToList();
+                            break;
+                    }
+                }
+
+                if (filterUsers.Count > 0)
+                {
+                    var firstItem = filterUsers.First().Items.First();
+                    filterEvents.Add(new BetChoiceMatchingEventModel(firstItem, filterUsers));
+                }
+            }
+
+            return filterEvents;
+        }
     }
 }

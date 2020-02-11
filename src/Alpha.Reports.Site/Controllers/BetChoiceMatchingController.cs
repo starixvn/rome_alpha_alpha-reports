@@ -19,6 +19,9 @@
         public ActionResult Query(BetChoiceMatchingQuery message)
             => Json(message);
 
+        [HttpGet]
+        public ActionResult Excel(BetChoiceMatchingExcelQuery message) => ExcelView(message);
+
         [HttpPost]
         public ActionResult Uplines(BetChoiceUplinesQuery message)
             => Json(message);

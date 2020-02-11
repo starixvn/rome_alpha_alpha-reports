@@ -197,6 +197,7 @@
     <Compile Include="Models\BetChoiceMatching\BetChoiceSharedIPModel.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceUplinesModel.cs" />
     <Compile Include="Models\KeyValueModel.cs" />
+    <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingExcelParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceUplinesParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingParam.cs" />
     <Compile Include="Models\CommissionByBettype\CommissionByBettypeModel.cs" />

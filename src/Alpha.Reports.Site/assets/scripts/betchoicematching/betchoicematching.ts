@@ -53,6 +53,12 @@ enum BetTeams {
     X = 'x' // for 1X2
 }
 
+enum MemberWinLossOperators {
+    GreaterOrEqual = 0,
+    Equal = 1,
+    LessOrEqual = 2
+}
+
 const BetTeamClassNames = {
     Underdog: "underdog",
     Favorite: "favorite"
@@ -70,7 +76,7 @@ interface QueryModel {
 interface QueryUserModel {
     CustId: number;
     Username: string;
-    MemberTurnover: number;
+    Stake: number;
     MemberWinLoss: number;
     SuperWinLoss: number;
     Company: number;
@@ -105,7 +111,7 @@ interface QueryItemModel {
     TransId: number;
     Odds: number;
     IP: string;
-    MemberTurnover: number;
+    Stake: number;
     MemberWinLoss: number;
     SuperWinLoss: number;
     Company: number;
@@ -281,11 +287,18 @@ class BetChoiceMatching {
     $exportExcelForm: JQuery;
     $filterIcon: JQuery;
     $excelIcon: JQuery;
+    $betCount: JQuery;
     $datePicker: JQuery;
     $datePickerInput: JQuery;
     $table: JQuery;
     $tableTbody: JQuery;
     $tableTfoot: JQuery;
+    $excelWinlostDate: JQuery;
+    $excelBetCount: JQuery;
+    $excelUsername: JQuery;
+    $excelStake: JQuery;
+    $excelMemberWinLossOperator: JQuery;
+    $excelMemberWinLossValue: JQuery;
     noinfoRowHtml: string;
     data: QueryModel;
     betChoiceUplines: BetChoiceUplines;
@@ -316,8 +329,15 @@ class BetChoiceMatching {
         this.$pageTitle = this.$(".page-title");
         this.$reportForm = this.$("#report-form");
         this.$exportExcelForm = this.$("#export-excel-form");
+        this.$excelWinlostDate = this.$("#ExcelWinlostDate");
+        this.$excelBetCount = this.$("#ExcelBetCount");
+        this.$excelUsername = this.$("#ExcelUsername");
+        this.$excelStake = this.$("#ExcelStake");
+        this.$excelMemberWinLossOperator = this.$("#ExcelMemberWinLossOperator");
+        this.$excelMemberWinLossValue = this.$("#ExcelMemberWinLossValue");
         this.$filterIcon = this.$(".icon-filter");
         this.$excelIcon = this.$("#icon-excel");
+        this.$betCount = this.$("#BetCount");
         this.$datePicker = this.$("#dpkContainer");
         this.$datePickerInput = this.$("#WinlostDate");
         this.$table = this.$("#tbl-report");
@@ -399,6 +419,8 @@ class BetChoiceMatching {
     }
 
     onExportExcel = () => {
+        this.$excelWinlostDate.val(this.$datePickerInput.val());
+        this.$excelBetCount.val(this.$betCount.val());
         this.$exportExcelForm.submit();
     };
 
@@ -433,7 +455,7 @@ class BetChoiceMatching {
             return;
         }
 
-        let totalMemberTurnover = null,
+        let totalStake = null,
             totalMemberWinLoss = null,
             totalSuperWinLoss = null,
             totalCompany = null,
@@ -442,7 +464,7 @@ class BetChoiceMatching {
         events.forEach(event => {
             html.push(this.generateBetChoice(event));
             event.Users.forEach((user, index) => {
-                totalMemberTurnover += user.MemberTurnover;
+                totalStake += user.Stake;
                 if (!user.IsRunning) {
                     totalMemberWinLoss += user.MemberWinLoss;
                     totalSuperWinLoss += user.SuperWinLoss;
@@ -455,7 +477,7 @@ class BetChoiceMatching {
                         <span data-custid="${user.CustId}" class="text-username" title="${betMatchingResources.BetMatching_Username_Title}">${user.Username}</span>
                     </td>
                     <td class="text-right" colspan="4">${betMatchingResources.Total}</td>
-                    <td>${this.formatNumber(user.MemberTurnover, false)}</td>
+                    <td>${this.formatNumber(user.Stake, false)}</td>
                     <td>${this.formatNumber(user.MemberWinLoss, user.IsRunning)}</td>
                     <td class="col-superwinloss">${this.formatNumber(user.SuperWinLoss, user.IsRunning)}</td>
                     <td>${this.formatNumber(user.Company, user.IsRunning)}</td>
@@ -471,7 +493,7 @@ class BetChoiceMatching {
                         <td class="text-center">${item.TransId}</td>
                         <td class="text-center">${item.Odds}</td>
                         <td class="text-center">${item.IP ? item.IP : ''}${ipHtml}</td>
-                        <td>${this.formatNumber(item.MemberTurnover, false)}</td>
+                        <td>${this.formatNumber(item.Stake, false)}</td>
                         <td>${this.formatNumber(item.MemberWinLoss, item.IsRunning)}</td>
                         <td class="col-superwinloss">${this.formatNumber(item.SuperWinLoss, item.IsRunning)}</td>
                         <td>${this.formatNumber(item.Company, item.IsRunning)}</td>
@@ -484,7 +506,7 @@ class BetChoiceMatching {
         this.$tableTfoot.html(`
             <tr class="tbl-footer">
                 <td colspan="5">${betMatchingResources.Total}</td>
-                <td>${this.formatNumber(totalMemberTurnover, false)}</td>
+                <td>${this.formatNumber(totalStake, false)}</td>
                 <td>${this.formatNumber(totalMemberWinLoss, isRunning)}</td>
                 <td class="col-superwinloss">${this.formatNumber(totalSuperWinLoss, isRunning)}</td>
                 <td>${this.formatNumber(totalCompany, isRunning)}</td>
@@ -870,7 +892,7 @@ class StakeFilterForm extends BaseFilterForm {
         const totalStake = parseFloat(this.getCriteria().TotalStake);
         const filterUsers = [];
         users.forEach(user => {
-            if (user.MemberTurnover >= totalStake) {
+            if (user.Stake >= totalStake) {
                 filterUsers.push(user);
             }
         });
@@ -890,9 +912,9 @@ class MemberWinLossFilterForm extends BaseFilterForm {
             <div>
                 <span class="form-label">${betMatchingResources.TotalMemberWL}</span>
                 <select name="Operator" class="form-control input-sm">
-                    <option value="0">&gt;=</option>
-                    <option value="1">=</option>
-                    <option value="2">&lt;=</option>
+                    <option value="${MemberWinLossOperators.GreaterOrEqual}" selected>&gt;=</option>
+                    <option value="${MemberWinLossOperators.Equal}">=</option>
+                    <option value="${MemberWinLossOperators.LessOrEqual}">&lt;=</option>
                 </select>
                 <input name="MemberWinLoss" class="form-control input-sm" />
             </div>
@@ -941,17 +963,17 @@ class MemberWinLossFilterForm extends BaseFilterForm {
         const filterUsers = [];
         users.forEach(user => {
             switch (operator) {
-                case 0:
+                case MemberWinLossOperators.GreaterOrEqual:
                     if (user.MemberWinLoss >= memberWinLoss) {
                         filterUsers.push(user);
                     }
                     break;
-                case 1:
+                case MemberWinLossOperators.Equal:
                     if (user.MemberWinLoss === memberWinLoss) {
                         filterUsers.push(user);
                     }
                     break;
-                case 2:
+                case MemberWinLossOperators.LessOrEqual:
                     if (user.MemberWinLoss <= memberWinLoss) {
                         filterUsers.push(user);
                     }

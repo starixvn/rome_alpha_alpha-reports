@@ -5,12 +5,13 @@
 
     public class BetChoiceMatchingCriteria : CriteriaBase
     {
-        public BetChoiceMatchingCriteria(int custId, DateTime winlostDate, DateTime moveBetsDay, int betCount)
+        public BetChoiceMatchingCriteria(int custId, DateTime winlostDate, DateTime moveBetsDay, int betCount, bool isExportExcel)
         {
             CustId = custId;
             WinlostDate = winlostDate.Date;
             MoveBetsDay = moveBetsDay.Date;
             BetCount = betCount;
+            IsExportExcel = isExportExcel;
         }
 
         public int CustId { get; }
@@ -20,6 +21,8 @@
         public DateTime MoveBetsDay { get; }
 
         public int BetCount { get; }
+
+        public bool IsExportExcel { get; }
 
         public override string GetSettingKey() => "Age_BetStatistics_BetMatching_Master";
 
