@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" />
+  <Import Project="..\..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -350,6 +350,7 @@
     <Compile Include="ViewModels\Consolidation\ConsolidationReportByUsernameViewModelTests.cs" />
     <Compile Include="ViewModels\MatchWinLossDetail\BetTypeWinLossViewModelTests.cs" />
     <Compile Include="ViewModels\Outstanding\OutstandingViewModelTests.cs" />
+    <Compile Include="ViewModels\RiskAnalysisIPMatching\RiskAnalysisIPMatchingViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModelTestsFilterViewModelTests.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductViewModelTests.cs" />
@@ -404,7 +405,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Fanex.xunit.MSBuild.2.0.0.0-beta2\build\Fanex.xunit.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fanex.xunit.MSBuild.2.0.0.0-beta2\build\Fanex.xunit.MSBuild.targets'))" />
     <Error Condition="!Exists('..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets'))" />
-    <Error Condition="!Exists('..\..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props'))" />
+    <Error Condition="!Exists('..\..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
   <Import Project="..\..\packages\Fanex.xunit.MSBuild.2.0.0.0-beta2\build\Fanex.xunit.MSBuild.targets" Condition="Exists('..\..\packages\Fanex.xunit.MSBuild.2.0.0.0-beta2\build\Fanex.xunit.MSBuild.targets')" />
   <Import Project="..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets" Condition="Exists('..\..\packages\Fanex.Visual-StyleCop.MSBuild.4.7.59.2\build\Fanex.Visual-StyleCop.MSBuild.Targets')" />

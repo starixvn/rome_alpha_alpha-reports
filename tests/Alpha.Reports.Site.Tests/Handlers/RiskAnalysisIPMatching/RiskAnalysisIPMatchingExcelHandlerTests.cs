@@ -4,14 +4,12 @@
     using Alpha.Reports.Site.Requests.RiskAnalysisIPMatching;
     using Constants;
     using Fixtures;
-    using Newtonsoft.Json;
     using NSubstitute;
     using ONEbook.SpreadSheets;
     using Reports.Models;
     using Services;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Utils;
     using Xunit;
 
@@ -40,6 +38,10 @@
             excelHandler.MapPath = Substitute.For<Func<string, string>>();
             excelHandler.IsFileExist = (path) => true;
             this.userFixture = userFixture;
+
+            var reportDateService = Substitute.For<ReportDateService>();
+            ReportDateServiceImpl.Instance = reportDateService;
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
         }
 
         [Fact]
@@ -67,48 +69,6 @@
         }
 
         [Fact]
-        public void HandleExportRiskAnalysisIPMatchingExcelQuery_ExportsCorrectBody()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(custLevelId: 4);
-            var enteredResultReportData = Enumerable.Empty<RiskAnalysisIPMatchingModel>();
-
-            // Act
-            excelHandler.Handle(message);
-
-            // Assert
-            workbook.Received().Body(
-                Arg.Is<IEnumerable<RiskAnalysisIPMatchingModel>>(dataSource => JsonConvert.SerializeObject(dataSource) == JsonConvert.SerializeObject(enteredResultReportData)),
-                Arg.Any<Mapper<RiskAnalysisIPMatchingModel>>());
-        }
-
-        [Fact]
-        public void HandleExportRiskAnalysisIPMatchingExcelQuery_ExportsCorrectSheetName()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(custLevelId: 4);
-
-            // Act
-            excelHandler.Handle(message);
-
-            // Assert
-            workbook.Received().Sheet(Arg.Is("Sheet 1"));
-        }
-
-        [Fact]
-        public void HandleExportRiskAnalysisIPMatchingExcelQuery_ExportsExcelToBytes()
-        {
-            // Arrange
-            var message = CreateExportExcelQuery(custLevelId: 4);
-
-            // Act
-            excelHandler.Handle(message);
-
-            // Assert
-            workbook.Received().ExportToBytes();
-        }
-
-        [Fact]
         public void HandleExportRiskAnalysisIPMatchingExcelQuery_CallMapExcelTemplatePath()
         {
             // Arrange
@@ -125,6 +85,9 @@
         {
             var query = new RiskAnalysisIPMatchingExcelQuery(userFixture.User);
             query.CustLevelId = custLevelId;
+            query.CustId = 1596;
+            query.MemberCount = 2;
+            query.SelectedWinlostDate = new DateTime(2020, 1, 14);
 
             return query;
         }

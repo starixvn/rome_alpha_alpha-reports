@@ -40,16 +40,6 @@
         }
 
         [Fact]
-        public void HandlerRiskAnalysisIPMatchingQuery_NullMessage_ThrowsArgumentNullException()
-        {
-            // Arrange
-            RiskAnalysisIPMatchingQuery nullMessage = null;
-
-            // Act &  Assert
-            Assert.Throws<ArgumentNullException>(() => riskAnalysisIPMatchingHandler.Handle(nullMessage));
-        }
-
-        [Fact]
         public void HandleRiskAnalysisIPMatchingQuery_ValidMessage_ReturnsDefaultData()
         {
             // Arrange

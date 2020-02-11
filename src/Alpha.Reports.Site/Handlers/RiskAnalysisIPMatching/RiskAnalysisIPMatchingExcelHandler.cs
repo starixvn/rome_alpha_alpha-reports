@@ -43,7 +43,7 @@
                          message.CustId, message.SelectedWinlostDate, message.MoveBetsDate, message.MemberCount)));
 
             var result = workbook
-                .UseTemplate(GetTemplateInfo(message))
+                .UseTemplate(GetTemplateInfo())
                 .Title(GetReportTitle(message))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(viewModel.RiskAnalysisIPMatchingItems, GetBodyRowMapper(message))
@@ -63,18 +63,19 @@
         internal Mapper<RiskAnalysisIPMatchingModel> GetRowMapper(RiskAnalysisIPMatchingExcelQuery message, bool isTotal)
         {
             var mapper = new Mapper<RiskAnalysisIPMatchingModel>()
-                .Map(Column.A, data => isTotal ? Resources.Total : data.IP)
-                .Map(Column.B, data => data.MemberCount)
-                .Map(Column.C, data => data.BetCount)
-                .Map(Column.D, data => data.MemberTurnover)
-                .Map(Column.E, data => data.MemberWinLoss)
-                .Map(Column.F, data => data.SuperWinLoss)
-                .Map(Column.G, data => data.Company);
+                .Map(A, data => isTotal ? Resources.Total : data.IP)
+                .Map(B, data => data.MemberCount)
+                .Map(C, data => data.BetCount)
+                .Map(D, data => data.MemberTurnover)
+                .Map(E, data => data.MemberWinLoss)
+                .Map(F, data => data.SuperWinLoss)
+                .Map(G, data => data.Company);
 
             return mapper;
         }
 
-        private TemplateInfo GetTemplateInfo(RiskAnalysisIPMatchingExcelQuery message)
+#pragma warning disable S109 // Magic numbers should not be used
+        private TemplateInfo GetTemplateInfo()
             => new TemplateInfo(
                 GetExcelTemplatePath("Super"),
                 noInfomationText: Resources.NoInformationIsAvailable,
@@ -87,6 +88,7 @@
                 columnStartName: A,
                 sheetIndex: 1,
                 footerEndIndex: 5);
+#pragma warning restore S109 // Magic numbers should not be used
 
         private string GetReportTitle(RiskAnalysisIPMatchingExcelQuery message)
             => $"{Resources.IPMatching} {message.SelectedWinlostDate.ToShortDateWithSlash()}";
