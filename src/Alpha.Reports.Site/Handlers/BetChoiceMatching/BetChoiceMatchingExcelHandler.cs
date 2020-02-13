@@ -9,7 +9,6 @@
     using MediatR;
     using ONEbook.SpreadSheets;
     using System.Collections.Generic;
-    using static ONEbook.SpreadSheets.Column;
 
     public class BetChoiceMatchingExcelHandler :
         BaseHandler,
@@ -52,9 +51,7 @@
             => new TemplateInfo(
                 GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
                 noInfomationText: Resources.NoInformationIsAvailable,
-                bodyStartIndex: 3,
-                columnStartName: A,
-                sheetIndex: 1);
+                columnStartName: Column.A);
 
         private static string GetReportTitle(BetChoiceMatchingExcelQuery message)
         {

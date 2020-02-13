@@ -43,6 +43,7 @@
             decimal company,
             int homeId,
             int awayId,
+            bool isLive,
             int liveHomeScore,
             int liveAwayScore,
             bool isRunning)
@@ -67,6 +68,7 @@
             Company = company;
             HomeId = homeId;
             AwayId = awayId;
+            IsLive = isLive;
             LiveHomeScore = liveHomeScore;
             LiveAwayScore = liveAwayScore;
             IsRunning = isRunning;
@@ -111,6 +113,8 @@
         public int HomeId { get; private set; }
 
         public int AwayId { get; private set; }
+
+        public bool IsLive { get; private set; }
 
         public int LiveHomeScore { get; private set; }
 

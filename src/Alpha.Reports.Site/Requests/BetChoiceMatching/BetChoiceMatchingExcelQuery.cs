@@ -10,12 +10,12 @@
         {
         }
 
-        public string Username { get; }
+        public string Username { get; set; }
 
-        public decimal? Stake { get; }
+        public decimal? Stake { get; set; }
 
-        public int MemberWinLossOperator { get; }
+        public int MemberWinLossOperator { get; set; }
 
-        public decimal? MemberWinLossValue { get; }
+        public decimal? MemberWinLossValue { get; set; }
     }
 }

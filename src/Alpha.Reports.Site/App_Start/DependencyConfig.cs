@@ -5,6 +5,11 @@
     using Configurations;
     using Controllers;
     using DataAccesses;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Fanex.BetList.Core.Factories;
+    using Fanex.BetList.Core.RemotingRef;
+    using Fanex.BetList.Core.TicketHelper;
     using Fanex.Data.Repository;
     using Fanex.RemotingRef;
     using Handlers.CommissionByBettype;
@@ -106,6 +111,10 @@
                 Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
+            container.RegisterSingleton<ICacheRef, CacheRef>();
+            container.RegisterPerWebRequest<ITicketHelper, TicketHelper>();
+            container.RegisterPerWebRequest<IBetListFactory<BetListExcelBuilder>, BetListExcelFactory>();
+            container.RegisterPerWebRequest<IBetListExcelBuilder>(() => container.GetInstance<IBetListFactory<BetListExcelBuilder>>().CreateBuilder());
 
             container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbookImpl>();
             container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
@@ -124,7 +133,7 @@
             container.RegisterSingleton<RiskAnalysisIPMatchingService, RiskAnalysisIPMatchingServiceImpl>();
             container.RegisterSingleton<IPService, Services.IPServiceImpl>();
             container.RegisterSingleton<BetChoiceMatchingService, BetChoiceMatchingServiceImpl>();
-            container.RegisterSingleton<BetChoiceMatchingWorkbook, BetChoiceMatchingWorkbookImpl>();
+            container.Register<BetChoiceMatchingWorkbook, BetChoiceMatchingWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

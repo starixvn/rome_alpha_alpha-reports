@@ -2,23 +2,6 @@
 
 "use strict";
 
-(function ($) {
-    $.fn.inputFilter = function (inputFilter) {
-        return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
-            if (inputFilter(this.value)) {
-                this.oldValue = this.value;
-                this.oldSelectionStart = this.selectionStart;
-                this.oldSelectionEnd = this.selectionEnd;
-            } else if (this.hasOwnProperty("oldValue")) {
-                this.value = this.oldValue;
-                this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-            } else {
-                this.value = "";
-            }
-        });
-    };
-}(jQuery));
-
 declare const betMatchingResources: Resources;
 
 interface JQuery {
@@ -94,6 +77,7 @@ interface QueryEventModel {
     AwayId: number;
     BetTeam: string;
     GlobalShowTime: string;
+    IsLive: boolean;
     LiveHomeScore: number;
     LiveAwayScore: number;
     IsRunning: boolean;
@@ -118,6 +102,7 @@ interface QueryItemModel {
     MatchId: number;
     HomeId: number;
     AwayId: number;
+    IsLive: boolean;
     LiveHomeScore: number;
     LiveAwayScore: number;
     Hdp1: number;
@@ -159,6 +144,7 @@ interface ChoiceTicket {
     AwayId: number;
     BetTeam: string;
     GlobalShowTime: string;
+    IsLive: boolean;
     LiveHomeScore: number;
     LiveAwayScore: number;
 }
@@ -174,10 +160,18 @@ abstract class ChoiceBuilder {
         return `<span class="${this.BetTeamClassName}">
                     ${this.generateBetTeam(data)}
                     <span class="text-handicap">${this.generateHandicap()}</span>
-                    <span class="text-live-score">[${this.ticket.LiveHomeScore}-${this.ticket.LiveAwayScore}]</span>
+                    ${this.buildLiveScore()}
                     <br />
                     <span class="text-bet-type">${getValueByKey(data.BetTypes, this.ticket.BetType)}</span>
                 </span>`;
+    }
+
+    private buildLiveScore(): string {
+        if (!this.ticket.IsLive) {
+            return '';
+        }
+
+        return `<span class="text-live-score">[${this.ticket.LiveHomeScore}-${this.ticket.LiveAwayScore}]</span>`;
     }
 
     abstract get BetTeamClassName(): string;
@@ -421,6 +415,10 @@ class BetChoiceMatching {
     onExportExcel = () => {
         this.$excelWinlostDate.val(this.$datePickerInput.val());
         this.$excelBetCount.val(this.$betCount.val());
+        this.$excelUsername.val(this.usernameFilterForm.filterCriteria.Username);
+        this.$excelStake.val(this.stakeFilterForm.filterCriteria.TotalStake);
+        this.$excelMemberWinLossOperator.val(this.memberWinLossFilterForm.filterCriteria.Operator);
+        this.$excelMemberWinLossValue.val(this.memberWinLossFilterForm.filterCriteria.MemberWinLoss);
         this.$exportExcelForm.submit();
     };
 
@@ -477,7 +475,7 @@ class BetChoiceMatching {
                         <span data-custid="${user.CustId}" class="text-username" title="${betMatchingResources.BetMatching_Username_Title}">${user.Username}</span>
                     </td>
                     <td class="text-right" colspan="4">${betMatchingResources.Total}</td>
-                    <td>${this.formatNumber(user.Stake, false)}</td>
+                    <td>${alphaReports.formatNumber(user.Stake)}</td>
                     <td>${this.formatNumber(user.MemberWinLoss, user.IsRunning)}</td>
                     <td class="col-superwinloss">${this.formatNumber(user.SuperWinLoss, user.IsRunning)}</td>
                     <td>${this.formatNumber(user.Company, user.IsRunning)}</td>
@@ -485,7 +483,7 @@ class BetChoiceMatching {
                 user.Items.forEach(item => {
                     let ipHtml = '';
                     if (this.queryIPGroup[item.IP]) {
-                        ipHtml = ` <span class="icon-ip" data-custid="${item.CustId}" data-ip="${item.IP}" title="${betMatchingResources.BetMatching_IP_Title}"></span>`;
+                        ipHtml = ` <span class="icon-ip-share" data-custid="${item.CustId}" data-ip="${item.IP}" title="${betMatchingResources.BetMatching_IP_Title}"></span>`;
                     }
 
                     html.push(`<tr class="${index % 2 === 1 ? "row-even" : ""}">
@@ -493,7 +491,7 @@ class BetChoiceMatching {
                         <td class="text-center">${item.TransId}</td>
                         <td class="text-center">${item.Odds}</td>
                         <td class="text-center">${item.IP ? item.IP : ''}${ipHtml}</td>
-                        <td>${this.formatNumber(item.Stake, false)}</td>
+                        <td>${alphaReports.formatNumber(item.Stake)}</td>
                         <td>${this.formatNumber(item.MemberWinLoss, item.IsRunning)}</td>
                         <td class="col-superwinloss">${this.formatNumber(item.SuperWinLoss, item.IsRunning)}</td>
                         <td>${this.formatNumber(item.Company, item.IsRunning)}</td>
@@ -506,7 +504,7 @@ class BetChoiceMatching {
         this.$tableTfoot.html(`
             <tr class="tbl-footer">
                 <td colspan="5">${betMatchingResources.Total}</td>
-                <td>${this.formatNumber(totalStake, false)}</td>
+                <td>${alphaReports.formatNumber(totalStake)}</td>
                 <td>${this.formatNumber(totalMemberWinLoss, isRunning)}</td>
                 <td class="col-superwinloss">${this.formatNumber(totalSuperWinLoss, isRunning)}</td>
                 <td>${this.formatNumber(totalCompany, isRunning)}</td>
@@ -516,7 +514,7 @@ class BetChoiceMatching {
         this.showColumnFilterIcons();
 
         this.$tableTbody.find('.text-username').click(this.onUsernameClick);
-        this.$tableTbody.find('.icon-ip').click(this.onIPClick);
+        this.$tableTbody.find('.icon-ip-share').click(this.onIPClick);
     };
 
     generateBetChoice(event: QueryEventModel) {
@@ -589,7 +587,7 @@ class BetChoiceMatching {
             ipTooltip = new SimpleTooltip(this.$, $target, {
                 title: betMatchingResources.IP_used_by,
                 direction: 'right',
-                tooltipClass: 'ip-tootip'
+                tooltipClass: 'ip-tooltip'
             });
             $target.data(tooltipDataKey, ipTooltip);
             const ip = $target.data('ip');
@@ -705,11 +703,11 @@ class SimpleTooltip {
     }
 }
 
-abstract class BaseFilterForm {
+abstract class BaseFilterForm<T> {
     protected simpleTooltip: SimpleTooltip;
     protected $filterIcon: JQuery;
     protected $form: JQuery;
-    protected filterCriteria: JQuerySerializeArrayElement[];
+    public filterCriteria: T;
     private listener: () => void;
     static tooltips: SimpleTooltip[] = [];
 
@@ -725,14 +723,17 @@ abstract class BaseFilterForm {
         });
         this.$form = this.simpleTooltip.$tooltip.find('form');
         this.$form.submit(this.onSubmit);
-        this.filterCriteria = this.$form.serializeArray();
         this.simpleTooltip.onHide(this.onHideTooltip);
     }
 
     onHideTooltip = () => {
-        const filterCriteria = this.$form.serializeArray();
-        if (JSON.stringify(filterCriteria) !== JSON.stringify(this.filterCriteria)) {
-            this.restoreCriteria();
+        if (this.filterCriteria) {
+            const filterCriteria = this.getCriteria();
+            if (JSON.stringify(filterCriteria) !== JSON.stringify(this.filterCriteria)) {
+                this.restoreCriteria(this.filterCriteria);
+            }
+        } else {
+            this.filterCriteria = this.getCriteria();
         }
     }
 
@@ -754,7 +755,7 @@ abstract class BaseFilterForm {
 
     onSubmit = (e: JQueryEventObject) => {
         e.preventDefault();
-        this.filterCriteria = this.$form.serializeArray();
+        this.filterCriteria = this.getCriteria();
         this.$filterIcon.removeClass('has-filter');
         if (this.hasFilter()) {
             this.$filterIcon.addClass('has-filter');
@@ -769,13 +770,36 @@ abstract class BaseFilterForm {
 
     abstract hasFilter(): boolean;
 
-    abstract restoreCriteria();
+    abstract getCriteria(): T;
 
-    abstract filter(users: QueryUserModel[]): QueryUserModel[];
+    abstract restoreCriteria(filterCriteria: T): void;
+
+    filter(users: QueryUserModel[]): QueryUserModel[] {
+        if (!this.hasFilter()) {
+            return users;
+        }
+
+        const filterUsers = [];
+        users.forEach(user => {
+            if (this.isMatch(user, this.filterCriteria)) {
+                filterUsers.push(user);
+            }
+        });
+
+        return filterUsers;
+    }
+
+    isMatch(user: QueryUserModel, filterCriteria: T): boolean {
+        return false;
+    }
 }
 
-class UsernameFilterForm extends BaseFilterForm {
-    static iconFilterClassname = "thead .col-username .icon-column-filter";
+interface UsernameFilterCriteria {
+    Username: string;
+}
+
+class UsernameFilterForm extends BaseFilterForm<UsernameFilterCriteria> {
+    static iconFilterClassname = "thead .col-username .icon-table-filter";
     static tooltipOption = {
         title: betMatchingResources.FilterByUsername,
         tooltipClass: 'username-filter'
@@ -811,9 +835,9 @@ class UsernameFilterForm extends BaseFilterForm {
         this.$textareaUsername.val(username);
     }
 
-    getCriteria() {
+    getCriteria(): UsernameFilterCriteria {
         return {
-            Username: this.$.trim(this.filterCriteria[0].value)
+            Username: this.$.trim(this.$textareaUsername.val())
         };
     }
 
@@ -822,16 +846,16 @@ class UsernameFilterForm extends BaseFilterForm {
         return !!criteria.Username;
     }
 
-    restoreCriteria = () => {
-        this.$textareaUsername.val(this.getCriteria().Username);
+    restoreCriteria = (filterCriteria: UsernameFilterCriteria) => {
+        this.$textareaUsername.val(filterCriteria.Username);
     }
 
-    filter(users: QueryUserModel[]) {
+    filter(users: QueryUserModel[]): QueryUserModel[] {
         if (!this.hasFilter()) {
             return users;
         }
 
-        const username = this.getCriteria().Username;
+        const username = this.filterCriteria.Username;
         const usernames = username.split(',').map(x => $.trim(x));
         const filterUsers = [];
         users.forEach(user => {
@@ -839,12 +863,17 @@ class UsernameFilterForm extends BaseFilterForm {
                 filterUsers.push(user);
             }
         });
+
         return filterUsers;
     }
 }
 
-class StakeFilterForm extends BaseFilterForm {
-    static iconFilterClassname = "thead .col-stake .icon-column-filter";
+interface StakeFilterCriteria {
+    TotalStake: number;
+}
+
+class StakeFilterForm extends BaseFilterForm<StakeFilterCriteria> {
+    static iconFilterClassname = "thead .col-stake .icon-table-filter";
     static tooltipOption = {
         title: betMatchingResources.FilterByStake,
         tooltipClass: 'stake-filter'
@@ -866,43 +895,44 @@ class StakeFilterForm extends BaseFilterForm {
     constructor(private $: JQueryStatic) {
         super($, StakeFilterForm.iconFilterClassname, StakeFilterForm.tooltipOption, StakeFilterForm.tooltipContent);
         this.$inputTotalStake = this.$form.find('input');
-        this.$inputTotalStake.inputFilter(value => /^-?\d*[.,]?\d{0,2}$/.test(value));
+        this.$inputTotalStake.cleave({
+            numeral: true,
+            numeralIntegerScale: 15,
+            numeralDecimalScale: 0,
+            numeralThousandsGroupStyle: 'thousand',
+            autoUnmask: true
+        });
     }
 
-    getCriteria() {
+    getCriteria(): StakeFilterCriteria {
+        const rawValue = parseInt(this.$inputTotalStake.data('cleave').getRawValue());
         return {
-            TotalStake: this.$.trim(this.filterCriteria[0].value)
+            TotalStake: isNaN(rawValue) ? null : rawValue
         };
     }
 
     hasFilter(): boolean {
         const criteria = this.getCriteria();
-        return !!criteria.TotalStake;
+        return criteria.TotalStake !== null;
     }
 
-    restoreCriteria = () => {
-        this.$inputTotalStake.val(this.getCriteria().TotalStake);
+    restoreCriteria = (filterCriteria: StakeFilterCriteria) => {
+        this.$inputTotalStake.data('cleave').setRawValue(filterCriteria.TotalStake);
     }
 
-    filter(users: QueryUserModel[]) {
-        if (!this.hasFilter()) {
-            return users;
-        }
-
-        const totalStake = parseFloat(this.getCriteria().TotalStake);
-        const filterUsers = [];
-        users.forEach(user => {
-            if (user.Stake >= totalStake) {
-                filterUsers.push(user);
-            }
-        });
-
-        return filterUsers;
+    isMatch(user: QueryUserModel, filterCriteria: StakeFilterCriteria): boolean {
+        const totalStake = filterCriteria.TotalStake;
+        return user.Stake >= totalStake;
     }
 }
 
-class MemberWinLossFilterForm extends BaseFilterForm {
-    static iconFilterClassname = "thead .col-memberwinloss .icon-column-filter";
+interface MemberWinLossFilterCriteria {
+    Operator: number;
+    MemberWinLoss: number;
+}
+
+class MemberWinLossFilterForm extends BaseFilterForm<MemberWinLossFilterCriteria> {
+    static iconFilterClassname = "thead .col-memberwinloss .icon-table-filter";
     static tooltipOption = {
         title: betMatchingResources.FilterByMemberWinLoss,
         tooltipClass: 'memberwinloss-filter'
@@ -931,56 +961,42 @@ class MemberWinLossFilterForm extends BaseFilterForm {
         super($, MemberWinLossFilterForm.iconFilterClassname, MemberWinLossFilterForm.tooltipOption, MemberWinLossFilterForm.tooltipContent);
         this.$selectOperator = this.$form.find('select');
         this.$inputMemberWinLoss = this.$form.find('input');
-        this.$inputMemberWinLoss.inputFilter(value => /^-?\d*[.,]?\d{0,2}$/.test(value));
+        this.$inputMemberWinLoss.cleave({
+            numeral: true,
+            numeralIntegerScale: 15,
+            numeralThousandsGroupStyle: 'thousand',
+            autoUnmask: true
+        });
     }
 
-    getCriteria() {
+    getCriteria(): MemberWinLossFilterCriteria {
+        const rawValue = parseFloat(this.$inputMemberWinLoss.data('cleave').getRawValue());
         return {
-            Operator: this.$.trim(this.filterCriteria[0].value),
-            MemberWinLoss: this.$.trim(this.filterCriteria[1].value)
+            Operator: parseInt(this.$selectOperator.val()),
+            MemberWinLoss: isNaN(rawValue) ? null : rawValue
         };
     }
 
     hasFilter(): boolean {
         const criteria = this.getCriteria();
-        return !!criteria.MemberWinLoss;
+        return criteria.MemberWinLoss !== null;
     }
 
-    restoreCriteria = () => {
-        const criteria = this.getCriteria();
-        this.$selectOperator.val(criteria.Operator);
-        this.$inputMemberWinLoss.val(criteria.MemberWinLoss);
+    restoreCriteria = (filterCriteria: MemberWinLossFilterCriteria) => {
+        this.$selectOperator.val(filterCriteria.Operator);
+        this.$inputMemberWinLoss.data('cleave').setRawValue(filterCriteria.MemberWinLoss);
     }
 
-    filter(users: QueryUserModel[]) {
-        if (!this.hasFilter()) {
-            return users;
+    isMatch(user: QueryUserModel, filterCriteria: MemberWinLossFilterCriteria): boolean {
+        const memberWinLoss = filterCriteria.MemberWinLoss;
+        const operator = filterCriteria.Operator;
+        switch (operator) {
+            case MemberWinLossOperators.GreaterOrEqual:
+                return user.MemberWinLoss >= memberWinLoss;
+            case MemberWinLossOperators.Equal:
+                return user.MemberWinLoss === memberWinLoss;
+            case MemberWinLossOperators.LessOrEqual:
+                return user.MemberWinLoss <= memberWinLoss;
         }
-
-        const criteria = this.getCriteria();
-        const memberWinLoss = parseFloat(criteria.MemberWinLoss);
-        const operator = parseInt(criteria.Operator);
-        const filterUsers = [];
-        users.forEach(user => {
-            switch (operator) {
-                case MemberWinLossOperators.GreaterOrEqual:
-                    if (user.MemberWinLoss >= memberWinLoss) {
-                        filterUsers.push(user);
-                    }
-                    break;
-                case MemberWinLossOperators.Equal:
-                    if (user.MemberWinLoss === memberWinLoss) {
-                        filterUsers.push(user);
-                    }
-                    break;
-                case MemberWinLossOperators.LessOrEqual:
-                    if (user.MemberWinLoss <= memberWinLoss) {
-                        filterUsers.push(user);
-                    }
-                    break;
-            }
-        });
-
-        return filterUsers;
     }
 }

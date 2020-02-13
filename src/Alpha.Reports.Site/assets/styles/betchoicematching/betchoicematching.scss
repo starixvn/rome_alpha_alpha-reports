@@ -70,36 +70,22 @@
         cursor: pointer;
     }
 
-    .icon-ip {
+    .icon-table-filter {
         cursor: pointer;
-        font-size: 19px;
-        vertical-align: middle;
-        height: $height-normal;
-        float: right;
-
-        &:before {
-            position: relative;
-            top: 5px;
-            content: "\e950";
-        }
-    }
-
-    .icon-column-filter {
-        cursor: pointer;
-        font-size: 19px;
-        vertical-align: middle;
-        height: $height-normal;
+        margin-top: 3px;
         float: right;
 
         &.has-filter {
-            color: red;
+            &:before {
+                color: red;
+            }
         }
+    }
 
-        &:before {
-            position: relative;
-            top: 5px;
-            content: "\e950";
-        }
+    .icon-ip-share {
+        cursor: pointer;
+        margin-top: 3px;
+        float: right;
     }
 
     .favorite {
@@ -115,10 +101,11 @@
         background: url(../../styles/images/ajax-loader-small.gif) no-repeat center;
     }
 
-    .ip-tootip {
+    .ip-tooltip {
         .tooltip-body {
             max-height: 300px;
-            overflow-y: auto;
+            overflow-x: hidden;
+            overflow-y: scroll;
         }
     }
 
