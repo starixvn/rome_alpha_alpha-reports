@@ -8,13 +8,6 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    enum MemberWinLossOperators
-    {
-        GreatorOrEqual = 0,
-        Equal = 1,
-        LessOrEqual = 2
-    }
-
     public interface BetChoiceMatchingService
     {
         Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>> Query(BetChoiceMatchingParam param);
@@ -90,14 +83,14 @@
                 {
                     switch (param.MemberWinLossOperator)
                     {
-                        case (int)MemberWinLossOperators.GreatorOrEqual:
-                            filterUsers = filterUsers.Where(user => user.Stake >= param.Stake.Value).ToList();
+                        case MemberWinLossOperators.GreatorOrEqual:
+                            filterUsers = filterUsers.Where(user => user.MemberWinLoss >= param.MemberWinLossValue.Value).ToList();
                             break;
-                        case (int)MemberWinLossOperators.Equal:
-                            filterUsers = filterUsers.Where(user => user.Stake == param.Stake.Value).ToList();
+                        case MemberWinLossOperators.Equal:
+                            filterUsers = filterUsers.Where(user => user.MemberWinLoss == param.MemberWinLossValue.Value).ToList();
                             break;
-                        case (int)MemberWinLossOperators.LessOrEqual:
-                            filterUsers = filterUsers.Where(user => user.Stake <= param.Stake.Value).ToList();
+                        default:
+                            filterUsers = filterUsers.Where(user => user.MemberWinLoss <= param.MemberWinLossValue.Value).ToList();
                             break;
                     }
                 }

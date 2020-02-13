@@ -6,6 +6,7 @@
     using Alpha.Reports.Site.App_GlobalResources;
     using Alpha.Reports.Site.Requests.BetChoiceMatching;
     using Alpha.Reports.Site.ViewModels;
+    using EnumsNET;
     using MediatR;
     using ONEbook.SpreadSheets;
     using System.Collections.Generic;
@@ -35,8 +36,7 @@
                 message.Stake,
                 message.MemberWinLossOperator,
                 message.MemberWinLossValue);
-            var data = betChoiceMatchingService.Query(param);
-            var eventModels = data.Item1;
+            var eventModels = betChoiceMatchingService.ExcelQuery(param);
             var fileContent = workbook
                 .Body(eventModels)
                 .UseTemplate(GetTemplateInfo(message))
@@ -57,17 +57,17 @@
         {
             var filters = new List<string>
             {
-                $"{Resources.MatchingBets}: >= {message.BetCount}"
+                $"{Resources.MatchingBets} >= {message.BetCount}"
             };
 
             if (message.Stake.HasValue)
             {
-                filters.Add($"{Resources.TotalStake}: {message.Stake.Value}");
+                filters.Add($"{Resources.TotalStake} >= {message.Stake.Value.ToString("#,##")}");
             }
 
             if (message.MemberWinLossValue.HasValue)
             {
-                filters.Add($"{Resources.TotalMemberWL}: {message.MemberWinLossValue.Value}");
+                filters.Add($"{Resources.TotalMemberWL} {message.MemberWinLossOperator.AsString(EnumFormat.Description)} {message.MemberWinLossValue.Value.FormatNumber()}");
             }
 
             if (!string.IsNullOrEmpty(message.Username))

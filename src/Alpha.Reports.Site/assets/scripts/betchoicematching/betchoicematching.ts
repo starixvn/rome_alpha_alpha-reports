@@ -544,7 +544,7 @@ class BetChoiceMatching {
                         ${' '}
                         <span class="text-league">${getValueByKey(this.data.Leagues, event.LeagueId)}</span>
                     </td>
-                    <td colspan="2" class="text-center col-global-time">${moment(event.GlobalShowTime).format("MM/DD/YYYY HH:mm A")}</td>
+                    <td colspan="2" class="text-center col-global-time">${moment(event.GlobalShowTime).format("MM/DD/YYYY hh:mm A")}</td>
                 </tr>`;
     }
 

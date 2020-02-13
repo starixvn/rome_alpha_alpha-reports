@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Params.BetChoiceMatching
 {
+    using Alpha.Reports.Models.BetChoiceMatching;
     using System;
 
     public class BetChoiceMatchingExcelParam : BetChoiceMatchingParam
@@ -11,7 +12,7 @@
             int betCount,
             string username,
             decimal? stake,
-            int memberWinLossOperator,
+            MemberWinLossOperators memberWinLossOperator,
             decimal? memberWinLossValue)
             : base(custId, winlostDate, moveBetsDay, betCount, true)
         {
@@ -25,7 +26,7 @@
 
         public decimal? Stake { get; }
 
-        public int MemberWinLossOperator { get; }
+        public MemberWinLossOperators MemberWinLossOperator { get; }
 
         public decimal? MemberWinLossValue { get; }
     }

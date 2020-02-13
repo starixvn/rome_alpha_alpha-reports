@@ -34,7 +34,7 @@
         private int currentRowIndex;
         private const int TemplateSheetIndex = 0;
         private const int ReportSheetIndex = 1;
-        private const int BodyStartIndex = 3;
+        private const int BodyStartIndex = 2;
         private readonly IBetListExcelBuilder excelBuilder;
         private readonly ITicketHelper ticketHelper;
         private readonly CacheRefService cacheRefService;
@@ -132,13 +132,13 @@
         {
             if (sheet == null)
             {
-                throw new ArgumentNullException(nameof(sheet), "Sheet cannot be null");
+                throw new ArgumentNullException(nameof(sheet));
             }
 
             RemoveTemplateRows(sheet);
+            currentRowIndex = BodyStartIndex;
             if (Models.Any())
             {
-                currentRowIndex = BodyStartIndex;
                 FillBodyRows(sheet);
                 FillFooterRows(sheet);
             }
@@ -160,8 +160,8 @@
 
         protected override void FillNoInfoRow(Sheet sheet)
         {
-            var row = sheet.GetRow(TemplateInfo.BodyStartIndex);
-            row.CopyCellsFrom(TemplateTotalRow);
+            var row = sheet.GetRow(currentRowIndex);
+            row.CopyCellsFrom(TemplateNoInfoRow);
             row.SetCellValue(Column.GetColIndex(TemplateInfo.ColumnStartName), TemplateInfo.NoInfomationText);
         }
 
