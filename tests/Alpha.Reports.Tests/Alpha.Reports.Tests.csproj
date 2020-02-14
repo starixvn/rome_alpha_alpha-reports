@@ -205,6 +205,8 @@
     <Compile Include="Constants\DefaultVariablesTest.cs" />
     <Compile Include="Constants\ProductId.cs" />
     <Compile Include="Constants\RoleId.cs" />
+    <Compile Include="Criteria\BetChoiceMatching\BetChoiceMatchingCriteriaTests.cs" />
+    <Compile Include="Criteria\BetChoiceMatching\BetChoiceUplinesCriteriaTests.cs" />
     <Compile Include="Criteria\CommissionByBettype\CommissionByBettypeCriteriaTests.cs" />
     <Compile Include="Criteria\Consolidation\GetConsolidationCriteriaTests.cs" />
     <Compile Include="Criteria\Consolidation\GetCurrencyCriteriaTests.cs" />

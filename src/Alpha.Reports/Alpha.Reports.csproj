@@ -191,9 +191,10 @@
     <Compile Include="Helpers\BetTypeHelper.cs" />
     <Compile Include="Models\BalanceUpDayAndMoveBetsDay.cs" />
     <Compile Include="Enumerations\Enumeration.cs" />
+    <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingConstants.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingEventModel.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingUserModel.cs" />
-    <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingModel.cs" />
+    <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingTicketModel.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceSharedIPModel.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceUplinesModel.cs" />
     <Compile Include="Models\BetChoiceMatching\MemberWinLossOperators.cs" />

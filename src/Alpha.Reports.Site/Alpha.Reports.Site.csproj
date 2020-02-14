@@ -455,9 +455,10 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingExcelHandler.cs" />
-    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingWorkbook.cs" />
-    <Compile Include="Handlers\BetChoiceMatching\BetChoiceUplinesHandler.cs" />
     <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingHandler.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingWorkbook.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceUplinesJsonHandler.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingJsonHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationBaseHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationByDateWorkbook.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationByProductWorkbook.cs" />
@@ -514,8 +515,9 @@
     <Compile Include="Helpers\WorkbookHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingExcelQuery.cs" />
+    <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingJsonQuery.cs" />
     <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingQuery.cs" />
-    <Compile Include="Requests\BetChoiceMatching\BetChoiceUplinesQuery.cs" />
+    <Compile Include="Requests\BetChoiceMatching\BetChoiceUplinesJsonQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBetTypeGuideQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationByDateExcelQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationByDateQuery.cs" />
@@ -573,7 +575,7 @@
     <Compile Include="Requests\WinLoss\EnteredSportResultExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossQuery.cs" />
-    <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingQueryResult.cs" />
+    <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingJsonModel.cs" />
     <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingViewModel.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeFilterViewModel.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeViewModel.cs" />

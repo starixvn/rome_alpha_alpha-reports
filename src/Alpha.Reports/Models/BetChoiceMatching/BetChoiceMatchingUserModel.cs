@@ -4,7 +4,7 @@
 
     public class BetChoiceMatchingUserModel
     {
-        public BetChoiceMatchingUserModel(BetChoiceMatchingModel item)
+        public BetChoiceMatchingUserModel(BetChoiceMatchingTicketModel item)
         {
             CustId = item.CustId;
             Username = item.Username;
@@ -13,7 +13,7 @@
             SuperWinLoss = item.SuperWinLoss;
             Company = item.Company;
             IsRunning = item.IsRunning;
-            Items = new List<BetChoiceMatchingModel> { item };
+            Items = new List<BetChoiceMatchingTicketModel> { item };
         }
 
         public int CustId { get; }
@@ -30,9 +30,9 @@
 
         public bool IsRunning { get; }
 
-        public List<BetChoiceMatchingModel> Items { get; }
+        public List<BetChoiceMatchingTicketModel> Items { get; }
 
-        public void Add(BetChoiceMatchingModel item)
+        public void Add(BetChoiceMatchingTicketModel item)
         {
             Items.Add(item);
             Stake += item.Stake;

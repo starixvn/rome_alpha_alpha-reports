@@ -6,7 +6,7 @@
 
     public class BetChoiceMatchingEventModel
     {
-        public BetChoiceMatchingEventModel(BetChoiceMatchingModel model, List<BetChoiceMatchingUserModel> users)
+        public BetChoiceMatchingEventModel(BetChoiceMatchingTicketModel model, List<BetChoiceMatchingUserModel> users)
         {
             LeagueId = model.LeagueId;
             SportType = model.SportType;
@@ -25,7 +25,7 @@
             Key = $"{model.MatchId}_{BetType}_{Hdp1}_{Hdp2}_{BetTeam}_{IsLive}_{LiveHomeScore}_{LiveAwayScore}";
         }
 
-        public BetChoiceMatchingEventModel(BetChoiceMatchingModel model)
+        public BetChoiceMatchingEventModel(BetChoiceMatchingTicketModel model)
             : this(model, new List<BetChoiceMatchingUserModel> { new BetChoiceMatchingUserModel(model) })
         {
         }
@@ -60,7 +60,7 @@
 
         public List<BetChoiceMatchingUserModel> Users { get; }
 
-        public void Add(BetChoiceMatchingModel item)
+        public void Add(BetChoiceMatchingTicketModel item)
         {
             var selectedUser = Users.FirstOrDefault(g => g.Username == item.Username);
             if (selectedUser == null)

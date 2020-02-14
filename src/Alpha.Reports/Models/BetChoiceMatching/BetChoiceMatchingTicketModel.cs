@@ -2,13 +2,13 @@
 {
     using System;
 
-    public class BetChoiceMatchingModel
+    public class BetChoiceMatchingTicketModel
     {
-        public BetChoiceMatchingModel()
+        public BetChoiceMatchingTicketModel()
         {
         }
 
-        public BetChoiceMatchingModel(
+        public BetChoiceMatchingTicketModel(
             decimal stake,
             decimal memberWinLoss,
             decimal superWinLoss,
@@ -22,7 +22,7 @@
             IsRunning = isRunning;
         }
 
-        public BetChoiceMatchingModel(
+        public BetChoiceMatchingTicketModel(
             int leagueId,
             DateTime globalShowTime,
             int sportType,

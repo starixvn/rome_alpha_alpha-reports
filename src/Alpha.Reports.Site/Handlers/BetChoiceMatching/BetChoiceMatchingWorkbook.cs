@@ -16,20 +16,20 @@
 
     public interface BetChoiceMatchingWorkbook
     {
-        Workbook<BetChoiceMatchingModel> UseTemplate(TemplateInfo templateInfo);
+        Workbook<BetChoiceMatchingTicketModel> UseTemplate(TemplateInfo templateInfo);
 
-        Workbook<BetChoiceMatchingModel> Sheet(string sheetName);
+        Workbook<BetChoiceMatchingTicketModel> Sheet(string sheetName);
 
-        Workbook<BetChoiceMatchingModel> Title(string titleText);
+        Workbook<BetChoiceMatchingTicketModel> Title(string titleText);
 
-        Workbook<BetChoiceMatchingModel> Header(Func<string, string> headerMapping);
+        Workbook<BetChoiceMatchingTicketModel> Header(Func<string, string> headerMapping);
 
         byte[] ExportToBytes();
 
         BetChoiceMatchingWorkbook Body(IEnumerable<BetChoiceMatchingEventModel> models);
     }
 
-    public class BetChoiceMatchingWorkbookImpl : NpoiWorkbook<BetChoiceMatchingModel>, BetChoiceMatchingWorkbook
+    public class BetChoiceMatchingWorkbookImpl : NpoiWorkbook<BetChoiceMatchingTicketModel>, BetChoiceMatchingWorkbook
     {
         private int currentRowIndex;
         private const int TemplateSheetIndex = 0;
@@ -72,11 +72,11 @@
                 });
             }
 
-            Total = new BetChoiceMatchingModel(totalStake, totalMemberWinLoss, totalSuperWinLoss, totalCompany, isRunning);
+            Total = new BetChoiceMatchingTicketModel(totalStake, totalMemberWinLoss, totalSuperWinLoss, totalCompany, isRunning);
             return this;
         }
 
-        public BetChoiceMatchingModel Total { get; private set; }
+        public BetChoiceMatchingTicketModel Total { get; private set; }
 
         public IEnumerable<BetChoiceMatchingEventModel> Models { get; private set; }
 

@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
     using Alpha.Reports.Site.Requests.BetChoiceMatching;
-    using Alpha.Reports.Site.ViewModels.BetChoiceMatching;
     using MediatR;
     using System.Web.Mvc;
 
@@ -12,18 +11,15 @@
         }
 
         [HttpGet]
-        public ActionResult Index()
-            => View(new BetChoiceMatchingViewModel());
+        public ActionResult Index(BetChoiceMatchingQuery message) => View(message);
 
         [HttpPost]
-        public ActionResult Query(BetChoiceMatchingQuery message)
-            => Json(message);
+        public ActionResult Query(BetChoiceMatchingJsonQuery message) => Json(message);
 
         [HttpGet]
         public ActionResult Excel(BetChoiceMatchingExcelQuery message) => ExcelView(message);
 
         [HttpPost]
-        public ActionResult Uplines(BetChoiceUplinesQuery message)
-            => Json(message);
+        public ActionResult Uplines(BetChoiceUplinesJsonQuery message) => Json(message);
     }
 }

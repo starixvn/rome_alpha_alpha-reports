@@ -32,12 +32,12 @@
                     param.MoveBetsDay,
                     param.BetCount,
                     param.IsExportExcel);
-            var tuple = dynamicRepository.FetchMultiple<BetChoiceMatchingModel, BetChoiceSharedIPModel>(criteria);
+            var tuple = dynamicRepository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceSharedIPModel>(criteria);
             var events = Group(tuple.Item1);
             return new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>>(events, tuple.Item2);
         }
 
-        private static List<BetChoiceMatchingEventModel> Group(IEnumerable<BetChoiceMatchingModel> items)
+        private static List<BetChoiceMatchingEventModel> Group(IEnumerable<BetChoiceMatchingTicketModel> items)
         {
             var events = new List<BetChoiceMatchingEventModel>();
             foreach (var item in items)

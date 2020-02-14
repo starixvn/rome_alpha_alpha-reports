@@ -4,9 +4,9 @@
     using Alpha.Reports.Models.BetChoiceMatching;
     using System.Collections.Generic;
 
-    public class BetChoiceMatchingQueryResult
+    public class BetChoiceMatchingJsonModel
     {
-        public BetChoiceMatchingQueryResult(
+        public BetChoiceMatchingJsonModel(
             IEnumerable<BetChoiceMatchingEventModel> events,
             IEnumerable<KeyValueModel> teams,
             IEnumerable<KeyValueModel> leagues,

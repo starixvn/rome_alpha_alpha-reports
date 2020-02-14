@@ -5,7 +5,7 @@
     using Alpha.Reports.Site.ViewModels;
     using MediatR;
 
-    public class BetChoiceMatchingExcelQuery : BetChoiceMatchingQuery, IRequest<ExcelFileViewModel>
+    public class BetChoiceMatchingExcelQuery : BetChoiceMatchingJsonQuery, IRequest<ExcelFileViewModel>
     {
         public BetChoiceMatchingExcelQuery(IUser viewer) : base(viewer)
         {

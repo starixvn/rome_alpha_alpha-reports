@@ -6,18 +6,18 @@
     using Alpha.Reports.Site.Requests.BetChoiceMatching;
     using MediatR;
 
-    public class BetChoiceUplinesHandler :
+    public class BetChoiceUplinesJsonHandler :
         BaseHandler,
-        IRequestHandler<BetChoiceUplinesQuery, BetChoiceUplinesModel>
+        IRequestHandler<BetChoiceUplinesJsonQuery, BetChoiceUplinesModel>
     {
         private readonly BetChoiceMatchingService betChoiceMatchingService;
 
-        public BetChoiceUplinesHandler(BetChoiceMatchingService betChoiceMatchingService)
+        public BetChoiceUplinesJsonHandler(BetChoiceMatchingService betChoiceMatchingService)
         {
             this.betChoiceMatchingService = betChoiceMatchingService;
         }
 
-        public BetChoiceUplinesModel Handle(BetChoiceUplinesQuery message)
+        public BetChoiceUplinesModel Handle(BetChoiceUplinesJsonQuery message)
         {
             var queryParam = new BetChoiceUplinesParam(message.SearchAccountId);
             return betChoiceMatchingService.QueryUplines(queryParam);
