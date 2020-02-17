@@ -13,7 +13,7 @@
     {
         private IEnumerable<int> MemberCountItems
 #pragma warning disable S109 // Magic numbers should not be used
-               => new List<int> { 2, 3, 4, 8, 10, 15, 20, 30, 50, 100 };
+               => new List<int> { 2, 3, 4, 5, 8, 10, 15, 20, 30, 50, 100 };
 #pragma warning restore S109 // Magic numbers should not be used
 
         public RiskAnalysisIPMatchingViewModel(
