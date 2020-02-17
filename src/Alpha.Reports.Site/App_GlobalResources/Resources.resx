@@ -750,4 +750,7 @@
   <data name="IPMatchingNote" xml:space="preserve">
     <value>This report's data is used for statistics only, due to the resettlement process, the figure might not be totally exact.</value>
   </data>
+  <data name="Stake" xml:space="preserve">
+    <value>Stake</value>
+  </data>
 </root>

@@ -306,4 +306,7 @@
   <data name="MemberTurnOver" xml:space="preserve">
     <value>Member Turnover</value>
   </data>
+  <data name="Stake" xml:space="preserve">
+    <value>ベット</value>
+  </data>
 </root>

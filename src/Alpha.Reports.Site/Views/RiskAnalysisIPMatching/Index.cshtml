@@ -52,7 +52,7 @@
             <th>@Resources.IP</th>
             <th>@Resources.MemberCount</th>
             <th>@Resources.BetCount</th>
-            <th>@Resources.MemberTurnOver</th>
+            <th>@Resources.Stake</th>
             <th>@Resources.MemberWinLoss</th>
             <th>@Resources.SuperWinLoss</th>
             <th>@Resources.Company</th>
@@ -103,7 +103,7 @@
         </td>
         <td class="text-right col-member-count">@HtmlHelpers.FormatNumber(data.MemberCount)</td>
         <td class="text-right col-bet-count">@HtmlHelpers.FormatNumber(data.BetCount)</td>
-        @HtmlHelpers.RenderNumberCell(data.MemberStake, "col-member-turnover")
+        @HtmlHelpers.RenderNumberCell(data.Stake, "col-member-turnover")
         @HtmlHelpers.RenderNumberCell(data.MemberWinLoss, "col-member-winloss")
         @HtmlHelpers.RenderNumberCell(data.SuperWinLoss, "col-super-winloss altercol")
         <td class="text-right col-company">@HtmlHelpers.FormatNumber(data.Company)</td>

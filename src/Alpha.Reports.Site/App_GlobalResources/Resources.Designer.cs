@@ -1555,6 +1555,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stake.
+        /// </summary>
+        public static string Stake {
+            get {
+                return ResourceManager.GetString("Stake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Statement.
         /// </summary>
         public static string Statement {

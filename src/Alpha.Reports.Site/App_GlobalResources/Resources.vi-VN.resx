@@ -687,4 +687,7 @@
   <data name="MemberTurnOver" xml:space="preserve">
     <value>Tổng tiền cược của Member</value>
   </data>
+  <data name="Stake" xml:space="preserve">
+    <value>Tiền cược</value>
+  </data>
 </root>

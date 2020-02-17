@@ -8,7 +8,7 @@
             string ip,
             int memberCount,
             int betCount,
-            decimal memberStake,
+            decimal stake,
             decimal memberWinLoss,
             decimal superWinLoss,
             decimal company)
@@ -16,7 +16,7 @@
             IP = ip;
             MemberCount = memberCount;
             BetCount = betCount;
-            MemberStake = memberStake;
+            Stake = stake;
             MemberWinLoss = memberWinLoss;
             SuperWinLoss = superWinLoss;
             Company = company;
@@ -28,7 +28,7 @@
 
         public int BetCount { get; }
 
-        public decimal MemberStake { get; }
+        public decimal Stake { get; }
 
         public decimal MemberWinLoss { get; }
 

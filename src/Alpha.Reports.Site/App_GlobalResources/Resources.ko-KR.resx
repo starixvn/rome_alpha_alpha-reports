@@ -507,4 +507,7 @@
   <data name="MemberTurnOver" xml:space="preserve">
     <value>Member Turnover</value>
   </data>
+  <data name="Stake" xml:space="preserve">
+    <value>배팅 금액</value>
+  </data>
 </root>

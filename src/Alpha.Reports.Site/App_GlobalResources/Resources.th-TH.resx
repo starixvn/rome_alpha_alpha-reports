@@ -661,4 +661,7 @@
   <data name="MemberTurnOver" xml:space="preserve">
     <value>เงินหมุนเวียนของสมาชิก</value>
   </data>
+  <data name="Stake" xml:space="preserve">
+    <value>เงินเดิมพัน</value>
+  </data>
 </root>

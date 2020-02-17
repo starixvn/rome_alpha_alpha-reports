@@ -663,4 +663,7 @@
   <data name="MemberTurnOver" xml:space="preserve">
     <value>会员总投注交易</value>
   </data>
+  <data name="Stake" xml:space="preserve">
+    <value>投注额</value>
+  </data>
 </root>
