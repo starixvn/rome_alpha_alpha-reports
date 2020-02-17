@@ -274,6 +274,11 @@ class BetChoiceUplines {
     };
 }
 
+interface QueryParam {
+    WinlostDate: string;
+    BetCount: string;
+}
+
 class BetChoiceMatching {
     $: JQueryStatic;
     $pageTitle: JQuery;
@@ -294,6 +299,7 @@ class BetChoiceMatching {
     $excelMemberWinLossOperator: JQuery;
     $excelMemberWinLossValue: JQuery;
     noinfoRowHtml: string;
+    queryParam: QueryParam;
     data: QueryModel;
     betChoiceUplines: BetChoiceUplines;
     usernameFilterForm: UsernameFilterForm;
@@ -379,9 +385,9 @@ class BetChoiceMatching {
         e.preventDefault();
         this.$.blockUI();
         this.$table.hide();
-        const params = alphaReports.getFormData(this.$reportForm);
+        this.queryParam = alphaReports.getFormData(this.$reportForm);
         const queryUrl = this.$reportForm.attr('action');
-        this.$.post(queryUrl, params)
+        this.$.post(queryUrl, this.queryParam)
             .done((data: QueryModel) => {
                 this.data = data;
                 this.groupIPs(data.IPs);
@@ -413,8 +419,8 @@ class BetChoiceMatching {
     }
 
     onExportExcel = () => {
-        this.$excelWinlostDate.val(this.$datePickerInput.val());
-        this.$excelBetCount.val(this.$betCount.val());
+        this.$excelWinlostDate.val(this.queryParam.WinlostDate);
+        this.$excelBetCount.val(this.queryParam.BetCount);
         this.$excelUsername.val(this.usernameFilterForm.filterCriteria.Username);
         this.$excelStake.val(this.stakeFilterForm.filterCriteria.TotalStake);
         this.$excelMemberWinLossOperator.val(this.memberWinLossFilterForm.filterCriteria.Operator);

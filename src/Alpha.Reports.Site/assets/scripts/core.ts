@@ -157,7 +157,7 @@ class AlphaReports {
 
     formatCurrency = (value: number) => value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 
-    getFormData($form: JQuery) {
+    getFormData($form: JQuery): any {
         const unindexed_array = $form.serializeArray();
         const indexed_array = {};
 
