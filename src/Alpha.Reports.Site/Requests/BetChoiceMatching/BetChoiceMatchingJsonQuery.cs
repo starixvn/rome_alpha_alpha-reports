@@ -10,18 +10,21 @@
 
     public class BetChoiceMatchingJsonQuery : ReportBaseQuery, IRequest<BetChoiceMatchingJsonModel>
     {
-        public BetChoiceMatchingJsonQuery(IUser viewer) : base(viewer)
+        public BetChoiceMatchingJsonQuery(IUser viewer, ReportDateService reportDateService) : base(viewer)
         {
             WinlostDate = SystemTime.Today;
+            var reportDate = reportDateService.GetBalanceUpDayAndMoveBetsDay();
+            MinDate = reportDate.BalanceUpDay;
+            MoveBetsDate = reportDate.MoveBetsDay;
         }
 
         public int BetCount { get; set; }
 
         public DateTime WinlostDate { get; set; }
 
-        public DateTime MinDate { get; } = ReportDateServiceImpl.Instance.GetBalanceUpDay();
+        public DateTime MinDate { get; }
 
-        public DateTime MoveBetsDate { get; } = ReportDateServiceImpl.Instance.GetMoveBetsDay();
+        public DateTime MoveBetsDate { get; }
 
         public override bool IsValid() => base.IsValid() && ViewerLevel.IsSuperLevel() && BetChoiceMatchingConstants.DefaultBetCounts.Contains(BetCount) && MinDate <= WinlostDate;
     }

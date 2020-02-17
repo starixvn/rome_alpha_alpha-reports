@@ -261,6 +261,7 @@
     <Compile Include="Constants\BetTypeIdConstants.cs" />
     <Compile Include="Constants\DefaultVariablesTest.cs" />
     <Compile Include="Constants\LanguageCode.cs" />
+    <Compile Include="Controllers\BetChoiceMatchingControllerTests.cs" />
     <Compile Include="Controllers\CommissionByBettypeControllerTests.cs" />
     <Compile Include="Controllers\ConsolidationControllerTests.cs" />
     <Compile Include="Controllers\ControllerBaseFuctions.cs" />

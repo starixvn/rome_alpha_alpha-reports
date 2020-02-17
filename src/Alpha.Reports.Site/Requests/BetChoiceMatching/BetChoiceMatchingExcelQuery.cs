@@ -2,12 +2,13 @@
 {
     using Alpha.Reports.Models;
     using Alpha.Reports.Models.BetChoiceMatching;
+    using Alpha.Reports.Services;
     using Alpha.Reports.Site.ViewModels;
     using MediatR;
 
     public class BetChoiceMatchingExcelQuery : BetChoiceMatchingJsonQuery, IRequest<ExcelFileViewModel>
     {
-        public BetChoiceMatchingExcelQuery(IUser viewer) : base(viewer)
+        public BetChoiceMatchingExcelQuery(IUser viewer, ReportDateService reportDateService) : base(viewer, reportDateService)
         {
         }
 
