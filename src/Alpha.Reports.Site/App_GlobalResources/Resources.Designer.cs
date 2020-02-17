@@ -844,7 +844,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IP MATCHING.
+        ///   Looks up a localized string similar to IP Matching.
         /// </summary>
         public static string IPMatching {
             get {

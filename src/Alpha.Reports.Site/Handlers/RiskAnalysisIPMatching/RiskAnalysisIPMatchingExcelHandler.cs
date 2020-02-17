@@ -91,7 +91,7 @@
 #pragma warning restore S109 // Magic numbers should not be used
 
         private string GetReportTitle(RiskAnalysisIPMatchingExcelQuery message)
-            => $"{Resources.IPMatching} {message.SelectedWinlostDate.ToShortDateWithSlash()}";
+            => $"{Resources.IPMatching} {message.SelectedWinlostDate.ToShortDateWithSlash()} - {Resources.MemberCount}: >= {message.MemberCount}";
 
         private string GetExcelFileName(RiskAnalysisIPMatchingExcelQuery message, DateTime winlostDate)
            => string.Join(
