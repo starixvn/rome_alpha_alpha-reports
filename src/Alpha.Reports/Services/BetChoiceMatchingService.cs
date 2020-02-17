@@ -37,12 +37,12 @@
             return new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>>(events, tuple.Item2);
         }
 
-        private static List<BetChoiceMatchingEventModel> Group(IEnumerable<BetChoiceMatchingTicketModel> items)
+        private static List<BetChoiceMatchingEventModel> Group(IEnumerable<BetChoiceMatchingTicketModel> tickets)
         {
             var events = new List<BetChoiceMatchingEventModel>();
-            foreach (var item in items)
+            foreach (var ticket in tickets)
             {
-                var eventModel = new BetChoiceMatchingEventModel(item);
+                var eventModel = new BetChoiceMatchingEventModel(ticket);
                 var selectedEventGroup = events.FirstOrDefault(g => g.Key == eventModel.Key);
                 if (selectedEventGroup == null)
                 {
@@ -50,7 +50,7 @@
                 }
                 else
                 {
-                    selectedEventGroup.Add(item);
+                    selectedEventGroup.AddTicket(ticket);
                 }
             }
 
@@ -95,9 +95,9 @@
                     }
                 }
 
-                if (filterUsers.Count > 0)
+                if (filterUsers.Any())
                 {
-                    var firstItem = filterUsers.First().Items.First();
+                    var firstItem = filterUsers.First().Tickets.First();
                     filterEvents.Add(new BetChoiceMatchingEventModel(firstItem, filterUsers));
                 }
             }

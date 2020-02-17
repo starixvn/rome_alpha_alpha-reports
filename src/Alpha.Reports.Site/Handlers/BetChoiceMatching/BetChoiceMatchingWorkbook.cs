@@ -59,7 +59,7 @@
             bool isRunning = true;
             foreach (var model in models)
             {
-                model.Users.ForEach(user =>
+                foreach(var user in model.Users)
                 {
                     totalStake += user.Stake;
                     if (!user.IsRunning)
@@ -69,7 +69,7 @@
                         totalCompany += user.Company;
                         isRunning = false;
                     }
-                });
+                }
             }
 
             Total = new BetChoiceMatchingTicketModel(totalStake, totalMemberWinLoss, totalSuperWinLoss, totalCompany, isRunning);
@@ -173,44 +173,54 @@
                 row.CopyCellsFrom(TemplateEventRow);
                 FillEventRow(row, model);
                 var userIndex = 0;
-                model.Users.ForEach(user =>
+                foreach(var user in model.Users)
                 {
                     var isEvenRow = userIndex % 2 == 0;
                     var totalRowIndex = currentRowIndex++;
                     var totalRow = sheet.GetRow(totalRowIndex);
                     totalRow.CopyCellsFrom(isEvenRow ? TemplateEvenUserTotalRow : TemplateOddUserTotalRow);
-                    totalRow.SetCellValue(Column.GetColIndex(Column.A), user.Username);
-                    totalRow.SetCellValue(Column.GetColIndex(Column.B), Resources.Total);
-                    totalRow.SetCellValue(Column.GetColIndex(Column.F), user.Stake);
-                    if (!user.IsRunning)
-                    {
-                        totalRow.SetCellValue(Column.GetColIndex(Column.G), user.MemberWinLoss);
-                        totalRow.SetCellValue(Column.GetColIndex(Column.H), user.SuperWinLoss);
-                        totalRow.SetCellValue(Column.GetColIndex(Column.I), user.Company);
-                    }
-                    
+                    FillUserTotalRow(totalRow, user);
+
                     var templateUserDataRow = isEvenRow ? TemplateEvenUserDataRow : TemplateOddUserDataRow;
-                    user.Items.ForEach(item =>
+                    foreach(var ticket in user.Tickets)
                     {
                         row = sheet.GetRow(currentRowIndex++);
                         row.CopyCellsFrom(templateUserDataRow);
-                        row.SetCellValue(Column.GetColIndex(Column.A), item.Username);
-                        row.SetCellValue(Column.GetColIndex(Column.B), item.TransDate);
-                        row.SetCellValue(Column.GetColIndex(Column.C), item.TransId);
-                        row.SetCellValue(Column.GetColIndex(Column.D), item.Odds);
-                        row.SetCellValue(Column.GetColIndex(Column.E), item.IP);
-                        row.SetCellValue(Column.GetColIndex(Column.F), item.Stake);
-                        if (!item.IsRunning)
-                        {
-                            row.SetCellValue(Column.GetColIndex(Column.G), user.MemberWinLoss);
-                            row.SetCellValue(Column.GetColIndex(Column.H), user.SuperWinLoss);
-                            row.SetCellValue(Column.GetColIndex(Column.I), user.Company);
-                        }
-                    });
+                        FillTicketRow(row, ticket);
+                    }
 
-                    NpoiReportSheet.AddMergedRegion(new CellRangeAddress(totalRowIndex, totalRowIndex + user.Items.Count, 0, 0));
+                    NpoiReportSheet.AddMergedRegion(new CellRangeAddress(totalRowIndex, totalRowIndex + user.Tickets.Count(), 0, 0));
                     userIndex++;
-                });
+                }
+            }
+        }
+
+        private static void FillUserTotalRow(Row row, BetChoiceMatchingUserModel user)
+        {
+            row.SetCellValue(Column.GetColIndex(Column.A), user.Username);
+            row.SetCellValue(Column.GetColIndex(Column.B), Resources.Total);
+            row.SetCellValue(Column.GetColIndex(Column.F), user.Stake);
+            if (!user.IsRunning)
+            {
+                row.SetCellValue(Column.GetColIndex(Column.G), user.MemberWinLoss);
+                row.SetCellValue(Column.GetColIndex(Column.H), user.SuperWinLoss);
+                row.SetCellValue(Column.GetColIndex(Column.I), user.Company);
+            }
+        }
+
+        private static void FillTicketRow(Row row, BetChoiceMatchingTicketModel ticket)
+        {
+            row.SetCellValue(Column.GetColIndex(Column.A), ticket.Username);
+            row.SetCellValue(Column.GetColIndex(Column.B), ticket.TransDate);
+            row.SetCellValue(Column.GetColIndex(Column.C), ticket.TransId);
+            row.SetCellValue(Column.GetColIndex(Column.D), ticket.Odds);
+            row.SetCellValue(Column.GetColIndex(Column.E), ticket.IP);
+            row.SetCellValue(Column.GetColIndex(Column.F), ticket.Stake);
+            if (!ticket.IsRunning)
+            {
+                row.SetCellValue(Column.GetColIndex(Column.G), ticket.MemberWinLoss);
+                row.SetCellValue(Column.GetColIndex(Column.H), ticket.SuperWinLoss);
+                row.SetCellValue(Column.GetColIndex(Column.I), ticket.Company);
             }
         }
 

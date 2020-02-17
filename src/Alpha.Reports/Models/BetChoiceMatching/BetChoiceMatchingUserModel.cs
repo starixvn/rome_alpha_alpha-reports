@@ -4,16 +4,18 @@
 
     public class BetChoiceMatchingUserModel
     {
-        public BetChoiceMatchingUserModel(BetChoiceMatchingTicketModel item)
+        private readonly List<BetChoiceMatchingTicketModel> tickets;
+
+        public BetChoiceMatchingUserModel(BetChoiceMatchingTicketModel ticket)
         {
-            CustId = item.CustId;
-            Username = item.Username;
-            Stake = item.Stake;
-            MemberWinLoss = item.MemberWinLoss;
-            SuperWinLoss = item.SuperWinLoss;
-            Company = item.Company;
-            IsRunning = item.IsRunning;
-            Items = new List<BetChoiceMatchingTicketModel> { item };
+            CustId = ticket.CustId;
+            Username = ticket.Username;
+            Stake = ticket.Stake;
+            MemberWinLoss = ticket.MemberWinLoss;
+            SuperWinLoss = ticket.SuperWinLoss;
+            Company = ticket.Company;
+            IsRunning = ticket.IsRunning;
+            tickets = new List<BetChoiceMatchingTicketModel> { ticket };
         }
 
         public int CustId { get; }
@@ -30,15 +32,15 @@
 
         public bool IsRunning { get; }
 
-        public List<BetChoiceMatchingTicketModel> Items { get; }
+        public IEnumerable<BetChoiceMatchingTicketModel> Tickets => tickets;
 
-        public void Add(BetChoiceMatchingTicketModel item)
+        public void AddTicket(BetChoiceMatchingTicketModel ticket)
         {
-            Items.Add(item);
-            Stake += item.Stake;
-            MemberWinLoss += item.MemberWinLoss;
-            SuperWinLoss += item.SuperWinLoss;
-            Company += item.Company;
+            tickets.Add(ticket);
+            Stake += ticket.Stake;
+            MemberWinLoss += ticket.MemberWinLoss;
+            SuperWinLoss += ticket.SuperWinLoss;
+            Company += ticket.Company;
         }
     }
 }

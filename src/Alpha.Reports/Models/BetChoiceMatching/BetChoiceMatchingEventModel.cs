@@ -6,27 +6,29 @@
 
     public class BetChoiceMatchingEventModel
     {
-        public BetChoiceMatchingEventModel(BetChoiceMatchingTicketModel model, List<BetChoiceMatchingUserModel> users)
+        private readonly List<BetChoiceMatchingUserModel> users;
+
+        public BetChoiceMatchingEventModel(BetChoiceMatchingTicketModel ticket, IEnumerable<BetChoiceMatchingUserModel> users)
         {
-            LeagueId = model.LeagueId;
-            SportType = model.SportType;
-            BetType = model.BetType;
-            GlobalShowTime = model.GlobalShowTime;
-            Hdp1 = model.Hdp1;
-            Hdp2 = model.Hdp2;
-            BetTeam = model.BetTeam;
-            IsLive = model.IsLive;
-            LiveHomeScore = model.LiveHomeScore;
-            LiveAwayScore = model.LiveAwayScore;
-            HomeId = model.HomeId;
-            AwayId = model.AwayId;
-            IsRunning = model.IsRunning;
-            Users = users;
-            Key = $"{model.MatchId}_{BetType}_{Hdp1}_{Hdp2}_{BetTeam}_{IsLive}_{LiveHomeScore}_{LiveAwayScore}";
+            LeagueId = ticket.LeagueId;
+            SportType = ticket.SportType;
+            BetType = ticket.BetType;
+            GlobalShowTime = ticket.GlobalShowTime;
+            Hdp1 = ticket.Hdp1;
+            Hdp2 = ticket.Hdp2;
+            BetTeam = ticket.BetTeam;
+            IsLive = ticket.IsLive;
+            LiveHomeScore = ticket.LiveHomeScore;
+            LiveAwayScore = ticket.LiveAwayScore;
+            HomeId = ticket.HomeId;
+            AwayId = ticket.AwayId;
+            IsRunning = ticket.IsRunning;
+            Key = $"{ticket.MatchId}_{BetType}_{Hdp1}_{Hdp2}_{BetTeam}_{IsLive}_{LiveHomeScore}_{LiveAwayScore}";
+            this.users = users.ToList();
         }
 
-        public BetChoiceMatchingEventModel(BetChoiceMatchingTicketModel model)
-            : this(model, new List<BetChoiceMatchingUserModel> { new BetChoiceMatchingUserModel(model) })
+        public BetChoiceMatchingEventModel(BetChoiceMatchingTicketModel ticket)
+            : this(ticket, new List<BetChoiceMatchingUserModel> { new BetChoiceMatchingUserModel(ticket) })
         {
         }
 
@@ -58,18 +60,18 @@
 
         public bool IsRunning { get; }
 
-        public List<BetChoiceMatchingUserModel> Users { get; }
+        public IEnumerable<BetChoiceMatchingUserModel> Users => users;
 
-        public void Add(BetChoiceMatchingTicketModel item)
+        public void AddTicket(BetChoiceMatchingTicketModel ticket)
         {
-            var selectedUser = Users.FirstOrDefault(g => g.Username == item.Username);
+            var selectedUser = users.FirstOrDefault(g => g.Username == ticket.Username);
             if (selectedUser == null)
             {
-                Users.Add(new BetChoiceMatchingUserModel(item));
+                users.Add(new BetChoiceMatchingUserModel(ticket));
             }
             else
             {
-                selectedUser.Add(item);
+                selectedUser.AddTicket(ticket);
             }
         }
     }

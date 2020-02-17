@@ -64,7 +64,7 @@ interface QueryUserModel {
     SuperWinLoss: number;
     Company: number;
     IsRunning: boolean;
-    Items: QueryItemModel[];
+    Tickets: QueryTicketModel[];
 }
 
 interface QueryEventModel {
@@ -84,7 +84,7 @@ interface QueryEventModel {
     Users: QueryUserModel[];
 }
 
-interface QueryItemModel {
+interface QueryTicketModel {
     LeagueId: number;
     SportType: number;
     BetType: number;
@@ -471,7 +471,7 @@ class BetChoiceMatching {
                 }
 
                 html.push(`<tr class="${index % 2 === 1 ? "row-even row-total" : "row-total"}">
-                    <td class="text-left" rowspan="${user.Items.length + 1}">
+                    <td class="text-left" rowspan="${user.Tickets.length + 1}">
                         <span data-custid="${user.CustId}" class="text-username" title="${betMatchingResources.BetMatching_Username_Title}">${user.Username}</span>
                     </td>
                     <td class="text-right" colspan="4">${betMatchingResources.Total}</td>
@@ -480,21 +480,21 @@ class BetChoiceMatching {
                     <td class="col-superwinloss">${this.formatNumber(user.SuperWinLoss, user.IsRunning)}</td>
                     <td>${this.formatNumber(user.Company, user.IsRunning)}</td>
                 </tr>`);
-                user.Items.forEach(item => {
+                user.Tickets.forEach(ticket => {
                     let ipHtml = '';
-                    if (this.queryIPGroup[item.IP]) {
-                        ipHtml = ` <span class="icon-ip-share" data-custid="${item.CustId}" data-ip="${item.IP}" title="${betMatchingResources.BetMatching_IP_Title}"></span>`;
+                    if (this.queryIPGroup[ticket.IP]) {
+                        ipHtml = ` <span class="icon-ip-share" data-custid="${ticket.CustId}" data-ip="${ticket.IP}" title="${betMatchingResources.BetMatching_IP_Title}"></span>`;
                     }
 
                     html.push(`<tr class="${index % 2 === 1 ? "row-even" : ""}">
-                        <td class="text-center">${moment(item.TransDate).format("MM/DD HH:mm:ss")}</td>
-                        <td class="text-center">${item.TransId}</td>
-                        <td class="text-center">${item.Odds}</td>
-                        <td class="text-center">${item.IP ? item.IP : ''}${ipHtml}</td>
-                        <td>${alphaReports.formatNumber(item.Stake)}</td>
-                        <td>${this.formatNumber(item.MemberWinLoss, item.IsRunning)}</td>
-                        <td class="col-superwinloss">${this.formatNumber(item.SuperWinLoss, item.IsRunning)}</td>
-                        <td>${this.formatNumber(item.Company, item.IsRunning)}</td>
+                        <td class="text-center">${moment(ticket.TransDate).format("MM/DD HH:mm:ss")}</td>
+                        <td class="text-center">${ticket.TransId}</td>
+                        <td class="text-center">${ticket.Odds}</td>
+                        <td class="text-center">${ticket.IP ? ticket.IP : ''}${ipHtml}</td>
+                        <td>${alphaReports.formatNumber(ticket.Stake)}</td>
+                        <td>${this.formatNumber(ticket.MemberWinLoss, ticket.IsRunning)}</td>
+                        <td class="col-superwinloss">${this.formatNumber(ticket.SuperWinLoss, ticket.IsRunning)}</td>
+                        <td>${this.formatNumber(ticket.Company, ticket.IsRunning)}</td>
                     </tr>`);
                 });
             });

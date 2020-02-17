@@ -74,6 +74,9 @@
       <HintPath>..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="JsonNet.ContractResolvers, Version=1.1.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\JsonNet.ContractResolvers.1.1.0\lib\netstandard2.0\JsonNet.ContractResolvers.dll</HintPath>
+    </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=3.6.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CompareNETObjects.3.06.0.0\lib\net46\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
       <Private>True</Private>
@@ -102,9 +105,8 @@
       <HintPath>..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute, Version=1.10.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
@@ -146,6 +148,9 @@
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reflection.TypeExtensions, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Reflection.TypeExtensions.4.5.1\lib\net461\System.Reflection.TypeExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -244,6 +249,7 @@
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
+    <Compile Include="TestCases\BetChoiceMatching\BetChoiceMatchingTestCases.cs" />
     <Compile Include="Database\MatchWinLossDetail\MatchWinLossDetailDatabase.cs" />
     <Compile Include="Database\Statement\StatementDatabase.cs" />
     <Compile Include="Database\WinLossByProduct\WinLossByProductDatabase.cs" />
@@ -301,6 +307,7 @@
     <Compile Include="Params\WinLossParamTests.cs" />
     <Compile Include="Params\WinLossDetailParamTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BetChoiceMatchingServiceImplTests.cs" />
     <Compile Include="Services\CacheRefServiceImplTests.cs" />
     <Compile Include="Services\ConsolidationServiceImplTests.cs" />
     <Compile Include="Services\MatchWinLossServiceImplTest.cs" />
@@ -333,6 +340,9 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="TestCases\BetChoiceMatching\BetChoiceMatchingEvents.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Alpha.Reports\Alpha.Reports.csproj">
@@ -347,6 +357,12 @@
     <CodeAnalysisDictionary Include="CodeAnalysis\CustomDictionary.xml">
       <SubType>Designer</SubType>
     </CodeAnalysisDictionary>
+    <Content Include="TestCases\BetChoiceMatching\BetChoiceMatchingIPs.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestCases\BetChoiceMatching\BetChoiceMatchingTickets.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Database\WinLossByProduct\AgentWinLossByProductHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -409,6 +425,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
