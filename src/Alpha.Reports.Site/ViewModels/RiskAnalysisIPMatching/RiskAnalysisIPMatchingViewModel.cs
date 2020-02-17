@@ -60,7 +60,7 @@
                 {
                     memberCount += item.MemberCount;
                     betCount += item.BetCount;
-                    memberTurnover += item.MemberTurnover;
+                    memberTurnover += item.MemberStake;
                     memberWinLoss += item.MemberWinLoss;
                     superWinLoss += item.SuperWinLoss;
                     company += item.Company;

@@ -66,7 +66,7 @@
                 .Map(A, data => isTotal ? Resources.Total : data.IP)
                 .Map(B, data => data.MemberCount)
                 .Map(C, data => data.BetCount)
-                .Map(D, data => data.MemberTurnover)
+                .Map(D, data => data.MemberStake)
                 .Map(E, data => data.MemberWinLoss)
                 .Map(F, data => data.SuperWinLoss)
                 .Map(G, data => data.Company);
