@@ -26,7 +26,7 @@
 
         byte[] ExportToBytes();
 
-        BetChoiceMatchingWorkbook Body(IEnumerable<BetChoiceMatchingEventModel> models);
+        BetChoiceMatchingWorkbook SetEvents(IEnumerable<BetChoiceMatchingEventModel> events);
     }
 
     public class BetChoiceMatchingWorkbookImpl : NpoiWorkbook<BetChoiceMatchingTicketModel>, BetChoiceMatchingWorkbook
@@ -49,17 +49,17 @@
             this.cacheRefService = cacheRefService;
         }
 
-        public BetChoiceMatchingWorkbook Body(IEnumerable<BetChoiceMatchingEventModel> models)
+        public BetChoiceMatchingWorkbook SetEvents(IEnumerable<BetChoiceMatchingEventModel> events)
         {
-            Models = models;
+            Events = events;
             decimal totalStake = 0;
             decimal totalMemberWinLoss = 0;
             decimal totalSuperWinLoss = 0;
             decimal totalCompany = 0;
             bool isRunning = true;
-            foreach (var model in models)
+            foreach (var eventModel in events)
             {
-                foreach(var user in model.Users)
+                foreach(var user in eventModel.Users)
                 {
                     totalStake += user.Stake;
                     if (!user.IsRunning)
@@ -78,7 +78,7 @@
 
         public BetChoiceMatchingTicketModel Total { get; private set; }
 
-        public IEnumerable<BetChoiceMatchingEventModel> Models { get; private set; }
+        public IEnumerable<BetChoiceMatchingEventModel> Events { get; private set; }
 
         public Row TemplateEventRow { get; private set; }
 
@@ -137,7 +137,7 @@
 
             RemoveTemplateRows(sheet);
             currentRowIndex = BodyStartIndex;
-            if (Models.Any())
+            if (Events.Any())
             {
                 FillBodyRows(sheet);
                 FillFooterRows(sheet);
@@ -167,13 +167,13 @@
 
         protected override void FillBodyRows(Sheet sheet)
         {
-            foreach (var model in Models)
+            foreach (var eventModel in Events)
             {
                 var row = sheet.GetRow(currentRowIndex++);
                 row.CopyCellsFrom(TemplateEventRow);
-                FillEventRow(row, model);
+                FillEventRow(row, eventModel);
                 var userIndex = 0;
-                foreach(var user in model.Users)
+                foreach(var user in eventModel.Users)
                 {
                     var isEvenRow = userIndex % 2 == 0;
                     var totalRowIndex = currentRowIndex++;
@@ -224,26 +224,26 @@
             }
         }
 
-        private void FillEventRow(Row row, BetChoiceMatchingEventModel model)
+        private void FillEventRow(Row row, BetChoiceMatchingEventModel eventModel)
         {
             var ticket = new Ticket
             {
-                LeagueId = model.LeagueId,
-                SportTypeId = model.SportType,
-                BetTypeId = model.BetType,
-                Handicap1 = model.Hdp1,
-                Handicap2 = model.Hdp2,
-                HomeId = model.HomeId,
-                AwayId = model.AwayId,
-                BetTeam = model.BetTeam,
-                IsLive = model.IsLive,
-                LiveHomeScore = model.LiveHomeScore,
-                LiveAwayScore = model.LiveAwayScore
+                LeagueId = eventModel.LeagueId,
+                SportTypeId = eventModel.SportType,
+                BetTypeId = eventModel.BetType,
+                Handicap1 = eventModel.Hdp1,
+                Handicap2 = eventModel.Hdp2,
+                HomeId = eventModel.HomeId,
+                AwayId = eventModel.AwayId,
+                BetTeam = eventModel.BetTeam,
+                IsLive = eventModel.IsLive,
+                LiveHomeScore = eventModel.LiveHomeScore,
+                LiveAwayScore = eventModel.LiveAwayScore
             };
 
             row.SetCellValue(Column.GetColIndex(Column.A), BuildChoice(ticket));
             row.SetCellValue(Column.GetColIndex(Column.B), BuildMatch(ticket));
-            row.SetCellValue(Column.GetColIndex(Column.H), model.GlobalShowTime);
+            row.SetCellValue(Column.GetColIndex(Column.H), eventModel.GlobalShowTime);
         }
 
         private IRichTextString BuildChoice(ITicket ticket)

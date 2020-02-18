@@ -8,6 +8,10 @@
 
     public class BetChoiceMatchingExcelQuery : BetChoiceMatchingJsonQuery, IRequest<ExcelFileViewModel>
     {
+        public BetChoiceMatchingExcelQuery(IUser viewer) : base(viewer)
+        {
+        }
+
         public BetChoiceMatchingExcelQuery(IUser viewer, ReportDateService reportDateService) : base(viewer, reportDateService)
         {
         }

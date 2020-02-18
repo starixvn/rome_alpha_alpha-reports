@@ -38,7 +38,7 @@
                 message.MemberWinLossValue);
             var eventModels = betChoiceMatchingService.ExcelQuery(param);
             var fileContent = workbook
-                .Body(eventModels)
+                .SetEvents(eventModels)
                 .UseTemplate(GetTemplateInfo(message))
                 .Sheet(Resources.DefaultSheetName)
                 .Title(GetReportTitle(message))
