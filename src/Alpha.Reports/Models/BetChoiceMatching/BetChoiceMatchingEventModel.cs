@@ -10,6 +10,7 @@
 
         public BetChoiceMatchingEventModel(BetChoiceMatchingTicketModel ticket, IEnumerable<BetChoiceMatchingUserModel> users)
         {
+            MatchId = ticket.MatchId;
             LeagueId = ticket.LeagueId;
             SportType = ticket.SportType;
             BetType = ticket.BetType;
@@ -23,7 +24,7 @@
             HomeId = ticket.HomeId;
             AwayId = ticket.AwayId;
             IsRunning = ticket.IsRunning;
-            Key = $"{ticket.MatchId}_{BetType}_{Hdp1}_{Hdp2}_{BetTeam}_{IsLive}_{LiveHomeScore}_{LiveAwayScore}";
+            Key = $"{MatchId}_{BetType}_{Hdp1}_{Hdp2}_{BetTeam}_{IsLive}_{LiveHomeScore}_{LiveAwayScore}";
             this.users = users.ToList();
         }
 
@@ -33,6 +34,8 @@
         }
 
         public string Key { get; }
+
+        public long MatchId { get; }
 
         public int LeagueId { get; }
 

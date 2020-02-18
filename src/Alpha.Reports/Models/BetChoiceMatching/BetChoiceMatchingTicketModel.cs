@@ -80,7 +80,7 @@
 
         public int SportType { get; private set; }
 
-        public int MatchId { get; private set; }
+        public long MatchId { get; private set; }
 
         public int CustId { get; private set; }
 

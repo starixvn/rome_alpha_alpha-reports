@@ -285,6 +285,11 @@
     <Compile Include="Fixtures\UserFixture.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandlerTests.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingExcelHandlerTests.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingHandlerTests.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingJsonHandlerTests.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingWorkbookTests.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceUplinesJsonHandlerTests.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationExcelHandlerTests.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationHandlerTests.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationTestsBaseFunctions.cs" />
@@ -407,6 +412,10 @@
       <Project>{b868e639-f3f9-4d54-b02e-57f3bee0965e}</Project>
       <Name>Alpha.Reports</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Alpha.Reports.Tests\Alpha.Reports.Tests.csproj">
+      <Project>{0F9FDF8D-E083-47E3-99AB-9AC53C74C366}</Project>
+      <Name>Alpha.Reports.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
@@ -419,6 +428,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
