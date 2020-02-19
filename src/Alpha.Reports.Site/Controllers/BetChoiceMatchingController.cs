@@ -13,13 +13,13 @@
         [HttpGet]
         public ActionResult Index(BetChoiceMatchingQuery message) => View(message);
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Query(BetChoiceMatchingJsonQuery message) => Json(message);
 
         [HttpGet]
         public ActionResult Excel(BetChoiceMatchingExcelQuery message) => ExcelView(message);
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Uplines(BetChoiceUplinesJsonQuery message) => Json(message);
     }
 }

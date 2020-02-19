@@ -13,6 +13,7 @@
 @Html.Hidden("Today", Model.WinlostDate)
 @Html.Hidden("MinDate", Model.WinlostDate.AddDays(-14))
 <form class="form-inline filter" role="form" id="report-form" action="@Url.Action("Query")">
+    @Html.AntiForgeryToken()
     <div class="form-group">
         <label class="txt">@Resources.eventdate</label>
         <div class="control date">
@@ -49,6 +50,7 @@
     <input type="hidden" name="MemberWinLossValue" id="ExcelMemberWinLossValue" />
 </form>
 <form role="form" id="uplines-form" action="@Url.Action("Uplines")">
+    @Html.AntiForgeryToken()
     @Html.Hidden("SearchAccountId")
 </form>
 <table class="tblRpt tblRpt-bordered tblRpt-hover width-100per hide" id="tbl-report">
