@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.BetChoiceMatching
 {
-    using Alpha.Reports.Models;
     using Alpha.Reports.Models.BetChoiceMatching;
     using System.Collections.Generic;
 
@@ -8,10 +7,10 @@
     {
         public BetChoiceMatchingJsonModel(
             IEnumerable<BetChoiceMatchingEventModel> events,
-            IEnumerable<KeyValueModel> teams,
-            IEnumerable<KeyValueModel> leagues,
-            IEnumerable<KeyValueModel> sportTypes,
-            IEnumerable<KeyValueModel> betTypes,
+            IEnumerable<KeyValuePair<int, string>> teams,
+            IEnumerable<KeyValuePair<int, string>> leagues,
+            IEnumerable<KeyValuePair<int, string>> sportTypes,
+            IEnumerable<KeyValuePair<int, string>> betTypes,
             IEnumerable<BetChoiceSharedIPModel> ips
             )
         {
@@ -25,13 +24,13 @@
 
         public IEnumerable<BetChoiceMatchingEventModel> Events { get; }
 
-        public IEnumerable<KeyValueModel> Teams { get; }
+        public IEnumerable<KeyValuePair<int, string>> Teams { get; }
 
-        public IEnumerable<KeyValueModel> Leagues { get; }
+        public IEnumerable<KeyValuePair<int, string>> Leagues { get; }
 
-        public IEnumerable<KeyValueModel> SportTypes { get; }
+        public IEnumerable<KeyValuePair<int, string>> SportTypes { get; }
 
-        public IEnumerable<KeyValueModel> BetTypes { get; }
+        public IEnumerable<KeyValuePair<int, string>> BetTypes { get; }
 
         public IEnumerable<BetChoiceSharedIPModel> IPs { get; set; }
     }

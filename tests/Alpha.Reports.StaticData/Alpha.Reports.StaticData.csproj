@@ -96,6 +96,7 @@
     <Content Include="ExcelData\Age_Rpt_ProgressiveContribution.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

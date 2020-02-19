@@ -62,26 +62,26 @@
             // Assert
             Assert.Equal(events, actual.Events);
             Assert.Equal(ips, actual.IPs);
-            var expectedLeagues = new List<KeyValueModel>
+            var expectedLeagues = new List<KeyValuePair<int, string>>
             {
-                new KeyValueModel(8, "League 8")
+                new KeyValuePair<int, string>(8, "League 8")
             };
             AssertExtension.Equal(expectedLeagues, actual.Leagues.ToList());
-            var expectedTeams = new List<KeyValueModel>
+            var expectedTeams = new List<KeyValuePair<int, string>>
             {
-                new KeyValueModel(1, "Team 1"),
-                new KeyValueModel(2, "Team 2")
+                new KeyValuePair<int, string>(1, "Team 1"),
+                new KeyValuePair<int, string>(2, "Team 2")
             };
             AssertExtension.Equal(expectedTeams, actual.Teams.ToList());
-            var expectedSportTypes = new List<KeyValueModel>
+            var expectedSportTypes = new List<KeyValuePair<int, string>>
             {
-                new KeyValueModel(1, "Sport 1")
+                new KeyValuePair<int, string>(1, "Sport 1")
             };
             AssertExtension.Equal(expectedSportTypes, actual.SportTypes.ToList());
-            var expectedBetTypes = new List<KeyValueModel>
+            var expectedBetTypes = new List<KeyValuePair<int, string>>
             {
-                new KeyValueModel(7, "Bettype 7"),
-                new KeyValueModel(8, "Bettype 8")
+                new KeyValuePair<int, string>(7, "Bettype 7"),
+                new KeyValuePair<int, string>(8, "Bettype 8")
             };
             AssertExtension.Equal(expectedBetTypes, actual.BetTypes.ToList());
         }

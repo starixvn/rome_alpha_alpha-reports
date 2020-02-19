@@ -1,6 +1,6 @@
 ﻿namespace Alpha.Reports.Tests.Helpers
 {
-    using JsonNet.ContractResolvers;
+    using JsonNet.PrivateSettersContractResolvers;
     using Newtonsoft.Json;
     using System;
     using System.Data;
