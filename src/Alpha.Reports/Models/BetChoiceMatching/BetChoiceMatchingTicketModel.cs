@@ -1,25 +1,12 @@
 ﻿namespace Alpha.Reports.Models.BetChoiceMatching
 {
+    using Newtonsoft.Json;
     using System;
 
     public class BetChoiceMatchingTicketModel
     {
         public BetChoiceMatchingTicketModel()
         {
-        }
-
-        public BetChoiceMatchingTicketModel(
-            decimal stake,
-            decimal memberWinLoss,
-            decimal superWinLoss,
-            decimal company,
-            bool isRunning)
-        {
-            Stake = stake;
-            MemberWinLoss = memberWinLoss;
-            SuperWinLoss = superWinLoss;
-            Company = company;
-            IsRunning = isRunning;
         }
 
         public BetChoiceMatchingTicketModel(
@@ -62,16 +49,25 @@
             Odds = odds;
             TransDate = transDate;
             TransId = transId;
-            Stake = stake;
-            MemberWinLoss = memberWinLoss;
-            SuperWinLoss = superWinLoss;
-            Company = company;
             HomeId = homeId;
             AwayId = awayId;
             IsLive = isLive;
             LiveHomeScore = liveHomeScore;
             LiveAwayScore = liveAwayScore;
+            Stake = stake;
+            MemberWinLoss = memberWinLoss;
+            SuperWinLoss = superWinLoss;
+            Company = company;
             IsRunning = isRunning;
+        }
+
+        [JsonIgnore]
+        public string EventKey
+        {
+            get
+            {
+                return $"{MatchId}_{BetType}_{Hdp1}_{Hdp2}_{BetTeam}_{IsLive}_{LiveHomeScore}_{LiveAwayScore}";
+            }
         }
 
         public int LeagueId { get; private set; }

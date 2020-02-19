@@ -13,16 +13,20 @@
 
         public object Data { get; set; }
 
-        public JsonSerializerSettings SerializerSettings { get; set; }
+        public JsonSerializerSettings SerializerSettings { get; }
 
-        public Formatting Formatting { get; set; }
+        public Formatting Formatting { get; }
+
+        public JsonNetResult(object data) : this(data, Formatting.None, new JsonSerializerSettings())
+        {
+        }
 
         public JsonNetResult(object data,
-            Formatting formatting = Formatting.None,
-            JsonSerializerSettings settings = null)
+            Formatting formatting,
+            JsonSerializerSettings settings)
         {
             Data = data;
-            SerializerSettings = settings ?? new JsonSerializerSettings();
+            SerializerSettings = settings;
             Formatting = formatting;
         }
 
@@ -49,7 +53,6 @@
                 {
                     var serializer = JsonSerializer.Create(SerializerSettings);
                     serializer.Serialize(writer, Data);
-
                     writer.Flush();
                 }
             }

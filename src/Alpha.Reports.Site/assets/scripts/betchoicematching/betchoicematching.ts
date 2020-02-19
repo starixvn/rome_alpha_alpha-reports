@@ -385,6 +385,9 @@ class BetChoiceMatching {
     onSubmitReport = (e: JQueryEventObject) => {
         e.preventDefault();
         this.$.blockUI();
+        this.removeFilterCriteria();
+        this.hideColumnFilterIcons();
+        this.hideColumnFilterTooltips();
         this.$table.hide();
         this.queryParam = alphaReports.getFormData(this.$reportForm);
         const queryUrl = this.$reportForm.attr('action');
@@ -422,10 +425,10 @@ class BetChoiceMatching {
     onExportExcel = () => {
         this.$excelWinlostDate.val(this.queryParam.WinlostDate);
         this.$excelBetCount.val(this.queryParam.BetCount);
-        this.$excelUsername.val(this.usernameFilterForm.filterCriteria.Username);
-        this.$excelStake.val(this.stakeFilterForm.filterCriteria.TotalStake);
-        this.$excelMemberWinLossOperator.val(this.memberWinLossFilterForm.filterCriteria.Operator);
-        this.$excelMemberWinLossValue.val(this.memberWinLossFilterForm.filterCriteria.MemberWinLoss);
+        this.$excelUsername.val(this.usernameFilterForm.getCriteria().Username);
+        this.$excelStake.val(this.stakeFilterForm.getCriteria().TotalStake);
+        this.$excelMemberWinLossOperator.val(this.memberWinLossFilterForm.getCriteria().Operator);
+        this.$excelMemberWinLossValue.val(this.memberWinLossFilterForm.getCriteria().MemberWinLoss);
         this.$exportExcelForm.submit();
     };
 
@@ -452,14 +455,10 @@ class BetChoiceMatching {
         if (events.length === 0) {
             this.$tableTbody.html(this.noinfoRowHtml);
             this.$tableTfoot.hide();
-            if (this.data.Events.length === 0) {
-                this.hideColumnFilterIcons();
-                this.hideColumnFilterTooltips();
-            }
-
             return;
         }
 
+        this.showColumnFilterIcons();
         let totalStake = null,
             totalMemberWinLoss = null,
             totalSuperWinLoss = null,
@@ -518,8 +517,6 @@ class BetChoiceMatching {
             </tr>
         `);
         this.$tableTfoot.show();
-        this.showColumnFilterIcons();
-
         this.$tableTbody.find('.text-username').click(this.onUsernameClick);
         this.$tableTbody.find('.icon-ip-share').click(this.onIPClick);
     };
@@ -632,6 +629,12 @@ class BetChoiceMatching {
         this.stakeFilterForm.hideTooltip();
         this.memberWinLossFilterForm.hideTooltip();
     };
+
+    removeFilterCriteria = () => {
+        this.usernameFilterForm.removeCriteria();
+        this.stakeFilterForm.removeCriteria();
+        this.memberWinLossFilterForm.removeCriteria();
+    }
 }
 
 $(() => {
@@ -657,11 +660,11 @@ abstract class BaseFilterForm<T> {
     protected simpleTooltip: SimpleTooltip;
     protected $filterIcon: JQuery;
     protected $form: JQuery;
-    public filterCriteria: T;
+    protected filterCriteria: T;
     private listener: () => void;
     static tooltips: SimpleTooltip[] = [];
 
-    constructor($: JQueryStatic, iconFilterClassname: string, tooltipOption: SimpleTooltipOption, tooltipContent: string) {
+    constructor(protected $: JQueryStatic, iconFilterClassname: string, tooltipOption: SimpleTooltipOption, tooltipContent: string) {
         this.$filterIcon = $(iconFilterClassname);
         this.simpleTooltip = new SimpleTooltip($, this.$filterIcon, tooltipOption);
         this.simpleTooltip.render(tooltipContent);
@@ -718,9 +721,17 @@ abstract class BaseFilterForm<T> {
         this.listener = listener;
     }
 
+    removeCriteria = () => {
+        this.filterCriteria = undefined;
+        this.$filterIcon.removeClass('has-filter');
+        this.resetCriteria();
+    }
+
     abstract hasFilter(): boolean;
 
     abstract getCriteria(): T;
+
+    protected abstract resetCriteria(): void;
 
     abstract restoreCriteria(filterCriteria: T): void;
 
@@ -765,7 +776,7 @@ class UsernameFilterForm extends BaseFilterForm<UsernameFilterCriteria> {
 
     $textareaUsername: JQuery;
 
-    constructor(private $: JQueryStatic) {
+    constructor($: JQueryStatic) {
         super($, UsernameFilterForm.iconFilterClassname, UsernameFilterForm.tooltipOption, UsernameFilterForm.tooltipContent);
         this.$textareaUsername = this.$form.find('textarea');
         this.$textareaUsername.focusout(this.textareaLostFocus);
@@ -794,6 +805,10 @@ class UsernameFilterForm extends BaseFilterForm<UsernameFilterCriteria> {
     hasFilter(): boolean {
         const criteria = this.getCriteria();
         return !!criteria.Username;
+    }
+
+    protected resetCriteria() {
+        this.$textareaUsername.val('');
     }
 
     restoreCriteria = (filterCriteria: UsernameFilterCriteria) => {
@@ -842,7 +857,7 @@ class StakeFilterForm extends BaseFilterForm<StakeFilterCriteria> {
 
     $inputTotalStake: JQuery;
 
-    constructor(private $: JQueryStatic) {
+    constructor($: JQueryStatic) {
         super($, StakeFilterForm.iconFilterClassname, StakeFilterForm.tooltipOption, StakeFilterForm.tooltipContent);
         this.$inputTotalStake = this.$form.find('input');
         this.$inputTotalStake.cleave({
@@ -864,6 +879,10 @@ class StakeFilterForm extends BaseFilterForm<StakeFilterCriteria> {
     hasFilter(): boolean {
         const criteria = this.getCriteria();
         return criteria.TotalStake !== null;
+    }
+
+    protected resetCriteria() {
+        this.$inputTotalStake.val('');
     }
 
     restoreCriteria = (filterCriteria: StakeFilterCriteria) => {
@@ -907,7 +926,7 @@ class MemberWinLossFilterForm extends BaseFilterForm<MemberWinLossFilterCriteria
     $selectOperator: JQuery;
     $inputMemberWinLoss: JQuery;
 
-    constructor(private $: JQueryStatic) {
+    constructor($: JQueryStatic) {
         super($, MemberWinLossFilterForm.iconFilterClassname, MemberWinLossFilterForm.tooltipOption, MemberWinLossFilterForm.tooltipContent);
         this.$selectOperator = this.$form.find('select');
         this.$inputMemberWinLoss = this.$form.find('input');
@@ -932,6 +951,11 @@ class MemberWinLossFilterForm extends BaseFilterForm<MemberWinLossFilterCriteria
         return criteria.MemberWinLoss !== null;
     }
 
+    protected resetCriteria() {
+        this.$selectOperator.val(MemberWinLossOperators.GreaterOrEqual);
+        this.$inputMemberWinLoss.val('');
+    }
+
     restoreCriteria = (filterCriteria: MemberWinLossFilterCriteria) => {
         this.$selectOperator.val(filterCriteria.Operator);
         this.$inputMemberWinLoss.data('cleave').setRawValue(filterCriteria.MemberWinLoss);
@@ -942,11 +966,11 @@ class MemberWinLossFilterForm extends BaseFilterForm<MemberWinLossFilterCriteria
         const operator = filterCriteria.Operator;
         switch (operator) {
             case MemberWinLossOperators.GreaterOrEqual:
-                return user.MemberWinLoss >= memberWinLoss;
+                return !user.IsRunning && user.MemberWinLoss >= memberWinLoss;
             case MemberWinLossOperators.Equal:
-                return user.MemberWinLoss === memberWinLoss;
+                return !user.IsRunning && user.MemberWinLoss === memberWinLoss;
             case MemberWinLossOperators.LessOrEqual:
-                return user.MemberWinLoss <= memberWinLoss;
+                return !user.IsRunning && user.MemberWinLoss <= memberWinLoss;
         }
     }
 }

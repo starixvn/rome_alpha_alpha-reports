@@ -9,7 +9,9 @@
     {
         public static void Equal<T>(T expected, T actual)
         {
-            Assert.Equal(JsonConvert.SerializeObject(expected), JsonConvert.SerializeObject(actual));
+            var expectedJson = JsonConvert.SerializeObject(expected);
+            var actualJson = JsonConvert.SerializeObject(actual);
+            Assert.Equal(expectedJson, actualJson);
         }
 
         public static void Equal(string expectedJson, IEnumerable<object> actual)

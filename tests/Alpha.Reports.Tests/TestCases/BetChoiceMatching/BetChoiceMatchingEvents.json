@@ -1,7 +1,5 @@
 ﻿[
   {
-    "Key": "1_7_0.1_0.2_a_False_1_1",
-    "MatchId": 1,
     "LeagueId": 8,
     "SportType": 1,
     "BetType": 7,
@@ -83,10 +81,10 @@
         "CustId": 2,
         "Username": "NK2",
         "Stake": 13.0,
-        "MemberWinLoss": 3.0,
-        "SuperWinLoss": 3.0,
+        "MemberWinLoss": 4.0,
+        "SuperWinLoss": 4.0,
         "Company": 0.0,
-        "IsRunning": true,
+        "IsRunning": false,
         "Tickets": [
           {
             "LeagueId": 8,
@@ -104,23 +102,21 @@
             "TransDate": "2020-02-02T16:28:45.597",
             "TransId": 3,
             "Stake": 13.0,
-            "MemberWinLoss": 3.0,
-            "SuperWinLoss": 3.0,
+            "MemberWinLoss": 4.0,
+            "SuperWinLoss": 4.0,
             "Company": 0.0,
             "HomeId": 1,
             "AwayId": 2,
             "IsLive": false,
             "LiveHomeScore": 1,
             "LiveAwayScore": 1,
-            "IsRunning": true
+            "IsRunning": false
           }
         ]
       }
     ]
   },
   {
-    "Key": "1_8_0.1_0.2_a_True_1_1",
-    "MatchId": 1,
     "LeagueId": 8,
     "SportType": 1,
     "BetType": 8,
@@ -133,16 +129,16 @@
     "IsLive": true,
     "LiveHomeScore": 1,
     "LiveAwayScore": 1,
-    "IsRunning": false,
+    "IsRunning": true,
     "Users": [
       {
         "CustId": 2,
         "Username": "NK2",
         "Stake": 14.0,
-        "MemberWinLoss": 4.0,
-        "SuperWinLoss": 4.0,
+        "MemberWinLoss": 0.0,
+        "SuperWinLoss": 0.0,
         "Company": 0.0,
-        "IsRunning": false,
+        "IsRunning": true,
         "Tickets": [
           {
             "LeagueId": 8,
@@ -160,15 +156,15 @@
             "TransDate": "2020-02-02T16:28:45.597",
             "TransId": 4,
             "Stake": 14.0,
-            "MemberWinLoss": 4.0,
-            "SuperWinLoss": 4.0,
+            "MemberWinLoss": 0.0,
+            "SuperWinLoss": 0.0,
             "Company": 0.0,
             "HomeId": 1,
             "AwayId": 2,
             "IsLive": true,
             "LiveHomeScore": 1,
             "LiveAwayScore": 1,
-            "IsRunning": false
+            "IsRunning": true
           }
         ]
       }

@@ -1,21 +1,36 @@
 ﻿namespace Alpha.Reports.Models.BetChoiceMatching
 {
+    using Alpha.Reports.Extensions;
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class BetChoiceMatchingUserModel
     {
-        private readonly List<BetChoiceMatchingTicketModel> tickets;
-
-        public BetChoiceMatchingUserModel(BetChoiceMatchingTicketModel ticket)
+        public BetChoiceMatchingUserModel(IEnumerable<BetChoiceMatchingTicketModel> tickets)
         {
-            CustId = ticket.CustId;
-            Username = ticket.Username;
-            Stake = ticket.Stake;
-            MemberWinLoss = ticket.MemberWinLoss;
-            SuperWinLoss = ticket.SuperWinLoss;
-            Company = ticket.Company;
-            IsRunning = ticket.IsRunning;
-            tickets = new List<BetChoiceMatchingTicketModel> { ticket };
+            if(tickets == null || !tickets.Any())
+            {
+                throw new ArgumentNullException(nameof(tickets));
+            }
+
+            Tickets = tickets;
+            var firstTicket = tickets.First();
+            CustId = firstTicket.CustId;
+            Username = firstTicket.Username;
+            IsRunning = firstTicket.IsRunning;
+            foreach (var ticket in tickets)
+            {
+                Stake += ticket.Stake;
+                if (!IsRunning)
+                {
+                    MemberWinLoss += ticket.MemberWinLoss;
+                    SuperWinLoss += ticket.SuperWinLoss;
+                    Company += ticket.Company;
+                }
+            }
+
+            MemberWinLoss = MemberWinLoss.RoundDown();
         }
 
         public int CustId { get; }
@@ -32,15 +47,6 @@
 
         public bool IsRunning { get; }
 
-        public IEnumerable<BetChoiceMatchingTicketModel> Tickets => tickets;
-
-        public void AddTicket(BetChoiceMatchingTicketModel ticket)
-        {
-            tickets.Add(ticket);
-            Stake += ticket.Stake;
-            MemberWinLoss += ticket.MemberWinLoss;
-            SuperWinLoss += ticket.SuperWinLoss;
-            Company += ticket.Company;
-        }
+        public IEnumerable<BetChoiceMatchingTicketModel> Tickets { get; }
     }
 }

@@ -52,7 +52,7 @@
             var queryEvents = queryResult.Item1;
             var queryIPs = queryResult.Item2;
 
-            AssertExtension.Equal(BetChoiceMatchingTestCases.EventsJson, queryEvents);
+            AssertExtension.Equal(BetChoiceMatchingTestCases.Events, queryEvents);
             Assert.Equal(BetChoiceMatchingTestCases.IPs, queryIPs);
         }
 
@@ -82,7 +82,7 @@
             var queryEvents = service.ExcelQuery(param);
 
             // Assert
-            AssertExtension.Equal(BetChoiceMatchingTestCases.EventsJson, queryEvents);
+            AssertExtension.Equal(BetChoiceMatchingTestCases.Events, queryEvents);
         }
 
         [Fact]
@@ -99,7 +99,7 @@
             var user = BetChoiceMatchingTestCases.Events.First().Users.First();
             var expectedEvents = new List<BetChoiceMatchingEventModel>
             {
-                new BetChoiceMatchingEventModel(user.Tickets.First(), new List<BetChoiceMatchingUserModel>{user})
+                new BetChoiceMatchingEventModel(new List<BetChoiceMatchingUserModel>{user})
             };
 
             AssertExtension.Equal(expectedEvents, queryEvents);
@@ -119,7 +119,7 @@
             var user = BetChoiceMatchingTestCases.Events.First().Users.First();
             var expectedEvents = new List<BetChoiceMatchingEventModel>
             {
-                new BetChoiceMatchingEventModel(user.Tickets.First(), new List<BetChoiceMatchingUserModel>{user})
+                new BetChoiceMatchingEventModel(new List<BetChoiceMatchingUserModel>{user})
             };
 
             AssertExtension.Equal(expectedEvents, queryEvents);
@@ -136,10 +136,12 @@
             var queryEvents = service.ExcelQuery(param);
 
             // Assert
-            var user = BetChoiceMatchingTestCases.Events[1].Users.First();
             var expectedEvents = new List<BetChoiceMatchingEventModel>
             {
-                new BetChoiceMatchingEventModel(user.Tickets.First(), new List<BetChoiceMatchingUserModel>{user})
+                new BetChoiceMatchingEventModel(new List<BetChoiceMatchingUserModel>
+                {
+                    BetChoiceMatchingTestCases.Events[0].Users.ToList()[1]
+                })
             };
 
             AssertExtension.Equal(expectedEvents, queryEvents);
@@ -150,16 +152,19 @@
         {
             // Arrange
             MockFetchMultiple();
-            var param = new BetChoiceMatchingExcelParam(1, winlostDate, moveBetsDay, 2, null, null, MemberWinLossOperators.GreatorOrEqual, (decimal)3.5);
+            var param = new BetChoiceMatchingExcelParam(1, winlostDate, moveBetsDay, 2, null, null, MemberWinLossOperators.GreatorOrEqual, 0m);
 
             // Act
             var queryEvents = service.ExcelQuery(param);
 
             // Assert
-            var user = BetChoiceMatchingTestCases.Events[1].Users.First();
             var expectedEvents = new List<BetChoiceMatchingEventModel>
             {
-                new BetChoiceMatchingEventModel(user.Tickets.First(), new List<BetChoiceMatchingUserModel>{user})
+                new BetChoiceMatchingEventModel(new List<BetChoiceMatchingUserModel>
+                {
+                    BetChoiceMatchingTestCases.Events[0].Users.ToList()[0],
+                    BetChoiceMatchingTestCases.Events[0].Users.ToList()[1]
+                })
             };
 
             AssertExtension.Equal(expectedEvents, queryEvents);
@@ -170,7 +175,7 @@
         {
             // Arrange
             MockFetchMultiple();
-            var param = new BetChoiceMatchingExcelParam(1, winlostDate, moveBetsDay, 2, null, null, MemberWinLossOperators.LessOrEqual, (decimal)3.5);
+            var param = new BetChoiceMatchingExcelParam(1, winlostDate, moveBetsDay, 2, null, null, MemberWinLossOperators.LessOrEqual, 3.5m);
 
             // Act
             var queryEvents = service.ExcelQuery(param);
@@ -178,7 +183,10 @@
             // Assert
             var expectedEvents = new List<BetChoiceMatchingEventModel>
             {
-                BetChoiceMatchingTestCases.Events.First()
+                new BetChoiceMatchingEventModel(new List<BetChoiceMatchingUserModel>
+                {
+                    BetChoiceMatchingTestCases.Events[0].Users.ToList()[0]
+                })
             };
 
             AssertExtension.Equal(expectedEvents, queryEvents);

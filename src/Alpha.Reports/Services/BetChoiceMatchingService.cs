@@ -33,28 +33,12 @@
                     param.BetCount,
                     param.IsExportExcel);
             var tuple = dynamicRepository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceSharedIPModel>(criteria);
-            var events = Group(tuple.Item1);
-            return new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>>(events, tuple.Item2);
-        }
-
-        private static List<BetChoiceMatchingEventModel> Group(IEnumerable<BetChoiceMatchingTicketModel> tickets)
-        {
-            var events = new List<BetChoiceMatchingEventModel>();
-            foreach (var ticket in tickets)
+            var events = tuple.Item1.GroupBy(ticket => ticket.EventKey).Select(eventTickets =>
             {
-                var eventModel = new BetChoiceMatchingEventModel(ticket);
-                var selectedEventGroup = events.FirstOrDefault(g => g.Key == eventModel.Key);
-                if (selectedEventGroup == null)
-                {
-                    events.Add(eventModel);
-                }
-                else
-                {
-                    selectedEventGroup.AddTicket(ticket);
-                }
-            }
-
-            return events;
+                var users = eventTickets.GroupBy(ticket => ticket.CustId).Select(userTickets => new BetChoiceMatchingUserModel(userTickets));
+                return new BetChoiceMatchingEventModel(users);
+            });
+            return new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>>(events, tuple.Item2);
         }
 
         public BetChoiceUplinesModel QueryUplines(BetChoiceUplinesParam param)
@@ -84,21 +68,20 @@
                     switch (param.MemberWinLossOperator)
                     {
                         case MemberWinLossOperators.GreatorOrEqual:
-                            filterUsers = filterUsers.Where(user => user.MemberWinLoss >= param.MemberWinLossValue.Value).ToList();
+                            filterUsers = filterUsers.Where(user => !user.IsRunning && user.MemberWinLoss >= param.MemberWinLossValue.Value).ToList();
                             break;
                         case MemberWinLossOperators.Equal:
-                            filterUsers = filterUsers.Where(user => user.MemberWinLoss == param.MemberWinLossValue.Value).ToList();
+                            filterUsers = filterUsers.Where(user => !user.IsRunning && user.MemberWinLoss == param.MemberWinLossValue.Value).ToList();
                             break;
                         default:
-                            filterUsers = filterUsers.Where(user => user.MemberWinLoss <= param.MemberWinLossValue.Value).ToList();
+                            filterUsers = filterUsers.Where(user => !user.IsRunning && user.MemberWinLoss <= param.MemberWinLossValue.Value).ToList();
                             break;
                     }
                 }
 
                 if (filterUsers.Any())
                 {
-                    var firstItem = filterUsers.First().Tickets.First();
-                    filterEvents.Add(new BetChoiceMatchingEventModel(firstItem, filterUsers));
+                    filterEvents.Add(new BetChoiceMatchingEventModel(filterUsers));
                 }
             }
 

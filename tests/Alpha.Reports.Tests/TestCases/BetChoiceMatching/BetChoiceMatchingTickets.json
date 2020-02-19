@@ -67,15 +67,15 @@
     "TransDate": "2020-02-02T16:28:45.597",
     "TransId": 3,
     "Stake": 13.0,
-    "MemberWinLoss": 3.0,
-    "SuperWinLoss": 3.0,
+    "MemberWinLoss": 4.0,
+    "SuperWinLoss": 4.0,
     "Company": 0.0,
     "HomeId": 1,
     "AwayId": 2,
     "IsLive": false,
     "LiveHomeScore": 1,
     "LiveAwayScore": 1,
-    "IsRunning": true
+    "IsRunning": false
   },
   {
     "LeagueId": 8,
@@ -93,14 +93,14 @@
     "TransDate": "2020-02-02T16:28:45.597",
     "TransId": 4,
     "Stake": 14.0,
-    "MemberWinLoss": 4.0,
-    "SuperWinLoss": 4.0,
+    "MemberWinLoss": 0.0,
+    "SuperWinLoss": 0.0,
     "Company": 0.0,
     "HomeId": 1,
     "AwayId": 2,
     "IsLive": true,
     "LiveHomeScore": 1,
     "LiveAwayScore": 1,
-    "IsRunning": false
+    "IsRunning": true
   }
 ]

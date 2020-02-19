@@ -26,7 +26,7 @@
 
         byte[] ExportToBytes();
 
-        BetChoiceMatchingWorkbook SetEvents(IEnumerable<BetChoiceMatchingEventModel> events);
+        BetChoiceMatchingWorkbook SetData(IEnumerable<BetChoiceMatchingEventModel> events);
     }
 
     public class BetChoiceMatchingWorkbookImpl : NpoiWorkbook<BetChoiceMatchingTicketModel>, BetChoiceMatchingWorkbook
@@ -49,34 +49,11 @@
             this.cacheRefService = cacheRefService;
         }
 
-        public BetChoiceMatchingWorkbook SetEvents(IEnumerable<BetChoiceMatchingEventModel> events)
+        public BetChoiceMatchingWorkbook SetData(IEnumerable<BetChoiceMatchingEventModel> events)
         {
             Events = events;
-            decimal totalStake = 0;
-            decimal totalMemberWinLoss = 0;
-            decimal totalSuperWinLoss = 0;
-            decimal totalCompany = 0;
-            bool isRunning = true;
-            foreach (var eventModel in events)
-            {
-                foreach(var user in eventModel.Users)
-                {
-                    totalStake += user.Stake;
-                    if (!user.IsRunning)
-                    {
-                        totalMemberWinLoss += user.MemberWinLoss;
-                        totalSuperWinLoss += user.SuperWinLoss;
-                        totalCompany += user.Company;
-                        isRunning = false;
-                    }
-                }
-            }
-
-            Total = new BetChoiceMatchingTicketModel(totalStake, totalMemberWinLoss, totalSuperWinLoss, totalCompany, isRunning);
             return this;
         }
-
-        public BetChoiceMatchingTicketModel Total { get; private set; }
 
         public IEnumerable<BetChoiceMatchingEventModel> Events { get; private set; }
 
@@ -261,15 +238,35 @@
 
         protected override void FillFooterRows(Sheet sheet)
         {
+            decimal totalStake = 0;
+            decimal totalMemberWinLoss = 0;
+            decimal totalSuperWinLoss = 0;
+            decimal totalCompany = 0;
+            bool isRunning = true;
+            foreach (var eventModel in Events)
+            {
+                foreach (var user in eventModel.Users)
+                {
+                    totalStake += user.Stake;
+                    if (!user.IsRunning)
+                    {
+                        totalMemberWinLoss += user.MemberWinLoss;
+                        totalSuperWinLoss += user.SuperWinLoss;
+                        totalCompany += user.Company;
+                        isRunning = false;
+                    }
+                }
+            }
+
             var row = sheet.GetRow(currentRowIndex++);
             row.CopyCellsFrom(TemplateTotalRow);
             row.SetCellValue(Column.GetColIndex(Column.B), Resources.Total);
-            row.SetCellValue(Column.GetColIndex(Column.F), Total.Stake);
-            if (!Total.IsRunning)
+            row.SetCellValue(Column.GetColIndex(Column.F), totalStake);
+            if (!isRunning)
             {
-                row.SetCellValue(Column.GetColIndex(Column.G), Total.MemberWinLoss);
-                row.SetCellValue(Column.GetColIndex(Column.H), Total.SuperWinLoss);
-                row.SetCellValue(Column.GetColIndex(Column.I), Total.Company);
+                row.SetCellValue(Column.GetColIndex(Column.G), totalMemberWinLoss);
+                row.SetCellValue(Column.GetColIndex(Column.H), totalSuperWinLoss);
+                row.SetCellValue(Column.GetColIndex(Column.I), totalCompany);
             }
         }
     }

@@ -36,9 +36,9 @@
                 message.Stake,
                 message.MemberWinLossOperator,
                 message.MemberWinLossValue);
-            var eventModels = betChoiceMatchingService.ExcelQuery(param);
+            var events = betChoiceMatchingService.ExcelQuery(param);
             var fileContent = workbook
-                .SetEvents(eventModels)
+                .SetData(events)
                 .UseTemplate(GetTemplateInfo(message))
                 .Sheet(Resources.DefaultSheetName)
                 .Title(GetReportTitle(message))
