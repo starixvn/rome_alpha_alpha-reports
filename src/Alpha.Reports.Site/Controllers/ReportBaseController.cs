@@ -1,11 +1,12 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
+    using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Site.Helpers;
+    using MediatR;
+    using Requests;
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using Alpha.Reports.Site.App_GlobalResources;
-    using MediatR;
-    using Requests;
     using ViewModels;
     using Web;
 
@@ -56,7 +57,7 @@
                 return Json(Resources.NoInformationIsAvailable);
             }
 
-            return Json(mediator.Send(message));
+            return new JsonNetResult(mediator.Send(message));
         }
     }
 }

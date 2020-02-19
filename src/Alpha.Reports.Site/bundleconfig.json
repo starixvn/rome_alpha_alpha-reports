@@ -260,6 +260,7 @@
     "inputFiles": [
       "assets/scripts/core.js",
       "assets/scripts/base-report.js",
+      "assets/scripts/components/simple-tooltip.js",
       "assets/scripts/betchoicematching/betchoicematching.js"
     ]
   },

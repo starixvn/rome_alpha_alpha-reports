@@ -385,6 +385,7 @@
     <TypeScriptCompile Include="assets\scripts\base-report.ts" />
     <TypeScriptCompile Include="assets\scripts\components\client-pager.ts" />
     <TypeScriptCompile Include="assets\scripts\components\month-range-picker.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\simple-tooltip.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
@@ -511,6 +512,7 @@
     <Compile Include="Handlers\WinLoss\WinLossExcelHandler.cs" />
     <Compile Include="Handlers\WinLoss\WinLossHandler.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Helpers\WorkbookHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
