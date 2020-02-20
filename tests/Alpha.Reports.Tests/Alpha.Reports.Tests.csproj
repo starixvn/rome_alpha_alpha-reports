@@ -244,7 +244,11 @@
     <Compile Include="DataAccesses\MatchWinLossDetail\MatchWinLossDetailDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossByProductDataAccessImplTests.cs" />
     <Compile Include="DataAccesses\WinLossDetailDataAccessImplTests.cs" />
+    <Compile Include="Extensions\DecimalExtensionsTests.cs" />
     <Compile Include="JsonNet.PrivateSettersContractResolvers\PrivateSettersContractResolvers.cs" />
+    <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingEventModelTests.cs" />
+    <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingTicketModelTests.cs" />
+    <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingUserModelTests.cs" />
     <Compile Include="TestCases\BetChoiceMatching\BetChoiceMatchingTestCases.cs" />
     <Compile Include="Database\MatchWinLossDetail\MatchWinLossDetailDatabase.cs" />
     <Compile Include="Database\Statement\StatementDatabase.cs" />

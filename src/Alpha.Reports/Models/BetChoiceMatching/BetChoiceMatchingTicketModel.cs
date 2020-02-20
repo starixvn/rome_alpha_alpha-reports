@@ -13,7 +13,7 @@
             int leagueId,
             DateTime globalShowTime,
             int sportType,
-            int matchId,
+            long matchId,
             int custId,
             string username,
             int betType,
