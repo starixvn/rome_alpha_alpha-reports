@@ -9,8 +9,11 @@
 
     public class RiskAnalysisIPMatchingQuery : ReportBaseQuery, IRequest<RiskAnalysisIPMatchingViewModel>
     {
+        private readonly int defaultMemberCount = 2;
+
         public RiskAnalysisIPMatchingQuery(IUser viewer) : base(viewer)
         {
+            MemberCount = defaultMemberCount;
             SelectedWinlostDate = SystemTime.Today;
         }
 
