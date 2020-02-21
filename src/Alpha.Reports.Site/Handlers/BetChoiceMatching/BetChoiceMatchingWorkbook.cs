@@ -16,6 +16,8 @@
 
     public interface BetChoiceMatchingWorkbook
     {
+        BetChoiceMatchingWorkbook SetData(IEnumerable<BetChoiceMatchingEventModel> events);
+
         Workbook<BetChoiceMatchingTicketModel> UseTemplate(TemplateInfo templateInfo);
 
         Workbook<BetChoiceMatchingTicketModel> Sheet(string sheetName);
@@ -25,8 +27,6 @@
         Workbook<BetChoiceMatchingTicketModel> Header(Func<string, string> headerMapping);
 
         byte[] ExportToBytes();
-
-        BetChoiceMatchingWorkbook SetData(IEnumerable<BetChoiceMatchingEventModel> events);
     }
 
     public class BetChoiceMatchingWorkbookImpl : NpoiWorkbook<BetChoiceMatchingTicketModel>, BetChoiceMatchingWorkbook

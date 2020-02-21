@@ -5,7 +5,9 @@
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using NSubstitute;
+    using Xunit;
 
+    [Trait("Category", "BetChoiceMatching")]
     public class BetChoiceMatchingWorkbookTests
     {
         private readonly IBetListExcelBuilder excelBuilder;
@@ -19,6 +21,16 @@
             ticketHelper = Substitute.For<ITicketHelper>();
             cacheRefService = Substitute.For<CacheRefService>();
             workbook = new BetChoiceMatchingWorkbookImpl(excelBuilder, ticketHelper, cacheRefService);
+        }
+
+        public void aa()
+        {
+            // Arrange
+
+            // Act
+            // workbook.SetData
+
+            // Assert
         }
     }
 }
