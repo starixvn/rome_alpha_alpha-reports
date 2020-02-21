@@ -352,6 +352,7 @@
     <Compile Include="Helpers\BreadcrumbLevelViewModelTests.cs" />
     <Compile Include="Helpers\JsonHelperTests.cs" />
     <Compile Include="Helpers\QueryEntityModelBinderTests.cs" />
+    <Compile Include="Helpers\Reflect.cs" />
     <Compile Include="Helpers\UrlHelperTests.cs" />
     <Compile Include="Helpers\UrlHelperTestSetUp.cs" />
     <Compile Include="Models\UserForTest.cs" />
