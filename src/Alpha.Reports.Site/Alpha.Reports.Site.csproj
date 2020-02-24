@@ -404,6 +404,7 @@
     <TypeScriptCompile Include="assets\scripts\statement\statement.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\statement-details.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\sma-statement.ts" />
+    <TypeScriptCompile Include="assets\scripts\tests\apps\betchoicematching\betchoicematching-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\client-pager-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\currency-selection-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\daterangepicker-tests.ts" />
@@ -414,7 +415,6 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\netturnover-tooltip-test.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\single-selection-dropdown-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\productmultiselection-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\components\single-selection-dropdown-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\tooltip-tests.ts" />

@@ -320,10 +320,8 @@ class BetChoiceMatching {
         this.$.blockUI();
         this.cacheElements();
         this.registerEvents();
-        this.$table.hide();
-        this.$table.removeClass('hide');
         this.$.unblockUI();
-        this.$reportForm.submit();
+        this.submitOnLoad();
     };
 
     cacheElements = () => {
@@ -366,6 +364,12 @@ class BetChoiceMatching {
         this.stakeFilterForm.subscribeSubmit(this.filterAndRender);
         this.memberWinLossFilterForm.subscribeSubmit(this.filterAndRender);
     };
+
+    submitOnLoad = () => {
+        this.$table.hide();
+        this.$table.removeClass('hide');
+        this.$reportForm.submit();
+    }
 
     onFilterEvent = () => {
         let currentHideState = this.$reportForm.hasClass("hide");
