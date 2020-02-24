@@ -644,19 +644,19 @@
     <value> ลำดับที่</value>
   </data>
   <data name="MemberCount" xml:space="preserve">
-    <value>Member Count</value>
+    <value>จำนวนสมาชิก</value>
   </data>
   <data name="SuperWinLoss" xml:space="preserve">
     <value>การได้เสียสูงสุด</value>
   </data>
   <data name="IPMatching" xml:space="preserve">
-    <value>IP Matching</value>
+    <value>ตรวจสอบไอพี</value>
   </data>
   <data name="IP" xml:space="preserve">
     <value>IP</value>
   </data>
   <data name="IPMatchingNote" xml:space="preserve">
-    <value>This report's data is used for statistics only, due to the resettlement process, the figure might not be totally exact.</value>
+    <value>รายงานนี้ ใช้เป็นข้อมูลเชิงสถิติเท่านั้น ตัวเลขอาจมีความคลาดเคลื่อนจากความเป็นจริงได้</value>
   </data>
   <data name="MemberTurnOver" xml:space="preserve">
     <value>เงินหมุนเวียนของสมาชิก</value>
