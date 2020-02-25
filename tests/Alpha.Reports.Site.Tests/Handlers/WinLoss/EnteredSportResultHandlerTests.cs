@@ -53,9 +53,12 @@
         public void HandleEnteredResultQuery_ValidMessage_ReturnsDefaultData()
         {
             // Arrange
-            var message = new EnteredSportResultQuery(userFixture.User);
-            message.CustLevelId = (byte)4;
-            message.CustId = 1596;
+            var message = new EnteredSportResultQuery(userFixture.User)
+            {
+                CustLevelId = 4,
+                CustId = 1596
+            };
+
             var reportData = Enumerable.Empty<EnteredSportResult>();
             reportService.GetEnteredSportResults().Returns(reportData);
 

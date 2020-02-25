@@ -20,11 +20,13 @@
             DateTime winlostDate,
             DateTime mindate,
             int userSelectedStatusId,
-            IEnumerable<RiskAnalysisIPMatchingModel> riskAnalysisIPMatchingItems)
+            IEnumerable<RiskAnalysisIPMatchingModel> riskAnalysisIPMatchingItems,
+            RiskAnalysisIPMatchingModel totalRow)
         {
             WinlostDate = winlostDate;
             Mindate = mindate;
             RiskAnalysisIPMatchingItems = riskAnalysisIPMatchingItems;
+            TotalRow = totalRow;
             StatusSelection = MemberCountItems.Select(item => new SelectListItem
             {
                 Text = item.ToString(),
@@ -47,35 +49,7 @@
 
         public IEnumerable<SelectListItem> StatusSelection { get; }
 
-        public RiskAnalysisIPMatchingModel TotalRow {
-            get {
-                int memberCount = 0;
-                int betCount = 0;
-                decimal memberTurnover = 0;
-                decimal memberWinLoss= 0;
-                decimal superWinLoss = 0;
-                decimal company = 0;
-
-                foreach (var item in RiskAnalysisIPMatchingItems)
-                {
-                    memberCount += item.MemberCount;
-                    betCount += item.BetCount;
-                    memberTurnover += item.Stake;
-                    memberWinLoss += item.MemberWinLoss;
-                    superWinLoss += item.SuperWinLoss;
-                    company += item.Company;
-                }
-
-                return new RiskAnalysisIPMatchingModel(
-                    Resources.Total,
-                    memberCount,
-                    betCount,
-                    memberTurnover,
-                    memberWinLoss,
-                    superWinLoss,
-                    company);
-            }
-        }
+        public RiskAnalysisIPMatchingModel TotalRow { get; }
 
         public string GetBetListLink(IDictionary<string, object> routeValues)
             => ReportHelpers.UrlHelper.AddQueryStringParamsFunc(ReportHelpers.UrlHelper.MapExMainPath(BetListPath), routeValues);

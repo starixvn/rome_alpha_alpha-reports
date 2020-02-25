@@ -2,6 +2,7 @@
 {
     using Alpha.Reports.Site.Handlers.RiskAnalysisIPMatching;
     using Alpha.Reports.Site.Requests.RiskAnalysisIPMatching;
+    using Alpha.Utilities.IP;
     using Constants;
     using Fixtures;
     using NSubstitute;
@@ -18,7 +19,9 @@
 
     public class RiskAnalysisIPMatchingExcelHandlerTests
     {
-        private readonly RiskAnalysisIPMatchingService reportService;
+        private readonly IPService ipService;
+        private readonly ReportDateService reportDateService;
+        private readonly RiskAnalysisIPMatchingService riskAnalysisIPMatchingService;
         private readonly Workbook<RiskAnalysisIPMatchingModel> workbook;
         private readonly RiskAnalysisIPMatchingExcelHandler excelHandler;
         private readonly UserFixture userFixture;
@@ -27,21 +30,23 @@
         {
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
-            reportService = Substitute.For<RiskAnalysisIPMatchingService>();
+            reportDateService = Substitute.For<ReportDateService>();
+            ReportDateServiceImpl.Instance = reportDateService;
+            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
+            reportDateService.GetMoveBetsDay().Returns(DefaultVariablesTest.MoveBetsDay);
+
+            ipService = Substitute.For<IPService>();
+            riskAnalysisIPMatchingService = Substitute.For<RiskAnalysisIPMatchingService>();
             workbook = Substitute.For<Workbook<RiskAnalysisIPMatchingModel>>();
             workbook.UseTemplate(Arg.Any<TemplateInfo>()).Returns(workbook);
             workbook.Header(Arg.Any<Func<string, string>>()).Returns(workbook);
             workbook.Body(Arg.Any<IEnumerable<RiskAnalysisIPMatchingModel>>(), Arg.Any<Mapper<RiskAnalysisIPMatchingModel>>()).Returns(workbook);
             workbook.Sheet(Arg.Any<string>()).Returns(workbook);
 
-            excelHandler = Substitute.ForPartsOf<RiskAnalysisIPMatchingExcelHandler>(reportService, workbook);
+            excelHandler = Substitute.ForPartsOf<RiskAnalysisIPMatchingExcelHandler>(riskAnalysisIPMatchingService, ipService, workbook);
             excelHandler.MapPath = Substitute.For<Func<string, string>>();
             excelHandler.IsFileExist = (path) => true;
             this.userFixture = userFixture;
-
-            var reportDateService = Substitute.For<ReportDateService>();
-            ReportDateServiceImpl.Instance = reportDateService;
-            reportDateService.GetBalanceUpDay().Returns(DefaultVariablesTest.BalanceUpDate);
         }
 
         [Fact]

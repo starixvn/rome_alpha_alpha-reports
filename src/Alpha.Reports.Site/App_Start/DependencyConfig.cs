@@ -1,8 +1,6 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Web.Mvc;
+    using Alpha.Utilities.IP;
     using Configurations;
     using Controllers;
     using DataAccesses;
@@ -28,6 +26,9 @@
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Model.Entities.Permission;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Web.Mvc;
 
     public static class DependencyConfig
     {
@@ -120,6 +121,7 @@
             container.RegisterSingleton<ProgressiveContributionService, ProgressiveContributionServiceImpl>();
             container.RegisterSingleton<ProgressiveContributionWorkbook, ProgressiveContributionWorkbookImpl>();
             container.RegisterSingleton<RiskAnalysisIPMatchingService, RiskAnalysisIPMatchingServiceImpl>();
+            container.RegisterSingleton<IPService, IPServiceImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

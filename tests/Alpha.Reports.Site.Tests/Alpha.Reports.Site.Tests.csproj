@@ -32,12 +32,27 @@
       <HintPath>..\..\packages\Alpha.SubAccount.1.0.0\lib\net40\Alpha.SubAccount.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Alpha.Utilities.IP, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.Utilities.IP.1.0.0.1\lib\net40\Alpha.Utilities.IP.dll</HintPath>
+    </Reference>
     <Reference Include="Alpha.Web, Version=1.0.3.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Web.1.0.3.7\lib\net461\Alpha.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Caching, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Caching.2.1.0\lib\net461\Fanex.Caching.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Data, Version=2.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.2.1.0.1\lib\net461\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data.Repository, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Data.Repository.1.0.2\lib\net461\Fanex.Data.Repository.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Logging, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Logging.2.0.1\lib\net461\Fanex.Logging.dll</HintPath>
@@ -158,6 +173,7 @@
       <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -178,6 +194,7 @@
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
@@ -280,7 +297,7 @@
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbookImplForTesting.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbookImplTest.cs" />
     <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelHandlerTests.cs" />
-    <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingHandlerTests.cs" />
+    <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingBaseHandlerTests.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductExcelHandlerTest.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductBaseHandlerTests.cs" />
     <Compile Include="Handlers\ReportLegendHandlerTests.cs" />

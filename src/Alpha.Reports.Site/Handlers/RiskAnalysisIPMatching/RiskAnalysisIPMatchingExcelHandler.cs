@@ -2,28 +2,28 @@
 {
     using Alpha.Reports.Models;
     using Alpha.Reports.Site.Requests.RiskAnalysisIPMatching;
+    using Alpha.Utilities.IP;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
     using ONEbook.SpreadSheets;
-    using Params;
     using Services;
     using System;
     using ViewModels;
     using static ONEbook.SpreadSheets.Column;
 
     public class RiskAnalysisIPMatchingExcelHandler :
-        BaseHandler,
+        RiskAnalysisIPMatchingBaseHandler, 
         IRequestHandler<RiskAnalysisIPMatchingExcelQuery, ExcelFileViewModel>
     {
-        protected readonly RiskAnalysisIPMatchingService riskAnalysisIPMatchingService;
         private readonly Workbook<RiskAnalysisIPMatchingModel> workbook;
 
         public RiskAnalysisIPMatchingExcelHandler(
             RiskAnalysisIPMatchingService riskAnalysisIPMatchingService,
-            Workbook<RiskAnalysisIPMatchingModel> workbook)
+            IPService ipService,
+            Workbook<RiskAnalysisIPMatchingModel> workbook) 
+            : base(riskAnalysisIPMatchingService, ipService)
         {
-            this.riskAnalysisIPMatchingService = riskAnalysisIPMatchingService;
             this.workbook = workbook;
         }
 
@@ -34,13 +34,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var viewModel = new RiskAnalysisIPMatchingViewModel(
-                 message.SelectedWinlostDate,
-                 message.MinDate,
-                 message.MemberCount,
-                 riskAnalysisIPMatchingService.GetRiskAnalysisIPMatchingModel(
-                     new RiskAnalysisIPMatchingParam(
-                         message.CustId, message.SelectedWinlostDate, message.MoveBetsDate, message.MemberCount)));
+            var viewModel = BuildRiskAnalysisIPMatchingViewModel(message);
 
             var result = workbook
                 .UseTemplate(GetTemplateInfo())

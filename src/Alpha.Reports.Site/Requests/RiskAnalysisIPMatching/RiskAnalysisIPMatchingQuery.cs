@@ -15,15 +15,18 @@
         {
             MemberCount = defaultMemberCount;
             SelectedWinlostDate = SystemTime.Today;
+            MinDate = ReportDateServiceImpl.Instance.GetBalanceUpDay();
+            MoveBetsDate = ReportDateServiceImpl.Instance.GetMoveBetsDay();
+
         }
 
         public int MemberCount { get; set; }
 
         public DateTime SelectedWinlostDate { get; set; }
 
-        public DateTime MinDate => ReportDateServiceImpl.Instance.GetBalanceUpDay();
+        public DateTime MinDate { get; }
 
-        public DateTime MoveBetsDate => ReportDateServiceImpl.Instance.GetMoveBetsDay();
+        public DateTime MoveBetsDate { get; }
 
         public override bool IsValid() => base.IsValid() && MinDate <= SelectedWinlostDate && ViewerLevel.IsSuperLevel();
     }
