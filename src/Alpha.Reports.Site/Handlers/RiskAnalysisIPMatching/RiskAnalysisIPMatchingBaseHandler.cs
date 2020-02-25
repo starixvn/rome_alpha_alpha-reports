@@ -42,22 +42,25 @@
             var riskAnalysisIPMatchingItemsIPVN = new List<RiskAnalysisIPMatchingModel>();
             foreach (var item in riskAnalysisIPMatchingItems)
             {
-                memberCount += item.MemberCount;
-                betCount += item.BetCount;
-                memberTurnover += item.Stake;
-                memberWinLoss += item.MemberWinLoss;
-                superWinLoss += item.SuperWinLoss;
-                company += item.Company;
+                if (message.IsAdminCanViewVNIP || !ipService.IsVNIP(item.IP))
+                {
+                    memberCount += item.MemberCount;
+                    betCount += item.BetCount;
+                    memberTurnover += item.Stake;
+                    memberWinLoss += item.MemberWinLoss;
+                    superWinLoss += item.SuperWinLoss;
+                    company += item.Company;
 
-                riskAnalysisIPMatchingItemsIPVN.Add(
-                    new RiskAnalysisIPMatchingModel(
-                       FormatIP(item.IP),
-                       item.MemberCount,
-                       item.BetCount,
-                       item.Stake,
-                       item.MemberWinLoss,
-                       item.SuperWinLoss,
-                       item.Company));
+                    riskAnalysisIPMatchingItemsIPVN.Add(
+                        new RiskAnalysisIPMatchingModel(
+                           item.IP,
+                           item.MemberCount,
+                           item.BetCount,
+                           item.Stake,
+                           item.MemberWinLoss,
+                           item.SuperWinLoss,
+                           item.Company));
+                }
             }
 
             return new RiskAnalysisIPMatchingViewModel(
@@ -74,7 +77,5 @@
                     superWinLoss,
                     company));
         }
-
-        internal string FormatIP(string ip) => ipService.IsVNIP(ip) ? "--" : ip;
     }
 }

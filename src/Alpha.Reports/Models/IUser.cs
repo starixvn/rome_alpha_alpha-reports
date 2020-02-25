@@ -26,5 +26,7 @@
         bool GetHideProduct(int productId);
 
         DateTime LimitedDateToShowInfo { get; }
+
+        bool IsAdminCanViewVNIP { get; }
     }
 }

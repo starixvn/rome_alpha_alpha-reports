@@ -48,22 +48,6 @@
             compareLogic = new CompareLogic();
         }
 
-        [Theory]
-        [InlineData(true, "192.168.1.1", "--")]
-        [InlineData(false, "192.168.1.1", "192.168.1.1")]
-        public void FormatIP_Always_ReturnsCorrectValue(bool isVNIP, string ip, string expectedIPText)
-        {
-            // Arrange
-            ipService.IsVNIP(Arg.Any<string>()).Returns(isVNIP);
-
-            // Act
-            var actualResult = riskAnalysisIPMatchingBaseHandler.FormatIP(ip);
-
-            // Assert
-            var result = compareLogic.Compare(expectedIPText, actualResult);
-            Assert.True(result.AreEqual);
-        }
-
         [Fact]
         public void BuildRiskAnalysisIPMatchingViewModel_ValidMessage_ReturnsDefaultData()
         {

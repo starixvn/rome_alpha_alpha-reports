@@ -17,7 +17,7 @@
             SelectedWinlostDate = SystemTime.Today;
             MinDate = ReportDateServiceImpl.Instance.GetBalanceUpDay();
             MoveBetsDate = ReportDateServiceImpl.Instance.GetMoveBetsDay();
-
+            IsAdminCanViewVNIP = viewer.IsAdminCanViewVNIP;
         }
 
         public int MemberCount { get; set; }
@@ -27,6 +27,8 @@
         public DateTime MinDate { get; }
 
         public DateTime MoveBetsDate { get; }
+
+        public bool IsAdminCanViewVNIP { get; }
 
         public override bool IsValid() => base.IsValid() && MinDate <= SelectedWinlostDate && ViewerLevel.IsSuperLevel();
     }
