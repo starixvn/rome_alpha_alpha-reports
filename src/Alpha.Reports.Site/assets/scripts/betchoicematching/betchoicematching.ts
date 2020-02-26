@@ -5,8 +5,14 @@
 
 declare const betMatchingResources: Resources;
 
+interface DatepickerOptions {
+    allowInputToggle: boolean;
+    minDate: Date;
+    maxDate: Date;
+    format: string;
+}
+
 interface JQuery {
-    datepicker(option: any): void;
     inputFilter(option: any): void;
 }
 
@@ -354,12 +360,13 @@ class BetChoiceMatching {
         this.$filterIcon.on("click", this.onFilterEvent);
         this.$excelIcon.on("click", this.onExportExcel);
         this.$reportForm.submit(this.onSubmitReport);
-        this.$datePicker.datepicker({
+        const options: DatepickerOptions = {
             allowInputToggle: true,
             minDate: new Date(this.$('#MinDate').val()),
             maxDate: new Date(this.$('#Today').val()),
             format: alphaReports.format.shortDateWithSlash_DatePicker
-        });
+        }
+        this.$datePicker.datepicker(options);
         this.usernameFilterForm.subscribeSubmit(this.filterAndRender);
         this.stakeFilterForm.subscribeSubmit(this.filterAndRender);
         this.memberWinLossFilterForm.subscribeSubmit(this.filterAndRender);
@@ -824,11 +831,11 @@ class UsernameFilterForm extends BaseFilterForm<UsernameFilterCriteria> {
             return users;
         }
 
-        const username = this.filterCriteria.Username;
-        const usernames = username.split(',').map(x => $.trim(x));
+        const username = this.filterCriteria.Username.toLowerCase();
+        const usernames = username.split(',').map(x => $.trim(x).toLowerCase());
         const filterUsers = [];
         users.forEach(user => {
-            if (usernames.indexOf(user.Username) >= 0) {
+            if (usernames.indexOf(user.Username.toLowerCase()) >= 0) {
                 filterUsers.push(user);
             }
         });

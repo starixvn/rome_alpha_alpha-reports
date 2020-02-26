@@ -735,7 +735,7 @@
   <data name="Happy5" xml:space="preserve">
     <value>Happy 5</value>
   </data>
-<data name="MemberCount" xml:space="preserve">
+  <data name="MemberCount" xml:space="preserve">
     <value>Member Count</value>
   </data>
   <data name="SuperWinLoss" xml:space="preserve">
@@ -754,16 +754,13 @@
     <value>Stake</value>
   </data>
   <data name="BetChoiceMatching" xml:space="preserve">
-    <value>Bet Choice Matching</value>
+    <value>Matching Bet Choice</value>
   </data>
   <data name="MatchingBets" xml:space="preserve">
     <value>Matching Bets</value>
   </data>
   <data name="odds" xml:space="preserve">
     <value>Odds</value>
-  </data>
-  <data name="IP" xml:space="preserve">
-    <value>IP</value>
   </data>
   <data name="refno" xml:space="preserve">
     <value>Ref No</value>

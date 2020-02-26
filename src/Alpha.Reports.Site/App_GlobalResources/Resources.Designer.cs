@@ -223,7 +223,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bet Choice Matching.
+        ///   Looks up a localized string similar to Matching Bet Choice.
         /// </summary>
         public static string BetChoiceMatching {
             get {
@@ -925,15 +925,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IP Matching.
-        /// </summary>
-        public static string IPMatching {
-            get {
-                return ResourceManager.GetString("IPMatching", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to IP used by.
         /// </summary>
         public static string IP_used_by {
@@ -943,7 +934,13 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-
+        ///   Looks up a localized string similar to IP Matching.
+        /// </summary>
+        public static string IPMatching {
+            get {
+                return ResourceManager.GetString("IPMatching", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to This report&apos;s data is used for statistics only, due to the resettlement process, the figure might not be totally exact..
@@ -1761,15 +1758,6 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SuperWinLoss {
             get {
                 return ResourceManager.GetString("SuperWinLoss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Super Win Loss.
-        /// </summary>
-        public static string superwinloss {
-            get {
-                return ResourceManager.GetString("superwinloss", resourceCulture);
             }
         }
         

@@ -6,6 +6,7 @@
     using Alpha.Reports.Services;
     using Alpha.Reports.Tests.Extensions;
     using Alpha.Reports.Tests.TestCases.BetChoiceMatching;
+    using Alpha.Utilities.IP;
     using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;

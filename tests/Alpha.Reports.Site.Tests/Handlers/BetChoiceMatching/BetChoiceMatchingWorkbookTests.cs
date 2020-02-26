@@ -1,6 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Tests.Handlers.BetChoiceMatching
 {
-    using Alpha.Reports.Services;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
     using Alpha.Reports.Site.Tests.Fixtures;
     using Alpha.Reports.Site.Tests.Helpers;
@@ -16,7 +15,6 @@
     {
         private readonly IBetListExcelBuilder excelBuilder;
         private readonly ITicketHelper ticketHelper;
-        private readonly CacheRefService cacheRefService;
         private readonly BetChoiceMatchingWorkbook workbook;
         private readonly Sheet sheet;
         private readonly Row row;
@@ -29,8 +27,7 @@
             row = Substitute.For<Row>();
             excelBuilder = Substitute.For<IBetListExcelBuilder>();
             ticketHelper = Substitute.For<ITicketHelper>();
-            cacheRefService = Substitute.For<CacheRefService>();
-            workbook = new BetChoiceMatchingWorkbookImpl(excelBuilder, ticketHelper, cacheRefService);
+            workbook = new BetChoiceMatchingWorkbookImpl(excelBuilder, ticketHelper);
         }
 
         [Fact]

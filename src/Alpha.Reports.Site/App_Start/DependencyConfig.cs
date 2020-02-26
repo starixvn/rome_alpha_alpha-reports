@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
-    using Alpha.Utilities.IP;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
+    using Alpha.Utilities.IP;
     using Configurations;
     using Controllers;
     using DataAccesses;
@@ -35,6 +35,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
+    using IPServiceImpl = Alpha.Utilities.IP.IPServiceImpl;
 
     public static class DependencyConfig
     {
@@ -132,7 +133,6 @@
             container.RegisterSingleton<ProgressiveContributionService, ProgressiveContributionServiceImpl>();
             container.RegisterSingleton<ProgressiveContributionWorkbook, ProgressiveContributionWorkbookImpl>();
             container.RegisterSingleton<RiskAnalysisIPMatchingService, RiskAnalysisIPMatchingServiceImpl>();
-            container.RegisterSingleton<IPService, Services.IPServiceImpl>();
             container.RegisterSingleton<BetChoiceMatchingService, BetChoiceMatchingServiceImpl>();
             container.Register<BetChoiceMatchingWorkbook, BetChoiceMatchingWorkbookImpl>();
         }

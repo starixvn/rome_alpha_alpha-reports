@@ -669,7 +669,7 @@
   <data name="GrandPrize_Guidelines" xml:space="preserve">
     <value>tiền thắng cược một sự kiện đặc biệt, và không tính vào số dư của member.</value>
   </data>
-<data name="MemberCount" xml:space="preserve">
+  <data name="MemberCount" xml:space="preserve">
     <value>Số lượng Member</value>
   </data>
   <data name="SuperWinLoss" xml:space="preserve">
@@ -695,13 +695,10 @@
     <value>Bet Choice Matching</value>
   </data>
   <data name="MatchingBets" xml:space="preserve">
-    <value>Matching Bets</value>
+    <value>Cược trùng lặp</value>
   </data>
   <data name="odds" xml:space="preserve">
     <value>Tỷ lệ</value>
-  </data>
-  <data name="IP" xml:space="preserve">
-    <value>IP</value>
   </data>
   <data name="refno" xml:space="preserve">
     <value>Ref No</value>
@@ -717,39 +714,39 @@
     <value>Under</value>
   </data>
   <data name="Upline" xml:space="preserve">
-    <value>Upline</value>
+    <value>Cấp trên</value>
   </data>
   <data name="IP_used_by" xml:space="preserve">
-    <value>IP used by</value>
+    <value>IP được dùng bởi</value>
   </data>
   <data name="eventdate" xml:space="preserve">
     <value>Thời điểm diển ra sự kiện</value>
   </data>
   <data name="BetMatching_IP_Title" xml:space="preserve">
-    <value>Click to view shared IP accounts</value>
+    <value>Bấm để xem tài khoản cùng IP với tài khoản này.</value>
   </data>
   <data name="BetMatching_Username_Title" xml:space="preserve">
-    <value>Click to view uplines</value>
+    <value>Bấm để xem cấp trên</value>
   </data>
   <data name="FilterByMemberWinLoss" xml:space="preserve">
-    <value>Filter By Member Win Loss</value>
+    <value>Lọc theo thắng thua của Member</value>
   </data>
   <data name="FilterByStake" xml:space="preserve">
-    <value>Filter By Stake</value>
+    <value>Lọc theo tiền cược</value>
   </data>
   <data name="FilterByUsername" xml:space="preserve">
-    <value>Filter By Username</value>
+    <value>Lọc theo tên tài khoản</value>
   </data>
   <data name="Filter" xml:space="preserve">
-    <value>Filter</value>
+    <value>Lọc</value>
   </data>
   <data name="FilterByUsername_Placeholder" xml:space="preserve">
-    <value>Separate mulitple usernames by comma (,)</value>
+    <value>Tên tài khoản phải cách nhau bằng dấu phẩy (,)</value>
   </data>
   <data name="TotalMemberWL" xml:space="preserve">
-    <value>Total Member WL</value>
+    <value>Thắng thua của Member</value>
   </data>
   <data name="TotalStake" xml:space="preserve">
-    <value>Total Stake</value>
+    <value>Tổng tiền cược</value>
   </data>
 </root>

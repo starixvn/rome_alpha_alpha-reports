@@ -288,7 +288,7 @@
   <data name="BetList_Running" xml:space="preserve">
     <value>ベットリスト (実行中)</value>
   </data>
-<data name="MemberCount" xml:space="preserve">
+  <data name="MemberCount" xml:space="preserve">
     <value>Member Count</value>
   </data>
   <data name="SuperWinLoss" xml:space="preserve">
@@ -308,10 +308,9 @@
   </data>
   <data name="Stake" xml:space="preserve">
     <value>ベット</value>
-</data>
-
-    <data name="BetChoiceMatching" xml:space="preserve">
-    <value>Bet Choice Matching</value>
+  </data>
+  <data name="BetChoiceMatching" xml:space="preserve">
+    <value>Matching Bet Choice</value>
   </data>
   <data name="MatchingBets" xml:space="preserve">
     <value>Matching Bets</value>
@@ -319,19 +318,12 @@
   <data name="odds" xml:space="preserve">
     <value>オッズ</value>
   </data>
-  <data name="IP" xml:space="preserve">
-    <value>IP</value>
-  </data>
   <data name="refno" xml:space="preserve">
     <value>受付番号</value>
-  </data>
-  <data name="superwinloss" xml:space="preserve">
-    <value>Super Win Loss</value>
   </data>
   <data name="transtime" xml:space="preserve">
     <value>取り引き時間
 </value>
-
   </data>
   <data name="over" xml:space="preserve">
     <value>オーバー</value>

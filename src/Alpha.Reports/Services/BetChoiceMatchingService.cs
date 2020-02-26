@@ -3,6 +3,7 @@
     using Alpha.Reports.Criteria.BetChoiceMatching;
     using Alpha.Reports.Models.BetChoiceMatching;
     using Alpha.Reports.Params.BetChoiceMatching;
+    using Alpha.Utilities.IP;
     using Fanex.Data.Repository;
     using Sunplus.Agent.Model.Entities;
     using System;
@@ -106,8 +107,8 @@
                 var filterUsers = eventModel.Users;
                 if (!string.IsNullOrEmpty(param.Username))
                 {
-                    var usernames = param.Username.Split(',');
-                    filterUsers = filterUsers.Where(user => usernames.Contains(user.Username)).ToList();
+                    var usernames = param.Username.Split(',').Select(x => x.ToLowerInvariant());
+                    filterUsers = filterUsers.Where(user => usernames.Contains(user.Username.ToLowerInvariant())).ToList();
                 }
 
                 if (param.Stake.HasValue)

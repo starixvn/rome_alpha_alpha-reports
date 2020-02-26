@@ -358,10 +358,10 @@
       <SubType>Designer</SubType>
     </CodeAnalysisDictionary>
     <Content Include="TestCases\BetChoiceMatching\BetChoiceMatchingIPs.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestCases\BetChoiceMatching\BetChoiceMatchingTickets.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\WinLossByProduct\AgentWinLossByProductHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -371,13 +371,11 @@
     </Content>
     <Content Include="Database\MatchWinLossDetail\MasterMatchWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="Database\MatchWinLossDetail\SuperMatchWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\WinLossByProduct\MasterWinLossByProductHasData.xml">
-      <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\WinLossByProduct\MemberWinLossByProductHasData.xml">
@@ -385,7 +383,6 @@
     </Content>
     <Content Include="Database\Statement\StatementHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="Database\WinLossDetail\AgentWinLossDetailHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -401,11 +398,9 @@
     </Content>
     <Content Include="Database\WinLoss\AgentWinLossHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="Database\WinLoss\MasterWinLossHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="Database\WinLoss\MemberWinLossHasData.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

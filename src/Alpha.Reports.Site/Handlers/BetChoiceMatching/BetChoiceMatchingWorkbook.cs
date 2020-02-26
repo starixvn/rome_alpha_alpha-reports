@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.BetChoiceMatching
 {
     using Alpha.Reports.Models.BetChoiceMatching;
-    using Alpha.Reports.Services;
     using Alpha.Reports.Site.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
@@ -37,16 +36,13 @@
         private const int BodyStartIndex = 2;
         private readonly IBetListExcelBuilder excelBuilder;
         private readonly ITicketHelper ticketHelper;
-        private readonly CacheRefService cacheRefService;
 
         public BetChoiceMatchingWorkbookImpl(
             IBetListExcelBuilder excelBuilder,
-            ITicketHelper ticketHelper,
-            CacheRefService cacheRefService)
+            ITicketHelper ticketHelper)
         {
             this.excelBuilder = excelBuilder;
             this.ticketHelper = ticketHelper;
-            this.cacheRefService = cacheRefService;
         }
 
         public BetChoiceMatchingWorkbook SetData(IEnumerable<BetChoiceMatchingEventModel> events)
@@ -218,8 +214,8 @@
                 LiveAwayScore = eventModel.LiveAwayScore
             };
 
-            row.SetCellValue(Column.GetColIndex(Column.A), BuildChoice(ticket));
-            row.SetCellValue(Column.GetColIndex(Column.B), BuildMatch(ticket));
+            var choice = BuildChoice(ticket);
+            row.SetCellValue(Column.GetColIndex(Column.A), choice);
             row.SetCellValue(Column.GetColIndex(Column.H), eventModel.GlobalShowTime);
         }
 
@@ -227,13 +223,6 @@
         {
             var choiceBuilder = excelBuilder.CreateChoiceBuilder(ticket.BetTypeId);
             return choiceBuilder.RenderRTF(ticket, ticketHelper, null, false, RTFHelper).FirstOrDefault();
-        }
-
-        private string BuildMatch(ITicket ticket)
-        {
-            var line1 = $"{cacheRefService.GetTeamName((int)ticket.HomeId)} - vs - {cacheRefService.GetTeamName((int)ticket.AwayId)}";
-            var line2 = $"{cacheRefService.GetSportName(ticket.SportTypeId)} {cacheRefService.GetLeagueName(ticket.LeagueId)}";
-            return $"{line1}\n{line2}";
         }
 
         protected override void FillFooterRows(Sheet sheet)
@@ -260,7 +249,7 @@
 
             var row = sheet.GetRow(currentRowIndex++);
             row.CopyCellsFrom(TemplateTotalRow);
-            row.SetCellValue(Column.GetColIndex(Column.B), Resources.Total);
+            row.SetCellValue(Column.GetColIndex(Column.A), Resources.Total);
             row.SetCellValue(Column.GetColIndex(Column.F), totalStake);
             if (!isRunning)
             {
