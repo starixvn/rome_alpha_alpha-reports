@@ -11,7 +11,7 @@
             IEnumerable<KeyValuePair<int, string>> leagues,
             IEnumerable<KeyValuePair<int, string>> sportTypes,
             IEnumerable<KeyValuePair<int, string>> betTypes,
-            IEnumerable<BetChoiceSharedIPModel> ips
+            IEnumerable<BetChoiceMatchingSharedIPModel> ips
             )
         {
             Events = events;
@@ -32,6 +32,6 @@
 
         public IEnumerable<KeyValuePair<int, string>> BetTypes { get; }
 
-        public IEnumerable<BetChoiceSharedIPModel> IPs { get; set; }
+        public IEnumerable<BetChoiceMatchingSharedIPModel> IPs { get; set; }
     }
 }

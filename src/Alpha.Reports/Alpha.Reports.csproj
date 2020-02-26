@@ -141,6 +141,7 @@
     <Compile Include="Configurations\SiteSettings.cs" />
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceMatchingCriteria.cs" />
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceUplinesCriteria.cs" />
+    <Compile Include="Criteria\GetIPVNCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
@@ -197,9 +198,10 @@
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingEventModel.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingUserModel.cs" />
     <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingTicketModel.cs" />
-    <Compile Include="Models\BetChoiceMatching\BetChoiceSharedIPModel.cs" />
-    <Compile Include="Models\BetChoiceMatching\BetChoiceUplinesModel.cs" />
+    <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingSharedIPModel.cs" />
+    <Compile Include="Models\BetChoiceMatching\BetChoiceMatchingUplinesModel.cs" />
     <Compile Include="Models\BetChoiceMatching\MemberWinLossOperators.cs" />
+    <Compile Include="Models\IPRange.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingExcelParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceUplinesParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingParam.cs" />

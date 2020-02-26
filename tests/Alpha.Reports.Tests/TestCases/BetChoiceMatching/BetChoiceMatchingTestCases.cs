@@ -9,7 +9,7 @@
     {
         public static List<BetChoiceMatchingTicketModel> Tickets { get; } = FileHelper.ReadJson<List<BetChoiceMatchingTicketModel>>("\\TestCases\\BetChoiceMatching\\BetChoiceMatchingTickets.json");
 
-        public static List<BetChoiceSharedIPModel> IPs { get; } = FileHelper.ReadJson<List<BetChoiceSharedIPModel>>("\\TestCases\\BetChoiceMatching\\BetChoiceMatchingIPs.json");
+        public static List<BetChoiceMatchingSharedIPModel> IPs { get; } = FileHelper.ReadJson<List<BetChoiceMatchingSharedIPModel>>("\\TestCases\\BetChoiceMatching\\BetChoiceMatchingIPs.json");
 
         public static List<BetChoiceMatchingEventModel> Events { get; } = FileHelper.ReadJson<List<BetChoiceMatchingEventModel>>("\\TestCases\\BetChoiceMatching\\BetChoiceMatchingEvents.json");
     }

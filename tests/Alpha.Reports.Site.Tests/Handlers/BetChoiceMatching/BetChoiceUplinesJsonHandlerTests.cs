@@ -33,7 +33,7 @@
             {
                 SearchAccountId = 1
             };
-            var uplinesModel = new BetChoiceUplinesModel(1, "Agent 1", 2, "Master 2");
+            var uplinesModel = new BetChoiceMatchingUplinesModel(1, "Agent 1", 2, "Master 2");
             betChoiceMatchingService.QueryUplines(Arg.Any<BetChoiceUplinesParam>()).Returns(uplinesModel);
 
             // Act

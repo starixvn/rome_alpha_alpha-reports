@@ -1,12 +1,12 @@
 ﻿namespace Alpha.Reports.Models.BetChoiceMatching
 {
-    public class BetChoiceUplinesModel
+    public class BetChoiceMatchingUplinesModel
     {
-        public BetChoiceUplinesModel()
+        public BetChoiceMatchingUplinesModel()
         {
         }
 
-        public BetChoiceUplinesModel(
+        public BetChoiceMatchingUplinesModel(
             int agentId,
             string agentName,
             int masterId,

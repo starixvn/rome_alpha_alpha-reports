@@ -4,27 +4,30 @@
     using Alpha.Reports.Models.BetChoiceMatching;
     using Alpha.Reports.Params.BetChoiceMatching;
     using Fanex.Data.Repository;
+    using Sunplus.Agent.Model.Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
     public interface BetChoiceMatchingService
     {
-        Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>> Query(BetChoiceMatchingParam param);
+        Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceMatchingSharedIPModel>> Query(BetChoiceMatchingParam param);
 
         IEnumerable<BetChoiceMatchingEventModel> ExcelQuery(BetChoiceMatchingExcelParam param);
 
-        BetChoiceUplinesModel QueryUplines(BetChoiceUplinesParam param);
+        BetChoiceMatchingUplinesModel QueryUplines(BetChoiceUplinesParam param);
     }
 
     public class BetChoiceMatchingServiceImpl : BetChoiceMatchingService
     {
         private readonly IDynamicRepository dynamicRepository;
+        private readonly IUserSession userSession;
+        private readonly IPService ipService;
 
-        public BetChoiceMatchingServiceImpl(IDynamicRepository dynamicRepository)
-            => (this.dynamicRepository) = (dynamicRepository);
+        public BetChoiceMatchingServiceImpl(IDynamicRepository dynamicRepository, IUserSession userSession, IPService ipService)
+            => (this.dynamicRepository, this.userSession, this.ipService) = (dynamicRepository, userSession, ipService);
 
-        public Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>> Query(BetChoiceMatchingParam param)
+        public Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceMatchingSharedIPModel>> Query(BetChoiceMatchingParam param)
         {
             var criteria = new BetChoiceMatchingCriteria(
                     param.CustId,
@@ -32,17 +35,66 @@
                     param.MoveBetsDay,
                     param.BetCount,
                     param.IsExportExcel);
-            var tuple = dynamicRepository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceSharedIPModel>(criteria);
-            var events = tuple.Item1.GroupBy(ticket => ticket.EventKey).Select(eventTickets =>
+            var tuple = dynamicRepository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceMatchingSharedIPModel>(criteria);
+            var tickets = tuple.Item1;
+            var vnIPs = userSession.IsAdminCanViewVNIP ? new List<string>() : BuildListVNIPs(tickets);
+            var events = tickets.GroupBy(ticket => ticket.EventKey).Select(eventTickets =>
             {
+                CheckToHideIP(eventTickets, vnIPs);
                 var users = eventTickets.GroupBy(ticket => ticket.CustId).Select(userTickets => new BetChoiceMatchingUserModel(userTickets));
                 return new BetChoiceMatchingEventModel(users);
             });
-            return new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>>(events, tuple.Item2);
+
+            var ips = tuple.Item2;
+            if (!userSession.IsAdminCanViewVNIP)
+            {
+                ips = ips.Where(ip => !vnIPs.Contains(ip.IP));
+            }
+            
+            return new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceMatchingSharedIPModel>>(events, ips);
         }
 
-        public BetChoiceUplinesModel QueryUplines(BetChoiceUplinesParam param)
-            => dynamicRepository.Get<BetChoiceUplinesModel>(new BetChoiceUplinesCriteria(param.SearchAccountId));
+        private IEnumerable<string> BuildListVNIPs(IEnumerable<BetChoiceMatchingTicketModel> tickets)
+        {
+            var vnIPs = new List<string>();
+            var nonVNIPs = new List<string>();
+            foreach (var ticket in tickets)
+            {
+                var ip = ticket.IP;
+                if (string.IsNullOrEmpty(ip) || vnIPs.Contains(ip) || nonVNIPs.Contains(ip))
+                {
+                    continue;
+                }
+
+                if (ipService.IsVNIP(ip))
+                {
+                    vnIPs.Add(ip);
+                }
+                else
+                {
+                    nonVNIPs.Add(ip);
+                }
+            }
+
+            return vnIPs;
+        }
+
+        private void CheckToHideIP(IEnumerable<BetChoiceMatchingTicketModel> tickets, IEnumerable<string> vnIPs)
+        {
+            if (!userSession.IsAdminCanViewVNIP)
+            {
+                foreach (var ticket in tickets)
+                {
+                    if (!string.IsNullOrEmpty(ticket.IP) && vnIPs.Contains(ticket.IP))
+                    {
+                        ticket.HideIP();
+                    }
+                }
+            }
+        }
+
+        public BetChoiceMatchingUplinesModel QueryUplines(BetChoiceUplinesParam param)
+            => dynamicRepository.Get<BetChoiceMatchingUplinesModel>(new BetChoiceUplinesCriteria(param.SearchAccountId));
 
         public IEnumerable<BetChoiceMatchingEventModel> ExcelQuery(BetChoiceMatchingExcelParam param)
         {

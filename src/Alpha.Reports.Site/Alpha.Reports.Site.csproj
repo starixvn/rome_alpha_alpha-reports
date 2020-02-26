@@ -404,7 +404,6 @@
     <TypeScriptCompile Include="assets\scripts\statement\statement.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\statement-details.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\sma-statement.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\betchoicematching\betchoicematching-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\client-pager-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\currency-selection-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\daterangepicker-tests.ts" />
@@ -1043,6 +1042,7 @@
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
     <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
     <Content Include="App_Data\ExcelTemplates\BetChoiceMatching\Master.xls" />
+    <Content Include="App_Data\SPNames\Internal\DBCust.IPDB.BODBDownlineNetView.xml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1200,7 +1200,9 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="assets\scripts\tests\apps\betchoicematching\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

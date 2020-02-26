@@ -1,12 +1,17 @@
 ﻿[
   {
     "CustId": 1,
-    "Username": "NK3",
+    "Username": "NK1",
     "IP": "127.0.0.1"
   },
   {
     "CustId": 2,
-    "Username": "NK3",
+    "Username": "NK2",
     "IP": "127.0.0.1"
+  },
+  {
+    "CustId": 3,
+    "Username": "NK3",
+    "IP": "127.0.0.2"
   }
 ]

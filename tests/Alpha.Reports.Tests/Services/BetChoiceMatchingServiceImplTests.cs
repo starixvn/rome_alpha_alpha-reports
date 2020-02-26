@@ -9,6 +9,7 @@
     using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
+    using Sunplus.Agent.Model.Entities;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -18,6 +19,8 @@
     public class BetChoiceMatchingServiceImplTests
     {
         private readonly IDynamicRepository repository;
+        private readonly IPService ipService;
+        private readonly IUserSession userSession;
         private readonly BetChoiceMatchingService service;
         private readonly CompareLogic compareLogic;
         private readonly DateTime winlostDate = DateTime.Parse("2019-09-09");
@@ -27,22 +30,30 @@
         {
             compareLogic = new CompareLogic();
             repository = Substitute.For<IDynamicRepository>();
-            service = new BetChoiceMatchingServiceImpl(repository);
+            userSession = Substitute.For<IUserSession>();
+            ipService = Substitute.For<IPService>();
+            service = new BetChoiceMatchingServiceImpl(repository, userSession, ipService);
         }
 
         private void MockFetchMultiple()
         {
             var tickets = BetChoiceMatchingTestCases.Tickets;
             var ips = BetChoiceMatchingTestCases.IPs;
-            var tuple = new Tuple<IEnumerable<BetChoiceMatchingTicketModel>, IEnumerable<BetChoiceSharedIPModel>>(tickets, ips);
-            repository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceSharedIPModel>(Arg.Any<BetChoiceMatchingCriteria>()).Returns(tuple);
+            var tuple = new Tuple<IEnumerable<BetChoiceMatchingTicketModel>, IEnumerable<BetChoiceMatchingSharedIPModel>>(tickets, ips);
+            repository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceMatchingSharedIPModel>(Arg.Any<BetChoiceMatchingCriteria>()).Returns(tuple);
         }
 
         [Fact]
-        public void Query_Always_ReturnsDataFromDynamicRepository()
+        public void QueryWithCanViewVNIP_Always_ReturnsDataFromDynamicRepository()
         {
             // Arrange
             MockFetchMultiple();
+            userSession.IsAdminCanViewVNIP.Returns(true);
+            ipService.IsVNIP(Arg.Any<string>()).Returns(callInfo =>
+            {
+                var ip = callInfo.Arg<string>();
+                return ip == "127.0.0.1";
+            });
             var param = new BetChoiceMatchingParam(1, winlostDate, moveBetsDay, 2);
 
             // Act
@@ -57,12 +68,44 @@
         }
 
         [Fact]
+        public void QueryWithCanNotViewVNIP_Always_ReturnsDataFromDynamicRepositoryFiltered()
+        {
+            // Arrange
+            MockFetchMultiple();
+            userSession.IsAdminCanViewVNIP.Returns(false);
+            ipService.IsVNIP(Arg.Any<string>()).Returns(callInfo =>
+            {
+                var ip = callInfo.Arg<string>();
+                return ip == "127.0.0.1";
+            });
+            var param = new BetChoiceMatchingParam(1, winlostDate, moveBetsDay, 2);
+
+            // Act
+            var queryResult = service.Query(param);
+
+            // Assert
+            var queryEvents = queryResult.Item1;
+            var queryIPs = queryResult.Item2;
+            var expectedEvents = BetChoiceMatchingTestCases.Events;
+            var event0User0Tickets = expectedEvents[0].Users.First().Tickets as List<BetChoiceMatchingTicketModel>;
+            event0User0Tickets[0].HideIP();
+            event0User0Tickets[1].HideIP();
+            var expectedIPs = new List<BetChoiceMatchingSharedIPModel>
+            {
+                BetChoiceMatchingTestCases.IPs[2]
+            };
+
+            AssertExtension.Equal(expectedEvents, queryEvents);
+            Assert.Equal(expectedIPs, queryIPs);
+        }
+
+        [Fact]
         public void QueryUplines_Always_ReturnsDataFromDynamicRepository()
         {
             // Arrange
             var param = new BetChoiceUplinesParam(1);
-            var uplinesModel = new BetChoiceUplinesModel(1, "Agent 1", 2, "Master 2");
-            repository.Get<BetChoiceUplinesModel>(Arg.Any<BetChoiceUplinesCriteria>()).Returns(uplinesModel);
+            var uplinesModel = new BetChoiceMatchingUplinesModel(1, "Agent 1", 2, "Master 2");
+            repository.Get<BetChoiceMatchingUplinesModel>(Arg.Any<BetChoiceUplinesCriteria>()).Returns(uplinesModel);
 
             // Act
             var queryResult = service.QueryUplines(param);

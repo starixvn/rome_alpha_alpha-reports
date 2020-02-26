@@ -4,7 +4,7 @@
     using Alpha.Reports.Models.BetChoiceMatching;
     using MediatR;
 
-    public class BetChoiceUplinesJsonQuery : ReportBaseQuery, IRequest<BetChoiceUplinesModel>
+    public class BetChoiceUplinesJsonQuery : ReportBaseQuery, IRequest<BetChoiceMatchingUplinesModel>
     {
         public BetChoiceUplinesJsonQuery(IUser viewer) : base(viewer)
         {

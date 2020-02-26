@@ -8,7 +8,7 @@
 
     public class BetChoiceUplinesJsonHandler :
         BaseHandler,
-        IRequestHandler<BetChoiceUplinesJsonQuery, BetChoiceUplinesModel>
+        IRequestHandler<BetChoiceUplinesJsonQuery, BetChoiceMatchingUplinesModel>
     {
         private readonly BetChoiceMatchingService betChoiceMatchingService;
 
@@ -17,7 +17,7 @@
             this.betChoiceMatchingService = betChoiceMatchingService;
         }
 
-        public BetChoiceUplinesModel Handle(BetChoiceUplinesJsonQuery message)
+        public BetChoiceMatchingUplinesModel Handle(BetChoiceUplinesJsonQuery message)
         {
             var queryParam = new BetChoiceUplinesParam(message.SearchAccountId);
             return betChoiceMatchingService.QueryUplines(queryParam);

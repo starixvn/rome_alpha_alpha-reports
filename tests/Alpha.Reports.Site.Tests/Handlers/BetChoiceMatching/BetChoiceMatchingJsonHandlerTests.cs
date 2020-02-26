@@ -53,7 +53,7 @@
             cacheRefService.GetBetTypeName(8).Returns("Bettype 8");
             var events = BetChoiceMatchingTestCases.Events;
             var ips = BetChoiceMatchingTestCases.IPs;
-            var queryResult = new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceSharedIPModel>>(events, ips);
+            var queryResult = new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceMatchingSharedIPModel>>(events, ips);
             betChoiceMatchingService.Query(Arg.Any<BetChoiceMatchingParam>()).Returns(queryResult);
 
             // Act

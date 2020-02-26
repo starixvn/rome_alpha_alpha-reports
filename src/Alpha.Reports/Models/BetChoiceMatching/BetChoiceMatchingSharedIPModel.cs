@@ -1,12 +1,12 @@
 ﻿namespace Alpha.Reports.Models.BetChoiceMatching
 {
-    public class BetChoiceSharedIPModel
+    public class BetChoiceMatchingSharedIPModel
     {
-        public BetChoiceSharedIPModel()
+        public BetChoiceMatchingSharedIPModel()
         {
         }
 
-        public BetChoiceSharedIPModel(
+        public BetChoiceMatchingSharedIPModel(
             string ip,
             int custId,
             string username)

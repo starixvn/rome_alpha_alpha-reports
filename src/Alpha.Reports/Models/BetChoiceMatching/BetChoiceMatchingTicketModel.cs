@@ -70,6 +70,11 @@
             }
         }
 
+        public void HideIP()
+        {
+            IP = "--";
+        }
+
         public int LeagueId { get; private set; }
 
         public DateTime GlobalShowTime { get; private set; }

@@ -88,6 +88,7 @@
             container.RegisterSingleton<IUserSession, UserSessionExt>();
             container.RegisterSingleton<IUser, User>();
             container.RegisterSingleton<ReportDateService, ReportDateServiceImpl>();
+            container.RegisterSingleton<IPService, IPServiceImpl>();
 
             container.RegisterSingleton<WinLossDetailService, WinLossDetailServiceImpl>();
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
