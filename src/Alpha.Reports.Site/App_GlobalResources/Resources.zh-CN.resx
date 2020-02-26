@@ -667,10 +667,10 @@
     <value>投注额</value>
   </data>
 <data name="BetChoiceMatching" xml:space="preserve">
-    <value>Bet Choice Matching</value>
+    <value>以投注选择核对</value>
   </data>
   <data name="MatchingBets" xml:space="preserve">
-    <value>Matching Bets</value>
+    <value>匹配的投注</value>
   </data>
   <data name="odds" xml:space="preserve">
     <value>赔率</value>
@@ -691,39 +691,39 @@
     <value>小</value>
   </data>
   <data name="Upline" xml:space="preserve">
-    <value>Upline</value>
+    <value>上线</value>
   </data>
   <data name="IP_used_by" xml:space="preserve">
-    <value>IP used by</value>
+    <value>IP使用</value>
   </data>
   <data name="eventdate" xml:space="preserve">
     <value>赛事日期</value>
   </data>
   <data name="BetMatching_IP_Title" xml:space="preserve">
-    <value>Click to view shared IP accounts</value>
+    <value>点击检视已分享的IP账户</value>
   </data>
   <data name="BetMatching_Username_Title" xml:space="preserve">
-    <value>Click to view uplines</value>
+    <value>点击检视上线</value>
   </data>
   <data name="FilterByMemberWinLoss" xml:space="preserve">
-    <value>Filter By Member Win Loss</value>
+    <value>会员输赢筛选</value>
   </data>
   <data name="FilterByStake" xml:space="preserve">
-    <value>Filter By Stake</value>
+    <value>投注额筛选</value>
   </data>
   <data name="FilterByUsername" xml:space="preserve">
-    <value>Filter By Username</value>
+    <value>用户名筛选</value>
   </data>
   <data name="Filter" xml:space="preserve">
-    <value>Filter</value>
+    <value>筛选</value>
   </data>
   <data name="FilterByUsername_Placeholder" xml:space="preserve">
-    <value>Separate mulitple usernames by comma (,)</value>
+    <value>用逗号(,)分开不同用户名</value>
   </data>
   <data name="TotalMemberWL" xml:space="preserve">
-    <value>Total Member WL</value>
+    <value>会员总输赢</value>
   </data>
   <data name="TotalStake" xml:space="preserve">
-    <value>Total Stake</value>
+    <value>总投注额</value>
   </data>
 </root>

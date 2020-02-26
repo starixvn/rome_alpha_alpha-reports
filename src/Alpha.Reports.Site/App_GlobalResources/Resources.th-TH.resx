@@ -665,10 +665,10 @@
     <value>เงินเดิมพัน</value>
   </data>
  <data name="BetChoiceMatching" xml:space="preserve">
-    <value>Bet Choice Matching</value>
+    <value>ตรวจสอบตัวเลือกการเดิมพัน</value>
   </data>
   <data name="MatchingBets" xml:space="preserve">
-    <value>Matching Bets</value>
+    <value>จำนวนข้อมูลที่ตรงกัน</value>
   </data>
 
   <data name="odds" xml:space="preserve">
@@ -691,39 +691,39 @@
     <value>น้อยกว่า</value>
   </data>
   <data name="Upline" xml:space="preserve">
-    <value>Upline</value>
+    <value>อัพไลน์</value>
   </data>
   <data name="IP_used_by" xml:space="preserve">
-    <value>IP used by</value>
+    <value>ไอพีใช้งานโดย</value>
   </data>
   <data name="eventdate" xml:space="preserve">
     <value>วันที่มีการแข่งขัน</value>
   </data>
   <data name="BetMatching_IP_Title" xml:space="preserve">
-    <value>Click to view shared IP accounts</value>
+    <value>กดเพื่อดูบัญชีที่ใช้ไอพีเดียวกัน</value>
   </data>
   <data name="BetMatching_Username_Title" xml:space="preserve">
-    <value>Click to view uplines</value>
+    <value>กดเพื่อดูอัพไลน์</value>
   </data>
   <data name="FilterByMemberWinLoss" xml:space="preserve">
-    <value>Filter By Member Win Loss</value>
+    <value>กรองข้อมูลด้วยยอดได้เสีย(ของสมาชิก)</value>
   </data>
   <data name="FilterByStake" xml:space="preserve">
-    <value>Filter By Stake</value>
+    <value>กรองข้อมูลด้วยยอดเดิมพัน</value>
   </data>
   <data name="FilterByUsername" xml:space="preserve">
-    <value>Filter By Username</value>
+    <value>กรองข้อมูลด้วยชื่อผู้ใช้</value>
   </data>
   <data name="Filter" xml:space="preserve">
-    <value>Filter</value>
+    <value>กรองข้อมูล</value>
   </data>
   <data name="FilterByUsername_Placeholder" xml:space="preserve">
-    <value>Separate mulitple usernames by comma (,)</value>
+    <value>แยกแต่ละชื่อผู้ใช้ด้วยจุลภาค (,)</value>
   </data>
   <data name="TotalMemberWL" xml:space="preserve">
-    <value>Total Member WL</value>
+    <value>ยอดได้เสียรวม(ของสมาชิก)</value>
   </data>
   <data name="TotalStake" xml:space="preserve">
-    <value>Total Stake</value>
+    <value>ยอดเดิมพันรวม</value>
   </data>
 </root>
