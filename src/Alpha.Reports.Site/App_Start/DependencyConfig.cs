@@ -121,7 +121,7 @@
             container.RegisterSingleton<ProgressiveContributionService, ProgressiveContributionServiceImpl>();
             container.RegisterSingleton<ProgressiveContributionWorkbook, ProgressiveContributionWorkbookImpl>();
             container.RegisterSingleton<RiskAnalysisIPMatchingService, RiskAnalysisIPMatchingServiceImpl>();
-            container.RegisterSingleton<IPService, IPServiceImpl>();
+            container.RegisterSingleton<IPService, Services.IPServiceImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)
