@@ -124,6 +124,8 @@ interface KeyValueModel {
 }
 
 interface Resources {
+    FT: string;
+    HT: string;
     Total: string;
     Versus: string;
     Over: string;
@@ -221,7 +223,7 @@ class OneXTwoChoiceBuilder extends ChoiceBuilder {
     }
 
     generateBetTeam(): string {
-        const prefix = this.ticket.BetType === BetTypes.OneXTwoFT ? 'FT' : 'HT';
+        const prefix = this.ticket.BetType === BetTypes.OneXTwoFT ? betMatchingResources.FT : betMatchingResources.HT;
         return `${prefix}.${this.ticket.BetTeam ? this.ticket.BetTeam.toUpperCase() : ''}`;
     }
 

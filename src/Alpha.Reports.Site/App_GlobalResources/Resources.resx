@@ -810,4 +810,7 @@
   <data name="TotalStake" xml:space="preserve">
     <value>Total Stake</value>
   </data>
+  <data name="HT" xml:space="preserve">
+    <value>HT</value>
+  </data>
 </root>

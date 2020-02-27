@@ -889,6 +889,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HT.
+        /// </summary>
+        public static string HT {
+            get {
+                return ResourceManager.GetString("HT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Include.
         /// </summary>
         public static string Include {

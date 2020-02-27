@@ -329,8 +329,7 @@
     <value>オーバー</value>
   </data>
   <data name="under" xml:space="preserve">
-    <value>アンダー
-</value>
+    <value>アンダー</value>
   </data>
   <data name="Upline" xml:space="preserve">
     <value>Upline</value>
@@ -367,5 +366,8 @@
   </data>
   <data name="TotalStake" xml:space="preserve">
     <value>Total Stake</value>
+  </data>
+  <data name="HT" xml:space="preserve">
+    <value>HT</value>
   </data>
 </root>

@@ -723,4 +723,7 @@
   <data name="TotalStake" xml:space="preserve">
     <value>总投注额</value>
   </data>
+  <data name="HT" xml:space="preserve">
+    <value>半场</value>
+  </data>
 </root>

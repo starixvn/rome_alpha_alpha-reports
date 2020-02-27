@@ -749,4 +749,7 @@
   <data name="TotalStake" xml:space="preserve">
     <value>Tổng tiền cược</value>
   </data>
+  <data name="HT" xml:space="preserve">
+    <value>Hiệp 1</value>
+  </data>
 </root>

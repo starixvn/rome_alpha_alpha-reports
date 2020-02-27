@@ -653,7 +653,7 @@
     <value>ตรวจสอบไอพี</value>
   </data>
   <data name="IP" xml:space="preserve">
-    <value>IP</value>
+    <value>รหัสของเครื่องคอมพิวเตอร์ที่ใช้</value>
   </data>
   <data name="IPMatchingNote" xml:space="preserve">
     <value>รายงานนี้ ใช้เป็นข้อมูลเชิงสถิติเท่านั้น ตัวเลขอาจมีความคลาดเคลื่อนจากความเป็นจริงได้</value>
@@ -664,23 +664,18 @@
   <data name="Stake" xml:space="preserve">
     <value>เงินเดิมพัน</value>
   </data>
- <data name="BetChoiceMatching" xml:space="preserve">
+  <data name="BetChoiceMatching" xml:space="preserve">
     <value>ตรวจสอบตัวเลือกการเดิมพัน</value>
   </data>
   <data name="MatchingBets" xml:space="preserve">
     <value>จำนวนข้อมูลที่ตรงกัน</value>
   </data>
-
   <data name="odds" xml:space="preserve">
     <value>ราคา</value>
-  </data>
-  <data name="IP" xml:space="preserve">
-    <value>รหัสของเครื่องคอมพิวเตอร์ที่ใช้</value>
   </data>
   <data name="refno" xml:space="preserve">
     <value>หมายเลขอ้างอิง</value>
   </data>
-
   <data name="transtime" xml:space="preserve">
     <value>เวลาการดำเนินการ</value>
   </data>
@@ -725,5 +720,8 @@
   </data>
   <data name="TotalStake" xml:space="preserve">
     <value>ยอดเดิมพันรวม</value>
+  </data>
+  <data name="HT" xml:space="preserve">
+    <value>ครึ่งเวลาแรก</value>
   </data>
 </root>
