@@ -28,6 +28,7 @@
     <WebGreaseLibPath>..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <TargetFrameworkProfile />
     <Use64BitIISExpress />
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +40,19 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>618</NoWarn>
     <CodeAnalysisRuleSet>Alpha.Reports.Site.Debug.ruleset</CodeAnalysisRuleSet>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Alpha.ActivityTracking, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -60,6 +74,9 @@
     <Reference Include="Alpha.SubAccount, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.SubAccount.1.0.0\lib\net40\Alpha.SubAccount.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Alpha.Utilities.IP, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.Utilities.IP.1.0.0.1\lib\net40\Alpha.Utilities.IP.dll</HintPath>
     </Reference>
     <Reference Include="Alpha.Web, Version=1.0.3.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Web.1.0.3.7\lib\net461\Alpha.Web.dll</HintPath>
@@ -254,6 +271,9 @@
       <HintPath>..\..\packages\Sunplus.Agent.Utilities.3.0.0.4\lib\net40\Sunplus.Agent.Utilities.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sunplus.Core.Common, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sunplus.Core.Common.1.2.0.1\lib\net40\Sunplus.Core.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
@@ -362,6 +382,7 @@
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-master-agent.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun-member.ts" />
     <TypeScriptCompile Include="assets\scripts\playforfun\playforfun.ts" />
+    <TypeScriptCompile Include="assets\scripts\risk-analysis-ip-matching\index.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\member-statement-init.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\member-statement.ts" />
     <TypeScriptCompile Include="assets\scripts\statement\sma-statement-init.ts" />
@@ -411,6 +432,7 @@
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
     <Compile Include="Controllers\WinLossController.cs" />
+    <Compile Include="Controllers\RiskAnalysisIPMatchingController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -430,6 +452,9 @@
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionWorkbook.cs" />
     <Compile Include="Handlers\ReportLegendHandler.cs" />
+    <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingBaseHandler.cs" />
+    <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingHandler.cs" />
+    <Compile Include="Handlers\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelHandler.cs" />
     <Compile Include="Handlers\Statement\MemberStatementWorkbook.cs" />
     <Compile Include="Handlers\WinLossByProduct\WinLossByProductWorkbook.cs" />
     <Compile Include="Handlers\Statement\MemberStatementExcelHandler.cs" />
@@ -505,6 +530,8 @@
     <Compile Include="Requests\FromLast3YearDateRangeQuery.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
+    <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingQuery.cs" />
+    <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductQuery.cs" />
     <Compile Include="Requests\WinLossByProduct\WinLossByProductExcelQuery.cs" />
     <Compile Include="Requests\Statement\MemberStatementExcelQuery.cs" />
@@ -551,6 +578,7 @@
     <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
     <Compile Include="ViewModels\ProgressiveContribution\ProgressiveContributionViewModel.cs" />
+    <Compile Include="ViewModels\RiskAnalysisIPMatching\RiskAnalysisIPMatchingViewModel.cs" />
     <Compile Include="ViewModels\Statement\MemberStatementViewModel.cs" />
     <Compile Include="ViewModels\Statement\SMAStatementViewModel.cs" />
     <Compile Include="ViewModels\WinLossByProduct\WinLossByProductFilterViewModel.cs" />
@@ -598,6 +626,7 @@
     </Content>
     <Content Include="App_Data\SPNames\Internal\DBACC.bodb02.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBARC.bodb_Archive.BODBDownlineNetView.xml" />
+    <Content Include="App_Data\SPNames\Internal\DBCust.IPDB.xml" />
     <Content Include="App_Data\SPNames\Internal\DBLOG.bodb_CustomerLog.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBRPT.bodb_report.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml" />
@@ -607,6 +636,7 @@
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Data\SPNames\Local\DBCust.IPDB.xml" />
     <Content Include="App_Data\SPNames\Local\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBARC.bodb_Archive.BODBDownlineNet.xml" />
@@ -615,12 +645,14 @@
     <Content Include="App_Data\SPNames\Pro\DB053_DB054.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBARC.bodb_Archive.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Pro\DBCust.IPDB.xml" />
     <Content Include="App_Data\SPNames\Pro\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBRPT.bodb_report.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBARC.bodb_Archive.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\SIT\DBCust.IPDB.xml" />
     <Content Include="App_Data\SPNames\SIT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBRPT.bodb_report.BODBDownlineNet.xml" />
@@ -671,6 +703,7 @@
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBARC.bodb_Archive.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\UAT\DBCust.IPDB.xml" />
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBRPT.bodb_report.BODBDownlineNet.xml" />
@@ -702,6 +735,10 @@
     </Content>
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.js">
       <DependentUpon>progressivecontribution.js</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\RiskAnalysisIPMatching\index.js" />
+    <Content Include="assets\bundles\RiskAnalysisIPMatching\index.min.js">
+      <DependentUpon>index.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.js" />
     <Content Include="assets\bundles\winlossanalysischart\winlossanalysischart.min.js">
@@ -960,6 +997,7 @@
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Member.xls" />
+    <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1007,6 +1045,7 @@
     <Content Include="Views\ProgressiveContribution\Index.cshtml" />
     <Content Include="Views\ProgressiveContribution\ReportLegend.cshtml" />
     <Content Include="Views\Outstanding\ReportLegend.cshtml" />
+    <Content Include="Views\RiskAnalysisIPMatching\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

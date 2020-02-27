@@ -835,6 +835,33 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IP.
+        /// </summary>
+        public static string IP {
+            get {
+                return ResourceManager.GetString("IP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP Matching.
+        /// </summary>
+        public static string IPMatching {
+            get {
+                return ResourceManager.GetString("IPMatching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This report&apos;s data is used for statistics only, due to the resettlement process, the figure might not be totally exact..
+        /// </summary>
+        public static string IPMatchingNote {
+            get {
+                return ResourceManager.GetString("IPMatchingNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to January.
         /// </summary>
         public static string January {
@@ -1029,6 +1056,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string Member {
             get {
                 return ResourceManager.GetString("Member", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Member Count.
+        /// </summary>
+        public static string MemberCount {
+            get {
+                return ResourceManager.GetString("MemberCount", resourceCulture);
             }
         }
         
@@ -1519,6 +1555,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stake.
+        /// </summary>
+        public static string Stake {
+            get {
+                return ResourceManager.GetString("Stake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Statement.
         /// </summary>
         public static string Statement {
@@ -1578,6 +1623,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SuperTotal {
             get {
                 return ResourceManager.GetString("SuperTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Super Win Loss.
+        /// </summary>
+        public static string SuperWinLoss {
+            get {
+                return ResourceManager.GetString("SuperWinLoss", resourceCulture);
             }
         }
         

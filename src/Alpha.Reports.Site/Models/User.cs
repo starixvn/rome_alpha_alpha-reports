@@ -44,6 +44,8 @@
 
         public DateTime LimitedDateToShowInfo => userSession.GetProperty<DateTime>(SessionKey.CustomerDatelimit);
 
+        public bool IsAdminCanViewVNIP => userSession.IsAdminCanViewVNIP;
+
         internal virtual IList<int> GetEnableProductsForGame(string gameName)
             => userSession.GetProperty<IList<int>>(SessionKey.GameEnable + gameName) ?? new List<int>();
     }

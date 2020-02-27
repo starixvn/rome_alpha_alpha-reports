@@ -669,4 +669,26 @@
   <data name="GrandPrize_Guidelines" xml:space="preserve">
     <value>tiền thắng cược một sự kiện đặc biệt, và không tính vào số dư của member.</value>
   </data>
+  <data name="MemberCount" xml:space="preserve">
+    <value>Số lượng Member</value>
+  </data>
+  <data name="SuperWinLoss" xml:space="preserve">
+    <value>Thắng thua của Super</value>
+  </data>
+  <data name="IPMatching" xml:space="preserve">
+    <value>IP trùng lặp
+</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="IPMatchingNote" xml:space="preserve">
+    <value>Báo cáo này được sử dụng để tham khảo. Dữ liệu có thể bị thay đổi trong quá trình tính toán.</value>
+  </data>
+  <data name="MemberTurnOver" xml:space="preserve">
+    <value>Tổng tiền cược của Member</value>
+  </data>
+  <data name="Stake" xml:space="preserve">
+    <value>Tiền cược</value>
+  </data>
 </root>

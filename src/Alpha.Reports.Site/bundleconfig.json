@@ -255,5 +255,16 @@
     "inputFiles": [
       "assets/styles/progressivecontribution/progressivecontribution.css"
     ]
+  },
+  {
+    "outputFileName": "assets/bundles/RiskAnalysisIPMatching/index.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/components/pager.js",
+      "assets/scripts/risk-analysis-ip-matching/index.js"
+    ]
   }
 ]

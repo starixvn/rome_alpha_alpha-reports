@@ -489,4 +489,25 @@
   <data name="ConsolidationReportByProduct" xml:space="preserve">
     <value>스포츠 통합 리포트</value>
   </data>
+  <data name="MemberCount" xml:space="preserve">
+    <value>Member Count</value>
+  </data>
+  <data name="SuperWinLoss" xml:space="preserve">
+    <value>Super Win Loss</value>
+  </data>
+  <data name="IPMatching" xml:space="preserve">
+    <value>IP Matching</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="IPMatchingNote" xml:space="preserve">
+    <value>This report's data is used for statistics only, due to the resettlement process, the figure might not be totally exact.</value>
+  </data>
+  <data name="MemberTurnOver" xml:space="preserve">
+    <value>Member Turnover</value>
+  </data>
+  <data name="Stake" xml:space="preserve">
+    <value>배팅 금액</value>
+  </data>
 </root>

@@ -1,0 +1,111 @@
+﻿@model RiskAnalysisIPMatchingViewModel
+@{
+    ViewBag.Title = "IP MATCHING";
+}
+
+@ReportTitle.Render(new PageHeaderViewModel(Resources.IPMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
+
+<form class="form-inline filter" role="form" id="report-form">
+    <div class="form-group">
+        <label class="txt">@Resources.Date</label>
+        <div class="control date">
+            <div class="input-group date" id="dpkContainer">
+                @Html.EditorFor(model => model.WinlostDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                <span class="input-group-addon">
+                    <span class="icon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="txt">@Resources.MemberCount</label>
+        <select id="dropdown-statuses">
+            @foreach (var status in Model.StatusSelection)
+            {
+                <option value="@status.Value" @(status.Selected ? "selected=\"selected\"" : string.Empty)> >= @status.Text</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="@Resources.Submit" class="btn-submit" />
+    </div>
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>@Resources.IPMatchingNote
+    </div>
+
+    @Html.Hidden("MemberCount", 2)
+    @Html.Hidden("SelectedWinlostDate", Model.WinlostDate.ToShortDateWithSlash())
+    @Html.Hidden("Today", Model.Today.ToShortDateWithSlash())
+    @Html.Hidden("MinDate", Model.Mindate.ToShortDateWithSlash())
+</form>
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped width-100per tablesorter tblRpt-hover"
+       id="tbl-report"
+       data-totalrecords="@Model.RiskAnalysisIPMatchingItems.Count()">
+    <thead>
+        <tr>
+            <th>@Resources.IP</th>
+            <th>@Resources.MemberCount</th>
+            <th>@Resources.BetCount</th>
+            <th>@Resources.Stake</th>
+            <th>@Resources.MemberWinLoss</th>
+            <th>@Resources.SuperWinLoss</th>
+            <th>@Resources.Company</th>
+        </tr>
+    </thead>
+    @if (Model.RiskAnalysisIPMatchingItems.Any())
+    {
+        <tbody>
+            @foreach (var data in Model.RiskAnalysisIPMatchingItems)
+            {
+                @RenderRow(data, false, ViewBag.BetListPath)
+            }
+        </tbody>
+        <tfoot>
+            @RenderRow(Model.TotalRow, true, ViewBag.BetListPath)
+        </tfoot>
+    }
+    else
+    {
+        @NoInformation.Render(colspan: 7)
+    }
+</table>
+
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "RiskAnalysisIPMatching")">
+    @Html.Hidden("MemberCount", 2)
+    @Html.Hidden("SelectedWinlostDate", Model.WinlostDate.ToShortDateWithSlash())
+</form>
+
+@section Scripts {
+    @StaticResources.RenderScripts("~/assets/bundles/RiskAnalysisIPMatching/Index")
+}
+
+@helper RenderRow(RiskAnalysisIPMatchingModel data, bool isTotalRow, string betListPath)
+{
+    <tr @(isTotalRow ? "class=tbl-footer" : string.Empty)>
+        <td data-islink="true" class="text-left col-username">
+            @if (isTotalRow)
+            {
+                @Resources.Total
+            }
+            else
+            {
+                <a class="view-bet-list" href="@Model.GetBetListLink(Model.GetBetListLinkRouteValues(data.IP, Model.WinlostDate))">
+                    @data.IP
+                </a>
+            }
+        </td>
+        <td class="text-right col-member-count">@HtmlHelpers.FormatNumber(data.MemberCount)</td>
+        <td class="text-right col-bet-count">@HtmlHelpers.FormatNumber(data.BetCount)</td>
+        @HtmlHelpers.RenderNumberCell(data.Stake, "col-member-turnover")
+        @HtmlHelpers.RenderNumberCell(data.MemberWinLoss, "col-member-winloss")
+        @HtmlHelpers.RenderNumberCell(data.SuperWinLoss, "col-super-winloss altercol")
+        <td class="text-right col-company">@HtmlHelpers.FormatNumber(data.Company)</td>
+    </tr>
+}

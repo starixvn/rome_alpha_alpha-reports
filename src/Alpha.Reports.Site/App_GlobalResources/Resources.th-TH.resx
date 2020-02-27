@@ -643,4 +643,25 @@
   <data name="No" xml:space="preserve">
     <value> ลำดับที่</value>
   </data>
+  <data name="MemberCount" xml:space="preserve">
+    <value>จำนวนสมาชิก</value>
+  </data>
+  <data name="SuperWinLoss" xml:space="preserve">
+    <value>การได้เสียสูงสุด</value>
+  </data>
+  <data name="IPMatching" xml:space="preserve">
+    <value>ตรวจสอบไอพี</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="IPMatchingNote" xml:space="preserve">
+    <value>รายงานนี้ ใช้เป็นข้อมูลเชิงสถิติเท่านั้น ตัวเลขอาจมีความคลาดเคลื่อนจากความเป็นจริงได้</value>
+  </data>
+  <data name="MemberTurnOver" xml:space="preserve">
+    <value>เงินหมุนเวียนของสมาชิก</value>
+  </data>
+  <data name="Stake" xml:space="preserve">
+    <value>เงินเดิมพัน</value>
+  </data>
 </root>

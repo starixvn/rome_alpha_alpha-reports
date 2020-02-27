@@ -1,0 +1,64 @@
+﻿namespace Alpha.Reports.Site.ViewModels
+{
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Utils;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using ReportHelpers = Helpers;
+
+    public class RiskAnalysisIPMatchingViewModel
+    {
+        private IEnumerable<int> MemberCountItems
+#pragma warning disable S109 // Magic numbers should not be used
+               => new List<int> { 2, 3, 4, 5, 8, 10, 15, 20, 30, 50, 100 };
+#pragma warning restore S109 // Magic numbers should not be used
+
+        public RiskAnalysisIPMatchingViewModel(
+            DateTime winlostDate,
+            DateTime mindate,
+            int userSelectedStatusId,
+            IEnumerable<RiskAnalysisIPMatchingModel> riskAnalysisIPMatchingItems,
+            RiskAnalysisIPMatchingModel totalRow)
+        {
+            WinlostDate = winlostDate;
+            Mindate = mindate;
+            RiskAnalysisIPMatchingItems = riskAnalysisIPMatchingItems;
+            TotalRow = totalRow;
+            StatusSelection = MemberCountItems.Select(item => new SelectListItem
+            {
+                Text = item.ToString(),
+                Value = item.ToString(),
+                Selected = item.Equals(userSelectedStatusId)
+            });
+
+            BetListPath = ReportHelpers.UrlHelper.MapBetListPath("~/RiskAnalysisIPMatching/Index");
+        }
+
+        public DateTime WinlostDate { get; }
+
+        public DateTime Today => SystemTime.Today;
+
+        public DateTime Mindate { get; }
+
+        public string BetListPath { get; }
+
+        public IEnumerable<RiskAnalysisIPMatchingModel> RiskAnalysisIPMatchingItems { get; }
+
+        public IEnumerable<SelectListItem> StatusSelection { get; }
+
+        public RiskAnalysisIPMatchingModel TotalRow { get; }
+
+        public string GetBetListLink(IDictionary<string, object> routeValues)
+            => ReportHelpers.UrlHelper.AddQueryStringParamsFunc(ReportHelpers.UrlHelper.MapExMainPath(BetListPath), routeValues);
+
+        public IDictionary<string, object> GetBetListLinkRouteValues(string ip, DateTime date)
+            => new Dictionary<string, object>
+            {
+                ["Date"] = date,
+                ["IP"] = ip
+            };
+    }
+}

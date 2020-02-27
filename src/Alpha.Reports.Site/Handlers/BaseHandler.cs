@@ -1,16 +1,15 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
+    using App_GlobalResources;
+    using Reports.Constants;
+    using Reports.Models;
+    using Requests;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using App_GlobalResources;
-    using Extensions;
-    using Reports.Constants;
-    using Reports.Models;
-    using Requests;
 
     public class BaseHandler
     {

@@ -645,4 +645,25 @@
   <data name="Happy5" xml:space="preserve">
     <value>快乐5</value>
   </data>
+  <data name="MemberCount" xml:space="preserve">
+    <value>会员数</value>
+  </data>
+  <data name="SuperWinLoss" xml:space="preserve">
+    <value>超级总代输赢</value>
+  </data>
+  <data name="IPMatching" xml:space="preserve">
+    <value>IP核对</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="IPMatchingNote" xml:space="preserve">
+    <value>本报表数据仅为统计用；由于投注重新结算的缘故，以下数据不尽然准确。</value>
+  </data>
+  <data name="MemberTurnOver" xml:space="preserve">
+    <value>会员总投注交易</value>
+  </data>
+  <data name="Stake" xml:space="preserve">
+    <value>投注额</value>
+  </data>
 </root>
