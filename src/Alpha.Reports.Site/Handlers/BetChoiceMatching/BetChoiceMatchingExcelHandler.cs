@@ -62,7 +62,7 @@
 
             if (message.Stake.HasValue)
             {
-                filters.Add($"{Resources.TotalStake} >= {message.Stake.Value.ToString("#,##")}");
+                filters.Add($"{Resources.TotalStake} >= {string.Format("{0:n0}", message.Stake.Value)}");
             }
 
             if (message.MemberWinLossValue.HasValue)
