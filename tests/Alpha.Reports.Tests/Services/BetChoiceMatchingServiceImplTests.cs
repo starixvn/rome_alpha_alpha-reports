@@ -150,6 +150,26 @@
         }
 
         [Fact]
+        public void ExcelQuery_WithLowerUsernameFilter_ReturnsMatchingDataFromDynamicRepositoryAndIgnoreCase()
+        {
+            // Arrange
+            MockFetchMultiple();
+            var param = new BetChoiceMatchingExcelParam(1, winlostDate, moveBetsDay, 2, "nk1", null, MemberWinLossOperators.Equal, null);
+
+            // Act
+            var queryEvents = service.ExcelQuery(param);
+
+            // Assert
+            var user = BetChoiceMatchingTestCases.Events.First().Users.First();
+            var expectedEvents = new List<BetChoiceMatchingEventModel>
+            {
+                new BetChoiceMatchingEventModel(new List<BetChoiceMatchingUserModel>{user})
+            };
+
+            AssertExtension.Equal(expectedEvents, queryEvents);
+        }
+
+        [Fact]
         public void ExcelQuery_WithStakeFilter_ReturnsMatchingDataFromDynamicRepository()
         {
             // Arrange

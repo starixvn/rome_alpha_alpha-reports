@@ -11,7 +11,7 @@
 @ReportTitle.Render(new PageHeaderViewModel(Resources.BetChoiceMatching, false, true, false, false, Enumerable.Empty<CustInfo>(), null), Request.Url.Query)
 
 @Html.Hidden("Today", Model.WinlostDate)
-@Html.Hidden("MinDate", Model.WinlostDate.AddDays(-14))
+@Html.Hidden("MinDate", Model.MinDate)
 <form class="form-inline filter" role="form" id="report-form" action="@Url.Action("Query")">
     @Html.AntiForgeryToken()
     <div class="form-group">
