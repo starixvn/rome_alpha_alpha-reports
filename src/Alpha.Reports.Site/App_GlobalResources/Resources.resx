@@ -754,7 +754,7 @@
     <value>Stake</value>
   </data>
   <data name="BetChoiceMatching" xml:space="preserve">
-    <value>Matching Bet Choice</value>
+    <value>Bet Choice Matching</value>
   </data>
   <data name="MatchingBets" xml:space="preserve">
     <value>Matching Bets</value>
@@ -812,5 +812,8 @@
   </data>
   <data name="HT" xml:space="preserve">
     <value>HT</value>
+  </data>
+  <data name="BetType1X2_FT" xml:space="preserve">
+    <value>FT</value>
   </data>
 </root>

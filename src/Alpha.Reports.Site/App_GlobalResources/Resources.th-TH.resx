@@ -724,4 +724,7 @@
   <data name="HT" xml:space="preserve">
     <value>ครึ่งเวลาแรก</value>
   </data>
+  <data name="BetType1X2_FT" xml:space="preserve">
+    <value>เต็มเวลา</value>
+  </data>
 </root>

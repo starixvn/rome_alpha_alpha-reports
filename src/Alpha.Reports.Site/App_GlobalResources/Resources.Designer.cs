@@ -223,7 +223,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Matching Bet Choice.
+        ///   Looks up a localized string similar to Bet Choice Matching.
         /// </summary>
         public static string BetChoiceMatching {
             get {
@@ -282,6 +282,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string BetType {
             get {
                 return ResourceManager.GetString("BetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FT.
+        /// </summary>
+        public static string BetType1X2_FT {
+            get {
+                return ResourceManager.GetString("BetType1X2_FT", resourceCulture);
             }
         }
         

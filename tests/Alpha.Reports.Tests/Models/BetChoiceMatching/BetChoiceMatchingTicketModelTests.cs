@@ -44,6 +44,7 @@
                 hdp2,
                 anyValueCreatorFixture.Create<string>(),
                 anyValueCreatorFixture.Create<decimal>(),
+                anyValueCreatorFixture.Create<byte>(),
                 anyValueCreatorFixture.Create<DateTime>(),
                 anyValueCreatorFixture.Create<long>(),
                 anyValueCreatorFixture.Create<decimal>(),

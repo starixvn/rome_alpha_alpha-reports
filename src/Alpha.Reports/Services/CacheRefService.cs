@@ -20,6 +20,8 @@
         string GetTeamName3rd(int team3rdId);
 
         string GetProductName(int productId);
+
+        string GetOddsTypeName(string oddsTypeId);
     }
 
     public class CacheRefServiceImpl : CacheRefService
@@ -51,6 +53,9 @@
 
         public string GetTeamName3rd(int team3rdId)
             => remotingRefService.GetTeamName3rd(team3rdId.ToString(), LanguageCode);
+
+        public string GetOddsTypeName(string oddsTypeId)
+            => remotingRefService.GetOddsTypeName(oddsTypeId, LanguageCode);
 
         public string GetProductName(int productId)
             => remotingRefService.GetResourceDataByRefIdAndResourceId(

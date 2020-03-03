@@ -726,4 +726,7 @@
   <data name="HT" xml:space="preserve">
     <value>半場</value>
   </data>
+  <data name="BetType1X2_FT" xml:space="preserve">
+    <value>全場</value>
+  </data>
 </root>

@@ -4,6 +4,7 @@
     using Alpha.Reports.Models.BetChoiceMatching;
     using Alpha.Reports.Params.BetChoiceMatching;
     using Alpha.Utilities.IP;
+    using Fanex.BetList.Core.Constants;
     using Fanex.Data.Repository;
     using Sunplus.Agent.Model.Entities;
     using System;
@@ -21,12 +22,24 @@
 
     public class BetChoiceMatchingServiceImpl : BetChoiceMatchingService
     {
+        private const int usOddsTypeMultiply = 100;
+        private const string oddsFormat = "{0:#,##0.###}";
+
+        private static List<int> oddsBettypes = new List<int>
+        {
+            BetTypes.Handicap,
+            BetTypes.OverUnder,
+            BetTypes.FirstHalfHandicap,
+            BetTypes.FirstHalfOverUnder
+        };
+
         private readonly IDynamicRepository dynamicRepository;
         private readonly IUserSession userSession;
         private readonly IPService ipService;
+        private readonly CacheRefService cacheRefService;
 
-        public BetChoiceMatchingServiceImpl(IDynamicRepository dynamicRepository, IUserSession userSession, IPService ipService)
-            => (this.dynamicRepository, this.userSession, this.ipService) = (dynamicRepository, userSession, ipService);
+        public BetChoiceMatchingServiceImpl(IDynamicRepository dynamicRepository, IUserSession userSession, IPService ipService, CacheRefService cacheRefService)
+            => (this.dynamicRepository, this.userSession, this.ipService, this.cacheRefService) = (dynamicRepository, userSession, ipService, cacheRefService);
 
         public Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceMatchingSharedIPModel>> Query(BetChoiceMatchingParam param)
         {
@@ -39,9 +52,17 @@
             var tuple = dynamicRepository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceMatchingSharedIPModel>(criteria);
             var tickets = tuple.Item1;
             var vnIPs = userSession.IsAdminCanViewVNIP ? new List<string>() : BuildListVNIPs(tickets);
+            foreach (var ticket in tickets)
+            {
+                CalculateDisplayOdds(ticket);
+                if (!userSession.IsAdminCanViewVNIP && !string.IsNullOrEmpty(ticket.IP) && vnIPs.Contains(ticket.IP))
+                {
+                    ticket.HideIP();
+                }
+            }
+
             var events = tickets.GroupBy(ticket => ticket.EventKey).Select(eventTickets =>
             {
-                CheckToHideIP(eventTickets, vnIPs);
                 var users = eventTickets.GroupBy(ticket => ticket.CustId).Select(userTickets => new BetChoiceMatchingUserModel(userTickets));
                 return new BetChoiceMatchingEventModel(users);
             });
@@ -51,8 +72,34 @@
             {
                 ips = ips.Where(ip => !vnIPs.Contains(ip.IP));
             }
-            
+
             return new Tuple<IEnumerable<BetChoiceMatchingEventModel>, IEnumerable<BetChoiceMatchingSharedIPModel>>(events, ips);
+        }
+
+        private void CalculateDisplayOdds(BetChoiceMatchingTicketModel ticket)
+        {
+            var isShowOddsType = oddsBettypes.Contains(ticket.BetType) && ticket.OddsType > 0;
+            var oddsValue = ticket.Odds;
+            if (isShowOddsType)
+            {
+                if (ticket.OddsType == OddsTypes.Decimal)
+                {
+                    oddsValue = oddsValue + 1;
+                }
+                else
+                {
+                    if (ticket.OddsType == OddsTypes.US)
+                    {
+                        oddsValue = oddsValue * usOddsTypeMultiply;
+                    }
+                }
+            }
+
+            ticket.Odds = oddsValue;
+            ticket.DisplayOdds = string.Format(oddsFormat, ticket.Odds);
+            ticket.DisplayOddsType = isShowOddsType
+                    ? cacheRefService.GetOddsTypeName(ticket.OddsType.ToString())
+                    : string.Empty;
         }
 
         private IEnumerable<string> BuildListVNIPs(IEnumerable<BetChoiceMatchingTicketModel> tickets)
@@ -78,20 +125,6 @@
             }
 
             return vnIPs;
-        }
-
-        private void CheckToHideIP(IEnumerable<BetChoiceMatchingTicketModel> tickets, IEnumerable<string> vnIPs)
-        {
-            if (!userSession.IsAdminCanViewVNIP)
-            {
-                foreach (var ticket in tickets)
-                {
-                    if (!string.IsNullOrEmpty(ticket.IP) && vnIPs.Contains(ticket.IP))
-                    {
-                        ticket.HideIP();
-                    }
-                }
-            }
         }
 
         public BetChoiceMatchingUplinesModel QueryUplines(BetChoiceUplinesParam param)

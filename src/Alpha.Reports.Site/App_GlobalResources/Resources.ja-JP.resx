@@ -309,9 +309,6 @@
   <data name="Stake" xml:space="preserve">
     <value>ベット</value>
   </data>
-  <data name="BetChoiceMatching" xml:space="preserve">
-    <value>Matching Bet Choice</value>
-  </data>
   <data name="MatchingBets" xml:space="preserve">
     <value>Matching Bets</value>
   </data>

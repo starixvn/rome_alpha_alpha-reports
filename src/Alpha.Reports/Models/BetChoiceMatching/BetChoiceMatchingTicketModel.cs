@@ -22,6 +22,7 @@
             decimal hdp2,
             string ip,
             decimal odds,
+            byte oddsType,
             DateTime transDate,
             long transId,
             decimal stake,
@@ -47,6 +48,7 @@
             Hdp2 = hdp2;
             IP = ip;
             Odds = odds;
+            OddsType = oddsType;
             TransDate = transDate;
             TransId = transId;
             HomeId = homeId;
@@ -97,7 +99,13 @@
 
         public string IP { get; private set; }
 
-        public decimal Odds { get; private set; }
+        public decimal Odds { get; set; }
+
+        public string DisplayOdds { get; set; } = string.Empty;
+
+        public byte OddsType { get; private set; }
+
+        public string DisplayOddsType { get; set; } = string.Empty;
 
         public DateTime TransDate { get; private set; }
 

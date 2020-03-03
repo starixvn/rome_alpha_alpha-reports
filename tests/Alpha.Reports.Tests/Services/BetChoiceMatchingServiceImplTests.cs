@@ -23,6 +23,7 @@
         private readonly IPService ipService;
         private readonly IUserSession userSession;
         private readonly BetChoiceMatchingService service;
+        private readonly CacheRefService cacheRefService;
         private readonly CompareLogic compareLogic;
         private readonly DateTime winlostDate = DateTime.Parse("2019-09-09");
         private readonly DateTime moveBetsDay = DateTime.Parse("2019-08-08");
@@ -33,7 +34,8 @@
             repository = Substitute.For<IDynamicRepository>();
             userSession = Substitute.For<IUserSession>();
             ipService = Substitute.For<IPService>();
-            service = new BetChoiceMatchingServiceImpl(repository, userSession, ipService);
+            cacheRefService = Substitute.For<CacheRefService>();
+            service = new BetChoiceMatchingServiceImpl(repository, userSession, ipService, cacheRefService);
         }
 
         private void MockFetchMultiple()
@@ -41,6 +43,11 @@
             var tickets = BetChoiceMatchingTestCases.Tickets;
             var ips = BetChoiceMatchingTestCases.IPs;
             var tuple = new Tuple<IEnumerable<BetChoiceMatchingTicketModel>, IEnumerable<BetChoiceMatchingSharedIPModel>>(tickets, ips);
+            cacheRefService.GetOddsTypeName(Arg.Any<string>()).Returns(callInfo =>
+            {
+                var oddsType = callInfo.Arg<string>();
+                return $"OddsType{oddsType}";
+            });
             repository.FetchMultiple<BetChoiceMatchingTicketModel, BetChoiceMatchingSharedIPModel>(Arg.Any<BetChoiceMatchingCriteria>()).Returns(tuple);
         }
 

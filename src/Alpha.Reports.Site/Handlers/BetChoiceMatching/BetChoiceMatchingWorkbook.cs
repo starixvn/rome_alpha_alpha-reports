@@ -186,8 +186,8 @@
             row.SetCellValue(Column.GetColIndex(Column.A), ticket.Username);
             row.SetCellValue(Column.GetColIndex(Column.B), ticket.TransDate);
             row.SetCellValue(Column.GetColIndex(Column.C), ticket.TransId);
-            row.SetCellValue(Column.GetColIndex(Column.D), ticket.Odds);
-            row.SetCellValue(Column.GetColIndex(Column.E), ticket.IP);
+            row.SetCellValue(Column.GetColIndex(Column.D), BuildOdds(ticket));
+            row.SetCellValue(Column.GetColIndex(Column.E), ticket.IP ?? string.Empty);
             row.SetCellValue(Column.GetColIndex(Column.F), ticket.Stake);
             if (!ticket.IsRunning)
             {
@@ -197,7 +197,26 @@
             }
         }
 
+        private static string BuildOdds(BetChoiceMatchingTicketModel ticket)
+        {
+            if(ticket.Odds == 0)
+            {
+                return "-";
+            }
+
+            return string.IsNullOrEmpty(ticket.DisplayOddsType)
+                    ? ticket.DisplayOdds
+                    : $"({ticket.DisplayOddsType}) {ticket.DisplayOdds}";
+        }
+
         private void FillEventRow(Row row, BetChoiceMatchingEventModel eventModel)
+        {
+            var choice = BuildChoice(eventModel);
+            row.SetCellValue(Column.GetColIndex(Column.A), choice);
+            row.SetCellValue(Column.GetColIndex(Column.H), eventModel.GlobalShowTime);
+        }
+
+        private IRichTextString BuildChoice(BetChoiceMatchingEventModel eventModel)
         {
             var ticket = new Ticket
             {
@@ -213,14 +232,6 @@
                 LiveHomeScore = eventModel.LiveHomeScore,
                 LiveAwayScore = eventModel.LiveAwayScore
             };
-
-            var choice = BuildChoice(ticket);
-            row.SetCellValue(Column.GetColIndex(Column.A), choice);
-            row.SetCellValue(Column.GetColIndex(Column.H), eventModel.GlobalShowTime);
-        }
-
-        private IRichTextString BuildChoice(ITicket ticket)
-        {
             var choiceBuilder = excelBuilder.CreateChoiceBuilder(ticket.BetTypeId);
             return choiceBuilder.RenderRTF(ticket, ticketHelper, null, false, RTFHelper).FirstOrDefault();
         }

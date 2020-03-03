@@ -101,6 +101,8 @@ interface QueryTicketModel {
     GlobalShowTime: string;
     TransId: number;
     Odds: number;
+    DisplayOdds: string;
+    DisplayOddsType: string;
     IP: string;
     Stake: number;
     MemberWinLoss: number;
@@ -508,7 +510,7 @@ class BetChoiceMatching {
                     html.push(`<tr class="${index % 2 === 1 ? "row-even" : ""}">
                         <td class="text-center">${moment(ticket.TransDate).format("MM/DD HH:mm:ss")}</td>
                         <td class="text-center">${ticket.TransId}</td>
-                        <td class="text-center">${ticket.Odds}</td>
+                        <td class="text-center">${this.buildOdds(ticket)}</td>
                         <td class="text-center">${ticket.IP ? ticket.IP : ''}${ipHtml}</td>
                         <td>${alphaReports.formatNumber(ticket.Stake)}</td>
                         <td>${this.formatNumber(ticket.MemberWinLoss, ticket.IsRunning)}</td>
@@ -533,6 +535,22 @@ class BetChoiceMatching {
         this.$tableTbody.find('.text-username').click(this.onUsernameClick);
         this.$tableTbody.find('.icon-ip-share').click(this.onIPClick);
     };
+
+    buildOdds(ticket: QueryTicketModel) {
+        if (ticket.Odds == 0) {
+            return ticket.DisplayOdds;
+        }
+
+        const formatOdds = ticket.Odds < 0
+            ? `<font color='#B50000'>${ticket.DisplayOdds}</font>`
+            : ticket.DisplayOdds;
+
+        if (ticket.DisplayOddsType) {
+            return `(${ticket.DisplayOddsType}) ${formatOdds}`;
+        } else {
+            return formatOdds;
+        }
+    }
 
     generateBetChoice(event: QueryEventModel) {
         const getChoiceBuilder = (): ChoiceBuilder => {

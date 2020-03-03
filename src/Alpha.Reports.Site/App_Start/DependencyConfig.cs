@@ -35,7 +35,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
-    using IPServiceImpl = Alpha.Utilities.IP.IPServiceImpl;
+    using IPServiceImpl = Services.IPServiceImpl;
 
     public static class DependencyConfig
     {
