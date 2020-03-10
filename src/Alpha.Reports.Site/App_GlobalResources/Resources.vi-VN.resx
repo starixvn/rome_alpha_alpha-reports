@@ -692,7 +692,7 @@
     <value>Tiền cược</value>
   </data>
   <data name="BetChoiceMatching" xml:space="preserve">
-    <value>Bet Choice Matching</value>
+    <value>Cược trùng lặp</value>
   </data>
   <data name="MatchingBets" xml:space="preserve">
     <value>Cược trùng lặp</value>
