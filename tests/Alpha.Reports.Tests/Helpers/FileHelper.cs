@@ -1,17 +1,16 @@
 ﻿namespace Alpha.Reports.Tests.Helpers
 {
-    using JsonNet.PrivateSettersContractResolvers;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
     using System;
     using System.Data;
     using System.IO;
-    using System.Reflection;
 
     public static class FileHelper
     {
         public static string GetFilePath(string relativeFilePath)
         {
-            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            string codeBase = typeof(FileHelper).Assembly.CodeBase;
             var uri = new UriBuilder(codeBase);
             string path = Uri.UnescapeDataString(uri.Path);
 
@@ -26,18 +25,22 @@
             return dataSet;
         }
 
+        public static T ReadJson<T>(string relativeFilePath, JsonSerializerSettings settings)
+        {
+            var json = ReadContent(relativeFilePath);
+            return JsonConvert.DeserializeObject<T>(json, settings);
+        }
+
         public static T ReadJson<T>(string relativeFilePath)
         {
-            var filePath = GetFilePath(relativeFilePath);
-            var json = File.ReadAllText(filePath);
             var settings = new JsonSerializerSettings
             {
                 ContractResolver = new PrivateSetterContractResolver()
             };
-            return JsonConvert.DeserializeObject<T>(json, settings);
+            return ReadJson<T>(relativeFilePath, settings);
         }
 
-        public static string ReadJson(string relativeFilePath)
+        public static string ReadContent(string relativeFilePath)
         {
             var filePath = GetFilePath(relativeFilePath);
             return File.ReadAllText(filePath);

@@ -70,9 +70,10 @@
             // Assert
             var queryEvents = queryResult.Item1;
             var queryIPs = queryResult.Item2;
-
-            AssertExtension.Equal(BetChoiceMatchingTestCases.Events, queryEvents);
-            Assert.Equal(BetChoiceMatchingTestCases.IPs, queryIPs);
+            var expectedEvents = BetChoiceMatchingTestCases.Events;
+            var expectedIPs = BetChoiceMatchingTestCases.IPs;
+            AssertExtension.Equal(expectedEvents, queryEvents);
+            AssertExtension.Equal(expectedIPs, queryIPs);
         }
 
         [Fact]
@@ -104,7 +105,7 @@
             };
 
             AssertExtension.Equal(expectedEvents, queryEvents);
-            Assert.Equal(expectedIPs, queryIPs);
+            AssertExtension.Equal(expectedIPs, queryIPs);
         }
 
         [Fact]

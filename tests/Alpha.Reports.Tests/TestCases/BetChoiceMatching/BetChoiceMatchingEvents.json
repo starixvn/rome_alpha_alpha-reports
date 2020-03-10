@@ -38,6 +38,7 @@
             "Odds": 0.1,
             "DisplayOdds": "0.1",
             "OddsType": 0,
+            "DisplayOddsType": "",
             "TransDate": "2020-02-02T16:26:45.597",
             "TransId": 1,
             "Stake": 11.0,

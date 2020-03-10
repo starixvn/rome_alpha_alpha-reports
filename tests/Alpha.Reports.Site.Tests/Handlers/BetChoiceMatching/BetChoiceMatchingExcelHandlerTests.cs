@@ -86,7 +86,7 @@
             var actual = handler.Handle(message);
 
             // Assert
-            Assert.Equal("Matching Bet Choice-Name-09102019.xls", actual.Name);
+            Assert.Equal("Bet Choice Matching-Name-09102019.xls", actual.Name);
         }
 
         [Fact]
@@ -130,7 +130,7 @@
             handler.Handle(message);
 
             // Assert
-            workbook.Received().Title(Arg.Is<string>(t => t == "Matching Bet Choice 09/10/2019 - Matching Bets >= 2"));
+            workbook.Received().Title(Arg.Is<string>(t => t == "Bet Choice Matching 09/10/2019 - Matching Bets >= 2"));
         }
 
         [Fact]
@@ -158,7 +158,7 @@
             handler.Handle(message);
 
             // Assert
-            workbook.Received().Title(Arg.Is<string>(t => t == "Matching Bet Choice 09/10/2019 - Matching Bets >= 3; Total Stake >= 1,235; Total Member WL >= 2,345.68"));
+            workbook.Received().Title(Arg.Is<string>(t => t == "Bet Choice Matching 09/10/2019 - Matching Bets >= 3; Total Stake >= 1,235; Total Member WL >= 2,345.68"));
         }
     }
 }
