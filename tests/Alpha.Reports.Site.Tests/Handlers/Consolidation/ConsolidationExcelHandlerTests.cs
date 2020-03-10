@@ -59,13 +59,13 @@
             consolidationExcelHandler.IsFileExist = (path) => true;
 
             reportService.GetConsolidationByUsername(Arg.Any<GetConsolidationParam>()).Returns(
-                new List<ConsolidationByUsername> { new ConsolidationByUsername(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
+                new List<ConsolidationByUsername> { new ConsolidationByUsername(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
 
             reportService.GetConsolidationByDate(Arg.Any<GetConsolidationParam>()).Returns(
-                new List<ConsolidationByDate> { new ConsolidationByDate("2016/12/2", 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
+                new List<ConsolidationByDate> { new ConsolidationByDate("2016/12/2", 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
 
             reportService.GetConsolidationByProduct(Arg.Any<GetConsolidationParam>()).Returns(
-                new List<ConsolidationByProduct> { new ConsolidationByProduct(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
+                new List<ConsolidationByProduct> { new ConsolidationByProduct(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1) });
 
             productService.ConcatProductNames(Arg.Any<string>()).Returns(callInfo => callInfo.Args()[0]);
 
@@ -164,7 +164,7 @@
             var message = new ConsolidationByUsernameExcelQuery(user);
             var expectedExportData = new List<ConsolidationByUsernameViewModel>
             {
-                new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1")
+                new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1")
             };
 
             // Act
@@ -296,7 +296,7 @@
             {
                 new ConsolidationByDateViewModel(
                     DefaultVariablesTest.CurrentDate,
-                    new List<ConsolidationByUsernameViewModel> { new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
+                    new List<ConsolidationByUsernameViewModel> { new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
             };
 
             // Act
@@ -429,7 +429,7 @@
                 new ConsolidationByProductViewModel(
                     1,
                     "Product 1",
-                    new List<ConsolidationByUsernameViewModel> { new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
+                    new List<ConsolidationByUsernameViewModel> { new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
             };
 
             // Act
@@ -504,7 +504,7 @@
         public void GetRowMapper_Always_ReturnsCorrectMapper()
         {
             // Arrange
-            var viewModel = new ConsolidationByUsernameViewModel(1, 2, "Username", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, "UUS");
+            var viewModel = new ConsolidationByUsernameViewModel(1, 2, "Username", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, "UUS");
 
             // Act
             var actualMapper = consolidationExcelHandler.GetRowMapper();
@@ -523,7 +523,8 @@
                 (decimal)actualMapper.Mappings[Column.J](viewModel) == 10 &&
                 (decimal)actualMapper.Mappings[Column.K](viewModel) == 11 &&
                 (decimal)actualMapper.Mappings[Column.L](viewModel) == 12 &&
-                (int)actualMapper.Mappings[Column.M](viewModel) == 13);
+                (decimal)actualMapper.Mappings[Column.M](viewModel) == 13 &&
+                (int)actualMapper.Mappings[Column.N](viewModel) == 14);
         }
     }
 }

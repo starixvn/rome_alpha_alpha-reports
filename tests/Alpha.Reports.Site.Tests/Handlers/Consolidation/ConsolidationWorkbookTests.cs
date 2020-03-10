@@ -37,6 +37,7 @@
                 username: anyValueCreatorFixture.Create<string>(),
                 currencyId: anyValueCreatorFixture.Create<byte>(),
                 turnover: anyValueCreatorFixture.Create<decimal>(),
+                grossComm: anyValueCreatorFixture.Create<decimal>(),
                 memberWinLoss: anyValueCreatorFixture.Create<decimal>(),
                 memberComm: anyValueCreatorFixture.Create<decimal>(),
                 memberTotal: anyValueCreatorFixture.Create<decimal>(),
@@ -57,15 +58,16 @@
             row.Received().SetCellValue(2, data.Username);
             row.Received().SetCellValue(3, data.CurrencyName);
             row.Received().SetCellValue(4, data.Turnover);
-            row.Received().SetCellValue(5, data.MemberWinLoss);
-            row.Received().SetCellValue(6, data.MemberComm);
-            row.Received().SetCellValue(7, data.MemberTotal);
-            row.Received().SetCellValue(8, data.OwnerTurnover);
-            row.Received().SetCellValue(9, data.OwnerWinLoss);
-            row.Received().SetCellValue(10, data.OwnerComm);
-            row.Received().SetCellValue(11, data.OwnerTotal);
-            row.Received().SetCellValue(12, data.Company);
-            row.Received().SetCellValue(13, data.BetCount);
+            row.Received().SetCellValue(5, data.GrossComm);
+            row.Received().SetCellValue(6, data.MemberWinLoss);
+            row.Received().SetCellValue(7, data.MemberComm);
+            row.Received().SetCellValue(8, data.MemberTotal);
+            row.Received().SetCellValue(9, data.OwnerTurnover);
+            row.Received().SetCellValue(10, data.OwnerWinLoss);
+            row.Received().SetCellValue(11, data.OwnerComm);
+            row.Received().SetCellValue(12, data.OwnerTotal);
+            row.Received().SetCellValue(13, data.Company);
+            row.Received().SetCellValue(14, data.BetCount);
         }
 
         [Fact]

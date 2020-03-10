@@ -53,7 +53,7 @@
             };
 
             var param = new GetConsolidationParam(0, 0, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1 });
-            var row = new ConsolidationByUsernameViewModel(1, 1, "Member", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
+            var row = new ConsolidationByUsernameViewModel(1, 1, "Member", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 query,
@@ -101,7 +101,7 @@
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
             DateTime? drilldownFromDate = null;
-            var row = new ConsolidationByUsernameViewModel(1, 2, "Agent", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
+            var row = new ConsolidationByUsernameViewModel(1, 2, "Agent", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
 
             // Act
             viewModel.BuildDrillDownLink(

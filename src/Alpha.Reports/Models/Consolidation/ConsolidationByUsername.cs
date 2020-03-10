@@ -14,6 +14,7 @@
             byte currencyId,
             int custLevel,
             decimal turnover,
+            decimal grossComm,
             decimal memberWinLoss,
             decimal memberComm,
             decimal memberTotal,
@@ -29,6 +30,7 @@
             Username = username;
             CurrencyId = currencyId;
             Turnover = turnover;
+            GrossComm = grossComm;
 
             MemberWinLoss = memberWinLoss;
             MemberComm = memberComm;
@@ -51,6 +53,8 @@
         public byte CurrencyId { get; protected set; }
 
         public decimal Turnover { get; protected set; }
+
+        public decimal GrossComm { get; protected set; }
 
         public decimal MemberWinLoss { get; protected set; }
 

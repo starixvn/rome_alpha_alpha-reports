@@ -30,6 +30,8 @@
             <th class="visible-stack-mode">@Resources.Currency</th>
             <th rowspan="2" class="hidden-stack-mode">@Resources.Turnover</th>
             <th class="visible-stack-mode">@Resources.Turnover</th>
+            <th rowspan="2" class="hidden-stack-mode">@Resources.GrossComm</th>
+            <th class="visible-stack-mode">@Resources.GrossComm</th>
             <th colspan="3" class="hidden-stack-mode">@Resources.Member</th>
             <th class="visible-stack-mode">
                 @Resources.Member
@@ -63,46 +65,47 @@
                 var isFirstRow = true;
                 foreach (var data in product.WinLossByUsername)
                 {
-                    <tr>
-                        @if (isFirstRow)
-                        {
-                            <td class="text-left" rowspan="@product.WinLossByUsername.Count()">@product.ProductName</td>
-                            isFirstRow = false;
-                        }
+            <tr>
+                @if (isFirstRow)
+                {
+                    <td class="text-left" rowspan="@product.WinLossByUsername.Count()">@product.ProductName</td>
+                    isFirstRow = false;
+                }
 
-                        <td class="text-left">@data.CustLevelName</td>
-                        <td class="text-left">
-                            <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail","Consolidation"), "product", product.ProductId.ToString(), null, data)" class="downline-link">
-                                @data.Username
-                            </a>
-                        </td>
-                        <td class="text-left">@data.CurrencyName</td>
-                        <td>@HtmlHelpers.FormatNumber(data.Turnover)</td>
-                        @if (Model.IsStackMode)
-                        {
-                            @HtmlHelpers.RenderStackCell("col-member-winloss-combined", 1, data.MemberWinLoss, data.MemberComm, data.MemberTotal)
-                            @HtmlHelpers.RenderStackCell("col-owner-turnover-combined", 1, data.OwnerTurnover, data.OwnerWinLoss, data.OwnerComm, data.OwnerTotal)
-                        }
-                        else
-                        {
-                            @HtmlHelpers.RenderNumberCell(data.MemberWinLoss, "col-member-winloss")
-                            @HtmlHelpers.RenderNumberCell(data.MemberComm)
-                            @HtmlHelpers.RenderNumberCell(data.MemberTotal, "bold")
-                            @HtmlHelpers.RenderNumberCell(data.OwnerTurnover, "col-owner-turnover")
-                            @HtmlHelpers.RenderNumberCell(data.OwnerWinLoss)
-                            @HtmlHelpers.RenderNumberCell(data.OwnerComm)
-                            @HtmlHelpers.RenderNumberCell(data.OwnerTotal, "bold")
-                        }
-                        <td>@HtmlHelpers.FormatNumber(data.Company)</td>
-                        <td>@HtmlHelpers.FormatNumber(data.BetCount)</td>
-                    </tr>
+                <td class="text-left">@data.CustLevelName</td>
+                <td class="text-left">
+                    <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail","Consolidation"), "product", product.ProductId.ToString(), null, data)" class="downline-link">
+                        @data.Username
+                    </a>
+                </td>
+                <td class="text-left">@data.CurrencyName</td>
+                <td>@HtmlHelpers.FormatNumber(data.Turnover)</td>
+                <td>@HtmlHelpers.FormatNumber(data.GrossComm)</td>
+                @if (Model.IsStackMode)
+                {
+                    @HtmlHelpers.RenderStackCell("col-member-winloss-combined", 1, data.MemberWinLoss, data.MemberComm, data.MemberTotal)
+                    @HtmlHelpers.RenderStackCell("col-owner-turnover-combined", 1, data.OwnerTurnover, data.OwnerWinLoss, data.OwnerComm, data.OwnerTotal)
+                }
+                else
+                {
+                    @HtmlHelpers.RenderNumberCell(data.MemberWinLoss, "col-member-winloss")
+                    @HtmlHelpers.RenderNumberCell(data.MemberComm)
+                    @HtmlHelpers.RenderNumberCell(data.MemberTotal, "bold")
+                    @HtmlHelpers.RenderNumberCell(data.OwnerTurnover, "col-owner-turnover")
+                    @HtmlHelpers.RenderNumberCell(data.OwnerWinLoss)
+                    @HtmlHelpers.RenderNumberCell(data.OwnerComm)
+                    @HtmlHelpers.RenderNumberCell(data.OwnerTotal, "bold")
+                }
+                <td>@HtmlHelpers.FormatNumber(data.Company)</td>
+                <td>@HtmlHelpers.FormatNumber(data.BetCount)</td>
+            </tr>
                 }
             }
         </tbody>
     }
     else
     {
-        @NoInformation.Render(colspan: Model.IsStackMode ? 8 : 14)
+        @NoInformation.Render(colspan: Model.IsStackMode ? 9 : 15)
     }
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
