@@ -102,7 +102,11 @@
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Agent" SpName="Age_Rpt_ProgressiveGamesContribution_Agent" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
     <Setting Key="Age_Rpt_ProgressiveGamesContribution_Member" SpName="Age_Rpt_ProgressiveGamesContribution_Member" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
   </Function>
-  <Function Name="Risk Analysis IP Matching">
+  <Function Name="Risk Analysis">
     <Setting Key="Age_BetStatistics_IPMatching_Master" SpName="Age_BetStatistics_IPMatching_Master" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
+    <Setting Key="Age_BetStatistics_BetMatching_Master" SpName="Age_BetStatistics_BetMatching_Master" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0">
+      <Mapping DataField="liveindicator" ObjectProperty="IsLive" />
+    </Setting>
+    <Setting Key="Age_Customer_Upline_Sel" SpName="Age_Customer_Upline_Sel" DbName="DBAGE.bodb02.BODBDownlineNetView" Plain="0" />
   </Function>
 </Functions>

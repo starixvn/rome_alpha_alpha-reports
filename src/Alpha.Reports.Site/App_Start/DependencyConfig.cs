@@ -1,9 +1,15 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
+    using Alpha.Reports.Site.Handlers.BetChoiceMatching;
     using Alpha.Utilities.IP;
     using Configurations;
     using Controllers;
     using DataAccesses;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Fanex.BetList.Core.Factories;
+    using Fanex.BetList.Core.RemotingRef;
+    using Fanex.BetList.Core.TicketHelper;
     using Fanex.Data.Repository;
     using Fanex.RemotingRef;
     using Handlers.CommissionByBettype;
@@ -29,6 +35,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Web.Mvc;
+    using IPServiceImpl = Services.IPServiceImpl;
 
     public static class DependencyConfig
     {
@@ -82,6 +89,7 @@
             container.RegisterSingleton<IUserSession, UserSessionExt>();
             container.RegisterSingleton<IUser, User>();
             container.RegisterSingleton<ReportDateService, ReportDateServiceImpl>();
+            container.RegisterSingleton<IPService, IPServiceImpl>();
 
             container.RegisterSingleton<WinLossDetailService, WinLossDetailServiceImpl>();
             container.RegisterSingleton<WinLossService, WinLossServiceImpl>();
@@ -105,6 +113,10 @@
                 Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);
+            container.RegisterSingleton<ICacheRef, CacheRef>();
+            container.RegisterPerWebRequest<ITicketHelper, TicketHelper>();
+            container.RegisterPerWebRequest<IBetListFactory<BetListExcelBuilder>, BetListExcelFactory>();
+            container.RegisterPerWebRequest<IBetListExcelBuilder>(() => container.GetInstance<IBetListFactory<BetListExcelBuilder>>().CreateBuilder());
 
             container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbookImpl>();
             container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
@@ -121,7 +133,8 @@
             container.RegisterSingleton<ProgressiveContributionService, ProgressiveContributionServiceImpl>();
             container.RegisterSingleton<ProgressiveContributionWorkbook, ProgressiveContributionWorkbookImpl>();
             container.RegisterSingleton<RiskAnalysisIPMatchingService, RiskAnalysisIPMatchingServiceImpl>();
-            container.RegisterSingleton<IPService, Services.IPServiceImpl>();
+            container.RegisterSingleton<BetChoiceMatchingService, BetChoiceMatchingServiceImpl>();
+            container.Register<BetChoiceMatchingWorkbook, BetChoiceMatchingWorkbookImpl>();
         }
 
         private static void RegisterDataAccesses(Container container)

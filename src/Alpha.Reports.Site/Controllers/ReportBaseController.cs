@@ -1,10 +1,12 @@
 ﻿namespace Alpha.Reports.Site.Controllers
 {
+    using Alpha.Reports.Site.App_GlobalResources;
+    using Alpha.Reports.Site.Helpers;
+    using MediatR;
+    using Requests;
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using MediatR;
-    using Requests;
     using ViewModels;
     using Web;
 
@@ -45,6 +47,17 @@
             }
 
             return GetExcelContent(mediator.Send(message));
+        }
+
+        protected ActionResult Json<TResponse>(IRequest<TResponse> message)
+        {
+            var baseQuery = message as ReportBaseQuery;
+            if (baseQuery != null && !baseQuery.IsValid())
+            {
+                return Json(Resources.NoInformationIsAvailable);
+            }
+
+            return new JsonNetResult(mediator.Send(message));
         }
     }
 }

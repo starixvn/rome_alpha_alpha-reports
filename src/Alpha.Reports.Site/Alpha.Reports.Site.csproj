@@ -92,6 +92,9 @@
     <Reference Include="EasyNetQ, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EasyNetQ.2.3.3\lib\net451\EasyNetQ.dll</HintPath>
     </Reference>
+    <Reference Include="Enums.NET, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7ea1c1650d506225, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Enums.NET.3.0.3\lib\net45\Enums.NET.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.ActivityTracking, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.ActivityTracking.1.0.0.3\lib\net40\Fanex.ActivityTracking.dll</HintPath>
       <Private>True</Private>
@@ -99,6 +102,15 @@
     <Reference Include="Fanex.ActivityTracking.Web, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.ActivityTracking.Web.1.0.0.3\lib\net40\Fanex.ActivityTracking.Web.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.BetList.BetTrade, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.100.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core, Version=2.100.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.100.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core.RemotingRef, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.Core.RemotingRef.1.1.0\lib\net461\Fanex.BetList.Core.RemotingRef.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Caching, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Caching.2.1.0\lib\net461\Fanex.Caching.dll</HintPath>
@@ -151,9 +163,8 @@
       <HintPath>..\..\packages\Fanex.Products.1.0.0.5\lib\net461\Fanex.Products.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.RemotingRef, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.RemotingRef.1.3.0\lib\net461\Fanex.RemotingRef.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Fanex.RemotingRef, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.RemotingRef.1.4.0\lib\net461\Fanex.RemotingRef.dll</HintPath>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
@@ -167,9 +178,8 @@
       <HintPath>..\..\packages\MediatR.2.1.0\lib\net45\MediatR.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MessagePack, Version=1.7.3.4, Culture=neutral, PublicKeyToken=b4a0369545f0a1be, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MessagePack.1.7.3.4\lib\net45\MessagePack.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MessagePack, Version=1.7.3.7, Culture=neutral, PublicKeyToken=b4a0369545f0a1be, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MessagePack.1.7.3.7\lib\net45\MessagePack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -273,6 +283,7 @@
     </Reference>
     <Reference Include="Sunplus.Core.Common, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sunplus.Core.Common.1.2.0.1\lib\net40\Sunplus.Core.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -349,6 +360,9 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="TplCore, Version=1.0.4854.17253, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TplCore.1.0.4854.17254\lib\net40\TplCore.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
@@ -364,6 +378,7 @@
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\BetTypeConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <TypeScriptCompile Include="assets\scripts\betchoicematching\betchoicematching.ts" />
     <TypeScriptCompile Include="assets\scripts\commissionbybettype\commissionbybettype.ts" />
     <TypeScriptCompile Include="assets\scripts\components\currency-selection.ts" />
     <TypeScriptCompile Include="assets\scripts\components\link-builder.ts" />
@@ -371,6 +386,7 @@
     <TypeScriptCompile Include="assets\scripts\base-report.ts" />
     <TypeScriptCompile Include="assets\scripts\components\client-pager.ts" />
     <TypeScriptCompile Include="assets\scripts\components\month-range-picker.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\simple-tooltip.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
@@ -399,7 +415,6 @@
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\netturnover-tooltip-test.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\single-selection-dropdown-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\productmultiselection-tests.ts" />
-    <TypeScriptCompile Include="assets\scripts\tests\apps\components\single-selection-dropdown-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests-template.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\sort-tests.ts" />
     <TypeScriptCompile Include="assets\scripts\tests\apps\components\tooltip-tests.ts" />
@@ -416,6 +431,7 @@
     <Compile Include="Constants\RowTypeConstant.cs" />
     <Compile Include="Constants\SessionKey.cs" />
     <Compile Include="Constants\UserSelectedDateRangeOptionConstant.cs" />
+    <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
     <Compile Include="Controllers\PlayForFunController.cs" />
     <Compile Include="Controllers\OutstandingController.cs" />
@@ -439,6 +455,11 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Handlers\BaseHandler.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingExcelHandler.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingHandler.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingWorkbook.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceUplinesJsonHandler.cs" />
+    <Compile Include="Handlers\BetChoiceMatching\BetChoiceMatchingJsonHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationBaseHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationByDateWorkbook.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationByProductWorkbook.cs" />
@@ -491,9 +512,14 @@
     <Compile Include="Handlers\WinLoss\WinLossExcelHandler.cs" />
     <Compile Include="Handlers\WinLoss\WinLossHandler.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Helpers\WorkbookHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingExcelQuery.cs" />
+    <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingJsonQuery.cs" />
+    <Compile Include="Requests\BetChoiceMatching\BetChoiceMatchingQuery.cs" />
+    <Compile Include="Requests\BetChoiceMatching\BetChoiceUplinesJsonQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBetTypeGuideQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationByDateExcelQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationByDateQuery.cs" />
@@ -551,6 +577,8 @@
     <Compile Include="Requests\WinLoss\EnteredSportResultExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossExcelQuery.cs" />
     <Compile Include="Requests\WinLoss\WinLossQuery.cs" />
+    <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingJsonModel.cs" />
+    <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingViewModel.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeFilterViewModel.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeViewModel.cs" />
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
@@ -707,6 +735,14 @@
     <Content Include="App_Data\SPNames\UAT\DBLOG.bodb_CustomerLog.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBONUSER.ON_USER.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\UAT\DBRPT.bodb_report.BODBDownlineNet.xml" />
+    <Content Include="assets\bundles\betchoicematching\betchoicematching.css" />
+    <Content Include="assets\bundles\betchoicematching\betchoicematching.js" />
+    <Content Include="assets\bundles\betchoicematching\betchoicematching.min.css">
+      <DependentUpon>betchoicematching.css</DependentUpon>
+    </Content>
+    <Content Include="assets\bundles\betchoicematching\betchoicematching.min.js">
+      <DependentUpon>betchoicematching.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\commissionbybettype\commissionbybettype.js" />
     <Content Include="assets\bundles\commissionbybettype\commissionbybettype.min.js">
       <DependentUpon>commissionbybettype.js</DependentUpon>
@@ -840,12 +876,19 @@
     <Content Include="assets\scripts\tests\libs\store.js" />
     <Content Include="assets\scripts\tests\libs\tablesorter.js" />
     <Content Include="assets\scripts\tests\libs\tiny-draggable.js" />
+    <Content Include="assets\styles\betchoicematching\betchoicematching.css">
+      <DependentUpon>betchoicematching.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\betchoicematching\betchoicematching.min.css">
+      <DependentUpon>betchoicematching.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\consolidation\consolidation.css">
       <DependentUpon>consolidation.scss</DependentUpon>
     </Content>
     <Content Include="assets\styles\consolidation\consolidation.min.css">
       <DependentUpon>consolidation.css</DependentUpon>
     </Content>
+    <Content Include="assets\styles\images\ajax-loader-small.gif" />
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.css">
       <DependentUpon>matchwinlossdetail.scss</DependentUpon>
     </Content>
@@ -998,6 +1041,8 @@
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\ProgressiveContribution\Member.xls" />
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
+    <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
+    <Content Include="App_Data\ExcelTemplates\BetChoiceMatching\Master.xls" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1046,6 +1091,8 @@
     <Content Include="Views\ProgressiveContribution\ReportLegend.cshtml" />
     <Content Include="Views\Outstanding\ReportLegend.cshtml" />
     <Content Include="Views\RiskAnalysisIPMatching\Index.cshtml" />
+    <Content Include="Views\BetChoiceMatching\Index.cshtml" />
+    <Content Include="typings\globals\numeral\typings.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1062,6 +1109,7 @@
     <TypeScriptCompile Include="typings\globals\jqueryui\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jquery\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\moment\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\numeral\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\storejs\index.d.ts" />
     <TypeScriptCompile Include="typings\index.d.ts" />
   </ItemGroup>
@@ -1152,6 +1200,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

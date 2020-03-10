@@ -499,7 +499,7 @@
     <value>IP Matching</value>
   </data>
   <data name="IP" xml:space="preserve">
-    <value>IP</value>
+    <value>아이피</value>
   </data>
   <data name="IPMatchingNote" xml:space="preserve">
     <value>This report's data is used for statistics only, due to the resettlement process, the figure might not be totally exact.</value>
@@ -509,5 +509,62 @@
   </data>
   <data name="Stake" xml:space="preserve">
     <value>배팅 금액</value>
+  </data>
+  <data name="MatchingBets" xml:space="preserve">
+    <value>Matching Bets</value>
+  </data>
+  <data name="odds" xml:space="preserve">
+    <value>배당</value>
+  </data>
+  <data name="refno" xml:space="preserve">
+    <value>배팅 번호</value>
+  </data>
+  <data name="transtime" xml:space="preserve">
+    <value>전송 시간</value>
+  </data>
+  <data name="over" xml:space="preserve">
+    <value>오버</value>
+  </data>
+  <data name="under" xml:space="preserve">
+    <value>언더</value>
+  </data>
+  <data name="Upline" xml:space="preserve">
+    <value>Upline</value>
+  </data>
+  <data name="IP_used_by" xml:space="preserve">
+    <value>IP used by</value>
+  </data>
+  <data name="eventdate" xml:space="preserve">
+    <value>경기 날짜</value>
+  </data>
+  <data name="BetMatching_IP_Title" xml:space="preserve">
+    <value>Click to view shared IP accounts</value>
+  </data>
+  <data name="BetMatching_Username_Title" xml:space="preserve">
+    <value>Click to view uplines</value>
+  </data>
+  <data name="FilterByMemberWinLoss" xml:space="preserve">
+    <value>Filter By Member Win Loss</value>
+  </data>
+  <data name="FilterByStake" xml:space="preserve">
+    <value>Filter By Stake</value>
+  </data>
+  <data name="FilterByUsername" xml:space="preserve">
+    <value>Filter By Username</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="FilterByUsername_Placeholder" xml:space="preserve">
+    <value>Separate mulitple usernames by comma (,)</value>
+  </data>
+  <data name="TotalMemberWL" xml:space="preserve">
+    <value>Total Member WL</value>
+  </data>
+  <data name="TotalStake" xml:space="preserve">
+    <value>Total Stake</value>
+  </data>
+  <data name="HT" xml:space="preserve">
+    <value>전반</value>
   </data>
 </root>

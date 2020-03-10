@@ -653,7 +653,7 @@
     <value>ตรวจสอบไอพี</value>
   </data>
   <data name="IP" xml:space="preserve">
-    <value>IP</value>
+    <value>รหัสของเครื่องคอมพิวเตอร์ที่ใช้</value>
   </data>
   <data name="IPMatchingNote" xml:space="preserve">
     <value>รายงานนี้ ใช้เป็นข้อมูลเชิงสถิติเท่านั้น ตัวเลขอาจมีความคลาดเคลื่อนจากความเป็นจริงได้</value>
@@ -663,5 +663,68 @@
   </data>
   <data name="Stake" xml:space="preserve">
     <value>เงินเดิมพัน</value>
+  </data>
+  <data name="BetChoiceMatching" xml:space="preserve">
+    <value>ตรวจสอบตัวเลือกการเดิมพัน</value>
+  </data>
+  <data name="MatchingBets" xml:space="preserve">
+    <value>จำนวนข้อมูลที่ตรงกัน</value>
+  </data>
+  <data name="odds" xml:space="preserve">
+    <value>ราคา</value>
+  </data>
+  <data name="refno" xml:space="preserve">
+    <value>หมายเลขอ้างอิง</value>
+  </data>
+  <data name="transtime" xml:space="preserve">
+    <value>เวลาการดำเนินการ</value>
+  </data>
+  <data name="over" xml:space="preserve">
+    <value>มากกว่า</value>
+  </data>
+  <data name="under" xml:space="preserve">
+    <value>น้อยกว่า</value>
+  </data>
+  <data name="Upline" xml:space="preserve">
+    <value>อัพไลน์</value>
+  </data>
+  <data name="IP_used_by" xml:space="preserve">
+    <value>ไอพีใช้งานโดย</value>
+  </data>
+  <data name="eventdate" xml:space="preserve">
+    <value>วันที่มีการแข่งขัน</value>
+  </data>
+  <data name="BetMatching_IP_Title" xml:space="preserve">
+    <value>กดเพื่อดูบัญชีที่ใช้ไอพีเดียวกัน</value>
+  </data>
+  <data name="BetMatching_Username_Title" xml:space="preserve">
+    <value>กดเพื่อดูอัพไลน์</value>
+  </data>
+  <data name="FilterByMemberWinLoss" xml:space="preserve">
+    <value>กรองข้อมูลด้วยยอดได้เสีย(ของสมาชิก)</value>
+  </data>
+  <data name="FilterByStake" xml:space="preserve">
+    <value>กรองข้อมูลด้วยยอดเดิมพัน</value>
+  </data>
+  <data name="FilterByUsername" xml:space="preserve">
+    <value>กรองข้อมูลด้วยชื่อผู้ใช้</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>กรองข้อมูล</value>
+  </data>
+  <data name="FilterByUsername_Placeholder" xml:space="preserve">
+    <value>แยกแต่ละชื่อผู้ใช้ด้วยจุลภาค (,)</value>
+  </data>
+  <data name="TotalMemberWL" xml:space="preserve">
+    <value>ยอดได้เสียรวม(ของสมาชิก)</value>
+  </data>
+  <data name="TotalStake" xml:space="preserve">
+    <value>ยอดเดิมพันรวม</value>
+  </data>
+  <data name="HT" xml:space="preserve">
+    <value>ครึ่งเวลาแรก</value>
+  </data>
+  <data name="BetType1X2_FT" xml:space="preserve">
+    <value>เต็มเวลา</value>
   </data>
 </root>

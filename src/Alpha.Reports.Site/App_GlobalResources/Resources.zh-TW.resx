@@ -666,4 +666,67 @@
   <data name="Stake" xml:space="preserve">
     <value>投注額</value>
   </data>
+  <data name="BetChoiceMatching" xml:space="preserve">
+    <value>以投注選擇核對</value>
+  </data>
+  <data name="MatchingBets" xml:space="preserve">
+    <value>匹配的投注</value>
+  </data>
+  <data name="odds" xml:space="preserve">
+    <value>賠率</value>
+  </data>
+  <data name="refno" xml:space="preserve">
+    <value>參照號碼</value>
+  </data>
+  <data name="transtime" xml:space="preserve">
+    <value>交易時間</value>
+  </data>
+  <data name="over" xml:space="preserve">
+    <value>大</value>
+  </data>
+  <data name="under" xml:space="preserve">
+    <value>小</value>
+  </data>
+  <data name="Upline" xml:space="preserve">
+    <value>上線</value>
+  </data>
+  <data name="IP_used_by" xml:space="preserve">
+    <value>IP使用</value>
+  </data>
+  <data name="eventdate" xml:space="preserve">
+    <value>賽事日期</value>
+  </data>
+  <data name="BetMatching_IP_Title" xml:space="preserve">
+    <value>點擊檢視已分享的IP帳戶</value>
+  </data>
+  <data name="BetMatching_Username_Title" xml:space="preserve">
+    <value>點擊檢視上線</value>
+  </data>
+  <data name="FilterByMemberWinLoss" xml:space="preserve">
+    <value>會員輸贏篩選</value>
+  </data>
+  <data name="FilterByStake" xml:space="preserve">
+    <value>投注額篩選</value>
+  </data>
+  <data name="FilterByUsername" xml:space="preserve">
+    <value>用戶名篩選</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>篩選</value>
+  </data>
+  <data name="FilterByUsername_Placeholder" xml:space="preserve">
+    <value>用逗號(,)分開不同用戶名</value>
+  </data>
+  <data name="TotalMemberWL" xml:space="preserve">
+    <value>會員總輸贏</value>
+  </data>
+  <data name="TotalStake" xml:space="preserve">
+    <value>總投注額</value>
+  </data>
+  <data name="HT" xml:space="preserve">
+    <value>半場</value>
+  </data>
+  <data name="BetType1X2_FT" xml:space="preserve">
+    <value>全場</value>
+  </data>
 </root>

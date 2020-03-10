@@ -6,4 +6,5 @@
 /// <reference path="globals/jquery/index.d.ts" />
 /// <reference path="globals/jqueryui/index.d.ts" />
 /// <reference path="globals/moment/index.d.ts" />
+/// <reference path="globals/numeral/index.d.ts" />
 /// <reference path="globals/storejs/index.d.ts" />

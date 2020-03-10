@@ -691,4 +691,68 @@
   <data name="Stake" xml:space="preserve">
     <value>Tiền cược</value>
   </data>
+  <data name="BetChoiceMatching" xml:space="preserve">
+    <value>Bet Choice Matching</value>
+  </data>
+  <data name="MatchingBets" xml:space="preserve">
+    <value>Cược trùng lặp</value>
+  </data>
+  <data name="odds" xml:space="preserve">
+    <value>Tỷ lệ</value>
+  </data>
+  <data name="refno" xml:space="preserve">
+    <value>Ref No</value>
+  </data>
+  <data name="transtime" xml:space="preserve">
+    <value>Thời gian</value>
+    <comment>Not found</comment>
+  </data>
+  <data name="over" xml:space="preserve">
+    <value>Over</value>
+  </data>
+  <data name="under" xml:space="preserve">
+    <value>Under</value>
+  </data>
+  <data name="Upline" xml:space="preserve">
+    <value>Cấp trên</value>
+  </data>
+  <data name="IP_used_by" xml:space="preserve">
+    <value>IP được dùng bởi</value>
+  </data>
+  <data name="eventdate" xml:space="preserve">
+    <value>Thời điểm diển ra sự kiện</value>
+  </data>
+  <data name="BetMatching_IP_Title" xml:space="preserve">
+    <value>Bấm để xem tài khoản cùng IP với tài khoản này.</value>
+  </data>
+  <data name="BetMatching_Username_Title" xml:space="preserve">
+    <value>Bấm để xem cấp trên</value>
+  </data>
+  <data name="FilterByMemberWinLoss" xml:space="preserve">
+    <value>Lọc theo thắng thua của Member</value>
+  </data>
+  <data name="FilterByStake" xml:space="preserve">
+    <value>Lọc theo tiền cược</value>
+  </data>
+  <data name="FilterByUsername" xml:space="preserve">
+    <value>Lọc theo tên tài khoản</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Lọc</value>
+  </data>
+  <data name="FilterByUsername_Placeholder" xml:space="preserve">
+    <value>Tên tài khoản phải cách nhau bằng dấu phẩy (,)</value>
+  </data>
+  <data name="TotalMemberWL" xml:space="preserve">
+    <value>Thắng thua của Member</value>
+  </data>
+  <data name="TotalStake" xml:space="preserve">
+    <value>Tổng tiền cược</value>
+  </data>
+  <data name="HT" xml:space="preserve">
+    <value>Hiệp 1</value>
+  </data>
+  <data name="BetType1X2_FT" xml:space="preserve">
+    <value>Cả trận</value>
+  </data>
 </root>
