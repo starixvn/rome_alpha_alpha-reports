@@ -3,8 +3,6 @@
 
 "use strict";
 
-declare const betMatchingResources: Resources;
-
 interface DatepickerOptions {
     allowInputToggle: boolean;
     minDate: Date;
