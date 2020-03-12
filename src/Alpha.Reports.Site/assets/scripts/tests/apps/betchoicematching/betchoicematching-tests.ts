@@ -250,6 +250,10 @@ const ips: QueryIP[] = [
     }
 ];
 
+function deepClone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
 describe("BetChoiceMatching", () => {
     const jQueryFake = $;
     let betChoiceMatching: BetChoiceMatching;
@@ -333,6 +337,49 @@ describe("BetChoiceMatching", () => {
                     </body>`);
     });
 
+    const assertEventRow = ($row: JQuery, colBetChoice: string, colEvent: string, colGlobalShowTime: string) => {
+        const $cols = $row.find('td');
+        let colId = 0;
+        expect(trimText($($cols[colId++]).text())).toEqual(colBetChoice);
+        expect(trimText($($cols[colId++]).text())).toEqual(colEvent);
+        expect(trimText($($cols[colId++]).text())).toEqual(colGlobalShowTime);
+    }
+    const assertTicketTotalRow = ($row: JQuery, username: string, ip: string, stake: string, memberWinLoss: string, superWinLoss: string, company: string) => {
+        const $cols = $row.find('td');
+        let colId = 0;
+        expect(trimText($($cols[colId++]).text())).toEqual(username);
+        expect(trimText($($cols[colId++]).text())).toEqual(ip);
+        expect(trimText($($cols[colId++]).text())).toEqual(stake);
+        expect(trimText($($cols[colId++]).text())).toEqual(memberWinLoss);
+        expect(trimText($($cols[colId++]).text())).toEqual(superWinLoss);
+        expect(trimText($($cols[colId++]).text())).toEqual(company);
+    }
+    const assertTicketRow = ($row: JQuery, transTime: string, refNo: string, odds: string, ip: string, stake: string, memberWinLoss: string, superWinLoss: string, company: string) => {
+        const $cols = $row.find('td');
+        let colId = 0;
+        expect(trimText($($cols[colId++]).text())).toEqual(transTime);
+        expect(trimText($($cols[colId++]).text())).toEqual(refNo);
+        expect(trimText($($cols[colId++]).text())).toEqual(odds);
+        expect(trimText($($cols[colId++]).text())).toEqual(ip);
+        expect(trimText($($cols[colId++]).text())).toEqual(stake);
+        expect(trimText($($cols[colId++]).text())).toEqual(memberWinLoss);
+        expect(trimText($($cols[colId++]).text())).toEqual(superWinLoss);
+        expect(trimText($($cols[colId++]).text())).toEqual(company);
+    }
+    const assertFooterRow = ($row: JQuery, ip: string, stake: string, memberWinLoss: string, superWinLoss: string, company: string) => {
+        const $cols = $row.find('td');
+        let colId = 0;
+        expect(trimText($($cols[colId++]).text())).toEqual(ip);
+        expect(trimText($($cols[colId++]).text())).toEqual(stake);
+        expect(trimText($($cols[colId++]).text())).toEqual(memberWinLoss);
+        expect(trimText($($cols[colId++]).text())).toEqual(superWinLoss);
+        expect(trimText($($cols[colId++]).text())).toEqual(company);
+    }
+
+    const trimText = (value: string): string => {
+        return value.trim().split("\n").join("|").replace(/  +/g, ' ');;
+    }
+
     describe("_init", () => {
         beforeEach(() => {
             // act
@@ -384,7 +431,7 @@ describe("BetChoiceMatching", () => {
         beforeEach(() => {
             // act
             const fakeData: QueryModel = {
-                Events: events,
+                Events: deepClone(events),
                 Teams: teams,
                 Leagues: leagues,
                 SportTypes: sportTypes,
@@ -395,44 +442,13 @@ describe("BetChoiceMatching", () => {
             betChoiceMatching.init();
         });
 
-        const trimText = (value: string): string => {
-            return value.trim().split("\n").join("|").replace(/  +/g, ' ');;
-        }
-
         it("_Render table", () => {
             // act
-            const assertEventRow = ($row: JQuery, colBetChoice: string, colEvent: string, colGlobalShowTime: string) => {
-                const $cols = $row.find('td');
-                let colId = 0;
-                expect(trimText($($cols[colId++]).text())).toEqual(colBetChoice);
-                expect(trimText($($cols[colId++]).text())).toEqual(colEvent);
-                expect(trimText($($cols[colId++]).text())).toEqual(colGlobalShowTime);
-            }
-            const assertTicketTotalRow = ($row: JQuery, username: string, ip: string, stake: string, memberWinLoss: string, superWinLoss: string, company: string) => {
-                const $cols = $row.find('td');
-                let colId = 0;
-                expect(trimText($($cols[colId++]).text())).toEqual(username);
-                expect(trimText($($cols[colId++]).text())).toEqual(ip);
-                expect(trimText($($cols[colId++]).text())).toEqual(stake);
-                expect(trimText($($cols[colId++]).text())).toEqual(memberWinLoss);
-                expect(trimText($($cols[colId++]).text())).toEqual(superWinLoss);
-                expect(trimText($($cols[colId++]).text())).toEqual(company);
-            }
-            const assertTicketRow = ($row: JQuery, transTime: string, refNo: string, odds: string, ip: string, stake: string, memberWinLoss: string, superWinLoss: string, company: string) => {
-                const $cols = $row.find('td');
-                let colId = 0;
-                expect(trimText($($cols[colId++]).text())).toEqual(transTime);
-                expect(trimText($($cols[colId++]).text())).toEqual(refNo);
-                expect(trimText($($cols[colId++]).text())).toEqual(odds);
-                expect(trimText($($cols[colId++]).text())).toEqual(ip);
-                expect(trimText($($cols[colId++]).text())).toEqual(stake);
-                expect(trimText($($cols[colId++]).text())).toEqual(memberWinLoss);
-                expect(trimText($($cols[colId++]).text())).toEqual(superWinLoss);
-                expect(trimText($($cols[colId++]).text())).toEqual(company);
-            }
+            const $rows = betChoiceMatching.$tableTbody.find('tr');
+            const $footerRow = betChoiceMatching.$tableTfoot.find('tr');
 
             // assert
-            const $rows = betChoiceMatching.$tableTbody.find('tr');
+            expect($rows.length).toBe(9);
             let rowIndex = 0;
             assertEventRow($($rows[rowIndex++]), "Team 2| -0.2| | | BetType 7", "Team 1VersusTeam 2| | SportType 1| | League 8", '02/02/2020 04:05 PM');
             assertTicketTotalRow($($rows[rowIndex++]), "NK1", "Total", "23", "3.00", "3.00", "0.00");
@@ -443,14 +459,17 @@ describe("BetChoiceMatching", () => {
             assertEventRow($($rows[rowIndex++]), "Under| -0.2| [1-1]| | BetType 8", "Team 1VersusTeam 2| | SportType 1| | League 8", "02/02/2020 05:05 PM");
             assertTicketTotalRow($($rows[rowIndex++]), "NK2", "Total", "14", "-", "-", "-");
             assertTicketRow($($rows[rowIndex++]), "02/02 16:28:45", "4", "(OddsType5) 123,456.78", "127.0.0.2", "14", "-", "-", "-");
+
+            assertFooterRow($footerRow, "Total", "50", "7.00", "7.00", "0.00");
         });
     });
 
     describe("_filter", () => {
         beforeEach(() => {
             // act
+            BaseFilterForm.tooltips = [];
             const fakeData: QueryModel = {
-                Events: events,
+                Events: deepClone(events),
                 Teams: teams,
                 Leagues: leagues,
                 SportTypes: sportTypes,
@@ -461,8 +480,164 @@ describe("BetChoiceMatching", () => {
             betChoiceMatching.init();
         });
 
-        it('_filter with username', () => {
+        it('_filter toggle to show/hide', () => {
+            const $filterIcons = betChoiceMatching.$table.find('.icon-table-filter');
+            expect($('.username-filter').is(":hidden")).toBeTruthy();
+            $($filterIcons[0]).click();
+            expect($('.username-filter').is(":hidden")).toBeFalsy();
+
+            expect($('.stake-filter').is(":hidden")).toBeTruthy();
+            $($filterIcons[1]).click();
+            expect($('.stake-filter').is(":hidden")).toBeFalsy();
+
+            expect($('.memberwinloss-filter').is(":hidden")).toBeTruthy();
+            $($filterIcons[2]).click();
+            expect($('.memberwinloss-filter').is(":hidden")).toBeFalsy();
+        });
+
+        it('_filter by user with data matched', () => {
+            // act
+            betChoiceMatching.usernameFilterForm.$textareaUsername.val('nk1');
+            const event: any = {
+                preventDefault: () => { }
+            };
+            betChoiceMatching.usernameFilterForm.onSubmit(event);
+
+            // assert
+            const $rows = betChoiceMatching.$tableTbody.find('tr');
+            expect($rows.length).toBe(4);
+            let rowIndex = 0;
+            assertEventRow($($rows[rowIndex++]), "Team 2| -0.2| | | BetType 7", "Team 1VersusTeam 2| | SportType 1| | League 8", '02/02/2020 04:05 PM');
+            assertTicketTotalRow($($rows[rowIndex++]), "NK1", "Total", "23", "3.00", "3.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:26:45", "1", "0.1", "127.0.0.1", "11", "1.00", "1.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:27:45", "2", "(OddsType1) -0.1", "127.0.0.1", "12", "2.00", "2.00", "0.00");
+
+            const $footerRow = betChoiceMatching.$tableTfoot.find('tr');
+            assertFooterRow($footerRow, "Total", "23", "3.00", "3.00", "0.00");
+        });
+
+        it('_filter by user without data matched', () => {
+            // act
+            betChoiceMatching.usernameFilterForm.$textareaUsername.val('nk11');
+            const event: any = {
+                preventDefault: () => { }
+            };
+            betChoiceMatching.usernameFilterForm.onSubmit(event);
             expect(1).toBe(1);
+            const bodyText = betChoiceMatching.$tableTbody.text();
+
+            // assert
+            const expectedText = `No information is available`;
+            expect(bodyText.trim()).toEqual(expectedText.trim());
+        });
+
+        it('_filter by stake with data matched', () => {
+            // act
+            betChoiceMatching.stakeFilterForm.$inputTotalStake.data('cleave').setRawValue(14);
+            const event: any = {
+                preventDefault: () => { }
+            };
+            betChoiceMatching.stakeFilterForm.onSubmit(event);
+            const $rows = betChoiceMatching.$tableTbody.find('tr');
+            const $footerRow = betChoiceMatching.$tableTfoot.find('tr');
+
+            // assert
+            expect($rows.length).toBe(7);
+            let rowIndex = 0;
+            assertEventRow($($rows[rowIndex++]), "Team 2| -0.2| | | BetType 7", "Team 1VersusTeam 2| | SportType 1| | League 8", '02/02/2020 04:05 PM');
+            assertTicketTotalRow($($rows[rowIndex++]), "NK1", "Total", "23", "3.00", "3.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:26:45", "1", "0.1", "127.0.0.1", "11", "1.00", "1.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:27:45", "2", "(OddsType1) -0.1", "127.0.0.1", "12", "2.00", "2.00", "0.00");
+            assertEventRow($($rows[rowIndex++]), "Under| -0.2| [1-1]| | BetType 8", "Team 1VersusTeam 2| | SportType 1| | League 8", "02/02/2020 05:05 PM");
+            assertTicketTotalRow($($rows[rowIndex++]), "NK2", "Total", "14", "-", "-", "-");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:28:45", "4", "(OddsType5) 123,456.78", "127.0.0.2", "14", "-", "-", "-");
+
+            assertFooterRow($footerRow, "Total", "37", "3.00", "3.00", "0.00");
+        });
+
+        it('_filter by memberwinloss with data matched', () => {
+            // act
+            betChoiceMatching.memberWinLossFilterForm.$selectOperator.val("1");
+            betChoiceMatching.memberWinLossFilterForm.$inputMemberWinLoss.data('cleave').setRawValue(4);
+            const event: any = {
+                preventDefault: () => { }
+            };
+            betChoiceMatching.memberWinLossFilterForm.onSubmit(event);
+            const $rows = betChoiceMatching.$tableTbody.find('tr');
+            const $footerRow = betChoiceMatching.$tableTfoot.find('tr');
+
+            // assert
+            expect($rows.length).toBe(3);
+            let rowIndex = 0;
+            assertEventRow($($rows[rowIndex++]), "Team 2| -0.2| | | BetType 7", "Team 1VersusTeam 2| | SportType 1| | League 8", '02/02/2020 04:05 PM');
+            assertTicketTotalRow($($rows[rowIndex++]), "NK2", "Total", "13", "4.00", "4.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:28:45", "3", "(OddsType2) 1,234.568", "127.0.0.2", "13", "4.00", "4.00", "0.00");
+
+            assertFooterRow($footerRow, "Total", "13", "4.00", "4.00", "0.00");
+        });
+    });
+
+    describe("_IPs", () => {
+        beforeEach(() => {
+            // act
+            BaseFilterForm.tooltips = [];
+            const fakeData: QueryModel = {
+                Events: deepClone(events),
+                Teams: teams,
+                Leagues: leagues,
+                SportTypes: sportTypes,
+                BetTypes: betTypes,
+                IPs: ips
+            };
+            spyOn(jQueryFake, "post").and.returnValue(ajax_response(fakeData));
+            betChoiceMatching.init();
+        });
+
+        it('_should show shared IP', () => {
+            const $rows = betChoiceMatching.$tableTbody.find('tr');
+            const $ip = $($rows[2]).find('.icon-ip-share');
+            $ip.click();
+            const $popup = $ip.parent().find('.simple-tooltip');
+            expect($popup.length).toBe(1);
+            expect(trimText($popup.text())).toEqual("IP_used_by| | 1: NK2");
+        });
+    });
+
+    describe("_upline", () => {
+        beforeEach(() => {
+            // act
+            BaseFilterForm.tooltips = [];
+            const fakeData: QueryModel = {
+                Events: deepClone(events),
+                Teams: teams,
+                Leagues: leagues,
+                SportTypes: sportTypes,
+                BetTypes: betTypes,
+                IPs: ips
+            };
+            const fakeUplines: UplinesModel = {
+                AgentId: 1,
+                AgentName: 'Agent 1',
+                MasterId: 2,
+                MasterName: 'Master 2'
+            };
+            spyOn(jQueryFake, "post").and.callFake((queryUrl: string) => {
+                if (queryUrl.indexOf('Uplines') !== -1) {
+                    return ajax_response(fakeUplines);
+                } else {
+                    return ajax_response(fakeData);
+                }
+            });
+            betChoiceMatching.init();
+        });
+
+        it('_should open uplines popup', () => {
+            const $rows = betChoiceMatching.$tableTbody.find('tr');
+            const $usernameText = $($rows[1]).find('.text-username');
+            $usernameText.click();
+            const $popup = $usernameText.parent().find('.simple-tooltip');
+            expect($popup.length).toBe(1);
+            expect(trimText($popup.text())).toEqual("Upline| | | Master 2| Agent 1");
         });
     });
 });
