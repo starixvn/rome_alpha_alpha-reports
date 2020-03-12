@@ -179,7 +179,6 @@
         ]
     }
 ];
-console.log(events);
 
 const teams: KeyValueModel[] = [
     {
@@ -194,8 +193,8 @@ const teams: KeyValueModel[] = [
 
 const leagues: KeyValueModel[] = [
     {
-        Key: 1,
-        Value: 'League 1'
+        Key: 8,
+        Value: 'League 8'
     }
 ];
 
@@ -218,6 +217,14 @@ const betTypes: KeyValueModel[] = [
     {
         Key: 5,
         Value: 'BetType 5'
+    },
+    {
+        Key: 7,
+        Value: 'BetType 7'
+    },
+    {
+        Key: 8,
+        Value: 'BetType 8'
     },
     {
         Key: 15,
@@ -259,15 +266,6 @@ describe("BetChoiceMatching", () => {
         spyOn(betChoiceMatching, "submitOnLoad").and.callThrough();
         spyOn(jQueryFake, "blockUI");
         spyOn(jQueryFake, "unblockUI");
-        const fakeData: QueryModel = {
-            Events: events,
-            Teams: teams,
-            Leagues: leagues,
-            SportTypes: sportTypes,
-            BetTypes: betTypes,
-            IPs: ips
-        };
-        spyOn(jQueryFake, "post").and.returnValue(ajax_response(fakeData));
         setFixtures(`<body>
                         <input id="Today" name="Today" type="hidden" value="3/11/2020 12:00:00 AM" />
 <input data-val="true" data-val-date="The field MinDate must be a date." data-val-required="The MinDate field is required." id="MinDate" name="MinDate" type="hidden" value="1/29/2020 12:00:00 AM" />
@@ -338,6 +336,15 @@ describe("BetChoiceMatching", () => {
     describe("_init", () => {
         beforeEach(() => {
             // act
+            const fakeData: QueryModel = {
+                Events: [],
+                Teams: [],
+                Leagues: [],
+                SportTypes: [],
+                BetTypes: [],
+                IPs: []
+            };
+            spyOn(jQueryFake, "post").and.returnValue(ajax_response(fakeData));
             betChoiceMatching.init();
         });
 
@@ -361,6 +368,101 @@ describe("BetChoiceMatching", () => {
             // assert
             expect(betChoiceMatching.$table.hasClass('hide')).toBeFalsy();
             expect(jQueryFake.post).toHaveBeenCalled();
+        });
+
+        it("_Show table with no data", () => {
+            // act
+            const bodyText = betChoiceMatching.$tableTbody.text();
+
+            // assert
+            const expectedText = `No information is available`;
+            expect(bodyText.trim()).toEqual(expectedText.trim());
+        });
+    });
+
+    describe("_table", () => {
+        beforeEach(() => {
+            // act
+            const fakeData: QueryModel = {
+                Events: events,
+                Teams: teams,
+                Leagues: leagues,
+                SportTypes: sportTypes,
+                BetTypes: betTypes,
+                IPs: ips
+            };
+            spyOn(jQueryFake, "post").and.returnValue(ajax_response(fakeData));
+            betChoiceMatching.init();
+        });
+
+        const trimText = (value: string): string => {
+            return value.trim().split("\n").join("|").replace(/  +/g, ' ');;
+        }
+
+        it("_Render table", () => {
+            // act
+            const assertEventRow = ($row: JQuery, colBetChoice: string, colEvent: string, colGlobalShowTime: string) => {
+                const $cols = $row.find('td');
+                let colId = 0;
+                expect(trimText($($cols[colId++]).text())).toEqual(colBetChoice);
+                expect(trimText($($cols[colId++]).text())).toEqual(colEvent);
+                expect(trimText($($cols[colId++]).text())).toEqual(colGlobalShowTime);
+            }
+            const assertTicketTotalRow = ($row: JQuery, username: string, ip: string, stake: string, memberWinLoss: string, superWinLoss: string, company: string) => {
+                const $cols = $row.find('td');
+                let colId = 0;
+                expect(trimText($($cols[colId++]).text())).toEqual(username);
+                expect(trimText($($cols[colId++]).text())).toEqual(ip);
+                expect(trimText($($cols[colId++]).text())).toEqual(stake);
+                expect(trimText($($cols[colId++]).text())).toEqual(memberWinLoss);
+                expect(trimText($($cols[colId++]).text())).toEqual(superWinLoss);
+                expect(trimText($($cols[colId++]).text())).toEqual(company);
+            }
+            const assertTicketRow = ($row: JQuery, transTime: string, refNo: string, odds: string, ip: string, stake: string, memberWinLoss: string, superWinLoss: string, company: string) => {
+                const $cols = $row.find('td');
+                let colId = 0;
+                expect(trimText($($cols[colId++]).text())).toEqual(transTime);
+                expect(trimText($($cols[colId++]).text())).toEqual(refNo);
+                expect(trimText($($cols[colId++]).text())).toEqual(odds);
+                expect(trimText($($cols[colId++]).text())).toEqual(ip);
+                expect(trimText($($cols[colId++]).text())).toEqual(stake);
+                expect(trimText($($cols[colId++]).text())).toEqual(memberWinLoss);
+                expect(trimText($($cols[colId++]).text())).toEqual(superWinLoss);
+                expect(trimText($($cols[colId++]).text())).toEqual(company);
+            }
+
+            // assert
+            const $rows = betChoiceMatching.$tableTbody.find('tr');
+            let rowIndex = 0;
+            assertEventRow($($rows[rowIndex++]), "Team 2| -0.2| | | BetType 7", "Team 1VersusTeam 2| | SportType 1| | League 8", '02/02/2020 04:05 PM');
+            assertTicketTotalRow($($rows[rowIndex++]), "NK1", "Total", "23", "3.00", "3.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:26:45", "1", "0.1", "127.0.0.1", "11", "1.00", "1.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:27:45", "2", "(OddsType1) -0.1", "127.0.0.1", "12", "2.00", "2.00", "0.00");
+            assertTicketTotalRow($($rows[rowIndex++]), "NK2", "Total", "13", "4.00", "4.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:28:45", "3", "(OddsType2) 1,234.568", "127.0.0.2", "13", "4.00", "4.00", "0.00");
+            assertEventRow($($rows[rowIndex++]), "Under| -0.2| [1-1]| | BetType 8", "Team 1VersusTeam 2| | SportType 1| | League 8", "02/02/2020 05:05 PM");
+            assertTicketTotalRow($($rows[rowIndex++]), "NK2", "Total", "14", "-", "-", "-");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:28:45", "4", "(OddsType5) 123,456.78", "127.0.0.2", "14", "-", "-", "-");
+        });
+    });
+
+    describe("_filter", () => {
+        beforeEach(() => {
+            // act
+            const fakeData: QueryModel = {
+                Events: events,
+                Teams: teams,
+                Leagues: leagues,
+                SportTypes: sportTypes,
+                BetTypes: betTypes,
+                IPs: ips
+            };
+            spyOn(jQueryFake, "post").and.returnValue(ajax_response(fakeData));
+            betChoiceMatching.init();
+        });
+
+        it('_filter with username', () => {
+            expect(1).toBe(1);
         });
     });
 });
