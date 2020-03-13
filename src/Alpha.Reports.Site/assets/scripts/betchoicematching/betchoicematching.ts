@@ -666,13 +666,6 @@ class BetChoiceMatching {
     }
 }
 
-$(() => {
-    const betChoiceMatching = new BetChoiceMatching(
-        $);
-
-    betChoiceMatching.init();
-});
-
 interface SimpleTooltipOption {
     tooltipClass?: string;
     direction?: string;
@@ -1003,3 +996,10 @@ class MemberWinLossFilterForm extends BaseFilterForm<MemberWinLossFilterCriteria
         }
     }
 }
+
+$(() => {
+    const betChoiceMatching = new BetChoiceMatching(
+        $);
+
+    betChoiceMatching.init();
+});

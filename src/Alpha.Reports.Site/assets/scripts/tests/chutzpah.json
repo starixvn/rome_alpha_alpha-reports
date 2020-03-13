@@ -107,7 +107,7 @@
     { "Path": "apps/progressivecontribution/progressivecontribution-template.ts" },
     { "Path": "../progressivecontribution/progressivecontribution.ts" },
 
-    { "Path": "apps/betchoicematching/global-tests.ts" },
+    { "Path": "apps/betchoicematching/betMatchingResources.js" },
     { "Path": "../betchoicematching/betchoicematching.ts" }
   ],
   "Tests": [

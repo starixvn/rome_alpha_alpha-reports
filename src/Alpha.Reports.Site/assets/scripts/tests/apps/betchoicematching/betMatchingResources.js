@@ -1,4 +1,4 @@
-﻿betMatchingResources = {
+var betMatchingResources = {
     FT: "FT",
     HT: "HT",
     Total: "Total",
