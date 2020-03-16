@@ -3,8 +3,6 @@
 
 "use strict";
 
-declare const betMatchingResources: Resources;
-
 interface DatepickerOptions {
     allowInputToggle: boolean;
     minDate: Date;
@@ -668,13 +666,6 @@ class BetChoiceMatching {
     }
 }
 
-$(() => {
-    const betChoiceMatching = new BetChoiceMatching(
-        $);
-
-    betChoiceMatching.init();
-});
-
 interface SimpleTooltipOption {
     tooltipClass?: string;
     direction?: string;
@@ -1005,3 +996,10 @@ class MemberWinLossFilterForm extends BaseFilterForm<MemberWinLossFilterCriteria
         }
     }
 }
+
+$(() => {
+    const betChoiceMatching = new BetChoiceMatching(
+        $);
+
+    betChoiceMatching.init();
+});

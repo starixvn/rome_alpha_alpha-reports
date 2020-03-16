@@ -45,6 +45,9 @@
     { "Path": "libs/tablesorter.js" },
     { "Path": "libs/store.js" },
     { "Path": "libs/tiny-draggable.js" },
+    { "Path": "libs/tiny-draggable.js" },
+    { "Path": "libs/cleave/cleave.js" },
+    { "Path": "libs/cleave/jquery.cleave.js" },
 
     { "Path": "apps/components/sort-tests-template.ts" },
     { "Path": "apps/winlossdetail/winlossdetail-template.ts" },
@@ -68,6 +71,7 @@
     { "Path": "../components/currency-selection.ts" },
     { "Path": "../components/single-selection-dropdown.ts" },
     { "Path": "../components/client-pager.ts" },
+    { "Path": "../components/simple-tooltip.ts" },
 
     { "Path": "../winlossdetail/winlossdetail.ts" },
     { "Path": "apps/components/sort-tests-template.ts" },
@@ -103,6 +107,7 @@
     { "Path": "apps/progressivecontribution/progressivecontribution-template.ts" },
     { "Path": "../progressivecontribution/progressivecontribution.ts" },
 
+    { "Path": "apps/betchoicematching/betMatchingResources.js" },
     { "Path": "../betchoicematching/betchoicematching.ts" }
   ],
   "Tests": [
