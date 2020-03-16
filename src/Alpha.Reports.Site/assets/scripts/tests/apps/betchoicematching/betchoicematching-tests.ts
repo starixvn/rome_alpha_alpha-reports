@@ -399,18 +399,22 @@ describe("BetChoiceMatching", () => {
             // assert
             expect(betChoiceMatching.cacheElements).toHaveBeenCalled();
         });
+
         it("_Calls registerEvents", () => {
             // assert
             expect(betChoiceMatching.registerEvents).toHaveBeenCalled();
         });
+
         it("_Calls blockUI", () => {
             // assert
             expect(jQueryFake.blockUI).toHaveBeenCalled();
         });
+
         it("_Calls unblockUI", () => {
             // assert
             expect(jQueryFake.unblockUI).toHaveBeenCalled();
         });
+
         it("_Calls submitOnLoad", () => {
             // assert
             expect(betChoiceMatching.$table.hasClass('hide')).toBeFalsy();
@@ -424,6 +428,23 @@ describe("BetChoiceMatching", () => {
             // assert
             const expectedText = `No information is available`;
             expect(bodyText.trim()).toEqual(expectedText.trim());
+        });
+
+        it("_Invoke export Excel when click icon Excel", () => {
+            // arrange
+            spyOn(betChoiceMatching.$exportExcelForm, "submit").and.callFake(() => { });
+
+            // act
+            betChoiceMatching.$excelIcon.click();
+
+            // assert
+            expect(betChoiceMatching.$excelWinlostDate.val()).toEqual("03/11/2020");
+            expect(betChoiceMatching.$excelBetCount.val()).toEqual("2");
+            expect(betChoiceMatching.$excelUsername.val()).toEqual("");
+            expect(betChoiceMatching.$excelStake.val()).toEqual("");
+            expect(betChoiceMatching.$excelMemberWinLossOperator.val()).toEqual("0");
+            expect(betChoiceMatching.$excelMemberWinLossValue.val()).toEqual("");
+            expect(betChoiceMatching.$exportExcelForm.submit).toHaveBeenCalled();
         });
     });
 
@@ -494,6 +515,23 @@ describe("BetChoiceMatching", () => {
             $($filterIcons[2]).click();
             expect($('.memberwinloss-filter').is(":hidden")).toBeFalsy();
         });
+    });
+
+    describe("_filter by username", () => {
+        beforeEach(() => {
+            // act
+            BaseFilterForm.tooltips = [];
+            const fakeData: QueryModel = {
+                Events: deepClone(events),
+                Teams: teams,
+                Leagues: leagues,
+                SportTypes: sportTypes,
+                BetTypes: betTypes,
+                IPs: ips
+            };
+            spyOn(jQueryFake, "post").and.returnValue(ajax_response(fakeData));
+            betChoiceMatching.init();
+        });
 
         it('_filter by user with data matched', () => {
             // act
@@ -517,11 +555,13 @@ describe("BetChoiceMatching", () => {
         });
 
         it('_filter by user without data matched', () => {
-            // act
+            // arrange
             betChoiceMatching.usernameFilterForm.$textareaUsername.val('nk11');
             const event: any = {
                 preventDefault: () => { }
             };
+
+            // act
             betChoiceMatching.usernameFilterForm.onSubmit(event);
             expect(1).toBe(1);
             const bodyText = betChoiceMatching.$tableTbody.text();
@@ -529,6 +569,34 @@ describe("BetChoiceMatching", () => {
             // assert
             const expectedText = `No information is available`;
             expect(bodyText.trim()).toEqual(expectedText.trim());
+        });
+
+        it('_remove special characters with colon', () => {
+            // arrange
+            betChoiceMatching.usernameFilterForm.$textareaUsername.val('nk11 \n nk12 ,  nk13 ');
+
+            // act
+            betChoiceMatching.usernameFilterForm.$textareaUsername.focusout();
+
+            // assert
+            expect(betChoiceMatching.usernameFilterForm.$textareaUsername.val()).toEqual('nk11,nk12,nk13');
+        });
+    });
+
+    describe("_filter by total stake", () => {
+        beforeEach(() => {
+            // act
+            BaseFilterForm.tooltips = [];
+            const fakeData: QueryModel = {
+                Events: deepClone(events),
+                Teams: teams,
+                Leagues: leagues,
+                SportTypes: sportTypes,
+                BetTypes: betTypes,
+                IPs: ips
+            };
+            spyOn(jQueryFake, "post").and.returnValue(ajax_response(fakeData));
+            betChoiceMatching.init();
         });
 
         it('_filter by stake with data matched', () => {
@@ -554,8 +622,25 @@ describe("BetChoiceMatching", () => {
 
             assertFooterRow($footerRow, "Total", "37", "3.00", "3.00", "0.00");
         });
+    });
 
-        it('_filter by memberwinloss with data matched', () => {
+    describe("_filter by total member win loss", () => {
+        beforeEach(() => {
+            // act
+            BaseFilterForm.tooltips = [];
+            const fakeData: QueryModel = {
+                Events: deepClone(events),
+                Teams: teams,
+                Leagues: leagues,
+                SportTypes: sportTypes,
+                BetTypes: betTypes,
+                IPs: ips
+            };
+            spyOn(jQueryFake, "post").and.returnValue(ajax_response(fakeData));
+            betChoiceMatching.init();
+        });
+
+        it('_filter with operator Equal', () => {
             // act
             betChoiceMatching.memberWinLossFilterForm.$selectOperator.val("1");
             betChoiceMatching.memberWinLossFilterForm.$inputMemberWinLoss.data('cleave').setRawValue(4);
@@ -574,6 +659,52 @@ describe("BetChoiceMatching", () => {
             assertTicketRow($($rows[rowIndex++]), "02/02 16:28:45", "3", "(OddsType2) 1,234.568", "127.0.0.2", "13", "4.00", "4.00", "0.00");
 
             assertFooterRow($footerRow, "Total", "13", "4.00", "4.00", "0.00");
+        });
+
+        it('_filter with operator GreatorOrEqual', () => {
+            // act
+            betChoiceMatching.memberWinLossFilterForm.$selectOperator.val("0");
+            betChoiceMatching.memberWinLossFilterForm.$inputMemberWinLoss.data('cleave').setRawValue(3);
+            const event: any = {
+                preventDefault: () => { }
+            };
+            betChoiceMatching.memberWinLossFilterForm.onSubmit(event);
+            const $rows = betChoiceMatching.$tableTbody.find('tr');
+            const $footerRow = betChoiceMatching.$tableTfoot.find('tr');
+
+            // assert
+            expect($rows.length).toBe(6);
+            let rowIndex = 0;
+            assertEventRow($($rows[rowIndex++]), "Team 2| -0.2| | | BetType 7", "Team 1VersusTeam 2| | SportType 1| | League 8", '02/02/2020 04:05 PM');
+            assertTicketTotalRow($($rows[rowIndex++]), "NK1", "Total", "23", "3.00", "3.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:26:45", "1", "0.1", "127.0.0.1", "11", "1.00", "1.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:27:45", "2", "(OddsType1) -0.1", "127.0.0.1", "12", "2.00", "2.00", "0.00");
+            assertTicketTotalRow($($rows[rowIndex++]), "NK2", "Total", "13", "4.00", "4.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:28:45", "3", "(OddsType2) 1,234.568", "127.0.0.2", "13", "4.00", "4.00", "0.00");
+
+            assertFooterRow($footerRow, "Total", "36", "7.00", "7.00", "0.00");
+        });
+
+        it('_filter with operator LessOrEqual', () => {
+            // act
+            betChoiceMatching.memberWinLossFilterForm.$selectOperator.val("2");
+            betChoiceMatching.memberWinLossFilterForm.$inputMemberWinLoss.data('cleave').setRawValue(3);
+            const event: any = {
+                preventDefault: () => { }
+            };
+            betChoiceMatching.memberWinLossFilterForm.onSubmit(event);
+            const $rows = betChoiceMatching.$tableTbody.find('tr');
+            const $footerRow = betChoiceMatching.$tableTfoot.find('tr');
+
+            // assert
+            expect($rows.length).toBe(4);
+            let rowIndex = 0;
+            assertEventRow($($rows[rowIndex++]), "Team 2| -0.2| | | BetType 7", "Team 1VersusTeam 2| | SportType 1| | League 8", '02/02/2020 04:05 PM');
+            assertTicketTotalRow($($rows[rowIndex++]), "NK1", "Total", "23", "3.00", "3.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:26:45", "1", "0.1", "127.0.0.1", "11", "1.00", "1.00", "0.00");
+            assertTicketRow($($rows[rowIndex++]), "02/02 16:27:45", "2", "(OddsType1) -0.1", "127.0.0.1", "12", "2.00", "2.00", "0.00");
+
+            assertFooterRow($footerRow, "Total", "23", "3.00", "3.00", "0.00");
         });
     });
 
