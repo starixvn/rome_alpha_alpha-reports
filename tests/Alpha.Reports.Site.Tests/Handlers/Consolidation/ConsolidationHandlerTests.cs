@@ -56,7 +56,7 @@
             // Arrange
             var data = new List<ConsolidationByUsername>
             {
-                new ConsolidationByUsername(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                new ConsolidationByUsername(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0,  0,  0, 0, 0, 0, 1)
             };
 
             reportService.GetConsolidationByUsername(Arg.Any<GetConsolidationParam>()).Returns(data);
@@ -81,7 +81,7 @@
                 expectedCurrencyList,
                 new List<ConsolidationByUsernameViewModel>
                 {
-                    new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1")
+                    new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1")
                 });
 
             // Act
@@ -103,8 +103,8 @@
                 FromDate = DateTime.Today,
                 ToDate = DateTime.Today.AddDays(1),
                 LimitedDateToShowInfo = limitedDate
-            };                           
-            
+            };
+
             // Act
             consolidationHandler.Handle(message);
 
@@ -118,7 +118,7 @@
             // Arrange
             var data = new List<ConsolidationByDate>
             {
-                new ConsolidationByDate("2016/12/2", 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                new ConsolidationByDate("2016/12/2", 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
             };
 
             reportService.GetConsolidationByDate(Arg.Any<GetConsolidationParam>()).Returns(data);
@@ -145,7 +145,7 @@
                 {
                     new ConsolidationByDateViewModel(
                         DefaultVariablesTest.CurrentDate,
-                        new List<ConsolidationByUsernameViewModel> { new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
+                        new List<ConsolidationByUsernameViewModel> { new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
                 });
 
             // Act
@@ -161,7 +161,7 @@
             // Arrange
             var data = new List<ConsolidationByProduct>
             {
-                new ConsolidationByProduct(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+                new ConsolidationByProduct(1, 1, "Username", 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
             };
 
             reportService.GetConsolidationByProduct(Arg.Any<GetConsolidationParam>()).Returns(data);
@@ -189,7 +189,7 @@
                     new ConsolidationByProductViewModel(
                         1,
                         "Product 1",
-                        new List<ConsolidationByUsernameViewModel> { new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
+                        new List<ConsolidationByUsernameViewModel> { new ConsolidationByUsernameViewModel(1, 1, "Username", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, "Currency 1") })
                 });
 
             // Act

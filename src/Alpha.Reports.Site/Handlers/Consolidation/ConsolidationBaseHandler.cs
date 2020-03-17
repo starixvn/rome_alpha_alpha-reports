@@ -61,6 +61,7 @@
                     model.Username,
                     model.CurrencyId,
                     model.Turnover,
+                    model.GrossComm,
                     model.MemberWinLoss,
                     model.MemberComm,
                     model.MemberTotal,

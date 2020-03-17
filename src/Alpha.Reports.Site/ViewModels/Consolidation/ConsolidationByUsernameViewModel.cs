@@ -7,8 +7,8 @@
 
     public class ConsolidationByUsernameViewModel : ConsolidationByUsername
     {        
-        public ConsolidationByUsernameViewModel(int custId, int custLevel, string username, byte currencyId, decimal turnover, decimal memberWinLoss, decimal memberComm, decimal memberTotal, decimal ownerTurnover, decimal ownerWinLoss, decimal ownerComm, decimal ownerTotal, decimal company, int betCount, string currencyName) :
-            base(custId, custId, username, currencyId, custLevel, turnover, memberWinLoss, memberComm, memberTotal, ownerTurnover, ownerWinLoss, ownerComm, ownerTotal, company, betCount)
+        public ConsolidationByUsernameViewModel(int custId, int custLevel, string username, byte currencyId, decimal turnover, decimal grossComm, decimal memberWinLoss, decimal memberComm, decimal memberTotal, decimal ownerTurnover, decimal ownerWinLoss, decimal ownerComm, decimal ownerTotal, decimal company, int betCount, string currencyName) :
+            base(custId, custId, username, currencyId, custLevel, turnover, grossComm, memberWinLoss, memberComm, memberTotal, ownerTurnover, ownerWinLoss, ownerComm, ownerTotal, company, betCount)
         {
             CurrencyName = currencyName;
         }

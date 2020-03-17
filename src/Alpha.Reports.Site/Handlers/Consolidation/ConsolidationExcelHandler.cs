@@ -146,15 +146,16 @@
                 .Map(B, winLoss => winLoss.Username)
                 .Map(C, winLoss => winLoss.CurrencyName)
                 .Map(D, winLoss => winLoss.Turnover)
-                .Map(E, winLoss => winLoss.MemberWinLoss)
-                .Map(F, winLoss => winLoss.MemberComm)
-                .Map(G, winLoss => winLoss.MemberTotal)
-                .Map(H, winLoss => winLoss.OwnerTurnover)
-                .Map(I, winLoss => winLoss.OwnerWinLoss)
-                .Map(J, winLoss => winLoss.OwnerComm)
-                .Map(K, winLoss => winLoss.OwnerTotal)
-                .Map(L, winLoss => winLoss.Company)
-                .Map(M, winLoss => winLoss.BetCount);
+                .Map(E, winLoss => winLoss.GrossComm)
+                .Map(F, winLoss => winLoss.MemberWinLoss)
+                .Map(G, winLoss => winLoss.MemberComm)
+                .Map(H, winLoss => winLoss.MemberTotal)
+                .Map(I, winLoss => winLoss.OwnerTurnover)
+                .Map(J, winLoss => winLoss.OwnerWinLoss)
+                .Map(K, winLoss => winLoss.OwnerComm)
+                .Map(L, winLoss => winLoss.OwnerTotal)
+                .Map(M, winLoss => winLoss.Company)
+                .Map(N, winLoss => winLoss.BetCount);
 
             return mapper;
         }
