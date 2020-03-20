@@ -153,6 +153,10 @@
     {
       "Path": "apps/progressivecontribution",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/betchoicematching",
+      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     }
   ]
 }
