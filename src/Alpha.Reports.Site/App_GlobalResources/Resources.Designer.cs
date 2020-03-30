@@ -1897,7 +1897,7 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - For AllBet, Net Turnover is total valid bets that we use to compute commission..
+        ///   Looks up a localized string similar to - For AllBet, SA Gaming, Net Turnover is total valid bets that we use to compute commission..
         /// </summary>
         public static string Tooltip_NetTurnover_21 {
             get {

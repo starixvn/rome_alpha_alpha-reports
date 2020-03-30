@@ -137,7 +137,7 @@
             var expectedViewModel = new List<string>
             {
                 "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
-                "- For AllBet, Net Turnover is total valid bets that we use to compute commission."
+                "- For AllBet, SA Gaming, Net Turnover is total valid bets that we use to compute commission."
             };
 
             // Act
@@ -161,7 +161,7 @@
             var expectedViewModel = new List<string>
             {
                 "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
-                "- For AllBet, Net Turnover is total valid bets that we use to compute commission.",
+                "- For AllBet, SA Gaming, Net Turnover is total valid bets that we use to compute commission.",
                 "- Data of Product Name will be delayed up to 5 minutes after settling tickets."
             };
 
