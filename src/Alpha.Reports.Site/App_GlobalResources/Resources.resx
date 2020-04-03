@@ -274,7 +274,7 @@
     <value>- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.</value>
   </data>
   <data name="Tooltip_NetTurnover_21" xml:space="preserve">
-    <value>- For AllBet, SA Gaming, Net Turnover is total valid bets that we use to compute commission.</value>
+    <value>- For AllBet, Sexy Gaming, SA Gaming, Net Turnover is total valid bets that we use to compute commission.</value>
   </data>
   <data name="DoNotShowAgain" xml:space="preserve">
     <value>Do not show again</value>

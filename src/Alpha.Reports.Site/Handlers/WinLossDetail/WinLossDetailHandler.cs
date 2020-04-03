@@ -16,8 +16,6 @@
         IRequestHandler<WinLossDetailQuery, WinLossDetailViewModel>,
         IRequestHandler<ReportLegendQuery, IEnumerable<string>>
     {
-        private const int AllBetProductId = 21;
-        private const int SaGamingProductId = 39;
         private readonly IUser viewer;
 
         public WinLossDetailHandler(
@@ -57,7 +55,9 @@
 
             var customerProducts = productService.GetProductsForCustomer(message.CustId);
 
-            if (customerProducts.Any(product => Convert.ToInt32(product.Id) == AllBetProductId || Convert.ToInt32(product.Id) == SaGamingProductId))
+            if (customerProducts.Any(product => Convert.ToInt32(product.Id) == ProductIdConstants.Allbet ||
+            Convert.ToInt32(product.Id) == ProductIdConstants.SAGaming ||
+            Convert.ToInt32(product.Id) == ProductIdConstants.SexyGaming))
             {
                 result.Add(Resources.Tooltip_NetTurnover_21);
             }
