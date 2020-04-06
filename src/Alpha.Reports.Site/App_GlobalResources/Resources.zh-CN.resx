@@ -240,9 +240,6 @@
   <data name="Tooltip_NetTurnover" xml:space="preserve">
     <value>- 对于体育项目, [净投注额] 是 [总投注额] 扣除 '和局' 注单的总投注和 '输半赢半' 注单一半的总投注。</value>
   </data>
-  <data name="Tooltip_NetTurnover_21" xml:space="preserve">
-    <value>- Allbet, Sexy Gaming, SA Gaming，净投注额是总有效的投注注单来计算佣金。</value>
-  </data>
   <data name="DoNotShowAgain" xml:space="preserve">
     <value>不再显示</value>
   </data>
@@ -728,5 +725,8 @@
   </data>
   <data name="BetType1X2_FT" xml:space="preserve">
     <value>全场</value>
+  </data>
+  <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
+    <value>- {0}，净投注额是总有效的投注注单来计算佣金。</value>
   </data>
 </root>
