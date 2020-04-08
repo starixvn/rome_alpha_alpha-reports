@@ -228,9 +228,6 @@
   <data name="Tooltip_NetTurnover" xml:space="preserve">
     <value>- Đối với Sportsbook, Tiền Cược Thực là tiền cược không bao gồm những cược hoà và nửa cược thắng một nửa/thua một nửa.</value>
   </data>
-  <data name="Tooltip_NetTurnover_21" xml:space="preserve">
-    <value>- Đối với Allbet, Sexy Gaming, SA Gaming, Tiền Cược Thực là tổng số tiền cược có giá trị dùng để tính toán hoa hồng.</value>
-  </data>
   <data name="DoNotShowAgain" xml:space="preserve">
     <value>Không hiển thị lại</value>
   </data>
@@ -754,5 +751,8 @@
   </data>
   <data name="BetType1X2_FT" xml:space="preserve">
     <value>Cả trận</value>
+  </data>
+  <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
+    <value>- Đối với {0}, Tiền Cược Thực là tổng số tiền cược có giá trị dùng để tính toán hoa hồng.</value>
   </data>
 </root>

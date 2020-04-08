@@ -241,9 +241,6 @@
   <data name="Tooltip_NetTurnover" xml:space="preserve">
     <value>- สำหรับกีฬา [ยอดเดิมพันสุทธิ] คือ [จำนวนของการเดิมพันทั้งหมด] ยอดเดิมพันทั้งหมดที่เสียครึ่ง/ชนะครึ่ง 'เดิมพันครึ่งเดิมพันทั้งหมด แต่ไม่รวมตั๋วที่ผล "เสมอ"</value>
   </data>
-  <data name="Tooltip_NetTurnover_21" xml:space="preserve">
-    <value>- สำหรับ AllBet, Sexy Gaming, SA Gaming, เงินหมุนเวียนสุทธิทั้งหมดจะใช้เพื่อคำนวนค่าคอมมิชชั่น</value>
-  </data>
   <data name="DoNotShowAgain" xml:space="preserve">
     <value>ไม่ต้องแสดงอีกครั้ง</value>
   </data>
@@ -726,5 +723,8 @@
   </data>
   <data name="BetType1X2_FT" xml:space="preserve">
     <value>เต็มเวลา</value>
+  </data>
+  <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
+    <value>- สำหรับ {0}, เงินหมุนเวียนสุทธิทั้งหมดจะใช้เพื่อคำนวนค่าคอมมิชชั่น</value>
   </data>
 </root>

@@ -104,11 +104,11 @@
         }
 
         [Fact]
-        public void HandleReportLegendQuery_ProductsNotContainAllBet_ReturnsCorrectViewModel()
+        public void HandleReportLegendQuery_ProductsNotContainLiveCasino_ReturnsCorrectViewModel()
         {
             // Arrange
             var message = new ReportLegendQuery();
-            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>());
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>());
 
             var expectedViewModel = new List<string>
             {
@@ -127,9 +127,9 @@
         {
             // Arrange
             var message = new ReportLegendQuery();
-            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(21, string.Empty, null)
+                new Product(21, "AllBet", null)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -137,7 +137,7 @@
             var expectedViewModel = new List<string>
             {
                 "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
-                "- For AllBet, Sexy Gaming, SA Gaming, Net Turnover is total valid bets that we use to compute commission."
+                "- For AllBet, Net Turnover is total valid bets that we use to compute commission."
             };
 
             // Act
@@ -148,21 +148,73 @@
         }
 
         [Fact]
-        public void HandleReportLegendQuery_HaveProductsNeedDelayTimeToSumarizeData_ReturnsCorrectViewModel()
+        public void HandleReportLegendQuery_ProductsContainSexyGaming_ReturnsCorrectViewModel()
         {
             // Arrange
             var message = new ReportLegendQuery();
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(new List<byte> { 1 });
-            productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(21, string.Empty, null)
+                new Product(45, "Sexy Gaming", null)
             });
+
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
 
             var expectedViewModel = new List<string>
             {
                 "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
-                "- For AllBet, Sexy Gaming, SA Gaming, Net Turnover is total valid bets that we use to compute commission.",
-                "- Data of Product Name will be delayed up to 5 minutes after settling tickets."
+                "- For Sexy Gaming, Net Turnover is total valid bets that we use to compute commission."
+            };
+
+            // Act
+            var actualViewModel = winLossDetailHandler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Fact]
+        public void HandleReportLegendQuery_ProductsContainSAGaming_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            {
+                new Product(39, "SA Gaming", null)
+            });
+
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
+
+            var expectedViewModel = new List<string>
+            {
+                "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
+                "- For SA Gaming, Net Turnover is total valid bets that we use to compute commission."
+            };
+
+            // Act
+            var actualViewModel = winLossDetailHandler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Fact]
+        public void HandleReportLegendQuery_ProductsContainLiveCasino_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            {
+                new Product(21, "AllBet", null),
+                new Product(45, "Sexy Gaming", null),
+                new Product(39, "SA Gaming", null)
+            });
+
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
+
+            var expectedViewModel = new List<string>
+            {
+                "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
+                "- For AllBet, Sexy Gaming, SA Gaming, Net Turnover is total valid bets that we use to compute commission."
             };
 
             // Act

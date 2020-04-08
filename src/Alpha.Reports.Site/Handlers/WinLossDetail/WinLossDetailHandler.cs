@@ -53,13 +53,10 @@
             var result = new List<string>();
             result.Add(Resources.Tooltip_NetTurnover);
 
-            var customerProducts = productService.GetProductsForCustomer(message.CustId);
-
-            if (customerProducts.Any(product => Convert.ToInt32(product.Id) == ProductIdConstants.Allbet ||
-            Convert.ToInt32(product.Id) == ProductIdConstants.SAGaming ||
-            Convert.ToInt32(product.Id) == ProductIdConstants.SexyGaming))
+            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId);
+            if (!string.IsNullOrEmpty(liveCasinoTooltips))
             {
-                result.Add(Resources.Tooltip_NetTurnover_21);
+                result.Add(liveCasinoTooltips);
             }
 
             var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Select(product => (int)product);
@@ -72,6 +69,22 @@
             }
 
             return result;
+        }
+
+        private string BuildTooltipsForLiveCasino(int custId)
+        {
+            var liveCasino = new List<int>
+            {
+                ProductIdConstants.Allbet,
+                ProductIdConstants.SexyGaming,
+                ProductIdConstants.SAGaming
+            };
+            var offeredLiveCasino = productService.FilterProductsByCustomer(custId, liveCasino);
+            var liveCasinoNames = string.Join(", ", offeredLiveCasino.Select(i => i.Name));
+
+            return offeredLiveCasino != null && offeredLiveCasino.Any() ?
+                string.Format(Resources.Tooltip_NetTurnover_livecasino, liveCasinoNames) :
+                string.Empty;
         }
     }
 }

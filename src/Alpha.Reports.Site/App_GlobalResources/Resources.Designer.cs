@@ -1897,11 +1897,11 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - For AllBet, Sexy Gaming, SA Gaming, Net Turnover is total valid bets that we use to compute commission..
+        ///   Looks up a localized string similar to - For {0}, Net Turnover is total valid bets that we use to compute commission..
         /// </summary>
-        public static string Tooltip_NetTurnover_21 {
+        public static string Tooltip_NetTurnover_livecasino {
             get {
-                return ResourceManager.GetString("Tooltip_NetTurnover_21", resourceCulture);
+                return ResourceManager.GetString("Tooltip_NetTurnover_livecasino", resourceCulture);
             }
         }
         
