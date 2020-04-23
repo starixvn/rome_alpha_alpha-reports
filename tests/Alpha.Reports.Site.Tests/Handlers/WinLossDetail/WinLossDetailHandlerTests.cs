@@ -1,11 +1,5 @@
 ﻿namespace Alpha.Reports.Site.Tests.Handlers.WinLossDetail
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Threading;
-    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Extensions;
     using Fixtures;
@@ -17,6 +11,12 @@
     using Site.Handlers.WinLossDetail;
     using Site.Requests.WinLossDetail;
     using Site.ViewModels.WinLossDetail;
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading;
+    using System.Web.Mvc;
     using Utils;
     using Xunit;
 
@@ -94,7 +94,7 @@
                 winLossDetailParam,
                 reportData,
                 new List<CustInfo> { new CustInfo(10, "Name", 4) },
-                Enumerable.Empty<GroupProductViewModel>());
+                Enumerable.Empty<SelectListItem>());
 
             // Act
             var actualWinLossDetailViewModel = winLossDetailHandler.Handle(message);
@@ -129,7 +129,7 @@
             var message = new ReportLegendQuery();
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(21, "AllBet", null, 0, 0)
+                new Product(21, "AllBet", null)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -154,7 +154,7 @@
             var message = new ReportLegendQuery();
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(45, "Sexy Gaming", null, 0, 0)
+                new Product(45, "Sexy Gaming", null)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -173,13 +173,38 @@
         }
 
         [Fact]
+        public void HandleReportLegendQuery_ProductsContainGTCasino_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            {
+                new Product(46, "GT Casino", null)
+            });
+
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
+
+            var expectedViewModel = new List<string>
+            {
+                "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
+                "- For GT Casino, Net Turnover is total valid bets that we use to compute commission."
+            };
+
+            // Act
+            var actualViewModel = winLossDetailHandler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Fact]
         public void HandleReportLegendQuery_ProductsContainSAGaming_ReturnsCorrectViewModel()
         {
             // Arrange
             var message = new ReportLegendQuery();
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(39, "SA Gaming", null, 0, 0)
+                new Product(39, "SA Gaming", null)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -204,9 +229,10 @@
             var message = new ReportLegendQuery();
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(21, "AllBet", null, 0, 0),
-                new Product(45, "Sexy Gaming", null, 0, 0),
-                new Product(39, "SA Gaming", null, 0, 0)
+                new Product(21, "AllBet", null),
+                new Product(45, "Sexy Gaming", null),
+                new Product(39, "SA Gaming", null),
+                new Product(46, "GT Casino", null)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -214,7 +240,7 @@
             var expectedViewModel = new List<string>
             {
                 "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
-                "- For AllBet, Sexy Gaming, SA Gaming, Net Turnover is total valid bets that we use to compute commission."
+                "- For AllBet, Sexy Gaming, SA Gaming, GT Casino, Net Turnover is total valid bets that we use to compute commission."
             };
 
             // Act
