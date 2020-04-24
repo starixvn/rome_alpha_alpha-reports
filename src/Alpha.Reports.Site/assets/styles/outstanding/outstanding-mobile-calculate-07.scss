@@ -1,0 +1,13 @@
+﻿.form-outstanding {
+    .form-group:first-child {
+        width: calc(100% - 132px);
+    }
+
+    .btn-group, .multiselect, .multiselect .multiselect-selected-text {
+        width: 100%;
+    }
+}
+
+.tbl-outstanding {
+    width: 100%;
+}

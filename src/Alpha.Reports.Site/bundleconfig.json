@@ -47,6 +47,13 @@
     ]
   },
   {
+    "outputFileName": "assets/bundles/outstanding/outstanding-mobile-calculate-07.css",
+    "inputFiles": [
+      "assets/styles/report-mobile-calculate-07.css",
+      "assets/styles/outstanding/outstanding-mobile-calculate-07.css"
+    ]
+  },
+  {
     "outputFileName": "assets/bundles/outstanding/outstanding.js",
     "inputFiles": [
       "assets/scripts/core.js",

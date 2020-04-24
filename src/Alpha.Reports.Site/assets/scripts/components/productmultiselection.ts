@@ -60,11 +60,10 @@ class ProductMultiSelectionComponent {
             onChange: this.onChange,
             onSelectAll: this.onChange,
             language: this.$dropdownProduct.data("language"),
-            enableCollapsibleOptGroups: true,
-            optionClass: this.optionClass
+            templates: {
+                li: '<li><a tabindex="0"><label><input></input><span></span></label></a></li>'
+            }
         });
-
-        this.$dropdownProduct.next().find(".multiselect-container li").removeClass("hidden");
 
         this.$multiSelectButton = this.$dropdownProduct.parent().find(".multiselect.btn");
 
@@ -91,12 +90,6 @@ class ProductMultiSelectionComponent {
 
         if (this.options.onChange) {
             this.options.onChange();
-        }
-    };
-
-    optionClass = (element: HTMLElement) => {
-        if (this.$(element).data("isnested") === 1) {
-            return "multiselect-nested-item";
         }
     };
 

@@ -795,6 +795,10 @@
     <Content Include="assets\bundles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\outstanding\outstanding-mobile-calculate-07.css" />
+    <Content Include="assets\bundles\outstanding\outstanding-mobile-calculate-07.min.css">
+      <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.css" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.css">
@@ -929,11 +933,23 @@
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
+    <Content Include="assets\styles\outstanding\outstanding-mobile-calculate-07.css">
+      <DependentUpon>outstanding-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\outstanding\outstanding-mobile-calculate-07.min.css">
+      <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
+    </Content>
     <Content Include="assets\styles\progressivecontribution\progressivecontribution.css">
       <DependentUpon>progressivecontribution.scss</DependentUpon>
     </Content>
     <Content Include="assets\styles\progressivecontribution\progressivecontribution.min.css">
       <DependentUpon>progressivecontribution.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\report-mobile-calculate-07.css">
+      <DependentUpon>report-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\report-mobile-calculate-07.min.css">
+      <DependentUpon>report-mobile-calculate-07.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
@@ -952,9 +968,10 @@
       <SubType>Designer</SubType>
     </CodeAnalysisDictionary>
     <Content Include="compilerconfig.json" />
-    <Content Include="compilerconfig.json.defaults">
+    <Content Include="assets\styles\report-mobile-calculate-07.scss" />
+    <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Global.asax" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
@@ -1077,6 +1094,8 @@
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
     <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
     <Content Include="App_Data\ExcelTemplates\BetChoiceMatching\Master.xls" />
+     <Content Include="assets\styles\outstanding\outstanding-mobile-calculate-07.scss" />
+
     <Content Include="App_Data\activitytracking.pro2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
