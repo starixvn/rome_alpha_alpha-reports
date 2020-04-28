@@ -129,7 +129,7 @@
             var message = new ReportLegendQuery();
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(21, "AllBet", null)
+                new Product(21, "AllBet", null, 0, 0)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -154,7 +154,7 @@
             var message = new ReportLegendQuery();
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(45, "Sexy Gaming", null)
+                new Product(45, "Sexy Gaming", null, 0, 0)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -179,7 +179,7 @@
             var message = new ReportLegendQuery();
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(39, "SA Gaming", null)
+                new Product(39, "SA Gaming", null, 0, 0)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -204,9 +204,9 @@
             var message = new ReportLegendQuery();
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(21, "AllBet", null),
-                new Product(45, "Sexy Gaming", null),
-                new Product(39, "SA Gaming", null)
+                new Product(21, "AllBet", null, 0, 0),
+                new Product(45, "Sexy Gaming", null, 0, 0),
+                new Product(39, "SA Gaming", null, 0, 0)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());

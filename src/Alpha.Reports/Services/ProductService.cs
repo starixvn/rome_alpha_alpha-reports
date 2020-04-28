@@ -72,7 +72,7 @@
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
                 () => GetProductsForReport()
                     .Where(product => canViewProduct(product.Id))
-                    .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, getProductName)),
+                    .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
             if (custProducts != null)
             {
@@ -138,6 +138,31 @@
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(1)));
 
             return products;
+        }
+
+        public IEnumerable<Product> BuildHierarchicalProducts(IEnumerable<Product> products)
+        {
+            var rootProducts = products
+                .Where(product => product.Type == 0)
+                .ToList();
+
+            foreach (var product in rootProducts)
+            {
+                FillSubProducts(products, product);
+            }
+
+            return rootProducts;
+        }
+
+        private static void FillSubProducts(IEnumerable<Product> allProducts, Product parent)
+        {
+            var subProducts = allProducts.Where(product => product.Type == parent.Id);
+
+            foreach (var product in subProducts)
+            {
+                FillSubProducts(allProducts, product);
+                parent.SubProducts.Add(product);
+            }
         }
     }
 }

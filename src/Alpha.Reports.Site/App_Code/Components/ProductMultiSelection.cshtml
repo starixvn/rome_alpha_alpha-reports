@@ -16,6 +16,18 @@
             {
                 <option value="@product.Value" @(product.Selected ? " selected=\"selected\"" : string.Empty)>@product.Text</option>
             }
+            <optgroup label="Live Casino">
+                <option value="2-1" data-isnested="1">Allbet</option>
+                <option value="2-2" data-isnested="1">BBIN</option>
+                <option value="2-3" data-isnested="1">Gold Deluxe</option>
+                <option value="2-3" data-isnested="1">SA Gaming</option>
+                <option value="2-3" data-isnested="1">Sexy Gaming</option>
+            </optgroup>
+            <optgroup label="RNG Casino">
+                <option value="3-1" data-isnested="1">Macau games</option>
+                <option value="3-2" data-isnested="1">Casino</option>
+                <option value="3-3" data-isnested="1">Saba.club</option>
+            </optgroup>
         </select>
         <input type="hidden" name="UserSelectedProductIds" id="product-ids" value="@model.UserSelectedProductIds" />
     </div>

@@ -54,7 +54,7 @@
         public IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param)
             => dynamicRepository.Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
                 .Where(product => IsRemainSupportProduct(product, param.MinDate))
-                .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, cacheRefService.GetProductName));
+                .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, cacheRefService.GetProductName));
 
         public IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param)
         {

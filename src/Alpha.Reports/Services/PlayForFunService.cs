@@ -45,7 +45,7 @@
 
             return playForFunProducts
                 .Where(product => IsShowProduct(product.Id))
-                .Select(product => new Product(product.Id, string.Empty, null, cacheRefService.GetProductName));
+                .Select(product => new Product(product.Id, string.Empty, null, product.Type, product.OrderNo, cacheRefService.GetProductName));
         }
 
         public bool IsShowProduct(int productId)

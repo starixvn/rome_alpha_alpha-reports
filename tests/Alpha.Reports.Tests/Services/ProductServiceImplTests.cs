@@ -29,9 +29,9 @@
 
         private readonly IEnumerable<Product> allCustomerProductIds = new List<Product>()
         {
-            new Product(1, "Product 1", null),
-            new Product(2, "Product 2", null),
-            new Product(3, "Product 3", null)
+            new Product(1, "Product 1", null, 0, 0),
+            new Product(2, "Product 2", null, 0, 0),
+            new Product(3, "Product 3", null, 0, 0)
         };
 
         private ProductServiceImpl productServiceImpl;
@@ -232,7 +232,7 @@
             // Arrange
             var custId = 2;
             var customerProductIds = "1,2,3,5";
-            IEnumerable<Product> customerProducts = customerProductIds.ToListInt().Select(id => new Product(id, string.Empty, null));
+            IEnumerable<Product> customerProducts = customerProductIds.ToListInt().Select(id => new Product(id, string.Empty, null, 0, 0));
             IEnumerable<Product> cachedProducts;
             fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(x =>
             {
@@ -267,7 +267,7 @@
             // Arrange
             var cachedProducts = new List<Product>
             {
-                new Product(1, string.Empty, null)
+                new Product(1, string.Empty, null, 0, 0)
             };
 
             fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-1", out cachedProducts).Returns(true);
@@ -285,7 +285,7 @@
             // Arrange
             var cachedProducts = new List<Product>
             {
-                new Product(33, string.Empty, null)
+                new Product(33, string.Empty, null, 0, 0)
             };
 
             fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-2", out cachedProducts).Returns(true);
