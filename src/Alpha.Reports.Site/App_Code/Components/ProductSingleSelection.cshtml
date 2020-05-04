@@ -4,9 +4,24 @@
 {
     <div class="form-group">
         <select id="dropdown-product">
-            @foreach (var product in model.Products)
+            @foreach (var group in model.GroupProducts)
             {
-                <option value="@product.Value" @(product.Selected ? " selected=\"selected\"" : string.Empty)>@product.Text</option>
+                if (group.HasGroupName)
+                {
+                    <optgroup label="@group.Group.Name">
+                        @foreach (var product in group.Products)
+                        {
+                            <option value="@product.Value" @(product.Selected ? " selected=\"selected\"" : string.Empty) data-isnested="1">@product.Text</option>
+                        }
+                    </optgroup>
+                }
+                else
+                {
+                    foreach (var product in group.Products)
+                    {
+                        <option value="@product.Value" @(product.Selected ? " selected=\"selected\"" : string.Empty)>@product.Text</option>
+                    }
+                }
             }
         </select>
         <input type="hidden" name="UserSelectedProductId" id="UserSelectedProductId" value="@model.UserSelectedProductIds" />

@@ -31,7 +31,7 @@
             PlayForFunQuery query,
             PlayForFunParam param,
             IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<SelectListItem> products,
+            IEnumerable<GroupProductViewModel> groupProducts,
             IEnumerable<SelectListItem> statuses,
             ReportData<PlayForFunModel> reportData)
             : base(query.CustLevel, breadcrumbLevel)
@@ -39,7 +39,7 @@
             this.query = query;
             this.param = param;
 
-            Products = products;
+            GroupProducts = groupProducts;
             Statuses = statuses;
             ReportData = reportData;
 
@@ -66,7 +66,7 @@
 
         public int UserSelectedStatusId => query.UserSelectedStatusId;
 
-        public IEnumerable<SelectListItem> Products { get; }
+        public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
         public IEnumerable<SelectListItem> Statuses { get; }
 
@@ -75,7 +75,7 @@
         public IEnumerable<string> BreadcrumbActions { get; }
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
-            new ProductMultiSelectionViewModel(Products, query.UserSelectedProductId.ToString(), query.Language);
+            new ProductMultiSelectionViewModel(GroupProducts, query.UserSelectedProductId.ToString(), query.Language);
 
         private StatusSelectionViewModel StatusSelectionViewModel =>
             new StatusSelectionViewModel(Statuses, query.UserSelectedStatusId.ToString());

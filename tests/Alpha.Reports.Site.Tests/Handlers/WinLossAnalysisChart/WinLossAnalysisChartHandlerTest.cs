@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
@@ -88,7 +88,7 @@
             var validUserSelectedProductIds = Enumerable.Empty<int>();
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
-            var expectedWinLossAnalysisChartViewModel = new WinLossAnalysisChartViewModel(reportData, message, param, Enumerable.Empty<SelectListItem>());
+            var expectedWinLossAnalysisChartViewModel = new WinLossAnalysisChartViewModel(reportData, message, param, Enumerable.Empty<GroupProductViewModel>());
 
             // Act
             var actualWinLossAnalysisViewModel = winLossAnalysisChartHandler.Handle(message);

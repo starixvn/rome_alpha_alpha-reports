@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
@@ -272,7 +273,7 @@
                 new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), message.CustLevel, sortPropertyName, false, false),
                 new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<GroupProductViewModel>());
             var expectedSortPropertyName = sortPropertyName;
 
             // Act
@@ -301,7 +302,7 @@
                 new WinLossDetailParam(0, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), message.CustLevel, "CustName", isDescendingSort, false),
                 new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<GroupProductViewModel>());
             var expectedIsDescendingSort = isDescendingSort;
 
             // Act

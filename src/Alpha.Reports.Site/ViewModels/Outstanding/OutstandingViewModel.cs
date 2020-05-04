@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
     using Enumerations;
@@ -23,13 +22,13 @@
             OutstandingQuery query,
             IEnumerable<OutstandingModel> outstandingDataSource,
             IEnumerable<int> selectedProductIds,
-            IEnumerable<SelectListItem> products,
+            IEnumerable<GroupProductViewModel> groupProducts,
             IEnumerable<CustInfo> breadcrumbLevel)
                : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
             OutstandingDatasource = outstandingDataSource;
-            ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), string.Empty);
+            ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(groupProducts, selectedProductIds.JoinWithComma(), string.Empty);
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= Query.ViewerLevel.Value; level++)
             {

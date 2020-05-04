@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Extensions;
     using Fixtures;
@@ -176,20 +177,28 @@
                      Enumerable.Empty<string>(),
                      new List<int> { 1 },
                      query.CustLevel),
-                new List<SelectListItem>
+                new List<GroupProductViewModel>
                 {
-                    new SelectListItem
-                    {
-                        Text = null,
-                        Value = "1",
-                        Selected = true
-                    },
-                    new SelectListItem
-                    {
-                        Text = null,
-                        Value = "2",
-                        Selected = false
-                    }
+                    new GroupProductViewModel(
+                        new SelectListGroup
+                        {
+                            Name = string.Empty
+                        },
+                        new List<SelectListItem>
+                        {
+                            new SelectListItem
+                            {
+                                Text = null,
+                                Value = "1",
+                                Selected = true
+                            },
+                            new SelectListItem
+                            {
+                                Text = null,
+                                Value = "2",
+                                Selected = false
+                            }
+                        })
                 },
                 Enumerable.Empty<SelectListItem>());
 
@@ -276,20 +285,25 @@
                      leagueIds,
                      new List<int> { 1 },
                      query.CustLevel),
-                new List<SelectListItem>
+                new List<GroupProductViewModel>
                 {
-                    new SelectListItem
-                    {
-                        Text = null,
-                        Value = "1",
-                        Selected = true
-                    },
-                    new SelectListItem
-                    {
-                        Text = null,
-                        Value = "2",
-                        Selected = false
-                    }
+                    new GroupProductViewModel(
+                        new SelectListGroup { Name = string.Empty },
+                        new List<SelectListItem>
+                        {
+                            new SelectListItem
+                            {
+                                Text = null,
+                                Value = "1",
+                                Selected = true
+                            },
+                            new SelectListItem
+                            {
+                                Text = null,
+                                Value = "2",
+                                Selected = false
+                            }
+                        })
                 },
                 new List<SelectListItem>
                 {

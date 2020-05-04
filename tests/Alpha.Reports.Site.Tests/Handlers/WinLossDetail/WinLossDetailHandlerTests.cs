@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Extensions;
     using Fixtures;
@@ -94,7 +94,7 @@
                 winLossDetailParam,
                 reportData,
                 new List<CustInfo> { new CustInfo(10, "Name", 4) },
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<GroupProductViewModel>());
 
             // Act
             var actualWinLossDetailViewModel = winLossDetailHandler.Handle(message);

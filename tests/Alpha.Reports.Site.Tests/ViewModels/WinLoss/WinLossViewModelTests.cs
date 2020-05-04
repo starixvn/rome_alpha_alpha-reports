@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
@@ -51,7 +51,7 @@
                  message,
                  fixture.Create<WinLossParam>(),
                  Enumerable.Empty<CustInfo>(),
-                 Enumerable.Empty<SelectListItem>());
+                 Enumerable.Empty<GroupProductViewModel>());
 
             // Act & Assert
             Assert.Equal(winlossViewModel.Title, expectedTitle);
@@ -84,7 +84,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<GroupProductViewModel>());
 
             // Act
             var actualReportData = winlossViewModel.ReportData;
@@ -160,7 +160,7 @@
                             message,
                             winlossParam,
                             Enumerable.Empty<CustInfo>(),
-                            Enumerable.Empty<SelectListItem>());
+                            Enumerable.Empty<GroupProductViewModel>());
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
@@ -189,7 +189,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<GroupProductViewModel>());
 
             var expectedSortByPropertyName = "DownLineLevelName";
 
@@ -227,6 +227,6 @@
                 message,
                 winLossParam ?? fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<GroupProductViewModel>());
     }
 }

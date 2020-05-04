@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Extensions;
     using Reports.Models;
@@ -31,7 +32,7 @@
         {
             // Arrange
             IEnumerable<Product> products = null;
-            var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
+            var expectedSelectListItems = Enumerable.Empty<GroupProductViewModel>();
 
             // Act
             var actualSelectListItems = BaseHandler.BuildProductSelectListItems(Enumerable.Empty<int>(), products);
@@ -46,7 +47,7 @@
             // Arrange
             IEnumerable<Product> products = Enumerable.Empty<Product>();
             var userSelectedProductIds = Enumerable.Empty<int>();
-            var expectedSelectListItems = Enumerable.Empty<SelectListItem>();
+            var expectedSelectListItems = Enumerable.Empty<GroupProductViewModel>();
 
             // Act
             var actualSelectListItems = BaseHandler.BuildProductSelectListItems(userSelectedProductIds, products);
@@ -69,26 +70,34 @@
             };
 
             var userSelectedProductIds = new List<int> { 1, 3 };
-            IEnumerable<SelectListItem> expectedSelectListItems = new List<SelectListItem>
+            IEnumerable<GroupProductViewModel> expectedSelectListItems = new List<GroupProductViewModel>
             {
-                new SelectListItem
-                {
-                    Text = "Product 1",
-                    Value = "1",
-                    Selected = true
-                },
-                new SelectListItem
-                {
-                    Text = "Product 2",
-                    Value = "2",
-                    Selected = false
-                },
-                new SelectListItem
-                {
-                    Text = "Product 3",
-                    Value = "3",
-                    Selected = true
-                }
+                new GroupProductViewModel(
+                    new SelectListGroup
+                    {
+                        Name = string.Empty
+                    },
+                    new List<SelectListItem>
+                    {
+                        new SelectListItem
+                        {
+                            Text = "Product 1",
+                            Value = "1",
+                            Selected = true
+                        },
+                        new SelectListItem
+                        {
+                            Text = "Product 2",
+                            Value = "2",
+                            Selected = false
+                        },
+                        new SelectListItem
+                        {
+                            Text = "Product 3",
+                            Value = "3",
+                            Selected = true
+                        }
+                    })
             };
 
             // Act

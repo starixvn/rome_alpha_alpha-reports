@@ -3,7 +3,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
@@ -40,7 +40,7 @@
                 grandTotal: fixture.Create<WinLossAnalysisModel>(),
                 message: message,
                 param: fixture.Create<WinLossAnalysisParam>(),
-                products: Enumerable.Empty<SelectListItem>());
+                groupProducts: Enumerable.Empty<GroupProductViewModel>());
 
             compareLogic = new CompareLogic();
         }
@@ -111,7 +111,7 @@
                  grandTotal: fixture.Create<WinLossAnalysisModel>(),
                  message: CreateWinLossAnalysisQuery(custLevelId, reportTypeId, reportTypeName),
                  param: fixture.Create<WinLossAnalysisParam>(),
-                 products: Enumerable.Empty<SelectListItem>());
+                 groupProducts: Enumerable.Empty<GroupProductViewModel>());
 
             // Act & Assert
             Assert.Equal(winLossAnalysisViewModel.Title, expectedTitle);

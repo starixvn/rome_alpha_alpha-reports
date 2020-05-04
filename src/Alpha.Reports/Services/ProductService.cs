@@ -139,30 +139,5 @@
 
             return products;
         }
-
-        public IEnumerable<Product> BuildHierarchicalProducts(IEnumerable<Product> products)
-        {
-            var rootProducts = products
-                .Where(product => product.Type == 0)
-                .ToList();
-
-            foreach (var product in rootProducts)
-            {
-                FillSubProducts(products, product);
-            }
-
-            return rootProducts;
-        }
-
-        private static void FillSubProducts(IEnumerable<Product> allProducts, Product parent)
-        {
-            var subProducts = allProducts.Where(product => product.Type == parent.Id);
-
-            foreach (var product in subProducts)
-            {
-                FillSubProducts(allProducts, product);
-                parent.SubProducts.Add(product);
-            }
-        }
     }
 }

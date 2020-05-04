@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using NSubstitute;
@@ -58,7 +58,7 @@
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 query,
                 param,
-                anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
+                anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
             var drilldownFromDate = drilldownDate == null ? (DateTime?)null : Convert.ToDateTime(drilldownDate);
@@ -97,7 +97,7 @@
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 new GetConsolidationQuery(user),
                 param,
-                anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
+                anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
             DateTime? drilldownFromDate = null;
@@ -133,7 +133,7 @@
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 new GetConsolidationQuery(user),
                 param,
-                anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
+                anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
             var drilldownFromDate = new DateTime(2017, 9, 1);

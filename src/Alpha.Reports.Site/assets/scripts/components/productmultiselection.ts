@@ -56,7 +56,6 @@ class ProductMultiSelectionComponent {
             onChange: this.onChange,
             onSelectAll: this.onChange,
             language: this.$dropdownProduct.data("language"),
-            enableClickableOptGroups: true,
             enableCollapsibleOptGroups: true,
             optionClass: function (element) {
                 if (self.$(element).data("isnested") === 1) {

@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using Newtonsoft.Json;
@@ -118,7 +118,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<GroupProductViewModel>());
 
             // Act
             winLossExcelHandler.Handle(message);
@@ -140,7 +140,7 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<GroupProductViewModel>());
 
             // Act
             winLossExcelHandler.Handle(message);

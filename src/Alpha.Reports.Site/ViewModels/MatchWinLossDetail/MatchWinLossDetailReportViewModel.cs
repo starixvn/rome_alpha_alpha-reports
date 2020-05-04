@@ -26,7 +26,7 @@
             BetTypeWinLossViewModel grandTotal,
             MatchWinLossDetailQuery query,
             MatchWinLossDetailParam param,
-            IEnumerable<SelectListItem> products,
+            IEnumerable<GroupProductViewModel> groupProducts,
             IEnumerable<SelectListItem> leagues)
         {
             NoParlayMatchWinLossDetail = noParlayMatchWinLossDetail;
@@ -39,7 +39,7 @@
             this.query = query;
             this.param = param;
 
-            Products = products;
+            GroupProducts = groupProducts;
             Leagues = leagues;
 
             BetListPath = Helpers.UrlHelper.MapBetListPath("~/WinLossByMatch/Index");
@@ -91,7 +91,7 @@
 
         public UserLevel CustLevel => query.CustLevel;
 
-        public IEnumerable<SelectListItem> Products { get; }
+        public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
         public IEnumerable<SelectListItem> Leagues { get; }
 
@@ -99,7 +99,7 @@
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
-            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
+            new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);
 
         private LeagueMultiSelectionViewModel LeagueMultiSelectionViewModel =>
             new LeagueMultiSelectionViewModel(Leagues, UserSelectedLeagueIds, Language, query.IsUserSelectsAllLeagues);

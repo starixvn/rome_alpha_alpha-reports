@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
     using Components;
     using Constants;
@@ -20,14 +19,14 @@
         public ConsolidationReportViewModel(
             GetConsolidationQuery message,
             GetConsolidationParam param,
-            IEnumerable<SelectListItem> products,
+            IEnumerable<GroupProductViewModel> groupProducts,
             IEnumerable<SelectListItem> currencies,
             IEnumerable<T> reportData)
         {
             this.message = message;
             this.param = param;
 
-            Products = products;
+            GroupProducts = groupProducts;
             Currencies = currencies;
             ReportData = reportData;
         }
@@ -61,7 +60,7 @@
 
         public UserLevel CustLevel => message.CustLevel;
 
-        public IEnumerable<SelectListItem> Products { get; }
+        public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
         public IEnumerable<SelectListItem> Currencies { get; }
 
@@ -71,7 +70,7 @@
           new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
-            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
+            new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);
 
         private CurrencySelectionViewModel CurrencySelectionViewModel =>
             new CurrencySelectionViewModel(Currencies, UserSelectedCurrencyId);

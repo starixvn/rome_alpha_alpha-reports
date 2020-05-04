@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
@@ -26,11 +25,11 @@
             WinLossByProductQuery message,
             WinLossByProductParam winLossByBettypeParam,
             Func<int, BetType, string, bool, string> buildDisplayedBettypeName,
-            IEnumerable<SelectListItem> products)
+            IEnumerable<GroupProductViewModel> groupProducts)
         {
             this.message = message;
             this.winLossByBettypeParam = winLossByBettypeParam;
-            Products = products;
+            GroupProducts = groupProducts;
             MinDate = message.MinDate;
             ReportData = reportData;
             GrandTotal = grandTotal;
@@ -60,7 +59,7 @@
         public string UserSelectedProductIds
             => winLossByBettypeParam.UserSelectedProductIds.JoinWithComma();
 
-        public IEnumerable<SelectListItem> Products { get; }
+        public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
         public IEnumerable<SelectListItem> ExcludeProducts { get; }
 
@@ -82,7 +81,7 @@
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
-            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
+            new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);
 
         public WinLossByProductFilterViewModel FilterViewModel =>
             new WinLossByProductFilterViewModel(

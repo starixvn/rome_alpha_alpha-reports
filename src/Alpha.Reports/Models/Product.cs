@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Models
 {
     using System;
-    using System.Collections.Generic;
 
     public class Product
     {
@@ -22,6 +21,7 @@
             : this(id, name, endOfSupportDate, type, orderNo)
         {
             DisplayName = getProductDisplayName == null ? name : getProductDisplayName(id);
+            TypeName = type == 0 ? string.Empty : (getProductDisplayName == null ? name : getProductDisplayName(type));
         }
 
         public int Id { get; protected set; }
@@ -34,8 +34,8 @@
 
         public int Type { get; protected set; }
 
-        public int OrderNo { get; protected set; }
+        public string TypeName { get; }
 
-        public IList<Product> SubProducts { get; set; }
+        public int OrderNo { get; protected set; }
     }
 }

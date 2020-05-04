@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
     using Extensions;
@@ -19,13 +18,13 @@
         public ProgressiveContributionViewModel(
             ProgressiveContributionQuery query,
             ProgressiveContributionParam param,
-            IEnumerable<SelectListItem> products,
+            IEnumerable<GroupProductViewModel> groupProducts,
             ProgressiveContributionByBetTypeModel grandTotal,
             IEnumerable<ProgressiveContributionByProductModel> progressiveContributions)
         {
             this.query = query;
             this.param = param;
-            Products = products;
+            GroupProducts = groupProducts;
             GrandTotal = grandTotal;
             ProgressiveContributions = progressiveContributions;
         }
@@ -70,7 +69,7 @@
 
         public int ReportColumnsCount => CustLevel.IsSuperLevel() ? 8 : CustLevel.IsMasterLevel() ? 7 : 6;
 
-        public IEnumerable<SelectListItem> Products { get; }
+        public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
         public IEnumerable<ProgressiveContributionByProductModel> ProgressiveContributions { get; }
 
@@ -83,6 +82,6 @@
             new MonthPickerViewModel(MinDate, FromDate, ToDate);
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
-            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
+            new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);
     }
 }

@@ -586,6 +586,7 @@
     <Compile Include="ViewModels\Components\BreadcrumbLevelViewModel.cs" />
     <Compile Include="ViewModels\Components\CurrencySelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DateRangePickerViewModel.cs" />
+    <Compile Include="ViewModels\Components\GroupProductViewModel.cs" />
     <Compile Include="ViewModels\Components\LeagueMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />

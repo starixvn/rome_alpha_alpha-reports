@@ -4,6 +4,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Params;
     using Reports.Models;
     using Reports.Models.PlayForFun;
@@ -19,10 +20,10 @@
             PlayForFunQuery query, 
             PlayForFunParam param, 
             IEnumerable<CustInfo> breadcrumbLevel, 
-            IEnumerable<SelectListItem> products, 
+            IEnumerable<GroupProductViewModel> groupProducts, 
             IEnumerable<SelectListItem> statuses, 
             ReportData<PlayForFunModel> reportData)
-            : base(query, param, breadcrumbLevel, products, statuses, reportData)
+            : base(query, param, breadcrumbLevel, groupProducts, statuses, reportData)
         {
             var isResetSort = reportData.DataSource == null
                 || reportData.DataSource.Count() <= 1

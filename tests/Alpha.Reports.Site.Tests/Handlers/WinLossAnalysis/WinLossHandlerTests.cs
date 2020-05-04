@@ -6,7 +6,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
@@ -112,7 +112,7 @@
                 grandTotal,
                 message,
                 param,
-                products: Enumerable.Empty<SelectListItem>());
+                groupProducts: Enumerable.Empty<GroupProductViewModel>());
 
             // Act
             var actualWinLossAnalysisViewModel = winLossAnalysisHandler.Handle(message);

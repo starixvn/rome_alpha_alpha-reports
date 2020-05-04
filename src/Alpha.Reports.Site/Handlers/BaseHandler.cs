@@ -1,15 +1,16 @@
 ﻿namespace Alpha.Reports.Site.Handlers
 {
-    using App_GlobalResources;
-    using Reports.Constants;
-    using Reports.Models;
-    using Requests;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
+    using App_GlobalResources;
+    using Reports.Constants;
+    using Reports.Models;
+    using Requests;
 
     public class BaseHandler
     {
@@ -25,17 +26,21 @@
 
         internal Func<string, bool> IsFileExist { get; set; } = File.Exists;
 
-        protected internal static IEnumerable<SelectListItem> BuildProductSelectListItems(
+        protected internal static IEnumerable<GroupProductViewModel> BuildProductSelectListItems(
             IEnumerable<int> userSelectedProductIds,
             IEnumerable<Product> products)
             => products?.Any() == true
-                ? products.Select(product => new SelectListItem
-                {
-                    Text = product.DisplayName,
-                    Value = product.Id.ToString(),
-                    Selected = userSelectedProductIds.Contains(product.Id)
-                })
-                : Enumerable.Empty<SelectListItem>();
+                ? products
+                    .GroupBy(product => new { product.Type, product.TypeName })
+                    .Select(grp => new GroupProductViewModel(
+                        new SelectListGroup { Name = grp.Key.TypeName },
+                        grp.Select(product => new SelectListItem
+                        {
+                            Text = product.DisplayName,
+                            Value = product.Id.ToString(),
+                            Selected = userSelectedProductIds.Contains(product.Id)
+                        })))
+                : Enumerable.Empty<GroupProductViewModel>();
 
         protected internal IEnumerable<SelectListItem> BuildLeagueSelectListItems(
             IEnumerable<string> userSelectedLeagueIds,
