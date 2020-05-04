@@ -180,10 +180,7 @@
                 new List<GroupProductViewModel>
                 {
                     new GroupProductViewModel(
-                        new SelectListGroup
-                        {
-                            Name = string.Empty
-                        },
+                        new SelectListGroup(),
                         new List<SelectListItem>
                         {
                             new SelectListItem
@@ -288,7 +285,7 @@
                 new List<GroupProductViewModel>
                 {
                     new GroupProductViewModel(
-                        new SelectListGroup { Name = string.Empty },
+                        new SelectListGroup(),
                         new List<SelectListItem>
                         {
                             new SelectListItem

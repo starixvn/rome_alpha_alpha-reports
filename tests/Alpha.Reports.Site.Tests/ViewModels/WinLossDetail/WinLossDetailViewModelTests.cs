@@ -323,18 +323,19 @@
         }
 
         private static WinLossDetailViewModel CreateWinLossDetailViewModel(DateTime fromDate, DateTime toDate, WinLossDetailQuery message)
-        {
-            return Substitute.ForPartsOf<WinLossDetailViewModel>(
+            => Substitute.ForPartsOf<WinLossDetailViewModel>(
                 message,
                 new WinLossDetailParam(0, 0, 0, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, message.CustLevel, "CustName", false, false),
                 new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
-                new List<SelectListItem>
+                new List<GroupProductViewModel>
                 {
-                    new SelectListItem { Value = AllBetProductId.ToString() }
+                    new GroupProductViewModel(new SelectListGroup(), new List<SelectListItem>
+                    {
+                        new SelectListItem { Value = AllBetProductId.ToString() }
+                    })
                 },
                 false);
-        }
 
         private PagedReportData<WinLossDetailModel> CreatePagedReportData()
             => new PagedReportData<WinLossDetailModel>(

@@ -3,6 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Mvc;
+    using Alpha.Reports.Models;
+    using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
     using MediatR;
     using Requests.ProgressiveContribution;
@@ -37,7 +40,7 @@
             return new ProgressiveContributionViewModel(
                 message,
                 param,
-                BuildProductSelectListItems(param.UserSelectedProductIds, products),
+                BuildGroupProductSelectListItems(param.UserSelectedProductIds, products),
                 grandTotal,
                 progressiveContributions);
         }
@@ -60,5 +63,22 @@
 
             return result;
         }
+
+        private static IEnumerable<GroupProductViewModel> BuildGroupProductSelectListItems(
+            IEnumerable<int> userSelectedProductIds,
+            IEnumerable<Product> products)
+            => products?.Any() == true
+            ? new List<GroupProductViewModel>
+                {
+                    new GroupProductViewModel(
+                    new SelectListGroup(),
+                    products.Select(product => new SelectListItem
+                    {
+                        Text = product.DisplayName,
+                        Value = product.Id.ToString(),
+                        Selected = userSelectedProductIds.Contains(product.Id)
+                    }))
+                }
+            : Enumerable.Empty<GroupProductViewModel>();
     }
 }

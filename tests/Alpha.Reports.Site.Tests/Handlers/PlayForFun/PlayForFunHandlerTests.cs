@@ -113,7 +113,7 @@
                  new List<GroupProductViewModel>
                  {
                      new GroupProductViewModel(
-                         new SelectListGroup { Name = string.Empty },
+                         new SelectListGroup(),
                          new List<SelectListItem>
                          {
                              new SelectListItem { Text = null, Value = "6", Selected = false },
@@ -208,7 +208,7 @@
                  new List<GroupProductViewModel>
                  {
                      new GroupProductViewModel(
-                         new SelectListGroup { Name = string.Empty },
+                         new SelectListGroup(),
                          new List<SelectListItem>
                          {
                              new SelectListItem { Text = null, Value = "6", Selected = false },

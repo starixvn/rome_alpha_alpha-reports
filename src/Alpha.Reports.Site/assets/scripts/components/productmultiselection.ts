@@ -43,7 +43,6 @@ class ProductMultiSelectionComponent {
                 .on("change", this.excludeProductOnChange);
         }
 
-        const self: any = this;
         this.$dropdownProduct.multiselect({
             maxHeight: 300,
             numberDisplayed: alphaReports.numberDisplayedProductsOnFilter,
@@ -57,11 +56,7 @@ class ProductMultiSelectionComponent {
             onSelectAll: this.onChange,
             language: this.$dropdownProduct.data("language"),
             enableCollapsibleOptGroups: true,
-            optionClass: function (element) {
-                if (self.$(element).data("isnested") === 1) {
-                    return "multiselect-nested-item";
-                }
-            }
+            optionClass: this.optionClass
         });
 
         this.$dropdownProduct.next().find(".multiselect-container li").removeClass("hidden");
@@ -77,6 +72,12 @@ class ProductMultiSelectionComponent {
 
         if (this.options.onChange) {
             this.options.onChange();
+        }
+    };
+
+    optionClass = (element: HTMLElement) => {
+        if (this.$(element).data("isnested") === 1) {
+            return "multiselect-nested-item";
         }
     };
 
