@@ -66,7 +66,6 @@
             {
                 return Enumerable.Empty<Product>();
             }
-            var a = GetProductsForReport();
 
             var custProducts = ConfiguredCacheService
                 .GetOrSet(
