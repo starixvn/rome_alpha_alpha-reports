@@ -1,7 +1,5 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Outstanding
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using App_GlobalResources;
     using Components;
     using Enumerations;
@@ -10,6 +8,9 @@
     using Reports.Models;
     using Reports.Models.Outstanding;
     using Requests.Outstanding;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
 
     public class OutstandingViewModel : DrillDownableReportViewModel<OutstandingModel>
     {
@@ -23,7 +24,8 @@
             IEnumerable<OutstandingModel> outstandingDataSource,
             IEnumerable<int> selectedProductIds,
             IEnumerable<GroupProductViewModel> groupProducts,
-            IEnumerable<CustInfo> breadcrumbLevel)
+            IEnumerable<CustInfo> breadcrumbLevel,
+            bool isMobile)
                : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
@@ -39,6 +41,8 @@
             SortPropertyName = canSort ? GetSortedProperty(query.SortPropertyName) : DefaultVariables.SortPropertyName;
             IsDescendingSort = canSort && query.IsDescendingSort;
             BetListPath = Helpers.UrlHelper.MapBetListPath("~/RunningBetList/Index");
+
+            IsMobileView = isMobile;
         }
 
         public string Title
@@ -68,8 +72,7 @@
 
         public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
 
-
-        public bool IsMobileView => NumberOfOutstandingColumn > 2 && true;
+        public bool IsMobileView { get; }
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>
         {

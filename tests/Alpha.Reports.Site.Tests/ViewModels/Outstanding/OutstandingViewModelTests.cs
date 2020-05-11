@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using Alpha.Reports.Site.ViewModels.Components;
+    using System.Web.Mvc;
     using Constants;
     using Enumerations;
     using Fixtures;
@@ -47,7 +47,7 @@
             query.CustLevel.Returns(Agent);
             query.UserSelectedProductIds = userSelectedProductIds;
 
-            var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             viewmodel.BuildDrillDownLink(new OutstandingModel(custId, custName, 0, 0, 0, 0), "currentUrl");
@@ -80,7 +80,7 @@
             query.ViewerLevel.Returns(custLevel);
             query.CustLevel.Returns(custLevel);
 
-            var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewmodel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             viewmodel.BuildDrillDownLink(new OutstandingModel(custId, custName, 0, 0, 0, 0), currentUrl);
@@ -106,7 +106,7 @@
             query.CustLevel.Returns(Super);
 
             var expected = new List<UserLevel> { Member, Super };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -124,7 +124,7 @@
             query.CustLevel.Returns(Master);
 
             var expected = new List<UserLevel> { Member, Master, Super };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -141,7 +141,7 @@
             query.ViewerLevel.Returns(Super);
             query.CustLevel.Returns(Agent);
             var expected = new List<UserLevel> { Member, Agent, Master, Super };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -158,7 +158,7 @@
             query.ViewerLevel.Returns(Master);
             query.CustLevel.Returns(Master);
             var expected = new List<UserLevel> { Member, Master };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -175,7 +175,7 @@
             query.ViewerLevel.Returns(Master);
             query.CustLevel.Returns(Agent);
             var expected = new List<UserLevel> { Member, Agent, Master };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -192,7 +192,7 @@
             query.ViewerLevel.Returns(Agent);
             query.CustLevel.Returns(Agent);
             var expected = new List<UserLevel> { Member, Agent };
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             var actual = viewModel.DisplayOutstandingLevels;
@@ -213,7 +213,7 @@
             query.ViewerLevel.Returns(userLevel);
             query.CustLevel.Returns(userLevel);
 
-            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewModel = new OutstandingViewModel(query, null, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             var actualTitle = viewModel.Title;
@@ -243,7 +243,7 @@
             };
 
             var expectedSortPropertyName = "CustName";
-            var viewModel = new OutstandingViewModel(query, outstandingDataSource, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewModel = new OutstandingViewModel(query, outstandingDataSource, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             var actualSortPropertyName = viewModel.SortPropertyName;
@@ -273,7 +273,7 @@
                 new OutstandingModel()
             };
 
-            var viewModel = new OutstandingViewModel(query, outstandingDataSource, Enumerable.Empty<int>(), Enumerable.Empty<GroupProductViewModel>(), null);
+            var viewModel = new OutstandingViewModel(query, outstandingDataSource, Enumerable.Empty<int>(), Enumerable.Empty<SelectListItem>(), null, false);
 
             // Act
             var actualSortPropertyName = viewModel.SortPropertyName;

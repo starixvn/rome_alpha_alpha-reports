@@ -5,6 +5,7 @@
     using System.Web.Mvc;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
     using Alpha.Utilities.IP;
+    using Alpha.Web.Helpers;
     using Configurations;
     using Controllers;
     using DataAccesses;
@@ -84,6 +85,7 @@
 
         private static void RegisterServices(Container container)
         {
+            container.RegisterSingleton<BrowserHelper, BrowserHelperImpl>();
             container.RegisterSingleton<IRemotingRefService, RemotingRefService>();
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
             container.RegisterSingleton<IUserSession, UserSessionExt>();

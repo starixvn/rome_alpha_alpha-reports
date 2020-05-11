@@ -1,18 +1,17 @@
 ﻿namespace Alpha.Reports.Site.Handlers.Outstanding
 {
-    using System;
-    using System.Collections.Generic;
-    using App_GlobalResources;
+    using Alpha.Web.Helpers;
     using Extensions;
     using MediatR;
     using Params;
-    using Reports.Constants;
     using Reports.Models;
     using Requests.Outstanding;
     using Services;
     using Services.Outstanding;
-    using ViewModels.Outstanding;
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using ViewModels.Outstanding;
 
     public class OutstandingHandler : BaseHandler,
         IRequestHandler<OutstandingQuery, OutstandingViewModel>,
@@ -20,14 +19,17 @@
     {
         private readonly OutstandingService outstandingService;
         private readonly ProductService productService;
+        private readonly BrowserHelper browserHelper;
 
         public OutstandingHandler(
             OutstandingService outstandingServiceImpl,
             ProductService productServiceImpl,
+            BrowserHelper browserHelper,
             IUser viewer)
         {
             outstandingService = outstandingServiceImpl;
             productService = productServiceImpl;
+            this.browserHelper = browserHelper;
         }
 
         public OutstandingViewModel Handle(OutstandingQuery message)
@@ -49,7 +51,8 @@
                 outstandings,
                 validUserSelectedProductIds,
                 BuildProductSelectListItems(validUserSelectedProductIds, products),
-                BuildBreadcrumbLevel(message));
+                BuildBreadcrumbLevel(message),
+                browserHelper.IsMobile(isOnlyTablet: false));
 
             return viewModel;
         }
