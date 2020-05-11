@@ -62,6 +62,7 @@ body {
 
         .caret {
             top: calculateScale(16px);
+            border-width: calculateScale(4px);
         }
     }
 
@@ -83,7 +84,6 @@ body {
             margin-right: 0;
         }
     }
-   
 }
 
 .multiselect-container.dropdown-menu {
@@ -91,6 +91,43 @@ body {
     width: 100%;
 
     > li {
-        height: calculateScale(30px);
+        height: calculateScale(34px);
+
+        > a {
+            padding: 8px 0;
+        }
     }
 }
+
+.checkbox {
+    input[type="checkbox"] {
+        opacity: 0;
+    }
+
+    &:before {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        width: calculateScale(16px);
+        height: calculateScale(16px);
+        left: 8px;
+        margin-left: 0;
+        border: 1px solid #919191;
+        background: #fff;
+        top: 3px;
+    }
+}
+
+.active .checkbox:after {
+    display: inline-block;
+    position: absolute;
+    width: calculateScale(16px);
+    height: calculateScale(16px);
+    left: 0;
+    top: 0;
+    margin-left: 10px;
+    padding-left: 3px;
+    font-size: calculateScale(12px);
+    content: '\2713';
+    color: #242424;
+} 

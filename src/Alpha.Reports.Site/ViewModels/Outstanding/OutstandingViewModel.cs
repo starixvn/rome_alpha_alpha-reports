@@ -68,6 +68,9 @@
 
         public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
 
+
+        public bool IsMobileView => NumberOfOutstandingColumn > 2 && true;
+
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>
         {
             { "CustId", model.CustId },

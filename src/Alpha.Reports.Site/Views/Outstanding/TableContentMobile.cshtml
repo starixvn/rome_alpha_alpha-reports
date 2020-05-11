@@ -1,0 +1,92 @@
+﻿@model OutstandingViewModel
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tbl-outstanding tablesorter" id="tbl-report"
+       data-totalrecords="@Model.OutstandingDatasource.Count()"
+       data-sortedcolumn="@Model.SortPropertyName"
+       data-descendingsort="@Model.IsDescendingSort">
+    <thead class="tableFloatingHeaderOriginal">
+        <tr>
+            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="@OutstandingViewModel.CustNamePropertyName">
+                @HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
+            </th>
+            <th colspan="2" class="header" data-disabledsort="true">
+                @Resources.Outstanding
+            </th>
+            <th rowspan="2"></th>
+        </tr>
+        <tr class="thead-row2">
+            @{
+                var sortIndex = 1;
+                for (var i = 0; i < 2; i++)
+                {
+                    var userLevel = Model.DisplayOutstandingLevels[i];
+                    <th class="sorting" data-colindex="@sortIndex" data-sortedname="@(userLevel.DisplayName)Outstanding">
+                        @HtmlHelpers.DisplayUserLevelText(userLevel)
+                    </th>
+                    sortIndex++;
+                }
+            }
+        </tr>
+    </thead>
+    @if (Model.OutstandingDatasource.Any())
+    {
+        <tbody>
+            @foreach (var outstanding in Model.OutstandingDatasource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+            {
+                <tr>
+                    <td class="text-left" data-islink="true">
+                        <a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
+                           data-custname="@outstanding.CustName"
+                           class="downline-link">@outstanding.CustName</a>
+                    </td>
+                    @for (var i = 0; i < 2; i++)
+                    {
+                        <td>
+                            @HtmlHelpers.FormatNumber(outstanding.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
+                        </td>
+                    }
+                    <td><span class="icon-plus"></span></td>
+                </tr>
+                for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
+                {
+                    var userLevel = Model.DisplayOutstandingLevels[i];
+                    <tr class="">
+                        <td colspan="4">
+                            <span class="text-left">@userLevel.DisplayName</span>
+                            <span class="text-right">@HtmlHelpers.FormatNumber(outstanding.GetValueByLevel(userLevel))</span>                            
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr class="tbl-footer">
+                <td class="text-left">@Resources.Total</td>
+                @for (var i = 0; i < 2; i++)
+                {
+                    <td>
+                        @HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
+                    </td>
+                }
+                <td><span class="icon-plus"></span></td>
+            </tr>
+
+            @for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
+            {
+                var userLevel = Model.DisplayOutstandingLevels[i];
+                <tr class="tbl-footer">
+                    <td colspan="4">
+                        <span class="text-left">@userLevel.DisplayName</span>
+                        <span class="text-right">@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(userLevel))</span>
+                    </td>
+                </tr>
+            }
+        </tfoot>
+
+    }
+    else
+    {
+        @NoInformation.Render(Model.NumberOfOutstandingColumn + 1)
+    }
+
+</table>
