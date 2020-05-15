@@ -45,12 +45,12 @@
                             @HtmlHelpers.FormatNumber(outstanding.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
                         </td>
                     }
-                    <td class="text-center"><span class="col-function icon-plus"></span></td>
+                    <td class="text-center"><span class="col-function icon-plus" data-custid=@Model.Query.CustId></span></td>
                 </tr>
                 for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
                 {
                     var userLevel = Model.DisplayOutstandingLevels[i];
-                    <tr class="row-ex hide">
+                    <tr class="row-ex hide" data-custid=@Model.Query.CustId>
                         <td colspan="4" class="text-left">
                             <span class="row-role">
                                 <span class="text-left">@userLevel.DisplayName</span>
@@ -76,7 +76,7 @@
             @for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
             {
                 var userLevel = Model.DisplayOutstandingLevels[i];
-                <tr class="tbl-footer row-ex">
+                <tr class="tbl-footer row-ex hide">
                     <td colspan="4" class="text-left">
                         <span class="row-role">
                             <span class="text-left">@userLevel.DisplayName</span>
