@@ -11,7 +11,7 @@
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
-<form class="form-inline filter form-outstanding @(Model.IsFilterVisible ? string.Empty:"hide")" role="form" id="report-form">
+<form class="form-inline filter form-outstanding @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
     @Html.Hidden("CustId", Model.Query.CustId)
@@ -25,9 +25,19 @@
         <input type="submit" value="@Resources.Submit" class="btn-submit" />
     </div>
 </form>
+<div class="level-@Model.CustLevel.Value">
+    @if ((Model.IsMobileView) && (Model.CustLevel.Value == 4))
+    {
+        @Html.Partial("TableContentMobileSuper");
+    }
+    else
+    {
+        @Html.Partial("TableContent" + (Model.IsMobileView ? "Mobile" : ""), Model)
+    }
 
-@Html.Partial("TableContent" + (Model.IsMobileView ? "Mobile" : ""), Model)
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Outstanding"))
+    @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Outstanding"))
+</div>
+
 
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/outstanding/outstanding")

@@ -8,12 +8,35 @@ body {
     thead th, tbody td, tfoot td {
         height: calculateScale(34px);
     }
+
+    .icon-plus, .icon-minus {
+        font-size: calculateScale(24px);
+        color: #04A54E;
+    }
+  
 }
 
 .page-title {
     font-size: calculateScale(13px);
     line-height: calculateScale(39px);
+    position: relative;
+    border-bottom: none;
+
+    .text-title {
+        width: 100%;
+        border-bottom: 1px solid #cecece;
+    }
+
+    .breadcrumb {
+        padding: 0;
+        line-height: 28px;
+        padding-top: 12px;
+    }
+
     .list-icon {
+        position: absolute;
+        right: 0;
+
         .icon-filter {
             font-size: calculateScale(22px) !important;
         }
@@ -130,4 +153,5 @@ body {
     font-size: calculateScale(12px);
     content: '\2713';
     color: #242424;
-} 
+}
+

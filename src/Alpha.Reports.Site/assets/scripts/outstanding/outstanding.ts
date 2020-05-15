@@ -13,6 +13,9 @@ class OutstandingView extends BaseReport {
     $tableReport: JQuery;
     $reportForm: JQuery;
     $buttonProduct: JQuery;
+    $rowMain: JQuery;
+    $rowEx: JQuery;
+    $colFunction: JQuery;
 
     $sortPropertyName: JQuery;
     $isDescendingSort: JQuery;
@@ -64,11 +67,28 @@ class OutstandingView extends BaseReport {
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$pageTitle = this.$(".page-title");
+        this.$rowMain = this.$(".row-main");
+        this.$rowEx = this.$(".row-ex");
+        this.$colFunction = this.$(".col-function");
     };
 
     public registerEvents() {
         super.registerEvents();
         this.$reportForm.submit(this.onSubmitReport);
+        this.$(".col-function").on("click", this.showHideValue);
+    };
+
+    showHideValue = () => {
+        let roleMain = this.$rowMain;
+        let currentHideState = this.$colFunction.hasClass("icon-plus");
+
+        if (currentHideState) {
+            this.$rowEx.removeClass("hide");
+            this.$colFunction.removeClass('icon-plus').addClass('icon-minus');
+        } else {
+            this.$rowEx.addClass("hide");
+            this.$colFunction.removeClass('icon-minus').addClass('icon-plus');
+        }
     };
     onSubmitReport = (e: any) => {
         let this$ = this.$;

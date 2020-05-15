@@ -11,3 +11,34 @@
 .tbl-outstanding {
     width: 100%;
 }
+
+.row-role {
+    display: flex;
+    justify-content: space-between;
+}
+
+.level-3 tbody {
+    tr:nth-of-type(2n) {
+        background: #F6F2D7 !important;
+    }
+
+    tr:nth-of-type(4n-1) {
+        background: #eae9ee !important;
+    }
+}
+
+.level-2 tbody {
+    tr:nth-of-type(3n-1) {
+        background: #F6F2D7 !important;
+    }
+
+    tr:nth-of-type(6n-2) {
+        background: #eae9ee !important;
+    }
+
+    tr:nth-of-type(3n) {
+        background: #F3E496 !important;
+    }
+}
+
+

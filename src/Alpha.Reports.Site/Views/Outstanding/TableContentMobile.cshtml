@@ -33,7 +33,7 @@
         <tbody>
             @foreach (var outstanding in Model.OutstandingDatasource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
             {
-                <tr>
+                <tr class="row-main">
                     <td class="text-left" data-islink="true">
                         <a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
                            data-custname="@outstanding.CustName"
@@ -45,15 +45,17 @@
                             @HtmlHelpers.FormatNumber(outstanding.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
                         </td>
                     }
-                    <td><span class="icon-plus"></span></td>
+                    <td class="text-center"><span class="col-function icon-plus"></span></td>
                 </tr>
                 for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
                 {
                     var userLevel = Model.DisplayOutstandingLevels[i];
-                    <tr class="">
-                        <td colspan="4">
-                            <span class="text-left">@userLevel.DisplayName</span>
-                            <span class="text-right">@HtmlHelpers.FormatNumber(outstanding.GetValueByLevel(userLevel))</span>                            
+                    <tr class="row-ex hide">
+                        <td colspan="4" class="text-left">
+                            <span class="row-role">
+                                <span class="text-left">@userLevel.DisplayName</span>
+                                <span class="text-right">@HtmlHelpers.FormatNumber(outstanding.GetValueByLevel(userLevel))</span>
+                            </span>                                                     
                         </td>
                     </tr>
                 }
@@ -68,16 +70,18 @@
                         @HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
                     </td>
                 }
-                <td><span class="icon-plus"></span></td>
+                <td class="text-center"><span class="col-function icon-plus"></span></td>
             </tr>
 
             @for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
             {
                 var userLevel = Model.DisplayOutstandingLevels[i];
-                <tr class="tbl-footer">
-                    <td colspan="4">
-                        <span class="text-left">@userLevel.DisplayName</span>
-                        <span class="text-right">@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(userLevel))</span>
+                <tr class="tbl-footer row-ex">
+                    <td colspan="4" class="text-left">
+                        <span class="row-role">
+                            <span class="text-left">@userLevel.DisplayName</span>
+                            <span class="text-right">@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(userLevel))</span>
+                        </span>                        
                     </td>
                 </tr>
             }
