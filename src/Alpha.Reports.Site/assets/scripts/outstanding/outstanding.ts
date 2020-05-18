@@ -79,16 +79,14 @@ class OutstandingView extends BaseReport {
     };
 
     showHideValue = () => {
-        let roleMain = this.$rowMain;
         let currentHideState = this.$colFunction.hasClass("icon-plus");
         let custId = this.$colFunction.attr("data-custid");
         let specRow = this.$rowEx.find("[data-custid='" + custId + "']");
-        alert(specRow);
         if (currentHideState) {
-            specRow[0].removeClass("hide");
+            specRow.removeClass("hide");
             this.$colFunction.removeClass('icon-plus').addClass('icon-minus');
         } else {
-            specRow[0].addClass("hide");
+            specRow.addClass("hide");
             this.$colFunction.removeClass('icon-minus').addClass('icon-plus');
         }
     };
