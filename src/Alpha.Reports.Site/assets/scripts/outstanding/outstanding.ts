@@ -13,9 +13,7 @@ class OutstandingView extends BaseReport {
     $tableReport: JQuery;
     $reportForm: JQuery;
     $buttonProduct: JQuery;
-    $rowMain: JQuery;
     $rowEx: JQuery;
-    $colFunction: JQuery;
 
     $sortPropertyName: JQuery;
     $isDescendingSort: JQuery;
@@ -67,27 +65,40 @@ class OutstandingView extends BaseReport {
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$pageTitle = this.$(".page-title");
-        this.$rowMain = this.$(".row-main");
         this.$rowEx = this.$(".row-ex");
-        this.$colFunction = this.$(".col-function");
     };
 
     public registerEvents() {
         super.registerEvents();
         this.$reportForm.submit(this.onSubmitReport);
-        this.$colFunction.on("click", this.showHideValue);
+        const self = this;
+        this.$(".col-function").click(function () {
+            self.showHideValue(self.$(this));
+        });
+        this.$("#icon-total").click(function () {
+            self.showHideTotalValue(self.$(this));})
     };
 
-    showHideValue = () => {
-        let currentHideState = this.$colFunction.hasClass("icon-plus");
-        let custId = this.$colFunction.attr("data-custid");
-        let specRow = this.$rowEx.find("[data-custid='" + custId + "']");
-        if (currentHideState) {
-            specRow.removeClass("hide");
-            this.$colFunction.removeClass('icon-plus').addClass('icon-minus');
+    public showHideTotalValue(colFunction: JQuery) { 
+        const rowExtension = this.$(".row-ex-total");
+        if (colFunction.hasClass("icon-plus")) {
+            rowExtension.addClass("hide");
+            colFunction.removeClass("icon-minus").addClass("icon-plus");
         } else {
-            specRow.addClass("hide");
-            this.$colFunction.removeClass('icon-minus').addClass('icon-plus');
+            rowExtension.removeClass("hide");
+            colFunction.removeClass("icon-plus").addClass("icon-minus");
+        }
+    };
+
+    public showHideValue(colFunction: JQuery) {
+        const rowExtension = this.$(".rowEx-" + colFunction.data("custid"));
+
+        if (colFunction.hasClass("icon-plus")) {
+            rowExtension.removeClass("hide");
+            colFunction.removeClass("icon-plus").addClass("icon-minus");
+        } else {
+            rowExtension.addClass("hide");
+            colFunction.removeClass("icon-minus").addClass("icon-plus");
         }
     };
     onSubmitReport = (e: any) => {

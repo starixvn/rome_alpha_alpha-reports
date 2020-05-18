@@ -12,7 +12,7 @@
             <th colspan="2" class="header" data-disabledsort="true">
                 @Resources.Outstanding
             </th>
-            <th rowspan="2"></th>
+            <th rowspan="2" class="col-50"></th>
         </tr>
         <tr class="thead-row2">
             @{
@@ -20,7 +20,7 @@
                 for (var i = 0; i < 2; i++)
                 {
                     var userLevel = Model.DisplayOutstandingLevels[i];
-                    <th class="sorting" data-colindex="@sortIndex" data-sortedname="@(userLevel.DisplayName)Outstanding">
+                    <th class="sorting col-95" data-colindex="@sortIndex" data-sortedname="@(userLevel.DisplayName)Outstanding">
                         @HtmlHelpers.DisplayUserLevelText(userLevel)
                     </th>
                     sortIndex++;
@@ -45,12 +45,12 @@
                             @HtmlHelpers.FormatNumber(outstanding.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
                         </td>
                     }
-                    <td class="text-center"><span class="col-function icon-plus" data-custid=@Model.Query.CustId></span></td>
+                    <td class="text-center"><span class="col-function icon-plus" data-custid=@outstanding.CustName></span></td>
                 </tr>
                 for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
                 {
                     var userLevel = Model.DisplayOutstandingLevels[i];
-                    <tr class="row-ex hide" data-custid=@Model.Query.CustId>
+                    <tr class="row-ex rowEx-@outstanding.CustName">
                         <td colspan="4" class="text-left">
                             <span class="row-role">
                                 <span class="text-left">@userLevel.DisplayName</span>
@@ -70,13 +70,13 @@
                         @HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
                     </td>
                 }
-                <td class="text-center"><span class="col-function icon-plus"></span></td>
+                <td class="text-center"><span class="col-function icon-plus" id="icon-total"></span></td>
             </tr>
 
             @for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
             {
                 var userLevel = Model.DisplayOutstandingLevels[i];
-                <tr class="tbl-footer row-ex hide">
+                <tr class="tbl-footer row-ex-total hide">
                     <td colspan="4" class="text-left">
                         <span class="row-role">
                             <span class="text-left">@userLevel.DisplayName</span>

@@ -10,6 +10,20 @@
 
 .tbl-outstanding {
     width: 100%;
+    table-layout: fixed;
+
+    .col-95 {
+        width: 95px;
+    }
+
+    .col-50 {
+        width: 50px;
+    }
+
+    .downline-link {
+        word-break: break-word;
+        white-space: normal;
+    }
 }
 
 .row-role {
