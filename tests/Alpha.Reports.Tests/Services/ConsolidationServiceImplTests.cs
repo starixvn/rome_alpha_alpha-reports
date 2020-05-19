@@ -34,17 +34,17 @@
             var minDate = DefaultVariablesTest.CurrentDate;
             var data = new List<ConsolidationProduct>
             {
-               new ConsolidationProduct(id: 1, name: null, isEnable: true, endOfSupportDate: minDate),
-               new ConsolidationProduct(id: 2, name: null, isEnable: true, endOfSupportDate: minDate),
-               new ConsolidationProduct(id: 3, name: null, isEnable: false, endOfSupportDate: minDate),
-               new ConsolidationProduct(id: 4, name: null, isEnable: false, endOfSupportDate: minDate),
-               new ConsolidationProduct(id: 5, name: null, isEnable: true, endOfSupportDate: minDate),
-               new ConsolidationProduct(id: 6, name: null, isEnable: false, endOfSupportDate: minDate),
-               new ConsolidationProduct(id: 7, name: null, isEnable: true, endOfSupportDate: minDate.AddDays(-1)),
-               new ConsolidationProduct(id: 8, name: null, isEnable: false, endOfSupportDate: minDate),
-               new ConsolidationProduct(id: 9, name: null, isEnable: false, endOfSupportDate: minDate.AddDays(-1)),
-               new ConsolidationProduct(id: 10, name: null, isEnable: false, endOfSupportDate: null),
-               new ConsolidationProduct(id: 11, name: null, isEnable: true, endOfSupportDate: null)
+               new ConsolidationProduct(id: 1, name: null, isEnable: true, endOfSupportDate: minDate, type: 0, orderNo: 0),
+               new ConsolidationProduct(id: 2, name: null, isEnable: true, endOfSupportDate: minDate, type: 0, orderNo: 0),
+               new ConsolidationProduct(id: 3, name: null, isEnable: false, endOfSupportDate: minDate, type: 0, orderNo: 0),
+               new ConsolidationProduct(id: 4, name: null, isEnable: false, endOfSupportDate: minDate, type: 0, orderNo: 0),
+               new ConsolidationProduct(id: 5, name: null, isEnable: true, endOfSupportDate: minDate, type: 0, orderNo: 0),
+               new ConsolidationProduct(id: 6, name: null, isEnable: false, endOfSupportDate: minDate, type: 0, orderNo: 0),
+               new ConsolidationProduct(id: 7, name: null, isEnable: true, endOfSupportDate: minDate.AddDays(-1), type: 0, orderNo: 0),
+               new ConsolidationProduct(id: 8, name: null, isEnable: false, endOfSupportDate: minDate, type: 0, orderNo: 0),
+               new ConsolidationProduct(id: 9, name: null, isEnable: false, endOfSupportDate: minDate.AddDays(-1), type: 0, orderNo: 0),
+               new ConsolidationProduct(id: 10, name: null, isEnable: false, endOfSupportDate: null, type: 0, orderNo: 0),
+               new ConsolidationProduct(id: 11, name: null, isEnable: true, endOfSupportDate: null, type: 0, orderNo: 0)
            };
 
             dynamicRepository.Fetch<ConsolidationProduct>(Arg.Any<GetConsolidationReportProductsCriteria>()).Returns(data);
@@ -90,10 +90,10 @@
             var param = new GetConslidationReportProductsParam(custId: anyValueCreatorFixture.Create<int>(), minDate: minDate);
             var expectedProducts = new List<Product>
             {
-                new Product(1, null, minDate, cacheRefService.GetProductName),
-                new Product(2, null, minDate, cacheRefService.GetProductName),
-                new Product(5, null, minDate, cacheRefService.GetProductName),
-                new Product(11, null, null, cacheRefService.GetProductName)
+                new Product(1, null, minDate, 0, 0, cacheRefService.GetProductName),
+                new Product(2, null, minDate, 0, 0, cacheRefService.GetProductName),
+                new Product(5, null, minDate, 0, 0, cacheRefService.GetProductName),
+                new Product(11, null, null, 0, 0, cacheRefService.GetProductName)
             };
 
             // Act
@@ -218,10 +218,10 @@
             var minDate = DefaultVariablesTest.CurrentDate;
             IEnumerable<Product> products = new List<Product>
             {
-                new Product(id: 1, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
-                new Product(id: 2, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
-                new Product(id: 5, name: null, endOfSupportDate: minDate, getProductDisplayName: cacheRefService.GetProductName),
-                new Product(id: 11, name: null, endOfSupportDate: null, getProductDisplayName: cacheRefService.GetProductName)
+                new Product(id: 1, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 2, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 5, name: null, endOfSupportDate: minDate, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName),
+                new Product(id: 11, name: null, endOfSupportDate: null, type: 0, orderNo: 0, getProductDisplayName: cacheRefService.GetProductName)
             };
 
             var expectedValue = new ConsolidationExcludeProduct(products);

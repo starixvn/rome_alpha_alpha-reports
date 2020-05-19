@@ -56,9 +56,9 @@
 
             var supportedProduct = new List<Product>
             {
-                new Product(6, "Casino", null),
-                new Product(22, "Macau Games", null),
-                new Product(24, "Fishing World", null)
+                new Product(6, "Casino", null, 0, 0),
+                new Product(22, "Macau Games", null, 0, 0),
+                new Product(24, "Fishing World", null, 0, 0)
             };
             reportService.SupportedProduct(Arg.Any<int>()).Returns(supportedProduct);
 

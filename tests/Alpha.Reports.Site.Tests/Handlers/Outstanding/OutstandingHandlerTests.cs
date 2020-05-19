@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -89,7 +89,7 @@
                 query,
                 Enumerable.Empty<OutstandingModel>(),
                 Enumerable.Empty<int>(),
-                Enumerable.Empty<SelectListItem>(),
+                Enumerable.Empty<GroupProductViewModel>(),
                 new List<CustInfo> { new CustInfo(custId, custName, custLevelId) });
 
             // Act

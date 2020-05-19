@@ -62,7 +62,7 @@
                 grandTotal: null,
                 query: query,
                 param: param,
-                products: null,
+                groupProducts: null,
                 leagues: null);
 
             Site.Helpers.UrlHelper.MapExMainPath = Substitute.For<Func<string, string>>();
@@ -224,7 +224,7 @@
                 grandTotal: null,
                 query: query,
                 param: param,
-                products: null,
+                groupProducts: null,
                 leagues: null);
 
             // Act
@@ -246,7 +246,7 @@
                 grandTotal: null,
                 query: query,
                 param: param,
-                products: null,
+                groupProducts: null,
                 leagues: null);
 
             // Act
@@ -268,7 +268,7 @@
                 grandTotal: null,
                 query: query,
                 param: param,
-                products: null,
+                groupProducts: null,
                 leagues: null);
 
             // Act
@@ -290,7 +290,7 @@
                 grandTotal: null,
                 query: query,
                 param: param,
-                products: null,
+                groupProducts: null,
                 leagues: null);
 
             // Act
@@ -319,7 +319,7 @@
                 grandTotal: null,
                 query: reportQuery,
                 param: param,
-                products: null,
+                groupProducts: null,
                 leagues: null);
 
             // Act

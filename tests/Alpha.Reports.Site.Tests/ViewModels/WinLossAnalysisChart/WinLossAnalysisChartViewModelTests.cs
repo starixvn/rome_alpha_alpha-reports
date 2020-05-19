@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
     using Constants;
     using Extensions;
     using Fixtures;
@@ -44,7 +43,7 @@
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
                 message.ViewerLevel);
-            var viewModel = new WinLossAnalysisChartViewModel(reportData, message, param, Enumerable.Empty<SelectListItem>());
+            var viewModel = new WinLossAnalysisChartViewModel(reportData, message, param, Enumerable.Empty<GroupProductViewModel>());
             var expectedDualAxisChartViewModel = new DualAxisChartViewModel(
                 "Monthly Win Loss Chart From 09/01/2016 To 11/30/2016",
                 "Aug-16",

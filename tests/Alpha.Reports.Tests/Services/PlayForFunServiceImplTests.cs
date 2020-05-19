@@ -50,8 +50,8 @@
             user.GetHideProduct(ProductIdConstants.FishingWorld).Returns(true);
             var expectedProductList = new List<Product>
             {
-                new Product(6, string.Empty, null,  cacheRefService.GetProductName),
-                new Product(22, string.Empty, null,  cacheRefService.GetProductName)
+                new Product(6, string.Empty, null, 0, 0, cacheRefService.GetProductName),
+                new Product(22, string.Empty, null, 0, 0, cacheRefService.GetProductName)
             };
 
             // Act
@@ -69,9 +69,9 @@
             user.GetHideProduct(ProductIdConstants.FishingWorld).Returns(false);
             var expectedProductList = new List<Product>
             {
-                new Product(6, string.Empty, null,  cacheRefService.GetProductName),
-                new Product(22, string.Empty, null,  cacheRefService.GetProductName),
-                new Product(24, string.Empty, null,  cacheRefService.GetProductName)
+                new Product(6, string.Empty, null, 0, 0, cacheRefService.GetProductName),
+                new Product(22, string.Empty, null, 0, 0, cacheRefService.GetProductName),
+                new Product(24, string.Empty, null, 0, 0, cacheRefService.GetProductName)
             };
 
             // Act

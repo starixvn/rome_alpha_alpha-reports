@@ -6,7 +6,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
@@ -121,7 +121,7 @@
                 message,
                 winLossParam,
                 custInfoData,
-                Enumerable.Empty<SelectListItem>());
+                Enumerable.Empty<GroupProductViewModel>());
 
             // Act
             var actualWinLossViewModel = winLossHandler.Handle(message);

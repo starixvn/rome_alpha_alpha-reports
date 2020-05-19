@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Params;
     using Reports.Models;
     using Reports.Models.PlayForFun;
@@ -15,7 +16,13 @@
             "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2100:CodeLineMustNotBeLongerThan",
             Justification = "Separate Code Makes Duplicate Lines With Other Classes.")]
-        public PlayForFunReportViewModelForTesting(PlayForFunQuery query, PlayForFunParam param, IEnumerable<CustInfo> breadcrumbLevel, IEnumerable<SelectListItem> products, IEnumerable<SelectListItem> statuses, ReportData<PlayForFunModel> reportData)
+        public PlayForFunReportViewModelForTesting(
+            PlayForFunQuery query,
+            PlayForFunParam param,
+            IEnumerable<CustInfo> breadcrumbLevel,
+            IEnumerable<GroupProductViewModel> products,
+            IEnumerable<SelectListItem> statuses,
+            ReportData<PlayForFunModel> reportData)
             : base(query, param, breadcrumbLevel, products, statuses, reportData)
         {
         }

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -80,7 +80,7 @@
             var expectedViewModel = new ProgressiveContributionViewModel(
                 message,
                 param,
-                Enumerable.Empty<SelectListItem>(),
+                Enumerable.Empty<GroupProductViewModel>(),
                 grandTotal,
                 reportData);
 
@@ -118,7 +118,7 @@
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(new List<byte> { 6 });
             productService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
-                new Product(6, string.Empty, null)
+                new Product(6, string.Empty, null, 0, 0)
             });
 
             var expectedViewModel = new List<string>

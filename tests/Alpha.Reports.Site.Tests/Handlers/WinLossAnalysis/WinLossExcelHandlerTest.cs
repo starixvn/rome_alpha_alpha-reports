@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using Newtonsoft.Json;
@@ -67,7 +67,7 @@
                 grandTotal: fixture.Create<WinLossAnalysisModel>(),
                 message: message,
                 param: fixture.Create<WinLossAnalysisParam>(),
-                products: Enumerable.Empty<SelectListItem>());
+                groupProducts: Enumerable.Empty<GroupProductViewModel>());
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

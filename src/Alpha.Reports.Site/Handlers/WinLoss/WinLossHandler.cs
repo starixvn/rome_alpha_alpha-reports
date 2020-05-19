@@ -2,7 +2,6 @@
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using Extensions;
     using MediatR;
     using Requests.WinLoss;
     using Services;

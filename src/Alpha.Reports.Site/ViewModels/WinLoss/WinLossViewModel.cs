@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using App_GlobalResources;
     using Params;
     using Reports.Constants;
@@ -22,7 +22,7 @@
             WinLossQuery message,
             WinLossParam param,
             IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<SelectListItem> products) : base(message, param, breadcrumbLevel, products)
+            IEnumerable<GroupProductViewModel> groupProducts) : base(message, param, breadcrumbLevel, groupProducts)
         {
             ReportData = reportData;
             GrandTotal = grandTotal;

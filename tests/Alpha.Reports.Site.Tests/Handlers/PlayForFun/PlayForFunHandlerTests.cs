@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Extensions;
     using Fixtures;
@@ -49,9 +50,9 @@
 
             supportedProduct = new List<Product>
             {
-                new Product(6, "Casino", null),
-                new Product(22, "Macau Games", null),
-                new Product(24, "Fishing World", null)
+                new Product(6, "Casino", null, 0, 0),
+                new Product(22, "Macau Games", null, 0, 0),
+                new Product(24, "Fishing World", null, 0, 0)
             };
         }
 
@@ -73,7 +74,7 @@
                  message,
                  CreatePlayForFunParam(message, 0),
                  new List<CustInfo> { new CustInfo(0, string.Empty, 4) },
-                 Enumerable.Empty<SelectListItem>(),
+                 Enumerable.Empty<GroupProductViewModel>(),
                  new List<SelectListItem>
                  {
                      new SelectListItem { Text = "All", Value = "2", Selected = true },
@@ -109,11 +110,16 @@
                  message,
                  CreatePlayForFunParam(message, 22),
                  new List<CustInfo> { new CustInfo(0, string.Empty, 3) },
-                 new List<SelectListItem>
+                 new List<GroupProductViewModel>
                  {
-                     new SelectListItem { Text = null, Value = "6", Selected = false },
-                     new SelectListItem { Text = null, Value = "22", Selected = true },
-                     new SelectListItem { Text = null, Value = "24", Selected = false }
+                     new GroupProductViewModel(
+                         new SelectListGroup(),
+                         new List<SelectListItem>
+                         {
+                             new SelectListItem { Text = null, Value = "6", Selected = false },
+                             new SelectListItem { Text = null, Value = "22", Selected = true },
+                             new SelectListItem { Text = null, Value = "24", Selected = false }
+                         })
                  },
                  new List<SelectListItem>
                  {
@@ -151,7 +157,7 @@
                  message,
                  CreatePlayForFunParam(message, 0),
                  new List<CustInfo> { new CustInfo(0, string.Empty, 2) },
-                 Enumerable.Empty<SelectListItem>(),
+                 Enumerable.Empty<GroupProductViewModel>(),
                  new List<SelectListItem>
                  {
                      new SelectListItem { Text = "All", Value = "2", Selected = true },
@@ -199,11 +205,16 @@
                  message,
                  CreatePlayForFunParam(message, 22),
                  new List<CustInfo> { new CustInfo(0, string.Empty, 2) },
-                 new List<SelectListItem>
+                 new List<GroupProductViewModel>
                  {
-                     new SelectListItem { Text = null, Value = "6", Selected = false },
-                     new SelectListItem { Text = null, Value = "22", Selected = true },
-                     new SelectListItem { Text = null, Value = "24", Selected = false }
+                     new GroupProductViewModel(
+                         new SelectListGroup(),
+                         new List<SelectListItem>
+                         {
+                             new SelectListItem { Text = null, Value = "6", Selected = false },
+                             new SelectListItem { Text = null, Value = "22", Selected = true },
+                             new SelectListItem { Text = null, Value = "24", Selected = false }
+                         })
                  },
                  new List<SelectListItem>
                  {

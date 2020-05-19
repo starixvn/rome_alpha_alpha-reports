@@ -177,9 +177,25 @@
         public void Exclude_NullExcludeProducts_ReturnsCorrectData()
         {
             // Arrange
-            var excludeProducts = new List<Product> { new Product(2, "Product 2", null), new Product(5, "Product 5", null) };
-            var source = new List<Product> { new Product(1, "Product 1", null), new Product(2, "Product 2", null), new Product(4, "Product 4", null), new Product(5, "Product 5", null) };
-            var expectedList = new List<Product> { new Product(1, "Product 1", null), new Product(4, "Product 4", null) };
+            var excludeProducts = new List<Product>
+            {
+                new Product(2, "Product 2", null, 0, 0),
+                new Product(5, "Product 5", null, 0, 0)
+            };
+
+            var source = new List<Product>
+            {
+                new Product(1, "Product 1", null, 0, 0),
+                new Product(2, "Product 2", null, 0, 0),
+                new Product(4, "Product 4", null, 0, 0),
+                new Product(5, "Product 5", null, 0, 0)
+            };
+
+            var expectedList = new List<Product>
+            {
+                new Product(1, "Product 1", null, 0, 0),
+                new Product(4, "Product 4", null, 0, 0)
+            };
 
             // Act
             var actualList = EnumerableExtensions.Exclude(source, excludeProducts).ToList();

@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
     using Params;
@@ -18,9 +17,9 @@
             WinLossDetailParam param,
             PagedReportData<WinLossDetailModel> reportData,
             IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<SelectListItem> products,
+            IEnumerable<GroupProductViewModel> groupProducts,
             bool isGroupHeadline = false)
-            : base(message, param, breadcrumbLevel, products)
+            : base(message, param, breadcrumbLevel, groupProducts)
         {
             Title = GetReportNameByLevel(message.CustLevel);
             PageIndex = message.PageIndex;

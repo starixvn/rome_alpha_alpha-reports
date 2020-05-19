@@ -4,7 +4,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using NSubstitute;
@@ -50,7 +50,7 @@
                message,
                fixture.Create<WinLossByProductParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<SelectListItem>());
+               Enumerable.Empty<GroupProductViewModel>());
             var expectedTitle = "Win Loss By Product";
             
             // Act & Assert
@@ -73,7 +73,7 @@
                message,
                fixture.Create<WinLossByProductParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<SelectListItem>());
+               Enumerable.Empty<GroupProductViewModel>());
 
             // Act & Assert
             Assert.Equal(winlossByBettypeViewModel.CustLevelName, expectedCustLevelName);
@@ -95,7 +95,7 @@
                message,
                fixture.Create<WinLossByProductParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<SelectListItem>());
+               Enumerable.Empty<GroupProductViewModel>());
 
             // Act & Assert
             Assert.Equal(winlossByBettypeViewModel.DownLineLevelName, expectedDownLineLevelName);

@@ -1,21 +1,20 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.Components
 {
     using System.Collections.Generic;
-    using System.Web.Mvc;
 
     public class ProductMultiSelectionViewModel
     {
         public ProductMultiSelectionViewModel(
-            IEnumerable<SelectListItem> products,
+            IEnumerable<GroupProductViewModel> groupProducts,
             string userSelectedProductIds,
             string language)
         {
-            Products = products;
+            GroupProducts = groupProducts;
             UserSelectedProductIds = userSelectedProductIds;
             Language = language;
         }
 
-        public IEnumerable<SelectListItem> Products { get; }
+        public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
         public string Language { get; }
 

@@ -23,12 +23,12 @@
             WinLossAnalysisModel grandTotal,
             WinLossAnalysisQuery message,
             WinLossAnalysisParam param,
-            IEnumerable<SelectListItem> products)
+            IEnumerable<GroupProductViewModel> groupProducts)
         {
             this.message = message;
             this.param = param;
 
-            Products = products;
+            GroupProducts = groupProducts;
             ReportData = reportData;
             GrandTotal = grandTotal;
         }
@@ -72,7 +72,7 @@
 
         public bool IsFilterVisible => message.IsFilterVisible;
 
-        public IEnumerable<SelectListItem> Products { get; }
+        public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
         public IEnumerable<SelectListItem> ExcludeProducts { get; }
 
@@ -84,7 +84,7 @@
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
-            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
+            new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);
 
         public WinLossAnalysislFilterViewModel FilterViewModel =>
             new WinLossAnalysislFilterViewModel(

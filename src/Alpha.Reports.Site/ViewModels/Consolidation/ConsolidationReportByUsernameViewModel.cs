@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Params.Consolidation;
-    using Reports.Models;
     using Requests.Consolidation;
 
     public class ConsolidationReportByUsernameViewModel : ConsolidationReportViewModel<ConsolidationByUsernameViewModel>
@@ -11,10 +11,10 @@
         public ConsolidationReportByUsernameViewModel(
              GetConsolidationQuery message,
              GetConsolidationParam param,
-             IEnumerable<SelectListItem> products,
+             IEnumerable<GroupProductViewModel> groupProducts,
              IEnumerable<SelectListItem> currencies,
              IEnumerable<ConsolidationByUsernameViewModel> reportData)
-            : base(message, param, products, currencies, reportData)
+            : base(message, param, groupProducts, currencies, reportData)
         {
         }
     }

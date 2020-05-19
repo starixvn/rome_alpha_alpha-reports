@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Threading;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Extensions;
     using Fixtures;
@@ -138,8 +139,8 @@
 
             reportService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
-                new Product(1, "Product 1", null),
-                new Product(2, "Product 2", null)
+                new Product(1, "Product 1", null, 0, 0),
+                new Product(2, "Product 2", null, 0, 0)
             });
             query.UserSelectedProductIds = "1";
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
@@ -176,20 +177,25 @@
                      Enumerable.Empty<string>(),
                      new List<int> { 1 },
                      query.CustLevel),
-                new List<SelectListItem>
+                new List<GroupProductViewModel>
                 {
-                    new SelectListItem
-                    {
-                        Text = null,
-                        Value = "1",
-                        Selected = true
-                    },
-                    new SelectListItem
-                    {
-                        Text = null,
-                        Value = "2",
-                        Selected = false
-                    }
+                    new GroupProductViewModel(
+                        new SelectListGroup(),
+                        new List<SelectListItem>
+                        {
+                            new SelectListItem
+                            {
+                                Text = null,
+                                Value = "1",
+                                Selected = true
+                            },
+                            new SelectListItem
+                            {
+                                Text = null,
+                                Value = "2",
+                                Selected = false
+                            }
+                        })
                 },
                 Enumerable.Empty<SelectListItem>());
 
@@ -228,8 +234,8 @@
 
             reportService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
             {
-                new Product(1, "Product 1", null),
-                new Product(2, "Product 2", null)
+                new Product(1, "Product 1", null, 0, 0),
+                new Product(2, "Product 2", null, 0, 0)
             });
             query.UserSelectedProductIds = "1";
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
@@ -276,20 +282,25 @@
                      leagueIds,
                      new List<int> { 1 },
                      query.CustLevel),
-                new List<SelectListItem>
+                new List<GroupProductViewModel>
                 {
-                    new SelectListItem
-                    {
-                        Text = null,
-                        Value = "1",
-                        Selected = true
-                    },
-                    new SelectListItem
-                    {
-                        Text = null,
-                        Value = "2",
-                        Selected = false
-                    }
+                    new GroupProductViewModel(
+                        new SelectListGroup(),
+                        new List<SelectListItem>
+                        {
+                            new SelectListItem
+                            {
+                                Text = null,
+                                Value = "1",
+                                Selected = true
+                            },
+                            new SelectListItem
+                            {
+                                Text = null,
+                                Value = "2",
+                                Selected = false
+                            }
+                        })
                 },
                 new List<SelectListItem>
                 {

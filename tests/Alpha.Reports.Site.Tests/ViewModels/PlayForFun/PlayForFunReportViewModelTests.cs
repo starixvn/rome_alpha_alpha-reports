@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Constants;
     using Fixtures;
     using Params;
@@ -32,7 +33,7 @@
                 query,
                 anyValueCreatorFixture.Create<PlayForFunParam>(),
                 anyValueCreatorFixture.Create<IEnumerable<CustInfo>>(),
-                anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
+                anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<ReportData<PlayForFunModel>>());
 
@@ -65,7 +66,7 @@
                 query,
                 anyValueCreatorFixture.Create<PlayForFunParam>(),
                 anyValueCreatorFixture.Create<IEnumerable<CustInfo>>(),
-                anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
+                anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<ReportData<PlayForFunModel>>());
 

@@ -72,7 +72,7 @@
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
                 () => GetProductsForReport()
                     .Where(product => canViewProduct(product.Id))
-                    .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, getProductName)),
+                    .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
             if (custProducts != null)
             {

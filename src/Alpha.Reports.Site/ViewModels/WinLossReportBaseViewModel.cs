@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Web.Mvc;
     using Components;
     using Extensions;
@@ -27,11 +26,11 @@
             WinLossQuery message,
             WinLossParam param,
             IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<SelectListItem> products) : base(message.CustLevel, breadcrumbLevel)
+            IEnumerable<GroupProductViewModel> groupProducts) : base(message.CustLevel, breadcrumbLevel)
         {
             this.message = message;
             this.param = param;
-            Products = products;
+            GroupProducts = groupProducts;
         }
 
         public int CustId => message.CustId;
@@ -61,7 +60,7 @@
 
         public bool IsFilterVisible => message.IsFilterVisible;
 
-        public IEnumerable<SelectListItem> Products { get; }
+        public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
         public IEnumerable<SelectListItem> ExcludeProducts { get; }
 
@@ -72,7 +71,7 @@
             new DateRangePickerViewModel(MinDate, MaxDate, FromDate, ToDate, UserSelectedDateRangeOption);
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
-            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
+            new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);
 
         public WinLossFilterViewModel FilterViewModel =>
             new WinLossFilterViewModel(

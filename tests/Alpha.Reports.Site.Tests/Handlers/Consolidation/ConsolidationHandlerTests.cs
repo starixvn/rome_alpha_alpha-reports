@@ -26,7 +26,7 @@
     public class ConsolidationHandlerTests : ConsolidationTestsBaseFunctions
     {
         private readonly ConsolidationHandler consolidationHandler;
-        private readonly List<SelectListItem> expectedProductList;
+        private readonly List<GroupProductViewModel> expectedProductList;
         private readonly IEnumerable<SelectListItem> expectedExcludeProductList;
         private readonly List<SelectListItem> expectedCurrencyList;
 
@@ -34,10 +34,15 @@
         {
             consolidationHandler = new ConsolidationHandler(reportService, cacheRefService, winLossDetailService, viewer);
 
-            expectedProductList = new List<SelectListItem>
+            expectedProductList = new List<GroupProductViewModel>
             {
-                new SelectListItem { Text = "Product 1", Value = "1", Selected = true },
-                new SelectListItem { Text = "Product 2", Value = "2", Selected = false }
+                new GroupProductViewModel(
+                    new SelectListGroup { Name = string.Empty },
+                    new List<SelectListItem>
+                    {
+                        new SelectListItem { Text = "Product 1", Value = "1", Selected = true },
+                        new SelectListItem { Text = "Product 2", Value = "2", Selected = false }
+                    })
             };
 
             expectedExcludeProductList = Enumerable.Empty<SelectListItem>();
@@ -261,19 +266,27 @@
                 DefaultVariablesTest.CurrentDate,
                 0);
 
-            var products = new List<SelectListItem>
+            var products = new List<GroupProductViewModel>
             {
-                new SelectListItem
-                {
-                    Text = "Product 1",
-                    Value = "1",
-                    Selected = true
-                },
-                new SelectListItem
-                {
-                    Text = "Product 2",
-                    Value = "2"
-                }
+                new GroupProductViewModel(
+                    new SelectListGroup
+                    {
+                        Name = string.Empty
+                    },
+                    new List<SelectListItem>
+                    {
+                        new SelectListItem
+                        {
+                            Text = "Product 1",
+                            Value = "1",
+                            Selected = true
+                        },
+                        new SelectListItem
+                        {
+                            Text = "Product 2",
+                            Value = "2"
+                        }
+                    })
             };
 
             var productMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, "1", string.Empty);

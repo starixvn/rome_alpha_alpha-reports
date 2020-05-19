@@ -45,8 +45,8 @@
             Func<int, string> getProductDisplayName = (id) => "Product " + id;
             var products = new List<Product>
             {
-                new Product(1, "Product 1", null, getProductDisplayName),
-                new Product(2, "Product 2", null, getProductDisplayName)
+                new Product(1, "Product 1", null, 0, 0, getProductDisplayName),
+                new Product(2, "Product 2", null, 0, 0, getProductDisplayName)
             };
 
             reportService.GetProducts(Arg.Any<GetConslidationReportProductsParam>()).Returns(products);

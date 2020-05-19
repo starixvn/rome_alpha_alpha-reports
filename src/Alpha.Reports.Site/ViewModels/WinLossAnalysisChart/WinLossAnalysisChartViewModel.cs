@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
     using App_GlobalResources;
     using Components;
     using Extensions;
@@ -21,12 +20,12 @@
             IEnumerable<WinLossAnalysisChartModel> reportData,
             WinLossAnalysisChartQuery message,
             WinLossAnalysisChartParam param,
-            IEnumerable<SelectListItem> products)
+            IEnumerable<GroupProductViewModel> groupProducts)
         {
             this.message = message;
             this.param = param;
 
-            Products = products;
+            GroupProducts = groupProducts;
             ReportData = reportData;
 
             Title = Resources.MonthlyWinLossChart;
@@ -55,10 +54,10 @@
 
         public IEnumerable<WinLossAnalysisChartModel> ReportData { get; }
 
-        public IEnumerable<SelectListItem> Products { get; }
+        public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
-            new ProductMultiSelectionViewModel(Products, UserSelectedProductIds, Language);
+            new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);
 
         public MonthPickerViewModel MonthPickerViewModel =>
             new MonthPickerViewModel(MinDate, FromDate, ToDate);

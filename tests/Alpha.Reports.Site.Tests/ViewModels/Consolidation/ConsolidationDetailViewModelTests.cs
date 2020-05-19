@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
+    using Alpha.Reports.Site.ViewModels.Components;
     using Fixtures;
     using NSubstitute;
     using Params;
@@ -74,7 +74,7 @@
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 anyValueCreatorFixture.Create<PagedReportData<WinLossDetailModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<CustInfo>>(),
-                anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>());
+                anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>());
 
             var consolidationDetailViewModel = new ConsolidationDetailViewModel(
                 query,
