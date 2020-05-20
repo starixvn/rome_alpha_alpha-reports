@@ -13,7 +13,40 @@ body {
         font-size: calculateScale(24px);
         color: #04A54E;
     }
-  
+
+    &.tblRpt-hover > tbody > tr:hover > td {
+        background-color: transparent;
+    }
+
+    .icon-plus, .icon-minus {
+        width: calculateScale(24px);
+        height: calculateScale(24px);
+        background-color: #04A54E;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:before {
+            color: #fff;
+            font-size: 16px;
+        }
+    }
+
+    .icon-minus {
+        transform: rotate(90deg);
+    }
+
+    .icon-plus:before {
+        content: "\271A";
+    }
+
+    .icon-minus:before {
+        content: "\2759";
+        font-weight: bold;
+        position: relative;
+        top: -1px;
+    }
 }
 
 .page-title {

@@ -6,10 +6,10 @@
        data-descendingsort="@Model.IsDescendingSort">
     <thead class="tableFloatingHeaderOriginal">
         <tr>
-            <th rowspan="2" class="header sorting" data-colindex="0" data-sortedname="@OutstandingViewModel.CustNamePropertyName">
+            <th rowspan="2" class="header sorting" data-colindex="0">
                 @HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
             </th>
-            <th colspan="2" class="header" data-disabledsort="true">
+            <th colspan="2" class="header col-260">
                 @Resources.Outstanding
             </th>
             <th rowspan="2" class="col-50"></th>
@@ -50,7 +50,7 @@
                 for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
                 {
                     var userLevel = Model.DisplayOutstandingLevels[i];
-                    <tr class="row-ex rowEx-@outstanding.CustName">
+                    <tr class="row-ex hide rowEx-@outstanding.CustName">
                         <td colspan="4" class="text-left">
                             <span class="row-role">
                                 <span class="text-left">@userLevel.DisplayName</span>
