@@ -1,14 +1,14 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using App_GlobalResources;
     using MediatR;
     using Reports.Constants;
     using Reports.Models;
     using Requests.WinLossDetail;
     using Services;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using ViewModels.WinLossDetail;
 
     public class WinLossDetailHandler :
@@ -77,7 +77,9 @@
             {
                 ProductIdConstants.Allbet,
                 ProductIdConstants.SexyGaming,
-                ProductIdConstants.SAGaming
+                ProductIdConstants.SAGaming,
+                ProductIdConstants.GTCasino,
+                ProductIdConstants.BBin
             };
             var offeredLiveCasino = productService.FilterProductsByCustomer(custId, liveCasino);
             var liveCasinoNames = string.Join(", ", offeredLiveCasino.Select(i => i.Name));
