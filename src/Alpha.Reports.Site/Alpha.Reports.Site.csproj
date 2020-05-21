@@ -1155,7 +1155,6 @@
     <Content Include="typings\globals\numeral\typings.json" />
     <Content Include="Views\Outstanding\TableContent.cshtml" />
     <Content Include="Views\Outstanding\TableContentMobile.cshtml" />
-    <Content Include="Views\Outstanding\TableContentMobileSuper.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

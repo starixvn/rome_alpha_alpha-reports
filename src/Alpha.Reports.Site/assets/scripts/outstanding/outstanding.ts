@@ -100,7 +100,8 @@ class OutstandingView extends BaseReport {
             rowExtension.addClass("hide");
             colFunction.removeClass("icon-minus").addClass("icon-plus");
         }
-    };
+	};
+
     onSubmitReport = (e: any) => {
         let this$ = this.$;
 

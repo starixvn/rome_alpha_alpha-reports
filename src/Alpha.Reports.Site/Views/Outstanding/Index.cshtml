@@ -26,16 +26,9 @@
     </div>
 </form>
 <div class="level-@Model.CustLevel.Value">
-    @if ((Model.IsMobileView) && (Model.CustLevel.Value == 4))
-    {
-        @Html.Partial("TableContentMobileSuper");
-    }
-    else
-    {
-        @Html.Partial("TableContent" + (Model.IsMobileView ? "Mobile" : ""), Model)
-    }
+	@Html.Partial("TableContent" + (Model.IsMobileView ? "Mobile" : ""), Model)
 
-    @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Outstanding"))
+	@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Outstanding"))
 </div>
 
 
