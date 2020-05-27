@@ -1,0 +1,70 @@
+﻿@model OutstandingViewModel
+@{
+	var showExpandIcon = Model.DisplayOutstandingLevels.Count > 2;
+}
+
+<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tbl-outstanding tablesorter" id="tbl-report">
+	<thead class="tableFloatingHeaderOriginal">
+		<tr>
+			<th rowspan="2" class="header" data-colindex="0">
+				@HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
+			</th>
+			<th colspan="2" class="header col-260">
+				@Resources.Outstanding
+			</th>
+			@if (showExpandIcon)
+			{
+				<th rowspan="2" class="col-50"></th>
+			}
+		</tr>
+		<tr class="thead-row2">
+			@{
+				var sortIndex = 1;
+				for (var i = 0; i < 2; i++)
+				{
+					var userLevel = Model.DisplayOutstandingLevels[i];
+					<th class="col-95">
+						@HtmlHelpers.DisplayUserLevelText(userLevel)
+					</th>
+					sortIndex++;
+				}
+			}
+		</tr>
+	</thead>
+	@if (Model.OutstandingDatasource.Any())
+	{
+		<tfoot>
+			<tr class="tbl-footer">
+				<td class="text-left">@Resources.Total</td>
+				@for (var i = 0; i < 2; i++)
+				{
+					<td>
+						@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
+					</td>
+				}
+				@if (showExpandIcon)
+				{
+					<td class="text-center"><span class="col-function icon-plus" id="icon-total"></span></td>
+				}
+			</tr>
+
+			@for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
+			{
+				var userLevel = Model.DisplayOutstandingLevels[i];
+				<tr class="tbl-footer row-ex-total hide">
+					<td colspan="4" class="text-left">
+						<span class="row-role">
+							<span class="text-left">@userLevel.DisplayName</span>
+							<span class="text-right">@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(userLevel))</span>
+						</span>
+					</td>
+				</tr>
+			}
+		</tfoot>
+	}
+	else
+	{
+		@NoInformation.Render(Model.NumberOfOutstandingColumn + 1)
+	}
+
+</table>

@@ -18,6 +18,8 @@
             SuperOutstanding = superOutstanding;
         }
 
+        public string DownlineLink { get; set; }
+
         public int CustId { get; }
 
         public string CustName { get; }

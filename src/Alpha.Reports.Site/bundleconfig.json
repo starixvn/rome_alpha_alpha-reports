@@ -55,14 +55,16 @@
   },
   {
     "outputFileName": "assets/bundles/outstanding/outstanding.js",
-    "inputFiles": [
-      "assets/scripts/core.js",
-      "assets/scripts/base-report.js",
-      "assets/scripts/components/productmultiselection.js",
-      "assets/scripts/components/sort.js",
-      "assets/scripts/components/link-builder.js",
-      "assets/scripts/outstanding/outstanding.js"
-    ]
+		"inputFiles": [
+			"assets/scripts/core.js",
+			"assets/scripts/base-report.js",
+			"assets/scripts/components/productmultiselection.js",
+			"assets/scripts/components/sort.js",
+			"assets/scripts/components/link-builder.js",
+			"assets/scripts/outstanding/outstanding.js",
+			"assets/scripts/libs/data-table/jquery.dataTables.js",
+			"assets/scripts/libs/data-table/dataTables.fixedHeader.js"
+		]
   },
   {
     "outputFileName": "assets/bundles/matchwinloss/matchwinloss.js",

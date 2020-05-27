@@ -882,6 +882,11 @@
     <Content Include="assets\bundles\winloss\winloss.min.js">
       <DependentUpon>winloss.js</DependentUpon>
     </Content>
+    <Content Include="assets\scripts\libs\data-table\dataTables.fixedHeader.js" />
+    <Content Include="assets\scripts\libs\data-table\jquery.dataTables.css" />
+    <Content Include="assets\scripts\libs\data-table\jquery.dataTables.js" />
+    <Content Include="assets\scripts\libs\data-table\resources\details_close.png" />
+    <Content Include="assets\scripts\libs\data-table\resources\details_open.png" />
     <Content Include="assets\scripts\tests\apps\betchoicematching\betMatchingResources.js" />
     <Content Include="assets\scripts\tests\libs\autocomplete.js" />
     <Content Include="assets\scripts\tests\libs\bootbox.js" />
@@ -1155,6 +1160,7 @@
     <Content Include="typings\globals\numeral\typings.json" />
     <Content Include="Views\Outstanding\TableContent.cshtml" />
     <Content Include="Views\Outstanding\TableContentMobile.cshtml" />
+    <Content Include="Views\Outstanding\TableContentMobileDataTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

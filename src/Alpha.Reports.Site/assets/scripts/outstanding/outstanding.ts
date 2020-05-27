@@ -3,6 +3,8 @@
 
 "use strict";
 
+declare var outstandingDatasource;
+
 class OutstandingView extends BaseReport {
     $: JQueryStatic;
 
@@ -33,7 +35,8 @@ class OutstandingView extends BaseReport {
         this.linkBuilderComponent = linkBuilderComponent;
     }
 
-    init = () => {
+	init = () => {
+		this.initDataTable();
         this.cacheElements();
 
         this.sortComponent.render(new SortOption(
@@ -52,8 +55,78 @@ class OutstandingView extends BaseReport {
         this.linkBuilderComponent.render();
 
         this.registerEvents();
-        this.initHelp();
+		this.initHelp();
+
     };
+
+	format(data) {
+		// `d` is the original data object for the row
+		return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+			'<tr>' +
+			'<td>AgentOutstanding:</td>' +
+			'<td>' + data.AgentOutstanding + '</td>' +
+			'</tr>' +
+			'<tr>' +
+			'<td>MemberOutstanding:</td>' +
+			'<td>' + data.MemberOutstanding + '</td>' +
+			'</tr>' +
+			'</table>';
+	}
+
+	initDataTable() {
+		this.$('.tblRpt tfoot').on('click', 'th.details-control', function () {
+			if (this.$('#detail-footer').hasClass('hidden')) {
+				this.$('#detail-footer').removeClass('hidden');
+			}
+			else {
+				this.$('#detail-footer').addClass('hidden');
+			}
+		});
+
+		var table = this.$('.tblRpt').DataTable({
+			"data": outstandingDatasource,
+			"columns": [
+				{
+					"data": null,
+					"render": function (row) {
+						return `<a  href='${row.DownlineLink}' data-custname='${row.CustName}' class="downline-link">${row.CustName}</a>`;
+					}
+				},
+				{ "data": "MasterOutstanding" },
+				{ "data": "SuperOutstanding" },
+				{
+					"className": 'details-control',
+					"orderable": false,
+					"data": null,
+					"defaultContent": ''
+				}
+			],
+			"order": [[1, 'asc']],
+			"fixedHeader": {
+				"header": true,
+				"footer": true
+			}
+		});
+
+		// Add event listener for opening and closing details
+		let that = this;
+		that.$('.tblRpt tbody').on('click', 'td.details-control', function () {
+			var tr = that.$(this).closest('tr');
+			var row = table.row(tr);
+
+			if (row.child.isShown()) {
+				// This row is already open - close it
+				row.child.hide();
+				tr.removeClass('shown');
+			}
+			else {
+				// Open this row
+				row.child(that.format(row.data())).show();
+				tr.addClass('shown');
+			}
+		});
+
+	}
 
     public cacheElements() {
         super.cacheElements();
