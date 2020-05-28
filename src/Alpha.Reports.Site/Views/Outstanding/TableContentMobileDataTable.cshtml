@@ -44,7 +44,7 @@
 				}
 				@if (showExpandIcon)
 				{
-					<td class="text-center"><span class="col-function icon-plus" id="icon-total"></span></td>
+					<td class="text-center details-control"></td>
 				}
 			</tr>
 
@@ -54,8 +54,8 @@
 				<tr class="tbl-footer row-ex-total hide">
 					<td colspan="4" class="text-left">
 						<span class="row-role">
-							<span class="text-left">@userLevel.DisplayName</span>
-							<span class="text-right">@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(userLevel))</span>
+							<span style="float:left">@userLevel.DisplayName</span>
+							<span style="float:right">@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(userLevel))</span>
 						</span>
 					</td>
 				</tr>

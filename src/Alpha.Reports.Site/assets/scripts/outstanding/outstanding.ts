@@ -3,7 +3,8 @@
 
 "use strict";
 
-declare var outstandingDatasource;
+declare var viewModel;
+declare var showExpandIcon;
 
 class OutstandingView extends BaseReport {
     $: JQueryStatic;
@@ -60,20 +61,19 @@ class OutstandingView extends BaseReport {
     };
 
 	format(data) {
-		// `d` is the original data object for the row
-		return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-			'<tr>' +
-			'<td>AgentOutstanding:</td>' +
-			'<td>' + data.AgentOutstanding + '</td>' +
-			'</tr>' +
-			'<tr>' +
-			'<td>MemberOutstanding:</td>' +
-			'<td>' + data.MemberOutstanding + '</td>' +
-			'</tr>' +
-			'</table>';
+		let rows = [];
+
+		for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
+			const level = `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`;
+			rows.push(`<div><span style="float:left">${level}</span><span>${data[level]}</span></div>`);
+		}
+
+		return rows.join("\n");
 	}
 
 	initDataTable() {
+		let that = this;
+
 		this.$('.tblRpt tfoot').on('click', 'th.details-control', function () {
 			if (this.$('#detail-footer').hasClass('hidden')) {
 				this.$('#detail-footer').removeClass('hidden');
@@ -83,49 +83,115 @@ class OutstandingView extends BaseReport {
 			}
 		});
 
-		var table = this.$('.tblRpt').DataTable({
-			"data": outstandingDatasource,
-			"columns": [
-				{
-					"data": null,
-					"render": function (row) {
-						return `<a  href='${row.DownlineLink}' data-custname='${row.CustName}' class="downline-link">${row.CustName}</a>`;
-					}
-				},
-				{ "data": "MasterOutstanding" },
-				{ "data": "SuperOutstanding" },
-				{
-					"className": 'details-control',
-					"orderable": false,
-					"data": null,
-					"defaultContent": ''
+		var columns = [
+			{
+				"className": null,
+				"orderable": true,
+				"data": null,
+				"defaultContent": '',
+				"render": function (row) {
+					return `<a  href='${row.DownlineLink}' data-custname='${row.CustName}' class="downline-link">${row.CustName}</a>`;
 				}
-			],
+			},
+			{
+				"data": `${viewModel.DisplayOutstandingLevels[0].DisplayName}Outstanding`,
+			},
+			{
+				"data": `${viewModel.DisplayOutstandingLevels[1].DisplayName}Outstanding`
+			}
+		];
+
+		if (JSON.parse(this.$('#showExpandIcon').val().toLowerCase())) {
+			columns.push({
+				"className": 'details-control',
+				"orderable": false,
+				"data": null,
+				"defaultContent": '',
+				"render": function (row) {
+					return null;
+				}
+			});
+		}
+
+		var table = this.$('.tblRpt').DataTable({
+			"data": viewModel.OutstandingDatasource,
+			"columns": columns,
 			"order": [[1, 'asc']],
+			"paging": false,
+			"searching": false,
+			"bInfo": false,
 			"fixedHeader": {
 				"header": true,
 				"footer": true
 			}
 		});
 
-		// Add event listener for opening and closing details
-		let that = this;
 		that.$('.tblRpt tbody').on('click', 'td.details-control', function () {
 			var tr = that.$(this).closest('tr');
 			var row = table.row(tr);
 
 			if (row.child.isShown()) {
-				// This row is already open - close it
 				row.child.hide();
 				tr.removeClass('shown');
 			}
 			else {
-				// Open this row
-				row.child(that.format(row.data())).show();
+				row.child(that.format(row.data()), `${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
 				tr.addClass('shown');
 			}
 		});
 
+		that.$('.tblRpt tfoot').on('click', 'td.details-control', function () {
+			var tr = that.$(this).closest('tr');
+
+			if (tr.hasClass('shown')) {
+				tr.removeClass('shown');
+				tr.next().addClass('hide');
+			}
+			else {
+				
+				tr.addClass('shown');
+				tr.next().removeClass('hide');
+				
+			}
+		});
+
+		$('.tblRpt').on('draw.dt', function () {
+			that.$('td.details-control').each(function () {
+				var tr = that.$(this).closest('tr');
+				var row = table.row(tr);
+
+				if (row.child.isShown()) {
+					row.child(that.format(row.data()), `${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
+				}
+			});
+		});
+
+		that.$('.tblRpt thead').on('click', 'th.details-control', function () {
+			var tr = that.$(this).closest('tr');
+
+			if (tr.hasClass('shown')) {
+				tr.removeClass('shown');
+
+				that.$('tbody tr.shown').each(function () {
+					that.$(this).find('.details-control').click();
+				});
+
+				that.$('tfoot tr.shown').each(function () {
+					that.$(this).find('.details-control').click();
+				});
+			}
+			else {
+				tr.addClass('shown');
+
+				that.$('tbody tr').not('.shown').each(function () {
+					that.$(this).find('.details-control').click();
+				});
+
+				that.$('tfoot tr').not('.shown').each(function () {
+					that.$(this).find('.details-control').click();
+				});
+			}
+		});
 	}
 
     public cacheElements() {

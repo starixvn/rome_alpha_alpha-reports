@@ -62,8 +62,8 @@
 			"assets/scripts/components/sort.js",
 			"assets/scripts/components/link-builder.js",
 			"assets/scripts/outstanding/outstanding.js",
-			"assets/scripts/libs/data-table/jquery.dataTables.js",
-			"assets/scripts/libs/data-table/dataTables.fixedHeader.js"
+			"assets/scripts/libs/data-table/js/jquery.dataTables.js",
+			"assets/scripts/libs/data-table/js/dataTables.fixedHeader.js"
 		]
   },
   {
