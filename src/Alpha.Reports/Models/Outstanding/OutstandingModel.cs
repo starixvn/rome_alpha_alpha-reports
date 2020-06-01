@@ -8,7 +8,7 @@
         {
         }
 
-        internal OutstandingModel(int custId, string custName, decimal memberOutstanding, decimal agentOutstanding, decimal masterOutstanding, decimal superOutstanding)
+        public OutstandingModel(int custId, string custName, decimal memberOutstanding, decimal agentOutstanding, decimal masterOutstanding, decimal superOutstanding)
         {
             CustId = custId;
             CustName = custName;

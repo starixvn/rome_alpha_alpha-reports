@@ -5,16 +5,21 @@
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tbl-outstanding tablesorter" id="tbl-report">
 	<thead class="tableFloatingHeaderOriginal">
+		@*<tr style="height: 1px !important; min-height: 1px !important;">
+			<th style="height: 1px !important; min-height: 1px !important;"></th>
+			<th style="height: 1px !important; min-height: 1px !important;"></th>
+			<th style="height: 1px !important; min-height: 1px !important;"></th>
+		</tr>*@
 		<tr>
-			<th rowspan="2" class="header" data-colindex="0">
+			<th rowspan="2" class="header" data-name="CustName" >
 				@HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
 			</th>
-			<th colspan="2" class="header col-260">
+			<th colspan="2" class="header">
 				@Resources.Outstanding
 			</th>
 			@if (showExpandIcon)
 			{
-				<th rowspan="2" class="col-50"></th>
+				<th rowspan="2" class=""></th>
 			}
 		</tr>
 		<tr class="thead-row2">
@@ -23,7 +28,7 @@
 				for (var i = 0; i < 2; i++)
 				{
 					var userLevel = Model.DisplayOutstandingLevels[i];
-					<th class="col-95">
+					<th class="">
 						@HtmlHelpers.DisplayUserLevelText(userLevel)
 					</th>
 					sortIndex++;

@@ -1,5 +1,4 @@
 ﻿/// <reference path="../core.ts" />
-/// <reference path="../components/sort.ts" />
 
 "use strict";
 
@@ -9,7 +8,6 @@ declare var showExpandIcon;
 class OutstandingView extends BaseReport {
     $: JQueryStatic;
 
-    sortComponent: SortComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     linkBuilderComponent: LinkBuilderComponent;
 
@@ -22,33 +20,23 @@ class OutstandingView extends BaseReport {
     $isDescendingSort: JQuery;
     $isFilterVisible: JQuery;
     $pageTitle: JQuery;
+	$table: JQuery;
 
     constructor(
         $: JQueryStatic,
-        sortComponent: SortComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         linkBuilderComponent: LinkBuilderComponent) {
         super($, linkBuilderComponent);
 
         this.$ = $;
-        this.sortComponent = sortComponent;
         this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.linkBuilderComponent = linkBuilderComponent;
     }
 
 	init = () => {
-		this.initDataTable();
+		
         this.cacheElements();
-
-        this.sortComponent.render(new SortOption(
-            this.$tableReport,
-            parseInt(this.$tableReport.data("totalrecords"), 0) > 1,
-            true,
-            this.sortComponent.afterSort,
-            { 0: { sorter: "text" } },
-            this.$reportForm));
-
-        this.$tableReport.stickyTableHeaders();
+		this.initDataTable();
 
         this.productMultiSelectionComponent.render();
         this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
@@ -90,7 +78,7 @@ class OutstandingView extends BaseReport {
 				"data": null,
 				"defaultContent": '',
 				"render": function (row) {
-					return `<a  href='${row.DownlineLink}' data-custname='${row.CustName}' class="downline-link">${row.CustName}</a>`;
+					return `<a  href="${row.DownlineLink}" data-custname="${row.CustName}" class="downline-link">${row.CustName}</a>`;
 				}
 			},
 			{
@@ -113,10 +101,11 @@ class OutstandingView extends BaseReport {
 			});
 		}
 
-		var table = this.$('.tblRpt').DataTable({
+		
+		this.$table = this.$('.tblRpt').DataTable({
 			"data": viewModel.OutstandingDatasource,
 			"columns": columns,
-			"order": [[1, 'asc']],
+			"order": [[0, 'asc']],
 			"paging": false,
 			"searching": false,
 			"bInfo": false,
@@ -128,7 +117,7 @@ class OutstandingView extends BaseReport {
 
 		that.$('.tblRpt tbody').on('click', 'td.details-control', function () {
 			var tr = that.$(this).closest('tr');
-			var row = table.row(tr);
+			var row = that.$table.row(tr);
 
 			if (row.child.isShown()) {
 				row.child.hide();
@@ -158,12 +147,16 @@ class OutstandingView extends BaseReport {
 		$('.tblRpt').on('draw.dt', function () {
 			that.$('td.details-control').each(function () {
 				var tr = that.$(this).closest('tr');
-				var row = table.row(tr);
+				var row = that.$table.row(tr);
 
 				if (row.child.isShown()) {
 					row.child(that.format(row.data()), `${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
 				}
 			});
+			let order = that.$table.order();
+			let title = that.$table.column(order[0][0]).header();
+			that.replaceHrefParam("SortPropertyName", that.$(title).data('name'));
+			that.replaceHrefParam("IsDescendingSort", order[0][1] !== 'asc');
 		});
 
 		that.$('.tblRpt thead').on('click', 'th.details-control', function () {
@@ -191,6 +184,8 @@ class OutstandingView extends BaseReport {
 					that.$(this).find('.details-control').click();
 				});
 			}
+
+			that.$table.fixedHeader.adjust();
 		});
 	}
 
@@ -210,36 +205,7 @@ class OutstandingView extends BaseReport {
     public registerEvents() {
         super.registerEvents();
         this.$reportForm.submit(this.onSubmitReport);
-        const self = this;
-        this.$(".col-function").click(function () {
-            self.showHideValue(self.$(this));
-        });
-        this.$("#icon-total").click(function () {
-            self.showHideTotalValue(self.$(this));})
     };
-
-    public showHideTotalValue(colFunction: JQuery) { 
-        const rowExtension = this.$(".row-ex-total");
-        if (colFunction.hasClass("icon-plus")) {
-            rowExtension.addClass("hide");
-            colFunction.removeClass("icon-minus").addClass("icon-plus");
-        } else {
-            rowExtension.removeClass("hide");
-            colFunction.removeClass("icon-plus").addClass("icon-minus");
-        }
-    };
-
-    public showHideValue(colFunction: JQuery) {
-        const rowExtension = this.$(".rowEx-" + colFunction.data("custid"));
-
-        if (colFunction.hasClass("icon-plus")) {
-            rowExtension.removeClass("hide");
-            colFunction.removeClass("icon-plus").addClass("icon-minus");
-        } else {
-            rowExtension.addClass("hide");
-            colFunction.removeClass("icon-minus").addClass("icon-plus");
-        }
-	};
 
     onSubmitReport = (e: any) => {
         let this$ = this.$;
@@ -255,48 +221,23 @@ class OutstandingView extends BaseReport {
             return;
         }
 
-        this.$sortPropertyName.val(params.SortPropertyName);
-        this.$isDescendingSort.val(String(params.IsDescendingSort));
+		let order = this.$table.order();
+		this.replaceHrefParam("SortPropertyName", this.$table.column(order[0][0]).header());
+		this.replaceHrefParam("IsDescendingSort", order[0][1] !== 'asc');
+		this.$sortPropertyName.val(this.$table.column(order[0][0]).header());
+		this.$isDescendingSort.val(order[0][1] !== 'asc' ? 'True' : 'False');
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
     };
     getParams = () => {
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
-        let sortInfo = this.sortComponent.getSortInfo();
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
-            SortPropertyName: sortInfo.sortPropertyName,
-            IsDescendingSort: sortInfo.isDescendingSort,
             IsFilterVisible: !this.$reportForm.is(":hidden")
         };
     };
     showValidateProductError = () => {
         this.$buttonProduct.addClass("error");
-    };
-    afterSort = () => {
-        var this$ = this.$;
-        var sortedColumn = this$(".sorting-asc:visible");
-        var direction = !sortedColumn.length;
-        if (sortedColumn.length === 0) {
-            sortedColumn = this$(".sorting-desc");
-        }
-
-        var sortedColumnName = sortedColumn.data("sortedname");
-
-        this.replaceHrefParam("SortPropertyName", sortedColumnName);
-        this.replaceHrefParam("IsDescendingSort", direction);
-
-        var isEvenRow = false;
-        this.$tableReport.find("tbody > tr").each(function () {
-            var $row = this$(this);
-            if ($row.hasClass("even-row") && !isEvenRow) {
-                $row.removeClass("even-row");
-            } else if (!$row.hasClass("even-row") && isEvenRow) {
-                $row.addClass("even-row");
-            }
-
-            isEvenRow = !isEvenRow;
-        });
     };
 }
 
@@ -304,7 +245,6 @@ $(function () {
     const linkBuilderComponent = new LinkBuilderComponent($);
     const outstandingView = new OutstandingView(
         $,
-        new SortComponent($, linkBuilderComponent),
         new ProductMultiSelectionComponent($),
         linkBuilderComponent);
 

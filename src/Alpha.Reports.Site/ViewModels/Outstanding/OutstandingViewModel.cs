@@ -23,14 +23,33 @@
             OutstandingQuery query,
             IEnumerable<OutstandingModel> outstandingDataSource,
             IEnumerable<int> selectedProductIds,
-            IEnumerable<GroupProductViewModel> groupProducts,
+            IEnumerable<SelectListItem> products,
             IEnumerable<CustInfo> breadcrumbLevel,
             bool isMobile)
                : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
-            OutstandingDatasource = outstandingDataSource;
-            ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(groupProducts, selectedProductIds.JoinWithComma(), string.Empty);
+
+            OutstandingDatasource = new List<OutstandingModel>();
+
+            foreach (var outstanding in outstandingDataSource)
+            {
+                OutstandingDatasource.Add(outstanding);
+                for (var index = 0; index < 20; index++)
+                {
+                    OutstandingDatasource.Add(new OutstandingModel(
+                       outstanding.CustId + 1,
+                        $"{outstanding.CustName}{index}",
+                        outstanding.MemberOutstanding * (10 + index),
+                           outstanding.AgentOutstanding * (11 + index),
+                           outstanding.MasterOutstanding * (12 + index),
+                            outstanding.SuperOutstanding * (13 + index)
+                        ));
+                }
+
+            }
+            //OutstandingDatasource = outstandingDataSource;
+            ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), string.Empty);
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= Query.ViewerLevel.Value; level++)
             {
@@ -62,7 +81,7 @@
 
         public UserLevel ReportLevel => Query.CustLevel.GetDirectDownLineLevel();
 
-        public IEnumerable<OutstandingModel> OutstandingDatasource { get; }
+        public List<OutstandingModel> OutstandingDatasource { get; }
 
         public OutstandingModel Total => OutstandingModel.GetAccumulatedData(OutstandingDatasource);
 

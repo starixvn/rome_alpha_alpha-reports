@@ -6,11 +6,33 @@
 	{
 		outstanding.DownlineLink = Model.BuildDrillDownLink(outstanding, Request.Url.Query);
 	}
+
+
+	//List<OutstandingModel> source = new List<OutstandingModel>();
+
+
+	//foreach (var outstanding in Model.OutstandingDatasource)
+	//{
+	//	source.ToList().Add(outstanding);
+	//	for (var index = 0; index < 20; index++)
+	//	{
+	//		source.ToList().Add(new OutstandingModel(
+	//   outstanding.CustId + 1,
+	//	$"{outstanding.CustName}{index}",
+	//	outstanding.MemberOutstanding * (10 + index),
+	//	   outstanding.AgentOutstanding * (11 + index),
+	//	   outstanding.MasterOutstanding * (12 + index),
+	//		outstanding.SuperOutstanding * (12 + index)
+	//	));
+	//	}
+
+	//}
 }
 
 @section Styles {
 	@StaticResources.RenderStylesWithMedia(767, "~/assets/bundles/outstanding/outstanding-mobile-calculate-07")
 	@StaticResources.RenderStyles("~/assets/scripts/libs/data-table/css/jquery.dataTables")
+	@StaticResources.RenderStyles("~/assets/scripts/libs/data-table/css/scroller.dataTables.min")
 }
 
 @model OutstandingViewModel
@@ -39,10 +61,10 @@
 
 
 @section Scripts {
-<script>
-	var outstandingDatasource = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.OutstandingDatasource,
-Newtonsoft.Json.Formatting.Indented))
-</script>
+	<script>
+	var viewModel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented))
+
+	</script>
 
 	@StaticResources.RenderScripts("~/assets/bundles/outstanding/outstanding")
 }
