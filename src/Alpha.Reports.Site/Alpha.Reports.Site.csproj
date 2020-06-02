@@ -882,7 +882,6 @@
     <Content Include="assets\bundles\winloss\winloss.min.js">
       <DependentUpon>winloss.js</DependentUpon>
     </Content>
-    <Content Include="assets\scripts\libs\data-table\css\scroller.dataTables.min.css" />
     <Content Include="assets\scripts\libs\data-table\js\dataTables.fixedHeader.js" />
     <Content Include="assets\scripts\libs\data-table\css\jquery.dataTables.css" />
     <Content Include="assets\scripts\libs\data-table\js\jquery.dataTables.js" />

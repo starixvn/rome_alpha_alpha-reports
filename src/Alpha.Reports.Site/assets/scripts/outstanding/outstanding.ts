@@ -14,13 +14,14 @@ class OutstandingView extends BaseReport {
     $tableReport: JQuery;
     $reportForm: JQuery;
     $buttonProduct: JQuery;
-    $rowEx: JQuery;
 
     $sortPropertyName: JQuery;
     $isDescendingSort: JQuery;
     $isFilterVisible: JQuery;
     $pageTitle: JQuery;
 	$table: JQuery;
+
+	isMobileView: boolean;
 
     constructor(
         $: JQueryStatic,
@@ -34,18 +35,18 @@ class OutstandingView extends BaseReport {
     }
 
 	init = () => {
-		
-        this.cacheElements();
-		this.initDataTable();
+		this.cacheElements();
 
         this.productMultiSelectionComponent.render();
-        this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
+		this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
+		this.isMobileView = JSON.parse(this.$('#IsMobileView').val().toLowerCase());
 
         this.linkBuilderComponent.render();
 
-        this.registerEvents();
-		this.initHelp();
+		this.registerEvents();
 
+		this.initHelp();
+		this.initDataTable();
     };
 
 	format(data) {
@@ -61,15 +62,6 @@ class OutstandingView extends BaseReport {
 
 	initDataTable() {
 		let that = this;
-
-		this.$('.tblRpt tfoot').on('click', 'th.details-control', function () {
-			if (this.$('#detail-footer').hasClass('hidden')) {
-				this.$('#detail-footer').removeClass('hidden');
-			}
-			else {
-				this.$('#detail-footer').addClass('hidden');
-			}
-		});
 
 		var columns = [
 			{
@@ -89,18 +81,26 @@ class OutstandingView extends BaseReport {
 			}
 		];
 
-		if (JSON.parse(this.$('#showExpandIcon').val().toLowerCase())) {
-			columns.push({
-				"className": 'details-control',
-				"orderable": false,
-				"data": null,
-				"defaultContent": '',
-				"render": function (row) {
-					return null;
-				}
-			});
+		if (this.isMobileView) {
+			if (JSON.parse(this.$('#showExpandIcon').val().toLowerCase())) {
+				columns.push({
+					"className": 'details-control',
+					"orderable": false,
+					"data": null,
+					"defaultContent": '',
+					"render": function (row) {
+						return null;
+					}
+				});
+			}
 		}
-
+		else {
+			for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
+				columns.push({
+					data: `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`
+				});
+			}
+		}
 		
 		this.$table = this.$('.tblRpt').DataTable({
 			"data": viewModel.OutstandingDatasource,
@@ -144,7 +144,7 @@ class OutstandingView extends BaseReport {
 			}
 		});
 
-		$('.tblRpt').on('draw.dt', function () {
+		that.$('.tblRpt').on('draw.dt', function () {
 			that.$('td.details-control').each(function () {
 				var tr = that.$(this).closest('tr');
 				var row = that.$table.row(tr);
@@ -153,6 +153,12 @@ class OutstandingView extends BaseReport {
 					row.child(that.format(row.data()), `${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
 				}
 			});
+
+			that.$table.fixedHeader.adjust();
+
+			let scrollTo = that.$('.fixedHeader-floating thead').length > 0 ? that.$(document).height() : 0;
+			that.$(window).scrollTop(scrollTo);
+
 			let order = that.$table.order();
 			let title = that.$table.column(order[0][0]).header();
 			that.replaceHrefParam("SortPropertyName", that.$(title).data('name'));
@@ -186,6 +192,9 @@ class OutstandingView extends BaseReport {
 			}
 
 			that.$table.fixedHeader.adjust();
+
+			let scrollTo = that.$('.fixedHeader-floating thead').length > 0 ? that.$(document).height() : 0;
+			that.$(window).scrollTop(scrollTo);
 		});
 	}
 
@@ -199,7 +208,6 @@ class OutstandingView extends BaseReport {
         this.$isDescendingSort = this.$("#IsDescendingSort");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$pageTitle = this.$(".page-title");
-        this.$rowEx = this.$(".row-ex");
     };
 
     public registerEvents() {

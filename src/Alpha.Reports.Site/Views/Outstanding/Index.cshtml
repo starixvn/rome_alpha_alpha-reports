@@ -32,7 +32,6 @@
 @section Styles {
 	@StaticResources.RenderStylesWithMedia(767, "~/assets/bundles/outstanding/outstanding-mobile-calculate-07")
 	@StaticResources.RenderStyles("~/assets/scripts/libs/data-table/css/jquery.dataTables")
-	@StaticResources.RenderStyles("~/assets/scripts/libs/data-table/css/scroller.dataTables.min")
 }
 
 @model OutstandingViewModel
@@ -49,6 +48,7 @@
 	@Html.Hidden("SortPropertyName", Model.SortPropertyName)
 	@Html.Hidden("IsDescendingSort", Model.IsDescendingSort)
 	@Html.Hidden("IsFilterVisible", Model.IsFilterVisible)
+	@Html.Hidden("IsMobileView", Model.IsMobileView)
 	<div class="form-group last-group">
 		<input type="submit" value="@Resources.Submit" class="btn-submit" />
 	</div>

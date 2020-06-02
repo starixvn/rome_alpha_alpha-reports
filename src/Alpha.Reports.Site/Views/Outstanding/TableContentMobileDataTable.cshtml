@@ -1,20 +1,16 @@
 ﻿@model OutstandingViewModel
 @{
-	var showExpandIcon = Model.DisplayOutstandingLevels.Count > 2;
+	var length = Model.IsMobileView ? 2 : Model.DisplayOutstandingLevels.Count;
+	var showExpandIcon = Model.IsMobileView && Model.DisplayOutstandingLevels.Count > 2;
 }
 
 <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tbl-outstanding tablesorter" id="tbl-report">
 	<thead class="tableFloatingHeaderOriginal">
-		@*<tr style="height: 1px !important; min-height: 1px !important;">
-			<th style="height: 1px !important; min-height: 1px !important;"></th>
-			<th style="height: 1px !important; min-height: 1px !important;"></th>
-			<th style="height: 1px !important; min-height: 1px !important;"></th>
-		</tr>*@
 		<tr>
-			<th rowspan="2" class="header" data-name="CustName" >
+			<th rowspan="2" class="header" data-name="CustName">
 				@HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
 			</th>
-			<th colspan="2" class="header">
+			<th colspan="@length" class="header">
 				@Resources.Outstanding
 			</th>
 			@if (showExpandIcon)
@@ -24,14 +20,12 @@
 		</tr>
 		<tr class="thead-row2">
 			@{
-				var sortIndex = 1;
-				for (var i = 0; i < 2; i++)
+				for (var i = 0; i < length; i++)
 				{
 					var userLevel = Model.DisplayOutstandingLevels[i];
 					<th class="">
 						@HtmlHelpers.DisplayUserLevelText(userLevel)
 					</th>
-					sortIndex++;
 				}
 			}
 		</tr>
@@ -41,7 +35,7 @@
 		<tfoot>
 			<tr class="tbl-footer">
 				<td class="text-left">@Resources.Total</td>
-				@for (var i = 0; i < 2; i++)
+				@for (var i = 0; i < length; i++)
 				{
 					<td>
 						@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
@@ -53,17 +47,20 @@
 				}
 			</tr>
 
-			@for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
+			@if (showExpandIcon)
 			{
-				var userLevel = Model.DisplayOutstandingLevels[i];
-				<tr class="tbl-footer row-ex-total hide">
-					<td colspan="4" class="text-left">
-						<span class="row-role">
-							<span style="float:left">@userLevel.DisplayName</span>
-							<span style="float:right">@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(userLevel))</span>
-						</span>
-					</td>
-				</tr>
+				for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
+				{
+					var userLevel = Model.DisplayOutstandingLevels[i];
+					<tr class="tbl-footer row-ex-total hide">
+						<td colspan="4" class="text-left">
+							<span class="row-role">
+								<span style="float:left">@userLevel.DisplayName</span>
+								<span style="float:right">@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(userLevel))</span>
+							</span>
+						</td>
+					</tr>
+				}
 			}
 		</tfoot>
 	}
