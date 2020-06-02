@@ -398,6 +398,7 @@
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
+    <TypeScriptCompile Include="assets\scripts\outstanding\outstanding-new.ts" />
     <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\progressivecontribution\progressivecontribution.ts" />
@@ -799,6 +800,10 @@
     <Content Include="assets\bundles\outstanding\outstanding-mobile-calculate-07.min.css">
       <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\outstanding\outstanding-new.js" />
+    <Content Include="assets\bundles\outstanding\outstanding-new.min.js">
+      <DependentUpon>outstanding-new.js</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.css" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.js" />
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.css">
@@ -1167,6 +1172,7 @@
     <Content Include="Views\Outstanding\TableContent.cshtml" />
     <Content Include="Views\Outstanding\TableContentMobile.cshtml" />
     <Content Include="Views\Outstanding\TableContentMobileDataTable.cshtml" />
+    <Content Include="Views\Outstanding\IndexNew.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
