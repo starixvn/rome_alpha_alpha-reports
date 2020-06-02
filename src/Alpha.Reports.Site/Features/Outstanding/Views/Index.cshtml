@@ -1,5 +1,6 @@
 ﻿@using Alpha.Reports.Site.App_GlobalResources;
 @{
+	Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewBag.Title = "Outstanding Report";
 }
 
@@ -81,7 +82,7 @@
 @Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Outstanding"))
 
 @section Scripts {
-	@StaticResources.RenderScripts("~/assets/bundles/outstanding/outstanding")
+	@StaticResources.RenderScripts("~/Features/Outstanding/Bundles/outstanding")
 }
 
 @helper RenderOutstandingCells(OutstandingModel data)

@@ -23,10 +23,10 @@
     "outputFile": "assets/styles/betchoicematching/betchoicematching.css",
     "inputFile": "assets/styles/betchoicematching/betchoicematching.scss"
   },
-  {
-    "outputFile": "assets/styles/outstanding/outstanding-mobile-calculate-07.css",
-    "inputFile": "assets/styles/outstanding/outstanding-mobile-calculate-07.scss"
-  },
+	{
+		"outputFile": "Features/Outstanding/Styles/outstanding-mobile-calculate-07.css",
+		"inputFile": "Features/Outstanding/Styles/outstanding-mobile-calculate-07.scss"
+	},
   {
     "outputFile": "assets/styles/report-mobile-calculate-07.css",
     "inputFile": "assets/styles/report-mobile-calculate-07.scss"

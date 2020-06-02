@@ -183,7 +183,7 @@
     <Compile Include="Criteria\GetProductsByRefTableCriteria.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\ProductsForMatchWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\MatchWinLoss\GetMatchWinLossCriteria.cs" />
-    <Compile Include="Criteria\Outstanding\OutstandingCriteria.cs" />
+    <Compile Include="Features\Outstanding\OutstandingCriteria.cs" />
     <Compile Include="Criteria\MatchWinLossDetail\MatchWinLossDetailCriteria.cs" />
     <Compile Include="Criteria\PagingReportProductCriteria.cs" />
     <Compile Include="Criteria\PlayForFun\PlayForFunCriteria.cs" />
@@ -242,7 +242,7 @@
     <Compile Include="Models\NetWinLoss.cs" />
     <Compile Include="Models\PagedReportData.cs" />
     <Compile Include="Models\MatchWinLoss\MatchWinLossModel.cs" />
-    <Compile Include="Models\Outstanding\OutstandingModel.cs" />
+    <Compile Include="Features\Outstanding\OutstandingModel.cs" />
     <Compile Include="Models\League.cs" />
     <Compile Include="Models\MatchWinLossDetail\MatchWinLossDetailModel.cs" />
     <Compile Include="Models\PlayForFun\MemberPlayForFunModel.cs" />
@@ -276,7 +276,7 @@
     <Compile Include="Params\Consolidation\GetCurrencyParam.cs" />
     <Compile Include="Params\DailyEnteredSportParam.cs" />
     <Compile Include="Params\MatchWinLossParam.cs" />
-    <Compile Include="Params\OutstandingParam.cs" />
+    <Compile Include="Features\Outstanding\OutstandingParam.cs" />
     <Compile Include="Params\GetLeaguesByCustomerParam.cs" />
     <Compile Include="Params\CommissionByBettypeParam.cs" />
     <Compile Include="Params\PlayForFunParam.cs" />
@@ -312,7 +312,7 @@
     <Compile Include="Services\UserPermissionService.cs" />
     <Compile Include="Services\StatementService.cs" />
     <Compile Include="Services\WinLossService.cs" />
-    <Compile Include="Services\OutstandingService.cs" />
+    <Compile Include="Features\Outstanding\OutstandingService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\WinLossDetailService.cs" />
     <Compile Include="Utils\SystemTime.cs" />

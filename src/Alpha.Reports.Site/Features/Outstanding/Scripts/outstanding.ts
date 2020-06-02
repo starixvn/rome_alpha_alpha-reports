@@ -1,5 +1,5 @@
-﻿/// <reference path="../core.ts" />
-/// <reference path="../components/sort.ts" />
+﻿/// <reference path="../../../assets/scripts/core.ts" />
+/// <reference path="../../../assets/scripts/components/sort.ts" />
 
 "use strict";
 

@@ -1,4 +1,4 @@
-﻿/// <reference path="../core.ts" />
+﻿/// <reference path="../../../assets/scripts/core.ts" />
 
 "use strict";
 

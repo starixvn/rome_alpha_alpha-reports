@@ -7,7 +7,9 @@
 
     public class OutstandingController : ReportBaseController
     {
-        private readonly string outstandingNewPath = "~/Views/Outstanding/IndexNew.cshtml";
+        private readonly string outstandingPath = "~/Features/Outstanding/Views/Index.cshtml";
+        private readonly string outstandingNewPath = "~/Features/Outstanding/Views/IndexNew.cshtml";
+        private readonly string ReportLegendPath = "~/Features/Outstanding/Views/ReportLegend.cshtml";
 
         public OutstandingController(IMediator mediator) : base(mediator)
         {
@@ -17,7 +19,8 @@
         [Route("outstanding/master")]
         [Route("outstanding/agent")]
         [Route("outstanding/member")]
-        public ActionResult Index(OutstandingQuery message) => View(message);
+        public ActionResult Index(OutstandingQuery message) 
+            => View(outstandingPath, mediator.Send(message));
 
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Reviewed")]
         [Route("outstanding/masternew")]
@@ -26,6 +29,7 @@
         public ActionResult IndexNew(OutstandingQuery message) 
             => View(outstandingNewPath, mediator.Send(message));
 
-        public ActionResult ReportLegend(ReportLegendQuery message) => View(message);
+        public ActionResult ReportLegend(ReportLegendQuery message) 
+            => View(ReportLegendPath, mediator.Send(message));
     }
 }
