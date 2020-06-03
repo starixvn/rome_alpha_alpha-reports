@@ -1168,8 +1168,6 @@
     <Content Include="Views\RiskAnalysisIPMatching\Index.cshtml" />
     <Content Include="Views\BetChoiceMatching\Index.cshtml" />
     <Content Include="typings\globals\numeral\typings.json" />
-    <Content Include="Features\Outstanding\Views\TableContent.cshtml" />
-    <Content Include="Features\Outstanding\Views\TableContentNew.cshtml" />
     <Content Include="Features\Outstanding\Views\IndexNew.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
