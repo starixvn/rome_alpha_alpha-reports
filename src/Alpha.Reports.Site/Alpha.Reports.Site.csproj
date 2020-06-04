@@ -804,6 +804,10 @@
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.js">
       <DependentUpon>progressivecontribution.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\report-mobile-calculate-07.css" />
+    <Content Include="assets\bundles\report-mobile-calculate-07.min.css">
+      <DependentUpon>report-mobile-calculate-07.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\RiskAnalysisIPMatching\index.js" />
     <Content Include="assets\bundles\RiskAnalysisIPMatching\index.min.js">
       <DependentUpon>index.js</DependentUpon>
@@ -944,12 +948,6 @@
     <Content Include="Features\Outstanding\Bundles\outstanding.min.js">
       <DependentUpon>outstanding.js</DependentUpon>
     </Content>
-    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.css">
-      <DependentUpon>outstanding-mobile-calculate-07.scss</DependentUpon>
-    </Content>
-    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.min.css">
-      <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
-    </Content>
     <Content Include="assets\styles\progressivecontribution\progressivecontribution.css">
       <DependentUpon>progressivecontribution.scss</DependentUpon>
     </Content>
@@ -984,6 +982,12 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.css">
+      <DependentUpon>outstanding-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.min.css">
+      <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
@@ -1106,11 +1110,10 @@
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
     <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
     <Content Include="App_Data\ExcelTemplates\BetChoiceMatching\Master.xls" />
-    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.scss" />
     <Content Include="Features\Outstanding\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-
+    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.scss" />
     <Content Include="App_Data\activitytracking.pro2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>

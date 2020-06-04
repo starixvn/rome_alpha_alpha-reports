@@ -49,7 +49,7 @@ class OutstandingViewNew extends BaseReport {
 		this.initDataTable();
     };
 
-	formatDetailRow(data) {
+	formatDetailRow = (data) => {
 		let rows = [];
 
 		for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
@@ -60,7 +60,7 @@ class OutstandingViewNew extends BaseReport {
 		return rows.join("\n");
 	}
 
-	initDataTable() {
+	initDataTable = () => {
 		var columns = [
 			{
 				"className": null,
@@ -73,11 +73,11 @@ class OutstandingViewNew extends BaseReport {
 			},
 			{
 				"data": `${viewModel.DisplayOutstandingLevels[0].DisplayName}Outstanding`,
-				"render": $.fn.dataTable.render.number(',', '.', 2, '')
+				"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
 			},
 			{
 				"data": `${viewModel.DisplayOutstandingLevels[1].DisplayName}Outstanding`,
-				"render": $.fn.dataTable.render.number(',', '.', 2, '')
+				"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
 			}
 		];
 
@@ -98,21 +98,32 @@ class OutstandingViewNew extends BaseReport {
 			for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
 				columns.push({
 					"data": `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`,
-					"render": $.fn.dataTable.render.number(',', '.', 2, '')
+					"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
 				});
 			}
 		}
+
+		let colunmSortIndex = 0;
+		this.$.each(viewModel.DisplayOutstandingLevels, (key, value) => {
+			if (this.$(this.$sortPropertyName).val().toLowerCase() === `${value.DisplayName}Outstanding`.toLowerCase()) {
+				colunmSortIndex = key + 1;
+				return;
+			}
+		});
 		
 		this.$table = this.$('.tblRpt').DataTable({
 			"data": viewModel.OutstandingDatasource,
 			"columns": columns,
-			"order": [[0, 'asc']],
+			"order": [[colunmSortIndex, JSON.parse(this.$isDescendingSort.val().toLowerCase()) ? 'desc' : 'asc']],
 			"paging": false,
 			"searching": false,
 			"bInfo": false,
 			"fixedHeader": {
 				"header": true,
 				"footer": true
+			},
+			"drawCallback": () => {
+				
 			}
 		});
 
@@ -122,7 +133,7 @@ class OutstandingViewNew extends BaseReport {
 		this.$('.tblRpt').on('draw.dt', () => this.triggerRedrawTable());
 	}
 
-	onClickDetailControlOnHeader(event) {
+	onClickDetailControlOnHeader = (event) => {
 		var tr = this.$(event.currentTarget).closest('tr');
 
 		if (tr.hasClass('shown')) {
@@ -154,7 +165,7 @@ class OutstandingViewNew extends BaseReport {
 		this.$(window).scrollTop(scrollTo);
 	}
 
-	onClickDetailControlOnBody(event) {
+	onClickDetailControlOnBody = (event) => {
 		var tr = this.$(event.currentTarget).closest('tr');
 		var row = this.$table.row(tr);
 
@@ -168,7 +179,7 @@ class OutstandingViewNew extends BaseReport {
 		}
 	}
 
-	onClickDetailControlOnFooter(event) {
+	onClickDetailControlOnFooter = (event) => {
 		var tr = this.$(event.currentTarget).closest('tr');
 
 		if (tr.hasClass('shown')) {
@@ -182,7 +193,7 @@ class OutstandingViewNew extends BaseReport {
 		}
 	}
 
-	triggerRedrawTable() {
+	triggerRedrawTable = () => {
 		this.$('td.details-control').each((index, element) => {
 			let tr = this.$(element).closest('tr');
 			let row = this.$table.row(tr);
@@ -197,10 +208,26 @@ class OutstandingViewNew extends BaseReport {
 		let scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;
 		this.$(window).scrollTop(scrollTo);
 
+		this.replaceHrefParam("SortPropertyName", this.getColumnSortName());
+		this.replaceHrefParam("IsDescendingSort", this.isDescendingSort());
+	}
+
+	getColumnSortName = () => {
 		let order = this.$table.order();
-		let title = this.$table.column(order[0][0]).header();
-		this.replaceHrefParam("SortPropertyName", this.$(title).data('name'));
-		this.replaceHrefParam("IsDescendingSort", order[0][1] !== 'asc');
+		const length = this.isMobileView ? 1 : viewModel.DisplayOutstandingLevels.length;
+
+		for (let index = 0; index < length; index++) {
+			if (order[0][0] - 1 === index) {
+				return `${viewModel.DisplayOutstandingLevels[index].DisplayName}Outstanding`;
+			}
+		}
+
+		return 'CustName';
+	}
+
+	isDescendingSort = () => {
+		let order = this.$table.order();
+		return order[0][1] !== 'asc';
 	}
 
     public cacheElements() {
@@ -234,13 +261,14 @@ class OutstandingViewNew extends BaseReport {
             return;
         }
 
-		let order = this.$table.order();
-		this.replaceHrefParam("SortPropertyName", this.$table.column(order[0][0]).header());
-		this.replaceHrefParam("IsDescendingSort", order[0][1] !== 'asc');
-		this.$sortPropertyName.val(this.$table.column(order[0][0]).header());
-		this.$isDescendingSort.val(order[0][1] !== 'asc' ? 'True' : 'False');
+		this.replaceHrefParam("SortPropertyName", this.getColumnSortName());
+		this.replaceHrefParam("IsDescendingSort", this.isDescendingSort());
+		this.$sortPropertyName.val(this.getColumnSortName());
+		this.$isDescendingSort.val(this.isDescendingSort ? 'True' : 'False');
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
-    };
+	};
+
+
     getParams = () => {
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
 

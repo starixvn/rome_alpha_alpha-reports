@@ -56,7 +56,7 @@
                 displayOutstandingLevels.Add(Enumeration.FromValue<UserLevel>(level));
             }
 
-            var canSort = outstandingDataSource != null && outstandingDataSource.Count() > 1;
+            var canSort = OutstandingDatasource != null && OutstandingDatasource.Count > 1;
             SortPropertyName = canSort ? GetSortedProperty(query.SortPropertyName) : DefaultVariables.SortPropertyName;
             IsDescendingSort = canSort && query.IsDescendingSort;
             BetListPath = Helpers.UrlHelper.MapBetListPath("~/RunningBetList/Index");
