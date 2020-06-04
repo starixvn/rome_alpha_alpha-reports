@@ -49,17 +49,6 @@ class OutstandingViewNew extends BaseReport {
 		this.initDataTable();
     };
 
-	formatDetailRow = (data) => {
-		let rows = [];
-
-		for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
-			const level = `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`;
-			rows.push(`<div><span style="float:left">${level}</span><span>${data[level]}</span></div>`);
-		}
-
-		return rows.join("\n");
-	}
-
 	initDataTable = () => {
 		var columns = [
 			{
@@ -133,6 +122,17 @@ class OutstandingViewNew extends BaseReport {
 		this.$('.tblRpt').on('draw.dt', () => this.triggerRedrawTable());
 	}
 
+	formatDetailRow = (data, parentRow) => {
+		let rows = [];
+		const heigh = this.$(parentRow).height();
+		for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
+			const level = `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`;
+			rows.push(`<div class="child-row" style="height: ${heigh}px"><span>${level}</span><span>${data[level]}</span></div>`);
+		}
+
+		return rows.join("\n");
+	}
+
 	onClickDetailControlOnHeader = (event) => {
 		var tr = this.$(event.currentTarget).closest('tr');
 
@@ -174,7 +174,7 @@ class OutstandingViewNew extends BaseReport {
 			tr.removeClass('shown');
 		}
 		else {
-			row.child(this.formatDetailRow(row.data()), `${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
+			row.child(this.formatDetailRow(row.data(), tr), `child-row ${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
 			tr.addClass('shown');
 		}
 	}
@@ -199,7 +199,7 @@ class OutstandingViewNew extends BaseReport {
 			let row = this.$table.row(tr);
 
 			if (row.child.isShown()) {
-				row.child(this.formatDetailRow(row.data()), `${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
+				row.child(this.formatDetailRow(row.data(), tr), `child-row ${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
 			}
 		});
 
