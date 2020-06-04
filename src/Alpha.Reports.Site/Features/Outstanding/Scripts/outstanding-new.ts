@@ -49,7 +49,7 @@ class OutstandingViewNew extends BaseReport {
 		this.initDataTable();
     };
 
-	format(data) {
+	formatDetailRow(data) {
 		let rows = [];
 
 		for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
@@ -61,8 +61,6 @@ class OutstandingViewNew extends BaseReport {
 	}
 
 	initDataTable() {
-		let that = this;
-
 		var columns = [
 			{
 				"className": null,
@@ -75,9 +73,11 @@ class OutstandingViewNew extends BaseReport {
 			},
 			{
 				"data": `${viewModel.DisplayOutstandingLevels[0].DisplayName}Outstanding`,
+				"render": $.fn.dataTable.render.number(',', '.', 2, '')
 			},
 			{
-				"data": `${viewModel.DisplayOutstandingLevels[1].DisplayName}Outstanding`
+				"data": `${viewModel.DisplayOutstandingLevels[1].DisplayName}Outstanding`,
+				"render": $.fn.dataTable.render.number(',', '.', 2, '')
 			}
 		];
 
@@ -97,7 +97,8 @@ class OutstandingViewNew extends BaseReport {
 		else {
 			for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
 				columns.push({
-					data: `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`
+					"data": `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`,
+					"render": $.fn.dataTable.render.number(',', '.', 2, '')
 				});
 			}
 		}
@@ -115,87 +116,91 @@ class OutstandingViewNew extends BaseReport {
 			}
 		});
 
-		that.$('.tblRpt tbody').on('click', 'td.details-control', function () {
-			var tr = that.$(this).closest('tr');
-			var row = that.$table.row(tr);
+		this.$('.tblRpt thead').on('click', 'th.details-control', event => this.onClickDetailControlOnHeader(event));
+		this.$('.tblRpt tbody').on('click', 'td.details-control', event => this.onClickDetailControlOnBody(event));
+		this.$('.tblRpt tfoot').on('click', 'td.details-control', event => this.onClickDetailControlOnFooter(event));
+		this.$('.tblRpt').on('draw.dt', () => this.triggerRedrawTable());
+	}
 
-			if (row.child.isShown()) {
-				row.child.hide();
-				tr.removeClass('shown');
-			}
-			else {
-				row.child(that.format(row.data()), `${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
-				tr.addClass('shown');
-			}
-		});
+	onClickDetailControlOnHeader(event) {
+		var tr = this.$(event.currentTarget).closest('tr');
 
-		that.$('.tblRpt tfoot').on('click', 'td.details-control', function () {
-			var tr = that.$(this).closest('tr');
+		if (tr.hasClass('shown')) {
+			tr.removeClass('shown');
 
-			if (tr.hasClass('shown')) {
-				tr.removeClass('shown');
-				tr.next().addClass('hide');
-			}
-			else {
-				
-				tr.addClass('shown');
-				tr.next().removeClass('hide');
-				
-			}
-		});
-
-		that.$('.tblRpt').on('draw.dt', function () {
-			that.$('td.details-control').each(function () {
-				var tr = that.$(this).closest('tr');
-				var row = that.$table.row(tr);
-
-				if (row.child.isShown()) {
-					row.child(that.format(row.data()), `${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
-				}
+			this.$('tbody tr.shown').each((index, element) => {
+				this.$(element).find('.details-control').click();
 			});
 
-			that.$table.fixedHeader.adjust();
+			this.$('tfoot tr.shown').each((index, element) => {
+				this.$(element).find('.details-control').click();
+			});
+		}
+		else {
+			tr.addClass('shown');
 
-			let scrollTo = that.$('.fixedHeader-floating thead').length > 0 ? that.$(document).height() : 0;
-			that.$(window).scrollTop(scrollTo);
+			this.$('tbody tr').not('.shown').each((index, element) => {
+				this.$(element).find('.details-control').click();
+			});
 
-			let order = that.$table.order();
-			let title = that.$table.column(order[0][0]).header();
-			that.replaceHrefParam("SortPropertyName", that.$(title).data('name'));
-			that.replaceHrefParam("IsDescendingSort", order[0][1] !== 'asc');
+			this.$('tfoot tr').not('.shown').each((index, element) => {
+				this.$(element).find('.details-control').click();
+			});
+		}
+
+		this.$table.fixedHeader.adjust();
+
+		let scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;
+		this.$(window).scrollTop(scrollTo);
+	}
+
+	onClickDetailControlOnBody(event) {
+		var tr = this.$(event.currentTarget).closest('tr');
+		var row = this.$table.row(tr);
+
+		if (row.child.isShown()) {
+			row.child.hide();
+			tr.removeClass('shown');
+		}
+		else {
+			row.child(this.formatDetailRow(row.data()), `${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
+			tr.addClass('shown');
+		}
+	}
+
+	onClickDetailControlOnFooter(event) {
+		var tr = this.$(event.currentTarget).closest('tr');
+
+		if (tr.hasClass('shown')) {
+			tr.removeClass('shown');
+			tr.next().addClass('hide');
+		}
+		else {
+
+			tr.addClass('shown');
+			tr.next().removeClass('hide');
+		}
+	}
+
+	triggerRedrawTable() {
+		this.$('td.details-control').each((index, element) => {
+			let tr = this.$(element).closest('tr');
+			let row = this.$table.row(tr);
+
+			if (row.child.isShown()) {
+				row.child(this.formatDetailRow(row.data()), `${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
+			}
 		});
 
-		that.$('.tblRpt thead').on('click', 'th.details-control', function () {
-			var tr = that.$(this).closest('tr');
+		this.$table.fixedHeader.adjust();
 
-			if (tr.hasClass('shown')) {
-				tr.removeClass('shown');
+		let scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;
+		this.$(window).scrollTop(scrollTo);
 
-				that.$('tbody tr.shown').each(function () {
-					that.$(this).find('.details-control').click();
-				});
-
-				that.$('tfoot tr.shown').each(function () {
-					that.$(this).find('.details-control').click();
-				});
-			}
-			else {
-				tr.addClass('shown');
-
-				that.$('tbody tr').not('.shown').each(function () {
-					that.$(this).find('.details-control').click();
-				});
-
-				that.$('tfoot tr').not('.shown').each(function () {
-					that.$(this).find('.details-control').click();
-				});
-			}
-
-			that.$table.fixedHeader.adjust();
-
-			let scrollTo = that.$('.fixedHeader-floating thead').length > 0 ? that.$(document).height() : 0;
-			that.$(window).scrollTop(scrollTo);
-		});
+		let order = this.$table.order();
+		let title = this.$table.column(order[0][0]).header();
+		this.replaceHrefParam("SortPropertyName", this.$(title).data('name'));
+		this.replaceHrefParam("IsDescendingSort", order[0][1] !== 'asc');
 	}
 
     public cacheElements() {

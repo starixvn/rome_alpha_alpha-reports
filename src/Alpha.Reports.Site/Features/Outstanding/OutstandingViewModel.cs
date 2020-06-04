@@ -40,10 +40,10 @@
                     OutstandingDatasource.Add(new OutstandingModel(
                        outstanding.CustId + 1,
                         $"{outstanding.CustName}{index}",
-                        outstanding.MemberOutstanding * (10 + index),
-                           outstanding.AgentOutstanding * (11 + index),
-                           outstanding.MasterOutstanding * (12 + index),
-                            outstanding.SuperOutstanding * (13 + index)
+                        outstanding.MemberOutstanding * (10010 + index),
+                        outstanding.AgentOutstanding * (10011 + index),
+                        outstanding.MasterOutstanding * (10012 + index),
+                        outstanding.SuperOutstanding * (10013 + index)
                         ));
                 }
 
