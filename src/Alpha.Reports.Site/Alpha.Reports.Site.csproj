@@ -804,10 +804,6 @@
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.js">
       <DependentUpon>progressivecontribution.js</DependentUpon>
     </Content>
-    <Content Include="assets\bundles\report-mobile-calculate-07.css" />
-    <Content Include="assets\bundles\report-mobile-calculate-07.min.css">
-      <DependentUpon>report-mobile-calculate-07.css</DependentUpon>
-    </Content>
     <Content Include="assets\bundles\RiskAnalysisIPMatching\index.js" />
     <Content Include="assets\bundles\RiskAnalysisIPMatching\index.min.js">
       <DependentUpon>index.js</DependentUpon>
@@ -875,8 +871,11 @@
     <Content Include="assets\bundles\winloss\winloss.min.js">
       <DependentUpon>winloss.js</DependentUpon>
     </Content>
-    <Content Include="assets\scripts\libs\data-table\js\dataTables.fixedHeader.js" />
     <Content Include="assets\scripts\libs\data-table\css\jquery.dataTables.css" />
+    <Content Include="assets\scripts\libs\data-table\css\jquery.dataTables.min.css">
+      <DependentUpon>jquery.dataTables.css</DependentUpon>
+    </Content>
+    <Content Include="assets\scripts\libs\data-table\js\dataTables.fixedHeader.js" />
     <Content Include="assets\scripts\libs\data-table\js\jquery.dataTables.js" />
     <Content Include="assets\scripts\libs\data-table\images\details_close.png" />
     <Content Include="assets\scripts\libs\data-table\images\details_open.png" />

@@ -1,15 +1,17 @@
 ﻿@using Alpha.Reports.Site.App_GlobalResources;
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	ViewBag.Title = "Outstanding Report";
+				/**/
 
-	foreach (var outstanding in Model.OutstandingDatasource)
-	{
-		outstanding.DownlineLink = Model.BuildDrillDownLink(outstanding, Request.Url.Query);
-	}
+				Layout = "~/Views/Shared/_Layout.cshtml";
+				ViewBag.Title = "Outstanding Report";
 
-	var length = Model.IsMobileView ? 2 : Model.DisplayOutstandingLevels.Count;
-	var showExpandIcon = Model.IsMobileView && Model.DisplayOutstandingLevels.Count > 2;
+				foreach (var outstanding in Model.OutstandingDatasource)
+				{
+					outstanding.DownlineLink = Model.BuildDrillDownLink(outstanding, Request.Url.Query);
+				}
+
+				var length = Model.IsMobileView ? 2 : Model.DisplayOutstandingLevels.Count;
+				var showExpandIcon = Model.IsMobileView && Model.DisplayOutstandingLevels.Count > 2;
 }
 
 @section Styles {
@@ -41,15 +43,23 @@
 	<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tbl-outstanding tablesorter" id="tbl-report">
 		<thead class="tableFloatingHeaderOriginal">
 			<tr>
+				@{
+					for (var i = 0; i < length + 1; i++)
+					{
+						<th></th>
+					}
+				}
+			</tr>
+			<tr>
 				<th rowspan="2" class="header" data-name="CustName">
 					@HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
 				</th>
-				<th colspan="@length" class="header">
+				<th colspan="@length" class="header col-260">
 					@Resources.Outstanding
 				</th>
 				@if (showExpandIcon)
 				{
-					<th rowspan="2" class=""></th>
+					<th rowspan="2" class="col-50"></th>
 				}
 			</tr>
 			<tr class="thead-row2">
@@ -57,7 +67,7 @@
 					for (var i = 0; i < length; i++)
 					{
 						var userLevel = Model.DisplayOutstandingLevels[i];
-						<th class="">
+						<th class="col-95">
 							@HtmlHelpers.DisplayUserLevelText(userLevel)
 						</th>
 					}
