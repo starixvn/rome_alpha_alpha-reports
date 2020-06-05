@@ -110,14 +110,11 @@ class OutstandingViewNew extends BaseReport {
 			"fixedHeader": {
 				"header": true,
 				"footer": true
-			},
-			"drawCallback": () => {
-				
 			}
 		});
 
 		this.$('.tblRpt thead').on('click', 'th.details-control', event => this.onClickDetailControlOnHeader(event));
-		this.$('.tblRpt tbody').on('click', 'td.details-control', event => this.onClickDetailControlOnBody(event));
+		this.$('.tblRpt tbody').on('click', 'td.details-control', event => this.onClickDetailControlOnBody(event, true));
 		this.$('.tblRpt tfoot').on('click', 'td.details-control', event => this.onClickDetailControlOnFooter(event));
 		this.$('.tblRpt').on('draw.dt', () => this.triggerRedrawTable());
 	}
@@ -127,7 +124,7 @@ class OutstandingViewNew extends BaseReport {
 		const heigh = this.$(parentRow).height();
 		for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
 			const level = `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`;
-			rows.push(`<div class="child-row" style="height: ${heigh}px"><span>${level}</span><span>${data[level]}</span></div>`);
+			rows.push(`<div class="child-row" style="height: ${heigh}px"><span>${viewModel.DisplayOutstandingLevels[i].DisplayName}</span><span>${data[level]}</span></div>`);
 		}
 
 		return rows.join("\n");
@@ -159,13 +156,10 @@ class OutstandingViewNew extends BaseReport {
 			});
 		}
 
-		this.$table.fixedHeader.adjust();
-
-		let scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;
-		this.$(window).scrollTop(scrollTo);
+		this.doAdjustHeader();
 	}
 
-	onClickDetailControlOnBody = (event) => {
+	onClickDetailControlOnBody = (event, adjustHeader: boolean = false) => {
 		var tr = this.$(event.currentTarget).closest('tr');
 		var row = this.$table.row(tr);
 
@@ -176,6 +170,10 @@ class OutstandingViewNew extends BaseReport {
 		else {
 			row.child(this.formatDetailRow(row.data(), tr), `child-row ${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
 			tr.addClass('shown');
+		}
+
+		if (adjustHeader) {
+			this.doAdjustHeader();
 		}
 	}
 
@@ -203,13 +201,17 @@ class OutstandingViewNew extends BaseReport {
 			}
 		});
 
+		this.doAdjustHeader();
+
+		this.replaceHrefParam("SortPropertyName", this.getColumnSortName());
+		this.replaceHrefParam("IsDescendingSort", this.isDescendingSort());
+	}
+
+	doAdjustHeader = () => {
 		this.$table.fixedHeader.adjust();
 
 		let scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;
 		this.$(window).scrollTop(scrollTo);
-
-		this.replaceHrefParam("SortPropertyName", this.getColumnSortName());
-		this.replaceHrefParam("IsDescendingSort", this.isDescendingSort());
 	}
 
 	getColumnSortName = () => {

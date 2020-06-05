@@ -15,14 +15,18 @@ table.dataTable {
    */
 }
 
-table.dataTable tr:first-of-type th {
+table.dataTable thead tr:first-of-type th {
 	height: 0px !important;
 	padding: 0px !important;
 	border: 0px !important;
 }
 
-table.dataTable tr:nth-of-type(2) th:last-of-type {
+table.dataTable thead tr:nth-of-type(2) th:last-of-type {
 	background-color: #666 !important;
+}
+
+table.dataTable tbody tr td:first-of-type {
+	text-align: left;
 }
 
 table.dataTable td.details-control,
