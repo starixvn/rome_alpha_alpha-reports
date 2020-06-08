@@ -875,19 +875,6 @@
     <Content Include="assets\bundles\winloss\winloss.min.js">
       <DependentUpon>winloss.js</DependentUpon>
     </Content>
-    <Content Include="assets\scripts\libs\data-table\css\jquery.dataTables.css" />
-    <Content Include="assets\scripts\libs\data-table\css\jquery.dataTables.min.css">
-      <DependentUpon>jquery.dataTables.css</DependentUpon>
-    </Content>
-    <Content Include="assets\scripts\libs\data-table\js\dataTables.fixedHeader.js" />
-    <Content Include="assets\scripts\libs\data-table\js\jquery.dataTables.js" />
-    <Content Include="assets\scripts\libs\data-table\images\details_close.png" />
-    <Content Include="assets\scripts\libs\data-table\images\details_open.png" />
-    <Content Include="assets\scripts\libs\data-table\images\sort_asc.png" />
-    <Content Include="assets\scripts\libs\data-table\images\sort_asc_disabled.png" />
-    <Content Include="assets\scripts\libs\data-table\images\sort_both.png" />
-    <Content Include="assets\scripts\libs\data-table\images\sort_desc.png" />
-    <Content Include="assets\scripts\libs\data-table\images\sort_desc_disabled.png" />
     <Content Include="assets\scripts\tests\apps\betchoicematching\betMatchingResources.js" />
     <Content Include="assets\scripts\tests\libs\autocomplete.js" />
     <Content Include="assets\scripts\tests\libs\bootbox.js" />
@@ -981,7 +968,6 @@
     </CodeAnalysisDictionary>
     <Content Include="compilerconfig.json" />
     <Content Include="assets\styles\report-mobile-calculate-07.scss" />
-    <Content Include="assets\scripts\libs\data-table\images\Sorting icons.psd" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>

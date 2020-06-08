@@ -17,7 +17,6 @@ class OutstandingViewNew extends BaseReport {
     $sortPropertyName: JQuery;
     $isDescendingSort: JQuery;
     $isFilterVisible: JQuery;
-    $pageTitle: JQuery;
 	$table: JQuery;
 
 	isMobileView: boolean;
@@ -46,6 +45,21 @@ class OutstandingViewNew extends BaseReport {
 
 		this.initHelp();
 		this.initDataTable();
+    };
+
+    cacheElements = () =>  {
+		super.cacheElements();
+
+        this.$reportForm = this.$("#report-form");
+
+        this.$sortPropertyName = this.$("#SortPropertyName");
+        this.$isDescendingSort = this.$("#IsDescendingSort");
+        this.$isFilterVisible = this.$("#IsFilterVisible");
+    };
+
+    registerEvents = () =>  {
+        super.registerEvents();
+        this.$reportForm.submit(this.onSubmitReport);
     };
 
 	initDataTable = () => {
@@ -98,7 +112,7 @@ class OutstandingViewNew extends BaseReport {
 				return;
 			}
 		});
-		
+
 		this.$table = this.$('.tblRpt').DataTable({
 			"data": viewModel.OutstandingDatasource,
 			"columns": columns,
@@ -174,6 +188,9 @@ class OutstandingViewNew extends BaseReport {
 		if (adjustHeader) {
 			this.doAdjustHeader();
 		}
+		else {
+			this.$(window).scrollTop(this.$(window).scrollTop() + 1);
+		}
 	}
 
 	onClickDetailControlOnFooter = (event) => {
@@ -231,22 +248,6 @@ class OutstandingViewNew extends BaseReport {
 		return order[0][1] !== 'asc';
 	}
 
-    public cacheElements() {
-		super.cacheElements();
-
-        this.$reportForm = this.$("#report-form");
-
-        this.$sortPropertyName = this.$("#SortPropertyName");
-        this.$isDescendingSort = this.$("#IsDescendingSort");
-        this.$isFilterVisible = this.$("#IsFilterVisible");
-        this.$pageTitle = this.$(".page-title");
-    };
-
-    public registerEvents() {
-        super.registerEvents();
-        this.$reportForm.submit(this.onSubmitReport);
-    };
-
     onSubmitReport = (e: any) => {
         let this$ = this.$;
 
@@ -267,7 +268,6 @@ class OutstandingViewNew extends BaseReport {
 		this.$isDescendingSort.val(this.isDescendingSort ? 'True' : 'False');
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
 	};
-
 
     getParams = () => {
         let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();

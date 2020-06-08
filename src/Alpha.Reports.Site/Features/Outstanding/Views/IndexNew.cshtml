@@ -17,14 +17,14 @@
 @section Styles {
 	@StaticResources.RenderStylesWithMedia(767, "~/assets/bundles/report-mobile-calculate-07")
 	@StaticResources.RenderStyles("~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
-	@StaticResources.RenderStyles("~/assets/scripts/libs/data-table/css/jquery.dataTables")
+	@StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/data-table")
 }
 
 @model OutstandingViewModel
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
-<form class="form-inline filter form-outstanding @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
+<form class="form-inline filter form-report @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
 	@ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
 	@Html.Hidden("CustId", Model.Query.CustId)
@@ -125,6 +125,7 @@
 		var viewModel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented));
 	</script>
 
+	@StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
 	@StaticResources.RenderScripts("~/Features/Outstanding/Bundles/outstanding-new")
 }
 
