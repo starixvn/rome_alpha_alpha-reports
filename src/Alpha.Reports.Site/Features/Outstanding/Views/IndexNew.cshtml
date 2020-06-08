@@ -1,21 +1,22 @@
 ﻿@using Alpha.Reports.Site.App_GlobalResources;
 @{
-				/**/
+	/**/
 
-				Layout = "~/Views/Shared/_Layout.cshtml";
-				ViewBag.Title = "Outstanding Report";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Outstanding Report";
 
-				foreach (var outstanding in Model.OutstandingDatasource)
-				{
-					outstanding.DownlineLink = Model.BuildDrillDownLink(outstanding, Request.Url.Query);
-				}
+	foreach (var outstanding in Model.OutstandingDatasource)
+	{
+		outstanding.DownlineLink = Model.BuildDrillDownLink(outstanding, Request.Url.Query);
+	}
 
-				var length = Model.IsMobileView ? 2 : Model.DisplayOutstandingLevels.Count;
-				var showExpandIcon = Model.IsMobileView && Model.DisplayOutstandingLevels.Count > 2;
+	var length = Model.IsMobileView ? 2 : Model.DisplayOutstandingLevels.Count;
+	var showExpandIcon = Model.IsMobileView && Model.DisplayOutstandingLevels.Count > 2;
 }
 
 @section Styles {
-	@StaticResources.RenderStylesWithMedia(767, "~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
+	@StaticResources.RenderStylesWithMedia(767, "~/assets/bundles/report-mobile-calculate-07")
+	@StaticResources.RenderStyles("~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
 	@StaticResources.RenderStyles("~/assets/scripts/libs/data-table/css/jquery.dataTables")
 }
 
@@ -40,7 +41,7 @@
 	</div>
 </form>
 <div class="level-@Model.CustLevel.Value">
-	<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover tbl-outstanding tablesorter" id="tbl-report">
+	<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover">
 		<thead class="tableFloatingHeaderOriginal">
 			<tr>
 				@{

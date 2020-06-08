@@ -11,7 +11,6 @@ class OutstandingViewNew extends BaseReport {
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     linkBuilderComponent: LinkBuilderComponent;
 
-    $tableReport: JQuery;
     $reportForm: JQuery;
     $buttonProduct: JQuery;
 
@@ -233,9 +232,8 @@ class OutstandingViewNew extends BaseReport {
 	}
 
     public cacheElements() {
-        super.cacheElements();
+		super.cacheElements();
 
-        this.$tableReport = this.$("#tbl-report");
         this.$reportForm = this.$("#report-form");
 
         this.$sortPropertyName = this.$("#SortPropertyName");
