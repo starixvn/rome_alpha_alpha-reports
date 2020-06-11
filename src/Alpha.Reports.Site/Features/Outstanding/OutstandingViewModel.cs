@@ -30,7 +30,10 @@
         {
             Query = query;
 
-            OutstandingDatasource = new List<OutstandingModel>();
+            OutstandingDatasource = new List<OutstandingModel>
+            {
+                new OutstandingModel(100, "cust test", 100, 1001, 155, 166)
+            };
 
             foreach (var outstanding in outstandingDataSource)
             {
@@ -40,10 +43,10 @@
                     OutstandingDatasource.Add(new OutstandingModel(
                        outstanding.CustId + 1,
                         $"{outstanding.CustName}{index}",
-                        outstanding.MemberOutstanding * (10010 + index),
-                        outstanding.AgentOutstanding * (10011 + index),
-                        outstanding.MasterOutstanding * (10012 + index),
-                        outstanding.SuperOutstanding * (10013 + index)
+                        outstanding.MemberOutstanding * (110 + index),
+                        outstanding.AgentOutstanding * (111 + index),
+                        outstanding.MasterOutstanding * (112 + index),
+                        outstanding.SuperOutstanding * (103 + index)
                         ));
                 }
 

@@ -86,7 +86,7 @@ class OutstandingViewNew extends BaseReport {
 		if (this.isMobileView) {
 			if (JSON.parse(this.$('#showExpandIcon').val().toLowerCase())) {
 				columns.push({
-					"className": 'details-control',
+					"className": 'details-control col-60',
 					"orderable": false,
 					"data": null,
 					"defaultContent": '',

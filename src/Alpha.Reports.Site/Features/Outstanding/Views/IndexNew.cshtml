@@ -12,6 +12,11 @@
 
 	var length = Model.IsMobileView ? 2 : Model.DisplayOutstandingLevels.Count;
 	var showExpandIcon = Model.IsMobileView && Model.DisplayOutstandingLevels.Count > 2;
+
+	Dictionary<string, string> widthDic = new Dictionary<string, string>
+	{
+
+	};
 }
 
 @section Styles {
@@ -44,10 +49,16 @@
 	<table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover">
 		<thead class="tableFloatingHeaderOriginal">
 			<tr>
+				<th></th>
 				@{
-					for (var i = 0; i < length + 1; i++)
+					for (var i = 1; i <= length; i++)
 					{
-						<th></th>
+						<th class="@(Model.IsMobileView ? "col-150" : "col-180")"></th>
+					}
+
+					if (showExpandIcon)
+					{
+						<th class="col-60"></th>
 					}
 				}
 			</tr>
