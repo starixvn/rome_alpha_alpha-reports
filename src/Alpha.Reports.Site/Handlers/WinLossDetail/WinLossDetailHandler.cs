@@ -79,7 +79,8 @@
                 ProductIdConstants.SexyGaming,
                 ProductIdConstants.SAGaming,
                 ProductIdConstants.GTCasino,
-                ProductIdConstants.BBin
+                ProductIdConstants.BBin,
+                ProductIdConstants.ION
             };
             var offeredLiveCasino = productService.FilterProductsByCustomer(custId, liveCasino);
             var liveCasinoNames = string.Join(", ", offeredLiveCasino.Select(i => i.Name));

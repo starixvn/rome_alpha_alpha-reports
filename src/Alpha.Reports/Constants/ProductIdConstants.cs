@@ -13,6 +13,7 @@
         public const int SAGaming = 39;
         public const int SexyGaming = 45;
         public const int GTCasino = 46;
+        public const int ION = 52;
         public const int BBin = 47;
     }
 }

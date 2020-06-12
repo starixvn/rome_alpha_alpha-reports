@@ -223,6 +223,31 @@
         }
 
         [Fact]
+        public void HandleReportLegendQuery_ProductsContainION_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery();
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            {
+                new Product(52, "ION", null)
+            });
+
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
+
+            var expectedViewModel = new List<string>
+            {
+                "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
+                "- For ION, Net Turnover is total valid bets that we use to compute commission."
+            };
+
+            // Act
+            var actualViewModel = winLossDetailHandler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
+        }
+        
+        [Fact]
         public void HandleReportLegendQuery_ProductsContainBBin_ReturnsCorrectViewModel()
         {
             // Arrange
@@ -258,7 +283,9 @@
                 new Product(45, "Sexy Gaming", null, 0, 0),
                 new Product(39, "SA Gaming", null, 0, 0),
                 new Product(46, "GT Casino", null, 0, 0),
+                new Product(39, "SA Gaming", null),
                 new Product(47, "BBIN", null, 0, 0),
+                new Product(52, "ION", null)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -266,7 +293,7 @@
             var expectedViewModel = new List<string>
             {
                 "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
-                "- For AllBet, Sexy Gaming, SA Gaming, GT Casino, BBIN, Net Turnover is total valid bets that we use to compute commission."
+                "- For AllBet, Sexy Gaming, SA Gaming, GT Casino, BBIN, ION, Net Turnover is total valid bets that we use to compute commission."
             };
 
             // Act
