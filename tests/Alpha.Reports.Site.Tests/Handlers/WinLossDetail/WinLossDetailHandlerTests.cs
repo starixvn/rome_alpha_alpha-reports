@@ -229,7 +229,7 @@
             var message = new ReportLegendQuery();
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(52, "ION", null)
+                new Product(52, "ION", null, 0, 0)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
@@ -283,9 +283,8 @@
                 new Product(45, "Sexy Gaming", null, 0, 0),
                 new Product(39, "SA Gaming", null, 0, 0),
                 new Product(46, "GT Casino", null, 0, 0),
-                new Product(39, "SA Gaming", null),
                 new Product(47, "BBIN", null, 0, 0),
-                new Product(52, "ION", null)
+                new Product(52, "ION", null, 0, 0)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Returns(Enumerable.Empty<byte>());
