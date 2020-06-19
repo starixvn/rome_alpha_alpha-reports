@@ -1,0 +1,155 @@
+﻿@using Alpha.Reports.Site.App_GlobalResources;
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Outstanding Report";
+
+	foreach (var outstanding in Model.OutstandingDatasource)
+	{
+		outstanding.DownlineLink = Model.BuildDrillDownLink(outstanding, Request.Url.Query);
+	}
+
+	var length = Model.DisplayOutstandingLevels.Count;
+	var showExpandIcon = true;
+}
+
+@section Styles {
+	@StaticResources.RenderStylesWithMedia(767, "~/assets/bundles/report-mobile-calculate-07")
+		@StaticResources.RenderStyles("~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
+	@*@StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/data-table")*@
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.dataTables.min.css">
+}
+
+@model OutstandingViewModel
+
+@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
+
+<form class="form-inline filter form-report @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
+	@ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+
+	@Html.Hidden("CustId", Model.Query.CustId)
+	@Html.Hidden("CustName", Model.Query.CustName)
+	@Html.Hidden("CustLevelId", Model.CustLevel.Value)
+	@Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
+	@Html.Hidden("SortPropertyName", Model.SortPropertyName)
+	@Html.Hidden("IsDescendingSort", Model.IsDescendingSort)
+	@Html.Hidden("IsFilterVisible", Model.IsFilterVisible)
+	@Html.Hidden("IsMobileView", Model.IsMobileView)
+	@Html.Hidden("showExpandIcon", showExpandIcon)
+	<div class="form-group last-group">
+		<input type="submit" value="@Resources.Submit" class="btn-submit" />
+	</div>
+</form>
+<div class="level-@Model.CustLevel.Value">
+	<table id="example" class="display nowrap" style="width:100%">
+		<thead class="tableFloatingHeaderOriginal">
+			<tr class="thead-row2">
+				<th class="header" data-name="CustName">
+					@HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
+				</th>
+				@{
+					for (var i = 0; i < length; i++)
+					{
+						var userLevel = Model.DisplayOutstandingLevels[i];
+						<th >
+							@HtmlHelpers.DisplayUserLevelText(userLevel)
+						</th>
+					}
+					for (var i = 0; i < length; i++)
+					{
+						var userLevel = Model.DisplayOutstandingLevels[i];
+						<th >
+							@HtmlHelpers.DisplayUserLevelText(userLevel)
+						</th>
+					}
+					for (var i = 0; i < length; i++)
+					{
+						var userLevel = Model.DisplayOutstandingLevels[i];
+						<th>
+							@HtmlHelpers.DisplayUserLevelText(userLevel)
+						</th>
+					}
+				}
+			</tr>
+		</thead>
+		@if (Model.OutstandingDatasource.Any())
+		{
+			<tbody>
+				@foreach (var outstanding in Model.OutstandingDatasource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
+				{
+				<tr>
+					<td class="text-left" data-islink="true">
+						<a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
+						   data-custname="@outstanding.CustName"
+						   class="downline-link">@outstanding.CustName</a>
+					</td>
+					@RenderOutstandingCells(outstanding)
+					@RenderOutstandingCells(outstanding)
+					@RenderOutstandingCells(outstanding)
+				</tr>
+				}
+			</tbody>
+			@*<tfoot>
+					<tr class="tbl-footer">
+						<td class="text-left">@Resources.Total</td>
+						@for (var i = 0; i < length; i++)
+						{
+							<td>
+								@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
+							</td>
+						}
+					</tr>
+
+					@if (showExpandIcon)
+					{
+						for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
+						{
+							var userLevel = Model.DisplayOutstandingLevels[i];
+							<tr class="tbl-footer row-ex-total hide">
+								<td colspan="4" class="text-left">
+									<span class="row-role">
+										<span style="float:left">@userLevel.DisplayName</span>
+										<span style="float:right">@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(userLevel))</span>
+									</span>
+								</td>
+							</tr>
+						}
+					}
+				</tfoot>*@
+		}
+		else
+		{
+			@NoInformation.Render(Model.NumberOfOutstandingColumn + 1)
+		}
+
+	</table>
+
+	@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Outstanding"))
+</div>
+
+
+@section Scripts {
+	<script>
+		var viewModel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented));
+	</script>
+
+	@*@StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")*@
+
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
+	@*	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>*@
+	@StaticResources.RenderScripts("~/Features/Outstanding/Bundles/outstanding-new-01")
+}
+
+@helper RenderOutstandingCells(OutstandingModel data)
+{
+	foreach (var level in Model.DisplayOutstandingLevels)
+	{
+		<td>
+			@HtmlHelpers.FormatNumber(data.GetValueByLevel(level) * 100000000)
+		</td>
+	}
+}

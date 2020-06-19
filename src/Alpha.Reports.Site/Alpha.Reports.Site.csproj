@@ -398,6 +398,7 @@
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
+    <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding-new-01.ts" />
     <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding-new.ts" />
     <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
@@ -932,6 +933,10 @@
     <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.min.css">
       <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
     </Content>
+    <Content Include="Features\Outstanding\Bundles\outstanding-new-01.js" />
+    <Content Include="Features\Outstanding\Bundles\outstanding-new-01.min.js">
+      <DependentUpon>outstanding-new-01.js</DependentUpon>
+    </Content>
     <Content Include="Features\Outstanding\Bundles\outstanding-new.js" />
     <Content Include="Features\Outstanding\Bundles\outstanding-new.min.js">
       <DependentUpon>outstanding-new.js</DependentUpon>
@@ -1105,6 +1110,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.scss" />
+    <Content Include="Features\Outstanding\Views\IndexNew1.cshtml" />
     <Content Include="App_Data\activitytracking.pro2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
