@@ -920,6 +920,8 @@
       <DependentUpon>consolidation.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\images\ajax-loader-small.gif" />
+    <Content Include="assets\styles\images\Minus.svg" />
+    <Content Include="assets\styles\images\Plus.svg" />
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.css">
       <DependentUpon>matchwinlossdetail.scss</DependentUpon>
     </Content>

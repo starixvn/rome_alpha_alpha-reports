@@ -137,7 +137,7 @@ class OutstandingViewNew extends BaseReport {
 		const heigh = this.$(parentRow).height();
 		for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
 			const level = `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`;
-			rows.push(`<div class="child-row" style="height: ${heigh}px"><span>${viewModel.DisplayOutstandingLevels[i].DisplayName}</span><span>${data[level]}</span></div>`);
+			rows.push(`<div class="child-row-content"><span>${viewModel.DisplayOutstandingLevels[i].DisplayName}</span><span>${data[level]}</span></div>`);
 		}
 
 		return rows.join("\n");

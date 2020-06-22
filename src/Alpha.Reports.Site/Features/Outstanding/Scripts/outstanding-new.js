@@ -108,7 +108,7 @@ var OutstandingViewNew = /** @class */ (function (_super) {
             var heigh = _this.$(parentRow).height();
             for (var i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
                 var level = viewModel.DisplayOutstandingLevels[i].DisplayName + "Outstanding";
-                rows.push("<div class=\"child-row\" style=\"height: " + heigh + "px\"><span>" + viewModel.DisplayOutstandingLevels[i].DisplayName + "</span><span>" + data[level] + "</span></div>");
+                rows.push("<div class=\"child-row-content\"><span>" + viewModel.DisplayOutstandingLevels[i].DisplayName + "</span><span>" + data[level] + "</span></div>");
             }
             return rows.join("\n");
         };

@@ -17,36 +17,57 @@ body {
     &.tblRpt-hover > tbody > tr:hover > td {
         background-color: transparent;
     }
+}
 
-    .icon-plus, .icon-minus {
-        width: calculateScale(24px);
-        height: calculateScale(24px);
-        background-color: #04A54E;
-        border-radius: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+table.dataTable {
+    width: 100% !important;
+    table-layout: fixed;
 
-        &:before {
-            color: #fff;
-            font-size: 16px;
+    .col-260 {
+        width: 260px;
+    }
+
+    .col-50 {
+        width: 50px;
+    }
+
+    .downline-link {
+        word-break: break-word;
+        white-space: normal;
+    }
+
+    thead [class*="sorting_"]:after {
+        font-size: calculateScale(12px) !important;
+    }
+}
+
+tbody {
+    .odd {
+        background-color: #ffffff !important;
+    }
+    .even {
+        background-color: #eae9ee !important;
+    }
+}
+
+table.dataTable {
+    tr {
+        td.details-control, th.details-control {
+            background: url("images/Plus.svg") no-repeat center center;
+        }
+
+        &.shown {
+            td.details-control, th.details-control {
+                background: url("images/Minus.svg") no-repeat center center;
+            }
         }
     }
+}
 
-    .icon-minus {
-        transform: rotate(90deg);
-    }
-
-    .icon-plus:before {
-        content: "\271A";
-    }
-
-    .icon-minus:before {
-        content: "\2759";
-        font-weight: bold;
-        position: relative;
-        top: -1px;
-    }
+.child-row-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .page-title {
