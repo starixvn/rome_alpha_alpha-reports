@@ -1,9 +1,73 @@
 ﻿table.dataTable {
+	thead {
+		tr:first-of-type th {
+			height: 0px !important;
+			padding-bottom: 0px !important;
+			padding-top: 0px !important;
+			border: 0px !important;
+		}
+	}
+
+	tbody {
+		tr, tr.child {
+
+			&:hover {
+				background: #f8eb95 !important;
+			}
+
+			&:last-of-type:hover {
+				background: #7f3d1d !important;
+			}
+
+			td ul {
+				width: 100% !important;
+
+				li {
+					border-bottom: 1px solid #ddd !important;
+
+					span:last-of-type {
+						float: right;
+						padding-right: 10px;
+					}
+				}
+			}
+		}
+	}
+}
+
+table.fixedHeader-floating {
+	position: fixed !important;
+}
+
+table.dataTable .tbl-footer {
+	background-color: #7f3d1d !important;
+}
+
+table.dataTable tbody [class*='sorting_'] {
+	background: none !important;
+}
+
+
+tbody {
+	.odd {
+		background-color: #ffffff !important;
+	}
+
+	.even {
+		background-color: #eae9ee !important;
+	}
+
+	tr td:first-of-type {
+		text-align: left;
+	}
+}
+
+table.dataTable {
 	width: 60%;
 }
 
 .col-60 {
-	width: 60px;	
+	width: 60px;
 }
 
 .col-180 {
@@ -12,6 +76,40 @@
 
 .col-150 {
 	width: 150px;
+}
+
+.control {
+	display: table-cell;
+	width: 15px;
+	vertical-align: middle;
+	margin: 0 8px 0 5px;
+}
+
+table.dataTable.dtr-column > thead > tr.parent th.control:before,
+table.dataTable.dtr-column > tfoot > tr.parent td.control:before {
+	content: '-';
+	background-color: #d33333;
+}
+
+table.dataTable.dtr-column > thead > tr > th.control:before,
+table.dataTable.dtr-column > tfoot > tr > td.control:before {
+	top: 50%;
+	left: 50%;
+	height: 16px;
+	width: 16px;
+	margin-top: -10px;
+	margin-left: -10px;
+	display: block;
+	/*position: absolute;*/
+	color: white;
+	border: 2px solid white;
+	border-radius: 16px;
+	text-align: center;
+	line-height: 14px;
+	box-shadow: 0 0 3px #444;
+	box-sizing: content-box;
+	content: '+';
+	background-color: #31b131;
 }
 
 @media only screen and (max-device-width: 767px) {

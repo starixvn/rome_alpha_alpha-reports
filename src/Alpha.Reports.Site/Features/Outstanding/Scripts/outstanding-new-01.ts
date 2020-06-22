@@ -2,9 +2,6 @@
 
 "use strict";
 
-declare var viewModel;
-declare var showExpandIcon;
-
 interface Window {
 	$: JQueryStatic;
 }
@@ -25,8 +22,6 @@ class OutstandingViewNew1 extends BaseReport {
 
 	isMobileView: boolean;
 
-	data: any;
-
     constructor(
         $: JQueryStatic,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
@@ -39,9 +34,7 @@ class OutstandingViewNew1 extends BaseReport {
     }
 
 	init = () => {
-		//this.zoomDisable();
-		//this.$.unblockUI();
-		this.data = viewModel.OutstandingDatasource;
+		this.$.blockUI();
 		this.cacheElements();
 
         this.productMultiSelectionComponent.render();
@@ -66,129 +59,74 @@ class OutstandingViewNew1 extends BaseReport {
         this.$isFilterVisible = this.$("#IsFilterVisible");
     };
 
-	buildViewportMetaContent = (initialScale, userScalable) => {
-		return `<meta name='viewport' content='width=device-width, initial-scale=${initialScale}, user-scalable=${userScalable}' />`;
-	}
-
-	zoomDisable = () => {
-		const viewportMetaData = 'head meta[name=viewport]';
-
-		this.$(viewportMetaData).remove();
-		this.$('head').prepend(this.buildViewportMetaContent('1.0', 'no'));
-
-		window.top.$(viewportMetaData).remove();
-		window.top.$('head').prepend(this.buildViewportMetaContent('0.7', 'no')); 
-	}
-
     registerEvents = () =>  {
         super.registerEvents();
 		this.$reportForm.submit(this.onSubmitReport);
-
-		this.$(window).on('orientationchange', () => {
-			//this.$(window).scrollTop(0);
-			//setTimeout(() => {
-			//		this.$table.draw();
-			//}, 1500);
-			
-			//this.zoomDisable();
-			
-			const frms = window.top.parent.frames;
-			if (frms && frms["main"]) {
-				//this.$.blockUI();
-				this.$table.clear();
-				this.$table.destroy();
-				this.$('.tblRpt').empty();
-
-				frms["main"].location = frms["main"].location;
-			}
-
-			//this.$table.clear();
-			//this.$table.destroy();
-			//this.$('.tblRpt').empty();
-
-			//setTimeout(() => {
-			//	this.$table.rows.add(this.data).draw();
-			//}, 3000);
-
-			//this.$('.tblRpt').DataTable().clear().destroy();
-			//this.$('.tblRpt').empty();
-
-			////this.$table..destroy();
-			//this.initDataTable();
-		});
     };
 
 	initDataTable = () => {
-		//const columns = [
-		//	{
-		//		"className": null,
-		//		"orderable": true,
-		//		"data": null,
-		//		"defaultContent": '',
-		//		"render": function (row) {
-		//			return `<a  href="${row.DownlineLink}" data-custname="${row.CustName}" class="downline-link">${row.CustName}</a>`;
-		//		}
-		//	},
-		//	{
-		//		"className" : "text-right",
-		//		"data" : `${viewModel.DisplayOutstandingLevels[0].DisplayName}Outstanding`,
-		//		"render" : this.$.fn.dataTable.render.number(',', '.', 2, '')
-		//	},
-		//	{
-		//		"className": "text-right",
-		//		"data": `${viewModel.DisplayOutstandingLevels[1].DisplayName}Outstanding`,
-		//		"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
-		//	}
-		//];
+		const self = this;
+		this.$table = this.$('#example').DataTable({
+			responsive: {
+				details: {
+					type: 'column',
+					target: -1,
+					renderer: function (api, rowIdx) {
+						var data = api.cells(rowIdx, ':hidden').eq(0).map(function (cell) {
+							var header = self.$(api.column(cell.column).header());
+							var idx = api.cell(cell).index();
 
-		//for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
-		//	columns.push({
-		//		"className": "text-right",
-		//		"data": `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`,
-		//		"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
-		//	});
-		//}
+							if (header.hasClass('control') || header.hasClass('never')) {
+								return '';
+							}
 
-		//let colunmSortIndex = 0;
-		//this.$.each(viewModel.DisplayOutstandingLevels, (key, value) => {
-		//	if (this.$(this.$sortPropertyName).val().toLowerCase() === `${value.DisplayName}Outstanding`.toLowerCase()) {
-		//		colunmSortIndex = key + 1;
-		//		return;
-		//	}
-		//});
+							var dtPrivate = api.settings()[0];
+							var cellData = dtPrivate.oApi._fnGetCellData(
+								dtPrivate, idx.row, idx.column, 'display'
+							);
 
-		var table = this.$('#example').DataTable({
-			responsive: true,
-			paging: false
+							var title = header.text();
+
+							return '<li data-dtr-index="' + idx.column + '">' +
+								'<span class="dtr-title">' +
+								title +
+								'</span> ' +
+								'<span class="dtr-data">' +
+								cellData +
+								'</span>' +
+								'</li>';
+						}).toArray().join('');
+
+						return data ?
+							self.$('<ul data-dtr-index="' + rowIdx + '"/>').append(data) :
+							false;
+					}
+				}
+			},
+			columnDefs: [{
+				className: 'control',
+				orderable: false,
+				targets: -1
+			}],
+			paging: false,
+			searching: false,
+			bInfo: false,
+			fixedHeader: {
+				header: true,
+				footer: true
+			},
+			initComplete: () => {
+				//this.$.unblockUI();
+			},
+			drawCallback: () => {
+				this.$('tbody').append(this.$('tr.tbl-footer'));
+			}
 		});
 
-			//new $.fn.dataTable.FixedHeader(table);
-		//this.$table = this.$('.tblRpt').DataTable({
-		//	//"data": this.data,
-		//	//"columns": columns,
-		//	//"order": [[colunmSortIndex, JSON.parse(this.$isDescendingSort.val().toLowerCase()) ? 'desc' : 'asc']],
-		//	//"paging": false,
-		//	////"searching": false,
-		//	////"bInfo": false,
-		//	"responsive": true,
-		//	//"columnDefs": [{
-		//	//	"className": 'control',
-		//	//	"orderable": false,
-		//	//	"targets": -1
-		//	//}],
-		//	//"fixedHeader": {
-		//	//	"header": true,
-		//	//	"footer": true
-		//	//},
-		//	//"initComplete": () => {
-		//	//	//this.$(window).scrollTop(0);
-		//	//}
-		//});
-
-		//this.$('.tblRpt thead').on('click', 'th.details-control', event => this.onClickDetailControlOnHeader(event));
-		//this.$('.tblRpt tbody').on('click', 'td.details-control', event => this.onClickDetailControlOnBody(event, true));
-		//this.$('.tblRpt tfoot').on('click', 'td.details-control', event => this.onClickDetailControlOnFooter(event));
-		//this.$('.tblRpt').on('draw.dt', () => this.triggerRedrawTable());
+		this.$('#example thead').on('click', 'th.control', event => this.onClickDetailControlOnHeader(event));
+		this.$('#example tbody').on('click', 'td.control', event => this.onClickDetailControlOnBody(event, true));
+		this.$('#example tbody tr.tbl-footer').on('click', 'td.control', event => this.onClickDetailControlOnFooter(event));
+		this.$('#example').on('draw.dt', () => this.triggerRedrawTable());
 	}
 
 	formatDetailRow = (data, parentRow) => {
@@ -205,26 +143,18 @@ class OutstandingViewNew1 extends BaseReport {
 	onClickDetailControlOnHeader = (event) => {
 		var tr = this.$(event.currentTarget).closest('tr');
 
-		if (tr.hasClass('shown')) {
-			tr.removeClass('shown');
+		if (tr.hasClass('parent')) {
+			tr.removeClass('parent');
 
-			this.$('tbody tr.shown').each((index, element) => {
-				this.$(element).find('.details-control').click();
-			});
-
-			this.$('tfoot tr.shown').each((index, element) => {
-				this.$(element).find('.details-control').click();
+			this.$('tbody tr.parent').each((index, element) => {
+				this.$(element).find('.control').click();
 			});
 		}
 		else {
-			tr.addClass('shown');
+			tr.addClass('parent');
 
-			this.$('tbody tr').not('.shown').each((index, element) => {
-				this.$(element).find('.details-control').click();
-			});
-
-			this.$('tfoot tr').not('.shown').each((index, element) => {
-				this.$(element).find('.details-control').click();
+			this.$('tbody tr').not('.parent').each((index, element) => {
+				this.$(element).find('.control').click();
 			});
 		}
 
@@ -233,41 +163,35 @@ class OutstandingViewNew1 extends BaseReport {
 
 	onClickDetailControlOnBody = (event, adjustHeader: boolean = false) => {
 		var tr = this.$(event.currentTarget).closest('tr');
-		var row = this.$table.row(tr);
-
-		if (row.child.isShown()) {
-			row.child.hide();
-			tr.removeClass('shown');
+		if (tr.hasClass('tbl-footer')) {
+			tr.hasClass('parent') ?
+				this.$(tr).next().addClass('tbl-footer') :
+				this.$(tr).next().removeClass('tbl-footer');
 		}
 		else {
-			row.child(this.formatDetailRow(row.data(), tr), `child-row ${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
-			tr.addClass('shown');
-		}
-
-		if (adjustHeader) {
-			this.doAdjustHeader();
-		}
-		else {
-			this.$(window).scrollTop(this.$(window).scrollTop() + 1);
+			const rowNext = this.$(tr).next();
+			if (rowNext.hasClass('child')) {
+				if (tr.hasClass('even')) {
+					this.$(tr).next().removeClass('odd').addClass('even');
+				}
+				else {
+					this.$(tr).next().removeClass('even').addClass('odd');
+				}
+			}
 		}
 	}
 
 	onClickDetailControlOnFooter = (event) => {
 		var tr = this.$(event.currentTarget).closest('tr');
-
-		if (tr.hasClass('shown')) {
-			tr.removeClass('shown');
-			tr.next().addClass('hide');
-		}
-		else {
-
-			tr.addClass('shown');
-			tr.next().removeClass('hide');
-		}
+		setTimeout(() => {
+			const scrollTo = this.$(document).height();
+			this.$(window).scrollTop(scrollTo + 15);
+		}, 100);
+		
 	}
 
 	triggerRedrawTable = () => {
-		this.$('td.details-control').each((index, element) => {
+		this.$('td.control').each((index, element) => {
 			let tr = this.$(element).closest('tr');
 			let row = this.$table.row(tr);
 

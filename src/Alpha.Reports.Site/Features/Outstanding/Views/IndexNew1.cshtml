@@ -14,13 +14,14 @@
 }
 
 @section Styles {
-	@StaticResources.RenderStylesWithMedia(767, "~/assets/bundles/report-mobile-calculate-07")
-		@StaticResources.RenderStyles("~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
+
 	@*@StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/data-table")*@
 
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.dataTables.min.css">
+	@StaticResources.RenderStylesWithMedia(767, "~/assets/bundles/report-mobile-calculate-07")
+	@StaticResources.RenderStyles("~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
 }
 
 @model OutstandingViewModel
@@ -44,24 +45,54 @@
 	</div>
 </form>
 <div class="level-@Model.CustLevel.Value">
-	<table id="example" class="display nowrap" style="width:100%">
-		<thead class="tableFloatingHeaderOriginal">
-			<tr class="thead-row2">
-				<th class="header" data-name="CustName">
+	<table id="example" class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
+		<thead>
+			<tr>
+				<th></th>
+				@{
+					for (var i = 1; i <= length; i++)
+					{
+						<th></th>
+					}
+					for (var i = 1; i <= length; i++)
+					{
+						<th></th>
+					}
+					for (var i = 1; i <= length; i++)
+					{
+						<th></th>
+					}
+				}
+				<th style="width: 15px;"></th>
+			</tr>
+			<tr>
+				<th rowspan="2" class="header" data-name="CustName">
 					@HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
 				</th>
+				<th colspan="@length" class="header">
+					@Resources.Outstanding
+				</th>
+				<th colspan="@length" class="header">
+					@Resources.Outstanding
+				</th>
+				<th colspan="@length" class="header">
+					@Resources.Outstanding
+				</th>
+				<th rowspan="2" class="control header"></th>
+			</tr>
+			<tr class="thead-row2">
 				@{
 					for (var i = 0; i < length; i++)
 					{
 						var userLevel = Model.DisplayOutstandingLevels[i];
-						<th >
+						<th>
 							@HtmlHelpers.DisplayUserLevelText(userLevel)
 						</th>
 					}
 					for (var i = 0; i < length; i++)
 					{
 						var userLevel = Model.DisplayOutstandingLevels[i];
-						<th >
+						<th>
 							@HtmlHelpers.DisplayUserLevelText(userLevel)
 						</th>
 					}
@@ -80,45 +111,41 @@
 			<tbody>
 				@foreach (var outstanding in Model.OutstandingDatasource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
 				{
-				<tr>
-					<td class="text-left" data-islink="true">
-						<a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
-						   data-custname="@outstanding.CustName"
-						   class="downline-link">@outstanding.CustName</a>
-					</td>
-					@RenderOutstandingCells(outstanding)
-					@RenderOutstandingCells(outstanding)
-					@RenderOutstandingCells(outstanding)
-				</tr>
-				}
-			</tbody>
-			@*<tfoot>
-					<tr class="tbl-footer">
-						<td class="text-left">@Resources.Total</td>
-						@for (var i = 0; i < length; i++)
-						{
-							<td>
-								@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
-							</td>
-						}
+					<tr>
+						<td class="text-left" data-islink="true">
+							<a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
+							   data-custname="@outstanding.CustName"
+							   class="downline-link">@outstanding.CustName</a>
+						</td>
+						@RenderOutstandingCells(outstanding)
+						@RenderOutstandingCells(outstanding)
+						@RenderOutstandingCells(outstanding)
+						<td></td>
 					</tr>
-
-					@if (showExpandIcon)
+				}
+				<tr class="tbl-footer">
+					<td class="text-left">@Resources.Total</td>
+					@for (var i = 0; i < length; i++)
 					{
-						for (var i = 2; i < Model.DisplayOutstandingLevels.Count; i++)
-						{
-							var userLevel = Model.DisplayOutstandingLevels[i];
-							<tr class="tbl-footer row-ex-total hide">
-								<td colspan="4" class="text-left">
-									<span class="row-role">
-										<span style="float:left">@userLevel.DisplayName</span>
-										<span style="float:right">@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(userLevel))</span>
-									</span>
-								</td>
-							</tr>
-						}
+						<td>
+							@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
+						</td>
 					}
-				</tfoot>*@
+					@for (var i = 0; i < length; i++)
+					{
+						<td>
+							@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
+						</td>
+					}
+					@for (var i = 0; i < length; i++)
+					{
+						<td>
+							@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
+						</td>
+					}
+					<td class="control"></td>
+				</tr>
+			</tbody>
 		}
 		else
 		{
@@ -132,15 +159,13 @@
 
 
 @section Scripts {
-	<script>
-		var viewModel = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented));
-	</script>
+
 
 	@*@StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")*@
 
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
-	@*	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>*@
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
 	@StaticResources.RenderScripts("~/Features/Outstanding/Bundles/outstanding-new-01")
 }
 
@@ -149,7 +174,7 @@
 	foreach (var level in Model.DisplayOutstandingLevels)
 	{
 		<td>
-			@HtmlHelpers.FormatNumber(data.GetValueByLevel(level) * 100000000)
+			@HtmlHelpers.FormatNumber(data.GetValueByLevel(level))
 		</td>
 	}
 }
