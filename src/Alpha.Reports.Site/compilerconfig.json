@@ -1,34 +1,38 @@
 ﻿[
-  {
-    "outputFile": "assets/styles/reports.css",
-    "inputFile": "assets/styles/reports.scss"
-  },
-  {
-    "outputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail.css",
-    "inputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail.scss"
-  },
-  {
-    "outputFile": "assets/styles/statement/statement.css",
-    "inputFile": "assets/styles/statement/statement.scss"
-  },
-  {
-    "outputFile": "assets/styles/consolidation/consolidation.css",
-    "inputFile": "assets/styles/consolidation/consolidation.scss"
-  },
-  {
-    "outputFile": "assets/styles/progressivecontribution/progressivecontribution.css",
-    "inputFile": "assets/styles/progressivecontribution/progressivecontribution.scss"
-  },
-  {
-    "outputFile": "assets/styles/betchoicematching/betchoicematching.css",
-    "inputFile": "assets/styles/betchoicematching/betchoicematching.scss"
-  },
+	{
+		"outputFile": "assets/styles/reports.css",
+		"inputFile": "assets/styles/reports.scss"
+	},
+	{
+		"outputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail.css",
+		"inputFile": "assets/styles/matchwinlossdetail/matchwinlossdetail.scss"
+	},
+	{
+		"outputFile": "assets/styles/statement/statement.css",
+		"inputFile": "assets/styles/statement/statement.scss"
+	},
+	{
+		"outputFile": "assets/styles/consolidation/consolidation.css",
+		"inputFile": "assets/styles/consolidation/consolidation.scss"
+	},
+	{
+		"outputFile": "assets/styles/progressivecontribution/progressivecontribution.css",
+		"inputFile": "assets/styles/progressivecontribution/progressivecontribution.scss"
+	},
+	{
+		"outputFile": "assets/styles/betchoicematching/betchoicematching.css",
+		"inputFile": "assets/styles/betchoicematching/betchoicematching.scss"
+	},
 	{
 		"outputFile": "Features/Outstanding/Styles/outstanding-mobile-calculate-07.css",
 		"inputFile": "Features/Outstanding/Styles/outstanding-mobile-calculate-07.scss"
 	},
-  {
-    "outputFile": "assets/styles/report-mobile-calculate-07.css",
-    "inputFile": "assets/styles/report-mobile-calculate-07.scss"
-  }
+	{
+		"outputFile": "assets/styles/report-mobile-calculate-07.css",
+		"inputFile": "assets/styles/report-mobile-calculate-07.scss"
+	},
+	{
+		"outputFile": "assets/styles/report-mobile-calculate-07-01.css",
+		"inputFile": "assets/styles/report-mobile-calculate-07-01.scss"
+	}
 ]

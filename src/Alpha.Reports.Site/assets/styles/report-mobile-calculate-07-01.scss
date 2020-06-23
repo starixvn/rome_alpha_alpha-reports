@@ -1,0 +1,157 @@
+﻿@import "mixins.scss";
+
+body {
+	font-size: calculateScale(13px);
+}
+
+.tblRpt {
+	thead th, tbody td, tfoot td {
+		height: calculateScale(34px);
+	}
+
+	.icon-plus, .icon-minus {
+		font-size: calculateScale(24px);
+		color: #04A54E;
+	}
+}
+
+.page-title {
+	font-size: calculateScale(13px);
+	line-height: calculateScale(39px);
+	position: relative;
+	border-bottom: none;
+
+	.text-title {
+		width: 100%;
+		border-bottom: 1px solid #cecece;
+	}
+
+	.breadcrumb {
+		padding: 0;
+		line-height: 28px;
+		padding-top: 12px;
+	}
+
+	.list-icon {
+		position: absolute;
+		right: 0;
+
+		.icon-filter {
+			font-size: calculateScale(22px) !important;
+		}
+	}
+}
+
+.filter .btn-group button.multiselect {
+	height: calculateScale(36px);
+	line-height: calculateScale(26px);
+
+	.multiselect-selected-text {
+		font-size: calculateScale(13px);
+	}
+}
+
+.filter {
+	padding: 15px 0 0 0;
+
+	select, input[type='text'], [class^='btn-submit'], .input-group.date .form-control {
+		height: calculateScale(36px);
+		@include box-shadow-multiple('0px 1px 3px rgba(0, 0, 0, 0.3)');
+	}
+
+	[class^='btn-submit'] {
+		width: 116px;
+		border-radius: 3px;
+	}
+
+	.ui_nexdatepicker_datetextbox.form-control {
+		-webkit-appearance: none;
+	}
+
+	.ui_nexdatepicker_lbl_field {
+		padding: 8px 6px 8px 0px;
+	}
+
+	.input-group.date .form-control {
+		font-size: calculateScale(13px);
+	}
+
+	.btn-group button.multiselect {
+		height: calculateScale(36px);
+		line-height: calculateScale(26px);
+		box-shadow: none;
+		border-radius: 4px;
+		border: 1px solid #cfcfcf;
+
+		.caret {
+			top: calculateScale(16px);
+			border-width: calculateScale(4px);
+			border-top: calculateScale(4px) solid;
+		}
+	}
+
+	.icon-excel, .icon-back {
+		font-size: 22px;
+		height: calculateScale(28px);
+
+		&:hover:after {
+			top: 4px;
+		}
+	}
+
+	select.select-multiple {
+		height: calculateScale(28px);
+	}
+
+	.form-group {
+		&.last-group, .btn-submit {
+			margin-right: 0;
+		}
+	}
+}
+
+.multiselect-container.dropdown-menu {
+	font-size: calculateScale(13px);
+	width: 100%;
+
+	> li {
+		height: calculateScale(34px);
+
+		> a {
+			padding: 8px 0;
+		}
+	}
+}
+
+.checkbox {
+	input[type="checkbox"] {
+		opacity: 0;
+	}
+
+	&:before {
+		content: "";
+		display: inline-block;
+		position: absolute;
+		width: calculateScale(16px);
+		height: calculateScale(16px);
+		left: 8px;
+		margin-left: 0;
+		border: 1px solid #919191;
+		background: #fff;
+		top: 3px;
+	}
+}
+
+.active .checkbox:after {
+	display: inline-block;
+	position: absolute;
+	width: calculateScale(16px);
+	height: calculateScale(16px);
+	left: 0;
+	top: 0;
+	margin-left: 10px;
+	padding-left: 3px;
+	font-size: calculateScale(12px);
+	content: '\2713';
+	color: #242424;
+}

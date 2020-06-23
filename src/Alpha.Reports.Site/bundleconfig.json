@@ -317,5 +317,11 @@
 			"assets/scripts/components/pager.js",
 			"assets/scripts/risk-analysis-ip-matching/index.js"
 		]
+	},
+	{
+		"outputFileName": "assets/bundles/report-mobile-calculate-07-01.css",
+		"inputFiles": [
+			"assets/styles/report-mobile-calculate-07-01.css"
+		]
 	}
 ]

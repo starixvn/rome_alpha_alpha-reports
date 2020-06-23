@@ -1,4 +1,6 @@
 ﻿table.dataTable {
+	margin-left: 0px !important;
+
 	thead {
 		tr:first-of-type th {
 			height: 0px !important;
@@ -10,11 +12,9 @@
 
 	tbody {
 		tr, tr.child {
-
-			&:hover {
+			/*&:hover {
 				background: #f8eb95 !important;
-			}
-
+			}*/
 			&:last-of-type:hover {
 				background: #7f3d1d !important;
 			}
@@ -25,12 +25,20 @@
 				li {
 					border-bottom: 1px solid #ddd !important;
 
+					&:last-of-type {
+						border-bottom: none !important;
+					}
+
 					span:last-of-type {
 						float: right;
 						padding-right: 10px;
 					}
 				}
 			}
+		}
+
+		tr:last-of-type:hover {
+			background: #7f3d1d !important;
 		}
 	}
 }
@@ -42,6 +50,7 @@ table.fixedHeader-floating {
 table.dataTable .tbl-footer {
 	background-color: #7f3d1d !important;
 }
+
 
 table.dataTable tbody [class*='sorting_'] {
 	background: none !important;
@@ -97,10 +106,10 @@ table.dataTable.dtr-column > tfoot > tr > td.control:before {
 	left: 50%;
 	height: 16px;
 	width: 16px;
-	margin-top: -10px;
+	margin-top: -30px;
 	margin-left: -10px;
 	display: block;
-	/*position: absolute;*/
+	position: relative;
 	color: white;
 	border: 2px solid white;
 	border-radius: 16px;

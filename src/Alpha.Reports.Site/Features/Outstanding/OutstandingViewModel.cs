@@ -30,10 +30,7 @@
         {
             Query = query;
 
-            OutstandingDatasource = new List<OutstandingModel>
-            {
-                new OutstandingModel(100, "cust test", 100, 1001, 155, 166)
-            };
+            OutstandingDatasource = new List<OutstandingModel>();
 
             foreach (var outstanding in outstandingDataSource)
             {
@@ -51,7 +48,8 @@
                 }
 
             }
-            //OutstandingDatasource = outstandingDataSource;
+
+            //OutstandingDatasource = outstandingDataSource.ToList();
             ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), string.Empty);
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= Query.ViewerLevel.Value; level++)
@@ -59,9 +57,9 @@
                 displayOutstandingLevels.Add(Enumeration.FromValue<UserLevel>(level));
             }
 
-            var canSort = OutstandingDatasource != null && OutstandingDatasource.Count > 1;
-            SortPropertyName = canSort ? GetSortedProperty(query.SortPropertyName) : DefaultVariables.SortPropertyName;
-            IsDescendingSort = canSort && query.IsDescendingSort;
+            CanSort = OutstandingDatasource != null && OutstandingDatasource.Count > 1;
+            SortPropertyName = CanSort ? GetSortedProperty(query.SortPropertyName) : DefaultVariables.SortPropertyName;
+            IsDescendingSort = CanSort && query.IsDescendingSort;
             BetListPath = Helpers.UrlHelper.MapBetListPath("~/RunningBetList/Index");
 
             IsMobileView = isMobile;
@@ -95,6 +93,8 @@
         public int NumberOfOutstandingColumn => DisplayOutstandingLevels.Count;
 
         public bool IsMobileView { get; }
+
+        public bool CanSort { get; }
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(OutstandingModel model) => new Dictionary<string, object>
         {
