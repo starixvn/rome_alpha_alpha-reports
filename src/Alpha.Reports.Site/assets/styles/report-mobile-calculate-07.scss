@@ -59,6 +59,7 @@ table.dataTable {
         &.shown {
             td.details-control, th.details-control {
                 background: url("images/Minus.svg") no-repeat center center;
+                width: calculateScale(24px);
             }
         }
     }
