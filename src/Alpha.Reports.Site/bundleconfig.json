@@ -54,9 +54,10 @@
 	},
 	{
 		"outputFileName": "Features/Outstanding/Bundles/outstanding-mobile-calculate-07.css",
-		"inputFiles": [
-			"Features/Outstanding/Styles/outstanding-mobile-calculate-07.css"
-		]
+    "inputFiles": [
+      "assets/styles/report-mobile-calculate-07-01.css",
+      "Features/Outstanding/Styles/outstanding-mobile-calculate-07.css"
+    ]
 	},
 	{
 		"outputFileName": "Features/Outstanding/Bundles/outstanding.js",

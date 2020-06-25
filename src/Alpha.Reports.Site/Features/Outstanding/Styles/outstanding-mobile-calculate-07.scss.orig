@@ -1,71 +1,15 @@
-﻿table.dataTable {
-	thead {
-		tr:first-of-type th {
-			height: 0px !important;
-			padding-bottom: 0px !important;
-			padding-top: 0px !important;
-			border: 0px !important;
-		}
-	}
+﻿
+.form-report {
+    .form-group:first-child {
+        width: calc(100% - 132px);
+    }
 
-	tbody {
-		tr, tr.child {
-
-			&:hover {
-				background: #f8eb95 !important;
-			}
-
-			&:last-of-type:hover {
-				background: #7f3d1d !important;
-			}
-
-			td ul {
-				width: 100% !important;
-
-				li {
-					border-bottom: 1px solid #ddd !important;
-
-					span:last-of-type {
-						float: right;
-						padding-right: 10px;
-					}
-				}
-			}
-		}
-	}
+    .btn-group, .multiselect, .multiselect .multiselect-selected-text {
+        width: 100%;
+    }
 }
 
-table.fixedHeader-floating {
-	position: fixed !important;
-}
-
-table.dataTable .tbl-footer {
-	background-color: #7f3d1d !important;
-}
-
-table.dataTable tbody [class*='sorting_'] {
-	background: none !important;
-}
-
-
-tbody {
-	.odd {
-		background-color: #ffffff !important;
-	}
-
-	.even {
-		background-color: #eae9ee !important;
-	}
-
-	tr td:first-of-type {
-		text-align: left;
-	}
-}
-
-table.dataTable {
-	width: 60%;
-}
-
+<<<<<<< HEAD
 .col-60 {
 	width: 60px;
 }
@@ -76,20 +20,6 @@ table.dataTable {
 
 .col-150 {
 	width: 150px;
-}
-
-<<<<<<< HEAD
-=======
-.column-2 {
-	width: 30%;
-}
-
-.column-3 {
-	width: 25%;
-}
-
-.column-4 {
-	width: 18%;
 }
 
 .control {
@@ -111,10 +41,10 @@ table.dataTable.dtr-column > tfoot > tr > td.control:before {
 	left: 50%;
 	height: 16px;
 	width: 16px;
-	margin-top: -10px;
+	margin-top: -30px;
 	margin-left: -10px;
 	display: block;
-	/*position: absolute;*/
+	position: relative;
 	color: white;
 	border: 2px solid white;
 	border-radius: 16px;
@@ -126,7 +56,6 @@ table.dataTable.dtr-column > tfoot > tr > td.control:before {
 	background-color: #31b131;
 }
 
->>>>>>> 133011 - outstanding responsive
 @media only screen and (max-device-width: 767px) {
 	.form-report {
 		.form-group:first-child {
@@ -142,4 +71,9 @@ table.dataTable.dtr-column > tfoot > tr > td.control:before {
 		display: flex;
 		justify-content: space-between;
 	}
+=======
+.row-role {
+    display: flex;
+    justify-content: space-between;
+>>>>>>> 000 - modify code UI
 }
