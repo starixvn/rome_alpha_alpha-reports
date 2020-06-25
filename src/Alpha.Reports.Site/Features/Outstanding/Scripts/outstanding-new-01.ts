@@ -23,6 +23,8 @@ class OutstandingViewNew1 extends BaseReport {
 	$table: JQuery;
 
 	canSort: boolean;
+	dtResizeTimer: any;
+	allowPropagation: any;
 
 	constructor(
 		$: JQueryStatic,
@@ -38,6 +40,7 @@ class OutstandingViewNew1 extends BaseReport {
 	init = () => {
 		this.$.blockUI();
 		this.cacheElements();
+		
 
 		this.productMultiSelectionComponent.render();
 		this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
@@ -59,9 +62,59 @@ class OutstandingViewNew1 extends BaseReport {
 		this.$isFilterVisible = this.$("#IsFilterVisible");
 	};
 
+	makeColumnsResponsive = () => {
+	const visibleColumnCount = this.$('tbody tr:first-child td:visible').length - 1;
+		this.$('thead tr th').show();
+		for (let i = 1; i <= this.$('thead tr').length; i++) {
+		this.$('thead tr:nth-child(' + i + ') th:gt(' + visibleColumnCount + ')').hide();
+	}
+}
+
 	registerEvents = () => {
 		super.registerEvents();
 		this.$reportForm.submit(this.onSubmitReport);
+
+		//this.$(window).on("resize.DT-visitsTable", (event) => {
+		//	this.$.blockUI();
+		//	if (this.allowPropagation === false) {
+		//		event.stopImmediatePropagation();
+		//		clearTimeout(this.dtResizeTimer);
+		//		this.dtResizeTimer = setTimeout(function () {
+					
+		//			this.allowPropagation = true;
+		//			this.$(window).trigger("resize.DT-visitsTable");
+		//		}, 100);
+		//	} else {
+		//		this.allowPropagation = false;
+		//	}
+		//});
+
+		//this.$(window).on('resize.dtr orientationchange.dtr', () => {
+		//	this.$table.destroy();
+		//	this.$('#example').empty();
+			
+		//	const frms = window.top.parent.frames;
+		//	if (frms && frms["main"]) {
+		//		window.location.href = frms["main"].location;
+		//	}
+		//});
+
+		this.$(window).on('resize.dtr orientationchange.dtr', () => {
+			this.$.blockUI();
+		});
+
+		//this.$(window).on("resize orientationchange", function (event) {
+		//	this.$.blockUI();
+		//});
+
+		//this.$('#example').on('.collapsed', function () {
+		//	console.log('unblockUI');
+		//	this.$.unblockUI();
+		//});
+
+		//this.$(window).on('destroy.dtr', () => {
+		//	this.$.unblockUI();
+		//});
 	};
 
 	initDataTable = () => {
@@ -74,12 +127,13 @@ class OutstandingViewNew1 extends BaseReport {
 				return;
 			}
 		});
-
+		
 		this.$table = this.$('#example').DataTable({
 			responsive: {
 				details: {
 					type: 'column',
 					target: -1,
+					auto: false,
 					renderer: function (api, rowIdx) {
 						var data = api.cells(rowIdx, ':hidden').eq(0).map(function (cell) {
 							var header = self.$(api.column(cell.column).header());
@@ -118,14 +172,22 @@ class OutstandingViewNew1 extends BaseReport {
 			searching: false,
 			bInfo: false,
 			fixedHeader: true,
-			initComplete: () => { this.$.unblockUI(); },
-			drawCallback: () => { this.$('tbody').append(this.$('tr.tbl-footer')); }
+			initComplete: () => {
+				//this.$.unblockUI();
+			},
+			drawCallback: () => {
+				this.$('tbody').append(this.$('tr.tbl-footer'));
+			}
 		});
 
 		this.$('#example thead').on('click', 'th.control', event => this.onClickDetailControlOnHeader(event));
 		this.$('#example tbody').on('click', 'td.control', event => this.onClickDetailControlOnBody(event));
 		this.$('#example tbody tr.tbl-footer').on('click', 'td.control', () => this.onClickDetailControlOnFooter());
 		this.$('#example').on('draw.dt', () => this.triggerRedrawTable());
+
+		this.$('#example').on('responsive-resize.dt', function () {
+			console.log(' column(s) are hidden');
+		});
 	}
 
 	onClickDetailControlOnHeader = (event) => {
@@ -174,7 +236,6 @@ class OutstandingViewNew1 extends BaseReport {
 			const scrollTo = this.$(document).height();
 			this.$(window).scrollTop(scrollTo + 15);
 		}, 100);
-
 	}
 
 	triggerRedrawTable = () => {

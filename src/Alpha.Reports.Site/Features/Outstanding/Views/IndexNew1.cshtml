@@ -11,9 +11,6 @@
 
 	@StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/data-table01")
 
-	@*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.css">
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.dataTables.min.css">*@
 	@StaticResources.RenderStylesWithMedia(767, "~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
 }
 
@@ -156,10 +153,6 @@
 	<script>
 		var displayOutstandingLevels = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.DisplayOutstandingLevels, Newtonsoft.Json.Formatting.Indented));
 	</script>
-
-	@*<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
-		<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>*@
 
 	@StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table01")
 	@StaticResources.RenderScripts("~/Features/Outstanding/Bundles/outstanding-new-01")
