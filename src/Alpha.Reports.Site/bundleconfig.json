@@ -81,16 +81,6 @@
 		]
 	},
 	{
-		"outputFileName": "Features/Outstanding/Bundles/outstanding-new-01.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/productmultiselection.js",
-			"assets/scripts/components/link-builder.js",
-			"Features/Outstanding/Scripts/outstanding-new-01.js"
-		]
-	},
-	{
 		"outputFileName": "assets/bundles/matchwinloss/matchwinloss.js",
 		"inputFiles": [
 			"assets/scripts/core.js",

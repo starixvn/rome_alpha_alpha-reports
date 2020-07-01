@@ -1,14 +1,30 @@
 ﻿@using Alpha.Reports.Site.App_GlobalResources;
-
 @{
+	/**/
+
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewBag.Title = "Outstanding Report";
 
+<<<<<<< HEAD
+	foreach (var outstanding in Model.OutstandingDatasource)
+	{
+		outstanding.DownlineLink = Model.BuildDrillDownLink(outstanding, Request.Url.Query);
+	}
+
+	var length = Model.IsMobileView ? 2 : Model.DisplayOutstandingLevels.Count;
+	var showExpandIcon = Model.IsMobileView && Model.DisplayOutstandingLevels.Count > 2;
+
+	Dictionary<string, string> widthDic = new Dictionary<string, string>
+	{
+
+	};
+=======
 	var length = Model.DisplayOutstandingLevels.Count;
+>>>>>>> 133011 - remove unused code
 }
 
 @section Styles {
-	@StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/data-table01")
+	@StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/data-table")
 	@StaticResources.RenderStylesWithMedia(767, "~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
 }
 
@@ -35,7 +51,16 @@
 				@{
 					for (var i = 1; i <= length; i++)
 					{
+<<<<<<< HEAD
+						<th class="@(Model.IsMobileView ? "col-150" : "col-180")"></th>
+					}
+
+					if (showExpandIcon)
+					{
+						<th class="col-60"></th>
+=======
 						<th data-priority="@(length - i)"></th>
+>>>>>>> 133011 - remove unused code
 					}
 				}
 				<th></th>
@@ -44,17 +69,28 @@
 				<th rowspan="2" class="header" data-name="CustName">
 					@HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
 				</th>
-				<th colspan="@length" class="header">
+				<th colspan="@length" class="header col-260">
 					@Resources.Outstanding
 				</th>
+<<<<<<< HEAD
+				@if (showExpandIcon)
+				{
+					<th rowspan="2" class="col-50"></th>
+				}
+=======
 				<th rowspan="2" class="header"></th>
+>>>>>>> 133011 - remove unused code
 			</tr>
 			<tr class="thead-row2">
 				@{
 					for (var i = 0; i < length; i++)
 					{
 						var userLevel = Model.DisplayOutstandingLevels[i];
+<<<<<<< HEAD
+						<th class="col-95">
+=======
 						<th data-priority="@(length - i)">
+>>>>>>> 133011 - remove unused code
 							@HtmlHelpers.DisplayUserLevelText(userLevel)
 						</th>
 					}
@@ -103,8 +139,8 @@
 		var displayOutstandingLevels = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.DisplayOutstandingLevels, Newtonsoft.Json.Formatting.Indented));
 	</script>
 
-	@StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table01")
-	@StaticResources.RenderScripts("~/Features/Outstanding/Bundles/outstanding-new-01")
+	@StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
+	@StaticResources.RenderScripts("~/Features/Outstanding/Bundles/outstanding-new")
 }
 
 @helper RenderOutstandingCells(OutstandingModel data)

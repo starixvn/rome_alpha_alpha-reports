@@ -398,7 +398,6 @@
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
-    <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding-new-01.ts" />
     <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding-new.ts" />
     <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
@@ -941,6 +940,10 @@
     <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.min.css">
       <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
     </Content>
+    <Content Include="Features\Outstanding\Bundles\outstanding-new-0.js" />
+    <Content Include="Features\Outstanding\Bundles\outstanding-new-0.min.js">
+      <DependentUpon>outstanding-new-0.js</DependentUpon>
+    </Content>
     <Content Include="Features\Outstanding\Bundles\outstanding-new-01.js" />
     <Content Include="Features\Outstanding\Bundles\outstanding-new-01.min.js">
       <DependentUpon>outstanding-new-01.js</DependentUpon>
@@ -1119,8 +1122,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.scss" />
-    <Content Include="Features\Outstanding\Views\IndexNew1.cshtml" />
-    <Content Include="Features\Outstanding\Views\IndexNew1 - Copy.cshtml" />
+    <Content Include="Features\Outstanding\Views\IndexNew.cshtml" />
     <Content Include="App_Data\activitytracking.pro2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
@@ -1178,7 +1180,6 @@
     <Content Include="Views\RiskAnalysisIPMatching\Index.cshtml" />
     <Content Include="Views\BetChoiceMatching\Index.cshtml" />
     <Content Include="typings\globals\numeral\typings.json" />
-    <Content Include="Features\Outstanding\Views\IndexNew.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

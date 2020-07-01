@@ -8,7 +8,7 @@ interface Window {
 	$: JQueryStatic;
 }
 
-class OutstandingViewNew1 extends BaseReport {
+class OutstandingViewNew extends BaseReport {
 	$: JQueryStatic;
 
 	productMultiSelectionComponent: ProductMultiSelectionComponent;
@@ -68,7 +68,52 @@ class OutstandingViewNew1 extends BaseReport {
 	};
 
 	initDataTable = () => {
+<<<<<<< HEAD
+		var columns = [
+			{
+				"className": null,
+				"orderable": true,
+				"data": null,
+				"defaultContent": '',
+				"render": function (row) {
+					return `<a  href="${row.DownlineLink}" data-custname="${row.CustName}" class="downline-link">${row.CustName}</a>`;
+				}
+			},
+			{
+				"data": `${viewModel.DisplayOutstandingLevels[0].DisplayName}Outstanding`,
+				"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
+			},
+			{
+				"data": `${viewModel.DisplayOutstandingLevels[1].DisplayName}Outstanding`,
+				"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
+			}
+		];
+
+		if (this.isMobileView) {
+			if (JSON.parse(this.$('#showExpandIcon').val().toLowerCase())) {
+				columns.push({
+					"className": 'details-control col-60',
+					"orderable": false,
+					"data": null,
+					"defaultContent": '',
+					"render": function (row) {
+						return null;
+					}
+				});
+			}
+		}
+		else {
+			for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
+				columns.push({
+					"data": `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`,
+					"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
+				});
+			}
+		}
+
+=======
 		const self = this;
+>>>>>>> 133011 - remove unused code
 		let colunmSortIndex = 0;
 		this.$.each(this.displayOutstandingLevels, (key, value) => {
 			if (this.$(this.$sortPropertyName).val().toLowerCase() === `${value.DisplayName}Outstanding`.toLowerCase()) {
@@ -255,11 +300,11 @@ class OutstandingViewNew1 extends BaseReport {
 
 $(function () {
 	const linkBuilderComponent = new LinkBuilderComponent($);
-	const outstandingViewNew1 = new OutstandingViewNew1(
+	const outstandingViewNew = new OutstandingViewNew(
 		$,
 		new ProductMultiSelectionComponent($),
 		linkBuilderComponent,
 		displayOutstandingLevels);
 
-	outstandingViewNew1.init();
+	outstandingViewNew.init();
 });

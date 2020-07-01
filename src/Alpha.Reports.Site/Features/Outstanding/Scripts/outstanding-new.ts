@@ -2,221 +2,191 @@
 
 "use strict";
 
-declare var viewModel;
-declare var showExpandIcon;
+declare var displayOutstandingLevels;
+
+interface Window {
+	$: JQueryStatic;
+}
 
 class OutstandingViewNew extends BaseReport {
-    $: JQueryStatic;
+	$: JQueryStatic;
 
-    productMultiSelectionComponent: ProductMultiSelectionComponent;
-    linkBuilderComponent: LinkBuilderComponent;
+	productMultiSelectionComponent: ProductMultiSelectionComponent;
+	linkBuilderComponent: LinkBuilderComponent;
 
-    $reportForm: JQuery;
-    $buttonProduct: JQuery;
+	$reportForm: JQuery;
+	$buttonProduct: JQuery;
 
-    $sortPropertyName: JQuery;
-    $isDescendingSort: JQuery;
-    $isFilterVisible: JQuery;
+	$sortPropertyName: JQuery;
+	$isDescendingSort: JQuery;
+	$isFilterVisible: JQuery;
 	$table: JQuery;
 
-	isMobileView: boolean;
+	canSort: boolean;
+	dtResizeTimer: any;
+	allowPropagation: any;
+	displayOutstandingLevels: any;
 
-    constructor(
-        $: JQueryStatic,
-        productMultiSelectionComponent: ProductMultiSelectionComponent,
-        linkBuilderComponent: LinkBuilderComponent) {
-        super($, linkBuilderComponent);
+	constructor(
+		$: JQueryStatic,
+		productMultiSelectionComponent: ProductMultiSelectionComponent,
+		linkBuilderComponent: LinkBuilderComponent,
+		displayOutstandingLevels: any) {
+		super($, linkBuilderComponent);
 
-        this.$ = $;
-        this.productMultiSelectionComponent = productMultiSelectionComponent;
-        this.linkBuilderComponent = linkBuilderComponent;
-    }
+		this.$ = $;
+		this.productMultiSelectionComponent = productMultiSelectionComponent;
+		this.linkBuilderComponent = linkBuilderComponent;
+		this.displayOutstandingLevels = displayOutstandingLevels;
+	}
 
 	init = () => {
 		this.cacheElements();
-
-        this.productMultiSelectionComponent.render();
+		
+		this.productMultiSelectionComponent.render();
 		this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
-		this.isMobileView = JSON.parse(this.$('#IsMobileView').val().toLowerCase());
+		this.canSort = JSON.parse(this.$('#CanSort').val().toLowerCase());
 
-        this.linkBuilderComponent.render();
-
-		this.registerEvents();
-
-		this.initHelp();
 		this.initDataTable();
-    };
+		this.linkBuilderComponent.render();
+		this.registerEvents();
+		this.initHelp();
+	};
 
-    cacheElements = () =>  {
+	cacheElements = () => {
 		super.cacheElements();
+		this.$reportForm = this.$("#report-form");
 
-        this.$reportForm = this.$("#report-form");
+		this.$sortPropertyName = this.$("#SortPropertyName");
+		this.$isDescendingSort = this.$("#IsDescendingSort");
+		this.$isFilterVisible = this.$("#IsFilterVisible");
+	};
 
-        this.$sortPropertyName = this.$("#SortPropertyName");
-        this.$isDescendingSort = this.$("#IsDescendingSort");
-        this.$isFilterVisible = this.$("#IsFilterVisible");
-    };
-
-    registerEvents = () =>  {
-        super.registerEvents();
-        this.$reportForm.submit(this.onSubmitReport);
-    };
+	registerEvents = () => {
+		super.registerEvents();
+		this.$reportForm.submit(this.onSubmitReport);
+	};
 
 	initDataTable = () => {
-		var columns = [
-			{
-				"className": null,
-				"orderable": true,
-				"data": null,
-				"defaultContent": '',
-				"render": function (row) {
-					return `<a  href="${row.DownlineLink}" data-custname="${row.CustName}" class="downline-link">${row.CustName}</a>`;
-				}
-			},
-			{
-				"data": `${viewModel.DisplayOutstandingLevels[0].DisplayName}Outstanding`,
-				"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
-			},
-			{
-				"data": `${viewModel.DisplayOutstandingLevels[1].DisplayName}Outstanding`,
-				"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
-			}
-		];
-
-		if (this.isMobileView) {
-			if (JSON.parse(this.$('#showExpandIcon').val().toLowerCase())) {
-				columns.push({
-					"className": 'details-control col-60',
-					"orderable": false,
-					"data": null,
-					"defaultContent": '',
-					"render": function (row) {
-						return null;
-					}
-				});
-			}
-		}
-		else {
-			for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
-				columns.push({
-					"data": `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`,
-					"render": this.$.fn.dataTable.render.number(',', '.', 2, '')
-				});
-			}
-		}
-
+		const self = this;
 		let colunmSortIndex = 0;
-		this.$.each(viewModel.DisplayOutstandingLevels, (key, value) => {
+		this.$.each(this.displayOutstandingLevels, (key, value) => {
 			if (this.$(this.$sortPropertyName).val().toLowerCase() === `${value.DisplayName}Outstanding`.toLowerCase()) {
 				colunmSortIndex = key + 1;
 				return;
 			}
 		});
 
-		this.$table = this.$('.tblRpt').DataTable({
-			"data": viewModel.OutstandingDatasource,
-			"columns": columns,
-			"order": [[colunmSortIndex, JSON.parse(this.$isDescendingSort.val().toLowerCase()) ? 'desc' : 'asc']],
-			"paging": false,
-			"searching": false,
-			"bInfo": false,
-			"fixedHeader": {
-				"header": true,
-				"footer": true
+		this.$table = this.$('#oustanding-report').DataTable({
+			responsive: {
+				details: {
+					type: 'column',
+					target: -1,
+					auto: false,
+					renderer: function (api, rowIdx) {
+						var data = api.cells(rowIdx, ':hidden').eq(0).map(function (cell) {
+							var header = self.$(api.column(cell.column).header());
+							var idx = api.cell(cell).index();
+
+							if (header.hasClass('control') || header.hasClass('never')) {
+								return '';
+							}
+
+							var dtPrivate = api.settings()[0];
+							var cellData = dtPrivate.oApi._fnGetCellData(
+								dtPrivate, idx.row, idx.column, 'display'
+							);
+
+							var title = header.text();
+
+							return `<li data-dtr-index="${idx.column}">` +
+								`<span class="dtr-title">${title}</span> ` +
+								`<span class="dtr-data">${cellData}</span></li>`;
+						}).toArray().join('');
+
+						return data ?
+							self.$(`<ul data-dtr-index="${rowIdx}"/>`).append(data) :
+							false;
+					}
+				}
+			},
+			columnDefs: [{
+				className: 'control',
+				orderable: false,
+				targets: -1
+			}],
+			ordering: this.canSort,
+			order: [[colunmSortIndex, JSON.parse(this.$isDescendingSort.val().toLowerCase()) ? 'desc' : 'asc']],
+			paging: false,
+			searching: false,
+			bInfo: false,
+			fixedHeader: true,
+			processing: true,  
+			initComplete: () => {
+			},
+			drawCallback: () => {
+				this.$('tbody').append(this.$('tr.tbl-footer'));
+				this.$('#oustanding-report').removeClass('hidden');
 			}
 		});
 
-		this.$('.tblRpt thead').on('click', 'th.details-control', event => this.onClickDetailControlOnHeader(event));
-		this.$('.tblRpt tbody').on('click', 'td.details-control', event => this.onClickDetailControlOnBody(event, true));
-		this.$('.tblRpt tfoot').on('click', 'td.details-control', event => this.onClickDetailControlOnFooter(event));
-		this.$('.tblRpt').on('draw.dt', () => this.triggerRedrawTable());
-	}
-
-	formatDetailRow = (data, parentRow) => {
-		let rows = [];
-		const heigh = this.$(parentRow).height();
-		for (let i = 2; i < viewModel.DisplayOutstandingLevels.length; i++) {
-			const level = `${viewModel.DisplayOutstandingLevels[i].DisplayName}Outstanding`;
-			rows.push(`<div class="child-row-content"><span>${viewModel.DisplayOutstandingLevels[i].DisplayName}</span><span>${data[level]}</span></div>`);
-		}
-
-		return rows.join("\n");
+		this.$('#oustanding-report thead').on('click', 'th.control', event => this.onClickDetailControlOnHeader(event));
+		this.$('#oustanding-report tbody').on('click', 'td.control', event => this.onClickDetailControlOnBody(event));
+		this.$('#oustanding-report tbody tr.tbl-footer').on('click', 'td.control', () => this.onClickDetailControlOnFooter());
+		this.$('#oustanding-report').on('draw.dt', () => this.triggerRedrawTable());
 	}
 
 	onClickDetailControlOnHeader = (event) => {
+		this.$.blockUI();
 		var tr = this.$(event.currentTarget).closest('tr');
 
-		if (tr.hasClass('shown')) {
-			tr.removeClass('shown');
+		if (tr.hasClass('parent')) {
+			tr.removeClass('parent');
 
-			this.$('tbody tr.shown').each((index, element) => {
-				this.$(element).find('.details-control').click();
-			});
-
-			this.$('tfoot tr.shown').each((index, element) => {
-				this.$(element).find('.details-control').click();
+			this.$('tbody tr.parent').each((index, element) => {
+				this.$(element).find('.control').click();
 			});
 		}
 		else {
-			tr.addClass('shown');
+			tr.addClass('parent');
 
-			this.$('tbody tr').not('.shown').each((index, element) => {
-				this.$(element).find('.details-control').click();
-			});
-
-			this.$('tfoot tr').not('.shown').each((index, element) => {
-				this.$(element).find('.details-control').click();
+			this.$('tbody tr').not('.parent').each((index, element) => {
+				this.$(element).find('.control').click();
 			});
 		}
 
 		this.doAdjustHeader();
+		this.$.unblockUI();	
 	}
 
-	onClickDetailControlOnBody = (event, adjustHeader: boolean = false) => {
+	onClickDetailControlOnBody = (event) => {
 		var tr = this.$(event.currentTarget).closest('tr');
-		var row = this.$table.row(tr);
-
-		if (row.child.isShown()) {
-			row.child.hide();
-			tr.removeClass('shown');
+		if (tr.hasClass('tbl-footer')) {
+			tr.hasClass('parent') ?
+				this.$(tr).next().addClass('tbl-footer') :
+				this.$(tr).next().removeClass('tbl-footer');
 		}
 		else {
-			row.child(this.formatDetailRow(row.data(), tr), `child-row ${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
-			tr.addClass('shown');
-		}
-
-		if (adjustHeader) {
-			this.doAdjustHeader();
-		}
-		else {
-			this.$(window).scrollTop(this.$(window).scrollTop() + 1);
+			const rowNext = this.$(tr).next();
+			if (rowNext.hasClass('child')) {
+				if (tr.hasClass('even')) {
+					this.$(tr).next().removeClass('odd').addClass('even');
+				}
+				else {
+					this.$(tr).next().removeClass('even').addClass('odd');
+				}
+			}
 		}
 	}
 
-	onClickDetailControlOnFooter = (event) => {
-		var tr = this.$(event.currentTarget).closest('tr');
-
-		if (tr.hasClass('shown')) {
-			tr.removeClass('shown');
-			tr.next().addClass('hide');
-		}
-		else {
-
-			tr.addClass('shown');
-			tr.next().removeClass('hide');
-		}
+	onClickDetailControlOnFooter = () => {
+		setTimeout(() => {
+			const scrollTo = this.$(document).height();
+			this.$(window).scrollTop(scrollTo + 15);
+		}, 100);
 	}
 
 	triggerRedrawTable = () => {
-		this.$('td.details-control').each((index, element) => {
-			let tr = this.$(element).closest('tr');
-			let row = this.$table.row(tr);
-
-			if (row.child.isShown()) {
-				row.child(this.formatDetailRow(row.data(), tr), `child-row ${tr.hasClass('odd') ? 'odd' : 'even'}`).show();
-			}
-		});
-
 		this.doAdjustHeader();
 
 		this.replaceHrefParam("SortPropertyName", this.getColumnSortName());
@@ -231,12 +201,12 @@ class OutstandingViewNew extends BaseReport {
 	}
 
 	getColumnSortName = () => {
-		let order = this.$table.order();
-		const length = this.isMobileView ? 1 : viewModel.DisplayOutstandingLevels.length;
+		const order = this.$table.order();
+		const length = this.displayOutstandingLevels.length;
 
 		for (let index = 0; index < length; index++) {
 			if (order[0][0] - 1 === index) {
-				return `${viewModel.DisplayOutstandingLevels[index].DisplayName}Outstanding`;
+				return `${this.displayOutstandingLevels[index].DisplayName}Outstanding`;
 			}
 		}
 
@@ -244,50 +214,52 @@ class OutstandingViewNew extends BaseReport {
 	}
 
 	isDescendingSort = () => {
-		let order = this.$table.order();
+		const order = this.$table.order();
 		return order[0][1] !== 'asc';
 	}
 
-    onSubmitReport = (e: any) => {
-        let this$ = this.$;
+	onSubmitReport = (e: any) => {
+		this.$.blockUI();
 
-        this$.blockUI();
+		var params = this.getParams();
+		if (!params.IsAnyProductSelected) {
+			this.showValidateProductError();
+			this.$.unblockUI();
+			e.preventDefault();
 
-        var params = this.getParams();
-        if (!params.IsAnyProductSelected) {
-            this.showValidateProductError();
-            this$.unblockUI();
-            e.preventDefault();
-
-            return;
-        }
+			return;
+		}
 
 		this.replaceHrefParam("SortPropertyName", this.getColumnSortName());
 		this.replaceHrefParam("IsDescendingSort", this.isDescendingSort());
+
 		this.$sortPropertyName.val(this.getColumnSortName());
 		this.$isDescendingSort.val(this.isDescendingSort ? 'True' : 'False');
-        this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
+
+		this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
 	};
 
-    getParams = () => {
-        let selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
+	getParams = () => {
+		const selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
 
-        return {
-            IsAnyProductSelected: selectedProducts.length > 0,
-            IsFilterVisible: !this.$reportForm.is(":hidden")
-        };
-    };
-    showValidateProductError = () => {
-        this.$buttonProduct.addClass("error");
-    };
+		return {
+			IsAnyProductSelected: selectedProducts.length > 0,
+			IsFilterVisible: !this.$reportForm.is(":hidden")
+		};
+	};
+
+	showValidateProductError = () => {
+		this.$buttonProduct.addClass("error");
+	};
 }
 
 $(function () {
-    const linkBuilderComponent = new LinkBuilderComponent($);
+	const linkBuilderComponent = new LinkBuilderComponent($);
 	const outstandingViewNew = new OutstandingViewNew(
-        $,
-        new ProductMultiSelectionComponent($),
-        linkBuilderComponent);
+		$,
+		new ProductMultiSelectionComponent($),
+		linkBuilderComponent,
+		displayOutstandingLevels);
 
 	outstandingViewNew.init();
 });
