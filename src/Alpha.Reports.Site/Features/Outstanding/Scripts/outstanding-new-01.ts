@@ -68,7 +68,6 @@ class OutstandingViewNew1 extends BaseReport {
 	};
 
 	initDataTable = () => {
-		this.$.blockUI();
 		const self = this;
 		let colunmSortIndex = 0;
 		this.$.each(this.displayOutstandingLevels, (key, value) => {
@@ -124,10 +123,10 @@ class OutstandingViewNew1 extends BaseReport {
 			fixedHeader: true,
 			processing: true,  
 			initComplete: () => {
-				this.$('#oustanding-report').removeClass('hidden');
 			},
 			drawCallback: () => {
 				this.$('tbody').append(this.$('tr.tbl-footer'));
+				this.$('#oustanding-report').removeClass('hidden');
 			}
 		});
 
@@ -135,8 +134,6 @@ class OutstandingViewNew1 extends BaseReport {
 		this.$('#oustanding-report tbody').on('click', 'td.control', event => this.onClickDetailControlOnBody(event));
 		this.$('#oustanding-report tbody tr.tbl-footer').on('click', 'td.control', () => this.onClickDetailControlOnFooter());
 		this.$('#oustanding-report').on('draw.dt', () => this.triggerRedrawTable());
-
-		this.$.unblockUI();
 	}
 
 	onClickDetailControlOnHeader = (event) => {
@@ -159,7 +156,6 @@ class OutstandingViewNew1 extends BaseReport {
 		}
 
 		this.doAdjustHeader();
-
 		this.$.unblockUI();	
 	}
 
@@ -251,6 +247,7 @@ class OutstandingViewNew1 extends BaseReport {
 			IsFilterVisible: !this.$reportForm.is(":hidden")
 		};
 	};
+
 	showValidateProductError = () => {
 		this.$buttonProduct.addClass("error");
 	};
