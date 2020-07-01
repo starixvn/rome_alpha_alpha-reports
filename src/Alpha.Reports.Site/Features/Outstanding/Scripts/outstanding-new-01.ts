@@ -25,20 +25,22 @@ class OutstandingViewNew1 extends BaseReport {
 	canSort: boolean;
 	dtResizeTimer: any;
 	allowPropagation: any;
+	displayOutstandingLevels: any;
 
 	constructor(
 		$: JQueryStatic,
 		productMultiSelectionComponent: ProductMultiSelectionComponent,
-		linkBuilderComponent: LinkBuilderComponent) {
+		linkBuilderComponent: LinkBuilderComponent,
+		displayOutstandingLevels: any) {
 		super($, linkBuilderComponent);
 
 		this.$ = $;
 		this.productMultiSelectionComponent = productMultiSelectionComponent;
 		this.linkBuilderComponent = linkBuilderComponent;
+		this.displayOutstandingLevels = displayOutstandingLevels;
 	}
 
 	init = () => {
-		this.$.blockUI();
 		this.cacheElements();
 		
 		this.productMultiSelectionComponent.render();
@@ -66,9 +68,10 @@ class OutstandingViewNew1 extends BaseReport {
 	};
 
 	initDataTable = () => {
+		this.$.blockUI();
 		const self = this;
 		let colunmSortIndex = 0;
-		this.$.each(displayOutstandingLevels, (key, value) => {
+		this.$.each(this.displayOutstandingLevels, (key, value) => {
 			if (this.$(this.$sortPropertyName).val().toLowerCase() === `${value.DisplayName}Outstanding`.toLowerCase()) {
 				colunmSortIndex = key + 1;
 				return;
@@ -120,7 +123,9 @@ class OutstandingViewNew1 extends BaseReport {
 			bInfo: false,
 			fixedHeader: true,
 			processing: true,  
-			initComplete: () => {},
+			initComplete: () => {
+				this.$('#oustanding-report').removeClass('hidden');
+			},
 			drawCallback: () => {
 				this.$('tbody').append(this.$('tr.tbl-footer'));
 			}
@@ -201,11 +206,11 @@ class OutstandingViewNew1 extends BaseReport {
 
 	getColumnSortName = () => {
 		const order = this.$table.order();
-		const length = displayOutstandingLevels.length;
+		const length = this.displayOutstandingLevels.length;
 
 		for (let index = 0; index < length; index++) {
 			if (order[0][0] - 1 === index) {
-				return `${displayOutstandingLevels[index].DisplayName}Outstanding`;
+				return `${this.displayOutstandingLevels[index].DisplayName}Outstanding`;
 			}
 		}
 
@@ -223,7 +228,7 @@ class OutstandingViewNew1 extends BaseReport {
 		var params = this.getParams();
 		if (!params.IsAnyProductSelected) {
 			this.showValidateProductError();
-			//this.$.unblockUI();
+			this.$.unblockUI();
 			e.preventDefault();
 
 			return;
@@ -256,7 +261,8 @@ $(function () {
 	const outstandingViewNew1 = new OutstandingViewNew1(
 		$,
 		new ProductMultiSelectionComponent($),
-		linkBuilderComponent);
+		linkBuilderComponent,
+		displayOutstandingLevels);
 
 	outstandingViewNew1.init();
 });

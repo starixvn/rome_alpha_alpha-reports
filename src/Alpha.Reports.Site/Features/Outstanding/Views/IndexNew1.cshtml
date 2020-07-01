@@ -32,50 +32,22 @@
 		<input type="submit" value="@Resources.Submit" class="btn-submit" />
 	</div>
 </form>
-<div class="level-@Model.CustLevel.Value" style="width: 99%">
-	<table id="oustanding-report" class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
+<div class="level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "100%" : "60%");">
+	<table id="oustanding-report" class="hidden tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
 		<thead>
-			<tr style="height:0px; padding:0px;">
+			<tr>
 				<th></th>
 				@{
 					for (var i = 1; i <= length; i++)
 					{
 						<th></th>
 					}
-					for (var i = 1; i <= length; i++)
-					{
-						<th></th>
-					}
-					for (var i = 1; i <= length; i++)
-					{
-						<th></th>
-					}
-					for (var i = 1; i <= length; i++)
-					{
-						<th></th>
-					}
-					for (var i = 1; i <= length; i++)
-					{
-						<th></th>
-					}
 				}
-				<th style="width: 15px;"></th>
+				<th></th>
 			</tr>
 			<tr>
 				<th rowspan="2" class="header" data-name="CustName">
 					@HtmlHelpers.DisplayUserLevelText(Model.ReportLevel)
-				</th>
-				<th colspan="@length" class="header">
-					@Resources.Outstanding
-				</th>
-				<th colspan="@length" class="header">
-					@Resources.Outstanding
-				</th>
-				<th colspan="@length" class="header">
-					@Resources.Outstanding
-				</th>
-				<th colspan="@length" class="header">
-					@Resources.Outstanding
 				</th>
 				<th colspan="@length" class="header">
 					@Resources.Outstanding
@@ -87,35 +59,7 @@
 					for (var i = 0; i < length; i++)
 					{
 						var userLevel = Model.DisplayOutstandingLevels[i];
-						<th>
-							@HtmlHelpers.DisplayUserLevelText(userLevel)
-						</th>
-					}
-					for (var i = 0; i < length; i++)
-					{
-						var userLevel = Model.DisplayOutstandingLevels[i];
-						<th>
-							@HtmlHelpers.DisplayUserLevelText(userLevel)
-						</th>
-					}
-					for (var i = 0; i < length; i++)
-					{
-						var userLevel = Model.DisplayOutstandingLevels[i];
-						<th>
-							@HtmlHelpers.DisplayUserLevelText(userLevel)
-						</th>
-					}
-					for (var i = 0; i < length; i++)
-					{
-						var userLevel = Model.DisplayOutstandingLevels[i];
-						<th>
-							@HtmlHelpers.DisplayUserLevelText(userLevel)
-						</th>
-					}
-					for (var i = 0; i < length; i++)
-					{
-						var userLevel = Model.DisplayOutstandingLevels[i];
-						<th>
+						<th class="all">
 							@HtmlHelpers.DisplayUserLevelText(userLevel)
 						</th>
 					}
@@ -134,39 +78,11 @@
 						   class="downline-link">@outstanding.CustName</a>
 					</td>
 					@RenderOutstandingCells(outstanding)
-					@RenderOutstandingCells(outstanding)
-					@RenderOutstandingCells(outstanding)
-					@RenderOutstandingCells(outstanding)
-					@RenderOutstandingCells(outstanding)
 					<td></td>
 				</tr>
 				}
 				<tr class="tbl-footer">
 					<td class="text-left">@Resources.Total</td>
-					@for (var i = 0; i < length; i++)
-					{
-						<td>
-							@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
-						</td>
-					}
-					@for (var i = 0; i < length; i++)
-					{
-						<td>
-							@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
-						</td>
-					}
-					@for (var i = 0; i < length; i++)
-					{
-						<td>
-							@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
-						</td>
-					}
-					@for (var i = 0; i < length; i++)
-					{
-						<td>
-							@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
-						</td>
-					}
 					@for (var i = 0; i < length; i++)
 					{
 						<td>
@@ -202,7 +118,7 @@
 	foreach (var level in Model.DisplayOutstandingLevels)
 	{
 		<td>
-			@HtmlHelpers.FormatNumber(data.GetValueByLevel(level) * 10000)
+			@HtmlHelpers.FormatNumber(data.GetValueByLevel(level))
 		</td>
 	}
 }

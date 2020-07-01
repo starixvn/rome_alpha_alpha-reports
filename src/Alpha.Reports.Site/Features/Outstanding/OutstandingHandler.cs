@@ -43,8 +43,8 @@
                 validUserSelectedProductIds.JoinWithComma());
 
             var outstandings = outstandingService.GetMemberOutstanding(param);
-
             var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, DateTime.Now);
+            var isOnlyMobile = browserHelper.IsMobile(isOnlyTablet: false) && !browserHelper.IsMobile(isOnlyTablet: true);
 
             var viewModel = new OutstandingViewModel(
                 message,
@@ -52,7 +52,7 @@
                 validUserSelectedProductIds,
                 BuildProductSelectListItems(validUserSelectedProductIds, products),
                 BuildBreadcrumbLevel(message),
-                browserHelper.IsMobile(isOnlyTablet: false));
+                isOnlyMobile);
 
             return viewModel;
         }
