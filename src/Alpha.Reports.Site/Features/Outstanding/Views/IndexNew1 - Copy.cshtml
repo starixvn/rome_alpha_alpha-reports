@@ -4,24 +4,14 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	ViewBag.Title = "Outstanding Report";
 
-	foreach (var outstanding in Model.OutstandingDatasource)
-	{
-		outstanding.DownlineLink = Model.BuildDrillDownLink(outstanding, Request.Url.Query);
-	}
-
 	var length = Model.DisplayOutstandingLevels.Count;
-	var showExpandIcon = true;
 }
 
 @section Styles {
 
-	@*@StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/data-table")*@
+	@StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/data-table01")
 
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.dataTables.min.css">
-	@StaticResources.RenderStylesWithMedia(767, "~/assets/bundles/report-mobile-calculate-07-01")
-	@StaticResources.RenderStyles("~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
+	@StaticResources.RenderStylesWithMedia(767, "~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
 }
 
 @model OutstandingViewModel
@@ -39,12 +29,12 @@
 	@Html.Hidden("IsDescendingSort", Model.IsDescendingSort)
 	@Html.Hidden("IsFilterVisible", Model.IsFilterVisible)
 	@Html.Hidden("IsMobileView", Model.IsMobileView)
-	@Html.Hidden("showExpandIcon", showExpandIcon)
+	@Html.Hidden("CanSort", Model.CanSort)
 	<div class="form-group last-group">
 		<input type="submit" value="@Resources.Submit" class="btn-submit" />
 	</div>
 </form>
-<div class="level-@Model.CustLevel.Value">
+<div class="level-@Model.CustLevel.Value" style="width: 99%">
 	<table id="example" class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
 		<thead>
 			<tr>
@@ -63,7 +53,7 @@
 						<th></th>
 					}
 				}
-				<th style="width: 15px;"></th>
+				<th></th>
 			</tr>
 			<tr>
 				<th rowspan="2" class="header" data-name="CustName">
@@ -160,12 +150,11 @@
 
 @section Scripts {
 
+	<script>
+		var displayOutstandingLevels = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.DisplayOutstandingLevels, Newtonsoft.Json.Formatting.Indented));
+	</script>
 
-	@*@StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")*@
-
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+	@StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table01")
 	@StaticResources.RenderScripts("~/Features/Outstanding/Bundles/outstanding-new-01")
 }
 

@@ -8,9 +8,7 @@
 }
 
 @section Styles {
-
 	@StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/data-table01")
-
 	@StaticResources.RenderStylesWithMedia(767, "~/Features/Outstanding/Bundles/outstanding-mobile-calculate-07")
 }
 
@@ -34,10 +32,10 @@
 		<input type="submit" value="@Resources.Submit" class="btn-submit" />
 	</div>
 </form>
-<div class="level-@Model.CustLevel.Value">
-	<table id="example" class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
+<div class="level-@Model.CustLevel.Value" style="width: 99%">
+	<table id="oustanding-report" class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
 		<thead>
-			<tr>
+			<tr style="height:0px; padding:0px;">
 				<th></th>
 				@{
 					for (var i = 1; i <= length; i++)
@@ -52,8 +50,16 @@
 					{
 						<th></th>
 					}
+					for (var i = 1; i <= length; i++)
+					{
+						<th></th>
+					}
+					for (var i = 1; i <= length; i++)
+					{
+						<th></th>
+					}
 				}
-				<th></th>
+				<th style="width: 15px;"></th>
 			</tr>
 			<tr>
 				<th rowspan="2" class="header" data-name="CustName">
@@ -68,10 +74,30 @@
 				<th colspan="@length" class="header">
 					@Resources.Outstanding
 				</th>
-				<th rowspan="2" class="control header"></th>
+				<th colspan="@length" class="header">
+					@Resources.Outstanding
+				</th>
+				<th colspan="@length" class="header">
+					@Resources.Outstanding
+				</th>
+				<th rowspan="2" class=" header"></th>
 			</tr>
 			<tr class="thead-row2">
 				@{
+					for (var i = 0; i < length; i++)
+					{
+						var userLevel = Model.DisplayOutstandingLevels[i];
+						<th>
+							@HtmlHelpers.DisplayUserLevelText(userLevel)
+						</th>
+					}
+					for (var i = 0; i < length; i++)
+					{
+						var userLevel = Model.DisplayOutstandingLevels[i];
+						<th>
+							@HtmlHelpers.DisplayUserLevelText(userLevel)
+						</th>
+					}
 					for (var i = 0; i < length; i++)
 					{
 						var userLevel = Model.DisplayOutstandingLevels[i];
@@ -101,20 +127,34 @@
 			<tbody>
 				@foreach (var outstanding in Model.OutstandingDatasource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
 				{
-					<tr>
-						<td class="text-left" data-islink="true">
-							<a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
-							   data-custname="@outstanding.CustName"
-							   class="downline-link">@outstanding.CustName</a>
-						</td>
-						@RenderOutstandingCells(outstanding)
-						@RenderOutstandingCells(outstanding)
-						@RenderOutstandingCells(outstanding)
-						<td></td>
-					</tr>
+				<tr>
+					<td class="text-left" data-islink="true">
+						<a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
+						   data-custname="@outstanding.CustName"
+						   class="downline-link">@outstanding.CustName</a>
+					</td>
+					@RenderOutstandingCells(outstanding)
+					@RenderOutstandingCells(outstanding)
+					@RenderOutstandingCells(outstanding)
+					@RenderOutstandingCells(outstanding)
+					@RenderOutstandingCells(outstanding)
+					<td></td>
+				</tr>
 				}
 				<tr class="tbl-footer">
 					<td class="text-left">@Resources.Total</td>
+					@for (var i = 0; i < length; i++)
+					{
+						<td>
+							@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
+						</td>
+					}
+					@for (var i = 0; i < length; i++)
+					{
+						<td>
+							@HtmlHelpers.FormatNumber(Model.Total.GetValueByLevel(Model.DisplayOutstandingLevels[i]))
+						</td>
+					}
 					@for (var i = 0; i < length; i++)
 					{
 						<td>
@@ -149,7 +189,6 @@
 
 
 @section Scripts {
-
 	<script>
 		var displayOutstandingLevels = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.DisplayOutstandingLevels, Newtonsoft.Json.Formatting.Indented));
 	</script>
@@ -163,7 +202,7 @@
 	foreach (var level in Model.DisplayOutstandingLevels)
 	{
 		<td>
-			@HtmlHelpers.FormatNumber(data.GetValueByLevel(level))
+			@HtmlHelpers.FormatNumber(data.GetValueByLevel(level) * 10000)
 		</td>
 	}
 }

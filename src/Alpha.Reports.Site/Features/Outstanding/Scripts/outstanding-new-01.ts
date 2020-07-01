@@ -41,7 +41,6 @@ class OutstandingViewNew1 extends BaseReport {
 		this.$.blockUI();
 		this.cacheElements();
 		
-
 		this.productMultiSelectionComponent.render();
 		this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
 		this.canSort = JSON.parse(this.$('#CanSort').val().toLowerCase());
@@ -54,7 +53,6 @@ class OutstandingViewNew1 extends BaseReport {
 
 	cacheElements = () => {
 		super.cacheElements();
-
 		this.$reportForm = this.$("#report-form");
 
 		this.$sortPropertyName = this.$("#SortPropertyName");
@@ -62,64 +60,13 @@ class OutstandingViewNew1 extends BaseReport {
 		this.$isFilterVisible = this.$("#IsFilterVisible");
 	};
 
-	makeColumnsResponsive = () => {
-	const visibleColumnCount = this.$('tbody tr:first-child td:visible').length - 1;
-		this.$('thead tr th').show();
-		for (let i = 1; i <= this.$('thead tr').length; i++) {
-		this.$('thead tr:nth-child(' + i + ') th:gt(' + visibleColumnCount + ')').hide();
-	}
-}
-
 	registerEvents = () => {
 		super.registerEvents();
 		this.$reportForm.submit(this.onSubmitReport);
-
-		//this.$(window).on("resize.DT-visitsTable", (event) => {
-		//	this.$.blockUI();
-		//	if (this.allowPropagation === false) {
-		//		event.stopImmediatePropagation();
-		//		clearTimeout(this.dtResizeTimer);
-		//		this.dtResizeTimer = setTimeout(function () {
-					
-		//			this.allowPropagation = true;
-		//			this.$(window).trigger("resize.DT-visitsTable");
-		//		}, 100);
-		//	} else {
-		//		this.allowPropagation = false;
-		//	}
-		//});
-
-		//this.$(window).on('resize.dtr orientationchange.dtr', () => {
-		//	this.$table.destroy();
-		//	this.$('#example').empty();
-			
-		//	const frms = window.top.parent.frames;
-		//	if (frms && frms["main"]) {
-		//		window.location.href = frms["main"].location;
-		//	}
-		//});
-
-		this.$(window).on('resize.dtr orientationchange.dtr', () => {
-			this.$.blockUI();
-		});
-
-		//this.$(window).on("resize orientationchange", function (event) {
-		//	this.$.blockUI();
-		//});
-
-		//this.$('#example').on('.collapsed', function () {
-		//	console.log('unblockUI');
-		//	this.$.unblockUI();
-		//});
-
-		//this.$(window).on('destroy.dtr', () => {
-		//	this.$.unblockUI();
-		//});
 	};
 
 	initDataTable = () => {
 		const self = this;
-
 		let colunmSortIndex = 0;
 		this.$.each(displayOutstandingLevels, (key, value) => {
 			if (this.$(this.$sortPropertyName).val().toLowerCase() === `${value.DisplayName}Outstanding`.toLowerCase()) {
@@ -127,8 +74,8 @@ class OutstandingViewNew1 extends BaseReport {
 				return;
 			}
 		});
-		
-		this.$table = this.$('#example').DataTable({
+
+		this.$table = this.$('#oustanding-report').DataTable({
 			responsive: {
 				details: {
 					type: 'column',
@@ -156,7 +103,7 @@ class OutstandingViewNew1 extends BaseReport {
 						}).toArray().join('');
 
 						return data ?
-							self.$('<ul data-dtr-index="' + rowIdx + '"/>').append(data) :
+							self.$(`<ul data-dtr-index="${rowIdx}"/>`).append(data) :
 							false;
 					}
 				}
@@ -172,25 +119,23 @@ class OutstandingViewNew1 extends BaseReport {
 			searching: false,
 			bInfo: false,
 			fixedHeader: true,
-			initComplete: () => {
-				//this.$.unblockUI();
-			},
+			processing: true,  
+			initComplete: () => {},
 			drawCallback: () => {
 				this.$('tbody').append(this.$('tr.tbl-footer'));
 			}
 		});
 
-		this.$('#example thead').on('click', 'th.control', event => this.onClickDetailControlOnHeader(event));
-		this.$('#example tbody').on('click', 'td.control', event => this.onClickDetailControlOnBody(event));
-		this.$('#example tbody tr.tbl-footer').on('click', 'td.control', () => this.onClickDetailControlOnFooter());
-		this.$('#example').on('draw.dt', () => this.triggerRedrawTable());
+		this.$('#oustanding-report thead').on('click', 'th.control', event => this.onClickDetailControlOnHeader(event));
+		this.$('#oustanding-report tbody').on('click', 'td.control', event => this.onClickDetailControlOnBody(event));
+		this.$('#oustanding-report tbody tr.tbl-footer').on('click', 'td.control', () => this.onClickDetailControlOnFooter());
+		this.$('#oustanding-report').on('draw.dt', () => this.triggerRedrawTable());
 
-		this.$('#example').on('responsive-resize.dt', function () {
-			console.log(' column(s) are hidden');
-		});
+		this.$.unblockUI();
 	}
 
 	onClickDetailControlOnHeader = (event) => {
+		this.$.blockUI();
 		var tr = this.$(event.currentTarget).closest('tr');
 
 		if (tr.hasClass('parent')) {
@@ -209,6 +154,8 @@ class OutstandingViewNew1 extends BaseReport {
 		}
 
 		this.doAdjustHeader();
+
+		this.$.unblockUI();	
 	}
 
 	onClickDetailControlOnBody = (event) => {
@@ -276,7 +223,7 @@ class OutstandingViewNew1 extends BaseReport {
 		var params = this.getParams();
 		if (!params.IsAnyProductSelected) {
 			this.showValidateProductError();
-			this.$.unblockUI();
+			//this.$.unblockUI();
 			e.preventDefault();
 
 			return;
