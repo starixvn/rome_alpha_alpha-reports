@@ -15,31 +15,34 @@ body {
 	}
 }
 
+table.dataTable thead [class*="sorting"]:after {
+    font-size: calculateScale(10px);
+}
 .page-title {
-	font-size: calculateScale(13px);
-	line-height: calculateScale(39px);
-	position: relative;
-	border-bottom: none;
+    font-size: calculateScale(13px);
+    line-height: calculateScale(39px);
+    position: relative;
+    border-bottom: none;
 
-	.text-title {
-		width: 100%;
-		border-bottom: 1px solid #cecece;
-	}
+    .text-title {
+        width: 100%;
+        border-bottom: 1px solid #cecece;
+    }
 
-	.breadcrumb {
-		padding: 0;
-		line-height: 28px;
-		padding-top: 12px;
-	}
+    .breadcrumb {
+        padding: 0;
+        line-height: 28px;
+        padding-top: 12px;
+    }
 
-	.list-icon {
-		position: absolute;
-		right: 0;
+    .list-icon {
+        position: absolute;
+        right: 0;
 
-		.icon-filter {
-			font-size: calculateScale(22px) !important;
-		}
-	}
+        .icon-filter {
+            font-size: calculateScale(22px) !important;
+        }
+    }
 }
 
 .filter .btn-group button.multiselect {
