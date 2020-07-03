@@ -29,15 +29,9 @@
                : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
-
 <<<<<<< HEAD
-            OutstandingDatasource = new List<OutstandingModel>
-            {
-                new OutstandingModel(100, "cust test", 100, 1001, 155, 166)
-            };
-=======
+
             OutstandingDatasource = new List<OutstandingModel>();
->>>>>>> 133011 - outstanding responsive 01
 
             foreach (var outstanding in outstandingDataSource)
             {
@@ -57,6 +51,9 @@
             }
 
             //OutstandingDatasource = outstandingDataSource.ToList();
+=======
+            OutstandingDatasource = outstandingDataSource.ToList();
+>>>>>>> 000- remove hardcode
             ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), string.Empty);
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= Query.ViewerLevel.Value; level++)
@@ -64,7 +61,7 @@
                 displayOutstandingLevels.Add(Enumeration.FromValue<UserLevel>(level));
             }
 
-            CanSort = OutstandingDatasource != null && OutstandingDatasource.Count > 1;
+            CanSort = OutstandingDatasource != null && OutstandingDatasource.ToList().Count > 1;
             SortPropertyName = CanSort ? GetSortedProperty(query.SortPropertyName) : DefaultVariables.SortPropertyName;
             IsDescendingSort = CanSort && query.IsDescendingSort;
             BetListPath = Helpers.UrlHelper.MapBetListPath("~/RunningBetList/Index");
@@ -89,7 +86,7 @@
 
         public UserLevel ReportLevel => Query.CustLevel.GetDirectDownLineLevel();
 
-        public List<OutstandingModel> OutstandingDatasource { get; }
+        public IEnumerable<OutstandingModel> OutstandingDatasource { get; }
 
         public OutstandingModel Total => OutstandingModel.GetAccumulatedData(OutstandingDatasource);
 

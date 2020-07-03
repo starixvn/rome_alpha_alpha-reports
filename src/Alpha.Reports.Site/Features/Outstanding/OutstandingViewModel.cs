@@ -29,27 +29,7 @@
                : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
-
-            OutstandingDatasource = new List<OutstandingModel>();
-
-            foreach (var outstanding in outstandingDataSource)
-            {
-                OutstandingDatasource.Add(outstanding);
-                for (var index = 0; index < 20; index++)
-                {
-                    OutstandingDatasource.Add(new OutstandingModel(
-                       outstanding.CustId + 1,
-                        $"{outstanding.CustName}{index}",
-                        outstanding.MemberOutstanding * (110 + index),
-                        outstanding.AgentOutstanding * (111 + index),
-                        outstanding.MasterOutstanding * (112 + index),
-                        outstanding.SuperOutstanding * (103 + index)
-                        ));
-                }
-
-            }
-
-            //OutstandingDatasource = outstandingDataSource.ToList();
+            OutstandingDatasource = outstandingDataSource.ToList();
             ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), string.Empty);
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= Query.ViewerLevel.Value; level++)
@@ -57,7 +37,7 @@
                 displayOutstandingLevels.Add(Enumeration.FromValue<UserLevel>(level));
             }
 
-            CanSort = OutstandingDatasource != null && OutstandingDatasource.Count > 1;
+            CanSort = OutstandingDatasource != null && OutstandingDatasource.ToList().Count > 1;
             SortPropertyName = CanSort ? GetSortedProperty(query.SortPropertyName) : DefaultVariables.SortPropertyName;
             IsDescendingSort = CanSort && query.IsDescendingSort;
             BetListPath = Helpers.UrlHelper.MapBetListPath("~/RunningBetList/Index");
@@ -82,7 +62,7 @@
 
         public UserLevel ReportLevel => Query.CustLevel.GetDirectDownLineLevel();
 
-        public List<OutstandingModel> OutstandingDatasource { get; }
+        public IEnumerable<OutstandingModel> OutstandingDatasource { get; }
 
         public OutstandingModel Total => OutstandingModel.GetAccumulatedData(OutstandingDatasource);
 
