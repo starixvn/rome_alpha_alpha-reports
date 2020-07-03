@@ -23,8 +23,6 @@ class OutstandingViewNew extends BaseReport {
 	$table: JQuery;
 
 	canSort: boolean;
-	dtResizeTimer: any;
-	allowPropagation: any;
 	displayOutstandingLevels: any;
 
 	constructor(
@@ -33,10 +31,7 @@ class OutstandingViewNew extends BaseReport {
 		linkBuilderComponent: LinkBuilderComponent,
 		displayOutstandingLevels: any) {
 		super($, linkBuilderComponent);
-
-		this.$ = $;
 		this.productMultiSelectionComponent = productMultiSelectionComponent;
-		this.linkBuilderComponent = linkBuilderComponent;
 		this.displayOutstandingLevels = displayOutstandingLevels;
 	}
 
@@ -84,23 +79,21 @@ class OutstandingViewNew extends BaseReport {
 					target: -1,
 					auto: false,
 					renderer: function (api, rowIdx) {
-						var data = api.cells(rowIdx, ':hidden').eq(0).map(function (cell) {
-							var header = self.$(api.column(cell.column).header());
-							var idx = api.cell(cell).index();
+						const data = api.cells(rowIdx, ':hidden').eq(0).map(function (cell) {
+							const header = self.$(api.column(cell.column).header());
+							const idx = api.cell(cell).index();
 
 							if (header.hasClass('control') || header.hasClass('never')) {
 								return '';
 							}
 
-							var dtPrivate = api.settings()[0];
-							var cellData = dtPrivate.oApi._fnGetCellData(
+							const dtPrivate = api.settings()[0];
+							const cellData = dtPrivate.oApi._fnGetCellData(
 								dtPrivate, idx.row, idx.column, 'display'
 							);
 
-							var title = header.text();
-
 							return `<li data-dtr-index="${idx.column}">` +
-								`<span class="dtr-title">${title}</span> ` +
+								`<span class="dtr-title">${header.text()}</span> ` +
 								`<span class="dtr-data">${cellData}</span></li>`;
 						}).toArray().join('');
 
@@ -121,69 +114,71 @@ class OutstandingViewNew extends BaseReport {
 			searching: false,
 			bInfo: false,
 			fixedHeader: true,
-			processing: true,  
-			initComplete: () => {
-			},
+			processing: true,
 			drawCallback: () => {
 				this.$('tbody').append(this.$('tr.tbl-footer'));
 				this.$('#oustanding-report').removeClass('hidden');
 			}
 		});
 
-		this.$('#oustanding-report thead').on('click', 'th.control', event => this.onClickDetailControlOnHeader(event));
-		this.$('#oustanding-report tbody').on('click', 'td.control', event => this.onClickDetailControlOnBody(event));
-		this.$('#oustanding-report tbody tr.tbl-footer').on('click', 'td.control', () => this.onClickDetailControlOnFooter());
+		this.$('#oustanding-report thead').on('click', 'th.control', event => this.collapsedExpandedAll(event));
+		this.$('#oustanding-report tbody').on('click', 'td.control', event => this.onClickDetailControl(event));
 		this.$('#oustanding-report').on('draw.dt', () => this.triggerRedrawTable());
 	}
 
-	onClickDetailControlOnHeader = (event) => {
+	collapsedAll = (header) => {
+		header.removeClass('parent');
+
+		this.$('tbody tr.parent').each((index, element) => {
+			this.$(element).find('.control').click();
+		});
+	}
+
+	expandedAll = (header) => {
+		header.addClass('parent');
+
+		this.$('tbody tr').not('.parent').each((index, element) => {
+			this.$(element).find('.control').click();
+		});
+	}
+
+	collapsedExpandedAll = (event) => {
 		this.$.blockUI();
-		var tr = this.$(event.currentTarget).closest('tr');
+		const header = this.$(event.currentTarget).closest('tr');
 
-		if (tr.hasClass('parent')) {
-			tr.removeClass('parent');
-
-			this.$('tbody tr.parent').each((index, element) => {
-				this.$(element).find('.control').click();
-			});
-		}
-		else {
-			tr.addClass('parent');
-
-			this.$('tbody tr').not('.parent').each((index, element) => {
-				this.$(element).find('.control').click();
-			});
-		}
+		header.hasClass('parent') ?
+			this.collapsedAll(header) :
+			this.expandedAll(header);
 
 		this.doAdjustHeader();
 		this.$.unblockUI();	
 	}
 
-	onClickDetailControlOnBody = (event) => {
-		var tr = this.$(event.currentTarget).closest('tr');
-		if (tr.hasClass('tbl-footer')) {
-			tr.hasClass('parent') ?
-				this.$(tr).next().addClass('tbl-footer') :
-				this.$(tr).next().removeClass('tbl-footer');
-		}
-		else {
-			const rowNext = this.$(tr).next();
-			if (rowNext.hasClass('child')) {
-				if (tr.hasClass('even')) {
-					this.$(tr).next().removeClass('odd').addClass('even');
-				}
-				else {
-					this.$(tr).next().removeClass('even').addClass('odd');
-				}
-			}
-		}
-	}
+	onClickFooterRow = (parentRow, childRow) => {
+		parentRow.hasClass('parent') ?
+			childRow.addClass('tbl-footer') :
+			childRow.removeClass('tbl-footer');
 
-	onClickDetailControlOnFooter = () => {
 		setTimeout(() => {
 			const scrollTo = this.$(document).height();
 			this.$(window).scrollTop(scrollTo + 15);
 		}, 100);
+	}
+
+	onClickBodyRow = (parentRow, childRow) => {
+		if (childRow.hasClass('child')) {
+			parentRow.hasClass('even') ? 
+				childRow.removeClass('odd').addClass('even') :
+				childRow.removeClass('even').addClass('odd');
+		}
+	}
+
+	onClickDetailControl = (event) => {
+		const parentRow = this.$(event.currentTarget).closest('tr');
+		const childRow = this.$(parentRow).next();
+		parentRow.hasClass('tbl-footer') ?
+			this.onClickFooterRow(parentRow, childRow) :
+			this.onClickBodyRow(parentRow, childRow);
 	}
 
 	triggerRedrawTable = () => {
@@ -196,7 +191,7 @@ class OutstandingViewNew extends BaseReport {
 	doAdjustHeader = () => {
 		this.$table.fixedHeader.adjust();
 
-		let scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;
+		const scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;
 		this.$(window).scrollTop(scrollTo);
 	}
 
