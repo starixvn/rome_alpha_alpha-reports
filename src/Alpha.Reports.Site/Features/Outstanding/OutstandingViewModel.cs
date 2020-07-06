@@ -29,7 +29,7 @@
                : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
-            OutstandingDatasource = outstandingDataSource.ToList();
+            OutstandingDatasource = outstandingDataSource;
             ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), string.Empty);
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= Query.ViewerLevel.Value; level++)

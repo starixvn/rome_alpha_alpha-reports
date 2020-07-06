@@ -30,9 +30,5 @@
 	{
 		"outputFile": "assets/styles/report-mobile-calculate-07.css",
 		"inputFile": "assets/styles/report-mobile-calculate-07.scss"
-	},
-	{
-		"outputFile": "assets/styles/report-mobile-calculate-07-01.css",
-		"inputFile": "assets/styles/report-mobile-calculate-07-01.scss"
 	}
 ]
