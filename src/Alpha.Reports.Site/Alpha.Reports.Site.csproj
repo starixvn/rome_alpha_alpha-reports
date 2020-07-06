@@ -926,12 +926,6 @@
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
-    <Content Include="assets\styles\report-mobile-calculate-07-01.css">
-      <DependentUpon>report-mobile-calculate-07-01.scss</DependentUpon>
-    </Content>
-    <Content Include="assets\styles\report-mobile-calculate-07-01.min.css">
-      <DependentUpon>report-mobile-calculate-07-01.css</DependentUpon>
-    </Content>
     <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.css" />
     <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.min.css">
       <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
@@ -974,7 +968,6 @@
     </CodeAnalysisDictionary>
     <Content Include="compilerconfig.json" />
     <Content Include="assets\styles\report-mobile-calculate-07.scss" />
-    <Content Include="assets\styles\report-mobile-calculate-07-01.scss" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
