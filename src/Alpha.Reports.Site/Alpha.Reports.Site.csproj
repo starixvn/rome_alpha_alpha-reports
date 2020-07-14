@@ -1191,6 +1191,10 @@
       <Project>{B2293610-3C5B-42DF-9B6A-3AE914512223}</Project>
       <Name>Alpha.Reports.StaticData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Alpha.Reports.SpamBlocker\Alpha.Reports.SpamBlocker.csproj">
+      <Project>{6083d35b-efce-4e02-8d39-54255f8b238b}</Project>
+      <Name>Alpha.Reports.SpamBlocker</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Alpha.Reports\Alpha.Reports.csproj">
       <Project>{b868e639-f3f9-4d54-b02e-57f3bee0965e}</Project>
       <Name>Alpha.Reports</Name>
