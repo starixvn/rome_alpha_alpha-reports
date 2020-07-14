@@ -1,13 +1,13 @@
 ﻿namespace Alpha.Reports.SpamBlocker.Models
 {
     using Alpha.Reports.SpamBlocker.Web;
-    using System.Web;
+    using System.Web.Mvc;
 
     public class IpIdentity : IRequestIdentity
     {
-        public string GetKey()
+        public string GetKey(ActionExecutingContext filterContext)
         {
-            return HttpContext.Current.Request.GetClientIp().ToString();
+            return filterContext.HttpContext.Request.GetClientIp().ToString();
         }
     }
 }

@@ -33,6 +33,8 @@
 
         public ThrottlePolicy Policy { get; private set; }
 
+        public IRequestIdentity Identity { get; private set; } = new UserIdentity();
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (Enabled)
@@ -58,8 +60,7 @@
 
         private void ProcessRequest(ActionExecutingContext filterContext, ThrottlePolicy policy)
         {
-            var ipIdentity = new IpIdentity();
-            var id = $"SpamBlocker_{ipIdentity.GetKey()}";
+            var id = $"SpamBlocker_{Identity.GetKey(filterContext)}";
             var throttleCounter = CacheRepository.FirstOrDefault(id);
             if (throttleCounter == null || DateTime.Now > throttleCounter.Timestamp + TimeSpan.FromSeconds(policy.PerSeconds))
             {

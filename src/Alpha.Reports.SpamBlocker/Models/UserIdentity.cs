@@ -1,13 +1,14 @@
 ﻿namespace Alpha.Reports.SpamBlocker.Models
 {
     using Sunplus.Agent.Model.Base;
+    using System.Web.Mvc;
 
     public class UserIdentity : IRequestIdentity
     {
-        public string GetKey()
+        public string GetKey(ActionExecutingContext filterContext)
         {
             var userSession = new UserSessionExt();
-            return userSession.UserId.ToString();
+            return $"{filterContext.HttpContext.Request.Path}_{userSession.UserId}";
         }
     }
 }
