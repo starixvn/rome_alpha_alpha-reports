@@ -90,7 +90,6 @@
     <Compile Include="Models\ThrottlePolicy.cs" />
     <Compile Include="Models\UserIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CacheRepository.cs" />
     <Compile Include="Repositories\FanexCacheRepository.cs" />
     <Compile Include="Repositories\ICacheRepository.cs" />
     <Compile Include="Repositories\MemoryCacheRepository.cs" />
