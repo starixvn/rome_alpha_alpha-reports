@@ -648,6 +648,9 @@
     <Content Include="App_Data\activitytracking.napinternal2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
+    <Content Include="App_Data\activitytracking.pro.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
     <Content Include="App_Data\activitytracking.uat.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
@@ -1048,6 +1051,12 @@
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
     <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
     <Content Include="App_Data\ExcelTemplates\BetChoiceMatching\Master.xls" />
+    <Content Include="App_Data\activitytracking.pro2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.uat2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

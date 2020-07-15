@@ -96,6 +96,7 @@
     <Compile Include="Repositories\MemoryCacheRepository.cs" />
     <Compile Include="Web\DisableThrottlingAttribute.cs" />
     <Compile Include="Web\EnableThrottlingAttribute.cs" />
+    <Compile Include="Web\ErrorController.cs" />
     <Compile Include="Web\Extensions.cs" />
     <Compile Include="Web\HttpStatusCodes.cs" />
     <Compile Include="Web\ThrottlingFilterAttribute.cs" />

@@ -6,6 +6,7 @@
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using System.Web.Routing;
 
     public class ThrottlingFilterAttribute : ActionFilterAttribute
     {
@@ -91,10 +92,11 @@
 
         private void WriteBlockedResponse(ActionExecutingContext filterContext)
         {
-            var response = filterContext.HttpContext.Response;
-            response.StatusCode = HttpStatusCodes.TooManyRequests;
-            response.StatusDescription = "Too Many Requests";
-            response.End();
+            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
+            {
+                {"controller", "Error" },
+                {"action", "Blocked" }
+            });
         }
 
         private ThrottlePolicy GetApplyingPolicy(ActionExecutingContext filterContext)
