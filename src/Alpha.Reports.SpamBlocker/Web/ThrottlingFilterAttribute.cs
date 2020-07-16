@@ -100,7 +100,8 @@
             filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
             {
                 {"controller", "Error" },
-                {"action", "Blocked" }
+                {"action", "Blocked" },
+                {"path", filterContext.HttpContext.Request.Path }
             });
         }
 
