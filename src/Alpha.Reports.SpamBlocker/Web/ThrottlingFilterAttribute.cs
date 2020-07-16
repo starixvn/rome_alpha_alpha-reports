@@ -2,7 +2,7 @@
 {
     using Alpha.Reports.SpamBlocker.Configurations;
     using Alpha.Reports.SpamBlocker.Models;
-    using Alpha.Reports.SpamBlocker.Repositories;
+    using Fanex.Caching;
     using System;
     using System.Linq;
     using System.Web.Mvc;
@@ -19,18 +19,18 @@
                 PerSeconds = configuration.PerSeconds,
                 MaxRequests = configuration.MaxRequests
             };
-            CacheRepository = new FanexCacheRepository();
+            CacheService = new CacheServiceImpl();
         }
 
-        public ThrottlingFilterAttribute(ThrottlePolicy policy, ICacheRepository cacheRepository)
+        public ThrottlingFilterAttribute(ThrottlePolicy policy, CacheService cacheService)
         {
             Policy = policy;
-            CacheRepository = cacheRepository;
+            CacheService = cacheService;
         }
 
         public bool Enabled { get; private set; } = true;
 
-        public ICacheRepository CacheRepository { get; private set; }
+        public CacheService CacheService { get; private set; }
 
         public ThrottlePolicy Policy { get; private set; }
 
@@ -62,7 +62,7 @@
         private void ProcessRequest(ActionExecutingContext filterContext, ThrottlePolicy policy)
         {
             var id = $"SpamBlocker_{Identity.GetKey(filterContext)}";
-            var throttleCounter = CacheRepository.FirstOrDefault(id);
+            var throttleCounter = CacheService.Get<ThrottleCounter>(id);
             if (throttleCounter == null || DateTime.Now > throttleCounter.Timestamp + TimeSpan.FromSeconds(policy.PerSeconds))
             {
                 throttleCounter = new ThrottleCounter
@@ -86,7 +86,12 @@
                 return;
             }
 
-            CacheRepository.Save(id, throttleCounter, TimeSpan.FromSeconds(policy.PerSeconds));
+            CacheService.Set(
+                id,
+                throttleCounter, new CacheItemOptions
+                {
+                    SlidingExpiration = TimeSpan.FromSeconds(policy.PerSeconds)
+                });
             base.OnActionExecuting(filterContext);
         }
 
