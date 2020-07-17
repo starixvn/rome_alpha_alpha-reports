@@ -8,7 +8,7 @@
         public string GetKey(ActionExecutingContext filterContext)
         {
             var userSession = new UserSessionExt();
-            return $"{filterContext.HttpContext.Request.Path}_{userSession.UserId}";
+            return $"{filterContext.HttpContext.Request.Path}_{userSession.NickName}";
         }
     }
 }
