@@ -16,7 +16,7 @@
             Enabled = configuration.Enabled;
             Policy = new ThrottlePolicy
             {
-                PerSeconds = configuration.PerSeconds,
+                Timer = configuration.Timer,
                 MaxRequests = configuration.MaxRequests
             };
             CacheService = new CacheServiceImpl();
@@ -63,7 +63,7 @@
         {
             var id = $"SpamBlocker_{Identity.GetKey(filterContext)}";
             var throttleCounter = CacheService.Get<ThrottleCounter>(id);
-            if (throttleCounter == null || DateTime.Now > throttleCounter.Timestamp + TimeSpan.FromSeconds(policy.PerSeconds))
+            if (throttleCounter == null || DateTime.Now > throttleCounter.Timestamp + TimeSpan.FromSeconds(policy.Timer))
             {
                 throttleCounter = new ThrottleCounter
                 {
@@ -90,7 +90,7 @@
                 id,
                 throttleCounter, new CacheItemOptions
                 {
-                    SlidingExpiration = TimeSpan.FromSeconds(policy.PerSeconds)
+                    SlidingExpiration = TimeSpan.FromSeconds(policy.Timer)
                 });
             base.OnActionExecuting(filterContext);
         }

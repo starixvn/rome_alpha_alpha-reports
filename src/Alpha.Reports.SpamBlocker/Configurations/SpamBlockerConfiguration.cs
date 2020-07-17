@@ -22,12 +22,12 @@ namespace Alpha.Reports.SpamBlocker.Configurations
             }
         }
 
-        [ConfigurationProperty("perSeconds", IsRequired = true)]
-        public int PerSeconds
+        [ConfigurationProperty("timer", IsRequired = true)]
+        public int Timer
         {
             get
             {
-                return (int)this["perSeconds"];
+                return (int)this["timer"];
             }
         }
 
