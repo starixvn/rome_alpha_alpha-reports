@@ -1,8 +1,10 @@
 ﻿namespace Alpha.Reports.SpamBlocker.Web
 {
+    using System;
     using System.Web.Mvc;
 
-    public class DisableThrottlingAttribute : ActionFilterAttribute, IActionFilter
+    [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
+    public class DisableThrottlingAttribute : ActionFilterAttribute
     {
     }
 }

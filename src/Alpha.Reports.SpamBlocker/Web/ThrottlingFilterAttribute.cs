@@ -8,6 +8,7 @@
     using System.Web.Mvc;
     using System.Web.Routing;
 
+    [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
     public class ThrottlingFilterAttribute : ActionFilterAttribute
     {
         public ThrottlingFilterAttribute()
@@ -63,22 +64,17 @@
         {
             var id = $"SpamBlocker_{Identity.GetKey(filterContext)}";
             var throttleCounter = CacheService.Get<ThrottleCounter>(id);
-            if (throttleCounter == null || DateTime.Now > throttleCounter.Timestamp + TimeSpan.FromSeconds(policy.Timer))
-            {
-                throttleCounter = new ThrottleCounter
+            throttleCounter = throttleCounter == null || DateTime.Now > throttleCounter.Timestamp + TimeSpan.FromSeconds(policy.Timer)
+                ? new ThrottleCounter
                 {
                     Timestamp = DateTime.Now,
                     TotalRequests = 1
-                };
-            }
-            else
-            {
-                throttleCounter = new ThrottleCounter
+                }
+                : new ThrottleCounter
                 {
                     Timestamp = throttleCounter.Timestamp,
                     TotalRequests = throttleCounter.TotalRequests + 1
                 };
-            }
 
             if (throttleCounter.TotalRequests > policy.MaxRequests)
             {
@@ -95,7 +91,7 @@
             base.OnActionExecuting(filterContext);
         }
 
-        private void WriteBlockedResponse(ActionExecutingContext filterContext)
+        private static void WriteBlockedResponse(ActionExecutingContext filterContext)
         {
             filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
             {
