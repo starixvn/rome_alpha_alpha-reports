@@ -22,12 +22,12 @@ namespace Alpha.Reports.SpamBlocker.Configurations
             }
         }
 
-        [ConfigurationProperty("timePeriod", IsRequired = true)]
-        public int TimePeriod
+        [ConfigurationProperty("periodInSeconds", IsRequired = true)]
+        public int PeriodInSeconds
         {
             get
             {
-                return (int)this["timePeriod"];
+                return (int)this["periodInSeconds"];
             }
         }
 

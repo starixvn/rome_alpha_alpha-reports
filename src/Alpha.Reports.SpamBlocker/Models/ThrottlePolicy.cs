@@ -2,7 +2,7 @@
 {
     public class ThrottlePolicy
     {
-        public int Timer { get; set; }
+        public int PeriodInSeconds { get; set; }
 
         public int MaxRequests { get; set; }
     }
