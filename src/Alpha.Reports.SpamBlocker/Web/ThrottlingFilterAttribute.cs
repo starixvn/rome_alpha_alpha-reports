@@ -12,30 +12,30 @@
     public class ThrottlingFilterAttribute : ActionFilterAttribute
     {
         public ThrottlingFilterAttribute()
+            : this(null, null, null)
         {
-            var configuration = SpamBlockerConfiguration.Current;
+        }
+
+        public ThrottlingFilterAttribute(SpamBlockerConfiguration configuration, CacheService cacheService, IRequestIdentity identity)
+        {
+            configuration = configuration ?? SpamBlockerConfiguration.Current;
             Enabled = configuration.Enabled;
             Policy = new ThrottlePolicy
             {
-                Timer = configuration.Timer,
+                Timer = configuration.TimePeriod,
                 MaxRequests = configuration.MaxRequests
             };
-            CacheService = new CacheServiceImpl();
+            CacheService = cacheService ?? new CacheServiceImpl();
+            Identity = identity ?? new SessionIdentity();
         }
 
-        public ThrottlingFilterAttribute(ThrottlePolicy policy, CacheService cacheService)
-        {
-            Policy = policy;
-            CacheService = cacheService;
-        }
-
-        public bool Enabled { get; private set; } = true;
+        public bool Enabled { get; private set; }
 
         public CacheService CacheService { get; private set; }
 
         public ThrottlePolicy Policy { get; private set; }
 
-        public IRequestIdentity Identity { get; private set; } = new UserIdentity();
+        public IRequestIdentity Identity { get; private set; }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {

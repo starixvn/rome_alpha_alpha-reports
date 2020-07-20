@@ -90,7 +90,7 @@
     <Compile Include="Models\IRequestIdentity.cs" />
     <Compile Include="Models\ThrottleCounter.cs" />
     <Compile Include="Models\ThrottlePolicy.cs" />
-    <Compile Include="Models\UserIdentity.cs" />
+    <Compile Include="Models\SessionIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\DisableThrottlingAttribute.cs" />
     <Compile Include="Web\EnableThrottlingAttribute.cs" />
