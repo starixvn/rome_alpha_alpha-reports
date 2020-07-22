@@ -1,14 +1,7 @@
 ﻿namespace Alpha.Reports.Site
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Reflection;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Routing;
     using Alpha.Logging;
+    using Alpha.Reports.SpamBlocker.Web;
     using App_Start;
     using Auth.Configurations;
     using Auth.Filters;
@@ -22,6 +15,14 @@
     using Helpers;
     using ONEbook.UM.Filters;
     using Sunplus.Agent.Model.Entities;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Reflection;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Routing;
     using Web;
     using Web.Filters;
     using Web.Helpers;
@@ -54,6 +55,7 @@
             GlobalFilters.Filters.Add(new CheckBelongingFilter());
             GlobalFilters.Filters.Add(new NoCacheFilter());
             GlobalFilters.Filters.Add(new AfterLoginFlowFilter());
+            GlobalFilters.Filters.Add(new ThrottlingFilterAttribute());
 
             SiteSettings.Verify();
 

@@ -368,6 +368,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Include="..\..\SonarQube\alpha-report\CSharp\SonarLint.xml">
+      <Link>SonarLint.xml</Link>
+    </AdditionalFiles>
     <Content Include="App_Code\RazorExtensions.cs" />
     <Compile Include="App_GlobalResources\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -646,6 +649,9 @@
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
     <Content Include="App_Data\activitytracking.napinternal2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.pro.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
     <Content Include="App_Data\activitytracking.uat.json">
@@ -1048,6 +1054,12 @@
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
     <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
     <Content Include="App_Data\ExcelTemplates\BetChoiceMatching\Master.xls" />
+    <Content Include="App_Data\activitytracking.pro2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
+    <Content Include="App_Data\activitytracking.uat2.json">
+      <DependentUpon>activitytracking.json</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1190,6 +1202,10 @@
     <ProjectReference Include="..\..\tests\Alpha.Reports.StaticData\Alpha.Reports.StaticData.csproj">
       <Project>{B2293610-3C5B-42DF-9B6A-3AE914512223}</Project>
       <Name>Alpha.Reports.StaticData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Alpha.Reports.SpamBlocker\Alpha.Reports.SpamBlocker.csproj">
+      <Project>{6083d35b-efce-4e02-8d39-54255f8b238b}</Project>
+      <Name>Alpha.Reports.SpamBlocker</Name>
     </ProjectReference>
     <ProjectReference Include="..\Alpha.Reports\Alpha.Reports.csproj">
       <Project>{b868e639-f3f9-4d54-b02e-57f3bee0965e}</Project>

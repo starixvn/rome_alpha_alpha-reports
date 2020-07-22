@@ -92,6 +92,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AdditionalFiles Include="..\..\SonarQube\alpha-report\CSharp\SonarLint.xml">
+      <Link>SonarLint.xml</Link>
+    </AdditionalFiles>
     <Content Include="ExcelData\Age_Rpt_ConsolidatedGroup.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
