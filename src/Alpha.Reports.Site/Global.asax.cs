@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Site
 {
     using Alpha.Logging;
-    using Alpha.Reports.SpamBlocker.Web;
+    using Alpha.NetThrottling.Mvc;
     using App_Start;
     using Auth.Configurations;
     using Auth.Filters;
@@ -51,11 +51,11 @@
 
             LoggingConfig.Init(getDbExceptionInfo: DatabaseInfoGetters.GetDbExceptionInfo);
 
+            GlobalFilters.Filters.Add(new NetThrottlingFilterAttribute("Any"));
             GlobalFilters.Filters.Add(new CheckUMFilter());
             GlobalFilters.Filters.Add(new CheckBelongingFilter());
             GlobalFilters.Filters.Add(new NoCacheFilter());
             GlobalFilters.Filters.Add(new AfterLoginFlowFilter());
-            GlobalFilters.Filters.Add(new ThrottlingFilterAttribute());
 
             SiteSettings.Verify();
 
