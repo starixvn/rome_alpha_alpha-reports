@@ -27,10 +27,9 @@
                ? message.EnableJackpotProductIds
                : message.UserSelectedProductIds.ToListInt();
 
-            var productIds = productService.FilterProductIdsByCustomer(
+            var productIds = productService.GetProgressiveJackpotProduct(
                 message.CustId,
-                userSelectedProductIds,
-                message.MinDate);
+                userSelectedProductIds).Select(i=>i.Id);
 
             return new ProgressiveContributionParam(
                 message.CustId,

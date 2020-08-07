@@ -31,7 +31,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.FilterProductsByCustomer(message.CustId, message.EnableJackpotProductIds, message.MinDate);
+            var products = productService.GetProgressiveJackpotProduct(message.CustId, message.EnableJackpotProductIds);
 
             var param = CreateProgressiveContributionParam(message);
             var progressiveContributions = progressiveContributionService.GetProgressiveContributions(param);

@@ -11,6 +11,8 @@
 
     public interface ProductService
     {
+        IEnumerable<Product> GetProgressiveJackpotProduct(int custId, IEnumerable<int> progressiveJackpotproductIds);
+
         IEnumerable<Product> GetProductsForCustomer(int custId, DateTime? minReportDate = null);
 
         IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null);
@@ -44,6 +46,13 @@
             this.dynamicRepository = dynamicRepository;
             this.canViewProduct = canViewProduct;
             this.getProductName = getProductName;
+        }
+
+        public IEnumerable<Product> GetProgressiveJackpotProduct(int custId, IEnumerable<int> progressiveJackpotproductIds)
+        {
+            var offeredProducts = progressiveJackpotproductIds.Where(i => canViewProduct(i));
+            
+            return offeredProducts.Select(i => new Product(i, getProductName(i), null, 0, i, getProductName));
         }
 
         public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime? minReportDate = null)
