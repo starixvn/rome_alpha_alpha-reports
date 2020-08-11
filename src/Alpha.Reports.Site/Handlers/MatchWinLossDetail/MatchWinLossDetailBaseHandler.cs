@@ -42,11 +42,15 @@
             var productIds = supportedProducts.Select(product => product.Id);
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 query.CustId,
+                query.Site,
+                query.CurrencyId,
                 query.UserSelectedProductIds.ToListInt())
                 .Where(product => productIds.Contains(product));
 
             return new MatchWinLossDetailParam(
                  query.CustId,
+                 query.Site,
+                 query.CurrencyId,
                  query.FromDate,
                  query.ToDate,
                  query.LimitedDateToShowInfo,

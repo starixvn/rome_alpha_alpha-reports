@@ -77,7 +77,7 @@
             productServiceImpl = new ProductServiceImpl(dynamicRepository, null, null);
 
             // Act
-            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, productIds);
+            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -98,7 +98,7 @@
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
 
             // Act
-            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, productIds);
+            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -115,7 +115,7 @@
             var expectedProductIds = Enumerable.Empty<int>();
 
             // Act
-            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, productIds);
+            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -136,7 +136,7 @@
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
 
             // Act
-            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, productIds);
+            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -156,7 +156,7 @@
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
 
             // Act
-            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, productIds);
+            var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -241,7 +241,7 @@
             });
 
             // Act
-            var actualProducts = productServiceImpl.FilterProductsByCustomer(custId, productIds.ToListInt());
+            var actualProducts = productServiceImpl.FilterProductsByCustomer(custId, "", 1, productIds.ToListInt());
 
             // Assert
             AssertExtension.Equal(expectProductIds.ToListInt(), actualProducts.Select(product => product.Id).ToList());
@@ -255,7 +255,7 @@
             var expectProducts = new List<byte> { 1, 2 };
 
             // Act
-            var actualProducts = productServiceImpl.GetProductsNeedDelayTimeToSumarizeDataByCustomer();
+            var actualProducts = productServiceImpl.GetProductsNeedDelayTimeToSumarizeDataByCustomer(string.Empty, 1);
 
             // Assert
             Assert.Equal(expectProducts, actualProducts);
@@ -273,7 +273,7 @@
             fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-1", out cachedProducts).Returns(true);
 
             // Act
-            var actualValue = productServiceImpl.IsShowProduct(1, 33);
+            var actualValue = productServiceImpl.IsShowProduct(1, "", 1, 33);
 
             // Assert
             Assert.False(actualValue);
@@ -291,10 +291,46 @@
             fanexCacheFixture.CacheForTesting.TryGet($"{ProductCacheKey}-2", out cachedProducts).Returns(true);
 
             // Act
-            var actualValue = productServiceImpl.IsShowProduct(2, 33);
+            var actualValue = productServiceImpl.IsShowProduct(2, "", 1, 33);
 
             // Assert
             Assert.False(actualValue);
+        }
+
+        [Fact]
+        public void CanViewBySite_NonOfferedProduct_ReturnFalse()
+        {
+            // Arrange
+            var site = "IBCINdo";
+            var products = new List<ProductBySiteModel>() { new ProductBySiteModel(22), new ProductBySiteModel(23) };
+            IEnumerable<ProductBySiteModel> cachedProducts;
+            fanexCacheFixture.CacheForTesting.TryGet($"Alpha.Reports.Services.Impl.ProductsBySite-{site}", out cachedProducts).Returns(false);
+
+            dynamicRepository.Fetch<ProductBySiteModel>(Arg.Any<GetOfferedProductsBySiteCriteria>()).Returns(products);
+
+            // Act
+            var act = productServiceImpl.CanViewBySite(site, 1, 21);
+
+            // Assert
+            Assert.False(act);
+        }
+
+        [Fact]
+        public void CanViewBySite_OfferedProduct_ReturnTrue()
+        {
+            // Arrange
+            var site = "IBCINdo";
+            var products = new List<ProductBySiteModel>() { new ProductBySiteModel(22), new ProductBySiteModel(23) };
+            IEnumerable<ProductBySiteModel> cachedProducts;
+            fanexCacheFixture.CacheForTesting.TryGet($"Alpha.Reports.Services.Impl.ProductsBySite-{site}", out cachedProducts).Returns(false);
+
+            dynamicRepository.Fetch<ProductBySiteModel>(Arg.Any<GetOfferedProductsBySiteCriteria>()).Returns(products);
+
+            // Act
+            var act = productServiceImpl.CanViewBySite(site, 1, 23);
+
+            // Assert
+            Assert.True(act);
         }
     }
 }

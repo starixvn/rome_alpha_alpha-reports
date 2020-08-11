@@ -9,6 +9,8 @@
     {
         public MatchWinLossDetailParam(
             int custId,
+            string site,
+            int currencyId,
             DateTime fromDate,
             DateTime toDate,
             DateTime limitedDate,
@@ -17,6 +19,8 @@
             UserLevel reportLevel)
         {
             CustId = custId;
+            Site = site;
+            CurrencyId = currencyId;
             FromDate = fromDate == DateTime.MinValue ? SystemTime.Today : fromDate;
             ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
             UserSelectedLeagueIds = userSelectedLeagueIds;
@@ -26,6 +30,10 @@
         }
 
         public int CustId { get; }
+
+        public string Site { get; }
+
+        public int CurrencyId { get; }
 
         public DateTime FromDate { get; }
 

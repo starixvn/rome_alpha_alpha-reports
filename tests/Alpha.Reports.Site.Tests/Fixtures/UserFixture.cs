@@ -13,6 +13,7 @@
             User.Name.Returns("Name");
             User.Language.Returns("en-US");
             User.CurrencyName.Returns("USS");
+            User.CurrencyId.Returns(1);
         }
 
         public IUser User { get; private set; }

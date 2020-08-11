@@ -32,11 +32,15 @@
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
+                message.Site,
+                message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
 
             return new WinLossParam(
                  message.CustId,
+                 message.Site,
+                 message.CurrencyId,
                  message.FromDate,
                  message.ToDate,
                  message.LimitedDateToShowInfo,

@@ -27,6 +27,8 @@
             // Arrange
             var param = new MatchWinLossDetailParam(
                 anyValueCreator.Create<int>(),
+                anyValueCreator.Create<string>(),
+                anyValueCreator.Create<int>(),
                 DateTime.MinValue,
                 anyValueCreator.Create<DateTime>(),
                 DateTime.MinValue,
@@ -49,6 +51,8 @@
             var fromDate = anyValueCreator.Create<DateTime>();
             var param = new MatchWinLossDetailParam(
                 anyValueCreator.Create<int>(),
+                anyValueCreator.Create<string>(),
+                anyValueCreator.Create<int>(),
                 fromDate,
                 anyValueCreator.Create<DateTime>(),
                 DateTime.MinValue,
@@ -69,6 +73,8 @@
         {
             // Arrange
             var param = new MatchWinLossDetailParam(
+                anyValueCreator.Create<int>(),
+                anyValueCreator.Create<string>(),
                 anyValueCreator.Create<int>(),
                 anyValueCreator.Create<DateTime>(),
                 DateTime.MinValue,
@@ -91,6 +97,8 @@
             // Arrange
             var toDate = anyValueCreator.Create<DateTime>();
             var param = new MatchWinLossDetailParam(
+                anyValueCreator.Create<int>(),
+                anyValueCreator.Create<string>(),
                 anyValueCreator.Create<int>(),
                 anyValueCreator.Create<DateTime>(),
                 toDate,

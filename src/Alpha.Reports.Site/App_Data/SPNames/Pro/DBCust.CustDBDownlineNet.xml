@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Functions>
+  <Function Name="Product">
+    <Setting Key="Acc_CustSetting_CheckPGSoftEnable" SpName="Acc_CustSetting_CheckPGSoftEnable" DbName="DBCust.CustDB.BODBDownlineNet" Plain="0" />
+  </Function>
+</Functions>

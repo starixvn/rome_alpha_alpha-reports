@@ -9,6 +9,8 @@
 
         string Name { get; }
 
+        string Site { get; }
+
         byte LevelId { get; }
 
         string Language { get; }
@@ -16,6 +18,8 @@
         string LanguageKey { get; }
 
         string CurrencyName { get; }
+
+        int CurrencyId { get; }
 
         bool IsShowConsolidatedReport { get; }
 

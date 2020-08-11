@@ -34,6 +34,8 @@
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
+                message.Site,
+                message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
 

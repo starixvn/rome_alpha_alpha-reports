@@ -1,10 +1,13 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
     using System.Collections.Generic;
+    using Alpha.Reports.Models;
     using MediatR;
 
-    public class ReportLegendQuery : IRequest<IEnumerable<string>>
+    public class ReportLegendQuery : ReportBaseQuery, IRequest<IEnumerable<string>>
     {
-        public int CustId { get; set; }
+        public ReportLegendQuery(IUser viewer) : base(viewer)
+        {
+        }
     }
 }

@@ -21,7 +21,7 @@
         public IEnumerable<string> Handle(ReportLegendQuery message)
         {
             var result = new List<string>();
-            var products = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Select(product => (int)product);
+            var products = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.Site, message.CurrencyId).Select(product => (int)product);
 
             if (products.Any())
             {

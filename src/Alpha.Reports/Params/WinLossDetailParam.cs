@@ -9,6 +9,8 @@
     {
         public WinLossDetailParam(
             int custId,
+            string site,
+            int currencyId,
             int pageIndex,
             int pageSize,
             DateTime fromDate,
@@ -19,7 +21,7 @@
             string sortByPropertyName,
             bool isDescendingSort,
             bool isHistoricReport)
-            : base(custId, fromDate, toDate, limitedDate, userSelectedProductIds, reportLevel, isHistoricReport)
+            : base(custId, site, currencyId, fromDate, toDate, limitedDate, userSelectedProductIds, reportLevel, isHistoricReport)
         {
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;

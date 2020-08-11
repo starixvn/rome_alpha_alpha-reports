@@ -23,6 +23,8 @@
 
         public string Name => userSession.UserName;
 
+        public string Site => userSession.Site;
+
         public string Language => userSession.Language;
 
         public byte LevelId => userSession.RoleId;
@@ -30,6 +32,8 @@
         public string LanguageKey => userSession.LangKey;
 
         public string CurrencyName => userSession.Currency;
+
+        public int CurrencyId => userSession.CurrencyId;
 
         public bool IsShowConsolidatedReport => userSession.IsShowConsolidatedReport;
 

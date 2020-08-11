@@ -12,6 +12,8 @@
 
         public WinLossAnalysisChartParam(
             int custId,
+            string site,
+            int currencyId,
             DateTime fromDate,
             DateTime toDate,
             DateTime limitedDate,
@@ -19,6 +21,8 @@
             UserLevel custLevel)
         {
             CustId = custId;
+            Site = site;
+            CurrencyId = currencyId;
             CustLevel = custLevel;
             FromDate = fromDate == DateTime.MinValue ? SystemTime.Today.AddMonths(DefaultPreviousMonths).FirstDayOfMonth() : fromDate.FirstDayOfMonth();
             ToDate = (toDate == DateTime.MinValue || toDate.IsSameMonthWith(SystemTime.Today))
@@ -28,6 +32,10 @@
         }
 
         public int CustId { get; }
+
+        public string Site { get; }
+
+        public int CurrencyId { get; }
 
         public DateTime FromDate { get; }
 

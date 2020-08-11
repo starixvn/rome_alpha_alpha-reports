@@ -24,12 +24,14 @@
             // Arrange
             int custId = 1;
             var param = new WinLossAnalysisParam(
-                custId: custId, 
-                reportType: 2, 
-                fromDate: currentDate, 
-                toDate: currentDate, 
+                custId: custId,
+                site: "",
+                currencyId: 1,
+                reportType: 2,
+                fromDate: currentDate,
+                toDate: currentDate,
                 limitedDate: DateTime.MinValue,
-                userSelectedProductIds: Enumerable.Empty<int>(), 
+                userSelectedProductIds: Enumerable.Empty<int>(),
                 custLevel: UserLevel.Super);
 
             // Act
@@ -45,6 +47,8 @@
             // Arrange
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                site: "",
+                currencyId: 1,
                 reportType: 2,
                 fromDate: DateTime.MinValue,
                 toDate: currentDate,
@@ -67,6 +71,8 @@
             // Arrange
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                site: "",
+                currencyId: 1,
                 reportType: 2,
                 fromDate: DateTime.MinValue,
                 toDate: DateTime.MinValue,
@@ -91,6 +97,8 @@
 
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                site: "",
+                currencyId: 1,
                 reportType: 2,
                 fromDate: DateTime.MinValue,
                 toDate: toDate,
@@ -113,6 +121,8 @@
             // Arrange
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                site: "",
+                currencyId: 1,
                 reportType: 2,
                 fromDate: DateTime.MinValue,
                 toDate: DateTime.MinValue,
@@ -140,6 +150,8 @@
 
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                site: "",
+                currencyId: 1,
                 reportType: 2,
                 fromDate: DateTime.MinValue,
                 toDate: DateTime.MinValue,

@@ -63,6 +63,8 @@
             // Arrange
             var param = new MatchWinLossDetailParam(
                 anyValueCreatorFixture.Create<int>(),
+                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<int>(),
                 DefaultVariablesTest.CurrentDate,
                 DefaultVariablesTest.CurrentDate,
                 DateTime.MinValue,
@@ -76,7 +78,7 @@
             var moveBetsDate = anyValueCreatorFixture.Create<DateTime>();
             reportDateService.GetMoveBetsDay().Returns(moveBetsDate);
             dynamicRepository.Fetch<int>(Arg.Any<ProductsForMatchWinLossDetailCriteria>()).Returns("1,2,3,5,26".ToListInt());
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(productIds.ToListInt());
+            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(productIds.ToListInt());
 
             // Act
             matchWinLossDetailServiceImpl.GetMatchWinLossDetail(param);
@@ -93,6 +95,8 @@
         public void GetMatchWinLossDetail_ValidParam_ReturnsDataFromDynamicRepository()
         {
             var param = new MatchWinLossDetailParam(
+                anyValueCreatorFixture.Create<int>(),
+                anyValueCreatorFixture.Create<string>(),
                 anyValueCreatorFixture.Create<int>(),
                 DefaultVariablesTest.CurrentDate,
                 DefaultVariablesTest.CurrentDate,
@@ -123,6 +127,8 @@
             var limitedDate = DefaultVariablesTest.CurrentDate.AddDays(1);
             var param = new MatchWinLossDetailParam(
                 anyValueCreatorFixture.Create<int>(),
+                anyValueCreatorFixture.Create<string>(),
+                anyValueCreatorFixture.Create<int>(),
                 DefaultVariablesTest.CurrentDate,
                 DefaultVariablesTest.CurrentDate.AddDays(1),
                 limitedDate,
@@ -143,13 +149,13 @@
             // Arrange
             var expectedProducts = anyValueCreatorFixture.Create<IEnumerable<Product>>();
 
-            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
                 .Returns(expectedProducts);
 
             var param = anyValueCreatorFixture.Create<MatchWinLossDetailParam>();
 
             // Act
-            var actualProducts = matchWinLossDetailServiceImpl.GetProductsForCustomer(param.CustId);
+            var actualProducts = matchWinLossDetailServiceImpl.GetProductsForCustomer(param.CustId, param.Site, param.CurrencyId);
 
             // Assert
             AssertExtension.Equal(expectedProducts, actualProducts);
