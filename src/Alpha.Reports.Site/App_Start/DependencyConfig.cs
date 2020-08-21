@@ -121,7 +121,7 @@
             container.Register<CommissionByBettypeWorkbook, CommissionByBettypeWorkbookImpl>();
             container.RegisterSingleton<LeagueService, LeagueServiceImpl>();
             container.RegisterSingleton<WinLossByProductWorkbook, WinLossByProductWorkbookImpl>();
-            container.RegisterSingleton<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();
+            container.Register<MatchWinLossDetailWorkbook, MatchWinLossDetailWorkbookImpl>();
 
             container.RegisterSingleton<StatementService, StatementServiceImpl>();
             container.RegisterSingleton<MemberStatementWorkbook, MemberStatementWorkbookImpl>();
