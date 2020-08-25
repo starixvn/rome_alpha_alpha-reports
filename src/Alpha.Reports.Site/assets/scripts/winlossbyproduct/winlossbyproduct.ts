@@ -1,6 +1,7 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/productdetail-multiselection.ts" />
 /// <reference path="../components/tooltip.ts" />
 
 "use strict";
@@ -315,7 +316,7 @@ class WinLossByProductView extends BaseReport {
 const winLossByProductView = new WinLossByProductView(
     $,
     new DateRangePickerComponent($),
-    new ProductMultiSelectionComponent($),
+    new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
     new ReportTooltip($),
     new LinkBuilderComponent($));
 

@@ -816,4 +816,10 @@
   <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
     <value>- For {0}, Net Turnover is total valid bets that we use to compute commission.</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="SelectNone" xml:space="preserve">
+    <value>Select none</value>
+  </data>
 </root>

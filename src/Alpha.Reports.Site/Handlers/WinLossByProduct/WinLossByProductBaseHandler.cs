@@ -6,7 +6,6 @@
     using App_Start;
     using Extensions;
     using Params;
-    using Reports.Models;
     using Reports.Models.WinlossByBetType;
     using Reports.Models.WinLossByProduct;
     using Requests.WinLossByProduct;
@@ -20,12 +19,18 @@
     public class WinLossByProductBaseHandler : BaseHandler
     {
         protected readonly ProductService productService;
+        protected readonly ProductDetailService productDetailService;
         protected readonly WinLossByProductService reportService;
         protected readonly CacheRefService cacheRefService;
 
-        public WinLossByProductBaseHandler(WinLossByProductService reportService, ProductService productService, CacheRefService cacheRefService)
+        public WinLossByProductBaseHandler(
+            WinLossByProductService reportService,
+            ProductService productService,
+            ProductDetailService productDetailService,
+            CacheRefService cacheRefService)
         {
             this.productService = productService;
+            this.productDetailService = productDetailService;
             this.reportService = reportService;
             this.cacheRefService = cacheRefService;
         }
@@ -38,13 +43,18 @@
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
+            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
+                message.CustId,
+                message.UserSelectedResourceIds);
 
             return new WinLossByProductParam(
                 message.CustId,
                 message.FromDate,
                 message.ToDate,
                 validUserSelectedProductIds,
-                message.CustLevel);
+                validUserSelectedResourceIds,
+                message.CustLevel,
+                productDetailService.BuildProductDetailsXML(message.CustId, validUserSelectedProductIds, validUserSelectedResourceIds));
         }
 
         internal WinLossByBetTypeModel AccumulateGrandTotal(IEnumerable<WinLossByProductModel> reportData)

@@ -50,7 +50,8 @@
                message,
                fixture.Create<WinLossByProductParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<GroupProductViewModel>());
+               Enumerable.Empty<GroupProductViewModel>(),
+               Enumerable.Empty<ProductDetailViewModel>());
             var expectedTitle = "Win Loss By Product";
             
             // Act & Assert
@@ -73,7 +74,8 @@
                message,
                fixture.Create<WinLossByProductParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<GroupProductViewModel>());
+               Enumerable.Empty<GroupProductViewModel>(),
+               Enumerable.Empty<ProductDetailViewModel>());
 
             // Act & Assert
             Assert.Equal(winlossByBettypeViewModel.CustLevelName, expectedCustLevelName);
@@ -95,7 +97,8 @@
                message,
                fixture.Create<WinLossByProductParam>(),
                fixture.Create<Func<int, BetType, string, bool, string>>(),
-               Enumerable.Empty<GroupProductViewModel>());
+               Enumerable.Empty<GroupProductViewModel>(),
+               Enumerable.Empty<ProductDetailViewModel>());
 
             // Act & Assert
             Assert.Equal(winlossByBettypeViewModel.DownLineLevelName, expectedDownLineLevelName);

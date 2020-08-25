@@ -5,6 +5,8 @@
 
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
+    @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
+
     @DateRangePicker.Render(Model.DateRangePickerViewModel)
 
     <div id="icon-information-container" class="form-group hide">
@@ -21,6 +23,7 @@
 
     @helper RenderHiddenFields()
     {
+        /**/
         @Html.Hidden("IsFilterVisible", Model.Visible)
 
         @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)

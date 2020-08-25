@@ -65,7 +65,7 @@ class ProgressiveContributionView extends BaseReport {
     };
 
     bindFilter = () => {
-        this.productMultiSelectionComponent.render();
+        this.productMultiSelectionComponent.render(undefined);
         this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
 
         if (this.$isSetDefaultStackMode.val().toString().toLowerCase() === "true"

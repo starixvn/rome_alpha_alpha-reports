@@ -15,5 +15,6 @@
         public const int GTCasino = 46;
         public const int ION = 52;
         public const int BBin = 47;
+        public const int SabaClub = 42;
     }
 }

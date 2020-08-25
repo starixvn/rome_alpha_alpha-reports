@@ -14,6 +14,8 @@
 
         public string UserSelectedProductIds { get; set; }
 
+        public string UserSelectedResourceIds { get; set; }
+
         public bool IsStackMode { get; set; }
 
         public string SortPropertyName { get; set; }

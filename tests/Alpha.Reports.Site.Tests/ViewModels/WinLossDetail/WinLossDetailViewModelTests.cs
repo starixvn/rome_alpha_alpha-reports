@@ -58,6 +58,7 @@
                 ["FromDate"] = fromDate,
                 ["ToDate"] = toDate,
                 ["ProductIds"] = "1",
+                ["ResourceIds"] = "1",
                 ["CustId"] = 1,
                 ["CustName"] = "CustName",
                 ["IsGroupHeadline"] = false
@@ -118,6 +119,7 @@
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, null),
                 null,
+                null,
                 null);
 
             // Act
@@ -142,6 +144,7 @@
                 new WinLossDetailQuery(user),
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 CreatePagedReportData(),
+                null,
                 null,
                 null);
 
@@ -177,6 +180,7 @@
                 },
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 CreatePagedReportData(),
+                null,
                 null,
                 null);
 
@@ -243,6 +247,7 @@
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 CreatePagedReportData(),
                 null,
+                null,
                 null);
 
             // Act
@@ -270,10 +275,12 @@
 
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 message,
-                new WinLossDetailParam(0, "", 1, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), message.CustLevel, sortPropertyName, false, false),
+                new WinLossDetailParam(
+                    0, string.Empty, 1, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), Enumerable.Empty<int>(), message.CustLevel, sortPropertyName, false, false, string.Empty),
                 new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<GroupProductViewModel>());
+                Enumerable.Empty<GroupProductViewModel>(),
+                Enumerable.Empty<ProductDetailViewModel>());
             var expectedSortPropertyName = sortPropertyName;
 
             // Act
@@ -299,10 +306,12 @@
 
             var winLossDetailViewModel = new WinLossDetailViewModel(
                 message,
-                new WinLossDetailParam(0, "", 1, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), message.CustLevel, "CustName", isDescendingSort, false),
+                new WinLossDetailParam(
+                    0, string.Empty, 1, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), Enumerable.Empty<int>(), message.CustLevel, "CustName", isDescendingSort, false, string.Empty),
                 new PagedReportData<WinLossDetailModel>(reportData, 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<GroupProductViewModel>());
+                Enumerable.Empty<GroupProductViewModel>(),
+                Enumerable.Empty<ProductDetailViewModel>());
             var expectedIsDescendingSort = isDescendingSort;
 
             // Act
@@ -325,7 +334,7 @@
         private static WinLossDetailViewModel CreateWinLossDetailViewModel(DateTime fromDate, DateTime toDate, WinLossDetailQuery message)
             => Substitute.ForPartsOf<WinLossDetailViewModel>(
                 message,
-                new WinLossDetailParam(0, "", 1, 0, 0, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, message.CustLevel, "CustName", false, false),
+                new WinLossDetailParam(0, string.Empty, 1, 0, 0, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, new List<int> { 1 }, message.CustLevel, "CustName", false, false, string.Empty),
                 new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel)),
                 Enumerable.Empty<CustInfo>(),
                 new List<GroupProductViewModel>
@@ -334,6 +343,11 @@
                     {
                         new SelectListItem { Value = AllBetProductId.ToString() }
                     })
+                },
+                new List<ProductDetailViewModel>
+                {
+                    new ProductDetailViewModel(42, 1, "A", true),
+                    new ProductDetailViewModel(42, 2, "B", true)
                 },
                 false);
 

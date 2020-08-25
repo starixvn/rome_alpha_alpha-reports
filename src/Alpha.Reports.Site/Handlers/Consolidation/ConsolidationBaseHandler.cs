@@ -23,17 +23,20 @@
         protected readonly CacheRefService cacheRefService;
         protected readonly WinLossDetailService winLossDetailService;
         protected readonly IUser viewer;
+        protected readonly ProductDetailService productDetailService;
 
         public ConsolidationBaseHandler(
             ConsolidationService reportService,
             CacheRefService cacheRefService,
             WinLossDetailService winLossDetailService,
-            IUser viewer)
+            IUser viewer,
+            ProductDetailService productDetailService)
         {
             this.reportService = reportService;
             this.cacheRefService = cacheRefService;
             this.winLossDetailService = winLossDetailService;
             this.viewer = viewer;
+            this.productDetailService = productDetailService;
         }
 
         protected GetConsolidationParam CreateParameter(GetConsolidationQuery message)
@@ -44,13 +47,18 @@
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
+            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
+                message.CustId,
+                message.UserSelectedResourceIds);
 
             return new GetConsolidationParam(
                  message.CustId,
                  message.UserSelectedCurrencyId,
                  message.FromDate.GetGreaterDate(message.LimitedDateToShowInfo),
                  message.ToDate,
-                 validUserSelectedProductIds);
+                 validUserSelectedProductIds,
+                 validUserSelectedResourceIds,
+                 productDetailService.BuildProductDetailsXML(message.CustId, validUserSelectedProductIds, validUserSelectedResourceIds));
         }
 
         protected IEnumerable<ConsolidationByUsernameViewModel> BuildWinLossByUsernameViewModel(
@@ -112,6 +120,7 @@
             => new WinLossDetailQuery(viewer)
             {
                 UserSelectedProductIds = message.UserSelectedProductIds,
+                UserSelectedResourceIds = message.UserSelectedResourceIds,
                 SortPropertyName = message.SortPropertyName,
                 IsDescendingSort = message.IsDescendingSort,
                 IsStackMode = message.IsStackMode,
@@ -130,6 +139,7 @@
         {
             var validUserSelectedProductIds =
                reportService.FilterProductIdsByCustomer(query.ViewerId, query.Site, query.CurrencyId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
+            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(query.ViewerId, query.UserSelectedResourceIds);
 
             return new WinLossDetailParam(
                 query.CustId,
@@ -141,10 +151,12 @@
                 query.ToDate,
                 query.LimitedDateToShowInfo,
                 validUserSelectedProductIds,
+                validUserSelectedResourceIds,
                 query.CustLevel,
                 query.SortPropertyName,
                 query.IsDescendingSort,
-                query.IsHistoricReport);
+                query.IsHistoricReport,
+                productDetailService.BuildProductDetailsXML(query.ViewerId, validUserSelectedProductIds, validUserSelectedResourceIds));
         }
     }
 }

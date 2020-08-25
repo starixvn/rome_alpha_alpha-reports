@@ -22,12 +22,16 @@ class ProductMultiSelectionComponent {
     $excludeHiddenInput: JQuery;
 
     options = new ProductMultiSelectionOption();
+    productDetailMultiSelectionComponent: ProductDetailMultiSelectionComponent;
 
-    constructor($: JQueryStatic) {
+    constructor($: JQueryStatic, productDetailMultiSelectionComponent: ProductDetailMultiSelectionComponent = undefined) {
         this.$ = $;
+        this.productDetailMultiSelectionComponent = productDetailMultiSelectionComponent;
     }
 
     render = (options: ProductMultiSelectionOption = new ProductMultiSelectionOption()) => {
+        this.productDetailMultiSelectionComponent && this.productDetailMultiSelectionComponent.render();
+
         this.options = <ProductMultiSelectionOption>this.$.extend({}, this.options, options);
 
         this.$dropdownProduct = this.$("#" + this.options.dropdownId);
@@ -69,6 +73,12 @@ class ProductMultiSelectionComponent {
     onChange = (option: any, checked: boolean) => {
         this.validate();
         this.$hiddenInput.val(this.getSelectedItems().join(","));
+
+        if (this.productDetailMultiSelectionComponent) {
+            typeof option === "boolean"
+                ? this.productDetailMultiSelectionComponent.disableAllOptions(option)
+                : this.productDetailMultiSelectionComponent.disableOptions(checked, option.context.value);
+        }
 
         if (this.options.onChange) {
             this.options.onChange();

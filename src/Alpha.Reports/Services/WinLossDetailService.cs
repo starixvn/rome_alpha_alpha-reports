@@ -49,7 +49,8 @@
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
                 validUserSelectedProductIds,
-                param.ReportLevel);
+                param.ReportLevel,
+                param.ProductDetailsXML);
 
             var winLossDetailData = dataAccess.GetData(criteria);
 

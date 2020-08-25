@@ -32,6 +32,7 @@
         {
             var productService = Substitute.For<ProductService>();
             productService.ConcatProductNames(Arg.Any<string>()).Returns("Product Name");
+            var productDetailService = Substitute.For<ProductDetailService>();
 
             reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             var reportService = Substitute.For<WinLossDetailService>();
@@ -46,7 +47,7 @@
             workbook.Sheet(Arg.Any<string>()).Returns(workbook);
 
             this.userFixture = userFixture;
-            winLossDetailExcelHandler = Substitute.ForPartsOf<WinLossDetailExcelHandler>(productService, reportService, workbook);
+            winLossDetailExcelHandler = Substitute.ForPartsOf<WinLossDetailExcelHandler>(productService, productDetailService, reportService, workbook);
             winLossDetailExcelHandler.MapPath = (path) => path;
             winLossDetailExcelHandler.IsFileExist = (path) => true;
             SystemTime.Today = DefaultVariablesTest.CurrentDate;

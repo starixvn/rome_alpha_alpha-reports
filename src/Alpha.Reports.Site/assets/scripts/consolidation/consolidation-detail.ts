@@ -1,6 +1,7 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../base-report.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/productdetail-multiselection.ts" />
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/tooltip.ts" />
 /// <reference path="../components/pager.ts" />
@@ -272,7 +273,7 @@ $(() => {
     const linkBuilderComponent = new LinkBuilderComponent($);
     const consolidationDetailView = new ConsolidationDetailView(
         $,
-        new ProductMultiSelectionComponent($),
+        new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
         new DateRangePickerComponent($),
         new ReportTooltip($),
         linkBuilderComponent,

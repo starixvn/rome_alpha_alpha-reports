@@ -3,6 +3,7 @@
 /// <reference path="../components/monthpicker.ts" />
 /// <reference path="../components/tooltip.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/productdetail-multiselection.ts" />
 /// <reference path="../components/sort.ts" />
 /// <reference path="../components/link-builder.ts" />
 
@@ -350,7 +351,7 @@ $(function () {
     const winLossView = new WinLossView(
         $,
         new DateRangePickerComponent($),
-        new ProductMultiSelectionComponent($),
+        new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
         new SortComponent($, linkBuilderComponent),
         new ReportTooltip($),
         new MonthPickerComponent($),

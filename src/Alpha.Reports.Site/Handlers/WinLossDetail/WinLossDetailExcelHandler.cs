@@ -22,8 +22,9 @@
 
         public WinLossDetailExcelHandler(
             ProductService productService,
+            ProductDetailService productDetailService,
             WinLossDetailService reportService,
-            Workbook<WinLossDetailModel> workbook) : base(productService, reportService)
+            Workbook<WinLossDetailModel> workbook) : base(productService, productDetailService, reportService)
         {
             this.workbook = workbook;
         }

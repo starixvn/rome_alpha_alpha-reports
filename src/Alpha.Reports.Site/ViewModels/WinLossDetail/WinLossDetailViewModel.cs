@@ -18,8 +18,9 @@
             PagedReportData<WinLossDetailModel> reportData,
             IEnumerable<CustInfo> breadcrumbLevel,
             IEnumerable<GroupProductViewModel> groupProducts,
+            IEnumerable<ProductDetailViewModel> productsDetails,
             bool isGroupHeadline = false)
-            : base(message, param, breadcrumbLevel, groupProducts)
+            : base(message, param, breadcrumbLevel, groupProducts, productsDetails)
         {
             Title = GetReportNameByLevel(message.CustLevel);
             PageIndex = message.PageIndex;

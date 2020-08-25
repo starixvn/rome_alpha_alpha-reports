@@ -20,6 +20,7 @@
             GetConsolidationQuery message,
             GetConsolidationParam param,
             IEnumerable<GroupProductViewModel> groupProducts,
+            IEnumerable<ProductDetailViewModel> productDetails,
             IEnumerable<SelectListItem> currencies,
             IEnumerable<T> reportData)
         {
@@ -27,6 +28,7 @@
             this.param = param;
 
             GroupProducts = groupProducts;
+            ProductDetails = productDetails;
             Currencies = currencies;
             ReportData = reportData;
         }
@@ -48,6 +50,9 @@
         public string UserSelectedProductIds
             => param.ProductIds.JoinWithComma();
 
+        public string UserSelectedResourceIds
+            => param.ResourceIds.JoinWithComma();
+
         public int UserSelectedCurrencyId => message.UserSelectedCurrencyId;
 
         public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
@@ -62,6 +67,8 @@
 
         public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
+        public IEnumerable<ProductDetailViewModel> ProductDetails { get; }
+
         public IEnumerable<SelectListItem> Currencies { get; }
 
         public IEnumerable<T> ReportData { get; }
@@ -71,6 +78,9 @@
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);
+
+        private ProductDetailMultiSelectionViewModel ProductDetailMultiSelectionViewModel =>
+            new ProductDetailMultiSelectionViewModel(ProductDetails, UserSelectedResourceIds, Language);
 
         private CurrencySelectionViewModel CurrencySelectionViewModel =>
             new CurrencySelectionViewModel(Currencies, UserSelectedCurrencyId);
@@ -84,6 +94,7 @@
               CustLevel,
               DateRangePickerViewModel,
               ProductMultiSelectionViewModel,
+              ProductDetailMultiSelectionViewModel,
               CurrencySelectionViewModel);
 
         public string BuildDrillDownLink(
@@ -111,6 +122,7 @@
 
                 ["UserSelectedCurrencyId"] = UserSelectedCurrencyId,
                 ["UserSelectedProductIds"] = drilldownFromProductIds ?? UserSelectedProductIds,
+                ["UserSelectedResourceIds"] = drilldownFromProductIds ?? UserSelectedResourceIds,
 
                 ["IsStackMode"] = IsStackMode,
                 ["IsFilterVisible"] = IsFilterVisible,
@@ -122,7 +134,8 @@
                 ["ConsolidationFromDate"] = FromDate,
                 ["ConsolidationToDate"] = ToDate,
                 ["ConsolidationUserSelectedDateRangeOption"] = UserSelectedDateRangeOption,
-                ["ConsolidationProductIds"] = UserSelectedProductIds
+                ["ConsolidationProductIds"] = UserSelectedProductIds,
+                ["ConsolidationResourceIds"] = UserSelectedResourceIds
             };
 
             return ReportHelpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(drilldownLink, routeValues);
@@ -138,6 +151,7 @@
                 ["FromDate"] = drilldownDate ?? FromDate,
                 ["ToDate"] = drilldownDate ?? ToDate,
                 ["ProductIds"] = drilldownFromProductIds ?? UserSelectedProductIds,
+                ["ResourceIds"] = drilldownFromProductIds ?? UserSelectedResourceIds,
                 ["FilterPostback"] = 1,
                 ["CustId"] = data.CustId,
                 ["CustName"] = data.Username,

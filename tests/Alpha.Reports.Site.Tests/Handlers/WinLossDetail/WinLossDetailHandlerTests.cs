@@ -25,6 +25,7 @@
     public class WinLossDetailHandlerTests
     {
         private readonly ProductService productService;
+        private readonly ProductDetailService productDetailService;
         private readonly WinLossDetailHandler winLossDetailHandler;
         private readonly UserFixture userFixture;
         private readonly PagedReportData<WinLossDetailModel> reportData;
@@ -33,13 +34,14 @@
         {
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string> { "Product Name" });
+            productDetailService= Substitute.For<ProductDetailService>();
 
             reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             var reportService = Substitute.For<WinLossDetailService>();
             reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(reportData);
 
             this.userFixture = userFixture;
-            winLossDetailHandler = new WinLossDetailHandler(productService, reportService, userFixture.User);
+            winLossDetailHandler = new WinLossDetailHandler(productService, productDetailService, reportService, userFixture.User);
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
@@ -86,17 +88,20 @@
                 DefaultVariablesTest.CurrentDate,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
                 message.CustLevel,
                 "CustName",
                 false,
-                false);
+                false,
+                string.Empty);
 
             var expectedWinLossDetailViewModel = new WinLossDetailViewModel(
                 message,
                 winLossDetailParam,
                 reportData,
                 new List<CustInfo> { new CustInfo(10, "Name", 4) },
-                Enumerable.Empty<GroupProductViewModel>());
+                Enumerable.Empty<GroupProductViewModel>(),
+                Enumerable.Empty<ProductDetailViewModel>());
 
             // Act
             var actualWinLossDetailViewModel = winLossDetailHandler.Handle(message);

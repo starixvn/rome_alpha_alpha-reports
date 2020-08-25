@@ -14,14 +14,18 @@
             DateTime balanceUpDay,
             DateTime moveBetsDay,
             IEnumerable<int> productIds,
-            UserLevel reportLevel)
+            UserLevel reportLevel,
+            string productDetails)
             : base(custId, fromDate, toDate, balanceUpDay, moveBetsDay, productIds)
         {
             ReportLevel = reportLevel;
+            ProductDetails = productDetails;
         }
 
         [SpParam(Ignored = true)]
         public UserLevel ReportLevel { get; }
+
+        public string ProductDetails { get; }
 
         public override string GetSettingKey()
             => ReportLevel.IsAgentLevel()

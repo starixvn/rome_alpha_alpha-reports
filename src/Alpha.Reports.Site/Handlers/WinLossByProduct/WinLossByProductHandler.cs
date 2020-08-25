@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossByProduct
 {
     using System;
-    using System.Linq;
     using MediatR;
     using Requests.WinLossByProduct;
     using Services;
@@ -14,8 +13,9 @@
         public WinLossByProductHandler(
             WinLossByProductService reportService,
             ProductService productService,
+            ProductDetailService productDetailService,
             CacheRefService cacheRefService)
-            : base(reportService, productService, cacheRefService)
+            : base(reportService, productService, productDetailService, cacheRefService)
         {
         }
 
@@ -27,6 +27,7 @@
             }
 
             var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var productDetails = productDetailService.GetProductDetails(message.CustId);
 
             var winLossByBettypeParam = CreateWinLossByBettypeParamater(message);
             var reportData = reportService.GetWinLossByProduct(winLossByBettypeParam);
@@ -38,7 +39,8 @@
                     message,
                     winLossByBettypeParam,
                     BuildDisplayedBetTypeName,
-                    BuildProductSelectListItems(winLossByBettypeParam.UserSelectedProductIds, products));
+                    BuildProductSelectListItems(winLossByBettypeParam.UserSelectedProductIds, products),
+                    BuildProductDetailViewModels(winLossByBettypeParam.UserSelectedResourceIds, productDetails));
         }
     }
 }

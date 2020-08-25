@@ -54,10 +54,12 @@
                 DateTime.Now,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
                 UserLevel.Super,
                 string.Empty,
                 false,
-                false);
+                false,
+                string.Empty);
 
             var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
             dataAccess.GetData(Arg.Any<WinLossDetailCriteria>()).Returns(reportData);
@@ -86,10 +88,12 @@
                  DateTime.Today.AddDays(1),
                 limitedDate,
                 Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
                 UserLevel.Super,
                 string.Empty,
                 false,
-                false);            
+                false,
+                string.Empty);            
 
             // Act
             winLossDetailServiceImpl.GetWinLossDetail(param);

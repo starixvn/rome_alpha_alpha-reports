@@ -1618,6 +1618,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to selected.
         /// </summary>
         public static string Selected {
@@ -1632,6 +1641,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string SelectLeague {
             get {
                 return ResourceManager.GetString("SelectLeague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select none.
+        /// </summary>
+        public static string SelectNone {
+            get {
+                return ResourceManager.GetString("SelectNone", resourceCulture);
             }
         }
         

@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using App_GlobalResources;
-    using Extensions;
     using MediatR;
     using Params.Consolidation;
     using Reports.Models;
@@ -25,14 +24,16 @@
             ConsolidationService reportService,
             CacheRefService cacheRefService,
             WinLossDetailService winLossDetailService,
-            IUser viewer) :
-            base(reportService, cacheRefService, winLossDetailService, viewer)
+            IUser viewer,
+            ProductDetailService productDetailService) :
+            base(reportService, cacheRefService, winLossDetailService, viewer, productDetailService)
         {
         }
 
         public ConsolidationReportByUsernameViewModel Handle(ConsolidationByUsernameQuery message)
         {
             var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var productDetails = productDetailService.GetProductDetails(message.CustId);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
             var param = CreateParameter(message);
@@ -42,6 +43,7 @@
                 message,
                 param,
                 BuildProductSelectListItems(param.ProductIds, consolidationExcludeProduct.Products),
+                BuildProductDetailViewModels(param.ResourceIds, productDetails),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
                 BuildWinLossByUsernameViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
 
@@ -51,6 +53,7 @@
         public ConsolidationReportByDateViewModel Handle(ConsolidationByDateQuery message)
         {
             var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var productDetails = productDetailService.GetProductDetails(message.CustId);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
             var param = CreateParameter(message);
@@ -60,6 +63,7 @@
                 message,
                 param,
                 BuildProductSelectListItems(param.ProductIds, consolidationExcludeProduct.Products),
+                BuildProductDetailViewModels(param.ResourceIds, productDetails),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
                 BuildWinLossByDateViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
 
@@ -69,6 +73,7 @@
         public ConsolidationReportByProductViewModel Handle(ConsolidationByProductQuery message)
         {
             var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var productDetails = productDetailService.GetProductDetails(message.CustId);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
             var param = CreateParameter(message);
@@ -78,6 +83,7 @@
                 message,
                 param,
                 BuildProductSelectListItems(param.ProductIds, consolidationExcludeProduct.Products),
+                BuildProductDetailViewModels(param.ResourceIds, productDetails),
                 BuildCurrencySelectListItems(currencies, message.UserSelectedCurrencyId),
                 BuildWinLossByProductViewModel(data, currencies.ToDictionary(c => c.Id, c => c.Name)));
 
@@ -90,6 +96,7 @@
             {
                 UserSelectedCurrencyId = message.UserSelectedCurrencyId,
                 UserSelectedProductIds = message.UserSelectedProductIds,
+                UserSelectedResourceIds = message.UserSelectedResourceIds,
                 IsStackMode = message.IsStackMode,
                 IsFilterVisible = message.IsFilterVisible,
                 UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
@@ -114,6 +121,7 @@
             ConsolidationByUsernameQuery query)
         {
             var products = reportService.GetProducts(new GetConslidationReportProductsParam(query.ViewerId, query.Site, query.CurrencyId, query.MinDate));
+            var productDetails = productDetailService.GetProductDetails(query.CustId);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(query.ViewerId));
 
             var param = CreateParameter(query);
@@ -122,6 +130,7 @@
                 query,
                 param,
                 BuildProductSelectListItems(param.ProductIds, products),
+                BuildProductDetailViewModels(param.ResourceIds, productDetails),
                 BuildCurrencySelectListItems(currencies, query.UserSelectedCurrencyId),
                 null);
 
@@ -139,6 +148,7 @@
                 param,
                 reportData,
                 GetConsolidationDetailBreadcrumbLevel(query),
+                null,
                 null,
                 isGroupHeadline: true);
         }

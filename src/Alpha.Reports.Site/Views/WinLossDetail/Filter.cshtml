@@ -5,9 +5,11 @@
 
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
+    @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
+
     @(Model.IsHistoricReport
-        ? MonthPicker.Render(Model.MonthPickerViewModel)
-        : DateRangePicker.Render(Model.DateRangePickerViewModel))
+                ? MonthPicker.Render(Model.MonthPickerViewModel)
+                : DateRangePicker.Render(Model.DateRangePickerViewModel))
 
     @if (Model.IsHistoricReport)
     {

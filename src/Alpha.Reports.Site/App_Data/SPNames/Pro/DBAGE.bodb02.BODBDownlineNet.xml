@@ -13,6 +13,7 @@
       <Mapping DataField="ProductID" ObjectProperty="id" />
       <Mapping DataField="ProductName" ObjectProperty="name" />
     </Setting>
+    <Setting Key="Age_Rpt_GetProductDetail" SpName="Age_Rpt_GetProductDetail" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Check Belonging">
     <Setting Key="Age_CustomerSelCheckBelonging" SpName="Age_CustomerSelCheckBelonging" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />

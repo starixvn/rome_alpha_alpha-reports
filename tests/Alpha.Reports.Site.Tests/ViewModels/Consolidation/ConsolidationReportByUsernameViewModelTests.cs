@@ -52,13 +52,14 @@
                 ToDate = DefaultVariablesTest.CurrentDate
             };
 
-            var param = new GetConsolidationParam(0, 0, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1 });
+            var param = new GetConsolidationParam(0, 0, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1 }, new List<int> { 1 }, string.Empty);
             var row = new ConsolidationByUsernameViewModel(1, 1, "Member", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, string.Empty);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 query,
                 param,
                 anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
+                anyValueCreatorFixture.Create<IEnumerable<ProductDetailViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
             var drilldownFromDate = drilldownDate == null ? (DateTime?)null : Convert.ToDateTime(drilldownDate);
@@ -92,12 +93,13 @@
             // Arrange
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
-            var param = new GetConsolidationParam(1, 1, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1, 2 });
+            var param = new GetConsolidationParam(1, 1, DefaultVariablesTest.CurrentDate, DefaultVariablesTest.CurrentDate, new List<int> { 1, 2 }, new List<int> { 1, 2 }, string.Empty);
 
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 new GetConsolidationQuery(user),
                 param,
                 anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
+                anyValueCreatorFixture.Create<IEnumerable<ProductDetailViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
             DateTime? drilldownFromDate = null;
@@ -129,11 +131,12 @@
         {
             // Arrange
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
-            var param = new GetConsolidationParam(1, 1, DateTime.MinValue, DateTime.MinValue, new List<int> { 1 });
+            var param = new GetConsolidationParam(1, 1, DateTime.MinValue, DateTime.MinValue, new List<int> { 1 }, new List<int> { 1 }, string.Empty);
             var viewModel = new ConsolidationReportByUsernameViewModel(
                 new GetConsolidationQuery(user),
                 param,
                 anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
+                anyValueCreatorFixture.Create<IEnumerable<ProductDetailViewModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<SelectListItem>>(),
                 anyValueCreatorFixture.Create<IEnumerable<ConsolidationByUsernameViewModel>>());
             var drilldownFromDate = new DateTime(2017, 9, 1);

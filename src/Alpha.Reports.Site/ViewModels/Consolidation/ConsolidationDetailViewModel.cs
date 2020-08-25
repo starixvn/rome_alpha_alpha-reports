@@ -38,6 +38,8 @@
 
         public string UserSelectedProductIds => message.UserSelectedProductIds;
 
+        public string UserSelectedResourceIds => message.UserSelectedResourceIds;
+
         public DateTime ConsolidationFromDate => message.ConsolidationFromDate;
 
         public DateTime ConsolidationToDate => message.ConsolidationToDate;
@@ -45,6 +47,8 @@
         public int ConsolidationUserSelectedDateRangeOption => message.ConsolidationUserSelectedDateRangeOption;
 
         public string ConsolidationProductIds => message.ConsolidationProductIds;
+
+        public string ConsolidationResourceIds => message.ConsolidationResourceIds;
 
         public IEnumerable<string> BreadcrumbActions { get; }
 

@@ -22,8 +22,10 @@
                 DateTime.MinValue,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
                 UserLevel.Agent,
-                isHistoryReport);
+                isHistoryReport,
+                string.Empty);
 
             // Assert
             Assert.Equal(isHistoryReport, model.IsHistoryReport);

@@ -23,8 +23,9 @@
         public WinLossByProductExcelHandler(
             WinLossByProductService reportService,
             ProductService productService,
+            ProductDetailService productDetailService,
             CacheRefService cacheRefService,
-            WinLossByProductWorkbook workbook) : base(reportService, productService, cacheRefService)
+            WinLossByProductWorkbook workbook) : base(reportService, productService, productDetailService, cacheRefService)
         {
             this.workbook = workbook;
         }

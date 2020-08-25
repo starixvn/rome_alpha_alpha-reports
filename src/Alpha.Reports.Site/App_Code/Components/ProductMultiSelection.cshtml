@@ -11,7 +11,8 @@
                 data-label-all-products="@Resources.AllProducts"
                 data-label-there-is-no-product="@Resources.ThereIsNoProduct"
                 data-language="@model.Language"
-                multiple="multiple" class="select-multiple">
+                multiple="multiple"
+                class="select-multiple">
             @foreach (var group in model.GroupProducts)
             {
                 if (group.HasGroupName)
@@ -19,7 +20,7 @@
                     <optgroup label="@group.Group.Name">
                         @foreach (var product in group.Products)
                         {
-                            <option value="@product.Value" @(product.Selected ? " selected=\"selected\"" : string.Empty) data-isnested="1">@product.Text</option>
+                            <option value="@product.Value" @(product.Selected ? " selected=selected" : string.Empty) data-isnested="1">@product.Text</option>
                         }
                     </optgroup>
                 }
@@ -27,7 +28,7 @@
                 {
                     foreach (var product in group.Products)
                     {
-                        <option value="@product.Value" @(product.Selected ? " selected=\"selected\"" : string.Empty)>@product.Text</option>
+                        <option value="@product.Value" @(product.Selected ? " selected=selected" : string.Empty)>@product.Text</option>
                     }
                 }
             }

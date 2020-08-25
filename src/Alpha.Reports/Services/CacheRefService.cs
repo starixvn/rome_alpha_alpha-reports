@@ -22,6 +22,8 @@
         string GetProductName(int productId);
 
         string GetOddsTypeName(string oddsTypeId);
+
+        string GetResourceDataByRefIdAndResourceId(string refId, int resourceId);
     }
 
     public class CacheRefServiceImpl : CacheRefService
@@ -58,9 +60,12 @@
             => remotingRefService.GetOddsTypeName(oddsTypeId, LanguageCode);
 
         public string GetProductName(int productId)
+            => GetResourceDataByRefIdAndResourceId("Product", productId);
+
+        public string GetResourceDataByRefIdAndResourceId(string refId, int resourceId)
             => remotingRefService.GetResourceDataByRefIdAndResourceId(
-                "Product",
-                productId.ToString(),
+                refId,
+                resourceId.ToString(),
                 LanguageCode,
                 string.Empty);
 

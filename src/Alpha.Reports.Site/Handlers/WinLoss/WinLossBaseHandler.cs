@@ -5,7 +5,6 @@
     using System.Linq;
     using Extensions;
     using Params;
-    using Reports.Models;
     using Reports.Models.Winloss;
     using Requests.WinLoss;
     using Services;
@@ -17,14 +16,16 @@
     public class WinLossBaseHandler : BaseHandler
     {
         protected readonly ProductService productService;
-
+        protected readonly ProductDetailService productDetailService;
         protected readonly WinLossService reportService;
 
         public WinLossBaseHandler(
             ProductService productService,
+            ProductDetailService productDetailService,
             WinLossService reportService)
         {
             this.productService = productService;
+            this.productDetailService = productDetailService;
             this.reportService = reportService;
         }
 
@@ -36,6 +37,9 @@
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
+            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
+                message.CustId,
+                message.UserSelectedResourceIds);
 
             return new WinLossParam(
                  message.CustId,
@@ -45,8 +49,10 @@
                  message.ToDate,
                  message.LimitedDateToShowInfo,
                  validUserSelectedProductIds,
+                 validUserSelectedResourceIds,
                  message.CustLevel,
-                 message.IsHistoricReport);
+                 message.IsHistoricReport,
+                 productDetailService.BuildProductDetailsXML(message.CustId, validUserSelectedProductIds, validUserSelectedResourceIds));
         }
 
         internal WinLossModel AccumulateGrandTotal(IEnumerable<WinLossModel> reportData)

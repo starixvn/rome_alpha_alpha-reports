@@ -24,7 +24,22 @@
         {
             // Arrange
             var custId = 1;
-            var winLossDetailParam = new WinLossDetailParam(custId, "", 1, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
+            var winLossDetailParam = new WinLossDetailParam(
+                custId,
+                string.Empty,
+                1,
+                0,
+                0,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                string.Empty,
+                false,
+                false,
+                string.Empty);
 
             // Act
             var actual = winLossDetailParam.CustId;
@@ -37,8 +52,22 @@
         public void FromDate_CurrentReportAndNotSupportFromDate_ReturnsCurrentDate()
         {
             // Arrange
-            var winLossDetailParam =
-                new WinLossDetailParam(0, "", 1, 0, 0, DateTime.MinValue, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                string.Empty,
+                1,
+                0,
+                0,
+                DateTime.MinValue,
+                DateTime.Now,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                string.Empty,
+                false,
+                false,
+                string.Empty);
             var expectedDate = DefaultVariablesTest.CurrentDate;
 
             // Act
@@ -52,8 +81,22 @@
         public void FromDate_HistoricReportAndNotSupportFromDate_ReturnsFirstDateOfThisMonth()
         {
             // Arrange
-            var winLossDetailParam =
-                new WinLossDetailParam(0, "", 1, 0, 0, DateTime.MinValue, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, true);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                string.Empty,
+                1,
+                0,
+                0,
+                DateTime.MinValue,
+                DateTime.Now,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                string.Empty,
+                false,
+                true,
+                string.Empty);
             var expectedDate = DefaultVariablesTest.CurrentDate.FirstDayOfMonth();
 
             // Act
@@ -71,8 +114,22 @@
             // Arrange
             DateTime fromDate = DefaultVariablesTest.CurrentDate;
 
-            var winLossDetailParam =
-                new WinLossDetailParam(0, "", 1, 0, 0, fromDate, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, isHistoricReport);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                string.Empty,
+                1,
+                0,
+                0,
+                fromDate,
+                DateTime.Now,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                string.Empty,
+                false,
+                isHistoricReport,
+                string.Empty);
             var expectedDate = fromDate;
 
             // Act
@@ -98,10 +155,12 @@
                     DateTime.MinValue,
                     DateTime.MinValue,
                     Enumerable.Empty<int>(),
+                    Enumerable.Empty<int>(),
                     UserLevel.Super,
                     string.Empty,
                     false,
-                    isHistoricReport);
+                    isHistoricReport,
+                    string.Empty);
 
             var expectedDate = DefaultVariablesTest.CurrentDate;
 
@@ -120,8 +179,22 @@
             // Arrange
             DateTime toDate = DefaultVariablesTest.CurrentDate;
 
-            var winLossDetailParam =
-                new WinLossDetailParam(0, "", 1, 0, 0, DateTime.MinValue, toDate, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, isHistoricReport);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                string.Empty,
+                1,
+                0,
+                0,
+                DateTime.MinValue,
+                toDate,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                string.Empty,
+                false,
+                isHistoricReport,
+                string.Empty);
             var expectedDate = toDate;
 
             // Act
@@ -136,8 +209,22 @@
         {
             // Arrange
             var custLevel = UserLevel.Super;
-            var winLossDetailParam =
-                new WinLossDetailParam(0, "", 1, 0, 0, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), custLevel, string.Empty, false, false);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                string.Empty,
+                1,
+                0,
+                0,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
+                custLevel,
+                string.Empty,
+                false,
+                false,
+                string.Empty);
             var expectedReportLevel = custLevel;
 
             // Act
@@ -163,10 +250,12 @@
                 DateTime.MinValue,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
                 UserLevel.Super,
                 string.Empty,
                 isDescendingSort,
-                false);
+                false,
+                string.Empty);
             var expectedIsDescendingSort = isDescendingSort;
 
             // Act
@@ -185,8 +274,22 @@
             // Arrange
             var userSelectedProductIdList = userSelectedProductIds.Split(',').Select(id => Converter.ToInt(id)).ToList();
 
-            var winLossDetailParam =
-                new WinLossDetailParam(0, "", 1, 0, 0, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, userSelectedProductIdList, UserLevel.Super, string.Empty, false, false);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                string.Empty,
+                1,
+                0,
+                0,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                userSelectedProductIdList,
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                string.Empty,
+                false,
+                false,
+                string.Empty);
             var expectedUserSelectedProductIds = userSelectedProductIdList;
 
             // Act
@@ -200,8 +303,22 @@
         public void PageIndex_NotSupportPageIndex_ReturnsDefaultPageIndex()
         {
             // Arrange
-            var winLossDetailParam =
-                new WinLossDetailParam(0, "", 1, 0, 0, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                string.Empty,
+                1,
+                0,
+                0,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                string.Empty,
+                false,
+                false,
+                string.Empty);
             var expectedPageIndex = DefaultVariablesTest.PageIndex;
 
             // Act
@@ -231,10 +348,12 @@
                 DateTime.MinValue,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
                 UserLevel.Super,
                 string.Empty,
                 false,
-                false);
+                false,
+                string.Empty);
             var expectedPageIndex = pageIndex;
 
             // Act
@@ -248,8 +367,22 @@
         public void PageSize_NotSupportPageSize_ReturnsDefaultPageSize()
         {
             // Arrange
-            var winLossDetailParam =
-                new WinLossDetailParam(0, "", 1, 0, 0, DateTime.MinValue, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, string.Empty, false, false);
+            var winLossDetailParam = new WinLossDetailParam(
+                0,
+                string.Empty,
+                1,
+                0,
+                0,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                string.Empty,
+                false,
+                false,
+                string.Empty);
             var expectedPageSize = DefaultVariablesTest.PageSize;
 
             // Act
@@ -279,10 +412,12 @@
                 DateTime.MinValue,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
                 UserLevel.Super,
                 string.Empty,
                 false,
-                false);
+                false,
+                string.Empty);
             var expectedPageSize = pageSize;
 
             // Act
@@ -296,7 +431,22 @@
         public void SortByPropertyName_Always_ReturnsSortByPropertyNameSetFromCtor()
         {
             // Arrange
-            var winLossDetailParam = new WinLossDetailParam(1, "", 1, 0, 0, DateTime.Now, DateTime.Now, DateTime.MinValue, Enumerable.Empty<int>(), UserLevel.Super, "SortByPropertyName", false, false);
+            var winLossDetailParam = new WinLossDetailParam(
+                1,
+                string.Empty,
+                1,
+                0,
+                0,
+                DateTime.Now,
+                DateTime.Now,
+                DateTime.MinValue,
+                Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
+                UserLevel.Super,
+                "SortByPropertyName",
+                false,
+                false,
+                string.Empty);
 
             // Act
             var actual = winLossDetailParam.SortByPropertyName;

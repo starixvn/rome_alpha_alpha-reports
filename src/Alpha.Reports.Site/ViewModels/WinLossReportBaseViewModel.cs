@@ -26,11 +26,13 @@
             WinLossQuery message,
             WinLossParam param,
             IEnumerable<CustInfo> breadcrumbLevel,
-            IEnumerable<GroupProductViewModel> groupProducts) : base(message.CustLevel, breadcrumbLevel)
+            IEnumerable<GroupProductViewModel> groupProducts,
+            IEnumerable<ProductDetailViewModel> productDetails) : base(message.CustLevel, breadcrumbLevel)
         {
             this.message = message;
             this.param = param;
             GroupProducts = groupProducts;
+            ProductDetails = productDetails;
         }
 
         public int CustId => message.CustId;
@@ -50,6 +52,9 @@
         public string UserSelectedProductIds =>
             param.UserSelectedProductIds.JoinWithComma();
 
+        public string UserSelectedResourceIds =>
+            param.UserSelectedResourceIds.JoinWithComma();
+
         public int UserSelectedDateRangeOption => message.UserSelectedDateRangeOption;
 
         public bool IsSetDefaultStackMode => message.IsSetDefaultStackMode;
@@ -64,6 +69,8 @@
 
         public IEnumerable<SelectListItem> ExcludeProducts { get; }
 
+        public IEnumerable<ProductDetailViewModel> ProductDetails { get; }
+
         private MonthPickerViewModel MonthPickerViewModel =>
             new MonthPickerViewModel(MinDate, FromDate, ToDate);
 
@@ -72,6 +79,9 @@
 
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);
+
+        private ProductDetailMultiSelectionViewModel ProductDetailMultiSelectionViewModel =>
+            new ProductDetailMultiSelectionViewModel(ProductDetails, UserSelectedResourceIds, Language);
 
         public WinLossFilterViewModel FilterViewModel =>
             new WinLossFilterViewModel(
@@ -82,6 +92,7 @@
                 DateRangePickerViewModel,
                 MonthPickerViewModel,
                 ProductMultiSelectionViewModel,
+                ProductDetailMultiSelectionViewModel,
                 IsFilterVisible,
                 MinDate,
                 BreadcrumbLevelJson);
@@ -114,6 +125,7 @@
                 { "IsStackMode", IsStackMode },
                 { "UserSelectedDateRangeOption", UserSelectedDateRangeOption },
                 { "UserSelectedProductIds", UserSelectedProductIds },
+                { "UserSelectedResourceIds", UserSelectedResourceIds },
                 { "FromDate", FromDate },
                 { "ToDate", ToDate }
             };
@@ -123,7 +135,8 @@
             {
                 { "FromDate",  FromDate },
                 { "ToDate", ToDate },
-                { "ProductIds", UserSelectedProductIds }
+                { "ProductIds", UserSelectedProductIds },
+                { "ResourceIds", UserSelectedResourceIds }
             };
     }
 }

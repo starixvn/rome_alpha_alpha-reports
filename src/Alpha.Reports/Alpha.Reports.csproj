@@ -163,6 +163,7 @@
     <Compile Include="Criteria\BetChoiceMatching\BetChoiceUplinesCriteria.cs" />
     <Compile Include="Criteria\GetIPVNCriteria.cs" />
     <Compile Include="Criteria\GetOfferedProductsBySiteCriteria.cs" />
+    <Compile Include="Criteria\GetProductsDetailCriteria.cs" />
     <Compile Include="Criteria\ProgressiveContribution\ProgressiveContributionCriteria.cs" />
     <Compile Include="Criteria\RiskAnalysisIPMatching\RiskAnalysisIPMatchingCriteria.cs" />
     <Compile Include="DataAccesses\ProgressiveContributionDataAccess.cs" />
@@ -224,6 +225,9 @@
     <Compile Include="Models\BetChoiceMatching\MemberWinLossOperators.cs" />
     <Compile Include="Models\IPRange.cs" />
     <Compile Include="Models\ProductBySiteModel.cs" />
+    <Compile Include="Models\ProductDetail.cs" />
+    <Compile Include="Models\SportBetType.cs" />
+    <Compile Include="Models\SportType.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingExcelParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceUplinesParam.cs" />
     <Compile Include="Params\BetChoiceMatching\BetChoiceMatchingParam.cs" />
@@ -301,6 +305,7 @@
     <Compile Include="Services\ReportDateService.cs" />
     <Compile Include="Services\MatchWinLossService.cs" />
     <Compile Include="Services\RiskAnalysisIPMatchingService.cs" />
+    <Compile Include="Services\ProductDetailService.cs" />
     <Compile Include="Services\WinLossByProductService.cs" />
     <Compile Include="Services\WinLossAnalysisChartService.cs" />
     <Compile Include="Services\WinLossAnalysisService.cs" />

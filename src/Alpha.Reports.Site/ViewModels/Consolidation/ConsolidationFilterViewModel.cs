@@ -16,6 +16,7 @@
            UserLevel custLevel,
            DateRangePickerViewModel dateRangePickerViewModel,
            ProductMultiSelectionViewModel productMultiSelectionViewModel,
+           ProductDetailMultiSelectionViewModel productDetailMultiSelectionViewModel,
            CurrencySelectionViewModel currencySelectionViewModel)
         {
             CustId = custId;
@@ -26,6 +27,7 @@
 
             DateRangePickerViewModel = dateRangePickerViewModel;
             ProductMultiSelectionViewModel = productMultiSelectionViewModel;
+            ProductDetailMultiSelectionViewModel = productDetailMultiSelectionViewModel;
             CurrencySelectionViewModel = currencySelectionViewModel;
         }
 
@@ -42,6 +44,8 @@
         public DateRangePickerViewModel DateRangePickerViewModel { get; }
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
+
+        public ProductDetailMultiSelectionViewModel ProductDetailMultiSelectionViewModel { get; }
 
         public CurrencySelectionViewModel CurrencySelectionViewModel { get; }
 

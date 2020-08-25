@@ -24,6 +24,7 @@
     public class ConsolidationTestsBaseFunctions
     {
         protected readonly ProductService productService;
+        protected readonly ProductDetailService productDetailService;
         protected readonly ConsolidationService reportService;
         protected readonly CacheRefService cacheRefService;
         protected readonly IUser user;
@@ -37,6 +38,7 @@
         {
             user = userFixture.User;
             productService = Substitute.For<ProductService>();
+            productDetailService = Substitute.For<ProductDetailService>();
             reportService = Substitute.For<ConsolidationService>();
 
             cacheRefService = Substitute.For<CacheRefService>();
@@ -79,6 +81,14 @@
 
             winLossDetailService = Substitute.For<WinLossDetailService>();
             winLossDetailService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(winLossDetailData);
+
+            productDetailService.GetProductDetails(Arg.Any<int>()).Returns(new List<ProductDetail>
+            {
+                new ProductDetail("ProductDetail", 1, 42, 150, 0, 1) { DisplayName = "A" },
+                new ProductDetail("ProductDetail", 2, 42, 200, 0, 2) { DisplayName = "B" },
+            });
+            productDetailService.FilterResourceIdsByCustomer(Arg.Any<int>(), Arg.Any<string>()).Returns(new List<int> { 1, 2 });
+            productDetailService.BuildProductDetailsXML(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<IEnumerable<int>>()).Returns(string.Empty);
         }
     }
 }

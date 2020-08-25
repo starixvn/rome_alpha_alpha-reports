@@ -24,6 +24,7 @@
         private readonly WinLossByProductService reportService;
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
+        private readonly ProductDetailService productDetailService;
 
         private readonly WinLossByProductWorkbook winLossByProductWorkbook;
         private readonly Workbook<WinLossByBetTypeModel> onebookWorkbook;
@@ -40,6 +41,7 @@
             cacheRefService = Substitute.For<CacheRefService>();
             productService = Substitute.For<ProductService>();
             productService.ConcatProductNames(Arg.Any<string>()).Returns("Product Name");
+            productDetailService= Substitute.For<ProductDetailService>();
 
             winLossByProductWorkbook = Substitute.For<WinLossByProductWorkbook>();
             onebookWorkbook = Substitute.For<Workbook<WinLossByBetTypeModel>>();
@@ -60,7 +62,7 @@
             onebookWorkbook.Header(Arg.Any<Func<string, string>>()).Returns(onebookWorkbook);
             onebookWorkbook.Footer(Arg.Any<IEnumerable<WinLossByBetTypeModel>>(), Arg.Any<Mapper<WinLossByBetTypeModel>>()).Returns(onebookWorkbook);
 
-            winLossByProductExcelHandler = Substitute.ForPartsOf<WinLossByProductExcelHandler>(reportService, productService, cacheRefService, winLossByProductWorkbook);
+            winLossByProductExcelHandler = Substitute.ForPartsOf<WinLossByProductExcelHandler>(reportService, productService, productDetailService, cacheRefService, winLossByProductWorkbook);
             winLossByProductExcelHandler.MapPath = (path) => path;
             winLossByProductExcelHandler.IsFileExist = (path) => true;
             SystemTime.Today = DefaultVariablesTest.CurrentDate;

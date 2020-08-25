@@ -1,6 +1,7 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../base-report.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/productdetail-multiselection.ts" />
 /// <reference path="../components/currency-selection.ts" />
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/link-builder.ts" />
@@ -210,7 +211,7 @@ class ConsolidationView extends BaseReport {
 $(() => {
     const consolidationView = new ConsolidationView(
         $,
-        new ProductMultiSelectionComponent($),
+        new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
         new CurrencySelectionComponent($),
         new DateRangePickerComponent($),
         new ReportTooltip($),

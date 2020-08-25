@@ -4,6 +4,7 @@
 /// <reference path="../components/monthpicker.ts" />
 /// <reference path="../components/pager.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/productdetail-multiselection.ts" />
 /// <reference path="../components/sort.ts" />
 /// <reference path="../components/link-builder.ts" />
 /// <reference path="../components/tooltip.ts" />
@@ -326,7 +327,7 @@ $(() => {
         $,
         new DateRangePickerComponent($),
         new PagerComponent($),
-        new ProductMultiSelectionComponent($),
+        new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
         new SortComponent($, linkBuilderComponent),
         new ReportTooltip($),
         new MonthPickerComponent($),

@@ -43,5 +43,15 @@
         public static bool EnabledStaticData => GetConfigValue("EnabledStaticData") == "1";
 
         public static string RemoteRefURL => GetConfigValue("RemoteRefURL");
+
+        public static bool Is789y
+        {
+            get
+            {
+                var siteGroup = GetConfigValue("SiteGroup");
+
+                return !string.IsNullOrWhiteSpace(siteGroup) && siteGroup.Equals("789y", StringComparison.OrdinalIgnoreCase);
+            }
+        }
     }
 }

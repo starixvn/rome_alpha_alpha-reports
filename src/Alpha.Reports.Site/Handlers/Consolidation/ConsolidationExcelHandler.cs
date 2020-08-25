@@ -36,8 +36,9 @@
             IUser viewer,
             Workbook<ConsolidationByUsernameViewModel> workbook,
             ConsolidationByDateWorkbook consolidationByDateWorkbook,
-            ConsolidationByProductWorkbook consolidationByProductWorkbook) :
-            base(reportService, cacheRefService, winLossDetailService, viewer)
+            ConsolidationByProductWorkbook consolidationByProductWorkbook,
+            ProductDetailService productDetailService) :
+            base(reportService, cacheRefService, winLossDetailService, viewer, productDetailService)
         {
             this.workbook = workbook;
             this.consolidationByDateWorkbook = consolidationByDateWorkbook;

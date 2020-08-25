@@ -5,7 +5,6 @@
     using System.Linq;
     using Constants;
     using Criteria.Consolidation;
-    using Extensions;
     using Fanex.Data.Repository;
     using Models;
     using Models.Consolidation;
@@ -65,7 +64,8 @@
                 param,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                ConsolidationReportTypeConstants.Username);
+                ConsolidationReportTypeConstants.Username,
+                param.ProductDetailsXML);
 
             var data = dynamicRepository.Fetch<ConsolidationByUsername>(criteria);
 
@@ -78,7 +78,8 @@
                 param,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                ConsolidationReportTypeConstants.Daily);
+                ConsolidationReportTypeConstants.Daily,
+                param.ProductDetailsXML);
 
             var data = dynamicRepository.Fetch<ConsolidationByDate>(criteria);
 
@@ -91,7 +92,8 @@
                 param,
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
-                ConsolidationReportTypeConstants.Product);
+                ConsolidationReportTypeConstants.Product,
+                param.ProductDetailsXML);
 
             var data = dynamicRepository.Fetch<ConsolidationByProduct>(criteria);
 

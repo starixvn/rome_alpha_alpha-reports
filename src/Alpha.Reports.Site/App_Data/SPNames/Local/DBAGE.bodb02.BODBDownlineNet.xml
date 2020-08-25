@@ -13,6 +13,7 @@
       <Mapping DataField="ProductID" ObjectProperty="id" />
       <Mapping DataField="ProductName" ObjectProperty="name" />
     </Setting>
+    <Setting Key="Age_Rpt_GetProductDetail" SpName="Age_Rpt_GetProductDetail_xtest" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Check Belonging">
     <Setting Key="Age_CustomerSelCheckBelonging" SpName="Age_CustomerSelCheckBelonging" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
@@ -26,9 +27,9 @@
   </Function>
   <Function Name="Win Loss">
     <Setting Key="Age_Rpt_MatchSelResultEntered" SpName="Age_Rpt_MatchSelResultEntered" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLoss_Master" SpName="Age_Rpt_WinLoss_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLoss_Agent" SpName="Age_Rpt_WinLoss_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLoss_Master" SpName="Age_Rpt_WinLoss_Master_xtest" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLoss_Agent" SpName="Age_Rpt_WinLoss_Agent_xtest" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLoss_Member" SpName="Age_Rpt_WinLoss_Member_xtest" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Match Win Loss Detail">
     <Setting Key="Age_Rpt_MatchWinlossDetail_Master" SpName="Age_Rpt_MatchWinlossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
@@ -39,9 +40,9 @@
     <Setting Key="Age_Rpt_MatchWinLoss_Member" SpName="Age_Rpt_MatchWinLoss_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Win Loss by Product">
-    <Setting Key="Age_Rpt_WinLossByProduct_Member" SpName="Age_Rpt_WinLossByProduct_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossByProduct_Agent" SpName="Age_Rpt_WinLossByProduct_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
-    <Setting Key="Age_Rpt_WinLossByProduct_Master" SpName="Age_Rpt_WinLossByProduct_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByProduct_Member" SpName="Age_Rpt_WinLossByProduct_Member_xtest" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByProduct_Agent" SpName="Age_Rpt_WinLossByProduct_Agent_xtest" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
+    <Setting Key="Age_Rpt_WinLossByProduct_Master" SpName="Age_Rpt_WinLossByProduct_Master_xtest" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Win Loss Analysis">
     <Setting Key="Age_Rpt_WinlossAnalysis_Master" SpName="Age_Rpt_WinlossAnalysis_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
@@ -68,7 +69,7 @@
       <Mapping DataField="ProductName" ObjectProperty="Name" />
       <Mapping DataField="ProductId" ObjectProperty="Id" />
     </Setting>
-    <Setting Key="Age_Rpt_ConsolidatedGroup" SpName="Age_Rpt_ConsolidatedGroup" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
+    <Setting Key="Age_Rpt_ConsolidatedGroup" SpName="Age_Rpt_ConsolidatedGroup_xtest" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
       <Mapping DataField="breakdown" ObjectProperty="breakdown" />
       <Mapping DataField="roleid" ObjectProperty="custLevel" />
       <Mapping DataField="custID" ObjectProperty="CustId" />
