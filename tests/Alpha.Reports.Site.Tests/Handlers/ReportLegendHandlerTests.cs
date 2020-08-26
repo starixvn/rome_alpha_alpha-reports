@@ -23,7 +23,7 @@
         public ReportLegendHandlerTests(UserFixture userFixture)
         {
             productService = Substitute.For<ProductService>();
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<string>(), Arg.Any<int>()).Returns(new List<byte> { 1, 2, 3 });
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(new List<byte> { 1, 2, 3 });
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
 
             this.userFixture = userFixture;
@@ -37,7 +37,7 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<string>(), Arg.Any<int>()).Returns(new List<byte> { 1 });
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(new List<byte> { 1 });
             var expectedViewModel = new List<string> { "- Data of Product Name will be delayed up to 5 minutes after settling tickets." };
 
             // Act
@@ -52,7 +52,7 @@
         {
             // Arrange
             var message = new ReportLegendQuery(userFixture.User);
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
             var expectedViewModel = Enumerable.Empty<string>();
 
             // Act

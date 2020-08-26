@@ -660,7 +660,7 @@
     <Content Include="App_Data\activitytracking.uat.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
-    <Content Include="App_Data\SPNames\Internal\DBCust.CustDBDownlineNetView.xml">
+    <Content Include="App_Data\SPNames\Internal\DBCust.CustDB.DownlineNetView.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\SPNames\Internal\DB053_DB054.bodb02.BODBDownlineNetView.xml">
@@ -678,7 +678,7 @@
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_Data\SPNames\Local\DBCust.CustDBDownlineNet.xml">
+    <Content Include="App_Data\SPNames\Local\DBCust.CustDB.DownlineNet.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\SPNames\Local\DBCust.IPDB.xml" />
@@ -690,7 +690,7 @@
     <Content Include="App_Data\SPNames\Pro\DB053_DB054.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Pro\DBARC.bodb_Archive.BODBDownlineNet.xml" />
-    <Content Include="App_Data\SPNames\Pro\DBCust.CustDBDownlineNet.xml">
+    <Content Include="App_Data\SPNames\Pro\DBCust.CustDB.DownlineNet.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\SPNames\Pro\DBCust.IPDB.xml" />
@@ -700,7 +700,7 @@
     <Content Include="App_Data\SPNames\SIT\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBAGE.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\SIT\DBARC.bodb_Archive.BODBDownlineNet.xml" />
-    <Content Include="App_Data\SPNames\SIT\DBCust.CustDBDownlineNet.xml">
+    <Content Include="App_Data\SPNames\SIT\DBCust.CustDB.DownlineNet.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\SPNames\SIT\DBCust.IPDB.xml" />
@@ -754,7 +754,7 @@
     <TypeScriptCompile Include="assets\scripts\winlossdetail\winlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\components\tooltip.ts" />
     <Content Include="App_Data\SPNames\UAT\DBARC.bodb_Archive.BODBDownlineNet.xml" />
-    <Content Include="App_Data\SPNames\UAT\DBCust.CustDBDownlineNet.xml">
+    <Content Include="App_Data\SPNames\UAT\DBCust.CustDB.DownlineNet.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\SPNames\UAT\DBCust.IPDB.xml" />

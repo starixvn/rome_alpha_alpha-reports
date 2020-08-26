@@ -59,7 +59,7 @@
                 result.Add(liveCasinoTooltips);
             }
 
-            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.Site, message.CurrencyId).Select(product => (int)product);
+            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Select(product => (int)product);
 
             if (productsNeedDelayTimeToSumarizeData.Any())
             {

@@ -26,11 +26,11 @@
 
         IEnumerable<ProductsByRefTable> GetProductsNeedDelayTimeToSumarizeData();
 
-        IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer(string site, int currencyId);
+        IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, string site, int currencyId);
 
         bool IsShowProduct(int custId, string site, int currencyId, int productId);
 
-        bool CanViewBySite(string site, int currencyId, int productId);
+        bool CanViewBySite(int custId, string site, int currencyId, int productId);
     }
 
     public class ProductServiceImpl : ProductService
@@ -83,7 +83,7 @@
                 .GetOrSet(
                 $"Alpha.Reports.Services.Impl.ProductsForCustomer-{custId}",
                 () => GetProductsForReport()
-                    .Where(product => canViewProduct(product.Id) || CanViewBySite(site, currencyId, product.Id))
+                    .Where(product => canViewProduct(product.Id) || CanViewBySite(custId, site, currencyId, product.Id))
                     .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, getProductName)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
             if (custProducts != null)
@@ -126,22 +126,22 @@
             return data;
         }
 
-        public IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer(string site, int currencyId)
+        public IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, string site, int currencyId)
         {
             var data = GetProductsNeedDelayTimeToSumarizeData();
 
-            return data.Where(product => canViewProduct(product.ProductId) || CanViewBySite(site, currencyId, product.ProductId)).Select(product => product.ProductId);
+            return data.Where(product => canViewProduct(product.ProductId) || CanViewBySite(custId, site, currencyId, product.ProductId)).Select(product => product.ProductId);
         }
 
         public bool IsShowProduct(int custId, string site, int currencyId, int productId)
             => GetProductsForCustomer(custId, site, currencyId).Any(p => p.Id == productId);
 
-        public bool CanViewBySite(string site, int currencyId, int productId)
+        public bool CanViewBySite(int custId, string site, int currencyId, int productId)
         {
             var custProducts = ConfiguredCacheService
                 .GetOrSet(
-                $"Alpha.Reports.Services.Impl.ProductsBySite-{site}",
-                () => dynamicRepository.Fetch<ProductBySiteModel>(new GetOfferedProductsBySiteCriteria { Site = site, CurrencyId = currencyId }),
+                $"Alpha.Reports.Services.Impl.ProductsBySite-{custId}-{site}",
+                () => dynamicRepository.Fetch<ProductBySiteModel>(new GetOfferedProductsBySiteCriteria(custId, site, currencyId)),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductsCacheTimeInMinutes)));
 
             return custProducts.Any(i => i.ProductId == productId);

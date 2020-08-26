@@ -255,7 +255,7 @@
             var expectProducts = new List<byte> { 1, 2 };
 
             // Act
-            var actualProducts = productServiceImpl.GetProductsNeedDelayTimeToSumarizeDataByCustomer(string.Empty, 1);
+            var actualProducts = productServiceImpl.GetProductsNeedDelayTimeToSumarizeDataByCustomer(1, string.Empty, 1);
 
             // Assert
             Assert.Equal(expectProducts, actualProducts);
@@ -309,7 +309,7 @@
             dynamicRepository.Fetch<ProductBySiteModel>(Arg.Any<GetOfferedProductsBySiteCriteria>()).Returns(products);
 
             // Act
-            var act = productServiceImpl.CanViewBySite(site, 1, 21);
+            var act = productServiceImpl.CanViewBySite(1, site, 1, 21);
 
             // Assert
             Assert.False(act);
@@ -327,7 +327,7 @@
             dynamicRepository.Fetch<ProductBySiteModel>(Arg.Any<GetOfferedProductsBySiteCriteria>()).Returns(products);
 
             // Act
-            var act = productServiceImpl.CanViewBySite(site, 1, 23);
+            var act = productServiceImpl.CanViewBySite(1, site, 1, 23);
 
             // Assert
             Assert.True(act);

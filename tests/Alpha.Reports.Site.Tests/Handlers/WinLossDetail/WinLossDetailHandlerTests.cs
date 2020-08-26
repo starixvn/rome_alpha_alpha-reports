@@ -134,7 +134,7 @@
                 new Product(21, "AllBet", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.Site, message.CurrencyId).Returns(Enumerable.Empty<byte>());
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Returns(Enumerable.Empty<byte>());
 
             var expectedViewModel = new List<string>
             {
@@ -159,7 +159,7 @@
                 new Product(45, "Sexy Gaming", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
 
             var expectedViewModel = new List<string>
             {
@@ -184,7 +184,7 @@
                 new Product(46, "GT Casino", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
 
             var expectedViewModel = new List<string>
             {
@@ -209,7 +209,7 @@
                 new Product(39, "SA Gaming", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
 
             var expectedViewModel = new List<string>
             {
@@ -234,7 +234,7 @@
                 new Product(52, "ION", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
 
             var expectedViewModel = new List<string>
             {
@@ -259,7 +259,7 @@
                 new Product(47, "BBIN", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.Site, message.CurrencyId).Returns(Enumerable.Empty<byte>());
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Returns(Enumerable.Empty<byte>());
 
             var expectedViewModel = new List<string>
             {
@@ -289,7 +289,7 @@
                 new Product(52, "ION", null, 0, 0)
             });
 
-            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(string.Empty, 1).Returns(Enumerable.Empty<byte>());
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(1, string.Empty, 1).Returns(Enumerable.Empty<byte>());
 
             var expectedViewModel = new List<string>
             {
