@@ -111,6 +111,7 @@
     @Html.Hidden("UserSelectedProductIds", Model.UserSelectedProductIds)
     @Html.Hidden("UserSelectedResourceIds", Model.UserSelectedResourceIds)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    @Html.Hidden("IsPostBack", "true")
 </form>
 
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)

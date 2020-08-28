@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
     using System;
+    using Alpha.Reports.Constants;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -42,7 +43,7 @@
 
             var fileContent = workbook
                .UseTemplate(GetTemplateInfo(message))
-               .Title(GetReportTitle(message))
+               .Title(GetReportTitle(winLossDetailParam))
                .Header(Resources.ResourceManager.GetString)
                .Body(reportData.DataSource, GetBodyRowMapper(message))
                .Footer(reportData.TotalData, GetTotalRowMapper(message))
@@ -55,9 +56,13 @@
         public ExcelFileViewModel Handle(ConsolidateWinLossDetailExcelQuery message)
             => Handle((WinLossDetailExcelQuery)message);
 
-        private string GetReportTitle(WinLossDetailExcelQuery message)
-            => $"{Resources.WinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-            $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
+        private string GetReportTitle(WinLossDetailParam param)
+        {
+            var sabaclubName = productDetailService.GetSabaclubNameExportExcel(param.UserSelectedResourceIds);
+            var productNames = productService.ConcatProductNames(param.UserSelectedProductIds, ProductIdConstants.SabaClub, sabaclubName);
+
+            return $"{Resources.WinLossDetail} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()} {Resources.of2} {productNames}";
+        }
 
         private string GetExcelFileName(WinLossDetailExcelQuery message, WinLossDetailParam winLossDetailParam)
             => string.Join(

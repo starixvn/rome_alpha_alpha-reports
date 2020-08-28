@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Alpha.Reports.Constants;
     using Extensions;
     using Params;
     using Params.Consolidation;
@@ -39,7 +40,7 @@
             this.productDetailService = productDetailService;
         }
 
-        protected GetConsolidationParam CreateParameter(GetConsolidationQuery message)
+        protected GetConsolidationParam CreateParameter(GetConsolidationQuery message, IEnumerable<Product> products)
         {
             var validUserSelectedProductIds = reportService.FilterProductIdsByCustomer(
                 message.CustId,
@@ -47,9 +48,10 @@
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
-            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
+            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomerForConsolidationReport(
                 message.CustId,
-                message.UserSelectedResourceIds);
+                !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds,
+                products);
 
             return new GetConsolidationParam(
                  message.CustId,
@@ -135,11 +137,12 @@
                 BreadcrumbLevel = message.BreadcrumbLevel
             };
 
-        protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query)
+        protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> products)
         {
             var validUserSelectedProductIds =
                reportService.FilterProductIdsByCustomer(query.ViewerId, query.Site, query.CurrencyId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
-            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(query.ViewerId, query.UserSelectedResourceIds);
+            var validUserSelectedResourceIds =
+                productDetailService.FilterResourceIdsByCustomerForConsolidationReport(query.ViewerId, query.UserSelectedResourceIds, products);
 
             return new WinLossDetailParam(
                 query.CustId,

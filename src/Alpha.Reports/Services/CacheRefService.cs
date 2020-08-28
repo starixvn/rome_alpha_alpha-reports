@@ -23,6 +23,8 @@
 
         string GetOddsTypeName(string oddsTypeId);
 
+        string GetProductDetailName(int resourceId);
+
         string GetResourceDataByRefIdAndResourceId(string refId, int resourceId);
     }
 
@@ -61,6 +63,9 @@
 
         public string GetProductName(int productId)
             => GetResourceDataByRefIdAndResourceId("Product", productId);
+
+        public string GetProductDetailName(int resourceId)
+            => GetResourceDataByRefIdAndResourceId("ProductDetail", resourceId);
 
         public string GetResourceDataByRefIdAndResourceId(string refId, int resourceId)
             => remotingRefService.GetResourceDataByRefIdAndResourceId(

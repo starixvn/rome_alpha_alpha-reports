@@ -11,6 +11,7 @@
     <MAgWinLoss>3</MAgWinLoss>
     <MAgComm>4</MAgComm>
     <NumberOfTickets>4</NumberOfTickets>
+    <ResourceId>1</ResourceId>
   </TableWinLoss>
   <TableWinLoss>
     <Bettype>1101</Bettype>
@@ -22,5 +23,6 @@
     <MAgWinLoss>8</MAgWinLoss>
     <MAgComm>9</MAgComm>
     <NumberOfTickets>4</NumberOfTickets>
+    <ResourceId>2</ResourceId>
   </TableWinLoss>
 </WinLossByProduct>

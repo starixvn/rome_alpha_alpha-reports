@@ -12,6 +12,7 @@
     <AgWinLoss>4</AgWinLoss>
     <AgComm>5</AgComm>
     <NumberOfTickets>4</NumberOfTickets>
+    <ResourceId>1</ResourceId>
   </TableWinLoss>
   <TableWinLoss>
     <Bettype>1101</Bettype>
@@ -24,5 +25,6 @@
     <AgWinLoss>10</AgWinLoss>
     <AgComm>11</AgComm>
     <NumberOfTickets>4</NumberOfTickets>
+    <ResourceId>2</ResourceId>
   </TableWinLoss>
 </WinLossByProduct>

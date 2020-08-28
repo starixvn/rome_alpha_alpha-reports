@@ -729,4 +729,10 @@
   <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
     <value>- {0}，净投注额是总有效的投注注单来计算佣金。</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
+  <data name="SelectNone" xml:space="preserve">
+    <value>选择 无</value>
+  </data>
 </root>

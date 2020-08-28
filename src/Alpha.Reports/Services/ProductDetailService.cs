@@ -11,14 +11,21 @@
     using Alpha.Reports.Models;
     using Fanex.Caching;
     using Fanex.Data.Repository;
+    using Sunplus.Agent.Model.Entities.Permission;
 
     public interface ProductDetailService
     {
         IEnumerable<int> FilterResourceIdsByCustomer(int custId, string resourceIds);
 
+        IEnumerable<int> FilterResourceIdsByCustomerForConsolidationReport(int custId, string resourceIds, IEnumerable<Product> products);
+
         IEnumerable<ProductDetail> GetProductDetails(int custId);
 
+        IEnumerable<ProductDetail> GetProductDetailsForConsolidationReport(int custId, IEnumerable<Product> products);
+
         string BuildProductDetailsXML(int custId, IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds);
+
+        string GetSabaclubNameExportExcel(IEnumerable<int> selectedResourceIds);
     }
 
     public class ProductDetailServiceImpl : ProductDetailService
@@ -29,29 +36,33 @@
 
         private readonly IDynamicRepository dynamicRepository;
         private readonly CacheRefService cacheRefService;
-        private readonly Func<int, bool> canViewProduct;
 
         public ProductDetailServiceImpl(
             IDynamicRepository dynamicRepository,
-            CacheRefService cacheRefService,
-            Func<int, bool> canViewProduct)
+            CacheRefService cacheRefService)
         {
             this.dynamicRepository = dynamicRepository;
             this.cacheRefService = cacheRefService;
-            this.canViewProduct = canViewProduct;
         }
 
         public IEnumerable<int> FilterResourceIdsByCustomer(int custId, string resourceIds)
-        {
-            var productDetails = GetProductDetails(custId);
-            var resourceIdsHash = resourceIds.ToIntDictionary();
+            => FilterResourceIdsByCustomer(GetProductDetails(custId), resourceIds);
 
-            if (resourceIdsHash.Count > 0)
+        public IEnumerable<int> FilterResourceIdsByCustomerForConsolidationReport(int custId, string resourceIds, IEnumerable<Product> products)
+            => FilterResourceIdsByCustomer(GetProductDetailsForConsolidationReport(custId, products), resourceIds);
+
+        private static IEnumerable<int> FilterResourceIdsByCustomer(IEnumerable<ProductDetail> productDetails, string resourceIds)
+        {
+            if (IsSelectAllProductDetails(resourceIds))
             {
-                productDetails = productDetails.Where(p => resourceIdsHash.ContainsKey(p.ResourceId));
+                return productDetails.Select(p => p.ResourceId);
             }
 
-            return productDetails.Select(p => p.ResourceId);
+            var resourceIdsHash = resourceIds.ToIntDictionary();
+
+            return productDetails
+                .Where(p => resourceIdsHash.ContainsKey(p.ResourceId))
+                .Select(p => p.ResourceId); 
         }
 
         public IEnumerable<ProductDetail> GetProductDetails(int custId)
@@ -61,10 +72,12 @@
                 return Enumerable.Empty<ProductDetail>();
             }
 
+            var canViewProductDetails = CanViewProductDetails();
+
             return ConfiguredCacheService.GetOrSet(
                 $"{ProductDetailsCacheKey}-{custId}",
                 () => GetProductDetails()
-                    .Where(p => canViewProduct(p.ProductId) && CanViewSabaClubBet(p.ProductId))
+                    .Where(p => canViewProductDetails.ContainsKey(p.ProductId))
                     .Select(product =>
                     {
                         product.DisplayName = cacheRefService.GetResourceDataByRefIdAndResourceId(product.RefId, product.ResourceId);
@@ -74,14 +87,30 @@
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(CustProductDetailsCacheInMinutes)));
         }
 
+        public IEnumerable<ProductDetail> GetProductDetailsForConsolidationReport(int custId, IEnumerable<Product> products)
+        {
+            if (custId <= 0)
+            {
+                return Enumerable.Empty<ProductDetail>();
+            }
+
+            var canViewProductDetails = CanViewProductDetailsForConsolidationReport(products);
+
+            return GetProductDetails()
+                .Where(p => canViewProductDetails.ContainsKey(p.ProductId))
+                .Select(product =>
+                {
+                    product.DisplayName = cacheRefService.GetResourceDataByRefIdAndResourceId(product.RefId, product.ResourceId);
+
+                    return product;
+                });
+        }
+
         private IEnumerable<ProductDetail> GetProductDetails()
             => ConfiguredCacheService.GetOrSet(
                 ProductDetailsCacheKey,
                 () => dynamicRepository.Fetch<ProductDetail>(new GetProductsDetailCriteria()),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(ProductDetailsCacheInDay)));
-
-        private static bool CanViewSabaClubBet(int productId)
-            => productId == ProductIdConstants.SabaClub && SiteSettings.Is789y;
 
         public string BuildProductDetailsXML(int custId, IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds)
         {
@@ -110,5 +139,52 @@
 
             return xml.ToString();
         }
+
+        private static bool IsSelectAllProductDetails(string resourceIds)
+            => resourceIds != null && resourceIds == DefaultVariables.AllProductDetails;
+
+        private static IDictionary<int, bool> CanViewProductDetails()
+        {
+            var canViewProductDetails = new Dictionary<int, bool>();
+
+            if (SiteSettings.Is789y && UserPermission.HasPermissionOnProduct(ProductIdConstants.SabaClub))
+            {
+                canViewProductDetails[ProductIdConstants.SabaClub] = true;
+            }
+
+            return canViewProductDetails;
+        }
+
+        private static IDictionary<int, bool> CanViewProductDetailsForConsolidationReport(IEnumerable<Product> products)
+        {
+            var canViewProductDetails = new Dictionary<int, bool>();
+
+            if (SiteSettings.Is789y && products.Any(p => p.Id == ProductIdConstants.SabaClub))
+            {
+                canViewProductDetails[ProductIdConstants.SabaClub] = true;
+            }
+
+            return canViewProductDetails;
+        }
+
+        public string GetSabaclubNameExportExcel(IEnumerable<int> selectedResourceIds)
+        {
+            if (SiteSettings.Is789y)
+            {
+                var productDetailIds = GetProductDetails()
+                    .Where(p => p.ProductId == ProductIdConstants.SabaClub)
+                    .Select(p => p.ResourceId);
+
+                if (!IsEquals(productDetailIds, selectedResourceIds))
+                {
+                    return string.Join(", ", selectedResourceIds.Select(id => cacheRefService.GetProductDetailName(id)));
+                }
+            }
+
+            return cacheRefService.GetProductName(ProductIdConstants.SabaClub);
+        }
+
+        private static bool IsEquals(IEnumerable<int> source, IEnumerable<int> destination)
+            => Enumerable.SequenceEqual(source.OrderBy(id => id), destination.OrderBy(id => id));
     }
 }

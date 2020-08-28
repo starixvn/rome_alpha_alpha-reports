@@ -114,8 +114,7 @@
             container.Register<ProductDetailService>(
                 () => new ProductDetailServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
-                    container.GetInstance<CacheRefService>(),
-                    UserPermission.HasPermissionOnProduct),
+                    container.GetInstance<CacheRefService>()),
                 Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);

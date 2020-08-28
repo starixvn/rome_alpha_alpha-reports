@@ -122,7 +122,7 @@
 
                 ["UserSelectedCurrencyId"] = UserSelectedCurrencyId,
                 ["UserSelectedProductIds"] = drilldownFromProductIds ?? UserSelectedProductIds,
-                ["UserSelectedResourceIds"] = drilldownFromProductIds ?? UserSelectedResourceIds,
+                ["UserSelectedResourceIds"] = UserSelectedResourceIds,
 
                 ["IsStackMode"] = IsStackMode,
                 ["IsFilterVisible"] = IsFilterVisible,
@@ -135,7 +135,8 @@
                 ["ConsolidationToDate"] = ToDate,
                 ["ConsolidationUserSelectedDateRangeOption"] = UserSelectedDateRangeOption,
                 ["ConsolidationProductIds"] = UserSelectedProductIds,
-                ["ConsolidationResourceIds"] = UserSelectedResourceIds
+                ["ConsolidationResourceIds"] = UserSelectedResourceIds,
+                ["IsPostBack"] = message.IsPostBack
             };
 
             return ReportHelpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc(drilldownLink, routeValues);

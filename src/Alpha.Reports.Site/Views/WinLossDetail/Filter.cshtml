@@ -8,8 +8,8 @@
     @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
 
     @(Model.IsHistoricReport
-                ? MonthPicker.Render(Model.MonthPickerViewModel)
-                : DateRangePicker.Render(Model.DateRangePickerViewModel))
+                        ? MonthPicker.Render(Model.MonthPickerViewModel)
+                        : DateRangePicker.Render(Model.DateRangePickerViewModel))
 
     @if (Model.IsHistoricReport)
     {
@@ -43,4 +43,6 @@
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+
+    @Html.Hidden("IsPostBack", "true")
 }

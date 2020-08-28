@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using Constants;
     using Criteria.WinLossByProductCriteria;
     using Fanex.Common.Extensions;
     using Models;
@@ -59,13 +58,14 @@
             var productId = Convert.IsDBNull(reader["ProductID"]) ? 0 : reader.ToInt("ProductID");
             var sportTypeId = Convert.IsDBNull(reader["SportType"]) ? 0 : reader.ToInt("SportType");
             var bettypeId = reader.ToInt("bettype");
+            var resourceId = Convert.IsDBNull(reader["ResourceId"]) ? 0 : reader.ToInt("ResourceId");
 
             var winLossByBettype = new WinLossByBetTypeModel(
                  betTypeId: bettypeId,
                  betTypeName: cacheRefService.GetBetTypeName(bettypeId),
                  productId: productId,
                  sportTypeId: sportTypeId,
-                 sportTypeName: sportTypeId == 0 ? string.Empty : cacheRefService.GetSportName(sportTypeId),
+                 sportTypeName: GetSportTypeName(resourceId, sportTypeId),
                  liveIndicator: reader.ToString("liveindicator") == "1",
                  betCount: reader.ToInt("NumberOfTickets"),
                  turnover: reader.ToDecimal("TurnOver"),
@@ -76,6 +76,16 @@
                  superNetWinLoss: NetWinLoss.ReadSuperNetWinLoss(reader, reportLevel));
 
             return winLossByBettype;
+        }
+
+        private string GetSportTypeName(int resourceId, int sportTypeId)
+        {
+            if (resourceId > 0)
+            {
+                return cacheRefService.GetProductDetailName(resourceId);
+            }
+
+            return sportTypeId == 0 ? string.Empty : cacheRefService.GetSportName(sportTypeId);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossByProduct
 {
     using System;
+    using Alpha.Reports.Constants;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -48,7 +49,7 @@
                     GetTotalRowMapper(message))
                 .UseTemplate(GetTemplateInfo(message))
                 .Sheet(Resources.DefaultSheetName)
-                .Title(GetReporTitle(message))
+                .Title(GetReporTitle(winLossByBetTypeParam))
                 .Header(key => key.Equals(betTypeName) ? $"{Resources.Product}/{Resources.BetType}" : Resources.ResourceManager.GetString(key))
                 .Footer(grandTotal, GetTotalRowMapper(message))
                 .ExportToBytes();
@@ -116,9 +117,13 @@
                 sheetIndex: 1,
                 footerEndIndex: 12);
 
-        private string GetReporTitle(WinLossByProductExcelQuery message)
-            => $"{Resources.WinLossByProduct} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-            $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
+        private string GetReporTitle(WinLossByProductParam param)
+        {
+            var sabaclubName = productDetailService.GetSabaclubNameExportExcel(param.UserSelectedResourceIds);
+            var productNames = productService.ConcatProductNames(param.UserSelectedProductIds, ProductIdConstants.SabaClub, sabaclubName);
+
+            return $"{Resources.WinLossByProduct} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()} {Resources.of2} {productNames}";
+        }
 
         private string GetExcelFileName(WinLossByProductExcelQuery message, WinLossByProductParam winLossByBetTypeParam)
            => string.Join(

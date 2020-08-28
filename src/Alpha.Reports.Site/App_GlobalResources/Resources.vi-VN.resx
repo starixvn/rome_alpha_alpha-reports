@@ -755,4 +755,10 @@
   <data name="Tooltip_NetTurnover_livecasino" xml:space="preserve">
     <value>- Đối với {0}, Tiền Cược Thực là tổng số tiền cược có giá trị dùng để tính toán hoa hồng.</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Chọn tất cả</value>
+  </data>
+  <data name="SelectNone" xml:space="preserve">
+    <value>Bỏ chọn tất cả</value>
+  </data>
 </root>

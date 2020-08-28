@@ -285,6 +285,7 @@ class WinLossByProductView extends BaseReport {
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
             CustId: tableReport.data("custid"),
             IsStackMode: tableReport.hasClass("stack-mode"),
             HideFilter: this.$reportForm.is(":hidden"),
@@ -304,12 +305,23 @@ class WinLossByProductView extends BaseReport {
             return;
         }
 
+        if (!params.IsAnyProductDetailSelected) {
+            this.showValidaProductDetailError();
+            this.$.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
         this.$isStackMode.val(String(params.IsStackMode));
     };
     showValidateProductError = () => {
         this.$multiSelectButton.addClass("error");
         this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
+    };
+    showValidaProductDetailError = () => {
+        this.productMultiSelectionComponent.addErrorToProductDetailComponent();
     };
 }
 

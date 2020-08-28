@@ -250,6 +250,7 @@ class WinLossDetailView extends BaseReport {
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
             SortPropertyName: sortInfo.sortPropertyName,
             IsDescendingSort: sortInfo.isDescendingSort,
             IsStackMode: tableReport.hasClass("stack-mode"),
@@ -260,6 +261,9 @@ class WinLossDetailView extends BaseReport {
     showValidateProductError = () => {
         this.$multiSelectButton.addClass("error");
         this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
+    };
+    showValidaProductDetailError = () => {
+        this.productMultiSelectionComponent.addErrorToProductDetailComponent();
     };
     clearError = () => {
         this.$multiSelectButton.removeClass("error");
@@ -279,6 +283,12 @@ class WinLossDetailView extends BaseReport {
         } else if (!params.IsAnyProductSelected) {
             this.showValidateProductError();
             this$.unblockUI();
+            e.preventDefault();
+
+            return;
+        } else if (!params.IsAnyProductDetailSelected) {
+            this.showValidaProductDetailError();
+            this.$.unblockUI();
             e.preventDefault();
 
             return;

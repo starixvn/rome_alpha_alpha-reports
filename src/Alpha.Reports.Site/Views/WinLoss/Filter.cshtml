@@ -31,18 +31,20 @@
 
     @helper RenderHiddenFields()
     {
-    @Html.Hidden("IsFilterVisible", Model.Visible)
-    @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
+        @Html.Hidden("IsFilterVisible", Model.Visible)
+        @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 
-    @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
-    @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
+        @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+        @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
 
-    @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
-    @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
+        @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
+        @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
 
-    @Html.Hidden("CustId", Model.CustId)
-    @Html.Hidden("CustName", Model.CustName)
-    @Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
-    @Html.Hidden("CustLevelId", Model.CustLevel.Value)
-}
+        @Html.Hidden("CustId", Model.CustId)
+        @Html.Hidden("CustName", Model.CustName)
+        @Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
+        @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+
+        @Html.Hidden("IsPostBack", "true")
+    }
 </form>

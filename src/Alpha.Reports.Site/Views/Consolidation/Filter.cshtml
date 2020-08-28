@@ -31,6 +31,7 @@
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    @Html.Hidden("IsPostBack", "true")
 </form>
 
 @helper RenderReportTypeOption(string reportType, string label)

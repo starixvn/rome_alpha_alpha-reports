@@ -602,6 +602,7 @@
             // assert
             expect(actualParam).toEqual({
                 IsAnyProductSelected: expectedIsAnyProductSelected,
+                IsAnyProductDetailSelected: true,
                 IsStackMode: false,
                 IsFilterVisible: true,
 

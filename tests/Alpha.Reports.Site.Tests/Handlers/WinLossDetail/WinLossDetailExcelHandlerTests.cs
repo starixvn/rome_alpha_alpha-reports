@@ -31,8 +31,9 @@
         public WinLossDetailExcelHandlerTests(UserFixture userFixture)
         {
             var productService = Substitute.For<ProductService>();
-            productService.ConcatProductNames(Arg.Any<string>()).Returns("Product Name");
+            productService.ConcatProductNames(Arg.Any<IEnumerable<int>>(), 42, "Saba.club").Returns("Product Name");
             var productDetailService = Substitute.For<ProductDetailService>();
+            productDetailService.GetSabaclubNameExportExcel(Arg.Any<IEnumerable<int>>()).Returns("Saba.club");
 
             reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), 0, 0, 0, default(WinLossDetailModel));
             var reportService = Substitute.For<WinLossDetailService>();

@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
     using System.Diagnostics.CodeAnalysis;
+    using Alpha.Reports.Constants;
     using Extensions;
     using Params;
     using Reports.Models;
@@ -39,7 +40,7 @@
                 message.MinDate);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
                 message.CustId,
-                message.UserSelectedResourceIds);
+                !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds);
 
             return new WinLossDetailParam(
                  message.CustId,

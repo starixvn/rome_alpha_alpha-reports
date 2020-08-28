@@ -275,6 +275,7 @@ class WinLossView extends BaseReport {
         return {
             CustId: tableReport.data("custid"),
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
             SortPropertyName: sortInfo.sortPropertyName,
@@ -286,6 +287,10 @@ class WinLossView extends BaseReport {
     showValidaProductError = () => {
         this.$multiSelectButton.addClass("error");
         this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
+    };
+
+    showValidaProductDetailError = () => {
+        this.productMultiSelectionComponent.addErrorToProductDetailComponent();
     };
 
     clearError = () => {
@@ -302,6 +307,14 @@ class WinLossView extends BaseReport {
         var params = this.getParams();
         if (!params.IsAnyProductSelected) {
             this.showValidaProductError();
+            this.$.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+
+        if (!params.IsAnyProductDetailSelected) {
+            this.showValidaProductDetailError();
             this.$.unblockUI();
             e.preventDefault();
 

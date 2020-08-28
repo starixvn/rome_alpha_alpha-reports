@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLoss
 {
     using System;
+    using Alpha.Reports.Constants;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -39,7 +40,7 @@
 
             var result = workbook
                 .UseTemplate(GetTemplateInfo(message))
-                .Title(GetReportTitle(message))
+                .Title(GetReportTitle(winLossParam))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(reportData, GetBodyRowMapper(message))
                 .Footer(grandTotal, GetTotalRowMapper(message))
@@ -99,9 +100,13 @@
                 GetExcelTemplatePath(message.CustLevel.GetDirectDownLineLevel().DisplayName),
                 noInfomationText: Resources.NoInformationIsAvailable);
 
-        private string GetReportTitle(WinLossExcelQuery message)
-            => $"{Resources.WinLossTitle} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-            $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
+        private string GetReportTitle(WinLossParam param)
+        {
+            var sabaclubName = productDetailService.GetSabaclubNameExportExcel(param.UserSelectedResourceIds);
+            var productNames = productService.ConcatProductNames(param.UserSelectedProductIds, ProductIdConstants.SabaClub, sabaclubName);
+
+            return $"{Resources.WinLossTitle} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()} {Resources.of2} {productNames}";
+        }
 
         private string GetExcelFileName(WinLossExcelQuery message, WinLossParam winLossParam)
            => string.Join(

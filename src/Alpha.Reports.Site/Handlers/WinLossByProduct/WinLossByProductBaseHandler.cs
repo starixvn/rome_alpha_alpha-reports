@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Alpha.Reports.Constants;
     using App_Start;
     using Extensions;
     using Params;
@@ -45,7 +46,7 @@
                 message.MinDate);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
                 message.CustId,
-                message.UserSelectedResourceIds);
+                !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds);
 
             return new WinLossByProductParam(
                 message.CustId,

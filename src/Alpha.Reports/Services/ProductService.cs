@@ -24,6 +24,8 @@
 
         string ConcatProductNames(string productIds);
 
+        string ConcatProductNames(IEnumerable<int> productIds, int replacedProductId, string toProductName);
+
         IEnumerable<ProductsByRefTable> GetProductsNeedDelayTimeToSumarizeData();
 
         IEnumerable<byte> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, string site, int currencyId);
@@ -114,6 +116,23 @@
 
         public string ConcatProductNames(string productIds)
             => string.Join(", ", GetProductNames(productIds.ToListInt()));
+
+        public string ConcatProductNames(IEnumerable<int> productIds, int replacedProductId, string toProductName)
+        {
+            if (productIds == null)
+            {
+                return string.Empty;
+            }
+
+            var productNames = new List<string>();
+
+            foreach (var productId in productIds)
+            {
+                productNames.Add(productId == replacedProductId ? toProductName : getProductName(productId));
+            }
+
+            return string.Join(", ", productNames);
+        }
 
         public IEnumerable<ProductsByRefTable> GetProductsNeedDelayTimeToSumarizeData()
         {

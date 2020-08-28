@@ -193,6 +193,17 @@ class ConsolidationDetailView extends BaseReport {
             return;
         }
 
+        if (!params.IsAnyProductDetailSelected) {
+            this.showValidaProductDetailError();
+            this$.unblockUI();
+
+            if (e) {
+                e.preventDefault();
+            }
+
+            return;
+        }
+
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
         this.$isStackMode.val(String(params.IsStackMode));
 
@@ -214,6 +225,9 @@ class ConsolidationDetailView extends BaseReport {
     showValidateProductError = () => {
         this.$productButton.addClass("error");
         this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
+    };
+    showValidaProductDetailError = () => {
+        this.productMultiSelectionComponent.addErrorToProductDetailComponent();
     };
     hideFilter = () => {
         this.$pageTitle.addClass("hide-filter");
@@ -241,6 +255,7 @@ class ConsolidationDetailView extends BaseReport {
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
             IsStackMode: this.$tableReport.hasClass("stack-mode"),
             IsFilterVisible: !this.$reportForm.is(":hidden"),
 
