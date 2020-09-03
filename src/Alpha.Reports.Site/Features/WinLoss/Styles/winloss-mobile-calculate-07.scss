@@ -1,1 +1,19 @@
-﻿
+﻿.filter {
+    .submit-container.is-history-report {
+        width: calc(100% - 5px) !important;
+    }
+
+    .form-group {
+        .btn-group {
+            width: calc(100% - 5px) !important;
+
+            button.multiselect {
+                width: 100%;
+
+                .multiselect-selected-text {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

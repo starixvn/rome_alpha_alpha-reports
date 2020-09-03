@@ -4,7 +4,6 @@
 
 @helper Render(DateRangePickerViewModel model, IEnumerable<HelperResult> presubmitControls = null)
 {
-
     <div id="daterange-picker"
          class="daterange-picker"
          data-currentdate="@Alpha.Reports.Utils.SystemTime.Today"
@@ -51,20 +50,20 @@
         </div>
     </div>
 
-if (presubmitControls != null)
-{
-    foreach (var presubmitControl in presubmitControls)
+    if (presubmitControls != null)
     {
+        foreach (var presubmitControl in presubmitControls)
+        {
             @presubmitControl
+        }
     }
-}
 
-if (model.IsRenderSubmitButton)
-{
-        <div class="form-group">
+    if (model.IsRenderSubmitButton)
+    {
+        <div class="form-group submit-container">
             <input type="submit" value="@Resources.Submit" class="btn-submit" />
         </div>
-}
+    }
     <div class="form-group daterange-container">
         <div class="dropdown daterange-dropdown" id="dropdown-daterange">
             <input type="hidden" name="UserSelectedDateRangeOption" id="hidden-range-option" value="@model.SelectedRangeOption.Value" />
@@ -75,7 +74,7 @@ if (model.IsRenderSubmitButton)
             <ul class="dropdown-menu" aria-labelledby="range-label">
                 @foreach (var rangeOption in model.RangeOptions)
                 {
-                <li><a href="#" class="range-option" data-value="@rangeOption.Value">@rangeOption.Text</a></li>
+                    <li><a href="#" class="range-option" data-value="@rangeOption.Value">@rangeOption.Text</a></li>
                 }
             </ul>
         </div>

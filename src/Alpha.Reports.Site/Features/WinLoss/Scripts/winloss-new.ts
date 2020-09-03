@@ -82,7 +82,7 @@ class WinLossViewNew extends BaseReport {
         if (!this.checkReady()) {
             return;
         }
-
+        
         this.$.blockUI();
 
         this.cacheDOMElements();

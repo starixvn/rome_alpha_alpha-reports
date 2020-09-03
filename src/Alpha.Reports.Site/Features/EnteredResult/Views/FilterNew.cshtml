@@ -1,11 +1,11 @@
 ﻿@model EnteredResultFilterViewModel
 
-<form class="form-inline filter" role="form" id="report-form"
-      action="@Url.Action("IndexNew", "WinLoss")">
+<form class="form-inline filter entered-result" role="form" id="report-form" action="@Url.Action("IndexNew", "WinLoss")">
     @RenderHiddenFields()
+
     @DateRangePicker.Render(Model.DateRangePickerViewModel)
 
-    <div class="form-group">
+    <div class="display-sm-none form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 

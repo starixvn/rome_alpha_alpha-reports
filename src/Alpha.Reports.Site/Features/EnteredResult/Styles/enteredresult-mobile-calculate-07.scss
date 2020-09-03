@@ -1,5 +1,35 @@
-﻿.report-form {
-    .form-group {
+﻿.filter {
+    .submit-container, .daterange-container {
+        width: calc(50% - 8px) !important;
+    }
 
+    .submit-container {
+        margin-right: 5px !important;
+    }
+
+    .daterange-container {
+        margin-left: 5px !important;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-right: 0;
+
+        label {
+            margin-bottom: 3px;
+        }
+
+        .control.date {
+            width: calc(100% - 3px) !important;
+            margin: 0 !important;
+        }
+
+        .btn-submit {
+            width: 100%;
+        }
+    }
+
+    .date {
+        width: 100% !important;
     }
 }

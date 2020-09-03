@@ -9,11 +9,15 @@
     @StaticResources.RenderStylesWithMedia(767, "~/Features/EnteredResult/Bundles/enteredresult-mobile-calculate-07")
 }
 
-@ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, false, Enumerable.Empty<CustInfo>(), string.Empty))
+@ReportTitle.Render(new PageHeaderViewModel(
+    Model.Title,
+    false, true, false, false,
+    Enumerable.Empty<CustInfo>(),
+    string.Empty))
 
 @Html.Partial("~/Features/EnteredResult/Views/FilterNew.cshtml", Model.FilterViewModel)
 
-<div class="level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "99.999%" : "60%");">
+<div class="entered-result level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "99.999%" : "60%");">
     <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap"
            id="tbl-enteredresult-report"
            data-totalrecords="@Model.ReportData.Count()"
