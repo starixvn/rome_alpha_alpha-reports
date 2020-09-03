@@ -383,6 +383,7 @@
     <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="App_Start\BetTypeConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
     <TypeScriptCompile Include="assets\scripts\betchoicematching\betchoicematching.ts" />
     <TypeScriptCompile Include="assets\scripts\betchoicematching\global.d.ts" />
     <TypeScriptCompile Include="assets\scripts\commissionbybettype\commissionbybettype.ts" />

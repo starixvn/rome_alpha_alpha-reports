@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 var WinLossViewNew = /** @class */ (function (_super) {
     __extends(WinLossViewNew, _super);
     function WinLossViewNew($, dateRangePickerComponent, productMultiSelectionComponent, reportTooltip, monthPickerComponent, linkBuilderComponent) {
-        var _this = _super.call(this, $, linkBuilderComponent) || this;
+        var _this = _super.call(this, $, dateRangePickerComponent, linkBuilderComponent) || this;
         _this.isHistoricReport = false;
         _this.superColumnSortNames = [
             'CustName', 'Turnover', 'GrossComm', 'MasterNetWinLoss.WinLoss',
@@ -37,119 +37,42 @@ var WinLossViewNew = /** @class */ (function (_super) {
             if (!_this.checkReady()) {
                 return;
             }
-            _this.$.blockUI();
-            _this.cacheDOMElements();
-            _this.bindFilter();
-            _this.canSort = parseInt(_this.$tableReport.data('totalrecords'), 0) > 1;
+            _super.prototype.init.call(_this);
             _this.isSuperLevel = JSON.parse(_this.$isSuperLevel.val().toLowerCase());
             _this.isMasterLevel = JSON.parse(_this.$isMasterLevel.val().toLowerCase());
             _this.isAgentLevel = JSON.parse(_this.$isAgentLevel.val().toLowerCase());
-            _this.initDataTable();
             _this.linkBuilderComponent.render();
+            _this.bindFilter();
+            _this.initDataTable();
             _this.registerEvents();
             _this.initHelp();
             _this.$.unblockUI();
         };
         _this.initDataTable = function () {
-            var self = _this;
             var columnSortIndex = _this.getColumnSortIndex();
             var columnSortDirection = JSON.parse(_this.$isDescendingSort.val().toLowerCase()) ? 'desc' : 'asc';
-            _this.$dataTable = _this.$tableReport.DataTable({
-                responsive: {
-                    details: {
-                        type: 'column',
-                        target: -1,
-                        renderer: function (api, rowIdx) {
-                            var data = api.cells(rowIdx, ':hidden').eq(0).map(function (cell) {
-                                var header = self.$(api.column(cell.column).header());
-                                var idx = api.cell(cell).index();
-                                if (header.hasClass('control') || header.hasClass('never')) {
-                                    return '';
-                                }
-                                var dtPrivate = api.settings()[0];
-                                var cellData = dtPrivate.oApi._fnGetCellData(dtPrivate, idx.row, idx.column, 'display');
-                                var headerText = self.getColumnNameByCustLevel(idx.column, header.text());
-                                return "<li data-dtr-index=\"" + idx.column + "\">" +
-                                    ("<span class=\"dtr-title\">" + headerText + "</span> ") +
-                                    ("<span class=\"dtr-data\">" + cellData + "</span></li>");
-                            }).toArray().join('');
-                            return data ?
-                                self.$("<ul data-dtr-index=\"" + rowIdx + "\"/>").append(data) :
-                                false;
-                        }
-                    }
-                },
-                columnDefs: [{
-                        className: 'control',
-                        orderable: false,
-                        targets: -1
-                    }],
-                ordering: _this.canSort,
-                order: [[columnSortIndex, columnSortDirection]],
-                paging: false,
-                searching: false,
-                fixedHeader: true,
-                processing: true,
-                drawCallback: function () {
-                    _this.$('tbody').append(_this.$('tr.tbl-footer'));
-                    _this.$tableReport.removeClass('hidden');
-                }
-            });
-            _this.$('#tbl-report thead').on('click', 'th.control', function (event) { return _this.collapsedExpandedAll(event); });
-            _this.$dataTable.on('draw.dt', function () { return _this.triggerRedrawTable(); });
-        };
-        _this.collapsedAll = function (header) {
-            header.removeClass('parent');
-            _this.$('tbody tr.parent').each(function (index, element) {
-                _this.$(element).find('.control').click();
+            _super.prototype.initDataTable.call(_this, {
+                order: [[columnSortIndex, columnSortDirection]]
             });
         };
-        _this.expandedAll = function (header) {
-            header.addClass('parent');
-            _this.$('tbody tr').not('.parent').each(function (index, element) {
-                _this.$(element).find('.control').click();
-            });
-        };
-        _this.collapsedExpandedAll = function (event) {
-            _this.$.blockUI();
-            var header = _this.$(event.currentTarget).closest('tr');
-            header.hasClass('parent') ?
-                _this.collapsedAll(header) :
-                _this.expandedAll(header);
-            _this.$.unblockUI();
+        _this.renderData = function (idxColumn, headerText, cellData) {
+            var transformedHeaderText = _this.getColumnNameByCustLevel(idxColumn, headerText);
+            return "<li data-dtr-index=\"" + idxColumn + "\">" +
+                ("<span class=\"dtr-title\">" + transformedHeaderText + "</span> ") +
+                ("<span class=\"dtr-data\">" + cellData + "</span></li>");
         };
         _this.triggerRedrawTable = function () {
-            _this.doAdjustHeader();
+            _super.prototype.triggerRedrawTable.call(_this);
             _this.$sortPropertyName.val(_this.getColumnSortName());
             _this.$isDescendingSort.val(String(_this.isDescendingSort()));
         };
-        _this.doAdjustHeader = function () {
-            _this.$dataTable.fixedHeader.adjust();
-            var scrollTo = _this.$('.fixedHeader-floating thead').length > 0 ? _this.$(document).height() : 0;
-            _this.$(window).scrollTop(scrollTo);
-        };
         _this.cacheDOMElements = function () {
-            _this.$pageTitle = _this.$('.page-title ');
-            _this.$tableReport = _this.$('#tbl-report');
+            _super.prototype.cacheDOMElements.call(_this);
             _this.$drilldownLinks = _this.$('.downline-link');
-            _this.$exportExcelForm = _this.$('#export-excel-form');
-            _this.$reportForm = _this.$('#report-form');
-            _this.$historicReport = _this.$('#historic-report');
-            _this.$filterIcon = _this.$('.icon-filter');
-            _this.$excelIcon = _this.$('#icon-excel');
-            _this.$fromDate = _this.$('#from-date');
-            _this.$toDate = _this.$('#to-date');
-            _this.$userSelectedDateRangeOption = _this.$('#UserSelectedDateRangeOption');
-            _this.$isFilterVisible = _this.$('#IsFilterVisible');
-            _this.$isSuperLevel = _this.$('#IsSuperLevel');
-            _this.$isMasterLevel = _this.$('#IsMasterLevel');
             _this.$isAgentLevel = _this.$('#IsAgentLevel');
-            _this.$isDescendingSort = _this.$('#IsDescendingSort');
-            _this.$sortPropertyName = _this.$('#SortPropertyName');
-            _this.$isHistoricReport = _this.$('#IsHistoricReport');
-        };
-        _this.checkReady = function () {
-            return _this.$('#IsHistoricReport').length > 0;
+            _this.$isMasterLevel = _this.$('#IsMasterLevel');
+            _this.$isSuperLevel = _this.$('#IsSuperLevel');
+            _this.$tableReport = _this.$('#tbl-report');
         };
         _this.bindFilter = function () {
             _this.productMultiSelectionComponent.render();
@@ -173,19 +96,14 @@ var WinLossViewNew = /** @class */ (function (_super) {
             }
         };
         _this.registerEvents = function () {
-            _this.$reportForm.submit(_this.onSubmitReportEvent);
-            _this.$historicReport.on('click', _this.onSubmitHistoricReportEvent);
-            _this.$filterIcon.on('click', _this.onFilterEvent);
+            _super.prototype.registerEvents.call(_this);
             _this.$excelIcon.on('click', _this.onExportExcelEvent);
+            _this.$historicReport.on('click', _this.onSubmitHistoricReportEvent);
+            _this.$reportForm.submit(_this.onSubmitReportEvent);
         };
-        _this.onFilterEvent = function () {
-            var currentHideState = _this.$reportForm.hasClass('hide');
-            currentHideState ? _this.showFilter() : _this.hideFilter();
-            _this.replaceDrilldownParam('IsFilterVisible', currentHideState);
-        };
-        _this.onExportExcelEvent = function () {
-            _this.$exportExcelForm.submit();
-            _this.$.unblockUI();
+        _this.onClickIconFilter = function () {
+            _super.prototype.onClickIconFilter.call(_this);
+            _this.replaceHrefParam("IsFilterVisible", _this.currentHideState);
         };
         _this.onSubmitHistoricReportEvent = function () {
             _this.$fromDate.val('');
@@ -193,20 +111,8 @@ var WinLossViewNew = /** @class */ (function (_super) {
             _this.isHistoricReport = !_this.$historicReport.data('is-historic-report');
             _this.$reportForm.trigger('submit');
         };
-        _this.showFilter = function () {
-            _this.$pageTitle.removeClass('hide-filter');
-            _this.$reportForm.removeClass('hide');
-        };
-        _this.hideFilter = function () {
-            _this.$pageTitle.addClass('hide-filter');
-            _this.$reportForm.addClass('hide');
-        };
-        _this.isDescendingSort = function () {
-            var order = _this.$dataTable.order();
-            return order[0][1] !== 'asc';
-        };
         _this.getColumnSortName = function () {
-            var order = _this.$dataTable.order();
+            var order = _this.$table.order();
             var columnSortIndex = order[0][0];
             if (_this.isSuperLevel) {
                 return _this.superColumnSortNames[columnSortIndex];
@@ -256,21 +162,18 @@ var WinLossViewNew = /** @class */ (function (_super) {
                 HideFilter: _this.$reportForm.is(':hidden')
             };
         };
-        _this.showValidaProductError = function () {
+        _this.showValidateProductError = function () {
             _this.$multiSelectButton.addClass('error');
             _this.productMultiSelectionComponent.addClassToExcludeProductLabels('error');
         };
         _this.clearError = function () {
             _this.$multiSelectButton.removeClass('error');
         };
-        _this.replaceDrilldownParam = function (paramName, paramValue) {
-            _this.linkBuilderComponent.updateParam(paramName, paramValue);
-        };
         _this.onSubmitReportEvent = function (e) {
             _this.$.blockUI();
             var params = _this.getParams();
             if (!params.IsAnyProductSelected) {
-                _this.showValidaProductError();
+                _this.showValidateProductError();
                 _this.$.unblockUI();
                 e.preventDefault();
                 return;
@@ -280,19 +183,16 @@ var WinLossViewNew = /** @class */ (function (_super) {
             _this.$sortPropertyName.val(params.SortPropertyName);
             _this.$isDescendingSort.val(String(params.IsDescendingSort));
         };
-        _this.$ = $;
-        _this.dateRangePickerComponent = dateRangePickerComponent;
         _this.productMultiSelectionComponent = productMultiSelectionComponent;
         _this.reportTooltip = reportTooltip;
         _this.monthPickerComponent = monthPickerComponent;
-        _this.linkBuilderComponent = linkBuilderComponent;
         return _this;
     }
     return WinLossViewNew;
-}(BaseReport));
+}(BaseReportNew));
 $(function () {
     var linkBuilderComponent = new LinkBuilderComponent($);
-    var winLossView = new WinLossViewNew($, new DateRangePickerComponent($), new ProductMultiSelectionComponent($), new ReportTooltip($), new MonthPickerComponent($), linkBuilderComponent);
-    winLossView.init();
+    var winLossViewNew = new WinLossViewNew($, new DateRangePickerComponent($), new ProductMultiSelectionComponent($), new ReportTooltip($), new MonthPickerComponent($), linkBuilderComponent);
+    winLossViewNew.init();
 });
 //# sourceMappingURL=winloss-new.js.map

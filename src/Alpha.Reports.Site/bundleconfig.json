@@ -48,12 +48,12 @@
     "outputFileName": "Features/WinLoss/Bundles/winloss-new.js",
     "inputFiles": [
       "assets/scripts/core.js",
-      "assets/scripts/base-report.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/monthpicker.js",
       "assets/scripts/components/tooltip.js",
       "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/link-builder.js",
+      "Features/Shared/Scripts/base-report-new.js",
       "Features/WinLoss/Scripts/winloss-new.js"
     ]
   },
@@ -79,6 +79,7 @@
     "inputFiles": [
       "assets/scripts/core.js",
       "assets/scripts/components/daterangepicker.js",
+      "Features/Shared/Scripts/base-report-new.js",
       "Features/EnteredResult/Scripts/enteredresult-new.js"
     ]
   },
