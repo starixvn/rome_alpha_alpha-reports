@@ -457,7 +457,7 @@
     <Compile Include="Controllers\StatementController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
-    <Compile Include="Controllers\WinLossController.cs" />
+    <Compile Include="Features\WinLoss\WinLossController.cs" />
     <Compile Include="Controllers\RiskAnalysisIPMatchingController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -516,11 +516,11 @@
     <Compile Include="Handlers\WinLossDetail\WinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandler.cs" />
-    <Compile Include="Handlers\WinLoss\WinLossBaseHandler.cs" />
+    <Compile Include="Features\WinLoss\WinLossBaseHandler.cs" />
     <Compile Include="Features\EnteredResult\EnteredSportResultExcelHandler.cs" />
     <Compile Include="Features\EnteredResult\EnteredSportResultHandler.cs" />
-    <Compile Include="Handlers\WinLoss\WinLossExcelHandler.cs" />
-    <Compile Include="Handlers\WinLoss\WinLossHandler.cs" />
+    <Compile Include="Features\WinLoss\WinLossExcelHandler.cs" />
+    <Compile Include="Features\WinLoss\WinLossHandler.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />
@@ -586,8 +586,8 @@
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
     <Compile Include="Features\EnteredResult\Requests\EnteredSportResultQuery.cs" />
     <Compile Include="Features\EnteredResult\Requests\EnteredSportResultExcelQuery.cs" />
-    <Compile Include="Requests\WinLoss\WinLossExcelQuery.cs" />
-    <Compile Include="Requests\WinLoss\WinLossQuery.cs" />
+    <Compile Include="Features\WinLoss\Requests\WinLossExcelQuery.cs" />
+    <Compile Include="Features\WinLoss\Requests\WinLossQuery.cs" />
     <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingJsonModel.cs" />
     <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingViewModel.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeFilterViewModel.cs" />
@@ -647,8 +647,8 @@
     <Compile Include="ViewModels\WinLossReportBaseViewModel.cs" />
     <Compile Include="Features\EnteredResult\EnteredResultFilterViewModel.cs" />
     <Compile Include="Features\EnteredResult\EnteredResultViewModel.cs" />
-    <Compile Include="ViewModels\WinLoss\WinLossFilterViewModel.cs" />
-    <Compile Include="ViewModels\WinLoss\WinLossViewModel.cs" />
+    <Compile Include="Features\WinLoss\WinLossFilterViewModel.cs" />
+    <Compile Include="Features\WinLoss\WinLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\activitytracking.local.json">
@@ -990,6 +990,18 @@
     <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.min.css">
       <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
     </Content>
+    <Content Include="Features\WinLoss\Bundles\winloss-mobile-calculate-07.css" />
+    <Content Include="Features\WinLoss\Bundles\winloss-mobile-calculate-07.min.css">
+      <DependentUpon>winloss-mobile-calculate-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Bundles\winloss-new.js" />
+    <Content Include="Features\WinLoss\Bundles\winloss-new.min.js">
+      <DependentUpon>winloss-new.js</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Bundles\winloss.js" />
+    <Content Include="Features\WinLoss\Bundles\winloss.min.js">
+      <DependentUpon>winloss.js</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
@@ -1013,7 +1025,7 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\AuthorizationSection.config" />
-    <Content Include="Views\WinLoss\Filter.cshtml" />
+    <Content Include="Features\WinLoss\Views\Filter.cshtml" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Member.xls" />
@@ -1066,7 +1078,7 @@
     <Content Include="Web.napinternal.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-    <Content Include="Views\WinLoss\Index.cshtml" />
+    <Content Include="Features\WinLoss\Views\Index.cshtml" />
     <Content Include="App_Code\Components\ReportTitle.cshtml" />
     <Content Include="App_Code\Components\NetTurnoverTooltips.cshtml" />
     <Content Include="App_Code\Components\Breadcrumb.cshtml" />
@@ -1119,6 +1131,13 @@
     </Content>
     <Content Include="Features\EnteredResult\Styles\enteredresult-mobile-calculate-07.scss" />
     <Content Include="Features\EnteredResult\Views\IndexNew.cshtml" />
+    <Content Include="Features\WinLoss\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Features\WinLoss\Styles\winloss-mobile-calculate-07.scss" />
+    <Content Include="Features\EnteredResult\Views\FilterNew.cshtml" />
+    <Content Include="Features\WinLoss\Views\FilterNew.cshtml" />
+    <Content Include="Features\WinLoss\Views\IndexNew.cshtml" />
     <Content Include="Features\Outstanding\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1191,7 +1210,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <TypeScriptCompile Include="Features\EnteredResult\Scripts\enteredresult.ts" />
-    <TypeScriptCompile Include="assets\scripts\winloss\winloss.ts" />
+    <TypeScriptCompile Include="Features\WinLoss\Scripts\winloss-new.ts" />
+    <TypeScriptCompile Include="Features\WinLoss\Scripts\winloss.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
     <TypeScriptCompile Include="typings\globals\bootstrap\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine-jquery\index.d.ts" />

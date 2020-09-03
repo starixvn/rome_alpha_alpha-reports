@@ -35,7 +35,7 @@ class EnterResultViewNew {
         this.dateRangePickerComponent.render();
         this.cacheDOMElements();
 
-        this.canSort = parseInt(this.$tableReport.data("totalrecords"), 0) > 1;
+        this.canSort = parseInt(this.$("#tbl-enteredresult-report").data("totalrecords"), 0) > 1;
         this.initDataTable();
         this.registerEvents();
         this.$.unblockUI();
@@ -47,7 +47,6 @@ class EnterResultViewNew {
 
     cacheDOMElements = () => {
         this.$pageTitle = this.$(".page-title ");
-        this.$tableReport = this.$("#tbl-enteredresult-report");
         this.$reportForm = this.$("#report-form");
         this.$isFilterVisible = this.$("#IsFilterVisible");
         this.$historicReport = this.$("#historic-report");
@@ -71,7 +70,7 @@ class EnterResultViewNew {
     initDataTable = () => {
         const self = this;
 
-        this.$tableReport.DataTable({
+        this.$tableReport = this.$("#tbl-enteredresult-report").DataTable({
             responsive: {
                 details: {
                     type: 'column',
@@ -117,6 +116,7 @@ class EnterResultViewNew {
         });
 
         this.$('#tbl-enteredresult-report thead').on('click', 'th.control', event => this.collapsedExpandedAll(event));
+        this.$tableReport.on('draw.dt', () => this.triggerRedrawTable());
     };
 
     collapsedAll = (header) => {
@@ -144,6 +144,17 @@ class EnterResultViewNew {
             this.expandedAll(header);
 
         this.$.unblockUI();
+    }
+
+    triggerRedrawTable = () => {
+        this.doAdjustHeader();
+    }
+
+    doAdjustHeader = () => {
+        this.$tableReport.fixedHeader.adjust();
+
+        const scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;
+        this.$(window).scrollTop(scrollTo);
     }
 
     onFilterEvent = () => {

@@ -9,7 +9,7 @@ var EnterResultViewNew = /** @class */ (function () {
             _this.$.blockUI();
             _this.dateRangePickerComponent.render();
             _this.cacheDOMElements();
-            _this.canSort = parseInt(_this.$tableReport.data("totalrecords"), 0) > 1;
+            _this.canSort = parseInt(_this.$("#tbl-enteredresult-report").data("totalrecords"), 0) > 1;
             _this.initDataTable();
             _this.registerEvents();
             _this.$.unblockUI();
@@ -19,7 +19,6 @@ var EnterResultViewNew = /** @class */ (function () {
         };
         this.cacheDOMElements = function () {
             _this.$pageTitle = _this.$(".page-title ");
-            _this.$tableReport = _this.$("#tbl-enteredresult-report");
             _this.$reportForm = _this.$("#report-form");
             _this.$isFilterVisible = _this.$("#IsFilterVisible");
             _this.$historicReport = _this.$("#historic-report");
@@ -40,7 +39,7 @@ var EnterResultViewNew = /** @class */ (function () {
         };
         this.initDataTable = function () {
             var self = _this;
-            _this.$tableReport.DataTable({
+            _this.$tableReport = _this.$("#tbl-enteredresult-report").DataTable({
                 responsive: {
                     details: {
                         type: 'column',
@@ -78,6 +77,7 @@ var EnterResultViewNew = /** @class */ (function () {
                 processing: true
             });
             _this.$('#tbl-enteredresult-report thead').on('click', 'th.control', function (event) { return _this.collapsedExpandedAll(event); });
+            _this.$tableReport.on('draw.dt', function () { return _this.triggerRedrawTable(); });
         };
         this.collapsedAll = function (header) {
             header.removeClass('parent');
@@ -98,6 +98,14 @@ var EnterResultViewNew = /** @class */ (function () {
                 _this.collapsedAll(header) :
                 _this.expandedAll(header);
             _this.$.unblockUI();
+        };
+        this.triggerRedrawTable = function () {
+            _this.doAdjustHeader();
+        };
+        this.doAdjustHeader = function () {
+            _this.$tableReport.fixedHeader.adjust();
+            var scrollTo = _this.$('.fixedHeader-floating thead').length > 0 ? _this.$(document).height() : 0;
+            _this.$(window).scrollTop(scrollTo);
         };
         this.onFilterEvent = function () {
             var currentHideState = _this.$reportForm.hasClass("hide");

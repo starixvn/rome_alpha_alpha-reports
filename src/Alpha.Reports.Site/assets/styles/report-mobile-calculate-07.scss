@@ -19,6 +19,26 @@ table.dataTable thead [class*="sorting"]:after {
 	font-size: calculateScale(10px);
 }
 
+table.dataTable tbody > tr {
+    &.odd.parent + tr.child > td.child {
+        background-color: #f9f9f9;
+    }
+
+    &.even.parent + tr.child > td.child {
+        background-color: #eae9ee;
+    }
+
+    &.tbl-footer.parent + tr.child > td.child {
+        background-color: #7f3d1d;
+        color: #fff;
+        font-weight: 700;
+    }
+
+    &:not(.tbl-footer):hover + tr.child > td.child {
+        background-color: #f8eb95;
+    }
+}
+
 .page-title {
 	font-size: calculateScale(13px);
 	line-height: calculateScale(39px);
