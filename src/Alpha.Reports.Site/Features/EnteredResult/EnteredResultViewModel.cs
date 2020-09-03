@@ -1,23 +1,25 @@
 ﻿namespace Alpha.Reports.Site.ViewModels.WinLoss
 {
-    using System;
-    using System.Collections.Generic;
     using App_GlobalResources;
     using Components;
     using Extensions;
     using Reports.Models;
     using Reports.Models.Winloss;
     using Requests.WinLoss;
+    using System;
+    using System.Collections.Generic;
     using Utils;
 
     public class EnteredResultViewModel
     {
         public EnteredResultViewModel(
             EnteredSportResultQuery message,
-            IEnumerable<EnteredSportResult> reportData)
+            IEnumerable<EnteredSportResult> reportData,
+            bool isMobile = false)
         {
             ReportData = reportData;
             CustLevel = message.CustLevel;
+            IsMobileView = isMobile;
         }
 
         public DateTime MinDate => SystemTime.Today.AddMonths(-3).FirstDayOfMonth();
@@ -46,10 +48,18 @@
         public UserLevel CustLevel { get; }
 
         public string Title
-            => CustLevel.IsSuperLevel()
-            ? Resources.MasterWinLoss
-            : CustLevel.IsMasterLevel()
-            ? Resources.AgentWinLoss
-            : Resources.MemberWinLoss;
+        {
+            get
+            {
+                string v = CustLevel.IsMasterLevel()
+                            ? Resources.AgentWinLoss
+                            : Resources.MemberWinLoss;
+                return CustLevel.IsSuperLevel()
+                    ? Resources.MasterWinLoss
+                    : v;
+            }
+        }
+
+        public bool IsMobileView { get; }
     }
 }

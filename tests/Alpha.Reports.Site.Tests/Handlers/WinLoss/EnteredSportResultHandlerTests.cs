@@ -4,6 +4,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Threading;
+    using Alpha.Web.Helpers;
     using Constants;
     using Enumerations;
     using Fixtures;
@@ -23,15 +24,18 @@
     public class EnteredSportResultHandlerTests
     {
         private readonly WinLossService reportService;
+        private readonly BrowserHelper browserHelper;
         private readonly EnteredSportResultHandler enteredSportResultHandler;
         private readonly UserFixture userFixture;
         private readonly CompareLogic compareLogic;
 
         public EnteredSportResultHandlerTests(UserFixture userFixture)
         {
-            reportService = Substitute.For<WinLossService>();
             this.userFixture = userFixture;
-            enteredSportResultHandler = new EnteredSportResultHandler(reportService);
+
+            reportService = Substitute.For<WinLossService>();
+            browserHelper = Substitute.For<BrowserHelper>();
+            enteredSportResultHandler = new EnteredSportResultHandler(reportService, browserHelper);
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
