@@ -342,6 +342,8 @@
 
             var winLossDetailParam = new WinLossDetailParam(
                 winLossDetailQuery.CustId,
+                winLossDetailQuery.Site,
+                winLossDetailQuery.CurrencyId,
                 winLossDetailQuery.PageIndex,
                 winLossDetailQuery.PageSize,
                 winLossDetailQuery.FromDate,

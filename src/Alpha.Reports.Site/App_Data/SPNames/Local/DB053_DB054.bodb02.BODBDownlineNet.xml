@@ -7,7 +7,6 @@
     <Setting Key="Age_Rpt_Outstanding_Member" SpName="Age_Rpt_Outstanding_Member" DbName="DB042.bodb02.BODBDownlineNet" Plain="0" />
     <!--Group 3-->
   </Function>
-
   <Function Name="Win Loss Detail">
     <!--Group 4-->
     <Setting Key="Age_Rpt_WinLossDetail_Master" SpName="Age_Rpt_WinLossDetail_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />

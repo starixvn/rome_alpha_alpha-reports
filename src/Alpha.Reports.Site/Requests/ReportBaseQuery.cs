@@ -17,6 +17,8 @@
             // Default data, if query string had data, then get from query string.
             CustId = viewer.Id;
             CustName = viewer.Name;
+            Site = viewer.Site;
+            CurrencyId = viewer.CurrencyId;
             CustLevelId = viewer.LevelId;
 
             Language = viewer.Language;
@@ -33,6 +35,10 @@
         public int CustId { get; set; }
 
         public string CustName { get; set; }
+
+        public string Site { get; set; }
+
+        public int CurrencyId { get; set; }
 
         public byte CustLevelId { get; set; }
 

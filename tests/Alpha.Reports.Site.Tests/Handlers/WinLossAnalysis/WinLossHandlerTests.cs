@@ -96,6 +96,8 @@
             var grandTotal = new WinLossAnalysisModel();
             var param = new WinLossAnalysisParam(
                 custId: 0,
+                site: "",
+                currencyId: 1,
                 reportType: 2,
                 fromDate: SystemTime.Today,
                 toDate: SystemTime.Today,
@@ -105,7 +107,7 @@
 
             reportService.GetWinLossAnalysis(Arg.Any<WinLossAnalysisParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
+            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
             var expectedWinLossAnalysisViewModel = new WinLossAnalysisViewModel(
                 reportData,

@@ -40,6 +40,8 @@
         {
             var validUserSelectedProductIds = reportService.FilterProductIdsByCustomer(
                 message.CustId,
+                message.Site,
+                message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
 
@@ -127,10 +129,12 @@
         protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query)
         {
             var validUserSelectedProductIds =
-               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
+               reportService.FilterProductIdsByCustomer(query.ViewerId, query.Site, query.CurrencyId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
 
             return new WinLossDetailParam(
                 query.CustId,
+                query.Site,
+                query.CurrencyId,
                 query.PageIndex,
                 query.PageSize,
                 query.FromDate,

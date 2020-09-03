@@ -32,7 +32,7 @@
 
         public ConsolidationReportByUsernameViewModel Handle(ConsolidationByUsernameQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
             var param = CreateParameter(message);
@@ -50,7 +50,7 @@
 
         public ConsolidationReportByDateViewModel Handle(ConsolidationByDateQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
             var param = CreateParameter(message);
@@ -68,7 +68,7 @@
 
         public ConsolidationReportByProductViewModel Handle(ConsolidationByProductQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
 
             var param = CreateParameter(message);
@@ -113,7 +113,7 @@
         private ConsolidationFilterViewModel GetConsolidationFilterViewModel(
             ConsolidationByUsernameQuery query)
         {
-            var products = reportService.GetProducts(new GetConslidationReportProductsParam(query.ViewerId, query.MinDate));
+            var products = reportService.GetProducts(new GetConslidationReportProductsParam(query.ViewerId, query.Site, query.CurrencyId, query.MinDate));
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(query.ViewerId));
 
             var param = CreateParameter(query);

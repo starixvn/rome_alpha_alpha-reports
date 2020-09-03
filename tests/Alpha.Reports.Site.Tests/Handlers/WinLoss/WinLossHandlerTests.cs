@@ -104,6 +104,8 @@
             var grandTotal = new WinLossModel();
             var winLossParam = new WinLossParam(
                 0,
+                "",
+                1,
                 DefaultVariablesTest.CurrentDate,
                 DefaultVariablesTest.CurrentDate,
                 DateTime.MinValue,
@@ -113,7 +115,7 @@
 
             reportService.GetWinLoss(Arg.Any<WinLossParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
+            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(validUserSelectedProductIds);
 
             var expectedWinLossViewModel = new WinLossViewModel(
                 reportData,

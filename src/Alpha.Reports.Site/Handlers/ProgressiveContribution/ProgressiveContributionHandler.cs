@@ -50,7 +50,7 @@
             var result = new List<string>();
             result.Add(Resources.ContributionAmountRoundNote);
 
-            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer()
+            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId)
                 .Where(product => message.EnableJackpotProductIds.Contains(product))
                 .Select(product => (int)product);
 

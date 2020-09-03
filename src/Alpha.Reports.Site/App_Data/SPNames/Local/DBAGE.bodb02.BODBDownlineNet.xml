@@ -54,12 +54,9 @@
     <Setting Key="Age_Chart_WinlossAnalysis_Member" SpName="Age_Chart_WinlossAnalysis_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0" />
   </Function>
   <Function Name="Commission By Bet Type">
-    <Setting Key="Age_Rpt_CommByBettype_Master" SpName="Age_Rpt_CommByBettype_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-    </Setting>
-    <Setting Key="Age_Rpt_CommByBettype_Agent" SpName="Age_Rpt_CommByBettype_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-    </Setting>
-    <Setting Key="Age_Rpt_CommByBettype_Member" SpName="Age_Rpt_CommByBettype_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">
-    </Setting>
+    <Setting Key="Age_Rpt_CommByBettype_Master" SpName="Age_Rpt_CommByBettype_Master" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"></Setting>
+    <Setting Key="Age_Rpt_CommByBettype_Agent" SpName="Age_Rpt_CommByBettype_Agent" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"></Setting>
+    <Setting Key="Age_Rpt_CommByBettype_Member" SpName="Age_Rpt_CommByBettype_Member" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0"></Setting>
   </Function>
   <Function Name="Consolidation">
     <Setting Key="Age_Rpt_ConsolidatedGroupSelCurrency" SpName="Age_Rpt_ConsolidatedGroupSelCurrency" DbName="DBAGE.bodb02.BODBDownlineNet" Plain="0">

@@ -137,13 +137,13 @@
 
             leagueService.GetLeagueName(Arg.Any<int>(),Arg.Any<byte>()).Returns("League 1");
 
-            reportService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
+            reportService.GetProductsForCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(new List<Product>
             {
                 new Product(1, "Product 1", null, 0, 0),
                 new Product(2, "Product 2", null, 0, 0)
             });
             query.UserSelectedProductIds = "1";
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
+            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
                 .Returns(new List<int> { 1 });
 
             var expectedViewModel = new MatchWinLossDetailReportViewModel(
@@ -171,6 +171,8 @@
                 query,
                 new MatchWinLossDetailParam(
                      query.CustId,
+                     query.Site,
+                     query.CurrencyId,
                      query.FromDate,
                      query.ToDate,
                      query.LimitedDateToShowInfo,
@@ -232,13 +234,13 @@
 
             leagueService.GetLeagueName(Arg.Any<int>(), Arg.Any<byte>()).Returns("League 1");
 
-            reportService.GetProductsForCustomer(Arg.Any<int>()).Returns(new List<Product>
+            reportService.GetProductsForCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(new List<Product>
             {
                 new Product(1, "Product 1", null, 0, 0),
                 new Product(2, "Product 2", null, 0, 0)
             });
             query.UserSelectedProductIds = "1";
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
+            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>())
                 .Returns(new List<int> { 1 });
 
             leagueService.GetLeaguesByCustomer(Arg.Any<GetLeaguesByCustomerParam>()).Returns(new List<League>
@@ -276,6 +278,8 @@
                 query,
                 new MatchWinLossDetailParam(
                      query.CustId,
+                     query.Site,
+                     query.CurrencyId,
                      query.FromDate,
                      query.ToDate,
                      query.LimitedDateToShowInfo,

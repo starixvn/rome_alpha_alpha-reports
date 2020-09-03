@@ -9,6 +9,8 @@
     {
         public WinLossAnalysisParam(
           int custId,
+          string site,
+          int currencyId,
           int reportType,
           DateTime fromDate,
           DateTime toDate,
@@ -17,6 +19,8 @@
           UserLevel custLevel)
         {
             CustId = custId;
+            Site = site;
+            CurrencyId = currencyId;
             CustLevel = custLevel;
 
             ReportTypeId = reportType;
@@ -28,6 +32,10 @@
         }
 
         public int CustId { get; }
+
+        public string Site { get; }
+
+        public int CurrencyId { get; }
 
         public int ReportTypeId { get; }
 

@@ -38,6 +38,8 @@
             var message = new WinLossAnalysisChartQuery(userFixture.User);
             var param = new WinLossAnalysisChartParam(
                 message.CustId,
+                message.Site,
+                message.CurrencyId,
                 message.FromDate,
                 message.ToDate,
                 DateTime.MinValue,

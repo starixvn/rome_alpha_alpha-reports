@@ -25,7 +25,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
+            var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, message.MinDate);
 
             var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);

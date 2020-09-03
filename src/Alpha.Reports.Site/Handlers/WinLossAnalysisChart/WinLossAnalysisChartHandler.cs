@@ -30,15 +30,19 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
+            var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, message.MinDate);
 
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
+                message.Site,
+                message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
 
             var param = new WinLossAnalysisChartParam(
                 message.CustId,
+                message.Site,
+                message.CurrencyId,
                 message.FromDate,
                 message.ToDate,
                 message.LimitedDateToShowInfo,

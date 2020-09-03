@@ -80,8 +80,8 @@
             outstandingService.GetMemberOutstanding(Arg.Any<OutstandingParam>()).Returns(Enumerable.Empty<OutstandingModel>());
 
             var productService = Substitute.For<ProductService>();
-            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IOrderedEnumerable<int>>()).Returns(Enumerable.Empty<int>());
-            productService.GetProductsForCustomer(1);
+            productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IOrderedEnumerable<int>>()).Returns(Enumerable.Empty<int>());
+            productService.GetProductsForCustomer(1, "", 1);
 
             var handler = new OutstandingHandler(outstandingService, productService, userFixture.User);
 

@@ -60,6 +60,8 @@
             // Arrange
             WinLossParam param = new WinLossParam(
                 0,
+                "",
+                1,
                 currentDate,
                 currentDate,
                 DateTime.MinValue,
@@ -84,6 +86,8 @@
             // Arrange
             WinLossParam param = new WinLossParam(
                 0,
+                "",
+                1,
                 currentDate,
                 currentDate,
                 DateTime.MinValue,
@@ -105,6 +109,8 @@
             var limitedDate = currentDate.AddDays(1);
             var param = new WinLossParam(
                 0,
+                "",
+                1,
                 currentDate,
                 currentDate.AddDays(1),
                 limitedDate,

@@ -87,7 +87,7 @@
         public void ReportLegend_Always_CallsMediatorSendReportLegendQuery()
         {
             // Arrange
-            var message = new ReportLegendQuery();
+            var message = new ReportLegendQuery(userFixture.User);
 
             // Act
             winLossDetailController.ReportLegend(message);

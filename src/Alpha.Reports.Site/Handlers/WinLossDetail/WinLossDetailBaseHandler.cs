@@ -31,11 +31,15 @@
         {
             var validUserSelectedProductIds = productService.FilterProductIdsByCustomer(
                 message.CustId,
+                message.Site,
+                message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
 
             return new WinLossDetailParam(
                  message.CustId,
+                 message.Site,
+                 message.CurrencyId,
                  message.PageIndex,
                  message.PageSize,
                  message.FromDate,

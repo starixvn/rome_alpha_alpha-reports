@@ -33,7 +33,7 @@
                 throw new ArgumentNullException(nameof(message));
             }
 
-            var products = productService.GetProductsForCustomer(message.CustId, message.MinDate);
+            var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, message.MinDate);
 
             var winLossDetailParam = CreateParameter(message, message.CustLevel);
             var reportData = reportService.GetWinLossDetail(winLossDetailParam);
@@ -53,13 +53,13 @@
             var result = new List<string>();
             result.Add(Resources.Tooltip_NetTurnover);
 
-            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId);
+            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.Site, message.CurrencyId);
             if (!string.IsNullOrEmpty(liveCasinoTooltips))
             {
                 result.Add(liveCasinoTooltips);
             }
 
-            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer().Select(product => (int)product);
+            var productsNeedDelayTimeToSumarizeData = productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.Site, message.CurrencyId).Select(product => (int)product);
 
             if (productsNeedDelayTimeToSumarizeData.Any())
             {
@@ -71,7 +71,7 @@
             return result;
         }
 
-        private string BuildTooltipsForLiveCasino(int custId)
+        private string BuildTooltipsForLiveCasino(int custId, string site, int currencyId)
         {
             var liveCasino = new List<int>
             {
@@ -82,7 +82,7 @@
                 ProductIdConstants.BBin,
                 ProductIdConstants.ION
             };
-            var offeredLiveCasino = productService.FilterProductsByCustomer(custId, liveCasino);
+            var offeredLiveCasino = productService.FilterProductsByCustomer(custId, site, currencyId, liveCasino);
             var liveCasinoNames = string.Join(", ", offeredLiveCasino.Select(i => i.Name));
 
             return offeredLiveCasino != null && offeredLiveCasino.Any() ?
