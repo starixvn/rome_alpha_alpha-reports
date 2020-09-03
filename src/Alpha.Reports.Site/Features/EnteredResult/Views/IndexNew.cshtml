@@ -38,24 +38,17 @@
                 <th class="min-tablet-l" data-priority="0">@Resources.NonEntered</th>
             </tr>
         </thead>
-        @if (Model.ReportData.Any())
-        {
-            <tbody>
-                @foreach (var enteredSportResult in Model.ReportData)
-                {
-                    <tr>
-                        <td class="text-left col-first">@enteredSportResult.SportName</td>
-                        @RenderEnteredResult(enteredSportResult.EnteredSportYesterday)
-                        @RenderEnteredResult(enteredSportResult.EnteredSportToday)
-                        <td></td>
-                    </tr>
-                }
-            </tbody>
-        }
-        else
-        {
-            @NoInformation.Render(5)
-        }
+        <tbody>
+            @foreach (var enteredSportResult in Model.ReportData)
+            {
+                <tr>
+                    <td class="text-left col-first">@enteredSportResult.SportName</td>
+                    @RenderEnteredResult(enteredSportResult.EnteredSportYesterday)
+                    @RenderEnteredResult(enteredSportResult.EnteredSportToday)
+                    <td></td>
+                </tr>
+            }
+        </tbody>
     </table>
 
     @Html.Hidden("ToDate", DateTime.Now.ToShortDateWithSlash())

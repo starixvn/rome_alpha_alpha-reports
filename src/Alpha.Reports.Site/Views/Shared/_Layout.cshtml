@@ -14,8 +14,12 @@
 </head>
 <body>
     @RenderBody()
+
+    @Html.Hidden("NoInformationIsAvailable", @Resources.NoInformationIsAvailable)
+
     @StaticResources.AssetScripts.RenderCommon("/bundles/common/common")
     @StaticResources.AssetScripts.Render("/bundles/site-reports/default")
+
     @RenderSection("Scripts", required: false)
 
     @Alpha.Web.Helpers.GoogleAnalyticHepler.Render()

@@ -81,21 +81,17 @@
                 }
             </tr>
         </thead>
-        @if (Model.ReportData.Any())
-        {
-            <tbody>
-                @foreach (var data in Model.ReportData)
-                {
-                    @RenderRow(data, false, ViewBag.BetListPath)
-                }
+        <tbody>
+            @foreach (var data in Model.ReportData)
+            {
+                @RenderRow(data, false, ViewBag.BetListPath)
+            }
 
+            @if (Model.ReportData.Any())
+            {
                 @RenderRow(Model.GrandTotal, true, ViewBag.BetListPath)
-            </tbody>
-        }
-        else
-        {
-            @NoInformation.Render(colspan: Model.CustLevel.IsAgentLevel() ? 10 : 8)
-        }
+            }
+        </tbody>
     </table>
 </div>
 
