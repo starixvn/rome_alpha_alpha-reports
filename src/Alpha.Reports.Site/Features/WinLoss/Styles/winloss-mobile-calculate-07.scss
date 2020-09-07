@@ -16,4 +16,22 @@
             }
         }
     }
+
+    .icon-group-last {
+        text-align: right;
+    }
+}
+
+.icon-information-container {
+    display: inline-block;
+}
+
+.icon-information {
+    font-size: 30px;
+    top: 6px !important;
+    right: 10px !important;
+}
+
+#report-legend .modal-dialog {
+    width: 99% !important;
 }

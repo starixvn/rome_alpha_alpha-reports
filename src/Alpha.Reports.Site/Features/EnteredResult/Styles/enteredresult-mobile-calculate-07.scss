@@ -32,4 +32,14 @@
     .date {
         width: 100% !important;
     }
+
+    .icon-group-last {
+        width: calc(100% - 3px) !important;
+        margin: 0;
+    }
+
+    .icon-excel {
+        font-size: 30px;
+        float: right;
+    }
 }
