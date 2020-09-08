@@ -15,17 +15,17 @@
 
     public interface ProductDetailService
     {
-        IEnumerable<int> FilterResourceIdsByCustomer(int custId, string resourceIds);
+        IEnumerable<int> FilterResourceIdsByCustomer(int custId, string site, int currencyId, string resourceIds);
 
         IEnumerable<int> FilterResourceIdsByCustomerForConsolidationReport(int custId, string resourceIds, IEnumerable<Product> products);
 
-        IEnumerable<ProductDetail> GetProductDetails(int custId);
+        IEnumerable<ProductDetail> GetProductDetails(int custId, string site, int currencyId);
 
         IEnumerable<ProductDetail> GetProductDetailsForConsolidationReport(int custId, IEnumerable<Product> products);
 
-        string BuildProductDetailsXML(int custId, IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds);
+        string BuildProductDetailsXML(IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds);
 
-        string GetSabaclubNameExportExcel(IEnumerable<int> selectedResourceIds);
+        IDictionary<int, string> GetProductNamesExportExcel(IEnumerable<int> selectedResourceIds);
     }
 
     public class ProductDetailServiceImpl : ProductDetailService
@@ -36,17 +36,20 @@
 
         private readonly IDynamicRepository dynamicRepository;
         private readonly CacheRefService cacheRefService;
+        private readonly Func<int, string, int, int, bool> canViewBySite;
 
         public ProductDetailServiceImpl(
             IDynamicRepository dynamicRepository,
-            CacheRefService cacheRefService)
+            CacheRefService cacheRefService,
+            Func<int, string, int, int, bool> canViewBySite)
         {
             this.dynamicRepository = dynamicRepository;
             this.cacheRefService = cacheRefService;
+            this.canViewBySite = canViewBySite;
         }
 
-        public IEnumerable<int> FilterResourceIdsByCustomer(int custId, string resourceIds)
-            => FilterResourceIdsByCustomer(GetProductDetails(custId), resourceIds);
+        public IEnumerable<int> FilterResourceIdsByCustomer(int custId, string site, int currencyId, string resourceIds)
+            => FilterResourceIdsByCustomer(GetProductDetails(custId, site, currencyId), resourceIds);
 
         public IEnumerable<int> FilterResourceIdsByCustomerForConsolidationReport(int custId, string resourceIds, IEnumerable<Product> products)
             => FilterResourceIdsByCustomer(GetProductDetailsForConsolidationReport(custId, products), resourceIds);
@@ -62,17 +65,17 @@
 
             return productDetails
                 .Where(p => resourceIdsHash.ContainsKey(p.ResourceId))
-                .Select(p => p.ResourceId); 
+                .Select(p => p.ResourceId);
         }
 
-        public IEnumerable<ProductDetail> GetProductDetails(int custId)
+        public IEnumerable<ProductDetail> GetProductDetails(int custId, string site, int currencyId)
         {
             if (custId <= 0)
             {
                 return Enumerable.Empty<ProductDetail>();
             }
 
-            var canViewProductDetails = CanViewProductDetails();
+            var canViewProductDetails = CanViewProductDetails(custId, site, currencyId);
 
             return ConfiguredCacheService.GetOrSet(
                 $"{ProductDetailsCacheKey}-{custId}",
@@ -112,14 +115,31 @@
                 () => dynamicRepository.Fetch<ProductDetail>(new GetProductsDetailCriteria()),
                 new CacheItemOptions().SetAbsoluteExpiration(TimeSpan.FromDays(ProductDetailsCacheInDay)));
 
-        public string BuildProductDetailsXML(int custId, IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds)
+        public string BuildProductDetailsXML(IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds)
         {
-            var validProductDetails = GetProductDetails()
-                .Where(p => validProductIds.Contains(p.ProductId));
+            var validProductDetails = new List<ProductDetail>();
 
-            if (SiteSettings.Is789y)
+            var groupProductDetails = GetProductDetails()
+                .Where(p => validProductIds.Contains(p.ProductId))
+                .GroupBy(p => p.ProductId);
+
+            foreach (var group in groupProductDetails)
             {
-                validProductDetails = validProductDetails.Where(p => validResourceIds.Contains(p.ResourceId));
+                if (group.Key == ProductIdConstants.SabaClub)
+                {
+                    if (SiteSettings.Is789y)
+                    {
+                        validProductDetails.AddRange(group.Where(p => validResourceIds.Contains(p.ResourceId)));
+                    }
+                    else
+                    {
+                        validProductDetails.AddRange(group);
+                    }
+                }
+                else if (group.Key == ProductIdConstants.PP)
+                {
+                    validProductDetails.AddRange(group.Where(p => validResourceIds.Contains(p.ResourceId)));
+                }
             }
 
             return validProductDetails.Any()
@@ -143,13 +163,18 @@
         private static bool IsSelectAllProductDetails(string resourceIds)
             => resourceIds != null && resourceIds == DefaultVariables.AllProductDetails;
 
-        private static IDictionary<int, bool> CanViewProductDetails()
+        private IDictionary<int, bool> CanViewProductDetails(int custId, string site, int currencyId)
         {
             var canViewProductDetails = new Dictionary<int, bool>();
 
             if (SiteSettings.Is789y && UserPermission.HasPermissionOnProduct(ProductIdConstants.SabaClub))
             {
                 canViewProductDetails[ProductIdConstants.SabaClub] = true;
+            }
+
+            if (canViewBySite(custId, site, currencyId, ProductIdConstants.PP))
+            {
+                canViewProductDetails[ProductIdConstants.PP] = true;
             }
 
             return canViewProductDetails;
@@ -159,32 +184,40 @@
         {
             var canViewProductDetails = new Dictionary<int, bool>();
 
-            if (SiteSettings.Is789y && products.Any(p => p.Id == ProductIdConstants.SabaClub))
+            products.ToList().ForEach(product =>
             {
-                canViewProductDetails[ProductIdConstants.SabaClub] = true;
-            }
+                if ((product.Id == ProductIdConstants.SabaClub && SiteSettings.Is789y)
+                || product.Id == ProductIdConstants.PP)
+                {
+                    canViewProductDetails[product.Id] = true;
+                }
+            });
 
             return canViewProductDetails;
         }
 
-        public string GetSabaclubNameExportExcel(IEnumerable<int> selectedResourceIds)
+        public IDictionary<int, string> GetProductNamesExportExcel(IEnumerable<int> selectedResourceIds)
         {
-            if (SiteSettings.Is789y)
-            {
-                var productDetailIds = GetProductDetails()
-                    .Where(p => p.ProductId == ProductIdConstants.SabaClub)
-                    .Select(p => p.ResourceId);
+            var productNames = new Dictionary<int, string>();
+            var groupProductDetails = GetProductDetails().GroupBy(p => p.ProductId);
 
-                if (!IsEquals(productDetailIds, selectedResourceIds))
+            foreach (var group in groupProductDetails)
+            {
+                if ((group.Key == ProductIdConstants.SabaClub && SiteSettings.Is789y)
+                    || group.Key == ProductIdConstants.PP)
                 {
-                    return string.Join(", ", selectedResourceIds.Select(id => cacheRefService.GetProductDetailName(id)));
+                    var allResourceIds = group.Select(p => p.ResourceId).ToList();
+                    var intersectResourceIds = selectedResourceIds.Intersect(allResourceIds).ToList();
+
+                    if (intersectResourceIds.Count > 0
+                        && intersectResourceIds.Count != allResourceIds.Count)
+                    {
+                        productNames[group.Key] = string.Join(", ", intersectResourceIds.Select(id => cacheRefService.GetProductDetailName(id)));
+                    }
                 }
             }
 
-            return cacheRefService.GetProductName(ProductIdConstants.SabaClub);
+            return productNames;
         }
-
-        private static bool IsEquals(IEnumerable<int> source, IEnumerable<int> destination)
-            => Enumerable.SequenceEqual(source.OrderBy(id => id), destination.OrderBy(id => id));
     }
 }

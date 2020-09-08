@@ -36,11 +36,15 @@
             this.userFixture = userFixture;
 
             var productService = Substitute.For<ProductService>();
-            productService.ConcatProductNames(Arg.Any<IEnumerable<int>>(), 42, "Saba.club").Returns("Product Name");
+            productService
+                .ConcatProductNames(Arg.Any<IEnumerable<int>>(), Arg.Any<IDictionary<int, string>>())
+                .Returns("Product Name");
             var reportService = Substitute.For<WinLossService>();
 
             var productDetailService = Substitute.For<ProductDetailService>();
-            productDetailService.GetSabaclubNameExportExcel(Arg.Any<IEnumerable<int>>()).Returns("Saba.club");
+            productDetailService
+                .GetProductNamesExportExcel(Arg.Any<IEnumerable<int>>())
+                .Returns(new Dictionary<int, string> { [42] = "Saba.club" });
 
             winlossWorkbook = Substitute.For<Workbook<WinLossModel>>();
             winlossWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(winlossWorkbook);

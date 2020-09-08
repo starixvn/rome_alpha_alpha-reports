@@ -114,7 +114,8 @@
             container.Register<ProductDetailService>(
                 () => new ProductDetailServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
-                    container.GetInstance<CacheRefService>()),
+                    container.GetInstance<CacheRefService>(),
+                    container.GetInstance<ProductService>().CanViewBySite),
                 Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);

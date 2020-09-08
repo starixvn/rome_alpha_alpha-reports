@@ -16,5 +16,6 @@
         public const int ION = 52;
         public const int BBin = 47;
         public const int SabaClub = 42;
+        public const int PP = 32;
     }
 }

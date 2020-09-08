@@ -40,6 +40,8 @@
                 message.MinDate);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
                 message.CustId,
+                message.Site,
+                message.CurrencyId,
                 !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds);
 
             return new WinLossParam(
@@ -53,7 +55,7 @@
                  validUserSelectedResourceIds,
                  message.CustLevel,
                  message.IsHistoricReport,
-                 productDetailService.BuildProductDetailsXML(message.CustId, validUserSelectedProductIds, validUserSelectedResourceIds));
+                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
         }
 
         internal WinLossModel AccumulateGrandTotal(IEnumerable<WinLossModel> reportData)

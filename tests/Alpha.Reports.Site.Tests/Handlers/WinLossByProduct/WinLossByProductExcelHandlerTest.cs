@@ -40,9 +40,13 @@
             reportDateService = Substitute.For<ReportDateService>();
             cacheRefService = Substitute.For<CacheRefService>();
             productService = Substitute.For<ProductService>();
-            productService.ConcatProductNames(Arg.Any<IEnumerable<int>>(), 42, "Saba.club").Returns("Product Name");
+            productService
+                .ConcatProductNames(Arg.Any<IEnumerable<int>>(), Arg.Any<IDictionary<int, string>>())
+                .Returns("Product Name");
             productDetailService = Substitute.For<ProductDetailService>();
-            productDetailService.GetSabaclubNameExportExcel(Arg.Any<IEnumerable<int>>()).Returns("Saba.club");
+            productDetailService
+                .GetProductNamesExportExcel(Arg.Any<IEnumerable<int>>())
+                .Returns(new Dictionary<int, string> { [42] = "Saba.club" });
 
             winLossByProductWorkbook = Substitute.For<WinLossByProductWorkbook>();
             onebookWorkbook = Substitute.For<Workbook<WinLossByBetTypeModel>>();

@@ -15,7 +15,6 @@
 
         IEnumerable<Product> GetProductsForCustomer(int custId, string site, int currencyId, DateTime? minReportDate = null);
 
-
         IEnumerable<int> FilterProductIdsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null);
 
         IEnumerable<Product> FilterProductsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime? minReportDate = null);
@@ -24,7 +23,7 @@
 
         string ConcatProductNames(string productIds);
 
-        string ConcatProductNames(IEnumerable<int> productIds, int replacedProductId, string toProductName);
+        string ConcatProductNames(IEnumerable<int> productIds, IDictionary<int, string> replacedProductNames);
 
         IEnumerable<ProductsByRefTable> GetProductsNeedDelayTimeToSumarizeData();
 
@@ -117,22 +116,10 @@
         public string ConcatProductNames(string productIds)
             => string.Join(", ", GetProductNames(productIds.ToListInt()));
 
-        public string ConcatProductNames(IEnumerable<int> productIds, int replacedProductId, string toProductName)
-        {
-            if (productIds == null)
-            {
-                return string.Empty;
-            }
-
-            var productNames = new List<string>();
-
-            foreach (var productId in productIds)
-            {
-                productNames.Add(productId == replacedProductId ? toProductName : getProductName(productId));
-            }
-
-            return string.Join(", ", productNames);
-        }
+        public string ConcatProductNames(IEnumerable<int> productIds, IDictionary<int, string> replacedProductNames)
+            => productIds == null
+            ? string.Empty
+            : string.Join(", ", productIds.Select(id => replacedProductNames.TryGetValue(id, out var name) ? name : getProductName(id)));
 
         public IEnumerable<ProductsByRefTable> GetProductsNeedDelayTimeToSumarizeData()
         {

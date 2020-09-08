@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
     using System;
-    using Alpha.Reports.Constants;
     using App_GlobalResources;
     using Extensions;
     using MediatR;
@@ -58,8 +57,8 @@
 
         private string GetReportTitle(WinLossDetailParam param)
         {
-            var sabaclubName = productDetailService.GetSabaclubNameExportExcel(param.UserSelectedResourceIds);
-            var productNames = productService.ConcatProductNames(param.UserSelectedProductIds, ProductIdConstants.SabaClub, sabaclubName);
+            var replacedProductNames = productDetailService.GetProductNamesExportExcel(param.UserSelectedResourceIds);
+            var productNames = productService.ConcatProductNames(param.UserSelectedProductIds, replacedProductNames);
 
             return $"{Resources.WinLossDetail} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()} {Resources.of2} {productNames}";
         }

@@ -133,8 +133,8 @@
 
         private string GetReporTitle(GetConsolidationParam param, string reportType, IDictionary<byte, string> currencies)
         {
-            var sabaclubName = productDetailService.GetSabaclubNameExportExcel(param.ResourceIds);
-            var productNames = productService.ConcatProductNames(param.ProductIds, ProductIdConstants.SabaClub, sabaclubName);
+            var replacedProductNames = productDetailService.GetProductNamesExportExcel(param.ResourceIds);
+            var productNames = productService.ConcatProductNames(param.ProductIds, replacedProductNames);
 
             var currencyName = param.Currency == DefaultVariables.AllCurrencies
                 ? Resources.AllCurrencies

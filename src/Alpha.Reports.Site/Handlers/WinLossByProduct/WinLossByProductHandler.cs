@@ -27,7 +27,7 @@
             }
 
             var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, message.MinDate);
-            var productDetails = productDetailService.GetProductDetails(message.CustId);
+            var productDetails = productDetailService.GetProductDetails(message.CustId, message.Site, message.CurrencyId);
 
             var winLossByBettypeParam = CreateWinLossByBettypeParamater(message);
             var reportData = reportService.GetWinLossByProduct(winLossByBettypeParam);

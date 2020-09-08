@@ -60,7 +60,7 @@
                  message.ToDate,
                  validUserSelectedProductIds,
                  validUserSelectedResourceIds,
-                 productDetailService.BuildProductDetailsXML(message.CustId, validUserSelectedProductIds, validUserSelectedResourceIds));
+                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
         }
 
         protected IEnumerable<ConsolidationByUsernameViewModel> BuildWinLossByUsernameViewModel(
@@ -159,7 +159,7 @@
                 query.SortPropertyName,
                 query.IsDescendingSort,
                 query.IsHistoricReport,
-                productDetailService.BuildProductDetailsXML(query.ViewerId, validUserSelectedProductIds, validUserSelectedResourceIds));
+                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
         }
     }
 }

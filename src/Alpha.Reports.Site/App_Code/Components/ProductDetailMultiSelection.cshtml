@@ -18,7 +18,8 @@
                 @foreach (var product in model.ProductDetails)
                 {
                     <option value="@product.Value" @(product.Selected ? "selected=selected" : string.Empty)
-                            data-productid="@product.ProductId">@product.Text</option>
+                            data-productid="@product.ProductId"
+                            disabled="disabled">@product.Text</option>
                 }
             </select>
             <input type="hidden" name="UserSelectedResourceIds" id="resource-ids" value="@model.UserSelectedResourceIds" />

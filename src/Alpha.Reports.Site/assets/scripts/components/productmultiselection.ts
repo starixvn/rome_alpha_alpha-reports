@@ -70,8 +70,8 @@ class ProductMultiSelectionComponent {
 
         if (this.productDetailMultiSelectionComponent) {
             const self: any = this;
-            this.$dropdownProduct.find("option:selected").each(function () {
-                self.productDetailMultiSelectionComponent.shouldEnableDropdown(this.value);
+            this.$dropdownProduct.find("option").each(function () {
+                self.productDetailMultiSelectionComponent.shouldEnableDropdown(self.$(this).is(":selected"), this.value);
             });
         }
 

@@ -85,17 +85,27 @@ class ProductDetailMultiSelectionComponent {
                 .prop("disabled", !checked);
             this.$dropdownProductDetail.multiselect("refresh");
 
-            if (checked && !this.$dropdownProductDetail.find('option:not([data-productid="' + productId + '"]):disabled').length) {
+            if (checked && this.$dropdownProductDetail.find("option:enabled").length) {
                 this.$dropdownProductDetail.multiselect("enable");
-            } else if (!this.$dropdownProductDetail.find('option:not([data-productid="' + productId + '"]):enabled').length) {
+            } else if (!this.$dropdownProductDetail.find("option:enabled").length) {
                 this.$dropdownProductDetail.multiselect("disable");
             }
         }
     };
 
-    shouldEnableDropdown = (productId: number) => {
-        this.$dropdownProductDetail.find('option:selected[data-productid="' + productId + '"]').length
-            && this.$dropdownProductDetail.multiselect("enable");
+    shouldEnableDropdown = (selected: boolean, productId: number) => {
+        const filterOptions = this.$dropdownProductDetail.find('option[data-productid="' + productId + '"]');
+
+        if (filterOptions.length) {
+            if (selected) {
+                filterOptions.prop("disabled", false);
+                this.$dropdownProductDetail.multiselect("enable");
+            } else {
+                filterOptions.prop("selected", false);
+            }
+
+            this.$dropdownProductDetail.multiselect("refresh");
+        }
     };
 
     validate = () => {
