@@ -5,6 +5,7 @@
 	ViewBag.Title = "Outstanding Report";
 
 	var length = Model.DisplayOutstandingLevels.Count;
+	var existedData = Model.OutstandingDatasource.Any();
 }
 
 @section Styles {
@@ -32,7 +33,7 @@
 	</div>
 </form>
 <div class="level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "100%" : "60%");">
-	<table id="oustanding-report" class="hidden tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
+	<table id="oustanding-report" class="@(existedData ? "hidden" : string.Empty) tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
 		<thead>
 			<tr>
 				<th data-priority="0"></th>
@@ -65,7 +66,7 @@
 				}
 			</tr>
 		</thead>
-		@if (Model.OutstandingDatasource.Any())
+		@if (existedData)
 		{
 			<tbody>
 				@foreach (var outstanding in Model.OutstandingDatasource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
