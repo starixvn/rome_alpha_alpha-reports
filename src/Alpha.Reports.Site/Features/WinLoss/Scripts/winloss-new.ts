@@ -63,6 +63,7 @@ class WinLossViewNew extends BaseReportNew {
         this.isAgentLevel = JSON.parse(this.$isAgentLevel.val().toLowerCase());
 
         this.linkBuilderComponent.render();
+        this.adjustPageTitle();
         this.bindFilter();
         this.initDataTable();
 
@@ -105,6 +106,14 @@ class WinLossViewNew extends BaseReportNew {
         this.$tableReport = this.$('#tbl-report');
     };
 
+    adjustPageTitle = () => {
+        if (this.isAgentLevel && alphaReports.screenSmallThan768()) {
+            window.orientation === 0
+                ? this.$('.page-title .breadcrumb').css('padding', 0)
+                : this.$('.page-title .breadcrumb').css('padding', '0 12px');
+        }
+    };
+
     bindFilter = () => {
         this.productMultiSelectionComponent.render();
         this.$multiSelectButton = this.$('#dropdown-product').parent().find('.multiselect.btn');
@@ -137,6 +146,7 @@ class WinLossViewNew extends BaseReportNew {
         this.$excelIcon.on('click', this.onExportExcelEvent);
         this.$historicReport.on('click', this.onSubmitHistoricReportEvent);
         this.$reportForm.submit(this.onSubmitReportEvent);
+        this.$(window).on('orientationchange', this.adjustPageTitle);
     };
 
     onClickIconFilter = () => {

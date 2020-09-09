@@ -1,6 +1,36 @@
-﻿.filter {
+﻿[class*="level-"] {
+    margin-top: -10px;
+}
+
+.page-title {
+    .breadcrumb {
+        line-height: inherit;
+        padding: 0 12px;
+    }
+}
+
+.filter {
+    @media (orientation: landscape) {
+        &.entered-result {
+            .form-group {
+                width: 25%;
+            }
+        }
+
+        .note {
+            margin: 5px 0 15px;
+        }
+    }
+
     .submit-container, .daterange-container {
         width: calc(50% - 8px) !important;
+
+        @media (orientation: landscape) {
+            width: calc(25% - 8px) !important;
+            margin-bottom: 0;
+            margin-top: 10px;
+            vertical-align: middle;
+        }
     }
 
     .submit-container {
@@ -22,6 +52,10 @@
         .control.date {
             width: calc(100% - 3px) !important;
             margin: 0 !important;
+
+            @media (orientation: landscape) {
+                width: 100%;
+            }
         }
 
         .btn-submit {

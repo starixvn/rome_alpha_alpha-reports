@@ -3,7 +3,7 @@
 
 @helper Render(ProductMultiSelectionViewModel model)
 {
-    <div class="form-group">
+    <div class="form-group product-multiselect-container">
         <select id="dropdown-product"
                 data-has-any-product="@model.GroupProducts.Any()"
                 data-label-select-products="@Resources.SelectProducts"

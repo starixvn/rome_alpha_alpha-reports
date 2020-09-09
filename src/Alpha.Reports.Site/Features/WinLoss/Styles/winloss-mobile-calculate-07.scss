@@ -1,6 +1,20 @@
 ﻿.filter {
+    @media (orientation: landscape) {
+        &.win-loss {
+            .from-date-box, .to-date-box {
+                width: 25%;
+            }
+        }
+    }
+
     .submit-container.is-history-report {
         width: calc(100% - 5px) !important;
+
+        @media (orientation: landscape) {
+            width: calc(25% - 5px) !important;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
     }
 
     .form-group {
@@ -15,6 +29,12 @@
                 }
             }
         }
+
+        @media (orientation: landscape) {
+            &.monthpicker-container {
+                width: 75%;
+            }
+        }
     }
 
     .icon-group-last {
@@ -27,11 +47,11 @@
 }
 
 .icon-information {
-    font-size: 30px;
-    top: 6px !important;
-    right: 10px !important;
+    font-size: 36px;
+    top: 3px !important;
+    right: 16px !important;
 }
 
 #report-legend .modal-dialog {
-    width: 99% !important;
+    width: 99.999% !important;
 }

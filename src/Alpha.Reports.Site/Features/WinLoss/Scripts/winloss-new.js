@@ -42,6 +42,7 @@ var WinLossViewNew = /** @class */ (function (_super) {
             _this.isMasterLevel = JSON.parse(_this.$isMasterLevel.val().toLowerCase());
             _this.isAgentLevel = JSON.parse(_this.$isAgentLevel.val().toLowerCase());
             _this.linkBuilderComponent.render();
+            _this.adjustPageTitle();
             _this.bindFilter();
             _this.initDataTable();
             _this.registerEvents();
@@ -74,6 +75,13 @@ var WinLossViewNew = /** @class */ (function (_super) {
             _this.$isSuperLevel = _this.$('#IsSuperLevel');
             _this.$tableReport = _this.$('#tbl-report');
         };
+        _this.adjustPageTitle = function () {
+            if (_this.isAgentLevel && alphaReports.screenSmallThan768()) {
+                window.orientation === 0
+                    ? _this.$('.page-title .breadcrumb').css('padding', 0)
+                    : _this.$('.page-title .breadcrumb').css('padding', '0 12px');
+            }
+        };
         _this.bindFilter = function () {
             _this.productMultiSelectionComponent.render();
             _this.$multiSelectButton = _this.$('#dropdown-product').parent().find('.multiselect.btn');
@@ -100,6 +108,7 @@ var WinLossViewNew = /** @class */ (function (_super) {
             _this.$excelIcon.on('click', _this.onExportExcelEvent);
             _this.$historicReport.on('click', _this.onSubmitHistoricReportEvent);
             _this.$reportForm.submit(_this.onSubmitReportEvent);
+            _this.$(window).on('orientationchange', _this.adjustPageTitle);
         };
         _this.onClickIconFilter = function () {
             _super.prototype.onClickIconFilter.call(_this);
