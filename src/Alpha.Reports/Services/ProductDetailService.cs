@@ -11,7 +11,6 @@
     using Alpha.Reports.Models;
     using Fanex.Caching;
     using Fanex.Data.Repository;
-    using Sunplus.Agent.Model.Entities.Permission;
 
     public interface ProductDetailService
     {
@@ -26,6 +25,8 @@
         string BuildProductDetailsXML(IEnumerable<int> validProductIds, IEnumerable<int> validResourceIds);
 
         IDictionary<int, string> GetProductNamesExportExcel(IEnumerable<int> selectedResourceIds);
+
+        IEnumerable<int> RemoveProductIds(IEnumerable<int> productIds, IEnumerable<int> userSelectedResourceIds);
     }
 
     public class ProductDetailServiceImpl : ProductDetailService
@@ -119,28 +120,18 @@
         {
             var validProductDetails = new List<ProductDetail>();
 
-            var groupProductDetails = GetProductDetails()
+            GetProductDetails()
                 .Where(p => validProductIds.Contains(p.ProductId))
-                .GroupBy(p => p.ProductId);
-
-            foreach (var group in groupProductDetails)
-            {
-                if (group.Key == ProductIdConstants.SabaClub)
+                .GroupBy(p => p.ProductId)
+                .ToList()
+                .ForEach(group =>
                 {
-                    if (SiteSettings.Is789y)
+                    if (group.Key == ProductIdConstants.PP)
                     {
-                        validProductDetails.AddRange(group.Where(p => validResourceIds.Contains(p.ResourceId)));
+                        validProductDetails.AddRange(
+                            SiteSettings.IsOfferJackpotProductDetails ? group.Where(p => validResourceIds.Contains(p.ResourceId)) : group);
                     }
-                    else
-                    {
-                        validProductDetails.AddRange(group);
-                    }
-                }
-                else if (group.Key == ProductIdConstants.PP)
-                {
-                    validProductDetails.AddRange(group.Where(p => validResourceIds.Contains(p.ResourceId)));
-                }
-            }
+                });
 
             return validProductDetails.Any()
                 ? BuildProductDetailsXML(validProductDetails)
@@ -167,12 +158,8 @@
         {
             var canViewProductDetails = new Dictionary<int, bool>();
 
-            if (SiteSettings.Is789y && UserPermission.HasPermissionOnProduct(ProductIdConstants.SabaClub))
-            {
-                canViewProductDetails[ProductIdConstants.SabaClub] = true;
-            }
-
-            if (canViewBySite(custId, site, currencyId, ProductIdConstants.PP))
+            if (SiteSettings.IsOfferJackpotProductDetails
+                && canViewBySite(custId, site, currencyId, ProductIdConstants.PP))
             {
                 canViewProductDetails[ProductIdConstants.PP] = true;
             }
@@ -184,14 +171,15 @@
         {
             var canViewProductDetails = new Dictionary<int, bool>();
 
-            products.ToList().ForEach(product =>
-            {
-                if ((product.Id == ProductIdConstants.SabaClub && SiteSettings.Is789y)
-                || product.Id == ProductIdConstants.PP)
+            products
+                .ToList()
+                .ForEach(product =>
                 {
-                    canViewProductDetails[product.Id] = true;
-                }
-            });
+                    if (product.Id == ProductIdConstants.PP && SiteSettings.IsOfferJackpotProductDetails)
+                    {
+                        canViewProductDetails[product.Id] = true;
+                    }
+                });
 
             return canViewProductDetails;
         }
@@ -199,25 +187,50 @@
         public IDictionary<int, string> GetProductNamesExportExcel(IEnumerable<int> selectedResourceIds)
         {
             var productNames = new Dictionary<int, string>();
-            var groupProductDetails = GetProductDetails().GroupBy(p => p.ProductId);
 
-            foreach (var group in groupProductDetails)
-            {
-                if ((group.Key == ProductIdConstants.SabaClub && SiteSettings.Is789y)
-                    || group.Key == ProductIdConstants.PP)
+            GetProductDetails()
+                .GroupBy(p => p.ProductId)
+                .ToList()
+                .ForEach(group =>
                 {
-                    var allResourceIds = group.Select(p => p.ResourceId).ToList();
-                    var intersectResourceIds = selectedResourceIds.Intersect(allResourceIds).ToList();
-
-                    if (intersectResourceIds.Count > 0
-                        && intersectResourceIds.Count != allResourceIds.Count)
+                    if (group.Key == ProductIdConstants.PP && SiteSettings.IsOfferJackpotProductDetails)
                     {
-                        productNames[group.Key] = string.Join(", ", intersectResourceIds.Select(id => cacheRefService.GetProductDetailName(id)));
+                        var allResourceIds = group.Select(p => p.ResourceId).ToList();
+                        var intersectResourceIds = selectedResourceIds.Intersect(allResourceIds).ToList();
+
+                        if (intersectResourceIds.Count > 0
+                            && intersectResourceIds.Count != allResourceIds.Count)
+                        {
+                            productNames[group.Key] = string.Join(", ", intersectResourceIds.Select(id => cacheRefService.GetProductDetailName(id)));
+                        }
                     }
-                }
-            }
+                });
 
             return productNames;
+        }
+
+        public IEnumerable<int> RemoveProductIds(IEnumerable<int> productIds, IEnumerable<int> userSelectedResourceIds)
+        {
+            var removedProductIds = new List<int>(productIds);
+
+            GetProductDetails()
+                .Where(p => productIds.Contains(p.ProductId))
+                .GroupBy(p => p.ProductId)
+                .ToList()
+                .ForEach(group =>
+                {
+                    if (group.Key == ProductIdConstants.PP && SiteSettings.IsOfferJackpotProductDetails)
+                    {
+                        var intersectResourceIds = group.Select(p => p.ResourceId).Intersect(userSelectedResourceIds);
+
+                        if (!intersectResourceIds.Any())
+                        {
+                            removedProductIds.RemoveAll(id => id == group.Key);
+                        }
+                    }
+                });
+
+            return removedProductIds;
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Models.WinLossByProduct
 {
     using System.Collections.Generic;
-    using Alpha.Reports.Configurations;
     using Alpha.Reports.Constants;
     using Alpha.Reports.Models.WinlossByBetType;
 
@@ -23,11 +22,6 @@
 
             WinLossByBetTypeData = winLossByBetTypeData;
             AccumulateTotal();
-
-            if (SiteSettings.Is789y)
-            {
-                productsHaveBetTypesGroupedBySport[ProductIdConstants.SabaClub] = true;
-            }
         }
 
         public int SportId { get; }

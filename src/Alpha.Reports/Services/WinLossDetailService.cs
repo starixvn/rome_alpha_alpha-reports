@@ -1,7 +1,6 @@
 ﻿namespace Alpha.Reports.Services
 {
     using System;
-    using System.Linq;
     using Criteria.WinLossDetail;
     using DataAccesses;
     using Extensions;
@@ -18,15 +17,18 @@
     {
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
+        private readonly ProductDetailService productDetailService;
         private readonly WinLossDetailDataAccess dataAccess;
 
         public WinLossDetailServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
+            ProductDetailService productDetailService,
             WinLossDetailDataAccess dataAccess)
         {
             this.reportDateService = reportDateService;
             this.productService = productService;
+            this.productDetailService = productDetailService;
             this.dataAccess = dataAccess;
         }
 
@@ -39,6 +41,7 @@
 
             var validUserSelectedProductIds =
                 productService.FilterProductIdsByCustomer(param.CustId, param.Site, param.CurrencyId, param.UserSelectedProductIds);
+            validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, param.UserSelectedResourceIds);
 
             var criteria = new WinLossDetailCriteria(
                 param.CustId,

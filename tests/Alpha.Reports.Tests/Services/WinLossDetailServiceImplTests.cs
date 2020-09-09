@@ -24,9 +24,10 @@
         public WinLossDetailServiceImplTests()
         {
             var productService = Substitute.For<ProductService>();
+            var productDetailService = Substitute.For<ProductDetailService>();
             dataAccess = Substitute.For<WinLossDetailDataAccess>();
             reportDateService = Substitute.For<ReportDateService>();
-            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, dataAccess);
+            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, productDetailService, dataAccess);
             compareLogic = new CompareLogic();
         }
 

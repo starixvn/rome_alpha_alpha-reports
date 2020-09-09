@@ -118,17 +118,25 @@
         }
 
         protected override IDictionary<string, object> GetDownlineLinkRouteValues(TReportData model)
-            => new Dictionary<string, object>
+        {
+            var paramRoutes = new Dictionary<string, object>
             {
                 { "IsFilterVisible", IsFilterVisible },
                 { "IsHistoricReport", IsHistoricReport },
                 { "IsStackMode", IsStackMode },
                 { "UserSelectedDateRangeOption", UserSelectedDateRangeOption },
                 { "UserSelectedProductIds", UserSelectedProductIds },
-                { "UserSelectedResourceIds", UserSelectedResourceIds },
                 { "FromDate", FromDate },
                 { "ToDate", ToDate }
             };
+
+            if (!string.IsNullOrWhiteSpace(UserSelectedResourceIds))
+            {
+                paramRoutes["UserSelectedResourceIds"] = UserSelectedResourceIds;
+            }
+
+            return paramRoutes;
+        }
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(TReportData model)
             => new Dictionary<string, object>

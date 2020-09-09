@@ -24,6 +24,7 @@
         private const string EnteredResultsCacheKey = "Alpha.Reports.Services.Impl.WinLossServiceImpl.EnteredResults";
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
+        private readonly ProductDetailService productDetailService;
         private readonly WinLossDataAccess dataAccess;
         private readonly IDynamicRepository dynamicRepository;
         private readonly CacheRefService cacheRefService;
@@ -31,6 +32,7 @@
         public WinLossServiceImpl(
             ReportDateService reportDateService,
             ProductService productService,
+            ProductDetailService productDetailService,
             WinLossDataAccess dataAccess,
             IDynamicRepository dynamicRepository,
             CacheRefService cacheRefService)
@@ -38,6 +40,7 @@
             this.dynamicRepository = dynamicRepository;
             this.reportDateService = reportDateService;
             this.productService = productService;
+            this.productDetailService = productDetailService;
             this.dataAccess = dataAccess;
             this.cacheRefService = cacheRefService;
         }
@@ -64,6 +67,7 @@
 
             var validUserSelectedProductIds =
                 productService.FilterProductIdsByCustomer(param.CustId, param.Site, param.CurrencyId, param.UserSelectedProductIds);
+            validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, param.UserSelectedResourceIds);
 
             var criteria = new WinLossCriteria(
                 param.CustId,

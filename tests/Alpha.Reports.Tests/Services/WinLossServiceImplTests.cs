@@ -35,10 +35,11 @@
         {
             dynamicRepository = Substitute.For<IDynamicRepository>();
             var productService = Substitute.For<ProductService>();
+            var productDetailService = Substitute.For<ProductDetailService>();
             dataAccess = Substitute.For<WinLossDataAccess>();
             cacheRefService = Substitute.For<CacheRefService>();
             reportDateService = Substitute.For<ReportDateService>();
-            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, dataAccess, dynamicRepository, cacheRefService);
+            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, productDetailService, dataAccess, dynamicRepository, cacheRefService);
             compareLogic = new CompareLogic();
 
             this.fanexCacheFixture = fanexCacheFixture;

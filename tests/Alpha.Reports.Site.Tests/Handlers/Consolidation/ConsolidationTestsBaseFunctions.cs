@@ -88,7 +88,7 @@
                 new ProductDetail("ProductDetail", 2, 42, 200, 0, 2) { DisplayName = "B" },
             });
             productDetailService.FilterResourceIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(new List<int> { 1, 2 });
-            productDetailService.BuildProductDetailsXML(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<IEnumerable<int>>()).Returns(string.Empty);
+            productDetailService.BuildProductDetailsXML(Arg.Any<IEnumerable<int>>(), Arg.Any<IEnumerable<int>>()).Returns(string.Empty);
             productDetailService.GetProductDetailsForConsolidationReport(Arg.Any<int>(), Arg.Any<IEnumerable<Product>>()).Returns(new List<ProductDetail>
             {
                 new ProductDetail("ProductDetail", 1, 42, 150, 0, 1) { DisplayName = "A" },
@@ -96,6 +96,7 @@
             });
             productDetailService.FilterResourceIdsByCustomerForConsolidationReport(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<IEnumerable<Product>>()).Returns(new List<int> { 1, 2 });
             productDetailService.GetProductNamesExportExcel(Arg.Any<IEnumerable<int>>()).Returns(new Dictionary<int, string> { [42] = "Saba.club" });
+            productDetailService.RemoveProductIds(Arg.Any<IEnumerable<int>>(), Arg.Any<IEnumerable<int>>()).Returns(new List<int> { 1 });
             productService.ConcatProductNames(Arg.Any<IEnumerable<int>>(), Arg.Any<IDictionary<int, string>>()).Returns("1,33");
         }
     }

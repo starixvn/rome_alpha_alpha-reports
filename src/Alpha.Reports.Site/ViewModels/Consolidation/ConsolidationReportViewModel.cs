@@ -152,7 +152,7 @@
                 ["FromDate"] = drilldownDate ?? FromDate,
                 ["ToDate"] = drilldownDate ?? ToDate,
                 ["ProductIds"] = drilldownFromProductIds ?? UserSelectedProductIds,
-                ["ResourceIds"] = drilldownFromProductIds ?? UserSelectedResourceIds,
+                ["ResourceIds"] = UserSelectedResourceIds,
                 ["FilterPostback"] = 1,
                 ["CustId"] = data.CustId,
                 ["CustName"] = data.Username,
