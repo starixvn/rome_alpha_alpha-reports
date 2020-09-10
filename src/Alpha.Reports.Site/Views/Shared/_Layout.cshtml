@@ -18,6 +18,7 @@
     @Html.Hidden("NoInformationIsAvailable", @Resources.NoInformationIsAvailable)
 
     @StaticResources.AssetScripts.RenderCommon("/bundles/common/common")
+    @StaticResources.AssetScripts.RenderCommon("/bundles/common/ajaxSetup")
     @StaticResources.AssetScripts.Render("/bundles/site-reports/default")
 
     @RenderSection("Scripts", required: false)

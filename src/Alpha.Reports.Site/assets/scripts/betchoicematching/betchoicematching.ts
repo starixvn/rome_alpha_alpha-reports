@@ -410,9 +410,6 @@ class BetChoiceMatching {
                 this.groupIPs(data.IPs);
                 this.filterAndRender();
             })
-            .fail(() => {
-                alert('error');
-            })
             .always(() => {
                 this.$table.show();
                 this.$.unblockUI();
