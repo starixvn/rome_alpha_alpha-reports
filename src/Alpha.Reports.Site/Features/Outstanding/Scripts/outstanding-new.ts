@@ -115,43 +115,17 @@ class OutstandingViewNew extends BaseReport {
 			bInfo: false,
 			fixedHeader: true,
 			processing: true,
+			language: {
+				processing: ''
+			},
 			drawCallback: () => {
 				this.$('tbody').append(this.$('tr.tbl-footer'));
 				this.$('#oustanding-report').removeClass('hidden');
 			}
 		});
-
-		this.$('#oustanding-report thead').on('click', 'th.control', event => this.collapsedExpandedAll(event));
-		this.$('#oustanding-report tbody').on('click', 'td.control', event => this.onClickDetailControl(event));
+		
+		this.$('#oustanding-report tbody').on('click', 'td.control', event => this.onClickDetailControl(event.currentTarget));
 		this.$('#oustanding-report').on('draw.dt', () => this.triggerRedrawTable());
-	}
-
-	collapsedAll = (header) => {
-		header.removeClass('parent');
-
-		this.$('tbody tr.parent').each((index, element) => {
-			this.$(element).find('.control').click();
-		});
-	}
-
-	expandedAll = (header) => {
-		header.addClass('parent');
-
-		this.$('tbody tr').not('.parent').each((index, element) => {
-			this.$(element).find('.control').click();
-		});
-	}
-
-	collapsedExpandedAll = (event) => {
-		this.$.blockUI();
-		const header = this.$(event.currentTarget).closest('tr');
-
-		header.hasClass('parent') ?
-			this.collapsedAll(header) :
-			this.expandedAll(header);
-
-		this.doAdjustHeader();
-		this.$.unblockUI();	
 	}
 
 	onClickFooterRow = (parentRow, childRow) => {
@@ -173,9 +147,10 @@ class OutstandingViewNew extends BaseReport {
 		}
 	}
 
-	onClickDetailControl = (event) => {
-		const parentRow = this.$(event.currentTarget).closest('tr');
+	onClickDetailControl = (element) => {
+		const parentRow = this.$(element).closest('tr');
 		const childRow = this.$(parentRow).next();
+
 		parentRow.hasClass('tbl-footer') ?
 			this.onClickFooterRow(parentRow, childRow) :
 			this.onClickBodyRow(parentRow, childRow);
@@ -183,6 +158,8 @@ class OutstandingViewNew extends BaseReport {
 
 	triggerRedrawTable = () => {
 		this.doAdjustHeader();
+
+		this.$('tbody tr.parent').each((index, element) => this.onClickDetailControl(element));
 
 		this.replaceHrefParam("SortPropertyName", this.getColumnSortName());
 		this.replaceHrefParam("IsDescendingSort", this.isDescendingSort());
