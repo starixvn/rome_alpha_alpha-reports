@@ -32,7 +32,7 @@
 		<input type="submit" value="@Resources.Submit" class="btn-submit" />
 	</div>
 </form>
-<div class="level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "100%" : "60%");">
+<div id="report-container" class="level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "100%" : "60%");">
 	<table id="oustanding-report" class="@(existedData ? "hidden" : string.Empty) tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
 		<thead>
 			<tr>
@@ -52,7 +52,7 @@
 				<th colspan="@length" class="header">
 					@Resources.Outstanding
 				</th>
-				<th class="header"  rowspan="2"></th>
+				<th class="header" rowspan="2"></th>
 			</tr>
 			<tr class="thead-row2">
 				@{
@@ -71,14 +71,14 @@
 			<tbody>
 				@foreach (var outstanding in Model.OutstandingDatasource.OrderBy(Model.SortPropertyName, Model.IsDescendingSort))
 				{
-				<tr>
-					<td class="text-left" data-islink="true">
-						<a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
-						   class="downline-link">@outstanding.CustName</a>
-					</td>
-					@RenderOutstandingCells(outstanding)
-					<td></td>
-				</tr>
+					<tr>
+						<td class="text-left" data-islink="true">
+							<a href="@Model.BuildDrillDownLink(outstanding, Request.Url.Query)"
+							   class="downline-link">@outstanding.CustName</a>
+						</td>
+						@RenderOutstandingCells(outstanding)
+						<td></td>
+					</tr>
 				}
 				<tr class="tbl-footer">
 					<td class="text-left">@Resources.Total</td>
@@ -92,14 +92,10 @@
 				</tr>
 			</tbody>
 		}
-		else
-		{
-			@NoInformation.Render(Model.NumberOfOutstandingColumn + 1)
-		}
-
 	</table>
 
 	@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Outstanding"))
+	@Html.Hidden("NoInformationIsAvailable", @Resources.NoInformationIsAvailable)
 </div>
 
 

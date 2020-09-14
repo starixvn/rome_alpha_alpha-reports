@@ -42,10 +42,10 @@ class OutstandingViewNew extends BaseReport {
 		this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
 		this.canSort = JSON.parse(this.$('#CanSort').val().toLowerCase());
 
-		this.initDataTable();
 		this.linkBuilderComponent.render();
 		this.registerEvents();
 		this.initHelp();
+		this.initDataTable();
 	};
 
 	cacheElements = () => {
@@ -116,7 +116,8 @@ class OutstandingViewNew extends BaseReport {
 			fixedHeader: true,
 			processing: true,
 			language: {
-				processing: ''
+				processing: '',
+				emptyTable: this.$('#NoInformationIsAvailable').val()
 			},
 			drawCallback: () => {
 				this.$('tbody').append(this.$('tr.tbl-footer'));
