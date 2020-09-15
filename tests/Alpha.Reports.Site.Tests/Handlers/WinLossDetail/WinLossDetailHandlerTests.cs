@@ -156,7 +156,7 @@
             var message = new ReportLegendQuery(userFixture.User);
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
-                new Product(45, "Sexy Gaming", null, 0, 0)
+                new Product(45, "AE Casino", null, 0, 0)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
@@ -164,7 +164,7 @@
             var expectedViewModel = new List<string>
             {
                 "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
-                "- For Sexy Gaming, Net Turnover is total valid bets that we use to compute commission."
+                "- For AE Casino, Net Turnover is total valid bets that we use to compute commission."
             };
 
             // Act
@@ -282,7 +282,7 @@
             productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
             {
                 new Product(21, "AllBet", null, 0, 0),
-                new Product(45, "Sexy Gaming", null, 0, 0),
+                new Product(45, "AE Casino", null, 0, 0),
                 new Product(39, "SA Gaming", null, 0, 0),
                 new Product(46, "GT Casino", null, 0, 0),
                 new Product(47, "BBIN", null, 0, 0),
@@ -294,7 +294,7 @@
             var expectedViewModel = new List<string>
             {
                 "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
-                "- For AllBet, Sexy Gaming, SA Gaming, GT Casino, BBIN, ION, Net Turnover is total valid bets that we use to compute commission."
+                "- For AllBet, AE Casino, SA Gaming, GT Casino, BBIN, ION, Net Turnover is total valid bets that we use to compute commission."
             };
 
             // Act
