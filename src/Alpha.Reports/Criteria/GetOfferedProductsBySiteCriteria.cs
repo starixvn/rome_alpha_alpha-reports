@@ -19,7 +19,7 @@
         [SpParam(SqlParamName = "Currency")]
         public int CurrencyId { get; }
 
-        public override string GetSettingKey() => "Acc_CustSetting_CheckPGSoftEnable";
+        public override string GetSettingKey() => "Acc_CustSetting_CheckMacauEnable";
 
         public override bool IsValid() => !string.IsNullOrEmpty(Site) && CurrencyId > 0;
     }
