@@ -10,7 +10,6 @@
     using Requests.Outstanding;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Mvc;
 
     public class OutstandingViewModel : DrillDownableReportViewModel<OutstandingModel>
     {
@@ -23,14 +22,14 @@
             OutstandingQuery query,
             IEnumerable<OutstandingModel> outstandingDataSource,
             IEnumerable<int> selectedProductIds,
-            IEnumerable<SelectListItem> products,
+            IEnumerable<GroupProductViewModel> groupProducts,
             IEnumerable<CustInfo> breadcrumbLevel,
             bool isMobile)
                : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
             OutstandingDatasource = outstandingDataSource;
-            ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(products, selectedProductIds.JoinWithComma(), string.Empty);
+            ProductMultiSelectionViewModel = new ProductMultiSelectionViewModel(groupProducts, selectedProductIds.JoinWithComma(), string.Empty);
 
             for (var level = (byte)(ReportLevel.Value + 1); level <= Query.ViewerLevel.Value; level++)
             {
