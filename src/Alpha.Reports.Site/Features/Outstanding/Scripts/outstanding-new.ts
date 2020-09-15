@@ -16,7 +16,6 @@ class OutstandingViewNew extends BaseReport {
 
 	$reportForm: JQuery;
 	$buttonProduct: JQuery;
-
 	$sortPropertyName: JQuery;
 	$isDescendingSort: JQuery;
 	$isFilterVisible: JQuery;

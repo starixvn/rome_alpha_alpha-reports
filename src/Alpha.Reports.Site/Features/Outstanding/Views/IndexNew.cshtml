@@ -17,7 +17,7 @@
 
 @ReportTitle.Render(new PageHeaderViewModel(Model.Title, false, true, false, Model.IsFilterVisible, Model.BreadcrumbLevel, Model.BreadcrumbLevelJson), Request.Url.Query)
 
-<form class="form-inline filter form-report @(Model.IsFilterVisible ? string.Empty : "hide")" role="form" id="report-form">
+<form class="form-inline filter form-report hide" role="form" id="report-form">
 	@ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
 
 	@Html.Hidden("SortPropertyName", Model.SortPropertyName)
