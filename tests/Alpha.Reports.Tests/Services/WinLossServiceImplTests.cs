@@ -1,10 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Services.WinLoss
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
-    using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Reports.Criteria.WinLoss;
@@ -13,11 +10,13 @@
     using Reports.Models.Winloss;
     using Reports.Params;
     using Reports.Services;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using TestCases;
     using Xunit;
 
     [Trait("Category", "WinLoss")]
-    [Collection("FanexCacheCollection")]
     public class WinLossServiceImplTests
     {
         private const string EnteredResultsCacheKey = "Alpha.Reports.Services.Impl.WinLossServiceImpl.EnteredResults";
@@ -25,15 +24,16 @@
         private readonly WinLossDataAccess dataAccess;
         private readonly WinLossServiceImpl winLossServiceImpl;
         private readonly IDynamicRepository dynamicRepository;
-        private readonly FanexCacheFixture fanexCacheFixture;
+        private readonly ICacheService cacheService;
         private readonly CacheRefService cacheRefService;
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
         private readonly CompareLogic compareLogic;
         private readonly ReportDateService reportDateService;
 
-        public WinLossServiceImplTests(FanexCacheFixture fanexCacheFixture)
+        public WinLossServiceImplTests()
         {
             dynamicRepository = Substitute.For<IDynamicRepository>();
+            cacheService = Substitute.For<ICacheService>();
             var productService = Substitute.For<ProductService>();
             var productDetailService = Substitute.For<ProductDetailService>();
             dataAccess = Substitute.For<WinLossDataAccess>();
@@ -41,8 +41,6 @@
             reportDateService = Substitute.For<ReportDateService>();
             winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, productDetailService, dataAccess, dynamicRepository, cacheRefService);
             compareLogic = new CompareLogic();
-
-            this.fanexCacheFixture = fanexCacheFixture;
         }
 
         [Fact]
@@ -139,7 +137,7 @@
             var expectedData = Enumerable.Empty<EnteredSportResult>();
 
             IEnumerable<EnteredSportResult> cachedEnteredSportResult;
-            fanexCacheFixture.CacheForTesting.TryGet(EnteredResultsCacheKey, out cachedEnteredSportResult).Returns(false);
+            cacheService.TryGet(EnteredResultsCacheKey, out cachedEnteredSportResult).Returns(false);
 
             var dataEnteredSport = Enumerable.Empty<DailyEnteredSport>();
             dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dataEnteredSport);

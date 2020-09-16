@@ -1,11 +1,11 @@
 ﻿namespace Alpha.Reports.Services
 {
-    using System;
-    using System.Collections.Generic;
     using Criteria;
     using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models;
+    using System;
+    using System.Collections.Generic;
 
     public interface ReportDateService
     {
@@ -28,10 +28,12 @@
         private const string BalanceUpDayAndMoveBetsDayCacheKey = "Alpha.Reports.BalanceUpDayAndMoveBetsDay";
 
         private readonly IDynamicRepository dynamicRepository;
+        private readonly ICacheService cacheService;
 
-        public ReportDateServiceImpl(IDynamicRepository dynamicRepository)
+        public ReportDateServiceImpl(IDynamicRepository dynamicRepository, ICacheService cacheService)
         {
             this.dynamicRepository = dynamicRepository;
+            this.cacheService = cacheService;
         }
 
         public static ReportDateService Instance { get; set; }
@@ -42,7 +44,7 @@
 
         public BalanceUpDayAndMoveBetsDay GetBalanceUpDayAndMoveBetsDay()
         {
-            var balanceUpDayAndMoveBetsDay = ConfiguredCacheService.GetOrSet(
+            var balanceUpDayAndMoveBetsDay = cacheService.GetOrSet(
                 BalanceUpDayAndMoveBetsDayCacheKey,
                 () =>
                 {

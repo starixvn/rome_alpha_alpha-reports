@@ -15,6 +15,7 @@
     using Fanex.BetList.Core.Factories;
     using Fanex.BetList.Core.RemotingRef;
     using Fanex.BetList.Core.TicketHelper;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
     using Fanex.RemotingRef;
     using Handlers.CommissionByBettype;
@@ -89,6 +90,7 @@
             container.RegisterSingleton<BrowserHelper, BrowserHelperImpl>();
             container.RegisterSingleton<IRemotingRefService, RemotingRefService>();
             container.RegisterSingleton<CacheRefService, CacheRefServiceImpl>();
+            container.RegisterSingleton<ICacheService>(new CacheService());
             container.RegisterSingleton<IUserSession, UserSessionExt>();
             container.RegisterSingleton<IUser, User>();
             container.RegisterSingleton<ReportDateService, ReportDateServiceImpl>();
@@ -109,6 +111,7 @@
             container.Register<ProductService>(
                 () => new ProductServiceImpl(
                     container.GetInstance<IDynamicRepository>(),
+                    container.GetInstance<ICacheService>(),
                     UserPermission.HasPermissionOnProduct,
                     new CacheRefServiceImpl(new RemotingRefService()).GetProductName),
                 Lifestyle.Singleton);

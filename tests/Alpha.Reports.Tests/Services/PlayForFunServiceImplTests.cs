@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Services
 {
-    using System.Collections.Generic;
     using Extensions;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
     using Fixtures;
     using NSubstitute;
@@ -11,6 +11,7 @@
     using Reports.Models.PlayForFun;
     using Reports.Params;
     using Reports.Services;
+    using System.Collections.Generic;
     using Xunit;
 
     [Trait("Category", "PlayForFun")]
@@ -21,6 +22,7 @@
         private readonly CacheRefService cacheRefService;
         private readonly IUser user;
         private readonly IDynamicRepository repository;
+        private readonly ICacheService cacheService;
         private readonly PlayForFunServiceImpl service;
 
         public PlayForFunServiceImplTests(AnyValueCreatorFixture anyValueCreatorFixture)
@@ -32,7 +34,8 @@
             cacheRefService.GetProductName(Arg.Any<int>()).Returns(callInfo => "Product " + callInfo.Args()[0]);
 
             repository = Substitute.For<IDynamicRepository>();
-            service = new PlayForFunServiceImpl(cacheRefService, user, repository);
+            cacheService = Substitute.For<ICacheService>();
+            service = new PlayForFunServiceImpl(cacheRefService, user, repository, cacheService);
 
             repository.Fetch<PlayForFunProduct>(Arg.Any<PlayForFunProductCriteria>()).Returns(new List<PlayForFunProduct>
             {
