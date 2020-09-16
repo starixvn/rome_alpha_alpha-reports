@@ -3,8 +3,8 @@
 class EnterResultViewNew extends BaseReportNew {
     constructor(
         $: JQueryStatic,
-        dateRangePickerComponent: DateRangePickerComponent) {
-        super($, dateRangePickerComponent, null);
+        dateRangePickerNewComponent: DateRangePickerNewComponent) {
+        super($, dateRangePickerNewComponent, null);
     }
 
     init = () => {
@@ -14,7 +14,7 @@ class EnterResultViewNew extends BaseReportNew {
 
         super.init();
 
-        this.dateRangePickerComponent.render();
+        this.dateRangePickerNewComponent.render();
         this.initDataTable();
 
         this.registerEvents();
@@ -72,6 +72,6 @@ class EnterResultViewNew extends BaseReportNew {
 $(function () {
     const enterResultViewNew = new EnterResultViewNew(
         $,
-        new DateRangePickerComponent($));
+        new DateRangePickerNewComponent($));
     enterResultViewNew.init();
 });

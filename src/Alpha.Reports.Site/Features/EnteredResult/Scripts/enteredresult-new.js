@@ -14,14 +14,14 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var EnterResultViewNew = /** @class */ (function (_super) {
     __extends(EnterResultViewNew, _super);
-    function EnterResultViewNew($, dateRangePickerComponent) {
-        var _this = _super.call(this, $, dateRangePickerComponent, null) || this;
+    function EnterResultViewNew($, dateRangePickerNewComponent) {
+        var _this = _super.call(this, $, dateRangePickerNewComponent, null) || this;
         _this.init = function () {
             if (!_this.checkReady()) {
                 return;
             }
             _super.prototype.init.call(_this);
-            _this.dateRangePickerComponent.render();
+            _this.dateRangePickerNewComponent.render();
             _this.initDataTable();
             _this.registerEvents();
             _this.$.unblockUI();
@@ -67,7 +67,7 @@ var EnterResultViewNew = /** @class */ (function (_super) {
     return EnterResultViewNew;
 }(BaseReportNew));
 $(function () {
-    var enterResultViewNew = new EnterResultViewNew($, new DateRangePickerComponent($));
+    var enterResultViewNew = new EnterResultViewNew($, new DateRangePickerNewComponent($));
     enterResultViewNew.init();
 });
 //# sourceMappingURL=enteredresult-new.js.map

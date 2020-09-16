@@ -39,12 +39,12 @@ class WinLossViewNew extends BaseReportNew {
 
     constructor(
         $: JQueryStatic,
-        dateRangePickerComponent: DateRangePickerComponent,
+        dateRangePickerNewComponent: DateRangePickerNewComponent,
         productMultiSelectionComponent: ProductMultiSelectionComponent,
         reportTooltip: ReportTooltip,
         monthPickerComponent: MonthPickerComponent,
         linkBuilderComponent: LinkBuilderComponent) {
-        super($, dateRangePickerComponent, linkBuilderComponent);
+        super($, dateRangePickerNewComponent, linkBuilderComponent);
 
         this.productMultiSelectionComponent = productMultiSelectionComponent;
         this.reportTooltip = reportTooltip;
@@ -132,7 +132,7 @@ class WinLossViewNew extends BaseReportNew {
                 this.$reportForm.addClass('hide');
             }
         } else {
-            this.dateRangePickerComponent.render();
+            this.dateRangePickerNewComponent.render();
         }
 
         if (this.$isFilterVisible.val().toString().toLowerCase() === 'false') {
@@ -250,13 +250,12 @@ class WinLossViewNew extends BaseReportNew {
 }
 
 $(function () {
-    const linkBuilderComponent = new LinkBuilderComponent($);
     const winLossViewNew = new WinLossViewNew(
         $,
-        new DateRangePickerComponent($),
+        new DateRangePickerNewComponent($),
         new ProductMultiSelectionComponent($),
         new ReportTooltip($),
         new MonthPickerComponent($),
-        linkBuilderComponent);
+        new LinkBuilderComponent($));
     winLossViewNew.init();
 });

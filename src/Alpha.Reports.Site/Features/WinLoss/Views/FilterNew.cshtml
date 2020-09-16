@@ -7,7 +7,7 @@
 
     @(Model.IsHistoricReport
                     ? MonthPicker.Render(Model.MonthPickerViewModel)
-                    : DateRangePicker.Render(Model.DateRangePickerViewModel))
+                    : DateRangePickerNew.Render(Model.DateRangePickerViewModel))
 
     @if (Model.IsHistoricReport)
     {

@@ -1,8 +1,9 @@
 ﻿.filter {
     @media (orientation: landscape) {
         &.win-loss {
-            .from-date-box, .to-date-box {
-                width: 25%;
+            .daterangepicker-container {
+                width: 50%;
+                margin-bottom: 0;
             }
         }
     }

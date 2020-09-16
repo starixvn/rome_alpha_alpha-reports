@@ -1,6 +1,4 @@
-﻿declare var dataTableEmptyMessage;
-
-class BaseReportNew {
+﻿class BaseReportNew {
 	$: JQueryStatic;
 
 	$filterIcon: JQuery;

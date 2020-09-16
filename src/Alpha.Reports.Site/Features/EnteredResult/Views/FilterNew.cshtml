@@ -3,7 +3,7 @@
 <form class="form-inline filter entered-result" role="form" id="report-form" action="@Url.Action("IndexNew", "WinLoss")">
     @RenderHiddenFields()
 
-    @DateRangePicker.Render(Model.DateRangePickerViewModel)
+    @DateRangePickerNew.Render(Model.DateRangePickerViewModel)
 
     <div class="display-sm-none form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>

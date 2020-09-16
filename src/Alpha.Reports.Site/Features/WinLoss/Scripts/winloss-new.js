@@ -14,8 +14,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 var WinLossViewNew = /** @class */ (function (_super) {
     __extends(WinLossViewNew, _super);
-    function WinLossViewNew($, dateRangePickerComponent, productMultiSelectionComponent, reportTooltip, monthPickerComponent, linkBuilderComponent) {
-        var _this = _super.call(this, $, dateRangePickerComponent, linkBuilderComponent) || this;
+    function WinLossViewNew($, dateRangePickerNewComponent, productMultiSelectionComponent, reportTooltip, monthPickerComponent, linkBuilderComponent) {
+        var _this = _super.call(this, $, dateRangePickerNewComponent, linkBuilderComponent) || this;
         _this.isHistoricReport = false;
         _this.superColumnSortNames = [
             'CustName', 'Turnover', 'GrossComm', 'MasterNetWinLoss.WinLoss',
@@ -97,7 +97,7 @@ var WinLossViewNew = /** @class */ (function (_super) {
                 }
             }
             else {
-                _this.dateRangePickerComponent.render();
+                _this.dateRangePickerNewComponent.render();
             }
             if (_this.$isFilterVisible.val().toString().toLowerCase() === 'false') {
                 _this.hideFilter();
@@ -200,8 +200,7 @@ var WinLossViewNew = /** @class */ (function (_super) {
     return WinLossViewNew;
 }(BaseReportNew));
 $(function () {
-    var linkBuilderComponent = new LinkBuilderComponent($);
-    var winLossViewNew = new WinLossViewNew($, new DateRangePickerComponent($), new ProductMultiSelectionComponent($), new ReportTooltip($), new MonthPickerComponent($), linkBuilderComponent);
+    var winLossViewNew = new WinLossViewNew($, new DateRangePickerNewComponent($), new ProductMultiSelectionComponent($), new ReportTooltip($), new MonthPickerComponent($), new LinkBuilderComponent($));
     winLossViewNew.init();
 });
 //# sourceMappingURL=winloss-new.js.map
