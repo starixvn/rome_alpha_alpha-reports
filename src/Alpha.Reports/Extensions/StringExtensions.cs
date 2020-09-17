@@ -84,5 +84,25 @@
             var dateTime = new DateTime(splitInts[0], splitInts[1], 1);
             return dateTime;
         }
+
+        public static IDictionary<int, bool> ToIntDictionary(this string delimitedString)
+        {
+            IDictionary<int, bool> results = new Dictionary<int, bool>();
+
+            if (!string.IsNullOrWhiteSpace(delimitedString))
+            {
+                delimitedString
+                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToList()
+                    .ForEach(text => {
+                        if (int.TryParse(text, out var number))
+                        {
+                            results[number] = true;
+                        }
+                    });
+            }
+
+            return results;
+        }
     }
 }

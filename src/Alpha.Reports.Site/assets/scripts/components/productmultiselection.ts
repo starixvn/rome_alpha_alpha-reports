@@ -22,12 +22,17 @@ class ProductMultiSelectionComponent {
     $excludeHiddenInput: JQuery;
 
     options = new ProductMultiSelectionOption();
+    productDetailMultiSelectionComponent: ProductDetailMultiSelectionComponent;
+    handleSelectedAllChanged = false;
 
-    constructor($: JQueryStatic) {
+    constructor($: JQueryStatic, productDetailMultiSelectionComponent: ProductDetailMultiSelectionComponent = undefined) {
         this.$ = $;
+        this.productDetailMultiSelectionComponent = productDetailMultiSelectionComponent;
     }
 
     render = (options: ProductMultiSelectionOption = new ProductMultiSelectionOption()) => {
+        this.productDetailMultiSelectionComponent && this.productDetailMultiSelectionComponent.render();
+
         this.options = <ProductMultiSelectionOption>this.$.extend({}, this.options, options);
 
         this.$dropdownProduct = this.$("#" + this.options.dropdownId);
@@ -63,12 +68,26 @@ class ProductMultiSelectionComponent {
 
         this.$multiSelectButton = this.$dropdownProduct.parent().find(".multiselect.btn");
 
+        if (this.productDetailMultiSelectionComponent) {
+            const self: any = this;
+            this.$dropdownProduct.find("option").each(function () {
+                self.productDetailMultiSelectionComponent.shouldEnableDropdown(self.$(this).is(":selected"), this.value);
+            });
+        }
+
+        this.handleSelectedAllChanged = true;
         return this.$dropdownProduct;
     };
 
     onChange = (option: any, checked: boolean) => {
         this.validate();
         this.$hiddenInput.val(this.getSelectedItems().join(","));
+
+        if (this.handleSelectedAllChanged && this.productDetailMultiSelectionComponent) {
+            typeof option === "boolean"
+                ? this.productDetailMultiSelectionComponent.disableAllOptions(option)
+                : this.productDetailMultiSelectionComponent.disableOptions(checked, option.context.value);
+        }
 
         if (this.options.onChange) {
             this.options.onChange();
@@ -152,5 +171,15 @@ class ProductMultiSelectionComponent {
             this.$multiSelectButton.removeClass("error");
             this.removeErrorClassFromExcludeProductLabels();
         }
+    };
+
+    isAnyEnabledProductDetailSelected = () => {
+        return !this.productDetailMultiSelectionComponent
+            || this.productDetailMultiSelectionComponent.isAnyEnabledSelected();
+    };
+
+    addErrorToProductDetailComponent = () => {
+        this.productDetailMultiSelectionComponent
+            && this.productDetailMultiSelectionComponent.addError();
     };
 }

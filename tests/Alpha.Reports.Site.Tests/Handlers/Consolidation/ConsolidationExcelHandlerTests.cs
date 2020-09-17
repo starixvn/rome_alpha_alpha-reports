@@ -53,7 +53,8 @@
                 viewer,
                 workbook,
                 consolidationByDateWorkbook,
-                consolidationByProductWorkbook);
+                consolidationByProductWorkbook,
+                productDetailService);
 
             consolidationExcelHandler.MapPath = (path) => path;
             consolidationExcelHandler.IsFileExist = (path) => true;

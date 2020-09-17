@@ -36,8 +36,9 @@
             IUser viewer,
             Workbook<ConsolidationByUsernameViewModel> workbook,
             ConsolidationByDateWorkbook consolidationByDateWorkbook,
-            ConsolidationByProductWorkbook consolidationByProductWorkbook) :
-            base(reportService, cacheRefService, winLossDetailService, viewer)
+            ConsolidationByProductWorkbook consolidationByProductWorkbook,
+            ProductDetailService productDetailService) :
+            base(reportService, cacheRefService, winLossDetailService, viewer, productDetailService)
         {
             this.workbook = workbook;
             this.consolidationByDateWorkbook = consolidationByDateWorkbook;
@@ -47,7 +48,9 @@
 
         public ExcelFileViewModel Handle(ConsolidationByUsernameExcelQuery message)
         {
-            var param = CreateParameter(message);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+
+            var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByUsername(param);
             var currencies = reportService
                 .GetCurrencies(new GetCurrencyParam(message.ViewerId))
@@ -56,7 +59,7 @@
 
             var fileContent = workbook
                 .UseTemplate(GetTemplateInfo("ConsolidationByUsername"))
-                .Title(GetReporTitle(message, Resources.ConsolidationReportByUsername, currencies))
+                .Title(GetReporTitle(param, Resources.ConsolidationReportByUsername, currencies))
                 .Header(Resources.ResourceManager.GetString)
                 .Body(viewModels, GetRowMapper())
                 .Sheet(Resources.DefaultSheetName)
@@ -67,7 +70,9 @@
 
         public ExcelFileViewModel Handle(ConsolidationByDateExcelQuery message)
         {
-            var param = CreateParameter(message);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+
+            var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByDate(param);
             var currencies = reportService
                 .GetCurrencies(new GetCurrencyParam(message.ViewerId))
@@ -76,7 +81,7 @@
 
             var fileContent = consolidationByDateWorkbook
                      .UseTemplate(GetTemplateInfo("ConsolidationByDate"))
-                     .Title(GetReporTitle(message, Resources.ConsolidationReportByDate, currencies))
+                     .Title(GetReporTitle(param, Resources.ConsolidationReportByDate, currencies))
                      .Header(Resources.ResourceManager.GetString)
                      .Body(viewModels, null)
                      .Sheet(Resources.DefaultSheetName)
@@ -87,7 +92,9 @@
 
         public ExcelFileViewModel Handle(ConsolidationByProductExcelQuery message)
         {
-            var param = CreateParameter(message);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+
+            var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByProduct(param);
             var currencies = reportService
                 .GetCurrencies(new GetCurrencyParam(message.ViewerId))
@@ -96,7 +103,7 @@
 
             var fileContent = consolidationByProductWorkbook
                      .UseTemplate(GetTemplateInfo("ConsolidationByProduct"))
-                     .Title(GetReporTitle(message, Resources.ConsolidationReportByProduct, currencies))
+                     .Title(GetReporTitle(param, Resources.ConsolidationReportByProduct, currencies))
                      .Header(Resources.ResourceManager.GetString)
                      .Body(viewModels, null)
                      .Sheet(Resources.DefaultSheetName)
@@ -108,7 +115,10 @@
         public PagedReportData<WinLossDetailModel> Handle(ConsolidationDetailExcelQuery message)
         {
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
-            var param = CreateWinLossDetailParam(winLossDetailQuery);
+
+            var products = reportService.GetProducts(
+                new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.Site, winLossDetailQuery.CurrencyId, winLossDetailQuery.MinDate));
+            var param = CreateWinLossDetailParam(winLossDetailQuery, products);
 
             var reportData = winLossDetailService.GetWinLossDetail(param);
 
@@ -121,20 +131,23 @@
                 noInfomationText: Resources.NoInformationIsAvailable)
             .FreezePanel(4, C);
 
-        private string GetReporTitle(GetConsolidationQuery message, string reportType, IDictionary<byte, string> currencies)
+        private string GetReporTitle(GetConsolidationParam param, string reportType, IDictionary<byte, string> currencies)
         {
-            var currencyName = message.UserSelectedCurrencyId == DefaultVariables.AllCurrencies
+            var replacedProductNames = productDetailService.GetProductNamesExportExcel(param.ResourceIds);
+            var productNames = productService.ConcatProductNames(param.ProductIds, replacedProductNames);
+
+            var currencyName = param.Currency == DefaultVariables.AllCurrencies
                 ? Resources.AllCurrencies
-                : Resources.Currency + ": " + currencies[(byte)message.UserSelectedCurrencyId];
+                : Resources.Currency + ": " + currencies[(byte)param.Currency];
 
             return string.Join(
                 " ",
                 reportType,
-                message.FromDate.ToShortDateWithSlash(),
+                param.FromDate.ToShortDateWithSlash(),
                 "-->",
-                message.ToDate.ToShortDateWithSlash(),
+                param.ToDate.ToShortDateWithSlash(),
                 Resources.of2,
-                productService.ConcatProductNames(message.UserSelectedProductIds),
+                productNames,
                 "-",
                 currencyName);
         }

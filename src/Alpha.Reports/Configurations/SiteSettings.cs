@@ -43,5 +43,8 @@
         public static bool EnabledStaticData => GetConfigValue("EnabledStaticData") == "1";
 
         public static string RemoteRefURL => GetConfigValue("RemoteRefURL");
+
+        public static bool IsOfferJackpotProductDetails
+            => "1" == GetConfigValue("IsOfferJackpotProductDetails");
     }
 }

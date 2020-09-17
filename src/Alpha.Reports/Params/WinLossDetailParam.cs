@@ -17,11 +17,13 @@
             DateTime toDate,
             DateTime limitedDate,
             IEnumerable<int> userSelectedProductIds,
+            IEnumerable<int> userSelectedResourceIds,
             UserLevel reportLevel,
             string sortByPropertyName,
             bool isDescendingSort,
-            bool isHistoricReport)
-            : base(custId, site, currencyId, fromDate, toDate, limitedDate, userSelectedProductIds, reportLevel, isHistoricReport)
+            bool isHistoricReport,
+            string productDetailsXML)
+            : base(custId, site, currencyId, fromDate, toDate, limitedDate, userSelectedProductIds, userSelectedResourceIds, reportLevel, isHistoricReport, productDetailsXML)
         {
             PageIndex = pageIndex == 0 ? DefaultVariables.PageIndex : pageIndex;
             PageSize = pageSize == 0 ? DefaultVariables.PageSize : pageSize;

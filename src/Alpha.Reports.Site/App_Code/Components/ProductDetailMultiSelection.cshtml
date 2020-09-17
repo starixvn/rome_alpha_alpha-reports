@@ -1,0 +1,28 @@
+﻿@using Alpha.Reports.Site.App_GlobalResources;
+@using Alpha.Reports.Site.ViewModels.Components;
+
+@helper Render(ProductDetailMultiSelectionViewModel model)
+{
+    if (model.HasData)
+    {
+        <div class="form-group">
+            <select id="dropdown-product-detail"
+                    data-has-any-product-detail="@model.HasData"
+                    data-label-select-product-detail="@Resources.SelectNone"
+                    data-label-selected="@Resources.Selected"
+                    data-label-all-product-detail="@Resources.SelectAll"
+                    data-language="@model.Language"
+                    multiple="multiple"
+                    class="select-multiple"
+                    disabled="disabled">
+                @foreach (var product in model.ProductDetails)
+                {
+                    <option value="@product.Value" @(product.Selected ? "selected=selected" : string.Empty)
+                            data-productid="@product.ProductId"
+                            disabled="disabled">@product.Text</option>
+                }
+            </select>
+            <input type="hidden" name="UserSelectedResourceIds" id="resource-ids" value="@model.UserSelectedResourceIds" />
+        </div>
+    }
+}

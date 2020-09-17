@@ -25,6 +25,8 @@
 
         public string ConsolidationProductIds { get; set; }
 
+        public string ConsolidationResourceIds { get; set; }
+
         public static bool CanViewReport(ReportDefaultDateRangeQuery query)
         {
             //// TODO: Side effect here

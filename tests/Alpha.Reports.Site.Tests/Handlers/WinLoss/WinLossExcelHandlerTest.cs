@@ -36,8 +36,15 @@
             this.userFixture = userFixture;
 
             var productService = Substitute.For<ProductService>();
-            productService.ConcatProductNames(Arg.Any<string>()).Returns("Product Name");
+            productService
+                .ConcatProductNames(Arg.Any<IEnumerable<int>>(), Arg.Any<IDictionary<int, string>>())
+                .Returns("Product Name");
             var reportService = Substitute.For<WinLossService>();
+
+            var productDetailService = Substitute.For<ProductDetailService>();
+            productDetailService
+                .GetProductNamesExportExcel(Arg.Any<IEnumerable<int>>())
+                .Returns(new Dictionary<int, string> { [42] = "Saba.club" });
 
             winlossWorkbook = Substitute.For<Workbook<WinLossModel>>();
             winlossWorkbook.UseTemplate(Arg.Any<ONEbook.SpreadSheets.TemplateInfo>()).Returns(winlossWorkbook);
@@ -47,7 +54,7 @@
             winlossWorkbook.Footer(Arg.Any<WinLossModel>(), Arg.Any<Mapper<WinLossModel>>()).Returns(winlossWorkbook);
             winlossWorkbook.Sheet(Arg.Any<string>()).Returns(winlossWorkbook);
 
-            winLossExcelHandler = Substitute.ForPartsOf<WinLossExcelHandler>(productService, reportService, winlossWorkbook);
+            winLossExcelHandler = Substitute.ForPartsOf<WinLossExcelHandler>(productService, productDetailService, reportService, winlossWorkbook);
             winLossExcelHandler.MapPath = (path) => path;
             winLossExcelHandler.IsFileExist = (path) => true;
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
@@ -118,7 +125,8 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<GroupProductViewModel>());
+                Enumerable.Empty<GroupProductViewModel>(),
+                Enumerable.Empty<ProductDetailViewModel>());
 
             // Act
             winLossExcelHandler.Handle(message);
@@ -140,7 +148,8 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<GroupProductViewModel>());
+                Enumerable.Empty<GroupProductViewModel>(),
+                Enumerable.Empty<ProductDetailViewModel>());
 
             // Act
             winLossExcelHandler.Handle(message);

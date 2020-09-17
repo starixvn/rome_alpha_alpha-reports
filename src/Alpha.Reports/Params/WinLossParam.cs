@@ -14,8 +14,10 @@
             DateTime toDate,
             DateTime limitedDate,
             IEnumerable<int> userSelectedProductIds,
+            IEnumerable<int> userSelectedResourceIds,
             UserLevel reportLevel,
-            bool isHistoricReport) : base(fromDate, toDate, limitedDate, isHistoricReport)
+            bool isHistoricReport,
+            string productDetailsXML) : base(fromDate, toDate, limitedDate, isHistoricReport)
         {
             CustId = custId;
             Site = site;
@@ -23,6 +25,8 @@
             ReportLevel = reportLevel;
 
             UserSelectedProductIds = userSelectedProductIds;
+            UserSelectedResourceIds = userSelectedResourceIds;
+            ProductDetailsXML = productDetailsXML;
         }
 
         public int CustId { get; }
@@ -33,6 +37,10 @@
 
         public IEnumerable<int> UserSelectedProductIds { get; }
 
+        public IEnumerable<int> UserSelectedResourceIds { get; }
+
         public UserLevel ReportLevel { get; }
+
+        public string ProductDetailsXML { get; }
     }
 }

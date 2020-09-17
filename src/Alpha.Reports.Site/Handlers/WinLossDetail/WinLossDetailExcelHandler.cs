@@ -22,8 +22,9 @@
 
         public WinLossDetailExcelHandler(
             ProductService productService,
+            ProductDetailService productDetailService,
             WinLossDetailService reportService,
-            Workbook<WinLossDetailModel> workbook) : base(productService, reportService)
+            Workbook<WinLossDetailModel> workbook) : base(productService, productDetailService, reportService)
         {
             this.workbook = workbook;
         }
@@ -41,7 +42,7 @@
 
             var fileContent = workbook
                .UseTemplate(GetTemplateInfo(message))
-               .Title(GetReportTitle(message))
+               .Title(GetReportTitle(winLossDetailParam))
                .Header(Resources.ResourceManager.GetString)
                .Body(reportData.DataSource, GetBodyRowMapper(message))
                .Footer(reportData.TotalData, GetTotalRowMapper(message))
@@ -54,9 +55,13 @@
         public ExcelFileViewModel Handle(ConsolidateWinLossDetailExcelQuery message)
             => Handle((WinLossDetailExcelQuery)message);
 
-        private string GetReportTitle(WinLossDetailExcelQuery message)
-            => $"{Resources.WinLossDetail} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-            $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
+        private string GetReportTitle(WinLossDetailParam param)
+        {
+            var replacedProductNames = productDetailService.GetProductNamesExportExcel(param.UserSelectedResourceIds);
+            var productNames = productService.ConcatProductNames(param.UserSelectedProductIds, replacedProductNames);
+
+            return $"{Resources.WinLossDetail} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()} {Resources.of2} {productNames}";
+        }
 
         private string GetExcelFileName(WinLossDetailExcelQuery message, WinLossDetailParam winLossDetailParam)
             => string.Join(

@@ -1,7 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers.WinLossDetail
 {
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using Alpha.Reports.Constants;
     using Extensions;
     using Params;
     using Reports.Models;
@@ -15,13 +15,16 @@
     public class WinLossDetailBaseHandler : BaseHandler
     {
         protected readonly ProductService productService;
+        protected readonly ProductDetailService productDetailService;
         protected readonly WinLossDetailService reportService;
 
         public WinLossDetailBaseHandler(
             ProductService productService,
+            ProductDetailService productDetailService,
             WinLossDetailService reportService)
         {
             this.productService = productService;
+            this.productDetailService = productDetailService;
             this.reportService = reportService;
         }
 
@@ -35,6 +38,11 @@
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
+            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomer(
+                message.CustId,
+                message.Site,
+                message.CurrencyId,
+                !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds);
 
             return new WinLossDetailParam(
                  message.CustId,
@@ -46,10 +54,12 @@
                  message.ToDate,
                  message.LimitedDateToShowInfo,
                  validUserSelectedProductIds,
+                 validUserSelectedResourceIds,
                  userLevel,
                  message.SortPropertyName,
                  message.IsDescendingSort,
-                 message.IsHistoricReport);
+                 message.IsHistoricReport,
+                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
         }
     }
 }

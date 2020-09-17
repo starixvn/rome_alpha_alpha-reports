@@ -47,7 +47,8 @@
                 reportType: anyValueCreatorFixture.Create<byte>(),
                 balanceUpDate: anyValueCreatorFixture.Create<DateTime>(),
                 moveBetsDate: anyValueCreatorFixture.Create<DateTime>(),
-                productIds: anyValueCreatorFixture.Create<IEnumerable<int>>());
+                productIds: anyValueCreatorFixture.Create<IEnumerable<int>>(),
+                productDetails: anyValueCreatorFixture.Create<string>());
 
             // Act
             var actualIsValid = criteria.IsValid();
@@ -71,7 +72,8 @@
                 balanceUpDate: anyValueCreatorFixture.Create<DateTime>(),
                 moveBetsDate: anyValueCreatorFixture.Create<DateTime>(),
                 reportType: anyValueCreatorFixture.Create<byte>(),
-                productIds: anyValueCreatorFixture.Create<IEnumerable<int>>());
+                productIds: anyValueCreatorFixture.Create<IEnumerable<int>>(),
+                productDetails: anyValueCreatorFixture.Create<string>());
 
             // Act
             var actualIsValid = criteria.IsValid();
@@ -92,7 +94,8 @@
                 balanceUpDate: anyValueCreatorFixture.Create<DateTime>(),
                 moveBetsDate: anyValueCreatorFixture.Create<DateTime>(),
                 reportType: anyValueCreatorFixture.Create<byte>(),
-                productIds: Enumerable.Empty<int>());
+                productIds: Enumerable.Empty<int>(),
+                productDetails: string.Empty);
 
             // Act
             var actualIsValid = criteria.IsValid();
@@ -115,7 +118,8 @@
                 balanceUpDate: balanceUpDate,
                 moveBetsDate: anyValueCreatorFixture.Create<DateTime>(),
                 reportType: anyValueCreatorFixture.Create<byte>(),
-                productIds: new List<int> { 1 });
+                productIds: new List<int> { 1 },
+                productDetails: string.Empty);
 
             // Act
             var actualIsValid = criteria.IsValid();
@@ -129,7 +133,7 @@
         {
             // Act
             var criteria =
-                new GetConsolidationCriteria(1, 3, DateTime.MinValue, DateTime.MinValue, 2, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>());
+                new GetConsolidationCriteria(1, 3, DateTime.MinValue, DateTime.MinValue, 2, DateTime.MinValue, DateTime.MinValue, Enumerable.Empty<int>(), string.Empty);
 
             // Assert
             Assert.True(

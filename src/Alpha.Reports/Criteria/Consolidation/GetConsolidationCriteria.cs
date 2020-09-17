@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Extensions;
     using Fanex.Data;
     using Fanex.Data.Repository;
@@ -14,7 +13,8 @@
             GetConsolidationParam param,
             DateTime balanceUpDate,
             DateTime moveBetsDate,
-            byte reportType)
+            byte reportType,
+            string productDetails)
             : this(
                   param.CustId,
                   param.Currency,
@@ -23,7 +23,8 @@
                   reportType,
                   balanceUpDate,
                   moveBetsDate,
-                  param.ProductIds)
+                  param.ProductIds,
+                  productDetails)
         {
         }
 
@@ -35,7 +36,8 @@
             byte reportType,
             DateTime balanceUpDate,
             DateTime moveBetsDate,
-            IEnumerable<int> productIds)
+            IEnumerable<int> productIds,
+            string productDetails)
         {
             CustId = custId;
             Currency = currency;
@@ -46,6 +48,7 @@
             BalanceUpDate = balanceUpDate;
             MoveBetsDate = moveBetsDate;
             ProductIds = productIds.JoinWithComma();
+            ProductDetails = productDetails;
         }
 
         public int CustId { get; }
@@ -65,6 +68,8 @@
 
         [SpParam(SqlParamName = "MoveBetsDay")]
         public DateTime MoveBetsDate { get; }
+
+        public string ProductDetails { get; }
 
         public override string GetSettingKey() => "Age_Rpt_ConsolidatedGroup";
 

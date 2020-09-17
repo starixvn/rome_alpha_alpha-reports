@@ -64,6 +64,7 @@
     { "Path": "../components/netturnover-tooltip.ts" },
     { "Path": "../components/pager.ts" },
     { "Path": "../components/productmultiselection.ts" },
+    { "Path": "../components/productdetail-multiselection.ts" },
     { "Path": "../components/sort.ts" },
     { "Path": "../components/tooltip.ts" },
     { "Path": "../components/link-builder.ts" },

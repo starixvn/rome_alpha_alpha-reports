@@ -27,6 +27,7 @@
         private readonly CacheRefService cacheRefService;
         private readonly ReportDateService reportDateService;
         private readonly ProductService productService;
+        private readonly ProductDetailService productDetailService;
         private readonly WinLossByProductHandler winLossByProductHandler;
 
         private readonly UserFixture userFixture;
@@ -40,12 +41,13 @@
             reportService = Substitute.For<WinLossByProductService>();
             cacheRefService = Substitute.For<CacheRefService>();
             productService = Substitute.For<ProductService>();
+            productDetailService = Substitute.For<ProductDetailService>();
 
             reportDateService = Substitute.For<ReportDateService>();
             ReportDateServiceImpl.Instance = reportDateService;
             reportDateService.GetBalanceUpDay().Returns(SystemTime.Today);
 
-            winLossByProductHandler = new WinLossByProductHandler(reportService, productService, cacheRefService);
+            winLossByProductHandler = new WinLossByProductHandler(reportService, productService, productDetailService, cacheRefService);
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;

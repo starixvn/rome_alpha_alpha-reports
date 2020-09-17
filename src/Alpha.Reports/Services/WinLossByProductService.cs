@@ -44,7 +44,8 @@
                 reportDateService.GetBalanceUpDay(),
                 reportDateService.GetMoveBetsDay(),
                 param.UserSelectedProductIds,
-                param.CustLevel);
+                param.CustLevel,
+                param.ProductDetailsXML);
 
             var winLossByBetTypeData = dataAccess.GetWinLossByBetType(criteria);
             var result = new List<WinLossByProductModel>();

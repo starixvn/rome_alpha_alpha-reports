@@ -13,7 +13,8 @@
     {
         public WinLossHandler(
             ProductService productService,
-            WinLossService reportService) : base(productService, reportService)
+            ProductDetailService productDetailService,
+            WinLossService reportService) : base(productService, productDetailService, reportService)
         {
         }
 
@@ -26,6 +27,7 @@
             }
 
             var products = productService.GetProductsForCustomer(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var productDetails = productDetailService.GetProductDetails(message.CustId, message.Site, message.CurrencyId);
 
             var winLossParam = CreateWinLossParamater(message);
             var reportData = reportService.GetWinLoss(winLossParam);
@@ -37,7 +39,8 @@
                 message,
                 winLossParam,
                 BuildBreadcrumbLevel(message),
-                BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products));
+                BuildProductSelectListItems(winLossParam.UserSelectedProductIds, products),
+                BuildProductDetailViewModels(winLossParam.UserSelectedResourceIds, productDetails));
 
             return viewModel;
         }

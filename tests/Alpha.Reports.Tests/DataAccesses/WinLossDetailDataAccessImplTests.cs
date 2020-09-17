@@ -52,7 +52,8 @@
                 DateTime.Now,
                 DateTime.Now,
                 new List<int> { 1, 2 },
-                UserLevel.Super);
+                UserLevel.Super,
+                string.Empty);
 
             var dataSet = WinLossDetailDatabase.MasterWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
@@ -90,7 +91,8 @@
                 DateTime.Now,
                 DateTime.Now,
                 new List<int> { 1, 2 },
-                UserLevel.Master);
+                UserLevel.Master,
+                string.Empty);
 
             var dataSet = WinLossDetailDatabase.AgentWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
@@ -128,7 +130,8 @@
                 DateTime.Now,
                 DateTime.Now,
                 new List<int> { 1, 2 },
-                UserLevel.Agent);
+                UserLevel.Agent,
+                string.Empty);
 
             var dataSet = WinLossDetailDatabase.MemberWinLoss.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);
@@ -166,7 +169,8 @@
                 DateTime.Now,
                 DateTime.Now,
                 null,
-                UserLevel.Super);
+                UserLevel.Super,
+                string.Empty);
 
             IDataReader dataReader = null;
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataReader);
@@ -198,7 +202,8 @@
                 DateTime.Now,
                 DateTime.Now,
                 new List<int> { 1, 2 },
-                UserLevel.Super);
+                UserLevel.Super,
+                string.Empty);
 
             var dataSet = WinLossDetailDatabase.MasterWinLossWinNoTotalTable.CreateDataReader();
             objectDbFixture.ObjectDb.ExecuteReader(Arg.Any<WinLossDetailCriteria>()).Returns(dataSet);

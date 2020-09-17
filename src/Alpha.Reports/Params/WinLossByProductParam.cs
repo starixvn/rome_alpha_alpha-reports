@@ -12,15 +12,19 @@
             DateTime fromDate,
             DateTime toDate,
             IEnumerable<int> userSelectedProductIds,
-            UserLevel custLevel)
+            IEnumerable<int> userSelectedResourceIds,
+            UserLevel custLevel,
+            string productDetailsXML)
         {
             CustId = custId;
             CustLevel = custLevel;
             UserSelectedProductIds = userSelectedProductIds;
+            UserSelectedResourceIds = userSelectedResourceIds;
 
             FromDate = fromDate == DateTime.MinValue ? SystemTime.Today : fromDate;
-
             ToDate = toDate == DateTime.MinValue ? SystemTime.Today : toDate;
+
+            ProductDetailsXML = productDetailsXML;
         }
 
         public int CustId { get; }
@@ -31,6 +35,10 @@
 
         public IEnumerable<int> UserSelectedProductIds { get; }
 
+        public IEnumerable<int> UserSelectedResourceIds { get; }
+
         public UserLevel CustLevel { get; }
+
+        public string ProductDetailsXML { get; }
     }
 }

@@ -1,5 +1,8 @@
 ﻿namespace Alpha.Reports.Site.App_Start
 {
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Web.Mvc;
     using Alpha.Reports.Site.Handlers.BetChoiceMatching;
     using Alpha.Utilities.IP;
     using Configurations;
@@ -32,9 +35,6 @@
     using Sunplus.Agent.Model.Base;
     using Sunplus.Agent.Model.Entities;
     using Sunplus.Agent.Model.Entities.Permission;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Web.Mvc;
     using IPServiceImpl = Services.IPServiceImpl;
 
     public static class DependencyConfig
@@ -110,6 +110,12 @@
                     container.GetInstance<IDynamicRepository>(),
                     UserPermission.HasPermissionOnProduct,
                     new CacheRefServiceImpl(new RemotingRefService()).GetProductName),
+                Lifestyle.Singleton);
+            container.Register<ProductDetailService>(
+                () => new ProductDetailServiceImpl(
+                    container.GetInstance<IDynamicRepository>(),
+                    container.GetInstance<CacheRefService>(),
+                    container.GetInstance<ProductService>().CanViewBySite),
                 Lifestyle.Singleton);
 
             container.Register(typeof(Workbook<>), typeof(NpoiWorkbook<>), Lifestyle.Scoped);

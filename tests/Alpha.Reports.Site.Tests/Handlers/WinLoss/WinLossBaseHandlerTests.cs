@@ -16,8 +16,9 @@
         public WinLossBaseHandlerTests()
         {
             var productService = Substitute.For<ProductService>();
+            var productDetailService = Substitute.For<ProductDetailService>();
             var reportService = Substitute.For<WinLossService>();
-            handler = new WinLossBaseHandler(productService, reportService);
+            handler = new WinLossBaseHandler(productService, productDetailService, reportService);
         }
 
         [Fact]

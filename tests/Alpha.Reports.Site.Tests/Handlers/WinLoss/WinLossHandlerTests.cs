@@ -27,6 +27,7 @@
     public class WinLossHandlerTests
     {
         private readonly ProductService productService;
+        private readonly ProductDetailService productDetailService;
         private readonly WinLossService reportService;
         private readonly WinLossHandler winLossHandler;
         private readonly UserFixture userFixture;
@@ -36,10 +37,11 @@
         {
             productService = Substitute.For<ProductService>();
             productService.GetProductNames(Arg.Any<IEnumerable<int>>()).Returns(new List<string>() { "Product Name" });
+            productDetailService = Substitute.For<ProductDetailService>();
             reportService = Substitute.For<WinLossService>();
 
             this.userFixture = userFixture;
-            winLossHandler = new WinLossHandler(productService, reportService);
+            winLossHandler = new WinLossHandler(productService, productDetailService, reportService);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(LanguageCode.English);
             Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
@@ -110,8 +112,10 @@
                 DefaultVariablesTest.CurrentDate,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
                 message.CustLevel,
-                false);
+                false,
+                string.Empty);
 
             reportService.GetWinLoss(Arg.Any<WinLossParam>()).Returns(reportData);
             var validUserSelectedProductIds = Enumerable.Empty<int>();
@@ -123,7 +127,8 @@
                 message,
                 winLossParam,
                 custInfoData,
-                Enumerable.Empty<GroupProductViewModel>());
+                Enumerable.Empty<GroupProductViewModel>(),
+                Enumerable.Empty<ProductDetailViewModel>());
 
             // Act
             var actualWinLossViewModel = winLossHandler.Handle(message);

@@ -1,6 +1,7 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/productdetail-multiselection.ts" />
 /// <reference path="../components/tooltip.ts" />
 
 "use strict";
@@ -284,6 +285,7 @@ class WinLossByProductView extends BaseReport {
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
             CustId: tableReport.data("custid"),
             IsStackMode: tableReport.hasClass("stack-mode"),
             HideFilter: this.$reportForm.is(":hidden"),
@@ -303,6 +305,14 @@ class WinLossByProductView extends BaseReport {
             return;
         }
 
+        if (!params.IsAnyProductDetailSelected) {
+            this.showValidaProductDetailError();
+            this.$.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
         this.$isStackMode.val(String(params.IsStackMode));
     };
@@ -310,12 +320,15 @@ class WinLossByProductView extends BaseReport {
         this.$multiSelectButton.addClass("error");
         this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
     };
+    showValidaProductDetailError = () => {
+        this.productMultiSelectionComponent.addErrorToProductDetailComponent();
+    };
 }
 
 const winLossByProductView = new WinLossByProductView(
     $,
     new DateRangePickerComponent($),
-    new ProductMultiSelectionComponent($),
+    new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
     new ReportTooltip($),
     new LinkBuilderComponent($));
 

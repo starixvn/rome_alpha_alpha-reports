@@ -607,6 +607,7 @@
             // assert
             expect(actualParam).toEqual({
                 IsAnyProductSelected: expectedIsAnyProductSelected,
+                IsAnyProductDetailSelected: true,
                 SortPropertyName: "WinLoss",
                 IsDescendingSort: true,
                 IsStackMode: false,

@@ -17,7 +17,7 @@
         {
             // Arrange
             var userLevel = Enumeration.FromValue<UserLevel>(custLevelId);
-            var winLossByProductCriteria = new WinLossByProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, null, userLevel);
+            var winLossByProductCriteria = new WinLossByProductCriteria(0, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, null, userLevel, string.Empty);
 
             // Act
             var actualSettingKey = winLossByProductCriteria.GetSettingKey();

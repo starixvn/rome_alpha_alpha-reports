@@ -42,6 +42,14 @@
                         })))
                 : Enumerable.Empty<GroupProductViewModel>();
 
+        protected internal static IEnumerable<ProductDetailViewModel> BuildProductDetailViewModels(
+            IEnumerable<int> userSelectedResourceIds,
+            IEnumerable<ProductDetail> productDetails)
+            => productDetails.Any()
+                ? productDetails.Select(p =>
+                    new ProductDetailViewModel(p.ProductId, p.ResourceId, p.DisplayName, userSelectedResourceIds.Contains(p.ResourceId)))
+                : Enumerable.Empty<ProductDetailViewModel>();
+
         protected internal IEnumerable<SelectListItem> BuildLeagueSelectListItems(
             IEnumerable<string> userSelectedLeagueIds,
             IEnumerable<League> leagues)

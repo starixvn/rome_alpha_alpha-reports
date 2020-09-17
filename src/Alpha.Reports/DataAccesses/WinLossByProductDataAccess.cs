@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using Constants;
     using Criteria.WinLossByProductCriteria;
     using Fanex.Common.Extensions;
     using Models;

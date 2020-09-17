@@ -12,9 +12,10 @@
             ConsolidationByDateQuery message,
             GetConsolidationParam param,
             IEnumerable<GroupProductViewModel> groupProducts,
+            IEnumerable<ProductDetailViewModel> productDetails,
             IEnumerable<SelectListItem> currencies,
             IEnumerable<ConsolidationByDateViewModel> reportData)
-            : base(message, param, groupProducts, currencies, reportData)
+            : base(message, param, groupProducts, productDetails, currencies, reportData)
         {
         }
     }

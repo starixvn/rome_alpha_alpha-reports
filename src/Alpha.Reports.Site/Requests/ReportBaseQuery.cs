@@ -60,5 +60,7 @@
             && !string.IsNullOrWhiteSpace(Language);
 
         public DateTime LimitedDateToShowInfo { get; set; }
+
+        public bool IsPostBack { get; set; }
     }
 }

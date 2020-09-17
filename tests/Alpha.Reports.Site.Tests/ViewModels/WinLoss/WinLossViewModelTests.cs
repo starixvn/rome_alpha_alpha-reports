@@ -51,7 +51,8 @@
                  message,
                  fixture.Create<WinLossParam>(),
                  Enumerable.Empty<CustInfo>(),
-                 Enumerable.Empty<GroupProductViewModel>());
+                 Enumerable.Empty<GroupProductViewModel>(),
+                 Enumerable.Empty<ProductDetailViewModel>());
 
             // Act & Assert
             Assert.Equal(winlossViewModel.Title, expectedTitle);
@@ -84,7 +85,8 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<GroupProductViewModel>());
+                Enumerable.Empty<GroupProductViewModel>(),
+                Enumerable.Empty<ProductDetailViewModel>());
 
             // Act
             var actualReportData = winlossViewModel.ReportData;
@@ -119,7 +121,7 @@
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
             message.IsHistoricReport = false;
-            var winlossParam = new WinLossParam(1, string.Empty, 1, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, UserLevel.Agent, false);
+            var winlossParam = new WinLossParam(1, string.Empty, 1, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, new List<int> { 1 }, UserLevel.Agent, false, string.Empty);
             var winlossViewModel = CreateWinLossViewModel(message, winlossParam);
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.AddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
@@ -129,6 +131,7 @@
                 ["FromDate"] = fromDate,
                 ["ToDate"] = toDate,
                 ["ProductIds"] = "1",
+                ["ResourceIds"] = "1",
                 ["CustId"] = 1,
                 ["CustName"] = "CustName"
             };
@@ -153,14 +156,15 @@
             var message = CreateWinlossQuery(custLevelId);
             var fromDate = new DateTime(1989, 5, 28);
             var toDate = new DateTime(1989, 5, 29);
-            var winlossParam = new WinLossParam(1, string.Empty, 1, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, UserLevel.Agent, false);
+            var winlossParam = new WinLossParam(1, string.Empty, 1, fromDate, toDate, DateTime.MinValue, new List<int> { 1 }, new List<int> { 1 }, UserLevel.Agent, false, string.Empty);
             var winlossViewModel = new WinLossViewModel(
                             Enumerable.Empty<WinLossModel>(),
                             fixture.Create<WinLossModel>(),
                             message,
                             winlossParam,
                             Enumerable.Empty<CustInfo>(),
-                            Enumerable.Empty<GroupProductViewModel>());
+                            Enumerable.Empty<GroupProductViewModel>(),
+                            Enumerable.Empty<ProductDetailViewModel>());
             var winlossModel = new WinLossModel(1, "CustName", 0, 0, null, null, null, null);
             Site.Helpers.UrlHelper.ReplaceOrAddQueryStringParamsFunc = Substitute.For<Func<string, IDictionary<string, object>, string>>();
 
@@ -189,7 +193,8 @@
                 message,
                 fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<GroupProductViewModel>());
+                Enumerable.Empty<GroupProductViewModel>(),
+                Enumerable.Empty<ProductDetailViewModel>());
 
             var expectedSortByPropertyName = "DownLineLevelName";
 
@@ -227,6 +232,7 @@
                 message,
                 winLossParam ?? fixture.Create<WinLossParam>(),
                 Enumerable.Empty<CustInfo>(),
-                Enumerable.Empty<GroupProductViewModel>());
+                Enumerable.Empty<GroupProductViewModel>(),
+                Enumerable.Empty<ProductDetailViewModel>());
     }
 }

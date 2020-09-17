@@ -11,6 +11,7 @@
     <SAgWinLoss>3</SAgWinLoss>
     <SAgComm>4</SAgComm>
     <NumberOfTickets>4</NumberOfTickets>
+    <ResourceId>1</ResourceId>
   </TableWinLoss>
   <TableWinLoss>
     <Bettype>1101</Bettype>
@@ -22,5 +23,6 @@
     <SAgWinLoss>8</SAgWinLoss>
     <SAgComm>9</SAgComm>
     <NumberOfTickets>4</NumberOfTickets>
+    <ResourceId>2</ResourceId>
   </TableWinLoss>
 </WinLossByProduct>

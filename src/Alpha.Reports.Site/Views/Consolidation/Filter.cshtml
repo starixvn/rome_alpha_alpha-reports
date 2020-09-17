@@ -5,6 +5,7 @@
 <form class="form-inline filter  @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form"
       action="@Url.Action("ConsolidationBy" + reportType, "Consolidation")">
     @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+    @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
     @CurrencySelection.Render(Model.CurrencySelectionViewModel)
     @DateRangePicker.Render(Model.DateRangePickerViewModel)
 
@@ -30,6 +31,7 @@
     @Html.Hidden("CustId", Model.CustId)
     @Html.Hidden("CustName", Model.CustName)
     @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+    @Html.Hidden("IsPostBack", "true")
 </form>
 
 @helper RenderReportTypeOption(string reportType, string label)

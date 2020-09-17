@@ -25,11 +25,13 @@
             WinLossByProductQuery message,
             WinLossByProductParam winLossByBettypeParam,
             Func<int, BetType, string, bool, string> buildDisplayedBettypeName,
-            IEnumerable<GroupProductViewModel> groupProducts)
+            IEnumerable<GroupProductViewModel> groupProducts,
+            IEnumerable<ProductDetailViewModel> productDetails)
         {
             this.message = message;
             this.winLossByBettypeParam = winLossByBettypeParam;
             GroupProducts = groupProducts;
+            ProductDetails = productDetails;
             MinDate = message.MinDate;
             ReportData = reportData;
             GrandTotal = grandTotal;
@@ -59,9 +61,14 @@
         public string UserSelectedProductIds
             => winLossByBettypeParam.UserSelectedProductIds.JoinWithComma();
 
+        public string UserSelectedResourceIds
+            => winLossByBettypeParam.UserSelectedResourceIds.JoinWithComma();
+
         public IEnumerable<GroupProductViewModel> GroupProducts { get; }
 
         public IEnumerable<SelectListItem> ExcludeProducts { get; }
+
+        public IEnumerable<ProductDetailViewModel> ProductDetails { get; }
 
         public IEnumerable<WinLossByProductModel> ReportData { get; }
 
@@ -83,12 +90,16 @@
         private ProductMultiSelectionViewModel ProductMultiSelectionViewModel =>
             new ProductMultiSelectionViewModel(GroupProducts, UserSelectedProductIds, Language);
 
+        private ProductDetailMultiSelectionViewModel ProductDetailMultiSelectionViewModel =>
+            new ProductDetailMultiSelectionViewModel(ProductDetails, UserSelectedResourceIds, Language);
+
         public WinLossByProductFilterViewModel FilterViewModel =>
             new WinLossByProductFilterViewModel(
                 CustId,
                 CustLevel,
                 DateRangePickerViewModel,
                 ProductMultiSelectionViewModel,
+                ProductDetailMultiSelectionViewModel,
                 IsFilterVisible,
                 MinDate);
 

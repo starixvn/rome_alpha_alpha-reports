@@ -1,6 +1,7 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../base-report.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/productdetail-multiselection.ts" />
 /// <reference path="../components/currency-selection.ts" />
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/link-builder.ts" />
@@ -176,6 +177,17 @@ class ConsolidationView extends BaseReport {
             return;
         }
 
+        if (!params.IsAnyProductDetailSelected) {
+            this.showValidaProductDetailError();
+            this$.unblockUI();
+
+            if (e) {
+                e.preventDefault();
+            }
+
+            return;
+        }
+
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
         this.$isStackMode.val(String(params.IsStackMode));
     };
@@ -191,6 +203,7 @@ class ConsolidationView extends BaseReport {
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
             IsStackMode: this.$tableReport.hasClass("stack-mode"),
             IsFilterVisible: !this.$reportForm.is(":hidden")
         };
@@ -198,6 +211,9 @@ class ConsolidationView extends BaseReport {
     showValidateProductError = () => {
         this.$productButton.addClass("error");
         this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
+    };
+    showValidaProductDetailError = () => {
+        this.productMultiSelectionComponent.addErrorToProductDetailComponent();
     };
     onChangeReportType = (actionElement: JQuery) => {
         let $reportForm = this.$reportForm;
@@ -210,7 +226,7 @@ class ConsolidationView extends BaseReport {
 $(() => {
     const consolidationView = new ConsolidationView(
         $,
-        new ProductMultiSelectionComponent($),
+        new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
         new CurrencySelectionComponent($),
         new DateRangePickerComponent($),
         new ReportTooltip($),

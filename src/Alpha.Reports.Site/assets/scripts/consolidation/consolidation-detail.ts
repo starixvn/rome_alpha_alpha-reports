@@ -1,6 +1,7 @@
 ﻿/// <reference path="../core.ts" />
 /// <reference path="../base-report.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/productdetail-multiselection.ts" />
 /// <reference path="../components/daterangepicker.ts" />
 /// <reference path="../components/tooltip.ts" />
 /// <reference path="../components/pager.ts" />
@@ -192,6 +193,17 @@ class ConsolidationDetailView extends BaseReport {
             return;
         }
 
+        if (!params.IsAnyProductDetailSelected) {
+            this.showValidaProductDetailError();
+            this$.unblockUI();
+
+            if (e) {
+                e.preventDefault();
+            }
+
+            return;
+        }
+
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? false : params.IsFilterVisible));
         this.$isStackMode.val(String(params.IsStackMode));
 
@@ -213,6 +225,9 @@ class ConsolidationDetailView extends BaseReport {
     showValidateProductError = () => {
         this.$productButton.addClass("error");
         this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
+    };
+    showValidaProductDetailError = () => {
+        this.productMultiSelectionComponent.addErrorToProductDetailComponent();
     };
     hideFilter = () => {
         this.$pageTitle.addClass("hide-filter");
@@ -240,6 +255,7 @@ class ConsolidationDetailView extends BaseReport {
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
             IsStackMode: this.$tableReport.hasClass("stack-mode"),
             IsFilterVisible: !this.$reportForm.is(":hidden"),
 
@@ -272,7 +288,7 @@ $(() => {
     const linkBuilderComponent = new LinkBuilderComponent($);
     const consolidationDetailView = new ConsolidationDetailView(
         $,
-        new ProductMultiSelectionComponent($),
+        new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
         new DateRangePickerComponent($),
         new ReportTooltip($),
         linkBuilderComponent,

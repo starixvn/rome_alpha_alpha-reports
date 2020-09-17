@@ -24,9 +24,10 @@
         public WinLossDetailServiceImplTests()
         {
             var productService = Substitute.For<ProductService>();
+            var productDetailService = Substitute.For<ProductDetailService>();
             dataAccess = Substitute.For<WinLossDetailDataAccess>();
             reportDateService = Substitute.For<ReportDateService>();
-            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, dataAccess);
+            winLossDetailServiceImpl = new WinLossDetailServiceImpl(reportDateService, productService, productDetailService, dataAccess);
             compareLogic = new CompareLogic();
         }
 
@@ -54,10 +55,12 @@
                 DateTime.Now,
                 DateTime.MinValue,
                 Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
                 UserLevel.Super,
                 string.Empty,
                 false,
-                false);
+                false,
+                string.Empty);
 
             var reportData = new PagedReportData<WinLossDetailModel>(Enumerable.Empty<WinLossDetailModel>(), param.PageIndex, param.PageSize, 0, new WinLossDetailModel());
             dataAccess.GetData(Arg.Any<WinLossDetailCriteria>()).Returns(reportData);
@@ -86,10 +89,12 @@
                  DateTime.Today.AddDays(1),
                 limitedDate,
                 Enumerable.Empty<int>(),
+                Enumerable.Empty<int>(),
                 UserLevel.Super,
                 string.Empty,
                 false,
-                false);            
+                false,
+                string.Empty);            
 
             // Act
             winLossDetailServiceImpl.GetWinLossDetail(param);

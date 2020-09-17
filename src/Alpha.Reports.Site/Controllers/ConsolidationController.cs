@@ -49,6 +49,7 @@
             var query = new ConsolidateWinLossDetailExcelQuery(viewer)
             {
                 UserSelectedProductIds = message.UserSelectedProductIds,
+                UserSelectedResourceIds = message.UserSelectedResourceIds,
                 SortPropertyName = message.SortPropertyName,
                 IsDescendingSort = message.IsDescendingSort,
                 IsStackMode = message.IsStackMode,
@@ -62,7 +63,8 @@
                 CustLevelId = message.CustLevelId,
                 BreadcrumbLevel = message.BreadcrumbLevel,
 
-                ReportData = reportData
+                ReportData = reportData,
+                IsPostBack = message.IsPostBack
             };
 
             return ExcelView(query);

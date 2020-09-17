@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Alpha.Reports.Constants;
     using Extensions;
     using Params;
     using Params.Consolidation;
@@ -23,20 +24,23 @@
         protected readonly CacheRefService cacheRefService;
         protected readonly WinLossDetailService winLossDetailService;
         protected readonly IUser viewer;
+        protected readonly ProductDetailService productDetailService;
 
         public ConsolidationBaseHandler(
             ConsolidationService reportService,
             CacheRefService cacheRefService,
             WinLossDetailService winLossDetailService,
-            IUser viewer)
+            IUser viewer,
+            ProductDetailService productDetailService)
         {
             this.reportService = reportService;
             this.cacheRefService = cacheRefService;
             this.winLossDetailService = winLossDetailService;
             this.viewer = viewer;
+            this.productDetailService = productDetailService;
         }
 
-        protected GetConsolidationParam CreateParameter(GetConsolidationQuery message)
+        protected GetConsolidationParam CreateParameter(GetConsolidationQuery message, IEnumerable<Product> products)
         {
             var validUserSelectedProductIds = reportService.FilterProductIdsByCustomer(
                 message.CustId,
@@ -44,13 +48,20 @@
                 message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
+            var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomerForConsolidationReport(
+                message.CustId,
+                !message.IsPostBack ? DefaultVariables.AllProductDetails : message.UserSelectedResourceIds,
+                products);
+            validUserSelectedProductIds = productDetailService.RemoveProductIds(validUserSelectedProductIds, validUserSelectedResourceIds);
 
             return new GetConsolidationParam(
                  message.CustId,
                  message.UserSelectedCurrencyId,
                  message.FromDate.GetGreaterDate(message.LimitedDateToShowInfo),
                  message.ToDate,
-                 validUserSelectedProductIds);
+                 validUserSelectedProductIds,
+                 validUserSelectedResourceIds,
+                 productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
         }
 
         protected IEnumerable<ConsolidationByUsernameViewModel> BuildWinLossByUsernameViewModel(
@@ -112,6 +123,7 @@
             => new WinLossDetailQuery(viewer)
             {
                 UserSelectedProductIds = message.UserSelectedProductIds,
+                UserSelectedResourceIds = message.UserSelectedResourceIds,
                 SortPropertyName = message.SortPropertyName,
                 IsDescendingSort = message.IsDescendingSort,
                 IsStackMode = message.IsStackMode,
@@ -126,10 +138,12 @@
                 BreadcrumbLevel = message.BreadcrumbLevel
             };
 
-        protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query)
+        protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> products)
         {
             var validUserSelectedProductIds =
                reportService.FilterProductIdsByCustomer(query.ViewerId, query.Site, query.CurrencyId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
+            var validUserSelectedResourceIds =
+                productDetailService.FilterResourceIdsByCustomerForConsolidationReport(query.ViewerId, query.UserSelectedResourceIds, products);
 
             return new WinLossDetailParam(
                 query.CustId,
@@ -141,10 +155,12 @@
                 query.ToDate,
                 query.LimitedDateToShowInfo,
                 validUserSelectedProductIds,
+                validUserSelectedResourceIds,
                 query.CustLevel,
                 query.SortPropertyName,
                 query.IsDescendingSort,
-                query.IsHistoricReport);
+                query.IsHistoricReport,
+                productDetailService.BuildProductDetailsXML(validUserSelectedProductIds, validUserSelectedResourceIds));
         }
     }
 }

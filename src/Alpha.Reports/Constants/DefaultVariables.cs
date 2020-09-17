@@ -7,5 +7,7 @@
         public const string SortPropertyName = "CustName";
 
         public const int AllCurrencies = 0;
+
+        public const string AllProductDetails = "0";
     }
 }

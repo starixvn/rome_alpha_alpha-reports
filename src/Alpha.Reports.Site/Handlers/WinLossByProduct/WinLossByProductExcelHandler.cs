@@ -23,8 +23,9 @@
         public WinLossByProductExcelHandler(
             WinLossByProductService reportService,
             ProductService productService,
+            ProductDetailService productDetailService,
             CacheRefService cacheRefService,
-            WinLossByProductWorkbook workbook) : base(reportService, productService, cacheRefService)
+            WinLossByProductWorkbook workbook) : base(reportService, productService, productDetailService, cacheRefService)
         {
             this.workbook = workbook;
         }
@@ -47,7 +48,7 @@
                     GetTotalRowMapper(message))
                 .UseTemplate(GetTemplateInfo(message))
                 .Sheet(Resources.DefaultSheetName)
-                .Title(GetReporTitle(message))
+                .Title(GetReporTitle(winLossByBetTypeParam))
                 .Header(key => key.Equals(betTypeName) ? $"{Resources.Product}/{Resources.BetType}" : Resources.ResourceManager.GetString(key))
                 .Footer(grandTotal, GetTotalRowMapper(message))
                 .ExportToBytes();
@@ -115,9 +116,13 @@
                 sheetIndex: 1,
                 footerEndIndex: 12);
 
-        private string GetReporTitle(WinLossByProductExcelQuery message)
-            => $"{Resources.WinLossByProduct} {message.FromDate.ToShortDateWithSlash()} --> {message.ToDate.ToShortDateWithSlash()}" +
-            $" {Resources.of2} {productService.ConcatProductNames(message.UserSelectedProductIds)}";
+        private string GetReporTitle(WinLossByProductParam param)
+        {
+            var replacedProductNames = productDetailService.GetProductNamesExportExcel(param.UserSelectedResourceIds);
+            var productNames = productService.ConcatProductNames(param.UserSelectedProductIds, replacedProductNames);
+
+            return $"{Resources.WinLossByProduct} {param.FromDate.ToShortDateWithSlash()} --> {param.ToDate.ToShortDateWithSlash()} {Resources.of2} {productNames}";
+        }
 
         private string GetExcelFileName(WinLossByProductExcelQuery message, WinLossByProductParam winLossByBetTypeParam)
            => string.Join(

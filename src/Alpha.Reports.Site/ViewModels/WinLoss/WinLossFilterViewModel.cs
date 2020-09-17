@@ -16,6 +16,7 @@
             DateRangePickerViewModel dateRangePickerViewModel,
             MonthPickerViewModel monthPickerViewModel,
             ProductMultiSelectionViewModel productMultiSelectionViewModel,
+            ProductDetailMultiSelectionViewModel productDetailMultiSelectionViewModel,
             bool visible,
             DateTime minDate,
             string breadcrumbLevelJson)
@@ -26,6 +27,7 @@
             DateRangePickerViewModel = dateRangePickerViewModel;
             MonthPickerViewModel = monthPickerViewModel;
             ProductMultiSelectionViewModel = productMultiSelectionViewModel;
+            ProductDetailMultiSelectionViewModel = productDetailMultiSelectionViewModel;
             ViewDataInstructionMessage = string.Format(
                IsHistoricReport
               ? Resources.CanOnlyViewDataAfterTimeHistoryReport
@@ -49,6 +51,8 @@
         public MonthPickerViewModel MonthPickerViewModel { get; }
 
         public ProductMultiSelectionViewModel ProductMultiSelectionViewModel { get; }
+
+        public ProductDetailMultiSelectionViewModel ProductDetailMultiSelectionViewModel { get; }
 
         public bool Visible { get; }
 

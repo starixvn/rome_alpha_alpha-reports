@@ -3,6 +3,7 @@
 /// <reference path="../components/monthpicker.ts" />
 /// <reference path="../components/tooltip.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/productdetail-multiselection.ts" />
 /// <reference path="../components/sort.ts" />
 /// <reference path="../components/link-builder.ts" />
 
@@ -274,6 +275,7 @@ class WinLossView extends BaseReport {
         return {
             CustId: tableReport.data("custid"),
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
             IsStackMode: tableReport.hasClass("stack-mode"),
             IsHistoricReport: this.isHistoricReport,
             SortPropertyName: sortInfo.sortPropertyName,
@@ -285,6 +287,10 @@ class WinLossView extends BaseReport {
     showValidaProductError = () => {
         this.$multiSelectButton.addClass("error");
         this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
+    };
+
+    showValidaProductDetailError = () => {
+        this.productMultiSelectionComponent.addErrorToProductDetailComponent();
     };
 
     clearError = () => {
@@ -301,6 +307,14 @@ class WinLossView extends BaseReport {
         var params = this.getParams();
         if (!params.IsAnyProductSelected) {
             this.showValidaProductError();
+            this.$.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+
+        if (!params.IsAnyProductDetailSelected) {
+            this.showValidaProductDetailError();
             this.$.unblockUI();
             e.preventDefault();
 
@@ -350,7 +364,7 @@ $(function () {
     const winLossView = new WinLossView(
         $,
         new DateRangePickerComponent($),
-        new ProductMultiSelectionComponent($),
+        new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
         new SortComponent($, linkBuilderComponent),
         new ReportTooltip($),
         new MonthPickerComponent($),

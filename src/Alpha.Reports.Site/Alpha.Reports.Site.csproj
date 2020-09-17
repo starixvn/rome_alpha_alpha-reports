@@ -392,6 +392,7 @@
     <TypeScriptCompile Include="assets\scripts\base-report.ts" />
     <TypeScriptCompile Include="assets\scripts\components\client-pager.ts" />
     <TypeScriptCompile Include="assets\scripts\components\month-range-picker.ts" />
+    <TypeScriptCompile Include="assets\scripts\components\productdetail-multiselection.ts" />
     <TypeScriptCompile Include="assets\scripts\components\simple-tooltip.ts" />
     <TypeScriptCompile Include="assets\scripts\components\single-selection-dropdown.ts" />
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
@@ -596,7 +597,9 @@
     <Compile Include="ViewModels\Components\MonthPickerViewModel.cs" />
     <Compile Include="ViewModels\Components\PageHeaderViewModel.cs" />
     <Compile Include="ViewModels\Components\PagerViewModel.cs" />
+    <Compile Include="ViewModels\Components\ProductDetailViewModel.cs" />
     <Compile Include="ViewModels\Components\ProductMultiSelectionViewModel.cs" />
+    <Compile Include="ViewModels\Components\ProductDetailMultiSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\StatusSelectionViewModel.cs" />
     <Compile Include="ViewModels\Components\DualAxisChartViewModel.cs" />
     <Compile Include="ViewModels\Consolidation\ConsolidationByDateViewModel.cs" />
@@ -673,7 +676,9 @@
     <Content Include="App_Data\SPNames\Internal\DBRPT.bodb_report.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBONUSER.ON_USER.BODBDownlineNetView.xml" />
     <Content Include="App_Data\SPNames\Internal\DBAGE.bodb02.BODBDownlineNetView.xml" />
-    <Content Include="App_Data\SPNames\Local\DB053_DB054.bodb02.BODBDownlineNet.xml" />
+    <Content Include="App_Data\SPNames\Local\DB053_DB054.bodb02.BODBDownlineNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\SPNames\Local\DBACC.bodb02.BODBDownlineNet.xml" />
     <Content Include="App_Data\SPNames\Local\DBAGE.bodb02.BODBDownlineNet.xml">
       <SubType>Designer</SubType>
@@ -1078,6 +1083,7 @@
     <Content Include="App_Data\activitytracking.uat2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
+    <Content Include="App_Code\Components\ProductDetailMultiSelection.cshtml" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

@@ -4,6 +4,7 @@
 /// <reference path="../components/monthpicker.ts" />
 /// <reference path="../components/pager.ts" />
 /// <reference path="../components/productmultiselection.ts" />
+/// <reference path="../components/productdetail-multiselection.ts" />
 /// <reference path="../components/sort.ts" />
 /// <reference path="../components/link-builder.ts" />
 /// <reference path="../components/tooltip.ts" />
@@ -249,6 +250,7 @@ class WinLossDetailView extends BaseReport {
 
         return {
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
             SortPropertyName: sortInfo.sortPropertyName,
             IsDescendingSort: sortInfo.isDescendingSort,
             IsStackMode: tableReport.hasClass("stack-mode"),
@@ -259,6 +261,9 @@ class WinLossDetailView extends BaseReport {
     showValidateProductError = () => {
         this.$multiSelectButton.addClass("error");
         this.productMultiSelectionComponent.addClassToExcludeProductLabels("error");
+    };
+    showValidaProductDetailError = () => {
+        this.productMultiSelectionComponent.addErrorToProductDetailComponent();
     };
     clearError = () => {
         this.$multiSelectButton.removeClass("error");
@@ -278,6 +283,12 @@ class WinLossDetailView extends BaseReport {
         } else if (!params.IsAnyProductSelected) {
             this.showValidateProductError();
             this$.unblockUI();
+            e.preventDefault();
+
+            return;
+        } else if (!params.IsAnyProductDetailSelected) {
+            this.showValidaProductDetailError();
+            this.$.unblockUI();
             e.preventDefault();
 
             return;
@@ -326,7 +337,7 @@ $(() => {
         $,
         new DateRangePickerComponent($),
         new PagerComponent($),
-        new ProductMultiSelectionComponent($),
+        new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
         new SortComponent($, linkBuilderComponent),
         new ReportTooltip($),
         new MonthPickerComponent($),

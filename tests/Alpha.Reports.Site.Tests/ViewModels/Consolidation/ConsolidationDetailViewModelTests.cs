@@ -74,7 +74,8 @@
                 anyValueCreatorFixture.Create<WinLossDetailParam>(),
                 anyValueCreatorFixture.Create<PagedReportData<WinLossDetailModel>>(),
                 anyValueCreatorFixture.Create<IEnumerable<CustInfo>>(),
-                anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>());
+                anyValueCreatorFixture.Create<IEnumerable<GroupProductViewModel>>(),
+                anyValueCreatorFixture.Create<IEnumerable<ProductDetailViewModel>>());
 
             var consolidationDetailViewModel = new ConsolidationDetailViewModel(
                 query,
