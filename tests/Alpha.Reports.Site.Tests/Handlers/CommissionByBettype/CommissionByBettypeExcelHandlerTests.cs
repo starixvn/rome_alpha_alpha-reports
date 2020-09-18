@@ -148,7 +148,7 @@
         public void GetRowMapper_BodyMapper_ReturnsCorrectMapper()
         {
             // Arrange
-            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5);
+            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, 6);
 
             // Act
             var actualMapper = excelHandler.GetRowMapper(false);
@@ -159,14 +159,15 @@
                 (decimal)actualMapper.Mappings[Column.B](viewModel) == 2 &&
                 (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
                 (decimal)actualMapper.Mappings[Column.D](viewModel) == 4 &&
-                (decimal)actualMapper.Mappings[Column.E](viewModel) == 5);
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 6 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 5);
         }
 
         [Fact]
         public void GetRowMapper_TotalMapper_ReturnsCorrectMapper()
         {
             // Arrange
-            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5);
+            var viewModel = new CommissionByBettypeModel(1, "Username", 2, 3, 4, 5, 6);
 
             // Act
             var actualMapper = excelHandler.GetRowMapper(true);
@@ -177,7 +178,8 @@
                 (decimal)actualMapper.Mappings[Column.B](viewModel) == 2 &&
                 (decimal)actualMapper.Mappings[Column.C](viewModel) == 3 &&
                 (decimal)actualMapper.Mappings[Column.D](viewModel) == 4 &&
-                (decimal)actualMapper.Mappings[Column.E](viewModel) == 5);
+                (decimal)actualMapper.Mappings[Column.E](viewModel) == 6 &&
+                (decimal)actualMapper.Mappings[Column.F](viewModel) == 5);
         }
 
         private CommissionByBettypeExcelQuery CreateExportExcelQuery(byte custLevelId = 4)

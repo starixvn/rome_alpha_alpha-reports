@@ -16,13 +16,15 @@
         public const string SortByComm1 = nameof(CommissionByBettypeModel.Comm1);
         public const string SortByComm2 = nameof(CommissionByBettypeModel.Comm2);
         public const string SortByComm3 = nameof(CommissionByBettypeModel.Comm3);
+        public const string SortByMyanmarOddsComm = nameof(CommissionByBettypeModel.MyanmarOddsComm);
         public const string SortByCasinoComm = nameof(CommissionByBettypeModel.CasinoComm);
 
         public CommissionByBettypeViewModel(
             CommissionByBettypeQuery query,
             IEnumerable<CommissionByBettypeModel> commissionByBettypes,
             IEnumerable<CustInfo> breadcrumbLevel,
-            DateTime balanceUpDate)
+            DateTime balanceUpDate,
+            bool showMyanmarOddsColumn)
             : base(query.CustLevel, breadcrumbLevel)
         {
             Query = query;
@@ -49,6 +51,7 @@
                 ? query.SortPropertyName
                 : DefaultVariables.SortPropertyName;
             IsDescendingSort = canSort && query.IsDescendingSort;
+            ShowMyanmarOddsColumn = showMyanmarOddsColumn;
         }
 
         public CommissionByBettypeQuery Query { get; }
@@ -65,9 +68,18 @@
 
         public bool IsDescendingSort { get; }
 
-#pragma warning disable S2325 // Methods and properties that don't access instance data should be static
-        public int GetNumCols() => 6;
-#pragma warning restore S2325 // Methods and properties that don't access instance data should be static
+        public bool ShowMyanmarOddsColumn { get; }
+
+        public int GetNumCols()
+        {
+            int numCols = 6;
+            if (ShowMyanmarOddsColumn)
+            {
+                numCols++;
+            }
+
+            return numCols;
+        }
 
         protected override IDictionary<string, object> GetBetListLinkRouteValues(CommissionByBettypeModel model)
         {

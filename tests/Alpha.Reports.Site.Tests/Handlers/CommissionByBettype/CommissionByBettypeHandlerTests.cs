@@ -22,6 +22,7 @@
         private readonly CommissionByBettypeService service;
         private readonly ReportDateService reportService;
         private readonly ProductService productService;
+        private readonly UserPermissionService userPermissionService;
         private readonly CommissionByBettypeHandler handler;
         private readonly Fixture fixtureData = new Fixture();
 
@@ -31,7 +32,8 @@
             service = Substitute.For<CommissionByBettypeService>();
             reportService = Substitute.For<ReportDateService>();
             productService = Substitute.For<ProductService>();
-            handler = new CommissionByBettypeHandler(service, reportService, productService);
+            userPermissionService = Substitute.For<UserPermissionService>();
+            handler = new CommissionByBettypeHandler(service, reportService, userPermissionService, productService);
         }
 
         [Fact]

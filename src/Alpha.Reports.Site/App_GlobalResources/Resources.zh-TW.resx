@@ -735,4 +735,7 @@
   <data name="SelectNone" xml:space="preserve">
     <value>選擇 無</value>
   </data>
+  <data name="SymbolMyanmarOdds" xml:space="preserve">
+    <value>緬甸盤</value>
+  </data>
 </root>
