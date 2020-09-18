@@ -10,7 +10,7 @@ class ProductMultiSelectionOption {
         public validateBeforeSubmit: boolean = true,
         public productsInputId: string = "product-ids",
         public onChange: Function = null) {
-    }
+    } 
 }
 
 class ProductMultiSelectionComponent {
