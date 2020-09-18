@@ -64,7 +64,7 @@ class OutstandingViewNew extends BaseReportNew {
 	}
 
 	getColumnSortName = () => {
-		const order = this.$table.order();
+		const order = this.$dataTable.order();
 		const length = this.displayOutstandingLevels.length;
 
 		for (let index = 0; index < length; index++) {

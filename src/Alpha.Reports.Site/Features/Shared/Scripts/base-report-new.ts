@@ -1,26 +1,19 @@
 ﻿class BaseReportNew {
 	$: JQueryStatic;
 
-	$excelIcon: JQuery;
-	$exportExcelForm: JQuery;
 	$filterIcon: JQuery;
-	$fromDate: JQuery;
-	$historicReport: JQuery;
 	$iconInformation: JQuery;
 	$iconInformationContainer: JQuery;
 	$isDescendingSort: JQuery;
 	$isFilterVisible: JQuery;
-	$isHistoricReport: JQuery;
 	$loadLegendURL: JQuery;
 	$pageTitle: JQuery;
 	$reportForm: JQuery;
 	$reportLegend: JQuery;
 	$sortPropertyName: JQuery;
 	$submitButton: JQuery;
-	$table: JQuery;
+	$dataTable: JQuery;
 	$tableReport: JQuery;
-	$toDate: JQuery;
-	$userSelectedDateRangeOption: JQuery;
 
 	linkBuilderComponent: LinkBuilderComponent;
 	canSort: boolean;
@@ -39,20 +32,13 @@
 	}
 
 	public cacheDOMElements() {
-		this.$excelIcon = this.$(".icon-excel");
-		this.$exportExcelForm = this.$("#export-excel-form");
 		this.$filterIcon = this.$(".icon-filter");
-		this.$fromDate = this.$("#from-date");
-		this.$historicReport = this.$("#historic-report");
 		this.$isDescendingSort = this.$("#IsDescendingSort");
 		this.$isFilterVisible = this.$("#IsFilterVisible");
-		this.$isHistoricReport = this.$("#IsHistoricReport");
 		this.$pageTitle = this.$(".page-title");
 		this.$reportForm = this.$("#report-form");
 		this.$sortPropertyName = this.$("#SortPropertyName");
 		this.$submitButton = this.$(".btn-submit");
-		this.$toDate = this.$("#to-date");
-		this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
 		this.$tableReport = this.$("#tbl-report");
 		this.canSort = parseInt(this.$tableReport.data('totalrecords'), 0) > 1;
 	}
@@ -106,9 +92,7 @@
 		});
 	};
 
-	public checkReady = () => this.$("#IsHistoricReport").length > 0;
-
-	public isDescendingSort = () => this.$table.order()[0][1] !== 'asc';
+	public isDescendingSort = () => this.$dataTable.order()[0][1] !== 'asc';
 
 	public triggerRedrawTable() {
 		this.doAdjustHeader();
@@ -116,7 +100,7 @@
 	}
 
 	private doAdjustHeader = () => {
-		this.$table.fixedHeader.adjust();
+		this.$dataTable.fixedHeader.adjust();
 
 		const scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;
 		this.$(window).scrollTop(scrollTo);
@@ -165,11 +149,6 @@
 		this.$reportForm.addClass("hide");
 	};
 
-	public onExportExcelEvent = () => {
-		this.$exportExcelForm.submit();
-		this.$.unblockUI();
-	};
-
 	public replaceHrefParam = (paramName: string, paramValue: any) => {
 		this.linkBuilderComponent.updateParam(paramName, paramValue);
 	};
@@ -178,10 +157,10 @@
 		const tableOptions = this.getTableOptions();
 		this.$.extend(tableOptions, options);
 
-		this.$table = this.$tableReport.DataTable(tableOptions);
+		this.$dataTable = this.$tableReport.DataTable(tableOptions);
 
 		this.$tableReport.find('tbody').on('click', 'td.control', event => this.onClickDetailControl(event.currentTarget));
-		this.$table.on('draw.dt', () => this.triggerRedrawTable());
+		this.$dataTable.on('draw.dt', () => this.triggerRedrawTable());
 	}
 
 	private getTableOptions = () => {

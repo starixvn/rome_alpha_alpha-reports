@@ -1172,6 +1172,7 @@
     </None>
     <TypeScriptCompile Include="assets\scripts\winloss\enteredresult.ts" />
     <TypeScriptCompile Include="assets\scripts\winloss\winloss.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
     <TypeScriptCompile Include="typings\globals\bootstrap\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine-jquery\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine\index.d.ts" />
