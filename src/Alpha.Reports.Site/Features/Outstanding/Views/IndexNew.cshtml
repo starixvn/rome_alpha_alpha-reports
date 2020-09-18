@@ -33,7 +33,11 @@
 	</div>
 </form>
 <div id="report-container" class="level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "100%" : "60%");">
-	<table id="oustanding-report" class="@(existedData ? "hidden" : string.Empty) tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
+	<table id="tbl-report"
+		   data-totalrecords="@Model.OutstandingDatasource.Count()"
+		   data-sortedcolumn="@Model.SortPropertyName"
+		   data-descendingsort="@Model.IsDescendingSort"
+		   class="@(existedData ? "hidden" : string.Empty) tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap" style="width:100%">
 		<thead>
 			<tr>
 				<th data-priority="0"></th>

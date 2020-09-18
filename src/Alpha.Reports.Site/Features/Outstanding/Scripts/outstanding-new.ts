@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../../assets/scripts/core.ts" />
+/// <reference path="../../shared/scripts/base-report-new.ts" />
 
 "use strict";
 
@@ -8,20 +9,12 @@ interface Window {
 	$: JQueryStatic;
 }
 
-class OutstandingViewNew extends BaseReport {
+class OutstandingViewNew extends BaseReportNew {
 	$: JQueryStatic;
 
 	productMultiSelectionComponent: ProductMultiSelectionComponent;
 	linkBuilderComponent: LinkBuilderComponent;
-
-	$reportForm: JQuery;
 	$buttonProduct: JQuery;
-	$sortPropertyName: JQuery;
-	$isDescendingSort: JQuery;
-	$isFilterVisible: JQuery;
-	$table: JQuery;
-
-	canSort: boolean;
 	displayOutstandingLevels: any;
 
 	constructor(
@@ -35,25 +28,15 @@ class OutstandingViewNew extends BaseReport {
 	}
 
 	init = () => {
-		this.cacheElements();
+		super.init();
 		
 		this.productMultiSelectionComponent.render();
 		this.$buttonProduct = this.$("#dropdown-product").parent().find(".multiselect.btn");
-		this.canSort = JSON.parse(this.$('#CanSort').val().toLowerCase());
 
 		this.linkBuilderComponent.render();
 		this.registerEvents();
 		this.initHelp();
 		this.initDataTable();
-	};
-
-	cacheElements = () => {
-		super.cacheElements();
-		this.$reportForm = this.$("#report-form");
-
-		this.$sortPropertyName = this.$("#SortPropertyName");
-		this.$isDescendingSort = this.$("#IsDescendingSort");
-		this.$isFilterVisible = this.$("#IsFilterVisible");
 	};
 
 	registerEvents = () => {
@@ -62,7 +45,6 @@ class OutstandingViewNew extends BaseReport {
 	};
 
 	initDataTable = () => {
-		const self = this;
 		let colunmSortIndex = 0;
 		this.$.each(this.displayOutstandingLevels, (key, value) => {
 			if (this.$(this.$sortPropertyName).val().toLowerCase() === `${value.DisplayName}Outstanding`.toLowerCase()) {
@@ -71,105 +53,14 @@ class OutstandingViewNew extends BaseReport {
 			}
 		});
 
-		this.$table = this.$('#oustanding-report').DataTable({
-			responsive: {
-				details: {
-					type: 'column',
-					target: -1,
-					auto: false,
-					renderer: function (api, rowIdx) {
-						const data = api.cells(rowIdx, ':hidden').eq(0).map(function (cell) {
-							const header = self.$(api.column(cell.column).header());
-							const idx = api.cell(cell).index();
-
-							if (header.hasClass('control') || header.hasClass('never')) {
-								return '';
-							}
-
-							const dtPrivate = api.settings()[0];
-							const cellData = dtPrivate.oApi._fnGetCellData(
-								dtPrivate, idx.row, idx.column, 'display'
-							);
-
-							return `<li data-dtr-index="${idx.column}">` +
-								`<span class="dtr-title">${header.text()}</span> ` +
-								`<span class="dtr-data">${cellData}</span></li>`;
-						}).toArray().join('');
-
-						return data ?
-							self.$(`<ul data-dtr-index="${rowIdx}"/>`).append(data) :
-							false;
-					}
-				}
-			},
-			columnDefs: [{
-				className: 'control',
-				orderable: false,
-				targets: -1
-			}],
-			ordering: this.canSort,
-			order: [[colunmSortIndex, JSON.parse(this.$isDescendingSort.val().toLowerCase()) ? 'desc' : 'asc']],
-			paging: false,
-			searching: false,
-			bInfo: false,
-			fixedHeader: true,
-			processing: true,
-			language: {
-				processing: '',
-				emptyTable: this.$('#NoInformationIsAvailable').val()
-			},
-			drawCallback: () => {
-				this.$('tbody').append(this.$('tr.tbl-footer'));
-				this.$('#oustanding-report').removeClass('hidden');
-			}
-		});
-		
-		this.$('#oustanding-report tbody').on('click', 'td.control', event => this.onClickDetailControl(event.currentTarget));
-		this.$('#oustanding-report').on('draw.dt', () => this.triggerRedrawTable());
-	}
-
-	onClickFooterRow = (parentRow, childRow) => {
-		parentRow.hasClass('parent') ?
-			childRow.addClass('tbl-footer') :
-			childRow.removeClass('tbl-footer');
-
-		setTimeout(() => {
-			const scrollTo = this.$(document).height();
-			this.$(window).scrollTop(scrollTo + 15);
-		}, 100);
-	}
-
-	onClickBodyRow = (parentRow, childRow) => {
-		if (childRow.hasClass('child')) {
-			parentRow.hasClass('even') ? 
-				childRow.removeClass('odd').addClass('even') :
-				childRow.removeClass('even').addClass('odd');
-		}
-	}
-
-	onClickDetailControl = (element) => {
-		const parentRow = this.$(element).closest('tr');
-		const childRow = this.$(parentRow).next();
-
-		parentRow.hasClass('tbl-footer') ?
-			this.onClickFooterRow(parentRow, childRow) :
-			this.onClickBodyRow(parentRow, childRow);
+		super.initDataTable({ order: [[colunmSortIndex, JSON.parse(this.$isDescendingSort.val().toLowerCase()) ? 'desc' : 'asc']],})
 	}
 
 	triggerRedrawTable = () => {
-		this.doAdjustHeader();
-
-		this.$('tbody tr.parent').each((index, element) => this.onClickDetailControl(element));
+		super.triggerRedrawTable();
 
 		this.replaceHrefParam("SortPropertyName", this.getColumnSortName());
 		this.replaceHrefParam("IsDescendingSort", this.isDescendingSort());
-	}
-
-	doAdjustHeader = () => {
-		this.$table.fixedHeader.adjust();
-
-		const scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;
-		this.$(window).scrollTop(scrollTo);
 	}
 
 	getColumnSortName = () => {
@@ -183,11 +74,6 @@ class OutstandingViewNew extends BaseReport {
 		}
 
 		return 'CustName';
-	}
-
-	isDescendingSort = () => {
-		const order = this.$table.order();
-		return order[0][1] !== 'asc';
 	}
 
 	onSubmitReport = (e: any) => {

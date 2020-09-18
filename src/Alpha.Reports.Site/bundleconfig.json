@@ -74,7 +74,7 @@
 		"outputFileName": "Features/Outstanding/Bundles/outstanding-new.js",
 		"inputFiles": [
 			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
+			"Features/Shared/Scripts/base-report-new.js",
 			"assets/scripts/components/productmultiselection.js",
 			"assets/scripts/components/link-builder.js",
 			"Features/Outstanding/Scripts/outstanding-new.js"
