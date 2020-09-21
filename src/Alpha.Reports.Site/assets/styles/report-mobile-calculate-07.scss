@@ -146,16 +146,21 @@ table.dataTable thead [class*="sorting"]:after {
 	}
 }
 
+.active .checkbox:before {
+    background-color: #1580FF;
+    border: none;
+}
+
 .active .checkbox:after {
-	display: inline-block;
-	position: absolute;
-	width: calculateScale(16px);
-	height: calculateScale(16px);
-	left: 0;
-	top: 0;
-	margin-left: 10px;
-	padding-left: 3px;
-	font-size: calculateScale(12px);
-	content: '\2713';
-	color: #242424;
+    display: inline-block;
+    position: absolute;
+    width: calculateScale(16px);
+    height: calculateScale(16px);
+    left: 0;
+    top: 0;
+    margin-left: 10px;
+    padding-left: 3px;
+    font-size: calculateScale(12px);
+    content: '\2713';
+    color: #fff;
 }
