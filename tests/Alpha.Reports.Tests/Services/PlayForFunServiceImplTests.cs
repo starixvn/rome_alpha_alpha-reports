@@ -11,6 +11,7 @@
     using Reports.Models.PlayForFun;
     using Reports.Params;
     using Reports.Services;
+    using System;
     using System.Collections.Generic;
     using Xunit;
 
@@ -50,6 +51,11 @@
         {
             // Arrange
             var custId = anyValueCreatorFixture.Create<int>();
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<PlayForFunProduct>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<PlayForFunProduct>>>(1);
+                return func();
+            });
             user.GetHideProduct(ProductIdConstants.FishingWorld).Returns(true);
             var expectedProductList = new List<Product>
             {
@@ -70,6 +76,11 @@
             // Arrange
             var custId = anyValueCreatorFixture.Create<int>();
             user.GetHideProduct(ProductIdConstants.FishingWorld).Returns(false);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<PlayForFunProduct>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<PlayForFunProduct>>>(1);
+                return func();
+            });
             var expectedProductList = new List<Product>
             {
                 new Product(6, string.Empty, null, 0, 0, cacheRefService.GetProductName),

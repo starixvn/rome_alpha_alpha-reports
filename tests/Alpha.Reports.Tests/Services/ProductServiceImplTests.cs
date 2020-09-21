@@ -91,8 +91,12 @@
 
             IEnumerable<Product> cachedProducts;
             cacheService.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
-
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<Product>>>(1);
+                return func();
+            });
 
             // Act
             var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
@@ -129,8 +133,12 @@
 
             IEnumerable<Product> cachedProducts;
             cacheService.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
-
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<Product>>>(1);
+                return func();
+            });
 
             // Act
             var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
@@ -149,8 +157,12 @@
 
             IEnumerable<Product> cachedProducts;
             cacheService.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(false);
-
             dynamicRepository.Fetch<Product>(Arg.Any<GetProductsCriteria>()).Returns(allCustomerProductIds);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<Product>>>(1);
+                return func();
+            });
 
             // Act
             var actualProductIds = productServiceImpl.FilterProductIdsByCustomer(custId, "", 1, productIds);
@@ -230,11 +242,11 @@
             var custId = 2;
             var customerProductIds = "1,2,3,5";
             IEnumerable<Product> customerProducts = customerProductIds.ToListInt().Select(id => new Product(id, string.Empty, null, 0, 0));
-            IEnumerable<Product> cachedProducts;
-            cacheService.TryGet($"{ProductCacheKey}-{custId}", out cachedProducts).Returns(x =>
+            dynamicRepository.Fetch<Product>(Arg.Any<ICriteria>()).Returns(customerProducts);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Product>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
             {
-                x[1] = customerProducts;
-                return true;
+                var func = x.ArgAt<Func<IEnumerable<Product>>>(1);
+                return func();
             });
 
             // Act
@@ -250,6 +262,11 @@
             // Arrange
             productsNeedDelayTimeToSumarizeDataInCache = null;
             var expectProducts = new List<byte> { 1, 2 };
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<ProductsByRefTable>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<ProductsByRefTable>>>(1);
+                return func();
+            });
 
             // Act
             var actualProducts = productServiceImpl.GetProductsNeedDelayTimeToSumarizeDataByCustomer(1, string.Empty, 1);
@@ -318,9 +335,11 @@
             // Arrange
             var site = "IBCINdo";
             var products = new List<ProductBySiteModel>() { new ProductBySiteModel(22), new ProductBySiteModel(23) };
-            IEnumerable<ProductBySiteModel> cachedProducts;
-            cacheService.TryGet($"Alpha.Reports.Services.Impl.ProductsBySite-{site}", out cachedProducts).Returns(false);
-
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<ProductBySiteModel>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<ProductBySiteModel>>>(1);
+                return func();
+            });
             dynamicRepository.Fetch<ProductBySiteModel>(Arg.Any<GetOfferedProductsBySiteCriteria>()).Returns(products);
 
             // Act

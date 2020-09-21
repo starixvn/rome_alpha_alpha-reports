@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Tests.Services.WinLoss
 {
     using Fanex.Caching;
+    using Fanex.Caching.Memory;
     using Fanex.Data.Repository;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -26,6 +27,7 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly ICacheService cacheService;
         private readonly CacheRefService cacheRefService;
+        private readonly ProductService productService;
         private readonly DateTime currentDate = new DateTime(2016, 12, 28);
         private readonly CompareLogic compareLogic;
         private readonly ReportDateService reportDateService;
@@ -34,12 +36,12 @@
         {
             dynamicRepository = Substitute.For<IDynamicRepository>();
             cacheService = Substitute.For<ICacheService>();
-            var productService = Substitute.For<ProductService>();
+            productService = Substitute.For<ProductService>();
             var productDetailService = Substitute.For<ProductDetailService>();
             dataAccess = Substitute.For<WinLossDataAccess>();
             cacheRefService = Substitute.For<CacheRefService>();
             reportDateService = Substitute.For<ReportDateService>();
-            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, productDetailService, dataAccess, dynamicRepository, cacheRefService);
+            winLossServiceImpl = new WinLossServiceImpl(reportDateService, productService, productDetailService, dataAccess, dynamicRepository, cacheRefService, cacheService);
             compareLogic = new CompareLogic();
         }
 
@@ -134,18 +136,19 @@
         public void GetEnteredSportResults_IsValid_ReturnsDefaultReportData()
         {
             // Arrange
-            var expectedData = Enumerable.Empty<EnteredSportResult>();
-
-            IEnumerable<EnteredSportResult> cachedEnteredSportResult;
-            cacheService.TryGet(EnteredResultsCacheKey, out cachedEnteredSportResult).Returns(false);
-
             var dataEnteredSport = Enumerable.Empty<DailyEnteredSport>();
             dynamicRepository.Fetch<DailyEnteredSport>(Arg.Any<DailyEnteredSportCriteria>()).Returns(dataEnteredSport);
+            cacheService.GetOrSet(Arg.Any<string>(), Arg.Any<Func<IEnumerable<EnteredSportResult>>>(), Arg.Any<CacheItemOptions>()).Returns(x =>
+            {
+                var func = x.ArgAt<Func<IEnumerable<EnteredSportResult>>>(1);
+                return func();
+            });
 
             // Act
             var actualData = winLossServiceImpl.GetEnteredSportResults();
 
             // Assert
+            var expectedData = Enumerable.Empty<EnteredSportResult>();
             var result = compareLogic.Compare(expectedData, actualData);
             Assert.True(result.AreEqual);
         }
