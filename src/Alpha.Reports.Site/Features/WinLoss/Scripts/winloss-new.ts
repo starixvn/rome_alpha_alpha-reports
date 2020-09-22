@@ -5,7 +5,7 @@ declare var
     masterColumnNames,
     agentColumnNames;
 
-class WinLossViewNew extends BaseReportNew {
+class WinLossViewNew extends BaseHistoricReport {
     $drilldownLinks: JQuery;
     $isAgentLevel: JQuery;
     $isMasterLevel: JQuery;
@@ -103,7 +103,6 @@ class WinLossViewNew extends BaseReportNew {
         this.$isAgentLevel = this.$('#IsAgentLevel');
         this.$isMasterLevel = this.$('#IsMasterLevel');
         this.$isSuperLevel = this.$('#IsSuperLevel');
-        this.$tableReport = this.$('#tbl-report');
     };
 
     adjustPageTitle = () => {
@@ -143,9 +142,6 @@ class WinLossViewNew extends BaseReportNew {
     registerEvents = () => {
         super.registerEvents();
 
-        this.$excelIcon.on('click', this.onExportExcelEvent);
-        this.$historicReport.on('click', this.onSubmitHistoricReportEvent);
-        this.$reportForm.submit(this.onSubmitReportEvent);
         this.$(window).on('orientationchange', this.adjustPageTitle);
     };
 
@@ -163,7 +159,7 @@ class WinLossViewNew extends BaseReportNew {
     };
 
     getColumnSortName = () => {
-        const order = this.$table.order();
+        const order = this.$dataTable.order();
         const columnSortIndex = order[0][0];
         if (this.isSuperLevel) {
             return this.superColumnSortNames[columnSortIndex];
@@ -235,14 +231,14 @@ class WinLossViewNew extends BaseReportNew {
         this.$multiSelectButton.removeClass('error');
     };
 
-    onSubmitReportEvent = (e: any) => {
+    onSubmitReportEvent = (event: any) => {
         this.$.blockUI();
 
         var params = this.getParams();
         if (!params.IsAnyProductSelected) {
             this.showValidateProductError();
             this.$.unblockUI();
-            e.preventDefault();
+            event.preventDefault();
 
             return;
         }
@@ -250,7 +246,7 @@ class WinLossViewNew extends BaseReportNew {
         if (!params.IsAnyProductDetailSelected) {
             this.showValidaProductDetailError();
             this.$.unblockUI();
-            e.preventDefault();
+            event.preventDefault();
 
             return;
         }

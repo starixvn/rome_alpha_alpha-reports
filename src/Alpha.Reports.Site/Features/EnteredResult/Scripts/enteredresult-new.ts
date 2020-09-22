@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-class EnterResultViewNew extends BaseReportNew {
+class EnterResultViewNew extends BaseHistoricReport {
     constructor(
         $: JQueryStatic,
         dateRangePickerNewComponent: DateRangePickerNewComponent) {
@@ -21,20 +21,6 @@ class EnterResultViewNew extends BaseReportNew {
         this.$.unblockUI();
     };
 
-    cacheDOMElements = () => {
-        super.cacheDOMElements();
-
-        this.$tableReport = this.$("#tbl-enteredresult-report");
-    };
-
-    registerEvents = () => {
-        super.registerEvents();
-
-        this.$excelIcon.on("click", this.onExportExcelEvent);
-        this.$historicReport.on("click", this.onSubmitHistoricReportEvent);
-        this.$reportForm.submit(this.onSubmitNormalReportEvent);
-    };
-
     initDataTable = () => {
         super.initDataTable({
             order: [[0, 'asc']]
@@ -51,7 +37,7 @@ class EnterResultViewNew extends BaseReportNew {
 
     drawCallback = () => { };
 
-    onSubmitNormalReportEvent = () => {
+    onSubmitReportEvent = (event: any) => {
         this.setHiddenValue();
     };
 

@@ -55,6 +55,7 @@
       "assets/scripts/components/link-builder.js",
       "Features/Shared/Scripts/daterangepicker-new.js",
       "Features/Shared/Scripts/base-report-new.js",
+      "Features/Shared/Scripts/base-historic-report.js",
       "Features/WinLoss/Scripts/winloss-new.js"
     ]
   },
@@ -81,6 +82,7 @@
       "assets/scripts/core.js",
       "Features/Shared/Scripts/daterangepicker-new.js",
       "Features/Shared/Scripts/base-report-new.js",
+      "Features/Shared/Scripts/base-historic-report.js",
       "Features/EnteredResult/Scripts/enteredresult-new.js"
     ]
   },
