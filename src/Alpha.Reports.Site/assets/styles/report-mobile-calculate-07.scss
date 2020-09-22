@@ -127,40 +127,29 @@ table.dataTable thead [class*="sorting"]:after {
 	}
 }
 
-.checkbox {
-	input[type="checkbox"] {
-		opacity: 0;
-	}
-
-	&:before {
-		content: "";
-		display: inline-block;
-		position: absolute;
-		width: calculateScale(16px);
-		height: calculateScale(16px);
-		left: 8px;
-		margin-left: 0;
-		border: 1px solid #919191;
-		background: #fff;
-		top: 3px;
-	}
-}
-
-.active .checkbox:before {
-    background-color: #1580FF;
-    border: none;
-}
-
-.active .checkbox:after {
-    display: inline-block;
-    position: absolute;
+input[type="checkbox"] {
     width: calculateScale(16px);
     height: calculateScale(16px);
-    left: 0;
-    top: 0;
-    margin-left: 10px;
-    padding-left: 3px;
-    font-size: calculateScale(12px);
-    content: '\2713';
-    color: #fff;
 }
+.form-inline .multiselect-container li a label.checkbox input[type=checkbox],
+.multiselect-item.multiselect-group a input[type=checkbox] {
+    margin-left: -32px !important;
+    top: 4px;
+}
+.form-inline .multiselect-container label.checkbox,
+.multiselect-container.dropdown-menu .multiselect-item.multiselect-group a {
+    padding-left: 44px !important;
+    b:not(.caret) {
+        padding-left: 7px;
+    }
+}
+
+.multiselect-group .caret {
+    border-width: calculateScale(4px);
+}
+
+.multiselect-container.dropdown-menu .multiselect-nested-item a {
+    padding-left: 35px;
+}
+
+
