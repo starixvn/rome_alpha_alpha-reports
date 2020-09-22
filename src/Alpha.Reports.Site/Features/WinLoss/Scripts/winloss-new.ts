@@ -213,6 +213,7 @@ class WinLossViewNew extends BaseReportNew {
         return {
             CustId: this.$tableReport.data('custid'),
             IsAnyProductSelected: selectedProducts.length > 0,
+            IsAnyProductDetailSelected: this.productMultiSelectionComponent.isAnyEnabledProductDetailSelected(),
             IsStackMode: false,
             IsHistoricReport: this.isHistoricReport,
             SortPropertyName: this.getColumnSortName(),
@@ -224,6 +225,10 @@ class WinLossViewNew extends BaseReportNew {
     showValidateProductError = () => {
         this.$multiSelectButton.addClass('error');
         this.productMultiSelectionComponent.addClassToExcludeProductLabels('error');
+    };
+
+    showValidaProductDetailError = () => {
+        this.productMultiSelectionComponent.addErrorToProductDetailComponent();
     };
 
     clearError = () => {
@@ -242,6 +247,14 @@ class WinLossViewNew extends BaseReportNew {
             return;
         }
 
+        if (!params.IsAnyProductDetailSelected) {
+            this.showValidaProductDetailError();
+            this.$.unblockUI();
+            e.preventDefault();
+
+            return;
+        }
+
         this.$isFilterVisible.val(String(alphaReports.screenSmallThan768() ? params.HideFilter : true));
         this.$isHistoricReport.val(String(params.IsHistoricReport));
         this.$sortPropertyName.val(params.SortPropertyName);
@@ -253,7 +266,7 @@ $(function () {
     const winLossViewNew = new WinLossViewNew(
         $,
         new DateRangePickerNewComponent($),
-        new ProductMultiSelectionComponent($),
+        new ProductMultiSelectionComponent($, new ProductDetailMultiSelectionComponent($)),
         new ReportTooltip($),
         new MonthPickerComponent($),
         new LinkBuilderComponent($));

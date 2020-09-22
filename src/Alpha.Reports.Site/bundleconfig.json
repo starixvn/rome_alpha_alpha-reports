@@ -51,6 +51,7 @@
       "assets/scripts/components/monthpicker.js",
       "assets/scripts/components/tooltip.js",
       "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/productdetail-multiselection.js",
       "assets/scripts/components/link-builder.js",
       "Features/Shared/Scripts/daterangepicker-new.js",
       "Features/Shared/Scripts/base-report-new.js",
