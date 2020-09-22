@@ -14,10 +14,10 @@
         }
 
         public ActionResult Index(WinLossQuery message)
-            => View(winLossPath, mediator.Send(message));
+            => View(winLossPath, message);
 
         public ActionResult IndexNew(WinLossQuery message)
-            => View(winLossNewPath, mediator.Send(message));
+            => View(winLossNewPath, message);
 
         [HttpGet]
         public ActionResult Excel(WinLossExcelQuery message)

@@ -16,14 +16,17 @@
         [Route("enteredresult/master")]
         [Route("enteredresult/agent")]
         [Route("enteredresult/member")]
-        public ActionResult Index(EnteredSportResultQuery message) => View(enteredResultPath, mediator.Send(message));
+        public ActionResult Index(EnteredSportResultQuery message)
+            => View(enteredResultPath, message);
 
         [Route("enteredresult/masternew")]
         [Route("enteredresult/agentnew")]
         [Route("enteredresult/membernew")]
-        public ActionResult IndexNew(EnteredSportResultQuery message) => View(enteredResultNewPath, mediator.Send(message));
+        public ActionResult IndexNew(EnteredSportResultQuery message)
+            => View(enteredResultNewPath, message);
 
         [HttpGet]
-        public ActionResult Excel(EnteredSportResultExcelQuery message) => ExcelView(message);
+        public ActionResult Excel(EnteredSportResultExcelQuery message)
+            => ExcelView(message);
     }
 }

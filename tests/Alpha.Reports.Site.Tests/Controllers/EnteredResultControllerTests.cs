@@ -68,6 +68,21 @@
         }
 
         [Fact]
+        public void IndexNew_QueryIsNotValid_ReturnInvalidReportView()
+        {
+            // Arrange
+            var user = Substitute.For<IUser>();
+            user.LevelId.Returns((byte)2);
+            var message = new EnteredSportResultQuery(user);
+
+            // Act
+            var actualView = enteredResultController.IndexNew(message) as ViewResult;
+
+            // Assert
+            Assert.Equal("~/Views/Shared/InvalidReport.cshtml", actualView.ViewName);
+        }
+
+        [Fact]
         public void Excel_QueryIsNotValid_ReturnInvalidReportExcelFile()
         {
             // Arrange
