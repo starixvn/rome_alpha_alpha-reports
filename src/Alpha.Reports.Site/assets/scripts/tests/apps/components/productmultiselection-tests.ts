@@ -200,10 +200,12 @@
 					nonSelectedText: "Select Product",
 					nSelectedText: " # selected",
 					allSelectedText: "All selected",
-					includeSelectAllOption: true,
-					onChange: productMultiSelectionComponent.onChange,
-					onSelectAll: productMultiSelectionComponent.onChange,
-					language: "en"
+                    includeSelectAllOption: true,
+                    onChange: productMultiSelectionComponent.onChange,
+                    onSelectAll: productMultiSelectionComponent.onChange,
+                    language: "en",
+                    enableCollapsibleOptGroups: true,
+                    optionClass: productMultiSelectionComponent.optionClass
 				});
 			});
 
@@ -244,9 +246,11 @@
 					nSelectedText: " # selected",
 					allSelectedText: "All selected",
 					includeSelectAllOption: false,
-					onChange: productMultiSelectionComponent.onChange,
-					onSelectAll: productMultiSelectionComponent.onChange,
-					language: "en"
+                    onChange: productMultiSelectionComponent.onChange,
+                    onSelectAll: productMultiSelectionComponent.onChange,
+                    language: "en",
+                    enableCollapsibleOptGroups: true,
+                    optionClass: productMultiSelectionComponent.optionClass
 				});
 			});
 			it("_Cache element;", () => {
