@@ -8,7 +8,7 @@
         {
         }
 
-        internal OutstandingModel(int custId, string custName, decimal memberOutstanding, decimal agentOutstanding, decimal masterOutstanding, decimal superOutstanding)
+        public OutstandingModel(int custId, string custName, decimal memberOutstanding, decimal agentOutstanding, decimal masterOutstanding, decimal superOutstanding)
         {
             CustId = custId;
             CustName = custName;
@@ -17,6 +17,8 @@
             MasterOutstanding = masterOutstanding;
             SuperOutstanding = superOutstanding;
         }
+
+        public string DownlineLink { get; set; }
 
         public int CustId { get; }
 

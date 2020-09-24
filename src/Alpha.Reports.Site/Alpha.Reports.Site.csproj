@@ -81,8 +81,8 @@
     <Reference Include="Alpha.Utilities.IP, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Alpha.Utilities.IP.1.0.0.1\lib\net40\Alpha.Utilities.IP.dll</HintPath>
     </Reference>
-    <Reference Include="Alpha.Web, Version=1.0.7.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Alpha.Web.1.0.7.2\lib\net461\Alpha.Web.dll</HintPath>
+    <Reference Include="Alpha.Web, Version=1.0.7.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Alpha.Web.1.0.7.4\lib\net461\Alpha.Web.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
@@ -398,7 +398,8 @@
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
-    <TypeScriptCompile Include="assets\scripts\outstanding\outstanding.ts" />
+    <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding-new.ts" />
+    <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
     <TypeScriptCompile Include="assets\scripts\progressivecontribution\progressivecontribution.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinloss\matchwinloss.ts" />
@@ -442,7 +443,7 @@
     <Compile Include="Controllers\BetChoiceMatchingController.cs" />
     <Compile Include="Controllers\ConsolidationController.cs" />
     <Compile Include="Controllers\PlayForFunController.cs" />
-    <Compile Include="Controllers\OutstandingController.cs" />
+    <Compile Include="Features\Outstanding\OutstandingController.cs" />
     <Compile Include="Controllers\MatchWinLossController.cs" />
     <Compile Include="Controllers\LeagueController.cs" />
     <Compile Include="Controllers\CommissionByBettypeController.cs" />
@@ -475,7 +476,7 @@
     <Compile Include="Handlers\Consolidation\ConsolidationHandler.cs" />
     <Compile Include="Handlers\Consolidation\ConsolidationWorkbook.cs" />
     <Compile Include="Handlers\MatchWinLoss\MatchWinLossBaseHandler.cs" />
-    <Compile Include="Handlers\Outstanding\OutstandingHandler.cs" />
+    <Compile Include="Features\Outstanding\OutstandingHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionBaseHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionExcelHandler.cs" />
     <Compile Include="Handlers\ProgressiveContribution\ProgressiveContributionHandler.cs" />
@@ -541,12 +542,12 @@
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
     <Compile Include="Requests\FromLast3MonthDateRangeQuery.cs" />
     <Compile Include="Requests\MatchWinLossDetail\MatchWinLossDetailExcelQuery.cs" />
-    <Compile Include="Requests\Outstanding\ReportLegendQuery.cs" />
+    <Compile Include="Features\Outstanding\Requests\ReportLegendQuery.cs" />
     <Compile Include="Requests\ProgressiveContribution\ProgressiveContributionExcelQuery.cs" />
     <Compile Include="Requests\ProgressiveContribution\ProgressiveContributionQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeExcelQuery.cs" />
     <Compile Include="Requests\CommissionByBettype\CommissionByBettypeQuery.cs" />
-    <Compile Include="Requests\Outstanding\OutstandingQuery.cs" />
+    <Compile Include="Features\Outstanding\Requests\OutstandingQuery.cs" />
     <Compile Include="Requests\MatchWinLoss\MatchWinLossExcelQuery.cs" />
     <Compile Include="Requests\FromLast18MonthDateRangeQuery.cs" />
     <Compile Include="Requests\MatchWinLoss\MatchWinLossQuery.cs" />
@@ -614,7 +615,7 @@
     <Compile Include="ViewModels\ExcelFileViewModel.cs" />
     <Compile Include="ViewModels\DrillDownableReportViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossFilterViewModel.cs" />
-    <Compile Include="ViewModels\Outstanding\OutstandingViewModel.cs" />
+    <Compile Include="Features\Outstanding\OutstandingViewModel.cs" />
     <Compile Include="ViewModels\MatchWinLoss\MatchWinLossReportViewModel.cs" />
     <Compile Include="ViewModels\ProgressiveContribution\ProgressiveContributionViewModel.cs" />
     <Compile Include="ViewModels\RiskAnalysisIPMatching\RiskAnalysisIPMatchingViewModel.cs" />
@@ -803,6 +804,10 @@
     <Content Include="assets\bundles\progressivecontribution\progressivecontribution.min.js">
       <DependentUpon>progressivecontribution.js</DependentUpon>
     </Content>
+    <Content Include="assets\bundles\report-mobile-calculate-07.css" />
+    <Content Include="assets\bundles\report-mobile-calculate-07.min.css">
+      <DependentUpon>report-mobile-calculate-07.css</DependentUpon>
+    </Content>
     <Content Include="assets\bundles\RiskAnalysisIPMatching\index.js" />
     <Content Include="assets\bundles\RiskAnalysisIPMatching\index.min.js">
       <DependentUpon>index.js</DependentUpon>
@@ -821,10 +826,6 @@
     <Content Include="assets\bundles\matchwinloss\matchwinloss.js" />
     <Content Include="assets\bundles\matchwinloss\matchwinloss.min.js">
       <DependentUpon>matchwinloss.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\outstanding\outstanding.js" />
-    <Content Include="assets\bundles\outstanding\outstanding.min.js">
-      <DependentUpon>outstanding.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\playforfun\playforfun-master-agent.js" />
     <Content Include="assets\bundles\playforfun\playforfun-master-agent.min.js">
@@ -850,10 +851,6 @@
     <Content Include="assets\bundles\default.css" />
     <Content Include="assets\bundles\default.min.css">
       <DependentUpon>default.css</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\outstanding\outstanding.js" />
-    <Content Include="assets\bundles\outstanding\outstanding.min.js">
-      <DependentUpon>outstanding.js</DependentUpon>
     </Content>
     <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.js" />
     <Content Include="assets\bundles\winlossbyproduct\winlossbyproduct.min.js">
@@ -929,11 +926,29 @@
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
     </Content>
+    <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.css" />
+    <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.min.css">
+      <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Outstanding\Bundles\outstanding-new.js" />
+    <Content Include="Features\Outstanding\Bundles\outstanding-new.min.js">
+      <DependentUpon>outstanding-new.js</DependentUpon>
+    </Content>
+    <Content Include="Features\Outstanding\Bundles\outstanding.js" />
+    <Content Include="Features\Outstanding\Bundles\outstanding.min.js">
+      <DependentUpon>outstanding.js</DependentUpon>
+    </Content>
     <Content Include="assets\styles\progressivecontribution\progressivecontribution.css">
       <DependentUpon>progressivecontribution.scss</DependentUpon>
     </Content>
     <Content Include="assets\styles\progressivecontribution\progressivecontribution.min.css">
       <DependentUpon>progressivecontribution.css</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\report-mobile-calculate-07.css">
+      <DependentUpon>report-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="assets\styles\report-mobile-calculate-07.min.css">
+      <DependentUpon>report-mobile-calculate-07.css</DependentUpon>
     </Content>
     <Content Include="assets\styles\reports.css">
       <DependentUpon>reports.scss</DependentUpon>
@@ -952,8 +967,15 @@
       <SubType>Designer</SubType>
     </CodeAnalysisDictionary>
     <Content Include="compilerconfig.json" />
-    <Content Include="compilerconfig.json.defaults">
+    <Content Include="assets\styles\report-mobile-calculate-07.scss" />
+    <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.css">
+      <DependentUpon>outstanding-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.min.css">
+      <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="packages.config">
@@ -1077,6 +1099,11 @@
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
     <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
     <Content Include="App_Data\ExcelTemplates\BetChoiceMatching\Master.xls" />
+    <Content Include="Features\Outstanding\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.scss" />
+    <Content Include="Features\Outstanding\Views\IndexNew.cshtml" />
     <Content Include="App_Data\activitytracking.pro2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
@@ -1096,7 +1123,7 @@
     <Content Include="typings\globals\moment\typings.json" />
     <Content Include="typings\globals\storejs\typings.json" />
     <Content Include="Views\EnteredResult\Filter.cshtml" />
-    <Content Include="Views\Outstanding\Index.cshtml" />
+    <Content Include="Features\Outstanding\Views\Index.cshtml" />
     <Content Include="Views\EnteredResult\Index.cshtml" />
     <Content Include="Views\Shared\InvalidReport.cshtml" />
     <Content Include="Views\Statement\SMAStatement.cshtml" />
@@ -1130,7 +1157,7 @@
     <Content Include="Views\CommissionByBettype\Guidelines.cshtml" />
     <Content Include="Views\ProgressiveContribution\Index.cshtml" />
     <Content Include="Views\ProgressiveContribution\ReportLegend.cshtml" />
-    <Content Include="Views\Outstanding\ReportLegend.cshtml" />
+    <Content Include="Features\Outstanding\Views\ReportLegend.cshtml" />
     <Content Include="Views\RiskAnalysisIPMatching\Index.cshtml" />
     <Content Include="Views\BetChoiceMatching\Index.cshtml" />
     <Content Include="typings\globals\numeral\typings.json" />
@@ -1145,6 +1172,7 @@
     </None>
     <TypeScriptCompile Include="assets\scripts\winloss\enteredresult.ts" />
     <TypeScriptCompile Include="assets\scripts\winloss\winloss.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
     <TypeScriptCompile Include="typings\globals\bootstrap\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine-jquery\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine\index.d.ts" />

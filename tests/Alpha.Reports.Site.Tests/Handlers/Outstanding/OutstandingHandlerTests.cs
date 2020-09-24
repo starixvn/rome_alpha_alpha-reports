@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Alpha.Reports.Site.ViewModels.Components;
+    using Alpha.Web.Helpers;
     using Fixtures;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -24,13 +25,15 @@
         private readonly ProductService productService;
         private readonly OutstandingService service;
         private readonly OutstandingHandler handler;
+        private readonly BrowserHelper browserHelper;
 
         public OutstandingHandlerTests(UserFixture userFixture)
         {
             this.userFixture = userFixture;
             service = Substitute.For<OutstandingService>();
+            browserHelper = Substitute.For<BrowserHelper>();
             productService = Substitute.For<ProductService>();
-            handler = new OutstandingHandler(service, productService, userFixture.User);
+            handler = new OutstandingHandler(service, productService, browserHelper, userFixture.User);
         }
 
         [Fact]
@@ -83,14 +86,15 @@
             productService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IOrderedEnumerable<int>>()).Returns(Enumerable.Empty<int>());
             productService.GetProductsForCustomer(1, "", 1);
 
-            var handler = new OutstandingHandler(outstandingService, productService, userFixture.User);
+            var handler = new OutstandingHandler(outstandingService, productService, browserHelper, userFixture.User);
 
             var expectedVm = new OutstandingViewModel(
                 query,
                 Enumerable.Empty<OutstandingModel>(),
                 Enumerable.Empty<int>(),
                 Enumerable.Empty<GroupProductViewModel>(),
-                new List<CustInfo> { new CustInfo(custId, custName, custLevelId) });
+                new List<CustInfo> { new CustInfo(custId, custName, custLevelId) },
+                false);
 
             // Act
             var result = handler.Handle(query);
