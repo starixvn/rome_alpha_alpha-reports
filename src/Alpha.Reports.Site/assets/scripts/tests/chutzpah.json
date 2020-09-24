@@ -77,9 +77,9 @@
     { "Path": "../winlossdetail/winlossdetail.ts" },
     { "Path": "apps/components/sort-tests-template.ts" },
 
-    { "Path": "../winloss/enteredresult.ts" },
+    { "Path": "../../../Features/EnteredResult/Scripts/enteredresult.ts" },
 
-    { "Path": "../winloss/winloss.ts" },
+    { "Path": "../../../Features/WinLoss/Scripts/winloss.ts" },
     { "Path": "../matchwinloss/matchwinloss.ts" },
     { "Path": "apps/matchwinlossdetail/matchwinlossdetail-template.ts" },
     { "Path": "../matchwinlossdetail/matchwinlossdetail.ts" },
