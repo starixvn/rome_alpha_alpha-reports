@@ -41,24 +41,24 @@
 
                 @if (Model.CustLevel.IsSuperLevel())
                 {
-                    <th class="tbl-header all" rowspan="2" data-priority="8">@Resources.MasterTotal</th>
+                    <th class="tbl-header min-tablet-l" rowspan="2" data-priority="8">@Resources.MasterTotal</th>
                 }
 
                 @if (Model.CustLevel.IsMasterLevel())
                 {
-                    <th class="tbl-header all" rowspan="2" data-priority="7">@Resources.AgentTotal</th>
+                    <th class="tbl-header min-tablet-l" rowspan="2" data-priority="7">@Resources.AgentTotal</th>
                 }
 
                 @if (Model.CustLevel.IsAgentLevel())
                 {
                     <th class="tbl-header" colspan="3">@Resources.Member</th>
                     <th class="tbl-header" colspan="3">@Model.CustLevelName</th>
-                    <th class="tbl-header min-tablet-l" rowspan="2" data-priority="0">@Resources.Company</th>
+                    <th class="tbl-header desktop" rowspan="2" data-priority="0">@Resources.Company</th>
                 }
                 else
                 {
                     <th class="tbl-header" colspan="3">@Model.CustLevelName</th>
-                    <th class="tbl-header min-tablet-l" rowspan="2" data-priority="0">@Resources.Company</th>
+                    <th class="tbl-header desktop" rowspan="2" data-priority="0">@Resources.Company</th>
                 }
 
                 <th class="tbl-header" rowspan="2"></th>
@@ -66,19 +66,19 @@
             <tr class="thead-row2">
                 @if (Model.CustLevel.IsAgentLevel())
                 {
-                    <th class="desktop" data-priority="6">@Resources.WinLoss</th>
-                    <th class="desktop" data-priority="5">@Resources.Comm</th>
-                    <th class="desktop" data-priority="4">@Resources.Total</th>
+                    <th class="tbl-header desktop" data-priority="6">@Resources.WinLoss</th>
+                    <th class="tbl-header desktop" data-priority="5">@Resources.Comm</th>
+                    <th class="tbl-header desktop" data-priority="4">@Resources.Total</th>
 
-                    <th class="min-tablet-l" data-priority="3">@Resources.WinLoss</th>
-                    <th class="min-tablet-l" data-priority="2">@Resources.Comm</th>
-                    <th class="min-tablet-l" data-priority="1">@Resources.Total</th>
+                    <th class="tbl-header min-tablet-l" data-priority="3">@Resources.WinLoss</th>
+                    <th class="tbl-header min-tablet-l" data-priority="2">@Resources.Comm</th>
+                    <th class="tbl-header min-tablet-l" data-priority="1">@Resources.Total</th>
                 }
                 else
                 {
-                    <th class="min-tablet-l" data-priority="3">@Resources.WinLoss</th>
-                    <th class="min-tablet-l" data-priority="2">@Resources.Comm</th>
-                    <th class="min-tablet-l" data-priority="1">@Resources.Total</th>
+                    <th class="tbl-header min-tablet-l" data-priority="3">@Resources.WinLoss</th>
+                    <th class="tbl-header min-tablet-l" data-priority="2">@Resources.Comm</th>
+                    <th class="tbl-header min-tablet-l" data-priority="1">@Resources.Total</th>
                 }
             </tr>
         </thead>

@@ -1,8 +1,8 @@
-﻿[class*="level-"] {
-    margin-top: -10px;
-}
+﻿.filter {
+    &:not(.hide) + [class*="level-"] {
+        margin-top: -10px;
+    }
 
-.filter {
     @media (orientation: landscape) {
         &.entered-result {
             .daterangepicker-container {
@@ -17,10 +17,10 @@
     }
 
     .submit-container, .daterange-container {
-        width: calc(50% - 8px) !important;
+        width: calc(50% - 5px) !important;
 
         @media (orientation: landscape) {
-            width: calc(25% - 8px) !important;
+            width: calc(25% - 5px) !important;
             margin-bottom: 0;
             margin-top: 0;
             vertical-align: middle;
@@ -44,7 +44,7 @@
         }
 
         .control.date {
-            width: calc(100% - 3px) !important;
+            width: 100% !important;
             margin: 0 !important;
 
             @media (orientation: landscape) {
@@ -62,7 +62,7 @@
     }
 
     .icon-group-last {
-        width: calc(100% - 3px) !important;
+        width: 100% !important;
         margin: 0;
     }
 
