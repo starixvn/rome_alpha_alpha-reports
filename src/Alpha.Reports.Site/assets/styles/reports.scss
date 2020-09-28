@@ -596,6 +596,14 @@ a {
     }
 }
 
-td.dataTables_empty {
-    text-align: center;
+table.dataTable {
+    [class*='sorting_'].col-first {
+        background-color: #ffefde !important;
+    }
+
+    @media only screen and (min-device-width: $screen-device-greater768) {
+        .width-17per {
+            width: 17% !important;
+        }
+    }
 }
