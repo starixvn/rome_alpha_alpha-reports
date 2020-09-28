@@ -869,10 +869,6 @@
     <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
-    <Content Include="assets\bundles\winloss\winloss.js" />
-    <Content Include="assets\bundles\winloss\winloss.min.js">
-      <DependentUpon>winloss.js</DependentUpon>
-    </Content>
     <Content Include="assets\scripts\tests\apps\betchoicematching\betMatchingResources.js" />
     <Content Include="assets\scripts\tests\libs\autocomplete.js" />
     <Content Include="assets\scripts\tests\libs\bootbox.js" />
