@@ -1,318 +1,318 @@
 ﻿[
-	{
-		"outputFileName": "assets/bundles/default.css",
-		"inputFiles": [
-			"assets/styles/reports.css"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/winlossdetail/winlossdetail.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/monthpicker.js",
-			"assets/scripts/components/pager.js",
-			"assets/scripts/components/productmultiselection.js",
+  {
+    "outputFileName": "assets/bundles/default.css",
+    "inputFiles": [
+      "assets/styles/reports.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/winlossdetail/winlossdetail.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/monthpicker.js",
+      "assets/scripts/components/pager.js",
+      "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/productdetail-multiselection.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/components/tooltip.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/winlossdetail/winlossdetail.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/winloss/winloss.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/monthpicker.js",
-			"assets/scripts/components/tooltip.js",
-			"assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/winlossdetail/winlossdetail.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/winloss/winloss.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/monthpicker.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/productdetail-multiselection.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/winloss/winloss.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/winloss/enteredresult.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/winloss/enteredresult.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/report-mobile-calculate-07.css",
-		"inputFiles": [
-			"assets/styles/report-mobile-calculate-07.css"
-		]
-	},
-	{
-		"outputFileName": "Features/Outstanding/Bundles/outstanding-mobile-calculate-07.css",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/winloss/winloss.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/winloss/enteredresult.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/winloss/enteredresult.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/report-mobile-calculate-07.css",
+    "inputFiles": [
+      "assets/styles/report-mobile-calculate-07.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/Outstanding/Bundles/outstanding-mobile-calculate-07.css",
     "inputFiles": [
       "assets/styles/report-mobile-calculate-07.css",
       "Features/Outstanding/Styles/outstanding-mobile-calculate-07.css"
     ]
-	},
-	{
-		"outputFileName": "Features/Outstanding/Bundles/outstanding.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/productmultiselection.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/components/link-builder.js",
-			"Features/Outstanding/Scripts/outstanding.js"
-		]
-	},
-	{
-		"outputFileName": "Features/Outstanding/Bundles/outstanding-new.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"Features/Shared/Scripts/base-report-new.js",
-			"assets/scripts/components/productmultiselection.js",
-			"assets/scripts/components/link-builder.js",
-			"Features/Outstanding/Scripts/outstanding-new.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/matchwinloss/matchwinloss.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/matchwinloss/matchwinloss.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetail.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/productmultiselection.js",
-			"assets/scripts/components/league-multiselection.js",
-			"assets/scripts/components/tooltip.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/matchwinlossdetail/matchwinlossdetail.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetail.css",
-		"inputFiles": [
-			"assets/styles/matchwinlossdetail/matchwinlossdetail.css"
-		]
-	},
+  },
+  {
+    "outputFileName": "Features/Outstanding/Bundles/outstanding.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "Features/Outstanding/Scripts/outstanding.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/Outstanding/Bundles/outstanding-new.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "Features/Shared/Scripts/base-report-new.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/link-builder.js",
+      "Features/Outstanding/Scripts/outstanding-new.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/matchwinloss/matchwinloss.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/matchwinloss/matchwinloss.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetail.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/league-multiselection.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/matchwinlossdetail/matchwinlossdetail.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/matchwinlossdetail/matchwinlossdetail.css",
+    "inputFiles": [
+      "assets/styles/matchwinlossdetail/matchwinlossdetail.css"
+    ]
+  },
 
-	{
-		"outputFileName": "assets/bundles/commissionbybettype/commissionbybettype.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/commissionbybettype/commissionbybettype.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/winlossbyproduct/winlossbyproduct.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/productmultiselection.js",
+  {
+    "outputFileName": "assets/bundles/commissionbybettype/commissionbybettype.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/commissionbybettype/commissionbybettype.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/winlossbyproduct/winlossbyproduct.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/productdetail-multiselection.js",
-			"assets/scripts/components/tooltip.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/winlossbyproduct/winlossbyproduct.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/winlossanalysis/winlossanalysis.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/tooltip.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/productmultiselection.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/winlossanalysis/winlossanalysis.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/statement/sma-statement.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/client-pager.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/statement/statement.js",
-			"assets/scripts/statement/sma-statement.js",
-			"assets/scripts/statement/sma-statement-init.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/statement/statement.css",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/winlossbyproduct/winlossbyproduct.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/winlossanalysis/winlossanalysis.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/winlossanalysis/winlossanalysis.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/statement/sma-statement.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/client-pager.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/statement/statement.js",
+      "assets/scripts/statement/sma-statement.js",
+      "assets/scripts/statement/sma-statement-init.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/statement/statement.css",
 
-		"inputFiles": [
-			"assets/styles/statement/statement.css"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/statement/statement-details.js",
-		"inputFiles": [
-			"assets/scripts/statement/statement-details.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/statement/member-statement.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/client-pager.js",
-			"assets/scripts/components/single-selection-dropdown.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/statement/statement.js",
-			"assets/scripts/statement/member-statement.js",
-			"assets/scripts/statement/member-statement-init.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/playforfun/playforfun-member.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/components/single-selection-dropdown.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/playforfun/playforfun.js",
-			"assets/scripts/playforfun/playforfun-member.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/playforfun/playforfun-master-agent.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/components/single-selection-dropdown.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/playforfun/playforfun.js",
-			"assets/scripts/playforfun/playforfun-master-agent.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/winlossanalysischart/winlossanalysischart.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/components/month-range-picker.js",
-			"assets/scripts/components/tooltip.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/productmultiselection.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/components/dual-axis-chart.js",
-			"assets/scripts/winlossanalysischart/winlossanalysischart.js",
-			"assets/scripts/winlossanalysischart/winlossanalysischart-ready.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/consolidation/consolidation.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/productmultiselection.js",
+    "inputFiles": [
+      "assets/styles/statement/statement.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/statement/statement-details.js",
+    "inputFiles": [
+      "assets/scripts/statement/statement-details.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/statement/member-statement.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/client-pager.js",
+      "assets/scripts/components/single-selection-dropdown.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/statement/statement.js",
+      "assets/scripts/statement/member-statement.js",
+      "assets/scripts/statement/member-statement-init.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/playforfun/playforfun-member.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/single-selection-dropdown.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/playforfun/playforfun.js",
+      "assets/scripts/playforfun/playforfun-member.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/playforfun/playforfun-master-agent.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/single-selection-dropdown.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/playforfun/playforfun.js",
+      "assets/scripts/playforfun/playforfun-master-agent.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/winlossanalysischart/winlossanalysischart.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/month-range-picker.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/components/dual-axis-chart.js",
+      "assets/scripts/winlossanalysischart/winlossanalysischart.js",
+      "assets/scripts/winlossanalysischart/winlossanalysischart-ready.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/consolidation/consolidation.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/productdetail-multiselection.js",
-			"assets/scripts/components/currency-selection.js",
-			"assets/scripts/components/tooltip.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/consolidation/consolidation.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/consolidation/consolidation-detail.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/currency-selection.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/consolidation/consolidation.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/consolidation/consolidation-detail.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
       "assets/scripts/components/productdetail-multiselection.js",
-			"assets/scripts/components/currency-selection.js",
-			"assets/scripts/components/tooltip.js",
-			"assets/scripts/components/netturnover-tooltip.js",
-			"assets/scripts/components/pager.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/consolidation/consolidation-detail.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/consolidation/consolidation.css",
+      "assets/scripts/components/currency-selection.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/netturnover-tooltip.js",
+      "assets/scripts/components/pager.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/consolidation/consolidation-detail.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/consolidation/consolidation.css",
 
-		"inputFiles": [
-			"assets/styles/consolidation/consolidation.css"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/progressivecontribution/progressivecontribution.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/monthpicker.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/productmultiselection.js",
-			"assets/scripts/components/tooltip.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/progressivecontribution/progressivecontribution.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/progressivecontribution/progressivecontribution.css",
-		"inputFiles": [
-			"assets/styles/progressivecontribution/progressivecontribution.css"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/betchoicematching/betchoicematching.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/base-report.js",
-			"assets/scripts/components/simple-tooltip.js",
-			"assets/scripts/betchoicematching/betchoicematching.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/betchoicematching/betchoicematching.css",
-		"inputFiles": [
-			"assets/styles/betchoicematching/betchoicematching.css"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/RiskAnalysisIPMatching/index.js",
-		"inputFiles": [
-			"assets/scripts/core.js",
-			"assets/scripts/components/daterangepicker.js",
-			"assets/scripts/components/sort.js",
-			"assets/scripts/components/link-builder.js",
-			"assets/scripts/components/pager.js",
-			"assets/scripts/risk-analysis-ip-matching/index.js"
-		]
-	},
-	{
-		"outputFileName": "assets/bundles/report-mobile-calculate-07-01.css",
-		"inputFiles": [
-			"assets/styles/report-mobile-calculate-07-01.css"
-		]
-	}
+    "inputFiles": [
+      "assets/styles/consolidation/consolidation.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/progressivecontribution/progressivecontribution.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/monthpicker.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/progressivecontribution/progressivecontribution.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/progressivecontribution/progressivecontribution.css",
+    "inputFiles": [
+      "assets/styles/progressivecontribution/progressivecontribution.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/betchoicematching/betchoicematching.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/base-report.js",
+      "assets/scripts/components/simple-tooltip.js",
+      "assets/scripts/betchoicematching/betchoicematching.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/betchoicematching/betchoicematching.css",
+    "inputFiles": [
+      "assets/styles/betchoicematching/betchoicematching.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/RiskAnalysisIPMatching/index.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/daterangepicker.js",
+      "assets/scripts/components/sort.js",
+      "assets/scripts/components/link-builder.js",
+      "assets/scripts/components/pager.js",
+      "assets/scripts/risk-analysis-ip-matching/index.js"
+    ]
+  },
+  {
+    "outputFileName": "assets/bundles/report-mobile-calculate-07-01.css",
+    "inputFiles": [
+      "assets/styles/report-mobile-calculate-07-01.css"
+    ]
+  }
 ]
