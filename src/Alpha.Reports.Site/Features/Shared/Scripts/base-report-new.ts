@@ -27,7 +27,6 @@
 	}
 
 	public init() {
-		this.$.blockUI();
 		this.cacheDOMElements();
 	}
 
