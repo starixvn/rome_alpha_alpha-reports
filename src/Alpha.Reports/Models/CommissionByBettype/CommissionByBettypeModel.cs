@@ -58,6 +58,7 @@
             Comm1 += commission.Comm1;
             Comm2 += commission.Comm2;
             Comm3 += commission.Comm3;
+            MyanmarOddsComm += commission.MyanmarOddsComm;
 
             CasinoComm += commission.CasinoComm;
         }
