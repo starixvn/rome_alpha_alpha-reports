@@ -255,6 +255,31 @@
         }
 
         [Fact]
+        public void HandleReportLegendQuery_ProductsContainWN_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var message = new ReportLegendQuery(userFixture.User);
+            productService.FilterProductsByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>()).Returns(new List<Product>
+            {
+                new Product(51, "WM", null, 0, 0)
+            });
+
+            productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(Enumerable.Empty<byte>());
+
+            var expectedViewModel = new List<string>
+            {
+                "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
+                "- For WM, Net Turnover is total valid bets that we use to compute commission."
+            };
+
+            // Act
+            var actualViewModel = winLossDetailHandler.Handle(message);
+
+            // Assert
+            Assert.Equal(expectedViewModel, actualViewModel);
+        }
+
+        [Fact]
         public void HandleReportLegendQuery_ProductsContainBBin_ReturnsCorrectViewModel()
         {
             // Arrange
@@ -291,7 +316,8 @@
                 new Product(39, "SA Gaming", null, 0, 0),
                 new Product(46, "GT Casino", null, 0, 0),
                 new Product(47, "BBIN", null, 0, 0),
-                new Product(52, "ION", null, 0, 0)
+                new Product(52, "ION", null, 0, 0),
+                new Product(51, "WM", null, 0, 0)
             });
 
             productService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(1, string.Empty, 1).Returns(Enumerable.Empty<byte>());
@@ -299,7 +325,7 @@
             var expectedViewModel = new List<string>
             {
                 "- For Sportbook, Net Turnover is Turnover which excludes the draw tickets and halves of the turnover of the half won, half lost tickets.",
-                "- For AllBet, AE Casino, SA Gaming, GT Casino, BBIN, ION, Net Turnover is total valid bets that we use to compute commission."
+                "- For AllBet, AE Casino, SA Gaming, GT Casino, BBIN, ION, WM, Net Turnover is total valid bets that we use to compute commission."
             };
 
             // Act

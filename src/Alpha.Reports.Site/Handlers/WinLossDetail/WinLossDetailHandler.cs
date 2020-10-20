@@ -83,7 +83,9 @@
                 ProductIdConstants.SAGaming,
                 ProductIdConstants.GTCasino,
                 ProductIdConstants.BBin,
-                ProductIdConstants.ION
+                ProductIdConstants.ION,
+                ProductIdConstants.WM
+
             };
             var offeredLiveCasino = productService.FilterProductsByCustomer(custId, site, currencyId, liveCasino);
             var liveCasinoNames = string.Join(", ", offeredLiveCasino.Select(i => i.Name));
