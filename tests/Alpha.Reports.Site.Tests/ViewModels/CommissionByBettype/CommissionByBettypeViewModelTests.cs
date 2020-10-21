@@ -21,7 +21,7 @@
             var user = Substitute.For<IUser>();
             user.LevelId.Returns((byte)1);
             var query = new CommissionByBettypeQuery(user);
-            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime));
+            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), false);
 
             // Act
             var result = viewmodel.GetNumCols();
@@ -47,10 +47,10 @@
             var query = new CommissionByBettypeQuery(user);
             query.CustLevelId = custLevelId;
 
-            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime));
+            var viewmodel = new CommissionByBettypeViewModel(query, null, null, default(DateTime), false);
 
             // Act
-            viewmodel.BuildDrillDownLink(new CommissionByBettypeModel(custId, custName, 0, 0, 0, 0), currentUrl);
+            viewmodel.BuildDrillDownLink(new CommissionByBettypeModel(custId, custName, 0, 0, 0, 0, 0), currentUrl);
 
             // Assert
             UrlHelper.ReplaceOrAddQueryStringParamsFunc.Received().Invoke(

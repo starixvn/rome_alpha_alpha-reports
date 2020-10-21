@@ -15,15 +15,18 @@
     {
         private readonly CommissionByBettypeService commissionService;
         private readonly ReportDateService reportDateService;
+        private readonly UserPermissionService userPermissionService;
         private readonly ProductService productService;
 
         public CommissionByBettypeHandler(
             CommissionByBettypeService commissionByBettypeServiceImpl,
             ReportDateService reportDateServiceImpl,
+            UserPermissionService userPermissionServiceImpl,
             ProductService productServiceImpl)
         {
             productService = productServiceImpl;
             commissionService = commissionByBettypeServiceImpl;
+            userPermissionService = userPermissionServiceImpl;
             reportDateService = reportDateServiceImpl;
         }
 
@@ -45,7 +48,8 @@
                 message,
                 commissions,
                 breadcrumbLevel,
-                reportDateService.GetBalanceUpDay());
+                reportDateService.GetBalanceUpDay(),
+                userPermissionService.IsShowMyanmarOdds());
         }
 
         public IEnumerable<string> Handle(CommissionByBetTypeGuideQuery message)

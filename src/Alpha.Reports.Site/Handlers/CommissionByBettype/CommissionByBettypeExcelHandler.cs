@@ -61,7 +61,8 @@
                 .Map(Column.B, commission => commission.Comm1)
                 .Map(Column.C, commission => commission.Comm2)
                 .Map(Column.D, commission => commission.Comm3)
-                .Map(Column.E, commission => commission.CasinoComm);
+                .Map(Column.E, commission => commission.MyanmarOddsComm)
+                .Map(Column.F, commission => commission.CasinoComm);
 
             return mapper;
         }
