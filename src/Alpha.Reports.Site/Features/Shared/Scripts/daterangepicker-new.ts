@@ -22,10 +22,10 @@ class DateRangePickerNewComponent {
     }
 
     render = (options: DateRangePickerNewOption = new DateRangePickerNewOption()) => {
-        const format = alphaReports.format.shortDateWithSlash_DatePicker;
         const defaults = {
+            autoApply: false,
             locale: {
-                format
+                format: alphaReports.format.shortDateWithSlash_DatePicker
             },
             onChange: (start, end, label) => {
                 if (options.onChange) {
