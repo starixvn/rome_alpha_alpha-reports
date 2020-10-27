@@ -47,7 +47,7 @@
 
         public ExcelFileViewModel Handle(ConsolidationByUsernameExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.CurrencyId, message.MinDate);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByUsername(param);
@@ -69,7 +69,7 @@
 
         public ExcelFileViewModel Handle(ConsolidationByDateExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.CurrencyId, message.MinDate);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByDate(param);
@@ -91,7 +91,7 @@
 
         public ExcelFileViewModel Handle(ConsolidationByProductExcelQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.CurrencyId, message.MinDate);
 
             var param = CreateParameter(message, consolidationExcludeProduct.Products);
             var reportData = reportService.GetConsolidationByProduct(param);
@@ -116,7 +116,7 @@
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
             var products = reportService.GetProducts(
-                new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.Site, winLossDetailQuery.CurrencyId, winLossDetailQuery.MinDate));
+                new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.CurrencyId, winLossDetailQuery.MinDate));
             var param = CreateWinLossDetailParam(winLossDetailQuery, products);
 
             var reportData = reportService.GetWinLossDetail(param);

@@ -21,7 +21,7 @@
 
         IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param);
 
-        IEnumerable<int> FilterProductIdsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime minReportDate);
+        IEnumerable<int> FilterProductIdsByCustomer(int custId, int currencyId, IEnumerable<int> productIds, DateTime minReportDate);
 
         IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param);
 
@@ -29,7 +29,7 @@
 
         IEnumerable<ConsolidationByProduct> GetConsolidationByProduct(GetConsolidationParam param);
 
-        ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, string site, int currencyId, DateTime minReportDate);
+        ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, int currencyId, DateTime minReportDate);
 
         PagedReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
     }
@@ -39,24 +39,18 @@
         private readonly IDynamicRepository dynamicRepository;
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService cacheRefService;
-        private readonly ProductService productService;
         private readonly WinLossDetailDataAccess winLossDetailDataAccess;
-        private readonly ProductDetailService productDetailService;
 
         public ConsolidationServiceImpl(
             IDynamicRepository dynamicRepository,
             ReportDateService reportDateService,
             CacheRefService cacheRefService,
-            ProductService productService,
-            ProductDetailService productDetailService,
             WinLossDetailDataAccess winLossDetailDataAccess)
         {
             this.dynamicRepository = dynamicRepository;
             this.reportDateService = reportDateService;
             this.cacheRefService = cacheRefService;
-            this.productService = productService;
             this.winLossDetailDataAccess = winLossDetailDataAccess;
-            this.productDetailService = productDetailService;
         }
 
         public IEnumerable<CurrencyModel> GetCurrencies(GetCurrencyParam param)
@@ -68,7 +62,7 @@
 
         public IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param)
             => dynamicRepository.Fetch<ConsolidationProduct>(new GetConsolidationReportProductsCriteria(param.CustId))
-                .Where(product => IsRemainSupportProduct(product, param.MinDate) || this.productService.CanViewBySite(param.CustId, param.Site, param.CurrencyId, product.Id))
+                .Where(product => IsRemainSupportProduct(product, param.MinDate))
                 .Select(product => new Product(product.Id, product.Name, product.EndOfSupportDate, product.Type, product.OrderNo, cacheRefService.GetProductName));
 
         public IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param)
@@ -113,8 +107,8 @@
             return data;
         }
 
-        public IEnumerable<int> FilterProductIdsByCustomer(int custId, string site, int currencyId, IEnumerable<int> productIds, DateTime minReportDate)
-            => GetProducts(new GetConslidationReportProductsParam(custId, site, currencyId, minReportDate))
+        public IEnumerable<int> FilterProductIdsByCustomer(int custId, int currencyId, IEnumerable<int> productIds, DateTime minReportDate)
+            => GetProducts(new GetConslidationReportProductsParam(custId, currencyId, minReportDate))
                 .Select(product => product.Id)
                 .Where(id => productIds == null || !productIds.Any() || productIds.Contains(id));
 
@@ -122,9 +116,9 @@
             => product.IsEnable
             && (!product.EndOfSupportDate.HasValue || minReportDate <= product.EndOfSupportDate.Value);
 
-        public ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, string site, int currencyId, DateTime minReportDate)
+        public ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, int currencyId, DateTime minReportDate)
         {
-            var products = GetProducts(new GetConslidationReportProductsParam(custId, site, currencyId, minReportDate)).ToList();
+            var products = GetProducts(new GetConslidationReportProductsParam(custId, currencyId, minReportDate)).ToList();
 
             return new ConsolidationExcludeProduct(products);
         }

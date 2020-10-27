@@ -10,20 +10,21 @@
     {
         protected void SetWinLossByUsernameValue(ConsolidationByUsernameViewModel data, Row row)
         {
-            row.SetCellValue(1, data.CustLevelName);
-            row.SetCellValue(2, data.Username);
-            row.SetCellValue(3, data.CurrencyName);
-            row.SetCellValue(4, data.Turnover);
-            row.SetCellValue(5, data.GrossComm);
-            row.SetCellValue(6, data.MemberWinLoss);
-            row.SetCellValue(7, data.MemberComm);
-            row.SetCellValue(8, data.MemberTotal);
-            row.SetCellValue(9, data.OwnerTurnover);
-            row.SetCellValue(10, data.OwnerWinLoss);
-            row.SetCellValue(11, data.OwnerComm);
-            row.SetCellValue(12, data.OwnerTotal);
-            row.SetCellValue(13, data.Company);
-            row.SetCellValue(14, data.BetCount);
+            var custLevelNameIndex = 1;
+            row.SetCellValue(custLevelNameIndex++, data.CustLevelName);
+            row.SetCellValue(custLevelNameIndex++, data.Username);
+            row.SetCellValue(custLevelNameIndex++, data.CurrencyName);
+            row.SetCellValue(custLevelNameIndex++, data.Turnover);
+            row.SetCellValue(custLevelNameIndex++, data.GrossComm);
+            row.SetCellValue(custLevelNameIndex++, data.MemberWinLoss);
+            row.SetCellValue(custLevelNameIndex++, data.MemberComm);
+            row.SetCellValue(custLevelNameIndex++, data.MemberTotal);
+            row.SetCellValue(custLevelNameIndex++, data.OwnerTurnover);
+            row.SetCellValue(custLevelNameIndex++, data.OwnerWinLoss);
+            row.SetCellValue(custLevelNameIndex++, data.OwnerComm);
+            row.SetCellValue(custLevelNameIndex++, data.OwnerTotal);
+            row.SetCellValue(custLevelNameIndex++, data.Company);
+            row.SetCellValue(custLevelNameIndex, data.BetCount);
         }
 
         protected void MergeCells(Sheet sheet, Func<T, int> getGroupLength)
