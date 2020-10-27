@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.DataAccesses;
     using Constants;
     using Fanex.Data.Repository;
     using Fixtures;
@@ -25,6 +26,8 @@
         private readonly CompareLogic compareLogic;
         private readonly CacheRefService cacheRefService;
         private readonly ProductService productService;
+        private readonly WinLossDetailDataAccess winLossDetailDataAccess;
+        private readonly ProductDetailService productDetailService;
 
         public ConsolidationServiceImplTests(AnyValueCreatorFixture anyValueCreatorFixture)
         {
@@ -54,8 +57,10 @@
             cacheRefService.GetProductName(Arg.Any<int>()).Returns("ProductName");
 
             productService = Substitute.For<ProductService>();
+            winLossDetailDataAccess = Substitute.For<WinLossDetailDataAccess>();
+            productDetailService = Substitute.For<ProductDetailService>();
 
-            consolidationServiceImpl = new ConsolidationServiceImpl(dynamicRepository, reportDateService, cacheRefService, productService);
+            consolidationServiceImpl = new ConsolidationServiceImpl(dynamicRepository, reportDateService, cacheRefService, productService,productDetailService,winLossDetailDataAccess);
 
             compareLogic = new CompareLogic();
         }

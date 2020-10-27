@@ -32,13 +32,12 @@
             ProductService productService,
             ConsolidationService reportService,
             CacheRefService cacheRefService,
-            WinLossDetailService winLossDetailService,
             IUser viewer,
             Workbook<ConsolidationByUsernameViewModel> workbook,
             ConsolidationByDateWorkbook consolidationByDateWorkbook,
             ConsolidationByProductWorkbook consolidationByProductWorkbook,
             ProductDetailService productDetailService) :
-            base(reportService, cacheRefService, winLossDetailService, viewer, productDetailService)
+            base(reportService, cacheRefService, viewer, productDetailService)
         {
             this.workbook = workbook;
             this.consolidationByDateWorkbook = consolidationByDateWorkbook;
@@ -120,7 +119,7 @@
                 new GetConslidationReportProductsParam(winLossDetailQuery.ViewerId, winLossDetailQuery.Site, winLossDetailQuery.CurrencyId, winLossDetailQuery.MinDate));
             var param = CreateWinLossDetailParam(winLossDetailQuery, products);
 
-            var reportData = winLossDetailService.GetWinLossDetail(param);
+            var reportData = reportService.GetWinLossDetail(param);
 
             return reportData;
         }

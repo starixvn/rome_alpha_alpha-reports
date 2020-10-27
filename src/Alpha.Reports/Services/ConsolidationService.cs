@@ -3,6 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Criteria.WinLossDetail;
+    using Alpha.Reports.DataAccesses;
+    using Alpha.Reports.Extensions;
+    using Alpha.Reports.Models.WinLossDetail;
+    using Alpha.Reports.Params;
     using Constants;
     using Criteria.Consolidation;
     using Fanex.Data.Repository;
@@ -25,6 +30,8 @@
         IEnumerable<ConsolidationByProduct> GetConsolidationByProduct(GetConsolidationParam param);
 
         ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, string site, int currencyId, DateTime minReportDate);
+
+        PagedReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
     }
 
     public class ConsolidationServiceImpl : ConsolidationService
@@ -33,17 +40,23 @@
         private readonly ReportDateService reportDateService;
         private readonly CacheRefService cacheRefService;
         private readonly ProductService productService;
+        private readonly WinLossDetailDataAccess winLossDetailDataAccess;
+        private readonly ProductDetailService productDetailService;
 
         public ConsolidationServiceImpl(
             IDynamicRepository dynamicRepository,
             ReportDateService reportDateService,
             CacheRefService cacheRefService,
-            ProductService productService)
+            ProductService productService,
+            ProductDetailService productDetailService,
+            WinLossDetailDataAccess winLossDetailDataAccess)
         {
             this.dynamicRepository = dynamicRepository;
             this.reportDateService = reportDateService;
             this.cacheRefService = cacheRefService;
             this.productService = productService;
+            this.winLossDetailDataAccess = winLossDetailDataAccess;
+            this.productDetailService = productDetailService;
         }
 
         public IEnumerable<CurrencyModel> GetCurrencies(GetCurrencyParam param)
@@ -114,6 +127,30 @@
             var products = GetProducts(new GetConslidationReportProductsParam(custId, site, currencyId, minReportDate)).ToList();
 
             return new ConsolidationExcludeProduct(products);
+        }
+
+        public PagedReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param)
+        {
+            if (param == null)
+            {
+                throw new ArgumentNullException(nameof(param));
+            }
+
+            var criteria = new WinLossDetailCriteria(
+                param.CustId,
+                param.PageIndex,
+                param.PageSize,
+                param.FromDate.GetGreaterDate(param.LimitedDateToShowInfo),
+                param.ToDate,
+                reportDateService.GetBalanceUpDay(),
+                reportDateService.GetMoveBetsDay(),
+                param.UserSelectedProductIds,
+                param.ReportLevel,
+                param.ProductDetailsXML);
+
+            var winLossDetailData = winLossDetailDataAccess.GetData(criteria);
+
+            return winLossDetailData;
         }
     }
 }

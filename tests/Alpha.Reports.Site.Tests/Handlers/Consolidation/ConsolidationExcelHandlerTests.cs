@@ -49,7 +49,6 @@
                 productService,
                 reportService,
                 cacheRefService,
-                winLossDetailService,
                 viewer,
                 workbook,
                 consolidationByDateWorkbook,

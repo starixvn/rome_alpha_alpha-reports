@@ -32,7 +32,6 @@
 
         protected readonly PagedReportData<WinLossDetailModel> winLossDetailData;
         protected readonly IUser viewer;
-        protected readonly WinLossDetailService winLossDetailService;
 
         public ConsolidationTestsBaseFunctions(UserFixture userFixture)
         {
@@ -79,8 +78,7 @@
             viewer = Substitute.For<IUser>();
             viewer.LevelId.Returns((byte)2);
 
-            winLossDetailService = Substitute.For<WinLossDetailService>();
-            winLossDetailService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(winLossDetailData);
+            reportService.GetWinLossDetail(Arg.Any<WinLossDetailParam>()).Returns(winLossDetailData);
 
             productDetailService.GetProductDetails(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<int>()).Returns(new List<ProductDetail>
             {

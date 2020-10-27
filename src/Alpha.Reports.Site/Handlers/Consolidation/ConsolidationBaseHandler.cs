@@ -22,20 +22,17 @@
     {
         protected readonly ConsolidationService reportService;
         protected readonly CacheRefService cacheRefService;
-        protected readonly WinLossDetailService winLossDetailService;
         protected readonly IUser viewer;
         protected readonly ProductDetailService productDetailService;
 
         public ConsolidationBaseHandler(
             ConsolidationService reportService,
             CacheRefService cacheRefService,
-            WinLossDetailService winLossDetailService,
             IUser viewer,
             ProductDetailService productDetailService)
         {
             this.reportService = reportService;
             this.cacheRefService = cacheRefService;
-            this.winLossDetailService = winLossDetailService;
             this.viewer = viewer;
             this.productDetailService = productDetailService;
         }

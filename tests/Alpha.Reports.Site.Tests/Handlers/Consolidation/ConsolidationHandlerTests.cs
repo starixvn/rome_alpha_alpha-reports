@@ -33,7 +33,7 @@
 
         public ConsolidationHandlerTests(UserFixture userFixture) : base(userFixture)
         {
-            consolidationHandler = new ConsolidationHandler(reportService, cacheRefService, winLossDetailService, viewer, productDetailService);
+            consolidationHandler = new ConsolidationHandler(reportService, cacheRefService, viewer, productDetailService);
 
             expectedProductList = new List<GroupProductViewModel>
             {

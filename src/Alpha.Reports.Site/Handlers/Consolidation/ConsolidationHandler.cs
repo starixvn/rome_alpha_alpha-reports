@@ -23,10 +23,9 @@
         public ConsolidationHandler(
             ConsolidationService reportService,
             CacheRefService cacheRefService,
-            WinLossDetailService winLossDetailService,
             IUser viewer,
             ProductDetailService productDetailService) :
-            base(reportService, cacheRefService, winLossDetailService, viewer, productDetailService)
+            base(reportService, cacheRefService, viewer, productDetailService)
         {
         }
 
@@ -148,7 +147,7 @@
         {
             var param = CreateWinLossDetailParam(query, products);
 
-            var reportData = winLossDetailService.GetWinLossDetail(param);
+            var reportData = reportService.GetWinLossDetail(param);
 
             return new WinLossDetailViewModel(
                 query,
