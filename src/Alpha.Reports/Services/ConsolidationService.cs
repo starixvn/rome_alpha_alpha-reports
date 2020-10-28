@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Criteria;
     using Alpha.Reports.Criteria.WinLossDetail;
     using Alpha.Reports.DataAccesses;
     using Alpha.Reports.Extensions;
@@ -10,6 +11,7 @@
     using Alpha.Reports.Params;
     using Constants;
     using Criteria.Consolidation;
+    using Fanex.Caching;
     using Fanex.Data.Repository;
     using Models;
     using Models.Consolidation;
@@ -21,7 +23,7 @@
 
         IEnumerable<Product> GetProducts(GetConslidationReportProductsParam param);
 
-        IEnumerable<int> FilterProductIdsByCustomer(int custId, int currencyId, IEnumerable<int> productIds, DateTime minReportDate);
+        IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate);
 
         IEnumerable<ConsolidationByUsername> GetConsolidationByUsername(GetConsolidationParam param);
 
@@ -29,15 +31,18 @@
 
         IEnumerable<ConsolidationByProduct> GetConsolidationByProduct(GetConsolidationParam param);
 
-        ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, int currencyId, DateTime minReportDate);
+        ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate);
 
         PagedReportData<WinLossDetailModel> GetWinLossDetail(WinLossDetailParam param);
+
+        IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate);
     }
 
     public class ConsolidationServiceImpl : ConsolidationService
     {
         private readonly IDynamicRepository dynamicRepository;
         private readonly ReportDateService reportDateService;
+        private readonly ProductService productService;
         private readonly CacheRefService cacheRefService;
         private readonly WinLossDetailDataAccess winLossDetailDataAccess;
 
@@ -45,12 +50,14 @@
             IDynamicRepository dynamicRepository,
             ReportDateService reportDateService,
             CacheRefService cacheRefService,
-            WinLossDetailDataAccess winLossDetailDataAccess)
+            WinLossDetailDataAccess winLossDetailDataAccess,
+            ProductService productService)
         {
             this.dynamicRepository = dynamicRepository;
             this.reportDateService = reportDateService;
             this.cacheRefService = cacheRefService;
             this.winLossDetailDataAccess = winLossDetailDataAccess;
+            this.productService = productService;
         }
 
         public IEnumerable<CurrencyModel> GetCurrencies(GetCurrencyParam param)
@@ -107,8 +114,8 @@
             return data;
         }
 
-        public IEnumerable<int> FilterProductIdsByCustomer(int custId, int currencyId, IEnumerable<int> productIds, DateTime minReportDate)
-            => GetProducts(new GetConslidationReportProductsParam(custId, currencyId, minReportDate))
+        public IEnumerable<int> FilterProductIdsByCustomer(int custId, IEnumerable<int> productIds, DateTime minReportDate)
+            => GetProducts(new GetConslidationReportProductsParam(custId, minReportDate))
                 .Select(product => product.Id)
                 .Where(id => productIds == null || !productIds.Any() || productIds.Contains(id));
 
@@ -116,9 +123,9 @@
             => product.IsEnable
             && (!product.EndOfSupportDate.HasValue || minReportDate <= product.EndOfSupportDate.Value);
 
-        public ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, int currencyId, DateTime minReportDate)
+        public ConsolidationExcludeProduct GetConsolidationExcludeProduct(int custId, DateTime minReportDate)
         {
-            var products = GetProducts(new GetConslidationReportProductsParam(custId, currencyId, minReportDate)).ToList();
+            var products = GetProducts(new GetConslidationReportProductsParam(custId, minReportDate)).ToList();
 
             return new ConsolidationExcludeProduct(products);
         }
@@ -145,6 +152,13 @@
             var winLossDetailData = winLossDetailDataAccess.GetData(criteria);
 
             return winLossDetailData;
+        }
+
+        public IEnumerable<int> GetProductsNeedDelayTimeToSumarizeDataByCustomer(int custId, DateTime minReportDate)
+        {
+            var data = productService.GetProductsNeedDelayTimeToSumarizeData();
+
+            return FilterProductIdsByCustomer(custId, data.Select(i => (int)i.ProductId), minReportDate);
         }
     }
 }

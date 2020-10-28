@@ -60,34 +60,34 @@
         <tbody>
             @foreach (var data in Model.ReportData)
             {
-            <tr>
-                <td class="text-left">@data.CustLevelName</td>
-                <td class="text-left">
-                    <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail","Consolidation"), "username", null, null, data)" class="downline-link">
-                        @data.Username
-                    </a>
-                </td>
-                <td class="text-left">@data.CurrencyName</td>
-                <td>@HtmlHelpers.FormatNumber(data.Turnover)</td>
-                <td>@HtmlHelpers.FormatNumber(data.GrossComm)</td>
-                @if (Model.IsStackMode)
-                {
-                    @HtmlHelpers.RenderStackCell("col-member-winloss-combined", 1, data.MemberWinLoss, data.MemberComm, data.MemberTotal)
-                    @HtmlHelpers.RenderStackCell("col-owner-turnover-combined", 1, data.OwnerTurnover, data.OwnerWinLoss, data.OwnerComm, data.OwnerTotal)
-                }
-                else
-                {
-                    @HtmlHelpers.RenderNumberCell(data.MemberWinLoss, "col-member-winloss")
-                    @HtmlHelpers.RenderNumberCell(data.MemberComm)
-                    @HtmlHelpers.RenderNumberCell(data.MemberTotal, "bold")
-                    @HtmlHelpers.RenderNumberCell(data.OwnerTurnover, "col-owner-turnover")
-                    @HtmlHelpers.RenderNumberCell(data.OwnerWinLoss)
-                    @HtmlHelpers.RenderNumberCell(data.OwnerComm)
-                    @HtmlHelpers.RenderNumberCell(data.OwnerTotal, "bold")
-                }
-                <td>@HtmlHelpers.FormatNumber(data.Company)</td>
-                <td>@HtmlHelpers.FormatNumber(data.BetCount)</td>
-            </tr>
+                <tr>
+                    <td class="text-left">@data.CustLevelName</td>
+                    <td class="text-left">
+                        <a href="@Model.BuildDrillDownLink(Url.Action("ConsolidationDetail","Consolidation"), "username", null, null, data)" class="downline-link">
+                            @data.Username
+                        </a>
+                    </td>
+                    <td class="text-left">@data.CurrencyName</td>
+                    <td>@HtmlHelpers.FormatNumber(data.Turnover)</td>
+                    <td>@HtmlHelpers.FormatNumber(data.GrossComm)</td>
+                    @if (Model.IsStackMode)
+                    {
+                        @HtmlHelpers.RenderStackCell("col-member-winloss-combined", 1, data.MemberWinLoss, data.MemberComm, data.MemberTotal)
+                        @HtmlHelpers.RenderStackCell("col-owner-turnover-combined", 1, data.OwnerTurnover, data.OwnerWinLoss, data.OwnerComm, data.OwnerTotal)
+                    }
+                    else
+                    {
+                        @HtmlHelpers.RenderNumberCell(data.MemberWinLoss, "col-member-winloss")
+                        @HtmlHelpers.RenderNumberCell(data.MemberComm)
+                        @HtmlHelpers.RenderNumberCell(data.MemberTotal, "bold")
+                        @HtmlHelpers.RenderNumberCell(data.OwnerTurnover, "col-owner-turnover")
+                        @HtmlHelpers.RenderNumberCell(data.OwnerWinLoss)
+                        @HtmlHelpers.RenderNumberCell(data.OwnerComm)
+                        @HtmlHelpers.RenderNumberCell(data.OwnerTotal, "bold")
+                    }
+                    <td>@HtmlHelpers.FormatNumber(data.Company)</td>
+                    <td>@HtmlHelpers.FormatNumber(data.BetCount)</td>
+                </tr>
             }
         </tbody>
     }
@@ -97,7 +97,7 @@
     }
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Consolidation"))
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/consolidation/consolidation")
 }

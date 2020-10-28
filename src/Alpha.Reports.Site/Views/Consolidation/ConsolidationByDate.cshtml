@@ -109,7 +109,7 @@
     }
 </table>
 @Html.Hidden("IsSetDefaultStackMode", Model.IsSetDefaultStackMode)
-@Html.Hidden("LoadLegendURL", Url.Action("Index", "ReportLegend"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "Consolidation"))
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/consolidation/consolidation")
 }

@@ -17,6 +17,10 @@
             this.viewer = viewer;
         }
 
+        public ActionResult ReportLegend(ConsolidationLegendQuery message) => View(message);
+
+        public ActionResult ReportDetailLegend(ConsolidationDetailLegendQuery message) => View(message);
+
         public ActionResult ConsolidationByUsername(ConsolidationByUsernameQuery message)
             => View(message);
 
