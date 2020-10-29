@@ -47,32 +47,7 @@
 
         [HttpGet]
         public ActionResult ConsolidationDetailExcel(ConsolidationDetailExcelQuery message)
-        {
-            var reportData = mediator.Send<PagedReportData<WinLossDetailModel>>(message);
-
-            var query = new ConsolidateWinLossDetailExcelQuery(viewer)
-            {
-                UserSelectedProductIds = message.UserSelectedProductIds,
-                UserSelectedResourceIds = message.UserSelectedResourceIds,
-                SortPropertyName = message.SortPropertyName,
-                IsDescendingSort = message.IsDescendingSort,
-                IsStackMode = message.IsStackMode,
-                IsFilterVisible = message.IsFilterVisible,
-                UserSelectedDateRangeOption = message.UserSelectedDateRangeOption,
-                FromDate = message.FromDate,
-                ToDate = message.ToDate,
-
-                CustId = message.CustId,
-                CustName = message.CustName,
-                CustLevelId = message.CustLevelId,
-                BreadcrumbLevel = message.BreadcrumbLevel,
-
-                ReportData = reportData,
-                IsPostBack = message.IsPostBack
-            };
-
-            return ExcelView(query);
-        }
+            => ExcelView(message);
 
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
