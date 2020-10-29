@@ -209,22 +209,6 @@
         }
 
         [Fact]
-        public void HandleConsolidateWinLossDetailExcelQuery_Handle_ExportsExcelToBytes()
-        {
-            // Arrange
-            var query = new ConsolidateWinLossDetailExcelQuery(userFixture.User);
-            query.CustLevelId = 2;
-            query.FromDate = DefaultVariablesTest.CurrentDate;
-            query.ToDate = DefaultVariablesTest.CurrentDate;
-
-            // Act
-            winLossDetailExcelHandler.Handle(query);
-
-            // Assert
-            workbook.Received().ExportToBytes();
-        }
-
-        [Fact]
         public void GetRowMapper_DataRow_MapColumnAWithCustName()
         {
             // Arrange

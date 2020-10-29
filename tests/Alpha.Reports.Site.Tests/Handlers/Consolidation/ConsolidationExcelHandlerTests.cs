@@ -5,6 +5,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
+    using Alpha.Reports.Models.WinLossDetail;
     using Constants;
     using Extensions;
     using Fixtures;
@@ -25,6 +26,7 @@
     public class ConsolidationExcelHandlerTests : ConsolidationTestsBaseFunctions
     {
         private readonly Workbook<ConsolidationByUsernameViewModel> workbook;
+        private readonly Workbook<WinLossDetailModel> workbookDetail;
 
         private readonly ConsolidationByDateWorkbook consolidationByDateWorkbook;
         private readonly Workbook<ConsolidationByDateViewModel> workbookByDate;
@@ -43,6 +45,7 @@
             SystemTime.Today = DefaultVariablesTest.CurrentDate;
 
             workbook = Substitute.For<Workbook<ConsolidationByUsernameViewModel>>();
+            workbookDetail = Substitute.For<Workbook<WinLossDetailModel>>();
             consolidationByDateWorkbook = Substitute.For<ConsolidationByDateWorkbook>();
             consolidationByProductWorkbook = Substitute.For<ConsolidationByProductWorkbook>();
             consolidationExcelHandler = new ConsolidationExcelHandler(
@@ -51,6 +54,7 @@
                 cacheRefService,
                 viewer,
                 workbook,
+                workbookDetail,
                 consolidationByDateWorkbook,
                 consolidationByProductWorkbook,
                 productDetailService);
@@ -485,19 +489,6 @@
 
             // Assert
             AssertExtension.Equal(expectedFile, actualFile);
-        }
-
-        [Fact]
-        public void HandleConsolidationDetailExcelQuery_Alway_ReturnsCorrectData()
-        {
-            // Arrange
-            var message = new ConsolidationDetailExcelQuery(viewer);
-
-            // Act
-            var actualData = consolidationExcelHandler.Handle(message);
-
-            // Assert
-            AssertExtension.Equal(winLossDetailData, actualData);
         }
 
         [Fact]

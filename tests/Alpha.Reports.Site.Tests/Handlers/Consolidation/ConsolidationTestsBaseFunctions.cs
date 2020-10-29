@@ -30,9 +30,8 @@
         protected readonly IUser user;
         protected readonly AnyValueCreatorFixture anyValueCreatorFixture;
 
-        protected readonly PagedReportData<WinLossDetailModel> winLossDetailData;
         protected readonly IUser viewer;
-
+        protected PagedReportData<WinLossDetailModel> winLossDetailData;
         public ConsolidationTestsBaseFunctions(UserFixture userFixture)
         {
             user = userFixture.User;
@@ -58,9 +57,9 @@
                 new CurrencyModel(2, "Currency 2")
             });
 
-            reportService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<DateTime>()).Returns(new List<int> { 1 });
+            reportService.FilterProductIdsByCustomer(Arg.Any<int>(), Arg.Any<IEnumerable<int>>(), Arg.Any<DateTime>()).Returns(new List<int> { 1 });
 
-            reportService.GetConsolidationExcludeProduct(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<DateTime>()).Returns(new ConsolidationExcludeProduct(products));
+            reportService.GetConsolidationExcludeProduct(Arg.Any<int>(), Arg.Any<DateTime>()).Returns(new ConsolidationExcludeProduct(products));
 
             anyValueCreatorFixture = new AnyValueCreatorFixture();
 
