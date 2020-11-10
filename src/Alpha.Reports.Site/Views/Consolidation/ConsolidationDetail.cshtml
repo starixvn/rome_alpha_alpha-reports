@@ -52,7 +52,7 @@
         ["ExportExcelAction"] = "ConsolidationDetailExcel"
     })
 
-@Html.Hidden("LoadLegendURL", Url.Action("ReportLegend", "WinLossDetail"))
+@Html.Hidden("LoadLegendURL", Url.Action("ReportDetailLegend", "Consolidation"))
 
 @section Scripts {
     @StaticResources.RenderScripts("~/assets/bundles/consolidation/consolidation-detail")

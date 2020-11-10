@@ -22,20 +22,17 @@
     {
         protected readonly ConsolidationService reportService;
         protected readonly CacheRefService cacheRefService;
-        protected readonly WinLossDetailService winLossDetailService;
         protected readonly IUser viewer;
         protected readonly ProductDetailService productDetailService;
 
         public ConsolidationBaseHandler(
             ConsolidationService reportService,
             CacheRefService cacheRefService,
-            WinLossDetailService winLossDetailService,
             IUser viewer,
             ProductDetailService productDetailService)
         {
             this.reportService = reportService;
             this.cacheRefService = cacheRefService;
-            this.winLossDetailService = winLossDetailService;
             this.viewer = viewer;
             this.productDetailService = productDetailService;
         }
@@ -44,8 +41,6 @@
         {
             var validUserSelectedProductIds = reportService.FilterProductIdsByCustomer(
                 message.CustId,
-                message.Site,
-                message.CurrencyId,
                 message.UserSelectedProductIds.ToListInt(),
                 message.MinDate);
             var validUserSelectedResourceIds = productDetailService.FilterResourceIdsByCustomerForConsolidationReport(
@@ -141,7 +136,7 @@
         protected WinLossDetailParam CreateWinLossDetailParam(WinLossDetailQuery query, IEnumerable<Product> products)
         {
             var validUserSelectedProductIds =
-               reportService.FilterProductIdsByCustomer(query.ViewerId, query.Site, query.CurrencyId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
+               reportService.FilterProductIdsByCustomer(query.ViewerId, query.UserSelectedProductIds.ToListInt(), query.MinDate);
             var validUserSelectedResourceIds =
                 productDetailService.FilterResourceIdsByCustomerForConsolidationReport(query.ViewerId, query.UserSelectedResourceIds, products);
 

@@ -1,4 +1,6 @@
-﻿namespace Alpha.Reports.Constants
+﻿using System.Collections.Generic;
+
+namespace Alpha.Reports.Constants
 {
     public static class ProductIdConstants
     {
@@ -13,8 +15,21 @@
         public const int SAGaming = 39;
         public const int SexyGaming = 45;
         public const int GTCasino = 46;
+        public const int WM = 51;
         public const int ION = 52;
         public const int BBin = 47;
         public const int PP = 32;
+
+        public static readonly List<int> ProductListForTooltipsLiveCasino = new List<int>
+            {
+                ProductIdConstants.Allbet,
+                ProductIdConstants.SexyGaming,
+                ProductIdConstants.SAGaming,
+                ProductIdConstants.GTCasino,
+                ProductIdConstants.BBin,
+                ProductIdConstants.ION,
+                ProductIdConstants.WM
+
+            };
     }
 }

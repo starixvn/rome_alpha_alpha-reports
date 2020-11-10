@@ -1,7 +1,9 @@
 ﻿namespace Alpha.Reports.Site.Handlers.Consolidation
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Constants;
     using App_GlobalResources;
     using MediatR;
     using Params.Consolidation;
@@ -18,21 +20,26 @@
         IRequestHandler<ConsolidationByUsernameQuery, ConsolidationReportByUsernameViewModel>,
         IRequestHandler<ConsolidationByDateQuery, ConsolidationReportByDateViewModel>,
         IRequestHandler<ConsolidationByProductQuery, ConsolidationReportByProductViewModel>,
-        IRequestHandler<ConsolidationDetailQuery, ConsolidationDetailViewModel>
+        IRequestHandler<ConsolidationDetailQuery, ConsolidationDetailViewModel>,
+        IRequestHandler<ConsolidationLegendQuery, IEnumerable<string>>,
+        IRequestHandler<ConsolidationDetailLegendQuery, IEnumerable<string>>
     {
+        private readonly ProductService productService;
+
         public ConsolidationHandler(
             ConsolidationService reportService,
             CacheRefService cacheRefService,
-            WinLossDetailService winLossDetailService,
             IUser viewer,
-            ProductDetailService productDetailService) :
-            base(reportService, cacheRefService, winLossDetailService, viewer, productDetailService)
+            ProductDetailService productDetailService,
+            ProductService productServiceImpl) :
+            base(reportService, cacheRefService, viewer, productDetailService)
         {
+            productService = productServiceImpl;
         }
 
         public ConsolidationReportByUsernameViewModel Handle(ConsolidationByUsernameQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
@@ -52,7 +59,7 @@
 
         public ConsolidationReportByDateViewModel Handle(ConsolidationByDateQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
@@ -72,7 +79,7 @@
 
         public ConsolidationReportByProductViewModel Handle(ConsolidationByProductQuery message)
         {
-            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.Site, message.CurrencyId, message.MinDate);
+            var consolidationExcludeProduct = reportService.GetConsolidationExcludeProduct(message.CustId, message.MinDate);
             var currencies = reportService.GetCurrencies(new GetCurrencyParam(message.ViewerId));
             var productDetails = productDetailService.GetProductDetailsForConsolidationReport(message.CustId, consolidationExcludeProduct.Products);
 
@@ -113,7 +120,7 @@
             var winLossDetailQuery = CreateWinLossDetailQuery(message);
 
             var products = reportService.GetProducts(
-                new GetConslidationReportProductsParam(consolidationQuery.ViewerId, consolidationQuery.Site, consolidationQuery.CurrencyId, consolidationQuery.MinDate));
+                new GetConslidationReportProductsParam(consolidationQuery.ViewerId, consolidationQuery.MinDate));
             var filterViewModel = GetConsolidationFilterViewModel(consolidationQuery, products);
 
             return new ConsolidationDetailViewModel(
@@ -121,6 +128,44 @@
                 GetConsolidationDetailBreadcrumbLevel(message),
                 filterViewModel,
                 GetWinLossDetailViewModel(winLossDetailQuery, products));
+        }
+
+        public IEnumerable<string> Handle(ConsolidationLegendQuery message)
+        {
+            var result = new List<string>();
+            var products = reportService.GetProductsNeedDelayTimeToSumarizeDataByCustomer(message.CustId, message.MinDate);
+
+            if (products.Any())
+            {
+                result.Add(string.Format(Resources.DelayIssueLegend, string.Join(", ", productService.GetProductNames(products))));
+            }
+
+            return result;
+        }
+
+        public IEnumerable<string> Handle(ConsolidationDetailLegendQuery message)
+        {
+            var result = new List<string> { Resources.Tooltip_NetTurnover };
+
+            var liveCasinoTooltips = BuildTooltipsForLiveCasino(message.CustId, message.MinDate);
+            if (!string.IsNullOrEmpty(liveCasinoTooltips))
+            {
+                result.Add(liveCasinoTooltips);
+            }
+
+            result.AddRange(Handle((ConsolidationLegendQuery)message));
+
+            return result;
+        }
+
+        private string BuildTooltipsForLiveCasino(int custId, DateTime minDate)
+        {
+            var offeredLiveCasino = reportService.FilterProductIdsByCustomer(custId, ProductIdConstants.ProductListForTooltipsLiveCasino, minDate);
+            var liveCasinoNames = string.Join(", ", productService.GetProductNames(offeredLiveCasino));
+
+            return offeredLiveCasino != null && offeredLiveCasino.Any() ?
+                string.Format(Resources.Tooltip_NetTurnover_livecasino, liveCasinoNames) :
+                string.Empty;
         }
 
         private ConsolidationFilterViewModel GetConsolidationFilterViewModel(
@@ -148,7 +193,7 @@
         {
             var param = CreateWinLossDetailParam(query, products);
 
-            var reportData = winLossDetailService.GetWinLossDetail(param);
+            var reportData = reportService.GetWinLossDetail(param);
 
             return new WinLossDetailViewModel(
                 query,

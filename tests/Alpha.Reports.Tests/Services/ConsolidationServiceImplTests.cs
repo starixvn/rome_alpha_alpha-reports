@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.DataAccesses;
     using Constants;
     using Fanex.Data.Repository;
     using Fixtures;
@@ -24,6 +25,7 @@
         private readonly ConsolidationServiceImpl consolidationServiceImpl;
         private readonly CompareLogic compareLogic;
         private readonly CacheRefService cacheRefService;
+        private readonly WinLossDetailDataAccess winLossDetailDataAccess;
         private readonly ProductService productService;
 
         public ConsolidationServiceImplTests(AnyValueCreatorFixture anyValueCreatorFixture)
@@ -53,9 +55,9 @@
             cacheRefService = Substitute.For<CacheRefService>();
             cacheRefService.GetProductName(Arg.Any<int>()).Returns("ProductName");
 
+            winLossDetailDataAccess = Substitute.For<WinLossDetailDataAccess>();
             productService = Substitute.For<ProductService>();
-
-            consolidationServiceImpl = new ConsolidationServiceImpl(dynamicRepository, reportDateService, cacheRefService, productService);
+            consolidationServiceImpl = new ConsolidationServiceImpl(dynamicRepository, reportDateService, cacheRefService, winLossDetailDataAccess, productService);
 
             compareLogic = new CompareLogic();
         }
@@ -86,7 +88,7 @@
         {
             // Arrange
             var minDate = DefaultVariablesTest.CurrentDate;
-            var param = new GetConslidationReportProductsParam(custId: anyValueCreatorFixture.Create<int>(), site: anyValueCreatorFixture.Create<string>(), currencyId: anyValueCreatorFixture.Create<int>(), minDate: minDate);
+            var param = new GetConslidationReportProductsParam(custId: anyValueCreatorFixture.Create<int>(), minDate: minDate);
             var expectedProducts = new List<Product>
             {
                 new Product(1, null, minDate, 0, 0, cacheRefService.GetProductName),
@@ -176,7 +178,7 @@
             var expectedProductIds = new List<int> { 1, 2, 5, 11 };
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, "", 1, productIds, DefaultVariablesTest.CurrentDate);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -190,7 +192,7 @@
             var expectedProductIds = new List<int> { 1, 2, 5, 11 };
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, "", 1, productIds, DefaultVariablesTest.CurrentDate);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -204,7 +206,7 @@
             var expectedProductIds = new List<int> { 1, 5 };
 
             // Act
-            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, "", 1, productIds, DefaultVariablesTest.CurrentDate);
+            var actualProductIds = consolidationServiceImpl.FilterProductIdsByCustomer(0, productIds, DefaultVariablesTest.CurrentDate);
 
             // Assert
             Assert.Equal(expectedProductIds, actualProductIds);
@@ -226,7 +228,7 @@
             var expectedValue = new ConsolidationExcludeProduct(products);
 
             // Act
-            var actualValue = consolidationServiceImpl.GetConsolidationExcludeProduct(0, "", 1, DefaultVariablesTest.CurrentDate);
+            var actualValue = consolidationServiceImpl.GetConsolidationExcludeProduct(0, DefaultVariablesTest.CurrentDate);
 
             // Assert
             Assert.True(compareLogic.Compare(expectedValue, actualValue).AreEqual);

@@ -7,7 +7,6 @@
     using ONEbook.SpreadSheets;
     using Params;
     using Reports.Models.WinLossDetail;
-    using Requests.Consolidation;
     using Requests.WinLossDetail;
     using Services;
     using ViewModels;
@@ -15,8 +14,7 @@
 
     public class WinLossDetailExcelHandler :
         WinLossDetailBaseHandler,
-        IRequestHandler<WinLossDetailExcelQuery, ExcelFileViewModel>,
-        IRequestHandler<ConsolidateWinLossDetailExcelQuery, ExcelFileViewModel>
+        IRequestHandler<WinLossDetailExcelQuery, ExcelFileViewModel>
     {
         private readonly Workbook<WinLossDetailModel> workbook;
 
@@ -51,9 +49,6 @@
 
             return new ExcelFileViewModel(GetExcelFileName(message, winLossDetailParam), fileContent);
         }
-
-        public ExcelFileViewModel Handle(ConsolidateWinLossDetailExcelQuery message)
-            => Handle((WinLossDetailExcelQuery)message);
 
         private string GetReportTitle(WinLossDetailParam param)
         {

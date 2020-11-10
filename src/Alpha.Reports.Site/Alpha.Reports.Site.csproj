@@ -538,6 +538,7 @@
     <Compile Include="Requests\Consolidation\ConsolidationByUsernameQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationDetailExcelQuery.cs" />
     <Compile Include="Requests\Consolidation\ConsolidationDetailQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationDetailLegendQuery.cs" />
     <Compile Include="Requests\Consolidation\GetConsolidationQuery.cs" />
     <Compile Include="Requests\FromBalanceUpDateDateRangeQuery.cs" />
     <Compile Include="Requests\FromLast3MonthDateRangeQuery.cs" />
@@ -564,6 +565,7 @@
     <Compile Include="Helpers\QueryEntityModelBinder.cs" />
     <Compile Include="Requests\FromLast3YearDateRangeQuery.cs" />
     <Compile Include="Requests\ReportDefaultDateRangeQuery.cs" />
+    <Compile Include="Requests\Consolidation\ConsolidationLegendQuery.cs" />
     <Compile Include="Requests\ReportLegendQuery.cs" />
     <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingQuery.cs" />
     <Compile Include="Requests\RiskAnalysisIPMatching\RiskAnalysisIPMatchingExcelQuery.cs" />
@@ -576,7 +578,6 @@
     <Compile Include="Requests\Statement\SMAStatementQuery.cs" />
     <Compile Include="Requests\Statement\StatementDetailExcelQuery.cs" />
     <Compile Include="Requests\Statement\StatementDetailsQuery.cs" />
-    <Compile Include="Requests\Consolidation\ConsolidateWinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\ReportLegendQuery.cs" />
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisExcelQuery.cs" />
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisQuery.cs" />
@@ -968,6 +969,9 @@
     </CodeAnalysisDictionary>
     <Content Include="compilerconfig.json" />
     <Content Include="assets\styles\report-mobile-calculate-07.scss" />
+    <Content Include="App_Data\ExcelTemplates\Consolidation\Agent.xls" />
+    <Content Include="App_Data\ExcelTemplates\Consolidation\Master.xls" />
+    <Content Include="App_Data\ExcelTemplates\Consolidation\Member.xls" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
@@ -1161,6 +1165,8 @@
     <Content Include="Views\RiskAnalysisIPMatching\Index.cshtml" />
     <Content Include="Views\BetChoiceMatching\Index.cshtml" />
     <Content Include="typings\globals\numeral\typings.json" />
+    <Content Include="Views\Consolidation\ReportLegend.cshtml" />
+    <Content Include="Views\Consolidation\ReportDetailLegend.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

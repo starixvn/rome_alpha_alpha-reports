@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Site.Requests.WinLossDetail
 {
+    using System;
     using MediatR;
     using Reports.Models;
     using ViewModels.WinLossDetail;

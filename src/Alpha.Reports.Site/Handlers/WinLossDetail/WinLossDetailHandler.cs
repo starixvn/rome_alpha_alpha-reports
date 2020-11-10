@@ -75,17 +75,8 @@
         }
 
         private string BuildTooltipsForLiveCasino(int custId, string site, int currencyId)
-        {
-            var liveCasino = new List<int>
-            {
-                ProductIdConstants.Allbet,
-                ProductIdConstants.SexyGaming,
-                ProductIdConstants.SAGaming,
-                ProductIdConstants.GTCasino,
-                ProductIdConstants.BBin,
-                ProductIdConstants.ION
-            };
-            var offeredLiveCasino = productService.FilterProductsByCustomer(custId, site, currencyId, liveCasino);
+        {            
+            var offeredLiveCasino = productService.FilterProductsByCustomer(custId, site, currencyId, ProductIdConstants.ProductListForTooltipsLiveCasino);
             var liveCasinoNames = string.Join(", ", offeredLiveCasino.Select(i => i.Name));
 
             return offeredLiveCasino != null && offeredLiveCasino.Any() ?
