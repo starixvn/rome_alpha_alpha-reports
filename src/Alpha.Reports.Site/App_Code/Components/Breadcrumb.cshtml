@@ -2,12 +2,12 @@
 
 @helper Render(BreadcrumbLevelViewModel viewModel, string currentRequestUrl, IEnumerable<string> breadcrumbParamByLevel)
 {
-var linkLength = viewModel.BreadcrumbLevel != null ? viewModel.BreadcrumbLevel.Count() : 0;
-var linkIndex = 0;
-var lastLinkIndex = linkLength - 1;
+    var linkLength = viewModel.BreadcrumbLevel != null ? viewModel.BreadcrumbLevel.Count() : 0;
+    var linkIndex = 0;
+    var lastLinkIndex = linkLength - 1;
 
-if (linkLength > 0)
-{
+    if (linkLength > 0)
+    {
         <div class="breadcrumb-container">
             <ul class="breadcrumb">
                 @foreach (var custinfo in viewModel.BreadcrumbLevel)
@@ -33,5 +33,12 @@ if (linkLength > 0)
                 }
             </ul>
         </div>
-}
+        <script type="text/javascript">
+            (function ($) {
+                $.each($('.breadcrumb li'), function (index, element) {
+                    $(element).text($(element).text().trim());
+                });
+            })(window.jQuery || window.parent.jQuery || window.top.jQuery);
+        </script>
+    }
 }
