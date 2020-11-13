@@ -23,7 +23,7 @@ class EnterResultViewNew extends BaseHistoricReport {
 
     initDataTable = () => {
         super.initDataTable({
-            order: [[0, 'asc']]
+            order: []
         });
     };
 
