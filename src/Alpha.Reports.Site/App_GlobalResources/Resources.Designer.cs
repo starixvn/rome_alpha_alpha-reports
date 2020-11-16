@@ -187,6 +187,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Apply.
+        /// </summary>
+        public static string Apply {
+            get {
+                return ResourceManager.GetString("Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alpha - Reports - Application Start.
         /// </summary>
         public static string AppStart_Message {
@@ -291,6 +300,15 @@ namespace Alpha.Reports.Site.App_GlobalResources {
         public static string BetType1X2_FT {
             get {
                 return ResourceManager.GetString("BetType1X2_FT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         

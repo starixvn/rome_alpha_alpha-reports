@@ -367,4 +367,10 @@
   <data name="HT" xml:space="preserve">
     <value>HT</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

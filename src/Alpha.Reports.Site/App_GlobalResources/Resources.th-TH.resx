@@ -733,4 +733,10 @@
   <data name="SelectNone" xml:space="preserve">
     <value>ไม่เลือก</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

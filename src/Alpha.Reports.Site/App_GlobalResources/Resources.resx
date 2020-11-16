@@ -825,4 +825,10 @@
   <data name="SymbolMyanmarOdds" xml:space="preserve">
     <value> Myanmar Odds</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>
