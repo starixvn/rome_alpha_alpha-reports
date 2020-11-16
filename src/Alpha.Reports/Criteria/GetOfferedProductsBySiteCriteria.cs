@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria
 {
+    using Alpha.Reports.Configurations;
     using Fanex.Data;
     using Fanex.Data.Repository;
 
@@ -18,6 +19,8 @@
 
         [SpParam(SqlParamName = "Currency")]
         public int CurrencyId { get; }
+
+        public byte SettingStatus => SiteSettings.SettingStatus;
 
         public override string GetSettingKey() => "Acc_CustSetting_CheckMacauEnable";
 

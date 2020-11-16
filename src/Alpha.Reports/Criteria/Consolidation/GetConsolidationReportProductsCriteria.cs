@@ -1,5 +1,6 @@
 ﻿namespace Alpha.Reports.Criteria.Consolidation
 {
+    using Alpha.Reports.Configurations;
     using Fanex.Data.Repository;
 
     public class GetConsolidationReportProductsCriteria : CriteriaBase
@@ -10,6 +11,8 @@
         }
 
         public int CustId { get; }
+
+        public byte SettingStatus => SiteSettings.SettingStatus;
 
         public override string GetSettingKey()
             => "Age_Rpt_ConsolidatedGroupProductSel";
