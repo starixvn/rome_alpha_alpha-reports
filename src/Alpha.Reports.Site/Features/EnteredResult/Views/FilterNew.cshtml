@@ -5,7 +5,7 @@
 
     @DateRangePickerNew.Render(Model.DateRangePickerViewModel)
 
-    <div class="display-sm-none form-group">
+    <div class="form-group">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
     </div>
 
@@ -13,9 +13,9 @@
         <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" href="#">@Model.ViewActionMessage</a>
     </div>
 
-    <div class="display-sm-block form-group icon-group-last" style="display: none;">
+    @*<div class="display-sm-block form-group icon-group-last" style="display: none;">
         <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
-    </div>
+    </div>*@
 
     @helper RenderHiddenFields()
     {

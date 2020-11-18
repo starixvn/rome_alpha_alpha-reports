@@ -1,0 +1,9 @@
+﻿.filter {
+    .icon-excel {
+        float: unset;
+        margin-left: 16px;
+        &:before {
+            top: unset;
+        }
+    }
+}

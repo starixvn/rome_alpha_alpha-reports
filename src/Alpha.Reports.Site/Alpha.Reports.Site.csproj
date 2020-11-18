@@ -932,6 +932,12 @@
     <Content Include="Features\EnteredResult\Bundles\enteredresult.min.js">
       <DependentUpon>enteredresult.js</DependentUpon>
     </Content>
+    <Content Include="Features\EnteredResult\Styles\enteredresult-mobile-calculate-07.css">
+      <DependentUpon>enteredresult-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Styles\enteredresult-mobile-calculate-07.min.css">
+      <DependentUpon>enteredresult-mobile-calculate-07.css</DependentUpon>
+    </Content>
     <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.css" />
     <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.min.css">
       <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
@@ -994,9 +1000,25 @@
     <Content Include="Features\WinLoss\Bundles\winloss-new.min.js">
       <DependentUpon>winloss-new.js</DependentUpon>
     </Content>
+    <Content Include="Features\WinLoss\Bundles\winloss.css" />
     <Content Include="Features\WinLoss\Bundles\winloss.js" />
+    <Content Include="Features\WinLoss\Bundles\winloss.min.css">
+      <DependentUpon>winloss.css</DependentUpon>
+    </Content>
     <Content Include="Features\WinLoss\Bundles\winloss.min.js">
       <DependentUpon>winloss.js</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Styles\winloss-mobile-calculate-07.css">
+      <DependentUpon>winloss-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Styles\winloss-mobile-calculate-07.min.css">
+      <DependentUpon>winloss-mobile-calculate-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Styles\winloss.css">
+      <DependentUpon>winloss.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Styles\winloss.min.css">
+      <DependentUpon>winloss.css</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
     <Content Include="packages.config">
@@ -1147,6 +1169,7 @@
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
     <Content Include="App_Code\Components\ProductDetailMultiSelection.cshtml" />
+    <Content Include="Features\WinLoss\Styles\winloss.scss" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

@@ -1,57 +1,23 @@
-﻿.filter {
-    @media (orientation: landscape) {
-        &.win-loss {
-            .daterangepicker-container {
-                width: 50%;
-                margin-bottom: 0;
-            }
-        }
-    }
+﻿.filter.win-loss {
+    .product-multiselect-container, .monthpicker-container {
+        grid-column: 1/3;
 
-    .submit-container.is-history-report {
-        width: calc(100% - 5px) !important;
-
-        @media (orientation: landscape) {
-            width: calc(25% - 5px) !important;
-            margin-top: 0;
-            margin-bottom: 15px;
-        }
-    }
-
-    .form-group {
         .btn-group {
-            width: 100% !important;
-
-            button.multiselect {
-                width: 100%;
-
-                .multiselect-selected-text {
-                    width: 100%;
-                }
-            }
-        }
-
-        @media (orientation: landscape) {
-            &.monthpicker-container {
-                width: 75%;
-            }
+            width: 100%;
         }
     }
 
-    .icon-group-last {
-        text-align: right;
+    .btn-group button.multiselect, .multiselect-selected-text {
+        width: 100%;
+    }
+
+    #icon-information {
+        font-size: 36px;
+        right: unset;
+        top: unset;
     }
 }
 
-.icon-information-container {
-    display: inline-block;
-}
-
-.icon-information {
-    font-size: 36px;
-    top: 3px !important;
-    right: 16px !important;
-}
 
 #report-legend .modal-dialog {
     width: 99.999% !important;

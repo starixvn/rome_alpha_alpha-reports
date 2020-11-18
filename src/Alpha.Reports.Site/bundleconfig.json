@@ -22,6 +22,12 @@
     ]
   },
   {
+    "outputFileName": "Features/WinLoss/Bundles/winloss.css",
+    "inputFiles": [
+      "Features/WinLoss/Styles/winloss.css"
+    ]
+  },
+  {
     "outputFileName": "Features/WinLoss/Bundles/winloss-mobile-calculate-07.css",
     "inputFiles": [
       "assets/styles/report-mobile-calculate-07.css",

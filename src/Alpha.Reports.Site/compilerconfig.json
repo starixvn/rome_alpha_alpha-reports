@@ -38,5 +38,9 @@
   {
     "outputFile": "Features/WinLoss/Styles/winloss-mobile-calculate-07.css",
     "inputFile": "Features/WinLoss/Styles/winloss-mobile-calculate-07.scss"
+  },
+  {
+    "outputFile": "Features/WinLoss/Styles/winloss.css",
+    "inputFile": "Features/WinLoss/Styles/winloss.scss"
   }
 ]
