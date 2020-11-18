@@ -1,9 +1,35 @@
 ﻿.filter.win-loss {
-    .product-multiselect-container, .monthpicker-container {
+    @media (orientation: landscape) {
+        display: grid;
+        grid-template-columns: 300px 200px 1fr;
+        grid-column-gap: 16px;
+
+        .form-group {
+            margin-right: 0;
+        }
+
+        .daterangepicker-container {
+            grid-column: 2/4;
+        }
+    }
+
+    .product-multiselect-container {
         grid-column: 1/3;
+
+        @media (orientation: landscape) {
+            grid-column: 1/2;
+        }
 
         .btn-group {
             width: 100%;
+        }
+    }
+
+    .monthpicker-container {
+        grid-column: 1/3;
+
+        @media (orientation: landscape) {
+            width: 450px;
         }
     }
 
