@@ -14,7 +14,7 @@ class EnterResultViewNew extends BaseHistoricReport {
 
         super.init();
 
-        this.dateRangePickerNewComponent.render();
+        this.$dateRangePickerEl = this.dateRangePickerNewComponent.render();
         this.initDataTable();
 
         this.registerEvents();

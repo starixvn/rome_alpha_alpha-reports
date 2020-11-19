@@ -98,7 +98,7 @@
 		this.$('tbody tr.parent').each((index, element) => this.onClickDetailControl(element));
 	}
 
-	private doAdjustHeader = () => {
+    public doAdjustHeader = () => {
 		this.$dataTable.fixedHeader.adjust();
 
 		const scrollTo = this.$('.fixedHeader-floating thead').length > 0 ? this.$(document).height() : 0;

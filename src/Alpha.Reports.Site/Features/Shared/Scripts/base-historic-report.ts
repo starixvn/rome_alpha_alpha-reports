@@ -1,4 +1,5 @@
 ﻿class BaseHistoricReport extends BaseReportNew {
+    $dateRangePickerEl: JQuery;
     $excelIcon: JQuery;
     $exportExcelForm: JQuery;
     $fromDate: JQuery;
@@ -36,6 +37,8 @@
         this.$excelIcon.on("click", () => this.onExportExcelEvent());
         this.$historicReport.on("click", () => this.onSubmitHistoricReportEvent());
         this.$reportForm.submit(event => this.onSubmitReportEvent(event));
+        this.$dateRangePickerEl.on('cancel.daterangepicker', () => this.doAdjustHeader());
+        this.$dateRangePickerEl.on('apply.daterangepicker', () => this.doAdjustHeader());
     }
 
     public checkReady = () => this.$("#IsHistoricReport").length > 0;

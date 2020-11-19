@@ -65,9 +65,9 @@ class WinLossViewNew extends BaseHistoricReport {
         this.linkBuilderComponent.render();
         this.bindFilter();
         this.initDataTable();
+        this.initHelp();
 
         this.registerEvents();
-        this.initHelp();
         this.$.unblockUI();
     };
 
@@ -122,7 +122,7 @@ class WinLossViewNew extends BaseHistoricReport {
                 this.$reportForm.addClass('hide');
             }
         } else {
-            this.dateRangePickerNewComponent.render();
+            this.$dateRangePickerEl = this.dateRangePickerNewComponent.render();
         }
 
         if (this.$isFilterVisible.val().toString().toLowerCase() === 'false') {
