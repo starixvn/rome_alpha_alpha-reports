@@ -115,30 +115,53 @@
 
 @section Scripts {
     <script type="text/javascript">
-        var superColumnNames = [
-            '@Resources.Master', '@Resources.Turnover',
-            '@Resources.GrossComm', '@Resources.MasterTotal',
-            '@Resources.Super @Resources.WinLoss',
-            '@Resources.Super @Resources.Comm',
-            '@Resources.Super @Resources.Total',
-            '@Resources.Company'];
-        var masterColumnNames = [
-            '@Resources.Agent', '@Resources.Turnover',
-            '@Resources.GrossComm', '@Resources.AgentTotal',
-            '@Resources.Master @Resources.WinLoss',
-            '@Resources.Master @Resources.Comm',
-            '@Resources.Master @Resources.Total',
-            '@Resources.Company'];
-        var agentColumnNames = [
-            '@Resources.Member', '@Resources.Turnover',
-            '@Resources.GrossComm',
-            '@Resources.Member @Resources.WinLoss',
-            '@Resources.Member @Resources.Comm',
-            '@Resources.Member @Resources.Total',
-            '@Resources.Agent @Resources.WinLoss',
-            '@Resources.Agent @Resources.Comm',
-            '@Resources.Agent @Resources.Total',
-            '@Resources.Company'];
+        var columnName = {
+            '@UserLevel.Super.Value': [
+                '@Resources.Master',
+                '@Resources.Turnover',
+                '@Resources.GrossComm',
+                '@Resources.MasterTotal',
+                '@Resources.Super @Resources.WinLoss',
+                '@Resources.Super @Resources.Comm',
+                '@Resources.Super @Resources.Total',
+                '@Resources.Company'],
+            '@UserLevel.Master.Value': [
+                '@Resources.Agent',
+                '@Resources.Turnover',
+                '@Resources.GrossComm',
+                '@Resources.AgentTotal',
+                '@Resources.Master @Resources.WinLoss',
+                '@Resources.Master @Resources.Comm',
+                '@Resources.Master @Resources.Total',
+                '@Resources.Company'],
+            '@UserLevel.Agent.Value': [
+                '@Resources.Member',
+                '@Resources.Turnover',
+                '@Resources.GrossComm',
+                '@Resources.Member @Resources.WinLoss',
+                '@Resources.Member @Resources.Comm',
+                '@Resources.Member @Resources.Total',
+                '@Resources.Agent @Resources.WinLoss',
+                '@Resources.Agent @Resources.Comm',
+                '@Resources.Agent @Resources.Total',
+                '@Resources.Company'],
+        };
+
+        var columnSortName = {
+            '@UserLevel.Super.Value': [
+                'CustName', 'Turnover', 'GrossComm', 'MasterNetWinLoss.WinLoss',
+                'SuperAgentNetWinLoss.WinLoss', 'SuperAgentNetWinLoss.Comm',
+                'SuperAgentNetWinLoss.Total', 'Company'],
+            '@UserLevel.Master.Value': [
+                'CustName', 'Turnover', 'GrossComm', 'AgentNetWinLoss.WinLoss',
+                'MasterAgentNetWinLoss.WinLoss', 'MasterAgentNetWinLoss.Comm',
+                'MasterAgentNetWinLoss.Total', 'Company'],
+            '@UserLevel.Agent.Value': [
+                'CustName', 'Turnover', 'GrossComm', 'MemberNetWinLoss.WinLoss',
+                'MemberNetWinLoss.Comm', 'MemberNetWinLoss.Total',
+                'AgentAgentNetWinLoss.WinLoss', 'AgentAgentNetWinLoss.Comm',
+                'AgentAgentNetWinLoss.Total', 'Company'],
+        };
     </script>
 
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")

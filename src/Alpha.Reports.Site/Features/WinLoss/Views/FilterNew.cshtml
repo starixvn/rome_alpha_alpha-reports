@@ -30,22 +30,12 @@
         </a>
     </div>
 
-    @*<div class="display-sm-block icon-group-last" style="display: none;">
-        <div id="icon-information-container" class="icon-information-container hide">
-            <span id="icon-information" class="icon-information icon-information-outline"></span>
-        </div>
-
-        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
-    </div>*@
-
     @helper RenderHiddenFields()
     {
         @Html.Hidden("IsFilterVisible", Model.Visible)
         @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
 
         @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
-        @Html.Hidden("IsSuperLevel", Model.CustLevel.IsSuperLevel())
-        @Html.Hidden("IsMasterLevel", Model.CustLevel.IsMasterLevel())
         @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
 
         @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)

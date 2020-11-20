@@ -1,41 +1,20 @@
 ﻿'use strict';
 
 declare var
-    superColumnNames,
-    masterColumnNames,
-    agentColumnNames;
+    columnName,
+    columnSortName;
 
 class WinLossViewNew extends BaseHistoricReport {
+    $custLevelId: JQuery;
     $drilldownLinks: JQuery;
-    $isAgentLevel: JQuery;
-    $isMasterLevel: JQuery;
-    $isSuperLevel: JQuery;
     $multiSelectButton: JQuery;
 
     monthPickerComponent: MonthPickerComponent;
     productMultiSelectionComponent: ProductMultiSelectionComponent;
     reportTooltip: ReportTooltip;
-    isSuperLevel: boolean;
-    isMasterLevel: boolean;
-    isAgentLevel: boolean;
 
+    custLevelId: string;
     isHistoricReport = false;
-
-    superColumnSortNames = [
-        'CustName', 'Turnover', 'GrossComm', 'MasterNetWinLoss.WinLoss',
-        'SuperAgentNetWinLoss.WinLoss', 'SuperAgentNetWinLoss.Comm',
-        'SuperAgentNetWinLoss.Total', 'Company'];
-
-    masterColumnSortNames = [
-        'CustName', 'Turnover', 'GrossComm', 'AgentNetWinLoss.WinLoss',
-        'MasterAgentNetWinLoss.WinLoss', 'MasterAgentNetWinLoss.Comm',
-        'MasterAgentNetWinLoss.Total', 'Company'];
-
-    agentColumnSortNames = [
-        'CustName', 'Turnover', 'GrossComm', 'MemberNetWinLoss.WinLoss',
-        'MemberNetWinLoss.Comm', 'MemberNetWinLoss.Total',
-        'AgentAgentNetWinLoss.WinLoss', 'AgentAgentNetWinLoss.Comm',
-        'AgentAgentNetWinLoss.Total', 'Company'];
 
     constructor(
         $: JQueryStatic,
@@ -58,9 +37,7 @@ class WinLossViewNew extends BaseHistoricReport {
 
         super.init();
 
-        this.isSuperLevel = JSON.parse(this.$isSuperLevel.val().toLowerCase());
-        this.isMasterLevel = JSON.parse(this.$isMasterLevel.val().toLowerCase());
-        this.isAgentLevel = JSON.parse(this.$isAgentLevel.val().toLowerCase());
+        this.custLevelId = this.$custLevelId.val();
 
         this.linkBuilderComponent.render();
         this.bindFilter();
@@ -98,10 +75,8 @@ class WinLossViewNew extends BaseHistoricReport {
     cacheDOMElements = () => {
         super.cacheDOMElements();
 
+        this.$custLevelId = this.$('#CustLevelId');
         this.$drilldownLinks = this.$('.downline-link');
-        this.$isAgentLevel = this.$('#IsAgentLevel');
-        this.$isMasterLevel = this.$('#IsMasterLevel');
-        this.$isSuperLevel = this.$('#IsSuperLevel');
     };
 
     bindFilter = () => {
@@ -143,50 +118,14 @@ class WinLossViewNew extends BaseHistoricReport {
         this.$reportForm.trigger('submit');
     };
 
-    getColumnSortName = () => {
-        const order = this.$dataTable.order();
-        const columnSortIndex = order[0][0];
-        if (this.isSuperLevel) {
-            return this.superColumnSortNames[columnSortIndex];
-        }
-        if (this.isMasterLevel) {
-            return this.masterColumnSortNames[columnSortIndex];
-        }
-        if (this.isAgentLevel) {
-            return this.agentColumnSortNames[columnSortIndex];
-        }
-
-        return this.$tableReport.data('sortedcolumn');
-    };
+    getColumnSortName = () => (columnSortName[this.custLevelId] || [])[this.$dataTable.order()[0][0]] || this.$tableReport.data('sortedcolumn');
 
     getColumnSortIndex = () => {
-        const columnSortName = this.$sortPropertyName.val();
-        if (this.isSuperLevel) {
-            return this.superColumnSortNames.indexOf(columnSortName);
-        }
-        if (this.isMasterLevel) {
-            return this.masterColumnSortNames.indexOf(columnSortName);
-        }
-        if (this.isAgentLevel) {
-            return this.agentColumnSortNames.indexOf(columnSortName);
-        }
-
-        return 0;
+        const columnSortIndex = (columnSortName[this.custLevelId] || []).indexOf(this.$sortPropertyName.val());
+        return columnSortIndex > -1 ? columnSortIndex : 0;
     };
 
-    getColumnNameByCustLevel = (columnIndex: number, defaultColumnName: string) => {
-        if (this.isSuperLevel) {
-            return superColumnNames[columnIndex];
-        }
-        if (this.isMasterLevel) {
-            return masterColumnNames[columnIndex];
-        }
-        if (this.isAgentLevel) {
-            return agentColumnNames[columnIndex];
-        }
-
-        return defaultColumnName;
-    };
+    getColumnNameByCustLevel = (columnIndex: number, defaultColumnName: string) => (columnName[this.custLevelId] || [])[columnIndex] || defaultColumnName;
 
     getParams = () => {
         var selectedProducts = this.productMultiSelectionComponent.getSelectedItems();
