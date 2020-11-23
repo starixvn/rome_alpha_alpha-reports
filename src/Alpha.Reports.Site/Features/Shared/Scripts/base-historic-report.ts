@@ -31,14 +31,27 @@
         this.$userSelectedDateRangeOption = this.$("#UserSelectedDateRangeOption");
     }
 
+    public initDataTable(options = {}) {
+        super.initDataTable(options);
+
+        if (this.$tableReport.width() > this.$(window).width()) {
+            this.$tableReport.find("tbody tr td:first-child").css("white-space", "nowrap");
+            this.$(this.$dataTable.column(2).header()).removeClass("all").addClass("min-tablet-l");
+            this.$dataTable.responsive.rebuild();
+            this.$dataTable.responsive.recalc();
+        }
+    }
+
     public registerEvents() {
         super.registerEvents();
 
         this.$excelIcon.on("click", () => this.onExportExcelEvent());
         this.$historicReport.on("click", () => this.onSubmitHistoricReportEvent());
         this.$reportForm.submit(event => this.onSubmitReportEvent(event));
-        this.$dateRangePickerEl.on('cancel.daterangepicker', () => this.doAdjustHeader());
-        this.$dateRangePickerEl.on('apply.daterangepicker', () => this.doAdjustHeader());
+        if (this.$dateRangePickerEl && this.$dateRangePickerEl.length > 0) {
+            this.$dateRangePickerEl.on('cancel.daterangepicker', () => this.doAdjustHeader());
+            this.$dateRangePickerEl.on('apply.daterangepicker', () => this.doAdjustHeader());
+        }
     }
 
     public checkReady = () => this.$("#IsHistoricReport").length > 0;

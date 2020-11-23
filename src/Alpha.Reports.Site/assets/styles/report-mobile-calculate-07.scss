@@ -37,6 +37,10 @@ table.dataTable tbody > tr {
     &:not(.tbl-footer):hover + tr.child > td.child {
         background-color: #f8eb95;
     }
+
+    td:first-child {
+        white-space: pre-wrap;
+    }
 }
 
 .page-title {
