@@ -1170,6 +1170,20 @@
     </Content>
     <Content Include="App_Code\Components\ProductDetailMultiSelection.cshtml" />
     <Content Include="Features\WinLoss\Styles\winloss.scss" />
+    <Content Include="Features\Shared\Styles\shared-report-mobile-calculate-07.scss" />
+    <Content Include="Features\Shared\Styles\shared-report-mobile-calculate-07.css">
+      <DependentUpon>shared-report-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\shared-report-mobile-calculate-07.min.css">
+      <DependentUpon>shared-report-mobile-calculate-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\historic-report-mobile-calculate-07.scss" />
+    <Content Include="Features\Shared\Styles\historic-report-mobile-calculate-07.css">
+      <DependentUpon>historic-report-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\historic-report-mobile-calculate-07.min.css">
+      <DependentUpon>historic-report-mobile-calculate-07.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

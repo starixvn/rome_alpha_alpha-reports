@@ -32,6 +32,14 @@
     "inputFile": "assets/styles/report-mobile-calculate-07.scss"
   },
   {
+    "outputFile": "Features/Shared/Styles/shared-report-mobile-calculate-07.css",
+    "inputFile": "Features/Shared/Styles/shared-report-mobile-calculate-07.scss"
+  },
+  {
+    "outputFile": "Features/Shared/Styles/historic-report-mobile-calculate-07.css",
+    "inputFile": "Features/Shared/Styles/historic-report-mobile-calculate-07.scss"
+  },
+  {
     "outputFile": "Features/EnteredResult/Styles/enteredresult-mobile-calculate-07.css",
     "inputFile": "Features/EnteredResult/Styles/enteredresult-mobile-calculate-07.scss"
   },
