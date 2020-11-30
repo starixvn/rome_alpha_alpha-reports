@@ -1,6 +1,9 @@
 ﻿"use strict";
 
 class EnterResultViewNew extends BaseHistoricReport {
+    $isMobileView: JQuery;
+    isMobileView: boolean;
+
     constructor(
         $: JQueryStatic,
         dateRangePickerNewComponent: DateRangePickerNewComponent) {
@@ -14,6 +17,7 @@ class EnterResultViewNew extends BaseHistoricReport {
 
         super.init();
 
+        this.isMobileView = JSON.parse(this.$isMobileView.val().toLowerCase());
         this.$dateRangePickerEl = this.dateRangePickerNewComponent.render();
         this.initDataTable();
 
@@ -21,10 +25,16 @@ class EnterResultViewNew extends BaseHistoricReport {
         this.$.unblockUI();
     };
 
+    cacheDOMElements = () => {
+        super.cacheDOMElements();
+
+        this.$isMobileView = this.$("#IsMobileView");
+    }
+
     initDataTable = () => {
-        super.initDataTable({
-            order: []
-        });
+        super.initDataTable(this.isMobileView
+            ? { order: [] }
+            : { responsive: false, columnDefs: [], order: [] });
     };
 
     renderDetail = (rowIdx: any, data: any) => {

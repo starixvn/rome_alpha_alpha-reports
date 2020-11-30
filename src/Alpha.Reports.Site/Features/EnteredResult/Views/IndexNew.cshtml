@@ -29,7 +29,10 @@
                 <th>@Resources.Date</th>
                 <th class="tbl-header" colspan="2">@DateTime.Now.AddDays(-1).ToShortDateWithSlash()</th>
                 <th class="tbl-header" colspan="2">@DateTime.Now.ToShortDateWithSlash()</th>
-                <th class="tbl-header" rowspan="2"></th>
+                @if (Model.IsMobileView)
+                {
+                    <th class="tbl-header" rowspan="2"></th>
+                }
             </tr>
             <tr class="thead-row2">
                 <th class="all width-17per" data-priority="4">@Resources.Results</th>
@@ -46,7 +49,10 @@
                     <td class="text-left col-first">@enteredSportResult.SportName</td>
                     @RenderEnteredResult(enteredSportResult.EnteredSportYesterday)
                     @RenderEnteredResult(enteredSportResult.EnteredSportToday)
-                    <td></td>
+                    @if (Model.IsMobileView)
+                    {
+                        <td></td>
+                    }
                 </tr>
             }
         </tbody>
@@ -59,6 +65,8 @@
     <input type="hidden" name="FromDate" value="@Model.FromDate" />
     <input type="hidden" name="ToDate" value="@Model.ToDate" />
 </form>
+
+@Html.Hidden("IsMobileView", Model.IsMobileView)
 
 @section Scripts {
     @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")

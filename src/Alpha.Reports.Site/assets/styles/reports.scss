@@ -601,6 +601,12 @@ table.dataTable {
         background-color: #ffefde !important;
     }
 
+    thead, tfoot {
+        th {
+            font-weight: 400 !important;
+        }
+    }
+
     @media only screen and (min-device-width: $screen-device-greater768) {
         .width-17per {
             width: 17% !important;
