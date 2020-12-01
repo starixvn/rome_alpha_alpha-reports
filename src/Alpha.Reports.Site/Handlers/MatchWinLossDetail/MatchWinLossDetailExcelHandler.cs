@@ -46,10 +46,11 @@
 
             var mixParlay = GetMixParlay(reportData);
             var systemParlay = GetSystemParlay(reportData);
-            var grandTotal = BuildWinLossGrandTotal(noParlayWinLossTotal, mixParlay, systemParlay);
+            var leapGamingSystemParlay = GetLeapGamingParlay(reportData);
+            var grandTotal = BuildWinLossGrandTotal(noParlayWinLossTotal, mixParlay, systemParlay, leapGamingSystemParlay);
 
             var fileContent = workbook
-                .SetData(noParlayMatchWinLossDetail, noParlayWinLossTotal, mixParlay, systemParlay, grandTotal)
+                .SetData(noParlayMatchWinLossDetail, noParlayWinLossTotal, mixParlay, systemParlay, leapGamingSystemParlay, grandTotal)
                 .SetRowMappers(
                     GetBodyRowMapper(message.CustLevel),
                     GetSubTotalRowMapper(message.CustLevel),

@@ -39,6 +39,7 @@
 
             var mixParlay = GetMixParlay(reportData);
             var systemParlay = GetSystemParlay(reportData);
+            var leapGamingParlay = GetLeapGamingParlay(reportData);
 
             var selectLeagueParam = new GetLeaguesByCustomerParam(
                 message.CustId,
@@ -59,7 +60,8 @@
                 noParlayWinLossTotal,
                 mixParlay,
                 systemParlay,
-                BuildWinLossGrandTotal(noParlayWinLossTotal, mixParlay, systemParlay),
+                leapGamingParlay,
+                BuildWinLossGrandTotal(noParlayWinLossTotal, mixParlay, systemParlay, leapGamingParlay),
                 message,
                 matchWinLossDetailParam,
                 BuildProductSelectListItems(matchWinLossDetailParam.UserSelectedProductIds, products),

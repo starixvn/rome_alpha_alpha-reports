@@ -61,6 +61,7 @@
                 noParlayWinLossTotal: null,
                 mixParlay: null,
                 systemParlay: null,
+                leapGamingSystemParlay: null,
                 grandTotal: null,
                 query: query,
                 param: param,
@@ -223,6 +224,7 @@
                 noParlayWinLossTotal: null,
                 mixParlay: anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 systemParlay: anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
+                leapGamingSystemParlay: anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 grandTotal: null,
                 query: query,
                 param: param,
@@ -245,6 +247,7 @@
                 noParlayWinLossTotal: null,
                 mixParlay: anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 systemParlay: null,
+                leapGamingSystemParlay: null,
                 grandTotal: null,
                 query: query,
                 param: param,
@@ -267,6 +270,30 @@
                 noParlayWinLossTotal: null,
                 mixParlay: null,
                 systemParlay: anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
+                leapGamingSystemParlay: null,
+                grandTotal: null,
+                query: query,
+                param: param,
+                groupProducts: null,
+                leagues: null);
+
+            // Act
+            var actualHasData = reportViewModel.HasData;
+
+            // Assert
+            Assert.True(actualHasData);
+        }
+
+        [Fact]
+        public void HasData_HasLeapGamingSystemParlay_ReturnsTrue()
+        {
+            // Arrange
+            var reportViewModel = new MatchWinLossDetailReportViewModel(
+                noParlayMatchWinLossDetail: null,
+                noParlayWinLossTotal: null,
+                mixParlay: null,
+                systemParlay: null,
+                leapGamingSystemParlay: anyValueCreatorFixture.Create<BetTypeWinLossViewModel>(),
                 grandTotal: null,
                 query: query,
                 param: param,
@@ -289,6 +316,7 @@
                 noParlayWinLossTotal: null,
                 mixParlay: null,
                 systemParlay: null,
+                leapGamingSystemParlay: null,
                 grandTotal: null,
                 query: query,
                 param: param,
@@ -318,6 +346,7 @@
                 noParlayWinLossTotal: null,
                 mixParlay: null,
                 systemParlay: null,
+                leapGamingSystemParlay: null,
                 grandTotal: null,
                 query: reportQuery,
                 param: param,

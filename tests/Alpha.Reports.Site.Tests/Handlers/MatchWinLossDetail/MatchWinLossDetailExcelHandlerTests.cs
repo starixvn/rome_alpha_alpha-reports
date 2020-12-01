@@ -59,6 +59,7 @@
                 Arg.Any<BetTypeWinLossViewModel>(),
                 Arg.Any<BetTypeWinLossViewModel>(),
                 Arg.Any<BetTypeWinLossViewModel>(),
+                Arg.Any<BetTypeWinLossViewModel>(),
                 Arg.Any<BetTypeWinLossViewModel>())
                 .Returns(matchWinLossDetailWorkbook);
 
@@ -115,6 +116,7 @@
             // Assert
             matchWinLossDetailWorkbook.Received().SetData(
                 Arg.Any<IEnumerable<MatchWinLossDetailViewModel>>(),
+                Arg.Any<BetTypeWinLossViewModel>(),
                 Arg.Any<BetTypeWinLossViewModel>(),
                 Arg.Any<BetTypeWinLossViewModel>(),
                 Arg.Any<BetTypeWinLossViewModel>(),

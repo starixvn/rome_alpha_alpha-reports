@@ -12,6 +12,8 @@
 
         public const int MixParlay = 9;
         public const int SystemParlay = 29;
+        public const int LeapGamingParlayMin = 5301;
+        public const int LeapGamingParlayMax = 5399;
         public const int MixParlayBetRadarVirtualSports = 2799;
 
         public const int StartRacing = 31;
