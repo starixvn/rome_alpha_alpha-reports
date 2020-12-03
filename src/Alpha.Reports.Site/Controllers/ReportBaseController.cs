@@ -38,6 +38,17 @@
             return View(mediator.Send(message));
         }
 
+        protected ActionResult View<TResponse>(string viewName, IRequest<TResponse> message)
+        {
+            var baseQuery = message as ReportBaseQuery;
+            if (baseQuery != null && !baseQuery.IsValid())
+            {
+                return View(InvalidReportViewPath);
+            }
+
+            return View(viewName, mediator.Send(message));
+        }
+
         protected FileContentResult ExcelView(IRequest<ExcelFileViewModel> message)
         {
             var baseQuery = message as ReportBaseQuery;

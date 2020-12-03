@@ -38,7 +38,7 @@
             message.CustLevelId = custLevelId;
 
             // Act
-            var enteredResultViewModel = new EnteredResultViewModel(message, Enumerable.Empty<EnteredSportResult>());
+            var enteredResultViewModel = new EnteredResultViewModel(message, Enumerable.Empty<EnteredSportResult>(), false);
 
             // Assert
             Assert.Equal(enteredResultViewModel.Title, expectedTitle);

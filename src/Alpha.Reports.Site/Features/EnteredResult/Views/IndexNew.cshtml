@@ -1,0 +1,88 @@
+﻿@model EnteredResultViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Entered Results";
+}
+
+@section Styles {
+    @StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/data-table")
+    @StaticResources.AssetStyles.RenderCommon("/bundles/site-asset/daterangepicker")
+    @StaticResources.RenderStylesWithMedia(767, "~/Features/EnteredResult/Bundles/enteredresult-mobile-calculate-07")
+}
+
+@ReportTitle.Render(new PageHeaderViewModel(
+    Model.Title,
+    false, true, false, false,
+    Enumerable.Empty<CustInfo>(),
+    string.Empty))
+
+@Html.Partial("~/Features/EnteredResult/Views/FilterNew.cshtml", Model.FilterViewModel)
+
+<div class="entered-result level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "99.999%" : "60%");">
+    <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap"
+           id="tbl-report"
+           data-totalrecords="@Model.ReportData.Count()"
+           style="width: 100%;">
+        <thead>
+            <tr></tr>
+            <tr>
+                <th>@Resources.Date</th>
+                <th class="tbl-header" colspan="2">@DateTime.Now.AddDays(-1).ToShortDateWithSlash()</th>
+                <th class="tbl-header" colspan="2">@DateTime.Now.ToShortDateWithSlash()</th>
+                @if (Model.IsMobileView)
+                {
+                    <th class="tbl-header" rowspan="2"></th>
+                }
+            </tr>
+            <tr class="thead-row2">
+                <th class="all width-17per" data-priority="4">@Resources.Results</th>
+                <th class="all width-17per" data-priority="3">@Resources.Entered</th>
+                <th class="all width-17per" data-priority="2">@Resources.NonEntered</th>
+                <th class="min-tablet-l width-17per" data-priority="1">@Resources.Entered</th>
+                <th class="min-tablet-l width-17per" data-priority="0">@Resources.NonEntered</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var enteredSportResult in Model.ReportData)
+            {
+                <tr>
+                    <td class="text-left col-first">@enteredSportResult.SportName</td>
+                    @RenderEnteredResult(enteredSportResult.EnteredSportYesterday)
+                    @RenderEnteredResult(enteredSportResult.EnteredSportToday)
+                    @if (Model.IsMobileView)
+                    {
+                        <td></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @Html.Hidden("ToDate", DateTime.Now.ToShortDateWithSlash())
+</div>
+<form class="form-inline hide" role="form" id="export-excel-form"
+      action="@Url.Action("Excel", "EnteredResult")">
+    <input type="hidden" name="FromDate" value="@Model.FromDate" />
+    <input type="hidden" name="ToDate" value="@Model.ToDate" />
+</form>
+
+@Html.Hidden("IsMobileView", Model.IsMobileView)
+
+@section Scripts {
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/data-table")
+    @StaticResources.AssetScripts.RenderCommon("/bundles/site-asset/daterangepicker")
+    @StaticResources.RenderScripts("~/Features/EnteredResult/Bundles/enteredresult-new")
+}
+
+@helper RenderEnteredResult(DailyEnteredSport enteredSportDaily)
+{
+    if (enteredSportDaily == null)
+    {
+        <td>0</td>
+        <td>0</td>
+        return;
+    }
+
+    <td>@enteredSportDaily.Entered</td>
+    <td>@enteredSportDaily.NonEntered</td>
+}

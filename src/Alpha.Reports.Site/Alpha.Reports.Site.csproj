@@ -398,6 +398,7 @@
     <TypeScriptCompile Include="assets\scripts\components\dual-axis-chart.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation-detail.ts" />
     <TypeScriptCompile Include="assets\scripts\consolidation\consolidation.ts" />
+    <TypeScriptCompile Include="Features\EnteredResult\Scripts\enteredresult-new.ts" />
     <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding-new.ts" />
     <TypeScriptCompile Include="Features\Outstanding\Scripts\outstanding.ts" />
     <TypeScriptCompile Include="assets\scripts\matchwinlossdetail\matchwinlossdetail.ts" />
@@ -449,14 +450,14 @@
     <Compile Include="Controllers\CommissionByBettypeController.cs" />
     <Compile Include="Controllers\ProgressiveContributionController.cs" />
     <Compile Include="Controllers\MatchWinLossDetailController.cs" />
-    <Compile Include="Controllers\EnteredResultController.cs" />
+    <Compile Include="Features\EnteredResult\EnteredResultController.cs" />
     <Compile Include="Controllers\ReportLegendController.cs" />
     <Compile Include="Controllers\WinLossAnalysisChartController.cs" />
     <Compile Include="Controllers\WinLossAnalysisController.cs" />
     <Compile Include="Controllers\StatementController.cs" />
     <Compile Include="Controllers\ReportBaseController.cs" />
     <Compile Include="Controllers\WinLossByProductController.cs" />
-    <Compile Include="Controllers\WinLossController.cs" />
+    <Compile Include="Features\WinLoss\WinLossController.cs" />
     <Compile Include="Controllers\RiskAnalysisIPMatchingController.cs" />
     <Compile Include="Controllers\WinLossDetailController.cs" />
     <Compile Include="Global.asax.cs">
@@ -515,11 +516,11 @@
     <Compile Include="Handlers\WinLossDetail\WinLossDetailBaseHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailExcelHandler.cs" />
     <Compile Include="Handlers\WinLossDetail\WinLossDetailHandler.cs" />
-    <Compile Include="Handlers\WinLoss\WinLossBaseHandler.cs" />
-    <Compile Include="Handlers\WinLoss\EnteredSportResultExcelHandler.cs" />
-    <Compile Include="Handlers\WinLoss\EnteredSportResultHandler.cs" />
-    <Compile Include="Handlers\WinLoss\WinLossExcelHandler.cs" />
-    <Compile Include="Handlers\WinLoss\WinLossHandler.cs" />
+    <Compile Include="Features\WinLoss\WinLossBaseHandler.cs" />
+    <Compile Include="Features\EnteredResult\EnteredSportResultExcelHandler.cs" />
+    <Compile Include="Features\EnteredResult\EnteredSportResultHandler.cs" />
+    <Compile Include="Features\WinLoss\WinLossExcelHandler.cs" />
+    <Compile Include="Features\WinLoss\WinLossHandler.cs" />
     <Compile Include="Helpers\JsonHelper.cs" />
     <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />
@@ -583,10 +584,10 @@
     <Compile Include="Requests\WinLossAnalysis\WinLossAnalysisQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailExcelQuery.cs" />
     <Compile Include="Requests\WinLossDetail\WinLossDetailQuery.cs" />
-    <Compile Include="Requests\WinLoss\EnteredSportResultQuery.cs" />
-    <Compile Include="Requests\WinLoss\EnteredSportResultExcelQuery.cs" />
-    <Compile Include="Requests\WinLoss\WinLossExcelQuery.cs" />
-    <Compile Include="Requests\WinLoss\WinLossQuery.cs" />
+    <Compile Include="Features\EnteredResult\Requests\EnteredSportResultQuery.cs" />
+    <Compile Include="Features\EnteredResult\Requests\EnteredSportResultExcelQuery.cs" />
+    <Compile Include="Features\WinLoss\Requests\WinLossExcelQuery.cs" />
+    <Compile Include="Features\WinLoss\Requests\WinLossQuery.cs" />
     <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingJsonModel.cs" />
     <Compile Include="ViewModels\BetChoiceMatching\BetChoiceMatchingViewModel.cs" />
     <Compile Include="ViewModels\CommissionByBettype\CommissionByBettypeFilterViewModel.cs" />
@@ -644,10 +645,10 @@
     <Compile Include="ViewModels\Statement\StatementDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLossDetail\WinLossDetailViewModel.cs" />
     <Compile Include="ViewModels\WinLossReportBaseViewModel.cs" />
-    <Compile Include="ViewModels\WinLoss\EnteredResultFilterViewModel.cs" />
-    <Compile Include="ViewModels\WinLoss\EnteredResultViewModel.cs" />
-    <Compile Include="ViewModels\WinLoss\WinLossFilterViewModel.cs" />
-    <Compile Include="ViewModels\WinLoss\WinLossViewModel.cs" />
+    <Compile Include="Features\EnteredResult\EnteredResultFilterViewModel.cs" />
+    <Compile Include="Features\EnteredResult\EnteredResultViewModel.cs" />
+    <Compile Include="Features\WinLoss\WinLossFilterViewModel.cs" />
+    <Compile Include="Features\WinLoss\WinLossViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\activitytracking.local.json">
@@ -868,14 +869,6 @@
     <Content Include="assets\bundles\winlossdetail\winlossdetail.min.js">
       <DependentUpon>winlossdetail.js</DependentUpon>
     </Content>
-    <Content Include="assets\bundles\winloss\enteredresult.js" />
-    <Content Include="assets\bundles\winloss\enteredresult.min.js">
-      <DependentUpon>enteredresult.js</DependentUpon>
-    </Content>
-    <Content Include="assets\bundles\winloss\winloss.js" />
-    <Content Include="assets\bundles\winloss\winloss.min.js">
-      <DependentUpon>winloss.js</DependentUpon>
-    </Content>
     <Content Include="assets\scripts\tests\apps\betchoicematching\betMatchingResources.js" />
     <Content Include="assets\scripts\tests\libs\autocomplete.js" />
     <Content Include="assets\scripts\tests\libs\bootbox.js" />
@@ -926,6 +919,24 @@
     </Content>
     <Content Include="assets\styles\matchwinlossdetail\matchwinlossdetail.min.css">
       <DependentUpon>matchwinlossdetail.css</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Bundles\enteredresult-mobile-calculate-07.css" />
+    <Content Include="Features\EnteredResult\Bundles\enteredresult-mobile-calculate-07.min.css">
+      <DependentUpon>enteredresult-mobile-calculate-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Bundles\enteredresult-new.js" />
+    <Content Include="Features\EnteredResult\Bundles\enteredresult-new.min.js">
+      <DependentUpon>enteredresult-new.js</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Bundles\enteredresult.js" />
+    <Content Include="Features\EnteredResult\Bundles\enteredresult.min.js">
+      <DependentUpon>enteredresult.js</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Styles\enteredresult-mobile-calculate-07.css">
+      <DependentUpon>enteredresult-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\EnteredResult\Styles\enteredresult-mobile-calculate-07.min.css">
+      <DependentUpon>enteredresult-mobile-calculate-07.css</DependentUpon>
     </Content>
     <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.css" />
     <Content Include="Features\Outstanding\Bundles\outstanding-mobile-calculate-07.min.css">
@@ -981,6 +992,34 @@
     <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.min.css">
       <DependentUpon>outstanding-mobile-calculate-07.css</DependentUpon>
     </Content>
+    <Content Include="Features\WinLoss\Bundles\winloss-mobile-calculate-07.css" />
+    <Content Include="Features\WinLoss\Bundles\winloss-mobile-calculate-07.min.css">
+      <DependentUpon>winloss-mobile-calculate-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Bundles\winloss-new.js" />
+    <Content Include="Features\WinLoss\Bundles\winloss-new.min.js">
+      <DependentUpon>winloss-new.js</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Bundles\winloss.css" />
+    <Content Include="Features\WinLoss\Bundles\winloss.js" />
+    <Content Include="Features\WinLoss\Bundles\winloss.min.css">
+      <DependentUpon>winloss.css</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Bundles\winloss.min.js">
+      <DependentUpon>winloss.js</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Styles\winloss-mobile-calculate-07.css">
+      <DependentUpon>winloss-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Styles\winloss-mobile-calculate-07.min.css">
+      <DependentUpon>winloss-mobile-calculate-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Styles\winloss.css">
+      <DependentUpon>winloss.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\WinLoss\Styles\winloss.min.css">
+      <DependentUpon>winloss.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
@@ -1004,7 +1043,7 @@
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLossDetail\Master.xls" />
     <Content Include="App_Data\AuthorizationSection.config" />
-    <Content Include="Views\WinLoss\Filter.cshtml" />
+    <Content Include="Features\WinLoss\Views\Filter.cshtml" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Agent.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Master.xls" />
     <Content Include="App_Data\ExcelTemplates\WinLoss\Member.xls" />
@@ -1057,7 +1096,7 @@
     <Content Include="Web.napinternal.config">
       <DependentUpon>Web.local.config</DependentUpon>
     </Content>
-    <Content Include="Views\WinLoss\Index.cshtml" />
+    <Content Include="Features\WinLoss\Views\Index.cshtml" />
     <Content Include="App_Code\Components\ReportTitle.cshtml" />
     <Content Include="App_Code\Components\NetTurnoverTooltips.cshtml" />
     <Content Include="App_Code\Components\Breadcrumb.cshtml" />
@@ -1103,11 +1142,26 @@
     <Content Include="App_Data\ExcelTemplates\RiskAnalysisIPMatching\Super.xls" />
     <Content Include="assets\styles\betchoicematching\betchoicematching.scss" />
     <Content Include="App_Data\ExcelTemplates\BetChoiceMatching\Master.xls" />
+    <Content Include="Features\EnteredResult\Views\Index.cshtml" />
+    <Content Include="Features\EnteredResult\Views\Filter.cshtml" />
+    <Content Include="Features\EnteredResult\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Features\EnteredResult\Styles\enteredresult-mobile-calculate-07.scss" />
+    <Content Include="Features\EnteredResult\Views\IndexNew.cshtml" />
+    <Content Include="Features\WinLoss\Views\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Features\WinLoss\Styles\winloss-mobile-calculate-07.scss" />
+    <Content Include="Features\EnteredResult\Views\FilterNew.cshtml" />
+    <Content Include="Features\WinLoss\Views\FilterNew.cshtml" />
+    <Content Include="Features\WinLoss\Views\IndexNew.cshtml" />
     <Content Include="Features\Outstanding\Views\web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Features\Outstanding\Styles\outstanding-mobile-calculate-07.scss" />
     <Content Include="Features\Outstanding\Views\IndexNew.cshtml" />
+    <Content Include="App_Code\Components\DateRangePickerNew.cshtml" />
     <Content Include="App_Data\activitytracking.pro2.json">
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
@@ -1115,6 +1169,21 @@
       <DependentUpon>activitytracking.json</DependentUpon>
     </Content>
     <Content Include="App_Code\Components\ProductDetailMultiSelection.cshtml" />
+    <Content Include="Features\WinLoss\Styles\winloss.scss" />
+    <Content Include="Features\Shared\Styles\shared-report-mobile-calculate-07.scss" />
+    <Content Include="Features\Shared\Styles\shared-report-mobile-calculate-07.css">
+      <DependentUpon>shared-report-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\shared-report-mobile-calculate-07.min.css">
+      <DependentUpon>shared-report-mobile-calculate-07.css</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\historic-report-mobile-calculate-07.scss" />
+    <Content Include="Features\Shared\Styles\historic-report-mobile-calculate-07.css">
+      <DependentUpon>historic-report-mobile-calculate-07.scss</DependentUpon>
+    </Content>
+    <Content Include="Features\Shared\Styles\historic-report-mobile-calculate-07.min.css">
+      <DependentUpon>historic-report-mobile-calculate-07.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />
@@ -1126,9 +1195,7 @@
     <Content Include="typings\globals\jquery\typings.json" />
     <Content Include="typings\globals\moment\typings.json" />
     <Content Include="typings\globals\storejs\typings.json" />
-    <Content Include="Views\EnteredResult\Filter.cshtml" />
     <Content Include="Features\Outstanding\Views\Index.cshtml" />
-    <Content Include="Views\EnteredResult\Index.cshtml" />
     <Content Include="Views\Shared\InvalidReport.cshtml" />
     <Content Include="Views\Statement\SMAStatement.cshtml" />
     <Content Include="Views\ReportLegend\Index.cshtml" />
@@ -1176,9 +1243,12 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <TypeScriptCompile Include="assets\scripts\winloss\enteredresult.ts" />
-    <TypeScriptCompile Include="assets\scripts\winloss\winloss.ts" />
+    <TypeScriptCompile Include="Features\EnteredResult\Scripts\enteredresult.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\base-historic-report.ts" />
     <TypeScriptCompile Include="Features\Shared\Scripts\base-report-new.ts" />
+    <TypeScriptCompile Include="Features\Shared\Scripts\daterangepicker-new.ts" />
+    <TypeScriptCompile Include="Features\WinLoss\Scripts\winloss-new.ts" />
+    <TypeScriptCompile Include="Features\WinLoss\Scripts\winloss.ts" />
     <TypeScriptCompile Include="typings\globals\bootstrap\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine-jquery\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine\index.d.ts" />

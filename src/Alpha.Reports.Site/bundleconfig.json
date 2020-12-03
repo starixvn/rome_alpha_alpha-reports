@@ -22,7 +22,22 @@
     ]
   },
   {
-    "outputFileName": "assets/bundles/winloss/winloss.js",
+    "outputFileName": "Features/WinLoss/Bundles/winloss.css",
+    "inputFiles": [
+      "Features/WinLoss/Styles/winloss.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/WinLoss/Bundles/winloss-mobile-calculate-07.css",
+    "inputFiles": [
+      "assets/styles/report-mobile-calculate-07.css",
+      "Features/Shared/Styles/shared-report-mobile-calculate-07.css",
+      "Features/Shared/Styles/historic-report-mobile-calculate-07.css",
+      "Features/WinLoss/Styles/winloss-mobile-calculate-07.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/WinLoss/Bundles/winloss.js",
     "inputFiles": [
       "assets/scripts/core.js",
       "assets/scripts/base-report.js",
@@ -33,17 +48,50 @@
       "assets/scripts/components/productdetail-multiselection.js",
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
-      "assets/scripts/winloss/winloss.js"
+      "Features/WinLoss/Scripts/winloss.js"
     ]
   },
   {
-    "outputFileName": "assets/bundles/winloss/enteredresult.js",
+    "outputFileName": "Features/WinLoss/Bundles/winloss-new.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "assets/scripts/components/monthpicker.js",
+      "assets/scripts/components/tooltip.js",
+      "assets/scripts/components/productmultiselection.js",
+      "assets/scripts/components/productdetail-multiselection.js",
+      "assets/scripts/components/link-builder.js",
+      "Features/Shared/Scripts/daterangepicker-new.js",
+      "Features/Shared/Scripts/base-report-new.js",
+      "Features/Shared/Scripts/base-historic-report.js",
+      "Features/WinLoss/Scripts/winloss-new.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/EnteredResult/Bundles/enteredresult-mobile-calculate-07.css",
+    "inputFiles": [
+      "assets/styles/report-mobile-calculate-07.css",
+      "Features/Shared/Styles/shared-report-mobile-calculate-07.css",
+      "Features/EnteredResult/Styles/enteredresult-mobile-calculate-07.css"
+    ]
+  },
+  {
+    "outputFileName": "Features/EnteredResult/Bundles/enteredresult.js",
     "inputFiles": [
       "assets/scripts/core.js",
       "assets/scripts/components/daterangepicker.js",
       "assets/scripts/components/sort.js",
       "assets/scripts/components/link-builder.js",
-      "assets/scripts/winloss/enteredresult.js"
+      "Features/EnteredResult/Scripts/enteredresult.js"
+    ]
+  },
+  {
+    "outputFileName": "Features/EnteredResult/Bundles/enteredresult-new.js",
+    "inputFiles": [
+      "assets/scripts/core.js",
+      "Features/Shared/Scripts/daterangepicker-new.js",
+      "Features/Shared/Scripts/base-report-new.js",
+      "Features/Shared/Scripts/base-historic-report.js",
+      "Features/EnteredResult/Scripts/enteredresult-new.js"
     ]
   },
   {
@@ -307,12 +355,6 @@
       "assets/scripts/components/link-builder.js",
       "assets/scripts/components/pager.js",
       "assets/scripts/risk-analysis-ip-matching/index.js"
-    ]
-  },
-  {
-    "outputFileName": "assets/bundles/report-mobile-calculate-07-01.css",
-    "inputFiles": [
-      "assets/styles/report-mobile-calculate-07-01.css"
     ]
   }
 ]

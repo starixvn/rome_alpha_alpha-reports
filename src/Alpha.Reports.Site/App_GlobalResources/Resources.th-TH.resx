@@ -733,4 +733,46 @@
   <data name="SelectNone" xml:space="preserve">
     <value>ไม่เลือก</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AgentCommNew" xml:space="preserve">
+    <value>ค่าคอม เอเย่นต์</value>
+  </data>
+  <data name="AgentTotalNew" xml:space="preserve">
+    <value>ยอดรวม เอเย่นต์</value>
+  </data>
+  <data name="AgentWinLossNew" xml:space="preserve">
+    <value>ยอดได้เสีย เอเย่นต์</value>
+  </data>
+  <data name="MasterCommNew" xml:space="preserve">
+    <value>ค่าคอม มาสเตอร์</value>
+  </data>
+  <data name="MasterTotalNew" xml:space="preserve">
+    <value>ยอดรวม มาสเตอร์</value>
+  </data>
+  <data name="MasterWinLossNew" xml:space="preserve">
+    <value>ยอดได้เสีย มาสเตอร์</value>
+  </data>
+  <data name="MemberCommNew" xml:space="preserve">
+    <value>ค่าคอม สมาชิก</value>
+  </data>
+  <data name="MemberTotalNew" xml:space="preserve">
+    <value>ยอดรวม สมาชิก</value>
+  </data>
+  <data name="MemberWinLossNew" xml:space="preserve">
+    <value>ยอดได้เสีย สมาชิก</value>
+  </data>
+  <data name="SuperCommNew" xml:space="preserve">
+    <value>ค่าคอม ซุปเปอร์</value>
+  </data>
+  <data name="SuperTotalNew" xml:space="preserve">
+    <value>ยอดรวม ซุปเปอร์</value>
+  </data>
+  <data name="SuperWinLossNew" xml:space="preserve">
+    <value>ยอดได้เสีย ซุปเปอร์</value>
+  </data>
 </root>

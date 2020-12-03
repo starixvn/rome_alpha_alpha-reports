@@ -1,0 +1,51 @@
+﻿@model WinLossFilterViewModel
+
+<form class="form-inline filter filter-with-history win-loss @(Model.Visible ? string.Empty : "hide")" role="form" id="report-form" style="width: 99.999%;">
+    @RenderHiddenFields()
+
+    @ProductMultiSelection.Render(Model.ProductMultiSelectionViewModel)
+
+    @ProductDetailMultiSelection.Render(Model.ProductDetailMultiSelectionViewModel)
+
+    @(Model.IsHistoricReport
+            ? MonthPicker.Render(Model.MonthPickerViewModel)
+            : DateRangePickerNew.Render(Model.DateRangePickerViewModel))
+
+    @if (Model.IsHistoricReport)
+    {
+        <div class="form-group submit-container is-history-report">
+            <input type="submit" value="@Resources.Submit" class="btn-submit" />
+        </div>
+    }
+
+    <div class="form-group">
+        <span id="icon-information" class="icon-information icon-information-outline"></span>
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>@Model.ViewDataInstructionMessage
+        <a id="historic-report" data-is-historic-report="@Model.IsHistoricReport.ToString().ToLower()" href="#">
+            @Model.ViewActionMessage
+        </a>
+    </div>
+
+    @helper RenderHiddenFields()
+    {
+        @Html.Hidden("IsFilterVisible", Model.Visible)
+        @Html.Hidden("IsHistoricReport", Model.IsHistoricReport)
+
+        @Html.Hidden("IsStackMode", ViewData["IsStackMode"] as bool?)
+        @Html.Hidden("IsAgentLevel", Model.CustLevel.IsAgentLevel())
+
+        @Html.Hidden("IsDescendingSort", ViewData["IsDescendingSort"] as bool?)
+        @Html.Hidden("SortPropertyName", ViewData["SortPropertyName"] as string)
+
+        @Html.Hidden("CustId", Model.CustId)
+        @Html.Hidden("CustName", Model.CustName)
+        @Html.Hidden("BreadcrumbLevelJson", Model.BreadcrumbLevelJson)
+        @Html.Hidden("CustLevelId", Model.CustLevel.Value)
+
+        @Html.Hidden("IsPostBack", "true")
+    }
+</form>

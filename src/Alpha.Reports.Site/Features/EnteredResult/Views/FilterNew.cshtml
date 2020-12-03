@@ -1,0 +1,28 @@
+﻿@model EnteredResultFilterViewModel
+
+<form class="form-inline filter entered-result" role="form" id="report-form" action="@Url.Action("IndexNew", "WinLoss")" style="width: 99.999%;">
+    @RenderHiddenFields()
+
+    @DateRangePickerNew.Render(Model.DateRangePickerViewModel)
+
+    <div class="form-group">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>
+
+    <div class="note">
+        <span class="star">*</span>@Model.ViewDataInstructionMessage <a id="historic-report" href="#">@Model.ViewActionMessage</a>
+    </div>
+
+    @*<div class="display-sm-block form-group icon-group-last" style="display: none;">
+        <span id="icon-excel" class="icon-excel" title="@Resources.ExportToExcel"></span>
+    </div>*@
+
+    @helper RenderHiddenFields()
+    {
+        @Html.Hidden("IsHistoricReport", false)
+        @Html.Hidden("IsFilterVisible", Model.Visible)
+        @Html.Hidden("IsStackMode", false)
+        @Html.Hidden("SortPropertyName", "CustName")
+        @Html.Hidden("IsDescendingSort", false)
+    }
+</form>
