@@ -6,8 +6,8 @@ class EnterResultViewNew extends BaseHistoricReport {
 
     constructor(
         $: JQueryStatic,
-        dateRangePickerNewComponent: DateRangePickerNewComponent) {
-        super($, dateRangePickerNewComponent, null);
+        dateRangePickerComponent: DateRangePickerComponent) {
+        super($, dateRangePickerComponent, null);
     }
 
     init = () => {
@@ -18,7 +18,7 @@ class EnterResultViewNew extends BaseHistoricReport {
         super.init();
 
         this.isMobileView = JSON.parse(this.$isMobileView.val().toLowerCase());
-        this.$dateRangePickerEl = this.dateRangePickerNewComponent.render();
+        this.dateRangePickerComponent.render();
         this.initDataTable();
 
         this.registerEvents();
@@ -68,6 +68,6 @@ class EnterResultViewNew extends BaseHistoricReport {
 $(function () {
     const enterResultViewNew = new EnterResultViewNew(
         $,
-        new DateRangePickerNewComponent($));
+        new DateRangePickerComponent($));
     enterResultViewNew.init();
 });

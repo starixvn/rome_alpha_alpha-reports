@@ -1,5 +1,4 @@
 ﻿class BaseHistoricReport extends BaseReportNew {
-    $dateRangePickerEl: JQuery;
     $excelIcon: JQuery;
     $exportExcelForm: JQuery;
     $fromDate: JQuery;
@@ -8,15 +7,15 @@
     $toDate: JQuery;
     $userSelectedDateRangeOption: JQuery;
 
-    dateRangePickerNewComponent: DateRangePickerNewComponent;
+    dateRangePickerComponent: DateRangePickerComponent;
 
     constructor(
         $: JQueryStatic,
-        dateRangePickerNewComponent: DateRangePickerNewComponent,
+        dateRangePickerComponent: DateRangePickerComponent,
         linkBuilderComponent: LinkBuilderComponent) {
         super($, linkBuilderComponent);
 
-        this.dateRangePickerNewComponent = dateRangePickerNewComponent;
+        this.dateRangePickerComponent = dateRangePickerComponent;
     }
 
     public cacheDOMElements() {
@@ -48,10 +47,6 @@
         this.$excelIcon.on("click", () => this.onExportExcelEvent());
         this.$historicReport.on("click", () => this.onSubmitHistoricReportEvent());
         this.$reportForm.submit(event => this.onSubmitReportEvent(event));
-        if (this.$dateRangePickerEl && this.$dateRangePickerEl.length > 0) {
-            this.$dateRangePickerEl.on('cancel.daterangepicker', () => this.doAdjustHeader());
-            this.$dateRangePickerEl.on('apply.daterangepicker', () => this.doAdjustHeader());
-        }
     }
 
     public checkReady = () => this.$("#IsHistoricReport").length > 0;
