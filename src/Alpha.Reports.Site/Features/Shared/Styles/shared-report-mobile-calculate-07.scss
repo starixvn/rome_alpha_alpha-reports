@@ -95,48 +95,68 @@
     }
 }
 
-.display-sm-none {
-    display: none !important;
+.fromdate {
+    .bootstrap-datetimepicker-widget {
+        &.dropdown-menu {
+            width: 202%;
+
+            &.pull-right {
+                left: 0 !important;
+
+                &:before {
+                    left: 6px;
+                    right: auto;
+                }
+
+                &:after {
+                    left: 7px;
+                    right: auto;
+                }
+            }
+        }
+    }
 }
 
-.display-sm-block {
-    display: block !important;
+.todate {
+    .bootstrap-datetimepicker-widget {
+        width: 214%;
+    }
 }
 
 .bootstrap-datetimepicker-widget {
     font-size: 100%;
 
     &.dropdown-menu {
-        width: 100%;
+        .datepicker-days {
+            .table-condensed {
+                tr {
+                    display: grid;
+                    grid-template-columns: repeat(7, 1fr);
+                    grid-gap: 5px;
+                }
 
-        @media (orientation: portrait) {
-            &.pull-right {
-                right: 0 !important;
-                left: 0 !important;
-            }
-        }
+                th, td {
+                    font-size: 100% !important;
+                    height: 50px !important;
+                    line-height: 45px !important;
+                    justify-self: center;
 
-        @media (orientation: landscape) {
-            width: 50%;
+                    &:not(.picker-switch) {
+                        width: 50px !important;
+                    }
+                }
 
-            &.pull-right {
-                right: 30px !important;
-            }
+                thead tr:first-child {
+                    grid-template-columns: 1fr 1fr 1fr;
 
-            &:not(.pull-right) {
-                left: 0 !important;
-            }
-        }
-    }
+                    th:first-child {
+                        justify-self: start;
+                    }
 
-    .datepicker-days {
-        .table-condensed > tbody > tr > td {
-            font-size: 100%;
-
-            &.active {
-                -webkit-border-radius: 0;
-                -moz-border-radius: 0;
-                border-radius: 0;
+                    th:last-child {
+                        justify-self: end;
+                    }
+                }
             }
         }
     }
