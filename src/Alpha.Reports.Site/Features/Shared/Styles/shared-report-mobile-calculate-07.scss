@@ -4,21 +4,19 @@
 
 .filter {
     display: grid;
-    grid-template-columns: 1fr 150px;
-    grid-column-gap: 16px;
+    grid-template-columns: 50% 1fr 1fr auto;
+    grid-gap: 15px 16px;
     align-items: center;
     padding-bottom: 12px;
 
     @media (orientation: landscape) {
-        display: block;
-
         .daterange-dropdown {
             width: 100%;
         }
     }
 
     .note {
-        grid-column: 1/3;
+        grid-column: 1/5;
     }
 
     &:not(.hide) + [class*="level-"] {
@@ -26,9 +24,7 @@
     }
 
     .form-group {
-        @media (orientation: portrait) {
-            margin-right: 0;
-        }
+        margin: 0;
 
         .input-group.date {
             position: relative;
@@ -52,10 +48,16 @@
             }
         }
 
+        &.to-date-box {
+            grid-column: 2/5;
+        }
+
+        &.submit-container {
+            grid-column: 2/4;
+        }
+
         &.daterange-container {
-            @media (orientation: landscape) {
-                width: 200px;
-            }
+            grid-row: 2;
         }
 
         .daterange-dropdown .dropdown-toggle {
@@ -71,6 +73,7 @@
         }
 
         label {
+            display: none;
             margin-bottom: 3px;
         }
 
@@ -80,10 +83,6 @@
 
         .date {
             width: 100% !important;
-
-            @media (orientation: landscape) {
-                width: 300px !important;
-            }
         }
 
         .btn-submit {
@@ -203,7 +202,7 @@
 }
 
 .daypickr-wrap-parent {
-    width: calc(25% - 21px) !important;
+    width: calc(25% - 10px) !important;
 }
 
 .ui-monpickr li a {
@@ -212,8 +211,7 @@
 
 .monpickr-label.separator {
     line-height: calculateScale(36px) !important;
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
+    margin: 0 6px !important;
 }
 
 %full-space {
