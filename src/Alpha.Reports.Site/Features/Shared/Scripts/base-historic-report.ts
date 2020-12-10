@@ -47,7 +47,17 @@
         this.$excelIcon.on("click", () => this.onExportExcelEvent());
         this.$historicReport.on("click", () => this.onSubmitHistoricReportEvent());
         this.$reportForm.submit(event => this.onSubmitReportEvent(event));
+        this.$fromDate.parent().on("dp.show", this.doAdjustDatePickerCalendar);
+        this.$toDate.parent().on("dp.show", this.doAdjustDatePickerCalendar);
     }
+
+    public doAdjustDatePickerCalendar = () => {
+        if (alphaReports.screenSmallThan768() && !alphaReports.screenLandscapeMode()) {
+            let width = this.$(window).width(),
+                widget = this.$(".bootstrap-datetimepicker-widget.dropdown-menu");
+            widget.css({ width });
+        }
+    };
 
     public checkReady = () => this.$("#IsHistoricReport").length > 0;
 

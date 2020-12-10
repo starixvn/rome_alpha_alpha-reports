@@ -2,11 +2,14 @@
     @return $num / $scale;
 }
 
+$filter-padding-right: 10px;
+
 .filter {
     display: grid;
     grid-template-columns: 50% 1fr 1fr auto;
     grid-gap: 15px 16px;
     align-items: center;
+    padding-right: #{$filter-padding-right};
     padding-bottom: 12px;
 
     @media (orientation: landscape) {
@@ -98,7 +101,9 @@
 .fromdate {
     .bootstrap-datetimepicker-widget {
         &.dropdown-menu {
-            width: 202%;
+            @media (orientation: landscape) {
+                width: 100%;
+            }
 
             &.pull-right {
                 left: 0 !important;
@@ -119,7 +124,11 @@
 
 .todate {
     .bootstrap-datetimepicker-widget {
-        width: 214%;
+        right: #{-$filter-padding-right} !important;
+
+        @media (orientation: landscape) {
+            width: calc(100% + #{$filter-padding-right});
+        }
     }
 }
 
