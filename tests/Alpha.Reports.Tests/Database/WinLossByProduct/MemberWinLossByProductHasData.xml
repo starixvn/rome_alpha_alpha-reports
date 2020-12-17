@@ -5,6 +5,7 @@
     <ProductID>22</ProductID>
     <SportType></SportType>
     <Liveindicator>0</Liveindicator>
+    <IsMMR>0</IsMMR>
     <GrossComm>0</GrossComm>
     <Turnover>1</Turnover>
     <MemberWinLoss>2</MemberWinLoss>
@@ -18,6 +19,7 @@
     <Bettype>1101</Bettype>
     <ProductID>22</ProductID>
     <Liveindicator>0</Liveindicator>
+    <IsMMR>0</IsMMR>
     <GrossComm>6</GrossComm>
     <Turnover>7</Turnover>
     <MemberWinLoss>8</MemberWinLoss>

@@ -19,7 +19,7 @@ namespace Alpha.Reports.Constants
         public const int ION = 52;
         public const int BBin = 47;
         public const int PP = 32;
-
+        public const int GDG = 59;
         public static readonly List<int> ProductListForTooltipsLiveCasino = new List<int>
             {
                 ProductIdConstants.Allbet,
@@ -28,8 +28,8 @@ namespace Alpha.Reports.Constants
                 ProductIdConstants.GTCasino,
                 ProductIdConstants.BBin,
                 ProductIdConstants.ION,
-                ProductIdConstants.WM
-
+                ProductIdConstants.WM,
+                ProductIdConstants.GDG
             };
     }
 }

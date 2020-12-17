@@ -18,6 +18,7 @@
     public class WinLossByProductDataAccessImpl : WinLossByProductDataAccess
     {
         private readonly CacheRefService cacheRefService;
+        private const string mMROddTypeId = "6";
 
         public WinLossByProductDataAccessImpl(CacheRefService cacheRefService)
         {
@@ -40,9 +41,10 @@
                     {
                         if (reader != null)
                         {
+                            var mMROddTypeName = cacheRefService.GetOddsTypeName(mMROddTypeId);
                             while (reader.Read())
                             {
-                                winlossByBettypeData.Add(BuildWinLossByBetType(reader, criteria.CustLevel));
+                                winlossByBettypeData.Add(BuildWinLossByBetType(reader, criteria.CustLevel, mMROddTypeName));
                             }
                         }
                     }
@@ -53,15 +55,16 @@
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1118:ParameterMustNotSpanMultipleLines", Justification = "Reviewed.")]
-        private WinLossByBetTypeModel BuildWinLossByBetType(IDataReader reader, UserLevel reportLevel)
+        private WinLossByBetTypeModel BuildWinLossByBetType(IDataReader reader, UserLevel reportLevel, string mMROddTypeName)
         {
             var productId = Convert.IsDBNull(reader["ProductID"]) ? 0 : reader.ToInt("ProductID");
             var sportTypeId = Convert.IsDBNull(reader["SportType"]) ? 0 : reader.ToInt("SportType");
             var bettypeId = reader.ToInt("bettype");
+            var isMMR = reader.ToBool("IsMMR", false);
 
             var winLossByBettype = new WinLossByBetTypeModel(
                  betTypeId: bettypeId,
-                 betTypeName: cacheRefService.GetBetTypeName(bettypeId),
+                 betTypeName: BuildBetTypeName(cacheRefService.GetBetTypeName(bettypeId), mMROddTypeName, isMMR),
                  productId: productId,
                  sportTypeId: sportTypeId,
                  sportTypeName: sportTypeId == 0 ? string.Empty : cacheRefService.GetSportName(sportTypeId),
@@ -76,5 +79,8 @@
 
             return winLossByBettype;
         }
+
+        private static string BuildBetTypeName(string betTypeName, string mMROddTypeName, bool isMMR)
+            => isMMR ? string.Format("{0} ({1})", betTypeName, mMROddTypeName) : betTypeName;
     }
 }
