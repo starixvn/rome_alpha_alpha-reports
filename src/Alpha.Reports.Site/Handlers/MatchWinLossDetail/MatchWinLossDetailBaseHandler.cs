@@ -69,6 +69,18 @@
                 : new BetTypeWinLossViewModel(mixParlayData, cacheRefService.GetBetType(mixParlayData.BetType));
         }
 
+        protected BetTypeWinLossViewModel GetLeapGamingParlay(IEnumerable<MatchWinLossDetailModel> reportData)
+        {
+            var leapGaming = reportData
+                .FirstOrDefault(data => data.IsParlay &&
+                BetTypeIdConstants.LeapGamingParlayMin <= data.BetType &&
+                data.BetType <= BetTypeIdConstants.LeapGamingParlayMax);
+
+            return leapGaming == null
+                ? null
+                : new BetTypeWinLossViewModel(leapGaming, cacheRefService.GetBetType(leapGaming.BetType));
+        }
+
         protected BetTypeWinLossViewModel GetSystemParlay(IEnumerable<MatchWinLossDetailModel> reportData)
         {
             var systemParlayData = reportData.FirstOrDefault(data => data.IsParlay && data.BetType == BetTypeIdConstants.SystemParlay);
@@ -201,12 +213,14 @@
         internal BetTypeWinLossViewModel BuildWinLossGrandTotal(
             BetTypeWinLossViewModel noParlayWinLossTotal,
             BetTypeWinLossViewModel mixParlay,
-            BetTypeWinLossViewModel systemParlay)
+            BetTypeWinLossViewModel systemParlay,
+            BetTypeWinLossViewModel leapGamingSystemParlay)
         {
             var grandTotal = new BetTypeWinLossViewModel()
                 .Add(noParlayWinLossTotal)
                 .Add(mixParlay)
-                .Add(systemParlay);
+                .Add(systemParlay)
+                .Add(leapGamingSystemParlay);
 
             return grandTotal;
         }

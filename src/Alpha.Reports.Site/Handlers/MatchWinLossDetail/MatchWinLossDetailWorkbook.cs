@@ -25,6 +25,7 @@
             BetTypeWinLossViewModel noParlayWinLossTotal,
             BetTypeWinLossViewModel mixParlay,
             BetTypeWinLossViewModel systemParlay,
+            BetTypeWinLossViewModel leapGamingSystemParlay,
             BetTypeWinLossViewModel grandTotal);
 
         MatchWinLossDetailWorkbook SetRowMappers(
@@ -49,6 +50,8 @@
         internal BetTypeWinLossViewModel MixParlay { get; set; }
 
         internal BetTypeWinLossViewModel SystemParlay { get; set; }
+
+        internal BetTypeWinLossViewModel LeapGamingSystemParlay { get; set; }
 
         internal BetTypeWinLossViewModel GrandTotal { get; set; }
 
@@ -81,12 +84,14 @@
             BetTypeWinLossViewModel noParlayWinLossTotal,
             BetTypeWinLossViewModel mixParlay,
             BetTypeWinLossViewModel systemParlay,
+            BetTypeWinLossViewModel leapGamingSystemParlay,
             BetTypeWinLossViewModel grandTotal)
         {
             NoParlayMatchWinLossDetail = noParlayMatchWinLossDetail;
             NoParlayWinLossTotal = noParlayWinLossTotal;
             MixParlay = mixParlay;
             SystemParlay = systemParlay;
+            LeapGamingSystemParlay = leapGamingSystemParlay;
             GrandTotal = grandTotal;
 
             return this;
@@ -157,6 +162,13 @@
             FillCells(row, SystemParlay, BetTypeRowMapper.Mappings);
         }
 
+        internal void FillLeapGamingSystemParlayWinLoss(Sheet sheet, int rowIndex)
+        {
+            var row = sheet.GetRow(rowIndex);
+            row.CopyCellsFrom(SystemParlayRowTemplate);
+            FillCells(row, LeapGamingSystemParlay, BetTypeRowMapper.Mappings);
+        }
+
         protected override Sheet LoadTemplateSheet()
         {
             var sheet = GetSheetAt(TemplateInfo.SheetIndex);
@@ -213,10 +225,11 @@
             }
 
             RemoveTemplateRows(sheet);
-
+            var hasParlay = MixParlay != null
+                || SystemParlay != null
+                || LeapGamingSystemParlay != null;
             var hasData = (NoParlayMatchWinLossDetail != null && NoParlayMatchWinLossDetail.Any())
-                || MixParlay != null
-                || SystemParlay != null;
+                || hasParlay;
 
             if (hasData)
             {
@@ -273,6 +286,11 @@
             if (SystemParlay != null)
             {
                 FillSystemParlayWinLoss(sheet, currentRowIndex++);
+            }
+
+            if (LeapGamingSystemParlay != null)
+            {
+                FillLeapGamingSystemParlayWinLoss(sheet, currentRowIndex++);
             }
         }
 

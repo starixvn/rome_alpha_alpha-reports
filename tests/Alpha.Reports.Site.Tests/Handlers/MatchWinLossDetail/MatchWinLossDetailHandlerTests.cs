@@ -132,7 +132,8 @@
                 CreateMatchWinLossDetailModel(betType: 1, showTime: "Show Time 1"),
                 CreateMatchWinLossDetailModel(betType: 2, showTime: "Show Time 1"),
                 CreateMatchWinLossDetailModel(betType: 9, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true),
-                CreateMatchWinLossDetailModel(betType: 29, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true)
+                CreateMatchWinLossDetailModel(betType: 29, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true),
+                CreateMatchWinLossDetailModel(betType: 5301, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true)
             });
 
             leagueService.GetLeagueName(Arg.Any<int>(),Arg.Any<byte>()).Returns("League 1");
@@ -167,7 +168,8 @@
                 CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                 CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
                 CreateBetTypeWinLossViewModel(29, "Bet Type 29", 1, 1, 1),
-                CreateBetTypeWinLossViewModel(0, null, 4, 4, 0),
+                CreateBetTypeWinLossViewModel(5301, "Bet Type 5301", 1, 1, 1),
+                CreateBetTypeWinLossViewModel(0, null, 5, 5, 0),
                 query,
                 new MatchWinLossDetailParam(
                      query.CustId,
@@ -229,7 +231,8 @@
                 CreateMatchWinLossDetailModel(betType: 1, showTime: "Show Time 1"),
                 CreateMatchWinLossDetailModel(betType: 2, showTime: "Show Time 1"),
                 CreateMatchWinLossDetailModel(betType: 9, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true),
-                CreateMatchWinLossDetailModel(betType: 29, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true)
+                CreateMatchWinLossDetailModel(betType: 29, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true),
+                CreateMatchWinLossDetailModel(betType: 5301, showTime: "Show Time 1", liveIndicator: false, isNeutral: false, isParlay: true)
             });
 
             leagueService.GetLeagueName(Arg.Any<int>(), Arg.Any<byte>()).Returns("League 1");
@@ -274,7 +277,8 @@
                 CreateBetTypeWinLossViewModel(0, null, 2, 2, 0),
                 CreateBetTypeWinLossViewModel(9, "Bet Type 9", 1, 1, 1),
                 CreateBetTypeWinLossViewModel(29, "Bet Type 29", 1, 1, 1),
-                CreateBetTypeWinLossViewModel(0, null, 4, 4, 0),
+                CreateBetTypeWinLossViewModel(5301, "Bet Type 5301", 1, 1, 1),
+                CreateBetTypeWinLossViewModel(0, null, 5, 5, 0),
                 query,
                 new MatchWinLossDetailParam(
                      query.CustId,

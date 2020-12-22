@@ -45,10 +45,11 @@
             var noParlayWinLossTotal = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
             var mixParlay = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
             var systemParlay = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
+            var leapGamingsystemParlay = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
             var grandTotal = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
 
             // Act
-            matchWinLossDetailWorkbookImpl.SetData(noParlayMatchWinLossDetail, noParlayWinLossTotal, mixParlay, systemParlay, grandTotal);
+            matchWinLossDetailWorkbookImpl.SetData(noParlayMatchWinLossDetail, noParlayWinLossTotal, mixParlay, systemParlay, leapGamingsystemParlay, grandTotal);
 
             // Assert
             Assert.True(matchWinLossDetailWorkbookImpl.NoParlayMatchWinLossDetail == noParlayMatchWinLossDetail
@@ -232,6 +233,24 @@
             row.Received().CopyCellsFrom(systemParlayRowTemplate);
         }
 
+        [Fact]
+        public void FillLeapGamingSystemParlayWinLoss_Always_UsesCorrectTemplate()
+        {
+            // Arrange
+            var rowIndex = 0;
+            sheet.GetRow(rowIndex).Returns(row);
+
+            var systemParlayRowTemplate = Substitute.For<Row>();
+            matchWinLossDetailWorkbookImpl.SystemParlayRowTemplate = systemParlayRowTemplate;
+            matchWinLossDetailWorkbookImpl.BetTypeRowMapper = anyValueCreatorFixture.Create<Mapper<BetTypeWinLossViewModel>>();
+            matchWinLossDetailWorkbookImpl.LeapGamingSystemParlay = anyValueCreatorFixture.Create<BetTypeWinLossViewModel>();
+
+            // Act
+            matchWinLossDetailWorkbookImpl.FillSystemParlayWinLoss(sheet, rowIndex);
+
+            // Assert
+            row.Received().CopyCellsFrom(systemParlayRowTemplate);
+        }
         [Fact]
         public void GrandTotalRowTemplate_Always_ReturnsCorrectValue()
         {
