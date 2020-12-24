@@ -17,11 +17,32 @@
             @extend %full-space;
         }
 
+        .daypickr-selected-day {
+            pointer-events: none;
+        }
+
         .monpickr-dropdown, .daypickr-dropdown {
             width: 100% !important;
-            font-size: 100%;
+        }
+
+        .monpickr-selected-month, .daypickr-selected-day, .monpickr-dropdown, .daypickr-dropdown {
+            font-size: calculateScale(16px);
         }
     }
+}
+
+.daypickr-wrap-parent .ui-widget-header .ui-icon {
+    background-image: unset !important;
+    height: unset !important;
+    width: 0 !important;
+    display: inline-block;
+    border-left: calculateScale(4px) solid transparent;
+    border-right: calculateScale(4px) solid transparent;
+    border-bottom: calculateScale(4px) solid transparent;
+    border-top: calculateScale(4px) solid #212121;
+    margin-right: 8px;
+    position: relative;
+    top: 4px;
 }
 
 .monpickr-arrows {
@@ -50,5 +71,4 @@
 %full-space {
     width: 100% !important;
     height: 100% !important;
-    font-size: 100%;
 }
