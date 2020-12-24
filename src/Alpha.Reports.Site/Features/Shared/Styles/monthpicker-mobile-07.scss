@@ -1,0 +1,54 @@
+﻿@function calculateScale($num, $scale: 0.7) {
+    @return $num / $scale;
+}
+
+.monpickr-wrap-parent, .daypickr-wrap-parent {
+    height: calculateScale(36px) !important;
+
+    .monpickr-wrap, .daypickr-wrap {
+        @extend %full-space;
+        z-index: 99 !important;
+
+        .monpickr, .daypickr {
+            @extend %full-space;
+        }
+
+        .monpickr-selected-month, .daypickr-selected-day {
+            @extend %full-space;
+        }
+
+        .monpickr-dropdown, .daypickr-dropdown {
+            width: 100% !important;
+            font-size: 100%;
+        }
+    }
+}
+
+.monpickr-arrows {
+    .monpickr-prev, .monpickr-next, .monpickr-down {
+        top: calc(50% - 9px);
+    }
+}
+
+.monpickr-wrap-parent {
+    width: calc(50% - 21px) !important;
+}
+
+.daypickr-wrap-parent {
+    width: calc(25% - 10px) !important;
+}
+
+.ui-monpickr li a {
+    font-size: 100%;
+}
+
+.monpickr-label.separator {
+    line-height: calculateScale(36px) !important;
+    margin: 0 6px !important;
+}
+
+%full-space {
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 100%;
+}
