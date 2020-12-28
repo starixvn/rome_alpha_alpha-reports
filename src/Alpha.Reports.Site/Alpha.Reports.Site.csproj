@@ -1004,11 +1004,11 @@
     <Content Include="Features\Shared\Styles\monthpicker-mobile-07.min.css">
       <DependentUpon>monthpicker-mobile-07.css</DependentUpon>
     </Content>
-    <Content Include="Features\Shared\Styles\result-winloss.css">
-      <DependentUpon>result-winloss.scss</DependentUpon>
+    <Content Include="Features\Shared\Styles\result-winloss-mobile-07.css">
+      <DependentUpon>result-winloss-mobile-07.scss</DependentUpon>
     </Content>
-    <Content Include="Features\Shared\Styles\result-winloss.min.css">
-      <DependentUpon>result-winloss.css</DependentUpon>
+    <Content Include="Features\Shared\Styles\result-winloss-mobile-07.min.css">
+      <DependentUpon>result-winloss-mobile-07.css</DependentUpon>
     </Content>
     <Content Include="Features\WinLoss\Bundles\winloss-mobile-calculate-07.css" />
     <Content Include="Features\WinLoss\Bundles\winloss-mobile-calculate-07.min.css">
@@ -1190,7 +1190,7 @@
     <Content Include="Features\WinLoss\Styles\winloss.scss" />
     <Content Include="Features\Shared\Styles\datepicker-mobile-07.scss" />
     <Content Include="Features\Shared\Styles\monthpicker-mobile-07.scss" />
-    <Content Include="Features\Shared\Styles\result-winloss.scss" />
+    <Content Include="Features\Shared\Styles\result-winloss-mobile-07.scss" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <Content Include="assets\scripts\tests\chutzpah.json" />
     <Content Include="typings\globals\bootstrap\typings.json" />

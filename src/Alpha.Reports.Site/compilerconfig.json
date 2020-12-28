@@ -52,7 +52,7 @@
     "inputFile": "Features/Shared/Styles/monthpicker-mobile-07.scss"
   },
   {
-    "outputFile": "Features/Shared/Styles/result-winloss.css",
-    "inputFile": "Features/Shared/Styles/result-winloss.scss"
+    "outputFile": "Features/Shared/Styles/result-winloss-mobile-07.css",
+    "inputFile": "Features/Shared/Styles/result-winloss-mobile-07.scss"
   }
 ]

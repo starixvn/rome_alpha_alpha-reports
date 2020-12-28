@@ -86,15 +86,9 @@
     font-size: 26px;
 }
 
-@mixin scaleHighResolutions($ratio) {
-    body {
-        font-size: calculateScaleRatio(13px, $ratio);
-    }
 
-    .filter .btn-group button.multiselect .multiselect-selected-text {
-        font-size: calculateScaleRatio(13px, $ratio);
-    }
-}
+
+
 
 
 
