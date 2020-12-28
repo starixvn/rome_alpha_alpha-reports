@@ -35,5 +35,8 @@
         public const int VirtualHorseRacing_WinPlace = 1233;
         public const int VirtualHorseRacing_Forecast = 1237;
         public const int VirtualHorseRacing_Tricast = 1238;
+
+        public const int Happy5LinkedGamesMin = 3601;
+        public const int Happy5LinkedGamesMax = 3610;
     }
 }
