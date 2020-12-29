@@ -19,7 +19,7 @@
 @Html.Partial("~/Features/EnteredResult/Views/FilterNew.cshtml", Model.FilterViewModel)
 
 <div class="entered-result level-@Model.CustLevel.Value" style="width: @(Model.IsMobileView ? "99.999%" : "60%");">
-    <table class="tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap"
+    <table class="hidden tblRpt tblRpt-bordered tblRpt-striped tblRpt-hover display nowrap"
            id="tbl-report"
            data-totalrecords="@Model.ReportData.Count()"
            style="width: 100%;">

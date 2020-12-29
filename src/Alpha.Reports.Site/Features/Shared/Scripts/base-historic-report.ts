@@ -33,12 +33,27 @@
     public initDataTable(options = {}) {
         super.initDataTable(options);
 
-        if (this.$tableReport.width() > this.$(window).width()) {
+        this.doAdjustDataTable();
+    }
+
+    public doAdjustDataTable() {
+        const browserWidth = this.$(window).width(),
+            deviceWidth = screen.width || window.outerWidth,
+            columnCount = this.$dataTable.columns()[0].length;
+
+        if (deviceWidth < 768 && browserWidth >= 768) {
+            for (let i = 3; i < columnCount - 1; i++) {
+                this.$(this.$dataTable.column(i).header()).removeClass("desktop min-tablet-l mobile").addClass("mobile");
+            }
+        }
+
+        if (this.$tableReport.width() > browserWidth) {
             this.$tableReport.find("tbody tr td:first-child").css("white-space", "nowrap");
             this.$(this.$dataTable.column(2).header()).removeClass("all").addClass("min-tablet-l");
-            this.$dataTable.responsive.rebuild();
-            this.$dataTable.responsive.recalc();
         }
+
+        this.$dataTable.responsive.rebuild();
+        this.$dataTable.responsive.recalc();
     }
 
     public registerEvents() {

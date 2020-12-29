@@ -45,7 +45,9 @@ class EnterResultViewNew extends BaseHistoricReport {
             false;
     };
 
-    drawCallback = () => { };
+    drawCallback = () => {
+        this.$tableReport.removeClass('hidden');
+    };
 
     onSubmitReportEvent = (event: any) => {
         this.setHiddenValue();
