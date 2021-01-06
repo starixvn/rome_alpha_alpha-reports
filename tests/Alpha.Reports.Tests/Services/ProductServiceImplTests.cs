@@ -332,5 +332,130 @@
             // Assert
             Assert.True(act);
         }
+
+        [Theory]
+        [InlineData(0, "ibcindo", 0)]
+        [InlineData(1, "best-odds", 1)]
+        public void OfferedProduct_Properties_NotNull(int custId, string site, int currency)
+        {
+            // Arrange
+            var act = new GetOfferedProductsBySiteCriteria(custId, site, currency);
+
+            // Assert
+            Assert.NotNull(act.CustId);
+
+            // Assert
+            Assert.NotNull(act.Site);
+
+            // Assert
+            Assert.NotNull(act.CurrencyId);
+        }
+
+        [Fact]
+        public void OfferedProduct_SettingStatus_GreaterThanOrEqualsToZero()
+        {
+            // Arrange
+            var act = new GetOfferedProductsBySiteCriteria(0, "abc", 20);
+
+            // Assert
+            Assert.True(act.SettingStatus >= 0);
+        }
+
+        [Fact]
+        public void OfferedProduct_SpKey_AlwaysEqualsToAcc_CustSetting_CheckMacauEnable()
+        {
+            // Arrange
+            var act = new GetOfferedProductsBySiteCriteria(0, "abc", 20);
+
+            // Assert
+            Assert.True(act.GetSettingKey() == "Acc_CustSetting_CheckMacauEnable");
+        }
+
+        [Fact]
+        public void OfferedProduct_IsValid_AlwaysTrue()
+        {
+            // Arrange
+            var act = new GetOfferedProductsBySiteCriteria(0, "abc", 20);
+
+            // Assert
+            Assert.True(act.IsValid());
+        }
+
+        [Fact]
+        public void ProductBySiteModel_DefaultCtor_AlwaysZeroForProductId()
+        {
+            // Arrange
+            var act = new ProductBySiteModel();
+
+            // Assert
+            Assert.True(act.ProductId == 0);
+        }
+
+        [Fact]
+        public void ProductDetail_DefaultCtor_AlwaysZeroOrNullForProperties()
+        {
+            // Arrange
+            var act = new ProductDetail();
+
+            // Assert
+            Assert.True(act.ProductId == 0);
+
+            // Assert
+            Assert.True(act.ResourceId == 0);
+
+            // Assert
+            Assert.True(act.SportType == 0);
+
+            // Assert
+            Assert.True(act.BetType == 0);
+
+            // Assert
+            Assert.True(act.Order == 0);
+
+            // Assert
+            Assert.Null(act.DisplayName);
+
+            // Assert
+            Assert.Null(act.RefId);
+        }
+
+        [Fact]
+        public void CurrencyModel_DefaultCtor_AlwaysZeroOrNullForProperties()
+        {
+            // Arrange
+            var act = new CurrencyModel();
+
+            // Assert
+            Assert.True(act.Id == 0);
+
+            // Assert
+            Assert.Null(act.Name);
+        }
+
+        [Fact]
+        public void StatusModel_DefaultCtor_AlwaysZeroOrNullForProperties()
+        {
+            // Arrange
+            var act = new StatusModel();
+
+            // Assert
+            Assert.True(act.Id == 0);
+
+            // Assert
+            Assert.Null(act.Name);
+        }
+
+        [Fact]
+        public void TimeRange_DefaultCtor_AlwaysZeroOrNullForProperties()
+        {
+            // Arrange
+            var act = new TimeRange();
+
+            // Assert
+            Assert.NotNull(act.FromDate);
+
+            // Assert
+            Assert.NotNull(act.ToDate);
+        }
     }
 }

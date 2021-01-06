@@ -49,5 +49,26 @@
             // Assert
             Assert.Equal(actualIsValid, expectedResult);
         }
+
+        [Fact]
+        public void RiskAnalysisIPMatching_Properties_AlwaysNotNull()
+        {
+            // Arrange
+            var act = new RiskAnalysisIPMatchingCriteria(0, anyValueCreatorFixture.Create<DateTime>(),
+                anyValueCreatorFixture.Create<DateTime>(),
+                anyValueCreatorFixture.Create<int>());
+
+            // Assert
+            Assert.NotNull(act.WinlostDate);
+
+            // Assert
+            Assert.NotNull(act.MemberCount);
+
+            // Assert
+            Assert.NotNull(act.CustId);
+
+            // Assert
+            Assert.NotNull(act.MoveBetsDay);
+        }
     }
 }
