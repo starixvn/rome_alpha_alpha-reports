@@ -263,5 +263,23 @@
 
             AssertExtension.Equal(expectedEvents, queryEvents);
         }
+
+        [Fact]
+        public void BetChoice_DefaultCtor_AlwaysNull()
+        {
+            var act = new BetChoiceMatchingSharedIPModel();
+            Assert.Null(act.IP);
+            Assert.True(act.CustId == 0);
+            Assert.Null(act.Username);
+        }
+
+        [Fact]
+        public void BetChoice_ParamsCtor_AlwaysNotNull()
+        {
+            var act = new BetChoiceMatchingSharedIPModel("192.168.1.100", 1, "xyz");
+            Assert.NotNull(act.IP);
+            Assert.True(act.CustId >= 0);
+            Assert.NotNull(act.Username);
+        }
     }
 }
