@@ -165,14 +165,15 @@
                     "<a href=\"" + Model.GetParlayBetListLink(Model.SystemParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.SystemParlay.Name + "</a>")
             </tr>
         }
-        @if (Model.LeapGamingSystemParlay != null)
+        @foreach (var parlay in Model.ParlayMatchWinLossDetail)
         {
             <tr>
                 @RenderBetTypeRow(
-                    Model.LeapGamingSystemParlay,
-                    "<a href=\"" + Model.GetLeapGamingParlayBetListLink(Model.LeapGamingSystemParlay.Id, Model.FromDate, Model.ToDate) + "\">" + Model.LeapGamingSystemParlay.Name + "</a>")
+                    parlay,
+                    "<a href=\"" + Model.GetBetListLinkByBetType(parlay.Id, Model.FromDate, Model.ToDate) + "\">" + parlay.Name + "</a>")
             </tr>
         }
+
     </tbody>
         <tfoot>
             <tr class="tbl-footer">

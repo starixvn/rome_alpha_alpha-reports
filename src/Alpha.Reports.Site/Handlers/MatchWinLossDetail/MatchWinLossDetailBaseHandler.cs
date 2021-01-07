@@ -69,18 +69,6 @@
                 : new BetTypeWinLossViewModel(mixParlayData, cacheRefService.GetBetType(mixParlayData.BetType));
         }
 
-        protected BetTypeWinLossViewModel GetLeapGamingParlay(IEnumerable<MatchWinLossDetailModel> reportData)
-        {
-            var leapGaming = reportData
-                .FirstOrDefault(data => data.IsParlay &&
-                BetTypeIdConstants.LeapGamingParlayMin <= data.BetType &&
-                data.BetType <= BetTypeIdConstants.LeapGamingParlayMax);
-
-            return leapGaming == null
-                ? null
-                : new BetTypeWinLossViewModel(leapGaming, cacheRefService.GetBetType(leapGaming.BetType));
-        }
-
         protected BetTypeWinLossViewModel GetSystemParlay(IEnumerable<MatchWinLossDetailModel> reportData)
         {
             var systemParlayData = reportData.FirstOrDefault(data => data.IsParlay && data.BetType == BetTypeIdConstants.SystemParlay);
@@ -89,6 +77,13 @@
                 : new BetTypeWinLossViewModel(systemParlayData, cacheRefService.GetBetType(systemParlayData.BetType));
         }
 
+        public IEnumerable<BetTypeWinLossViewModel> GetParlayMatchWinLossDetail(IEnumerable<MatchWinLossDetailModel> reportData)
+        {
+            var data = reportData.Where(i => i.IsParlay && IsParlayMatchWinLossDetail(i.BetType));
+
+            return data.Select(i => new BetTypeWinLossViewModel(i, cacheRefService.GetBetType(i.BetType)));
+        }
+        
         protected IEnumerable<MatchWinLossDetailViewModel> GetNoParlayMatchWinLossDetail(IEnumerable<MatchWinLossDetailModel> reportData)
         {
             var noParlayData = reportData.Where(data => !data.IsParlay);
@@ -214,15 +209,23 @@
             BetTypeWinLossViewModel noParlayWinLossTotal,
             BetTypeWinLossViewModel mixParlay,
             BetTypeWinLossViewModel systemParlay,
-            BetTypeWinLossViewModel leapGamingSystemParlay)
+            IList<BetTypeWinLossViewModel> parlays)
         {
             var grandTotal = new BetTypeWinLossViewModel()
                 .Add(noParlayWinLossTotal)
                 .Add(mixParlay)
-                .Add(systemParlay)
-                .Add(leapGamingSystemParlay);
+                .Add(systemParlay);
+            foreach (var parlay in parlays)
+            {
+                grandTotal = grandTotal.Add(parlay);
+            }
 
             return grandTotal;
         }
+
+        internal static bool IsParlayMatchWinLossDetail(int betType)
+            => (BetTypeIdConstants.LeapGamingParlayMin <= betType && betType <= BetTypeIdConstants.LeapGamingParlayMax) ||
+                (BetTypeIdConstants.Happy5LinkedGamesMin <= betType && betType <= BetTypeIdConstants.Happy5LinkedGamesMax);
+
     }
 }

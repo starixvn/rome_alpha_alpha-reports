@@ -1,6 +1,7 @@
 ﻿namespace Alpha.Reports.Site.Handlers.MatchWinLossDetail
 {
     using System;
+    using System.Linq;
     using App_GlobalResources;
     using Constants;
     using Extensions;
@@ -46,11 +47,12 @@
 
             var mixParlay = GetMixParlay(reportData);
             var systemParlay = GetSystemParlay(reportData);
-            var leapGamingSystemParlay = GetLeapGamingParlay(reportData);
-            var grandTotal = BuildWinLossGrandTotal(noParlayWinLossTotal, mixParlay, systemParlay, leapGamingSystemParlay);
+            var parlayMatchWinLossDetail = GetParlayMatchWinLossDetail(reportData);
+
+            var grandTotal = BuildWinLossGrandTotal(noParlayWinLossTotal, mixParlay, systemParlay, parlayMatchWinLossDetail.ToList());
 
             var fileContent = workbook
-                .SetData(noParlayMatchWinLossDetail, noParlayWinLossTotal, mixParlay, systemParlay, leapGamingSystemParlay, grandTotal)
+                .SetData(noParlayMatchWinLossDetail, noParlayWinLossTotal, mixParlay, systemParlay, parlayMatchWinLossDetail, grandTotal)
                 .SetRowMappers(
                     GetBodyRowMapper(message.CustLevel),
                     GetSubTotalRowMapper(message.CustLevel),
@@ -98,7 +100,7 @@
         private static Mapper<BetTypeWinLossViewModel> GetTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.Total, custLevel);
 
         private static Mapper<BetTypeWinLossViewModel> GetGrandTotalRowMapper(UserLevel custLevel) => GetRowMapper(RowTypeConstant.GrandTotal, custLevel);
-                
+
         internal static Mapper<BetTypeWinLossViewModel> GetRowMapper(int rowType, UserLevel custLevel)
         {
             var mapper = new Mapper<BetTypeWinLossViewModel>();

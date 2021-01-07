@@ -1,7 +1,10 @@
 ﻿namespace Alpha.Reports.Site.Handlers.MatchWinLossDetail
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using Alpha.Reports.Constants;
+    using Alpha.Reports.Models.MatchWinLossDetail;
     using Extensions;
     using MediatR;
     using Params;
@@ -39,7 +42,7 @@
 
             var mixParlay = GetMixParlay(reportData);
             var systemParlay = GetSystemParlay(reportData);
-            var leapGamingParlay = GetLeapGamingParlay(reportData);
+            var parlayMatchWinLossDetail = GetParlayMatchWinLossDetail(reportData);
 
             var selectLeagueParam = new GetLeaguesByCustomerParam(
                 message.CustId,
@@ -60,12 +63,13 @@
                 noParlayWinLossTotal,
                 mixParlay,
                 systemParlay,
-                leapGamingParlay,
-                BuildWinLossGrandTotal(noParlayWinLossTotal, mixParlay, systemParlay, leapGamingParlay),
+                parlayMatchWinLossDetail,
+                BuildWinLossGrandTotal(noParlayWinLossTotal, mixParlay, systemParlay, parlayMatchWinLossDetail.ToList()),
                 message,
                 matchWinLossDetailParam,
                 BuildProductSelectListItems(matchWinLossDetailParam.UserSelectedProductIds, products),
                 BuildLeagueSelectListItems(userSelectedLeagueIds, leagues));
         }
+        
     }
 }

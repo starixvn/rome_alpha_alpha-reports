@@ -23,7 +23,7 @@
             BetTypeWinLossViewModel noParlayWinLossTotal,
             BetTypeWinLossViewModel mixParlay,
             BetTypeWinLossViewModel systemParlay,
-            BetTypeWinLossViewModel leapGamingSystemParlay,
+            IEnumerable<BetTypeWinLossViewModel> parlayMatchWinLossDetail,
             BetTypeWinLossViewModel grandTotal,
             MatchWinLossDetailQuery query,
             MatchWinLossDetailParam param,
@@ -35,7 +35,7 @@
 
             MixParlay = mixParlay;
             SystemParlay = systemParlay;
-            LeapGamingSystemParlay = leapGamingSystemParlay;
+            ParlayMatchWinLossDetail = parlayMatchWinLossDetail;
             GrandTotal = grandTotal;
 
             this.query = query;
@@ -79,7 +79,7 @@
             (NoParlayMatchWinLossDetail != null && NoParlayMatchWinLossDetail.Any())
             || MixParlay != null
             || SystemParlay != null
-            || LeapGamingSystemParlay != null;
+            || (ParlayMatchWinLossDetail != null && ParlayMatchWinLossDetail.Any());
 
         public int ReportColumnsCount
             => CustLevel.IsSuperLevel()
@@ -90,7 +90,7 @@
 
         public bool IsSetDefaultStackMode => query.IsSetDefaultStackMode;
 
-        public bool ShowTotalRow => NoParlayWinLossTotal != null && (MixParlay != null || SystemParlay != null || LeapGamingSystemParlay != null);
+        public bool ShowTotalRow => NoParlayWinLossTotal != null && (MixParlay != null || SystemParlay != null || (ParlayMatchWinLossDetail != null && ParlayMatchWinLossDetail.Any()));
 
         public UserLevel CustLevel => query.CustLevel;
 
@@ -125,7 +125,7 @@
 
         public BetTypeWinLossViewModel SystemParlay { get; }
 
-        public BetTypeWinLossViewModel LeapGamingSystemParlay { get; }
+        public IEnumerable<BetTypeWinLossViewModel> ParlayMatchWinLossDetail { get; }
 
         public BetTypeWinLossViewModel GrandTotal { get; }
 
@@ -186,7 +186,7 @@
             return ReportHelpers.UrlHelper.AddQueryStringParamsFunc(Helpers.UrlHelper.MapBetListPath("~/ParlayWinLossByMatch/Index"), routeValues);
         }
 
-        public string GetLeapGamingParlayBetListLink(int bettype, DateTime fromDate, DateTime toDate)
+        public string GetBetListLinkByBetType(int bettype, DateTime fromDate, DateTime toDate)
         {
             var routeValues = new Dictionary<string, object>
             {

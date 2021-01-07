@@ -59,7 +59,7 @@
                 Arg.Any<BetTypeWinLossViewModel>(),
                 Arg.Any<BetTypeWinLossViewModel>(),
                 Arg.Any<BetTypeWinLossViewModel>(),
-                Arg.Any<BetTypeWinLossViewModel>(),
+                Arg.Any<IEnumerable<BetTypeWinLossViewModel>>(),
                 Arg.Any<BetTypeWinLossViewModel>())
                 .Returns(matchWinLossDetailWorkbook);
 
@@ -119,7 +119,7 @@
                 Arg.Any<BetTypeWinLossViewModel>(),
                 Arg.Any<BetTypeWinLossViewModel>(),
                 Arg.Any<BetTypeWinLossViewModel>(),
-                Arg.Any<BetTypeWinLossViewModel>(),
+                Arg.Any<IEnumerable<BetTypeWinLossViewModel>>(),
                 Arg.Any<BetTypeWinLossViewModel>());
         }
 
